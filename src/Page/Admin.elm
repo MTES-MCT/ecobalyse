@@ -8,6 +8,7 @@ module Page.Admin exposing
     )
 
 import Autocomplete exposing (Autocomplete)
+import Base64
 import Browser.Events
 import Data.Component as Component exposing (Component, Index, Item, TargetItem)
 import Data.Impact.Definition as Definition
@@ -19,6 +20,7 @@ import Data.Session as Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Json.Encode as Encode
 import RemoteData exposing (WebData)
 import Request.Common
 import Request.Component as ComponentApi
@@ -48,9 +50,11 @@ type Modal
 
 
 type Msg
-    = ComponentDeleted (WebData String)
+    = ComponentCreated (WebData Component)
+    | ComponentDeleted (WebData String)
     | ComponentListResponse (WebData (List Component))
     | ComponentUpdated (WebData Component)
+    | DuplicateComponent Component
     | NoOp
     | OnAutocompleteAddProcess Category TargetItem (Maybe Index) (Autocomplete.Msg Process)
     | OnAutocompleteSelectProcess Category TargetItem (Maybe Index)
@@ -72,6 +76,19 @@ init session =
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update session msg model =
     case msg of
+        -- POST
+        ComponentCreated (RemoteData.Failure err) ->
+            ( model, session |> Session.notifyError "Erreur" (Request.Common.errorToString err), Cmd.none )
+
+        ComponentCreated (RemoteData.Success component) ->
+            ( { model | modals = [ EditComponentModal (Component.createItem component.id) ] }
+            , session
+            , ComponentApi.getComponents session ComponentListResponse
+            )
+
+        ComponentCreated _ ->
+            ( model, session, Cmd.none )
+
         -- DELETE
         ComponentDeleted (RemoteData.Failure err) ->
             ( model, session |> Session.notifyError "Erreur" (Request.Common.errorToString err), Cmd.none )
@@ -103,6 +120,13 @@ update session msg model =
 
         ComponentUpdated _ ->
             ( model, session, Cmd.none )
+
+        DuplicateComponent component ->
+            ( model
+            , session
+            , { component | name = component.name ++ " (copie)" }
+                |> ComponentApi.createComponent session ComponentCreated
+            )
 
         NoOp ->
             ( model, session, Cmd.none )
@@ -207,6 +231,8 @@ view { db } model =
             , warning
             , model.components
                 |> mapRemoteData (componentListView db)
+            , model.components
+                |> mapRemoteData downloadDbButton
             , model.modals
                 |> List.reverse
                 |> List.map (modalView db model.modals)
@@ -216,14 +242,30 @@ view { db } model =
     )
 
 
+downloadDbButton : List Component -> Html Msg
+downloadDbButton components =
+    p [ class "text-end mt-3" ]
+        [ a
+            [ class "btn btn-primary"
+            , download "components.json"
+            , components
+                |> Encode.list Component.encode
+                |> Encode.encode 2
+                |> Base64.encode
+                |> (++) "data:application/json;base64,"
+                |> href
+            ]
+            [ text "Exporter la base de données de composants" ]
+        ]
+
+
 componentListView : Db -> List Component -> Html Msg
 componentListView db components =
     Table.responsiveDefault []
         [ thead []
             [ tr []
                 [ th [] [ text "Nom" ]
-                , th [] [ text "Description" ]
-                , th [ colspan 4 ] []
+                , th [ colspan 3 ] [ text "Description" ]
                 ]
             ]
         , components
@@ -235,7 +277,7 @@ componentListView db components =
                             , small [ class "d-block fw-normal" ]
                                 [ code [] [ text (Component.idToString component.id) ] ]
                             ]
-                        , td [ class "align-middle" ]
+                        , td [ class "align-middle w-100" ]
                             [ case Component.elementsToString db component of
                                 Err error ->
                                     span [ class "text-danger" ] [ text <| "Erreur: " ++ error ]
@@ -252,31 +294,35 @@ componentListView db components =
                                     )
                                 |> Result.withDefault (text "N/A")
                             ]
-                        , td [ class "align-middle px-0" ]
-                            [ button
-                                [ class "btn btn-sm btn-outline-primary"
-                                , title "Modifier le composant"
-                                , onClick <| SetModals [ EditComponentModal (Component.createItem component.id) ]
+                        , td [ class "align-middle text-nowrap" ]
+                            [ div [ class "d-flex gap-1" ]
+                                [ button
+                                    [ class "btn btn-sm btn-outline-primary"
+                                    , title "Modifier le composant"
+                                    , onClick <| SetModals [ EditComponentModal (Component.createItem component.id) ]
+                                    ]
+                                    [ Icon.pencil ]
+                                , button
+                                    [ class "btn btn-sm btn-outline-primary"
+                                    , title "Dupliquer le composant"
+                                    , onClick <| DuplicateComponent component
+                                    ]
+                                    [ Icon.copy ]
+                                , a
+                                    [ class "btn btn-sm btn-outline-primary"
+                                    , title "Utiliser dans le simulateur"
+                                    , Just { components = [ Component.createItem component.id ] }
+                                        |> Route.ObjectSimulator Scope.Object Definition.Ecs
+                                        |> Route.href
+                                    ]
+                                    [ Icon.puzzle ]
+                                , button
+                                    [ class "btn btn-sm btn-outline-danger"
+                                    , title "Supprimer le composant"
+                                    , onClick <| SetModals [ DeleteComponentModal component ]
+                                    ]
+                                    [ Icon.trash ]
                                 ]
-                                [ Icon.pencil ]
-                            ]
-                        , td [ class "align-middle px-0" ]
-                            [ a
-                                [ class "btn btn-sm btn-outline-primary"
-                                , title "Utiliser dans le simulateur"
-                                , Just { components = [ Component.createItem component.id ] }
-                                    |> Route.ObjectSimulator Scope.Object Definition.Ecs
-                                    |> Route.href
-                                ]
-                                [ Icon.puzzle ]
-                            ]
-                        , td [ class "align-middle px-0" ]
-                            [ button
-                                [ class "btn btn-sm btn-outline-danger"
-                                , title "Supprimer le composant"
-                                , onClick <| SetModals [ DeleteComponentModal component ]
-                                ]
-                                [ Icon.trash ]
                             ]
                         ]
                 )

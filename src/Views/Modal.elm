@@ -3,7 +3,6 @@ module Views.Modal exposing (Size(..), view)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Json.Decode as Decode
 
 
 type alias Config msg =
@@ -29,15 +28,7 @@ view : Config msg -> Html msg
 view config =
     let
         modalContentAttrs =
-            [ class "modal-content"
-            , custom "mouseup"
-                (Decode.succeed
-                    { message = config.noOp
-                    , preventDefault = True
-                    , stopPropagation = True
-                    }
-                )
-            ]
+            [ class "modal-content" ]
 
         modalContentTag =
             case config.formAction of
@@ -53,13 +44,6 @@ view config =
             , attribute "tabindex" "-1"
             , attribute "aria-modal" "true"
             , attribute "role" "dialog"
-            , custom "mouseup"
-                (Decode.succeed
-                    { message = config.close
-                    , preventDefault = True
-                    , stopPropagation = True
-                    }
-                )
             ]
             [ div
                 [ class "modal-dialog modal-dialog-centered modal-dialog-scrollable"

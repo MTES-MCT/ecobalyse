@@ -46,6 +46,11 @@ clipboard =
     icon "clipboard"
 
 
+copy : Html msg
+copy =
+    icon "copy"
+
+
 ham : Html msg
 ham =
     icon "ham"

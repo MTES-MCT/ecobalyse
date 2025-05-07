@@ -1,5 +1,6 @@
 module Request.Component exposing
-    ( deleteComponent
+    ( createComponent
+    , deleteComponent
     , getComponents
     , patchComponent
     )
@@ -9,6 +10,16 @@ import Data.Scope as Scope
 import Data.Session exposing (Session)
 import RemoteData exposing (WebData)
 import RemoteData.Http as Http exposing (defaultConfig)
+
+
+createComponent : Session -> (WebData Component -> msg) -> Component -> Cmd msg
+createComponent { backendApiUrl } event component =
+    -- FIXME: use session token to secure access?
+    Http.postWithConfig defaultConfig
+        (endpoint backendApiUrl "")
+        event
+        (Component.decode Scope.all)
+        (Component.encode component)
 
 
 deleteComponent : Session -> (WebData String -> msg) -> Component -> Cmd msg
