@@ -1,6 +1,25 @@
 # Changelog
 
 
+## [5.1.0](https://github.com/MTES-MCT/ecobalyse/compare/v5.0.1..v5.1.0) (2025-05-07)
+
+
+
+### 🚀 Features
+
+- *(bo)* Allow duplicating components ([#1064](https://github.com/MTES-MCT/ecobalyse/issues/1064))
+- *(bo)* Add a button to export components json db ([#1067](https://github.com/MTES-MCT/ecobalyse/issues/1067))
+- *(bo)* Add an individual component export button ([#1071](https://github.com/MTES-MCT/ecobalyse/issues/1071))
+
+### 🪲 Bug Fixes
+
+- Default to empty string on BACKEND_API_URL not set ([#1068](https://github.com/MTES-MCT/ecobalyse/issues/1068))
+
+### ⚙️ Miscellaneous Tasks
+
+- Upgrade node dependencies, 2025-05 ([#1065](https://github.com/MTES-MCT/ecobalyse/issues/1065))
+
+
 ## [5.0.1](https://github.com/MTES-MCT/ecobalyse/compare/v5.0.0..v5.0.1) (2025-04-29)
 
 
