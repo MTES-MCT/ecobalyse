@@ -26,7 +26,7 @@ La dégradation et la déforestation des forêts progressent à une vitesse alar
 
 La déforestation et la dégradation des forêts sont également des facteurs importants du réchauffement climatique et de la perte de biodiversité, les deux défis environnementaux les plus importants de notre époque.
 
-Les pratiques de gestion forestière sont très différentes selon les exploitants et les zones géographiques. Certaines pratiques permettent de préserver la biodiversité, alors que d'autres sont plutôt néfastes. Il est nécessaire de pouvoir refléter cela dans le cout environnemental.&#x20;
+Les pratiques de gestion forestière sont très différentes selon les exploitants et les zones géographiques. Certaines pratiques permettent de préserver la biodiversité, alors que d'autres sont néfastes. Il est nécessaire de pouvoir refléter cela dans le cout environnemental.&#x20;
 
 _Source : Règlement européen du 31 mai 2023 relatif à la déforestation importée_&#x20;
 
