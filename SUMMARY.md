@@ -250,7 +250,7 @@
   * [🛣️ Utilisation des infrastructures](vehicules/cycle-de-vie/utilisation-des-infrastructures.md)
   * [🛞 Usures des pneus et freins](vehicules/cycle-de-vie/usures-des-pneus-et-freins.md)
   * [🔧 Maintenance et remplacement de pièces](vehicules/cycle-de-vie/maintenance-et-remplacement-de-pieces.md)
-* [Durabilité physique](vehicules/durabilite-physique.md)
+* [Calcul de la durabilité](vehicules/calcul-de-la-durabilite.md)
 * [Draft - Paramétrage](vehicules/parametrage/README.md)
   * [Caractéristiques du véhicule](vehicules/parametrage/caracteristiques-du-vehicule.md)
 * [Draft - Exemples](vehicules/exemples.md)
@@ -264,6 +264,7 @@
 * [📝 Approche méthodologique globale](def-cout-environnemental/impacts-consideres/README.md)
   * [Exclusion des émissions à long terme](def-cout-environnemental/impacts-consideres/exclusion-des-emissions-a-long-terme.md)
   * [Correction de la caractérisation de la ressource en Uranium](def-cout-environnemental/impacts-consideres/correction-de-la-caracterisation-de-la-ressource-en-uranium.md)
+  * [Prise en compte de la durabilité](def-cout-environnemental/impacts-consideres/prise-en-compte-de-la-durabilite.md)
 
 ## 📄 BROUILLON - Méthodes transverses spécifiques <a href="#transverse" id="transverse"></a>
 
