@@ -15,7 +15,6 @@
   "scripts": {
     "build": "npm run server:build && rimraf dist && npm run build:init && parcel build index.html --public-url ./",
     "build:init": "./bin/update-version.sh && mkdir -p dist && cp -r public/* dist/ && npm run db:build",
-    "build:standalone-app": "npm run build && npm run server:build && cp server-app.js dist/ && cp openapi.yaml dist/",
     "decrypt": "./bin/decrypt",
     "encrypt": "./bin/encrypt",
     "db:build": "./bin/build-db && npm run db:check",
