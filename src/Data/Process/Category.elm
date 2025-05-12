@@ -16,6 +16,7 @@ type Category
     | Ingredient
     | Material
     | Packaging
+    | TextileMaterial
     | Transform
     | Transport
     | Use
@@ -52,6 +53,9 @@ fromString string =
         "packaging" ->
             Ok Packaging
 
+        "textile_material" ->
+            Ok TextileMaterial
+
         "transformation" ->
             Ok Transform
 
@@ -86,6 +90,9 @@ toString category =
         Packaging ->
             "packaging"
 
+        TextileMaterial ->
+            "textile_material"
+
         Transform ->
             "transformation"
 
@@ -116,6 +123,9 @@ toLabel category =
 
         Packaging ->
             "Emballage"
+
+        TextileMaterial ->
+            "Matériau textile"
 
         Transform ->
             "Transformation"

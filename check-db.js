@@ -5,9 +5,7 @@ const { dataFiles } = require("./lib");
 
 const elmApp = Elm.CheckDb.init({
   flags: {
-    foodProcesses: fs.readFileSync(dataFiles.foodDetailed, "utf-8"),
-    objectProcesses: fs.readFileSync(dataFiles.objectDetailed, "utf-8"),
-    textileProcesses: fs.readFileSync(dataFiles.textileDetailed, "utf-8"),
+    processes: fs.readFileSync(dataFiles.detailed, "utf-8"),
   },
 });
 
