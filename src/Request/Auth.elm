@@ -63,7 +63,7 @@ processes : (Result Http.Error String -> msg) -> String -> Cmd msg
 processes event token =
     Http.request
         { body = Http.emptyBody
-        , expect = Http.expectJson event Decode.string
+        , expect = Http.expectString event
         , headers = [ Http.header "token" token ]
         , method = "GET"
         , timeout = Nothing
