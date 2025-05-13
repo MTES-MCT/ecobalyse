@@ -257,8 +257,6 @@
 
 ## 💡 BROUILLON - Présentation et informations diverses <a href="#ecobalyse-info" id="ecobalyse-info"></a>
 
-* [📌 Modèle de page](ecobalyse-info/modele-de-page.md)
-
 ## 📊 BROUILLON - Le coût environnemental <a href="#def-cout-environnemental" id="def-cout-environnemental"></a>
 
 * [📝 Approche méthodologique globale](def-cout-environnemental/impacts-consideres/README.md)
@@ -271,13 +269,16 @@
 
 ## 📄 BROUILLON - Méthodes transverses spécifiques <a href="#transverse" id="transverse"></a>
 
-* [🚚 Transport](draft-documentation-transverse/transport/README.md)
-  * [Coût environnemental par voie de transport](draft-documentation-transverse/transport/cout-environnemental-par-voie-de-transport.md)
-  * [Choix des voies de transport](draft-documentation-transverse/transport/choix-des-voies-de-transport.md)
-  * [👕 Transport Textile](draft-documentation-transverse/transport/transport-textile.md)
-  * [🍕 Transport Alimentaire](draft-documentation-transverse/transport/transport-alimentaire.md)
-  * [🪚 Transport Ameublement](draft-documentation-transverse/transport/transport-ameublement.md)
-  * [🛺 Transport Véhicules](draft-documentation-transverse/transport/transport-vehicules.md)
-  * [🚚 OLD Transport](draft-documentation-transverse/transport/old-transport.md)
-* [⚡ Energies des étapes de transformation](draft-documentation-transverse/energies-des-etapes-de-transformation.md)
-* [♻️ Fin de vie](transverse/fin-de-vie.md)
+## Pages en cours de revue
+
+* [📌 Modèle de page](pages-en-cours-de-revue/modele-de-page.md)
+* [🚚 Transport](pages-en-cours-de-revue/transport/README.md)
+  * [Coût environnemental par voie de transport](pages-en-cours-de-revue/transport/cout-environnemental-par-voie-de-transport.md)
+  * [Choix des voies de transport](pages-en-cours-de-revue/transport/choix-des-voies-de-transport.md)
+  * [👕 Transport Textile](pages-en-cours-de-revue/transport/transport-textile.md)
+  * [🍕 Transport Alimentaire](pages-en-cours-de-revue/transport/transport-alimentaire.md)
+  * [🪚 Transport Ameublement](pages-en-cours-de-revue/transport/transport-ameublement.md)
+  * [🛺 Transport Véhicules](pages-en-cours-de-revue/transport/transport-vehicules.md)
+  * [🚚 OLD Transport](pages-en-cours-de-revue/transport/old-transport.md)
+* [⚡ Energies des étapes de transformation](pages-en-cours-de-revue/energies-des-etapes-de-transformation.md)
+* [♻️ Fin de vie](pages-en-cours-de-revue/fin-de-vie.md)

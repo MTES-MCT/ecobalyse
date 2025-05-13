@@ -55,8 +55,8 @@ Les étapes et analyses suivantes ne sont à ce stade pas prises en compte :
 [fabrication-des-composants](fabrication-des-composants/)
 {% endcontent-ref %}
 
-{% content-ref url="../../draft-documentation-transverse/transport/transport-vehicules.md" %}
-[transport-vehicules.md](../../draft-documentation-transverse/transport/transport-vehicules.md)
+{% content-ref url="../../pages-en-cours-de-revue/transport/transport-vehicules.md" %}
+[transport-vehicules.md](../../pages-en-cours-de-revue/transport/transport-vehicules.md)
 {% endcontent-ref %}
 
 {% content-ref url="consommation-denergie/" %}
