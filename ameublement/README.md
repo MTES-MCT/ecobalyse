@@ -1,2 +1,0 @@
-# 🪑 AMEUBLEMENT
-

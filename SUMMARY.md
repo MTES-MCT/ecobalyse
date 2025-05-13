@@ -211,22 +211,24 @@
     * [🐣 Poulet (blanc)](copy-of-alimentaire-en-construction/old/ingredients-viandes/poulet-blanc.md)
     * [🐑 Viande d'agneau](copy-of-alimentaire-en-construction/old/ingredients-viandes/viande-dagneau.md)
 
+## 🪑 Ameublement
+
+* [Cycle de vie](ameublement/cycle-de-vie/README.md)
+  * [Etape 1 : Fabrication des composants](ameublement/cycle-de-vie/etape-1-fabrication-des-composants/README.md)
+    * [🪵 Composants en bois](ameublement/cycle-de-vie/etape-1-fabrication-des-composants/composants-en-bois.md)
+    * [🧱 Autres composants](ameublement/cycle-de-vie/etape-1-fabrication-des-composants/autres-composants.md)
+    * [⚙️ Transformation / Finition](ameublement/cycle-de-vie/etape-1-fabrication-des-composants/transformation-finition.md)
+  * [🔨 Etape 2 :](ameublement/cycle-de-vie/etape-2.md)
+  * [Etape 3 : Utilisation](ameublement/cycle-de-vie/etape-3-utilisation.md)
+  * [Etape 4 : Fin de vie](ameublement/cycle-de-vie/etape-4-fin-de-vie.md)
+* [Complément hors ACV](ameublement/complement-hors-acv/README.md)
+  * [🌍 Biodiversité x Bois](ameublement/complement-hors-acv/biodiversitebois.md)
+  * [🌍 Old (complément biodiv)](ameublement/complement-hors-acv/biodiversitebois-1.md)
+
 ***
 
-* [🪑 AMEUBLEMENT](ameublement/README.md)
-  * [Cycle de vie](ameublement/cycle-de-vie/README.md)
-    * [Etape 1 : Fabrication des composants](ameublement/cycle-de-vie/etape-1-fabrication-des-composants/README.md)
-      * [🪵 Composants en bois](ameublement/cycle-de-vie/etape-1-fabrication-des-composants/composants-en-bois.md)
-      * [🧱 Autres composants](ameublement/cycle-de-vie/etape-1-fabrication-des-composants/autres-composants.md)
-      * [⚙️ Transformation / Finition](ameublement/cycle-de-vie/etape-1-fabrication-des-composants/transformation-finition.md)
-    * [🔨 Etape 2 :](ameublement/cycle-de-vie/etape-2.md)
-    * [Etape 3 : Utilisation](ameublement/cycle-de-vie/etape-3-utilisation.md)
-    * [Etape 4 : Fin de vie](ameublement/cycle-de-vie/etape-4-fin-de-vie.md)
-  * [Complément hors ACV](ameublement/complement-hors-acv/README.md)
-    * [🌍 Biodiversité x Bois](ameublement/complement-hors-acv/biodiversitebois.md)
-    * [🌍 Old (complément biodiv)](ameublement/complement-hors-acv/biodiversitebois-1.md)
-  * [Durabilité](ameublement/durabilite.md)
-  * [🚚 Transport](ameublement/transport.md)
+* [Durabilité](durabilite.md)
+* [🚚 Transport](transport.md)
 
 ## 🛺 Autres travaux en cours <a href="#vehicules" id="vehicules"></a>
 
