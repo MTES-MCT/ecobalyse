@@ -14,7 +14,7 @@ De manière plus précise, trois raisons expliquent la nécessité de proposer c
 
 <summary><strong>1)  Le cadre méthodologique ACV est limité</strong></summary>
 
-Le cadre de l'analyse de cycle de vie (ACV) ne permet pas, à date, de différencier l'impact sur la biodiversité de différentes pratiques forestières. La biodiversité est difficilement quantifiable avec les indicateurs existants (16 indicateurs PEF) tandis que peu de données précises existent sur les différentes filières de production de bois d'ameublement.
+Le cadre de l'analyse de cycle de vie (ACV) ne permet pas, à date, de différencier l'impact sur la biodiversité locale de différentes pratiques forestières. En effet les impacts sur la biodiversité sont quantifiés de manière incomplète avec les 16 indicateurs PEF existants. Ceux ci permettent principalement de couvrir les pressions globales pesant sur la biodiversité (ex: changement climatique, eutrophisation, artificalisation des terres...). Cependant les indicateurs actuels ne permettent pas de tenir compte de la composition des peuplements forestiers, de l'effet des coupes rases, du tassement du sol ou encore de la présence de bois mort dans les parcelles par exemple. Des travaux de recherche sont en cours afin d'améliorer les méthodes via l'intégration de nouveaux indicateurs (ex : EF4.0 et GLAM). En attendant la maturité scientifique et technique de ces outils, les compléments apportent une approche simple et pragmatique pour couvrir ces enjeux incontournables.&#x20;
 
 </details>
 
@@ -137,9 +137,10 @@ Les principales sources utilisées pour estimer ces paramètre par origine sont 
 
 <summary>Indice Corruption (IC) </summary>
 
-Ce paramètre vise pénaliser les pratiques forestières considérées pour chaque bois selon le niveau de corruption du pays. Ce paramètre est donc spécifique à une origine (pays ou région).
+La réalité de la gestion forestière à l'échelle globale ne peut s'appréhender uniquement par les règlementations et les recommandations sylvicoles. En effet, une problématique avérée de la filière bois porte sur les mauvaises pratiques et le manque de traçabilité, avec des règlementations non respectées dans certains contextes et des risques élevés de corruption. Le risque de corruption aggrave le risque de mauvaises pratiques affectant des zones parfois particulièrement riches en termes de biodiversité. \
+Ce paramètre vise donc à refléter les risques accrus en terme de biodiversité associés à des bois issus de zones soumises à des niveaux importants de corruption.&#x20;
 
-Plus le niveau de corruption est élevée, plus faible est la probabilité que le bois soit issu d'une forêt gérée durablement. Le niveau de corruption est estimé grâce au _Corruption Perception Index (score CPI)_ développé par Transparency International (cf. ci-dessous).
+&#x20;Le niveau de corruption est estimé grâce au _Corruption Perception Index (score CPI)_ développé par Transparency International (cf. ci-dessous).
 
 3 niveaux de corruption sont proposés :&#x20;
 
