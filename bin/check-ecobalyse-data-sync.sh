@@ -17,10 +17,8 @@ trap cleanup EXIT
 # Files to check
 FILES=(
     "public/data/food/ingredients.json"
-    "public/data/food/processes.json"
     "public/data/textile/materials.json"
-    "public/data/textile/processes.json"
-    "public/data/object/processes.json"
+    "public/data/processes.json"
 )
 
 echo "Downloading files from ecobalyse-data repository (branch: ${ECOBALYSE_DATA_BRANCH})..."

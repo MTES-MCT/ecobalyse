@@ -1,0 +1,31 @@
+name: "Create release archive"
+description: "Create a gzipped release"
+inputs:
+  sha:
+    description: 'The SHA of the commit'
+    required: true
+  tag:
+    description: 'The tag name of the version to create, can be the commit hash if the current version has no tag'
+    required: true
+
+outputs:
+  archive-path:
+    description: "The path of the created archive"
+    value: ${{ steps.build-app.outputs.archive-path }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Build app
+      id: build-app
+      shell: bash
+      env:
+        # Specify the created SHA to correctly update version.json
+        SOURCE_VERSION: ${{ inputs.sha }}
+        TAG: ${{ inputs.tag }}
+        # Inform the `build-specific-app-version.sh` script that we are building the current directory
+        # and that it should not git clone it
+        BUILD_CURRENT_VERSION: 1
+      run: |
+        ./bin/build-specific-app-version.sh $TAG
+        echo "archive-path=$(echo $TAG)-dist.tar.gz" >> $GITHUB_OUTPUT

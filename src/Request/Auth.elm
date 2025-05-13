@@ -14,7 +14,6 @@ import Http
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
-import Static.Json exposing (RawJsonProcesses)
 
 
 type alias Errors =
@@ -60,17 +59,11 @@ logout event =
         }
 
 
-processes : (Result Http.Error RawJsonProcesses -> msg) -> String -> Cmd msg
+processes : (Result Http.Error String -> msg) -> String -> Cmd msg
 processes event token =
     Http.request
         { body = Http.emptyBody
-        , expect =
-            Http.expectJson event
-                (Decode.succeed RawJsonProcesses
-                    |> JDP.required "foodProcesses" Decode.string
-                    |> JDP.required "objectProcesses" Decode.string
-                    |> JDP.required "textileProcesses" Decode.string
-                )
+        , expect = Http.expectString event
         , headers = [ Http.header "token" token ]
         , method = "GET"
         , timeout = Nothing

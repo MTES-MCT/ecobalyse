@@ -43,7 +43,7 @@ import RemoteData exposing (WebData)
 import Request.Version exposing (Version)
 import Set exposing (Set)
 import Static.Db as StaticDb exposing (Db)
-import Static.Json as StaticJson exposing (RawJsonProcesses)
+import Static.Json as StaticJson
 
 
 type alias Queries =
@@ -324,7 +324,7 @@ updateStore update session =
     { session | store = update session.store }
 
 
-authenticated : User -> RawJsonProcesses -> Session -> Session
+authenticated : User -> String -> Session -> Session
 authenticated user rawDetailedProcessesJson ({ store } as session) =
     case StaticDb.db rawDetailedProcessesJson of
         Err err ->
@@ -337,7 +337,7 @@ authenticated user rawDetailedProcessesJson ({ store } as session) =
 
 logout : Session -> Session
 logout ({ store } as session) =
-    case StaticDb.db StaticJson.rawJsonProcesses of
+    case StaticDb.db StaticJson.processesJson of
         Err err ->
             { session | store = { store | auth = NotAuthenticated } }
                 |> notifyError "Impossible de recharger la db avec les procédés par défaut" err

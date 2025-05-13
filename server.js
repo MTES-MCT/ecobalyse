@@ -122,47 +122,67 @@ if (fs.existsSync(versionsDir)) {
   for (const dir of dirs) {
     const currentVersionDir = path.join(versionsDir, dir);
 
-    const foodNoDetails = path.join(currentVersionDir, "data/food/processes.json");
-    const objectNoDetails = path.join(currentVersionDir, "data/object/processes.json");
-    const textileNoDetails = path.join(currentVersionDir, "data/textile/processes.json");
-
-    const foodDetailedEnc = path.join(currentVersionDir, "processes_impacts_food.json.enc");
-    const objectDetailedEnc = path.join(currentVersionDir, "processes_impacts_object.json.enc");
-    const textileDetailedEnc = path.join(currentVersionDir, "processes_impacts_textile.json.enc");
-
-    // We should not check for the existence of objectNoDetails because old versions don't have it
-    // and it's expected
-    if (!fs.existsSync(foodNoDetails) || !fs.existsSync(textileNoDetails)) {
-      console.error(
-        `🚨 ERROR: processes files without details missing for version ${dir}. Skipping version.`,
+    // check for mono or multiple processes files
+    if (fs.existsSync(path.join(currentVersionDir, "data/processes.json"))) {
+      // Single process file
+      const processes = fs.readFileSync(
+        path.join(currentVersionDir, "data/processes.json"),
+        "utf8",
       );
-      continue;
-    }
-    let processesImpacts;
+      const processesImpactsEnc = path.join(currentVersionDir, "processes_impacts.json.enc");
 
-    // Encrypted files exist, use them
-    processesImpacts = {
-      foodProcesses: decrypt(JSON.parse(fs.readFileSync(foodDetailedEnc).toString("utf-8"))),
-      // Old versions don't have the object files
-      objectProcesses: fs.existsSync(objectDetailedEnc)
-        ? decrypt(JSON.parse(fs.readFileSync(objectDetailedEnc).toString("utf-8")))
-        : null,
-      textileProcesses: decrypt(JSON.parse(fs.readFileSync(textileDetailedEnc).toString("utf-8"))),
-    };
+      availableVersions.push({
+        dir,
+        processes,
+        processesImpacts: decrypt(
+          JSON.parse(fs.readFileSync(processesImpactsEnc).toString("utf-8")),
+        ),
+      });
+    } else {
+      // Multiple process files
+      const foodNoDetails = path.join(currentVersionDir, "data/food/processes.json");
+      const objectNoDetails = path.join(currentVersionDir, "data/object/processes.json");
+      const textileNoDetails = path.join(currentVersionDir, "data/textile/processes.json");
 
-    availableVersions.push({
-      dir,
-      processes: {
-        foodProcesses: fs.readFileSync(foodNoDetails, "utf8"),
+      const foodDetailedEnc = path.join(currentVersionDir, "processes_impacts_food.json.enc");
+      const objectDetailedEnc = path.join(currentVersionDir, "processes_impacts_object.json.enc");
+      const textileDetailedEnc = path.join(currentVersionDir, "processes_impacts_textile.json.enc");
+
+      // We should not check for the existence of objectNoDetails because old versions don't have it
+      // and it's expected
+      if (!fs.existsSync(foodNoDetails) || !fs.existsSync(textileNoDetails)) {
+        console.error(
+          `🚨 ERROR: processes files without details missing for version ${dir}. Skipping version.`,
+        );
+        continue;
+      }
+
+      // Encrypted files exist, use them
+      let processesImpacts = {
+        foodProcesses: decrypt(JSON.parse(fs.readFileSync(foodDetailedEnc).toString("utf-8"))),
         // Old versions don't have the object files
-        objectProcesses: fs.existsSync(objectNoDetails)
-          ? fs.readFileSync(objectNoDetails, "utf8")
+        objectProcesses: fs.existsSync(objectDetailedEnc)
+          ? decrypt(JSON.parse(fs.readFileSync(objectDetailedEnc).toString("utf-8")))
           : null,
+        textileProcesses: decrypt(
+          JSON.parse(fs.readFileSync(textileDetailedEnc).toString("utf-8")),
+        ),
+      };
 
-        textileProcesses: fs.readFileSync(textileNoDetails, "utf8"),
-      },
-      processesImpacts,
-    });
+      availableVersions.push({
+        dir,
+        processes: {
+          foodProcesses: fs.readFileSync(foodNoDetails, "utf8"),
+          // Old versions don't have the object files
+          objectProcesses: fs.existsSync(objectNoDetails)
+            ? fs.readFileSync(objectNoDetails, "utf8")
+            : null,
+
+          textileProcesses: fs.readFileSync(textileNoDetails, "utf8"),
+        },
+        processesImpacts,
+      });
+    }
   }
 }
 
@@ -176,17 +196,9 @@ const openApiContents = processOpenApi(
 // Matomo
 const apiTracker = setupTracker(openApiContents);
 
-const processesImpacts = {
-  foodProcesses: fs.readFileSync(dataFiles.foodDetailed, "utf8"),
-  objectProcesses: fs.readFileSync(dataFiles.objectDetailed, "utf8"),
-  textileProcesses: fs.readFileSync(dataFiles.textileDetailed, "utf8"),
-};
-
-const processes = {
-  foodProcesses: fs.readFileSync(dataFiles.foodNoDetails, "utf8"),
-  objectProcesses: fs.readFileSync(dataFiles.objectNoDetails, "utf8"),
-  textileProcesses: fs.readFileSync(dataFiles.textileNoDetails, "utf8"),
-};
+// Processes
+const processesImpacts = fs.readFileSync(dataFiles.detailed, "utf8");
+const processes = fs.readFileSync(dataFiles.noDetails, "utf8");
 
 const getProcesses = async (token, customProcessesImpacts, customProcesses) => {
   let isTokenValid = false;

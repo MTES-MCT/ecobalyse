@@ -295,29 +295,40 @@ componentListView db components =
                                 |> Result.withDefault (text "N/A")
                             ]
                         , td [ class "align-middle text-nowrap" ]
-                            [ div [ class "d-flex gap-1" ]
+                            [ div [ class "btn-group btn-group-sm", attribute "role" "group", attribute "aria-label" "Actions" ]
                                 [ button
-                                    [ class "btn btn-sm btn-outline-primary"
+                                    [ class "btn btn-outline-primary"
                                     , title "Modifier le composant"
                                     , onClick <| SetModals [ EditComponentModal (Component.createItem component.id) ]
                                     ]
                                     [ Icon.pencil ]
                                 , button
-                                    [ class "btn btn-sm btn-outline-primary"
+                                    [ class "btn btn-outline-primary"
                                     , title "Dupliquer le composant"
                                     , onClick <| DuplicateComponent component
                                     ]
                                     [ Icon.copy ]
                                 , a
-                                    [ class "btn btn-sm btn-outline-primary"
+                                    [ class "btn btn-outline-primary"
                                     , title "Utiliser dans le simulateur"
                                     , Just { components = [ Component.createItem component.id ] }
                                         |> Route.ObjectSimulator Scope.Object Definition.Ecs
                                         |> Route.href
                                     ]
                                     [ Icon.puzzle ]
+                                , a
+                                    [ class "btn btn-outline-primary"
+                                    , title "Exporter le composant au format JSON"
+                                    , Component.encode component
+                                        |> Encode.encode 2
+                                        |> Base64.encode
+                                        |> (++) "data:application/json;base64,"
+                                        |> href
+                                    , download <| component.name ++ ".json"
+                                    ]
+                                    [ Icon.fileExport ]
                                 , button
-                                    [ class "btn btn-sm btn-outline-danger"
+                                    [ class "btn btn-outline-danger"
                                     , title "Supprimer le composant"
                                     , onClick <| SetModals [ DeleteComponentModal component ]
                                     ]

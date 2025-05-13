@@ -5,12 +5,12 @@ ECOBALYSE_DATA_DIR_COMMIT=$2
 # Be sure to exit as soon as something goes wrong
 set -eo pipefail
 
-if [ -z "$COMMIT_OR_TAG" ]
+if [ -z "$COMMIT_OR_TAG" ] && [ -z "$BUILD_CURRENT_VERSION" ]
 then
   echo "Missing commit hash or tag name parameter."
   echo ""
   echo "Usage: $0 <public_commit_hash> [<data_dir_commit_hash>]"
-  exit
+  exit 1
 fi
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
@@ -70,32 +70,35 @@ error_handler() {
 hash git &> /dev/null || error_handler $ERR_INVALID_COMMAND git
 hash npm &> /dev/null || error_handler $ERR_INVALID_COMMAND npm
 
-if [ -d $PUBLIC_GIT_CLONE_DIR ]; then
-  echo "⚠️ Public Git destination directory exists, deleting."
-  echo "-> Deleting '$PUBLIC_GIT_CLONE_DIR'."
-  rm -rf $PUBLIC_GIT_CLONE_DIR
+if [ -z "$BUILD_CURRENT_VERSION" ]; then
+  if [ -d $PUBLIC_GIT_CLONE_DIR ]; then
+    echo "⚠️ Public Git destination directory exists, deleting."
+    echo "-> Deleting '$PUBLIC_GIT_CLONE_DIR'."
+    rm -rf $PUBLIC_GIT_CLONE_DIR
+  fi
+
+  mkdir -p $PUBLIC_GIT_CLONE_DIR
+
+  echo "-> Cloning $ECOBALYSE_GIT_REPO to $PUBLIC_GIT_CLONE_DIR"
+  echo ""
+
+  git clone $ECOBALYSE_GIT_REPO $PUBLIC_GIT_CLONE_DIR
+
+  cd $PUBLIC_GIT_CLONE_DIR
+
+  git checkout $COMMIT_OR_TAG || error_handler $ERR_INVALID_COMMIT
+else
+
+  echo "⚠️ Building using the current version."
+  PUBLIC_GIT_CLONE_DIR=.
 fi
-
-mkdir -p $PUBLIC_GIT_CLONE_DIR
-
-echo "-> Cloning $ECOBALYSE_GIT_REPO to $PUBLIC_GIT_CLONE_DIR"
-echo ""
-
-git clone $ECOBALYSE_GIT_REPO $PUBLIC_GIT_CLONE_DIR
-
-cd $PUBLIC_GIT_CLONE_DIR
-
-git checkout $COMMIT_OR_TAG || error_handler $ERR_INVALID_COMMIT
 
 
 # Check if detailed impacts are present in the directory, if not an ECOBALYSE_DATA_DIR env variable need to be set
 # and a commit hash for the private repo specified
+# We check at the same time that this not a the new version > 5.0.1 having only one file for the detailed processes
 
-TEXTILE_DETAILED_IMPACTS_FILE="$PUBLIC_GIT_CLONE_DIR/public/data/textile/processes_impacts.json"
-FOOD_DETAILED_IMPACTS_FILE="$PUBLIC_GIT_CLONE_DIR/public/data/textile/processes_impacts.json"
-
-
-if [[ ! -f "$TEXTILE_DETAILED_IMPACTS_FILE" ]]; then
+if [[ ! -f "$PUBLIC_GIT_CLONE_DIR/public/data/textile/processes_impacts.json" ]] && [[ ! -f "$PUBLIC_GIT_CLONE_DIR/public/data/processes_impacts.json" ]]; then
 
   if [ -z "$ECOBALYSE_DATA_DIR_COMMIT" ]; then
     echo ""
@@ -143,19 +146,23 @@ else
 
     fi
 
-    transcrypt -y -c aes-256-cbc -p "$TRANSCRYPT_KEY"
+    $ROOT_DIR/bin/run-transcrypt.sh
 
 fi
 
 ELM_VERSION_FILE=$PUBLIC_GIT_CLONE_DIR"/src/Request/Version.elm"
 INDEX_JS_FILE=$PUBLIC_GIT_CLONE_DIR"/index.js"
 
-# Patch old versions of the app so that it gets the version file using relative path in Elm
-# Otherwise serving the app from /versions will not display the good version number
-# Also patch the local storage key to avoid messing things up between versions
-$ROOT_DIR/bin/patch_files_for_versions_compat.py elm-version $ELM_VERSION_FILE
-$ROOT_DIR/bin/patch_files_for_versions_compat.py local-storage-key $INDEX_JS_FILE $COMMIT_OR_TAG
-$ROOT_DIR/bin/patch_files_for_versions_compat.py version-selector $ROOT_DIR/packages/python/ecobalyse/ecobalyse/0001-feat-patch-homepage-link-and-inject-and-inject-versi.patch $PUBLIC_GIT_CLONE_DIR
+
+# We should not patch if we are building the current version
+if [ -z "$BUILD_CURRENT_VERSION" ]; then
+  # Patch old versions of the app so that it gets the version file using relative path in Elm
+  # Otherwise serving the app from /versions will not display the good version number
+  # Also patch the local storage key to avoid messing things up between versions
+  $ROOT_DIR/bin/patch_files_for_versions_compat.py elm-version $ELM_VERSION_FILE
+  $ROOT_DIR/bin/patch_files_for_versions_compat.py local-storage-key $INDEX_JS_FILE $COMMIT_OR_TAG
+  $ROOT_DIR/bin/patch_files_for_versions_compat.py version-selector $ROOT_DIR/packages/python/ecobalyse/ecobalyse/0001-feat-patch-homepage-link-and-inject-and-inject-versi.patch $PUBLIC_GIT_CLONE_DIR
+fi
 
 cd $PUBLIC_GIT_CLONE_DIR
 
@@ -173,23 +180,27 @@ export NODE_ENV=production
 npm run build
 npm run server:build
 
-# Always put the tag name in the version.json file to help debugging if needed later on
-# If TAG is defined
-if [[ ! -z "$TAG" ]]; then
-  $ROOT_DIR/bin/patch_files_for_versions_compat.py add-entry-to-version dist/version.json tag $TAG
+
+# We should not patch if we are building the current version
+if [ -z "$BUILD_CURRENT_VERSION" ]; then
+  # Always put the tag name in the version.json file to help debugging if needed later on
+  # If TAG is defined
+  if [[ ! -z "$TAG" ]]; then
+    $ROOT_DIR/bin/patch_files_for_versions_compat.py add-entry-to-version dist/version.json tag $TAG
+  fi
+
+
+  # If a data dir commit was specified, put it in the version file if needed
+  # it will to keep track of the commit used to build the version
+  if [[ ! -z "$ECOBALYSE_DATA_DIR_COMMIT" ]]; then
+    $ROOT_DIR/bin/patch_files_for_versions_compat.py add-entry-to-version dist/version.json dataDirHash $ECOBALYSE_DATA_DIR_COMMIT
+
+  fi
+
+  # We need to send the referer to python in order to properly redirect after login
+  # so we need to patch the html files that don't have it
+  $ROOT_DIR/bin/patch_files_for_versions_compat.py patch-cross-origin dist/index.html
 fi
-
-
-# If a data dir commit was specified, put it in the version file if needed
-# it will to keep track of the commit used to build the version
-if [[ ! -z "$ECOBALYSE_DATA_DIR_COMMIT" ]]; then
-  $ROOT_DIR/bin/patch_files_for_versions_compat.py add-entry-to-version dist/version.json dataDirHash $ECOBALYSE_DATA_DIR_COMMIT
-
-fi
-
-# We need to send the referer to python in order to properly redirect after login
-# so we need to patch the html files that don't have it
-$ROOT_DIR/bin/patch_files_for_versions_compat.py patch-cross-origin dist/index.html
 
 cd $ROOT_DIR
 
@@ -200,26 +211,43 @@ fi
 
 mkdir -p $VERSION_DIR
 
-npm run encrypt $PUBLIC_GIT_CLONE_DIR/public/data/textile/processes_impacts.json $PUBLIC_GIT_CLONE_DIR/dist/processes_impacts_textile.json.enc
-npm run encrypt $PUBLIC_GIT_CLONE_DIR/public/data/food/processes_impacts.json $PUBLIC_GIT_CLONE_DIR/dist/processes_impacts_food.json.enc
 
-# Objects are not present in old versions
-if [[ -f "$PUBLIC_GIT_CLONE_DIR/public/data/object/processes_impacts.json" ]]; then
-  npm run encrypt $PUBLIC_GIT_CLONE_DIR/public/data/object/processes_impacts.json $PUBLIC_GIT_CLONE_DIR/dist/processes_impacts_object.json.enc
+if [[ -f "$PUBLIC_GIT_CLONE_DIR/public/data/processes_impacts.json" ]]; then
+  # New version with all the impacts in the same file
+  npm run encrypt $PUBLIC_GIT_CLONE_DIR/public/data/processes_impacts.json $PUBLIC_GIT_CLONE_DIR/dist/processes_impacts.json.enc
+
+  # Never ship detailed impacts
+  rm -f -- $PUBLIC_GIT_CLONE_DIR/dist/data/processes_impacts.json
+else
+  # Old versions <= 5.0.1 having separate files for the processes
+  npm run encrypt $PUBLIC_GIT_CLONE_DIR/public/data/textile/processes_impacts.json $PUBLIC_GIT_CLONE_DIR/dist/processes_impacts_textile.json.enc
+  npm run encrypt $PUBLIC_GIT_CLONE_DIR/public/data/food/processes_impacts.json $PUBLIC_GIT_CLONE_DIR/dist/processes_impacts_food.json.enc
+
+  # Objects are not present in old versions
+  if [[ -f "$PUBLIC_GIT_CLONE_DIR/public/data/object/processes_impacts.json" ]]; then
+    npm run encrypt $PUBLIC_GIT_CLONE_DIR/public/data/object/processes_impacts.json $PUBLIC_GIT_CLONE_DIR/dist/processes_impacts_object.json.enc
+  fi
+
+  # Never ship detailed impacts
+  rm -f -- $PUBLIC_GIT_CLONE_DIR/dist/data/textile/processes_impacts.json
+  rm -f -- $PUBLIC_GIT_CLONE_DIR/dist/data/food/processes_impacts.json
+  rm -f -- $PUBLIC_GIT_CLONE_DIR/dist/data/object/processes_impacts.json
+
 fi
 
-# Never ship detailed impacts
-rm -f -- $PUBLIC_GIT_CLONE_DIR/data/textile/processes_impacts.json
-rm -f -- $PUBLIC_GIT_CLONE_DIR/data/food/processes_impacts.json
-rm -f -- $PUBLIC_GIT_CLONE_DIR/data/object/processes_impacts.json
-
-mv $PUBLIC_GIT_CLONE_DIR/server-app.js $PUBLIC_GIT_CLONE_DIR/dist
-mv $PUBLIC_GIT_CLONE_DIR/openapi.yaml $PUBLIC_GIT_CLONE_DIR/dist
+cp $PUBLIC_GIT_CLONE_DIR/server-app.js $PUBLIC_GIT_CLONE_DIR/dist
+cp $PUBLIC_GIT_CLONE_DIR/openapi.yaml $PUBLIC_GIT_CLONE_DIR/dist
 
 # Create the dist archive and put it in the ROOT_DIR
 cd $PUBLIC_GIT_CLONE_DIR
-tar czvf $VERSION_DIR-dist.tar.gz dist
-mv $VERSION_DIR-dist.tar.gz $ROOT_DIR/
+tar czvf $COMMIT_OR_TAG-dist.tar.gz dist
 
-# Move the standalone app into the version directory
-mv $PUBLIC_GIT_CLONE_DIR/dist/* $VERSION_DIR
+if [ -z "$BUILD_CURRENT_VERSION" ]; then
+  mv $COMMIT_OR_TAG-dist.tar.gz $ROOT_DIR/
+
+  # Move the standalone app into the version directory
+  mv $PUBLIC_GIT_CLONE_DIR/dist/* $VERSION_DIR
+fi
+
+
+echo "✅ $COMMIT_OR_TAG-dist.tar.gz successfully created"
