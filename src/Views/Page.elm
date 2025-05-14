@@ -385,15 +385,23 @@ pageHeader { session, activePage, openMobileNavigation, loadUrl, switchVersion }
                     [ class "VersionSelector d-none d-sm-block form-select form-select-sm w-auto"
                     , onInput switchVersion
                     ]
-            , a
-                [ class "HeaderAuthLink d-none d-sm-block flex-fill text-end"
-                , Route.href (Route.Auth { authenticated = False })
-                ]
-                [ if Session.isAuthenticated session then
-                    text "Mon compte"
+            , div [ class "HeaderAuthLink" ]
+                [ a
+                    [ class "d-none d-sm-block flex-fill text-end"
+                    , Route.href (Route.Auth { authenticated = False })
+                    ]
+                    [ if Session.isAuthenticated session then
+                        text "Mon compte"
 
-                  else
-                    text "Connexion ou inscription"
+                      else
+                        text "Connexion ou inscription"
+                    ]
+                , a
+                    [ class "d-none d-sm-block flex-fill text-end"
+                    , Route.href Route.Auth2
+                    ]
+                    [ text "New auth"
+                    ]
                 ]
             ]
         , Container.fluid [ class "border-top" ]

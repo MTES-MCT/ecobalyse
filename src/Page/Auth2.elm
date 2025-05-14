@@ -125,12 +125,13 @@ viewSignupForm { signupForm, signupFormErrors } =
     Html.form [ onSubmit SignupSubmitted ]
         [ div [ class "mb-3" ]
             [ label [ for "email", class "form-label" ]
-                [ text "Email*" ]
+                [ text "Email", span [ class "text-danger" ] [ text "*" ] ]
             , input
                 [ type_ "email"
                 , class "form-control"
                 , classList [ ( "is-invalid", Dict.member "email" signupFormErrors ) ]
                 , id "email"
+                , placeholder "nom@example.com"
                 , value signupForm.email
                 , onInput UpdateEmail
                 , required True
@@ -142,12 +143,13 @@ viewSignupForm { signupForm, signupFormErrors } =
             [ div [ class "col-md-6" ]
                 [ div [ class "mb-3" ]
                     [ label [ for "firstName", class "form-label" ]
-                        [ text "Prénom*" ]
+                        [ text "Prénom", span [ class "text-danger" ] [ text "*" ] ]
                     , input
                         [ type_ "text"
                         , class "form-control"
                         , classList [ ( "is-invalid", Dict.member "firstName" signupFormErrors ) ]
                         , id "firstName"
+                        , placeholder "Joséphine"
                         , value signupForm.firstName
                         , onInput UpdateFirstName
                         , required True
@@ -159,12 +161,13 @@ viewSignupForm { signupForm, signupFormErrors } =
             , div [ class "col-md-6" ]
                 [ div [ class "mb-3" ]
                     [ label [ for "lastName", class "form-label" ]
-                        [ text "Nom*" ]
+                        [ text "Nom", span [ class "text-danger" ] [ text "*" ] ]
                     , input
                         [ type_ "text"
                         , class "form-control"
                         , classList [ ( "is-invalid", Dict.member "lastName" signupFormErrors ) ]
                         , id "lastName"
+                        , placeholder "Durand"
                         , value signupForm.lastName
                         , onInput UpdateLastName
                         , required True
@@ -176,12 +179,13 @@ viewSignupForm { signupForm, signupFormErrors } =
             ]
         , div [ class "mb-3" ]
             [ label [ for "organization", class "form-label" ]
-                [ text "Organisation*" ]
+                [ text "Organisation", span [ class "text-danger" ] [ text "*" ] ]
             , input
                 [ type_ "text"
                 , class "form-control"
                 , classList [ ( "is-invalid", Dict.member "organization" signupFormErrors ) ]
                 , id "organization"
+                , placeholder "ACME Inc."
                 , value signupForm.organization
                 , onInput UpdateOrganization
                 , required True
@@ -201,7 +205,7 @@ viewSignupForm { signupForm, signupFormErrors } =
                 ]
                 []
             , label [ class "form-check-label", for "termsAccepted" ]
-                [ text "J'accepte les conditions d'utilisation du service*" ]
+                [ text "J'accepte les conditions d'utilisation du service", span [ class "text-danger" ] [ text "*" ] ]
             , viewFieldError "termsAccepted" signupFormErrors
             ]
         , div [ class "d-grid" ]
