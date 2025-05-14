@@ -1,7 +1,9 @@
 module Data.User2 exposing
-    ( User
-    , decode
-    , encode
+    ( SignupForm
+    , User
+    , decodeUser
+    , encodeSignupForm
+    , encodeUser
     )
 
 import Data.Common.DecodeUtils as DU
@@ -56,8 +58,17 @@ type alias Role =
     }
 
 
-decode : Decoder User
-decode =
+type alias SignupForm =
+    { email : String
+    , firstName : String
+    , lastName : String
+    , organization : String
+    , termsAccepted : Bool
+    }
+
+
+decodeUser : Decoder User
+decodeUser =
     Decode.succeed User
         |> Pipe.required "email" Decode.string
         |> Pipe.required "id" (Decode.map Id Uuid.decoder)
@@ -85,8 +96,8 @@ decodeRole =
         |> Pipe.required "roleSlug" Decode.string
 
 
-encode : User -> Encode.Value
-encode user =
+encodeUser : User -> Encode.Value
+encodeUser user =
     Encode.object
         [ ( "email", user.email |> Encode.string )
         , ( "id", user.id |> encodeId )
@@ -119,4 +130,15 @@ encodeRole role =
     Encode.object
         [ ( "roleName", role.roleName |> Encode.string )
         , ( "roleSlug", role.roleSlug |> Encode.string )
+        ]
+
+
+encodeSignupForm : SignupForm -> Encode.Value
+encodeSignupForm form =
+    Encode.object
+        [ ( "email", form.email |> Encode.string )
+        , ( "firstName", form.firstName |> Encode.string )
+        , ( "lastName", form.lastName |> Encode.string )
+        , ( "organization", form.organization |> Encode.string )
+        , ( "termsAccepted", form.termsAccepted |> Encode.bool )
         ]
