@@ -9,6 +9,11 @@ import Http
 import Json.Encode as Encode
 
 
+endpoint : Session -> String -> String
+endpoint session path =
+    String.join "/" [ session.backendApiUrl, "api/access/magic_link", path ]
+
+
 {-| Request an authentication email
 -}
 requestAuthEmail : Session -> (Result Http.Error () -> msg) -> String -> Cmd msg
@@ -16,7 +21,7 @@ requestAuthEmail session event email =
     Http.post
         { body = Http.jsonBody <| Encode.object [ ( "email", email |> Encode.string ) ]
         , expect = Http.expectWhatever event
-        , url = session.backendApiUrl ++ "access/magic_link/login"
+        , url = endpoint session "login"
         }
 
 
@@ -27,5 +32,5 @@ signup session event signupForm =
     Http.post
         { body = Http.jsonBody <| User.encodeSignupForm signupForm
         , expect = Http.expectJson event User.decodeUser
-        , url = session.backendApiUrl ++ "access/magic_link/signup"
+        , url = endpoint session "signup"
         }
