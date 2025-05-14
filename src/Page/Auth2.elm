@@ -7,6 +7,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Http
+import Regex
 import Request.Auth2 as Auth
 import Request.Common as RequestCommon
 import Views.Container as Container
@@ -125,7 +126,7 @@ viewSignupForm { signupForm, signupFormErrors } =
     Html.form [ onSubmit SignupSubmitted ]
         [ div [ class "mb-3" ]
             [ label [ for "email", class "form-label" ]
-                [ text "Email", span [ class "text-danger" ] [ text "*" ] ]
+                [ text "Email" ]
             , input
                 [ type_ "email"
                 , class "form-control"
@@ -143,7 +144,7 @@ viewSignupForm { signupForm, signupFormErrors } =
             [ div [ class "col-md-6" ]
                 [ div [ class "mb-3" ]
                     [ label [ for "firstName", class "form-label" ]
-                        [ text "Prénom", span [ class "text-danger" ] [ text "*" ] ]
+                        [ text "Prénom" ]
                     , input
                         [ type_ "text"
                         , class "form-control"
@@ -161,7 +162,7 @@ viewSignupForm { signupForm, signupFormErrors } =
             , div [ class "col-md-6" ]
                 [ div [ class "mb-3" ]
                     [ label [ for "lastName", class "form-label" ]
-                        [ text "Nom", span [ class "text-danger" ] [ text "*" ] ]
+                        [ text "Nom" ]
                     , input
                         [ type_ "text"
                         , class "form-control"
@@ -179,7 +180,7 @@ viewSignupForm { signupForm, signupFormErrors } =
             ]
         , div [ class "mb-3" ]
             [ label [ for "organization", class "form-label" ]
-                [ text "Organisation", span [ class "text-danger" ] [ text "*" ] ]
+                [ text "Organisation" ]
             , input
                 [ type_ "text"
                 , class "form-control"
@@ -205,7 +206,7 @@ viewSignupForm { signupForm, signupFormErrors } =
                 ]
                 []
             , label [ class "form-check-label", for "termsAccepted" ]
-                [ text "J'accepte les conditions d'utilisation du service", span [ class "text-danger" ] [ text "*" ] ]
+                [ text "J'accepte les conditions d'utilisation du service" ]
             , viewFieldError "termsAccepted" signupFormErrors
             ]
         , div [ class "d-grid" ]
@@ -233,16 +234,24 @@ viewFieldError field errors =
 validateForm : SignupForm -> FormErrors
 validateForm form =
     let
-        addErrorIf field bool =
-            if bool then
-                Dict.insert field <| "Le champ est obligatoire"
+        requiredMsg =
+            "Le champ est obligatoire"
+
+        addErrorIf field msg check =
+            if check then
+                Dict.insert field msg
 
             else
-                Dict.remove field
+                identity
     in
     Dict.empty
-        |> addErrorIf "termsAccepted" (not form.termsAccepted)
-        |> addErrorIf "email" (String.isEmpty form.email)
-        |> addErrorIf "firstName" (String.isEmpty form.firstName)
-        |> addErrorIf "lastName" (String.isEmpty form.lastName)
-        |> addErrorIf "organization" (String.isEmpty form.organization)
+        |> addErrorIf "email"
+            "L'adresse e-mail est invalide"
+            (Regex.fromString "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+                |> Maybe.map (\re -> form.email |> Regex.contains re |> not)
+                |> Maybe.withDefault False
+            )
+        |> addErrorIf "firstName" requiredMsg (String.isEmpty form.firstName)
+        |> addErrorIf "lastName" requiredMsg (String.isEmpty form.lastName)
+        |> addErrorIf "organization" requiredMsg (String.isEmpty form.organization)
+        |> addErrorIf "termsAccepted" requiredMsg (not form.termsAccepted)
