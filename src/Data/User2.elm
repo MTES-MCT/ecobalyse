@@ -18,7 +18,7 @@ type Id
 type alias User =
     -- {
     --     "email": "user@tld.org",
-    --     "id": "8c1f1647-ecbd-4fe6-a11b-0a049cc46d9f",
+    --     "id": "8c1f1647-eccd-4fe6-a11b-0a049cc46d9f",
     --     "isActive": true,
     --     "isSuperuser": false,
     --     "isVerified": false,
@@ -38,7 +38,7 @@ type alias User =
     , isVerified : Bool
     , magicLinkSentAt : Maybe String
     , profile : Profile
-    , roles : List String
+    , roles : List Role
     , termsAccepted : Bool
     }
 
@@ -47,6 +47,12 @@ type alias Profile =
     { firstName : String
     , lastName : String
     , organization : String
+    }
+
+
+type alias Role =
+    { roleName : String
+    , roleSlug : String
     }
 
 
@@ -60,7 +66,7 @@ decode =
         |> Pipe.required "isVerified" Decode.bool
         |> DU.strictOptional "magicLinkSentAt" Decode.string
         |> Pipe.required "profile" decodeProfile
-        |> Pipe.required "roles" (Decode.list Decode.string)
+        |> Pipe.required "roles" (Decode.list decodeRole)
         |> Pipe.required "termsAccepted" Decode.bool
 
 
@@ -70,6 +76,13 @@ decodeProfile =
         |> Pipe.required "firstName" Decode.string
         |> Pipe.required "lastName" Decode.string
         |> Pipe.required "organization" Decode.string
+
+
+decodeRole : Decoder Role
+decodeRole =
+    Decode.succeed Role
+        |> Pipe.required "roleName" Decode.string
+        |> Pipe.required "roleSlug" Decode.string
 
 
 encode : User -> Encode.Value
@@ -82,7 +95,7 @@ encode user =
         , ( "isVerified", user.isVerified |> Encode.bool )
         , ( "magicLinkSentAt", user.magicLinkSentAt |> Maybe.map Encode.string |> Maybe.withDefault Encode.null )
         , ( "profile", user.profile |> encodeProfile )
-        , ( "roles", user.roles |> Encode.list Encode.string )
+        , ( "roles", user.roles |> Encode.list encodeRole )
         , ( "termsAccepted", user.termsAccepted |> Encode.bool )
         ]
 
@@ -98,4 +111,12 @@ encodeProfile profile =
         [ ( "firstName", profile.firstName |> Encode.string )
         , ( "lastName", profile.lastName |> Encode.string )
         , ( "organization", profile.organization |> Encode.string )
+        ]
+
+
+encodeRole : Role -> Encode.Value
+encodeRole role =
+    Encode.object
+        [ ( "roleName", role.roleName |> Encode.string )
+        , ( "roleSlug", role.roleSlug |> Encode.string )
         ]
