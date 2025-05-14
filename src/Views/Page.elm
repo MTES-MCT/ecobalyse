@@ -91,8 +91,8 @@ frame ({ activePage } as config) ( title, content ) =
 
 
 isStaging : Session -> Bool
-isStaging session =
-    String.contains "ecobalyse-pr" session.clientUrl || String.contains "staging-ecobalyse" session.clientUrl
+isStaging { clientUrl } =
+    String.contains "ecobalyse-pr" clientUrl || String.contains "staging-ecobalyse" clientUrl
 
 
 stagingAlert : Config msg -> Html msg
