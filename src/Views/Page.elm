@@ -31,6 +31,7 @@ type ActivePage
     = Admin
     | Api
     | Auth
+    | Auth2
     | Editorial String
     | Explore
     | FoodBuilder
