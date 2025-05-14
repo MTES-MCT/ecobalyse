@@ -13,7 +13,7 @@ import Views.Container as Container
 
 
 type alias Model =
-    { formErrors : Dict String String
+    { signupFormErrors : FormErrors
     , signupForm : SignupForm
     }
 
@@ -28,9 +28,13 @@ type Msg
     | UpdateTermsAccepted Bool
 
 
+type alias FormErrors =
+    Dict String String
+
+
 init : Session -> ( Model, Session, Cmd Msg )
 init session =
-    ( { formErrors = Dict.empty
+    ( { signupFormErrors = Dict.empty
       , signupForm = User.emptySignupForm
       }
     , session
@@ -82,7 +86,14 @@ update session msg model =
 
 updateForm : Session -> (SignupForm -> SignupForm) -> Model -> ( Model, Session, Cmd Msg )
 updateForm session transform model =
-    ( { model | signupForm = transform model.signupForm }
+    let
+        newSignupForm =
+            transform model.signupForm
+    in
+    ( { model
+        | signupForm = newSignupForm
+        , signupFormErrors = validateForm newSignupForm
+      }
     , session
     , Cmd.none
     )
@@ -110,79 +121,79 @@ view _ model =
 
 
 viewSignupForm : Model -> Html Msg
-viewSignupForm { signupForm, formErrors } =
+viewSignupForm { signupForm, signupFormErrors } =
     Html.form [ onSubmit SignupSubmitted ]
         [ div [ class "mb-3" ]
             [ label [ for "email", class "form-label" ]
-                [ text "Email" ]
+                [ text "Email*" ]
             , input
                 [ type_ "email"
                 , class "form-control"
-                , classList [ ( "is-invalid", Dict.member "email" formErrors ) ]
+                , classList [ ( "is-invalid", Dict.member "email" signupFormErrors ) ]
                 , id "email"
                 , value signupForm.email
                 , onInput UpdateEmail
                 , required True
                 ]
                 []
-            , viewFieldError "email" formErrors
+            , viewFieldError "email" signupFormErrors
             ]
         , div [ class "row" ]
             [ div [ class "col-md-6" ]
                 [ div [ class "mb-3" ]
                     [ label [ for "firstName", class "form-label" ]
-                        [ text "Prénom" ]
+                        [ text "Prénom*" ]
                     , input
                         [ type_ "text"
                         , class "form-control"
-                        , classList [ ( "is-invalid", Dict.member "firstName" formErrors ) ]
+                        , classList [ ( "is-invalid", Dict.member "firstName" signupFormErrors ) ]
                         , id "firstName"
                         , value signupForm.firstName
                         , onInput UpdateFirstName
                         , required True
                         ]
                         []
-                    , viewFieldError "firstName" formErrors
+                    , viewFieldError "firstName" signupFormErrors
                     ]
                 ]
             , div [ class "col-md-6" ]
                 [ div [ class "mb-3" ]
                     [ label [ for "lastName", class "form-label" ]
-                        [ text "Nom" ]
+                        [ text "Nom*" ]
                     , input
                         [ type_ "text"
                         , class "form-control"
-                        , classList [ ( "is-invalid", Dict.member "lastName" formErrors ) ]
+                        , classList [ ( "is-invalid", Dict.member "lastName" signupFormErrors ) ]
                         , id "lastName"
                         , value signupForm.lastName
                         , onInput UpdateLastName
                         , required True
                         ]
                         []
-                    , viewFieldError "lastName" formErrors
+                    , viewFieldError "lastName" signupFormErrors
                     ]
                 ]
             ]
         , div [ class "mb-3" ]
             [ label [ for "organization", class "form-label" ]
-                [ text "Organisation" ]
+                [ text "Organisation*" ]
             , input
                 [ type_ "text"
                 , class "form-control"
-                , classList [ ( "is-invalid", Dict.member "organization" formErrors ) ]
+                , classList [ ( "is-invalid", Dict.member "organization" signupFormErrors ) ]
                 , id "organization"
                 , value signupForm.organization
                 , onInput UpdateOrganization
                 , required True
                 ]
                 []
-            , viewFieldError "organization" formErrors
+            , viewFieldError "organization" signupFormErrors
             ]
         , div [ class "mb-3 form-check" ]
             [ input
                 [ type_ "checkbox"
                 , class "form-check-input"
-                , classList [ ( "is-invalid", Dict.member "termsAccepted" formErrors ) ]
+                , classList [ ( "is-invalid", Dict.member "termsAccepted" signupFormErrors ) ]
                 , id "termsAccepted"
                 , checked signupForm.termsAccepted
                 , onCheck UpdateTermsAccepted
@@ -190,21 +201,21 @@ viewSignupForm { signupForm, formErrors } =
                 ]
                 []
             , label [ class "form-check-label", for "termsAccepted" ]
-                [ text "J'accepte les conditions d'utilisation du service" ]
-            , viewFieldError "termsAccepted" formErrors
+                [ text "J'accepte les conditions d'utilisation du service*" ]
+            , viewFieldError "termsAccepted" signupFormErrors
             ]
         , div [ class "d-grid" ]
             [ button
                 [ type_ "submit"
                 , class "btn btn-primary"
-                , disabled (not (isValidForm signupForm))
+                , disabled <| signupForm == User.emptySignupForm || signupFormErrors /= Dict.empty
                 ]
-                [ text "S'inscrire" ]
+                [ text "Valider mon inscription" ]
             ]
         ]
 
 
-viewFieldError : String -> Dict String String -> Html msg
+viewFieldError : String -> FormErrors -> Html msg
 viewFieldError field errors =
     case Dict.get field errors of
         Just error ->
@@ -215,14 +226,19 @@ viewFieldError field errors =
             text ""
 
 
-isValidForm : SignupForm -> Bool
-isValidForm form =
-    String.length form.email
-        > 0
-        && String.length form.firstName
-        > 0
-        && String.length form.lastName
-        > 0
-        && String.length form.organization
-        > 0
-        && form.termsAccepted
+validateForm : SignupForm -> FormErrors
+validateForm form =
+    let
+        addErrorIf field bool =
+            if bool then
+                Dict.insert field <| "Le champ est obligatoire"
+
+            else
+                Dict.remove field
+    in
+    Dict.empty
+        |> addErrorIf "termsAccepted" (not form.termsAccepted)
+        |> addErrorIf "email" (String.isEmpty form.email)
+        |> addErrorIf "firstName" (String.isEmpty form.firstName)
+        |> addErrorIf "lastName" (String.isEmpty form.lastName)
+        |> addErrorIf "organization" (String.isEmpty form.organization)
