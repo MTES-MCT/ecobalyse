@@ -14,6 +14,7 @@ import Http
 import Page.Admin as Admin
 import Page.Api as Api
 import Page.Auth as Auth
+import Page.Auth2 as Auth2
 import Page.Editorial as Editorial
 import Page.Explore as Explore
 import Page.Food as FoodBuilder
@@ -46,6 +47,7 @@ type alias Flags =
 type Page
     = AdminPage Admin.Model
     | ApiPage Api.Model
+    | Auth2Page Auth2.Model
     | AuthPage Auth.Model
     | EditorialPage Editorial.Model
     | ExplorePage Explore.Model
@@ -77,6 +79,7 @@ type alias Model =
 type Msg
     = AdminMsg Admin.Msg
     | ApiMsg Api.Msg
+    | Auth2Msg Auth2.Msg
     | AuthMsg Auth.Msg
     | CloseMobileNavigation
     | CloseNotification Session.Notification
@@ -206,6 +209,10 @@ setRoute url ( { state } as model, cmds ) =
                     Api.init session
                         |> toPage ApiPage ApiMsg
 
+                Just Route.Auth2 ->
+                    Auth2.init session
+                        |> toPage Auth2Page Auth2Msg
+
                 Just (Route.Auth data) ->
                     Auth.init session data
                         |> toPage AuthPage AuthMsg
@@ -300,6 +307,10 @@ update rawMsg ({ state } as model) =
                 ( ApiMsg apiMsg, ApiPage apiModel ) ->
                     Api.update session apiMsg apiModel
                         |> toPage ApiPage ApiMsg
+
+                ( Auth2Msg auth2Msg, Auth2Page auth2Model ) ->
+                    Auth2.update session auth2Msg auth2Model
+                        |> toPage Auth2Page Auth2Msg
 
                 ( AuthMsg authMsg, AuthPage authModel ) ->
                     Auth.update session authMsg authModel
@@ -521,6 +532,11 @@ view { mobileNavigationOpened, state } =
                     Api.view session examplesModel
                         |> mapMsg ApiMsg
                         |> Page.frame (pageConfig Page.Api)
+
+                Auth2Page auth2Model ->
+                    Auth2.view session auth2Model
+                        |> mapMsg Auth2Msg
+                        |> Page.frame (pageConfig Page.Auth2)
 
                 AuthPage authModel ->
                     Auth.view session authModel

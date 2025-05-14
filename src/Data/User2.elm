@@ -2,6 +2,7 @@ module Data.User2 exposing
     ( SignupForm
     , User
     , decodeUser
+    , emptySignupForm
     , encodeSignupForm
     , encodeUser
     )
@@ -94,6 +95,16 @@ decodeRole =
     Decode.succeed Role
         |> Pipe.required "roleName" Decode.string
         |> Pipe.required "roleSlug" Decode.string
+
+
+emptySignupForm : SignupForm
+emptySignupForm =
+    { email = ""
+    , firstName = ""
+    , lastName = ""
+    , organization = ""
+    , termsAccepted = False
+    }
 
 
 encodeUser : User -> Encode.Value
