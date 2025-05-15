@@ -46,7 +46,7 @@ init session =
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update session msg model =
     case msg of
-        SignupResponse (Ok user) ->
+        SignupResponse (Ok _) ->
             ( model
             , session
                 -- TODO: update session with user info

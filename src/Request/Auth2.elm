@@ -10,8 +10,8 @@ import Json.Encode as Encode
 
 
 endpoint : Session -> String -> String
-endpoint session path =
-    String.join "/" [ session.backendApiUrl, "api/access/magic_link", path ]
+endpoint { backendApiUrl } path =
+    String.join "/" [ backendApiUrl, "api/access/magic_link", path ]
 
 
 {-| Request an authentication email
