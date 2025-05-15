@@ -19,21 +19,25 @@ type alias Model =
     }
 
 
+type alias Email =
+    String
+
+
 type Msg
     = LoginResponse (Result Http.Error ())
     | LoginSubmit
     | SignupResponse (Result Http.Error User)
     | SignupSubmit
     | SwitchTab Tab
-    | UpdateLoginForm String
+    | UpdateLoginForm Email
     | UpdateSignupForm SignupForm
 
 
 type Tab
-    = Login String
-    | LoginEmailSent String
+    = Login Email
+    | LoginEmailSent Email
     | Signup SignupForm FormErrors
-    | SignupCompleted String
+    | SignupCompleted Email
 
 
 init : Session -> ( Model, Session, Cmd Msg )
@@ -193,7 +197,7 @@ viewTab currentTab =
         ]
 
 
-viewLoginForm : String -> Html Msg
+viewLoginForm : Email -> Html Msg
 viewLoginForm email =
     Html.form [ onSubmit LoginSubmit ]
         [ div [ class "mb-3" ]
@@ -221,7 +225,7 @@ viewLoginForm email =
         ]
 
 
-viewLoginEmailSent : String -> Html msg
+viewLoginEmailSent : Email -> Html msg
 viewLoginEmailSent email =
     div [ class "alert alert-info mb-0" ]
         [ h2 [ class "h5" ] [ text "Email de connexion envoyé" ]
@@ -231,7 +235,7 @@ viewLoginEmailSent email =
         ]
 
 
-viewSignupCompleted : String -> Html Msg
+viewSignupCompleted : Email -> Html Msg
 viewSignupCompleted email =
     div [ class "alert alert-info mb-0" ]
         [ h2 [ class "h5" ] [ text "Inscription réussie" ]
