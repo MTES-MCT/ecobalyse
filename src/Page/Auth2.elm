@@ -2,19 +2,19 @@ module Page.Auth2 exposing (Model, Msg(..), init, update, view)
 
 import Data.Session as Session exposing (Session)
 import Data.User2 as User exposing (SignupForm, User)
-import Dict exposing (Dict)
+import Dict
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Http
-import Regex
 import Request.Auth2 as Auth
 import Request.Common as RequestCommon
 import Views.Container as Container
 
 
 type alias Model =
-    { signupFormErrors : FormErrors
+    { tab : Tab
+    , signupFormErrors : User.FormErrors
     , signupForm : SignupForm
     }
 
@@ -22,6 +22,7 @@ type alias Model =
 type Msg
     = SignupResponse (Result Http.Error User)
     | SignupSubmitted
+    | SwitchTab Tab
     | UpdateEmail String
     | UpdateFirstName String
     | UpdateLastName String
@@ -29,13 +30,15 @@ type Msg
     | UpdateTermsAccepted Bool
 
 
-type alias FormErrors =
-    Dict String String
+type Tab
+    = AuthenticationTab
+    | RegistrationTab
 
 
 init : Session -> ( Model, Session, Cmd Msg )
 init session =
-    ( { signupFormErrors = Dict.empty
+    ( { tab = RegistrationTab
+      , signupFormErrors = Dict.empty
       , signupForm = User.emptySignupForm
       }
     , session
@@ -66,12 +69,15 @@ update session msg model =
         SignupSubmitted ->
             ( model
             , session
-            , if validateForm model.signupForm == Dict.empty then
+            , if User.validateSignupForm model.signupForm == Dict.empty then
                 Auth.signup session SignupResponse model.signupForm
 
               else
                 Cmd.none
             )
+
+        SwitchTab tab ->
+            ( { model | tab = tab }, session, Cmd.none )
 
         UpdateEmail email ->
             model |> updateForm session (\form -> { form | email = email })
@@ -217,7 +223,7 @@ viewSignupForm { signupForm, signupFormErrors } =
         ]
 
 
-viewFieldError : String -> FormErrors -> Html msg
+viewFieldError : String -> User.FormErrors -> Html msg
 viewFieldError field errors =
     case Dict.get field errors of
         Just error ->
@@ -226,29 +232,3 @@ viewFieldError field errors =
 
         Nothing ->
             text ""
-
-
-validateForm : SignupForm -> FormErrors
-validateForm form =
-    let
-        requiredMsg =
-            "Le champ est obligatoire"
-
-        addErrorIf field msg check =
-            if check then
-                Dict.insert field msg
-
-            else
-                identity
-    in
-    Dict.empty
-        |> addErrorIf "email"
-            "L'adresse e-mail est invalide"
-            (Regex.fromString "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
-                |> Maybe.map (\re -> form.email |> Regex.contains re |> not)
-                |> Maybe.withDefault False
-            )
-        |> addErrorIf "firstName" requiredMsg (String.isEmpty form.firstName)
-        |> addErrorIf "lastName" requiredMsg (String.isEmpty form.lastName)
-        |> addErrorIf "organization" requiredMsg (String.isEmpty form.organization)
-        |> addErrorIf "termsAccepted" requiredMsg (not form.termsAccepted)
