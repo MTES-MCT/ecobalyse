@@ -59,8 +59,8 @@ Les étapes et analyses suivantes ne sont à ce stade pas prises en compte :
 [transport-vehicules.md](../../pages-en-cours-de-revue/transport/transport-vehicules.md)
 {% endcontent-ref %}
 
-{% content-ref url="utilisation-energie-et-emissions-directes/" %}
-[utilisation-energie-et-emissions-directes](utilisation-energie-et-emissions-directes/)
+{% content-ref url="consommation-denergie/" %}
+[consommation-denergie](consommation-denergie/)
 {% endcontent-ref %}
 
 {% content-ref url="utilisation-des-infrastructures.md" %}
