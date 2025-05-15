@@ -153,12 +153,8 @@ update session msg model =
             )
 
         ( Authenticating, ProfileResponse accessTokenData (Ok user) ) ->
-            let
-                store =
-                    session.store
-            in
             ( { model | tab = Account user }
-            , { session | store = { store | auth2 = Just { accessTokenData = accessTokenData, user = user } } }
+            , session |> Session.setAuth2 (Just { accessTokenData = accessTokenData, user = user })
             , Cmd.none
             )
 
