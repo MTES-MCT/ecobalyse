@@ -1,5 +1,6 @@
 module Data.Session exposing
     ( Auth(..)
+    , Auth2
     , EnabledSections
     , Notification(..)
     , Session
