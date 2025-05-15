@@ -10,8 +10,10 @@ module Data.Session exposing
     , decodeRawStore
     , defaultStore
     , deleteBookmark
+    , getAuth2
     , getUser
     , isAuthenticated
+    , isAuthenticated2
     , isStaff
     , logout
     , notifyError
@@ -266,6 +268,21 @@ encodeAuth2 auth2 =
         [ ( "accessTokenData", User2.encodeAccessTokenData auth2.accessTokenData )
         , ( "user", User2.encodeUser auth2.user )
         ]
+
+
+getAuth2 : Session -> Maybe Auth2
+getAuth2 { store } =
+    store.auth2
+
+
+isAuthenticated2 : Session -> Bool
+isAuthenticated2 { store } =
+    case store.auth2 of
+        Just _ ->
+            True
+
+        Nothing ->
+            False
 
 
 setAuth2 : Maybe Auth2 -> Session -> Session

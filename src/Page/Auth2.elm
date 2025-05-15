@@ -2,6 +2,7 @@ module Page.Auth2 exposing
     ( Model
     , Msg(..)
     , init
+    , initAccount
     , initLogin
     , update
     , view
@@ -61,6 +62,14 @@ type Tab
 init : Session -> ( Model, Session, Cmd Msg )
 init session =
     ( { tab = AskLoginEmail "" }
+    , session
+    , Cmd.none
+    )
+
+
+initAccount : Session -> User -> ( Model, Session, Cmd Msg )
+initAccount session user =
+    ( { tab = Account user }
     , session
     , Cmd.none
     )
