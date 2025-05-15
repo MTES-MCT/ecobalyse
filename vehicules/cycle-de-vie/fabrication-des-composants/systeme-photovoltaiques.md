@@ -1,3 +1,7 @@
+---
+hidden: true
+---
+
 # 💠 Système photovoltaïques
 
 ## Généralités

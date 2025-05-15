@@ -47,7 +47,7 @@ Avec :
 * <mark style="color:red;">`c_i`</mark> <mark style="color:red;"></mark><mark style="color:red;">: la quantité de chaleur nécessaire au procédé i pour 1 kg de tissu, en MJ/kg</mark>
 * <mark style="color:red;">`I_chaleur`</mark> <mark style="color:red;"></mark><mark style="color:red;">: l'impact environnemental de l'électricité pour le pays défini pour l'ennoblissement, dans l'unité de la catégorie d'impact analysée.</mark>
 
-## [Paramètres retenus pour le coût environnemental](#user-content-fn-1)[^1]
+## Paramètres retenus pour le coût environnemental
 
 {% hint style="info" %}
 Les paramètres retenus pour l’affichage environnemental sont présentés dans une partie séparée des formules de calcul, de façon à identifier facilement ce qui relève de la structure et ce qui relève du paramétrage.\
@@ -73,6 +73,3 @@ Les procédés utilisés sont identifiés dans l'[Explorateur de procédé](http
 \[optionnel mais utile] Application à un exemple, pour permettre une meilleure compréhension au lecteur
 {% endhint %}
 
-
-
-[^1]: Suggestion pour simplifier ⇒ "Paramètres mobilisés""

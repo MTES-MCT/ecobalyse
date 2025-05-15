@@ -4,11 +4,11 @@ description: >-
   traités dans les sections précédentes.
 ---
 
-# ⛓️ Autres composants
+# ⛓️ Autres composants, non quantifiés
 
-## Généralités
+## Contexte
 
-Un véhicule est composé d'un grand nombre de composants supplémentaires non quantifiés directement dans Ecobalyse, notamment :
+Un véhicule est composé d'un grand nombre de composants non quantifiable de façon simple, notamment :
 
 * composants électroniques (chargeur, écran, compteur, ...),
 * transmissions (courroie, chaine, cardan selon les véhicules) et freins,
@@ -17,13 +17,11 @@ Un véhicule est composé d'un grand nombre de composants supplémentaires non q
 
 Il est difficile de quantifier leur coût environnemental de façon exhaustive et précise, d'une part en raison de la difficulté à en faire un inventaire complet, et d'autre part en raison de la difficulté à modéliser les composants concernés, souvent composés de divers matériaux (métaux, plastiques, électronique).
 
-Le groupe de travail constitué de constructeurs de véhicules intermédiaire a retenu comme hypothèse que ces composants sont composés de 40% d'acier inoxydable, de 30% de plastiques et de 30% de composants électroniques.
+Un groupe de travail constitué de constructeurs de véhicules intermédiaire a retenu comme hypothèse pour ces véhicules que ces composants sont constitués de 40% d'acier inoxydable, de 30% de plastiques et de 30% de composants électroniques. La même hypothèse est retenue pour les autres véhicules, excepté pour les véhicules non motorisés.
 
-## Modélisation Ecobalyse
+## Méthode de calcul <a href="#methodologie-de-calcul" id="methodologie-de-calcul"></a>
 
-### Méthodologie de calcul <a href="#methodologie-de-calcul" id="methodologie-de-calcul"></a>
-
-Le cout environnemental de ces composants est calculé de la façon suivante :&#x20;
+Ces composants sont modélisés avec trois modules composants dont la somme des masses m\_autre est définie comme la différence entre le poids du véhicule et la somme des poids de l'ensemble des composants quantifiés&#x20;
 
 $$
 Impact_j =\Big(Ptot-\sum_{
@@ -34,12 +32,18 @@ $$
 
 Avec :
 
-* Impact\_j : L'impact environnemental des composants non quantifiés directement, sur la catégorie d'impact j
+* I : L'impact environnemental des composants non quantifiés directement, sur la catégorie d'impact j
 * Ptot : le poids total du véhicule, en kg
 * Pi : le poids des composants quantifiés directement, en kg
-* ICV\_j : l'impact environnemental pour 1kg du procédé modélisant les autres composants sur la catégorie d'impact j
+* I\_autres-composants : l'impact environnemental pour 1kg du procédé modélisant les autres composants sur la catégorie d'impact j
 
-### Procédé utilisé
+## Paramètres retenus pour le coût environnemental
+
+### Origine des composants non quantifiés
+
+L'origine des composants non quantifiés directement est définie comme `inconnue` pour le calcul du coût environnemental du transport des composants.
+
+## Procédés utilisés pour le coût environnemental
 
 Un procédé spécifique est modélisé, à partir des procédés Ecoinvent suivants :&#x20;
 
@@ -55,6 +59,4 @@ Un procédé spécifique est modélisé, à partir des procédés Ecoinvent suiv
 
 NB : les éventuelles pertes sont intégrées dans la modélisation des trois procédés utilisés.
 
-### Origine des composants non quantifiés
-
-L'origine des composants non quantifiés directement est définie comme inconnue pour le calcul du coût environnemental du transport des composants.
+###

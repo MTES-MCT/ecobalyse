@@ -2,6 +2,7 @@
 description: >-
   Cette page décrit les composants spécifiques aux véhicules, non traités dans
   les sections précédentes.
+hidden: true
 ---
 
 # 🛞 Jantes / Roues

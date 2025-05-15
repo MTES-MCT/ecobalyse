@@ -1,5 +1,6 @@
 ---
 description: Prise en compte des émissions relatives à l'usure des pneus
+hidden: true
 ---
 
 # 🛞 Usures des pneus et freins

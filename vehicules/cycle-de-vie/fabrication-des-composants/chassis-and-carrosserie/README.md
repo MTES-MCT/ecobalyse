@@ -2,6 +2,7 @@
 description: >-
   Cette page décrit les méthodes pour le calcul du coût environnemental du
   châssis et de la carrosserie des véhicules.
+hidden: true
 ---
 
 # 🚙 Châssis & carrosserie
@@ -63,7 +64,7 @@ Dès lors, Ecobalyse se concentre sur la mise à disposition de "procédés gén
 **Vous souhaitez contribuer** sur la création/enrichissement de tels procédés ?   N'hésitez pas à partager vos retours :&#x20;
 
 * sur la plateforme [Mattermost](https://fabrique-numerique.gitbook.io/ecobalyse/communaute),
-* directement par mail[^2].&#x20;
+* directement par mail[^1].&#x20;
 
 </details>
 
@@ -290,5 +291,3 @@ Il est modélisé de la façon suivante :&#x20;
 <mark style="color:red;">**A compléter + uniformiser avec Ameublement**</mark>
 
 [^1]: alban.fournier@beta.gouv.fr
-
-[^2]: alban.fournier@beta.gouv.fr

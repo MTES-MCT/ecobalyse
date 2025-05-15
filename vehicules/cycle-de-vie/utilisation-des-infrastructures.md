@@ -1,5 +1,6 @@
 ---
 description: Prise en compte des infrastructures utilisées par les véhicules
+hidden: true
 ---
 
 # 🛣️ Utilisation des infrastructures

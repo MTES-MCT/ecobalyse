@@ -1,3 +1,7 @@
+---
+hidden: true
+---
+
 # Calcul de la durabilité
 
 ## Contexte

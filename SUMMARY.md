@@ -230,20 +230,20 @@
 * [Durabilité](durabilite.md)
 * [🚚 Transport](transport.md)
 
-## 🛺 Autres travaux en cours <a href="#vehicules" id="vehicules"></a>
+## 🛺 Véhicules
 
 * [Cycle de vie](vehicules/cycle-de-vie/README.md)
   * [🔧 Fabrication des composants](vehicules/cycle-de-vie/fabrication-des-composants/README.md)
+    * [🔋 Batterie](vehicules/cycle-de-vie/fabrication-des-composants/batterie.md)
+    * [⛓️ Autres composants, non quantifiés](vehicules/cycle-de-vie/fabrication-des-composants/autres-composants-non-quantifies.md)
     * [🚙 Châssis & carrosserie](vehicules/cycle-de-vie/fabrication-des-composants/chassis-and-carrosserie/README.md)
       * [🔩 Acier et Aluminium - Méthodes détaillées](vehicules/cycle-de-vie/fabrication-des-composants/chassis-and-carrosserie/acier-et-aluminium-methodes-detaillees.md)
       * [⚙️ Transformation / Finition](vehicules/cycle-de-vie/fabrication-des-composants/chassis-and-carrosserie/transformation-finition.md)
-    * [🔋 Batterie](vehicules/cycle-de-vie/fabrication-des-composants/batterie.md)
     * [⚙️ Moteur](vehicules/cycle-de-vie/fabrication-des-composants/moteur.md)
     * [🛞 Pneumatiques](vehicules/cycle-de-vie/fabrication-des-composants/pneumatiques.md)
     * [🛞 Jantes / Roues](vehicules/cycle-de-vie/fabrication-des-composants/jantes-roues.md)
     * [💺 Assise](vehicules/cycle-de-vie/fabrication-des-composants/assise.md)
     * [💠 Système photovoltaïques](vehicules/cycle-de-vie/fabrication-des-composants/systeme-photovoltaiques.md)
-    * [⛓️ Autres composants](vehicules/cycle-de-vie/fabrication-des-composants/autres-composants.md)
   * [🪛 Assemblage](vehicules/cycle-de-vie/assemblage.md)
   * [⚡ Consommation d'énergie](vehicules/cycle-de-vie/consommation-denergie/README.md)
     * [🚴 Energie apportée par pédalage](vehicules/cycle-de-vie/consommation-denergie/energie-apportee-par-pedalage.md)
