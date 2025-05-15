@@ -22,8 +22,8 @@ Voir page dédiée :
 
 Voir page dédiée :
 
-{% content-ref url="../../../ameublement/cycle-de-vie/etape-1-fabrication-des-composants/autres-composants.md" %}
-[autres-composants.md](../../../ameublement/cycle-de-vie/etape-1-fabrication-des-composants/autres-composants.md)
+{% content-ref url="autres-composants-non-quantifies.md" %}
+[autres-composants-non-quantifies.md](autres-composants-non-quantifies.md)
 {% endcontent-ref %}
 
 ## Paramètres retenus pour le coût environnemental

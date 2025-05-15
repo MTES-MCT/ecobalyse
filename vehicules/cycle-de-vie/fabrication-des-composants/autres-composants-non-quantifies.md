@@ -1,7 +1,7 @@
 ---
 description: >-
   Cette page décrit comment sont modélisés les composants du véhicule non
-  traités dans les sections précédentes.
+  quantifiables.
 ---
 
 # ⛓️ Autres composants, non quantifiés
@@ -21,23 +21,35 @@ Un groupe de travail constitué de constructeurs de véhicules intermédiaire a 
 
 ## Méthode de calcul <a href="#methodologie-de-calcul" id="methodologie-de-calcul"></a>
 
-Ces composants sont modélisés avec trois modules composants dont la somme des masses m\_autre est définie comme la différence entre le poids du véhicule et la somme des poids de l'ensemble des composants quantifiés&#x20;
+Ces composants sont modélisés avec trois `modules composants Ecobalyse` :&#x20;
+
+* Autres composants - métaux, de masse `m_autres,métaux`
+* Autres composants - plastiques, de masse `m_autres,plastiques`
+* Autres composants - électronique et matériaux complexes, de masse `m_autres,électronique`
+
+dont la somme des masses `m_autre` est définie comme la différence entre le poids du véhicule et la somme des poids de l'ensemble des composants quantifiés.
 
 $$
-Impact_j =\Big(Ptot-\sum_{
-\begin{subarray}{l}
-   i
-\end{subarray}}P_i\Big)*ICV_j
+m_{autres,métaux} =R_{metaux}*m_{autres}
 $$
 
-Avec :
+$$
+m_{autres,plastiques} =R_{plastiques}*m_{autres}
+$$
 
-* I : L'impact environnemental des composants non quantifiés directement, sur la catégorie d'impact j
-* Ptot : le poids total du véhicule, en kg
-* Pi : le poids des composants quantifiés directement, en kg
-* I\_autres-composants : l'impact environnemental pour 1kg du procédé modélisant les autres composants sur la catégorie d'impact j
+$$
+m_{autres,electronique} =R_{electronique}*m_{autres}
+$$
+
+Avec `R_metaux`, `R_plastiques` et `R_electronique` les ratios de métaux, de plastiques et d'électronique supposés parmi les composants non quantifiés.
 
 ## Paramètres retenus pour le coût environnemental
+
+### Ratios de métaux, de plastiques et d'électronique
+
+* `R_metaux` = 0.4,
+* `R_plastiques` = 0.3,
+* `R_electronique` = 0.3.
 
 ### Origine des composants non quantifiés
 
@@ -45,18 +57,4 @@ L'origine des composants non quantifiés directement est définie comme `inconnu
 
 ## Procédés utilisés pour le coût environnemental
 
-Un procédé spécifique est modélisé, à partir des procédés Ecoinvent suivants :&#x20;
-
-* Acier inoxydable\
-  Procédé Ecobalyse Acier inoxydable\
-  0.4kg
-* Plastiques\
-  Procédé Ecobalyse Plastique PP (polypropylene)\
-  0.3kg
-* Composants électroniques\
-  Procédé Ecoinvent "electronic component production, passive, unspecified, GLO"\
-  0.3kg
-
-NB : les éventuelles pertes sont intégrées dans la modélisation des trois procédés utilisés.
-
-###
+Les procédés utilisés sont identifiés dans l'<mark style="color:red;">Explorateur de composants et l'Explorateur de procédés</mark>.
