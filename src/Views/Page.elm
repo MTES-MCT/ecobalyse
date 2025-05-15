@@ -396,12 +396,19 @@ pageHeader { session, activePage, openMobileNavigation, loadUrl, switchVersion }
                       else
                         text "Connexion ou inscription"
                     ]
-                , a
-                    [ class "d-none d-sm-block flex-fill text-end"
-                    , Route.href Route.Auth2
-                    ]
-                    [ text "New auth"
-                    ]
+                , if Session.isAuthenticated2 session then
+                    a
+                        [ class "d-none d-sm-block flex-fill text-end"
+                        , Route.href Route.Auth2Account
+                        ]
+                        [ text "Mon compte (new auth)" ]
+
+                  else
+                    a
+                        [ class "d-none d-sm-block flex-fill text-end"
+                        , Route.href Route.Auth2
+                        ]
+                        [ text "Connexion ou inscription (new auth)" ]
                 ]
             ]
         , Container.fluid [ class "border-top" ]
