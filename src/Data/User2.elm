@@ -1,21 +1,21 @@
 module Data.User2 exposing
-    ( SignupForm
+    ( FormErrors
+    , SignupForm
     , User
     , decodeUser
     , emptySignupForm
     , encodeSignupForm
     , encodeUser
+    , validateSignupForm
     )
 
 import Data.Common.DecodeUtils as DU
 import Data.Uuid as Uuid exposing (Uuid)
+import Dict exposing (Dict)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
-
-
-type Id
-    = Id Uuid
+import Regex
 
 
 type alias User =
@@ -51,6 +51,14 @@ type alias SignupForm =
     , organization : String
     , termsAccepted : Bool
     }
+
+
+type Id
+    = Id Uuid
+
+
+type alias FormErrors =
+    Dict String String
 
 
 decodeUser : Decoder User
@@ -138,3 +146,29 @@ encodeSignupForm form =
         , ( "organization", form.organization |> Encode.string )
         , ( "termsAccepted", form.termsAccepted |> Encode.bool )
         ]
+
+
+validateSignupForm : SignupForm -> FormErrors
+validateSignupForm form =
+    let
+        requiredMsg =
+            "Le champ est obligatoire"
+
+        addErrorIf field msg check =
+            if check then
+                Dict.insert field msg
+
+            else
+                identity
+    in
+    Dict.empty
+        |> addErrorIf "email"
+            "L'adresse e-mail est invalide"
+            (Regex.fromString "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+                |> Maybe.map (\re -> form.email |> Regex.contains re |> not)
+                |> Maybe.withDefault False
+            )
+        |> addErrorIf "firstName" requiredMsg (String.isEmpty form.firstName)
+        |> addErrorIf "lastName" requiredMsg (String.isEmpty form.lastName)
+        |> addErrorIf "organization" requiredMsg (String.isEmpty form.organization)
+        |> addErrorIf "termsAccepted" requiredMsg (not form.termsAccepted)
