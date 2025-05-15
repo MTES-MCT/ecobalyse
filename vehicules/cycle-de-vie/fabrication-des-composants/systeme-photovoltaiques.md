@@ -10,7 +10,7 @@ Une partie des constructeurs intègrent un système photovoltaïque sur le toit 
 
 Cette section présente les méthodes de calcul de l'impact environnemental de la fabrication du système photovoltaïque.
 
-Les méthodes associées à la réduction du besoin de recharge sont détaillée dans la [partie utilisation du véhicule](../consommation-denergie/).
+Les méthodes associées à la réduction du besoin de recharge sont détaillée dans la [partie utilisation du véhicule](../utilisation-energie-et-emissions-directes/).
 
 ## Modélisation Ecobalyse
 

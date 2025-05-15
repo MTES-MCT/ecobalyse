@@ -1,3 +1,7 @@
+---
+hidden: true
+---
+
 # 🪛 Assemblage
 
 L'assemblage des véhicules par les constructeurs nécessite de l'énergie.
