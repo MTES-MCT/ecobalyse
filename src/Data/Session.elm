@@ -21,6 +21,7 @@ module Data.Session exposing
     , selectAllBookmarks
     , selectNoBookmarks
     , serializeStore
+    , setAuth2
     , toggleComparedSimulation
     , updateDb
     , updateFoodQuery
@@ -240,6 +241,38 @@ selectNoBookmarks =
     updateStore (\store -> { store | comparedSimulations = Set.empty })
 
 
+
+--
+-- Auth2
+--
+
+
+type alias Auth2 =
+    { accessTokenData : User2.AccessTokenData
+    , user : User2.User
+    }
+
+
+decodeAuth2 : Decoder Auth2
+decodeAuth2 =
+    Decode.succeed Auth2
+        |> JDP.required "accessTokenData" User2.decodeAccessTokenData
+        |> JDP.required "user" User2.decodeUser
+
+
+encodeAuth2 : Auth2 -> Encode.Value
+encodeAuth2 auth2 =
+    Encode.object
+        [ ( "accessTokenData", User2.encodeAccessTokenData auth2.accessTokenData )
+        , ( "user", User2.encodeUser auth2.user )
+        ]
+
+
+setAuth2 : Maybe Auth2 -> Session -> Session
+setAuth2 auth2 =
+    updateStore (\store -> { store | auth2 = auth2 })
+
+
 {-| A serializable data structure holding session information you want to share
 across browser restarts, typically in localStorage.
 -}
@@ -248,12 +281,6 @@ type alias Store =
     , auth2 : Maybe Auth2
     , bookmarks : List Bookmark
     , comparedSimulations : Set String
-    }
-
-
-type alias Auth2 =
-    { accessTokenData : User2.AccessTokenData
-    , user : User2.User
     }
 
 
@@ -286,19 +313,13 @@ decodeAuth =
         |> JDP.required "user" User.decode
 
 
-decodeAuth2 : Decoder Auth2
-decodeAuth2 =
-    Decode.succeed Auth2
-        |> JDP.required "accessTokenData" User2.decodeAccessTokenData
-        |> JDP.required "user" User2.decodeUser
-
-
 encodeStore : Store -> Encode.Value
 encodeStore store =
     Encode.object
         [ ( "comparedSimulations", store.comparedSimulations |> Set.toList |> Encode.list Encode.string )
         , ( "bookmarks", Encode.list Bookmark.encode store.bookmarks )
         , ( "auth", encodeAuth store.auth )
+        , ( "auth2", store.auth2 |> Maybe.map encodeAuth2 |> Maybe.withDefault Encode.null )
         ]
 
 
