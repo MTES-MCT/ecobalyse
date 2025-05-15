@@ -7,15 +7,28 @@ module Request.Component exposing
 
 import Data.Component as Component exposing (Component)
 import Data.Scope as Scope
-import Data.Session exposing (Session)
+import Data.Session as Session exposing (Session)
+import Http
 import RemoteData exposing (WebData)
 import RemoteData.Http as Http exposing (defaultConfig)
 
 
+authHeaders : Maybe Session.Auth2 -> Http.Config
+authHeaders maybeAuth2 =
+    { defaultConfig
+        | headers =
+            case maybeAuth2 of
+                Just { accessTokenData } ->
+                    [ Http.header "Authorization" <| "Bearer " ++ accessTokenData.accessToken ]
+
+                Nothing ->
+                    []
+    }
+
+
 createComponent : Session -> (WebData Component -> msg) -> Component -> Cmd msg
-createComponent { backendApiUrl } event component =
-    -- FIXME: use session token to secure access?
-    Http.postWithConfig defaultConfig
+createComponent { backendApiUrl, store } event component =
+    Http.postWithConfig (authHeaders store.auth2)
         (endpoint backendApiUrl "")
         event
         (Component.decode Scope.all)
@@ -23,9 +36,8 @@ createComponent { backendApiUrl } event component =
 
 
 deleteComponent : Session -> (WebData String -> msg) -> Component -> Cmd msg
-deleteComponent { backendApiUrl } event component =
-    -- FIXME: use session token to secure access?
-    Http.deleteWithConfig defaultConfig
+deleteComponent { backendApiUrl, store } event component =
+    Http.deleteWithConfig (authHeaders store.auth2)
         (endpoint backendApiUrl <| Component.idToString component.id)
         event
         (Component.encode component)
@@ -38,7 +50,6 @@ endpoint backendApiUrl path =
 
 getComponents : Session -> (WebData (List Component) -> msg) -> Cmd msg
 getComponents { backendApiUrl } event =
-    -- FIXME: use session token to secure access?
     Http.getWithConfig defaultConfig
         (endpoint backendApiUrl "")
         event
@@ -46,9 +57,8 @@ getComponents { backendApiUrl } event =
 
 
 patchComponent : Session -> (WebData Component -> msg) -> Component -> Cmd msg
-patchComponent { backendApiUrl } event component =
-    -- FIXME: use session token to secure access?
-    Http.patchWithConfig defaultConfig
+patchComponent { backendApiUrl, store } event component =
+    Http.patchWithConfig (authHeaders store.auth2)
         (endpoint backendApiUrl <| Component.idToString component.id)
         event
         (Component.decode Scope.all)
