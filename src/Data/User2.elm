@@ -1,7 +1,9 @@
 module Data.User2 exposing
-    ( FormErrors
+    ( AccessTokenData
+    , FormErrors
     , SignupForm
     , User
+    , decodeAccessTokenData
     , decodeUser
     , emptySignupForm
     , encodeSignupForm
@@ -54,6 +56,14 @@ type alias SignupForm =
     }
 
 
+type alias AccessTokenData =
+    { accessToken : String
+    , expiresIn : Int
+    , refreshToken : Maybe String
+    , tokenType : String
+    }
+
+
 type Id
     = Id Uuid
 
@@ -89,6 +99,15 @@ decodeRole =
     Decode.succeed Role
         |> Pipe.required "roleName" Decode.string
         |> Pipe.required "roleSlug" Decode.string
+
+
+decodeAccessTokenData : Decoder AccessTokenData
+decodeAccessTokenData =
+    Decode.succeed AccessTokenData
+        |> Pipe.required "access_token" Decode.string
+        |> Pipe.required "expires_in" Decode.int
+        |> DU.strictOptional "refresh_token" Decode.string
+        |> Pipe.required "token_type" Decode.string
 
 
 emptySignupForm : SignupForm
