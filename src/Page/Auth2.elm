@@ -1,8 +1,15 @@
-module Page.Auth2 exposing (Model, Msg(..), init, update, view)
+module Page.Auth2 exposing
+    ( Model
+    , Msg(..)
+    , init
+    , initLogin
+    , update
+    , view
+    )
 
 import Data.Env as Env
 import Data.Session as Session exposing (Session)
-import Data.User2 as User exposing (FormErrors, SignupForm, User)
+import Data.User2 as User exposing (AccessTokenData, FormErrors, SignupForm, User)
 import Dict
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -12,6 +19,7 @@ import Request.Auth2 as Auth
 import Request.Common as RequestCommon
 import Views.Container as Container
 import Views.Markdown as Markdown
+import Views.Spinner as Spinner
 
 
 type alias Model =
@@ -23,28 +31,44 @@ type alias Email =
     String
 
 
+type alias Token =
+    String
+
+
 type Msg
-    = LoginResponse (Result Http.Error ())
-    | LoginSubmit
+    = AskLoginEmailResponse (Result Http.Error ())
+    | AskLoginEmailSubmit
+    | LoginResponse (Result Http.Error AccessTokenData)
+    | ProfileResponse AccessTokenData (Result Http.Error User)
     | SignupResponse (Result Http.Error User)
     | SignupSubmit
     | SwitchTab Tab
-    | UpdateLoginForm Email
+    | UpdateAskLoginEmailForm Email
     | UpdateSignupForm SignupForm
 
 
 type Tab
-    = Login Email
-    | LoginEmailSent Email
+    = Account User
+    | AskLoginEmail Email
+    | AskLoginEmailSent Email
+    | Authenticating
     | Signup SignupForm FormErrors
     | SignupCompleted Email
 
 
 init : Session -> ( Model, Session, Cmd Msg )
 init session =
-    ( { tab = Login "" }
+    ( { tab = AskLoginEmail "" }
     , session
     , Cmd.none
+    )
+
+
+initLogin : Session -> Email -> Token -> ( Model, Session, Cmd Msg )
+initLogin session email token =
+    ( { tab = Authenticating }
+    , session
+    , Auth.login session LoginResponse email token
     )
 
 
@@ -61,39 +85,92 @@ update session msg model =
             )
 
         --
-        -- Login tab updates
+        -- Account tab updates
         --
-        ( Login _, UpdateLoginForm email ) ->
-            ( { model | tab = Login email }
-            , session
-            , Cmd.none
-            )
-
-        ( Login email, LoginResponse (Ok _) ) ->
-            ( { model | tab = LoginEmailSent email }
-            , session
-            , Cmd.none
-            )
-
-        ( Login _, LoginResponse (Err error) ) ->
+        ( Account _, _ ) ->
             ( model
             , session
-                |> Session.notifyError "Erreur lors de la connexion" (RequestCommon.errorToString error)
             , Cmd.none
             )
 
-        ( Login email, LoginSubmit ) ->
-            ( model
+        --
+        -- AskLoginEmail tab updates
+        --
+        ( AskLoginEmail email, AskLoginEmailResponse (Ok _) ) ->
+            ( { model | tab = AskLoginEmailSent email }
             , session
-            , email |> String.trim |> Auth.login session LoginResponse
+            , Cmd.none
             )
 
-        -- Login tab catch all
-        ( Login _, _ ) ->
+        ( AskLoginEmail _, AskLoginEmailResponse (Err error) ) ->
+            ( model
+            , session
+                |> Session.notifyError
+                    "Erreur lors de la connexion"
+                    (RequestCommon.errorToString error)
+            , Cmd.none
+            )
+
+        ( AskLoginEmail _, UpdateAskLoginEmailForm email ) ->
+            ( { model | tab = AskLoginEmail email }
+            , session
+            , Cmd.none
+            )
+
+        ( AskLoginEmail email, AskLoginEmailSubmit ) ->
+            ( model
+            , session
+            , String.trim email
+                |> Auth.askLoginEmail session AskLoginEmailResponse
+            )
+
+        -- AskLoginEmail tab catch all
+        ( AskLoginEmail _, _ ) ->
             ( model, session, Cmd.none )
 
-        -- LoginEmailSent tab catch all
-        ( LoginEmailSent _, _ ) ->
+        -- AskedLoginEmailSent tab catch all
+        ( AskLoginEmailSent _, _ ) ->
+            ( model, session, Cmd.none )
+
+        --
+        -- Authenticating tab updates
+        --
+        ( Authenticating, LoginResponse (Ok accessTokenData) ) ->
+            ( { model | tab = Authenticating }
+            , session
+            , Auth.profile session (ProfileResponse accessTokenData) accessTokenData.accessToken
+            )
+
+        ( Authenticating, LoginResponse (Err error) ) ->
+            ( model
+            , session
+                |> Session.notifyError
+                    "Erreur lors de la récupération du jeton d'authentification"
+                    (RequestCommon.errorToString error)
+            , Cmd.none
+            )
+
+        ( Authenticating, ProfileResponse accessTokenData (Ok user) ) ->
+            let
+                store =
+                    session.store
+            in
+            ( { model | tab = Account user }
+            , { session | store = { store | auth2 = Just { accessTokenData = accessTokenData, user = user } } }
+            , Cmd.none
+            )
+
+        ( Authenticating, ProfileResponse _ (Err error) ) ->
+            ( model
+            , session
+                |> Session.notifyError
+                    "Erreur lors de la récupération du profil utilisateur"
+                    (RequestCommon.errorToString error)
+            , Cmd.none
+            )
+
+        -- Authenticating tab catch all
+        ( Authenticating, _ ) ->
             ( model, session, Cmd.none )
 
         --
@@ -102,15 +179,15 @@ update session msg model =
         ( Signup { email } _, SignupResponse (Ok _) ) ->
             ( { model | tab = SignupCompleted email }
             , session
-              -- TODO: update session with user info
-              -- |> Session.authenticated user
             , Cmd.none
             )
 
         ( Signup _ _, SignupResponse (Err error) ) ->
             ( model
             , session
-                |> Session.notifyError "Erreur lors de l'inscription" (RequestCommon.errorToString error)
+                |> Session.notifyError
+                    "Erreur lors de l'inscription"
+                    (RequestCommon.errorToString error)
             , Cmd.none
             )
 
@@ -161,7 +238,7 @@ viewTab currentTab =
         [ div [ class "card-header px-0 pb-0 border-bottom-0" ]
             [ ul [ class "Tabs nav nav-tabs nav-fill justify-content-end gap-2 px-2" ]
                 ([ ( "Inscription", Signup User.emptySignupForm Dict.empty )
-                 , ( "Connexion", Login "" )
+                 , ( "Connexion", AskLoginEmail "" )
                  ]
                     |> List.map
                         (\( label, tab ) ->
@@ -182,11 +259,17 @@ viewTab currentTab =
             ]
         , div [ class "card-body" ]
             [ case currentTab of
-                Login email ->
-                    viewLoginForm email
+                Account user ->
+                    viewAccount user
 
-                LoginEmailSent email ->
+                AskLoginEmail email ->
+                    viewAskLoginEmailForm email
+
+                AskLoginEmailSent email ->
                     viewLoginEmailSent email
+
+                Authenticating ->
+                    Spinner.view
 
                 Signup signupForm formErrors ->
                     viewSignupForm signupForm formErrors
@@ -197,9 +280,32 @@ viewTab currentTab =
         ]
 
 
-viewLoginForm : Email -> Html Msg
-viewLoginForm email =
-    Html.form [ onSubmit LoginSubmit ]
+viewAccount : User -> Html Msg
+viewAccount user =
+    div []
+        [ h2 [ class "h5" ] [ text "Profil utilisateur" ]
+        , p []
+            [ text "Email: "
+            , text user.email
+            ]
+        , p []
+            [ text "Prénom: "
+            , text user.profile.firstName
+            ]
+        , p []
+            [ text "Nom: "
+            , text user.profile.lastName
+            ]
+        , p []
+            [ text "Organisation: "
+            , text user.profile.organization
+            ]
+        ]
+
+
+viewAskLoginEmailForm : Email -> Html Msg
+viewAskLoginEmailForm email =
+    Html.form [ onSubmit AskLoginEmailSubmit ]
         [ div [ class "mb-3" ]
             [ label [ for "email", class "form-label" ]
                 [ text "Email" ]
@@ -209,7 +315,7 @@ viewLoginForm email =
                 , id "email"
                 , placeholder "nom@example.com"
                 , value email
-                , onInput UpdateLoginForm
+                , onInput UpdateAskLoginEmailForm
                 , required True
                 ]
                 []
@@ -360,6 +466,21 @@ viewFieldError field errors =
 isActiveTab : Tab -> Tab -> Bool
 isActiveTab tab1 tab2 =
     case ( tab1, tab2 ) of
+        ( Authenticating, AskLoginEmail _ ) ->
+            True
+
+        ( AskLoginEmail _, Authenticating ) ->
+            True
+
+        ( AskLoginEmail _, AskLoginEmail _ ) ->
+            True
+
+        ( AskLoginEmail _, AskLoginEmailSent _ ) ->
+            True
+
+        ( AskLoginEmailSent _, AskLoginEmail _ ) ->
+            True
+
         ( Signup _ _, Signup _ _ ) ->
             True
 
@@ -367,15 +488,6 @@ isActiveTab tab1 tab2 =
             True
 
         ( SignupCompleted _, Signup _ _ ) ->
-            True
-
-        ( Login _, Login _ ) ->
-            True
-
-        ( Login _, LoginEmailSent _ ) ->
-            True
-
-        ( LoginEmailSent _, Login _ ) ->
             True
 
         _ ->

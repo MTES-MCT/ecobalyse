@@ -30,12 +30,14 @@ module Data.Session exposing
 
 import Browser.Navigation as Nav
 import Data.Bookmark as Bookmark exposing (Bookmark)
+import Data.Common.DecodeUtils as DU
 import Data.Food.Query as FoodQuery
 import Data.Github as Github
 import Data.Object.Query as ObjectQuery
 import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Query as TextileQuery
 import Data.User as User exposing (User)
+import Data.User2 as User2
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
@@ -243,8 +245,15 @@ across browser restarts, typically in localStorage.
 -}
 type alias Store =
     { auth : Auth
+    , auth2 : Maybe Auth2
     , bookmarks : List Bookmark
     , comparedSimulations : Set String
+    }
+
+
+type alias Auth2 =
+    { accessTokenData : User2.AccessTokenData
+    , user : User2.User
     }
 
 
@@ -256,6 +265,7 @@ type Auth
 defaultStore : Store
 defaultStore =
     { auth = NotAuthenticated
+    , auth2 = Nothing
     , bookmarks = []
     , comparedSimulations = Set.empty
     }
@@ -264,7 +274,8 @@ defaultStore =
 decodeStore : Decoder Store
 decodeStore =
     Decode.succeed Store
-        |> JDP.optional "auth" decodeAuth NotAuthenticated
+        |> DU.strictOptionalWithDefault "auth" decodeAuth NotAuthenticated
+        |> DU.strictOptional "auth2" decodeAuth2
         |> JDP.optional "bookmarks" (Decode.list Bookmark.decode) []
         |> JDP.optional "comparedSimulations" (Decode.map Set.fromList (Decode.list Decode.string)) Set.empty
 
@@ -273,6 +284,13 @@ decodeAuth : Decoder Auth
 decodeAuth =
     Decode.succeed Authenticated
         |> JDP.required "user" User.decode
+
+
+decodeAuth2 : Decoder Auth2
+decodeAuth2 =
+    Decode.succeed Auth2
+        |> JDP.required "accessTokenData" User2.decodeAccessTokenData
+        |> JDP.required "user" User2.decodeUser
 
 
 encodeStore : Store -> Encode.Value
