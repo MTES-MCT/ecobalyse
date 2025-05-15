@@ -6,6 +6,7 @@ module Data.User2 exposing
     , emptySignupForm
     , encodeSignupForm
     , encodeUser
+    , validateEmail
     , validateSignupForm
     )
 
@@ -148,30 +149,37 @@ encodeSignupForm form =
         ]
 
 
+validateEmail : String -> FormErrors
+validateEmail email =
+    Dict.empty
+        |> addFormErrorIf "email"
+            "L'adresse e-mail est invalide"
+            (Regex.fromString "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+                |> Maybe.map (\re -> email |> Regex.contains re |> not)
+                |> Maybe.withDefault False
+            )
+
+
 validateSignupForm : SignupForm -> FormErrors
 validateSignupForm form =
     let
-        addErrorIf field msg check =
-            if check then
-                Dict.insert field msg
-
-            else
-                identity
-
         isEmpty =
             String.trim >> String.isEmpty
 
         requiredMsg =
             "Le champ est obligatoire"
     in
-    Dict.empty
-        |> addErrorIf "email"
-            "L'adresse e-mail est invalide"
-            (Regex.fromString "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
-                |> Maybe.map (\re -> form.email |> Regex.contains re |> not)
-                |> Maybe.withDefault False
-            )
-        |> addErrorIf "firstName" requiredMsg (isEmpty form.firstName)
-        |> addErrorIf "lastName" requiredMsg (isEmpty form.lastName)
-        |> addErrorIf "organization" requiredMsg (isEmpty form.organization)
-        |> addErrorIf "termsAccepted" requiredMsg (not form.termsAccepted)
+    validateEmail form.email
+        |> addFormErrorIf "firstName" requiredMsg (isEmpty form.firstName)
+        |> addFormErrorIf "lastName" requiredMsg (isEmpty form.lastName)
+        |> addFormErrorIf "organization" requiredMsg (isEmpty form.organization)
+        |> addFormErrorIf "termsAccepted" requiredMsg (not form.termsAccepted)
+
+
+addFormErrorIf : comparable -> b -> Bool -> Dict comparable b -> Dict comparable b
+addFormErrorIf field msg check =
+    if check then
+        Dict.insert field msg
+
+    else
+        identity

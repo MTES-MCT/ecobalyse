@@ -1,5 +1,5 @@
 module Request.Auth2 exposing
-    ( requestAuthEmail
+    ( login
     , signup
     )
 
@@ -16,8 +16,8 @@ endpoint { backendApiUrl } path =
 
 {-| Request an authentication email
 -}
-requestAuthEmail : Session -> (Result Http.Error () -> msg) -> String -> Cmd msg
-requestAuthEmail session event email =
+login : Session -> (Result Http.Error () -> msg) -> String -> Cmd msg
+login session event email =
     Http.post
         { body = Http.jsonBody <| Encode.object [ ( "email", email |> Encode.string ) ]
         , expect = Http.expectWhatever event

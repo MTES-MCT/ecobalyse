@@ -20,7 +20,9 @@ type alias Model =
 
 
 type Msg
-    = SignupResponse (Result Http.Error User)
+    = LoginResponse (Result Http.Error ())
+    | LoginSubmit
+    | SignupResponse (Result Http.Error User)
     | SignupSubmit
     | SwitchTab Tab
     | UpdateEmail String
@@ -31,14 +33,15 @@ type Msg
 
 
 type Tab
-    = Login
+    = Login String
+    | LoginEmailSent String
     | Signup SignupForm FormErrors
     | SignupCompleted String
 
 
 init : Session -> ( Model, Session, Cmd Msg )
 init session =
-    ( { tab = Signup User.emptySignupForm Dict.empty }
+    ( { tab = Login "" }
     , session
     , Cmd.none
     )
@@ -47,9 +50,54 @@ init session =
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update session msg model =
     case ( model.tab, msg ) of
-        ( Login, _ ) ->
+        --
+        -- Global page updates
+        --
+        ( _, SwitchTab tab ) ->
+            ( { model | tab = tab }
+            , session
+            , Cmd.none
+            )
+
+        --
+        -- Login tab updates
+        --
+        ( Login _, UpdateEmail email ) ->
+            ( { model | tab = Login email }
+            , session
+            , Cmd.none
+            )
+
+        ( Login email, LoginResponse (Ok _) ) ->
+            ( { model | tab = LoginEmailSent email }
+            , session
+            , Cmd.none
+            )
+
+        ( Login _, LoginResponse (Err error) ) ->
+            ( model
+            , session
+                |> Session.notifyError "Erreur lors de la connexion" (RequestCommon.errorToString error)
+            , Cmd.none
+            )
+
+        ( Login email, LoginSubmit ) ->
+            ( model
+            , session
+            , email |> String.trim |> Auth.login session LoginResponse
+            )
+
+        -- Login tab catch all
+        ( Login _, _ ) ->
             ( model, session, Cmd.none )
 
+        -- LoginEmailSent tab catch all
+        ( LoginEmailSent _, _ ) ->
+            ( model, session, Cmd.none )
+
+        --
+        -- Signup tab updates
+        --
         ( Signup { email } _, SignupResponse (Ok _) ) ->
             ( { model | tab = SignupCompleted email }
             , session
@@ -79,41 +127,43 @@ update session msg model =
                 Cmd.none
             )
 
-        ( Signup signupForm formErrors, UpdateEmail email ) ->
-            ( { model | tab = Signup { signupForm | email = email } formErrors }
+        ( Signup signupForm _, UpdateEmail email ) ->
+            ( { model | tab = Signup { signupForm | email = email } Dict.empty }
             , session
             , Cmd.none
             )
 
-        ( Signup signupForm formErrors, UpdateFirstName firstName ) ->
-            ( { model | tab = Signup { signupForm | firstName = firstName } formErrors }
+        ( Signup signupForm _, UpdateFirstName firstName ) ->
+            ( { model | tab = Signup { signupForm | firstName = firstName } Dict.empty }
             , session
             , Cmd.none
             )
 
-        ( Signup signupForm formErrors, UpdateLastName lastName ) ->
-            ( { model | tab = Signup { signupForm | lastName = lastName } formErrors }
+        ( Signup signupForm _, UpdateLastName lastName ) ->
+            ( { model | tab = Signup { signupForm | lastName = lastName } Dict.empty }
             , session
             , Cmd.none
             )
 
-        ( Signup signupForm formErrors, UpdateOrganization organization ) ->
-            ( { model | tab = Signup { signupForm | organization = organization } formErrors }
+        ( Signup signupForm _, UpdateOrganization organization ) ->
+            ( { model | tab = Signup { signupForm | organization = organization } Dict.empty }
             , session
             , Cmd.none
             )
 
-        ( Signup signupForm formErrors, UpdateTermsAccepted termsAccepted ) ->
-            ( { model | tab = Signup { signupForm | termsAccepted = termsAccepted } formErrors }
+        ( Signup signupForm _, UpdateTermsAccepted termsAccepted ) ->
+            ( { model | tab = Signup { signupForm | termsAccepted = termsAccepted } Dict.empty }
             , session
             , Cmd.none
             )
 
-        ( SignupCompleted _, _ ) ->
+        -- Signup tab catch all
+        ( Signup _ _, _ ) ->
             ( model, session, Cmd.none )
 
-        ( _, SwitchTab tab ) ->
-            ( { model | tab = Debug.log "tab" tab }, session, Cmd.none )
+        -- SignupCompleted tab catch all
+        ( SignupCompleted _, _ ) ->
+            ( model, session, Cmd.none )
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
@@ -137,7 +187,7 @@ viewTab currentTab =
         [ div [ class "card-header px-0 pb-0 border-bottom-0" ]
             [ ul [ class "Tabs nav nav-tabs nav-fill justify-content-end gap-2 px-2" ]
                 ([ ( "Inscription", Signup User.emptySignupForm Dict.empty )
-                 , ( "Connexion", Login )
+                 , ( "Connexion", Login "" )
                  ]
                     |> List.map
                         (\( label, tab ) ->
@@ -146,7 +196,8 @@ viewTab currentTab =
                                 , classList [ ( "active", isActiveTab currentTab tab ) ]
                                 ]
                                 [ button
-                                    [ class "nav-link no-outline border-top-0"
+                                    [ type_ "button"
+                                    , class "nav-link no-outline border-top-0"
                                     , classList [ ( "active", isActiveTab currentTab tab ) ]
                                     , onClick (SwitchTab tab)
                                     ]
@@ -157,8 +208,11 @@ viewTab currentTab =
             ]
         , div [ class "card-body" ]
             [ case currentTab of
-                Login ->
-                    text "TODO login form"
+                Login email ->
+                    viewLoginForm email
+
+                LoginEmailSent email ->
+                    viewLoginEmailSent email
 
                 Signup signupForm formErrors ->
                     viewSignupForm signupForm formErrors
@@ -166,6 +220,44 @@ viewTab currentTab =
                 SignupCompleted email ->
                     viewSignupCompleted email
             ]
+        ]
+
+
+viewLoginForm : String -> Html Msg
+viewLoginForm email =
+    Html.form [ onSubmit LoginSubmit ]
+        [ div [ class "mb-3" ]
+            [ label [ for "email", class "form-label" ]
+                [ text "Email" ]
+            , input
+                [ type_ "email"
+                , class "form-control"
+                , id "email"
+                , placeholder "nom@example.com"
+                , value email
+                , onInput UpdateEmail
+                , required True
+                ]
+                []
+            ]
+        , div [ class "d-grid" ]
+            [ button
+                [ type_ "submit"
+                , class "btn btn-primary"
+                , disabled <| email == "" || User.validateEmail email /= Dict.empty
+                ]
+                [ text "Recevoir un email de connexion" ]
+            ]
+        ]
+
+
+viewLoginEmailSent : String -> Html msg
+viewLoginEmailSent email =
+    div [ class "alert alert-info mb-0" ]
+        [ h2 [ class "h5" ] [ text "Email de connexion envoyé" ]
+        , """Un email contenant un lien d'authentification a été envoyé à l'adresse `{email}`."""
+            |> String.replace "{email}" email
+            |> Markdown.simple []
         ]
 
 
@@ -303,7 +395,13 @@ isActiveTab tab1 tab2 =
         ( SignupCompleted _, Signup _ _ ) ->
             True
 
-        ( Login, Login ) ->
+        ( Login _, Login _ ) ->
+            True
+
+        ( Login _, LoginEmailSent _ ) ->
+            True
+
+        ( LoginEmailSent _, Login _ ) ->
             True
 
         _ ->
