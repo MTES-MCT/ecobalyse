@@ -25,11 +25,8 @@ type Msg
     | SignupResponse (Result Http.Error User)
     | SignupSubmit
     | SwitchTab Tab
-    | UpdateEmail String
-    | UpdateFirstName String
-    | UpdateLastName String
-    | UpdateOrganization String
-    | UpdateTermsAccepted Bool
+    | UpdateLoginForm String
+    | UpdateSignupForm SignupForm
 
 
 type Tab
@@ -62,7 +59,7 @@ update session msg model =
         --
         -- Login tab updates
         --
-        ( Login _, UpdateEmail email ) ->
+        ( Login _, UpdateLoginForm email ) ->
             ( { model | tab = Login email }
             , session
             , Cmd.none
@@ -127,35 +124,8 @@ update session msg model =
                 Cmd.none
             )
 
-        ( Signup signupForm _, UpdateEmail email ) ->
-            ( { model | tab = Signup { signupForm | email = email } Dict.empty }
-            , session
-            , Cmd.none
-            )
-
-        ( Signup signupForm _, UpdateFirstName firstName ) ->
-            ( { model | tab = Signup { signupForm | firstName = firstName } Dict.empty }
-            , session
-            , Cmd.none
-            )
-
-        ( Signup signupForm _, UpdateLastName lastName ) ->
-            ( { model | tab = Signup { signupForm | lastName = lastName } Dict.empty }
-            , session
-            , Cmd.none
-            )
-
-        ( Signup signupForm _, UpdateOrganization organization ) ->
-            ( { model | tab = Signup { signupForm | organization = organization } Dict.empty }
-            , session
-            , Cmd.none
-            )
-
-        ( Signup signupForm _, UpdateTermsAccepted termsAccepted ) ->
-            ( { model | tab = Signup { signupForm | termsAccepted = termsAccepted } Dict.empty }
-            , session
-            , Cmd.none
-            )
+        ( Signup _ _, UpdateSignupForm signupForm ) ->
+            ( { model | tab = Signup signupForm Dict.empty }, session, Cmd.none )
 
         -- Signup tab catch all
         ( Signup _ _, _ ) ->
@@ -235,7 +205,7 @@ viewLoginForm email =
                 , id "email"
                 , placeholder "nom@example.com"
                 , value email
-                , onInput UpdateEmail
+                , onInput UpdateLoginForm
                 , required True
                 ]
                 []
@@ -284,7 +254,7 @@ viewSignupForm signupForm formErrors =
                 , id "email"
                 , placeholder "nom@example.com"
                 , value signupForm.email
-                , onInput UpdateEmail
+                , onInput <| \email -> UpdateSignupForm { signupForm | email = email }
                 , required True
                 ]
                 []
@@ -302,7 +272,7 @@ viewSignupForm signupForm formErrors =
                         , id "firstName"
                         , placeholder "Joséphine"
                         , value signupForm.firstName
-                        , onInput UpdateFirstName
+                        , onInput <| \firstName -> UpdateSignupForm { signupForm | firstName = firstName }
                         , required True
                         ]
                         []
@@ -320,7 +290,7 @@ viewSignupForm signupForm formErrors =
                         , id "lastName"
                         , placeholder "Durand"
                         , value signupForm.lastName
-                        , onInput UpdateLastName
+                        , onInput <| \lastName -> UpdateSignupForm { signupForm | lastName = lastName }
                         , required True
                         ]
                         []
@@ -338,7 +308,7 @@ viewSignupForm signupForm formErrors =
                 , id "organization"
                 , placeholder "ACME Inc."
                 , value signupForm.organization
-                , onInput UpdateOrganization
+                , onInput <| \organization -> UpdateSignupForm { signupForm | organization = organization }
                 , required True
                 ]
                 []
@@ -351,7 +321,7 @@ viewSignupForm signupForm formErrors =
                 , classList [ ( "is-invalid", Dict.member "termsAccepted" formErrors ) ]
                 , id "termsAccepted"
                 , checked signupForm.termsAccepted
-                , onCheck UpdateTermsAccepted
+                , onCheck <| \termsAccepted -> UpdateSignupForm { signupForm | termsAccepted = termsAccepted }
                 , required True
                 ]
                 []
