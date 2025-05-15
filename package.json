@@ -47,7 +47,7 @@
     "test:backend": "pipenv run pytest",
     "test:client": "NODE_ENV=test npm run db:build && npx elm-test",
     "test:review": "npx elm-review",
-    "test:server": "npm run server:build && NODE_ENV=test jest",
+    "test:server": "tests/setup-version-fixture.sh && npm run server:build && NODE_ENV=test jest",
     "test:server-ci": "tests/setup-version-fixture.sh && concurrently -k -s first -n \"django,test\" \"npm run start:backend\" \"while ! lsof -i:8002; do sleep 1; done && npm run server:build && NODE_ENV=test jest\"",
     "test": "npm run test:client && npm run test:backend && npm run test:server"
   },
