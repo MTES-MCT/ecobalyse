@@ -7,6 +7,7 @@ module Page.Auth2 exposing
     , view
     )
 
+import Browser.Navigation
 import Data.Env as Env
 import Data.Session as Session exposing (Session)
 import Data.User2 as User exposing (AccessTokenData, FormErrors, SignupForm, User)
@@ -17,6 +18,7 @@ import Html.Events exposing (..)
 import Http
 import Request.Auth2 as Auth
 import Request.Common as RequestCommon
+import Route
 import Views.Container as Container
 import Views.Markdown as Markdown
 import Views.Spinner as Spinner
@@ -147,7 +149,7 @@ update session msg model =
                 |> Session.notifyError
                     "Erreur lors de la récupération du jeton d'authentification"
                     (RequestCommon.errorToString error)
-            , Cmd.none
+            , Browser.Navigation.load <| Route.toString Route.Auth2
             )
 
         ( Authenticating, ProfileResponse accessTokenData (Ok user) ) ->
@@ -166,7 +168,7 @@ update session msg model =
                 |> Session.notifyError
                     "Erreur lors de la récupération du profil utilisateur"
                     (RequestCommon.errorToString error)
-            , Cmd.none
+            , Browser.Navigation.load <| Route.toString Route.Auth2
             )
 
         -- Authenticating tab catch all
