@@ -66,7 +66,11 @@ update session msg model =
         SignupSubmitted ->
             ( model
             , session
-            , Auth.signup session SignupResponse model.signupForm
+            , if validateForm model.signupForm == Dict.empty then
+                Auth.signup session SignupResponse model.signupForm
+
+              else
+                Cmd.none
             )
 
         UpdateEmail email ->
@@ -87,14 +91,7 @@ update session msg model =
 
 updateForm : Session -> (SignupForm -> SignupForm) -> Model -> ( Model, Session, Cmd Msg )
 updateForm session transform model =
-    let
-        newSignupForm =
-            transform model.signupForm
-    in
-    ( { model
-        | signupForm = newSignupForm
-        , signupFormErrors = validateForm newSignupForm
-      }
+    ( { model | signupForm = transform model.signupForm }
     , session
     , Cmd.none
     )
