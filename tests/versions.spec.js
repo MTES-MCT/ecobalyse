@@ -44,11 +44,6 @@ describe("Homepage", () => {
     await page.goto("http://localhost:1234");
   });
 
-  afterAll(async () => {
-    // Disable request interception after tests
-    await page.setRequestInterception(false);
-  });
-
   it('should display "Ecobalyse" header on page', async () => {
     await expect(page).toMatchTextContent(/Calculez le coût environnemental de vos produits/);
   }, 10000);
@@ -99,5 +94,18 @@ describe("Homepage", () => {
 
     // Check that the link contains the expected text
     await expect(page).toMatchTextContent(/Calculer l’impact de l’alimentation/);
-  });
+
+    const headerLinkSelector = "a.HeaderBrand";
+
+    // Check going back to home
+    await page.waitForSelector(headerLinkSelector, { visible: true });
+
+    // Click the HeaderBrand link
+    await page.click(headerLinkSelector);
+
+    // Check that the URL is now back to the homepage
+    expect(page.url()).toBe("http://localhost:1234/");
+
+    await expect(page).toMatchTextContent(/Calculer l’impact de l’alimentation/);
+  }, 10000);
 });
