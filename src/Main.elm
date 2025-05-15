@@ -213,6 +213,15 @@ setRoute url ( { state } as model, cmds ) =
                     Auth2.init session
                         |> toPage Auth2Page Auth2Msg
 
+                Just Route.Auth2Account ->
+                    case Session.getAuth2 session of
+                        Just { user } ->
+                            Auth2.initAccount session user
+                                |> toPage Auth2Page Auth2Msg
+
+                        Nothing ->
+                            ( model, Nav.load <| Route.toString Route.Auth2 )
+
                 Just (Route.Auth2Login email token) ->
                     Auth2.initLogin session email token
                         |> toPage Auth2Page Auth2Msg
