@@ -1,7 +1,7 @@
 module Page.Auth2 exposing (Model, Msg(..), init, update, view)
 
 import Data.Session as Session exposing (Session)
-import Data.User2 as User exposing (SignupForm, User)
+import Data.User2 as User exposing (FormErrors, SignupForm, User)
 import Dict
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -14,14 +14,12 @@ import Views.Container as Container
 
 type alias Model =
     { tab : Tab
-    , signupFormErrors : User.FormErrors
-    , signupForm : SignupForm
     }
 
 
 type Msg
     = SignupResponse (Result Http.Error User)
-    | SignupSubmitted
+    | SignupSubmit
     | SwitchTab Tab
     | UpdateEmail String
     | UpdateFirstName String
@@ -31,15 +29,14 @@ type Msg
 
 
 type Tab
-    = AuthenticationTab
-    | RegistrationTab
+    = Login
+    | Signup SignupForm FormErrors
+    | SignupCompleted String
 
 
 init : Session -> ( Model, Session, Cmd Msg )
 init session =
-    ( { tab = RegistrationTab
-      , signupFormErrors = Dict.empty
-      , signupForm = User.emptySignupForm
+    ( { tab = Signup User.emptySignupForm Dict.empty
       }
     , session
     , Cmd.none
@@ -48,75 +45,86 @@ init session =
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update session msg model =
-    case msg of
-        SignupResponse (Ok _) ->
-            ( model
+    case ( model.tab, msg ) of
+        ( Login, _ ) ->
+            ( model, session, Cmd.none )
+
+        ( Signup { email } _, SignupResponse (Ok _) ) ->
+            ( { model | tab = SignupCompleted email }
             , session
-                -- TODO: update session with user info
-                -- |> Session.authenticated user
-                -- TODO: redirect to page saying "Un email de confirmation vous a été envoyé."
-                |> Session.notifyInfo "Inscription réussie" "Un email de confirmation vous a été envoyé."
+              -- TODO: update session with user info
+              -- |> Session.authenticated user
             , Cmd.none
             )
 
-        SignupResponse (Err error) ->
+        ( Signup _ _, SignupResponse (Err error) ) ->
             ( model
             , session
                 |> Session.notifyError "Erreur lors de l'inscription" (RequestCommon.errorToString error)
             , Cmd.none
             )
 
-        SignupSubmitted ->
-            ( model
+        ( Signup signupForm _, SignupSubmit ) ->
+            let
+                newFormErrors =
+                    User.validateSignupForm signupForm
+            in
+            ( { model | tab = Signup signupForm newFormErrors }
             , session
-            , if User.validateSignupForm model.signupForm == Dict.empty then
-                Auth.signup session SignupResponse model.signupForm
+            , if newFormErrors == Dict.empty then
+                Auth.signup session SignupResponse signupForm
 
               else
                 Cmd.none
             )
 
-        SwitchTab tab ->
+        ( Signup signupForm formErrors, UpdateEmail email ) ->
+            ( { model | tab = Signup { signupForm | email = email } formErrors }
+            , session
+            , Cmd.none
+            )
+
+        ( Signup signupForm formErrors, UpdateFirstName firstName ) ->
+            ( { model | tab = Signup { signupForm | firstName = firstName } formErrors }
+            , session
+            , Cmd.none
+            )
+
+        ( Signup signupForm formErrors, UpdateLastName lastName ) ->
+            ( { model | tab = Signup { signupForm | lastName = lastName } formErrors }
+            , session
+            , Cmd.none
+            )
+
+        ( Signup signupForm formErrors, UpdateOrganization organization ) ->
+            ( { model | tab = Signup { signupForm | organization = organization } formErrors }
+            , session
+            , Cmd.none
+            )
+
+        ( Signup signupForm formErrors, UpdateTermsAccepted termsAccepted ) ->
+            ( { model | tab = Signup { signupForm | termsAccepted = termsAccepted } formErrors }
+            , session
+            , Cmd.none
+            )
+
+        ( SignupCompleted _, _ ) ->
+            ( model, session, Cmd.none )
+
+        ( _, SwitchTab tab ) ->
             ( { model | tab = tab }, session, Cmd.none )
-
-        UpdateEmail email ->
-            model |> updateForm session (\form -> { form | email = email })
-
-        UpdateFirstName firstName ->
-            model |> updateForm session (\form -> { form | firstName = firstName })
-
-        UpdateLastName lastName ->
-            model |> updateForm session (\form -> { form | lastName = lastName })
-
-        UpdateOrganization organization ->
-            model |> updateForm session (\form -> { form | organization = organization })
-
-        UpdateTermsAccepted termsAccepted ->
-            model |> updateForm session (\form -> { form | termsAccepted = termsAccepted })
-
-
-updateForm : Session -> (SignupForm -> SignupForm) -> Model -> ( Model, Session, Cmd Msg )
-updateForm session transform model =
-    ( { model | signupForm = transform model.signupForm }
-    , session
-    , Cmd.none
-    )
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
 view _ model =
-    ( "Inscription"
-    , [ Container.centered [ class "mb-5" ]
-            [ div [ class "row justify-content-center" ]
-                [ div [ class "col-md-8 col-lg-6" ]
-                    [ div [ class "card shadow" ]
-                        [ div [ class "card-header" ]
-                            [ h2 [ class "card-title h5 mb-0" ]
-                                [ text "Créer un compte" ]
-                            ]
-                        , div [ class "card-body" ]
-                            [ viewSignupForm model ]
+    ( "Connexion / Inscription"
+    , [ Container.centered [ class "pb-5" ]
+            [ div [ class "row" ]
+                [ div [ class "col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 d-flex flex-column gap-3" ]
+                    [ h1 []
+                        [ text "Connexion / Inscription"
                         ]
+                    , viewTab model.tab
                     ]
                 ]
             ]
@@ -124,16 +132,78 @@ view _ model =
     )
 
 
-viewSignupForm : Model -> Html Msg
-viewSignupForm { signupForm, signupFormErrors } =
-    Html.form [ onSubmit SignupSubmitted ]
+isActiveTab : Tab -> Tab -> Bool
+isActiveTab tab1 tab2 =
+    case ( tab1, tab2 ) of
+        ( Signup _ _, Signup _ _ ) ->
+            True
+
+        ( Signup _ _, SignupCompleted _ ) ->
+            True
+
+        ( Login, Login ) ->
+            True
+
+        _ ->
+            False
+
+
+viewTab : Tab -> Html Msg
+viewTab currentTab =
+    div [ class "card shadow-sm px-0" ]
+        [ div [ class "card-header px-0 pb-0 border-bottom-0" ]
+            [ ul [ class "Tabs nav nav-tabs nav-fill justify-content-end gap-2 px-2" ]
+                ([ ( "Inscription", Signup User.emptySignupForm Dict.empty )
+                 , ( "Connexion", Login )
+                 ]
+                    |> List.map
+                        (\( label, tab ) ->
+                            li
+                                [ class "TabsTab nav-item"
+                                , classList [ ( "active", isActiveTab tab currentTab ) ]
+                                ]
+                                [ button
+                                    [ class "nav-link no-outline border-top-0"
+                                    , classList [ ( "active", currentTab == tab ) ]
+                                    , onClick (SwitchTab tab)
+                                    ]
+                                    [ text label ]
+                                ]
+                        )
+                )
+            ]
+        , div [ class "card-body" ]
+            [ case currentTab of
+                Login ->
+                    text "TODO login form"
+
+                Signup signupForm formErrors ->
+                    viewSignupForm signupForm formErrors
+
+                SignupCompleted email ->
+                    viewSignupCompleted email
+            ]
+        ]
+
+
+viewSignupCompleted : String -> Html Msg
+viewSignupCompleted email =
+    div []
+        [ h3 [] [ text "Inscription réussie" ]
+        , p [] [ text <| "Un email de confirmation a été envoyé à l'adresse " ++ email ]
+        ]
+
+
+viewSignupForm : SignupForm -> FormErrors -> Html Msg
+viewSignupForm signupForm formErrors =
+    Html.form [ onSubmit SignupSubmit ]
         [ div [ class "mb-3" ]
             [ label [ for "email", class "form-label" ]
                 [ text "Email" ]
             , input
                 [ type_ "email"
                 , class "form-control"
-                , classList [ ( "is-invalid", Dict.member "email" signupFormErrors ) ]
+                , classList [ ( "is-invalid", Dict.member "email" formErrors ) ]
                 , id "email"
                 , placeholder "nom@example.com"
                 , value signupForm.email
@@ -141,7 +211,7 @@ viewSignupForm { signupForm, signupFormErrors } =
                 , required True
                 ]
                 []
-            , viewFieldError "email" signupFormErrors
+            , viewFieldError "email" formErrors
             ]
         , div [ class "row" ]
             [ div [ class "col-md-6" ]
@@ -151,7 +221,7 @@ viewSignupForm { signupForm, signupFormErrors } =
                     , input
                         [ type_ "text"
                         , class "form-control"
-                        , classList [ ( "is-invalid", Dict.member "firstName" signupFormErrors ) ]
+                        , classList [ ( "is-invalid", Dict.member "firstName" formErrors ) ]
                         , id "firstName"
                         , placeholder "Joséphine"
                         , value signupForm.firstName
@@ -159,7 +229,7 @@ viewSignupForm { signupForm, signupFormErrors } =
                         , required True
                         ]
                         []
-                    , viewFieldError "firstName" signupFormErrors
+                    , viewFieldError "firstName" formErrors
                     ]
                 ]
             , div [ class "col-md-6" ]
@@ -169,7 +239,7 @@ viewSignupForm { signupForm, signupFormErrors } =
                     , input
                         [ type_ "text"
                         , class "form-control"
-                        , classList [ ( "is-invalid", Dict.member "lastName" signupFormErrors ) ]
+                        , classList [ ( "is-invalid", Dict.member "lastName" formErrors ) ]
                         , id "lastName"
                         , placeholder "Durand"
                         , value signupForm.lastName
@@ -177,7 +247,7 @@ viewSignupForm { signupForm, signupFormErrors } =
                         , required True
                         ]
                         []
-                    , viewFieldError "lastName" signupFormErrors
+                    , viewFieldError "lastName" formErrors
                     ]
                 ]
             ]
@@ -187,7 +257,7 @@ viewSignupForm { signupForm, signupFormErrors } =
             , input
                 [ type_ "text"
                 , class "form-control"
-                , classList [ ( "is-invalid", Dict.member "organization" signupFormErrors ) ]
+                , classList [ ( "is-invalid", Dict.member "organization" formErrors ) ]
                 , id "organization"
                 , placeholder "ACME Inc."
                 , value signupForm.organization
@@ -195,13 +265,13 @@ viewSignupForm { signupForm, signupFormErrors } =
                 , required True
                 ]
                 []
-            , viewFieldError "organization" signupFormErrors
+            , viewFieldError "organization" formErrors
             ]
         , div [ class "mb-3 form-check" ]
             [ input
                 [ type_ "checkbox"
                 , class "form-check-input"
-                , classList [ ( "is-invalid", Dict.member "termsAccepted" signupFormErrors ) ]
+                , classList [ ( "is-invalid", Dict.member "termsAccepted" formErrors ) ]
                 , id "termsAccepted"
                 , checked signupForm.termsAccepted
                 , onCheck UpdateTermsAccepted
@@ -210,20 +280,20 @@ viewSignupForm { signupForm, signupFormErrors } =
                 []
             , label [ class "form-check-label", for "termsAccepted" ]
                 [ text "J'accepte les conditions d'utilisation du service" ]
-            , viewFieldError "termsAccepted" signupFormErrors
+            , viewFieldError "termsAccepted" formErrors
             ]
         , div [ class "d-grid" ]
             [ button
                 [ type_ "submit"
                 , class "btn btn-primary"
-                , disabled <| signupForm == User.emptySignupForm || signupFormErrors /= Dict.empty
+                , disabled <| signupForm == User.emptySignupForm || formErrors /= Dict.empty
                 ]
                 [ text "Valider mon inscription" ]
             ]
         ]
 
 
-viewFieldError : String -> User.FormErrors -> Html msg
+viewFieldError : String -> FormErrors -> Html msg
 viewFieldError field errors =
     case Dict.get field errors of
         Just error ->
