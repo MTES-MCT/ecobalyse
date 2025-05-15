@@ -83,7 +83,7 @@ type Msg
     | AuthMsg Auth.Msg
     | CloseMobileNavigation
     | CloseNotification Session.Notification
-    | DetailedProcessesReceived Url (Result Http.Error String)
+    | DetailedProcessesReceived (Result Http.Error String)
     | EditorialMsg Editorial.Msg
     | ExploreMsg Explore.Msg
     | FoodBuilderMsg FoodBuilder.Msg
@@ -133,7 +133,7 @@ init flags requestedUrl navKey =
                     , Request.Github.getReleases ReleasesReceived
                     , case session.store.auth of
                         Session.Authenticated user ->
-                            Request.Auth.processes (DetailedProcessesReceived requestedUrl) user.token
+                            Request.Auth.processes DetailedProcessesReceived user.token
 
                         Session.NotAuthenticated ->
                             Cmd.none
@@ -211,6 +211,10 @@ setRoute url ( { state } as model, cmds ) =
 
                 Just Route.Auth2 ->
                     Auth2.init session
+                        |> toPage Auth2Page Auth2Msg
+
+                Just (Route.Auth2Login email token) ->
+                    Auth2.initLogin session email token
                         |> toPage Auth2Page Auth2Msg
 
                 Just (Route.Auth data) ->
@@ -316,17 +320,16 @@ update rawMsg ({ state } as model) =
                     Auth.update session authMsg authModel
                         |> toPage AuthPage AuthMsg
 
-                ( DetailedProcessesReceived url (Ok rawDetailedProcessesJson), currentPage ) ->
+                ( DetailedProcessesReceived (Ok rawDetailedProcessesJson), currentPage ) ->
                     -- When detailed processes are received, rebuild the entire static db using them
                     case StaticDb.db rawDetailedProcessesJson of
                         Err error ->
                             ( { model | state = Errored error }, Cmd.none )
 
                         Ok detailedDb ->
-                            { model | state = currentPage |> Loaded { session | db = detailedDb } }
-                                |> update (UrlChanged url)
+                            ( { model | state = currentPage |> Loaded { session | db = detailedDb } }, Cmd.none )
 
-                ( DetailedProcessesReceived _ (Err httpError), _ ) ->
+                ( DetailedProcessesReceived (Err httpError), _ ) ->
                     ( { model | state = Errored (Request.Common.errorToString httpError) }
                     , Cmd.none
                     )
