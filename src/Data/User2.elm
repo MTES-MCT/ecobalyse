@@ -151,15 +151,18 @@ encodeSignupForm form =
 validateSignupForm : SignupForm -> FormErrors
 validateSignupForm form =
     let
-        requiredMsg =
-            "Le champ est obligatoire"
-
         addErrorIf field msg check =
             if check then
                 Dict.insert field msg
 
             else
                 identity
+
+        isEmpty =
+            String.trim >> String.isEmpty
+
+        requiredMsg =
+            "Le champ est obligatoire"
     in
     Dict.empty
         |> addErrorIf "email"
@@ -168,7 +171,7 @@ validateSignupForm form =
                 |> Maybe.map (\re -> form.email |> Regex.contains re |> not)
                 |> Maybe.withDefault False
             )
-        |> addErrorIf "firstName" requiredMsg (String.isEmpty form.firstName)
-        |> addErrorIf "lastName" requiredMsg (String.isEmpty form.lastName)
-        |> addErrorIf "organization" requiredMsg (String.isEmpty form.organization)
+        |> addErrorIf "firstName" requiredMsg (isEmpty form.firstName)
+        |> addErrorIf "lastName" requiredMsg (isEmpty form.lastName)
+        |> addErrorIf "organization" requiredMsg (isEmpty form.organization)
         |> addErrorIf "termsAccepted" requiredMsg (not form.termsAccepted)
