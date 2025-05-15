@@ -19,46 +19,6 @@
   },
   {
     "category": "",
-    "id": "7d78d30e-7c35-451f-b8ab-e590f39ed0e8",
-    "name": "Chaise",
-    "query": {
-      "components": [
-        {
-          "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
-          "quantity": 4
-        },
-        {
-          "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973",
-          "quantity": 1
-        },
-        {
-          "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6",
-          "quantity": 1
-        }
-      ]
-    },
-    "scope": "object"
-  },
-  {
-    "category": "",
-    "id": "4d14194a-8c62-4c23-8799-745c498d1f6b",
-    "name": "Table",
-    "query": {
-      "components": [
-        {
-          "id": "6f8d1621-324a-4c00-abe3-f90813d878d2",
-          "quantity": 4
-        },
-        {
-          "id": "3d1ba21f-a139-4e1f-8192-082327ad855e",
-          "quantity": 1
-        }
-      ]
-    },
-    "scope": "object"
-  },
-  {
-    "category": "",
     "id": "7a83ef4f-5c97-47fe-8627-20bf5a30ce10",
     "name": "Exemple de table custom",
     "query": {
