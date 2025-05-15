@@ -6,6 +6,8 @@ name: Node.js CI
 env:
   NODE_ENV: test
   TRANSCRYPT_KEY: ${{ secrets.TRANSCRYPT_KEY }}
+  ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
+  ENABLE_FOOD_SECTION: "True"
 on:
   push:
     branches: [ master, staging ]
@@ -15,7 +17,8 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    # See https://github.com/puppeteer/puppeteer/issues/12818
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
         node-version: [20.x]
@@ -85,3 +88,4 @@ jobs:
 
     - name: Run server tests
       run: pipenv run backend/update.sh && npm run test:server-ci && npm run test:backend
+
