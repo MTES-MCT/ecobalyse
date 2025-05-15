@@ -6,6 +6,7 @@ module Data.User2 exposing
     , decodeAccessTokenData
     , decodeUser
     , emptySignupForm
+    , encodeAccessTokenData
     , encodeSignupForm
     , encodeUser
     , validateEmail
@@ -165,6 +166,16 @@ encodeSignupForm form =
         , ( "lastName", form.lastName |> Encode.string )
         , ( "organization", form.organization |> Encode.string )
         , ( "termsAccepted", form.termsAccepted |> Encode.bool )
+        ]
+
+
+encodeAccessTokenData : AccessTokenData -> Encode.Value
+encodeAccessTokenData v =
+    Encode.object
+        [ ( "access_token", v.accessToken |> Encode.string )
+        , ( "expires_in", v.expiresIn |> Encode.int )
+        , ( "refresh_token", v.refreshToken |> Maybe.map Encode.string |> Maybe.withDefault Encode.null )
+        , ( "token_type", v.tokenType |> Encode.string )
         ]
 
 
