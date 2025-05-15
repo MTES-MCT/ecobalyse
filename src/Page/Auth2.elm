@@ -1,5 +1,6 @@
 module Page.Auth2 exposing (Model, Msg(..), init, update, view)
 
+import Data.Env as Env
 import Data.Session as Session exposing (Session)
 import Data.User2 as User exposing (FormErrors, SignupForm, User)
 import Dict
@@ -10,6 +11,7 @@ import Http
 import Request.Auth2 as Auth
 import Request.Common as RequestCommon
 import Views.Container as Container
+import Views.Markdown as Markdown
 
 
 type alias Model =
@@ -36,8 +38,7 @@ type Tab
 
 init : Session -> ( Model, Session, Cmd Msg )
 init session =
-    ( { tab = Signup User.emptySignupForm Dict.empty
-      }
+    ( { tab = Signup User.emptySignupForm Dict.empty }
     , session
     , Cmd.none
     )
@@ -112,7 +113,7 @@ update session msg model =
             ( model, session, Cmd.none )
 
         ( _, SwitchTab tab ) ->
-            ( { model | tab = tab }, session, Cmd.none )
+            ( { model | tab = Debug.log "tab" tab }, session, Cmd.none )
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
@@ -121,31 +122,13 @@ view _ model =
     , [ Container.centered [ class "pb-5" ]
             [ div [ class "row" ]
                 [ div [ class "col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 d-flex flex-column gap-3" ]
-                    [ h1 []
-                        [ text "Connexion / Inscription"
-                        ]
+                    [ h1 [] [ text "Connexion / Inscription" ]
                     , viewTab model.tab
                     ]
                 ]
             ]
       ]
     )
-
-
-isActiveTab : Tab -> Tab -> Bool
-isActiveTab tab1 tab2 =
-    case ( tab1, tab2 ) of
-        ( Signup _ _, Signup _ _ ) ->
-            True
-
-        ( Signup _ _, SignupCompleted _ ) ->
-            True
-
-        ( Login, Login ) ->
-            True
-
-        _ ->
-            False
 
 
 viewTab : Tab -> Html Msg
@@ -160,11 +143,11 @@ viewTab currentTab =
                         (\( label, tab ) ->
                             li
                                 [ class "TabsTab nav-item"
-                                , classList [ ( "active", isActiveTab tab currentTab ) ]
+                                , classList [ ( "active", isActiveTab currentTab tab ) ]
                                 ]
                                 [ button
                                     [ class "nav-link no-outline border-top-0"
-                                    , classList [ ( "active", currentTab == tab ) ]
+                                    , classList [ ( "active", isActiveTab currentTab tab ) ]
                                     , onClick (SwitchTab tab)
                                     ]
                                     [ text label ]
@@ -188,9 +171,11 @@ viewTab currentTab =
 
 viewSignupCompleted : String -> Html Msg
 viewSignupCompleted email =
-    div []
-        [ h3 [] [ text "Inscription réussie" ]
-        , p [] [ text <| "Un email de confirmation a été envoyé à l'adresse " ++ email ]
+    div [ class "alert alert-info mb-0" ]
+        [ h2 [ class "h5" ] [ text "Inscription réussie" ]
+        , """Un email contenant un lien d'authentification a été envoyé à l'adresse `{email}`."""
+            |> String.replace "{email}" email
+            |> Markdown.simple []
         ]
 
 
@@ -279,7 +264,9 @@ viewSignupForm signupForm formErrors =
                 ]
                 []
             , label [ class "form-check-label", for "termsAccepted" ]
-                [ text "J'accepte les conditions d'utilisation du service" ]
+                [ text "Je m’engage à respecter les "
+                , a [ href Env.cguUrl, target "_blank" ] [ text "conditions d'utilisation" ]
+                ]
             , viewFieldError "termsAccepted" formErrors
             ]
         , div [ class "d-grid" ]
@@ -302,3 +289,22 @@ viewFieldError field errors =
 
         Nothing ->
             text ""
+
+
+isActiveTab : Tab -> Tab -> Bool
+isActiveTab tab1 tab2 =
+    case ( tab1, tab2 ) of
+        ( Signup _ _, Signup _ _ ) ->
+            True
+
+        ( Signup _ _, SignupCompleted _ ) ->
+            True
+
+        ( SignupCompleted _, Signup _ _ ) ->
+            True
+
+        ( Login, Login ) ->
+            True
+
+        _ ->
+            False
