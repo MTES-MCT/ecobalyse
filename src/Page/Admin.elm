@@ -21,8 +21,8 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Json.Encode as Encode
-import RemoteData exposing (WebData)
-import Request.Common
+import RemoteData
+import Request.BackendHttp as BackendHttp exposing (WebData)
 import Request.Component as ComponentApi
 import Route
 import Static.Db exposing (Db)
@@ -51,7 +51,7 @@ type Modal
 
 type Msg
     = ComponentCreated (WebData Component)
-    | ComponentDeleted (WebData String)
+    | ComponentDeleted (WebData ())
     | ComponentListResponse (WebData (List Component))
     | ComponentUpdated (WebData Component)
     | DuplicateComponent Component
@@ -69,7 +69,7 @@ init session =
       , modals = []
       }
     , session
-    , ComponentApi.getComponents session ComponentListResponse
+    , ComponentApi.getComponents session Scope.all ComponentListResponse
     )
 
 
@@ -78,12 +78,12 @@ update session msg model =
     case msg of
         -- POST
         ComponentCreated (RemoteData.Failure err) ->
-            ( model, session |> Session.notifyError "Erreur" (Request.Common.errorToString err), Cmd.none )
+            ( model, session |> Session.notifyError "Erreur" (BackendHttp.errorToString err), Cmd.none )
 
         ComponentCreated (RemoteData.Success component) ->
             ( { model | modals = [ EditComponentModal (Component.createItem component.id) ] }
             , session
-            , ComponentApi.getComponents session ComponentListResponse
+            , ComponentApi.getComponents session Scope.all ComponentListResponse
             )
 
         ComponentCreated _ ->
@@ -91,10 +91,10 @@ update session msg model =
 
         -- DELETE
         ComponentDeleted (RemoteData.Failure err) ->
-            ( model, session |> Session.notifyError "Erreur" (Request.Common.errorToString err), Cmd.none )
+            ( model, session |> Session.notifyError "Erreur" (BackendHttp.errorToString err), Cmd.none )
 
         ComponentDeleted (RemoteData.Success _) ->
-            ( model, session, ComponentApi.getComponents session ComponentListResponse )
+            ( model, session, ComponentApi.getComponents session Scope.all ComponentListResponse )
 
         ComponentDeleted _ ->
             ( model, session, Cmd.none )
@@ -113,10 +113,10 @@ update session msg model =
 
         -- PATCH
         ComponentUpdated (RemoteData.Failure err) ->
-            ( model, session |> Session.notifyError "Erreur" (Request.Common.errorToString err), Cmd.none )
+            ( model, session |> Session.notifyError "Erreur" (BackendHttp.errorToString err), Cmd.none )
 
         ComponentUpdated (RemoteData.Success _) ->
-            ( model, session, ComponentApi.getComponents session ComponentListResponse )
+            ( model, session, ComponentApi.getComponents session Scope.all ComponentListResponse )
 
         ComponentUpdated _ ->
             ( model, session, Cmd.none )
@@ -480,7 +480,7 @@ mapRemoteData : (a -> Html msg) -> WebData a -> Html msg
 mapRemoteData fn webData =
     case webData of
         RemoteData.Failure err ->
-            Alert.httpError err
+            Alert.serverError <| BackendHttp.errorToString err
 
         RemoteData.Loading ->
             Spinner.view

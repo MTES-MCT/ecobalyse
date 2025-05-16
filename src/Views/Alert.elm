@@ -1,7 +1,7 @@
 module Views.Alert exposing
     ( Level(..)
-    , httpError
     , preformatted
+    , serverError
     , simple
     )
 
@@ -9,8 +9,6 @@ import Data.Env as Env
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Http
-import Request.Common as HttpCommon
 import Views.Icon as Icon
 
 
@@ -45,12 +43,12 @@ icon level =
             span [ class "me-1" ] [ Icon.warning ]
 
 
-httpError : Http.Error -> Html msg
-httpError error =
+serverError : String -> Html msg
+serverError error =
     simple
         { close = Nothing
         , content =
-            case error |> HttpCommon.errorToString |> String.lines of
+            case String.lines error of
                 [] ->
                     []
 
@@ -72,7 +70,7 @@ httpError error =
                                 ("mailto:"
                                     ++ Env.contactEmail
                                     ++ "?Subject=[Ecobalyse]+Erreur+rencontrée&Body="
-                                    ++ HttpCommon.errorToString error
+                                    ++ error
                                 )
                             ]
                             [ text "Envoyer un rapport d'incident" ]
