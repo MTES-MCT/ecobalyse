@@ -16,8 +16,9 @@ import Dict
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import RemoteData
 import Request.Auth2 as Auth
-import Request.BackendHttp as BackendHttp
+import Request.BackendHttp as BackendHttp exposing (WebData)
 import Route
 import Views.Container as Container
 import Views.Markdown as Markdown
@@ -38,11 +39,11 @@ type alias Token =
 
 
 type Msg
-    = AskLoginEmailResponse (Result BackendHttp.Error ())
+    = AskLoginEmailResponse (WebData ())
     | AskLoginEmailSubmit
-    | LoginResponse (Result BackendHttp.Error AccessTokenData)
-    | ProfileResponse AccessTokenData (Result BackendHttp.Error User)
-    | SignupResponse (Result BackendHttp.Error User)
+    | LoginResponse (WebData AccessTokenData)
+    | ProfileResponse AccessTokenData (WebData User)
+    | SignupResponse (WebData User)
     | SignupSubmit
     | SwitchTab Tab
     | UpdateAskLoginEmailForm Email
@@ -106,13 +107,13 @@ update session msg model =
         --
         -- AskLoginEmail tab updates
         --
-        ( AskLoginEmail email, AskLoginEmailResponse (Ok _) ) ->
+        ( AskLoginEmail email, AskLoginEmailResponse (RemoteData.Success _) ) ->
             ( { model | tab = AskLoginEmailSent email }
             , session
             , Cmd.none
             )
 
-        ( AskLoginEmail _, AskLoginEmailResponse (Err error) ) ->
+        ( AskLoginEmail _, AskLoginEmailResponse (RemoteData.Failure error) ) ->
             ( model
             , session
                 |> Session.notifyError "Erreur lors de la connexion" (BackendHttp.errorToString error)
@@ -143,13 +144,13 @@ update session msg model =
         --
         -- Authenticating tab updates
         --
-        ( Authenticating, LoginResponse (Ok accessTokenData) ) ->
+        ( Authenticating, LoginResponse (RemoteData.Success accessTokenData) ) ->
             ( { model | tab = Authenticating }
             , session
-            , Auth.profile session (ProfileResponse accessTokenData) accessTokenData.accessToken
+            , Auth.profileFromAccessToken session (ProfileResponse accessTokenData) accessTokenData.accessToken
             )
 
-        ( Authenticating, LoginResponse (Err error) ) ->
+        ( Authenticating, LoginResponse (RemoteData.Failure error) ) ->
             ( model
             , session
                 |> Session.notifyError
@@ -158,13 +159,13 @@ update session msg model =
             , Browser.Navigation.load <| Route.toString Route.Auth2
             )
 
-        ( Authenticating, ProfileResponse accessTokenData (Ok user) ) ->
+        ( Authenticating, ProfileResponse accessTokenData (RemoteData.Success user) ) ->
             ( { model | tab = Account user }
             , session |> Session.setAuth2 (Just { accessTokenData = accessTokenData, user = user })
             , Cmd.none
             )
 
-        ( Authenticating, ProfileResponse _ (Err error) ) ->
+        ( Authenticating, ProfileResponse _ (RemoteData.Failure error) ) ->
             ( model
             , session
                 |> Session.notifyError
@@ -180,13 +181,13 @@ update session msg model =
         --
         -- Signup tab updates
         --
-        ( Signup { email } _, SignupResponse (Ok _) ) ->
+        ( Signup { email } _, SignupResponse (RemoteData.Success _) ) ->
             ( { model | tab = SignupCompleted email }
             , session
             , Cmd.none
             )
 
-        ( Signup _ _, SignupResponse (Err error) ) ->
+        ( Signup _ _, SignupResponse (RemoteData.Failure error) ) ->
             ( model
             , session
                 |> Session.notifyError "Erreur lors de l'inscription" (BackendHttp.errorToString error)

@@ -1,64 +1,61 @@
 module Request.Auth2 exposing
     ( askLoginEmail
     , login
-    , profile
+    , profileFromAccessToken
     , signup
     )
 
 import Data.Session exposing (Session)
 import Data.User2 as User exposing (AccessTokenData, SignupForm, User)
 import Http
+import Json.Decode as Decode
 import Json.Encode as Encode
-import Request.BackendHttp as BackendHttp
-
-
-endpoint : { a | backendApiUrl : String } -> String -> String
-endpoint { backendApiUrl } path =
-    String.join "/" [ backendApiUrl, "api", path ]
+import RemoteData
+import Request.BackendHttp as BackendHttp exposing (WebData)
 
 
 {-| Request an authentication email
 -}
-askLoginEmail : Session -> (Result BackendHttp.Error () -> msg) -> String -> Cmd msg
+askLoginEmail : Session -> (WebData () -> msg) -> String -> Cmd msg
 askLoginEmail session event email =
-    Http.post
-        { body = Http.jsonBody <| Encode.object [ ( "email", email |> Encode.string ) ]
-        , expect = BackendHttp.expectWhatever event
-        , url = endpoint session "access/magic_link/login"
-        }
+    BackendHttp.post session
+        "access/magic_link/login"
+        event
+        (Decode.succeed ())
+        (Encode.object [ ( "email", email |> Encode.string ) ])
 
 
 {-| Logs the user in
 -}
-login : Session -> (Result BackendHttp.Error AccessTokenData -> msg) -> String -> String -> Cmd msg
+login : Session -> (WebData AccessTokenData -> msg) -> String -> String -> Cmd msg
 login session event email token =
-    Http.get
-        { expect = BackendHttp.expectJson event User.decodeAccessTokenData
-        , url = endpoint session "access/login" ++ "?email=" ++ email ++ "&token=" ++ token
-        }
+    BackendHttp.get session
+        ("access/login" ++ "?email=" ++ email ++ "&token=" ++ token)
+        event
+        User.decodeAccessTokenData
 
 
-{-| Retrieve user profile
+{-| Retrieve user profile from a token received by email
 -}
-profile : Session -> (Result BackendHttp.Error User -> msg) -> String -> Cmd msg
-profile session event accessToken =
+profileFromAccessToken : Session -> (WebData User -> msg) -> String -> Cmd msg
+profileFromAccessToken session event accessToken =
     Http.request
         { body = Http.emptyBody
-        , expect = BackendHttp.expectJson event User.decodeUser
-        , headers = [ Http.header "Authorization" ("Bearer " ++ accessToken) ]
+        , expect = BackendHttp.expectJson (RemoteData.fromResult >> event) User.decodeUser
+        , headers = [ Http.header "Authorization" <| "Bearer " ++ accessToken ]
         , method = "GET"
         , timeout = Nothing
         , tracker = Nothing
-        , url = endpoint session "me"
+        , url = session.backendApiUrl ++ "/api/me"
         }
 
 
 {-| Signup a new user
 -}
-signup : Session -> (Result BackendHttp.Error User -> msg) -> SignupForm -> Cmd msg
+signup : Session -> (WebData User -> msg) -> SignupForm -> Cmd msg
 signup session event signupForm =
-    Http.post
-        { body = Http.jsonBody <| User.encodeSignupForm signupForm
-        , expect = BackendHttp.expectJson event User.decodeUser
-        , url = endpoint session "access/magic_link/signup"
-        }
+    BackendHttp.post session
+        "access/magic_link/signup"
+        event
+        User.decodeUser
+        (User.encodeSignupForm signupForm)

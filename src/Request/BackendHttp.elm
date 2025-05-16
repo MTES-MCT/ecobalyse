@@ -4,7 +4,6 @@ module Request.BackendHttp exposing
     , delete
     , errorToString
     , expectJson
-    , expectWhatever
     , get
     , patch
     , post
