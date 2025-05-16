@@ -16,9 +16,8 @@ import Dict
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Http
 import Request.Auth2 as Auth
-import Request.Common as RequestCommon
+import Request.BackendHttp as BackendHttp
 import Route
 import Views.Container as Container
 import Views.Markdown as Markdown
@@ -39,11 +38,11 @@ type alias Token =
 
 
 type Msg
-    = AskLoginEmailResponse (Result Http.Error ())
+    = AskLoginEmailResponse (Result BackendHttp.Error ())
     | AskLoginEmailSubmit
-    | LoginResponse (Result Http.Error AccessTokenData)
-    | ProfileResponse AccessTokenData (Result Http.Error User)
-    | SignupResponse (Result Http.Error User)
+    | LoginResponse (Result BackendHttp.Error AccessTokenData)
+    | ProfileResponse AccessTokenData (Result BackendHttp.Error User)
+    | SignupResponse (Result BackendHttp.Error User)
     | SignupSubmit
     | SwitchTab Tab
     | UpdateAskLoginEmailForm Email
@@ -116,9 +115,7 @@ update session msg model =
         ( AskLoginEmail _, AskLoginEmailResponse (Err error) ) ->
             ( model
             , session
-                |> Session.notifyError
-                    "Erreur lors de la connexion"
-                    (RequestCommon.errorToString error)
+                |> Session.notifyError "Erreur lors de la connexion" (BackendHttp.errorToString error)
             , Cmd.none
             )
 
@@ -157,7 +154,7 @@ update session msg model =
             , session
                 |> Session.notifyError
                     "Erreur lors de la récupération du jeton d'authentification"
-                    (RequestCommon.errorToString error)
+                    (BackendHttp.errorToString error)
             , Browser.Navigation.load <| Route.toString Route.Auth2
             )
 
@@ -172,7 +169,7 @@ update session msg model =
             , session
                 |> Session.notifyError
                     "Erreur lors de la récupération du profil utilisateur"
-                    (RequestCommon.errorToString error)
+                    (BackendHttp.errorToString error)
             , Browser.Navigation.load <| Route.toString Route.Auth2
             )
 
@@ -192,9 +189,7 @@ update session msg model =
         ( Signup _ _, SignupResponse (Err error) ) ->
             ( model
             , session
-                |> Session.notifyError
-                    "Erreur lors de l'inscription"
-                    (RequestCommon.errorToString error)
+                |> Session.notifyError "Erreur lors de l'inscription" (BackendHttp.errorToString error)
             , Cmd.none
             )
 
