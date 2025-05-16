@@ -23,7 +23,7 @@ askLoginEmail : Session -> (Result BackendHttp.Error () -> msg) -> String -> Cmd
 askLoginEmail session event email =
     Http.post
         { body = Http.jsonBody <| Encode.object [ ( "email", email |> Encode.string ) ]
-        , expect = BackendHttp.expectApiWhatever event
+        , expect = BackendHttp.expectWhatever event
         , url = endpoint session "access/magic_link/login"
         }
 
@@ -33,7 +33,7 @@ askLoginEmail session event email =
 login : Session -> (Result BackendHttp.Error AccessTokenData -> msg) -> String -> String -> Cmd msg
 login session event email token =
     Http.get
-        { expect = BackendHttp.expectApiJson event User.decodeAccessTokenData
+        { expect = BackendHttp.expectJson event User.decodeAccessTokenData
         , url = endpoint session "access/login" ++ "?email=" ++ email ++ "&token=" ++ token
         }
 
@@ -44,7 +44,7 @@ profile : Session -> (Result BackendHttp.Error User -> msg) -> String -> Cmd msg
 profile session event accessToken =
     Http.request
         { body = Http.emptyBody
-        , expect = BackendHttp.expectApiJson event User.decodeUser
+        , expect = BackendHttp.expectJson event User.decodeUser
         , headers = [ Http.header "Authorization" ("Bearer " ++ accessToken) ]
         , method = "GET"
         , timeout = Nothing
@@ -59,6 +59,6 @@ signup : Session -> (Result BackendHttp.Error User -> msg) -> SignupForm -> Cmd 
 signup session event signupForm =
     Http.post
         { body = Http.jsonBody <| User.encodeSignupForm signupForm
-        , expect = BackendHttp.expectApiJson event User.decodeUser
+        , expect = BackendHttp.expectJson event User.decodeUser
         , url = endpoint session "access/magic_link/signup"
         }

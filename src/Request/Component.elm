@@ -6,60 +6,35 @@ module Request.Component exposing
     )
 
 import Data.Component as Component exposing (Component)
-import Data.Scope as Scope
-import Data.Session as Session exposing (Session)
-import Http
-import RemoteData exposing (WebData)
-import RemoteData.Http as Http exposing (defaultConfig)
-
-
-authConfig : Maybe Session.Auth2 -> Http.Config
-authConfig maybeAuth2 =
-    { defaultConfig
-        | headers =
-            case maybeAuth2 of
-                Just { accessTokenData } ->
-                    [ Http.header "Authorization" <| "Bearer " ++ accessTokenData.accessToken ]
-
-                Nothing ->
-                    []
-    }
+import Data.Scope as Scope exposing (Scope)
+import Data.Session exposing (Session)
+import Request.BackendHttp as BackendHttp exposing (WebData)
 
 
 createComponent : Session -> (WebData Component -> msg) -> Component -> Cmd msg
-createComponent { backendApiUrl, store } event component =
-    Http.postWithConfig (authConfig store.auth2)
-        (endpoint backendApiUrl "")
+createComponent session event component =
+    BackendHttp.post session
+        "components"
         event
         (Component.decode Scope.all)
         (Component.encode component)
 
 
-deleteComponent : Session -> (WebData String -> msg) -> Component -> Cmd msg
-deleteComponent { backendApiUrl, store } event component =
-    Http.deleteWithConfig (authConfig store.auth2)
-        (endpoint backendApiUrl <| Component.idToString component.id)
-        event
-        (Component.encode component)
+deleteComponent : Session -> (WebData () -> msg) -> Component -> Cmd msg
+deleteComponent session event component =
+    -- FIXME: need to encode component in json body as previously?
+    BackendHttp.delete session ("components/" ++ Component.idToString component.id) event
 
 
-endpoint : String -> String -> String
-endpoint backendApiUrl path =
-    String.join "/" [ backendApiUrl, "api/components", path ]
-
-
-getComponents : Session -> (WebData (List Component) -> msg) -> Cmd msg
-getComponents { backendApiUrl } event =
-    Http.getWithConfig defaultConfig
-        (endpoint backendApiUrl "")
-        event
-        (Component.decodeList Scope.all)
+getComponents : Session -> List Scope -> (WebData (List Component) -> msg) -> Cmd msg
+getComponents session scopes event =
+    BackendHttp.get session "components" event (Component.decodeList scopes)
 
 
 patchComponent : Session -> (WebData Component -> msg) -> Component -> Cmd msg
-patchComponent { backendApiUrl, store } event component =
-    Http.patchWithConfig (authConfig store.auth2)
-        (endpoint backendApiUrl <| Component.idToString component.id)
+patchComponent session event component =
+    BackendHttp.patch session
+        ("components/" ++ Component.idToString component.id)
         event
         (Component.decode Scope.all)
         (Component.encode component)
