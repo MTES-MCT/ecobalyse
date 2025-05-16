@@ -1,4 +1,4 @@
-# Coût environnemental
+# Principes clés
 
 Le coût environnemental est le résultat du calcul d'impacts seront une méthode s'appuie sur le socle européen PEF (Product Environmental Footprint), auxquels s'ajoutent des corrections ou des compléments relatifs aux dimensions aujourd'hui mal couvertes par l'analyse de cycle de vie.
 
@@ -11,8 +11,8 @@ Les deux pages suivantes viennent détailler :&#x20;
 * la contribution au coût environnemental liée à des catégories d'impact ACV - [**Catégories d'impact**](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/cout-environnemental/categories-dimpact-acv)
 * l'introduction de compléments qui, pour les produits alimentaires, vient valoriser les services écosystémiques liés aux modes de production agricole - [**Compléments hors ACV**](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/cout-environnemental/complement-hors-acv)&#x20;
 
-{% content-ref url="categories-dimpact-acv.md" %}
-[categories-dimpact-acv.md](categories-dimpact-acv.md)
+{% content-ref url="categories-dimpact-acv/" %}
+[categories-dimpact-acv](categories-dimpact-acv/)
 {% endcontent-ref %}
 
 {% content-ref url="complement-hors-acv.md" %}

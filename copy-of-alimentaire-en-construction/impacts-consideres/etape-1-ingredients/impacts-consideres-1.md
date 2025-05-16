@@ -53,7 +53,7 @@ Pour définir les ICV bio, nous avons procédé selon cette hiérarchie&#x20;
 
 * **Autres labels**
 
-Quelques données sous labels sont déjà disponibles dans Agribalyse et ont pu être intégrées dans ecobalyse, c'est le cas pour les oeufs "Bleu Blanc Coeur" par exemple. Il est tout à fait possible de rajouter dans écobalyse d'autres labels à l'avenir. Pour cela, les porteurs de labels sont invités à se [rapprocher de l'ADEME et des travaux Agribalyse](../../../impacts-consideres/).&#x20;
+Quelques données sous labels sont déjà disponibles dans Agribalyse et ont pu être intégrées dans ecobalyse, c'est le cas pour les oeufs "Bleu Blanc Coeur" par exemple. Il est tout à fait possible de rajouter dans écobalyse d'autres labels à l'avenir. Pour cela, les porteurs de labels sont invités à se [rapprocher de l'ADEME et des travaux Agribalyse](../../../impacts-consideres.md).&#x20;
 
 {% file src="../../../.gitbook/assets/20221215 ICV bio moyen ecobalyse.xlsx" %}
 

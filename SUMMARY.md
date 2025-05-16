@@ -1,11 +1,28 @@
 # Table of contents
 
+## 💡 Présentation et informations diverses <a href="#ecobalyse-info" id="ecobalyse-info"></a>
+
+***
+
 * [🇫🇷 Ecobalyse](README.md)
 * [🤝 Communauté](communaute.md)
-* [📝 Le coût environnemental : approche méthodologique globale](impacts-consideres/README.md)
-  * [📚 Source des procédés](def-cout-environnemental/source-des-procedes.md)
 * [Conditions d'utilisation](conditions-dutilisation.md)
 * [Nous contacter](nous-contacter.md)
+
+## 📊 Le coût environnemental <a href="#def-cout-environnemental" id="def-cout-environnemental"></a>
+
+* [Principes clés](def-cout-environnemental/principes-cles.md)
+* [Catégories d'impact ACV](def-cout-environnemental/categories-dimpact-acv/README.md)
+  * [Correctifs sur la toxicité et l'écotoxicité](def-cout-environnemental/categories-dimpact-acv/correctifs-sur-la-toxicite-et-lecotoxicite.md)
+  * [Exclusion des émissions à long terme](def-cout-environnemental/categories-dimpact-acv/exclusion-des-emissions-a-long-terme.md)
+  * [Correction de la caractérisation de la ressource en Uranium](def-cout-environnemental/categories-dimpact-acv/correction-de-la-caracterisation-de-la-ressource-en-uranium.md)
+* [Complément hors ACV](def-cout-environnemental/complement-hors-acv.md)
+* [📚 Source des procédés](def-cout-environnemental/source-des-procedes.md)
+
+***
+
+* [📝 Le coût environnemental : approche méthodologique globale](impacts-consideres.md)
+* [Compléments hors ACV - old](complements-hors-acv.md)
 
 ## 🍕 Alimentaire
 
@@ -23,10 +40,6 @@
   * [🥑 Part non comestible](alimentaire/impacts-consideres/part-non-comestible.md)
   * [🚣‍♀️ Densité](alimentaire/impacts-consideres/densite.md)
   * [🍚 Rapport cru/cuit](alimentaire/impacts-consideres/rapport-cru-cuit.md)
-* [Coût environnemental](alimentaire/cout-environnemental/README.md)
-  * [Catégories d'impact ACV](alimentaire/cout-environnemental/categories-dimpact-acv.md)
-  * [Complément hors ACV](alimentaire/cout-environnemental/complement-hors-acv.md)
-  * [Compléments hors ACV - old](alimentaire/cout-environnemental/complements-hors-acv.md)
 * [Paramétrage](alimentaire/complements-hors-acv/README.md)
   * [🧅 Paramétrage des ingrédients](alimentaire/complements-hors-acv/complements-hors-acv.md)
   * [§Recette en pourcentage](alimentaire/complements-hors-acv/recette-en-pourcentage.md)
@@ -258,19 +271,10 @@
   * [Caractéristiques du véhicule](vehicules/parametrage/caracteristiques-du-vehicule.md)
 * [Draft - Exemples](vehicules/exemples.md)
 
-## 💡 BROUILLON - Présentation et informations diverses <a href="#ecobalyse-info" id="ecobalyse-info"></a>
-
-## 📊 BROUILLON - Le coût environnemental <a href="#def-cout-environnemental" id="def-cout-environnemental"></a>
-
-* [📝 Approche méthodologique globale](def-cout-environnemental/impacts-consideres/README.md)
-  * [Exclusion des émissions à long terme](def-cout-environnemental/impacts-consideres/exclusion-des-emissions-a-long-terme.md)
-  * [Correction de la caractérisation de la ressource en Uranium](def-cout-environnemental/impacts-consideres/correction-de-la-caracterisation-de-la-ressource-en-uranium.md)
-
-***
-
-* [Prise en compte de la durabilité](prise-en-compte-de-la-durabilite.md)
-
 ## 📄 BROUILLON - Méthodes transverses spécifiques <a href="#transverse" id="transverse"></a>
+
+* [Prise en compte de la durabilité](transverse/prise-en-compte-de-la-durabilite.md)
+* [Page](transverse/page.md)
 
 ## Pages en cours de revue
 
