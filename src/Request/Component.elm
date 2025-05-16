@@ -13,8 +13,8 @@ import RemoteData exposing (WebData)
 import RemoteData.Http as Http exposing (defaultConfig)
 
 
-authHeaders : Maybe Session.Auth2 -> Http.Config
-authHeaders maybeAuth2 =
+authConfig : Maybe Session.Auth2 -> Http.Config
+authConfig maybeAuth2 =
     { defaultConfig
         | headers =
             case maybeAuth2 of
@@ -28,7 +28,7 @@ authHeaders maybeAuth2 =
 
 createComponent : Session -> (WebData Component -> msg) -> Component -> Cmd msg
 createComponent { backendApiUrl, store } event component =
-    Http.postWithConfig (authHeaders store.auth2)
+    Http.postWithConfig (authConfig store.auth2)
         (endpoint backendApiUrl "")
         event
         (Component.decode Scope.all)
@@ -37,7 +37,7 @@ createComponent { backendApiUrl, store } event component =
 
 deleteComponent : Session -> (WebData String -> msg) -> Component -> Cmd msg
 deleteComponent { backendApiUrl, store } event component =
-    Http.deleteWithConfig (authHeaders store.auth2)
+    Http.deleteWithConfig (authConfig store.auth2)
         (endpoint backendApiUrl <| Component.idToString component.id)
         event
         (Component.encode component)
@@ -58,7 +58,7 @@ getComponents { backendApiUrl } event =
 
 patchComponent : Session -> (WebData Component -> msg) -> Component -> Cmd msg
 patchComponent { backendApiUrl, store } event component =
-    Http.patchWithConfig (authHeaders store.auth2)
+    Http.patchWithConfig (authConfig store.auth2)
         (endpoint backendApiUrl <| Component.idToString component.id)
         event
         (Component.decode Scope.all)
