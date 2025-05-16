@@ -20,19 +20,18 @@ Illustration de la modélisation des scénarios de fin de vie d'un meuble&#x20;
 
 ## Méthode de calcul
 
-L'impact de la fin de vie d'un meuble consiste à :&#x20;
+Le calcul de l'impact de la fin de vie d'un meuble se fait en deux temps :&#x20;
 
-1. (i) définir le scénario de fin de vie du meuble,
-2. (ii) calculer l'impact de la fin de vie du meuble.
+1. définir les scénarios de fin de vie du meuble,
+2. calculer l'impact de ces scénarios.
 
-### Etape 1 = Définir le scénarios de fin de vie du meuble
+### Etape 1 = Définir les scénarios de fin de vie du meuble
 
 La définition des scénarios se fait en 3 étapes :&#x20;
 
 #### 1) Taux de collecte&#x20;
 
-Ce paramètre définit la capacité du meuble à être collécté en fin de vie.
-
+Ce paramètre définit la capacité du meuble à être collécté en fin de vie.\
 Un taux de collecte de 70% est appliqué par défaut pour l'ensemble des meubles. Cette valeur se base sur les tonnes collectés en fin de vie par la filière REP des éléments d'ameublement (1,2m en 2022) et les tonnes mises sur le marché comparables (c. 1,8m).&#x20;
 
 <details>
@@ -58,25 +57,13 @@ En 2022, 1,2 millions de tonnes ont été collectées par la filière; que ce so
 
 </details>
 
+Dès lors, 30% du meuble est orienté vers le scénario "Non Collecté" et 70% vers le scénario "Collecté" (plus de détails ci-après). &#x20;
+
 #### 2) Schéma opérationnel&#x20;
 
-Ce paramètre reflète l'existence d'une filière de fin de vie.
+Ce paramètre reflète l'existence d'une filière de fin de vie permettant d'orienter chaque matière du meuble collecté vers leurs débouchés spécifiques (enfouissement, incinération, recyclage).
 
-Certains meubles, bien que collectés par la filière, ne peuvent pas être recyclés car il n'existe pas de schéma opérationnel permettant de collecter, séparer et recycler à l’échelle et en pratique les matières qui composent l’élément d’ameublement.&#x20;
-
-Dans ce cas, ces meubles sont considérés comme terminant leur fin de vie en décharge avec l'application du scénario par défaut "meuble non recyclable" (cf. ci-dessous).&#x20;
-
-Liste des éléments d'ameublement ne disposant pas de schéma opérationnel : &#x20;
-
-* Décoration textile,
-* Rembourrés d'assise et de couchage,
-* Autres meubles rembourrés (ex : canapé, sommiers tappissiers)
-
-{% hint style="info" %}
-Cette liste reflète l'état de la filière à un instant T.&#x20;
-
-L'organisme coordinateur de la filière (l'OCABJ) se charge de s'assurer que la liste des éléments d'ameublement ne disposant pas de schéma opérationnel est à jour.&#x20;
-{% endhint %}
+L'abscence de schéma opérationnel implique l'impossibilité pour le meuble collecté d'être recyclé car il n'existe pas de schéma opérationnel permettant de collecter, séparer et recycler à l’échelle et en pratique les matières qui composent l’élément d’ameublement.&#x20;
 
 #### 3) Facteurs limitants&#x20;
 
@@ -87,14 +74,6 @@ Les facteurs limitants regroupent deux types de paramètres empêchant la recycl
   Si au moins un perturbateur de recyclage est présent, le meuble est considéré comme "Non Recyclable".
 * L'absence de matériau majoritaire\
   Selon les éléments d'ameublement (ex : chaise, table, etc.), un seuil de "matériaux majoritaires" est à atteindre afin que le meuble soit orienté vers les filières de fin de vie spécifiques à chaque meuble.
-
-{% hint style="info" %}
-La liste détaillée des facteurs limitant la recyclabilité du meuble est tenue à jour par l'organisme coordinateur de la filière REP des éléments d'ameublement : l'OCABJ[^1].&#x20;
-
-Par défaut, le meuble est considéré avec un perturbateur de recyclage (meuble non recyclable).
-
-L'utilisateur a la possibilité de modifier ce paramètre.
-{% endhint %}
 
 {% hint style="danger" %}
 **Exception "Métal"**
@@ -164,6 +143,20 @@ Liste des variables mobilisées dans les formules ci-dessus :&#x20;
 &#x20; \*\*Source : Référentiel Meubles meublants révisé en 2023 (FCBA-ADEME)\
 \*\*\*Application du scénario par défaut "Meuble non recyclable"
 
+### Schémas opérationnels&#x20;
+
+Les catégories de meubles suivantes ne disposent pas de schéma opérationnel :&#x20;
+
+* Décoration textile,
+* Rembourrés d'assise et de couchage,
+* Autres meubles rembourrés (ex : canapé, sommiers tappissiers)
+
+{% hint style="info" %}
+Cette liste reflète l'état de la filière à un instant T.&#x20;
+
+L'organisme coordinateur de la filière (l'OCABJ) se charge de s'assurer que la liste des éléments d'ameublement ne disposant pas de schéma opérationnel est à jour.&#x20;
+{% endhint %}
+
 ### Fin de vie des des meubles non recyclables&#x20;
 
 Lorsqu'un meuble est non recyclable (cf. scénarios 2 et 3 ci-dessus), ce dernier est incinéré à 82% et enfoui à 18%.
@@ -173,10 +166,22 @@ Ce scénario est basé sur le scénario de fin de vie d'un mobilier meublant don
 {% endhint %}
 
 {% hint style="info" %}
-Le scénario 2 (meuble non recyclable car présence d'au moins un facteur limitant) pourrait être précisé car ce scénario implique généralement l'envoi du meuble vers une filière [CSR ](#user-content-fn-2)[^2]\(incinération avec récupération de chaleur).
+Le scénario 2 (meuble non recyclable car présence d'au moins un facteur limitant) pourrait être précisé car ce scénario implique généralement l'envoi du meuble vers une filière [CSR ](#user-content-fn-1)[^1]\(incinération avec récupération de chaleur).
 {% endhint %}
 
+### Facteurs limitants
 
+Les facteurs limitants sont spécifiques à chaque catégorie de meubles (canapé, table, etc.). Il est de la responsabilité de l'utilisateur de préciser la présence ou non de facteurs limitants.
+
+Par défaut, la modélisation d'un meuble dans Ecobalyse intègre la présence d'au moins un facteur limitant.
+
+{% hint style="info" %}
+La liste détaillée des facteurs limitant la recyclabilité du meuble est tenue à jour par l'organisme coordinateur de la filière REP des éléments d'ameublement : l'OCABJ[^2].&#x20;
+
+Par défaut, le meuble est considéré avec un perturbateur de recyclage (meuble non recyclable).
+
+L'utilisateur a la possibilité de modifier ce paramètre.
+{% endhint %}
 
 ## Procédés utilisés pour le coût environnemental&#x20;
 
@@ -278,6 +283,6 @@ Pour certains types de matière (ex : plastique), des procédés spécifiques so
 
 
 
-[^1]: &#x20;L'organisme coordinateur de la filière de Responsabilité Elargie du Producteur des Eléments d'Ameublement.
+[^1]: Combustibles solides de récupération
 
-[^2]: Combustibles solides de récupération
+[^2]: &#x20;L'organisme coordinateur de la filière de Responsabilité Elargie du Producteur des Eléments d'Ameublement.
