@@ -25,7 +25,6 @@ type Route
     | Api
     | Auth { authenticated : Bool }
     | Auth2
-    | Auth2Account
     | Auth2Login String String
     | Editorial String
     | Explore Scope Dataset
@@ -52,7 +51,6 @@ parser =
         , Parser.map Admin (Parser.s "admin")
         , Parser.map Api (Parser.s "api")
         , Parser.map Auth2 (Parser.s "auth2")
-        , Parser.map Auth2Account (Parser.s "auth2" </> Parser.s "account")
         , Parser.map Auth2Login (Parser.s "auth2" </> Parser.string </> Parser.string)
         , Parser.map (Auth { authenticated = True }) (Parser.s "auth" </> Parser.s "authenticated")
         , Parser.map (Auth { authenticated = False }) (Parser.s "auth")
@@ -233,9 +231,6 @@ toString route =
 
                 Auth2 ->
                     [ "auth2" ]
-
-                Auth2Account ->
-                    [ "auth2", "account" ]
 
                 Auth2Login email token ->
                     [ "auth2", email, token ]
