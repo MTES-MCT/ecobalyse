@@ -2,7 +2,6 @@ module Page.Auth2 exposing
     ( Model
     , Msg(..)
     , init
-    , initAccount
     , initLogin
     , update
     , view
@@ -61,15 +60,12 @@ type Tab
 
 init : Session -> ( Model, Session, Cmd Msg )
 init session =
-    ( { tab = AskLoginEmail "" }
-    , session
-    , Cmd.none
-    )
-
-
-initAccount : Session -> User -> ( Model, Session, Cmd Msg )
-initAccount session user =
-    ( { tab = Account user }
+    ( { tab =
+            session
+                |> Session.getAuth2
+                |> Maybe.map (.user >> Account)
+                |> Maybe.withDefault (AskLoginEmail "")
+      }
     , session
     , Cmd.none
     )
@@ -86,23 +82,13 @@ initLogin session email token =
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update session msg model =
     case ( model.tab, msg ) of
-        --
-        -- Global page updates
-        --
+        -- Tab updates
         ( _, SwitchTab tab ) ->
-            ( { model | tab = tab }
-            , session
-            , Cmd.none
-            )
+            ( { model | tab = tab }, session, Cmd.none )
 
-        --
         -- Account tab updates
-        --
         ( Account _, _ ) ->
-            ( model
-            , session
-            , Cmd.none
-            )
+            ( model, session, Cmd.none )
 
         --
         -- AskLoginEmail tab updates
@@ -221,13 +207,13 @@ update session msg model =
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view _ model =
+view session model =
     ( "Connexion / Inscription"
     , [ Container.centered [ class "pb-5" ]
             [ div [ class "row" ]
                 [ div [ class "col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 d-flex flex-column gap-3" ]
                     [ h1 [] [ text "Connexion / Inscription" ]
-                    , viewTab model.tab
+                    , viewTab session model.tab
                     ]
                 ]
             ]
@@ -235,30 +221,38 @@ view _ model =
     )
 
 
-viewTab : Tab -> Html Msg
-viewTab currentTab =
+viewTab : Session -> Tab -> Html Msg
+viewTab session currentTab =
+    let
+        tabs =
+            case Session.getAuth2 session of
+                Just { user } ->
+                    [ ( "Mon compte", Account user ) ]
+
+                Nothing ->
+                    [ ( "Inscription", Signup User.emptySignupForm Dict.empty )
+                    , ( "Connexion", AskLoginEmail "" )
+                    ]
+    in
     div [ class "card shadow-sm px-0" ]
         [ div [ class "card-header px-0 pb-0 border-bottom-0" ]
-            [ ul [ class "Tabs nav nav-tabs nav-fill justify-content-end gap-2 px-2" ]
-                ([ ( "Inscription", Signup User.emptySignupForm Dict.empty )
-                 , ( "Connexion", AskLoginEmail "" )
-                 ]
-                    |> List.map
-                        (\( label, tab ) ->
-                            li
-                                [ class "TabsTab nav-item"
+            [ tabs
+                |> List.map
+                    (\( label, tab ) ->
+                        li
+                            [ class "TabsTab nav-item"
+                            , classList [ ( "active", isActiveTab currentTab tab ) ]
+                            ]
+                            [ button
+                                [ type_ "button"
+                                , class "nav-link no-outline border-top-0"
                                 , classList [ ( "active", isActiveTab currentTab tab ) ]
+                                , onClick (SwitchTab tab)
                                 ]
-                                [ button
-                                    [ type_ "button"
-                                    , class "nav-link no-outline border-top-0"
-                                    , classList [ ( "active", isActiveTab currentTab tab ) ]
-                                    , onClick (SwitchTab tab)
-                                    ]
-                                    [ text label ]
-                                ]
-                        )
-                )
+                                [ text label ]
+                            ]
+                    )
+                |> ul [ class "Tabs nav nav-tabs nav-fill justify-content-end gap-2 px-2" ]
             ]
         , div [ class "card-body" ]
             [ case currentTab of
@@ -469,6 +463,9 @@ viewFieldError field errors =
 isActiveTab : Tab -> Tab -> Bool
 isActiveTab tab1 tab2 =
     case ( tab1, tab2 ) of
+        ( Account _, Account _ ) ->
+            True
+
         ( Authenticating, AskLoginEmail _ ) ->
             True
 
