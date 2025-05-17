@@ -31,6 +31,7 @@ type ActivePage
     = Admin
     | Api
     | Auth
+    | Auth2
     | Editorial String
     | Explore
     | FoodBuilder
@@ -90,8 +91,8 @@ frame ({ activePage } as config) ( title, content ) =
 
 
 isStaging : Session -> Bool
-isStaging session =
-    String.contains "ecobalyse-pr" session.clientUrl || String.contains "staging-ecobalyse" session.clientUrl
+isStaging { clientUrl } =
+    String.contains "ecobalyse-pr" clientUrl || String.contains "staging-ecobalyse" clientUrl
 
 
 stagingAlert : Config msg -> Html msg
@@ -384,15 +385,27 @@ pageHeader { session, activePage, openMobileNavigation, loadUrl, switchVersion }
                     [ class "VersionSelector d-none d-sm-block form-select form-select-sm w-auto"
                     , onInput switchVersion
                     ]
-            , a
-                [ class "HeaderAuthLink d-none d-sm-block flex-fill text-end"
-                , Route.href (Route.Auth { authenticated = False })
-                ]
-                [ if Session.isAuthenticated session then
-                    text "Mon compte"
+            , div [ class "HeaderAuthLink" ]
+                [ a
+                    [ class "d-none d-sm-block flex-fill text-end"
+                    , Route.href (Route.Auth { authenticated = False })
+                    ]
+                    [ if Session.isAuthenticated session then
+                        text "Mon compte"
 
-                  else
-                    text "Connexion ou inscription"
+                      else
+                        text "Connexion ou inscription"
+                    ]
+                , a
+                    [ class "d-none d-sm-block flex-fill text-end"
+                    , Route.href Route.Auth2
+                    ]
+                    [ if Session.isAuthenticated2 session then
+                        text "Mon compte (new auth)"
+
+                      else
+                        text "Connexion ou inscription (new auth)"
+                    ]
                 ]
             ]
         , Container.fluid [ class "border-top" ]

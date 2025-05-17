@@ -14,6 +14,7 @@ import Http
 import Page.Admin as Admin
 import Page.Api as Api
 import Page.Auth as Auth
+import Page.Auth2 as Auth2
 import Page.Editorial as Editorial
 import Page.Explore as Explore
 import Page.Food as FoodBuilder
@@ -46,6 +47,7 @@ type alias Flags =
 type Page
     = AdminPage Admin.Model
     | ApiPage Api.Model
+    | Auth2Page Auth2.Model
     | AuthPage Auth.Model
     | EditorialPage Editorial.Model
     | ExplorePage Explore.Model
@@ -77,10 +79,11 @@ type alias Model =
 type Msg
     = AdminMsg Admin.Msg
     | ApiMsg Api.Msg
+    | Auth2Msg Auth2.Msg
     | AuthMsg Auth.Msg
     | CloseMobileNavigation
     | CloseNotification Session.Notification
-    | DetailedProcessesReceived Url (Result Http.Error String)
+    | DetailedProcessesReceived (Result Http.Error String)
     | EditorialMsg Editorial.Msg
     | ExploreMsg Explore.Msg
     | FoodBuilderMsg FoodBuilder.Msg
@@ -130,7 +133,7 @@ init flags requestedUrl navKey =
                     , Request.Github.getReleases ReleasesReceived
                     , case session.store.auth of
                         Session.Authenticated user ->
-                            Request.Auth.processes (DetailedProcessesReceived requestedUrl) user.token
+                            Request.Auth.processes DetailedProcessesReceived user.token
 
                         Session.NotAuthenticated ->
                             Cmd.none
@@ -205,6 +208,14 @@ setRoute url ( { state } as model, cmds ) =
                 Just Route.Api ->
                     Api.init session
                         |> toPage ApiPage ApiMsg
+
+                Just Route.Auth2 ->
+                    Auth2.init session
+                        |> toPage Auth2Page Auth2Msg
+
+                Just (Route.Auth2Login email token) ->
+                    Auth2.initLogin session email token
+                        |> toPage Auth2Page Auth2Msg
 
                 Just (Route.Auth data) ->
                     Auth.init session data
@@ -301,21 +312,24 @@ update rawMsg ({ state } as model) =
                     Api.update session apiMsg apiModel
                         |> toPage ApiPage ApiMsg
 
+                ( Auth2Msg auth2Msg, Auth2Page auth2Model ) ->
+                    Auth2.update session auth2Msg auth2Model
+                        |> toPage Auth2Page Auth2Msg
+
                 ( AuthMsg authMsg, AuthPage authModel ) ->
                     Auth.update session authMsg authModel
                         |> toPage AuthPage AuthMsg
 
-                ( DetailedProcessesReceived url (Ok rawDetailedProcessesJson), currentPage ) ->
+                ( DetailedProcessesReceived (Ok rawDetailedProcessesJson), currentPage ) ->
                     -- When detailed processes are received, rebuild the entire static db using them
                     case StaticDb.db rawDetailedProcessesJson of
                         Err error ->
                             ( { model | state = Errored error }, Cmd.none )
 
                         Ok detailedDb ->
-                            { model | state = currentPage |> Loaded { session | db = detailedDb } }
-                                |> update (UrlChanged url)
+                            ( { model | state = currentPage |> Loaded { session | db = detailedDb } }, Cmd.none )
 
-                ( DetailedProcessesReceived _ (Err httpError), _ ) ->
+                ( DetailedProcessesReceived (Err httpError), _ ) ->
                     ( { model | state = Errored (Request.Common.errorToString httpError) }
                     , Cmd.none
                     )
@@ -521,6 +535,11 @@ view { mobileNavigationOpened, state } =
                     Api.view session examplesModel
                         |> mapMsg ApiMsg
                         |> Page.frame (pageConfig Page.Api)
+
+                Auth2Page auth2Model ->
+                    Auth2.view session auth2Model
+                        |> mapMsg Auth2Msg
+                        |> Page.frame (pageConfig Page.Auth2)
 
                 AuthPage authModel ->
                     Auth.view session authModel

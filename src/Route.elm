@@ -24,6 +24,8 @@ type Route
     = Admin
     | Api
     | Auth { authenticated : Bool }
+    | Auth2
+    | Auth2Login String String
     | Editorial String
     | Explore Scope Dataset
     | FoodBuilder Definition.Trigram (Maybe FoodQuery.Query)
@@ -48,6 +50,8 @@ parser =
           Parser.map Home Parser.top
         , Parser.map Admin (Parser.s "admin")
         , Parser.map Api (Parser.s "api")
+        , Parser.map Auth2 (Parser.s "auth2")
+        , Parser.map Auth2Login (Parser.s "auth2" </> Parser.string </> Parser.string)
         , Parser.map (Auth { authenticated = True }) (Parser.s "auth" </> Parser.s "authenticated")
         , Parser.map (Auth { authenticated = False }) (Parser.s "auth")
         , Parser.map Editorial (Parser.s "pages" </> Parser.string)
@@ -224,6 +228,12 @@ toString route =
                       else
                         ""
                     ]
+
+                Auth2 ->
+                    [ "auth2" ]
+
+                Auth2Login email token ->
+                    [ "auth2", email, token ]
 
                 Editorial slug ->
                     [ "pages", slug ]
