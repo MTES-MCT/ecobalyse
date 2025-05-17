@@ -16,18 +16,10 @@ import Json.Encode as Encode
 import RemoteData exposing (RemoteData)
 
 
-{-| A detailed backend API error response
--}
-type alias ErrorResponse =
-    { detail : String
-    , statusCode : Int
-    }
-
-
 {-| A custom backend HTTP API error.
 
-Note: we don't use the `Http.Error` type because it doesn't handle the detailed JSON
-error responses our backend API returns along a bad status code (eg. 400, 409, etc).
+Note: we don't use the native `Http.Error` type because it doesn't handle the detailed JSON
+error responses our backend API returns along with a bad status code (eg. 400, 409, etc).
 
 -}
 type Error
@@ -36,6 +28,14 @@ type Error
     | BadUrl String
     | NetworkError
     | Timeout
+
+
+{-| A detailed backend API error response
+-}
+type alias ErrorResponse =
+    { detail : String
+    , statusCode : Int
+    }
 
 
 {-| Our own implementation of RemoteData.WebData, because the native one enforces
