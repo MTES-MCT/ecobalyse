@@ -7,7 +7,7 @@ module Page.Auth2 exposing
     , view
     )
 
-import Browser.Navigation
+import Browser.Navigation as Nav
 import Data.Env as Env
 import Data.Session as Session exposing (Session)
 import Data.User2 as User exposing (AccessTokenData, FormErrors, SignupForm, User)
@@ -42,6 +42,8 @@ type Msg
     = AskLoginEmailResponse (WebData ())
     | AskLoginEmailSubmit
     | LoginResponse (WebData AccessTokenData)
+    | Logout User
+    | LogoutResponse (WebData ())
     | ProfileResponse AccessTokenData (WebData User)
     | SignupResponse (WebData User)
     | SignupSubmit
@@ -88,6 +90,27 @@ update session msg model =
             ( { model | tab = tab }, session, Cmd.none )
 
         -- Account tab updates
+        ( Account _, Logout user ) ->
+            ( model
+            , session
+            , user |> Auth.logout session LogoutResponse
+            )
+
+        ( Account _, LogoutResponse (RemoteData.Failure error) ) ->
+            ( model
+            , session
+                |> Session.notifyError "Erreur lors de la déconnexion" (BackendHttp.errorToString error)
+            , Cmd.none
+            )
+
+        ( Account _, LogoutResponse (RemoteData.Success _) ) ->
+            ( model
+            , session
+                |> Session.logout2
+                |> Session.notifyInfo "Déconnexion" "Vous avez été deconnecté"
+            , Nav.load <| Route.toString Route.Auth2
+            )
+
         ( Account _, _ ) ->
             ( model, session, Cmd.none )
 
@@ -143,7 +166,7 @@ update session msg model =
                 |> Session.notifyError
                     "Erreur lors de la récupération du jeton d'authentification"
                     (BackendHttp.errorToString error)
-            , Browser.Navigation.load <| Route.toString Route.Auth2
+            , Nav.load <| Route.toString Route.Auth2
             )
 
         ( Authenticating, ProfileResponse accessTokenData (RemoteData.Success user) ) ->
@@ -158,7 +181,7 @@ update session msg model =
                 |> Session.notifyError
                     "Erreur lors de la récupération du profil utilisateur"
                     (BackendHttp.errorToString error)
-            , Browser.Navigation.load <| Route.toString Route.Auth2
+            , Nav.load <| Route.toString Route.Auth2
             )
 
         -- Authenticating tab catch all
@@ -279,48 +302,56 @@ viewTab currentTab =
 
 viewAccount : User -> Html Msg
 viewAccount user =
-    [ Just ( "Email", text user.email )
-    , if user.isSuperuser then
-        Just
-            ( "Équipe Ecobalyse"
-            , span [ class "d-flex justify-content-between align-middle gap-1" ]
-                [ strong [] [ text "Oui" ]
-                , a [ class "btn btn-sm btn-info", Route.href Route.Admin ]
-                    [ Icon.lock, text "\u{00A0}Accès à l'admin" ]
-                ]
-            )
-
-      else
-        Nothing
-    , Just ( "Nom", text user.profile.lastName )
-    , Just ( "Prénom", text user.profile.firstName )
-    , Just ( "Organisation", text user.profile.organization )
-    , Just
-        ( "Jeton d'API (API token)"
-        , div []
-            [ code [] [ text "TODO" ]
-            , br [] []
-            , small [ class "text-muted" ]
-                [ text "Nécessaire pour obtenir les impacts détaillés dans "
-                , a [ Route.href Route.Api ] [ text "l'API" ]
-                ]
-            ]
-        )
-    ]
-        |> List.filterMap
-            (Maybe.map
-                (\( label, htmlValue ) ->
-                    tr []
-                        [ th [] [ text <| label ++ " : " ]
-                        , td [] [ htmlValue ]
+    div []
+        [ [ Just ( "Email", text user.email )
+          , if user.isSuperuser then
+                Just
+                    ( "Équipe Ecobalyse"
+                    , span [ class "d-flex justify-content-between align-middle gap-1" ]
+                        [ strong [] [ text "Oui" ]
+                        , a [ class "btn btn-sm btn-info", Route.href Route.Admin ]
+                            [ Icon.lock, text "\u{00A0}Accès à l'admin" ]
                         ]
+                    )
+
+            else
+                Nothing
+          , Just ( "Nom", text user.profile.lastName )
+          , Just ( "Prénom", text user.profile.firstName )
+          , Just ( "Organisation", text user.profile.organization )
+          , Just
+                ( "Jeton d'API (API token)"
+                , div []
+                    [ code [] [ text "TODO" ]
+                    , br [] []
+                    , small [ class "text-muted" ]
+                        [ text "Nécessaire pour obtenir les impacts détaillés dans "
+                        , a [ Route.href Route.Api ] [ text "l'API" ]
+                        ]
+                    ]
                 )
-            )
-        |> tbody []
-        |> List.singleton
-        |> table [ class "table table-striped mb-0" ]
-        |> List.singleton
-        |> div [ class "table-responsive border shadow-sm" ]
+          ]
+            |> List.filterMap
+                (Maybe.map
+                    (\( label, htmlValue ) ->
+                        tr []
+                            [ th [] [ text <| label ++ " : " ]
+                            , td [] [ htmlValue ]
+                            ]
+                    )
+                )
+            |> tbody []
+            |> List.singleton
+            |> table [ class "table table-striped mb-0" ]
+            |> List.singleton
+            |> div [ class "table-responsive border shadow-sm" ]
+        , div [ class "d-flex justify-content-center align-items-center gap-3" ]
+            [ a [ Route.href Route.Home ]
+                [ text "Retour à l'accueil" ]
+            , button [ class "btn btn-primary my-3", onClick <| Logout user ]
+                [ text "Déconnexion" ]
+            ]
+        ]
 
 
 viewAskLoginEmailForm : Email -> Html Msg
