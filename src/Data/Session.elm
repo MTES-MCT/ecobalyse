@@ -17,6 +17,7 @@ module Data.Session exposing
     , isAuthenticated2
     , isStaff
     , logout
+    , logout2
     , notifyError
     , notifyInfo
     , objectQueryFromScope
@@ -284,6 +285,13 @@ isAuthenticated2 { store } =
 
         Nothing ->
             False
+
+
+logout2 : Session -> Session
+logout2 =
+    -- TODO: once we fully migrate to new auth, ensure resetting the processes db
+    --       with no detailed impacts
+    updateStore (\store -> { store | auth2 = Nothing })
 
 
 setAuth2 : Maybe Auth2 -> Session -> Session

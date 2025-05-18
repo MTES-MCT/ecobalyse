@@ -57,9 +57,15 @@ authHeaders session =
 
 decodeErrorResponse : Decoder ErrorResponse
 decodeErrorResponse =
-    Decode.map2 ErrorResponse
-        (Decode.field "detail" Decode.string)
-        (Decode.field "status_code" Decode.int)
+    -- FIXME: server should return a consistent field name for the status code
+    Decode.oneOf
+        [ Decode.map2 ErrorResponse
+            (Decode.field "detail" Decode.string)
+            (Decode.field "status_code" Decode.int)
+        , Decode.map2 ErrorResponse
+            (Decode.field "detail" Decode.string)
+            (Decode.field "status" Decode.int)
+        ]
 
 
 {-| Convert an Http error to a string
@@ -99,7 +105,7 @@ expectJson toMsg decoder =
                                     { detail =
                                         "Received HTTP "
                                             ++ String.fromInt metadata.statusCode
-                                            ++ " but couldn't decode error details: "
+                                            ++ ", but couldn't decode error response: "
                                             ++ Decode.errorToString decodeError
                                     , statusCode = metadata.statusCode
                                     }
