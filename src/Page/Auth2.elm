@@ -20,6 +20,7 @@ import Request.Auth2 as Auth
 import Request.BackendHttp as BackendHttp exposing (WebData)
 import Route
 import Views.Container as Container
+import Views.Icon as Icon
 import Views.Markdown as Markdown
 import Views.Spinner as Spinner
 
@@ -208,35 +209,34 @@ update session msg model =
 
 view : Session -> Model -> ( String, List (Html Msg) )
 view session model =
-    ( "Connexion / Inscription"
+    ( "Authentification"
     , [ Container.centered [ class "pb-5" ]
             [ div [ class "row" ]
                 [ div [ class "col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 d-flex flex-column gap-3" ]
-                    [ h1 [] [ text "Connexion / Inscription" ]
-                    , viewTab session model.tab
-                    ]
+                    (case session |> Session.getAuth2 |> Maybe.map .user of
+                        Just user ->
+                            [ h1 [] [ text "Mon compte" ]
+                            , viewAccount user
+                            ]
+
+                        Nothing ->
+                            [ h1 [] [ text "Connexion / Inscription" ]
+                            , viewTab model.tab
+                            ]
+                    )
                 ]
             ]
       ]
     )
 
 
-viewTab : Session -> Tab -> Html Msg
-viewTab session currentTab =
-    let
-        tabs =
-            case Session.getAuth2 session of
-                Just { user } ->
-                    [ ( "Mon compte", Account user ) ]
-
-                Nothing ->
-                    [ ( "Inscription", Signup User.emptySignupForm Dict.empty )
-                    , ( "Connexion", AskLoginEmail "" )
-                    ]
-    in
+viewTab : Tab -> Html Msg
+viewTab currentTab =
     div [ class "card shadow-sm px-0" ]
         [ div [ class "card-header px-0 pb-0 border-bottom-0" ]
-            [ tabs
+            [ [ ( "Inscription", Signup User.emptySignupForm Dict.empty )
+              , ( "Connexion", AskLoginEmail "" )
+              ]
                 |> List.map
                     (\( label, tab ) ->
                         li
@@ -279,25 +279,48 @@ viewTab session currentTab =
 
 viewAccount : User -> Html Msg
 viewAccount user =
-    div []
-        [ h2 [ class "h5" ] [ text "Profil utilisateur" ]
-        , p []
-            [ text "Email: "
-            , text user.email
+    [ Just ( "Email", text user.email )
+    , if user.isSuperuser then
+        Just
+            ( "Équipe Ecobalyse"
+            , span [ class "d-flex justify-content-between align-middle gap-1" ]
+                [ strong [] [ text "Oui" ]
+                , a [ class "btn btn-sm btn-info", Route.href Route.Admin ]
+                    [ Icon.lock, text "\u{00A0}Accès à l'admin" ]
+                ]
+            )
+
+      else
+        Nothing
+    , Just ( "Nom", text user.profile.lastName )
+    , Just ( "Prénom", text user.profile.firstName )
+    , Just ( "Organisation", text user.profile.organization )
+    , Just
+        ( "Jeton d'API (API token)"
+        , div []
+            [ code [] [ text "TODO" ]
+            , br [] []
+            , small [ class "text-muted" ]
+                [ text "Nécessaire pour obtenir les impacts détaillés dans "
+                , a [ Route.href Route.Api ] [ text "l'API" ]
+                ]
             ]
-        , p []
-            [ text "Prénom: "
-            , text user.profile.firstName
-            ]
-        , p []
-            [ text "Nom: "
-            , text user.profile.lastName
-            ]
-        , p []
-            [ text "Organisation: "
-            , text user.profile.organization
-            ]
-        ]
+        )
+    ]
+        |> List.filterMap
+            (Maybe.map
+                (\( label, htmlValue ) ->
+                    tr []
+                        [ th [] [ text <| label ++ " : " ]
+                        , td [] [ htmlValue ]
+                        ]
+                )
+            )
+        |> tbody []
+        |> List.singleton
+        |> table [ class "table table-striped mb-0" ]
+        |> List.singleton
+        |> div [ class "table-responsive border shadow-sm" ]
 
 
 viewAskLoginEmailForm : Email -> Html Msg
