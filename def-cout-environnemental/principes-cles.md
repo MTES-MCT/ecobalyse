@@ -1,5 +1,7 @@
 # Principes clés
 
+## Méthode de l'Analyse de Cycle de Vie et compléments
+
 Le coût environnemental est le résultat du calcul d'impacts selon une méthode s'appuie sur le socle européen PEF (Product Environmental Footprint) pour l'Analyse de Cycle de Vie (ACV), auxquels s'ajoutent des corrections ou des compléments relatifs aux dimensions aujourd'hui mal couvertes par l'ACV.
 
 $$
@@ -13,6 +15,10 @@ La page [Catégories d'impact ACV](https://fabrique-numerique.gitbook.io/ecobaly
 {% endcontent-ref %}
 
 Les compléments hors ACV sont à ce jour spécifiques aux secteurs traités. Ils sont décrit dans des pages relative à chaque secteur.
+
+## Durabilité&#x20;
+
+La notion de durabilité est également intégrée au calcul du coût environnemental par un coefficient venant moduler le coût environnemental.
 
 ## Unité du coût environnemental
 

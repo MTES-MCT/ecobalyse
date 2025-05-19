@@ -271,13 +271,9 @@
   * [Caractéristiques du véhicule](vehicules/parametrage/caracteristiques-du-vehicule.md)
 * [Draft - Exemples](vehicules/exemples.md)
 
-## 📄 BROUILLON - Méthodes transverses spécifiques <a href="#transverse" id="transverse"></a>
-
-* [Prise en compte de la durabilité](transverse/prise-en-compte-de-la-durabilite.md)
-* [Page](transverse/page.md)
-
 ## Pages en cours de revue
 
+* [Prise en compte de la durabilité](pages-en-cours-de-revue/prise-en-compte-de-la-durabilite.md)
 * [📌 Modèle de page](pages-en-cours-de-revue/modele-de-page.md)
 * [🚚 Transport](pages-en-cours-de-revue/transport/README.md)
   * [Coût environnemental par voie de transport](pages-en-cours-de-revue/transport/cout-environnemental-par-voie-de-transport.md)
