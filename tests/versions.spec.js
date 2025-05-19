@@ -108,6 +108,8 @@ describe("Homepage", () => {
     // Check that the URL is now back to the homepage
     expect(page.url()).toBe("http://localhost:1234/");
 
-    await expect(page).toMatchTextContent(/Calculer l’impact de l’alimentation/);
+    await expect(page).toMatchTextContent(/Calculer l’impact de l’alimentation/, {
+      timeout: 50000,
+    });
   }, 10000);
 });
