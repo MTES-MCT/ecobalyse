@@ -508,19 +508,20 @@ notFound =
 
 
 restricted : Session -> Html msg
-restricted session =
+restricted _ =
     Container.centered [ class "pb-5" ]
         [ h1 [ class "mb-3" ] [ text "Accès refusé" ]
         , p [] [ text "Cette page n'est accessible qu'à l'équipe Ecobalyse." ]
         , p []
-            [ a [ Route.href <| Route.Auth { authenticated = False } ]
-                [ if Session.isAuthenticated session then
-                    text "Authentifiez-vous avec les droits appropriés"
-
-                  else
-                    text "Connectez-vous"
+            [ text "Authentifiez-vous avec les droits appropriés "
+            , a [ Route.href <| Route.Auth { authenticated = False } ]
+                [ text "sur le SSO historique"
                 ]
-            , text "\u{00A0}ou\u{00A0}"
+            , text ", "
+            , a [ Route.href Route.Auth2 ]
+                [ text "sur le nouveau SSO"
+                ]
+            , text " ou "
             , a [ Route.href Route.Home ] [ text "retournez à l'accueil" ]
             ]
         ]
