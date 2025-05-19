@@ -69,7 +69,7 @@ Avec :&#x20;
 * Transport de véhicules depuis un pays étrangers vers la France : ratio f "ferroviaire"
 * Transport de meubles depuis un pays étrangers vers la France : ratio f "ferroviaire"
 
-## Paramètres retenus pour l’affichage environnemental
+## Paramètres retenus pour le coût environnemental
 
 ### Part de voie terrestre (répartition terrestre - maritime)
 

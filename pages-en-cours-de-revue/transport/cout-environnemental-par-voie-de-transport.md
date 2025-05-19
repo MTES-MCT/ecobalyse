@@ -64,7 +64,7 @@ $$
 
 Les distances non mentionnées ici ne s'appliquent pas pour le transport interne à un pays.
 
-## Paramètres retenus pour l’affichage environnemental
+## Paramètres retenus pour le coût environnemental
 
 ### Distances entre pays
 
@@ -132,7 +132,7 @@ Les autres distances sont paramétrées comme suit pour l'affichage environnemen
 * D\_air,avion,interne = 500 km
 * D\_fer,train,interne = 500 km
 
-## Procédés utilisés
+## Procédés utilisés pour le coût environnemental
 
 Sauf indication contraire spécifique, les modes de transport sont modélisés par les procédés suivants, définissant les coûts environnementaux `I_m_j` :
 

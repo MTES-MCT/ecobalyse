@@ -41,7 +41,7 @@ Quelques enseignements clés de l'étude :&#x20;
 L'article complet est accessible ici => [https://www.publiceye.ch/fr/thematiques/industrie-textile/en-mode-avion-zara-attise-la-crise-climatique](https://www.publiceye.ch/fr/thematiques/industrie-textile/en-mode-avion-zara-attise-la-crise-climatique)
 {% endhint %}
 
-### Paramètres retenus pour l'affichage environnemental
+### Paramètres retenus pour le coût environnemental
 
 La part de **transport aérien (`a`)**, par rapport au transport "aérien + terrestre + maritime" est considérée comme suit : &#x20;
 
