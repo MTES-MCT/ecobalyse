@@ -7,6 +7,7 @@ module Views.Alert exposing
     )
 
 import Data.Env as Env
+import Dict
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -51,17 +52,25 @@ backendError close error =
         { close = close
         , content =
             [ case BackendError.mapErrorResponse error of
-                Just { detail, statusCode, title, url } ->
-                    Html.details []
-                        [ summary [] [ title |> Maybe.withDefault detail |> text ]
-                        , [ ( "URL", url )
-                          , ( "Status code", String.fromInt statusCode )
-                          ]
-                            |> List.map (\( a, b ) -> a ++ ": " ++ b)
-                            |> String.join "\n"
-                            |> text
-                            |> List.singleton
-                            |> pre []
+                Just { detail, headers, statusCode, title, url } ->
+                    div []
+                        [ p [ class "mb-2 fw-bold" ] [ title |> Maybe.withDefault detail |> text ]
+                        , Html.details []
+                            [ summary [] [ text "Détails de l'erreur" ]
+                            , [ ( "URL", url )
+                              , ( "Status code", String.fromInt statusCode )
+                              , ( "En-têtes"
+                                , Dict.toList headers
+                                    |> List.map (\( a, b ) -> "\n- " ++ a ++ ": " ++ b)
+                                    |> String.concat
+                                )
+                              ]
+                                |> List.map (\( a, b ) -> a ++ ": " ++ b)
+                                |> String.join "\n"
+                                |> text
+                                |> List.singleton
+                                |> pre [ class "mt-1 mb-0 ms-3" ]
+                            ]
                         ]
 
                 Nothing ->
