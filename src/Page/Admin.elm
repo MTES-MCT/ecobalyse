@@ -329,7 +329,7 @@ componentListView db components =
                                     ]
                                     [ Icon.fileExport ]
                                 , button
-                                    [ class "btn btn-outline-danger"
+                                    [ class "btn btn-danger"
                                     , title "Supprimer le composant"
                                     , onClick <| SetModals [ DeleteComponentModal component ]
                                     ]
