@@ -465,7 +465,12 @@ notificationView : Config msg -> Session.Notification -> Html msg
 notificationView { closeNotification, resetSessionStore } notification =
     -- TODO:
     -- - absolute positionning
+    -- - close button
+    -- - timeout
     case notification of
+        Session.BackendError backendError ->
+            Alert.backendError (Just (closeNotification notification)) backendError
+
         Session.GenericError title message ->
             Alert.simple
                 { level = Alert.Danger

@@ -31,7 +31,6 @@ type alias User =
     , magicLinkSentAt : Maybe String
     , profile : Profile
     , roles : List Role
-    , termsAccepted : Bool
     }
 
 
@@ -39,6 +38,7 @@ type alias Profile =
     { firstName : String
     , lastName : String
     , organization : String
+    , termsAccepted : Bool
     }
 
 
@@ -84,7 +84,6 @@ decodeUser =
         |> DU.strictOptional "magicLinkSentAt" Decode.string
         |> Pipe.required "profile" decodeProfile
         |> Pipe.required "roles" (Decode.list decodeRole)
-        |> Pipe.required "termsAccepted" Decode.bool
 
 
 decodeProfile : Decoder Profile
@@ -93,6 +92,7 @@ decodeProfile =
         |> Pipe.required "firstName" Decode.string
         |> Pipe.required "lastName" Decode.string
         |> Pipe.required "organization" Decode.string
+        |> Pipe.required "termsAccepted" Decode.bool
 
 
 decodeRole : Decoder Role
@@ -132,7 +132,6 @@ encodeUser user =
         , ( "magicLinkSentAt", user.magicLinkSentAt |> Maybe.map Encode.string |> Maybe.withDefault Encode.null )
         , ( "profile", user.profile |> encodeProfile )
         , ( "roles", user.roles |> Encode.list encodeRole )
-        , ( "termsAccepted", user.termsAccepted |> Encode.bool )
         ]
 
 
@@ -147,6 +146,7 @@ encodeProfile profile =
         [ ( "firstName", profile.firstName |> Encode.string )
         , ( "lastName", profile.lastName |> Encode.string )
         , ( "organization", profile.organization |> Encode.string )
+        , ( "termsAccepted", profile.termsAccepted |> Encode.bool )
         ]
 
 

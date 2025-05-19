@@ -1,8 +1,6 @@
 module Request.BackendHttp exposing
-    ( Error
-    , WebData
+    ( WebData
     , delete
-    , errorToString
     , expectJson
     , get
     , patch
@@ -14,28 +12,7 @@ import Http
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 import RemoteData exposing (RemoteData)
-
-
-{-| A custom backend HTTP API error.
-
-Note: we don't use the native `Http.Error` type because it doesn't handle the detailed JSON
-error responses our backend API returns along with a bad status code (eg. 400, 409, etc).
-
--}
-type Error
-    = BadBody String
-    | BadStatus ErrorResponse
-    | BadUrl String
-    | NetworkError
-    | Timeout
-
-
-{-| A detailed backend API error response
--}
-type alias ErrorResponse =
-    { detail : String
-    , statusCode : Int
-    }
+import Request.BackendHttp.Error as BackendError exposing (Error(..))
 
 
 {-| Our own implementation of RemoteData.WebData, because the native one enforces
@@ -55,40 +32,6 @@ authHeaders session =
             []
 
 
-decodeErrorResponse : Decoder ErrorResponse
-decodeErrorResponse =
-    -- FIXME: server should return a consistent field name for the status code
-    Decode.oneOf
-        [ Decode.map2 ErrorResponse
-            (Decode.field "detail" Decode.string)
-            (Decode.field "status_code" Decode.int)
-        , Decode.map2 ErrorResponse
-            (Decode.field "detail" Decode.string)
-            (Decode.field "status" Decode.int)
-        ]
-
-
-{-| Convert an Http error to a string
--}
-errorToString : Error -> String
-errorToString error =
-    case error of
-        BadBody body ->
-            "Échec de l'interprétation de la réponse HTTP: " ++ body
-
-        BadStatus { detail, statusCode } ->
-            "Erreur HTTP " ++ String.fromInt statusCode ++ ": " ++ detail
-
-        BadUrl url ->
-            "URL invalide: " ++ url
-
-        NetworkError ->
-            "Erreur de communication réseau. Êtes-vous connecté ?"
-
-        Timeout ->
-            "Délai dépassé."
-
-
 {-| Handle custom JSON error responses from our backend JSON API
 -}
 expectJson : (Result Error value -> msg) -> Decoder value -> Http.Expect msg
@@ -97,17 +40,16 @@ expectJson toMsg decoder =
         \response ->
             case response of
                 Http.BadStatus_ metadata body ->
-                    case Decode.decodeString decodeErrorResponse body of
+                    case Decode.decodeString (BackendError.decodeErrorResponse metadata) body of
                         Err decodeError ->
                             -- If decoding the JSON error fails, expose the reason
                             Err <|
                                 BadStatus
-                                    { detail =
-                                        "Received HTTP "
-                                            ++ String.fromInt metadata.statusCode
-                                            ++ ", but couldn't decode error response: "
-                                            ++ Decode.errorToString decodeError
+                                    { detail = "Couldn't decode error response: " ++ Decode.errorToString decodeError
+                                    , headers = metadata.headers
                                     , statusCode = metadata.statusCode
+                                    , title = Nothing
+                                    , url = metadata.url
                                     }
 
                         Ok errorResponse ->
