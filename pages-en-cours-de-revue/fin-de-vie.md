@@ -1,7 +1,3 @@
----
-hidden: true
----
-
 # ♻️ Fin de vie
 
 ## Contexte
@@ -10,7 +6,7 @@ hidden: true
 
 ## Méthodes de calcul
 
-### Méthode générale, inspirée de la CFF, en partie fausse
+### Méthode générale, inspirée de la CFF \[en partie à corriger]
 
 $$
 I_{EoL} = \sum_i m_i*(I_{EoL,rec,i}+I_{EoL,incineration,i}+I_{EoL,landfill,i})
@@ -44,7 +40,7 @@ Avec :&#x20;
 * <mark style="color:red;">`Q_out,i`</mark> <mark style="color:red;"></mark><mark style="color:red;">: blable  de la famille de matériaux</mark> <mark style="color:red;"></mark><mark style="color:red;">`i`</mark><mark style="color:red;">, sans unité</mark>
 * <mark style="color:red;">`I_ER,i`</mark> <mark style="color:red;"></mark><mark style="color:red;">: l'impact environnemental de l’incinération (y compris transport et tri) d'un kg d'un matériau de la famille de matériaux</mark> <mark style="color:red;"></mark><mark style="color:red;">`i`</mark><mark style="color:red;">, dans l'unité de la catégorie d'impact analysée</mark>
 
-### Calcul en cut-off, bon
+### Calcul en cut-off
 
 $$
 I_{EoL} =I_{EoL,incinération,d}+I_{EoL,lanfill,d} +\sum_i m_i*(I_{EoL,rec,i}+I_{EoL,incineration,i}+I_{EoL,landfill,i})
@@ -59,7 +55,7 @@ I_{EoL,landfill,d} = (1-Rp_2)*(1-r_{3,d})*I_{D,d}
 $$
 
 $$
-I_{EoL,rec,i} = Rp_2*Rm_{2,i}*I_{recyclongEoL}
+I_{EoL,rec,i} = Rp_2*Rm_{2,i}*I_{R,i}
 $$
 
 $$
@@ -81,11 +77,12 @@ Avec :&#x20;
 * `I_EoL,landfill,i` : l'impact environnemental de la famille de matériaux `i` lié à l'enfouissement, dans l'unité de la catégorie d'impact analysée
 * `Rp_2` : le taux de recyclabilité du produit, en %
 * `Rm_2,i` : le taux de recyclage réel en fin de vie de la famille de matière `i`, en %, pour un produit recyclable
-* `R_2,i` : le taux de recyclage en fin de vie de la famille de matière `i`, en %, dont le calcul est pré
-* `I_recyclingEol,i` : l'impact environnemental du recyclage d'un kg d'un matériau de la famille de matériaux `i`, dans l'unité de la catégorie d'impact analysée
-* `Iv*_i` : l'impact environnemental de la fabrication d'un kg d'un matériau neuf, que le matériaux recyclé de la famille de matériaux `i` va remplacer, dans l'unité de la catégorie d'impact analysée
-* <mark style="color:red;">`r_3,i`</mark> <mark style="color:red;"></mark><mark style="color:red;">: le taux d'incinération en fin de vie des matériaux</mark> <mark style="color:red;"></mark><mark style="color:red;">`i`</mark> <mark style="color:red;"></mark><mark style="color:red;">non recyclés, sans unité</mark>
-* <mark style="color:red;">`I_ER,i`</mark> <mark style="color:red;"></mark><mark style="color:red;">: l'impact environnemental de l’incinération (y compris transport et tri) d'un kg d'un matériau de la famille de matériaux</mark> <mark style="color:red;"></mark><mark style="color:red;">`i`</mark><mark style="color:red;">, dans l'unité de la catégorie d'impact analysée</mark>
+* `I_R,i` : l'impact environnemental du recyclage d'un kg d'un matériau de la famille de matériaux `i`, dans l'unité de la catégorie d'impact analysée
+* `r_3,i` : le taux d'incinération en fin de vie des matériaux `i` non recyclés, sans unité
+* `I_ER,i` : l'impact environnemental de l’incinération (y compris transport et tri) d'un kg d'un matériau de la famille de matériaux `i`, dans l'unité de la catégorie d'impact analysée
+* `I_D,i` : l'impact environnemental de l’incinération (y compris transport et tri) d'un kg d'un matériau de la famille de matériaux `i`, dans l'unité de la catégorie d'impact analysée
+* `I_D,d` : l'impact environnemental de l’incinération (y compris transport et tri) d'un kg d'un matériau de la famille de matériaux `i`, dans l'unité de la catégorie d'impact analysée
+* `I_ER,d` : l'impact environnemental de l’incinération (y compris transport et tri) d'un kg d'un matériau de la famille de matériaux `i`, dans l'unité de la catégorie d'impact analysée
 
 ### <mark style="color:red;">Calcul de la recyclabilité produit (Spécifique Ameublement)</mark>
 
@@ -93,7 +90,7 @@ $$
 Rp_2=c*F_{FdV}*(1-Pr)*Mr
 $$
 
-Avec :
+<mark style="color:red;">Avec :</mark>
 
 * <mark style="color:red;">`Rp_2`</mark> <mark style="color:red;"></mark><mark style="color:red;">: le taux de recyclabilité produit, en %</mark>
 * <mark style="color:red;">`c`</mark> <mark style="color:red;"></mark><mark style="color:red;">: le taux de collecte, en %</mark>
@@ -119,9 +116,7 @@ Rp2 : sectoriel ⇒ voir page dédié + fichier dédié
 
 Rm2,i : par famille de matériaux / par matériaux ⇒ voir explorateur
 
-
-
-
+\[A compléter]
 
 
 
