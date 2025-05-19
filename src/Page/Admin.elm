@@ -22,7 +22,8 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Json.Encode as Encode
 import RemoteData
-import Request.BackendHttp as BackendHttp exposing (WebData)
+import Request.BackendHttp exposing (WebData)
+import Request.BackendHttp.Error as BackendError
 import Request.Component as ComponentApi
 import Route
 import Static.Db exposing (Db)
@@ -78,7 +79,7 @@ update session msg model =
     case msg of
         -- POST
         ComponentCreated (RemoteData.Failure err) ->
-            ( model, session |> Session.notifyError "Erreur" (BackendHttp.errorToString err), Cmd.none )
+            ( model, session |> Session.notifyBackendError err, Cmd.none )
 
         ComponentCreated (RemoteData.Success component) ->
             ( { model | modals = [ EditComponentModal (Component.createItem component.id) ] }
@@ -91,7 +92,7 @@ update session msg model =
 
         -- DELETE
         ComponentDeleted (RemoteData.Failure err) ->
-            ( model, session |> Session.notifyError "Erreur" (BackendHttp.errorToString err), Cmd.none )
+            ( model, session |> Session.notifyBackendError err, Cmd.none )
 
         ComponentDeleted (RemoteData.Success _) ->
             ( model, session, ComponentApi.getComponents session Scope.all ComponentListResponse )
@@ -113,7 +114,7 @@ update session msg model =
 
         -- PATCH
         ComponentUpdated (RemoteData.Failure err) ->
-            ( model, session |> Session.notifyError "Erreur" (BackendHttp.errorToString err), Cmd.none )
+            ( model, session |> Session.notifyBackendError err, Cmd.none )
 
         ComponentUpdated (RemoteData.Success _) ->
             ( model, session, ComponentApi.getComponents session Scope.all ComponentListResponse )
@@ -297,7 +298,7 @@ componentListView db components =
                         , td [ class "align-middle text-nowrap" ]
                             [ div [ class "btn-group btn-group-sm", attribute "role" "group", attribute "aria-label" "Actions" ]
                                 [ button
-                                    [ class "btn btn-outline-primary"
+                                    [ class "btn btn-primary"
                                     , title "Modifier le composant"
                                     , onClick <| SetModals [ EditComponentModal (Component.createItem component.id) ]
                                     ]
@@ -480,7 +481,7 @@ mapRemoteData : (a -> Html msg) -> WebData a -> Html msg
 mapRemoteData fn webData =
     case webData of
         RemoteData.Failure err ->
-            Alert.serverError <| BackendHttp.errorToString err
+            Alert.serverError <| BackendError.errorToString err
 
         RemoteData.Loading ->
             Spinner.view
