@@ -45,9 +45,9 @@ userJson =
         "profile": {
             "firstName": "John",
             "lastName": "Doe",
-            "organization": "Ecobalyse"
+            "organization": "Ecobalyse",
+            "termsAccepted": true
         },
-        "roles": [],
-        "termsAccepted": true
+        "roles": []
     }
     """
