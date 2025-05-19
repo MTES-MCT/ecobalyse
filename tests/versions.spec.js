@@ -5,6 +5,8 @@ describe("Homepage", () => {
   const selectBoxSelector = ".VersionSelector";
 
   beforeAll(async () => {
+    page.setDefaultTimeout(10000);
+
     // Enable request interception
     await page.setRequestInterception(true);
 
