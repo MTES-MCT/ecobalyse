@@ -1,5 +1,6 @@
 module Views.Alert exposing
     ( Level(..)
+    , backendError
     , preformatted
     , serverError
     , simple
@@ -9,6 +10,7 @@ import Data.Env as Env
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Request.BackendHttp.Error as BackendError
 import Views.Icon as Icon
 
 
@@ -41,6 +43,33 @@ icon level =
 
         Warning ->
             span [ class "me-1" ] [ Icon.warning ]
+
+
+backendError : Maybe msg -> BackendError.Error -> Html msg
+backendError close error =
+    simple
+        { close = close
+        , content =
+            [ case BackendError.mapErrorResponse error of
+                Just { detail, statusCode, title, url } ->
+                    Html.details []
+                        [ summary [] [ title |> Maybe.withDefault detail |> text ]
+                        , [ ( "URL", url )
+                          , ( "Status code", String.fromInt statusCode )
+                          ]
+                            |> List.map (\( a, b ) -> a ++ ": " ++ b)
+                            |> String.join "\n"
+                            |> text
+                            |> List.singleton
+                            |> pre []
+                        ]
+
+                Nothing ->
+                    text ""
+            ]
+        , level = Danger
+        , title = Just "Une erreur serveur a été rencontrée"
+        }
 
 
 serverError : String -> Html msg
@@ -77,7 +106,7 @@ serverError error =
                         ]
                     ]
         , level = Info
-        , title = Just "Erreur de chargement des données"
+        , title = Just "Le serveur a retourné une erreur"
         }
 
 

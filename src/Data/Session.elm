@@ -19,6 +19,7 @@ module Data.Session exposing
     , isStaff2
     , logout
     , logout2
+    , notifyBackendError
     , notifyError
     , notifyInfo
     , objectQueryFromScope
@@ -48,6 +49,7 @@ import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
 import RemoteData exposing (WebData)
+import Request.BackendHttp.Error as BackendError
 import Request.Version exposing (Version)
 import Set exposing (Set)
 import Static.Db as StaticDb exposing (Db)
@@ -90,7 +92,8 @@ type alias EnabledSections =
 
 
 type Notification
-    = GenericError String String
+    = BackendError BackendError.Error
+    | GenericError String String
     | GenericInfo String String
     | StoreDecodingError Decode.Error
 
@@ -100,14 +103,19 @@ closeNotification notification ({ notifications } as session) =
     { session | notifications = notifications |> List.filter ((/=) notification) }
 
 
-notifyInfo : String -> String -> Session -> Session
-notifyInfo title info ({ notifications } as session) =
-    { session | notifications = notifications ++ [ GenericInfo title info ] }
+notifyBackendError : BackendError.Error -> Session -> Session
+notifyBackendError backendError ({ notifications } as session) =
+    { session | notifications = notifications ++ [ BackendError backendError ] }
 
 
 notifyError : String -> String -> Session -> Session
 notifyError title error ({ notifications } as session) =
     { session | notifications = notifications ++ [ GenericError title error ] }
+
+
+notifyInfo : String -> String -> Session -> Session
+notifyInfo title info ({ notifications } as session) =
+    { session | notifications = notifications ++ [ GenericInfo title info ] }
 
 
 notifyStoreDecodingError : Decode.Error -> Session -> Session

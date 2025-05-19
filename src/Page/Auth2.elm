@@ -17,7 +17,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import RemoteData
 import Request.Auth2 as Auth
-import Request.BackendHttp as BackendHttp exposing (WebData)
+import Request.BackendHttp exposing (WebData)
 import Route
 import Views.Container as Container
 import Views.Icon as Icon
@@ -98,8 +98,7 @@ update session msg model =
 
         ( Account _, LogoutResponse (RemoteData.Failure error) ) ->
             ( model
-            , session
-                |> Session.notifyError "Erreur lors de la déconnexion" (BackendHttp.errorToString error)
+            , session |> Session.notifyBackendError error
             , Cmd.none
             )
 
@@ -125,8 +124,7 @@ update session msg model =
 
         ( AskLoginEmail _, AskLoginEmailResponse (RemoteData.Failure error) ) ->
             ( model
-            , session
-                |> Session.notifyError "Erreur lors de la connexion" (BackendHttp.errorToString error)
+            , session |> Session.notifyBackendError error
             , Cmd.none
             )
 
@@ -162,10 +160,7 @@ update session msg model =
 
         ( Authenticating, LoginResponse (RemoteData.Failure error) ) ->
             ( model
-            , session
-                |> Session.notifyError
-                    "Erreur lors de la récupération du jeton d'authentification"
-                    (BackendHttp.errorToString error)
+            , session |> Session.notifyBackendError error
             , Nav.load <| Route.toString Route.Auth2
             )
 
@@ -177,10 +172,7 @@ update session msg model =
 
         ( Authenticating, ProfileResponse _ (RemoteData.Failure error) ) ->
             ( model
-            , session
-                |> Session.notifyError
-                    "Erreur lors de la récupération du profil utilisateur"
-                    (BackendHttp.errorToString error)
+            , session |> Session.notifyBackendError error
             , Nav.load <| Route.toString Route.Auth2
             )
 
@@ -199,8 +191,7 @@ update session msg model =
 
         ( Signup _ _, SignupResponse (RemoteData.Failure error) ) ->
             ( model
-            , session
-                |> Session.notifyError "Erreur lors de l'inscription" (BackendHttp.errorToString error)
+            , session |> Session.notifyBackendError error
             , Cmd.none
             )
 
