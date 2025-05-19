@@ -16,6 +16,7 @@ module Data.Session exposing
     , isAuthenticated
     , isAuthenticated2
     , isStaff
+    , isStaff2
     , logout
     , logout2
     , notifyError
@@ -285,6 +286,13 @@ isAuthenticated2 { store } =
 
         Nothing ->
             False
+
+
+isStaff2 : Session -> Bool
+isStaff2 =
+    getAuth2
+        >> Maybe.map (.user >> .isSuperuser)
+        >> Maybe.withDefault False
 
 
 logout2 : Session -> Session
