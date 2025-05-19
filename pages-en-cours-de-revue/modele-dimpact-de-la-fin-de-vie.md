@@ -1,4 +1,4 @@
-# ♻️ Fin de vie
+# ♻️ Modèle d'impact de la fin de vie
 
 ## Contexte
 
@@ -35,10 +35,10 @@ Avec :&#x20;
 * `R_2,i` : le taux de recyclage en fin de vie de la famille de matière `i`, en %, dont le calcul est précisé dans la section suivante
 * `I_recyclingEol,i` : l'impact environnemental du recyclage d'un kg d'un matériau de la famille de matériaux `i`, dans l'unité de la catégorie d'impact analysée
 * `Iv*_i` : l'impact environnemental de la fabrication d'un kg d'un matériau neuf, que le matériaux recyclé de la famille de matériaux `i` va remplacer, dans l'unité de la catégorie d'impact analysée
-* <mark style="color:red;">`Q_out,i`</mark> <mark style="color:red;"></mark><mark style="color:red;">: blable  de la famille de matériaux</mark> <mark style="color:red;"></mark><mark style="color:red;">`i`</mark><mark style="color:red;">, sans unité</mark>
-* <mark style="color:red;">`r_3,i`</mark> <mark style="color:red;"></mark><mark style="color:red;">: blable  de la famille de matériaux</mark> <mark style="color:red;"></mark><mark style="color:red;">`i`</mark><mark style="color:red;">, sans unité</mark>
-* <mark style="color:red;">`Q_out,i`</mark> <mark style="color:red;"></mark><mark style="color:red;">: blable  de la famille de matériaux</mark> <mark style="color:red;"></mark><mark style="color:red;">`i`</mark><mark style="color:red;">, sans unité</mark>
-* <mark style="color:red;">`I_ER,i`</mark> <mark style="color:red;"></mark><mark style="color:red;">: l'impact environnemental de l’incinération (y compris transport et tri) d'un kg d'un matériau de la famille de matériaux</mark> <mark style="color:red;"></mark><mark style="color:red;">`i`</mark><mark style="color:red;">, dans l'unité de la catégorie d'impact analysée</mark>
+* `Q_out,i` : blable  de la famille de matériaux `i`, sans unité
+* `r_3,i` : blable  de la famille de matériaux `i`, sans unité
+* `Q_out,i` : blable  de la famille de matériaux `i`, sans unité
+* `I_ER,i` : l'impact environnemental de l’incinération (y compris transport et tri) d'un kg d'un matériau de la famille de matériaux `i`, dans l'unité de la catégorie d'impact analysée
 
 ### Calcul en cut-off
 

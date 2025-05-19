@@ -288,4 +288,4 @@
   * [🛺 Transport Véhicules](pages-en-cours-de-revue/transport/transport-vehicules.md)
   * [🚚 OLD Transport](pages-en-cours-de-revue/transport/old-transport.md)
 * [⚡ Energies des étapes de transformation](pages-en-cours-de-revue/energies-des-etapes-de-transformation.md)
-* [♻️ Fin de vie](pages-en-cours-de-revue/fin-de-vie.md)
+* [♻️ Modèle d'impact de la fin de vie](pages-en-cours-de-revue/modele-dimpact-de-la-fin-de-vie.md)
