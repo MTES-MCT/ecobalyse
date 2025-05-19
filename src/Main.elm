@@ -196,7 +196,7 @@ setRoute url ( { state } as model, cmds ) =
             in
             case Route.fromUrl url of
                 Just Route.Admin ->
-                    if Session.isStaff session then
+                    if Session.isStaff session || Session.isStaff2 session then
                         Admin.init session
                             |> toPage AdminPage AdminMsg
 
