@@ -16,7 +16,6 @@
   * [Correctifs sur la toxicité et l'écotoxicité](def-cout-environnemental/categories-dimpact-acv/correctifs-sur-la-toxicite-et-lecotoxicite.md)
   * [Exclusion des émissions à long terme](def-cout-environnemental/categories-dimpact-acv/exclusion-des-emissions-a-long-terme.md)
   * [Correction de la caractérisation de la ressource en Uranium](def-cout-environnemental/categories-dimpact-acv/correction-de-la-caracterisation-de-la-ressource-en-uranium.md)
-* [Complément hors ACV](def-cout-environnemental/complement-hors-acv.md)
 * [📚 Source des procédés](def-cout-environnemental/source-des-procedes.md)
 
 ***
@@ -40,6 +39,7 @@
   * [🥑 Part non comestible](alimentaire/impacts-consideres/part-non-comestible.md)
   * [🚣‍♀️ Densité](alimentaire/impacts-consideres/densite.md)
   * [🍚 Rapport cru/cuit](alimentaire/impacts-consideres/rapport-cru-cuit.md)
+* [Complément hors ACV](alimentaire/complement-hors-acv.md)
 * [Paramétrage](alimentaire/complements-hors-acv/README.md)
   * [🧅 Paramétrage des ingrédients](alimentaire/complements-hors-acv/complements-hors-acv.md)
   * [§Recette en pourcentage](alimentaire/complements-hors-acv/recette-en-pourcentage.md)

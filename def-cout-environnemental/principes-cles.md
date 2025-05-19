@@ -1,23 +1,18 @@
 # Principes clés
 
-Le coût environnemental est le résultat du calcul d'impacts seront une méthode s'appuie sur le socle européen PEF (Product Environmental Footprint), auxquels s'ajoutent des corrections ou des compléments relatifs aux dimensions aujourd'hui mal couvertes par l'analyse de cycle de vie.
+Le coût environnemental est le résultat du calcul d'impacts selon une méthode s'appuie sur le socle européen PEF (Product Environmental Footprint) pour l'Analyse de Cycle de Vie (ACV), auxquels s'ajoutent des corrections ou des compléments relatifs aux dimensions aujourd'hui mal couvertes par l'ACV.
 
 $$
 Coût Environnemental = impacts ACVcorrigés +compléments HorsACV
 $$
 
-Les deux pages suivantes viennent détailler :&#x20;
-
-* la contribution au coût environnemental liée à des catégories d'impact ACV - [**Catégories d'impact**](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/cout-environnemental/categories-dimpact-acv)
-* l'introduction de compléments qui, pour les produits alimentaires, vient valoriser les services écosystémiques liés aux modes de production agricole - [**Compléments hors ACV**](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/cout-environnemental/complement-hors-acv)&#x20;
+La page [Catégories d'impact ACV](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/cout-environnemental/categories-dimpact-acv) et ses sous-pages viennent détailler la contribution au coût environnemental liée à des catégories d'impact de l'ACV. Cette méthodologie est commune à tous les secteurs traités par Ecobalyse.
 
 {% content-ref url="categories-dimpact-acv/" %}
 [categories-dimpact-acv](categories-dimpact-acv/)
 {% endcontent-ref %}
 
-{% content-ref url="complement-hors-acv.md" %}
-[complement-hors-acv.md](complement-hors-acv.md)
-{% endcontent-ref %}
+Les compléments hors ACV sont à ce jour spécifiques aux secteurs traités. Ils sont décrit dans des pages relative à chaque secteur.
 
 ## Unité du coût environnemental
 
