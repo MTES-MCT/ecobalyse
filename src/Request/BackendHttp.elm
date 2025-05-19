@@ -141,7 +141,7 @@ getApiUrl session path =
     String.join "/" [ session.backendApiUrl, "api", path ]
 
 
-delete : Session -> String -> (RemoteData Error () -> msg) -> Cmd msg
+delete : Session -> String -> (WebData () -> msg) -> Cmd msg
 delete session path event =
     Http.request
         { body = Http.emptyBody
@@ -154,7 +154,7 @@ delete session path event =
         }
 
 
-get : Session -> String -> (RemoteData Error data -> msg) -> Decoder data -> Cmd msg
+get : Session -> String -> (WebData data -> msg) -> Decoder data -> Cmd msg
 get session path event decoder =
     Http.request
         { body = Http.emptyBody
@@ -167,7 +167,7 @@ get session path event decoder =
         }
 
 
-patch : Session -> String -> (RemoteData Error data -> msg) -> Decoder data -> Encode.Value -> Cmd msg
+patch : Session -> String -> (WebData data -> msg) -> Decoder data -> Encode.Value -> Cmd msg
 patch session path event decoder body =
     Http.request
         { body = Http.jsonBody body
@@ -180,7 +180,7 @@ patch session path event decoder body =
         }
 
 
-post : Session -> String -> (RemoteData Error data -> msg) -> Decoder data -> Encode.Value -> Cmd msg
+post : Session -> String -> (WebData data -> msg) -> Decoder data -> Encode.Value -> Cmd msg
 post session path event decoder body =
     Http.request
         { body = Http.jsonBody body
