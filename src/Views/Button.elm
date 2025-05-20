@@ -1,5 +1,6 @@
 module Views.Button exposing
-    ( docsPill
+    ( copyButton
+    , docsPill
     , docsPillLink
     , pillClasses
     , smallPill
@@ -8,6 +9,8 @@ module Views.Button exposing
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Events exposing (..)
+import Views.Icon as Icon
 
 
 pillClasses : String
@@ -28,6 +31,18 @@ smallPill attrs =
 smallPillLink : List (Attribute msg) -> List (Html msg) -> Html msg
 smallPillLink attrs =
     a (class smallPillClasses :: attrs)
+
+
+copyButton : (String -> msg) -> String -> Html msg
+copyButton copy textToCopy =
+    button
+        [ class "d-inline-flex justify-content-start align-items-center gap-1"
+        , class "btn btn-sm text-decoration-none text-muted text-start p-0 w-100"
+        , style "overflow-wrap" "anywhere"
+        , title "Copier"
+        , onClick <| copy textToCopy
+        ]
+        [ text textToCopy, Icon.copy ]
 
 
 docsPillClasses : String
