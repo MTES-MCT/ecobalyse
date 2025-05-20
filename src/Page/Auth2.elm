@@ -15,10 +15,12 @@ import Dict
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Ports
 import RemoteData
 import Request.Auth2 as Auth
 import Request.BackendHttp exposing (WebData)
 import Route
+import Views.Button as Button
 import Views.Container as Container
 import Views.Icon as Icon
 import Views.Markdown as Markdown
@@ -42,6 +44,7 @@ type alias Token =
 type Msg
     = AskLoginEmailResponse (WebData ())
     | AskLoginEmailSubmit
+    | CopyToClipboard String
     | LoginResponse (WebData AccessTokenData)
     | Logout User
     | LogoutResponse (WebData ())
@@ -92,6 +95,12 @@ update session msg model =
             ( { model | tab = tab }, session, Cmd.none )
 
         -- Account tab updates
+        ( Account _, CopyToClipboard accessToken ) ->
+            ( model
+            , session
+            , Ports.copyToClipboard accessToken
+            )
+
         ( Account _, Logout user ) ->
             ( model
             , session
@@ -357,13 +366,23 @@ viewAccount { accessTokenData, user } =
 viewAccessData : AccessTokenData -> Html Msg
 viewAccessData data =
     div [ class "d-flex flex-column justify-content-between align-middle gap-1", style "overflow-x" "hidden" ]
-        [ Table.responsiveDefault []
-            [ [ ( "accessToken", data.accessToken )
-              , ( "expiresIn", String.fromInt data.expiresIn )
-              , ( "refreshToken", Maybe.withDefault "Aucun" data.refreshToken )
-              , ( "tokenType", data.tokenType )
+        [ Table.responsiveDefault [ class "w-100" ]
+            [ [ ( "accessToken", Just data.accessToken )
+              , ( "expiresIn", Just <| String.fromInt data.expiresIn )
+              , ( "refreshToken", data.refreshToken )
+              , ( "tokenType", Just data.tokenType )
               ]
-                |> List.map (\( label, value ) -> tr [] [ th [] [ text label ], td [] [ text value ] ])
+                |> List.map
+                    (\( label, value ) ->
+                        tr []
+                            [ th [] [ text label ]
+                            , td []
+                                [ value
+                                    |> Maybe.map (Button.copyButton CopyToClipboard)
+                                    |> Maybe.withDefault (text "-")
+                                ]
+                            ]
+                    )
                 |> tbody []
             ]
         , div [ class "fs-8 text-muted d-flex gap-1 align-items-center" ]
