@@ -385,7 +385,7 @@ pageHeader { session, activePage, openMobileNavigation, loadUrl, switchVersion }
                     [ class "VersionSelector d-none d-sm-block form-select form-select-sm w-auto"
                     , onInput switchVersion
                     ]
-            , div [ class "HeaderAuthLink" ]
+            , div [ class "HeaderAuthLink flex-fill" ]
                 [ a
                     [ class "d-none d-sm-block flex-fill text-end"
                     , Route.href (Route.Auth { authenticated = False })
