@@ -93,6 +93,12 @@ update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update session msg model =
     case msg of
         -- Generic page updates
+        CopyToClipboard accessToken ->
+            ( model
+            , session
+            , Ports.copyToClipboard accessToken
+            )
+
         SwitchTab tab ->
             ( { model | tab = tab }, session, Cmd.none )
 
@@ -127,12 +133,6 @@ update session msg model =
 updateAccountTab : Session -> Session.Auth2 -> Msg -> Model -> ( Model, Session, Cmd Msg )
 updateAccountTab session currentAuth msg model =
     case msg of
-        CopyToClipboard accessToken ->
-            ( model
-            , session
-            , Ports.copyToClipboard accessToken
-            )
-
         Logout user ->
             ( model
             , session
@@ -156,7 +156,7 @@ updateAccountTab session currentAuth msg model =
         ProfileResponse _ (RemoteData.Success user) ->
             ( { model | tab = Account { currentAuth | user = user } }
             , session
-            , Nav.pushUrl session.navKey <| Route.toString Route.Auth2
+            , Cmd.none
             )
 
         ProfileResponse _ (RemoteData.Failure error) ->
@@ -219,7 +219,7 @@ updateAuthenticatingTab session msg model =
         ProfileResponse accessTokenData (RemoteData.Success user) ->
             ( { model | tab = Account { accessTokenData = accessTokenData, user = user } }
             , session |> Session.setAuth2 (Just { accessTokenData = accessTokenData, user = user })
-            , Cmd.none
+            , Nav.pushUrl session.navKey <| Route.toString Route.Auth2
             )
 
         ProfileResponse _ (RemoteData.Failure error) ->
