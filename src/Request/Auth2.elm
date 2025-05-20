@@ -2,6 +2,7 @@ module Request.Auth2 exposing
     ( askLoginEmail
     , login
     , logout
+    , profile
     , profileFromAccessToken
     , signup
     )
@@ -43,6 +44,14 @@ logout session event user =
         event
         (Decode.succeed ())
         (User.encodeUser user)
+
+
+profile : Session -> (WebData User -> msg) -> Cmd msg
+profile session event =
+    BackendHttp.get session
+        "me"
+        event
+        User.decodeUser
 
 
 {-| Retrieve user profile from a token received by email

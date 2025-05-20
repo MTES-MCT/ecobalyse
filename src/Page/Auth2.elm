@@ -64,15 +64,16 @@ type Tab
 
 init : Session -> ( Model, Session, Cmd Msg )
 init session =
-    ( { tab =
-            session
-                |> Session.getAuth2
-                |> Maybe.map Account
-                |> Maybe.withDefault (AskLoginEmail "")
-      }
-    , session
-    , Cmd.none
-    )
+    case Session.getAuth2 session of
+        Just auth ->
+            ( { tab = Account auth }
+            , session
+              -- Ensure fetching the freshest user profile data
+            , Auth.profile session (ProfileResponse auth.accessTokenData)
+            )
+
+        Nothing ->
+            ( { tab = AskLoginEmail "" }, session, Cmd.none )
 
 
 initLogin : Session -> Email -> Token -> ( Model, Session, Cmd Msg )
