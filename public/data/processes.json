@@ -1591,10 +1591,10 @@
     "waste": 0
   },
   {
-    "categories": ["transformation"],
+    "categories": ["material", "material_type:wood"],
     "comment": "",
     "density": 0,
-    "displayName": "Revêtement bois (huile)",
+    "displayName": "Revêtement bois (huile ou vernis acrylique)",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "1da6ae98-bf83-598c-9776-cbdf1a4c6dd1",
@@ -6253,7 +6253,7 @@
     "waste": 0.005
   },
   {
-    "categories": ["transformation"],
+    "categories": ["material", "material_type:wood"],
     "comment": "",
     "density": 0,
     "displayName": "Revêtement bois (résine epoxy)",
@@ -11729,7 +11729,7 @@
     "waste": 0
   },
   {
-    "categories": ["transformation"],
+    "categories": ["material", "material_type:wood"],
     "comment": "",
     "density": 0,
     "displayName": "Revêtement panneaux (papier mélaminé)",
@@ -11762,7 +11762,7 @@
     "scopes": [],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "coating, with melamine impregnated paper//[RER] coating service, melamine impregnated paper, double-sided",
-    "unit": "kg",
+    "unit": "m2",
     "waste": 0
   },
   {
@@ -12062,7 +12062,7 @@
     "waste": 0
   },
   {
-    "categories": ["transformation"],
+    "categories": ["material", "material_type:metal"],
     "comment": "",
     "density": 0,
     "displayName": "Thermolaquage (acier)",
@@ -14097,7 +14097,7 @@
     "waste": 0
   },
   {
-    "categories": ["transformation"],
+    "categories": ["transformation", "material_type:metal"],
     "comment": "",
     "density": 0,
     "displayName": "Transformation métallique (moyenne)",
@@ -14615,7 +14615,7 @@
     "waste": 0
   },
   {
-    "categories": ["transformation"],
+    "categories": ["material", "material_type:metal"],
     "comment": "",
     "density": 0,
     "displayName": "Thermolaquage (aluminium)",
