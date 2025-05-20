@@ -115,7 +115,7 @@ update session msg model =
 
                 -- AskLoginEmail tab updates
                 MagicLinkForm email ->
-                    updateAskLoginEmailTab session email tabMsg model
+                    updateMagicLinkTab session email tabMsg model
 
                 -- AskedLoginEmailSent tab updates (currently no msg to handle)
                 MagicLinkSent _ ->
@@ -169,8 +169,8 @@ updateAccountTab session currentAuth msg model =
             ( model, session, Cmd.none )
 
 
-updateAskLoginEmailTab : Session -> Email -> Msg -> Model -> ( Model, Session, Cmd Msg )
-updateAskLoginEmailTab session email msg model =
+updateMagicLinkTab : Session -> Email -> Msg -> Model -> ( Model, Session, Cmd Msg )
+updateMagicLinkTab session email msg model =
     case msg of
         MagicLinkResponse (RemoteData.Success _) ->
             ( { model | tab = MagicLinkSent email }
@@ -188,7 +188,7 @@ updateAskLoginEmailTab session email msg model =
             ( model
             , session
             , String.trim email
-                |> Auth.askLoginEmail session MagicLinkResponse
+                |> Auth.askMagicLink session MagicLinkResponse
             )
 
         UpdateAskLoginEmailForm email_ ->
