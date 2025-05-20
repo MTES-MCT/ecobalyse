@@ -71,7 +71,7 @@ init session =
         Just auth ->
             ( { tab = Account auth }
             , session
-              -- Ensure fetching the freshest user profile data
+              -- Always ensure fetching the freshest user profile
             , Auth.profile session (ProfileResponse auth.accessTokenData)
             )
 
@@ -207,7 +207,8 @@ updateAuthenticatingTab session msg model =
         LoginResponse (RemoteData.Success accessTokenData) ->
             ( { model | tab = Authenticating }
             , session
-            , Auth.profileFromAccessToken session (ProfileResponse accessTokenData) accessTokenData.accessToken
+            , accessTokenData.accessToken
+                |> Auth.profileFromAccessToken session (ProfileResponse accessTokenData)
             )
 
         LoginResponse (RemoteData.Failure error) ->
@@ -251,15 +252,21 @@ updateSignupTab session signupForm msg model =
             let
                 newFormErrors =
                     User.validateSignupForm signupForm
-            in
-            ( { model | tab = Signup signupForm newFormErrors }
-            , session
-            , if newFormErrors == Dict.empty then
-                Auth.signup session SignupResponse signupForm
 
-              else
-                Cmd.none
-            )
+                newModel =
+                    { model | tab = Signup signupForm newFormErrors }
+            in
+            if newFormErrors == Dict.empty then
+                ( newModel
+                , session
+                , Auth.signup session SignupResponse signupForm
+                )
+
+            else
+                ( newModel
+                , session |> Session.notifyError "Erreur" "Veuillez corriger les champs en erreur"
+                , Cmd.none
+                )
 
         UpdateSignupForm signupForm_ ->
             ( { model | tab = Signup signupForm_ Dict.empty }, session, Cmd.none )
