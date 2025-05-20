@@ -23,6 +23,7 @@ import Views.Container as Container
 import Views.Icon as Icon
 import Views.Markdown as Markdown
 import Views.Spinner as Spinner
+import Views.Table as Table
 
 
 type alias Model =
@@ -53,7 +54,7 @@ type Msg
 
 
 type Tab
-    = Account User
+    = Account Session.Auth2
     | AskLoginEmail Email
     | AskLoginEmailSent Email
     | Authenticating
@@ -66,7 +67,7 @@ init session =
     ( { tab =
             session
                 |> Session.getAuth2
-                |> Maybe.map (.user >> Account)
+                |> Maybe.map Account
                 |> Maybe.withDefault (AskLoginEmail "")
       }
     , session
@@ -165,7 +166,7 @@ update session msg model =
             )
 
         ( Authenticating, ProfileResponse accessTokenData (RemoteData.Success user) ) ->
-            ( { model | tab = Account user }
+            ( { model | tab = Account { accessTokenData = accessTokenData, user = user } }
             , session |> Session.setAuth2 (Just { accessTokenData = accessTokenData, user = user })
             , Cmd.none
             )
@@ -227,14 +228,14 @@ view session model =
     , [ Container.centered [ class "pb-5" ]
             [ div [ class "row" ]
                 [ div [ class "col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 d-flex flex-column gap-3" ]
-                    (case session |> Session.getAuth2 |> Maybe.map .user of
-                        Just user ->
-                            [ h1 [] [ text "Mon compte" ]
-                            , viewAccount user
+                    (case Session.getAuth2 session of
+                        Just auth ->
+                            [ h1 [] [ text "Mon compte (new auth)" ]
+                            , viewAccount auth
                             ]
 
                         Nothing ->
-                            [ h1 [] [ text "Connexion / Inscription" ]
+                            [ h1 [] [ text "Connexion / Inscription (new auth)" ]
                             , viewTab model.tab
                             ]
                     )
@@ -270,8 +271,8 @@ viewTab currentTab =
             ]
         , div [ class "card-body" ]
             [ case currentTab of
-                Account user ->
-                    viewAccount user
+                Account auth ->
+                    viewAccount auth
 
                 AskLoginEmail email ->
                     viewAskLoginEmailForm email
@@ -291,14 +292,14 @@ viewTab currentTab =
         ]
 
 
-viewAccount : User -> Html Msg
-viewAccount user =
+viewAccount : Session.Auth2 -> Html Msg
+viewAccount { accessTokenData, user } =
     div []
         [ [ Just ( "Email", text user.email )
           , if user.isSuperuser then
                 Just
                     ( "Équipe Ecobalyse"
-                    , span [ class "d-flex justify-content-between align-middle gap-1" ]
+                    , div [ class "d-flex justify-content-between align-middle gap-1" ]
                         [ strong [] [ text "Oui" ]
                         , a [ class "btn btn-sm btn-info", Route.href Route.Admin ]
                             [ Icon.lock, text "\u{00A0}Accès à l'admin" ]
@@ -321,12 +322,19 @@ viewAccount user =
                         ]
                     ]
                 )
+
+          -- FIXME: remove this before shipping to production; right now this is useful for debugging
+          , if user.isSuperuser then
+                Just ( "Jeton Web (Access token)", viewAccessData accessTokenData )
+
+            else
+                Nothing
           ]
             |> List.filterMap
                 (Maybe.map
                     (\( label, htmlValue ) ->
                         tr []
-                            [ th [] [ text <| label ++ " : " ]
+                            [ th [ class "text-nowrap" ] [ text <| label ++ " : " ]
                             , td [] [ htmlValue ]
                             ]
                     )
@@ -341,6 +349,25 @@ viewAccount user =
                 [ text "Retour à l'accueil" ]
             , button [ class "btn btn-primary my-3", onClick <| Logout user ]
                 [ text "Déconnexion" ]
+            ]
+        ]
+
+
+viewAccessData : AccessTokenData -> Html Msg
+viewAccessData data =
+    div [ class "d-flex flex-column justify-content-between align-middle gap-1", style "overflow-x" "hidden" ]
+        [ Table.responsiveDefault []
+            [ [ ( "accessToken", data.accessToken )
+              , ( "expiresIn", String.fromInt data.expiresIn )
+              , ( "refreshToken", Maybe.withDefault "Aucun" data.refreshToken )
+              , ( "tokenType", data.tokenType )
+              ]
+                |> List.map (\( label, value ) -> tr [] [ th [] [ text label ], td [] [ text value ] ])
+                |> tbody []
+            ]
+        , div [ class "fs-8 text-muted d-flex gap-1 align-items-center" ]
+            [ Icon.warning
+            , text "Utile pour débugger, devrait être masqué avant mise en production effective. "
             ]
         ]
 
