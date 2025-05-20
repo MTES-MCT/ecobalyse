@@ -42,12 +42,12 @@ type alias Token =
 
 
 type Msg
-    = AskLoginEmailResponse (WebData ())
-    | AskLoginEmailSubmit
-    | CopyToClipboard String
+    = CopyToClipboard String
     | LoginResponse (WebData AccessTokenData)
     | Logout User
     | LogoutResponse (WebData ())
+    | MagicLinkResponse (WebData ())
+    | MagicLinkSubmit
     | ProfileResponse AccessTokenData (WebData User)
     | SignupResponse (WebData User)
     | SignupSubmit
@@ -58,9 +58,9 @@ type Msg
 
 type Tab
     = Account Session.Auth2
-    | AskLoginEmail Email
-    | AskLoginEmailSent Email
     | Authenticating
+    | MagicLinkForm Email
+    | MagicLinkSent Email
     | Signup SignupForm FormErrors
     | SignupCompleted Email
 
@@ -76,9 +76,11 @@ init session =
             )
 
         Nothing ->
-            ( { tab = AskLoginEmail "" }, session, Cmd.none )
+            ( { tab = MagicLinkForm "" }, session, Cmd.none )
 
 
+{-| Init page when we receive magic link information
+-}
 initLogin : Session -> Email -> Token -> ( Model, Session, Cmd Msg )
 initLogin session email token =
     ( { tab = Authenticating }
@@ -89,31 +91,61 @@ initLogin session email token =
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update session msg model =
-    case ( model.tab, msg ) of
-        -- Tab updates
-        ( _, SwitchTab tab ) ->
+    case msg of
+        -- Generic page updates
+        SwitchTab tab ->
             ( { model | tab = tab }, session, Cmd.none )
 
-        -- Account tab updates
-        ( Account _, CopyToClipboard accessToken ) ->
+        -- Specific tab updates
+        tabMsg ->
+            case model.tab of
+                -- Account tab updates
+                Account auth ->
+                    updateAccountTab session auth tabMsg model
+
+                -- Authenticating tab updates
+                Authenticating ->
+                    updateAuthenticatingTab session tabMsg model
+
+                -- AskLoginEmail tab updates
+                MagicLinkForm email ->
+                    updateAskLoginEmailTab session email tabMsg model
+
+                -- AskedLoginEmailSent tab updates (currently no msg to handle)
+                MagicLinkSent _ ->
+                    ( model, session, Cmd.none )
+
+                -- Signup tab updates
+                Signup signupForm _ ->
+                    updateSignupTab session signupForm tabMsg model
+
+                -- SignupCompleted tab updates (currently no msg to handle)
+                SignupCompleted _ ->
+                    ( model, session, Cmd.none )
+
+
+updateAccountTab : Session -> Session.Auth2 -> Msg -> Model -> ( Model, Session, Cmd Msg )
+updateAccountTab session currentAuth msg model =
+    case msg of
+        CopyToClipboard accessToken ->
             ( model
             , session
             , Ports.copyToClipboard accessToken
             )
 
-        ( Account _, Logout user ) ->
+        Logout user ->
             ( model
             , session
             , user |> Auth.logout session LogoutResponse
             )
 
-        ( Account _, LogoutResponse (RemoteData.Failure error) ) ->
+        LogoutResponse (RemoteData.Failure error) ->
             ( model
             , session |> Session.notifyBackendError error
             , Cmd.none
             )
 
-        ( Account _, LogoutResponse (RemoteData.Success _) ) ->
+        LogoutResponse (RemoteData.Success _) ->
             ( model
             , session
                 |> Session.logout2
@@ -121,104 +153,101 @@ update session msg model =
             , Nav.load <| Route.toString Route.Auth2
             )
 
-        ( Account currentAuth, ProfileResponse _ (RemoteData.Success user) ) ->
+        ProfileResponse _ (RemoteData.Success user) ->
             ( { model | tab = Account { currentAuth | user = user } }
             , session
             , Nav.pushUrl session.navKey <| Route.toString Route.Auth2
             )
 
-        ( Account _, ProfileResponse _ (RemoteData.Failure error) ) ->
+        ProfileResponse _ (RemoteData.Failure error) ->
             ( model
             , session |> Session.notifyBackendError error
             , Cmd.none
             )
 
-        ( Account _, _ ) ->
+        _ ->
             ( model, session, Cmd.none )
 
-        --
-        -- AskLoginEmail tab updates
-        --
-        ( AskLoginEmail email, AskLoginEmailResponse (RemoteData.Success _) ) ->
-            ( { model | tab = AskLoginEmailSent email }
+
+updateAskLoginEmailTab : Session -> Email -> Msg -> Model -> ( Model, Session, Cmd Msg )
+updateAskLoginEmailTab session email msg model =
+    case msg of
+        MagicLinkResponse (RemoteData.Success _) ->
+            ( { model | tab = MagicLinkSent email }
             , session
             , Cmd.none
             )
 
-        ( AskLoginEmail _, AskLoginEmailResponse (RemoteData.Failure error) ) ->
+        MagicLinkResponse (RemoteData.Failure error) ->
             ( model
             , session |> Session.notifyBackendError error
             , Cmd.none
             )
 
-        ( AskLoginEmail _, UpdateAskLoginEmailForm email ) ->
-            ( { model | tab = AskLoginEmail email }
-            , session
-            , Cmd.none
-            )
-
-        ( AskLoginEmail email, AskLoginEmailSubmit ) ->
+        MagicLinkSubmit ->
             ( model
             , session
             , String.trim email
-                |> Auth.askLoginEmail session AskLoginEmailResponse
+                |> Auth.askLoginEmail session MagicLinkResponse
             )
 
-        -- AskLoginEmail tab catch all
-        ( AskLoginEmail _, _ ) ->
+        UpdateAskLoginEmailForm email_ ->
+            ( { model | tab = MagicLinkForm email_ }
+            , session
+            , Cmd.none
+            )
+
+        _ ->
             ( model, session, Cmd.none )
 
-        -- AskedLoginEmailSent tab catch all
-        ( AskLoginEmailSent _, _ ) ->
-            ( model, session, Cmd.none )
 
-        --
-        -- Authenticating tab updates
-        --
-        ( Authenticating, LoginResponse (RemoteData.Success accessTokenData) ) ->
+updateAuthenticatingTab : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
+updateAuthenticatingTab session msg model =
+    case msg of
+        LoginResponse (RemoteData.Success accessTokenData) ->
             ( { model | tab = Authenticating }
             , session
             , Auth.profileFromAccessToken session (ProfileResponse accessTokenData) accessTokenData.accessToken
             )
 
-        ( Authenticating, LoginResponse (RemoteData.Failure error) ) ->
+        LoginResponse (RemoteData.Failure error) ->
             ( model
             , session |> Session.notifyBackendError error
             , Nav.load <| Route.toString Route.Auth2
             )
 
-        ( Authenticating, ProfileResponse accessTokenData (RemoteData.Success user) ) ->
+        ProfileResponse accessTokenData (RemoteData.Success user) ->
             ( { model | tab = Account { accessTokenData = accessTokenData, user = user } }
             , session |> Session.setAuth2 (Just { accessTokenData = accessTokenData, user = user })
             , Cmd.none
             )
 
-        ( Authenticating, ProfileResponse _ (RemoteData.Failure error) ) ->
+        ProfileResponse _ (RemoteData.Failure error) ->
             ( model
             , session |> Session.notifyBackendError error
             , Nav.load <| Route.toString Route.Auth2
             )
 
-        -- Authenticating tab catch all
-        ( Authenticating, _ ) ->
+        _ ->
             ( model, session, Cmd.none )
 
-        --
-        -- Signup tab updates
-        --
-        ( Signup { email } _, SignupResponse (RemoteData.Success _) ) ->
-            ( { model | tab = SignupCompleted email }
+
+updateSignupTab : Session -> SignupForm -> Msg -> Model -> ( Model, Session, Cmd Msg )
+updateSignupTab session signupForm msg model =
+    case msg of
+        SignupResponse (RemoteData.Success _) ->
+            ( { model | tab = SignupCompleted signupForm.email }
             , session
             , Cmd.none
             )
 
-        ( Signup _ _, SignupResponse (RemoteData.Failure error) ) ->
+        SignupResponse (RemoteData.Failure error) ->
             ( model
             , session |> Session.notifyBackendError error
             , Cmd.none
             )
 
-        ( Signup signupForm _, SignupSubmit ) ->
+        SignupSubmit ->
             let
                 newFormErrors =
                     User.validateSignupForm signupForm
@@ -232,39 +261,11 @@ update session msg model =
                 Cmd.none
             )
 
-        ( Signup _ _, UpdateSignupForm signupForm ) ->
-            ( { model | tab = Signup signupForm Dict.empty }, session, Cmd.none )
+        UpdateSignupForm signupForm_ ->
+            ( { model | tab = Signup signupForm_ Dict.empty }, session, Cmd.none )
 
-        -- Signup tab catch all
-        ( Signup _ _, _ ) ->
+        _ ->
             ( model, session, Cmd.none )
-
-        -- SignupCompleted tab catch all
-        ( SignupCompleted _, _ ) ->
-            ( model, session, Cmd.none )
-
-
-view : Session -> Model -> ( String, List (Html Msg) )
-view session model =
-    ( "Authentification"
-    , [ Container.centered [ class "pb-5" ]
-            [ div [ class "row" ]
-                [ div [ class "col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 d-flex flex-column gap-3" ]
-                    (case Session.getAuth2 session of
-                        Just auth ->
-                            [ h1 [] [ text "Mon compte (new auth)" ]
-                            , viewAccount auth
-                            ]
-
-                        Nothing ->
-                            [ h1 [] [ text "Connexion / Inscription (new auth)" ]
-                            , viewTab model.tab
-                            ]
-                    )
-                ]
-            ]
-      ]
-    )
 
 
 viewTab : Tab -> Html Msg
@@ -272,7 +273,7 @@ viewTab currentTab =
     div [ class "card shadow-sm px-0" ]
         [ div [ class "card-header px-0 pb-0 border-bottom-0" ]
             [ [ ( "Inscription", Signup User.emptySignupForm Dict.empty )
-              , ( "Connexion", AskLoginEmail "" )
+              , ( "Connexion", MagicLinkForm "" )
               ]
                 |> List.map
                     (\( label, tab ) ->
@@ -296,14 +297,14 @@ viewTab currentTab =
                 Account auth ->
                     viewAccount auth
 
-                AskLoginEmail email ->
-                    viewAskLoginEmailForm email
-
-                AskLoginEmailSent email ->
-                    viewLoginEmailSent email
-
                 Authenticating ->
                     Spinner.view
+
+                MagicLinkForm email ->
+                    viewMagicLinkForm email
+
+                MagicLinkSent email ->
+                    viewMagicLinkSent email
 
                 Signup signupForm formErrors ->
                     viewSignupForm signupForm formErrors
@@ -404,9 +405,9 @@ viewAccessData data =
         ]
 
 
-viewAskLoginEmailForm : Email -> Html Msg
-viewAskLoginEmailForm email =
-    Html.form [ onSubmit AskLoginEmailSubmit ]
+viewMagicLinkForm : Email -> Html Msg
+viewMagicLinkForm email =
+    Html.form [ onSubmit MagicLinkSubmit ]
         [ div [ class "mb-3" ]
             [ label [ for "email", class "form-label" ]
                 [ text "Email" ]
@@ -432,8 +433,8 @@ viewAskLoginEmailForm email =
         ]
 
 
-viewLoginEmailSent : Email -> Html msg
-viewLoginEmailSent email =
+viewMagicLinkSent : Email -> Html msg
+viewMagicLinkSent email =
     div [ class "alert alert-info mb-0" ]
         [ h2 [ class "h5" ] [ text "Email de connexion envoyé" ]
         , """Un email contenant un lien d'authentification a été envoyé à l'adresse `{email}`."""
@@ -570,19 +571,19 @@ isActiveTab tab1 tab2 =
         ( Account _, Account _ ) ->
             True
 
-        ( Authenticating, AskLoginEmail _ ) ->
+        ( Authenticating, MagicLinkForm _ ) ->
             True
 
-        ( AskLoginEmail _, Authenticating ) ->
+        ( MagicLinkForm _, Authenticating ) ->
             True
 
-        ( AskLoginEmail _, AskLoginEmail _ ) ->
+        ( MagicLinkForm _, MagicLinkForm _ ) ->
             True
 
-        ( AskLoginEmail _, AskLoginEmailSent _ ) ->
+        ( MagicLinkForm _, MagicLinkSent _ ) ->
             True
 
-        ( AskLoginEmailSent _, AskLoginEmail _ ) ->
+        ( MagicLinkSent _, MagicLinkForm _ ) ->
             True
 
         ( Signup _ _, Signup _ _ ) ->
@@ -596,3 +597,26 @@ isActiveTab tab1 tab2 =
 
         _ ->
             False
+
+
+view : Session -> Model -> ( String, List (Html Msg) )
+view session model =
+    ( "Authentification"
+    , [ Container.centered [ class "pb-5" ]
+            [ div [ class "row" ]
+                [ div [ class "col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 d-flex flex-column gap-3" ]
+                    (case Session.getAuth2 session of
+                        Just auth ->
+                            [ h1 [] [ text "Mon compte (new auth)" ]
+                            , viewAccount auth
+                            ]
+
+                        Nothing ->
+                            [ h1 [] [ text "Connexion / Inscription (new auth)" ]
+                            , viewTab model.tab
+                            ]
+                    )
+                ]
+            ]
+      ]
+    )
