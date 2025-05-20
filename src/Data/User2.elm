@@ -43,7 +43,9 @@ type alias Profile =
 
 
 type alias Role =
-    { roleName : String
+    { assignedAt : String
+    , roleId : String
+    , roleName : String
     , roleSlug : String
     }
 
@@ -98,6 +100,8 @@ decodeProfile =
 decodeRole : Decoder Role
 decodeRole =
     Decode.succeed Role
+        |> Pipe.required "assignedAt" Decode.string
+        |> Pipe.required "roleId" Decode.string
         |> Pipe.required "roleName" Decode.string
         |> Pipe.required "roleSlug" Decode.string
 
