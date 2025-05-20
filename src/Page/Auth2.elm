@@ -388,7 +388,7 @@ viewAccessData data =
     div [ class "d-flex flex-column justify-content-between align-middle gap-1", style "overflow-x" "hidden" ]
         [ Table.responsiveDefault [ class "w-100" ]
             [ [ ( "accessToken", Just data.accessToken )
-              , ( "expiresIn", Just <| String.fromInt data.expiresIn )
+              , ( "expiresIn", data.expiresIn |> Maybe.map String.fromInt )
               , ( "refreshToken", data.refreshToken )
               , ( "tokenType", Just data.tokenType )
               ]
