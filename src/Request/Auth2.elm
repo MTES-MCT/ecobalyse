@@ -1,5 +1,5 @@
 module Request.Auth2 exposing
-    ( askLoginEmail
+    ( askMagicLink
     , login
     , logout
     , profile
@@ -16,10 +16,10 @@ import RemoteData
 import Request.BackendHttp as BackendHttp exposing (WebData)
 
 
-{-| Request an authentication email
+{-| Request an authentication email, containing a "magic link"
 -}
-askLoginEmail : Session -> (WebData () -> msg) -> String -> Cmd msg
-askLoginEmail session event email =
+askMagicLink : Session -> (WebData () -> msg) -> String -> Cmd msg
+askMagicLink session event email =
     BackendHttp.post session
         "access/magic_link/login"
         event
@@ -46,6 +46,8 @@ logout session event user =
         (User.encodeUser user)
 
 
+{-| Retrieve user profile using auth data from current session
+-}
 profile : Session -> (WebData User -> msg) -> Cmd msg
 profile session event =
     BackendHttp.get session
