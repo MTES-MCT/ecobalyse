@@ -121,6 +121,18 @@ update session msg model =
             , Nav.load <| Route.toString Route.Auth2
             )
 
+        ( Account currentAuth, ProfileResponse _ (RemoteData.Success user) ) ->
+            ( { model | tab = Account { currentAuth | user = user } }
+            , session
+            , Nav.pushUrl session.navKey <| Route.toString Route.Auth2
+            )
+
+        ( Account _, ProfileResponse _ (RemoteData.Failure error) ) ->
+            ( model
+            , session |> Session.notifyBackendError error
+            , Cmd.none
+            )
+
         ( Account _, _ ) ->
             ( model, session, Cmd.none )
 
