@@ -8,6 +8,7 @@ module Page.Auth2 exposing
     )
 
 import Browser.Navigation as Nav
+import Data.ApiToken exposing (CreatedToken)
 import Data.Env as Env
 import Data.Session as Session exposing (Session)
 import Data.User2 as User exposing (AccessTokenData, FormErrors, SignupForm, User)
@@ -17,6 +18,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Ports
 import RemoteData
+import Request.ApiToken as ApiTokenHttp
 import Request.Auth2 as Auth
 import Request.BackendHttp exposing (WebData)
 import Route
@@ -42,7 +44,8 @@ type alias Token =
 
 
 type Msg
-    = CopyToClipboard String
+    = ApiTokensResponse (WebData (List CreatedToken))
+    | CopyToClipboard String
     | LoginResponse (WebData AccessTokenData)
     | Logout User
     | LogoutResponse (WebData ())
@@ -58,6 +61,7 @@ type Msg
 
 type Tab
     = Account Session.Auth2
+    | ApiTokens (List CreatedToken)
     | Authenticating
     | MagicLinkForm Email
     | MagicLinkSent Email
@@ -72,7 +76,10 @@ init session =
             ( { tab = Account auth }
             , session
               -- Always ensure fetching the freshest user profile
-            , Auth.profile session (ProfileResponse auth.accessTokenData)
+            , Cmd.batch
+                [ Auth.profile session (ProfileResponse auth.accessTokenData)
+                , ApiTokenHttp.list session ApiTokensResponse
+                ]
             )
 
         Nothing ->
@@ -108,6 +115,10 @@ update session msg model =
                 -- Account tab updates
                 Account auth ->
                     updateAccountTab session auth tabMsg model
+
+                -- ApiTokens tab updates
+                ApiTokens apiTokens ->
+                    updateApiTokensTab session apiTokens tabMsg model
 
                 -- Authenticating tab updates
                 Authenticating ->
@@ -164,6 +175,19 @@ updateAccountTab session currentAuth msg model =
             , session |> Session.notifyBackendError error
             , Cmd.none
             )
+
+        _ ->
+            ( model, session, Cmd.none )
+
+
+updateApiTokensTab : Session -> List CreatedToken -> Msg -> Model -> ( Model, Session, Cmd Msg )
+updateApiTokensTab session _ tabMsg model =
+    case tabMsg of
+        ApiTokensResponse (RemoteData.Success newApiTokens) ->
+            ( { model | tab = ApiTokens newApiTokens }, session, Cmd.none )
+
+        ApiTokensResponse (RemoteData.Failure error) ->
+            ( model, session |> Session.notifyBackendError error, Cmd.none )
 
         _ ->
             ( model, session, Cmd.none )
@@ -275,49 +299,70 @@ updateSignupTab session signupForm msg model =
             ( model, session, Cmd.none )
 
 
-viewTab : Tab -> Html Msg
-viewTab currentTab =
-    div [ class "card shadow-sm px-0" ]
-        [ div [ class "card-header px-0 pb-0 border-bottom-0" ]
-            [ [ ( "Inscription", Signup User.emptySignupForm Dict.empty )
-              , ( "Connexion", MagicLinkForm "" )
-              ]
-                |> List.map
-                    (\( label, tab ) ->
-                        li
-                            [ class "TabsTab nav-item"
-                            , classList [ ( "active", isActiveTab currentTab tab ) ]
-                            ]
-                            [ button
-                                [ type_ "button"
-                                , class "nav-link no-outline border-top-0"
-                                , classList [ ( "active", isActiveTab currentTab tab ) ]
-                                , onClick (SwitchTab tab)
-                                ]
-                                [ text label ]
-                            ]
+viewTab : Session -> Tab -> Html Msg
+viewTab session currentTab =
+    let
+        ( heading, tabs ) =
+            case Session.getAuth2 session of
+                Just user ->
+                    ( "Mon compte (new auth)"
+                    , [ ( "Compte", Account user )
+                      , ( "Jetons d'API", ApiTokens [] )
+                      ]
                     )
-                |> ul [ class "Tabs nav nav-tabs nav-fill justify-content-end gap-2 px-2" ]
-            ]
-        , div [ class "card-body" ]
-            [ case currentTab of
-                Account auth ->
-                    viewAccount auth
 
-                Authenticating ->
-                    Spinner.view
+                Nothing ->
+                    ( "Connexion / Inscription (new auth)"
+                    , [ ( "Inscription", Signup User.emptySignupForm Dict.empty )
+                      , ( "Connexion", MagicLinkForm "" )
+                      ]
+                    )
+    in
+    div []
+        [ h1 [ class "mb-3" ] [ text heading ]
+        , div [ class "card shadow-sm px-0" ]
+            [ div [ class "card-header px-0 pb-0 border-bottom-0" ]
+                [ tabs
+                    |> List.map
+                        (\( label, tab ) ->
+                            li
+                                [ class "TabsTab nav-item"
+                                , classList [ ( "active", isActiveTab currentTab tab ) ]
+                                ]
+                                [ button
+                                    [ type_ "button"
+                                    , class "nav-link no-outline border-top-0"
+                                    , classList [ ( "active", isActiveTab currentTab tab ) ]
+                                    , onClick (SwitchTab tab)
+                                    ]
+                                    [ text label ]
+                                ]
+                        )
+                    |> ul [ class "Tabs nav nav-tabs nav-fill justify-content-end gap-2 px-2" ]
+                ]
+            , div [ class "card-body" ]
+                [ case currentTab of
+                    Account auth ->
+                        viewAccount auth
 
-                MagicLinkForm email ->
-                    viewMagicLinkForm email
+                    ApiTokens apiTokens ->
+                        viewApiTokens apiTokens
 
-                MagicLinkSent email ->
-                    viewMagicLinkSent email
+                    Authenticating ->
+                        Spinner.view
 
-                Signup signupForm formErrors ->
-                    viewSignupForm signupForm formErrors
+                    MagicLinkForm email ->
+                        viewMagicLinkForm email
 
-                SignupCompleted email ->
-                    viewSignupCompleted email
+                    MagicLinkSent email ->
+                        viewMagicLinkSent email
+
+                    Signup signupForm formErrors ->
+                        viewSignupForm signupForm formErrors
+
+                    SignupCompleted email ->
+                        viewSignupCompleted email
+                ]
             ]
         ]
 
@@ -381,6 +426,28 @@ viewAccount { accessTokenData, user } =
                 [ text "Déconnexion" ]
             ]
         ]
+
+
+viewApiTokens : List CreatedToken -> Html Msg
+viewApiTokens apiTokens =
+    if List.isEmpty apiTokens then
+        -- TODO: add a button to create an API token
+        p [] [ text "Vous n'avez pas encore créé de jeton d'API. Vous pouvez en créer un en cliquant sur le bouton ci-dessous." ]
+
+    else
+        div [ class "table-responsive border shadow-sm" ]
+            [ apiTokens
+                |> List.map
+                    (\apiToken ->
+                        tr []
+                            [ td [] [ text apiToken.id ]
+                            , td [] [ apiToken.lastAccessedAt |> Maybe.withDefault "-" |> text ]
+                            ]
+                    )
+                |> tbody []
+                |> List.singleton
+                |> table [ class "table table-striped mb-0" ]
+            ]
 
 
 viewAccessData : AccessTokenData -> Html Msg
@@ -578,6 +645,9 @@ isActiveTab tab1 tab2 =
         ( Account _, Account _ ) ->
             True
 
+        ( ApiTokens _, ApiTokens _ ) ->
+            True
+
         ( Authenticating, MagicLinkForm _ ) ->
             True
 
@@ -612,17 +682,7 @@ view session model =
     , [ Container.centered [ class "pb-5" ]
             [ div [ class "row" ]
                 [ div [ class "col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 d-flex flex-column gap-3" ]
-                    (case Session.getAuth2 session of
-                        Just auth ->
-                            [ h1 [] [ text "Mon compte (new auth)" ]
-                            , viewAccount auth
-                            ]
-
-                        Nothing ->
-                            [ h1 [] [ text "Connexion / Inscription (new auth)" ]
-                            , viewTab model.tab
-                            ]
-                    )
+                    [ viewTab session model.tab ]
                 ]
             ]
       ]
