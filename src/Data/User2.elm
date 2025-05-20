@@ -59,7 +59,7 @@ type alias SignupForm =
 
 type alias AccessTokenData =
     { accessToken : String
-    , expiresIn : Int
+    , expiresIn : Maybe Int
     , refreshToken : Maybe String
     , tokenType : String
     }
@@ -106,7 +106,7 @@ decodeAccessTokenData : Decoder AccessTokenData
 decodeAccessTokenData =
     Decode.succeed AccessTokenData
         |> Pipe.required "access_token" Decode.string
-        |> Pipe.required "expires_in" Decode.int
+        |> DU.strictOptional "expires_in" Decode.int
         |> DU.strictOptional "refresh_token" Decode.string
         |> Pipe.required "token_type" Decode.string
 
@@ -173,7 +173,7 @@ encodeAccessTokenData : AccessTokenData -> Encode.Value
 encodeAccessTokenData v =
     Encode.object
         [ ( "access_token", v.accessToken |> Encode.string )
-        , ( "expires_in", v.expiresIn |> Encode.int )
+        , ( "expires_in", v.expiresIn |> Maybe.map Encode.int |> Maybe.withDefault Encode.null )
         , ( "refresh_token", v.refreshToken |> Maybe.map Encode.string |> Maybe.withDefault Encode.null )
         , ( "token_type", v.tokenType |> Encode.string )
         ]
