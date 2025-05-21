@@ -19,7 +19,7 @@ import Data.Uuid as Uuid exposing (Uuid)
 import Dict exposing (Dict)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
-import Json.Decode.Pipeline as Pipe
+import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
 import Regex
 import Time exposing (Posix)
@@ -81,41 +81,41 @@ type alias FormErrors =
 decodeUser : Decoder User
 decodeUser =
     Decode.succeed User
-        |> Pipe.required "email" Decode.string
-        |> Pipe.required "id" (Decode.map Id Uuid.decoder)
-        |> Pipe.required "isActive" Decode.bool
-        |> Pipe.required "isSuperuser" Decode.bool
-        |> Pipe.required "isVerified" Decode.bool
+        |> JDP.required "email" Decode.string
+        |> JDP.required "id" (Decode.map Id Uuid.decoder)
+        |> JDP.required "isActive" Decode.bool
+        |> JDP.required "isSuperuser" Decode.bool
+        |> JDP.required "isVerified" Decode.bool
         |> DU.strictOptional "magicLinkSentAt" DE.datetime
-        |> Pipe.required "profile" decodeProfile
-        |> Pipe.required "roles" (Decode.list decodeRole)
+        |> JDP.required "profile" decodeProfile
+        |> JDP.required "roles" (Decode.list decodeRole)
 
 
 decodeProfile : Decoder Profile
 decodeProfile =
     Decode.succeed Profile
-        |> Pipe.required "firstName" Decode.string
-        |> Pipe.required "lastName" Decode.string
-        |> Pipe.required "organization" Decode.string
-        |> Pipe.required "termsAccepted" Decode.bool
+        |> JDP.required "firstName" Decode.string
+        |> JDP.required "lastName" Decode.string
+        |> JDP.required "organization" Decode.string
+        |> JDP.required "termsAccepted" Decode.bool
 
 
 decodeRole : Decoder Role
 decodeRole =
     Decode.succeed Role
-        |> Pipe.required "assignedAt" DE.datetime
-        |> Pipe.required "roleId" Decode.string
-        |> Pipe.required "roleName" Decode.string
-        |> Pipe.required "roleSlug" Decode.string
+        |> JDP.required "assignedAt" DE.datetime
+        |> JDP.required "roleId" Decode.string
+        |> JDP.required "roleName" Decode.string
+        |> JDP.required "roleSlug" Decode.string
 
 
 decodeAccessTokenData : Decoder AccessTokenData
 decodeAccessTokenData =
     Decode.succeed AccessTokenData
-        |> Pipe.required "access_token" Decode.string
+        |> JDP.required "access_token" Decode.string
         |> DU.strictOptional "expires_in" Decode.int
         |> DU.strictOptional "refresh_token" Decode.string
-        |> Pipe.required "token_type" Decode.string
+        |> JDP.required "token_type" Decode.string
 
 
 emptySignupForm : SignupForm
@@ -216,7 +216,7 @@ validateSignupForm form =
         |> addFormErrorIf "firstName" requiredMsg (isEmpty form.firstName)
         |> addFormErrorIf "lastName" requiredMsg (isEmpty form.lastName)
         |> addFormErrorIf "organization" requiredMsg (isEmpty form.organization)
-        |> addFormErrorIf "termsAccepted" requiredMsg (not form.termsAccepted)
+        |> addFormErrorIf "termsAccepted" "Les CGU doivent être acceptées" (not form.termsAccepted)
 
 
 addFormErrorIf : comparable -> b -> Bool -> Dict comparable b -> Dict comparable b
