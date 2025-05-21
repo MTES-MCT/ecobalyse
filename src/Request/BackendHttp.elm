@@ -58,10 +58,17 @@ expectJson toMsg decoder =
                 Http.BadUrl_ url ->
                     Err (BadUrl url)
 
-                Http.GoodStatus_ _ body ->
+                Http.GoodStatus_ metadata body ->
                     case Decode.decodeString decoder body of
                         Err err ->
-                            Err <| BadBody (Decode.errorToString err)
+                            Err <|
+                                BadBody
+                                    { detail = Decode.errorToString err
+                                    , headers = metadata.headers
+                                    , statusCode = metadata.statusCode
+                                    , title = Just "Corps de réponse invalide"
+                                    , url = metadata.url
+                                    }
 
                         Ok value ->
                             Ok value

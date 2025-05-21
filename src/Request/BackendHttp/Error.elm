@@ -20,7 +20,7 @@ error responses our backend API returns along with a bad status code (eg. 400, 4
 
 -}
 type Error
-    = BadBody String
+    = BadBody ErrorResponse
     | BadStatus ErrorResponse
     | BadUrl String
     | NetworkError
@@ -53,8 +53,8 @@ decodeErrorResponse { headers, url } =
 errorToString : Error -> String
 errorToString error =
     case error of
-        BadBody body ->
-            "Échec de l'interprétation de la réponse HTTP: " ++ body
+        BadBody { detail } ->
+            "Échec de l'interprétation de la réponse HTTP: " ++ detail
 
         BadStatus { detail, statusCode } ->
             "Erreur HTTP " ++ String.fromInt statusCode ++ ": " ++ detail
@@ -72,6 +72,9 @@ errorToString error =
 mapErrorResponse : Error -> Maybe ErrorResponse
 mapErrorResponse error =
     case error of
+        BadBody errorResponse ->
+            Just errorResponse
+
         BadStatus errorResponse ->
             Just errorResponse
 
