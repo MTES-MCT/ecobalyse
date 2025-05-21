@@ -7,6 +7,7 @@ module Views.Format exposing
     , formatImpact
     , formatImpactFloat
     , formatRichFloat
+    , frenchDatetime
     , hours
     , kg
     , kgToString
@@ -34,6 +35,7 @@ import Data.Process exposing (Process)
 import Data.Split as Split exposing (Split)
 import Data.Textile.Economics as Economics
 import Data.Unit as Unit
+import DateFormat
 import Decimal
 import Duration exposing (Duration)
 import Energy exposing (Energy)
@@ -44,6 +46,7 @@ import Html.Attributes exposing (..)
 import Length exposing (Length)
 import Mass exposing (Mass)
 import Quantity
+import Time exposing (Posix)
 import Volume exposing (Volume)
 
 
@@ -254,6 +257,13 @@ splitAsPercentage decimals value =
     Split.toPercentString decimals value
         ++ "\u{202F}%"
         |> Html.text
+
+
+frenchDatetime : Posix -> String
+frenchDatetime =
+    DateFormat.formatI18n DateFormat.french
+        "dd/MM/yyyy à HH:mm:ss (UTC)"
+        Time.utc
 
 
 days : Duration -> Html msg
