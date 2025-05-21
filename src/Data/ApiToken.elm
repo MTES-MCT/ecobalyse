@@ -3,6 +3,7 @@ module Data.ApiToken exposing
     , Token
     , decodeCreatedToken
     , decodeToken
+    , toString
     )
 
 import Data.Common.DecodeUtils as DU
@@ -31,3 +32,8 @@ decodeCreatedToken =
         |> JDP.required "id" Decode.string
         -- TODO: parse datetime
         |> DU.strictOptional "lastAccessedAt" Decode.string
+
+
+toString : Token -> String
+toString (Token token) =
+    token
