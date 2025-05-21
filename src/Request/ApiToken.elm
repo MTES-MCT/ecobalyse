@@ -1,5 +1,6 @@
 module Request.ApiToken exposing
     ( create
+    , delete
     , list
     )
 
@@ -17,6 +18,13 @@ create session event =
         event
         (Decode.at [ "token" ] ApiToken.decodeToken)
         Encode.null
+
+
+delete : Session -> CreatedToken -> (WebData () -> msg) -> Cmd msg
+delete session { id } event =
+    BackendHttp.delete session
+        ("tokens/" ++ id)
+        event
 
 
 list : Session -> (WebData (List CreatedToken) -> msg) -> Cmd msg
