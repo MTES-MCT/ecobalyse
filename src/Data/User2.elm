@@ -14,12 +14,15 @@ module Data.User2 exposing
     )
 
 import Data.Common.DecodeUtils as DU
+import Data.Common.EncodeUtils as EU
 import Data.Uuid as Uuid exposing (Uuid)
 import Dict exposing (Dict)
 import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Regex
+import Time exposing (Posix)
 
 
 type alias User =
@@ -28,7 +31,7 @@ type alias User =
     , isActive : Bool
     , isSuperuser : Bool
     , isVerified : Bool
-    , magicLinkSentAt : Maybe String
+    , magicLinkSentAt : Maybe Posix
     , profile : Profile
     , roles : List Role
     }
@@ -43,7 +46,7 @@ type alias Profile =
 
 
 type alias Role =
-    { assignedAt : String
+    { assignedAt : Posix
     , roleId : String
     , roleName : String
     , roleSlug : String
@@ -83,7 +86,7 @@ decodeUser =
         |> Pipe.required "isActive" Decode.bool
         |> Pipe.required "isSuperuser" Decode.bool
         |> Pipe.required "isVerified" Decode.bool
-        |> DU.strictOptional "magicLinkSentAt" Decode.string
+        |> DU.strictOptional "magicLinkSentAt" DE.datetime
         |> Pipe.required "profile" decodeProfile
         |> Pipe.required "roles" (Decode.list decodeRole)
 
@@ -100,7 +103,7 @@ decodeProfile =
 decodeRole : Decoder Role
 decodeRole =
     Decode.succeed Role
-        |> Pipe.required "assignedAt" Decode.string
+        |> Pipe.required "assignedAt" DE.datetime
         |> Pipe.required "roleId" Decode.string
         |> Pipe.required "roleName" Decode.string
         |> Pipe.required "roleSlug" Decode.string
@@ -133,7 +136,11 @@ encodeUser user =
         , ( "isActive", user.isActive |> Encode.bool )
         , ( "isSuperuser", user.isSuperuser |> Encode.bool )
         , ( "isVerified", user.isVerified |> Encode.bool )
-        , ( "magicLinkSentAt", user.magicLinkSentAt |> Maybe.map Encode.string |> Maybe.withDefault Encode.null )
+        , ( "magicLinkSentAt"
+          , user.magicLinkSentAt
+                |> Maybe.map EU.datetime
+                |> Maybe.withDefault Encode.null
+          )
         , ( "profile", user.profile |> encodeProfile )
         , ( "roles", user.roles |> Encode.list encodeRole )
         ]
@@ -157,7 +164,9 @@ encodeProfile profile =
 encodeRole : Role -> Encode.Value
 encodeRole role =
     Encode.object
-        [ ( "roleName", role.roleName |> Encode.string )
+        [ ( "assignedAt", role.assignedAt |> EU.datetime )
+        , ( "roleId", role.roleId |> Encode.string )
+        , ( "roleName", role.roleName |> Encode.string )
         , ( "roleSlug", role.roleSlug |> Encode.string )
         ]
 

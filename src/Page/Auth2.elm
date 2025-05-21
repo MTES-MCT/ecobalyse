@@ -24,6 +24,7 @@ import Request.BackendHttp exposing (WebData)
 import Route
 import Views.Button as Button
 import Views.Container as Container
+import Views.Format as Format
 import Views.Icon as Icon
 import Views.Markdown as Markdown
 import Views.Spinner as Spinner
@@ -115,6 +116,7 @@ update session msg model =
             , ApiTokenHttp.list session ApiTokensResponse
             )
 
+        -- Generic tab initialisation
         SwitchTab tab ->
             ( { model | tab = tab }, session, Cmd.none )
 
@@ -461,6 +463,7 @@ viewApiTokens apiTokens =
                                         [ td [] [ text apiToken.id ]
                                         , td [ class "text-end" ]
                                             [ apiToken.lastAccessedAt
+                                                |> Maybe.map Format.frenchDatetime
                                                 |> Maybe.withDefault "Jamais utilisé"
                                                 |> text
                                             ]
