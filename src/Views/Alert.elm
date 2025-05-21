@@ -54,10 +54,25 @@ backendError close error =
             [ case BackendError.mapErrorResponse error of
                 Just { detail, headers, statusCode, title, url } ->
                     div []
-                        [ p [ class "mb-2 fw-bold" ] [ title |> Maybe.withDefault detail |> text ]
+                        [ p [ class "mb-2 text-truncate" ]
+                            [ case title of
+                                Just title_ ->
+                                    if title_ == detail || String.isEmpty title_ then
+                                        text detail
+
+                                    else
+                                        span []
+                                            [ strong [] [ text <| title_ ++ "\u{00A0}: " ]
+                                            , text detail
+                                            ]
+
+                                Nothing ->
+                                    text detail
+                            ]
                         , Html.details []
                             [ summary [] [ text "Détails de l'erreur" ]
-                            , [ ( "URL", url )
+                            , [ ( "Message", detail )
+                              , ( "URL", url )
                               , ( "Status code", String.fromInt statusCode )
                               , ( "En-têtes"
                                 , Dict.toList headers
@@ -74,7 +89,7 @@ backendError close error =
                         ]
 
                 Nothing ->
-                    text ""
+                    em [] [ text "Aucun message d'erreur spécifié" ]
             ]
         , level = Danger
         , title = Just "Une erreur serveur a été rencontrée"

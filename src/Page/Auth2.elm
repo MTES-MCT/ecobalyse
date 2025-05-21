@@ -49,6 +49,8 @@ type Msg
     | CopyToClipboard String
     | CreateToken
     | CreateTokenResponse (WebData Token)
+    | DeleteApiToken CreatedToken
+    | DeleteApiTokenResponse (WebData ())
     | LoginResponse (WebData AccessTokenData)
     | Logout User
     | LogoutResponse (WebData ())
@@ -215,6 +217,22 @@ updateApiTokensTab session _ tabMsg model =
             )
 
         CreateTokenResponse (RemoteData.Failure error) ->
+            ( model, session |> Session.notifyBackendError error, Cmd.none )
+
+        DeleteApiToken apiToken ->
+            ( model
+            , session
+            , ApiTokenHttp.delete session apiToken DeleteApiTokenResponse
+            )
+
+        DeleteApiTokenResponse (RemoteData.Success _) ->
+            ( model
+            , session
+                |> Session.notifyInfo "Jeton d'API supprimé" "Le jeton d'API a été supprimé avec succès"
+            , ApiTokenHttp.list session ApiTokensResponse
+            )
+
+        DeleteApiTokenResponse (RemoteData.Failure error) ->
             ( model, session |> Session.notifyBackendError error, Cmd.none )
 
         SwitchTab (ApiTokens _) ->
@@ -491,6 +509,7 @@ viewApiTokens apiTokens =
                                 [ tr []
                                     [ th [] [ text "ID" ]
                                     , th [ class "text-end" ] [ text "Date de dernière utilisation" ]
+                                    , th [ class "text-end" ] []
                                     ]
                                 ]
                             , tokens
@@ -503,6 +522,11 @@ viewApiTokens apiTokens =
                                                     |> Maybe.map Format.frenchDatetime
                                                     |> Maybe.withDefault "Jamais utilisé"
                                                     |> text
+                                                ]
+                                            , td [ class "text-end" ]
+                                                [ button
+                                                    [ class "btn btn-sm btn-danger", onClick <| DeleteApiToken apiToken ]
+                                                    [ Icon.trash ]
                                                 ]
                                             ]
                                     )
