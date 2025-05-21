@@ -135,11 +135,11 @@ update session msg model =
                 Authenticating ->
                     updateAuthenticatingTab session tabMsg model
 
-                -- AskLoginEmail tab updates
+                -- MagicLinkForm tab updates
                 MagicLinkForm email ->
                     updateMagicLinkTab session email tabMsg model
 
-                -- AskedLoginEmailSent tab updates (currently no msg to handle)
+                -- MagicLinkSent tab updates (currently no msg to handle)
                 MagicLinkSent _ ->
                     ( model, session, Cmd.none )
 
@@ -456,22 +456,28 @@ viewApiTokens apiTokens =
 
                   else
                     div [ class "table-responsive border shadow-sm" ]
-                        [ tokens
-                            |> List.map
-                                (\apiToken ->
-                                    tr []
-                                        [ td [] [ text apiToken.id ]
-                                        , td [ class "text-end" ]
-                                            [ apiToken.lastAccessedAt
-                                                |> Maybe.map Format.frenchDatetime
-                                                |> Maybe.withDefault "Jamais utilisé"
-                                                |> text
+                        [ table [ class "table table-striped mb-0" ]
+                            [ thead []
+                                [ tr []
+                                    [ th [] [ text "ID" ]
+                                    , th [ class "text-end" ] [ text "Date de dernière utilisation" ]
+                                    ]
+                                ]
+                            , tokens
+                                |> List.map
+                                    (\apiToken ->
+                                        tr []
+                                            [ td [] [ text apiToken.id ]
+                                            , td [ class "text-end" ]
+                                                [ apiToken.lastAccessedAt
+                                                    |> Maybe.map Format.frenchDatetime
+                                                    |> Maybe.withDefault "Jamais utilisé"
+                                                    |> text
+                                                ]
                                             ]
-                                        ]
-                                )
-                            |> tbody []
-                            |> List.singleton
-                            |> table [ class "table table-striped mb-0" ]
+                                    )
+                                |> tbody []
+                            ]
                         ]
                 , div [ class "d-grid mt-3" ]
                     [ button
