@@ -1,4 +1,4 @@
-module Data.Auth2Test exposing (..)
+module Data.User2Test exposing (..)
 
 import Data.User2 as User
 import Expect
