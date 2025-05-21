@@ -8,7 +8,7 @@ module Page.Auth2 exposing
     )
 
 import Browser.Navigation as Nav
-import Data.ApiToken exposing (CreatedToken)
+import Data.ApiToken as ApiToken exposing (CreatedToken, Token)
 import Data.Env as Env
 import Data.Session as Session exposing (Session)
 import Data.User2 as User exposing (AccessTokenData, FormErrors, SignupForm, User)
@@ -35,17 +35,19 @@ type alias Model =
     }
 
 
-type alias Email =
+type alias AccessToken =
     String
 
 
-type alias Token =
+type alias Email =
     String
 
 
 type Msg
     = ApiTokensResponse (WebData (List CreatedToken))
     | CopyToClipboard String
+    | CreateToken
+    | CreateTokenResponse (WebData Token)
     | LoginResponse (WebData AccessTokenData)
     | Logout User
     | LogoutResponse (WebData ())
@@ -55,13 +57,13 @@ type Msg
     | SignupResponse (WebData User)
     | SignupSubmit
     | SwitchTab Tab
-    | UpdateAskLoginEmailForm Email
+    | UpdateMagicLinkForm Email
     | UpdateSignupForm SignupForm
 
 
 type Tab
     = Account Session.Auth2
-    | ApiTokens (List CreatedToken)
+    | ApiTokens (Maybe (List CreatedToken))
     | Authenticating
     | MagicLinkForm Email
     | MagicLinkSent Email
@@ -88,7 +90,7 @@ init session =
 
 {-| Init page when we receive magic link information
 -}
-initLogin : Session -> Email -> Token -> ( Model, Session, Cmd Msg )
+initLogin : Session -> Email -> AccessToken -> ( Model, Session, Cmd Msg )
 initLogin session email token =
     ( { tab = Authenticating }
     , session
@@ -104,6 +106,13 @@ update session msg model =
             ( model
             , session
             , Ports.copyToClipboard accessToken
+            )
+
+        -- ApiTokens tab initialisation
+        SwitchTab (ApiTokens _) ->
+            ( { model | tab = ApiTokens Nothing }
+            , session
+            , ApiTokenHttp.list session ApiTokensResponse
             )
 
         SwitchTab tab ->
@@ -180,45 +189,31 @@ updateAccountTab session currentAuth msg model =
             ( model, session, Cmd.none )
 
 
-updateApiTokensTab : Session -> List CreatedToken -> Msg -> Model -> ( Model, Session, Cmd Msg )
+updateApiTokensTab : Session -> Maybe (List CreatedToken) -> Msg -> Model -> ( Model, Session, Cmd Msg )
 updateApiTokensTab session _ tabMsg model =
     case tabMsg of
         ApiTokensResponse (RemoteData.Success newApiTokens) ->
-            ( { model | tab = ApiTokens newApiTokens }, session, Cmd.none )
+            ( { model | tab = ApiTokens (Just newApiTokens) }, session, Cmd.none )
 
         ApiTokensResponse (RemoteData.Failure error) ->
             ( model, session |> Session.notifyBackendError error, Cmd.none )
 
-        _ ->
-            ( model, session, Cmd.none )
+        CreateToken ->
+            ( model, session, ApiTokenHttp.create session CreateTokenResponse )
 
-
-updateMagicLinkTab : Session -> Email -> Msg -> Model -> ( Model, Session, Cmd Msg )
-updateMagicLinkTab session email msg model =
-    case msg of
-        MagicLinkResponse (RemoteData.Success _) ->
-            ( { model | tab = MagicLinkSent email }
-            , session
-            , Cmd.none
-            )
-
-        MagicLinkResponse (RemoteData.Failure error) ->
+        CreateTokenResponse (RemoteData.Success createdToken) ->
             ( model
-            , session |> Session.notifyBackendError error
-            , Cmd.none
+            , session |> Session.notifyInfo "Jeton créé" ("Votre jeton d'API: " ++ ApiToken.toString createdToken)
+            , ApiTokenHttp.list session ApiTokensResponse
             )
 
-        MagicLinkSubmit ->
+        CreateTokenResponse (RemoteData.Failure error) ->
+            ( model, session |> Session.notifyBackendError error, Cmd.none )
+
+        SwitchTab (ApiTokens _) ->
             ( model
             , session
-            , String.trim email
-                |> Auth.askMagicLink session MagicLinkResponse
-            )
-
-        UpdateAskLoginEmailForm email_ ->
-            ( { model | tab = MagicLinkForm email_ }
-            , session
-            , Cmd.none
+            , ApiTokenHttp.list session ApiTokensResponse
             )
 
         _ ->
@@ -251,6 +246,38 @@ updateAuthenticatingTab session msg model =
             ( model
             , session |> Session.notifyBackendError error
             , Nav.load <| Route.toString Route.Auth2
+            )
+
+        _ ->
+            ( model, session, Cmd.none )
+
+
+updateMagicLinkTab : Session -> Email -> Msg -> Model -> ( Model, Session, Cmd Msg )
+updateMagicLinkTab session email msg model =
+    case msg of
+        MagicLinkResponse (RemoteData.Success _) ->
+            ( { model | tab = MagicLinkSent email }
+            , session
+            , Cmd.none
+            )
+
+        MagicLinkResponse (RemoteData.Failure error) ->
+            ( model
+            , session |> Session.notifyBackendError error
+            , Cmd.none
+            )
+
+        MagicLinkSubmit ->
+            ( model
+            , session
+            , String.trim email
+                |> Auth.askMagicLink session MagicLinkResponse
+            )
+
+        UpdateMagicLinkForm email_ ->
+            ( { model | tab = MagicLinkForm email_ }
+            , session
+            , Cmd.none
             )
 
         _ ->
@@ -307,7 +334,7 @@ viewTab session currentTab =
                 Just user ->
                     ( "Mon compte (new auth)"
                     , [ ( "Compte", Account user )
-                      , ( "Jetons d'API", ApiTokens [] )
+                      , ( "Jetons d'API", ApiTokens Nothing )
                       ]
                     )
 
@@ -386,17 +413,6 @@ viewAccount { accessTokenData, user } =
           , Just ( "Nom", text user.profile.lastName )
           , Just ( "Prénom", text user.profile.firstName )
           , Just ( "Organisation", text user.profile.organization )
-          , Just
-                ( "Jeton d'API (API token)"
-                , div []
-                    [ code [] [ text "TODO" ]
-                    , br [] []
-                    , small [ class "text-muted" ]
-                        [ text "Nécessaire pour obtenir les impacts détaillés dans "
-                        , a [ Route.href Route.Api ] [ text "l'API" ]
-                        ]
-                    ]
-                )
 
           -- FIXME: remove this before shipping to production; right now this is useful for debugging
           , if user.isSuperuser then
@@ -428,26 +444,41 @@ viewAccount { accessTokenData, user } =
         ]
 
 
-viewApiTokens : List CreatedToken -> Html Msg
+viewApiTokens : Maybe (List CreatedToken) -> Html Msg
 viewApiTokens apiTokens =
-    if List.isEmpty apiTokens then
-        -- TODO: add a button to create an API token
-        p [] [ text "Vous n'avez pas encore créé de jeton d'API. Vous pouvez en créer un en cliquant sur le bouton ci-dessous." ]
+    case apiTokens of
+        Just tokens ->
+            div []
+                [ if List.isEmpty tokens then
+                    p [] [ text "Aucun jeton d'API actif." ]
 
-    else
-        div [ class "table-responsive border shadow-sm" ]
-            [ apiTokens
-                |> List.map
-                    (\apiToken ->
-                        tr []
-                            [ td [] [ text apiToken.id ]
-                            , td [] [ apiToken.lastAccessedAt |> Maybe.withDefault "-" |> text ]
-                            ]
-                    )
-                |> tbody []
-                |> List.singleton
-                |> table [ class "table table-striped mb-0" ]
-            ]
+                  else
+                    div [ class "table-responsive border shadow-sm" ]
+                        [ tokens
+                            |> List.map
+                                (\apiToken ->
+                                    tr []
+                                        [ td [] [ text apiToken.id ]
+                                        , td [ class "text-end" ]
+                                            [ apiToken.lastAccessedAt
+                                                |> Maybe.withDefault "Jamais utilisé"
+                                                |> text
+                                            ]
+                                        ]
+                                )
+                            |> tbody []
+                            |> List.singleton
+                            |> table [ class "table table-striped mb-0" ]
+                        ]
+                , div [ class "d-grid mt-3" ]
+                    [ button
+                        [ class "btn btn-primary", onClick CreateToken ]
+                        [ text "Créer un jeton d'API" ]
+                    ]
+                ]
+
+        Nothing ->
+            Spinner.view
 
 
 viewAccessData : AccessTokenData -> Html Msg
@@ -491,7 +522,7 @@ viewMagicLinkForm email =
                 , id "email"
                 , placeholder "nom@example.com"
                 , value email
-                , onInput UpdateAskLoginEmailForm
+                , onInput UpdateMagicLinkForm
                 , required True
                 ]
                 []
