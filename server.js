@@ -18,8 +18,6 @@ const app = express(); // web app
 const api = express(); // api app
 const expressHost = "0.0.0.0";
 const expressPort = 8001;
-const djangoHost = "127.0.0.1";
-const djangoPort = 8002;
 const version = express(); // version app
 
 // Env vars
@@ -203,9 +201,12 @@ const processes = fs.readFileSync(dataFiles.noDetails, "utf8");
 const getProcesses = async (token, customProcessesImpacts, customProcesses) => {
   let isTokenValid = false;
   if (token) {
-    const checkTokenUrl = `http://${djangoHost}:${djangoPort}/internal/check_token`;
-    const tokenRes = await fetch(checkTokenUrl, { headers: { token } });
-    isTokenValid = tokenRes.status == 200;
+    const checkTokenUrl = `${BACKEND_API_URL}/api/tokens/validate`;
+    const tokenRes = await fetch(checkTokenUrl, {
+      method: "POST",
+      body: JSON.stringify({ token: token }),
+    });
+    isTokenValid = tokenRes.status == 201;
   }
 
   if (isTokenValid || NODE_ENV === "test") {
