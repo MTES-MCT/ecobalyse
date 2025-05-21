@@ -64,6 +64,7 @@ type Msg
 
 type Tab
     = Account Session.Auth2
+    | ApiTokenCreated Token
     | ApiTokens (Maybe (List CreatedToken))
     | Authenticating
     | MagicLinkForm Email
@@ -126,6 +127,10 @@ update session msg model =
                 -- Account tab updates
                 Account auth ->
                     updateAccountTab session auth tabMsg model
+
+                -- ApiTokenCreated tab updates
+                ApiTokenCreated _ ->
+                    ( model, session, Cmd.none )
 
                 -- ApiTokens tab updates
                 ApiTokens apiTokens ->
@@ -204,8 +209,8 @@ updateApiTokensTab session _ tabMsg model =
             ( model, session, ApiTokenHttp.create session CreateTokenResponse )
 
         CreateTokenResponse (RemoteData.Success createdToken) ->
-            ( model
-            , session |> Session.notifyInfo "Jeton créé" ("Votre jeton d'API: " ++ ApiToken.toString createdToken)
+            ( { model | tab = ApiTokenCreated createdToken }
+            , session
             , ApiTokenHttp.list session ApiTokensResponse
             )
 
@@ -374,6 +379,9 @@ viewTab session currentTab =
                     Account auth ->
                         viewAccount auth
 
+                    ApiTokenCreated token ->
+                        viewApiTokenCreated token
+
                     ApiTokens apiTokens ->
                         viewApiTokens apiTokens
 
@@ -446,6 +454,25 @@ viewAccount { accessTokenData, user } =
         ]
 
 
+viewApiTokenCreated : Token -> Html Msg
+viewApiTokenCreated token =
+    div []
+        [ h2 [ class "h5 mb-3" ]
+            [ text "✅\u{00A0}Un nouveau jeton d'API a été créé" ]
+        , p [ class "alert alert-info font-monospace" ]
+            [ Button.copyButton CopyToClipboard (ApiToken.toString token) ]
+        , p []
+            [ text "Vous pouvez le copier dans le presse-papiers en cliquant sur le bouton ci-dessus." ]
+        , p [ class "alert alert-warning mb-0" ]
+            [ text "Attention, ce jeton d'API ne vous sera affiché qu'une fois, conservez-le précieusement." ]
+        , div [ class "d-grid mt-3" ]
+            [ button
+                [ class "btn btn-link", onClick <| SwitchTab (ApiTokens Nothing) ]
+                [ text "«\u{00A0}Retour à la liste des jetons d'API" ]
+            ]
+        ]
+
+
 viewApiTokens : Maybe (List CreatedToken) -> Html Msg
 viewApiTokens apiTokens =
     case apiTokens of
@@ -493,7 +520,11 @@ viewApiTokens apiTokens =
 viewAccessData : AccessTokenData -> Html Msg
 viewAccessData data =
     div [ class "d-flex flex-column justify-content-between align-middle gap-1", style "overflow-x" "hidden" ]
-        [ Table.responsiveDefault [ class "w-100" ]
+        [ div [ class "fs-8 text-muted d-flex gap-1 align-items-center" ]
+            [ Icon.warning
+            , text "Utile pour débugger, devrait être masqué avant mise en production effective. "
+            ]
+        , Table.responsiveDefault [ class "w-100" ]
             [ [ ( "accessToken", Just data.accessToken )
               , ( "expiresIn", data.expiresIn |> Maybe.map String.fromInt )
               , ( "refreshToken", data.refreshToken )
@@ -511,10 +542,6 @@ viewAccessData data =
                             ]
                     )
                 |> tbody []
-            ]
-        , div [ class "fs-8 text-muted d-flex gap-1 align-items-center" ]
-            [ Icon.warning
-            , text "Utile pour débugger, devrait être masqué avant mise en production effective. "
             ]
         ]
 
@@ -686,6 +713,12 @@ isActiveTab tab1 tab2 =
             True
 
         ( ApiTokens _, ApiTokens _ ) ->
+            True
+
+        ( ApiTokens _, ApiTokenCreated _ ) ->
+            True
+
+        ( ApiTokenCreated _, ApiTokens _ ) ->
             True
 
         ( Authenticating, MagicLinkForm _ ) ->
