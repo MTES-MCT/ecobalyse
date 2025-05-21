@@ -10,7 +10,7 @@ import Time exposing (Posix)
 
 datetime : Posix -> Encode.Value
 datetime =
-    DateFormat.format "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'" Time.utc
+    DateFormat.format "yyyy-MM-ddTHH:mm:ss.fffZ" Time.utc
         >> Encode.string
 
 
