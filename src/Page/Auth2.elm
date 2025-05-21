@@ -459,13 +459,16 @@ viewApiTokenCreated token =
     div []
         [ h2 [ class "h5 mb-3" ]
             [ text "✅\u{00A0}Un nouveau jeton d'API a été créé" ]
-        , p [ class "alert alert-info font-monospace" ]
-            [ Button.copyButton CopyToClipboard (ApiToken.toString token) ]
         , p []
-            [ text "Vous pouvez le copier dans le presse-papiers en cliquant sur le bouton ci-dessus." ]
-        , p [ class "alert alert-warning mb-0" ]
+            [ text "Il vous permet d'effectuer des requêtes sur "
+            , a [ Route.href Route.Api, target "_blank" ] [ text "l'API Ecobalyse" ]
+            , text "."
+            ]
+        , p [ class "alert alert-warning mb-3" ]
             [ text "Attention, ce jeton d'API ne vous sera affiché qu'une fois, conservez-le précieusement." ]
-        , div [ class "d-grid mt-3" ]
+        , p [ class "alert alert-info font-monospace mb-0" ]
+            [ Button.copyButton CopyToClipboard (ApiToken.toString token) ]
+        , div [ class "d-grid mt-2" ]
             [ button
                 [ class "btn btn-link", onClick <| SwitchTab (ApiTokens Nothing) ]
                 [ text "«\u{00A0}Retour à la liste des jetons d'API" ]
