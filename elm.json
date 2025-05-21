@@ -12,6 +12,7 @@
             "chain-partners/elm-bignum": "1.0.1",
             "commonmind/elm-csv-encode": "1.2.0",
             "cuducos/elm-format-number": "8.1.4",
+            "danhandrea/elm-date-format": "2.0.2",
             "dillonkearns/elm-markdown": "7.0.1",
             "elm/browser": "1.0.2",
             "elm/core": "1.0.5",
