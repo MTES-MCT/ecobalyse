@@ -25,6 +25,7 @@ type Route
     | Api
     | Auth
     | AuthLogin String String
+    | AuthSignup
     | Editorial String
     | Explore Scope Dataset
     | FoodBuilder Definition.Trigram (Maybe FoodQuery.Query)
@@ -51,6 +52,7 @@ parser =
         , Parser.map Api (Parser.s "api")
         , Parser.map Auth (Parser.s "auth")
         , Parser.map AuthLogin (Parser.s "auth" </> Parser.string </> Parser.string)
+        , Parser.map AuthSignup (Parser.s "auth" </> Parser.s "signup")
         , Parser.map Editorial (Parser.s "pages" </> Parser.string)
         , Parser.map Stats (Parser.s "stats")
 
@@ -222,6 +224,9 @@ toString route =
 
                 AuthLogin email token ->
                     [ "auth", email, token ]
+
+                AuthSignup ->
+                    [ "auth", "signup" ]
 
                 Editorial slug ->
                     [ "pages", slug ]
