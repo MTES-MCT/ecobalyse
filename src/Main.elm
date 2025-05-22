@@ -213,6 +213,10 @@ setRoute url ( { state } as model, cmds ) =
                     Auth2.initLogin session email token
                         |> toPage Auth2Page Auth2Msg
 
+                Just Route.AuthSignup ->
+                    Auth2.initSignup session
+                        |> toPage Auth2Page Auth2Msg
+
                 Just (Route.Editorial slug) ->
                     Editorial.init slug session
                         |> toPage EditorialPage EditorialMsg

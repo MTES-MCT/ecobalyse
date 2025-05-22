@@ -3,6 +3,7 @@ module Page.Auth exposing
     , Msg(..)
     , init
     , initLogin
+    , initSignup
     , update
     , view
     )
@@ -101,6 +102,14 @@ initLogin session email token =
     ( { tab = MagicLinkLogin }
     , session
     , Auth.login session LoginResponse email token
+    )
+
+
+initSignup : Session -> ( Model, Session, Cmd Msg )
+initSignup session =
+    ( { tab = Signup User.emptySignupForm Dict.empty }
+    , session
+    , Cmd.none
     )
 
 
@@ -665,9 +674,15 @@ viewApiTokenDelete apiToken =
 viewMagicLinkForm : Email -> Html Msg
 viewMagicLinkForm email =
     Html.form [ onSubmit MagicLinkSubmit ]
-        [ div [ class "mb-3" ]
+        [ p [ class "fs-8" ]
+            [ """Si vous avez un compte, entrez votre adresse email ci-dessous pour recevoir un email
+                 de connexion. Si vous n'en avez pas, vous pouvez [créer un compte]({url})."""
+                |> String.replace "{url}" (Route.toString Route.AuthSignup)
+                |> Markdown.simple []
+            ]
+        , div [ class "mb-3" ]
             [ label [ for "email", class "form-label" ]
-                [ text "Email" ]
+                [ text "Adresse email" ]
             , input
                 [ type_ "email"
                 , class "form-control"
@@ -703,9 +718,11 @@ viewMagicLinkSent email =
 viewSignupForm : SignupForm -> FormErrors -> Html Msg
 viewSignupForm signupForm formErrors =
     Html.form [ onSubmit SignupSubmit ]
-        [ div [ class "mb-3" ]
+        [ p [ class "fs-8" ]
+            [ text "Sauf mention contraire, tous les champs sont obligatoires." ]
+        , div [ class "mb-3" ]
             [ label [ for "email", class "form-label" ]
-                [ text "Email" ]
+                [ text "Adresse email" ]
             , input
                 [ type_ "email"
                 , class "form-control"
