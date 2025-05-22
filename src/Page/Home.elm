@@ -125,7 +125,7 @@ viewInfo =
             , """Vous pouvez en savoir plus sur nos données sources et nos modélisations en vous rendant dans [\u{202F}l’explorateur\u{202F}]({url_explorer}).
             Consultez également le détail des impacts environnementaux de vos simulations en [\u{202F}créant votre compte Ecobalyse\u{202F}]({url_account})."""
                 |> String.replace "{url_explorer}" (Route.toString <| Route.Explore Scope.Textile (Dataset.TextileExamples Nothing))
-                |> String.replace "{url_account}" (Route.toString <| Route.Auth { authenticated = False })
+                |> String.replace "{url_account}" (Route.toString Route.Auth2)
                 |> Markdown.simple []
             ]
         ]

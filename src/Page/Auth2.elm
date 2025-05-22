@@ -51,6 +51,7 @@ type Msg
     | CreateTokenResponse (WebData Token)
     | DeleteApiToken CreatedToken
     | DeleteApiTokenResponse (WebData ())
+    | DetailedProcessesResponse (WebData String)
     | LoginResponse (WebData AccessTokenData)
     | Logout User
     | LogoutResponse (WebData ())
@@ -111,6 +112,19 @@ update session msg model =
             ( model
             , session
             , Ports.copyToClipboard accessToken
+            )
+
+        -- Update the detailed processes
+        DetailedProcessesResponse (RemoteData.Success rawDetailedProcessesJson) ->
+            ( model
+            , session |> Session.updateDbProcesses rawDetailedProcessesJson
+            , Cmd.none
+            )
+
+        DetailedProcessesResponse (RemoteData.Failure error) ->
+            ( model
+            , session |> Session.notifyBackendError error
+            , Cmd.none
             )
 
         -- Account tab initialisation: retrieve the latest user profile
@@ -304,9 +318,16 @@ updateMagicLinkLoginTab session msg model =
             )
 
         ProfileResponse accessTokenData (RemoteData.Success user) ->
+            let
+                newSession =
+                    session |> Session.setAuth2 (Just { accessTokenData = accessTokenData, user = user })
+            in
             ( { model | tab = Account { accessTokenData = accessTokenData, user = user } }
-            , session |> Session.setAuth2 (Just { accessTokenData = accessTokenData, user = user })
-            , Nav.pushUrl session.navKey <| Route.toString Route.Auth2
+            , newSession
+            , Cmd.batch
+                [ Auth.processes newSession DetailedProcessesResponse
+                , Nav.pushUrl session.navKey <| Route.toString Route.Auth2
+                ]
             )
 
         ProfileResponse _ (RemoteData.Failure error) ->

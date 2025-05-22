@@ -154,7 +154,7 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStep
                         ]
             ]
         , tabs =
-            (if impactDefinition.trigram == Definition.Ecs && Session.isAuthenticated session then
+            (if impactDefinition.trigram == Definition.Ecs && Session.isAuthenticated2 session then
                 [ ( StepImpactsTab, text "Étapes" )
                 , ( SubscoresTab, text "Sous-scores" )
                 , ( DetailedImpactsTab, text "Impacts" )

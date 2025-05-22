@@ -30,7 +30,6 @@ import Views.Spinner as Spinner
 type ActivePage
     = Admin
     | Api
-    | Auth
     | Auth2
     | Editorial String
     | Explore
@@ -179,7 +178,7 @@ headerMenuLinks session =
         ++ List.filterMap identity
             [ Just <| External "Communauté" Env.communityUrl
             , Just <| External "Documentation" Env.gitbookUrl
-            , if Session.isStaff session then
+            , if Session.isStaff2 session then
                 Just <| Internal "Admin" Route.Admin Admin
 
               else
@@ -193,11 +192,15 @@ footerMenuLinks session =
         ++ [ External "Documentation" Env.gitbookUrl
            , External "Communauté" Env.communityUrl
            , MailTo "Contact" Env.contactEmail
-           , if Session.isAuthenticated session then
-                Internal "Mon compte" (Route.Auth { authenticated = True }) Auth
+           , Internal
+                (if Session.isAuthenticated2 session then
+                    "Mon compte"
 
-             else
-                Internal "Connexion ou inscription" (Route.Auth { authenticated = False }) Auth
+                 else
+                    "Connexion ou inscription"
+                )
+                Route.Auth2
+                Auth2
            ]
 
 
@@ -388,16 +391,6 @@ pageHeader { session, activePage, openMobileNavigation, loadUrl, switchVersion }
             , div [ class "HeaderAuthLink flex-fill" ]
                 [ a
                     [ class "d-none d-sm-block flex-fill text-end"
-                    , Route.href (Route.Auth { authenticated = False })
-                    ]
-                    [ if Session.isAuthenticated session then
-                        text "Mon compte"
-
-                      else
-                        text "Connexion ou inscription"
-                    ]
-                , a
-                    [ class "d-none d-sm-block flex-fill text-end"
                     , Route.href Route.Auth2
                     ]
                     [ if Session.isAuthenticated2 session then
@@ -518,15 +511,8 @@ restricted _ =
         [ h1 [ class "mb-3" ] [ text "Accès refusé" ]
         , p [] [ text "Cette page n'est accessible qu'à l'équipe Ecobalyse." ]
         , p []
-            [ text "Authentifiez-vous avec les droits appropriés "
-            , a [ Route.href <| Route.Auth { authenticated = False } ]
-                [ text "sur le SSO historique"
-                ]
-            , text ", "
-            , a [ Route.href Route.Auth2 ]
-                [ text "sur le nouveau SSO"
-                ]
-            , text " ou "
+            [ a [ Route.href Route.Auth2 ] [ text "Authentifiez-vous" ]
+            , text " avec les droits appropriés ou "
             , a [ Route.href Route.Home ] [ text "retournez à l'accueil" ]
             ]
         ]

@@ -115,7 +115,7 @@ init scope trigram maybeUrlQuery session =
       , bookmarkName = initialQuery |> suggestBookmarkName session examples
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonType =
-            if Session.isAuthenticated session then
+            if Session.isAuthenticated2 session then
                 ComparatorView.Subscores
 
             else

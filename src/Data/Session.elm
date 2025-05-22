@@ -1,23 +1,17 @@
 module Data.Session exposing
-    ( Auth(..)
-    , Auth2
+    ( Auth2
     , EnabledSections
     , Notification(..)
     , Session
     , Store
-    , authenticated
     , checkComparedSimulations
     , closeNotification
     , decodeRawStore
     , defaultStore
     , deleteBookmark
     , getAuth2
-    , getUser
-    , isAuthenticated
     , isAuthenticated2
-    , isStaff
     , isStaff2
-    , logout
     , logout2
     , notifyBackendError
     , notifyError
@@ -31,6 +25,7 @@ module Data.Session exposing
     , toggleComparedSimulation
     , updateAuth2
     , updateDb
+    , updateDbProcesses
     , updateFoodQuery
     , updateObjectQuery
     , updateTextileQuery
@@ -44,7 +39,6 @@ import Data.Github as Github
 import Data.Object.Query as ObjectQuery
 import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Query as TextileQuery
-import Data.User as User exposing (User)
 import Data.User2 as User2
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
@@ -304,11 +298,27 @@ isStaff2 =
         >> Maybe.withDefault False
 
 
+updateDbProcesses : String -> Session -> Session
+updateDbProcesses rawDetailedProcessesJson session =
+    case StaticDb.db rawDetailedProcessesJson of
+        Err err ->
+            session
+                |> notifyError "Impossible de recharger la db avec les nouveaux procédés" err
+
+        Ok db ->
+            { session | db = db }
+
+
 logout2 : Session -> Session
-logout2 =
-    -- TODO: once we fully migrate to new auth, ensure resetting the processes db
-    --       with no detailed impacts
-    updateStore (\store -> { store | auth2 = Nothing })
+logout2 session =
+    (case StaticDb.db StaticJson.processesJson of
+        Err err ->
+            session |> notifyError "Impossible de recharger les procédés par défaut" err
+
+        Ok db ->
+            { session | db = db }
+    )
+        |> updateStore (\store -> { store | auth2 = Nothing })
 
 
 setAuth2 : Maybe Auth2 -> Session -> Session
@@ -325,22 +335,15 @@ updateAuth2 fn =
 across browser restarts, typically in localStorage.
 -}
 type alias Store =
-    { auth : Auth
-    , auth2 : Maybe Auth2
+    { auth2 : Maybe Auth2
     , bookmarks : List Bookmark
     , comparedSimulations : Set String
     }
 
 
-type Auth
-    = Authenticated User
-    | NotAuthenticated
-
-
 defaultStore : Store
 defaultStore =
-    { auth = NotAuthenticated
-    , auth2 = Nothing
+    { auth2 = Nothing
     , bookmarks = []
     , comparedSimulations = Set.empty
     }
@@ -349,16 +352,9 @@ defaultStore =
 decodeStore : Decoder Store
 decodeStore =
     Decode.succeed Store
-        |> DU.strictOptionalWithDefault "auth" decodeAuth NotAuthenticated
         |> DU.strictOptional "auth2" decodeAuth2
         |> JDP.optional "bookmarks" (Decode.list Bookmark.decode) []
         |> JDP.optional "comparedSimulations" (Decode.map Set.fromList (Decode.list Decode.string)) Set.empty
-
-
-decodeAuth : Decoder Auth
-decodeAuth =
-    Decode.succeed Authenticated
-        |> JDP.required "user" User.decode
 
 
 encodeStore : Store -> Encode.Value
@@ -366,29 +362,8 @@ encodeStore store =
     Encode.object
         [ ( "comparedSimulations", store.comparedSimulations |> Set.toList |> Encode.list Encode.string )
         , ( "bookmarks", Encode.list Bookmark.encode store.bookmarks )
-        , ( "auth", encodeAuth store.auth )
         , ( "auth2", store.auth2 |> Maybe.map encodeAuth2 |> Maybe.withDefault Encode.null )
         ]
-
-
-encodeAuth : Auth -> Encode.Value
-encodeAuth auth =
-    case auth of
-        Authenticated user ->
-            Encode.object [ ( "user", User.encode user ) ]
-
-        NotAuthenticated ->
-            Encode.null
-
-
-getUser : Session -> Maybe User
-getUser { store } =
-    case store.auth of
-        Authenticated user ->
-            Just user
-
-        NotAuthenticated ->
-            Nothing
 
 
 decodeRawStore : String -> Session -> Session
@@ -409,42 +384,3 @@ serializeStore =
 updateStore : (Store -> Store) -> Session -> Session
 updateStore update session =
     { session | store = update session.store }
-
-
-authenticated : User -> String -> Session -> Session
-authenticated user rawDetailedProcessesJson ({ store } as session) =
-    case StaticDb.db rawDetailedProcessesJson of
-        Err err ->
-            session
-                |> notifyError "Impossible de recharger la db avec les nouveaux procédés" err
-
-        Ok db ->
-            { session | db = db, store = { store | auth = Authenticated user } }
-
-
-logout : Session -> Session
-logout ({ store } as session) =
-    case StaticDb.db StaticJson.processesJson of
-        Err err ->
-            { session | store = { store | auth = NotAuthenticated } }
-                |> notifyError "Impossible de recharger la db avec les procédés par défaut" err
-
-        Ok db ->
-            { session | db = db, store = { store | auth = NotAuthenticated } }
-
-
-isAuthenticated : Session -> Bool
-isAuthenticated { store } =
-    case store.auth of
-        Authenticated _ ->
-            True
-
-        _ ->
-            False
-
-
-isStaff : Session -> Bool
-isStaff =
-    getUser
-        >> Maybe.map .staff
-        >> Maybe.withDefault False
