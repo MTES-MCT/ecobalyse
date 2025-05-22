@@ -1,6 +1,6 @@
-module Data.User2Test exposing (..)
+module Data.UserTest exposing (..)
 
-import Data.User2 as User
+import Data.User as User
 import Dict
 import Expect
 import Json.Decode as Decode

@@ -173,7 +173,7 @@ init trigram maybeUrlQuery session =
       , bookmarkName = initialQuery |> suggestBookmarkName session
       , bookmarkTab = BookmarkView.SaveTab
       , comparisonType =
-            if Session.isAuthenticated2 session then
+            if Session.isAuthenticated session then
                 ComparatorView.Subscores
 
             else

@@ -1,5 +1,5 @@
 module Data.Session exposing
-    ( Auth2
+    ( Auth
     , EnabledSections
     , Notification(..)
     , Session
@@ -9,10 +9,10 @@ module Data.Session exposing
     , decodeRawStore
     , defaultStore
     , deleteBookmark
-    , getAuth2
-    , isAuthenticated2
-    , isStaff2
-    , logout2
+    , getAuth
+    , isAuthenticated
+    , isStaff
+    , logout
     , notifyBackendError
     , notifyError
     , notifyInfo
@@ -21,9 +21,9 @@ module Data.Session exposing
     , selectAllBookmarks
     , selectNoBookmarks
     , serializeStore
-    , setAuth2
+    , setAuth
     , toggleComparedSimulation
-    , updateAuth2
+    , updateAuth
     , updateDb
     , updateDbProcesses
     , updateFoodQuery
@@ -39,7 +39,7 @@ import Data.Github as Github
 import Data.Object.Query as ObjectQuery
 import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Query as TextileQuery
-import Data.User2 as User2
+import Data.User as User2
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
@@ -251,38 +251,38 @@ selectNoBookmarks =
 
 
 --
--- Auth2
+-- Auth
 --
 
 
-type alias Auth2 =
+type alias Auth =
     { accessTokenData : User2.AccessTokenData
     , user : User2.User
     }
 
 
-decodeAuth2 : Decoder Auth2
-decodeAuth2 =
-    Decode.succeed Auth2
+decodeAuth : Decoder Auth
+decodeAuth =
+    Decode.succeed Auth
         |> JDP.required "accessTokenData" User2.decodeAccessTokenData
         |> JDP.required "user" User2.decodeUser
 
 
-encodeAuth2 : Auth2 -> Encode.Value
-encodeAuth2 auth2 =
+encodeAuth : Auth -> Encode.Value
+encodeAuth auth2 =
     Encode.object
         [ ( "accessTokenData", User2.encodeAccessTokenData auth2.accessTokenData )
         , ( "user", User2.encodeUser auth2.user )
         ]
 
 
-getAuth2 : Session -> Maybe Auth2
-getAuth2 { store } =
+getAuth : Session -> Maybe Auth
+getAuth { store } =
     store.auth2
 
 
-isAuthenticated2 : Session -> Bool
-isAuthenticated2 { store } =
+isAuthenticated : Session -> Bool
+isAuthenticated { store } =
     case store.auth2 of
         Just _ ->
             True
@@ -291,26 +291,15 @@ isAuthenticated2 { store } =
             False
 
 
-isStaff2 : Session -> Bool
-isStaff2 =
-    getAuth2
+isStaff : Session -> Bool
+isStaff =
+    getAuth
         >> Maybe.map (.user >> .isSuperuser)
         >> Maybe.withDefault False
 
 
-updateDbProcesses : String -> Session -> Session
-updateDbProcesses rawDetailedProcessesJson session =
-    case StaticDb.db rawDetailedProcessesJson of
-        Err err ->
-            session
-                |> notifyError "Impossible de recharger la db avec les nouveaux procédés" err
-
-        Ok db ->
-            { session | db = db }
-
-
-logout2 : Session -> Session
-logout2 session =
+logout : Session -> Session
+logout session =
     (case StaticDb.db StaticJson.processesJson of
         Err err ->
             session |> notifyError "Impossible de recharger les procédés par défaut" err
@@ -321,13 +310,13 @@ logout2 session =
         |> updateStore (\store -> { store | auth2 = Nothing })
 
 
-setAuth2 : Maybe Auth2 -> Session -> Session
-setAuth2 auth2 =
+setAuth : Maybe Auth -> Session -> Session
+setAuth auth2 =
     updateStore (\store -> { store | auth2 = auth2 })
 
 
-updateAuth2 : (Auth2 -> Auth2) -> Session -> Session
-updateAuth2 fn =
+updateAuth : (Auth -> Auth) -> Session -> Session
+updateAuth fn =
     updateStore (\store -> { store | auth2 = store.auth2 |> Maybe.map fn })
 
 
@@ -335,7 +324,7 @@ updateAuth2 fn =
 across browser restarts, typically in localStorage.
 -}
 type alias Store =
-    { auth2 : Maybe Auth2
+    { auth2 : Maybe Auth
     , bookmarks : List Bookmark
     , comparedSimulations : Set String
     }
@@ -352,7 +341,7 @@ defaultStore =
 decodeStore : Decoder Store
 decodeStore =
     Decode.succeed Store
-        |> DU.strictOptional "auth2" decodeAuth2
+        |> DU.strictOptional "auth2" decodeAuth
         |> JDP.optional "bookmarks" (Decode.list Bookmark.decode) []
         |> JDP.optional "comparedSimulations" (Decode.map Set.fromList (Decode.list Decode.string)) Set.empty
 
@@ -362,7 +351,7 @@ encodeStore store =
     Encode.object
         [ ( "comparedSimulations", store.comparedSimulations |> Set.toList |> Encode.list Encode.string )
         , ( "bookmarks", Encode.list Bookmark.encode store.bookmarks )
-        , ( "auth2", store.auth2 |> Maybe.map encodeAuth2 |> Maybe.withDefault Encode.null )
+        , ( "auth2", store.auth2 |> Maybe.map encodeAuth |> Maybe.withDefault Encode.null )
         ]
 
 
@@ -379,6 +368,16 @@ decodeRawStore rawStore session =
 serializeStore : Store -> String
 serializeStore =
     encodeStore >> Encode.encode 0
+
+
+updateDbProcesses : String -> Session -> Session
+updateDbProcesses rawDetailedProcessesJson session =
+    case StaticDb.db rawDetailedProcessesJson of
+        Err err ->
+            session |> notifyError "Impossible de recharger la db avec les nouveaux procédés" err
+
+        Ok db ->
+            { session | db = db }
 
 
 updateStore : (Store -> Store) -> Session -> Session
