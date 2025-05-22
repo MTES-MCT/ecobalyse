@@ -2,186 +2,881 @@ module Page.Auth exposing
     ( Model
     , Msg(..)
     , init
+    , initLogin
+    , initSignup
     , update
     , view
     )
 
+import Browser.Navigation as Nav
+import Data.ApiToken as ApiToken exposing (CreatedToken, Token)
 import Data.Env as Env
 import Data.Session as Session exposing (Session)
-import Data.User as User exposing (User)
+import Data.User as User exposing (AccessTokenData, FormErrors, SignupForm, User)
 import Dict
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Http
-import Request.Auth as AuthRequest
-import Request.Common as RequestCommon
+import Ports
+import RemoteData
+import Request.ApiToken as ApiTokenHttp
+import Request.Auth as Auth
+import Request.BackendHttp exposing (WebData)
 import Route
-import Views.Alert as Alert
+import Views.Button as Button
 import Views.Container as Container
+import Views.Format as Format
 import Views.Icon as Icon
 import Views.Markdown as Markdown
+import Views.Spinner as Spinner
+import Views.Table as Table
 
 
 type alias Model =
-    { authenticated : Bool
-    , currentTab : Tab
-    , formErrors : AuthRequest.Errors
-    , user : User
+    { tab : Tab
     }
+
+
+type alias AccessToken =
+    String
+
+
+type alias Email =
+    String
 
 
 type Msg
-    = AskForRegistration
-    | Authenticated User (Result Http.Error String)
-    | ChangeAction Tab
-    | GotProfile (Result Http.Error User)
-    | LoggedOut
-    | Login
-    | Logout
-    | TokenEmailSent (Result Http.Error AuthRequest.AuthResponse)
-    | UpdateForm Model
+    = ApiTokensResponse (WebData (List CreatedToken))
+    | CopyToClipboard String
+    | CreateToken
+    | CreateTokenResponse (WebData Token)
+    | DeleteApiToken CreatedToken
+    | DeleteApiTokenResponse (WebData ())
+    | DetailedProcessesResponse (WebData String)
+    | LoginResponse (WebData AccessTokenData)
+    | Logout User
+    | LogoutResponse (WebData ())
+    | MagicLinkResponse (WebData ())
+    | MagicLinkSubmit
+    | ProfileResponse AccessTokenData (WebData User)
+    | SignupResponse (WebData User)
+    | SignupSubmit
+    | SwitchTab Tab
+    | UpdateMagicLinkForm Email
+    | UpdateSignupForm SignupForm
 
 
 type Tab
-    = AuthenticationTab
-    | RegistrationTab
+    = Account Session.Auth
+    | ApiTokenCreated Token
+    | ApiTokenDelete CreatedToken
+    | ApiTokens (Maybe (List CreatedToken))
+    | MagicLinkForm Email
+    | MagicLinkLogin
+    | MagicLinkSent Email
+    | Signup SignupForm FormErrors
+    | SignupCompleted Email
 
 
-init : Session -> { authenticated : Bool } -> ( Model, Session, Cmd Msg )
-init session data =
-    ( emptyModel data
+init : Session -> ( Model, Session, Cmd Msg )
+init session =
+    case Session.getAuth session of
+        Just auth ->
+            ( { tab = Account auth }
+            , session
+              -- Always ensure fetching the freshest user profile
+            , Cmd.batch
+                [ Auth.profile session (ProfileResponse auth.accessTokenData)
+                , ApiTokenHttp.list session ApiTokensResponse
+                ]
+            )
+
+        Nothing ->
+            ( { tab = MagicLinkForm "" }, session, Cmd.none )
+
+
+{-| Init page when we receive magic link information
+-}
+initLogin : Session -> Email -> AccessToken -> ( Model, Session, Cmd Msg )
+initLogin session email token =
+    ( { tab = MagicLinkLogin }
     , session
-    , AuthRequest.profile GotProfile
+    , Auth.login session LoginResponse email token
     )
 
 
-
--- Auth flow:
--- 1/ ask for login:
---    - ask for a connection link via email: should receive an email with a login link
---    - once the link in the email received is clicked, the backend will redirect to /#/auth/authenticated
---      - GET the user info (to make sure the user is connected)
---      - load the full processes with impacts
--- 2/ register:
---    - ask for registration with email, firstname, lastname, cgu (company): should receive en email with a validation link
---    - once the link in the email received is clicked, may not go through the login flow
-
-
-emptyModel : { authenticated : Bool } -> Model
-emptyModel { authenticated } =
-    { user =
-        { email = ""
-        , firstname = ""
-        , lastname = ""
-        , company = ""
-        , cgu = False
-        , staff = False
-        , token = ""
-        }
-    , formErrors = Dict.empty
-    , currentTab = RegistrationTab
-    , authenticated = authenticated
-    }
+initSignup : Session -> ( Model, Session, Cmd Msg )
+initSignup session =
+    ( { tab = Signup User.emptySignupForm Dict.empty }
+    , session
+    , Cmd.none
+    )
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update session msg model =
     case msg of
-        AskForRegistration ->
+        -- Generic page updates
+        CopyToClipboard accessToken ->
             ( model
             , session
-            , User.form model.user
-                |> User.encodeForm
-                |> AuthRequest.register TokenEmailSent
+            , Ports.copyToClipboard accessToken
             )
 
-        Authenticated user (Ok rawDetailedProcessesJson) ->
-            ( model
-            , session |> Session.authenticated user rawDetailedProcessesJson
-            , Cmd.none
-            )
-
-        Authenticated _ (Err error) ->
+        -- Update db with detailed processes when we get them
+        DetailedProcessesResponse (RemoteData.Success rawDetailedProcessesJson) ->
             ( model
             , session
-                |> Session.notifyError
-                    "Impossible de charger les impacts lors de la connexion"
-                    (RequestCommon.errorToString error)
+                |> Session.updateDbProcesses rawDetailedProcessesJson
+                |> Session.notifyInfo "Information" "Vous avez désormais accès aux impacts détaillés"
+            , Nav.pushUrl session.navKey <| Route.toString Route.Auth
+            )
+
+        DetailedProcessesResponse (RemoteData.Failure error) ->
+            ( model
+            , session |> Session.notifyBackendError error
             , Cmd.none
             )
 
-        ChangeAction action ->
-            ( { model | currentTab = action, formErrors = Dict.empty }
+        -- Account tab initialisation: retrieve the latest user profile
+        SwitchTab (Account auth) ->
+            ( { model | tab = Account auth }
             , session
-            , Cmd.none
+            , Auth.profile session (ProfileResponse auth.accessTokenData)
             )
 
-        GotProfile (Ok user) ->
-            ( { model | user = user }
+        -- ApiTokens tab initialisation: retrieve the latest list of tokens
+        SwitchTab (ApiTokens _) ->
+            ( { model | tab = ApiTokens Nothing }
             , session
-            , user.token
-                |> AuthRequest.processes (Authenticated user)
+            , ApiTokenHttp.list session ApiTokensResponse
             )
 
-        GotProfile (Err err) ->
-            ( { model | authenticated = False }
-            , if model.authenticated then
-                -- We're here following a click on a login link in an email. If we failed, notify the user.
-                session
-                    |> Session.notifyError "Erreur lors du login" (RequestCommon.errorToString err)
+        -- Generic tab initialisation
+        SwitchTab tab ->
+            ( { model | tab = tab }, session, Cmd.none )
 
-              else
-                session
-                    |> Session.logout
-            , Cmd.none
-            )
+        -- Specific tab updates
+        tabMsg ->
+            case model.tab of
+                Account auth ->
+                    updateAccountTab session auth tabMsg model
 
-        LoggedOut ->
-            ( { model | formErrors = Dict.empty }
-            , session
-            , Cmd.none
-            )
+                ApiTokenCreated _ ->
+                    ( model, session, Cmd.none )
 
-        Login ->
+                ApiTokenDelete apiToken ->
+                    updateApiTokenDeleteTab session apiToken tabMsg model
+
+                ApiTokens apiTokens ->
+                    updateApiTokensTab session apiTokens tabMsg model
+
+                MagicLinkForm email ->
+                    updateMagicLinkFormTab session email tabMsg model
+
+                MagicLinkLogin ->
+                    updateMagicLinkLoginTab session tabMsg model
+
+                MagicLinkSent _ ->
+                    ( model, session, Cmd.none )
+
+                Signup signupForm _ ->
+                    updateSignupTab session signupForm tabMsg model
+
+                SignupCompleted _ ->
+                    updateNothing session model
+
+
+updateAccountTab : Session -> Session.Auth -> Msg -> Model -> ( Model, Session, Cmd Msg )
+updateAccountTab session currentAuth msg model =
+    case msg of
+        Logout user ->
             ( model
             , session
-            , AuthRequest.login TokenEmailSent model.user.email
+            , user |> Auth.logout session LogoutResponse
             )
 
-        Logout ->
+        LogoutResponse (RemoteData.Failure error) ->
             ( model
-            , Session.logout session
-                |> Session.notifyInfo "Vous êtes désormais déconnecté" "Vous n'avez plus accès au détail des impacts."
-            , AuthRequest.logout LoggedOut
-            )
-
-        TokenEmailSent (Ok (AuthRequest.SuccessResponse message)) ->
-            ( model
-            , session
-                |> Session.notifyInfo "Authentification" ("Si vous êtes inscrit(e), un email vous a été envoyé avec un lien de connexion. " ++ message)
+            , session |> Session.notifyBackendError error
             , Cmd.none
             )
 
-        TokenEmailSent (Ok (AuthRequest.ErrorResponse message errors)) ->
-            ( { model | formErrors = errors }
-            , session
-                |> Session.notifyError "Erreur(s) rencontrée(s)" message
-            , Cmd.none
-            )
-
-        TokenEmailSent (Err httpError) ->
+        LogoutResponse (RemoteData.Success _) ->
             ( model
             , session
-                |> Session.notifyError "Erreur lors de la connexion" (RequestCommon.errorToString httpError)
+                |> Session.logout
+                |> Session.notifyInfo "Déconnexion" "Vous avez été deconnecté"
+            , Nav.load <| Route.toString Route.Auth
+            )
+
+        ProfileResponse _ (RemoteData.Success user) ->
+            ( { model | tab = Account { currentAuth | user = user } }
+            , session |> Session.updateAuth (\auth2 -> { auth2 | user = user })
             , Cmd.none
             )
 
-        UpdateForm newModel ->
-            ( newModel
+        ProfileResponse _ (RemoteData.Failure error) ->
+            ( model
+            , session |> Session.notifyBackendError error
+            , Cmd.none
+            )
+
+        _ ->
+            updateNothing session model
+
+
+updateApiTokensTab : Session -> Maybe (List CreatedToken) -> Msg -> Model -> ( Model, Session, Cmd Msg )
+updateApiTokensTab session _ tabMsg model =
+    case tabMsg of
+        ApiTokensResponse (RemoteData.Success newApiTokens) ->
+            ( { model | tab = ApiTokens (Just newApiTokens) }, session, Cmd.none )
+
+        ApiTokensResponse (RemoteData.Failure error) ->
+            ( model, session |> Session.notifyBackendError error, Cmd.none )
+
+        CreateToken ->
+            ( model, session, ApiTokenHttp.create session CreateTokenResponse )
+
+        CreateTokenResponse (RemoteData.Success createdToken) ->
+            ( { model | tab = ApiTokenCreated createdToken }
+            , session
+            , ApiTokenHttp.list session ApiTokensResponse
+            )
+
+        CreateTokenResponse (RemoteData.Failure error) ->
+            ( model, session |> Session.notifyBackendError error, Cmd.none )
+
+        SwitchTab (ApiTokens _) ->
+            ( model
+            , session
+            , ApiTokenHttp.list session ApiTokensResponse
+            )
+
+        _ ->
+            updateNothing session model
+
+
+updateApiTokenDeleteTab : Session -> CreatedToken -> Msg -> Model -> ( Model, Session, Cmd Msg )
+updateApiTokenDeleteTab session _ msg model =
+    case msg of
+        DeleteApiToken apiToken ->
+            ( model
+            , session
+            , ApiTokenHttp.delete session apiToken DeleteApiTokenResponse
+            )
+
+        DeleteApiTokenResponse (RemoteData.Success _) ->
+            ( { model | tab = ApiTokens Nothing }
+            , session
+                |> Session.notifyInfo "Jeton d'API supprimé" "Le jeton d'API a été supprimé avec succès"
+            , ApiTokenHttp.list session ApiTokensResponse
+            )
+
+        DeleteApiTokenResponse (RemoteData.Failure error) ->
+            ( model, session |> Session.notifyBackendError error, Cmd.none )
+
+        _ ->
+            updateNothing session model
+
+
+updateMagicLinkFormTab : Session -> Email -> Msg -> Model -> ( Model, Session, Cmd Msg )
+updateMagicLinkFormTab session email msg model =
+    case msg of
+        MagicLinkResponse (RemoteData.Success _) ->
+            ( { model | tab = MagicLinkSent email }
             , session
             , Cmd.none
             )
+
+        MagicLinkResponse (RemoteData.Failure error) ->
+            ( model
+            , session |> Session.notifyBackendError error
+            , Cmd.none
+            )
+
+        MagicLinkSubmit ->
+            ( model
+            , session
+            , String.trim email
+                |> Auth.askMagicLink session MagicLinkResponse
+            )
+
+        UpdateMagicLinkForm email_ ->
+            ( { model | tab = MagicLinkForm email_ }
+            , session
+            , Cmd.none
+            )
+
+        _ ->
+            updateNothing session model
+
+
+updateMagicLinkLoginTab : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
+updateMagicLinkLoginTab session msg model =
+    case msg of
+        LoginResponse (RemoteData.Success accessTokenData) ->
+            ( { model | tab = MagicLinkLogin }
+            , session
+            , accessTokenData.accessToken
+                |> Auth.profileFromAccessToken session (ProfileResponse accessTokenData)
+            )
+
+        LoginResponse (RemoteData.Failure error) ->
+            ( model
+            , session |> Session.notifyBackendError error
+            , Nav.load <| Route.toString Route.Auth
+            )
+
+        ProfileResponse accessTokenData (RemoteData.Success user) ->
+            let
+                newSession =
+                    session |> Session.setAuth (Just { accessTokenData = accessTokenData, user = user })
+            in
+            ( { model | tab = Account { accessTokenData = accessTokenData, user = user } }
+            , newSession
+            , Auth.processes newSession DetailedProcessesResponse
+            )
+
+        ProfileResponse _ (RemoteData.Failure error) ->
+            ( model
+            , session |> Session.notifyBackendError error
+            , Nav.load <| Route.toString Route.Auth
+            )
+
+        _ ->
+            updateNothing session model
+
+
+updateSignupTab : Session -> SignupForm -> Msg -> Model -> ( Model, Session, Cmd Msg )
+updateSignupTab session signupForm msg model =
+    case msg of
+        SignupResponse (RemoteData.Success _) ->
+            ( { model | tab = SignupCompleted signupForm.email }
+            , session
+            , Cmd.none
+            )
+
+        SignupResponse (RemoteData.Failure error) ->
+            ( model
+            , session |> Session.notifyBackendError error
+            , Cmd.none
+            )
+
+        SignupSubmit ->
+            let
+                newFormErrors =
+                    User.validateSignupForm signupForm
+
+                newModel =
+                    { model | tab = Signup signupForm newFormErrors }
+            in
+            if newFormErrors == Dict.empty then
+                ( newModel
+                , session
+                , Auth.signup session SignupResponse signupForm
+                )
+
+            else
+                ( newModel
+                , session |> Session.notifyError "Erreur" "Veuillez corriger les champs en erreur"
+                , Cmd.none
+                )
+
+        UpdateSignupForm signupForm_ ->
+            ( { model | tab = Signup signupForm_ Dict.empty }, session, Cmd.none )
+
+        _ ->
+            updateNothing session model
+
+
+updateNothing : Session -> Model -> ( Model, Session, Cmd Msg )
+updateNothing session model =
+    ( model, session, Cmd.none )
+
+
+viewTab : Session -> Tab -> Html Msg
+viewTab session currentTab =
+    let
+        ( heading, tabs ) =
+            case Session.getAuth session of
+                Just user ->
+                    ( "Mon compte (new auth)"
+                    , [ ( "Compte", Account user )
+                      , ( "Jetons d'API", ApiTokens Nothing )
+                      ]
+                    )
+
+                Nothing ->
+                    ( "Connexion / Inscription (new auth)"
+                    , [ ( "Inscription", Signup User.emptySignupForm Dict.empty )
+                      , ( "Connexion", MagicLinkForm "" )
+                      ]
+                    )
+    in
+    div []
+        [ h1 [ class "mb-4" ] [ text heading ]
+        , div [ class "card shadow-sm px-0" ]
+            [ div [ class "card-header px-0 pb-0 border-bottom-0" ]
+                [ tabs
+                    |> List.map
+                        (\( label, tab ) ->
+                            li
+                                [ class "TabsTab nav-item"
+                                , classList [ ( "active", isActiveTab currentTab tab ) ]
+                                ]
+                                [ button
+                                    [ type_ "button"
+                                    , class "nav-link no-outline border-top-0"
+                                    , classList [ ( "active", isActiveTab currentTab tab ) ]
+                                    , onClick (SwitchTab tab)
+                                    ]
+                                    [ text label ]
+                                ]
+                        )
+                    |> ul [ class "Tabs nav nav-tabs nav-fill justify-content-end gap-2 px-2" ]
+                ]
+            , div [ class "card-body" ]
+                [ case currentTab of
+                    Account auth ->
+                        viewAccount auth
+
+                    ApiTokenCreated token ->
+                        viewApiTokenCreated token
+
+                    ApiTokenDelete apiToken ->
+                        viewApiTokenDelete apiToken
+
+                    ApiTokens apiTokens ->
+                        viewApiTokens apiTokens
+
+                    MagicLinkForm email ->
+                        viewMagicLinkForm email
+
+                    MagicLinkLogin ->
+                        Spinner.view
+
+                    MagicLinkSent email ->
+                        viewMagicLinkSent email
+
+                    Signup signupForm formErrors ->
+                        viewSignupForm signupForm formErrors
+
+                    SignupCompleted email ->
+                        viewMagicLinkSent email
+                ]
+            ]
+        ]
+
+
+viewAccount : Session.Auth -> Html Msg
+viewAccount { accessTokenData, user } =
+    div []
+        [ [ Just ( "Email", text user.email )
+          , if user.isSuperuser then
+                Just
+                    ( "Équipe Ecobalyse"
+                    , div [ class "d-flex justify-content-between align-middle gap-1" ]
+                        [ strong [] [ text "Oui" ]
+                        , a [ class "btn btn-sm btn-info", Route.href Route.Admin ]
+                            [ Icon.lock, text "\u{00A0}Accès à l'admin" ]
+                        ]
+                    )
+
+            else
+                Nothing
+          , Just ( "Nom", text user.profile.lastName )
+          , Just ( "Prénom", text user.profile.firstName )
+          , Just ( "Organisation", text user.profile.organization )
+
+          -- FIXME: remove this before shipping to production; right now this is useful for debugging
+          , if user.isSuperuser then
+                Just ( "Jeton Web (Access token)", viewAccessData accessTokenData )
+
+            else
+                Nothing
+          ]
+            |> List.filterMap
+                (Maybe.map
+                    (\( label, htmlValue ) ->
+                        tr []
+                            [ th [ class "text-nowrap" ] [ text <| label ++ " : " ]
+                            , td [] [ htmlValue ]
+                            ]
+                    )
+                )
+            |> tbody []
+            |> List.singleton
+            |> table [ class "table table-striped mb-0" ]
+            |> List.singleton
+            |> div [ class "table-responsive border shadow-sm" ]
+        , div [ class "d-flex justify-content-center align-items-center gap-3" ]
+            [ a [ Route.href Route.Home ]
+                [ text "Retour à l'accueil" ]
+            , button [ class "btn btn-primary my-3", onClick <| Logout user ]
+                [ text "Déconnexion" ]
+            ]
+        ]
+
+
+viewApiTokenCreated : Token -> Html Msg
+viewApiTokenCreated token =
+    div []
+        [ h2 [ class "h5 mb-3" ]
+            [ text "✅\u{00A0}Un nouveau jeton d'API a été créé" ]
+        , p []
+            [ text "Il vous permet d'effectuer des requêtes sur "
+            , a [ Route.href Route.Api, target "_blank" ] [ text "l'API Ecobalyse" ]
+            , text "."
+            ]
+        , """Attention, **ce jeton d'API ne vous sera affiché qu'une seule et unique fois ci-dessous**.
+             Conservez-le précieusement."""
+            |> Markdown.simple [ class "alert alert-warning d-flex align-items-center gap-1 mb-3" ]
+        , div
+            [ class "input-group" ]
+            [ input
+                [ type_ "url"
+                , class "form-control"
+                , value <| ApiToken.toString token
+                ]
+                []
+            , button
+                [ class "input-group-text"
+                , title "Copier dans le presse-papiers"
+                , onClick (CopyToClipboard <| ApiToken.toString token)
+                ]
+                [ Icon.clipboard
+                ]
+            ]
+        , div [ class "d-grid mt-2" ]
+            [ button
+                [ class "btn btn-link", onClick <| SwitchTab (ApiTokens Nothing) ]
+                [ text "«\u{00A0}Retour à la liste des jetons d'API" ]
+            ]
+        ]
+
+
+viewApiTokens : Maybe (List CreatedToken) -> Html Msg
+viewApiTokens apiTokens =
+    case apiTokens of
+        Just tokens ->
+            div []
+                [ if List.isEmpty tokens then
+                    p [] [ text "Aucun jeton d'API actif." ]
+
+                  else
+                    div [ class "table-responsive border shadow-sm" ]
+                        [ table [ class "table table-striped mb-0" ]
+                            [ thead []
+                                [ tr []
+                                    [ th [] [ text "ID" ]
+                                    , th [ class "text-end" ] [ text "Date de dernière utilisation" ]
+                                    , th [ class "text-end" ] []
+                                    ]
+                                ]
+                            , tokens
+                                |> List.map
+                                    (\apiToken ->
+                                        tr []
+                                            [ td [ class "align-middle" ] [ text apiToken.id ]
+                                            , td [ class "align-middle text-end" ]
+                                                [ apiToken.lastAccessedAt
+                                                    |> Maybe.map Format.frenchDatetime
+                                                    |> Maybe.withDefault "Jamais utilisé"
+                                                    |> text
+                                                ]
+                                            , td [ class "align-middle text-end" ]
+                                                [ button
+                                                    [ class "btn btn-sm btn-danger"
+                                                    , title "Supprimer ce jeton"
+                                                    , onClick <| SwitchTab (ApiTokenDelete apiToken)
+                                                    ]
+                                                    [ Icon.trash ]
+                                                ]
+                                            ]
+                                    )
+                                |> tbody []
+                            ]
+                        ]
+                , div [ class "d-grid mt-3" ]
+                    [ button
+                        [ class "btn btn-primary", onClick CreateToken ]
+                        [ text "Créer un jeton d'API" ]
+                    ]
+                ]
+
+        Nothing ->
+            Spinner.view
+
+
+viewAccessData : AccessTokenData -> Html Msg
+viewAccessData data =
+    div [ class "d-flex flex-column justify-content-between align-middle gap-1", style "overflow-x" "hidden" ]
+        [ div [ class "fs-8 text-muted d-flex gap-1 align-items-center" ]
+            [ Icon.warning
+            , text "Utile pour débugger, devrait être masqué avant mise en production effective. "
+            ]
+        , Table.responsiveDefault [ class "w-100" ]
+            [ [ ( "accessToken", Just data.accessToken )
+              , ( "expiresIn", data.expiresIn |> Maybe.map String.fromInt )
+              , ( "refreshToken", data.refreshToken )
+              , ( "tokenType", Just data.tokenType )
+              ]
+                |> List.map
+                    (\( label, value ) ->
+                        tr []
+                            [ th [] [ text label ]
+                            , td []
+                                [ value
+                                    |> Maybe.map (Button.copyButton CopyToClipboard)
+                                    |> Maybe.withDefault (text "-")
+                                ]
+                            ]
+                    )
+                |> tbody []
+            ]
+        ]
+
+
+viewApiTokenDelete : CreatedToken -> Html Msg
+viewApiTokenDelete apiToken =
+    div []
+        [ h2 [ class "h5 mb-3" ] [ text "Supprimer et invalider ce jeton d'API" ]
+        , p []
+            [ """Êtes-vous sûr de vouloir supprimer et invalider ce jeton d'API\u{00A0}?
+                 Vous ne pourrez plus l'utiliser."""
+                |> Markdown.simple []
+            ]
+        , case apiToken.lastAccessedAt of
+            Just lastAccessedAt ->
+                p [ class "alert alert-warning d-flex align-items-center gap-1" ]
+                    [ Icon.warning
+                    , text "Dernière utilisation\u{00A0}:"
+                    , text <| Format.frenchDatetime lastAccessedAt
+                    ]
+
+            Nothing ->
+                p [ class "alert alert-success d-flex align-items-center gap-1" ]
+                    [ Icon.info
+                    , text "Le token n'a jamais été utilisé"
+                    ]
+        , div [ class "d-flex justify-content-center gap-2 mt-1" ]
+            [ button
+                [ class "btn btn-link", onClick <| SwitchTab (ApiTokens Nothing) ]
+                [ text "Annuler" ]
+            , button
+                [ class "btn btn-danger", onClick <| DeleteApiToken apiToken ]
+                [ text "Supprimer et invalider ce jeton d'API" ]
+            ]
+        ]
+
+
+viewMagicLinkForm : Email -> Html Msg
+viewMagicLinkForm email =
+    Html.form [ onSubmit MagicLinkSubmit ]
+        [ p [ class "fs-8" ]
+            [ """Si vous avez un compte, entrez votre adresse email ci-dessous pour recevoir un email
+                 de connexion. Si vous n'en avez pas, vous pouvez [créer un compte]({url})."""
+                |> String.replace "{url}" (Route.toString Route.AuthSignup)
+                |> Markdown.simple []
+            ]
+        , div [ class "mb-3" ]
+            [ label [ for "email", class "form-label" ]
+                [ text "Adresse email" ]
+            , input
+                [ type_ "email"
+                , class "form-control"
+                , id "email"
+                , placeholder "nom@example.com"
+                , value email
+                , onInput UpdateMagicLinkForm
+                , required True
+                ]
+                []
+            ]
+        , div [ class "d-grid" ]
+            [ button
+                [ type_ "submit"
+                , class "btn btn-primary"
+                , disabled <| email == "" || User.validateEmail email /= Dict.empty
+                ]
+                [ text "Recevoir un email de connexion" ]
+            ]
+        ]
+
+
+viewMagicLinkSent : Email -> Html msg
+viewMagicLinkSent email =
+    div [ class "alert alert-info mb-0" ]
+        [ h2 [ class "h5" ] [ text "Email de connexion envoyé" ]
+        , "Un email contenant un lien de connexion au service a été envoyé à l'adresse **`{email}`**."
+            |> String.replace "{email}" email
+            |> Markdown.simple []
+        ]
+
+
+viewSignupForm : SignupForm -> FormErrors -> Html Msg
+viewSignupForm signupForm formErrors =
+    Html.form [ onSubmit SignupSubmit ]
+        [ p [ class "fs-8" ]
+            [ text "Sauf mention contraire, tous les champs sont obligatoires." ]
+        , div [ class "mb-3" ]
+            [ label [ for "email", class "form-label" ]
+                [ text "Adresse email" ]
+            , input
+                [ type_ "email"
+                , class "form-control"
+                , classList [ ( "is-invalid", Dict.member "email" formErrors ) ]
+                , id "email"
+                , placeholder "nom@example.com"
+                , value signupForm.email
+                , onInput <| \email -> UpdateSignupForm { signupForm | email = email }
+                , required True
+                ]
+                []
+            , viewFieldError "email" formErrors
+            ]
+        , div [ class "row" ]
+            [ div [ class "col-md-6" ]
+                [ div [ class "mb-3" ]
+                    [ label [ for "firstName", class "form-label" ]
+                        [ text "Prénom" ]
+                    , input
+                        [ type_ "text"
+                        , class "form-control"
+                        , classList [ ( "is-invalid", Dict.member "firstName" formErrors ) ]
+                        , id "firstName"
+                        , placeholder "Joséphine"
+                        , value signupForm.firstName
+                        , onInput <| \firstName -> UpdateSignupForm { signupForm | firstName = firstName }
+                        , required True
+                        ]
+                        []
+                    , viewFieldError "firstName" formErrors
+                    ]
+                ]
+            , div [ class "col-md-6" ]
+                [ div [ class "mb-3" ]
+                    [ label [ for "lastName", class "form-label" ]
+                        [ text "Nom" ]
+                    , input
+                        [ type_ "text"
+                        , class "form-control"
+                        , classList [ ( "is-invalid", Dict.member "lastName" formErrors ) ]
+                        , id "lastName"
+                        , placeholder "Durand"
+                        , value signupForm.lastName
+                        , onInput <| \lastName -> UpdateSignupForm { signupForm | lastName = lastName }
+                        , required True
+                        ]
+                        []
+                    , viewFieldError "lastName" formErrors
+                    ]
+                ]
+            ]
+        , div [ class "mb-3" ]
+            [ label [ for "organization", class "form-label" ]
+                [ text "Organisation" ]
+            , input
+                [ type_ "text"
+                , class "form-control"
+                , classList [ ( "is-invalid", Dict.member "organization" formErrors ) ]
+                , id "organization"
+                , placeholder "ACME Inc."
+                , value signupForm.organization
+                , onInput <| \organization -> UpdateSignupForm { signupForm | organization = organization }
+                , required True
+                ]
+                []
+            , viewFieldError "organization" formErrors
+            ]
+        , div [ class "mb-3 form-check" ]
+            [ input
+                [ type_ "checkbox"
+                , class "form-check-input"
+                , classList [ ( "is-invalid", Dict.member "termsAccepted" formErrors ) ]
+                , id "termsAccepted"
+                , checked signupForm.termsAccepted
+                , onCheck <| \termsAccepted -> UpdateSignupForm { signupForm | termsAccepted = termsAccepted }
+                , required True
+                ]
+                []
+            , label [ class "form-check-label", for "termsAccepted" ]
+                [ text "Je m’engage à respecter les "
+                , a [ href Env.cguUrl, target "_blank" ] [ text "conditions d'utilisation" ]
+                , text " incluant notamment une utilisation strictement limitée aux produits textiles vendus sur le marché français."
+                ]
+            , viewFieldError "termsAccepted" formErrors
+            ]
+        , div [ class "d-grid" ]
+            [ button
+                [ type_ "submit"
+                , class "btn btn-primary"
+                , disabled <| signupForm == User.emptySignupForm || formErrors /= Dict.empty
+                ]
+                [ text "Valider mon inscription" ]
+            ]
+        ]
+
+
+viewFieldError : String -> FormErrors -> Html msg
+viewFieldError field errors =
+    case Dict.get field errors of
+        Just error ->
+            div [ class "invalid-feedback" ]
+                [ text error ]
+
+        Nothing ->
+            text ""
+
+
+isActiveTab : Tab -> Tab -> Bool
+isActiveTab tab1 tab2 =
+    case ( tab1, tab2 ) of
+        ( Account _, Account _ ) ->
+            True
+
+        ( ApiTokens _, ApiTokens _ ) ->
+            True
+
+        ( ApiTokens _, ApiTokenCreated _ ) ->
+            True
+
+        ( ApiTokens _, ApiTokenDelete _ ) ->
+            True
+
+        ( ApiTokenDelete _, ApiTokens _ ) ->
+            True
+
+        ( ApiTokenCreated _, ApiTokens _ ) ->
+            True
+
+        ( MagicLinkLogin, MagicLinkForm _ ) ->
+            True
+
+        ( MagicLinkForm _, MagicLinkLogin ) ->
+            True
+
+        ( MagicLinkForm _, MagicLinkForm _ ) ->
+            True
+
+        ( MagicLinkForm _, MagicLinkSent _ ) ->
+            True
+
+        ( MagicLinkSent _, MagicLinkForm _ ) ->
+            True
+
+        ( Signup _ _, Signup _ _ ) ->
+            True
+
+        ( Signup _ _, SignupCompleted _ ) ->
+            True
+
+        ( SignupCompleted _, Signup _ _ ) ->
+            True
+
+        _ ->
+            False
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
@@ -190,310 +885,8 @@ view session model =
     , [ Container.centered [ class "pb-5" ]
             [ div [ class "row" ]
                 [ div [ class "col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 d-flex flex-column gap-3" ]
-                    [ h1 []
-                        [ text <|
-                            if Session.isAuthenticated session then
-                                "Compte"
-
-                            else
-                                "Connexion / Inscription"
-                        ]
-                    , case Session.getUser session of
-                        Just user ->
-                            div []
-                                [ if model.authenticated then
-                                    Alert.simple
-                                        { level = Alert.Success
-                                        , close = Nothing
-                                        , title = Nothing
-                                        , content =
-                                            [ div [ class "fs-7" ]
-                                                [ """Vous avez maintenant accès au détail des impacts, à utiliser conformément aux
-                                                [conditions d'utilisation des données]({url})."""
-                                                    |> String.replace "{url}" Env.cguUrl
-                                                    |> Markdown.simple []
-                                                ]
-                                            ]
-                                        }
-
-                                  else
-                                    text ""
-                                , viewAccount user
-                                , div [ class "d-flex justify-content-center align-items-center gap-3" ]
-                                    [ a [ Route.href Route.Home ]
-                                        [ text "Retour à l'accueil" ]
-                                    , button [ class "btn btn-primary my-3", onClick Logout ]
-                                        [ text "Déconnexion" ]
-                                    ]
-                                ]
-
-                        Nothing ->
-                            div []
-                                [ Alert.simple
-                                    { level = Alert.Info
-                                    , close = Nothing
-                                    , title = Nothing
-                                    , content =
-                                        [ div [ class "fs-7" ]
-                                            [ """Pour avoir accès au détail des impacts, il est nécessaire de s'enregistrer et d'approuver les [conditions d'utilisation]({url}), incluant notamment une utilisation strictement limitée aux produits textiles vendus sur le marché français."""
-                                                |> String.replace "{url}" Env.cguUrl
-                                                |> Markdown.simple []
-                                            ]
-                                        ]
-                                    }
-                                , viewLoginRegisterForm model
-                                ]
-                    ]
+                    [ viewTab session model.tab ]
                 ]
             ]
       ]
     )
-
-
-viewAccount : User -> Html Msg
-viewAccount user =
-    [ Just ( "Email", text user.email )
-    , if user.staff then
-        Just
-            ( "Équipe Ecobalyse"
-            , span [ class "d-flex justify-content-between align-middle gap-1" ]
-                [ strong [] [ text "Oui" ]
-                , a [ class "btn btn-sm btn-info", Route.href Route.Admin ] [ Icon.lock, text "\u{00A0}Accès à l'admin" ]
-                ]
-            )
-
-      else
-        Nothing
-    , Just ( "Nom", text user.lastname )
-    , Just ( "Prénom", text user.firstname )
-    , Just ( "Organisation", text user.company )
-    , Just
-        ( "Jeton d'API"
-        , div []
-            [ code [] [ text user.token ]
-            , br [] []
-            , small [ class "text-muted" ]
-                [ text "Nécessaire pour obtenir les impacts détaillés dans "
-                , a [ Route.href Route.Api ] [ text "l'API" ]
-                ]
-            ]
-        )
-    ]
-        |> List.filterMap
-            (Maybe.map
-                (\( label, htmlValue ) ->
-                    tr []
-                        [ th [] [ text <| label ++ " : " ]
-                        , td [] [ htmlValue ]
-                        ]
-                )
-            )
-        |> tbody []
-        |> List.singleton
-        |> table [ class "table table-striped mb-0" ]
-        |> List.singleton
-        |> div [ class "table-responsive border shadow-sm" ]
-
-
-viewLoginRegisterForm : Model -> Html Msg
-viewLoginRegisterForm model =
-    div [ class "card shadow-sm px-0" ]
-        [ div [ class "card-header px-0 pb-0 border-bottom-0" ]
-            [ ul [ class "Tabs nav nav-tabs nav-fill justify-content-end gap-2 px-2" ]
-                ([ ( "Inscription", RegistrationTab )
-                 , ( "Connexion", AuthenticationTab )
-                 ]
-                    |> List.map
-                        (\( label, action ) ->
-                            li
-                                [ class "TabsTab nav-item"
-                                , classList [ ( "active", model.currentTab == action ) ]
-                                ]
-                                [ button
-                                    [ class "nav-link no-outline border-top-0"
-                                    , classList [ ( "active", model.currentTab == action ) ]
-                                    , onClick (ChangeAction action)
-                                    ]
-                                    [ text label ]
-                                ]
-                        )
-                )
-            ]
-        , div [ class "card-body" ]
-            [ case model.currentTab of
-                AuthenticationTab ->
-                    viewLoginForm model
-
-                RegistrationTab ->
-                    viewRegistrationForm model
-            ]
-        ]
-
-
-viewInput :
-    { label : String
-    , type_ : String
-    , id : String
-    , placeholder : String
-    , required : Bool
-    , value : String
-    , onInput : String -> Msg
-    }
-    -> AuthRequest.Errors
-    -> Html Msg
-viewInput inputData formErrors =
-    let
-        error =
-            Dict.get inputData.id formErrors
-    in
-    div [ class "mb-3" ]
-        [ label
-            [ for inputData.id
-            , class "form-label"
-            ]
-            [ text inputData.label ]
-        , input
-            [ type_ inputData.type_
-            , class "form-control"
-            , classList [ ( "is-invalid", error /= Nothing ) ]
-            , id inputData.id
-            , placeholder inputData.placeholder
-            , required inputData.required
-            , value inputData.value
-            , onInput inputData.onInput
-            ]
-            []
-        , div [ class "text-danger" ]
-            [ error
-                |> Maybe.withDefault ""
-                |> text
-            ]
-        ]
-
-
-viewLoginForm : Model -> Html Msg
-viewLoginForm ({ user } as model) =
-    Html.form [ onSubmit Login ]
-        [ viewInput
-            { label = "Adresse e-mail"
-            , type_ = "email"
-            , id = "email"
-            , placeholder = "nom@example.com"
-            , required = True
-            , value = user.email
-            , onInput = \email -> UpdateForm { model | user = { user | email = email } }
-            }
-            model.formErrors
-        , button
-            [ type_ "submit"
-            , class "btn btn-primary mb-3"
-            , disabled <| String.isEmpty user.email
-            ]
-            [ text "Connexion" ]
-        ]
-
-
-viewRegistrationForm : Model -> Html Msg
-viewRegistrationForm ({ user } as model) =
-    div []
-        [ Html.form [ onSubmit AskForRegistration ]
-            [ div [ class "row" ]
-                [ div [ class "col-sm-6" ]
-                    [ viewInput
-                        { label = "Adresse e-mail"
-                        , type_ = "text"
-                        , id = "email"
-                        , placeholder = "nom@example.com"
-                        , required = True
-                        , value = user.email
-                        , onInput = \email -> UpdateForm { model | user = { user | email = email } }
-                        }
-                        model.formErrors
-                    ]
-                , div [ class "col-sm-6" ]
-                    [ viewInput
-                        { label = "Organisation"
-                        , type_ = "text"
-                        , id = "company"
-                        , placeholder = "ACME SARL"
-                        , required = False
-                        , value = user.company
-                        , onInput = \company -> UpdateForm { model | user = { user | company = company } }
-                        }
-                        model.formErrors
-                    ]
-                ]
-            , div [ class "row" ]
-                [ div [ class "col-sm-6" ]
-                    [ viewInput
-                        { label = "Prénom"
-                        , type_ = "text"
-                        , id = "first_name"
-                        , placeholder = "Joséphine"
-                        , required = True
-                        , value = user.firstname
-                        , onInput = \firstname -> UpdateForm { model | user = { user | firstname = firstname } }
-                        }
-                        model.formErrors
-                    ]
-                , div [ class "col-sm-6" ]
-                    [ viewInput
-                        { label = "Nom"
-                        , type_ = "text"
-                        , id = "last_name"
-                        , placeholder = "Durand"
-                        , required = True
-                        , value = user.lastname
-                        , onInput = \lastname -> UpdateForm { model | user = { user | lastname = lastname } }
-                        }
-                        model.formErrors
-                    ]
-                ]
-            , div []
-                [ label
-                    [ for "terms_of_use"
-                    , class "form-check form-switch form-check-label pt-1"
-                    ]
-                    [ input
-                        [ type_ "checkbox"
-                        , class "form-check-input"
-                        , classList [ ( "is-invalid", Dict.get "terms_of_use" model.formErrors /= Nothing ) ]
-                        , id "terms_of_use"
-                        , required True
-                        , checked user.cgu
-                        , onCheck (\isChecked -> UpdateForm { model | user = { user | cgu = isChecked } })
-                        ]
-                        []
-                    , div []
-                        [ """Je m’engage à respecter les [conditions d'utilisation]({url})"""
-                            |> String.replace "{url}" Env.cguUrl
-                            |> Markdown.simple []
-                        ]
-                    , div [ class "text-danger" ]
-                        [ Dict.get "terms_of_use" model.formErrors
-                            |> Maybe.withDefault ""
-                            |> text
-                        ]
-                    ]
-                , div [ class "d-none" ]
-                    [ label [ for "nextInput", class "form-label" ] []
-                    , input
-                        [ type_ "text"
-                        , class "form-control"
-                        , id "nextInput"
-                        , required True
-                        , value "/#/auth/authenticated"
-                        , hidden True
-                        ]
-                        []
-                    ]
-                ]
-            , div [ class "text-center mt-3" ]
-                [ button
-                    [ type_ "submit"
-                    , class "btn btn-primary"
-                    ]
-                    [ text "Créer mon compte" ]
-                ]
-            ]
-        ]

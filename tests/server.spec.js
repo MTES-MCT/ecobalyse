@@ -5,6 +5,13 @@ const textileExamples = require("../public/data/textile/examples.json");
 
 const e2eOutput = { food: [], textile: [] };
 
+describe("Env", () => {
+  it("should be a test environment", () => {
+    // ensure the current test suite is run in the expected env!
+    expect(process.env.NODE_ENV).toBe("test");
+  });
+});
+
 describe("Web", () => {
   it("should render the homepage", async () => {
     const response = await request(app).get("/");

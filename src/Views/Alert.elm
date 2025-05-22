@@ -1,16 +1,17 @@
 module Views.Alert exposing
     ( Level(..)
-    , httpError
+    , backendError
     , preformatted
+    , serverError
     , simple
     )
 
 import Data.Env as Env
+import Dict
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Http
-import Request.Common as HttpCommon
+import Request.BackendHttp.Error as BackendError
 import Views.Icon as Icon
 
 
@@ -45,12 +46,62 @@ icon level =
             span [ class "me-1" ] [ Icon.warning ]
 
 
-httpError : Http.Error -> Html msg
-httpError error =
+backendError : Maybe msg -> BackendError.Error -> Html msg
+backendError close error =
+    simple
+        { close = close
+        , content =
+            [ case BackendError.mapErrorResponse error of
+                Just { detail, headers, statusCode, title, url } ->
+                    div []
+                        [ p [ class "mb-2 text-truncate" ]
+                            [ case title of
+                                Just title_ ->
+                                    if title_ == detail || String.isEmpty title_ then
+                                        text detail
+
+                                    else
+                                        span []
+                                            [ strong [] [ text <| title_ ++ "\u{00A0}: " ]
+                                            , text detail
+                                            ]
+
+                                Nothing ->
+                                    text detail
+                            ]
+                        , Html.details []
+                            [ summary [] [ text "Détails de l'erreur" ]
+                            , [ ( "Message", detail )
+                              , ( "URL", url )
+                              , ( "Status code", String.fromInt statusCode )
+                              , ( "En-têtes"
+                                , Dict.toList headers
+                                    |> List.map (\( a, b ) -> "\n- " ++ a ++ ": " ++ b)
+                                    |> String.concat
+                                )
+                              ]
+                                |> List.map (\( a, b ) -> a ++ ": " ++ b)
+                                |> String.join "\n"
+                                |> text
+                                |> List.singleton
+                                |> pre [ class "mt-1 mb-0 ms-3" ]
+                            ]
+                        ]
+
+                Nothing ->
+                    em [] [ text "Aucun message d'erreur spécifié" ]
+            ]
+        , level = Danger
+        , title = Just "Une erreur serveur a été rencontrée"
+        }
+
+
+serverError : String -> Html msg
+serverError error =
     simple
         { close = Nothing
         , content =
-            case error |> HttpCommon.errorToString |> String.lines of
+            case String.lines error of
                 [] ->
                     []
 
@@ -72,14 +123,14 @@ httpError error =
                                 ("mailto:"
                                     ++ Env.contactEmail
                                     ++ "?Subject=[Ecobalyse]+Erreur+rencontrée&Body="
-                                    ++ HttpCommon.errorToString error
+                                    ++ error
                                 )
                             ]
                             [ text "Envoyer un rapport d'incident" ]
                         ]
                     ]
         , level = Info
-        , title = Just "Erreur de chargement des données"
+        , title = Just "Le serveur a retourné une erreur"
         }
 
 

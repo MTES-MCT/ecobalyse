@@ -18,8 +18,6 @@ const app = express(); // web app
 const api = express(); // api app
 const expressHost = "0.0.0.0";
 const expressPort = 8001;
-const djangoHost = "127.0.0.1";
-const djangoPort = 8002;
 const version = express(); // version app
 
 // Env vars
@@ -200,20 +198,35 @@ const apiTracker = setupTracker(openApiContents);
 const processesImpacts = fs.readFileSync(dataFiles.detailed, "utf8");
 const processes = fs.readFileSync(dataFiles.noDetails, "utf8");
 
-const getProcesses = async (token, customProcessesImpacts, customProcesses) => {
-  let isTokenValid = false;
+function extractTokenFromHeaders(headers) {
+  // Handle both old and new auth token headers
+  const bearerToken = headers["authorization"]?.split("Bearer ")[1]?.trim();
+  const classicToken = headers["token"]; // from old auth system
+  return bearerToken ?? classicToken;
+}
+
+const getProcesses = async (headers, customProcessesImpacts, customProcesses) => {
+  let isValidToken = false;
+  const token = extractTokenFromHeaders(headers);
+
   if (token) {
-    const checkTokenUrl = `http://${djangoHost}:${djangoPort}/internal/check_token`;
-    const tokenRes = await fetch(checkTokenUrl, { headers: { token } });
-    isTokenValid = tokenRes.status == 200;
+    const tokenRes = await fetch(`${BACKEND_API_URL}/api/tokens/validate`, {
+      method: "POST",
+      body: JSON.stringify({ token }),
+    });
+    isValidToken = tokenRes.status == 201;
   }
 
-  if (isTokenValid || NODE_ENV === "test") {
-    return customProcessesImpacts ?? processesImpacts;
+  if (NODE_ENV === "test" || isValidToken) {
+    return formatForEnv(customProcessesImpacts ?? processesImpacts);
   } else {
-    return customProcesses ?? processes;
+    return formatForEnv(customProcesses ?? processes);
   }
 };
+
+function formatForEnv(json) {
+  return NODE_ENV === "test" ? json : JSON.stringify(json, null, 2);
+}
 
 function processOpenApi(contents, versionNumber) {
   // Add app version info to openapi docs
@@ -228,7 +241,7 @@ function processOpenApi(contents, versionNumber) {
 }
 
 app.get("/processes/processes.json", async (req, res) => {
-  return res.status(200).send(await getProcesses(req.headers.token));
+  return res.status(200).send(await getProcesses(req.headers));
 });
 
 const elmApp = Elm.Server.init();
@@ -257,7 +270,7 @@ const respondWithFormattedJSON = (res, status, body) => {
 
 // Note: Text/JSON request body parser (JSON is decoded in Elm)
 api.all(/(.*)/, bodyParser.json(), jsonErrorHandler, async (req, res) => {
-  const processes = await getProcesses(req.headers.token);
+  const processes = await getProcesses(req.headers);
 
   elmApp.ports.input.send({
     method: req.method,
@@ -307,7 +320,7 @@ version.all(
     const { processesImpacts, processes } = availableVersions.find(
       (version) => version.dir === versionNumber,
     );
-    const versionProcesses = await getProcesses(req.headers.token, processesImpacts, processes);
+    const versionProcesses = await getProcesses(req.headers, processesImpacts, processes);
 
     const { Elm } = require(path.join(req.staticDir, "server-app"));
 
@@ -337,7 +350,7 @@ version.get("/:versionNumber/processes/processes.json", checkVersionAndPath, asy
     (version) => version.dir === versionNumber,
   );
 
-  return res.status(200).send(await getProcesses(req.headers.token, processesImpacts, processes));
+  return res.status(200).send(await getProcesses(req.headers, processesImpacts, processes));
 });
 
 api.use(cors()); // Enable CORS for all API requests

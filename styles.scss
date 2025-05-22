@@ -685,6 +685,13 @@ q {
   }
 }
 
+.CopyButton {
+  overflow-wrap: anywhere;
+  &:hover {
+    background-color: #ffffff55;
+  }
+}
+
 .DatasetTable {
   .table {
     &.view-list {
@@ -1171,6 +1178,12 @@ q {
     :hover {
       background-color: $primary;
     }
+  }
+}
+
+.PageContent {
+  @media screen and (width > $viewport-md) {
+    min-height: calc(100vh/1.5);
   }
 }
 
