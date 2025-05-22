@@ -200,9 +200,9 @@ const processes = fs.readFileSync(dataFiles.noDetails, "utf8");
 
 function extractTokenFromHeaders(headers) {
   // Handle both old and new auth token headers
-  const bearerToken = headers["Authorization"]?.toLowerCase().split("bearer ")[1]?.trim();
+  const bearerToken = headers["authorization"]?.split("Bearer ")[1]?.trim();
   const classicToken = headers["token"]; // from old auth system
-  return bearerToken || classicToken;
+  return bearerToken ?? classicToken;
 }
 
 const getProcesses = async (headers, customProcessesImpacts, customProcesses) => {
