@@ -2,6 +2,7 @@ module Request.Auth2 exposing
     ( askMagicLink
     , login
     , logout
+    , processes
     , profile
     , profileFromAccessToken
     , signup
@@ -44,6 +45,16 @@ logout session event user =
         event
         (Decode.succeed ())
         (User.encodeUser user)
+
+
+{-| Retrieve the detailed processes list
+-}
+processes : Session -> (WebData String -> msg) -> Cmd msg
+processes session event =
+    BackendHttp.getWithConfig session
+        { url = session.clientUrl ++ "processes/processes.json" }
+        event
+        Decode.string
 
 
 {-| Retrieve user profile using auth data from current session

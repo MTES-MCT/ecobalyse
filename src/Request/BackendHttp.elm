@@ -3,6 +3,7 @@ module Request.BackendHttp exposing
     , delete
     , expectJson
     , get
+    , getWithConfig
     , patch
     , post
     )
@@ -113,6 +114,19 @@ get session path event decoder =
         , timeout = Nothing
         , tracker = Nothing
         , url = getApiUrl session path
+        }
+
+
+getWithConfig : Session -> { url : String } -> (WebData data -> msg) -> Decoder data -> Cmd msg
+getWithConfig session { url } event decoder =
+    Http.request
+        { body = Http.emptyBody
+        , expect = expectJson (RemoteData.fromResult >> event) decoder
+        , headers = authHeaders session
+        , method = "GET"
+        , timeout = Nothing
+        , tracker = Nothing
+        , url = url
         }
 
 

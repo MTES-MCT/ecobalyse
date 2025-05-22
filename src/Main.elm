@@ -10,7 +10,6 @@ import Data.Object.Query as ObjectQuery
 import Data.Session as Session exposing (Session)
 import Data.Textile.Query as TextileQuery
 import Html
-import Http
 import Page.Admin as Admin
 import Page.Api as Api
 import Page.Auth as Auth
@@ -24,8 +23,9 @@ import Page.Stats as Stats
 import Page.Textile as TextileSimulator
 import Ports
 import RemoteData exposing (WebData)
-import Request.Auth
-import Request.Common
+import Request.Auth2
+import Request.BackendHttp as BackendHttp
+import Request.BackendHttp.Error as BackendError
 import Request.Github
 import Request.Version exposing (VersionData)
 import Route
@@ -83,7 +83,7 @@ type Msg
     | AuthMsg Auth.Msg
     | CloseMobileNavigation
     | CloseNotification Session.Notification
-    | DetailedProcessesReceived (Result Http.Error String)
+    | DetailedProcessesReceived (BackendHttp.WebData String)
     | EditorialMsg Editorial.Msg
     | ExploreMsg Explore.Msg
     | FoodBuilderMsg FoodBuilder.Msg
@@ -131,12 +131,11 @@ init flags requestedUrl navKey =
                     [ Ports.appStarted ()
                     , Request.Version.loadVersion VersionReceived
                     , Request.Github.getReleases ReleasesReceived
-                    , case session.store.auth of
-                        Session.Authenticated user ->
-                            Request.Auth.processes DetailedProcessesReceived user.token
+                    , if Session.isAuthenticated2 session then
+                        Request.Auth2.processes session DetailedProcessesReceived
 
-                        Session.NotAuthenticated ->
-                            Cmd.none
+                      else
+                        Cmd.none
                     ]
                 )
 
@@ -320,7 +319,7 @@ update rawMsg ({ state } as model) =
                     Auth.update session authMsg authModel
                         |> toPage AuthPage AuthMsg
 
-                ( DetailedProcessesReceived (Ok rawDetailedProcessesJson), currentPage ) ->
+                ( DetailedProcessesReceived (RemoteData.Success rawDetailedProcessesJson), currentPage ) ->
                     -- When detailed processes are received, rebuild the entire static db using them
                     case StaticDb.db rawDetailedProcessesJson of
                         Err error ->
@@ -329,8 +328,8 @@ update rawMsg ({ state } as model) =
                         Ok detailedDb ->
                             ( { model | state = currentPage |> Loaded { session | db = detailedDb } }, Cmd.none )
 
-                ( DetailedProcessesReceived (Err httpError), _ ) ->
-                    ( { model | state = Errored (Request.Common.errorToString httpError) }
+                ( DetailedProcessesReceived (RemoteData.Failure error), _ ) ->
+                    ( { model | state = Errored (BackendError.errorToString error) }
                     , Cmd.none
                     )
 

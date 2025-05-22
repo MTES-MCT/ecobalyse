@@ -198,21 +198,26 @@ const apiTracker = setupTracker(openApiContents);
 const processesImpacts = fs.readFileSync(dataFiles.detailed, "utf8");
 const processes = fs.readFileSync(dataFiles.noDetails, "utf8");
 
-const getProcesses = async (token, customProcessesImpacts, customProcesses) => {
+const getProcesses = async (headers, customProcessesImpacts, customProcesses) => {
   let isTokenValid = false;
+
+  // Handle both old and new auth token headers
+  const token =
+    headers["Authorization"]?.toLowerCase().split("bearer ")[1]?.trim() || headers["token"];
+
   if (token) {
-    const checkTokenUrl = `${BACKEND_API_URL}/api/tokens/validate`;
-    const tokenRes = await fetch(checkTokenUrl, {
+    const tokenRes = await fetch(`${BACKEND_API_URL}/api/tokens/validate`, {
       method: "POST",
-      body: JSON.stringify({ token: token }),
+      body: JSON.stringify({ token }),
     });
     isTokenValid = tokenRes.status == 201;
+    console.log("isTokenValid", isTokenValid);
   }
 
   if (isTokenValid || NODE_ENV === "test") {
-    return customProcessesImpacts ?? processesImpacts;
+    return JSON.stringify(customProcessesImpacts ?? processesImpacts);
   } else {
-    return customProcesses ?? processes;
+    return JSON.stringify(customProcesses ?? processes);
   }
 };
 
@@ -229,7 +234,7 @@ function processOpenApi(contents, versionNumber) {
 }
 
 app.get("/processes/processes.json", async (req, res) => {
-  return res.status(200).send(await getProcesses(req.headers.token));
+  return res.status(200).send(await getProcesses(req.headers));
 });
 
 const elmApp = Elm.Server.init();
@@ -258,7 +263,7 @@ const respondWithFormattedJSON = (res, status, body) => {
 
 // Note: Text/JSON request body parser (JSON is decoded in Elm)
 api.all(/(.*)/, bodyParser.json(), jsonErrorHandler, async (req, res) => {
-  const processes = await getProcesses(req.headers.token);
+  const processes = await getProcesses(req.headers);
 
   elmApp.ports.input.send({
     method: req.method,
@@ -308,7 +313,7 @@ version.all(
     const { processesImpacts, processes } = availableVersions.find(
       (version) => version.dir === versionNumber,
     );
-    const versionProcesses = await getProcesses(req.headers.token, processesImpacts, processes);
+    const versionProcesses = await getProcesses(req.headers, processesImpacts, processes);
 
     const { Elm } = require(path.join(req.staticDir, "server-app"));
 
@@ -338,7 +343,7 @@ version.get("/:versionNumber/processes/processes.json", checkVersionAndPath, asy
     (version) => version.dir === versionNumber,
   );
 
-  return res.status(200).send(await getProcesses(req.headers.token, processesImpacts, processes));
+  return res.status(200).send(await getProcesses(req.headers, processesImpacts, processes));
 });
 
 api.use(cors()); // Enable CORS for all API requests
