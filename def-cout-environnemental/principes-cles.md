@@ -18,7 +18,7 @@ Les compléments hors ACV sont à ce jour spécifiques aux secteurs traités. Il
 
 ## Durabilité&#x20;
 
-La notion de durabilité est également intégrée au calcul du coût environnemental par un coefficient venant moduler le coût environnemental.
+La notion de durabilité est également intégrée au calcul du coût environnemental par un coefficient venant moduler le coût environnemental. Plus d'info dans la page transverse [Durabilité](https://app.gitbook.com/o/-MMQU-ngAOgQAqCm4mf3/s/-MexpTrvmqKNzuVtxdad/~/changes/1350/def-cout-environnemental/durabilite).
 
 ## Unité du coût environnemental
 

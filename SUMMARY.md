@@ -12,6 +12,7 @@
 ## 📊 Le coût environnemental <a href="#def-cout-environnemental" id="def-cout-environnemental"></a>
 
 * [Principes clés](def-cout-environnemental/principes-cles.md)
+* [🏷️ Durabilité](def-cout-environnemental/durabilite.md)
 * [Catégories d'impact ACV](def-cout-environnemental/categories-dimpact-acv/README.md)
   * [Correctifs sur la toxicité et l'écotoxicité](def-cout-environnemental/categories-dimpact-acv/correctifs-sur-la-toxicite-et-lecotoxicite.md)
   * [Exclusion des émissions à long terme](def-cout-environnemental/categories-dimpact-acv/exclusion-des-emissions-a-long-terme.md)
