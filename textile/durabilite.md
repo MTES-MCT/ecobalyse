@@ -186,7 +186,7 @@ Des précisions seront prochainement apportées sur la définition du prix de ve
 | Pulls                | 15€                      |
 | Vestes               | 31€                      |
 | Pantalons            | 14€                      |
-| Jupes                | 9€                       |
+| Jupes                | \*_19€_\*                |
 | Chaussettes          | 9€                       |
 | Sous-vêtements       | 9€                       |
 | Accessoires          | 9€                       |
