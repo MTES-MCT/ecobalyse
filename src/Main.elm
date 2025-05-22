@@ -12,7 +12,7 @@ import Data.Textile.Query as TextileQuery
 import Html
 import Page.Admin as Admin
 import Page.Api as Api
-import Page.Auth2 as Auth2
+import Page.Auth as Auth2
 import Page.Editorial as Editorial
 import Page.Explore as Explore
 import Page.Food as FoodBuilder
@@ -22,7 +22,7 @@ import Page.Stats as Stats
 import Page.Textile as TextileSimulator
 import Ports
 import RemoteData exposing (WebData)
-import Request.Auth2
+import Request.Auth
 import Request.BackendHttp as BackendHttp
 import Request.BackendHttp.Error as BackendError
 import Request.Github
@@ -128,8 +128,8 @@ init flags requestedUrl navKey =
                     [ Ports.appStarted ()
                     , Request.Version.loadVersion VersionReceived
                     , Request.Github.getReleases ReleasesReceived
-                    , if Session.isAuthenticated2 session then
-                        Request.Auth2.processes session DetailedProcessesReceived
+                    , if Session.isAuthenticated session then
+                        Request.Auth.processes session DetailedProcessesReceived
 
                       else
                         Cmd.none
@@ -192,7 +192,7 @@ setRoute url ( { state } as model, cmds ) =
             in
             case Route.fromUrl url of
                 Just Route.Admin ->
-                    if Session.isStaff2 session then
+                    if Session.isStaff session then
                         Admin.init session
                             |> toPage AdminPage AdminMsg
 
@@ -205,11 +205,11 @@ setRoute url ( { state } as model, cmds ) =
                     Api.init session
                         |> toPage ApiPage ApiMsg
 
-                Just Route.Auth2 ->
+                Just Route.Auth ->
                     Auth2.init session
                         |> toPage Auth2Page Auth2Msg
 
-                Just (Route.Auth2Login email token) ->
+                Just (Route.AuthLogin email token) ->
                     Auth2.initLogin session email token
                         |> toPage Auth2Page Auth2Msg
 
@@ -527,7 +527,7 @@ view { mobileNavigationOpened, state } =
                 Auth2Page auth2Model ->
                     Auth2.view session auth2Model
                         |> mapMsg Auth2Msg
-                        |> Page.frame (pageConfig Page.Auth2)
+                        |> Page.frame (pageConfig Page.Auth)
 
                 EditorialPage editorialModel ->
                     Editorial.view session editorialModel

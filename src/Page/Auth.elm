@@ -1,4 +1,4 @@
-module Page.Auth2 exposing
+module Page.Auth exposing
     ( Model
     , Msg(..)
     , init
@@ -11,7 +11,7 @@ import Browser.Navigation as Nav
 import Data.ApiToken as ApiToken exposing (CreatedToken, Token)
 import Data.Env as Env
 import Data.Session as Session exposing (Session)
-import Data.User2 as User exposing (AccessTokenData, FormErrors, SignupForm, User)
+import Data.User as User exposing (AccessTokenData, FormErrors, SignupForm, User)
 import Dict
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -19,7 +19,7 @@ import Html.Events exposing (..)
 import Ports
 import RemoteData
 import Request.ApiToken as ApiTokenHttp
-import Request.Auth2 as Auth
+import Request.Auth as Auth
 import Request.BackendHttp exposing (WebData)
 import Route
 import Views.Button as Button
@@ -66,7 +66,7 @@ type Msg
 
 
 type Tab
-    = Account Session.Auth2
+    = Account Session.Auth
     | ApiTokenCreated Token
     | ApiTokenDelete CreatedToken
     | ApiTokens (Maybe (List CreatedToken))
@@ -79,7 +79,7 @@ type Tab
 
 init : Session -> ( Model, Session, Cmd Msg )
 init session =
-    case Session.getAuth2 session of
+    case Session.getAuth session of
         Just auth ->
             ( { tab = Account auth }
             , session
@@ -176,7 +176,7 @@ update session msg model =
                     updateNothing session model
 
 
-updateAccountTab : Session -> Session.Auth2 -> Msg -> Model -> ( Model, Session, Cmd Msg )
+updateAccountTab : Session -> Session.Auth -> Msg -> Model -> ( Model, Session, Cmd Msg )
 updateAccountTab session currentAuth msg model =
     case msg of
         Logout user ->
@@ -194,14 +194,14 @@ updateAccountTab session currentAuth msg model =
         LogoutResponse (RemoteData.Success _) ->
             ( model
             , session
-                |> Session.logout2
+                |> Session.logout
                 |> Session.notifyInfo "Déconnexion" "Vous avez été deconnecté"
-            , Nav.load <| Route.toString Route.Auth2
+            , Nav.load <| Route.toString Route.Auth
             )
 
         ProfileResponse _ (RemoteData.Success user) ->
             ( { model | tab = Account { currentAuth | user = user } }
-            , session |> Session.updateAuth2 (\auth2 -> { auth2 | user = user })
+            , session |> Session.updateAuth (\auth2 -> { auth2 | user = user })
             , Cmd.none
             )
 
@@ -314,26 +314,26 @@ updateMagicLinkLoginTab session msg model =
         LoginResponse (RemoteData.Failure error) ->
             ( model
             , session |> Session.notifyBackendError error
-            , Nav.load <| Route.toString Route.Auth2
+            , Nav.load <| Route.toString Route.Auth
             )
 
         ProfileResponse accessTokenData (RemoteData.Success user) ->
             let
                 newSession =
-                    session |> Session.setAuth2 (Just { accessTokenData = accessTokenData, user = user })
+                    session |> Session.setAuth (Just { accessTokenData = accessTokenData, user = user })
             in
             ( { model | tab = Account { accessTokenData = accessTokenData, user = user } }
             , newSession
             , Cmd.batch
                 [ Auth.processes newSession DetailedProcessesResponse
-                , Nav.pushUrl session.navKey <| Route.toString Route.Auth2
+                , Nav.pushUrl session.navKey <| Route.toString Route.Auth
                 ]
             )
 
         ProfileResponse _ (RemoteData.Failure error) ->
             ( model
             , session |> Session.notifyBackendError error
-            , Nav.load <| Route.toString Route.Auth2
+            , Nav.load <| Route.toString Route.Auth
             )
 
         _ ->
@@ -391,7 +391,7 @@ viewTab : Session -> Tab -> Html Msg
 viewTab session currentTab =
     let
         ( heading, tabs ) =
-            case Session.getAuth2 session of
+            case Session.getAuth session of
                 Just user ->
                     ( "Mon compte (new auth)"
                     , [ ( "Compte", Account user )
@@ -461,7 +461,7 @@ viewTab session currentTab =
         ]
 
 
-viewAccount : Session.Auth2 -> Html Msg
+viewAccount : Session.Auth -> Html Msg
 viewAccount { accessTokenData, user } =
     div []
         [ [ Just ( "Email", text user.email )
