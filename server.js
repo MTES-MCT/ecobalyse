@@ -198,23 +198,26 @@ const apiTracker = setupTracker(openApiContents);
 const processesImpacts = fs.readFileSync(dataFiles.detailed, "utf8");
 const processes = fs.readFileSync(dataFiles.noDetails, "utf8");
 
-const getProcesses = async (headers, customProcessesImpacts, customProcesses) => {
-  let isTokenValid = false;
-
+function extractTokenFromHeaders(headers) {
   // Handle both old and new auth token headers
-  const token =
-    headers["Authorization"]?.toLowerCase().split("bearer ")[1]?.trim() || headers["token"];
+  const bearerToken = headers["Authorization"]?.toLowerCase().split("bearer ")[1]?.trim();
+  const classicToken = headers["token"]; // from old auth system
+  return bearerToken || classicToken;
+}
+
+const getProcesses = async (headers, customProcessesImpacts, customProcesses) => {
+  let isValidToken = false;
+  const token = extractTokenFromHeaders(headers);
 
   if (token) {
     const tokenRes = await fetch(`${BACKEND_API_URL}/api/tokens/validate`, {
       method: "POST",
       body: JSON.stringify({ token }),
     });
-    isTokenValid = tokenRes.status == 201;
-    console.log("isTokenValid", isTokenValid);
+    isValidToken = tokenRes.status == 201;
   }
 
-  if (NODE_ENV === "test" || isTokenValid) {
+  if (NODE_ENV === "test" || isValidToken) {
     return formatForEnv(customProcessesImpacts ?? processesImpacts);
   } else {
     return formatForEnv(customProcesses ?? processes);

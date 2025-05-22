@@ -117,6 +117,8 @@ get session path event decoder =
         }
 
 
+{-| A special get handler allowing passing a custom Url
+-}
 getWithConfig : Session -> { url : String } -> (WebData data -> msg) -> Decoder data -> Cmd msg
 getWithConfig session { url } event decoder =
     Http.request

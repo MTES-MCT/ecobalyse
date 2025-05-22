@@ -114,11 +114,13 @@ update session msg model =
             , Ports.copyToClipboard accessToken
             )
 
-        -- Update the detailed processes
+        -- Update db with detailed processes when we get them
         DetailedProcessesResponse (RemoteData.Success rawDetailedProcessesJson) ->
             ( model
-            , session |> Session.updateDbProcesses rawDetailedProcessesJson
-            , Cmd.none
+            , session
+                |> Session.updateDbProcesses rawDetailedProcessesJson
+                |> Session.notifyInfo "Information" "Vous avez désormais accès aux impacts détaillés"
+            , Nav.pushUrl session.navKey <| Route.toString Route.Auth
             )
 
         DetailedProcessesResponse (RemoteData.Failure error) ->
@@ -324,10 +326,7 @@ updateMagicLinkLoginTab session msg model =
             in
             ( { model | tab = Account { accessTokenData = accessTokenData, user = user } }
             , newSession
-            , Cmd.batch
-                [ Auth.processes newSession DetailedProcessesResponse
-                , Nav.pushUrl session.navKey <| Route.toString Route.Auth
-                ]
+            , Auth.processes newSession DetailedProcessesResponse
             )
 
         ProfileResponse _ (RemoteData.Failure error) ->
