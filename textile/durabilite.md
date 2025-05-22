@@ -6,10 +6,8 @@ description: >-
 
 # Durabilité
 
-
-
 {% hint style="warning" %}
-Mise à jour importante de cette page le 05/12/2024 suite à la concertation initiée début avril.
+Mise à jour importante de cette page le 05/12/2024 suite à la concertation initiée début avril. Ajustements le 22/05 au moment de la consolidation du référentiel (_en \*italique\*_ dans le texte).
 {% endhint %}
 
 {% hint style="info" %}
@@ -107,7 +105,7 @@ $$C_{Durabilité} = 0.67 + (1,45-0,67)*( 0.4*I_{incitation réparation} +  0.4*I
 Précisions :&#x20;
 
 * **Le canal de vente considéré est le site internet de la marque**. En l'absence de vente en ligne sur le site de la marque (ou si le site est un canal de vente artificiel), un canal de vente doit être choisi parmi les principaux.
-* Par exception, dans le cas d'une **marque qui serait distribuée via une plateforme**, de sorte que les consommateurs identifient plus la plateforme que la marque, c'est le nombre total de références proposées du segment sur la plateforme qui doit être considéré.
+* Par exception, dans le cas d'une **marque qui serait \***_**principalement\***_**&#x20;distribuée via une plateforme**, de sorte que les consommateurs identifient plus la plateforme que la marque, c'est le nombre total de références proposées du segment sur la plateforme qui doit être considéré. \*_Des précisions opérationnelles sont encore nécessaires pour préciser les modalités de calcul de la largeur de gamme sur les plateformes_\*.
 * Lorsqu'une marque est proposée au sein d'un **site internet multi-marques**, mais qu'elle y est bien identifiée et que l'essentiel des autres produits proposés sur ce site internet sont également proposés sur le site internet de leur marque propre, c'est alors le nombre de référence de chaque marque qui est considéré.
 * Les **5 segments de marché** considérés sont : femme, homme, enfant, bébé, sous-vêtements. L'introduction de ces 5 segments de marché vise à éviter un effet de distorsion qui pénaliserait une marque couvrant l'ensemble des segments de marché par rapport à une autre marque qui ne couvrirait par exemple que le prêt à porter femme. A l'intérieur de ces segments de marché, ne sont pas considérés les références qui ne s'adresseraient qu'à un sous-ensemble spécifique des clients potentiels. Il s'agit par exemple des références spécifiques aux grandes tailles, aux femmes enceintes, aux personnes en situation de handicap, ... L'objectif est d'approximer le choix proposer à chaque consommateur : homme, femme, enfant ou bébé.&#x20;
 
@@ -177,7 +175,8 @@ Précisions :&#x20;
 * Le coût moyen de réparation considéré, pour chaque catégorie de produit, est précisé dans l'[explorateur Ecobalyse](https://ecobalyse-v2.osc-fr1.scalingo.io/#/explore/textile/products). Il s'appuie sur l'[Etude Ademe 2022 sur le fonds réemploi-réutilisation et réparation de la filière TLC](https://librairie.ademe.fr/economie-circulaire-et-dechets/5323-fonds-reemploi-reutilisation-et-reparation-de-la-filiere-tlc.html).
 
 {% hint style="info" %}
-Des précisions seront prochainement apportées sur la définition du prix de vente à considérer.
+Des précisions seront prochainement apportées sur la définition du prix de vente à considérer. \
+\*_Les seuils ont été définis par rapport à la perception du consommateur. Ils se rapportent donc à un prix de vente TTC. En revanche, pour des besoins opérationnels de contrôle, la prise en compte du prix HT pourrait être justifiée, à l'instar des modalités de calcul de l'indice de réparabilité ou de durabilité (cf._ [_Notice - § relatif au calcul du ratio pour le critère prix_](https://www.ecologie.gouv.fr/sites/default/files/documents/Notice_indice_reparabilite_FR_V3.0.pdf)_). Si une telle option se confirme, les seuils seront ajustés pour ne pas impacter les résultats de modélisation._\*&#x20;
 {% endhint %}
 
 | Catégorie de produit | Prix moyen de réparation |
