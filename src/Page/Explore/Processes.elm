@@ -91,22 +91,16 @@ baseColumns detailed scope =
 
 
 impactsColumns : Session -> List (Column Process String msg)
-impactsColumns { db, store } =
-    case store.auth of
-        Session.Authenticated { staff } ->
-            if staff then
-                -- User is admin: add columns for detailed impacts
-                Definition.trigrams
-                    |> List.map
-                        (\trigram ->
-                            { label = Definition.toString trigram
-                            , toValue = Table.FloatValue <| .impacts >> Impact.getImpact trigram >> Unit.impactToFloat
-                            , toCell = .impacts >> Format.formatImpact (Definition.get trigram db.definitions)
-                            }
-                        )
+impactsColumns session =
+    if Session.isStaff2 session then
+        Definition.trigrams
+            |> List.map
+                (\trigram ->
+                    { label = Definition.toString trigram
+                    , toValue = Table.FloatValue <| .impacts >> Impact.getImpact trigram >> Unit.impactToFloat
+                    , toCell = .impacts >> Format.formatImpact (Definition.get trigram session.db.definitions)
+                    }
+                )
 
-            else
-                []
-
-        Session.NotAuthenticated ->
-            []
+    else
+        []

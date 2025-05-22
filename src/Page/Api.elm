@@ -625,16 +625,15 @@ apiDocumentationNotice session =
                 , content = [ Markdown.simple [ class "fs-7" ] md ]
                 }
     in
-    case Session.getUser session of
-        Just user ->
-            """Vous êtes connecté, votre jeton d'API est `{token}`. Il sera automatiquement utilisé
-               dans les exemples interactifs ci-dessous pour exposer les impacts détaillés."""
-                |> String.replace "{token}" user.token
-                |> alert Alert.Success
+    if Session.isAuthenticated2 session then
+        """Vous êtes connecté, vous pouvez utiliser l'API avec un jeton dédié.
+                Vous pouvez créer et gérer ces jetons depuis votre [compte utilisateur]({route})."""
+            |> String.replace "{route}" (Route.toString Route.Auth2)
+            |> alert Alert.Success
 
-        Nothing ->
-            """Les requêtes non authentifiées à l'API retournent uniquement les impacts agrégés.
+    else
+        """Les requêtes non authentifiées à l'API retournent uniquement les impacts agrégés.
                **Pour accéder au détail des impacts, il est nécessaire de fournir un jeton d'API**,
                accessible dans votre [compte utilisateur]({route}) une fois connecté."""
-                |> String.replace "{route}" (Route.toString <| Route.Auth { authenticated = False })
-                |> alert Alert.Info
+            |> String.replace "{route}" (Route.toString Route.Auth2)
+            |> alert Alert.Info

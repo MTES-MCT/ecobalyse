@@ -12,7 +12,6 @@ import Data.Textile.Query as TextileQuery
 import Html
 import Page.Admin as Admin
 import Page.Api as Api
-import Page.Auth as Auth
 import Page.Auth2 as Auth2
 import Page.Editorial as Editorial
 import Page.Explore as Explore
@@ -48,7 +47,6 @@ type Page
     = AdminPage Admin.Model
     | ApiPage Api.Model
     | Auth2Page Auth2.Model
-    | AuthPage Auth.Model
     | EditorialPage Editorial.Model
     | ExplorePage Explore.Model
     | FoodBuilderPage FoodBuilder.Model
@@ -80,7 +78,6 @@ type Msg
     = AdminMsg Admin.Msg
     | ApiMsg Api.Msg
     | Auth2Msg Auth2.Msg
-    | AuthMsg Auth.Msg
     | CloseMobileNavigation
     | CloseNotification Session.Notification
     | DetailedProcessesReceived (BackendHttp.WebData String)
@@ -195,7 +192,7 @@ setRoute url ( { state } as model, cmds ) =
             in
             case Route.fromUrl url of
                 Just Route.Admin ->
-                    if Session.isStaff session || Session.isStaff2 session then
+                    if Session.isStaff2 session then
                         Admin.init session
                             |> toPage AdminPage AdminMsg
 
@@ -215,10 +212,6 @@ setRoute url ( { state } as model, cmds ) =
                 Just (Route.Auth2Login email token) ->
                     Auth2.initLogin session email token
                         |> toPage Auth2Page Auth2Msg
-
-                Just (Route.Auth data) ->
-                    Auth.init session data
-                        |> toPage AuthPage AuthMsg
 
                 Just (Route.Editorial slug) ->
                     Editorial.init slug session
@@ -314,10 +307,6 @@ update rawMsg ({ state } as model) =
                 ( Auth2Msg auth2Msg, Auth2Page auth2Model ) ->
                     Auth2.update session auth2Msg auth2Model
                         |> toPage Auth2Page Auth2Msg
-
-                ( AuthMsg authMsg, AuthPage authModel ) ->
-                    Auth.update session authMsg authModel
-                        |> toPage AuthPage AuthMsg
 
                 ( DetailedProcessesReceived (RemoteData.Success rawDetailedProcessesJson), currentPage ) ->
                     -- When detailed processes are received, rebuild the entire static db using them
@@ -539,11 +528,6 @@ view { mobileNavigationOpened, state } =
                     Auth2.view session auth2Model
                         |> mapMsg Auth2Msg
                         |> Page.frame (pageConfig Page.Auth2)
-
-                AuthPage authModel ->
-                    Auth.view session authModel
-                        |> mapMsg AuthMsg
-                        |> Page.frame (pageConfig Page.Auth)
 
                 EditorialPage editorialModel ->
                     Editorial.view session editorialModel
