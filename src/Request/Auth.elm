@@ -1,4 +1,4 @@
-module Request.Auth2 exposing
+module Request.Auth exposing
     ( askMagicLink
     , login
     , logout
@@ -9,7 +9,7 @@ module Request.Auth2 exposing
     )
 
 import Data.Session exposing (Session)
-import Data.User2 as User exposing (AccessTokenData, SignupForm, User)
+import Data.User as User exposing (AccessTokenData, SignupForm, User)
 import Http
 import Json.Decode as Decode
 import Json.Encode as Encode

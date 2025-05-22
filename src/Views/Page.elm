@@ -30,7 +30,7 @@ import Views.Spinner as Spinner
 type ActivePage
     = Admin
     | Api
-    | Auth2
+    | Auth
     | Editorial String
     | Explore
     | FoodBuilder
@@ -178,7 +178,7 @@ headerMenuLinks session =
         ++ List.filterMap identity
             [ Just <| External "Communauté" Env.communityUrl
             , Just <| External "Documentation" Env.gitbookUrl
-            , if Session.isStaff2 session then
+            , if Session.isStaff session then
                 Just <| Internal "Admin" Route.Admin Admin
 
               else
@@ -193,14 +193,14 @@ footerMenuLinks session =
            , External "Communauté" Env.communityUrl
            , MailTo "Contact" Env.contactEmail
            , Internal
-                (if Session.isAuthenticated2 session then
+                (if Session.isAuthenticated session then
                     "Mon compte"
 
                  else
                     "Connexion ou inscription"
                 )
-                Route.Auth2
-                Auth2
+                Route.Auth
+                Auth
            ]
 
 
@@ -391,9 +391,9 @@ pageHeader { session, activePage, openMobileNavigation, loadUrl, switchVersion }
             , div [ class "HeaderAuthLink flex-fill" ]
                 [ a
                     [ class "d-none d-sm-block flex-fill text-end"
-                    , Route.href Route.Auth2
+                    , Route.href Route.Auth
                     ]
-                    [ if Session.isAuthenticated2 session then
+                    [ if Session.isAuthenticated session then
                         text "Mon compte (new auth)"
 
                       else
@@ -511,7 +511,7 @@ restricted _ =
         [ h1 [ class "mb-3" ] [ text "Accès refusé" ]
         , p [] [ text "Cette page n'est accessible qu'à l'équipe Ecobalyse." ]
         , p []
-            [ a [ Route.href Route.Auth2 ] [ text "Authentifiez-vous" ]
+            [ a [ Route.href Route.Auth ] [ text "Authentifiez-vous" ]
             , text " avec les droits appropriés ou "
             , a [ Route.href Route.Home ] [ text "retournez à l'accueil" ]
             ]

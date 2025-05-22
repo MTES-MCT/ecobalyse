@@ -1,4 +1,4 @@
-module Data.User2 exposing
+module Data.User exposing
     ( AccessTokenData
     , FormErrors
     , SignupForm
