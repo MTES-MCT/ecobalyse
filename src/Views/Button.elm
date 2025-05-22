@@ -36,9 +36,8 @@ smallPillLink attrs =
 copyButton : (String -> msg) -> String -> Html msg
 copyButton copy textToCopy =
     button
-        [ class "d-inline-flex justify-content-start align-items-center gap-1"
+        [ class "CopyButton d-inline-flex justify-content-start align-items-center gap-1"
         , class "btn btn-sm text-decoration-none text-muted text-start p-0 w-100"
-        , style "overflow-wrap" "anywhere"
         , title "Copier"
         , onClick <| copy textToCopy
         ]

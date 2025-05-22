@@ -500,10 +500,25 @@ viewApiTokenCreated token =
             , a [ Route.href Route.Api, target "_blank" ] [ text "l'API Ecobalyse" ]
             , text "."
             ]
-        , p [ class "alert alert-warning mb-3" ]
-            [ text "Attention, ce jeton d'API ne vous sera affiché qu'une fois, conservez-le précieusement." ]
-        , p [ class "alert alert-info font-monospace mb-0" ]
-            [ Button.copyButton CopyToClipboard (ApiToken.toString token) ]
+        , """Attention, **ce jeton d'API ne vous sera affiché qu'une seule et unique fois ci-dessous**.
+             Conservez-le précieusement."""
+            |> Markdown.simple [ class "alert alert-warning d-flex align-items-center gap-1 mb-3" ]
+        , div
+            [ class "input-group" ]
+            [ input
+                [ type_ "url"
+                , class "form-control"
+                , value <| ApiToken.toString token
+                ]
+                []
+            , button
+                [ class "input-group-text"
+                , title "Copier dans le presse-papiers"
+                , onClick (CopyToClipboard <| ApiToken.toString token)
+                ]
+                [ Icon.clipboard
+                ]
+            ]
         , div [ class "d-grid mt-2" ]
             [ button
                 [ class "btn btn-link", onClick <| SwitchTab (ApiTokens Nothing) ]
@@ -599,7 +614,10 @@ viewApiTokenDelete apiToken =
     div []
         [ h2 [ class "h5 mb-3" ] [ text "Supprimer et invalider ce jeton d'API" ]
         , p []
-            [ text "Êtes-vous sûr de vouloir supprimer et invalider ce jeton d'API ?" ]
+            [ """Êtes-vous sûr de vouloir supprimer et invalider ce jeton d'API\u{00A0}?
+                 Vous ne pourrez plus l'utiliser."""
+                |> Markdown.simple []
+            ]
         , case apiToken.lastAccessedAt of
             Just lastAccessedAt ->
                 p [ class "alert alert-warning d-flex align-items-center gap-1" ]
@@ -613,15 +631,13 @@ viewApiTokenDelete apiToken =
                     [ Icon.info
                     , text "Le token n'a jamais été utilisé"
                     ]
-        , div [ class "d-grid" ]
-            [ button
-                [ class "btn btn-danger", onClick <| DeleteApiToken apiToken ]
-                [ text "Supprimer et invalider ce jeton d'API" ]
-            ]
-        , div [ class "d-grid mt-1" ]
+        , div [ class "d-flex justify-content-center gap-2 mt-1" ]
             [ button
                 [ class "btn btn-link", onClick <| SwitchTab (ApiTokens Nothing) ]
-                [ text "«\u{00A0}Retour à la liste des jetons d'API" ]
+                [ text "Annuler" ]
+            , button
+                [ class "btn btn-danger", onClick <| DeleteApiToken apiToken ]
+                [ text "Supprimer et invalider ce jeton d'API" ]
             ]
         ]
 
