@@ -535,13 +535,7 @@ apiBrowser session =
         , attribute "allow-authentication" "false"
         , attribute "allow-server-selection" "false"
         , attribute "allow-api-list-style-selection" "false"
-        , attribute "api-key-name" "token"
-        , attribute "api-key-location" "header"
-        , session
-            |> Session.getUser
-            |> Maybe.map .token
-            |> Maybe.withDefault "-"
-            |> attribute "api-key-value"
+        , attribute "allow-authentication" "true"
         ]
         []
 
