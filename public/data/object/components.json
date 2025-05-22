@@ -2,16 +2,6 @@
   {
     "elements": [
       {
-        "amount": 0.00022,
-        "material": "fe8a97ba-405a-5542-b1be-bd6983537d58"
-      }
-    ],
-    "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
-    "name": "Pied 70 cm (plein bois)"
-  },
-  {
-    "elements": [
-      {
         "amount": 0.734063,
         "material": "59b42284-3e45-5343-8a20-1d7d66137461"
       }
@@ -32,53 +22,11 @@
   {
     "elements": [
       {
-        "amount": 0.007065,
-        "material": "fe8a97ba-405a-5542-b1be-bd6983537d58"
-      }
-    ],
-    "id": "6f8d1621-324a-4c00-abe3-f90813d878d2",
-    "name": "Pied 90 cm (plein bois)"
-  },
-  {
-    "elements": [
-      {
-        "amount": 0.14,
-        "material": "fe8a97ba-405a-5542-b1be-bd6983537d58"
-      }
-    ],
-    "id": "3d1ba21f-a139-4e1f-8192-082327ad855e",
-    "name": "Plateau 200x100 (chêne)"
-  },
-  {
-    "elements": [
-      {
         "amount": 35,
         "material": "59b42284-3e45-5343-8a20-1d7d66137461"
       }
     ],
     "id": "190276e9-5b90-42d6-8fbd-bc7ddfd4c960",
     "name": "Cadre plastique"
-  },
-  {
-    "elements": [
-      {
-        "amount": 1,
-        "material": "f0dbe27b-1e74-55d0-88a2-bda812441744",
-        "transforms": [
-          "29dc6c73-8d82-5056-8ac0-faf212bc0367",
-          "c49a5379-95c4-599a-84da-b5faaa345b97"
-        ]
-      },
-      {
-        "amount": 1,
-        "material": "61bab541-9097-5680-9884-254c98f25d80",
-        "transforms": [
-          "29dc6c73-8d82-5056-8ac0-faf212bc0367",
-          "e5e43c57-bd12-5ab7-8a22-7d12cdcece58"
-        ]
-      }
-    ],
-    "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
-    "name": "Tissu pour canapé"
   }
 ]

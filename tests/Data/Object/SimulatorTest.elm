@@ -27,18 +27,12 @@ suite =
     suiteWithDb "Data.Object.Simulator"
         (\db ->
             [ describe "Simulator.compute"
-                [ db.object.examples
-                    |> Example.findByName "Chaise"
+                [   db.object.examples
+                    |> Example.findByName "VAE"
                     |> Result.andThen (.query >> getEcsImpact db)
                     |> Result.withDefault 0
-                    |> Expect.within (Expect.Absolute 1) 284
-                    |> asTest "should compute impact for an example chair"
-                , db.object.examples
-                    |> Example.findByName "Table"
-                    |> Result.andThen (.query >> getEcsImpact db)
-                    |> Result.withDefault 0
-                    |> Expect.within (Expect.Absolute 1) 3857
-                    |> asTest "should compute impact for an example table"
+                    |> Expect.within (Expect.Absolute 1) 5631
+                    |> asTest "should compute impact for an example of a default intermediate vehicle"
                 ]
             ]
         )
