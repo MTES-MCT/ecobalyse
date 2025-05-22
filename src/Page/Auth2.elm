@@ -187,7 +187,7 @@ updateAccountTab session currentAuth msg model =
 
         ProfileResponse _ (RemoteData.Success user) ->
             ( { model | tab = Account { currentAuth | user = user } }
-            , session
+            , session |> Session.updateAuth2 (\auth2 -> { auth2 | user = user })
             , Cmd.none
             )
 
