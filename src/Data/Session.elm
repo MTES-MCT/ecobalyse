@@ -29,6 +29,7 @@ module Data.Session exposing
     , serializeStore
     , setAuth2
     , toggleComparedSimulation
+    , updateAuth2
     , updateDb
     , updateFoodQuery
     , updateObjectQuery
@@ -313,6 +314,11 @@ logout2 =
 setAuth2 : Maybe Auth2 -> Session -> Session
 setAuth2 auth2 =
     updateStore (\store -> { store | auth2 = auth2 })
+
+
+updateAuth2 : (Auth2 -> Auth2) -> Session -> Session
+updateAuth2 fn =
+    updateStore (\store -> { store | auth2 = store.auth2 |> Maybe.map fn })
 
 
 {-| A serializable data structure holding session information you want to share
