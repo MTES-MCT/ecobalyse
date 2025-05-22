@@ -67,6 +67,7 @@ type Msg
 type Tab
     = Account Session.Auth2
     | ApiTokenCreated Token
+    | ApiTokenDelete CreatedToken
     | ApiTokens (Maybe (List CreatedToken))
     | MagicLinkForm Email
     | MagicLinkLogin
@@ -139,6 +140,9 @@ update session msg model =
                 ApiTokenCreated _ ->
                     ( model, session, Cmd.none )
 
+                ApiTokenDelete apiToken ->
+                    updateApiTokenDeleteTab session apiToken tabMsg model
+
                 ApiTokens apiTokens ->
                     updateApiTokensTab session apiTokens tabMsg model
 
@@ -155,7 +159,7 @@ update session msg model =
                     updateSignupTab session signupForm tabMsg model
 
                 SignupCompleted _ ->
-                    ( model, session, Cmd.none )
+                    updateNothing session model
 
 
 updateAccountTab : Session -> Session.Auth2 -> Msg -> Model -> ( Model, Session, Cmd Msg )
@@ -218,6 +222,19 @@ updateApiTokensTab session _ tabMsg model =
         CreateTokenResponse (RemoteData.Failure error) ->
             ( model, session |> Session.notifyBackendError error, Cmd.none )
 
+        SwitchTab (ApiTokens _) ->
+            ( model
+            , session
+            , ApiTokenHttp.list session ApiTokensResponse
+            )
+
+        _ ->
+            updateNothing session model
+
+
+updateApiTokenDeleteTab : Session -> CreatedToken -> Msg -> Model -> ( Model, Session, Cmd Msg )
+updateApiTokenDeleteTab session _ msg model =
+    case msg of
         DeleteApiToken apiToken ->
             ( model
             , session
@@ -225,7 +242,7 @@ updateApiTokensTab session _ tabMsg model =
             )
 
         DeleteApiTokenResponse (RemoteData.Success _) ->
-            ( model
+            ( { model | tab = ApiTokens Nothing }
             , session
                 |> Session.notifyInfo "Jeton d'API supprimé" "Le jeton d'API a été supprimé avec succès"
             , ApiTokenHttp.list session ApiTokensResponse
@@ -233,12 +250,6 @@ updateApiTokensTab session _ tabMsg model =
 
         DeleteApiTokenResponse (RemoteData.Failure error) ->
             ( model, session |> Session.notifyBackendError error, Cmd.none )
-
-        SwitchTab (ApiTokens _) ->
-            ( model
-            , session
-            , ApiTokenHttp.list session ApiTokensResponse
-            )
 
         _ ->
             updateNothing session model
@@ -404,6 +415,9 @@ viewTab session currentTab =
                     ApiTokenCreated token ->
                         viewApiTokenCreated token
 
+                    ApiTokenDelete apiToken ->
+                        viewApiTokenDelete apiToken
+
                     ApiTokens apiTokens ->
                         viewApiTokens apiTokens
 
@@ -529,7 +543,10 @@ viewApiTokens apiTokens =
                                                 ]
                                             , td [ class "align-middle text-end" ]
                                                 [ button
-                                                    [ class "btn btn-sm btn-danger", onClick <| DeleteApiToken apiToken ]
+                                                    [ class "btn btn-sm btn-danger"
+                                                    , title "Supprimer ce jeton"
+                                                    , onClick <| SwitchTab (ApiTokenDelete apiToken)
+                                                    ]
                                                     [ Icon.trash ]
                                                 ]
                                             ]
@@ -573,6 +590,38 @@ viewAccessData data =
                             ]
                     )
                 |> tbody []
+            ]
+        ]
+
+
+viewApiTokenDelete : CreatedToken -> Html Msg
+viewApiTokenDelete apiToken =
+    div []
+        [ h2 [ class "h5 mb-3" ] [ text "Supprimer et invalider ce jeton d'API" ]
+        , p []
+            [ text "Êtes-vous sûr de vouloir supprimer et invalider ce jeton d'API ?" ]
+        , case apiToken.lastAccessedAt of
+            Just lastAccessedAt ->
+                p [ class "alert alert-warning d-flex align-items-center gap-1" ]
+                    [ Icon.warning
+                    , text "Dernière utilisation\u{00A0}:"
+                    , text <| Format.frenchDatetime lastAccessedAt
+                    ]
+
+            Nothing ->
+                p [ class "alert alert-success d-flex align-items-center gap-1" ]
+                    [ Icon.info
+                    , text "Le token n'a jamais été utilisé"
+                    ]
+        , div [ class "d-grid" ]
+            [ button
+                [ class "btn btn-danger", onClick <| DeleteApiToken apiToken ]
+                [ text "Supprimer et invalider ce jeton d'API" ]
+            ]
+        , div [ class "d-grid mt-1" ]
+            [ button
+                [ class "btn btn-link", onClick <| SwitchTab (ApiTokens Nothing) ]
+                [ text "«\u{00A0}Retour à la liste des jetons d'API" ]
             ]
         ]
 
@@ -738,6 +787,12 @@ isActiveTab tab1 tab2 =
             True
 
         ( ApiTokens _, ApiTokenCreated _ ) ->
+            True
+
+        ( ApiTokens _, ApiTokenDelete _ ) ->
+            True
+
+        ( ApiTokenDelete _, ApiTokens _ ) ->
             True
 
         ( ApiTokenCreated _, ApiTokens _ ) ->
