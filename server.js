@@ -214,12 +214,16 @@ const getProcesses = async (headers, customProcessesImpacts, customProcesses) =>
     console.log("isTokenValid", isTokenValid);
   }
 
-  if (isTokenValid || NODE_ENV === "test") {
-    return JSON.stringify(customProcessesImpacts ?? processesImpacts);
+  if (NODE_ENV === "test" || isTokenValid) {
+    return formatForEnv(customProcessesImpacts ?? processesImpacts);
   } else {
-    return JSON.stringify(customProcesses ?? processes);
+    return formatForEnv(customProcesses ?? processes);
   }
 };
+
+function formatForEnv(json) {
+  return NODE_ENV === "test" ? json : JSON.stringify(json, null, 2);
+}
 
 function processOpenApi(contents, versionNumber) {
   // Add app version info to openapi docs
