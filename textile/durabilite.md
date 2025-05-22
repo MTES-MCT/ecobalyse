@@ -111,9 +111,9 @@ Précisions :&#x20;
 
 #### Exemples de produits ayant fait l'objet de demandes de précision [sur le forum Ecobalyse](https://fabrique-numerique.gitbook.io/ecobalyse/communaute) :&#x20;
 
-| A comptabiliser                                                                                                 | A ne pas comptabiliser                                                                                                                  |
-| --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| <ul><li>Chemise en soie (non couvert par le cadre réglementaire en l'absence de données pour la soie)</li></ul> | <ul><li>Accessoires non majoritairement textiles : casquettes, chapeaux, serre-têtes, lanières</li><li>Vêtements pour animaux</li></ul> |
+| A comptabiliser                                                                                                                                    | A ne pas comptabiliser                                                                                                                  |
+| -------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| <ul><li>Chemises en soie (non couvert par le cadre réglementaire en l'absence de données pour la soie)</li><li>*<em>Soutien gorges</em>*</li></ul> | <ul><li>Accessoires non majoritairement textiles : casquettes, chapeaux, serre-têtes, lanières</li><li>Vêtements pour animaux</li></ul> |
 
 {% hint style="info" %}
 Exemple : Le site C.fr commercialise la marque A (2000 références), la marque B (3000 références) et la marque C (4000 références). La marque A et la marque B disposent par ailleurs de leur site internet propre. La marque B propose 2500 références sur B.fr. La marque C propose 3500 références sur C.fr.\
