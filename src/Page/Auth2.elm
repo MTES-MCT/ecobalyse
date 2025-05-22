@@ -68,8 +68,8 @@ type Tab
     = Account Session.Auth2
     | ApiTokenCreated Token
     | ApiTokens (Maybe (List CreatedToken))
-    | Authenticating
     | MagicLinkForm Email
+    | MagicLinkLogin
     | MagicLinkSent Email
     | Signup SignupForm FormErrors
     | SignupCompleted Email
@@ -96,7 +96,7 @@ init session =
 -}
 initLogin : Session -> Email -> AccessToken -> ( Model, Session, Cmd Msg )
 initLogin session email token =
-    ( { tab = Authenticating }
+    ( { tab = MagicLinkLogin }
     , session
     , Auth.login session LoginResponse email token
     )
@@ -112,7 +112,14 @@ update session msg model =
             , Ports.copyToClipboard accessToken
             )
 
-        -- ApiTokens tab initialisation
+        -- Account tab initialisation: retrieve the latest user profile
+        SwitchTab (Account auth) ->
+            ( { model | tab = Account auth }
+            , session
+            , Auth.profile session (ProfileResponse auth.accessTokenData)
+            )
+
+        -- ApiTokens tab initialisation: retrieve the latest list of tokens
         SwitchTab (ApiTokens _) ->
             ( { model | tab = ApiTokens Nothing }
             , session
@@ -126,35 +133,27 @@ update session msg model =
         -- Specific tab updates
         tabMsg ->
             case model.tab of
-                -- Account tab updates
                 Account auth ->
                     updateAccountTab session auth tabMsg model
 
-                -- ApiTokenCreated tab updates
                 ApiTokenCreated _ ->
                     ( model, session, Cmd.none )
 
-                -- ApiTokens tab updates
                 ApiTokens apiTokens ->
                     updateApiTokensTab session apiTokens tabMsg model
 
-                -- Authenticating tab updates
-                Authenticating ->
-                    updateAuthenticatingTab session tabMsg model
-
-                -- MagicLinkForm tab updates
                 MagicLinkForm email ->
-                    updateMagicLinkTab session email tabMsg model
+                    updateMagicLinkFormTab session email tabMsg model
 
-                -- MagicLinkSent tab updates (currently no msg to handle)
+                MagicLinkLogin ->
+                    updateMagicLinkLoginTab session tabMsg model
+
                 MagicLinkSent _ ->
                     ( model, session, Cmd.none )
 
-                -- Signup tab updates
                 Signup signupForm _ ->
                     updateSignupTab session signupForm tabMsg model
 
-                -- SignupCompleted tab updates (currently no msg to handle)
                 SignupCompleted _ ->
                     ( model, session, Cmd.none )
 
@@ -195,7 +194,7 @@ updateAccountTab session currentAuth msg model =
             )
 
         _ ->
-            ( model, session, Cmd.none )
+            updateNothing session model
 
 
 updateApiTokensTab : Session -> Maybe (List CreatedToken) -> Msg -> Model -> ( Model, Session, Cmd Msg )
@@ -242,43 +241,11 @@ updateApiTokensTab session _ tabMsg model =
             )
 
         _ ->
-            ( model, session, Cmd.none )
+            updateNothing session model
 
 
-updateAuthenticatingTab : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
-updateAuthenticatingTab session msg model =
-    case msg of
-        LoginResponse (RemoteData.Success accessTokenData) ->
-            ( { model | tab = Authenticating }
-            , session
-            , accessTokenData.accessToken
-                |> Auth.profileFromAccessToken session (ProfileResponse accessTokenData)
-            )
-
-        LoginResponse (RemoteData.Failure error) ->
-            ( model
-            , session |> Session.notifyBackendError error
-            , Nav.load <| Route.toString Route.Auth2
-            )
-
-        ProfileResponse accessTokenData (RemoteData.Success user) ->
-            ( { model | tab = Account { accessTokenData = accessTokenData, user = user } }
-            , session |> Session.setAuth2 (Just { accessTokenData = accessTokenData, user = user })
-            , Nav.pushUrl session.navKey <| Route.toString Route.Auth2
-            )
-
-        ProfileResponse _ (RemoteData.Failure error) ->
-            ( model
-            , session |> Session.notifyBackendError error
-            , Nav.load <| Route.toString Route.Auth2
-            )
-
-        _ ->
-            ( model, session, Cmd.none )
-
-
-updateMagicLinkTab : Session -> Email -> Msg -> Model -> ( Model, Session, Cmd Msg )
-updateMagicLinkTab session email msg model =
+updateMagicLinkFormTab : Session -> Email -> Msg -> Model -> ( Model, Session, Cmd Msg )
+updateMagicLinkFormTab session email msg model =
     case msg of
         MagicLinkResponse (RemoteData.Success _) ->
             ( { model | tab = MagicLinkSent email }
@@ -306,7 +273,39 @@ updateMagicLinkTab session email msg model =
             )
 
         _ ->
-            ( model, session, Cmd.none )
+            updateNothing session model
+
+
+updateMagicLinkLoginTab : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
+updateMagicLinkLoginTab session msg model =
+    case msg of
+        LoginResponse (RemoteData.Success accessTokenData) ->
+            ( { model | tab = MagicLinkLogin }
+            , session
+            , accessTokenData.accessToken
+                |> Auth.profileFromAccessToken session (ProfileResponse accessTokenData)
+            )
+
+        LoginResponse (RemoteData.Failure error) ->
+            ( model
+            , session |> Session.notifyBackendError error
+            , Nav.load <| Route.toString Route.Auth2
+            )
+
+        ProfileResponse accessTokenData (RemoteData.Success user) ->
+            ( { model | tab = Account { accessTokenData = accessTokenData, user = user } }
+            , session |> Session.setAuth2 (Just { accessTokenData = accessTokenData, user = user })
+            , Nav.pushUrl session.navKey <| Route.toString Route.Auth2
+            )
+
+        ProfileResponse _ (RemoteData.Failure error) ->
+            ( model
+            , session |> Session.notifyBackendError error
+            , Nav.load <| Route.toString Route.Auth2
+            )
+
+        _ ->
+            updateNothing session model
 
 
 updateSignupTab : Session -> SignupForm -> Msg -> Model -> ( Model, Session, Cmd Msg )
@@ -348,7 +347,12 @@ updateSignupTab session signupForm msg model =
             ( { model | tab = Signup signupForm_ Dict.empty }, session, Cmd.none )
 
         _ ->
-            ( model, session, Cmd.none )
+            updateNothing session model
+
+
+updateNothing : Session -> Model -> ( Model, Session, Cmd Msg )
+updateNothing session model =
+    ( model, session, Cmd.none )
 
 
 viewTab : Session -> Tab -> Html Msg
@@ -371,7 +375,7 @@ viewTab session currentTab =
                     )
     in
     div []
-        [ h1 [ class "mb-3" ] [ text heading ]
+        [ h1 [ class "mb-4" ] [ text heading ]
         , div [ class "card shadow-sm px-0" ]
             [ div [ class "card-header px-0 pb-0 border-bottom-0" ]
                 [ tabs
@@ -403,11 +407,11 @@ viewTab session currentTab =
                     ApiTokens apiTokens ->
                         viewApiTokens apiTokens
 
-                    Authenticating ->
-                        Spinner.view
-
                     MagicLinkForm email ->
                         viewMagicLinkForm email
+
+                    MagicLinkLogin ->
+                        Spinner.view
 
                     MagicLinkSent email ->
                         viewMagicLinkSent email
@@ -416,7 +420,7 @@ viewTab session currentTab =
                         viewSignupForm signupForm formErrors
 
                     SignupCompleted email ->
-                        viewSignupCompleted email
+                        viewMagicLinkSent email
                 ]
             ]
         ]
@@ -516,14 +520,14 @@ viewApiTokens apiTokens =
                                 |> List.map
                                     (\apiToken ->
                                         tr []
-                                            [ td [] [ text apiToken.id ]
-                                            , td [ class "text-end" ]
+                                            [ td [ class "align-middle" ] [ text apiToken.id ]
+                                            , td [ class "align-middle text-end" ]
                                                 [ apiToken.lastAccessedAt
                                                     |> Maybe.map Format.frenchDatetime
                                                     |> Maybe.withDefault "Jamais utilisé"
                                                     |> text
                                                 ]
-                                            , td [ class "text-end" ]
+                                            , td [ class "align-middle text-end" ]
                                                 [ button
                                                     [ class "btn btn-sm btn-danger", onClick <| DeleteApiToken apiToken ]
                                                     [ Icon.trash ]
@@ -605,17 +609,7 @@ viewMagicLinkSent : Email -> Html msg
 viewMagicLinkSent email =
     div [ class "alert alert-info mb-0" ]
         [ h2 [ class "h5" ] [ text "Email de connexion envoyé" ]
-        , """Un email contenant un lien d'authentification a été envoyé à l'adresse `{email}`."""
-            |> String.replace "{email}" email
-            |> Markdown.simple []
-        ]
-
-
-viewSignupCompleted : Email -> Html Msg
-viewSignupCompleted email =
-    div [ class "alert alert-info mb-0" ]
-        [ h2 [ class "h5" ] [ text "Inscription réussie" ]
-        , """Un email contenant un lien d'authentification a été envoyé à l'adresse `{email}`."""
+        , "Un email contenant un lien de connexion au service a été envoyé à l'adresse **`{email}`**."
             |> String.replace "{email}" email
             |> Markdown.simple []
         ]
@@ -708,6 +702,7 @@ viewSignupForm signupForm formErrors =
             , label [ class "form-check-label", for "termsAccepted" ]
                 [ text "Je m’engage à respecter les "
                 , a [ href Env.cguUrl, target "_blank" ] [ text "conditions d'utilisation" ]
+                , text " incluant notamment une utilisation strictement limitée aux produits textiles vendus sur le marché français."
                 ]
             , viewFieldError "termsAccepted" formErrors
             ]
@@ -748,10 +743,10 @@ isActiveTab tab1 tab2 =
         ( ApiTokenCreated _, ApiTokens _ ) ->
             True
 
-        ( Authenticating, MagicLinkForm _ ) ->
+        ( MagicLinkLogin, MagicLinkForm _ ) ->
             True
 
-        ( MagicLinkForm _, Authenticating ) ->
+        ( MagicLinkForm _, MagicLinkLogin ) ->
             True
 
         ( MagicLinkForm _, MagicLinkForm _ ) ->

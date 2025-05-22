@@ -74,7 +74,7 @@ frame ({ activePage } as config) ( title, content ) =
 
           else
             text ""
-        , main_ [ class "bg-white" ]
+        , main_ [ class "PageContent bg-white" ]
             [ notificationListView config
             , div
                 [ if activePage == Home then
