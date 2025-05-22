@@ -15,6 +15,7 @@ type Category
     | Energy
     | Ingredient
     | Material
+    | MaterialType String
     | Packaging
     | TextileMaterial
     | Transform
@@ -69,7 +70,11 @@ fromString string =
             Ok WasteTreatment
 
         _ ->
-            Err <| "Catégorie de procédé invalide: " ++ string
+            if String.startsWith "material_type:" string then
+                Ok (MaterialType (String.dropLeft 14 string))
+
+            else
+                Err <| "Catégorie de procédé invalide: " ++ string
 
 
 toString : Category -> String
@@ -86,6 +91,9 @@ toString category =
 
         Material ->
             "material"
+
+        MaterialType str ->
+            "material_type:" ++ str
 
         Packaging ->
             "packaging"
@@ -120,6 +128,9 @@ toLabel category =
 
         Material ->
             "Matériau"
+
+        MaterialType str ->
+            "Type de matériau:" ++ str
 
         Packaging ->
             "Emballage"
