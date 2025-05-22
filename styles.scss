@@ -1174,6 +1174,12 @@ q {
   }
 }
 
+.PageContent {
+  @media screen and (width > $viewport-md) {
+    min-height: calc(100vh/1.5);
+  }
+}
+
 .Simulator {
   @media screen and (width < $viewport-sm) {
     margin-top: 5px;
