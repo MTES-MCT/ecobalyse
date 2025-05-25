@@ -36,7 +36,7 @@ suite =
                   )
                 )
             of
-                ( Ok royalPizza, ( Just eggId, Just mangoId, Just wheatId ) ) ->
+                ( Ok royalPizza, ( Ok eggId, Ok mangoId, Ok wheatId ) ) ->
                     [ let
                         testComputedComplements complements =
                             Recipe.computeIngredientComplementsImpacts complements (Mass.kilograms 2)
