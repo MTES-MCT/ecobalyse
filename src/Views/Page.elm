@@ -394,10 +394,10 @@ pageHeader { session, activePage, openMobileNavigation, loadUrl, switchVersion }
                     , Route.href Route.Auth
                     ]
                     [ if Session.isAuthenticated session then
-                        text "Mon compte (new auth)"
+                        text "Mon compte"
 
                       else
-                        text "Connexion ou inscription (new auth)"
+                        text "Connexion ou inscription"
                     ]
                 ]
             ]
