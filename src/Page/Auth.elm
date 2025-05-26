@@ -401,14 +401,14 @@ viewTab session currentTab =
         ( heading, tabs ) =
             case Session.getAuth session of
                 Just user ->
-                    ( "Mon compte (new auth)"
+                    ( "Mon compte"
                     , [ ( "Compte", Account user )
                       , ( "Jetons d'API", ApiTokens Nothing )
                       ]
                     )
 
                 Nothing ->
-                    ( "Connexion / Inscription (new auth)"
+                    ( "Connexion / Inscription"
                     , [ ( "Inscription", Signup User.emptySignupForm Dict.empty )
                       , ( "Connexion", MagicLinkForm "" )
                       ]
