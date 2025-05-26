@@ -6,7 +6,7 @@ import Expect
 import Json.Decode as Decode
 import Json.Encode as Encode
 import Test exposing (..)
-import TestUtils exposing (it)
+import TestUtils as TU exposing (it)
 
 
 suite : Test
@@ -30,29 +30,73 @@ suite =
                     |> Expect.equal (Ok "user@tld.org")
                 )
             ]
+        , describe "decodeOrganization"
+            [ it "should decode a business"
+                ("""{"type": "business", "name": "Ecobalyse", "siren": "123456789"}"""
+                    |> Decode.decodeString User.decodeOrganization
+                    |> Expect.equal (Ok (User.Business "Ecobalyse" (User.sirenFromString "123456789")))
+                )
+            , it "should fail to decode a business with an invalid siren"
+                ("""{"type": "business", "name": "Ecobalyse", "siren": "invalid"}"""
+                    |> Decode.decodeString User.decodeOrganization
+                    |> Result.mapError Decode.errorToString
+                    |> TU.expectResultErrorContains "Le numéro SIREN est invalide"
+                )
+            , it "should decode an individual"
+                ("""{"type": "individual"}"""
+                    |> Decode.decodeString User.decodeOrganization
+                    |> Expect.equal (Ok User.Individual)
+                )
+            , it
+                "should decode an association"
+                ("""{"type": "association", "name": "Ecobalyse"}"""
+                    |> Decode.decodeString User.decodeOrganization
+                    |> Expect.equal (Ok (User.Association "Ecobalyse"))
+                )
+            , it "should decode an education organization"
+                ("""{"type": "education", "name": "Université Paris VIII"}"""
+                    |> Decode.decodeString User.decodeOrganization
+                    |> Expect.equal (Ok (User.Education "Université Paris VIII"))
+                )
+            , it "should decode an local authority"
+                ("""{"type": "localAuthority", "name": "Région Île-de-France"}"""
+                    |> Decode.decodeString User.decodeOrganization
+                    |> Expect.equal (Ok (User.LocalAuthority "Région Île-de-France"))
+                )
+            , it "should decode a media"
+                ("""{"type": "media", "name": "Le Monde"}"""
+                    |> Decode.decodeString User.decodeOrganization
+                    |> Expect.equal (Ok (User.Media "Le Monde"))
+                )
+            , it "should decode a public organization"
+                ("""{"type": "public", "name": "Ministère de l'Éducation nationale"}"""
+                    |> Decode.decodeString User.decodeOrganization
+                    |> Expect.equal (Ok (User.Public "Ministère de l'Éducation nationale"))
+                )
+            ]
         , describe "validateEmail"
             [ it "should validate a well-formed email"
-                (User.validateEmail "user@tld.org"
+                (User.validateEmailForm "user@tld.org"
                     |> Expect.equal Dict.empty
                 )
             , it "should invalidate an email with no @ symbol"
-                (User.validateEmail "user.tld.org"
+                (User.validateEmailForm "user.tld.org"
                     |> Expect.equal (Dict.singleton "email" "L'adresse e-mail est invalide")
                 )
             , it "should invalidate an email with a space"
-                (User.validateEmail "user@tld. org"
+                (User.validateEmailForm "user@tld. org"
                     |> Expect.equal (Dict.singleton "email" "L'adresse e-mail est invalide")
                 )
             , it "should invalidate an email with spaces"
-                (User.validateEmail "  @  .  "
+                (User.validateEmailForm "  @  .  "
                     |> Expect.equal (Dict.singleton "email" "L'adresse e-mail est invalide")
                 )
             , it "should invalidate an email without ext"
-                (User.validateEmail "user@tld"
+                (User.validateEmailForm "user@tld"
                     |> Expect.equal (Dict.singleton "email" "L'adresse e-mail est invalide")
                 )
             , it "should invalidate a totally invalid email"
-                (User.validateEmail "invalid-email"
+                (User.validateEmailForm "invalid-email"
                     |> Expect.equal (Dict.singleton "email" "L'adresse e-mail est invalide")
                 )
             ]
@@ -119,7 +163,7 @@ userJson =
         "profile": {
             "firstName": "John",
             "lastName": "Doe",
-            "organization": "Ecobalyse",
+            "organization": {"type": "association", "name": "Ecobalyse"},
             "termsAccepted": true
         },
         "roles": []
