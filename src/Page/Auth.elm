@@ -17,7 +17,6 @@ import Dict
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Json.Encode as Encode
 import Ports
 import RemoteData
 import Request.ApiToken as ApiTokenHttp
@@ -829,14 +828,6 @@ viewSignupForm signupForm formErrors =
                 , disabled <| signupForm == User.emptySignupForm || formErrors /= Dict.empty
                 ]
                 [ text "Valider mon inscription" ]
-            ]
-        , div [ class "d-grid" ]
-            [ pre []
-                [ signupForm
-                    |> User.encodeSignupForm
-                    |> Encode.encode 2
-                    |> text
-                ]
             ]
         ]
 
