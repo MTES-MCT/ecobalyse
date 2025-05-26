@@ -818,7 +818,7 @@ viewSignupForm signupForm formErrors =
             , label [ class "form-check-label", for "termsAccepted" ]
                 [ text "Je m’engage à respecter les "
                 , a [ href Env.cguUrl, target "_blank" ] [ text "conditions d'utilisation" ]
-                , text " incluant notamment une utilisation strictement limitée aux produits textiles vendus sur le marché français."
+                , text ", et suis informé(e) que cette utilisation ne peut se faire que dans le cadre de la vente de produits sur le marché français."
                 ]
             , viewFieldError "termsAccepted" formErrors
             ]
