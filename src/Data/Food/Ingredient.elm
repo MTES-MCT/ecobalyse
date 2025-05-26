@@ -112,9 +112,9 @@ encodePlaneTransport planeTransport =
             Nothing
 
 
-idFromString : String -> Maybe Id
-idFromString str =
-    Uuid.fromString str |> Maybe.map Id
+idFromString : String -> Result String Id
+idFromString =
+    Uuid.fromString >> Result.map Id
 
 
 idToString : Id -> String

@@ -247,22 +247,22 @@ setIdFromString idString dataset =
             Countries (Just (Country.codeFromString idString))
 
         FoodExamples _ ->
-            FoodExamples (Uuid.fromString idString)
+            FoodExamples (idString |> Uuid.fromString |> Result.toMaybe)
 
         FoodIngredients _ ->
-            FoodIngredients (Ingredient.idFromString idString)
+            FoodIngredients (idString |> Ingredient.idFromString |> Result.toMaybe)
 
         Impacts _ ->
             Impacts (Definition.toTrigram idString |> Result.toMaybe)
 
         ObjectExamples _ ->
-            ObjectExamples (Uuid.fromString idString)
+            ObjectExamples (idString |> Uuid.fromString |> Result.toMaybe)
 
         Processes scope _ ->
             Processes scope (Process.idFromString idString |> Result.toMaybe)
 
         TextileExamples _ ->
-            TextileExamples (Uuid.fromString idString)
+            TextileExamples (idString |> Uuid.fromString |> Result.toMaybe)
 
         TextileMaterials _ ->
             TextileMaterials (Just (Material.Id idString))
