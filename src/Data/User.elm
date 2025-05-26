@@ -13,8 +13,14 @@ module Data.User exposing
     , encodeOrganization
     , encodeSignupForm
     , encodeUser
+    , getOrganizationName
+    , organizationTypeToString
+    , organizationTypes
     , sirenFromString
     , sirenToString
+    , updateOrganizationName
+    , updateOrganizationSiren
+    , updateOrganizationType
     , validateEmailForm
     , validateSignupForm
     , validateSiren
@@ -93,7 +99,7 @@ type alias SignupForm =
     { email : String
     , firstName : String
     , lastName : String
-    , organization : String
+    , organization : Organization
     , termsAccepted : Bool
     }
 
@@ -134,31 +140,31 @@ decodeAccessTokenData =
 
 decodeOrganization : Decoder Organization
 decodeOrganization =
-    Decode.oneOf <|
-        -- decode business
-        (Decode.succeed (\_ name siren -> Business name siren)
-            |> JDP.required "type" (DU.decodeExpected Decode.string "business")
-            |> JDP.required "name" Decode.string
-            |> JDP.required "siren" decodeSiren
-        )
-            -- decode named entities
-            :: ([ ( "association", Association )
-                , ( "education", Education )
-                , ( "localAuthority", LocalAuthority )
-                , ( "media", Media )
-                , ( "public", Public )
-                ]
-                    |> List.map
-                        (\( orgString, orgType ) ->
-                            Decode.succeed (\_ name -> orgType name)
-                                |> JDP.required "type" (DU.decodeExpected Decode.string orgString)
-                                |> JDP.required "name" Decode.string
-                        )
-               )
-            -- decode individual
-            ++ [ Decode.succeed (always Individual)
-                    |> JDP.required "type" (DU.decodeExpected Decode.string "individual")
-               ]
+    -- decode business
+    (Decode.succeed (\_ name siren -> Business name siren)
+        |> JDP.required "type" (DU.decodeExpected Decode.string "business")
+        |> JDP.required "name" Decode.string
+        |> JDP.required "siren" decodeSiren
+    )
+        -- decode named entities
+        :: ([ ( "association", Association )
+            , ( "education", Education )
+            , ( "localAuthority", LocalAuthority )
+            , ( "media", Media )
+            , ( "public", Public )
+            ]
+                |> List.map
+                    (\( orgString, orgType ) ->
+                        Decode.succeed (\_ name -> orgType name)
+                            |> JDP.required "type" (DU.decodeExpected Decode.string orgString)
+                            |> JDP.required "name" Decode.string
+                    )
+           )
+        -- decode individual
+        ++ [ Decode.succeed (always Individual)
+                |> JDP.required "type" (DU.decodeExpected Decode.string "individual")
+           ]
+        |> Decode.oneOf
 
 
 decodeProfile : Decoder Profile
@@ -190,7 +196,7 @@ emptySignupForm =
     { email = ""
     , firstName = ""
     , lastName = ""
-    , organization = ""
+    , organization = Individual
     , termsAccepted = False
     }
 
@@ -237,43 +243,43 @@ encodeOrganization organization =
     case organization of
         Association name ->
             Encode.object
-                [ ( "type", Encode.string "association" )
+                [ ( "type", Encode.string <| organizationTypeToString organization )
                 , ( "name", Encode.string name )
                 ]
 
         Business name (Siren siren) ->
             Encode.object
-                [ ( "type", Encode.string "business" )
+                [ ( "type", Encode.string <| organizationTypeToString organization )
                 , ( "name", Encode.string name )
                 , ( "siren", Encode.string siren )
                 ]
 
         Education name ->
             Encode.object
-                [ ( "type", Encode.string "education" )
+                [ ( "type", Encode.string <| organizationTypeToString organization )
                 , ( "name", Encode.string name )
                 ]
 
         Individual ->
             Encode.object
-                [ ( "type", Encode.string "individual" )
+                [ ( "type", Encode.string <| organizationTypeToString organization )
                 ]
 
         LocalAuthority name ->
             Encode.object
-                [ ( "type", Encode.string "localAuthority" )
+                [ ( "type", Encode.string <| organizationTypeToString organization )
                 , ( "name", Encode.string name )
                 ]
 
         Media name ->
             Encode.object
-                [ ( "type", Encode.string "media" )
+                [ ( "type", Encode.string <| organizationTypeToString organization )
                 , ( "name", Encode.string name )
                 ]
 
         Public name ->
             Encode.object
-                [ ( "type", Encode.string "public" )
+                [ ( "type", Encode.string <| organizationTypeToString organization )
                 , ( "name", Encode.string name )
                 ]
 
@@ -294,7 +300,7 @@ encodeSignupForm form =
         [ ( "email", form.email |> Encode.string )
         , ( "firstName", form.firstName |> Encode.string )
         , ( "lastName", form.lastName |> Encode.string )
-        , ( "organization", form.organization |> Encode.string )
+        , ( "organization", form.organization |> encodeOrganization )
         , ( "termsAccepted", form.termsAccepted |> Encode.bool )
         ]
 
@@ -317,6 +323,139 @@ sirenToString (Siren siren) =
 sirenFromString : String -> Siren
 sirenFromString =
     Siren
+
+
+
+-- Helpers
+
+
+getOrganizationName : Organization -> Maybe String
+getOrganizationName organization =
+    case organization of
+        Association name ->
+            Just name
+
+        Business name _ ->
+            Just name
+
+        Education name ->
+            Just name
+
+        Individual ->
+            Nothing
+
+        LocalAuthority name ->
+            Just name
+
+        Media name ->
+            Just name
+
+        Public name ->
+            Just name
+
+
+updateOrganizationName : String -> Organization -> Organization
+updateOrganizationName name organization =
+    case organization of
+        Association _ ->
+            Association name
+
+        Business _ siren ->
+            Business name siren
+
+        Education _ ->
+            Education name
+
+        Individual ->
+            Individual
+
+        LocalAuthority _ ->
+            LocalAuthority name
+
+        Media _ ->
+            Media name
+
+        Public _ ->
+            Public name
+
+
+updateOrganizationSiren : String -> Organization -> Organization
+updateOrganizationSiren siren organization =
+    case organization of
+        Business name _ ->
+            Business name (sirenFromString siren)
+
+        _ ->
+            organization
+
+
+organizationTypes : List ( String, String )
+organizationTypes =
+    [ ( "association", "Association" )
+    , ( "business", "Entreprise" )
+    , ( "education", "Enseignant / Recherche / Etudiant" )
+    , ( "individual", "Particulier" )
+    , ( "localAuthority", "Collectivité ou EPCI" )
+    , ( "media", "Média" )
+    , ( "public", "Autre établissement public et État" )
+    ]
+
+
+updateOrganizationType : String -> Organization -> Organization
+updateOrganizationType type_ organization =
+    let
+        name =
+            getOrganizationName organization |> Maybe.withDefault ""
+    in
+    case type_ of
+        "association" ->
+            Association name
+
+        "business" ->
+            Business name (sirenFromString "")
+
+        "education" ->
+            Education name
+
+        "individual" ->
+            Individual
+
+        "localAuthority" ->
+            LocalAuthority name
+
+        "media" ->
+            Media name
+
+        "public" ->
+            Public name
+
+        _ ->
+            organization
+
+
+organizationTypeToString : Organization -> String
+organizationTypeToString organization =
+    case organization of
+        Association _ ->
+            "association"
+
+        Business _ _ ->
+            "business"
+
+        Education _ ->
+            "education"
+
+        Individual ->
+            "individual"
+
+        LocalAuthority _ ->
+            "localAuthority"
+
+        Media _ ->
+            "media"
+
+        Public _ ->
+            "public"
 
 
 
@@ -383,7 +522,6 @@ validateSiren siren =
 
 validateSignupForm : SignupForm -> FormErrors
 validateSignupForm form =
-    -- TODO: validate org type conditionnalities
     let
         isEmpty =
             String.trim >> String.isEmpty
@@ -394,14 +532,37 @@ validateSignupForm form =
     validateEmailForm form.email
         |> addFormErrorIf "firstName" requiredMsg (isEmpty form.firstName)
         |> addFormErrorIf "lastName" requiredMsg (isEmpty form.lastName)
-        |> addFormErrorIf "organization" requiredMsg (isEmpty form.organization)
+        |> addFormErrorIf "organization.name"
+            requiredMsg
+            (getOrganizationName form.organization
+                |> Maybe.map isEmpty
+                |> Maybe.withDefault False
+            )
+        |> addFormErrorFromResult "organization.siren"
+            (case form.organization of
+                Business _ (Siren siren) ->
+                    validateSiren siren
+
+                _ ->
+                    Ok (sirenFromString "")
+            )
         |> addFormErrorIf "termsAccepted" "Les CGU doivent être acceptées" (not form.termsAccepted)
 
 
-addFormErrorIf : comparable -> b -> Bool -> Dict comparable b -> Dict comparable b
+addFormErrorIf : String -> String -> Bool -> FormErrors -> FormErrors
 addFormErrorIf field msg check =
     if check then
         Dict.insert field msg
 
     else
         identity
+
+
+addFormErrorFromResult : String -> Result String a -> FormErrors -> FormErrors
+addFormErrorFromResult field result errors =
+    case result of
+        Err msg ->
+            addFormErrorIf field msg True errors
+
+        Ok _ ->
+            errors

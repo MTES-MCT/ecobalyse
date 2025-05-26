@@ -17,6 +17,7 @@ import Dict
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Json.Encode as Encode
 import Ports
 import RemoteData
 import Request.ApiToken as ApiTokenHttp
@@ -802,22 +803,7 @@ viewSignupForm signupForm formErrors =
                     ]
                 ]
             ]
-        , div [ class "mb-3" ]
-            [ label [ for "organization", class "form-label" ]
-                [ text "Organisation" ]
-            , input
-                [ type_ "text"
-                , class "form-control"
-                , classList [ ( "is-invalid", Dict.member "organization" formErrors ) ]
-                , id "organization"
-                , placeholder "ACME Inc."
-                , value signupForm.organization
-                , onInput <| \organization -> UpdateSignupForm { signupForm | organization = organization }
-                , required True
-                ]
-                []
-            , viewFieldError "organization" formErrors
-            ]
+        , viewOrganizationForm signupForm formErrors
         , div [ class "mb-3 form-check" ]
             [ input
                 [ type_ "checkbox"
@@ -844,6 +830,108 @@ viewSignupForm signupForm formErrors =
                 ]
                 [ text "Valider mon inscription" ]
             ]
+        , div [ class "d-grid" ]
+            [ pre []
+                [ signupForm
+                    |> User.encodeSignupForm
+                    |> Encode.encode 2
+                    |> text
+                ]
+            ]
+        ]
+
+
+viewOrganizationForm : SignupForm -> FormErrors -> Html Msg
+viewOrganizationForm signupForm formErrors =
+    div [ class "row" ]
+        [ div [ class "col-md-6" ]
+            [ div [ class "mb-3" ]
+                [ label [ for "organizationType", class "form-label" ]
+                    [ text "Type d'organisation" ]
+                , User.organizationTypes
+                    |> List.map
+                        (\( code, label ) ->
+                            option
+                                [ value code
+                                , selected <| code == User.organizationTypeToString signupForm.organization
+                                ]
+                                [ text label ]
+                        )
+                    |> select
+                        [ class "form-select"
+                        , id "organizationType"
+                        , onInput
+                            (\type_ ->
+                                UpdateSignupForm
+                                    { signupForm
+                                        | organization =
+                                            signupForm.organization
+                                                |> User.updateOrganizationType type_
+                                    }
+                            )
+                        ]
+                , viewFieldError "organization.type" formErrors
+                ]
+            ]
+        , if signupForm.organization == User.Individual then
+            text ""
+
+          else
+            div [ class "col-md-6" ]
+                [ div [ class "mb-3" ]
+                    [ label [ for "organization", class "form-label" ]
+                        [ text "Nom de l'organisation" ]
+                    , input
+                        [ type_ "text"
+                        , class "form-control"
+                        , classList [ ( "is-invalid", Dict.member "organization.name" formErrors ) ]
+                        , id "organization"
+                        , placeholder "ACME Inc."
+                        , User.getOrganizationName signupForm.organization
+                            |> Maybe.withDefault ""
+                            |> value
+                        , onInput <|
+                            \name ->
+                                UpdateSignupForm
+                                    { signupForm
+                                        | organization =
+                                            signupForm.organization
+                                                |> User.updateOrganizationName name
+                                    }
+                        , required True
+                        ]
+                        []
+                    , viewFieldError "organization.name" formErrors
+                    ]
+                ]
+        , case signupForm.organization of
+            User.Business _ siren ->
+                div [ class "d-grid mb-3" ]
+                    [ label [ for "siren", class "form-label" ]
+                        [ text "Numéro SIREN" ]
+                    , input
+                        [ type_ "text"
+                        , class "form-control"
+                        , classList [ ( "is-invalid", Dict.member "organization.siren" formErrors ) ]
+                        , id "siren"
+                        , placeholder "123456789"
+                        , value <| User.sirenToString siren
+                        , onInput <|
+                            \newSiren ->
+                                UpdateSignupForm
+                                    { signupForm
+                                        | organization =
+                                            signupForm.organization
+                                                |> User.updateOrganizationSiren newSiren
+                                    }
+                        , required True
+                        ]
+                        []
+                    , viewFieldError "organization.siren" formErrors
+                    ]
+
+            _ ->
+                text ""
         ]
 
 

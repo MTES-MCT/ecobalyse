@@ -1,6 +1,6 @@
 module Data.UserTest exposing (..)
 
-import Data.User as User
+import Data.User as User exposing (emptySignupForm)
 import Dict
 import Expect
 import Json.Decode as Decode
@@ -32,9 +32,10 @@ suite =
             ]
         , describe "decodeOrganization"
             [ it "should decode a business"
-                ("""{"type": "business", "name": "Ecobalyse", "siren": "110068012"}"""
+                ("""{"type": "business", "name": "Ecobalyse", "siren": "{siren}"}"""
+                    |> String.replace "{siren}" sampleValidSiren
                     |> Decode.decodeString User.decodeOrganization
-                    |> Expect.equal (Ok (User.Business "Ecobalyse" (User.sirenFromString "110068012")))
+                    |> Expect.equal (Ok (User.Business "Ecobalyse" (User.sirenFromString sampleValidSiren)))
                 )
             , it "should fail to decode a business with an invalid siren"
                 ("""{"type": "business", "name": "Ecobalyse", "siren": "invalid"}"""
@@ -73,16 +74,22 @@ suite =
                     |> Decode.decodeString User.decodeOrganization
                     |> Expect.equal (Ok (User.Public "Ministère de l'Ecologie"))
                 )
+            , it "should fail on unmatched expectation"
+                ("""{"type": "other"}"""
+                    |> Decode.decodeString User.decodeOrganization
+                    |> Result.mapError Decode.errorToString
+                    |> TU.expectResultErrorContains "Unmatched expected value"
+                )
             ]
         , describe "encodeOrganization"
             [ it "should encode a business"
-                (User.Business "Ecobalyse" (User.sirenFromString "110068012")
+                (User.Business "Ecobalyse" (User.sirenFromString sampleValidSiren)
                     |> User.encodeOrganization
                     |> Expect.equal
                         (Encode.object
                             [ ( "type", Encode.string "business" )
                             , ( "name", Encode.string "Ecobalyse" )
-                            , ( "siren", Encode.string "110068012" )
+                            , ( "siren", Encode.string sampleValidSiren )
                             ]
                         )
                 )
@@ -118,7 +125,7 @@ suite =
                 { email = "user@tld.org"
                 , firstName = "John"
                 , lastName = "Doe"
-                , organization = "Ecobalyse"
+                , organization = User.Public "Ecobalyse"
                 , termsAccepted = True
                 }
           in
@@ -139,31 +146,31 @@ suite =
                 (User.validateSignupForm { validForm | lastName = "" }
                     |> Expect.equal (Dict.singleton "lastName" "Le champ est obligatoire")
                 )
-            , it "should invalidate a signup form with an empty organization"
-                (User.validateSignupForm { validForm | organization = "" }
-                    |> Expect.equal (Dict.singleton "organization" "Le champ est obligatoire")
+            , it "should invalidate a signup form with an invalid organization"
+                (User.validateSignupForm { validForm | organization = User.Public "" }
+                    |> Expect.equal (Dict.singleton "organization.name" "Le champ est obligatoire")
                 )
             , it "should invalidate a signup form with termsAccepted set to False"
                 (User.validateSignupForm { validForm | termsAccepted = False }
                     |> Expect.equal (Dict.singleton "termsAccepted" "Les CGU doivent être acceptées")
                 )
             , it "should invalidate a signup form with several erroneous field values"
-                (User.validateSignupForm User.emptySignupForm
+                (User.validateSignupForm { emptySignupForm | organization = User.Business "" (User.sirenFromString sampleValidSiren) }
                     |> Expect.equal
                         (Dict.fromList
                             [ ( "email", "L'adresse e-mail est invalide" )
                             , ( "firstName", "Le champ est obligatoire" )
                             , ( "lastName", "Le champ est obligatoire" )
-                            , ( "organization", "Le champ est obligatoire" )
                             , ( "termsAccepted", "Les CGU doivent être acceptées" )
+                            , ( "organization.name", "Le champ est obligatoire" )
                             ]
                         )
                 )
             ]
         , describe "validateSiren"
             [ it "should validate a well-formed siren"
-                (User.validateSiren "110068012"
-                    |> Expect.equal (Ok (User.sirenFromString "110068012"))
+                (User.validateSiren sampleValidSiren
+                    |> Expect.equal (Ok (User.sirenFromString sampleValidSiren))
                 )
             , [ ( "732829321", "Le numéro SIREN est invalide" )
               , ( "12345678", "Le numéro SIREN doit contenir exactement 9 chiffres" )
@@ -171,15 +178,21 @@ suite =
               , ( "12345678a", "Le numéro SIREN ne doit contenir que des chiffres" )
               , ( "110068011", "Le numéro SIREN est invalide" )
               ]
-                |> List.indexedMap
-                    (\index ( input, expectedError ) ->
+                |> List.map
+                    (\( input, expectedError ) ->
                         User.validateSiren input
                             |> TU.expectResultErrorContains expectedError
-                            |> it ("# " ++ String.fromInt (index + 1) ++ " " ++ expectedError)
+                            |> it ("should discard " ++ input ++ " with error " ++ expectedError)
                     )
                 |> describe "should handle error messages"
             ]
         ]
+
+
+sampleValidSiren : String
+sampleValidSiren =
+    -- Note: MTE siret number
+    "110068012"
 
 
 userJson : String
