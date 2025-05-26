@@ -3,6 +3,7 @@ module Data.User exposing
     , FormErrors
     , Organization(..)
     , SignupForm
+    , Siren(..)
     , User
     , decodeAccessTokenData
     , decodeOrganization
@@ -16,6 +17,7 @@ module Data.User exposing
     , sirenToString
     , validateEmailForm
     , validateSignupForm
+    , validateSiren
     )
 
 import Data.Common.DecodeUtils as DU
@@ -135,7 +137,7 @@ decodeOrganization =
     Decode.oneOf <|
         -- decode business
         (Decode.succeed (\_ name siren -> Business name siren)
-            |> JDP.required "type" (DU.expectDecodedValue Decode.string "business")
+            |> JDP.required "type" (DU.decodeExpected Decode.string "business")
             |> JDP.required "name" Decode.string
             |> JDP.required "siren" decodeSiren
         )
@@ -149,13 +151,13 @@ decodeOrganization =
                     |> List.map
                         (\( orgString, orgType ) ->
                             Decode.succeed (\_ name -> orgType name)
-                                |> JDP.required "type" (DU.expectDecodedValue Decode.string orgString)
+                                |> JDP.required "type" (DU.decodeExpected Decode.string orgString)
                                 |> JDP.required "name" Decode.string
                         )
                )
             -- decode individual
             ++ [ Decode.succeed (always Individual)
-                    |> JDP.required "type" (DU.expectDecodedValue Decode.string "individual")
+                    |> JDP.required "type" (DU.decodeExpected Decode.string "individual")
                ]
 
 
@@ -180,7 +182,7 @@ decodeRole =
 decodeSiren : Decoder Siren
 decodeSiren =
     Decode.string
-        |> Decode.andThen (validateSiren_ >> DE.fromResult)
+        |> Decode.andThen (validateSiren >> DE.fromResult)
 
 
 emptySignupForm : SignupForm
@@ -332,14 +334,51 @@ validateEmailForm email =
             )
 
 
-validateSiren_ : String -> Result String Siren
-validateSiren_ siren =
-    -- TODO: improve validation
-    if String.length siren == 9 && String.all Char.isDigit siren then
-        Ok (Siren siren)
+{-| Validates a French SIREN number
+
+@see <https://fr.wikipedia.org/wiki/Syst%C3%A8me_d%27identification_du_r%C3%A9pertoire_des_entreprises>
+
+-}
+validateSiren : String -> Result String Siren
+validateSiren siren =
+    if String.length siren /= 9 then
+        Err "Le numéro SIREN doit contenir exactement 9 chiffres"
+
+    else if not (String.all Char.isDigit siren) then
+        Err "Le numéro SIREN ne doit contenir que des chiffres"
 
     else
-        Err "Le numéro SIREN est invalide"
+        let
+            digits =
+                siren
+                    |> String.toList
+                    |> List.map (String.fromChar >> String.toInt >> Maybe.withDefault 0)
+
+            sum =
+                digits
+                    |> List.indexedMap
+                        (\index digit ->
+                            if modBy 2 index == 1 then
+                                let
+                                    doubled =
+                                        digit * 2
+                                in
+                                if doubled > 9 then
+                                    doubled - 9
+
+                                else
+                                    doubled
+
+                            else
+                                digit
+                        )
+                    |> List.sum
+        in
+        if modBy 10 sum == 0 then
+            Ok (Siren siren)
+
+        else
+            Err "Le numéro SIREN est invalide"
 
 
 validateSignupForm : SignupForm -> FormErrors
