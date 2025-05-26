@@ -5,6 +5,7 @@ module Data.Session exposing
     , Session
     , Store
     , checkComparedSimulations
+    , clearNotifications
     , closeNotification
     , decodeRawStore
     , defaultStore
@@ -91,6 +92,11 @@ type Notification
     | GenericError String String
     | GenericInfo String String
     | StoreDecodingError Decode.Error
+
+
+clearNotifications : Session -> Session
+clearNotifications session =
+    { session | notifications = [] }
 
 
 closeNotification : Notification -> Session -> Session

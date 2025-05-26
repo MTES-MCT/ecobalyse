@@ -373,7 +373,7 @@ updateSignupTab session signupForm msg model =
             in
             if newFormErrors == Dict.empty then
                 ( newModel
-                , session
+                , session |> Session.clearNotifications
                 , Auth.signup session SignupResponse signupForm
                 )
 
