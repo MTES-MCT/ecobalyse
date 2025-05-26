@@ -528,7 +528,7 @@ viewOrganization organization =
 
         User.Business name siren ->
             div []
-                [ div [] [ text name ]
+                [ div [] [ text "Entreprise\u{00A0}: ", strong [] [ text name ] ]
                 , div [] [ text <| "Siren\u{00A0}: " ++ User.sirenToString siren ]
                 ]
 
