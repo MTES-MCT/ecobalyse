@@ -487,7 +487,7 @@ viewAccount { accessTokenData, user } =
                 Nothing
           , Just ( "Nom", text user.profile.lastName )
           , Just ( "Prénom", text user.profile.firstName )
-          , Just ( "Organisation", text user.profile.organization )
+          , Just ( "Organisation", viewOrganization user.profile.organization )
 
           -- FIXME: remove this before shipping to production; right now this is useful for debugging
           , if user.isSuperuser then
@@ -517,6 +517,34 @@ viewAccount { accessTokenData, user } =
                 [ text "Déconnexion" ]
             ]
         ]
+
+
+viewOrganization : User.Organization -> Html Msg
+viewOrganization organization =
+    case organization of
+        User.Association name ->
+            text <| "Association\u{00A0}: " ++ name
+
+        User.Business name siren ->
+            div []
+                [ div [] [ text name ]
+                , div [] [ text <| "Siren\u{00A0}: " ++ User.sirenToString siren ]
+                ]
+
+        User.Education name ->
+            text <| "Établissement\u{00A0}: " ++ name
+
+        User.Individual ->
+            text "Particulier"
+
+        User.LocalAuthority name ->
+            text <| "Collectivité\u{00A0}: " ++ name
+
+        User.Media name ->
+            text <| "Média\u{00A0}: " ++ name
+
+        User.Public name ->
+            text <| "Établissement public\u{00A0}: " ++ name
 
 
 viewApiTokenCreated : Token -> Html Msg
@@ -698,7 +726,7 @@ viewMagicLinkForm email =
             [ button
                 [ type_ "submit"
                 , class "btn btn-primary"
-                , disabled <| email == "" || User.validateEmail email /= Dict.empty
+                , disabled <| email == "" || User.validateEmailForm email /= Dict.empty
                 ]
                 [ text "Recevoir un email de connexion" ]
             ]

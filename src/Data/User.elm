@@ -1,15 +1,20 @@
 module Data.User exposing
     ( AccessTokenData
     , FormErrors
+    , Organization(..)
     , SignupForm
     , User
     , decodeAccessTokenData
+    , decodeOrganization
     , decodeUser
     , emptySignupForm
     , encodeAccessTokenData
+    , encodeOrganization
     , encodeSignupForm
     , encodeUser
-    , validateEmail
+    , sirenFromString
+    , sirenToString
+    , validateEmailForm
     , validateSignupForm
     )
 
@@ -37,12 +42,41 @@ type alias User =
     }
 
 
+type alias AccessTokenData =
+    { accessToken : String
+    , expiresIn : Maybe Int
+    , refreshToken : Maybe String
+    , tokenType : String
+    }
+
+
 type alias Profile =
     { firstName : String
     , lastName : String
-    , organization : String
+    , organization : Organization
     , termsAccepted : Bool
     }
+
+
+type Organization
+    = -- Association
+      Association String
+      -- Entreprise
+    | Business String Siren
+      -- Enseignant/ Recherche/ Etudiant
+    | Education String
+      -- Particulier
+    | Individual
+      -- Collectivité ou EPCI
+    | LocalAuthority String
+      -- Media
+    | Media String
+      -- Autre établissement public et Etat
+    | Public String
+
+
+type Siren
+    = Siren String
 
 
 type alias Role =
@@ -62,20 +96,16 @@ type alias SignupForm =
     }
 
 
-type alias AccessTokenData =
-    { accessToken : String
-    , expiresIn : Maybe Int
-    , refreshToken : Maybe String
-    , tokenType : String
-    }
-
-
 type Id
     = Id Uuid
 
 
 type alias FormErrors =
     Dict String String
+
+
+
+-- Decoders
 
 
 decodeUser : Decoder User
@@ -91,12 +121,50 @@ decodeUser =
         |> JDP.required "roles" (Decode.list decodeRole)
 
 
+decodeAccessTokenData : Decoder AccessTokenData
+decodeAccessTokenData =
+    Decode.succeed AccessTokenData
+        |> JDP.required "access_token" Decode.string
+        |> DU.strictOptional "expires_in" Decode.int
+        |> DU.strictOptional "refresh_token" Decode.string
+        |> JDP.required "token_type" Decode.string
+
+
+decodeOrganization : Decoder Organization
+decodeOrganization =
+    Decode.oneOf <|
+        -- decode business
+        (Decode.succeed (\_ name siren -> Business name siren)
+            |> JDP.required "type" (DU.expectDecodedValue Decode.string "business")
+            |> JDP.required "name" Decode.string
+            |> JDP.required "siren" decodeSiren
+        )
+            -- decode named entities
+            :: ([ ( "association", Association )
+                , ( "education", Education )
+                , ( "localAuthority", LocalAuthority )
+                , ( "media", Media )
+                , ( "public", Public )
+                ]
+                    |> List.map
+                        (\( orgString, orgType ) ->
+                            Decode.succeed (\_ name -> orgType name)
+                                |> JDP.required "type" (DU.expectDecodedValue Decode.string orgString)
+                                |> JDP.required "name" Decode.string
+                        )
+               )
+            -- decode individual
+            ++ [ Decode.succeed (always Individual)
+                    |> JDP.required "type" (DU.expectDecodedValue Decode.string "individual")
+               ]
+
+
 decodeProfile : Decoder Profile
 decodeProfile =
     Decode.succeed Profile
         |> JDP.required "firstName" Decode.string
         |> JDP.required "lastName" Decode.string
-        |> JDP.required "organization" Decode.string
+        |> JDP.required "organization" decodeOrganization
         |> JDP.required "termsAccepted" Decode.bool
 
 
@@ -109,13 +177,10 @@ decodeRole =
         |> JDP.required "roleSlug" Decode.string
 
 
-decodeAccessTokenData : Decoder AccessTokenData
-decodeAccessTokenData =
-    Decode.succeed AccessTokenData
-        |> JDP.required "access_token" Decode.string
-        |> DU.strictOptional "expires_in" Decode.int
-        |> DU.strictOptional "refresh_token" Decode.string
-        |> JDP.required "token_type" Decode.string
+decodeSiren : Decoder Siren
+decodeSiren =
+    Decode.string
+        |> Decode.andThen (validateSiren_ >> DE.fromResult)
 
 
 emptySignupForm : SignupForm
@@ -146,6 +211,10 @@ encodeUser user =
         ]
 
 
+
+-- Encoders
+
+
 encodeId : Id -> Encode.Value
 encodeId (Id uuid) =
     Uuid.encoder uuid
@@ -156,9 +225,55 @@ encodeProfile profile =
     Encode.object
         [ ( "firstName", profile.firstName |> Encode.string )
         , ( "lastName", profile.lastName |> Encode.string )
-        , ( "organization", profile.organization |> Encode.string )
+        , ( "organization", profile.organization |> encodeOrganization )
         , ( "termsAccepted", profile.termsAccepted |> Encode.bool )
         ]
+
+
+encodeOrganization : Organization -> Encode.Value
+encodeOrganization organization =
+    case organization of
+        Association name ->
+            Encode.object
+                [ ( "type", Encode.string "association" )
+                , ( "name", Encode.string name )
+                ]
+
+        Business name (Siren siren) ->
+            Encode.object
+                [ ( "type", Encode.string "business" )
+                , ( "name", Encode.string name )
+                , ( "siren", Encode.string siren )
+                ]
+
+        Education name ->
+            Encode.object
+                [ ( "type", Encode.string "education" )
+                , ( "name", Encode.string name )
+                ]
+
+        Individual ->
+            Encode.object
+                [ ( "type", Encode.string "individual" )
+                ]
+
+        LocalAuthority name ->
+            Encode.object
+                [ ( "type", Encode.string "localAuthority" )
+                , ( "name", Encode.string name )
+                ]
+
+        Media name ->
+            Encode.object
+                [ ( "type", Encode.string "media" )
+                , ( "name", Encode.string name )
+                ]
+
+        Public name ->
+            Encode.object
+                [ ( "type", Encode.string "public" )
+                , ( "name", Encode.string name )
+                ]
 
 
 encodeRole : Role -> Encode.Value
@@ -192,8 +307,22 @@ encodeAccessTokenData v =
         ]
 
 
-validateEmail : String -> FormErrors
-validateEmail email =
+sirenToString : Siren -> String
+sirenToString (Siren siren) =
+    siren
+
+
+sirenFromString : String -> Siren
+sirenFromString =
+    Siren
+
+
+
+-- Validation
+
+
+validateEmailForm : String -> FormErrors
+validateEmailForm email =
     Dict.empty
         |> addFormErrorIf "email"
             "L'adresse e-mail est invalide"
@@ -203,8 +332,19 @@ validateEmail email =
             )
 
 
+validateSiren_ : String -> Result String Siren
+validateSiren_ siren =
+    -- TODO: improve validation
+    if String.length siren == 9 && String.all Char.isDigit siren then
+        Ok (Siren siren)
+
+    else
+        Err "Le numéro SIREN est invalide"
+
+
 validateSignupForm : SignupForm -> FormErrors
 validateSignupForm form =
+    -- TODO: validate org type conditionnalities
     let
         isEmpty =
             String.trim >> String.isEmpty
@@ -212,7 +352,7 @@ validateSignupForm form =
         requiredMsg =
             "Le champ est obligatoire"
     in
-    validateEmail form.email
+    validateEmailForm form.email
         |> addFormErrorIf "firstName" requiredMsg (isEmpty form.firstName)
         |> addFormErrorIf "lastName" requiredMsg (isEmpty form.lastName)
         |> addFormErrorIf "organization" requiredMsg (isEmpty form.organization)
