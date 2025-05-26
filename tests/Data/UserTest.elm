@@ -32,15 +32,15 @@ suite =
             ]
         , describe "decodeOrganization"
             [ it "should decode a business"
-                ("""{"type": "business", "name": "Ecobalyse", "siren": "123456789"}"""
+                ("""{"type": "business", "name": "Ecobalyse", "siren": "110068012"}"""
                     |> Decode.decodeString User.decodeOrganization
-                    |> Expect.equal (Ok (User.Business "Ecobalyse" (User.sirenFromString "123456789")))
+                    |> Expect.equal (Ok (User.Business "Ecobalyse" (User.sirenFromString "110068012")))
                 )
             , it "should fail to decode a business with an invalid siren"
                 ("""{"type": "business", "name": "Ecobalyse", "siren": "invalid"}"""
                     |> Decode.decodeString User.decodeOrganization
                     |> Result.mapError Decode.errorToString
-                    |> TU.expectResultErrorContains "Le numéro SIREN est invalide"
+                    |> TU.expectResultErrorContains "exactement 9 chiffres"
                 )
             , it "should decode an individual"
                 ("""{"type": "individual"}"""
@@ -69,9 +69,22 @@ suite =
                     |> Expect.equal (Ok (User.Media "Le Monde"))
                 )
             , it "should decode a public organization"
-                ("""{"type": "public", "name": "Ministère de l'Éducation nationale"}"""
+                ("""{"type": "public", "name": "Ministère de l'Ecologie"}"""
                     |> Decode.decodeString User.decodeOrganization
-                    |> Expect.equal (Ok (User.Public "Ministère de l'Éducation nationale"))
+                    |> Expect.equal (Ok (User.Public "Ministère de l'Ecologie"))
+                )
+            ]
+        , describe "encodeOrganization"
+            [ it "should encode a business"
+                (User.Business "Ecobalyse" (User.sirenFromString "110068012")
+                    |> User.encodeOrganization
+                    |> Expect.equal
+                        (Encode.object
+                            [ ( "type", Encode.string "business" )
+                            , ( "name", Encode.string "Ecobalyse" )
+                            , ( "siren", Encode.string "110068012" )
+                            ]
+                        )
                 )
             ]
         , describe "validateEmail"
@@ -147,6 +160,25 @@ suite =
                         )
                 )
             ]
+        , describe "validateSiren"
+            [ it "should validate a well-formed siren"
+                (User.validateSiren "110068012"
+                    |> Expect.equal (Ok (User.sirenFromString "110068012"))
+                )
+            , [ ( "732829321", "Le numéro SIREN est invalide" )
+              , ( "12345678", "Le numéro SIREN doit contenir exactement 9 chiffres" )
+              , ( "1234567890", "Le numéro SIREN doit contenir exactement 9 chiffres" )
+              , ( "12345678a", "Le numéro SIREN ne doit contenir que des chiffres" )
+              , ( "110068011", "Le numéro SIREN est invalide" )
+              ]
+                |> List.indexedMap
+                    (\index ( input, expectedError ) ->
+                        User.validateSiren input
+                            |> TU.expectResultErrorContains expectedError
+                            |> it ("# " ++ String.fromInt (index + 1) ++ " " ++ expectedError)
+                    )
+                |> describe "should handle error messages"
+            ]
         ]
 
 
@@ -163,7 +195,7 @@ userJson =
         "profile": {
             "firstName": "John",
             "lastName": "Doe",
-            "organization": {"type": "association", "name": "Ecobalyse"},
+            "organization": {"type": "public", "name": "Ecobalyse"},
             "termsAccepted": true
         },
         "roles": []
