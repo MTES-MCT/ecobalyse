@@ -210,11 +210,16 @@ const getProcesses = async (headers, customProcessesImpacts, customProcesses) =>
   const token = extractTokenFromHeaders(headers);
 
   if (token) {
-    const tokenRes = await fetch(`${BACKEND_API_URL}/api/tokens/validate`, {
-      method: "POST",
-      body: JSON.stringify({ token }),
-    });
-    isValidToken = tokenRes.status == 201;
+    try {
+      const tokenRes = await fetch(`${BACKEND_API_URL}/api/tokens/validate`, {
+        method: "POST",
+        body: JSON.stringify({ token }),
+      });
+      isValidToken = tokenRes.status == 201;
+    } catch (error) {
+      console.error("Error validating token from the auth backend", error);
+      isValidToken = false;
+    }
   }
 
   if (NODE_ENV === "test" || isValidToken) {
