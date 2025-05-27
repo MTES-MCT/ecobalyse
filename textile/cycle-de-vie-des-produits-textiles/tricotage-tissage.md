@@ -4,19 +4,17 @@ description: 'keywords : fabricProcess'
 
 # 🪢 Etape 3 - Fabrication de l'étoffe
 
-## Description
+## Contexte
 
 La fabrication d’une étoffe consiste à enchevêtrer des fils/fibres/filaments selon des techniques variées.&#x20;
 
 On distingue généralement trois grandes catégories de textiles :&#x20;
 
-* les textiles tissés (Tissage)
-* les textiles tricotés (Tricotage)
-* les textiles non-tissés (Autre)
+* les textiles tissés&#x20;
+* les textiles tricotés&#x20;
+* les textiles non-tissés&#x20;
 
-Ecobalyse permet aujourd'hui de modéliser les textiles tissés et tricotés.&#x20;
-
-### Focus Tissage
+### Tissage
 
 Le tissage est le procédé d’assemblage des fils sur un métier à tisser, permettant d’obtenir un tissu chaîne et trame. Il consiste à entrecroiser les fils de chaîne (verticaux) et les fils de trame (horizontaux).&#x20;
 
@@ -34,7 +32,7 @@ Une contexture est formulée comme suit : 30 x 27 Nm 56/50 :&#x20;
 
 * 30 étant le nombre de fils de chaîne dans 1 centimètre,
 * 27 étant le nombre de fils de trame dans 1 centimètre,
-* Nm l'abréviation de « numéro métrique »,
+* Nm : numéro métrique (correspondant à m/g)
 * 56 le titre des fils de chaîne,
 * 50 le titre des fils de trame.
 
@@ -67,7 +65,7 @@ Les types d'insertion de trame varient selon les métiers : \
 
 </details>
 
-### Focus Tricotage
+### Tricotage
 
 Le tricotage est une technique de fabrication des étoffes où s’entrelacent des boucles de fils (appelées mailles) à l’aide d’aiguilles. L’ensemble des mailles constitue le tricot qui est une étoffe extensible car les mailles peuvent se déformer.
 
@@ -75,7 +73,7 @@ Il existe deux grandes familles qui se distinguent par le mode de liaison des ma
 
 * le tricotage à mailles cueillies (ou tricots « trame »)\
   Ces tricots utilisent qu'un seul fil et sont fréquemment utilisés dans les sous-vêtements, t-shirts, pulls et chaussettes.
-* le tricotage à mailles jetéee (ou tricots « chaîne » ou tricots « indémaillables »)\
+* le tricotage à mailles jetées (ou tricots « chaîne » ou tricots « indémaillables »)\
   Ces tricots s'obtiennent par le tricotage simultané de plusieurs fils et sont fréquemment utilisés pour les vêtements de sport, les maillots de bain et la lingerie.
 
 Le terme liage (ou point) est utilisé pour spécifier la manière dont s’entrelacent les fils dans les étoffes . Il s’agit de l’équivalence de l’armure en tissage. \
@@ -92,7 +90,7 @@ Il n'emploie qu’un seul fil issu d’une bobine pour former des boucles et tra
 
 
 
-**Tricotage à mailles jetée (ou tricots « chaîne » ou tricots « indémaillables »)**\
+**Tricotage à mailles jetées (ou tricots « chaîne » ou tricots « indémaillables »)**\
 Il s'obtient par le tricotage simultané de 2000 à 3000 fils issus d’ensouples et travaille dans le sens des colonnes (longueur de l’étoffe). Ces tricots sont indémaillables. Les vêtements de sport, maillots de bain et lingerie sont généralement en mailles jetées.&#x20;
 
 ![](<../../.gitbook/assets/image (136).png>)
@@ -128,7 +126,7 @@ Chacun de ces machines est équipée d’une jauge qui détermine la finesse du 
 
 </details>
 
-### Focus Autre (non tissé)
+### Non-tissés
 
 Les étoffes non tissées se définissent par l'agencement de leurs fibres disposées le plus souvent de manière aléatoire. Ces fibres enchevêtrées subissent ensuite un traitement (mécanique, physique ou chimique) pour les lier les unes aux autres par friction, cohésion ou adhésion.&#x20;
 
@@ -151,7 +149,62 @@ Ces étoffes sont notamment appréciées dans les secteurs de la construction, d
 
 </details>
 
-## Modélisation Ecobalyse
+## Méthode de calcul
+
+L’étape _Fabrication de l'étoffe_ mobilise uniquement une consommation d'électricité propre à chaque procédé.&#x20;
+
+L’impact global de cette étape (tissage ou tricotage) se comprend donc comme l'impact électricité qui s'exprime ainsi :&#x20;
+
+$$
+Impact Etoffe = ImpactElec = kWh * MixElectriquePays
+$$
+
+{% hint style="warning" %}
+Remarque : les autres flux mobilisés lors des procédés de tissage ou tricotage (ex : huiles/lubrifiants, encollage, etc.) sont apparus comme mineurs dans le cadre de nos travaux (contribution inférieure à 5% de l'impact total du procédé) ce qui explique cette méthode de calcul.&#x20;
+{% endhint %}
+
+#### Calcul de la quantité d'électricité (kWh)&#x20;
+
+{% tabs %}
+{% tab title="Tissu" %}
+Hypothèse 1 : Taux embuvage et retrait = 8% \
+Hypothèse 2 : Densité de fils équivalente en chaîne et trame
+
+$$kWh = Duites.m * 0,0003145$$
+
+$$kWh = Densité (fils/cm) * 100 * Surface (m2)   * 0,0003145$$
+
+$$
+Densité (fils/cm) = Grammage (g/m2) * Titrage (Nm)  / 1,08 / 2 / 100
+$$
+
+$$
+Surface(m2) = MasseSortanteTissage(g) / Grammage(g/m2)
+$$
+
+Ainsi, en simplifiant l'équation suivante, la formule finale est :&#x20;
+
+$$kWh = Grammage (g/m2) * Titrage (Nm) / 1,08 / 2 *MasseSortanteTissage(g)/ Grammage(g/m2)*0,0003145$$
+
+Exemple : Robe / poids 300g / tissu 200g/m2 / fil 40 Nm / tissu à produire 375g : \
+$$kWh = 200 * 40  /1,08/2*375/200*0,0003145=2,18$$
+
+:bulb: La valeur de 0,0003145 kWh / duites.m est reprise du socle technique Base Impacts (ADEME).
+{% endtab %}
+
+{% tab title="Tricot" %}
+kWh = Poids étoffe sortante (kg) \* Procédé mobilisé (kWh/kg)
+
+Procédés disponibles :\
+\- tricotage rectiligne : 1,2 kWh/kg\
+\- tricotage circulaire 1,2 kWh/kg\
+\- tricotage fully-fashioned / seamless : 1,7 kWh/kg\
+\- tricotage intégral / whole garment (3D) : 3,7 kWh/kg\
+\- tricotage moyen (par défaut) : 2,4 kWh/kg&#x20;
+
+Les quantité d'électricité proposées par défaut ont été reprises des données Base Impacts. Une revue bibliographique ainsi que de nombreuses interviews avec les industriels ont été menés en 2023 afin de préciser ces données. Cependant, peu de données fiables par type de procédé ont été remontés.
+{% endtab %}
+{% endtabs %}
 
 ### Paramètres mobilisés&#x20;
 
@@ -247,65 +300,6 @@ Ce paramètre est critique car il impacte d'autant la quantité de fil/matière 
 Une valeur par défaut de 8% est appliquée dans le calculateur pour ces deux paramètres.
 
 </details>
-
-### Méthodologie de calcul
-
-L’étape _Fabrication de l'étoffe_ mobilise uniquement une consommation d'électricité propre à chaque procédé.&#x20;
-
-L’impact global de cette étape (tissage ou tricotage) se comprend donc comme l'impact électricité qui s'exprime ainsi :&#x20;
-
-$$
-Impact Etoffe = ImpactElec = kWh * MixElectriquePays
-$$
-
-{% hint style="warning" %}
-Remarque : les autres flux mobilisés lors des procédés de tissage ou tricotage (ex : huiles/lubrifiants, encollage, etc.) sont apparus comme significatifs dans le cadre de nos travaux (contribution inférieure à 5% de l'impact total du procédé) ce qui explique cette méthode de calcul.&#x20;
-{% endhint %}
-
-#### Calcul de la quantité d'électricité (kWh)&#x20;
-
-{% tabs %}
-{% tab title="Tissu" %}
-Hypothèse 1 : Taux embuvage et retrait = 8% \
-Hypothèse 2 : Densité de fils équivalente en chaîne et trame
-
-$$kWh = Duites.m * 0,0003145$$
-
-$$kWh = Densité (fils/cm) * 100 * Surface (m2)   * 0,0003145$$
-
-$$
-Densité (fils/cm) = Grammage (g/m2) * Titrage (Nm)  / 1,08 / 2 / 100
-$$
-
-$$
-Surface(m2) = MasseSortanteTissage(g) / Grammage(g/m2)
-$$
-
-Ainsi, en simplifiant l'équation suivante, la formule finale est :&#x20;
-
-$$kWh = Grammage (g/m2) * Titrage (Nm) / 1,08 / 2 *MasseSortanteTissage(g)/ Grammage(g/m2)*0,0003145$$
-
-Exemple : Robe / poids 300g / tissu 200g/m2 / fil 40 Nm / tissu à produire 375g : \
-$$kWh = 200 * 40  /1,08/2*375/200*0,0003145=2,18$$
-
-:bulb: La valeur de 0,0003145 kWh / duites.m est reprise du socle technique Base Impacts (ADEME).
-{% endtab %}
-
-{% tab title="Tricot" %}
-kWh = Poids étoffe sortante (kg) \* Procédé mobilisé (kWh/kg)
-
-Procédés disponibles :\
-\- tricotage rectiligne : 1,2 kWh/kg\
-\- tricotage circulaire 1,2 kWh/kg\
-\- tricotage fully-fashioned / seamless : 1,7 kWh/kg\
-\- tricotage intégral / whole garment (3D) : 3,7 kWh/kg\
-\- tricotage moyen (par défaut) : 2,4 kWh/kg&#x20;
-
-Les quantité d'électricité proposées par défaut ont été reprises des données Base Impacts. Une revue bibliographique ainsi que de nombreuses interviews avec les industriels ont été menés en 2023 afin de préciser ces données. Cependant, peu de données fiables par type de procédé ont été remontés.
-{% endtab %}
-{% endtabs %}
-
-
 
 ### Hypothèses par défaut&#x20;
 
