@@ -78,12 +78,12 @@ _"Pour un déplacement "Turquie-France", le transport terrestre-maritime sera fa
 
 ### Part du transport aérien
 
-Une part de transport aérien est considérée, :
+Une part de transport aérien est considérée, comme paramètre optionnel :
 
 * Seulement pour le transport entre la confection et l'entrepôt (étape #5 ci-dessus)
 * Cette part n'est considérée que lorsque la confection est réalisée hors Europe (ou Turquie). Pour mémo, il est considéré que l'entrepôt est en France (cf. [Distribution](../cycle-de-vie-des-produits-textiles/distribution.md))
 
-La part de **transport aérien (`a`)**, par rapport au transport "aérien + terrestre + maritime" est considérée comme suit pour la valeur par défaut: &#x20;
+La part de **transport aérien (`a`)**, par rapport au transport "aérien + terrestre + maritime" est considérée comme suit pour la **valeur par défaut**: &#x20;
 
 **Si le coefficient de durabilité est > 1**
 
@@ -102,9 +102,9 @@ Le curseur "part du transport aérien", proposé sous l'étape "confection" perm
 {% endhint %}
 
 {% hint style="info" %}
-**L'aérien est-il un mode de transport privilégié pour les acteurs Textile ?**
+**L'aérien est-il un mode de transport privilégié pour les acteurs de l'habillement ?**
 
-Une récente étude de l'ONG suisse "Public Eye" parue fin 2023 met en lumière l'importance du secteur Textile dans le fret aérien. De manière générale, peu de données précises sont disponibles sur ces pratiques car les entreprises Textile sont discrètes à ce sujet.
+Une récente [étude de l'ONG suisse "Public Eye" parue fin 2023 ](https://www.publiceye.ch/fr/thematiques/industrie-textile/en-mode-avion-zara-attise-la-crise-climatique)met en lumière l'importance du secteur Textile dans le fret aérien. De manière générale, peu de données précises sont disponibles sur ces pratiques car les entreprises Textile sont discrètes à ce sujet.
 
 Quelques enseignements clés de l'étude :&#x20;
 
@@ -112,8 +112,6 @@ Quelques enseignements clés de l'étude :&#x20;
 * Shein a signé un partenariat stratégique avec China Southern Airlines afin d'optimiser ses flux logistiques aériens,
 * Le groupe espagnol Inditex (propriétaire de Zara) affrète près de 1,600 vols par an depuis l'aéroport de Saragosse,
 * Même au sein de l’UE, où le fret aérien n’offre qu’un faible avantage en termes de temps, des vêtements sont tout de même transportés par avion (en 2022, il s’agissait d’au moins 42 658 tonnes).
-
-L'article complet est accessible ici => [https://www.publiceye.ch/fr/thematiques/industrie-textile/en-mode-avion-zara-attise-la-crise-climatique](https://www.publiceye.ch/fr/thematiques/industrie-textile/en-mode-avion-zara-attise-la-crise-climatique)
 {% endhint %}
 
 ## Distances
