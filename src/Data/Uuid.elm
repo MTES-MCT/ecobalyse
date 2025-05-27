@@ -25,9 +25,10 @@ encoder =
     Uuid.encode
 
 
-fromString : String -> Maybe Uuid
+fromString : String -> Result String Uuid
 fromString =
     Uuid.fromString
+        >> Result.fromMaybe "UUIDinvalide"
 
 
 toString : Uuid -> String

@@ -69,7 +69,7 @@ forScope scope =
 
 parseUuid : Parser (Uuid -> a) a
 parseUuid =
-    Parser.custom "EXAMPLE" Uuid.fromString
+    Parser.custom "EXAMPLE" (Uuid.fromString >> Result.toMaybe)
 
 
 toCategory : List (Example query) -> query -> String

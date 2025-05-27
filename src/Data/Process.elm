@@ -147,11 +147,8 @@ encodeSourceId =
 
 
 idFromString : String -> Result String Id
-idFromString str =
-    str
-        |> Uuid.fromString
-        |> Result.fromMaybe ("Identifiant invalide : " ++ str)
-        |> Result.map Id
+idFromString =
+    Uuid.fromString >> Result.map Id
 
 
 idToString : Id -> String
