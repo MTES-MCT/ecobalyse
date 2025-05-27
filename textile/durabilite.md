@@ -16,7 +16,9 @@ Plus un vêtement est porté, plus son impact est faible
 
 La prise en compte de la durabilité doit permettre d'introduire une estimation du nombre d'utilisation de chaque vêtement dans la modélisation du coût environnemental.
 
-## Quelles sont les dimensions de la durabilité ? Lesquelles sont prises en compte ?
+## Contexte
+
+### Quelles sont les dimensions de la durabilité ?&#x20;
 
 Deux principales dimensions sont généralement considérées pour apprécier la durabilité d'un vêtement :&#x20;
 
@@ -25,36 +27,36 @@ Deux principales dimensions sont généralement considérées pour apprécier la
 
 Ces deux dimensions sont mises en avant dans différents travaux à l'échelle européenne:
 
-> Parlement Européen - Résolution sur la stratégie textile durable (juin 2023) : \
-> "_Calls on the Commission and the Member States to ensure that the policy framework on textiles takes a holistic view of durability, including both the physical and the emotional durability of textile products put on the market, which describes the garment design that takes into account long-term relevance and desirability to consumers, as clothing represents a cultural value_"
-
-> Secrétariat technique du PEFCR Apparel & Footwear (juin 2023) : \
-> "_\[Acknowledges] that product lifetime in Apparel & Footwear is subject to three influences:_
+> PEFCR APPAREL & FOTTWEAR
 >
-> _a.the intrinsic durability of the product_\
-> _b.the extrinsic durability and_\
-> _c.the reparability of the product_"
+> "Product lifetime is estimated by assessing:
+>
+> i. The intrinsic durability of a product – product-specific attributes that contribute> \
+> to its potential lifetime (e.g. physical toughness and design features);
+>
+> ii. Extrinsic durability attributes - external factors that influence the likelihood of a> \
+> product reaching its potential lifetime;
+>
+> iii. The repairability potential of the product."
 
-&#x20;La durabilité physique fait par ailleurs l'objet de travaux dans le cadre du projet de PEFCR Apparel & Footwear, en s'appuyant notamment sur le projet Durhabi porté par l'IFTH, en lien avec de nombreux acteurs en France et avec le soutien de l'Ademe.
-
-{% hint style="danger" %}
-Dans un premier temps, seule la durabilité non physique est considérée dans le cadre du mode réglementaire d'Ecobalyse.
-{% endhint %}
+&#x20;Dans un premier temps, seule la durabilité non physique est considérée dans le cadre du mode réglementaire d'Ecobalyse.
 
 {% hint style="info" %}
 **Travaux sur la durabilité physique**\
-Les travaux sur la durabilité physique se poursuivent, en particulier au sein du secrétariat technique du [PEFCR Apparel & Footwear](https://pefapparelandfootwear.eu/) qui s'appuie notamment sur les résultats du projet [Durhabi](https://www.ifth.org/services/durhabi/) piloté par l'[IFTH](https://www.ifth.org/) et qui a associé de nombreux acteurs français.\
-Afin de préparer l'intégration future de la durabilité physique dans le mode réglementaire, celle-ci est intégrée, par anticipation, dans le mode exploratoire d'Ecobalyse. Elle est proposé à partir d'un sélecteur de valeur du coefficient qui peut aller de 0,67 à 1,45, soit la plage de valeurs prévue pour l'IQM (Intrinsic Quality Multiplier) dans le projet de PEFCR Apparel & Footwear v2.0. La valeur de ce coefficient est celle qui découle des tests prévus dans le projet de PEFCR.
+Les travaux sur la durabilité physique sont inclus dans le  [PEFCR Apparel & Footwear](https://pefapparelandfootwear.eu/wp-content/uploads/2025/05/AFW_PEFCR_v3.1_final.zip) qui s'appuie notamment sur les résultats du projet [Durhabi](https://www.ifth.org/services/durhabi/) piloté par l'[IFTH](https://www.ifth.org/) et qui a associé de nombreux acteurs français.\
+Afin de préparer l'intégration future de la durabilité physique dans le mode réglementaire, celle-ci est intégrée, par anticipation, dans le mode exploratoire d'Ecobalyse. Elle est proposé à partir d'un sélecteur de valeur du coefficient qui peut aller de 0,67 à 1,45, soit la plage de valeurs prévue pour l'IQM (Intrinsic Quality Multiplier) dans le PEFCR Apparel & Footwear.&#x20;
 
 \
 Pour combiner les deux dimension de la durabilité, la formule suivante est considérée en première approche :\
 **Durabilité\_Holistique = min (Durabilité\_Physique ; Durabilité\_NonPhysique)**\
 \
-Cette formule traduit l'idée qu'un vêtement arrive en fin de vie, soit pour une cause d'usure physique soit pour une cause non physique. C'est donc bien la dimension la plus limitante qui définierait la durée moyenne d'utilisation modélisée.\
-&#xNAN;_&#x43;ette proposition est une simple base de travail qui appelle des échanges au sein de groupe de travail qui doit être mis en place  et qui devra travailler en lien avec le secrétariat technique du PEFCR Apparel & Footwear._
+Cette formule traduit l'idée qu'un vêtement arrive en fin de vie, soit pour une cause d'usure physique soit pour une cause non physique. C'est donc bien la dimension la plus limitante qui définirait la durée moyenne d'utilisation modélisée.\
+&#xNAN;_&#x43;ette proposition est une simple base de travail qui appelle des échanges au sein de groupe de travail qui doit être mis en place._
 {% endhint %}
 
-## Calcul du coût environnemental
+## Méthode de calcul&#x20;
+
+### Calcul du coût environnemental
 
 Pour chaque vêtement, un **coefficient de durabilité** $$C_{Durabilité}$$ est établi. Sa valeur est comprise entre **0.67** pour les produits les moins durables et **1.45** pour les produits les plus durables.
 
@@ -74,7 +76,7 @@ Exemple :&#x20;
 * Si $$C_{Durabilité} = Coef_{min}=0.67$$, le coût environnemental est augmenté (+50% environ)
 * Si $$C_{Durabilité} = Coef_{max}=1.45$$, le coût environnemental est diminué (-30% environ)
 
-## Calcul du coefficient de durabilité $$C_{Durabilité}$$
+### Calcul du coefficient de durabilité $$C_{Durabilité}$$
 
 Le coefficient de durabilité est établi à partir de 3 critères avec les $$Poids_{critère}$$ comme suit :&#x20;
 
@@ -96,9 +98,9 @@ Ou aussi&#x20;
 
 $$C_{Durabilité} = 0.67 + (1,45-0,67)*( 0.4*I_{incitation réparation} +  0.4*I_{largeur de gamme} + 0.2*I_{affichage tracabilité}$$
 
-## Largeur de gamme
+### Largeur de gamme
 
-### Définition
+#### Définition
 
 **La largeur de gamme désigne le nombre maximal de références proposées par une marque sur le segment de marché de la référence de produits considérée**.
 
@@ -145,7 +147,7 @@ Les largeurs de gamme à considérer sont alors (cf. tableau ci-dessous) :\
 
 <figure><img src="../.gitbook/assets/image (313).png" alt=""><figcaption></figcaption></figure>
 
-### Formule de calcul
+#### Formule de calcul
 
 L'indice "largeur de gamme" prend les valeurs suivantes :&#x20;
 
@@ -158,9 +160,9 @@ L'indice "largeur de gamme" prend les valeurs suivantes :&#x20;
 
 <figure><img src="../.gitbook/assets/image (18).png" alt=""><figcaption></figcaption></figure>
 
-## Incitation à la réparation (1/2)
+### Incitation à la réparation (1/2)
 
-### Définition
+#### Définition
 
 **L'incitation à la réparation, pour sa première composante, s'appuie sur le rapport entre le coût moyen de réparation et un prix de vente de référence.** Ce paramètre est spécifique à chaque produit.
 
@@ -191,7 +193,7 @@ Des précisions seront prochainement apportées sur la définition du prix de ve
 | Sous-vêtements       | 9€                       |
 | Accessoires          | 9€                       |
 
-### Formule de calcul
+#### Formule de calcul
 
 L'indice "incitation à la réparation", pour sa première composante, prend les valeurs suivantes :&#x20;
 
@@ -203,9 +205,9 @@ Application au cas du T-shirt, avec un coût moyen de réparation de 10€ :&#x2
 
 <figure><img src="../.gitbook/assets/image (9) (1).png" alt=""><figcaption><p>Indice "incitation à la réparation" (partie 1/2) en fonction du prix de vente d'un Tshirt</p></figcaption></figure>
 
-## Incitation à la réparation (2/2)
+### Incitation à la réparation (2/2)
 
-### Définition
+#### Définition
 
 * Ce critère n'est pas considéré pour les vêtements dont les marques sont des PME et TPE. Il est en effet considéré qu'il est plus difficile pour une PME ou une TPE de proposer un tel service et, par conséquent, que la réparation des vêtements devrait prioritairement être assurée par des tiers.
 * Les exigences minimales attendues d'un service de réparation sont à préciser.
@@ -215,7 +217,7 @@ Précisions :&#x20;
 
 Outre le rapport entre le coût de réparation et le prix neuf, la mise à disposition d'un service de réparation est de nature à augmenter la probabilité qu'un vêtement soit réparé.
 
-### Formule de calcul
+#### Formule de calcul
 
 {% hint style="info" %}
 **Qu'est-ce qu'une PME ?**\
@@ -242,9 +244,9 @@ $$
 I_{incitationréparation} = 0,66 * I_{1/2} + 0,33 * I_{2/2}
 $$
 
-## Affichage de la traçabilité
+### Affichage de la traçabilité
 
-### Définition
+#### Définition
 
 L'affichage de la traçabilité, c'est à dire sa présentation au consommateur au moment de l'acte d'achat, est de nature à augmenter l'attachement du consommateur pour le vêtement, et donc sa durabilité. L'affichage de la traçabilité est susceptible de différer suivant les produits, parfois au sein d'une même marque.
 
@@ -255,7 +257,7 @@ Précisions :&#x20;
 * &#x20;S’agissant des marques disposant d’un site internet et pour les références commercialisées sur ce site, le critère d’affichage de la traçabilité est rempli si les étapes de production mentionnées dans le décret du 29 avril 2022 relatif à l’information du consommateur (tissage, tricotage, confection) apparaissent distinctement en première page du produit et sans action supplémentaire requise de la part du consommateur.
 * Pour les références uniquement commercialisées via un canal de distribution physique, le critère d’affichage de la traçabilité peut être rempli, alternativement, si ces étapes sont mentionnées directement sur l’étiquette du magasin ou accessibles directement et distinctement, sans action supplémentaire requise de la part du consommateur, via un QR code apposé sur cette étiquette.&#x20;
 
-### Formule de calcul
+#### Formule de calcul
 
 Deux situations sont distinguées :&#x20;
 
