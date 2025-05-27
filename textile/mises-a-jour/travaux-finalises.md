@@ -1,5 +1,6 @@
 ---
 description: L'objectif est de finaliser la méthode d'ici fin 2023.
+hidden: true
 ---
 
 # Travaux finalisés
@@ -93,7 +94,7 @@ La prise en compte de paramètres plus précis pour cette étape fut nécessaire
 * titrage du fil&#x20;
 
 **Support de travail (illustratif)**\
-[**https://docs.google.com/presentation/d/1NKjkK9IiWRp7aMC\_lmG6cju2XWMgExHR5t-\_GTsq\_jY/edit?usp=sharing**](https://docs.google.com/presentation/d/1NKjkK9IiWRp7aMC\_lmG6cju2XWMgExHR5t-\_GTsq\_jY/edit?usp=sharing)
+[**https://docs.google.com/presentation/d/1NKjkK9IiWRp7aMC\_lmG6cju2XWMgExHR5t-\_GTsq\_jY/edit?usp=sharing**](https://docs.google.com/presentation/d/1NKjkK9IiWRp7aMC_lmG6cju2XWMgExHR5t-_GTsq_jY/edit?usp=sharing)
 
 </details>
 
@@ -119,7 +120,7 @@ Dès lors, appréhender correctement ces paramètres (% pertes & temps-minute <=
 * Quels sont vos taux de chute/pertes lors de la découpe/confection ?&#x20;
 
 **Support de travail (illustratif)**\
-[https://docs.google.com/presentation/d/1KhKaYWgYFO4pTx0AfE3RcErAU9fkl1Iw\_t9MdmJi9xk/edit?usp=sharing](https://docs.google.com/presentation/d/1KhKaYWgYFO4pTx0AfE3RcErAU9fkl1Iw\_t9MdmJi9xk/edit?usp=sharing)
+[https://docs.google.com/presentation/d/1KhKaYWgYFO4pTx0AfE3RcErAU9fkl1Iw\_t9MdmJi9xk/edit?usp=sharing](https://docs.google.com/presentation/d/1KhKaYWgYFO4pTx0AfE3RcErAU9fkl1Iw_t9MdmJi9xk/edit?usp=sharing)
 
 </details>
 
@@ -141,7 +142,7 @@ Ecobalyse mène des travaux poussés sur cette étape avec différents experts d
 * Pourquoi à masse constante (1 kg) les procédés de tricotage consomment-ils généralement moins d'énergie (MJ) que ceux de tissage ?
 * \[...]
 
-**Support de travail (illustratif)** [https://docs.google.com/presentation/d/1y5Qkbz1IOwQB5678qgTio\_1fon1Cj9hHFQIfe4lm5y4/edit?usp=sharing](https://docs.google.com/presentation/d/1y5Qkbz1IOwQB5678qgTio\_1fon1Cj9hHFQIfe4lm5y4/edit?usp=sharing)
+**Support de travail (illustratif)** [https://docs.google.com/presentation/d/1y5Qkbz1IOwQB5678qgTio\_1fon1Cj9hHFQIfe4lm5y4/edit?usp=sharing](https://docs.google.com/presentation/d/1y5Qkbz1IOwQB5678qgTio_1fon1Cj9hHFQIfe4lm5y4/edit?usp=sharing)
 
 </details>
 
@@ -167,6 +168,6 @@ Quelques données chiffrées :&#x20;
 * Quelles sont les compositions chimiques des principaux bains de teinture utilisés dans l'industrie ?
 * &#x20;\[...]
 
-**Support de travail (illustratif)** [https://docs.google.com/presentation/d/1\_0nDBLbwXsdeb\_u9JdoawuPg3CiWNwzkhSDTwPGiTt4/edit?usp=sharing](https://docs.google.com/presentation/d/1\_0nDBLbwXsdeb\_u9JdoawuPg3CiWNwzkhSDTwPGiTt4/edit?usp=sharing)
+**Support de travail (illustratif)** [https://docs.google.com/presentation/d/1\_0nDBLbwXsdeb\_u9JdoawuPg3CiWNwzkhSDTwPGiTt4/edit?usp=sharing](https://docs.google.com/presentation/d/1_0nDBLbwXsdeb_u9JdoawuPg3CiWNwzkhSDTwPGiTt4/edit?usp=sharing)
 
 </details>

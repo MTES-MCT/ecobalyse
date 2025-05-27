@@ -10,6 +10,32 @@ Le détail techniques des mises à jour est disponible [ici](https://ecobalyse.b
 
 <details>
 
+<summary>v5.0.0</summary>
+
+* Exclusion des [émissions à long terme](https://fabrique-numerique.gitbook.io/ecobalyse/def-cout-environnemental/categories-dimpact-acv/exclusion-des-emissions-a-long-terme)
+* Correction de la caractérisation de la ressource en [Uranium](https://fabrique-numerique.gitbook.io/ecobalyse/def-cout-environnemental/categories-dimpact-acv/correction-de-la-caracterisation-de-la-ressource-en-uranium)
+
+</details>
+
+<details>
+
+<summary>v4.0.0</summary>
+
+* Ajout des accessoires dans les valeurs par défaut
+* Ajout des [pré-traitements](https://fabrique-numerique.gitbook.io/ecobalyse/textile/cycle-de-vie-des-produits-textiles/ennoblissement-1)
+
+</details>
+
+<details>
+
+<summary>v3.0.0</summary>
+
+* Ajout des [accessoires](https://fabrique-numerique.gitbook.io/ecobalyse)
+
+</details>
+
+<details>
+
 <summary>v2.7.0</summary>
 
 * Modification des seuils du nombre de références pour le [critère largeur de gamme](https://fabrique-numerique.gitbook.io/ecobalyse/textile/durabilite)
