@@ -23,13 +23,11 @@ import Request.ApiToken as ApiTokenHttp
 import Request.Auth as Auth
 import Request.BackendHttp exposing (WebData)
 import Route
-import Views.Button as Button
 import Views.Container as Container
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Markdown as Markdown
 import Views.Spinner as Spinner
-import Views.Table as Table
 
 
 type alias Model =
@@ -472,7 +470,7 @@ viewTab session currentTab =
 
 
 viewAccount : Session.Auth -> Html Msg
-viewAccount { accessTokenData, user } =
+viewAccount { user } =
     div []
         [ [ Just ( "Email", text user.email )
           , if user.isSuperuser then
@@ -490,13 +488,6 @@ viewAccount { accessTokenData, user } =
           , Just ( "Nom", text user.profile.lastName )
           , Just ( "Prénom", text user.profile.firstName )
           , Just ( "Organisation", viewOrganization user.profile.organization )
-
-          -- FIXME: remove this before shipping to production; right now this is useful for debugging
-          , if user.isSuperuser then
-                Just ( "Jeton Web (Access token)", viewAccessData accessTokenData )
-
-            else
-                Nothing
           ]
             |> List.filterMap
                 (Maybe.map
@@ -637,35 +628,6 @@ viewApiTokens apiTokens =
 
         Nothing ->
             Spinner.view
-
-
-viewAccessData : AccessTokenData -> Html Msg
-viewAccessData data =
-    div [ class "d-flex flex-column justify-content-between align-middle gap-1", style "overflow-x" "hidden" ]
-        [ div [ class "fs-8 text-muted d-flex gap-1 align-items-center" ]
-            [ Icon.warning
-            , text "Utile pour débugger, devrait être masqué avant mise en production effective. "
-            ]
-        , Table.responsiveDefault [ class "w-100" ]
-            [ [ ( "accessToken", Just data.accessToken )
-              , ( "expiresIn", data.expiresIn |> Maybe.map String.fromInt )
-              , ( "refreshToken", data.refreshToken )
-              , ( "tokenType", Just data.tokenType )
-              ]
-                |> List.map
-                    (\( label, value ) ->
-                        tr []
-                            [ th [] [ text label ]
-                            , td []
-                                [ value
-                                    |> Maybe.map (Button.copyButton CopyToClipboard)
-                                    |> Maybe.withDefault (text "-")
-                                ]
-                            ]
-                    )
-                |> tbody []
-            ]
-        ]
 
 
 viewApiTokenDelete : CreatedToken -> Html Msg
