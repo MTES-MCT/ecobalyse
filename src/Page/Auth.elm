@@ -22,6 +22,7 @@ import RemoteData
 import Request.ApiToken as ApiTokenHttp
 import Request.Auth as Auth
 import Request.BackendHttp exposing (WebData)
+import Request.BackendHttp.Error as BackendError
 import Route
 import Views.Container as Container
 import Views.Format as Format
@@ -68,7 +69,7 @@ type Tab
     = Account Session.Auth
     | ApiTokenCreated Token
     | ApiTokenDelete CreatedToken
-    | ApiTokens (Maybe (List CreatedToken))
+    | ApiTokens (WebData (List CreatedToken))
     | MagicLinkForm Email
     | MagicLinkLogin
     | MagicLinkSent Email
@@ -147,7 +148,7 @@ update session msg model =
 
         -- ApiTokens tab initialisation: retrieve the latest list of tokens
         SwitchTab (ApiTokens _) ->
-            ( { model | tab = ApiTokens Nothing }
+            ( { model | tab = ApiTokens RemoteData.Loading }
             , session
             , ApiTokenHttp.list session ApiTokensResponse
             )
@@ -226,14 +227,11 @@ updateAccountTab session currentAuth msg model =
             updateNothing session model
 
 
-updateApiTokensTab : Session -> Maybe (List CreatedToken) -> Msg -> Model -> ( Model, Session, Cmd Msg )
+updateApiTokensTab : Session -> WebData (List CreatedToken) -> Msg -> Model -> ( Model, Session, Cmd Msg )
 updateApiTokensTab session _ tabMsg model =
     case tabMsg of
-        ApiTokensResponse (RemoteData.Success newApiTokens) ->
-            ( { model | tab = ApiTokens (Just newApiTokens) }, session, Cmd.none )
-
-        ApiTokensResponse (RemoteData.Failure error) ->
-            ( model, session |> Session.notifyBackendError error, Cmd.none )
+        ApiTokensResponse newApiTokens ->
+            ( { model | tab = ApiTokens newApiTokens }, session, Cmd.none )
 
         CreateToken ->
             ( model, session, ApiTokenHttp.create session CreateTokenResponse )
@@ -267,7 +265,7 @@ updateApiTokenDeleteTab session _ msg model =
             )
 
         DeleteApiTokenResponse (RemoteData.Success _) ->
-            ( { model | tab = ApiTokens Nothing }
+            ( { model | tab = ApiTokens RemoteData.Loading }
             , session
                 |> Session.notifyInfo "Jeton d'API supprimé" "Le jeton d'API a été supprimé avec succès"
             , ApiTokenHttp.list session ApiTokensResponse
@@ -403,7 +401,7 @@ viewTab session currentTab =
                 Just user ->
                     ( "Mon compte"
                     , [ ( "Compte", Account user )
-                      , ( "Jetons d'API", ApiTokens Nothing )
+                      , ( "Jetons d'API", ApiTokens RemoteData.Loading )
                       ]
                     )
 
@@ -569,18 +567,31 @@ viewApiTokenCreated token =
                 [ Icon.clipboard
                 ]
             ]
+        , p [ class "fs-8 text-muted mt-1 mb-0" ]
+            [ text "Vous pouvez copier le jeton d'API ci-dessus en cliquant sur le bouton copier à droite du champ."
+            ]
         , div [ class "d-grid mt-2" ]
             [ button
-                [ class "btn btn-link", onClick <| SwitchTab (ApiTokens Nothing) ]
+                [ class "btn btn-link", onClick <| SwitchTab (ApiTokens RemoteData.Loading) ]
                 [ text "«\u{00A0}Retour à la liste des jetons d'API" ]
             ]
         ]
 
 
-viewApiTokens : Maybe (List CreatedToken) -> Html Msg
+viewApiTokens : WebData (List CreatedToken) -> Html Msg
 viewApiTokens apiTokens =
     case apiTokens of
-        Just tokens ->
+        RemoteData.Failure error ->
+            p [ class "alert alert-danger" ]
+                [ text <| "Erreur lors de la récupération des jetons d'API : " ++ BackendError.errorToString error ]
+
+        RemoteData.Loading ->
+            Spinner.view
+
+        RemoteData.NotAsked ->
+            text ""
+
+        RemoteData.Success tokens ->
             div []
                 [ if List.isEmpty tokens then
                     p [] [ text "Aucun jeton d'API actif." ]
@@ -626,9 +637,6 @@ viewApiTokens apiTokens =
                     ]
                 ]
 
-        Nothing ->
-            Spinner.view
-
 
 viewApiTokenDelete : CreatedToken -> Html Msg
 viewApiTokenDelete apiToken =
@@ -654,7 +662,7 @@ viewApiTokenDelete apiToken =
                     ]
         , div [ class "d-flex justify-content-center gap-2 mt-1" ]
             [ button
-                [ class "btn btn-link", onClick <| SwitchTab (ApiTokens Nothing) ]
+                [ class "btn btn-link", onClick <| SwitchTab (ApiTokens RemoteData.Loading) ]
                 [ text "Annuler" ]
             , button
                 [ class "btn btn-danger", onClick <| DeleteApiToken apiToken ]
