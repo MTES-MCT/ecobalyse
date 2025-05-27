@@ -59,7 +59,8 @@ type alias AccessTokenData =
 
 
 type alias Profile =
-    { firstName : String
+    { emailOptin : Bool
+    , firstName : String
     , lastName : String
     , organization : Organization
     , termsAccepted : Bool
@@ -97,6 +98,7 @@ type alias Role =
 
 type alias SignupForm =
     { email : String
+    , emailOptin : Bool
     , firstName : String
     , lastName : String
     , organization : Organization
@@ -170,6 +172,7 @@ decodeOrganization =
 decodeProfile : Decoder Profile
 decodeProfile =
     Decode.succeed Profile
+        |> JDP.required "emailOptin" Decode.bool
         |> JDP.required "firstName" Decode.string
         |> JDP.required "lastName" Decode.string
         |> JDP.required "organization" decodeOrganization
@@ -194,6 +197,7 @@ decodeSiren =
 emptySignupForm : SignupForm
 emptySignupForm =
     { email = ""
+    , emailOptin = False
     , firstName = ""
     , lastName = ""
     , organization = Individual
@@ -298,6 +302,7 @@ encodeSignupForm : SignupForm -> Encode.Value
 encodeSignupForm form =
     Encode.object
         [ ( "email", form.email |> Encode.string )
+        , ( "emailOptin", form.emailOptin |> Encode.bool )
         , ( "firstName", form.firstName |> Encode.string )
         , ( "lastName", form.lastName |> Encode.string )
         , ( "organization", form.organization |> encodeOrganization )

@@ -125,6 +125,7 @@ suite =
                 { email = "user@tld.org"
                 , firstName = "John"
                 , lastName = "Doe"
+                , emailOptin = True
                 , organization = User.Public "Ecobalyse"
                 , termsAccepted = True
                 }
