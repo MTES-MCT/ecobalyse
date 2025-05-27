@@ -223,15 +223,11 @@ const getProcesses = async (headers, customProcessesImpacts, customProcesses) =>
   }
 
   if (NODE_ENV === "test" || isValidToken) {
-    return formatForEnv(customProcessesImpacts ?? processesImpacts);
+    return customProcessesImpacts ?? processesImpacts;
   } else {
-    return formatForEnv(customProcesses ?? processes);
+    return customProcesses ?? processes;
   }
 };
-
-function formatForEnv(json) {
-  return NODE_ENV === "test" ? json : JSON.stringify(json, null, 2);
-}
 
 function processOpenApi(contents, versionNumber) {
   // Add app version info to openapi docs
@@ -246,7 +242,11 @@ function processOpenApi(contents, versionNumber) {
 }
 
 app.get("/processes/processes.json", async (req, res) => {
-  return res.status(200).send(await getProcesses(req.headers));
+  // Note: JSON parsing is done in Elm land
+  return res
+    .status(200)
+    .contentType("text/plain")
+    .send(JSON.stringify(await getProcesses(req.headers)));
 });
 
 const elmApp = Elm.Server.init();
