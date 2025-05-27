@@ -779,6 +779,21 @@ viewSignupForm signupForm formErrors =
             [ input
                 [ type_ "checkbox"
                 , class "form-check-input"
+                , classList [ ( "is-invalid", Dict.member "emailOptin" formErrors ) ]
+                , id "emailOptin"
+                , checked signupForm.emailOptin
+                , onCheck <| \emailOptin -> UpdateSignupForm { signupForm | emailOptin = emailOptin }
+                ]
+                []
+            , label [ class "form-check-label", for "emailOptin" ]
+                [ text "J’accepte de recevoir des informations de la part d'Ecobalyse par email."
+                ]
+            , viewFieldError "termsAccepted" formErrors
+            ]
+        , div [ class "mb-3 form-check" ]
+            [ input
+                [ type_ "checkbox"
+                , class "form-check-input"
                 , classList [ ( "is-invalid", Dict.member "termsAccepted" formErrors ) ]
                 , id "termsAccepted"
                 , checked signupForm.termsAccepted
