@@ -209,6 +209,7 @@ userJson =
         "profile": {
             "firstName": "John",
             "lastName": "Doe",
+            "emailOptin": false,
             "organization": {"type": "public", "name": "Ecobalyse"},
             "termsAccepted": true
         },

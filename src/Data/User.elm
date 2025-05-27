@@ -172,7 +172,7 @@ decodeOrganization =
 decodeProfile : Decoder Profile
 decodeProfile =
     Decode.succeed Profile
-        |> JDP.required "emailOptin" Decode.bool
+        |> DU.strictOptionalWithDefault "emailOptin" Decode.bool False
         |> JDP.required "firstName" Decode.string
         |> JDP.required "lastName" Decode.string
         |> JDP.required "organization" decodeOrganization
@@ -235,7 +235,8 @@ encodeId (Id uuid) =
 encodeProfile : Profile -> Encode.Value
 encodeProfile profile =
     Encode.object
-        [ ( "firstName", profile.firstName |> Encode.string )
+        [ ( "emailOptin", profile.emailOptin |> Encode.bool )
+        , ( "firstName", profile.firstName |> Encode.string )
         , ( "lastName", profile.lastName |> Encode.string )
         , ( "organization", profile.organization |> encodeOrganization )
         , ( "termsAccepted", profile.termsAccepted |> Encode.bool )
