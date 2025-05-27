@@ -921,6 +921,11 @@ viewOrganizationForm signupForm formErrors =
                         ]
                         []
                     , viewFieldError "organization.siren" formErrors
+                    , p [ class "fs-8 text-muted mt-1 mb-0" ]
+                        [ text "Vous pouvez rechercher le numéro SIREN à 9 chiffres d'une entreprise sur le "
+                        , a [ href "https://annuaire-entreprises.data.gouv.fr/", target "_blank" ]
+                            [ text "service d'annuaire des entreprises data.gouv.fr" ]
+                        ]
                     ]
 
             _ ->
