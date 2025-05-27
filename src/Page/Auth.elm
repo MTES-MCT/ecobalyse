@@ -107,10 +107,12 @@ initLogin session email token =
 
 initSignup : Session -> ( Model, Session, Cmd Msg )
 initSignup session =
-    ( { tab = Signup User.emptySignupForm Dict.empty }
-    , session
-    , Cmd.none
-    )
+    case Session.getAuth session of
+        Just user ->
+            ( { tab = Account user }, session, Nav.pushUrl session.navKey <| Route.toString Route.Auth )
+
+        Nothing ->
+            ( { tab = Signup User.emptySignupForm Dict.empty }, session, Cmd.none )
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
