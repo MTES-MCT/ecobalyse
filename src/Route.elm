@@ -51,10 +51,6 @@ parser =
         , Parser.map Admin (Parser.s "admin")
         , Parser.map Api (Parser.s "api")
         , Parser.map Auth (Parser.s "auth")
-
-        -- FIXME: tmp fix while I don't have access to the scalingo container envvar config;
-        --        remove me before shipping to prod
-        , Parser.map Auth (Parser.s "auth2")
         , Parser.map AuthLogin (Parser.s "auth" </> Parser.string </> Parser.string)
         , Parser.map AuthSignup (Parser.s "auth" </> Parser.s "signup")
         , Parser.map Editorial (Parser.s "pages" </> Parser.string)
