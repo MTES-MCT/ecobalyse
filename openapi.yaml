@@ -338,10 +338,8 @@ components:
   securitySchemes:
     token:
       description: >
-        Ce jeton d'API (token), permettant d'accéder aux impacts détaillés des calculs effectués,
-        peut être obtenu après [inscription préalable](https://ecobalyse.beta.gouv.fr/#/auth)
-        sur le site Ecobalyse. Vous pouvez générer vos jetons dans la section *Jetons d'API* de
-        votre compte une fois authentifié.
+        Un jeton d'API (token) vous permet d'accéder aux impacts détaillés des calculs effectués.
+        Il peut être passé dans les entêtes `Authorization: Bearer` ou `token` de la requête.
       type: apiKey
       name: token
       in: header
