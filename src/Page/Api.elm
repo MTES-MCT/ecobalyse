@@ -536,6 +536,7 @@ apiBrowser session =
         , attribute "allow-server-selection" "false"
         , attribute "allow-api-list-style-selection" "false"
         , attribute "allow-authentication" "true"
+        , attribute "persist-auth" "true"
         ]
         []
 
