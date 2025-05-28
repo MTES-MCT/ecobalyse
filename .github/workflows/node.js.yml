@@ -8,6 +8,7 @@ env:
   TRANSCRYPT_KEY: ${{ secrets.TRANSCRYPT_KEY }}
   ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
   ENABLE_FOOD_SECTION: "True"
+  ENABLE_OBJECTS_SECTION: "True"
 on:
   push:
     branches: [ master, staging ]
@@ -88,3 +89,16 @@ jobs:
 
     - name: Run server tests
       run: pipenv run backend/update.sh && npm run test:server-ci && npm run test:backend
+
+    - name: Install Playwright Browsers
+      run: npx playwright install chromium --with-deps
+
+    - name: Run Playwright tests
+      run: npm run test:e2e
+
+    - uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: playwright-report
+        path: playwright-report/
+        retention-days: 3
