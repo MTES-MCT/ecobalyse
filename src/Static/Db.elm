@@ -11,7 +11,6 @@ import Data.Impact as Impact
 import Data.Impact.Definition exposing (Definitions)
 import Data.Object.Db as ObjectDb
 import Data.Process as Process exposing (Process)
-import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Db as TextileDb
 import Data.Transport exposing (Distances)
 import Json.Decode as Decode
@@ -62,17 +61,15 @@ db =
 
 decodeRawComponents : StaticJson.RawJsonComponents -> Result String (List Component)
 decodeRawComponents { objectComponents, textileComponents } =
-    [ ( objectComponents, [ Scope.Object, Scope.Veli ] )
-    , ( textileComponents, [ Scope.Textile ] )
-    ]
-        |> List.map (\( json, scopes ) -> decodeScopedComponents scopes json)
+    [ objectComponents, textileComponents ]
+        |> List.map decodeScopedComponents
         |> RE.combine
         |> Result.map List.concat
 
 
-decodeScopedComponents : List Scope -> String -> Result String (List Component)
-decodeScopedComponents scopes =
-    Component.decodeListFromJsonString scopes
+decodeScopedComponents : String -> Result String (List Component)
+decodeScopedComponents =
+    Component.decodeListFromJsonString
 
 
 impactDefinitions : Result String Definitions
