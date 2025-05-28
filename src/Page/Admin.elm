@@ -270,75 +270,77 @@ componentListView db components =
                 ]
             ]
         , components
-            |> List.map
-                (\component ->
-                    tr []
-                        [ th [ class "align-middle" ]
-                            [ text component.name
-                            , small [ class "d-block fw-normal" ]
-                                [ code [] [ text (Component.idToString component.id) ] ]
-                            ]
-                        , td [ class "align-middle w-100" ]
-                            [ case Component.elementsToString db component of
-                                Err error ->
-                                    span [ class "text-danger" ] [ text <| "Erreur: " ++ error ]
-
-                                Ok string ->
-                                    text string
-                            ]
-                        , td [ class "align-middle text-end fw-bold" ]
-                            [ component
-                                |> Component.computeImpacts db.processes
-                                |> Result.map
-                                    (Component.extractImpacts
-                                        >> Format.formatImpact (Definition.get Definition.Ecs db.definitions)
-                                    )
-                                |> Result.withDefault (text "N/A")
-                            ]
-                        , td [ class "align-middle text-nowrap" ]
-                            [ div [ class "btn-group btn-group-sm", attribute "role" "group", attribute "aria-label" "Actions" ]
-                                [ button
-                                    [ class "btn btn-primary"
-                                    , title "Modifier le composant"
-                                    , onClick <| SetModals [ EditComponentModal (Component.createItem component.id) ]
-                                    ]
-                                    [ Icon.pencil ]
-                                , button
-                                    [ class "btn btn-outline-primary"
-                                    , title "Dupliquer le composant"
-                                    , onClick <| DuplicateComponent component
-                                    ]
-                                    [ Icon.copy ]
-                                , a
-                                    [ class "btn btn-outline-primary"
-                                    , title "Utiliser dans le simulateur"
-                                    , Just { components = [ Component.createItem component.id ] }
-                                        |> Route.ObjectSimulator Scope.Object Definition.Ecs
-                                        |> Route.href
-                                    ]
-                                    [ Icon.puzzle ]
-                                , a
-                                    [ class "btn btn-outline-primary"
-                                    , title "Exporter le composant au format JSON"
-                                    , Component.encode component
-                                        |> Encode.encode 2
-                                        |> Base64.encode
-                                        |> (++) "data:application/json;base64,"
-                                        |> href
-                                    , download <| component.name ++ ".json"
-                                    ]
-                                    [ Icon.fileExport ]
-                                , button
-                                    [ class "btn btn-danger"
-                                    , title "Supprimer le composant"
-                                    , onClick <| SetModals [ DeleteComponentModal component ]
-                                    ]
-                                    [ Icon.trash ]
-                                ]
-                            ]
-                        ]
-                )
+            |> List.map (componentRowView db)
             |> tbody []
+        ]
+
+
+componentRowView : Db -> Component -> Html Msg
+componentRowView db component =
+    tr []
+        [ th [ class "align-middle" ]
+            [ text component.name
+            , small [ class "d-block fw-normal" ]
+                [ code [] [ text (Component.idToString component.id) ] ]
+            ]
+        , td [ class "align-middle w-100" ]
+            [ case Component.elementsToString db component of
+                Err error ->
+                    span [ class "text-danger" ] [ text <| "Erreur: " ++ error ]
+
+                Ok string ->
+                    text string
+            ]
+        , td [ class "align-middle text-end fw-bold" ]
+            [ component
+                |> Component.computeImpacts db.processes
+                |> Result.map
+                    (Component.extractImpacts
+                        >> Format.formatImpact (Definition.get Definition.Ecs db.definitions)
+                    )
+                |> Result.withDefault (text "N/A")
+            ]
+        , td [ class "align-middle text-nowrap" ]
+            [ div [ class "btn-group btn-group-sm", attribute "role" "group", attribute "aria-label" "Actions" ]
+                [ button
+                    [ class "btn btn-outline-primary"
+                    , title "Modifier le composant"
+                    , onClick <| SetModals [ EditComponentModal (Component.createItem component.id) ]
+                    ]
+                    [ Icon.pencil ]
+                , button
+                    [ class "btn btn-outline-primary"
+                    , title "Dupliquer le composant"
+                    , onClick <| DuplicateComponent component
+                    ]
+                    [ Icon.copy ]
+                , a
+                    [ class "btn btn-outline-primary"
+                    , title "Utiliser dans le simulateur"
+                    , Just { components = [ Component.createItem component.id ] }
+                        |> Route.ObjectSimulator Scope.Object Definition.Ecs
+                        |> Route.href
+                    ]
+                    [ Icon.puzzle ]
+                , a
+                    [ class "btn btn-outline-primary"
+                    , title "Exporter le composant au format JSON"
+                    , Component.encode component
+                        |> Encode.encode 2
+                        |> Base64.encode
+                        |> (++) "data:application/json;base64,"
+                        |> href
+                    , download <| component.name ++ ".json"
+                    ]
+                    [ Icon.fileExport ]
+                , button
+                    [ class "btn btn-outline-danger"
+                    , title "Supprimer le composant"
+                    , onClick <| SetModals [ DeleteComponentModal component ]
+                    ]
+                    [ Icon.trash ]
+                ]
+            ]
         ]
 
 
