@@ -12,7 +12,7 @@ import Browser.Navigation as Nav
 import Data.ApiToken as ApiToken exposing (CreatedToken, Token)
 import Data.Env as Env
 import Data.Session as Session exposing (Session)
-import Data.User as User exposing (AccessTokenData, FormErrors, SignupForm, User)
+import Data.User as User exposing (AccessTokenData, FormErrors, ProfileForm, SignupForm, User)
 import Dict
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -57,16 +57,18 @@ type Msg
     | LogoutResponse (WebData ())
     | MagicLinkResponse (WebData ())
     | MagicLinkSubmit
-    | ProfileResponse AccessTokenData (WebData User)
+    | ProfileResponse { updated : Bool } AccessTokenData (WebData User)
+    | ProfileSubmit
     | SignupResponse (WebData User)
     | SignupSubmit
     | SwitchTab Tab
     | UpdateMagicLinkForm Email
+    | UpdateProfileForm ProfileForm
     | UpdateSignupForm SignupForm
 
 
 type Tab
-    = Account Session.Auth
+    = Account Session.Auth ProfileForm FormErrors
     | ApiTokenCreated Token
     | ApiTokenDelete CreatedToken
     | ApiTokens (WebData (List CreatedToken))
@@ -81,11 +83,11 @@ init : Session -> ( Model, Session, Cmd Msg )
 init session =
     case Session.getAuth session of
         Just auth ->
-            ( { tab = Account auth }
+            ( { tab = Account auth User.emptyProfileForm Dict.empty }
             , session
               -- Always ensure fetching the freshest user profile
             , Cmd.batch
-                [ Auth.profile session (ProfileResponse auth.accessTokenData)
+                [ Auth.profile session (ProfileResponse { updated = False } auth.accessTokenData)
                 , ApiTokenHttp.list session ApiTokensResponse
                 ]
             )
@@ -108,10 +110,16 @@ initSignup : Session -> ( Model, Session, Cmd Msg )
 initSignup session =
     case Session.getAuth session of
         Just user ->
-            ( { tab = Account user }, session, Nav.pushUrl session.navKey <| Route.toString Route.Auth )
+            ( { tab = Account user User.emptyProfileForm Dict.empty }
+            , session
+            , Nav.pushUrl session.navKey <| Route.toString Route.Auth
+            )
 
         Nothing ->
-            ( { tab = Signup User.emptySignupForm Dict.empty }, session, Cmd.none )
+            ( { tab = Signup User.emptySignupForm Dict.empty }
+            , session
+            , Cmd.none
+            )
 
 
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
@@ -140,10 +148,10 @@ update session msg model =
             )
 
         -- Account tab initialisation: retrieve the latest user profile
-        SwitchTab (Account auth) ->
-            ( { model | tab = Account auth }
+        SwitchTab (Account auth _ _) ->
+            ( { model | tab = Account auth User.emptyProfileForm Dict.empty }
             , session
-            , Auth.profile session (ProfileResponse auth.accessTokenData)
+            , Auth.profile session (ProfileResponse { updated = False } auth.accessTokenData)
             )
 
         -- ApiTokens tab initialisation: retrieve the latest list of tokens
@@ -160,8 +168,8 @@ update session msg model =
         -- Specific tab updates
         tabMsg ->
             case model.tab of
-                Account auth ->
-                    updateAccountTab session auth tabMsg model
+                Account auth profileForm formErrors ->
+                    updateAccountTab session auth profileForm formErrors tabMsg model
 
                 ApiTokenCreated _ ->
                     ( model, session, Cmd.none )
@@ -188,8 +196,8 @@ update session msg model =
                     updateNothing session model
 
 
-updateAccountTab : Session -> Session.Auth -> Msg -> Model -> ( Model, Session, Cmd Msg )
-updateAccountTab session currentAuth msg model =
+updateAccountTab : Session -> Session.Auth -> ProfileForm -> FormErrors -> Msg -> Model -> ( Model, Session, Cmd Msg )
+updateAccountTab session currentAuth profileForm _ msg model =
     case msg of
         Logout user ->
             ( model
@@ -214,17 +222,56 @@ updateAccountTab session currentAuth msg model =
             , Nav.load <| Route.toString Route.Auth
             )
 
-        ProfileResponse _ (RemoteData.Success user) ->
-            ( { model | tab = Account { currentAuth | user = user } }
-            , session |> Session.updateAuth (\auth2 -> { auth2 | user = user })
+        ProfileResponse { updated } _ (RemoteData.Success user) ->
+            ( { model
+                | tab =
+                    Account { currentAuth | user = user }
+                        { emailOptin = user.profile.emailOptin
+                        , firstName = user.profile.firstName
+                        , lastName = user.profile.lastName
+                        }
+                        Dict.empty
+              }
+            , session
+                |> Session.updateAuth (\auth2 -> { auth2 | user = user })
+                |> (if updated then
+                        Session.notifyInfo "Information" "Vos informations ont été mises à jour"
+
+                    else
+                        identity
+                   )
             , Cmd.none
             )
 
-        ProfileResponse _ (RemoteData.Failure error) ->
+        ProfileResponse _ _ (RemoteData.Failure error) ->
             ( model
             , session |> Session.notifyBackendError error
             , Cmd.none
             )
+
+        ProfileSubmit ->
+            let
+                newFormErrors =
+                    User.validateProfileForm profileForm
+
+                newModel =
+                    { model | tab = Account currentAuth profileForm newFormErrors }
+            in
+            if newFormErrors == Dict.empty then
+                ( newModel
+                , session |> Session.clearNotifications
+                , profileForm
+                    |> Auth.updateProfile session (ProfileResponse { updated = True } currentAuth.accessTokenData)
+                )
+
+            else
+                ( newModel
+                , session |> Session.notifyError "Erreur" "Veuillez corriger les champs en erreur"
+                , Cmd.none
+                )
+
+        UpdateProfileForm profileForm_ ->
+            ( { model | tab = Account currentAuth profileForm_ Dict.empty }, session, Cmd.none )
 
         _ ->
             updateNothing session model
@@ -320,7 +367,7 @@ updateMagicLinkLoginTab session msg model =
             ( { model | tab = MagicLinkLogin }
             , session
             , accessTokenData.accessToken
-                |> Auth.profileFromAccessToken session (ProfileResponse accessTokenData)
+                |> Auth.profileFromAccessToken session (ProfileResponse { updated = False } accessTokenData)
             )
 
         LoginResponse (RemoteData.Failure error) ->
@@ -329,17 +376,25 @@ updateMagicLinkLoginTab session msg model =
             , Nav.load <| Route.toString Route.Auth
             )
 
-        ProfileResponse accessTokenData (RemoteData.Success user) ->
+        ProfileResponse _ accessTokenData (RemoteData.Success user) ->
             let
                 newSession =
                     session |> Session.setAuth (Just { accessTokenData = accessTokenData, user = user })
             in
-            ( { model | tab = Account { accessTokenData = accessTokenData, user = user } }
+            ( { model
+                | tab =
+                    Account { accessTokenData = accessTokenData, user = user }
+                        { emailOptin = user.profile.emailOptin
+                        , firstName = user.profile.firstName
+                        , lastName = user.profile.lastName
+                        }
+                        Dict.empty
+              }
             , newSession
             , Auth.processes newSession DetailedProcessesResponse
             )
 
-        ProfileResponse _ (RemoteData.Failure error) ->
+        ProfileResponse _ _ (RemoteData.Failure error) ->
             ( model
             , session |> Session.notifyBackendError error
             , Nav.load <| Route.toString Route.Auth
@@ -403,7 +458,7 @@ viewTab session currentTab =
             case Session.getAuth session of
                 Just user ->
                     ( "Mon compte"
-                    , [ ( "Compte", Account user )
+                    , [ ( "Compte", Account user User.emptyProfileForm Dict.empty )
                       , ( "Jetons d'API", ApiTokens RemoteData.Loading )
                       ]
                     )
@@ -439,8 +494,8 @@ viewTab session currentTab =
                 ]
             , div [ class "card-body" ]
                 [ case currentTab of
-                    Account auth ->
-                        viewAccount auth
+                    Account auth profileForm formErrors ->
+                        viewAccount auth profileForm formErrors
 
                     ApiTokenCreated token ->
                         viewApiTokenCreated token
@@ -470,8 +525,8 @@ viewTab session currentTab =
         ]
 
 
-viewAccount : Session.Auth -> Html Msg
-viewAccount { user } =
+viewAccount : Session.Auth -> ProfileForm -> FormErrors -> Html Msg
+viewAccount { user } profileForm formErrors =
     div []
         [ [ Just ( "Email", text user.email )
           , if user.isSuperuser then
@@ -486,8 +541,6 @@ viewAccount { user } =
 
             else
                 Nothing
-          , Just ( "Nom", text user.profile.lastName )
-          , Just ( "Prénom", text user.profile.firstName )
           , Just ( "Organisation", viewOrganization user.profile.organization )
           ]
             |> List.filterMap
@@ -504,10 +557,73 @@ viewAccount { user } =
             |> table [ class "table table-striped mb-0" ]
             |> List.singleton
             |> div [ class "table-responsive border shadow-sm" ]
+        , Html.form [ onSubmit ProfileSubmit, class "px-5 mt-3" ]
+            [ div [ class "mb-3" ]
+                [ label [ for "firstName", class "form-label" ]
+                    [ text "Prénom" ]
+                , input
+                    [ type_ "text"
+                    , class "form-control"
+                    , classList [ ( "is-invalid", Dict.member "firstName" formErrors ) ]
+                    , id "firstName"
+                    , placeholder "Joséphine"
+                    , value profileForm.firstName
+                    , onInput <| \firstName -> UpdateProfileForm { profileForm | firstName = firstName }
+                    , required True
+                    ]
+                    []
+                , viewFieldError "firstName" formErrors
+                ]
+            , div [ class "mb-3" ]
+                [ label [ for "lastName", class "form-label" ]
+                    [ text "Nom" ]
+                , input
+                    [ type_ "text"
+                    , class "form-control"
+                    , classList [ ( "is-invalid", Dict.member "lastName" formErrors ) ]
+                    , id "lastName"
+                    , placeholder "Durand"
+                    , value profileForm.lastName
+                    , onInput <| \lastName -> UpdateProfileForm { profileForm | lastName = lastName }
+                    , required True
+                    ]
+                    []
+                , viewFieldError "lastName" formErrors
+                ]
+            , div [ class "mb-3 form-check" ]
+                [ input
+                    [ type_ "checkbox"
+                    , class "form-check-input"
+                    , classList [ ( "is-invalid", Dict.member "emailOptin" formErrors ) ]
+                    , id "emailOptin"
+                    , checked profileForm.emailOptin
+                    , onCheck <| \emailOptin -> UpdateProfileForm { profileForm | emailOptin = emailOptin }
+                    ]
+                    []
+                , label [ class "form-check-label", for "emailOptin" ]
+                    [ text "J’accepte de recevoir des informations de la part d'Ecobalyse par email."
+                    ]
+                , viewFieldError "termsAccepted" formErrors
+                ]
+            , div [ class "d-grid" ]
+                [ button
+                    [ type_ "submit"
+                    , class "btn btn-primary"
+                    , disabled <| profileForm == User.emptyProfileForm || formErrors /= Dict.empty
+                    , attribute "data-testid" "auth-signup-submit"
+                    ]
+                    [ text "Mettre à jour mes informations" ]
+                ]
+            ]
+        , hr [ class "mt-3 mb-0" ] []
         , div [ class "d-flex justify-content-center align-items-center gap-3" ]
             [ a [ Route.href Route.Home ]
                 [ text "Retour à l'accueil" ]
-            , button [ class "btn btn-primary my-3", onClick <| Logout user ]
+            , button
+                [ type_ "button"
+                , class "btn btn-primary my-3"
+                , onClick <| Logout user
+                ]
                 [ text "Déconnexion" ]
             ]
         ]
@@ -943,7 +1059,7 @@ viewFieldError field errors =
 isActiveTab : Tab -> Tab -> Bool
 isActiveTab tab1 tab2 =
     case ( tab1, tab2 ) of
-        ( Account _, Account _ ) ->
+        ( Account _ _ _, Account _ _ _ ) ->
             True
 
         ( ApiTokens _, ApiTokens _ ) ->

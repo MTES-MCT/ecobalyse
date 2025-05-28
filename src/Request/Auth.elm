@@ -6,10 +6,11 @@ module Request.Auth exposing
     , profile
     , profileFromAccessToken
     , signup
+    , updateProfile
     )
 
 import Data.Session exposing (Session)
-import Data.User as User exposing (AccessTokenData, SignupForm, User)
+import Data.User as User exposing (AccessTokenData, ProfileForm, SignupForm, User)
 import Http
 import Json.Decode as Decode
 import Json.Encode as Encode
@@ -65,6 +66,15 @@ profile session event =
         "me"
         event
         User.decodeUser
+
+
+updateProfile : Session -> (WebData User -> msg) -> ProfileForm -> Cmd msg
+updateProfile session event form =
+    BackendHttp.patch session
+        "me"
+        event
+        User.decodeUser
+        (User.encodeUpdateProfileForm form)
 
 
 {-| Retrieve user profile from a token received by email
