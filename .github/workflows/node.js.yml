@@ -41,11 +41,6 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
 
-    - uses: actions/setup-python@v5
-      with:
-        python-version: ${{ matrix.python-version }}
-        cache: 'pipenv'
-
     - name: Cache node_modules
       id: cache-node_modules
       uses: actions/cache@v4
@@ -67,13 +62,16 @@ jobs:
     - name: Check JSON db formating
       run: npm run db:validate
 
-    - name: Install Python dependencies
-      run: pip install pipenv && pipenv install -d
-
     - name: Install Ubuntu dependencies
       run: |
         sudo apt-get update
         sudo apt-get install -y gettext
+
+    - name: Install the latest version of uv
+      uses: astral-sh/setup-uv@v4
+      with:
+        version: "latest"
+        python-version: ${{ matrix.python-version }}
 
     - name: Build app
       run: npm run build --if-present
@@ -88,7 +86,7 @@ jobs:
       run: npm run test:client
 
     - name: Run server tests
-      run: pipenv run backend/update.sh && npm run test:server-ci && npm run test:backend
+      run: npm run test:server-ci && npm run test:backend
 
     - name: Install Playwright Browsers
       run: npx playwright install chromium --with-deps

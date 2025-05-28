@@ -62,11 +62,17 @@ jobs:
           key: elm-cache-${{ hashFiles('elm.json') }}
           restore-keys: elm-cache-
 
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          version: "latest"
+          python-version: ${{ matrix.python-version }}
+
       - name: Install Node dependencies
         run: npm ci --prefer-offline --no-audit
 
       - name: Install Python dependencies
-        run: pip install pipenv && pipenv install -d
+        run: uv pip compile pyproject.toml -o requirements.txt && pip install pipenv && pipenv install -d
 
 
       - name: Install Ubuntu dependencies
