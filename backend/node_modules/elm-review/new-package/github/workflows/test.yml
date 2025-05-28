@@ -1,0 +1,192 @@
+name: CI
+
+# Controls when the action will run.
+on:
+  # Run on pushes to the default branch.
+  push:
+    branches:
+      - main
+
+  # Run on all PRs.
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+  # Support merge queues.
+  merge_group:
+
+  # Allow running this workflow manually from the Actions tab.
+  workflow_dispatch:
+
+defaults:
+  run:
+    shell: bash
+
+permissions:
+  contents: read
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  test:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Git checkout
+        # Pin actions their full commit hashes to prevent supply-chain attacks.
+        # To update, find the latest tag on the releases page,
+        # then copy the full SHA and paste it back here (and update the comment).
+        # Alternatively, setup Dependabot for the `github-actions` ecosystem.
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          submodules: recursive
+          clean: true
+          persist-credentials: false
+          set-safe-directory: true
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+        with:
+          node-version: lts/*
+          cache: 'npm'
+
+      # Re-use node_modules between runs until package-lock.json changes.
+      - name: Cache node_modules
+        id: cache-node_modules
+        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2
+        with:
+          path: node_modules
+          key: node_modules-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            node_modules-${{ runner.os }}-
+
+      # Re-use ~/.elm between runs until elm.json, elm-tooling.json or
+      # review/elm.json changes. The Elm compiler saves downloaded Elm packages
+      # to ~/.elm, and elm-tooling saves downloaded tool executables there.
+      - name: Cache ~/.elm
+        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2
+        with:
+          path: ~/.elm
+          key: elm-${{ runner.os }}-${{ hashFiles('**/elm.json', 'elm-tooling.json') }}
+          restore-keys: |
+            elm-${{ runner.os }}-
+
+      - name: Install npm dependencies
+        if: steps.cache-node_modules.outputs.cache-hit != 'true'
+        env:
+          # If you have a `"postinstall": "elm-tooling install"` script in your
+          # package.json, this turns it into a no-op. We’ll run it in the next
+          # step because of the caching. If elm-tooling.json changes but
+          # package-lock.json does not, the postinstall script needs running
+          # but this step won’t.
+          NO_ELM_TOOLING_INSTALL: 1
+        run: npm ci
+
+      # Install tools from elm-tooling.json, unless we restored them from
+      # cache. package-lock.json and elm-tooling.json can change independently,
+      # so we need to install separately based on what was restored from cache.
+      # This is run even if we restored ~/.elm from cache to be 100% sure
+      # node_modules/.bin/ contains links to all your tools. `elm-tooling
+      # install` runs very fast when there’s nothing new to download so
+      # skipping the step doesn’t save much time.
+      - name: elm-tooling install
+        run: npx --no-install elm-tooling install
+
+      - name: Run tests
+        run: npm test
+
+  publish:
+    needs: [test] # make sure all your other jobs succeed before trying to publish
+
+    permissions:
+      contents: write
+
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Git checkout
+        # Pin actions their full commit hashes to prevent supply-chain attacks.
+        # To update, find the latest tag on the releases page,
+        # then copy the full SHA and paste it back here (and update the comment).
+        # Alternatively, setup Dependabot for the `github-actions` ecosystem.
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          submodules: recursive
+          clean: true
+          persist-credentials: false
+          set-safe-directory: true
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+        with:
+          node-version: lts/*
+          cache: 'npm'
+
+      # Re-use node_modules between runs until package-lock.json changes.
+      - name: Cache node_modules
+        id: cache-node_modules
+        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2
+        with:
+          path: node_modules
+          key: node_modules-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            node_modules-${{ runner.os }}-
+
+      # Re-use ~/.elm between runs until elm.json, elm-tooling.json or
+      # review/elm.json changes. The Elm compiler saves downloaded Elm packages
+      # to ~/.elm, and elm-tooling saves downloaded tool executables there.
+      - name: Cache ~/.elm
+        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2
+        with:
+          path: ~/.elm
+          key: elm-${{ runner.os }}-${{ hashFiles('**/elm.json', 'elm-tooling.json') }}
+          restore-keys: |
+            elm-${{ runner.os }}-
+
+      - name: Install npm dependencies
+        if: steps.cache-node_modules.outputs.cache-hit != 'true'
+        env:
+          # If you have a `"postinstall": "elm-tooling install"` script in your
+          # package.json, this turns it into a no-op. We’ll run it in the next
+          # step because of the caching. If elm-tooling.json changes but
+          # package-lock.json does not, the postinstall script needs running
+          # but this step won’t.
+          NO_ELM_TOOLING_INSTALL: 1
+        run: npm ci
+
+      # Install tools from elm-tooling.json, unless we restored them from
+      # cache. package-lock.json and elm-tooling.json can change independently,
+      # so we need to install separately based on what was restored from cache.
+      # This is run even if we restored ~/.elm from cache to be 100% sure
+      # node_modules/.bin/ contains links to all your tools. `elm-tooling
+      # install` runs very fast when there’s nothing new to download so
+      # skipping the step doesn’t save much time.
+      - name: elm-tooling install
+        run: npx --no-install elm-tooling install
+
+      - name: Check if package needs to be published
+        uses: dillonkearns/elm-publish-action@2e6b7857073da5b88cc46fc789967bd7046f15df # v1.0.3
+        id: publish
+        with:
+          dry-run: true
+          path-to-elm: ./node_modules/.bin/elm
+
+      - name: Check that examples are up to date
+        if: steps.publish.outputs.is-publishable == 'true'
+        run: node elm-review-package-tests/check-examples-were-updated.js
+
+      # Runs a single command using the runners shell
+      - name: Elm Publish
+        if: steps.publish.outputs.is-publishable == 'true'
+        uses: dillonkearns/elm-publish-action@2e6b7857073da5b88cc46fc789967bd7046f15df # v1.0.3
+        with:
+          # Token provided by GitHub
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-elm: ./node_modules/.bin/elm
