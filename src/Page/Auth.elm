@@ -528,37 +528,23 @@ viewTab session currentTab =
 viewAccount : Session.Auth -> ProfileForm -> FormErrors -> Html Msg
 viewAccount { user } profileForm formErrors =
     div []
-        [ [ Just ( "Email", text user.email )
-          , if user.isSuperuser then
-                Just
-                    ( "Équipe Ecobalyse"
-                    , div [ class "d-flex justify-content-between align-middle gap-1" ]
-                        [ strong [] [ text "Oui" ]
-                        , a [ class "btn btn-sm btn-info", Route.href Route.Admin ]
-                            [ Icon.lock, text "\u{00A0}Accès à l'admin" ]
-                        ]
-                    )
-
-            else
-                Nothing
-          , Just ( "Organisation", viewOrganization user.profile.organization )
-          ]
-            |> List.filterMap
-                (Maybe.map
-                    (\( label, htmlValue ) ->
-                        tr []
-                            [ th [ class "text-nowrap" ] [ text <| label ++ " : " ]
-                            , td [] [ htmlValue ]
-                            ]
-                    )
-                )
-            |> tbody []
-            |> List.singleton
-            |> table [ class "table table-striped mb-0" ]
-            |> List.singleton
-            |> div [ class "table-responsive border shadow-sm" ]
-        , Html.form [ onSubmit ProfileSubmit, class "px-5 mt-3" ]
-            [ div [ class "mb-3" ]
+        [ Html.form [ onSubmit ProfileSubmit, class "px-5 mt-3" ]
+            [ div []
+                [ label [ for "email", class "form-label" ]
+                    [ text "Adresse email" ]
+                , input
+                    [ type_ "text"
+                    , class "form-control"
+                    , id "email"
+                    , placeholder "josephine@example.com"
+                    , value user.email
+                    , disabled True
+                    ]
+                    []
+                , small [ class "d-flex align-items-center justify-content-end gap-1 text-muted" ]
+                    [ Icon.info, text "Il n'est pas encore possible de modifier votre adresse email, mais nous y travaillons" ]
+                ]
+            , div [ class "mb-3" ]
                 [ label [ for "firstName", class "form-label" ]
                     [ text "Prénom" ]
                 , input
