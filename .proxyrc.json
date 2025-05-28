@@ -1,9 +1,9 @@
 {
-  "/admin/": {
-    "target": "http://127.0.0.1:8002/"
-  },
-  "/accounts/": {
-    "target": "http://127.0.0.1:8002/"
+  "/backend": {
+    "target": "http://127.0.0.1:8002/",
+    "pathRewrite": {
+      "^/backend": ""
+    }
   },
   "/api": {
     "target": "http://127.0.0.1:8001/"

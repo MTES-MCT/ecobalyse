@@ -1,4 +1,7 @@
-#/bin/bash
+#!/usr/bin/env bash
+
+ROOT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )/.." &> /dev/null && pwd )
+cd $ROOT_DIR
 
 # run all three tasks in the background
 
