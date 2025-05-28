@@ -36,9 +36,9 @@ _Source : Règlement européen du 31 mai 2023 relatif à la déforestation impor
 
 <summary>3) <strong>Le marché français : un débouché clé pour les filières bois</strong> </summary>
 
-Plusieurs secteurs d'activité français (ameublement, construction, jouets, etc.) constituent un débouché pour les filières bois.&#x20;
+Plusieurs secteurs d'activité français (ameublement, construction, jouets, etc.) constituent un débouché pour les filières bois. L'Ameublement est un contributeur significatif de la consommation française de bois. Tout bois utilisé sur ce secteur peut provenir de forêts participant à leur dégradation ("gestion intensive").&#x20;
 
-L'Ameublement est un contributeur significatif de la consommation française de bois. Tout bois utilisé sur ce secteur peut provenir de forêts participant à leur dégradation ("gestion intensive"). Concernant la déforestation, quelques approvisionnements en bois d'ameublement peuvent être concernés. Cependant, il est à noter que le secteur de l'ameublement participe peu à la déforestation à l'échelle mondiale (90% de cette dernière provenant de l'expansion de l'agriculture / source[^2]).
+Concernant la déforestation, quelques approvisionnements en bois d'ameublement peuvent être concernés. Cependant il est à noter que la principale cause de déforestation à l'échelle mondiale est l'expansion de l'agriculture à hauteur de 90% (source[^2]).&#x20;
 
 {% hint style="info" %}
 Le bois fait partie des quelques produits de base consommés au sein de l'UE et participant à la déforestation. Il se classe 3ème (9% de la déforestation dont l'UE est responsable provient du bois) après l'huile de plame (34%) et le soja (33%)
@@ -61,23 +61,37 @@ Avec :&#x20;
 * `Compo(i)` = la part du bois (`i`) entrant dans la composition du meuble, exprimée en % de `masse`
 * `masse` = la masse du meuble, exprimée en kg&#x20;
 
-## Paramètres&#x20;
-
-### Ref (i) ⇒ Impact biodiversité de chaque bois (i)
-
-#### **Etape 1 = Cartographie des bois d'ameublement (i)**     &#x20;
-
-Les principales filières d'approvisionnement bois du marché français de l'ameublement ont été identifiées.&#x20;
-
 {% hint style="info" %}
-1 filière d'approvisionnement = 1 bois = (i) = 1 essence (ex : chêne) + 1 origine (ex : France). &#x20;
+1 bois (i) = 1 filière d'approvisionnement = 1 essence (ex : chêne) + 1 origine (ex : France). &#x20;
 {% endhint %}
 
-Ces filières sont listées dans la prochaine section et sont spéficiques à un bois (i).
+## Paramètres retenus
+
+### Compo (i)  & Masse&#x20;
+
+Ces deux paramètres sont facilement intelligibles et ne nécessitent pas d'informations additionnelles.
+
+### Ref (i)&#x20;
+
+Ce paramètre estime l'impact biodiversité (Ref) de chaque bois (i). Ce paramètre s'exprime en points d'impacts par kg de bois.
+
+#### Liste des Ref (i) proposées&#x20;
+
+<figure><img src="../../.gitbook/assets/image (1) (1).png" alt=""><figcaption><p>Impact biodiversité des différents bois proposés dans le Niveau 1 de la méthode ( Ref(i) )</p></figcaption></figure>
+
+{% hint style="info" %}
+L'utilisateur doit sélectionner une de ces 3 options pour chaque bois (i) entrant dans la composition de son produit :&#x20;
+
+1\) il sélectionne la filière d'approvisionnement spécifique lorsqu'elle est disponible,&#x20;
+
+2\) il sélectionne l'option "Autres" lorsque la filière d'approvisionnement n'est pas disponible,
+
+3\) il sélectionne l'option "Inconnue"  lorsqu'il ne connaît pas l'origine de son bois.
+{% endhint %}
 
 <details>
 
-<summary>Plus d'info sur les filières d'approvisionnement</summary>
+<summary>Plus d'info sur les filières d'approvisionnement bois de l'ameublement français</summary>
 
 La majorité du bois d'ameublement est importé (c. 67% du volume consommé en 2019).
 
@@ -87,7 +101,7 @@ Parmi ces importations :&#x20;
 * près d'un-tiers concernent des panneaux,
 * le reste étant du bois d'oeuvre (majoritairement feuillus)
 
-:bulb: Remonter à l'origine de la forêt pour les bois d'ameublement est ainsi difficile pour la majorité des metteurs sur le marché. Dès lors, proposer des scénarios par défaut est nécessaire afin de refléter les enjeux biodiversité spécifiques à chaque bois.&#x20;
+:bulb: Remonter à l'origine de la forêt pour les bois d'ameublement est difficile pour la majorité des metteurs sur le marché. Dès lors, proposer des scénarios par défaut permet d'intégrer dans le coût environnemental les enjeux biodiversité liés aux pratiques forestières les plus probables pour chaque bois. Pour un metteur de marché maîtrisant la traçabilité de son bois, le dispositif d'affichage environnemental est construit de telle sorte qu'il lui sera possible de préciser ces pratiques forestières, et donc l'impact du complément..&#x20;
 
 ![](<../../.gitbook/assets/Consommation de bois _ secteur Ameublement (2019) (4).png>)
 
@@ -98,16 +112,18 @@ Principales sources utilisées pour ces statistiques :&#x20;
 
 </details>
 
-#### **Etape 2 = Définition des valeurs de référence (Ref) pour chaque bois (i)**      &#x20;
+#### &#x20;Calcul des Ref (i) &#x20;
 
-L'impact biodiversité (Ref) de chaque bois (i) est calculé à partir de deux paramètres :&#x20;
+L'impact biodiversité de chaque bois est calculé à partir de deux paramètres :&#x20;
 
-* un coefficient de Gestion forestière (GF), exprimé en Pts d'impacts / kg
-* &#x20;un Indice de corruption (IC), exprimé en %&#x20;
+* un coefficient de Gestion forestière (GF)
+* &#x20;un Indice de corruption (IC).
 
 <details>
 
 <summary>Coefficient de Gestion Forestière (GF)</summary>
+
+_Unité = Points d'impact / kg de bois_
 
 Ce paramètre caractérise le mode de gestion forestière de chaque bois (i) entrant dans la composition du meuble.&#x20;
 
@@ -137,6 +153,8 @@ Les principales sources utilisées pour estimer ces paramètre par origine sont 
 
 <summary>Indice Corruption (IC) </summary>
 
+_Unité = % (majoration de GF de +x%)_&#x20;
+
 La réalité de la gestion forestière à l'échelle globale ne peut s'appréhender uniquement par les règlementations et les recommandations sylvicoles. En effet, une problématique avérée de la filière bois porte sur les mauvaises pratiques et le manque de traçabilité, avec des règlementations non respectées dans certains contextes et des risques élevés de corruption. Le risque de corruption aggrave le risque de mauvaises pratiques affectant des zones parfois particulièrement riches en termes de biodiversité. \
 Ce paramètre vise donc à refléter les risques accrus en terme de biodiversité associés à des bois issus de zones soumises à des niveaux importants de corruption.&#x20;
 
@@ -152,9 +170,9 @@ Ce paramètre vise donc à refléter les risques accrus en terme de biodiversit�
 
 Pour chaque niveau, un **coefficient de corruption (COR)** est appliqué; ce dernier vient préciser l'impact Biodiversité (BIO) du bois :&#x20;
 
-| Elevé                                | Moyen                                | Faible                             |
-| ------------------------------------ | ------------------------------------ | ---------------------------------- |
-| <mark style="color:red;">+50%</mark> | <mark style="color:red;">+25%</mark> | <mark style="color:red;">0%</mark> |
+| Elevé | Moyen | Faible |
+| ----- | ----- | ------ |
+| +50%  | +25%  | 0%     |
 
 
 
@@ -168,13 +186,11 @@ Les pays sont notés sur une échelle de 0 à 100, où 0 signifie un niveau de c
 
 </details>
 
-<figure><img src="../../.gitbook/assets/image (1) (1).png" alt=""><figcaption><p>Impact biodiversité des différents bois proposés dans le Niveau 1 de la méthode ( Ref(i) )</p></figcaption></figure>
-
 {% hint style="info" %}
 Afin de couvrir toutes les configurations possibles, deux scénarios non spécifiques à une origine ont été intégrés dans la méthode :&#x20;
 
-* **Origine inconnue** : lorsque l'utilisateur ne connaît pas l'origine de la forêt ayant produit le bois, l'origine "Inconnue" est proposée . Ce scénario présente des hypothèses majorantes afin d'inciter à plus de traçabilité.&#x20;
-* **Autre origine** : Lorsque l'origine du bois à modéliser n'est pas proposée, le scénario "Autre" est à utiliser. Ce scénario reflète le fait qu'un bois ne serait pas concerné par une filière d'approvisionnement à risque d'un point de vue biodiversité (car les filières à risque sont listées dans les scénarios par défaut). Dès lors, seul le mode de gestion forestière (GF) se voit attribué une valeur moyenne (Mitigée) car des pratiques forestières intensives peuvent avoir lieu dans n'importe quel pays.
+* **Origine inconnue** :  s'appliquer lorsque l'utilisateur ne connaît pas l'origine de la forêt ayant fourni le bois. Ce scénario présente des hypothèses majorantes afin d'inciter à plus de traçabilité.&#x20;
+* **Autre origine** : s'appliquer lorsque l'origine du bois n'est pas proposée. Ce scénario reflète le fait que ce bois n'est pas concerné par une filière d'approvisionnement à risque.&#x20;
 {% endhint %}
 
 <details>
