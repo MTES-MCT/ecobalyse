@@ -46,7 +46,7 @@ type alias Model =
 
 type Modal
     = DeleteComponentModal Component
-    | EditComponentModal Item
+    | EditComponentModal Component Item
     | SelectProcessModal Category TargetItem (Maybe Index) (Autocomplete Process)
 
 
@@ -70,7 +70,7 @@ init session =
       , modals = []
       }
     , session
-    , ComponentApi.getComponents session Scope.all ComponentListResponse
+    , ComponentApi.getComponents session ComponentListResponse
     )
 
 
@@ -82,9 +82,9 @@ update session msg model =
             ( model, session |> Session.notifyBackendError err, Cmd.none )
 
         ComponentCreated (RemoteData.Success component) ->
-            ( { model | modals = [ EditComponentModal (Component.createItem component.id) ] }
+            ( { model | modals = [ EditComponentModal component (Component.createItem component.id) ] }
             , session
-            , ComponentApi.getComponents session Scope.all ComponentListResponse
+            , ComponentApi.getComponents session ComponentListResponse
             )
 
         ComponentCreated _ ->
@@ -95,7 +95,7 @@ update session msg model =
             ( model, session |> Session.notifyBackendError err, Cmd.none )
 
         ComponentDeleted (RemoteData.Success _) ->
-            ( model, session, ComponentApi.getComponents session Scope.all ComponentListResponse )
+            ( model, session, ComponentApi.getComponents session ComponentListResponse )
 
         ComponentDeleted _ ->
             ( model, session, Cmd.none )
@@ -117,7 +117,7 @@ update session msg model =
             ( model, session |> Session.notifyBackendError err, Cmd.none )
 
         ComponentUpdated (RemoteData.Success _) ->
-            ( model, session, ComponentApi.getComponents session Scope.all ComponentListResponse )
+            ( model, session, ComponentApi.getComponents session ComponentListResponse )
 
         ComponentUpdated _ ->
             ( model, session, Cmd.none )
@@ -134,7 +134,7 @@ update session msg model =
 
         OnAutocompleteAddProcess category targetItem maybeElementIndex autocompleteMsg ->
             case model.modals of
-                [ SelectProcessModal _ _ _ autocompleteState, EditComponentModal item ] ->
+                [ SelectProcessModal _ _ _ autocompleteState, EditComponentModal component item ] ->
                     let
                         ( newAutocompleteState, autoCompleteCmd ) =
                             Autocomplete.update autocompleteMsg autocompleteState
@@ -142,7 +142,7 @@ update session msg model =
                     ( { model
                         | modals =
                             [ SelectProcessModal category targetItem maybeElementIndex newAutocompleteState
-                            , EditComponentModal item
+                            , EditComponentModal component item
                             ]
                       }
                     , session
@@ -154,7 +154,7 @@ update session msg model =
 
         OnAutocompleteSelectProcess category targetItem maybeElementIndex ->
             case model.modals of
-                [ SelectProcessModal _ _ _ autocompleteState, EditComponentModal item ] ->
+                [ SelectProcessModal _ _ _ autocompleteState, EditComponentModal _ item ] ->
                     ( model, session, Cmd.none )
                         |> selectProcess category targetItem maybeElementIndex autocompleteState item
 
@@ -169,7 +169,7 @@ update session msg model =
                     , ComponentApi.deleteComponent session ComponentDeleted component
                     )
 
-                [ EditComponentModal item ] ->
+                [ EditComponentModal _ item ] ->
                     case Component.itemToComponent session.db item of
                         Err error ->
                             ( { model | modals = [] }
@@ -191,8 +191,8 @@ update session msg model =
 
         UpdateComponent customItem ->
             case model.modals of
-                (EditComponentModal _) :: others ->
-                    ( { model | modals = EditComponentModal customItem :: others }, session, Cmd.none )
+                (EditComponentModal component _) :: others ->
+                    ( { model | modals = EditComponentModal component customItem :: others }, session, Cmd.none )
 
                 _ ->
                     ( model, session, Cmd.none )
@@ -206,7 +206,7 @@ selectProcess :
     -> Item
     -> ( Model, Session, Cmd Msg )
     -> ( Model, Session, Cmd Msg )
-selectProcess category targetItem maybeElementIndex autocompleteState item ( model, session, _ ) =
+selectProcess category (( component, _ ) as targetItem) maybeElementIndex autocompleteState item ( model, session, _ ) =
     case Autocomplete.selectedValue autocompleteState of
         Just process ->
             case
@@ -218,7 +218,7 @@ selectProcess category targetItem maybeElementIndex autocompleteState item ( mod
                     ( model, session |> Session.notifyError "Erreur" err, Cmd.none )
 
                 Ok updatedItem ->
-                    ( { model | modals = [ EditComponentModal updatedItem ] }, session, Cmd.none )
+                    ( { model | modals = [ EditComponentModal component updatedItem ] }, session, Cmd.none )
 
         Nothing ->
             ( model, session |> Session.notifyError "Erreur" "Aucun composant sélectionné", Cmd.none )
@@ -305,7 +305,7 @@ componentRowView db component =
                 [ button
                     [ class "btn btn-outline-primary"
                     , title "Modifier le composant"
-                    , onClick <| SetModals [ EditComponentModal (Component.createItem component.id) ]
+                    , onClick <| SetModals [ EditComponentModal component (Component.createItem component.id) ]
                     ]
                     [ Icon.pencil ]
                 , button
@@ -358,7 +358,7 @@ modalView db modals modal =
                     , button [ class "btn btn-danger" ] [ text "Supprimer" ]
                     )
 
-                EditComponentModal item ->
+                EditComponentModal component item ->
                     ( "Modifier le composant"
                     , [ ComponentView.editorView
                             { addLabel = ""
@@ -403,7 +403,10 @@ modalView db modals modal =
                             , updateItemQuantity = \_ _ -> NoOp
                             }
                       ]
-                    , button [ class "btn btn-primary" ] [ text "Sauvegarder" ]
+                    , div [ class "d-flex flex-row justify-content-between align-items-center gap-3 w-100" ]
+                        [ componentScopesForm component item
+                        , button [ class "btn btn-primary" ] [ text "Sauvegarder le composant" ]
+                        ]
                     )
 
                 SelectProcessModal category targetItem maybeElementIndex autocompleteState ->
@@ -452,6 +455,41 @@ modalView db modals modal =
         , subTitle = Nothing
         , title = title
         }
+
+
+componentScopesForm : Component -> Item -> Html Msg
+componentScopesForm component item =
+    div [ class "d-flex flex-row gap-3" ]
+        [ h3 [ class "h6" ] [ text "Verticales" ]
+        , Scope.all
+            |> List.indexedMap
+                (\index scope ->
+                    div [ class "form-check form-check-inline" ]
+                        [ input
+                            [ type_ "checkbox"
+                            , class "form-check-input"
+                            , id <| "scope-" ++ String.fromInt index
+                            , item.custom
+                                |> Maybe.map .scopes
+                                |> Maybe.withDefault component.scopes
+                                |> List.member scope
+                                |> checked
+                            , onCheck <|
+                                \enabled ->
+                                    item
+                                        |> Component.toggleCustomScope component scope enabled
+                                        |> UpdateComponent
+                            ]
+                            []
+                        , label
+                            [ for <| "scope-" ++ String.fromInt index
+                            , class "form-check-label"
+                            ]
+                            [ text (Scope.toString scope) ]
+                        ]
+                )
+            |> div []
+        ]
 
 
 updateSingleItem : (List Item -> List Item) -> Item -> Msg
