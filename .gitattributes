@@ -1,4 +1,2 @@
 #pattern  filter=crypt diff=crypt merge=crypt
-public/data/textile/processes_impacts.json filter=crypt diff=crypt merge=crypt
-public/data/food/processes_impacts.json filter=crypt diff=crypt merge=crypt
-public/data/object/processes_impacts.json filter=crypt diff=crypt merge=crypt
+public/data/processes_impacts.json filter=crypt diff=crypt merge=crypt
