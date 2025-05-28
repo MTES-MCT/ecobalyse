@@ -44,4 +44,4 @@ find versions/ -type f -name "*.js.map" -delete
 find versions/ -type f -name "*.css.map" -delete
 
 # Add uv path to profile
-echo "export PATH=$PWD/.local/bin:\$PATH" >> ~/.profile
+echo "export PATH=$PWD/.local/bin:~/.local/bin:\$PATH" >> ~/.profile
