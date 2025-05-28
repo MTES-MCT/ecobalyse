@@ -3,9 +3,6 @@
 ROOT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )/.." &> /dev/null && pwd )
 cd $ROOT_DIR
 
-
-export PATH="$PWD/.local/bin":$PATH
-
 # run all three tasks in the background
 
 # express
