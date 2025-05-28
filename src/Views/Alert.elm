@@ -32,18 +32,20 @@ type Level
 
 icon : Level -> Html msg
 icon level =
-    case level of
-        Danger ->
-            span [ class "me-1" ] [ Icon.warning ]
+    span [ class "me-1" ]
+        [ case level of
+            Danger ->
+                Icon.warning
 
-        Info ->
-            span [ class "me-1" ] [ Icon.info ]
+            Info ->
+                Icon.info
 
-        Success ->
-            span [ class "me-1" ] [ Icon.checkCircle ]
+            Success ->
+                Icon.checkCircle
 
-        Warning ->
-            span [ class "me-1" ] [ Icon.warning ]
+            Warning ->
+                Icon.warning
+        ]
 
 
 backendError : Maybe msg -> BackendError.Error -> Html msg
@@ -53,6 +55,20 @@ backendError close error =
         , content =
             [ case BackendError.mapErrorResponse error of
                 Just { detail, headers, statusCode, title, url } ->
+                    let
+                        errorText =
+                            [ ( "Message", detail )
+                            , ( "URL", url )
+                            , ( "Status code", String.fromInt statusCode )
+                            , ( "En-têtes"
+                              , Dict.toList headers
+                                    |> List.map (\( a, b ) -> "\n- " ++ a ++ ": " ++ b)
+                                    |> String.concat
+                              )
+                            ]
+                                |> List.map (\( a, b ) -> a ++ ": " ++ b)
+                                |> String.join "\n"
+                    in
                     div []
                         [ p [ class "mb-2 text-truncate" ]
                             [ case title of
@@ -71,29 +87,49 @@ backendError close error =
                             ]
                         , Html.details []
                             [ summary [] [ text "Détails de l'erreur" ]
-                            , [ ( "Message", detail )
-                              , ( "URL", url )
-                              , ( "Status code", String.fromInt statusCode )
-                              , ( "En-têtes"
-                                , Dict.toList headers
-                                    |> List.map (\( a, b ) -> "\n- " ++ a ++ ": " ++ b)
-                                    |> String.concat
-                                )
-                              ]
-                                |> List.map (\( a, b ) -> a ++ ": " ++ b)
-                                |> String.join "\n"
-                                |> text
+                            , text errorText
                                 |> List.singleton
                                 |> pre [ class "mt-1 mb-0 ms-3" ]
                             ]
+                        , reportErrorLink <| detail ++ " " ++ errorText
                         ]
 
                 Nothing ->
-                    em [] [ text "Aucun message d'erreur spécifié" ]
+                    div [] [ text "Le serveur est probablement indisponible", reportErrorLink "test" ]
             ]
         , level = Danger
         , title = Just "Une erreur serveur a été rencontrée"
         }
+
+
+reportErrorLink : String -> Html msg
+reportErrorLink error =
+    p [ class "fs-7 mt-1 mb-0" ]
+        [ a
+            [ "mailto:"
+                ++ Env.contactEmail
+                ++ "?Subject="
+                ++ escapeUrl "[Ecobalyse] Erreur rencontrée"
+                ++ "&Body="
+                ++ escapeUrl "Bonjour, j'ai rencontré une erreur sur le site Ecobalyse. En voici les détails:\n\n"
+                ++ escapeUrl error
+                |> href
+            ]
+            [ text "Envoyer un rapport d'incident par email" ]
+        ]
+
+
+escapeUrl : String -> String
+escapeUrl =
+    String.replace " " "%20"
+        >> String.replace "\n" "%0A"
+        >> String.replace "\u{000D}" "%0D"
+        >> String.replace "\t" "%09"
+        >> String.replace "\"" "%22"
+        >> String.replace "'" "%27"
+        >> String.replace "<" "%3C"
+        >> String.replace ">" "%3E"
+        >> String.replace "&" "%26"
 
 
 serverError : String -> Html msg
@@ -117,16 +153,7 @@ serverError error =
                             , pre [ class "mt-1" ]
                                 [ rest |> String.join "\n" |> String.trim |> text ]
                             ]
-                        , a
-                            [ class "btn btn-primary"
-                            , href
-                                ("mailto:"
-                                    ++ Env.contactEmail
-                                    ++ "?Subject=[Ecobalyse]+Erreur+rencontrée&Body="
-                                    ++ error
-                                )
-                            ]
-                            [ text "Envoyer un rapport d'incident" ]
+                        , reportErrorLink error
                         ]
                     ]
         , level = Info
@@ -147,12 +174,12 @@ simple { close, content, level, title } =
         ]
         [ case title of
             Just title_ ->
-                h5 [ class "alert-heading d-flex align-items-center" ]
+                h5 [ class "alert-heading d-flex align-items-center mb-0" ]
                     [ icon level, text title_ ]
 
             Nothing ->
                 text ""
-        , div [] content
+        , div [ class "mt-1" ] content
         , case close of
             Just closeMsg ->
                 button
