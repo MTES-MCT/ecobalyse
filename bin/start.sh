@@ -5,17 +5,10 @@ cd $ROOT_DIR
 
 # run all three tasks in the background
 
-echo "DEBUG"
-echo $PATH
-echo $PWD
-ls .local/bin
-cat .profile
-
 # express
 npm run server:start &
 
-uv run backend database upgrade --no-prompt
-uv run backend run -p 8002 &
+npm run start:backend &
 
 # nginx
 bin/run &
