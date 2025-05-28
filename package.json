@@ -49,6 +49,7 @@
     "test:review": "npx elm-review",
     "test:server": "tests/setup-version-fixture.sh && npm run server:build && NODE_ENV=test jest",
     "test:server-ci": "tests/setup-version-fixture.sh && concurrently -k -s first -n \"django,test\" \"npm run start:backend\" \"while ! lsof -i:8002; do sleep 1; done && npm run server:build && NODE_ENV=test jest\"",
+    "test:e2e": "playwright test",
     "test": "npm run test:client && npm run test:backend && npm run test:server"
   },
   "dependencies": {
@@ -70,6 +71,8 @@
     "@parcel/transformer-elm": "^2.14.4",
     "@parcel/transformer-image": "^2.14.4",
     "@parcel/transformer-sass": "^2.14.4",
+    "@playwright/test": "^1.52.0",
+    "@types/node": "^22.15.23",
     "ajv-cli": "^5.0.0",
     "ajv-formats": "^3.0.1",
     "bootstrap": "^5.3.5",

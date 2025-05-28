@@ -199,7 +199,10 @@ updateAccountTab session currentAuth msg model =
 
         LogoutResponse (RemoteData.Failure error) ->
             ( model
-            , session |> Session.notifyBackendError error
+            , session
+                |> Session.notifyBackendError error
+                |> Session.logout
+                |> Session.notifyInfo "Déconnexion" "Vous avez été deconnecté"
             , Cmd.none
             )
 
