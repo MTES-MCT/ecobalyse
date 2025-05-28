@@ -36,8 +36,6 @@ rm -rf ecobalyse
 
 echo "-> Install 'uv' and create 'requirements.txt'"
 curl -LsSf https://astral.sh/uv/install.sh | sh
-# Needed for the scalingo python buildpack
-uv pip compile pyproject.toml -o requirements.txt
 
 uv run ./bin/download_github_releases.py
 
