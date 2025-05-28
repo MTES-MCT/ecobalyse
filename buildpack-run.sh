@@ -36,6 +36,7 @@ rm -rf ecobalyse
 
 echo "-> Install 'uv' and create 'requirements.txt'"
 curl -LsSf https://astral.sh/uv/install.sh | sh
+source $HOME/.local/bin/env
 
 uv run ./bin/download_github_releases.py
 
