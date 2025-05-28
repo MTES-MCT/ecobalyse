@@ -5,6 +5,10 @@ cd $ROOT_DIR
 
 # run all three tasks in the background
 
+echo "DEBUG"
+echo $PATH
+cat .profile
+
 # express
 npm run server:start &
 
