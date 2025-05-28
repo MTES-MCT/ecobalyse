@@ -4,7 +4,6 @@ import Data.Component as Component exposing (Component, Item)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
 import Data.Process as Process exposing (Process)
-import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
 import Expect
