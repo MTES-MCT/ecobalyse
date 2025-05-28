@@ -10,7 +10,7 @@ all : List ( Section, Bool )
 all =
     [ ( AccountSection, True )
     , ( ComponentSection, True )
-    , ( ProcessSection, False )
+    , ( ProcessSection, True )
     ]
 
 
