@@ -4,6 +4,7 @@ import Data.Component as Component exposing (Component, Item)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
 import Data.Process as Process exposing (Process)
+import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
 import Expect
@@ -552,6 +553,56 @@ suite =
                             |> Impact.sumImpacts
                             |> getEcsImpact
                             |> Expect.within (Expect.Absolute 1) (extractEcsImpact results)
+                        )
+                    ]
+                )
+            , TestUtils.suiteFromResult "toggleCustomScope"
+                -- setup
+                ("""{ "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 }"""
+                    |> decodeJson Component.decodeItem
+                    |> Result.andThen
+                        (\item ->
+                            item
+                                |> Component.itemToComponent db
+                                |> Result.map (\component -> ( component, item ))
+                        )
+                )
+                (\( component, item ) ->
+                    [ it "should have no custom scopes by default"
+                        (item.custom
+                            |> Expect.equal Nothing
+                        )
+                    , it "should toggle a custom scope"
+                        (item
+                            |> Component.toggleCustomScope component Scope.Textile False
+                            |> .custom
+                            |> Maybe.map .scopes
+                            |> Expect.equal (Just [ Scope.Food, Scope.Object, Scope.Veli ])
+                        )
+                    , it "should sequentially toggle custom scopes"
+                        (item
+                            |> Component.toggleCustomScope component Scope.Food False
+                            |> Component.toggleCustomScope component Scope.Object False
+                            |> Component.toggleCustomScope component Scope.Textile False
+                            |> Component.toggleCustomScope component Scope.Object True
+                            |> .custom
+                            |> Maybe.map .scopes
+                            |> Expect.equal (Just [ Scope.Object, Scope.Veli ])
+                        )
+                    , it "should reset custom scopes when they match initial component ones"
+                        (item
+                            |> Component.toggleCustomScope component Scope.Food False
+                            |> Component.toggleCustomScope component Scope.Food True
+                            |> .custom
+                            |> Maybe.map .scopes
+                            |> Expect.equal Nothing
+                        )
+                    , it "should export custom scopes to component"
+                        (item
+                            |> Component.toggleCustomScope component Scope.Textile False
+                            |> Component.itemToComponent db
+                            |> Result.map .scopes
+                            |> Expect.equal (Ok [ Scope.Food, Scope.Object, Scope.Veli ])
                         )
                     ]
                 )
