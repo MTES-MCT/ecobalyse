@@ -544,6 +544,20 @@ viewAccount { user } profileForm formErrors =
                 , small [ class "d-flex align-items-center justify-content-end gap-1 text-muted" ]
                     [ Icon.info, text "Il n'est pas encore possible de modifier votre adresse email, mais nous y travaillons" ]
                 ]
+            , div []
+                [ div [ class "form-label" ] [ text "Organisation" ]
+                , input
+                    [ type_ "text"
+                    , class "form-control"
+                    , id "email"
+                    , placeholder "josephine@example.com"
+                    , value <| viewOrganization user.profile.organization
+                    , disabled True
+                    ]
+                    []
+                , small [ class "d-flex align-items-center justify-content-end gap-1 text-muted" ]
+                    [ Icon.info, text "Vous ne pouvez pas modifier votre organisation" ]
+                ]
             , div [ class "mb-3" ]
                 [ label [ for "firstName", class "form-label" ]
                     [ text "Prénom" ]
@@ -615,32 +629,29 @@ viewAccount { user } profileForm formErrors =
         ]
 
 
-viewOrganization : User.Organization -> Html Msg
+viewOrganization : User.Organization -> String
 viewOrganization organization =
     case organization of
         User.Association name ->
-            text <| "Association\u{00A0}: " ++ name
+            "Association\u{00A0}: " ++ name
 
         User.Business name siren ->
-            div []
-                [ div [] [ text "Entreprise\u{00A0}: ", strong [] [ text name ] ]
-                , div [] [ text <| "Siren\u{00A0}: " ++ User.sirenToString siren ]
-                ]
+            "Entreprise\u{00A0}: " ++ name ++ "(" ++ User.sirenToString siren ++ ")"
 
         User.Education name ->
-            text <| "Établissement\u{00A0}: " ++ name
+            "Établissement\u{00A0}: " ++ name
 
         User.Individual ->
-            text "Particulier"
+            "Particulier"
 
         User.LocalAuthority name ->
-            text <| "Collectivité\u{00A0}: " ++ name
+            "Collectivité\u{00A0}: " ++ name
 
         User.Media name ->
-            text <| "Média\u{00A0}: " ++ name
+            "Média\u{00A0}: " ++ name
 
         User.Public name ->
-            text <| "Établissement public\u{00A0}: " ++ name
+            "Établissement public\u{00A0}: " ++ name
 
 
 viewApiTokenCreated : Token -> Html Msg
