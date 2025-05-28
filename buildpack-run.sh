@@ -1,12 +1,6 @@
 #!/usr/bin/env bash
 
 
-echo "-> Install 'uv' and create 'requirements.txt'"
-curl -LsSf https://astral.sh/uv/install.sh | sh
-source $HOME/.local/bin/env
-# Needed for the scalingo python buildpack
-uv pip compile pyproject.toml -o requirements.txt
-
 echo "-> Install 'transcrypt' to /usr/local/bin"
 
 mkdir -p "$PWD/.local/bin"
@@ -39,7 +33,13 @@ cd ..
 echo "-> Removing 'ecobalyse' directory"
 rm -rf ecobalyse
 
-./bin/download_github_releases.py
+
+echo "-> Install 'uv' and create 'requirements.txt'"
+curl -LsSf https://astral.sh/uv/install.sh | sh
+# Needed for the scalingo python buildpack
+uv pip compile pyproject.toml -o requirements.txt
+
+uv run ./bin/download_github_releases.py
 
 # Remove big map files from old versions for a slimer scalingo image
 find versions/ -type f -name "*.js.map" -delete
