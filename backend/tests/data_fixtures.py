@@ -4,14 +4,12 @@ import datetime
 from typing import TYPE_CHECKING, Any
 
 import pytest
-
 from app.domain.accounts.schemas import OrganizationCreate, OrganizationType
 
 if TYPE_CHECKING:
+    from app.db.models import ComponentModel, User
     from litestar import Litestar
     from pytest import MonkeyPatch
-
-    from app.db.models import ComponentModel, User
 
 
 pytestmark = pytest.mark.anyio

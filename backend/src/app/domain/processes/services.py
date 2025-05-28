@@ -6,7 +6,6 @@ from advanced_alchemy.repository import (
 from advanced_alchemy.service import (
     SQLAlchemyAsyncRepositoryService,
 )
-
 from app.db import models as m
 
 __all__ = ("ProcessService",)
