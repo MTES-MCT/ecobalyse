@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+
+echo "-> Install 'uv' and create 'requirements.txt'"
+curl -LsSf https://astral.sh/uv/install.sh | sh
+source $HOME/.local/bin/env
+# Needed for the scalingo python buildpack
+uv pip compile pyproject.toml -o requirements.txt
+
 echo "-> Install 'transcrypt' to /usr/local/bin"
 
 mkdir -p "$PWD/.local/bin"
@@ -26,9 +33,7 @@ echo "-> Decrypt detailed impacts"
 # and can safely use transcrypt inside
 ./bin/run-transcrypt.sh force
 
-cp -f public/data/food/processes_impacts.json ../public/data/food/
-cp -f public/data/object/processes_impacts.json ../public/data/object/
-cp -f public/data/textile/processes_impacts.json ../public/data/textile/
+cp -f public/data/processes_impacts.json ../public/data/
 cd ..
 
 echo "-> Removing 'ecobalyse' directory"

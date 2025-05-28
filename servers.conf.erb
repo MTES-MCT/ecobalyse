@@ -6,10 +6,6 @@ server {
   listen <%= ENV["PORT"] %>;
   server_name _;
   root /app/;
-  # static files of django
-  location /static/ {
-    autoindex off;
-  }
   # express
   location / {
     proxy_pass http://localhost:8001;
@@ -17,14 +13,10 @@ server {
     proxy_set_header X-Real-IP $remote_addr ;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for ;
   }
-  # django
-  location /admin {
-    proxy_pass http://localhost:8002;
-    proxy_set_header Host $host ;
-    proxy_set_header X-Real-IP $remote_addr ;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for ;
-  }
-  location /accounts {
+  # litestar backend
+  location /backend {
+    # Be sure to remove the /backend prefix
+    rewrite ^/backend/(.*)$ /$1 break;
     proxy_pass http://localhost:8002;
     proxy_set_header Host $host ;
     proxy_set_header X-Real-IP $remote_addr ;

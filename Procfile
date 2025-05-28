@@ -1,2 +1,2 @@
 postdeploy: ./bin/create-backend-admins.sh
-web: ./start.sh
+web: ./bin/start.sh
