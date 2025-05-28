@@ -3,7 +3,6 @@ from __future__ import annotations
 from uuid import UUID  # noqa: TC003
 
 import msgspec
-
 from app.lib.schema import CamelizedBaseStruct
 
 __all__ = (

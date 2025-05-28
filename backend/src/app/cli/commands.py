@@ -9,11 +9,6 @@ import click
 import orjson
 from advanced_alchemy.utils.fixtures import open_fixture_async
 from advanced_alchemy.utils.text import slugify
-from rich import get_console
-from sqlalchemy import select
-from sqlalchemy.orm import load_only
-from structlog import get_logger
-
 from app.config import get_settings
 from app.config.app import alchemy
 from app.db.models import Role, UserRole
@@ -29,6 +24,10 @@ from app.domain.accounts.services import RoleService, TokenService
 from app.domain.components.services import ComponentService
 from app.lib import crypt
 from app.lib.deps import create_service_provider
+from rich import get_console
+from sqlalchemy import select
+from sqlalchemy.orm import load_only
+from structlog import get_logger
 
 
 @click.group(
@@ -350,9 +349,8 @@ def load_components_json(json_file: click.File) -> None:
 async def load_processes_fixtures(processes_data: dict) -> None:
     """Import/Synchronize Database Fixtures."""
 
-    from structlog import get_logger
-
     from app.domain.processes.services import ProcessService
+    from structlog import get_logger
 
     logger = get_logger()
     async with ProcessService.new(config=alchemy, uniquify=True) as service:

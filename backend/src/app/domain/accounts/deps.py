@@ -4,11 +4,10 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any
 
-from sqlalchemy.orm import joinedload, selectinload
-
 from app.db import models as m
 from app.domain.accounts.services import UserService
 from app.lib.deps import create_service_provider
+from sqlalchemy.orm import joinedload, selectinload
 
 if TYPE_CHECKING:
     from litestar import Request

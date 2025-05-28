@@ -2,16 +2,15 @@ import urllib
 from typing import Any
 
 import pytest
+from app.config import get_settings
+from app.db.models import User
+from app.domain.accounts.services import TokenService, UserService
 from httpx import AsyncClient
 from litestar.exceptions import PermissionDeniedException
 from sqlalchemy.ext.asyncio import (
     AsyncSession,
 )
 from structlog.testing import capture_logs
-
-from app.config import get_settings
-from app.db.models import User
-from app.domain.accounts.services import TokenService, UserService
 
 pytestmark = pytest.mark.anyio
 

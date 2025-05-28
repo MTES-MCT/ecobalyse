@@ -5,13 +5,12 @@ import urllib.parse
 
 import emails
 import structlog
-from emails.template import JinjaTemplate as T
-from litestar.events import listener
-
 from app.config import get_settings
 from app.config.app import alchemy
 from app.db.models import User
 from app.domain.accounts.deps import provide_users_service
+from emails.template import JinjaTemplate as T
+from litestar.events import listener
 
 logger = structlog.get_logger()
 

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import TypeVar
 
+from app.domain.accounts.services import UserRoleService
 from click import Group
 from litestar.config.app import AppConfig
 from litestar.di import Provide
@@ -9,8 +10,6 @@ from litestar.openapi.config import OpenAPIConfig
 from litestar.openapi.plugins import ScalarRenderPlugin
 from litestar.plugins import CLIPluginProtocol, InitPluginProtocol
 from litestar.security.jwt import OAuth2Login
-
-from app.domain.accounts.services import UserRoleService
 
 T = TypeVar("T")
 
@@ -43,9 +42,6 @@ class ApplicationCore(InitPluginProtocol, CLIPluginProtocol):
 
         from uuid import UUID
 
-        from litestar.enums import RequestEncodingType
-        from litestar.params import Body
-
         from app.__about__ import __version__ as current_version
         from app.config import app as config
         from app.config import get_settings
@@ -59,6 +55,8 @@ class ApplicationCore(InitPluginProtocol, CLIPluginProtocol):
         from app.domain.components.services import ComponentService
         from app.domain.system.controllers import SystemController
         from app.server import plugins
+        from litestar.enums import RequestEncodingType
+        from litestar.params import Body
 
         settings = get_settings()
         self.app_slug = settings.app.slug
