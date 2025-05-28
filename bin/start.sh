@@ -3,16 +3,16 @@
 ROOT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )/.." &> /dev/null && pwd )
 cd $ROOT_DIR
 
+
+export PATH="$PWD/.local/bin":$PATH
+
 # run all three tasks in the background
 
 # express
 npm run server:start &
 
-
-pushd backend
 uv run backend database upgrade --no-prompt
 uv run backend run -p 8002 &
-popd
 
 # nginx
 bin/run &
