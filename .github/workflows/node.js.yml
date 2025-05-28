@@ -88,4 +88,3 @@ jobs:
 
     - name: Run server tests
       run: pipenv run backend/update.sh && npm run test:server-ci && npm run test:backend
-

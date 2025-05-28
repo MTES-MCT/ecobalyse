@@ -77,4 +77,8 @@ export default defineConfig({
     url: "http://localhost:1234",
     reuseExistingServer: !process.env.CI,
   },
+
+  // Avoid git related timeouts
+  // https://github.com/microsoft/playwright/issues/35073#issuecomment-2761312304
+  captureGitInfo: { commit: false, diff: false },
 });
