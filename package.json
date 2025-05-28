@@ -33,7 +33,7 @@
     "fix:ruff:check": "npm run lint:ruff:check -- --fix",
     "fix:ruff:format": "uv run ruff format --force-exclude",
     "fix:all": "npm run fix:ruff:all && npm run fix:prettier:all",
-    "format:json": "npx prettier@3.0.3 --write . && npm run lint:ruff:all",
+    "format:json": "npx prettier@3.0.3 --write . && uv run ruff check --select I --fix && uv run ruff format",
     "postinstall": "./bin/run-transcrypt.sh",
     "processes:build": "elm make src/ComputeAggregated.elm --output=compute-aggregated-app.js 1> /dev/null && node compute-aggregated.js",
     "server:build": "npm run db:build && elm make src/Server.elm --optimize --output=server-app.js",
