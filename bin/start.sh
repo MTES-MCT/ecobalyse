@@ -7,6 +7,8 @@ cd $ROOT_DIR
 
 echo "DEBUG"
 echo $PATH
+echo $PWD
+ls .local/bin
 cat .profile
 
 # express
