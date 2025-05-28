@@ -392,6 +392,7 @@ pageHeader { session, activePage, openMobileNavigation, loadUrl, switchVersion }
                 [ a
                     [ class "d-none d-sm-block flex-fill text-end"
                     , Route.href Route.Auth
+                    , attribute "data-testid" "auth-link"
                     ]
                     [ if Session.isAuthenticated session then
                         text "Mon compte"

@@ -676,7 +676,10 @@ viewApiTokenDelete apiToken =
 
 viewMagicLinkForm : Email -> Html Msg
 viewMagicLinkForm email =
-    Html.form [ onSubmit MagicLinkSubmit ]
+    Html.form
+        [ onSubmit MagicLinkSubmit
+        , attribute "data-testid" "auth-magic-link-form"
+        ]
         [ p [ class "fs-8" ]
             [ """Si vous avez un compte, entrez votre adresse email ci-dessous pour recevoir un email
                  de connexion. Si vous n'en avez pas, vous pouvez [créer un compte]({url})."""
@@ -702,6 +705,7 @@ viewMagicLinkForm email =
                 [ type_ "submit"
                 , class "btn btn-primary"
                 , disabled <| email == "" || User.validateEmailForm email /= Dict.empty
+                , attribute "data-testid" "auth-magic-link-submit"
                 ]
                 [ text "Recevoir un email de connexion" ]
             ]
@@ -720,7 +724,10 @@ viewMagicLinkSent email =
 
 viewSignupForm : SignupForm -> FormErrors -> Html Msg
 viewSignupForm signupForm formErrors =
-    Html.form [ onSubmit SignupSubmit ]
+    Html.form
+        [ onSubmit SignupSubmit
+        , attribute "data-testid" "auth-signup-form"
+        ]
         [ p [ class "fs-8" ]
             [ text "Sauf mention contraire, tous les champs sont obligatoires." ]
         , div [ class "mb-3" ]
@@ -816,6 +823,7 @@ viewSignupForm signupForm formErrors =
                 [ type_ "submit"
                 , class "btn btn-primary"
                 , disabled <| signupForm == User.emptySignupForm || formErrors /= Dict.empty
+                , attribute "data-testid" "auth-signup-submit"
                 ]
                 [ text "Valider mon inscription" ]
             ]
