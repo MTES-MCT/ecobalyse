@@ -2,16 +2,19 @@ module Data.User exposing
     ( AccessTokenData
     , FormErrors
     , Organization(..)
+    , ProfileForm
     , SignupForm
     , Siren(..)
     , User
     , decodeAccessTokenData
     , decodeOrganization
     , decodeUser
+    , emptyProfileForm
     , emptySignupForm
     , encodeAccessTokenData
     , encodeOrganization
     , encodeSignupForm
+    , encodeUpdateProfileForm
     , encodeUser
     , getOrganizationName
     , organizationTypeToString
@@ -22,6 +25,7 @@ module Data.User exposing
     , updateOrganizationSiren
     , updateOrganizationType
     , validateEmailForm
+    , validateProfileForm
     , validateSignupForm
     , validateSiren
     )
@@ -64,6 +68,13 @@ type alias Profile =
     , lastName : String
     , organization : Organization
     , termsAccepted : Bool
+    }
+
+
+type alias ProfileForm =
+    { emailOptin : Bool
+    , firstName : String
+    , lastName : String
     }
 
 
@@ -194,6 +205,14 @@ decodeSiren =
         |> Decode.andThen (validateSiren >> DE.fromResult)
 
 
+emptyProfileForm : ProfileForm
+emptyProfileForm =
+    { emailOptin = False
+    , firstName = ""
+    , lastName = ""
+    }
+
+
 emptySignupForm : SignupForm
 emptySignupForm =
     { email = ""
@@ -308,6 +327,15 @@ encodeSignupForm form =
         , ( "lastName", form.lastName |> Encode.string )
         , ( "organization", form.organization |> encodeOrganization )
         , ( "termsAccepted", form.termsAccepted |> Encode.bool )
+        ]
+
+
+encodeUpdateProfileForm : ProfileForm -> Encode.Value
+encodeUpdateProfileForm form =
+    Encode.object
+        [ ( "emailOptin", form.emailOptin |> Encode.bool )
+        , ( "firstName", form.firstName |> Encode.string )
+        , ( "lastName", form.lastName |> Encode.string )
         ]
 
 
@@ -524,6 +552,20 @@ validateSiren siren =
 
         else
             Err "Le numéro SIREN est invalide"
+
+
+validateProfileForm : ProfileForm -> FormErrors
+validateProfileForm form =
+    let
+        isEmpty =
+            String.trim >> String.isEmpty
+
+        requiredMsg =
+            "Le champ est obligatoire"
+    in
+    Dict.empty
+        |> addFormErrorIf "firstName" requiredMsg (isEmpty form.firstName)
+        |> addFormErrorIf "lastName" requiredMsg (isEmpty form.lastName)
 
 
 validateSignupForm : SignupForm -> FormErrors
