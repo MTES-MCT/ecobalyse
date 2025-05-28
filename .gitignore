@@ -28,3 +28,9 @@ db.sqlite3
 *.egg-info
 /versions
 /git_build
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

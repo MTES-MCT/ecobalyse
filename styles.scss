@@ -1269,47 +1269,6 @@ q {
   line-height: 1.5em;
 }
 
-.Summary {
-  &ProductImage {
-    width: 4.35em;
-    height: 4.35em;
-  }
-
-  @media screen and (width < $viewport-sm) {
-    position: fixed;
-    z-index: 1020;
-    left: 0;
-    right: 0;
-    bottom: -3px;
-
-    &ProductImage {
-      width: 3.2em;
-      height: 3.2em;
-    }
-
-    .card {
-      border: 0;
-      border-radius: 0;
-      .card-header {
-        border-radius: 0;
-      }
-      .card-body {
-        padding: 10px;
-      }
-    }
-
-    .card-header {
-      color: red;
-    }
-  }
-
-  &Score {
-    &Funit {
-      margin-top: -5px;
-    }
-  }
-}
-
 .Tabs {
   &Tab {
     border-top: 0 !important;
