@@ -5,11 +5,10 @@
 # express
 npm run server:start &
 
-# django
+
 pushd backend
-./update.sh
-python manage.py collectstatic --noinput
-gunicorn -b 127.0.0.1:8002 backend.wsgi &
+uv run backend database upgrade --no-prompt
+uv run backend run &
 popd
 
 # nginx
