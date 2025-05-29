@@ -7,6 +7,7 @@ module Views.Alert exposing
     )
 
 import Data.Env as Env
+import Data.Session exposing (Session)
 import Dict
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -48,8 +49,8 @@ icon level =
         ]
 
 
-backendError : Maybe msg -> BackendError.Error -> Html msg
-backendError close error =
+backendError : Session -> Maybe msg -> BackendError.Error -> Html msg
+backendError session close error =
     simple
         { close = close
         , content =
@@ -95,7 +96,9 @@ backendError close error =
                         ]
 
                 Nothing ->
-                    div [] [ text "Le serveur est probablement indisponible", reportErrorLink "test" ]
+                    div [] [ text "Le serveur est probablement indisponible" ]
+            , div [ class "fs-8 text-muted" ]
+                [ em [] [ text <| "Backend url: " ++ session.backendApiUrl ] ]
             ]
         , level = Danger
         , title = Just "Une erreur serveur a été rencontrée"

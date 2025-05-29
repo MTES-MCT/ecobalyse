@@ -456,14 +456,15 @@ notificationListView ({ session } as config) =
 
 
 notificationView : Config msg -> Session.Notification -> Html msg
-notificationView { closeNotification, resetSessionStore } notification =
+notificationView { closeNotification, resetSessionStore, session } notification =
     -- TODO:
     -- - absolute positionning
     -- - close button
     -- - timeout
     case notification of
         Session.BackendError backendError ->
-            Alert.backendError (Just (closeNotification notification)) backendError
+            backendError
+                |> Alert.backendError session (Just (closeNotification notification))
 
         Session.GenericError title message ->
             Alert.simple
