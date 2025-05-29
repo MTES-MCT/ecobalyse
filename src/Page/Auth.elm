@@ -528,67 +528,71 @@ viewTab session currentTab =
 viewAccount : Session.Auth -> ProfileForm -> FormErrors -> Html Msg
 viewAccount { user } profileForm formErrors =
     div []
-        [ Html.form [ onSubmit ProfileSubmit, class "px-5 mt-3" ]
-            [ div []
-                [ label [ for "email", class "form-label" ]
-                    [ text "Adresse email" ]
-                , input
-                    [ type_ "text"
-                    , class "form-control"
-                    , id "email"
-                    , placeholder "josephine@example.com"
-                    , value user.email
-                    , disabled True
+        [ Html.form [ onSubmit ProfileSubmit, class "mt-3" ]
+            [ div [ class "row" ]
+                [ div [ class "col-md-6 mb-3" ]
+                    [ label [ for "email", class "form-label" ]
+                        [ text "Adresse email" ]
+                    , input
+                        [ type_ "text"
+                        , class "form-control"
+                        , id "email"
+                        , placeholder "josephine@example.com"
+                        , value user.email
+                        , disabled True
+                        ]
+                        []
+                    , small [ class "d-flex align-items-center gap-1 text-muted" ]
+                        [ Icon.info, text "Vous ne pouvez pas encore modifier votre email" ]
                     ]
-                    []
-                , small [ class "d-flex align-items-center justify-content-end gap-1 text-muted" ]
-                    [ Icon.info, text "Il n'est pas encore possible de modifier votre adresse email, mais nous y travaillons" ]
+                , div [ class "col-md-6  mb-3" ]
+                    [ div [ class "form-label" ] [ text "Organisation" ]
+                    , input
+                        [ type_ "text"
+                        , class "form-control"
+                        , id "email"
+                        , placeholder "josephine@example.com"
+                        , value <| viewOrganization user.profile.organization
+                        , disabled True
+                        ]
+                        []
+                    , small [ class "d-flex align-items-center gap-1 text-muted" ]
+                        [ Icon.info, text "Vous ne pouvez pas modifier votre organisation" ]
+                    ]
                 ]
-            , div []
-                [ div [ class "form-label" ] [ text "Organisation" ]
-                , input
-                    [ type_ "text"
-                    , class "form-control"
-                    , id "email"
-                    , placeholder "josephine@example.com"
-                    , value <| viewOrganization user.profile.organization
-                    , disabled True
+            , div [ class "row" ]
+                [ div [ class "col-md-6 mb-3" ]
+                    [ label [ for "firstName", class "form-label" ]
+                        [ text "Prénom" ]
+                    , input
+                        [ type_ "text"
+                        , class "form-control"
+                        , classList [ ( "is-invalid", Dict.member "firstName" formErrors ) ]
+                        , id "firstName"
+                        , placeholder "Joséphine"
+                        , value profileForm.firstName
+                        , onInput <| \firstName -> UpdateProfileForm { profileForm | firstName = firstName }
+                        , required True
+                        ]
+                        []
+                    , viewFieldError "firstName" formErrors
                     ]
-                    []
-                , small [ class "d-flex align-items-center justify-content-end gap-1 text-muted" ]
-                    [ Icon.info, text "Vous ne pouvez pas modifier votre organisation" ]
-                ]
-            , div [ class "mb-3" ]
-                [ label [ for "firstName", class "form-label" ]
-                    [ text "Prénom" ]
-                , input
-                    [ type_ "text"
-                    , class "form-control"
-                    , classList [ ( "is-invalid", Dict.member "firstName" formErrors ) ]
-                    , id "firstName"
-                    , placeholder "Joséphine"
-                    , value profileForm.firstName
-                    , onInput <| \firstName -> UpdateProfileForm { profileForm | firstName = firstName }
-                    , required True
+                , div [ class "col-md-6 mb-3" ]
+                    [ label [ for "lastName", class "form-label" ]
+                        [ text "Nom" ]
+                    , input
+                        [ type_ "text"
+                        , class "form-control"
+                        , classList [ ( "is-invalid", Dict.member "lastName" formErrors ) ]
+                        , id "lastName"
+                        , placeholder "Durand"
+                        , value profileForm.lastName
+                        , onInput <| \lastName -> UpdateProfileForm { profileForm | lastName = lastName }
+                        , required True
+                        ]
+                        []
+                    , viewFieldError "lastName" formErrors
                     ]
-                    []
-                , viewFieldError "firstName" formErrors
-                ]
-            , div [ class "mb-3" ]
-                [ label [ for "lastName", class "form-label" ]
-                    [ text "Nom" ]
-                , input
-                    [ type_ "text"
-                    , class "form-control"
-                    , classList [ ( "is-invalid", Dict.member "lastName" formErrors ) ]
-                    , id "lastName"
-                    , placeholder "Durand"
-                    , value profileForm.lastName
-                    , onInput <| \lastName -> UpdateProfileForm { profileForm | lastName = lastName }
-                    , required True
-                    ]
-                    []
-                , viewFieldError "lastName" formErrors
                 ]
             , div [ class "mb-3 form-check" ]
                 [ input
