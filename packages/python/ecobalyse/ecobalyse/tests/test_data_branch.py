@@ -1,7 +1,7 @@
 from ecobalyse.github import extract_branch_name
 
 
-def test_extract_data_branch_name(client):
+def test_extract_data_branch_name():
     branch_name = extract_branch_name("ecobalyse-private: test_branch_name")
     assert branch_name == "test_branch_name"
 
