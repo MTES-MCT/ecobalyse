@@ -439,7 +439,7 @@ decode =
         |> Decode.required "elements" (Decode.list decodeElement)
         |> Decode.required "id" (Decode.map Id Uuid.decoder)
         |> Decode.required "name" Decode.string
-        |> Decode.required "scopes" (Decode.list Scope.decode)
+        |> Decode.optional "scopes" (Decode.list Scope.decode) Scope.all
 
 
 decodeCustom : Decoder Custom

@@ -15,7 +15,7 @@ import Data.Impact.Definition as Definition
 import Data.Key as Key
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
-import Data.Scope as Scope
+import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -40,6 +40,7 @@ import Views.Table as Table
 
 type alias Model =
     { components : WebData (List Component)
+    , scopes : List Scope
     , modals : List Modal
     }
 
@@ -68,6 +69,7 @@ init : Session -> ( Model, Session, Cmd Msg )
 init session =
     ( { components = RemoteData.NotAsked
       , modals = []
+      , scopes = Scope.all
       }
     , session
     , ComponentApi.getComponents session ComponentListResponse
@@ -231,7 +233,7 @@ view { db } model =
             [ h1 [ class "mb-3" ] [ text "Ecobalyse Admin" ]
             , warning
             , model.components
-                |> mapRemoteData (componentListView db)
+                |> mapRemoteData (componentListView db model.scopes)
             , model.components
                 |> mapRemoteData downloadDbButton
             , model.modals
@@ -260,16 +262,18 @@ downloadDbButton components =
         ]
 
 
-componentListView : Db -> List Component -> Html Msg
-componentListView db components =
+componentListView : Db -> List Scope -> List Component -> Html Msg
+componentListView db scopes components =
     Table.responsiveDefault []
         [ thead []
             [ tr []
                 [ th [] [ text "Nom" ]
+                , th [] [ text "Verticales" ]
                 , th [ colspan 3 ] [ text "Description" ]
                 ]
             ]
         , components
+            |> Scope.anyOf scopes
             |> List.map (componentRowView db)
             |> tbody []
         ]
@@ -282,6 +286,16 @@ componentRowView db component =
             [ text component.name
             , small [ class "d-block fw-normal" ]
                 [ code [] [ text (Component.idToString component.id) ] ]
+            ]
+        , td [ class "align-middle" ]
+            [ component.scopes
+                |> List.map
+                    (Scope.toString
+                        >> text
+                        >> List.singleton
+                        >> small [ class "badge bg-primary fs-10" ]
+                    )
+                |> div []
             ]
         , td [ class "align-middle w-100" ]
             [ case Component.elementsToString db component of
