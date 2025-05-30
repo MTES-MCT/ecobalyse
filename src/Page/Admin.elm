@@ -62,6 +62,7 @@ type Msg
     | SaveComponent
     | SetModals (List Modal)
     | UpdateComponent Item
+    | UpdateScopeFilters (List Scope)
 
 
 init : Session -> ( Model, Session, Cmd Msg )
@@ -198,6 +199,12 @@ update session msg model =
                 _ ->
                     ( model, session, Cmd.none )
 
+        UpdateScopeFilters scopes ->
+            ( { model | scopes = scopes }
+            , session
+            , Cmd.none
+            )
+
 
 selectProcess :
     Category
@@ -231,6 +238,8 @@ view { db } model =
     , [ Container.centered [ class "pb-5" ]
             [ h1 [ class "mb-3" ] [ text "Ecobalyse Admin" ]
             , warning
+            , model.scopes
+                |> scopeFilterForm UpdateScopeFilters
             , model.components
                 |> mapRemoteData (componentListView db model.scopes)
             , model.components
@@ -272,7 +281,7 @@ componentListView db scopes components =
                 ]
             ]
         , components
-            |> Scope.anyOf scopes
+            |> Scope.allOf scopes
             |> List.map (componentRowView db)
             |> tbody []
         ]
@@ -292,7 +301,7 @@ componentRowView db component =
                     (Scope.toString
                         >> text
                         >> List.singleton
-                        >> small [ class "badge bg-primary fs-10" ]
+                        >> small [ class "badge bg-secondary fs-10" ]
                     )
                 |> div []
             ]
@@ -472,6 +481,32 @@ modalView db modals modal =
 
 componentScopesForm : Component -> Item -> Html Msg
 componentScopesForm component item =
+    item.custom
+        |> Maybe.map .scopes
+        |> Maybe.withDefault component.scopes
+        |> scopesForm
+            (\scope enabled ->
+                item
+                    |> Component.toggleCustomScope component scope enabled
+                    |> UpdateComponent
+            )
+
+
+scopeFilterForm : (List Scope -> Msg) -> List Scope -> Html Msg
+scopeFilterForm updateFilters filtered =
+    scopesForm
+        (\scope enabled ->
+            if enabled then
+                updateFilters (scope :: filtered)
+
+            else
+                updateFilters (List.filter ((/=) scope) filtered)
+        )
+        filtered
+
+
+scopesForm : (Scope -> Bool -> Msg) -> List Scope -> Html Msg
+scopesForm check scopes =
     div [ class "d-flex flex-row gap-3" ]
         [ h3 [ class "h6" ] [ text "Verticales" ]
         , Scope.all
@@ -482,16 +517,10 @@ componentScopesForm component item =
                             [ type_ "checkbox"
                             , class "form-check-input"
                             , id <| "scope-" ++ String.fromInt index
-                            , item.custom
-                                |> Maybe.map .scopes
-                                |> Maybe.withDefault component.scopes
+                            , scopes
                                 |> List.member scope
                                 |> checked
-                            , onCheck <|
-                                \enabled ->
-                                    item
-                                        |> Component.toggleCustomScope component scope enabled
-                                        |> UpdateComponent
+                            , onCheck <| check scope
                             ]
                             []
                         , label
