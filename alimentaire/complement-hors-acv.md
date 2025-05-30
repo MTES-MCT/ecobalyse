@@ -8,7 +8,7 @@ La valorisation des services écosystémiques est intégrée à travers l'introd
 
 ## Introduction et formules de calcul
 
-Les services écosystémiques sont attachées à la production agricole. Ils sont donc intégrés à l'étape "Ingrédients" du cycle de vie".
+Les services écosystémiques sont attachées à la production agricole. Ils sont donc intégrés à l'étape "Ingrédients" du cycle de vie.
 
 Pour chaque ingrédient, le coût environnemental est la somme de la composante ACV du coût environnemental et de chacun des 5 services écosystémiques introduits ci-après :&#x20;
 
@@ -18,7 +18,7 @@ $$
 
 2 types de services écosystémiques sont à distinguer :&#x20;
 
-* Les services écosystémiques "cultures", qui qualifient les productions végétales. Ces services écosystémiques s'appliquent également aux productions animales, en considérant les végétaux qui ont pu être consommés par les animaux concernés (en intégrant également les prairies).
+* Les services écosystémiques "cultures", qui s'appliquent aux productions végétales, ainsi qu'aux productions animales via les végétaux consommés dans la ration alimentaire (en intégrant également les prairies).
 * Les services écosystémiques "élevages" qui ne s'appliquent qu'aux productions animales.
 
 | Service écosystémique  | Application                         | Valeur                                   |
@@ -26,8 +26,8 @@ $$
 | Haies                  | Cultures (et élevage via la ration) | Valeur toujours positive                 |
 | Taille de parcelles    | Cultures (et élevage via la ration) | Valeur toujours positive                 |
 | Diversité culturale    | Cultures (et élevage via la ration) | Valeur toujours positive                 |
-| Prairies permanentes   | Elevages                            | Valeur toujours positive                 |
-| Chargement territorial | Elevages                            | Valeur pouvant être positive ou négative |
+| Prairies permanentes   | Élevages                            | Valeur toujours positive                 |
+| Chargement territorial | Élevages                            | Valeur pouvant être positive ou négative |
 
 ### Rations animales
 
@@ -157,7 +157,7 @@ Les + gros écarts entre Bio et Non bio concernent les groupes de cultures:
 
 La formule de calcul mobilisée pour convertir les linéaires de haies par hectare en points d'impacts est intégrée dans le [tableur de calcul](https://docs.google.com/spreadsheets/d/1wkwTva7ofeIHJorrlwmJuv-x0uB2jud4r6pqb7aJOwc/edit?usp=sharing), onglet "cultures".
 
-<figure><img src="../../.gitbook/assets/{3ECFAC33-83D9-42D6-9EEE-075CCE49EB9C}.png" alt=""><figcaption><p>Rq : image illustrative - les valeurs de référence sont dans le tableur en ligne</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/{3ECFAC33-83D9-42D6-9EEE-075CCE49EB9C}.png" alt=""><figcaption><p>Rq : image illustrative - les valeurs de référence sont dans le tableur en ligne</p></figcaption></figure>
 
 La formule de calcul appliquée est :&#x20;
 
@@ -172,7 +172,7 @@ Avec :&#x20;
 * SeuilHaut : La valeur, en mètre linéaire de haies par hectare, au-delà de laquelle il n'est plus considéré d'augmentation des services écosystémiques. En l'occurrence, un seuil de 140 ml/ha est considérée à partir de la bibliographie.
 * ValoMax : La valeur donnée au service écosystémique, avant application du coefficient global et multiplication par la surface, dans la configuration dans laquelle il est au maximum (donc au-delà de 140 ml/ha).
 
-<figure><img src="../../.gitbook/assets/Haies - service écosystémique (avant coef) vs. ml_ha.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/Haies - service écosystémique (avant coef) vs. ml_ha.png" alt=""><figcaption></figcaption></figure>
 
 ## Complément "taille des parcelles"
 
@@ -224,7 +224,7 @@ La formule de calcul de calcul mobilisée pour convertir la taille moyenne des p
 
 
 
-<figure><img src="../../.gitbook/assets/{36EAE016-AB90-4355-BF34-399B9AFAD490}.png" alt=""><figcaption><p>Rq : image illustrative - les valeurs de référence sont dans le tableur en ligne</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/{36EAE016-AB90-4355-BF34-399B9AFAD490}.png" alt=""><figcaption><p>Rq : image illustrative - les valeurs de référence sont dans le tableur en ligne</p></figcaption></figure>
 
 La formule de calcul appliquée est :&#x20;
 
@@ -239,7 +239,7 @@ Avec :
 * SeuilBas : La valeur, en hectares, au-delà de laquelle il n'est plus considéré de services écosystémiques liés à la taille des parcelles. En l'occurrence, un seuil de 8 hectares est considéré. Il est donc considéré que, pour qu'une culture génère des services écosystémiques liés à la taille des parcelles correspondantes, celles-ci doivent être en moyenne d'une surface inférieure à 8 hectares.
 * ValoMax : La valeur donnée au service écosystémique, avant application du coefficient global, dans la configuration dans laquelle il est au maximum (pour une surface moyenne théorique de 0 hectares).
 
-<figure><img src="../../.gitbook/assets/Taille des parcelles - service écosystémique(avant coef).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/Taille des parcelles - service écosystémique(avant coef).png" alt=""><figcaption></figcaption></figure>
 
 ## Complément "diversité agricole"
 
@@ -249,6 +249,10 @@ L'objectif de ce complément est de prendre en compte les services écosystémiq
 
 * Calcul de l’indice de Simpson des Petites Régions Agricoles (PRA)
 * Par groupe de cultures, calcul de la moyenne des indices de Simpson des PRA pondérée par la surface du groupe de cultures dans chaque PRA
+
+{% file src="../.gitbook/assets/Calcul Simpson_conventionnelle_par_dep_ou_PRA_PAC_2022.xlsx" %}
+
+{% file src="../.gitbook/assets/Calcul Simpson_Surface_bio_par_dep_ou_PRA_PAC_2022.xlsx" %}
 
 ### Données
 
@@ -265,7 +269,7 @@ L’indice de Simpson des surfaces bio est plus élevé que celui des surfaces c
 
 La formule de calcul de calcul mobilisée pour convertir l'indice de Simpson moyen en points d'impacts est intégrée dans le [tableur de calcul](https://docs.google.com/spreadsheets/d/1wkwTva7ofeIHJorrlwmJuv-x0uB2jud4r6pqb7aJOwc/edit?usp=sharing), onglet "cultures".
 
-<figure><img src="../../.gitbook/assets/{FD6C678F-0E3A-4D7A-9A36-24DA5AE322DD}.png" alt=""><figcaption><p>Rq : image illustrative - les valeurs de référence sont dans le tableur en ligne</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/{FD6C678F-0E3A-4D7A-9A36-24DA5AE322DD}.png" alt=""><figcaption><p>Rq : image illustrative - les valeurs de référence sont dans le tableur en ligne</p></figcaption></figure>
 
 La formule de calcul appliquée est :&#x20;
 
@@ -295,7 +299,7 @@ Avec :&#x20;
 * SeuilHaut : La valeur de l'indice de Simpson au-delà de laquelle il est considéré que la valeur maximale des services écosystémiques valorisés est atteinte.
 * ValoMax : La valeur donnée au service écosystémique, avant application du coefficient global et multiplication par la surface.
 
-<figure><img src="../../.gitbook/assets/Diversité - Service écosystémique (avant coef).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/Diversité - Service écosystémique (avant coef).png" alt=""><figcaption></figcaption></figure>
 
 ## Complément "prairies"
 
@@ -359,7 +363,7 @@ La modélisation ainsi proposée fait ressortir des écarts entre les catégorie
 * une différence est notés pour l'élevage bio qui paraît moins concentré sur ces départements à forte densité en élevage ;
 * les caprins et les ovins sont plus répartis sur le territoire, avec une résultante globalement positive (plus d'apport lié à la présence sur des départements à faible densité en élevage que d'impact liés à la présence sur des départemnts à forte densité).
 
-<figure><img src="../../.gitbook/assets/Chargement territorial.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/Chargement territorial.png" alt=""><figcaption></figcaption></figure>
 
 ### Données
 
@@ -393,7 +397,7 @@ $$
 ContributionDpt = -1,067 * densité^3 +4,000 * densité^2-4,933*densité+2,000
 $$
 
-<figure><img src="../../.gitbook/assets/{468BD0B8-F9EA-4660-8859-23E8F501F980}.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/{468BD0B8-F9EA-4660-8859-23E8F501F980}.png" alt=""><figcaption></figcaption></figure>
 
 A partir de cette contribution département, le chargement attribué à chaque groupe et mode d'élevage est établi à partir d'une somme pondérée de la contribution départementale par la présence des animaux considérés sur chaque département.&#x20;
 
