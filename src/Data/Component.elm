@@ -818,7 +818,7 @@ stageToString stage =
 
 
 toggleCustomScope : Component -> Scope -> Bool -> Item -> Item
-toggleCustomScope component scope flag item =
+toggleCustomScope component scope enabled item =
     { item
         | custom =
             item.custom
@@ -826,7 +826,7 @@ toggleCustomScope component scope flag item =
                     (\custom ->
                         { custom
                             | scopes =
-                                if flag then
+                                if enabled then
                                     scope :: custom.scopes
 
                                 else
