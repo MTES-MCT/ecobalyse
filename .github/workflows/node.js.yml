@@ -7,6 +7,7 @@ env:
   NODE_ENV: test
   TRANSCRYPT_KEY: ${{ secrets.TRANSCRYPT_KEY }}
   ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
+  BACKEND_API_URL: http://localhost:1234/backend
   ENABLE_FOOD_SECTION: "True"
   ENABLE_OBJECTS_SECTION: "True"
   EMAIL_SERVER_HOST: localhost
