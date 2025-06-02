@@ -2,13 +2,13 @@
 import { test, expect } from "@playwright/test";
 
 test("has expected title", async ({ page }) => {
-  await page.goto("http://localhost:1234");
+  await page.goto("/");
 
   await expect(page).toHaveTitle(/Ecobalyse/);
 });
 
 test("textile callout button", async ({ page }) => {
-  await page.goto("http://localhost:1234");
+  await page.goto("/");
 
   await page.getByTestId("textile-callout-button").click();
 
@@ -16,7 +16,7 @@ test("textile callout button", async ({ page }) => {
 });
 
 test("food callout button", async ({ page }) => {
-  await page.goto("http://localhost:1234");
+  await page.goto("/");
 
   await page.getByTestId("food-callout-button").click();
 
@@ -24,7 +24,7 @@ test("food callout button", async ({ page }) => {
 });
 
 test("object callout button", async ({ page }) => {
-  await page.goto("http://localhost:1234");
+  await page.goto("/");
 
   await page.getByTestId("object-callout-button").click();
 

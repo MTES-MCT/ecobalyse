@@ -9,6 +9,9 @@ env:
   ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
   ENABLE_FOOD_SECTION: "True"
   ENABLE_OBJECTS_SECTION: "True"
+  EMAIL_SERVER_HOST: localhost
+  EMAIL_SERVER_PORT: 1025
+  EMAIL_SERVER_USE_TLS: false
 on:
   push:
     branches: [ master, staging ]
