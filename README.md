@@ -19,9 +19,11 @@ Les variables d'environnement suivantes doivent être définies :
 - `DEFAULT_FROM_EMAIL` : l'email utilisé comme origine pour les mails liés à l'authentification (par défaut ecobalyse@beta.gouv.fr)
 - `DJANGO_DEBUG`: la valeur du mode DEBUG de Django (par défaut `True`)
 - `DJANGO_SECRET_KEY` : la [clé secrète de Django](https://docs.djangoproject.com/en/5.0/ref/settings/#std-setting-SECRET_KEY)
-- `EMAIL_HOST` : le host SMTP pour envoyer les mail liés à l'authentification
-- `EMAIL_HOST_USER`: l'utilisateur du compte SMTP
-- `EMAIL_HOST_PASSWORD` : le mot de passe du compte SMTP pour envoyer les mail liés à l'authentification
+- `EMAIL_SERVER_HOST`: serveur SMTP (`localhost` permet de bénéficier d'une instance [maildev](https://github.com/maildev/maildev))
+- `EMAIL_SERVER_PASSWORD`: le mot de passe du serveur SMTP
+- `EMAIL_SERVER_PORT`: Port su serveur SMTP (`1025` permet de bénéficier d'une instance *maildev*)
+- `EMAIL_SERVER_USER`: Nom d'utilisateur SMTP
+- `EMAIL_SERVER_USE_TLS`: Utilisation de TLS (par defaut à `True`, positionner à `False` pour utiliser l'instance *maildev*)
 - `ENABLE_FOOD_SECTION` : affichage ou non de la section expérimentale dédiée à l'alimentaire (valeur `True` ou `False`, par défault `False`)
 - `ENABLE_OBJECTS_SECTION` : affichage ou non de la section expérimentale dédiée aux objets génériques (valeur `True` ou `False`, par défault `False`)
 - `ENABLE_VELI_SECTION` : affichage ou non de la section expérimentale dédiée aux véhicules intermédiaires (valeur `True` ou `False`, par défault `False`)
@@ -114,6 +116,10 @@ Si vous voulez lancer la correction automatique de tous les problèmes détecté
 Si vous ne souhaitez pas que la vérification se fasse de manière automatique, vous pouvez désinstaller pre-commit et les hooks associés :
 
     $ pipenv run pre-commit uninstall
+
+### Débogage des emails
+
+Une instance [maildev](https://github.com/maildev/maildev) est lancé en même temps que le serveur de développement, elle est accessible à l'adresse `http://localhost:1081`.
 
 ## Compilation
 

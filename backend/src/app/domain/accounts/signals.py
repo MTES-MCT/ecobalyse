@@ -58,21 +58,16 @@ async def send_magic_link_email_event_handler(user: User, token: str) -> None:
         await users_service.update(item_id=user.id, data=user.to_dict())
         await db_session.commit()
 
-    if not settings.email.SERVER_HOST:
-        await logger.adebug("No email SERVER_HOST configured don’t send the email.")
-    else:
-        await logger.adebug(
-            f"Sending the email using SMTP {settings.email.SERVER_HOST} and user {settings.email.SERVER_USER}"
-        )
-        message.send(
-            to=user.email,
-            smtp={
-                "host": settings.email.SERVER_HOST,
-                "user": settings.email.SERVER_USER,
-                "port": settings.email.SERVER_PORT,
-                "password": settings.email.SERVER_PASSWORD,
-                "timeout": settings.email.SERVER_TIMEOUT,
-                "tls": settings.email.SERVER_USE_TLS,
-                "fail_silently": False,
-            },
-        )
+    await logger.adebug(f"Sending the email using SMTP {settings.email.SERVER_HOST}")
+    message.send(
+        to=user.email,
+        smtp={
+            "host": settings.email.SERVER_HOST,
+            "user": settings.email.SERVER_USER,
+            "port": settings.email.SERVER_PORT,
+            "password": settings.email.SERVER_PASSWORD,
+            "timeout": settings.email.SERVER_TIMEOUT,
+            "tls": settings.email.SERVER_USE_TLS,
+            "fail_silently": False,
+        },
+    )
