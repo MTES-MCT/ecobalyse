@@ -99,7 +99,6 @@
     "uuid": "^11.1.0"
   },
   "cacheDirectories": [
-    "node_modules",
     "elm-stuff",
     ".elm"
   ],
