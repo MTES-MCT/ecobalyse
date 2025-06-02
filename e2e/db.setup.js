@@ -12,6 +12,7 @@ setup("Setup test database", async ({}) => {
         "db.sqlite3",
         "delete from user_account where email='alice@cooper.com'",
       ]);
+      console.info("Test db is ready.");
     } catch (error) {
       console.error("Error setting up test db", error);
     }
