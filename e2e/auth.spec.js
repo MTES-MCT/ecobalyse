@@ -1,52 +1,64 @@
-// @ts-check
 import { test, expect } from "@playwright/test";
+import { registerAndLoginUser, checkEmails, extractUrlsFromText } from "./lib";
 
-test("magic link form", async ({ page }) => {
-  await page.goto("/");
+test.describe("auth", () => {
+  test("alice registers and signs in", async ({ page }) => {
+    await test.step("register", async () => {
+      await registerAndLoginUser(page, {
+        email: "alice@cooper.com",
+        firstName: "Alice",
+        lastName: "Cooper",
+        organization: { type: "individual" },
+        optinEmail: false,
+      });
 
-  await page.getByTestId("auth-link").click();
+      await expect(page.getByPlaceholder("Joséphine")).toHaveValue("Alice");
+      await expect(page.getByPlaceholder("Durand")).toHaveValue("Cooper");
+      await expect(page.getByPlaceholder("nom@example.com")).toHaveValue("alice@cooper.com");
+      await expect(page.getByPlaceholder("ACME Inc.")).toHaveValue("Particulier");
+      await expect(
+        page.getByRole("checkbox", { name: /^J’accepte de recevoir/ }),
+      ).not.toBeChecked();
 
-  await expect(page.getByTestId("auth-magic-link-form")).toBeVisible();
-  await expect(page.getByTestId("auth-signup-form")).not.toBeVisible();
+      await expect(page.getByRole("button", { name: /^Mettre à jour/ })).toBeVisible();
+    });
 
-  await expect(page.getByTestId("auth-magic-link-submit")).toBeDisabled();
-  await page.getByPlaceholder("nom@example.com").fill("alice@cooper.com");
-  await expect(page.getByTestId("auth-magic-link-submit")).not.toBeDisabled();
+    await test.step("logout", async () => {
+      await page.getByRole("button", { name: "Déconnexion" }).click();
 
-  await page.getByTestId("auth-magic-link-submit").click();
+      await expect(page.getByText("Vous avez été deconnecté")).toBeVisible();
+    });
 
-  // TODO: have a user in the db
-  // const res = await fetch("http://localhost:1081/email");
-  // const emails = await res.json();
-  // console.log(emails);
-});
+    await test.step("request a magic link", async () => {
+      await page.getByTestId("auth-link").click();
 
-test("signup form", async ({ page }) => {
-  await page.goto("/");
+      await page.getByRole("button", { name: "Connexion", exact: true }).click();
 
-  await page.getByTestId("auth-link").click();
-  await page.getByRole("button", { name: "Inscription" }).click();
+      await expect(page.getByTestId("auth-magic-link-form")).toBeVisible();
+      await expect(page.getByTestId("auth-signup-form")).not.toBeVisible();
 
-  await expect(page.getByTestId("auth-signup-form")).toBeVisible();
-  await expect(page.getByTestId("auth-magic-link-form")).not.toBeVisible();
+      await expect(page.getByTestId("auth-magic-link-submit")).toBeDisabled();
+      await page.getByPlaceholder("nom@example.com").fill("alice@cooper.com");
+      await expect(page.getByTestId("auth-magic-link-submit")).not.toBeDisabled();
 
-  await expect(page.getByTestId("auth-signup-submit")).toBeDisabled();
-  await page.getByPlaceholder("nom@example.com").fill("alice@cooper.com");
-  await expect(page.getByTestId("auth-signup-submit")).not.toBeDisabled();
+      await page.getByTestId("auth-magic-link-submit").click();
 
-  await page.getByPlaceholder("Joséphine").fill("Alice");
-  await page.getByPlaceholder("Durand").fill("Cooper");
-  await page.getByRole("checkbox", { name: /^Je m’engage à respecter/ }).check();
+      await expect(page.getByText("Email de connexion envoyé")).toBeVisible();
 
-  await page.getByTestId("auth-signup-submit").click();
+      await page.waitForTimeout(1000); // sadly no way to wait for the email to be sent
+    });
 
-  await expect(page.getByText("Email de connexion envoyé")).toBeVisible();
+    await test.step("check mail for magic link and open it", async () => {
+      const emails = await checkEmails();
+      expect(emails).toHaveLength(2);
+      expect(emails[0].subject).toContain("Lien de connexion à Ecobalyse");
+      expect(emails[0].headers.to).toBe("alice@cooper.com");
+      const links = extractUrlsFromText(emails[0].text).filter((url) => url.includes("/auth/"));
+      expect(links).toHaveLength(1);
 
-  await page.waitForTimeout(100); // sadly no way to wait for the email to be sent
+      await page.goto(links[0]);
 
-  const res = await fetch("http://localhost:1081/email");
-  const emails = await res.json();
-  expect(emails).toHaveLength(1);
-  expect(emails[0].subject).toContain("Lien de connexion à Ecobalyse");
-  expect(emails[0].headers.to).toBe("alice@cooper.com");
+      await expect(page.getByRole("heading", { name: "Mon compte" })).toBeVisible();
+    });
+  });
 });
