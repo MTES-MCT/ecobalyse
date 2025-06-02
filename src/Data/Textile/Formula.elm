@@ -185,15 +185,17 @@ printingImpacts :
 printingImpacts impacts { elecProcess, heatProcess, printingProcess, ratio, surfaceMass } baseMass =
     let
         surface =
-            Unit.surfaceMassToSurface surfaceMass baseMass
-                |> Area.inSquareMeters
-                -- Apply ratio
-                |> (\surfaceInSquareMeters -> Split.apply surfaceInSquareMeters ratio)
+            baseMass
+                |> Unit.surfaceMassToSurface surfaceMass
+                |> (\s -> Split.applyToQuantity s ratio)
+
+        surfaceInSquareMeters =
+            Area.inSquareMeters surface
 
         ( heatMJ, kwh ) =
             -- Note: printing processes heat and elec values are expressed "per square meter"
-            ( Quantity.multiplyBy surface printingProcess.heat
-            , Quantity.multiplyBy surface printingProcess.elec
+            ( Quantity.multiplyBy surfaceInSquareMeters printingProcess.heat
+            , Quantity.multiplyBy surfaceInSquareMeters printingProcess.elec
             )
     in
     { heat = heatMJ
@@ -202,7 +204,7 @@ printingImpacts impacts { elecProcess, heatProcess, printingProcess, ratio, surf
             |> Impact.mapImpacts
                 (\trigram _ ->
                     Quantity.sum
-                        [ baseMass |> Unit.forKg (Process.getImpact trigram printingProcess)
+                        [ surface |> Unit.forSquareMeter (Process.getImpact trigram printingProcess)
                         , heatMJ |> Unit.forMJ (Process.getImpact trigram heatProcess)
                         , kwh |> Unit.forKWh (Process.getImpact trigram elecProcess)
                         ]
