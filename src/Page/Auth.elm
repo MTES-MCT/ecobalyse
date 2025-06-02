@@ -537,7 +537,7 @@ viewAccount { user } profileForm formErrors =
                         [ type_ "text"
                         , class "form-control"
                         , id "email"
-                        , placeholder "josephine@example.com"
+                        , placeholder "nom@example.com"
                         , value user.email
                         , disabled True
                         ]
@@ -550,8 +550,8 @@ viewAccount { user } profileForm formErrors =
                     , input
                         [ type_ "text"
                         , class "form-control"
-                        , id "email"
-                        , placeholder "josephine@example.com"
+                        , id "organization"
+                        , placeholder "ACME Inc."
                         , value <| viewOrganization user.profile.organization
                         , disabled True
                         ]

@@ -1,0 +1,50 @@
+import { expect } from "@playwright/test";
+
+export async function checkEmails() {
+  const res = await fetch("http://localhost:1081/email");
+  const emails = await res.json();
+  return emails.reverse();
+}
+
+export function extractUrlsFromText(text) {
+  return text.match(/\bhttps?:\/\/\S+/gi);
+}
+
+export async function registerAndLoginUser(
+  page,
+  { email, firstName, lastName, organization = { type: "individual" }, optinEmail = true },
+) {
+  await page.goto("/#/auth");
+
+  await page.getByRole("button", { name: "Inscription" }).click();
+
+  await expect(page.getByTestId("auth-signup-form")).toBeVisible();
+
+  await page.getByPlaceholder("nom@example.com").fill(email);
+  await page.getByPlaceholder("Joséphine").fill(firstName);
+  await page.getByPlaceholder("Durand").fill(lastName);
+
+  if (optinEmail) {
+    await page.getByRole("checkbox", { name: /^J’accepte de recevoir des informations/ }).check();
+  }
+
+  // always accept terms
+  await page.getByRole("checkbox", { name: /^Je m’engage à respecter/ }).check();
+
+  await page.getByTestId("auth-signup-submit").click();
+
+  await expect(page.getByText("Email de connexion envoyé")).toBeVisible();
+
+  await page.waitForTimeout(1000); // sadly no way to wait for the email to be sent
+
+  const emails = await checkEmails();
+  expect(emails).toHaveLength(1);
+  expect(emails[0].subject).toContain("Lien de connexion à Ecobalyse");
+  expect(emails[0].headers.to).toBe("alice@cooper.com");
+  const links = extractUrlsFromText(emails[0].text).filter((url) => url.includes("/auth/"));
+  expect(links).toHaveLength(1);
+
+  await page.goto(links[0]);
+
+  await expect(page.getByText("Vous avez désormais accès aux impacts détaillés")).toBeVisible();
+}
