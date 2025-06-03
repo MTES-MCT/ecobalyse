@@ -353,6 +353,7 @@ pageHeader { session, activePage, openMobileNavigation, loadUrl, switchVersion }
         , Container.centered [ class "d-flex justify-content-between align-items-center gap-2" ]
             [ a
                 [ class "HeaderBrand text-decoration-none d-flex align-items-center gap-3 gap-sm-5 pe-3"
+                , attribute "data-testid" "header-brand"
 
                 -- Note: this class makes Dashlord understand DSFR guidelines are implemented
                 -- https://dashlord.mte.incubateur.net/dashlord/url/ecobalyse-beta-gouv-fr/best-practices/#dsfr
@@ -386,6 +387,7 @@ pageHeader { session, activePage, openMobileNavigation, loadUrl, switchVersion }
                 |> RemoteData.withDefault []
                 |> select
                     [ class "VersionSelector d-none d-sm-block form-select form-select-sm w-auto"
+                    , attribute "data-testid" "version-selector"
                     , onInput switchVersion
                     ]
             , div [ class "HeaderAuthLink flex-fill" ]
