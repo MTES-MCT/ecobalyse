@@ -74,7 +74,8 @@ jobs:
     - name: Run Playwright tests
       run: NODE_ENV=test npm run test:e2e
 
-    - uses: actions/upload-artifact@v4
+    - name: Upload test articacts
+      uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
         name: playwright-report
