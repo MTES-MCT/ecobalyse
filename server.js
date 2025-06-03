@@ -39,7 +39,11 @@ var rateLimiter = rateLimit({
 version.use(rateLimiter);
 
 // Matomo
-if (NODE_ENV !== "test" && (!MATOMO_HOST || !MATOMO_SITE_ID || !MATOMO_TOKEN)) {
+if (
+  NODE_ENV !== "test" &&
+  NODE_ENV !== "development" &&
+  (!MATOMO_HOST || !MATOMO_SITE_ID || !MATOMO_TOKEN)
+) {
   console.error("Matomo environment variables are missing. Please check the README.");
   process.exit(1);
 }
