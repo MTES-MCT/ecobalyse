@@ -43,7 +43,7 @@ test.describe("auth", () => {
       await expect(page.getByText("Vous avez été deconnecté")).toBeVisible();
     });
 
-    await test.step("request a magic link", async () => {
+    await test.step("request a magic link and use it", async () => {
       await page.getByTestId("auth-link").click();
 
       await page.getByRole("button", { name: "Connexion", exact: true }).click();
@@ -57,11 +57,9 @@ test.describe("auth", () => {
 
       await page.getByTestId("auth-magic-link-submit").click();
 
-      await expect(page.getByText("Email de connexion envoyé")).toBeVisible();
-    });
-
-    await test.step("check mail for magic link and open it", async () => {
       const lastEmail = await waitForNewEmail();
+
+      await expect(page.getByText("Email de connexion envoyé")).toBeVisible();
 
       expect(lastEmail.subject).toContain("Lien de connexion à Ecobalyse");
       expect(lastEmail.headers.to).toBe("alice@cooper.com");

@@ -55,9 +55,9 @@ export async function registerAndLoginUser(
 
   await page.getByTestId("auth-signup-submit").click();
 
-  await expect(page.getByText("Email de connexion envoyé")).toBeVisible();
-
   const lastEmail = await waitForNewEmail();
+
+  await expect(page.getByText("Email de connexion envoyé")).toBeVisible();
 
   expect(lastEmail.subject).toContain("Lien de connexion à Ecobalyse");
   expect(lastEmail.headers.to).toBe("alice@cooper.com");
