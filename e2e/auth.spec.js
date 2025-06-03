@@ -5,6 +5,7 @@ import {
   deleteAllEmails,
   extractUrlsFromText,
   deleteUser,
+  waitForNewEmail,
 } from "./lib";
 
 test.describe("auth", () => {
@@ -57,16 +58,14 @@ test.describe("auth", () => {
       await page.getByTestId("auth-magic-link-submit").click();
 
       await expect(page.getByText("Email de connexion envoyé")).toBeVisible();
-
-      await page.waitForTimeout(1000); // sadly no way to wait for the email to be sent
     });
 
     await test.step("check mail for magic link and open it", async () => {
-      const emails = await checkEmails();
-      expect(emails).toHaveLength(2);
-      expect(emails[0].subject).toContain("Lien de connexion à Ecobalyse");
-      expect(emails[0].headers.to).toBe("alice@cooper.com");
-      const links = extractUrlsFromText(emails[0].text).filter((url) => url.includes("/auth/"));
+      const lastEmail = await waitForNewEmail();
+
+      expect(lastEmail.subject).toContain("Lien de connexion à Ecobalyse");
+      expect(lastEmail.headers.to).toBe("alice@cooper.com");
+      const links = extractUrlsFromText(lastEmail.text).filter((url) => url.includes("/auth/"));
       expect(links).toHaveLength(1);
 
       await page.goto(links[0]);
