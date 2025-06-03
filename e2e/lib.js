@@ -1,9 +1,26 @@
 import { expect } from "@playwright/test";
+import child_process from "node:child_process";
 
 export async function checkEmails() {
   const res = await fetch("http://localhost:1081/email");
   const emails = await res.json();
   return emails.reverse();
+}
+
+async function execSqlite(query) {
+  return new Promise((resolve, reject) => {
+    child_process.execFile("sqlite3", ["db.sqlite3", query], (error, stdout) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(stdout);
+      }
+    });
+  });
+}
+
+export async function deleteUser(email) {
+  return await execSqlite(`delete from user_account where email='${email}'`);
 }
 
 export function extractUrlsFromText(text) {
