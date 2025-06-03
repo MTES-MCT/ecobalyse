@@ -1,7 +1,17 @@
 import { test, expect } from "@playwright/test";
-import { registerAndLoginUser, checkEmails, extractUrlsFromText, deleteUser } from "./lib";
+import {
+  registerAndLoginUser,
+  checkEmails,
+  deleteAllEmails,
+  extractUrlsFromText,
+  deleteUser,
+} from "./lib";
 
 test.describe("auth", () => {
+  test.beforeEach(async () => {
+    await deleteAllEmails();
+  });
+
   test("alice registers and signs in", async ({ page }) => {
     await test.step("register", async () => {
       // ensure user doesn't exist (race condition)

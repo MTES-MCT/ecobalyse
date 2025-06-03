@@ -7,6 +7,11 @@ export async function checkEmails() {
   return emails.reverse();
 }
 
+export async function deleteAllEmails() {
+  const res = await fetch("http://localhost:1081/email/all", { method: "DELETE" });
+  return await res.json();
+}
+
 async function execSqlite(query) {
   return new Promise((resolve, reject) => {
     child_process.execFile("sqlite3", ["db.sqlite3", query], (error, stdout) => {
