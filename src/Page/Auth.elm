@@ -674,8 +674,10 @@ viewApiTokenCreated token =
         , div
             [ class "input-group" ]
             [ input
-                [ type_ "url"
+                [ type_ "text"
                 , class "form-control"
+                , attribute "data-testid" "auth-api-token"
+                , readonly True
                 , value <| ApiToken.toString token
                 ]
                 []
@@ -717,7 +719,7 @@ viewApiTokens apiTokens =
                     p [] [ text "Aucun jeton d'API actif." ]
 
                   else
-                    div [ class "table-responsive border shadow-sm" ]
+                    div [ class "table-responsive border shadow-sm", attribute "data-testid" "auth-api-tokens-table" ]
                         [ table [ class "table table-striped mb-0" ]
                             [ thead []
                                 [ tr []
