@@ -1,7 +1,6 @@
 import { test, expect } from "@playwright/test";
 import {
   registerAndLoginUser,
-  checkEmails,
   deleteAllEmails,
   extractUrlsFromText,
   deleteUser,

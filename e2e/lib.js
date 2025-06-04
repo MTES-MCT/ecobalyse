@@ -69,7 +69,7 @@ export async function registerAndLoginUser(
   await expect(page.getByText("Vous avez désormais accès aux impacts détaillés")).toBeVisible();
 }
 
-async function waitFor(conditionFn, pollInterval = 50, timeoutAfter) {
+export async function waitFor(conditionFn, pollInterval = 50, timeoutAfter) {
   const startTime = Date.now();
   while (true) {
     if (typeof timeoutAfter === "number" && Date.now() > startTime + timeoutAfter) {
