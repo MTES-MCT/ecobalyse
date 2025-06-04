@@ -970,7 +970,7 @@ lifeCycleStepsView db { activeTab, impact } simulator =
         |> List.reverse
         |> List.drop 1
         |> List.reverse
-        |> div [ class "pt-1" ]
+        |> div [ class "pt-1", attribute "data-testid" "life-cycle-steps" ]
 
 
 simulatorFormView : Session -> Model -> Simulator -> List (Html Msg)

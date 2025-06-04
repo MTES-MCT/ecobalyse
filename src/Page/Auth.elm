@@ -833,7 +833,7 @@ viewMagicLinkSent : Email -> Html msg
 viewMagicLinkSent email =
     div [ class "alert alert-info mb-0" ]
         [ h2 [ class "h5" ] [ text "Email de connexion envoyé" ]
-        , "Un email contenant un lien de connexion au service a été envoyé à l'adresse **`{email}`**."
+        , "Si vous possédez un compte, un email contenant un lien de connexion au service a été envoyé à l'adresse **`{email}`**."
             |> String.replace "{email}" email
             |> Markdown.simple []
         ]
