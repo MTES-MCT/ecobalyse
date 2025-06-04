@@ -420,7 +420,7 @@ dependencies = [
     { name = "passlib", extra = ["argon2"] },
     { name = "psycopg" },
     { name = "pygithub" },
-    { name = "pytest-databases" },
+    { name = "pytest-databases", extra = ["postgres"] },
     { name = "pytest-mock" },
     { name = "python-stdnum" },
     { name = "structlog" },
@@ -448,7 +448,7 @@ requires-dist = [
     { name = "passlib", extras = ["argon2"], specifier = ">=1.7.4" },
     { name = "psycopg", specifier = ">=3.2.6" },
     { name = "pygithub", specifier = ">=2.6.1" },
-    { name = "pytest-databases", specifier = ">=0.12.0" },
+    { name = "pytest-databases", extras = ["postgres"], specifier = ">=0.12.0" },
     { name = "pytest-mock", specifier = ">=3.14.1" },
     { name = "python-stdnum", specifier = ">=2.1" },
     { name = "structlog", specifier = ">=25.2.0" },
@@ -1289,6 +1289,11 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/a1/4c/27d64fc3e1ecd8cc6bda5750620e3e56ff2ecfa78255d0b3e32f2638145b/pytest_databases-0.13.0.tar.gz", hash = "sha256:2ce25116690f5b7f989c7d97fccc3501622eeedbaba3da7ba40e9b4ad24e91c6", size = 194895, upload-time = "2025-05-25T01:55:58.58Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/58/cd/8465cf126b1affabd96e8421dffaee9233eda1bbe876120826dfc95d187b/pytest_databases-0.13.0-py3-none-any.whl", hash = "sha256:6a46a84f292429bbfe8f6f357784647e0b7cf2cc11bb4e71dd3fffda103cdf48", size = 28463, upload-time = "2025-05-25T01:55:56.675Z" },
+]
+
+[package.optional-dependencies]
+postgres = [
+    { name = "psycopg" },
 ]
 
 [[package]]
