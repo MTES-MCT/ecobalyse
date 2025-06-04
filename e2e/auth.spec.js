@@ -40,6 +40,8 @@ test.describe("auth", () => {
       await page.getByRole("button", { name: "Déconnexion" }).click();
 
       await expect(page.getByText("Vous avez été deconnecté")).toBeVisible();
+
+      await expect(page.getByRole("link", { name: "Mon compte" })).not.toBeVisible();
     });
 
     await test.step("request a magic link and use it", async () => {
@@ -74,6 +76,44 @@ test.describe("auth", () => {
       await page.reload();
 
       await expect(page.getByRole("heading", { name: "Mon compte" })).toBeVisible();
+    });
+
+    await test.step("api tokens", async () => {
+      await page.getByRole("link", { name: "Mon compte" }).click();
+
+      await page.getByRole("button", { name: "Jetons d'API" }).click();
+
+      await expect(page.getByText("Aucun jeton d'API actif")).toBeVisible();
+
+      await page.getByRole("button", { name: "Créer un jeton d'API" }).click();
+
+      await expect(
+        page.getByRole("heading", { name: "Un nouveau jeton d'API a été créé" }),
+      ).toBeVisible();
+
+      await expect(page.getByTestId("auth-api-token")).not.toBeEmpty();
+
+      await page.getByRole("button", { name: "Retour à la liste des jetons" }).click();
+
+      const apiTokensTable = page.getByTestId("auth-api-tokens-table");
+      await expect(apiTokensTable).toBeVisible();
+      await expect(apiTokensTable.locator("tbody tr")).toHaveCount(1);
+
+      await expect(apiTokensTable.locator("tbody tr td:nth-child(2)")).toHaveText("Jamais utilisé");
+
+      await page.getByRole("button", { name: "Supprimer ce jeton" }).click();
+
+      await expect(
+        page.getByRole("heading", { name: "Supprimer et invalider ce jeton d'API" }),
+      ).toBeVisible();
+
+      await expect(page.getByText("Le token n'a jamais été utilisé")).toBeVisible();
+
+      await page.getByRole("button", { name: "Supprimer et invalider" }).click();
+
+      await expect(page.getByRole("heading", { name: "Jeton d'API supprimé" })).toBeVisible();
+
+      await expect(page.getByText("Aucun jeton d'API actif")).toBeVisible();
     });
   });
 });
