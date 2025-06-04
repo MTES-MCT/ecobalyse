@@ -69,5 +69,11 @@ test.describe("auth", () => {
 
       await expect(page.getByRole("heading", { name: "Mon compte" })).toBeVisible();
     });
+
+    await test.step("browser reload and auto-login", async () => {
+      await page.reload();
+
+      await expect(page.getByRole("heading", { name: "Mon compte" })).toBeVisible();
+    });
   });
 });
