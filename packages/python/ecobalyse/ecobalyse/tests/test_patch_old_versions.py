@@ -131,20 +131,20 @@ def test_patch_version_selector_should_not_patch_already_patched_file(mocker):
 
 def test_write_patched_data(caplog):
     with caplog.at_level(logging.INFO):
-        dest_file = tempfile.TemporaryFile()
-        written = write_patched_data(1, ELM_VERSION_CONTENT, dest_file.name)
+        with tempfile.NamedTemporaryFile(delete_on_close=False) as dest_file:
+            written = write_patched_data(1, ELM_VERSION_CONTENT, dest_file.name)
 
-        assert written
-        assert "successfully" in caplog.text
+            assert written
+            assert "successfully" in caplog.text
 
-        (patched_content, nb) = patch_version_string(ELM_VERSION_CONTENT)
+            (patched_content, nb) = patch_version_string(ELM_VERSION_CONTENT)
 
-        # Try to write already patched content
-        written = write_patched_data(0, patched_content, dest_file.name)
-        assert not written
-        assert "doing nothing" in caplog.text
+            # Try to write already patched content
+            written = write_patched_data(0, patched_content, dest_file.name)
+            assert not written
+            assert "doing nothing" in caplog.text
 
-        # Try to write unknown content
-        written = write_patched_data(0, "random content", dest_file.name)
-        assert not written
-        assert "doing nothing" in caplog.text
+            # Try to write unknown content
+            written = write_patched_data(0, "random content", dest_file.name)
+            assert not written
+            assert "doing nothing" in caplog.text
