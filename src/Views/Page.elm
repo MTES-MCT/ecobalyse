@@ -73,7 +73,7 @@ frame ({ activePage } as config) ( title, content ) =
 
           else
             text ""
-        , main_ [ class "bg-white" ]
+        , main_ [ class "PageContent bg-white" ]
             [ notificationListView config
             , div
                 [ if activePage == Home then
@@ -90,8 +90,8 @@ frame ({ activePage } as config) ( title, content ) =
 
 
 isStaging : Session -> Bool
-isStaging session =
-    String.contains "ecobalyse-pr" session.clientUrl || String.contains "staging-ecobalyse" session.clientUrl
+isStaging { clientUrl } =
+    String.contains "ecobalyse-pr" clientUrl || String.contains "staging-ecobalyse" clientUrl
 
 
 stagingAlert : Config msg -> Html msg
@@ -192,11 +192,15 @@ footerMenuLinks session =
         ++ [ External "Documentation" Env.gitbookUrl
            , External "Communauté" Env.communityUrl
            , MailTo "Contact" Env.contactEmail
-           , if Session.isAuthenticated session then
-                Internal "Mon compte" (Route.Auth { authenticated = True }) Auth
+           , Internal
+                (if Session.isAuthenticated session then
+                    "Mon compte"
 
-             else
-                Internal "Connexion ou inscription" (Route.Auth { authenticated = False }) Auth
+                 else
+                    "Connexion ou inscription"
+                )
+                Route.Auth
+                Auth
            ]
 
 
@@ -349,6 +353,7 @@ pageHeader { session, activePage, openMobileNavigation, loadUrl, switchVersion }
         , Container.centered [ class "d-flex justify-content-between align-items-center gap-2" ]
             [ a
                 [ class "HeaderBrand text-decoration-none d-flex align-items-center gap-3 gap-sm-5 pe-3"
+                , attribute "data-testid" "header-brand"
 
                 -- Note: this class makes Dashlord understand DSFR guidelines are implemented
                 -- https://dashlord.mte.incubateur.net/dashlord/url/ecobalyse-beta-gouv-fr/best-practices/#dsfr
@@ -382,17 +387,21 @@ pageHeader { session, activePage, openMobileNavigation, loadUrl, switchVersion }
                 |> RemoteData.withDefault []
                 |> select
                     [ class "VersionSelector d-none d-sm-block form-select form-select-sm w-auto"
+                    , attribute "data-testid" "version-selector"
                     , onInput switchVersion
                     ]
-            , a
-                [ class "HeaderAuthLink d-none d-sm-block flex-fill text-end"
-                , Route.href (Route.Auth { authenticated = False })
-                ]
-                [ if Session.isAuthenticated session then
-                    text "Mon compte"
+            , div [ class "HeaderAuthLink flex-fill" ]
+                [ a
+                    [ class "d-none d-sm-block flex-fill text-end"
+                    , Route.href Route.Auth
+                    , attribute "data-testid" "auth-link"
+                    ]
+                    [ if Session.isAuthenticated session then
+                        text "Mon compte"
 
-                  else
-                    text "Connexion ou inscription"
+                      else
+                        text "Connexion ou inscription"
+                    ]
                 ]
             ]
         , Container.fluid [ class "border-top" ]
@@ -449,10 +458,16 @@ notificationListView ({ session } as config) =
 
 
 notificationView : Config msg -> Session.Notification -> Html msg
-notificationView { closeNotification, resetSessionStore } notification =
+notificationView { closeNotification, resetSessionStore, session } notification =
     -- TODO:
     -- - absolute positionning
+    -- - close button
+    -- - timeout
     case notification of
+        Session.BackendError backendError ->
+            backendError
+                |> Alert.backendError session (Just (closeNotification notification))
+
         Session.GenericError title message ->
             Alert.simple
                 { level = Alert.Danger
@@ -495,19 +510,13 @@ notFound =
 
 
 restricted : Session -> Html msg
-restricted session =
+restricted _ =
     Container.centered [ class "pb-5" ]
         [ h1 [ class "mb-3" ] [ text "Accès refusé" ]
         , p [] [ text "Cette page n'est accessible qu'à l'équipe Ecobalyse." ]
         , p []
-            [ a [ Route.href <| Route.Auth { authenticated = False } ]
-                [ if Session.isAuthenticated session then
-                    text "Authentifiez-vous avec les droits appropriés"
-
-                  else
-                    text "Connectez-vous"
-                ]
-            , text "\u{00A0}ou\u{00A0}"
+            [ a [ Route.href Route.Auth ] [ text "Authentifiez-vous" ]
+            , text " avec les droits appropriés ou "
             , a [ Route.href Route.Home ] [ text "retournez à l'accueil" ]
             ]
         ]

@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+
 echo "-> Install 'transcrypt' to /usr/local/bin"
 
 mkdir -p "$PWD/.local/bin"
@@ -26,16 +27,21 @@ echo "-> Decrypt detailed impacts"
 # and can safely use transcrypt inside
 ./bin/run-transcrypt.sh force
 
-cp -f public/data/food/processes_impacts.json ../public/data/food/
-cp -f public/data/object/processes_impacts.json ../public/data/object/
-cp -f public/data/textile/processes_impacts.json ../public/data/textile/
+cp -f public/data/processes_impacts.json ../public/data/
 cd ..
 
 echo "-> Removing 'ecobalyse' directory"
 rm -rf ecobalyse
 
-./bin/download_github_releases.py
+
+echo "-> Install 'uv' and create 'requirements.txt'"
+curl -LsSf https://astral.sh/uv/install.sh | env UV_UNMANAGED_INSTALL="$PWD/.local/bin" sh
+
+uv run ./bin/download_github_releases.py
 
 # Remove big map files from old versions for a slimer scalingo image
 find versions/ -type f -name "*.js.map" -delete
 find versions/ -type f -name "*.css.map" -delete
+
+# Add uv path to profile
+echo "export PATH=~/.local/bin:\$PATH" >> ~/.profile

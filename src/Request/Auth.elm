@@ -1,89 +1,103 @@
 module Request.Auth exposing
-    ( AuthResponse(..)
-    , Errors
+    ( askMagicLink
     , login
     , logout
     , processes
     , profile
-    , register
+    , profileFromAccessToken
+    , signup
+    , updateProfile
     )
 
-import Data.User as User exposing (User)
-import Dict exposing (Dict)
+import Data.Session exposing (Session)
+import Data.User as User exposing (AccessTokenData, ProfileForm, SignupForm, User)
 import Http
-import Json.Decode as Decode exposing (Decoder)
-import Json.Decode.Pipeline as JDP
+import Json.Decode as Decode
 import Json.Encode as Encode
+import RemoteData
+import Request.BackendHttp as BackendHttp exposing (WebData)
 
 
-type alias Errors =
-    Dict String String
+{-| Request an authentication email, containing a "magic link"
+-}
+askMagicLink : Session -> (WebData () -> msg) -> String -> Cmd msg
+askMagicLink session event email =
+    BackendHttp.post session
+        "access/magic_link/login"
+        event
+        (Decode.succeed ())
+        (Encode.object [ ( "email", email |> Encode.string ) ])
 
 
-type AuthResponse
-    = ErrorResponse String Errors
-    | SuccessResponse String
+{-| Logs the user in
+-}
+login : Session -> (WebData AccessTokenData -> msg) -> String -> String -> Cmd msg
+login session event email token =
+    BackendHttp.get session
+        ("access/login" ++ "?email=" ++ email ++ "&token=" ++ token)
+        event
+        User.decodeAccessTokenData
 
 
-decodeAuthResponse : Decoder AuthResponse
-decodeAuthResponse =
-    Decode.field "success" Decode.bool
-        |> Decode.andThen
-            (\success ->
-                if success then
-                    Decode.field "msg" Decode.string
-                        |> Decode.map SuccessResponse
-
-                else
-                    Decode.succeed ErrorResponse
-                        |> JDP.required "msg" Decode.string
-                        |> JDP.optional "errors" (Decode.dict Decode.string) Dict.empty
-            )
+logout : Session -> (WebData () -> msg) -> User -> Cmd msg
+logout session event user =
+    BackendHttp.post session
+        "access/logout"
+        event
+        (Decode.succeed ())
+        (User.encodeUser user)
 
 
-login : (Result Http.Error AuthResponse -> msg) -> String -> Cmd msg
-login event email =
-    Http.post
-        { body = Http.jsonBody (Encode.object [ ( "email", Encode.string email ) ])
-        , expect = Http.expectJson event decodeAuthResponse
-        , url = "/accounts/login/"
-        }
+{-| Retrieve the detailed processes list
+-}
+processes : Session -> (WebData String -> msg) -> Cmd msg
+processes session event =
+    BackendHttp.getWithConfig session
+        { url = session.clientUrl ++ "processes/processes.json" }
+        event
+        Decode.string
 
 
-logout : msg -> Cmd msg
-logout event =
-    Http.post
-        { body = Http.emptyBody
-        , expect = Http.expectWhatever (always event)
-        , url = "/accounts/logout/"
-        }
+{-| Retrieve user profile using auth data from current session
+-}
+profile : Session -> (WebData User -> msg) -> Cmd msg
+profile session event =
+    BackendHttp.get session
+        "me"
+        event
+        User.decodeUser
 
 
-processes : (Result Http.Error String -> msg) -> String -> Cmd msg
-processes event token =
+updateProfile : Session -> (WebData User -> msg) -> ProfileForm -> Cmd msg
+updateProfile session event form =
+    BackendHttp.patch session
+        "me"
+        event
+        User.decodeUser
+        (User.encodeUpdateProfileForm form)
+
+
+{-| Retrieve user profile from a token received by email
+-}
+profileFromAccessToken : Session -> (WebData User -> msg) -> String -> Cmd msg
+profileFromAccessToken session event accessToken =
     Http.request
         { body = Http.emptyBody
-        , expect = Http.expectString event
-        , headers = [ Http.header "token" token ]
+        , expect = BackendHttp.expectJson (RemoteData.fromResult >> event) User.decodeUser
+        , headers = [ Http.header "Authorization" <| "Bearer " ++ accessToken ]
         , method = "GET"
         , timeout = Nothing
         , tracker = Nothing
-        , url = "processes/processes.json"
+        , url = session.backendApiUrl ++ "/api/me"
         }
 
 
-profile : (Result Http.Error User -> msg) -> Cmd msg
-profile event =
-    Http.get
-        { expect = Http.expectJson event User.decode
-        , url = "/accounts/profile/"
-        }
-
-
-register : (Result Http.Error AuthResponse -> msg) -> Encode.Value -> Cmd msg
-register event userForm =
-    Http.post
-        { body = Http.jsonBody userForm
-        , expect = Http.expectJson event decodeAuthResponse
-        , url = "/accounts/register/"
-        }
+{-| Signup a new user
+-}
+signup : Session -> (WebData User -> msg) -> SignupForm -> Cmd msg
+signup session event signupForm =
+    BackendHttp.post session
+        "access/magic_link/signup"
+        event
+        User.decodeUser
+        (User.encodeSignupForm signupForm)

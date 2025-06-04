@@ -7,7 +7,12 @@ env:
   NODE_ENV: test
   TRANSCRYPT_KEY: ${{ secrets.TRANSCRYPT_KEY }}
   ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
+  BACKEND_API_URL: http://localhost:1234/backend
   ENABLE_FOOD_SECTION: "True"
+  ENABLE_OBJECTS_SECTION: "True"
+  EMAIL_SERVER_HOST: localhost
+  EMAIL_SERVER_PORT: 1025
+  EMAIL_SERVER_USE_TLS: false
 on:
   push:
     branches: [ master, staging ]
@@ -17,11 +22,11 @@ on:
 
 jobs:
   build:
-    # See https://github.com/puppeteer/puppeteer/issues/12818
-    runs-on: ubuntu-22.04
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20.x]
+        node-version: [22.x]
         python-version: [3.12]
 
     steps:
@@ -39,11 +44,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-
-    - uses: actions/setup-python@v5
-      with:
-        python-version: ${{ matrix.python-version }}
-        cache: 'pipenv'
 
     - name: Cache node_modules
       id: cache-node_modules
@@ -66,13 +66,16 @@ jobs:
     - name: Check JSON db formating
       run: npm run db:validate
 
-    - name: Install Python dependencies
-      run: pip install pipenv && pipenv install -d
-
     - name: Install Ubuntu dependencies
       run: |
         sudo apt-get update
         sudo apt-get install -y gettext
+
+    - name: Install the latest version of uv
+      uses: astral-sh/setup-uv@v4
+      with:
+        version: "latest"
+        python-version: ${{ matrix.python-version }}
 
     - name: Build app
       run: npm run build --if-present
@@ -87,5 +90,19 @@ jobs:
       run: npm run test:client
 
     - name: Run server tests
-      run: pipenv run backend/update.sh && npm run test:server-ci && npm run test:backend
+      run: npm run test:server-ci && npm run test:backend
 
+    # e2e tests
+    - name: Install Playwright Browsers
+      run: npx playwright install chromium --with-deps
+
+    - name: Run Playwright tests
+      run: NODE_ENV=test npm run test:e2e
+
+    - name: Upload Playwright test articacts
+      uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: playwright-report
+        path: playwright-report/
+        retention-days: 3

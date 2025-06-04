@@ -1,17 +1,21 @@
 {
-  "/admin/": {
-    "target": "http://127.0.0.1:8002/"
-  },
-  "/accounts/": {
-    "target": "http://127.0.0.1:8002/"
+  "/backend": {
+    "target": "http://127.0.0.1:8002/",
+    "pathRewrite": {
+      "^/backend": ""
+    },
+    "timeout": 30000
   },
   "/api": {
-    "target": "http://127.0.0.1:8001/"
+    "target": "http://127.0.0.1:8001/",
+    "timeout": 30000
   },
   "/processes/": {
-    "target": "http://127.0.0.1:8001/"
+    "target": "http://127.0.0.1:8001/",
+    "timeout": 30000
   },
   "/versions": {
-    "target": "http://127.0.0.1:8001/"
+    "target": "http://127.0.0.1:8001/",
+    "timeout": 30000
   }
 }

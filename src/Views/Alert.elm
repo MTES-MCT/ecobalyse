@@ -1,16 +1,18 @@
 module Views.Alert exposing
     ( Level(..)
-    , httpError
+    , backendError
     , preformatted
+    , serverError
     , simple
     )
 
 import Data.Env as Env
+import Data.Session exposing (Session)
+import Dict
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Http
-import Request.Common as HttpCommon
+import Request.BackendHttp.Error as BackendError
 import Views.Icon as Icon
 
 
@@ -31,26 +33,114 @@ type Level
 
 icon : Level -> Html msg
 icon level =
-    case level of
-        Danger ->
-            span [ class "me-1" ] [ Icon.warning ]
+    span [ class "me-1" ]
+        [ case level of
+            Danger ->
+                Icon.warning
 
-        Info ->
-            span [ class "me-1" ] [ Icon.info ]
+            Info ->
+                Icon.info
 
-        Success ->
-            span [ class "me-1" ] [ Icon.checkCircle ]
+            Success ->
+                Icon.checkCircle
 
-        Warning ->
-            span [ class "me-1" ] [ Icon.warning ]
+            Warning ->
+                Icon.warning
+        ]
 
 
-httpError : Http.Error -> Html msg
-httpError error =
+backendError : Session -> Maybe msg -> BackendError.Error -> Html msg
+backendError session close error =
+    simple
+        { close = close
+        , content =
+            [ case BackendError.mapErrorResponse error of
+                Just { detail, headers, statusCode, title, url } ->
+                    let
+                        errorText =
+                            [ ( "Message", detail )
+                            , ( "URL", url )
+                            , ( "Status code", String.fromInt statusCode )
+                            , ( "En-têtes"
+                              , Dict.toList headers
+                                    |> List.map (\( a, b ) -> "\n- " ++ a ++ ": " ++ b)
+                                    |> String.concat
+                              )
+                            ]
+                                |> List.map (\( a, b ) -> a ++ ": " ++ b)
+                                |> String.join "\n"
+                    in
+                    div []
+                        [ p [ class "mb-2 text-truncate" ]
+                            [ case title of
+                                Just title_ ->
+                                    if title_ == detail || String.isEmpty title_ then
+                                        text detail
+
+                                    else
+                                        span []
+                                            [ strong [] [ text <| title_ ++ "\u{00A0}: " ]
+                                            , text detail
+                                            ]
+
+                                Nothing ->
+                                    text detail
+                            ]
+                        , Html.details []
+                            [ summary [] [ text "Détails de l'erreur" ]
+                            , text errorText
+                                |> List.singleton
+                                |> pre [ class "mt-1 mb-0 ms-3" ]
+                            ]
+                        , reportErrorLink <| detail ++ " " ++ errorText
+                        ]
+
+                Nothing ->
+                    div [] [ text "Le serveur est probablement indisponible" ]
+            , div [ class "fs-8 text-muted" ]
+                [ em [] [ text <| "Backend url: " ++ session.backendApiUrl ] ]
+            ]
+        , level = Danger
+        , title = Just "Une erreur serveur a été rencontrée"
+        }
+
+
+reportErrorLink : String -> Html msg
+reportErrorLink error =
+    p [ class "fs-7 mt-1 mb-0" ]
+        [ a
+            [ "mailto:"
+                ++ Env.contactEmail
+                ++ "?Subject="
+                ++ escapeUrl "[Ecobalyse] Erreur rencontrée"
+                ++ "&Body="
+                ++ escapeUrl "Bonjour, j'ai rencontré une erreur sur le site Ecobalyse. En voici les détails:\n\n"
+                ++ escapeUrl error
+                |> href
+            ]
+            [ text "Envoyer un rapport d'incident par email" ]
+        ]
+
+
+escapeUrl : String -> String
+escapeUrl =
+    String.replace " " "%20"
+        >> String.replace "\n" "%0A"
+        >> String.replace "\u{000D}" "%0D"
+        >> String.replace "\t" "%09"
+        >> String.replace "\"" "%22"
+        >> String.replace "'" "%27"
+        >> String.replace "<" "%3C"
+        >> String.replace ">" "%3E"
+        >> String.replace "&" "%26"
+
+
+serverError : String -> Html msg
+serverError error =
     simple
         { close = Nothing
         , content =
-            case error |> HttpCommon.errorToString |> String.lines of
+            case String.lines error of
                 [] ->
                     []
 
@@ -66,20 +156,11 @@ httpError error =
                             , pre [ class "mt-1" ]
                                 [ rest |> String.join "\n" |> String.trim |> text ]
                             ]
-                        , a
-                            [ class "btn btn-primary"
-                            , href
-                                ("mailto:"
-                                    ++ Env.contactEmail
-                                    ++ "?Subject=[Ecobalyse]+Erreur+rencontrée&Body="
-                                    ++ HttpCommon.errorToString error
-                                )
-                            ]
-                            [ text "Envoyer un rapport d'incident" ]
+                        , reportErrorLink error
                         ]
                     ]
         , level = Info
-        , title = Just "Erreur de chargement des données"
+        , title = Just "Le serveur a retourné une erreur"
         }
 
 
@@ -96,12 +177,12 @@ simple { close, content, level, title } =
         ]
         [ case title of
             Just title_ ->
-                h5 [ class "alert-heading d-flex align-items-center" ]
+                h5 [ class "alert-heading d-flex align-items-center mb-0" ]
                     [ icon level, text title_ ]
 
             Nothing ->
                 text ""
-        , div [] content
+        , div [ class "mt-1" ] content
         , case close of
             Just closeMsg ->
                 button

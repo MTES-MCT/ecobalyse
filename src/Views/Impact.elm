@@ -22,7 +22,7 @@ selector definitions { selectedImpact, switchImpact } =
                 ]
                 [ text label ]
     in
-    div [ class "ImpactSelector input-group" ]
+    div [ class "ImpactSelector input-group", attribute "data-testid" "impact-selector" ]
         [ select
             [ class "form-select"
             , onInput (Definition.toTrigram >> switchImpact)

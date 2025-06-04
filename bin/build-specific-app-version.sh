@@ -159,9 +159,9 @@ if [ -z "$BUILD_CURRENT_VERSION" ]; then
   # Patch old versions of the app so that it gets the version file using relative path in Elm
   # Otherwise serving the app from /versions will not display the good version number
   # Also patch the local storage key to avoid messing things up between versions
-  $ROOT_DIR/bin/patch_files_for_versions_compat.py elm-version $ELM_VERSION_FILE
-  $ROOT_DIR/bin/patch_files_for_versions_compat.py local-storage-key $INDEX_JS_FILE $COMMIT_OR_TAG
-  $ROOT_DIR/bin/patch_files_for_versions_compat.py version-selector $ROOT_DIR/packages/python/ecobalyse/ecobalyse/0001-feat-patch-homepage-link-and-inject-and-inject-versi.patch $PUBLIC_GIT_CLONE_DIR
+  uv run $ROOT_DIR/bin/patch_files_for_versions_compat.py elm-version $ELM_VERSION_FILE
+  uv run $ROOT_DIR/bin/patch_files_for_versions_compat.py local-storage-key $INDEX_JS_FILE $COMMIT_OR_TAG
+  uv run $ROOT_DIR/bin/patch_files_for_versions_compat.py version-selector $ROOT_DIR/packages/python/ecobalyse/ecobalyse/0001-feat-patch-homepage-link-and-inject-and-inject-versi.patch $PUBLIC_GIT_CLONE_DIR
 fi
 
 cd $PUBLIC_GIT_CLONE_DIR
@@ -186,20 +186,20 @@ if [ -z "$BUILD_CURRENT_VERSION" ]; then
   # Always put the tag name in the version.json file to help debugging if needed later on
   # If TAG is defined
   if [[ ! -z "$TAG" ]]; then
-    $ROOT_DIR/bin/patch_files_for_versions_compat.py add-entry-to-version dist/version.json tag $TAG
+    uv run $ROOT_DIR/bin/patch_files_for_versions_compat.py add-entry-to-version dist/version.json tag $TAG
   fi
 
 
   # If a data dir commit was specified, put it in the version file if needed
   # it will to keep track of the commit used to build the version
   if [[ ! -z "$ECOBALYSE_DATA_DIR_COMMIT" ]]; then
-    $ROOT_DIR/bin/patch_files_for_versions_compat.py add-entry-to-version dist/version.json dataDirHash $ECOBALYSE_DATA_DIR_COMMIT
+    uv run $ROOT_DIR/bin/patch_files_for_versions_compat.py add-entry-to-version dist/version.json dataDirHash $ECOBALYSE_DATA_DIR_COMMIT
 
   fi
 
   # We need to send the referer to python in order to properly redirect after login
   # so we need to patch the html files that don't have it
-  $ROOT_DIR/bin/patch_files_for_versions_compat.py patch-cross-origin dist/index.html
+  uv run $ROOT_DIR/bin/patch_files_for_versions_compat.py patch-cross-origin dist/index.html
 fi
 
 cd $ROOT_DIR
