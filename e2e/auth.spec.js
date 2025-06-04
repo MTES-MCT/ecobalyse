@@ -91,7 +91,9 @@ test.describe("auth", () => {
         page.getByRole("heading", { name: "Un nouveau jeton d'API a été créé" }),
       ).toBeVisible();
 
-      await expect(page.getByTestId("auth-api-token")).not.toBeEmpty();
+      const apiTokenField = page.getByTestId("auth-api-token");
+      await expect(apiTokenField).not.toBeEmpty();
+      const apiToken = await apiTokenField.inputValue();
 
       await page.getByRole("button", { name: "Retour à la liste des jetons" }).click();
 
@@ -101,19 +103,52 @@ test.describe("auth", () => {
 
       await expect(apiTokensTable.locator("tbody tr td:nth-child(2)")).toHaveText("Jamais utilisé");
 
+      // Use token once
+      const apiResponse = await fetch("http://localhost:1234/api/textile/simulator/detailed", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${apiToken}`, "Content-Type": "application/json" },
+        body: JSON.stringify({
+          mass: 0.17,
+          materials: [{ id: "ei-coton", share: 1 }],
+          product: "tshirt",
+        }),
+      });
+      const apiResponseJson = await apiResponse.json();
+      expect(apiResponseJson.impacts.cch).toBeGreaterThan(0);
+
+      await page.reload();
+      await page.getByRole("button", { name: "Jetons d'API" }).click();
+
+      await expect(apiTokensTable.locator("tbody tr td:nth-child(2)")).not.toHaveText(
+        "Jamais utilisé",
+      );
+
       await page.getByRole("button", { name: "Supprimer ce jeton" }).click();
 
       await expect(
         page.getByRole("heading", { name: "Supprimer et invalider ce jeton d'API" }),
       ).toBeVisible();
 
-      await expect(page.getByText("Le token n'a jamais été utilisé")).toBeVisible();
+      await expect(page.getByText("Dernière utilisation")).toBeVisible();
 
       await page.getByRole("button", { name: "Supprimer et invalider" }).click();
 
       await expect(page.getByRole("heading", { name: "Jeton d'API supprimé" })).toBeVisible();
 
       await expect(page.getByText("Aucun jeton d'API actif")).toBeVisible();
+
+      // Try reusing the deleted token
+      const apiResponse2 = await fetch("http://localhost:1234/api/textile/simulator/detailed", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${apiToken}`, "Content-Type": "application/json" },
+        body: JSON.stringify({
+          mass: 0.17,
+          materials: [{ id: "ei-coton", share: 1 }],
+          product: "tshirt",
+        }),
+      });
+      const apiResponseJson2 = await apiResponse2.json();
+      expect(apiResponseJson2.impacts.cch).toBe(0); // no detailed impact
     });
   });
 });

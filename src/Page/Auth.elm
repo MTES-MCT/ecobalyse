@@ -773,7 +773,7 @@ viewApiTokenDelete apiToken =
             Just lastAccessedAt ->
                 p [ class "alert alert-warning d-flex align-items-center gap-1" ]
                     [ Icon.warning
-                    , text "Dernière utilisation\u{00A0}:"
+                    , text "Dernière utilisation\u{00A0}:\u{00A0}"
                     , text <| Format.frenchDatetime lastAccessedAt
                     ]
 
