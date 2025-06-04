@@ -42,6 +42,8 @@ Pour utiliser le PostgreSQL lancé avec docker, configurez la variable `SCALINGO
 
     SCALINGO_POSTGRESQL_URL=postgres://postgres:password@localhost:5433/ecobalyse_dev
 
+Note: docker est également une dépendance requise pour lancer la suite de tests (`npm test`).
+
 ## Installation
 
 ### Frontend
