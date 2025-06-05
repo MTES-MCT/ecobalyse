@@ -43,7 +43,7 @@ Avec :&#x20;
 ### Calcul en cut-off
 
 $$
-I_{EoL} =I_{EoL,incinération,d}+I_{EoL,lanfill,d} +\sum_i m_i*(I_{EoL,rec,i}+I_{EoL,incineration,i}+I_{EoL,landfill,i})
+I_{EoL} =m*(I_{EoL,incinération,d}+I_{EoL,lanfill,d}) +\sum_i m_i*(I_{EoL,rec,i}+I_{EoL,incineration,i}+I_{EoL,landfill,i})
 $$
 
 $$
@@ -69,6 +69,7 @@ $$
 Avec :&#x20;
 
 * `I_EoL` : l'impact environnemental du produit en fin de vie, dans l'unité de la catégorie d'impact analysée
+* `m` : la masse du produit, en kg
 * `I_EoL,incineration,d` : l'impact environnemental par défaut lié à l'incinération, dans l'unité de la catégorie d'impact analysée
 * `I_EoL,landfill,d` : l'impact environnemental par défaut lié à l'enfouissement, dans l'unité de la catégorie d'impact analysée
 * `m_i` : la masse relative à la famille de matériaux `i`, en kg
