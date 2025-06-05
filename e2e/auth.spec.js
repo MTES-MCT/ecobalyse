@@ -1,13 +1,16 @@
 import { test, expect } from "@playwright/test";
 import {
-  registerAndLoginUser,
   deleteAllEmails,
-  extractUrlsFromText,
   deleteUser,
+  execSqlite,
+  extractUrlsFromText,
+  registerAndLoginUser,
   waitForNewEmail,
 } from "./lib";
 
 test.describe("auth", () => {
+  test.describe.configure({ mode: "serial" });
+
   test.beforeEach(async () => {
     await deleteAllEmails();
   });
@@ -149,6 +152,39 @@ test.describe("auth", () => {
       });
       const apiResponseJson2 = await apiResponse2.json();
       expect(apiResponseJson2.impacts.cch).toBe(0); // no detailed impact
+    });
+
+    await test.step("admin access", async () => {
+      // alice can't see the admin button
+      await expect(
+        page.getByLabel("Menu principal").getByRole("link", { name: "Admin" }),
+      ).not.toBeVisible();
+
+      // promote alice as an admin
+      await execSqlite("update user_account set is_superuser=1 where email='alice@cooper.com'");
+
+      await page.reload();
+
+      await page.goto("/#/auth"); // triggers user admin status reloading
+
+      await expect(
+        page.getByLabel("Menu principal").getByRole("link", { name: "Admin" }),
+      ).toBeVisible();
+
+      await page.getByLabel("Menu principal").getByRole("link", { name: "Admin" }).click();
+
+      await expect(page.getByRole("heading", { name: "Ecobalyse Admin" })).toBeVisible();
+
+      // demote alice as an admin
+      await execSqlite("update user_account set is_superuser=0 where email='alice@cooper.com'");
+
+      await page.goto("/#/auth"); // triggers user admin status reloading
+
+      await page.goto("/#/admin");
+
+      // admin access should be refused
+      await expect(page.getByRole("heading", { name: "Ecobalyse Admin" })).not.toBeVisible();
+      await expect(page.getByRole("heading", { name: "Accès refusé" })).toBeVisible();
     });
   });
 });
