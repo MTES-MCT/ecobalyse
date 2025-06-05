@@ -1,6 +1,37 @@
 # Changelog
 
 
+## [5.1.0](https://github.com/MTES-MCT/ecobalyse/compare/v5.0.1..v5.1.0) (2025-06-05)
+
+
+
+### 🚀 Features
+
+- *(bo)* Allow duplicating components ([#1064](https://github.com/MTES-MCT/ecobalyse/issues/1064))
+- *(bo)* Add a button to export components json db ([#1067](https://github.com/MTES-MCT/ecobalyse/issues/1067))
+- *(bo)* Add an individual component export button ([#1071](https://github.com/MTES-MCT/ecobalyse/issues/1071))
+- Add missing meat ingredients ([#960](https://github.com/MTES-MCT/ecobalyse/issues/960))
+- Add object processes ([#1088](https://github.com/MTES-MCT/ecobalyse/issues/1088))
+
+### 🪲 Bug Fixes
+
+- Default to empty string on BACKEND_API_URL not set ([#1068](https://github.com/MTES-MCT/ecobalyse/issues/1068))
+- Properly decode json processes on login ([#1083](https://github.com/MTES-MCT/ecobalyse/issues/1083))
+
+### 🚜 Refactor
+
+- Merge processes in a single file for cross-domain reusability ([#1072](https://github.com/MTES-MCT/ecobalyse/issues/1072))
+- Generalize uuid parsing result errors ([#1107](https://github.com/MTES-MCT/ecobalyse/issues/1107))
+
+### ⚙️ Miscellaneous Tasks
+
+- Upgrade node dependencies, 2025-05 ([#1065](https://github.com/MTES-MCT/ecobalyse/issues/1065))
+- Update ecobalyse data sync ([#1086](https://github.com/MTES-MCT/ecobalyse/issues/1086))
+- Test versions ([#1076](https://github.com/MTES-MCT/ecobalyse/issues/1076))
+- Cleanup object ([#1089](https://github.com/MTES-MCT/ecobalyse/issues/1089))
+- Replace elec process medium voltage by low voltage ([#1121](https://github.com/MTES-MCT/ecobalyse/issues/1121))
+
+
 ## [5.0.1](https://github.com/MTES-MCT/ecobalyse/compare/v5.0.0..v5.0.1) (2025-04-29)
 
 
