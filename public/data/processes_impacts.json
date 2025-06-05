@@ -1110,7 +1110,7 @@
     "waste": 0
   },
   {
-    "categories": ["transformation"],
+    "categories": ["transformation", "material_type:plastic"],
     "comment": "",
     "density": 0,
     "displayName": "Moulage par injection",
@@ -5217,7 +5217,7 @@
     "waste": 0
   },
   {
-    "categories": ["material"],
+    "categories": ["material", "material_type:plastic"],
     "comment": "",
     "density": 0,
     "displayName": "Plastique granulé (PP)",
@@ -16018,43 +16018,6 @@
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[RME] market group for electricity, medium voltage",
     "unit": "kWh",
-    "waste": 0
-  },
-  {
-    "categories": ["material"],
-    "comment": "",
-    "density": 600.0,
-    "displayName": "Planche (bois de feuillus)",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "fe8a97ba-405a-5542-b1be-bd6983537d58",
-    "impacts": {
-      "acd": 0.742556,
-      "cch": 106.5,
-      "ecs": 22924.6,
-      "etf": 748.593,
-      "etf-c": 857.732,
-      "fru": 1544.57,
-      "fwe": 0.0221874,
-      "htc": 1.27071e-7,
-      "htc-c": 1.63174e-7,
-      "htn": 1.49723e-6,
-      "htn-c": 2.04218e-7,
-      "ior": 6.27513,
-      "ldu": 110457.0,
-      "mru": 0.00033849,
-      "ozd": 2.02399e-6,
-      "pco": 1.21684,
-      "pef": 26455.9,
-      "pma": 3.97859e-5,
-      "swe": 0.270069,
-      "tre": 2.99649,
-      "wtu": 5.43986
-    },
-    "scopes": ["object", "veli"],
-    "source": "Ecoinvent 3.9.1",
-    "sourceId": "sawnwood, board, hardwood, dried (u=10%), planed//[Europe without Switzerland] market for sawnwood, board, hardwood, dried (u=10%), planed",
-    "unit": "m3",
     "waste": 0
   }
 ]

@@ -1110,7 +1110,7 @@
     "waste": 0
   },
   {
-    "categories": ["transformation"],
+    "categories": ["transformation", "material_type:plastic"],
     "comment": "",
     "density": 0,
     "displayName": "Moulage par injection",
@@ -5217,7 +5217,7 @@
     "waste": 0
   },
   {
-    "categories": ["material"],
+    "categories": ["material", "material_type:plastic"],
     "comment": "",
     "density": 0,
     "displayName": "Plastique granulé (PP)",
