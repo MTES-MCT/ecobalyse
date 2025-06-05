@@ -39,7 +39,7 @@ load processes =
         -- lorry
         |> fromIdString "1f30553d-df08-5f07-b035-ba3ce5af7cf1"
         -- low-voltage-electricity
-        |> fromIdString "e3f15e98-5560-5674-8e0d-ca4185824029"
+        |> fromIdString "931c9bb0-619a-5f75-b41b-ab8061e2ad92"
         -- plane
         |> fromIdString "c8bca164-5574-5232-84b9-46c5b734cd0c"
         -- tap-water
