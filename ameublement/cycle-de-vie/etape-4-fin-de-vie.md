@@ -12,28 +12,99 @@ Evaluer le coût environnemental de la fin de vie d'un meuble consiste à calcul
 
 ## Méthode de calcul
 
-Le calcul de l'impact de la fin de vie d'un meuble se fait en deux temps :&#x20;
+Le calcul de l'impact de la fin de vie d'un meuble se fait en trois temps :&#x20;
 
-1. définir les scénarios de fin de vie du meuble,
-2. calculer l'impact de ces scénarios.
+1. Définir la recyclabilité du meuble,
+2. Définir les scénarios de fin de vie du produit,
+3. calculer l'impact de ces scénarios.
 
-### Etape 1 = Définir les scénarios de fin de vie du meuble
+### Etape 1 = Définir la recyclabilité du produit
 
-La définition des scénarios se fait en 3 étapes :&#x20;
+Un meuble peut être :&#x20;
 
-#### 1) Taux de collecte&#x20;
+* recyclable
+* non recyclable
 
-Ce paramètre définit la capacité du meuble à être collécté en fin de vie.
+Définir la recyclabilité du produit revient à comprendre les règles applicables tout au long de la filière de fin de vie du produit. Ces règles sont souvent spécifiques à chaque secteur d'activité (ex : la filière de fin de vie de véhicules thermiques est structurée différement de celle d'éléments d'ameublement).&#x20;
 
-#### 2) Schéma opérationnel&#x20;
+### Etape 2 = Définir les scénarios de fin de vie du produit
 
-Ce paramètre reflète l'existence d'une filière de fin de vie permettant d'orienter chaque matière du meuble collecté vers leurs débouchés spécifiques (enfouissement, incinération, recyclage).
+Les scénarios de fin de vie d'un produit peuvent être définis avec ces deux critères :&#x20;
 
-L'abscence de schéma opérationnel implique l'impossibilité pour le meuble collecté d'être recyclé car il n'existe pas de schéma opérationnel permettant de collecter, séparer et recycler à l’échelle et en pratique les matières qui composent l’élément d’ameublement.&#x20;
+* la recyclabilité du produit (oui vs non),
+* la capacité de la filière à collecter le produit en fin de vie (taux de collecte),
 
-#### 3) Facteurs limitants&#x20;
+<figure><img src="../../.gitbook/assets/image (356).png" alt=""><figcaption></figcaption></figure>
 
-Les facteurs limitants regroupent deux types de paramètres empêchant la recyclabilité du meuble.&#x20;
+### Etape 3 = Calculer l'impact de la fin de vie&#x20;
+
+{% tabs %}
+{% tab title="Niveau 0" %}
+$$
+FDV = ImpactCollecté+ ImpactNonCollecté
+$$
+{% endtab %}
+
+{% tab title="Niveau 1" %}
+$$
+ImpactCollecté = ImpactRecyclable + ImpactNonRecyclable
+$$
+
+$$
+ImpactNonCollecté = ImpactScénarioDéchet
+$$
+{% endtab %}
+
+{% tab title="Niveau 2" %}
+$$
+ImpactRecyclable =  \sum (i)  M* (Enf(i)*Ienf(i) + Inc(i)*Iinc(i) + Recy(i) *Irec(i))
+$$
+
+$$
+ImpactNonRecyclable = ImpactScénario Déchet = M * (Inc*Iinc + Enf*Ienf)
+$$
+
+{% hint style="info" %}
+Liste des variables mobilisées dans les formules ci-dessus :&#x20;
+
+* M = kg = la masse de la partie du meuble spécifique au scénario modélisé &#x20;
+* Enf(i) = % = la performance d'enfouissement du matériau (i) lorsque le meuble est collecté et recyclable\*
+* Inc(i) = % = la performance d'incinération du matériau (i) lorsque le meuble est collecté et recyclable\*
+* Rec(i) = % = la performance de recyclage du matériau (i) lorsque le meuble est collecté et recyclable\*
+* Ienf(i) / Iinc(i) / Irec(i) = l'impact du procédé enfouissement/incinération/recyclage du matériau (i)
+* Inc / Enf = % = scénario par défaut de Incinération et Enfouissement
+* Iinc / Ienf = Pt / kg = coût environnemental des procédés par défaut Incinération et Enfouissement
+{% endhint %}
+{% endtab %}
+{% endtabs %}
+
+## Paramètres retenus pour les meubles&#x20;
+
+### Recyclabilité&#x20;
+
+Deux  paramètres permettant de définir si un meuble est recyclable :&#x20;
+
+#### **L'existence d'un schéma opérationnel**&#x20;
+
+Ce paramètre reflète l'existence d'une filière de fin de vie permettant d'orienter chaque matière du meuble collecté vers leurs débouchés spécifiques (enfouissement, incinération, recyclage). L'abscence de schéma opérationnel implique l'impossibilité pour le meuble collecté d'être recyclé car il n'existe pas de schéma opérationnel permettant de collecter, séparer et recycler à l’échelle et en pratique les matières qui composent l’élément d’ameublement.&#x20;
+
+Les catégories de meubles suivantes ne disposent pas de schéma opérationnel :&#x20;
+
+* Décoration textile,
+* Rembourrés d'assise et de couchage,
+* Autres meubles rembourrés (ex : canapé, sommiers tappissiers)
+
+{% hint style="info" %}
+Cette liste reflète l'état de la filière à un instant T.&#x20;
+
+L'organisme coordinateur de la filière (l'OCABJ) se charge de s'assurer que la liste des éléments d'ameublement ne disposant pas de schéma opérationnel est à jour.&#x20;
+{% endhint %}
+
+#### **La présence d'au moins un facteur limitant** &#x20;
+
+Les facteurs limitants identifient des éléments empêchant la capacité d'un meuble à être orienté vers les filières de recyclable spécifiques à ses composants/matières.&#x20;
+
+Les facteurs limitants dans l'ameublement regroupent deux paramètres :&#x20;
 
 * la présence de perturbateur de tri ou de recyclage\
   Certaines substances, matières ou associations de matériaux peuvent perturber le tri ou le recyclage des éléments d’ameublement. De plus, ces perturbateurs peuvent s’appliquent à (i) tous  types d’élément d’ameublement ou (ii) sont spécifiques à certains.\
@@ -41,57 +112,15 @@ Les facteurs limitants regroupent deux types de paramètres empêchant la recycl
 * L'absence de matériau majoritaire\
   Selon les éléments d'ameublement (ex : chaise, table, etc.), un seuil de "matériaux majoritaires" est à atteindre afin que le meuble soit orienté vers les filières de fin de vie spécifiques à chaque meuble.
 
-#### &#x20;Dès lors, 3 scénarios de fin de vie sont possibles :&#x20;
-
-* Scénario 1 = le meuble dispose d'un schéma opérationnel et ne présente pas de facteur limitant (meuble recyclable),
-* Scénario 2 = le meuble dispose d'un schéma opérationnel et présente au moins un facteur limitant (meuble non recyclable),
-* Scénario 3 = le meuble ne dispose pas de schéma opérationnel (meuble non recyclable).  &#x20;
-
-### Etape 2 = Calculer l'impact de la fin de vie du meuble
-
-Niveau 1 de calcul :
-
-$$
-FDV = TC*M*ImpC+ (1-TC)*M*ImpNC
-$$
-
 {% hint style="info" %}
-Liste des variables mobilisées dans les formules ci-dessus :&#x20;
+Il est de la responsabilité de l'utilisateur de préciser la présence ou non de facteurs limitants.
 
-* TC = % = Taux de collecte,
-* M = kg = la masse du meuble,
-* ImpC = Pt / kg = coût environnemental du matériau collecté
-* ImpNC = Pt / kg = coût environnemental du matériau non-collecté
+La liste détaillée des facteurs limitant la recyclabilité du meuble est tenue à jour par l'organisme coordinateur de la filière REP des éléments d'ameublement : l'OCABJ[^1].&#x20;
+
+Par défaut, le meuble est considéré avec au moins un facteur limitant (meuble non recyclable).
+
+L'utilisateur a la possibilité de modifier ce paramètre.
 {% endhint %}
-
-Niveau 2 de calcul :&#x20;
-
-$$
-ImpC =   \sum (i) * (Enf(i)*Ienf(i) + Inc(i)*Iinc(i) + Recy(i) *Irec(i))
-$$
-
-$$
-ImpNC  =  Inc*Iinc + Enf*Ienf
-$$
-
-{% hint style="info" %}
-Liste des variables mobilisées dans les formules ci-dessus :&#x20;
-
-* Inc / Enf = % = scénario par défaut de Incinération et Enfouissement
-* Iinc / Ienf = Pt / kg = coût environnemental des procédés par défaut Incinération et Enfouissement
-* Enf(i) = % = la performance d'enfouissement du matériau (i) lorsque le meuble est collecté et recyclable\*
-* Inc(i) = % = la performance d'incinération du matériau (i) lorsque le meuble est collecté et recyclable\*
-* Rec(i) = % = la performance de recyclage du matériau (i) lorsque le meuble est collecté et recyclable\*
-* Ienf(i) / Iinc(i) / Irec(i) = l'impact du procédé enfouissement/incinération/recyclage du matériau (i)
-{% endhint %}
-
-{% hint style="danger" %}
-**Exception "Métal"**
-
-Qu'un meuble soit recyclable ou non, les composants métalliques sont dans tous les cas triés et recyclés à 100%.
-{% endhint %}
-
-## Paramètres retenus pour le calcul du coût environnemetnal&#x20;
 
 ### Taux de collecte `TC`
 
@@ -124,7 +153,7 @@ En 2022, 1,2 millions de tonnes ont été collectées par la filière; que ce so
 
 </details>
 
-### Scénarios par défaut
+### Scénarios Déchet
 
 Ce scénario est applicable aux matériaux non collectés et aux matériaux collectés mais non recyclables.
 
@@ -140,7 +169,7 @@ Ce scénario est applicable aux matériaux non collectés et aux matériaux coll
 Ce scénario est basé sur le scénario de fin de vie d'un mobilier meublant dont la recyclabilité du meuble est de 0% dans la dernière version du référentiel BPX30 _Meubles Meublants \_ FCBA (Novembre 2023)_
 {% endhint %}
 
-### Scénarios spécifiques&#x20;
+### Scénarios spécifiques à chaque matière&#x20;
 
 ### `Rec(i)`  `Inc(i)`  `Enf(i)`&#x20;
 
@@ -185,32 +214,12 @@ Dit autrement, l'impact du recyclage des matériaux est alloué 100% au produit 
 
 </details>
 
-### Schémas opérationnels&#x20;
+## Exception
 
-Les catégories de meubles suivantes ne disposent pas de schéma opérationnel :&#x20;
+{% hint style="danger" %}
+**Exception "Métal"**
 
-* Décoration textile,
-* Rembourrés d'assise et de couchage,
-* Autres meubles rembourrés (ex : canapé, sommiers tappissiers)
-
-{% hint style="info" %}
-Cette liste reflète l'état de la filière à un instant T.&#x20;
-
-L'organisme coordinateur de la filière (l'OCABJ) se charge de s'assurer que la liste des éléments d'ameublement ne disposant pas de schéma opérationnel est à jour.&#x20;
-{% endhint %}
-
-### Facteurs limitants
-
-Les facteurs limitants sont spécifiques à chaque catégorie de meubles (canapé, table, etc.). Il est de la responsabilité de l'utilisateur de préciser la présence ou non de facteurs limitants.
-
-Par défaut, la modélisation d'un meuble dans Ecobalyse intègre la présence d'au moins un facteur limitant.
-
-{% hint style="info" %}
-La liste détaillée des facteurs limitant la recyclabilité du meuble est tenue à jour par l'organisme coordinateur de la filière REP des éléments d'ameublement : l'OCABJ[^1].&#x20;
-
-Par défaut, le meuble est considéré avec un perturbateur de recyclage (meuble non recyclable).
-
-L'utilisateur a la possibilité de modifier ce paramètre.
+Qu'un meuble soit recyclable ou non, les composants métalliques sont dans tous les cas triés et recyclés à 100%.
 {% endhint %}
 
 ## Exemples&#x20;
