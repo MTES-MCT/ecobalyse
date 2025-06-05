@@ -12,13 +12,13 @@ export async function deleteAllEmails() {
   return await res.json();
 }
 
-async function execSqlite(query) {
+export async function execSqlite(query) {
   return new Promise((resolve, reject) => {
     child_process.execFile("sqlite3", ["db.sqlite3", query], (error, stdout) => {
       if (error) {
         reject(error);
       } else {
-        resolve(stdout);
+        resolve(stdout.toString());
       }
     });
   });
