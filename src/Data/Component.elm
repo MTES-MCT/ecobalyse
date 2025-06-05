@@ -52,6 +52,7 @@ module Data.Component exposing
     , removeElementTransform
     , setElementMaterial
     , stagesImpacts
+    , toggleCustomScope
     , updateElement
     , updateElementAmount
     , updateItem
@@ -106,6 +107,7 @@ type alias Item =
 type alias Custom =
     { elements : List Element
     , name : Maybe String
+    , scopes : List Scope
     }
 
 
@@ -431,13 +433,13 @@ createItem id =
     { custom = Nothing, id = id, quantity = quantityFromInt 1 }
 
 
-decode : List Scope -> Decoder Component
-decode scopes =
+decode : Decoder Component
+decode =
     Decode.succeed Component
         |> Decode.required "elements" (Decode.list decodeElement)
         |> Decode.required "id" (Decode.map Id Uuid.decoder)
         |> Decode.required "name" Decode.string
-        |> Decode.optional "scopes" (Decode.list Scope.decode) scopes
+        |> Decode.optional "scopes" (Decode.list Scope.decode) Scope.all
 
 
 decodeCustom : Decoder Custom
@@ -445,6 +447,7 @@ decodeCustom =
     Decode.succeed Custom
         |> Decode.required "elements" (Decode.list decodeElement)
         |> DU.strictOptional "name" Decode.string
+        |> Decode.optional "scopes" (Decode.list Scope.decode) []
 
 
 decodeElement : Decoder Element
@@ -463,14 +466,14 @@ decodeItem =
         |> Decode.required "quantity" decodeQuantity
 
 
-decodeList : List Scope -> Decoder (List Component)
-decodeList scopes =
-    Decode.list (decode scopes)
+decodeList : Decoder (List Component)
+decodeList =
+    Decode.list decode
 
 
-decodeListFromJsonString : List Scope -> String -> Result String (List Component)
-decodeListFromJsonString scopes =
-    Decode.decodeString (decodeList scopes)
+decodeListFromJsonString : String -> Result String (List Component)
+decodeListFromJsonString =
+    Decode.decodeString decodeList
         >> Result.mapError Decode.errorToString
 
 
@@ -524,11 +527,14 @@ encode v =
         [ ( "elements", v.elements |> Encode.list encodeElement |> Just )
         , ( "id", v.id |> encodeId |> Just )
         , ( "name", v.name |> Encode.string |> Just )
+        , ( "scopes", v.scopes |> Encode.list Scope.encode |> Just )
         ]
 
 
 encodeCustom : Custom -> Encode.Value
 encodeCustom custom =
+    -- Note: custom scopes are never serialized nor exported as JSON, they are
+    --       only used by itemToComponent in the admin
     EU.optionalPropertiesObject
         [ ( "name"
           , custom.name
@@ -673,6 +679,7 @@ isCustomized component custom =
     List.any identity
         [ custom.elements /= component.elements
         , custom.name /= Nothing && custom.name /= Just component.name
+        , custom.scopes /= component.scopes
         ]
 
 
@@ -682,10 +689,11 @@ itemToComponent { components } { custom, id } =
         |> Result.map
             (\component ->
                 case custom of
-                    Just { elements, name } ->
+                    Just { elements, name, scopes } ->
                         { component
                             | elements = elements
                             , name = name |> Maybe.withDefault component.name
+                            , scopes = scopes
                         }
 
                     Nothing ->
@@ -809,6 +817,25 @@ stageToString stage =
             "transformation"
 
 
+toggleCustomScope : Component -> Scope -> Bool -> Item -> Item
+toggleCustomScope component scope enabled item =
+    { item
+        | custom =
+            item.custom
+                |> updateCustom component
+                    (\custom ->
+                        { custom
+                            | scopes =
+                                if enabled then
+                                    scope :: custom.scopes
+
+                                else
+                                    List.filter ((/=) scope) custom.scopes
+                        }
+                    )
+    }
+
+
 updateCustom : Component -> (Custom -> Custom) -> Maybe Custom -> Maybe Custom
 updateCustom component fn maybeCustom =
     case maybeCustom of
@@ -824,7 +851,13 @@ updateCustom component fn maybeCustom =
                 Nothing
 
         Nothing ->
-            Just (fn { elements = component.elements, name = Nothing })
+            Just
+                (fn
+                    { elements = component.elements
+                    , name = Nothing
+                    , scopes = component.scopes
+                    }
+                )
 
 
 updateElement : TargetElement -> (Element -> Element) -> List Item -> List Item

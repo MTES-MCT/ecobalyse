@@ -6,7 +6,6 @@ module Request.Component exposing
     )
 
 import Data.Component as Component exposing (Component)
-import Data.Scope as Scope
 import Data.Session exposing (Session)
 import RemoteData exposing (WebData)
 import RemoteData.Http as Http exposing (defaultConfig)
@@ -18,7 +17,7 @@ createComponent { backendApiUrl } event component =
     Http.postWithConfig defaultConfig
         (endpoint backendApiUrl "")
         event
-        (Component.decode Scope.all)
+        Component.decode
         (Component.encode component)
 
 
@@ -42,7 +41,7 @@ getComponents { backendApiUrl } event =
     Http.getWithConfig defaultConfig
         (endpoint backendApiUrl "")
         event
-        (Component.decodeList Scope.all)
+        Component.decodeList
 
 
 patchComponent : Session -> (WebData Component -> msg) -> Component -> Cmd msg
@@ -51,5 +50,5 @@ patchComponent { backendApiUrl } event component =
     Http.patchWithConfig defaultConfig
         (endpoint backendApiUrl <| Component.idToString component.id)
         event
-        (Component.decode Scope.all)
+        Component.decode
         (Component.encode component)
