@@ -128,7 +128,7 @@ def default_structlog_processors(
         return []
 
 
-_render_as_json = not _is_tty()
+_render_as_json = False
 _structlog_default_processors = default_structlog_processors(as_json=_render_as_json)
 _structlog_default_processors.insert(1, structlog.processors.EventRenamer("message"))
 
