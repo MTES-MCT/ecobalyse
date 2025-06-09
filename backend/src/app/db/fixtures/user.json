@@ -1,0 +1,11 @@
+[
+  {
+    "email": "bob@dylan.com",
+    "first_name": "Bob",
+    "is_active": true,
+    "is_superuser": true,
+    "last_name": "Dylan",
+    "optin_email": false,
+    "organization": { "type": "individual" }
+  }
+]

@@ -1,5 +1,4 @@
 import { expect } from "@playwright/test";
-import child_process from "node:child_process";
 
 export async function checkEmails() {
   const res = await fetch("http://localhost:1081/email");
@@ -12,24 +11,38 @@ export async function deleteAllEmails() {
   return await res.json();
 }
 
-export async function execSqlite(query) {
-  return new Promise((resolve, reject) => {
-    child_process.execFile("sqlite3", ["db.sqlite3", query], (error, stdout) => {
-      if (error) {
-        reject(error);
-      } else {
-        resolve(stdout.toString());
-      }
-    });
-  });
-}
-
-export async function deleteUser(email) {
-  return await execSqlite(`delete from user_account where email='${email}'`);
-}
-
 export function extractUrlsFromText(text) {
   return text.match(/\bhttps?:\/\/\S+/gi);
+}
+
+export async function loginUser(page, email) {
+  await page.goto("/#/auth");
+
+  await page.getByRole("button", { name: "Inscription" }).click();
+
+  await page.getByRole("button", { name: "Connexion", exact: true }).click();
+
+  await expect(page.getByTestId("auth-magic-link-form")).toBeVisible();
+  await expect(page.getByTestId("auth-signup-form")).not.toBeVisible();
+
+  await expect(page.getByTestId("auth-magic-link-submit")).toBeDisabled();
+  await page.getByPlaceholder("nom@example.com").fill(email);
+  await expect(page.getByTestId("auth-magic-link-submit")).not.toBeDisabled();
+
+  await page.getByTestId("auth-magic-link-submit").click();
+
+  const lastEmail = await waitForNewEmail();
+
+  await expect(page.getByText("Email de connexion envoyé")).toBeVisible();
+
+  expect(lastEmail.subject).toContain("Lien de connexion à Ecobalyse");
+  expect(lastEmail.headers.to).toBe(email);
+  const links = extractUrlsFromText(lastEmail.text).filter((url) => url.includes("/auth/"));
+  expect(links).toHaveLength(1);
+
+  await page.goto(links[0]);
+
+  await expect(page.getByText("Vous avez désormais accès aux impacts détaillés")).toBeVisible();
 }
 
 export async function registerAndLoginUser(
@@ -60,7 +73,7 @@ export async function registerAndLoginUser(
   await expect(page.getByText("Email de connexion envoyé")).toBeVisible();
 
   expect(lastEmail.subject).toContain("Lien de connexion à Ecobalyse");
-  expect(lastEmail.headers.to).toBe("alice@cooper.com");
+  expect(lastEmail.headers.to).toBe(email);
   const links = extractUrlsFromText(lastEmail.text).filter((url) => url.includes("/auth/"));
   expect(links).toHaveLength(1);
 
@@ -88,6 +101,7 @@ export async function waitForNewEmail() {
   const initial = await checkEmails();
   return waitFor(async () => {
     const inbox = await checkEmails();
+
     if (inbox.length > initial.length) {
       return inbox[0];
     } else {

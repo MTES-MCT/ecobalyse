@@ -153,6 +153,7 @@ class DatabaseSettings:
                 echo_pool=self.ECHO_POOL,
                 pool_recycle=self.POOL_RECYCLE,
                 pool_pre_ping=self.POOL_PRE_PING,
+                pool_size=self.POOL_SIZE,
             )
             """Database session factory.
 

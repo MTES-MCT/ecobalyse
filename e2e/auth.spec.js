@@ -1,12 +1,13 @@
 import { test, expect } from "@playwright/test";
 import {
+  loginUser,
   deleteAllEmails,
-  deleteUser,
-  execSqlite,
   extractUrlsFromText,
   registerAndLoginUser,
   waitForNewEmail,
 } from "./lib";
+
+import impacts from "../public/data/impacts.json";
 
 test.describe("auth", () => {
   test.describe.configure({ mode: "serial" });
@@ -17,9 +18,6 @@ test.describe("auth", () => {
 
   test("alice registers and signs in", async ({ page }) => {
     await test.step("register", async () => {
-      // ensure user doesn't exist (race condition)
-      await deleteUser("alice@cooper.com");
-
       await registerAndLoginUser(page, {
         email: "alice@cooper.com",
         firstName: "Alice",
@@ -160,10 +158,12 @@ test.describe("auth", () => {
         page.getByLabel("Menu principal").getByRole("link", { name: "Admin" }),
       ).not.toBeVisible();
 
-      // promote alice as an admin
-      await execSqlite("update user_account set is_superuser=1 where email='alice@cooper.com'");
+      await page.goto("/#/auth"); // triggers user admin status reloading
 
-      await page.reload();
+      await page.getByRole("button", { name: "Déconnexion" }).click();
+
+      // Bob is an admin
+      await loginUser(page, "bob@dylan.com");
 
       await page.goto("/#/auth"); // triggers user admin status reloading
 
@@ -174,17 +174,32 @@ test.describe("auth", () => {
       await page.getByLabel("Menu principal").getByRole("link", { name: "Admin" }).click();
 
       await expect(page.getByRole("heading", { name: "Ecobalyse Admin" })).toBeVisible();
+    });
 
-      // demote alice as an admin
-      await execSqlite("update user_account set is_superuser=0 where email='alice@cooper.com'");
-
+    await test.step("impact selector", async () => {
       await page.goto("/#/auth"); // triggers user admin status reloading
+      await page.getByRole("button", { name: "Déconnexion" }).click();
+      await page.goto("/");
+      await page.getByTestId("textile-callout-button").click();
+      const impactSelector = page.getByTestId("impact-selector");
 
-      await page.goto("/#/admin");
+      // When not logged in, the impact selector is not visible
+      await expect(impactSelector).not.toBeVisible();
 
-      // admin access should be refused
-      await expect(page.getByRole("heading", { name: "Ecobalyse Admin" })).not.toBeVisible();
-      await expect(page.getByRole("heading", { name: "Accès refusé" })).toBeVisible();
+      // When logged in, the impact selector is visible
+      await loginUser(page, "bob@dylan.com");
+
+      await page.goto("/");
+      await page.getByTestId("textile-callout-button").click();
+
+      await expect(impactSelector).toBeVisible();
+
+      // Check that impact option list matches available impact definitions
+      const impactOptions = await impactSelector.locator("option").allInnerTexts();
+      expect(impactOptions).toHaveLength(Object.keys(impacts).length);
+      for (const [_, { label_fr }] of Object.entries(impacts)) {
+        expect(impactOptions).toContain(label_fr);
+      }
     });
   });
 });

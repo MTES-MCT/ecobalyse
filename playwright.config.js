@@ -45,10 +45,6 @@ export default defineConfig({
   // Project dependencies
   projects: [
     {
-      name: "prepare db",
-      testMatch: /db\.setup\.js/,
-    },
-    {
       name: "chromium",
       use: { ...devices["Desktop Chrome"] },
     },
@@ -56,7 +52,8 @@ export default defineConfig({
 
   // Run local dev server before starting the tests
   webServer: {
-    command: "npm start",
+    command:
+      "(export DATABASE_URL=sqlite+aiosqlite:///db_test.sqlite3; rm -f db_test.sqlite3 && uv run backend database upgrade --no-prompt && uv run backend fixtures load-test && npm start)",
     url: "http://localhost:1234",
     reuseExistingServer: !process.env.CI,
   },

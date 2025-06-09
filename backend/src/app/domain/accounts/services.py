@@ -227,9 +227,15 @@ class UserService(SQLAlchemyAsyncRepositoryService[m.User]):
                 data.profile = m.UserProfile(
                     first_name=first_name,
                     last_name=last_name,
-                    organization_name=organization.name,
-                    organization_type=organization.type,
-                    organization_siren=organization.siren,
+                    organization_name=organization.get("name")
+                    if is_dict(organization)
+                    else organization.name,
+                    organization_type=organization.get("type")
+                    if is_dict(organization)
+                    else organization.type,
+                    organization_siren=organization.get("siren")
+                    if is_dict(organization)
+                    else organization.siren,
                     terms_accepted=terms_accepted,
                     email_optin=email_optin,
                 )

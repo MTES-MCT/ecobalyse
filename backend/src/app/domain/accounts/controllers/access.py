@@ -15,6 +15,7 @@ from advanced_alchemy.service.typing import (
 from advanced_alchemy.utils.text import slugify
 from app.db import models as m
 from app.domain.accounts import urls
+from app.domain.accounts import tasks
 from app.domain.accounts.deps import provide_users_service
 from app.domain.accounts.guards import auth, requires_active_user
 from app.domain.accounts.schemas import (
@@ -33,6 +34,8 @@ from litestar.exceptions import PermissionDeniedException
 from litestar.params import Parameter
 from litestar.security.jwt import Token
 from litestar.status_codes import HTTP_200_OK
+from litestar.background_tasks import BackgroundTask
+
 
 if TYPE_CHECKING:
     from app.domain.accounts.services import UserService
@@ -106,12 +109,15 @@ class AccessController(Controller):
 
         new_user = await users_service.get_one_or_none(id=user.id)
 
-        request.app.emit(
-            event_id="send_magic_link_email",
-            user=user,
+        background = BackgroundTask(
+            tasks.send_magic_link_email_task,
+            user_id=user.id,
+            user_email=user.email,
             token=token,
         )
-        return users_service.to_schema(new_user, schema_type=User)
+        return Response(
+            users_service.to_schema(new_user, schema_type=User), background=background
+        )
 
     @post(
         operation_id="AccountLoginMagicLink",
@@ -136,11 +142,14 @@ class AccessController(Controller):
         user = await users_service.update(
             item_id=user.id, data={"magic_link_token": token}
         )
-        request.app.emit(
-            event_id="send_magic_link_email",
-            user=user,
+
+        background = BackgroundTask(
+            tasks.send_magic_link_email_task,
+            user_id=user.id,
+            user_email=user.email,
             token=token,
         )
+        return Response(None, background=background)
 
     @patch(
         operation_id="UpdateProfile",
