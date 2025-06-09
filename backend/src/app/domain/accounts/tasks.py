@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import datetime
+import urllib.parse
+from uuid import UUID
 
 import emails
 import structlog
@@ -8,8 +10,6 @@ from app.config import get_settings
 from app.config.app import alchemy
 from app.domain.accounts.deps import provide_users_service
 from emails.template import JinjaTemplate as T
-from uuid import UUID
-import urllib.parse
 
 logger = structlog.get_logger()
 

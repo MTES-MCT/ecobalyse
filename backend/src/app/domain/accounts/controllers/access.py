@@ -14,8 +14,7 @@ from advanced_alchemy.service.typing import (
 )
 from advanced_alchemy.utils.text import slugify
 from app.db import models as m
-from app.domain.accounts import urls
-from app.domain.accounts import tasks
+from app.domain.accounts import tasks, urls
 from app.domain.accounts.deps import provide_users_service
 from app.domain.accounts.guards import auth, requires_active_user
 from app.domain.accounts.schemas import (
@@ -29,13 +28,12 @@ from app.domain.accounts.schemas import (
 from app.domain.accounts.services import RoleService, TokenService, UserProfileService
 from app.lib.deps import create_service_provider
 from litestar import Controller, Request, Response, delete, get, patch, post
+from litestar.background_tasks import BackgroundTask
 from litestar.di import Provide
 from litestar.exceptions import PermissionDeniedException
 from litestar.params import Parameter
 from litestar.security.jwt import Token
 from litestar.status_codes import HTTP_200_OK
-from litestar.background_tasks import BackgroundTask
-
 
 if TYPE_CHECKING:
     from app.domain.accounts.services import UserService

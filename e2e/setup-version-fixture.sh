@@ -14,4 +14,3 @@ export BUILD_CURRENT_VERSION=1
 cd versions
 tar -xzf ../test_build-dist.tar.gz --strip-components=1 -C test_build dist/
 rm ../test_build-dist.tar.gz
-
