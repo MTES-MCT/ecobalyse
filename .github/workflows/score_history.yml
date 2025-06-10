@@ -99,10 +99,8 @@ jobs:
           npm run server:build
           scalingo db-tunnel DATABASE_URL &
           npm run server:start &
-          npm run start:backend &
 
           for attempt in {1..20}; do if curl -s http://localhost:8001/ > /dev/null; then echo "-> Node server is up and ready on port 8001"; break; fi; echo "-> Waiting for the Node server to boot..."; sleep 1; done
-          for attempt in {1..20}; do if curl -s http://localhost:8002/ > /dev/null; then echo "-> Python server is up and ready on port 8002"; break; fi; echo "-> Waiting for the Python server to boot..."; sleep 1; done
           for attempt in {1..20}; do if lsof -i:10000 > /dev/null; then echo "-> PG Tunnel to Scalingo is up and ready on port 10000"; break; fi; echo "-> Waiting for the PG tunnel to Scalingo..."; sleep 1; done
 
           uv run python bin/score_history/score_history.py http://localhost:8001 $GITHUB_REF_NAME $GITHUB_SHA $SCALINGO_POSTGRESQL_SCORE_URL
