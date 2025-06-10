@@ -343,7 +343,9 @@ class ServerSettings:
 class EmailSettings:
     """Email configurations."""
 
-    FROM: str = field(default_factory=get_env("EMAIL_FROM", "ecobalyse@beta.gouv.fr"))  # noqa: S104
+    FROM: str = field(
+        default_factory=get_env("EMAIL_FROM", "contact@ecobalyse.beta.gouv.fr")
+    )  # noqa: S104
     """From email value."""
     SERVER_HOST: str = field(default_factory=get_env("EMAIL_SERVER_HOST", None))
     """Email server host."""

@@ -114,7 +114,7 @@ def create_user(
         )
         async with alchemy.get_session() as db_session:
             users_service = await anext(provide_users_service(db_session))
-            user = await users_service.create(data=obj_in.to_dict(), auto_commit=True)
+            user = await users_service.upsert(data=obj_in.to_dict(), auto_commit=True)
             console.print(f"User created: {user.email}")
 
     console.rule("Create a new application user.")
