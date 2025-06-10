@@ -13,6 +13,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Ports
 import RemoteData exposing (WebData)
+import Request.Common as RequestCommon
 import Request.Matomo
 import Views.Alert as Alert
 import Views.Container as Container
@@ -69,7 +70,7 @@ viewStats : { heading : String, unit : String } -> WebData (List Matomo.Stat) ->
 viewStats { heading, unit } webData =
     case webData of
         RemoteData.Failure err ->
-            Alert.httpError err
+            Alert.serverError <| RequestCommon.errorToString err
 
         RemoteData.Loading ->
             Spinner.view

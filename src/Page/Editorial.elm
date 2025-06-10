@@ -13,6 +13,7 @@ import Http
 import List.Extra as LE
 import Ports
 import RemoteData exposing (WebData)
+import Request.Common as RequestCommon
 import Views.Alert as Alert
 import Views.Container as Container
 import Views.Markdown as Markdown
@@ -56,7 +57,7 @@ view : Session -> Model -> ( String, List (Html Msg) )
 view _ model =
     case model.content of
         RemoteData.Failure httpError ->
-            ( "Erreur de chargement", [ Alert.httpError httpError ] )
+            ( "Erreur de chargement", [ Alert.serverError <| RequestCommon.errorToString httpError ] )
 
         RemoteData.Loading ->
             ( "Chargement…", [ Spinner.view ] )

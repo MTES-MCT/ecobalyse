@@ -23,7 +23,9 @@ import Url.Parser as Parser exposing ((</>), Parser)
 type Route
     = Admin
     | Api
-    | Auth { authenticated : Bool }
+    | Auth
+    | AuthLogin String String
+    | AuthSignup
     | Editorial String
     | Explore Scope Dataset
     | FoodBuilder Definition.Trigram (Maybe FoodQuery.Query)
@@ -48,8 +50,9 @@ parser =
           Parser.map Home Parser.top
         , Parser.map Admin (Parser.s "admin")
         , Parser.map Api (Parser.s "api")
-        , Parser.map (Auth { authenticated = True }) (Parser.s "auth" </> Parser.s "authenticated")
-        , Parser.map (Auth { authenticated = False }) (Parser.s "auth")
+        , Parser.map Auth (Parser.s "auth")
+        , Parser.map AuthLogin (Parser.s "auth" </> Parser.string </> Parser.string)
+        , Parser.map AuthSignup (Parser.s "auth" </> Parser.s "signup")
         , Parser.map Editorial (Parser.s "pages" </> Parser.string)
         , Parser.map Stats (Parser.s "stats")
 
@@ -216,14 +219,14 @@ toString route =
                 Api ->
                     [ "api" ]
 
-                Auth { authenticated } ->
-                    [ "auth"
-                    , if authenticated then
-                        "authenticated"
+                Auth ->
+                    [ "auth" ]
 
-                      else
-                        ""
-                    ]
+                AuthLogin email token ->
+                    [ "auth", email, token ]
+
+                AuthSignup ->
+                    [ "auth", "signup" ]
 
                 Editorial slug ->
                     [ "pages", slug ]
