@@ -121,7 +121,7 @@ _F\_kWh/tps\_rpsg : la quantité d'électricité nécessaire à repasser 1 h (un
 
 </details>
 
-## Exemple de calcul
+## Méthodes de calcul
 
 Pour une jupe avec un coefficient de durabilité de x1, on a n\_cycles = 23 et m = 0.3 kg
 
