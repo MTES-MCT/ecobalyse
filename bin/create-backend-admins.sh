@@ -3,6 +3,8 @@
 ROOT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )/.." &> /dev/null && pwd )
 cd $ROOT_DIR
 
+export DATABASE_URL=$(echo "$DATABASE_URL" | sed -e 's/postgres/postgres+asyncpg/' -e 's/sslmode=prefer/ssl=prefer/')
+
 if [ "$IS_REVIEW_APP" == "true" ]; then
    echo "-> In review app, resetting DB";
    uv run backend database drop-all --no-prompt

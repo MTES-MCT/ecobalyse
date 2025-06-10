@@ -3,6 +3,8 @@
 ROOT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )/.." &> /dev/null && pwd )
 cd $ROOT_DIR
 
+export DATABASE_URL=$(echo "$DATABASE_URL" | sed -e 's/postgres/postgres+asyncpg/' -e 's/sslmode=prefer/ssl=prefer/')
+
 # run all three tasks in the background
 
 # express

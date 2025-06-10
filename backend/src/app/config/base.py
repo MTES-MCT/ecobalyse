@@ -83,14 +83,6 @@ class DatabaseSettings:
     def get_engine(self) -> AsyncEngine:
         if self._engine_instance is not None:
             return self._engine_instance
-
-        # Fix SCALINGO_POSTGRESQL_URL
-        if self.URL.startswith("postgres:"):
-            self.URL.replace("postgres:", "postgresql+asyncpg:")
-
-        # Fix SCALINGO_POSTGRESQL_URL
-        self.URL.replace("sslmode=", "ssl=")
-
         if self.URL.startswith("postgresql+asyncpg"):
             engine = create_async_engine(
                 url=self.URL,
