@@ -32,6 +32,7 @@ type alias ButtonParams =
     , subLabel : Maybe String
     , callToAction : Bool
     , route : Route
+    , testId : String
     }
 
 
@@ -50,26 +51,26 @@ update session msg model =
             ( model, session, Cmd.none )
 
 
+simulatorButton : ButtonParams -> Html Msg
+simulatorButton { label, subLabel, callToAction, route, testId } =
+    a
+        [ class "btn btn-lg d-flex flex-column align-items-center justify-content-center"
+        , classList [ ( "btn-primary", callToAction ), ( "btn-outline-primary", not callToAction ) ]
+        , Route.href route
+        , attribute "data-testid" testId
+        ]
+        [ text label
+        , case subLabel of
+            Just sub ->
+                Html.cite [ class "fw-normal fs-7 d-block" ] [ text sub ]
+
+            Nothing ->
+                text ""
+        ]
+
+
 viewHero : Session -> Html Msg
 viewHero { enabledSections } =
-    let
-        simulatorButton : ButtonParams -> Html Msg
-        simulatorButton { label, subLabel, callToAction, route } =
-            a
-                [ class
-                    "btn btn-lg d-flex flex-column align-items-center justify-content-center"
-                , classList [ ( "btn-primary", callToAction ), ( "btn-outline-primary", not callToAction ) ]
-                , Route.href route
-                ]
-                [ text label
-                , case subLabel of
-                    Just sub ->
-                        Html.cite [ class "fw-normal fs-7 d-block" ] [ text sub ]
-
-                    Nothing ->
-                        text ""
-                ]
-    in
     Container.centered [ class "pt-4 pb-5" ]
         [ div [ class "px-5" ]
             [ h2 [ class "h1" ]
@@ -86,6 +87,7 @@ viewHero { enabledSections } =
                     , subLabel = Nothing
                     , callToAction = True
                     , route = Route.TextileSimulatorHome
+                    , testId = "textile-callout-button"
                     }
                 , if enabledSections.food then
                     simulatorButton
@@ -93,6 +95,7 @@ viewHero { enabledSections } =
                         , subLabel = Just "Méthodologie en concertation"
                         , callToAction = False
                         , route = Route.FoodBuilderHome
+                        , testId = "food-callout-button"
                         }
 
                   else
@@ -103,6 +106,7 @@ viewHero { enabledSections } =
                         , subLabel = Just "Simulateur en construction"
                         , callToAction = False
                         , route = Route.ObjectSimulatorHome Scope.Object
+                        , testId = "object-callout-button"
                         }
 
                   else
@@ -125,7 +129,7 @@ viewInfo =
             , """Vous pouvez en savoir plus sur nos données sources et nos modélisations en vous rendant dans [\u{202F}l’explorateur\u{202F}]({url_explorer}).
             Consultez également le détail des impacts environnementaux de vos simulations en [\u{202F}créant votre compte Ecobalyse\u{202F}]({url_account})."""
                 |> String.replace "{url_explorer}" (Route.toString <| Route.Explore Scope.Textile (Dataset.TextileExamples Nothing))
-                |> String.replace "{url_account}" (Route.toString <| Route.Auth { authenticated = False })
+                |> String.replace "{url_account}" (Route.toString Route.Auth)
                 |> Markdown.simple []
             ]
         ]
