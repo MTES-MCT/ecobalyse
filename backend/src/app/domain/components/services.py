@@ -22,3 +22,16 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.ComponentModel]):
     repository_type = ComponentRepository
 
     match_fields = ["name"]
+
+
+class ScopeService(SQLAlchemyAsyncRepositoryService[m.Scope]):
+    """Handles database operations for components."""
+
+    class ScopeRepository(SQLAlchemyAsyncRepository[m.Scope]):
+        """Scope SQLAlchemy Repository."""
+
+        model_type = m.Scope
+
+    repository_type = ScopeRepository
+
+    match_fields = ["value"]
