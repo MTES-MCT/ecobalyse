@@ -9,7 +9,6 @@
       "countryFabric": "FR",
       "countryMaking": "FR",
       "countrySpinning": "TR",
-      "marketingDuration": 300,
       "mass": 0.15,
       "materials": [
         {
@@ -34,7 +33,6 @@
       "countryFabric": "FR",
       "countryMaking": "FR",
       "countrySpinning": "TR",
-      "marketingDuration": 300,
       "mass": 0.15,
       "materials": [
         {
@@ -59,7 +57,6 @@
       "countryFabric": "RAS",
       "countryMaking": "RAS",
       "countrySpinning": "RAS",
-      "marketingDuration": 65,
       "mass": 0.55,
       "materials": [
         {
@@ -84,7 +81,6 @@
       "countryFabric": "CN",
       "countryMaking": "CN",
       "countrySpinning": "CN",
-      "marketingDuration": 115,
       "mass": 0.55,
       "materials": [
         {
@@ -109,7 +105,6 @@
       "countryFabric": "CN",
       "countryMaking": "CN",
       "countrySpinning": "CN",
-      "marketingDuration": 115,
       "mass": 0.55,
       "materials": [
         {
@@ -138,7 +133,6 @@
       "countryFabric": "PK",
       "countryMaking": "PK",
       "countrySpinning": "PK",
-      "marketingDuration": 115,
       "mass": 0.55,
       "materials": [
         {
@@ -163,7 +157,6 @@
       "countryFabric": "FR",
       "countryMaking": "FR",
       "countrySpinning": "IN",
-      "marketingDuration": 115,
       "mass": 0.55,
       "materials": [
         {
@@ -188,7 +181,6 @@
       "countryFabric": "FR",
       "countryMaking": "FR",
       "countrySpinning": "CN",
-      "marketingDuration": 300,
       "mass": 0.55,
       "materials": [
         {
@@ -213,7 +205,6 @@
       "countryFabric": "FR",
       "countryMaking": "FR",
       "countrySpinning": "FR",
-      "marketingDuration": 300,
       "mass": 0.55,
       "materials": [
         {
@@ -239,7 +230,6 @@
       "countryFabric": "RAS",
       "countryMaking": "RAS",
       "countrySpinning": "RAS",
-      "marketingDuration": 65,
       "mass": 0.15,
       "materials": [
         {
@@ -268,7 +258,6 @@
       "countryFabric": "CN",
       "countryMaking": "CN",
       "countrySpinning": "CN",
-      "marketingDuration": 115,
       "mass": 0.15,
       "materials": [
         {
@@ -297,7 +286,6 @@
       "countryFabric": "PK",
       "countryMaking": "PK",
       "countrySpinning": "PK",
-      "marketingDuration": 115,
       "mass": 0.15,
       "materials": [
         {
@@ -322,7 +310,6 @@
       "countryFabric": "FR",
       "countryMaking": "FR",
       "countrySpinning": "TR",
-      "marketingDuration": 115,
       "mass": 0.15,
       "materials": [
         {
@@ -343,7 +330,6 @@
     "name": "Jupe coton (300g) - Majorant par défaut",
     "query": {
       "countrySpinning": "CN",
-      "marketingDuration": 65,
       "mass": 0.3,
       "materials": [
         {
@@ -367,7 +353,6 @@
     "name": "Chemise coton (250g) - Majorant par défaut",
     "query": {
       "countrySpinning": "CN",
-      "marketingDuration": 65,
       "mass": 0.25,
       "materials": [
         {
@@ -389,7 +374,6 @@
     "query": {
       "countrySpinning": "CN",
       "fading": true,
-      "marketingDuration": 65,
       "mass": 0.45,
       "materials": [
         {
@@ -413,7 +397,6 @@
     "name": "Pantalon coton (450g) - Majorant par défaut",
     "query": {
       "countrySpinning": "CN",
-      "marketingDuration": 65,
       "mass": 0.45,
       "materials": [
         {
@@ -437,7 +420,6 @@
     "name": "Manteau coton (950g) - Majorant par défaut",
     "query": {
       "countrySpinning": "CN",
-      "marketingDuration": 65,
       "mass": 0.95,
       "materials": [
         {
@@ -462,7 +444,6 @@
     "query": {
       "business": "large-business-without-services",
       "countrySpinning": "CN",
-      "marketingDuration": 65,
       "mass": 0.15,
       "materials": [
         {
@@ -482,12 +463,7 @@
     "id": "6a2da9ff-9120-4a47-91ad-a8e72be45f4a",
     "name": "Tshirt coton (150g) - Remanufacturé",
     "query": {
-      "business": "large-business-without-services",
-      "countryDyeing": "---",
-      "countryFabric": "---",
-      "countryMaking": "---",
-      "countrySpinning": "---",
-      "marketingDuration": 65,
+      "business": "small-business",
       "mass": 0.15,
       "materials": [
         {
@@ -495,10 +471,10 @@
           "share": 1
         }
       ],
-      "numberOfReferences": 100000,
-      "price": 10,
+      "numberOfReferences": 200,
+      "price": 30,
       "product": "tshirt",
-      "traceability": false,
+      "traceability": true,
       "upcycled": true
     },
     "scope": "textile"
@@ -510,7 +486,6 @@
     "query": {
       "business": "large-business-without-services",
       "countrySpinning": "CN",
-      "marketingDuration": 65,
       "mass": 0.55,
       "materials": [
         {
@@ -532,7 +507,6 @@
     "query": {
       "business": "large-business-without-services",
       "countrySpinning": "CN",
-      "marketingDuration": 65,
       "mass": 0.04,
       "materials": [
         {
@@ -554,7 +528,6 @@
     "query": {
       "business": "large-business-without-services",
       "countrySpinning": "CN",
-      "marketingDuration": 65,
       "mass": 0.04,
       "materials": [
         {
@@ -576,7 +549,6 @@
     "query": {
       "business": "large-business-without-services",
       "countrySpinning": "CN",
-      "marketingDuration": 65,
       "mass": 0.03,
       "materials": [
         {
@@ -598,7 +570,6 @@
     "query": {
       "business": "large-business-without-services",
       "countrySpinning": "CN",
-      "marketingDuration": 65,
       "mass": 0.1,
       "materials": [
         {
