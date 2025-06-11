@@ -53,7 +53,7 @@ logout session event user =
 processes : Session -> (WebData String -> msg) -> Cmd msg
 processes session event =
     BackendHttp.getWithConfig session
-        { url = session.clientUrl ++ "processes/processes.json" }
+        { url = session.clientUrl ++ "/processes/processes.json" }
         event
         Decode.string
 
@@ -88,7 +88,7 @@ profileFromAccessToken session event accessToken =
         , method = "GET"
         , timeout = Nothing
         , tracker = Nothing
-        , url = session.backendApiUrl ++ "/api/me"
+        , url = session.clientUrl ++ "/backend/api/me"
         }
 
 

@@ -212,7 +212,7 @@ class UserService(SQLAlchemyAsyncRepositoryService[m.User]):
                 m.UserRole(role_id=role_id, assigned_at=datetime.now(UTC))
             )
 
-        if operation == "create":
+        if operation == "create" or operation == "upsert":
             if any(
                 [
                     v is not None

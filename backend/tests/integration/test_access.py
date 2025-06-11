@@ -2,7 +2,6 @@ import urllib
 from typing import Any
 
 import pytest
-from app.config import get_settings
 from app.db.models import User
 from app.domain.accounts.services import TokenService, UserService
 from httpx import AsyncClient
@@ -32,13 +31,12 @@ async def test_user_magic_link_login(
         assert response.status_code == expected_status_code
 
     if should_send_email:
-        settings = get_settings()
         assert any(
             ["demandé un lien de connexion à Ecobalyse" in e["event"] for e in cap_logs]
         )
         assert any(
             [
-                f'<p><a href="{settings.email.MAGIC_LINK_URL}/{urllib.parse.quote_plus(email)}/'
+                f'<p><a href="http://testserver.local/#/auth/{urllib.parse.quote_plus(email)}/'
                 in e["event"]
                 for e in cap_logs
             ]

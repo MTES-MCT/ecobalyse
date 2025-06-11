@@ -21,14 +21,9 @@ const expressPort = 8001;
 const version = express(); // version app
 
 // Env vars
-const {
-  BACKEND_API_URL,
-  ENABLE_FOOD_SECTION,
-  MATOMO_HOST,
-  MATOMO_SITE_ID,
-  MATOMO_TOKEN,
-  NODE_ENV,
-} = process.env;
+const { ENABLE_FOOD_SECTION, MATOMO_HOST, MATOMO_SITE_ID, MATOMO_TOKEN, NODE_ENV } = process.env;
+
+const INTERNAL_BACKEND_URL = "http://localhost:8002";
 
 var rateLimiter = rateLimit({
   windowMs: 1000, // 1 second
@@ -76,7 +71,6 @@ app.use(
         "default-src": [
           "'self'",
           "https://api.github.com",
-          BACKEND_API_URL,
           "https://raw.githubusercontent.com",
           "https://sentry.incubateur.net",
           "*.gouv.fr",
@@ -215,7 +209,7 @@ const getProcesses = async (headers, customProcessesImpacts, customProcesses) =>
 
   if (token) {
     try {
-      const tokenRes = await fetch(`${BACKEND_API_URL}/api/tokens/validate`, {
+      const tokenRes = await fetch(`${INTERNAL_BACKEND_URL}/api/tokens/validate`, {
         method: "POST",
         body: JSON.stringify({ token }),
       });

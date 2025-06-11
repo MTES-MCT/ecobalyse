@@ -26,6 +26,7 @@ from app.domain.accounts.schemas import (
     UserProfileUpdate,
 )
 from app.domain.accounts.services import RoleService, TokenService, UserProfileService
+from app.lib import http
 from app.lib.deps import create_service_provider
 from litestar import Controller, Request, Response, delete, get, patch, post
 from litestar.background_tasks import BackgroundTask
@@ -112,6 +113,7 @@ class AccessController(Controller):
             user_id=user.id,
             user_email=user.email,
             token=token,
+            url=http.get_base_url(request),
         )
         return Response(
             users_service.to_schema(new_user, schema_type=User), background=background
@@ -146,6 +148,7 @@ class AccessController(Controller):
             user_id=user.id,
             user_email=user.email,
             token=token,
+            url=http.get_base_url(request),
         )
         return Response(None, background=background)
 

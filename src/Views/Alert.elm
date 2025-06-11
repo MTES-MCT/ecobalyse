@@ -51,54 +51,68 @@ icon level =
 
 backendError : Session -> Maybe msg -> BackendError.Error -> Html msg
 backendError session close error =
+    let
+        { detail, headers, statusCode, title, url } =
+            BackendError.mapErrorResponse error
+
+        plainTextError =
+            [ ( "Title", title )
+            , ( "Message", Just detail )
+            , ( "URL"
+              , if String.isEmpty url then
+                    Nothing
+
+                else
+                    Just url
+              )
+            , ( "Status code"
+              , if statusCode == 0 then
+                    Nothing
+
+                else
+                    Just <| String.fromInt statusCode
+              )
+            , ( "En-têtes"
+              , if Dict.isEmpty headers then
+                    Nothing
+
+                else
+                    Dict.toList headers
+                        |> List.map (\( a, b ) -> "\n- " ++ a ++ ": " ++ b)
+                        |> String.concat
+                        |> Just
+              )
+            ]
+                |> List.filterMap (\( a, b ) -> b |> Maybe.map (\justB -> a ++ ": " ++ justB))
+                |> String.join "\n"
+    in
     simple
         { close = close
         , content =
-            [ case BackendError.mapErrorResponse error of
-                Just { detail, headers, statusCode, title, url } ->
-                    let
-                        errorText =
-                            [ ( "Message", detail )
-                            , ( "URL", url )
-                            , ( "Status code", String.fromInt statusCode )
-                            , ( "En-têtes"
-                              , Dict.toList headers
-                                    |> List.map (\( a, b ) -> "\n- " ++ a ++ ": " ++ b)
-                                    |> String.concat
-                              )
-                            ]
-                                |> List.map (\( a, b ) -> a ++ ": " ++ b)
-                                |> String.join "\n"
-                    in
-                    div []
-                        [ p [ class "mb-2 text-truncate" ]
-                            [ case title of
-                                Just title_ ->
-                                    if title_ == detail || String.isEmpty title_ then
-                                        text detail
+            [ div []
+                [ p [ class "mb-2 text-truncate" ]
+                    [ case title of
+                        Just title_ ->
+                            if title_ == detail || String.isEmpty title_ then
+                                text detail
 
-                                    else
-                                        span []
-                                            [ strong [] [ text <| title_ ++ "\u{00A0}: " ]
-                                            , text detail
-                                            ]
+                            else
+                                span []
+                                    [ strong [] [ text <| title_ ++ "\u{00A0}: " ]
+                                    , text detail
+                                    ]
 
-                                Nothing ->
-                                    text detail
-                            ]
-                        , Html.details []
-                            [ summary [] [ text "Détails de l'erreur" ]
-                            , text errorText
-                                |> List.singleton
-                                |> pre [ class "mt-1 mb-0 ms-3" ]
-                            ]
-                        , reportErrorLink <| detail ++ " " ++ errorText
-                        ]
-
-                Nothing ->
-                    div [] [ text "Le serveur est probablement indisponible" ]
+                        Nothing ->
+                            text detail
+                    ]
+                , Html.details []
+                    [ summary [] [ text "Détails de l'erreur" ]
+                    , pre [ class "mt-1 mb-0 ms-3" ] [ text plainTextError ]
+                    ]
+                , reportErrorLink <| detail ++ " " ++ plainTextError
+                ]
             , div [ class "fs-8 text-muted" ]
-                [ em [] [ text <| "Backend url: " ++ session.backendApiUrl ] ]
+                [ em [] [ text <| "Backend url: " ++ session.clientUrl ++ "/backend/api" ] ]
             ]
         , level = Danger
         , title = Just "Une erreur serveur a été rencontrée"
