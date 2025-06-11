@@ -15,7 +15,6 @@ Le frontend de cette application est écrite en [Elm](https://elm-lang.org/). Vo
 Les variables d'environnement suivantes doivent être définies :
 
 - `BACKEND_ADMINS` : la liste des emails des administrateurs initiaux, séparés par une virgule
-- `BACKEND_API_URL`: la racine URL de l'API du [Backend Ecobalyse](https://github.com/MTES-MCT/ecobalyse-data)
 - `DEFAULT_FROM_EMAIL` : l'email utilisé comme origine pour les mails liés à l'authentification (par défaut ecobalyse@beta.gouv.fr)
 - `DJANGO_DEBUG`: la valeur du mode DEBUG de Django (par défaut `True`)
 - `DJANGO_SECRET_KEY` : la [clé secrète de Django](https://docs.djangoproject.com/en/5.0/ref/settings/#std-setting-SECRET_KEY)

@@ -88,7 +88,7 @@ expectWhatever toMsg =
 
 getApiUrl : Session -> String -> String
 getApiUrl session path =
-    String.join "/" [ session.backendApiUrl, "api", path ]
+    String.join "/" [ session.clientUrl, "backend", "api", path ]
 
 
 delete : Session -> String -> (WebData () -> msg) -> Cmd msg

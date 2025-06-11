@@ -50,7 +50,7 @@ update session _ model =
 
 getApiServerUrl : Session -> String
 getApiServerUrl { clientUrl } =
-    clientUrl ++ "api"
+    clientUrl ++ "/api"
 
 
 changelog : List News

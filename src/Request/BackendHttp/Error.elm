@@ -69,14 +69,35 @@ errorToString error =
             "Délai dépassé."
 
 
-mapErrorResponse : Error -> Maybe ErrorResponse
+mapErrorResponse : Error -> ErrorResponse
 mapErrorResponse error =
     case error of
         BadBody errorResponse ->
-            Just errorResponse
+            errorResponse
 
         BadStatus errorResponse ->
-            Just errorResponse
+            errorResponse
 
-        _ ->
-            Nothing
+        BadUrl url ->
+            { detail = "L'URL semble mal formée et n'a pas pu être chargée\u{00A0}: " ++ url
+            , headers = Dict.empty
+            , statusCode = 0
+            , title = Nothing
+            , url = url
+            }
+
+        NetworkError ->
+            { detail = "Erreur de communication réseau. Êtes-vous connecté\u{00A0}?"
+            , headers = Dict.empty
+            , statusCode = 0
+            , title = Nothing
+            , url = ""
+            }
+
+        Timeout ->
+            { detail = "Le temps maximum d'attente de la réponse a été dépassé."
+            , headers = Dict.empty
+            , statusCode = 0
+            , title = Nothing
+            , url = ""
+            }

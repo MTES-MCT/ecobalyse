@@ -35,8 +35,7 @@ import Views.Page as Page
 
 
 type alias Flags =
-    { backendApiUrl : String
-    , clientUrl : String
+    { clientUrl : String
     , enabledSections : Session.EnabledSections
     , matomo : { host : String, siteId : String }
     , rawStore : String
@@ -140,8 +139,7 @@ init flags requestedUrl navKey =
 setupSession : Nav.Key -> Flags -> Db -> Session
 setupSession navKey flags db =
     Session.decodeRawStore flags.rawStore
-        { backendApiUrl = flags.backendApiUrl
-        , clientUrl = flags.clientUrl
+        { clientUrl = flags.clientUrl
         , currentVersion = Request.Version.Unknown
         , db = db
         , enabledSections = flags.enabledSections
