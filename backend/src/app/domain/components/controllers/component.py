@@ -26,7 +26,7 @@ from litestar.params import Parameter
 from litestar.status_codes import HTTP_200_OK
 
 if TYPE_CHECKING:
-    from app.domain.components.services import ComponentService
+    from app.domain.components.services import ComponentService, ScopeService
 
 
 class ComponentController(Controller):
@@ -46,6 +46,20 @@ class ComponentController(Controller):
     )
 
     tags = ["Components"]
+
+    @get(operation_id="ListScopes", path=urls.SCOPE_LIST, exclude_from_auth=True)
+    async def list_scopes(
+        self,
+        scopes_service: ScopeService,
+    ) -> list[Scope]:
+        """List scopes."""
+        results = await scopes_service.list()
+
+        return convert(
+            obj=results,
+            type=list[Scope],  # type: ignore[valid-type]
+            from_attributes=True,
+        )
 
     @get(
         operation_id="ListComponents", path=urls.COMPONENT_LIST, exclude_from_auth=True
