@@ -5,11 +5,14 @@ from uuid import UUID  # noqa: TC003
 import msgspec
 from app.lib.schema import CamelizedBaseStruct
 
-__all__ = (
-    "Component",
-    "ComponentCreate",
-    "ComponentUpdate",
-)
+__all__ = ("Component", "ComponentCreate", "ComponentUpdate", "Scope")
+
+
+class Scope(CamelizedBaseStruct):
+    """Scope properties to use for a response."""
+
+    id: UUID
+    value: str
 
 
 class Component(CamelizedBaseStruct):
