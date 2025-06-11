@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
 from advanced_alchemy.repository import (
     SQLAlchemyAsyncRepository,
 )
@@ -10,10 +8,10 @@ from advanced_alchemy.service import (
 )
 from app.db import models as m
 
-if TYPE_CHECKING:
-    pass
-
-__all__ = ("ComponentService",)
+__all__ = (
+    "ComponentService",
+    "ScopeService",
+)
 
 
 class ComponentService(SQLAlchemyAsyncRepositoryService[m.ComponentModel]):
@@ -27,3 +25,16 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.ComponentModel]):
     repository_type = ComponentRepository
 
     match_fields = ["name"]
+
+
+class ScopeService(SQLAlchemyAsyncRepositoryService[m.Scope]):
+    """Handles database operations for components."""
+
+    class ScopeRepository(SQLAlchemyAsyncRepository[m.Scope]):
+        """Scope SQLAlchemy Repository."""
+
+        model_type = m.Scope
+
+    repository_type = ScopeRepository
+
+    match_fields = ["value"]

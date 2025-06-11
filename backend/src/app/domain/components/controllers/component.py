@@ -9,8 +9,16 @@ from advanced_alchemy.service.typing import (
 )
 from app.domain.accounts.guards import requires_superuser
 from app.domain.components import urls
-from app.domain.components.deps import provide_components_service
-from app.domain.components.schemas import Component, ComponentCreate, ComponentUpdate
+from app.domain.components.deps import (
+    provide_components_service,
+    provide_scopes_service,
+)
+from app.domain.components.schemas import (
+    Component,
+    ComponentCreate,
+    ComponentUpdate,
+    Scope,
+)
 from app.lib.deps import create_filter_dependencies
 from litestar import delete, get, patch, post
 from litestar.controller import Controller
@@ -18,14 +26,15 @@ from litestar.di import Provide
 from litestar.params import Parameter
 
 if TYPE_CHECKING:
-    from app.domain.components.services import ComponentService
+    from app.domain.components.services import ComponentService, ScopeService
 
 
 class ComponentController(Controller):
     """Component CRUD"""
 
     dependencies = {
-        "components_service": Provide(provide_components_service)
+        "components_service": Provide(provide_components_service),
+        "scopes_service": Provide(provide_scopes_service),
     } | create_filter_dependencies(
         {
             "id_filter": UUID,
@@ -38,6 +47,20 @@ class ComponentController(Controller):
     )
 
     tags = ["Components"]
+
+    @get(operation_id="ListScopes", path=urls.SCOPE_LIST, exclude_from_auth=True)
+    async def list_scopes(
+        self,
+        scopes_service: ScopeService,
+    ) -> list[Scope]:
+        """List scopes."""
+        results = await scopes_service.list()
+
+        return convert(
+            obj=results,
+            type=list[Scope],  # type: ignore[valid-type]
+            from_attributes=True,
+        )
 
     @get(
         operation_id="ListComponents", path=urls.COMPONENT_LIST, exclude_from_auth=True
