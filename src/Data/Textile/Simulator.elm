@@ -149,6 +149,11 @@ compute db query =
         -- Compute Making air transport ratio (depends on durability) - Confection
         |> nextIf Label.Making computeMakingAirTransportRatio
         --
+        -- TRIMS WEIGHT
+        -- trims are added at the Making step and are carried through the next steps of the lifecycle
+        --
+        |> nextWithDb handleTrimsWeight
+        --
         -- LIFECYCLE STEP IMPACTS
         --
         -- Compute Material step impacts
@@ -193,6 +198,27 @@ initializeFinalMass : Simulator -> Simulator
 initializeFinalMass ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleSteps Label.all (Step.initMass inputs.mass)
+
+
+handleTrimsWeight : Db -> Simulator -> Simulator
+handleTrimsWeight db ({ inputs } as simulator) =
+    -- We need to substract trims weight at the Material, Spinning, Fabric and Ennobling steps
+    -- because they're added at the Making step and carried through the next steps of the lifecycle
+    let
+        trimsMass =
+            inputs.trims
+                |> Component.compute db
+                |> Result.map Component.extractMass
+                |> Result.withDefault Quantity.zero
+    in
+    simulator
+        |> updateLifeCycleSteps [ Label.Material, Label.Spinning, Label.Fabric, Label.Ennobling ]
+            (\step ->
+                { step
+                    | inputMass = step.inputMass |> Quantity.minus trimsMass
+                    , outputMass = step.outputMass |> Quantity.minus trimsMass
+                }
+            )
 
 
 computeDurability : Simulator -> Simulator
