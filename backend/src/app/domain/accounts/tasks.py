@@ -15,7 +15,7 @@ logger = structlog.get_logger()
 
 
 async def send_magic_link_email_task(
-    user_id: UUID, user_email: str, token: str
+    user_id: UUID, user_email: str, token: str, url: str
 ) -> None:
     """Executes when a login link is asked
 
@@ -44,7 +44,7 @@ async def send_magic_link_email_task(
         render={
             "email": urllib.parse.quote_plus(user_email),
             "token": urllib.parse.quote_plus(token),
-            "url": settings.email.MAGIC_LINK_URL,
+            "url": f"{url}/#/auth",
         },
     )
 

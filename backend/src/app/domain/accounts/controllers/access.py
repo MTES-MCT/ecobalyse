@@ -35,6 +35,8 @@ from litestar.params import Parameter
 from litestar.security.jwt import Token
 from litestar.status_codes import HTTP_200_OK
 
+from app.lib import http
+
 if TYPE_CHECKING:
     from app.domain.accounts.services import UserService
     from litestar.security.jwt import OAuth2Login
@@ -112,6 +114,7 @@ class AccessController(Controller):
             user_id=user.id,
             user_email=user.email,
             token=token,
+            url=http.get_base_url(request),
         )
         return Response(
             users_service.to_schema(new_user, schema_type=User), background=background
@@ -146,6 +149,7 @@ class AccessController(Controller):
             user_id=user.id,
             user_email=user.email,
             token=token,
+            url=http.get_base_url(request),
         )
         return Response(None, background=background)
 
