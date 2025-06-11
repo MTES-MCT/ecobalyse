@@ -26,6 +26,7 @@ from app.domain.accounts.schemas import (
     UserProfileUpdate,
 )
 from app.domain.accounts.services import RoleService, TokenService, UserProfileService
+from app.lib import http
 from app.lib.deps import create_service_provider
 from litestar import Controller, Request, Response, delete, get, patch, post
 from litestar.background_tasks import BackgroundTask
@@ -34,8 +35,6 @@ from litestar.exceptions import PermissionDeniedException
 from litestar.params import Parameter
 from litestar.security.jwt import Token
 from litestar.status_codes import HTTP_200_OK
-
-from app.lib import http
 
 if TYPE_CHECKING:
     from app.domain.accounts.services import UserService
