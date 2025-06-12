@@ -340,6 +340,7 @@ updateProduct product query =
             , makingComplexity = Nothing
             , makingDeadStock = Nothing
             , makingWaste = Nothing
+            , price = Nothing
             , printing = Nothing
             , product = product.id
             , surfaceMass = Nothing

@@ -13,9 +13,9 @@ dotenv.config({ path: path.resolve(__dirname, ".env") });
  * @see https://playwright.dev/docs/test-configuration
  */
 export default defineConfig({
-  timeout: 20_000,
+  timeout: process.env.CI ? 60_000 : 10_000,
 
-  expect: { timeout: 5_000 },
+  expect: { timeout: process.env.CI ? 10_000 : 2_000 },
 
   testDir: "./e2e",
   /* Run tests in files in parallel */
@@ -53,7 +53,11 @@ export default defineConfig({
   // Run local dev server before starting the tests
   webServer: {
     command:
-      "(export DATABASE_URL=sqlite+aiosqlite:///db_test.sqlite3; rm -f db_test.sqlite3 && uv run backend database upgrade --no-prompt && uv run backend fixtures load-test && npm start)",
+      "rm -f db_test.sqlite3 && uv run backend database upgrade --no-prompt && uv run backend fixtures load-test && npm start",
+    env: {
+      DATABASE_URL: "sqlite+aiosqlite:///db_test.sqlite3",
+      NODE_ENV: "test",
+    },
     url: "http://localhost:1234",
     reuseExistingServer: !process.env.CI,
   },

@@ -244,10 +244,20 @@ updateAccountTab session currentAuth profileForm _ msg model =
             )
 
         ProfileResponse _ _ (RemoteData.Failure error) ->
-            ( model
-            , session |> Session.notifyBackendError error
-            , Cmd.none
-            )
+            if (BackendError.mapErrorResponse error |> .statusCode) == 401 then
+                ( { model | tab = MagicLinkForm "" }
+                , session
+                    |> Session.logout
+                    |> Session.notifyInfo "Déconnexion"
+                        "Session invalide ou expirée, vous avez été deconnecté. Vous devrez vous reconnecter."
+                , Cmd.none
+                )
+
+            else
+                ( model
+                , session |> Session.notifyBackendError error
+                , Cmd.none
+                )
 
         ProfileSubmit ->
             let
@@ -372,7 +382,13 @@ updateMagicLinkLoginTab session msg model =
 
         LoginResponse (RemoteData.Failure error) ->
             ( model
-            , session |> Session.notifyBackendError error
+            , if Session.isAuthenticated session && (BackendError.mapErrorResponse error |> .statusCode) == 403 then
+                -- An authenticated user is most likely trying to reuse a single-use magic link,
+                -- maybe to access the service via a bookmark or a pinned email: do nothing
+                session
+
+              else
+                session |> Session.notifyBackendError error
             , Nav.load <| Route.toString Route.Auth
             )
 
