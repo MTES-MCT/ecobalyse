@@ -200,10 +200,10 @@ Pour rappel, des inventaires enrichis ont été construits et intégrés dans le
 * Impression pigmentaire => Optionnelle (à ajouter par l'utilisateur)
 * Impression fixé-lavé => Optionnelle (ajouter par l'utilisateur)
 
-#### Impression <=> % masse&#x20;
+#### Impression <=> % surface
 
 Deux types d'impression sont proposées (fixé-lavé et pigmentaire). \
-La quantité de tissu imprimée est à spécifier par l'utilisateur (en % de la masse). Cette donnée n'étant généralement pas maîtrisée par les metteurs sur le marché, cinq scénarios sont proposés (1%, 5%, 20%, 50% et 100%).&#x20;
+La quantité de tissu imprimée est à spécifier par l'utilisateur (en % de la surface). Cette donnée n'étant généralement pas maîtrisée par les metteurs sur le marché, cinq scénarios sont proposés (1%, 5%, 20%, 50% et 100%).&#x20;
 
 #### Tableau des valeurs `a_i`
 
