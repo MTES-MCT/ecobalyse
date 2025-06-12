@@ -21,6 +21,7 @@ class Component(CamelizedBaseStruct):
     id: UUID
     name: str
     elements: list[ComponentElement] | None
+    scopes: list[Scope]
 
 
 class ComponentCreate(CamelizedBaseStruct):

@@ -94,7 +94,10 @@ class ComponentController(Controller):
 
         component = await components_service.create(data=data.to_dict())
 
-        return components_service.to_schema(component, schema_type=Component)
+        component_with_scopes = await components_service.get_one(id=component.id)
+        return components_service.to_schema(
+            component_with_scopes, schema_type=Component
+        )
 
     @patch(
         operation_id="UpdateComponent",
@@ -115,7 +118,10 @@ class ComponentController(Controller):
             item_id=component_id, data=data.to_dict()
         )
 
-        return components_service.to_schema(component, schema_type=Component)
+        component_with_scopes = await components_service.get_one(id=component.id)
+        return components_service.to_schema(
+            component_with_scopes, schema_type=Component
+        )
 
     @delete(
         operation_id="DeleteComponent",
@@ -160,7 +166,7 @@ class ComponentController(Controller):
     ) -> Component:
         """Update a list of components."""
 
-        existing_components, _ = await components_service.list_and_count(uniquify=True)
+        existing_components = await components_service.list(uniquify=True)
 
         to_delete: list[UUID] = []
         to_update: list[UUID] = [component.id for component in data if component.id]
@@ -170,10 +176,14 @@ class ComponentController(Controller):
                 to_delete.append(component.id)
 
         _ = await components_service.delete_many(item_ids=to_delete)
-        components = await components_service.upsert_many(data=data, uniquify=True)
+        _ = await components_service.upsert_many(data=data, uniquify=True)
+
+        updated_components = await components_service.list(
+            OrderBy(field_name="name", sort_order="asc"), uniquify=True
+        )
 
         return convert(
-            obj=components,
+            obj=updated_components,
             type=list[Component],  # type: ignore[valid-type]
             from_attributes=True,
         )
