@@ -1,19 +1,20 @@
 module Data.Session exposing
-    ( Auth(..)
+    ( Auth
     , EnabledSections
     , Notification(..)
     , Session
     , Store
-    , authenticated
     , checkComparedSimulations
+    , clearNotifications
     , closeNotification
     , decodeRawStore
     , defaultStore
     , deleteBookmark
-    , getUser
+    , getAuth
     , isAuthenticated
     , isStaff
     , logout
+    , notifyBackendError
     , notifyError
     , notifyInfo
     , objectQueryFromScope
@@ -21,8 +22,11 @@ module Data.Session exposing
     , selectAllBookmarks
     , selectNoBookmarks
     , serializeStore
+    , setAuth
     , toggleComparedSimulation
+    , updateAuth
     , updateDb
+    , updateDbProcesses
     , updateFoodQuery
     , updateObjectQuery
     , updateTextileQuery
@@ -30,16 +34,18 @@ module Data.Session exposing
 
 import Browser.Navigation as Nav
 import Data.Bookmark as Bookmark exposing (Bookmark)
+import Data.Common.DecodeUtils as DU
 import Data.Food.Query as FoodQuery
 import Data.Github as Github
 import Data.Object.Query as ObjectQuery
 import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Query as TextileQuery
-import Data.User as User exposing (User)
+import Data.User as User2
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
 import RemoteData exposing (WebData)
+import Request.BackendHttp.Error as BackendError
 import Request.Version exposing (Version)
 import Set exposing (Set)
 import Static.Db as StaticDb exposing (Db)
@@ -55,8 +61,7 @@ type alias Queries =
 
 
 type alias Session =
-    { backendApiUrl : String
-    , clientUrl : String
+    { clientUrl : String
     , currentVersion : Version
     , db : Db
     , enabledSections : EnabledSections
@@ -82,9 +87,15 @@ type alias EnabledSections =
 
 
 type Notification
-    = GenericError String String
+    = BackendError BackendError.Error
+    | GenericError String String
     | GenericInfo String String
     | StoreDecodingError Decode.Error
+
+
+clearNotifications : Session -> Session
+clearNotifications session =
+    { session | notifications = [] }
 
 
 closeNotification : Notification -> Session -> Session
@@ -92,14 +103,19 @@ closeNotification notification ({ notifications } as session) =
     { session | notifications = notifications |> List.filter ((/=) notification) }
 
 
-notifyInfo : String -> String -> Session -> Session
-notifyInfo title info ({ notifications } as session) =
-    { session | notifications = notifications ++ [ GenericInfo title info ] }
+notifyBackendError : BackendError.Error -> Session -> Session
+notifyBackendError backendError ({ notifications } as session) =
+    { session | notifications = notifications ++ [ BackendError backendError ] }
 
 
 notifyError : String -> String -> Session -> Session
 notifyError title error ({ notifications } as session) =
     { session | notifications = notifications ++ [ GenericError title error ] }
+
+
+notifyInfo : String -> String -> Session -> Session
+notifyInfo title info ({ notifications } as session) =
+    { session | notifications = notifications ++ [ GenericInfo title info ] }
 
 
 notifyStoreDecodingError : Decode.Error -> Session -> Session
@@ -238,24 +254,90 @@ selectNoBookmarks =
     updateStore (\store -> { store | comparedSimulations = Set.empty })
 
 
+
+--
+-- Auth
+--
+
+
+type alias Auth =
+    { accessTokenData : User2.AccessTokenData
+    , user : User2.User
+    }
+
+
+decodeAuth : Decoder Auth
+decodeAuth =
+    Decode.succeed Auth
+        |> JDP.required "accessTokenData" User2.decodeAccessTokenData
+        |> JDP.required "user" User2.decodeUser
+
+
+encodeAuth : Auth -> Encode.Value
+encodeAuth auth2 =
+    Encode.object
+        [ ( "accessTokenData", User2.encodeAccessTokenData auth2.accessTokenData )
+        , ( "user", User2.encodeUser auth2.user )
+        ]
+
+
+getAuth : Session -> Maybe Auth
+getAuth { store } =
+    store.auth2
+
+
+isAuthenticated : Session -> Bool
+isAuthenticated { store } =
+    case store.auth2 of
+        Just _ ->
+            True
+
+        Nothing ->
+            False
+
+
+isStaff : Session -> Bool
+isStaff =
+    getAuth
+        >> Maybe.map (.user >> .isSuperuser)
+        >> Maybe.withDefault False
+
+
+logout : Session -> Session
+logout session =
+    (case StaticDb.db StaticJson.processesJson of
+        Err err ->
+            session |> notifyError "Impossible de recharger les procédés par défaut" err
+
+        Ok db ->
+            { session | db = db }
+    )
+        |> updateStore (\store -> { store | auth2 = Nothing })
+
+
+setAuth : Maybe Auth -> Session -> Session
+setAuth auth2 =
+    updateStore (\store -> { store | auth2 = auth2 })
+
+
+updateAuth : (Auth -> Auth) -> Session -> Session
+updateAuth fn =
+    updateStore (\store -> { store | auth2 = store.auth2 |> Maybe.map fn })
+
+
 {-| A serializable data structure holding session information you want to share
 across browser restarts, typically in localStorage.
 -}
 type alias Store =
-    { auth : Auth
+    { auth2 : Maybe Auth
     , bookmarks : List Bookmark
     , comparedSimulations : Set String
     }
 
 
-type Auth
-    = Authenticated User
-    | NotAuthenticated
-
-
 defaultStore : Store
 defaultStore =
-    { auth = NotAuthenticated
+    { auth2 = Nothing
     , bookmarks = []
     , comparedSimulations = Set.empty
     }
@@ -264,15 +346,9 @@ defaultStore =
 decodeStore : Decoder Store
 decodeStore =
     Decode.succeed Store
-        |> JDP.optional "auth" decodeAuth NotAuthenticated
+        |> DU.strictOptional "auth2" decodeAuth
         |> JDP.optional "bookmarks" (Decode.list Bookmark.decode) []
         |> JDP.optional "comparedSimulations" (Decode.map Set.fromList (Decode.list Decode.string)) Set.empty
-
-
-decodeAuth : Decoder Auth
-decodeAuth =
-    Decode.succeed Authenticated
-        |> JDP.required "user" User.decode
 
 
 encodeStore : Store -> Encode.Value
@@ -280,28 +356,8 @@ encodeStore store =
     Encode.object
         [ ( "comparedSimulations", store.comparedSimulations |> Set.toList |> Encode.list Encode.string )
         , ( "bookmarks", Encode.list Bookmark.encode store.bookmarks )
-        , ( "auth", encodeAuth store.auth )
+        , ( "auth2", store.auth2 |> Maybe.map encodeAuth |> Maybe.withDefault Encode.null )
         ]
-
-
-encodeAuth : Auth -> Encode.Value
-encodeAuth auth =
-    case auth of
-        Authenticated user ->
-            Encode.object [ ( "user", User.encode user ) ]
-
-        NotAuthenticated ->
-            Encode.null
-
-
-getUser : Session -> Maybe User
-getUser { store } =
-    case store.auth of
-        Authenticated user ->
-            Just user
-
-        NotAuthenticated ->
-            Nothing
 
 
 decodeRawStore : String -> Session -> Session
@@ -319,45 +375,16 @@ serializeStore =
     encodeStore >> Encode.encode 0
 
 
+updateDbProcesses : String -> Session -> Session
+updateDbProcesses rawDetailedProcessesJson session =
+    case StaticDb.db rawDetailedProcessesJson of
+        Err err ->
+            session |> notifyError "Impossible de recharger la db avec les nouveaux procédés" err
+
+        Ok db ->
+            { session | db = db }
+
+
 updateStore : (Store -> Store) -> Session -> Session
 updateStore update session =
     { session | store = update session.store }
-
-
-authenticated : User -> String -> Session -> Session
-authenticated user rawDetailedProcessesJson ({ store } as session) =
-    case StaticDb.db rawDetailedProcessesJson of
-        Err err ->
-            session
-                |> notifyError "Impossible de recharger la db avec les nouveaux procédés" err
-
-        Ok db ->
-            { session | db = db, store = { store | auth = Authenticated user } }
-
-
-logout : Session -> Session
-logout ({ store } as session) =
-    case StaticDb.db StaticJson.processesJson of
-        Err err ->
-            { session | store = { store | auth = NotAuthenticated } }
-                |> notifyError "Impossible de recharger la db avec les procédés par défaut" err
-
-        Ok db ->
-            { session | db = db, store = { store | auth = NotAuthenticated } }
-
-
-isAuthenticated : Session -> Bool
-isAuthenticated { store } =
-    case store.auth of
-        Authenticated _ ->
-            True
-
-        _ ->
-            False
-
-
-isStaff : Session -> Bool
-isStaff =
-    getUser
-        >> Maybe.map .staff
-        >> Maybe.withDefault False

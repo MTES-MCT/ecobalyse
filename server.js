@@ -18,19 +18,12 @@ const app = express(); // web app
 const api = express(); // api app
 const expressHost = "0.0.0.0";
 const expressPort = 8001;
-const djangoHost = "127.0.0.1";
-const djangoPort = 8002;
 const version = express(); // version app
 
 // Env vars
-const {
-  BACKEND_API_URL,
-  ENABLE_FOOD_SECTION,
-  MATOMO_HOST,
-  MATOMO_SITE_ID,
-  MATOMO_TOKEN,
-  NODE_ENV,
-} = process.env;
+const { ENABLE_FOOD_SECTION, MATOMO_HOST, MATOMO_SITE_ID, MATOMO_TOKEN, NODE_ENV } = process.env;
+
+const INTERNAL_BACKEND_URL = "http://localhost:8002";
 
 var rateLimiter = rateLimit({
   windowMs: 1000, // 1 second
@@ -41,7 +34,11 @@ var rateLimiter = rateLimit({
 version.use(rateLimiter);
 
 // Matomo
-if (NODE_ENV !== "test" && (!MATOMO_HOST || !MATOMO_SITE_ID || !MATOMO_TOKEN)) {
+if (
+  NODE_ENV !== "test" &&
+  NODE_ENV !== "development" &&
+  (!MATOMO_HOST || !MATOMO_SITE_ID || !MATOMO_TOKEN)
+) {
   console.error("Matomo environment variables are missing. Please check the README.");
   process.exit(1);
 }
@@ -74,7 +71,6 @@ app.use(
         "default-src": [
           "'self'",
           "https://api.github.com",
-          BACKEND_API_URL,
           "https://raw.githubusercontent.com",
           "https://sentry.incubateur.net",
           "*.gouv.fr",
@@ -200,15 +196,31 @@ const apiTracker = setupTracker(openApiContents);
 const processesImpacts = fs.readFileSync(dataFiles.detailed, "utf8");
 const processes = fs.readFileSync(dataFiles.noDetails, "utf8");
 
-const getProcesses = async (token, customProcessesImpacts, customProcesses) => {
-  let isTokenValid = false;
+function extractTokenFromHeaders(headers) {
+  // Handle both old and new auth token headers
+  const bearerToken = headers["authorization"]?.split("Bearer ")[1]?.trim();
+  const classicToken = headers["token"]; // from old auth system
+  return bearerToken ?? classicToken;
+}
+
+const getProcesses = async (headers, customProcessesImpacts, customProcesses) => {
+  let isValidToken = false;
+  const token = extractTokenFromHeaders(headers);
+
   if (token) {
-    const checkTokenUrl = `http://${djangoHost}:${djangoPort}/internal/check_token`;
-    const tokenRes = await fetch(checkTokenUrl, { headers: { token } });
-    isTokenValid = tokenRes.status == 200;
+    try {
+      const tokenRes = await fetch(`${INTERNAL_BACKEND_URL}/api/tokens/validate`, {
+        method: "POST",
+        body: JSON.stringify({ token }),
+      });
+      isValidToken = tokenRes.status == 201;
+    } catch (error) {
+      console.error("Error validating token from the auth backend", error);
+      isValidToken = false;
+    }
   }
 
-  if (isTokenValid || NODE_ENV === "test") {
+  if (NODE_ENV === "test" || isValidToken) {
     return customProcessesImpacts ?? processesImpacts;
   } else {
     return customProcesses ?? processes;
@@ -228,7 +240,11 @@ function processOpenApi(contents, versionNumber) {
 }
 
 app.get("/processes/processes.json", async (req, res) => {
-  return res.status(200).send(await getProcesses(req.headers.token));
+  // Note: JSON parsing is done in Elm land
+  return res
+    .status(200)
+    .contentType("text/plain")
+    .send(JSON.stringify(await getProcesses(req.headers)));
 });
 
 const elmApp = Elm.Server.init();
@@ -257,7 +273,7 @@ const respondWithFormattedJSON = (res, status, body) => {
 
 // Note: Text/JSON request body parser (JSON is decoded in Elm)
 api.all(/(.*)/, bodyParser.json(), jsonErrorHandler, async (req, res) => {
-  const processes = await getProcesses(req.headers.token);
+  const processes = await getProcesses(req.headers);
 
   elmApp.ports.input.send({
     method: req.method,
@@ -307,7 +323,7 @@ version.all(
     const { processesImpacts, processes } = availableVersions.find(
       (version) => version.dir === versionNumber,
     );
-    const versionProcesses = await getProcesses(req.headers.token, processesImpacts, processes);
+    const versionProcesses = await getProcesses(req.headers, processesImpacts, processes);
 
     const { Elm } = require(path.join(req.staticDir, "server-app"));
 
@@ -337,7 +353,7 @@ version.get("/:versionNumber/processes/processes.json", checkVersionAndPath, asy
     (version) => version.dir === versionNumber,
   );
 
-  return res.status(200).send(await getProcesses(req.headers.token, processesImpacts, processes));
+  return res.status(200).send(await getProcesses(req.headers, processesImpacts, processes));
 });
 
 api.use(cors()); // Enable CORS for all API requests

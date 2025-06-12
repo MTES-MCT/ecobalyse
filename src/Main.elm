@@ -10,10 +10,9 @@ import Data.Object.Query as ObjectQuery
 import Data.Session as Session exposing (Session)
 import Data.Textile.Query as TextileQuery
 import Html
-import Http
 import Page.Admin as Admin
 import Page.Api as Api
-import Page.Auth as Auth
+import Page.Auth as Auth2
 import Page.Editorial as Editorial
 import Page.Explore as Explore
 import Page.Food as FoodBuilder
@@ -24,7 +23,8 @@ import Page.Textile as TextileSimulator
 import Ports
 import RemoteData exposing (WebData)
 import Request.Auth
-import Request.Common
+import Request.BackendHttp as BackendHttp
+import Request.BackendHttp.Error as BackendError
 import Request.Github
 import Request.Version exposing (VersionData)
 import Route
@@ -35,8 +35,7 @@ import Views.Page as Page
 
 
 type alias Flags =
-    { backendApiUrl : String
-    , clientUrl : String
+    { clientUrl : String
     , enabledSections : Session.EnabledSections
     , matomo : { host : String, siteId : String }
     , rawStore : String
@@ -46,7 +45,7 @@ type alias Flags =
 type Page
     = AdminPage Admin.Model
     | ApiPage Api.Model
-    | AuthPage Auth.Model
+    | Auth2Page Auth2.Model
     | EditorialPage Editorial.Model
     | ExplorePage Explore.Model
     | FoodBuilderPage FoodBuilder.Model
@@ -77,10 +76,10 @@ type alias Model =
 type Msg
     = AdminMsg Admin.Msg
     | ApiMsg Api.Msg
-    | AuthMsg Auth.Msg
+    | Auth2Msg Auth2.Msg
     | CloseMobileNavigation
     | CloseNotification Session.Notification
-    | DetailedProcessesReceived Url (Result Http.Error String)
+    | DetailedProcessesReceived (BackendHttp.WebData String)
     | EditorialMsg Editorial.Msg
     | ExploreMsg Explore.Msg
     | FoodBuilderMsg FoodBuilder.Msg
@@ -128,12 +127,11 @@ init flags requestedUrl navKey =
                     [ Ports.appStarted ()
                     , Request.Version.loadVersion VersionReceived
                     , Request.Github.getReleases ReleasesReceived
-                    , case session.store.auth of
-                        Session.Authenticated user ->
-                            Request.Auth.processes (DetailedProcessesReceived requestedUrl) user.token
+                    , if Session.isAuthenticated session then
+                        Request.Auth.processes session DetailedProcessesReceived
 
-                        Session.NotAuthenticated ->
-                            Cmd.none
+                      else
+                        Cmd.none
                     ]
                 )
 
@@ -141,8 +139,7 @@ init flags requestedUrl navKey =
 setupSession : Nav.Key -> Flags -> Db -> Session
 setupSession navKey flags db =
     Session.decodeRawStore flags.rawStore
-        { backendApiUrl = flags.backendApiUrl
-        , clientUrl = flags.clientUrl
+        { clientUrl = flags.clientUrl
         , currentVersion = Request.Version.Unknown
         , db = db
         , enabledSections = flags.enabledSections
@@ -206,9 +203,17 @@ setRoute url ( { state } as model, cmds ) =
                     Api.init session
                         |> toPage ApiPage ApiMsg
 
-                Just (Route.Auth data) ->
-                    Auth.init session data
-                        |> toPage AuthPage AuthMsg
+                Just Route.Auth ->
+                    Auth2.init session
+                        |> toPage Auth2Page Auth2Msg
+
+                Just (Route.AuthLogin email token) ->
+                    Auth2.initLogin session email token
+                        |> toPage Auth2Page Auth2Msg
+
+                Just Route.AuthSignup ->
+                    Auth2.initSignup session
+                        |> toPage Auth2Page Auth2Msg
 
                 Just (Route.Editorial slug) ->
                     Editorial.init slug session
@@ -301,22 +306,21 @@ update rawMsg ({ state } as model) =
                     Api.update session apiMsg apiModel
                         |> toPage ApiPage ApiMsg
 
-                ( AuthMsg authMsg, AuthPage authModel ) ->
-                    Auth.update session authMsg authModel
-                        |> toPage AuthPage AuthMsg
+                ( Auth2Msg auth2Msg, Auth2Page auth2Model ) ->
+                    Auth2.update session auth2Msg auth2Model
+                        |> toPage Auth2Page Auth2Msg
 
-                ( DetailedProcessesReceived url (Ok rawDetailedProcessesJson), currentPage ) ->
+                ( DetailedProcessesReceived (RemoteData.Success rawDetailedProcessesJson), currentPage ) ->
                     -- When detailed processes are received, rebuild the entire static db using them
                     case StaticDb.db rawDetailedProcessesJson of
                         Err error ->
                             ( { model | state = Errored error }, Cmd.none )
 
                         Ok detailedDb ->
-                            { model | state = currentPage |> Loaded { session | db = detailedDb } }
-                                |> update (UrlChanged url)
+                            ( { model | state = currentPage |> Loaded { session | db = detailedDb } }, Cmd.none )
 
-                ( DetailedProcessesReceived _ (Err httpError), _ ) ->
-                    ( { model | state = Errored (Request.Common.errorToString httpError) }
+                ( DetailedProcessesReceived (RemoteData.Failure error), _ ) ->
+                    ( { model | state = Errored (BackendError.errorToString error) }
                     , Cmd.none
                     )
 
@@ -522,9 +526,9 @@ view { mobileNavigationOpened, state } =
                         |> mapMsg ApiMsg
                         |> Page.frame (pageConfig Page.Api)
 
-                AuthPage authModel ->
-                    Auth.view session authModel
-                        |> mapMsg AuthMsg
+                Auth2Page auth2Model ->
+                    Auth2.view session auth2Model
+                        |> mapMsg Auth2Msg
                         |> Page.frame (pageConfig Page.Auth)
 
                 EditorialPage editorialModel ->

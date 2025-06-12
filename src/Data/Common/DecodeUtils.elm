@@ -1,5 +1,6 @@
 module Data.Common.DecodeUtils exposing
     ( betterErrorToString
+    , decodeExpected
     , decodeNonEmptyString
     , strictOptional
     , strictOptionalWithDefault
@@ -19,6 +20,22 @@ decodeNonEmptyString =
 
                 else
                     Decode.succeed <| String.trim str
+            )
+
+
+{-| Decode a value only if matching an expected one. Useful for oneOf
+checks where we want to fail if the value is not the expected one.
+-}
+decodeExpected : Decoder a -> a -> Decoder a
+decodeExpected decoder expected =
+    decoder
+        |> Decode.andThen
+            (\decoded ->
+                if decoded == expected then
+                    Decode.succeed expected
+
+                else
+                    Decode.fail "Unmatched expected value"
             )
 
 

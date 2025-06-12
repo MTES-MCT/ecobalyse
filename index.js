@@ -34,10 +34,12 @@ function loadScript(scriptUrl) {
 // The localStorage key to use to store serialized session data
 const storeKey = "store";
 
+// Remove trailing slash from root because it's used by the Elm API to resolve backend api urls
+const clientUrl = location.origin + (location.pathname == "/" ? "" : location.pathname);
+
 const app = Elm.Main.init({
   flags: {
-    backendApiUrl: process.env.BACKEND_API_URL || "",
-    clientUrl: location.origin + location.pathname,
+    clientUrl,
     enabledSections: {
       food: process.env.ENABLE_FOOD_SECTION === "True",
       objects: process.env.ENABLE_OBJECTS_SECTION === "True",

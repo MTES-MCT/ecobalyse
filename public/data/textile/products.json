@@ -91,7 +91,7 @@
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
       "price": 15,
-      "repairCost": 9,
+      "repairCost": 19,
       "traceability": false
     },
     "endOfLife": {

@@ -1,5 +1,65 @@
 [project]
-requires-python = ">= 3.11"
+name = "ecobalyse"
+version = "0.1.0"
+description = "Accélerer la mise en place de l'affichage environnemental"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "litestar[jwt,sqlalchemy,standard]>=2.16.0",
+    "aiosqlite>=0.21.0",
+    "advanced-alchemy>=1.4.4",
+    "msgspec>=0.19.0",
+    "check-jsonschema>=0.32.1",
+    "pytest-databases[postgres]>=0.12.0",
+    "psycopg[binary,pool]>=3.2.6",
+    "asyncpg>=0.30.0",
+    "structlog>=25.2.0",
+    "orjson>=3.10.16",
+    "passlib[argon2]>=1.7.4",
+    "aiosmtplib>=4.0.0",
+    "emails>=0.6",
+    "python-stdnum>=2.1",
+    "pygithub>=2.6.1",
+    "typer>=0.16.0",
+    "pytest-mock>=3.14.1",
+]
+
+[build-system]
+build-backend = "hatchling.build"
+requires = ["hatchling", "setuptools"]
+
+[tool.hatch.metadata]
+# direct dependency references, e.g `pip @ git+https://github.com/pypa/pip.git@master`
+allow-direct-references = true
+
+[tool.hatch.build]
+dev-mode-dirs = ["packages/python/ecobalyse", "backend/src", "."]
+ignore-vcs = true
+sources = ["src"]
+
+[tool.hatch.build.targets.sdist]
+exclude = [".github", "docs"]
+include = ["src/*", "tests/*", "public/*", "tools/*", "resources", "LICENSE"]
+skip-excluded-dirs = false
+
+[tool.hatch.build.targets.wheel]
+packages = ["app"]
+
+[project.scripts]
+backend = "app.__main__:run_cli"
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.0.1",
+    "pytest>=8.3.4",
+    "ruff>=0.8.1",
+]
+
+[lint]
+extend-select = ["I"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
 
 [tool.ruff]
-extend-select = ["I"]
+target-version = "py311"

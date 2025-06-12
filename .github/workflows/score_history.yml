@@ -41,11 +41,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
-      - uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
-          cache: 'pipenv'
-
 
       - name: Cache node_modules
         id: cache-node_modules
@@ -62,12 +57,14 @@ jobs:
           key: elm-cache-${{ hashFiles('elm.json') }}
           restore-keys: elm-cache-
 
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          version: "latest"
+          python-version: ${{ matrix.python-version }}
+
       - name: Install Node dependencies
         run: npm ci --prefer-offline --no-audit
-
-      - name: Install Python dependencies
-        run: pip install pipenv && pipenv install -d
-
 
       - name: Install Ubuntu dependencies
         run: |
@@ -76,7 +73,7 @@ jobs:
 
 
       - name: Install dependencies
-        run: pip install numpy pandas requests python-dotenv GitPython sqlalchemy psycopg2
+        run: uv add numpy pandas requests python-dotenv GitPython sqlalchemy psycopg2
 
 
       - name: Add scalingo to know hosts
@@ -102,10 +99,8 @@ jobs:
           npm run server:build
           scalingo db-tunnel DATABASE_URL &
           npm run server:start &
-          npm run start:backend &
 
           for attempt in {1..20}; do if curl -s http://localhost:8001/ > /dev/null; then echo "-> Node server is up and ready on port 8001"; break; fi; echo "-> Waiting for the Node server to boot..."; sleep 1; done
-          for attempt in {1..20}; do if curl -s http://localhost:8002/ > /dev/null; then echo "-> Python server is up and ready on port 8002"; break; fi; echo "-> Waiting for the Python server to boot..."; sleep 1; done
           for attempt in {1..20}; do if lsof -i:10000 > /dev/null; then echo "-> PG Tunnel to Scalingo is up and ready on port 10000"; break; fi; echo "-> Waiting for the PG tunnel to Scalingo..."; sleep 1; done
 
-          python bin/score_history/score_history.py http://localhost:8001 $GITHUB_REF_NAME $GITHUB_SHA $SCALINGO_POSTGRESQL_SCORE_URL
+          uv run python bin/score_history/score_history.py http://localhost:8001 $GITHUB_REF_NAME $GITHUB_SHA $SCALINGO_POSTGRESQL_SCORE_URL

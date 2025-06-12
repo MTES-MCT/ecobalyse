@@ -1,7 +1,8 @@
 module Views.Score exposing (view)
 
-import Data.Impact exposing (Impacts)
+import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Definition)
+import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Mass exposing (Mass)
@@ -19,7 +20,15 @@ type alias Config msg =
 
 view : Config msg -> Html msg
 view { customInfo, impactDefinition, mass, score, scoreWithoutDurability } =
-    div [ class "card bg-secondary shadow-sm" ]
+    div
+        [ class "Score card bg-secondary shadow-sm"
+        , attribute "data-testid" "score-card"
+        , score
+            |> Impact.getImpact impactDefinition.trigram
+            |> Unit.impactToFloat
+            |> String.fromFloat
+            |> attribute "data-score"
+        ]
         [ div [ class "card-body text-center text-nowrap text-white" ]
             [ div [ class "display-3 lh-1" ] [ Format.formatImpact impactDefinition score ]
             , div []

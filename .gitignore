@@ -1,9 +1,10 @@
 /.env
-/dist
+dist
 elm-stuff
+/db_test.sqlite3
 /check-db-app.js
 /compute-aggregated-app.js
-/node_modules
+node_modules
 /public/app.js
 /public/icomoon/*.txt
 /public/icomoon/*.zip
@@ -28,3 +29,9 @@ db.sqlite3
 *.egg-info
 /versions
 /git_build
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
