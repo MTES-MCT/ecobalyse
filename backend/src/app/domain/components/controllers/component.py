@@ -96,7 +96,10 @@ class ComponentController(Controller):
 
         component = await components_service.create(data=data)
 
-        return components_service.to_schema(component, schema_type=Component)
+        component_with_scopes = await components_service.get_one(id=component.id)
+        return components_service.to_schema(
+            component_with_scopes, schema_type=Component
+        )
 
     @patch(
         operation_id="UpdateComponent",
@@ -120,7 +123,10 @@ class ComponentController(Controller):
 
         component = await components_service.update(item_id=component_id, data=data)
 
-        return components_service.to_schema(component, schema_type=Component)
+        component_with_scopes = await components_service.get_one(id=component.id)
+        return components_service.to_schema(
+            component_with_scopes, schema_type=Component
+        )
 
     @delete(
         operation_id="DeleteComponent",
