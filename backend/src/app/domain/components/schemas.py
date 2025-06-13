@@ -22,6 +22,15 @@ class Scope(StrEnum):
     VELI = "veli"
 
 
+class DbComponent(CamelizedBaseStruct):
+    """Component properties to use for a response."""
+
+    id: UUID
+    name: str
+    elements: list[ComponentElement] | None
+    scopes: list[DbScope]
+
+
 class Component(CamelizedBaseStruct):
     """Component properties to use for a response."""
 
