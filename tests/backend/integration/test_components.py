@@ -11,7 +11,6 @@ pytestmark = pytest.mark.anyio
 async def test_components_create(
     client: "AsyncClient",
     superuser_token_headers: dict[str, str],
-    user_token_headers: dict[str, str],
 ) -> None:
     response = await client.post(
         "/api/components",
@@ -28,6 +27,28 @@ async def test_components_create(
     assert json["name"] == "New Component"
     assert len(json["elements"]) == 1
     assert len(json["id"]) == 36
+
+
+async def test_components_create_with_scopes(
+    client: "AsyncClient",
+    superuser_token_headers: dict[str, str],
+) -> None:
+    scopes = ["food", "textile", "veli"]
+    response = await client.post(
+        "/api/components",
+        json={
+            "name": "New Component",
+            "elements": [
+                {"amount": 0.91125, "material": "59b42284-3e45-5343-8a20-1d7d66137461"}
+            ],
+            "scopes": scopes,
+        },
+        headers=superuser_token_headers,
+    )
+    json = response.json()
+    assert response.status_code == 201
+    assert json["name"] == "New Component"
+    assert json["scopes"] == scopes
 
 
 async def test_components_access(
@@ -97,15 +118,31 @@ async def test_components_update(
 ) -> None:
     response = await client.patch(
         "/api/components/8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
-        json={
-            "name": "Name Changed",
-        },
+        json={"name": "Name Changed", "scopes": ["object", "food"]},
         headers=superuser_token_headers,
     )
     json = response.json()
     assert response.status_code == 200
     assert json["name"] == "Name Changed"
     assert json["elements"] is None
+    assert json["scopes"] == ["food", "object"]
+
+    response = await client.patch(
+        "/api/components/8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
+        json={"scopes": ["object"]},
+        headers=superuser_token_headers,
+    )
+    json = response.json()
+    assert response.status_code == 200
+    assert json["scopes"] == ["object"]
+
+    response = await client.patch(
+        "/api/components/8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
+        json={"scopes": ["invalid"]},
+        headers=superuser_token_headers,
+    )
+    json = response.json()
+    assert response.status_code == 400
 
 
 async def test_components_delete(
@@ -194,6 +231,7 @@ async def test_components_bulk_update(
             ],
             "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
             "name": "Tissu pour joli canapé",
+            "scopes": ["food"],
         },
     ]
     response = await client.patch(
@@ -206,6 +244,7 @@ async def test_components_bulk_update(
 
     assert len(json) == len(json_content)
     assert json[-1]["name"] == "Tissu pour joli canapé"
+    assert json[-1]["scopes"] == ["food"]
 
     # Remove everything
 
