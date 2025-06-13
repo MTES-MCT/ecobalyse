@@ -40,6 +40,7 @@ type alias Ingredient =
     , ecosystemicServices : EcosystemicServices
     , id : Id
     , inediblePart : Split
+    , landOccupation : Float
     , name : String
     , process : Process
     , rawToCookedRatio : Unit.Ratio
@@ -139,6 +140,7 @@ decodeIngredient processes =
         |> Pipe.optional "ecosystemicServices" EcosystemicServices.decode EcosystemicServices.empty
         |> Pipe.required "id" decodeId
         |> Pipe.required "inediblePart" Split.decodeFloat
+        |> Pipe.required "landOccupation" Decode.float
         |> Pipe.required "name" Decode.string
         |> Pipe.required "processId" (linkProcess processes)
         |> Pipe.required "rawToCookedRatio" Unit.decodeRatio
