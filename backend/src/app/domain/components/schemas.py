@@ -5,11 +5,23 @@ from uuid import UUID  # noqa: TC003
 import msgspec
 from app.lib.schema import CamelizedBaseStruct
 
-__all__ = (
-    "Component",
-    "ComponentCreate",
-    "ComponentUpdate",
-)
+__all__ = ("Component", "ComponentCreate", "ComponentUpdate", "DbComponent", "DbScope")
+
+
+class DbScope(CamelizedBaseStruct):
+    """Scope properties to use for a response."""
+
+    id: UUID
+    value: str
+
+
+class DbComponent(CamelizedBaseStruct):
+    """Component properties to use for a response."""
+
+    id: UUID
+    name: str
+    elements: list[ComponentElement] | None
+    scopes: list[DbScope]
 
 
 class Component(CamelizedBaseStruct):
@@ -18,11 +30,13 @@ class Component(CamelizedBaseStruct):
     id: UUID
     name: str
     elements: list[ComponentElement] | None
+    scopes: list[str]
 
 
 class ComponentCreate(CamelizedBaseStruct):
     name: str
     elements: list[ComponentElement]
+    scopes: list[str] = []
 
 
 class ComponentElement(CamelizedBaseStruct, omit_defaults=True):
@@ -37,3 +51,5 @@ class ComponentUpdate(CamelizedBaseStruct, omit_defaults=True):
     name: str | None | msgspec.UnsetType = msgspec.UNSET
 
     elements: list[ComponentElement] | None | msgspec.UnsetType = msgspec.UNSET
+
+    scopes: list[str] = []
