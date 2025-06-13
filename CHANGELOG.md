@@ -1,6 +1,49 @@
 # Changelog
 
 
+## [6.0.0](https://github.com/MTES-MCT/ecobalyse/compare/v5.0.1..v6.0.0) (2025-06-13)
+
+
+
+### 🚀 Features
+
+- *(bo)* Allow duplicating components ([#1064](https://github.com/MTES-MCT/ecobalyse/issues/1064))
+- *(bo)* Add a button to export components json db ([#1067](https://github.com/MTES-MCT/ecobalyse/issues/1067))
+- *(bo)* Add an individual component export button ([#1071](https://github.com/MTES-MCT/ecobalyse/issues/1071))
+- Add missing meat ingredients ([#960](https://github.com/MTES-MCT/ecobalyse/issues/960))
+- Add object processes ([#1088](https://github.com/MTES-MCT/ecobalyse/issues/1088))
+- *(backend)* [**breaking**] Introduce new auth system ([#1090](https://github.com/MTES-MCT/ecobalyse/issues/1090))
+- Add plastic extrusion ([#1123](https://github.com/MTES-MCT/ecobalyse/issues/1123))
+
+### 🪲 Bug Fixes
+
+- Default to empty string on BACKEND_API_URL not set ([#1068](https://github.com/MTES-MCT/ecobalyse/issues/1068))
+- Properly decode json processes on login ([#1083](https://github.com/MTES-MCT/ecobalyse/issues/1083))
+- Use static backend url ([#1135](https://github.com/MTES-MCT/ecobalyse/issues/1135))
+- *(textile)* Update skirt category default repair cost ([#1138](https://github.com/MTES-MCT/ecobalyse/issues/1138))
+- *(textile)* Siwtch to default price on product category change. ([#1137](https://github.com/MTES-MCT/ecobalyse/issues/1137))
+- Handle reusing outdated magic links. ([#1141](https://github.com/MTES-MCT/ecobalyse/issues/1141))
+- Negative impacts on lentils ([#1127](https://github.com/MTES-MCT/ecobalyse/issues/1127))
+
+### 🚜 Refactor
+
+- Merge processes in a single file for cross-domain reusability ([#1072](https://github.com/MTES-MCT/ecobalyse/issues/1072))
+- Generalize uuid parsing result errors ([#1107](https://github.com/MTES-MCT/ecobalyse/issues/1107))
+
+### ⚙️ Miscellaneous Tasks
+
+- Upgrade node dependencies, 2025-05 ([#1065](https://github.com/MTES-MCT/ecobalyse/issues/1065))
+- Update ecobalyse data sync ([#1086](https://github.com/MTES-MCT/ecobalyse/issues/1086))
+- Test versions ([#1076](https://github.com/MTES-MCT/ecobalyse/issues/1076))
+- Cleanup object ([#1089](https://github.com/MTES-MCT/ecobalyse/issues/1089))
+- Replace elec process medium voltage by low voltage ([#1121](https://github.com/MTES-MCT/ecobalyse/issues/1121))
+- Use uv instead of pipenv for `score_history` ([#1130](https://github.com/MTES-MCT/ecobalyse/issues/1130))
+- Fix `scalingo` deploy ([#1131](https://github.com/MTES-MCT/ecobalyse/issues/1131))
+- Upgade node dependencies, 2025-06 ([#1140](https://github.com/MTES-MCT/ecobalyse/issues/1140))
+- Improve playwright test config ([#1142](https://github.com/MTES-MCT/ecobalyse/issues/1142))
+- *(textile)* Update upcycled tshirt example. ([#1136](https://github.com/MTES-MCT/ecobalyse/issues/1136))
+
+
 ## [5.0.1](https://github.com/MTES-MCT/ecobalyse/compare/v5.0.0..v5.0.1) (2025-04-29)
 
 
