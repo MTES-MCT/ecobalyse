@@ -7,7 +7,7 @@ import pytest
 from app.domain.accounts.schemas import OrganizationCreate, OrganizationType
 
 if TYPE_CHECKING:
-    from app.db.models import ComponentModel, User
+    from app.db.models import ComponentModel, Scope, User
     from litestar import Litestar
     from pytest import MonkeyPatch
 
@@ -25,6 +25,30 @@ def fx_app(pytestconfig: pytest.Config, monkeypatch: MonkeyPatch) -> Litestar:
     from app.asgi import create_app
 
     return create_app()
+
+
+@pytest.fixture(name="raw_scopes")
+def fx_raw_scopes() -> list[Scope | dict[str, Any]]:
+    """Unstructured scopes representations."""
+
+    return [
+        {
+            "id": "678dd5d5-a215-42a1-b597-7f8a9219b5e5",
+            "value": "textile",
+        },
+        {
+            "id": "d9be9c62-b633-4af7-809c-433bb07dd052",
+            "value": "object",
+        },
+        {
+            "id": "39e95897-e6c1-4997-8c17-c081598a60fe",
+            "value": "food",
+        },
+        {
+            "id": "8b8eda15-2c05-46ce-8c0c-de77ffcc299b",
+            "value": "veli",
+        },
+    ]
 
 
 @pytest.fixture(name="raw_components")
@@ -50,7 +74,11 @@ def fx_raw_components() -> list[ComponentModel | dict[str, Any]]:
             "name": "Plateau 200x100 (chêne)",
         },
         {"id": "190276e9-5b90-42d6-8fbd-bc7ddfd4c960", "name": "Cadre plastique"},
-        {"id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "name": "Tissu pour canapé"},
+        {
+            "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
+            "name": "Tissu pour canapé",
+            "scopes": ["textile"],
+        },
     ]
 
 

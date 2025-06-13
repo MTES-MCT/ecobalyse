@@ -17,7 +17,7 @@ from app.domain.components.schemas import (
     Component,
     ComponentCreate,
     ComponentUpdate,
-    Scope,
+    DbScope,
 )
 from app.lib.deps import create_filter_dependencies
 from litestar import delete, get, patch, post
@@ -52,13 +52,13 @@ class ComponentController(Controller):
     async def list_scopes(
         self,
         scopes_service: ScopeService,
-    ) -> list[Scope]:
+    ) -> list[DbScope]:
         """List scopes."""
         results = await scopes_service.list()
 
         return convert(
             obj=results,
-            type=list[Scope],  # type: ignore[valid-type]
+            type=list[DbScope],  # type: ignore[valid-type]
             from_attributes=True,
         )
 
@@ -74,11 +74,7 @@ class ComponentController(Controller):
             OrderBy(field_name="name", sort_order="asc"), uniquify=True
         )
 
-        return convert(
-            obj=results,
-            type=list[Component],  # type: ignore[valid-type]
-            from_attributes=True,
-        )
+        return components_service.from_list_db_to_response(results)
 
     @post(
         operation_id="CreateComponent",
@@ -89,15 +85,18 @@ class ComponentController(Controller):
         self,
         data: ComponentCreate,
         components_service: ComponentService,
+        scopes_service: ScopeService,
     ) -> Component:
         """Create a component."""
 
+        await scopes_service.validate_scopes(data.scopes)
+
         component = await components_service.create(data=data.to_dict())
 
-        component_with_scopes = await components_service.get_one(id=component.id)
-        return components_service.to_schema(
-            component_with_scopes, schema_type=Component
-        )
+        # Force reload from db to get scopes
+        created_component = await components_service.get_one(id=component.id)
+
+        return components_service.from_db_to_response(created_component)
 
     @patch(
         operation_id="UpdateComponent",
@@ -108,20 +107,22 @@ class ComponentController(Controller):
         self,
         data: ComponentUpdate,
         components_service: ComponentService,
+        scopes_service: ScopeService,
         component_id: UUID = Parameter(
             title="Component ID", description="The component to update."
         ),
     ) -> Component:
         """Update a component."""
 
+        await scopes_service.validate_scopes(data.scopes)
+
         component = await components_service.update(
             item_id=component_id, data=data.to_dict()
         )
 
         component_with_scopes = await components_service.get_one(id=component.id)
-        return components_service.to_schema(
-            component_with_scopes, schema_type=Component
-        )
+
+        return components_service.from_db_to_response(component_with_scopes)
 
     @delete(
         operation_id="DeleteComponent",
@@ -152,7 +153,7 @@ class ComponentController(Controller):
         """Get a component."""
 
         component = await components_service.get(component_id)
-        return components_service.to_schema(component, schema_type=Component)
+        return components_service.from_db_to_response(component)
 
     @patch(
         operation_id="BulkUpdateComponent",
@@ -163,27 +164,37 @@ class ComponentController(Controller):
         self,
         data: list[ComponentUpdate],
         components_service: ComponentService,
-    ) -> Component:
+    ) -> list[Component]:
         """Update a list of components."""
 
         existing_components = await components_service.list(uniquify=True)
 
-        to_delete: list[UUID] = []
-        to_update: list[UUID] = [component.id for component in data if component.id]
+        existing_components_ids = [c.id for c in existing_components]
 
-        for component in existing_components:
-            if component.id not in to_update:
-                to_delete.append(component.id)
+        to_delete: list[UUID] = []
+        to_update: list[UUID] = [
+            component for component in data if component.id in existing_components_ids
+        ]
+        to_create: list[UUID] = [
+            component
+            for component in data
+            if component.id not in existing_components_ids
+        ]
+
+        for component_id in existing_components_ids:
+            if component_id not in [c.id for c in data]:
+                to_delete.append(component_id)
 
         _ = await components_service.delete_many(item_ids=to_delete)
-        _ = await components_service.upsert_many(data=data, uniquify=True)
+
+        for c in to_update:
+            # For a reason I don’t get update_many doesn’t work as it should, it doesn’t update scopes
+            _ = await components_service.update(item_id=c.id, data=c.to_dict())
+
+        _ = await components_service.create_many(data=to_create)
 
         updated_components = await components_service.list(
             OrderBy(field_name="name", sort_order="asc"), uniquify=True
         )
 
-        return convert(
-            obj=updated_components,
-            type=list[Component],  # type: ignore[valid-type]
-            from_attributes=True,
-        )
+        return components_service.from_list_db_to_response(updated_components)
