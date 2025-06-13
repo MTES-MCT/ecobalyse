@@ -49,13 +49,13 @@ class ComponentController(Controller):
     async def list_scopes(
         self,
         scopes_service: ScopeService,
-    ) -> list[Scope]:
+    ) -> list[DbScope]:
         """List scopes."""
         results = await scopes_service.list()
 
         return convert(
             obj=results,
-            type=list[Scope],  # type: ignore[valid-type]
+            type=list[DbScope],  # type: ignore[valid-type]
             from_attributes=True,
         )
 
@@ -71,11 +71,7 @@ class ComponentController(Controller):
             OrderBy(field_name="name", sort_order="asc"), uniquify=True
         )
 
-        return convert(
-            obj=results,
-            type=list[Component],  # type: ignore[valid-type]
-            from_attributes=True,
-        )
+        return components_service.from_list_db_to_response(results)
 
     @post(
         operation_id="CreateComponent",
@@ -86,15 +82,18 @@ class ComponentController(Controller):
         self,
         data: ComponentCreate,
         components_service: ComponentService,
+        scopes_service: ScopeService,
     ) -> Component:
         """Create a component."""
 
+        await scopes_service.validate_scopes(data.scopes)
+
         component = await components_service.create(data=data.to_dict())
 
-        component_with_scopes = await components_service.get_one(id=component.id)
-        return components_service.to_schema(
-            component_with_scopes, schema_type=Component
-        )
+        # Force reload from db to get scopes
+        created_component = await components_service.get_one(id=component.id)
+
+        return components_service.from_db_to_response(created_component)
 
     @patch(
         operation_id="UpdateComponent",
@@ -105,20 +104,22 @@ class ComponentController(Controller):
         self,
         data: ComponentUpdate,
         components_service: ComponentService,
+        scopes_service: ScopeService,
         component_id: UUID = Parameter(
             title="Component ID", description="The component to update."
         ),
     ) -> Component:
         """Update a component."""
 
+        await scopes_service.validate_scopes(data.scopes)
+
         component = await components_service.update(
             item_id=component_id, data=data.to_dict()
         )
 
         component_with_scopes = await components_service.get_one(id=component.id)
-        return components_service.to_schema(
-            component_with_scopes, schema_type=Component
-        )
+
+        return components_service.from_db_to_response(component_with_scopes)
 
     @delete(
         operation_id="DeleteComponent",
@@ -149,7 +150,7 @@ class ComponentController(Controller):
         """Get a component."""
 
         component = await components_service.get(component_id)
-        return components_service.to_schema(component, schema_type=Component)
+        return components_service.from_db_to_response(component)
 
     @patch(
         operation_id="BulkUpdateComponent",
@@ -193,8 +194,4 @@ class ComponentController(Controller):
             OrderBy(field_name="name", sort_order="asc"), uniquify=True
         )
 
-        return convert(
-            obj=updated_components,
-            type=list[Component],  # type: ignore[valid-type]
-            from_attributes=True,
-        )
+        return components_service.from_list_db_to_response(updated_components)
