@@ -164,6 +164,7 @@ class ComponentController(Controller):
     async def bulk_update_component(
         self,
         data: list[ComponentUpdate],
+        current_user: m.User,
         components_service: ComponentService,
         current_user: m.User,
     ) -> list[Component]:

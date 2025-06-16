@@ -6,7 +6,7 @@ from uuid import UUID  # noqa: TC003
 from app.domain.accounts.schemas import User
 from app.lib.schema import CamelizedBaseStruct
 
-__all__ = "DbJournalEntry"
+__all__ = "JournalEntry"
 
 
 class JournalEntry(CamelizedBaseStruct):
