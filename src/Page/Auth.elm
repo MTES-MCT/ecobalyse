@@ -128,7 +128,7 @@ update session msg model =
         -- Generic page updates
         CopyToClipboard accessToken ->
             ( model
-            , session
+            , session |> Session.notifyInfo "Copié" "Le jeton d'API a été copié dans le presse-papiers"
             , Ports.copyToClipboard accessToken
             )
 
