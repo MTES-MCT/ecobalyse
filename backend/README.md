@@ -56,6 +56,7 @@ If you want you can first reset your DB:
 ```bash
 rm db.sqlite3
 uv run backend database upgrade --no-prompt
+uv run backend database upgrade --no-prompt
 ```
 
 And then load your `components.json` file:
