@@ -52,6 +52,8 @@ class ApplicationCore(InitPluginProtocol, CLIPluginProtocol):
         from app.domain.accounts.services import RoleService, UserService
         from app.domain.components.controllers import ComponentController
         from app.domain.components.services import ComponentService, ScopeService
+        from app.domain.journal_entries.controllers import JournalEntryController
+        from app.domain.journal_entries.services import JournalEntryService
         from app.domain.system.controllers import SystemController
         from app.server import plugins
         from litestar.enums import RequestEncodingType
@@ -88,9 +90,10 @@ class ApplicationCore(InitPluginProtocol, CLIPluginProtocol):
         # routes
         app_config.route_handlers.extend(
             [
-                ComponentController,
-                SystemController,
                 AccessController,
+                ComponentController,
+                JournalEntryController,
+                SystemController,
             ],
         )
 
@@ -103,6 +106,7 @@ class ApplicationCore(InitPluginProtocol, CLIPluginProtocol):
                 "m": m,
                 "UUID": UUID,
                 "ComponentService": ComponentService,
+                "JournalEntryService": JournalEntryService,
                 "RoleService": RoleService,
                 "ScopeService": ScopeService,
                 "UserService": UserService,

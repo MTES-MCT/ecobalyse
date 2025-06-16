@@ -7,6 +7,7 @@ from advanced_alchemy.filters import OrderBy
 from advanced_alchemy.service.typing import (
     convert,
 )
+from app.db import models as m
 from app.domain.accounts.guards import requires_superuser
 from app.domain.components import urls
 from app.domain.components.deps import (
@@ -81,14 +82,17 @@ class ComponentController(Controller):
     async def create_component(
         self,
         data: ComponentCreate,
+        current_user: m.User,
         components_service: ComponentService,
         scopes_service: ScopeService,
     ) -> Component:
         """Create a component."""
 
         await scopes_service.validate_scopes(data.scopes)
+        data = data.to_dict()
+        data["owner"] = current_user
 
-        component = await components_service.create(data=data.to_dict())
+        component = await components_service.create(data=data)
 
         # Force reload from db to get scopes
         created_component = await components_service.get_one(id=component.id)
@@ -105,6 +109,7 @@ class ComponentController(Controller):
         data: ComponentUpdate,
         components_service: ComponentService,
         scopes_service: ScopeService,
+        current_user: m.User,
         component_id: UUID = Parameter(
             title="Component ID", description="The component to update."
         ),
@@ -113,9 +118,11 @@ class ComponentController(Controller):
 
         await scopes_service.validate_scopes(data.scopes)
 
-        component = await components_service.update(
-            item_id=component_id, data=data.to_dict()
-        )
+        data = data.to_dict()
+        data["owner"] = current_user
+        data["id"] = component_id
+
+        component = await components_service.update(item_id=component_id, data=data)
 
         component_with_scopes = await components_service.get_one(id=component.id)
 
@@ -129,13 +136,14 @@ class ComponentController(Controller):
     async def delete_component(
         self,
         components_service: ComponentService,
+        current_user: m.User,
         component_id: UUID = Parameter(
             title="Component ID", description="The component to delete."
         ),
     ) -> None:
         """Delete a component."""
 
-        _ = await components_service.delete(item_id=component_id)
+        _ = await components_service.delete(item_id=component_id, user=current_user)
 
     @get(
         operation_id="GetComponent", path=urls.COMPONENT_DETAIL, exclude_from_auth=True
@@ -160,6 +168,7 @@ class ComponentController(Controller):
     async def bulk_update_component(
         self,
         data: list[ComponentUpdate],
+        current_user: m.User,
         components_service: ComponentService,
     ) -> list[Component]:
         """Update a list of components."""
@@ -182,13 +191,21 @@ class ComponentController(Controller):
             if component_id not in [c.id for c in data]:
                 to_delete.append(component_id)
 
-        _ = await components_service.delete_many(item_ids=to_delete)
+        _ = await components_service.delete_many(item_ids=to_delete, user=current_user)
 
         for c in to_update:
             # For a reason I don’t get update_many doesn’t work as it should, it doesn’t update scopes
-            _ = await components_service.update(item_id=c.id, data=c.to_dict())
+            data_dict = c.to_dict()
+            data_dict["owner"] = current_user
+            _ = await components_service.update(item_id=c.id, data=data_dict)
 
-        _ = await components_service.create_many(data=to_create)
+        to_create_dicts = []
+        for c_to_create in to_create:
+            data_dict = c_to_create.to_dict()
+            data_dict["owner"] = current_user
+            to_create_dicts.append(data_dict)
+
+        _ = await components_service.create_many(data=to_create_dicts)
 
         updated_components = await components_service.list(
             OrderBy(field_name="name", sort_order="asc"), uniquify=True

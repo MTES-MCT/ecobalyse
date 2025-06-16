@@ -1,5 +1,6 @@
 from .component import ComponentModel
 from .component_scope import component_scope
+from .journal_entry import JournalAction, JournalEntry
 from .process import ProcessModel
 from .role import Role
 from .scope import Scope
@@ -10,6 +11,8 @@ from .user_role import UserRole
 
 __all__ = (
     "ComponentModel",
+    "JournalAction",
+    "JournalEntry",
     "ProcessModel",
     "Role",
     "Scope",
