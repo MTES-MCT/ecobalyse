@@ -1,0 +1,41 @@
+from __future__ import annotations
+
+from enum import StrEnum
+from typing import TYPE_CHECKING, Any
+from uuid import UUID
+
+from advanced_alchemy.base import UUIDAuditBase
+from advanced_alchemy.types import JsonB
+from sqlalchemy import Enum, ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+if TYPE_CHECKING:
+    from .user import User
+
+
+class JournalAction(StrEnum):
+    CREATED = "created"
+    UPDATED = "updated"
+    DELETED = "deleted"
+
+
+class JournalEntry(UUIDAuditBase):
+    __tablename__ = "journal_entry"
+
+    table_name: Mapped[str] = mapped_column(nullable=False)
+
+    record_id: Mapped[UUID] = mapped_column(nullable=False)
+    user_id: Mapped[UUID] = mapped_column(
+        ForeignKey("user_account.id", ondelete="cascade"), nullable=False
+    )
+
+    action: Mapped[JournalAction] = mapped_column(Enum(JournalAction), nullable=False)
+
+    value: Mapped[dict[str, Any] | None] = mapped_column(JsonB, nullable=True)
+
+    # -----------
+    # ORM Relationships
+    # ------------
+    user: Mapped[User] = relationship(
+        back_populates="journal_entries", innerjoin=True, lazy="joined"
+    )
