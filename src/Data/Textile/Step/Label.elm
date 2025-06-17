@@ -31,15 +31,7 @@ type Label
 
 all : List Label
 all =
-    [ Material
-    , Spinning
-    , Fabric
-    , Ennobling
-    , Making
-    , Distribution
-    , Use
-    , EndOfLife
-    ]
+    [ Distribution, EndOfLife, Ennobling, Fabric, Making, Material, Spinning, Use ]
 
 
 upcyclables : List Label

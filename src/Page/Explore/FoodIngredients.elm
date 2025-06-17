@@ -50,6 +50,10 @@ table _ { detailed, scope } =
           , toValue = Table.StringValue <| .defaultOrigin >> Origin.toLabel
           , toCell = .defaultOrigin >> Origin.toLabel >> text
           }
+        , { label = "Surface mobilisée"
+          , toValue = Table.FloatValue <| .landOccupation
+          , toCell = .landOccupation >>  (\v -> Format.formatFloat 2 v ++ " m2.an") >> text
+          }
         , { label = "Part non-comestible"
           , toValue = Table.FloatValue <| .inediblePart >> Split.toPercent
           , toCell =
