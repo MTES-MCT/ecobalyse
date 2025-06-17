@@ -10,6 +10,8 @@ if [ "$IS_REVIEW_APP" == "true" ]; then
    echo "-> In review app, resetting DB";
    uv run backend database drop-all --no-prompt
    uv run backend database upgrade --no-prompt
+   echo "-> Loading components fixtures";
+   uv run backend fixtures load-components public/data/object/components.json
 fi
 
 # Test if variable is set
