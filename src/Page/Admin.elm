@@ -511,27 +511,22 @@ scopesForm check scopes =
     div [ class "d-flex flex-row gap-3" ]
         [ h3 [ class "h6" ] [ text "Verticales" ]
         , Scope.all
-            |> List.indexedMap
-                (\index scope ->
+            |> List.map
+                (\scope ->
                     div [ class "form-check form-check-inline" ]
-                        [ input
-                            [ type_ "checkbox"
-                            , class "form-check-input"
-                            , id <| "scope-" ++ String.fromInt index
-                            , scopes
-                                |> List.member scope
-                                |> checked
-                            , onCheck <| check scope
+                        [ label [ class "form-check-label" ]
+                            [ input
+                                [ type_ "checkbox"
+                                , class "form-check-input"
+                                , checked <| List.member scope scopes
+                                , onCheck <| check scope
+                                ]
+                                []
+                            , text (Scope.toString scope)
                             ]
-                            []
-                        , label
-                            [ for <| "scope-" ++ String.fromInt index
-                            , class "form-check-label"
-                            ]
-                            [ text (Scope.toString scope) ]
                         ]
                 )
-            |> div []
+            |> div [ class "ScopeSelector" ]
         ]
 
 
