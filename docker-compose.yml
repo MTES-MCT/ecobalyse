@@ -10,3 +10,8 @@ services:
     ports:
       # Don’t conflict with my local PG
       - "5433:5432"
+    healthcheck:
+      test: "pg_isready -U ecobalyse"
+      interval: 5s
+      timeout: 5s
+      retries: 5
