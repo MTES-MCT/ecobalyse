@@ -49,7 +49,7 @@
     "test:client": "NODE_ENV=test npm run db:build && npx elm-test",
     "test:review": "npx elm-review",
     "test:server": "npm run server:build && NODE_ENV=test jest tests/json.spec.js tests/server.spec.js",
-    "test:server-ci": "concurrently -k -s first -n \"backend,test\" \"npm run start:backend\" \"while ! lsof -i:8002; do sleep 1; done && npm run server:build && NODE_ENV=test jest tests/\"",
+    "test:server-ci": "docker compose up -d && concurrently -k -s first -n \"backend,test\" \"npm run start:backend\" \"while ! lsof -i:8002; do sleep 1; done && npm run server:build && NODE_ENV=test jest tests/\"",
     "test:e2e": "e2e/setup-version-fixture.sh && NODE_ENV=test npx playwright test e2e/ --trace=retain-on-failure",
     "test:e2e-ui": "NODE_ENV=test npx playwright test e2e/ --ui",
     "test": "npm run test:client && npm run test:backend && npm run test:server"
