@@ -51,7 +51,7 @@ class ApplicationCore(InitPluginProtocol, CLIPluginProtocol):
         from app.domain.accounts.guards import auth as jwt_auth
         from app.domain.accounts.services import RoleService, UserService
         from app.domain.components.controllers import ComponentController
-        from app.domain.components.services import ComponentService, ScopeService
+        from app.domain.components.services import ComponentService
         from app.domain.system.controllers import SystemController
         from app.server import plugins
         from litestar.enums import RequestEncodingType
@@ -104,7 +104,6 @@ class ApplicationCore(InitPluginProtocol, CLIPluginProtocol):
                 "UUID": UUID,
                 "ComponentService": ComponentService,
                 "RoleService": RoleService,
-                "ScopeService": ScopeService,
                 "UserService": UserService,
                 "UserRoleService": UserRoleService,
             },

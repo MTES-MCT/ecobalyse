@@ -11,13 +11,11 @@ from app.domain.accounts.guards import requires_superuser
 from app.domain.components import urls
 from app.domain.components.deps import (
     provide_components_service,
-    provide_scopes_service,
 )
 from app.domain.components.schemas import (
     Component,
     ComponentCreate,
     ComponentUpdate,
-    DbScope,
 )
 from app.lib.deps import create_filter_dependencies
 from litestar import delete, get, patch, post
@@ -26,7 +24,7 @@ from litestar.di import Provide
 from litestar.params import Parameter
 
 if TYPE_CHECKING:
-    from app.domain.components.services import ComponentService, ScopeService
+    from app.domain.components.services import ComponentService
 
 
 class ComponentController(Controller):
@@ -34,7 +32,6 @@ class ComponentController(Controller):
 
     dependencies = {
         "components_service": Provide(provide_components_service),
-        "scopes_service": Provide(provide_scopes_service),
     } | create_filter_dependencies(
         {
             "id_filter": UUID,
@@ -48,20 +45,6 @@ class ComponentController(Controller):
 
     tags = ["Components"]
 
-    @get(operation_id="ListScopes", path=urls.SCOPE_LIST, exclude_from_auth=True)
-    async def list_scopes(
-        self,
-        scopes_service: ScopeService,
-    ) -> list[DbScope]:
-        """List scopes."""
-        results = await scopes_service.list()
-
-        return convert(
-            obj=results,
-            type=list[DbScope],  # type: ignore[valid-type]
-            from_attributes=True,
-        )
-
     @get(
         operation_id="ListComponents", path=urls.COMPONENT_LIST, exclude_from_auth=True
     )
@@ -74,7 +57,11 @@ class ComponentController(Controller):
             OrderBy(field_name="name", sort_order="asc"), uniquify=True
         )
 
-        return components_service.from_list_db_to_response(results)
+        return convert(
+            obj=results,
+            type=list[Component],  # type: ignore[valid-type]
+            from_attributes=True,
+        )
 
     @post(
         operation_id="CreateComponent",
@@ -85,18 +72,12 @@ class ComponentController(Controller):
         self,
         data: ComponentCreate,
         components_service: ComponentService,
-        scopes_service: ScopeService,
     ) -> Component:
         """Create a component."""
 
-        await scopes_service.validate_scopes(data.scopes)
-
         component = await components_service.create(data=data.to_dict())
 
-        # Force reload from db to get scopes
-        created_component = await components_service.get_one(id=component.id)
-
-        return components_service.from_db_to_response(created_component)
+        return components_service.to_schema(component, schema_type=Component)
 
     @patch(
         operation_id="UpdateComponent",
@@ -107,22 +88,17 @@ class ComponentController(Controller):
         self,
         data: ComponentUpdate,
         components_service: ComponentService,
-        scopes_service: ScopeService,
         component_id: UUID = Parameter(
             title="Component ID", description="The component to update."
         ),
     ) -> Component:
         """Update a component."""
 
-        await scopes_service.validate_scopes(data.scopes)
-
         component = await components_service.update(
             item_id=component_id, data=data.to_dict()
         )
 
-        component_with_scopes = await components_service.get_one(id=component.id)
-
-        return components_service.from_db_to_response(component_with_scopes)
+        return components_service.to_schema(component, schema_type=Component)
 
     @delete(
         operation_id="DeleteComponent",
@@ -153,7 +129,7 @@ class ComponentController(Controller):
         """Get a component."""
 
         component = await components_service.get(component_id)
-        return components_service.from_db_to_response(component)
+        return components_service.to_schema(component, schema_type=Component)
 
     @patch(
         operation_id="BulkUpdateComponent",
@@ -197,4 +173,8 @@ class ComponentController(Controller):
             OrderBy(field_name="name", sort_order="asc"), uniquify=True
         )
 
-        return components_service.from_list_db_to_response(updated_components)
+        return convert(
+            obj=updated_components,
+            type=list[Component],  # type: ignore[valid-type]
+            from_attributes=True,
+        )

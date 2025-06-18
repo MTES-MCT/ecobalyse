@@ -125,7 +125,7 @@ async def test_components_update(
     assert response.status_code == 200
     assert json["name"] == "Name Changed"
     assert json["elements"] is None
-    assert json["scopes"] == ["food", "object"]
+    assert json["scopes"] == ["object", "food"]
 
     response = await client.patch(
         "/api/components/8ca2ca05-8aec-4121-acaa-7cdcc03150a9",

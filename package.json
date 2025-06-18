@@ -43,7 +43,7 @@
     "start:backend": "uv run backend database upgrade --no-prompt && uv run backend run -p 8002",
     "start:backend:dev": "uv run backend database upgrade --no-prompt && uv run backend run --reload -p 8002",
     "start:parcel": "parcel serve index.html --no-cache",
-    "start:dev": "npm run build:init && concurrently -k -n \"parcel,maildev,server,backend\" -c \"green,cyan,yellow\" \"npm run start:parcel\" \"maildev --hide-extensions STARTTLS -p 1025 -w 1081\" \"npm run server:dev\" \"npm run start:backend:dev\"",
+    "start:dev": "bin/check-db.sh && npm run build:init && concurrently -k -n \"parcel,maildev,server,backend\" -c \"green,cyan,yellow\" \"npm run start:parcel\" \"maildev --hide-extensions STARTTLS -p 1025 -w 1081\" \"npm run server:dev\" \"npm run start:backend:dev\"",
     "start": "PARCEL_ELM_NO_DEBUG=1 npm run start:dev",
     "test:backend": "concurrently -k -s first -n \"maildev,test\" \"maildev --hide-extensions STARTTLS -p 1025 -w 1081\" \"while ! lsof -i:1025; do sleep 1; done && uv run pytest\"",
     "test:client": "NODE_ENV=test npm run db:build && npx elm-test",
