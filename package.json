@@ -40,7 +40,7 @@
     "server:dev": "npm run server:build && nodemon server.js --config nodemon.json",
     "server:debug": "elm make src/Server.elm --output=server-app.js && nodemon server.js --config nodemon.json",
     "server:start": "node server.js",
-    "start:backend": "uv run backend database upgrade --no-prompt && uv run backend run -p 8002",
+    "start:backend": "uv run backend run -p 8002",
     "start:backend:dev": "uv run backend database upgrade --no-prompt && uv run backend run --reload -p 8002",
     "start:parcel": "parcel serve index.html --no-cache",
     "start:dev": "bin/check-db.sh && npm run build:init && concurrently -k -n \"parcel,maildev,server,backend\" -c \"green,cyan,yellow\" \"npm run start:parcel\" \"maildev --hide-extensions STARTTLS -p 1025 -w 1081\" \"npm run server:dev\" \"npm run start:backend:dev\"",
@@ -48,8 +48,7 @@
     "test:backend": "concurrently -k -s first -n \"maildev,test\" \"maildev --hide-extensions STARTTLS -p 1025 -w 1081\" \"while ! lsof -i:1025; do sleep 1; done && uv run pytest\"",
     "test:client": "NODE_ENV=test npm run db:build && npx elm-test",
     "test:review": "npx elm-review",
-    "test:server": "npm run server:build && NODE_ENV=test jest tests/json.spec.js tests/server.spec.js",
-    "test:server-ci": "docker compose up -d && concurrently -k -s first -n \"backend,test\" \"npm run start:backend\" \"while ! lsof -i:8002; do sleep 1; done && npm run server:build && NODE_ENV=test jest tests/\"",
+    "test:server": "npm run server:build && NODE_ENV=test jest tests/json.spec.js tests/server.spec.js tests/json.test.js",
     "test:e2e": "e2e/setup-version-fixture.sh && NODE_ENV=test npx playwright test e2e/ --trace=retain-on-failure",
     "test:e2e-ui": "NODE_ENV=test npx playwright test e2e/ --ui",
     "test": "npm run test:client && npm run test:backend && npm run test:server"

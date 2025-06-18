@@ -4,7 +4,6 @@
 name: Node.js CI
 
 env:
-  DATABASE_URL: postgresql+asyncpg://ecobalyse@localhost:5433/ecobalyse_test
   NODE_ENV: test
   TRANSCRYPT_KEY: ${{ secrets.TRANSCRYPT_KEY }}
   ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
@@ -91,7 +90,7 @@ jobs:
       run: npm run test:client
 
     - name: Run server tests
-      run: npm run test:server-ci && npm run test:backend
+      run: npm run test:server && npm run test:backend
 
     # e2e tests
     - name: Install Playwright Browsers
