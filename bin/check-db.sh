@@ -28,7 +28,13 @@ else
   if [ "$( docker container inspect -f '{{.State.Status}}' $CONTAINER_NAME )" != "running" ]; then
     echo "ℹ️ Docker container '$CONTAINER_NAME' is not running, trying to start it in the background."
     docker compose up -d
-    exit 0
+
+    if (echo > /dev/tcp/"$HOST"/"$PORT") >/dev/null 2>&1; then
+      echo "✅ PostgreSQL server is up and running on host $HOST and port $PORT."
+      exit 0
+    else
+      echo "🔴 Impossible to start PostgreSQL using Docker."
+    fi
   fi
 
   exit 1
