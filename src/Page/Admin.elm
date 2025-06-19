@@ -481,7 +481,13 @@ modalView db modals modal =
                 HistoryModal response ->
                     { title = "Historique des modifications"
                     , content = [ response |> mapRemoteData historyView ]
-                    , footer = [ button [ class "btn btn-primary" ] [ text "Fermer" ] ]
+                    , footer =
+                        [ button
+                            [ class "btn btn-primary"
+                            , onClick <| SetModals <| List.drop 1 modals
+                            ]
+                            [ text "Fermer" ]
+                        ]
                     , size = Modal.ExtraLarge
                     }
 
@@ -580,7 +586,7 @@ historyView entries =
                 |> List.map
                     (\{ action, id, diff } ->
                         tr [ attribute "data-test-id" <| JournalEntry.idToString id ]
-                            [ td [] [ text action ]
+                            [ td [] [ text <| JournalEntry.actionToString action ]
                             , td [] [ Format.diff diff ]
                             , td [] [ text "TODO" ]
                             , td [] [ text "TODO" ]
