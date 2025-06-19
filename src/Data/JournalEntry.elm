@@ -1,5 +1,6 @@
 module Data.JournalEntry exposing
     ( JournalEntry
+    , actionToString
     , decodeEntry
     , idToString
     )
@@ -13,8 +14,14 @@ type Id
     = Id Uuid
 
 
+type Action
+    = Created
+    | Updated
+    | Deleted
+
+
 type alias JournalEntry a =
-    { action : String
+    { action : Action
     , id : Id
     , recordId : Uuid
     , tableName : String
@@ -22,14 +29,43 @@ type alias JournalEntry a =
     }
 
 
+actionToString : Action -> String
+actionToString action =
+    case action of
+        Created ->
+            "Création"
+
+        Deleted ->
+            "Suppression"
+
+        Updated ->
+            "Modification"
+
+
 decodeEntry : Decoder a -> Decoder (JournalEntry a)
 decodeEntry valueDecoder =
     Decode.succeed JournalEntry
-        |> JDP.required "action" Decode.string
+        |> JDP.required "action" (Decode.string |> Decode.andThen decodeAction)
         |> JDP.required "id" decodeId
         |> JDP.required "recordId" Uuid.decoder
         |> JDP.required "tableName" Decode.string
         |> JDP.required "value" valueDecoder
+
+
+decodeAction : String -> Decoder Action
+decodeAction action =
+    case action of
+        "created" ->
+            Decode.succeed Created
+
+        "updated" ->
+            Decode.succeed Updated
+
+        "deleted" ->
+            Decode.succeed Deleted
+
+        _ ->
+            Decode.fail <| "Action invalide\u{00A0}: " ++ action
 
 
 decodeId : Decoder Id
