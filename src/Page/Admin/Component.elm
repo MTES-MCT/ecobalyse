@@ -548,29 +548,54 @@ modalView db modals index modal =
                     }
 
                 HistoryModal response ->
-                    ( "Historique des modifications"
-                    , [ Table.responsiveDefault []
+                    { title = "Historique des modifications"
+                    , content =
+                        [ Table.responsiveDefault []
                             [ thead []
                                 [ tr []
                                     [ th [] [ text "Action" ]
-                                    , th [] [ text "Valeur" ]
+                                    , th [] [ text "Modification" ]
+                                    , th [] [ text "Utilisateur" ]
+                                    , th [] [ text "Date" ]
                                     ]
                                 ]
                             , response
                                 |> mapRemoteData
-                                    (List.map
-                                        (\{ action, id, value } ->
-                                            tr [ attribute "data-test-id" <| JournalEntry.idToString id ]
-                                                [ td [] [ text action ]
-                                                , td [] [ pre [ class "mb-0" ] [ value |> Component.encode |> Encode.encode 2 |> text ] ]
-                                                ]
-                                        )
-                                        >> tbody []
+                                    (\entries ->
+                                        if List.isEmpty entries then
+                                            tbody [] [ tr [] [ td [ colspan 3 ] [ text "Aucun historique disponible" ] ] ]
+
+                                        else
+                                            entries
+                                                |> List.drop 1
+                                                |> List.map2
+                                                    (\entry1 entry2 ->
+                                                        { action = entry1.action
+                                                        , diff =
+                                                            Diff.diffLinesWith Diff.defaultOptions
+                                                                (entry1.value |> Component.encode |> Encode.encode 2)
+                                                                (entry2.value |> Component.encode |> Encode.encode 2)
+                                                                |> DiffToString.diffToString { context = 2, color = False }
+                                                        , id = entry1.id
+                                                        }
+                                                    )
+                                                    entries
+                                                |> List.map
+                                                    (\{ action, id, diff } ->
+                                                        tr [ attribute "data-test-id" <| JournalEntry.idToString id ]
+                                                            [ td [] [ text action ]
+                                                            , td [] [ Format.diff diff ]
+                                                            , td [] [ text "TODO" ]
+                                                            , td [] [ text "TODO" ]
+                                                            ]
+                                                    )
+                                                |> tbody []
                                     )
                             ]
-                      ]
-                    , button [ class "btn btn-primary" ] [ text "Fermer" ]
-                    )
+                        ]
+                    , footer = [ button [ class "btn btn-primary" ] [ text "Fermer" ] ]
+                    , size = Modal.ExtraLarge
+                    }
 
                 SelectProcessModal category targetItem maybeElementIndex autocompleteState ->
                     { title = "Sélectionner un procédé"
