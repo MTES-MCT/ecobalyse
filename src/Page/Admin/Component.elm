@@ -547,6 +547,31 @@ modalView db modals index modal =
                     , size = Modal.ExtraLarge
                     }
 
+                HistoryModal response ->
+                    ( "Historique des modifications"
+                    , [ Table.responsiveDefault []
+                            [ thead []
+                                [ tr []
+                                    [ th [] [ text "Action" ]
+                                    , th [] [ text "Valeur" ]
+                                    ]
+                                ]
+                            , response
+                                |> mapRemoteData
+                                    (List.map
+                                        (\{ action, id, value } ->
+                                            tr [ attribute "data-test-id" <| JournalEntry.idToString id ]
+                                                [ td [] [ text action ]
+                                                , td [] [ pre [ class "mb-0" ] [ value |> Component.encode |> Encode.encode 2 |> text ] ]
+                                                ]
+                                        )
+                                        >> tbody []
+                                    )
+                            ]
+                      ]
+                    , button [ class "btn btn-primary" ] [ text "Fermer" ]
+                    )
+
                 SelectProcessModal category targetItem maybeElementIndex autocompleteState ->
                     { title = "Sélectionner un procédé"
                     , content =
