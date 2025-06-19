@@ -51,7 +51,7 @@ class ApplicationCore(InitPluginProtocol, CLIPluginProtocol):
         from app.domain.accounts.guards import auth as jwt_auth
         from app.domain.accounts.services import RoleService, UserService
         from app.domain.components.controllers import ComponentController
-        from app.domain.components.services import ComponentService, ScopeService
+        from app.domain.components.services import ComponentService
         from app.domain.journal_entries.controllers import JournalEntryController
         from app.domain.journal_entries.services import JournalEntryService
         from app.domain.system.controllers import SystemController
@@ -108,7 +108,6 @@ class ApplicationCore(InitPluginProtocol, CLIPluginProtocol):
                 "ComponentService": ComponentService,
                 "JournalEntryService": JournalEntryService,
                 "RoleService": RoleService,
-                "ScopeService": ScopeService,
                 "UserService": UserService,
                 "UserRoleService": UserRoleService,
             },
