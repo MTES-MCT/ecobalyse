@@ -336,13 +336,12 @@ componentListView db scopes components =
                 ]
             ]
         , components
-            |> Scope.anyOf
-                (if scopes == [] then
-                    Scope.all
+            |> (if scopes == [] then
+                    List.filter (\c -> c.scopes == [])
 
-                 else
-                    scopes
-                )
+                else
+                    Scope.anyOf scopes
+               )
             |> List.map (componentRowView db)
             |> tbody []
         ]
@@ -441,9 +440,11 @@ modalView db modals modal =
                 DeleteComponentModal component ->
                     { title = "Supprimer le composant"
                     , content =
-                        [ text "Êtes-vous sûr de vouloir supprimer le composant "
-                        , strong [] [ text component.name ]
-                        , text "\u{00A0}?"
+                        [ div [ class "card-body p-3" ]
+                            [ text "Êtes-vous sûr de vouloir supprimer le composant "
+                            , strong [] [ text component.name ]
+                            , text "\u{00A0}?"
+                            ]
                         ]
                     , footer = [ button [ class "btn btn-danger" ] [ text "Supprimer" ] ]
                     , size = Modal.Large
@@ -557,7 +558,7 @@ modalView db modals modal =
     in
     Modal.view
         { close = SetModals <| List.drop 1 modals
-        , content = [ div [ class "card-body p-3" ] content ]
+        , content = content
         , footer = footer
         , formAction = Just SaveComponent
         , noOp = NoOp
