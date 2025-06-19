@@ -5,9 +5,12 @@ module Data.JournalEntry exposing
     , idToString
     )
 
+import Data.User as User exposing (User)
 import Data.Uuid as Uuid exposing (Uuid)
 import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as JDP
+import Time exposing (Posix)
 
 
 type Id
@@ -22,9 +25,12 @@ type Action
 
 type alias JournalEntry a =
     { action : Action
+    , createdAt : Posix
     , id : Id
     , recordId : Uuid
     , tableName : String
+    , updatedAt : Posix
+    , user : User
     , value : a
     }
 
@@ -46,9 +52,12 @@ decodeEntry : Decoder a -> Decoder (JournalEntry a)
 decodeEntry valueDecoder =
     Decode.succeed JournalEntry
         |> JDP.required "action" (Decode.string |> Decode.andThen decodeAction)
+        |> JDP.required "createdAt" DE.datetime
         |> JDP.required "id" decodeId
         |> JDP.required "recordId" Uuid.decoder
         |> JDP.required "tableName" Decode.string
+        |> JDP.required "updatedAt" DE.datetime
+        |> JDP.required "user" User.decodeUser
         |> JDP.required "value" valueDecoder
 
 

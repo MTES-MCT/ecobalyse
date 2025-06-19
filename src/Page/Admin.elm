@@ -600,22 +600,24 @@ historyView entries =
                 |> List.map2
                     (\entry1 entry2 ->
                         { action = entry1.action
+                        , createdAt = entry1.createdAt
                         , diff =
                             Diff.diffLinesWith Diff.defaultOptions
-                                (entry1.value |> Component.encode |> Encode.encode 2)
                                 (entry2.value |> Component.encode |> Encode.encode 2)
+                                (entry1.value |> Component.encode |> Encode.encode 2)
                                 |> DiffToString.diffToString { context = 2, color = False }
                         , id = entry1.id
+                        , user = entry1.user
                         }
                     )
                     entries
                 |> List.map
-                    (\{ action, id, diff } ->
+                    (\{ action, createdAt, id, diff, user } ->
                         tr [ attribute "data-test-id" <| JournalEntry.idToString id ]
                             [ td [] [ text <| JournalEntry.actionToString action ]
                             , td [] [ Format.diff diff ]
-                            , td [] [ text "TODO" ]
-                            , td [] [ text "TODO" ]
+                            , td [] [ text <| user.email ]
+                            , td [] [ text <| Format.frenchDatetime createdAt ]
                             ]
                     )
                 |> tbody []
