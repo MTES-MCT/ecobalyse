@@ -11,7 +11,7 @@ from app.domain.accounts.guards import requires_superuser
 from app.domain.journal_entries import urls
 from app.domain.journal_entries.deps import provide_journal_entries_service
 from app.domain.journal_entries.schemas import (
-    DbJournalEntry,
+    JournalEntry,
 )
 from litestar import get
 from litestar.controller import Controller
@@ -39,7 +39,7 @@ class JournalEntryController(Controller):
     async def list_journal_entries(
         self,
         journal_entries_service: JournalEntryService,
-    ) -> list[DbJournalEntry]:
+    ) -> list[JournalEntry]:
         """List all journal entries."""
         results = await journal_entries_service.list(
             OrderBy(field_name="created_at", sort_order="desc"),
@@ -47,7 +47,7 @@ class JournalEntryController(Controller):
 
         return convert(
             obj=results,
-            type=list[DbJournalEntry],  # type: ignore[valid-type]
+            type=list[JournalEntry],  # type: ignore[valid-type]
             from_attributes=True,
         )
 
@@ -62,7 +62,7 @@ class JournalEntryController(Controller):
         table_name: str = Parameter(
             title="Table name", description="The table name to get journal from."
         ),
-    ) -> list[DbJournalEntry]:
+    ) -> list[JournalEntry]:
         """List all journal entries per table."""
         results = await journal_entries_service.list(
             OrderBy(field_name="created_at", sort_order="desc"), table_name=table_name
@@ -70,7 +70,7 @@ class JournalEntryController(Controller):
 
         return convert(
             obj=results,
-            type=list[DbJournalEntry],  # type: ignore[valid-type]
+            type=list[JournalEntry],  # type: ignore[valid-type]
             from_attributes=True,
         )
 
@@ -88,7 +88,7 @@ class JournalEntryController(Controller):
         table_name: str = Parameter(
             title="Table name", description="The table name to get journal from."
         ),
-    ) -> list[DbJournalEntry]:
+    ) -> list[JournalEntry]:
         """List all journal entries per table."""
         results = await journal_entries_service.list(
             OrderBy(field_name="created_at", sort_order="desc"),
@@ -98,6 +98,6 @@ class JournalEntryController(Controller):
 
         return convert(
             obj=results,
-            type=list[DbJournalEntry],  # type: ignore[valid-type]
+            type=list[JournalEntry],  # type: ignore[valid-type]
             from_attributes=True,
         )

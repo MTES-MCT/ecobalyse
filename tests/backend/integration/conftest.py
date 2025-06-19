@@ -9,7 +9,7 @@ from advanced_alchemy.base import UUIDAuditBase
 from advanced_alchemy.utils.fixtures import open_fixture_async
 from app.config import app as config
 from app.config import get_settings
-from app.db.models import ComponentModel, User
+from app.db.models import Component, User
 from app.domain.accounts.guards import auth
 from app.domain.accounts.services import RoleService, UserService
 from app.domain.components.services import ComponentService
@@ -117,7 +117,7 @@ async def fx_session(
 async def _seed_db(
     engine: AsyncEngine,
     sessionmaker: async_sessionmaker[AsyncSession],
-    raw_components: list[ComponentModel | dict[str, Any]],
+    raw_components: list[Component | dict[str, Any]],
     raw_users: list[User | dict[str, Any]],
 ) -> AsyncGenerator[None, None]:
     """Populate test database with.

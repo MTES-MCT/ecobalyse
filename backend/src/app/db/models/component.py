@@ -15,7 +15,7 @@ def get_enum_values(enum_class):
     return [member.value for member in enum_class]
 
 
-class ComponentModel(UUIDAuditBase):
+class Component(UUIDAuditBase):
     __tablename__ = "component"
     elements: Mapped[dict[str, Any] | None] = mapped_column(JsonB)
     name: Mapped[str]

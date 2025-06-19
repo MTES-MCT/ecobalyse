@@ -27,33 +27,33 @@ from sqlalchemy.orm import InstrumentedAttribute
 __all__ = ("ComponentService",)
 
 
-class ComponentService(SQLAlchemyAsyncRepositoryService[m.ComponentModel]):
+class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
     """Handles database operations for components."""
 
-    class ComponentRepository(SQLAlchemyAsyncRepository[m.ComponentModel]):
+    class ComponentRepository(SQLAlchemyAsyncRepository[m.Component]):
         """Component SQLAlchemy Repository."""
 
-        model_type = m.ComponentModel
+        model_type = m.Component
 
     repository_type = ComponentRepository
 
     match_fields = ["name"]
 
     async def to_model_on_create(
-        self, data: ModelDictT[m.ComponentModel]
-    ) -> ModelDictT[m.ComponentModel]:
+        self, data: ModelDictT[m.Component]
+    ) -> ModelDictT[m.Component]:
         data = schema_dump(data)
         return await self._populate_with_journaling(data, "create")
 
     async def to_model_on_update(
-        self, data: ModelDictT[m.ComponentModel]
-    ) -> ModelDictT[m.ComponentModel]:
+        self, data: ModelDictT[m.Component]
+    ) -> ModelDictT[m.Component]:
         data = schema_dump(data)
         return await self._populate_with_journaling(data, "update")
 
     async def to_model_on_upsert(
-        self, data: ModelDictT[m.ComponentModel]
-    ) -> ModelDictT[m.ComponentModel]:
+        self, data: ModelDictT[m.Component]
+    ) -> ModelDictT[m.Component]:
         data = schema_dump(data)
         return await self._populate_with_journaling(data, "upsert")
 
@@ -90,7 +90,7 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.ComponentModel]):
 
         user.journal_entries.append(
             m.JournalEntry(
-                table_name=m.ComponentModel.__tablename__,
+                table_name=m.Component.__tablename__,
                 record_id=item_id,
                 action=m.JournalAction.DELETED,
                 user=user,
@@ -147,7 +147,7 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.ComponentModel]):
         for item_id in item_ids:
             user.journal_entries.append(
                 m.JournalEntry(
-                    table_name=m.ComponentModel.__tablename__,
+                    table_name=m.Component.__tablename__,
                     record_id=item_id,
                     action=m.JournalAction.DELETED,
                     user=user,
@@ -170,9 +170,9 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.ComponentModel]):
 
     async def _populate_with_journaling(
         self,
-        data: ModelDictT[m.ComponentModel],
+        data: ModelDictT[m.Component],
         operation: str | None,
-    ) -> ModelDictT[m.ComponentModel]:
+    ) -> ModelDictT[m.Component]:
         has_id = data.get("id") is not None
 
         owner: m.User | None = data.pop("owner", None)
@@ -190,7 +190,7 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.ComponentModel]):
             if owner:
                 owner.journal_entries.append(
                     m.JournalEntry(
-                        table_name=m.ComponentModel.__tablename__,
+                        table_name=m.Component.__tablename__,
                         record_id=data.id,
                         action=m.JournalAction.CREATED,
                         user=owner,
@@ -207,7 +207,7 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.ComponentModel]):
             if owner:
                 owner.journal_entries.append(
                     m.JournalEntry(
-                        table_name=m.ComponentModel.__tablename__,
+                        table_name=m.Component.__tablename__,
                         record_id=data.id,
                         action=m.JournalAction.UPDATED,
                         user=owner,
