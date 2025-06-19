@@ -307,14 +307,25 @@ diff =
                 div
                     [ class <|
                         if String.startsWith "+ " line then
+<<<<<<< HEAD
                             "bg-success bg-opacity-10 text-success"
 
                         else if String.startsWith "- " line then
                             "bg-danger bg-opacity-10 text-danger"
+=======
+                            "text-success"
+
+                        else if String.startsWith "- " line then
+                            "text-danger"
+>>>>>>> 60b54b3d (feat: render a diff in journal entries)
 
                         else
                             "text-muted"
                     ]
                     [ text line ]
             )
+<<<<<<< HEAD
         >> pre [ class "mb-0" ]
+=======
+        >> pre []
+>>>>>>> 60b54b3d (feat: render a diff in journal entries)
