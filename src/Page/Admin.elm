@@ -20,6 +20,8 @@ import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
 import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
+import Diff
+import Diff.ToString as DiffToString
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -408,20 +410,23 @@ componentRowView db component =
 modalView : Db -> List Modal -> Modal -> Html Msg
 modalView db modals modal =
     let
-        ( title, content, footer ) =
+        { title, content, footer, size } =
             case modal of
                 DeleteComponentModal component ->
-                    ( "Supprimer le composant"
-                    , [ text "Êtes-vous sûr de vouloir supprimer le composant "
-                      , strong [] [ text component.name ]
-                      , text "\u{00A0}?"
-                      ]
-                    , button [ class "btn btn-danger" ] [ text "Supprimer" ]
-                    )
+                    { title = "Supprimer le composant"
+                    , content =
+                        [ text "Êtes-vous sûr de vouloir supprimer le composant "
+                        , strong [] [ text component.name ]
+                        , text "\u{00A0}?"
+                        ]
+                    , footer = [ button [ class "btn btn-danger" ] [ text "Supprimer" ] ]
+                    , size = Modal.Large
+                    }
 
                 EditComponentModal component item ->
-                    ( "Modifier le composant"
-                    , [ ComponentView.editorView
+                    { title = "Modifier le composant"
+                    , content =
+                        [ ComponentView.editorView
                             { addLabel = ""
                             , customizable = True
                             , db = db
@@ -463,59 +468,88 @@ modalView db modals modal =
                                     item |> updateSingleItem (Component.updateItemCustomName targetItem name)
                             , updateItemQuantity = \_ _ -> NoOp
                             }
-                      ]
-                    , div [ class "d-flex flex-row justify-content-between align-items-center gap-3 w-100" ]
-                        [ componentScopesForm component item
-                        , button [ class "btn btn-primary" ] [ text "Sauvegarder le composant" ]
                         ]
-                    )
+                    , footer =
+                        [ div [ class "d-flex flex-row justify-content-between align-items-center gap-3 w-100" ]
+                            [ componentScopesForm component item
+                            , button [ class "btn btn-primary" ] [ text "Sauvegarder le composant" ]
+                            ]
+                        ]
+                    , size = Modal.Large
+                    }
 
                 HistoryModal response ->
-                    ( "Historique des modifications"
-                    , [ Table.responsiveDefault []
+                    { title = "Historique des modifications"
+                    , content =
+                        [ Table.responsiveDefault []
                             [ thead []
                                 [ tr []
                                     [ th [] [ text "Action" ]
-                                    , th [] [ text "Valeur" ]
+                                    , th [] [ text "Modification" ]
+                                    , th [] [ text "Utilisateur" ]
+                                    , th [] [ text "Date" ]
                                     ]
                                 ]
                             , response
                                 |> mapRemoteData
-                                    (List.map
-                                        (\{ action, id, value } ->
-                                            tr [ attribute "data-test-id" <| JournalEntry.idToString id ]
-                                                [ td [] [ text action ]
-                                                , td [] [ pre [ class "mb-0" ] [ value |> Component.encode |> Encode.encode 2 |> text ] ]
-                                                ]
-                                        )
-                                        >> tbody []
+                                    (\entries ->
+                                        if List.isEmpty entries then
+                                            tbody [] [ tr [] [ td [ colspan 3 ] [ text "Aucun historique disponible" ] ] ]
+
+                                        else
+                                            entries
+                                                |> List.drop 1
+                                                |> List.map2
+                                                    (\entry1 entry2 ->
+                                                        { action = entry1.action
+                                                        , diff =
+                                                            Diff.diffLinesWith Diff.defaultOptions
+                                                                (entry1.value |> Component.encode |> Encode.encode 2)
+                                                                (entry2.value |> Component.encode |> Encode.encode 2)
+                                                                |> DiffToString.diffToString { context = 2, color = False }
+                                                        , id = entry1.id
+                                                        }
+                                                    )
+                                                    entries
+                                                |> List.map
+                                                    (\{ action, id, diff } ->
+                                                        tr [ attribute "data-test-id" <| JournalEntry.idToString id ]
+                                                            [ td [] [ text action ]
+                                                            , td [] [ Format.diff diff ]
+                                                            , td [] [ text "TODO" ]
+                                                            , td [] [ text "TODO" ]
+                                                            ]
+                                                    )
+                                                |> tbody []
                                     )
                             ]
-                      ]
-                    , button [ class "btn btn-primary" ] [ text "Fermer" ]
-                    )
+                        ]
+                    , footer = [ button [ class "btn btn-primary" ] [ text "Fermer" ] ]
+                    , size = Modal.ExtraLarge
+                    }
 
                 SelectProcessModal category targetItem maybeElementIndex autocompleteState ->
-                    ( "Sélectionner un procédé"
-                    , let
-                        ( placeholderText, title_ ) =
-                            case category of
-                                Category.Material ->
-                                    ( "tapez ici le nom d'une matière pour la rechercher"
-                                    , "Sélectionnez une matière première"
-                                    )
+                    { title = "Sélectionner un procédé"
+                    , content =
+                        let
+                            ( placeholderText, title_ ) =
+                                case category of
+                                    Category.Material ->
+                                        ( "tapez ici le nom d'une matière pour la rechercher"
+                                        , "Sélectionnez une matière première"
+                                        )
 
-                                Category.Transform ->
-                                    ( "tapez ici le nom d'un procédé de transformation pour le rechercher"
-                                    , "Sélectionnez un procédé de transformation"
-                                    )
+                                    Category.Transform ->
+                                        ( "tapez ici le nom d'un procédé de transformation pour le rechercher"
+                                        , "Sélectionnez un procédé de transformation"
+                                        )
 
-                                _ ->
-                                    ( "tapez ici le nom d'un procédé pour le rechercher"
-                                    , "Sélectionnez un procédé"
-                                    )
-                      in
-                      [ AutocompleteSelectorView.view
+                                    _ ->
+                                        ( "tapez ici le nom d'un procédé pour le rechercher"
+                                        , "Sélectionnez un procédé"
+                                        )
+                        in
+                        [ AutocompleteSelectorView.view
                             { autocompleteState = autocompleteState
                             , closeModal = SetModals <| List.drop 1 modals
                             , footer = []
@@ -527,17 +561,18 @@ modalView db modals modal =
                             , toLabel = Process.getDisplayName
                             , toCategory = \_ -> ""
                             }
-                      ]
-                    , text ""
-                    )
+                        ]
+                    , footer = []
+                    , size = Modal.Large
+                    }
     in
     Modal.view
         { close = SetModals <| List.drop 1 modals
         , content = [ div [ class "card-body p-3" ] content ]
-        , footer = [ footer ]
+        , footer = footer
         , formAction = Just SaveComponent
         , noOp = NoOp
-        , size = Modal.Large
+        , size = size
         , subTitle = Nothing
         , title = title
         }
