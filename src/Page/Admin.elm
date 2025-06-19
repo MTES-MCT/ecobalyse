@@ -14,6 +14,7 @@ import Browser.Dom as Dom
 import Browser.Events
 import Data.Component as Component exposing (Component, Index, Item, TargetItem)
 import Data.Impact.Definition as Definition
+import Data.JournalEntry as JournalEntry exposing (JournalEntry)
 import Data.Key as Key
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
@@ -52,18 +53,21 @@ type alias Model =
 type Modal
     = DeleteComponentModal Component
     | EditComponentModal Component Item
+    | HistoryModal (WebData (List (JournalEntry Component)))
     | SelectProcessModal Category TargetItem (Maybe Index) (Autocomplete Process)
 
 
 type Msg
     = ComponentCreated (WebData Component)
     | ComponentDeleted (WebData ())
+    | ComponentJournalResponse (WebData (List (JournalEntry Component)))
     | ComponentListResponse (WebData (List Component))
     | ComponentUpdated (WebData Component)
     | DuplicateComponent Component
     | NoOp
     | OnAutocompleteAddProcess Category TargetItem (Maybe Index) (Autocomplete.Msg Process)
     | OnAutocompleteSelectProcess Category TargetItem (Maybe Index)
+    | OpenHistoryModal Component
     | SaveComponent
     | SetModals (List Modal)
     | UpdateComponent Item
@@ -83,7 +87,6 @@ init session =
 update : Session -> Msg -> Model -> PageUpdate Model Msg
 update session msg model =
     case msg of
-        -- POST
         ComponentCreated (RemoteData.Failure err) ->
             model
                 |> App.createUpdate (session |> Session.notifyBackendError err)
@@ -96,7 +99,6 @@ update session msg model =
         ComponentCreated _ ->
             App.createUpdate session model
 
-        -- DELETE
         ComponentDeleted (RemoteData.Failure err) ->
             App.createUpdate (session |> Session.notifyBackendError err) model
 
@@ -107,7 +109,12 @@ update session msg model =
         ComponentDeleted _ ->
             App.createUpdate session model
 
-        -- GET
+        ComponentJournalResponse response ->
+            ( { model | modals = [ HistoryModal response ] }
+            , session
+            , Cmd.none
+            )
+
         ComponentListResponse response ->
             let
                 newSession =
@@ -120,7 +127,6 @@ update session msg model =
             in
             App.createUpdate newSession { model | components = response }
 
-        -- PATCH
         ComponentUpdated (RemoteData.Failure err) ->
             App.createUpdate (session |> Session.notifyBackendError err) model
 
@@ -170,6 +176,12 @@ update session msg model =
 
                 _ ->
                     App.createUpdate session model
+
+        OpenHistoryModal component ->
+            ( { model | modals = [ HistoryModal RemoteData.Loading ] }
+            , session
+            , ComponentApi.getJournal session ComponentJournalResponse component.id
+            )
 
         SaveComponent ->
             case model.modals of
@@ -377,6 +389,12 @@ componentRowView db component =
                     ]
                     [ Icon.fileExport ]
                 , button
+                    [ class "btn btn-outline-primary"
+                    , title "Historique des modifications"
+                    , onClick <| OpenHistoryModal component
+                    ]
+                    [ Icon.list ]
+                , button
                     [ class "btn btn-outline-danger"
                     , title "Supprimer le composant"
                     , onClick <| SetModals [ DeleteComponentModal component ]
@@ -450,6 +468,31 @@ modalView db modals modal =
                         [ componentScopesForm component item
                         , button [ class "btn btn-primary" ] [ text "Sauvegarder le composant" ]
                         ]
+                    )
+
+                HistoryModal response ->
+                    ( "Historique des modifications"
+                    , [ Table.responsiveDefault []
+                            [ thead []
+                                [ tr []
+                                    [ th [] [ text "Action" ]
+                                    , th [] [ text "Valeur" ]
+                                    ]
+                                ]
+                            , response
+                                |> mapRemoteData
+                                    (List.map
+                                        (\{ action, id, value } ->
+                                            tr [ attribute "data-test-id" <| JournalEntry.idToString id ]
+                                                [ td [] [ text action ]
+                                                , td [] [ pre [ class "mb-0" ] [ value |> Component.encode |> Encode.encode 2 |> text ] ]
+                                                ]
+                                        )
+                                        >> tbody []
+                                    )
+                            ]
+                      ]
+                    , button [ class "btn btn-primary" ] [ text "Fermer" ]
                     )
 
                 SelectProcessModal category targetItem maybeElementIndex autocompleteState ->
