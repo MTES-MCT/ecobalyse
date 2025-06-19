@@ -299,10 +299,10 @@ diff =
                 div
                     [ class <|
                         if String.startsWith "+ " line then
-                            "text-success"
+                            "bg-success bg-opacity-10 text-success"
 
                         else if String.startsWith "- " line then
-                            "text-danger"
+                            "bg-danger bg-opacity-10 text-danger"
 
                         else
                             "text-muted"
