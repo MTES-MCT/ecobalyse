@@ -1,13 +1,17 @@
 module Request.Component exposing
     ( createComponent
     , deleteComponent
+    , getComponent
     , getComponents
+    , getJournal
     , patchComponent
     )
 
 import Data.Component as Component exposing (Component)
+import Data.JournalEntry exposing (JournalEntry)
 import Data.Session exposing (Session)
 import Request.BackendHttp as BackendHttp exposing (WebData)
+import Request.Journal as JournalHttp
 
 
 createComponent : Session -> (WebData Component -> msg) -> Component -> Cmd msg
@@ -25,9 +29,22 @@ deleteComponent session event component =
     BackendHttp.delete session ("components/" ++ Component.idToString component.id) event
 
 
+getComponent : Session -> (WebData Component -> msg) -> Component.Id -> Cmd msg
+getComponent session event componentId =
+    BackendHttp.get session
+        (String.join "/" [ "components", Component.idToString componentId ])
+        event
+        Component.decode
+
+
 getComponents : Session -> (WebData (List Component) -> msg) -> Cmd msg
 getComponents session event =
     BackendHttp.get session "components" event Component.decodeList
+
+
+getJournal : Session -> (WebData (List (JournalEntry Component)) -> msg) -> Component.Id -> Cmd msg
+getJournal =
+    JournalHttp.getForComponent
 
 
 patchComponent : Session -> (WebData Component -> msg) -> Component -> Cmd msg

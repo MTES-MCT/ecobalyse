@@ -12,11 +12,14 @@ import Base64
 import Browser.Events
 import Data.Component as Component exposing (Component, Index, Item, TargetItem)
 import Data.Impact.Definition as Definition
+import Data.JournalEntry as JournalEntry exposing (JournalEntry)
 import Data.Key as Key
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
 import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
+import Diff
+import Diff.ToString as DiffToString
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -48,18 +51,23 @@ type alias Model =
 type Modal
     = DeleteComponentModal Component
     | EditComponentModal Component Item
+    | HistoryModal (WebData (List (JournalEntry Component)))
     | SelectProcessModal Category TargetItem (Maybe Index) (Autocomplete Process)
 
 
 type Msg
     = ComponentCreated (WebData Component)
     | ComponentDeleted (WebData ())
+    | ComponentEditResponse (WebData Component)
+    | ComponentJournalResponse (WebData (List (JournalEntry Component)))
     | ComponentListResponse (WebData (List Component))
     | ComponentUpdated (WebData Component)
     | DuplicateComponent Component
     | NoOp
     | OnAutocompleteAddProcess Category TargetItem (Maybe Index) (Autocomplete.Msg Process)
     | OnAutocompleteSelectProcess Category TargetItem (Maybe Index)
+    | OpenEditModal Component
+    | OpenHistoryModal Component
     | SaveComponent
     | SetModals (List Modal)
     | UpdateComponent Item
@@ -80,7 +88,6 @@ init session =
 update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
 update session msg model =
     case msg of
-        -- POST
         ComponentCreated (RemoteData.Failure err) ->
             ( model, session |> Session.notifyBackendError err, Cmd.none )
 
@@ -93,7 +100,6 @@ update session msg model =
         ComponentCreated _ ->
             ( model, session, Cmd.none )
 
-        -- DELETE
         ComponentDeleted (RemoteData.Failure err) ->
             ( model, session |> Session.notifyBackendError err, Cmd.none )
 
@@ -103,7 +109,24 @@ update session msg model =
         ComponentDeleted _ ->
             ( model, session, Cmd.none )
 
-        -- GET
+        ComponentEditResponse (RemoteData.Success component) ->
+            ( { model | modals = [ EditComponentModal component (Component.createItem component.id) ] }
+            , session
+            , Cmd.none
+            )
+
+        ComponentEditResponse (RemoteData.Failure err) ->
+            ( model, session |> Session.notifyBackendError err, Cmd.none )
+
+        ComponentEditResponse _ ->
+            ( model, session, Cmd.none )
+
+        ComponentJournalResponse response ->
+            ( { model | modals = [ HistoryModal response ] }
+            , session
+            , Cmd.none
+            )
+
         ComponentListResponse response ->
             ( { model | components = response }
             , case response of
@@ -115,7 +138,6 @@ update session msg model =
             , Cmd.none
             )
 
-        -- PATCH
         ComponentUpdated (RemoteData.Failure err) ->
             ( model, session |> Session.notifyBackendError err, Cmd.none )
 
@@ -163,6 +185,18 @@ update session msg model =
 
                 _ ->
                     ( model, session, Cmd.none )
+
+        OpenEditModal component ->
+            ( { model | modals = [] }
+            , session
+            , ComponentApi.getComponent session ComponentEditResponse component.id
+            )
+
+        OpenHistoryModal component ->
+            ( { model | modals = [ HistoryModal RemoteData.Loading ] }
+            , session
+            , ComponentApi.getJournal session ComponentJournalResponse component.id
+            )
 
         SaveComponent ->
             case model.modals of
@@ -282,7 +316,12 @@ componentListView db scopes components =
                 ]
             ]
         , components
-            |> Scope.allOf scopes
+            |> (if scopes == [] then
+                    List.filter (\c -> c.scopes == [])
+
+                else
+                    Scope.anyOf scopes
+               )
             |> List.map (componentRowView db)
             |> tbody []
         ]
@@ -328,7 +367,7 @@ componentRowView db component =
                 [ button
                     [ class "btn btn-outline-primary"
                     , title "Modifier le composant"
-                    , onClick <| SetModals [ EditComponentModal component (Component.createItem component.id) ]
+                    , onClick <| OpenEditModal component
                     ]
                     [ Icon.pencil ]
                 , button
@@ -357,6 +396,12 @@ componentRowView db component =
                     ]
                     [ Icon.fileExport ]
                 , button
+                    [ class "btn btn-outline-primary"
+                    , title "Historique des modifications"
+                    , onClick <| OpenHistoryModal component
+                    ]
+                    [ Icon.list ]
+                , button
                     [ class "btn btn-outline-danger"
                     , title "Supprimer le composant"
                     , onClick <| SetModals [ DeleteComponentModal component ]
@@ -370,20 +415,25 @@ componentRowView db component =
 modalView : Db -> List Modal -> Modal -> Html Msg
 modalView db modals modal =
     let
-        ( title, content, footer ) =
+        { title, content, footer, size } =
             case modal of
                 DeleteComponentModal component ->
-                    ( "Supprimer le composant"
-                    , [ text "Êtes-vous sûr de vouloir supprimer le composant "
-                      , strong [] [ text component.name ]
-                      , text "\u{00A0}?"
-                      ]
-                    , button [ class "btn btn-danger" ] [ text "Supprimer" ]
-                    )
+                    { title = "Supprimer le composant"
+                    , content =
+                        [ div [ class "card-body p-3" ]
+                            [ text "Êtes-vous sûr de vouloir supprimer le composant "
+                            , strong [] [ text component.name ]
+                            , text "\u{00A0}?"
+                            ]
+                        ]
+                    , footer = [ button [ class "btn btn-danger" ] [ text "Supprimer" ] ]
+                    , size = Modal.Large
+                    }
 
                 EditComponentModal component item ->
-                    ( "Modifier le composant"
-                    , [ ComponentView.editorView
+                    { title = "Modifier le composant"
+                    , content =
+                        [ ComponentView.editorView
                             { addLabel = ""
                             , customizable = True
                             , db = db
@@ -425,34 +475,51 @@ modalView db modals modal =
                                     item |> updateSingleItem (Component.updateItemCustomName targetItem name)
                             , updateItemQuantity = \_ _ -> NoOp
                             }
-                      ]
-                    , div [ class "d-flex flex-row justify-content-between align-items-center gap-3 w-100" ]
-                        [ componentScopesForm component item
-                        , button [ class "btn btn-primary" ] [ text "Sauvegarder le composant" ]
                         ]
-                    )
+                    , footer =
+                        [ div [ class "d-flex flex-row justify-content-between align-items-center gap-3 w-100" ]
+                            [ componentScopesForm component item
+                            , button [ class "btn btn-primary" ] [ text "Sauvegarder le composant" ]
+                            ]
+                        ]
+                    , size = Modal.Large
+                    }
+
+                HistoryModal response ->
+                    { title = "Historique des modifications"
+                    , content = [ response |> mapRemoteData historyView ]
+                    , footer =
+                        [ button
+                            [ class "btn btn-primary"
+                            , onClick <| SetModals <| List.drop 1 modals
+                            ]
+                            [ text "Fermer" ]
+                        ]
+                    , size = Modal.ExtraLarge
+                    }
 
                 SelectProcessModal category targetItem maybeElementIndex autocompleteState ->
-                    ( "Sélectionner un procédé"
-                    , let
-                        ( placeholderText, title_ ) =
-                            case category of
-                                Category.Material ->
-                                    ( "tapez ici le nom d'une matière pour la rechercher"
-                                    , "Sélectionnez une matière première"
-                                    )
+                    { title = "Sélectionner un procédé"
+                    , content =
+                        let
+                            ( placeholderText, title_ ) =
+                                case category of
+                                    Category.Material ->
+                                        ( "tapez ici le nom d'une matière pour la rechercher"
+                                        , "Sélectionnez une matière première"
+                                        )
 
-                                Category.Transform ->
-                                    ( "tapez ici le nom d'un procédé de transformation pour le rechercher"
-                                    , "Sélectionnez un procédé de transformation"
-                                    )
+                                    Category.Transform ->
+                                        ( "tapez ici le nom d'un procédé de transformation pour le rechercher"
+                                        , "Sélectionnez un procédé de transformation"
+                                        )
 
-                                _ ->
-                                    ( "tapez ici le nom d'un procédé pour le rechercher"
-                                    , "Sélectionnez un procédé"
-                                    )
-                      in
-                      [ AutocompleteSelectorView.view
+                                    _ ->
+                                        ( "tapez ici le nom d'un procédé pour le rechercher"
+                                        , "Sélectionnez un procédé"
+                                        )
+                        in
+                        [ AutocompleteSelectorView.view
                             { autocompleteState = autocompleteState
                             , closeModal = SetModals <| List.drop 1 modals
                             , footer = []
@@ -464,17 +531,18 @@ modalView db modals modal =
                             , toLabel = Process.getDisplayName
                             , toCategory = \_ -> ""
                             }
-                      ]
-                    , text ""
-                    )
+                        ]
+                    , footer = []
+                    , size = Modal.Large
+                    }
     in
     Modal.view
         { close = SetModals <| List.drop 1 modals
-        , content = [ div [ class "card-body p-3" ] content ]
-        , footer = [ footer ]
+        , content = content
+        , footer = footer
         , formAction = Just SaveComponent
         , noOp = NoOp
-        , size = Modal.Large
+        , size = size
         , subTitle = Nothing
         , title = title
         }
@@ -491,6 +559,50 @@ componentScopesForm component item =
                     |> Component.toggleCustomScope component scope enabled
                     |> UpdateComponent
             )
+
+
+historyView : List (JournalEntry Component) -> Html Msg
+historyView entries =
+    Table.responsiveDefault []
+        [ thead []
+            [ tr []
+                [ th [] [ text "Action" ]
+                , th [] [ text "Modification" ]
+                , th [] [ text "Utilisateur" ]
+                , th [] [ text "Date" ]
+                ]
+            ]
+        , if List.isEmpty entries then
+            tbody [] [ tr [] [ td [ colspan 4 ] [ text "Aucun historique disponible" ] ] ]
+
+          else
+            entries
+                |> List.drop 1
+                |> List.map2
+                    (\new old ->
+                        { action = new.action
+                        , createdAt = new.createdAt
+                        , diff =
+                            Diff.diffLinesWith Diff.defaultOptions
+                                (old.value |> Component.encode |> Encode.encode 2)
+                                (new.value |> Component.encode |> Encode.encode 2)
+                                |> DiffToString.diffToString { context = 2, color = False }
+                        , id = new.id
+                        , user = new.user
+                        }
+                    )
+                    entries
+                |> List.map
+                    (\{ action, createdAt, id, diff, user } ->
+                        tr [ attribute "data-test-id" <| JournalEntry.idToString id ]
+                            [ td [] [ text <| JournalEntry.actionToString action ]
+                            , td [] [ Format.diff diff ]
+                            , td [] [ text <| user.email ]
+                            , td [] [ text <| Format.frenchDatetime createdAt ]
+                            ]
+                    )
+                |> tbody []
+        ]
 
 
 scopeFilterForm : (List Scope -> Msg) -> List Scope -> Html Msg

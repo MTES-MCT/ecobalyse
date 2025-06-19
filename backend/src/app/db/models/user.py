@@ -9,6 +9,8 @@ from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column, relationship, validates
 
 if TYPE_CHECKING:
+    from journal_entry import JournalEntry
+
     from .token import Token
     from .user_profile import UserProfile
     from .user_role import UserRole
@@ -38,10 +40,16 @@ class User(UUIDAuditBase):
     is_verified: Mapped[bool] = mapped_column(default=False, nullable=False)
     verified_at: Mapped[datetime.date] = mapped_column(nullable=True, default=None)
     joined_at: Mapped[datetime.date] = mapped_column(default=datetime.datetime.now)
+
     # -----------
     # ORM Relationships
     # ------------
-
+    journal_entries: Mapped[list[JournalEntry]] = relationship(
+        back_populates="user",
+        lazy="selectin",
+        uselist=True,
+        cascade="all, delete",
+    )
     roles: Mapped[list[UserRole]] = relationship(
         back_populates="user",
         lazy="selectin",
