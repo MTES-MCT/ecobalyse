@@ -560,7 +560,7 @@ historyView entries =
                 ]
             ]
         , if List.isEmpty entries then
-            tbody [] [ tr [] [ td [ colspan 3 ] [ text "Aucun historique disponible" ] ] ]
+            tbody [] [ tr [] [ td [ colspan 4 ] [ text "Aucun historique disponible" ] ] ]
 
           else
             entries
