@@ -205,7 +205,7 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
                         record_id=data.id,
                         action=m.JournalAction.CREATED,
                         user=owner,
-                        value=await self.from_db_to_response(data),
+                        value=self.to_schema(data, schema_type=Component),
                     )
                 )
 

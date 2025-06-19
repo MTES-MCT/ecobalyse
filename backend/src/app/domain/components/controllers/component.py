@@ -25,7 +25,7 @@ from litestar.di import Provide
 from litestar.params import Parameter
 
 if TYPE_CHECKING:
-    from app.domain.components.services import ComponentService, ScopeService
+    from app.domain.components.services import ComponentService
 
 
 class ComponentController(Controller):
@@ -46,20 +46,6 @@ class ComponentController(Controller):
 
     tags = ["Components"]
 
-    @get(operation_id="ListScopes", path=urls.SCOPE_LIST, exclude_from_auth=True)
-    async def list_scopes(
-        self,
-        scopes_service: ScopeService,
-    ) -> list[DbScope]:
-        """List scopes."""
-        results = await scopes_service.list()
-
-        return convert(
-            obj=results,
-            type=list[DbScope],  # type: ignore[valid-type]
-            from_attributes=True,
-        )
-
     @get(
         operation_id="ListComponents", path=urls.COMPONENT_LIST, exclude_from_auth=True
     )
@@ -72,7 +58,11 @@ class ComponentController(Controller):
             OrderBy(field_name="name", sort_order="asc"), uniquify=True
         )
 
-        return components_service.from_list_db_to_response(results)
+        return convert(
+            obj=results,
+            type=list[Component],  # type: ignore[valid-type]
+            from_attributes=True,
+        )
 
     @post(
         operation_id="CreateComponent",
@@ -84,7 +74,6 @@ class ComponentController(Controller):
         data: ComponentCreate,
         current_user: m.User,
         components_service: ComponentService,
-        scopes_service: ScopeService,
     ) -> Component:
         """Create a component."""
 
@@ -93,10 +82,7 @@ class ComponentController(Controller):
 
         component = await components_service.create(data=data)
 
-        # Force reload from db to get scopes
-        created_component = await components_service.get_one(id=component.id)
-
-        return components_service.from_db_to_response(created_component)
+        return components_service.to_schema(component, schema_type=Component)
 
     @patch(
         operation_id="UpdateComponent",
@@ -120,9 +106,7 @@ class ComponentController(Controller):
 
         component = await components_service.update(item_id=component_id, data=data)
 
-        component_with_scopes = await components_service.get_one(id=component.id)
-
-        return components_service.from_db_to_response(component_with_scopes)
+        return components_service.to_schema(component, schema_type=Component)
 
     @delete(
         operation_id="DeleteComponent",
@@ -154,7 +138,7 @@ class ComponentController(Controller):
         """Get a component."""
 
         component = await components_service.get(component_id)
-        return components_service.from_db_to_response(component)
+        return components_service.to_schema(component, schema_type=Component)
 
     @patch(
         operation_id="BulkUpdateComponent",
@@ -164,7 +148,6 @@ class ComponentController(Controller):
     async def bulk_update_component(
         self,
         data: list[ComponentUpdate],
-        current_user: m.User,
         components_service: ComponentService,
         current_user: m.User,
     ) -> list[Component]:
@@ -208,4 +191,8 @@ class ComponentController(Controller):
             OrderBy(field_name="name", sort_order="asc"), uniquify=True
         )
 
-        return components_service.from_list_db_to_response(updated_components)
+        return convert(
+            obj=updated_components,
+            type=list[Component],  # type: ignore[valid-type]
+            from_attributes=True,
+        )
