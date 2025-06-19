@@ -69,7 +69,7 @@ async def test_components_create_with_scopes(
         assert len(entries) == 1
         entry = entries[0]
         assert entry.action == m.JournalAction.CREATED
-        assert entry.table_name == m.ComponentModel.__tablename__
+        assert entry.table_name == m.Component.__tablename__
 
         assert entry.value == json
 
