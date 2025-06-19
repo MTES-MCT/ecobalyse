@@ -336,7 +336,13 @@ componentListView db scopes components =
                 ]
             ]
         , components
-            |> Scope.allOf scopes
+            |> Scope.anyOf
+                (if scopes == [] then
+                    Scope.all
+
+                 else
+                    scopes
+                )
             |> List.map (componentRowView db)
             |> tbody []
         ]
