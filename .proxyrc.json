@@ -1,4 +1,9 @@
 {
+
+  "/schema": {
+    "target": "http://127.0.0.1:8002/",
+    "timeout": 30000
+  },
   "/backend": {
     "target": "http://127.0.0.1:8002/",
     "pathRewrite": {
