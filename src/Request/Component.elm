@@ -1,6 +1,7 @@
 module Request.Component exposing
     ( createComponent
     , deleteComponent
+    , getComponent
     , getComponents
     , getJournal
     , patchComponent
@@ -26,6 +27,14 @@ deleteComponent : Session -> (WebData () -> msg) -> Component -> Cmd msg
 deleteComponent session event component =
     -- FIXME: need to encode component in json body as previously?
     BackendHttp.delete session ("components/" ++ Component.idToString component.id) event
+
+
+getComponent : Session -> (WebData Component -> msg) -> Component.Id -> Cmd msg
+getComponent session event componentId =
+    BackendHttp.get session
+        (String.join "/" [ "components", Component.idToString componentId ])
+        event
+        Component.decode
 
 
 getComponents : Session -> (WebData (List Component) -> msg) -> Cmd msg
