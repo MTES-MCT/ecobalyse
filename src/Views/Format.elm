@@ -3,6 +3,7 @@ module Views.Format exposing
     , complement
     , days
     , density
+    , diff
     , formatFloat
     , formatImpact
     , formatImpactFloat
@@ -288,3 +289,24 @@ density process =
 
     else
         text "N/A"
+
+
+diff : String -> Html msg
+diff =
+    String.split "\n"
+        >> List.map
+            (\line ->
+                div
+                    [ class <|
+                        if String.startsWith "+ " line then
+                            "text-success"
+
+                        else if String.startsWith "- " line then
+                            "text-danger"
+
+                        else
+                            "text-muted"
+                    ]
+                    [ text line ]
+            )
+        >> pre []
