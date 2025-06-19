@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
 from advanced_alchemy.repository import (
     SQLAlchemyAsyncRepository,
 )
@@ -9,9 +7,6 @@ from advanced_alchemy.service import (
     SQLAlchemyAsyncRepositoryService,
 )
 from app.db import models as m
-
-if TYPE_CHECKING:
-    pass
 
 __all__ = ("ComponentService",)
 

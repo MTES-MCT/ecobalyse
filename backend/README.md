@@ -49,6 +49,21 @@ Calling `http://localhost:8000/health` should give you the following JSON:
 }
 ```
 
+## Load component fixtures
+
+If you want you can first reset your DB:
+
+```bash
+rm db.sqlite3
+uv run backend database upgrade --no-prompt
+```
+
+And then load your `components.json` file:
+
+```bash
+uv run backend fixtures load-components public/data/object/components.json
+```
+
 ## OpenAPI documentation
 
 [http://localhost:8000/schema](http://localhost:8000/schema)

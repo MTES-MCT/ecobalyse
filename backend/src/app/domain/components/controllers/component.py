@@ -9,8 +9,14 @@ from advanced_alchemy.service.typing import (
 )
 from app.domain.accounts.guards import requires_superuser
 from app.domain.components import urls
-from app.domain.components.deps import provide_components_service
-from app.domain.components.schemas import Component, ComponentCreate, ComponentUpdate
+from app.domain.components.deps import (
+    provide_components_service,
+)
+from app.domain.components.schemas import (
+    Component,
+    ComponentCreate,
+    ComponentUpdate,
+)
 from app.lib.deps import create_filter_dependencies
 from litestar import delete, get, patch, post
 from litestar.controller import Controller
@@ -25,7 +31,7 @@ class ComponentController(Controller):
     """Component CRUD"""
 
     dependencies = {
-        "components_service": Provide(provide_components_service)
+        "components_service": Provide(provide_components_service),
     } | create_filter_dependencies(
         {
             "id_filter": UUID,
@@ -134,23 +140,41 @@ class ComponentController(Controller):
         self,
         data: list[ComponentUpdate],
         components_service: ComponentService,
-    ) -> Component:
+    ) -> list[Component]:
         """Update a list of components."""
 
-        existing_components, _ = await components_service.list_and_count(uniquify=True)
+        existing_components = await components_service.list(uniquify=True)
+
+        existing_components_ids = [c.id for c in existing_components]
 
         to_delete: list[UUID] = []
-        to_update: list[UUID] = [component.id for component in data if component.id]
+        to_update: list[UUID] = [
+            component for component in data if component.id in existing_components_ids
+        ]
+        to_create: list[UUID] = [
+            component
+            for component in data
+            if component.id not in existing_components_ids
+        ]
 
-        for component in existing_components:
-            if component.id not in to_update:
-                to_delete.append(component.id)
+        for component_id in existing_components_ids:
+            if component_id not in [c.id for c in data]:
+                to_delete.append(component_id)
 
         _ = await components_service.delete_many(item_ids=to_delete)
-        components = await components_service.upsert_many(data=data, uniquify=True)
+
+        for c in to_update:
+            # For a reason I don’t get update_many doesn’t work as it should, it doesn’t update scopes
+            _ = await components_service.update(item_id=c.id, data=c.to_dict())
+
+        _ = await components_service.create_many(data=to_create)
+
+        updated_components = await components_service.list(
+            OrderBy(field_name="name", sort_order="asc"), uniquify=True
+        )
 
         return convert(
-            obj=components,
+            obj=updated_components,
             type=list[Component],  # type: ignore[valid-type]
             from_attributes=True,
         )

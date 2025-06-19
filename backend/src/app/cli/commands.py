@@ -162,7 +162,10 @@ async def load_components_fixtures(components_data: dict) -> None:
     logger = get_logger()
     async with ComponentService.new(config=alchemy, uniquify=True) as service:
         await service.upsert_many(
-            match_fields=["name"], data=components_data, auto_commit=True, uniquify=True
+            match_fields=["name"],
+            data=components_data,
+            auto_commit=True,
+            uniquify=True,
         )
         await logger.ainfo("loaded components fixtures")
 

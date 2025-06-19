@@ -143,6 +143,7 @@ async def _seed_db(
                 match_fields="name", upsert=True, **obj
             )
         await service.repository.session.commit()
+
     async with ComponentService.new(sessionmaker()) as components_service:
         await components_service.create_many(raw_components, auto_commit=True)
 
