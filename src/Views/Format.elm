@@ -309,4 +309,4 @@ diff =
                     ]
                     [ text line ]
             )
-        >> pre []
+        >> pre [ class "mb-0" ]

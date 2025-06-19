@@ -599,16 +599,16 @@ historyView entries =
             entries
                 |> List.drop 1
                 |> List.map2
-                    (\entry1 entry2 ->
-                        { action = entry1.action
-                        , createdAt = entry1.createdAt
+                    (\new old ->
+                        { action = new.action
+                        , createdAt = new.createdAt
                         , diff =
                             Diff.diffLinesWith Diff.defaultOptions
-                                (entry2.value |> Component.encode |> Encode.encode 2)
-                                (entry1.value |> Component.encode |> Encode.encode 2)
+                                (old.value |> Component.encode |> Encode.encode 2)
+                                (new.value |> Component.encode |> Encode.encode 2)
                                 |> DiffToString.diffToString { context = 2, color = False }
-                        , id = entry1.id
-                        , user = entry1.user
+                        , id = new.id
+                        , user = new.user
                         }
                     )
                     entries
