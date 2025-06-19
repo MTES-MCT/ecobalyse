@@ -52,10 +52,9 @@ export default defineConfig({
 
   // Run local dev server before starting the tests
   webServer: {
-    command:
-      "rm -f db_test.sqlite3 && uv run backend database upgrade --no-prompt && uv run backend fixtures load-test && npm start",
+    command: "./bin/playwright-webserver.sh",
     env: {
-      DATABASE_URL: "sqlite+aiosqlite:///db_test.sqlite3",
+      DATABASE_URL: "postgresql+asyncpg://ecobalyse@localhost:5433/ecobalyse_test",
       NODE_ENV: "test",
     },
     url: "http://localhost:1234",

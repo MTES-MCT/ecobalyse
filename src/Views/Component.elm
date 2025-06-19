@@ -355,16 +355,33 @@ editorView ({ db, docsUrl, explorerRoute, maxItems, items, results, title } as c
 
 amountInput : Config db msg -> TargetElement -> String -> Amount -> Html msg
 amountInput config targetElement unit amount =
+    let
+        stringAmount =
+            amount
+                |> Component.amountToFloat
+                |> String.fromFloat
+
+        stepValue =
+            case String.split "." stringAmount of
+                -- This is an integer, increment by one to keep the integer value
+                [ _ ] ->
+                    "1"
+
+                -- This is a float, increment at the precision of the float
+                [ _, decimals ] ->
+                    "0." ++ String.padLeft (String.length decimals) '0' "1"
+
+                -- Should not happen, but who knows?
+                _ ->
+                    "0.01"
+    in
     div [ class "input-group" ]
         [ input
             [ type_ "number"
             , class "form-control form-control-sm text-end incdec-arrows-left"
-            , amount
-                |> Component.amountToFloat
-                |> String.fromFloat
-                |> value
+            , value stringAmount
             , Attr.min "0"
-            , step "0.01"
+            , step stepValue
             , onInput <|
                 String.toFloat
                     >> Maybe.map Component.Amount

@@ -1,2 +1,2 @@
-postdeploy: ./bin/create-backend-admins.sh
+postdeploy: ./bin/load-fixtures.sh
 web: ./bin/start.sh

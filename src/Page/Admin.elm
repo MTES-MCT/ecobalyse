@@ -15,7 +15,7 @@ import Data.Impact.Definition as Definition
 import Data.Key as Key
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
-import Data.Scope as Scope
+import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -40,13 +40,14 @@ import Views.Table as Table
 
 type alias Model =
     { components : WebData (List Component)
+    , scopes : List Scope
     , modals : List Modal
     }
 
 
 type Modal
     = DeleteComponentModal Component
-    | EditComponentModal Item
+    | EditComponentModal Component Item
     | SelectProcessModal Category TargetItem (Maybe Index) (Autocomplete Process)
 
 
@@ -62,15 +63,17 @@ type Msg
     | SaveComponent
     | SetModals (List Modal)
     | UpdateComponent Item
+    | UpdateScopeFilters (List Scope)
 
 
 init : Session -> ( Model, Session, Cmd Msg )
 init session =
     ( { components = RemoteData.NotAsked
       , modals = []
+      , scopes = Scope.all
       }
     , session
-    , ComponentApi.getComponents session Scope.all ComponentListResponse
+    , ComponentApi.getComponents session ComponentListResponse
     )
 
 
@@ -82,9 +85,9 @@ update session msg model =
             ( model, session |> Session.notifyBackendError err, Cmd.none )
 
         ComponentCreated (RemoteData.Success component) ->
-            ( { model | modals = [ EditComponentModal (Component.createItem component.id) ] }
+            ( { model | modals = [ EditComponentModal component (Component.createItem component.id) ] }
             , session
-            , ComponentApi.getComponents session Scope.all ComponentListResponse
+            , ComponentApi.getComponents session ComponentListResponse
             )
 
         ComponentCreated _ ->
@@ -95,7 +98,7 @@ update session msg model =
             ( model, session |> Session.notifyBackendError err, Cmd.none )
 
         ComponentDeleted (RemoteData.Success _) ->
-            ( model, session, ComponentApi.getComponents session Scope.all ComponentListResponse )
+            ( model, session, ComponentApi.getComponents session ComponentListResponse )
 
         ComponentDeleted _ ->
             ( model, session, Cmd.none )
@@ -117,7 +120,7 @@ update session msg model =
             ( model, session |> Session.notifyBackendError err, Cmd.none )
 
         ComponentUpdated (RemoteData.Success _) ->
-            ( model, session, ComponentApi.getComponents session Scope.all ComponentListResponse )
+            ( model, session, ComponentApi.getComponents session ComponentListResponse )
 
         ComponentUpdated _ ->
             ( model, session, Cmd.none )
@@ -134,7 +137,7 @@ update session msg model =
 
         OnAutocompleteAddProcess category targetItem maybeElementIndex autocompleteMsg ->
             case model.modals of
-                [ SelectProcessModal _ _ _ autocompleteState, EditComponentModal item ] ->
+                [ SelectProcessModal _ _ _ autocompleteState, EditComponentModal component item ] ->
                     let
                         ( newAutocompleteState, autoCompleteCmd ) =
                             Autocomplete.update autocompleteMsg autocompleteState
@@ -142,7 +145,7 @@ update session msg model =
                     ( { model
                         | modals =
                             [ SelectProcessModal category targetItem maybeElementIndex newAutocompleteState
-                            , EditComponentModal item
+                            , EditComponentModal component item
                             ]
                       }
                     , session
@@ -154,7 +157,7 @@ update session msg model =
 
         OnAutocompleteSelectProcess category targetItem maybeElementIndex ->
             case model.modals of
-                [ SelectProcessModal _ _ _ autocompleteState, EditComponentModal item ] ->
+                [ SelectProcessModal _ _ _ autocompleteState, EditComponentModal _ item ] ->
                     ( model, session, Cmd.none )
                         |> selectProcess category targetItem maybeElementIndex autocompleteState item
 
@@ -169,7 +172,7 @@ update session msg model =
                     , ComponentApi.deleteComponent session ComponentDeleted component
                     )
 
-                [ EditComponentModal item ] ->
+                [ EditComponentModal _ item ] ->
                     case Component.itemToComponent session.db item of
                         Err error ->
                             ( { model | modals = [] }
@@ -191,11 +194,17 @@ update session msg model =
 
         UpdateComponent customItem ->
             case model.modals of
-                (EditComponentModal _) :: others ->
-                    ( { model | modals = EditComponentModal customItem :: others }, session, Cmd.none )
+                (EditComponentModal component _) :: others ->
+                    ( { model | modals = EditComponentModal component customItem :: others }, session, Cmd.none )
 
                 _ ->
                     ( model, session, Cmd.none )
+
+        UpdateScopeFilters scopes ->
+            ( { model | scopes = scopes }
+            , session
+            , Cmd.none
+            )
 
 
 selectProcess :
@@ -206,7 +215,7 @@ selectProcess :
     -> Item
     -> ( Model, Session, Cmd Msg )
     -> ( Model, Session, Cmd Msg )
-selectProcess category targetItem maybeElementIndex autocompleteState item ( model, session, _ ) =
+selectProcess category (( component, _ ) as targetItem) maybeElementIndex autocompleteState item ( model, session, _ ) =
     case Autocomplete.selectedValue autocompleteState of
         Just process ->
             case
@@ -218,7 +227,7 @@ selectProcess category targetItem maybeElementIndex autocompleteState item ( mod
                     ( model, session |> Session.notifyError "Erreur" err, Cmd.none )
 
                 Ok updatedItem ->
-                    ( { model | modals = [ EditComponentModal updatedItem ] }, session, Cmd.none )
+                    ( { model | modals = [ EditComponentModal component updatedItem ] }, session, Cmd.none )
 
         Nothing ->
             ( model, session |> Session.notifyError "Erreur" "Aucun composant sélectionné", Cmd.none )
@@ -230,8 +239,10 @@ view { db } model =
     , [ Container.centered [ class "pb-5" ]
             [ h1 [ class "mb-3" ] [ text "Ecobalyse Admin" ]
             , warning
+            , model.scopes
+                |> scopeFilterForm UpdateScopeFilters
             , model.components
-                |> mapRemoteData (componentListView db)
+                |> mapRemoteData (componentListView db model.scopes)
             , model.components
                 |> mapRemoteData downloadDbButton
             , model.modals
@@ -260,85 +271,99 @@ downloadDbButton components =
         ]
 
 
-componentListView : Db -> List Component -> Html Msg
-componentListView db components =
+componentListView : Db -> List Scope -> List Component -> Html Msg
+componentListView db scopes components =
     Table.responsiveDefault []
         [ thead []
             [ tr []
                 [ th [] [ text "Nom" ]
+                , th [] [ text "Verticales" ]
                 , th [ colspan 3 ] [ text "Description" ]
                 ]
             ]
         , components
-            |> List.map
-                (\component ->
-                    tr []
-                        [ th [ class "align-middle" ]
-                            [ text component.name
-                            , small [ class "d-block fw-normal" ]
-                                [ code [] [ text (Component.idToString component.id) ] ]
-                            ]
-                        , td [ class "align-middle w-100" ]
-                            [ case Component.elementsToString db component of
-                                Err error ->
-                                    span [ class "text-danger" ] [ text <| "Erreur: " ++ error ]
-
-                                Ok string ->
-                                    text string
-                            ]
-                        , td [ class "align-middle text-end fw-bold" ]
-                            [ component
-                                |> Component.computeImpacts db.processes
-                                |> Result.map
-                                    (Component.extractImpacts
-                                        >> Format.formatImpact (Definition.get Definition.Ecs db.definitions)
-                                    )
-                                |> Result.withDefault (text "N/A")
-                            ]
-                        , td [ class "align-middle text-nowrap" ]
-                            [ div [ class "btn-group btn-group-sm", attribute "role" "group", attribute "aria-label" "Actions" ]
-                                [ button
-                                    [ class "btn btn-primary"
-                                    , title "Modifier le composant"
-                                    , onClick <| SetModals [ EditComponentModal (Component.createItem component.id) ]
-                                    ]
-                                    [ Icon.pencil ]
-                                , button
-                                    [ class "btn btn-outline-primary"
-                                    , title "Dupliquer le composant"
-                                    , onClick <| DuplicateComponent component
-                                    ]
-                                    [ Icon.copy ]
-                                , a
-                                    [ class "btn btn-outline-primary"
-                                    , title "Utiliser dans le simulateur"
-                                    , Just { components = [ Component.createItem component.id ] }
-                                        |> Route.ObjectSimulator Scope.Object Definition.Ecs
-                                        |> Route.href
-                                    ]
-                                    [ Icon.puzzle ]
-                                , a
-                                    [ class "btn btn-outline-primary"
-                                    , title "Exporter le composant au format JSON"
-                                    , Component.encode component
-                                        |> Encode.encode 2
-                                        |> Base64.encode
-                                        |> (++) "data:application/json;base64,"
-                                        |> href
-                                    , download <| component.name ++ ".json"
-                                    ]
-                                    [ Icon.fileExport ]
-                                , button
-                                    [ class "btn btn-danger"
-                                    , title "Supprimer le composant"
-                                    , onClick <| SetModals [ DeleteComponentModal component ]
-                                    ]
-                                    [ Icon.trash ]
-                                ]
-                            ]
-                        ]
-                )
+            |> Scope.allOf scopes
+            |> List.map (componentRowView db)
             |> tbody []
+        ]
+
+
+componentRowView : Db -> Component -> Html Msg
+componentRowView db component =
+    tr []
+        [ th [ class "align-middle" ]
+            [ text component.name
+            , small [ class "d-block fw-normal" ]
+                [ code [] [ text (Component.idToString component.id) ] ]
+            ]
+        , td [ class "align-middle" ]
+            [ component.scopes
+                |> List.map
+                    (Scope.toString
+                        >> text
+                        >> List.singleton
+                        >> small [ class "badge bg-secondary fs-10" ]
+                    )
+                |> div []
+            ]
+        , td [ class "align-middle w-100" ]
+            [ case Component.elementsToString db component of
+                Err error ->
+                    span [ class "text-danger" ] [ text <| "Erreur: " ++ error ]
+
+                Ok string ->
+                    text string
+            ]
+        , td [ class "align-middle text-end fw-bold" ]
+            [ component
+                |> Component.computeImpacts db.processes
+                |> Result.map
+                    (Component.extractImpacts
+                        >> Format.formatImpact (Definition.get Definition.Ecs db.definitions)
+                    )
+                |> Result.withDefault (text "N/A")
+            ]
+        , td [ class "align-middle text-nowrap" ]
+            [ div [ class "btn-group btn-group-sm", attribute "role" "group", attribute "aria-label" "Actions" ]
+                [ button
+                    [ class "btn btn-outline-primary"
+                    , title "Modifier le composant"
+                    , onClick <| SetModals [ EditComponentModal component (Component.createItem component.id) ]
+                    ]
+                    [ Icon.pencil ]
+                , button
+                    [ class "btn btn-outline-primary"
+                    , title "Dupliquer le composant"
+                    , onClick <| DuplicateComponent component
+                    ]
+                    [ Icon.copy ]
+                , a
+                    [ class "btn btn-outline-primary"
+                    , title "Utiliser dans le simulateur"
+                    , Just { components = [ Component.createItem component.id ] }
+                        |> Route.ObjectSimulator Scope.Object Definition.Ecs
+                        |> Route.href
+                    ]
+                    [ Icon.puzzle ]
+                , a
+                    [ class "btn btn-outline-primary"
+                    , title "Exporter le composant au format JSON"
+                    , Component.encode component
+                        |> Encode.encode 2
+                        |> Base64.encode
+                        |> (++) "data:application/json;base64,"
+                        |> href
+                    , download <| component.name ++ ".json"
+                    ]
+                    [ Icon.fileExport ]
+                , button
+                    [ class "btn btn-outline-danger"
+                    , title "Supprimer le composant"
+                    , onClick <| SetModals [ DeleteComponentModal component ]
+                    ]
+                    [ Icon.trash ]
+                ]
+            ]
         ]
 
 
@@ -356,7 +381,7 @@ modalView db modals modal =
                     , button [ class "btn btn-danger" ] [ text "Supprimer" ]
                     )
 
-                EditComponentModal item ->
+                EditComponentModal component item ->
                     ( "Modifier le composant"
                     , [ ComponentView.editorView
                             { addLabel = ""
@@ -401,7 +426,10 @@ modalView db modals modal =
                             , updateItemQuantity = \_ _ -> NoOp
                             }
                       ]
-                    , button [ class "btn btn-primary" ] [ text "Sauvegarder" ]
+                    , div [ class "d-flex flex-row justify-content-between align-items-center gap-3 w-100" ]
+                        [ componentScopesForm component item
+                        , button [ class "btn btn-primary" ] [ text "Sauvegarder le composant" ]
+                        ]
                     )
 
                 SelectProcessModal category targetItem maybeElementIndex autocompleteState ->
@@ -450,6 +478,56 @@ modalView db modals modal =
         , subTitle = Nothing
         , title = title
         }
+
+
+componentScopesForm : Component -> Item -> Html Msg
+componentScopesForm component item =
+    item.custom
+        |> Maybe.map .scopes
+        |> Maybe.withDefault component.scopes
+        |> scopesForm
+            (\scope enabled ->
+                item
+                    |> Component.toggleCustomScope component scope enabled
+                    |> UpdateComponent
+            )
+
+
+scopeFilterForm : (List Scope -> Msg) -> List Scope -> Html Msg
+scopeFilterForm updateFilters filtered =
+    scopesForm
+        (\scope enabled ->
+            if enabled then
+                updateFilters (scope :: filtered)
+
+            else
+                updateFilters (List.filter ((/=) scope) filtered)
+        )
+        filtered
+
+
+scopesForm : (Scope -> Bool -> Msg) -> List Scope -> Html Msg
+scopesForm check scopes =
+    div [ class "d-flex flex-row gap-3" ]
+        [ h3 [ class "h6" ] [ text "Verticales" ]
+        , Scope.all
+            |> List.map
+                (\scope ->
+                    div [ class "form-check form-check-inline" ]
+                        [ label [ class "form-check-label" ]
+                            [ input
+                                [ type_ "checkbox"
+                                , class "form-check-input"
+                                , checked <| List.member scope scopes
+                                , onCheck <| check scope
+                                ]
+                                []
+                            , text (Scope.toString scope)
+                            ]
+                        ]
+                )
+            |> div [ class "ScopeSelector" ]
+        ]
 
 
 updateSingleItem : (List Item -> List Item) -> Item -> Msg
