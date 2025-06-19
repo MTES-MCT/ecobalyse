@@ -62,6 +62,7 @@ type Modal
 type Msg
     = ComponentCreated (WebData Component)
     | ComponentDeleted (WebData ())
+    | ComponentEditResponse (WebData Component)
     | ComponentJournalResponse (WebData (List (JournalEntry Component)))
     | ComponentListResponse (WebData (List Component))
     | ComponentUpdated (WebData Component)
@@ -69,6 +70,7 @@ type Msg
     | NoOp
     | OnAutocompleteAddProcess Category TargetItem (Maybe Index) (Autocomplete.Msg Process)
     | OnAutocompleteSelectProcess Category TargetItem (Maybe Index)
+    | OpenEditModal Component
     | OpenHistoryModal Component
     | SaveComponent
     | SetModals (List Modal)
@@ -110,6 +112,18 @@ update session msg model =
 
         ComponentDeleted _ ->
             App.createUpdate session model
+
+        ComponentEditResponse (RemoteData.Success component) ->
+            ( { model | modals = [ EditComponentModal component (Component.createItem component.id) ] }
+            , session
+            , Cmd.none
+            )
+
+        ComponentEditResponse (RemoteData.Failure err) ->
+            ( model, session |> Session.notifyBackendError err, Cmd.none )
+
+        ComponentEditResponse _ ->
+            ( model, session, Cmd.none )
 
         ComponentJournalResponse response ->
             ( { model | modals = [ HistoryModal response ] }
@@ -178,6 +192,12 @@ update session msg model =
 
                 _ ->
                     App.createUpdate session model
+
+        OpenEditModal component ->
+            ( { model | modals = [] }
+            , session
+            , ComponentApi.getComponent session ComponentEditResponse component.id
+            )
 
         OpenHistoryModal component ->
             ( { model | modals = [ HistoryModal RemoteData.Loading ] }
@@ -362,7 +382,7 @@ componentRowView db component =
                 [ button
                     [ class "btn btn-outline-primary"
                     , title "Modifier le composant"
-                    , onClick <| SetModals [ EditComponentModal component (Component.createItem component.id) ]
+                    , onClick <| OpenEditModal component
                     ]
                     [ Icon.pencil ]
                 , button

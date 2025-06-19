@@ -16,8 +16,8 @@ type Id
 
 type Action
     = Created
-    | Updated
     | Deleted
+    | Updated
 
 
 type alias JournalEntry a =
