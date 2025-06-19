@@ -42,7 +42,7 @@ sa.EncryptedText = EncryptedText
 
 # revision identifiers, used by Alembic.
 revision = "041c77a5f1fe"
-down_revision = "8455e285aafc"
+down_revision = "fc6ea50df872"
 branch_labels = None
 depends_on = None
 
