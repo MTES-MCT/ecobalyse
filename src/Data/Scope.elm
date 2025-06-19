@@ -1,7 +1,6 @@
 module Data.Scope exposing
     ( Scope(..)
     , all
-    , allOf
     , anyOf
     , decode
     , encode
@@ -26,15 +25,6 @@ type Scope
 all : List Scope
 all =
     [ Food, Object, Textile, Veli ]
-
-
-{-| Filter a list of scoped records against all passed allowed scopes
--}
-allOf : List Scope -> List { a | scopes : List Scope } -> List { a | scopes : List Scope }
-allOf scopes =
-    List.filter <|
-        .scopes
-            >> List.all (\scope -> List.member scope scopes)
 
 
 {-| Filter a list of scoped records against any passed allowed scopes
