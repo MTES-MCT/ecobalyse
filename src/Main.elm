@@ -293,15 +293,15 @@ setRoute url ( { state } as model, cmds ) =
 
                 Just (Route.TextileSimulator trigram maybeQuery) ->
                     TextileSimulator.init trigram maybeQuery session
-                        |> toPage TextileSimulatorPage TextileSimulatorMsg
+                        |> toPageWithParent TextileSimulatorPage TextileSimulatorMsg
 
                 Just (Route.TextileSimulatorExample uuid) ->
                     TextileSimulator.initFromExample session uuid
-                        |> toPage TextileSimulatorPage TextileSimulatorMsg
+                        |> toPageWithParent TextileSimulatorPage TextileSimulatorMsg
 
                 Just Route.TextileSimulatorHome ->
                     TextileSimulator.init Impact.default Nothing session
-                        |> toPage TextileSimulatorPage TextileSimulatorMsg
+                        |> toPageWithParent TextileSimulatorPage TextileSimulatorMsg
 
                 Nothing ->
                     ( { model | state = Loaded session NotFoundPage }
@@ -414,7 +414,7 @@ update rawMsg ({ state } as model) =
                 -- Textile
                 ( TextileSimulatorMsg textileMsg, TextileSimulatorPage textileModel ) ->
                     TextileSimulator.update session textileMsg textileModel
-                        |> toPage TextileSimulatorPage TextileSimulatorMsg
+                        |> toPageWithParent TextileSimulatorPage TextileSimulatorMsg
 
                 -- Stats
                 ( StatsMsg statsMsg, StatsPage statsModel ) ->
