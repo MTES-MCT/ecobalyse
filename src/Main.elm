@@ -18,6 +18,7 @@ import Page.Explore as Explore
 import Page.Food as FoodBuilder
 import Page.Home as Home
 import Page.Object as ObjectSimulator
+import Page.ParentMsg as ParentMsg exposing (ParentMsg)
 import Page.Stats as Stats
 import Page.Textile as TextileSimulator
 import Ports
@@ -87,6 +88,7 @@ type Msg
     | LoadUrl String
     | ObjectSimulatorMsg ObjectSimulator.Msg
     | OpenMobileNavigation
+    | ParentMsg ParentMsg
     | ReleasesReceived (WebData (List Github.Release))
     | ReloadPage
     | ResetSessionStore
@@ -171,7 +173,7 @@ setRoute url ( { state } as model, cmds ) =
         Loaded session _ ->
             let
                 -- TODO: factor this with `update` internal `toPage`
-                toPage page subMsg ( subModel, newSession, subCmds ) =
+                toPage toModel toMsg ( newModel, newSession, newCmd ) =
                     let
                         storeCmd =
                             if session.store /= newSession.store then
@@ -180,11 +182,29 @@ setRoute url ( { state } as model, cmds ) =
                             else
                                 Cmd.none
                     in
-                    ( { model | state = Loaded newSession (page subModel) }
+                    ( { model | state = Loaded newSession (toModel newModel) }
                     , Cmd.batch
                         [ cmds
-                        , Cmd.map subMsg subCmds
+                        , Cmd.map toMsg newCmd
                         , storeCmd
+                        ]
+                    )
+
+                toPageWithParent toModel toMsg pageUpdate =
+                    let
+                        storeCmd =
+                            if session.store /= pageUpdate.session.store then
+                                pageUpdate.session.store |> Session.serializeStore |> Ports.saveStore
+
+                            else
+                                Cmd.none
+                    in
+                    ( { model | state = Loaded pageUpdate.session (toModel pageUpdate.model) }
+                    , Cmd.batch
+                        [ cmds
+                        , Cmd.map toMsg pageUpdate.cmd
+                        , storeCmd
+                        , pageUpdate |> ParentMsg.toParentCmd ParentMsg
                         ]
                     )
             in
@@ -237,7 +257,7 @@ setRoute url ( { state } as model, cmds ) =
 
                 Just Route.Home ->
                     Home.init session
-                        |> toPage HomePage HomeMsg
+                        |> toPageWithParent HomePage HomeMsg
 
                 Just (Route.ObjectSimulator scope trigram maybeQuery) ->
                     ObjectSimulator.init scope trigram maybeQuery session
@@ -291,12 +311,29 @@ update rawMsg ({ state } as model) =
                     ( { model | state = Loaded newSession (toModel newModel) }
                     , Cmd.map toMsg (Cmd.batch [ newCmd, storeCmd ])
                     )
+
+                toPageWithParent toModel toMsg pageUpdate =
+                    let
+                        storeCmd =
+                            if session.store /= pageUpdate.session.store then
+                                pageUpdate.session.store |> Session.serializeStore |> Ports.saveStore
+
+                            else
+                                Cmd.none
+                    in
+                    ( { model | state = Loaded pageUpdate.session (toModel pageUpdate.model) }
+                    , Cmd.batch
+                        [ Cmd.map toMsg pageUpdate.cmd
+                        , storeCmd
+                        , pageUpdate |> ParentMsg.toParentCmd ParentMsg
+                        ]
+                    )
             in
             case ( msg, page ) of
                 -- Pages
                 ( HomeMsg homeMsg, HomePage homeModel ) ->
                     Home.update session homeMsg homeModel
-                        |> toPage HomePage HomeMsg
+                        |> toPageWithParent HomePage HomeMsg
 
                 ( AdminMsg adminMsg, AdminPage adminModel ) ->
                     Admin.update session adminMsg adminModel
@@ -438,6 +475,41 @@ update rawMsg ({ state } as model) =
 
                 ( VersionPoll, _ ) ->
                     ( model, Request.Version.loadVersion VersionReceived )
+
+                -- Parent messages from page modules
+                ( ParentMsg (ParentMsg.CloseNotification notification), currentPage ) ->
+                    ( { model
+                        | state =
+                            currentPage
+                                |> Loaded (session |> Session.closeNotification notification)
+                      }
+                    , Cmd.none
+                    )
+
+                ( ParentMsg (ParentMsg.LoadUrl url), _ ) ->
+                    ( model, Nav.load url )
+
+                ( ParentMsg ParentMsg.ReloadPage, _ ) ->
+                    ( model, Nav.reloadAndSkipCache )
+
+                ( ParentMsg ParentMsg.ResetSessionStore, currentPage ) ->
+                    let
+                        newSession =
+                            { session | notifications = [], store = Session.defaultStore }
+                                |> Session.notifyInfo "Session" "La session a été réinitialisée."
+                    in
+                    ( { model | state = currentPage |> Loaded newSession }
+                    , newSession.store |> Session.serializeStore |> Ports.saveStore
+                    )
+
+                ( ParentMsg (ParentMsg.SwitchVersion version), _ ) ->
+                    ( model
+                    , Nav.load <|
+                        "/versions/"
+                            ++ version
+                            ++ "/#"
+                            ++ Maybe.withDefault "" model.url.fragment
+                    )
 
                 -- Catch-all
                 ( _, RestrictedAccessPage ) ->

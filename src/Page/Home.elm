@@ -12,6 +12,8 @@ import Data.Scope as Scope
 import Data.Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Events exposing (onClick)
+import Page.ParentMsg as ParentMsg exposing (PageUpdate)
 import Ports
 import Route exposing (Route)
 import Views.Container as Container
@@ -25,6 +27,7 @@ type alias Model =
 
 type Msg
     = NoOp
+    | SendParentMessage ParentMsg.ParentMsg
 
 
 type alias ButtonParams =
@@ -36,19 +39,21 @@ type alias ButtonParams =
     }
 
 
-init : Session -> ( Model, Session, Cmd Msg )
+init : Session -> PageUpdate Model Msg
 init session =
-    ( ()
-    , session
-    , Ports.scrollTo { x = 0, y = 0 }
-    )
+    ParentMsg.init session ()
+        |> ParentMsg.addCmd (Ports.scrollTo { x = 0, y = 0 })
 
 
-update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
+update : Session -> Msg -> Model -> PageUpdate Model Msg
 update session msg model =
     case msg of
         NoOp ->
-            ( model, session, Cmd.none )
+            ParentMsg.init session model
+
+        SendParentMessage parentMsg ->
+            ParentMsg.init session model
+                |> ParentMsg.addParentMsg parentMsg
 
 
 simulatorButton : ButtonParams -> Html Msg
@@ -111,6 +116,15 @@ viewHero { enabledSections } =
 
                   else
                     text ""
+                ]
+
+            -- FIXME: remove this
+            , div [ class "mt-3" ]
+                [ button
+                    [ class "btn btn-outline-secondary"
+                    , onClick (SendParentMessage ParentMsg.ReloadPage)
+                    ]
+                    [ text "Test reloading page" ]
                 ]
             ]
         ]
