@@ -16,6 +16,8 @@ import Data.Session as Session exposing (Session)
 import Task
 
 
+{-| Global app messages.
+-}
 type Msg
     = CloseMobileNavigation
     | CloseNotification Session.Notification
@@ -26,7 +28,7 @@ type Msg
     | SwitchVersion String
 
 
-{-| Type for page update results that can include app messages.
+{-| A page module update result that may carry app messages.
 -}
 type alias PageUpdate model msg =
     { appMsgs : List Msg
@@ -36,7 +38,7 @@ type alias PageUpdate model msg =
     }
 
 
-{-| Apply an update function to a PageUpdate.
+{-| Apply a page module update fn to a PageUpdate.
 -}
 apply : (Session -> msg -> model -> PageUpdate model msg) -> msg -> PageUpdate model msg -> PageUpdate model msg
 apply update msg { appMsgs, cmd, model, session } =
@@ -46,7 +48,7 @@ apply update msg { appMsgs, cmd, model, session } =
         |> withCmds [ cmd ]
 
 
-{-| Initialize a page update with the given session and model.
+{-| Initialize a PageUpdate from a session and a model.
 -}
 createUpdate : Session -> model -> PageUpdate model msg
 createUpdate session model =
@@ -57,7 +59,7 @@ createUpdate session model =
     }
 
 
-{-| Map a function over the session of a PageUpdate.
+{-| Map a PageUpdate session.
 -}
 mapSession : (Session -> Session) -> PageUpdate model msg -> PageUpdate model msg
 mapSession fn { appMsgs, cmd, model, session } =
@@ -68,14 +70,14 @@ mapSession fn { appMsgs, cmd, model, session } =
     }
 
 
-{-| Convert page update app messages to a list of app commands.
+{-| Convert PageUpdate app messages to a list of app commands.
 -}
 toAppCmds : (Msg -> appMsg) -> PageUpdate model msg -> List (Cmd appMsg)
 toAppCmds mapper { appMsgs } =
     appMsgs |> List.map (\appMsg -> Task.perform (\_ -> mapper appMsg) (Task.succeed ()))
 
 
-{-| Convert page update app messages to a single app command.
+{-| Convert PageUpdate app messages to a single app command.
 -}
 toAppCmd : (Msg -> appMsg) -> PageUpdate model msg -> Cmd appMsg
 toAppCmd mapper =

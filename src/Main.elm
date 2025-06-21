@@ -1,6 +1,6 @@
 module Main exposing (main)
 
-import App exposing (Msg)
+import App exposing (PageUpdate)
 import Browser exposing (Document)
 import Browser.Navigation as Nav
 import Data.Example as Example
@@ -162,7 +162,7 @@ toPage :
     -> Cmd Msg
     -> (pageModel -> Page)
     -> (pageMsg -> Msg)
-    -> App.PageUpdate pageModel pageMsg
+    -> PageUpdate pageModel pageMsg
     -> ( Model, Cmd Msg )
 toPage session model cmds toModel toMsg pageUpdate =
     let
