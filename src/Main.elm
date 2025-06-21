@@ -277,15 +277,15 @@ setRoute url ( { state } as model, cmds ) =
 
                 Just (Route.ObjectSimulator scope trigram maybeQuery) ->
                     ObjectSimulator.init scope trigram maybeQuery session
-                        |> toPage ObjectSimulatorPage ObjectSimulatorMsg
+                        |> toPageWithParent ObjectSimulatorPage ObjectSimulatorMsg
 
                 Just (Route.ObjectSimulatorExample scope uuid) ->
                     ObjectSimulator.initFromExample session scope uuid
-                        |> toPage ObjectSimulatorPage ObjectSimulatorMsg
+                        |> toPageWithParent ObjectSimulatorPage ObjectSimulatorMsg
 
                 Just (Route.ObjectSimulatorHome scope) ->
                     ObjectSimulator.init scope Impact.default Nothing session
-                        |> toPage ObjectSimulatorPage ObjectSimulatorMsg
+                        |> toPageWithParent ObjectSimulatorPage ObjectSimulatorMsg
 
                 Just Route.Stats ->
                     Stats.init session
@@ -409,7 +409,7 @@ update rawMsg ({ state } as model) =
                 -- Object
                 ( ObjectSimulatorMsg objectMsg, ObjectSimulatorPage objectModel ) ->
                     ObjectSimulator.update session objectMsg objectModel
-                        |> toPage ObjectSimulatorPage ObjectSimulatorMsg
+                        |> toPageWithParent ObjectSimulatorPage ObjectSimulatorMsg
 
                 -- Textile
                 ( TextileSimulatorMsg textileMsg, TextileSimulatorPage textileModel ) ->

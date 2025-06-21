@@ -8,6 +8,7 @@ module Page.Object exposing
     , view
     )
 
+import App exposing (PageUpdate)
 import Autocomplete exposing (Autocomplete)
 import Browser.Dom as Dom
 import Browser.Events
@@ -98,7 +99,7 @@ type Msg
     | UpdateElementAmount TargetElement (Maybe Component.Amount)
 
 
-init : Scope -> Definition.Trigram -> Maybe Query -> Session -> ( Model, Session, Cmd Msg )
+init : Scope -> Definition.Trigram -> Maybe Query -> Session -> PageUpdate Model Msg
 init scope trigram maybeUrlQuery session =
     let
         initialQuery =
@@ -111,41 +112,41 @@ init scope trigram maybeUrlQuery session =
             session.db.object.examples
                 |> Example.forScope scope
     in
-    ( { activeImpactsTab = ImpactTabs.StepImpactsTab
-      , bookmarkName = initialQuery |> suggestBookmarkName session examples
-      , bookmarkTab = BookmarkView.SaveTab
-      , comparisonType =
-            if Session.isAuthenticated session then
-                ComparatorView.Subscores
+    { activeImpactsTab = ImpactTabs.StepImpactsTab
+    , bookmarkName = initialQuery |> suggestBookmarkName session examples
+    , bookmarkTab = BookmarkView.SaveTab
+    , comparisonType =
+        if Session.isAuthenticated session then
+            ComparatorView.Subscores
 
-            else
-                ComparatorView.Steps
-      , detailedComponents = []
-      , examples = examples
-      , impact = Definition.get trigram session.db.definitions
-      , initialQuery = initialQuery
-      , modal = NoModal
-      , results =
-            Simulator.compute session.db initialQuery
-                |> Result.withDefault Component.emptyResults
-      , scope = scope
-      }
-    , session
-        |> Session.updateObjectQuery scope initialQuery
-    , case maybeUrlQuery of
-        -- If we do have an URL query, we either come from a bookmark, a saved simulation click or
-        -- we're tweaking params for the current simulation: we shouldn't reposition the viewport.
-        Just _ ->
-            Cmd.none
+        else
+            ComparatorView.Steps
+    , detailedComponents = []
+    , examples = examples
+    , impact = Definition.get trigram session.db.definitions
+    , initialQuery = initialQuery
+    , modal = NoModal
+    , results =
+        Simulator.compute session.db initialQuery
+            |> Result.withDefault Component.emptyResults
+    , scope = scope
+    }
+        |> App.createUpdate (session |> Session.updateObjectQuery scope initialQuery)
+        |> App.withCmds
+            (case maybeUrlQuery of
+                -- If we do have an URL query, we either come from a bookmark, a saved simulation click or
+                -- we're tweaking params for the current simulation: we shouldn't reposition the viewport.
+                Just _ ->
+                    []
 
-        -- If we don't have an URL query, we may be coming from another app page, so we should
-        -- reposition the viewport at the top.
-        Nothing ->
-            Ports.scrollTo { x = 0, y = 0 }
-    )
+                -- If we don't have an URL query, we may be coming from another app page, so we should
+                -- reposition the viewport at the top.
+                Nothing ->
+                    [ Ports.scrollTo { x = 0, y = 0 } ]
+            )
 
 
-initFromExample : Session -> Scope -> Uuid -> ( Model, Session, Cmd Msg )
+initFromExample : Session -> Scope -> Uuid -> PageUpdate Model Msg
 initFromExample session scope uuid =
     let
         examples =
@@ -161,24 +162,22 @@ initFromExample session scope uuid =
                 |> Result.map .query
                 |> Result.withDefault (Session.objectQueryFromScope scope session)
     in
-    ( { activeImpactsTab = ImpactTabs.StepImpactsTab
-      , bookmarkName = exampleQuery |> suggestBookmarkName session examples
-      , bookmarkTab = BookmarkView.SaveTab
-      , comparisonType = ComparatorView.Subscores
-      , detailedComponents = []
-      , examples = examples
-      , impact = Definition.get Definition.Ecs session.db.definitions
-      , initialQuery = exampleQuery
-      , modal = NoModal
-      , results =
-            Simulator.compute session.db exampleQuery
-                |> Result.withDefault Component.emptyResults
-      , scope = scope
-      }
-    , session
-        |> Session.updateObjectQuery scope exampleQuery
-    , Ports.scrollTo { x = 0, y = 0 }
-    )
+    { activeImpactsTab = ImpactTabs.StepImpactsTab
+    , bookmarkName = exampleQuery |> suggestBookmarkName session examples
+    , bookmarkTab = BookmarkView.SaveTab
+    , comparisonType = ComparatorView.Subscores
+    , detailedComponents = []
+    , examples = examples
+    , impact = Definition.get Definition.Ecs session.db.definitions
+    , initialQuery = exampleQuery
+    , modal = NoModal
+    , results =
+        Simulator.compute session.db exampleQuery
+            |> Result.withDefault Component.emptyResults
+    , scope = scope
+    }
+        |> App.createUpdate (session |> Session.updateObjectQuery scope exampleQuery)
+        |> App.withCmds [ Ports.scrollTo { x = 0, y = 0 } ]
 
 
 suggestBookmarkName : Session -> List (Example Query) -> Query -> String
@@ -208,24 +207,23 @@ suggestBookmarkName { db, store } examples query =
                 |> Result.withDefault "N/A"
 
 
-updateQuery : Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
-updateQuery query ( model, session, commands ) =
-    ( { model
-        | initialQuery = query
-        , bookmarkName =
-            query
-                |> suggestBookmarkName session model.examples
-        , results =
-            query
-                |> Simulator.compute session.db
-                |> Result.withDefault Component.emptyResults
-      }
-    , session |> Session.updateObjectQuery model.scope query
-    , commands
-    )
+updateQuery : Query -> PageUpdate Model Msg -> PageUpdate Model Msg
+updateQuery query ({ model, session } as pageUpdate) =
+    { pageUpdate
+        | model =
+            { model
+                | initialQuery = query
+                , bookmarkName = query |> suggestBookmarkName session model.examples
+                , results =
+                    query
+                        |> Simulator.compute session.db
+                        |> Result.withDefault Component.emptyResults
+            }
+        , session = session |> Session.updateObjectQuery model.scope query
+    }
 
 
-update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
+update : Session -> Msg -> Model -> PageUpdate Model Msg
 update ({ navKey } as session) msg model =
     let
         query =
@@ -234,200 +232,184 @@ update ({ navKey } as session) msg model =
     in
     case ( msg, model.modal ) of
         ( CopyToClipBoard shareableLink, _ ) ->
-            ( model, session, Ports.copyToClipboard shareableLink )
+            App.createUpdate session model
+                |> App.withCmds [ Ports.copyToClipboard shareableLink ]
 
         ( DeleteBookmark bookmark, _ ) ->
-            ( model
-            , session |> Session.deleteBookmark bookmark
-            , Cmd.none
-            )
+            model
+                |> App.createUpdate (session |> Session.deleteBookmark bookmark)
 
         ( NoOp, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
 
         ( OnAutocompleteAddComponent autocompleteMsg, AddComponentModal autocompleteState ) ->
             let
                 ( newAutocompleteState, autoCompleteCmd ) =
                     Autocomplete.update autocompleteMsg autocompleteState
             in
-            ( { model | modal = AddComponentModal newAutocompleteState }
-            , session
-            , Cmd.map OnAutocompleteAddComponent autoCompleteCmd
-            )
+            { model | modal = AddComponentModal newAutocompleteState }
+                |> App.createUpdate session
+                |> App.withCmds [ Cmd.map OnAutocompleteAddComponent autoCompleteCmd ]
 
         ( OnAutocompleteAddComponent _, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
 
         ( OnAutocompleteAddProcess category targetItem maybeIndex autocompleteMsg, SelectProcessModal _ _ _ autocompleteState ) ->
             let
                 ( newAutocompleteState, autoCompleteCmd ) =
                     Autocomplete.update autocompleteMsg autocompleteState
             in
-            ( { model | modal = SelectProcessModal category targetItem maybeIndex newAutocompleteState }
-            , session
-            , Cmd.map (OnAutocompleteAddProcess category targetItem maybeIndex) autoCompleteCmd
-            )
+            { model | modal = SelectProcessModal category targetItem maybeIndex newAutocompleteState }
+                |> App.createUpdate session
+                |> App.withCmds [ Cmd.map (OnAutocompleteAddProcess category targetItem maybeIndex) autoCompleteCmd ]
 
         ( OnAutocompleteAddProcess _ _ _ _, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
 
         ( OnAutocompleteExample autocompleteMsg, SelectExampleModal autocompleteState ) ->
             let
                 ( newAutocompleteState, autoCompleteCmd ) =
                     Autocomplete.update autocompleteMsg autocompleteState
             in
-            ( { model | modal = SelectExampleModal newAutocompleteState }
-            , session
-            , Cmd.map OnAutocompleteExample autoCompleteCmd
-            )
+            { model | modal = SelectExampleModal newAutocompleteState }
+                |> App.createUpdate session
+                |> App.withCmds [ Cmd.map OnAutocompleteExample autoCompleteCmd ]
 
         ( OnAutocompleteExample _, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
 
         ( OnAutocompleteSelectComponent, AddComponentModal autocompleteState ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> selectComponent query autocompleteState
 
         ( OnAutocompleteSelectComponent, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
 
         ( OnAutocompleteSelectExample, SelectExampleModal autocompleteState ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> selectExample autocompleteState
 
         ( OnAutocompleteSelectExample, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
 
         ( OnAutocompleteSelectProcess category targetItem elementIndex, SelectProcessModal _ _ _ autocompleteState ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> selectProcess category targetItem elementIndex autocompleteState query
 
         ( OnAutocompleteSelectProcess _ _ _, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
 
         ( OpenComparator, _ ) ->
-            ( { model | modal = ComparatorModal }
-            , session |> Session.checkComparedSimulations
-            , Cmd.none
-            )
+            { model | modal = ComparatorModal }
+                |> App.createUpdate (session |> Session.checkComparedSimulations)
 
         ( RemoveComponentItem itemIndex, _ ) ->
-            ( { model
+            { model
                 | detailedComponents =
                     model.detailedComponents
                         |> LE.remove itemIndex
                         |> LE.updateIf (\x -> x > itemIndex) (\x -> x - 1)
-              }
-            , session
-            , Cmd.none
-            )
-                |> updateQuery
-                    (query |> Query.updateComponents (LE.removeAt itemIndex))
+            }
+                |> App.createUpdate session
+                |> updateQuery (query |> Query.updateComponents (LE.removeAt itemIndex))
 
         ( RemoveElement targetElement, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery (query |> Query.updateComponents (Component.removeElement targetElement))
 
         ( RemoveElementTransform targetElement transformIndex, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery
                     (query
-                        |> Query.updateComponents (Component.removeElementTransform targetElement transformIndex)
+                        |> Query.updateComponents
+                            (Component.removeElementTransform targetElement transformIndex)
                     )
 
         ( SaveBookmark, _ ) ->
-            ( model
-            , session
-            , Time.now
-                |> Task.perform
-                    (SaveBookmarkWithTime model.bookmarkName
-                        (if model.scope == Scope.Veli then
-                            Bookmark.Veli query
+            App.createUpdate session model
+                |> App.withCmds
+                    [ Time.now
+                        |> Task.perform
+                            (SaveBookmarkWithTime model.bookmarkName
+                                (if model.scope == Scope.Veli then
+                                    Bookmark.Veli query
 
-                         else
-                            Bookmark.Object query
-                        )
-                    )
-            )
+                                 else
+                                    Bookmark.Object query
+                                )
+                            )
+                    ]
 
         ( SaveBookmarkWithTime name objectQuery now, _ ) ->
-            ( model
-            , session
-                |> Session.saveBookmark
-                    { name = String.trim name
-                    , query = objectQuery
-                    , created = now
-                    , subScope = Just model.scope
-                    , version = Version.toMaybe session.currentVersion
-                    }
-            , Cmd.none
-            )
+            model
+                |> App.createUpdate
+                    (session
+                        |> Session.saveBookmark
+                            { name = String.trim name
+                            , query = objectQuery
+                            , created = now
+                            , subScope = Just model.scope
+                            , version = Version.toMaybe session.currentVersion
+                            }
+                    )
 
         ( SelectAllBookmarks, _ ) ->
-            ( model, Session.selectAllBookmarks session, Cmd.none )
+            model
+                |> App.createUpdate (Session.selectAllBookmarks session)
 
         ( SelectNoBookmarks, _ ) ->
-            ( model, Session.selectNoBookmarks session, Cmd.none )
+            model
+                |> App.createUpdate (Session.selectNoBookmarks session)
 
         ( SetDetailedComponents detailedComponents, _ ) ->
-            ( { model | detailedComponents = detailedComponents }
-            , session
-            , Cmd.none
-            )
+            { model | detailedComponents = detailedComponents }
+                |> App.createUpdate session
 
         ( SetModal NoModal, _ ) ->
-            ( { model | modal = NoModal }
-            , session
-            , commandsForNoModal model.modal
-            )
+            { model | modal = NoModal }
+                |> App.createUpdate session
+                |> App.withCmds [ commandsForNoModal model.modal ]
 
         ( SetModal modal, _ ) ->
-            ( { model | modal = modal }
-            , session
-            , Ports.addBodyClass "prevent-scrolling"
-            )
+            { model | modal = modal }
+                |> App.createUpdate session
+                |> App.withCmds [ Ports.addBodyClass "prevent-scrolling" ]
 
         ( SwitchBookmarksTab bookmarkTab, _ ) ->
-            ( { model | bookmarkTab = bookmarkTab }
-            , session
-            , Cmd.none
-            )
+            { model | bookmarkTab = bookmarkTab }
+                |> App.createUpdate session
 
         ( SwitchComparisonType displayChoice, _ ) ->
-            ( { model | comparisonType = displayChoice }, session, Cmd.none )
+            { model | comparisonType = displayChoice }
+                |> App.createUpdate session
 
         ( SwitchImpact (Ok trigram), _ ) ->
-            ( model
-            , session
-            , Just query
-                |> Route.ObjectSimulator model.scope trigram
-                |> Route.toString
-                |> Navigation.pushUrl navKey
-            )
+            App.createUpdate session model
+                |> App.withCmds
+                    [ Just query
+                        |> Route.ObjectSimulator model.scope trigram
+                        |> Route.toString
+                        |> Navigation.pushUrl navKey
+                    ]
 
         ( SwitchImpact (Err error), _ ) ->
-            ( model
-            , session |> Session.notifyError "Erreur de sélection d'impact: " error
-            , Cmd.none
-            )
+            model
+                |> App.createUpdate (session |> Session.notifyError "Erreur de sélection d'impact: " error)
 
         ( SwitchImpactsTab impactsTab, _ ) ->
-            ( { model | activeImpactsTab = impactsTab }
-            , session
-            , Cmd.none
-            )
+            { model | activeImpactsTab = impactsTab }
+                |> App.createUpdate session
 
         ( ToggleComparedSimulation bookmark checked, _ ) ->
-            ( model
-            , session |> Session.toggleComparedSimulation bookmark checked
-            , Cmd.none
-            )
+            model
+                |> App.createUpdate (session |> Session.toggleComparedSimulation bookmark checked)
 
         ( UpdateBookmarkName newName, _ ) ->
-            ( { model | bookmarkName = newName }, session, Cmd.none )
+            { model | bookmarkName = newName }
+                |> App.createUpdate session
 
         ( UpdateComponentItemName targetItem name, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery
                     (query
                         |> Query.updateComponents
@@ -435,7 +417,7 @@ update ({ navKey } as session) msg model =
                     )
 
         ( UpdateComponentItemQuantity itemIndex quantity, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery
                     (query
                         |> Query.updateComponents
@@ -443,10 +425,10 @@ update ({ navKey } as session) msg model =
                     )
 
         ( UpdateElementAmount _ Nothing, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
 
         ( UpdateElementAmount targetElement (Just amount), _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery
                     (query
                         |> Query.updateComponents
@@ -468,26 +450,32 @@ commandsForNoModal modal =
             Ports.removeBodyClass "prevent-scrolling"
 
 
-selectExample : Autocomplete Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
-selectExample autocompleteState ( model, session, _ ) =
+selectExample : Autocomplete Query -> PageUpdate Model Msg -> PageUpdate Model Msg
+selectExample autocompleteState pageUpdate =
     let
         exampleQuery =
             Autocomplete.selectedValue autocompleteState
                 |> Maybe.withDefault Query.default
     in
-    update session (SetModal NoModal) { model | initialQuery = exampleQuery }
+    pageUpdate
         |> updateQuery exampleQuery
+        |> (\pu -> update pu.session (SetModal NoModal) pu.model)
 
 
-selectComponent : Query -> Autocomplete Component -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
-selectComponent query autocompleteState ( model, session, _ ) =
+selectComponent : Query -> Autocomplete Component -> PageUpdate Model Msg -> PageUpdate Model Msg
+selectComponent query autocompleteState pageUpdate =
     case Autocomplete.selectedValue autocompleteState of
         Just component ->
-            update session (SetModal NoModal) model
+            pageUpdate
                 |> updateQuery (query |> Query.updateComponents (Component.addItem component.id))
+                |> (\{ model, session } -> update session (SetModal NoModal) model)
 
         Nothing ->
-            ( model, session |> Session.notifyError "Erreur" "Aucun composant sélectionné", Cmd.none )
+            { pageUpdate
+                | session =
+                    pageUpdate.session
+                        |> Session.notifyError "Erreur" "Aucun composant sélectionné"
+            }
 
 
 selectProcess :
@@ -496,9 +484,9 @@ selectProcess :
     -> Maybe Index
     -> Autocomplete Process
     -> Query
-    -> ( Model, Session, Cmd Msg )
-    -> ( Model, Session, Cmd Msg )
-selectProcess category targetItem maybeElementIndex autocompleteState query ( model, session, _ ) =
+    -> PageUpdate Model Msg
+    -> PageUpdate Model Msg
+selectProcess category targetItem maybeElementIndex autocompleteState query pageUpdate =
     case Autocomplete.selectedValue autocompleteState of
         Just process ->
             case
@@ -507,14 +495,15 @@ selectProcess category targetItem maybeElementIndex autocompleteState query ( mo
                         (Component.addOrSetProcess category targetItem maybeElementIndex process)
             of
                 Err err ->
-                    ( model, session |> Session.notifyError "Erreur" err, Cmd.none )
+                    { pageUpdate | session = pageUpdate.session |> Session.notifyError "Erreur" err }
 
                 Ok validQuery ->
-                    update session (SetModal NoModal) model
+                    pageUpdate
                         |> updateQuery validQuery
+                        |> (\{ model, session } -> update session (SetModal NoModal) model)
 
         Nothing ->
-            ( model, session |> Session.notifyError "Erreur" "Aucun composant sélectionné", Cmd.none )
+            { pageUpdate | session = pageUpdate.session |> Session.notifyError "Erreur" "Aucun composant sélectionné" }
 
 
 simulatorView : Session -> Model -> Html Msg

@@ -179,10 +179,12 @@ update session msg model =
                 [ EditComponentModal _ item ] ->
                     case Component.itemToComponent session.db item of
                         Err error ->
-                            App.createUpdate (session |> Session.notifyError "Erreur" error) { model | modals = [] }
+                            { model | modals = [] }
+                                |> App.createUpdate (session |> Session.notifyError "Erreur" error)
 
                         Ok component ->
-                            App.createUpdate session { model | modals = [] }
+                            { model | modals = [] }
+                                |> App.createUpdate session
                                 |> App.withCmds [ ComponentApi.patchComponent session ComponentUpdated component ]
 
                 _ ->
