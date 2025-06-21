@@ -1,5 +1,6 @@
 module Main exposing (main)
 
+import App exposing (Msg)
 import Browser exposing (Document)
 import Browser.Navigation as Nav
 import Data.Example as Example
@@ -12,7 +13,7 @@ import Data.Textile.Query as TextileQuery
 import Html
 import Page.Admin as Admin
 import Page.Api as Api
-import Page.Auth as Auth2
+import Page.Auth as Auth
 import Page.Editorial as Editorial
 import Page.Explore as Explore
 import Page.Food as FoodBuilder
@@ -45,7 +46,7 @@ type alias Flags =
 type Page
     = AdminPage Admin.Model
     | ApiPage Api.Model
-    | Auth2Page Auth2.Model
+    | AuthPage Auth.Model
     | EditorialPage Editorial.Model
     | ExplorePage Explore.Model
     | FoodBuilderPage FoodBuilder.Model
@@ -76,23 +77,17 @@ type alias Model =
 type Msg
     = AdminMsg Admin.Msg
     | ApiMsg Api.Msg
-    | Auth2Msg Auth2.Msg
-    | CloseMobileNavigation
-    | CloseNotification Session.Notification
+    | AppMsg App.Msg
+    | AuthMsg Auth.Msg
     | DetailedProcessesReceived (BackendHttp.WebData String)
     | EditorialMsg Editorial.Msg
     | ExploreMsg Explore.Msg
     | FoodBuilderMsg FoodBuilder.Msg
     | HomeMsg Home.Msg
-    | LoadUrl String
     | ObjectSimulatorMsg ObjectSimulator.Msg
-    | OpenMobileNavigation
     | ReleasesReceived (WebData (List Github.Release))
-    | ReloadPage
-    | ResetSessionStore
     | StatsMsg Stats.Msg
     | StoreChanged String
-    | SwitchVersion String
     | TextileSimulatorMsg TextileSimulator.Msg
     | UrlChanged Url
     | UrlRequested Browser.UrlRequest
@@ -161,6 +156,59 @@ setupSession navKey flags db =
         }
 
 
+toPage_ :
+    Session
+    -> Model
+    -> Cmd msg
+    -> (pageModel -> Page)
+    -> (pageMsg -> msg)
+    -> ( pageModel, Session, Cmd pageMsg )
+    -> ( Model, Cmd msg )
+toPage_ session model cmds toModel toMsg ( newModel, newSession, newCmd ) =
+    let
+        storeCmd =
+            if session.store /= newSession.store then
+                newSession.store |> Session.serializeStore |> Ports.saveStore
+
+            else
+                Cmd.none
+    in
+    ( { model | state = Loaded newSession (toModel newModel) }
+    , Cmd.batch
+        [ cmds
+        , Cmd.map toMsg newCmd
+        , storeCmd
+        ]
+    )
+
+
+toPageWithParent_ :
+    Session
+    -> Model
+    -> Cmd Msg
+    -> (pageModel -> Page)
+    -> (pageMsg -> Msg)
+    -> App.PageUpdate pageModel pageMsg
+    -> ( Model, Cmd Msg )
+toPageWithParent_ session model cmds toModel toMsg pageUpdate =
+    let
+        storeCmd =
+            if session.store /= pageUpdate.session.store then
+                pageUpdate.session.store |> Session.serializeStore |> Ports.saveStore
+
+            else
+                Cmd.none
+    in
+    ( { model | state = Loaded pageUpdate.session (toModel pageUpdate.model) }
+    , Cmd.batch
+        [ cmds
+        , Cmd.map toMsg pageUpdate.cmd
+        , storeCmd
+        , pageUpdate |> App.toAppCmd AppMsg
+        ]
+    )
+
+
 setRoute : Url -> ( Model, Cmd Msg ) -> ( Model, Cmd Msg )
 setRoute url ( { state } as model, cmds ) =
     case state of
@@ -170,29 +218,17 @@ setRoute url ( { state } as model, cmds ) =
 
         Loaded session _ ->
             let
-                -- TODO: factor this with `update` internal `toPage`
-                toPage page subMsg ( subModel, newSession, subCmds ) =
-                    let
-                        storeCmd =
-                            if session.store /= newSession.store then
-                                newSession.store |> Session.serializeStore |> Ports.saveStore
+                toPage =
+                    toPage_ session model cmds
 
-                            else
-                                Cmd.none
-                    in
-                    ( { model | state = Loaded newSession (page subModel) }
-                    , Cmd.batch
-                        [ cmds
-                        , Cmd.map subMsg subCmds
-                        , storeCmd
-                        ]
-                    )
+                toPageWithParent =
+                    toPageWithParent_ session model cmds
             in
             case Route.fromUrl url of
                 Just Route.Admin ->
                     if Session.isStaff session then
                         Admin.init session
-                            |> toPage AdminPage AdminMsg
+                            |> toPageWithParent AdminPage AdminMsg
 
                     else
                         ( { model | state = Loaded session RestrictedAccessPage }
@@ -201,27 +237,27 @@ setRoute url ( { state } as model, cmds ) =
 
                 Just Route.Api ->
                     Api.init session
-                        |> toPage ApiPage ApiMsg
+                        |> toPageWithParent ApiPage ApiMsg
 
                 Just Route.Auth ->
-                    Auth2.init session
-                        |> toPage Auth2Page Auth2Msg
+                    Auth.init session
+                        |> toPageWithParent AuthPage AuthMsg
 
                 Just (Route.AuthLogin email token) ->
-                    Auth2.initLogin session email token
-                        |> toPage Auth2Page Auth2Msg
+                    Auth.initLogin session email token
+                        |> toPageWithParent AuthPage AuthMsg
 
                 Just Route.AuthSignup ->
-                    Auth2.initSignup session
-                        |> toPage Auth2Page Auth2Msg
+                    Auth.initSignup session
+                        |> toPageWithParent AuthPage AuthMsg
 
                 Just (Route.Editorial slug) ->
                     Editorial.init slug session
-                        |> toPage EditorialPage EditorialMsg
+                        |> toPageWithParent EditorialPage EditorialMsg
 
                 Just (Route.Explore scope dataset) ->
                     Explore.init scope dataset session
-                        |> toPage ExplorePage ExploreMsg
+                        |> toPageWithParent ExplorePage ExploreMsg
 
                 Just (Route.FoodBuilder trigram maybeQuery) ->
                     FoodBuilder.init session trigram maybeQuery
@@ -237,7 +273,7 @@ setRoute url ( { state } as model, cmds ) =
 
                 Just Route.Home ->
                     Home.init session
-                        |> toPage HomePage HomeMsg
+                        |> toPageWithParent HomePage HomeMsg
 
                 Just (Route.ObjectSimulator scope trigram maybeQuery) ->
                     ObjectSimulator.init scope trigram maybeQuery session
@@ -253,19 +289,19 @@ setRoute url ( { state } as model, cmds ) =
 
                 Just Route.Stats ->
                     Stats.init session
-                        |> toPage StatsPage StatsMsg
+                        |> toPageWithParent StatsPage StatsMsg
 
                 Just (Route.TextileSimulator trigram maybeQuery) ->
                     TextileSimulator.init trigram maybeQuery session
-                        |> toPage TextileSimulatorPage TextileSimulatorMsg
+                        |> toPageWithParent TextileSimulatorPage TextileSimulatorMsg
 
                 Just (Route.TextileSimulatorExample uuid) ->
                     TextileSimulator.initFromExample session uuid
-                        |> toPage TextileSimulatorPage TextileSimulatorMsg
+                        |> toPageWithParent TextileSimulatorPage TextileSimulatorMsg
 
                 Just Route.TextileSimulatorHome ->
                     TextileSimulator.init Impact.default Nothing session
-                        |> toPage TextileSimulatorPage TextileSimulatorMsg
+                        |> toPageWithParent TextileSimulatorPage TextileSimulatorMsg
 
                 Nothing ->
                     ( { model | state = Loaded session NotFoundPage }
@@ -278,37 +314,70 @@ update rawMsg ({ state } as model) =
     case ( state, rawMsg ) of
         ( Loaded session page, msg ) ->
             let
-                -- TODO: factor this with `setRoute` internal `toPage`
-                toPage toModel toMsg ( newModel, newSession, newCmd ) =
-                    let
-                        storeCmd =
-                            if session.store /= newSession.store then
-                                newSession.store |> Session.serializeStore |> Ports.saveStore
+                toPage =
+                    toPage_ session model Cmd.none
 
-                            else
-                                Cmd.none
-                    in
-                    ( { model | state = Loaded newSession (toModel newModel) }
-                    , Cmd.map toMsg (Cmd.batch [ newCmd, storeCmd ])
-                    )
+                toPageWithParent =
+                    toPageWithParent_ session model Cmd.none
             in
             case ( msg, page ) of
+                -- Parent messages from page modules
+                ( AppMsg App.CloseMobileNavigation, _ ) ->
+                    ( { model | mobileNavigationOpened = False }, Cmd.none )
+
+                ( AppMsg (App.CloseNotification notification), currentPage ) ->
+                    ( { model
+                        | state =
+                            currentPage
+                                |> Loaded (session |> Session.closeNotification notification)
+                      }
+                    , Cmd.none
+                    )
+
+                ( AppMsg (App.LoadUrl url), _ ) ->
+                    ( model, Nav.load url )
+
+                ( AppMsg App.OpenMobileNavigation, _ ) ->
+                    ( { model | mobileNavigationOpened = True }, Cmd.none )
+
+                ( AppMsg App.ReloadPage, _ ) ->
+                    ( model, Nav.reloadAndSkipCache )
+
+                ( AppMsg App.ResetSessionStore, currentPage ) ->
+                    let
+                        newSession =
+                            { session | notifications = [], store = Session.defaultStore }
+                                |> Session.notifyInfo "Session" "La session a été réinitialisée."
+                    in
+                    ( { model | state = currentPage |> Loaded newSession }
+                    , newSession.store |> Session.serializeStore |> Ports.saveStore
+                    )
+
+                ( AppMsg (App.SwitchVersion version), _ ) ->
+                    ( model
+                    , Nav.load <|
+                        "/versions/"
+                            ++ version
+                            ++ "/#"
+                            ++ Maybe.withDefault "" model.url.fragment
+                    )
+
                 -- Pages
                 ( HomeMsg homeMsg, HomePage homeModel ) ->
                     Home.update session homeMsg homeModel
-                        |> toPage HomePage HomeMsg
+                        |> toPageWithParent HomePage HomeMsg
 
                 ( AdminMsg adminMsg, AdminPage adminModel ) ->
                     Admin.update session adminMsg adminModel
-                        |> toPage AdminPage AdminMsg
+                        |> toPageWithParent AdminPage AdminMsg
 
                 ( ApiMsg apiMsg, ApiPage apiModel ) ->
                     Api.update session apiMsg apiModel
-                        |> toPage ApiPage ApiMsg
+                        |> toPageWithParent ApiPage ApiMsg
 
-                ( Auth2Msg auth2Msg, Auth2Page auth2Model ) ->
-                    Auth2.update session auth2Msg auth2Model
-                        |> toPage Auth2Page Auth2Msg
+                ( AuthMsg auth2Msg, AuthPage auth2Model ) ->
+                    Auth.update session auth2Msg auth2Model
+                        |> toPageWithParent AuthPage AuthMsg
 
                 ( DetailedProcessesReceived (RemoteData.Success rawDetailedProcessesJson), currentPage ) ->
                     -- When detailed processes are received, rebuild the entire static db using them
@@ -326,11 +395,11 @@ update rawMsg ({ state } as model) =
 
                 ( EditorialMsg editorialMsg, EditorialPage editorialModel ) ->
                     Editorial.update session editorialMsg editorialModel
-                        |> toPage EditorialPage EditorialMsg
+                        |> toPageWithParent EditorialPage EditorialMsg
 
                 ( ExploreMsg examplesMsg, ExplorePage examplesModel ) ->
                     Explore.update session examplesMsg examplesModel
-                        |> toPage ExplorePage ExploreMsg
+                        |> toPageWithParent ExplorePage ExploreMsg
 
                 -- Food
                 ( FoodBuilderMsg foodMsg, FoodBuilderPage foodModel ) ->
@@ -345,22 +414,12 @@ update rawMsg ({ state } as model) =
                 -- Textile
                 ( TextileSimulatorMsg textileMsg, TextileSimulatorPage textileModel ) ->
                     TextileSimulator.update session textileMsg textileModel
-                        |> toPage TextileSimulatorPage TextileSimulatorMsg
+                        |> toPageWithParent TextileSimulatorPage TextileSimulatorMsg
 
                 -- Stats
                 ( StatsMsg statsMsg, StatsPage statsModel ) ->
                     Stats.update session statsMsg statsModel
-                        |> toPage StatsPage StatsMsg
-
-                -- Notifications
-                ( CloseNotification notification, currentPage ) ->
-                    ( { model
-                        | state =
-                            currentPage
-                                |> Loaded (session |> Session.closeNotification notification)
-                      }
-                    , Cmd.none
-                    )
+                        |> toPageWithParent StatsPage StatsMsg
 
                 -- Store
                 ( StoreChanged json, currentPage ) ->
@@ -372,40 +431,7 @@ update rawMsg ({ state } as model) =
                     , Cmd.none
                     )
 
-                ( ResetSessionStore, currentPage ) ->
-                    let
-                        newSession =
-                            { session | notifications = [], store = Session.defaultStore }
-                                |> Session.notifyInfo "Session" "La session a été réinitialisée."
-                    in
-                    ( { model | state = currentPage |> Loaded newSession }
-                    , newSession.store |> Session.serializeStore |> Ports.saveStore
-                    )
-
-                -- Version switch
-                ( SwitchVersion version, _ ) ->
-                    ( model
-                    , Nav.load <|
-                        "/versions/"
-                            ++ version
-                            ++ "/#"
-                            ++ Maybe.withDefault "" model.url.fragment
-                    )
-
-                -- Mobile navigation menu
-                ( CloseMobileNavigation, _ ) ->
-                    ( { model | mobileNavigationOpened = False }, Cmd.none )
-
-                ( OpenMobileNavigation, _ ) ->
-                    ( { model | mobileNavigationOpened = True }, Cmd.none )
-
                 -- Url
-                ( LoadUrl url, _ ) ->
-                    ( model, Nav.load url )
-
-                ( ReloadPage, _ ) ->
-                    ( model, Nav.reloadAndSkipCache )
-
                 ( UrlChanged url, _ ) ->
                     ( { model | mobileNavigationOpened = False, url = url }, Cmd.none )
                         |> setRoute url
@@ -501,16 +527,13 @@ view { mobileNavigationOpened, state } =
 
         Loaded session page ->
             let
-                pageConfig =
-                    Page.Config session
-                        mobileNavigationOpened
-                        CloseMobileNavigation
-                        OpenMobileNavigation
-                        LoadUrl
-                        ReloadPage
-                        CloseNotification
-                        ResetSessionStore
-                        SwitchVersion
+                frame activePage =
+                    Page.frame
+                        { activePage = activePage
+                        , mobileNavigationOpened = mobileNavigationOpened
+                        , session = session
+                        , toMsg = AppMsg
+                        }
 
                 mapMsg msg ( title, content ) =
                     ( title, content |> List.map (Html.map msg) )
@@ -519,64 +542,64 @@ view { mobileNavigationOpened, state } =
                 AdminPage examplesModel ->
                     Admin.view session examplesModel
                         |> mapMsg AdminMsg
-                        |> Page.frame (pageConfig Page.Admin)
+                        |> frame Page.Admin
 
                 ApiPage examplesModel ->
                     Api.view session examplesModel
                         |> mapMsg ApiMsg
-                        |> Page.frame (pageConfig Page.Api)
+                        |> frame Page.Api
 
-                Auth2Page auth2Model ->
-                    Auth2.view session auth2Model
-                        |> mapMsg Auth2Msg
-                        |> Page.frame (pageConfig Page.Auth)
+                AuthPage auth2Model ->
+                    Auth.view session auth2Model
+                        |> mapMsg AuthMsg
+                        |> frame Page.Auth
 
                 EditorialPage editorialModel ->
                     Editorial.view session editorialModel
                         |> mapMsg EditorialMsg
-                        |> Page.frame (pageConfig (Page.Editorial editorialModel.slug))
+                        |> frame (Page.Editorial editorialModel.slug)
 
                 ExplorePage examplesModel ->
                     Explore.view session examplesModel
                         |> mapMsg ExploreMsg
-                        |> Page.frame (pageConfig Page.Explore)
+                        |> frame Page.Explore
 
                 FoodBuilderPage foodModel ->
                     FoodBuilder.view session foodModel
                         |> mapMsg FoodBuilderMsg
-                        |> Page.frame (pageConfig Page.FoodBuilder)
+                        |> frame Page.FoodBuilder
 
                 HomePage _ ->
                     Home.view session
                         |> mapMsg HomeMsg
-                        |> Page.frame (pageConfig Page.Home)
+                        |> frame Page.Home
 
                 LoadingPage ->
                     ( "Chargement…", [ Page.loading ] )
-                        |> Page.frame (pageConfig Page.Other)
+                        |> frame Page.Other
 
                 NotFoundPage ->
                     ( "404", [ Page.notFound ] )
-                        |> Page.frame (pageConfig Page.Other)
+                        |> frame Page.Other
 
                 ObjectSimulatorPage simulatorModel ->
                     ObjectSimulator.view session simulatorModel
                         |> mapMsg ObjectSimulatorMsg
-                        |> Page.frame (pageConfig (Page.Object simulatorModel.scope))
+                        |> frame (Page.Object simulatorModel.scope)
 
                 RestrictedAccessPage ->
                     ( "Accès restreint", [ Page.restricted session ] )
-                        |> Page.frame (pageConfig Page.Other)
+                        |> frame Page.Other
 
                 StatsPage statsModel ->
                     Stats.view session statsModel
                         |> mapMsg StatsMsg
-                        |> Page.frame (pageConfig Page.Stats)
+                        |> frame Page.Stats
 
                 TextileSimulatorPage simulatorModel ->
                     TextileSimulator.view session simulatorModel
                         |> mapMsg TextileSimulatorMsg
-                        |> Page.frame (pageConfig Page.TextileSimulator)
+                        |> frame Page.TextileSimulator
 
 
 main : Program Flags Model Msg

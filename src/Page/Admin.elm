@@ -7,6 +7,7 @@ module Page.Admin exposing
     , view
     )
 
+import App exposing (Msg, PageUpdate)
 import Autocomplete exposing (Autocomplete)
 import Base64
 import Browser.Events
@@ -61,79 +62,83 @@ type Msg
     | OnAutocompleteAddProcess Category TargetItem (Maybe Index) (Autocomplete.Msg Process)
     | OnAutocompleteSelectProcess Category TargetItem (Maybe Index)
     | SaveComponent
+      -- TODO: use for notifications
+      -- | SendParentMessage App.Msg
     | SetModals (List Modal)
     | UpdateComponent Item
     | UpdateScopeFilters (List Scope)
 
 
-init : Session -> ( Model, Session, Cmd Msg )
+init : Session -> PageUpdate Model Msg
 init session =
-    ( { components = RemoteData.NotAsked
-      , modals = []
-      , scopes = Scope.all
-      }
-    , session
-    , ComponentApi.getComponents session ComponentListResponse
-    )
+    { components = RemoteData.NotAsked
+    , modals = []
+    , scopes = Scope.all
+    }
+        |> App.createUpdate session
+        |> App.withCmds [ ComponentApi.getComponents session ComponentListResponse ]
 
 
-update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
+update : Session -> Msg -> Model -> PageUpdate Model Msg
 update session msg model =
     case msg of
         -- POST
         ComponentCreated (RemoteData.Failure err) ->
-            ( model, session |> Session.notifyBackendError err, Cmd.none )
+            model
+                |> App.createUpdate (session |> Session.notifyBackendError err)
 
         ComponentCreated (RemoteData.Success component) ->
-            ( { model | modals = [ EditComponentModal component (Component.createItem component.id) ] }
-            , session
-            , ComponentApi.getComponents session ComponentListResponse
-            )
+            { model | modals = [ EditComponentModal component (Component.createItem component.id) ] }
+                |> App.createUpdate session
+                |> App.withCmds [ ComponentApi.getComponents session ComponentListResponse ]
 
         ComponentCreated _ ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
 
         -- DELETE
         ComponentDeleted (RemoteData.Failure err) ->
-            ( model, session |> Session.notifyBackendError err, Cmd.none )
+            App.createUpdate (session |> Session.notifyBackendError err) model
 
         ComponentDeleted (RemoteData.Success _) ->
-            ( model, session, ComponentApi.getComponents session ComponentListResponse )
+            App.createUpdate session model
+                |> App.withCmds [ ComponentApi.getComponents session ComponentListResponse ]
 
         ComponentDeleted _ ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
 
         -- GET
         ComponentListResponse response ->
-            ( { model | components = response }
-            , case response of
-                RemoteData.Success components ->
-                    session |> Session.updateDb (\db -> { db | components = components })
+            let
+                newSession =
+                    case response of
+                        RemoteData.Success components ->
+                            session |> Session.updateDb (\db -> { db | components = components })
 
-                _ ->
-                    session
-            , Cmd.none
-            )
+                        _ ->
+                            session
+            in
+            App.createUpdate newSession { model | components = response }
 
         -- PATCH
         ComponentUpdated (RemoteData.Failure err) ->
-            ( model, session |> Session.notifyBackendError err, Cmd.none )
+            App.createUpdate (session |> Session.notifyBackendError err) model
 
         ComponentUpdated (RemoteData.Success _) ->
-            ( model, session, ComponentApi.getComponents session ComponentListResponse )
+            App.createUpdate session model
+                |> App.withCmds [ ComponentApi.getComponents session ComponentListResponse ]
 
         ComponentUpdated _ ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
 
         DuplicateComponent component ->
-            ( model
-            , session
-            , { component | name = component.name ++ " (copie)" }
-                |> ComponentApi.createComponent session ComponentCreated
-            )
+            App.createUpdate session model
+                |> App.withCmds
+                    [ { component | name = component.name ++ " (copie)" }
+                        |> ComponentApi.createComponent session ComponentCreated
+                    ]
 
         NoOp ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
 
         OnAutocompleteAddProcess category targetItem maybeElementIndex autocompleteMsg ->
             case model.modals of
@@ -142,69 +147,66 @@ update session msg model =
                         ( newAutocompleteState, autoCompleteCmd ) =
                             Autocomplete.update autocompleteMsg autocompleteState
                     in
-                    ( { model
-                        | modals =
-                            [ SelectProcessModal category targetItem maybeElementIndex newAutocompleteState
-                            , EditComponentModal component item
+                    App.createUpdate session
+                        { model
+                            | modals =
+                                [ SelectProcessModal category targetItem maybeElementIndex newAutocompleteState
+                                , EditComponentModal component item
+                                ]
+                        }
+                        |> App.withCmds
+                            [ autoCompleteCmd
+                                |> Cmd.map (OnAutocompleteAddProcess category targetItem maybeElementIndex)
                             ]
-                      }
-                    , session
-                    , Cmd.map (OnAutocompleteAddProcess category targetItem maybeElementIndex) autoCompleteCmd
-                    )
 
                 _ ->
-                    ( model, session, Cmd.none )
+                    App.createUpdate session model
 
         OnAutocompleteSelectProcess category targetItem maybeElementIndex ->
             case model.modals of
                 [ SelectProcessModal _ _ _ autocompleteState, EditComponentModal _ item ] ->
-                    ( model, session, Cmd.none )
-                        |> selectProcess category targetItem maybeElementIndex autocompleteState item
+                    selectProcess category targetItem maybeElementIndex autocompleteState item model session
 
                 _ ->
-                    ( model, session, Cmd.none )
+                    App.createUpdate session model
 
         SaveComponent ->
             case model.modals of
                 [ DeleteComponentModal component ] ->
-                    ( { model | modals = [] }
-                    , session
-                    , ComponentApi.deleteComponent session ComponentDeleted component
-                    )
+                    App.createUpdate session { model | modals = [] }
+                        |> App.withCmds [ ComponentApi.deleteComponent session ComponentDeleted component ]
 
                 [ EditComponentModal _ item ] ->
                     case Component.itemToComponent session.db item of
                         Err error ->
-                            ( { model | modals = [] }
-                            , session |> Session.notifyError "Erreur" error
-                            , Cmd.none
-                            )
+                            App.createUpdate (session |> Session.notifyError "Erreur" error) { model | modals = [] }
 
                         Ok component ->
-                            ( { model | modals = [] }
-                            , session
-                            , ComponentApi.patchComponent session ComponentUpdated component
-                            )
+                            App.createUpdate session { model | modals = [] }
+                                |> App.withCmds [ ComponentApi.patchComponent session ComponentUpdated component ]
 
                 _ ->
-                    ( model, session, Cmd.none )
+                    App.createUpdate session model
 
+        -- TODO: should be used for notifications
+        -- SendParentMessage appMsg ->
+        --     App.createUpdate session model
+        --         |> App.withAppMsg appMsg
+        --
+        --
         SetModals modals ->
-            ( { model | modals = modals }, session, Cmd.none )
+            App.createUpdate session { model | modals = modals }
 
         UpdateComponent customItem ->
             case model.modals of
                 (EditComponentModal component _) :: others ->
-                    ( { model | modals = EditComponentModal component customItem :: others }, session, Cmd.none )
+                    App.createUpdate session { model | modals = EditComponentModal component customItem :: others }
 
                 _ ->
-                    ( model, session, Cmd.none )
+                    App.createUpdate session model
 
         UpdateScopeFilters scopes ->
-            ( { model | scopes = scopes }
-            , session
-            , Cmd.none
-            )
+            App.createUpdate session { model | scopes = scopes }
 
 
 selectProcess :
@@ -213,9 +215,10 @@ selectProcess :
     -> Maybe Index
     -> Autocomplete Process
     -> Item
-    -> ( Model, Session, Cmd Msg )
-    -> ( Model, Session, Cmd Msg )
-selectProcess category (( component, _ ) as targetItem) maybeElementIndex autocompleteState item ( model, session, _ ) =
+    -> Model
+    -> Session
+    -> PageUpdate Model Msg
+selectProcess category (( component, _ ) as targetItem) maybeElementIndex autocompleteState item model session =
     case Autocomplete.selectedValue autocompleteState of
         Just process ->
             case
@@ -224,13 +227,13 @@ selectProcess category (( component, _ ) as targetItem) maybeElementIndex autoco
                     |> Result.andThen (List.head >> Result.fromMaybe "Pas d'élément résultant")
             of
                 Err err ->
-                    ( model, session |> Session.notifyError "Erreur" err, Cmd.none )
+                    App.createUpdate (session |> Session.notifyError "Erreur" err) model
 
                 Ok updatedItem ->
-                    ( { model | modals = [ EditComponentModal component updatedItem ] }, session, Cmd.none )
+                    App.createUpdate session { model | modals = [ EditComponentModal component updatedItem ] }
 
         Nothing ->
-            ( model, session |> Session.notifyError "Erreur" "Aucun composant sélectionné", Cmd.none )
+            App.createUpdate (session |> Session.notifyError "Erreur" "Aucun composant sélectionné") model
 
 
 view : Session -> Model -> ( String, List (Html Msg) )

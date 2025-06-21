@@ -6,6 +6,7 @@ module Page.Home exposing
     , view
     )
 
+import App exposing (Msg, PageUpdate)
 import Data.Dataset as Dataset
 import Data.Env as Env
 import Data.Scope as Scope
@@ -25,6 +26,7 @@ type alias Model =
 
 type Msg
     = NoOp
+    | SendParentMessage App.Msg
 
 
 type alias ButtonParams =
@@ -36,19 +38,21 @@ type alias ButtonParams =
     }
 
 
-init : Session -> ( Model, Session, Cmd Msg )
+init : Session -> PageUpdate Model Msg
 init session =
-    ( ()
-    , session
-    , Ports.scrollTo { x = 0, y = 0 }
-    )
+    App.createUpdate session ()
+        |> App.withCmds [ Ports.scrollTo { x = 0, y = 0 } ]
 
 
-update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
+update : Session -> Msg -> Model -> PageUpdate Model Msg
 update session msg model =
     case msg of
         NoOp ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
+
+        SendParentMessage appMsg ->
+            App.createUpdate session model
+                |> App.withAppMsg appMsg
 
 
 simulatorButton : ButtonParams -> Html Msg

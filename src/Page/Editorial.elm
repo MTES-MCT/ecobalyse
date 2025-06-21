@@ -6,6 +6,7 @@ module Page.Editorial exposing
     , view
     )
 
+import App exposing (Msg, PageUpdate)
 import Data.Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -30,27 +31,27 @@ type Msg
     = ContentReceived (WebData String)
 
 
-init : String -> Session -> ( Model, Session, Cmd Msg )
+init : String -> Session -> PageUpdate Model Msg
 init slug session =
-    ( { slug = slug, content = RemoteData.Loading }
-    , session
-    , Cmd.batch
-        [ Ports.scrollTo { x = 0, y = 0 }
-        , Http.get
-            { url = "pages/" ++ slug ++ ".md"
-            , expect =
-                Http.expectString
-                    (RemoteData.fromResult >> ContentReceived)
-            }
-        ]
-    )
+    { slug = slug, content = RemoteData.Loading }
+        |> App.createUpdate session
+        |> App.withCmds
+            [ Ports.scrollTo { x = 0, y = 0 }
+            , Http.get
+                { url = "pages/" ++ slug ++ ".md"
+                , expect =
+                    Http.expectString
+                        (RemoteData.fromResult >> ContentReceived)
+                }
+            ]
 
 
-update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
+update : Session -> Msg -> Model -> PageUpdate Model Msg
 update session msg model =
     case msg of
         ContentReceived content ->
-            ( { model | content = content }, session, Cmd.none )
+            { model | content = content }
+                |> App.createUpdate session
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
