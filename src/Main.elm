@@ -156,6 +156,59 @@ setupSession navKey flags db =
         }
 
 
+toPage_ :
+    Session
+    -> Model
+    -> Cmd msg
+    -> (pageModel -> Page)
+    -> (pageMsg -> msg)
+    -> ( pageModel, Session, Cmd pageMsg )
+    -> ( Model, Cmd msg )
+toPage_ session model cmds toModel toMsg ( newModel, newSession, newCmd ) =
+    let
+        storeCmd =
+            if session.store /= newSession.store then
+                newSession.store |> Session.serializeStore |> Ports.saveStore
+
+            else
+                Cmd.none
+    in
+    ( { model | state = Loaded newSession (toModel newModel) }
+    , Cmd.batch
+        [ cmds
+        , Cmd.map toMsg newCmd
+        , storeCmd
+        ]
+    )
+
+
+toPageWithParent_ :
+    Session
+    -> Model
+    -> Cmd Msg
+    -> (pageModel -> Page)
+    -> (pageMsg -> Msg)
+    -> App.PageUpdate pageModel pageMsg
+    -> ( Model, Cmd Msg )
+toPageWithParent_ session model cmds toModel toMsg pageUpdate =
+    let
+        storeCmd =
+            if session.store /= pageUpdate.session.store then
+                pageUpdate.session.store |> Session.serializeStore |> Ports.saveStore
+
+            else
+                Cmd.none
+    in
+    ( { model | state = Loaded pageUpdate.session (toModel pageUpdate.model) }
+    , Cmd.batch
+        [ cmds
+        , Cmd.map toMsg pageUpdate.cmd
+        , storeCmd
+        , pageUpdate |> App.toAppCmd AppMsg
+        ]
+    )
+
+
 setRoute : Url -> ( Model, Cmd Msg ) -> ( Model, Cmd Msg )
 setRoute url ( { state } as model, cmds ) =
     case state of
@@ -165,41 +218,11 @@ setRoute url ( { state } as model, cmds ) =
 
         Loaded session _ ->
             let
-                -- TODO: factor this with `update` internal `toPage`
-                toPage toModel toMsg ( newModel, newSession, newCmd ) =
-                    let
-                        storeCmd =
-                            if session.store /= newSession.store then
-                                newSession.store |> Session.serializeStore |> Ports.saveStore
+                toPage =
+                    toPage_ session model cmds
 
-                            else
-                                Cmd.none
-                    in
-                    ( { model | state = Loaded newSession (toModel newModel) }
-                    , Cmd.batch
-                        [ cmds
-                        , Cmd.map toMsg newCmd
-                        , storeCmd
-                        ]
-                    )
-
-                toPageWithParent toModel toMsg pageUpdate =
-                    let
-                        storeCmd =
-                            if session.store /= pageUpdate.session.store then
-                                pageUpdate.session.store |> Session.serializeStore |> Ports.saveStore
-
-                            else
-                                Cmd.none
-                    in
-                    ( { model | state = Loaded pageUpdate.session (toModel pageUpdate.model) }
-                    , Cmd.batch
-                        [ cmds
-                        , Cmd.map toMsg pageUpdate.cmd
-                        , storeCmd
-                        , pageUpdate |> App.toAppCmd AppMsg
-                        ]
-                    )
+                toPageWithParent =
+                    toPageWithParent_ session model cmds
             in
             case Route.fromUrl url of
                 Just Route.Admin ->
@@ -291,36 +314,11 @@ update rawMsg ({ state } as model) =
     case ( state, rawMsg ) of
         ( Loaded session page, msg ) ->
             let
-                -- TODO: factor this with `setRoute` internal `toPage`
-                toPage toModel toMsg ( newModel, newSession, newCmd ) =
-                    let
-                        storeCmd =
-                            if session.store /= newSession.store then
-                                newSession.store |> Session.serializeStore |> Ports.saveStore
+                toPage =
+                    toPage_ session model Cmd.none
 
-                            else
-                                Cmd.none
-                    in
-                    ( { model | state = Loaded newSession (toModel newModel) }
-                    , Cmd.map toMsg (Cmd.batch [ newCmd, storeCmd ])
-                    )
-
-                toPageWithParent toModel toMsg pageUpdate =
-                    let
-                        storeCmd =
-                            if session.store /= pageUpdate.session.store then
-                                pageUpdate.session.store |> Session.serializeStore |> Ports.saveStore
-
-                            else
-                                Cmd.none
-                    in
-                    ( { model | state = Loaded pageUpdate.session (toModel pageUpdate.model) }
-                    , Cmd.batch
-                        [ Cmd.map toMsg pageUpdate.cmd
-                        , storeCmd
-                        , pageUpdate |> App.toAppCmd AppMsg
-                        ]
-                    )
+                toPageWithParent =
+                    toPageWithParent_ session model Cmd.none
             in
             case ( msg, page ) of
                 -- Parent messages from page modules
