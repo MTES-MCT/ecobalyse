@@ -1,5 +1,6 @@
 module Main exposing (main)
 
+import App exposing (Msg)
 import Browser exposing (Document)
 import Browser.Navigation as Nav
 import Data.Example as Example
@@ -18,7 +19,6 @@ import Page.Explore as Explore
 import Page.Food as FoodBuilder
 import Page.Home as Home
 import Page.Object as ObjectSimulator
-import Page.ParentMsg as ParentMsg exposing (ParentMsg)
 import Page.Stats as Stats
 import Page.Textile as TextileSimulator
 import Ports
@@ -77,6 +77,7 @@ type alias Model =
 type Msg
     = AdminMsg Admin.Msg
     | ApiMsg Api.Msg
+    | AppMsg App.Msg
     | AuthMsg Auth.Msg
     | DetailedProcessesReceived (BackendHttp.WebData String)
     | EditorialMsg Editorial.Msg
@@ -84,7 +85,6 @@ type Msg
     | FoodBuilderMsg FoodBuilder.Msg
     | HomeMsg Home.Msg
     | ObjectSimulatorMsg ObjectSimulator.Msg
-    | ParentMsg ParentMsg
     | ReleasesReceived (WebData (List Github.Release))
     | StatsMsg Stats.Msg
     | StoreChanged String
@@ -197,7 +197,7 @@ setRoute url ( { state } as model, cmds ) =
                         [ cmds
                         , Cmd.map toMsg pageUpdate.cmd
                         , storeCmd
-                        , pageUpdate |> ParentMsg.toParentCmd ParentMsg
+                        , pageUpdate |> App.toAppCmd AppMsg
                         ]
                     )
             in
@@ -318,16 +318,16 @@ update rawMsg ({ state } as model) =
                     , Cmd.batch
                         [ Cmd.map toMsg pageUpdate.cmd
                         , storeCmd
-                        , pageUpdate |> ParentMsg.toParentCmd ParentMsg
+                        , pageUpdate |> App.toAppCmd AppMsg
                         ]
                     )
             in
             case ( msg, page ) of
                 -- Parent messages from page modules
-                ( ParentMsg ParentMsg.CloseMobileNavigation, _ ) ->
+                ( AppMsg App.CloseMobileNavigation, _ ) ->
                     ( { model | mobileNavigationOpened = False }, Cmd.none )
 
-                ( ParentMsg (ParentMsg.CloseNotification notification), currentPage ) ->
+                ( AppMsg (App.CloseNotification notification), currentPage ) ->
                     ( { model
                         | state =
                             currentPage
@@ -336,16 +336,16 @@ update rawMsg ({ state } as model) =
                     , Cmd.none
                     )
 
-                ( ParentMsg (ParentMsg.LoadUrl url), _ ) ->
+                ( AppMsg (App.LoadUrl url), _ ) ->
                     ( model, Nav.load url )
 
-                ( ParentMsg ParentMsg.OpenMobileNavigation, _ ) ->
+                ( AppMsg App.OpenMobileNavigation, _ ) ->
                     ( { model | mobileNavigationOpened = True }, Cmd.none )
 
-                ( ParentMsg ParentMsg.ReloadPage, _ ) ->
+                ( AppMsg App.ReloadPage, _ ) ->
                     ( model, Nav.reloadAndSkipCache )
 
-                ( ParentMsg ParentMsg.ResetSessionStore, currentPage ) ->
+                ( AppMsg App.ResetSessionStore, currentPage ) ->
                     let
                         newSession =
                             { session | notifications = [], store = Session.defaultStore }
@@ -355,7 +355,7 @@ update rawMsg ({ state } as model) =
                     , newSession.store |> Session.serializeStore |> Ports.saveStore
                     )
 
-                ( ParentMsg (ParentMsg.SwitchVersion version), _ ) ->
+                ( AppMsg (App.SwitchVersion version), _ ) ->
                     ( model
                     , Nav.load <|
                         "/versions/"
@@ -534,7 +534,7 @@ view { mobileNavigationOpened, state } =
                         { activePage = activePage
                         , mobileNavigationOpened = mobileNavigationOpened
                         , session = session
-                        , toMsg = ParentMsg
+                        , toMsg = AppMsg
                         }
 
                 mapMsg msg ( title, content ) =

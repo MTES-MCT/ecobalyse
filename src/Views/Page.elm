@@ -7,6 +7,7 @@ module Views.Page exposing
     , restricted
     )
 
+import App exposing (Msg)
 import Browser exposing (Document)
 import Data.Dataset as Dataset
 import Data.Env as Env
@@ -17,7 +18,6 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Json.Decode as Decode
-import Page.ParentMsg as ParentMsg exposing (ParentMsg)
 import RemoteData
 import Request.Version as Version exposing (Version(..))
 import Route
@@ -52,7 +52,7 @@ type alias Config msg =
     { activePage : ActivePage
     , mobileNavigationOpened : Bool
     , session : Session
-    , toMsg : ParentMsg -> msg
+    , toMsg : Msg -> msg
     }
 
 
@@ -97,7 +97,7 @@ stagingAlert { session, toMsg } =
             , button
                 [ type_ "button"
                 , class "btn btn-link"
-                , onClick (toMsg <| ParentMsg.LoadUrl "https://ecobalyse.beta.gouv.fr/")
+                , onClick (toMsg <| App.LoadUrl "https://ecobalyse.beta.gouv.fr/")
                 ]
                 [ text "Retourner vers l'environnement de production" ]
             ]
@@ -120,7 +120,7 @@ newVersionAlert { session, toMsg } =
                 , button
                     [ type_ "button"
                     , class "btn btn-outline-primary"
-                    , onClick (toMsg ParentMsg.ReloadPage)
+                    , onClick (toMsg App.ReloadPage)
                     ]
                     [ text "Mettre à jour" ]
                 ]
@@ -341,7 +341,7 @@ pageHeader { activePage, session, toMsg } =
                 , class "d-inline-block d-sm-none btn m-0 p-0"
                 , attribute "aria-label" "Ouvrir la navigation"
                 , title "Ouvrir la navigation"
-                , onClick (toMsg ParentMsg.OpenMobileNavigation)
+                , onClick (toMsg App.OpenMobileNavigation)
                 ]
                 [ span [ class "fs-3" ] [ Icon.ham ] ]
             ]
@@ -354,7 +354,7 @@ pageHeader { activePage, session, toMsg } =
                 -- https://dashlord.mte.incubateur.net/dashlord/url/ecobalyse-beta-gouv-fr/best-practices/#dsfr
                 , class "fr-header__brand"
                 , href "/"
-                , onClick (toMsg <| ParentMsg.LoadUrl "/")
+                , onClick (toMsg <| App.LoadUrl "/")
                 ]
                 [ img [ class "HeaderLogo", alt "République Française", src "img/republique-francaise.svg" ] []
                 , h1 [ class "HeaderTitle" ]
@@ -383,7 +383,7 @@ pageHeader { activePage, session, toMsg } =
                 |> select
                     [ class "VersionSelector d-none d-sm-block form-select form-select-sm w-auto"
                     , attribute "data-testid" "version-selector"
-                    , onInput <| toMsg << ParentMsg.SwitchVersion
+                    , onInput <| toMsg << App.SwitchVersion
                     ]
             , div [ class "HeaderAuthLink flex-fill" ]
                 [ a
@@ -460,7 +460,7 @@ notificationView { session, toMsg } notification =
     -- - timeout
     let
         closeNotification =
-            toMsg <| ParentMsg.CloseNotification notification
+            toMsg <| App.CloseNotification notification
     in
     case notification of
         Session.BackendError backendError ->
@@ -490,7 +490,7 @@ notificationView { session, toMsg } notification =
                     , p []
                         [ button
                             [ class "btn btn-primary"
-                            , onClick (toMsg ParentMsg.ResetSessionStore)
+                            , onClick (toMsg App.ResetSessionStore)
                             ]
                             [ text "D’accord, réinitialiser la session" ]
                         ]
@@ -552,7 +552,7 @@ mobileNavigation { activePage, session, toMsg } =
                     [ type_ "button"
                     , class "btn-close text-reset"
                     , attribute "aria-label" "Close"
-                    , onClick <| toMsg ParentMsg.CloseMobileNavigation
+                    , onClick <| toMsg App.CloseMobileNavigation
                     ]
                     []
                 ]
@@ -572,7 +572,7 @@ mobileNavigation { activePage, session, toMsg } =
                                     a
                                         [ class "nav-link"
                                         , href <| "/versions/" ++ release.tag
-                                        , onClick (toMsg <| ParentMsg.LoadUrl <| "/versions/" ++ release.tag)
+                                        , onClick (toMsg <| App.LoadUrl <| "/versions/" ++ release.tag)
                                         ]
                                         [ text release.tag ]
                             )
