@@ -156,33 +156,7 @@ setupSession navKey flags db =
         }
 
 
-toPage_ :
-    Session
-    -> Model
-    -> Cmd msg
-    -> (pageModel -> Page)
-    -> (pageMsg -> msg)
-    -> ( pageModel, Session, Cmd pageMsg )
-    -> ( Model, Cmd msg )
-toPage_ session model cmds toModel toMsg ( newModel, newSession, newCmd ) =
-    let
-        storeCmd =
-            if session.store /= newSession.store then
-                newSession.store |> Session.serializeStore |> Ports.saveStore
-
-            else
-                Cmd.none
-    in
-    ( { model | state = Loaded newSession (toModel newModel) }
-    , Cmd.batch
-        [ cmds
-        , Cmd.map toMsg newCmd
-        , storeCmd
-        ]
-    )
-
-
-toPageWithParent_ :
+toPage :
     Session
     -> Model
     -> Cmd Msg
@@ -190,7 +164,7 @@ toPageWithParent_ :
     -> (pageMsg -> Msg)
     -> App.PageUpdate pageModel pageMsg
     -> ( Model, Cmd Msg )
-toPageWithParent_ session model cmds toModel toMsg pageUpdate =
+toPage session model cmds toModel toMsg pageUpdate =
     let
         storeCmd =
             if session.store /= pageUpdate.session.store then
@@ -217,18 +191,11 @@ setRoute url ( { state } as model, cmds ) =
             ( model, cmds )
 
         Loaded session _ ->
-            let
-                toPage =
-                    toPage_ session model cmds
-
-                toPageWithParent =
-                    toPageWithParent_ session model cmds
-            in
             case Route.fromUrl url of
                 Just Route.Admin ->
                     if Session.isStaff session then
                         Admin.init session
-                            |> toPageWithParent AdminPage AdminMsg
+                            |> toPage session model cmds AdminPage AdminMsg
 
                     else
                         ( { model | state = Loaded session RestrictedAccessPage }
@@ -237,71 +204,71 @@ setRoute url ( { state } as model, cmds ) =
 
                 Just Route.Api ->
                     Api.init session
-                        |> toPageWithParent ApiPage ApiMsg
+                        |> toPage session model cmds ApiPage ApiMsg
 
                 Just Route.Auth ->
                     Auth.init session
-                        |> toPageWithParent AuthPage AuthMsg
+                        |> toPage session model cmds AuthPage AuthMsg
 
                 Just (Route.AuthLogin email token) ->
                     Auth.initLogin session email token
-                        |> toPageWithParent AuthPage AuthMsg
+                        |> toPage session model cmds AuthPage AuthMsg
 
                 Just Route.AuthSignup ->
                     Auth.initSignup session
-                        |> toPageWithParent AuthPage AuthMsg
+                        |> toPage session model cmds AuthPage AuthMsg
 
                 Just (Route.Editorial slug) ->
                     Editorial.init slug session
-                        |> toPageWithParent EditorialPage EditorialMsg
+                        |> toPage session model cmds EditorialPage EditorialMsg
 
                 Just (Route.Explore scope dataset) ->
                     Explore.init scope dataset session
-                        |> toPageWithParent ExplorePage ExploreMsg
+                        |> toPage session model cmds ExplorePage ExploreMsg
 
                 Just (Route.FoodBuilder trigram maybeQuery) ->
                     FoodBuilder.init session trigram maybeQuery
-                        |> toPage FoodBuilderPage FoodBuilderMsg
+                        |> toPage session model cmds FoodBuilderPage FoodBuilderMsg
 
                 Just (Route.FoodBuilderExample uuid) ->
                     FoodBuilder.initFromExample session uuid
-                        |> toPage FoodBuilderPage FoodBuilderMsg
+                        |> toPage session model cmds FoodBuilderPage FoodBuilderMsg
 
                 Just Route.FoodBuilderHome ->
                     FoodBuilder.init session Impact.default Nothing
-                        |> toPage FoodBuilderPage FoodBuilderMsg
+                        |> toPage session model cmds FoodBuilderPage FoodBuilderMsg
 
                 Just Route.Home ->
                     Home.init session
-                        |> toPageWithParent HomePage HomeMsg
+                        |> toPage session model cmds HomePage HomeMsg
 
                 Just (Route.ObjectSimulator scope trigram maybeQuery) ->
                     ObjectSimulator.init scope trigram maybeQuery session
-                        |> toPageWithParent ObjectSimulatorPage ObjectSimulatorMsg
+                        |> toPage session model cmds ObjectSimulatorPage ObjectSimulatorMsg
 
                 Just (Route.ObjectSimulatorExample scope uuid) ->
                     ObjectSimulator.initFromExample session scope uuid
-                        |> toPageWithParent ObjectSimulatorPage ObjectSimulatorMsg
+                        |> toPage session model cmds ObjectSimulatorPage ObjectSimulatorMsg
 
                 Just (Route.ObjectSimulatorHome scope) ->
                     ObjectSimulator.init scope Impact.default Nothing session
-                        |> toPageWithParent ObjectSimulatorPage ObjectSimulatorMsg
+                        |> toPage session model cmds ObjectSimulatorPage ObjectSimulatorMsg
 
                 Just Route.Stats ->
                     Stats.init session
-                        |> toPageWithParent StatsPage StatsMsg
+                        |> toPage session model cmds StatsPage StatsMsg
 
                 Just (Route.TextileSimulator trigram maybeQuery) ->
                     TextileSimulator.init trigram maybeQuery session
-                        |> toPageWithParent TextileSimulatorPage TextileSimulatorMsg
+                        |> toPage session model cmds TextileSimulatorPage TextileSimulatorMsg
 
                 Just (Route.TextileSimulatorExample uuid) ->
                     TextileSimulator.initFromExample session uuid
-                        |> toPageWithParent TextileSimulatorPage TextileSimulatorMsg
+                        |> toPage session model cmds TextileSimulatorPage TextileSimulatorMsg
 
                 Just Route.TextileSimulatorHome ->
                     TextileSimulator.init Impact.default Nothing session
-                        |> toPageWithParent TextileSimulatorPage TextileSimulatorMsg
+                        |> toPage session model cmds TextileSimulatorPage TextileSimulatorMsg
 
                 Nothing ->
                     ( { model | state = Loaded session NotFoundPage }
@@ -313,13 +280,6 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update rawMsg ({ state } as model) =
     case ( state, rawMsg ) of
         ( Loaded session page, msg ) ->
-            let
-                toPage =
-                    toPage_ session model Cmd.none
-
-                toPageWithParent =
-                    toPageWithParent_ session model Cmd.none
-            in
             case ( msg, page ) of
                 -- Parent messages from page modules
                 ( AppMsg App.CloseMobileNavigation, _ ) ->
@@ -365,19 +325,19 @@ update rawMsg ({ state } as model) =
                 -- Pages
                 ( HomeMsg homeMsg, HomePage homeModel ) ->
                     Home.update session homeMsg homeModel
-                        |> toPageWithParent HomePage HomeMsg
+                        |> toPage session model Cmd.none HomePage HomeMsg
 
                 ( AdminMsg adminMsg, AdminPage adminModel ) ->
                     Admin.update session adminMsg adminModel
-                        |> toPageWithParent AdminPage AdminMsg
+                        |> toPage session model Cmd.none AdminPage AdminMsg
 
                 ( ApiMsg apiMsg, ApiPage apiModel ) ->
                     Api.update session apiMsg apiModel
-                        |> toPageWithParent ApiPage ApiMsg
+                        |> toPage session model Cmd.none ApiPage ApiMsg
 
                 ( AuthMsg auth2Msg, AuthPage auth2Model ) ->
                     Auth.update session auth2Msg auth2Model
-                        |> toPageWithParent AuthPage AuthMsg
+                        |> toPage session model Cmd.none AuthPage AuthMsg
 
                 ( DetailedProcessesReceived (RemoteData.Success rawDetailedProcessesJson), currentPage ) ->
                     -- When detailed processes are received, rebuild the entire static db using them
@@ -395,31 +355,31 @@ update rawMsg ({ state } as model) =
 
                 ( EditorialMsg editorialMsg, EditorialPage editorialModel ) ->
                     Editorial.update session editorialMsg editorialModel
-                        |> toPageWithParent EditorialPage EditorialMsg
+                        |> toPage session model Cmd.none EditorialPage EditorialMsg
 
                 ( ExploreMsg examplesMsg, ExplorePage examplesModel ) ->
                     Explore.update session examplesMsg examplesModel
-                        |> toPageWithParent ExplorePage ExploreMsg
+                        |> toPage session model Cmd.none ExplorePage ExploreMsg
 
                 -- Food
                 ( FoodBuilderMsg foodMsg, FoodBuilderPage foodModel ) ->
                     FoodBuilder.update session foodMsg foodModel
-                        |> toPage FoodBuilderPage FoodBuilderMsg
+                        |> toPage session model Cmd.none FoodBuilderPage FoodBuilderMsg
 
                 -- Object
                 ( ObjectSimulatorMsg objectMsg, ObjectSimulatorPage objectModel ) ->
                     ObjectSimulator.update session objectMsg objectModel
-                        |> toPageWithParent ObjectSimulatorPage ObjectSimulatorMsg
+                        |> toPage session model Cmd.none ObjectSimulatorPage ObjectSimulatorMsg
 
                 -- Textile
                 ( TextileSimulatorMsg textileMsg, TextileSimulatorPage textileModel ) ->
                     TextileSimulator.update session textileMsg textileModel
-                        |> toPageWithParent TextileSimulatorPage TextileSimulatorMsg
+                        |> toPage session model Cmd.none TextileSimulatorPage TextileSimulatorMsg
 
                 -- Stats
                 ( StatsMsg statsMsg, StatsPage statsModel ) ->
                     Stats.update session statsMsg statsModel
-                        |> toPageWithParent StatsPage StatsMsg
+                        |> toPage session model Cmd.none StatsPage StatsMsg
 
                 -- Store
                 ( StoreChanged json, currentPage ) ->
