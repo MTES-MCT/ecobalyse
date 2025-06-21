@@ -241,15 +241,15 @@ setRoute url ( { state } as model, cmds ) =
 
                 Just Route.Auth ->
                     Auth.init session
-                        |> toPage AuthPage AuthMsg
+                        |> toPageWithParent AuthPage AuthMsg
 
                 Just (Route.AuthLogin email token) ->
                     Auth.initLogin session email token
-                        |> toPage AuthPage AuthMsg
+                        |> toPageWithParent AuthPage AuthMsg
 
                 Just Route.AuthSignup ->
                     Auth.initSignup session
-                        |> toPage AuthPage AuthMsg
+                        |> toPageWithParent AuthPage AuthMsg
 
                 Just (Route.Editorial slug) ->
                     Editorial.init slug session
@@ -377,7 +377,7 @@ update rawMsg ({ state } as model) =
 
                 ( AuthMsg auth2Msg, AuthPage auth2Model ) ->
                     Auth.update session auth2Msg auth2Model
-                        |> toPage AuthPage AuthMsg
+                        |> toPageWithParent AuthPage AuthMsg
 
                 ( DetailedProcessesReceived (RemoteData.Success rawDetailedProcessesJson), currentPage ) ->
                     -- When detailed processes are received, rebuild the entire static db using them

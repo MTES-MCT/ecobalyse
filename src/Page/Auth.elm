@@ -8,6 +8,7 @@ module Page.Auth exposing
     , view
     )
 
+import App exposing (PageUpdate)
 import Browser.Navigation as Nav
 import Data.ApiToken as ApiToken exposing (CreatedToken, Token)
 import Data.Env as Env
@@ -79,91 +80,83 @@ type Tab
     | SignupCompleted Email
 
 
-init : Session -> ( Model, Session, Cmd Msg )
+init : Session -> PageUpdate Model Msg
 init session =
     case Session.getAuth session of
         Just auth ->
-            ( { tab = Account auth User.emptyProfileForm Dict.empty }
-            , session
-              -- Always ensure fetching the freshest user profile
-            , Cmd.batch
-                [ Auth.profile session (ProfileResponse { updated = False } auth.accessTokenData)
-                , ApiTokenHttp.list session ApiTokensResponse
-                ]
-            )
+            { tab = Account auth User.emptyProfileForm Dict.empty }
+                |> App.createUpdate session
+                |> App.withCmds
+                    [ Auth.profile session (ProfileResponse { updated = False } auth.accessTokenData)
+                    , ApiTokenHttp.list session ApiTokensResponse
+                    ]
 
         Nothing ->
-            ( { tab = MagicLinkForm "" }, session, Cmd.none )
+            { tab = MagicLinkForm "" }
+                |> App.createUpdate session
 
 
 {-| Init page when we receive magic link information
 -}
-initLogin : Session -> Email -> AccessToken -> ( Model, Session, Cmd Msg )
+initLogin : Session -> Email -> AccessToken -> PageUpdate Model Msg
 initLogin session email token =
-    ( { tab = MagicLinkLogin }
-    , session
-    , Auth.login session LoginResponse email token
-    )
+    { tab = MagicLinkLogin }
+        |> App.createUpdate session
+        |> App.withCmds [ Auth.login session LoginResponse email token ]
 
 
-initSignup : Session -> ( Model, Session, Cmd Msg )
+initSignup : Session -> PageUpdate Model Msg
 initSignup session =
     case Session.getAuth session of
         Just user ->
-            ( { tab = Account user User.emptyProfileForm Dict.empty }
-            , session
-            , Nav.pushUrl session.navKey <| Route.toString Route.Auth
-            )
+            { tab = Account user User.emptyProfileForm Dict.empty }
+                |> App.createUpdate session
+                |> App.withCmds [ Nav.pushUrl session.navKey <| Route.toString Route.Auth ]
 
         Nothing ->
-            ( { tab = Signup User.emptySignupForm Dict.empty }
-            , session
-            , Cmd.none
-            )
+            { tab = Signup User.emptySignupForm Dict.empty }
+                |> App.createUpdate session
 
 
-update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
+update : Session -> Msg -> Model -> PageUpdate Model Msg
 update session msg model =
     case msg of
         -- Generic page updates
         CopyToClipboard accessToken ->
-            ( model
-            , session |> Session.notifyInfo "Copié" "Le jeton d'API a été copié dans le presse-papiers"
-            , Ports.copyToClipboard accessToken
-            )
+            model
+                |> App.createUpdate (session |> Session.notifyInfo "Copié" "Le jeton d'API a été copié dans le presse-papiers")
+                |> App.withCmds [ Ports.copyToClipboard accessToken ]
 
         -- Update db with detailed processes when we get them
         DetailedProcessesResponse (RemoteData.Success rawDetailedProcessesJson) ->
-            ( model
-            , session
-                |> Session.updateDbProcesses rawDetailedProcessesJson
-                |> Session.notifyInfo "Information" "Vous avez désormais accès aux impacts détaillés"
-            , Nav.pushUrl session.navKey <| Route.toString Route.Auth
-            )
+            model
+                |> App.createUpdate
+                    (session
+                        |> Session.updateDbProcesses rawDetailedProcessesJson
+                        |> Session.notifyInfo "Information" "Vous avez désormais accès aux impacts détaillés"
+                    )
+                |> App.withCmds [ Nav.pushUrl session.navKey <| Route.toString Route.Auth ]
 
         DetailedProcessesResponse (RemoteData.Failure error) ->
-            ( model
-            , session |> Session.notifyBackendError error
-            , Cmd.none
-            )
+            model
+                |> App.createUpdate (session |> Session.notifyBackendError error)
 
         -- Account tab initialisation: retrieve the latest user profile
         SwitchTab (Account auth _ _) ->
-            ( { model | tab = Account auth User.emptyProfileForm Dict.empty }
-            , session
-            , Auth.profile session (ProfileResponse { updated = False } auth.accessTokenData)
-            )
+            { model | tab = Account auth User.emptyProfileForm Dict.empty }
+                |> App.createUpdate session
+                |> App.withCmds [ Auth.profile session (ProfileResponse { updated = False } auth.accessTokenData) ]
 
         -- ApiTokens tab initialisation: retrieve the latest list of tokens
         SwitchTab (ApiTokens _) ->
-            ( { model | tab = ApiTokens RemoteData.Loading }
-            , session
-            , ApiTokenHttp.list session ApiTokensResponse
-            )
+            { model | tab = ApiTokens RemoteData.Loading }
+                |> App.createUpdate session
+                |> App.withCmds [ ApiTokenHttp.list session ApiTokensResponse ]
 
         -- Generic tab initialisation
         SwitchTab tab ->
-            ( { model | tab = tab }, session, Cmd.none )
+            { model | tab = tab }
+                |> App.createUpdate session
 
         -- Specific tab updates
         tabMsg ->
@@ -172,7 +165,7 @@ update session msg model =
                     updateAccountTab session auth profileForm formErrors tabMsg model
 
                 ApiTokenCreated _ ->
-                    ( model, session, Cmd.none )
+                    App.createUpdate session model
 
                 ApiTokenDelete apiToken ->
                     updateApiTokenDeleteTab session apiToken tabMsg model
@@ -187,7 +180,7 @@ update session msg model =
                     updateMagicLinkLoginTab session tabMsg model
 
                 MagicLinkSent _ ->
-                    ( model, session, Cmd.none )
+                    App.createUpdate session model
 
                 Signup signupForm _ ->
                     updateSignupTab session signupForm tabMsg model
@@ -196,34 +189,25 @@ update session msg model =
                     updateNothing session model
 
 
-updateAccountTab : Session -> Session.Auth -> ProfileForm -> FormErrors -> Msg -> Model -> ( Model, Session, Cmd Msg )
+updateAccountTab : Session -> Session.Auth -> ProfileForm -> FormErrors -> Msg -> Model -> PageUpdate Model Msg
 updateAccountTab session currentAuth profileForm _ msg model =
     case msg of
         Logout user ->
-            ( model
-            , session
-            , user |> Auth.logout session LogoutResponse
-            )
+            model
+                |> App.createUpdate session
+                |> App.withCmds [ user |> Auth.logout session LogoutResponse ]
 
         LogoutResponse (RemoteData.Failure error) ->
-            ( model
-            , session
-                |> Session.notifyBackendError error
-                |> Session.logout
-                |> Session.notifyInfo "Déconnexion" "Vous avez été deconnecté"
-            , Cmd.none
-            )
+            model
+                |> App.createUpdate (session |> Session.notifyBackendError error |> Session.logout |> Session.notifyInfo "Déconnexion" "Vous avez été deconnecté")
 
         LogoutResponse (RemoteData.Success _) ->
-            ( model
-            , session
-                |> Session.logout
-                |> Session.notifyInfo "Déconnexion" "Vous avez été deconnecté"
-            , Nav.load <| Route.toString Route.Auth
-            )
+            model
+                |> App.createUpdate (session |> Session.logout |> Session.notifyInfo "Déconnexion" "Vous avez été deconnecté")
+                |> App.withCmds [ Nav.load <| Route.toString Route.Auth ]
 
         ProfileResponse { updated } _ (RemoteData.Success user) ->
-            ( { model
+            { model
                 | tab =
                     Account { currentAuth | user = user }
                         { emailOptin = user.profile.emailOptin
@@ -231,33 +215,26 @@ updateAccountTab session currentAuth profileForm _ msg model =
                         , lastName = user.profile.lastName
                         }
                         Dict.empty
-              }
-            , session
-                |> Session.updateAuth (\auth2 -> { auth2 | user = user })
-                |> (if updated then
-                        Session.notifyInfo "Information" "Vos informations ont été mises à jour"
+            }
+                |> App.createUpdate
+                    (session
+                        |> Session.updateAuth (\auth -> { auth | user = user })
+                        |> (if updated then
+                                Session.notifyInfo "Profil mis à jour" "Votre profil a été mis à jour avec succès"
 
-                    else
-                        identity
-                   )
-            , Cmd.none
-            )
+                            else
+                                identity
+                           )
+                    )
 
         ProfileResponse _ _ (RemoteData.Failure error) ->
             if (BackendError.mapErrorResponse error |> .statusCode) == 401 then
-                ( { model | tab = MagicLinkForm "" }
-                , session
-                    |> Session.logout
-                    |> Session.notifyInfo "Déconnexion"
-                        "Session invalide ou expirée, vous avez été deconnecté. Vous devrez vous reconnecter."
-                , Cmd.none
-                )
+                { model | tab = MagicLinkForm "" }
+                    |> App.createUpdate (session |> Session.logout |> Session.notifyInfo "Déconnexion" "Session invalide ou expirée, vous avez été deconnecté. Vous devrez vous reconnecter.")
 
             else
-                ( model
-                , session |> Session.notifyBackendError error
-                , Cmd.none
-                )
+                model
+                    |> App.createUpdate (session |> Session.notifyBackendError error)
 
         ProfileSubmit ->
             let
@@ -268,172 +245,154 @@ updateAccountTab session currentAuth profileForm _ msg model =
                     { model | tab = Account currentAuth profileForm newFormErrors }
             in
             if newFormErrors == Dict.empty then
-                ( newModel
-                , session |> Session.clearNotifications
-                , profileForm
-                    |> Auth.updateProfile session (ProfileResponse { updated = True } currentAuth.accessTokenData)
-                )
+                newModel
+                    |> App.createUpdate (session |> Session.clearNotifications)
+                    |> App.withCmds
+                        [ profileForm
+                            |> Auth.updateProfile session (ProfileResponse { updated = True } currentAuth.accessTokenData)
+                        ]
 
             else
-                ( newModel
-                , session |> Session.notifyError "Erreur" "Veuillez corriger les champs en erreur"
-                , Cmd.none
-                )
+                newModel
+                    |> App.createUpdate (session |> Session.notifyError "Erreur" "Veuillez corriger les champs en erreur")
 
         UpdateProfileForm profileForm_ ->
-            ( { model | tab = Account currentAuth profileForm_ Dict.empty }, session, Cmd.none )
+            { model | tab = Account currentAuth profileForm_ Dict.empty }
+                |> App.createUpdate session
 
         _ ->
             updateNothing session model
 
 
-updateApiTokensTab : Session -> WebData (List CreatedToken) -> Msg -> Model -> ( Model, Session, Cmd Msg )
+updateApiTokensTab : Session -> WebData (List CreatedToken) -> Msg -> Model -> PageUpdate Model Msg
 updateApiTokensTab session _ tabMsg model =
     case tabMsg of
         ApiTokensResponse newApiTokens ->
-            ( { model | tab = ApiTokens newApiTokens }, session, Cmd.none )
+            { model | tab = ApiTokens newApiTokens }
+                |> App.createUpdate session
 
         CreateToken ->
-            ( model, session, ApiTokenHttp.create session CreateTokenResponse )
+            model
+                |> App.createUpdate session
+                |> App.withCmds [ ApiTokenHttp.create session CreateTokenResponse ]
 
         CreateTokenResponse (RemoteData.Success createdToken) ->
-            ( { model | tab = ApiTokenCreated createdToken }
-            , session
-            , ApiTokenHttp.list session ApiTokensResponse
-            )
+            { model | tab = ApiTokenCreated createdToken }
+                |> App.createUpdate session
+                |> App.withCmds [ ApiTokenHttp.list session ApiTokensResponse ]
 
         CreateTokenResponse (RemoteData.Failure error) ->
-            ( model, session |> Session.notifyBackendError error, Cmd.none )
+            model
+                |> App.createUpdate (session |> Session.notifyBackendError error)
 
         SwitchTab (ApiTokens _) ->
-            ( model
-            , session
-            , ApiTokenHttp.list session ApiTokensResponse
-            )
+            { model | tab = ApiTokens RemoteData.Loading }
+                |> App.createUpdate session
+                |> App.withCmds [ ApiTokenHttp.list session ApiTokensResponse ]
 
         _ ->
             updateNothing session model
 
 
-updateApiTokenDeleteTab : Session -> CreatedToken -> Msg -> Model -> ( Model, Session, Cmd Msg )
+updateApiTokenDeleteTab : Session -> CreatedToken -> Msg -> Model -> PageUpdate Model Msg
 updateApiTokenDeleteTab session _ msg model =
     case msg of
         DeleteApiToken apiToken ->
-            ( model
-            , session
-            , ApiTokenHttp.delete session apiToken DeleteApiTokenResponse
-            )
+            model
+                |> App.createUpdate session
+                |> App.withCmds [ ApiTokenHttp.delete session apiToken DeleteApiTokenResponse ]
 
         DeleteApiTokenResponse (RemoteData.Success _) ->
-            ( { model | tab = ApiTokens RemoteData.Loading }
-            , session
-                |> Session.notifyInfo "Jeton d'API supprimé" "Le jeton d'API a été supprimé avec succès"
-            , ApiTokenHttp.list session ApiTokensResponse
-            )
+            { model | tab = ApiTokens RemoteData.Loading }
+                |> App.createUpdate (session |> Session.notifyInfo "Jeton d'API supprimé" "Le jeton d'API a été supprimé avec succès")
+                |> App.withCmds [ ApiTokenHttp.list session ApiTokensResponse ]
 
         DeleteApiTokenResponse (RemoteData.Failure error) ->
-            ( model, session |> Session.notifyBackendError error, Cmd.none )
+            model
+                |> App.createUpdate (session |> Session.notifyBackendError error)
 
         _ ->
             updateNothing session model
 
 
-updateMagicLinkFormTab : Session -> Email -> Msg -> Model -> ( Model, Session, Cmd Msg )
+updateMagicLinkFormTab : Session -> Email -> Msg -> Model -> PageUpdate Model Msg
 updateMagicLinkFormTab session email msg model =
     case msg of
         MagicLinkResponse (RemoteData.Success _) ->
-            ( { model | tab = MagicLinkSent email }
-            , session
-            , Cmd.none
-            )
+            { model | tab = MagicLinkSent email }
+                |> App.createUpdate session
 
         MagicLinkResponse (RemoteData.Failure error) ->
-            ( model
-            , session |> Session.notifyBackendError error
-            , Cmd.none
-            )
+            model
+                |> App.createUpdate (session |> Session.notifyBackendError error)
 
         MagicLinkSubmit ->
-            ( model
-            , session
-            , String.trim email
-                |> Auth.askMagicLink session MagicLinkResponse
-            )
+            model
+                |> App.createUpdate session
+                |> App.withCmds [ String.trim email |> Auth.askMagicLink session MagicLinkResponse ]
 
         UpdateMagicLinkForm email_ ->
-            ( { model | tab = MagicLinkForm email_ }
-            , session
-            , Cmd.none
-            )
+            { model | tab = MagicLinkForm email_ }
+                |> App.createUpdate session
 
         _ ->
             updateNothing session model
 
 
-updateMagicLinkLoginTab : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
+updateMagicLinkLoginTab : Session -> Msg -> Model -> PageUpdate Model Msg
 updateMagicLinkLoginTab session msg model =
     case msg of
         LoginResponse (RemoteData.Success accessTokenData) ->
-            ( { model | tab = MagicLinkLogin }
-            , session
-            , accessTokenData.accessToken
-                |> Auth.profileFromAccessToken session (ProfileResponse { updated = False } accessTokenData)
-            )
+            { model | tab = MagicLinkLogin }
+                |> App.createUpdate session
+                |> App.withCmds [ accessTokenData.accessToken |> Auth.profileFromAccessToken session (ProfileResponse { updated = False } accessTokenData) ]
 
         LoginResponse (RemoteData.Failure error) ->
-            ( model
-            , if Session.isAuthenticated session && (BackendError.mapErrorResponse error |> .statusCode) == 403 then
-                -- An authenticated user is most likely trying to reuse a single-use magic link,
-                -- maybe to access the service via a bookmark or a pinned email: do nothing
-                session
+            model
+                |> App.createUpdate
+                    (if Session.isAuthenticated session && (BackendError.mapErrorResponse error |> .statusCode) == 403 then
+                        -- An authenticated user is most likely trying to reuse a single-use magic link,
+                        -- maybe to access the service via a bookmark or a pinned email: do nothing
+                        session
 
-              else
-                session |> Session.notifyBackendError error
-            , Nav.load <| Route.toString Route.Auth
-            )
+                     else
+                        session |> Session.notifyBackendError error
+                    )
+                |> App.withCmds [ Nav.load <| Route.toString Route.Auth ]
 
         ProfileResponse _ accessTokenData (RemoteData.Success user) ->
             let
                 newSession =
                     session |> Session.setAuth (Just { accessTokenData = accessTokenData, user = user })
             in
-            ( { model
+            { model
                 | tab =
                     Account { accessTokenData = accessTokenData, user = user }
-                        { emailOptin = user.profile.emailOptin
-                        , firstName = user.profile.firstName
-                        , lastName = user.profile.lastName
-                        }
+                        User.emptyProfileForm
                         Dict.empty
-              }
-            , newSession
-            , Auth.processes newSession DetailedProcessesResponse
-            )
+            }
+                |> App.createUpdate newSession
+                |> App.withCmds [ Auth.processes newSession DetailedProcessesResponse ]
 
         ProfileResponse _ _ (RemoteData.Failure error) ->
-            ( model
-            , session |> Session.notifyBackendError error
-            , Nav.load <| Route.toString Route.Auth
-            )
+            model
+                |> App.createUpdate (session |> Session.notifyBackendError error)
+                |> App.withCmds [ Nav.load <| Route.toString Route.Auth ]
 
         _ ->
             updateNothing session model
 
 
-updateSignupTab : Session -> SignupForm -> Msg -> Model -> ( Model, Session, Cmd Msg )
+updateSignupTab : Session -> SignupForm -> Msg -> Model -> PageUpdate Model Msg
 updateSignupTab session signupForm msg model =
     case msg of
         SignupResponse (RemoteData.Success _) ->
-            ( { model | tab = SignupCompleted signupForm.email }
-            , session
-            , Cmd.none
-            )
+            { model | tab = SignupCompleted signupForm.email }
+                |> App.createUpdate session
 
         SignupResponse (RemoteData.Failure error) ->
-            ( model
-            , session |> Session.notifyBackendError error
-            , Cmd.none
-            )
+            model
+                |> App.createUpdate (session |> Session.notifyBackendError error)
 
         SignupSubmit ->
             let
@@ -444,27 +403,25 @@ updateSignupTab session signupForm msg model =
                     { model | tab = Signup signupForm newFormErrors }
             in
             if newFormErrors == Dict.empty then
-                ( newModel
-                , session |> Session.clearNotifications
-                , Auth.signup session SignupResponse signupForm
-                )
+                newModel
+                    |> App.createUpdate (session |> Session.clearNotifications)
+                    |> App.withCmds [ Auth.signup session SignupResponse signupForm ]
 
             else
-                ( newModel
-                , session |> Session.notifyError "Erreur" "Veuillez corriger les champs en erreur"
-                , Cmd.none
-                )
+                newModel
+                    |> App.createUpdate (session |> Session.notifyError "Erreur" "Veuillez corriger les champs en erreur")
 
         UpdateSignupForm signupForm_ ->
-            ( { model | tab = Signup signupForm_ Dict.empty }, session, Cmd.none )
+            { model | tab = Signup signupForm_ Dict.empty }
+                |> App.createUpdate session
 
         _ ->
             updateNothing session model
 
 
-updateNothing : Session -> Model -> ( Model, Session, Cmd Msg )
+updateNothing : Session -> Model -> PageUpdate Model Msg
 updateNothing session model =
-    ( model, session, Cmd.none )
+    App.createUpdate session model
 
 
 viewTab : Session -> Tab -> Html Msg
