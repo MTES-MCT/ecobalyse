@@ -459,7 +459,7 @@ selectExample autocompleteState pageUpdate =
     in
     pageUpdate
         |> updateQuery exampleQuery
-        |> (\pu -> update pu.session (SetModal NoModal) pu.model)
+        |> App.apply update (SetModal NoModal)
 
 
 selectComponent : Query -> Autocomplete Component -> PageUpdate Model Msg -> PageUpdate Model Msg
@@ -468,14 +468,10 @@ selectComponent query autocompleteState pageUpdate =
         Just component ->
             pageUpdate
                 |> updateQuery (query |> Query.updateComponents (Component.addItem component.id))
-                |> (\{ model, session } -> update session (SetModal NoModal) model)
+                |> App.apply update (SetModal NoModal)
 
         Nothing ->
-            { pageUpdate
-                | session =
-                    pageUpdate.session
-                        |> Session.notifyError "Erreur" "Aucun composant sélectionné"
-            }
+            pageUpdate |> App.mapSession (Session.notifyError "Erreur" "Aucun composant sélectionné")
 
 
 selectProcess :
@@ -495,15 +491,15 @@ selectProcess category targetItem maybeElementIndex autocompleteState query page
                         (Component.addOrSetProcess category targetItem maybeElementIndex process)
             of
                 Err err ->
-                    { pageUpdate | session = pageUpdate.session |> Session.notifyError "Erreur" err }
+                    pageUpdate |> App.mapSession (Session.notifyError "Erreur" err)
 
                 Ok validQuery ->
                     pageUpdate
                         |> updateQuery validQuery
-                        |> (\{ model, session } -> update session (SetModal NoModal) model)
+                        |> App.apply update (SetModal NoModal)
 
         Nothing ->
-            { pageUpdate | session = pageUpdate.session |> Session.notifyError "Erreur" "Aucun composant sélectionné" }
+            pageUpdate |> App.mapSession (Session.notifyError "Erreur" "Aucun composant sélectionné")
 
 
 simulatorView : Session -> Model -> Html Msg

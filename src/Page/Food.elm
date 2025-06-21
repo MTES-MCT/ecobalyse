@@ -204,7 +204,7 @@ update ({ db, queries } as session) msg model =
 
         AddIngredient ingredient ->
             App.createUpdate session model
-                |> (\pu -> update pu.session (SetModal NoModal) pu.model)
+                |> App.apply update (SetModal NoModal)
                 |> updateQuery (query |> Query.addIngredient (Recipe.ingredientQueryFromIngredient ingredient))
 
         AddPackaging ->
@@ -254,7 +254,7 @@ update ({ db, queries } as session) msg model =
         DeleteBookmark bookmark ->
             App.createUpdate session model
                 |> updateQuery query
-                |> (\pu -> { pu | session = pu.session |> Session.deleteBookmark bookmark })
+                |> App.mapSession (Session.deleteBookmark bookmark)
 
         DeleteIngredient ingredientId ->
             App.createUpdate session model
@@ -274,7 +274,7 @@ update ({ db, queries } as session) msg model =
                     { model | initialQuery = queryToLoad }
             in
             App.createUpdate session updatedModel
-                |> (\pu -> update pu.session (SetModal NoModal) pu.model)
+                |> App.apply update (SetModal NoModal)
                 |> updateQuery queryToLoad
 
         NoOp ->
@@ -512,7 +512,7 @@ updateExistingIngredient query model session oldRecipeIngredient newIngredient =
     in
     model
         |> App.createUpdate session
-        |> (\pu -> update pu.session (SetModal NoModal) pu.model)
+        |> App.apply update (SetModal NoModal)
         |> updateQuery (Query.updateIngredient oldRecipeIngredient.ingredient.id ingredientQuery query)
         |> focusNode ("selector-" ++ Ingredient.idToString newIngredient.id)
 
@@ -531,7 +531,7 @@ updateIngredient query model session maybeOldRecipeIngredient autocompleteState 
             -- Add a new ingredient
             (model
                 |> App.createUpdate session
-                |> (\pu -> update pu.session (SetModal NoModal) pu.model)
+                |> App.apply update (SetModal NoModal)
                 |> selectIngredient autocompleteState
                 |> focusNode
                     (maybeSelectedValue
@@ -542,10 +542,8 @@ updateIngredient query model session maybeOldRecipeIngredient autocompleteState 
 
 
 focusNode : String -> PageUpdate Model Msg -> PageUpdate Model Msg
-focusNode node pageUpdate =
-    { pageUpdate
-        | cmd = Cmd.batch [ pageUpdate.cmd, Dom.focus node |> Task.attempt (always NoOp) ]
-    }
+focusNode node =
+    App.withCmds [ Dom.focus node |> Task.attempt (always NoOp) ]
 
 
 selectIngredient : Autocomplete Ingredient -> PageUpdate Model Msg -> PageUpdate Model Msg

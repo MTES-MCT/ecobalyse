@@ -1,7 +1,9 @@
 module App exposing
     ( Msg(..)
     , PageUpdate
+    , apply
     , createUpdate
+    , mapSession
     , toAppCmd
     , withAppMsg
     , withCmds
@@ -34,6 +36,16 @@ type alias PageUpdate model msg =
     }
 
 
+{-| Apply an update function to a PageUpdate.
+-}
+apply : (Session -> msg -> model -> PageUpdate model msg) -> msg -> PageUpdate model msg -> PageUpdate model msg
+apply update msg { appMsgs, cmd, model, session } =
+    model
+        |> update session msg
+        |> withAppMsgs appMsgs
+        |> withCmds [ cmd ]
+
+
 {-| Initialize a page update with the given session and model.
 -}
 createUpdate : Session -> model -> PageUpdate model msg
@@ -42,6 +54,17 @@ createUpdate session model =
     , cmd = Cmd.none
     , model = model
     , session = session
+    }
+
+
+{-| Map a function over the session of a PageUpdate.
+-}
+mapSession : (Session -> Session) -> PageUpdate model msg -> PageUpdate model msg
+mapSession fn { appMsgs, cmd, model, session } =
+    { appMsgs = appMsgs
+    , cmd = cmd
+    , model = model
+    , session = fn session
     }
 
 
@@ -59,14 +82,21 @@ toAppCmd mapper =
     toAppCmds mapper >> Cmd.batch
 
 
-{-| Add an app message to the page update.
+{-| Add an app message to a PageUpdate.
 -}
 withAppMsg : Msg -> PageUpdate model msg -> PageUpdate model msg
 withAppMsg appMsg pageUpdate =
     { pageUpdate | appMsgs = pageUpdate.appMsgs ++ [ appMsg ] }
 
 
-{-| Add commands to the page update.
+{-| Add app messages to a PageUpdate.
+-}
+withAppMsgs : List Msg -> PageUpdate model msg -> PageUpdate model msg
+withAppMsgs appMsgs pageUpdate =
+    { pageUpdate | appMsgs = pageUpdate.appMsgs ++ appMsgs }
+
+
+{-| Add commands to a PageUpdate.
 -}
 withCmds : List (Cmd msg) -> PageUpdate model msg -> PageUpdate model msg
 withCmds commands pageUpdate =

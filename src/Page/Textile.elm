@@ -746,7 +746,8 @@ selectProduct : Autocomplete Product -> PageUpdate Model Msg -> PageUpdate Model
 selectProduct autocompleteState ({ model, session } as pageUpdate) =
     case Autocomplete.selectedValue autocompleteState of
         Just product ->
-            { pageUpdate | model = { model | modal = NoModal } }
+            pageUpdate
+                |> App.apply update (SetModal NoModal)
                 |> updateQuery (Query.updateProduct product session.queries.textile)
 
         Nothing ->
@@ -758,7 +759,8 @@ selectMaterial : Autocomplete Material -> PageUpdate Model Msg -> PageUpdate Mod
 selectMaterial autocompleteState ({ model, session } as pageUpdate) =
     case Autocomplete.selectedValue autocompleteState of
         Just material ->
-            { pageUpdate | model = { model | modal = NoModal } }
+            pageUpdate
+                |> App.apply update (SetModal NoModal)
                 |> updateQuery (Query.addMaterial material session.queries.textile)
 
         Nothing ->
