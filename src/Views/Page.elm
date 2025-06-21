@@ -17,6 +17,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Json.Decode as Decode
+import Page.ParentMsg as ParentMsg exposing (ParentMsg)
 import RemoteData
 import Request.Version as Version exposing (Version(..))
 import Route
@@ -49,15 +50,9 @@ type MenuLink
 
 type alias Config msg =
     { activePage : ActivePage
-    , closeMobileNavigation : msg
-    , closeNotification : Session.Notification -> msg
-    , loadUrl : String -> msg
     , mobileNavigationOpened : Bool
-    , openMobileNavigation : msg
-    , reloadPage : msg
-    , resetSessionStore : msg
     , session : Session
-    , switchVersion : String -> msg
+    , toMsg : ParentMsg -> msg
     }
 
 
@@ -95,14 +90,14 @@ isStaging { clientUrl } =
 
 
 stagingAlert : Config msg -> Html msg
-stagingAlert { loadUrl, session } =
+stagingAlert { session, toMsg } =
     if isStaging session then
         div [ class "StagingAlert d-block d-sm-flex justify-content-center align-items-center mt-3" ]
             [ text "Vous êtes sur un environnement de recette. "
             , button
                 [ type_ "button"
                 , class "btn btn-link"
-                , onClick (loadUrl "https://ecobalyse.beta.gouv.fr/")
+                , onClick (toMsg <| ParentMsg.LoadUrl "https://ecobalyse.beta.gouv.fr/")
                 ]
                 [ text "Retourner vers l'environnement de production" ]
             ]
@@ -112,7 +107,7 @@ stagingAlert { loadUrl, session } =
 
 
 newVersionAlert : Config msg -> Html msg
-newVersionAlert { reloadPage, session } =
+newVersionAlert { session, toMsg } =
     case session.currentVersion of
         Version.NewerVersion _ { tag } ->
             div [ class "NewVersionAlert d-block align-items-center" ]
@@ -125,7 +120,7 @@ newVersionAlert { reloadPage, session } =
                 , button
                     [ type_ "button"
                     , class "btn btn-outline-primary"
-                    , onClick reloadPage
+                    , onClick (toMsg ParentMsg.ReloadPage)
                     ]
                     [ text "Mettre à jour" ]
                 ]
@@ -334,7 +329,7 @@ versionLink version =
 
 
 pageHeader : Config msg -> Html msg
-pageHeader { activePage, loadUrl, openMobileNavigation, session, switchVersion } =
+pageHeader { activePage, session, toMsg } =
     header
         [ class "Header shadow-sm"
         , classList [ ( "mb-2", activePage /= Home ) ]
@@ -346,7 +341,7 @@ pageHeader { activePage, loadUrl, openMobileNavigation, session, switchVersion }
                 , class "d-inline-block d-sm-none btn m-0 p-0"
                 , attribute "aria-label" "Ouvrir la navigation"
                 , title "Ouvrir la navigation"
-                , onClick openMobileNavigation
+                , onClick (toMsg ParentMsg.OpenMobileNavigation)
                 ]
                 [ span [ class "fs-3" ] [ Icon.ham ] ]
             ]
@@ -359,7 +354,7 @@ pageHeader { activePage, loadUrl, openMobileNavigation, session, switchVersion }
                 -- https://dashlord.mte.incubateur.net/dashlord/url/ecobalyse-beta-gouv-fr/best-practices/#dsfr
                 , class "fr-header__brand"
                 , href "/"
-                , onClick (loadUrl "/")
+                , onClick (toMsg <| ParentMsg.LoadUrl "/")
                 ]
                 [ img [ class "HeaderLogo", alt "République Française", src "img/republique-francaise.svg" ] []
                 , h1 [ class "HeaderTitle" ]
@@ -388,7 +383,7 @@ pageHeader { activePage, loadUrl, openMobileNavigation, session, switchVersion }
                 |> select
                     [ class "VersionSelector d-none d-sm-block form-select form-select-sm w-auto"
                     , attribute "data-testid" "version-selector"
-                    , onInput switchVersion
+                    , onInput <| toMsg << ParentMsg.SwitchVersion
                     ]
             , div [ class "HeaderAuthLink flex-fill" ]
                 [ a
@@ -458,19 +453,22 @@ notificationListView ({ session } as config) =
 
 
 notificationView : Config msg -> Session.Notification -> Html msg
-notificationView { closeNotification, resetSessionStore, session } notification =
+notificationView { session, toMsg } notification =
     -- TODO:
     -- - absolute positionning
     -- - close button
     -- - timeout
+    let
+        closeNotification =
+            toMsg <| ParentMsg.CloseNotification notification
+    in
     case notification of
         Session.BackendError backendError ->
-            backendError
-                |> Alert.backendError session (Just (closeNotification notification))
+            backendError |> Alert.backendError session (Just closeNotification)
 
         Session.GenericError title message ->
             Alert.simple
-                { close = Just (closeNotification notification)
+                { close = Just closeNotification
                 , content = [ text message ]
                 , level = Alert.Danger
                 , title = Just title
@@ -478,7 +476,7 @@ notificationView { closeNotification, resetSessionStore, session } notification 
 
         Session.GenericInfo title message ->
             Alert.simple
-                { close = Just (closeNotification notification)
+                { close = Just closeNotification
                 , content = [ text message ]
                 , level = Alert.Info
                 , title = Just title
@@ -489,7 +487,13 @@ notificationView { closeNotification, resetSessionStore, session } notification 
                 { close = Nothing
                 , content =
                     [ p [] [ text "Votre précédente session n'a pas pu être récupérée, elle doit donc être réinitialisée." ]
-                    , p [] [ button [ class "btn btn-primary", onClick resetSessionStore ] [ text "D’accord, réinitialiser la session" ] ]
+                    , p []
+                        [ button
+                            [ class "btn btn-primary"
+                            , onClick (toMsg ParentMsg.ResetSessionStore)
+                            ]
+                            [ text "D’accord, réinitialiser la session" ]
+                        ]
                     , details []
                         [ summary [] [ text "Afficher les détails techniques de l'erreur" ]
                         , pre [] [ text <| Decode.errorToString decodeError ]
@@ -530,7 +534,7 @@ loading =
 
 
 mobileNavigation : Config msg -> Html msg
-mobileNavigation { activePage, closeMobileNavigation, loadUrl, session } =
+mobileNavigation { activePage, session, toMsg } =
     div []
         [ div
             [ class "offcanvas offcanvas-start show"
@@ -548,7 +552,7 @@ mobileNavigation { activePage, closeMobileNavigation, loadUrl, session } =
                     [ type_ "button"
                     , class "btn-close text-reset"
                     , attribute "aria-label" "Close"
-                    , onClick closeMobileNavigation
+                    , onClick <| toMsg ParentMsg.CloseMobileNavigation
                     ]
                     []
                 ]
@@ -568,7 +572,7 @@ mobileNavigation { activePage, closeMobileNavigation, loadUrl, session } =
                                     a
                                         [ class "nav-link"
                                         , href <| "/versions/" ++ release.tag
-                                        , onClick (loadUrl <| "/versions/" ++ release.tag)
+                                        , onClick (toMsg <| ParentMsg.LoadUrl <| "/versions/" ++ release.tag)
                                         ]
                                         [ text release.tag ]
                             )

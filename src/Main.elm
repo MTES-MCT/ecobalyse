@@ -529,18 +529,13 @@ view { mobileNavigationOpened, state } =
 
         Loaded session page ->
             let
-                pageConfig activePage =
-                    { activePage = activePage
-                    , closeMobileNavigation = ParentMsg ParentMsg.CloseMobileNavigation
-                    , closeNotification = ParentMsg.CloseNotification >> ParentMsg
-                    , loadUrl = ParentMsg.LoadUrl >> ParentMsg
-                    , mobileNavigationOpened = mobileNavigationOpened
-                    , openMobileNavigation = ParentMsg ParentMsg.OpenMobileNavigation
-                    , reloadPage = ParentMsg ParentMsg.ReloadPage
-                    , resetSessionStore = ParentMsg ParentMsg.ResetSessionStore
-                    , session = session
-                    , switchVersion = ParentMsg.SwitchVersion >> ParentMsg
-                    }
+                frame activePage =
+                    Page.frame
+                        { activePage = activePage
+                        , mobileNavigationOpened = mobileNavigationOpened
+                        , session = session
+                        , toMsg = ParentMsg
+                        }
 
                 mapMsg msg ( title, content ) =
                     ( title, content |> List.map (Html.map msg) )
@@ -549,64 +544,64 @@ view { mobileNavigationOpened, state } =
                 AdminPage examplesModel ->
                     Admin.view session examplesModel
                         |> mapMsg AdminMsg
-                        |> Page.frame (pageConfig Page.Admin)
+                        |> frame Page.Admin
 
                 ApiPage examplesModel ->
                     Api.view session examplesModel
                         |> mapMsg ApiMsg
-                        |> Page.frame (pageConfig Page.Api)
+                        |> frame Page.Api
 
                 AuthPage auth2Model ->
                     Auth.view session auth2Model
                         |> mapMsg AuthMsg
-                        |> Page.frame (pageConfig Page.Auth)
+                        |> frame Page.Auth
 
                 EditorialPage editorialModel ->
                     Editorial.view session editorialModel
                         |> mapMsg EditorialMsg
-                        |> Page.frame (pageConfig (Page.Editorial editorialModel.slug))
+                        |> frame (Page.Editorial editorialModel.slug)
 
                 ExplorePage examplesModel ->
                     Explore.view session examplesModel
                         |> mapMsg ExploreMsg
-                        |> Page.frame (pageConfig Page.Explore)
+                        |> frame Page.Explore
 
                 FoodBuilderPage foodModel ->
                     FoodBuilder.view session foodModel
                         |> mapMsg FoodBuilderMsg
-                        |> Page.frame (pageConfig Page.FoodBuilder)
+                        |> frame Page.FoodBuilder
 
                 HomePage _ ->
                     Home.view session
                         |> mapMsg HomeMsg
-                        |> Page.frame (pageConfig Page.Home)
+                        |> frame Page.Home
 
                 LoadingPage ->
                     ( "Chargement…", [ Page.loading ] )
-                        |> Page.frame (pageConfig Page.Other)
+                        |> frame Page.Other
 
                 NotFoundPage ->
                     ( "404", [ Page.notFound ] )
-                        |> Page.frame (pageConfig Page.Other)
+                        |> frame Page.Other
 
                 ObjectSimulatorPage simulatorModel ->
                     ObjectSimulator.view session simulatorModel
                         |> mapMsg ObjectSimulatorMsg
-                        |> Page.frame (pageConfig (Page.Object simulatorModel.scope))
+                        |> frame (Page.Object simulatorModel.scope)
 
                 RestrictedAccessPage ->
                     ( "Accès restreint", [ Page.restricted session ] )
-                        |> Page.frame (pageConfig Page.Other)
+                        |> frame Page.Other
 
                 StatsPage statsModel ->
                     Stats.view session statsModel
                         |> mapMsg StatsMsg
-                        |> Page.frame (pageConfig Page.Stats)
+                        |> frame Page.Stats
 
                 TextileSimulatorPage simulatorModel ->
                     TextileSimulator.view session simulatorModel
                         |> mapMsg TextileSimulatorMsg
-                        |> Page.frame (pageConfig Page.TextileSimulator)
+                        |> frame Page.TextileSimulator
 
 
 main : Program Flags Model Msg
