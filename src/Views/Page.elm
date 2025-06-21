@@ -48,23 +48,22 @@ type MenuLink
 
 
 type alias Config msg =
-    { session : Session
-    , mobileNavigationOpened : Bool
+    { activePage : ActivePage
     , closeMobileNavigation : msg
-    , openMobileNavigation : msg
-    , loadUrl : String -> msg
-    , reloadPage : msg
     , closeNotification : Session.Notification -> msg
+    , loadUrl : String -> msg
+    , mobileNavigationOpened : Bool
+    , openMobileNavigation : msg
+    , reloadPage : msg
     , resetSessionStore : msg
+    , session : Session
     , switchVersion : String -> msg
-    , activePage : ActivePage
     }
 
 
 frame : Config msg -> ( String, List (Html msg) ) -> Document msg
 frame ({ activePage } as config) ( title, content ) =
-    { title = title ++ " | Ecobalyse"
-    , body =
+    { body =
         [ stagingAlert config
         , newVersionAlert config
         , pageHeader config
@@ -86,6 +85,7 @@ frame ({ activePage } as config) ( title, content ) =
             ]
         , pageFooter config.session
         ]
+    , title = title ++ " | Ecobalyse"
     }
 
 
@@ -95,7 +95,7 @@ isStaging { clientUrl } =
 
 
 stagingAlert : Config msg -> Html msg
-stagingAlert { session, loadUrl } =
+stagingAlert { loadUrl, session } =
     if isStaging session then
         div [ class "StagingAlert d-block d-sm-flex justify-content-center align-items-center mt-3" ]
             [ text "Vous êtes sur un environnement de recette. "
@@ -112,7 +112,7 @@ stagingAlert { session, loadUrl } =
 
 
 newVersionAlert : Config msg -> Html msg
-newVersionAlert { session, reloadPage } =
+newVersionAlert { reloadPage, session } =
     case session.currentVersion of
         Version.NewerVersion _ { tag } ->
             div [ class "NewVersionAlert d-block align-items-center" ]
@@ -334,7 +334,7 @@ versionLink version =
 
 
 pageHeader : Config msg -> Html msg
-pageHeader { session, activePage, openMobileNavigation, loadUrl, switchVersion } =
+pageHeader { activePage, loadUrl, openMobileNavigation, session, switchVersion } =
     header
         [ class "Header shadow-sm"
         , classList [ ( "mb-2", activePage /= Home ) ]
@@ -470,25 +470,23 @@ notificationView { closeNotification, resetSessionStore, session } notification 
 
         Session.GenericError title message ->
             Alert.simple
-                { level = Alert.Danger
-                , title = Just title
-                , close = Just (closeNotification notification)
+                { close = Just (closeNotification notification)
                 , content = [ text message ]
+                , level = Alert.Danger
+                , title = Just title
                 }
 
         Session.GenericInfo title message ->
             Alert.simple
-                { level = Alert.Info
-                , title = Just title
-                , close = Just (closeNotification notification)
+                { close = Just (closeNotification notification)
                 , content = [ text message ]
+                , level = Alert.Info
+                , title = Just title
                 }
 
         Session.StoreDecodingError decodeError ->
             Alert.simple
-                { level = Alert.Warning
-                , title = Just "Erreur de récupération de session"
-                , close = Nothing
+                { close = Nothing
                 , content =
                     [ p [] [ text "Votre précédente session n'a pas pu être récupérée, elle doit donc être réinitialisée." ]
                     , p [] [ button [ class "btn btn-primary", onClick resetSessionStore ] [ text "D’accord, réinitialiser la session" ] ]
@@ -497,6 +495,8 @@ notificationView { closeNotification, resetSessionStore, session } notification 
                         , pre [] [ text <| Decode.errorToString decodeError ]
                         ]
                     ]
+                , level = Alert.Warning
+                , title = Just "Erreur de récupération de session"
                 }
 
 

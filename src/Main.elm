@@ -529,16 +529,18 @@ view { mobileNavigationOpened, state } =
 
         Loaded session page ->
             let
-                pageConfig =
-                    Page.Config session
-                        mobileNavigationOpened
-                        (ParentMsg ParentMsg.CloseMobileNavigation)
-                        (ParentMsg ParentMsg.OpenMobileNavigation)
-                        (ParentMsg.LoadUrl >> ParentMsg)
-                        (ParentMsg ParentMsg.ReloadPage)
-                        (ParentMsg.CloseNotification >> ParentMsg)
-                        (ParentMsg ParentMsg.ResetSessionStore)
-                        (ParentMsg.SwitchVersion >> ParentMsg)
+                pageConfig activePage =
+                    { activePage = activePage
+                    , closeMobileNavigation = ParentMsg ParentMsg.CloseMobileNavigation
+                    , closeNotification = ParentMsg.CloseNotification >> ParentMsg
+                    , loadUrl = ParentMsg.LoadUrl >> ParentMsg
+                    , mobileNavigationOpened = mobileNavigationOpened
+                    , openMobileNavigation = ParentMsg ParentMsg.OpenMobileNavigation
+                    , reloadPage = ParentMsg ParentMsg.ReloadPage
+                    , resetSessionStore = ParentMsg ParentMsg.ResetSessionStore
+                    , session = session
+                    , switchVersion = ParentMsg.SwitchVersion >> ParentMsg
+                    }
 
                 mapMsg msg ( title, content ) =
                     ( title, content |> List.map (Html.map msg) )
