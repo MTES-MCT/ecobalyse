@@ -10,6 +10,7 @@ module Page.Admin exposing
 import App exposing (Msg, PageUpdate)
 import Autocomplete exposing (Autocomplete)
 import Base64
+import Browser.Dom as Dom
 import Browser.Events
 import Data.Component as Component exposing (Component, Index, Item, TargetItem)
 import Data.Impact.Definition as Definition
@@ -22,12 +23,14 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Json.Encode as Encode
+import Ports
 import RemoteData
 import Request.BackendHttp exposing (WebData)
 import Request.BackendHttp.Error as BackendError
 import Request.Component as ComponentApi
 import Route
 import Static.Db exposing (Db)
+import Task
 import Views.Alert as Alert
 import Views.AutocompleteSelector as AutocompleteSelectorView
 import Views.Component as ComponentView
@@ -197,7 +200,9 @@ update session msg model =
         --
         --
         SetModals modals ->
-            App.createUpdate session { model | modals = modals }
+            { model | modals = modals }
+                |> App.createUpdate session
+                |> App.withCmds [ commandsForModal modals ]
 
         UpdateComponent customItem ->
             case model.modals of
@@ -209,6 +214,20 @@ update session msg model =
 
         UpdateScopeFilters scopes ->
             App.createUpdate session { model | scopes = scopes }
+
+
+commandsForModal : List Modal -> Cmd Msg
+commandsForModal modals =
+    case modals of
+        [] ->
+            Ports.removeBodyClass "prevent-scrolling"
+
+        _ ->
+            Cmd.batch
+                [ Ports.addBodyClass "prevent-scrolling"
+                , Dom.focus "selector-example"
+                    |> Task.attempt (always NoOp)
+                ]
 
 
 selectProcess :

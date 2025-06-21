@@ -365,15 +365,10 @@ update ({ navKey } as session) msg model =
             { model | detailedComponents = detailedComponents }
                 |> App.createUpdate session
 
-        ( SetModal NoModal, _ ) ->
-            { model | modal = NoModal }
-                |> App.createUpdate session
-                |> App.withCmds [ commandsForNoModal model.modal ]
-
         ( SetModal modal, _ ) ->
             { model | modal = modal }
                 |> App.createUpdate session
-                |> App.withCmds [ Ports.addBodyClass "prevent-scrolling" ]
+                |> App.withCmds [ commandsForModal modal ]
 
         ( SwitchBookmarksTab bookmarkTab, _ ) ->
             { model | bookmarkTab = bookmarkTab }
@@ -436,18 +431,18 @@ update ({ navKey } as session) msg model =
                     )
 
 
-commandsForNoModal : Modal -> Cmd Msg
-commandsForNoModal modal =
+commandsForModal : Modal -> Cmd Msg
+commandsForModal modal =
     case modal of
-        SelectExampleModal _ ->
+        NoModal ->
+            Ports.removeBodyClass "prevent-scrolling"
+
+        _ ->
             Cmd.batch
-                [ Ports.removeBodyClass "prevent-scrolling"
+                [ Ports.addBodyClass "prevent-scrolling"
                 , Dom.focus "selector-example"
                     |> Task.attempt (always NoOp)
                 ]
-
-        _ ->
-            Ports.removeBodyClass "prevent-scrolling"
 
 
 selectExample : Autocomplete Query -> PageUpdate Model Msg -> PageUpdate Model Msg

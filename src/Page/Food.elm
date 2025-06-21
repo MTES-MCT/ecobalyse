@@ -151,14 +151,6 @@ init session trigram maybeQuery =
     , activeImpactsTab = ImpactTabs.StepImpactsTab
     }
         |> App.createUpdate (session |> Session.updateFoodQuery query)
-        |> App.withCmds
-            (case maybeQuery of
-                Just _ ->
-                    []
-
-                Nothing ->
-                    [ Ports.scrollTo { x = 0, y = 0 } ]
-            )
 
 
 initFromExample : Session -> Uuid -> PageUpdate Model Msg
@@ -369,38 +361,10 @@ update ({ db, queries } as session) msg model =
         SelectNoBookmarks ->
             App.createUpdate (Session.selectNoBookmarks session) model
 
-        SetModal ComparatorModal ->
-            { model | modal = ComparatorModal }
+        SetModal modal ->
+            { model | modal = modal }
                 |> App.createUpdate session
-                |> App.withCmds [ Ports.addBodyClass "prevent-scrolling" ]
-
-        SetModal (ExplorerDetailsModal ingredient) ->
-            { model | modal = ExplorerDetailsModal ingredient }
-                |> App.createUpdate session
-                |> App.withCmds [ Ports.addBodyClass "prevent-scrolling" ]
-
-        SetModal (AddIngredientModal maybeOldIngredient autocomplete) ->
-            { model | modal = AddIngredientModal maybeOldIngredient autocomplete }
-                |> App.createUpdate session
-                |> App.withCmds
-                    [ Ports.addBodyClass "prevent-scrolling"
-                    , Dom.focus "element-search"
-                        |> Task.attempt (always NoOp)
-                    ]
-
-        SetModal NoModal ->
-            { model | modal = NoModal }
-                |> App.createUpdate session
-                |> App.withCmds [ commandsForNoModal model.modal ]
-
-        SetModal (SelectExampleModal autocomplete) ->
-            { model | modal = SelectExampleModal autocomplete }
-                |> App.createUpdate session
-                |> App.withCmds
-                    [ Ports.addBodyClass "prevent-scrolling"
-                    , Dom.focus "element-search"
-                        |> Task.attempt (always NoOp)
-                    ]
+                |> App.withCmds [ commandsForModal modal ]
 
         SwitchBookmarksTab bookmarkTab ->
             { model | bookmarkTab = bookmarkTab }
@@ -469,33 +433,18 @@ updateQuery query pageUpdate =
     }
 
 
-commandsForNoModal : Modal -> Cmd Msg
-commandsForNoModal modal =
+commandsForModal : Modal -> Cmd Msg
+commandsForModal modal =
     case modal of
-        AddIngredientModal maybeOldIngredient _ ->
-            Cmd.batch
-                [ Ports.removeBodyClass "prevent-scrolling"
-                , Dom.focus
-                    -- This whole "node to focus" management is happening as a fallback
-                    -- if the modal was closed without choosing anything.
-                    -- If anything has been chosen, then the focus will be done in `OnAutocompleteSelect`
-                    -- and overload any focus being done here.
-                    (maybeOldIngredient
-                        |> Maybe.map (.ingredient >> .id >> Ingredient.idToString >> (++) "selector-")
-                        |> Maybe.withDefault "add-new-element"
-                    )
-                    |> Task.attempt (always NoOp)
-                ]
+        NoModal ->
+            Ports.removeBodyClass "prevent-scrolling"
 
-        SelectExampleModal _ ->
+        _ ->
             Cmd.batch
-                [ Ports.removeBodyClass "prevent-scrolling"
+                [ Ports.addBodyClass "prevent-scrolling"
                 , Dom.focus "selector-example"
                     |> Task.attempt (always NoOp)
                 ]
-
-        _ ->
-            Ports.removeBodyClass "prevent-scrolling"
 
 
 updateExistingIngredient : Query -> Model -> Session -> Recipe.RecipeIngredient -> Ingredient -> PageUpdate Model Msg

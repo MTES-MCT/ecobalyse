@@ -437,50 +437,10 @@ update ({ queries, navKey } as session) msg model =
         ( SelectNoBookmarks, _ ) ->
             App.createUpdate (Session.selectNoBookmarks session) model
 
-        ( SetModal NoModal, _ ) ->
-            { model | modal = NoModal }
+        ( SetModal modal, _ ) ->
+            { model | modal = modal }
                 |> App.createUpdate session
-                |> App.withCmds [ commandsForNoModal model.modal ]
-
-        ( SetModal (AddTrimModal autocomplete), _ ) ->
-            { model | modal = AddTrimModal autocomplete }
-                |> App.createUpdate session
-                |> App.withCmds
-                    [ Ports.addBodyClass "prevent-scrolling"
-                    , Dom.focus "element-search" |> Task.attempt (always NoOp)
-                    ]
-
-        ( SetModal (AddMaterialModal maybeOldMaterial autocomplete), _ ) ->
-            { model | modal = AddMaterialModal maybeOldMaterial autocomplete }
-                |> App.createUpdate session
-                |> App.withCmds
-                    [ Ports.addBodyClass "prevent-scrolling"
-                    , Dom.focus "element-search" |> Task.attempt (always NoOp)
-                    ]
-
-        ( SetModal ComparatorModal, _ ) ->
-            { model | modal = ComparatorModal }
-                |> App.createUpdate session
-                |> App.withCmds [ Ports.addBodyClass "prevent-scrolling" ]
-
-        ( SetModal ConfirmSwitchToRegulatoryModal, _ ) ->
-            { model | modal = ConfirmSwitchToRegulatoryModal }
-                |> App.createUpdate session
-
-        ( SetModal (ExplorerDetailsTab material), _ ) ->
-            { model | modal = ExplorerDetailsTab material }
-                |> App.createUpdate session
-                |> App.withCmds [ Ports.addBodyClass "prevent-scrolling" ]
-
-        ( SetModal (SelectExampleModal autocomplete), _ ) ->
-            { model | modal = SelectExampleModal autocomplete }
-                |> App.createUpdate session
-                |> App.withCmds [ Ports.addBodyClass "prevent-scrolling" ]
-
-        ( SetModal (SelectProductModal autocomplete), _ ) ->
-            { model | modal = SelectProductModal autocomplete }
-                |> App.createUpdate session
-                |> App.withCmds [ Ports.addBodyClass "prevent-scrolling" ]
+                |> App.withCmds [ commandsForModal modal ]
 
         ( SwitchBookmarksTab bookmarkTab, _ ) ->
             { model | bookmarkTab = bookmarkTab }
@@ -631,40 +591,18 @@ update ({ queries, navKey } as session) msg model =
                 |> updateQuery { query | yarnSize = yarnSize }
 
 
-commandsForNoModal : Modal -> Cmd Msg
-commandsForNoModal modal =
+commandsForModal : Modal -> Cmd Msg
+commandsForModal modal =
     case modal of
-        AddMaterialModal maybeOldMaterial _ ->
-            Cmd.batch
-                [ Ports.removeBodyClass "prevent-scrolling"
-                , Dom.focus
-                    -- This whole "node to focus" management is happening as a fallback
-                    -- if the modal was closed without choosing anything.
-                    -- If anything has been chosen, then the focus will be done in `OnAutocompleteSelect`
-                    -- and overload any focus being done here.
-                    (maybeOldMaterial
-                        |> Maybe.map (.material >> .id >> Material.idToString >> (++) "selector-")
-                        |> Maybe.withDefault "add-new-element"
-                    )
-                    |> Task.attempt (always NoOp)
-                ]
+        NoModal ->
+            Ports.removeBodyClass "prevent-scrolling"
 
-        SelectExampleModal _ ->
+        _ ->
             Cmd.batch
-                [ Ports.removeBodyClass "prevent-scrolling"
+                [ Ports.addBodyClass "prevent-scrolling"
                 , Dom.focus "selector-example"
                     |> Task.attempt (always NoOp)
                 ]
-
-        SelectProductModal _ ->
-            Cmd.batch
-                [ Ports.removeBodyClass "prevent-scrolling"
-                , Dom.focus "selector-product"
-                    |> Task.attempt (always NoOp)
-                ]
-
-        _ ->
-            Ports.removeBodyClass "prevent-scrolling"
 
 
 updateExistingMaterial : Query -> PageUpdate Model Msg -> Inputs.MaterialInput -> Material -> PageUpdate Model Msg
