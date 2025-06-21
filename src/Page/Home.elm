@@ -12,7 +12,6 @@ import Data.Scope as Scope
 import Data.Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Html.Events exposing (onClick)
 import Page.ParentMsg as ParentMsg exposing (PageUpdate)
 import Ports
 import Route exposing (Route)
@@ -116,15 +115,6 @@ viewHero { enabledSections } =
 
                   else
                     text ""
-                ]
-
-            -- FIXME: remove this
-            , div [ class "mt-3" ]
-                [ button
-                    [ class "btn btn-outline-secondary"
-                    , onClick (SendParentMessage ParentMsg.ReloadPage)
-                    ]
-                    [ text "Test reloading page" ]
                 ]
             ]
         ]

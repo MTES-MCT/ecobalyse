@@ -78,23 +78,16 @@ type Msg
     = AdminMsg Admin.Msg
     | ApiMsg Api.Msg
     | AuthMsg Auth.Msg
-    | CloseMobileNavigation
-    | CloseNotification Session.Notification
     | DetailedProcessesReceived (BackendHttp.WebData String)
     | EditorialMsg Editorial.Msg
     | ExploreMsg Explore.Msg
     | FoodBuilderMsg FoodBuilder.Msg
     | HomeMsg Home.Msg
-    | LoadUrl String
     | ObjectSimulatorMsg ObjectSimulator.Msg
-    | OpenMobileNavigation
     | ParentMsg ParentMsg
     | ReleasesReceived (WebData (List Github.Release))
-    | ReloadPage
-    | ResetSessionStore
     | StatsMsg Stats.Msg
     | StoreChanged String
-    | SwitchVersion String
     | TextileSimulatorMsg TextileSimulator.Msg
     | UrlChanged Url
     | UrlRequested Browser.UrlRequest
@@ -330,6 +323,47 @@ update rawMsg ({ state } as model) =
                     )
             in
             case ( msg, page ) of
+                -- Parent messages from page modules
+                ( ParentMsg ParentMsg.CloseMobileNavigation, _ ) ->
+                    ( { model | mobileNavigationOpened = False }, Cmd.none )
+
+                ( ParentMsg (ParentMsg.CloseNotification notification), currentPage ) ->
+                    ( { model
+                        | state =
+                            currentPage
+                                |> Loaded (session |> Session.closeNotification notification)
+                      }
+                    , Cmd.none
+                    )
+
+                ( ParentMsg (ParentMsg.LoadUrl url), _ ) ->
+                    ( model, Nav.load url )
+
+                ( ParentMsg ParentMsg.OpenMobileNavigation, _ ) ->
+                    ( { model | mobileNavigationOpened = True }, Cmd.none )
+
+                ( ParentMsg ParentMsg.ReloadPage, _ ) ->
+                    ( model, Nav.reloadAndSkipCache )
+
+                ( ParentMsg ParentMsg.ResetSessionStore, currentPage ) ->
+                    let
+                        newSession =
+                            { session | notifications = [], store = Session.defaultStore }
+                                |> Session.notifyInfo "Session" "La session a été réinitialisée."
+                    in
+                    ( { model | state = currentPage |> Loaded newSession }
+                    , newSession.store |> Session.serializeStore |> Ports.saveStore
+                    )
+
+                ( ParentMsg (ParentMsg.SwitchVersion version), _ ) ->
+                    ( model
+                    , Nav.load <|
+                        "/versions/"
+                            ++ version
+                            ++ "/#"
+                            ++ Maybe.withDefault "" model.url.fragment
+                    )
+
                 -- Pages
                 ( HomeMsg homeMsg, HomePage homeModel ) ->
                     Home.update session homeMsg homeModel
@@ -389,16 +423,6 @@ update rawMsg ({ state } as model) =
                     Stats.update session statsMsg statsModel
                         |> toPage StatsPage StatsMsg
 
-                -- Notifications
-                ( CloseNotification notification, currentPage ) ->
-                    ( { model
-                        | state =
-                            currentPage
-                                |> Loaded (session |> Session.closeNotification notification)
-                      }
-                    , Cmd.none
-                    )
-
                 -- Store
                 ( StoreChanged json, currentPage ) ->
                     ( { model
@@ -409,40 +433,7 @@ update rawMsg ({ state } as model) =
                     , Cmd.none
                     )
 
-                ( ResetSessionStore, currentPage ) ->
-                    let
-                        newSession =
-                            { session | notifications = [], store = Session.defaultStore }
-                                |> Session.notifyInfo "Session" "La session a été réinitialisée."
-                    in
-                    ( { model | state = currentPage |> Loaded newSession }
-                    , newSession.store |> Session.serializeStore |> Ports.saveStore
-                    )
-
-                -- Version switch
-                ( SwitchVersion version, _ ) ->
-                    ( model
-                    , Nav.load <|
-                        "/versions/"
-                            ++ version
-                            ++ "/#"
-                            ++ Maybe.withDefault "" model.url.fragment
-                    )
-
-                -- Mobile navigation menu
-                ( CloseMobileNavigation, _ ) ->
-                    ( { model | mobileNavigationOpened = False }, Cmd.none )
-
-                ( OpenMobileNavigation, _ ) ->
-                    ( { model | mobileNavigationOpened = True }, Cmd.none )
-
                 -- Url
-                ( LoadUrl url, _ ) ->
-                    ( model, Nav.load url )
-
-                ( ReloadPage, _ ) ->
-                    ( model, Nav.reloadAndSkipCache )
-
                 ( UrlChanged url, _ ) ->
                     ( { model | mobileNavigationOpened = False, url = url }, Cmd.none )
                         |> setRoute url
@@ -475,41 +466,6 @@ update rawMsg ({ state } as model) =
 
                 ( VersionPoll, _ ) ->
                     ( model, Request.Version.loadVersion VersionReceived )
-
-                -- Parent messages from page modules
-                ( ParentMsg (ParentMsg.CloseNotification notification), currentPage ) ->
-                    ( { model
-                        | state =
-                            currentPage
-                                |> Loaded (session |> Session.closeNotification notification)
-                      }
-                    , Cmd.none
-                    )
-
-                ( ParentMsg (ParentMsg.LoadUrl url), _ ) ->
-                    ( model, Nav.load url )
-
-                ( ParentMsg ParentMsg.ReloadPage, _ ) ->
-                    ( model, Nav.reloadAndSkipCache )
-
-                ( ParentMsg ParentMsg.ResetSessionStore, currentPage ) ->
-                    let
-                        newSession =
-                            { session | notifications = [], store = Session.defaultStore }
-                                |> Session.notifyInfo "Session" "La session a été réinitialisée."
-                    in
-                    ( { model | state = currentPage |> Loaded newSession }
-                    , newSession.store |> Session.serializeStore |> Ports.saveStore
-                    )
-
-                ( ParentMsg (ParentMsg.SwitchVersion version), _ ) ->
-                    ( model
-                    , Nav.load <|
-                        "/versions/"
-                            ++ version
-                            ++ "/#"
-                            ++ Maybe.withDefault "" model.url.fragment
-                    )
 
                 -- Catch-all
                 ( _, RestrictedAccessPage ) ->
@@ -576,13 +532,13 @@ view { mobileNavigationOpened, state } =
                 pageConfig =
                     Page.Config session
                         mobileNavigationOpened
-                        CloseMobileNavigation
-                        OpenMobileNavigation
-                        LoadUrl
-                        ReloadPage
-                        CloseNotification
-                        ResetSessionStore
-                        SwitchVersion
+                        (ParentMsg ParentMsg.CloseMobileNavigation)
+                        (ParentMsg ParentMsg.OpenMobileNavigation)
+                        (ParentMsg.LoadUrl >> ParentMsg)
+                        (ParentMsg ParentMsg.ReloadPage)
+                        (ParentMsg.CloseNotification >> ParentMsg)
+                        (ParentMsg ParentMsg.ResetSessionStore)
+                        (ParentMsg.SwitchVersion >> ParentMsg)
 
                 mapMsg msg ( title, content ) =
                     ( title, content |> List.map (Html.map msg) )

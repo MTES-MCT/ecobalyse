@@ -15,8 +15,10 @@ import Task
 
 
 type ParentMsg
-    = CloseNotification Session.Notification
+    = CloseMobileNavigation
+    | CloseNotification Session.Notification
     | LoadUrl String
+    | OpenMobileNavigation
     | ReloadPage
     | ResetSessionStore
     | SwitchVersion String
