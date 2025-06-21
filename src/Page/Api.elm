@@ -6,6 +6,7 @@ module Page.Api exposing
     , view
     )
 
+import App exposing (PageUpdate)
 import Data.Session as Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -32,20 +33,18 @@ type alias News =
     }
 
 
-init : Session -> ( Model, Session, Cmd Msg )
+init : Session -> PageUpdate Model Msg
 init session =
-    ( ()
-    , session
-    , Cmd.batch
-        [ Ports.loadRapidoc "/vendor/rapidoc-9.3.4.min.js"
-        , Ports.scrollTo { x = 0, y = 0 }
-        ]
-    )
+    App.createUpdate session ()
+        |> App.withCmds
+            [ Ports.loadRapidoc "/vendor/rapidoc-9.3.4.min.js"
+            , Ports.scrollTo { x = 0, y = 0 }
+            ]
 
 
-update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
+update : Session -> Msg -> Model -> PageUpdate Model Msg
 update session _ model =
-    ( model, session, Cmd.none )
+    App.createUpdate session model
 
 
 getApiServerUrl : Session -> String

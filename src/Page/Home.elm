@@ -40,19 +40,19 @@ type alias ButtonParams =
 
 init : Session -> PageUpdate Model Msg
 init session =
-    App.initPageUpdate session ()
-        |> App.addCmd (Ports.scrollTo { x = 0, y = 0 })
+    App.createUpdate session ()
+        |> App.withCmds [ Ports.scrollTo { x = 0, y = 0 } ]
 
 
 update : Session -> Msg -> Model -> PageUpdate Model Msg
 update session msg model =
     case msg of
         NoOp ->
-            App.initPageUpdate session model
+            App.createUpdate session model
 
         SendParentMessage appMsg ->
-            App.initPageUpdate session model
-                |> App.addAppMsg appMsg
+            App.createUpdate session model
+                |> App.withAppMsg appMsg
 
 
 simulatorButton : ButtonParams -> Html Msg

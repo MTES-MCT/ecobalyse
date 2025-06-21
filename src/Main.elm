@@ -228,7 +228,7 @@ setRoute url ( { state } as model, cmds ) =
                 Just Route.Admin ->
                     if Session.isStaff session then
                         Admin.init session
-                            |> toPage AdminPage AdminMsg
+                            |> toPageWithParent AdminPage AdminMsg
 
                     else
                         ( { model | state = Loaded session RestrictedAccessPage }
@@ -237,7 +237,7 @@ setRoute url ( { state } as model, cmds ) =
 
                 Just Route.Api ->
                     Api.init session
-                        |> toPage ApiPage ApiMsg
+                        |> toPageWithParent ApiPage ApiMsg
 
                 Just Route.Auth ->
                     Auth.init session
@@ -253,11 +253,11 @@ setRoute url ( { state } as model, cmds ) =
 
                 Just (Route.Editorial slug) ->
                     Editorial.init slug session
-                        |> toPage EditorialPage EditorialMsg
+                        |> toPageWithParent EditorialPage EditorialMsg
 
                 Just (Route.Explore scope dataset) ->
                     Explore.init scope dataset session
-                        |> toPage ExplorePage ExploreMsg
+                        |> toPageWithParent ExplorePage ExploreMsg
 
                 Just (Route.FoodBuilder trigram maybeQuery) ->
                     FoodBuilder.init session trigram maybeQuery
@@ -289,7 +289,7 @@ setRoute url ( { state } as model, cmds ) =
 
                 Just Route.Stats ->
                     Stats.init session
-                        |> toPage StatsPage StatsMsg
+                        |> toPageWithParent StatsPage StatsMsg
 
                 Just (Route.TextileSimulator trigram maybeQuery) ->
                     TextileSimulator.init trigram maybeQuery session
@@ -369,11 +369,11 @@ update rawMsg ({ state } as model) =
 
                 ( AdminMsg adminMsg, AdminPage adminModel ) ->
                     Admin.update session adminMsg adminModel
-                        |> toPage AdminPage AdminMsg
+                        |> toPageWithParent AdminPage AdminMsg
 
                 ( ApiMsg apiMsg, ApiPage apiModel ) ->
                     Api.update session apiMsg apiModel
-                        |> toPage ApiPage ApiMsg
+                        |> toPageWithParent ApiPage ApiMsg
 
                 ( AuthMsg auth2Msg, AuthPage auth2Model ) ->
                     Auth.update session auth2Msg auth2Model
@@ -395,11 +395,11 @@ update rawMsg ({ state } as model) =
 
                 ( EditorialMsg editorialMsg, EditorialPage editorialModel ) ->
                     Editorial.update session editorialMsg editorialModel
-                        |> toPage EditorialPage EditorialMsg
+                        |> toPageWithParent EditorialPage EditorialMsg
 
                 ( ExploreMsg examplesMsg, ExplorePage examplesModel ) ->
                     Explore.update session examplesMsg examplesModel
-                        |> toPage ExplorePage ExploreMsg
+                        |> toPageWithParent ExplorePage ExploreMsg
 
                 -- Food
                 ( FoodBuilderMsg foodMsg, FoodBuilderPage foodModel ) ->
@@ -419,7 +419,7 @@ update rawMsg ({ state } as model) =
                 -- Stats
                 ( StatsMsg statsMsg, StatsPage statsModel ) ->
                     Stats.update session statsMsg statsModel
-                        |> toPage StatsPage StatsMsg
+                        |> toPageWithParent StatsPage StatsMsg
 
                 -- Store
                 ( StoreChanged json, currentPage ) ->
