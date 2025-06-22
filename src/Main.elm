@@ -178,7 +178,7 @@ toPage session model cmds toModel toMsg pageUpdate =
         [ cmds
         , Cmd.map toMsg pageUpdate.cmd
         , storeCmd
-        , pageUpdate |> App.toAppCmd AppMsg
+        , pageUpdate |> App.mapToCmd AppMsg
         ]
     )
 

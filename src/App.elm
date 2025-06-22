@@ -4,8 +4,8 @@ module App exposing
     , apply
     , createUpdate
     , mapSession
-    , toAppCmd
-    , withAppMsg
+    , mapToCmd
+    , withAppMsgs
     , withCmds
     )
 
@@ -70,25 +70,14 @@ mapSession fn { appMsgs, cmd, model, session } =
     }
 
 
-{-| Convert PageUpdate app messages to a list of app commands.
+{-| Map PageUpdate app messages to a final single command. The mapper function is used to
+map the app messages to a more general message type, eg. the root Msg from the Main module.
 -}
-toAppCmds : (Msg -> appMsg) -> PageUpdate model msg -> List (Cmd appMsg)
-toAppCmds mapper { appMsgs } =
-    appMsgs |> List.map (\appMsg -> Task.perform (\_ -> mapper appMsg) (Task.succeed ()))
-
-
-{-| Convert PageUpdate app messages to a single app command.
--}
-toAppCmd : (Msg -> appMsg) -> PageUpdate model msg -> Cmd appMsg
-toAppCmd mapper =
-    toAppCmds mapper >> Cmd.batch
-
-
-{-| Add an app message to a PageUpdate.
--}
-withAppMsg : Msg -> PageUpdate model msg -> PageUpdate model msg
-withAppMsg appMsg pageUpdate =
-    { pageUpdate | appMsgs = pageUpdate.appMsgs ++ [ appMsg ] }
+mapToCmd : (Msg -> destMsg) -> PageUpdate model msg -> Cmd destMsg
+mapToCmd mapper =
+    .appMsgs
+        >> List.map (\appMsg -> Task.perform (\_ -> mapper appMsg) (Task.succeed ()))
+        >> Cmd.batch
 
 
 {-| Add app messages to a PageUpdate.

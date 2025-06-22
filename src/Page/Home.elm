@@ -50,9 +50,11 @@ update session msg model =
         NoOp ->
             App.createUpdate session model
 
+        -- FIXME: this is to have a single use in the codebase for now so elm-review doesn't complain,
+        -- but we should eventually remove this from the homepage as it's of no actual use
         SendParentMessage appMsg ->
             App.createUpdate session model
-                |> App.withAppMsg appMsg
+                |> App.withAppMsgs [ appMsg ]
 
 
 simulatorButton : ButtonParams -> Html Msg
