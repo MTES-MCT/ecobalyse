@@ -13,6 +13,7 @@ import Data.Scope as Scope
 import Data.Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Events exposing (onClick)
 import Ports
 import Route exposing (Route)
 import Views.Container as Container
@@ -25,8 +26,8 @@ type alias Model =
 
 
 type Msg
-    = NoOp
-    | SendParentMessage App.Msg
+    = AppMessage App.Msg
+    | NoOp
 
 
 type alias ButtonParams =
@@ -47,14 +48,14 @@ init session =
 update : Session -> Msg -> Model -> PageUpdate Model Msg
 update session msg model =
     case msg of
-        NoOp ->
-            App.createUpdate session model
-
         -- FIXME: this is to have a single use in the codebase for now so elm-review doesn't complain,
         -- but we should eventually remove this from the homepage as it's of no actual use
-        SendParentMessage appMsg ->
+        AppMessage appMsg ->
             App.createUpdate session model
                 |> App.withAppMsgs [ appMsg ]
+
+        NoOp ->
+            App.createUpdate session model
 
 
 simulatorButton : ButtonParams -> Html Msg
@@ -117,6 +118,10 @@ viewHero { enabledSections } =
 
                   else
                     text ""
+                ]
+            , div [ class "d-flex flex-column gap-2" ]
+                [ button [ onClick <| AppMessage <| App.AddToast "La vie est belle <3" ]
+                    [ text "Test notification" ]
                 ]
             ]
         ]

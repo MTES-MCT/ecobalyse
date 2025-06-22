@@ -31,6 +31,7 @@ import Request.Version exposing (VersionData)
 import Route
 import Static.Db as StaticDb exposing (Db)
 import Static.Json as StaticJson
+import Toast
 import Url exposing (Url)
 import Views.Page as Page
 
@@ -70,6 +71,7 @@ type alias Model =
     -- Duplicate the nav key in the model so Parcel's hot module reloading finds it always in the same place.
     , navKey : Nav.Key
     , state : State
+    , tray : Toast.Tray String
     , url : Url
     }
 
@@ -103,6 +105,7 @@ init flags requestedUrl navKey =
                 ( { mobileNavigationOpened = False
                   , navKey = navKey
                   , state = Errored err
+                  , tray = Toast.tray
                   , url = requestedUrl
                   }
                 , Cmd.none
@@ -116,6 +119,7 @@ init flags requestedUrl navKey =
                 ( { mobileNavigationOpened = False
                   , navKey = navKey
                   , state = Loaded session LoadingPage
+                  , tray = Toast.tray
                   , url = requestedUrl
                   }
                 , Cmd.batch
@@ -281,7 +285,15 @@ update rawMsg ({ state } as model) =
     case ( state, rawMsg ) of
         ( Loaded session page, msg ) ->
             case ( msg, page ) of
-                -- Parent messages from page modules
+                -- Global app messages
+                ( AppMsg (App.AddToast content), _ ) ->
+                    let
+                        ( newTray, newToastMsg ) =
+                            -- TODO: persistent toasts, custom notification types, etc.
+                            Toast.add model.tray (Toast.expireIn 5000 content)
+                    in
+                    ( { model | tray = newTray }, Cmd.map (AppMsg << App.ToastMsg) newToastMsg )
+
                 ( AppMsg App.CloseMobileNavigation, _ ) ->
                     ( { model | mobileNavigationOpened = False }, Cmd.none )
 
@@ -321,6 +333,14 @@ update rawMsg ({ state } as model) =
                             ++ "/#"
                             ++ Maybe.withDefault "" model.url.fragment
                     )
+
+                -- Toast notifications
+                ( AppMsg (App.ToastMsg toastMsg), _ ) ->
+                    let
+                        ( newTray, newToastMsg ) =
+                            Toast.update toastMsg model.tray
+                    in
+                    ( { model | tray = newTray }, Cmd.map (AppMsg << App.ToastMsg) newToastMsg )
 
                 -- Pages
                 ( HomeMsg homeMsg, HomePage homeModel ) ->
@@ -475,7 +495,7 @@ subscriptions { state } =
 
 
 view : Model -> Document Msg
-view { mobileNavigationOpened, state } =
+view { mobileNavigationOpened, state, tray } =
     case state of
         Errored error ->
             { body =
@@ -493,6 +513,7 @@ view { mobileNavigationOpened, state } =
                         , mobileNavigationOpened = mobileNavigationOpened
                         , session = session
                         , toMsg = AppMsg
+                        , tray = tray
                         }
 
                 mapMsg msg ( title, content ) =

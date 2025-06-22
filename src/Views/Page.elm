@@ -7,7 +7,7 @@ module Views.Page exposing
     , restricted
     )
 
-import App exposing (Msg)
+import App
 import Browser exposing (Document)
 import Data.Dataset as Dataset
 import Data.Env as Env
@@ -21,6 +21,7 @@ import Json.Decode as Decode
 import RemoteData
 import Request.Version as Version exposing (Version(..))
 import Route
+import Toast
 import Views.Alert as Alert
 import Views.Container as Container
 import Views.Icon as Icon
@@ -52,7 +53,8 @@ type alias Config msg =
     { activePage : ActivePage
     , mobileNavigationOpened : Bool
     , session : Session
-    , toMsg : Msg -> msg
+    , toMsg : App.Msg -> msg
+    , tray : Toast.Tray String
     }
 
 
@@ -69,6 +71,7 @@ frame ({ activePage } as config) ( title, content ) =
             text ""
         , main_ [ class "PageContent bg-white" ]
             [ notificationListView config
+            , toastListView config
             , div
                 [ if activePage == Home then
                     class ""
@@ -82,6 +85,17 @@ frame ({ activePage } as config) ( title, content ) =
         ]
     , title = title ++ " | Ecobalyse"
     }
+
+
+toastListView : Config msg -> Html msg
+toastListView { toMsg, tray } =
+    Toast.render viewToast tray (Toast.config (App.ToastMsg >> toMsg))
+
+
+viewToast : List (Attribute msg) -> Toast.Info String -> Html msg
+viewToast attributes toast =
+    Html.div attributes
+        [ text toast.content ]
 
 
 isStaging : Session -> Bool

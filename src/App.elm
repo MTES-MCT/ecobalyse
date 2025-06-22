@@ -14,18 +14,21 @@ module App exposing
 
 import Data.Session as Session exposing (Session)
 import Task
+import Toast
 
 
 {-| Global app messages.
 -}
 type Msg
-    = CloseMobileNavigation
+    = AddToast String
+    | CloseMobileNavigation
     | CloseNotification Session.Notification
     | LoadUrl String
     | OpenMobileNavigation
     | ReloadPage
     | ResetSessionStore
     | SwitchVersion String
+    | ToastMsg Toast.Msg
 
 
 {-| A page module update result that may carry app messages.

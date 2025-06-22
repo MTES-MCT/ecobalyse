@@ -26,6 +26,7 @@
             "elm-community/list-extra": "8.7.0",
             "elm-community/result-extra": "2.4.0",
             "elm-community/string-extra": "4.0.1",
+            "emilianobovetti/elm-toast": "2.0.0",
             "futureworkz/elm-autocomplete": "1.0.2",
             "ianmackenzie/elm-units": "2.10.0",
             "krisajenkins/remotedata": "6.1.0",
