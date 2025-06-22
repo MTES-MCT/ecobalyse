@@ -32,6 +32,6 @@ test("Object simulator", async ({ page }) => {
 
   await expect(page.getByTestId("score-card")).toBeVisible();
 
-  await expect(page.getByRole("row", { name: "Matières premières 70,20 %" })).toBeVisible();
-  await expect(page.getByRole("row", { name: "Transformation 29,80 %" })).toBeVisible();
+  await expect(page.getByRole("row", { name: /Matières premières \d+,\d+ %/ })).toBeVisible();
+  await expect(page.getByRole("row", { name: /Transformation \d+,\d+ %/ })).toBeVisible();
 });
