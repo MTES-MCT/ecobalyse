@@ -290,7 +290,9 @@ update rawMsg ({ state } as model) =
                     let
                         ( newTray, newToastMsg ) =
                             -- TODO: persistent toasts, custom notification types, etc.
-                            Toast.add model.tray (Toast.expireIn 5000 content)
+                            -- errors are persistent, everything else 5s
+                            -- Toast.add model.tray (Toast.persistent content)
+                            Toast.add model.tray (Toast.expireOnBlur 5000 content)
                     in
                     ( { model | tray = newTray }, Cmd.map (AppMsg << App.ToastMsg) newToastMsg )
 

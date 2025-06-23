@@ -88,14 +88,50 @@ frame ({ activePage } as config) ( title, content ) =
 
 
 toastListView : Config msg -> Html msg
-toastListView { toMsg, tray } =
-    Toast.render viewToast tray (Toast.config (App.ToastMsg >> toMsg))
+toastListView ({ toMsg, tray } as config) =
+    Toast.config (App.ToastMsg >> toMsg)
+        -- top center: top-0 start-50 translate-middle-x
+        |> Toast.withTrayAttributes [ class "toast-container position-fixed p-4 top-0 end-0" ]
+        |> Toast.withTransitionAttributes [ class "fade" ]
+        |> Toast.render (viewToast config) tray
 
 
-viewToast : List (Attribute msg) -> Toast.Info String -> Html msg
-viewToast attributes toast =
-    Html.div attributes
-        [ text toast.content ]
+viewToast : Config msg -> List (Attribute msg) -> Toast.Info String -> Html msg
+viewToast { toMsg } attributes toast =
+    div
+        (attributes
+            ++ [ class "toast align-items-center border-0 show"
+               , classList
+                    -- TODO: handle more levels
+                    -- You also need to adapt the role and aria-live level depending on the content.
+                    -- If it's an important message like an error, use role="alert" aria-live="assertive",
+                    -- otherwise use role="status" aria-live="polite" attributes.
+                    [ ( "text-bg-warning", True )
+
+                    -- , ( "text-bg-danger", True )
+                    , ( "opacity-0", toast.phase == Toast.Enter )
+                    , ( "opacity-1", toast.phase == Toast.In )
+                    , ( "opacity-0", toast.phase == Toast.Exit )
+                    ]
+               , attribute "role" "alert"
+               , attribute "aria-live" "assertive"
+               , attribute "aria-atomic" "true"
+               ]
+        )
+        [ div
+            [ class "d-flex" ]
+            [ div [ class "toast-body" ]
+                [ text toast.content ]
+            , button
+                [ type_ "button"
+                , class "btn-close btn-close-white me-2 m-auto"
+                , attribute "data-bs-dismiss" "toast"
+                , attribute "aria-label" "Close"
+                , onClick <| toMsg <| App.ToastMsg <| Toast.exit toast.id
+                ]
+                []
+            ]
+        ]
 
 
 isStaging : Session -> Bool
