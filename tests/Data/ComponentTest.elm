@@ -556,6 +556,56 @@ suite =
                         )
                     ]
                 )
+            , TestUtils.suiteFromResult "toggleCustomScope"
+                -- setup
+                ("""{ "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 }"""
+                    |> decodeJson Component.decodeItem
+                    |> Result.andThen
+                        (\item ->
+                            item
+                                |> Component.itemToComponent db
+                                |> Result.map (\component -> ( component, item ))
+                        )
+                )
+                (\( component, item ) ->
+                    [ it "should have no custom scopes by default"
+                        (item.custom
+                            |> Expect.equal Nothing
+                        )
+                    , it "should toggle a custom scope"
+                        (item
+                            |> Component.toggleCustomScope component Scope.Textile False
+                            |> .custom
+                            |> Maybe.map .scopes
+                            |> Expect.equal (Just [ Scope.Food, Scope.Object, Scope.Veli ])
+                        )
+                    , it "should sequentially toggle custom scopes"
+                        (item
+                            |> Component.toggleCustomScope component Scope.Food False
+                            |> Component.toggleCustomScope component Scope.Object False
+                            |> Component.toggleCustomScope component Scope.Textile False
+                            |> Component.toggleCustomScope component Scope.Object True
+                            |> .custom
+                            |> Maybe.map .scopes
+                            |> Expect.equal (Just [ Scope.Object, Scope.Veli ])
+                        )
+                    , it "should reset custom scopes when they match initial component ones"
+                        (item
+                            |> Component.toggleCustomScope component Scope.Food False
+                            |> Component.toggleCustomScope component Scope.Food True
+                            |> .custom
+                            |> Maybe.map .scopes
+                            |> Expect.equal Nothing
+                        )
+                    , it "should export custom scopes to component"
+                        (item
+                            |> Component.toggleCustomScope component Scope.Textile False
+                            |> Component.itemToComponent db
+                            |> Result.map .scopes
+                            |> Expect.equal (Ok [ Scope.Food, Scope.Object, Scope.Veli ])
+                        )
+                    ]
+                )
             , TestUtils.suiteFromResult "updateItemCustomName"
                 -- setup
                 sofaFabric
@@ -686,7 +736,7 @@ setupTestDb db =
 
 chairBack : Result String Component
 chairBack =
-    decodeJson (Component.decode Scope.all) <|
+    decodeJson Component.decode <|
         """ {
                 "elements": [
                 {
@@ -695,14 +745,15 @@ chairBack =
                 }
                 ],
                 "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973",
-                "name": "Dossier plastique (PP)"
+                "name": "Dossier plastique (PP)",
+                "scopes": ["food", "object", "textile", "veli"]
             }
         """
 
 
 chairLeg : Result String Component
 chairLeg =
-    decodeJson (Component.decode Scope.all) <|
+    decodeJson Component.decode <|
         """ {
                 "elements": [
                 {
@@ -711,14 +762,15 @@ chairLeg =
                 }
                 ],
                 "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
-                "name": "Pied 70 cm (plein bois)"
+                "name": "Pied 70 cm (plein bois)",
+                "scopes": ["food", "object", "textile", "veli"]
             }
         """
 
 
 chairSeat : Result String Component
 chairSeat =
-    decodeJson (Component.decode Scope.all) <|
+    decodeJson Component.decode <|
         """ {
                 "elements": [
                 {
@@ -727,14 +779,15 @@ chairSeat =
                 }
                 ],
                 "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6",
-                "name": "Assise plastique (PP)"
+                "name": "Assise plastique (PP)",
+                "scopes": ["food", "object", "textile", "veli"]
             }
         """
 
 
 sofaFabric : Result String Component
 sofaFabric =
-    decodeJson (Component.decode Scope.all) <|
+    decodeJson Component.decode <|
         """ {
                 "elements": [
                     {
@@ -755,7 +808,8 @@ sofaFabric =
                     }
                 ],
                 "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
-                "name": "Tissu pour canapé"
+                "name": "Tissu pour canapé",
+                "scopes": ["food", "object", "textile", "veli"]
             }
         """
 

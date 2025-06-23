@@ -11,6 +11,8 @@ export DATABASE_URL=$(echo "$DATABASE_URL" | sed -e 's/postgres/postgresql+async
 # express
 npm run server:start &
 
+# Run database migrations
+uv run backend database upgrade --no-prompt
 npm run start:backend &
 
 # nginx

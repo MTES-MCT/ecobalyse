@@ -24,6 +24,24 @@ jobs:
   build:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        # Same as Scalingo
+        image: postgres:14
+        env:
+          POSTGRES_DB: ecobalyse_test
+          POSTGRES_USER: ecobalyse
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports:
+          - 5433:5432
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     strategy:
       matrix:
         node-version: [22.x]
@@ -90,7 +108,7 @@ jobs:
       run: npm run test:client
 
     - name: Run server tests
-      run: npm run test:server-ci && npm run test:backend
+      run: npm run test:server && npm run test:backend
 
     # e2e tests
     - name: Install Playwright Browsers
@@ -99,7 +117,7 @@ jobs:
     - name: Run Playwright tests
       run: NODE_ENV=test npm run test:e2e
 
-    - name: Upload Playwright test articacts
+    - name: Upload Playwright test artifacts
       uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:

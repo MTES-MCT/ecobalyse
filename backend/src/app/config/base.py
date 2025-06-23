@@ -52,7 +52,10 @@ class DatabaseSettings:
     )
     """Optionally ping database before fetching a session from the connection pool."""
     URL: str = field(
-        default_factory=get_env("DATABASE_URL", "sqlite+aiosqlite:///db.sqlite3")
+        default_factory=get_env(
+            "DATABASE_URL",
+            "postgresql+asyncpg://ecobalyse@localhost:5433/ecobalyse_dev",
+        )
     )
     """SQLAlchemy Database URL."""
     MIGRATION_CONFIG: str = field(
