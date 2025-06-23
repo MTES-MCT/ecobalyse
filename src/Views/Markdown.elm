@@ -20,7 +20,8 @@ simple attrs content =
     case parse content of
         Err errors ->
             Alert.preformatted
-                { close = Nothing
+                { attributes = []
+                , close = Nothing
                 , content = [ text errors ]
                 , level = Alert.Danger
                 , title = Just "Des erreurs ont été rencontrées"

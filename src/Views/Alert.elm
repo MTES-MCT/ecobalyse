@@ -16,7 +16,8 @@ import Request.BackendHttp.Error as BackendError
 
 
 type alias Config msg =
-    { close : Maybe msg
+    { attributes : List (Attribute msg)
+    , close : Maybe msg
     , content : List (Html msg)
     , level : Level
     , title : Maybe String
@@ -68,7 +69,8 @@ backendError session close error =
                 |> String.join "\n"
     in
     simple
-        { close = close
+        { attributes = []
+        , close = close
         , content =
             [ div []
                 [ p [ class "mb-2 text-truncate" ]
@@ -133,7 +135,8 @@ escapeUrl =
 serverError : String -> Html msg
 serverError error =
     simple
-        { close = Nothing
+        { attributes = []
+        , close = Nothing
         , content =
             case String.lines error of
                 [] ->
@@ -164,19 +167,21 @@ preformatted config =
     simple { config | content = [ pre [ class "fs-7 mb-0" ] config.content ] }
 
 
-{-| A simple DSFR compliant alert view which can be used for both toasts and editorial contents.
+{-| A simple DSFR compliant alert view which can be used for both toasts and regular contents.
 -}
 simple : Config msg -> Html msg
-simple { close, content, level, title } =
+simple { attributes, close, content, level, title } =
     div
-        [ class "fr-alert"
-        , classList
-            [ ( "fr-alert--success", level == Success )
-            , ( "fr-alert--info", level == Info )
-            , ( "fr-alert--warning", level == Warning )
-            , ( "fr-alert--error", level == Danger )
-            ]
-        ]
+        (attributes
+            ++ [ class "fr-alert shadow-sm"
+               , classList
+                    [ ( "fr-alert--success", level == Success )
+                    , ( "fr-alert--info", level == Info )
+                    , ( "fr-alert--warning", level == Warning )
+                    , ( "fr-alert--error", level == Danger )
+                    ]
+               ]
+        )
         [ case title of
             Just title_ ->
                 h3 [ class "h5 mb-2" ] [ text title_ ]

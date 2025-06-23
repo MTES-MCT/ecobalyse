@@ -5,6 +5,7 @@ module App exposing
     , createUpdate
     , mapSession
     , mapToCmd
+    , notifySuccess
     , withAppMsgs
     , withCmds
     )
@@ -81,6 +82,13 @@ mapToCmd mapper =
     .appMsgs
         >> List.map (\appMsg -> Task.perform (\_ -> mapper appMsg) (Task.succeed ()))
         >> Cmd.batch
+
+
+{-| Add a success notification to a PageUpdate.
+-}
+notifySuccess : String -> PageUpdate model msg -> PageUpdate model msg
+notifySuccess message =
+    withAppMsgs [ AddToast message ]
 
 
 {-| Add app messages to a PageUpdate.

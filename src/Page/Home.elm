@@ -128,7 +128,8 @@ viewHero { enabledSections } =
                         [ text "Test notification" ]
                     ]
                 , Alert.simple
-                    { title = Just "Titre de l'alerte"
+                    { attributes = []
+                    , title = Just "Titre de l'alerte"
                     , content = [ text "Lorem ipsum dolor sit amet" ]
                     , level = Alert.Success
                     , close = Nothing

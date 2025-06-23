@@ -189,16 +189,11 @@ update session msg model =
                             { model | modals = [] }
                                 |> App.createUpdate session
                                 |> App.withCmds [ ComponentApi.patchComponent session ComponentUpdated component ]
+                                |> App.notifySuccess "Composant sauvegardé"
 
                 _ ->
                     App.createUpdate session model
 
-        -- TODO: should be used for notifications
-        -- SendParentMessage appMsg ->
-        --     App.createUpdate session model
-        --         |> App.withAppMsg appMsg
-        --
-        --
         SetModals modals ->
             { model | modals = modals }
                 |> App.createUpdate session
@@ -567,7 +562,8 @@ updateSingleItem fn item =
 warning : Html msg
 warning =
     Alert.simple
-        { close = Nothing
+        { attributes = []
+        , close = Nothing
         , content =
             [ text "Attention, la base de données mobilisée peut être réinitialisée à tout moment et vos modifications avec."
             ]

@@ -210,7 +210,8 @@ comparatorView ({ session } as config) =
     , case charts of
         Err error ->
             Alert.simple
-                { close = Nothing
+                { attributes = []
+                , close = Nothing
                 , content = [ text error ]
                 , level = Alert.Danger
                 , title = Just "Erreur"

@@ -306,7 +306,8 @@ editorView ({ db, docsUrl, explorerRoute, maxItems, items, results, title } as c
                 case Component.expandItems db items of
                     Err error ->
                         Alert.simple
-                            { close = Nothing
+                            { attributes = []
+                            , close = Nothing
                             , content = [ text error ]
                             , level = Alert.Danger
                             , title = Just "Erreur"

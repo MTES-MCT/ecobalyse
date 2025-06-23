@@ -236,7 +236,8 @@ alert : String -> Html Msg
 alert error =
     div [ class "p-3 pb-0" ]
         [ Alert.simple
-            { level = Alert.Danger
+            { attributes = []
+            , level = Alert.Danger
             , content = [ text error ]
             , title = Just "Erreur"
             , close = Nothing

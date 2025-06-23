@@ -90,48 +90,48 @@ frame ({ activePage } as config) ( title, content ) =
 toastListView : Config msg -> Html msg
 toastListView ({ toMsg, tray } as config) =
     Toast.config (App.ToastMsg >> toMsg)
-        -- top center: top-0 start-50 translate-middle-x
-        |> Toast.withTrayAttributes [ class "toast-container position-fixed p-4 top-0 end-0" ]
+        |> Toast.withTrayAttributes [ class "position-fixed p-4 top-0 end-0 d-flex flex-column gap-3" ]
         |> Toast.withTransitionAttributes [ class "fade" ]
         |> Toast.render (viewToast config) tray
 
 
 viewToast : Config msg -> List (Attribute msg) -> Toast.Info String -> Html msg
 viewToast { toMsg } attributes toast =
-    div
-        (attributes
-            ++ [ class "toast align-items-center border-0 show"
-               , classList
-                    -- TODO: handle more levels
-                    -- You also need to adapt the role and aria-live level depending on the content.
-                    -- If it's an important message like an error, use role="alert" aria-live="assertive",
-                    -- otherwise use role="status" aria-live="polite" attributes.
-                    [ ( "text-bg-warning", True )
-
-                    -- , ( "text-bg-danger", True )
-                    , ( "opacity-0", toast.phase == Toast.Enter )
-                    , ( "opacity-1", toast.phase == Toast.In )
-                    , ( "opacity-0", toast.phase == Toast.Exit )
-                    ]
-               , attribute "role" "alert"
-               , attribute "aria-live" "assertive"
-               , attribute "aria-atomic" "true"
-               ]
-        )
-        [ div
-            [ class "d-flex" ]
-            [ div [ class "toast-body" ]
-                [ text toast.content ]
-            , button
-                [ type_ "button"
-                , class "btn-close btn-close-white me-2 m-auto"
-                , attribute "data-bs-dismiss" "toast"
-                , attribute "aria-label" "Close"
-                , onClick <| toMsg <| App.ToastMsg <| Toast.exit toast.id
-                ]
-                []
-            ]
-        ]
+    -- div
+    --     (attributes
+    --         ++ [ class "fr-alert"
+    --            , classList
+    --                 -- TODO: handle more levels
+    --                 -- You also need to adapt the role and aria-live level depending on the content.
+    --                 -- If it's an important message like an error, use role="alert" aria-live="assertive",
+    --                 -- otherwise use role="status" aria-live="polite" attributes.
+    --                 [ ( "fr-alert--success", True )
+    --                 ]
+    --            , attribute "role" "alert"
+    --            , attribute "aria-live" "assertive"
+    --            , attribute "aria-atomic" "true"
+    --            ]
+    --     )
+    --     [ div
+    --         [ class "d-flex" ]
+    --         [ text toast.content
+    --         , button
+    --             [ type_ "button"
+    --             , class "btn-close btn-close-white me-2 m-auto"
+    --             , attribute "data-bs-dismiss" "toast"
+    --             , attribute "aria-label" "Close"
+    --             , onClick <| toMsg <| App.ToastMsg <| Toast.exit toast.id
+    --             ]
+    --             []
+    --         ]
+    --     ]
+    Alert.simple
+        { attributes = attributes
+        , close = Just (toMsg <| App.ToastMsg <| Toast.exit toast.id)
+        , content = [ text toast.content ]
+        , level = Alert.Success
+        , title = Nothing
+        }
 
 
 isStaging : Session -> Bool
@@ -518,7 +518,8 @@ notificationView { session, toMsg } notification =
 
         Session.GenericError title message ->
             Alert.simple
-                { close = Just closeNotification
+                { attributes = []
+                , close = Just closeNotification
                 , content = [ text message ]
                 , level = Alert.Danger
                 , title = Just title
@@ -526,7 +527,8 @@ notificationView { session, toMsg } notification =
 
         Session.GenericInfo title message ->
             Alert.simple
-                { close = Just closeNotification
+                { attributes = []
+                , close = Just closeNotification
                 , content = [ text message ]
                 , level = Alert.Info
                 , title = Just title
@@ -534,7 +536,8 @@ notificationView { session, toMsg } notification =
 
         Session.StoreDecodingError decodeError ->
             Alert.simple
-                { close = Nothing
+                { attributes = []
+                , close = Nothing
                 , content =
                     [ p [] [ text "Votre précédente session n'a pas pu être récupérée, elle doit donc être réinitialisée." ]
                     , p []

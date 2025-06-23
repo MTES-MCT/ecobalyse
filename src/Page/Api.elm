@@ -563,7 +563,8 @@ view session _ =
                     ]
                 , div [ class "col-xl-4" ]
                     [ Alert.simple
-                        { level = Alert.Info
+                        { attributes = []
+                        , level = Alert.Info
                         , close = Nothing
                         , title = Just "Avertissement"
                         , content =
@@ -619,7 +620,8 @@ apiDocumentationNotice session =
     let
         alert level md =
             Alert.simple
-                { level = level
+                { attributes = []
+                , level = level
                 , close = Nothing
                 , title = Nothing
                 , content = [ Markdown.simple [ class "fs-7" ] md ]

@@ -1157,7 +1157,8 @@ view session model =
             (case model.simulator of
                 Err error ->
                     [ Alert.simple
-                        { level = Alert.Danger
+                        { attributes = []
+                        , level = Alert.Danger
                         , close = Nothing
                         , title = Just "Erreur"
                         , content = [ text error ]

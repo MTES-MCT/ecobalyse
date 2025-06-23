@@ -853,7 +853,8 @@ debugQueryView db query =
 errorView : String -> Html Msg
 errorView error =
     Alert.simple
-        { level = Alert.Danger
+        { attributes = []
+        , level = Alert.Danger
         , content = [ text error ]
         , title = Nothing
         , close = Nothing
