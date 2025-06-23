@@ -15,6 +15,7 @@ import Browser.Events
 import Data.Component as Component exposing (Component, Index, Item, TargetItem)
 import Data.Impact.Definition as Definition
 import Data.Key as Key
+import Data.Notification as Notification
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
 import Data.Scope as Scope exposing (Scope)
@@ -65,8 +66,6 @@ type Msg
     | OnAutocompleteAddProcess Category TargetItem (Maybe Index) (Autocomplete.Msg Process)
     | OnAutocompleteSelectProcess Category TargetItem (Maybe Index)
     | SaveComponent
-      -- TODO: use for notifications
-      -- | SendParentMessage App.Msg
     | SetModals (List Modal)
     | UpdateComponent Item
     | UpdateScopeFilters (List Scope)
@@ -189,7 +188,7 @@ update session msg model =
                             { model | modals = [] }
                                 |> App.createUpdate session
                                 |> App.withCmds [ ComponentApi.patchComponent session ComponentUpdated component ]
-                                |> App.notifySuccess "Composant sauvegardé"
+                                |> App.andNotify (Notification.success "Composant sauvegardé")
 
                 _ ->
                     App.createUpdate session model

@@ -12,6 +12,7 @@ import Browser exposing (Document)
 import Data.Dataset as Dataset
 import Data.Env as Env
 import Data.Github as Github
+import Data.Notification exposing (Notification)
 import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Html exposing (..)
@@ -54,7 +55,7 @@ type alias Config msg =
     , mobileNavigationOpened : Bool
     , session : Session
     , toMsg : App.Msg -> msg
-    , tray : Toast.Tray String
+    , tray : Toast.Tray Notification
     }
 
 
@@ -95,12 +96,12 @@ toastListView ({ toMsg, tray } as config) =
         |> Toast.render (viewToast config) tray
 
 
-viewToast : Config msg -> List (Attribute msg) -> Toast.Info String -> Html msg
-viewToast { toMsg } attributes toast =
+viewToast : Config msg -> List (Attribute msg) -> Toast.Info Notification -> Html msg
+viewToast { toMsg } attributes notification =
     Alert.simple
         { attributes = attributes
-        , close = Just (toMsg <| App.ToastMsg <| Toast.exit toast.id)
-        , content = [ text toast.content ]
+        , close = Just (toMsg <| App.ToastMsg <| Toast.exit notification.id)
+        , content = [ text notification.content.message ]
         , level = Alert.Success
         , title = Nothing
         }

@@ -1,11 +1,11 @@
 module App exposing
     ( Msg(..)
     , PageUpdate
+    , andNotify
     , apply
     , createUpdate
     , mapSession
     , mapToCmd
-    , notifySuccess
     , withAppMsgs
     , withCmds
     )
@@ -13,6 +13,7 @@ module App exposing
 {-| This module defines general app messages that can be sent from pages to the Main module.
 -}
 
+import Data.Notification exposing (Notification)
 import Data.Session as Session exposing (Session)
 import Task
 import Toast
@@ -21,7 +22,7 @@ import Toast
 {-| Global app messages.
 -}
 type Msg
-    = AddToast String
+    = AddToast Notification
     | CloseMobileNavigation
     | CloseNotification Session.Notification
     | LoadUrl String
@@ -40,6 +41,13 @@ type alias PageUpdate model msg =
     , model : model
     , session : Session
     }
+
+
+{-| Add a success notification to a PageUpdate.
+-}
+andNotify : Notification -> PageUpdate model msg -> PageUpdate model msg
+andNotify notification =
+    withAppMsgs [ AddToast notification ]
 
 
 {-| Apply a page module update fn to a PageUpdate.
@@ -82,13 +90,6 @@ mapToCmd mapper =
     .appMsgs
         >> List.map (\appMsg -> Task.perform (\_ -> mapper appMsg) (Task.succeed ()))
         >> Cmd.batch
-
-
-{-| Add a success notification to a PageUpdate.
--}
-notifySuccess : String -> PageUpdate model msg -> PageUpdate model msg
-notifySuccess message =
-    withAppMsgs [ AddToast message ]
 
 
 {-| Add app messages to a PageUpdate.

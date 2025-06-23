@@ -7,6 +7,7 @@ import Data.Example as Example
 import Data.Food.Query as FoodQuery
 import Data.Github as Github
 import Data.Impact as Impact
+import Data.Notification as Notification exposing (Notification)
 import Data.Object.Query as ObjectQuery
 import Data.Session as Session exposing (Session)
 import Data.Textile.Query as TextileQuery
@@ -71,7 +72,7 @@ type alias Model =
     -- Duplicate the nav key in the model so Parcel's hot module reloading finds it always in the same place.
     , navKey : Nav.Key
     , state : State
-    , tray : Toast.Tray String
+    , tray : Toast.Tray Notification
     , url : Url
     }
 
@@ -286,13 +287,18 @@ update rawMsg ({ state } as model) =
         ( Loaded session page, msg ) ->
             case ( msg, page ) of
                 -- Global app messages
-                ( AppMsg (App.AddToast content), _ ) ->
+                ( AppMsg (App.AddToast notification), _ ) ->
                     let
+                        toast =
+                            case notification.level of
+                                Notification.Error ->
+                                    Toast.persistent notification
+
+                                _ ->
+                                    Toast.expireOnBlur 5000 notification
+
                         ( newTray, newToastMsg ) =
-                            -- TODO: persistent toasts, custom notification types, etc.
-                            -- errors are persistent, everything else 5s
-                            -- Toast.add model.tray (Toast.expireOnBlur 5000 content)
-                            Toast.add model.tray (Toast.persistent content)
+                            Toast.add model.tray toast
                     in
                     ( { model | tray = newTray }, Cmd.map (AppMsg << App.ToastMsg) newToastMsg )
 

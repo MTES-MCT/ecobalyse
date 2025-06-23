@@ -9,6 +9,7 @@ module Page.Home exposing
 import App exposing (Msg, PageUpdate)
 import Data.Dataset as Dataset
 import Data.Env as Env
+import Data.Notification as Notification
 import Data.Scope as Scope
 import Data.Session exposing (Session)
 import Html exposing (..)
@@ -27,8 +28,8 @@ type alias Model =
 
 
 type Msg
-    = AppMessage App.Msg
-    | NoOp
+    = NoOp
+    | SendAppMsg App.Msg
 
 
 type alias ButtonParams =
@@ -49,14 +50,14 @@ init session =
 update : Session -> Msg -> Model -> PageUpdate Model Msg
 update session msg model =
     case msg of
-        -- FIXME: this is to have a single use in the codebase for now so elm-review doesn't complain,
-        -- but we should eventually remove this from the homepage as it's of no actual use
-        AppMessage appMsg ->
-            App.createUpdate session model
-                |> App.withAppMsgs [ appMsg ]
-
         NoOp ->
             App.createUpdate session model
+
+        -- FIXME: this is to have a single use in the codebase for now so elm-review doesn't complain,
+        -- but we should eventually remove this from the homepage as it's of no actual use
+        SendAppMsg appMsg ->
+            App.createUpdate session model
+                |> App.withAppMsgs [ appMsg ]
 
 
 simulatorButton : ButtonParams -> Html Msg
@@ -124,7 +125,12 @@ viewHero { enabledSections } =
             -- FIXME: remove me
             , div [ class "d-flex flex-column gap-4" ]
                 [ div []
-                    [ button [ onClick <| AppMessage <| App.AddToast "La vie est belle <3" ]
+                    [ button
+                        [ Notification.success "La vie est belle <3"
+                            |> App.AddToast
+                            |> SendAppMsg
+                            |> onClick
+                        ]
                         [ text "Test notification" ]
                     ]
                 , Alert.simple

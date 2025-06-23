@@ -546,10 +546,10 @@ view session _ =
     , [ Container.centered [ class "pb-5" ]
             [ h1 [ class "mb-3" ] [ text "API Ecobalyse" ]
             , div [ class "row" ]
-                [ div [ class "col-xl-8" ]
+                [ div [ class "col-xl-8 d-flex flex-column gap-3" ]
                     [ """L'API HTTP Ecobalyse permet de calculer les impacts environnementaux des produits textiles et alimentaires. """
                         |> Markdown.simple [ class "fw-bold" ]
-                    , p []
+                    , p [ class "mb-0" ]
                         [ text "Elle est accessible à l'adresse "
                         , code [] [ text (getApiServerUrl session) ]
                         , text " et "
@@ -561,7 +561,7 @@ view session _ =
                     , apiDocumentationNotice session
                     , div [ class "height-auto" ] [ apiBrowser session ]
                     ]
-                , div [ class "col-xl-4" ]
+                , div [ class "col-xl-4 d-flex flex-column gap-3" ]
                     [ Alert.simple
                         { attributes = []
                         , level = Alert.Info
