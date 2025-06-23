@@ -198,17 +198,6 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
                     )
                 )
 
-            if owner:
-                owner.journal_entries.append(
-                    m.JournalEntry(
-                        table_name=m.ComponentModel.__tablename__,
-                        record_id=data.id,
-                        action=m.JournalAction.CREATED,
-                        user=owner,
-                        value=self.to_schema(data, schema_type=Component),
-                    )
-                )
-
         if (
             operation == "update"
             and is_dict(data)
@@ -219,18 +208,6 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
                 owner.journal_entries.append(
                     m.JournalEntry(
                         table_name=m.Component.__tablename__,
-                        record_id=data.id,
-                        action=m.JournalAction.UPDATED,
-                        user=owner,
-                        value=input_data
-                        if is_dict(input_data)
-                        else input_data.to_dict(),
-                    )
-                )
-            if owner:
-                owner.journal_entries.append(
-                    m.JournalEntry(
-                        table_name=m.ComponentModel.__tablename__,
                         record_id=data.id,
                         action=m.JournalAction.UPDATED,
                         user=owner,
