@@ -103,7 +103,7 @@ toastListView ({ toMsg, tray } as config) =
 viewToast : Config msg -> List (Attribute msg) -> Toast.Info Notification -> Html msg
 viewToast { toMsg } attributes { content, id } =
     Alert.simple
-        { attributes = attributes
+        { attributes = attributes ++ [ class "Toast" ]
         , close =
             if content.persistent then
                 Just (toMsg <| App.ToastMsg <| Toast.exit id)

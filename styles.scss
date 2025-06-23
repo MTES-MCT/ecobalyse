@@ -1304,14 +1304,36 @@ q {
 
 .ToastTray {
   display: flex;
+  align-items: end;
+  background-color: red;
   flex-direction: column;
   gap: 1.5rem;
   position: fixed;
-  top: 0;
-  right: 0;
-  max-width: 550px;
-  padding: 2rem;
-  z-index: 1044;
+  left: 2rem;
+  top: 2rem;
+  right: 2rem;
+  height: 0px;
+  max-height: 0px;
+  width: calc(100% - 2rem * 2);
+  z-index: 0;
+
+  @media screen and (width < $viewport-md) {
+    left: 1rem;
+    top: 1rem;
+    right: 1rem;
+    width: calc(100% - 1rem * 2);
+  }
+
+  .Toast {
+    min-width: 400px;
+    max-width: 600px;
+
+    @media screen and (width < $viewport-md) {
+      width: 100%;
+      min-width: 100%;
+      max-width: 100%;
+    }
+  }
 }
 
 .UpcycledCheck {
