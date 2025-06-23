@@ -179,6 +179,8 @@ test.describe("auth", () => {
     await test.step("impact selector", async () => {
       await page.goto("/#/auth"); // triggers user admin status reloading
       await page.getByRole("button", { name: "Déconnexion" }).click();
+      await expect(page.getByText("Vous avez été deconnecté")).toBeVisible();
+
       await page.goto("/");
       await page.getByTestId("textile-callout-button").click();
 
