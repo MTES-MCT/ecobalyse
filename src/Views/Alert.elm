@@ -180,7 +180,18 @@ simple { attributes, close, content, level, title } =
                     , ( "fr-alert--warning", level == Warning )
                     , ( "fr-alert--error", level == Danger )
                     ]
+               , attribute "aria-atomic" "true"
                ]
+            ++ (if level == Danger || level == Warning then
+                    [ attribute "role" "alert"
+                    , attribute "aria-live" "assertive"
+                    ]
+
+                else
+                    [ attribute "role" "status"
+                    , attribute "aria-live" "polite"
+                    ]
+               )
         )
         [ case title of
             Just title_ ->

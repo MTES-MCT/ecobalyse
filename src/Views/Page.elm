@@ -97,34 +97,6 @@ toastListView ({ toMsg, tray } as config) =
 
 viewToast : Config msg -> List (Attribute msg) -> Toast.Info String -> Html msg
 viewToast { toMsg } attributes toast =
-    -- div
-    --     (attributes
-    --         ++ [ class "fr-alert"
-    --            , classList
-    --                 -- TODO: handle more levels
-    --                 -- You also need to adapt the role and aria-live level depending on the content.
-    --                 -- If it's an important message like an error, use role="alert" aria-live="assertive",
-    --                 -- otherwise use role="status" aria-live="polite" attributes.
-    --                 [ ( "fr-alert--success", True )
-    --                 ]
-    --            , attribute "role" "alert"
-    --            , attribute "aria-live" "assertive"
-    --            , attribute "aria-atomic" "true"
-    --            ]
-    --     )
-    --     [ div
-    --         [ class "d-flex" ]
-    --         [ text toast.content
-    --         , button
-    --             [ type_ "button"
-    --             , class "btn-close btn-close-white me-2 m-auto"
-    --             , attribute "data-bs-dismiss" "toast"
-    --             , attribute "aria-label" "Close"
-    --             , onClick <| toMsg <| App.ToastMsg <| Toast.exit toast.id
-    --             ]
-    --             []
-    --         ]
-    --     ]
     Alert.simple
         { attributes = attributes
         , close = Just (toMsg <| App.ToastMsg <| Toast.exit toast.id)
