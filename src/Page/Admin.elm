@@ -15,7 +15,6 @@ import Browser.Events
 import Data.Component as Component exposing (Component, Index, Item, TargetItem)
 import Data.Impact.Definition as Definition
 import Data.Key as Key
-import Data.Notification as Notification
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
 import Data.Scope as Scope exposing (Scope)
@@ -182,13 +181,14 @@ update session msg model =
                     case Component.itemToComponent session.db item of
                         Err error ->
                             { model | modals = [] }
-                                |> App.createUpdate (session |> Session.notifyError "Erreur" error)
+                                |> App.createUpdate session
+                                |> App.notifyError "Erreur lors de la sauvegarde du composant" error
 
                         Ok component ->
                             { model | modals = [] }
                                 |> App.createUpdate session
                                 |> App.withCmds [ ComponentApi.patchComponent session ComponentUpdated component ]
-                                |> App.andNotify (Notification.success "Composant sauvegardé")
+                                |> App.notifySuccess "Composant sauvegardé"
 
                 _ ->
                     App.createUpdate session model
@@ -242,13 +242,15 @@ selectProcess category (( component, _ ) as targetItem) maybeElementIndex autoco
                     |> Result.andThen (List.head >> Result.fromMaybe "Pas d'élément résultant")
             of
                 Err err ->
-                    App.createUpdate (session |> Session.notifyError "Erreur" err) model
+                    App.createUpdate session model
+                        |> App.notifyError "Erreur de sélection" err
 
                 Ok updatedItem ->
                     App.createUpdate session { model | modals = [ EditComponentModal component updatedItem ] }
 
         Nothing ->
-            App.createUpdate (session |> Session.notifyError "Erreur" "Aucun composant sélectionné") model
+            App.createUpdate session model
+                |> App.notifyError "Erreur de sélection" "Aucun composant sélectionné"
 
 
 view : Session -> Model -> ( String, List (Html Msg) )

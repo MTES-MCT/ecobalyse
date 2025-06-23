@@ -326,11 +326,16 @@ update rawMsg ({ state } as model) =
                 ( AppMsg App.ResetSessionStore, currentPage ) ->
                     let
                         newSession =
+                            -- FIXME: remove notifications from session
                             { session | notifications = [], store = Session.defaultStore }
-                                |> Session.notifyInfo "Session" "La session a été réinitialisée."
                     in
                     ( { model | state = currentPage |> Loaded newSession }
-                    , newSession.store |> Session.serializeStore |> Ports.saveStore
+                    , Cmd.batch
+                        [ newSession.store |> Session.serializeStore |> Ports.saveStore
+                        , Notification.info "La session a été réinitialisée."
+                            |> App.AddToast
+                            |> App.toCmd AppMsg
+                        ]
                     )
 
                 ( AppMsg (App.SwitchVersion version), _ ) ->

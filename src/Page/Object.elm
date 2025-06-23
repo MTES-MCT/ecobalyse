@@ -388,8 +388,8 @@ update ({ navKey } as session) msg model =
                     ]
 
         ( SwitchImpact (Err error), _ ) ->
-            model
-                |> App.createUpdate (session |> Session.notifyError "Erreur de sélection d'impact: " error)
+            App.createUpdate session model
+                |> App.notifyError "Erreur de sélection d'impact" error
 
         ( SwitchImpactsTab impactsTab, _ ) ->
             { model | activeImpactsTab = impactsTab }
@@ -466,7 +466,7 @@ selectComponent query autocompleteState pageUpdate =
                 |> App.apply update (SetModal NoModal)
 
         Nothing ->
-            pageUpdate |> App.mapSession (Session.notifyError "Erreur" "Aucun composant sélectionné")
+            pageUpdate |> App.notifyWarning "Aucun composant sélectionné"
 
 
 selectProcess :
@@ -486,7 +486,7 @@ selectProcess category targetItem maybeElementIndex autocompleteState query page
                         (Component.addOrSetProcess category targetItem maybeElementIndex process)
             of
                 Err err ->
-                    pageUpdate |> App.mapSession (Session.notifyError "Erreur" err)
+                    pageUpdate |> App.notifyError "Erreur" err
 
                 Ok validQuery ->
                     pageUpdate
@@ -494,7 +494,7 @@ selectProcess category targetItem maybeElementIndex autocompleteState query page
                         |> App.apply update (SetModal NoModal)
 
         Nothing ->
-            pageUpdate |> App.mapSession (Session.notifyError "Erreur" "Aucun composant sélectionné")
+            pageUpdate |> App.notifyWarning "Aucun composant sélectionné"
 
 
 simulatorView : Session -> Model -> Html Msg

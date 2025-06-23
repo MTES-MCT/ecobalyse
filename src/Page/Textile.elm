@@ -24,6 +24,7 @@ import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
+import Data.Notification as Notification
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Data.Split exposing (Split)
@@ -189,16 +190,14 @@ init trigram maybeUrlQuery session =
             RegulatoryTab
     , activeImpactsTab = ImpactTabs.StepImpactsTab
     }
-        |> App.createUpdate
-            (session
-                |> Session.updateTextileQuery initialQuery
-                |> (case simulator of
-                        Err error ->
-                            Session.notifyError "Erreur de récupération des paramètres d'entrée" error
+        |> App.createUpdate (session |> Session.updateTextileQuery initialQuery)
+        |> App.withAppMsgs
+            (case simulator of
+                Err error ->
+                    [ App.AddToast (Notification.error "Erreur de récupération des paramètres d'entrée" error) ]
 
-                        Ok _ ->
-                            identity
-                   )
+                Ok _ ->
+                    []
             )
         |> App.withCmds
             [ case maybeUrlQuery of
@@ -245,16 +244,14 @@ initFromExample session uuid =
             RegulatoryTab
     , activeImpactsTab = ImpactTabs.StepImpactsTab
     }
-        |> App.createUpdate
-            (session
-                |> Session.updateTextileQuery exampleQuery
-                |> (case simulator of
-                        Err error ->
-                            Session.notifyError "Erreur de récupération des paramètres d'entrée" error
+        |> App.createUpdate (session |> Session.updateTextileQuery exampleQuery)
+        |> App.withAppMsgs
+            (case simulator of
+                Err error ->
+                    [ App.AddToast (Notification.error "Erreur de récupération des paramètres d'entrée" error) ]
 
-                        Ok _ ->
-                            identity
-                   )
+                Ok _ ->
+                    []
             )
         |> App.withCmds [ Ports.scrollTo { x = 0, y = 0 } ]
 
@@ -460,8 +457,8 @@ update ({ queries, navKey } as session) msg model =
                     ]
 
         ( SwitchImpact (Err error), _ ) ->
-            model
-                |> App.createUpdate (session |> Session.notifyError "Erreur de sélection d'impact: " error)
+            App.createUpdate session model
+                |> App.notifyError "Erreur de sélection d'impact: " error
 
         ( SwitchImpactsTab impactsTab, _ ) ->
             { model | activeImpactsTab = impactsTab }
@@ -505,8 +502,8 @@ update ({ queries, navKey } as session) msg model =
                 |> updateQuery { query | business = Just business }
 
         ( UpdateBusiness (Err error), _ ) ->
-            model
-                |> App.createUpdate (session |> Session.notifyError "Erreur de type d'entreprise" error)
+            App.createUpdate session model
+                |> App.notifyError "Erreur de type d'entreprise" error
 
         ( UpdateDyeingProcessType dyeingProcessType, _ ) ->
             App.createUpdate session model
@@ -676,8 +673,8 @@ selectTrim autocompleteState { model, session } =
                 |> updateQuery (session.queries.textile |> Query.updateTrims (Component.addItem trim.id))
 
         Nothing ->
-            model
-                |> App.createUpdate (session |> Session.notifyError "Erreur" "Aucun accessoire sélectionné")
+            App.createUpdate session model
+                |> App.notifyError "Erreur" "Aucun accessoire sélectionné"
 
 
 selectProduct : Autocomplete Product -> PageUpdate Model Msg -> PageUpdate Model Msg
@@ -689,8 +686,8 @@ selectProduct autocompleteState ({ model, session } as pageUpdate) =
                 |> updateQuery (Query.updateProduct product session.queries.textile)
 
         Nothing ->
-            model
-                |> App.createUpdate (session |> Session.notifyError "Erreur" "Aucun produit sélectionné")
+            App.createUpdate session model
+                |> App.notifyError "Erreur" "Aucun produit sélectionné"
 
 
 selectMaterial : Autocomplete Material -> PageUpdate Model Msg -> PageUpdate Model Msg
@@ -702,8 +699,8 @@ selectMaterial autocompleteState ({ model, session } as pageUpdate) =
                 |> updateQuery (Query.addMaterial material session.queries.textile)
 
         Nothing ->
-            model
-                |> App.createUpdate (session |> Session.notifyError "Erreur" "Aucun matériau sélectionné")
+            App.createUpdate session model
+                |> App.notifyError "Erreur" "Aucun matériau sélectionné"
 
 
 productCategoryField : TextileDb.Db -> Query -> Html Msg

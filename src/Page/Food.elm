@@ -384,7 +384,8 @@ update ({ db, queries } as session) msg model =
                     ]
 
         SwitchImpact (Err error) ->
-            App.createUpdate (session |> Session.notifyError "Erreur de sélection d'impact: " error) model
+            App.createUpdate session model
+                |> App.notifyError "Erreur de sélection d'impact" error
 
         SwitchImpactsTab impactsTab ->
             { model | activeImpactsTab = impactsTab }

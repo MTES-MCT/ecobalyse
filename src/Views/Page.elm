@@ -12,7 +12,7 @@ import Browser exposing (Document)
 import Data.Dataset as Dataset
 import Data.Env as Env
 import Data.Github as Github
-import Data.Notification exposing (Notification)
+import Data.Notification as Notification exposing (Notification)
 import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Html exposing (..)
@@ -97,13 +97,13 @@ toastListView ({ toMsg, tray } as config) =
 
 
 viewToast : Config msg -> List (Attribute msg) -> Toast.Info Notification -> Html msg
-viewToast { toMsg } attributes notification =
+viewToast { toMsg } attributes { content, id } =
     Alert.simple
         { attributes = attributes
-        , close = Just (toMsg <| App.ToastMsg <| Toast.exit notification.id)
-        , content = [ text notification.content.message ]
-        , level = Alert.Success
-        , title = Nothing
+        , close = Just (toMsg <| App.ToastMsg <| Toast.exit id)
+        , content = [ text content.message ]
+        , level = Notification.toAlertLevel content.level
+        , title = content.title
         }
 
 
@@ -477,10 +477,6 @@ notificationListView ({ session } as config) =
 
 notificationView : Config msg -> Session.Notification -> Html msg
 notificationView { session, toMsg } notification =
-    -- TODO:
-    -- - absolute positionning
-    -- - close button
-    -- - timeout
     let
         closeNotification =
             toMsg <| App.CloseNotification notification
@@ -495,15 +491,6 @@ notificationView { session, toMsg } notification =
                 , close = Just closeNotification
                 , content = [ text message ]
                 , level = Alert.Danger
-                , title = Just title
-                }
-
-        Session.GenericInfo title message ->
-            Alert.simple
-                { attributes = []
-                , close = Just closeNotification
-                , content = [ text message ]
-                , level = Alert.Info
                 , title = Just title
                 }
 

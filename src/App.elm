@@ -1,11 +1,16 @@
 module App exposing
     ( Msg(..)
     , PageUpdate
-    , andNotify
     , apply
     , createUpdate
     , mapSession
     , mapToCmd
+    , notifyError
+    , notifyInfo
+    , notifyInfoIf
+    , notifySuccess
+    , notifyWarning
+    , toCmd
     , withAppMsgs
     , withCmds
     )
@@ -13,7 +18,7 @@ module App exposing
 {-| This module defines general app messages that can be sent from pages to the Main module.
 -}
 
-import Data.Notification exposing (Notification)
+import Data.Notification as Notification exposing (Notification)
 import Data.Session as Session exposing (Session)
 import Task
 import Toast
@@ -41,13 +46,6 @@ type alias PageUpdate model msg =
     , model : model
     , session : Session
     }
-
-
-{-| Add a success notification to a PageUpdate.
--}
-andNotify : Notification -> PageUpdate model msg -> PageUpdate model msg
-andNotify notification =
-    withAppMsgs [ AddToast notification ]
 
 
 {-| Apply a page module update fn to a PageUpdate.
@@ -87,9 +85,46 @@ map the app messages to a more general message type, eg. the root Msg from the M
 -}
 mapToCmd : (Msg -> destMsg) -> PageUpdate model msg -> Cmd destMsg
 mapToCmd mapper =
-    .appMsgs
-        >> List.map (\appMsg -> Task.perform (\_ -> mapper appMsg) (Task.succeed ()))
-        >> Cmd.batch
+    .appMsgs >> List.map (toCmd mapper) >> Cmd.batch
+
+
+notify : Notification -> PageUpdate model msg -> PageUpdate model msg
+notify notification =
+    withAppMsgs [ AddToast notification ]
+
+
+notifyError : String -> String -> PageUpdate model msg -> PageUpdate model msg
+notifyError title message =
+    notify <| Notification.error title message
+
+
+notifyInfo : String -> PageUpdate model msg -> PageUpdate model msg
+notifyInfo message =
+    notify <| Notification.info message
+
+
+notifyInfoIf : Bool -> String -> PageUpdate model msg -> PageUpdate model msg
+notifyInfoIf bool message =
+    if bool then
+        notifyInfo message
+
+    else
+        identity
+
+
+notifySuccess : String -> PageUpdate model msg -> PageUpdate model msg
+notifySuccess message =
+    notify <| Notification.success message
+
+
+notifyWarning : String -> PageUpdate model msg -> PageUpdate model msg
+notifyWarning message =
+    notify <| Notification.warning message
+
+
+toCmd : (Msg -> destMsg) -> Msg -> Cmd destMsg
+toCmd mapper appMsg =
+    Task.perform (\_ -> mapper appMsg) (Task.succeed ())
 
 
 {-| Add app messages to a PageUpdate.

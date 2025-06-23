@@ -123,19 +123,16 @@ update session msg model =
     case msg of
         -- Generic page updates
         CopyToClipboard accessToken ->
-            model
-                |> App.createUpdate (session |> Session.notifyInfo "Copié" "Le jeton d'API a été copié dans le presse-papiers")
+            App.createUpdate session model
                 |> App.withCmds [ Ports.copyToClipboard accessToken ]
+                |> App.notifyInfo "Le jeton d'API a été copié dans le presse-papiers"
 
         -- Update db with detailed processes when we get them
         DetailedProcessesResponse (RemoteData.Success rawDetailedProcessesJson) ->
             model
-                |> App.createUpdate
-                    (session
-                        |> Session.updateDbProcesses rawDetailedProcessesJson
-                        |> Session.notifyInfo "Information" "Vous avez désormais accès aux impacts détaillés"
-                    )
+                |> App.createUpdate (session |> Session.updateDbProcesses rawDetailedProcessesJson)
                 |> App.withCmds [ Nav.pushUrl session.navKey <| Route.toString Route.Auth ]
+                |> App.notifyInfo "Vous avez désormais accès aux impacts détaillés"
 
         DetailedProcessesResponse (RemoteData.Failure error) ->
             model
@@ -199,38 +196,41 @@ updateAccountTab session currentAuth profileForm _ msg model =
 
         LogoutResponse (RemoteData.Failure error) ->
             model
-                |> App.createUpdate (session |> Session.notifyBackendError error |> Session.logout |> Session.notifyInfo "Déconnexion" "Vous avez été deconnecté")
+                |> App.createUpdate
+                    (session
+                        -- FIXME: what to do with backend errors?
+                        |> Session.notifyBackendError error
+                        |> Session.logout
+                    )
+                |> App.notifyInfo "Vous avez été deconnecté"
 
         LogoutResponse (RemoteData.Success _) ->
             model
-                |> App.createUpdate (session |> Session.logout |> Session.notifyInfo "Déconnexion" "Vous avez été deconnecté")
+                |> App.createUpdate session
+                |> App.mapSession Session.logout
+                |> App.notifyInfo "Vous avez été deconnecté"
                 |> App.withCmds [ Nav.load <| Route.toString Route.Auth ]
 
         ProfileResponse { updated } _ (RemoteData.Success user) ->
-            { model
-                | tab =
-                    Account { currentAuth | user = user }
-                        { emailOptin = user.profile.emailOptin
-                        , firstName = user.profile.firstName
-                        , lastName = user.profile.lastName
-                        }
-                        Dict.empty
-            }
-                |> App.createUpdate
-                    (session
-                        |> Session.updateAuth (\auth -> { auth | user = user })
-                        |> (if updated then
-                                Session.notifyInfo "Profil mis à jour" "Votre profil a été mis à jour avec succès"
-
-                            else
-                                identity
-                           )
-                    )
+            App.createUpdate session
+                { model
+                    | tab =
+                        Account { currentAuth | user = user }
+                            { emailOptin = user.profile.emailOptin
+                            , firstName = user.profile.firstName
+                            , lastName = user.profile.lastName
+                            }
+                            Dict.empty
+                }
+                |> App.mapSession (Session.updateAuth (\auth -> { auth | user = user }))
+                |> App.notifyInfoIf updated "Votre profil a été mis à jour avec succès"
 
         ProfileResponse _ _ (RemoteData.Failure error) ->
             if (BackendError.mapErrorResponse error |> .statusCode) == 401 then
                 { model | tab = MagicLinkForm "" }
-                    |> App.createUpdate (session |> Session.logout |> Session.notifyInfo "Déconnexion" "Session invalide ou expirée, vous avez été deconnecté. Vous devrez vous reconnecter.")
+                    |> App.createUpdate session
+                    |> App.mapSession Session.logout
+                    |> App.notifyInfo "Session invalide ou expirée, vous avez été deconnecté. Vous devrez vous reconnecter."
 
             else
                 model
@@ -254,7 +254,8 @@ updateAccountTab session currentAuth profileForm _ msg model =
 
             else
                 newModel
-                    |> App.createUpdate (session |> Session.notifyError "Erreur" "Veuillez corriger les champs en erreur")
+                    |> App.createUpdate session
+                    |> App.notifyError "Erreur de sauvegarde" "Veuillez corriger les champs en erreur"
 
         UpdateProfileForm profileForm_ ->
             { model | tab = Account currentAuth profileForm_ Dict.empty }
@@ -304,7 +305,8 @@ updateApiTokenDeleteTab session _ msg model =
 
         DeleteApiTokenResponse (RemoteData.Success _) ->
             { model | tab = ApiTokens RemoteData.Loading }
-                |> App.createUpdate (session |> Session.notifyInfo "Jeton d'API supprimé" "Le jeton d'API a été supprimé avec succès")
+                |> App.createUpdate session
+                |> App.notifySuccess "Le jeton d'API a été supprimé"
                 |> App.withCmds [ ApiTokenHttp.list session ApiTokensResponse ]
 
         DeleteApiTokenResponse (RemoteData.Failure error) ->
@@ -408,8 +410,8 @@ updateSignupTab session signupForm msg model =
                     |> App.withCmds [ Auth.signup session SignupResponse signupForm ]
 
             else
-                newModel
-                    |> App.createUpdate (session |> Session.notifyError "Erreur" "Veuillez corriger les champs en erreur")
+                App.createUpdate session newModel
+                    |> App.notifyError "Erreur de sauvegarde" "Veuillez corriger les champs en erreur"
 
         UpdateSignupForm signupForm_ ->
             { model | tab = Signup signupForm_ Dict.empty }

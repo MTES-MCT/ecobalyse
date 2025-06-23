@@ -4,8 +4,11 @@ module Data.Notification exposing
     , error
     , info
     , success
+    , toAlertLevel
     , warning
     )
+
+import Views.Alert as Alert
 
 
 type alias Notification =
@@ -23,12 +26,12 @@ type Level
     | Warning
 
 
-error : String -> Notification
-error message =
+error : String -> String -> Notification
+error title message =
     { level = Error
     , message = message
     , persistent = True
-    , title = Nothing
+    , title = Just title
     }
 
 
@@ -57,3 +60,19 @@ warning message =
     , persistent = False
     , title = Nothing
     }
+
+
+toAlertLevel : Level -> Alert.Level
+toAlertLevel level =
+    case level of
+        Error ->
+            Alert.Danger
+
+        Info ->
+            Alert.Info
+
+        Success ->
+            Alert.Success
+
+        Warning ->
+            Alert.Warning
