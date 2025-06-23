@@ -13,7 +13,6 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Request.BackendHttp.Error as BackendError
-import Views.Icon as Icon
 
 
 type alias Config msg =
@@ -29,24 +28,6 @@ type Level
     | Info
     | Success
     | Warning
-
-
-icon : Level -> Html msg
-icon level =
-    span [ class "me-1" ]
-        [ case level of
-            Danger ->
-                Icon.warning
-
-            Info ->
-                Icon.info
-
-            Success ->
-                Icon.checkCircle
-
-            Warning ->
-                Icon.warning
-        ]
 
 
 backendError : Session -> Maybe msg -> BackendError.Error -> Html msg
@@ -183,47 +164,36 @@ preformatted config =
     simple { config | content = [ pre [ class "fs-7 mb-0" ] config.content ] }
 
 
+{-| A simple DSFR compliant alert view which can be used for both toasts and editorial contents.
+-}
 simple : Config msg -> Html msg
 simple { close, content, level, title } =
     div
-        [ class <| "alert alert-" ++ levelToClass level
-        , classList [ ( "alert-dismissible", close /= Nothing ) ]
+        [ class "fr-alert"
+        , classList
+            [ ( "fr-alert--success", level == Success )
+            , ( "fr-alert--info", level == Info )
+            , ( "fr-alert--warning", level == Warning )
+            , ( "fr-alert--error", level == Danger )
+            ]
         ]
         [ case title of
             Just title_ ->
-                h5 [ class "alert-heading d-flex align-items-center mb-0" ]
-                    [ icon level, text title_ ]
+                h3 [ class "h5 mb-2" ] [ text title_ ]
 
             Nothing ->
                 text ""
-        , div [ class "mt-1" ] content
+        , div [ class "mb-1" ] content
         , case close of
             Just closeMsg ->
                 button
                     [ type_ "button"
-                    , class "btn-close"
+                    , class "fr-link fr-link--close"
                     , attribute "aria-label" "Fermer"
-                    , attribute "data-bs-dismiss" "alert"
                     , onClick closeMsg
                     ]
-                    []
+                    [ text "Masquer le message" ]
 
             Nothing ->
                 text ""
         ]
-
-
-levelToClass : Level -> String
-levelToClass level =
-    case level of
-        Danger ->
-            "danger"
-
-        Info ->
-            "info"
-
-        Success ->
-            "success"
-
-        Warning ->
-            "warning"

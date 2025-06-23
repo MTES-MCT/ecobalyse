@@ -16,6 +16,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (onClick)
 import Ports
 import Route exposing (Route)
+import Views.Alert as Alert
 import Views.Container as Container
 import Views.Link as Link
 import Views.Markdown as Markdown
@@ -126,6 +127,12 @@ viewHero { enabledSections } =
                     [ button [ onClick <| AppMessage <| App.AddToast "La vie est belle <3" ]
                         [ text "Test notification" ]
                     ]
+                , Alert.simple
+                    { title = Just "Titre de l'alerte"
+                    , content = [ text "Lorem ipsum dolor sit amet" ]
+                    , level = Alert.Success
+                    , close = Nothing
+                    }
                 , div [ class "fr-alert fr-alert--success shadow-sm" ]
                     [ p [ class "mb-1" ] [ text "Lorem ipsum dolor sit amet" ] ]
                 , div [ class "fr-alert fr-alert--info shadow-sm" ]

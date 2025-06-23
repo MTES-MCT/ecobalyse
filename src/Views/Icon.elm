@@ -36,11 +36,6 @@ check =
     icon "check"
 
 
-checkCircle : Html msg
-checkCircle =
-    icon "check-circle"
-
-
 clipboard : Html msg
 clipboard =
     icon "clipboard"

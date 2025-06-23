@@ -260,8 +260,8 @@ selectProcess category (( component, _ ) as targetItem) maybeElementIndex autoco
 view : Session -> Model -> ( String, List (Html Msg) )
 view { db } model =
     ( "admin"
-    , [ Container.centered [ class "pb-5" ]
-            [ h1 [ class "mb-3" ] [ text "Ecobalyse Admin" ]
+    , [ Container.centered [ class "d-flex flex-column gap-3 pb-5" ]
+            [ h1 [] [ text "Ecobalyse Admin" ]
             , warning
             , model.scopes
                 |> scopeFilterForm UpdateScopeFilters
@@ -533,7 +533,7 @@ scopeFilterForm updateFilters filtered =
 scopesForm : (Scope -> Bool -> Msg) -> List Scope -> Html Msg
 scopesForm check scopes =
     div [ class "d-flex flex-row gap-3" ]
-        [ h3 [ class "h6" ] [ text "Verticales" ]
+        [ h3 [ class "h6 mb-0" ] [ text "Verticales" ]
         , Scope.all
             |> List.map
                 (\scope ->
@@ -569,10 +569,7 @@ warning =
     Alert.simple
         { close = Nothing
         , content =
-            [ small [ class "d-flex align-items-center gap-1" ]
-                [ Icon.warning
-                , text "Attention, la base de données mobilisée peut être réinitialisée à tout moment et vos modifications avec."
-                ]
+            [ text "Attention, la base de données mobilisée peut être réinitialisée à tout moment et vos modifications avec."
             ]
         , level = Alert.Warning
         , title = Nothing
