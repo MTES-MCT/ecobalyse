@@ -1303,15 +1303,15 @@ q {
 }
 
 .ToastTray {
-  max-width: 550px;
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  z-index: 1044;
-  padding: 2rem;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  position: fixed;
+  top: 0;
+  right: 0;
+  max-width: 550px;
+  padding: 2rem;
+  z-index: 1044;
 }
 
 .UpcycledCheck {

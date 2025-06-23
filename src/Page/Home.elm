@@ -9,15 +9,12 @@ module Page.Home exposing
 import App exposing (Msg, PageUpdate)
 import Data.Dataset as Dataset
 import Data.Env as Env
-import Data.Notification as Notification
 import Data.Scope as Scope
 import Data.Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Html.Events exposing (onClick)
 import Ports
 import Route exposing (Route)
-import Views.Alert as Alert
 import Views.Container as Container
 import Views.Link as Link
 import Views.Markdown as Markdown
@@ -29,7 +26,6 @@ type alias Model =
 
 type Msg
     = NoOp
-    | SendAppMsg App.Msg
 
 
 type alias ButtonParams =
@@ -48,16 +44,8 @@ init session =
 
 
 update : Session -> Msg -> Model -> PageUpdate Model Msg
-update session msg model =
-    case msg of
-        NoOp ->
-            App.createUpdate session model
-
-        -- FIXME: this is to have a single use in the codebase for now so elm-review doesn't complain,
-        -- but we should eventually remove this from the homepage as it's of no actual use
-        SendAppMsg appMsg ->
-            App.createUpdate session model
-                |> App.withAppMsgs [ appMsg ]
+update session _ model =
+    App.createUpdate session model
 
 
 simulatorButton : ButtonParams -> Html Msg
@@ -120,45 +108,6 @@ viewHero { enabledSections } =
 
                   else
                     text ""
-                ]
-
-            -- FIXME: remove me
-            , let
-                longText =
-                    "Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet"
-              in
-              div [ class "d-flex flex-column gap-4" ]
-                [ div []
-                    [ button
-                        [ Notification.success longText
-                            |> App.AddToast
-                            |> SendAppMsg
-                            |> onClick
-                        ]
-                        [ text "Test notification" ]
-                    ]
-                , Alert.simple
-                    { attributes = []
-                    , title = Just "Titre de l'alerte"
-                    , content = [ text "Lorem ipsum dolor sit amet" ]
-                    , level = Alert.Success
-                    , close = Nothing
-                    }
-                , div [ class "fr-alert fr-alert--success shadow-sm" ]
-                    [ p [ class "mb-1" ] [ text longText ] ]
-                , div [ class "fr-alert fr-alert--info shadow-sm" ]
-                    [ p [ class "mb-1" ] [ text "Lorem ipsum dolor sit amet" ] ]
-                , div [ class "fr-alert fr-alert--warning shadow-sm" ]
-                    [ p [ class "mb-1" ] [ text "Lorem ipsum dolor sit amet" ] ]
-                , div [ class "fr-alert fr-alert--error shadow-sm" ]
-                    [ p [ class "mb-1" ] [ text "Lorem ipsum dolor sit amet" ] ]
-                , div [ class "fr-alert fr-alert--error shadow-sm" ]
-                    [ h3 [ class "h5 mb-1" ] [ text "Titre de l'erreur" ]
-                    , p [ class "mb-1" ] [ text "description de l'erreur" ]
-                    , pre [ class "bg-light p-2 mb-0" ] [ text "foo\n  bar" ]
-                    , button [ class "fr-link fr-link--close" ]
-                        [ text "Masquer le message" ]
-                    ]
                 ]
             ]
         ]
