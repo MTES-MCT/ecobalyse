@@ -123,10 +123,14 @@ viewHero { enabledSections } =
                 ]
 
             -- FIXME: remove me
-            , div [ class "d-flex flex-column gap-4" ]
+            , let
+                longText =
+                    "Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet"
+              in
+              div [ class "d-flex flex-column gap-4" ]
                 [ div []
                     [ button
-                        [ Notification.success "La vie est belle <3"
+                        [ Notification.success longText
                             |> App.AddToast
                             |> SendAppMsg
                             |> onClick
@@ -141,7 +145,7 @@ viewHero { enabledSections } =
                     , close = Nothing
                     }
                 , div [ class "fr-alert fr-alert--success shadow-sm" ]
-                    [ p [ class "mb-1" ] [ text "Lorem ipsum dolor sit amet" ] ]
+                    [ p [ class "mb-1" ] [ text longText ] ]
                 , div [ class "fr-alert fr-alert--info shadow-sm" ]
                     [ p [ class "mb-1" ] [ text "Lorem ipsum dolor sit amet" ] ]
                 , div [ class "fr-alert fr-alert--warning shadow-sm" ]

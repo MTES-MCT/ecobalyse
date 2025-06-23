@@ -1302,6 +1302,18 @@ q {
   }
 }
 
+.ToastTray {
+  max-width: 550px;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 1044;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
 .UpcycledCheck {
   padding-left: 1.8rem;
   padding-top: .4rem;
@@ -1332,11 +1344,9 @@ q {
     height: var(--icon-size);
     left: 0;
     margin: 1rem .5rem;
-    -webkit-mask-size: 100% 100%;
     mask-size: 100% 100%;
     position: absolute;
     top: 0;
-    vertical-align: calc(.375em - .75rem);
     vertical-align: calc((.75em - var(--icon-size)) * .5);
     width: 1.5rem;
     width: var(--icon-size);
@@ -1412,7 +1422,6 @@ q {
       height: var(--icon-size);
       mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0ibTEyIDEwLjYgNC45NS00Ljk2IDEuNCAxLjRMMTMuNDIgMTJsNC45NiA0Ljk1LTEuNCAxLjRMMTIgMTMuNDJsLTQuOTUgNC45Ni0xLjQtMS40TDEwLjU4IDEyIDUuNjMgNy4wNWwxLjQtMS40eiIvPjwvc3ZnPg==);
       mask-size: 100% 100%;
-      vertical-align: calc(.375em - .5rem);
       vertical-align: calc((.75em - var(--icon-size)) * .5);
       width: 1rem;
       width: var(--icon-size);

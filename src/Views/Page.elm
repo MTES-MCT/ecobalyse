@@ -27,6 +27,7 @@ import Views.Alert as Alert
 import Views.Container as Container
 import Views.Icon as Icon
 import Views.Link as Link
+import Views.Markdown as Markdown
 import Views.Spinner as Spinner
 
 
@@ -91,7 +92,7 @@ frame ({ activePage } as config) ( title, content ) =
 toastListView : Config msg -> Html msg
 toastListView ({ toMsg, tray } as config) =
     Toast.config (App.ToastMsg >> toMsg)
-        |> Toast.withTrayAttributes [ class "position-fixed p-4 top-0 end-0 d-flex flex-column gap-3" ]
+        |> Toast.withTrayAttributes [ class "ToastTray" ]
         |> Toast.withTransitionAttributes [ class "fade" ]
         |> Toast.render (viewToast config) tray
 
@@ -100,8 +101,16 @@ viewToast : Config msg -> List (Attribute msg) -> Toast.Info Notification -> Htm
 viewToast { toMsg } attributes { content, id } =
     Alert.simple
         { attributes = attributes
-        , close = Just (toMsg <| App.ToastMsg <| Toast.exit id)
-        , content = [ text content.message ]
+        , close =
+            if content.persistent then
+                Just (toMsg <| App.ToastMsg <| Toast.exit id)
+
+            else
+                Nothing
+        , content =
+            [ content.message
+                |> Markdown.simple [ class "mb-1" ]
+            ]
         , level = Notification.toAlertLevel content.level
         , title = content.title
         }

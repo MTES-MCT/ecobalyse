@@ -134,7 +134,7 @@ test.describe("auth", () => {
 
       await page.getByRole("button", { name: "Supprimer et invalider" }).click();
 
-      await expect(page.getByRole("heading", { name: "Jeton d'API supprimé" })).toBeVisible();
+      await expect(page.getByText("Le jeton d'API a été supprimé")).toBeVisible();
 
       await expect(page.getByText("Aucun jeton d'API actif")).toBeVisible();
 

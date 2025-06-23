@@ -1,7 +1,6 @@
 module Views.Alert exposing
     ( Level(..)
     , backendError
-    , preformatted
     , serverError
     , simple
     )
@@ -160,11 +159,6 @@ serverError error =
         , level = Info
         , title = Just "Le serveur a retourné une erreur"
         }
-
-
-preformatted : Config msg -> Html msg
-preformatted config =
-    simple { config | content = [ pre [ class "fs-7 mb-0" ] config.content ] }
 
 
 {-| A simple DSFR compliant alert view which can be used for both toasts and regular contents.

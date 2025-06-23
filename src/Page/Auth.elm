@@ -25,6 +25,7 @@ import Request.Auth as Auth
 import Request.BackendHttp exposing (WebData)
 import Request.BackendHttp.Error as BackendError
 import Route
+import Views.Alert as Alert
 import Views.Container as Container
 import Views.Format as Format
 import Views.Icon as Icon
@@ -774,7 +775,7 @@ viewMagicLinkForm email =
         [ onSubmit MagicLinkSubmit
         , attribute "data-testid" "auth-magic-link-form"
         ]
-        [ p [ class "fs-8" ]
+        [ p []
             [ """Si vous avez un compte, entrez votre adresse email ci-dessous pour recevoir un email
                  de connexion. Si vous n'en avez pas, vous pouvez [créer un compte]({url})."""
                 |> String.replace "{url}" (Route.toString Route.AuthSignup)
@@ -808,12 +809,17 @@ viewMagicLinkForm email =
 
 viewMagicLinkSent : Email -> Html msg
 viewMagicLinkSent email =
-    div [ class "alert alert-info mb-0" ]
-        [ h2 [ class "h5" ] [ text "Email de connexion envoyé" ]
-        , "Si vous possédez un compte, un email contenant un lien de connexion au service a été envoyé à l'adresse **`{email}`**."
-            |> String.replace "{email}" email
-            |> Markdown.simple []
-        ]
+    Alert.simple
+        { attributes = []
+        , close = Nothing
+        , content =
+            [ "Si vous possédez un compte, un email contenant un lien de connexion au service a été envoyé à l'adresse **`{email}`**."
+                |> String.replace "{email}" email
+                |> Markdown.simple []
+            ]
+        , level = Alert.Info
+        , title = Just "Email de connexion envoyé"
+        }
 
 
 viewSignupForm : SignupForm -> FormErrors -> Html Msg
