@@ -56,6 +56,7 @@ type Modal
     = DeleteComponentModal Component
     | EditComponentModal Component Item
     | HistoryModal (WebData (List (JournalEntry Component)))
+    | JsonModal String Encode.Value
     | SelectProcessModal Category TargetItem (Maybe Index) (Autocomplete Process)
 
 
@@ -72,6 +73,7 @@ type Msg
     | OnAutocompleteSelectProcess Category TargetItem (Maybe Index)
     | OpenEditModal Component
     | OpenHistoryModal Component
+    | OpenJsonModal String Encode.Value
     | SaveComponent
     | SetModals (List Modal)
     | UpdateComponent Item
@@ -205,6 +207,12 @@ update session msg model =
             , ComponentApi.getJournal session ComponentJournalResponse component.id
             )
 
+        OpenJsonModal title jsonString ->
+            ( { model | modals = JsonModal title jsonString :: model.modals }
+            , session
+            , Cmd.none
+            )
+
         SaveComponent ->
             case model.modals of
                 [ DeleteComponentModal component ] ->
@@ -300,8 +308,7 @@ view { db } model =
             , model.components
                 |> mapRemoteData downloadDbButton
             , model.modals
-                |> List.reverse
-                |> List.map (modalView db model.modals)
+                |> List.indexedMap (\index modal -> modalView db model.modals index modal)
                 |> div []
             ]
       ]
@@ -432,8 +439,8 @@ componentRowView db component =
         ]
 
 
-modalView : Db -> List Modal -> Modal -> Html Msg
-modalView db modals modal =
+modalView : Db -> List Modal -> Int -> Modal -> Html Msg
+modalView db modals index modal =
     let
         { title, content, footer, size } =
             case modal of
@@ -518,6 +525,28 @@ modalView db modals modal =
                     , size = Modal.ExtraLarge
                     }
 
+                JsonModal title_ jsonString ->
+                    { title = title_
+                    , content =
+                        [ div [ class "card-body p-3" ]
+                            [ pre
+                                [ class "bg-light p-3 overflow-auto border shadow-sm"
+
+                                -- , style "height" "78vh"
+                                ]
+                                [ text <| Encode.encode 2 jsonString ]
+                            ]
+                        ]
+                    , footer =
+                        [ button
+                            [ class "btn btn-primary"
+                            , onClick <| SetModals <| List.drop 1 modals
+                            ]
+                            [ text "Fermer" ]
+                        ]
+                    , size = Modal.ExtraLarge
+                    }
+
                 SelectProcessModal category targetItem maybeElementIndex autocompleteState ->
                     { title = "Sélectionner un procédé"
                     , content =
@@ -555,17 +584,24 @@ modalView db modals modal =
                     , footer = []
                     , size = Modal.Large
                     }
+
+        modal_ =
+            Modal.view
+                { close = SetModals <| List.drop 1 modals
+                , content = content
+                , footer = footer
+                , formAction = Just SaveComponent
+                , noOp = NoOp
+                , size = size
+                , subTitle = Nothing
+                , title = title
+                }
     in
-    Modal.view
-        { close = SetModals <| List.drop 1 modals
-        , content = content
-        , footer = footer
-        , formAction = Just SaveComponent
-        , noOp = NoOp
-        , size = size
-        , subTitle = Nothing
-        , title = title
-        }
+    if index == 0 then
+        modal_
+
+    else
+        div [ class "d-none" ] [ modal_ ]
 
 
 componentScopesForm : Component -> Item -> Html Msg
@@ -598,6 +634,7 @@ historyView entries =
                                 |> DiffToString.diffToString { context = 2, color = False }
                         , id = to.id
                         , user = to.user
+                        , value = to.value
                         }
                     )
                     entries
@@ -609,6 +646,7 @@ historyView entries =
                 , th [] [ text "Modification" ]
                 , th [] [ text "Utilisateur" ]
                 , th [] [ text "Date" ]
+                , th [] []
                 ]
             ]
         , if List.isEmpty differences then
@@ -617,12 +655,21 @@ historyView entries =
           else
             differences
                 |> List.map
-                    (\{ action, createdAt, id, diff, user } ->
+                    (\{ action, createdAt, id, diff, user, value } ->
                         tr [ attribute "data-test-id" <| JournalEntry.idToString id ]
                             [ td [] [ text <| JournalEntry.actionToString action ]
                             , td [] [ Format.diff diff ]
                             , td [] [ text <| user.email ]
                             , td [] [ text <| Format.frenchDatetime createdAt ]
+                            , td []
+                                [ button
+                                    [ type_ "button"
+                                    , class "btn btn-outile-primary p-0"
+                                    , title "Voir le composant au format JSON à cette date"
+                                    , onClick <| OpenJsonModal "TODO title" (Component.encode value)
+                                    ]
+                                    [ Icon.search ]
+                                ]
                             ]
                     )
                 |> tbody []
