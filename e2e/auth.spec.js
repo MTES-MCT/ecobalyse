@@ -1,8 +1,9 @@
 import { test, expect } from "@playwright/test";
 import {
-  loginUser,
   deleteAllEmails,
+  expectNotification,
   extractUrlsFromText,
+  loginUser,
   registerAndLoginUser,
   waitForNewEmail,
 } from "./lib";
@@ -40,7 +41,7 @@ test.describe("auth", () => {
     await test.step("logout", async () => {
       await page.getByRole("button", { name: "Déconnexion" }).click();
 
-      await expect(page.getByText("Vous avez été deconnecté")).toBeVisible();
+      await expectNotification(page, "Vous avez été deconnecté");
 
       await expect(page.getByRole("link", { name: "Mon compte" })).not.toBeVisible();
     });
@@ -134,7 +135,7 @@ test.describe("auth", () => {
 
       await page.getByRole("button", { name: "Supprimer et invalider" }).click();
 
-      await expect(page.getByText("Le jeton d'API a été supprimé")).toBeVisible();
+      await expectNotification(page, "Le jeton d'API a été supprimé");
 
       await expect(page.getByText("Aucun jeton d'API actif")).toBeVisible();
 
@@ -179,7 +180,7 @@ test.describe("auth", () => {
     await test.step("impact selector", async () => {
       await page.goto("/#/auth"); // triggers user admin status reloading
       await page.getByRole("button", { name: "Déconnexion" }).click();
-      await expect(page.getByText("Vous avez été deconnecté")).toBeVisible();
+      await expectNotification(page, "Vous avez été deconnecté");
 
       await page.goto("/");
       await page.getByTestId("textile-callout-button").click();

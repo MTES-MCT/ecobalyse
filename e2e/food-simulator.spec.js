@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test("Food simulator", async ({ page }) => {
-  await page.goto("http://localhost:1234/");
+  await page.goto("/");
   await page.getByLabel("Menu principal").getByRole("link", { name: "Alimentaire" }).click();
 
   await page.getByRole("button", { name: "Exemples" }).click();
