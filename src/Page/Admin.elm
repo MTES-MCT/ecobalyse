@@ -583,19 +583,8 @@ componentScopesForm component item =
 
 historyView : List (JournalEntry Component) -> Html Msg
 historyView entries =
-    Table.responsiveDefault []
-        [ thead []
-            [ tr []
-                [ th [] [ text "Action" ]
-                , th [] [ text "Modification" ]
-                , th [] [ text "Utilisateur" ]
-                , th [] [ text "Date" ]
-                ]
-            ]
-        , if List.isEmpty entries then
-            tbody [] [ tr [] [ td [ colspan 4 ] [ text "Aucun historique disponible" ] ] ]
-
-          else
+    let
+        differences =
             entries
                 |> List.drop 1
                 |> List.map2
@@ -612,6 +601,21 @@ historyView entries =
                         }
                     )
                     entries
+    in
+    Table.responsiveDefault []
+        [ thead []
+            [ tr []
+                [ th [] [ text "Action" ]
+                , th [] [ text "Modification" ]
+                , th [] [ text "Utilisateur" ]
+                , th [] [ text "Date" ]
+                ]
+            ]
+        , if List.isEmpty differences then
+            tbody [] [ tr [] [ td [ colspan 4 ] [ text "Aucun historique disponible" ] ] ]
+
+          else
+            differences
                 |> List.map
                     (\{ action, createdAt, id, diff, user } ->
                         tr [ attribute "data-test-id" <| JournalEntry.idToString id ]
