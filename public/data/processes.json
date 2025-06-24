@@ -1443,7 +1443,7 @@
     "waste": 0
   },
   {
-    "categories": ["transformation"],
+    "categories": ["transformation", "material_type:organic_fibers"],
     "comment": "corr3 (cf doc): valeurs issues du rapport BAT2023 avec majoration de 50%",
     "density": 0,
     "displayName": "Dégraissage",
@@ -1473,7 +1473,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["textile"],
+    "scopes": ["textile", "object"],
     "source": "Custom",
     "sourceId": "Dégraissage",
     "unit": "kg",
@@ -6031,7 +6031,7 @@
     "waste": 0
   },
   {
-    "categories": ["material", "textile_material"],
+    "categories": ["material", "textile_material", "material_type:synthetic_fibers"],
     "comment": "Ancien identifiant (12/2024): f32024fc5e736e01fa14321363900581.",
     "density": 0,
     "displayName": "Production de PET, granulés, amorphe",
@@ -6061,7 +6061,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["textile"],
+    "scopes": ["textile", "object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "polyethylene terephthalate, granulate, amorphous//[RoW] polyethylene terephthalate production, granulate, amorphous",
     "unit": "kg",
@@ -6512,7 +6512,7 @@
     "waste": 0
   },
   {
-    "categories": ["material", "textile_material"],
+    "categories": ["material", "textile_material", "material_type:organic_fibers"],
     "comment": "corr1: Données Base Impacts 2.01 uuid_bi=d23093d-1346-4018-8c0f-7aae33c67bcd auquel a été retranché l'impact de la filature\nAncien identifiant (12/2024): 993955be-5888-6f39-137c-56af8c5187c1.",
     "density": 0,
     "displayName": "Production de coton recyclé (déchets post-consommation)",
@@ -6917,6 +6917,43 @@
     "sourceId": "Maize grain, conventional, 28% moisture, national average, animal feed, at farm gate {FR} U",
     "unit": "kg",
     "waste": 0
+  },
+  {
+    "categories": ["transformation", "material_type:organic_fibers"],
+    "comment": "",
+    "density": 0,
+    "displayName": "Filature non conventionnelle (40 Nm)",
+    "elecMJ": 6.552,
+    "heatMJ": 0,
+    "id": "6fbc1c36-dd19-5113-8cda-3479e8587281",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pef": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "scopes": ["textile", "object"],
+    "source": "Custom",
+    "sourceId": "Filature non conventionnelle (40 Nm)",
+    "unit": "kg",
+    "waste": 0.12
   },
   {
     "categories": ["ingredient"],
@@ -7622,7 +7659,7 @@
     "waste": 0
   },
   {
-    "categories": ["material", "textile_material"],
+    "categories": ["material", "textile_material", "material_type:organic_fibers"],
     "comment": "corr1: Données Base Impacts 2.01 uuid_bi=2b24abb0-c1ec-4298-9b58-350904a26104 auquel a été retranché l'impact de la filature\nAncien identifiant (12/2024): 9c6ab710-4a08-c720-cede-24428a013fda.",
     "density": 0,
     "displayName": "Production de coton recyclé (déchets de production)",
@@ -7659,7 +7696,7 @@
     "waste": 0
   },
   {
-    "categories": ["transformation"],
+    "categories": ["transformation", "material_type:synthetic_fibers"],
     "comment": "corr3 (cf doc): valeurs issues du rapport BAT2023 avec majoration de 50%",
     "density": 0,
     "displayName": "Lavage (fibres synthétiques)",
@@ -7689,7 +7726,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["textile"],
+    "scopes": ["textile", "object"],
     "source": "Custom",
     "sourceId": "Lavage (fibres synthétiques)",
     "unit": "kg",
@@ -8138,6 +8175,47 @@
     "sourceId": "Brown crab, 1 kg of product, at landing {GB} U",
     "unit": "kg",
     "waste": 0
+  },
+  {
+    "categories": [
+      "transformation",
+      "material_type:synthetic_fibers",
+      "material_type:organic_fibers"
+    ],
+    "comment": "",
+    "density": 0,
+    "displayName": "Tissage (40Nm et 250 g/m2)",
+    "elecMJ": 20.952,
+    "heatMJ": 0,
+    "id": "852452b3-430f-5d07-8ef5-f701dad19c52",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pef": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "scopes": ["textile", "object"],
+    "source": "Custom",
+    "sourceId": "Tissage (40Nm et 250 g/m2)",
+    "unit": "kg",
+    "waste": 0.0625
   },
   {
     "categories": ["ingredient"],
@@ -10878,7 +10956,44 @@
     "waste": 0
   },
   {
-    "categories": ["material", "textile_material"],
+    "categories": ["transformation", "material_type:organic_fibers"],
+    "comment": "",
+    "density": 0,
+    "displayName": "Filature conventionnelle (40 Nm)",
+    "elecMJ": 13.104,
+    "heatMJ": 0,
+    "id": "ace9db61-adc8-5287-a13b-dcd79a83fc28",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pef": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "scopes": ["textile", "object"],
+    "source": "Custom",
+    "sourceId": "Filature conventionnelle (40 Nm)",
+    "unit": "kg",
+    "waste": 0.12
+  },
+  {
+    "categories": ["material", "textile_material", "material_type:organic_fibers"],
     "comment": "Ancien identifiant (12/2024): coton-bio.",
     "density": 0,
     "displayName": "Production de fibres de coton bio",
@@ -10908,7 +11023,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["textile"],
+    "scopes": ["textile", "object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "fibre, cotton, organic//[RoW] fibre production, cotton, organic, ginning",
     "unit": "kg",
@@ -10950,6 +11065,43 @@
     "sourceId": "Kiwi FR, conventional, national average, at orchard {FR} U",
     "unit": "kg",
     "waste": 0
+  },
+  {
+    "categories": ["transformation", "material_type:synthetic_fibers"],
+    "comment": "",
+    "density": 0,
+    "displayName": "Filage (40 Nm)",
+    "elecMJ": 4.896,
+    "heatMJ": 0,
+    "id": "aeb21302-d7b6-5c6c-b5dc-fbaf475b7ffc",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pef": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "scopes": ["textile", "object"],
+    "source": "Custom",
+    "sourceId": "Filage (40 Nm)",
+    "unit": "kg",
+    "waste": 0.03
   },
   {
     "categories": ["ingredient"],
@@ -11285,7 +11437,7 @@
     "waste": 0
   },
   {
-    "categories": ["transformation"],
+    "categories": ["transformation", "material_type:organic_fibers"],
     "comment": "corr3 et corr2 (cf doc). Corr3 : valeurs d'élec et de chaleur issues du rapport BAT2023 avec majoration de 50%. corr2 : valeur d'écotox issue d'inventaires enrichis.",
     "density": 0,
     "displayName": "Blanchiment",
@@ -11315,7 +11467,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["textile"],
+    "scopes": ["textile", "object"],
     "source": "Custom",
     "sourceId": "Blanchiment",
     "unit": "kg",
@@ -15059,7 +15211,7 @@
     "waste": 0
   },
   {
-    "categories": ["material", "textile_material"],
+    "categories": ["material", "textile_material", "material_type:organic_fibers"],
     "comment": "Ancien identifiant (12/2024): a211822aabe83653a6079b9d5677daed.",
     "density": 0,
     "displayName": "Production de fibres de coton",
@@ -15089,7 +15241,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["textile"],
+    "scopes": ["textile", "object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "fibre, cotton//[RoW] fibre production, cotton, ginning",
     "unit": "kg",
