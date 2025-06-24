@@ -56,7 +56,7 @@ type Modal
     = DeleteComponentModal Component
     | EditComponentModal Component Item
     | HistoryModal (WebData (List (JournalEntry Component)))
-    | JsonModal String Encode.Value
+    | JournalEntryModal (JournalEntry Component)
     | SelectProcessModal Category TargetItem (Maybe Index) (Autocomplete Process)
 
 
@@ -73,7 +73,7 @@ type Msg
     | OnAutocompleteSelectProcess Category TargetItem (Maybe Index)
     | OpenEditModal Component
     | OpenHistoryModal Component
-    | OpenJsonModal String Encode.Value
+    | OpenJournalEntryModal (JournalEntry Component)
     | SaveComponent
     | SetModals (List Modal)
     | UpdateComponent Item
@@ -207,8 +207,8 @@ update session msg model =
             , ComponentApi.getJournal session ComponentJournalResponse component.id
             )
 
-        OpenJsonModal title jsonString ->
-            ( { model | modals = JsonModal title jsonString :: model.modals }
+        OpenJournalEntryModal journalEntry ->
+            ( { model | modals = JournalEntryModal journalEntry :: model.modals }
             , session
             , Cmd.none
             )
@@ -525,16 +525,27 @@ modalView db modals index modal =
                     , size = Modal.ExtraLarge
                     }
 
-                JsonModal title_ jsonString ->
-                    { title = title_
+                JournalEntryModal { action, value, user, createdAt } ->
+                    { title =
+                        JournalEntry.actionToString action
+                            ++ " — "
+                            ++ value.name
                     , content =
-                        [ div [ class "card-body p-3" ]
-                            [ pre
-                                [ class "bg-light p-3 overflow-auto border shadow-sm"
-
-                                -- , style "height" "78vh"
+                        [ div [ class "row" ]
+                            [ div [ class "col-12 col-md-6" ]
+                                [ pre [ class "bg-light p-3 mb-0 border-end overflow-auto" ]
+                                    [ text <| Encode.encode 2 <| Component.encode value ]
                                 ]
-                                [ text <| Encode.encode 2 jsonString ]
+                            , div [ class "col-12 col-md-6" ]
+                                [ dl [ class "mt-3" ]
+                                    [ dt [] [ text "Action" ]
+                                    , dd [] [ text <| JournalEntry.actionToString action ]
+                                    , dt [] [ text "Utilisateur" ]
+                                    , dd [] [ text user.email ]
+                                    , dt [] [ text "Date" ]
+                                    , dd [] [ text <| Format.frenchDatetime createdAt ]
+                                    ]
+                                ]
                             ]
                         ]
                     , footer =
@@ -633,8 +644,8 @@ historyView entries =
                                 (to.value |> Component.encode |> Encode.encode 2)
                                 |> DiffToString.diffToString { context = 2, color = False }
                         , id = to.id
+                        , journalEntry = to
                         , user = to.user
-                        , value = to.value
                         }
                     )
                     entries
@@ -655,7 +666,7 @@ historyView entries =
           else
             differences
                 |> List.map
-                    (\{ action, createdAt, id, diff, user, value } ->
+                    (\{ action, createdAt, id, journalEntry, diff, user } ->
                         tr [ attribute "data-test-id" <| JournalEntry.idToString id ]
                             [ td [] [ text <| JournalEntry.actionToString action ]
                             , td [] [ Format.diff diff ]
@@ -666,7 +677,7 @@ historyView entries =
                                     [ type_ "button"
                                     , class "btn btn-outile-primary p-0"
                                     , title "Voir le composant au format JSON à cette date"
-                                    , onClick <| OpenJsonModal "TODO title" (Component.encode value)
+                                    , onClick <| OpenJournalEntryModal journalEntry
                                     ]
                                     [ Icon.search ]
                                 ]
