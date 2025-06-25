@@ -289,16 +289,14 @@ update rawMsg ({ state } as model) =
                 -- Global app messages
                 ( AppMsg (App.AddToast notification), _ ) ->
                     let
-                        toast =
-                            case notification.level of
-                                Notification.Error ->
-                                    Toast.persistent notification
-
-                                _ ->
-                                    Toast.expireOnBlur 5000 notification
-
                         ( newTray, newToastMsg ) =
-                            Toast.add model.tray toast
+                            Toast.add model.tray <|
+                                case notification.level of
+                                    Notification.Error ->
+                                        Toast.persistent notification
+
+                                    _ ->
+                                        Toast.expireOnBlur 5000 notification
                     in
                     ( { model | tray = newTray }, Cmd.map (AppMsg << App.ToastMsg) newToastMsg )
 
