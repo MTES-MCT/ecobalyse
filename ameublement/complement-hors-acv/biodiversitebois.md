@@ -51,7 +51,7 @@ _Source : Règlement européen du 31 mai 2023 relatif à la déforestation impor
 ## Méthodes de calcul
 
 $$
-Comp =  \sum Ref(i) * Compo(i) * masse
+Comp =  \sum Ref(i) * Compo(i) * masse * (1-label)
 $$
 
 Avec :&#x20;
@@ -60,6 +60,7 @@ Avec :&#x20;
 * `Ref(i)` = l'impact biodiversité de chaque bois (`i`), exprimé en Pt d'impacts / kg&#x20;
 * `Compo(i)` = la part du bois (`i`) entrant dans la composition du meuble, exprimée en % de `masse`
 * `masse` = la masse du meuble, exprimée en kg&#x20;
+* `label` =  l'intérêt d'une certification en terme de biodiversité, exprimé en %&#x20;
 
 {% hint style="info" %}
 1 bois (i) = 1 filière d'approvisionnement = 1 essence (ex : chêne) + 1 origine (ex : France). &#x20;
@@ -67,27 +68,17 @@ Avec :&#x20;
 
 ## Paramètres retenus
 
-### Compo (i)  & Masse&#x20;
+### &#x20;`Compo(i)` + `masse`
 
-Ces deux paramètres sont facilement intelligibles et ne nécessitent pas d'informations additionnelles.
+Ces deux paramètres sont facilement intelligibles (cf. formule de calcul) et ne nécessitent pas d'informations additionnelles.
 
-### Ref (i)&#x20;
+`Ref(i)`&#x20;
 
-Ce paramètre estime l'impact biodiversité (Ref) de chaque bois (i). Ce paramètre s'exprime en points d'impacts par kg de bois.
+Ce paramètre caractériser l'impact biodiversité (ref) d'un bois (i) et s'exprime en en  points d'impacts par kg de bois (Pt / kg de bois).
 
-#### Liste des Ref (i) proposées&#x20;
+#### Liste des bois disponibles (i) et de leurs impacts biodiversité (Ref)&#x20;
 
 <figure><img src="../../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption><p>Impact biodiversité des différents bois proposés dans le Niveau 1 de la méthode ( Ref(i) )</p></figcaption></figure>
-
-{% hint style="info" %}
-L'utilisateur doit sélectionner une de ces 3 options pour chaque bois (i) entrant dans la composition de son produit :&#x20;
-
-1\) il sélectionne la filière d'approvisionnement spécifique lorsqu'elle est disponible,&#x20;
-
-2\) il sélectionne l'option "Autres" lorsque la filière d'approvisionnement n'est pas disponible,
-
-3\) il sélectionne l'option "Inconnue"  lorsqu'il ne connaît pas l'origine de son bois.
-{% endhint %}
 
 <details>
 
@@ -191,6 +182,18 @@ Afin de couvrir toutes les configurations possibles, deux scénarios non spécif
 
 * **Origine inconnue** :  s'appliquer lorsque l'utilisateur ne connaît pas l'origine de la forêt ayant fourni le bois. Ce scénario présente des hypothèses majorantes afin d'inciter à plus de traçabilité.&#x20;
 * **Autre origine** : s'appliquer lorsque l'origine du bois n'est pas proposée. Ce scénario reflète le fait que ce bois n'est pas concerné par une filière d'approvisionnement à risque.&#x20;
+{% endhint %}
+
+`label`&#x20;
+
+Certains labels participent à réduire le risque qu'un bois soit issu de pratiques participant à la dégradation des forêts.&#x20;
+
+Dès lors, la présence d'une des certifications suivantes permet de préciser l'impact biodiversité de bois en réduisant ce dernier de -50%.&#x20;
+
+{% hint style="info" %}
+**Logique clé**
+
+Lorsque des enjeux clés du cycle de vie de produits sont difficilement quantifiables (ex : microfibres dans le Textilen biodiversité bois dans l'Ameublement, etc.), il est préférable de les întégrer dans le coût environnemental plutôt que de les exclure. &#x20;
 {% endhint %}
 
 <details>
