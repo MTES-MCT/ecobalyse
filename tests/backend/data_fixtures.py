@@ -7,7 +7,7 @@ import pytest
 from app.domain.accounts.schemas import OrganizationCreate, OrganizationType
 
 if TYPE_CHECKING:
-    from app.db.models import ComponentModel, Scope, User
+    from app.db.models import Component, Scope, User
     from litestar import Litestar
     from pytest import MonkeyPatch
 
@@ -52,7 +52,7 @@ def fx_raw_scopes() -> list[Scope | dict[str, Any]]:
 
 
 @pytest.fixture(name="raw_components")
-def fx_raw_components() -> list[ComponentModel | dict[str, Any]]:
+def fx_raw_components() -> list[Component | dict[str, Any]]:
     """Unstructured components representations."""
 
     return [
