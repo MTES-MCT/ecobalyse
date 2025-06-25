@@ -6,6 +6,7 @@ module Page.Stats exposing
     , view
     )
 
+import App exposing (Msg, PageUpdate)
 import Data.Matomo as Matomo
 import Data.Session exposing (Session)
 import Html exposing (..)
@@ -38,32 +39,32 @@ type Mode
     | Simple
 
 
-init : Session -> ( Model, Session, Cmd Msg )
+init : Session -> PageUpdate Model Msg
 init session =
-    ( { apiStats = RemoteData.NotAsked
-      , webStats = RemoteData.NotAsked
-      , mode = Simple
-      }
-    , session
-    , Cmd.batch
-        [ Request.Matomo.getApiStats session ApiStats
-        , Request.Matomo.getWebStats session WebStats
-        , Ports.scrollTo { x = 0, y = 0 }
-        ]
-    )
+    App.createUpdate session
+        { apiStats = RemoteData.NotAsked
+        , webStats = RemoteData.NotAsked
+        , mode = Simple
+        }
+        |> App.withCmds
+            [ Request.Matomo.getApiStats session ApiStats
+            , Request.Matomo.getWebStats session WebStats
+            , Ports.scrollTo { x = 0, y = 0 }
+            ]
 
 
-update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
+update : Session -> Msg -> Model -> PageUpdate Model Msg
 update session msg model =
     case msg of
         ApiStats apiStats ->
-            ( { model | apiStats = apiStats }, session, Cmd.none )
+            { model | apiStats = apiStats }
+                |> App.createUpdate session
 
         ToggleMode mode ->
-            ( { model | mode = mode }, session, Cmd.none )
+            App.createUpdate session { model | mode = mode }
 
         WebStats webStats ->
-            ( { model | webStats = webStats }, session, Cmd.none )
+            App.createUpdate session { model | webStats = webStats }
 
 
 viewStats : { heading : String, unit : String } -> WebData (List Matomo.Stat) -> Html Msg

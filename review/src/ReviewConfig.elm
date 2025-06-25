@@ -5,7 +5,6 @@ import NoDebug.TodoOrToString
 import NoExposingEverything
 import NoImportingEverything
 import NoMissingTypeAnnotation
-import NoRedundantConcat
 import NoRedundantCons
 import NoUnsortedConstructors
 import NoUnsortedRecordFields
@@ -47,13 +46,11 @@ config =
         |> Rule.ignoreErrorsForDirectories [ "tests/" ]
     , NoMissingTypeAnnotation.rule
         |> Rule.ignoreErrorsForDirectories [ "tests/" ]
-    , NoRedundantConcat.rule
     , NoRedundantCons.rule
     , NoUnsortedRecordFields.rule
         |> Rule.ignoreErrorsForDirectories [ "tests/" ]
         |> Rule.ignoreErrorsForDirectories [ "src/Page" ]
         |> Rule.ignoreErrorsForFiles [ "src/Data/Impact/Definition.elm" ]
-        |> Rule.ignoreErrorsForFiles [ "src/Views/Page.elm" ]
     , NoUnsortedConstructors.rule
         |> Rule.ignoreErrorsForDirectories [ "tests/" ]
         |> Rule.ignoreErrorsForFiles [ "src/Data/Impact/Definition.elm" ]

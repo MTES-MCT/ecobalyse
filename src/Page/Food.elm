@@ -8,6 +8,7 @@ module Page.Food exposing
     , view
     )
 
+import App exposing (PageUpdate)
 import Autocomplete exposing (Autocomplete)
 import Browser.Dom as Dom
 import Browser.Events as BE
@@ -126,7 +127,7 @@ type Msg
     | UpdateTransform Query.ProcessQuery
 
 
-init : Session -> Definition.Trigram -> Maybe Query -> ( Model, Session, Cmd Msg )
+init : Session -> Definition.Trigram -> Maybe Query -> PageUpdate Model Msg
 init session trigram maybeQuery =
     let
         impact =
@@ -136,30 +137,23 @@ init session trigram maybeQuery =
             maybeQuery
                 |> Maybe.withDefault session.queries.food
     in
-    ( { impact = impact
-      , initialQuery = query
-      , bookmarkName = query |> findExistingBookmarkName session
-      , bookmarkTab = BookmarkView.SaveTab
-      , comparisonType =
-            if Session.isAuthenticated session then
-                ComparatorView.Subscores
+    { impact = impact
+    , initialQuery = query
+    , bookmarkName = query |> findExistingBookmarkName session
+    , bookmarkTab = BookmarkView.SaveTab
+    , comparisonType =
+        if Session.isAuthenticated session then
+            ComparatorView.Subscores
 
-            else
-                ComparatorView.Steps
-      , modal = NoModal
-      , activeImpactsTab = ImpactTabs.StepImpactsTab
-      }
-    , session |> Session.updateFoodQuery query
-    , case maybeQuery of
-        Just _ ->
-            Cmd.none
-
-        Nothing ->
-            Ports.scrollTo { x = 0, y = 0 }
-    )
+        else
+            ComparatorView.Steps
+    , modal = NoModal
+    , activeImpactsTab = ImpactTabs.StepImpactsTab
+    }
+        |> App.createUpdate (session |> Session.updateFoodQuery query)
 
 
-initFromExample : Session -> Uuid -> ( Model, Session, Cmd Msg )
+initFromExample : Session -> Uuid -> PageUpdate Model Msg
 initFromExample session uuid =
     let
         example =
@@ -171,38 +165,38 @@ initFromExample session uuid =
                 |> Result.map .query
                 |> Result.withDefault Query.empty
     in
-    ( { impact = session.db.definitions |> Definition.get Definition.Ecs
-      , initialQuery = query
-      , bookmarkName = query |> findExistingBookmarkName session
-      , bookmarkTab = BookmarkView.SaveTab
-      , comparisonType = ComparatorView.Subscores
-      , modal = NoModal
-      , activeImpactsTab = ImpactTabs.StepImpactsTab
-      }
-    , session |> Session.updateFoodQuery query
-    , Ports.scrollTo { x = 0, y = 0 }
-    )
+    { impact = session.db.definitions |> Definition.get Definition.Ecs
+    , initialQuery = query
+    , bookmarkName = query |> findExistingBookmarkName session
+    , bookmarkTab = BookmarkView.SaveTab
+    , comparisonType = ComparatorView.Subscores
+    , modal = NoModal
+    , activeImpactsTab = ImpactTabs.StepImpactsTab
+    }
+        |> App.createUpdate (session |> Session.updateFoodQuery query)
+        |> App.withCmds [ Ports.scrollTo { x = 0, y = 0 } ]
 
 
-update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
+update : Session -> Msg -> Model -> PageUpdate Model Msg
 update ({ db, queries } as session) msg model =
     let
         query =
             queries.food
 
-        maybeUpdateQuery : (a -> Query) -> Maybe a -> ( Model, Session, Cmd Msg )
+        maybeUpdateQuery : (a -> Query) -> Maybe a -> PageUpdate Model Msg
         maybeUpdateQuery toQuery maybeThing =
             maybeThing
-                |> Maybe.map (\thing -> updateQuery (toQuery thing) ( model, session, Cmd.none ))
-                |> Maybe.withDefault ( model, session, Cmd.none )
+                |> Maybe.map (\thing -> updateQuery (toQuery thing) (App.createUpdate session model))
+                |> Maybe.withDefault (App.createUpdate session model)
     in
     case msg of
         AddDistribution ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery (Query.setDistribution Retail.ambient query)
 
         AddIngredient ingredient ->
-            update session (SetModal NoModal) model
+            App.createUpdate session model
+                |> App.apply update (SetModal NoModal)
                 |> updateQuery (query |> Query.addIngredient (Recipe.ingredientQueryFromIngredient ingredient))
 
         AddPackaging ->
@@ -246,33 +240,37 @@ update ({ db, queries } as session) msg model =
                 |> maybeUpdateQuery (\transform -> Query.setTransform transform query)
 
         CopyToClipBoard shareableLink ->
-            ( model, session, Ports.copyToClipboard shareableLink )
+            App.createUpdate session model
+                |> App.withCmds [ Ports.copyToClipboard shareableLink ]
 
         DeleteBookmark bookmark ->
-            updateQuery query
-                ( model
-                , session |> Session.deleteBookmark bookmark
-                , Cmd.none
-                )
+            App.createUpdate session model
+                |> updateQuery query
+                |> App.mapSession (Session.deleteBookmark bookmark)
 
         DeleteIngredient ingredientId ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery (Query.deleteIngredient ingredientId query)
 
         DeletePackaging code ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery (Recipe.deletePackaging code query)
 
         DeletePreparation id ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery (Query.deletePreparation id query)
 
         LoadQuery queryToLoad ->
-            update session (SetModal NoModal) { model | initialQuery = queryToLoad }
+            let
+                updatedModel =
+                    { model | initialQuery = queryToLoad }
+            in
+            App.createUpdate session updatedModel
+                |> App.apply update (SetModal NoModal)
                 |> updateQuery queryToLoad
 
         NoOp ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
 
         OnAutocompleteExample autocompleteMsg ->
             case model.modal of
@@ -281,13 +279,12 @@ update ({ db, queries } as session) msg model =
                         ( newAutocompleteState, autoCompleteCmd ) =
                             Autocomplete.update autocompleteMsg autocompleteState
                     in
-                    ( { model | modal = SelectExampleModal newAutocompleteState }
-                    , session
-                    , Cmd.map OnAutocompleteExample autoCompleteCmd
-                    )
+                    { model | modal = SelectExampleModal newAutocompleteState }
+                        |> App.createUpdate session
+                        |> App.withCmds [ Cmd.map OnAutocompleteExample autoCompleteCmd ]
 
                 _ ->
-                    ( model, session, Cmd.none )
+                    App.createUpdate session model
 
         OnAutocompleteIngredient autocompleteMsg ->
             case model.modal of
@@ -296,13 +293,12 @@ update ({ db, queries } as session) msg model =
                         ( newAutocompleteState, autoCompleteCmd ) =
                             Autocomplete.update autocompleteMsg autocompleteState
                     in
-                    ( { model | modal = AddIngredientModal maybeOldIngredient newAutocompleteState }
-                    , session
-                    , Cmd.map OnAutocompleteIngredient autoCompleteCmd
-                    )
+                    { model | modal = AddIngredientModal maybeOldIngredient newAutocompleteState }
+                        |> App.createUpdate session
+                        |> App.withCmds [ Cmd.map OnAutocompleteIngredient autoCompleteCmd ]
 
                 _ ->
-                    ( model, session, Cmd.none )
+                    App.createUpdate session model
 
         OnAutocompleteSelect ->
             case model.modal of
@@ -310,201 +306,149 @@ update ({ db, queries } as session) msg model =
                     updateIngredient query model session maybeOldRecipeIngredient autocompleteState
 
                 SelectExampleModal autocompleteState ->
-                    ( model, session, Cmd.none )
+                    App.createUpdate session model
                         |> selectExample autocompleteState
 
                 _ ->
-                    ( model, session, Cmd.none )
+                    App.createUpdate session model
 
         OnStepClick stepId ->
-            ( model
-            , session
-            , Ports.scrollIntoView stepId
-            )
+            App.createUpdate session model
+                |> App.withCmds [ Ports.scrollIntoView stepId ]
 
         OpenComparator ->
-            ( { model | modal = ComparatorModal }
-            , session |> Session.checkComparedSimulations
-            , Cmd.none
-            )
+            { model | modal = ComparatorModal }
+                |> App.createUpdate (session |> Session.checkComparedSimulations)
 
         Reset ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery model.initialQuery
 
         ResetDistribution ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery (Recipe.resetDistribution query)
 
         ResetTransform ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery (Recipe.resetTransform query)
 
         SaveBookmark ->
-            ( model
-            , session
-            , Time.now
-                |> Task.perform
-                    (SaveBookmarkWithTime model.bookmarkName
-                        (Bookmark.Food query)
-                    )
-            )
+            App.createUpdate session model
+                |> App.withCmds
+                    [ Time.now
+                        |> Task.perform
+                            (SaveBookmarkWithTime model.bookmarkName
+                                (Bookmark.Food query)
+                            )
+                    ]
 
         SaveBookmarkWithTime name foodQuery now ->
-            ( model
-            , session
-                |> Session.saveBookmark
-                    { name = String.trim name
-                    , query = foodQuery
-                    , created = now
-                    , subScope = Nothing
-                    , version = Version.toMaybe session.currentVersion
-                    }
-            , Cmd.none
-            )
+            App.createUpdate
+                (session
+                    |> Session.saveBookmark
+                        { name = String.trim name
+                        , query = foodQuery
+                        , created = now
+                        , subScope = Nothing
+                        , version = Version.toMaybe session.currentVersion
+                        }
+                )
+                model
 
         SelectAllBookmarks ->
-            ( model, Session.selectAllBookmarks session, Cmd.none )
+            App.createUpdate (Session.selectAllBookmarks session) model
 
         SelectNoBookmarks ->
-            ( model, Session.selectNoBookmarks session, Cmd.none )
+            App.createUpdate (Session.selectNoBookmarks session) model
 
-        SetModal ComparatorModal ->
-            ( { model | modal = ComparatorModal }
-            , session
-            , Ports.addBodyClass "prevent-scrolling"
-            )
-
-        SetModal (ExplorerDetailsModal ingredient) ->
-            ( { model | modal = ExplorerDetailsModal ingredient }
-            , session
-            , Ports.addBodyClass "prevent-scrolling"
-            )
-
-        SetModal (AddIngredientModal maybeOldIngredient autocomplete) ->
-            ( { model | modal = AddIngredientModal maybeOldIngredient autocomplete }
-            , session
-            , Cmd.batch
-                [ Ports.addBodyClass "prevent-scrolling"
-                , Dom.focus "element-search"
-                    |> Task.attempt (always NoOp)
-                ]
-            )
-
-        SetModal NoModal ->
-            ( { model | modal = NoModal }
-            , session
-            , commandsForNoModal model.modal
-            )
-
-        SetModal (SelectExampleModal autocomplete) ->
-            ( { model | modal = SelectExampleModal autocomplete }
-            , session
-            , Cmd.batch
-                [ Ports.addBodyClass "prevent-scrolling"
-                , Dom.focus "element-search"
-                    |> Task.attempt (always NoOp)
-                ]
-            )
+        SetModal modal ->
+            { model | modal = modal }
+                |> App.createUpdate session
+                |> App.withCmds [ commandsForModal modal ]
 
         SwitchBookmarksTab bookmarkTab ->
-            ( { model | bookmarkTab = bookmarkTab }
-            , session
-            , Cmd.none
-            )
+            { model | bookmarkTab = bookmarkTab }
+                |> App.createUpdate session
 
         SwitchComparisonType displayChoice ->
-            ( { model | comparisonType = displayChoice }, session, Cmd.none )
+            { model | comparisonType = displayChoice }
+                |> App.createUpdate session
 
         SwitchImpact (Ok impact) ->
-            ( model
-            , session
-            , Just query
-                |> Route.FoodBuilder impact
-                |> Route.toString
-                |> Navigation.pushUrl session.navKey
-            )
+            App.createUpdate session model
+                |> App.withCmds
+                    [ Just query
+                        |> Route.FoodBuilder impact
+                        |> Route.toString
+                        |> Navigation.pushUrl session.navKey
+                    ]
 
         SwitchImpact (Err error) ->
-            ( model
-            , session |> Session.notifyError "Erreur de sélection d'impact: " error
-            , Cmd.none
-            )
+            App.createUpdate session model
+                |> App.notifyError "Erreur de sélection d'impact" error
 
         SwitchImpactsTab impactsTab ->
-            ( { model | activeImpactsTab = impactsTab }
-            , session
-            , Cmd.none
-            )
+            { model | activeImpactsTab = impactsTab }
+                |> App.createUpdate session
 
         ToggleComparedSimulation bookmark checked ->
-            ( model
-            , session |> Session.toggleComparedSimulation bookmark checked
-            , Cmd.none
-            )
+            App.createUpdate (session |> Session.toggleComparedSimulation bookmark checked) model
 
         UpdateBookmarkName recipeName ->
-            ( { model | bookmarkName = recipeName }, session, Cmd.none )
+            { model | bookmarkName = recipeName }
+                |> App.createUpdate session
 
         UpdateDistribution newDistribution ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery (Query.updateDistribution newDistribution query)
 
         UpdateIngredient oldIngredient newIngredient ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery (Query.updateIngredient oldIngredient.id newIngredient query)
 
         UpdatePackaging code newPackaging ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery (Query.updatePackaging code newPackaging query)
 
         UpdatePreparation oldId newId ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery (Query.updatePreparation oldId newId query)
 
         UpdateTransform newTransform ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery (Query.updateTransform newTransform query)
 
 
-updateQuery : Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
-updateQuery query ( model, session, msg ) =
-    ( { model | bookmarkName = query |> findExistingBookmarkName session }
-    , session |> Session.updateFoodQuery query
-    , msg
-    )
+updateQuery : Query -> PageUpdate Model Msg -> PageUpdate Model Msg
+updateQuery query pageUpdate =
+    let
+        { model, session } =
+            pageUpdate
+
+        updatedModel =
+            { model | bookmarkName = query |> findExistingBookmarkName session }
+    in
+    { pageUpdate
+        | model = updatedModel
+        , session = session |> Session.updateFoodQuery query
+    }
 
 
-commandsForNoModal : Modal -> Cmd Msg
-commandsForNoModal modal =
+commandsForModal : Modal -> Cmd Msg
+commandsForModal modal =
     case modal of
-        AddIngredientModal maybeOldIngredient _ ->
-            Cmd.batch
-                [ Ports.removeBodyClass "prevent-scrolling"
-                , Dom.focus
-                    -- This whole "node to focus" management is happening as a fallback
-                    -- if the modal was closed without choosing anything.
-                    -- If anything has been chosen, then the focus will be done in `OnAutocompleteSelect`
-                    -- and overload any focus being done here.
-                    (maybeOldIngredient
-                        |> Maybe.map (.ingredient >> .id >> Ingredient.idToString >> (++) "selector-")
-                        |> Maybe.withDefault "add-new-element"
-                    )
-                    |> Task.attempt (always NoOp)
-                ]
+        NoModal ->
+            Ports.removeBodyClass "prevent-scrolling"
 
-        SelectExampleModal _ ->
+        _ ->
             Cmd.batch
-                [ Ports.removeBodyClass "prevent-scrolling"
+                [ Ports.addBodyClass "prevent-scrolling"
                 , Dom.focus "selector-example"
                     |> Task.attempt (always NoOp)
                 ]
 
-        _ ->
-            Ports.removeBodyClass "prevent-scrolling"
 
-
-updateExistingIngredient : Query -> Model -> Session -> Recipe.RecipeIngredient -> Ingredient -> ( Model, Session, Cmd Msg )
+updateExistingIngredient : Query -> Model -> Session -> Recipe.RecipeIngredient -> Ingredient -> PageUpdate Model Msg
 updateExistingIngredient query model session oldRecipeIngredient newIngredient =
     -- Update an existing ingredient
     let
@@ -517,12 +461,13 @@ updateExistingIngredient query model session oldRecipeIngredient newIngredient =
             }
     in
     model
-        |> update session (SetModal NoModal)
+        |> App.createUpdate session
+        |> App.apply update (SetModal NoModal)
         |> updateQuery (Query.updateIngredient oldRecipeIngredient.ingredient.id ingredientQuery query)
         |> focusNode ("selector-" ++ Ingredient.idToString newIngredient.id)
 
 
-updateIngredient : Query -> Model -> Session -> Maybe Recipe.RecipeIngredient -> Autocomplete Ingredient -> ( Model, Session, Cmd Msg )
+updateIngredient : Query -> Model -> Session -> Maybe Recipe.RecipeIngredient -> Autocomplete Ingredient -> PageUpdate Model Msg
 updateIngredient query model session maybeOldRecipeIngredient autocompleteState =
     let
         maybeSelectedValue =
@@ -535,7 +480,8 @@ updateIngredient query model session maybeOldRecipeIngredient autocompleteState 
         |> Maybe.withDefault
             -- Add a new ingredient
             (model
-                |> update session (SetModal NoModal)
+                |> App.createUpdate session
+                |> App.apply update (SetModal NoModal)
                 |> selectIngredient autocompleteState
                 |> focusNode
                     (maybeSelectedValue
@@ -545,16 +491,25 @@ updateIngredient query model session maybeOldRecipeIngredient autocompleteState 
             )
 
 
-focusNode : String -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
-focusNode node ( model, session, commands ) =
-    ( model
-    , session
-    , Cmd.batch
-        [ commands
-        , Dom.focus node
-            |> Task.attempt (always NoOp)
-        ]
-    )
+focusNode : String -> PageUpdate Model Msg -> PageUpdate Model Msg
+focusNode node =
+    App.withCmds [ Dom.focus node |> Task.attempt (always NoOp) ]
+
+
+selectIngredient : Autocomplete Ingredient -> PageUpdate Model Msg -> PageUpdate Model Msg
+selectIngredient autocompleteState pageUpdate =
+    let
+        ingredient =
+            Autocomplete.selectedValue autocompleteState
+                |> Maybe.map Just
+                |> Maybe.withDefault (List.head (Autocomplete.choices autocompleteState))
+
+        msg =
+            ingredient
+                |> Maybe.map AddIngredient
+                |> Maybe.withDefault NoOp
+    in
+    update pageUpdate.session msg pageUpdate.model
 
 
 findExistingBookmarkName : Session -> Query -> String
@@ -570,8 +525,8 @@ findExistingBookmarkName { db, store } query =
             )
 
 
-selectExample : Autocomplete Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
-selectExample autocompleteState ( model, session, _ ) =
+selectExample : Autocomplete Query -> PageUpdate Model Msg -> PageUpdate Model Msg
+selectExample autocompleteState pageUpdate =
     let
         example =
             Autocomplete.selectedValue autocompleteState
@@ -580,23 +535,7 @@ selectExample autocompleteState ( model, session, _ ) =
         msg =
             LoadQuery example
     in
-    update session msg model
-
-
-selectIngredient : Autocomplete Ingredient -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
-selectIngredient autocompleteState ( model, session, _ ) =
-    let
-        ingredient =
-            Autocomplete.selectedValue autocompleteState
-                |> Maybe.map Just
-                |> Maybe.withDefault (List.head (Autocomplete.choices autocompleteState))
-
-        msg =
-            ingredient
-                |> Maybe.map AddIngredient
-                |> Maybe.withDefault NoOp
-    in
-    update session msg model
+    update pageUpdate.session msg pageUpdate.model
 
 
 
@@ -915,7 +854,8 @@ debugQueryView db query =
 errorView : String -> Html Msg
 errorView error =
     Alert.simple
-        { level = Alert.Danger
+        { attributes = []
+        , level = Alert.Danger
         , content = [ text error ]
         , title = Nothing
         , close = Nothing

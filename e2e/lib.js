@@ -11,6 +11,10 @@ export async function deleteAllEmails() {
   return await res.json();
 }
 
+export async function expectNotification(page, message) {
+  await expect(page.locator(".ToastTray").getByText(message)).toBeVisible();
+}
+
 export function extractUrlsFromText(text) {
   return text.match(/\bhttps?:\/\/\S+/gi);
 }
@@ -42,7 +46,7 @@ export async function loginUser(page, email) {
 
   await page.goto(links[0]);
 
-  await expect(page.getByText("Vous avez désormais accès aux impacts détaillés")).toBeVisible();
+  await expectNotification(page, "Vous avez désormais accès aux impacts détaillés");
 }
 
 export async function registerAndLoginUser(
@@ -79,7 +83,7 @@ export async function registerAndLoginUser(
 
   await page.goto(links[0]);
 
-  await expect(page.getByText("Vous avez désormais accès aux impacts détaillés")).toBeVisible();
+  await expectNotification(page, "Vous avez désormais accès aux impacts détaillés");
 }
 
 export async function waitFor(conditionFn, pollInterval = 50, timeoutAfter) {

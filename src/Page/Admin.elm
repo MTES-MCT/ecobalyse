@@ -7,8 +7,10 @@ module Page.Admin exposing
     , view
     )
 
+import App exposing (Msg, PageUpdate)
 import Autocomplete exposing (Autocomplete)
 import Base64
+import Browser.Dom as Dom
 import Browser.Events
 import Data.Component as Component exposing (Component, Index, Item, TargetItem)
 import Data.Impact.Definition as Definition
@@ -21,12 +23,14 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Json.Encode as Encode
+import Ports
 import RemoteData
 import Request.BackendHttp exposing (WebData)
 import Request.BackendHttp.Error as BackendError
 import Request.Component as ComponentApi
 import Route
 import Static.Db exposing (Db)
+import Task
 import Views.Alert as Alert
 import Views.AutocompleteSelector as AutocompleteSelectorView
 import Views.Component as ComponentView
@@ -66,74 +70,76 @@ type Msg
     | UpdateScopeFilters (List Scope)
 
 
-init : Session -> ( Model, Session, Cmd Msg )
+init : Session -> PageUpdate Model Msg
 init session =
-    ( { components = RemoteData.NotAsked
-      , modals = []
-      , scopes = Scope.all
-      }
-    , session
-    , ComponentApi.getComponents session ComponentListResponse
-    )
+    { components = RemoteData.NotAsked
+    , modals = []
+    , scopes = Scope.all
+    }
+        |> App.createUpdate session
+        |> App.withCmds [ ComponentApi.getComponents session ComponentListResponse ]
 
 
-update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
+update : Session -> Msg -> Model -> PageUpdate Model Msg
 update session msg model =
     case msg of
         -- POST
         ComponentCreated (RemoteData.Failure err) ->
-            ( model, session |> Session.notifyBackendError err, Cmd.none )
+            model
+                |> App.createUpdate (session |> Session.notifyBackendError err)
 
         ComponentCreated (RemoteData.Success component) ->
-            ( { model | modals = [ EditComponentModal component (Component.createItem component.id) ] }
-            , session
-            , ComponentApi.getComponents session ComponentListResponse
-            )
+            { model | modals = [ EditComponentModal component (Component.createItem component.id) ] }
+                |> App.createUpdate session
+                |> App.withCmds [ ComponentApi.getComponents session ComponentListResponse ]
 
         ComponentCreated _ ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
 
         -- DELETE
         ComponentDeleted (RemoteData.Failure err) ->
-            ( model, session |> Session.notifyBackendError err, Cmd.none )
+            App.createUpdate (session |> Session.notifyBackendError err) model
 
         ComponentDeleted (RemoteData.Success _) ->
-            ( model, session, ComponentApi.getComponents session ComponentListResponse )
+            App.createUpdate session model
+                |> App.withCmds [ ComponentApi.getComponents session ComponentListResponse ]
 
         ComponentDeleted _ ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
 
         -- GET
         ComponentListResponse response ->
-            ( { model | components = response }
-            , case response of
-                RemoteData.Success components ->
-                    session |> Session.updateDb (\db -> { db | components = components })
+            let
+                newSession =
+                    case response of
+                        RemoteData.Success components ->
+                            session |> Session.updateDb (\db -> { db | components = components })
 
-                _ ->
-                    session
-            , Cmd.none
-            )
+                        _ ->
+                            session
+            in
+            App.createUpdate newSession { model | components = response }
 
         -- PATCH
         ComponentUpdated (RemoteData.Failure err) ->
-            ( model, session |> Session.notifyBackendError err, Cmd.none )
+            App.createUpdate (session |> Session.notifyBackendError err) model
 
         ComponentUpdated (RemoteData.Success _) ->
-            ( model, session, ComponentApi.getComponents session ComponentListResponse )
+            App.createUpdate session model
+                |> App.withCmds [ ComponentApi.getComponents session ComponentListResponse ]
 
         ComponentUpdated _ ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
 
         DuplicateComponent component ->
-            ( model
-            , session
-            , { component | name = component.name ++ " (copie)" }
-                |> ComponentApi.createComponent session ComponentCreated
-            )
+            App.createUpdate session model
+                |> App.withCmds
+                    [ { component | name = component.name ++ " (copie)" }
+                        |> ComponentApi.createComponent session ComponentCreated
+                    ]
 
         NoOp ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
 
         OnAutocompleteAddProcess category targetItem maybeElementIndex autocompleteMsg ->
             case model.modals of
@@ -142,69 +148,80 @@ update session msg model =
                         ( newAutocompleteState, autoCompleteCmd ) =
                             Autocomplete.update autocompleteMsg autocompleteState
                     in
-                    ( { model
-                        | modals =
-                            [ SelectProcessModal category targetItem maybeElementIndex newAutocompleteState
-                            , EditComponentModal component item
+                    App.createUpdate session
+                        { model
+                            | modals =
+                                [ SelectProcessModal category targetItem maybeElementIndex newAutocompleteState
+                                , EditComponentModal component item
+                                ]
+                        }
+                        |> App.withCmds
+                            [ autoCompleteCmd
+                                |> Cmd.map (OnAutocompleteAddProcess category targetItem maybeElementIndex)
                             ]
-                      }
-                    , session
-                    , Cmd.map (OnAutocompleteAddProcess category targetItem maybeElementIndex) autoCompleteCmd
-                    )
 
                 _ ->
-                    ( model, session, Cmd.none )
+                    App.createUpdate session model
 
         OnAutocompleteSelectProcess category targetItem maybeElementIndex ->
             case model.modals of
                 [ SelectProcessModal _ _ _ autocompleteState, EditComponentModal _ item ] ->
-                    ( model, session, Cmd.none )
-                        |> selectProcess category targetItem maybeElementIndex autocompleteState item
+                    selectProcess category targetItem maybeElementIndex autocompleteState item model session
 
                 _ ->
-                    ( model, session, Cmd.none )
+                    App.createUpdate session model
 
         SaveComponent ->
             case model.modals of
                 [ DeleteComponentModal component ] ->
-                    ( { model | modals = [] }
-                    , session
-                    , ComponentApi.deleteComponent session ComponentDeleted component
-                    )
+                    App.createUpdate session { model | modals = [] }
+                        |> App.withCmds [ ComponentApi.deleteComponent session ComponentDeleted component ]
 
                 [ EditComponentModal _ item ] ->
                     case Component.itemToComponent session.db item of
                         Err error ->
-                            ( { model | modals = [] }
-                            , session |> Session.notifyError "Erreur" error
-                            , Cmd.none
-                            )
+                            { model | modals = [] }
+                                |> App.createUpdate session
+                                |> App.notifyError "Erreur lors de la sauvegarde du composant" error
 
                         Ok component ->
-                            ( { model | modals = [] }
-                            , session
-                            , ComponentApi.patchComponent session ComponentUpdated component
-                            )
+                            { model | modals = [] }
+                                |> App.createUpdate session
+                                |> App.withCmds [ ComponentApi.patchComponent session ComponentUpdated component ]
+                                |> App.notifySuccess "Composant sauvegardé"
 
                 _ ->
-                    ( model, session, Cmd.none )
+                    App.createUpdate session model
 
         SetModals modals ->
-            ( { model | modals = modals }, session, Cmd.none )
+            { model | modals = modals }
+                |> App.createUpdate session
+                |> App.withCmds [ commandsForModal modals ]
 
         UpdateComponent customItem ->
             case model.modals of
                 (EditComponentModal component _) :: others ->
-                    ( { model | modals = EditComponentModal component customItem :: others }, session, Cmd.none )
+                    App.createUpdate session { model | modals = EditComponentModal component customItem :: others }
 
                 _ ->
-                    ( model, session, Cmd.none )
+                    App.createUpdate session model
 
         UpdateScopeFilters scopes ->
-            ( { model | scopes = scopes }
-            , session
-            , Cmd.none
-            )
+            App.createUpdate session { model | scopes = scopes }
+
+
+commandsForModal : List Modal -> Cmd Msg
+commandsForModal modals =
+    case modals of
+        [] ->
+            Ports.removeBodyClass "prevent-scrolling"
+
+        _ ->
+            Cmd.batch
+                [ Ports.addBodyClass "prevent-scrolling"
+                , Dom.focus "selector-example"
+                    |> Task.attempt (always NoOp)
+                ]
 
 
 selectProcess :
@@ -213,9 +230,10 @@ selectProcess :
     -> Maybe Index
     -> Autocomplete Process
     -> Item
-    -> ( Model, Session, Cmd Msg )
-    -> ( Model, Session, Cmd Msg )
-selectProcess category (( component, _ ) as targetItem) maybeElementIndex autocompleteState item ( model, session, _ ) =
+    -> Model
+    -> Session
+    -> PageUpdate Model Msg
+selectProcess category (( component, _ ) as targetItem) maybeElementIndex autocompleteState item model session =
     case Autocomplete.selectedValue autocompleteState of
         Just process ->
             case
@@ -224,20 +242,22 @@ selectProcess category (( component, _ ) as targetItem) maybeElementIndex autoco
                     |> Result.andThen (List.head >> Result.fromMaybe "Pas d'élément résultant")
             of
                 Err err ->
-                    ( model, session |> Session.notifyError "Erreur" err, Cmd.none )
+                    App.createUpdate session model
+                        |> App.notifyError "Erreur de sélection" err
 
                 Ok updatedItem ->
-                    ( { model | modals = [ EditComponentModal component updatedItem ] }, session, Cmd.none )
+                    App.createUpdate session { model | modals = [ EditComponentModal component updatedItem ] }
 
         Nothing ->
-            ( model, session |> Session.notifyError "Erreur" "Aucun composant sélectionné", Cmd.none )
+            App.createUpdate session model
+                |> App.notifyError "Erreur de sélection" "Aucun composant sélectionné"
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
 view { db } model =
     ( "admin"
-    , [ Container.centered [ class "pb-5" ]
-            [ h1 [ class "mb-3" ] [ text "Ecobalyse Admin" ]
+    , [ Container.centered [ class "d-flex flex-column gap-3 pb-5" ]
+            [ h1 [] [ text "Ecobalyse Admin" ]
             , warning
             , model.scopes
                 |> scopeFilterForm UpdateScopeFilters
@@ -509,7 +529,7 @@ scopeFilterForm updateFilters filtered =
 scopesForm : (Scope -> Bool -> Msg) -> List Scope -> Html Msg
 scopesForm check scopes =
     div [ class "d-flex flex-row gap-3" ]
-        [ h3 [ class "h6" ] [ text "Verticales" ]
+        [ h3 [ class "h6 mb-0" ] [ text "Verticales" ]
         , Scope.all
             |> List.map
                 (\scope ->
@@ -543,12 +563,10 @@ updateSingleItem fn item =
 warning : Html msg
 warning =
     Alert.simple
-        { close = Nothing
+        { attributes = []
+        , close = Nothing
         , content =
-            [ small [ class "d-flex align-items-center gap-1" ]
-                [ Icon.warning
-                , text "Attention, la base de données mobilisée peut être réinitialisée à tout moment et vos modifications avec."
-                ]
+            [ text "Attention, la base de données mobilisée peut être réinitialisée à tout moment et vos modifications avec."
             ]
         , level = Alert.Warning
         , title = Nothing

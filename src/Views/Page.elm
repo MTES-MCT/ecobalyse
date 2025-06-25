@@ -7,10 +7,12 @@ module Views.Page exposing
     , restricted
     )
 
+import App
 import Browser exposing (Document)
 import Data.Dataset as Dataset
 import Data.Env as Env
 import Data.Github as Github
+import Data.Notification as Notification exposing (Notification)
 import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Html exposing (..)
@@ -20,10 +22,12 @@ import Json.Decode as Decode
 import RemoteData
 import Request.Version as Version exposing (Version(..))
 import Route
+import Toast
 import Views.Alert as Alert
 import Views.Container as Container
 import Views.Icon as Icon
 import Views.Link as Link
+import Views.Markdown as Markdown
 import Views.Spinner as Spinner
 
 
@@ -48,23 +52,17 @@ type MenuLink
 
 
 type alias Config msg =
-    { session : Session
+    { activePage : ActivePage
     , mobileNavigationOpened : Bool
-    , closeMobileNavigation : msg
-    , openMobileNavigation : msg
-    , loadUrl : String -> msg
-    , reloadPage : msg
-    , closeNotification : Session.Notification -> msg
-    , resetSessionStore : msg
-    , switchVersion : String -> msg
-    , activePage : ActivePage
+    , session : Session
+    , toMsg : App.Msg -> msg
+    , tray : Toast.Tray Notification
     }
 
 
 frame : Config msg -> ( String, List (Html msg) ) -> Document msg
 frame ({ activePage } as config) ( title, content ) =
-    { title = title ++ " | Ecobalyse"
-    , body =
+    { body =
         [ stagingAlert config
         , newVersionAlert config
         , pageHeader config
@@ -74,7 +72,11 @@ frame ({ activePage } as config) ( title, content ) =
           else
             text ""
         , main_ [ class "PageContent bg-white" ]
-            [ notificationListView config
+            [ -- general static notifications
+              notificationListView config
+
+            -- pop up notifications
+            , toastListView config
             , div
                 [ if activePage == Home then
                     class ""
@@ -86,7 +88,30 @@ frame ({ activePage } as config) ( title, content ) =
             ]
         , pageFooter config.session
         ]
+    , title = title ++ " | Ecobalyse"
     }
+
+
+toastListView : Config msg -> Html msg
+toastListView ({ toMsg, tray } as config) =
+    Toast.config (App.ToastMsg >> toMsg)
+        |> Toast.withTrayAttributes [ class "ToastTray" ]
+        |> Toast.withTransitionAttributes [ class "fade" ]
+        |> Toast.render (viewToast config) tray
+
+
+viewToast : Config msg -> List (Attribute msg) -> Toast.Info Notification -> Html msg
+viewToast { toMsg } attributes { content, id } =
+    Alert.simple
+        { attributes = attributes ++ [ class "Toast" ]
+        , close = Just (toMsg <| App.ToastMsg <| Toast.exit id)
+        , content =
+            [ content.message
+                |> Markdown.simple [ class "mb-1" ]
+            ]
+        , level = Notification.toAlertLevel content.level
+        , title = content.title
+        }
 
 
 isStaging : Session -> Bool
@@ -95,14 +120,14 @@ isStaging { clientUrl } =
 
 
 stagingAlert : Config msg -> Html msg
-stagingAlert { session, loadUrl } =
+stagingAlert { session, toMsg } =
     if isStaging session then
         div [ class "StagingAlert d-block d-sm-flex justify-content-center align-items-center mt-3" ]
             [ text "Vous êtes sur un environnement de recette. "
             , button
                 [ type_ "button"
                 , class "btn btn-link"
-                , onClick (loadUrl "https://ecobalyse.beta.gouv.fr/")
+                , onClick (toMsg <| App.LoadUrl "https://ecobalyse.beta.gouv.fr/")
                 ]
                 [ text "Retourner vers l'environnement de production" ]
             ]
@@ -112,7 +137,7 @@ stagingAlert { session, loadUrl } =
 
 
 newVersionAlert : Config msg -> Html msg
-newVersionAlert { session, reloadPage } =
+newVersionAlert { session, toMsg } =
     case session.currentVersion of
         Version.NewerVersion _ { tag } ->
             div [ class "NewVersionAlert d-block align-items-center" ]
@@ -125,7 +150,7 @@ newVersionAlert { session, reloadPage } =
                 , button
                     [ type_ "button"
                     , class "btn btn-outline-primary"
-                    , onClick reloadPage
+                    , onClick (toMsg App.ReloadPage)
                     ]
                     [ text "Mettre à jour" ]
                 ]
@@ -334,7 +359,7 @@ versionLink version =
 
 
 pageHeader : Config msg -> Html msg
-pageHeader { session, activePage, openMobileNavigation, loadUrl, switchVersion } =
+pageHeader { activePage, session, toMsg } =
     header
         [ class "Header shadow-sm"
         , classList [ ( "mb-2", activePage /= Home ) ]
@@ -346,7 +371,7 @@ pageHeader { session, activePage, openMobileNavigation, loadUrl, switchVersion }
                 , class "d-inline-block d-sm-none btn m-0 p-0"
                 , attribute "aria-label" "Ouvrir la navigation"
                 , title "Ouvrir la navigation"
-                , onClick openMobileNavigation
+                , onClick (toMsg App.OpenMobileNavigation)
                 ]
                 [ span [ class "fs-3" ] [ Icon.ham ] ]
             ]
@@ -359,7 +384,7 @@ pageHeader { session, activePage, openMobileNavigation, loadUrl, switchVersion }
                 -- https://dashlord.mte.incubateur.net/dashlord/url/ecobalyse-beta-gouv-fr/best-practices/#dsfr
                 , class "fr-header__brand"
                 , href "/"
-                , onClick (loadUrl "/")
+                , onClick (toMsg <| App.LoadUrl "/")
                 ]
                 [ img [ class "HeaderLogo", alt "République Française", src "img/republique-francaise.svg" ] []
                 , h1 [ class "HeaderTitle" ]
@@ -388,7 +413,7 @@ pageHeader { session, activePage, openMobileNavigation, loadUrl, switchVersion }
                 |> select
                     [ class "VersionSelector d-none d-sm-block form-select form-select-sm w-auto"
                     , attribute "data-testid" "version-selector"
-                    , onInput switchVersion
+                    , onInput <| toMsg << App.SwitchVersion
                     ]
             , div [ class "HeaderAuthLink flex-fill" ]
                 [ a
@@ -458,45 +483,44 @@ notificationListView ({ session } as config) =
 
 
 notificationView : Config msg -> Session.Notification -> Html msg
-notificationView { closeNotification, resetSessionStore, session } notification =
-    -- TODO:
-    -- - absolute positionning
-    -- - close button
-    -- - timeout
+notificationView { session, toMsg } notification =
+    let
+        closeNotification =
+            toMsg <| App.CloseNotification notification
+    in
     case notification of
         Session.BackendError backendError ->
-            backendError
-                |> Alert.backendError session (Just (closeNotification notification))
+            backendError |> Alert.backendError session (Just closeNotification)
 
         Session.GenericError title message ->
             Alert.simple
-                { level = Alert.Danger
-                , title = Just title
-                , close = Just (closeNotification notification)
+                { attributes = []
+                , close = Just closeNotification
                 , content = [ text message ]
-                }
-
-        Session.GenericInfo title message ->
-            Alert.simple
-                { level = Alert.Info
+                , level = Alert.Danger
                 , title = Just title
-                , close = Just (closeNotification notification)
-                , content = [ text message ]
                 }
 
         Session.StoreDecodingError decodeError ->
             Alert.simple
-                { level = Alert.Warning
-                , title = Just "Erreur de récupération de session"
+                { attributes = []
                 , close = Nothing
                 , content =
                     [ p [] [ text "Votre précédente session n'a pas pu être récupérée, elle doit donc être réinitialisée." ]
-                    , p [] [ button [ class "btn btn-primary", onClick resetSessionStore ] [ text "D’accord, réinitialiser la session" ] ]
+                    , p []
+                        [ button
+                            [ class "btn btn-primary"
+                            , onClick (toMsg App.ResetSessionStore)
+                            ]
+                            [ text "D’accord, réinitialiser la session" ]
+                        ]
                     , details []
                         [ summary [] [ text "Afficher les détails techniques de l'erreur" ]
                         , pre [] [ text <| Decode.errorToString decodeError ]
                         ]
                     ]
+                , level = Alert.Warning
+                , title = Just "Erreur de récupération de session"
                 }
 
 
@@ -530,7 +554,7 @@ loading =
 
 
 mobileNavigation : Config msg -> Html msg
-mobileNavigation { activePage, closeMobileNavigation, loadUrl, session } =
+mobileNavigation { activePage, session, toMsg } =
     div []
         [ div
             [ class "offcanvas offcanvas-start show"
@@ -548,7 +572,7 @@ mobileNavigation { activePage, closeMobileNavigation, loadUrl, session } =
                     [ type_ "button"
                     , class "btn-close text-reset"
                     , attribute "aria-label" "Close"
-                    , onClick closeMobileNavigation
+                    , onClick <| toMsg App.CloseMobileNavigation
                     ]
                     []
                 ]
@@ -568,7 +592,7 @@ mobileNavigation { activePage, closeMobileNavigation, loadUrl, session } =
                                     a
                                         [ class "nav-link"
                                         , href <| "/versions/" ++ release.tag
-                                        , onClick (loadUrl <| "/versions/" ++ release.tag)
+                                        , onClick (toMsg <| App.LoadUrl <| "/versions/" ++ release.tag)
                                         ]
                                         [ text release.tag ]
                             )

@@ -8,6 +8,7 @@ module Page.Textile exposing
     , view
     )
 
+import App exposing (PageUpdate)
 import Array
 import Autocomplete exposing (Autocomplete)
 import Browser.Dom as Dom
@@ -23,6 +24,7 @@ import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
+import Data.Notification as Notification
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Data.Split exposing (Split)
@@ -105,8 +107,7 @@ type Tab
 
 
 type Msg
-    = AddMaterial Material
-    | ConfirmSwitchToRegulatory
+    = ConfirmSwitchToRegulatory
     | CopyToClipBoard String
     | DeleteBookmark Bookmark
     | NoOp
@@ -156,7 +157,7 @@ type Msg
     | UpdateYarnSize (Maybe Unit.YarnSize)
 
 
-init : Definition.Trigram -> Maybe Query -> Session -> ( Model, Session, Cmd Msg )
+init : Definition.Trigram -> Maybe Query -> Session -> PageUpdate Model Msg
 init trigram maybeUrlQuery session =
     let
         initialQuery =
@@ -169,49 +170,50 @@ init trigram maybeUrlQuery session =
             initialQuery
                 |> Simulator.compute session.db
     in
-    ( { simulator = simulator
-      , bookmarkName = initialQuery |> suggestBookmarkName session
-      , bookmarkTab = BookmarkView.SaveTab
-      , comparisonType =
-            if Session.isAuthenticated session then
-                ComparatorView.Subscores
+    { simulator = simulator
+    , bookmarkName = initialQuery |> suggestBookmarkName session
+    , bookmarkTab = BookmarkView.SaveTab
+    , comparisonType =
+        if Session.isAuthenticated session then
+            ComparatorView.Subscores
 
-            else
-                ComparatorView.Steps
-      , initialQuery = initialQuery
-      , impact = Definition.get trigram session.db.definitions
-      , modal = NoModal
-      , activeTab =
-            if Query.isAdvancedQuery session.db.textile.products initialQuery then
-                ExploratoryTab
+        else
+            ComparatorView.Steps
+    , initialQuery = initialQuery
+    , impact = Definition.get trigram session.db.definitions
+    , modal = NoModal
+    , activeTab =
+        if Query.isAdvancedQuery session.db.textile.products initialQuery then
+            ExploratoryTab
 
-            else
-                RegulatoryTab
-      , activeImpactsTab = ImpactTabs.StepImpactsTab
-      }
-    , session
-        |> Session.updateTextileQuery initialQuery
-        |> (case simulator of
+        else
+            RegulatoryTab
+    , activeImpactsTab = ImpactTabs.StepImpactsTab
+    }
+        |> App.createUpdate (session |> Session.updateTextileQuery initialQuery)
+        |> App.withAppMsgs
+            (case simulator of
                 Err error ->
-                    Session.notifyError "Erreur de récupération des paramètres d'entrée" error
+                    [ App.AddToast (Notification.error "Erreur de récupération des paramètres d'entrée" error) ]
 
                 Ok _ ->
-                    identity
-           )
-    , case maybeUrlQuery of
-        -- If we do have an URL query, we either come from a bookmark, a saved simulation click or
-        -- we're tweaking params for the current simulation: we shouldn't reposition the viewport.
-        Just _ ->
-            Cmd.none
+                    []
+            )
+        |> App.withCmds
+            [ case maybeUrlQuery of
+                -- If we do have an URL query, we either come from a bookmark, a saved simulation click or
+                -- we're tweaking params for the current simulation: we shouldn't reposition the viewport.
+                Just _ ->
+                    Cmd.none
 
-        -- If we don't have an URL query, we may be coming from another app page, so we should
-        -- reposition the viewport at the top.
-        Nothing ->
-            Ports.scrollTo { x = 0, y = 0 }
-    )
+                -- If we don't have an URL query, we may be coming from another app page, so we should
+                -- reposition the viewport at the top.
+                Nothing ->
+                    Ports.scrollTo { x = 0, y = 0 }
+            ]
 
 
-initFromExample : Session -> Uuid -> ( Model, Session, Cmd Msg )
+initFromExample : Session -> Uuid -> PageUpdate Model Msg
 initFromExample session uuid =
     let
         example =
@@ -227,32 +229,31 @@ initFromExample session uuid =
             exampleQuery
                 |> Simulator.compute session.db
     in
-    ( { simulator = simulator
-      , bookmarkName = exampleQuery |> suggestBookmarkName session
-      , bookmarkTab = BookmarkView.SaveTab
-      , comparisonType = ComparatorView.Subscores
-      , initialQuery = exampleQuery
-      , impact = Definition.get Definition.Ecs session.db.definitions
-      , modal = NoModal
-      , activeTab =
-            if Query.isAdvancedQuery session.db.textile.products exampleQuery then
-                ExploratoryTab
+    { simulator = simulator
+    , bookmarkName = exampleQuery |> suggestBookmarkName session
+    , bookmarkTab = BookmarkView.SaveTab
+    , comparisonType = ComparatorView.Subscores
+    , initialQuery = exampleQuery
+    , impact = Definition.get Definition.Ecs session.db.definitions
+    , modal = NoModal
+    , activeTab =
+        if Query.isAdvancedQuery session.db.textile.products exampleQuery then
+            ExploratoryTab
 
-            else
-                RegulatoryTab
-      , activeImpactsTab = ImpactTabs.StepImpactsTab
-      }
-    , session
-        |> Session.updateTextileQuery exampleQuery
-        |> (case simulator of
+        else
+            RegulatoryTab
+    , activeImpactsTab = ImpactTabs.StepImpactsTab
+    }
+        |> App.createUpdate (session |> Session.updateTextileQuery exampleQuery)
+        |> App.withAppMsgs
+            (case simulator of
                 Err error ->
-                    Session.notifyError "Erreur de récupération des paramètres d'entrée" error
+                    [ App.AddToast (Notification.error "Erreur de récupération des paramètres d'entrée" error) ]
 
                 Ok _ ->
-                    identity
-           )
-    , Ports.scrollTo { x = 0, y = 0 }
-    )
+                    []
+            )
+        |> App.withCmds [ Ports.scrollTo { x = 0, y = 0 } ]
 
 
 suggestBookmarkName : Session -> Query -> String
@@ -283,358 +284,295 @@ suggestBookmarkName { db, store } query =
                 |> Result.withDefault ""
 
 
-updateQuery : Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
-updateQuery query ( model, session, commands ) =
-    ( { model
-        | simulator = query |> Simulator.compute session.db
-        , bookmarkName = query |> suggestBookmarkName session
-      }
-    , session |> Session.updateTextileQuery query
-    , commands
-    )
+updateQuery : Query -> PageUpdate Model Msg -> PageUpdate Model Msg
+updateQuery query ({ model, session } as pageUpdate) =
+    { pageUpdate
+        | model =
+            { model
+                | simulator = query |> Simulator.compute session.db
+                , bookmarkName = query |> suggestBookmarkName session
+            }
+        , session = session |> Session.updateTextileQuery query
+    }
 
 
-update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
+update : Session -> Msg -> Model -> PageUpdate Model Msg
 update ({ queries, navKey } as session) msg model =
     let
         query =
             queries.textile
     in
     case ( msg, model.modal ) of
-        ( AddMaterial material, _ ) ->
-            update session (SetModal NoModal) model
-                |> updateQuery (Query.addMaterial material query)
-
         ( ConfirmSwitchToRegulatory, _ ) ->
-            ( { model | modal = NoModal, activeTab = RegulatoryTab }, session, Cmd.none )
+            { model | modal = NoModal, activeTab = RegulatoryTab }
+                |> App.createUpdate session
                 |> updateQuery (Query.regulatory session.db.textile.products query)
 
         ( CopyToClipBoard shareableLink, _ ) ->
-            ( model, session, Ports.copyToClipboard shareableLink )
+            App.createUpdate session model
+                |> App.withCmds [ Ports.copyToClipboard shareableLink ]
 
         ( DeleteBookmark bookmark, _ ) ->
-            ( model
-            , session |> Session.deleteBookmark bookmark
-            , Cmd.none
-            )
+            App.createUpdate (session |> Session.deleteBookmark bookmark) model
 
         ( NoOp, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
 
         ( OpenComparator, _ ) ->
-            ( { model | modal = ComparatorModal }
-            , session |> Session.checkComparedSimulations
-            , Cmd.none
-            )
+            { model | modal = ComparatorModal }
+                |> App.createUpdate (session |> Session.checkComparedSimulations)
 
         ( OnAutocompleteTrim autocompleteMsg, AddTrimModal autocompleteState ) ->
             let
                 ( newAutocompleteState, autoCompleteCmd ) =
                     Autocomplete.update autocompleteMsg autocompleteState
             in
-            ( { model | modal = AddTrimModal newAutocompleteState }
-            , session
-            , Cmd.map OnAutocompleteTrim autoCompleteCmd
-            )
+            { model | modal = AddTrimModal newAutocompleteState }
+                |> App.createUpdate session
+                |> App.withCmds [ Cmd.map OnAutocompleteTrim autoCompleteCmd ]
 
         ( OnAutocompleteTrim _, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
 
         ( OnAutocompleteExample autocompleteMsg, SelectExampleModal autocompleteState ) ->
             let
                 ( newAutocompleteState, autoCompleteCmd ) =
                     Autocomplete.update autocompleteMsg autocompleteState
             in
-            ( { model | modal = SelectExampleModal newAutocompleteState }
-            , session
-            , Cmd.map OnAutocompleteExample autoCompleteCmd
-            )
+            { model | modal = SelectExampleModal newAutocompleteState }
+                |> App.createUpdate session
+                |> App.withCmds [ Cmd.map OnAutocompleteExample autoCompleteCmd ]
 
         ( OnAutocompleteExample _, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
 
         ( OnAutocompleteProduct autocompleteMsg, SelectProductModal autocompleteState ) ->
             let
                 ( newAutocompleteState, autoCompleteCmd ) =
                     Autocomplete.update autocompleteMsg autocompleteState
             in
-            ( { model | modal = SelectProductModal newAutocompleteState }
-            , session
-            , Cmd.map OnAutocompleteProduct autoCompleteCmd
-            )
+            { model | modal = SelectProductModal newAutocompleteState }
+                |> App.createUpdate session
+                |> App.withCmds [ Cmd.map OnAutocompleteProduct autoCompleteCmd ]
 
         ( OnAutocompleteProduct _, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
 
         ( OnAutocompleteMaterial autocompleteMsg, AddMaterialModal maybeOldMaterial autocompleteState ) ->
             let
                 ( newAutocompleteState, autoCompleteCmd ) =
                     Autocomplete.update autocompleteMsg autocompleteState
             in
-            ( { model | modal = AddMaterialModal maybeOldMaterial newAutocompleteState }
-            , session
-            , Cmd.map OnAutocompleteMaterial autoCompleteCmd
-            )
+            { model | modal = AddMaterialModal maybeOldMaterial newAutocompleteState }
+                |> App.createUpdate session
+                |> App.withCmds [ Cmd.map OnAutocompleteMaterial autoCompleteCmd ]
 
         ( OnAutocompleteMaterial _, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
 
         ( OnAutocompleteSelect, AddMaterialModal maybeOldMaterial autocompleteState ) ->
-            updateMaterial query model session maybeOldMaterial autocompleteState
+            App.createUpdate session model
+                |> updateMaterial query maybeOldMaterial autocompleteState
 
         ( OnAutocompleteSelect, AddTrimModal autocompleteState ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> selectTrim autocompleteState
 
         ( OnAutocompleteSelect, SelectExampleModal autocompleteState ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> selectExample autocompleteState
 
         ( OnAutocompleteSelect, SelectProductModal autocompleteState ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> selectProduct autocompleteState
 
         ( OnAutocompleteSelect, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
 
         ( OnStepClick stepId, _ ) ->
-            ( model
-            , session
-            , Ports.scrollIntoView stepId
-            )
+            App.createUpdate session model
+                |> App.withCmds [ Ports.scrollIntoView stepId ]
 
         ( RemoveMaterial materialId, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery (Query.removeMaterial materialId query)
 
         ( RemoveTrim itemIndex, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery (query |> Query.updateTrims (LE.removeAt itemIndex))
 
         ( Reset, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery model.initialQuery
 
         ( SaveBookmark, _ ) ->
-            ( model
-            , session
-            , Time.now
-                |> Task.perform
-                    (SaveBookmarkWithTime model.bookmarkName
-                        (Bookmark.Textile query)
-                    )
-            )
+            App.createUpdate session model
+                |> App.withCmds
+                    [ Time.now
+                        |> Task.perform
+                            (SaveBookmarkWithTime model.bookmarkName
+                                (Bookmark.Textile query)
+                            )
+                    ]
 
         ( SaveBookmarkWithTime name foodQuery now, _ ) ->
-            ( model
-            , session
-                |> Session.saveBookmark
-                    { name = String.trim name
-                    , query = foodQuery
-                    , created = now
-                    , subScope = Nothing
-                    , version = Version.toMaybe session.currentVersion
-                    }
-            , Cmd.none
-            )
+            App.createUpdate
+                (session
+                    |> Session.saveBookmark
+                        { name = String.trim name
+                        , query = foodQuery
+                        , created = now
+                        , subScope = Nothing
+                        , version = Version.toMaybe session.currentVersion
+                        }
+                )
+                model
 
         ( SelectAllBookmarks, _ ) ->
-            ( model, Session.selectAllBookmarks session, Cmd.none )
+            App.createUpdate (Session.selectAllBookmarks session) model
 
         ( SelectNoBookmarks, _ ) ->
-            ( model, Session.selectNoBookmarks session, Cmd.none )
+            App.createUpdate (Session.selectNoBookmarks session) model
 
-        ( SetModal NoModal, _ ) ->
-            ( { model | modal = NoModal }
-            , session
-            , commandsForNoModal model.modal
-            )
-
-        ( SetModal (AddTrimModal autocomplete), _ ) ->
-            ( { model | modal = AddTrimModal autocomplete }
-            , session
-            , Cmd.batch
-                [ Ports.addBodyClass "prevent-scrolling"
-                , Dom.focus "element-search"
-                    |> Task.attempt (always NoOp)
-                ]
-            )
-
-        ( SetModal (AddMaterialModal maybeOldMaterial autocomplete), _ ) ->
-            ( { model | modal = AddMaterialModal maybeOldMaterial autocomplete }
-            , session
-            , Cmd.batch
-                [ Ports.addBodyClass "prevent-scrolling"
-                , Dom.focus "element-search"
-                    |> Task.attempt (always NoOp)
-                ]
-            )
-
-        ( SetModal ComparatorModal, _ ) ->
-            ( { model | modal = ComparatorModal }
-            , session
-            , Ports.addBodyClass "prevent-scrolling"
-            )
-
-        ( SetModal ConfirmSwitchToRegulatoryModal, _ ) ->
-            ( { model | modal = ConfirmSwitchToRegulatoryModal }
-            , session
-            , Cmd.none
-            )
-
-        ( SetModal (ExplorerDetailsTab material), _ ) ->
-            ( { model | modal = ExplorerDetailsTab material }
-            , session
-            , Ports.addBodyClass "prevent-scrolling"
-            )
-
-        ( SetModal (SelectExampleModal autocomplete), _ ) ->
-            ( { model | modal = SelectExampleModal autocomplete }
-            , session
-            , Ports.addBodyClass "prevent-scrolling"
-            )
-
-        ( SetModal (SelectProductModal autocomplete), _ ) ->
-            ( { model | modal = SelectProductModal autocomplete }
-            , session
-            , Ports.addBodyClass "prevent-scrolling"
-            )
+        ( SetModal modal, _ ) ->
+            { model | modal = modal }
+                |> App.createUpdate session
+                |> App.withCmds [ commandsForModal modal ]
 
         ( SwitchBookmarksTab bookmarkTab, _ ) ->
-            ( { model | bookmarkTab = bookmarkTab }
-            , session
-            , Cmd.none
-            )
+            { model | bookmarkTab = bookmarkTab }
+                |> App.createUpdate session
 
         ( SwitchComparisonType displayChoice, _ ) ->
-            ( { model | comparisonType = displayChoice }, session, Cmd.none )
+            { model | comparisonType = displayChoice }
+                |> App.createUpdate session
 
         ( SwitchImpact (Ok trigram), _ ) ->
-            ( model
-            , session
-            , Just query
-                |> Route.TextileSimulator trigram
-                |> Route.toString
-                |> Navigation.pushUrl navKey
-            )
+            App.createUpdate session model
+                |> App.withCmds
+                    [ Just query
+                        |> Route.TextileSimulator trigram
+                        |> Route.toString
+                        |> Navigation.pushUrl navKey
+                    ]
 
         ( SwitchImpact (Err error), _ ) ->
-            ( model
-            , session |> Session.notifyError "Erreur de sélection d'impact: " error
-            , Cmd.none
-            )
+            App.createUpdate session model
+                |> App.notifyError "Erreur de sélection d'impact: " error
 
         ( SwitchImpactsTab impactsTab, _ ) ->
-            ( { model | activeImpactsTab = impactsTab }
-            , session
-            , Cmd.none
-            )
+            { model | activeImpactsTab = impactsTab }
+                |> App.createUpdate session
 
         ( SwitchTab RegulatoryTab, _ ) ->
-            if Query.isAdvancedQuery session.db.textile.products query then
-                ( { model | modal = ConfirmSwitchToRegulatoryModal }, session, Cmd.none )
+            App.createUpdate session
+                (if Query.isAdvancedQuery session.db.textile.products query then
+                    { model | modal = ConfirmSwitchToRegulatoryModal }
 
-            else
-                ( { model | activeTab = RegulatoryTab }, session, Cmd.none )
+                 else
+                    { model | activeTab = RegulatoryTab }
+                )
 
         ( SwitchTab ExploratoryTab, _ ) ->
-            ( { model | activeTab = ExploratoryTab }, session, Cmd.none )
+            { model | activeTab = ExploratoryTab }
+                |> App.createUpdate session
 
         ( ToggleComparedSimulation bookmark checked, _ ) ->
-            ( model
-            , session |> Session.toggleComparedSimulation bookmark checked
-            , Cmd.none
-            )
+            model
+                |> App.createUpdate (session |> Session.toggleComparedSimulation bookmark checked)
 
         ( ToggleFading fading, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery { query | fading = Just fading }
 
         ( ToggleStep label, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery (Query.toggleStep label query)
 
         ( UpdateAirTransportRatio airTransportRatio, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery { query | airTransportRatio = airTransportRatio }
 
         ( UpdateBookmarkName newName, _ ) ->
-            ( { model | bookmarkName = newName }, session, Cmd.none )
+            { model | bookmarkName = newName }
+                |> App.createUpdate session
 
         ( UpdateBusiness (Ok business), _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery { query | business = Just business }
 
         ( UpdateBusiness (Err error), _ ) ->
-            ( model, session |> Session.notifyError "Erreur de type d'entreprise" error, Cmd.none )
+            App.createUpdate session model
+                |> App.notifyError "Erreur de type d'entreprise" error
 
         ( UpdateDyeingProcessType dyeingProcessType, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery { query | dyeingProcessType = Just dyeingProcessType }
 
         ( UpdateFabricProcess fabricProcess, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery { query | fabricProcess = Just fabricProcess }
 
         ( UpdatePhysicalDurability physicalDurability, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery { query | physicalDurability = physicalDurability }
 
         ( UpdateMakingComplexity makingComplexity, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery { query | makingComplexity = Just makingComplexity }
 
         ( UpdateMakingWaste makingWaste, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery { query | makingWaste = makingWaste }
 
         ( UpdateMakingDeadStock makingDeadStock, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery { query | makingDeadStock = makingDeadStock }
 
         ( UpdateMassInput massInput, _ ) ->
-            case massInput |> String.toFloat |> Maybe.map Mass.kilograms of
-                Just mass ->
-                    ( model, session, Cmd.none )
-                        |> updateQuery { query | mass = mass }
+            App.createUpdate session model
+                |> (case massInput |> String.toFloat |> Maybe.map Mass.kilograms of
+                        Just mass ->
+                            updateQuery { query | mass = mass }
 
-                Nothing ->
-                    ( model, session, Cmd.none )
+                        Nothing ->
+                            identity
+                   )
 
         ( UpdateMaterial oldMaterial newMaterial, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery (Query.updateMaterial oldMaterial.id newMaterial query)
 
         ( UpdateMaterialSpinning material spinning, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery (Query.updateMaterialSpinning material spinning query)
 
         ( UpdateNumberOfReferences numberOfReferences, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery { query | numberOfReferences = numberOfReferences }
 
         ( UpdatePrice price, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery { query | price = price }
 
         ( UpdatePrinting printing, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery { query | printing = printing }
 
         ( UpdateStepCountry label code, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery (Query.updateStepCountry label code query)
 
         ( UpdateSurfaceMass surfaceMass, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery { query | surfaceMass = surfaceMass }
 
         ( UpdateTraceability traceability, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery { query | traceability = Just traceability }
 
         ( UpdateTrimQuantity trimIndex quantity, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery
                     (query
                         |> Query.updateTrims
@@ -642,52 +580,30 @@ update ({ queries, navKey } as session) msg model =
                     )
 
         ( UpdateUpcycled upcycled, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery { query | upcycled = upcycled }
 
         ( UpdateYarnSize yarnSize, _ ) ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
                 |> updateQuery { query | yarnSize = yarnSize }
 
 
-commandsForNoModal : Modal -> Cmd Msg
-commandsForNoModal modal =
+commandsForModal : Modal -> Cmd Msg
+commandsForModal modal =
     case modal of
-        AddMaterialModal maybeOldMaterial _ ->
-            Cmd.batch
-                [ Ports.removeBodyClass "prevent-scrolling"
-                , Dom.focus
-                    -- This whole "node to focus" management is happening as a fallback
-                    -- if the modal was closed without choosing anything.
-                    -- If anything has been chosen, then the focus will be done in `OnAutocompleteSelect`
-                    -- and overload any focus being done here.
-                    (maybeOldMaterial
-                        |> Maybe.map (.material >> .id >> Material.idToString >> (++) "selector-")
-                        |> Maybe.withDefault "add-new-element"
-                    )
-                    |> Task.attempt (always NoOp)
-                ]
+        NoModal ->
+            Ports.removeBodyClass "prevent-scrolling"
 
-        SelectExampleModal _ ->
+        _ ->
             Cmd.batch
-                [ Ports.removeBodyClass "prevent-scrolling"
+                [ Ports.addBodyClass "prevent-scrolling"
                 , Dom.focus "selector-example"
                     |> Task.attempt (always NoOp)
                 ]
 
-        SelectProductModal _ ->
-            Cmd.batch
-                [ Ports.removeBodyClass "prevent-scrolling"
-                , Dom.focus "selector-product"
-                    |> Task.attempt (always NoOp)
-                ]
 
-        _ ->
-            Ports.removeBodyClass "prevent-scrolling"
-
-
-updateExistingMaterial : Query -> Model -> Session -> Inputs.MaterialInput -> Material -> ( Model, Session, Cmd Msg )
-updateExistingMaterial query model session oldMaterial newMaterial =
+updateExistingMaterial : Query -> PageUpdate Model Msg -> Inputs.MaterialInput -> Material -> PageUpdate Model Msg
+updateExistingMaterial query { model, session } oldMaterial newMaterial =
     let
         materialQuery : MaterialQuery
         materialQuery =
@@ -697,26 +613,26 @@ updateExistingMaterial query model session oldMaterial newMaterial =
             , country = Nothing
             }
     in
-    model
-        |> update session (SetModal NoModal)
+    { model | modal = NoModal }
+        |> App.createUpdate session
         |> updateQuery (Query.updateMaterial oldMaterial.material.id materialQuery query)
         |> focusNode ("selector-" ++ Material.idToString newMaterial.id)
 
 
-updateMaterial : Query -> Model -> Session -> Maybe Inputs.MaterialInput -> Autocomplete Material -> ( Model, Session, Cmd Msg )
-updateMaterial query model session maybeOldMaterial autocompleteState =
+updateMaterial : Query -> Maybe Inputs.MaterialInput -> Autocomplete Material -> PageUpdate Model Msg -> PageUpdate Model Msg
+updateMaterial query maybeOldMaterial autocompleteState ({ model, session } as pageUpdate) =
     let
         maybeSelectedValue =
             Autocomplete.selectedValue autocompleteState
     in
     Maybe.map2
-        (updateExistingMaterial query model session)
+        (updateExistingMaterial query pageUpdate)
         maybeOldMaterial
         maybeSelectedValue
         |> Maybe.withDefault
             -- Add a new Material
-            (model
-                |> update session (SetModal NoModal)
+            ({ model | modal = NoModal }
+                |> App.createUpdate session
                 |> selectMaterial autocompleteState
                 |> focusNode
                     (maybeSelectedValue
@@ -726,66 +642,65 @@ updateMaterial query model session maybeOldMaterial autocompleteState =
             )
 
 
-focusNode : String -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
-focusNode node ( model, session, commands ) =
-    ( model
-    , session
-    , Cmd.batch
-        [ commands
-        , Dom.focus node
-            |> Task.attempt (always NoOp)
-        ]
-    )
+focusNode : String -> PageUpdate Model Msg -> PageUpdate Model Msg
+focusNode node { model, session } =
+    App.createUpdate session model
+        |> App.withCmds
+            [ Dom.focus node
+                |> Task.attempt (always NoOp)
+            ]
 
 
-selectExample : Autocomplete Query -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
-selectExample autocompleteState ( model, session, _ ) =
+selectExample : Autocomplete Query -> PageUpdate Model Msg -> PageUpdate Model Msg
+selectExample autocompleteState ({ model, session } as pageUpdate) =
     let
         example =
             Autocomplete.selectedValue autocompleteState
                 |> Maybe.withDefault Query.default
     in
-    update session (SetModal NoModal) { model | initialQuery = example }
+    { pageUpdate
+        | model = { model | initialQuery = example, modal = NoModal }
+        , session = session |> Session.updateTextileQuery example
+    }
         |> updateQuery example
 
 
-selectTrim : Autocomplete Component -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
-selectTrim autocompleteState ( model, session, _ ) =
+selectTrim : Autocomplete Component -> PageUpdate Model Msg -> PageUpdate Model Msg
+selectTrim autocompleteState { model, session } =
     case Autocomplete.selectedValue autocompleteState of
         Just trim ->
             update session (SetModal NoModal) model
                 |> updateQuery (session.queries.textile |> Query.updateTrims (Component.addItem trim.id))
 
         Nothing ->
-            ( model, session |> Session.notifyError "Erreur" "Aucun accessoire sélectionné", Cmd.none )
+            App.createUpdate session model
+                |> App.notifyError "Erreur" "Aucun accessoire sélectionné"
 
 
-selectProduct : Autocomplete Product -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
-selectProduct autocompleteState ( model, session, _ ) =
+selectProduct : Autocomplete Product -> PageUpdate Model Msg -> PageUpdate Model Msg
+selectProduct autocompleteState ({ model, session } as pageUpdate) =
     case Autocomplete.selectedValue autocompleteState of
         Just product ->
-            update session (SetModal NoModal) model
+            pageUpdate
+                |> App.apply update (SetModal NoModal)
                 |> updateQuery (Query.updateProduct product session.queries.textile)
 
         Nothing ->
-            model
-                |> update (session |> Session.notifyError "Erreur" "Aucun produit sélectionné") (SetModal NoModal)
+            App.createUpdate session model
+                |> App.notifyError "Erreur" "Aucun produit sélectionné"
 
 
-selectMaterial : Autocomplete Material -> ( Model, Session, Cmd Msg ) -> ( Model, Session, Cmd Msg )
-selectMaterial autocompleteState ( model, session, _ ) =
-    let
-        material =
-            Autocomplete.selectedValue autocompleteState
-                |> Maybe.map Just
-                |> Maybe.withDefault (List.head (Autocomplete.choices autocompleteState))
+selectMaterial : Autocomplete Material -> PageUpdate Model Msg -> PageUpdate Model Msg
+selectMaterial autocompleteState ({ model, session } as pageUpdate) =
+    case Autocomplete.selectedValue autocompleteState of
+        Just material ->
+            pageUpdate
+                |> App.apply update (SetModal NoModal)
+                |> updateQuery (Query.addMaterial material session.queries.textile)
 
-        msg =
-            material
-                |> Maybe.map AddMaterial
-                |> Maybe.withDefault NoOp
-    in
-    update session msg model
+        Nothing ->
+            App.createUpdate session model
+                |> App.notifyError "Erreur" "Aucun matériau sélectionné"
 
 
 productCategoryField : TextileDb.Db -> Query -> Html Msg
@@ -1239,7 +1154,8 @@ view session model =
             (case model.simulator of
                 Err error ->
                     [ Alert.simple
-                        { level = Alert.Danger
+                        { attributes = []
+                        , level = Alert.Danger
                         , close = Nothing
                         , title = Just "Erreur"
                         , content = [ text error ]
