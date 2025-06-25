@@ -74,7 +74,87 @@ Ces deux paramètres sont facilement intelligibles (cf. formule de calcul) et ne
 
 `Ref(i)`&#x20;
 
-Ce paramètre caractériser l'impact biodiversité (ref) d'un bois (i) et s'exprime en en  points d'impacts par kg de bois (Pt / kg de bois).
+Ce paramètre reflète l'impact biodiversité (ref) d'un bois (i). Cet impact s'exprime en points d'impacts par kg de bois (Pt / kg de bois).
+
+#### Détails du calcul
+
+Ref(i) est calculé à partir de deux variables :&#x20;
+
+* un coefficient de Gestion forestière (GF) exprimé en points d'impacts par kg de bois,
+* &#x20;un Indice de corruption (IC) exprimé en %.
+
+<details>
+
+<summary>Coefficient de Gestion Forestière (GF)</summary>
+
+_Unité = Points d'impact / kg de bois_
+
+Ce paramètre caractérise l'impact sur la biodiversité de différents modes de gestion forestière.&#x20;
+
+3 catégories de gestion forestière sont proposés :&#x20;
+
+* Intensive = 10 Pts d'impact / kg de bois
+* Mitigée = 5 Pts d'impact / kg de bois
+* Raisonnée = 0 Pts d'impact / kg de bois
+
+{% hint style="info" %}
+**En savoir plus**
+
+Pour chaque filière d'approvisionnement (ex : Bois tropical \_ Asie du Sud-Est), un mode de gestion forestière par défaut est appliqué (ex : _Mitigée_ pour les résineux en provenance d'Europe de l'Ouest). Ces scénarios visent à différencier différentes filières d'approvisionnement selon leur niveau de risque d'un point de vue gestion forestière <⇒ biodiversité.&#x20;
+
+Les valeurs par défaut se basent sur l'état de l'art compilé par Ecobalyse dans le cadre des travaux menés sur le premier semestre 2025. Concrètement, le mode de gestion forestière appliqué par défaut vise à distinguer les pratiques intensives (ex : forêts de plantation) de pratiques raisonnées (ex : futaire irrégulière). Effectivement, un lien direct existe entre le mode de gestion forestière et la biodiversité au sein de tous les compartiments de l'ecosystème. &#x20;
+
+Les principales sources utilisées pour estimer ces paramètre par origine sont :&#x20;
+
+* des outils d'imagerie satellitaire permettant d'identifier les régions sylvicoles proposant une exploitation intensive des forêts ([carte 1](https://gfw.global/4kZ6RaB) de gains et pertes de couvert forestier entre 2000 et 2020 / [carte 2](https://gfw.global/41N4ujO) présentant les forêts de plantation),
+* des ressources bibliographiques permettant de mieux comprendre les régions sylvicoles à risque concernant leur gestion des forêts,
+* des entretiens et ateliers avec les filières Ameublement et Bois/Forêt (ex : atelier Sylviculture du 30/01/2025; support accessible [ici](https://miro.com/app/board/uXjVLn9pEjg=/?share_link_id=467200481479)).
+{% endhint %}
+
+</details>
+
+<details>
+
+<summary>Indice Corruption (IC) </summary>
+
+_Unité = % (majoration de GF de +x%)_&#x20;
+
+Le niveau de corruption d'une zone géographique spécifique renforce le risque de pratiques forestières néfastes pour les écosystèmes.&#x20;
+
+Pour approfondir ce constat voici deux sources d'intérêt (non exhaustif) :\
+(i) _règlement UE 2023/1115 relatif aux produits "zéro déforestation",_ \
+(ii) _WWF  Evaluation de la mise en oeuvre du RBUE  fiche d'évaluation pays : France_),\
+(iii) une étude de l'Africa Center (organisme américain) sur le bassin du Congo (accessible [ici](https://africacenter.org/fr/spotlight/lexploitation-forestiere-illegale-en-afrique-et-ses-implications-en-matiere-de-securite/)).
+
+Ce paramètre vise donc à refléter les risques accrus en terme de biodiversité associés à des bois issus de zones soumises à des niveaux importants de corruption.&#x20;
+
+&#x20;Le niveau de corruption est estimé grâce au _Corruption Perception Index (score CPI)_ développé par Transparency International (cf. ci-dessous).
+
+3 niveaux de corruption sont proposés :&#x20;
+
+* Elevé (score CPI inférieur à 30)
+
+- Moyen (score CPI entre 30 et 59)
+
+* Faible (score CP au moins égal à 60)
+
+Pour chaque niveau, un **coefficient de corruption (COR)** est appliqué; ce dernier vient préciser l'impact Biodiversité (BIO) du bois :&#x20;
+
+| Elevé | Moyen | Faible |
+| ----- | ----- | ------ |
+| +50%  | +25%  | 0%     |
+
+{% hint style="info" %}
+**En savoir plus**&#x20;
+
+Cet indice est basé sur le [Corruption Perceptions Index](https://www.transparency.org/en/cpi/2023) (CPI) de l'année 2023.&#x20;
+
+Le CPI vise à mesurer les niveaux de corruption perçus dans le secteur public à travers le monde. Cet indice annuel est publié par Transparency International, une organisation non gouvernementale qui lutte contre la corruption.\
+L'indice est basé sur des enquêtes et des évaluations d'experts qui portent sur divers aspects de la corruption, tels que l'abus de pouvoir public à des fins privées, les pots-de-vin, et la détournement de fonds publics.\
+Les pays sont notés sur une échelle de 0 à 100, où 0 signifie un niveau de corruption perçu très élevé et 100 signifie un niveau très faible.
+{% endhint %}
+
+</details>
 
 #### Liste des bois disponibles (i) et de leurs impacts biodiversité (Ref)&#x20;
 
@@ -103,80 +183,6 @@ Principales sources utilisées pour ces statistiques :&#x20;
 
 </details>
 
-#### &#x20;Calcul des Ref (i) &#x20;
-
-L'impact biodiversité de chaque bois est calculé à partir de deux paramètres :&#x20;
-
-* un coefficient de Gestion forestière (GF)
-* &#x20;un Indice de corruption (IC).
-
-<details>
-
-<summary>Coefficient de Gestion Forestière (GF)</summary>
-
-_Unité = Points d'impact / kg de bois_
-
-Ce paramètre caractérise le mode de gestion forestière de chaque bois (i) entrant dans la composition du meuble.&#x20;
-
-3 mode de gestion forestière sont proposés :&#x20;
-
-* Intensive = 10 Pts d'impact / kg de bois
-* Mitigée = 5 Pts d'impact / kg de bois
-* Raisonnée = 0 Pts d'impact / kg de bois
-
-{% hint style="info" %}
-**Focus \_ Gestion Forestière (GF)**
-
-Pour chaque filière d'approvisionnement proposée (ex : Bois tropical \_ Asie du Sud-Est), le mode de gestion forestière (Intensive / Mitigée / Raisonnée) appliqué par défaut est basé sur une hypothèse majorant&#x65;_._ L'utilisation d'une telle hypothèse pénalisante, couplée à la possibilité de préciser ce scénario, permet de prendre en compte les pratiques vertueuses (ex : traçabilité jusqu'à la parcelle, utilisation de label, etc.)  tout en incitant à plus de traçabilité.&#x20;
-
-Les valeurs par défaut se basent sur l'état de l'art compilé par Ecobalyse dans le cadre des travaux menés sur le premier semestre 2025. Concrètement, le mode de gestion forestière appliqué par défaut vise à distinguer les pratiques intensives (ex : forêts de plantation) de pratiques raisonnées (ex : futaire irrégulière). Un lien direct existe entre le mode de gestion forestière et la biodiversité au sein de tous les compartiments de l'ecosystème. &#x20;
-
-Les principales sources utilisées pour estimer ces paramètre par origine sont :&#x20;
-
-* des outils d'imagerie satellitaire permettant d'identifier les régions sylvicoles proposant une exploitation intensive des forêts ([carte 1](https://gfw.global/4kZ6RaB) de gains et pertes de couvert forestier entre 2000 et 2020 / [carte 2](https://gfw.global/41N4ujO) présentant les forêts de plantation),
-* des ressources bibliographiques permettant de mieux comprendre les régions sylvicoles à risque concernant leur gestion des forêts,
-* des entretiens et ateliers avec les filières Ameublement et Bois/Forêt (ex : atelier Sylviculture du 30/01/2025; support accessible [ici](https://miro.com/app/board/uXjVLn9pEjg=/?share_link_id=467200481479)).
-{% endhint %}
-
-</details>
-
-<details>
-
-<summary>Indice Corruption (IC) </summary>
-
-_Unité = % (majoration de GF de +x%)_&#x20;
-
-La réalité de la gestion forestière à l'échelle globale ne peut s'appréhender uniquement par les règlementations et les recommandations sylvicoles. En effet, une problématique avérée de la filière bois porte sur les mauvaises pratiques et le manque de traçabilité, avec des règlementations non respectées dans certains contextes et des risques élevés de corruption. Le risque de corruption aggrave le risque de mauvaises pratiques affectant des zones parfois particulièrement riches en termes de biodiversité. \
-Ce paramètre vise donc à refléter les risques accrus en terme de biodiversité associés à des bois issus de zones soumises à des niveaux importants de corruption.&#x20;
-
-&#x20;Le niveau de corruption est estimé grâce au _Corruption Perception Index (score CPI)_ développé par Transparency International (cf. ci-dessous).
-
-3 niveaux de corruption sont proposés :&#x20;
-
-* Elevé (score CPI inférieur à 30)
-
-- Moyen (score CPI entre 30 et 59)
-
-* Faible (score CP au moins égal à 60)
-
-Pour chaque niveau, un **coefficient de corruption (COR)** est appliqué; ce dernier vient préciser l'impact Biodiversité (BIO) du bois :&#x20;
-
-| Elevé | Moyen | Faible |
-| ----- | ----- | ------ |
-| +50%  | +25%  | 0%     |
-
-
-
-**Détails**
-
-Cet indice est basé sur le [Corruption Perceptions Index](https://www.transparency.org/en/cpi/2023) (CPI) de l'année 2023.&#x20;
-
-Le CPI vise à mesurer les niveaux de corruption perçus dans le secteur public à travers le monde. Cet indice annuel est publié par Transparency International, une organisation non gouvernementale qui lutte contre la corruption.\
-L'indice est basé sur des enquêtes et des évaluations d'experts qui portent sur divers aspects de la corruption, tels que l'abus de pouvoir public à des fins privées, les pots-de-vin, et la détournement de fonds publics.\
-Les pays sont notés sur une échelle de 0 à 100, où 0 signifie un niveau de corruption perçu très élevé et 100 signifie un niveau très faible.
-
-</details>
-
 {% hint style="info" %}
 Afin de couvrir toutes les configurations possibles, deux scénarios non spécifiques à une origine ont été intégrés dans la méthode :&#x20;
 
@@ -186,27 +192,20 @@ Afin de couvrir toutes les configurations possibles, deux scénarios non spécif
 
 `label`&#x20;
 
-Certains labels participent à réduire le risque qu'un bois soit issu de pratiques participant à la dégradation des forêts.&#x20;
+Certaines certifications participent à garantir des pratiques sylvicole plus respectueuse des écosystèmes sur une géographique spécifique.&#x20;
 
-Dès lors, la présence d'une des certifications suivantes permet de préciser l'impact biodiversité de bois en réduisant ce dernier de -50%.&#x20;
+Dès lors, la présence d'une certification acceptée par le dispositif permet de préciser l'impact biodiversité de bois en réduisant ce dernier de -50%.&#x20;
+
+Liste des certifications acceptées :&#x20;
+
+* PEFC
+* FSC
 
 {% hint style="info" %}
-**Logique clé**
+**Logique clé applicable**
 
-Lorsque des enjeux clés du cycle de vie de produits sont difficilement quantifiables (ex : microfibres dans le Textilen biodiversité bois dans l'Ameublement, etc.), il est préférable de les întégrer dans le coût environnemental plutôt que de les exclure. &#x20;
+Lorsque des enjeux clés du cycle de vie de produits sont difficilement quantifiables (ex : microfibres dans le Textilen, biodiversité bois dans l'Ameublement, etc.), il est préférable de les intégrer dans le coût environnemental plutôt que de ne pas les intégrer au motif que leur quantification est difficile.&#x20;
 {% endhint %}
-
-<details>
-
-<summary><mark style="color:orange;">Certifications / Label (optionnel / à creuser)</mark></summary>
-
-Une piste envisagée est d'utiliser des certifications afin de valoriser des pratiques durables d'un point de vue gestion forestière <⇒ biodiversité. Une telle prise en compte se matérialiserait par une réduction de <mark style="color:red;">x%</mark> du coefficient GF (Gestion forestière).&#x20;
-
-Les deux principaux labels utilisés sur le marché de l'ameublement sont FSC et PEFC.&#x20;
-
-Nous étudions actuellement la fiabilité et la pertinence de ces derniers par rapport à l'objectif de ce complément.
-
-</details>
 
 ## Exemple d'application
 
