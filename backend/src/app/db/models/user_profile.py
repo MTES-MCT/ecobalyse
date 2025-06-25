@@ -36,3 +36,11 @@ class UserProfile(UUIDAuditBase):
         back_populates="profile", innerjoin=True, uselist=False, lazy="joined"
     )
     user_email: AssociationProxy[str] = association_proxy("user", "email")
+
+    @property
+    def organization(self):
+        return {
+            "name": self.organization_name,
+            "type": self.organization_type,
+            "siren": self.organization_siren,
+        }

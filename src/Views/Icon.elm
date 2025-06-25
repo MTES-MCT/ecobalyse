@@ -61,6 +61,11 @@ info =
     icon "info"
 
 
+list : Html msg
+list =
+    icon "list"
+
+
 lock : Html msg
 lock =
     icon "lock"

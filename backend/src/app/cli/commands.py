@@ -16,7 +16,7 @@ from app.domain.accounts.schemas import (
     UserCreate,
 )
 from app.domain.accounts.services import UserService
-from app.domain.components.services import ComponentService
+from app.domain.components.deps import provide_components_service
 from rich import get_console
 from structlog import get_logger
 
@@ -43,6 +43,87 @@ async def load_database_fixtures() -> None:
         fixture_data = await open_fixture_async(fixtures_path, "user")
         await service.create_many(data=fixture_data, auto_commit=True)
         await logger.ainfo("loaded users")
+
+
+async def _create_user(
+    email: str,
+    first_name: str,
+    last_name: str,
+    organization: str | None,
+    superuser: bool = False,
+    is_active: bool = True,
+) -> None:
+    obj_in = UserCreate(
+        email=email,
+        first_name=first_name,
+        last_name=last_name,
+        organization=OrganizationCreate(
+            name=organization, type=OrganizationType.LOCAL_AUTHORITY
+        ),
+        is_superuser=superuser,
+        is_active=is_active,
+        terms_accepted=True,
+    )
+
+    console = get_console()
+
+    async with alchemy.get_session() as db_session:
+        users_service = await anext(provide_users_service(db_session))
+        user = await users_service.upsert(data=obj_in.to_dict(), auto_commit=True)
+        console.print(f"User created: {user.email}")
+
+
+@user_management_group.command(
+    name="create-default-super-user", help="Create the default super user"
+)
+@click.option(
+    "--first-name",
+    help="First name of the new user",
+    type=click.STRING,
+    required=False,
+    show_default=False,
+    default="Admin",
+)
+@click.option(
+    "--last-name",
+    help="Last name of the new user",
+    type=click.STRING,
+    required=False,
+    show_default=False,
+    default="Ecobalyse",
+)
+@click.option(
+    "--organization",
+    help="Organization of the new user",
+    type=click.STRING,
+    required=False,
+    show_default=False,
+    default="Ecobalyse",
+)
+def create_default_user(
+    first_name: str,
+    last_name: str,
+    organization: str | None,
+) -> None:
+    """Create the default user of the app."""
+
+    console = get_console()
+
+    console.rule("Create the default super user of the app.")
+    superuser = False
+
+    settings = get_settings()
+
+    anyio.run(
+        _create_user,
+        cast("str", settings.app.DEFAULT_USER_EMAIL),
+        cast("str", first_name),
+        cast("str", last_name),
+        organization,
+        cast("bool", superuser),
+        # Deactivate default user
+        False,
+    )
 
 
 @user_management_group.command(name="create-user", help="Create a user")
@@ -95,28 +176,6 @@ def create_user(
 
     console = get_console()
 
-    async def _create_user(
-        email: str,
-        first_name: str,
-        last_name: str,
-        organization: str | None,
-        superuser: bool = False,
-    ) -> None:
-        obj_in = UserCreate(
-            email=email,
-            first_name=first_name,
-            last_name=last_name,
-            organization=OrganizationCreate(
-                name=organization, type=OrganizationType.LOCAL_AUTHORITY
-            ),
-            is_superuser=superuser,
-            terms_accepted=True,
-        )
-        async with alchemy.get_session() as db_session:
-            users_service = await anext(provide_users_service(db_session))
-            user = await users_service.upsert(data=obj_in.to_dict(), auto_commit=True)
-            console.print(f"User created: {user.email}")
-
     console.rule("Create a new application user.")
     email = email or click.prompt("Email")
     superuser = superuser or click.prompt(
@@ -160,12 +219,28 @@ async def load_components_fixtures(components_data: dict) -> None:
     """Import/Synchronize Database Fixtures."""
 
     logger = get_logger()
-    async with ComponentService.new(config=alchemy, uniquify=True) as service:
-        await service.upsert_many(
-            match_fields=["name"],
+
+    async with alchemy.get_session() as db_session:
+        users_service = await anext(provide_users_service(db_session))
+
+        settings = get_settings()
+        user = await users_service.get_one_or_none(
+            email=settings.app.DEFAULT_USER_EMAIL
+        )
+        if not user:
+            await logger.aerror(
+                f"default super user {settings.app.DEFAULT_USER_EMAIL} not found"
+            )
+            return
+
+        components_service = await anext(provide_components_service(db_session))
+
+        for component in components_data:
+            component["owner"] = user
+
+        await components_service.create_many(
             data=components_data,
             auto_commit=True,
-            uniquify=True,
         )
         await logger.ainfo("loaded components fixtures")
 

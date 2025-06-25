@@ -291,8 +291,12 @@ class AppSettings:
     DEFAULT_TOKEN_EXPIRATION_DAYS: int = field(
         default_factory=get_env("DEFAULT_TOKEN_EXPIRATION_DAYS", 365 * 2)
     )
-
     """The default value for token expiration."""
+
+    DEFAULT_USER_EMAIL: str = field(
+        default_factory=get_env("DEFAULT_USER_EMAIL", "admin@ecobalyse.dev")
+    )
+    """The default super user email"""
 
     @property
     def slug(self) -> str:
