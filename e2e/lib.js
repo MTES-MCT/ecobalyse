@@ -13,6 +13,8 @@ export async function deleteAllEmails() {
 
 export async function expectNotification(page, message) {
   await expect(page.locator(".ToastTray").getByText(message)).toBeVisible();
+  // immediately close the notification to avoid unwanted accumulation
+  await page.locator(".ToastTray").locator("button", { name: "Fermer" }).nth(0).click();
 }
 
 export function extractUrlsFromText(text) {
