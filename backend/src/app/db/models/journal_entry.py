@@ -1,11 +1,17 @@
 from __future__ import annotations
 
+import datetime
 from enum import StrEnum
 from typing import TYPE_CHECKING, Any
 from uuid import UUID
 
-from advanced_alchemy.base import UUIDAuditBase
-from advanced_alchemy.types import JsonB
+from advanced_alchemy.base import (
+    AdvancedDeclarativeBase,
+    AsyncAttrs,
+    CommonTableAttributes,
+    UUIDPrimaryKey,
+)
+from advanced_alchemy.types import DateTimeUTC, JsonB
 from sqlalchemy import Enum, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -19,8 +25,16 @@ class JournalAction(StrEnum):
     DELETED = "deleted"
 
 
-class JournalEntry(UUIDAuditBase):
+# Don’t add updated_at automatically with UUIDAuditBase but keep created_at
+class JournalEntry(
+    CommonTableAttributes, UUIDPrimaryKey, AdvancedDeclarativeBase, AsyncAttrs
+):
     __tablename__ = "journal_entry"
+
+    created_at: Mapped[datetime.datetime] = mapped_column(
+        DateTimeUTC(timezone=True),
+        default=lambda: datetime.datetime.now(datetime.timezone.utc),
+    )
 
     table_name: Mapped[str] = mapped_column(nullable=False)
 

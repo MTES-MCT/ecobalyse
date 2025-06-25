@@ -87,7 +87,6 @@ def schema_upgrades() -> None:
         ),
         sa.Column("sa_orm_sentinel", sa.Integer(), nullable=True),
         sa.Column("created_at", sa.DateTimeUTC(timezone=True), nullable=False),
-        sa.Column("updated_at", sa.DateTimeUTC(timezone=True), nullable=False),
         sa.ForeignKeyConstraint(
             ["user_id"],
             ["user_account.id"],

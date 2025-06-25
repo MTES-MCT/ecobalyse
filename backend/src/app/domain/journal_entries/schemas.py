@@ -20,4 +20,3 @@ class JournalEntry(CamelizedBaseStruct):
     value: dict | None
 
     created_at: datetime | None = None
-    updated_at: datetime | None = None
