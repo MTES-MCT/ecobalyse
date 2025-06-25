@@ -116,22 +116,18 @@ update session msg model =
             App.createUpdate session model
 
         ComponentEditResponse (RemoteData.Success component) ->
-            ( { model | modals = [ EditComponentModal component (Component.createItem component.id) ] }
-            , session
-            , Cmd.none
-            )
+            { model | modals = [ EditComponentModal component (Component.createItem component.id) ] }
+                |> App.createUpdate session
 
         ComponentEditResponse (RemoteData.Failure err) ->
-            ( model, session |> Session.notifyBackendError err, Cmd.none )
+            App.createUpdate (session |> Session.notifyBackendError err) model
 
         ComponentEditResponse _ ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
 
         ComponentJournalResponse response ->
-            ( { model | modals = [ HistoryModal response ] }
-            , session
-            , Cmd.none
-            )
+            { model | modals = [ HistoryModal response ] }
+                |> App.createUpdate session
 
         ComponentListResponse response ->
             let
@@ -196,22 +192,18 @@ update session msg model =
                     App.createUpdate session model
 
         OpenEditModal component ->
-            ( { model | modals = [] }
-            , session
-            , ComponentApi.getComponent session ComponentEditResponse component.id
-            )
+            { model | modals = [] }
+                |> App.createUpdate session
+                |> App.withCmds [ ComponentApi.getComponent session ComponentEditResponse component.id ]
 
         OpenHistoryModal component ->
-            ( { model | modals = [ HistoryModal RemoteData.Loading ] }
-            , session
-            , ComponentApi.getJournal session ComponentJournalResponse component.id
-            )
+            { model | modals = [ HistoryModal RemoteData.Loading ] }
+                |> App.createUpdate session
+                |> App.withCmds [ ComponentApi.getJournal session ComponentJournalResponse component.id ]
 
         OpenJournalEntryModal journalEntry ->
-            ( { model | modals = JournalEntryModal journalEntry :: model.modals }
-            , session
-            , Cmd.none
-            )
+            { model | modals = JournalEntryModal journalEntry :: model.modals }
+                |> App.createUpdate session
 
         SaveComponent ->
             case model.modals of
