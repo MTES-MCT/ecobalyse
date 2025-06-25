@@ -1,6 +1,10 @@
-# 🚴 Energie apportée par pédalage
+---
+description: Cette modélisation est en cours de développement.
+---
 
-Les véhicules actifs se différencie par une énergie apportée par le conducteur par pédalage. Cette énergie est prise en compte pour les velis 100% électriques.
+# 🚴 Energie apportée par pédalage \[En développement]
+
+Les véhicules actifs se différencie par une énergie apportée par le conducteur par pédalage. Cette énergie est prise en compte pour les Vehicules Legers Intermédiaires (velis) 100% électriques.
 
 ### Puissance musculaire par pédalage
 

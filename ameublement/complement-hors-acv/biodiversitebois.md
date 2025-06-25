@@ -77,7 +77,7 @@ Ce paramètre estime l'impact biodiversité (Ref) de chaque bois (i). Ce paramè
 
 #### Liste des Ref (i) proposées&#x20;
 
-<figure><img src="../../.gitbook/assets/image (1) (1).png" alt=""><figcaption><p>Impact biodiversité des différents bois proposés dans le Niveau 1 de la méthode ( Ref(i) )</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption><p>Impact biodiversité des différents bois proposés dans le Niveau 1 de la méthode ( Ref(i) )</p></figcaption></figure>
 
 {% hint style="info" %}
 L'utilisateur doit sélectionner une de ces 3 options pour chaque bois (i) entrant dans la composition de son produit :&#x20;

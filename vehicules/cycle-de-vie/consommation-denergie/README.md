@@ -1,5 +1,5 @@
 ---
-description: Cette page décrit les méthodes relatives à la consommation des véhicules
+description: Cette page décrit les méthodes relatives à la consommation des véhicules.
 ---
 
 # ⚡ Utilisation : énergie et émissions directes
@@ -30,35 +30,41 @@ Un rapport de la Commission EU de 2018 sur « les effets de la phase environneme
 
 Le cycle comporte 3 phases, applicable ou non selon la vitesse maximale du véhicule. De plus les vitesses sont tronquées pour les véhicules limités à 45km/h ou moins (voir graphique ci-dessous).
 
-<figure><img src="../../../.gitbook/assets/image (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 </details>
 
-#### Correction spécifique pour les véhicules hybrides rechargeables
+#### Différence entre consommation sur le cycle de référence et consommation réelle
 
-Au regard des [écarts constatés par la commission européenne](https://climate.ec.europa.eu/news-your-voice/news/first-commission-report-real-world-co2-emissions-cars-and-vans-using-data-board-fuel-consumption-2024-03-18_en) entre les consommations réelles et les consommations WLTP des véhicules hybrides rechargeables, leurs consommations normées de diesel ou essence ne sont pas pertinentes.
+La télémétrie mise en place dans les voitures particulières récentes permet de mesurer la consommation réelle de ces véhicules. Ces consommations et leurs différences à la consommation théorique [ont fait l'objet d'une communication par la commission européenne](https://climate.ec.europa.eu/news-your-voice/news/first-commission-report-real-world-co2-emissions-cars-and-vans-using-data-board-fuel-consumption-2024-03-18_en) (voir graphique ci-dessous).&#x20;
 
-### Émissions liées à l'usure des pneus et des freins
+<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption><p>Real-world and WLTP consumption of cars</p></figcaption></figure>
 
+Ces données présentent un écart de l'ordre de 20% pour l'essence, un peu moins pour le diesel, et une multiplication par 3 à 4.5 pour les véhicules hybrides rechargeables.
 
+Pour les véhicules essence et diesel, la consommation WLTP peut être vue comme une consommation en ecoconduite.
 
+### Émissions locales de particules des véhicules thermiques
 
+Les véhicules thermiques émettent des pollutions locales, dont les principales sont : Oxydes d'azote (NOx), Monoxyde de carbone (CO), Hydrocarbures (HC), particules fines.
 
-### Émissions des véhicules thermiques
+Les émissions locales maximales des véhicules sont fixées par les normes européenne d'émissions, dite norme Euro. La norme en cours pour les voitures est la norme Euro6d
 
+Ces normes incluent les émissions liées à la combustion des carburants, mais aussi les émissions par l'usure des pneus et des plaquettes de frein.
 
-
-&#x20;
+Les impacts de ces émissions en termes de santé humaine dans les villes sont mal pris en compte dans les méthodes d'Analyse de Cycle de vie, qui prennent en compte l'impact à l'échelle globale.
 
 ## Méthodes de calcul
 
 ### Périmètre retenu
 
-Les émissions relatives à l'usure des pneus et des freins et l'impact en terme de santé humaine de la pollution locale ne sont pas pris en compte à ce jour.
+La première version d'Ecobalyse ne couvre que les véhicules électriques.
+
+Les impacts des émissions locales en terme de santé humaine ne sont pas pris en compte à ce jour.
 
 ### Calcul du coût environnemental
 
-Le coût environnemental de la consommation d'énergie se calcule comme suit (exemple pour l'impact sur le changement climatique) :
+Le coût environnemental de la consommation d'énergie se calcule comme suit :
 
 $$
 I_{energie} = 100*D_{vie}*\sum_{0<i<n}C_i*I_i
@@ -69,7 +75,7 @@ Avec&#x20;
 * `I_energie` : l'impact environnemental de la consommation d'énergie en phase utilisation, y compris émissions directes , dans l'unité de la catégorie d'impact analysée
 * `D_vie` : la durée de vie du véhicule, en km. Le calcul de la durée de vie du véhicule est détaillé ci-dessous
 * `C_i` : la consommation de l'énergie i, en unité de l'énergie pour 100km
-* `I_i` :  l'impact environnemental associé à la consommation d'une unité de l'énergie i, y copris l'impact des émissions directes, en unité de la catégorie d'impact analysée par unité de l'énergie (Pts/L par exemple)
+* `I_i` :  l'impact environnemental associé à la consommation d'une unité de l'énergie `i`, y compris l'impact des émissions directes, en unité de la catégorie d'impact analysée par unité de l'énergie (Pts/L par exemple)
 
 ### Durée de vie des véhicules
 
@@ -87,7 +93,9 @@ Avec :&#x20;
 * `T_vie` : la durée de vie par défaut du véhicule, en années\
   Cette donnée est  modifiable par l'utilisateur dans Ecobalyse.
 
-## Paramètres précisés par l'utilisateur
+## Paramètres retenus pour le coût environnemental
+
+### Paramètres précisés par l'utilisateur
 
 L'utilisateur renseigne les informations suivantes :&#x20;
 
@@ -95,17 +103,10 @@ L'utilisateur renseigne les informations suivantes :&#x20;
 * Durée de vie du véhicule (en années)
 * Kilométrage annuel (en km/an)
 
-## <mark style="color:red;">Paramètres retenus pour le coût environnemental</mark>
+{% hint style="info" %}
+A ce stade la modélisation n'inclut pas de correction de la consommation sur le cycle de référence pour être plus représentative de la consommation réelle.
+{% endhint %}
 
-<mark style="color:red;">Hybride : consommation de carburant multipliées par 2.</mark>&#x20;
+### Procédés utilisés pour chaque énergie
 
-### <mark style="color:red;">Procédés utilisés pour chaque énergie</mark>
-
-
-
-<table><thead><tr><th width="260">Energie</th><th width="420">Procédé</th><th>unité</th></tr></thead><tbody><tr><td>Diesel</td><td>Procédé créé par Ecobalyse à préciser</td><td>Litre</td></tr><tr><td>Essence</td><td>Procédé créé par Ecobalyse à préciser</td><td>Litre</td></tr><tr><td>Électricité du réseau</td><td>market for electricity, low voltage FR</td><td>kWh</td></tr><tr><td>Hydrogène</td><td></td><td>kg</td></tr><tr><td>GNV</td><td></td><td>kg</td></tr></tbody></table>
-
-Voir la page dédiée relative à la construction de ces procédés.
-
-
-
+Les procédés sont décrits dans l'Explorateur Ecobalyse.

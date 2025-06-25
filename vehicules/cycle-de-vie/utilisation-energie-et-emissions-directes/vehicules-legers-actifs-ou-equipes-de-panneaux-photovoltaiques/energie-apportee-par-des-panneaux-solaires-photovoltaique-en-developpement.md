@@ -1,4 +1,8 @@
-# ☀️ Energie apportée par des panneaux solaires photovoltaïque
+---
+description: Cette modélisation est en cours de développement.
+---
+
+# ☀️ Energie apportée par des panneaux solaires photovoltaïque \[En développement]
 
 ## Méthodologie de référence
 
@@ -21,8 +25,8 @@ Avec :&#x20;
 * UF.ir : facteur d'usage (effet d'ombre), sans unité, fixé à 0,51&#x20;
 * η.ss : rendement du système photovoltaïque, en pourcentage, fixé à 76 %&#x20;
 * S.ir.stc : irradiation globale dans les conditions d'essai standard, en W/m2, qui est de 1 000 W/m2 (Norme IEC 61836-2007)
-* mP.p : puissance maximale moyenne de sortie mesurée du toit solaire, en Wc (Puissance selon la norme IEC 61836-2007), définit dans la partie fabrication du système photovoltaïque ([documentation](../fabrication-des-composants/systeme-photovoltaiques.md))
-* Phi l'angle d'inclinaison du système photovoltaïque par rapport à l'horizontale, en radian, calculé à partie de l'angle Phi\_d exprimé en radian, définit dans la partie fabrication du système photovoltaïque ([documentation](../fabrication-des-composants/systeme-photovoltaiques.md))
+* mP.p : puissance maximale moyenne de sortie mesurée du toit solaire, en Wc (Puissance selon la norme IEC 61836-2007), définit dans la partie fabrication du système photovoltaïque ([documentation](../../fabrication-des-composants/systeme-photovoltaiques.md))
+* Phi l'angle d'inclinaison du système photovoltaïque par rapport à l'horizontale, en radian, calculé à partie de l'angle Phi\_d exprimé en radian, définit dans la partie fabrication du système photovoltaïque ([documentation](../../fabrication-des-composants/systeme-photovoltaiques.md))
 * SCC : coefficient de correction solaire tel que défini au tableau suivant. La capacité totale de stockage disponible du système de batteries ou la valeur du coefficient de correction solaire doit être fournie par le constructeur du véhicule
 * D.an le kilométrage annuel du véhicule, en km/an, défini dans la partie "utilisation du véhicule"
 
@@ -45,5 +49,5 @@ Avec :&#x20;
 * Cref : la consommation de référence utilisée pour définir le SCC dans le document de référence identifié en haut de page, en kWh/j, fixée à 0.75 kWh/j
 * D.an : le kilométrage annuel, en km/an, défini dans la partie Utilisation du véhicule
 * C : la consommation du véhicule, en kWh/100km, défini dans la partie Utilisation du véhicule
-* mP.p : puissance maximale moyenne de sortie mesurée du toit solaire, en Wc (Puissance selon la norme IEC 61836-2007), définit dans la partie fabrication du système photovoltaïque ([documentation](../fabrication-des-composants/systeme-photovoltaiques.md))
+* mP.p : puissance maximale moyenne de sortie mesurée du toit solaire, en Wc (Puissance selon la norme IEC 61836-2007), définit dans la partie fabrication du système photovoltaïque ([documentation](../../fabrication-des-composants/systeme-photovoltaiques.md))
 
