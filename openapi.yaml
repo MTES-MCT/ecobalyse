@@ -228,30 +228,6 @@ paths:
               schema:
                 $ref: "#/components/schemas/PackagingListResponse"
   /food:
-    get:
-      deprecated: true
-      tags:
-        - Alimentaire
-      summary: Calcul des impacts environnementaux d'une recette alimentaire
-      parameters:
-        - $ref: "#/components/parameters/ingredientsParam"
-        - $ref: "#/components/parameters/transformParam"
-        - $ref: "#/components/parameters/packagingParam"
-        - $ref: "#/components/parameters/distributionParam"
-        - $ref: "#/components/parameters/preparationParam"
-      responses:
-        200:
-          description: Opération réussie
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/RecipeResultsResponse"
-        400:
-          description: Paramètres invalides
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/InvalidParametersError"
     post:
       tags:
         - Alimentaire
@@ -411,173 +387,6 @@ components:
           - "swe"
           - "tre"
           - "wtu"
-    ingredientsParam:
-      name: "ingredients[]"
-      in: query
-      description: |
-        Liste des ingrédients composant la recette (liste disponible sur le point d'entrée `/food/ingredients`).
-        Le format de chaque entrée est composé de :
-
-        - l'identifiant de la matière (pour avoir la liste, utiliser l'API de liste d'ingrédients)
-        - sa masse **exprimée en grammes**
-        - un éventuel code de pays d'origine (ex: `BR` pour le Brésil)
-        - un éventuel transport par avion *uniquement si c'est un [ingrédient de catégorie
-          "HORS EUROPE-MAGHREB (AVION)"](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)*
-          (valeurs possible: `<vide>`, `byPlane`, `noPlane`)
-
-        Quelques exemples :
-
-        - `8f3863e7-f981-4367-90a2-e1aaa096a6e0;268` signifie *268g de lait (id ecobalyse du lait : 8f3863e7-f981-4367-90a2-e1aaa096a6e0)*;
-        - `85641d75-149d-4863-a1a8-463e71a85fc2;123;ES` signifie *123g de tomates conventionnelles (id ecobalyse des tomates conventionnelles : 85641d75-149d-4863-a1a8-463e71a85fc2) provenance d'Espagne*;
-        - `db0e5f44-34b4-4160-b003-77c828d75e60;123` signifie *123g de mangues (id ecobalyse des mangues hors EU : db0e5f44-34b4-4160-b003-77c828d75e60) en provenance de son origine par défaut (hors Europe-Maghreb, transport par avion)*;
-        - `db0e5f44-34b4-4160-b003-77c828d75e60;123;;noPlane` signifie *123g de mangues en provenance de son origine par défaut (hors Europe-Maghreb), par bateau*;
-        - `db0e5f44-34b4-4160-b003-77c828d75e60;123;BR` signifie *123g de mangues en provenance du Brésil, par avion*;
-        - `db0e5f44-34b4-4160-b003-77c828d75e60;123;BR;byPlane` signifie de la même manière *123g de mangues en provenance du Brésil, par avion*;
-        - `db0e5f44-34b4-4160-b003-77c828d75e60;123;BR;noPlane` signifie *123g de mangues en provenance du Brésil, par bateau (pas par avion)*;
-
-        > Par exemple, les paramètres à passer pour une recette à base de 268g de lait et 30g de carrotes bio d'espagne sont :
-        >
-        > ```js
-        > ingredients[]=8f3863e7-f981-4367-90a2-e1aaa096a6e0;268&ingredients[]=9042b6d0-c309-4757-a03f-ba802f0c8c01;30;ES
-        > ```
-      required: true
-      style: form
-      schema:
-        type: array
-        items:
-          type: string
-      examples:
-        oneIngredient:
-          summary: Lait
-          value: ["8f3863e7-f981-4367-90a2-e1aaa096a6e0;268"]
-        twoIngredients:
-          summary: Lait, carrotes bio
-          value: ["8f3863e7-f981-4367-90a2-e1aaa096a6e0;268", "9042b6d0-c309-4757-a03f-ba802f0c8c01;30"]
-        threeIngredients:
-          summary: Lait, carrotes bio, oeuf
-          value: ["8f3863e7-f981-4367-90a2-e1aaa096a6e0;268", "9042b6d0-c309-4757-a03f-ba802f0c8c01;30", "cf30d3bc-e99c-418a-b7e3-89a894d410a5;149"]
-        fourIngredients:
-          summary: Lait, carrotes bio, oeuf, tomates d'espagne
-          value: ["8f3863e7-f981-4367-90a2-e1aaa096a6e0;268", "9042b6d0-c309-4757-a03f-ba802f0c8c01;30", "cf30d3bc-e99c-418a-b7e3-89a894d410a5;149", "85641d75-149d-4863-a1a8-463e71a85fc2;123;;ES"]
-        byPlane:
-          summary: Mangue du Brésil par avion
-          value: ["db0e5f44-34b4-4160-b003-77c828d75e60;123;;BR"]
-        noPlane:
-          summary: Mangue du Brésil par bateau
-          value: ["db0e5f44-34b4-4160-b003-77c828d75e60;123;;BR;noPlane"]
-    packagingParam:
-      name: "packaging[]"
-      in: query
-      description: |
-        Liste des emballages composant la recette (liste disponible sur le point d'entrée `/food/packaging`).
-
-        Le format de chaque entrée est composé de l'identifiant de l'emballage et de sa masse **exprimée en grammes**.
-      required: true
-      style: form
-      schema:
-        type: array
-        items:
-          type: string
-      examples:
-        onePackaging:
-          summary: "105g de Carton"
-          value: ["25595091-35b6-5c62-869f-a29c318c367e;105"]
-    transformParam:
-      name: transform
-      in: query
-      description: |
-        Identifiant du procédé de transformation (optionnel — liste disponible sur le point d'entrée `/food/transforms`)
-
-        Le format est composé de l'identifiant de l'emballage et de sa masse **exprimée en grammes**.
-        Par exemple: `83b897cf-9ed2-5604-83b4-67fab8606d35;1000` pour 1kg de matière à cuire.
-      required: false
-      style: form
-      schema:
-        type: string
-        minLength: 32
-        maxLength: 32
-      examples:
-        Default:
-          summary: "Aucune transformation"
-          value: ""
-        Cuisson:
-          summary: Cuisson d'1kg de matière
-          value: "83b897cf-9ed2-5604-83b4-67fab8606d35;1000"
-    distributionParam:
-      name: distribution
-      in: query
-      description: |
-        Choix du mode de stockage chez le distributeur, parmi ces valeurs possibles :
-
-        - `ambient`: Température ambiante (valeur par défaut)
-        - `fresh`: Réfrigéré
-        - `frozen`: Congelé
-
-        La distribution inclut 450km de transport terrestre vers le site de stockage + 150km vers le site de distribution.
-
-      required: false
-      style: form
-      schema:
-        type: string
-        description: Type de distribution chez le distributeur
-        enum:
-          - "ambient"
-          - "fresh"
-          - "frozen"
-      examples:
-        ambient:
-          summary: "Température ambiante"
-          value: "ambient"
-        fresh:
-          summary: "Réfrigéré"
-          value: "fresh"
-        frozen:
-          summary: "Congelé"
-          value: "frozen"
-    preparationParam:
-      name: preparation[]
-      in: query
-      description: |
-        Liste des techniques de préparation mobilisées **à l'étape de consommation** :
-
-        - `frying`: Friture
-        - `pan-cooking`: Cuisson à la poêle
-        - `pan-warming`: Réchauffage à la poêle
-        - `oven`: Cuisson au four
-        - `microwave`: Cuisson au four micro-ondes
-        - `refrigeration`: Réfrigération
-        - `freezing`: Congélation
-
-        **Un maximum de deux techniques de préparation est autorisé.**
-      required: false
-      style: form
-      schema:
-        type: array
-        items:
-          type: string
-          enum:
-            - "freezing"
-            - "frying"
-            - "microwaves"
-            - "oven"
-            - "pan-cooking"
-            - "pan-warming"
-            - "refrigeration"
-        maxItems: 2
-        description: Liste d'identifiants de techniques de préparation.
-      examples:
-        Default:
-          summary: "Sans préparation"
-          value: ""
-        frying:
-          summary: Friture
-          value: frying
-        freezing:
-          summary: Congélation
-          value: freezing
-        freezingAndOven:
-          summary: Congélation et cuisson au four
-          value: ["freezing", "oven"]
   schemas:
     Impacts:
       type: object
@@ -950,11 +759,29 @@ components:
             "$ref": "#/components/schemas/FoodQueryPackaging"
         distribution:
           type: string
-          description: Distribution
+          description: |
+            Choix du mode de stockage chez le distributeur, parmi ces valeurs possibles :
+
+            - `ambient`: Température ambiante (valeur par défaut)
+            - `fresh`: Réfrigéré
+            - `frozen`: Congelé
+
+            La distribution inclut 450km de transport terrestre vers le site de stockage + 150km vers le site de distribution.
           enum: [ambient, fresh, frozen]
         preparation:
           type: array
-          description: Préparation avant consommation
+          description: |
+            Liste des techniques de préparation mobilisées **à l'étape de consommation** :
+
+            - `frying`: Friture
+            - `pan-cooking`: Cuisson à la poêle
+            - `pan-warming`: Réchauffage à la poêle
+            - `oven`: Cuisson au four
+            - `microwave`: Cuisson au four micro-ondes
+            - `refrigeration`: Réfrigération
+            - `freezing`: Congélation
+
+            **Un maximum de deux techniques de préparation est autorisé.**
           items:
             type: string
             enum:
@@ -967,6 +794,16 @@ components:
             - freezing
     FoodQueryIngredient:
       type: object
+      description: |
+        Liste des ingrédients composant la recette (liste disponible sur le point d'entrée `/food/ingredients`).
+        Le format de chaque entrée est composé de :
+
+        - l'identifiant de la matière (pour avoir la liste, utiliser l'API de liste d'ingrédients)
+        - sa masse **exprimée en grammes**
+        - un éventuel code de pays d'origine (ex: `BR` pour le Brésil)
+        - un éventuel transport par avion *uniquement si c'est un [ingrédient de catégorie
+          "HORS EUROPE-MAGHREB (AVION)"](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)*
+          (valeurs possible: `<vide>`, `byPlane`, `noPlane`)
       additionalProperties: false
       required:
       - id
@@ -987,6 +824,8 @@ components:
           enum: ["", byPlane, noPlane]
     FoodQueryTransform:
       type: object
+      description: |
+        Précision du procédé de transformation et de la masse de produit à transformer.
       additionalProperties: false
       required:
       - id
@@ -994,12 +833,14 @@ components:
       properties:
         id:
           type: string
-          description: Identifiant du procédé de transformation
+          description: Identifiant du procédé de transformation (liste disponible sur le point d'entrée `/food/transforms`)
         mass:
           type: number
           description: Masse de produit à transformer, **en grammes**
     FoodQueryPackaging:
       type: object
+      description: |
+        Liste des emballages composant la recette.
       additionalProperties: false
       required:
       - id
@@ -1007,10 +848,10 @@ components:
       properties:
         id:
           type: string
-          description: Identifiant du procédé d'emballage, **en grammes**
+          description: Identifiant du procédé d'emballage (liste disponible sur le point d'entrée `/food/packaging`)
         mass:
           type: number
-          description: Masse de cet emballage, **en kilogrammes**
+          description: Masse de cet emballage, **en grammes**
     InvalidParametersError:
       type: object
       properties:
