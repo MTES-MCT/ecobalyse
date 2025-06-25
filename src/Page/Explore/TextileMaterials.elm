@@ -109,7 +109,8 @@ table db { detailed, scope } =
                     case Country.findByCode material.defaultCountry db.countries of
                         Err error ->
                             Alert.simple
-                                { level = Alert.Danger
+                                { attributes = []
+                                , level = Alert.Danger
                                 , close = Nothing
                                 , title = Nothing
                                 , content = [ text error ]

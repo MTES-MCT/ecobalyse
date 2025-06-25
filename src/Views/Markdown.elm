@@ -7,7 +7,6 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Markdown.Parser as Parser
 import Markdown.Renderer exposing (defaultHtmlRenderer)
-import Views.Alert as Alert
 
 
 clean : String -> String
@@ -19,12 +18,8 @@ simple : List (Attribute msg) -> String -> Html msg
 simple attrs content =
     case parse content of
         Err errors ->
-            Alert.preformatted
-                { close = Nothing
-                , content = [ text errors ]
-                , level = Alert.Danger
-                , title = Just "Des erreurs ont été rencontrées"
-                }
+            div [ class "fr-alert fr-alert--warning" ]
+                [ text errors ]
 
         Ok rendered ->
             div (class "Markdown bottomed-paragraphs" :: attrs) rendered

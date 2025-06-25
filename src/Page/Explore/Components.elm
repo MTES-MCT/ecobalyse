@@ -66,7 +66,8 @@ table db { detailed, scope } =
                     case Component.expandElements db.processes elements of
                         Err err ->
                             Alert.simple
-                                { close = Nothing
+                                { attributes = []
+                                , close = Nothing
                                 , content = [ text err ]
                                 , level = Alert.Danger
                                 , title = Nothing

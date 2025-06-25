@@ -9,6 +9,7 @@ module Page.Explore exposing
     , view
     )
 
+import App exposing (Msg, PageUpdate)
 import Browser.Events
 import Browser.Navigation as Nav
 import Data.Component as Component exposing (Component)
@@ -71,7 +72,7 @@ type Msg
     | SetTableState SortableTable.State
 
 
-init : Scope -> Dataset -> Session -> ( Model, Session, Cmd Msg )
+init : Scope -> Dataset -> Session -> PageUpdate Model Msg
 init scope dataset session =
     let
         initialSort =
@@ -106,76 +107,73 @@ init scope dataset session =
                 Dataset.TextileProducts _ ->
                     "Identifiant"
     in
-    ( { dataset = dataset
-      , scope = scope
-      , tableState = SortableTable.initialSort initialSort
-      }
-    , session
-    , Ports.scrollTo { x = 0, y = 0 }
-    )
+    App.createUpdate session
+        { dataset = dataset
+        , scope = scope
+        , tableState = SortableTable.initialSort initialSort
+        }
+        |> App.withCmds [ Ports.scrollTo { x = 0, y = 0 } ]
 
 
-update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
+update : Session -> Msg -> Model -> PageUpdate Model Msg
 update session msg model =
     case msg of
         CloseModal ->
-            ( model
-            , session
-            , model.dataset
-                |> Dataset.reset
-                |> Route.Explore model.scope
-                |> Route.toString
-                |> Nav.pushUrl session.navKey
-            )
+            App.createUpdate session model
+                |> App.withCmds
+                    [ model.dataset
+                        |> Dataset.reset
+                        |> Route.Explore model.scope
+                        |> Route.toString
+                        |> Nav.pushUrl session.navKey
+                    ]
 
         NoOp ->
-            ( model, session, Cmd.none )
+            App.createUpdate session model
 
         OpenDetail route ->
-            ( model
-            , session
-            , route
-                |> Route.toString
-                |> Nav.pushUrl session.navKey
-            )
+            App.createUpdate session model
+                |> App.withCmds
+                    [ route
+                        |> Route.toString
+                        |> Nav.pushUrl session.navKey
+                    ]
 
         ScopeChange scope ->
-            ( { model | scope = scope }
-            , session
-            , (case model.dataset of
-                -- Try selecting the most appropriate tab when switching scope.
-                Dataset.Countries _ ->
-                    Dataset.Countries Nothing
+            App.createUpdate session { model | scope = scope }
+                |> App.withCmds
+                    [ (case model.dataset of
+                        -- Try selecting the most appropriate tab when switching scope.
+                        Dataset.Countries _ ->
+                            Dataset.Countries Nothing
 
-                Dataset.Impacts _ ->
-                    Dataset.Impacts Nothing
+                        Dataset.Impacts _ ->
+                            Dataset.Impacts Nothing
 
-                _ ->
-                    case scope of
-                        Scope.Food ->
-                            Dataset.FoodExamples Nothing
+                        _ ->
+                            case scope of
+                                Scope.Food ->
+                                    Dataset.FoodExamples Nothing
 
-                        Scope.Object ->
-                            -- FIXME: meubles examples only
-                            Dataset.ObjectExamples Nothing
+                                Scope.Object ->
+                                    -- FIXME: meubles examples only
+                                    Dataset.ObjectExamples Nothing
 
-                        Scope.Textile ->
-                            Dataset.TextileExamples Nothing
+                                Scope.Textile ->
+                                    Dataset.TextileExamples Nothing
 
-                        Scope.Veli ->
-                            -- FIXME: veli examples only
-                            Dataset.ObjectExamples Nothing
-              )
-                |> Route.Explore scope
-                |> Route.toString
-                |> Nav.pushUrl session.navKey
-            )
+                                Scope.Veli ->
+                                    -- FIXME: veli examples only
+                                    Dataset.ObjectExamples Nothing
+                      )
+                        |> Route.Explore scope
+                        |> Route.toString
+                        |> Nav.pushUrl session.navKey
+                    ]
 
         SetTableState tableState ->
-            ( { model | tableState = tableState }
-            , session
-            , Cmd.none
-            )
+            { model | tableState = tableState }
+                |> App.createUpdate session
 
 
 datasetsMenuView : Model -> Html Msg
@@ -238,7 +236,8 @@ alert : String -> Html Msg
 alert error =
     div [ class "p-3 pb-0" ]
         [ Alert.simple
-            { level = Alert.Danger
+            { attributes = []
+            , level = Alert.Danger
             , content = [ text error ]
             , title = Just "Erreur"
             , close = Nothing

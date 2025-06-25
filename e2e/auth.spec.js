@@ -1,8 +1,9 @@
 import { test, expect } from "@playwright/test";
 import {
-  loginUser,
   deleteAllEmails,
+  expectNotification,
   extractUrlsFromText,
+  loginUser,
   registerAndLoginUser,
   waitForNewEmail,
 } from "./lib";
@@ -40,7 +41,7 @@ test.describe("auth", () => {
     await test.step("logout", async () => {
       await page.getByRole("button", { name: "Déconnexion" }).click();
 
-      await expect(page.getByText("Vous avez été deconnecté")).toBeVisible();
+      await expectNotification(page, "Vous avez été deconnecté");
 
       await expect(page.getByRole("link", { name: "Mon compte" })).not.toBeVisible();
     });
@@ -134,7 +135,7 @@ test.describe("auth", () => {
 
       await page.getByRole("button", { name: "Supprimer et invalider" }).click();
 
-      await expect(page.getByRole("heading", { name: "Jeton d'API supprimé" })).toBeVisible();
+      await expectNotification(page, "Le jeton d'API a été supprimé");
 
       await expect(page.getByText("Aucun jeton d'API actif")).toBeVisible();
 
@@ -179,12 +180,13 @@ test.describe("auth", () => {
     await test.step("impact selector", async () => {
       await page.goto("/#/auth"); // triggers user admin status reloading
       await page.getByRole("button", { name: "Déconnexion" }).click();
+      await expectNotification(page, "Vous avez été deconnecté");
+
       await page.goto("/");
       await page.getByTestId("textile-callout-button").click();
-      const impactSelector = page.getByTestId("impact-selector");
 
       // When not logged in, the impact selector is not visible
-      await expect(impactSelector).not.toBeVisible();
+      await expect(page.getByTestId("impact-selector")).not.toBeVisible();
 
       // When logged in, the impact selector is visible
       await loginUser(page, "bob@dylan.com");
@@ -192,10 +194,14 @@ test.describe("auth", () => {
       await page.goto("/");
       await page.getByTestId("textile-callout-button").click();
 
-      await expect(impactSelector).toBeVisible();
+      await expect(page.getByTestId("impact-selector")).toBeVisible();
 
       // Check that impact option list matches available impact definitions
-      const impactOptions = await impactSelector.locator("option").allInnerTexts();
+      const impactOptions = await page
+        .getByTestId("impact-selector")
+        .locator("option")
+        .allInnerTexts();
+
       expect(impactOptions).toHaveLength(Object.keys(impacts).length);
       for (const [_, { label_fr }] of Object.entries(impacts)) {
         expect(impactOptions).toContain(label_fr);

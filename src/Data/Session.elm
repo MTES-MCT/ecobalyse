@@ -15,8 +15,6 @@ module Data.Session exposing
     , isStaff
     , logout
     , notifyBackendError
-    , notifyError
-    , notifyInfo
     , objectQueryFromScope
     , saveBookmark
     , selectAllBookmarks
@@ -89,7 +87,6 @@ type alias EnabledSections =
 type Notification
     = BackendError BackendError.Error
     | GenericError String String
-    | GenericInfo String String
     | StoreDecodingError Decode.Error
 
 
@@ -111,11 +108,6 @@ notifyBackendError backendError ({ notifications } as session) =
 notifyError : String -> String -> Session -> Session
 notifyError title error ({ notifications } as session) =
     { session | notifications = notifications ++ [ GenericError title error ] }
-
-
-notifyInfo : String -> String -> Session -> Session
-notifyInfo title info ({ notifications } as session) =
-    { session | notifications = notifications ++ [ GenericInfo title info ] }
 
 
 notifyStoreDecodingError : Decode.Error -> Session -> Session

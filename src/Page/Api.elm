@@ -6,6 +6,7 @@ module Page.Api exposing
     , view
     )
 
+import App exposing (PageUpdate)
 import Data.Session as Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -32,20 +33,18 @@ type alias News =
     }
 
 
-init : Session -> ( Model, Session, Cmd Msg )
+init : Session -> PageUpdate Model Msg
 init session =
-    ( ()
-    , session
-    , Cmd.batch
-        [ Ports.loadRapidoc "/vendor/rapidoc-9.3.4.min.js"
-        , Ports.scrollTo { x = 0, y = 0 }
-        ]
-    )
+    App.createUpdate session ()
+        |> App.withCmds
+            [ Ports.loadRapidoc "/vendor/rapidoc-9.3.4.min.js"
+            , Ports.scrollTo { x = 0, y = 0 }
+            ]
 
 
-update : Session -> Msg -> Model -> ( Model, Session, Cmd Msg )
+update : Session -> Msg -> Model -> PageUpdate Model Msg
 update session _ model =
-    ( model, session, Cmd.none )
+    App.createUpdate session model
 
 
 getApiServerUrl : Session -> String
@@ -547,10 +546,10 @@ view session _ =
     , [ Container.centered [ class "pb-5" ]
             [ h1 [ class "mb-3" ] [ text "API Ecobalyse" ]
             , div [ class "row" ]
-                [ div [ class "col-xl-8" ]
+                [ div [ class "col-xl-8 d-flex flex-column gap-3" ]
                     [ """L'API HTTP Ecobalyse permet de calculer les impacts environnementaux des produits textiles et alimentaires. """
                         |> Markdown.simple [ class "fw-bold" ]
-                    , p []
+                    , p [ class "mb-0" ]
                         [ text "Elle est accessible à l'adresse "
                         , code [] [ text (getApiServerUrl session) ]
                         , text " et "
@@ -562,9 +561,10 @@ view session _ =
                     , apiDocumentationNotice session
                     , div [ class "height-auto" ] [ apiBrowser session ]
                     ]
-                , div [ class "col-xl-4" ]
+                , div [ class "col-xl-4 d-flex flex-column gap-3" ]
                     [ Alert.simple
-                        { level = Alert.Info
+                        { attributes = []
+                        , level = Alert.Info
                         , close = Nothing
                         , title = Just "Avertissement"
                         , content =
@@ -620,7 +620,8 @@ apiDocumentationNotice session =
     let
         alert level md =
             Alert.simple
-                { level = level
+                { attributes = []
+                , level = level
                 , close = Nothing
                 , title = Nothing
                 , content = [ Markdown.simple [ class "fs-7" ] md ]
