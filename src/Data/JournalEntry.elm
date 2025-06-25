@@ -29,7 +29,6 @@ type alias JournalEntry a =
     , id : Id
     , recordId : Uuid
     , tableName : String
-    , updatedAt : Posix
     , user : User
     , value : a
     }
@@ -56,7 +55,6 @@ decodeEntry valueDecoder =
         |> JDP.required "id" decodeId
         |> JDP.required "recordId" Uuid.decoder
         |> JDP.required "tableName" Decode.string
-        |> JDP.required "updatedAt" DE.datetime
         |> JDP.required "user" User.decodeUser
         |> JDP.required "value" valueDecoder
 
