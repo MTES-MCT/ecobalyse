@@ -781,7 +781,15 @@ setElementMaterial targetElement material items =
 
     else
         items
-            |> updateElement targetElement (\el -> { el | material = material.id })
+            |> updateElement targetElement
+                (\el ->
+                    { el
+                        | material = material.id
+
+                        -- Note: always reset the transforms when replacing a material for consistency
+                        , transforms = []
+                    }
+                )
             |> Ok
 
 
