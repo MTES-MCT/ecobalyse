@@ -83,7 +83,7 @@ type Organization
       Association String
       -- Entreprise
     | Business String Siren
-      -- Enseignant/ Recherche/ Etudiant
+      -- Enseignement/Recherche
     | Education String
       -- Particulier
     | Individual
@@ -93,6 +93,8 @@ type Organization
     | Media String
       -- Autre établissement public et Etat
     | Public String
+      -- Étudiant·e
+    | Student String
 
 
 type Siren
@@ -307,6 +309,12 @@ encodeOrganization organization =
                 , ( "name", Encode.string name )
                 ]
 
+        Student name ->
+            Encode.object
+                [ ( "type", Encode.string <| organizationTypeToString organization )
+                , ( "name", Encode.string name )
+                ]
+
 
 encodeRole : Role -> Encode.Value
 encodeRole role =
@@ -387,6 +395,9 @@ getOrganizationName organization =
         Public name ->
             Just name
 
+        Student name ->
+            Just name
+
 
 updateOrganizationName : String -> Organization -> Organization
 updateOrganizationName name organization =
@@ -412,6 +423,9 @@ updateOrganizationName name organization =
         Public _ ->
             Public name
 
+        Student _ ->
+            Student name
+
 
 updateOrganizationSiren : String -> Organization -> Organization
 updateOrganizationSiren siren organization =
@@ -427,11 +441,12 @@ organizationTypes : List ( String, String )
 organizationTypes =
     [ ( "association", "Association" )
     , ( "business", "Entreprise" )
-    , ( "education", "Enseignant / Recherche / Etudiant" )
+    , ( "education", "Enseignement/Recherche" )
     , ( "individual", "Particulier" )
     , ( "localAuthority", "Collectivité ou EPCI" )
     , ( "media", "Média" )
     , ( "public", "Autre établissement public et État" )
+    , ( "student", "Étudiant·e" )
     ]
 
 
@@ -463,6 +478,9 @@ updateOrganizationType type_ organization =
         "public" ->
             Public name
 
+        "student" ->
+            Student name
+
         _ ->
             organization
 
@@ -490,6 +508,9 @@ organizationTypeToString organization =
 
         Public _ ->
             "public"
+
+        Student _ ->
+            "student"
 
 
 
