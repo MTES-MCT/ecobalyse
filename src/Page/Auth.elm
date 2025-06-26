@@ -633,6 +633,9 @@ viewOrganization organization =
         User.Public name ->
             "Établissement public\u{00A0}: " ++ name
 
+        User.Student name ->
+            "Étudiant·e\u{00A0}: " ++ name
+
 
 viewApiTokenCreated : Token -> Html Msg
 viewApiTokenCreated token =
@@ -938,6 +941,7 @@ viewOrganizationForm signupForm formErrors =
                 [ label [ for "organizationType", class "form-label" ]
                     [ text "Type d'organisation" ]
                 , User.organizationTypes
+                    |> List.sortBy Tuple.second
                     |> List.map
                         (\( code, label ) ->
                             option

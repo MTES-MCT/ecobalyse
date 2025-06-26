@@ -27,6 +27,7 @@ class OrganizationType(StrEnum):
     LOCAL_AUTHORITY = "localAuthority"
     MEDIA = "media"
     PUBLIC = "public"
+    STUDENT = "student"
 
 
 class OrganizationCreate(CamelizedBaseStruct):
