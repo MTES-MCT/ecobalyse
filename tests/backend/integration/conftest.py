@@ -189,6 +189,19 @@ def fx_superuser_token_headers() -> dict[str, str]:
     }
 
 
+@pytest.fixture(name="other_superuser_token_headers")
+def fx_other_superuser_token_headers() -> dict[str, str]:
+    """Valid superuser token.
+
+    ```text
+    ValueError: The future belongs to a different loop than the one specified as the loop argument
+    ```
+    """
+    return {
+        "Authorization": f"Bearer {auth.create_token(identifier='other_superuser@example.com')}"
+    }
+
+
 @pytest.fixture(name="user_token_headers")
 def fx_user_token_headers() -> dict[str, str]:
     """Valid user token.
