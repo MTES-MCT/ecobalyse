@@ -18,6 +18,8 @@ module Data.Food.Ingredient exposing
 
 import Data.Food.EcosystemicServices as EcosystemicServices exposing (EcosystemicServices)
 import Data.Food.Ingredient.Category as IngredientCategory
+import Data.Food.Ingredient.CropGroup as CropGroup exposing (CropGroup)
+import Data.Food.Ingredient.Scenario as Scenario exposing (Scenario)
 import Data.Food.Origin as Origin exposing (Origin)
 import Data.Impact as Impact
 import Data.Process as Process exposing (Process)
@@ -35,6 +37,8 @@ import Length
 
 type alias Ingredient =
     { categories : List IngredientCategory.Category
+    , cropGroup : CropGroup
+    , scenario : Scenario
     , defaultOrigin : Origin
     , density : Density
     , ecosystemicServices : EcosystemicServices
@@ -135,6 +139,8 @@ decodeIngredient : List Process -> Decoder Ingredient
 decodeIngredient processes =
     Decode.succeed Ingredient
         |> Pipe.required "categories" (Decode.list IngredientCategory.decode)
+        |> Pipe.optional "cropGroup" CropGroup.decode CropGroup.empty
+        |> Pipe.optional "scenario" Scenario.decode Scenario.empty
         |> Pipe.required "defaultOrigin" Origin.decode
         |> Pipe.required "density" (Decode.float |> Decode.map gramsPerCubicCentimeter)
         |> Pipe.optional "ecosystemicServices" EcosystemicServices.decode EcosystemicServices.empty
