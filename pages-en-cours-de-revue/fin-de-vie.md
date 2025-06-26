@@ -13,9 +13,9 @@ Les scénarios de fin de vie d'un produit peuvent être définis avec ces deux c
 * la capacité de la filière à collecter le produit en fin de vie (taux de collecte), éventuellement décliné en une collecte pour traitement local d'une part et une collecte pour export d'autre part
 * la recyclabilité du produit (oui vs non).
 
-Le schéma ci-dessous montre les scénarios possible.
+Le schéma ci-dessous montre les scénarios possible de fin de vie :
 
-<figure><img src="../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 ### Le recyclage des matériaux
 
@@ -43,7 +43,7 @@ $$
 {% endtab %}
 
 {% tab title="Niveau 1" %}
-Impact de la fin de vie pour les scénarios de fin de vie S = Spécifique ou D = Déchets divers
+Impact de la fin de vie pour les scénarios de fin de vie S = Spécifique matière ou D = Déchets divers
 
 $$
 I_{EoL,S}=TC*r_p*\sum_i m_i*(R_{S,Inc,i}*I_{EoL,incineration,i}+(1-R_{S,Rec,i}-R_{S,Inc,i})*I_{EoL,landfill,i})
@@ -97,7 +97,7 @@ Un taux de collecte pour export de 0% est appliqué par défaut pour l'ensemble 
 
 Ce scénario est applicable aux matériaux des produits non collectés ou non recyclables, hors métaux.
 
-<table><thead><tr><th width="267">Matériau (i)</th><th>R_D,Rec,i</th><th>R_D,Inc,i</th><th>R_D,Enf,i</th></tr></thead><tbody><tr><td>Bois (massif &#x26; panneaux)*</td><td>0%</td><td>82%</td><td>0%</td></tr><tr><td>Métal*</td><td>90%</td><td>5%</td><td>5%</td></tr><tr><td>Rembourré/Matelas/Mousse*</td><td>0%</td><td>82%</td><td>18%</td></tr><tr><td>Plastique*</td><td>0%</td><td>82%</td><td>18%</td></tr><tr><td>Emballage (carton)**</td><td>0%</td><td>82%</td><td>18%</td></tr><tr><td>Emballage (plastique)**</td><td>0%</td><td>82%</td><td>18%</td></tr><tr><td>Emballage (autres)**</td><td>0%</td><td>82%</td><td>18%</td></tr><tr><td>Autres matières</td><td>0%</td><td>82%</td><td>18%</td></tr></tbody></table>
+<table><thead><tr><th width="267">Matériau i</th><th>R_D,Rec,i</th><th>R_D,Inc,i</th><th>R_D,Enf,i</th></tr></thead><tbody><tr><td>Bois (massif &#x26; panneaux)*</td><td>0%</td><td>82%</td><td>0%</td></tr><tr><td>Métal*</td><td>90%</td><td>5%</td><td>5%</td></tr><tr><td>Rembourré/Matelas/Mousse*</td><td>0%</td><td>82%</td><td>18%</td></tr><tr><td>Plastique*</td><td>0%</td><td>82%</td><td>18%</td></tr><tr><td>Emballage (carton)**</td><td>0%</td><td>82%</td><td>18%</td></tr><tr><td>Emballage (plastique)**</td><td>0%</td><td>82%</td><td>18%</td></tr><tr><td>Emballage (autres)**</td><td>0%</td><td>82%</td><td>18%</td></tr><tr><td>Autres matières</td><td>0%</td><td>82%</td><td>18%</td></tr></tbody></table>
 
 {% hint style="info" %}
 Ce scénario est basé sur le scénario de fin de vie d'un mobilier meublant dont la recyclabilité du meuble est de 0% dans la dernière version du référentiel BPX30 _Meubles Meublants \_ FCBA (Novembre 2023)_
@@ -111,7 +111,9 @@ Ces paramètres sont définis secteur par secteur dans les pages Fin de vie sect
 
 Le cas échéant, ces paramètres sont définis secteur par secteur dans les pages Fin de vie sectorielles.&#x20;
 
-## Procédés utilisés pour le coût environnemental `I_EoL,incineration,i`
+## Procédés utilisés pour le coût environnemental
+
+Les procédés utilisés sont identifiés dans l'Explorateur de procédé. Ils sont également détaillés ci-dessous.
 
 #### Liste des procédés
 

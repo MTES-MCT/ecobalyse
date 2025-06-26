@@ -6,9 +6,15 @@ icon: bin-recycle
 
 ## Contexte &#x20;
 
-Evaluer le coût environnemental de la fin de vie d'un meuble consiste à calculer l'impact environnemental des débouchés du meuble.&#x20;
+Evaluer le coût environnemental de la fin de vie d'un meuble consiste à calculer l'impact environnemental des débouchés du meuble.
+
+Les principaux scénarios de fin de vie sont décrits dans la [page de documentation transversale](https://fabrique-numerique.gitbook.io/ecobalyse/pages-en-cours-de-revue/fin-de-vie).
+
+La page ci-dessous apporte des précision spécifique au secteur de l'ameublement.
 
 <figure><img src="../../.gitbook/assets/newplot.png" alt=""><figcaption></figcaption></figure>
+
+### La collecte en fin de vie dans le secteur de l'ameublement&#x20;
 
 <details>
 
@@ -79,7 +85,7 @@ L'utilisateur a la possibilité de modifier ce paramètre.
 
 ## Méthode de calcul
 
-Voir méthode transverse.
+La méthode de calcul des impacts de la fin de vie est précisée dans la [page de documentation transversale](https://fabrique-numerique.gitbook.io/ecobalyse/pages-en-cours-de-revue/fin-de-vie).
 
 ### <mark style="color:red;">Calcul de la recyclabilité produit</mark>
 
@@ -89,7 +95,7 @@ $$
 
 <mark style="color:red;">Avec :</mark>
 
-* <mark style="color:red;">`Rp_2`</mark> <mark style="color:red;"></mark><mark style="color:red;">: la recyclabilité produit, égale à 1 (recyclable) ou 0 (non recyclable)</mark>
+* <mark style="color:red;">`r_p`</mark> <mark style="color:red;"></mark><mark style="color:red;">: la recyclabilité produit, égale à 1 (recyclable) ou 0 (non recyclable)</mark>
 * <mark style="color:red;">`S_op`</mark> <mark style="color:red;"></mark><mark style="color:red;">: l'existence d'une filière en fin de vie des produits (schéma opérationnel)</mark>
 * <mark style="color:red;">`F_limitant`</mark> <mark style="color:red;"></mark><mark style="color:red;">: la présence d'un facteur limitant (perturbateur de recyclage ou matériau majoritaire)</mark>&#x20;
 
@@ -103,16 +109,18 @@ La recyclabilité du produit est indiquée dans Ecobalyse par l'utilisateur.
 
 Pour l'Ameublement, un taux de collecte de 70% est appliqué par défaut pour l'ensemble des meubles. Cette valeur se base sur les tonnes collectés en fin de vie par la filière REP des éléments d'ameublement (1,2m en 2022) et les tonnes mises sur le marché comparables (c. 1,8m).&#x20;
 
-### Scénarios Déchet
+### Taux de collecte pour Export `TE`
 
-Les taux par défaut (issus de la filière ameublement) sont utilisés.
+Il n'y a pas d'export de meubles en fin de vie. `TE` est fixé à zéro.&#x20;
 
-### Scénarios spécifiques à chaque matière
+### Paramètres du scénarios spécifiques à chaque matière
 
-Les taux par défaut (issus de la filière ameublement) sont utilisés.
+Les taux de recyclage, incinération et enfouissement pour le scénario Spécifique matière (produits collectés et recyclables) sont détaillés ci-dessous:
 
+<table><thead><tr><th width="267">Matériau i</th><th>R_S,Rec,i</th><th>R_S,Inc,i</th><th>R_S,Enf,i</th></tr></thead><tbody><tr><td>Bois (massif &#x26; panneaux)*</td><td>69%</td><td>31</td><td>0%</td></tr><tr><td>Métal*</td><td>100%</td><td>0%</td><td>0%</td></tr><tr><td>Rembourré/Matelas/Mousse*</td><td>4%</td><td>94%</td><td>2%</td></tr><tr><td>Plastique*</td><td>92%</td><td>8%</td><td>0%</td></tr><tr><td>Emballage (carton)**</td><td>85%</td><td>11%</td><td>4%</td></tr><tr><td>Emballage (plastique)**</td><td>7%</td><td>68%</td><td>25%</td></tr><tr><td>Emballage (autres)**</td><td>0%</td><td>73%</td><td>27%</td></tr><tr><td>Autres matières</td><td>0%</td><td>82%</td><td>18%</td></tr></tbody></table>
 
+## Procédés utilisés pour le coût environnemental
 
-
+Les procédés utilisés sont identifiés dans l'Explorateur de procédé. Ils sont précisés dans la [page de documentation transversale](https://fabrique-numerique.gitbook.io/ecobalyse/pages-en-cours-de-revue/fin-de-vie).
 
 [^1]: &#x20;L'organisme coordinateur de la filière de Responsabilité Elargie du Producteur des Eléments d'Ameublement.
