@@ -74,7 +74,7 @@ async def _create_user(
 
 
 @user_management_group.command(
-    name="create-default-super-user", help="Create the default super user"
+    name="create-default-user", help="Create the default user"
 )
 @click.option(
     "--first-name",
@@ -109,7 +109,7 @@ def create_default_user(
 
     console = get_console()
 
-    console.rule("Create the default super user of the app.")
+    console.rule("Create the default user of the app.")
     superuser = False
 
     settings = get_settings()
@@ -228,10 +228,24 @@ async def load_components_fixtures(components_data: dict) -> None:
             email=settings.app.DEFAULT_USER_EMAIL
         )
         if not user:
-            await logger.aerror(
-                f"default super user {settings.app.DEFAULT_USER_EMAIL} not found"
+            await logger.awarning(
+                f"default super user {settings.app.DEFAULT_USER_EMAIL} not found, creating it"
             )
-            return
+
+            await _create_user(
+                email=settings.app.DEFAULT_USER_EMAIL,
+                first_name="Admin",
+                last_name="Ecobalyse",
+                organization="Ecobalyse",
+                # Not super user
+                superuser=False,
+                # Deactivate default user
+                is_active=False,
+            )
+
+            user = await users_service.get_one_or_none(
+                email=settings.app.DEFAULT_USER_EMAIL
+            )
 
         components_service = await anext(provide_components_service(db_session))
 

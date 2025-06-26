@@ -73,6 +73,14 @@ def convert_sqlalchemy_exceptions_internal_to_problem_details(
     )
 
 
+def convert_unknown_exception_to_problem_details(
+    exc: Exception,
+) -> ProblemDetailsException:
+    return ProblemDetailsException(
+        detail="Internal Server Error", status_code=HTTP_500_INTERNAL_SERVER_ERROR
+    )
+
+
 problem_details = ProblemDetailsConfig(
     enable_for_all_http_exceptions=True,
     exception_to_problem_detail_map={
@@ -80,6 +88,7 @@ problem_details = ProblemDetailsConfig(
         IntegrityError: convert_sqlalchemy_exceptions_conflict_to_problem_details,
         ForeignKeyError: convert_sqlalchemy_exceptions_conflict_to_problem_details,
         InternalServerException: convert_sqlalchemy_exceptions_internal_to_problem_details,
+        HTTP_500_INTERNAL_SERVER_ERROR: convert_unknown_exception_to_problem_details,
     },
 )
 

@@ -101,6 +101,19 @@ def fx_raw_users() -> list[User | dict[str, Any]]:
             ),
         },
         {
+            "id": "503b826c-78a0-44d9-9122-50a162aad306",
+            "email": "other_superuser@example.com",
+            "magic_link_token": "Test_Password1!_token_other",
+            "is_superuser": True,
+            "is_active": True,
+            "first_name": "Other Super",
+            "last_name": "User",
+            "organization": OrganizationCreate(
+                name="Super organization",
+                type=OrganizationType.ASSOCIATION,
+            ),
+        },
+        {
             "id": "5ef29f3c-3560-4d15-ba6b-a2e5c721e4d2",
             "email": "user@example.com",
             "magic_link_token": "Test_Password2!_token",
