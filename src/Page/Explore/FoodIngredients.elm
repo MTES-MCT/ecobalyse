@@ -5,6 +5,8 @@ import Data.Food.Db as FoodDb
 import Data.Food.EcosystemicServices as EcosystemicServices
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
+import Data.Food.Ingredient.CropGroup as CropGroup
+import Data.Food.Ingredient.Scenario as Scenario
 import Data.Food.Origin as Origin
 import Data.Gitbook as Gitbook
 import Data.Process as Process
@@ -18,7 +20,6 @@ import Route
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Link as Link
-
 
 table : FoodDb.Db -> { detailed : Bool, scope : Scope } -> Table Ingredient String msg
 table _ { detailed, scope } =
@@ -49,6 +50,14 @@ table _ { detailed, scope } =
         , { label = "Origine par défaut"
           , toValue = Table.StringValue <| .defaultOrigin >> Origin.toLabel
           , toCell = .defaultOrigin >> Origin.toLabel >> text
+          }
+        , { label = "Groupe de culture"
+          , toValue = Table.StringValue <| .cropGroup >> CropGroup.toLabel
+          , toCell = .cropGroup >> CropGroup.toLabel >> text
+          }
+        , { label = "Scénario"
+          , toValue = Table.StringValue <| .scenario >> Scenario.toLabel
+          , toCell = .scenario >> Scenario.toLabel >> text
           }
         , { label = "Surface mobilisée"
           , toValue = Table.FloatValue <| .landOccupation
