@@ -11,10 +11,13 @@ module Data.Process exposing
     , findById
     , getDisplayName
     , getImpact
+    , getMaterialType
     , getTechnicalName
     , idFromString
     , idToString
     , listByCategory
+    , listByMaterialType
+    , listByUnit
     )
 
 import Data.Common.DecodeUtils as DU
@@ -174,6 +177,21 @@ getDisplayName process =
             getTechnicalName process
 
 
+getMaterialType : Process -> Maybe String
+getMaterialType =
+    .categories
+        >> List.filterMap
+            (\category ->
+                case category of
+                    Category.MaterialType materialType ->
+                        Just materialType
+
+                    _ ->
+                        Nothing
+            )
+        >> List.head
+
+
 getTechnicalName : Process -> String
 getTechnicalName { sourceId } =
     sourceIdToString sourceId
@@ -182,3 +200,13 @@ getTechnicalName { sourceId } =
 listByCategory : Category -> List Process -> List Process
 listByCategory category =
     List.filter (.categories >> List.member category)
+
+
+listByMaterialType : String -> List Process -> List Process
+listByMaterialType materialType =
+    List.filter (.categories >> List.member (Category.MaterialType materialType))
+
+
+listByUnit : String -> List Process -> List Process
+listByUnit unit =
+    List.filter (.unit >> (==) unit)
