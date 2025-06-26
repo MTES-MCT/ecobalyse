@@ -266,12 +266,16 @@ encodeProfile profile =
 
 encodeOrganization : Organization -> Encode.Value
 encodeOrganization organization =
-    case organization of
-        Association name ->
+    let
+        encodeWithName name =
             Encode.object
                 [ ( "type", Encode.string <| organizationTypeToString organization )
                 , ( "name", Encode.string name )
                 ]
+    in
+    case organization of
+        Association name ->
+            encodeWithName name
 
         Business name (Siren siren) ->
             Encode.object
@@ -281,10 +285,7 @@ encodeOrganization organization =
                 ]
 
         Education name ->
-            Encode.object
-                [ ( "type", Encode.string <| organizationTypeToString organization )
-                , ( "name", Encode.string name )
-                ]
+            encodeWithName name
 
         Individual ->
             Encode.object
@@ -292,28 +293,16 @@ encodeOrganization organization =
                 ]
 
         LocalAuthority name ->
-            Encode.object
-                [ ( "type", Encode.string <| organizationTypeToString organization )
-                , ( "name", Encode.string name )
-                ]
+            encodeWithName name
 
         Media name ->
-            Encode.object
-                [ ( "type", Encode.string <| organizationTypeToString organization )
-                , ( "name", Encode.string name )
-                ]
+            encodeWithName name
 
         Public name ->
-            Encode.object
-                [ ( "type", Encode.string <| organizationTypeToString organization )
-                , ( "name", Encode.string name )
-                ]
+            encodeWithName name
 
         Student name ->
-            Encode.object
-                [ ( "type", Encode.string <| organizationTypeToString organization )
-                , ( "name", Encode.string name )
-                ]
+            encodeWithName name
 
 
 encodeRole : Role -> Encode.Value
