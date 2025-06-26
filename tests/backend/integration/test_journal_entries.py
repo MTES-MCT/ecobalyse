@@ -17,6 +17,7 @@ async def test_components_journal(
     client: "AsyncClient",
     session: AsyncSession,
     superuser_token_headers: dict[str, str],
+    other_superuser_token_headers: dict[str, str],
 ) -> None:
     async with JournalEntryService.new(session) as journal_entries_service:
         json_content = [
@@ -102,6 +103,26 @@ async def test_components_journal(
             == 1
         )
 
+        json_content = [
+            {
+                "elements": [
+                    {
+                        "amount": 0.00022,
+                        "material": "07e9e916-e02b-45e2-a298-2b5084de6242",
+                    }
+                ],
+                "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
+                "name": "Pied 70 cm (plein bois) - Test",
+            },
+        ]
+
+        # Ensure that we have entries with different users
+        response = await client.patch(
+            "/api/components",
+            json=json_content,
+            headers=other_superuser_token_headers,
+        )
+
         # Remove everything
 
         response = await client.patch(
@@ -112,13 +133,13 @@ async def test_components_journal(
         assert response.status_code == 200
 
         entries = await journal_entries_service.list()
-        assert len(entries) == 13
+        assert len(entries) == 14
 
         response = await client.get("/api/journal", headers=superuser_token_headers)
         json_response = response.json()
         assert response.status_code == 200
 
-        assert len(json_response) == 13
+        assert len(json_response) == 14
 
         response = await client.get(
             "/api/journal/component", headers=superuser_token_headers
@@ -126,7 +147,7 @@ async def test_components_journal(
         json_response = response.json()
         assert response.status_code == 200
 
-        assert len(json_response) == 13
+        assert len(json_response) == 14
 
         response = await client.get(
             "/api/journal/unknown", headers=superuser_token_headers
