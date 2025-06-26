@@ -233,6 +233,7 @@ legalMenuLinks : List MenuLink
 legalMenuLinks =
     [ Internal "Accessibilité\u{00A0}: non conforme" (Route.Editorial "accessibilité") (Editorial "accessibilité")
     , Internal "Mentions légales" (Route.Editorial "mentions-légales") (Editorial "mentions-légales")
+    , External "Politique de confidentialité" Env.privacyPolicyUrl
     , MailTo "Contact" Env.contactEmail
     ]
 

@@ -12,6 +12,7 @@ module Data.Env exposing
     , maxMaterials
     , minMakingDeadStockRatio
     , minMakingWasteRatio
+    , privacyPolicyUrl
     )
 
 import Data.Split as Split exposing (Split)
@@ -80,3 +81,8 @@ defaultDeadStock =
 maxMaterials : Int
 maxMaterials =
     5
+
+
+privacyPolicyUrl : String
+privacyPolicyUrl =
+    "https://fabrique-numerique.gitbook.io/ecobalyse/politique-de-confidentialite-de-donnees-personnelles"
