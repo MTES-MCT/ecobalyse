@@ -32,7 +32,7 @@ L'indicateur EF Fossil Ressource Use (FRU) raisonne sur la base de l’énergie 
 
 Ceci implique plusieurs hypothèses sous-jacentes fortes : toutes les énergies sont substituables (pour l’électricité, le chauffage, le carburant etc.), le prélèvement énergétique est "définitif" (c'est raisonnablement le cas lors de la combustion d'essence ou de gaz).
 
-Ce raisonnement est discutable pour l’énergie nucléaire en particulier :  il semble peut réaliste d'utiliser le combustible nucléaire pour du chauffage en direct; la nature de cette énergie fait qu'il est nécessaire de passer par le vecteur "électricité" pour la rendre utilisable par l'homme. Aussi contrairement aux sources d'énergies fossiles, le recyclage des combustibles nucléaires est envisageable, et les technologies de production voient leur efficacité s'améliorer.&#x20;
+Ce raisonnement est discutable pour l’énergie nucléaire en particulier : le combustible nucléaire n'est à ce jour pas utilisé pour du chauffage en direct ; il y a un passage par le vecteur "électricité" pour la rendre utilisable par l'homme. Aussi, et contrairement aux sources d'énergies fossiles, le recyclage des combustibles nucléaires est envisageable, et les technologies de production voient leur efficacité s'améliorer.
 
 Les tests montrent qu'au final le FRU, contrairement à ce que son nom laisse penser,  reflète avant tout "l'efficacité" de conversion entre les ressources fossiles et l'usage, et non pas la rareté et la pression sur la ressource.  Ceci est frappant quand on met en parallèle le graphique ci-dessous et les scénarios présentant la tension actuelle sur les ressources.
 
