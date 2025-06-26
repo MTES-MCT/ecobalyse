@@ -712,8 +712,17 @@ productCategoryField { products } query =
                 |> AutocompleteSelector.init .name
     in
     div [ class "d-flex flex-column" ]
-        [ label [ for "selector-product", class "form-label text-truncate" ]
-            [ text "Catégorie" ]
+        [ div [ class "d-flex justify-content-between align-items-center" ]
+            [ label [ for "selector-product", class "form-label text-truncate" ]
+                [ text "Catégorie de produit" ]
+            , Button.smallPillLink
+                [ class "text-primary"
+                , Route.href <| Route.Explore Scope.Textile (Dataset.TextileProducts Nothing)
+                , title "Explorer les catégories de produit"
+                , target "_blank"
+                ]
+                [ Icon.question ]
+            ]
         , button
             [ id "selector-product"
             , class "form-select ElementSelector text-start w-auto"
