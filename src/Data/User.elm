@@ -167,6 +167,7 @@ decodeOrganization =
             , ( "localAuthority", LocalAuthority )
             , ( "media", Media )
             , ( "public", Public )
+            , ( "student", Student )
             ]
                 |> List.map
                     (\( orgString, orgType ) ->
