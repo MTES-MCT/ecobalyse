@@ -100,12 +100,12 @@ addElementButton { db, openSelectProcessModal } targetItem =
         ]
 
 
-addElementTransformButton : Config db msg -> TargetElement -> Html msg
-addElementTransformButton { db, openSelectProcessModal } ( ( component, itemIndex ), elementIndex ) =
+addElementTransformButton : Config db msg -> Process -> TargetElement -> Html msg
+addElementTransformButton { db, openSelectProcessModal } material ( ( component, itemIndex ), elementIndex ) =
     let
         availableTransformProcesses =
             db.processes
-                |> Process.listByCategory Category.Transform
+                |> Process.listAvailableMaterialTransforms material
                 |> List.sortBy Process.getDisplayName
                 |> Process.available
                     (component.elements
@@ -115,7 +115,8 @@ addElementTransformButton { db, openSelectProcessModal } ( ( component, itemInde
                     )
 
         autocompleteState =
-            AutocompleteSelector.init Process.getDisplayName availableTransformProcesses
+            availableTransformProcesses
+                |> AutocompleteSelector.init Process.getDisplayName
     in
     button
         [ type_ "button"
@@ -427,7 +428,7 @@ elementView config targetItem elementIndex { amount, material, transforms } elem
                     [ tr []
                         [ td [ colspan 2 ] []
                         , td [ colspan 5 ]
-                            [ addElementTransformButton config ( targetItem, elementIndex )
+                            [ addElementTransformButton config material ( targetItem, elementIndex )
                             ]
                         ]
                     ]
