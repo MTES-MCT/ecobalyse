@@ -7,6 +7,7 @@
 * [🇫🇷 Ecobalyse](README.md)
 * [🤝 Communauté](communaute.md)
 * [Conditions d'utilisation](conditions-dutilisation.md)
+* [Politique de confidentialité de données personnelles](politique-de-confidentialite-de-donnees-personnelles.md)
 * [Nous contacter](nous-contacter.md)
 
 ## 📊 Le coût environnemental <a href="#def-cout-environnemental" id="def-cout-environnemental"></a>
