@@ -17,13 +17,13 @@ test("Object simulator", async ({ page }) => {
   await page.getByRole("button", { name: "Plastique granulé (PP)" }).click();
   await page.getByRole("option", { name: "Fibre de viscose" }).click();
   await page.getByRole("button", { name: "Ajouter une transformation" }).click();
-  await page.getByRole("option", { name: "Lavage (fibres synthétiques)" }).click();
+  await page.getByRole("option", { name: "Moulage par injection" }).click();
   await page.getByRole("button", { name: "Ajouter une transformation" }).click();
-  await page.getByRole("option", { name: "Mercerisage" }).click();
+  await page.getByRole("option", { name: /Transformation plastique/ }).click();
   await page.getByRole("button", { name: "Ajouter un élément" }).click();
-  await page.getByRole("option", { name: "Bois d'industrie" }).click();
+  await page.getByRole("option", { name: "Acier", exact: true }).click();
   await page.getByRole("button", { name: "Ajouter une transformation" }).nth(1).click();
-  await page.getByRole("option", { name: "Désencollage" }).click();
+  await page.getByRole("option", { name: "Transformation métallique (moyenne)" }).click();
   await page.getByRole("button", { name: "Ajouter un composant" }).click();
   await page.getByRole("option", { name: "Assise plastique (PP)" }).click();
   await page.getByRole("button", { name: "▶" }).click();
