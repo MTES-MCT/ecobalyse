@@ -105,15 +105,7 @@ addElementTransformButton { db, openSelectProcessModal } material ( ( component,
     let
         availableTransformProcesses =
             db.processes
-                |> Process.listByCategory Category.Transform
-                |> (case Process.getMaterialType material of
-                        Just materialType ->
-                            Process.listByMaterialType materialType
-
-                        Nothing ->
-                            identity
-                   )
-                |> Process.listByUnit material.unit
+                |> Process.listAvailableMaterialTransforms material
                 |> List.sortBy Process.getDisplayName
                 |> Process.available
                     (component.elements
