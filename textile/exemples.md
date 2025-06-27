@@ -8,7 +8,7 @@ Le premier champ proposé sur le simulateur Ecobalyse textile propose de sélect
 
 <figure><img src="../.gitbook/assets/image (295).png" alt=""><figcaption><p>Capture d'écran (01/04/2024)</p></figcaption></figure>
 
-Les différents exemples proposés permettent d'initier la modélisation d'un vêtement à partir d'un exemple similaire (un jean pour un jean, un Tshirt pour un Tshirt...). **Ce choix initial permet de faciliter les modélisation mais ne remplace ensuite pas le paramétrage de chacun des champs proposés**. La page de documentation "[Paramétrage](https://app.gitbook.com/o/-MMQU-ngAOgQAqCm4mf3/s/-MexpTrvmqKNzuVtxdad/\~/changes/887/textile/parametrage)" précise les paramètres qui peuvent ou doivent être renseignés suivant l'utilisation qui est faite de l'outil.
+Les différents exemples proposés permettent d'initier la modélisation d'un vêtement à partir d'un exemple similaire (un jean pour un jean, un Tshirt pour un Tshirt...). **Ce choix initial permet de faciliter les modélisation mais ne remplace ensuite pas le paramétrage de chacun des champs proposés**. La page de documentation "[Paramétrage](https://app.gitbook.com/o/-MMQU-ngAOgQAqCm4mf3/s/-MexpTrvmqKNzuVtxdad/~/changes/887/textile/parametrage)" précise les paramètres qui peuvent ou doivent être renseignés suivant l'utilisation qui est faite de l'outil.
 
 Deux types d'exemples sont proposés en première approche :
 
@@ -32,7 +32,8 @@ Toute modélisation doit impérativement commencer par le choix d'un exemple de 
 {% endhint %}
 
 * Matières -> Le choix de matière est un paramètre central. Il est donc précisé, même pour un exemple paramétré de façon "majorante par défaut". Ce paramètre doit donc impérativement être modifié si le produit modélisé n'est pas composé des mêmes matières que l'exemple paramétré de façon "majorante par défaut".
-* Masse -> Une masse par défaut est attachée à chaque catégorie de produit. Cette masse par défaut (170g pour un Tshirt) correspond à la valeur proposé dans le [projet de PEFCR Apparel & Footwear](https://pefapparelandfootwear.eu/). Ce paramètre étant crucial dans la modélisation, il est explicité dans les différents exemples paramétrés de façon "majorante par défaut" et il doit nécessairement être modifié pour modéliser un produit de la même catégorie qui n'aurait pas la même masse.
+
+
 
 L'ensemble des autres paramètres exposés dans le calculateur Ecobalyse sont, par défaut, fixés sur une valeur majorante. C'est en particulier le cas pour :
 
