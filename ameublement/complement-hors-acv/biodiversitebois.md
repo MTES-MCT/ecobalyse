@@ -192,28 +192,45 @@ Afin de couvrir toutes les configurations possibles, deux scénarios non spécif
 
 `label`&#x20;
 
-Certaines certifications participent à garantir des pratiques sylvicole plus respectueuse des écosystèmes sur une géographique spécifique.&#x20;
+Certaines certifications participent à garantir des pratiques sylvicole plus respectueuse des écosystèmes à l'échelle du pays où le bois est prélevé.&#x20;
 
-Dès lors, la présence d'une certification acceptée par le dispositif permet de préciser l'impact biodiversité de bois en réduisant ce dernier de -50%.&#x20;
+L'obtention d'une telle certification permet de préciser le complément en réduisant son impact de _-50%_.
 
-Liste des certifications acceptées :&#x20;
+Certifications acceptées :&#x20;
 
 * PEFC
 * FSC
 
 {% hint style="info" %}
-**Logique clé applicable**
+Ces deux certifications partagent les caractéristiques suivantes :&#x20;
 
-Lorsque des enjeux clés du cycle de vie de produits sont difficilement quantifiables (ex : microfibres dans le Textilen, biodiversité bois dans l'Ameublement, etc.), il est préférable de les intégrer dans le coût environnemental plutôt que de ne pas les intégrer au motif que leur quantification est difficile.&#x20;
+* les critères de certification sont spécifiques aux contextes forestiers nationaux et régionaux (une certification dans un pays X n'est pas forcément la même que dans un pays Y). Concrètement, les certifications accordées doivent permettre d’identifier en forêt une valeur ajoutée claire par rapport aux forêts du territoire tout en influançant les pratiques de marché.&#x20;
+* l'objectif premier de ces certifications n'est pas de limiter l'impact sur la biodiversité des pratiques sylvicoles mais d'assurer la viabilité économique des modèles d'exploitation forestière tout en limitant leurs conséquences néfastes sur l'environnement et le social (droit des travailleurs forestiers, consultation des communautés locales, etc.).
 {% endhint %}
 
-## Exemple d'application
+<details>
 
-<mark style="color:red;">A compléter</mark>
+<summary>En savoir plus sur le label PEFC</summary>
 
+Créé en 1999 par des propriétaires forestiers européens, le label PEFC (Programme for the Endorsement of Forest Certification) rassemble aujourd’hui les acteurs de la filière bois de près de 50 pays désireux de s’engager en faveur d'une gestion raisonnée et durable de la forêt.
 
+</details>
 
+<details>
 
+<summary>En savoir plus sur le label FSC</summary>
+
+Forest Stewardship Council (FSC®) est une organisation non gouvernementale créée en 1993 par la volonté d’un groupe d’entreprises, d’associations environnementales et de représentants des droits sociaux.&#x20;
+
+</details>
+
+{% hint style="info" %}
+**Pourquoi utiliser un tel système de bonus/malus dans une approche quantitative ?**
+
+Lorsque des enjeux environnementaux clés sont difficilement quantifiables dans le cadre ACV (ex : microfibres dans le Textilen, biodiversité bois dans l'Ameublement, etc.), il est préférable de les intégrer d'une manière ou d'une autre plutôt que de les exclure du périmètre d'analyse au motif que leur quantification est difficile.&#x20;
+
+Entre ne pas intégrer une dimension environnementale et l'approximer, la seconde option est à privilégier afin de mieux refléter le coût environnemental réel du produit.
+{% endhint %}
 
 [^1]: L’Organisation des Nations unies pour l’alimentation et l’agriculture
 
