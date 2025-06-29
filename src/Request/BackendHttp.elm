@@ -60,8 +60,8 @@ expectJson toMsg decoder =
                     Err (BadUrl url)
 
                 Http.GoodStatus_ metadata body ->
-                    -- map an empty body to a valid JSON null value so that we can
-                    -- accept empty response bodies (eg. DELETE requests)
+                    -- map an empty body to a valid JSON "null" string so that we can
+                    -- accept empty response bodies (eg. 204 No Content responses)
                     (if String.isEmpty body then
                         "null"
 
