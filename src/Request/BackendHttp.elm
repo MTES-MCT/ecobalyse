@@ -37,21 +37,11 @@ authHeaders session =
 -}
 expectJson : (Result Error value -> msg) -> Decoder value -> Http.Expect msg
 expectJson toMsg decoder =
-    let
-        -- If the body is empty, decode it as a valid JSON null value so that we can
-        -- accept empty response bodies
-        toJsonBody body =
-            if String.isEmpty body then
-                "null"
-
-            else
-                body
-    in
     Http.expectStringResponse toMsg <|
         \response ->
             case response of
                 Http.BadStatus_ metadata body ->
-                    case Decode.decodeString (BackendError.decodeErrorResponse metadata) (toJsonBody body) of
+                    case Decode.decodeString (BackendError.decodeErrorResponse metadata) body of
                         Err decodeError ->
                             -- If decoding the JSON error fails, expose the reason
                             Err <|
@@ -70,9 +60,17 @@ expectJson toMsg decoder =
                     Err (BadUrl url)
 
                 Http.GoodStatus_ metadata body ->
-                    case Decode.decodeString decoder (toJsonBody body) of
-                        Err err ->
-                            Err <|
+                    -- map an empty body to a valid JSON null value so that we can
+                    -- accept empty response bodies (eg. DELETE requests)
+                    (if String.isEmpty body then
+                        "null"
+
+                     else
+                        body
+                    )
+                        |> Decode.decodeString decoder
+                        |> Result.mapError
+                            (\err ->
                                 BadBody
                                     { detail = Decode.errorToString err
                                     , headers = metadata.headers
@@ -80,9 +78,7 @@ expectJson toMsg decoder =
                                     , title = Just "Corps de réponse invalide"
                                     , url = metadata.url
                                     }
-
-                        Ok value ->
-                            Ok value
+                            )
 
                 Http.NetworkError_ ->
                     Err NetworkError
