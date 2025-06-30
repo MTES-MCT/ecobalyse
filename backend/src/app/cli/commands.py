@@ -317,11 +317,9 @@ async def load_processes_fixtures(processes_data: dict) -> None:
 
             renamed_processes.append(renamed_process)
 
-        await service.upsert_many(
-            match_fields=["id"],
+        await service.create_many(
             data=renamed_processes,
             auto_commit=True,
-            uniquify=True,
         )
         await logger.ainfo("loaded processes fixtures")
 

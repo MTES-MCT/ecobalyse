@@ -27,7 +27,7 @@ class ProcessCategory(UUIDAuditBase, UniqueMixin):
     # ------------
     processes: Mapped[list[Process]] = relationship(
         secondary=lambda: _process_process_category(),
-        back_populates="categories",
+        back_populates="process_categories",
     )
 
     @classmethod

@@ -42,7 +42,7 @@ class Process(UUIDAuditBase):
     unit: Mapped[Unit] = mapped_column(Enum(Unit, values_callable=get_enum_values))
     waste: Mapped[float] = mapped_column(Float, nullable=False, default=0)
 
-    categories: Mapped[list[ProcessCategory]] = relationship(
+    process_categories: Mapped[list[ProcessCategory]] = relationship(
         secondary=lambda: process_process_category,
         back_populates="processes",
         cascade="all, delete",
@@ -71,3 +71,38 @@ class Process(UUIDAuditBase):
     wtu: Mapped[float] = mapped_column(Float, nullable=False, default=0)
     ecs: Mapped[float] = mapped_column(Float, nullable=False, default=0)
     pef: Mapped[float] = mapped_column(Float, nullable=False, default=0)
+
+    @property
+    def categories(self) -> list[str]:
+        categories = []
+        for c in self.process_categories:
+            categories.append(c.name)
+
+        return categories
+
+    @property
+    def impacts(self) -> dict[str, float]:
+        impacts = {
+            "acd": self.acd,
+            "cch": self.cch,
+            "ecs": self.ecs,
+            "etf": self.etf,
+            "etf-c": self.etf_c,
+            "fru": self.fru,
+            "fwe": self.fwe,
+            "htc": self.htc,
+            "htc-c": self.htc_c,
+            "htn": self.htn,
+            "htn-c": self.htn_c,
+            "ior": self.ior,
+            "ldu": self.ldu,
+            "mru": self.mru,
+            "ozd": self.ozd,
+            "pco": self.pco,
+            "pef": self.pef,
+            "pma": self.pma,
+            "swe": self.swe,
+            "tre": self.tre,
+            "wtu": self.wtu,
+        }
+        return impacts
