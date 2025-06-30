@@ -1,5 +1,11 @@
 [
   {
+    "elements": [],
+    "id": "c38a56d0-c718-405b-963f-f43dbcba3571",
+    "name": "Composant vide",
+    "scopes": ["object"]
+  },
+  {
     "elements": [
       {
         "amount": 0.734063,

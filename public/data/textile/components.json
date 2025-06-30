@@ -1,5 +1,11 @@
 [
   {
+    "elements": [],
+    "id": "28f2f107-ce9c-4760-9a74-0187ab067d09",
+    "name": "Composant vide",
+    "scopes": ["textile"]
+  },
+  {
     "elements": [
       {
         "amount": 0.05,
