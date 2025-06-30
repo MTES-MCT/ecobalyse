@@ -1,14 +1,15 @@
-module Data.Food.Ingredient.Scenario exposing (..)
+module Data.Food.Ingredient.Scenario exposing (Scenario, decode, empty, toLabel)
 
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 
 
 type Scenario
-    = Reference
-    | Organic
-    | Import
+    = Import
     | NoScenario
+    | Organic
+    | Reference
+
 
 fromString : String -> Result String Scenario
 fromString str =
@@ -31,17 +32,19 @@ fromString str =
 toLabel : Scenario -> String
 toLabel scenario =
     case scenario of
-        Reference ->
-            "Référence"
-
-        Organic ->
-            "Biologique"
-
         Import ->
             "Import"
 
         NoScenario ->
             "N/A"
+
+        Organic ->
+            "Biologique"
+
+        Reference ->
+            "Référence"
+
+
 
 
 decode : Decoder Scenario

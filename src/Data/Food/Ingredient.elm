@@ -38,7 +38,6 @@ import Length
 type alias Ingredient =
     { categories : List IngredientCategory.Category
     , cropGroup : CropGroup
-    , scenario : Scenario
     , defaultOrigin : Origin
     , density : Density
     , ecosystemicServices : EcosystemicServices
@@ -48,6 +47,7 @@ type alias Ingredient =
     , name : String
     , process : Process
     , rawToCookedRatio : Unit.Ratio
+    , scenario : Scenario
     , transportCooling : TransportCooling
     , visible : Bool
     }
@@ -140,7 +140,6 @@ decodeIngredient processes =
     Decode.succeed Ingredient
         |> Pipe.required "categories" (Decode.list IngredientCategory.decode)
         |> Pipe.optional "cropGroup" CropGroup.decode CropGroup.empty
-        |> Pipe.optional "scenario" Scenario.decode Scenario.empty
         |> Pipe.required "defaultOrigin" Origin.decode
         |> Pipe.required "density" (Decode.float |> Decode.map gramsPerCubicCentimeter)
         |> Pipe.optional "ecosystemicServices" EcosystemicServices.decode EcosystemicServices.empty
@@ -150,6 +149,7 @@ decodeIngredient processes =
         |> Pipe.required "name" Decode.string
         |> Pipe.required "processId" (linkProcess processes)
         |> Pipe.required "rawToCookedRatio" Unit.decodeRatio
+        |> Pipe.optional "scenario" Scenario.decode Scenario.empty
         |> Pipe.required "transportCooling" decodeTransportCooling
         |> Pipe.required "visible" Decode.bool
 

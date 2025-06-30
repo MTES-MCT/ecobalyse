@@ -1,66 +1,36 @@
-module Data.Food.Ingredient.CropGroup exposing (..)
+module Data.Food.Ingredient.CropGroup exposing (CropGroup, decode, empty, toLabel)
 
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 
 
 type CropGroup
-    = LegumesFleurs
-    | Vergers
-    | Colza
-    | Tournesol
-    | FruitsACoques
-    | LegumineusesAGrain
-    | BleTendre
-    | Orge
-    | Riz
-    | MaisGrainEtEnsilage
-    | AutresCereales
+    = AutresCereales
     | AutresCulturesIndustrielles
     | AutresOleagineux
-    | Vignes
-    | Oliviers
+    | BleTendre
+    | Colza
     | Divers
-    | Proteagineux
-    | PrairiesTemporaires
-    | PrairiesPermanentes
-    | PlantesAFibres
+    | FruitsACoques
+    | LegumesFleurs
+    | LegumineusesAGrain
+    | MaisGrainEtEnsilage
     | NoCropGroup
+    | Oliviers
+    | Orge
+    | PlantesAFibres
+    | PrairiesPermanentes
+    | PrairiesTemporaires
+    | Proteagineux
+    | Riz
+    | Tournesol
+    | Vergers
+    | Vignes
 
 
 fromString : String -> Result String CropGroup
 fromString str =
     case str of
-        "LEGUMES-FLEURS" ->
-            Ok LegumesFleurs
-
-        "VERGERS" ->
-            Ok Vergers
-
-        "COLZA" ->
-            Ok Colza
-
-        "TOURNESOL" ->
-            Ok Tournesol
-
-        "FRUITS A COQUES" ->
-            Ok FruitsACoques
-
-        "LEGUMINEUSES A GRAIN" ->
-            Ok LegumineusesAGrain
-
-        "BLE TENDRE" ->
-            Ok BleTendre
-
-        "ORGE" ->
-            Ok Orge
-
-        "RIZ" ->
-            Ok Riz
-
-        "MAIS GRAIN ET ENSILAGE" ->
-            Ok MaisGrainEtEnsilage
-
         "AUTRES CEREALES" ->
             Ok AutresCereales
 
@@ -70,29 +40,59 @@ fromString str =
         "AUTRES OLEAGINEUX" ->
             Ok AutresOleagineux
 
-        "VIGNES" ->
-            Ok Vignes
+        "BLE TENDRE" ->
+            Ok BleTendre
 
-        "OLIVIERS" ->
-            Ok Oliviers
+        "COLZA" ->
+            Ok Colza
 
         "DIVERS" ->
             Ok Divers
 
-        "PROTEAGINEUX" ->
-            Ok Proteagineux
+        "FRUITS A COQUES" ->
+            Ok FruitsACoques
 
-        "PRAIRIES TEMPORAIRES" ->
-            Ok PrairiesTemporaires
+        "LEGUMES-FLEURS" ->
+            Ok LegumesFleurs
 
-        "PRAIRIES PERMANENTES" ->
-            Ok PrairiesPermanentes
+        "LEGUMINEUSES A GRAIN" ->
+            Ok LegumineusesAGrain
+
+        "MAIS GRAIN ET ENSILAGE" ->
+            Ok MaisGrainEtEnsilage
+
+        "" ->
+            Ok NoCropGroup
+
+        "OLIVIERS" ->
+            Ok Oliviers
+
+        "ORGE" ->
+            Ok Orge
 
         "PLANTES A FIBRES" ->
             Ok PlantesAFibres
 
-        "" ->
-            Ok NoCropGroup
+        "PRAIRIES PERMANENTES" ->
+            Ok PrairiesPermanentes
+
+        "PRAIRIES TEMPORAIRES" ->
+            Ok PrairiesTemporaires
+
+        "PROTEAGINEUX" ->
+            Ok Proteagineux
+
+        "RIZ" ->
+            Ok Riz
+
+        "TOURNESOL" ->
+            Ok Tournesol
+
+        "VERGERS" ->
+            Ok Vergers
+
+        "VIGNES" ->
+            Ok Vignes
 
         _ ->
             Err <| "Groupe de culture invalide : " ++ str
@@ -101,36 +101,6 @@ fromString str =
 toLabel : CropGroup -> String
 toLabel cropGroup =
     case cropGroup of
-        LegumesFleurs ->
-            "Légumes et fleurs"
-
-        Vergers ->
-            "Vergers"
-
-        Colza ->
-            "Colza"
-
-        Tournesol ->
-            "Tournesol"
-
-        FruitsACoques ->
-            "Fruits à coques"
-
-        LegumineusesAGrain ->
-            "Légumineuses à grain"
-
-        BleTendre ->
-            "Blé tendre"
-
-        Orge ->
-            "Orge"
-
-        Riz ->
-            "Riz"
-
-        MaisGrainEtEnsilage ->
-            "Maïs grain et ensilage"
-
         AutresCereales ->
             "Autres céréales"
 
@@ -140,29 +110,59 @@ toLabel cropGroup =
         AutresOleagineux ->
             "Autres oléagineux"
 
-        Vignes ->
-            "Vignes"
+        BleTendre ->
+            "Blé tendre"
 
-        Oliviers ->
-            "Oliviers"
+        Colza ->
+            "Colza"
 
         Divers ->
             "Divers"
 
-        Proteagineux ->
-            "Proteagineux"
+        FruitsACoques ->
+            "Fruits à coques"
 
-        PrairiesTemporaires ->
-            "Prairies temporaires"
+        LegumesFleurs ->
+            "Légumes et fleurs"
 
-        PrairiesPermanentes ->
-            "Prairies permanentes"
+        LegumineusesAGrain ->
+            "Légumineuses à grain"
+
+        MaisGrainEtEnsilage ->
+            "Maïs grain et ensilage"
+
+        NoCropGroup ->
+            "N/A"
+
+        Oliviers ->
+            "Oliviers"
+
+        Orge ->
+            "Orge"
 
         PlantesAFibres ->
             "Plantes à fibres"
 
-        NoCropGroup ->
-            "N/A"
+        PrairiesPermanentes ->
+            "Prairies permanentes"
+
+        PrairiesTemporaires ->
+            "Prairies temporaires"
+
+        Proteagineux ->
+            "Proteagineux"
+
+        Riz ->
+            "Riz"
+
+        Tournesol ->
+            "Tournesol"
+
+        Vergers ->
+            "Vergers"
+
+        Vignes ->
+            "Vignes"
 
 
 decode : Decoder CropGroup
