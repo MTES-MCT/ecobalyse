@@ -4,6 +4,7 @@ module Data.Scope exposing
     , anyOf
     , decode
     , encode
+    , fromString
     , parse
     , toLabel
     , toString

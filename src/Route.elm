@@ -58,23 +58,7 @@ parser =
 
         --  Explorer
         , (Parser.s "explore" </> Scope.parse)
-            |> Parser.map
-                (\scope ->
-                    Explore scope
-                        (case scope of
-                            Scope.Food ->
-                                Dataset.FoodExamples Nothing
-
-                            Scope.Object ->
-                                Dataset.ObjectExamples Nothing
-
-                            Scope.Textile ->
-                                Dataset.TextileExamples Nothing
-
-                            Scope.Veli ->
-                                Dataset.ObjectExamples Nothing
-                        )
-                )
+            |> Parser.map (\scope -> Explore scope (Dataset.defaultDatasetFor scope))
         , Parser.map Explore
             (Parser.s "explore" </> Scope.parse </> Dataset.parseSlug)
         , Parser.map toExploreWithId
