@@ -7,28 +7,5 @@
       "components": []
     },
     "scope": "object"
-  },
-  {
-    "category": "",
-    "id": "cefc2585-7125-4610-aadc-69970a3d67d1",
-    "name": "Véhicule intermédiaire par défaut",
-    "query": {
-      "components": []
-    },
-    "scope": "veli"
-  },
-  {
-    "category": "",
-    "id": "b5aeadf6-95f2-4ee2-b528-899b54f62a20",
-    "name": "VAE",
-    "query": {
-      "components": [
-        {
-          "id": "190276e9-5b90-42d6-8fbd-bc7ddfd4c960",
-          "quantity": 1
-        }
-      ]
-    },
-    "scope": "veli"
   }
 ]

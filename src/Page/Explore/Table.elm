@@ -15,6 +15,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Route exposing (Route)
 import Table as SortableTable
+import Views.Alert as Alert
 import Views.Table as TableView
 
 
@@ -133,20 +134,30 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
                     |> EncodeCsv.toString
             }
     in
-    div []
-        [ div [ class "DatasetTable table-responsive" ]
-            [ SortableTable.view config tableState items
-            , div [ class "text-muted fs-7" ] legend
-            ]
-        , div [ class "text-end pt-3" ]
-            [ a
-                [ class "btn btn-secondary"
-                , href <| "data:text/csv;base64," ++ Base64.encode csv.content
-                , download csv.filename
+    if List.isEmpty items then
+        Alert.simple
+            { attributes = []
+            , close = Nothing
+            , content = [ text <| "Aucun exemple disponible pour le secteur " ++ Scope.toString scope ]
+            , level = Alert.Info
+            , title = Nothing
+            }
+
+    else
+        div []
+            [ div [ class "DatasetTable table-responsive" ]
+                [ SortableTable.view config tableState items
+                , div [ class "text-muted fs-7" ] legend
                 ]
-                [ text "Télécharger ces données au format CSV" ]
+            , div [ class "text-end pt-3" ]
+                [ a
+                    [ class "btn btn-secondary"
+                    , href <| "data:text/csv;base64," ++ Base64.encode csv.content
+                    , download csv.filename
+                    ]
+                    [ text "Télécharger ces données au format CSV" ]
+                ]
             ]
-        ]
 
 
 toCSV : Table data comparable msg -> List data -> Csv

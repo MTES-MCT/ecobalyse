@@ -469,12 +469,14 @@ objectExamplesExplorer :
     Db
     -> Table.Config ( Example ObjectQuery.Query, { score : Float } ) Msg
     -> SortableTable.State
+    -> Scope
     -> Maybe Uuid
     -> List (Html Msg)
-objectExamplesExplorer db tableConfig tableState maybeId =
+objectExamplesExplorer db tableConfig tableState scope maybeId =
     let
         scoredExamples =
             db.object.examples
+                |> List.filter (\example -> example.scope == scope)
                 |> List.map (\example -> ( example, { score = getObjectScore db example } ))
                 |> List.sortBy (Tuple.first >> .name)
 
@@ -489,7 +491,7 @@ objectExamplesExplorer db tableConfig tableState maybeId =
     [ scoredExamples
         |> List.filter (Tuple.first >> .query >> (/=) ObjectQuery.default)
         |> List.sortBy (Tuple.first >> .name)
-        |> Table.viewList OpenDetail tableConfig tableState Scope.Object (ObjectExamples.table max)
+        |> Table.viewList OpenDetail tableConfig tableState scope (ObjectExamples.table max)
     , case maybeId of
         Just id ->
             detailsModal
@@ -499,7 +501,7 @@ objectExamplesExplorer db tableConfig tableState maybeId =
 
                     Ok example ->
                         ( example, { score = getObjectScore db example } )
-                            |> Table.viewDetails Scope.Object (ObjectExamples.table max)
+                            |> Table.viewDetails scope (ObjectExamples.table max)
                 )
 
         Nothing ->
@@ -708,7 +710,7 @@ explore ({ db } as session) { scope, dataset, tableState } =
             impactsExplorer db.definitions tableConfig tableState scope maybeTrigram
 
         Dataset.ObjectExamples maybeId ->
-            objectExamplesExplorer db tableConfig tableState maybeId
+            objectExamplesExplorer db tableConfig tableState Scope.Object maybeId
 
         Dataset.Processes scope_ maybeId ->
             processesExplorer session scope_ tableConfig tableState maybeId
@@ -723,7 +725,7 @@ explore ({ db } as session) { scope, dataset, tableState } =
             textileProductsExplorer db tableConfig tableState maybeId
 
         Dataset.VeliExamples maybeId ->
-            objectExamplesExplorer db tableConfig tableState maybeId
+            objectExamplesExplorer db tableConfig tableState Scope.Veli maybeId
 
 
 view : Session -> Model -> ( String, List (Html Msg) )

@@ -47,7 +47,11 @@ db =
                                 StaticJson.foodProductExamplesJson
                                 StaticJson.foodIngredientsJson
                         )
-                    |> RE.andMap (ObjectDb.buildFromJson StaticJson.objectExamplesJson)
+                    |> RE.andMap
+                        (ObjectDb.buildFromJson
+                            StaticJson.objectExamplesJson
+                            StaticJson.veliExamplesJson
+                        )
                     |> RE.andMap (Ok processes)
                     |> RE.andMap
                         (processes
@@ -60,8 +64,8 @@ db =
 
 
 decodeRawComponents : StaticJson.RawJsonComponents -> Result String (List Component)
-decodeRawComponents { objectComponents, textileComponents } =
-    [ objectComponents, textileComponents ]
+decodeRawComponents { objectComponents, textileComponents, veliComponents } =
+    [ objectComponents, textileComponents, veliComponents ]
         |> List.map decodeScopedComponents
         |> RE.combine
         |> Result.map List.concat
