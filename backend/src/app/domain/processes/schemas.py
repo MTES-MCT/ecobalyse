@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from uuid import UUID  # noqa: TC003
 
+import msgspec
 from app.lib.schema import CamelizedBaseStruct
 
 __all__ = (
@@ -12,11 +13,55 @@ __all__ = (
 from enum import StrEnum
 
 
+class Category(StrEnum):
+    ENERGY = "energy"
+    EOL = "eol"
+    INGREDIENT = "ingredient"
+    MATERIAL = "material"
+    MATERIAL_TYPE_METAL = "material_type:metal"
+    MATERIAL_TYPE_ORGANIC_FIBERS = "material_type:organic_fibers"
+    MATERIAL_TYPE_SYNTHETIC_FIBERS = "material_type:synthetic_fibers"
+    MATERIAL_TYPE_PLASTIC = "material_type:plastic"
+    MATERIAL_TYPE_UPHOLSTERY = "material_type:upholstery"
+    MATERIAL_TYPE_WOOD = "material_type:wood"
+    PACKAGING = "packaging"
+    TEXTILE_MATERIAL = "textile_material"
+    TRANSFORMATION = "transformation"
+    TRANSPORT = "transport"
+    USE = "use"
+
+
+class Impacts(CamelizedBaseStruct):
+    acd: float = 0
+    cch: float = 0
+    etf: float = 0
+    etf_c: float = msgspec.field(name="etf-c", default=0)
+    fru: float = 0
+    fwe: float = 0
+    htc: float = 0
+    htc_c: float = msgspec.field(name="htc-c", default=0)
+    htn: float = 0
+    htn_c: float = msgspec.field(name="htn-c", default=0)
+    ior: float = 0
+    ldu: float = 0
+    mru: float = 0
+    ozd: float = 0
+    pco: float = 0
+    pma: float = 0
+    swe: float = 0
+    tre: float = 0
+    wtu: float = 0
+    ecs: float = 0
+    pef: float = 0
+
+
 class Process(CamelizedBaseStruct):
     """Component properties to use for a response."""
 
     id: UUID
+    categories: list[Category]
     display_name: str
+    impacts: Impacts
     unit: Unit
 
 
