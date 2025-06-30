@@ -2,11 +2,9 @@
 
 ## Définition & Contexte
 
-Il n'existe pas encore de définition harmonisée concernant les stocks dormants (deadstock).
+[Le Règlement Ecoconception ou (« Ecodesign for sustainable products’ regulation », ESPR)](https://eur-lex.europa.eu/legal-content/FR/TXT/HTML/?uri=OJ:L_202401781), publié le 28 juin 2024,  a introduit pour la première fois en droit de l’Union européenne la notion d’invendus.&#x20;
 
-Au niveau européen, la dernière version du PEFCR Apparel & Footwear (v. 1.3) reprend la définition proposée par le décret français n°2020-1609 1724 : "produits qui n'ont pas pu être vendus dans les circuits traditionnels de vente, des soldes ou des ventes privées.". Il a été précisé que les "produits qui n'ont pas pu être vendus" sont ceux qui ont été dépréciés du bilan de l'entreprise où les stocks dormants depuis plus de trois ans.&#x20;
-
-Cependant, cette définition est trop restrictive car elle n'inclut pas les stocks dormants générés lors des étapes de fabrication d'un vêtement.&#x20;
+Selon le règlement, les produits de consommation invendus correspondent aux produits qui n’ont « jamais été vendus ou utilisés » . Ils sont ensuite définis à l’article 2  : «produit de consommation invendu»: tout produit de consommation qui n’a pas été vendu, y compris les surplus de stock, les stocks en excès et les stocks dormants et les produits retournés par un consommateur sur la base de son droit de rétractation conformément à l’article 9 de la directive 2011/83/UE, ou le cas échéant pendant toute période de rétractation de plus longue durée prévue par le professionnel ».
 
 Différents paramètres expliquent la génération de stocks dormants :&#x20;
 
