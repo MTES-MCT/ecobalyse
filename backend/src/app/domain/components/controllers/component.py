@@ -23,7 +23,6 @@ from litestar import delete, get, patch, post
 from litestar.controller import Controller
 from litestar.di import Provide
 from litestar.params import Parameter
-from litestar.status_codes import HTTP_204_NO_CONTENT
 
 if TYPE_CHECKING:
     from app.domain.components.services import ComponentService
@@ -113,7 +112,6 @@ class ComponentController(Controller):
         operation_id="DeleteComponent",
         guards=[requires_superuser],
         path=urls.COMPONENT_DELETE,
-        status_code=HTTP_204_NO_CONTENT,
     )
     async def delete_component(
         self,

@@ -540,8 +540,7 @@ async def test_token_delete(
         "/api/tokens/" + user_token_id,
         headers=user_token_headers,
     )
-    assert response.status_code == 200
-    assert response.json() is None
+    assert response.status_code == 204
 
 
 async def test_token_validation(
