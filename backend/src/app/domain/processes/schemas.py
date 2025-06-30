@@ -1,20 +1,23 @@
+from __future__ import annotations
+
+from uuid import UUID  # noqa: TC003
+
+from app.lib.schema import CamelizedBaseStruct
+
+__all__ = (
+    "Process",
+    "Unit",
+)
+
 from enum import StrEnum
 
 
-class Category(StrEnum):
-    ENERGY = "energy"
-    EOL = "eol"
-    INGREDIENT = "ingredient"
-    MATERIAL = "material"
-    MATERIAL_TYPE_METAL = "material_type:metal"
-    MATERIAL_TYPE_PLASTIC = "material_type:plastic"
-    MATERIAL_TYPE_UPHOLSTERY = "material_type:upholstery"
-    MATERIAL_TYPE_WOOD = "material_type:wood"
-    PACKAGING = "packaging"
-    TEXTILE_MATERIAL = "textile_material"
-    TRANSFORMATION = "transformation"
-    TRANSPORT = "transport"
-    USE = "use"
+class Process(CamelizedBaseStruct):
+    """Component properties to use for a response."""
+
+    id: UUID
+    display_name: str
+    unit: Unit
 
 
 class Unit(StrEnum):
