@@ -213,7 +213,7 @@ async def test_components_delete(
             "/api/components/8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
             headers=superuser_token_headers,
         )
-        assert response.status_code == 200
+        assert response.status_code == 204
 
         entries = await journal_entries_service.list()
         assert len(entries) == 1

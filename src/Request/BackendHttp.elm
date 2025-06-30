@@ -59,20 +59,28 @@ expectJson toMsg decoder =
                 Http.BadUrl_ url ->
                     Err (BadUrl url)
 
-                Http.GoodStatus_ metadata body ->
-                    case Decode.decodeString decoder body of
-                        Err err ->
-                            Err <|
+                Http.GoodStatus_ { headers, statusCode, url } body ->
+                    (if statusCode == 204 && String.isEmpty body then
+                        -- Map an empty body to a valid JSON "null" string so that we can
+                        -- accept an empty response body for 204 No Content responses
+                        -- Note: this is intended to work with expectWhatever which always
+                        -- succeeds with a () value
+                        "null"
+
+                     else
+                        body
+                    )
+                        |> Decode.decodeString decoder
+                        |> Result.mapError
+                            (\err ->
                                 BadBody
                                     { detail = Decode.errorToString err
-                                    , headers = metadata.headers
-                                    , statusCode = metadata.statusCode
+                                    , headers = headers
+                                    , statusCode = statusCode
                                     , title = Just "Corps de réponse invalide"
-                                    , url = metadata.url
+                                    , url = url
                                     }
-
-                        Ok value ->
-                            Ok value
+                            )
 
                 Http.NetworkError_ ->
                     Err NetworkError
