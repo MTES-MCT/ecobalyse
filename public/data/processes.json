@@ -9657,7 +9657,7 @@
     "scopes": ["textile"],
     "source": "Custom",
     "sourceId": "Impression (pigmentaire)",
-    "unit": "kg",
+    "unit": "m2",
     "waste": 0
   },
   {
@@ -13431,7 +13431,7 @@
     "scopes": ["textile"],
     "source": "Custom",
     "sourceId": "Impression fixé-lavé (colorants)",
-    "unit": "kg",
+    "unit": "m2",
     "waste": 0
   },
   {
