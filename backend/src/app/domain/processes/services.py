@@ -11,13 +11,13 @@ from app.db import models as m
 __all__ = ("ProcessService",)
 
 
-class ProcessService(SQLAlchemyAsyncRepositoryService[m.ProcessModel]):
+class ProcessService(SQLAlchemyAsyncRepositoryService[m.Process]):
     """Handles database operations for processes."""
 
-    class ProcessRepository(SQLAlchemyAsyncRepository[m.ProcessModel]):
+    class ProcessRepository(SQLAlchemyAsyncRepository[m.Process]):
         """Process SQLAlchemy Repository."""
 
-        model_type = m.ProcessModel
+        model_type = m.Process
 
     repository_type = ProcessRepository
 
