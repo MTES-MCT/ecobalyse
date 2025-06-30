@@ -54,6 +54,8 @@ class ApplicationCore(InitPluginProtocol, CLIPluginProtocol):
         from app.domain.components.services import ComponentService
         from app.domain.journal_entries.controllers import JournalEntryController
         from app.domain.journal_entries.services import JournalEntryService
+        from app.domain.processes.controllers import ProcessController
+        from app.domain.processes.services import ProcessService
         from app.domain.system.controllers import SystemController
         from app.server import plugins
         from litestar.enums import RequestEncodingType
@@ -93,6 +95,7 @@ class ApplicationCore(InitPluginProtocol, CLIPluginProtocol):
                 AccessController,
                 ComponentController,
                 JournalEntryController,
+                ProcessController,
                 SystemController,
             ],
         )
@@ -106,6 +109,7 @@ class ApplicationCore(InitPluginProtocol, CLIPluginProtocol):
                 "m": m,
                 "UUID": UUID,
                 "ComponentService": ComponentService,
+                "ProcessService": ProcessService,
                 "JournalEntryService": JournalEntryService,
                 "RoleService": RoleService,
                 "UserService": UserService,

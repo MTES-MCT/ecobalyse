@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING, Optional
 
 from advanced_alchemy.base import UUIDAuditBase
 from app.domain.components.schemas import Scope
-from app.domain.processes.schemas import Category, Unit
+from app.domain.processes.schemas import Unit
 from sqlalchemy import Enum, Float, String
 from sqlalchemy.dialects import postgresql
 from sqlalchemy.ext.mutable import MutableList
@@ -22,17 +22,6 @@ def get_enum_values(enum_class):
 
 class Process(UUIDAuditBase):
     __tablename__ = "process"
-
-    categories: Mapped[list[Category]] = mapped_column(
-        # See https://docs.sqlalchemy.org/en/20/dialects/postgresql.html#postgresql-data-types
-        # For the mutable trick
-        MutableList.as_mutable(
-            postgresql.ARRAY(
-                Enum(Category, values_callable=get_enum_values), dimensions=1
-            )
-        ),
-        default=[],
-    )
 
     density: Mapped[float] = mapped_column(Float, nullable=False, default=0)
     display_name: Mapped[Optional[str]]
