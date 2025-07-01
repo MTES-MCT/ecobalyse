@@ -82,13 +82,14 @@ addComponentButton { addLabel, db, openSelectComponentModal, scopes } =
 
 
 addElementButton : Config db msg -> TargetItem -> Html msg
-addElementButton { db, openSelectProcessModal } targetItem =
+addElementButton { db, openSelectProcessModal, scopes } targetItem =
     button
         [ type_ "button"
         , class "btn btn-link text-decoration-none"
         , class "d-flex justify-content-end align-items-center"
         , class "gap-2 w-100 p-0 pb-1 text-end"
         , db.processes
+            |> Scope.anyOf scopes
             |> Process.listByCategory Category.Material
             |> List.sortBy Process.getDisplayName
             |> AutocompleteSelector.init Process.getDisplayName
@@ -101,10 +102,11 @@ addElementButton { db, openSelectProcessModal } targetItem =
 
 
 addElementTransformButton : Config db msg -> Process -> TargetElement -> Html msg
-addElementTransformButton { db, openSelectProcessModal } material ( ( component, itemIndex ), elementIndex ) =
+addElementTransformButton { db, openSelectProcessModal, scopes } material ( ( component, itemIndex ), elementIndex ) =
     let
         availableTransformProcesses =
             db.processes
+                |> Scope.anyOf scopes
                 |> Process.listAvailableMaterialTransforms material
                 |> List.sortBy Process.getDisplayName
                 |> Process.available
