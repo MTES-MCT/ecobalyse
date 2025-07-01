@@ -26,6 +26,7 @@ module Data.Unit exposing
     , forKg
     , forKgAndDistance
     , forMJ
+    , forSquareMeter
     , gramsPerSquareMeter
     , impact
     , impactAggregateScore
@@ -424,6 +425,13 @@ encodeImpact =
 
 
 -- Generic helpers
+
+
+forSquareMeter : Quantity Float unit -> Area -> Quantity Float unit
+forSquareMeter forOneSquareMeter =
+    forOneSquareMeter
+        |> Quantity.per Area.squareMeter
+        |> Quantity.at
 
 
 forKg : Quantity Float unit -> Mass -> Quantity Float unit

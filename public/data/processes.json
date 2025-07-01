@@ -9480,8 +9480,8 @@
     "comment": "corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-impression-pigmentaire.",
     "density": 0,
     "displayName": "Impression (pigmentaire)",
-    "elecMJ": 1.61,
-    "heatMJ": 10.74,
+    "elecMJ": 0,
+    "heatMJ": 0,
     "id": "97c209ec-7782-5a29-8c47-af7f17c82d11",
     "impacts": {
       "acd": 0,
@@ -9509,7 +9509,7 @@
     "scopes": ["textile"],
     "source": "Custom",
     "sourceId": "Impression (pigmentaire)",
-    "unit": "kg",
+    "unit": "m2",
     "waste": 0
   },
   {
@@ -12773,8 +12773,8 @@
     "comment": "corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-impression-fixe-lave-colorants.",
     "density": 0,
     "displayName": "Impression fixé-lavé (colorants)",
-    "elecMJ": 1.61,
-    "heatMJ": 10.74,
+    "elecMJ": 0,
+    "heatMJ": 0,
     "id": "cfdc5e31-25fc-56ff-9a54-04670ecad301",
     "impacts": {
       "acd": 0,
@@ -12802,7 +12802,7 @@
     "scopes": ["textile"],
     "source": "Custom",
     "sourceId": "Impression fixé-lavé (colorants)",
-    "unit": "kg",
+    "unit": "m2",
     "waste": 0
   },
   {
