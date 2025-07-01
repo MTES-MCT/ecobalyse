@@ -6,23 +6,20 @@ import Json.Decode.Extra as DE
 
 type CropGroup
     = Arboriculture
-    | OtherFrozen
     | Barley
-    | Sugarcane
     | CornGrainAndSilage
-    | SummerPastures
     | FiberPlants
     | Forage
     | Frozen
-    | IndustrialFrozen
     | GrainLegumes
-    | LegumesAndFlowers
+    | IndustrialFrozen
     | Miscellaneous
     | NoCropGroup
     | Nuts
     | OliveTrees
     | Orchards
     | OtherCereals
+    | OtherFrozen
     | OtherIndustrialCrops
     | OtherOilseeds
     | PermanentGrasslands
@@ -31,6 +28,8 @@ type CropGroup
     | Rice
     | Seeds
     | SoftWheat
+    | Sugarcane
+    | SummerPastures
     | Sunflower
     | TemporaryGrasslands
     | VegetablesAndFlowers
@@ -51,7 +50,6 @@ fromString str =
 
         "CANNE A SUCRE" ->
             Ok Sugarcane
-
 
         "MAIS GRAIN ET ENSILAGE" ->
             Ok CornGrainAndSilage
@@ -138,19 +136,11 @@ toLabel cropGroup =
         Arboriculture ->
             "Arboriculture"
 
-        OtherFrozen ->
-            "Autres gels"
-
         Barley ->
             "Orge"
 
-        Sugarcane ->
-            "Canne à sucre"
         CornGrainAndSilage ->
             "Maïs grain et ensilage"
-
-        SummerPastures ->
-            "Estives landes"
 
         FiberPlants ->
             "Plantes à fibres"
@@ -161,14 +151,11 @@ toLabel cropGroup =
         Frozen ->
             "Gel (surfaces gelées sans production)"
 
-        IndustrialFrozen ->
-            "Gel industriel"
-
         GrainLegumes ->
             "Légumineuses à grain"
 
-        LegumesAndFlowers ->
-            "Légumes et fleurs"
+        IndustrialFrozen ->
+            "Gel industriel"
 
         Miscellaneous ->
             "Divers"
@@ -187,6 +174,9 @@ toLabel cropGroup =
 
         OtherCereals ->
             "Autres céréales"
+
+        OtherFrozen ->
+            "Autres gels"
 
         OtherIndustrialCrops ->
             "Autres cultures industrielles"
@@ -211,6 +201,12 @@ toLabel cropGroup =
 
         SoftWheat ->
             "Blé tendre"
+
+        Sugarcane ->
+            "Canne à sucre"
+
+        SummerPastures ->
+            "Estives landes"
 
         Sunflower ->
             "Tournesol"
