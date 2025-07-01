@@ -211,7 +211,7 @@ scopesMenuView { enabledSections } model =
         , [ ( Scope.Food, enabledSections.food )
           , ( Scope.Object, enabledSections.objects )
           , ( Scope.Textile, True )
-          , ( Scope.Veli, enabledSections.objects )
+          , ( Scope.Veli, enabledSections.veli )
           ]
             |> List.filter Tuple.second
             |> List.map
