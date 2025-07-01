@@ -5,10 +5,18 @@ import Json.Decode.Extra as DE
 
 
 type CropGroup
-    = Barley
+    = Arboriculture
+    | OtherFrozen
+    | Barley
+    | Sugarcane
     | CornGrainAndSilage
+    | SummerPastures
     | FiberPlants
+    | Forage
+    | Frozen
+    | IndustrialFrozen
     | GrainLegumes
+    | LegumesAndFlowers
     | Miscellaneous
     | NoCropGroup
     | Nuts
@@ -21,6 +29,7 @@ type CropGroup
     | ProteinCrops
     | Rapeseed
     | Rice
+    | Seeds
     | SoftWheat
     | Sunflower
     | TemporaryGrasslands
@@ -31,17 +40,42 @@ type CropGroup
 fromString : String -> Result String CropGroup
 fromString str =
     case str of
+        "ARBORICULTURE" ->
+            Ok Arboriculture
+
+        "AUTRES GELS" ->
+            Ok OtherFrozen
+
         "ORGE" ->
             Ok Barley
+
+        "CANNE A SUCRE" ->
+            Ok Sugarcane
+
 
         "MAIS GRAIN ET ENSILAGE" ->
             Ok CornGrainAndSilage
 
+        "ESTIVES LANDES" ->
+            Ok SummerPastures
+
         "PLANTES A FIBRES" ->
             Ok FiberPlants
 
+        "FOURRAGE" ->
+            Ok Forage
+
+        "GEL (surfaces gelées sans production)" ->
+            Ok Frozen
+
+        "GEL INDUSTRIEL" ->
+            Ok IndustrialFrozen
+
         "LEGUMINEUSES A GRAIN" ->
             Ok GrainLegumes
+
+        "LEGUMES-FLEURS" ->
+            Ok VegetablesAndFlowers
 
         "DIVERS" ->
             Ok Miscellaneous
@@ -79,6 +113,9 @@ fromString str =
         "RIZ" ->
             Ok Rice
 
+        "SEMENCES" ->
+            Ok Seeds
+
         "BLE TENDRE" ->
             Ok SoftWheat
 
@@ -87,9 +124,6 @@ fromString str =
 
         "PRAIRIES TEMPORAIRES" ->
             Ok TemporaryGrasslands
-
-        "LEGUMES-FLEURS" ->
-            Ok VegetablesAndFlowers
 
         "VIGNES" ->
             Ok Vineyards
@@ -101,17 +135,40 @@ fromString str =
 toLabel : CropGroup -> String
 toLabel cropGroup =
     case cropGroup of
+        Arboriculture ->
+            "Arboriculture"
+
+        OtherFrozen ->
+            "Autres gels"
+
         Barley ->
             "Orge"
 
+        Sugarcane ->
+            "Canne à sucre"
         CornGrainAndSilage ->
             "Maïs grain et ensilage"
+
+        SummerPastures ->
+            "Estives landes"
 
         FiberPlants ->
             "Plantes à fibres"
 
+        Forage ->
+            "Fourrage"
+
+        Frozen ->
+            "Gel (surfaces gelées sans production)"
+
+        IndustrialFrozen ->
+            "Gel industriel"
+
         GrainLegumes ->
             "Légumineuses à grain"
+
+        LegumesAndFlowers ->
+            "Légumes et fleurs"
 
         Miscellaneous ->
             "Divers"
@@ -141,13 +198,16 @@ toLabel cropGroup =
             "Prairies permanentes"
 
         ProteinCrops ->
-            "Proteagineux"
+            "Protéagineux"
 
         Rapeseed ->
             "Colza"
 
         Rice ->
             "Riz"
+
+        Seeds ->
+            "Semences"
 
         SoftWheat ->
             "Blé tendre"
