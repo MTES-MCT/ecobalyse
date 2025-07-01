@@ -1,9 +1,9 @@
 # type: ignore
 """Add full processes
 
-Revision ID: d60f64478dd6
+Revision ID: 8b6326faa9c7
 Revises: 041c77a5f1fe
-Create Date: 2025-06-30 15:47:23.936258
+Create Date: 2025-07-01 13:11:35.106552
 
 """
 
@@ -41,7 +41,7 @@ sa.EncryptedString = EncryptedString
 sa.EncryptedText = EncryptedText
 
 # revision identifiers, used by Alembic.
-revision = "d60f64478dd6"
+revision = "8b6326faa9c7"
 down_revision = "041c77a5f1fe"
 branch_labels = None
 depends_on = None
@@ -100,6 +100,7 @@ def schema_upgrades() -> None:
         ),
     )
     with op.batch_alter_table("process", schema=None) as batch_op:
+        batch_op.add_column(sa.Column("comment", sa.String(), nullable=False))
         batch_op.add_column(sa.Column("density", sa.Float(), nullable=False))
         batch_op.add_column(sa.Column("display_name", sa.String(), nullable=True))
         batch_op.add_column(sa.Column("elec_mj", sa.Float(), nullable=False))
@@ -197,6 +198,7 @@ def schema_downgrades() -> None:
         batch_op.drop_column("elec_mj")
         batch_op.drop_column("display_name")
         batch_op.drop_column("density")
+        batch_op.drop_column("comment")
 
     sa.Enum(name="unit").drop(op.get_bind(), checkfirst=False)
 

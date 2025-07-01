@@ -23,6 +23,7 @@ def get_enum_values(enum_class):
 class Process(UUIDAuditBase):
     __tablename__ = "process"
 
+    comment: Mapped[str]
     density: Mapped[float] = mapped_column(Float, nullable=False, default=0)
     display_name: Mapped[Optional[str]]
     elec_mj: Mapped[float] = mapped_column(Float, nullable=False, default=0)
