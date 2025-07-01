@@ -440,6 +440,15 @@ decode =
         |> Decode.required "id" (Decode.map Id Uuid.decoder)
         |> Decode.required "name" Decode.string
         |> Decode.optional "scopes" (Decode.list Scope.decode) Scope.all
+        |> Decode.andThen
+            (\component ->
+                case List.head component.scopes of
+                    Just scope ->
+                        Decode.succeed { component | scopes = [ scope ] }
+
+                    Nothing ->
+                        Decode.fail <| "Aucun scope pour le composant id=" ++ idToString component.id
+            )
 
 
 decodeCustom : Decoder Custom
