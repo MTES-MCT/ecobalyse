@@ -1,14 +1,14 @@
 ---
 description: >-
-  Cette page présente l'enrichissement de certains procédés/hotspots afin de
-  mieux prendre en compte les émissions de substances chimiques.
+  Cette page présente l'enrichissement de certains procédés afin de mieux
+  prendre en compte les émissions de substances chimiques.
 ---
 
 # 💦 Inventaires enrichis
 
 ## De quoi parle-t-on ?&#x20;
 
-Les modèles d'émission utilisés dans les inventaires/procédés des étapes d'ennoblissement (ex: blanchiment, teinture, etc.) sont aujourd'hui non satisfaisants. En effet, dans la majorité des cas, ces inventaires sont soit inacessibles, incomplets ou les deux à la fois. De plus, la caractérisation des substances chimiques est aussi limitée.
+Les modèles d'émission utilisés dans les inventaires/procédés des étapes d'ennoblissement (blanchiment, teinture, impression) sont aujourd'hui non satisfaisants. En effet, dans la majorité des cas, ces inventaires sont soit inaccessibles, incomplets ou les deux à la fois. De plus, la caractérisation des substances chimiques est aussi limitée.
 
 {% hint style="info" %}
 Différentes publications scientifiques mettent en avant l'absence de prise en compte des émissions de substances chimiques dans les référentiels/ACV existants.
@@ -37,7 +37,7 @@ La majorité des ACV et référentiels existants n'intègrent pas dans leurs inv
 Les problématiques concernent :&#x20;
 
 * les modèles d'émission utilisés dans les inventaires,\
-  (quelles substances sont utilisées ? en quelle quantité ? sont-elles dégradées lors de leur utilisation ? quel pourcentrage reste sur le vêtement ? etc.),
+  (quelles substances sont utilisées ? en quelle quantité ? sont-elles dégradées lors de leur utilisation ? quel pourcentage reste sur le vêtement ? etc.),
 * la caractérisation des substances émises dans l'environnement.\
   (quels sont les impacts des substances émises dans l'eau, l'air et le sol?).
 
@@ -51,15 +51,15 @@ Ces problématique s'expliquent pour différentes raisons dont :&#x20;
 
 <details>
 
-<summary>Focus PEFCR Apparel &#x26; Footwear (v. 1.3)</summary>
+<summary>Focus PEFCR Apparel &#x26; Footwear</summary>
 
 Au niveau européen, les problématiques liées à la caractérisation des substances chimiques sont partagées.
 
 La réponse apportée à cette limite consiste à **diviser par 3** l'impact des trois indicateurs (Ecotoxicité Aquatique, Toxicité Humaine Cancérigène, Toxicité Humaine Non Cancérgiène) en appliquant un coefficient de robustesse (_robustness factor_).&#x20;
 
-Ainsi, les enjeux de Toxicité/Ecotoxicité ne sont pas pleinement reflétés dans la version actuelle du projet de référentiel (cf. Robustness factor) tandis que leur pondération est adaptée en conséquence (les 3 indicateurs susmentionnés contribuent finalement seulement à hauteur de 5,9% de l'impact total du produit).&#x20;
+Ainsi, les enjeux de Toxicité/Ecotoxicité ne sont pas pleinement reflétés dans le référentiel (cf. Robustness factor) tandis que leur pondération est adaptée en conséquence (les 3 indicateurs susmentionnés contribuent finalement seulement à hauteur de 5,9% de l'impact total du produit).&#x20;
 
-_Extrait du rapport publié par le_ [_JRC_](#user-content-fn-2)[^2] _en 2018 (p. 9/146)_ &#x20;
+_Extrait du rapport publié par le_ [_JRC_](#user-content-fn-2)[^2] _en 2018 (p. 9/146) :_&#x20;
 
 ![](<../../../.gitbook/assets/image (122).png>)
 
@@ -103,15 +103,17 @@ L'enrichissement des inventaires passe par la modélisation des paramètres suiv
 
 L'impact des inventaires enrichis correspond à la somme des impacts des inventaires enrichis mobilisés par le produit modélisé. Chaque produit modélisé appelle un ou plusieurs inventaires enrichis selon la méthodologie présentée ci-dessous.
 
-L'impact de chaque inventaire enrichi pris séparement correspond au produit de la masse "sortante" de l'étape Ennoblissement avec les coefficient d'impact.
+L'impact de chaque inventaire enrichi pris séparément correspond au produit de la masse "sortante" de l'étape Ennoblissement avec les coefficients d'impact.
 
-Trois indicateurs sont considérés dans les inventaires enrichis : Ecotoxicité Aquatique, Toxicité Humaine cancérigène, Toxicité Humaine non-cancérigène (cf. ci-dessous pour plus de détails).&#x20;
+Seul l'écotoxicité est pris érés dans les inventaires enrichis : Ecotoxicité Aquatique, Toxicité Humaine cancérigène, Toxicité Humaine non-cancérigène (cf. ci-dessous pour plus de détails).&#x20;
 
 $$
 ImpactInventaireEnrichi= MasseSortante(kg) * CoefImpactInventaireEnrichi
 $$
 
-<figure><img src="../../../.gitbook/assets/image (281).png" alt=""><figcaption></figcaption></figure>
+###
+
+###
 
 ### Hypothèses par défaut
 
