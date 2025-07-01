@@ -143,7 +143,7 @@ $$P = 1-(R*E)$$
 
 Ecobalyse a catégorisé les pays selon 3 groupes sur la base des travaux de l'ONU ([source](https://sdg6data.org/fr/indicator/6.3.1)). Des taux de raccrodement (R) et d'efficacité de traitement des eaux usées (E) sont proposés. Des retours de l'industrie sont attendus afin de préciser ces valeurs.&#x20;
 
-<table><thead><tr><th width="298">Pays d'ennoblissement</th><th>R</th><th>E</th><th>P</th></tr></thead><tbody><tr><td>Best case<br> (Europe + Amérique du Nord, Australie, Nouvelle-Zélande)</td><td>100%</td><td>90%</td><td>10%</td></tr><tr><td>Average case<br>(Maghreb + Asie Occidentale + Asie de l'Est + Asie du Sud-Est)</td><td>80%</td><td>80%</td><td>36%</td></tr><tr><td>Worst case<br>(Autres pays)</td><td>50%</td><td>70%</td><td>65%</td></tr></tbody></table>
+<table><thead><tr><th width="298">Pays d'ennoblissement</th><th>R</th><th>E</th><th>P</th></tr></thead><tbody><tr><td>Best case<br> (Europe + Amérique du Nord, Australie, Nouvelle-Zélande)</td><td>100%</td><td>90%</td><td>10%</td></tr><tr><td>Average case<br>(Maghreb + Asie Occidentale + Asie de l'Est + Asie du Sud-Est)</td><td>90%</td><td>90%</td><td>19%</td></tr><tr><td>Worst case<br>(Autres pays)</td><td>90%</td><td>70%</td><td>37%</td></tr></tbody></table>
 
 <details>
 
