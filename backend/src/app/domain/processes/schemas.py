@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from typing import Optional
 from uuid import UUID  # noqa: TC003
 
 import msgspec
@@ -11,6 +12,8 @@ __all__ = (
 )
 
 from enum import StrEnum
+
+from app.domain.components.schemas import Scope
 
 
 class Category(StrEnum):
@@ -58,11 +61,22 @@ class Impacts(CamelizedBaseStruct):
 class Process(CamelizedBaseStruct):
     """Component properties to use for a response."""
 
-    id: UUID
     categories: list[Category]
-    display_name: str
+    comment: str
+    display_name: Optional[str]
+    id: UUID
     impacts: Impacts
+    source: str
+    source_id: Optional[str]
     unit: Unit
+
+    # Optional fields
+    alias: Optional[str] = None
+    density: float = 0
+    elec_mj: float = msgspec.field(name="elecMJ", default=0)
+    heat_mj: float = msgspec.field(name="heatMJ", default=0)
+    scopes: list[Scope] = []
+    waste: float = 0
 
 
 class Unit(StrEnum):
