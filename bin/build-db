@@ -64,7 +64,10 @@ const elmWithFixtures = elmTemplate
     "%textileProductExamplesJson%",
     parseAndValidate("public/data/textile/examples.json", "id"),
   )
-  .replace("%textileProductsJson%", parseAndValidate("public/data/textile/products.json", "id"));
+  .replace("%textileProductsJson%", parseAndValidate("public/data/textile/products.json", "id"))
+  // VeLi JSON data
+  .replace("%veliComponentsJson%", parseAndValidate("public/data/veli/components.json", "id"))
+  .replace("%veliExamplesJson%", parseAndValidate("public/data/veli/examples.json", "id"));
 
 const header =
   "---- THIS FILE WAS GENERATED FROM THE FILE `Json.elm-template` BY THE `/bin/build-db` SCRIPT";
