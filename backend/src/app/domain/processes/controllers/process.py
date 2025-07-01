@@ -18,6 +18,7 @@ from app.lib.deps import create_filter_dependencies
 from litestar import get
 from litestar.controller import Controller
 from litestar.di import Provide
+from litestar.params import Parameter
 
 if TYPE_CHECKING:
     from app.domain.processes.services import ProcessService
@@ -56,3 +57,16 @@ class ProcessController(Controller):
             type=list[Process],  # type: ignore[valid-type]
             from_attributes=True,
         )
+
+    @get(operation_id="GetProcess", path=urls.PROCESS_DETAIL, exclude_from_auth=True)
+    async def get_process(
+        self,
+        processes_service: ProcessService,
+        process_id: UUID = Parameter(
+            title="Process ID", description="The process to retrieve."
+        ),
+    ) -> Process:
+        """Get a process."""
+
+        process = await processes_service.get(process_id)
+        return processes_service.to_schema(process, schema_type=Process)
