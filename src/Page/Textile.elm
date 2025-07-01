@@ -11,7 +11,6 @@ module Page.Textile exposing
 import App exposing (PageUpdate)
 import Array
 import Autocomplete exposing (Autocomplete)
-import Browser.Dom as Dom
 import Browser.Events
 import Browser.Navigation as Navigation
 import Data.AutocompleteSelector as AutocompleteSelector
@@ -304,8 +303,8 @@ update ({ queries, navKey } as session) msg model =
     in
     case ( msg, model.modal ) of
         ( ConfirmSwitchToRegulatory, _ ) ->
-            { model | modal = NoModal, activeTab = RegulatoryTab }
-                |> App.createUpdate session
+            { model | activeTab = RegulatoryTab }
+                |> update session (SetModal NoModal)
                 |> updateQuery (Query.regulatory session.db.textile.products query)
 
         ( CopyToClipBoard shareableLink, _ ) ->
@@ -595,11 +594,7 @@ commandsForModal modal =
             Ports.removeBodyClass "prevent-scrolling"
 
         _ ->
-            Cmd.batch
-                [ Ports.addBodyClass "prevent-scrolling"
-                , Dom.focus "selector-example"
-                    |> Task.attempt (always NoOp)
-                ]
+            Ports.addBodyClass "prevent-scrolling"
 
 
 updateExistingMaterial : Query -> PageUpdate Model Msg -> Inputs.MaterialInput -> Material -> PageUpdate Model Msg
@@ -613,10 +608,9 @@ updateExistingMaterial query { model, session } oldMaterial newMaterial =
             , country = Nothing
             }
     in
-    { model | modal = NoModal }
-        |> App.createUpdate session
+    model
+        |> update session (SetModal NoModal)
         |> updateQuery (Query.updateMaterial oldMaterial.material.id materialQuery query)
-        |> focusNode ("selector-" ++ Material.idToString newMaterial.id)
 
 
 updateMaterial : Query -> Maybe Inputs.MaterialInput -> Autocomplete Material -> PageUpdate Model Msg -> PageUpdate Model Msg
@@ -631,37 +625,21 @@ updateMaterial query maybeOldMaterial autocompleteState ({ model, session } as p
         maybeSelectedValue
         |> Maybe.withDefault
             -- Add a new Material
-            ({ model | modal = NoModal }
-                |> App.createUpdate session
+            (model
+                |> update session (SetModal NoModal)
                 |> selectMaterial autocompleteState
-                |> focusNode
-                    (maybeSelectedValue
-                        |> Maybe.map (\selectedValue -> "selector-" ++ Material.idToString selectedValue.id)
-                        |> Maybe.withDefault "add-new-element"
-                    )
             )
 
 
-focusNode : String -> PageUpdate Model Msg -> PageUpdate Model Msg
-focusNode node { model, session } =
-    App.createUpdate session model
-        |> App.withCmds
-            [ Dom.focus node
-                |> Task.attempt (always NoOp)
-            ]
-
-
 selectExample : Autocomplete Query -> PageUpdate Model Msg -> PageUpdate Model Msg
-selectExample autocompleteState ({ model, session } as pageUpdate) =
+selectExample autocompleteState { model, session } =
     let
         example =
             Autocomplete.selectedValue autocompleteState
                 |> Maybe.withDefault Query.default
     in
-    { pageUpdate
-        | model = { model | initialQuery = example, modal = NoModal }
-        , session = session |> Session.updateTextileQuery example
-    }
+    { model | initialQuery = example }
+        |> update (session |> Session.updateTextileQuery example) (SetModal NoModal)
         |> updateQuery example
 
 

@@ -10,7 +10,6 @@ module Page.Object exposing
 
 import App exposing (PageUpdate)
 import Autocomplete exposing (Autocomplete)
-import Browser.Dom as Dom
 import Browser.Events
 import Browser.Navigation as Navigation
 import Data.Bookmark as Bookmark exposing (Bookmark)
@@ -438,11 +437,7 @@ commandsForModal modal =
             Ports.removeBodyClass "prevent-scrolling"
 
         _ ->
-            Cmd.batch
-                [ Ports.addBodyClass "prevent-scrolling"
-                , Dom.focus "selector-example"
-                    |> Task.attempt (always NoOp)
-                ]
+            Ports.addBodyClass "prevent-scrolling"
 
 
 selectExample : Autocomplete Query -> PageUpdate Model Msg -> PageUpdate Model Msg
