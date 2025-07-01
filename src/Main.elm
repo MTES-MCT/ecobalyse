@@ -12,7 +12,7 @@ import Data.Object.Query as ObjectQuery
 import Data.Session as Session exposing (Session)
 import Data.Textile.Query as TextileQuery
 import Html
-import Page.Admin as Admin
+import Page.Admin.Component as ComponentAdmin
 import Page.Api as Api
 import Page.Auth as Auth
 import Page.Editorial as Editorial
@@ -46,9 +46,9 @@ type alias Flags =
 
 
 type Page
-    = AdminPage Admin.Model
-    | ApiPage Api.Model
+    = ApiPage Api.Model
     | AuthPage Auth.Model
+    | ComponentAdminPage ComponentAdmin.Model
     | EditorialPage Editorial.Model
     | ExplorePage Explore.Model
     | FoodBuilderPage FoodBuilder.Model
@@ -78,10 +78,10 @@ type alias Model =
 
 
 type Msg
-    = AdminMsg Admin.Msg
-    | ApiMsg Api.Msg
+    = ApiMsg Api.Msg
     | AppMsg App.Msg
     | AuthMsg Auth.Msg
+    | ComponentAdminMsg ComponentAdmin.Msg
     | DetailedProcessesReceived (BackendHttp.WebData String)
     | EditorialMsg Editorial.Msg
     | ExploreMsg Explore.Msg
@@ -197,16 +197,6 @@ setRoute url ( { state } as model, cmds ) =
 
         Loaded session _ ->
             case Route.fromUrl url of
-                Just Route.Admin ->
-                    if Session.isStaff session then
-                        Admin.init session
-                            |> toPage session model cmds AdminPage AdminMsg
-
-                    else
-                        ( { model | state = Loaded session RestrictedAccessPage }
-                        , Cmd.none
-                        )
-
                 Just Route.Api ->
                     Api.init session
                         |> toPage session model cmds ApiPage ApiMsg
@@ -222,6 +212,16 @@ setRoute url ( { state } as model, cmds ) =
                 Just Route.AuthSignup ->
                     Auth.initSignup session
                         |> toPage session model cmds AuthPage AuthMsg
+
+                Just Route.ComponentAdmin ->
+                    if Session.isStaff session then
+                        ComponentAdmin.init session
+                            |> toPage session model cmds ComponentAdminPage ComponentAdminMsg
+
+                    else
+                        ( { model | state = Loaded session RestrictedAccessPage }
+                        , Cmd.none
+                        )
 
                 Just (Route.Editorial slug) ->
                     Editorial.init slug session
@@ -358,10 +358,6 @@ update rawMsg ({ state } as model) =
                     Home.update session homeMsg homeModel
                         |> toPage session model Cmd.none HomePage HomeMsg
 
-                ( AdminMsg adminMsg, AdminPage adminModel ) ->
-                    Admin.update session adminMsg adminModel
-                        |> toPage session model Cmd.none AdminPage AdminMsg
-
                 ( ApiMsg apiMsg, ApiPage apiModel ) ->
                     Api.update session apiMsg apiModel
                         |> toPage session model Cmd.none ApiPage ApiMsg
@@ -369,6 +365,10 @@ update rawMsg ({ state } as model) =
                 ( AuthMsg auth2Msg, AuthPage auth2Model ) ->
                     Auth.update session auth2Msg auth2Model
                         |> toPage session model Cmd.none AuthPage AuthMsg
+
+                ( ComponentAdminMsg adminMsg, ComponentAdminPage adminModel ) ->
+                    ComponentAdmin.update session adminMsg adminModel
+                        |> toPage session model Cmd.none ComponentAdminPage ComponentAdminMsg
 
                 ( DetailedProcessesReceived (RemoteData.Success rawDetailedProcessesJson), currentPage ) ->
                     -- When detailed processes are received, rebuild the entire static db using them
@@ -480,9 +480,9 @@ subscriptions { state } =
         [ Ports.storeChanged StoreChanged
         , Request.Version.pollVersion VersionPoll
         , case state of
-            Loaded _ (AdminPage subModel) ->
-                Admin.subscriptions subModel
-                    |> Sub.map AdminMsg
+            Loaded _ (ComponentAdminPage subModel) ->
+                ComponentAdmin.subscriptions subModel
+                    |> Sub.map ComponentAdminMsg
 
             Loaded _ (ExplorePage subModel) ->
                 Explore.subscriptions subModel
@@ -531,11 +531,6 @@ view { mobileNavigationOpened, state, tray } =
                     ( title, content |> List.map (Html.map msg) )
             in
             case page of
-                AdminPage examplesModel ->
-                    Admin.view session examplesModel
-                        |> mapMsg AdminMsg
-                        |> frame Page.Admin
-
                 ApiPage examplesModel ->
                     Api.view session examplesModel
                         |> mapMsg ApiMsg
@@ -545,6 +540,11 @@ view { mobileNavigationOpened, state, tray } =
                     Auth.view session auth2Model
                         |> mapMsg AuthMsg
                         |> frame Page.Auth
+
+                ComponentAdminPage examplesModel ->
+                    ComponentAdmin.view session examplesModel
+                        |> mapMsg ComponentAdminMsg
+                        |> frame Page.ComponentAdmin
 
                 EditorialPage editorialModel ->
                     Editorial.view session editorialModel
