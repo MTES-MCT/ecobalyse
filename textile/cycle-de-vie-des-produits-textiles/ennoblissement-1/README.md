@@ -113,14 +113,14 @@ $$
 Avec :
 
 * `I_ennoblissement` : l'impact environnemental de l'ennoblissement, dans l'unité de la catégorie d'impact analysée
-* `m` la masse de tissu, exprimée en kg. Pour plus d'information sur la gestion des masses cf. la section [Pertes et rebut](../../precisions-methodologiques/pertes-et-rebus.md).
-* `e_i` : la quantité d'électricité nécessaire au procédé i pour 1 kg de tissu, en kWh/kg
+* `m` la masse d'étoffe, exprimée en kg. Pour plus d'information sur la gestion des masses cf. la section [Pertes et rebut](../../precisions-methodologiques/pertes-et-rebus.md).
+* `e_i` : la quantité d'électricité nécessaire au procédé i pour 1 kg d'étoffe, en kWh/kg
 * `a_i` : Le taux d'application du procédé i pour le vêtement évalué, sans unité
   * Egal à 1 si le procédé est mobilisé pour ce vêtement
   * Egal à 0 si le procédé n'est pas mobilisé
   * Situé entre 0 et 1 pour l'impression (voir paragraphe dédié)
 * `I_elec` : l'impact environnemental de l'électricité pour le pays défini pour l'ennoblissement, dans l'unité de la catégorie d'impact analysée
-* `c_i` : la quantité de chaleur nécessaire au procédé i pour 1 kg de tissu, en MJ/kg
+* `c_i` : la quantité de chaleur nécessaire au procédé i pour 1 kg d'étoffe, en MJ/kg
 * `I_chaleur` : l'impact environnemental de l'électricité pour le pays défini pour l'ennoblissement, dans l'unité de la catégorie d'impact analysée.
 
 #### Etape 2 =  Ajout des inventaires enrichis (impacts Ecotox/Tox)
