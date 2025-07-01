@@ -1,6 +1,6 @@
 module Views.Admin exposing
     ( Section(..)
-    , viewMenu
+    , header
     )
 
 import Html exposing (..)
@@ -22,18 +22,20 @@ all =
     ]
 
 
-toString : Section -> String
-toString section =
-    case section of
-        ComponentSection ->
-            "Composants"
+header : Section -> Html msg
+header currentSection =
+    div [ class "row" ]
+        [ div [ class "col-md-6 col-lg-8" ]
+            [ h1 [ class "mb-0" ] [ text "Ecobalyse Admin" ]
+            ]
+        , div [ class "col-md-6 col-lg-4 d-flex justify-content-end align-items-end" ]
+            [ menu currentSection
+            ]
+        ]
 
-        ProcessSection ->
-            "Procédés (à venir)"
 
-
-viewMenu : List (Attribute msg) -> Section -> Html msg
-viewMenu attributes currenSection =
+menu : Section -> Html msg
+menu currenSection =
     all
         |> List.map
             (\( section, route ) ->
@@ -48,9 +50,17 @@ viewMenu attributes currenSection =
                     [ text (toString section) ]
             )
         |> nav
-            ([ class "btn-group"
-             , attribute "role" "group"
-             , attribute "aria-label" "Sections du back-office"
-             ]
-                ++ attributes
-            )
+            [ class "btn-group w-100 w-md-auto mt-2"
+            , attribute "role" "group"
+            , attribute "aria-label" "Sections du back-office"
+            ]
+
+
+toString : Section -> String
+toString section =
+    case section of
+        ComponentSection ->
+            "Composants"
+
+        ProcessSection ->
+            "Procédés (à venir)"

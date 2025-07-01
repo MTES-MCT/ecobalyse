@@ -294,14 +294,7 @@ view : Session -> Model -> ( String, List (Html Msg) )
 view { db } model =
     ( "admin"
     , [ Container.centered [ class "d-flex flex-column gap-3 pb-5" ]
-            [ div [ class "row" ]
-                [ div [ class "col-md-6 col-lg-8" ]
-                    [ h1 [ class "mb-0" ] [ text "Ecobalyse Admin" ]
-                    ]
-                , div [ class "col-md-6 col-lg-4 d-flex justify-content-end align-items-end" ]
-                    [ AdminView.viewMenu [ class "w-100 w-md-auto mt-2" ] model.section
-                    ]
-                ]
+            [ AdminView.header model.section
             , warning
             , model.scopes
                 |> scopeFilterForm UpdateScopeFilters
