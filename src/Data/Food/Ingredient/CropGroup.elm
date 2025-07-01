@@ -5,94 +5,94 @@ import Json.Decode.Extra as DE
 
 
 type CropGroup
-    = AutresCereales
-    | AutresCulturesIndustrielles
-    | AutresOleagineux
-    | BleTendre
-    | Colza
-    | Divers
-    | FruitsACoques
-    | LegumesFleurs
-    | LegumineusesAGrain
-    | MaisGrainEtEnsilage
+    = OtherCereals
+    | OtherIndustrialCrops
+    | OtherOilseeds
+    | SoftWheat
+    | Rapeseed
+    | Miscellaneous
+    | Nuts
+    | VegetablesAndFlowers
+    | GrainLegumes
+    | CornGrainAndSilage
     | NoCropGroup
-    | Oliviers
-    | Orge
-    | PlantesAFibres
-    | PrairiesPermanentes
-    | PrairiesTemporaires
-    | Proteagineux
-    | Riz
-    | Tournesol
-    | Vergers
-    | Vignes
+    | OliveTrees
+    | Barley
+    | FiberPlants
+    | PermanentGrasslands
+    | TemporaryGrasslands
+    | ProteinCrops
+    | Rice
+    | Sunflower
+    | Orchards
+    | Vineyards
 
 
 fromString : String -> Result String CropGroup
 fromString str =
     case str of
         "AUTRES CEREALES" ->
-            Ok AutresCereales
+            Ok OtherCereals
 
         "AUTRES CULTURES INDUSTRIELLES" ->
-            Ok AutresCulturesIndustrielles
+            Ok OtherIndustrialCrops
 
         "AUTRES OLEAGINEUX" ->
-            Ok AutresOleagineux
+            Ok OtherOilseeds
 
         "BLE TENDRE" ->
-            Ok BleTendre
+            Ok SoftWheat
 
         "COLZA" ->
-            Ok Colza
+            Ok Rapeseed
 
         "DIVERS" ->
-            Ok Divers
+            Ok Miscellaneous
 
         "FRUITS A COQUES" ->
-            Ok FruitsACoques
+            Ok Nuts
 
         "LEGUMES-FLEURS" ->
-            Ok LegumesFleurs
+            Ok VegetablesAndFlowers
 
         "LEGUMINEUSES A GRAIN" ->
-            Ok LegumineusesAGrain
+            Ok GrainLegumes
 
         "MAIS GRAIN ET ENSILAGE" ->
-            Ok MaisGrainEtEnsilage
+            Ok CornGrainAndSilage
 
         "" ->
             Ok NoCropGroup
 
         "OLIVIERS" ->
-            Ok Oliviers
+            Ok OliveTrees
 
         "ORGE" ->
-            Ok Orge
+            Ok Barley
 
         "PLANTES A FIBRES" ->
-            Ok PlantesAFibres
+            Ok FiberPlants
 
         "PRAIRIES PERMANENTES" ->
-            Ok PrairiesPermanentes
+            Ok PermanentGrasslands
 
         "PRAIRIES TEMPORAIRES" ->
-            Ok PrairiesTemporaires
+            Ok TemporaryGrasslands
 
         "PROTEAGINEUX" ->
-            Ok Proteagineux
+            Ok ProteinCrops
 
         "RIZ" ->
-            Ok Riz
+            Ok Rice
 
         "TOURNESOL" ->
-            Ok Tournesol
+            Ok Sunflower
 
         "VERGERS" ->
-            Ok Vergers
+            Ok Orchards
 
         "VIGNES" ->
-            Ok Vignes
+            Ok Vineyards
 
         _ ->
             Err <| "Groupe de culture invalide : " ++ str
@@ -101,67 +101,67 @@ fromString str =
 toLabel : CropGroup -> String
 toLabel cropGroup =
     case cropGroup of
-        AutresCereales ->
+        OtherCereals ->
             "Autres céréales"
 
-        AutresCulturesIndustrielles ->
+        OtherIndustrialCrops ->
             "Autres cultures industrielles"
 
-        AutresOleagineux ->
+        OtherOilseeds ->
             "Autres oléagineux"
 
-        BleTendre ->
+        SoftWheat ->
             "Blé tendre"
 
-        Colza ->
+        Rapeseed ->
             "Colza"
 
-        Divers ->
+        Miscellaneous ->
             "Divers"
 
-        FruitsACoques ->
+        Nuts ->
             "Fruits à coques"
 
-        LegumesFleurs ->
+        VegetablesAndFlowers ->
             "Légumes et fleurs"
 
-        LegumineusesAGrain ->
+        GrainLegumes ->
             "Légumineuses à grain"
 
-        MaisGrainEtEnsilage ->
+        CornGrainAndSilage ->
             "Maïs grain et ensilage"
 
         NoCropGroup ->
             "N/A"
 
-        Oliviers ->
+        OliveTrees ->
             "Oliviers"
 
-        Orge ->
+        Barley ->
             "Orge"
 
-        PlantesAFibres ->
+        FiberPlants ->
             "Plantes à fibres"
 
-        PrairiesPermanentes ->
+        PermanentGrasslands ->
             "Prairies permanentes"
 
-        PrairiesTemporaires ->
+        TemporaryGrasslands ->
             "Prairies temporaires"
 
-        Proteagineux ->
+        ProteinCrops ->
             "Proteagineux"
 
-        Riz ->
+        Rice ->
             "Riz"
 
-        Tournesol ->
+        Sunflower ->
             "Tournesol"
 
-        Vergers ->
+        Orchards ->
             "Vergers"
 
-        Vignes ->
+        Vineyards ->
             "Vignes"
 
 
