@@ -32,9 +32,9 @@ import Views.Spinner as Spinner
 
 
 type ActivePage
-    = Admin
-    | Api
+    = Api
     | Auth
+    | ComponentAdmin
     | Editorial String
     | Explore
     | FoodBuilder
@@ -193,7 +193,7 @@ secondaryMenuLinks =
     , External "Communauté" Env.communityUrl
     , External "Code source" Env.githubUrl
     , External "CGU" Env.cguUrl
-    , Internal "Admin" Route.Admin Admin
+    , Internal "Admin" Route.ComponentAdmin ComponentAdmin
     ]
 
 
@@ -204,7 +204,7 @@ headerMenuLinks session =
             [ Just <| External "Communauté" Env.communityUrl
             , Just <| External "Documentation" Env.gitbookUrl
             , if Session.isStaff session then
-                Just <| Internal "Admin" Route.Admin Admin
+                Just <| Internal "Admin" Route.ComponentAdmin ComponentAdmin
 
               else
                 Nothing
