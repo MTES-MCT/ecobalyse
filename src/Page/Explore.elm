@@ -106,6 +106,9 @@ init scope dataset session =
 
                 Dataset.TextileProducts maybeId ->
                     ( "Identifiant", commandsForDatasetId maybeId )
+
+                Dataset.VeliExamples maybeId ->
+                    ( "Coût Environnemental", commandsForDatasetId maybeId )
     in
     App.createUpdate session
         { dataset = dataset
@@ -166,15 +169,13 @@ update session msg model =
                                     Dataset.FoodExamples Nothing
 
                                 Scope.Object ->
-                                    -- FIXME: meubles examples only
                                     Dataset.ObjectExamples Nothing
 
                                 Scope.Textile ->
                                     Dataset.TextileExamples Nothing
 
                                 Scope.Veli ->
-                                    -- FIXME: veli examples only
-                                    Dataset.ObjectExamples Nothing
+                                    Dataset.VeliExamples Nothing
                       )
                         |> Route.Explore scope
                         |> Route.toString
@@ -205,27 +206,33 @@ datasetsMenuView { scope, dataset } =
 
 scopesMenuView : Session -> Model -> Html Msg
 scopesMenuView { enabledSections } model =
-    [ ( Scope.Food, enabledSections.food )
-    , ( Scope.Object, enabledSections.objects )
-    , ( Scope.Textile, True )
-    ]
-        |> List.filter Tuple.second
-        |> List.map
-            (\( scope, _ ) ->
-                label []
-                    [ input
-                        [ class "form-check-input ms-1 ms-sm-3 me-1"
-                        , type_ "radio"
-                        , classList [ ( "active", model.scope == scope ) ]
-                        , checked <| model.scope == scope
-                        , onCheck (always (ScopeChange scope))
+    div [ class "d-flex align-items-center gap-3 mb-1" ]
+        [ label [ class "fw-bold", for "scope-selector" ] [ text "Secteur" ]
+        , [ ( Scope.Food, enabledSections.food )
+          , ( Scope.Object, enabledSections.objects )
+          , ( Scope.Textile, True )
+          , ( Scope.Veli, enabledSections.objects )
+          ]
+            |> List.filter Tuple.second
+            |> List.map
+                (\( scope, _ ) ->
+                    option
+                        [ selected <| model.scope == scope
+                        , value <| Scope.toString scope
                         ]
-                        []
-                    , text (Scope.toLabel scope)
-                    ]
-            )
-        |> (::) (strong [ class "d-block d-sm-inline" ] [ text "Secteur d'activité" ])
-        |> nav []
+                        [ text <| Scope.toLabel scope ]
+                )
+            |> select
+                [ class "form-select"
+                , id "scope-selector"
+                , onInput
+                    (Scope.fromString
+                        >> Result.toMaybe
+                        >> Maybe.withDefault Scope.Textile
+                        >> ScopeChange
+                    )
+                ]
+        ]
 
 
 detailsModal : Html Msg -> Html Msg
@@ -462,12 +469,14 @@ objectExamplesExplorer :
     Db
     -> Table.Config ( Example ObjectQuery.Query, { score : Float } ) Msg
     -> SortableTable.State
+    -> Scope
     -> Maybe Uuid
     -> List (Html Msg)
-objectExamplesExplorer db tableConfig tableState maybeId =
+objectExamplesExplorer db tableConfig tableState scope maybeId =
     let
         scoredExamples =
             db.object.examples
+                |> List.filter (\example -> example.scope == scope)
                 |> List.map (\example -> ( example, { score = getObjectScore db example } ))
                 |> List.sortBy (Tuple.first >> .name)
 
@@ -482,7 +491,7 @@ objectExamplesExplorer db tableConfig tableState maybeId =
     [ scoredExamples
         |> List.filter (Tuple.first >> .query >> (/=) ObjectQuery.default)
         |> List.sortBy (Tuple.first >> .name)
-        |> Table.viewList OpenDetail tableConfig tableState Scope.Object (ObjectExamples.table max)
+        |> Table.viewList OpenDetail tableConfig tableState scope (ObjectExamples.table max)
     , case maybeId of
         Just id ->
             detailsModal
@@ -492,7 +501,7 @@ objectExamplesExplorer db tableConfig tableState maybeId =
 
                     Ok example ->
                         ( example, { score = getObjectScore db example } )
-                            |> Table.viewDetails Scope.Object (ObjectExamples.table max)
+                            |> Table.viewDetails scope (ObjectExamples.table max)
                 )
 
         Nothing ->
@@ -701,7 +710,7 @@ explore ({ db } as session) { scope, dataset, tableState } =
             impactsExplorer db.definitions tableConfig tableState scope maybeTrigram
 
         Dataset.ObjectExamples maybeId ->
-            objectExamplesExplorer db tableConfig tableState maybeId
+            objectExamplesExplorer db tableConfig tableState Scope.Object maybeId
 
         Dataset.Processes scope_ maybeId ->
             processesExplorer session scope_ tableConfig tableState maybeId
@@ -715,13 +724,16 @@ explore ({ db } as session) { scope, dataset, tableState } =
         Dataset.TextileProducts maybeId ->
             textileProductsExplorer db tableConfig tableState maybeId
 
+        Dataset.VeliExamples maybeId ->
+            objectExamplesExplorer db tableConfig tableState Scope.Veli maybeId
+
 
 view : Session -> Model -> ( String, List (Html Msg) )
 view session model =
     ( Dataset.label model.dataset ++ " | Explorer "
     , [ Container.centered [ class "pb-3" ]
             [ div []
-                [ h1 [ class "mb-0" ] [ text "Explorateur" ]
+                [ h1 [ class "mb-3" ] [ text "Explorateur" ]
                 , div [ class "row d-flex align-items-stretch mt-1 mx-0 g-0" ]
                     [ div [ class "col-12 col-lg-5 d-flex align-items-center pb-2 pb-lg-0 mb-4 mb-lg-0 border-bottom ps-0 ms-0" ]
                         [ scopesMenuView session model ]

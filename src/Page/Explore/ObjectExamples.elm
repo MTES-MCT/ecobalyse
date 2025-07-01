@@ -1,5 +1,8 @@
 module Page.Explore.ObjectExamples exposing (table)
 
+{-| Note: This module is used to display both objects and veli examples.
+-}
+
 import Data.Dataset as Dataset
 import Data.Example exposing (Example)
 import Data.Object.Query exposing (Query)
@@ -20,7 +23,17 @@ table :
 table { maxScore } { detailed, scope } =
     { filename = "examples"
     , toId = Tuple.first >> .id >> Uuid.toString
-    , toRoute = Tuple.first >> .id >> Just >> Dataset.ObjectExamples >> Route.Explore scope
+    , toRoute =
+        Tuple.first
+            >> .id
+            >> Just
+            >> (if scope == Scope.Veli then
+                    Dataset.VeliExamples
+
+                else
+                    Dataset.ObjectExamples
+               )
+            >> Route.Explore scope
     , legend = []
     , columns =
         [ { label = "Nom"

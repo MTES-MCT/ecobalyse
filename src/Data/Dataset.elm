@@ -1,6 +1,7 @@
 module Data.Dataset exposing
     ( Dataset(..)
     , datasets
+    , defaultDatasetFor
     , isDetailed
     , label
     , parseSlug
@@ -38,6 +39,7 @@ type Dataset
     | TextileExamples (Maybe Uuid)
     | TextileMaterials (Maybe Material.Id)
     | TextileProducts (Maybe Product.Id)
+    | VeliExamples (Maybe Uuid)
 
 
 datasets : Scope -> List Dataset
@@ -69,8 +71,27 @@ datasets scope =
             ]
 
         Scope.Veli ->
-            [ Impacts Nothing
+            [ VeliExamples Nothing
+            , Components Scope.Veli Nothing
+            , Impacts Nothing
+            , Processes Scope.Veli Nothing
             ]
+
+
+defaultDatasetFor : Scope -> Dataset
+defaultDatasetFor scope =
+    case scope of
+        Scope.Food ->
+            FoodExamples Nothing
+
+        Scope.Object ->
+            ObjectExamples Nothing
+
+        Scope.Textile ->
+            TextileExamples Nothing
+
+        Scope.Veli ->
+            VeliExamples Nothing
 
 
 fromSlug : String -> Dataset
@@ -115,6 +136,15 @@ fromSlug string =
         "textile-processes" ->
             Processes Scope.Textile Nothing
 
+        "veli-components" ->
+            Components Scope.Veli Nothing
+
+        "veli-examples" ->
+            VeliExamples Nothing
+
+        "veli-processes" ->
+            Processes Scope.Veli Nothing
+
         _ ->
             TextileExamples Nothing
 
@@ -150,6 +180,9 @@ isDetailed dataset =
             True
 
         TextileProducts (Just _) ->
+            True
+
+        VeliExamples (Just _) ->
             True
 
         _ ->
@@ -199,6 +232,9 @@ reset dataset =
         TextileProducts _ ->
             TextileProducts Nothing
 
+        VeliExamples _ ->
+            VeliExamples Nothing
+
 
 same : Dataset -> Dataset -> Bool
 same a b =
@@ -231,6 +267,9 @@ same a b =
             True
 
         ( TextileProducts _, TextileProducts _ ) ->
+            True
+
+        ( VeliExamples _, VeliExamples _ ) ->
             True
 
         _ ->
@@ -270,6 +309,9 @@ setIdFromString idString dataset =
         TextileProducts _ ->
             TextileProducts (Just (Product.Id idString))
 
+        VeliExamples _ ->
+            VeliExamples (idString |> Uuid.fromString |> Result.toMaybe)
+
 
 slug : Dataset -> String
 slug =
@@ -308,6 +350,9 @@ strings dataset =
 
         TextileProducts _ ->
             { label = "Produits", slug = "products" }
+
+        VeliExamples _ ->
+            { label = "Exemples", slug = "veli-examples" }
 
 
 toRoutePath : Dataset -> List String
@@ -371,4 +416,10 @@ toRoutePath dataset =
             [ slug dataset, Product.idToString id ]
 
         TextileProducts Nothing ->
+            [ slug dataset ]
+
+        VeliExamples (Just id) ->
+            [ slug dataset, Uuid.toString id ]
+
+        VeliExamples Nothing ->
             [ slug dataset ]
