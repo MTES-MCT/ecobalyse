@@ -442,6 +442,8 @@ decode =
         |> Decode.optional "scopes" (Decode.list Scope.decode) Scope.all
         |> Decode.andThen
             (\component ->
+                -- Note: it's been decided to only allow a single scope per component, though we keep
+                --       the list of scopes for backward compatibility and/or future re-enabling
                 case List.head component.scopes of
                     Just scope ->
                         Decode.succeed { component | scopes = [ scope ] }
