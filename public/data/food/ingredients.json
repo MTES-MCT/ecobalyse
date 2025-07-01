@@ -952,7 +952,7 @@
     "scenario": "reference",
     "search": "Tomato paste, 30 degrees Brix, at plant {GLO} - Adapted from WFLDB U",
     "transportCooling": "none",
-    "visible": false
+    "visible": true
   },
   {
     "alias": "tomato-concentrated",

@@ -350,7 +350,7 @@ describe("API", () => {
         )[0];
         expect(ennoblingStep).toBeTruthy();
 
-        expect(ennoblingStep.preTreatments.impacts.ecs).toBeCloseTo(35.8037, 2);
+        expect(ennoblingStep.preTreatments.impacts.ecs).toBeCloseTo(35.9162, 2);
       });
     });
 
@@ -432,7 +432,7 @@ describe("API", () => {
     describe("/food/transforms", () => {
       it("should render with transforms list", async () => {
         await expectListResponseContains("/api/food/transforms", {
-          id: "83b897cf-9ed2-5604-83b4-67fab8606d35",
+          id: "a2836bb8-7f45-5cfa-bb00-8b38046291cf",
           name: "Cuisson",
         });
       });
@@ -449,12 +449,12 @@ describe("API", () => {
               { id: "4d5198e7-413a-4ae2-8448-535aa3b302ae", mass: 225 },
             ],
             transform: {
-              id: "83b897cf-9ed2-5604-83b4-67fab8606d35",
+              id: "a2836bb8-7f45-5cfa-bb00-8b38046291cf",
               mass: 545,
             },
             packaging: [
               {
-                id: "25595091-35b6-5c62-869f-a29c318c367e",
+                id: "edefa2be-abe4-5bb6-b0fc-0f666050dcc1",
                 mass: 105,
               },
             ],
@@ -552,7 +552,7 @@ describe("API", () => {
         expectFieldErrorMessage(
           await makePostRequest("/api/food", {
             ingredients: [{ id: "4d5198e7-413a-4ae2-8448-535aa3b302ae", mass: 268 }],
-            transform: { id: "83b897cf-9ed2-5604-83b4-67fab8606d35", mass: -1 },
+            transform: { id: "a2836bb8-7f45-5cfa-bb00-8b38046291cf", mass: -1 },
           }),
           "transform",
           /masse doit être supérieure ou égale à zéro/,
@@ -574,7 +574,7 @@ describe("API", () => {
         expectFieldErrorMessage(
           await makePostRequest("/api/food", {
             ingredients: [{ id: "4d5198e7-413a-4ae2-8448-535aa3b302ae", mass: 268 }],
-            packaging: [{ id: "25595091-35b6-5c62-869f-a29c318c367e", mass: -1 }],
+            packaging: [{ id: "edefa2be-abe4-5bb6-b0fc-0f666050dcc1", mass: -1 }],
           }),
           "packaging",
           /masse doit être supérieure ou égale à zéro/,

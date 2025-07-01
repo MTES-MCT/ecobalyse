@@ -136,7 +136,7 @@ suite =
                              , royalPizzaResults
                                 |> Result.map (Tuple.second >> .recipe >> .edibleMass >> Mass.inKilograms)
                                 |> Result.withDefault -99
-                                |> Expect.within (Expect.Absolute 0.01) 0.3439
+                                |> Expect.within (Expect.Absolute 0.01) 0.3425
                                 |> asTest "should compute ingredients total edible mass"
                              , asTest "should have the total ecs impact with the complement taken into account"
                                 (case royalPizzaResults |> Result.map (Tuple.second >> .recipe >> .total >> Impact.getImpact Definition.Ecs) of
@@ -145,7 +145,7 @@ suite =
 
                                     Ok result ->
                                         Unit.impactToFloat result
-                                            |> Expect.within (Expect.Absolute 0.1) 127.2
+                                            |> Expect.within (Expect.Absolute 0.1) 138.6
                                 )
                              , asTest "should have the ingredients' total ecs impact with the complement taken into account"
                                 (case royalPizzaResults |> Result.map (Tuple.second >> .recipe >> .ingredientsTotal >> Impact.getImpact Definition.Ecs) of
@@ -154,7 +154,7 @@ suite =
 
                                     Ok result ->
                                         Unit.impactToFloat result
-                                            |> Expect.within (Expect.Absolute 0.1) 104.1
+                                            |> Expect.within (Expect.Absolute 0.1) 113.7
                                 )
                              , describe "Scoring"
                                 (case royalPizzaResults |> Result.map (Tuple.second >> .scoring) of
@@ -165,28 +165,28 @@ suite =
 
                                     Ok scoring ->
                                         [ Unit.impactToFloat scoring.all
-                                            |> Expect.within (Expect.Absolute 0.01) 449.93
+                                            |> Expect.within (Expect.Absolute 0.01) 485.01
                                             |> asTest "should properly score total impact"
                                         , Unit.impactToFloat scoring.allWithoutComplements
-                                            |> Expect.within (Expect.Absolute 0.01) 448.77
+                                            |> Expect.within (Expect.Absolute 0.01) 483.89
                                             |> asTest "should properly score total impact without complements"
                                         , Unit.impactToFloat scoring.complements
-                                            |> Expect.within (Expect.Absolute 0.01) -1.155
+                                            |> Expect.within (Expect.Absolute 0.01) -1.11
                                             |> asTest "should properly score complement impact"
                                         , (Unit.impactToFloat scoring.allWithoutComplements - Unit.impactToFloat scoring.complements)
                                             |> Expect.within (Expect.Absolute 0.0001) (Unit.impactToFloat scoring.all)
                                             |> asTest "should expose coherent scoring"
                                         , Unit.impactToFloat scoring.biodiversity
-                                            |> Expect.within (Expect.Absolute 0.01) 189.31
+                                            |> Expect.within (Expect.Absolute 0.01) 217.55
                                             |> asTest "should properly score impact on biodiversity protected area"
                                         , Unit.impactToFloat scoring.climate
-                                            |> Expect.within (Expect.Absolute 0.01) 106.556731
+                                            |> Expect.within (Expect.Absolute 0.01) 105.47
                                             |> asTest "should properly score impact on climate protected area"
                                         , Unit.impactToFloat scoring.health
-                                            |> Expect.within (Expect.Absolute 0.01) 48.42281
+                                            |> Expect.within (Expect.Absolute 0.01) 48.48
                                             |> asTest "should properly score impact on health protected area"
                                         , Unit.impactToFloat scoring.resources
-                                            |> Expect.within (Expect.Absolute 0.01) 104.484
+                                            |> Expect.within (Expect.Absolute 0.01) 112.37
                                             |> asTest "should properly score impact on resources protected area"
                                         ]
                                 )
@@ -232,7 +232,7 @@ suite =
                         , royalPizza
                             |> Recipe.compute db
                             |> Result.map (Tuple.first >> Recipe.getMassAtPackaging)
-                            |> Expect.equal (Ok (Mass.kilograms 0.4398824000000001))
+                            |> Expect.equal (Ok (Mass.kilograms 0.4439000000000001))
                             |> asTest "should compute recipe ingredients mass applying raw to cooked ratio"
                         ]
                     , let
@@ -248,7 +248,7 @@ suite =
                       in
                       describe "getTransformedIngredientsMass"
                         [ royalPizzaWithPackaging
-                            |> Expect.equal (Ok (Mass.kilograms 0.3398824000000001))
+                            |> Expect.equal (Ok (Mass.kilograms 0.34390000000000004))
                             |> asTest "should compute recipe treansformed ingredients mass excluding packaging one"
                         , royalPizzaWithPackaging
                             |> Expect.equal royalPizzaWithNoPackaging
