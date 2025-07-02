@@ -301,15 +301,11 @@ materialPrintingToxicityImpacts :
     -> Mass
     -> Impacts
 materialPrintingToxicityImpacts impacts { aquaticPollutionScenario, printingToxicityProcess, surfaceMass } split baseMass =
-    let
-        surface =
-            baseMass
-                |> Unit.surfaceMassToSurface surfaceMass
-    in
     impacts
         |> Impact.mapImpacts
             (\trigram _ ->
-                surface
+                baseMass
+                    |> Unit.surfaceMassToSurface surfaceMass
                     |> Unit.forSquareMeter (Process.getImpact trigram printingToxicityProcess)
                     |> Quantity.multiplyBy
                         (aquaticPollutionScenario
