@@ -11,7 +11,6 @@ module Page.Textile exposing
 import App exposing (PageUpdate)
 import Array
 import Autocomplete exposing (Autocomplete)
-import Browser.Dom as Dom
 import Browser.Events
 import Browser.Navigation as Navigation
 import Data.AutocompleteSelector as AutocompleteSelector
@@ -304,8 +303,9 @@ update ({ queries, navKey } as session) msg model =
     in
     case ( msg, model.modal ) of
         ( ConfirmSwitchToRegulatory, _ ) ->
-            { model | modal = NoModal, activeTab = RegulatoryTab }
+            { model | activeTab = RegulatoryTab }
                 |> App.createUpdate session
+                |> App.apply update (SetModal NoModal)
                 |> updateQuery (Query.regulatory session.db.textile.products query)
 
         ( CopyToClipBoard shareableLink, _ ) ->
@@ -595,15 +595,11 @@ commandsForModal modal =
             Ports.removeBodyClass "prevent-scrolling"
 
         _ ->
-            Cmd.batch
-                [ Ports.addBodyClass "prevent-scrolling"
-                , Dom.focus "selector-example"
-                    |> Task.attempt (always NoOp)
-                ]
+            Ports.addBodyClass "prevent-scrolling"
 
 
 updateExistingMaterial : Query -> PageUpdate Model Msg -> Inputs.MaterialInput -> Material -> PageUpdate Model Msg
-updateExistingMaterial query { model, session } oldMaterial newMaterial =
+updateExistingMaterial query pageUpdate oldMaterial newMaterial =
     let
         materialQuery : MaterialQuery
         materialQuery =
@@ -613,14 +609,13 @@ updateExistingMaterial query { model, session } oldMaterial newMaterial =
             , country = Nothing
             }
     in
-    { model | modal = NoModal }
-        |> App.createUpdate session
+    pageUpdate
+        |> App.apply update (SetModal NoModal)
         |> updateQuery (Query.updateMaterial oldMaterial.material.id materialQuery query)
-        |> focusNode ("selector-" ++ Material.idToString newMaterial.id)
 
 
 updateMaterial : Query -> Maybe Inputs.MaterialInput -> Autocomplete Material -> PageUpdate Model Msg -> PageUpdate Model Msg
-updateMaterial query maybeOldMaterial autocompleteState ({ model, session } as pageUpdate) =
+updateMaterial query maybeOldMaterial autocompleteState pageUpdate =
     let
         maybeSelectedValue =
             Autocomplete.selectedValue autocompleteState
@@ -631,76 +626,68 @@ updateMaterial query maybeOldMaterial autocompleteState ({ model, session } as p
         maybeSelectedValue
         |> Maybe.withDefault
             -- Add a new Material
-            ({ model | modal = NoModal }
-                |> App.createUpdate session
+            (pageUpdate
+                |> App.apply update (SetModal NoModal)
                 |> selectMaterial autocompleteState
-                |> focusNode
-                    (maybeSelectedValue
-                        |> Maybe.map (\selectedValue -> "selector-" ++ Material.idToString selectedValue.id)
-                        |> Maybe.withDefault "add-new-element"
-                    )
             )
 
 
-focusNode : String -> PageUpdate Model Msg -> PageUpdate Model Msg
-focusNode node { model, session } =
-    App.createUpdate session model
-        |> App.withCmds
-            [ Dom.focus node
-                |> Task.attempt (always NoOp)
-            ]
-
-
 selectExample : Autocomplete Query -> PageUpdate Model Msg -> PageUpdate Model Msg
-selectExample autocompleteState ({ model, session } as pageUpdate) =
+selectExample autocompleteState { model, session } =
     let
         example =
             Autocomplete.selectedValue autocompleteState
                 |> Maybe.withDefault Query.default
     in
-    { pageUpdate
-        | model = { model | initialQuery = example, modal = NoModal }
-        , session = session |> Session.updateTextileQuery example
-    }
+    { model | initialQuery = example }
+        |> App.createUpdate (Session.updateTextileQuery example session)
+        |> App.apply update (SetModal NoModal)
         |> updateQuery example
 
 
 selectTrim : Autocomplete Component -> PageUpdate Model Msg -> PageUpdate Model Msg
-selectTrim autocompleteState { model, session } =
+selectTrim autocompleteState ({ session } as pageUpdate) =
     case Autocomplete.selectedValue autocompleteState of
         Just trim ->
-            update session (SetModal NoModal) model
-                |> updateQuery (session.queries.textile |> Query.updateTrims (Component.addItem trim.id))
+            pageUpdate
+                |> App.apply update (SetModal NoModal)
+                |> updateQuery
+                    (session.queries.textile
+                        |> Query.updateTrims (Component.addItem trim.id)
+                    )
 
         Nothing ->
-            App.createUpdate session model
-                |> App.notifyError "Erreur" "Aucun accessoire sélectionné"
+            pageUpdate |> App.notifyError "Erreur" "Aucun accessoire sélectionné"
 
 
 selectProduct : Autocomplete Product -> PageUpdate Model Msg -> PageUpdate Model Msg
-selectProduct autocompleteState ({ model, session } as pageUpdate) =
+selectProduct autocompleteState ({ session } as pageUpdate) =
     case Autocomplete.selectedValue autocompleteState of
         Just product ->
             pageUpdate
                 |> App.apply update (SetModal NoModal)
-                |> updateQuery (Query.updateProduct product session.queries.textile)
+                |> updateQuery
+                    (session.queries.textile
+                        |> Query.updateProduct product
+                    )
 
         Nothing ->
-            App.createUpdate session model
-                |> App.notifyError "Erreur" "Aucun produit sélectionné"
+            pageUpdate |> App.notifyError "Erreur" "Aucun produit sélectionné"
 
 
 selectMaterial : Autocomplete Material -> PageUpdate Model Msg -> PageUpdate Model Msg
-selectMaterial autocompleteState ({ model, session } as pageUpdate) =
+selectMaterial autocompleteState ({ session } as pageUpdate) =
     case Autocomplete.selectedValue autocompleteState of
         Just material ->
             pageUpdate
                 |> App.apply update (SetModal NoModal)
-                |> updateQuery (Query.addMaterial material session.queries.textile)
+                |> updateQuery
+                    (session.queries.textile
+                        |> Query.addMaterial material
+                    )
 
         Nothing ->
-            App.createUpdate session model
-                |> App.notifyError "Erreur" "Aucun matériau sélectionné"
+            pageUpdate |> App.notifyError "Erreur" "Aucun matériau sélectionné"
 
 
 productCategoryField : TextileDb.Db -> Query -> Html Msg

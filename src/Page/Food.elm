@@ -10,7 +10,6 @@ module Page.Food exposing
 
 import App exposing (PageUpdate)
 import Autocomplete exposing (Autocomplete)
-import Browser.Dom as Dom
 import Browser.Events as BE
 import Browser.Navigation as Navigation
 import Data.AutocompleteSelector as AutocompleteSelector
@@ -441,11 +440,7 @@ commandsForModal modal =
             Ports.removeBodyClass "prevent-scrolling"
 
         _ ->
-            Cmd.batch
-                [ Ports.addBodyClass "prevent-scrolling"
-                , Dom.focus "selector-example"
-                    |> Task.attempt (always NoOp)
-                ]
+            Ports.addBodyClass "prevent-scrolling"
 
 
 updateExistingIngredient : Query -> Model -> Session -> Recipe.RecipeIngredient -> Ingredient -> PageUpdate Model Msg
@@ -464,7 +459,6 @@ updateExistingIngredient query model session oldRecipeIngredient newIngredient =
         |> App.createUpdate session
         |> App.apply update (SetModal NoModal)
         |> updateQuery (Query.updateIngredient oldRecipeIngredient.ingredient.id ingredientQuery query)
-        |> focusNode ("selector-" ++ Ingredient.idToString newIngredient.id)
 
 
 updateIngredient : Query -> Model -> Session -> Maybe Recipe.RecipeIngredient -> Autocomplete Ingredient -> PageUpdate Model Msg
@@ -483,17 +477,7 @@ updateIngredient query model session maybeOldRecipeIngredient autocompleteState 
                 |> App.createUpdate session
                 |> App.apply update (SetModal NoModal)
                 |> selectIngredient autocompleteState
-                |> focusNode
-                    (maybeSelectedValue
-                        |> Maybe.map (\selectedValue -> "selector-" ++ Ingredient.idToString selectedValue.id)
-                        |> Maybe.withDefault "add-new-element"
-                    )
             )
-
-
-focusNode : String -> PageUpdate Model Msg -> PageUpdate Model Msg
-focusNode node =
-    App.withCmds [ Dom.focus node |> Task.attempt (always NoOp) ]
 
 
 selectIngredient : Autocomplete Ingredient -> PageUpdate Model Msg -> PageUpdate Model Msg
