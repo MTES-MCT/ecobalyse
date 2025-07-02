@@ -96,8 +96,6 @@ Les apprêts peuvent impliquer des traitements mécaniques/physiques et chimique
 
 Certains apprêts sont spécifiques à certaines fibres (ex : les apprêts _easy care_ pour le coton) tandis que d'autres ont une application plus générale (ex : les adoucissants).
 
-###
-
 ## Méthodologie de calcul
 
 L'impact global de l''étape Ennoblissement se comprend comme la somme des impacts des procédés retenus pour chaque modélisation/vêtement.
@@ -113,7 +111,7 @@ $$
 Avec :
 
 * `I_ennoblissement` : l'impact environnemental de l'ennoblissement, dans l'unité de la catégorie d'impact analysée
-* `m` la masse d'étoffe, modulé  exprimée en kg. Pour plus d'information sur la gestion des masses cf. la section [Pertes et rebut](../../precisions-methodologiques/pertes-et-rebus.md). Pour les pré-traitements, la masse  est proportionnée au type de fibres.
+* `m` la masse d'étoffe, modulé  exprimée en kg. Pour plus d'information sur la gestion des masses cf. la section [Pertes et rebut](../../precisions-methodologiques/pertes-et-rebus.md). Pour les pré-traitements, la masse est proportionnée au type de fibres.
 * `e_i` : la quantité d'électricité nécessaire au procédé i pour 1 kg d'étoffe, en kWh/kg
 * `a_i` : Le taux d'application du procédé i pour le vêtement évalué, sans unité
   * Egal à 1 si le procédé est mobilisé pour ce vêtement
@@ -205,7 +203,7 @@ Les procédés de désencollage et de mercerissage ne sont pas mobilisés dans l
 #### Impression <=> % surface
 
 Deux types d'impression sont proposées (fixé-lavé et pigmentaire). \
-La quantité de tissu imprimée est à spécifier par l'utilisateur (en % de la surface). Cette donnée n'étant généralement pas maîtrisée par les metteurs sur le marché, cinq scénarios sont proposés (1%, 5%, 20%, 50% et 100%).&#x20;
+La quantité de tissu imprimée est à spécifier par l'utilisateur (en % de la surface). Cette donnée n'étant généralement pas maîtrisée par les metteurs sur le marché, cinq scénarios sont proposés (1%, 5%, 20%, 50% et 100%). Le choix doit se faire en prenant la valeur majorante. Par exemple, si un tee-shirt a 40% de surface imprimée, la valeur sélectionnée est 50%.
 
 #### Tableau des valeurs `a_i`
 
