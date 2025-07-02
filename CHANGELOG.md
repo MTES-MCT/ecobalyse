@@ -1,6 +1,22 @@
 # Changelog
 
 
+## [6.1.0](https://github.com/MTES-MCT/ecobalyse/compare/v6.0.0..v6.1.0) (2025-07-02)
+
+
+
+### 🚀 Features
+
+- *(ui)* Add an alert about old user accounts deletion ([#1205](https://github.com/MTES-MCT/ecobalyse/issues/1205))
+- *(ui)* Improve alert on existing user account ([#1208](https://github.com/MTES-MCT/ecobalyse/issues/1208))
+- *(ui)* Exclude draft and pre-releases from version dropdown. ([#1206](https://github.com/MTES-MCT/ecobalyse/issues/1206))
+
+### 🪲 Bug Fixes
+
+- Add missing `uv run` ([#1204](https://github.com/MTES-MCT/ecobalyse/issues/1204))
+- *(backend)* Versions url rewriting ([#1209](https://github.com/MTES-MCT/ecobalyse/issues/1209))
+
+
 ## [6.0.0](https://github.com/MTES-MCT/ecobalyse/compare/v5.0.1..v6.0.0) (2025-07-02)
 
 
