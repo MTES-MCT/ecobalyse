@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
 
 
-if [[ ! -z "${SOURCE_VERSION}" ]]; then
-  export PATH=~/.local/bin:$PATH
-  uv run python --help
-fi
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 ROOT_DIR=$( dirname $SCRIPT_DIR )
@@ -12,9 +8,11 @@ ROOT_DIR=$( dirname $SCRIPT_DIR )
 # If the SOURCE_VERSION is provided (usually by scalingo), search for a corresponding TAG
 # Using the github API or use the provided one in the tag ENV variable
 if [[ ! -z "${SOURCE_VERSION}" ]]; then
+  # Add uv to the path on scalingo
+  export PATH=~/.local/bin:$PATH
+
   HASH=$SOURCE_VERSION
 
-  uv run python $SCRIPT_DIR/get_tag_for_commit.py $HASH
 
   if [[ ! -z "${TAG}" ]]; then
     TAG_NAME=$TAG
