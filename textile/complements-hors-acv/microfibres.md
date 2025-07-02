@@ -1,16 +1,14 @@
 ---
 description: >-
   Introduction d'un complément à l'analyse de cycle de vie traduisant l'impact
-  des microfibres => ce complément est à enrichir avec vos contributions.
+  des microfibres.
 ---
 
 # 🐠 Microfibres
 
 ## De quoi parle-t-on ?&#x20;
 
-Les microfibres sont des particules d'une taille variant entre 1 µm (micromètre) et 5 mm (millimètres).
-
-Les enjeux autour des microfibres d'origine Textile sont progressivement mis en lumière suite aux préoccupations croissantes liées aux microplastiques (relarguées par les fibres synthétiques).&#x20;
+Lorsque l’on fabrique, porte et lave des vêtements, des fragments de fibres de moins de 5 mm (d‘origine synthétique et naturelle) se détachent sous l‘effet des frottements. Ces fragments sont libérés dans l‘air et dans l‘eau.
 
 <details>
 
@@ -20,7 +18,7 @@ On distingue deux sources de microplastiques :&#x20;
 
 * les microplastiques primaires (c. 1/3 des volumes) => particules se retrouvant directement dans l’environnement sous forme de microplastiques. \
   Deux scénarios existent : ceux ajoutés volontairement dans des produits (ex : microbilles utilisées dans la cosmétiques) ou ceux résultant de l’abrasion d’objets plus grands lors de leur fabrication ou utilisation(ex : abrasion des pneus, relargage de fibres lors du lavage des vêtements).
-* les microplastiques secondaires (2/3 des volumes) => sont issus de la dégradation d’objets plus grands (ex : décomposition de sacs/bouteilles, etc.).
+* les microplastiques secondaires (2/3 des volumes) => sont issus de la dégradation de macro-déchets. Ils représentent 10 millions de tonnes par an.
 
 Entre 16% et 35% des microplastiques émis dans les océans à l'échelle mondiale proviendraient du lavage en machine de vêtements synthétiques (source : [European Environment Agency](https://www.eea.europa.eu/publications/microplastics-from-textiles-towards-a)).
 
@@ -28,16 +26,16 @@ Entre 16% et 35% des microplastiques émis dans les océans à l'échelle mondia
 
 ## Pourquoi introduire ce complément ?
 
-En l'état, les référentiels d'ACV existants tels que le projet de PEFCR Apparel & Footwear (v1.3) n'intègrent pas les impacts environnementaux liés au relargage de microfibres dans l'environnement.
+En l'état, les référentiels d'ACV existants tels que le projet de PEFCR Apparel & Footwear n'intègrent pas les impacts environnementaux liés au relargage de microfibres dans l'environnement.
 
 Les vêtements relarguent des microfibres dans différents compartiments (eau, air et sol) tout au long du cycle de vie du vêtement (cf. cartographie ci-dessous).&#x20;
 
 Les microfibres relarguées dans l'environnement sont problématiques car elles peuvent être plus ou moins persistantes (non biodégradables) et toxiques pour les organismes vivants. Différents paramètres (ex : nature de la fibre, traitements appliqués, conditions de lavage, etc.) impactent la quantité et la toxicité des microfibres relarguées sur le cycle de vie d'un vêtement.&#x20;
 
 {% hint style="info" %}
-La recherche scientifique liée aux microfibres d'origine Textile n'est qu'à ses débuts. Cela s'explique notamment par l'apparition récente de préoccupations sanitaires et environnementales liées à notre consommation de plastiques (dont les microplastiques sont une conséquence). Les chiffres avancés sont donc à interpréter avec précaution.
+La recherche scientifique liée aux microfibres d'origine textile n'est qu'à ses débuts. Cela s'explique notamment par l'apparition récente de préoccupations sanitaires et environnementales liées à notre consommation de plastiques (dont les microplastiques sont une conséquence). Les chiffres avancés sont donc à interpréter avec précaution.
 
-Ecobalyse adopte ainsi une approche semi-quantitative afin d'estimer l'impact des microfibres.
+La méthode de calcul du coût environnemental adopte ainsi une approche semi-quantitative afin d'estimer l'impact des microfibres.
 {% endhint %}
 
 <figure><img src="../../.gitbook/assets/Cartographie hotspots microfibres.png" alt=""><figcaption><p>Cartographie des émissions de microfibres sur le cycle de vie d'un vêtement (source : <a href="https://www.eea.europa.eu/publications/microplastics-from-textiles-towards-a">EEA</a>)</p></figcaption></figure>
@@ -57,7 +55,7 @@ Coef = 1000 microPts / kg = 0,001 Pts/kg de vêtement
 $$
 
 {% hint style="info" %}
-Actuellement, l'indicateur/complément _Microfibres_ ne peut pas être intégré directement dans le cadre ACV/PEF via un processus standard de normalisation-ponderation.&#x20;
+Actuellement, l'indicateur/complément _Microfibres_ ne peut pas être intégré directement dans le cadre ACV via un processus standard de normalisation et pondération.&#x20;
 
 L'approche retenue permet de faire une pondération simplifiée et pourra être précisée selon les éléments de matérialité qui seront développés prochainement.
 {% endhint %}
@@ -73,11 +71,9 @@ Cependant, de premiers éléments font consensus :&#x20;
 1\) les produits chimiques qui sont appliqués sur les fibres textile lors des différentes étapes d'ennoblissement (ex : blanchiment, teinture, etc.) peuvent altérer la biodégradabilité de certaines fibres intrinsèquement biodégradables.
 
 2\) les microplastiques constituent un enjeu majeur \
-En effet, les microplastiques sont persistants (non biodégradables) dans l'environnement et proviennent de fibres synthétiques qui constituent la majorité du marché textile (62%[^1] des volumes en 2020). De plus, l'essort des pratiques liées à la Fast-fashion depuis les années 2000 intensifie l'utilisation des matières synthétiques.
+En effet, les microplastiques sont persistants (non biodégradables) dans l'environnement et proviennent de fibres synthétiques qui constituent la majorité du marché textile (62%[^1] des volumes en 2020). De plus, l'essor des pratiques liées à la mode éphémère depuis les années 2000 intensifie l'utilisation des matières synthétiques.
 
 3\) les microfibres sont relarguées dans l'environnement lors de différentes étapes (fabrication de la fibre et du vêtement, confection, utilisation, fin de vie) et au sein de différents compartiments (air, eau, sol).&#x20;
-
-Dès lors, Ecobalyse adopte une approche semi-quantitative basée sur des critères simples maîtrisés par les marques afin de définir les scénarios de référence permettant d'estimer l'impact microfibres des vêtements distribués sur le marché français.&#x20;
 
 </details>
 
@@ -95,9 +91,9 @@ Les fibres utilisées dans l'industrie textile proposent des propriétés intrin
 
 Cependant, du fait de traitements appliqués sur les fibres lors des étapes de fabrication du vêtement, les propriétés intrinsèques des fibres peuvent évoluer (ex : l'application d'apprêts chimiques sur des fibres intrinsèquement biodégradables peut rendre ces dernières plus ou moins persistantes).&#x20;
 
-Il n'existe pas encore suffisament de littérature scientifique permettant de quantifier de manière précise la biodégradabilité des différentes configurations de fibres textiles (ex : fibres écrues vs teintes).&#x20;
+Il n'existe pas encore suffisamment de littérature scientifique permettant de quantifier de manière précise la biodégradabilité des différentes configurations de fibres textiles (ex : fibres écrues vs teintes).&#x20;
 
-Ecobalyse propose ainsi en première approche une évaluation semi-quantitative de la biodégradabilité des fibres sur la base de leur propriétés intrinsèques (cf. partie _Scénarios de référence_) et de premières études à ce sujet. En effet, cette donnée primaire maîtrisée par l'ensemble des marques permet de préciser la biodégradabilité estimée des microfibres relarguées dans l'environnement par le vêtement sur son cycle de vie. De plus, la composition/nature des fibres est le principal paramètre permettant d'estimer la biodégradabilité des fibres.
+La méthode de calcul propose ainsi en première approche une évaluation semi-quantitative de la biodégradabilité des fibres sur la base de leur propriétés intrinsèques (cf. partie _Scénarios de référence_) et de premières études à ce sujet. En effet, cette donnée primaire maîtrisée par l'ensemble des marques permet de préciser la biodégradabilité estimée des microfibres relarguées dans l'environnement par le vêtement sur son cycle de vie. De plus, la composition/nature des fibres est le principal paramètre permettant d'estimer la biodégradabilité des fibres.
 
 **Illustration d'études concernant la biodégradabilité de fibres (non exhaustif)**&#x20;
 
@@ -131,7 +127,7 @@ Peu de littérature scientifique existe concernant la quantification des flux so
 
 De plus, plusieurs paramètres influencent le relargage de microfibres (ex : caractéristiques techniques de l'étoffe, mode de lavage du vêtement, nature de la fibre, type de machine utilisée lors des étapes de fabrication, etc.).
 
-Ainsi, Ecobalyse propose une approche semi-quantitative basée sur la nature des fibres composant le vêtement (cf. partie _Scénarios de référence_). En effet, cette donnée primaire maîtrisée par l'ensemble des marques permet de préciser le niveau de relargage estimé d'un vêtement sur son cycle de vie.  &#x20;
+Ainsi, la méthode de calcul propose une approche semi-quantitative basée sur la nature des fibres composant le vêtement (cf. partie _Scénarios de référence_). En effet, cette donnée primaire maîtrisée par l'ensemble des marques permet de préciser le niveau de relargage estimé d'un vêtement sur son cycle de vie.  &#x20;
 {% endtab %}
 {% endtabs %}
 

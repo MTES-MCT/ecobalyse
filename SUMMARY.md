@@ -19,7 +19,7 @@
   * [Correction de la caractérisation de la ressource en Uranium](def-cout-environnemental/categories-dimpact-acv/correction-de-la-caracterisation-de-la-ressource-en-uranium.md)
 * [🏷️ Durabilité](def-cout-environnemental/durabilite.md)
 * [📚 Source des procédés](def-cout-environnemental/source-des-procedes.md)
-* [Aide API](def-cout-environnemental/aide-api.md)
+* [Aide API](textile/aide-api.md)
 
 ***
 

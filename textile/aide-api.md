@@ -35,7 +35,7 @@ Remarque : on peut voir que la valeur du compléments microfibre affiché dans l
 
 
 
-En effet dans l'UI les valeurs (hors valeurs "total" dans l'encadré bleu) sont affichés AVANT la prise en compte du coefficient de  [durabilite.md](../textile/durabilite.md "mention"). Ainsi pour obtenir les valeurs finales il faut diviser le score par le coefficient de durabilité. \
+En effet dans l'UI les valeurs (hors valeurs "total" dans l'encadré bleu) sont affichés AVANT la prise en compte du coefficient de  [durabilite.md](durabilite.md "mention"). Ainsi pour obtenir les valeurs finales il faut diviser le score par le coefficient de durabilité. \
 Pour le complément microfibres par exemple 113/0.58 \~ 195. On retrouve bien l'ordre de grandeur de 194 Pts affiché dans l'API.
 {% endhint %}
 
@@ -47,7 +47,7 @@ Si l'on fait la somme de toutes les impacts de chaque étape du cycle de vie, on
 
 <figure><img src="../.gitbook/assets/sigmadiff.png" alt=""><figcaption><p>UI "Jean coton (450g) - Majorant par défaut" au 2024-06-06</p></figcaption></figure>
 
-Dans l'UI les valeurs (hors valeurs "total" dans l'encadré bleu) sont affichés AVANT la prise en compte du coefficient de  [durabilite.md](../textile/durabilite.md "mention"). Ainsi pour obtenir les valeurs finales il faut diviser le score par le coefficient de durabilité. On obtient bien ainsi 4349 /0.58 = 7498 Pts.
+Dans l'UI les valeurs (hors valeurs "total" dans l'encadré bleu) sont affichés AVANT la prise en compte du coefficient de  [durabilite.md](durabilite.md "mention"). Ainsi pour obtenir les valeurs finales il faut diviser le score par le coefficient de durabilité. On obtient bien ainsi 4349 /0.58 = 7498 Pts.
 
 ### API
 

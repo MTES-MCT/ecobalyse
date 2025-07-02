@@ -9,7 +9,7 @@ description: >-
 
 ## Pourquoi introduire ce complément ?
 
-En l'état, les modélisations ACV telles que le projet de PEFCR Apparel & Footwear (v1.3) prévoient que les vêtements sont éliminés localement (France / Europe), réutilisés (en France ou à l'international) ou recyclés.&#x20;
+En l'état, les modélisations ACV telles que le projet de PEFCR Apparel & Footwear  prévoient que les vêtements sont éliminés localement (France / Europe), réutilisés (en France ou à l'international) ou recyclés.&#x20;
 
 <figure><img src="https://lh4.googleusercontent.com/mth1JAjRi1j-0I3vuOI1ZRT46XgpQNphg_D_2Sc9gCbjC8b_w7yKpNYmpIQPgMQ_zlpix0eP368T9_w5spFw1W7eOmfhB6DqCwqPzf-Zdv1jg--M9v496wmBDmlXoWJjgs-F8wGP7zeuPZOH9qqXuF6_sg=s2048" alt=""><figcaption><p>Scenario de fin de vie du PEFCR Apparel &#x26; Footwear (v1.3)</p></figcaption></figure>
 
@@ -58,7 +58,7 @@ Trois grands scénarios se dessinent pour les  vêtements "déchets hors Europe"
 
 Un nombre croissant d'études sont publiées sur les effets nocifs de ces scénarios sur l'environnement et l'Homme. C'est par exemple le cas de [travaux ](https://www.eionet.europa.eu/etcs/etc-ce/products/etc-ce-report-2023-4-eu-exports-of-used-textiles-in-europe2019s-circular-economy)parus en 2023 par la European Environment Agency qui stipulent : "Of the exports to Africa, a portion of the textiles are reused, but a significant amount ends up in either legal or illegal landfills, causing environmental problems. In other words, the textiles collected in and export from the EU are commodities, not charity.".
 
-Ecobalyse se doit de les intégrer afin de refléter cet "hotspot" de la chaîne de valeur Textile.
+La méthode de calcul du coût environnemental intègre ce complément afin de refléter cet "hotspot" de la chaîne de valeur Textile.
 
 </details>
 
@@ -91,7 +91,7 @@ Trois hypothèses permettent de comprendre ce chiffre de 9% :&#x20;
 
 * 38% des vêtements utilisés pour la première fois sont collectés et triés (source[^1])
 * 49% des vêtements triés sont exportés hors Europe (source[^2] / ce chiffre de 49% cadre par ailleurs avec les [autres scénarios](#user-content-fn-3)[^3] de fin de vie post-tri),&#x20;
-* dans 50% des cas, le vêtement est directement jeté sans avoir été réutilisé (source mentionnée précédemment / fourchette haute retenue par Ecobalyse).
+* dans 50% des cas, le vêtement est directement jeté sans avoir été réutilisé (source mentionnée précédemment / fourchette haute retenue ).
 {% endhint %}
 
 <details>
