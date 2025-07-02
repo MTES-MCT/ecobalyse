@@ -63,6 +63,7 @@ addComponentButton { addLabel, db, openSelectComponentModal, scopes } =
     let
         availableComponents =
             db.components
+                |> List.filter (not << Component.isEmpty)
                 |> Scope.anyOf scopes
 
         autocompleteState =
