@@ -11,7 +11,7 @@ if [[ ! -z "${SOURCE_VERSION}" ]]; then
   if [[ ! -z "${TAG}" ]]; then
     TAG_NAME=$TAG
   else
-    TAG_NAME=$(python $SCRIPT_DIR/get_tag_for_commit.py $HASH)
+    TAG_NAME=$(uv run python $SCRIPT_DIR/get_tag_for_commit.py $HASH)
   fi
 else
   # If it's not provided we are certainly in the dev env, so get the current hash from
