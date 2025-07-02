@@ -1,10 +1,6 @@
----
-description: >-
-  Cette page présente l'enrichissement de certains procédés afin de mieux
-  prendre en compte les émissions de substances chimiques.
----
-
 # 💦 Inventaires enrichis
+
+Cette page présente l'enrichissement de certains procédés afin de mieux prendre en compte les émissions de substances chimiques. Elle complète la page [correctif](https://fabrique-numerique.gitbook.io/ecobalyse/textile/correctifs-donnees/corr2-inventaires-enrichis) associé à l'explorateur d'[Ecobalyse](https://ecobalyse.beta.gouv.fr/#/explore/textile).
 
 ## De quoi parle-t-on ?&#x20;
 
@@ -41,7 +37,7 @@ Les problématiques concernent :&#x20;
 * la caractérisation des substances émises dans l'environnement.\
   (quels sont les impacts des substances émises dans l'eau, l'air et le sol?).
 
-Ces problématique s'expliquent pour différentes raisons dont :&#x20;
+Ces problématiques s'expliquent pour différentes raisons dont :&#x20;
 
 * un manque de transparence lié au secret industriel des solutions chimiques utilisées dans l'industrie,
 * une quantification complexe des flux et impacts des substances chimiques (une double expertise est effectivement nécessaire => écotoxicologie  + textile),
@@ -105,19 +101,17 @@ L'impact des inventaires enrichis correspond à la somme des impacts des inventa
 
 L'impact de chaque inventaire enrichi pris séparément correspond au produit de la masse "sortante" de l'étape Ennoblissement avec les coefficients d'impact.
 
-Seul l'écotoxicité est pris érés dans les inventaires enrichis : Ecotoxicité Aquatique, Toxicité Humaine cancérigène, Toxicité Humaine non-cancérigène (cf. ci-dessous pour plus de détails).&#x20;
+Seul l'écotoxicité aquatique est pris en compte dans les inventaires enrichis.&#x20;
 
 $$
 ImpactInventaireEnrichi= MasseSortante(kg) * CoefImpactInventaireEnrichi
 $$
 
-###
-
-###
+<table><thead><tr><th width="273">Résultats (Ecotoxicité = CTU / kg)</th><th width="96"></th></tr></thead><tbody><tr><td>Unité</td><td>CTUe</td></tr><tr><td>Teinture sur fibres synthétiques</td><td>289</td></tr><tr><td>Teinture sur fibres cellulosiques</td><td>758</td></tr><tr><td>Blanchiment</td><td>353</td></tr><tr><td>Impression (pigmentaire)</td><td>944</td></tr><tr><td>Impression fixé-lavé (colorants)</td><td>367</td></tr></tbody></table>
 
 ### Hypothèses par défaut
 
-#### Inventaire enrichi <=> Type de fibres (synthétique, naturelle origine animale, etc.)
+#### Inventaire enrichi <=> Type de fibres (synthétiques, naturelles, ...)
 
 * Blanchiment (bleaching)\
   Appliqué par défaut pour les matières autres que celles synthétiques.&#x20;
@@ -132,7 +126,7 @@ $$
 
 #### Pays <=> Taux de pollution aquatique (%)
 
-Un taux de "polution aquatique" est utilisé afin d'estimer quelle part des substances relarguées dans les eaux usées lors d'un procédé d'ennoblissement ne sont pas éliminées et se retrouvent donc dans les écosystèmes aquatiques (Paramètre 4 des inventaires).&#x20;
+Un taux de "pollution aquatique" est utilisé afin d'estimer quelle part des substances relarguées dans les eaux usées lors d'un procédé d'ennoblissement ne sont pas éliminées et se retrouvent donc dans les écosystèmes aquatiques (Paramètre 4 des inventaires).&#x20;
 
 Deux paramètres, exprimés en %,  permettent de définir le taux de pollution aquatique :&#x20;
 
@@ -143,9 +137,9 @@ Le taux de taux pollution aquatique (P) d'un site industriel se calcul ainsi :&#
 
 $$P = 1-(R*E)$$
 
-Ecobalyse a catégorisé les pays selon 3 groupes sur la base des travaux de l'ONU ([source](https://sdg6data.org/fr/indicator/6.3.1)). Des taux de raccrodement (R) et d'efficacité de traitement des eaux usées (E) sont proposés. Des retours de l'industrie sont attendus afin de préciser ces valeurs.&#x20;
+Ecobalyse a catégorisé les pays selon 3 groupes sur la base des travaux de l'ONU ([source](https://sdg6data.org/fr/indicator/6.3.1)). Des taux de raccordement (R) et d'efficacité de traitement des eaux usées (E) sont proposés. Des retours de l'industrie sont attendus afin de préciser ces valeurs.&#x20;
 
-<table><thead><tr><th width="298">Pays d'ennoblissement</th><th>R</th><th>E</th><th>P</th></tr></thead><tbody><tr><td>Best case<br> (Europe + Amérique du Nord, Australie, Nouvelle-Zélande)</td><td>100%</td><td>90%</td><td>10%</td></tr><tr><td>Average case<br>(Maghreb + Asie Occidentale + Asie de l'Est + Asie du Sud-Est)</td><td>90%</td><td>90%</td><td>19%</td></tr><tr><td>Worst case<br>(Autres pays)</td><td>90%</td><td>70%</td><td>37%</td></tr></tbody></table>
+<table><thead><tr><th width="298">Pays d'ennoblissement</th><th>R</th><th>E</th><th>P</th></tr></thead><tbody><tr><td><strong>Best case</strong><br> (Europe + Amérique du Nord, Australie, Nouvelle-Zélande)</td><td>100%</td><td>90%</td><td><strong>10%</strong></td></tr><tr><td><strong>Average case</strong><br>(Maghreb + Asie Occidentale + Asie de l'Est + Asie du Sud-Est)</td><td>90%</td><td>90%</td><td><strong>19%</strong></td></tr><tr><td><strong>Worst case</strong><br>(Autres pays)</td><td>90%</td><td>70%</td><td><strong>37%</strong></td></tr></tbody></table>
 
 <details>
 
@@ -163,21 +157,19 @@ _Taux de raccordement des eaux usées d'origine ménagères par région_
 
 Les principaux référentiels existants (ex : Base Impacts, Ecoinvent, PEFCR A\&F) ainsi que le dernier rapport BAT[^3] (version 2023) publié par le JRC[^4] proposent un taux de traitement moyen des eaux usées de 90%.&#x20;
 
-
-
 **Pour aller plus loin**
 
-Des paramètres additionnels permettent de préciser ce taux de pollution aquatique tels que la présence d'un centre de traitement des eaux usées sur le site industriel, la mise en place de boucles fermées permettant de limiter la quantité d'eaux usées relarguée dans l'environnement, etc. Cependant, le niveau de détails actuellement proposé est jugé suffisant. Ecobalyse permet un calcul de Niveau 1 tandis que le niveau de maîtrise de ces enjeux par les marques est faible en 2023. Pour préciser ces paramètres, les marques qui le souhaitent peuvent détailler ces paramètres/hypothèses dans le cadre du Niveau2/3 permis par l'affichage environnemental.
+Des paramètres additionnels permettent de préciser ce taux de pollution aquatique tels que la présence d'un centre de traitement des eaux usées sur le site industriel, la mise en place de boucles fermées permettant de limiter la quantité d'eaux usées relarguée dans l'environnement, etc. Cependant, le niveau de détails actuellement proposé est jugé suffisant. Ecobalyse permet un calcul de Niveau 1 tandis que le niveau de maîtrise de ces enjeux par les marques est faible. La précision de ces paramètres pourra être détaillée dans le cadre du Niveau 2 en cours de construction.
 
 </details>
 
 #### Approche time-integrated
 
-Ces inventaires sont batis selon une approche "time-integrated" (c'est à dire que l'ensemble des émissions et sous-produits de dégradation générés par le temps qui passe sont considérés comme intervenant instantanément).&#x20;
+Ces inventaires sont bâtis selon une approche "time-integrated" (c'est à dire que l'ensemble des émissions et sous-produits de dégradation générés par le temps qui passe sont considérés comme intervenant instantanément).&#x20;
 
 Pour estimer le devenir des substances dans le temps, différentes hypothèses sont proposées par Sandra Roos dont les principales sont :&#x20;
 
-* 90% des substances réactives (_reactive substances_) sont dégradées durant les opérations de traitement humide (_wet processing_) => ainsi, la majorité des substances étant réactives, le flux sortant se base généralement sur 10% des sustances utilisées en début de procédé,
+* 90% des substances réactives (_reactive substances_) sont dégradées durant les opérations de traitement humide (_wet processing_) => ainsi, la majorité des substances étant réactives, le flux sortant se base généralement sur 10% des substances utilisées en début de procédé,
 * 95% des substances fonctionnelles (_property-lending substances_) restent sur le vêtement => ainsi, seulement 5% des substances de type Teinture/Colorant sont évalués,
 * 0,1% des substances volatiles se retrouvent dans l'Air après la réalisation du procédé &#x20;
 
