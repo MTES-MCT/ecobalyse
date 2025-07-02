@@ -3,6 +3,7 @@
 echo $PATH
 ls ~/.local/bin/
 echo $HOME
+uv run python --help
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 ROOT_DIR=$( dirname $SCRIPT_DIR )
