@@ -498,7 +498,7 @@ isCookedAtPlant : Maybe Transform -> Bool
 isCookedAtPlant transform =
     case transform |> Maybe.map (.process >> .id >> Process.idToString) of
         -- Check for cooking process
-        Just "83b897cf-9ed2-5604-83b4-67fab8606d35" ->
+        Just "a2836bb8-7f45-5cfa-bb00-8b38046291cf" ->
             True
 
         _ ->
