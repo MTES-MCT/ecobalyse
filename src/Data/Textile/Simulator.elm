@@ -422,7 +422,7 @@ computePrintingImpacts { textile } ({ inputs } as simulator) =
                                         , heatProcess = WellKnown.getEnnoblingHeatProcess textile.wellKnown country
                                         , printingProcess = printingProcess
                                         , ratio = ratio
-                                        , surfaceMass = Maybe.withDefault inputs.product.surfaceMass inputs.surfaceMass
+                                        , surfaceMass = inputs.surfaceMass |> Maybe.withDefault inputs.product.surfaceMass
                                         }
 
                             printingToxicity =
@@ -431,6 +431,7 @@ computePrintingImpacts { textile } ({ inputs } as simulator) =
                                         step.impacts
                                         { aquaticPollutionScenario = step.country.aquaticPollutionScenario
                                         , printingToxicityProcess = printingToxicityProcess
+                                        , surfaceMass = inputs.surfaceMass |> Maybe.withDefault inputs.product.surfaceMass
                                         }
                                         ratio
                         in
