@@ -1,6 +1,15 @@
 # Changelog
 
 
+## [6.1.1](https://github.com/MTES-MCT/ecobalyse/compare/v6.1.0..v6.1.1) (2025-07-02)
+
+
+
+### 🪲 Bug Fixes
+
+- Add uv to scalingo when updating version ([#1210](https://github.com/MTES-MCT/ecobalyse/issues/1210))
+
+
 ## [6.1.0](https://github.com/MTES-MCT/ecobalyse/compare/v6.0.0..v6.1.0) (2025-07-02)
 
 
