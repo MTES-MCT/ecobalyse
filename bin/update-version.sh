@@ -1,12 +1,18 @@
 #!/usr/bin/env bash
 
+
+
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 ROOT_DIR=$( dirname $SCRIPT_DIR )
 
 # If the SOURCE_VERSION is provided (usually by scalingo), search for a corresponding TAG
 # Using the github API or use the provided one in the tag ENV variable
 if [[ ! -z "${SOURCE_VERSION}" ]]; then
+  # Add uv to the path on scalingo
+  export PATH=~/.local/bin:$PATH
+
   HASH=$SOURCE_VERSION
+
 
   if [[ ! -z "${TAG}" ]]; then
     TAG_NAME=$TAG
