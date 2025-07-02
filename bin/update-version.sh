@@ -2,9 +2,7 @@
 
 
 if [[ ! -z "${SOURCE_VERSION}" ]]; then
-  echo $PATH
-  ls ~/.local/bin/
-  echo $HOME
+  export PATH=~/.local/bin:$PATH
   uv run python --help
 fi
 
