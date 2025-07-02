@@ -43,6 +43,7 @@ module Data.Component exposing
     , findById
     , idFromString
     , idToString
+    , isEmpty
     , itemToComponent
     , itemToString
     , itemsToString
@@ -681,6 +682,11 @@ isCustomized component custom =
         , custom.name /= Nothing && custom.name /= Just component.name
         , custom.scopes /= component.scopes
         ]
+
+
+isEmpty : Component -> Bool
+isEmpty component =
+    List.isEmpty component.elements
 
 
 itemToComponent : DataContainer db -> Item -> Result String Component
