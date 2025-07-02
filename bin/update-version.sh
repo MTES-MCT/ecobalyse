@@ -14,6 +14,8 @@ ROOT_DIR=$( dirname $SCRIPT_DIR )
 if [[ ! -z "${SOURCE_VERSION}" ]]; then
   HASH=$SOURCE_VERSION
 
+  uv run python $SCRIPT_DIR/get_tag_for_commit.py $HASH
+
   if [[ ! -z "${TAG}" ]]; then
     TAG_NAME=$TAG
   else
