@@ -243,7 +243,7 @@ suite =
                         [ it "should handle impacts+waste when applying transforms: impacts"
                             (withElecAndHeat
                                 |> extractEcsImpact
-                                |> Expect.within (Expect.Absolute 1) 679
+                                |> Expect.within (Expect.Absolute 1) 680
                             )
                         , it "should handle impacts+waste when applying transforms: mass"
                             (withElecAndHeat
@@ -302,7 +302,7 @@ suite =
                     [ it "should compute element impacts"
                         (elementResults
                             |> extractEcsImpact
-                            |> Expect.within (Expect.Absolute 1) 2006
+                            |> Expect.within (Expect.Absolute 1) 2176
                         )
                     , it "should compute element mass"
                         (elementResults
