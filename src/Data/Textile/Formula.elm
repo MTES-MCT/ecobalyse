@@ -295,16 +295,18 @@ materialPrintingToxicityImpacts :
     ->
         { aquaticPollutionScenario : Country.AquaticPollutionScenario
         , printingToxicityProcess : Process -- Inbound: printing process
+        , surfaceMass : Unit.SurfaceMass
         }
     -> Split
     -> Mass
     -> Impacts
-materialPrintingToxicityImpacts impacts { aquaticPollutionScenario, printingToxicityProcess } split baseMass =
+materialPrintingToxicityImpacts impacts { aquaticPollutionScenario, printingToxicityProcess, surfaceMass } split baseMass =
     impacts
         |> Impact.mapImpacts
             (\trigram _ ->
                 baseMass
-                    |> Unit.forKg (Process.getImpact trigram printingToxicityProcess)
+                    |> Unit.surfaceMassToSurface surfaceMass
+                    |> Unit.forSquareMeter (Process.getImpact trigram printingToxicityProcess)
                     |> Quantity.multiplyBy
                         (aquaticPollutionScenario
                             |> Country.getAquaticPollutionRatio
