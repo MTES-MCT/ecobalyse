@@ -20,6 +20,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Json.Decode as Decode
 import RemoteData
+import Request.BackendHttp.Error as BackendError
 import Request.Version as Version exposing (Version(..))
 import Route
 import Toast
@@ -491,7 +492,26 @@ notificationView { session, toMsg } notification =
     in
     case notification of
         Session.BackendError backendError ->
-            backendError |> Alert.backendError session (Just closeNotification)
+            let
+                default =
+                    backendError |> Alert.backendError session (Just closeNotification)
+            in
+            case backendError of
+                BackendError.BadStatus { detail, statusCode } ->
+                    if statusCode == 409 && String.contains "user already exists" detail then
+                        Alert.simple
+                            { attributes = []
+                            , close = Just closeNotification
+                            , content = [ text "Un compte associé à cette adresse email existe déjà." ]
+                            , level = Alert.Info
+                            , title = Just "Compte utilisateur existant"
+                            }
+
+                    else
+                        default
+
+                _ ->
+                    default
 
         Session.GenericError title message ->
             Alert.simple
