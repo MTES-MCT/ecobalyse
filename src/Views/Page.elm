@@ -503,7 +503,7 @@ notificationView { session, toMsg } notification =
                             { attributes = []
                             , close = Just closeNotification
                             , content = [ text "Un compte associé à cette adresse email existe déjà." ]
-                            , level = Alert.Info
+                            , level = Alert.Warning
                             , title = Just "Compte utilisateur existant"
                             }
 
