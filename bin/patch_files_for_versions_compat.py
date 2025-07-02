@@ -11,6 +11,7 @@ from ecobalyse import logging_config as logging_config
 from ecobalyse.patch_files import (
     add_entry_to_version_file,
     patch_cross_origin_index_html_file,
+    patch_double_slash,
     patch_elm_version_file,
     patch_index_js_file,
     patch_version_selector,
@@ -86,6 +87,50 @@ def local_storage_key(
     Patch main index.js file to add the version to the local storage key
     """
     patch_index_js_file(index_js_file, suffix)
+
+
+@app.command()
+def double_slash(
+    index_js_file: Annotated[
+        pathlib.Path,
+        typer.Argument(
+            help="The full path to the index.js file.",
+            exists=True,
+            file_okay=True,
+            dir_okay=False,
+            writable=True,
+            readable=True,
+            resolve_path=True,
+        ),
+    ],
+    patch_file: Annotated[
+        pathlib.Path,
+        typer.Argument(
+            help="The full path of the patch to apply.",
+            exists=True,
+            file_okay=True,
+            dir_okay=False,
+            writable=True,
+            readable=True,
+            resolve_path=True,
+        ),
+    ],
+    git_dir: Annotated[
+        pathlib.Path,
+        typer.Argument(
+            help="The full path of the git repo where to apply the patch.",
+            exists=True,
+            file_okay=False,
+            dir_okay=True,
+            readable=True,
+            resolve_path=True,
+        ),
+    ],
+):
+    """
+    Patch main index.js file to remove trailing /
+    """
+    patch_double_slash(index_js_file, patch_file, git_dir)
 
 
 @app.command()
