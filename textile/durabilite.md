@@ -1,9 +1,3 @@
----
-description: >-
-  Présentation de l'intégration d'un coefficient de durabilité dans la méthode
-  de calcul.
----
-
 # Durabilité
 
 {% hint style="warning" %}
@@ -11,10 +5,10 @@ Mise à jour importante de cette page le 05/12/2024 suite à la concertation ini
 {% endhint %}
 
 {% hint style="info" %}
-Plus un vêtement est porté, plus son impact est faible
+<mark style="color:blue;background-color:green;">**Plus un vêtement est porté, plus son impact est faible**</mark>
 {% endhint %}
 
-La prise en compte de la durabilité doit permettre d'introduire une estimation du nombre d'utilisation de chaque vêtement dans la modélisation du coût environnemental.
+La prise en compte de la durabilité doit permettre d'introduire une estimation du nombre de portées de chaque vêtement dans la modélisation du coût environnemental.
 
 ## Contexte
 
@@ -25,7 +19,7 @@ Deux principales dimensions sont généralement considérées pour apprécier la
 * sa durabilité physique (capacité du vêtement à résister à l'usure physique liée à son utilisation et son entretien)
 * sa durabilité non physique (propension qu'aura le vêtement à être porté plus longtemps en fonction d'autres critères : réparabilité, attachement...)
 
-Ces deux dimensions sont mises en avant dans différents travaux à l'échelle européenne:
+Ces deux dimensions sont mises en avant dans différents travaux et notamment à l'échelle européenne avec le PEFCR A\&F:
 
 > PEFCR APPAREL & FOTTWEAR
 >
@@ -39,7 +33,7 @@ Ces deux dimensions sont mises en avant dans différents travaux à l'échelle e
 >
 > iii. The repairability potential of the product."
 
-&#x20;Dans un premier temps, seule la durabilité non physique est considérée dans le cadre du mode réglementaire d'Ecobalyse.
+&#x20;Dans un premier temps, seule la durabilité non physique est considérée dans le cadre du mode réglementaire.
 
 {% hint style="info" %}
 **Travaux sur la durabilité physique**\
@@ -98,7 +92,7 @@ Ou aussi&#x20;
 
 $$C_{Durabilité} = 0.67 + (1,45-0,67)*( 0.4*I_{incitation réparation} +  0.4*I_{largeur de gamme} + 0.2*I_{affichage tracabilité}$$
 
-### Largeur de gamme
+### <mark style="color:red;">Largeur de gamme</mark>
 
 #### Définition
 
@@ -160,7 +154,9 @@ L'indice "largeur de gamme" prend les valeurs suivantes :&#x20;
 
 <figure><img src="../.gitbook/assets/image (18).png" alt=""><figcaption></figcaption></figure>
 
-### Incitation à la réparation (1/2)
+### <mark style="color:red;">Incitation à la réparation</mark>
+
+#### Incitation à la réparation (1/2)
 
 #### Définition
 
@@ -205,7 +201,7 @@ Application au cas du T-shirt, avec un coût moyen de réparation de 10€ :&#x2
 
 <figure><img src="../.gitbook/assets/image (9) (1).png" alt=""><figcaption><p>Indice "incitation à la réparation" (partie 1/2) en fonction du prix de vente d'un Tshirt</p></figcaption></figure>
 
-### Incitation à la réparation (2/2)
+#### Incitation à la réparation (2/2)
 
 #### Définition
 
@@ -244,7 +240,7 @@ $$
 I_{incitationréparation} = 0,66 * I_{1/2} + 0,33 * I_{2/2}
 $$
 
-### Affichage de la traçabilité
+### <mark style="color:red;">Affichage de la traçabilité</mark>
 
 #### Définition
 

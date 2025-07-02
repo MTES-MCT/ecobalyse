@@ -19,6 +19,7 @@
   * [Correction de la caractérisation de la ressource en Uranium](def-cout-environnemental/categories-dimpact-acv/correction-de-la-caracterisation-de-la-ressource-en-uranium.md)
 * [🏷️ Durabilité](def-cout-environnemental/durabilite.md)
 * [📚 Source des procédés](def-cout-environnemental/source-des-procedes.md)
+* [Aide API](def-cout-environnemental/aide-api.md)
 
 ***
 
@@ -148,7 +149,6 @@
   * [corr2: Inventaires enrichis](textile/correctifs-donnees/corr2-inventaires-enrichis.md)
   * [corr3: Pré-traitements, Teinture, Impressions et Finition](textile/correctifs-donnees/corr3-pre-traitements-teinture-impressions-et-finition.md)
   * [corr4: Laine nouvelle filière](textile/correctifs-donnees/corr4-laine-nouvelle-filiere.md)
-* [Aide API](textile/aide-api.md)
 
 ## 🍕 Copy of Alimentaire -EN CONSTRUCTION
 
