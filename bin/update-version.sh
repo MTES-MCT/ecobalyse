@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+echo $PATH
+ls ~/.local/bin/
+ecoh $HOME
+
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 ROOT_DIR=$( dirname $SCRIPT_DIR )
 
