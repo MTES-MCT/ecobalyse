@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 
-echo $PATH
-ls ~/.local/bin/
-echo $HOME
-uv run python --help
+
+if [[ ! -z "${SOURCE_VERSION}" ]]; then
+  echo $PATH
+  ls ~/.local/bin/
+  echo $HOME
+  uv run python --help
+fi
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 ROOT_DIR=$( dirname $SCRIPT_DIR )
