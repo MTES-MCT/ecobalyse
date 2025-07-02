@@ -9,10 +9,11 @@ from advanced_alchemy.base import UUIDAuditBase
 from advanced_alchemy.utils.fixtures import open_fixture_async
 from app.config import app as config
 from app.config import get_settings
-from app.db.models import Component, User
+from app.db.models import Component, Process, User
 from app.domain.accounts.guards import auth
 from app.domain.accounts.services import RoleService, UserService
 from app.domain.components.services import ComponentService
+from app.domain.processes.services import ProcessService
 from httpx import AsyncClient
 from litestar import Litestar
 from litestar.serialization import decode_json, encode_json
@@ -118,6 +119,7 @@ async def _seed_db(
     engine: AsyncEngine,
     sessionmaker: async_sessionmaker[AsyncSession],
     raw_components: list[Component | dict[str, Any]],
+    raw_processes: list[Process | dict[str, Any]],
     raw_users: list[User | dict[str, Any]],
 ) -> AsyncGenerator[None, None]:
     """Populate test database with.
@@ -126,6 +128,7 @@ async def _seed_db(
         engine: The SQLAlchemy engine instance.
         sessionmaker: The SQLAlchemy sessionmaker factory.
         raw_components: Test components to add to the database
+        raw_processes: Test processes to add to the database
 
     """
 
@@ -146,6 +149,9 @@ async def _seed_db(
 
     async with ComponentService.new(sessionmaker()) as components_service:
         await components_service.create_many(raw_components, auto_commit=True)
+
+    async with ProcessService.new(sessionmaker()) as processes_service:
+        await processes_service.create_many(raw_processes, auto_commit=True)
 
     async with UserService.new(sessionmaker()) as users_service:
         await users_service.create_many(raw_users, auto_commit=True)

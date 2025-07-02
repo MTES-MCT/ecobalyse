@@ -1,12 +1,12 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
 from uuid import UUID
 
 from advanced_alchemy.filters import OrderBy
 from advanced_alchemy.service.typing import (
     convert,
 )
+from app.db import models as m
 from app.domain.processes import urls
 from app.domain.processes.deps import (
     provide_processes_service,
@@ -14,14 +14,12 @@ from app.domain.processes.deps import (
 from app.domain.processes.schemas import (
     Process,
 )
+from app.domain.processes.services import ProcessService
 from app.lib.deps import create_filter_dependencies
 from litestar import get
 from litestar.controller import Controller
 from litestar.di import Provide
 from litestar.params import Parameter
-
-if TYPE_CHECKING:
-    from app.domain.processes.services import ProcessService
 
 
 class ProcessController(Controller):
@@ -58,9 +56,10 @@ class ProcessController(Controller):
             from_attributes=True,
         )
 
-    @get(operation_id="GetProcess", path=urls.PROCESS_DETAIL, exclude_from_auth=True)
+    @get(operation_id="GetProcess", path=urls.PROCESS_DETAIL, allow_none_user=True)
     async def get_process(
         self,
+        current_user: m.User | None,
         processes_service: ProcessService,
         process_id: UUID = Parameter(
             title="Process ID", description="The process to retrieve."
@@ -69,4 +68,11 @@ class ProcessController(Controller):
         """Get a process."""
 
         process = await processes_service.get(process_id)
-        return processes_service.to_schema(process, schema_type=Process)
+        schema_process = processes_service.to_schema(process, schema_type=Process)
+
+        if not current_user:
+            schema_process.impacts = ProcessService.remove_detailed_impacts(
+                schema_process.impacts
+            )
+
+        return schema_process

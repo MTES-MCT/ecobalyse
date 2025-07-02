@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import re
 from pathlib import Path
 from typing import Any, cast
 
@@ -20,12 +19,6 @@ from app.domain.accounts.services import UserService
 from app.domain.components.deps import provide_components_service
 from rich import get_console
 from structlog import get_logger
-
-
-# See https://stackoverflow.com/questions/1175208/elegant-python-function-to-convert-camelcase-to-snake-case
-def camel_to_snake(name):
-    pattern = re.compile(r"(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])")
-    return pattern.sub("_", name).lower()
 
 
 @click.group(
@@ -302,23 +295,8 @@ async def load_processes_fixtures(processes_data: dict) -> None:
     logger = get_logger()
 
     async with ProcessService.new(config=alchemy, uniquify=True) as service:
-        renamed_processes = []
-        # Rename camel case to snake case and flatten impacts
-        for process in processes_data:
-            renamed_process = {}
-            for key in process:
-                if key == "impacts":
-                    for impact_key in process[key]:
-                        renamed_process[impact_key.replace("-", "_")] = process[key][
-                            impact_key
-                        ]
-                else:
-                    renamed_process[camel_to_snake(key)] = process[key]
-
-            renamed_processes.append(renamed_process)
-
         await service.create_many(
-            data=renamed_processes,
+            data=processes_data,
             auto_commit=True,
         )
         await logger.ainfo("loaded processes fixtures")

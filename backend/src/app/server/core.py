@@ -117,7 +117,9 @@ class ApplicationCore(InitPluginProtocol, CLIPluginProtocol):
             },
         )
 
-        dependencies = {"current_user": Provide(provide_user)}
+        dependencies = {
+            "current_user": Provide(provide_user),
+        }
         app_config.dependencies.update(dependencies)
 
         return app_config
