@@ -26,7 +26,7 @@ provide_users_service = create_service_provider(
 )
 
 
-async def provide_user(request: Request[m.User, Any, Any]) -> m.User:
+async def provide_user(request: Request[m.User, Any, Any]) -> m.User | None:
     """Get the user from the request.
 
     Args:

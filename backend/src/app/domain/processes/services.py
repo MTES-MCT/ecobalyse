@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 from typing import TYPE_CHECKING
 from uuid import uuid4
 
@@ -12,11 +13,18 @@ from advanced_alchemy.service import (
     schema_dump,
 )
 from app.db import models as m
+from app.domain.processes.schemas import Impacts
 
 if TYPE_CHECKING:
     from advanced_alchemy.service import ModelDictT
 
 __all__ = ("ProcessService",)
+
+
+# See https://stackoverflow.com/questions/1175208/elegant-python-function-to-convert-camelcase-to-snake-case
+def camel_to_snake(name):
+    pattern = re.compile(r"(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])")
+    return pattern.sub("_", name).lower()
 
 
 class ProcessService(SQLAlchemyAsyncRepositoryService[m.Process]):
@@ -31,11 +39,34 @@ class ProcessService(SQLAlchemyAsyncRepositoryService[m.Process]):
 
     async def to_model_on_create(self, data: ModelDictT[m.Team]) -> ModelDictT[m.Team]:
         data = schema_dump(data)
-        return await self._populate_with_owner_and_tags(data, "create")
+        return await self._populate_with_categories_and_impacts(data, "create")
 
     match_fields = ["display_name"]
 
-    async def _populate_with_owner_and_tags(
+    @staticmethod
+    def remove_detailed_impacts(impacts: Impacts) -> Impacts:
+        impacts.acd = 0
+        impacts.cch = 0
+        impacts.etf = 0
+        impacts.etf_c = 0
+        impacts.fru = 0
+        impacts.fwe = 0
+        impacts.htc = 0
+        impacts.htc_c = 0
+        impacts.htn = 0
+        impacts.htn_c = 0
+        impacts.ior = 0
+        impacts.ldu = 0
+        impacts.mru = 0
+        impacts.ozd = 0
+        impacts.pco = 0
+        impacts.pma = 0
+        impacts.swe = 0
+        impacts.tre = 0
+        impacts.wtu = 0
+        return impacts
+
+    async def _populate_with_categories_and_impacts(
         self,
         data: ModelDictT[m.Team],
         operation: str | None,
@@ -45,7 +76,18 @@ class ProcessService(SQLAlchemyAsyncRepositoryService[m.Process]):
 
             categories_added: list[str] = data.pop("categories", [])
             data["id"] = data.get("id", uuid4())
-            data = await super().to_model(data)
+
+            renamed_process = {}
+            for key in data:
+                if key == "impacts":
+                    for impact_key in data[key]:
+                        renamed_process[impact_key.replace("-", "_")] = data[key][
+                            impact_key
+                        ]
+                else:
+                    renamed_process[camel_to_snake(key)] = data[key]
+
+            data = await super().to_model(renamed_process)
             if categories_added:
                 data.process_categories.extend(
                     [

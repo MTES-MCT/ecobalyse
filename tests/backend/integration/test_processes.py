@@ -1,9 +1,13 @@
 import os
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 import orjson
 import pytest
 from app.domain.processes.schemas import Category, Unit
+
+if TYPE_CHECKING:
+    from httpx import AsyncClient
 
 pytestmark = pytest.mark.anyio
 
@@ -34,3 +38,87 @@ async def test_process_units() -> None:
 
         for process in json_data:
             assert process["unit"] in possible_units
+
+
+async def test_processes_access(
+    client: "AsyncClient",
+    user_token_headers: dict[str, str],
+) -> None:
+    # Non authenticated access
+    response = await client.get(
+        "/api/processes/97c209ec-7782-5a29-8c47-af7f17c82d11",
+    )
+    assert response.status_code == 200
+    json_response = response.json()
+
+    # Unauthenticated user should have zero detailed impacts
+    assert json_response["impacts"] == {
+        "acd": 0.0,
+        "cch": 0.0,
+        "ecs": 2026.16,
+        "etf": 0.0,
+        "etf-c": 0.0,
+        "fru": 0.0,
+        "fwe": 0.0,
+        "htc": 0.0,
+        "htc-c": 0.0,
+        "htn": 0.0,
+        "htn-c": 0.0,
+        "ior": 0.0,
+        "ldu": 0.0,
+        "mru": 0.0,
+        "ozd": 0.0,
+        "pco": 0.0,
+        "pef": 9.0,
+        "pma": 0.0,
+        "swe": 0.0,
+        "tre": 0.0,
+        "wtu": 0.0,
+    }
+
+    # Authenticated user should have detailed impacts
+    response = await client.get(
+        "/api/processes/97c209ec-7782-5a29-8c47-af7f17c82d11",
+        headers=user_token_headers,
+    )
+    assert response.status_code == 200
+    json_response = response.json()
+
+    assert json_response == {
+        "alias": None,
+        "categories": ["transformation"],
+        "comment": "corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-impression-pigmentaire.",
+        "density": 0.0,
+        "displayName": "Impression (pigmentaire)",
+        "elecMJ": 1.61,
+        "heatMJ": 10.74,
+        "id": "97c209ec-7782-5a29-8c47-af7f17c82d11",
+        "impacts": {
+            "acd": 1.0,
+            "cch": 2.0,
+            "ecs": 2026.16,
+            "etf": 1.0,
+            "etf-c": 944.0,
+            "fru": 2.0,
+            "fwe": 3.0,
+            "htc": 3.0,
+            "htc-c": 1.11e-11,
+            "htn": 2.0,
+            "htn-c": 2.03e-8,
+            "ior": 2.0,
+            "ldu": 5.0,
+            "mru": 4.0,
+            "ozd": 2.0,
+            "pco": 7.0,
+            "pef": 9.0,
+            "pma": 7.0,
+            "swe": 7.0,
+            "tre": 5.0,
+            "wtu": 5.0,
+        },
+        "scopes": ["textile"],
+        "source": "Custom",
+        "sourceId": "Impression (pigmentaire)",
+        "unit": "kg",
+        "waste": 0.0,
+    }
