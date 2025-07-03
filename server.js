@@ -294,7 +294,8 @@ const checkVersionAndPath = (req, res, next) => {
   const version = availableVersions.find((version) => version.dir === versionNumber);
 
   if (!version) {
-    res.status(404).send("Version not found");
+    // If no version is found, don’t display a blank page but redirect to the home
+    res.redirect("/");
   }
   const staticDir = path.join(__dirname, "versions", versionNumber);
   req.staticDir = staticDir;
@@ -353,7 +354,11 @@ version.get("/:versionNumber/processes/processes.json", checkVersionAndPath, asy
     (version) => version.dir === versionNumber,
   );
 
-  return res.status(200).send(await getProcesses(req.headers, processesImpacts, processes));
+  // Note: JSON parsing is done in Elm land
+  return res
+    .status(200)
+    .contentType("text/plain")
+    .send(JSON.stringify(await getProcesses(req.headers, processesImpacts, processes)));
 });
 
 api.use(cors()); // Enable CORS for all API requests
