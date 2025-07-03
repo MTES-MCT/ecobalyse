@@ -18,15 +18,8 @@ const expressHost = "0.0.0.0";
 const expressPort = 8001;
 
 // Env vars
-const {
-  ENABLE_FOOD_SECTION,
-  MATOMO_HOST,
-  MATOMO_SITE_ID,
-  MATOMO_TOKEN,
-  NODE_ENV,
-  RATELIMIT_MAX_RPM,
-  RATELIMIT_WHITELIST,
-} = process.env;
+const { ENABLE_FOOD_SECTION, MATOMO_HOST, NODE_ENV, RATELIMIT_MAX_RPM, RATELIMIT_WHITELIST } =
+  process.env;
 
 const INTERNAL_BACKEND_URL = "http://localhost:8002";
 
@@ -37,6 +30,8 @@ const version = express(); // version app
 // Rate-limiting
 const rateLimitWhitelist = RATELIMIT_WHITELIST?.split(",").filter(Boolean) ?? [];
 const rateLimitMaxRPM = parseInt(RATELIMIT_MAX_RPM, 10) || 5000;
+// Make rate-limiting working with X-Forwarded-For headers
+app.set("trust proxy", 1);
 app.use(
   rateLimit({
     windowMs: 60 * 1000, // 1 minute
@@ -45,16 +40,6 @@ app.use(
     skip: ({ ip }) => NODE_ENV !== "production" || rateLimitWhitelist.includes(ip),
   }),
 );
-
-// Matomo
-if (
-  NODE_ENV !== "test" &&
-  NODE_ENV !== "development" &&
-  (!MATOMO_HOST || !MATOMO_SITE_ID || !MATOMO_TOKEN)
-) {
-  console.error("Matomo environment variables are missing. Please check the README.");
-  process.exit(1);
-}
 
 // Sentry monitoring
 monitorExpressApp(app);
@@ -267,7 +252,9 @@ elmApp.ports.output.subscribe(({ status, body, jsResponseHandler }) => {
 });
 
 api.get("/", (req, res) => {
-  apiTracker.track(200, req);
+  if (apiTracker) {
+    apiTracker.track(200, req);
+  }
   res.status(200).send(openApiContents);
 });
 
