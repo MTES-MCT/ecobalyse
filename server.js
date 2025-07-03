@@ -14,24 +14,37 @@ const { decrypt } = require("./lib/crypto");
 const express = require("express");
 const rateLimit = require("express-rate-limit");
 
-const app = express(); // web app
-const api = express(); // api app
 const expressHost = "0.0.0.0";
 const expressPort = 8001;
-const version = express(); // version app
 
 // Env vars
-const { ENABLE_FOOD_SECTION, MATOMO_HOST, MATOMO_SITE_ID, MATOMO_TOKEN, NODE_ENV } = process.env;
+const {
+  ENABLE_FOOD_SECTION,
+  MATOMO_HOST,
+  MATOMO_SITE_ID,
+  MATOMO_TOKEN,
+  NODE_ENV,
+  RATELIMIT_MAX_RPM,
+  RATELIMIT_WHITELIST,
+} = process.env;
 
 const INTERNAL_BACKEND_URL = "http://localhost:8002";
 
-var rateLimiter = rateLimit({
-  windowMs: 1000, // 1 second
-  max: 100, // max 100 requests per second
-});
+const app = express(); // web app
+const api = express(); // api app
+const version = express(); // version app
 
-// Rate limit the version API as it reads file from the disk
-version.use(rateLimiter);
+// Rate-limiting
+const rateLimitWhitelist = RATELIMIT_WHITELIST?.split(",").filter(Boolean) ?? [];
+const rateLimitMaxRPM = parseInt(RATELIMIT_MAX_RPM, 10) || 5000;
+app.use(
+  rateLimit({
+    windowMs: 60 * 1000, // 1 minute
+    max: rateLimitMaxRPM,
+    message: { error: `This server is rate-limited to ${rateLimitMaxRPM}rpm, please slow down.` },
+    skip: ({ ip }) => NODE_ENV !== "production" || rateLimitWhitelist.includes(ip),
+  }),
+);
 
 // Matomo
 if (
