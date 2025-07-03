@@ -252,9 +252,7 @@ elmApp.ports.output.subscribe(({ status, body, jsResponseHandler }) => {
 });
 
 api.get("/", (req, res) => {
-  if (apiTracker) {
-    apiTracker.track(200, req);
-  }
+  apiTracker?.track(200, req);
   res.status(200).send(openApiContents);
 });
 
