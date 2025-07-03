@@ -18,7 +18,7 @@ Non, l'API fonctionne sans authentification et fournit alors uniquement des scor
 
 ## Y a-t-il un quota maximum en nombre d'appels à ne pas dépasser ?
 
-Non, nous ne disposons de plan de charge en phase de concertation et d'expérimentation. Nous reviendrions vers la communauté rapidement si les volumes d'usage devaient rendre la plateforme instable ou inopérante, avec éventuellement l'établissement de quotas ou de rate-limiting. Pour l'instant, ce n'est pas le cas.
+Oui, que ce soit sur l'application Web ou l'API, le nombre maximum de requêtes par minute et par IP est plafonné à 5000 (ce chiffre peut être amené à être ajusté en fonction du trafic et des abus potentiels observés). Notre objectif est de garantir une qualité de service optimale à toutes et tous.
 
 ## Vous engagez-vous sur un taux de disponibilité du service fourni par l'API ?
 
