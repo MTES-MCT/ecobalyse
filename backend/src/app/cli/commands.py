@@ -293,9 +293,11 @@ async def load_processes_fixtures(processes_data: dict) -> None:
     from structlog import get_logger
 
     logger = get_logger()
+
     async with ProcessService.new(config=alchemy, uniquify=True) as service:
-        await service.upsert_many(
-            match_fields=["name"], data=processes_data, auto_commit=True, uniquify=True
+        await service.create_many(
+            data=processes_data,
+            auto_commit=True,
         )
         await logger.ainfo("loaded processes fixtures")
 
