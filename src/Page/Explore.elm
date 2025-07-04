@@ -75,57 +75,53 @@ type Msg
 init : Scope -> Dataset -> Session -> PageUpdate Model Msg
 init scope dataset session =
     let
-        ( initialSort, commands ) =
+        initialSort =
             case dataset of
-                Dataset.Components _ maybeId ->
-                    ( "Nom", commandsForDatasetId maybeId )
+                Dataset.Components _ _ ->
+                    "Nom"
 
-                Dataset.Countries maybeId ->
-                    ( "Nom", commandsForDatasetId maybeId )
+                Dataset.Countries _ ->
+                    "Nom"
 
-                Dataset.FoodExamples maybeId ->
-                    ( "Coût Environnemental", commandsForDatasetId maybeId )
+                Dataset.FoodExamples _ ->
+                    "Coût Environnemental"
 
-                Dataset.FoodIngredients maybeId ->
-                    ( "Identifiant", commandsForDatasetId maybeId )
+                Dataset.FoodIngredients _ ->
+                    "Identifiant"
 
-                Dataset.Impacts maybeId ->
-                    ( "Code", commandsForDatasetId maybeId )
+                Dataset.Impacts _ ->
+                    "Code"
 
-                Dataset.ObjectExamples maybeId ->
-                    ( "Coût Environnemental", commandsForDatasetId maybeId )
+                Dataset.ObjectExamples _ ->
+                    "Coût Environnemental"
 
-                Dataset.Processes _ maybeId ->
-                    ( "Nom", commandsForDatasetId maybeId )
+                Dataset.Processes _ _ ->
+                    "Nom"
 
-                Dataset.TextileExamples maybeId ->
-                    ( "Coût Environnemental", commandsForDatasetId maybeId )
+                Dataset.TextileExamples _ ->
+                    "Coût Environnemental"
 
-                Dataset.TextileMaterials maybeId ->
-                    ( "Identifiant", commandsForDatasetId maybeId )
+                Dataset.TextileMaterials _ ->
+                    "Identifiant"
 
-                Dataset.TextileProducts maybeId ->
-                    ( "Identifiant", commandsForDatasetId maybeId )
+                Dataset.TextileProducts _ ->
+                    "Identifiant"
 
-                Dataset.VeliExamples maybeId ->
-                    ( "Coût Environnemental", commandsForDatasetId maybeId )
+                Dataset.VeliExamples _ ->
+                    "Coût Environnemental"
     in
     App.createUpdate session
         { dataset = dataset
         , scope = scope
         , tableState = SortableTable.initialSort initialSort
         }
-        |> App.withCmds [ commands, Ports.scrollTo { x = 0, y = 0 } ]
+        |> App.withCmds
+            [ if Dataset.isDetailed dataset then
+                Ports.addBodyClass "prevent-scrolling"
 
-
-commandsForDatasetId : Maybe id -> Cmd Msg
-commandsForDatasetId maybeId =
-    case maybeId of
-        Just _ ->
-            Ports.addBodyClass "prevent-scrolling"
-
-        Nothing ->
-            Ports.removeBodyClass "prevent-scrolling"
+              else
+                Ports.removeBodyClass "prevent-scrolling"
+            ]
 
 
 update : Session -> Msg -> Model -> PageUpdate Model Msg
