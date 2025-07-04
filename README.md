@@ -30,6 +30,8 @@ Les variables d'environnement suivantes doivent être définies :
 - `MATOMO_SITE_ID`: l'identifiant du site Ecobalyse sur l'instance Matomo permettant le suivi d'audience du produit.
 - `MATOMO_TOKEN`: le token Matomo permettant le suivi d'audience du produit.
 - `NODE_ENV`: l'environnement d'exécution nodejs (par défaut, `development`)
+- `RATELIMIT_MAX_RPM`: le nombre de requêtes maximum par minute et par ip (par défaut: 5000)
+- `RATELIMIT_WHITELIST`: liste des adresses IP non soumises au rate-limiting, séparées par des virgules
 - `SCALINGO_POSTGRESQL_URL` : l'uri pour accéder à Postgresl (définie automatiquement par Scalingo). Si non défini sqlite3 est utilisé.
 - `SECRET_KEY`: le secret 32bits pour le backend; vous pouvez en générer une avec `openssl rand -hex 32`
 - `SENTRY_DSN`: le DSN [Sentry](https://sentry.io) à utiliser pour les rapports d'erreur.
