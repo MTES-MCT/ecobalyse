@@ -24,7 +24,7 @@ index b3ad75e0..1edc8bbe 100644
 +      try {
 +        const res = await fetch("https://api.github.com/repos/MTES-MCT/ecobalyse/releases");
 +        const json = await res.json();
-+        const versions = json.map(({tag_name}) => tag_name);
++        const versions = json.filter(({draft, prerelease}) => !draft && !prerelease).map(({tag_name}) => tag_name);
 +        const selector = document.createElement("select");
 +        selector.classList.add("VersionSelector", "d-none", "d-sm-block", "form-select", "form-select-sm", "w-auto");
 +        selector.setAttribute("style", "background-color:transparent;box-shadow:none;");
