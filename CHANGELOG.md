@@ -1,6 +1,20 @@
 # Changelog
 
 
+## [6.2.0](https://github.com/MTES-MCT/ecobalyse/compare/v6.1.1..v6.2.0) (2025-07-04)
+
+
+
+### 🚀 Features
+
+- *(sec)* Allow configuring rate limiting ([#1214](https://github.com/MTES-MCT/ecobalyse/issues/1214))
+
+### 🪲 Bug Fixes
+
+- JSON parsing in versions ([#1212](https://github.com/MTES-MCT/ecobalyse/issues/1212))
+- *(ui)* Don't scrolltop on explorer modal closed ([#1218](https://github.com/MTES-MCT/ecobalyse/issues/1218))
+
+
 ## [6.1.1](https://github.com/MTES-MCT/ecobalyse/compare/v6.1.0..v6.1.1) (2025-07-02)
 
 
