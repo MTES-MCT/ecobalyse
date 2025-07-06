@@ -104,7 +104,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": [],
+    "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Pasta, dried, from durum wheat, at plant, from GLO wheat and DE elec, constructed by Ecobalyse",
     "unit": "kg",
@@ -1658,7 +1658,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": [],
+    "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Pasta, dried, from durum wheat, at plant, from GLO wheat and BE elec, constructed by Ecobalyse",
     "unit": "kg",
@@ -2731,7 +2731,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": [],
+    "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Pasta, dried, from durum wheat, at plant, from GLO wheat and ES elec, constructed by Ecobalyse",
     "unit": "kg",
@@ -6283,7 +6283,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": [],
+    "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Pasta, dried, from durum wheat, at plant, from GLO wheat and IT elec, constructed by Ecobalyse",
     "unit": "kg",
@@ -8655,7 +8655,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": [],
+    "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Pasta, dried, from durum wheat, at plant, from GLO wheat and FR elec, constructed by Ecobalyse",
     "unit": "kg",
