@@ -3,7 +3,7 @@ import * as Sentry from "@sentry/browser";
 import Charts from "./lib/charts";
 import posthog from "posthog-js";
 
-// using  let statement to avoid this error:
+// using a `let` statement to avoid this error:
 // @parcel/optimizer-swc: 'const' declarations must be initialized
 let { NODE_ENV, POSTHOG_KEY, POSTHOG_HOST, SENTRY_DSN } = process.env;
 
@@ -12,7 +12,8 @@ if (NODE_ENV === "production" && POSTHOG_KEY && POSTHOG_HOST) {
   posthog.init(POSTHOG_KEY, {
     api_host: POSTHOG_HOST,
     autocapture: false,
-    capture_pageview: "history_change",
+    capture_pageleave: true,
+    capture_pageview: false, // handled in Elm land, posthog doesn't support hash-based routing well
     disable_external_dependency_loading: true,
     disable_web_experiments: true,
     person_profiles: "identified_only",
@@ -118,6 +119,10 @@ app.ports.addBodyClass.subscribe((cls) => {
 
 app.ports.removeBodyClass.subscribe((cls) => {
   document.body.classList.remove(cls);
+});
+
+app.ports.sendPosthogEvent.subscribe(({ name, properties }) => {
+  posthog.capture(name, Object.fromEntries(properties));
 });
 
 app.ports.scrollTo.subscribe((pos) => {
