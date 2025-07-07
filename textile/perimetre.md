@@ -9,7 +9,7 @@ Les catégories pour le secteur du textile disponibles pour le secteur du textil
 | Boxer/Slip      |                                                  |
 | Caleçon         |                                                  |
 | Chaussettes     |                                                  |
-| Chemise         |                                                  |
+| Chemise         | Tunique, blouse, chemise                         |
 | Jean            |                                                  |
 | Jupe/Robe       | Jupe, robe, combinaison                          |
 | Maillot de bain | Maillot de bain 1 pièce, 2 pièces                |
