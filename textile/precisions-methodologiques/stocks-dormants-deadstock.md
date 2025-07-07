@@ -23,22 +23,22 @@ Stocks dormant de vêtements (produit fini) :&#x20;
 * 12% (source : [The Good Goods](https://www.thegoodgoods.fr/media/economie/circularite-services/tech-uptrade-marketplace-revalorise-stocks-dormants/))
 * 33% (source : [EcoTextile](https://www.ecotextile.com/2016042122078/fashion-retail-news/one-third-of-all-clothing-never-sold.html) / citation[^3])
 
-Stocks dormans de produits semi-finis :&#x20;
+Stocks dormants de produits semi-finis :&#x20;
 
 * 5% de marge moyenne constatée au bénéficie du fournisseur lors de commandes de la part du donneur d'ordre (marque/confectionneur) (source : [La Textilerie](#user-content-fn-4)[^4])
-* 10% à 20% sur le marché dannois (source : [Roadmap pour une économie circulaire](#user-content-fn-5)[^5] - Danemark)&#x20;
+* 10% à 20% sur le marché danois (source : [Roadmap pour une économie circulaire](#user-content-fn-5)[^5] - Danemark)&#x20;
 
 </details>
 
 ## Modélisation Ecobalyse
 
-Ecobalyse applique un taux moyen de stocks dormants de 15%. \
+La méthode de calcul du coût environnemental applique un taux moyen de stocks dormants de 15%. \
 Ce chiffre comprend les stocks dormants de vêtements (produits finis) et ceux de produits semi-finis (ex : tissus, fil).&#x20;
 
 La modélisation des stocks dormants s'effectue via un multiplicateur. Concrètement, la quantité de matières à transformer tout au long des étapes de transformation est multipliée par 1,15.&#x20;
 
 {% hint style="info" %}
-L'affichage des deadstock s'effectue au sein de l'étape Confection. Ainsi, cela revient à appliquer un second taux de perte à cette étape, avec donc 15% d'étoffe supplémentaire nécessaire avant l'étape de confection. L'application de cette modélisation conduit donc, par transitivité, à augmenter la quantité nécessaire d'étoffe, de tissu, de fil et de matière nécessaire en amont de la confection.\
+La prise en compte des stocks dormants s'effectue au sein de l'étape Confection. Ainsi, cela revient à appliquer un second taux de perte à cette étape, avec donc 15% d'étoffe supplémentaire nécessaire avant l'étape de confection. L'application de cette modélisation conduit donc, par transitivité, à augmenter la quantité nécessaire d'étoffe, de tissu, de fil et de matière nécessaire en amont de la confection.\
 Pour rendre compte de la quantité de tissu nécessaire en entrée de la phase de confection, il faut donc à la fois considérer les stocks dormants (objet de la présente page), mais aussi les pertes strictement liées à l'étape de confection (cf. [page dédiée de la documentation](../../communaute.md)).
 {% endhint %}
 
@@ -48,7 +48,7 @@ Les stocks dormants sont différents des taux de pertes en confection.&#x20;
 
 ### **Illustration**
 
-L'impact d'un t-shirt 100% coton augmente de +11% suite à l'introduction des deadstock.
+L'impact d'un t-shirt 100% coton augmente de +11% suite à l'introduction des stocks dormants.
 
 <figure><img src="../../.gitbook/assets/Impact (uPts) d&#x27;un t-shirt 100% coton par étape (avec ou sans Deadstock) (1).png" alt=""><figcaption></figcaption></figure>
 
