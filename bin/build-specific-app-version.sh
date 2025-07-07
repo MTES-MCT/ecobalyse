@@ -159,6 +159,11 @@ if [ -z "$BUILD_CURRENT_VERSION" ]; then
   # Patch old versions of the app so that it gets the version file using relative path in Elm
   # Otherwise serving the app from /versions will not display the good version number
   # Also patch the local storage key to avoid messing things up between versions
+  rm $PUBLIC_GIT_CLONE_DIR"/pyproject.toml"
+
+  if [ "$COMMIT_OR_TAG" = "v6.0.0" ]; then
+    uv run $ROOT_DIR/bin/patch_files_for_versions_compat.py double-slash $INDEX_JS_FILE $ROOT_DIR/packages/python/ecobalyse/ecobalyse/0002-patch-index-js-client-path-backend.patch $PUBLIC_GIT_CLONE_DIR
+  fi
   uv run $ROOT_DIR/bin/patch_files_for_versions_compat.py elm-version $ELM_VERSION_FILE
   uv run $ROOT_DIR/bin/patch_files_for_versions_compat.py local-storage-key $INDEX_JS_FILE $COMMIT_OR_TAG
   uv run $ROOT_DIR/bin/patch_files_for_versions_compat.py version-selector $ROOT_DIR/packages/python/ecobalyse/ecobalyse/0001-feat-patch-homepage-link-and-inject-and-inject-versi.patch $PUBLIC_GIT_CLONE_DIR

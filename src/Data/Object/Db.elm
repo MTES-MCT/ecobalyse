@@ -3,6 +3,9 @@ module Data.Object.Db exposing
     , buildFromJson
     )
 
+{-| Note: The Object database also holds examples for VeLi
+-}
+
 import Data.Example as Example exposing (Example)
 import Data.Object.Query as Query exposing (Query)
 import Result.Extra as RE
@@ -13,10 +16,15 @@ type alias Db =
     }
 
 
-buildFromJson : String -> Result String Db
-buildFromJson objectExamplesJson =
+buildFromJson : String -> String -> Result String Db
+buildFromJson objectExamplesJson veliExamplesJson =
     Ok Db
         |> RE.andMap
-            (objectExamplesJson
-                |> Example.decodeListFromJsonString Query.decode
+            (Result.map2 (++)
+                (objectExamplesJson
+                    |> Example.decodeListFromJsonString Query.decode
+                )
+                (veliExamplesJson
+                    |> Example.decodeListFromJsonString Query.decode
+                )
             )

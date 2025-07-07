@@ -11,6 +11,7 @@ test.beforeEach(async ({ page }) => {
         target_commitish: "master",
         name: "test_build",
         draft: false,
+        prerelease: false,
         body: "",
       },
     ];

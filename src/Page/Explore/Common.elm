@@ -25,7 +25,7 @@ impactBarGraph detailed max score =
     in
     div
         [ class "d-flex justify-content-center align-items-center gap-2"
-        , style "min-width" "16vw"
+        , style "min-width" "calc(100% - 76px)"
         ]
         [ div
             [ classList [ ( "text-end", not detailed ) ]
@@ -33,7 +33,7 @@ impactBarGraph detailed max score =
             ]
             [ Format.formatRichFloat 2 "Pts" score
             ]
-        , div [ class "progress", style "min-width" "calc(100% - 86px)" ]
+        , div [ class "progress", style "min-width" "calc(100% - 76px)" ]
             [ div
                 [ class "progress-bar bg-secondary"
                 , style "width" <| String.fromFloat percent ++ "%"

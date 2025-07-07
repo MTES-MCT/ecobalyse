@@ -64,6 +64,24 @@ def patch_index_js_file(index_js_file: pathlib.Path, version: str):
     write_patched_data(nb_patched, data, index_js_file)
 
 
+def patch_double_slash(
+    index_js_file: pathlib.Path, patch_file: pathlib.Path, git_dir: pathlib.Path
+):
+    with (
+        open(index_js_file, "r") as index_file,
+    ):
+        data = index_file.read()
+        if data.count("replace") > 0:
+            logger.info(
+                f"Patch content already present in `{index_js_file}`, skipping."
+            )
+        else:
+            logger.info(
+                f"Applying patch file `{patch_file}` to `{git_dir}` using `git apply`."
+            )
+            subprocess.run(["git", "apply", patch_file], check=True, cwd=git_dir)
+
+
 def patch_version_json(json_content: dict, key: str, value: str):
     (data, nb_patched) = (json_content, 0)
 

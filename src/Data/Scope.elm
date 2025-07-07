@@ -4,6 +4,7 @@ module Data.Scope exposing
     , anyOf
     , decode
     , encode
+    , fromString
     , parse
     , toLabel
     , toString
@@ -85,7 +86,7 @@ toLabel scope =
             "Textile"
 
         Veli ->
-            "Véhicules intermédiaires"
+            "Véhicules"
 
 
 toString : Scope -> String

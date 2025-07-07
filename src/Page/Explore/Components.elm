@@ -73,6 +73,9 @@ table db { detailed, scope } =
                                 , title = Nothing
                                 }
 
+                        Ok [] ->
+                            em [] [ text "Aucun élément" ]
+
                         Ok list ->
                             list
                                 |> List.map

@@ -1,6 +1,106 @@
 # Changelog
 
 
+## [6.1.1](https://github.com/MTES-MCT/ecobalyse/compare/v6.1.0..v6.1.1) (2025-07-02)
+
+
+
+### 🪲 Bug Fixes
+
+- Add uv to scalingo when updating version ([#1210](https://github.com/MTES-MCT/ecobalyse/issues/1210))
+
+
+## [6.1.0](https://github.com/MTES-MCT/ecobalyse/compare/v6.0.0..v6.1.0) (2025-07-02)
+
+
+
+### 🚀 Features
+
+- *(ui)* Add an alert about old user accounts deletion ([#1205](https://github.com/MTES-MCT/ecobalyse/issues/1205))
+- *(ui)* Improve alert on existing user account ([#1208](https://github.com/MTES-MCT/ecobalyse/issues/1208))
+- *(ui)* Exclude draft and pre-releases from version dropdown. ([#1206](https://github.com/MTES-MCT/ecobalyse/issues/1206))
+
+### 🪲 Bug Fixes
+
+- Add missing `uv run` ([#1204](https://github.com/MTES-MCT/ecobalyse/issues/1204))
+- *(backend)* Versions url rewriting ([#1209](https://github.com/MTES-MCT/ecobalyse/issues/1209))
+
+
+## [6.0.0](https://github.com/MTES-MCT/ecobalyse/compare/v5.0.1..v6.0.0) (2025-07-02)
+
+
+
+### 🚀 Features
+
+- *(bo)* Allow duplicating components ([#1064](https://github.com/MTES-MCT/ecobalyse/issues/1064))
+- *(bo)* Add a button to export components json db ([#1067](https://github.com/MTES-MCT/ecobalyse/issues/1067))
+- *(bo)* Add an individual component export button ([#1071](https://github.com/MTES-MCT/ecobalyse/issues/1071))
+- Add missing meat ingredients ([#960](https://github.com/MTES-MCT/ecobalyse/issues/960))
+- Add object processes ([#1088](https://github.com/MTES-MCT/ecobalyse/issues/1088))
+- *(backend)* [**breaking**] Introduce new auth system ([#1090](https://github.com/MTES-MCT/ecobalyse/issues/1090))
+- Add plastic extrusion ([#1123](https://github.com/MTES-MCT/ecobalyse/issues/1123))
+- Add success notification on api token copied. ([#1145](https://github.com/MTES-MCT/ecobalyse/issues/1145))
+- Display land occupation explorer ([#1125](https://github.com/MTES-MCT/ecobalyse/issues/1125))
+- *(bo)* Allow editing component scopes ([#1118](https://github.com/MTES-MCT/ecobalyse/issues/1118))
+- Textile component in object ([#1157](https://github.com/MTES-MCT/ecobalyse/issues/1157))
+- *(ui)* Update the notification system to use DSFR ([#1164](https://github.com/MTES-MCT/ecobalyse/issues/1164))
+- Add journaling of actions ([#1148](https://github.com/MTES-MCT/ecobalyse/issues/1148))
+- Add new user organization type. ([#1178](https://github.com/MTES-MCT/ecobalyse/issues/1178))
+- *(textile,ui)* Add link to product category explorer ([#1182](https://github.com/MTES-MCT/ecobalyse/issues/1182))
+- Add link to privacy policy page. ([#1181](https://github.com/MTES-MCT/ecobalyse/issues/1181))
+- *(object)* Restrict available transforms by material constraints ([#1180](https://github.com/MTES-MCT/ecobalyse/issues/1180))
+- *(veli)* Enable veli explorer ([#1191](https://github.com/MTES-MCT/ecobalyse/issues/1191))
+- *(bo,ui)* Introduce back-office sections ([#1195](https://github.com/MTES-MCT/ecobalyse/issues/1195))
+- Display cropGroup and Scenario in Ingredient Explorer ([#1185](https://github.com/MTES-MCT/ecobalyse/issues/1185))
+
+### 🪲 Bug Fixes
+
+- Default to empty string on BACKEND_API_URL not set ([#1068](https://github.com/MTES-MCT/ecobalyse/issues/1068))
+- Properly decode json processes on login ([#1083](https://github.com/MTES-MCT/ecobalyse/issues/1083))
+- Use static backend url ([#1135](https://github.com/MTES-MCT/ecobalyse/issues/1135))
+- *(textile)* Update skirt category default repair cost ([#1138](https://github.com/MTES-MCT/ecobalyse/issues/1138))
+- *(textile)* Siwtch to default price on product category change. ([#1137](https://github.com/MTES-MCT/ecobalyse/issues/1137))
+- Handle reusing outdated magic links. ([#1141](https://github.com/MTES-MCT/ecobalyse/issues/1141))
+- Negative impacts on lentils ([#1127](https://github.com/MTES-MCT/ecobalyse/issues/1127))
+- Remove negative LDU by better balancing Transformation to arable land ([#1144](https://github.com/MTES-MCT/ecobalyse/issues/1144))
+- *(textile)* Exclude trims weight before the Making step ([#1139](https://github.com/MTES-MCT/ecobalyse/issues/1139))
+- Force recomputation of land occupations ([#1132](https://github.com/MTES-MCT/ecobalyse/issues/1132))
+- Improve e2e tests reliability wrt notifications ([#1176](https://github.com/MTES-MCT/ecobalyse/issues/1176))
+- *(textile)* Update docs link for ennobling. ([#1177](https://github.com/MTES-MCT/ecobalyse/issues/1177))
+- 500 error on journal history ([#1184](https://github.com/MTES-MCT/ecobalyse/issues/1184))
+- *(ui)* Prevent scrolling on explorer modal opened ([#1187](https://github.com/MTES-MCT/ecobalyse/issues/1187))
+- *(api)* Fix typo in printing api docs ([#1190](https://github.com/MTES-MCT/ecobalyse/issues/1190))
+- *(ui)* Fix explorer barcharts width ([#1193](https://github.com/MTES-MCT/ecobalyse/issues/1193))
+- *(textile)* Compute printing impacts from surface ([#1119](https://github.com/MTES-MCT/ecobalyse/issues/1119))
+- *(veli)* Hide or show veli section depending on env ([#1200](https://github.com/MTES-MCT/ecobalyse/issues/1200))
+- *(food,textile,ui)* Fix page scroll issues ([#1198](https://github.com/MTES-MCT/ecobalyse/issues/1198))
+- *(textile,ui)* Exclude empty components from available choices ([#1202](https://github.com/MTES-MCT/ecobalyse/issues/1202))
+- *(textile)* Fix toxicity impacts computation for printing ([#1203](https://github.com/MTES-MCT/ecobalyse/issues/1203))
+
+### 🚜 Refactor
+
+- Merge processes in a single file for cross-domain reusability ([#1072](https://github.com/MTES-MCT/ecobalyse/issues/1072))
+- Generalize uuid parsing result errors ([#1107](https://github.com/MTES-MCT/ecobalyse/issues/1107))
+- Improve activities to create ([#1150](https://github.com/MTES-MCT/ecobalyse/issues/1150))
+- Handle empty responses from the backend api ([#1189](https://github.com/MTES-MCT/ecobalyse/issues/1189))
+- *(bo,ui)* Restrict component to set a single scope ([#1196](https://github.com/MTES-MCT/ecobalyse/issues/1196))
+
+### ⚙️ Miscellaneous Tasks
+
+- Upgrade node dependencies, 2025-05 ([#1065](https://github.com/MTES-MCT/ecobalyse/issues/1065))
+- Update ecobalyse data sync ([#1086](https://github.com/MTES-MCT/ecobalyse/issues/1086))
+- Test versions ([#1076](https://github.com/MTES-MCT/ecobalyse/issues/1076))
+- Cleanup object ([#1089](https://github.com/MTES-MCT/ecobalyse/issues/1089))
+- Replace elec process medium voltage by low voltage ([#1121](https://github.com/MTES-MCT/ecobalyse/issues/1121))
+- Use uv instead of pipenv for `score_history` ([#1130](https://github.com/MTES-MCT/ecobalyse/issues/1130))
+- Fix `scalingo` deploy ([#1131](https://github.com/MTES-MCT/ecobalyse/issues/1131))
+- Upgade node dependencies, 2025-06 ([#1140](https://github.com/MTES-MCT/ecobalyse/issues/1140))
+- Improve playwright test config ([#1142](https://github.com/MTES-MCT/ecobalyse/issues/1142))
+- *(textile)* Update upcycled tshirt example. ([#1136](https://github.com/MTES-MCT/ecobalyse/issues/1136))
+- Reduce sentry tracesSampleRate ([#1147](https://github.com/MTES-MCT/ecobalyse/issues/1147))
+- *(api,food)* Remove deprecated GET /food endpoint documentation ([#1175](https://github.com/MTES-MCT/ecobalyse/issues/1175))
+
+
 ## [5.0.1](https://github.com/MTES-MCT/ecobalyse/compare/v5.0.0..v5.0.1) (2025-04-29)
 
 

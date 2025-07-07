@@ -11,20 +11,45 @@ module Static.Json exposing
     , textileProductExamplesJson
     , textileProductsJson
     , transportsJson
+    , veliExamplesJson
     )
 
 
 type alias RawJsonComponents =
     { objectComponents : String
     , textileComponents : String
+    , veliComponents : String
     }
 
 
-rawJsonComponents : RawJsonComponents
-rawJsonComponents =
-    { objectComponents = objectComponentsJson
-    , textileComponents = textileComponentsJson
-    }
+countriesJson : String
+countriesJson =
+    """%countriesJson%"""
+
+
+foodProductExamplesJson : String
+foodProductExamplesJson =
+    """%foodProductExamplesJson%"""
+
+
+foodIngredientsJson : String
+foodIngredientsJson =
+    """%foodIngredientsJson%"""
+
+
+impactsJson : String
+impactsJson =
+    """%impactsJson%"""
+
+
+objectComponentsJson : String
+objectComponentsJson =
+   """%objectComponentsJson%"""
+
+
+objectExamplesJson : String
+objectExamplesJson =
+   """%objectExamplesJson%"""
 
 
 processesJson : String
@@ -32,9 +57,12 @@ processesJson =
     """%processesJson%"""
 
 
-impactsJson : String
-impactsJson =
-    """%impactsJson%"""
+rawJsonComponents : RawJsonComponents
+rawJsonComponents =
+    { objectComponents = objectComponentsJson
+    , textileComponents = textileComponentsJson
+    , veliComponents = veliComponentsJson
+    }
 
 
 textileProductExamplesJson : String
@@ -57,31 +85,16 @@ textileComponentsJson =
    """%textileComponentsJson%"""
 
 
-foodProductExamplesJson : String
-foodProductExamplesJson =
-    """%foodProductExamplesJson%"""
-
-
-foodIngredientsJson : String
-foodIngredientsJson =
-    """%foodIngredientsJson%"""
-
-
-countriesJson : String
-countriesJson =
-    """%countriesJson%"""
-
-
 transportsJson : String
 transportsJson =
     """%transportsJson%"""
 
 
-objectComponentsJson : String
-objectComponentsJson =
-   """%objectComponentsJson%"""
+veliComponentsJson : String
+veliComponentsJson =
+   """%veliComponentsJson%"""
 
 
-objectExamplesJson : String
-objectExamplesJson =
-   """%objectExamplesJson%"""
+veliExamplesJson : String
+veliExamplesJson =
+   """%veliExamplesJson%"""
