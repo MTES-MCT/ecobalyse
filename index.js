@@ -1,11 +1,22 @@
 import { Elm } from "./src/Main.elm";
 import * as Sentry from "@sentry/browser";
 import Charts from "./lib/charts";
+import posthog from "posthog-js";
+
+const { NODE_ENV, POSTHOG_KEY, POSTHOG_HOST, SENTRY_DSN } = process.env;
+
+// Posthog
+if (POSTHOG_KEY && POSTHOG_HOST) {
+  posthog.init(POSTHOG_KEY, {
+    api_host: POSTHOG_HOST,
+    person_profiles: "identified_only", // or 'always' to create profiles for anonymous users as well
+  });
+}
 
 // Sentry
-if (process.env.SENTRY_DSN) {
+if (SENTRY_DSN) {
   Sentry.init({
-    dsn: process.env.SENTRY_DSN,
+    dsn: SENTRY_DSN,
     integrations: [Sentry.browserTracingIntegration()],
     tracesSampleRate: 0,
     allowUrls: [
@@ -18,7 +29,7 @@ if (process.env.SENTRY_DSN) {
       // Most often due to DOM-aggressive browser extensions
       /_VirtualDom_applyPatch/,
     ],
-    environment: process.env.IS_REVIEW_APP ? "review-app" : process.env.NODE_ENV || "development",
+    environment: process.env.IS_REVIEW_APP ? "review-app" : NODE_ENV || "development",
   });
 }
 
