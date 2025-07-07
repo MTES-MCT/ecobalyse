@@ -2,7 +2,9 @@
 
 ## Catégorie
 
-Les catégories pour le secteur du textile disponibles pour le secteur du textile d'habillement sont
+Les catégories pour le secteur du textile disponibles pour le secteur du textile d'habillement sont :
+
+Les produits compris ne sont pas exhaustifs.
 
 | Catégorie       | Produits compris                                 |
 | --------------- | ------------------------------------------------ |
