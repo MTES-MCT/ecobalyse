@@ -1,4 +1,4 @@
-# Paramétrage
+# 🔵 Paramétrage
 
 La méthodologie de calcul du coût environnemental peut être utilisée en mobilisant des paramètres très différents : masse du vêtement, catégorie, matières, origines, grammage, prix de référence, délavage, transport par avion, ...&#x20;
 

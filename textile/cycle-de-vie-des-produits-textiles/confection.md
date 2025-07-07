@@ -51,7 +51,7 @@ Cf. l'[Explorateur](https://ecobalyse.beta.gouv.fr/#/explore/textile/products) p
 
 L'étape de _Confection_ est modélisée comme suit :
 
-![](../../../.gitbook/assets/Confection.PNG)
+![](../../.gitbook/assets/Confection.PNG)
 
 L'impact global de cette étape se comprend donc comme la somme des impacts :&#x20;
 

@@ -1,4 +1,4 @@
-# Durabilité
+# 🔴 Durabilité
 
 {% hint style="warning" %}
 Mise à jour importante de cette page le 05/12/2024 suite à la concertation initiée début avril. Ajustements le 22/05 au moment de la consolidation du référentiel (_en \*italique\*_ dans le texte).

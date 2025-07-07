@@ -24,4 +24,4 @@ Procédé Base Impacts&#x20;
 * Nom = Transport en camion non spécifié France (dont parc, utilisation et infrastructure) (50%) \[tkm], FR
 * UUID = f49b27fa-f22e-c6e1-ab4b-e9f873e2e648
 
-Les modalités de calcul de l'impact environnemental de ce transport sont précisées dans la page [transport](../precisions-methodologiques/transport.md).
+Les modalités de calcul de l'impact environnemental de ce transport sont précisées dans la page [transport](transport.md).
