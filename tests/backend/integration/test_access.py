@@ -353,7 +353,7 @@ async def test_magic_link_expiration(
     async with UserService.new(session) as users_service:
         # Magic link login is ok
         authenticated_user = await users_service.authenticate_magic_token(
-            raw_users[1]["email"], "Test_Password2!_token"
+            raw_users[2]["email"], "Test_Password2!_token"
         )
         assert authenticated_user.magic_link_sent_at is None
         assert authenticated_user.magic_link_hashed_token is None
@@ -361,7 +361,7 @@ async def test_magic_link_expiration(
         # Magic link is outdated 24H duration by default
         with pytest.raises(PermissionDeniedException, match="Magic link token expired"):
             authenticated_user = await users_service.authenticate_magic_token(
-                raw_users[2]["email"], "Test_Password3!_token"
+                raw_users[3]["email"], "Test_Password3!_token"
             )
 
         # Magic link was not generated
@@ -369,7 +369,7 @@ async def test_magic_link_expiration(
             PermissionDeniedException, match="User not found or password invalid"
         ):
             authenticated_user = await users_service.authenticate_magic_token(
-                raw_users[3]["email"], ""
+                raw_users[4]["email"], ""
             )
 
 
@@ -540,8 +540,7 @@ async def test_token_delete(
         "/api/tokens/" + user_token_id,
         headers=user_token_headers,
     )
-    assert response.status_code == 200
-    assert response.json() is None
+    assert response.status_code == 204
 
 
 async def test_token_validation(

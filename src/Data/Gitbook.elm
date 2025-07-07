@@ -93,7 +93,7 @@ pathToString path =
             "textile/limites-methodologiques/fin-de-vie-hors-europe"
 
         TextileEnnobling ->
-            "textile/etapes-du-cycle-de-vie/ennoblissement"
+            "textile/cycle-de-vie-des-produits-textiles/ennoblissement-1"
 
         TextileEnnoblingCountriesAquaticPollution ->
             "textile/etapes-du-cycle-de-vie/ennoblissement/inventaires-enrichis#pays-less-than-greater-than-taux-de-pollution-aquatique"

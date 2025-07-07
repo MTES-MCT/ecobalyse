@@ -557,6 +557,7 @@ suite =
                     ]
                 )
             , TestUtils.suiteFromResult "toggleCustomScope"
+                -- See why we disabled multi-scopes decoding in Data.Component.decode
                 -- setup
                 ("""{ "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 }"""
                     |> decodeJson Component.decodeItem
@@ -577,7 +578,7 @@ suite =
                             |> Component.toggleCustomScope component Scope.Textile False
                             |> .custom
                             |> Maybe.map .scopes
-                            |> Expect.equal (Just [ Scope.Food, Scope.Object, Scope.Veli ])
+                            |> Expect.equal (Just [ Scope.Food ])
                         )
                     , it "should sequentially toggle custom scopes"
                         (item
@@ -587,7 +588,7 @@ suite =
                             |> Component.toggleCustomScope component Scope.Object True
                             |> .custom
                             |> Maybe.map .scopes
-                            |> Expect.equal (Just [ Scope.Object, Scope.Veli ])
+                            |> Expect.equal (Just [ Scope.Object ])
                         )
                     , it "should reset custom scopes when they match initial component ones"
                         (item
@@ -602,7 +603,7 @@ suite =
                             |> Component.toggleCustomScope component Scope.Textile False
                             |> Component.itemToComponent db
                             |> Result.map .scopes
-                            |> Expect.equal (Ok [ Scope.Food, Scope.Object, Scope.Veli ])
+                            |> Expect.equal (Ok [ Scope.Food ])
                         )
                     ]
                 )
@@ -809,7 +810,7 @@ sofaFabric =
                 ],
                 "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
                 "name": "Tissu pour canapé",
-                "scopes": ["food", "object", "textile", "veli"]
+                "scopes": ["food", "object", "textile"]
             }
         """
 

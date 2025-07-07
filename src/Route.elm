@@ -21,11 +21,11 @@ import Url.Parser as Parser exposing ((</>), Parser)
 
 
 type Route
-    = Admin
-    | Api
+    = Api
     | Auth
     | AuthLogin String String
     | AuthSignup
+    | ComponentAdmin
     | Editorial String
     | Explore Scope Dataset
     | FoodBuilder Definition.Trigram (Maybe FoodQuery.Query)
@@ -48,7 +48,7 @@ parser =
           -- Shared routes
           --
           Parser.map Home Parser.top
-        , Parser.map Admin (Parser.s "admin")
+        , Parser.map ComponentAdmin (Parser.s "admin" </> Parser.s "components")
         , Parser.map Api (Parser.s "api")
         , Parser.map Auth (Parser.s "auth")
         , Parser.map AuthLogin (Parser.s "auth" </> Parser.string </> Parser.string)
@@ -58,23 +58,7 @@ parser =
 
         --  Explorer
         , (Parser.s "explore" </> Scope.parse)
-            |> Parser.map
-                (\scope ->
-                    Explore scope
-                        (case scope of
-                            Scope.Food ->
-                                Dataset.FoodExamples Nothing
-
-                            Scope.Object ->
-                                Dataset.ObjectExamples Nothing
-
-                            Scope.Textile ->
-                                Dataset.TextileExamples Nothing
-
-                            Scope.Veli ->
-                                Dataset.ObjectExamples Nothing
-                        )
-                )
+            |> Parser.map (\scope -> Explore scope (Dataset.defaultDatasetFor scope))
         , Parser.map Explore
             (Parser.s "explore" </> Scope.parse </> Dataset.parseSlug)
         , Parser.map toExploreWithId
@@ -213,9 +197,6 @@ toString route =
     let
         pieces =
             case route of
-                Admin ->
-                    [ "admin" ]
-
                 Api ->
                     [ "api" ]
 
@@ -227,6 +208,9 @@ toString route =
 
                 AuthSignup ->
                     [ "auth", "signup" ]
+
+                ComponentAdmin ->
+                    [ "admin", "components" ]
 
                 Editorial slug ->
                     [ "pages", slug ]

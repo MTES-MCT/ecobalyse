@@ -14,34 +14,39 @@ const { decrypt } = require("./lib/crypto");
 const express = require("express");
 const rateLimit = require("express-rate-limit");
 
-const app = express(); // web app
-const api = express(); // api app
 const expressHost = "0.0.0.0";
 const expressPort = 8001;
-const version = express(); // version app
 
 // Env vars
-const { ENABLE_FOOD_SECTION, MATOMO_HOST, MATOMO_SITE_ID, MATOMO_TOKEN, NODE_ENV } = process.env;
+const {
+  ENABLE_FOOD_SECTION,
+  MATOMO_HOST,
+  MATOMO_SITE_ID,
+  MATOMO_TOKEN,
+  NODE_ENV,
+  RATELIMIT_MAX_RPM,
+  RATELIMIT_WHITELIST,
+} = process.env;
 
 const INTERNAL_BACKEND_URL = "http://localhost:8002";
 
-var rateLimiter = rateLimit({
-  windowMs: 1000, // 1 second
-  max: 100, // max 100 requests per second
-});
+const app = express(); // web app
+const api = express(); // api app
+const version = express(); // version app
 
-// Rate limit the version API as it reads file from the disk
-version.use(rateLimiter);
-
-// Matomo
-if (
-  NODE_ENV !== "test" &&
-  NODE_ENV !== "development" &&
-  (!MATOMO_HOST || !MATOMO_SITE_ID || !MATOMO_TOKEN)
-) {
-  console.error("Matomo environment variables are missing. Please check the README.");
-  process.exit(1);
-}
+// Rate-limiting
+const rateLimitWhitelist = RATELIMIT_WHITELIST?.split(",").filter(Boolean) ?? [];
+const rateLimitMaxRPM = parseInt(RATELIMIT_MAX_RPM, 10) || 5000;
+// Make rate-limiting working with X-Forwarded-For headers
+app.set("trust proxy", 1);
+app.use(
+  rateLimit({
+    windowMs: 60 * 1000, // 1 minute
+    max: rateLimitMaxRPM,
+    message: { error: `This server is rate-limited to ${rateLimitMaxRPM}rpm, please slow down.` },
+    skip: ({ ip }) => NODE_ENV !== "production" || rateLimitWhitelist.includes(ip),
+  }),
+);
 
 // Sentry monitoring
 monitorExpressApp(app);
@@ -255,6 +260,7 @@ elmApp.ports.output.subscribe(({ status, body, jsResponseHandler }) => {
 
 api.get("/", (req, res) => {
   apiTracker.track(200, req);
+
   res.status(200).send(openApiContents);
 });
 
@@ -294,7 +300,8 @@ const checkVersionAndPath = (req, res, next) => {
   const version = availableVersions.find((version) => version.dir === versionNumber);
 
   if (!version) {
-    res.status(404).send("Version not found");
+    // If no version is found, don’t display a blank page but redirect to the home
+    res.redirect("/");
   }
   const staticDir = path.join(__dirname, "versions", versionNumber);
   req.staticDir = staticDir;
@@ -353,7 +360,11 @@ version.get("/:versionNumber/processes/processes.json", checkVersionAndPath, asy
     (version) => version.dir === versionNumber,
   );
 
-  return res.status(200).send(await getProcesses(req.headers, processesImpacts, processes));
+  // Note: JSON parsing is done in Elm land
+  return res
+    .status(200)
+    .contentType("text/plain")
+    .send(JSON.stringify(await getProcesses(req.headers, processesImpacts, processes)));
 });
 
 api.use(cors()); // Enable CORS for all API requests

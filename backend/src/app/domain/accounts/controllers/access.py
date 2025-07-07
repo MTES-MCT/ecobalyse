@@ -34,7 +34,6 @@ from litestar.di import Provide
 from litestar.exceptions import PermissionDeniedException
 from litestar.params import Parameter
 from litestar.security.jwt import Token
-from litestar.status_codes import HTTP_200_OK
 
 if TYPE_CHECKING:
     from app.domain.accounts.services import UserService
@@ -245,8 +244,6 @@ class AccessController(Controller):
         operation_id="DeleteToken",
         guards=[requires_active_user],
         path=urls.TOKEN_DELETE,
-        # Force body (instead of 204) to ease Elm parsing
-        status_code=HTTP_200_OK,
     )
     async def delete_token(
         self,

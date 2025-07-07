@@ -13,6 +13,7 @@ type alias Release =
     , hash : String
     , markdown : String
     , name : String
+    , prerelease : Bool
     , tag : String
     , url : String
     }
@@ -25,6 +26,7 @@ decodeRelease =
         |> Pipe.required "target_commitish" Decode.string
         |> Pipe.required "body" Decode.string
         |> Pipe.required "name" Decode.string
+        |> Pipe.required "prerelease" Decode.bool
         |> Pipe.required "tag_name" Decode.string
         |> Pipe.required "html_url" Decode.string
 
@@ -32,10 +34,17 @@ decodeRelease =
 decodeReleaseList : Decoder (List Release)
 decodeReleaseList =
     Decode.list decodeRelease
-        -- Exclude draft releases
-        |> Decode.map (List.filter (.draft >> not))
+        -- Exclude draft and pre-releases
+        |> Decode.map (List.filter (\{ draft, prerelease } -> not draft && not prerelease))
 
 
 unreleased : Release
 unreleased =
-    Release True "" "" "Unreleased" "Unreleased" ""
+    { draft = True
+    , hash = ""
+    , markdown = ""
+    , name = "Unreleased"
+    , prerelease = True
+    , tag = "Unreleased"
+    , url = ""
+    }

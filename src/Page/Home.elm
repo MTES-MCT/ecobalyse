@@ -108,6 +108,17 @@ viewHero { enabledSections } =
 
                   else
                     text ""
+                , if enabledSections.veli then
+                    simulatorButton
+                        { label = "Calculer l’impact d’un véhicule"
+                        , subLabel = Just "Simulateur en construction"
+                        , callToAction = False
+                        , route = Route.ObjectSimulatorHome Scope.Veli
+                        , testId = "veli-callout-button"
+                        }
+
+                  else
+                    text ""
                 ]
             ]
         ]

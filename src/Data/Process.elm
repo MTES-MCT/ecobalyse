@@ -14,6 +14,7 @@ module Data.Process exposing
     , getTechnicalName
     , idFromString
     , idToString
+    , listAvailableMaterialTransforms
     , listByCategory
     )
 
@@ -174,11 +175,57 @@ getDisplayName process =
             getTechnicalName process
 
 
+getMaterialTypes : Process -> List String
+getMaterialTypes =
+    .categories
+        >> List.filterMap
+            (\category ->
+                case category of
+                    Category.MaterialType materialType ->
+                        Just materialType
+
+                    _ ->
+                        Nothing
+            )
+
+
 getTechnicalName : Process -> String
 getTechnicalName { sourceId } =
     sourceIdToString sourceId
 
 
+listAvailableMaterialTransforms : Process -> List Process -> List Process
+listAvailableMaterialTransforms material =
+    let
+        -- no, this isn't available in List.Extra :(
+        intersect a b =
+            List.filter (\x -> List.member x b) a
+
+        materialTypes =
+            getMaterialTypes material
+    in
+    listByCategory Category.Transform
+        >> List.filterMap
+            (\process ->
+                case getMaterialTypes process of
+                    [] ->
+                        Nothing
+
+                    transformMaterialTypes ->
+                        if List.length (intersect materialTypes transformMaterialTypes) > 0 then
+                            Just process
+
+                        else
+                            Nothing
+            )
+        >> listByUnit material.unit
+
+
 listByCategory : Category -> List Process -> List Process
 listByCategory category =
     List.filter (.categories >> List.member category)
+
+
+listByUnit : String -> List Process -> List Process
+listByUnit unit =
+    List.filter (.unit >> (==) unit)

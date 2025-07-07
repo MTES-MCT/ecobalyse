@@ -20,6 +20,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Json.Decode as Decode
 import RemoteData
+import Request.BackendHttp.Error as BackendError
 import Request.Version as Version exposing (Version(..))
 import Route
 import Toast
@@ -32,9 +33,9 @@ import Views.Spinner as Spinner
 
 
 type ActivePage
-    = Admin
-    | Api
+    = Api
     | Auth
+    | ComponentAdmin
     | Editorial String
     | Explore
     | FoodBuilder
@@ -178,7 +179,7 @@ mainMenuLinks { enabledSections } =
         , addRouteIf enabledSections.objects <|
             Internal "Objets" (Route.ObjectSimulatorHome Scope.Object) (Object Scope.Object)
         , addRouteIf enabledSections.veli <|
-            Internal "Véhicules intermédiaires" (Route.ObjectSimulatorHome Scope.Veli) (Object Scope.Veli)
+            Internal "Véhicules" (Route.ObjectSimulatorHome Scope.Veli) (Object Scope.Veli)
         , Just <| Internal "Explorateur" (Route.Explore Scope.Textile (Dataset.TextileExamples Nothing)) Explore
         , Just <| Internal "API" Route.Api Api
         , Just <| MailTo "Contact" Env.contactEmail
@@ -193,7 +194,7 @@ secondaryMenuLinks =
     , External "Communauté" Env.communityUrl
     , External "Code source" Env.githubUrl
     , External "CGU" Env.cguUrl
-    , Internal "Admin" Route.Admin Admin
+    , Internal "Admin" Route.ComponentAdmin ComponentAdmin
     ]
 
 
@@ -204,7 +205,7 @@ headerMenuLinks session =
             [ Just <| External "Communauté" Env.communityUrl
             , Just <| External "Documentation" Env.gitbookUrl
             , if Session.isStaff session then
-                Just <| Internal "Admin" Route.Admin Admin
+                Just <| Internal "Admin" Route.ComponentAdmin ComponentAdmin
 
               else
                 Nothing
@@ -233,6 +234,7 @@ legalMenuLinks : List MenuLink
 legalMenuLinks =
     [ Internal "Accessibilité\u{00A0}: non conforme" (Route.Editorial "accessibilité") (Editorial "accessibilité")
     , Internal "Mentions légales" (Route.Editorial "mentions-légales") (Editorial "mentions-légales")
+    , External "Politique de confidentialité" Env.privacyPolicyUrl
     , MailTo "Contact" Env.contactEmail
     ]
 
@@ -490,7 +492,26 @@ notificationView { session, toMsg } notification =
     in
     case notification of
         Session.BackendError backendError ->
-            backendError |> Alert.backendError session (Just closeNotification)
+            let
+                default =
+                    backendError |> Alert.backendError session (Just closeNotification)
+            in
+            case backendError of
+                BackendError.BadStatus { detail, statusCode } ->
+                    if statusCode == 409 && String.contains "user already exists" detail then
+                        Alert.simple
+                            { attributes = []
+                            , close = Just closeNotification
+                            , content = [ text "Un compte associé à cette adresse email existe déjà." ]
+                            , level = Alert.Warning
+                            , title = Just "Compte utilisateur existant"
+                            }
+
+                    else
+                        default
+
+                _ ->
+                    default
 
         Session.GenericError title message ->
             Alert.simple

@@ -1,5 +1,11 @@
 [
   {
+    "elements": [],
+    "id": "c38a56d0-c718-405b-963f-f43dbcba3571",
+    "name": "Composant vide",
+    "scopes": ["object"]
+  },
+  {
     "elements": [
       {
         "amount": 0.734063,
@@ -8,7 +14,7 @@
     ],
     "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973",
     "name": "Dossier plastique (PP)",
-    "scopes": ["object", "veli"]
+    "scopes": ["object"]
   },
   {
     "elements": [
@@ -19,7 +25,7 @@
     ],
     "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6",
     "name": "Assise plastique (PP)",
-    "scopes": ["object", "veli"]
+    "scopes": ["object"]
   },
   {
     "elements": [
@@ -30,6 +36,6 @@
     ],
     "id": "190276e9-5b90-42d6-8fbd-bc7ddfd4c960",
     "name": "Cadre plastique",
-    "scopes": ["object", "veli"]
+    "scopes": ["object"]
   }
 ]

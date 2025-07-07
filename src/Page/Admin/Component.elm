@@ -1,4 +1,4 @@
-module Page.Admin exposing
+module Page.Admin.Component exposing
     ( Model
     , Msg(..)
     , init
@@ -10,7 +10,6 @@ module Page.Admin exposing
 import App exposing (Msg, PageUpdate)
 import Autocomplete exposing (Autocomplete)
 import Base64
-import Browser.Dom as Dom
 import Browser.Events
 import Data.Component as Component exposing (Component, Index, Item, TargetItem)
 import Data.Impact.Definition as Definition
@@ -33,7 +32,7 @@ import Request.BackendHttp.Error as BackendError
 import Request.Component as ComponentApi
 import Route
 import Static.Db exposing (Db)
-import Task
+import Views.Admin as AdminView
 import Views.Alert as Alert
 import Views.AutocompleteSelector as AutocompleteSelectorView
 import Views.Component as ComponentView
@@ -48,6 +47,7 @@ import Views.Table as Table
 type alias Model =
     { components : WebData (List Component)
     , scopes : List Scope
+    , section : AdminView.Section
     , modals : List Modal
     }
 
@@ -85,6 +85,7 @@ init session =
     { components = RemoteData.NotAsked
     , modals = []
     , scopes = Scope.all
+    , section = AdminView.ComponentSection
     }
         |> App.createUpdate session
         |> App.withCmds [ ComponentApi.getComponents session ComponentListResponse ]
@@ -251,11 +252,7 @@ commandsForModal modals =
             Ports.removeBodyClass "prevent-scrolling"
 
         _ ->
-            Cmd.batch
-                [ Ports.addBodyClass "prevent-scrolling"
-                , Dom.focus "selector-example"
-                    |> Task.attempt (always NoOp)
-                ]
+            Ports.addBodyClass "prevent-scrolling"
 
 
 selectProcess :
@@ -291,7 +288,7 @@ view : Session -> Model -> ( String, List (Html Msg) )
 view { db } model =
     ( "admin"
     , [ Container.centered [ class "d-flex flex-column gap-3 pb-5" ]
-            [ h1 [] [ text "Ecobalyse Admin" ]
+            [ AdminView.header model.section
             , warning
             , model.scopes
                 |> scopeFilterForm UpdateScopeFilters
@@ -612,10 +609,12 @@ componentScopesForm component item =
     item.custom
         |> Maybe.map .scopes
         |> Maybe.withDefault component.scopes
-        |> scopesForm
-            (\scope enabled ->
+        |> List.head
+        |> Maybe.withDefault Scope.Object
+        |> singleScopeForm
+            (\scope ->
                 item
-                    |> Component.toggleCustomScope component scope enabled
+                    |> Component.toggleCustomScope component scope True
                     |> UpdateComponent
             )
 
@@ -681,7 +680,7 @@ historyView entries =
 
 scopeFilterForm : (List Scope -> Msg) -> List Scope -> Html Msg
 scopeFilterForm updateFilters filtered =
-    scopesForm
+    multipleScopesForm
         (\scope enabled ->
             if enabled then
                 updateFilters (scope :: filtered)
@@ -692,8 +691,8 @@ scopeFilterForm updateFilters filtered =
         filtered
 
 
-scopesForm : (Scope -> Bool -> Msg) -> List Scope -> Html Msg
-scopesForm check scopes =
+multipleScopesForm : (Scope -> Bool -> Msg) -> List Scope -> Html Msg
+multipleScopesForm check scopes =
     div [ class "d-flex flex-row gap-3" ]
         [ h3 [ class "h6 mb-0" ] [ text "Verticales" ]
         , Scope.all
@@ -713,6 +712,30 @@ scopesForm check scopes =
                         ]
                 )
             |> div [ class "ScopeSelector" ]
+        ]
+
+
+singleScopeForm : (Scope -> Msg) -> Scope -> Html Msg
+singleScopeForm selectScope selectedScope =
+    div [ class "d-flex flex-row gap-3 align-items-center" ]
+        [ h3 [ class "h6 mb-0" ] [ text "Verticale" ]
+        , Scope.all
+            |> List.map
+                (\scope ->
+                    option
+                        [ selected <| scope == selectedScope
+                        , value <| Scope.toString scope
+                        ]
+                        [ text <| Scope.toLabel scope ]
+                )
+            |> select
+                [ class "form-select"
+                , onInput
+                    (Scope.fromString
+                        >> Result.withDefault selectedScope
+                        >> selectScope
+                    )
+                ]
         ]
 
 

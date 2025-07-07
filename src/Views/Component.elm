@@ -63,6 +63,7 @@ addComponentButton { addLabel, db, openSelectComponentModal, scopes } =
     let
         availableComponents =
             db.components
+                |> List.filter (not << Component.isEmpty)
                 |> Scope.anyOf scopes
 
         autocompleteState =
@@ -82,13 +83,14 @@ addComponentButton { addLabel, db, openSelectComponentModal, scopes } =
 
 
 addElementButton : Config db msg -> TargetItem -> Html msg
-addElementButton { db, openSelectProcessModal } targetItem =
+addElementButton { db, openSelectProcessModal, scopes } targetItem =
     button
         [ type_ "button"
         , class "btn btn-link text-decoration-none"
         , class "d-flex justify-content-end align-items-center"
         , class "gap-2 w-100 p-0 pb-1 text-end"
         , db.processes
+            |> Scope.anyOf scopes
             |> Process.listByCategory Category.Material
             |> List.sortBy Process.getDisplayName
             |> AutocompleteSelector.init Process.getDisplayName
@@ -100,12 +102,13 @@ addElementButton { db, openSelectProcessModal } targetItem =
         ]
 
 
-addElementTransformButton : Config db msg -> TargetElement -> Html msg
-addElementTransformButton { db, openSelectProcessModal } ( ( component, itemIndex ), elementIndex ) =
+addElementTransformButton : Config db msg -> Process -> TargetElement -> Html msg
+addElementTransformButton { db, openSelectProcessModal, scopes } material ( ( component, itemIndex ), elementIndex ) =
     let
         availableTransformProcesses =
             db.processes
-                |> Process.listByCategory Category.Transform
+                |> Scope.anyOf scopes
+                |> Process.listAvailableMaterialTransforms material
                 |> List.sortBy Process.getDisplayName
                 |> Process.available
                     (component.elements
@@ -115,7 +118,8 @@ addElementTransformButton { db, openSelectProcessModal } ( ( component, itemInde
                     )
 
         autocompleteState =
-            AutocompleteSelector.init Process.getDisplayName availableTransformProcesses
+            availableTransformProcesses
+                |> AutocompleteSelector.init Process.getDisplayName
     in
     button
         [ type_ "button"
@@ -427,7 +431,7 @@ elementView config targetItem elementIndex { amount, material, transforms } elem
                     [ tr []
                         [ td [ colspan 2 ] []
                         , td [ colspan 5 ]
-                            [ addElementTransformButton config ( targetItem, elementIndex )
+                            [ addElementTransformButton config material ( targetItem, elementIndex )
                             ]
                         ]
                     ]

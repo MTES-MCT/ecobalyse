@@ -43,6 +43,7 @@ module Data.Component exposing
     , findById
     , idFromString
     , idToString
+    , isEmpty
     , itemToComponent
     , itemToString
     , itemsToString
@@ -440,6 +441,17 @@ decode =
         |> Decode.required "id" (Decode.map Id Uuid.decoder)
         |> Decode.required "name" Decode.string
         |> Decode.optional "scopes" (Decode.list Scope.decode) Scope.all
+        |> Decode.andThen
+            (\component ->
+                -- Note: it's been decided to only allow a single scope per component, though we keep
+                --       the list of scopes for backward compatibility and/or future re-enabling
+                case List.head component.scopes of
+                    Just scope ->
+                        Decode.succeed { component | scopes = [ scope ] }
+
+                    Nothing ->
+                        Decode.fail <| "Aucun scope pour le composant id=" ++ idToString component.id
+            )
 
 
 decodeCustom : Decoder Custom
@@ -683,6 +695,11 @@ isCustomized component custom =
         ]
 
 
+isEmpty : Component -> Bool
+isEmpty component =
+    List.isEmpty component.elements
+
+
 itemToComponent : DataContainer db -> Item -> Result String Component
 itemToComponent { components } { custom, id } =
     findById id components
@@ -781,7 +798,15 @@ setElementMaterial targetElement material items =
 
     else
         items
-            |> updateElement targetElement (\el -> { el | material = material.id })
+            |> updateElement targetElement
+                (\el ->
+                    { el
+                        | material = material.id
+
+                        -- Note: always reset the transforms when replacing a material for consistency
+                        , transforms = []
+                    }
+                )
             |> Ok
 
 
