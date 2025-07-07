@@ -8,15 +8,26 @@ import posthog from "posthog-js";
 let { NODE_ENV, POSTHOG_KEY, POSTHOG_HOST, SENTRY_DSN } = process.env;
 
 // Posthog
-if (POSTHOG_KEY && POSTHOG_HOST) {
+if (NODE_ENV === "production" && POSTHOG_KEY && POSTHOG_HOST) {
   posthog.init(POSTHOG_KEY, {
     api_host: POSTHOG_HOST,
-    person_profiles: "identified_only", // or 'always' to create profiles for anonymous users as well
+    autocapture: false,
+    capture_pageview: "history_change",
+    disable_external_dependency_loading: true,
+    disable_web_experiments: true,
+    person_profiles: "identified_only",
+    rageclick: false,
+    rate_limiting: {
+      events_per_second: 5,
+      events_burst_limit: 10,
+    },
+    respect_dnt: true,
+    session_replay: false,
   });
 }
 
 // Sentry
-if (SENTRY_DSN) {
+if (NODE_ENV === "production" && SENTRY_DSN) {
   Sentry.init({
     dsn: SENTRY_DSN,
     integrations: [Sentry.browserTracingIntegration()],
@@ -25,7 +36,7 @@ if (SENTRY_DSN) {
       /^https:\/\/ecobalyse\.beta\.gouv\.fr/,
       /^https:\/\/staging-ecobalyse\.incubateur\.net/,
       // Review apps
-      /^https:\/\/ecobalyse-pr.*\.osc-fr1\.scalingo\.io/,
+      /^https:\/\/ecobalyse-staging-pr.*\.osc-fr1\.scalingo\.io/,
     ],
     ignoreErrors: [
       // Most often due to DOM-aggressive browser extensions
