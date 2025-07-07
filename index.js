@@ -3,7 +3,9 @@ import * as Sentry from "@sentry/browser";
 import Charts from "./lib/charts";
 import posthog from "posthog-js";
 
-const { NODE_ENV, POSTHOG_KEY, POSTHOG_HOST, SENTRY_DSN } = process.env;
+// using  let statement to avoid this error:
+// @parcel/optimizer-swc: 'const' declarations must be initialized
+let { NODE_ENV, POSTHOG_KEY, POSTHOG_HOST, SENTRY_DSN } = process.env;
 
 // Posthog
 if (POSTHOG_KEY && POSTHOG_HOST) {
