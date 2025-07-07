@@ -1,8 +1,4 @@
----
-description: 'keywords : fabricProcess'
----
-
-# 🪢 Etape 3 - Fabrication de l'étoffe
+# 🪢 Etape 3 - Tissage / Tricotage
 
 ## Contexte
 

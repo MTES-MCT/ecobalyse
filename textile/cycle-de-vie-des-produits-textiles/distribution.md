@@ -17,11 +17,8 @@ La distance de 500 km est reprise du socle technique ADEME (Méthodologie d'éva
 
 ### Procédé utilisé pour le coût environnemental
 
-Un unique procédé issu de la Base Impacts est considéré pour modéliser la distribution, de l'entrepôt au point de vente ou de livraison.&#x20;
+Un unique procédé issu de la Base Impacts est considéré pour modéliser la distribution, de l'entrepôt au point de vente ou de livraison.  Il est identifié dans l'[Explorateur](https://ecobalyse.beta.gouv.fr/#/explore/textile/textile-processes/3db67ae7-c169-5837-8e0a-3c3c31ffda67).
 
-Procédé Base Impacts&#x20;
-
-* Nom = Transport en camion non spécifié France (dont parc, utilisation et infrastructure) (50%) \[tkm], FR
-* UUID = f49b27fa-f22e-c6e1-ab4b-e9f873e2e648
+* Nom du procédé Base Impacts= Transport en camion non spécifié France (dont parc, utilisation et infrastructure) (50%) \[tkm], FR
 
 Les modalités de calcul de l'impact environnemental de ce transport sont précisées dans la page [transport](transport.md).

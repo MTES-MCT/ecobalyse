@@ -7,13 +7,9 @@ L'impact de la fin de vie se décompose en deux modules :&#x20;
 
 Jusqu'à l'introduction du complément, la fin de vie pesait entre 0% et 1% de l'impact total d'un vêtement. L'introduction du complément permet de répondre à la principale limite des scénarios proposés par le PEFCR A\&F (limite = 100% des vêtements exportés sont réutilisés et ne génèrent aucun impact).&#x20;
 
-
-
 ## Complément Fin de vie Hors Europe
 
 Cf. la [page](../complements-hors-acv/export-hors-europe.md) dédiée dans la rubrique "Compléments hors ACV"
-
-
 
 ## Scénario PEFCR Apparel & Footwear
 
@@ -161,7 +157,3 @@ Impact_décharge = 0.17269 kgCO2e
 ```
 
 </details>
-
-
-
-####
