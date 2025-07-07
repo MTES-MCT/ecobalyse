@@ -10,6 +10,16 @@ Le détail techniques des mises à jour est disponible [ici](https://ecobalyse.b
 
 <details>
 
+<summary>v6.0.0</summary>
+
+* Exclusion de la masse des accessoirs pour le calcul des impacts des étapes préliminaires à la confection
+* Correction d'un bug: l'impression est calculé selon le pourcentage de surface
+*
+
+</details>
+
+<details>
+
 <summary>v5.0.0</summary>
 
 * Exclusion des [émissions à long terme](https://fabrique-numerique.gitbook.io/ecobalyse/def-cout-environnemental/categories-dimpact-acv/exclusion-des-emissions-a-long-terme)
@@ -110,6 +120,14 @@ Le détail techniques des mises à jour est disponible [ici](https://ecobalyse.b
 <summary>v1.1.0</summary>
 
 * Afficher l'origine des ingrédients, matériaux dans l'explorateur
+
+</details>
+
+<details>
+
+<summary>Juin 2024</summary>
+
+Mise en place du versionnage&#x20;
 
 </details>
 
