@@ -134,7 +134,7 @@
   * [🔥 Chaleur](textile/precisions-methodologiques/chaleur.md)
   * [🗑️ Taux de perte et rebut](textile/precisions-methodologiques/pertes-et-rebus.md)
   * [🤯 Circular Footpring Formula (CFF)](textile/precisions-methodologiques/circular-footpring-formula-cff.md)
-  * [👘 Stocks dormants / Deadstock](textile/precisions-methodologiques/stocks-dormants-deadstock.md)
+  * [👘 Stocks dormants ](textile/precisions-methodologiques/stocks-dormants-deadstock.md)
   * [🧥 Upcycling / Remanufacturage](textile/precisions-methodologiques/surcyclage-upcycling.md)
 * [🟩 Compléments hors ACV](textile/complements-hors-acv/README.md)
   * [🌍 Export hors Europe](textile/complements-hors-acv/export-hors-europe.md)

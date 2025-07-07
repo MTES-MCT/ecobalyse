@@ -6,7 +6,7 @@ description: >-
 
 # Mises à jour
 
-Le détail techniques des mises à jour est disponible [ici](https://ecobalyse.beta.gouv.fr/#/changelog). Voici une présentation simplifiée pour le secteur textile:
+Le détail technique des mises à jour est disponible [ici](https://ecobalyse.beta.gouv.fr/#/changelog). Voici une présentation simplifiée pour le secteur textile:
 
 <details>
 
