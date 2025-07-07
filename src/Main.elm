@@ -184,6 +184,7 @@ toPage session model cmds toModel toMsg pageUpdate =
         , Cmd.map toMsg pageUpdate.cmd
         , storeCmd
         , pageUpdate |> App.mapToCmd AppMsg
+        , Ports.sendPosthogEvent { name = "$pageview", properties = [] }
         ]
     )
 

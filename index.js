@@ -7,8 +7,10 @@ import posthog from "posthog-js";
 // @parcel/optimizer-swc: 'const' declarations must be initialized
 let { NODE_ENV, POSTHOG_KEY, POSTHOG_HOST, SENTRY_DSN } = process.env;
 
+const posthogEnabled = NODE_ENV === "production" && POSTHOG_KEY && POSTHOG_HOST;
+
 // Posthog
-if (NODE_ENV === "production" && POSTHOG_KEY && POSTHOG_HOST) {
+if (posthogEnabled) {
   posthog.init(POSTHOG_KEY, {
     api_host: POSTHOG_HOST,
     autocapture: false,
@@ -82,10 +84,9 @@ const app = Elm.Main.init({
 app.ports.copyToClipboard.subscribe((text) => {
   navigator.clipboard.writeText(text).then(
     function () {},
-    function (err) {
+    function () {
       alert(
-        `Votre navigateur ne supporte pas la copie automatique;
-         vous pouvez copier l'adresse manuellement`,
+        `Votre navigateur ne supporte pas la copie automatique; vous pouvez copier l'adresse manuellement`,
       );
     },
   );
@@ -122,7 +123,11 @@ app.ports.removeBodyClass.subscribe((cls) => {
 });
 
 app.ports.sendPosthogEvent.subscribe(({ name, properties }) => {
-  posthog.capture(name, Object.fromEntries(properties));
+  if (posthogEnabled) {
+    posthog.capture(name, Object.fromEntries(properties));
+  } else {
+    console.log("posthog event", name, properties);
+  }
 });
 
 app.ports.scrollTo.subscribe((pos) => {
