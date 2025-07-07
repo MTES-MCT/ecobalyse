@@ -140,6 +140,7 @@
   * [🌍 Export hors Europe](textile/complements-hors-acv/export-hors-europe.md)
   * [🐠 Microfibres](textile/complements-hors-acv/microfibres.md)
 * [🔴 Durabilité](textile/durabilite.md)
+* [🟡 Périmètre](textile/perimetre.md)
 * [🔵 Paramétrage](textile/parametrage.md)
 * [Correctifs données](textile/correctifs-donnees/README.md)
   * [corr1 : Coton recyclé](textile/correctifs-donnees/corr1-coton-recycle.md)
