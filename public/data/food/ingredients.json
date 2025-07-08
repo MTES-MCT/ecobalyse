@@ -6106,7 +6106,7 @@
     "alias": "pasta",
     "categories": ["grain_processed"],
     "cropGroup": "DIVERS",
-    "defaultOrigin": "France",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -6116,11 +6116,11 @@
     "id": "06e7ba46-85ba-4475-82d2-a59f847e801d",
     "inediblePart": 0.2,
     "landOccupation": 3.8494,
-    "name": "Pâtes FR",
-    "processId": "0da8ba31-b350-5aa0-a1cb-77a2d1695f30",
+    "name": "Pâtes par défaut",
+    "processId": "158e5860-95b5-519c-bbf6-5bdb214bcf4c",
     "rawToCookedRatio": 2.259,
     "scenario": "reference",
-    "search": "pasta dried plant wheat FR",
+    "search": "pasta dried plant wheat GLO",
     "transportCooling": "none",
     "visible": true
   },
