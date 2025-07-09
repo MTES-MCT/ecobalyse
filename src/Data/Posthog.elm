@@ -3,11 +3,13 @@ module Data.Posthog exposing
     , send
     )
 
+import Data.Impact.Definition as Definition exposing (Trigram)
 import Ports
 
 
 type Event
     = PageView
+    | SelectDetailedImpact Trigram
 
 
 send : Event -> Cmd msg
@@ -16,3 +18,8 @@ send event =
         case event of
             PageView ->
                 { name = "$pageview", properties = [] }
+
+            SelectDetailedImpact trigram ->
+                { name = "select_detailed_impact"
+                , properties = [ ( "trigram", Definition.toString trigram ) ]
+                }

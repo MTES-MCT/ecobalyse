@@ -24,6 +24,7 @@ import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Notification as Notification
+import Data.Posthog as Posthog
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Data.Split exposing (Split)
@@ -454,6 +455,7 @@ update ({ queries, navKey } as session) msg model =
                         |> Route.TextileSimulator trigram
                         |> Route.toString
                         |> Navigation.pushUrl navKey
+                    , Posthog.send (Posthog.SelectDetailedImpact trigram)
                     ]
 
         ( SwitchImpact (Err error), _ ) ->
