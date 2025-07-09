@@ -9,6 +9,7 @@ import Data.Github as Github
 import Data.Impact as Impact
 import Data.Notification as Notification exposing (Notification)
 import Data.Object.Query as ObjectQuery
+import Data.Posthog as Posthog
 import Data.Session as Session exposing (Session)
 import Data.Textile.Query as TextileQuery
 import Html
@@ -184,7 +185,7 @@ toPage session model cmds toModel toMsg pageUpdate =
         , Cmd.map toMsg pageUpdate.cmd
         , storeCmd
         , pageUpdate |> App.mapToCmd AppMsg
-        , Ports.sendPosthogEvent { name = "$pageview", properties = [] }
+        , Posthog.send Posthog.PageView
         ]
     )
 
