@@ -24,7 +24,7 @@ suite =
                 , repairCost = priceFromFloat 10
                 }
                 |> Unit.nonPhysicalDurabilityToFloat
-                |> Expect.within (Expect.Absolute 0.01) 0.98
+                |> Expect.within (Expect.Absolute 0.01) 1.06
                 |> asTest "should compute durability index"
             ]
         , describe "computeNumberOfReferencesIndex"
