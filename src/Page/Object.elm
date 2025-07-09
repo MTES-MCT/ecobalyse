@@ -20,6 +20,7 @@ import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Object.Query as Query exposing (Query)
 import Data.Object.Simulator as Simulator
+import Data.Posthog as Posthog
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
 import Data.Scope as Scope exposing (Scope)
@@ -384,6 +385,7 @@ update ({ navKey } as session) msg model =
                         |> Route.ObjectSimulator model.scope trigram
                         |> Route.toString
                         |> Navigation.pushUrl navKey
+                    , Posthog.send (Posthog.SelectDetailedImpact trigram)
                     ]
 
         ( SwitchImpact (Err error), _ ) ->

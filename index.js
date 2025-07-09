@@ -1,24 +1,52 @@
 import { Elm } from "./src/Main.elm";
 import * as Sentry from "@sentry/browser";
 import Charts from "./lib/charts";
+import posthog from "posthog-js";
+
+// using a `let` statement to avoid this error:
+// @parcel/optimizer-swc: 'const' declarations must be initialized
+let { NODE_ENV, POSTHOG_KEY, POSTHOG_HOST, SENTRY_DSN } = process.env;
+
+const posthogEnabled = NODE_ENV === "production" && POSTHOG_KEY && POSTHOG_HOST;
+
+// Posthog
+if (posthogEnabled) {
+  posthog.init(POSTHOG_KEY, {
+    api_host: POSTHOG_HOST,
+    autocapture: false,
+    capture_pageleave: true,
+    capture_pageview: false, // handled in Elm land, posthog doesn't support hash-based routing well
+    cross_subdomain_cookie: false,
+    disable_external_dependency_loading: true,
+    disable_web_experiments: true,
+    person_profiles: "identified_only",
+    rageclick: false,
+    rate_limiting: {
+      events_per_second: 5,
+      events_burst_limit: 10,
+    },
+    respect_dnt: true,
+    session_replay: false,
+  });
+}
 
 // Sentry
-if (process.env.SENTRY_DSN) {
+if (NODE_ENV === "production" && SENTRY_DSN) {
   Sentry.init({
-    dsn: process.env.SENTRY_DSN,
+    dsn: SENTRY_DSN,
     integrations: [Sentry.browserTracingIntegration()],
     tracesSampleRate: 0,
     allowUrls: [
       /^https:\/\/ecobalyse\.beta\.gouv\.fr/,
       /^https:\/\/staging-ecobalyse\.incubateur\.net/,
       // Review apps
-      /^https:\/\/ecobalyse-pr.*\.osc-fr1\.scalingo\.io/,
+      /^https:\/\/ecobalyse-staging-pr.*\.osc-fr1\.scalingo\.io/,
     ],
     ignoreErrors: [
       // Most often due to DOM-aggressive browser extensions
       /_VirtualDom_applyPatch/,
     ],
-    environment: process.env.IS_REVIEW_APP ? "review-app" : process.env.NODE_ENV || "development",
+    environment: process.env.IS_REVIEW_APP ? "review-app" : NODE_ENV || "development",
   });
 }
 
@@ -57,10 +85,9 @@ const app = Elm.Main.init({
 app.ports.copyToClipboard.subscribe((text) => {
   navigator.clipboard.writeText(text).then(
     function () {},
-    function (err) {
+    function () {
       alert(
-        `Votre navigateur ne supporte pas la copie automatique;
-         vous pouvez copier l'adresse manuellement`,
+        `Votre navigateur ne supporte pas la copie automatique; vous pouvez copier l'adresse manuellement`,
       );
     },
   );
@@ -94,6 +121,14 @@ app.ports.addBodyClass.subscribe((cls) => {
 
 app.ports.removeBodyClass.subscribe((cls) => {
   document.body.classList.remove(cls);
+});
+
+app.ports.sendPosthogEvent.subscribe(({ name, properties }) => {
+  if (posthogEnabled) {
+    posthog.capture(name, Object.fromEntries(properties));
+  } else {
+    console.log("posthog event", name, properties);
+  }
 });
 
 app.ports.scrollTo.subscribe((pos) => {

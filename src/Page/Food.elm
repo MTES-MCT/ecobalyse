@@ -28,6 +28,7 @@ import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
+import Data.Posthog as Posthog
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as ProcessCategory
 import Data.Scope as Scope
@@ -373,13 +374,14 @@ update ({ db, queries } as session) msg model =
             { model | comparisonType = displayChoice }
                 |> App.createUpdate session
 
-        SwitchImpact (Ok impact) ->
+        SwitchImpact (Ok trigram) ->
             App.createUpdate session model
                 |> App.withCmds
                     [ Just query
-                        |> Route.FoodBuilder impact
+                        |> Route.FoodBuilder trigram
                         |> Route.toString
                         |> Navigation.pushUrl session.navKey
+                    , Posthog.send (Posthog.SelectDetailedImpact trigram)
                     ]
 
         SwitchImpact (Err error) ->
