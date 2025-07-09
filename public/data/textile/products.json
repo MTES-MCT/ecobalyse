@@ -24,7 +24,7 @@
     "trims": [
       {
         "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a",
-        "quantity": 10
+        "quantity": 11
       }
     ],
     "use": {
@@ -152,7 +152,7 @@
     "trims": [
       {
         "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a",
-        "quantity": 3
+        "quantity": 5
       },
       {
         "id": "86b877ff-0d59-482f-bb34-3ff306b07496",
@@ -237,7 +237,12 @@
     },
     "name": "Pull",
     "surfaceMass": 250,
-    "trims": [],
+    "trims": [
+      {
+        "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a",
+        "quantity": 5
+      }
+    ],
     "use": {
       "daysOfWear": 85,
       "defaultNbCycles": 17,
@@ -272,7 +277,12 @@
     },
     "name": "T-shirt / Polo",
     "surfaceMass": 200,
-    "trims": [],
+    "trims": [
+      {
+        "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a",
+        "quantity": 3
+      }
+    ],
     "use": {
       "daysOfWear": 45,
       "defaultNbCycles": 45,
@@ -342,7 +352,12 @@
     },
     "name": "Caleçon (tissé)",
     "surfaceMass": 180,
-    "trims": [],
+    "trims": [
+      {
+        "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a",
+        "quantity": 2
+      }
+    ],
     "use": {
       "daysOfWear": 60,
       "defaultNbCycles": 60,
@@ -412,7 +427,12 @@
     },
     "name": "Maillot de bain",
     "surfaceMass": 220,
-    "trims": [],
+    "trims": [
+      {
+        "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a",
+        "quantity": 1
+      }
+    ],
     "use": {
       "daysOfWear": 30,
       "defaultNbCycles": 30,
