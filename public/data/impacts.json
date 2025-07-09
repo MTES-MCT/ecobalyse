@@ -387,8 +387,8 @@
       "normalization": 1.14687e4,
       "weighting": 0.0851
     },
-    "short_unit": "m³",
-    "unit_en": "m³",
-    "unit_fr": "m³"
+    "short_unit": "m³ eq",
+    "unit_en": "m³ eq",
+    "unit_fr": "m³ éq"
   }
 }
