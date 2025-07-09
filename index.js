@@ -16,6 +16,7 @@ if (posthogEnabled) {
     autocapture: false,
     capture_pageleave: true,
     capture_pageview: false, // handled in Elm land, posthog doesn't support hash-based routing well
+    cross_subdomain_cookie: false,
     disable_external_dependency_loading: true,
     disable_web_experiments: true,
     person_profiles: "identified_only",
