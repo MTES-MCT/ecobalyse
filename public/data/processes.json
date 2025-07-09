@@ -3101,7 +3101,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["textile"],
+    "scopes": ["object"],
     "source": "Custom",
     "sourceId": "Blanchiment (scénario pollution aquatique moyenne)",
     "unit": "kg",
@@ -12059,7 +12059,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["textile"],
+    "scopes": ["object"],
     "source": "Custom",
     "sourceId": "Teinture fibres synthétiques (scénario pollution aquatique moyenne)",
     "unit": "kg",
@@ -15352,7 +15352,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["textile"],
+    "scopes": ["object"],
     "source": "Custom",
     "sourceId": "Teinture fibres cellulosiques (scénario pollution aquatique moyenne)",
     "unit": "kg",
