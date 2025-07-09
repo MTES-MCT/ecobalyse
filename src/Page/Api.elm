@@ -57,7 +57,7 @@ changelog =
     [ { date = "9 juillet 2025"
       , level = "major"
       , domains = [ "Textile" ]
-      , md = """Le paramètre `traceability` est supprimé et rendu inopérant sur les calculs si fourni."""
+      , md = """Le paramètre `traceability` est supprimé."""
       }
     , { date = "15 avril 2025"
       , level = "major"
