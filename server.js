@@ -13,6 +13,7 @@ const { setupTracker, dataFiles } = require("./lib");
 const { decrypt } = require("./lib/crypto");
 const express = require("express");
 const rateLimit = require("express-rate-limit");
+const { PostHog } = require("posthog-node");
 
 const expressHost = "0.0.0.0";
 const expressPort = 8001;
@@ -50,6 +51,9 @@ app.use(
 
 // Sentry monitoring
 monitorExpressApp(app);
+
+// Posthog api usage tracking
+const posthog = new PostHog(POSTHOG_KEY, { host: POSTHOG_HOST });
 
 // Middleware
 const jsonErrorHandler = bodyParserErrorHandler({
@@ -374,5 +378,18 @@ app.use("/versions", version);
 const server = app.listen(expressPort, expressHost, () => {
   console.log(`Server listening at http://${expressHost}:${expressPort}`);
 });
+
+async function handleExit(signal) {
+  console.log(`Received ${signal}. Flushing...`);
+  await posthog.shutdown();
+  console.log(`Flush complete`);
+  server.close(() => {
+    process.exit(0);
+  });
+}
+
+process.on("SIGINT", handleExit);
+process.on("SIGQUIT", handleExit);
+process.on("SIGTERM", handleExit);
 
 module.exports = server;
