@@ -669,10 +669,6 @@ components:
             **⚠️ Sur les produits tricotés, ce paramètre n'impacte que l'impression.**
           minimum: 80
           maximum: 500
-        traceability:
-          description: |
-            Traçabilité renforcée
-          type: boolean
         trims:
           description: |
             Liste des accessoires du vêtement (boutons, zip, etc).
