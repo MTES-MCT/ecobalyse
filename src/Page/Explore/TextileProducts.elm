@@ -19,7 +19,6 @@ import Duration
 import Energy
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Page.Explore.Common as Common
 import Page.Explore.Table as Table exposing (Table)
 import Quantity
 import Route
@@ -229,10 +228,6 @@ table db { detailed, scope } =
                         [ product.economics.numberOfReferences |> String.fromInt |> text
                         , text " références"
                         ]
-          }
-        , { label = "Traçabilité affichée\u{00A0}?"
-          , toValue = Table.StringValue <| .economics >> .traceability >> Common.boolText
-          , toCell = .economics >> .traceability >> Common.boolText >> text
           }
         ]
     }

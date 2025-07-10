@@ -1,20 +1,8 @@
-module Page.Explore.Common exposing
-    ( boolText
-    , impactBarGraph
-    )
+module Page.Explore.Common exposing (impactBarGraph)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Views.Format as Format
-
-
-boolText : Bool -> String
-boolText bool =
-    if bool then
-        "oui"
-
-    else
-        "non"
 
 
 impactBarGraph : Bool -> Float -> Float -> Html msg

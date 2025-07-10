@@ -33,7 +33,6 @@ type alias Economics =
     , numberOfReferences : Int
     , price : Price
     , repairCost : Price
-    , traceability : Bool
     }
 
 
@@ -104,9 +103,8 @@ computeNonPhysicalDurabilityIndex economics =
             )
 
         finalIndex =
-            [ ( 0.4, computeNumberOfReferencesIndex economics.numberOfReferences )
-            , ( 0.4, computeRepairCostIndex economics.business economics.price economics.repairCost )
-            , ( 0.2, computeTraceabilityIndex economics.traceability )
+            [ ( 0.5, computeNumberOfReferencesIndex economics.numberOfReferences )
+            , ( 0.5, computeRepairCostIndex economics.business economics.price economics.repairCost )
             ]
                 |> List.map (\( weighting, index ) -> weighting * Unit.ratioToFloat index)
                 |> List.sum
@@ -178,17 +176,6 @@ computeNumberOfReferencesIndex n =
             0
 
 
-computeTraceabilityIndex : Bool -> Unit.Ratio
-computeTraceabilityIndex traceability =
-    Unit.ratio
-        (if traceability then
-            1
-
-         else
-            0
-        )
-
-
 decode : Decoder Economics
 decode =
     Decode.succeed Economics
@@ -196,7 +183,6 @@ decode =
         |> Pipe.required "numberOfReferences" Decode.int
         |> Pipe.required "price" decodePrice
         |> Pipe.required "repairCost" decodePrice
-        |> Pipe.required "traceability" Decode.bool
 
 
 decodeBusiness : Decoder Business

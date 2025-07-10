@@ -106,7 +106,7 @@ suite =
                 , tShirtCotonWithSmallerPhysicalDurability
                     |> Simulator.compute db
                     |> Result.map .durability
-                    |> Expect.equal (Ok { physical = Unit.physicalDurability 1, nonPhysical = Unit.nonPhysicalDurability 1.19 })
+                    |> Expect.equal (Ok { physical = Unit.physicalDurability 1, nonPhysical = Unit.nonPhysicalDurability 1.32 })
                     |> asTest "should take into account when non physical durability changes"
                 , tShirtCotonWithSmallerPhysicalDurability
                     |> Simulator.compute db
