@@ -56,7 +56,7 @@ table db { detailed, scope } =
                                     |> List.map
                                         (\{ amount, material } ->
                                             String.fromFloat (Component.amountToFloat amount)
-                                                ++ material.unit
+                                                ++ Process.unitToString material.unit
                                                 ++ " de "
                                                 ++ Process.getDisplayName material
                                         )

@@ -64,8 +64,8 @@ baseColumns detailed scope =
                 >> text
       }
     , { label = "Unité"
-      , toValue = Table.StringValue <| .unit
-      , toCell = .unit >> text
+      , toValue = Table.StringValue <| .unit >> Process.unitToString
+      , toCell = .unit >> Process.unitToString >> text
       }
     , { label = "Électricité"
       , toValue = Table.FloatValue <| .elec >> Energy.inKilowattHours
