@@ -969,14 +969,14 @@ simulatorFormView session model ({ inputs } as simulator) =
                 ]
             ]
         , div [ class "card-body py-2 row g-3 align-items-start flex-md-columns" ]
-            [ div [ class "col-md-4" ]
+            [ div [ class "col-md-2" ]
                 [ label
                     [ for "business"
                     , class "col-form-label text-truncate"
                     ]
                     [ text "Entreprise" ]
                 ]
-            , div [ class "col-md-8" ]
+            , div [ class "col-md-10" ]
                 [ inputs.business
                     |> Maybe.withDefault inputs.product.economics.business
                     |> businessField
