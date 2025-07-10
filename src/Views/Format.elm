@@ -32,7 +32,7 @@ import Area exposing (Area)
 import Data.Component as Component
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Definition)
-import Data.Process exposing (Process)
+import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
 import Data.Textile.Economics as Economics
 import Data.Unit as Unit
@@ -165,18 +165,18 @@ amount { unit } amount_ =
             Component.amountToFloat amount_
     in
     case unit of
-        "kg" ->
-            Mass.kilograms floatAmount
-                |> kg
-
-        "m3" ->
+        Process.CubicMeter ->
             Volume.cubicMeters floatAmount
                 |> m3
+
+        Process.Kilogram ->
+            Mass.kilograms floatAmount
+                |> kg
 
         _ ->
             String.fromFloat floatAmount
                 ++ " "
-                ++ unit
+                ++ Process.unitToString unit
                 |> text
 
 
@@ -282,10 +282,10 @@ minutes =
     Duration.inMinutes >> formatRichFloat 0 "min"
 
 
-density : { a | density : Float, unit : String } -> Html msg
+density : { a | density : Float, unit : Process.Unit } -> Html msg
 density process =
-    if process.unit /= "kg" then
-        formatRichFloat 0 ("kg/" ++ process.unit) process.density
+    if process.unit /= Process.Kilogram then
+        formatRichFloat 0 ("kg/" ++ Process.unitToString process.unit) process.density
 
     else
         text "N/A"
