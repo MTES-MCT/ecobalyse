@@ -5,6 +5,7 @@ module Data.Posthog exposing
 
 import Data.Impact.Definition as Definition exposing (Trigram)
 import Ports
+import Url exposing (Url)
 
 
 type Event
@@ -13,7 +14,7 @@ type Event
     | AuthMagicLinkSent
     | AuthProfileUpdated
     | AuthSignup
-    | PageView
+    | PageView Url
     | SelectDetailedImpact Trigram
 
 
@@ -36,9 +37,9 @@ send event =
             AuthSignup ->
                 { name = "AuthSignup", properties = [] }
 
-            PageView ->
+            PageView url ->
                 --  Note: $pageview is a special event handled by posthog
-                { name = "$pageview", properties = [] }
+                { name = "$pageview", properties = [ ( "url", Url.toString url ) ] }
 
             SelectDetailedImpact trigram ->
                 { name = "SelectDetailedImpact"

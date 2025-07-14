@@ -124,10 +124,15 @@ app.ports.removeBodyClass.subscribe((cls) => {
 });
 
 app.ports.sendPosthogEvent.subscribe(({ name, properties }) => {
-  if (posthogEnabled) {
-    posthog.capture(name, Object.fromEntries(properties));
-  } else {
-    console.log("posthog event", name, properties);
+  try {
+    const params = Object.fromEntries(properties);
+    if (posthogEnabled) {
+      posthog.capture(name, params);
+    } else {
+      console.log("posthog event", name, params);
+    }
+  } catch (error) {
+    console.error("posthog error", name, error);
   }
 });
 

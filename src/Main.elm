@@ -185,7 +185,6 @@ toPage session model cmds toModel toMsg pageUpdate =
         , Cmd.map toMsg pageUpdate.cmd
         , storeCmd
         , pageUpdate |> App.mapToCmd AppMsg
-        , Posthog.send Posthog.PageView
         ]
     )
 
@@ -428,6 +427,7 @@ update rawMsg ({ state } as model) =
                 ( UrlChanged url, _ ) ->
                     ( { model | mobileNavigationOpened = False, url = url }, Cmd.none )
                         |> setRoute url
+                        |> Tuple.mapSecond (always <| Posthog.send <| Posthog.PageView url)
 
                 ( UrlRequested (Browser.Internal url), _ ) ->
                     ( { model | url = url }, Nav.pushUrl session.navKey (Url.toString url) )

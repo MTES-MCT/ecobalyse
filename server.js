@@ -22,9 +22,9 @@ const expressPort = 8001;
 const {
   ENABLE_FOOD_SECTION,
   MATOMO_HOST,
-  MATOMO_SITE_ID,
-  MATOMO_TOKEN,
   NODE_ENV,
+  POSTHOG_HOST,
+  POSTHOG_KEY,
   RATELIMIT_MAX_RPM,
   RATELIMIT_WHITELIST,
 } = process.env;
@@ -53,6 +53,7 @@ app.use(
 monitorExpressApp(app);
 
 // Posthog api usage tracking
+// FIXME: enable only in production
 const posthog = new PostHog(POSTHOG_KEY, { host: POSTHOG_HOST });
 
 // Middleware
