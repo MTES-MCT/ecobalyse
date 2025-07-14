@@ -1,7 +1,7 @@
 # 🔴 Durabilité
 
 {% hint style="warning" %}
-Mise à jour importante de cette page le 05/12/2024 suite à la concertation initiée début avril. Ajustements le 22/05 au moment de la consolidation du référentiel (_en \*italique\*_ dans le texte).
+Mise à jour importante de cette page le 14/07/2025 pour intégrer les derniers ajustements sur les définitions, notamment pour la largeur de gamme, suite à la phase de consolidation qui a suivi le webinaire du mois de mai 2025. Les derniers modifications apportées sont \*_en italique pour les ajouts_\* et \*~~barré pour les suppressions~~\*.
 {% endhint %}
 
 {% hint style="info" %}
@@ -96,14 +96,16 @@ $$C_{Durabilité} = 0.67 + (1,45-0,67)*( 0.4*I_{incitation réparation} +  0.4*I
 
 #### Définition
 
-**La largeur de gamme désigne le nombre maximal de références proposées par une marque sur le segment de marché de la référence de produits considérée**.
+**La largeur de gamme désigne le nombre maximal de références \***_**de produits neufs y compris reconditionnés**_**" proposées par une marque sur le segment de marché de la référence de produits considérée**.
 
 Précisions :&#x20;
 
-* **Le canal de vente considéré est le site internet de la marque**. En l'absence de vente en ligne sur le site de la marque (ou si le site est un canal de vente artificiel), un canal de vente doit être choisi parmi les principaux.
-* Par exception, dans le cas d'une **marque qui serait \***_**principalement\***_**&#x20;distribuée via une plateforme**, de sorte que les consommateurs identifient plus la plateforme que la marque, c'est le nombre total de références proposées du segment sur la plateforme qui doit être considéré. \*_Des précisions opérationnelles sont encore nécessaires pour préciser les modalités de calcul de la largeur de gamme sur les plateformes_\*.
-* Lorsqu'une marque est proposée au sein d'un **site internet multi-marques**, mais qu'elle y est bien identifiée et que l'essentiel des autres produits proposés sur ce site internet sont également proposés sur le site internet de leur marque propre, c'est alors le nombre de référence de chaque marque qui est considéré.
-* Les **5 segments de marché** considérés sont : femme, homme, enfant, bébé, sous-vêtements. L'introduction de ces 5 segments de marché vise à éviter un effet de distorsion qui pénaliserait une marque couvrant l'ensemble des segments de marché par rapport à une autre marque qui ne couvrirait par exemple que le prêt à porter femme. A l'intérieur de ces segments de marché, ne sont pas considérés les références qui ne s'adresseraient qu'à un sous-ensemble spécifique des clients potentiels. Il s'agit par exemple des références spécifiques aux grandes tailles, aux femmes enceintes, aux personnes en situation de handicap, ... L'objectif est d'approximer le choix proposer à chaque consommateur : homme, femme, enfant ou bébé.&#x20;
+* **Le canal de vente considéré est le site internet de la marque**. En l'absence de vente en ligne sur le site de la marque \*~~(ou si le site est un canal de vente artificiel)~~\*, un canal de vente doit être choisi parmi les principaux.
+* Par exception, dans le cas d'une **marque qui serait principalement distribuée via une plateforme \***_**en ligne, sa largeur de gamme est fixée à la valeur par défaut de 100 000 références** (cf._ [_paramétrage_](https://fabrique-numerique.gitbook.io/ecobalyse/textile/parametrage)_)_\* \*~~, de sorte que les consommateurs identifient plus la plateforme que la marque, c'est le nombre total de références proposées du segment sur la plateforme qui doit être considéré~~\*. \*_Une marque est considérée comme étant principalement distribuée via une plateforme en ligne dès lors que cette dernière constitue son canal de vente principal, c’est-à-dire le canal via lequel la marque effectue la majorité de ses ventes_\*.
+*   \*_Si une **marque commercialisée sur un site multi-marques** s’est acquittée elle-même de ses obligations en matière de responsabilité élargie du producteur et dispose à ce titre d’un identifiant unique et si elle n’est pas vendue à titre principal sur ce site, c’est le nombre de références de la marque sur son site internet propre et non celui du site multi-marques qui est comptabilisé._
+
+    _Si cette marque ne dispose pas d’identifiant unique, sa largeur de gamme est fixée à la valeur par défaut de 100 000 références (cf._ [_paramétrage_](https://fabrique-numerique.gitbook.io/ecobalyse/textile/parametrage)_)_\*\*~~Lorsqu'une marque est proposée au sein d'un **site internet multi-marques**, mais qu'elle y est bien identifiée et que l'essentiel des autres produits proposés sur ce site internet sont également proposés sur le site internet de leur marque propre, c'est alors le nombre de référence de chaque marque qui est considéré~~\*.
+* Les **5 segments de marché** considérés sont : femme, homme, enfant, bébé, sous-vêtements. L'introduction de ces 5 segments de marché vise à éviter un effet de distorsion qui pénaliserait une marque couvrant l'ensemble des segments de marché par rapport à une autre marque qui ne couvrirait \*_qu'un ou plusieurs segments_\*par exemple que le prêt à porter femme. A l'intérieur de ces segments de marché, ne sont pas considérés les références qui ne s'adresseraient qu'à un sous-ensemble spécifique des clients potentiels. Il s'agit par exemple des références spécifiques aux grandes tailles, aux femmes enceintes, aux personnes en situation de handicap, ... L'objectif est d'approximer le choix proposé à chaque consommateur : homme, femme, enfant ou bébé.&#x20;
 
 #### Exemples de produits ayant fait l'objet de demandes de précision [sur le forum Ecobalyse](https://fabrique-numerique.gitbook.io/ecobalyse/communaute) :&#x20;
 
@@ -184,7 +186,7 @@ Des précisions seront prochainement apportées sur la définition du prix de ve
 | Pulls                | 15€                      |
 | Vestes               | 31€                      |
 | Pantalons            | 14€                      |
-| Jupes                | \*_19€_\*                |
+| Jupes                | 19€                      |
 | Chaussettes          | 9€                       |
 | Sous-vêtements       | 9€                       |
 | Accessoires          | 9€                       |
@@ -205,8 +207,8 @@ Application au cas du T-shirt, avec un coût moyen de réparation de 10€ :&#x2
 
 #### Définition
 
-* Ce critère n'est pas considéré pour les vêtements dont les marques sont des PME et TPE. Il est en effet considéré qu'il est plus difficile pour une PME ou une TPE de proposer un tel service et, par conséquent, que la réparation des vêtements devrait prioritairement être assurée par des tiers.
-* Les exigences minimales attendues d'un service de réparation sont à préciser.
+* Ce critère n'est pas considéré pour les \*_références de produits neufs, y compris remanufacturés,_\*\*~~vêtements~~\* dont les marques sont des PME et TPE. \*~~Il est en effet considéré qu'il est plus difficile pour une PME ou une TPE de proposer un tel service et, par conséquent, que la réparation des vêtements devrait prioritairement être assurée par des tiers.~~\*
+* \*_Le critère « service de réparation » est considéré comme rempli dès lors qu’une marque propose un service de réparation, au moins pour ses produits, labellisé par un éco-organisme de la filière à responsabilité élargie des producteurs de textile, linge, chaussure._\*\*~~Les exigences minimales attendues d'un service de réparation sont à préciser.~~\*
 * Le canal de vente considéré est celui introduit dans la définition de l'indice "largeur de gamme".
 
 Précisions :&#x20;
