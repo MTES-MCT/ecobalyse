@@ -302,6 +302,7 @@ update ({ navKey } as session) msg model =
         ( OpenComparator, _ ) ->
             { model | modal = ComparatorModal }
                 |> App.createUpdate (session |> Session.checkComparedSimulations)
+                |> App.withCmds [ Posthog.send <| Posthog.ComparatorOpened model.scope ]
 
         ( RemoveComponentItem itemIndex, _ ) ->
             { model
@@ -338,6 +339,7 @@ update ({ navKey } as session) msg model =
                                     Bookmark.Object query
                                 )
                             )
+                    , Posthog.send <| Posthog.BookmarkSaved model.scope
                     ]
 
         ( SaveBookmarkWithTime name objectQuery now, _ ) ->
@@ -373,6 +375,10 @@ update ({ navKey } as session) msg model =
         ( SwitchBookmarksTab bookmarkTab, _ ) ->
             { model | bookmarkTab = bookmarkTab }
                 |> App.createUpdate session
+                |> App.withCmds
+                    [ Posthog.TabSelected model.scope "Partager"
+                        |> Posthog.sendIf (bookmarkTab == BookmarkView.ShareTab)
+                    ]
 
         ( SwitchComparisonType displayChoice, _ ) ->
             { model | comparisonType = displayChoice }
@@ -385,7 +391,7 @@ update ({ navKey } as session) msg model =
                         |> Route.ObjectSimulator model.scope trigram
                         |> Route.toString
                         |> Navigation.pushUrl navKey
-                    , Posthog.send (Posthog.SelectDetailedImpact trigram)
+                    , Posthog.send <| Posthog.ImpactSelected model.scope trigram
                     ]
 
         ( SwitchImpact (Err error), _ ) ->
@@ -443,7 +449,7 @@ commandsForModal modal =
 
 
 selectExample : Autocomplete Query -> PageUpdate Model Msg -> PageUpdate Model Msg
-selectExample autocompleteState pageUpdate =
+selectExample autocompleteState ({ model } as pageUpdate) =
     let
         exampleQuery =
             Autocomplete.selectedValue autocompleteState
@@ -452,6 +458,7 @@ selectExample autocompleteState pageUpdate =
     pageUpdate
         |> updateQuery exampleQuery
         |> App.apply update (SetModal NoModal)
+        |> App.withCmds [ Posthog.send <| Posthog.ExampleSelected model.scope ]
 
 
 selectComponent : Query -> Autocomplete Component -> PageUpdate Model Msg -> PageUpdate Model Msg

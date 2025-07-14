@@ -135,6 +135,7 @@ init flags requestedUrl navKey =
                         Cmd.none
                     ]
                 )
+                    |> Tuple.mapSecond (always <| Posthog.send <| Posthog.PageViewed requestedUrl)
 
 
 setupSession : Nav.Key -> Flags -> Db -> Session
@@ -427,7 +428,7 @@ update rawMsg ({ state } as model) =
                 ( UrlChanged url, _ ) ->
                     ( { model | mobileNavigationOpened = False, url = url }, Cmd.none )
                         |> setRoute url
-                        |> Tuple.mapSecond (always <| Posthog.send <| Posthog.PageView url)
+                        |> Tuple.mapSecond (always <| Posthog.send <| Posthog.PageViewed url)
 
                 ( UrlRequested (Browser.Internal url), _ ) ->
                     ( { model | url = url }, Nav.pushUrl session.navKey (Url.toString url) )

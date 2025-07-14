@@ -1,7 +1,7 @@
 import { Elm } from "./src/Main.elm";
 import * as Sentry from "@sentry/browser";
 import Charts from "./lib/charts";
-import posthog from "posthog-js";
+import posthog from "posthog-js/dist/module.no-external";
 
 // using a `let` statement to avoid this error:
 // @parcel/optimizer-swc: 'const' declarations must be initialized
@@ -13,13 +13,13 @@ const posthogEnabled = NODE_ENV === "production" && POSTHOG_KEY && POSTHOG_HOST;
 if (posthogEnabled) {
   posthog.init(POSTHOG_KEY, {
     api_host: POSTHOG_HOST,
+    person_profiles: "identified_only",
     autocapture: false,
     capture_pageleave: true,
-    capture_pageview: false, // handled in Elm land, posthog doesn't support hash-based routing well
+    capture_pageview: false, // handled in Elm land
     cross_subdomain_cookie: false,
     disable_external_dependency_loading: true,
     disable_web_experiments: true,
-    person_profiles: "identified_only",
     rageclick: false,
     rate_limiting: {
       events_per_second: 5,
@@ -27,6 +27,17 @@ if (posthogEnabled) {
     },
     respect_dnt: true,
     session_replay: false,
+    before_send: (event) => {
+      // hash-based routing handling
+      // https://posthog.com/tutorials/hash-based-routing
+      if (event?.properties?.$current_url) {
+        const parsed = new URL(event.properties.$current_url);
+        if (parsed.hash) {
+          event.properties.$pathname = parsed.pathname + parsed.hash;
+        }
+      }
+      return event;
+    },
   });
 }
 
@@ -124,15 +135,11 @@ app.ports.removeBodyClass.subscribe((cls) => {
 });
 
 app.ports.sendPosthogEvent.subscribe(({ name, properties }) => {
-  try {
-    const params = Object.fromEntries(properties);
-    if (posthogEnabled) {
-      posthog.capture(name, params);
-    } else {
-      console.log("posthog event", name, params);
-    }
-  } catch (error) {
-    console.error("posthog error", name, error);
+  const params = Object.fromEntries(properties);
+  if (posthogEnabled) {
+    posthog.capture(name, params);
+  } else {
+    console.debug("posthog event", name, JSON.stringify(params));
   }
 });
 

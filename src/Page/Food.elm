@@ -319,6 +319,7 @@ update ({ db, queries } as session) msg model =
         OpenComparator ->
             { model | modal = ComparatorModal }
                 |> App.createUpdate (session |> Session.checkComparedSimulations)
+                |> App.withCmds [ Posthog.send <| Posthog.ComparatorOpened Scope.Food ]
 
         Reset ->
             App.createUpdate session model
@@ -340,6 +341,7 @@ update ({ db, queries } as session) msg model =
                             (SaveBookmarkWithTime model.bookmarkName
                                 (Bookmark.Food query)
                             )
+                    , Posthog.send <| Posthog.BookmarkSaved Scope.Food
                     ]
 
         SaveBookmarkWithTime name foodQuery now ->
@@ -369,6 +371,10 @@ update ({ db, queries } as session) msg model =
         SwitchBookmarksTab bookmarkTab ->
             { model | bookmarkTab = bookmarkTab }
                 |> App.createUpdate session
+                |> App.withCmds
+                    [ Posthog.TabSelected Scope.Food "Partager"
+                        |> Posthog.sendIf (bookmarkTab == BookmarkView.ShareTab)
+                    ]
 
         SwitchComparisonType displayChoice ->
             { model | comparisonType = displayChoice }
@@ -381,7 +387,7 @@ update ({ db, queries } as session) msg model =
                         |> Route.FoodBuilder trigram
                         |> Route.toString
                         |> Navigation.pushUrl session.navKey
-                    , Posthog.send (Posthog.SelectDetailedImpact trigram)
+                    , Posthog.send <| Posthog.ImpactSelected Scope.Food trigram
                     ]
 
         SwitchImpact (Err error) ->
@@ -522,6 +528,7 @@ selectExample autocompleteState pageUpdate =
             LoadQuery example
     in
     update pageUpdate.session msg pageUpdate.model
+        |> App.withCmds [ Posthog.send <| Posthog.ExampleSelected Scope.Food ]
 
 
 
