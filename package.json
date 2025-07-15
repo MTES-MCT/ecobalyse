@@ -56,7 +56,7 @@
   "dependencies": {
     "@sentry/browser": "^9.28.1",
     "@sentry/node": "^9.28.1",
-    "@sentry/profiling-node": "^9.28.1",
+    "@sentry/profiling-node": "^9.31.0",
     "@sentry/tracing": "^7.120.3",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
