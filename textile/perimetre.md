@@ -28,6 +28,16 @@ Les produits suivants ne sont pas compris dans le périmètre du coût environne
 | Produits ayant plus de 20% de la masse est constituée de MP non présent dans la notice méthodologique | Chemise 100% soie (ajout de nouvelles matières) |
 | Chaussures, maroquinerie                                                                              |                                                 |
 
+{% hint style="info" %}
+## Gestion du multicouche
+
+Le calcul du coût environnemental pour un vêtement ayant plusieurs parties/ couches doit être effectué avec une seule simulation.
+
+Les matières premières de chaque couche doivent être regroupées afin de former une seule répartition.
+
+Pour les techniques différentes (tricot/tissu): prendre la technique du composant le plus lourd, la seconde couche doit faire moins de 30% de la masse.
+{% endhint %}
+
 ## Taille de référence
 
 Le calcul du coût environnemental d'un produit doit se faire selon les tailles de référence du tableau. Une correspondance entre les différentes références de taille est proposée, les tailles de référence du réference du PEFCR A\&F sont également rappelées.
