@@ -347,6 +347,17 @@ version.all(
 
     const urlWithoutPrefix = req.url.replace(/\/[^/]+\/api/, "");
 
+    // FIXME: only capture in production
+    posthog.capture("api_request", {
+      method: req.method,
+      url: req.url,
+      // FIXME: use a more robust way to get a distinct user id, definitely not the token directly :D
+      distinctId: extractTokenFromHeaders(req.headers),
+      properties: {
+        $set_once: { firstRouteCalled: req.url },
+      },
+    });
+
     elmApp.ports.input.send({
       method: req.method,
       url: urlWithoutPrefix,
@@ -381,12 +392,12 @@ const server = app.listen(expressPort, expressHost, () => {
 });
 
 async function handleExit(signal) {
-  console.log(`Received ${signal}. Flushing...`);
+  // Since the Node client batches events to PostHog, the shutdown function
+  // ensures that all the events are captured before shutting down
+  console.log(`Received ${signal}. Flushing…`);
   await posthog.shutdown();
-  console.log(`Flush complete`);
-  server.close(() => {
-    process.exit(0);
-  });
+  console.log("Flush complete");
+  server.close(() => process.exit(0));
 }
 
 process.on("SIGINT", handleExit);
