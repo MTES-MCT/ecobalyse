@@ -2,27 +2,23 @@
 
 ## Catégorie
 
-Les catégories pour le secteur du textile disponibles pour le secteur du textile d'habillement sont :
+Les catégories disponibles pour le secteur du textile d'habillement sont :
 
-Les produits compris ne sont pas exhaustifs.
-
-| Catégorie       | Produits compris                                 |
-| --------------- | ------------------------------------------------ |
-| Boxer/Slip      |                                                  |
-| Caleçon         |                                                  |
-| Chaussettes     |                                                  |
-| Chemise         | Tunique, blouse, chemise                         |
-| Jean            |                                                  |
-| Jupe/Robe       | Jupe, robe, combinaison                          |
-| Maillot de bain | Maillot de bain 1 pièce, 2 pièces                |
-| Manteau/ Veste  | Blazer, veste de costume, blouson, parka, ....   |
-| Pantalon        | Short, pantalon chino                            |
-| Pull            | Gilet, cardigan, sweatshirt                      |
-| T-shirt/Polo    | T-shirt manches courtes ou manches longues, polo |
+| Catégorie       | Exemple de produits compris                           |
+| --------------- | ----------------------------------------------------- |
+| Boxer/Slip      |                                                       |
+| Caleçon         |                                                       |
+| Chaussettes     |                                                       |
+| Chemise         | Tunique, blouse, chemise, ...                         |
+| Jean            |                                                       |
+| Jupe/Robe       | Jupe, robe, combinaison, ...                          |
+| Maillot de bain | Maillot de bain 1 pièce, 2 pièces, ...                |
+| Manteau/ Veste  | Blazer, veste de costume, blouson, parka, ....        |
+| Pantalon        | Short, pantalon chino, ...                            |
+| Pull            | Gilet, cardigan, sweatshirt, ...                      |
+| T-shirt/Polo    | T-shirt manches courtes ou manches longues, polo, ... |
 
 Les produits suivants ne sont pas compris dans le périmètre du coût environnemental. Pour pouvoir les modéliser, il faut soit faire une modification au niveau infra-réglementaire ou une modification de l'arrêté
-
-
 
 | Nécessitant une modification de l’arrêté                                                              | Infra-réglementaire                             |
 | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------- |
@@ -30,6 +26,7 @@ Les produits suivants ne sont pas compris dans le périmètre du coût environne
 | Produits textiles d’habillement à usage unique                                                        | Doudoune                                        |
 | Produit de textile d’habillement à composants électroniques                                           | Déguisement                                     |
 | Produits ayant plus de 20% de la masse est constituée de MP non présent dans la notice méthodologique | Chemise 100% soie (ajout de nouvelles matières) |
+| Chaussures, maroquinerie                                                                              |                                                 |
 
 ## Taille de référence
 
