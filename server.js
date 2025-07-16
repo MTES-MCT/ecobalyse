@@ -12,6 +12,7 @@ const { dataFiles } = require("./lib");
 const { decrypt } = require("./lib/crypto");
 const express = require("express");
 const rateLimit = require("express-rate-limit");
+const { extractTokenFromHeaders } = require("./lib/http");
 // monitoring
 const { setupSentry } = require("./lib/sentry");
 const { createMatomoTracker } = require("./lib/matomo");
@@ -210,13 +211,6 @@ const openApiContents = processOpenApi(
 const processesImpacts = fs.readFileSync(dataFiles.detailed, "utf8");
 const processes = fs.readFileSync(dataFiles.noDetails, "utf8");
 
-function extractTokenFromHeaders(headers) {
-  // Handle both old and new auth token headers
-  const bearerToken = headers["authorization"]?.split("Bearer ")[1]?.trim();
-  const classicToken = headers["token"]; // from old auth system
-  return bearerToken ?? classicToken;
-}
-
 const getProcesses = async (headers, customProcessesImpacts, customProcesses) => {
   let isValidToken = false;
   const token = extractTokenFromHeaders(headers);
@@ -267,9 +261,9 @@ elmApp.ports.output.subscribe(({ status, body, jsResponseHandler }) => {
   return jsResponseHandler({ status, body });
 });
 
-api.get("/", (req, res) => {
+api.get("/", async (req, res) => {
   matomoTracker.track(200, req);
-  posthogTracker.captureEvent(200, req);
+  await posthogTracker.captureEvent(200, req);
   res.status(200).send(openApiContents);
 });
 
@@ -295,9 +289,9 @@ api.all(/(.*)/, bodyParser.json(), jsonErrorHandler, async (req, res) => {
     url: req.url,
     body: req.body,
     processes,
-    jsResponseHandler: ({ status, body }) => {
+    jsResponseHandler: async ({ status, body }) => {
       matomoTracker.track(status, req);
-      posthogTracker.captureEvent(status, req);
+      await posthogTracker.captureEvent(status, req);
       respondWithFormattedJSON(res, status, body);
     },
   });
@@ -353,7 +347,7 @@ version.all(
     const urlWithoutPrefix = req.url.replace(/\/[^/]+\/api/, "");
 
     matomoTracker.track(res.statusCode, req);
-    posthogTracker.captureEvent(res.statusCode, req);
+    await posthogTracker.captureEvent(res.statusCode, req);
 
     elmApp.ports.input.send({
       method: req.method,
