@@ -471,6 +471,11 @@ update ({ queries, navKey } as session) msg model =
         ( SwitchImpactsTab impactsTab, _ ) ->
             { model | activeImpactsTab = impactsTab }
                 |> App.createUpdate session
+                |> App.withCmds
+                    [ ImpactTabs.tabToString impactsTab
+                        |> Posthog.TabSelected Scope.Textile
+                        |> Posthog.send
+                    ]
 
         ( SwitchTab RegulatoryTab, _ ) ->
             App.createUpdate session

@@ -20,6 +20,7 @@ type Event
     | ComparatorOpened Scope
     | ExampleSelected Scope
     | ImpactSelected Scope Trigram
+    | PageErrored Url String
     | PageViewed Url
     | TabSelected Scope String
 
@@ -65,6 +66,12 @@ send event =
                 custom "impact_selected"
                     [ ( "scope", Scope.toString scope )
                     , ( "trigram", Definition.toString trigram )
+                    ]
+
+            PageErrored url error ->
+                custom "page_errored"
+                    [ ( "url", Url.toString url )
+                    , ( "error", error )
                     ]
 
             PageViewed url ->

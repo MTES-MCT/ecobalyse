@@ -397,6 +397,11 @@ update ({ db, queries } as session) msg model =
         SwitchImpactsTab impactsTab ->
             { model | activeImpactsTab = impactsTab }
                 |> App.createUpdate session
+                |> App.withCmds
+                    [ ImpactTabs.tabToString impactsTab
+                        |> Posthog.TabSelected Scope.Food
+                        |> Posthog.send
+                    ]
 
         ToggleComparedSimulation bookmark checked ->
             App.createUpdate (session |> Session.toggleComparedSimulation bookmark checked) model

@@ -110,7 +110,7 @@ init flags requestedUrl navKey =
                   , tray = Toast.tray
                   , url = requestedUrl
                   }
-                , Cmd.none
+                , Posthog.send <| Posthog.PageErrored requestedUrl err
                 )
 
             Ok db ->
@@ -133,9 +133,9 @@ init flags requestedUrl navKey =
 
                       else
                         Cmd.none
+                    , Posthog.send <| Posthog.PageViewed requestedUrl
                     ]
                 )
-                    |> Tuple.mapSecond (always <| Posthog.send <| Posthog.PageViewed requestedUrl)
 
 
 setupSession : Nav.Key -> Flags -> Db -> Session

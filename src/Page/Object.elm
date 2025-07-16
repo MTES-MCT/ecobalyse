@@ -401,6 +401,11 @@ update ({ navKey } as session) msg model =
         ( SwitchImpactsTab impactsTab, _ ) ->
             { model | activeImpactsTab = impactsTab }
                 |> App.createUpdate session
+                |> App.withCmds
+                    [ ImpactTabs.tabToString impactsTab
+                        |> Posthog.TabSelected model.scope
+                        |> Posthog.send
+                    ]
 
         ( ToggleComparedSimulation bookmark checked, _ ) ->
             model
