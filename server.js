@@ -12,7 +12,7 @@ const { dataFiles } = require("./lib");
 const { decrypt } = require("./lib/crypto");
 const express = require("express");
 const rateLimit = require("express-rate-limit");
-const { extractTokenFromHeaders } = require("./lib/http");
+const { createCSPDirectives, extractTokenFromHeaders } = require("./lib/http");
 // monitoring
 const { setupSentry } = require("./lib/sentry");
 const { createMatomoTracker } = require("./lib/matomo");
@@ -22,14 +22,7 @@ const expressHost = "0.0.0.0";
 const expressPort = 8001;
 
 // Env vars
-const {
-  ENABLE_FOOD_SECTION,
-  MATOMO_HOST,
-  NODE_ENV,
-  POSTHOG_HOST,
-  RATELIMIT_MAX_RPM,
-  RATELIMIT_WHITELIST,
-} = process.env;
+const { ENABLE_FOOD_SECTION, NODE_ENV, RATELIMIT_MAX_RPM, RATELIMIT_WHITELIST } = process.env;
 
 const INTERNAL_BACKEND_URL = "http://localhost:8002";
 
@@ -55,10 +48,10 @@ app.use(
 setupSentry(app);
 
 // Posthog API tracker
-const posthogTracker = createPosthogTracker();
+const posthogTracker = createPosthogTracker(process.env);
 
 // Matomo
-const matomoTracker = createMatomoTracker();
+const matomoTracker = createMatomoTracker(process.env);
 
 // Middleware
 const jsonErrorHandler = bodyParserErrorHandler({
@@ -71,32 +64,7 @@ const jsonErrorHandler = bodyParserErrorHandler({
 });
 
 // Web
-function createCSPDirectives() {
-  return {
-    "default-src": [
-      "'self'",
-      "https://api.github.com",
-      "https://raw.githubusercontent.com",
-      "https://sentry.incubateur.net",
-      "*.gouv.fr",
-    ],
-    "frame-src": ["'self'", `https://${MATOMO_HOST}`],
-    "img-src": [
-      "'self'",
-      "data:",
-      "blob:",
-      "https://avatars.githubusercontent.com/",
-      "https://raw.githubusercontent.com",
-    ],
-    "connect-src": ["'self'", POSTHOG_HOST],
-    "object-src": ["blob:"],
-    // FIXME: We should be able to remove 'unsafe-inline' as soon as the Matomo
-    // server sends the appropriate `Access-Control-Allow-Origin` header
-    // @see https://matomo.org/faq/how-to/faq_18694/
-    "script-src": ["'self'", "'unsafe-inline'", `https://${MATOMO_HOST}`, POSTHOG_HOST],
-    "worker-src": ["'self'", POSTHOG_HOST],
-  };
-}
+
 // Note: helmet middlewares have to be called *after* the Sentry middleware
 // but *before* other middlewares to be applied effectively
 app.use(
@@ -106,7 +74,7 @@ app.use(
     xssFilter: false,
     contentSecurityPolicy: {
       useDefaults: true,
-      directives: createCSPDirectives(),
+      directives: createCSPDirectives(process.env),
     },
   }),
 );
