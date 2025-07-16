@@ -1,5 +1,4 @@
 require("dotenv").config();
-const { monitorExpressApp: setupSentry } = require("./lib/instrument");
 const fs = require("fs");
 const path = require("path");
 const bodyParser = require("body-parser");
@@ -9,11 +8,14 @@ const yaml = require("js-yaml");
 const helmet = require("helmet");
 const { Elm } = require("./server-app");
 const jsonUtils = require("./lib/json");
-const { setupTracker, dataFiles } = require("./lib");
+const { dataFiles } = require("./lib");
 const { decrypt } = require("./lib/crypto");
 const express = require("express");
 const rateLimit = require("express-rate-limit");
-const { PostHog } = require("posthog-node");
+// monitoring
+const { setupSentry } = require("./lib/sentry");
+const { createMatomoTracker } = require("./lib/matomo");
+const { createPosthogTracker } = require("./lib/posthog");
 
 const expressHost = "0.0.0.0";
 const expressPort = 8001;
@@ -24,7 +26,6 @@ const {
   MATOMO_HOST,
   NODE_ENV,
   POSTHOG_HOST,
-  POSTHOG_KEY,
   RATELIMIT_MAX_RPM,
   RATELIMIT_WHITELIST,
 } = process.env;
@@ -52,32 +53,11 @@ app.use(
 // Sentry monitoring
 setupSentry(app);
 
-function createPosthogTracker() {
-  if (NODE_ENV === "production" && POSTHOG_KEY && POSTHOG_HOST) {
-    const posthog = new PostHog(POSTHOG_KEY, { host: POSTHOG_HOST });
-    return {
-      captureEvent: (statusCode, { headers, method, url }) =>
-        posthog.capture("api_request", {
-          statusCode,
-          method,
-          url,
-          distinctId: extractTokenFromHeaders(headers),
-          properties: {
-            $set_once: { firstRouteCalled: url },
-          },
-        }),
-      shutdown: async () => posthog.shutdown(),
-    };
-  } else {
-    return {
-      captureRequest: () => console.debug("fake posthog capture", req.method, req.url),
-      shutdown: async () => console.debug("fake posthog shutdown"),
-    };
-  }
-}
-
 // Posthog API tracker
 const posthogTracker = createPosthogTracker();
+
+// Matomo
+const matomoTracker = createMatomoTracker();
 
 // Middleware
 const jsonErrorHandler = bodyParserErrorHandler({
@@ -90,7 +70,32 @@ const jsonErrorHandler = bodyParserErrorHandler({
 });
 
 // Web
-
+function createCSPDirectives() {
+  return {
+    "default-src": [
+      "'self'",
+      "https://api.github.com",
+      "https://raw.githubusercontent.com",
+      "https://sentry.incubateur.net",
+      "*.gouv.fr",
+    ],
+    "frame-src": ["'self'", `https://${MATOMO_HOST}`],
+    "img-src": [
+      "'self'",
+      "data:",
+      "blob:",
+      "https://avatars.githubusercontent.com/",
+      "https://raw.githubusercontent.com",
+    ],
+    "connect-src": ["'self'", POSTHOG_HOST],
+    "object-src": ["blob:"],
+    // FIXME: We should be able to remove 'unsafe-inline' as soon as the Matomo
+    // server sends the appropriate `Access-Control-Allow-Origin` header
+    // @see https://matomo.org/faq/how-to/faq_18694/
+    "script-src": ["'self'", "'unsafe-inline'", `https://${MATOMO_HOST}`, POSTHOG_HOST],
+    "worker-src": ["'self'", POSTHOG_HOST],
+  };
+}
 // Note: helmet middlewares have to be called *after* the Sentry middleware
 // but *before* other middlewares to be applied effectively
 app.use(
@@ -100,28 +105,7 @@ app.use(
     xssFilter: false,
     contentSecurityPolicy: {
       useDefaults: true,
-      directives: {
-        "default-src": [
-          "'self'",
-          "https://api.github.com",
-          "https://raw.githubusercontent.com",
-          "https://sentry.incubateur.net",
-          "*.gouv.fr",
-        ],
-        "frame-src": ["'self'", `https://${MATOMO_HOST}`, "https://www.loom.com"],
-        "img-src": [
-          "'self'",
-          "data:",
-          "blob:",
-          "https://avatars.githubusercontent.com/",
-          "https://raw.githubusercontent.com",
-        ],
-        // FIXME: We should be able to remove 'unsafe-inline' as soon as the Matomo
-        // server sends the appropriate `Access-Control-Allow-Origin` header
-        // @see https://matomo.org/faq/how-to/faq_18694/
-        "script-src": ["'self'", "'unsafe-inline'", `https://${MATOMO_HOST}`],
-        "object-src": ["blob:"],
-      },
+      directives: createCSPDirectives(),
     },
   }),
 );
@@ -222,9 +206,6 @@ const openApiContents = processOpenApi(
   require("./package.json").version,
 );
 
-// Matomo
-const apiTracker = setupTracker(openApiContents);
-
 // Processes
 const processesImpacts = fs.readFileSync(dataFiles.detailed, "utf8");
 const processes = fs.readFileSync(dataFiles.noDetails, "utf8");
@@ -287,7 +268,7 @@ elmApp.ports.output.subscribe(({ status, body, jsResponseHandler }) => {
 });
 
 api.get("/", (req, res) => {
-  apiTracker.track(200, req);
+  matomoTracker.track(200, req);
   posthogTracker.captureEvent(200, req);
   res.status(200).send(openApiContents);
 });
@@ -315,7 +296,7 @@ api.all(/(.*)/, bodyParser.json(), jsonErrorHandler, async (req, res) => {
     body: req.body,
     processes,
     jsResponseHandler: ({ status, body }) => {
-      apiTracker.track(status, req);
+      matomoTracker.track(status, req);
       posthogTracker.captureEvent(status, req);
       respondWithFormattedJSON(res, status, body);
     },
@@ -371,7 +352,7 @@ version.all(
 
     const urlWithoutPrefix = req.url.replace(/\/[^/]+\/api/, "");
 
-    apiTracker.track(res.statusCode, req);
+    matomoTracker.track(res.statusCode, req);
     posthogTracker.captureEvent(res.statusCode, req);
 
     elmApp.ports.input.send({
