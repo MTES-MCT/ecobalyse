@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { monitorExpressApp } = require("./lib/instrument");
+const { monitorExpressApp: setupSentry } = require("./lib/instrument");
 const fs = require("fs");
 const path = require("path");
 const bodyParser = require("body-parser");
@@ -50,11 +50,34 @@ app.use(
 );
 
 // Sentry monitoring
-monitorExpressApp(app);
+setupSentry(app);
 
-// Posthog api usage tracking
-// FIXME: enable only in production
-const posthog = new PostHog(POSTHOG_KEY, { host: POSTHOG_HOST });
+function createPosthogTracker() {
+  if (NODE_ENV === "production" && POSTHOG_KEY && POSTHOG_HOST) {
+    const posthog = new PostHog(POSTHOG_KEY, { host: POSTHOG_HOST });
+    return {
+      captureEvent: (statusCode, { headers, method, url }) =>
+        posthog.capture("api_request", {
+          statusCode,
+          method,
+          url,
+          distinctId: extractTokenFromHeaders(headers),
+          properties: {
+            $set_once: { firstRouteCalled: url },
+          },
+        }),
+      shutdown: async () => posthog.shutdown(),
+    };
+  } else {
+    return {
+      captureRequest: () => console.debug("fake posthog capture", req.method, req.url),
+      shutdown: async () => console.debug("fake posthog shutdown"),
+    };
+  }
+}
+
+// Posthog API tracker
+const posthogTracker = createPosthogTracker();
 
 // Middleware
 const jsonErrorHandler = bodyParserErrorHandler({
@@ -265,7 +288,7 @@ elmApp.ports.output.subscribe(({ status, body, jsResponseHandler }) => {
 
 api.get("/", (req, res) => {
   apiTracker.track(200, req);
-
+  posthogTracker.captureEvent(200, req);
   res.status(200).send(openApiContents);
 });
 
@@ -293,6 +316,7 @@ api.all(/(.*)/, bodyParser.json(), jsonErrorHandler, async (req, res) => {
     processes,
     jsResponseHandler: ({ status, body }) => {
       apiTracker.track(status, req);
+      posthogTracker.captureEvent(status, req);
       respondWithFormattedJSON(res, status, body);
     },
   });
@@ -347,16 +371,8 @@ version.all(
 
     const urlWithoutPrefix = req.url.replace(/\/[^/]+\/api/, "");
 
-    // FIXME: only capture in production
-    posthog.capture("api_request", {
-      method: req.method,
-      url: req.url,
-      // FIXME: use a more robust way to get a distinct user id, definitely not the token directly :D
-      distinctId: extractTokenFromHeaders(req.headers),
-      properties: {
-        $set_once: { firstRouteCalled: req.url },
-      },
-    });
+    apiTracker.track(res.statusCode, req);
+    posthogTracker.captureEvent(res.statusCode, req);
 
     elmApp.ports.input.send({
       method: req.method,
@@ -395,7 +411,7 @@ async function handleExit(signal) {
   // Since the Node client batches events to PostHog, the shutdown function
   // ensures that all the events are captured before shutting down
   console.log(`Received ${signal}. Flushing…`);
-  await posthog.shutdown();
+  await posthogTracker.shutdown();
   console.log("Flush complete");
   server.close(() => process.exit(0));
 }
