@@ -1,4 +1,4 @@
-const { formatNumber, serialize } = require("../lib/json");
+const { formatNumber, serialize } = require("../../lib/json");
 
 const testData = [
   [NaN, `null`],
