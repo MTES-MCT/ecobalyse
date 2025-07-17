@@ -20,6 +20,7 @@ import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Object.Query as Query exposing (Query)
 import Data.Object.Simulator as Simulator
+import Data.Posthog as Posthog
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
 import Data.Scope as Scope exposing (Scope)
@@ -301,6 +302,7 @@ update ({ navKey } as session) msg model =
         ( OpenComparator, _ ) ->
             { model | modal = ComparatorModal }
                 |> App.createUpdate (session |> Session.checkComparedSimulations)
+                |> App.withCmds [ Posthog.send <| Posthog.ComparatorOpened model.scope ]
 
         ( RemoveComponentItem itemIndex, _ ) ->
             { model
@@ -311,10 +313,12 @@ update ({ navKey } as session) msg model =
             }
                 |> App.createUpdate session
                 |> updateQuery (query |> Query.updateComponents (LE.removeAt itemIndex))
+                |> App.withCmds [ Posthog.send <| Posthog.ComponentUpdated model.scope ]
 
         ( RemoveElement targetElement, _ ) ->
             App.createUpdate session model
                 |> updateQuery (query |> Query.updateComponents (Component.removeElement targetElement))
+                |> App.withCmds [ Posthog.send <| Posthog.ComponentUpdated model.scope ]
 
         ( RemoveElementTransform targetElement transformIndex, _ ) ->
             App.createUpdate session model
@@ -323,6 +327,7 @@ update ({ navKey } as session) msg model =
                         |> Query.updateComponents
                             (Component.removeElementTransform targetElement transformIndex)
                     )
+                |> App.withCmds [ Posthog.send <| Posthog.ComponentUpdated model.scope ]
 
         ( SaveBookmark, _ ) ->
             App.createUpdate session model
@@ -337,6 +342,7 @@ update ({ navKey } as session) msg model =
                                     Bookmark.Object query
                                 )
                             )
+                    , Posthog.send <| Posthog.BookmarkSaved model.scope
                     ]
 
         ( SaveBookmarkWithTime name objectQuery now, _ ) ->
@@ -372,10 +378,19 @@ update ({ navKey } as session) msg model =
         ( SwitchBookmarksTab bookmarkTab, _ ) ->
             { model | bookmarkTab = bookmarkTab }
                 |> App.createUpdate session
+                |> App.withCmds
+                    [ Posthog.TabSelected model.scope "Partager"
+                        |> Posthog.sendIf (bookmarkTab == BookmarkView.ShareTab)
+                    ]
 
         ( SwitchComparisonType displayChoice, _ ) ->
             { model | comparisonType = displayChoice }
                 |> App.createUpdate session
+                |> App.withCmds
+                    [ ComparatorView.comparisonTypeToString displayChoice
+                        |> Posthog.ComparisonTypeSelected model.scope
+                        |> Posthog.send
+                    ]
 
         ( SwitchImpact (Ok trigram), _ ) ->
             App.createUpdate session model
@@ -384,6 +399,7 @@ update ({ navKey } as session) msg model =
                         |> Route.ObjectSimulator model.scope trigram
                         |> Route.toString
                         |> Navigation.pushUrl navKey
+                    , Posthog.send <| Posthog.ImpactSelected model.scope trigram
                     ]
 
         ( SwitchImpact (Err error), _ ) ->
@@ -393,6 +409,11 @@ update ({ navKey } as session) msg model =
         ( SwitchImpactsTab impactsTab, _ ) ->
             { model | activeImpactsTab = impactsTab }
                 |> App.createUpdate session
+                |> App.withCmds
+                    [ ImpactTabs.tabToString impactsTab
+                        |> Posthog.TabSelected model.scope
+                        |> Posthog.send
+                    ]
 
         ( ToggleComparedSimulation bookmark checked, _ ) ->
             model
@@ -417,6 +438,7 @@ update ({ navKey } as session) msg model =
                         |> Query.updateComponents
                             (Component.updateItem itemIndex (\item -> { item | quantity = quantity }))
                     )
+                |> App.withCmds [ Posthog.send <| Posthog.ComponentUpdated model.scope ]
 
         ( UpdateElementAmount _ Nothing, _ ) ->
             App.createUpdate session model
@@ -441,7 +463,7 @@ commandsForModal modal =
 
 
 selectExample : Autocomplete Query -> PageUpdate Model Msg -> PageUpdate Model Msg
-selectExample autocompleteState pageUpdate =
+selectExample autocompleteState ({ model } as pageUpdate) =
     let
         exampleQuery =
             Autocomplete.selectedValue autocompleteState
@@ -450,15 +472,17 @@ selectExample autocompleteState pageUpdate =
     pageUpdate
         |> updateQuery exampleQuery
         |> App.apply update (SetModal NoModal)
+        |> App.withCmds [ Posthog.send <| Posthog.ExampleSelected model.scope ]
 
 
 selectComponent : Query -> Autocomplete Component -> PageUpdate Model Msg -> PageUpdate Model Msg
-selectComponent query autocompleteState pageUpdate =
+selectComponent query autocompleteState ({ model } as pageUpdate) =
     case Autocomplete.selectedValue autocompleteState of
         Just component ->
             pageUpdate
                 |> updateQuery (query |> Query.updateComponents (Component.addItem component.id))
                 |> App.apply update (SetModal NoModal)
+                |> App.withCmds [ Posthog.send <| Posthog.ComponentAdded model.scope ]
 
         Nothing ->
             pageUpdate |> App.notifyWarning "Aucun composant sélectionné"
@@ -472,7 +496,7 @@ selectProcess :
     -> Query
     -> PageUpdate Model Msg
     -> PageUpdate Model Msg
-selectProcess category targetItem maybeElementIndex autocompleteState query pageUpdate =
+selectProcess category targetItem maybeElementIndex autocompleteState query ({ model } as pageUpdate) =
     case Autocomplete.selectedValue autocompleteState of
         Just process ->
             case
@@ -487,6 +511,7 @@ selectProcess category targetItem maybeElementIndex autocompleteState query page
                     pageUpdate
                         |> updateQuery validQuery
                         |> App.apply update (SetModal NoModal)
+                        |> App.withCmds [ Posthog.send <| Posthog.ComponentUpdated model.scope ]
 
         Nothing ->
             pageUpdate |> App.notifyWarning "Aucun composant sélectionné"

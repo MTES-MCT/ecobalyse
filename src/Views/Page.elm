@@ -497,7 +497,7 @@ notificationView { session, toMsg } notification =
                     backendError |> Alert.backendError session (Just closeNotification)
             in
             case backendError of
-                BackendError.BadStatus { detail, statusCode } ->
+                BackendError.BadStatus { detail, statusCode, title } ->
                     if statusCode == 409 && String.contains "user already exists" detail then
                         Alert.simple
                             { attributes = []
@@ -505,6 +505,19 @@ notificationView { session, toMsg } notification =
                             , content = [ text "Un compte associé à cette adresse email existe déjà." ]
                             , level = Alert.Warning
                             , title = Just "Compte utilisateur existant"
+                            }
+                        -- Note: despite the message, there's no "password" involved, just an expired magic link
+
+                    else if statusCode == 403 && (title |> Maybe.map (String.contains "password invalid") |> Maybe.withDefault False) then
+                        Alert.simple
+                            { attributes = []
+                            , close = Just closeNotification
+                            , content =
+                                [ text """Ce lien d'authentification à usage unique a déjà été utilisé.
+                                          Vous pouvez en redemander un nouveau via le formulaire de connexion ci-dessous."""
+                                ]
+                            , level = Alert.Warning
+                            , title = Just "Lien d'identification expiré"
                             }
 
                     else
