@@ -453,6 +453,11 @@ update ({ queries, navKey } as session) msg model =
         ( SwitchComparisonType displayChoice, _ ) ->
             { model | comparisonType = displayChoice }
                 |> App.createUpdate session
+                |> App.withCmds
+                    [ ComparatorView.comparisonTypeToString displayChoice
+                        |> Posthog.ComparisonTypeSelected Scope.Textile
+                        |> Posthog.send
+                    ]
 
         ( SwitchImpact (Ok trigram), _ ) ->
             App.createUpdate session model

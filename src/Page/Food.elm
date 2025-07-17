@@ -379,6 +379,11 @@ update ({ db, queries } as session) msg model =
         SwitchComparisonType displayChoice ->
             { model | comparisonType = displayChoice }
                 |> App.createUpdate session
+                |> App.withCmds
+                    [ ComparatorView.comparisonTypeToString displayChoice
+                        |> Posthog.ComparisonTypeSelected Scope.Food
+                        |> Posthog.send
+                    ]
 
         SwitchImpact (Ok trigram) ->
             App.createUpdate session model

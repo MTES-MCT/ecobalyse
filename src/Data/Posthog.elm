@@ -18,6 +18,7 @@ type Event
     | AuthSignup
     | BookmarkSaved Scope
     | ComparatorOpened Scope
+    | ComparisonTypeSelected Scope String
     | ExampleSelected Scope
     | ImpactSelected Scope Trigram
     | PageErrored Url String
@@ -57,6 +58,12 @@ send event =
             ComparatorOpened scope ->
                 custom "comparator_opened"
                     [ ( "scope", Scope.toString scope ) ]
+
+            ComparisonTypeSelected scope comparisonType ->
+                custom "comparison_type_selected"
+                    [ ( "scope", Scope.toString scope )
+                    , ( "comparison_type", comparisonType )
+                    ]
 
             ExampleSelected scope ->
                 custom "example_selected"
