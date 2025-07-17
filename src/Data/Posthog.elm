@@ -19,6 +19,8 @@ type Event
     | BookmarkSaved Scope
     | ComparatorOpened Scope
     | ComparisonTypeSelected Scope String
+    | ComponentAdded Scope
+    | ComponentUpdated Scope
     | ExampleSelected Scope
     | ImpactSelected Scope Trigram
     | PageErrored Url String
@@ -65,6 +67,15 @@ send event =
                     , ( "comparison_type", comparisonType )
                     ]
 
+            ComponentAdded scope ->
+                custom "component_added"
+                    [ ( "scope", Scope.toString scope )
+                    ]
+
+            ComponentUpdated scope ->
+                custom "component_updated"
+                    [ ( "scope", Scope.toString scope ) ]
+
             ExampleSelected scope ->
                 custom "example_selected"
                     [ ( "scope", Scope.toString scope ) ]
@@ -94,13 +105,9 @@ send event =
                     ]
 
 
-sendIf : Bool -> Event -> Cmd msg
-sendIf condition event =
-    if condition then
-        send event
-
-    else
-        Cmd.none
+custom : String -> List ( String, String ) -> SerializedEvent
+custom name properties =
+    { name = name, properties = properties }
 
 
 simple : String -> SerializedEvent
@@ -108,6 +115,10 @@ simple name =
     { name = name, properties = [] }
 
 
-custom : String -> List ( String, String ) -> SerializedEvent
-custom name properties =
-    { name = name, properties = properties }
+sendIf : Bool -> Event -> Cmd msg
+sendIf condition event =
+    if condition then
+        send event
+
+    else
+        Cmd.none

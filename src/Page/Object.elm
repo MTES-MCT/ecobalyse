@@ -313,10 +313,12 @@ update ({ navKey } as session) msg model =
             }
                 |> App.createUpdate session
                 |> updateQuery (query |> Query.updateComponents (LE.removeAt itemIndex))
+                |> App.withCmds [ Posthog.send <| Posthog.ComponentUpdated model.scope ]
 
         ( RemoveElement targetElement, _ ) ->
             App.createUpdate session model
                 |> updateQuery (query |> Query.updateComponents (Component.removeElement targetElement))
+                |> App.withCmds [ Posthog.send <| Posthog.ComponentUpdated model.scope ]
 
         ( RemoveElementTransform targetElement transformIndex, _ ) ->
             App.createUpdate session model
@@ -325,6 +327,7 @@ update ({ navKey } as session) msg model =
                         |> Query.updateComponents
                             (Component.removeElementTransform targetElement transformIndex)
                     )
+                |> App.withCmds [ Posthog.send <| Posthog.ComponentUpdated model.scope ]
 
         ( SaveBookmark, _ ) ->
             App.createUpdate session model
@@ -435,6 +438,7 @@ update ({ navKey } as session) msg model =
                         |> Query.updateComponents
                             (Component.updateItem itemIndex (\item -> { item | quantity = quantity }))
                     )
+                |> App.withCmds [ Posthog.send <| Posthog.ComponentUpdated model.scope ]
 
         ( UpdateElementAmount _ Nothing, _ ) ->
             App.createUpdate session model
@@ -472,12 +476,13 @@ selectExample autocompleteState ({ model } as pageUpdate) =
 
 
 selectComponent : Query -> Autocomplete Component -> PageUpdate Model Msg -> PageUpdate Model Msg
-selectComponent query autocompleteState pageUpdate =
+selectComponent query autocompleteState ({ model } as pageUpdate) =
     case Autocomplete.selectedValue autocompleteState of
         Just component ->
             pageUpdate
                 |> updateQuery (query |> Query.updateComponents (Component.addItem component.id))
                 |> App.apply update (SetModal NoModal)
+                |> App.withCmds [ Posthog.send <| Posthog.ComponentAdded model.scope ]
 
         Nothing ->
             pageUpdate |> App.notifyWarning "Aucun composant sélectionné"
@@ -491,7 +496,7 @@ selectProcess :
     -> Query
     -> PageUpdate Model Msg
     -> PageUpdate Model Msg
-selectProcess category targetItem maybeElementIndex autocompleteState query pageUpdate =
+selectProcess category targetItem maybeElementIndex autocompleteState query ({ model } as pageUpdate) =
     case Autocomplete.selectedValue autocompleteState of
         Just process ->
             case
@@ -506,6 +511,7 @@ selectProcess category targetItem maybeElementIndex autocompleteState query page
                     pageUpdate
                         |> updateQuery validQuery
                         |> App.apply update (SetModal NoModal)
+                        |> App.withCmds [ Posthog.send <| Posthog.ComponentUpdated model.scope ]
 
         Nothing ->
             pageUpdate |> App.notifyWarning "Aucun composant sélectionné"
