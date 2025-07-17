@@ -1,4 +1,5 @@
 require("dotenv").config();
+
 const fs = require("fs");
 const path = require("path");
 const bodyParser = require("body-parser");
@@ -10,13 +11,13 @@ const { Elm } = require("./server-app");
 const jsonUtils = require("./lib/json");
 const { dataFiles } = require("./lib");
 const { decrypt } = require("./lib/crypto");
-const express = require("express");
 const rateLimit = require("express-rate-limit");
 const { createCSPDirectives, extractTokenFromHeaders } = require("./lib/http");
 // monitoring
-const { setupSentry } = require("./lib/sentry");
+const { setupSentry } = require("./lib/sentry"); // MUST be required BEFORE express
 const { createMatomoTracker } = require("./lib/matomo");
 const { createPosthogTracker } = require("./lib/posthog");
+const express = require("express");
 
 const expressHost = "0.0.0.0";
 const expressPort = 8001;
@@ -347,7 +348,7 @@ app.use("/api", api);
 app.use("/versions", version);
 
 const server = app.listen(expressPort, expressHost, () => {
-  console.log(`Server listening at http://${expressHost}:${expressPort}`);
+  console.log(`Server listening at http://${expressHost}:${expressPort} (NODE_ENV=${NODE_ENV})`);
 });
 
 async function handleExit(signal) {
