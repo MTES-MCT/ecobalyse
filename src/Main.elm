@@ -428,7 +428,7 @@ update rawMsg ({ state } as model) =
                 ( UrlChanged url, _ ) ->
                     ( { model | mobileNavigationOpened = False, url = url }, Cmd.none )
                         |> setRoute url
-                        |> Tuple.mapSecond (always <| Posthog.send <| Posthog.PageViewed url)
+                        |> Tuple.mapSecond (\cmd -> Cmd.batch [ cmd, Posthog.send <| Posthog.PageViewed url ])
 
                 ( UrlRequested (Browser.Internal url), _ ) ->
                     ( { model | url = url }, Nav.pushUrl session.navKey (Url.toString url) )
