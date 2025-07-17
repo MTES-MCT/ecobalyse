@@ -5,9 +5,9 @@ import posthog from "posthog-js/dist/module.no-external";
 
 // using a `let` statement to avoid this error:
 // @parcel/optimizer-swc: 'const' declarations must be initialized
-let { NODE_ENV, POSTHOG_KEY, POSTHOG_HOST, SENTRY_DSN } = process.env;
+let { FORCE_POSTHOG = false, NODE_ENV, POSTHOG_KEY, POSTHOG_HOST, SENTRY_DSN } = process.env;
 
-const posthogEnabled = NODE_ENV === "production" && POSTHOG_KEY && POSTHOG_HOST;
+const posthogEnabled = (NODE_ENV === "production" || FORCE_POSTHOG) && POSTHOG_KEY && POSTHOG_HOST;
 
 // Posthog
 if (posthogEnabled) {
@@ -25,7 +25,7 @@ if (posthogEnabled) {
       events_per_second: 5,
       events_burst_limit: 10,
     },
-    respect_dnt: true,
+    respect_dnt: !Boolean(FORCE_POSTHOG),
     session_replay: false,
     before_send: (event) => {
       // hash-based routing handling
