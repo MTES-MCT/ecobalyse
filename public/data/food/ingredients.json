@@ -157,28 +157,6 @@
     "visible": true
   },
   {
-    "alias": "sunflower-feed-organic",
-    "categories": ["nut_oilseed_raw", "organic"],
-    "cropGroup": "TOURNESOL",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 21.461,
-      "hedges": 2.341,
-      "plotSize": 2.276
-    },
-    "id": "c5dfca39-14f6-4d7c-a506-d8a5e65256a7",
-    "inediblePart": 0,
-    "landOccupation": 6.06923,
-    "name": "Tournesol Bio",
-    "processId": "02f413a2-0287-5ee9-bcb7-2d6cc6671def",
-    "rawToCookedRatio": 1.0,
-    "scenario": "organic",
-    "search": "Sunflower, organic, animal feed, at farm gate {FR}",
-    "transportCooling": "once_transformed",
-    "visible": false
-  },
-  {
     "alias": "rapeseed-organic",
     "categories": ["nut_oilseed_raw", "organic"],
     "cropGroup": "COLZA",
@@ -251,13 +229,6 @@
     "categories": ["animal_product"],
     "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0,
-      "livestockDensity": -0.006,
-      "permanentPasture": 0,
-      "plotSize": 0
-    },
     "id": "ce073919-1aff-4892-a1f5-b25ee94bccd8",
     "inediblePart": 0,
     "landOccupation": 52.5467,
@@ -1004,13 +975,6 @@
     "categories": ["animal_product"],
     "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0,
-      "livestockDensity": -0.006,
-      "permanentPasture": 0,
-      "plotSize": 0
-    },
     "id": "131354de-e269-4bc7-a21a-b55658b8e3fb",
     "inediblePart": 0.2,
     "landOccupation": 34.2527,
@@ -1096,13 +1060,6 @@
     "categories": ["animal_product"],
     "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0,
-      "livestockDensity": -0.006,
-      "permanentPasture": 0,
-      "plotSize": 0
-    },
     "id": "91f8ec52-d3bb-44db-84be-08bb1996caf8",
     "inediblePart": 0,
     "landOccupation": 42.8171,
@@ -3464,7 +3421,7 @@
     "id": "127b7cfe-0686-4455-8f8d-3c8bc034cbf9",
     "inediblePart": 0.3,
     "landOccupation": 0.347759,
-    "name": "Banane par défaut",
+    "name": "Banane antillaise",
     "processId": "03c717e8-da0d-51dd-a9d0-56379b532557",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
@@ -5519,28 +5476,6 @@
     "visible": true
   },
   {
-    "alias": "oilseed-feed",
-    "categories": ["grain_raw"],
-    "cropGroup": "AUTRES OLEAGINEUX",
-    "defaultOrigin": "France",
-    "density": 0.24,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0,
-      "plotSize": 0
-    },
-    "id": "4b3c39a6-496c-416c-a42a-8d4c2fc788da",
-    "inediblePart": 0,
-    "landOccupation": 1.97529,
-    "name": "Soja FR",
-    "processId": "1eec6669-df89-5638-92da-a7c2fb3b033a",
-    "rawToCookedRatio": 2.33,
-    "scenario": "import",
-    "search": "Oilseed meal mix, as feed, at regional warehouse, as DM {RER} - Adapted from WFLDB",
-    "transportCooling": "none",
-    "visible": false
-  },
-  {
     "alias": "grazed-grass-temporary",
     "categories": [],
     "cropGroup": "PRAIRIES TEMPORAIRES",
@@ -6106,7 +6041,7 @@
     "alias": "pasta",
     "categories": ["grain_processed"],
     "cropGroup": "DIVERS",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
+    "defaultOrigin": "France",
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -6116,13 +6051,13 @@
     "id": "06e7ba46-85ba-4475-82d2-a59f847e801d",
     "inediblePart": 0.2,
     "landOccupation": 3.8494,
-    "name": "Pâtes par défaut",
-    "processId": "158e5860-95b5-519c-bbf6-5bdb214bcf4c",
+    "name": "Pâtes FR",
+    "processId": "0da8ba31-b350-5aa0-a1cb-77a2d1695f30",
     "rawToCookedRatio": 2.259,
     "scenario": "reference",
-    "search": "pasta dried plant wheat GLO",
+    "search": "pasta dried plant wheat FR",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "alias": "garlic",
