@@ -139,7 +139,7 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
             { attributes = []
             , close = Nothing
             , content =
-                [ text <| "Aucun exemple disponible pour le secteur "
+                [ text <| "Aucun composant disponible pour le secteur "
                 , strong [] [ text <| Scope.toLabel scope ]
                 ]
             , level = Alert.Info
