@@ -24,6 +24,7 @@ import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Notification as Notification
+import Data.Posthog as Posthog
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Data.Split exposing (Split)
@@ -321,6 +322,7 @@ update ({ queries, navKey } as session) msg model =
         ( OpenComparator, _ ) ->
             { model | modal = ComparatorModal }
                 |> App.createUpdate (session |> Session.checkComparedSimulations)
+                |> App.withCmds [ Posthog.send <| Posthog.ComparatorOpened Scope.Textile ]
 
         ( OnAutocompleteTrim autocompleteMsg, AddTrimModal autocompleteState ) ->
             let
@@ -413,6 +415,7 @@ update ({ queries, navKey } as session) msg model =
                             (SaveBookmarkWithTime model.bookmarkName
                                 (Bookmark.Textile query)
                             )
+                    , Posthog.send <| Posthog.BookmarkSaved Scope.Textile
                     ]
 
         ( SaveBookmarkWithTime name foodQuery now, _ ) ->
@@ -442,10 +445,19 @@ update ({ queries, navKey } as session) msg model =
         ( SwitchBookmarksTab bookmarkTab, _ ) ->
             { model | bookmarkTab = bookmarkTab }
                 |> App.createUpdate session
+                |> App.withCmds
+                    [ Posthog.TabSelected Scope.Textile "Partager"
+                        |> Posthog.sendIf (bookmarkTab == BookmarkView.ShareTab)
+                    ]
 
         ( SwitchComparisonType displayChoice, _ ) ->
             { model | comparisonType = displayChoice }
                 |> App.createUpdate session
+                |> App.withCmds
+                    [ ComparatorView.comparisonTypeToString displayChoice
+                        |> Posthog.ComparisonTypeSelected Scope.Textile
+                        |> Posthog.send
+                    ]
 
         ( SwitchImpact (Ok trigram), _ ) ->
             App.createUpdate session model
@@ -454,6 +466,7 @@ update ({ queries, navKey } as session) msg model =
                         |> Route.TextileSimulator trigram
                         |> Route.toString
                         |> Navigation.pushUrl navKey
+                    , Posthog.send <| Posthog.ImpactSelected Scope.Textile trigram
                     ]
 
         ( SwitchImpact (Err error), _ ) ->
@@ -463,6 +476,11 @@ update ({ queries, navKey } as session) msg model =
         ( SwitchImpactsTab impactsTab, _ ) ->
             { model | activeImpactsTab = impactsTab }
                 |> App.createUpdate session
+                |> App.withCmds
+                    [ ImpactTabs.tabToString impactsTab
+                        |> Posthog.TabSelected Scope.Textile
+                        |> Posthog.send
+                    ]
 
         ( SwitchTab RegulatoryTab, _ ) ->
             App.createUpdate session
@@ -472,10 +490,12 @@ update ({ queries, navKey } as session) msg model =
                  else
                     { model | activeTab = RegulatoryTab }
                 )
+                |> App.withCmds [ Posthog.send <| Posthog.TabSelected Scope.Textile "Regulatory" ]
 
         ( SwitchTab ExploratoryTab, _ ) ->
             { model | activeTab = ExploratoryTab }
                 |> App.createUpdate session
+                |> App.withCmds [ Posthog.send <| Posthog.TabSelected Scope.Textile "Exploratory" ]
 
         ( ToggleComparedSimulation bookmark checked, _ ) ->
             model
@@ -643,6 +663,7 @@ selectExample autocompleteState { model, session } =
         |> App.createUpdate (Session.updateTextileQuery example session)
         |> App.apply update (SetModal NoModal)
         |> updateQuery example
+        |> App.withCmds [ Posthog.send <| Posthog.ExampleSelected Scope.Textile ]
 
 
 selectTrim : Autocomplete Component -> PageUpdate Model Msg -> PageUpdate Model Msg

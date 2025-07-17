@@ -47,6 +47,7 @@
     "start": "PARCEL_ELM_NO_DEBUG=1 npm run start:dev",
     "test:backend": "concurrently -k -s first -n \"maildev,test\" \"maildev --hide-extensions STARTTLS -p 1025 -w 1081\" \"while ! lsof -i:1025; do sleep 1; done && uv run pytest\"",
     "test:client": "NODE_ENV=test npm run db:build && npx elm-test",
+    "test:jslib": "jest tests/lib",
     "test:review": "npx elm-review",
     "test:server": "npm run server:build && NODE_ENV=test jest tests/json.spec.js tests/server.spec.js tests/json.test.js tests/rate-limiting.spec.js",
     "test:e2e": "e2e/setup-version-fixture.sh && NODE_ENV=test npx playwright test e2e/ --trace=retain-on-failure",
@@ -65,7 +66,9 @@
     "express-rate-limit": "^7.5.0",
     "helmet": "^8.1.0",
     "js-yaml": "^4.1.0",
-    "piwik": "^1.0.10"
+    "piwik": "^1.0.10",
+    "posthog-js": "^1.256.2",
+    "posthog-node": "^5.3.1"
   },
   "devDependencies": {
     "@apidevtools/swagger-cli": "^4.0.4",

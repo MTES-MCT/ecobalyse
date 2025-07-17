@@ -1,5 +1,6 @@
 module Views.Comparator exposing
     ( ComparisonType(..)
+    , comparisonTypeToString
     , view
     )
 
@@ -387,3 +388,19 @@ dataForTotalImpacts chartsData =
             )
         |> Encode.list identity
         |> Encode.encode 0
+
+
+comparisonTypeToString : ComparisonType -> String
+comparisonTypeToString comparisonType =
+    case comparisonType of
+        IndividualImpacts ->
+            "Impacts"
+
+        Steps ->
+            "Étapes"
+
+        Subscores ->
+            "Sous-scores"
+
+        Total ->
+            "Total"
