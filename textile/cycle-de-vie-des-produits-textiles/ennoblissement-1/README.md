@@ -2,7 +2,7 @@
 
 ## Contexte
 
-L’ennoblissement consiste à donner aux tissus l'aspect visuel et les propriétés physiques et esthétiques exigées par les consommateurs. Il peut s'agir d'opérations mécaniques ou chimiques.
+L’ennoblissement consiste à donner aux tissus l'aspect visuel et les propriétés physiques et esthétiques souhaitées. Il peut s'agir d'opérations mécaniques ou chimiques.
 
 L’étape d’ennoblissement se décompose en 3 sous-étapes, détaillées dans les sous-parties suivantes :
 
@@ -21,7 +21,7 @@ Les procédés de pré-traitement consistent à traiter et nettoyer le tissu, g�
 
 Mercerisage : Consiste à améliorer la résistance à la traction, la stabilité dimensionnelle et la brillance du coton. Permet aussi d'améliorer la montée du colorant lors de la teinture.
 
-Dégraissage / Débouillissage : Consiste à extraire les impuretés présentes sur la fibre (ex : pectines, graisses et cires, etc.)v afin de rendre les fibres perméables au processus aval (blanchiment, teinture).&#x20;
+Dégraissage / Débouillissage : Consiste à extraire les impuretés présentes sur la fibre (ex : pectines, graisses et cires, etc.) afin de rendre les fibres perméables au processus aval (blanchiment, teinture).&#x20;
 
 Blanchiment : Consiste à éliminer les colorants naturels de la fibre pour la rentre plus blanche et hydrophyle.&#x20;
 
