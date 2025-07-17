@@ -1,5 +1,4 @@
 require("dotenv").config();
-const { monitorExpressApp } = require("./lib/instrument");
 const fs = require("fs");
 const path = require("path");
 const bodyParser = require("body-parser");
@@ -9,24 +8,21 @@ const yaml = require("js-yaml");
 const helmet = require("helmet");
 const { Elm } = require("./server-app");
 const jsonUtils = require("./lib/json");
-const { setupTracker, dataFiles } = require("./lib");
+const { dataFiles } = require("./lib");
 const { decrypt } = require("./lib/crypto");
 const express = require("express");
 const rateLimit = require("express-rate-limit");
+const { createCSPDirectives, extractTokenFromHeaders } = require("./lib/http");
+// monitoring
+const { setupSentry } = require("./lib/sentry");
+const { createMatomoTracker } = require("./lib/matomo");
+const { createPosthogTracker } = require("./lib/posthog");
 
 const expressHost = "0.0.0.0";
 const expressPort = 8001;
 
 // Env vars
-const {
-  ENABLE_FOOD_SECTION,
-  MATOMO_HOST,
-  MATOMO_SITE_ID,
-  MATOMO_TOKEN,
-  NODE_ENV,
-  RATELIMIT_MAX_RPM,
-  RATELIMIT_WHITELIST,
-} = process.env;
+const { ENABLE_FOOD_SECTION, NODE_ENV, RATELIMIT_MAX_RPM, RATELIMIT_WHITELIST } = process.env;
 
 const INTERNAL_BACKEND_URL = "http://localhost:8002";
 
@@ -49,7 +45,13 @@ app.use(
 );
 
 // Sentry monitoring
-monitorExpressApp(app);
+setupSentry(app);
+
+// Posthog API tracker
+const posthogTracker = createPosthogTracker(process.env);
+
+// Matomo
+const matomoTracker = createMatomoTracker(process.env);
 
 // Middleware
 const jsonErrorHandler = bodyParserErrorHandler({
@@ -72,28 +74,7 @@ app.use(
     xssFilter: false,
     contentSecurityPolicy: {
       useDefaults: true,
-      directives: {
-        "default-src": [
-          "'self'",
-          "https://api.github.com",
-          "https://raw.githubusercontent.com",
-          "https://sentry.incubateur.net",
-          "*.gouv.fr",
-        ],
-        "frame-src": ["'self'", `https://${MATOMO_HOST}`, "https://www.loom.com"],
-        "img-src": [
-          "'self'",
-          "data:",
-          "blob:",
-          "https://avatars.githubusercontent.com/",
-          "https://raw.githubusercontent.com",
-        ],
-        // FIXME: We should be able to remove 'unsafe-inline' as soon as the Matomo
-        // server sends the appropriate `Access-Control-Allow-Origin` header
-        // @see https://matomo.org/faq/how-to/faq_18694/
-        "script-src": ["'self'", "'unsafe-inline'", `https://${MATOMO_HOST}`],
-        "object-src": ["blob:"],
-      },
+      directives: createCSPDirectives(process.env),
     },
   }),
 );
@@ -194,19 +175,9 @@ const openApiContents = processOpenApi(
   require("./package.json").version,
 );
 
-// Matomo
-const apiTracker = setupTracker(openApiContents);
-
 // Processes
 const processesImpacts = fs.readFileSync(dataFiles.detailed, "utf8");
 const processes = fs.readFileSync(dataFiles.noDetails, "utf8");
-
-function extractTokenFromHeaders(headers) {
-  // Handle both old and new auth token headers
-  const bearerToken = headers["authorization"]?.split("Bearer ")[1]?.trim();
-  const classicToken = headers["token"]; // from old auth system
-  return bearerToken ?? classicToken;
-}
 
 const getProcesses = async (headers, customProcessesImpacts, customProcesses) => {
   let isValidToken = false;
@@ -258,9 +229,9 @@ elmApp.ports.output.subscribe(({ status, body, jsResponseHandler }) => {
   return jsResponseHandler({ status, body });
 });
 
-api.get("/", (req, res) => {
-  apiTracker.track(200, req);
-
+api.get("/", async (req, res) => {
+  matomoTracker.track(200, req);
+  await posthogTracker.captureEvent(200, req);
   res.status(200).send(openApiContents);
 });
 
@@ -286,8 +257,9 @@ api.all(/(.*)/, bodyParser.json(), jsonErrorHandler, async (req, res) => {
     url: req.url,
     body: req.body,
     processes,
-    jsResponseHandler: ({ status, body }) => {
-      apiTracker.track(status, req);
+    jsResponseHandler: async ({ status, body }) => {
+      matomoTracker.track(status, req);
+      await posthogTracker.captureEvent(status, req);
       respondWithFormattedJSON(res, status, body);
     },
   });
@@ -342,6 +314,9 @@ version.all(
 
     const urlWithoutPrefix = req.url.replace(/\/[^/]+\/api/, "");
 
+    matomoTracker.track(res.statusCode, req);
+    await posthogTracker.captureEvent(res.statusCode, req);
+
     elmApp.ports.input.send({
       method: req.method,
       url: urlWithoutPrefix,
@@ -374,5 +349,18 @@ app.use("/versions", version);
 const server = app.listen(expressPort, expressHost, () => {
   console.log(`Server listening at http://${expressHost}:${expressPort}`);
 });
+
+async function handleExit(signal) {
+  // Since the Node client batches events to PostHog, the shutdown function
+  // ensures that all the events are captured before shutting down
+  console.log(`Received ${signal}. Flushing…`);
+  await posthogTracker.shutdown();
+  console.log("Flush complete");
+  server.close(() => process.exit(0));
+}
+
+process.on("SIGINT", handleExit);
+process.on("SIGQUIT", handleExit);
+process.on("SIGTERM", handleExit);
 
 module.exports = server;
