@@ -1,4 +1,4 @@
-# 🧶 Etape 2 - Fabrication du fil
+# 🧶 Etape 2 - Filature
 
 ## Contexte
 
@@ -140,7 +140,7 @@ Avec :&#x20;
 
 * `Qté_élec_{fil}`, la quantité d'électricité nécessaire pour filer 1 kg de fil. \
   Cf. rubrique _Hypothèses par défaut_ => _Consommation d'électricité_ pour le calcul de la quantité d'électricité. &#x20;
-* `I_élec` est l'impact de produire 1 kWh d'électricité dans le pays considéré. Cela dépend du lieu de la filature.
+* `I_élec` , l'impact de produire 1 kWh d'électricité dans le pays considéré.&#x20;
 
 ### Paramètres mobilisés
 
