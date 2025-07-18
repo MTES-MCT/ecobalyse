@@ -174,7 +174,9 @@ test.describe("auth", () => {
 
       await page.getByLabel("Menu principal").getByRole("link", { name: "Admin" }).click();
 
-      await expect(page.getByRole("heading", { name: "Ecobalyse Admin" })).toBeVisible();
+      await expect(
+        page.getByRole("heading", { name: "Administration des Composants" }),
+      ).toBeVisible();
     });
 
     await test.step("impact selector", async () => {
