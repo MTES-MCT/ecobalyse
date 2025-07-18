@@ -274,6 +274,7 @@ class AccessController(Controller):
         users_service: UserService,
     ) -> list[User]:
         """List all accounts."""
+
         results = await users_service.list(
             OrderBy(field_name="created_at", sort_order="desc"),
         )
