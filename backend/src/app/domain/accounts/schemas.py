@@ -76,11 +76,11 @@ class UserProfile(CamelizedBaseStruct):
     This is nested in the User Model for 'profile'
     """
 
-    first_name: str
-    last_name: str
     organization: Organization
     terms_accepted: bool
     email_optin: bool
+    first_name: str | None = None
+    last_name: str | None = None
 
 
 class User(CamelizedBaseStruct):
