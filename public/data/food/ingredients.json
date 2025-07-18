@@ -8610,12 +8610,12 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 1.0676,
-      "plotSize": 1.4372
+      "hedges": 1.0681,
+      "plotSize": 1.4378
     },
     "id": "5cba3ac2-bd63-43eb-9b6f-70b9de218c9a",
     "inediblePart": 0.2,
-    "landOccupation": 3.83242,
+    "landOccupation": 3.83407,
     "name": "Pâtes FR (blé GLO + élec FR)",
     "processId": "85e316a2-7f09-50d5-b0bb-3b8735faeac5",
     "rawToCookedRatio": 2.259,
@@ -8632,12 +8632,12 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 1.0712,
-      "plotSize": 1.442
+      "hedges": 1.071,
+      "plotSize": 1.4417
     },
     "id": "c210f2f2-0188-4f30-bdb0-5703ae460117",
     "inediblePart": 0.2,
-    "landOccupation": 3.84532,
+    "landOccupation": 3.84446,
     "name": "Pâtes IT (blé GLO + élec IT)",
     "processId": "62daf7e7-0f77-50f7-a81b-891823b336de",
     "rawToCookedRatio": 2.259,
@@ -8654,12 +8654,12 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 1.0709,
-      "plotSize": 1.4416
+      "hedges": 1.0706,
+      "plotSize": 1.4412
     },
     "id": "9bead6d1-5941-40b0-ae58-3d51bb690ba8",
     "inediblePart": 0.2,
-    "landOccupation": 3.84424,
+    "landOccupation": 3.84315,
     "name": "Pâtes ES (blé GLO + élec ES)",
     "processId": "2d0ef86b-3865-57f9-a896-e45c8f680b2c",
     "rawToCookedRatio": 2.259,
@@ -8676,12 +8676,12 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 1.0708,
-      "plotSize": 1.4415
+      "hedges": 1.0705,
+      "plotSize": 1.441
     },
     "id": "41e0d2c7-b63f-4b64-821b-5102dee75693",
     "inediblePart": 0.2,
-    "landOccupation": 3.84394,
+    "landOccupation": 3.8428,
     "name": "Pâtes DE (blé GLO + élec DE)",
     "processId": "01aaf607-7a6c-56d9-8f92-901d93e7bf30",
     "rawToCookedRatio": 2.259,
@@ -8698,17 +8698,237 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 1.0745,
-      "plotSize": 1.4465
+      "hedges": 1.075,
+      "plotSize": 1.4471
     },
     "id": "fb86bf1d-1862-4255-8361-d1228c7403c6",
     "inediblePart": 0.2,
-    "landOccupation": 3.85727,
+    "landOccupation": 3.85891,
     "name": "Pâtes BE (blé GLO + élec BE)",
     "processId": "19ea8c4d-44aa-56a9-9bd8-91533020b214",
     "rawToCookedRatio": 2.259,
     "scenario": "reference",
     "search": "Pasta, dried, from durum wheat, at plant, from GLO wheat and BE elec, constructed by Ecobalyse",
+    "transportCooling": "none",
+    "visible": true
+  },
+  {
+    "alias": "soup-fr",
+    "categories": ["vegetable_processed"],
+    "cropGroup": "LEGUMES-FLEURS",
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0.073561,
+      "plotSize": 0.1839
+    },
+    "id": "6f5ad776-ae83-4c01-9940-c4bc0a85ba50",
+    "inediblePart": 0,
+    "landOccupation": 0.294242,
+    "name": "Soupe FR",
+    "processId": "6942f4e0-3e9c-5cf4-9fb3-04fe89a2f209",
+    "rawToCookedRatio": 1.0,
+    "scenario": "reference",
+    "search": "Soup, mixed vegetables, prepacked, to be reheated, at plant {FR} U",
+    "transportCooling": "none",
+    "visible": true
+  },
+  {
+    "alias": "soup-be",
+    "categories": ["vegetable_processed"],
+    "cropGroup": "LEGUMES-FLEURS",
+    "defaultOrigin": "EuropeAndMaghreb",
+    "density": 1.0,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0.079638,
+      "plotSize": 0.1991
+    },
+    "id": "241f3c4d-cf63-42d6-a0bb-75a05e634208",
+    "inediblePart": 0,
+    "landOccupation": 0.318552,
+    "name": "Soupe BE (légumes FR + élec BE)",
+    "processId": "884d58ae-0f84-58b0-9930-8073074a2cf8",
+    "rawToCookedRatio": 1.0,
+    "scenario": "reference",
+    "search": "Soup, mixed vegetables, prepacked, to be reheated, at plant {BE} U, constructed by Ecobalyse",
+    "transportCooling": "none",
+    "visible": true
+  },
+  {
+    "alias": "soup-de",
+    "categories": ["vegetable_processed"],
+    "cropGroup": "LEGUMES-FLEURS",
+    "defaultOrigin": "EuropeAndMaghreb",
+    "density": 1.0,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0.076382,
+      "plotSize": 0.19096
+    },
+    "id": "641912dd-5925-4f83-a169-a29529f7f225",
+    "inediblePart": 0,
+    "landOccupation": 0.305529,
+    "name": "Soupe DE (légumes FR + élec DE)",
+    "processId": "1c27e968-92e7-548a-948a-0aa9336cf8a9",
+    "rawToCookedRatio": 1.0,
+    "scenario": "reference",
+    "search": "Soup, mixed vegetables, prepacked, to be reheated, at plant {DE} U, constructed by Ecobalyse",
+    "transportCooling": "none",
+    "visible": true
+  },
+  {
+    "alias": "soup-it",
+    "categories": ["vegetable_processed"],
+    "cropGroup": "LEGUMES-FLEURS",
+    "defaultOrigin": "EuropeAndMaghreb",
+    "density": 1.0,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0.076521,
+      "plotSize": 0.1913
+    },
+    "id": "d6153611-8140-4b45-ad0f-ea196f603eaa",
+    "inediblePart": 0,
+    "landOccupation": 0.306084,
+    "name": "Soupe IT (légumes FR + élec IT)",
+    "processId": "b827d807-310f-5d03-9238-0ed2b3ec6f5d",
+    "rawToCookedRatio": 1.0,
+    "scenario": "reference",
+    "search": "Soup, mixed vegetables, prepacked, to be reheated, at plant {IT} U, constructed by Ecobalyse",
+    "transportCooling": "none",
+    "visible": true
+  },
+  {
+    "alias": "soup-es",
+    "categories": ["vegetable_processed"],
+    "cropGroup": "LEGUMES-FLEURS",
+    "defaultOrigin": "EuropeAndMaghreb",
+    "density": 1.0,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0.076228,
+      "plotSize": 0.19057
+    },
+    "id": "08d7413e-ae4d-40a8-a057-05221075e97a",
+    "inediblePart": 0,
+    "landOccupation": 0.30491,
+    "name": "Soupe ES (légumes FR + élec ES)",
+    "processId": "3b3a6ad1-7928-5bc5-8e51-765f9e44681e",
+    "rawToCookedRatio": 1.0,
+    "scenario": "reference",
+    "search": "Soup, mixed vegetables, prepacked, to be reheated, at plant {ES} U, constructed by Ecobalyse",
+    "transportCooling": "none",
+    "visible": true
+  },
+  {
+    "alias": "soup-dehydrated-fr",
+    "categories": ["vegetable_processed"],
+    "cropGroup": "LEGUMES-FLEURS",
+    "defaultOrigin": "France",
+    "density": 0.6195,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 1.4149,
+      "plotSize": 3.5372
+    },
+    "id": "e01522ad-886c-4599-81b9-9e0f1d82e0e7",
+    "inediblePart": 0,
+    "landOccupation": 5.6596,
+    "name": "Soupe déshydratée FR",
+    "processId": "e0ee5ed9-2497-552d-a3cd-6a3b29a38595",
+    "rawToCookedRatio": 12.0,
+    "scenario": "reference",
+    "search": "Soup, mixed vegetables, dehydrated, at plant {FR} U",
+    "transportCooling": "none",
+    "visible": true
+  },
+  {
+    "alias": "soup-dehydrated-be",
+    "categories": ["vegetable_processed"],
+    "cropGroup": "LEGUMES-FLEURS",
+    "defaultOrigin": "EuropeAndMaghreb",
+    "density": 0.6195,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 1.847,
+      "plotSize": 4.6176
+    },
+    "id": "47d8fa33-b8eb-4147-a9df-124757c8a2ef",
+    "inediblePart": 0,
+    "landOccupation": 7.38817,
+    "name": "Soupe déshydratée BE",
+    "processId": "c10d2318-bf02-58b4-93cc-df882b6d75b3",
+    "rawToCookedRatio": 12.0,
+    "scenario": "reference",
+    "search": "Soup, mixed vegetables, dehydrated, at plant {BE} U",
+    "transportCooling": "none",
+    "visible": true
+  },
+  {
+    "alias": "soup-dehydrated-de",
+    "categories": ["vegetable_processed"],
+    "cropGroup": "LEGUMES-FLEURS",
+    "defaultOrigin": "EuropeAndMaghreb",
+    "density": 0.6195,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 1.6155,
+      "plotSize": 4.0389
+    },
+    "id": "76dcde1e-c604-4966-8ec2-b89008059f5b",
+    "inediblePart": 0,
+    "landOccupation": 6.46218,
+    "name": "Soupe déshydratée DE",
+    "processId": "f74a1f56-55cb-54d3-aa93-aae041c5f37c",
+    "rawToCookedRatio": 12.0,
+    "scenario": "reference",
+    "search": "Soup, mixed vegetables, dehydrated, at plant {DE} U",
+    "transportCooling": "none",
+    "visible": true
+  },
+  {
+    "alias": "soup-dehydrated-it",
+    "categories": ["vegetable_processed"],
+    "cropGroup": "LEGUMES-FLEURS",
+    "defaultOrigin": "EuropeAndMaghreb",
+    "density": 0.6195,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 1.6254,
+      "plotSize": 4.0635
+    },
+    "id": "ee72a4aa-f864-49a5-a46b-2c0511cd50c1",
+    "inediblePart": 0,
+    "landOccupation": 6.5016,
+    "name": "Soupe déshydratée IT",
+    "processId": "f76d41a1-259f-5e47-99f2-ef490aeab78f",
+    "rawToCookedRatio": 12.0,
+    "scenario": "reference",
+    "search": "Soup, mixed vegetables, dehydrated, at plant {IT} U",
+    "transportCooling": "none",
+    "visible": true
+  },
+  {
+    "alias": "soup-dehydrated-es",
+    "categories": ["vegetable_processed"],
+    "cropGroup": "LEGUMES-FLEURS",
+    "defaultOrigin": "EuropeAndMaghreb",
+    "density": 0.6195,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 1.6045,
+      "plotSize": 4.0113
+    },
+    "id": "2dfa8f4e-961a-4c2d-bd40-298b31173ef0",
+    "inediblePart": 0,
+    "landOccupation": 6.41816,
+    "name": "Soupe déshydratée ES",
+    "processId": "7201a69c-aaee-53b9-920b-08bc74418e20",
+    "rawToCookedRatio": 12.0,
+    "scenario": "reference",
+    "search": "Soup, mixed vegetables, dehydrated, at plant {ES} U",
     "transportCooling": "none",
     "visible": true
   }
