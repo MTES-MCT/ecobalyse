@@ -16,7 +16,7 @@ from advanced_alchemy.utils.text import slugify
 from app.db import models as m
 from app.domain.accounts import tasks, urls
 from app.domain.accounts.deps import provide_users_service
-from app.domain.accounts.guards import auth, requires_active_user
+from app.domain.accounts.guards import auth, requires_active_user, requires_superuser
 from app.domain.accounts.schemas import (
     AccountLogin,
     AccountRegisterMagicLink,
@@ -261,5 +261,25 @@ class AccessController(Controller):
         if token:
             _ = await tokens_service.delete(item_id=token_id)
         else:
-            msg = "Yon don’t have the permission to delete this token"
+            msg = "You don't have the permission to delete this token"
             raise PermissionDeniedException(detail=msg)
+
+    @get(
+        operation_id="ListAccounts",
+        path=urls.ACCOUNT_LIST,
+        guards=[requires_superuser],
+    )
+    async def list_accounts(
+        self,
+        users_service: UserService,
+    ) -> list[User]:
+        """List all accounts."""
+        results = await users_service.list(
+            OrderBy(field_name="created_at", sort_order="desc"),
+        )
+
+        return convert(
+            obj=results,
+            type=list[User],  # type: ignore[valid-type]
+            from_attributes=True,
+        )
