@@ -78,7 +78,6 @@ type alias Query =
     , printing : Maybe Printing
     , product : Product.Id
     , surfaceMass : Maybe Unit.SurfaceMass
-    , traceability : Maybe Bool
     , trims : List Item
     , upcycled : Bool
     , yarnSize : Maybe Unit.YarnSize
@@ -141,7 +140,6 @@ decode =
         |> DU.strictOptional "printing" Printing.decode
         |> Pipe.required "product" (Decode.map Product.Id Decode.string)
         |> DU.strictOptional "surfaceMass" Unit.decodeSurfaceMass
-        |> DU.strictOptional "traceability" Decode.bool
         |> Pipe.optional "trims" (Decode.list Component.decodeItem) []
         |> Pipe.optional "upcycled" Decode.bool False
         |> DU.strictOptional "yarnSize" Unit.decodeYarnSize
@@ -187,7 +185,6 @@ encode query =
         , ( "printing", query.printing |> Maybe.map Printing.encode )
         , ( "product", query.product |> Product.idToString |> Encode.string |> Just )
         , ( "surfaceMass", query.surfaceMass |> Maybe.map Unit.encodeSurfaceMass )
-        , ( "traceability", query.traceability |> Maybe.map Encode.bool )
         , ( "trims", query.trims |> Encode.list Component.encodeItem |> Just )
         , ( "upcycled", Encode.bool query.upcycled |> Just )
         , ( "yarnSize", query.yarnSize |> Maybe.map Unit.encodeYarnSize )
@@ -444,7 +441,6 @@ default =
     , printing = Nothing
     , product = Product.Id "tshirt"
     , surfaceMass = Nothing
-    , traceability = Nothing
     , trims = []
     , upcycled = False
     , yarnSize = Nothing
