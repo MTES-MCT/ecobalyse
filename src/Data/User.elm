@@ -187,8 +187,8 @@ decodeProfile : Decoder Profile
 decodeProfile =
     Decode.succeed Profile
         |> DU.strictOptionalWithDefault "emailOptin" Decode.bool False
-        |> JDP.required "firstName" Decode.string
-        |> JDP.required "lastName" Decode.string
+        |> DU.strictOptionalWithDefault "firstName" Decode.string ""
+        |> DU.strictOptionalWithDefault "lastName" Decode.string ""
         |> JDP.required "organization" decodeOrganization
         |> JDP.required "termsAccepted" Decode.bool
 
