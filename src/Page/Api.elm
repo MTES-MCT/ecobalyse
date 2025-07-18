@@ -54,7 +54,12 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "15 avril 2025"
+    [ { date = "9 juillet 2025"
+      , level = "major"
+      , domains = [ "Textile" ]
+      , md = """Le paramètre `traceability` est supprimé."""
+      }
+    , { date = "15 avril 2025"
       , level = "major"
       , domains = [ "Alimentaire" ]
       , md = """Afin de permettre une meilleure gestion des données et d'éviter des calculs redondants, **Les identifiants des procédés alimentaires (transformation ou emballage) ont été modifiés.** Les anciens identifiants ne sont plus valides et doivent être remplacés par les nouveaux. Les identifiants des ingrédients sont inchangés."""

@@ -7,8 +7,7 @@
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
       "price": 15,
-      "repairCost": 10,
-      "traceability": false
+      "repairCost": 10
     },
     "endOfLife": {
       "volume": 0.006
@@ -47,8 +46,7 @@
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
       "price": 20,
-      "repairCost": 14,
-      "traceability": false
+      "repairCost": 14
     },
     "endOfLife": {
       "volume": 0.004
@@ -91,8 +89,7 @@
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
       "price": 15,
-      "repairCost": 19,
-      "traceability": false
+      "repairCost": 19
     },
     "endOfLife": {
       "volume": 0.007
@@ -135,8 +132,7 @@
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
       "price": 40,
-      "repairCost": 31,
-      "traceability": false
+      "repairCost": 31
     },
     "endOfLife": {
       "volume": 0.015
@@ -179,8 +175,7 @@
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
       "price": 20,
-      "repairCost": 14,
-      "traceability": false
+      "repairCost": 14
     },
     "endOfLife": {
       "volume": 0.004
@@ -223,8 +218,7 @@
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
       "price": 20,
-      "repairCost": 15,
-      "traceability": false
+      "repairCost": 15
     },
     "endOfLife": {
       "volume": 0.0102
@@ -263,8 +257,7 @@
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
       "price": 10,
-      "repairCost": 10,
-      "traceability": false
+      "repairCost": 10
     },
     "endOfLife": {
       "volume": 0.0018
@@ -303,8 +296,7 @@
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
       "price": 4,
-      "repairCost": 9,
-      "traceability": false
+      "repairCost": 9
     },
     "endOfLife": {
       "volume": 0.002
@@ -338,8 +330,7 @@
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
       "price": 4,
-      "repairCost": 9,
-      "traceability": false
+      "repairCost": 9
     },
     "endOfLife": {
       "volume": 0.002
@@ -378,8 +369,7 @@
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
       "price": 4,
-      "repairCost": 9,
-      "traceability": false
+      "repairCost": 9
     },
     "endOfLife": {
       "volume": 0.002
@@ -413,8 +403,7 @@
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
       "price": 15,
-      "repairCost": 9,
-      "traceability": false
+      "repairCost": 9
     },
     "endOfLife": {
       "volume": 0.004

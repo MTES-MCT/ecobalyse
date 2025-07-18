@@ -3,6 +3,12 @@ import * as Sentry from "@sentry/browser";
 import Charts from "./lib/charts";
 import posthog from "posthog-js/dist/module.no-external";
 
+// The localStorage key to use to store serialized session data
+const storeKey = "store";
+
+// Remove trailing slash from root because it's used by the Elm API to resolve backend api urls
+const clientUrl = (location.origin + location.pathname).replace(/\/+$/g, "");
+
 // using a `let` statement to avoid this error:
 // @parcel/optimizer-swc: 'const' declarations must be initialized
 let { FORCE_POSTHOG = false, NODE_ENV, POSTHOG_KEY, POSTHOG_HOST, SENTRY_DSN } = process.env;
@@ -69,12 +75,6 @@ function loadScript(scriptUrl) {
   g.src = scriptUrl;
   s.parentNode.insertBefore(g, s);
 }
-
-// The localStorage key to use to store serialized session data
-const storeKey = "store";
-
-// Remove trailing slash from root because it's used by the Elm API to resolve backend api urls
-const clientUrl = (location.origin + location.pathname).replace(/\/+$/g, "");
 
 const app = Elm.Main.init({
   flags: {
