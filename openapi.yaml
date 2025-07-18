@@ -81,7 +81,7 @@ paths:
         - Textile
       summary: Calcul des impacts environnementaux d'un produit textile
       requestBody:
-        description: Requête modélisant les paramètres du produit à évaluer
+        description: Requête modélisant les paramètres du produit à évaluer. L'id des matières est invariable dans le temps.
         required: true
         content:
           application/json:
@@ -113,7 +113,7 @@ paths:
       parameters:
         - $ref: "#/components/parameters/impactUrlParam"
       requestBody:
-        description: Requête modélisant les paramètres du produit à évaluer
+        description: Requête modélisant les paramètres du produit à évaluer. L'id des matières est invariable dans le temps.
         required: true
         content:
           application/json:
@@ -143,7 +143,7 @@ paths:
         - Textile
       summary: Calcul des impacts environnementaux d'un produit textile
       requestBody:
-        description: Requête modélisant les paramètres du produit à évaluer
+        description: Requête modélisant les paramètres du produit à évaluer. L'id des matières est invariable dans le temps.
         required: true
         content:
           application/json:
@@ -233,7 +233,7 @@ paths:
         - Alimentaire
       summary: Calcul des impacts environnementaux d'une recette alimentaire
       requestBody:
-        description: Requête modélisant les éléments de la recette à évaluer
+        description: Requête modélisant les éléments de la recette à évaluer. L'id des ingrédients est invariable dans le temps.
         required: true
         content:
           application/json:
