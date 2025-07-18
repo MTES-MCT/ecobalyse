@@ -1,24 +1,16 @@
-module Views.Admin exposing
-    ( Section(..)
-    , header
-    )
+module Views.Admin exposing (header)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Page.Admin.Section as Section exposing (Section)
 import Route exposing (Route)
 
 
-type Section
-    = ComponentSection
-    | ProcessSection
-
-
-all : List ( Section, Route )
+all : List ( Section, Route, Bool )
 all =
-    [ ( ComponentSection, Route.ComponentAdmin )
-
-    -- TODO: update with process admin route once we have one
-    , ( ProcessSection, Route.Home )
+    [ ( Section.AccountSection, Route.Admin Section.AccountSection, True )
+    , ( Section.ComponentSection, Route.Admin Section.ComponentSection, True )
+    , ( Section.ProcessSection, Route.Admin Section.ProcessSection, False )
     ]
 
 
@@ -26,7 +18,10 @@ header : Section -> Html msg
 header currentSection =
     div [ class "row" ]
         [ div [ class "col-md-6 col-lg-8" ]
-            [ h1 [ class "mb-0" ] [ text "Ecobalyse Admin" ]
+            [ h1 [ class "mb-0" ]
+                [ text "Administration"
+                , small [ class "h3 text-muted" ] [ text <| " des " ++ toString currentSection ]
+                ]
             ]
         , div [ class "col-md-6 col-lg-4 d-flex justify-content-end align-items-end" ]
             [ menu currentSection
@@ -38,12 +33,13 @@ menu : Section -> Html msg
 menu currenSection =
     all
         |> List.map
-            (\( section, route ) ->
+            (\( section, route, enabled ) ->
                 a
                     [ class "btn"
                     , classList
                         [ ( "btn-primary", section == currenSection )
                         , ( "btn-outline-primary", section /= currenSection )
+                        , ( "disabled", not enabled )
                         ]
                     , Route.href route
                     ]
@@ -59,8 +55,11 @@ menu currenSection =
 toString : Section -> String
 toString section =
     case section of
-        ComponentSection ->
+        Section.AccountSection ->
+            "Comptes"
+
+        Section.ComponentSection ->
             "Composants"
 
-        ProcessSection ->
+        Section.ProcessSection ->
             "Procédés (à venir)"

@@ -16,16 +16,17 @@ import Data.Textile.Query as TextileQuery
 import Data.Uuid as Uuid exposing (Uuid)
 import Html exposing (Attribute)
 import Html.Attributes as Attr
+import Page.Admin.Section as AdminSection
 import Url exposing (Url)
 import Url.Parser as Parser exposing ((</>), Parser)
 
 
 type Route
-    = Api
+    = Admin AdminSection.Section
+    | Api
     | Auth
     | AuthLogin String String
     | AuthSignup
-    | ComponentAdmin
     | Editorial String
     | Explore Scope Dataset
     | FoodBuilder Definition.Trigram (Maybe FoodQuery.Query)
@@ -48,7 +49,7 @@ parser =
           -- Shared routes
           --
           Parser.map Home Parser.top
-        , Parser.map ComponentAdmin (Parser.s "admin" </> Parser.s "components")
+        , Parser.map Admin (Parser.s "admin" </> AdminSection.parseSlug)
         , Parser.map Api (Parser.s "api")
         , Parser.map Auth (Parser.s "auth")
         , Parser.map AuthLogin (Parser.s "auth" </> Parser.string </> Parser.string)
@@ -197,6 +198,15 @@ toString route =
     let
         pieces =
             case route of
+                Admin AdminSection.AccountSection ->
+                    [ "admin", "accounts" ]
+
+                Admin AdminSection.ComponentSection ->
+                    [ "admin", "components" ]
+
+                Admin AdminSection.ProcessSection ->
+                    [ "admin", "processes" ]
+
                 Api ->
                     [ "api" ]
 
@@ -208,9 +218,6 @@ toString route =
 
                 AuthSignup ->
                     [ "auth", "signup" ]
-
-                ComponentAdmin ->
-                    [ "admin", "components" ]
 
                 Editorial slug ->
                     [ "pages", slug ]

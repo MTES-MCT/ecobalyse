@@ -25,6 +25,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Json.Encode as Encode
+import Page.Admin.Section as AdminSection
 import Ports
 import RemoteData
 import Request.BackendHttp exposing (WebData)
@@ -47,7 +48,7 @@ import Views.Table as Table
 type alias Model =
     { components : WebData (List Component)
     , scopes : List Scope
-    , section : AdminView.Section
+    , section : AdminSection.Section
     , modals : List Modal
     }
 
@@ -80,12 +81,12 @@ type Msg
     | UpdateScopeFilters (List Scope)
 
 
-init : Session -> PageUpdate Model Msg
-init session =
+init : Session -> AdminSection.Section -> PageUpdate Model Msg
+init session section =
     { components = RemoteData.NotAsked
     , modals = []
     , scopes = Scope.all
-    , section = AdminView.ComponentSection
+    , section = section
     }
         |> App.createUpdate session
         |> App.withCmds [ ComponentApi.getComponents session ComponentListResponse ]
