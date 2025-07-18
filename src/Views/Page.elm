@@ -205,7 +205,7 @@ headerMenuLinks session =
         ++ List.filterMap identity
             [ Just <| External "Communauté" Env.communityUrl
             , Just <| External "Documentation" Env.gitbookUrl
-            , if Session.isStaff session then
+            , if Session.isSuperuser session then
                 Just <| Internal "Admin" (Route.Admin AdminSection.ComponentSection) Admin
 
               else

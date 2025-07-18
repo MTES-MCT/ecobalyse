@@ -194,6 +194,18 @@ toPage session model cmds toModel toMsg pageUpdate =
     )
 
 
+requireSuperuser : Session -> ( Model, Cmd Msg ) -> ( Model, Cmd Msg )
+requireSuperuser session ( model, cmds ) =
+    if Session.isSuperuser session then
+        ComponentAdmin.init session AdminSection.ComponentSection
+            |> toPage session model cmds ComponentAdminPage ComponentAdminMsg
+
+    else
+        ( { model | state = Loaded session RestrictedAccessPage }
+        , Cmd.none
+        )
+
+
 setRoute : Url -> ( Model, Cmd Msg ) -> ( Model, Cmd Msg )
 setRoute url ( { state } as model, cmds ) =
     case state of
@@ -220,24 +232,14 @@ setRoute url ( { state } as model, cmds ) =
                         |> toPage session model cmds AuthPage AuthMsg
 
                 Just (Route.Admin AdminSection.AccountSection) ->
-                    if Session.isStaff session then
-                        AccountAdmin.init session AdminSection.AccountSection
-                            |> toPage session model cmds AccountAdminPage AccountAdminMsg
-
-                    else
-                        ( { model | state = Loaded session RestrictedAccessPage }
-                        , Cmd.none
-                        )
+                    AccountAdmin.init session AdminSection.AccountSection
+                        |> toPage session model cmds AccountAdminPage AccountAdminMsg
+                        |> requireSuperuser session
 
                 Just (Route.Admin AdminSection.ComponentSection) ->
-                    if Session.isStaff session then
-                        ComponentAdmin.init session AdminSection.ComponentSection
-                            |> toPage session model cmds ComponentAdminPage ComponentAdminMsg
-
-                    else
-                        ( { model | state = Loaded session RestrictedAccessPage }
-                        , Cmd.none
-                        )
+                    ComponentAdmin.init session AdminSection.ComponentSection
+                        |> toPage session model cmds ComponentAdminPage ComponentAdminMsg
+                        |> requireSuperuser session
 
                 Just (Route.Admin AdminSection.ProcessSection) ->
                     -- TODO: open this section when it's ready
