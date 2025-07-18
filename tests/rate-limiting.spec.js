@@ -6,6 +6,7 @@ describe("Rate Limiting", () => {
   function setupTestApp(env) {
     process.env.MATOMO_HOST = "";
     process.env.NODE_ENV = "production";
+    process.env.POSTHOG_HOST = "";
     process.env.SENTRY_DSN = "";
     for (const key in env) {
       process.env[key] = env[key];
@@ -18,11 +19,10 @@ describe("Rate Limiting", () => {
     // Store original environment variables
     originalEnv = {
       MATOMO_HOST: process.env.MATOMO_HOST,
-      MATOMO_TOKEN: process.env.MATOMO_TOKEN,
       NODE_ENV: process.env.NODE_ENV,
+      POSTHOG_HOST: process.env.POSTHOG_HOST,
       RATELIMIT_MAX_RPM: process.env.RATELIMIT_MAX_RPM,
       RATELIMIT_WHITELIST: process.env.RATELIMIT_WHITELIST,
-      SENTRY_DSN: process.env.SENTRY_DSN,
     };
   });
 
