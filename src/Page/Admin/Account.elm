@@ -73,9 +73,9 @@ viewAccounts accounts =
                 , th [] [ text "Email" ]
                 , th [] [ text "Organisation" ]
                 , th [] [ text "Actif" ]
-                , th [] [ text "Superutilisateur" ]
+                , th [] [ text "Super-utilisateur" ]
                 , th [] [ text "Vérifié" ]
-                , th [] [ text "Date d'envoi du lien magique" ]
+                , th [] [ text "Première activation" ]
                 ]
             ]
         , accounts
