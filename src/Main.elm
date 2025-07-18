@@ -13,7 +13,9 @@ import Data.Posthog as Posthog
 import Data.Session as Session exposing (Session)
 import Data.Textile.Query as TextileQuery
 import Html
+import Page.Admin.Account as AccountAdmin
 import Page.Admin.Component as ComponentAdmin
+import Page.Admin.Section as AdminSection
 import Page.Api as Api
 import Page.Auth as Auth
 import Page.Editorial as Editorial
@@ -47,7 +49,8 @@ type alias Flags =
 
 
 type Page
-    = ApiPage Api.Model
+    = AccountAdminPage AccountAdmin.Model
+    | ApiPage Api.Model
     | AuthPage Auth.Model
     | ComponentAdminPage ComponentAdmin.Model
     | EditorialPage Editorial.Model
@@ -79,7 +82,8 @@ type alias Model =
 
 
 type Msg
-    = ApiMsg Api.Msg
+    = AccountAdminMsg AccountAdmin.Msg
+    | ApiMsg Api.Msg
     | AppMsg App.Msg
     | AuthMsg Auth.Msg
     | ComponentAdminMsg ComponentAdmin.Msg
@@ -215,15 +219,31 @@ setRoute url ( { state } as model, cmds ) =
                     Auth.initSignup session
                         |> toPage session model cmds AuthPage AuthMsg
 
-                Just Route.ComponentAdmin ->
+                Just (Route.Admin AdminSection.AccountSection) ->
                     if Session.isStaff session then
-                        ComponentAdmin.init session
+                        AccountAdmin.init session AdminSection.AccountSection
+                            |> toPage session model cmds AccountAdminPage AccountAdminMsg
+
+                    else
+                        ( { model | state = Loaded session RestrictedAccessPage }
+                        , Cmd.none
+                        )
+
+                Just (Route.Admin AdminSection.ComponentSection) ->
+                    if Session.isStaff session then
+                        ComponentAdmin.init session AdminSection.ComponentSection
                             |> toPage session model cmds ComponentAdminPage ComponentAdminMsg
 
                     else
                         ( { model | state = Loaded session RestrictedAccessPage }
                         , Cmd.none
                         )
+
+                Just (Route.Admin AdminSection.ProcessSection) ->
+                    -- TODO: open this section when it's ready
+                    ( { model | state = Loaded session RestrictedAccessPage }
+                    , Cmd.none
+                    )
 
                 Just (Route.Editorial slug) ->
                     Editorial.init slug session
@@ -360,6 +380,10 @@ update rawMsg ({ state } as model) =
                     Home.update session homeMsg homeModel
                         |> toPage session model Cmd.none HomePage HomeMsg
 
+                ( AccountAdminMsg adminMsg, AccountAdminPage adminModel ) ->
+                    AccountAdmin.update session adminMsg adminModel
+                        |> toPage session model Cmd.none AccountAdminPage AccountAdminMsg
+
                 ( ApiMsg apiMsg, ApiPage apiModel ) ->
                     Api.update session apiMsg apiModel
                         |> toPage session model Cmd.none ApiPage ApiMsg
@@ -483,6 +507,10 @@ subscriptions { state } =
         [ Ports.storeChanged StoreChanged
         , Request.Version.pollVersion VersionPoll
         , case state of
+            Loaded _ (AccountAdminPage subModel) ->
+                AccountAdmin.subscriptions subModel
+                    |> Sub.map AccountAdminMsg
+
             Loaded _ (ComponentAdminPage subModel) ->
                 ComponentAdmin.subscriptions subModel
                     |> Sub.map ComponentAdminMsg
@@ -534,6 +562,11 @@ view { mobileNavigationOpened, state, tray } =
                     ( title, content |> List.map (Html.map msg) )
             in
             case page of
+                AccountAdminPage accountAdminModel ->
+                    AccountAdmin.view session accountAdminModel
+                        |> mapMsg AccountAdminMsg
+                        |> frame Page.Admin
+
                 ApiPage examplesModel ->
                     Api.view session examplesModel
                         |> mapMsg ApiMsg
@@ -544,10 +577,10 @@ view { mobileNavigationOpened, state, tray } =
                         |> mapMsg AuthMsg
                         |> frame Page.Auth
 
-                ComponentAdminPage examplesModel ->
-                    ComponentAdmin.view session examplesModel
+                ComponentAdminPage componentAdminModel ->
+                    ComponentAdmin.view session componentAdminModel
                         |> mapMsg ComponentAdminMsg
-                        |> frame Page.ComponentAdmin
+                        |> frame Page.Admin
 
                 EditorialPage editorialModel ->
                     Editorial.view session editorialModel
