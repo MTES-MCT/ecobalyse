@@ -6,6 +6,7 @@ describe("lib.http", () => {
       const sampleEnv = {
         MATOMO_HOST: "matomo.example.com",
         POSTHOG_HOST: "https://posthog.example.com",
+        SENTRY_DSN: "https://12345@sentry.example.com/67890",
       };
       const directives = createCSPDirectives(sampleEnv);
       expect(directives["connect-src"]).toEqual([
@@ -15,6 +16,7 @@ describe("lib.http", () => {
         "https://matomo.example.com",
         "https://posthog.example.com",
         "https://eu-assets.i.posthog.com",
+        "https://sentry.example.com",
       ]);
       expect(directives["frame-src"]).toEqual(["'self'", "https://matomo.example.com"]);
       expect(directives["script-src"]).toEqual([
