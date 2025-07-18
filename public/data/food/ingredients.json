@@ -229,6 +229,13 @@
     "categories": ["animal_product"],
     "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0,
+      "livestockDensity": -0.006,
+      "permanentPasture": 0,
+      "plotSize": 0
+    },
     "id": "ce073919-1aff-4892-a1f5-b25ee94bccd8",
     "inediblePart": 0,
     "landOccupation": 52.5467,
@@ -975,6 +982,13 @@
     "categories": ["animal_product"],
     "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0,
+      "livestockDensity": -0.006,
+      "permanentPasture": 0,
+      "plotSize": 0
+    },
     "id": "131354de-e269-4bc7-a21a-b55658b8e3fb",
     "inediblePart": 0.2,
     "landOccupation": 34.2527,
@@ -1060,6 +1074,13 @@
     "categories": ["animal_product"],
     "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0,
+      "livestockDensity": -0.006,
+      "permanentPasture": 0,
+      "plotSize": 0
+    },
     "id": "91f8ec52-d3bb-44db-84be-08bb1996caf8",
     "inediblePart": 0,
     "landOccupation": 42.8171,
@@ -5474,6 +5495,28 @@
     "search": "Silage maize, conventional, national average, animal feed, at farm gate, production {FR} U",
     "transportCooling": "none",
     "visible": true
+  },
+  {
+    "alias": "oilseed-feed",
+    "categories": ["grain_raw"],
+    "cropGroup": "AUTRES OLEAGINEUX",
+    "defaultOrigin": "France",
+    "density": 0.24,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0,
+      "plotSize": 0
+    },
+    "id": "4b3c39a6-496c-416c-a42a-8d4c2fc788da",
+    "inediblePart": 0,
+    "landOccupation": 1.97529,
+    "name": "Tourteau FR",
+    "processId": "1eec6669-df89-5638-92da-a7c2fb3b033a",
+    "rawToCookedRatio": 2.33,
+    "scenario": "import",
+    "search": "Oilseed meal mix, as feed, at regional warehouse, as DM {RER} - Adapted from WFLDB",
+    "transportCooling": "none",
+    "visible": false
   },
   {
     "alias": "grazed-grass-temporary",
