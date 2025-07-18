@@ -151,7 +151,6 @@ type Msg
     | UpdatePrinting (Maybe Printing)
     | UpdateStepCountry Label Country.Code
     | UpdateSurfaceMass (Maybe Unit.SurfaceMass)
-    | UpdateTraceability Bool
     | UpdateTrimQuantity Index Component.Quantity
     | UpdateUpcycled Bool
     | UpdateYarnSize (Maybe Unit.YarnSize)
@@ -587,10 +586,6 @@ update ({ queries, navKey } as session) msg model =
             App.createUpdate session model
                 |> updateQuery { query | surfaceMass = surfaceMass }
 
-        ( UpdateTraceability traceability, _ ) ->
-            App.createUpdate session model
-                |> updateQuery { query | traceability = Just traceability }
-
         ( UpdateTrimQuantity trimIndex quantity, _ ) ->
             App.createUpdate session model
                 |> updateQuery
@@ -811,26 +806,6 @@ businessField business =
             ]
 
 
-traceabilityField : Bool -> Html Msg
-traceabilityField traceability =
-    div [ class "form-check align-items-center g-2 pt-2 text-truncate" ]
-        [ input
-            [ type_ "checkbox"
-            , id "traceability"
-            , class "form-check-input"
-            , onCheck UpdateTraceability
-            , checked traceability
-            ]
-            []
-        , label
-            [ for "traceability"
-            , class "form-check-label text-truncate"
-            , title "Traçabilité affichée"
-            ]
-            [ text "Traçabilité affichée" ]
-        ]
-
-
 massField : String -> Html Msg
 massField massInput =
     div [ class "d-flex flex-column" ]
@@ -1022,15 +997,10 @@ simulatorFormView session model ({ inputs } as simulator) =
                     ]
                     [ text "Entreprise" ]
                 ]
-            , div [ class "col-md-6" ]
+            , div [ class "col-md-10" ]
                 [ inputs.business
                     |> Maybe.withDefault inputs.product.economics.business
                     |> businessField
-                ]
-            , div [ class "col-md-4" ]
-                [ inputs.traceability
-                    |> Maybe.withDefault inputs.product.economics.traceability
-                    |> traceabilityField
                 ]
             ]
         , if model.activeTab == ExploratoryTab then

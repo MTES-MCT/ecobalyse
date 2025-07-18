@@ -79,7 +79,6 @@ type alias Inputs =
     , printing : Maybe Printing
     , product : Product
     , surfaceMass : Maybe Unit.SurfaceMass
-    , traceability : Maybe Bool
     , trims : List Item
     , upcycled : Bool
     , yarnSize : Maybe Unit.YarnSize
@@ -200,7 +199,6 @@ fromQuery { countries, textile } query =
         |> RE.andMap (Ok query.printing)
         |> RE.andMap (textile.products |> Product.findById query.product)
         |> RE.andMap (Ok query.surfaceMass)
-        |> RE.andMap (Ok query.traceability)
         |> RE.andMap (Ok query.trims)
         |> RE.andMap (Ok query.upcycled)
         |> RE.andMap (Ok query.yarnSize)
@@ -229,7 +227,6 @@ toQuery inputs =
     , printing = inputs.printing
     , product = inputs.product.id
     , surfaceMass = inputs.surfaceMass
-    , traceability = inputs.traceability
     , trims = inputs.trims
     , upcycled = inputs.upcycled
     , yarnSize = inputs.yarnSize
@@ -516,7 +513,6 @@ encode inputs =
         , ( "printing", inputs.printing |> Maybe.map Printing.encode |> Maybe.withDefault Encode.null )
         , ( "product", Product.encode inputs.product )
         , ( "surfaceMass", inputs.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
-        , ( "traceability", inputs.traceability |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )
         , ( "upcycled", Encode.bool inputs.upcycled )
         , ( "yarnSize", inputs.yarnSize |> Maybe.map Unit.encodeYarnSize |> Maybe.withDefault Encode.null )
         ]

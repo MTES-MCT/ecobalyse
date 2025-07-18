@@ -236,9 +236,6 @@ computeDurability ({ inputs } as simulator) =
                     inputs.price
                         |> Maybe.withDefault inputs.product.economics.price
                 , repairCost = inputs.product.economics.repairCost
-                , traceability =
-                    inputs.traceability
-                        |> Maybe.withDefault inputs.product.economics.traceability
                 }
 
         newDurability =
