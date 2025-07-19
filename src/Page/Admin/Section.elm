@@ -1,4 +1,8 @@
-module Page.Admin.Section exposing (Section(..), parseSlug)
+module Page.Admin.Section exposing
+    ( Section(..)
+    , parseSlug
+    , toSlug
+    )
 
 import Url.Parser as Parser exposing (Parser)
 
@@ -11,7 +15,7 @@ type Section
 
 parseSlug : Parser (Section -> a) a
 parseSlug =
-    Parser.custom "SECTION" (fromSlug >> Just)
+    Parser.custom "ADMIN_SECTION" (fromSlug >> Just)
 
 
 fromSlug : String -> Section
@@ -29,3 +33,16 @@ fromSlug slug =
         _ ->
             -- Default to components
             ComponentSection
+
+
+toSlug : Section -> String
+toSlug section =
+    case section of
+        AccountSection ->
+            "accounts"
+
+        ComponentSection ->
+            "components"
+
+        ProcessSection ->
+            "processes"

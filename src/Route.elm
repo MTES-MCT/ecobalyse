@@ -198,14 +198,8 @@ toString route =
     let
         pieces =
             case route of
-                Admin AdminSection.AccountSection ->
-                    [ "admin", "accounts" ]
-
-                Admin AdminSection.ComponentSection ->
-                    [ "admin", "components" ]
-
-                Admin AdminSection.ProcessSection ->
-                    [ "admin", "processes" ]
+                Admin section ->
+                    [ "admin", AdminSection.toSlug section ]
 
                 Api ->
                     [ "api" ]
