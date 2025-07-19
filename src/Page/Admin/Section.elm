@@ -1,6 +1,7 @@
 module Page.Admin.Section exposing
     ( Section(..)
     , parseSlug
+    , toLabel
     , toSlug
     )
 
@@ -33,6 +34,19 @@ fromSlug slug =
         _ ->
             -- Default to components
             ComponentSection
+
+
+toLabel : Section -> String
+toLabel section =
+    case section of
+        AccountSection ->
+            "Utilisateurs"
+
+        ComponentSection ->
+            "Composants"
+
+        ProcessSection ->
+            "Procédés (à venir)"
 
 
 toSlug : Section -> String
