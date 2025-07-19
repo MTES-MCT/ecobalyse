@@ -154,6 +154,7 @@ async def test_user_profile(
         "isSuperuser": False,
         "isActive": True,
         "isVerified": False,
+        "joinedAt": json["joinedAt"],
         "magicLinkSentAt": json["magicLinkSentAt"],
     }
 
@@ -187,6 +188,7 @@ async def test_user_update_profile(
         "isSuperuser": False,
         "isActive": True,
         "isVerified": False,
+        "joinedAt": json["joinedAt"],
         "magicLinkSentAt": json["magicLinkSentAt"],
     }
 
@@ -298,6 +300,7 @@ async def test_user_signup_and_login(
             "isSuperuser": False,
             "isActive": True,
             "isVerified": False,
+            "joinedAt": json["joinedAt"],
             "magicLinkSentAt": None,
             "roles": [
                 {
@@ -583,3 +586,24 @@ async def test_token_validation(
     )
 
     assert response.status_code == 403
+
+
+async def test_list_accounts_guest_denied(client: "AsyncClient") -> None:
+    response = await client.get("/api/accounts")
+    assert response.status_code == 401
+
+
+async def test_list_accounts_regular_user_denied(
+    client: "AsyncClient", user_token_headers: dict[str, str]
+) -> None:
+    response = await client.get("/api/accounts", headers=user_token_headers)
+    assert response.status_code == 403
+
+
+async def test_list_accounts_superuser_granted(
+    client: "AsyncClient", superuser_token_headers: dict[str, str]
+) -> None:
+    response = await client.get("/api/accounts", headers=superuser_token_headers)
+    assert response.status_code == 200
+    data = response.json()
+    assert isinstance(data, list)

@@ -19,6 +19,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Json.Decode as Decode
+import Page.Admin.Section as AdminSection
 import RemoteData
 import Request.BackendHttp.Error as BackendError
 import Request.Version as Version exposing (Version(..))
@@ -33,9 +34,9 @@ import Views.Spinner as Spinner
 
 
 type ActivePage
-    = Api
+    = Admin
+    | Api
     | Auth
-    | ComponentAdmin
     | Editorial String
     | Explore
     | FoodBuilder
@@ -194,7 +195,7 @@ secondaryMenuLinks =
     , External "Communauté" Env.communityUrl
     , External "Code source" Env.githubUrl
     , External "CGU" Env.cguUrl
-    , Internal "Admin" Route.ComponentAdmin ComponentAdmin
+    , Internal "Admin" (Route.Admin AdminSection.ComponentSection) Admin
     ]
 
 
@@ -204,8 +205,8 @@ headerMenuLinks session =
         ++ List.filterMap identity
             [ Just <| External "Communauté" Env.communityUrl
             , Just <| External "Documentation" Env.gitbookUrl
-            , if Session.isStaff session then
-                Just <| Internal "Admin" Route.ComponentAdmin ComponentAdmin
+            , if Session.isSuperuser session then
+                Just <| Internal "Admin" (Route.Admin AdminSection.ComponentSection) Admin
 
               else
                 Nothing

@@ -17,6 +17,7 @@ module Data.User exposing
     , encodeUpdateProfileForm
     , encodeUser
     , getOrganizationName
+    , organizationToString
     , organizationTypeToString
     , organizationTypes
     , sirenFromString
@@ -48,6 +49,7 @@ type alias User =
     , isActive : Bool
     , isSuperuser : Bool
     , isVerified : Bool
+    , joinedAt : Maybe Posix
     , magicLinkSentAt : Maybe Posix
     , profile : Profile
     , roles : List Role
@@ -139,6 +141,7 @@ decodeUser =
         |> JDP.required "isActive" Decode.bool
         |> JDP.required "isSuperuser" Decode.bool
         |> JDP.required "isVerified" Decode.bool
+        |> DU.strictOptional "joinedAt" DE.datetime
         |> DU.strictOptional "magicLinkSentAt" DE.datetime
         |> JDP.required "profile" decodeProfile
         |> JDP.required "roles" (Decode.list decodeRole)
@@ -187,8 +190,8 @@ decodeProfile : Decoder Profile
 decodeProfile =
     Decode.succeed Profile
         |> DU.strictOptionalWithDefault "emailOptin" Decode.bool False
-        |> JDP.required "firstName" Decode.string
-        |> JDP.required "lastName" Decode.string
+        |> DU.strictOptionalWithDefault "firstName" Decode.string ""
+        |> DU.strictOptionalWithDefault "lastName" Decode.string ""
         |> JDP.required "organization" decodeOrganization
         |> JDP.required "termsAccepted" Decode.bool
 
@@ -237,6 +240,11 @@ encodeUser user =
         , ( "isVerified", user.isVerified |> Encode.bool )
         , ( "magicLinkSentAt"
           , user.magicLinkSentAt
+                |> Maybe.map EU.datetime
+                |> Maybe.withDefault Encode.null
+          )
+        , ( "joinedAt"
+          , user.joinedAt
                 |> Maybe.map EU.datetime
                 |> Maybe.withDefault Encode.null
           )
@@ -473,6 +481,34 @@ updateOrganizationType type_ organization =
 
         _ ->
             organization
+
+
+organizationToString : Organization -> String
+organizationToString organization =
+    case organization of
+        Association name ->
+            name ++ " (association)"
+
+        Business name _ ->
+            name ++ " (entreprise)"
+
+        Education name ->
+            name ++ " (enseignement/recherche)"
+
+        Individual ->
+            "Particulier"
+
+        LocalAuthority name ->
+            name ++ " (collectivité ou EPCI)"
+
+        Media name ->
+            name ++ " (média)"
+
+        Public name ->
+            name ++ " (autre établissement public et État)"
+
+        Student name ->
+            name ++ " (étudiant·e)"
 
 
 organizationTypeToString : Organization -> String
