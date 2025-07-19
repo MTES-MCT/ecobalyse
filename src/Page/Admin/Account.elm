@@ -11,7 +11,7 @@ import App exposing (Msg, PageUpdate)
 import Data.Session exposing (Session)
 import Data.User as User exposing (User)
 import Html exposing (..)
-import Html.Attributes exposing (..)
+import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import Page.Admin.Section as AdminSection
 import RemoteData
@@ -40,21 +40,33 @@ type Msg
 
 
 type alias Filters =
-    { isActive : Bool
-    , isSuperuser : Bool
-    , isVerified : Bool
+    { isActive : Maybe Bool
+    , isSuperuser : Maybe Bool
+    , isVerified : Maybe Bool
+    , emailOptin : Maybe Bool
+    , termsAccepted : Maybe Bool
     }
 
 
 init : Session -> AdminSection.Section -> PageUpdate Model Msg
 init session section =
     { accounts = RemoteData.NotAsked
-    , filters = { isActive = True, isSuperuser = True, isVerified = True }
+    , filters = defaultFilters
     , section = section
     , tableState = SortableTable.initialSort "Nom"
     }
         |> App.createUpdate session
         |> App.withCmds [ AuthApi.listAccounts session AccountListResponse ]
+
+
+defaultFilters : Filters
+defaultFilters =
+    { isActive = Nothing
+    , isSuperuser = Nothing
+    , isVerified = Nothing
+    , emailOptin = Nothing
+    , termsAccepted = Nothing
+    }
 
 
 update : Session -> Msg -> Model -> PageUpdate Model Msg
@@ -76,9 +88,11 @@ update session msg model =
 filterAccounts : Filters -> List User -> List User
 filterAccounts filters accounts =
     accounts
-        |> List.filter (.isActive >> (==) filters.isActive)
-        |> List.filter (.isSuperuser >> (==) filters.isSuperuser)
-        |> List.filter (.isVerified >> (==) filters.isVerified)
+        |> List.filter (\account -> filters.isActive |> Maybe.map ((==) account.isActive) |> Maybe.withDefault True)
+        |> List.filter (\account -> filters.isSuperuser |> Maybe.map ((==) account.isSuperuser) |> Maybe.withDefault True)
+        |> List.filter (\account -> filters.isVerified |> Maybe.map ((==) account.isVerified) |> Maybe.withDefault True)
+        |> List.filter (\account -> filters.emailOptin |> Maybe.map ((==) account.profile.emailOptin) |> Maybe.withDefault True)
+        |> List.filter (\account -> filters.termsAccepted |> Maybe.map ((==) account.profile.termsAccepted) |> Maybe.withDefault True)
 
 
 booleanColumn : String -> (User -> Bool) -> SortableTable.Column User Msg
@@ -123,8 +137,8 @@ tableConfig =
             , SortableTable.stringColumn "Organisation" (.profile >> .organization >> User.organizationToString)
             , booleanColumn "Actif" .isActive
             , booleanColumn "Vérifié" .isVerified
-            , booleanColumn "Superutilisateur" .isSuperuser
-            , booleanColumn "Opt-in email" (.profile >> .emailOptin)
+            , booleanColumn "Admin" .isSuperuser
+            , booleanColumn "Opt-in" (.profile >> .emailOptin)
             , booleanColumn "CGU" (.profile >> .termsAccepted)
             , dateColumn "Inscrit le" (.joinedAt >> Maybe.withDefault (Time.millisToPosix 0))
             ]
@@ -140,8 +154,14 @@ view _ model =
     ( "Admin Utilisateurs"
     , [ Container.centered [ class "d-flex flex-column gap-3 pb-5" ]
             [ AdminView.header model.section
-            , viewFilters model.filters
-            , model.accounts |> WebDataView.map (viewAccounts model.filters model.tableState)
+            , div [ class "row" ]
+                [ div [ class "col-lg-9 col-xl-10" ]
+                    [ model.accounts
+                        |> WebDataView.map (viewAccounts model.filters model.tableState)
+                    ]
+                , div [ class "col-lg-3 col-xl-2" ]
+                    [ viewFilters model.filters ]
+                ]
             ]
       ]
     )
@@ -156,7 +176,8 @@ viewAccounts filters tableState accounts =
     in
     div [ class "DatasetTable table-responsive" ]
         [ if List.isEmpty matches then
-            div [ class "alert alert-info" ] [ text "Aucun résultat" ]
+            div [ class "alert alert-info" ]
+                [ text "Aucun résultat" ]
 
           else
             matches
@@ -166,28 +187,47 @@ viewAccounts filters tableState accounts =
 
 viewFilters : Filters -> Html Msg
 viewFilters filters =
-    div [ class "d-flex flex-row align-center input-group border" ]
-        [ h3 [ class "h6 mb-0 input-group-text" ] [ text "Filtres" ]
-        , [ ( "Actif", .isActive, \f -> { f | isActive = not filters.isActive } )
-          , ( "Superutilisateur", .isSuperuser, \f -> { f | isSuperuser = not filters.isSuperuser } )
-          , ( "Vérifié", .isVerified, \f -> { f | isVerified = not filters.isVerified } )
+    let
+        filterRadio index name getter updateFilters optionValue =
+            Html.label [ class "form-check-label" ]
+                [ Html.input
+                    [ type_ "radio"
+                    , Attr.name <| "filter-" ++ String.fromInt index ++ "-" ++ name
+                    , class "form-check-input me-1"
+                    , checked <| getter filters == optionValue
+                    , onClick <| SetFilters (updateFilters filters optionValue)
+                    ]
+                    []
+                , text name
+                ]
+    in
+    div [ class "card mt-3 mt-lg-0" ]
+        [ h2 [ class "h6 mb-0 card-header" ] [ text "Filtres" ]
+        , [ ( "Actif", .isActive, \f val -> { f | isActive = val } )
+          , ( "Admin", .isSuperuser, \f val -> { f | isSuperuser = val } )
+          , ( "Vérifié", .isVerified, \f val -> { f | isVerified = val } )
+          , ( "Opt-in", .emailOptin, \f val -> { f | emailOptin = val } )
+          , ( "CGU", .termsAccepted, \f val -> { f | termsAccepted = val } )
           ]
-            |> List.map
-                (\( label, getter, updateFilters ) ->
-                    div [ class "form-check form-check-inline" ]
-                        [ Html.label [ class "form-check-label" ]
-                            [ Html.input
-                                [ type_ "checkbox"
-                                , class "form-check-input"
-                                , checked (getter filters)
-                                , onClick (SetFilters (updateFilters filters))
-                                ]
-                                []
-                            , text label
+            |> List.indexedMap
+                (\index ( label, getter, updateFilters ) ->
+                    div [ class "border-bottom p-2" ]
+                        [ div [ class "fw-bold mb-1" ] [ text label ]
+                        , div [ class "d-flex flex-row align-center justify-content-start  gap-2" ]
+                            [ filterRadio index "Tout" getter updateFilters Nothing
+                            , filterRadio index "Oui" getter updateFilters (Just True)
+                            , filterRadio index "Non" getter updateFilters (Just False)
                             ]
                         ]
                 )
-            |> div [ class "form-control bg-white" ]
+            |> div [ class "card-body p-0 fs-7" ]
+        , div [ class "card-footer text-center p-1 border-top-0" ]
+            [ button
+                [ class "btn btn-sm btn-link"
+                , onClick <| SetFilters defaultFilters
+                ]
+                [ text "Réinitialiser les filtres" ]
+            ]
         ]
 
 
