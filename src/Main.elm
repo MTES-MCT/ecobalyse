@@ -197,8 +197,7 @@ toPage session model cmds toModel toMsg pageUpdate =
 requireSuperuser : Session -> ( Model, Cmd Msg ) -> ( Model, Cmd Msg )
 requireSuperuser session ( model, cmds ) =
     if Session.isSuperuser session then
-        ComponentAdmin.init session AdminSection.ComponentSection
-            |> toPage session model cmds ComponentAdminPage ComponentAdminMsg
+        ( model, cmds )
 
     else
         ( { model | state = Loaded session RestrictedAccessPage }
