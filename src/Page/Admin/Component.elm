@@ -29,7 +29,6 @@ import Page.Admin.Section as AdminSection
 import Ports
 import RemoteData
 import Request.BackendHttp exposing (WebData)
-import Request.BackendHttp.Error as BackendError
 import Request.Component as ComponentApi
 import Route
 import Static.Db exposing (Db)
@@ -41,8 +40,8 @@ import Views.Container as Container
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Modal as Modal
-import Views.Spinner as Spinner
 import Views.Table as Table
+import Views.WebData as WebDataView
 
 
 type alias Model =
@@ -294,9 +293,9 @@ view { db } model =
             , model.scopes
                 |> scopeFilterForm UpdateScopeFilters
             , model.components
-                |> mapRemoteData (componentListView db model.scopes)
+                |> WebDataView.map (componentListView db model.scopes)
             , model.components
-                |> mapRemoteData downloadDbButton
+                |> WebDataView.map downloadDbButton
             , model.modals
                 |> List.indexedMap (\index modal -> modalView db model.modals index modal)
                 |> div []
@@ -504,7 +503,7 @@ modalView db modals index modal =
 
                 HistoryModal response ->
                     { title = "Historique des modifications"
-                    , content = [ response |> mapRemoteData historyView ]
+                    , content = [ response |> WebDataView.map historyView ]
                     , footer =
                         [ button
                             [ class "btn btn-primary"
@@ -761,22 +760,6 @@ warning =
         , level = Alert.Warning
         , title = Nothing
         }
-
-
-mapRemoteData : (a -> Html msg) -> WebData a -> Html msg
-mapRemoteData fn webData =
-    case webData of
-        RemoteData.Failure err ->
-            Alert.serverError <| BackendError.errorToString err
-
-        RemoteData.Loading ->
-            Spinner.view
-
-        RemoteData.NotAsked ->
-            text ""
-
-        RemoteData.Success data ->
-            fn data
 
 
 subscriptions : Model -> Sub Msg
