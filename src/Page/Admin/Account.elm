@@ -12,6 +12,7 @@ import Data.Session exposing (Session)
 import Data.User as User exposing (User)
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Events exposing (..)
 import Page.Admin.Section as AdminSection
 import RemoteData
 import Request.Auth as AuthApi
@@ -26,6 +27,7 @@ import Views.WebData as WebDataView
 
 type alias Model =
     { accounts : WebData (List User)
+    , filters : Filters
     , section : AdminSection.Section
     , tableState : SortableTable.State
     }
@@ -33,12 +35,21 @@ type alias Model =
 
 type Msg
     = AccountListResponse (WebData (List User))
+    | SetFilters Filters
     | SetTableState SortableTable.State
+
+
+type alias Filters =
+    { isActive : Bool
+    , isSuperuser : Bool
+    , isVerified : Bool
+    }
 
 
 init : Session -> AdminSection.Section -> PageUpdate Model Msg
 init session section =
     { accounts = RemoteData.NotAsked
+    , filters = { isActive = True, isSuperuser = True, isVerified = True }
     , section = section
     , tableState = SortableTable.initialSort "Nom"
     }
@@ -53,9 +64,21 @@ update session msg model =
             App.createUpdate session
                 { model | accounts = response }
 
+        SetFilters filters ->
+            App.createUpdate session
+                { model | filters = filters }
+
         SetTableState tableState ->
             App.createUpdate session
                 { model | tableState = tableState }
+
+
+filterAccounts : Filters -> List User -> List User
+filterAccounts filters accounts =
+    accounts
+        |> List.filter (\account -> filters.isActive == account.isActive)
+        |> List.filter (\account -> filters.isSuperuser == account.isSuperuser)
+        |> List.filter (\account -> filters.isVerified == account.isVerified)
 
 
 booleanColumn : String -> (User -> Bool) -> SortableTable.Column User Msg
@@ -115,16 +138,56 @@ view _ model =
     ( "User admin"
     , [ Container.centered [ class "d-flex flex-column gap-3 pb-5" ]
             [ AdminView.header model.section
-            , model.accounts |> WebDataView.map (viewAccounts model.tableState)
+            , viewFilters model.filters
+            , model.accounts |> WebDataView.map (viewAccounts model.filters model.tableState)
             ]
       ]
     )
 
 
-viewAccounts : SortableTable.State -> List User -> Html Msg
-viewAccounts tableState accounts =
+viewAccounts : Filters -> SortableTable.State -> List User -> Html Msg
+viewAccounts filters tableState accounts =
+    let
+        matches =
+            accounts
+                |> filterAccounts filters
+    in
+    -- TODO: generalize DatasetTable class name
     div [ class "DatasetTable table-responsive" ]
-        [ SortableTable.view tableConfig tableState accounts
+        [ if List.isEmpty matches then
+            div [ class "alert alert-info" ] [ text "Aucun résultat" ]
+
+          else
+            matches
+                |> SortableTable.view tableConfig tableState
+        ]
+
+
+viewFilters : Filters -> Html Msg
+viewFilters filters =
+    div [ class "d-flex flex-row gap-3" ]
+        [ h3 [ class "h6 mb-0" ] [ text "Filtres" ]
+        , [ ( "Actif", .isActive, \f -> { f | isActive = not filters.isActive } )
+          , ( "Superutilisateur", .isSuperuser, \f -> { f | isSuperuser = not filters.isSuperuser } )
+          , ( "Vérifié", .isVerified, \f -> { f | isVerified = not filters.isVerified } )
+          ]
+            |> List.map
+                (\( label, getter, updateFilters ) ->
+                    div [ class "form-check form-check-inline" ]
+                        [ Html.label [ class "form-check-label" ]
+                            [ Html.input
+                                [ type_ "checkbox"
+                                , class "form-check-input"
+                                , checked (getter filters)
+                                , onClick (SetFilters (updateFilters filters))
+                                ]
+                                []
+                            , text label
+                            ]
+                        ]
+                )
+            -- TODO: generalize class name
+            |> div [ class "ScopeSelector" ]
         ]
 
 
