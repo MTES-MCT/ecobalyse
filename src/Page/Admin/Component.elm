@@ -711,7 +711,7 @@ multipleScopesForm check scopes =
                             ]
                         ]
                 )
-            |> div [ class "ScopeSelector" ]
+            |> div []
         ]
 
 
