@@ -122,8 +122,10 @@ tableConfig =
             , SortableTable.stringColumn "Email " .email
             , SortableTable.stringColumn "Organisation" (.profile >> .organization >> User.organizationToString)
             , booleanColumn "Actif" .isActive
-            , booleanColumn "Superutilisateur" .isSuperuser
             , booleanColumn "Vérifié" .isVerified
+            , booleanColumn "Superutilisateur" .isSuperuser
+            , booleanColumn "Opt-in email" (.profile >> .emailOptin)
+            , booleanColumn "CGU" (.profile >> .termsAccepted)
             , dateColumn "Inscrit le" (.joinedAt >> Maybe.withDefault (Time.millisToPosix 0))
             ]
         , customizations =
