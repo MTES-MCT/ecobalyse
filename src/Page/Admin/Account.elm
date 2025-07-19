@@ -10,6 +10,7 @@ module Page.Admin.Account exposing
 import App exposing (Msg, PageUpdate)
 import Data.Session exposing (Session)
 import Data.User as User exposing (User)
+import Dict exposing (Dict)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
@@ -95,16 +96,17 @@ filterAccounts filters accounts =
         |> List.filter (\account -> filters.termsAccepted |> Maybe.map ((==) account.profile.termsAccepted) |> Maybe.withDefault True)
 
 
+yesNo : Bool -> String
+yesNo bool =
+    if bool then
+        "Oui"
+
+    else
+        "Non"
+
+
 booleanColumn : String -> (User -> Bool) -> SortableTable.Column User Msg
 booleanColumn name getter =
-    let
-        yesNo bool =
-            if bool then
-                "Oui"
-
-            else
-                "Non"
-    in
     SortableTable.customColumn
         { name = name
         , viewData = getter >> yesNo
@@ -154,13 +156,14 @@ view _ model =
     ( "Admin Utilisateurs"
     , [ Container.centered [ class "d-flex flex-column gap-3 pb-5" ]
             [ AdminView.header model.section
+            , viewFilters model.filters
             , div [ class "row" ]
                 [ div [ class "col-lg-9 col-xl-10" ]
                     [ model.accounts
                         |> WebDataView.map (viewAccounts model.filters model.tableState)
                     ]
                 , div [ class "col-lg-3 col-xl-2" ]
-                    [ viewFilters model.filters ]
+                    [ viewFiltersForm model.filters ]
                 ]
             ]
       ]
@@ -187,15 +190,52 @@ viewAccounts filters tableState accounts =
 
 viewFilters : Filters -> Html Msg
 viewFilters filters =
+    if filters == defaultFilters then
+        text ""
+
+    else
+        availableFilters
+            |> Dict.map (\_ ( getter, setter ) -> ( getter filters, setter ))
+            |> Dict.toList
+            |> List.filterMap (\( field, ( value, setter ) ) -> value |> Maybe.map (\v -> ( field, yesNo v, setter )))
+            |> List.map
+                (\( field, value, setter ) ->
+                    small [ class "btn-group fs-9" ]
+                        [ span [ class "btn btn-sm btn-primary" ] [ text field ]
+                        , span [ class "btn btn-sm btn-light" ] [ text value ]
+                        , button
+                            [ type_ "button"
+                            , class "btn btn-sm btn-light"
+                            , onClick <| SetFilters (setter filters Nothing)
+                            ]
+                            [ text "✕" ]
+                        ]
+                )
+            |> div [ class "d-flex gap-2" ]
+
+
+availableFilters : Dict String ( Filters -> Maybe Bool, Filters -> Maybe Bool -> Filters )
+availableFilters =
+    Dict.fromList
+        [ ( "Actif", ( .isActive, \f val -> { f | isActive = val } ) )
+        , ( "Admin", ( .isSuperuser, \f val -> { f | isSuperuser = val } ) )
+        , ( "CGU", ( .termsAccepted, \f val -> { f | termsAccepted = val } ) )
+        , ( "Opt-in", ( .emailOptin, \f val -> { f | emailOptin = val } ) )
+        , ( "Vérifié", ( .isVerified, \f val -> { f | isVerified = val } ) )
+        ]
+
+
+viewFiltersForm : Filters -> Html Msg
+viewFiltersForm filters =
     let
-        filterRadio index name getter updateFilters optionValue =
+        filterRadio index name getter setter optionValue =
             Html.label [ class "form-check-label" ]
                 [ Html.input
                     [ type_ "radio"
                     , Attr.name <| "filter-" ++ String.fromInt index ++ "-" ++ name
                     , class "form-check-input me-1"
                     , checked <| getter filters == optionValue
-                    , onClick <| SetFilters (updateFilters filters optionValue)
+                    , onClick <| SetFilters (setter filters optionValue)
                     ]
                     []
                 , text name
@@ -203,20 +243,16 @@ viewFilters filters =
     in
     div [ class "card mt-3 mt-lg-0" ]
         [ h2 [ class "h6 mb-0 card-header" ] [ text "Filtres" ]
-        , [ ( "Actif", .isActive, \f val -> { f | isActive = val } )
-          , ( "Admin", .isSuperuser, \f val -> { f | isSuperuser = val } )
-          , ( "Vérifié", .isVerified, \f val -> { f | isVerified = val } )
-          , ( "Opt-in", .emailOptin, \f val -> { f | emailOptin = val } )
-          , ( "CGU", .termsAccepted, \f val -> { f | termsAccepted = val } )
-          ]
+        , availableFilters
+            |> Dict.toList
             |> List.indexedMap
-                (\index ( label, getter, updateFilters ) ->
+                (\index ( label, ( getter, setter ) ) ->
                     div [ class "border-bottom p-2" ]
                         [ div [ class "fw-bold mb-1" ] [ text label ]
                         , div [ class "d-flex flex-row align-center justify-content-start  gap-2" ]
-                            [ filterRadio index "Tout" getter updateFilters Nothing
-                            , filterRadio index "Oui" getter updateFilters (Just True)
-                            , filterRadio index "Non" getter updateFilters (Just False)
+                            [ filterRadio index "Tout" getter setter Nothing
+                            , filterRadio index "Oui" getter setter (Just True)
+                            , filterRadio index "Non" getter setter (Just False)
                             ]
                         ]
                 )
@@ -225,6 +261,7 @@ viewFilters filters =
             [ button
                 [ class "btn btn-sm btn-link"
                 , onClick <| SetFilters defaultFilters
+                , disabled <| filters == defaultFilters
                 ]
                 [ text "Réinitialiser les filtres" ]
             ]
