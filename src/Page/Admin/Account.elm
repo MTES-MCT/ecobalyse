@@ -20,6 +20,7 @@ import Request.BackendHttp exposing (WebData)
 import Table as SortableTable
 import Time exposing (Posix)
 import Views.Admin as AdminView
+import Views.Alert as Alert
 import Views.Container as Container
 import Views.Format as Format
 import Views.WebData as WebDataView
@@ -138,6 +139,7 @@ view _ model =
     ( "User admin"
     , [ Container.centered [ class "d-flex flex-column gap-3 pb-5" ]
             [ AdminView.header model.section
+            , warning
             , viewFilters model.filters
             , model.accounts |> WebDataView.map (viewAccounts model.filters model.tableState)
             ]
@@ -186,9 +188,21 @@ viewFilters filters =
                             ]
                         ]
                 )
-            -- TODO: generalize class name
-            |> div [ class "ScopeSelector" ]
+            |> div []
         ]
+
+
+warning : Html msg
+warning =
+    Alert.simple
+        { attributes = []
+        , close = Nothing
+        , content =
+            [ text "Attention, la base de données mobilisée peut être réinitialisée à tout moment et ces informations utilisateur avec."
+            ]
+        , level = Alert.Warning
+        , title = Nothing
+        }
 
 
 subscriptions : Model -> Sub Msg
