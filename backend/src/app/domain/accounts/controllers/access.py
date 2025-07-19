@@ -261,7 +261,7 @@ class AccessController(Controller):
         if token:
             _ = await tokens_service.delete(item_id=token_id)
         else:
-            msg = "You don't have the permission to delete this token"
+            msg = "You don’t have the permission to delete this token"
             raise PermissionDeniedException(detail=msg)
 
     @get(
