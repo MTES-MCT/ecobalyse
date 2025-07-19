@@ -154,6 +154,7 @@ async def test_user_profile(
         "isSuperuser": False,
         "isActive": True,
         "isVerified": False,
+        "joinedAt": json["joinedAt"],
         "magicLinkSentAt": json["magicLinkSentAt"],
     }
 
@@ -187,6 +188,7 @@ async def test_user_update_profile(
         "isSuperuser": False,
         "isActive": True,
         "isVerified": False,
+        "joinedAt": json["joinedAt"],
         "magicLinkSentAt": json["magicLinkSentAt"],
     }
 
@@ -298,6 +300,7 @@ async def test_user_signup_and_login(
             "isSuperuser": False,
             "isActive": True,
             "isVerified": False,
+            "joinedAt": json["joinedAt"],
             "magicLinkSentAt": None,
             "roles": [
                 {
