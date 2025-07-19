@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime  # noqa: TC003
+from datetime import date, datetime  # noqa: TC003
 from enum import StrEnum
 from uuid import UUID  # noqa: TC003
 
@@ -89,6 +89,7 @@ class User(CamelizedBaseStruct):
     id: UUID
     email: str
     profile: UserProfile
+    joined_at: date
     is_superuser: bool = False
     is_active: bool = False
     is_verified: bool = False

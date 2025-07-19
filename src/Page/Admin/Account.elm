@@ -75,7 +75,7 @@ viewAccounts accounts =
                 , th [] [ text "Actif" ]
                 , th [] [ text "Super-utilisateur" ]
                 , th [] [ text "Vérifié" ]
-                , th [] [ text "Première activation" ]
+                , th [] [ text "Inscrit le" ]
                 ]
             ]
         , accounts
@@ -102,7 +102,7 @@ accountRowView user =
         , td [] [ text <| yesNo user.isActive ]
         , td [] [ text <| yesNo user.isSuperuser ]
         , td [] [ text <| yesNo user.isVerified ]
-        , td [] [ user.magicLinkSentAt |> Maybe.map Format.frenchDatetime |> Maybe.withDefault "-" |> text ]
+        , td [] [ user.joinedAt |> Maybe.map Format.frenchDate |> Maybe.withDefault "-" |> text ]
         ]
 
 
