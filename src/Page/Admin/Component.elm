@@ -286,7 +286,7 @@ selectProcess category (( component, _ ) as targetItem) maybeElementIndex autoco
 
 view : Session -> Model -> ( String, List (Html Msg) )
 view { db } model =
-    ( "admin"
+    ( "Admin Composants"
     , [ Container.centered [ class "d-flex flex-column gap-3 pb-5" ]
             [ AdminView.header model.section
             , warning
@@ -693,8 +693,8 @@ scopeFilterForm updateFilters filtered =
 
 multipleScopesForm : (Scope -> Bool -> Msg) -> List Scope -> Html Msg
 multipleScopesForm check scopes =
-    div [ class "d-flex flex-row gap-3" ]
-        [ h3 [ class "h6 mb-0" ] [ text "Verticales" ]
+    div [ class "d-flex flex-row align-center input-group border" ]
+        [ h3 [ class "h6 mb-0 input-group-text" ] [ text "Verticales" ]
         , Scope.all
             |> List.map
                 (\scope ->
@@ -711,7 +711,7 @@ multipleScopesForm check scopes =
                             ]
                         ]
                 )
-            |> div []
+            |> div [ class "form-control bg-white" ]
         ]
 
 

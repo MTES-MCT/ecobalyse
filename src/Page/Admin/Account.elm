@@ -20,7 +20,6 @@ import Request.BackendHttp exposing (WebData)
 import Table as SortableTable
 import Time exposing (Posix)
 import Views.Admin as AdminView
-import Views.Alert as Alert
 import Views.Container as Container
 import Views.Format as Format
 import Views.WebData as WebDataView
@@ -136,10 +135,9 @@ tableConfig =
 
 view : Session -> Model -> ( String, List (Html Msg) )
 view _ model =
-    ( "User admin"
+    ( "Admin Utilisateurs"
     , [ Container.centered [ class "d-flex flex-column gap-3 pb-5" ]
             [ AdminView.header model.section
-            , warning
             , viewFilters model.filters
             , model.accounts |> WebDataView.map (viewAccounts model.filters model.tableState)
             ]
@@ -154,7 +152,6 @@ viewAccounts filters tableState accounts =
             accounts
                 |> filterAccounts filters
     in
-    -- TODO: generalize DatasetTable class name
     div [ class "DatasetTable table-responsive" ]
         [ if List.isEmpty matches then
             div [ class "alert alert-info" ] [ text "Aucun résultat" ]
@@ -167,8 +164,8 @@ viewAccounts filters tableState accounts =
 
 viewFilters : Filters -> Html Msg
 viewFilters filters =
-    div [ class "d-flex flex-row gap-3" ]
-        [ h3 [ class "h6 mb-0" ] [ text "Filtres" ]
+    div [ class "d-flex flex-row align-center input-group border" ]
+        [ h3 [ class "h6 mb-0 input-group-text" ] [ text "Filtres" ]
         , [ ( "Actif", .isActive, \f -> { f | isActive = not filters.isActive } )
           , ( "Superutilisateur", .isSuperuser, \f -> { f | isSuperuser = not filters.isSuperuser } )
           , ( "Vérifié", .isVerified, \f -> { f | isVerified = not filters.isVerified } )
@@ -188,21 +185,8 @@ viewFilters filters =
                             ]
                         ]
                 )
-            |> div []
+            |> div [ class "form-control bg-white" ]
         ]
-
-
-warning : Html msg
-warning =
-    Alert.simple
-        { attributes = []
-        , close = Nothing
-        , content =
-            [ text "Attention, la base de données mobilisée peut être réinitialisée à tout moment et ces informations utilisateur avec."
-            ]
-        , level = Alert.Warning
-        , title = Nothing
-        }
 
 
 subscriptions : Model -> Sub Msg
