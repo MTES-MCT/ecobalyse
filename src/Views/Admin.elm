@@ -16,15 +16,15 @@ all =
 
 header : Section -> Html msg
 header currentSection =
-    div [ class "row" ]
-        [ div [ class "col-md-6 col-lg-8" ]
+    div [ class "row pb-2" ]
+        [ div [ class "col-lg-6 col-xl-8" ]
             [ h1 [ class "mb-0" ]
                 [ text "Administration"
                 , small [ class "h3 text-muted" ]
                     [ text <| " des " ++ AdminSection.toLabel currentSection ]
                 ]
             ]
-        , div [ class "col-md-6 col-lg-4 d-flex justify-content-end align-items-end" ]
+        , div [ class "col-lg-6 col-xl-4 d-flex justify-content-end align-items-end" ]
             [ menu currentSection
             ]
         ]
