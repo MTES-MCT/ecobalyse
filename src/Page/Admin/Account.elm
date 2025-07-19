@@ -76,9 +76,9 @@ update session msg model =
 filterAccounts : Filters -> List User -> List User
 filterAccounts filters accounts =
     accounts
-        |> List.filter (\account -> filters.isActive == account.isActive)
-        |> List.filter (\account -> filters.isSuperuser == account.isSuperuser)
-        |> List.filter (\account -> filters.isVerified == account.isVerified)
+        |> List.filter (.isActive >> (==) filters.isActive)
+        |> List.filter (.isSuperuser >> (==) filters.isSuperuser)
+        |> List.filter (.isVerified >> (==) filters.isVerified)
 
 
 booleanColumn : String -> (User -> Bool) -> SortableTable.Column User Msg

@@ -3,14 +3,14 @@ module Views.Admin exposing (header)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Page.Admin.Section as AdminSection exposing (Section(..))
-import Route exposing (Route)
+import Route
 
 
-all : List ( Section, Route, Bool )
+all : List ( Section, Bool )
 all =
-    [ ( AccountSection, Route.Admin AccountSection, True )
-    , ( ComponentSection, Route.Admin ComponentSection, True )
-    , ( ProcessSection, Route.Admin ProcessSection, False )
+    [ ( AccountSection, True )
+    , ( ComponentSection, True )
+    , ( ProcessSection, False )
     ]
 
 
@@ -20,7 +20,8 @@ header currentSection =
         [ div [ class "col-md-6 col-lg-8" ]
             [ h1 [ class "mb-0" ]
                 [ text "Administration"
-                , small [ class "h3 text-muted" ] [ text <| " des " ++ AdminSection.toLabel currentSection ]
+                , small [ class "h3 text-muted" ]
+                    [ text <| " des " ++ AdminSection.toLabel currentSection ]
                 ]
             ]
         , div [ class "col-md-6 col-lg-4 d-flex justify-content-end align-items-end" ]
@@ -33,7 +34,7 @@ menu : Section -> Html msg
 menu currenSection =
     all
         |> List.map
-            (\( section, route, enabled ) ->
+            (\( section, enabled ) ->
                 a
                     [ class "btn"
                     , classList
@@ -41,7 +42,7 @@ menu currenSection =
                         , ( "btn-outline-primary", section /= currenSection )
                         , ( "disabled", not enabled )
                         ]
-                    , Route.href route
+                    , Route.href <| Route.Admin section
                     ]
                     [ text (AdminSection.toLabel section) ]
             )
