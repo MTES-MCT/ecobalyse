@@ -16,14 +16,12 @@ import Page.Admin.Section as AdminSection
 import RemoteData
 import Request.Auth as AuthApi
 import Request.BackendHttp exposing (WebData)
-import Request.BackendHttp.Error as BackendError
 import Table as SortableTable
 import Time exposing (Posix)
 import Views.Admin as AdminView
-import Views.Alert as Alert
 import Views.Container as Container
 import Views.Format as Format
-import Views.Spinner as Spinner
+import Views.WebData as WebDataView
 
 
 type alias Model =
@@ -117,7 +115,7 @@ view _ model =
     ( "User admin"
     , [ Container.centered [ class "d-flex flex-column gap-3 pb-5" ]
             [ AdminView.header model.section
-            , model.accounts |> mapRemoteData (viewAccounts model.tableState)
+            , model.accounts |> WebDataView.map (viewAccounts model.tableState)
             ]
       ]
     )
@@ -128,23 +126,6 @@ viewAccounts tableState accounts =
     div [ class "DatasetTable table-responsive" ]
         [ SortableTable.view tableConfig tableState accounts
         ]
-
-
-mapRemoteData : (a -> Html msg) -> WebData a -> Html msg
-mapRemoteData fn webData =
-    -- TODO make this a generic view helper (see component admin)
-    case webData of
-        RemoteData.Failure err ->
-            Alert.serverError <| BackendError.errorToString err
-
-        RemoteData.Loading ->
-            Spinner.view
-
-        RemoteData.NotAsked ->
-            text ""
-
-        RemoteData.Success data ->
-            fn data
 
 
 subscriptions : Model -> Sub Msg
