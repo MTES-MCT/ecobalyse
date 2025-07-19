@@ -17,28 +17,32 @@ import RemoteData
 import Request.Auth as AuthApi
 import Request.BackendHttp exposing (WebData)
 import Request.BackendHttp.Error as BackendError
+import Table as SortableTable
+import Time exposing (Posix)
 import Views.Admin as AdminView
 import Views.Alert as Alert
 import Views.Container as Container
 import Views.Format as Format
 import Views.Spinner as Spinner
-import Views.Table as Table
 
 
 type alias Model =
     { accounts : WebData (List User)
     , section : AdminSection.Section
+    , tableState : SortableTable.State
     }
 
 
 type Msg
     = AccountListResponse (WebData (List User))
+    | SetTableState SortableTable.State
 
 
 init : Session -> AdminSection.Section -> PageUpdate Model Msg
 init session section =
     { accounts = RemoteData.NotAsked
     , section = section
+    , tableState = SortableTable.initialSort "Nom"
     }
         |> App.createUpdate session
         |> App.withCmds [ AuthApi.listAccounts session AccountListResponse ]
@@ -51,41 +55,13 @@ update session msg model =
             App.createUpdate session
                 { model | accounts = response }
 
-
-view : Session -> Model -> ( String, List (Html Msg) )
-view _ model =
-    ( "User admin"
-    , [ Container.centered [ class "d-flex flex-column gap-3 pb-5" ]
-            [ AdminView.header model.section
-            , model.accounts |> mapRemoteData viewAccounts
-            ]
-      ]
-    )
+        SetTableState tableState ->
+            App.createUpdate session
+                { model | tableState = tableState }
 
 
-viewAccounts : List User -> Html Msg
-viewAccounts accounts =
-    Table.responsiveDefault []
-        [ thead []
-            [ tr []
-                [ th [] [ text "Prénom" ]
-                , th [] [ text "Nom" ]
-                , th [] [ text "Email" ]
-                , th [] [ text "Organisation" ]
-                , th [] [ text "Actif" ]
-                , th [] [ text "Super-utilisateur" ]
-                , th [] [ text "Vérifié" ]
-                , th [] [ text "Inscrit le" ]
-                ]
-            ]
-        , accounts
-            |> List.map accountRowView
-            |> tbody []
-        ]
-
-
-accountRowView : User -> Html Msg
-accountRowView user =
+booleanColumn : String -> (User -> Bool) -> SortableTable.Column User Msg
+booleanColumn name getter =
     let
         yesNo bool =
             if bool then
@@ -94,20 +70,69 @@ accountRowView user =
             else
                 "Non"
     in
-    tr []
-        [ td [] [ text user.profile.firstName ]
-        , td [] [ text user.profile.lastName ]
-        , td [] [ text user.email ]
-        , td [] [ text <| User.organizationToString user.profile.organization ]
-        , td [] [ text <| yesNo user.isActive ]
-        , td [] [ text <| yesNo user.isSuperuser ]
-        , td [] [ text <| yesNo user.isVerified ]
-        , td [] [ user.joinedAt |> Maybe.map Format.frenchDate |> Maybe.withDefault "-" |> text ]
+    SortableTable.customColumn
+        { name = name
+        , viewData = getter >> yesNo
+        , sorter = SortableTable.increasingOrDecreasingBy (getter >> yesNo)
+        }
+
+
+dateColumn : String -> (User -> Posix) -> SortableTable.Column User Msg
+dateColumn name getter =
+    SortableTable.customColumn
+        { name = name
+        , viewData = getter >> Format.frenchDate
+        , sorter = SortableTable.increasingOrDecreasingBy (getter >> Time.posixToMillis)
+        }
+
+
+tableConfig : SortableTable.Config User Msg
+tableConfig =
+    let
+        defaultCustomizations =
+            SortableTable.defaultCustomizations
+    in
+    SortableTable.customConfig
+        { toId = .email
+        , toMsg = SetTableState
+        , columns =
+            [ SortableTable.stringColumn "Prénom" (.profile >> .firstName)
+            , SortableTable.stringColumn "Nom" (.profile >> .lastName)
+            , SortableTable.stringColumn "Email " .email
+            , SortableTable.stringColumn "Organisation" (.profile >> .organization >> User.organizationToString)
+            , booleanColumn "Actif" .isActive
+            , booleanColumn "Superutilisateur" .isSuperuser
+            , booleanColumn "Vérifié" .isVerified
+            , dateColumn "Inscrit le" (.joinedAt >> Maybe.withDefault (Time.millisToPosix 0))
+            ]
+        , customizations =
+            { defaultCustomizations
+                | tableAttrs = [ class "table table-striped table-hover table-responsive mb-0 view-list cursor-pointer" ]
+            }
+        }
+
+
+view : Session -> Model -> ( String, List (Html Msg) )
+view _ model =
+    ( "User admin"
+    , [ Container.centered [ class "d-flex flex-column gap-3 pb-5" ]
+            [ AdminView.header model.section
+            , model.accounts |> mapRemoteData (viewAccounts model.tableState)
+            ]
+      ]
+    )
+
+
+viewAccounts : SortableTable.State -> List User -> Html Msg
+viewAccounts tableState accounts =
+    div [ class "DatasetTable table-responsive" ]
+        [ SortableTable.view tableConfig tableState accounts
         ]
 
 
 mapRemoteData : (a -> Html msg) -> WebData a -> Html msg
 mapRemoteData fn webData =
+    -- TODO make this a generic view helper (see component admin)
     case webData of
         RemoteData.Failure err ->
             Alert.serverError <| BackendError.errorToString err
