@@ -201,8 +201,8 @@ viewFilters filters =
             |> List.map
                 (\( field, value, setter ) ->
                     small [ class "btn-group fs-9" ]
-                        [ span [ class "btn btn-sm btn-primary" ] [ text field ]
-                        , span [ class "btn btn-sm btn-light" ] [ text value ]
+                        [ span [ class "btn btn-sm btn-light" ] [ strong [] [ text field ] ]
+                        , span [ class "btn btn-sm btn-primary" ] [ text value ]
                         , button
                             [ type_ "button"
                             , class "btn btn-sm btn-light"
@@ -228,18 +228,27 @@ availableFilters =
 viewFiltersForm : Filters -> Html Msg
 viewFiltersForm filters =
     let
-        filterRadio index name getter setter optionValue =
-            Html.label [ class "form-check-label" ]
-                [ Html.input
-                    [ type_ "radio"
-                    , Attr.name <| "filter-" ++ String.fromInt index ++ "-" ++ name
-                    , class "form-check-input me-1"
-                    , checked <| getter filters == optionValue
-                    , onClick <| SetFilters (setter filters optionValue)
-                    ]
-                    []
-                , text name
+        filterRadio index name getter setter optionValue order =
+            let
+                domId =
+                    "filter-" ++ String.fromInt index ++ "-" ++ name ++ "-" ++ String.fromInt order
+            in
+            [ Html.input
+                [ type_ "radio"
+                , class "btn-check"
+                , id domId
+                , autocomplete False
+                , Attr.name <| "filter-" ++ String.fromInt index ++ "-" ++ name
+                , checked <| getter filters == optionValue
+                , onClick <| SetFilters (setter filters optionValue)
                 ]
+                []
+            , Html.label
+                [ class "btn btn-sm btn-outline-primary px-2 py-1 fs-8"
+                , for domId
+                ]
+                [ text name ]
+            ]
     in
     div [ class "card mt-3 mt-lg-0" ]
         [ h2 [ class "h6 mb-0 card-header" ] [ text "Filtres" ]
@@ -247,13 +256,14 @@ viewFiltersForm filters =
             |> Dict.toList
             |> List.indexedMap
                 (\index ( label, ( getter, setter ) ) ->
-                    div [ class "border-bottom p-2" ]
+                    div [ class "border-bottom p-2 pt-1" ]
                         [ div [ class "fw-bold mb-1" ] [ text label ]
-                        , div [ class "d-flex flex-row align-center justify-content-start  gap-2" ]
-                            [ filterRadio index "Tout" getter setter Nothing
-                            , filterRadio index "Oui" getter setter (Just True)
-                            , filterRadio index "Non" getter setter (Just False)
-                            ]
+                        , [ filterRadio index "Tout" getter setter Nothing 1
+                          , filterRadio index "Oui" getter setter (Just True) 2
+                          , filterRadio index "Non" getter setter (Just False) 3
+                          ]
+                            |> List.concat
+                            |> div [ class "btn-group w-100" ]
                         ]
                 )
             |> div [ class "card-body p-0 fs-7" ]
