@@ -10,7 +10,6 @@ module Page.Admin.Account exposing
 import App exposing (Msg, PageUpdate)
 import Data.Session exposing (Session)
 import Data.User as User exposing (User)
-import Dict exposing (Dict)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
@@ -195,9 +194,11 @@ viewFilters filters =
 
     else
         availableFilters
-            |> Dict.map (\_ ( getter, setter ) -> ( getter filters, setter ))
-            |> Dict.toList
-            |> List.filterMap (\( field, ( value, setter ) ) -> value |> Maybe.map (\v -> ( field, yesNo v, setter )))
+            |> List.filterMap
+                (\( field, ( getter, setter ) ) ->
+                    getter filters
+                        |> Maybe.map (\v -> ( field, yesNo v, setter ))
+                )
             |> List.map
                 (\( field, value, setter ) ->
                     small [ class "btn-group fs-9" ]
@@ -214,15 +215,14 @@ viewFilters filters =
             |> div [ class "d-flex gap-2" ]
 
 
-availableFilters : Dict String ( Filters -> Maybe Bool, Filters -> Maybe Bool -> Filters )
+availableFilters : List ( String, ( Filters -> Maybe Bool, Filters -> Maybe Bool -> Filters ) )
 availableFilters =
-    Dict.fromList
-        [ ( "Actif", ( .isActive, \f val -> { f | isActive = val } ) )
-        , ( "Admin", ( .isSuperuser, \f val -> { f | isSuperuser = val } ) )
-        , ( "CGU", ( .termsAccepted, \f val -> { f | termsAccepted = val } ) )
-        , ( "Opt-in", ( .emailOptin, \f val -> { f | emailOptin = val } ) )
-        , ( "Vérifié", ( .isVerified, \f val -> { f | isVerified = val } ) )
-        ]
+    [ ( "Actif", ( .isActive, \f val -> { f | isActive = val } ) )
+    , ( "Admin", ( .isSuperuser, \f val -> { f | isSuperuser = val } ) )
+    , ( "CGU", ( .termsAccepted, \f val -> { f | termsAccepted = val } ) )
+    , ( "Opt-in", ( .emailOptin, \f val -> { f | emailOptin = val } ) )
+    , ( "Vérifié", ( .isVerified, \f val -> { f | isVerified = val } ) )
+    ]
 
 
 viewFiltersForm : Filters -> Html Msg
@@ -253,7 +253,6 @@ viewFiltersForm filters =
     div [ class "card mt-3 mt-lg-0" ]
         [ h2 [ class "h6 mb-0 ps-2 card-header" ] [ text "Filtres" ]
         , availableFilters
-            |> Dict.toList
             |> List.indexedMap
                 (\index ( label, ( getter, setter ) ) ->
                     div [ class "border-bottom p-2 pt-1" ]
