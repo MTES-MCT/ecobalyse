@@ -18,8 +18,8 @@ header : Section -> Html msg
 header currentSection =
     div [ class "row pb-2" ]
         [ div [ class "col-lg-6 col-xl-8" ]
-            [ h1 [ class "mb-0 d-flex align-items-baseline gap-2" ]
-                [ small [ class "h3 text-muted" ] [ text "Admin" ]
+            [ h1 [ class "mb-0 d-flex align-items-baseline" ]
+                [ small [ class "h3 text-muted" ] [ text "Admin/" ]
                 , text <| AdminSection.toLabel currentSection
                 ]
             ]
