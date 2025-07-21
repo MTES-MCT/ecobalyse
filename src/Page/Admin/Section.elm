@@ -46,7 +46,7 @@ toLabel section =
             "Composants"
 
         ProcessSection ->
-            "Procédés (à venir)"
+            "Procédés"
 
 
 toSlug : Section -> String

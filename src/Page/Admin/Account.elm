@@ -251,7 +251,7 @@ viewFiltersForm filters =
             ]
     in
     div [ class "card mt-3 mt-lg-0" ]
-        [ h2 [ class "h6 mb-0 card-header" ] [ text "Filtres" ]
+        [ h2 [ class "h6 mb-0 ps-2 card-header" ] [ text "Filtres" ]
         , availableFilters
             |> Dict.toList
             |> List.indexedMap
