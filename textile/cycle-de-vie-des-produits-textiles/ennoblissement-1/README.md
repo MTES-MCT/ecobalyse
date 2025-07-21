@@ -113,7 +113,7 @@ Avec :
 * `I_ennoblissement` : l'impact environnemental de l'ennoblissement, dans l'unité de la catégorie d'impact analysée
 * `m` la masse d'étoffe, modulé  exprimée en kg. Pour plus d'information sur la gestion des masses cf. la section [Pertes et rebut](../../precisions-methodologiques/pertes-et-rebus.md). Pour les pré-traitements, la masse est proportionnée au type de fibres.
 * `e_i` : la quantité d'électricité nécessaire au procédé i pour 1 kg d'étoffe, en kWh/kg
-* `a_i` : Le taux d'application du procédé i pour le vêtement évalué, sans unité
+* `t_i` : Le taux d'application du procédé i pour le vêtement évalué, sans unité
   * Egal à 1 si le procédé est mobilisé pour ce vêtement
   * Egal à 0 si le procédé n'est pas mobilisé
   * Situé entre 0 et 1 pour l'impression (voir paragraphe dédié)
