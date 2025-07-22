@@ -8,6 +8,7 @@ module Data.Split exposing
     , encodeFloat
     , fifteen
     , fourty
+    , fromBoundedFloat
     , fromFloat
     , fromPercent
     , full
@@ -106,9 +107,22 @@ full =
 
 
 fromFloat : Float -> Result String Split
-fromFloat float =
-    if float < 0 || float > 1 then
-        Err ("Une part (en nombre flottant) doit être comprise entre 0 et 1 inclus (ici: " ++ String.fromFloat float ++ ")")
+fromFloat =
+    fromBoundedFloat 0 1
+
+
+fromBoundedFloat : Float -> Float -> Float -> Result String Split
+fromBoundedFloat min max float =
+    if float < min || float > max then
+        Err <|
+            ("Cette proportion doit être comprise entre "
+                ++ String.fromFloat min
+                ++ " et "
+                ++ String.fromFloat max
+                ++ " inclus (ici: "
+                ++ String.fromFloat float
+                ++ ")"
+            )
 
     else
         float
