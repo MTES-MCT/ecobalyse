@@ -230,12 +230,14 @@ handleRequest db request =
 
         Just Route.FoodGetPackagingList ->
             db.processes
+                |> Scope.anyOf [ Scope.Food ]
                 |> List.filter (.categories >> List.member ProcessCategory.Packaging)
                 |> encodeProcessList
                 |> respondWith 200
 
         Just Route.FoodGetTransformList ->
             db.processes
+                |> Scope.anyOf [ Scope.Food ]
                 |> List.filter (.categories >> List.member ProcessCategory.Transform)
                 |> encodeProcessList
                 |> respondWith 200

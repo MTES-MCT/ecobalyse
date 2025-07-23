@@ -44,7 +44,7 @@
             "elm/bytes": "1.0.8",
             "elm/file": "1.0.5",
             "elm/parser": "1.1.0",
-            "elm/virtual-dom": "1.0.3",
+            "elm/virtual-dom": "1.0.4",
             "elmcraft/core-extra": "2.2.0",
             "jinjor/elm-debounce": "3.0.0",
             "myrho/elm-round": "1.0.5",

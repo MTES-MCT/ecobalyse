@@ -173,7 +173,7 @@ compute db query =
         -- Compute Making step impacts
         |> nextWithDbIf Label.Making computeMakingImpacts
         -- Compute product Use impacts
-        |> nextIf Label.Use computeUseImpacts
+        |> nextWithDbIf Label.Use computeUseImpacts
         -- Compute product Use impacts
         |> nextWithDbIf Label.EndOfLife computeEndOfLifeImpacts
         --
@@ -236,9 +236,6 @@ computeDurability ({ inputs } as simulator) =
                     inputs.price
                         |> Maybe.withDefault inputs.product.economics.price
                 , repairCost = inputs.product.economics.repairCost
-                , traceability =
-                    inputs.traceability
-                        |> Maybe.withDefault inputs.product.economics.traceability
                 }
 
         newDurability =
@@ -309,16 +306,17 @@ computeEndOfLifeImpacts { textile } simulator =
             )
 
 
-computeUseImpacts : Simulator -> Simulator
-computeUseImpacts ({ inputs, useNbCycles } as simulator) =
+computeUseImpacts : Db -> Simulator -> Simulator
+computeUseImpacts { textile } ({ inputs, useNbCycles } as simulator) =
     simulator
         |> updateLifeCycleStep Label.Use
-            (\({ country } as step) ->
+            (\step ->
                 let
                     { impacts, kwh } =
                         step.outputMass
                             |> Formula.useImpacts step.impacts
-                                { countryElecProcess = country.electricityProcess
+                                -- Note: The use step is always located in France using low voltage electricity
+                                { countryElecProcess = textile.wellKnown.lowVoltageFranceElec
                                 , ironingElec = inputs.product.use.ironingElec
                                 , nonIroningProcess = inputs.product.use.nonIroningProcess
                                 , useNbCycles = useNbCycles
@@ -422,7 +420,7 @@ computePrintingImpacts { textile } ({ inputs } as simulator) =
                                         , heatProcess = WellKnown.getEnnoblingHeatProcess textile.wellKnown country
                                         , printingProcess = printingProcess
                                         , ratio = ratio
-                                        , surfaceMass = Maybe.withDefault inputs.product.surfaceMass inputs.surfaceMass
+                                        , surfaceMass = inputs.surfaceMass |> Maybe.withDefault inputs.product.surfaceMass
                                         }
 
                             printingToxicity =
@@ -431,6 +429,7 @@ computePrintingImpacts { textile } ({ inputs } as simulator) =
                                         step.impacts
                                         { aquaticPollutionScenario = step.country.aquaticPollutionScenario
                                         , printingToxicityProcess = printingToxicityProcess
+                                        , surfaceMass = inputs.surfaceMass |> Maybe.withDefault inputs.product.surfaceMass
                                         }
                                         ratio
                         in

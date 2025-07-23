@@ -429,6 +429,15 @@ describe("API", () => {
       });
     });
 
+    describe("/food/packagings", () => {
+      it("should render with packagings list", async () => {
+        await expectListResponseContains("/api/food/packagings", {
+          id: "09b63a3c-b0b5-5907-8efd-775b8395f878",
+          name: "PVC",
+        });
+      });
+    });
+
     describe("/food/transforms", () => {
       it("should render with transforms list", async () => {
         await expectListResponseContains("/api/food/transforms", {

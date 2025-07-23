@@ -12,6 +12,7 @@ import App exposing (PageUpdate)
 import Browser.Navigation as Nav
 import Data.ApiToken as ApiToken exposing (CreatedToken, Token)
 import Data.Env as Env
+import Data.Posthog as Posthog
 import Data.Session as Session exposing (Session)
 import Data.User as User exposing (AccessTokenData, FormErrors, ProfileForm, SignupForm, User)
 import Dict
@@ -134,6 +135,7 @@ update session msg model =
                 |> App.createUpdate (session |> Session.updateDbProcesses rawDetailedProcessesJson)
                 |> App.withCmds [ Nav.pushUrl session.navKey <| Route.toString Route.Auth ]
                 |> App.notifyInfo "Vous avez désormais accès aux impacts détaillés"
+                |> App.withCmds [ Posthog.send Posthog.AuthLoginOK ]
 
         DetailedProcessesResponse (RemoteData.Failure error) ->
             model
@@ -179,6 +181,7 @@ update session msg model =
 
                 MagicLinkSent _ ->
                     App.createUpdate session model
+                        |> App.withCmds [ Posthog.send Posthog.AuthMagicLinkSent ]
 
                 Signup signupForm _ ->
                     updateSignupTab session signupForm tabMsg model
@@ -225,6 +228,13 @@ updateAccountTab session currentAuth profileForm _ msg model =
                 }
                 |> App.mapSession (Session.updateAuth (\auth -> { auth | user = user }))
                 |> App.notifyInfoIf updated "Votre profil a été mis à jour avec succès"
+                |> App.withCmds
+                    [ if updated then
+                        Posthog.send Posthog.AuthProfileUpdated
+
+                      else
+                        Cmd.none
+                    ]
 
         ProfileResponse _ _ (RemoteData.Failure error) ->
             if (BackendError.mapErrorResponse error |> .statusCode) == 401 then
@@ -281,7 +291,10 @@ updateApiTokensTab session _ tabMsg model =
         CreateTokenResponse (RemoteData.Success createdToken) ->
             { model | tab = ApiTokenCreated createdToken }
                 |> App.createUpdate session
-                |> App.withCmds [ ApiTokenHttp.list session ApiTokensResponse ]
+                |> App.withCmds
+                    [ ApiTokenHttp.list session ApiTokensResponse
+                    , Posthog.send Posthog.AuthApiTokenCreated
+                    ]
 
         CreateTokenResponse (RemoteData.Failure error) ->
             model
@@ -348,7 +361,10 @@ updateMagicLinkLoginTab session msg model =
         LoginResponse (RemoteData.Success accessTokenData) ->
             { model | tab = MagicLinkLogin }
                 |> App.createUpdate session
-                |> App.withCmds [ accessTokenData.accessToken |> Auth.profileFromAccessToken session (ProfileResponse { updated = False } accessTokenData) ]
+                |> App.withCmds
+                    [ accessTokenData.accessToken
+                        |> Auth.profileFromAccessToken session (ProfileResponse { updated = False } accessTokenData)
+                    ]
 
         LoginResponse (RemoteData.Failure error) ->
             model
@@ -392,6 +408,7 @@ updateSignupTab session signupForm msg model =
         SignupResponse (RemoteData.Success _) ->
             { model | tab = SignupCompleted signupForm.email }
                 |> App.createUpdate session
+                |> App.withCmds [ Posthog.send Posthog.AuthSignup ]
 
         SignupResponse (RemoteData.Failure error) ->
             model
@@ -772,40 +789,60 @@ viewApiTokenDelete apiToken =
         ]
 
 
-viewMagicLinkForm : Email -> Html Msg
-viewMagicLinkForm email =
-    Html.form
-        [ onSubmit MagicLinkSubmit
-        , attribute "data-testid" "auth-magic-link-form"
-        ]
-        [ p []
-            [ """Si vous avez un compte, entrez votre adresse email ci-dessous pour recevoir un email
-                 de connexion. Si vous n'en avez pas, vous pouvez [créer un compte]({url})."""
+viewV6Alert : Html Msg
+viewV6Alert =
+    Alert.simple
+        { attributes = []
+        , close = Nothing
+        , content =
+            [ """ Depuis le **2 juillet 2025** et la mise en ligne de la version 6.0.0,
+                      **les comptes précédemment existants ont été supprimés**. Vous devez
+                      **[recréer un nouveau compte]({url})**.
+                  """
                 |> String.replace "{url}" (Route.toString Route.AuthSignup)
                 |> Markdown.simple []
             ]
-        , div [ class "mb-3" ]
-            [ label [ for "email", class "form-label" ]
-                [ text "Adresse email" ]
-            , input
-                [ type_ "email"
-                , class "form-control"
-                , id "email"
-                , placeholder "nom@example.com"
-                , value email
-                , onInput UpdateMagicLinkForm
-                , required True
-                ]
-                []
+        , level = Alert.Info
+        , title = Nothing
+        }
+
+
+viewMagicLinkForm : Email -> Html Msg
+viewMagicLinkForm email =
+    div [ class "d-flex flex-column gap-3" ]
+        [ viewV6Alert
+        , Html.form
+            [ onSubmit MagicLinkSubmit
+            , attribute "data-testid" "auth-magic-link-form"
             ]
-        , div [ class "d-grid" ]
-            [ button
-                [ type_ "submit"
-                , class "btn btn-primary"
-                , disabled <| email == "" || User.validateEmailForm email /= Dict.empty
-                , attribute "data-testid" "auth-magic-link-submit"
+            [ p []
+                [ text """ En revanche, si vous avez créé un compte depuis cette date, vous pouvez
+                           recevoir un lien de connexion en soumettant votre adresse email ci-dessous.
+                       """
                 ]
-                [ text "Recevoir un email de connexion" ]
+            , div [ class "mb-3" ]
+                [ label [ for "email", class "form-label" ]
+                    [ text "Adresse email" ]
+                , input
+                    [ type_ "email"
+                    , class "form-control"
+                    , id "email"
+                    , placeholder "nom@example.com"
+                    , value email
+                    , onInput UpdateMagicLinkForm
+                    , required True
+                    ]
+                    []
+                ]
+            , div [ class "d-grid" ]
+                [ button
+                    [ type_ "submit"
+                    , class "btn btn-primary"
+                    , disabled <| email == "" || User.validateEmailForm email /= Dict.empty
+                    , attribute "data-testid" "auth-magic-link-submit"
+                    ]
+                    [ text "Recevoir un email de connexion" ]
+                ]
             ]
         ]
 

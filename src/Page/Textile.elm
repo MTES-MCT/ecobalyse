@@ -11,7 +11,6 @@ module Page.Textile exposing
 import App exposing (PageUpdate)
 import Array
 import Autocomplete exposing (Autocomplete)
-import Browser.Dom as Dom
 import Browser.Events
 import Browser.Navigation as Navigation
 import Data.AutocompleteSelector as AutocompleteSelector
@@ -25,6 +24,7 @@ import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Notification as Notification
+import Data.Posthog as Posthog
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Data.Split exposing (Split)
@@ -151,7 +151,6 @@ type Msg
     | UpdatePrinting (Maybe Printing)
     | UpdateStepCountry Label Country.Code
     | UpdateSurfaceMass (Maybe Unit.SurfaceMass)
-    | UpdateTraceability Bool
     | UpdateTrimQuantity Index Component.Quantity
     | UpdateUpcycled Bool
     | UpdateYarnSize (Maybe Unit.YarnSize)
@@ -304,8 +303,9 @@ update ({ queries, navKey } as session) msg model =
     in
     case ( msg, model.modal ) of
         ( ConfirmSwitchToRegulatory, _ ) ->
-            { model | modal = NoModal, activeTab = RegulatoryTab }
+            { model | activeTab = RegulatoryTab }
                 |> App.createUpdate session
+                |> App.apply update (SetModal NoModal)
                 |> updateQuery (Query.regulatory session.db.textile.products query)
 
         ( CopyToClipBoard shareableLink, _ ) ->
@@ -321,6 +321,7 @@ update ({ queries, navKey } as session) msg model =
         ( OpenComparator, _ ) ->
             { model | modal = ComparatorModal }
                 |> App.createUpdate (session |> Session.checkComparedSimulations)
+                |> App.withCmds [ Posthog.send <| Posthog.ComparatorOpened Scope.Textile ]
 
         ( OnAutocompleteTrim autocompleteMsg, AddTrimModal autocompleteState ) ->
             let
@@ -413,6 +414,7 @@ update ({ queries, navKey } as session) msg model =
                             (SaveBookmarkWithTime model.bookmarkName
                                 (Bookmark.Textile query)
                             )
+                    , Posthog.send <| Posthog.BookmarkSaved Scope.Textile
                     ]
 
         ( SaveBookmarkWithTime name foodQuery now, _ ) ->
@@ -442,10 +444,19 @@ update ({ queries, navKey } as session) msg model =
         ( SwitchBookmarksTab bookmarkTab, _ ) ->
             { model | bookmarkTab = bookmarkTab }
                 |> App.createUpdate session
+                |> App.withCmds
+                    [ Posthog.TabSelected Scope.Textile "Partager"
+                        |> Posthog.sendIf (bookmarkTab == BookmarkView.ShareTab)
+                    ]
 
         ( SwitchComparisonType displayChoice, _ ) ->
             { model | comparisonType = displayChoice }
                 |> App.createUpdate session
+                |> App.withCmds
+                    [ ComparatorView.comparisonTypeToString displayChoice
+                        |> Posthog.ComparisonTypeSelected Scope.Textile
+                        |> Posthog.send
+                    ]
 
         ( SwitchImpact (Ok trigram), _ ) ->
             App.createUpdate session model
@@ -454,6 +465,7 @@ update ({ queries, navKey } as session) msg model =
                         |> Route.TextileSimulator trigram
                         |> Route.toString
                         |> Navigation.pushUrl navKey
+                    , Posthog.send <| Posthog.ImpactSelected Scope.Textile trigram
                     ]
 
         ( SwitchImpact (Err error), _ ) ->
@@ -463,6 +475,11 @@ update ({ queries, navKey } as session) msg model =
         ( SwitchImpactsTab impactsTab, _ ) ->
             { model | activeImpactsTab = impactsTab }
                 |> App.createUpdate session
+                |> App.withCmds
+                    [ ImpactTabs.tabToString impactsTab
+                        |> Posthog.TabSelected Scope.Textile
+                        |> Posthog.send
+                    ]
 
         ( SwitchTab RegulatoryTab, _ ) ->
             App.createUpdate session
@@ -472,10 +489,12 @@ update ({ queries, navKey } as session) msg model =
                  else
                     { model | activeTab = RegulatoryTab }
                 )
+                |> App.withCmds [ Posthog.send <| Posthog.TabSelected Scope.Textile "Regulatory" ]
 
         ( SwitchTab ExploratoryTab, _ ) ->
             { model | activeTab = ExploratoryTab }
                 |> App.createUpdate session
+                |> App.withCmds [ Posthog.send <| Posthog.TabSelected Scope.Textile "Exploratory" ]
 
         ( ToggleComparedSimulation bookmark checked, _ ) ->
             model
@@ -567,10 +586,6 @@ update ({ queries, navKey } as session) msg model =
             App.createUpdate session model
                 |> updateQuery { query | surfaceMass = surfaceMass }
 
-        ( UpdateTraceability traceability, _ ) ->
-            App.createUpdate session model
-                |> updateQuery { query | traceability = Just traceability }
-
         ( UpdateTrimQuantity trimIndex quantity, _ ) ->
             App.createUpdate session model
                 |> updateQuery
@@ -595,15 +610,11 @@ commandsForModal modal =
             Ports.removeBodyClass "prevent-scrolling"
 
         _ ->
-            Cmd.batch
-                [ Ports.addBodyClass "prevent-scrolling"
-                , Dom.focus "selector-example"
-                    |> Task.attempt (always NoOp)
-                ]
+            Ports.addBodyClass "prevent-scrolling"
 
 
 updateExistingMaterial : Query -> PageUpdate Model Msg -> Inputs.MaterialInput -> Material -> PageUpdate Model Msg
-updateExistingMaterial query { model, session } oldMaterial newMaterial =
+updateExistingMaterial query pageUpdate oldMaterial newMaterial =
     let
         materialQuery : MaterialQuery
         materialQuery =
@@ -613,14 +624,13 @@ updateExistingMaterial query { model, session } oldMaterial newMaterial =
             , country = Nothing
             }
     in
-    { model | modal = NoModal }
-        |> App.createUpdate session
+    pageUpdate
+        |> App.apply update (SetModal NoModal)
         |> updateQuery (Query.updateMaterial oldMaterial.material.id materialQuery query)
-        |> focusNode ("selector-" ++ Material.idToString newMaterial.id)
 
 
 updateMaterial : Query -> Maybe Inputs.MaterialInput -> Autocomplete Material -> PageUpdate Model Msg -> PageUpdate Model Msg
-updateMaterial query maybeOldMaterial autocompleteState ({ model, session } as pageUpdate) =
+updateMaterial query maybeOldMaterial autocompleteState pageUpdate =
     let
         maybeSelectedValue =
             Autocomplete.selectedValue autocompleteState
@@ -631,76 +641,69 @@ updateMaterial query maybeOldMaterial autocompleteState ({ model, session } as p
         maybeSelectedValue
         |> Maybe.withDefault
             -- Add a new Material
-            ({ model | modal = NoModal }
-                |> App.createUpdate session
+            (pageUpdate
+                |> App.apply update (SetModal NoModal)
                 |> selectMaterial autocompleteState
-                |> focusNode
-                    (maybeSelectedValue
-                        |> Maybe.map (\selectedValue -> "selector-" ++ Material.idToString selectedValue.id)
-                        |> Maybe.withDefault "add-new-element"
-                    )
             )
 
 
-focusNode : String -> PageUpdate Model Msg -> PageUpdate Model Msg
-focusNode node { model, session } =
-    App.createUpdate session model
-        |> App.withCmds
-            [ Dom.focus node
-                |> Task.attempt (always NoOp)
-            ]
-
-
 selectExample : Autocomplete Query -> PageUpdate Model Msg -> PageUpdate Model Msg
-selectExample autocompleteState ({ model, session } as pageUpdate) =
+selectExample autocompleteState { model, session } =
     let
         example =
             Autocomplete.selectedValue autocompleteState
                 |> Maybe.withDefault Query.default
     in
-    { pageUpdate
-        | model = { model | initialQuery = example, modal = NoModal }
-        , session = session |> Session.updateTextileQuery example
-    }
+    { model | initialQuery = example }
+        |> App.createUpdate (Session.updateTextileQuery example session)
+        |> App.apply update (SetModal NoModal)
         |> updateQuery example
+        |> App.withCmds [ Posthog.send <| Posthog.ExampleSelected Scope.Textile ]
 
 
 selectTrim : Autocomplete Component -> PageUpdate Model Msg -> PageUpdate Model Msg
-selectTrim autocompleteState { model, session } =
+selectTrim autocompleteState ({ session } as pageUpdate) =
     case Autocomplete.selectedValue autocompleteState of
         Just trim ->
-            update session (SetModal NoModal) model
-                |> updateQuery (session.queries.textile |> Query.updateTrims (Component.addItem trim.id))
+            pageUpdate
+                |> App.apply update (SetModal NoModal)
+                |> updateQuery
+                    (session.queries.textile
+                        |> Query.updateTrims (Component.addItem trim.id)
+                    )
 
         Nothing ->
-            App.createUpdate session model
-                |> App.notifyError "Erreur" "Aucun accessoire sélectionné"
+            pageUpdate |> App.notifyError "Erreur" "Aucun accessoire sélectionné"
 
 
 selectProduct : Autocomplete Product -> PageUpdate Model Msg -> PageUpdate Model Msg
-selectProduct autocompleteState ({ model, session } as pageUpdate) =
+selectProduct autocompleteState ({ session } as pageUpdate) =
     case Autocomplete.selectedValue autocompleteState of
         Just product ->
             pageUpdate
                 |> App.apply update (SetModal NoModal)
-                |> updateQuery (Query.updateProduct product session.queries.textile)
+                |> updateQuery
+                    (session.queries.textile
+                        |> Query.updateProduct product
+                    )
 
         Nothing ->
-            App.createUpdate session model
-                |> App.notifyError "Erreur" "Aucun produit sélectionné"
+            pageUpdate |> App.notifyError "Erreur" "Aucun produit sélectionné"
 
 
 selectMaterial : Autocomplete Material -> PageUpdate Model Msg -> PageUpdate Model Msg
-selectMaterial autocompleteState ({ model, session } as pageUpdate) =
+selectMaterial autocompleteState ({ session } as pageUpdate) =
     case Autocomplete.selectedValue autocompleteState of
         Just material ->
             pageUpdate
                 |> App.apply update (SetModal NoModal)
-                |> updateQuery (Query.addMaterial material session.queries.textile)
+                |> updateQuery
+                    (session.queries.textile
+                        |> Query.addMaterial material
+                    )
 
         Nothing ->
-            App.createUpdate session model
-                |> App.notifyError "Erreur" "Aucun matériau sélectionné"
+            pageUpdate |> App.notifyError "Erreur" "Aucun matériau sélectionné"
 
 
 productCategoryField : TextileDb.Db -> Query -> Html Msg
@@ -801,26 +804,6 @@ businessField business =
             , class "form-select"
             , onInput (Economics.businessFromString >> UpdateBusiness)
             ]
-
-
-traceabilityField : Bool -> Html Msg
-traceabilityField traceability =
-    div [ class "form-check align-items-center g-2 pt-2 text-truncate" ]
-        [ input
-            [ type_ "checkbox"
-            , id "traceability"
-            , class "form-check-input"
-            , onCheck UpdateTraceability
-            , checked traceability
-            ]
-            []
-        , label
-            [ for "traceability"
-            , class "form-check-label text-truncate"
-            , title "Traçabilité affichée"
-            ]
-            [ text "Traçabilité affichée" ]
-        ]
 
 
 massField : String -> Html Msg
@@ -1014,15 +997,10 @@ simulatorFormView session model ({ inputs } as simulator) =
                     ]
                     [ text "Entreprise" ]
                 ]
-            , div [ class "col-md-6" ]
+            , div [ class "col-md-10" ]
                 [ inputs.business
                     |> Maybe.withDefault inputs.product.economics.business
                     |> businessField
-                ]
-            , div [ class "col-md-4" ]
-                [ inputs.traceability
-                    |> Maybe.withDefault inputs.product.economics.traceability
-                    |> traceabilityField
                 ]
             ]
         , if model.activeTab == ExploratoryTab then

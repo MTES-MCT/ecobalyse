@@ -10,7 +10,6 @@ module Page.Admin.Component exposing
 import App exposing (Msg, PageUpdate)
 import Autocomplete exposing (Autocomplete)
 import Base64
-import Browser.Dom as Dom
 import Browser.Events
 import Data.Component as Component exposing (Component, Index, Item, TargetItem)
 import Data.Impact.Definition as Definition
@@ -33,7 +32,6 @@ import Request.BackendHttp.Error as BackendError
 import Request.Component as ComponentApi
 import Route
 import Static.Db exposing (Db)
-import Task
 import Views.Admin as AdminView
 import Views.Alert as Alert
 import Views.AutocompleteSelector as AutocompleteSelectorView
@@ -254,11 +252,7 @@ commandsForModal modals =
             Ports.removeBodyClass "prevent-scrolling"
 
         _ ->
-            Cmd.batch
-                [ Ports.addBodyClass "prevent-scrolling"
-                , Dom.focus "selector-example"
-                    |> Task.attempt (always NoOp)
-                ]
+            Ports.addBodyClass "prevent-scrolling"
 
 
 selectProcess :
@@ -615,10 +609,12 @@ componentScopesForm component item =
     item.custom
         |> Maybe.map .scopes
         |> Maybe.withDefault component.scopes
-        |> scopesForm
-            (\scope enabled ->
+        |> List.head
+        |> Maybe.withDefault Scope.Object
+        |> singleScopeForm
+            (\scope ->
                 item
-                    |> Component.toggleCustomScope component scope enabled
+                    |> Component.toggleCustomScope component scope True
                     |> UpdateComponent
             )
 
@@ -684,7 +680,7 @@ historyView entries =
 
 scopeFilterForm : (List Scope -> Msg) -> List Scope -> Html Msg
 scopeFilterForm updateFilters filtered =
-    scopesForm
+    multipleScopesForm
         (\scope enabled ->
             if enabled then
                 updateFilters (scope :: filtered)
@@ -695,8 +691,8 @@ scopeFilterForm updateFilters filtered =
         filtered
 
 
-scopesForm : (Scope -> Bool -> Msg) -> List Scope -> Html Msg
-scopesForm check scopes =
+multipleScopesForm : (Scope -> Bool -> Msg) -> List Scope -> Html Msg
+multipleScopesForm check scopes =
     div [ class "d-flex flex-row gap-3" ]
         [ h3 [ class "h6 mb-0" ] [ text "Verticales" ]
         , Scope.all
@@ -716,6 +712,30 @@ scopesForm check scopes =
                         ]
                 )
             |> div [ class "ScopeSelector" ]
+        ]
+
+
+singleScopeForm : (Scope -> Msg) -> Scope -> Html Msg
+singleScopeForm selectScope selectedScope =
+    div [ class "d-flex flex-row gap-3 align-items-center" ]
+        [ h3 [ class "h6 mb-0" ] [ text "Verticale" ]
+        , Scope.all
+            |> List.map
+                (\scope ->
+                    option
+                        [ selected <| scope == selectedScope
+                        , value <| Scope.toString scope
+                        ]
+                        [ text <| Scope.toLabel scope ]
+                )
+            |> select
+                [ class "form-select"
+                , onInput
+                    (Scope.fromString
+                        >> Result.withDefault selectedScope
+                        >> selectScope
+                    )
+                ]
         ]
 
 

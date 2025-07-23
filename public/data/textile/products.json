@@ -7,8 +7,7 @@
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
       "price": 15,
-      "repairCost": 10,
-      "traceability": false
+      "repairCost": 10
     },
     "endOfLife": {
       "volume": 0.006
@@ -24,7 +23,7 @@
     "trims": [
       {
         "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a",
-        "quantity": 10
+        "quantity": 11
       }
     ],
     "use": {
@@ -47,8 +46,7 @@
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
       "price": 20,
-      "repairCost": 14,
-      "traceability": false
+      "repairCost": 14
     },
     "endOfLife": {
       "volume": 0.004
@@ -91,8 +89,7 @@
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
       "price": 15,
-      "repairCost": 19,
-      "traceability": false
+      "repairCost": 19
     },
     "endOfLife": {
       "volume": 0.007
@@ -135,8 +132,7 @@
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
       "price": 40,
-      "repairCost": 31,
-      "traceability": false
+      "repairCost": 31
     },
     "endOfLife": {
       "volume": 0.015
@@ -152,7 +148,7 @@
     "trims": [
       {
         "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a",
-        "quantity": 3
+        "quantity": 5
       },
       {
         "id": "86b877ff-0d59-482f-bb34-3ff306b07496",
@@ -179,8 +175,7 @@
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
       "price": 20,
-      "repairCost": 14,
-      "traceability": false
+      "repairCost": 14
     },
     "endOfLife": {
       "volume": 0.004
@@ -223,8 +218,7 @@
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
       "price": 20,
-      "repairCost": 15,
-      "traceability": false
+      "repairCost": 15
     },
     "endOfLife": {
       "volume": 0.0102
@@ -237,7 +231,12 @@
     },
     "name": "Pull",
     "surfaceMass": 250,
-    "trims": [],
+    "trims": [
+      {
+        "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a",
+        "quantity": 5
+      }
+    ],
     "use": {
       "daysOfWear": 85,
       "defaultNbCycles": 17,
@@ -258,8 +257,7 @@
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
       "price": 10,
-      "repairCost": 10,
-      "traceability": false
+      "repairCost": 10
     },
     "endOfLife": {
       "volume": 0.0018
@@ -272,7 +270,12 @@
     },
     "name": "T-shirt / Polo",
     "surfaceMass": 200,
-    "trims": [],
+    "trims": [
+      {
+        "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a",
+        "quantity": 3
+      }
+    ],
     "use": {
       "daysOfWear": 45,
       "defaultNbCycles": 45,
@@ -293,8 +296,7 @@
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
       "price": 4,
-      "repairCost": 9,
-      "traceability": false
+      "repairCost": 9
     },
     "endOfLife": {
       "volume": 0.002
@@ -328,8 +330,7 @@
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
       "price": 4,
-      "repairCost": 9,
-      "traceability": false
+      "repairCost": 9
     },
     "endOfLife": {
       "volume": 0.002
@@ -342,7 +343,12 @@
     },
     "name": "Caleçon (tissé)",
     "surfaceMass": 180,
-    "trims": [],
+    "trims": [
+      {
+        "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a",
+        "quantity": 2
+      }
+    ],
     "use": {
       "daysOfWear": 60,
       "defaultNbCycles": 60,
@@ -363,8 +369,7 @@
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
       "price": 4,
-      "repairCost": 9,
-      "traceability": false
+      "repairCost": 9
     },
     "endOfLife": {
       "volume": 0.002
@@ -398,8 +403,7 @@
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
       "price": 15,
-      "repairCost": 9,
-      "traceability": false
+      "repairCost": 9
     },
     "endOfLife": {
       "volume": 0.004
@@ -412,7 +416,12 @@
     },
     "name": "Maillot de bain",
     "surfaceMass": 220,
-    "trims": [],
+    "trims": [
+      {
+        "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a",
+        "quantity": 1
+      }
+    ],
     "use": {
       "daysOfWear": 30,
       "defaultNbCycles": 30,

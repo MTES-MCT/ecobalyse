@@ -10,7 +10,6 @@ module Page.Food exposing
 
 import App exposing (PageUpdate)
 import Autocomplete exposing (Autocomplete)
-import Browser.Dom as Dom
 import Browser.Events as BE
 import Browser.Navigation as Navigation
 import Data.AutocompleteSelector as AutocompleteSelector
@@ -29,6 +28,7 @@ import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
+import Data.Posthog as Posthog
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as ProcessCategory
 import Data.Scope as Scope
@@ -319,6 +319,7 @@ update ({ db, queries } as session) msg model =
         OpenComparator ->
             { model | modal = ComparatorModal }
                 |> App.createUpdate (session |> Session.checkComparedSimulations)
+                |> App.withCmds [ Posthog.send <| Posthog.ComparatorOpened Scope.Food ]
 
         Reset ->
             App.createUpdate session model
@@ -340,6 +341,7 @@ update ({ db, queries } as session) msg model =
                             (SaveBookmarkWithTime model.bookmarkName
                                 (Bookmark.Food query)
                             )
+                    , Posthog.send <| Posthog.BookmarkSaved Scope.Food
                     ]
 
         SaveBookmarkWithTime name foodQuery now ->
@@ -369,18 +371,28 @@ update ({ db, queries } as session) msg model =
         SwitchBookmarksTab bookmarkTab ->
             { model | bookmarkTab = bookmarkTab }
                 |> App.createUpdate session
+                |> App.withCmds
+                    [ Posthog.TabSelected Scope.Food "Partager"
+                        |> Posthog.sendIf (bookmarkTab == BookmarkView.ShareTab)
+                    ]
 
         SwitchComparisonType displayChoice ->
             { model | comparisonType = displayChoice }
                 |> App.createUpdate session
+                |> App.withCmds
+                    [ ComparatorView.comparisonTypeToString displayChoice
+                        |> Posthog.ComparisonTypeSelected Scope.Food
+                        |> Posthog.send
+                    ]
 
-        SwitchImpact (Ok impact) ->
+        SwitchImpact (Ok trigram) ->
             App.createUpdate session model
                 |> App.withCmds
                     [ Just query
-                        |> Route.FoodBuilder impact
+                        |> Route.FoodBuilder trigram
                         |> Route.toString
                         |> Navigation.pushUrl session.navKey
+                    , Posthog.send <| Posthog.ImpactSelected Scope.Food trigram
                     ]
 
         SwitchImpact (Err error) ->
@@ -390,6 +402,11 @@ update ({ db, queries } as session) msg model =
         SwitchImpactsTab impactsTab ->
             { model | activeImpactsTab = impactsTab }
                 |> App.createUpdate session
+                |> App.withCmds
+                    [ ImpactTabs.tabToString impactsTab
+                        |> Posthog.TabSelected Scope.Food
+                        |> Posthog.send
+                    ]
 
         ToggleComparedSimulation bookmark checked ->
             App.createUpdate (session |> Session.toggleComparedSimulation bookmark checked) model
@@ -441,11 +458,7 @@ commandsForModal modal =
             Ports.removeBodyClass "prevent-scrolling"
 
         _ ->
-            Cmd.batch
-                [ Ports.addBodyClass "prevent-scrolling"
-                , Dom.focus "selector-example"
-                    |> Task.attempt (always NoOp)
-                ]
+            Ports.addBodyClass "prevent-scrolling"
 
 
 updateExistingIngredient : Query -> Model -> Session -> Recipe.RecipeIngredient -> Ingredient -> PageUpdate Model Msg
@@ -464,7 +477,6 @@ updateExistingIngredient query model session oldRecipeIngredient newIngredient =
         |> App.createUpdate session
         |> App.apply update (SetModal NoModal)
         |> updateQuery (Query.updateIngredient oldRecipeIngredient.ingredient.id ingredientQuery query)
-        |> focusNode ("selector-" ++ Ingredient.idToString newIngredient.id)
 
 
 updateIngredient : Query -> Model -> Session -> Maybe Recipe.RecipeIngredient -> Autocomplete Ingredient -> PageUpdate Model Msg
@@ -483,17 +495,7 @@ updateIngredient query model session maybeOldRecipeIngredient autocompleteState 
                 |> App.createUpdate session
                 |> App.apply update (SetModal NoModal)
                 |> selectIngredient autocompleteState
-                |> focusNode
-                    (maybeSelectedValue
-                        |> Maybe.map (\selectedValue -> "selector-" ++ Ingredient.idToString selectedValue.id)
-                        |> Maybe.withDefault "add-new-element"
-                    )
             )
-
-
-focusNode : String -> PageUpdate Model Msg -> PageUpdate Model Msg
-focusNode node =
-    App.withCmds [ Dom.focus node |> Task.attempt (always NoOp) ]
 
 
 selectIngredient : Autocomplete Ingredient -> PageUpdate Model Msg -> PageUpdate Model Msg
@@ -536,6 +538,7 @@ selectExample autocompleteState pageUpdate =
             LoadQuery example
     in
     update pageUpdate.session msg pageUpdate.model
+        |> App.withCmds [ Posthog.send <| Posthog.ExampleSelected Scope.Food ]
 
 
 

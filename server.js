@@ -1,5 +1,5 @@
-require("dotenv").config();
-const { monitorExpressApp } = require("./lib/instrument");
+require("dotenv").config({ quiet: true });
+
 const fs = require("fs");
 const path = require("path");
 const bodyParser = require("body-parser");
@@ -9,42 +9,50 @@ const yaml = require("js-yaml");
 const helmet = require("helmet");
 const { Elm } = require("./server-app");
 const jsonUtils = require("./lib/json");
-const { setupTracker, dataFiles } = require("./lib");
+const { dataFiles } = require("./lib");
 const { decrypt } = require("./lib/crypto");
-const express = require("express");
 const rateLimit = require("express-rate-limit");
+const { createCSPDirectives, extractTokenFromHeaders } = require("./lib/http");
+// monitoring
+const { setupSentry } = require("./lib/sentry"); // MUST be required BEFORE express
+const { createMatomoTracker } = require("./lib/matomo");
+const { createPosthogTracker } = require("./lib/posthog");
+const express = require("express");
 
-const app = express(); // web app
-const api = express(); // api app
 const expressHost = "0.0.0.0";
 const expressPort = 8001;
-const version = express(); // version app
 
 // Env vars
-const { ENABLE_FOOD_SECTION, MATOMO_HOST, MATOMO_SITE_ID, MATOMO_TOKEN, NODE_ENV } = process.env;
+const { ENABLE_FOOD_SECTION, NODE_ENV, RATELIMIT_MAX_RPM, RATELIMIT_WHITELIST } = process.env;
 
 const INTERNAL_BACKEND_URL = "http://localhost:8002";
 
-var rateLimiter = rateLimit({
-  windowMs: 1000, // 1 second
-  max: 100, // max 100 requests per second
-});
+const app = express(); // web app
+const api = express(); // api app
+const version = express(); // version app
 
-// Rate limit the version API as it reads file from the disk
-version.use(rateLimiter);
-
-// Matomo
-if (
-  NODE_ENV !== "test" &&
-  NODE_ENV !== "development" &&
-  (!MATOMO_HOST || !MATOMO_SITE_ID || !MATOMO_TOKEN)
-) {
-  console.error("Matomo environment variables are missing. Please check the README.");
-  process.exit(1);
-}
+// Rate-limiting
+const rateLimitWhitelist = RATELIMIT_WHITELIST?.split(",").filter(Boolean) ?? [];
+const rateLimitMaxRPM = parseInt(RATELIMIT_MAX_RPM, 10) || 5000;
+// Make rate-limiting working with X-Forwarded-For headers
+app.set("trust proxy", 1);
+app.use(
+  rateLimit({
+    windowMs: 60 * 1000, // 1 minute
+    max: rateLimitMaxRPM,
+    message: { error: `This server is rate-limited to ${rateLimitMaxRPM}rpm, please slow down.` },
+    skip: ({ ip }) => NODE_ENV !== "production" || rateLimitWhitelist.includes(ip),
+  }),
+);
 
 // Sentry monitoring
-monitorExpressApp(app);
+setupSentry(app);
+
+// Posthog API tracker
+const posthogTracker = createPosthogTracker(process.env);
+
+// Matomo
+const matomoTracker = createMatomoTracker(process.env);
 
 // Middleware
 const jsonErrorHandler = bodyParserErrorHandler({
@@ -67,28 +75,7 @@ app.use(
     xssFilter: false,
     contentSecurityPolicy: {
       useDefaults: true,
-      directives: {
-        "default-src": [
-          "'self'",
-          "https://api.github.com",
-          "https://raw.githubusercontent.com",
-          "https://sentry.incubateur.net",
-          "*.gouv.fr",
-        ],
-        "frame-src": ["'self'", `https://${MATOMO_HOST}`, "https://www.loom.com"],
-        "img-src": [
-          "'self'",
-          "data:",
-          "blob:",
-          "https://avatars.githubusercontent.com/",
-          "https://raw.githubusercontent.com",
-        ],
-        // FIXME: We should be able to remove 'unsafe-inline' as soon as the Matomo
-        // server sends the appropriate `Access-Control-Allow-Origin` header
-        // @see https://matomo.org/faq/how-to/faq_18694/
-        "script-src": ["'self'", "'unsafe-inline'", `https://${MATOMO_HOST}`],
-        "object-src": ["blob:"],
-      },
+      directives: createCSPDirectives(process.env),
     },
   }),
 );
@@ -189,19 +176,9 @@ const openApiContents = processOpenApi(
   require("./package.json").version,
 );
 
-// Matomo
-const apiTracker = setupTracker(openApiContents);
-
 // Processes
 const processesImpacts = fs.readFileSync(dataFiles.detailed, "utf8");
 const processes = fs.readFileSync(dataFiles.noDetails, "utf8");
-
-function extractTokenFromHeaders(headers) {
-  // Handle both old and new auth token headers
-  const bearerToken = headers["authorization"]?.split("Bearer ")[1]?.trim();
-  const classicToken = headers["token"]; // from old auth system
-  return bearerToken ?? classicToken;
-}
 
 const getProcesses = async (headers, customProcessesImpacts, customProcesses) => {
   let isValidToken = false;
@@ -253,8 +230,9 @@ elmApp.ports.output.subscribe(({ status, body, jsResponseHandler }) => {
   return jsResponseHandler({ status, body });
 });
 
-api.get("/", (req, res) => {
-  apiTracker.track(200, req);
+api.get("/", async (req, res) => {
+  matomoTracker.track(200, req);
+  await posthogTracker.captureEvent(200, req);
   res.status(200).send(openApiContents);
 });
 
@@ -280,8 +258,9 @@ api.all(/(.*)/, bodyParser.json(), jsonErrorHandler, async (req, res) => {
     url: req.url,
     body: req.body,
     processes,
-    jsResponseHandler: ({ status, body }) => {
-      apiTracker.track(status, req);
+    jsResponseHandler: async ({ status, body }) => {
+      matomoTracker.track(status, req);
+      await posthogTracker.captureEvent(status, req);
       respondWithFormattedJSON(res, status, body);
     },
   });
@@ -294,7 +273,8 @@ const checkVersionAndPath = (req, res, next) => {
   const version = availableVersions.find((version) => version.dir === versionNumber);
 
   if (!version) {
-    res.status(404).send("Version not found");
+    // If no version is found, don’t display a blank page but redirect to the home
+    res.redirect("/");
   }
   const staticDir = path.join(__dirname, "versions", versionNumber);
   req.staticDir = staticDir;
@@ -335,6 +315,9 @@ version.all(
 
     const urlWithoutPrefix = req.url.replace(/\/[^/]+\/api/, "");
 
+    matomoTracker.track(res.statusCode, req);
+    await posthogTracker.captureEvent(res.statusCode, req);
+
     elmApp.ports.input.send({
       method: req.method,
       url: urlWithoutPrefix,
@@ -353,7 +336,11 @@ version.get("/:versionNumber/processes/processes.json", checkVersionAndPath, asy
     (version) => version.dir === versionNumber,
   );
 
-  return res.status(200).send(await getProcesses(req.headers, processesImpacts, processes));
+  // Note: JSON parsing is done in Elm land
+  return res
+    .status(200)
+    .contentType("text/plain")
+    .send(JSON.stringify(await getProcesses(req.headers, processesImpacts, processes)));
 });
 
 api.use(cors()); // Enable CORS for all API requests
@@ -361,7 +348,20 @@ app.use("/api", api);
 app.use("/versions", version);
 
 const server = app.listen(expressPort, expressHost, () => {
-  console.log(`Server listening at http://${expressHost}:${expressPort}`);
+  console.log(`Server listening at http://${expressHost}:${expressPort} (NODE_ENV=${NODE_ENV})`);
 });
+
+async function handleExit(signal) {
+  // Since the Node client batches events to PostHog, the shutdown function
+  // ensures that all the events are captured before shutting down
+  console.log(`Received ${signal}. Flushing…`);
+  await posthogTracker.shutdown();
+  console.log("Flush complete");
+  server.close(() => process.exit(0));
+}
+
+process.on("SIGINT", handleExit);
+process.on("SIGQUIT", handleExit);
+process.on("SIGTERM", handleExit);
 
 module.exports = server;

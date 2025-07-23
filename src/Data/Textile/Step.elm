@@ -447,7 +447,8 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
             { step
                 | processInfo =
                     { defaultProcessInfo
-                        | countryElec = Just <| Process.getDisplayName country.electricityProcess
+                        | -- Note: French low voltage electricity process is always used at the Use step
+                          countryElec = Just <| Process.getDisplayName wellKnown.lowVoltageFranceElec
                         , useIroning =
                             -- Note: Much better expressing electricity consumption in kWh than in MJ
                             inputs.product.use.ironingElec

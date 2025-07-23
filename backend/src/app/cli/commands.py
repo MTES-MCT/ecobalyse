@@ -69,8 +69,10 @@ async def _create_user(
 
     async with alchemy.get_session() as db_session:
         users_service = await anext(provide_users_service(db_session))
-        user = await users_service.upsert(data=obj_in.to_dict(), auto_commit=True)
-        console.print(f"User created: {user.email}")
+        user = await users_service.upsert(
+            data=obj_in.to_dict(), auto_commit=True, match_fields=["email"]
+        )
+        console.print(f"User upserted: {user.email}")
 
 
 @user_management_group.command(

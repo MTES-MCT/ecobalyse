@@ -862,6 +862,7 @@ ennoblingToxicityView db ({ selectedImpact, inputs } as config) current =
                             |> Formula.materialPrintingToxicityImpacts current.impacts
                                 { aquaticPollutionScenario = current.country.aquaticPollutionScenario
                                 , printingToxicityProcess = printingToxicityProcess
+                                , surfaceMass = inputs.surfaceMass |> Maybe.withDefault inputs.product.surfaceMass
                                 }
                                 ratio
 

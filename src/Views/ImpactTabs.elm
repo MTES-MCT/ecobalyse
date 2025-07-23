@@ -5,6 +5,7 @@ module Views.ImpactTabs exposing
     , forFood
     , forObject
     , forTextile
+    , tabToString
     , view
     )
 
@@ -155,18 +156,18 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStep
             ]
         , tabs =
             (if impactDefinition.trigram == Definition.Ecs && Session.isAuthenticated session then
-                [ ( StepImpactsTab, text "Étapes" )
-                , ( SubscoresTab, text "Sous-scores" )
-                , ( DetailedImpactsTab, text "Impacts" )
+                [ StepImpactsTab
+                , SubscoresTab
+                , DetailedImpactsTab
                 ]
 
              else
-                [ ( StepImpactsTab, text "Étapes" ) ]
+                [ StepImpactsTab ]
             )
                 |> List.map
-                    (\( tab, label ) ->
+                    (\tab ->
                         { active = activeImpactsTab == tab
-                        , label = label
+                        , label = text <| tabToString tab
                         , onTabClick = switchImpactsTab tab
                         }
                     )
@@ -239,3 +240,16 @@ forTextile definitions simulator config =
                 |> TextileSimulator.toStepsImpacts config.impactDefinition.trigram
         , total = totalImpactsWithoutComplements
     }
+
+
+tabToString : Tab -> String
+tabToString tab =
+    case tab of
+        DetailedImpactsTab ->
+            "Impacts"
+
+        StepImpactsTab ->
+            "Étapes"
+
+        SubscoresTab ->
+            "Sous-scores"
