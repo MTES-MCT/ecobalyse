@@ -1,4 +1,4 @@
-# 💦 Inventaires enrichis
+# 🧪 Inventaires enrichis
 
 Cette page présente l'enrichissement de certains procédés afin de mieux prendre en compte les émissions de substances chimiques. Elle complète la page [correctif](https://fabrique-numerique.gitbook.io/ecobalyse/textile/correctifs-donnees/corr2-inventaires-enrichis) associé à l'explorateur d'[Ecobalyse](https://ecobalyse.beta.gouv.fr/#/explore/textile).
 

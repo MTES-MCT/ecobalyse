@@ -96,7 +96,7 @@ Il existe deux systèmes permettant d’exprimer le titrage : \
 \- le système indirect : plus le fil est fin, plus le numéro est élevé (ex : Nm)\
 &#xNAN;_&#x4E;m 20 = 20 mètres de ce fil pèsent 1 gramme_ &#x20;
 
-Ecobalyse permet de préciser en mdoe exploratoire le titrage selon les deux systèmes via des unités de référence : le Numéro Metric (Nm) et le Décitex (Dtex).
+Ecobalyse permet de préciser en mode exploratoire le titrage selon les deux systèmes via des unités de référence : le Numéro Metric (Nm) et le Décitex (Dtex).
 
 La majorité des fils utilisés dans l'industrie varient entre une épaisseur minimale (Nm 200) et maximale (Nm 9).
 

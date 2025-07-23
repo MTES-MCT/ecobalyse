@@ -313,7 +313,7 @@ Cette valeur correspond au grammage de l'étoffe constaté sur le produit fini.
 
 <summary>Vous souhaitez modifier le grammage du vêtement ?</summary>
 
-Si c'est le cas, une attention particulière doit être apportée à l'impact de cette modification sur la quantité d'étoffe sortante (m2) afin de ne pas modéliser de scénario incohérent. \
+Il est possible de modifier le grammage, en mode exploratoire. Si c'est le cas, une attention particulière doit être apportée à l'impact de cette modification sur la quantité d'étoffe sortante (m2) afin de ne pas modéliser de scénario incohérent. \
 En effet, le poids (g) d'un vêtement (hors accessoires) dépend du grammage (g/m2) de l'étoffe et de la quantité d'étoffe (m2) mobilisée. Le poids du vêtement et le grammage de l'étoffe sont paramétrables par l'utilisateur tandis que la surface d'étoffe ne l'est pas. Cette donnée d'arrière plan est cependant accessible lors de la modélisation.
 
 ![](<../../.gitbook/assets/image (186).png>)
@@ -368,7 +368,7 @@ Cet exemple illustre le fait que plus l'épaisseur des fils augmente (donc Nm di
 
 Dès lors, préciser la contexture d'un tissu avec un grammage (g/m2) spécifique permet de mieux refléter les réalités métiers sous-jacentes.&#x20;
 
-La communauté ACV permet cela en précisant le titrage de fil plutôt que le compte en chaine x trame (densité de fils). C'est par exemple le cas au niveau du référentiel européen PEF qui différencie les procédés de tissage selon le titrage des fils \
+Le réferentiel PEF permet cela en précisant le titrage de fil plutôt que le compte en chaine x trame (densité de fils), il différencie les procédés de tissage selon le titrage des fils.\
 (ex : Weaving, 33 DTEX-297 denier-18/1 Ne-3 Nm).
 
 </details>
@@ -413,7 +413,7 @@ De (trop) nombreux paramètres impactent la manière dont est tricotée une éto
 
 <summary>Tissage (6,25%)</summary>
 
-Un taux de perte de 6,25% est appliqué par défaut et correspond à la valeur retenue par le socle technique historique Base Impacts (ADEME).&#x20;
+Un taux de perte de 6,25% est appliqué par défaut et correspond à la valeur retenue par le socle technique Base Impacts (ADEME).&#x20;
 
 Les pertes du tissage se décomposent comme suit :&#x20;
 
@@ -427,7 +427,7 @@ Les pertes du tissage se décomposent comme suit :&#x20;
 
 <summary>Tricotage</summary>
 
-Les taux de perte appliqués par défaut correspondent à ceux retenus par le socle technique historique Base Impacts (ADEME).&#x20;
+Les taux de perte appliqués par défaut correspondent à ceux retenus par le socle technique  Base Impacts (ADEME).&#x20;
 
 * Tricotage circulaire, inventaire désagrégé : 3,4%
 * Tricotage rectiligne, inventaire désagrégé : 4%

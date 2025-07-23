@@ -2,7 +2,7 @@
 
 ## Description
 
-L'étape de confection a pour but de séparer les différentes pièces composant un produit et de les assembler afin d’obtenir le produit final. Cette étape comprend généralement la découpe du tissu, l'assemblage des différentes pièces ainsi que le repassage et pliage du produit fini.
+L'étape de confection a pour but de préparer et d'assembler les différentes pièces et composants afin d’obtenir le produit final. Cette étape comprend généralement la découpe du tissu, l'assemblage des différentes pièces ainsi que le repassage et pliage du produit fini.
 
 ## Modélisation Ecobalyse
 
@@ -91,7 +91,7 @@ Dès lors, une quantité d'électricité est calculée selon le niveau de comple
 <table><thead><tr><th width="134.33333333333331">Complexité</th><th width="206">Temps de confection</th><th width="112" align="center"># minutes</th><th>Electricité consommée (MJ / kWh)</th></tr></thead><tbody><tr><td>Très faible</td><td>Moins de 5 minutes</td><td align="center">5</td><td>0,36 / 0,1</td></tr><tr><td>Faible</td><td>Entre 5 et 15 minutes</td><td align="center">15</td><td>1,44 / 0,4</td></tr><tr><td>Moyenne</td><td>Entre 15 et 30 minutes</td><td align="center">30</td><td>3,24 / 0,9</td></tr><tr><td>Elevée</td><td>Entre 30 minutes et 1H</td><td align="center">60</td><td>6,12 / 1,7</td></tr><tr><td>Très élevée</td><td>Plus de 1H</td><td align="center">120</td><td>12,6 / 3,5</td></tr></tbody></table>
 
 {% hint style="info" %}
-Le procédé d'électricité mobilisé  (`de442ef0-d725-4c3a-a5e2-b29f51a1186c`) s'exprime en MJ tandis que l'affichage sur le calculateur se fait en kWh car cette unité est plus communément utilisée (1kWh = 3,6MJ).
+Le procédé d'électricité mobilisé s'exprime en MJ tandis que l'affichage sur le calculateur se fait en kWh car cette unité est plus communément utilisée (1kWh = 3,6MJ).
 {% endhint %}
 
 #### Délavage (jean)
