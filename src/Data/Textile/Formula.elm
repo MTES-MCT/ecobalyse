@@ -1,5 +1,5 @@
 module Data.Textile.Formula exposing
-    ( bleachingImpacts
+    ( bleachingToxicityImpacts
     , computePicking
     , computeThreadDensity
     , dyeingImpacts
@@ -244,51 +244,28 @@ finishingImpacts impacts { elecProcess, finishingProcess, heatProcess } baseMass
     }
 
 
-bleachingImpacts :
+{-| should be only used in views
+-}
+bleachingToxicityImpacts :
     Impacts
     ->
         { aquaticPollutionScenario : Country.AquaticPollutionScenario
         , bleachingProcess : Process -- Inbound: Bleaching process
-        , countryElecProcess : Process -- Outbound: country electricity impact
-        , countryHeatProcess : Process -- Outbound: country heat impact
         }
     -> Mass
-    -> StepValues
-bleachingImpacts impacts { aquaticPollutionScenario, bleachingProcess, countryElecProcess, countryHeatProcess } baseMass =
-    let
-        ( bleachingElec, bleachingHeat ) =
-            ( bleachingProcess.elec
-                |> Quantity.multiplyBy (Mass.inKilograms baseMass)
-            , bleachingProcess.heat
-                |> Quantity.multiplyBy (Mass.inKilograms baseMass)
+    -> Impacts
+bleachingToxicityImpacts impacts { aquaticPollutionScenario, bleachingProcess } baseMass =
+    impacts
+        |> Impact.mapImpacts
+            (\trigram _ ->
+                baseMass
+                    |> Unit.forKg (Process.getImpact trigram bleachingProcess)
+                    |> Quantity.multiplyBy
+                        (aquaticPollutionScenario
+                            |> Country.getAquaticPollutionRatio
+                            |> Split.toFloat
+                        )
             )
-    in
-    { heat = bleachingHeat
-    , impacts =
-        impacts
-            |> Impact.mapImpacts
-                (\trigram _ ->
-                    Quantity.sum
-                        [ -- Bleaching electricity
-                          bleachingElec
-                            |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
-
-                        -- Bleaching heat
-                        , bleachingHeat
-                            |> Unit.forMJ (Process.getImpact trigram countryHeatProcess)
-
-                        -- Bleaching intrinsic impacts
-                        , baseMass
-                            |> Unit.forKg (Process.getImpact trigram bleachingProcess)
-                            |> Quantity.multiplyBy
-                                (aquaticPollutionScenario
-                                    |> Country.getAquaticPollutionRatio
-                                    |> Split.toFloat
-                                )
-                        ]
-                )
-    , kwh = bleachingElec
-    }
 
 
 materialDyeingToxicityImpacts :

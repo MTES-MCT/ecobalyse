@@ -828,11 +828,9 @@ ennoblingToxicityView db ({ selectedImpact, inputs } as config) current =
         let
             bleachingToxicity =
                 current.outputMass
-                    |> Formula.bleachingImpacts current.impacts
+                    |> Formula.bleachingToxicityImpacts current.impacts
                         { aquaticPollutionScenario = current.country.aquaticPollutionScenario
                         , bleachingProcess = db.textile.wellKnown.bleaching
-                        , countryElecProcess = current.country.electricityProcess
-                        , countryHeatProcess = current.country.heatProcess
                         }
 
             dyeingToxicity =
@@ -872,7 +870,7 @@ ennoblingToxicityView db ({ selectedImpact, inputs } as config) current =
                         Impact.empty
 
             toxicity =
-                Impact.sumImpacts [ bleachingToxicity.impacts, dyeingToxicity, printingToxicity ]
+                Impact.sumImpacts [ bleachingToxicity, dyeingToxicity, printingToxicity ]
         in
         li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
             [ span [] [ text <| "Dont inventaires enrichis\u{00A0}:" ]

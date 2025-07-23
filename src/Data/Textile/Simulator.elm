@@ -168,8 +168,6 @@ compute db query =
         |> nextWithDbIf Label.Ennobling computePrintingImpacts
         -- Compute Ennobling step Finishing impacts
         |> nextWithDbIf Label.Ennobling computeFinishingImpacts
-        -- Compute Ennobling step bleaching impacts
-        |> nextWithDbIf Label.Ennobling computeBleachingImpacts
         -- Compute Making step impacts
         |> nextWithDbIf Label.Making computeMakingImpacts
         -- Compute product Use impacts
@@ -456,29 +454,6 @@ computeFinishingImpacts { textile } simulator =
                                 { elecProcess = country.electricityProcess
                                 , finishingProcess = textile.wellKnown.finishing
                                 , heatProcess = WellKnown.getEnnoblingHeatProcess textile.wellKnown country
-                                }
-                in
-                { step
-                    | heat = step.heat |> Quantity.plus heat
-                    , impacts = Impact.sumImpacts [ step.impacts, impacts ]
-                    , kwh = step.kwh |> Quantity.plus kwh
-                }
-            )
-
-
-computeBleachingImpacts : Db -> Simulator -> Simulator
-computeBleachingImpacts { textile } simulator =
-    simulator
-        |> updateLifeCycleStep Label.Ennobling
-            (\({ country } as step) ->
-                let
-                    { heat, impacts, kwh } =
-                        step.outputMass
-                            |> Formula.bleachingImpacts step.impacts
-                                { aquaticPollutionScenario = step.country.aquaticPollutionScenario
-                                , bleachingProcess = textile.wellKnown.bleaching
-                                , countryElecProcess = country.electricityProcess
-                                , countryHeatProcess = country.heatProcess
                                 }
                 in
                 { step
