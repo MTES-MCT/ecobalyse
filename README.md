@@ -39,6 +39,7 @@ Les variables d'environnement suivantes doivent être définies :
 - `SENTRY_DSN`: le DSN [Sentry](https://sentry.io) à utiliser pour les rapports d'erreur.
 - `TRANSCRYPT_KEY`: la clé utilisée et autogénérée par [transcrypt](https://github.com/elasticdog/transcrypt/blob/main/INSTALL.md) et disponible dans [https://vaultwarden.incubateur.net](https://vaultwarden.incubateur.net/).
 - `ENCRYPTION_KEY` : la clé utilisée par les scripts `npm run encrypt` et  `npm run decrypt` pour chiffrer/déchiffrer les fichiers d’impacts détaillés inclus dans chaque archive de release. Pour générer une nouvelle clé, vous pouvez utiliser le script `bin/generate-crypto-key`.
+- `VERSION_POLL_SECONDS`: The number of seconds between two http polls to retrieve the current app version (`/version.json`, défault: `300`)
 
 En développement, copiez le fichier `.env.sample`, renommez-le `.env`, et mettez à jour les valeurs qu'il contient ; le serveur de développement node chargera les variables en conséquences.
 
