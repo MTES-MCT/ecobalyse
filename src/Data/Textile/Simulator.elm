@@ -470,17 +470,21 @@ computeBleachingImpacts : Db -> Simulator -> Simulator
 computeBleachingImpacts { textile } simulator =
     simulator
         |> updateLifeCycleStep Label.Ennobling
-            (\step ->
+            (\({ country } as step) ->
                 let
-                    impacts =
+                    { heat, impacts, kwh } =
                         step.outputMass
                             |> Formula.bleachingImpacts step.impacts
                                 { aquaticPollutionScenario = step.country.aquaticPollutionScenario
                                 , bleachingProcess = textile.wellKnown.bleaching
+                                , countryElecProcess = country.electricityProcess
+                                , countryHeatProcess = country.heatProcess
                                 }
                 in
                 { step
-                    | impacts = Impact.sumImpacts [ step.impacts, impacts ]
+                    | heat = step.heat |> Quantity.plus heat
+                    , impacts = Impact.sumImpacts [ step.impacts, impacts ]
+                    , kwh = step.kwh |> Quantity.plus kwh
                 }
             )
 

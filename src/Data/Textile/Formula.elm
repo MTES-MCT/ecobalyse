@@ -249,21 +249,42 @@ bleachingImpacts :
     ->
         { aquaticPollutionScenario : Country.AquaticPollutionScenario
         , bleachingProcess : Process -- Inbound: Bleaching process
+        , countryElecProcess : Process -- Outbound: country electricity impact
+        , countryHeatProcess : Process -- Outbound: country heat impact
         }
     -> Mass
-    -> Impacts
-bleachingImpacts impacts { aquaticPollutionScenario, bleachingProcess } baseMass =
-    impacts
-        |> Impact.mapImpacts
-            (\trigram _ ->
-                baseMass
-                    |> Unit.forKg (Process.getImpact trigram bleachingProcess)
-                    |> Quantity.multiplyBy
-                        (aquaticPollutionScenario
-                            |> Country.getAquaticPollutionRatio
-                            |> Split.toFloat
-                        )
-            )
+    -> StepValues
+bleachingImpacts impacts { aquaticPollutionScenario, bleachingProcess, countryElecProcess, countryHeatProcess } baseMass =
+    let
+        bleachingElec =
+            bleachingProcess.elec
+                |> Quantity.multiplyBy (Mass.inKilograms baseMass)
+
+        bleachingHeat =
+            bleachingProcess.heat
+                |> Quantity.multiplyBy (Mass.inKilograms baseMass)
+    in
+    { heat = bleachingHeat
+    , impacts =
+        impacts
+            |> Impact.mapImpacts
+                (\trigram _ ->
+                    Quantity.sum
+                        [ baseMass
+                            |> Unit.forKg (Process.getImpact trigram bleachingProcess)
+                        , bleachingElec
+                            |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
+                        , bleachingHeat
+                            |> Unit.forMJ (Process.getImpact trigram countryHeatProcess)
+                        ]
+                        |> Quantity.multiplyBy
+                            (aquaticPollutionScenario
+                                |> Country.getAquaticPollutionRatio
+                                |> Split.toFloat
+                            )
+                )
+    , kwh = bleachingElec
+    }
 
 
 materialDyeingToxicityImpacts :
