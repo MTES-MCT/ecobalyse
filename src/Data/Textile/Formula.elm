@@ -256,13 +256,12 @@ bleachingImpacts :
     -> StepValues
 bleachingImpacts impacts { aquaticPollutionScenario, bleachingProcess, countryElecProcess, countryHeatProcess } baseMass =
     let
-        bleachingElec =
-            bleachingProcess.elec
+        ( bleachingElec, bleachingHeat ) =
+            ( bleachingProcess.elec
                 |> Quantity.multiplyBy (Mass.inKilograms baseMass)
-
-        bleachingHeat =
-            bleachingProcess.heat
+            , bleachingProcess.heat
                 |> Quantity.multiplyBy (Mass.inKilograms baseMass)
+            )
     in
     { heat = bleachingHeat
     , impacts =
@@ -270,18 +269,23 @@ bleachingImpacts impacts { aquaticPollutionScenario, bleachingProcess, countryEl
             |> Impact.mapImpacts
                 (\trigram _ ->
                     Quantity.sum
-                        [ baseMass
-                            |> Unit.forKg (Process.getImpact trigram bleachingProcess)
-                        , bleachingElec
+                        [ -- Bleaching electricity
+                          bleachingElec
                             |> Unit.forKWh (Process.getImpact trigram countryElecProcess)
+
+                        -- Bleaching heat
                         , bleachingHeat
                             |> Unit.forMJ (Process.getImpact trigram countryHeatProcess)
+
+                        -- Bleaching intrinsic impacts
+                        , baseMass
+                            |> Unit.forKg (Process.getImpact trigram bleachingProcess)
+                            |> Quantity.multiplyBy
+                                (aquaticPollutionScenario
+                                    |> Country.getAquaticPollutionRatio
+                                    |> Split.toFloat
+                                )
                         ]
-                        |> Quantity.multiplyBy
-                            (aquaticPollutionScenario
-                                |> Country.getAquaticPollutionRatio
-                                |> Split.toFloat
-                            )
                 )
     , kwh = bleachingElec
     }
