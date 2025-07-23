@@ -291,8 +291,7 @@ computeEndOfLifeImpacts { textile } simulator =
                     { heat, impacts, kwh } =
                         step.outputMass
                             |> Formula.endOfLifeImpacts step.impacts
-                                -- Note: The EndOfLife step is always located in France using low voltage electricity
-                                { countryElecProcess = textile.wellKnown.lowVoltageFranceElec
+                                { countryElecProcess = country.electricityProcess
                                 , endOfLife = textile.wellKnown.endOfLife
                                 , heatProcess = country.heatProcess
                                 , passengerCar = textile.wellKnown.passengerCar

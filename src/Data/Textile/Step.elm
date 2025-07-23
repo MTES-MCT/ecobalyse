@@ -373,8 +373,7 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
                     }
                 , processInfo =
                     { defaultProcessInfo
-                        | -- Note: French low voltage electricity process is always used at the EoL step
-                          countryElec = Just <| Process.getDisplayName wellKnown.lowVoltageFranceElec
+                        | countryElec = Just <| Process.getDisplayName country.electricityProcess
                         , countryHeat = Just <| Process.getDisplayName country.heatProcess
                         , endOfLife = Just <| Process.getDisplayName wellKnown.endOfLife
                         , passengerCar = Just "Transport en voiture vers point de collecte (1km)"
