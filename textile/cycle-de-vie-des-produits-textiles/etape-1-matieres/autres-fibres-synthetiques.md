@@ -42,7 +42,7 @@ _Nylon 6.6 production, RoW_
 
 <details>
 
-<summary>Elastane (lycra)</summary>
+<summary>Elasthanne (lycra)</summary>
 
 Cette fibre synthétique est dérivée du polyuréthane et est généralement connue sous le nom _Lycra_. Cette fibre a notamment remplacé le caoutchouc naturel dans le textile pour rendre les vêtements plus extensibles.
 
@@ -50,7 +50,7 @@ Cette fibre synthétique est dérivée du polyuréthane et est généralement co
 
 1\) Le polyuréthane est dissous dans un solvant,
 
-2\) La fibre d'elastane est filée à sec (procédé d'extrusion).&#x20;
+2\) La fibre d'élasthanne est filée à sec (procédé d'extrusion).&#x20;
 
 **Procédé Ecoinvent**
 

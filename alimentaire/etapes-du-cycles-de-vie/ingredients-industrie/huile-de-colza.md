@@ -40,12 +40,9 @@ $$
 
 ## Procédés retenus
 
-| Label / Origine        | France                                                                                                                                                                                             | Autres pays                                                                                                                                                                                       |
-| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Conventionnelle        | <p><strong>HuileColzaFR</strong><br>Procédé construit (cf. formule)<br>Colza : Rapeseed, at farm (WFLDB 3.1)/FR U</p>                                                                              | <p>A venir : </p><p><strong>HuileColzaREF</strong><br>Rapeseed oil, at oil mill (WFLDB 3.1)<br>Tournesol : Rapeseed, at farm (WFLDB 3.1)/GLO U</p>                                                |
-| Agriculture biologique | <p><strong>HuileColzaBio</strong><br>Procédé construit (cf. formule)<br>Colza : </p><pre class="language-json"><code class="lang-json">Winter rapeseed, organic, at farm gate {FR} U
-</code></pre> | <p><strong>HuileColzaBio</strong><br>Procédé construit (cf. formule)<br>Colza :</p><pre class="language-json"><code class="lang-json">Winter rapeseed, organic, at farm gate {FR} U
-</code></pre> |
+<table><thead><tr><th>Label / Origine</th><th>France</th><th>Autres pays</th></tr></thead><tbody><tr><td>Conventionnelle</td><td><strong>HuileColzaFR</strong><br>Procédé construit (cf. formule)<br>Colza : Rapeseed, at farm (WFLDB 3.1)/FR U</td><td><p>A venir : </p><p><strong>HuileColzaREF</strong><br>Rapeseed oil, at oil mill (WFLDB 3.1)<br>Tournesol : Rapeseed, at farm (WFLDB 3.1)/GLO U</p></td></tr><tr><td>Agriculture biologique</td><td><p><strong>HuileColzaBio</strong><br>Procédé construit (cf. formule)<br>Colza : </p><pre class="language-json"><code class="lang-json">Winter rapeseed, organic, at farm gate {FR} U
+</code></pre></td><td><p><strong>HuileColzaBio</strong><br>Procédé construit (cf. formule)<br>Colza :</p><pre class="language-json"><code class="lang-json">Winter rapeseed, organic, at farm gate {FR} U
+</code></pre></td></tr></tbody></table>
 
 ## Identification de l'origine par défaut
 
