@@ -22,6 +22,7 @@ dependencies = [
     "pygithub>=2.6.1",
     "typer>=0.16.0",
     "pytest-mock>=3.14.1",
+    "asyncstdlib>=3.13.1",
 ]
 
 [build-system]
