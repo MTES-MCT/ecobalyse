@@ -173,7 +173,7 @@ compute db query =
         -- Compute Making step impacts
         |> nextWithDbIf Label.Making computeMakingImpacts
         -- Compute product Use impacts
-        |> nextIf Label.Use computeUseImpacts
+        |> nextWithDbIf Label.Use computeUseImpacts
         -- Compute product Use impacts
         |> nextWithDbIf Label.EndOfLife computeEndOfLifeImpacts
         --
@@ -306,16 +306,17 @@ computeEndOfLifeImpacts { textile } simulator =
             )
 
 
-computeUseImpacts : Simulator -> Simulator
-computeUseImpacts ({ inputs, useNbCycles } as simulator) =
+computeUseImpacts : Db -> Simulator -> Simulator
+computeUseImpacts { textile } ({ inputs, useNbCycles } as simulator) =
     simulator
         |> updateLifeCycleStep Label.Use
-            (\({ country } as step) ->
+            (\step ->
                 let
                     { impacts, kwh } =
                         step.outputMass
                             |> Formula.useImpacts step.impacts
-                                { countryElecProcess = country.electricityProcess
+                                -- Note: The use step is always located in France using low voltage electricity
+                                { countryElecProcess = textile.wellKnown.lowVoltageFranceElec
                                 , ironingElec = inputs.product.use.ironingElec
                                 , nonIroningProcess = inputs.product.use.nonIroningProcess
                                 , useNbCycles = useNbCycles
