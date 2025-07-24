@@ -1,6 +1,47 @@
 # Changelog
 
 
+## [7.0.0](https://github.com/MTES-MCT/ecobalyse/compare/v6.1.1..v7.0.0) (2025-07-24)
+
+
+
+### 🚀 Features
+
+- *(sec)* Allow configuring rate limiting ([#1214](https://github.com/MTES-MCT/ecobalyse/issues/1214))
+- *(ui)* Improve error ux on expired magic link ([#1225](https://github.com/MTES-MCT/ecobalyse/issues/1225))
+- Add sawing process ([#1179](https://github.com/MTES-MCT/ecobalyse/issues/1179))
+- Add veli processes ([#1194](https://github.com/MTES-MCT/ecobalyse/issues/1194))
+- Improve KPI tracking with Posthog ([#1222](https://github.com/MTES-MCT/ecobalyse/issues/1222))
+- *(textile)* [**breaking**] Remove the traceability parameter. ([#1237](https://github.com/MTES-MCT/ecobalyse/issues/1237))
+- Add pretreatment dyeing average aquatic pollution scenario ([#1232](https://github.com/MTES-MCT/ecobalyse/issues/1232))
+
+### 🪲 Bug Fixes
+
+- JSON parsing in versions ([#1212](https://github.com/MTES-MCT/ecobalyse/issues/1212))
+- *(ui)* Don't scrolltop on explorer modal closed ([#1218](https://github.com/MTES-MCT/ecobalyse/issues/1218))
+- Remove displayName duplicates ([#1249](https://github.com/MTES-MCT/ecobalyse/issues/1249))
+- Fix analytics initialization procedure. ([#1252](https://github.com/MTES-MCT/ecobalyse/issues/1252))
+- Fix Sentry express instrumentation ([#1254](https://github.com/MTES-MCT/ecobalyse/issues/1254))
+- Fix api requests logging ([#1258](https://github.com/MTES-MCT/ecobalyse/issues/1258))
+- Update CSP for posthog requirements ([#1259](https://github.com/MTES-MCT/ecobalyse/issues/1259))
+- *(api)* Filter food api transform processes ([#1275](https://github.com/MTES-MCT/ecobalyse/issues/1275))
+- *(api)* Fix textile api product field docs ([#1278](https://github.com/MTES-MCT/ecobalyse/issues/1278))
+- *(textile)* [**breaking**] Use low voltage FR elec at the utilization step, medium voltage otherwise ([#1276](https://github.com/MTES-MCT/ecobalyse/issues/1276))
+- Cache password verification to improve perfs ([#1284](https://github.com/MTES-MCT/ecobalyse/issues/1284))
+- *(textile)* [**breaking**] Apply bleaching pretreatments energy mix impacts ([#1282](https://github.com/MTES-MCT/ecobalyse/issues/1282))
+
+### ⚙️ Miscellaneous Tasks
+
+- Wtu m3 eq ([#1229](https://github.com/MTES-MCT/ecobalyse/issues/1229))
+- Update default trims following feedback ([#1236](https://github.com/MTES-MCT/ecobalyse/issues/1236))
+- Upgrade node.js and Elm deps, 2025-07 ([#1256](https://github.com/MTES-MCT/ecobalyse/issues/1256))
+- Improve general CSP configuration ([#1262](https://github.com/MTES-MCT/ecobalyse/issues/1262))
+- New pasta and soups ([#1221](https://github.com/MTES-MCT/ecobalyse/issues/1221))
+- Add mention in the API about the persistence of ids ([#1267](https://github.com/MTES-MCT/ecobalyse/issues/1267))
+- Restored the `oilseed-feed` ([#1255](https://github.com/MTES-MCT/ecobalyse/issues/1255))
+- Change elec name ([#1288](https://github.com/MTES-MCT/ecobalyse/issues/1288))
+
+
 ## [6.1.1](https://github.com/MTES-MCT/ecobalyse/compare/v6.1.0..v6.1.1) (2025-07-02)
 
 
