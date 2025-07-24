@@ -864,21 +864,38 @@ ennoblingToxicityView db ({ selectedImpact, inputs } as config) current =
                     Nothing ->
                         Impact.empty
 
-            toxicity =
-                Impact.sumImpacts
-                    [ current.preTreatments.toxicity
-                    , dyeingToxicity
-                    , printingToxicity
-                    ]
+            toxicityDetails =
+                [ ( "Pré-traitements", current.preTreatments.toxicity )
+                , ( "Teinture", dyeingToxicity )
+                , ( "Impression", printingToxicity )
+                ]
         in
-        li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
-            [ span [] [ text <| "Dont inventaires enrichis\u{00A0}:" ]
-            , span [ class "text-end ImpactDisplay text-black-50 fs-7" ]
-                [ text "(+\u{00A0}"
-                , toxicity
-                    |> Format.formatImpact selectedImpact
-                , text ")"
-                , inlineDocumentationLink config Gitbook.TextileEnnoblingToxicity
+        li [ class "list-group-item text-muted" ]
+            [ details []
+                [ summary []
+                    [ span [] [ text <| "Dont inventaires enrichis\u{00A0}:" ]
+                    , span [ class "text-end ImpactDisplay text-black-50 fs-7" ]
+                        [ text "\u{00A0}(+\u{00A0}"
+                        , toxicityDetails
+                            |> List.map Tuple.second
+                            |> Impact.sumImpacts
+                            |> Format.formatImpact selectedImpact
+                        , text ")"
+                        , inlineDocumentationLink config Gitbook.TextileEnnoblingToxicity
+                        ]
+                    ]
+                , toxicityDetails
+                    |> List.map
+                        (\( label, impacts ) ->
+                            div []
+                                [ text <| label ++ "\u{00A0}: "
+                                , impacts
+                                    |> Impact.getImpact Definition.Ecs
+                                    |> Unit.impactToFloat
+                                    |> Format.formatRichFloat 2 "Pts"
+                                ]
+                        )
+                    |> div []
                 ]
             ]
 
