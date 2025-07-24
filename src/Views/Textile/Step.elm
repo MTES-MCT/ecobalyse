@@ -826,13 +826,7 @@ ennoblingToxicityView : Db -> Config msg modal -> Step -> Html msg
 ennoblingToxicityView db ({ selectedImpact, inputs } as config) current =
     showIf (current.label == Label.Ennobling) <|
         let
-            bleachingToxicity =
-                current.outputMass
-                    |> Formula.bleachingImpacts current.impacts
-                        { aquaticPollutionScenario = current.country.aquaticPollutionScenario
-                        , bleachingProcess = db.textile.wellKnown.bleaching
-                        }
-
+            -- FIXME: this should be computed and exposed only once in the simulator
             dyeingToxicity =
                 inputs.materials
                     |> List.map
@@ -851,6 +845,7 @@ ennoblingToxicityView db ({ selectedImpact, inputs } as config) current =
                         )
                     |> Impact.sumImpacts
 
+            -- FIXME: this should be computed and exposed only once in the simulator
             printingToxicity =
                 case current.printing of
                     Just { kind, ratio } ->
@@ -869,17 +864,38 @@ ennoblingToxicityView db ({ selectedImpact, inputs } as config) current =
                     Nothing ->
                         Impact.empty
 
-            toxicity =
-                Impact.sumImpacts [ bleachingToxicity, dyeingToxicity, printingToxicity ]
+            toxicityDetails =
+                [ ( "Pré-traitements", current.preTreatments.toxicity )
+                , ( "Teinture", dyeingToxicity )
+                , ( "Impression", printingToxicity )
+                ]
         in
-        li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
-            [ span [] [ text <| "Dont inventaires enrichis\u{00A0}:" ]
-            , span [ class "text-end ImpactDisplay text-black-50 fs-7" ]
-                [ text "(+\u{00A0}"
-                , toxicity
-                    |> Format.formatImpact selectedImpact
-                , text ")"
-                , inlineDocumentationLink config Gitbook.TextileEnnoblingToxicity
+        li [ class "list-group-item text-muted" ]
+            [ details []
+                [ summary []
+                    [ span [] [ text <| "Dont inventaires enrichis\u{00A0}:" ]
+                    , span [ class "text-end ImpactDisplay text-black-50 fs-7" ]
+                        [ text "\u{00A0}(+\u{00A0}"
+                        , toxicityDetails
+                            |> List.map Tuple.second
+                            |> Impact.sumImpacts
+                            |> Format.formatImpact selectedImpact
+                        , text ")"
+                        , inlineDocumentationLink config Gitbook.TextileEnnoblingToxicity
+                        ]
+                    ]
+                , toxicityDetails
+                    |> List.map
+                        (\( label, impacts ) ->
+                            div []
+                                [ text <| label ++ "\u{00A0}: "
+                                , impacts
+                                    |> Impact.getImpact Definition.Ecs
+                                    |> Unit.impactToFloat
+                                    |> Format.formatRichFloat 2 "Pts"
+                                ]
+                        )
+                    |> div []
                 ]
             ]
 

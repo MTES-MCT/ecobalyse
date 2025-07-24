@@ -79,10 +79,11 @@ type alias Step =
 
 
 type alias PreTreatments =
-    { heat : Energy
-    , impacts : Impacts
+    { energy : Impacts
+    , heat : Energy
     , kwh : Energy
     , operations : List Process
+    , toxicity : Impacts
     }
 
 
@@ -143,10 +144,11 @@ create { country, editable, enabled, label } =
 
 emptyPreTreatments : PreTreatments
 emptyPreTreatments =
-    { heat = Quantity.zero
-    , impacts = Impact.empty
+    { energy = Impact.empty
+    , heat = Quantity.zero
     , kwh = Quantity.zero
     , operations = []
+    , toxicity = Impact.empty
     }
 
 
@@ -191,27 +193,27 @@ computePreTreatment country mass process =
             Mass.inKilograms mass
 
         ( consumedElec, consumedHeat ) =
-            ( process.elec
-                |> Quantity.multiplyBy massInKg
-            , process.heat
-                |> Quantity.multiplyBy massInKg
+            ( process.elec |> Quantity.multiplyBy massInKg
+            , process.heat |> Quantity.multiplyBy massInKg
             )
     in
-    { heat = consumedHeat
-    , impacts =
+    { energy =
         Impact.sumImpacts
-            [ -- NOTE: don't take pre-treatment process own impacts as they've
-              --       already been added at the global ennobling step
-              -- FIXME: this should be refactored to do everything at once
-              -- process.impacts
-              --  |> Impact.multiplyBy massInKg
-              country.electricityProcess.impacts
+            [ country.electricityProcess.impacts
                 |> Impact.multiplyBy (Energy.inKilowattHours consumedElec)
             , country.heatProcess.impacts
                 |> Impact.multiplyBy (Energy.inMegajoules consumedHeat)
             ]
+    , heat = consumedHeat
     , kwh = consumedElec
     , operations = List.singleton process
+    , toxicity =
+        process.impacts
+            |> Impact.multiplyBy
+                (country.aquaticPollutionScenario
+                    |> Country.getAquaticPollutionRatio
+                    |> Split.apply massInKg
+                )
     }
 
 
@@ -229,12 +231,13 @@ computePreTreatments wellKnown materials { country, inputMass } =
                         )
             )
         |> List.foldl
-            (\{ heat, impacts, kwh, operations } acc ->
+            (\{ energy, heat, kwh, operations, toxicity } acc ->
                 { acc
-                    | heat = acc.heat |> Quantity.plus heat
-                    , impacts = Impact.sumImpacts [ acc.impacts, impacts ]
+                    | energy = Impact.sumImpacts [ acc.energy, energy ]
+                    , heat = acc.heat |> Quantity.plus heat
                     , kwh = acc.kwh |> Quantity.plus kwh
                     , operations = LE.unique <| acc.operations ++ operations
+                    , toxicity = Impact.sumImpacts [ acc.toxicity, toxicity ]
                 }
             )
             emptyPreTreatments
@@ -571,7 +574,9 @@ encodePreTreatments v =
     Encode.object
         [ ( "elecKWh", Encode.float (Energy.inKilowattHours v.kwh) )
         , ( "heatMJ", Encode.float (Energy.inMegajoules v.heat) )
-        , ( "impacts", Impact.encode v.impacts )
+        , ( "energy", Impact.encode v.energy )
+        , ( "impacts", Impact.sumImpacts [ v.energy, v.toxicity ] |> Impact.encode )
+        , ( "toxicity", Impact.encode v.toxicity )
         , ( "operations", v.operations |> List.map Process.getDisplayName |> Encode.list Encode.string )
         ]
 
