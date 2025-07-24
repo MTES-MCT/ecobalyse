@@ -405,7 +405,7 @@ computeMaterialResults amount process =
 
         mass =
             Mass.kilograms <|
-                if process.unit == "kg" then
+                if process.unit == Process.Kilogram then
                     amountToFloat amount
 
                 else
@@ -510,7 +510,7 @@ elementToString processes element =
         |> Result.map
             (\process ->
                 String.fromFloat (amountToFloat element.amount)
-                    ++ process.unit
+                    ++ Process.unitToString process.unit
                     ++ " "
                     ++ Process.getDisplayName process
             )

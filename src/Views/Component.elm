@@ -358,7 +358,7 @@ editorView ({ db, docsUrl, explorerRoute, maxItems, items, results, title } as c
         ]
 
 
-amountInput : Config db msg -> TargetElement -> String -> Amount -> Html msg
+amountInput : Config db msg -> TargetElement -> Process.Unit -> Amount -> Html msg
 amountInput config targetElement unit amount =
     let
         stringAmount =
@@ -394,7 +394,7 @@ amountInput config targetElement unit amount =
             ]
             []
         , small [ class "input-group-text fs-8" ]
-            [ text unit ]
+            [ text <| Process.unitToString unit ]
         ]
 
 
@@ -413,7 +413,7 @@ elementView config targetItem elementIndex { amount, material, transforms } elem
         (tr [ class "fs-7 text-muted" ]
             [ th [] []
             , th [ class "align-middle", scope "col" ]
-                [ if material.unit == "kg" then
+                [ if material.unit == Process.Kilogram then
                     text "Masse finale"
 
                   else
@@ -473,7 +473,7 @@ elementMaterialView config targetElement materialResults material amount =
             [ if config.scopes == [ Scope.Textile ] then
                 amount
                     |> Component.amountToFloat
-                    |> Format.formatRichFloat 3 material.unit
+                    |> Format.formatRichFloat 3 (Process.unitToString material.unit)
 
               else
                 amountInput config targetElement material.unit amount
