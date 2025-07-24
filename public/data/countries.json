@@ -128,7 +128,7 @@
   {
     "aquaticPollutionScenario": "Best",
     "code": "FR",
-    "electricityProcessUuid": "c94d8ad5-9d44-5f1b-80b9-53ff0a4e2406",
+    "electricityProcessUuid": "a9e39d7f-d39d-53ae-9fff-1204f0051d60",
     "heatProcessUuid": "f6ea2983-e024-5de2-b323-273f2436deba",
     "name": "France",
     "scopes": ["food", "textile"],
