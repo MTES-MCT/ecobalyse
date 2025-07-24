@@ -43,6 +43,7 @@ type alias Flags =
     , enabledSections : Session.EnabledSections
     , matomo : { host : String, siteId : String }
     , rawStore : String
+    , versionPollSeconds : Int
     }
 
 
@@ -160,6 +161,7 @@ setupSession navKey flags db =
             }
         , releases = RemoteData.NotAsked
         , store = Session.defaultStore
+        , versionPollSeconds = flags.versionPollSeconds
         }
 
 
@@ -481,7 +483,12 @@ subscriptions : Model -> Sub Msg
 subscriptions { state } =
     Sub.batch
         [ Ports.storeChanged StoreChanged
-        , Request.Version.pollVersion VersionPoll
+        , case state of
+            Loaded { versionPollSeconds } _ ->
+                Request.Version.pollVersion versionPollSeconds VersionPoll
+
+            _ ->
+                Sub.none
         , case state of
             Loaded _ (ComponentAdminPage subModel) ->
                 ComponentAdmin.subscriptions subModel
