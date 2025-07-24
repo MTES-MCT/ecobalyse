@@ -15,7 +15,7 @@ module Data.Textile.Inputs exposing
     )
 
 import Data.Common.EncodeUtils as EU
-import Data.Component exposing (Item)
+import Data.Component as Component exposing (Item)
 import Data.Country as Country exposing (Country)
 import Data.Impact as Impact
 import Data.Process as Process
@@ -168,6 +168,16 @@ fromQuery { countries, textile } query =
 
                 Nothing ->
                     fallbackResult
+
+        trims =
+            case query.trims of
+                Just customTrims ->
+                    Ok customTrims
+
+                Nothing ->
+                    textile.products
+                        |> Product.findById query.product
+                        |> Result.map .trims
     in
     Ok Inputs
         |> RE.andMap (Ok query.airTransportRatio)
@@ -199,7 +209,7 @@ fromQuery { countries, textile } query =
         |> RE.andMap (Ok query.printing)
         |> RE.andMap (textile.products |> Product.findById query.product)
         |> RE.andMap (Ok query.surfaceMass)
-        |> RE.andMap (Ok query.trims)
+        |> RE.andMap trims
         |> RE.andMap (Ok query.upcycled)
         |> RE.andMap (Ok query.yarnSize)
 
@@ -227,7 +237,12 @@ toQuery inputs =
     , printing = inputs.printing
     , product = inputs.product.id
     , surfaceMass = inputs.surfaceMass
-    , trims = inputs.trims
+    , trims =
+        if inputs.trims == inputs.product.trims then
+            Nothing
+
+        else
+            Just inputs.trims
     , upcycled = inputs.upcycled
     , yarnSize = inputs.yarnSize
     }
@@ -513,6 +528,7 @@ encode inputs =
         , ( "printing", inputs.printing |> Maybe.map Printing.encode |> Maybe.withDefault Encode.null )
         , ( "product", Product.encode inputs.product )
         , ( "surfaceMass", inputs.surfaceMass |> Maybe.map Unit.encodeSurfaceMass |> Maybe.withDefault Encode.null )
+        , ( "trims", Encode.list Component.encodeItem inputs.trims )
         , ( "upcycled", Encode.bool inputs.upcycled )
         , ( "yarnSize", inputs.yarnSize |> Maybe.map Unit.encodeYarnSize |> Maybe.withDefault Encode.null )
         ]

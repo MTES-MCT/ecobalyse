@@ -42,7 +42,7 @@ validate db query =
         |> Validation.ok "printing" query.printing
         |> Validation.check "product" (validateProduct db query.product)
         |> Validation.maybe "surfaceMass" query.surfaceMass validateSurfaceMass
-        |> Validation.list "trims" query.trims (Component.validateItem db.components)
+        |> Validation.maybe "trims" query.trims (List.map (Component.validateItem db.components) >> RE.combine)
         |> Validation.ok "upcycled" query.upcycled
         |> Validation.maybe "yarnSize" query.yarnSize validateYarnSize
 

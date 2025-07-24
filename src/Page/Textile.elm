@@ -182,7 +182,7 @@ init trigram maybeUrlQuery session =
     , impact = Definition.get trigram session.db.definitions
     , modal = NoModal
     , activeTab =
-        if Query.isAdvancedQuery session.db.textile.products initialQuery then
+        if Query.isAdvancedQuery initialQuery then
             ExploratoryTab
 
         else
@@ -236,7 +236,7 @@ initFromExample session uuid =
     , impact = Definition.get Definition.Ecs session.db.definitions
     , modal = NoModal
     , activeTab =
-        if Query.isAdvancedQuery session.db.textile.products exampleQuery then
+        if Query.isAdvancedQuery exampleQuery then
             ExploratoryTab
 
         else
@@ -296,7 +296,7 @@ updateQuery query ({ model, session } as pageUpdate) =
 
 
 update : Session -> Msg -> Model -> PageUpdate Model Msg
-update ({ queries, navKey } as session) msg model =
+update ({ db, queries, navKey } as session) msg model =
     let
         query =
             queries.textile
@@ -306,7 +306,7 @@ update ({ queries, navKey } as session) msg model =
             { model | activeTab = RegulatoryTab }
                 |> App.createUpdate session
                 |> App.apply update (SetModal NoModal)
-                |> updateQuery (Query.regulatory session.db.textile.products query)
+                |> updateQuery (Query.regulatory query)
 
         ( CopyToClipBoard shareableLink, _ ) ->
             App.createUpdate session model
@@ -400,7 +400,7 @@ update ({ queries, navKey } as session) msg model =
 
         ( RemoveTrim itemIndex, _ ) ->
             App.createUpdate session model
-                |> updateQuery (query |> Query.updateTrims (LE.removeAt itemIndex))
+                |> updateQuery (query |> Query.updateTrims db.textile.products (LE.removeAt itemIndex))
 
         ( Reset, _ ) ->
             App.createUpdate session model
@@ -483,7 +483,7 @@ update ({ queries, navKey } as session) msg model =
 
         ( SwitchTab RegulatoryTab, _ ) ->
             App.createUpdate session
-                (if Query.isAdvancedQuery session.db.textile.products query then
+                (if Query.isAdvancedQuery query then
                     { model | modal = ConfirmSwitchToRegulatoryModal }
 
                  else
@@ -590,7 +590,7 @@ update ({ queries, navKey } as session) msg model =
             App.createUpdate session model
                 |> updateQuery
                     (query
-                        |> Query.updateTrims
+                        |> Query.updateTrims db.textile.products
                             (Component.updateItem trimIndex (\item -> { item | quantity = quantity }))
                     )
 
@@ -669,7 +669,7 @@ selectTrim autocompleteState ({ session } as pageUpdate) =
                 |> App.apply update (SetModal NoModal)
                 |> updateQuery
                     (session.queries.textile
-                        |> Query.updateTrims (Component.addItem trim.id)
+                        |> Query.updateTrims session.db.textile.products (Component.addItem trim.id)
                     )
 
         Nothing ->
@@ -925,7 +925,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , docsUrl = Just <| Gitbook.publicUrlFromPath Gitbook.TextileTrims
         , explorerRoute = Just (Route.Explore Scope.Textile (Dataset.Components Scope.Textile Nothing))
         , impact = model.impact
-        , items = session.queries.textile.trims
+        , items = inputs.trims
         , maxItems = Nothing
         , noOp = NoOp
         , openSelectComponentModal = AddTrimModal >> SetModal
@@ -934,7 +934,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , removeElementTransform = \_ _ -> NoOp
         , removeItem = RemoveTrim
         , results =
-            session.queries.textile.trims
+            inputs.trims
                 |> Component.compute session.db
                 |> Result.withDefault Component.emptyResults
         , scopes = [ Scope.Textile ]

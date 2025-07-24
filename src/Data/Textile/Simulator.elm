@@ -743,8 +743,8 @@ computeTotalTransportImpacts simulator =
 
 
 computeTrims : Db -> Simulator -> Result String Simulator
-computeTrims db ({ durability } as simulator) =
-    simulator.inputs.trims
+computeTrims db ({ durability, inputs } as simulator) =
+    inputs.trims
         |> Component.compute db
         |> Result.map Component.extractImpacts
         |> Result.map

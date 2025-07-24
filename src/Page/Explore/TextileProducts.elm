@@ -1,5 +1,6 @@
 module Page.Explore.TextileProducts exposing (table)
 
+import Data.Component as Component
 import Data.Dataset as Dataset
 import Data.Env as Env
 import Data.Process as Process
@@ -58,6 +59,21 @@ table db { detailed, scope } =
         , { label = "Produit(s) concerné(s)"
           , toValue = Table.StringValue .name
           , toCell = .name >> text
+          }
+        , { label = "Accessoires par défaut"
+          , toValue = Table.NoValue
+          , toCell =
+                \{ trims } ->
+                    if List.isEmpty trims then
+                        text "Aucun"
+
+                    else
+                        case Component.itemsToString db trims of
+                            Err error ->
+                                span [ class "text-danger" ] [ text <| "Erreur: " ++ error ]
+
+                            Ok string ->
+                                text string
           }
         , { label = "Titrage*"
           , toValue = Table.FloatValue <| .yarnSize >> Unit.yarnSizeInKilometers
