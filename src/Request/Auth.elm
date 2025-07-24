@@ -1,5 +1,6 @@
 module Request.Auth exposing
     ( askMagicLink
+    , listAccounts
     , login
     , logout
     , processes
@@ -101,3 +102,13 @@ signup session event signupForm =
         event
         User.decodeUser
         (User.encodeSignupForm signupForm)
+
+
+{-| List user accounts
+-}
+listAccounts : Session -> (WebData (List User) -> msg) -> Cmd msg
+listAccounts session event =
+    BackendHttp.get session
+        "accounts"
+        event
+        (Decode.list User.decodeUser)

@@ -25,10 +25,10 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Json.Encode as Encode
+import Page.Admin.Section as AdminSection
 import Ports
 import RemoteData
 import Request.BackendHttp exposing (WebData)
-import Request.BackendHttp.Error as BackendError
 import Request.Component as ComponentApi
 import Route
 import Static.Db exposing (Db)
@@ -40,14 +40,14 @@ import Views.Container as Container
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Modal as Modal
-import Views.Spinner as Spinner
 import Views.Table as Table
+import Views.WebData as WebDataView
 
 
 type alias Model =
     { components : WebData (List Component)
     , scopes : List Scope
-    , section : AdminView.Section
+    , section : AdminSection.Section
     , modals : List Modal
     }
 
@@ -80,12 +80,12 @@ type Msg
     | UpdateScopeFilters (List Scope)
 
 
-init : Session -> PageUpdate Model Msg
-init session =
+init : Session -> AdminSection.Section -> PageUpdate Model Msg
+init session section =
     { components = RemoteData.NotAsked
     , modals = []
     , scopes = Scope.all
-    , section = AdminView.ComponentSection
+    , section = section
     }
         |> App.createUpdate session
         |> App.withCmds [ ComponentApi.getComponents session ComponentListResponse ]
@@ -286,16 +286,16 @@ selectProcess category (( component, _ ) as targetItem) maybeElementIndex autoco
 
 view : Session -> Model -> ( String, List (Html Msg) )
 view { db } model =
-    ( "admin"
+    ( "Admin Composants"
     , [ Container.centered [ class "d-flex flex-column gap-3 pb-5" ]
             [ AdminView.header model.section
             , warning
             , model.scopes
                 |> scopeFilterForm UpdateScopeFilters
             , model.components
-                |> mapRemoteData (componentListView db model.scopes)
+                |> WebDataView.map (componentListView db model.scopes)
             , model.components
-                |> mapRemoteData downloadDbButton
+                |> WebDataView.map downloadDbButton
             , model.modals
                 |> List.indexedMap (\index modal -> modalView db model.modals index modal)
                 |> div []
@@ -503,7 +503,7 @@ modalView db modals index modal =
 
                 HistoryModal response ->
                     { title = "Historique des modifications"
-                    , content = [ response |> mapRemoteData historyView ]
+                    , content = [ response |> WebDataView.map historyView ]
                     , footer =
                         [ button
                             [ class "btn btn-primary"
@@ -693,8 +693,8 @@ scopeFilterForm updateFilters filtered =
 
 multipleScopesForm : (Scope -> Bool -> Msg) -> List Scope -> Html Msg
 multipleScopesForm check scopes =
-    div [ class "d-flex flex-row gap-3" ]
-        [ h3 [ class "h6 mb-0" ] [ text "Verticales" ]
+    div [ class "d-flex flex-row align-center input-group border" ]
+        [ h3 [ class "h6 mb-0 input-group-text" ] [ text "Verticales" ]
         , Scope.all
             |> List.map
                 (\scope ->
@@ -711,7 +711,7 @@ multipleScopesForm check scopes =
                             ]
                         ]
                 )
-            |> div [ class "ScopeSelector" ]
+            |> div [ class "form-control bg-white" ]
         ]
 
 
@@ -760,22 +760,6 @@ warning =
         , level = Alert.Warning
         , title = Nothing
         }
-
-
-mapRemoteData : (a -> Html msg) -> WebData a -> Html msg
-mapRemoteData fn webData =
-    case webData of
-        RemoteData.Failure err ->
-            Alert.serverError <| BackendError.errorToString err
-
-        RemoteData.Loading ->
-            Spinner.view
-
-        RemoteData.NotAsked ->
-            text ""
-
-        RemoteData.Success data ->
-            fn data
 
 
 subscriptions : Model -> Sub Msg
