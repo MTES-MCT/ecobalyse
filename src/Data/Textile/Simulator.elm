@@ -213,8 +213,8 @@ handleTrimsWeight db ({ inputs } as simulator) =
         |> updateLifeCycleSteps [ Label.Material, Label.Spinning, Label.Fabric, Label.Ennobling ]
             (\step ->
                 { step
-                    | inputMass = step.inputMass |> Quantity.plus trimsMass
-                    , outputMass = step.outputMass |> Quantity.plus trimsMass
+                    | inputMass = step.inputMass |> Quantity.minus trimsMass
+                    , outputMass = step.outputMass |> Quantity.minus trimsMass
                 }
             )
 

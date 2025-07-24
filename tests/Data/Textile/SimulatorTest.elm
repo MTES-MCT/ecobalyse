@@ -5,6 +5,7 @@ import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Split as Split
 import Data.Textile.Economics as Economics
+import Data.Textile.Inputs as Inputs
 import Data.Textile.LifeCycle as LifeCycle
 import Data.Textile.Query as Query exposing (Query, tShirtCotonFrance)
 import Data.Textile.Simulator as Simulator
@@ -51,7 +52,17 @@ suite =
                 [ { tShirtCotonFrance
                     | countrySpinning = Nothing
                   }
-                    |> expectImpact db ecs 1227.8953
+                    -- FIXME: remove me before landing
+                    |> (\x ->
+                            let
+                                _ =
+                                    Inputs.fromQuery db x
+                                        |> Result.map .trims
+                                        |> Debug.log "plop"
+                            in
+                            x
+                       )
+                    |> expectImpact db ecs 1216.7609
                     |> asTest "should compute a simulation ecs impact"
                 , describe "disabled steps"
                     [ { tShirtCotonFrance | disabledSteps = [ Label.Ennobling ] }
