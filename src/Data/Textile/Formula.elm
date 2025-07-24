@@ -1,6 +1,5 @@
 module Data.Textile.Formula exposing
-    ( bleachingToxicityImpacts
-    , computePicking
+    ( computePicking
     , computeThreadDensity
     , dyeingImpacts
     , endOfLifeImpacts
@@ -242,30 +241,6 @@ finishingImpacts impacts { elecProcess, finishingProcess, heatProcess } baseMass
                 )
     , kwh = kwh
     }
-
-
-{-| should be only used in views
--}
-bleachingToxicityImpacts :
-    Impacts
-    ->
-        { aquaticPollutionScenario : Country.AquaticPollutionScenario
-        , bleachingProcess : Process -- Inbound: Bleaching process
-        }
-    -> Mass
-    -> Impacts
-bleachingToxicityImpacts impacts { aquaticPollutionScenario, bleachingProcess } baseMass =
-    impacts
-        |> Impact.mapImpacts
-            (\trigram _ ->
-                baseMass
-                    |> Unit.forKg (Process.getImpact trigram bleachingProcess)
-                    |> Quantity.multiplyBy
-                        (aquaticPollutionScenario
-                            |> Country.getAquaticPollutionRatio
-                            |> Split.toFloat
-                        )
-            )
 
 
 materialDyeingToxicityImpacts :

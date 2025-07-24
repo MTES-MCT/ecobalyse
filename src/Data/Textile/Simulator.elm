@@ -393,7 +393,7 @@ computeDyeingImpacts { textile } ({ inputs } as simulator) =
                 in
                 { step
                     | heat = Quantity.sum [ step.heat, heat, preTreatments.heat ]
-                    , impacts = Impact.sumImpacts [ step.impacts, impacts, dyeingToxicity, preTreatments.impacts ]
+                    , impacts = Impact.sumImpacts [ step.impacts, impacts, dyeingToxicity, preTreatments.energy, preTreatments.toxicity ]
                     , kwh = Quantity.sum [ step.kwh, kwh, preTreatments.kwh ]
                     , preTreatments = preTreatments
                 }

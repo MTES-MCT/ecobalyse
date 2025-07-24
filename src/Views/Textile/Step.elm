@@ -826,13 +826,7 @@ ennoblingToxicityView : Db -> Config msg modal -> Step -> Html msg
 ennoblingToxicityView db ({ selectedImpact, inputs } as config) current =
     showIf (current.label == Label.Ennobling) <|
         let
-            bleachingToxicity =
-                current.outputMass
-                    |> Formula.bleachingToxicityImpacts current.impacts
-                        { aquaticPollutionScenario = current.country.aquaticPollutionScenario
-                        , bleachingProcess = db.textile.wellKnown.bleaching
-                        }
-
+            -- FIXME: this should be computed and exposed only once in the simulator
             dyeingToxicity =
                 inputs.materials
                     |> List.map
@@ -851,6 +845,7 @@ ennoblingToxicityView db ({ selectedImpact, inputs } as config) current =
                         )
                     |> Impact.sumImpacts
 
+            -- FIXME: this should be computed and exposed only once in the simulator
             printingToxicity =
                 case current.printing of
                     Just { kind, ratio } ->
@@ -870,7 +865,11 @@ ennoblingToxicityView db ({ selectedImpact, inputs } as config) current =
                         Impact.empty
 
             toxicity =
-                Impact.sumImpacts [ bleachingToxicity, dyeingToxicity, printingToxicity ]
+                Impact.sumImpacts
+                    [ current.preTreatments.toxicity
+                    , dyeingToxicity
+                    , printingToxicity
+                    ]
         in
         li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
             [ span [] [ text <| "Dont inventaires enrichis\u{00A0}:" ]
