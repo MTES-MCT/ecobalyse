@@ -280,7 +280,7 @@ printingFields { current, inputs, updatePrinting } =
                     ]
             , case inputs.printing of
                 Just { ratio } ->
-                    [ 100, 50, 20, 5, 1 ]
+                    [ 80, 50, 20, 5, 1 ]
                         |> List.map
                             (\percent ->
                                 option

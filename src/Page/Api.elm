@@ -54,7 +54,12 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "9 juillet 2025"
+    [ { date = "22 juillet 2025"
+      , level = "major"
+      , domains = [ "Textile" ]
+      , md = """Le paramétrage de la surface d'impression interdit désormais les valeurs supérieures à 80%."""
+      }
+    , { date = "9 juillet 2025"
       , level = "major"
       , domains = [ "Textile" ]
       , md = """Le paramètre `traceability` est supprimé."""
