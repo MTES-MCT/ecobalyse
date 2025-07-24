@@ -432,7 +432,7 @@ describe("API", () => {
     describe("/food/packagings", () => {
       it("should render with packagings list", async () => {
         await expectListResponseContains("/api/food/packagings", {
-          id: "09b63a3c-b0b5-5907-8efd-775b8395f878",
+          id: "28fc90df-448e-5a31-994d-2fd83208747e",
           name: "PVC",
         });
       });
