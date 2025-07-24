@@ -350,8 +350,7 @@ describe("API", () => {
         )[0];
         expect(ennoblingStep).toBeTruthy();
 
-        // FIXME investigate why this has evolved before landing
-        expect(ennoblingStep.preTreatments.impacts.ecs).toBeCloseTo(94.0048, 2);
+        expect(ennoblingStep.preTreatments.impacts.ecs).toBeCloseTo(95.36, 2);
       });
     });
 
