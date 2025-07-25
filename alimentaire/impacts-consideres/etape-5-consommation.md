@@ -40,7 +40,7 @@ En repartant des tableaux 41, 42 et 43 de la méthodologie Agribalyse ([lien](ht
 
 Pour la **cuisson à la poêle**, la durée et la puissance de cuisson dépend de l'ingrédient (cf. tableau 42) :&#x20;
 
-<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 **En première approche**, il est seulement considéré deux modes de cuisson :
