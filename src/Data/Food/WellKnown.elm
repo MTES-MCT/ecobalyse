@@ -10,13 +10,13 @@ import Result.Extra as RE
 type alias WellKnown =
     { boatCoolingTransport : Process
     , boatTransport : Process
+    , cooking : Process
     , domesticGasHeat : Process
     , lorryCoolingTransport : Process
     , lorryTransport : Process
     , lowVoltageElectricity : Process
     , planeTransport : Process
     , water : Process
-    , cooking : Process
     }
 
 
