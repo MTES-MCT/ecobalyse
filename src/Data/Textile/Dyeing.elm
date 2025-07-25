@@ -44,7 +44,7 @@ fromString string =
             Ok Discontinuous
 
         _ ->
-            Err <| "Type de teinture inconnu : " ++ string
+            Err <| "Type de teinture inconnu\u{202F}: " ++ string
 
 
 toProcess : WellKnown -> Maybe ProcessType -> Process
