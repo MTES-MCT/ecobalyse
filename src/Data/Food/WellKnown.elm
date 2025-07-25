@@ -16,6 +16,7 @@ type alias WellKnown =
     , lowVoltageElectricity : Process
     , planeTransport : Process
     , water : Process
+    , cooking : Process
     }
 
 
@@ -44,3 +45,5 @@ load processes =
         |> fromIdString "c8bca164-5574-5232-84b9-46c5b734cd0c"
         -- tap-water
         |> fromIdString "d3fc19a4-7ace-5870-aeb3-fe35a8189d94"
+        -- cooking
+        |> fromIdString "83b897cf-9ed2-5604-83b4-67fab8606d35"
