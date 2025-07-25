@@ -33,6 +33,8 @@ load processes =
         |> fromIdString "c739cf97-d424-5abd-b6ad-4c21d66081bb"
         -- boat
         |> fromIdString "54145f9e-1a8e-5a69-96d9-d3b92f9a1cee"
+        -- cooking
+        |> fromIdString "83b897cf-9ed2-5604-83b4-67fab8606d35"
         -- domestic-gas-heat
         |> fromIdString "a21ee9bf-675f-502b-a9a3-395686a429e0"
         -- lorry-cooling
@@ -45,5 +47,3 @@ load processes =
         |> fromIdString "c8bca164-5574-5232-84b9-46c5b734cd0c"
         -- tap-water
         |> fromIdString "d3fc19a4-7ace-5870-aeb3-fe35a8189d94"
-        -- cooking
-        |> fromIdString "83b897cf-9ed2-5604-83b4-67fab8606d35"
