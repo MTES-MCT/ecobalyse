@@ -69,6 +69,7 @@ type alias Session =
     , queries : Queries
     , releases : WebData (List Github.Release)
     , store : Store
+    , versionPollSeconds : Int
     }
 
 
