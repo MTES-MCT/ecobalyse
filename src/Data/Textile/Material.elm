@@ -81,7 +81,6 @@ decode processes =
         |> JDP.required "defaultCountry" (Decode.string |> Decode.map Country.codeFromString)
         |> JDP.required "geographicOrigin" Decode.string
         |> JDP.required "id" (Decode.map Id Decode.string)
-        |> JDP.required "materialProcessUuid" (Process.decodeFromId processes)
         |> JDP.required "name" Decode.string
         |> JDP.required "origin" Origin.decode
         |> JDP.required "recycledFrom" (Decode.maybe (Decode.map Id Decode.string))
@@ -108,7 +107,6 @@ encode v =
         , ( "name", v.name |> Encode.string )
         , ( "shortName", Encode.string v.shortName )
         , ( "origin", v.origin |> Origin.toString |> Encode.string )
-        , ( "materialProcessUuid", Process.encodeId v.materialProcess.id )
         , ( "recycledProcessUuid"
           , v.recycledProcess |> Maybe.map (.id >> Process.encodeId) |> Maybe.withDefault Encode.null
           )
