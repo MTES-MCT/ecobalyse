@@ -90,7 +90,7 @@ const app = Elm.Main.init({
       host: process.env.MATOMO_HOST || "",
       siteId: process.env.MATOMO_SITE_ID || "",
     },
-    versionPollSeconds: process.env.VERSION_POLL_SECONDS || 300,
+    versionPollSeconds: parseInt(process.env.VERSION_POLL_SECONDS) || 300,
   },
 });
 
