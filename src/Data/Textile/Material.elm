@@ -29,6 +29,7 @@ type alias Material =
     , origin : Origin
     , recycledFrom : Maybe Id
     , recycledProcess : Maybe Process
+    , processId : Process.Id
     , shortName : String
     }
 

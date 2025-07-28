@@ -493,14 +493,14 @@ stepMaterialImpacts { textile } material step =
             step.outputMass
                 |> Formula.recycledMaterialImpacts step.impacts
                     { cffData = cffData
-                    , nonRecycledProcess = sourceMaterial.materialProcess
-                    , recycledProcess = material.materialProcess
+                    , nonRecycledProcess = sourceMaterial.processId
+                    , recycledProcess = material.processId
                     }
 
         -- Non-recycled Material
         Nothing ->
             step.outputMass
-                |> Formula.pureMaterialImpacts step.impacts material.materialProcess
+                |> Formula.pureMaterialImpacts step.impacts material.processId
 
 
 computeMaterialImpacts : Db -> Simulator -> Simulator
