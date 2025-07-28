@@ -122,7 +122,7 @@ availablePackagings usedProcesses =
 
 
 compute : Db -> Query -> Result String ( Recipe, Results )
-compute db =
+compute ({ food } as db) =
     -- FIXME get the wellknown early and propagate the error to the computation
     fromQuery db
         >> Result.map
@@ -159,9 +159,9 @@ compute db =
                                 (\distrib ->
                                     let
                                         volume =
-                                            getTransformedIngredientsVolume db.food.wellKnown recipe
+                                            getTransformedIngredientsVolume food.wellKnown recipe
                                     in
-                                    Retail.computeImpacts volume distrib db.food.wellKnown
+                                    Retail.computeImpacts volume distrib food.wellKnown
                                 )
                             |> Maybe.withDefault Impact.empty
 
@@ -172,7 +172,7 @@ compute db =
                     distributionTransport =
                         let
                             mass =
-                                getMassAtPackaging db.food.wellKnown recipe
+                                getMassAtPackaging food.wellKnown recipe
 
                             transport =
                                 distribution
@@ -192,7 +192,7 @@ compute db =
                             ]
 
                     transformedIngredientsMass =
-                        getTransformedIngredientsMass db.food.wellKnown recipe
+                        getTransformedIngredientsMass food.wellKnown recipe
 
                     packagingImpacts =
                         packaging
@@ -201,11 +201,11 @@ compute db =
 
                     preparationImpacts =
                         preparation
-                            |> List.map (Preparation.apply db.food.wellKnown transformedIngredientsMass)
+                            |> List.map (Preparation.apply food.wellKnown transformedIngredientsMass)
                             |> Impact.sumImpacts
 
                     preparedMass =
-                        getPreparedMassAtConsumer db.food.wellKnown recipe
+                        getPreparedMassAtConsumer food.wellKnown recipe
 
                     totalComplementsImpact =
                         computeIngredientsTotalComplements ingredients
@@ -265,7 +265,7 @@ compute db =
                         }
                   , scoring = scoring
                   , total = totalImpacts
-                  , totalMass = getMassAtPackaging db.food.wellKnown recipe
+                  , totalMass = getMassAtPackaging food.wellKnown recipe
                   , transports = Transport.sum [ ingredientsTransport, distributionTransport ]
                   }
                 )
