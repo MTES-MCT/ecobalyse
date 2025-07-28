@@ -25,7 +25,6 @@ type alias Material =
     , defaultCountry : Country.Code -- Default country for Material and Spinning steps
     , geographicOrigin : String -- A textual information about the geographic origin of the material
     , id : Id
-    , materialProcess : Process
     , name : String
     , origin : Origin
     , recycledFrom : Maybe Id
