@@ -16,11 +16,11 @@ suite =
         [ describe "fromFloat constructor"
             [ -0.1
                 |> Split.fromFloat
-                |> Expect.equal (Err "Cette proportion doit être comprise entre 0 et 1 inclus (ici: -0.1)")
+                |> Expect.equal (Err "Cette proportion doit être comprise entre 0 et 1 inclus (ici\u{202F}: -0.1)")
                 |> asTest "should return an error if the split is less than 0"
             , 1.1
                 |> Split.fromFloat
-                |> Expect.equal (Err "Cette proportion doit être comprise entre 0 et 1 inclus (ici: 1.1)")
+                |> Expect.equal (Err "Cette proportion doit être comprise entre 0 et 1 inclus (ici\u{202F}: 1.1)")
                 |> asTest "should return an error if the split is greater than 1"
             , 0.12
                 |> Split.fromFloat
@@ -31,11 +31,11 @@ suite =
         , describe "fromBoundedFloat constructor"
             [ 0.1
                 |> Split.fromBoundedFloat 0.2 1
-                |> Expect.equal (Err "Cette proportion doit être comprise entre 0.2 et 1 inclus (ici: 0.1)")
+                |> Expect.equal (Err "Cette proportion doit être comprise entre 0.2 et 1 inclus (ici\u{202F}: 0.1)")
                 |> asTest "should return an error if the split is greater than min possible value"
             , 0.9
                 |> Split.fromBoundedFloat 0 0.8
-                |> Expect.equal (Err "Cette proportion doit être comprise entre 0 et 0.8 inclus (ici: 0.9)")
+                |> Expect.equal (Err "Cette proportion doit être comprise entre 0 et 0.8 inclus (ici\u{202F}: 0.9)")
                 |> asTest "should return an error if the split is greater than max possible value"
             ]
         , describe "fromPercent constructor"

@@ -119,7 +119,7 @@ fromBoundedFloat min max float =
                 ++ String.fromFloat min
                 ++ " et "
                 ++ String.fromFloat max
-                ++ " inclus (ici: "
+                ++ " inclus (ici\u{202F}: "
                 ++ String.fromFloat float
                 ++ ")"
             )
@@ -134,7 +134,7 @@ fromBoundedFloat min max float =
 fromPercent : Float -> Result String Split
 fromPercent float =
     if float < 0 || float > 100 then
-        Err ("Une part (en pourcentage) doit être comprise entre 0 et 100 inclus (ici: " ++ String.fromFloat float ++ ")")
+        Err ("Une part (en pourcentage) doit être comprise entre 0 et 100 inclus (ici\u{202F}: " ++ String.fromFloat float ++ ")")
 
     else
         Ok (Split float)
