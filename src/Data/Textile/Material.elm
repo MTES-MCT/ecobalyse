@@ -18,24 +18,26 @@ import Data.Textile.Material.Origin as Origin exposing (Origin)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
+import Data.Uuid as Uuid exposing (Uuid)
 
 
 type alias Material =
-    { cffData : Maybe CFFData
+    { alias : String
+    , cffData : Maybe CFFData
     , defaultCountry : Country.Code -- Default country for Material and Spinning steps
     , geographicOrigin : String -- A textual information about the geographic origin of the material
     , id : Id
+    , process : Process
     , name : String
     , origin : Origin
-    , recycledFrom : Maybe Id
+    , recycledFrom : Maybe String
     , recycledProcess : Maybe Process
-    , processId : Process.Id
     , shortName : String
     }
 
 
 type Id
-    = Id String
+    = Id Uuid
 
 
 
@@ -48,6 +50,20 @@ type alias CFFData =
     , recycledQualityRatio : Split
     }
 
+decodeId: Decoder Id
+decodeId =
+    Decode.map Id Uuid.decoder
+
+encodeId : Id -> Encode.Value
+encodeId( Id uuid) =
+    Uuid.encoder uuid
+
+idToString: Id -> String
+idToString(Id uuid) = Uuid.toString uuid
+
+idFromString : String -> Result String Id
+idFromString =
+    Uuid.fromString >> Result.map Id
 
 getRecyclingData : Material -> List Material -> Maybe ( Material, CFFData )
 getRecyclingData material materials =
@@ -55,17 +71,21 @@ getRecyclingData material materials =
     Maybe.map2 Tuple.pair
         (material.recycledFrom
             |> Maybe.andThen
-                (\id ->
-                    findById id materials
+                (\alias ->
+                    findByAlias alias materials
                         |> Result.toMaybe
                 )
         )
         material.cffData
 
 
-
 ---- Helpers
 
+findByAlias : String -> List Material -> Result String Material
+findByAlias alias =
+    List.filter (.alias >> (==) alias)
+        >> List.head
+        >> Result.fromMaybe ("Matière non trouvée alias=" ++ alias ++ ".")
 
 findById : Id -> List Material -> Result String Material
 findById id =
@@ -77,13 +97,15 @@ findById id =
 decode : List Process -> Decoder Material
 decode processes =
     Decode.succeed Material
+        |> JDP.required "alias" Decode.string
         |> JDP.required "cff" (Decode.maybe decodeCFFData)
         |> JDP.required "defaultCountry" (Decode.string |> Decode.map Country.codeFromString)
         |> JDP.required "geographicOrigin" Decode.string
-        |> JDP.required "id" (Decode.map Id Decode.string)
+        |> JDP.required "id" decodeId
+        |> JDP.required "processId" (Process.decodeFromId processes)
         |> JDP.required "name" Decode.string
         |> JDP.required "origin" Origin.decode
-        |> JDP.required "recycledFrom" (Decode.maybe (Decode.map Id Decode.string))
+        |> JDP.required "recycledFrom" (Decode.maybe Decode.string)
         |> DU.strictOptional "recycledProcessUuid" (Process.decodeFromId processes)
         |> JDP.required "shortName" Decode.string
 
@@ -104,23 +126,16 @@ encode : Material -> Encode.Value
 encode v =
     Encode.object
         [ ( "id", encodeId v.id )
+        , ("alias", Encode.string v.alias)
         , ( "name", v.name |> Encode.string )
         , ( "shortName", Encode.string v.shortName )
         , ( "origin", v.origin |> Origin.toString |> Encode.string )
+        , ( "processId", Process.encodeId v.process.id )
         , ( "recycledProcessUuid"
           , v.recycledProcess |> Maybe.map (.id >> Process.encodeId) |> Maybe.withDefault Encode.null
           )
-        , ( "recycledFrom", v.recycledFrom |> Maybe.map encodeId |> Maybe.withDefault Encode.null )
+        , ( "recycledFrom", v.recycledFrom |> Maybe.map Encode.string |> Maybe.withDefault Encode.null )
         , ( "geographicOrigin", Encode.string v.geographicOrigin )
         , ( "defaultCountry", v.defaultCountry |> Country.codeToString |> Encode.string )
+
         ]
-
-
-encodeId : Id -> Encode.Value
-encodeId =
-    idToString >> Encode.string
-
-
-idToString : Id -> String
-idToString (Id string) =
-    string
