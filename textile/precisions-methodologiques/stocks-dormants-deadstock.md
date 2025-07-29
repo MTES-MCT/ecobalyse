@@ -39,7 +39,7 @@ La modélisation des stocks dormants s'effectue via un multiplicateur. Concrète
 
 {% hint style="info" %}
 La prise en compte des stocks dormants s'effectue au sein de l'étape Confection. Ainsi, cela revient à appliquer un second taux de perte à cette étape, avec donc 15% d'étoffe supplémentaire nécessaire avant l'étape de confection. L'application de cette modélisation conduit donc, par transitivité, à augmenter la quantité nécessaire d'étoffe, de fil et de matière nécessaire en amont de la confection.\
-Pour rendre compte de la quantité de tissu nécessaire en entrée de la phase de confection, il faut donc à la fois considérer les stocks dormants (objet de la présente page), mais aussi les pertes strictement liées à l'étape de confection (cf. [page dédiée de la documentation](../../communaute.md)).
+Pour rendre compte de la quantité d'étoffe nécessaire en entrée de la phase de confection, il faut donc à la fois considérer les stocks dormants (objet de la présente page), mais aussi les pertes strictement liées à l'étape de confection (cf. [page dédiée de la documentation](../../communaute.md)).
 {% endhint %}
 
 {% hint style="danger" %}
