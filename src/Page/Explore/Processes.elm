@@ -92,7 +92,7 @@ baseColumns detailed scope =
 
 impactsColumns : Session -> List (Column Process String msg)
 impactsColumns session =
-    if Session.isStaff session then
+    if Session.isSuperuser session then
         Definition.trigrams
             |> List.map
                 (\trigram ->

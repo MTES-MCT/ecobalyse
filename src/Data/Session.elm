@@ -12,7 +12,7 @@ module Data.Session exposing
     , deleteBookmark
     , getAuth
     , isAuthenticated
-    , isStaff
+    , isSuperuser
     , logout
     , notifyBackendError
     , objectQueryFromScope
@@ -289,8 +289,8 @@ isAuthenticated { store } =
             False
 
 
-isStaff : Session -> Bool
-isStaff =
+isSuperuser : Session -> Bool
+isSuperuser =
     getAuth
         >> Maybe.map (.user >> .isSuperuser)
         >> Maybe.withDefault False
