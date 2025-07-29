@@ -116,7 +116,7 @@ Avec :
 * `t_i` : Le taux d'application du procédé i pour le vêtement évalué, sans unité
   * Egal à 1 si le procédé est mobilisé pour ce vêtement
   * Egal à 0 si le procédé n'est pas mobilisé
-  * Situé entre 0 et 1 pour l'impression (voir paragraphe dédié)
+  * Situé entre 0 et 0,8 pour l'impression (voir paragraphe dédié)
 * `I_elec` : l'impact environnemental de l'électricité pour le pays défini pour l'ennoblissement, dans l'unité de la catégorie d'impact analysée
 * `c_i` : la quantité de chaleur nécessaire au procédé i pour 1 kg d'étoffe, en MJ/kg
 * `I_chaleur` : l'impact environnemental de l'électricité pour le pays défini pour l'ennoblissement, dans l'unité de la catégorie d'impact analysée.
