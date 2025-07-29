@@ -10,11 +10,22 @@ Le détail technique des mises à jour est disponible [ici](https://ecobalyse.be
 
 <details>
 
+<summary>v7.0.0</summary>
+
+* Suppression du critère "Affichage de la traçabilité" dans le calcul de la durabilité
+* Modification de mix électrique français : mix électrique basse tension lors de l'étape d'utilisation, sinon utilisation du mix électrique moyenne tension.
+* Ajout des accessoires par défaut
+* Modification du seuil d'impression de 100% par 80%
+* Correction du bug: ajout du blanchiment pour la viscose
+
+</details>
+
+<details>
+
 <summary>v6.0.0</summary>
 
-* Exclusion de la masse des accessoirs pour le calcul des impacts des étapes préliminaires à la confection
+* Exclusion de la masse des accessoires pour le calcul des impacts des étapes préliminaires à la confection
 * Correction d'un bug: l'impression est calculé selon le pourcentage de surface
-*
 
 </details>
 
