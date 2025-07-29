@@ -173,7 +173,7 @@ $$
 
 Cette valeur de référence (`Ref(f)`) est exprimée en pourcentage (%) et reflète la part du coefficient microfibres (`CoefMicroF.`) applicable à chaque scénario.&#x20;
 
-<table><thead><tr><th width="314.3333333333333">Type de fibre (f)</th><th width="202">0,7 * P</th><th width="160">0,3 * R</th><th>Ref (f)</th></tr></thead><tbody><tr><td>Synthétique</td><td> 7</td><td>1,2</td><td>82%</td></tr><tr><td>Naturelle (origine végétale)</td><td>0,7</td><td>1,8</td><td>25%</td></tr><tr><td>Naturelle (origine animale)</td><td>2,1</td><td>1,8</td><td>39%</td></tr><tr><td>Artificielle (origine organique)</td><td>2,1</td><td>1,2 </td><td>33%</td></tr><tr><td>Artificielle (origine inorganique)</td><td>7</td><td>1,2</td><td>82%</td></tr></tbody></table>
+<table><thead><tr><th width="314.3333333333333">Type de fibre</th><th width="202">0,7 * P</th><th width="160">0,3 * R</th><th>Ref (f)</th></tr></thead><tbody><tr><td>Synthétique</td><td> 7</td><td>1,2</td><td>82%</td></tr><tr><td>Naturelle (origine végétale)</td><td>0,7</td><td>1,8</td><td>25%</td></tr><tr><td>Naturelle (origine animale)</td><td>2,1</td><td>1,8</td><td>39%</td></tr><tr><td>Artificielle (origine organique)</td><td>2,1</td><td>1,2 </td><td>33%</td></tr><tr><td>Artificielle (origine inorganique)</td><td>7</td><td>1,2</td><td>82%</td></tr></tbody></table>
 
 ## Calcul du complément "Microfibres"
 
