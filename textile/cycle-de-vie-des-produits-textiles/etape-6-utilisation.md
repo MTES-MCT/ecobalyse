@@ -26,7 +26,7 @@ Par exemple, pour un t-shirt avec une durabilité élevée (coefficient de x1,35
 
 ## Impacts pris en compte
 
-Les impacts de la phase d'utilisation concernent l'entretien du vêtement. Conformément à la documentation textile de la [base Impacts](http://www.base-impacts.ademe.fr) nous prenons en compte les impacts suivants :
+Les impacts de la phase d'utilisation concernent l'entretien du vêtement. Conformément à la documentation textile de la Base Impacts nous prenons en compte les impacts suivants :
 
 * Lavage - Électricité
 * Lavage - Lessive
@@ -44,16 +44,19 @@ Certains paramètres sont dépendants de la catégorie (jupe, pantalon, t-shirt,
 
 Par exemple le nombre de cycles d'entretien est différent pour chaque catégorie de vêtement (45 pour un t-shirt vs 5 pour un manteau), ce qui exprime le fait que l'on va plus laver un t-shirt qu'un manteau pour une même durabilité.
 
+Le mix électrique utilisé pour l'étape d'utilisation est l'électricité basse tension française, contrairement aux autres étapes.
+
 <details>
 
 <summary>Origine des données</summary>
 
-Les procédés sont d'origine Ecoinvent SAUF pour 4 procédés Base Impacts mobilisés pour faire ce procédé précalculé ([détail du précalcul](https://github.com/MTES-MCT/ecobalyse-data/blob/master/src/ecobalyse_data/textile/eol_precalculation/eol_precalculation.py)) :
+Les procédés sont d'origine Ecoinvent SAUF pour 4 procédés Base Impacts mobilisés pour faire ce procédé précalculé  :
 
 * proc\_landfill = "Mise en décharge de textiles, FR"&#x20;
 * proc\_incineration = "Incinération de déchets - Déchets textiles, FR"
 * &#x20;proc\_transport = "Transport en camion 7,5t (3t) France (dont parc, utilisation et infrastructure) (50%) \[tkm], FR"
-* &#x20;proc\_elec = "Mix électrique réseau, FR”
+
+
 
 
 
