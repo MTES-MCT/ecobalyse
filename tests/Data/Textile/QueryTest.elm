@@ -16,7 +16,7 @@ sampleQuery : Query
 sampleQuery =
     { jupeCotonAsie
         | materials =
-            [ { id = Material.Id "ei-pet"
+            [ { id = Material.Id "9dba0e95-0c35-4f8b-9267-62ddf47d4984"
               , share = Split.full
               , spinning = Nothing
               , country = Just (Country.Code "CN")
@@ -72,7 +72,7 @@ suite =
                     |> Query.validateMaterials
                     |> Expect.ok
                     |> asTest "should validate the sum of an empty list of materials"
-                , [ { id = Material.Id "ei-coton"
+                , [ { id = Material.Id "62a4d6fb-3276-4ba5-93a3-889ecd3bff84"
                     , share = Split.tenth
                     , spinning = Nothing
                     , country = Nothing
@@ -81,12 +81,12 @@ suite =
                     |> Query.validateMaterials
                     |> Expect.err
                     |> asTest "should validate the sum of an incomplete list of materials"
-                , [ { id = Material.Id "ei-pu"
+                , [ { id = Material.Id "73ef624d-250e-4a9a-af5d-43505b21b527"
                     , share = Split.half
                     , spinning = Nothing
                     , country = Nothing
                     }
-                  , { id = Material.Id "ei-coton"
+                  , { id = Material.Id "62a4d6fb-3276-4ba5-93a3-889ecd3bff84"
                     , share = Split.half
                     , spinning = Nothing
                     , country = Nothing
@@ -96,17 +96,17 @@ suite =
                     |> Expect.ok
                     |> asTest "should validate a complete sum of materials"
                 , -- Testing for float number rounding precision errors https://en.wikipedia.org/wiki/Round-off_error
-                  [ { id = Material.Id "ei-pet"
+                  [ { id = Material.Id "9dba0e95-0c35-4f8b-9267-62ddf47d4984"
                     , share = Split.sixty
                     , spinning = Nothing
                     , country = Nothing
                     }
-                  , { id = Material.Id "ei-pu"
+                  , { id = Material.Id "73ef624d-250e-4a9a-af5d-43505b21b527"
                     , share = Split.thirty
                     , spinning = Nothing
                     , country = Nothing
                     }
-                  , { id = Material.Id "ei-coton"
+                  , { id = Material.Id "62a4d6fb-3276-4ba5-93a3-889ecd3bff84"
                     , share = Split.tenth
                     , spinning = Nothing
                     , country = Nothing
