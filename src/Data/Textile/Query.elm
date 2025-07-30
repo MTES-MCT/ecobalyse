@@ -149,7 +149,7 @@ decodeMaterialQuery : Decoder MaterialQuery
 decodeMaterialQuery =
     Decode.succeed MaterialQuery
         |> DU.strictOptional "country" Country.decodeCode
-        |> Pipe.required "id" (Decode.map Material.Id Decode.string)
+        |> Pipe.required "id" Material.decodeId
         |> Pipe.required "share" Split.decodeFloat
         |> DU.strictOptional "spinning" Spinning.decode
 
@@ -429,12 +429,17 @@ default =
     , makingWaste = Nothing
     , mass = Mass.kilograms 0.17
     , materials =
-        [ { country = Nothing
-          , id = Material.Id "ei-coton"
-          , share = Split.full
-          , spinning = Nothing
-          }
-        ]
+       case Material.idFromString "f0dbe27b-1e74-55d0-88a2-bda812441744" of
+           Ok decodedId ->
+               [ { country = Nothing
+                 , id = decodedId
+                 , share = Split.full
+                 , spinning = Nothing
+                 }
+               ]
+
+           Err _ ->
+               []
     , numberOfReferences = Nothing
     , physicalDurability = Nothing
     , price = Nothing

@@ -2,12 +2,14 @@ module Data.Textile.Material exposing
     ( CFFData
     , Id(..)
     , Material
+    , decodeId
     , decodeList
     , encode
     , encodeId
     , findById
     , getRecyclingData
     , idToString
+    , idFromString
     )
 
 import Data.Common.DecodeUtils as DU
@@ -131,7 +133,7 @@ encode v =
         , ( "shortName", Encode.string v.shortName )
         , ( "origin", v.origin |> Origin.toString |> Encode.string )
         , ( "processId", Process.encodeId v.process.id )
-        , ( "recycledProcessUuid"
+        , ( "recycledProcessId"
           , v.recycledProcess |> Maybe.map (.id >> Process.encodeId) |> Maybe.withDefault Encode.null
           )
         , ( "recycledFrom", v.recycledFrom |> Maybe.map Encode.string |> Maybe.withDefault Encode.null )
