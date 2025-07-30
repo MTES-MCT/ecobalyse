@@ -1,7 +1,16 @@
 # Changelog
 
 
-## [7.0.0](https://github.com/MTES-MCT/ecobalyse/compare/v6.1.1..v7.0.0) (2025-07-28)
+## [7.0.1](https://github.com/MTES-MCT/ecobalyse/compare/v7.0.0..v7.0.1) (2025-07-30)
+
+
+
+### ⚙️ Miscellaneous Tasks
+
+- Improve token error feedback ([#1291](https://github.com/MTES-MCT/ecobalyse/issues/1291))
+
+
+## [7.0.0](https://github.com/MTES-MCT/ecobalyse/compare/v6.1.1..v7.0.0) (2025-07-29)
 
 
 
@@ -15,6 +24,7 @@
 - *(textile)* [**breaking**] Remove the traceability parameter. ([#1237](https://github.com/MTES-MCT/ecobalyse/issues/1237))
 - Add pretreatment dyeing average aquatic pollution scenario ([#1232](https://github.com/MTES-MCT/ecobalyse/issues/1232))
 - Allow configuring version polling interval ([#1283](https://github.com/MTES-MCT/ecobalyse/issues/1283))
+- *(bo)* Add user accounts admin ([#1266](https://github.com/MTES-MCT/ecobalyse/issues/1266))
 
 ### 🪲 Bug Fixes
 
