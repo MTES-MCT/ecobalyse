@@ -13,7 +13,7 @@ from advanced_alchemy.service import (
     schema_dump,
 )
 from app.db import models as m
-from app.domain.processes.schemas import Impacts
+from app.domain.processes.schemas import Impacts, Process
 
 if TYPE_CHECKING:
     from advanced_alchemy.service import ModelDictT
@@ -37,7 +37,21 @@ class ProcessService(SQLAlchemyAsyncRepositoryService[m.Process]):
 
     repository_type = ProcessRepository
 
-    async def to_model_on_create(self, data: ModelDictT[m.Team]) -> ModelDictT[m.Team]:
+    def to_schema_with_removed_impacts(
+        self, process: ModelDictT[m.Process], user: ModelDictT[m.User]
+    ) -> Process:
+        schema_process = self.to_schema(process, schema_type=Process)
+
+        if not user:
+            schema_process.impacts = ProcessService.remove_detailed_impacts(
+                schema_process.impacts
+            )
+
+        return schema_process
+
+    async def to_model_on_create(
+        self, data: ModelDictT[m.Process]
+    ) -> ModelDictT[m.Process]:
         data = schema_dump(data)
         return await self._populate_with_categories_and_impacts(data, "create")
 

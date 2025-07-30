@@ -3,9 +3,6 @@ from __future__ import annotations
 from uuid import UUID
 
 from advanced_alchemy.filters import OrderBy
-from advanced_alchemy.service.typing import (
-    convert,
-)
 from app.db import models as m
 from app.domain.processes import urls
 from app.domain.processes.deps import (
@@ -40,21 +37,27 @@ class ProcessController(Controller):
 
     tags = ["Processes"]
 
-    @get(operation_id="ListProcesses", path=urls.PROCESS_LIST, exclude_from_auth=True)
+    @get(operation_id="ListProcesses", path=urls.PROCESS_LIST, allow_none_user=True)
     async def list_processes(
         self,
+        current_user: m.User | None,
         processes_service: ProcessService,
     ) -> list[Process]:
         """List processes."""
+
         results = await processes_service.list(
             OrderBy(field_name="display_name", sort_order="asc"), uniquify=True
         )
 
-        return convert(
-            obj=results,
-            type=list[Process],  # type: ignore[valid-type]
-            from_attributes=True,
-        )
+        processed_results = []
+        for process in results:
+            schema_process = processes_service.to_schema_with_removed_impacts(
+                process, current_user
+            )
+
+            processed_results.append(schema_process)
+
+        return processed_results
 
     @get(operation_id="GetProcess", path=urls.PROCESS_DETAIL, allow_none_user=True)
     async def get_process(
@@ -68,11 +71,8 @@ class ProcessController(Controller):
         """Get a process."""
 
         process = await processes_service.get(process_id)
-        schema_process = processes_service.to_schema(process, schema_type=Process)
-
-        if not current_user:
-            schema_process.impacts = ProcessService.remove_detailed_impacts(
-                schema_process.impacts
-            )
+        schema_process = processes_service.to_schema_with_removed_impacts(
+            process, current_user
+        )
 
         return schema_process
