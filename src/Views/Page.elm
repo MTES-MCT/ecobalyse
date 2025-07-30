@@ -509,7 +509,7 @@ notificationView { session, toMsg } notification =
                             }
                         -- Note: despite the message, there's no "password" involved, just an expired magic link
 
-                    else if statusCode == 403 && (title |> Maybe.map (String.contains "password invalid") |> Maybe.withDefault False) then
+                    else if statusCode == 403 && (title |> Maybe.map (String.contains "already used") |> Maybe.withDefault False) then
                         Alert.simple
                             { attributes = []
                             , close = Just closeNotification

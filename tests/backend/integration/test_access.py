@@ -361,6 +361,14 @@ async def test_magic_link_expiration(
         assert authenticated_user.magic_link_sent_at is None
         assert authenticated_user.magic_link_hashed_token is None
 
+        # Magic link already used
+        with pytest.raises(
+            PermissionDeniedException, match="Token not found or already used"
+        ):
+            authenticated_user = await users_service.authenticate_magic_token(
+                raw_users[2]["email"], "Test_Password2!_token"
+            )
+
         # Magic link is outdated 24H duration by default
         with pytest.raises(PermissionDeniedException, match="Magic link token expired"):
             authenticated_user = await users_service.authenticate_magic_token(
@@ -369,7 +377,7 @@ async def test_magic_link_expiration(
 
         # Magic link was not generated
         with pytest.raises(
-            PermissionDeniedException, match="User not found or password invalid"
+            PermissionDeniedException, match="Token not found or already used"
         ):
             authenticated_user = await users_service.authenticate_magic_token(
                 raw_users[4]["email"], ""
