@@ -188,7 +188,7 @@ suite =
                           "mass": 0.3,
                           "materials": [
                               {
-                                  "id": "ei-laine-par-defaut",
+                                  "id": "1fc3e17d-5661-429d-a150-7986eae16d9d",
                                   "share": 1
                               }
                           ],
@@ -210,7 +210,7 @@ suite =
                           "mass": 0.3,
                           "materials": [
                               {
-                                  "id": "ei-laine-par-defaut",
+                                  "id": "1fc3e17d-5661-429d-a150-7986eae16d9d",
                                   "share": 1
                               }
                           ],
