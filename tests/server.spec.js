@@ -28,8 +28,8 @@ describe("API", () => {
     countryMaking: "CN",
     mass: 0.17,
     materials: [
-      { id: "ei-coton", share: 0.5 },
-      { id: "ei-pet", share: 0.5 },
+      { id: "62a4d6fb-3276-4ba5-93a3-889ecd3bff84", share: 0.5 },
+      { id: "9dba0e95-0c35-4f8b-9267-62ddf47d4984", share: 0.5 },
     ],
     product: "tshirt",
   };
@@ -73,7 +73,7 @@ describe("API", () => {
     describe("/materials", () => {
       it("should render with materials list", async () => {
         await expectListResponseContains("/api/textile/materials", {
-          id: "ei-coton",
+          id: "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
           name: "Coton",
         });
       });
@@ -396,7 +396,7 @@ describe("API", () => {
         mass: 0.45,
         product: "jean",
         fabricProcess: "weaving",
-        materials: [{ id: "ei-coton", share: 1 }],
+        materials: [{ id: "62a4d6fb-3276-4ba5-93a3-889ecd3bff84", share: 1 }],
         countryFabric: "TR",
         countryDyeing: "TR",
         countryMaking: "TR",
