@@ -7,7 +7,6 @@ import Data.Textile.MakingComplexity as MakingComplexity
 import Data.Textile.Material as Material
 import Data.Textile.Query as Query exposing (Query, jupeCotonAsie, materialWithId)
 import Data.Textile.Step.Label as Label
-import Data.Uuid as Uuid
 import Expect
 import Test exposing (..)
 import TestUtils exposing (asTest, suiteWithDb)

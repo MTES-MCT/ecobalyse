@@ -35,7 +35,7 @@ import Data.Textile.Dyeing as Dyeing exposing (ProcessType)
 import Data.Textile.Economics as Economics
 import Data.Textile.Fabric as Fabric exposing (Fabric)
 import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
-import Data.Textile.Material as Material exposing (Material, idFromString)
+import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
 import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
@@ -59,10 +59,10 @@ type alias MaterialQuery =
 
 materialWithId : Material.Id -> Split -> Maybe Spinning -> Maybe Country.Code -> MaterialQuery
 materialWithId id share spinning country =
-    { id = id
+    {  country = country
+    , id = id
     , share = share
     , spinning = spinning
-    , country = country
     }
 
 
@@ -459,11 +459,11 @@ default =
     , mass = Mass.kilograms 0.17
     , materials =
         case Material.idFromString "62a4d6fb-3276-4ba5-93a3-889ecd3bff84" of
+            Err _ ->
+                []
             Ok id ->
                 [ materialWithId id Split.full Nothing Nothing ]
 
-            Err _ ->
-                []
     , numberOfReferences = Nothing
     , physicalDurability = Nothing
     , price = Nothing

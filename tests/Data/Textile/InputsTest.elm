@@ -3,7 +3,7 @@ module Data.Textile.InputsTest exposing (..)
 import Data.Country as Country
 import Data.Split as Split
 import Data.Textile.Inputs as Inputs
-import Data.Textile.Material as Material exposing (idFromString)
+import Data.Textile.Material as Material
 import Data.Textile.Query exposing (default, tShirtCotonFrance, materialWithId)
 import Data.Unit as Unit
 import Expect

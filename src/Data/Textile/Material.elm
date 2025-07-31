@@ -17,7 +17,6 @@ import Data.Country as Country
 import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
 import Data.Textile.Material.Origin as Origin exposing (Origin)
-import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
 import Data.Uuid as Uuid exposing (Uuid)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
@@ -30,9 +29,9 @@ type alias Material =
     , defaultCountry : Country.Code -- Default country for Material and Spinning steps
     , geographicOrigin : String -- A textual information about the geographic origin of the material
     , id : Id
-    , process : Process
     , name : String
     , origin : Origin
+    , process : Process
     , recycledFrom : Maybe String
     , recycledProcess : Maybe Process
     , shortName : String
