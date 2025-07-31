@@ -83,6 +83,7 @@ class AccessController(Controller):
     @post(
         operation_id="AccountRegisterMagicLink",
         path=urls.ACCOUNT_REGISTER_MAGIC_LINK,
+        exclude_from_auth=True,
     )
     async def signup_magic_link(
         self,

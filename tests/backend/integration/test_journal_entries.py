@@ -1,8 +1,12 @@
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
+from uuid import uuid4
 
 import pytest
 from app.db import models as m
+from app.db.models import Process
+from app.domain.accounts.services import UserService
 from app.domain.journal_entries.services import JournalEntryService
+from app.domain.processes.services import ProcessService
 from sqlalchemy.ext.asyncio import (
     AsyncSession,
 )
@@ -11,6 +15,42 @@ if TYPE_CHECKING:
     from httpx import AsyncClient
 
 pytestmark = pytest.mark.anyio
+
+
+async def test_processes_journal(
+    client: "AsyncClient",
+    session: AsyncSession,
+    superuser_token_headers: dict[str, str],
+    other_superuser_token_headers: dict[str, str],
+    raw_processes: list[Process | dict[str, Any]],
+) -> None:
+    async with (
+        ProcessService.new(session) as processes_services,
+        UserService.new(session) as users_service,
+    ):
+        raw_process = raw_processes[0]
+        raw_process["id"] = uuid4()
+
+        user = await users_service.get_one_or_none(email="superuser@example.com")
+        raw_process["owner"] = user
+
+        await processes_services.create(raw_process, auto_commit=True)
+
+        response = await client.get("/api/journal", headers=superuser_token_headers)
+        json_response = response.json()
+        assert response.status_code == 200
+
+        assert len(json_response) == 1
+
+        response = await client.get(
+            "/api/journal/process", headers=superuser_token_headers
+        )
+        json_response = response.json()
+        assert response.status_code == 200
+
+        assert len(json_response) == 1
+        assert json_response[0]["value"]["sourceId"] == raw_process["sourceId"]
+        assert json_response[0]["value"]["impacts"] == raw_process["impacts"]
 
 
 async def test_components_journal(

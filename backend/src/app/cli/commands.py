@@ -17,6 +17,7 @@ from app.domain.accounts.schemas import (
 )
 from app.domain.accounts.services import UserService
 from app.domain.components.deps import provide_components_service
+from app.domain.processes.deps import provide_processes_service
 from rich import get_console
 from structlog import get_logger
 
@@ -289,13 +290,45 @@ def load_components_json(json_file: click.File) -> None:
 async def load_processes_fixtures(processes_data: dict) -> None:
     """Import/Synchronize Database Fixtures."""
 
-    from app.domain.processes.services import ProcessService
     from structlog import get_logger
 
     logger = get_logger()
-    async with ProcessService.new(config=alchemy, uniquify=True) as service:
-        await service.upsert_many(
-            match_fields=["name"], data=processes_data, auto_commit=True, uniquify=True
+
+    async with alchemy.get_session() as db_session:
+        users_service = await anext(provide_users_service(db_session))
+
+        settings = get_settings()
+        user = await users_service.get_one_or_none(
+            email=settings.app.DEFAULT_USER_EMAIL
+        )
+        if not user:
+            await logger.awarning(
+                f"default super user {settings.app.DEFAULT_USER_EMAIL} not found, creating it"
+            )
+
+            await _create_user(
+                email=settings.app.DEFAULT_USER_EMAIL,
+                first_name="Admin",
+                last_name="Ecobalyse",
+                organization="Ecobalyse",
+                # Not super user
+                superuser=False,
+                # Deactivate default user
+                is_active=False,
+            )
+
+            user = await users_service.get_one_or_none(
+                email=settings.app.DEFAULT_USER_EMAIL
+            )
+
+        processes_service = await anext(provide_processes_service(db_session))
+
+        for process in processes_data:
+            process["owner"] = user
+
+        await processes_service.create_many(
+            data=processes_data,
+            auto_commit=True,
         )
         await logger.ainfo("loaded processes fixtures")
 

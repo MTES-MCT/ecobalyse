@@ -27,26 +27,47 @@ def fx_app(pytestconfig: pytest.Config, monkeypatch: MonkeyPatch) -> Litestar:
     return create_app()
 
 
-@pytest.fixture(name="raw_scopes")
-def fx_raw_scopes() -> list[Scope | dict[str, Any]]:
-    """Unstructured scopes representations."""
+@pytest.fixture(name="raw_processes")
+def fx_raw_processes() -> list[Scope | dict[str, Any]]:
+    """Unstructured processes representations."""
 
     return [
         {
-            "id": "678dd5d5-a215-42a1-b597-7f8a9219b5e5",
-            "value": "textile",
-        },
-        {
-            "id": "d9be9c62-b633-4af7-809c-433bb07dd052",
-            "value": "object",
-        },
-        {
-            "id": "39e95897-e6c1-4997-8c17-c081598a60fe",
-            "value": "food",
-        },
-        {
-            "id": "8b8eda15-2c05-46ce-8c0c-de77ffcc299b",
-            "value": "veli",
+            "categories": ["transformation"],
+            "comment": "corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-impression-pigmentaire.",
+            "density": 0,
+            "displayName": "Impression (pigmentaire)",
+            "elecMJ": 1.61,
+            "heatMJ": 10.74,
+            "id": "97c209ec-7782-5a29-8c47-af7f17c82d11",
+            "impacts": {
+                "acd": 1,
+                "cch": 2,
+                "ecs": 2026.16,
+                "etf": 1,
+                "etf-c": 944.0,
+                "fru": 2,
+                "fwe": 3,
+                "htc": 3,
+                "htc-c": 1.11e-11,
+                "htn": 2,
+                "htn-c": 2.03e-8,
+                "ior": 2,
+                "ldu": 5,
+                "mru": 4,
+                "ozd": 2,
+                "pco": 7,
+                "pef": 9,
+                "pma": 7,
+                "swe": 7,
+                "tre": 5,
+                "wtu": 5,
+            },
+            "scopes": ["textile"],
+            "source": "Custom",
+            "sourceId": "Impression (pigmentaire)",
+            "unit": "kg",
+            "waste": 0,
         },
     ]
 

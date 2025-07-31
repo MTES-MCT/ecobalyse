@@ -9,8 +9,7 @@ from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column, relationship, validates
 
 if TYPE_CHECKING:
-    from journal_entry import JournalEntry
-
+    from .journal_entry import JournalEntry
     from .token import Token
     from .user_profile import UserProfile
     from .user_role import UserRole

@@ -9,6 +9,7 @@ from app.config.base import get_settings
 from app.db import models as m
 from app.domain.accounts import urls
 from app.domain.accounts.deps import provide_users_service
+from app.lib.middleware import CustomCookieAuthMiddleware
 from litestar.exceptions import PermissionDeniedException
 from litestar.security.jwt import OAuth2PasswordBearerAuth
 
@@ -114,6 +115,7 @@ async def current_user_from_token(
 
 
 auth = OAuth2PasswordBearerAuth[m.User](
+    authentication_middleware_class=CustomCookieAuthMiddleware,
     default_token_expiration=datetime.timedelta(
         days=settings.app.DEFAULT_TOKEN_EXPIRATION_DAYS
     ),
@@ -122,8 +124,6 @@ auth = OAuth2PasswordBearerAuth[m.User](
     token_url=urls.ACCOUNT_LOGIN,
     exclude=[
         constants.HEALTH_ENDPOINT,
-        urls.ACCOUNT_LOGIN,
-        urls.ACCOUNT_REGISTER_MAGIC_LINK,
         "^/schema",
         "^/public/",
     ],

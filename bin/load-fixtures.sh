@@ -13,6 +13,7 @@ if [ "$IS_REVIEW_APP" == "true" ]; then
    echo "-> Loading components fixtures";
    uv run backend users create-default-user
    uv run backend fixtures load-components public/data/object/components.json
+   uv run backend fixtures load-processes public/data/processes_impacts.json
 fi
 
 # Test if variable is set
