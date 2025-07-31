@@ -114,9 +114,9 @@ decode processes =
         |> JDP.required "defaultCountry" (Decode.string |> Decode.map Country.codeFromString)
         |> JDP.required "geographicOrigin" Decode.string
         |> JDP.required "id" decodeId
-        |> JDP.required "processId" (Process.decodeFromId processes)
         |> JDP.required "name" Decode.string
         |> JDP.required "origin" Origin.decode
+        |> JDP.required "processId" (Process.decodeFromId processes)
         |> JDP.required "recycledFrom" (Decode.maybe Decode.string)
         |> DU.strictOptional "recycledProcessUuid" (Process.decodeFromId processes)
         |> JDP.required "shortName" Decode.string
