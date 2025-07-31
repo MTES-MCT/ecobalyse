@@ -168,8 +168,6 @@ compute db query =
         |> nextWithDbIf Label.Ennobling computePrintingImpacts
         -- Compute Ennobling step Finishing impacts
         |> nextWithDbIf Label.Ennobling computeFinishingImpacts
-        -- Compute Ennobling step bleaching impacts
-        |> nextWithDbIf Label.Ennobling computeBleachingImpacts
         -- Compute Making step impacts
         |> nextWithDbIf Label.Making computeMakingImpacts
         -- Compute product Use impacts
@@ -395,7 +393,7 @@ computeDyeingImpacts { textile } ({ inputs } as simulator) =
                 in
                 { step
                     | heat = Quantity.sum [ step.heat, heat, preTreatments.heat ]
-                    , impacts = Impact.sumImpacts [ step.impacts, impacts, dyeingToxicity, preTreatments.impacts ]
+                    , impacts = Impact.sumImpacts [ step.impacts, impacts, dyeingToxicity, preTreatments.energy, preTreatments.toxicity ]
                     , kwh = Quantity.sum [ step.kwh, kwh, preTreatments.kwh ]
                     , preTreatments = preTreatments
                 }
@@ -462,25 +460,6 @@ computeFinishingImpacts { textile } simulator =
                     | heat = step.heat |> Quantity.plus heat
                     , impacts = Impact.sumImpacts [ step.impacts, impacts ]
                     , kwh = step.kwh |> Quantity.plus kwh
-                }
-            )
-
-
-computeBleachingImpacts : Db -> Simulator -> Simulator
-computeBleachingImpacts { textile } simulator =
-    simulator
-        |> updateLifeCycleStep Label.Ennobling
-            (\step ->
-                let
-                    impacts =
-                        step.outputMass
-                            |> Formula.bleachingImpacts step.impacts
-                                { aquaticPollutionScenario = step.country.aquaticPollutionScenario
-                                , bleachingProcess = textile.wellKnown.bleaching
-                                }
-                in
-                { step
-                    | impacts = Impact.sumImpacts [ step.impacts, impacts ]
                 }
             )
 
@@ -764,8 +743,8 @@ computeTotalTransportImpacts simulator =
 
 
 computeTrims : Db -> Simulator -> Result String Simulator
-computeTrims db ({ durability } as simulator) =
-    simulator.inputs.trims
+computeTrims db ({ durability, inputs } as simulator) =
+    inputs.trims
         |> Component.compute db
         |> Result.map Component.extractImpacts
         |> Result.map

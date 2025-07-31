@@ -65,6 +65,9 @@ getEnnoblingHeatProcess wk country =
 getEnnoblingPreTreatments : Origin -> WellKnown -> List Process
 getEnnoblingPreTreatments origin { bleaching, degreasing, washingSyntheticFibers } =
     case origin of
+        Origin.ArtificialFromOrganic ->
+            [ bleaching ]
+
         Origin.NaturalFromAnimal ->
             [ bleaching, degreasing ]
 
@@ -73,9 +76,6 @@ getEnnoblingPreTreatments origin { bleaching, degreasing, washingSyntheticFibers
 
         Origin.Synthetic ->
             [ washingSyntheticFibers ]
-
-        _ ->
-            []
 
 
 getPrintingProcess : Printing.Kind -> WellKnown -> { printingProcess : Process, printingToxicityProcess : Process }

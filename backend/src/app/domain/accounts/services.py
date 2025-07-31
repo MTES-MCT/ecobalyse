@@ -85,7 +85,7 @@ class UserService(SQLAlchemyAsyncRepositoryService[m.User]):
         self, db_obj: m.User | None, password: str, hashed_password: str
     ) -> None:
         if hashed_password is None:
-            msg = "User not found or password invalid"
+            msg = "Token not found or already used"
             raise PermissionDeniedException(detail=msg)
         if not await crypt.verify_password(password, hashed_password):
             msg = "User not found or password invalid"

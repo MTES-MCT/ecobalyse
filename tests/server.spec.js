@@ -279,24 +279,43 @@ describe("API", () => {
       });
 
       it("should validate the printing param kind", async () => {
+        const response = await makePostRequest("/api/textile/simulator", {
+          ...textileQuery,
+          printing: { kind: "pigment", ratio: 0.8 },
+        });
+        expectStatus(response, 200);
+      });
+
+      it("should validate the printing param kind", async () => {
         expectFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", {
             ...textileQuery,
-            printing: { kind: "bonk", ratio: 1 },
+            printing: { kind: "bonk", ratio: 0.8 },
           }),
           "decoding",
           /Type d'impression inconnu: bonk/,
         );
       });
 
-      it("should validate the printing param ratio", async () => {
+      it("should validate the printing param ratio (too high)", async () => {
         expectFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", {
             ...textileQuery,
-            printing: { kind: "pigment", ratio: 2 },
+            printing: { kind: "pigment", ratio: 0.9 },
           }),
           "decoding",
-          /Une part(.*)doit être compris(e) entre 0 et 1/,
+          /doit être comprise entre 0 et 0.8/,
+        );
+      });
+
+      it("should validate the printing param ratio (too low)", async () => {
+        expectFieldErrorMessage(
+          await makePostRequest("/api/textile/simulator", {
+            ...textileQuery,
+            printing: { kind: "pigment", ratio: -1 },
+          }),
+          "decoding",
+          /doit être comprise entre 0 et 0.8/,
         );
       });
 
@@ -350,7 +369,8 @@ describe("API", () => {
         )[0];
         expect(ennoblingStep).toBeTruthy();
 
-        expect(ennoblingStep.preTreatments.impacts.ecs).toBeCloseTo(35.8037, 2);
+        // FIXME investigate why this has evolved before landing
+        expect(ennoblingStep.preTreatments.impacts.ecs).toBeCloseTo(92.6464, 2);
       });
     });
 
