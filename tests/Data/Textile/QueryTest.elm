@@ -5,12 +5,12 @@ import Data.Split as Split
 import Data.Textile.Inputs as Inputs
 import Data.Textile.MakingComplexity as MakingComplexity
 import Data.Textile.Material as Material
-import Data.Textile.Query as Query exposing (Query, jupeCotonAsie)
+import Data.Textile.Query as Query exposing (Query, jupeCotonAsie, materialWithId)
 import Data.Textile.Step.Label as Label
+import Data.Uuid as Uuid
 import Expect
 import Test exposing (..)
 import TestUtils exposing (asTest, suiteWithDb)
-import Data.Uuid as Uuid
 
 
 sampleQuery : Query
@@ -19,12 +19,8 @@ sampleQuery =
         | materials =
             case Material.idFromString "9dba0e95-0c35-4f8b-9267-62ddf47d4984" of
                 Ok id ->
-                    [ { id = id
-                      , share = Split.full
-                      , spinning = Nothing
-                      , country = Just (Country.Code "CN")
-                      }
-                    ]
+                    [ materialWithId id Split.full Nothing (Just (Country.Code "CN")) ]
+
                 Err _ ->
                     []
     }
@@ -79,65 +75,36 @@ suite =
                     |> asTest "should validate the sum of an empty list of materials"
                 , (case Material.idFromString "62a4d6fb-3276-4ba5-93a3-889ecd3bff84" of
                     Ok id ->
-                        [ { id = id
-                          , share = Split.tenth
-                          , spinning = Nothing
-                          , country = Nothing
-                          }
-                        ]
+                        [ materialWithId id Split.tenth Nothing Nothing ]
+
                     Err _ ->
                         []
                   )
                     |> Query.validateMaterials
                     |> Expect.err
                     |> asTest "should validate the sum of an incomplete list of materials"
-                , (case Material.idFromString "f0dbe27b-1e74-55d0-88a2-bda812441744" of
-                    Ok cottonId ->
-                        case Material.idFromString "73ef624d-250e-4a9a-af5d-43505b21b527" of
-                            Ok syntheticId ->
-                                [ { id = cottonId
-                                  , share = Split.half
-                                  , spinning = Nothing
-                                  , country = Nothing
-                                  }
-                                , { id = syntheticId
-                                  , share = Split.half
-                                  , spinning = Nothing
-                                  , country = Nothing
-                                  }
-                                ]
-                            Err _ -> []
-                    Err _ -> []
+                , (case ( Material.idFromString "f0dbe27b-1e74-55d0-88a2-bda812441744", Material.idFromString "73ef624d-250e-4a9a-af5d-43505b21b527" ) of
+                    ( Ok cottonId, Ok syntheticId ) ->
+                        [ materialWithId cottonId Split.half Nothing Nothing
+                        , materialWithId syntheticId Split.half Nothing Nothing
+                        ]
+
+                    _ ->
+                        []
                   )
                     |> Query.validateMaterials
                     |> Expect.ok
                     |> asTest "should validate a complete sum of materials"
                 , -- Testing for float number rounding precision errors https://en.wikipedia.org/wiki/Round-off_error
-                  (case Material.idFromString "9dba0e95-0c35-4f8b-9267-62ddf47d4984" of
-                    Ok polyesterId ->
-                        case Material.idFromString "73ef624d-250e-4a9a-af5d-43505b21b527" of
-                            Ok polypropyleneId ->
-                                case Material.idFromString "62a4d6fb-3276-4ba5-93a3-889ecd3bff84" of
-                                    Ok cottonId ->
-                                        [ { id = polyesterId
-                                          , share = Split.sixty
-                                          , spinning = Nothing
-                                          , country = Nothing
-                                          }
-                                        , { id = polypropyleneId
-                                          , share = Split.thirty
-                                          , spinning = Nothing
-                                          , country = Nothing
-                                          }
-                                        , { id = cottonId
-                                          , share = Split.tenth
-                                          , spinning = Nothing
-                                          , country = Nothing
-                                          }
-                                        ]
-                                    Err _ -> []
-                            Err _ -> []
-                    Err _ -> []
+                  (case ( Material.idFromString "9dba0e95-0c35-4f8b-9267-62ddf47d4984", Material.idFromString "73ef624d-250e-4a9a-af5d-43505b21b527", Material.idFromString "62a4d6fb-3276-4ba5-93a3-889ecd3bff84" ) of
+                    ( Ok polyesterId, Ok polypropyleneId, Ok cottonId ) ->
+                        [ materialWithId polyesterId Split.sixty Nothing Nothing
+                        , materialWithId polypropyleneId Split.thirty Nothing Nothing
+                        , materialWithId cottonId Split.tenth Nothing Nothing
+                        ]
+
+                    _ ->
+                        []
                   )
                     |> Query.validateMaterials
                     |> Expect.ok

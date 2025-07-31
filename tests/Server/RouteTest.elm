@@ -8,7 +8,7 @@ import Data.Food.Query as FoodQuery
 import Data.Split as Split
 import Data.Textile.Material as Material
 import Data.Textile.Product as Product
-import Data.Textile.Query as TextileQuery exposing (tShirtCotonFrance)
+import Data.Textile.Query as TextileQuery exposing (tShirtCotonFrance, materialWithId)
 import Data.Unit as Unit
 import Dict
 import Expect
@@ -155,12 +155,7 @@ textileEndpoints db =
                 | materials =
                     case Material.idFromString "f0dbe27b-1e74-55d0-88a2-bda812441744" of
                         Ok decodedId ->
-                            [ { id = decodedId
-                              , share = Split.full
-                              , spinning = Nothing
-                              , country = Just (Country.Code "invalid")
-                              }
-                            ]
+                            [ materialWithId decodedId Split.full Nothing (Just (Country.Code "invalid")) ]
 
                         Err _ ->
                             []
@@ -180,32 +175,24 @@ textileEndpoints db =
         , TextileQuery.encode
             { tShirtCotonFrance
                 | materials =
-                    case Material.idFromString "notAnID" of
+                    case Material.idFromString
+
+                    "1c686e00-6db8-469e-8d7f-3864bd3238bd" of
                         Ok decodedId ->
-                            [ { id = decodedId
-                              , share = Split.full
-                              , spinning = Nothing
-                              , country = Nothing
-                              }
-                            ]
+                            [ materialWithId decodedId Split.full Nothing Nothing ]
 
                         Err _ ->
                             []
             }
             |> testTextileEndpoint db
-            |> expectTextileValidationError "materials" "Matière non trouvée id=notAnID."
+            |> expectTextileValidationError "materials" "Matière non trouvée id=1c686e00-6db8-469e-8d7f-3864bd3238bd."
             |> asTest "should validate invalid material format"
         , TextileQuery.encode
             { tShirtCotonFrance
                 | materials =
                     case Material.idFromString "f0dbe27b-1e74-55d0-88a2-bda812441744" of
                         Ok decodedId ->
-                            [ { id = decodedId
-                              , share = Split.full
-                              , spinning = Nothing
-                              , country = Just (Country.Code "NotACountryCode")
-                              }
-                            ]
+                            [ materialWithId decodedId Split.full Nothing (Just (Country.Code "NotACountryCode")) ]
 
                         Err _ ->
                             []

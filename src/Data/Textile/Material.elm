@@ -8,8 +8,8 @@ module Data.Textile.Material exposing
     , encodeId
     , findById
     , getRecyclingData
-    , idToString
     , idFromString
+    , idToString
     )
 
 import Data.Common.DecodeUtils as DU
@@ -17,10 +17,11 @@ import Data.Country as Country
 import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
 import Data.Textile.Material.Origin as Origin exposing (Origin)
+import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
+import Data.Uuid as Uuid exposing (Uuid)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
-import Data.Uuid as Uuid exposing (Uuid)
 
 
 type alias Material =
@@ -52,20 +53,27 @@ type alias CFFData =
     , recycledQualityRatio : Split
     }
 
-decodeId: Decoder Id
+
+decodeId : Decoder Id
 decodeId =
     Decode.map Id Uuid.decoder
 
+
 encodeId : Id -> Encode.Value
-encodeId( Id uuid) =
+encodeId (Id uuid) =
     Uuid.encoder uuid
 
-idToString: Id -> String
-idToString(Id uuid) = Uuid.toString uuid
+
+idToString : Id -> String
+idToString (Id uuid) =
+    Uuid.toString uuid
+
 
 idFromString : String -> Result String Id
 idFromString =
     Uuid.fromString >> Result.map Id
+
+
 
 getRecyclingData : Material -> List Material -> Maybe ( Material, CFFData )
 getRecyclingData material materials =
@@ -81,13 +89,16 @@ getRecyclingData material materials =
         material.cffData
 
 
+
 ---- Helpers
+
 
 findByAlias : String -> List Material -> Result String Material
 findByAlias alias =
     List.filter (.alias >> (==) alias)
         >> List.head
         >> Result.fromMaybe ("Matière non trouvée alias=" ++ alias ++ ".")
+
 
 findById : Id -> List Material -> Result String Material
 findById id =
@@ -128,7 +139,7 @@ encode : Material -> Encode.Value
 encode v =
     Encode.object
         [ ( "id", encodeId v.id )
-        , ("alias", Encode.string v.alias)
+        , ( "alias", Encode.string v.alias )
         , ( "name", v.name |> Encode.string )
         , ( "shortName", Encode.string v.shortName )
         , ( "origin", v.origin |> Origin.toString |> Encode.string )
@@ -139,5 +150,4 @@ encode v =
         , ( "recycledFrom", v.recycledFrom |> Maybe.map Encode.string |> Maybe.withDefault Encode.null )
         , ( "geographicOrigin", Encode.string v.geographicOrigin )
         , ( "defaultCountry", v.defaultCountry |> Country.codeToString |> Encode.string )
-
         ]
