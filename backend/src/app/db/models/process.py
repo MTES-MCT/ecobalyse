@@ -43,6 +43,9 @@ class Process(UUIDAuditBase):
     unit: Mapped[Unit] = mapped_column(Enum(Unit, values_callable=get_enum_values))
     waste: Mapped[float] = mapped_column(Float, nullable=False, default=0)
 
+    # -----------
+    # ORM Relationships
+    # ------------
     process_categories: Mapped[list[ProcessCategory]] = relationship(
         secondary=lambda: process_process_category,
         back_populates="processes",

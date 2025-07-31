@@ -119,8 +119,8 @@ async def _seed_db(
     engine: AsyncEngine,
     sessionmaker: async_sessionmaker[AsyncSession],
     raw_components: list[Component | dict[str, Any]],
-    raw_processes: list[Process | dict[str, Any]],
     raw_users: list[User | dict[str, Any]],
+    raw_processes: list[Process | dict[str, Any]],
 ) -> AsyncGenerator[None, None]:
     """Populate test database with.
 
@@ -147,14 +147,14 @@ async def _seed_db(
             )
         await service.repository.session.commit()
 
+    async with UserService.new(sessionmaker()) as users_service:
+        await users_service.create_many(raw_users, auto_commit=True)
+
     async with ComponentService.new(sessionmaker()) as components_service:
         await components_service.create_many(raw_components, auto_commit=True)
 
     async with ProcessService.new(sessionmaker()) as processes_service:
         await processes_service.create_many(raw_processes, auto_commit=True)
-
-    async with UserService.new(sessionmaker()) as users_service:
-        await users_service.create_many(raw_users, auto_commit=True)
 
     yield
 
