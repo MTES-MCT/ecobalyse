@@ -110,8 +110,8 @@ describe("API", () => {
             ...textileQuery,
             materials: [{ id: "xxx", share: 1 }],
           }),
-          "materials",
-          /Matière non trouvée id=xxx/,
+          "decoding",
+          /Not a valid UUID/,
         );
       });
 
