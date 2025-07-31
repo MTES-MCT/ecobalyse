@@ -85,9 +85,9 @@ class ProcessService(SQLAlchemyAsyncRepositoryService[m.Process]):
         data: ModelDictT[m.Team],
         operation: str | None,
     ) -> ModelDictT[m.Team]:
-        if operation == "create" and is_dict(data):
-            # FIXME: add journal entries
+        owner: m.User | None = data.pop("owner", None)
 
+        if operation == "create" and is_dict(data):
             categories_added: list[str] = data.pop("categories", [])
             data["id"] = data.get("id", uuid4())
 
@@ -111,6 +111,17 @@ class ProcessService(SQLAlchemyAsyncRepositoryService[m.Process]):
                         )
                         for category_text in categories_added
                     ],
+                )
+
+            if owner:
+                owner.journal_entries.append(
+                    m.JournalEntry(
+                        table_name=m.Process.__tablename__,
+                        record_id=data.id,
+                        action=m.JournalAction.CREATED,
+                        user=owner,
+                        value=self.to_schema(data, schema_type=Process),
+                    )
                 )
 
         return data
