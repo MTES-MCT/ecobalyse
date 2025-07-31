@@ -153,7 +153,7 @@ textileEndpoints db =
         , TextileQuery.encode
             { tShirtCotonFrance
                 | materials =
-                    case Material.idFromString "f0dbe27b-1e74-55d0-88a2-bda812441744" of
+                    case Material.idFromString "62a4d6fb-3276-4ba5-93a3-889ecd3bff84" of
                         Ok decodedId ->
                             [ materialWithId decodedId Split.full Nothing (Just (Country.Code "invalid")) ]
 
@@ -190,7 +190,7 @@ textileEndpoints db =
         , TextileQuery.encode
             { tShirtCotonFrance
                 | materials =
-                    case Material.idFromString "f0dbe27b-1e74-55d0-88a2-bda812441744" of
+                    case Material.idFromString "62a4d6fb-3276-4ba5-93a3-889ecd3bff84" of
                         Ok decodedId ->
                             [ materialWithId decodedId Split.full Nothing (Just (Country.Code "NotACountryCode")) ]
 

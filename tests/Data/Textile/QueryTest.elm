@@ -82,7 +82,7 @@ suite =
                     |> Query.validateMaterials
                     |> Expect.err
                     |> asTest "should validate the sum of an incomplete list of materials"
-                , (case ( Material.idFromString "f0dbe27b-1e74-55d0-88a2-bda812441744", Material.idFromString "73ef624d-250e-4a9a-af5d-43505b21b527" ) of
+                , (case ( Material.idFromString "62a4d6fb-3276-4ba5-93a3-889ecd3bff84", Material.idFromString "73ef624d-250e-4a9a-af5d-43505b21b527" ) of
                     ( Ok cottonId, Ok syntheticId ) ->
                         [ materialWithId cottonId Split.half Nothing Nothing
                         , materialWithId syntheticId Split.half Nothing Nothing
