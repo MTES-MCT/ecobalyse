@@ -20,7 +20,7 @@ import Views.Icon as Icon
 import Views.Link as Link
 
 
-recycledToString : Maybe Material.Id -> String
+recycledToString : Maybe String -> String
 recycledToString maybeMaterialID =
     maybeMaterialID
         |> Maybe.map (always "oui")
@@ -56,12 +56,12 @@ table db { detailed, scope } =
           , toCell = .shortName >> text
           }
         , { label = "Procédé"
-          , toValue = Table.StringValue <| .materialProcess >> Process.getDisplayName
-          , toCell = .materialProcess >> Process.getDisplayName >> text
+          , toValue = Table.StringValue <| .process >> Process.getDisplayName
+          , toCell = .process >> Process.getDisplayName >> text
           }
         , { label = "Source"
-          , toValue = Table.StringValue <| .materialProcess >> .source
-          , toCell = .materialProcess >> .source >> text
+          , toValue = Table.StringValue <| .process >> .source
+          , toCell = .process >> .source >> text
           }
         , { label = "Origine"
           , toValue = Table.StringValue <| .origin >> Origin.toLabel
