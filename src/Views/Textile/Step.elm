@@ -709,7 +709,7 @@ createElementSelectorConfig cfg materialInput =
     , selectedImpact = cfg.selectedImpact
     , toId = .id >> Material.idToString
     , toString = .shortName
-    , toTooltip = .materialProcess >> Process.getDisplayName
+    , toTooltip = .process >> Process.getDisplayName
     , update =
         \_ newElement ->
             cfg.updateMaterial

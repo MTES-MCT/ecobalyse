@@ -4,7 +4,7 @@ import Data.Country as Country
 import Data.Split as Split
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Material as Material
-import Data.Textile.Query exposing (default, tShirtCotonFrance)
+import Data.Textile.Query exposing (default, tShirtCotonFrance, materialWithId)
 import Data.Unit as Unit
 import Expect
 import List.Extra as LE
@@ -49,9 +49,18 @@ suite =
                     |> asTest "should compute OutOfEuropeEOL complement impact for a fully natural garment"
                 , { tShirtCotonFrance
                     | materials =
-                        [ { id = Material.Id "ei-coton", share = Split.half, spinning = Nothing, country = Nothing }
-                        , { id = Material.Id "ei-pp", share = Split.half, spinning = Nothing, country = Nothing }
-                        ]
+                     case
+                            ( Material.idFromString "62a4d6fb-3276-4ba5-93a3-889ecd3bff84"
+                            , Material.idFromString "73ef624d-250e-4a9a-af5d-43505b21b527"
+                            )
+                        of
+                            ( Ok cottonId, Ok syntheticId ) ->
+                                [ materialWithId cottonId Split.half Nothing Nothing
+                                , materialWithId syntheticId Split.half Nothing Nothing
+                                ]
+
+                            _ ->
+                                []
                   }
                     |> testComplementEqual -102.85
                     |> asTest "should compute OutOfEuropeEOL complement impact for a half-natural, half-synthetic garment"
@@ -69,9 +78,18 @@ suite =
                     |> asTest "should compute Microfibers complement impact for a fully natural garment"
                 , { tShirtCotonFrance
                     | materials =
-                        [ { id = Material.Id "ei-coton", share = Split.half, spinning = Nothing, country = Nothing }
-                        , { id = Material.Id "ei-pp", share = Split.half, spinning = Nothing, country = Nothing }
-                        ]
+                        case
+                            ( Material.idFromString "62a4d6fb-3276-4ba5-93a3-889ecd3bff84"
+                            , Material.idFromString "73ef624d-250e-4a9a-af5d-43505b21b527"
+                            )
+                        of
+                            ( Ok cottonId, Ok syntheticId ) ->
+                                [ materialWithId cottonId Split.half Nothing Nothing
+                                , materialWithId syntheticId Split.half Nothing Nothing
+                                ]
+
+                            _ ->
+                                []
                   }
                     |> testComplementEqual -90.95
                     |> asTest "should compute Microfibers complement impact for a half-natural, half-synthetic garment"
