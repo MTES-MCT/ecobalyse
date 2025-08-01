@@ -200,11 +200,11 @@ Pour les vêtements muli-fibres, une somme pondérée des scénarios de référe
 Dans le cas théorique d'un t-shirt (poids 170g), l'ajout du complément microfibre pèserait à hauteur de :&#x20;
 
 * +5% pour la version 100% coton\
-  Impact initial = 915 micro-pts\
-  Impact final = 915 + (25% \* 100% \* 0,17 \* 1000 ) = 915 + 43= 958 micro-pts
+  Impact initial = 915 pts d'impact\
+  Impact final = 915 + (25% \* 100% \* 0,17 \* 1000 ) = 915 + 43= 958 pts d'impact
 * &#x20;+19% pour la version 100% synthétique\
-  Impact initial = 715 micro-pts\
-  Impact final = 715 + (82% \* 100% \* 0,17 \* 1000) = 715 + 139 = 854 micro-pts
+  Impact initial = 715 pts d'impact\
+  Impact final = 715 + (82% \* 100% \* 0,17 \* 1000) = 715 + 139 = 854 pts d'impact
 
 <img src="../../.gitbook/assets/Comparaison - T-shirt 100% synthétique (170g) (2).png" alt="" data-size="original"><img src="../../.gitbook/assets/Comparaison - T-shirt 100% coton (170g) (4).png" alt="" data-size="original">
 
