@@ -5589,7 +5589,7 @@
     "categories": ["nut_oilseed_processed"],
     "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
     "defaultOrigin": "EuropeAndMaghreb",
-    "density": 0,
+    "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -5611,7 +5611,7 @@
     "categories": ["nut_oilseed_processed"],
     "cropGroup": "PLANTES A FIBRES",
     "defaultOrigin": "France",
-    "density": 0,
+    "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 1.9969,
@@ -5633,7 +5633,7 @@
     "categories": ["nut_oilseed_processed"],
     "cropGroup": "VIGNES",
     "defaultOrigin": "France",
-    "density": 0,
+    "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0.31376,
@@ -5655,7 +5655,7 @@
     "categories": ["nut_oilseed_processed"],
     "cropGroup": "PROTEAGINEUX",
     "defaultOrigin": "France",
-    "density": 0,
+    "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -5677,7 +5677,7 @@
     "categories": ["nut_oilseed_processed"],
     "cropGroup": "FRUITS A COQUES",
     "defaultOrigin": "France",
-    "density": 0,
+    "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -5699,7 +5699,7 @@
     "categories": ["nut_oilseed_processed"],
     "cropGroup": "PROTEAGINEUX",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0,
+    "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -5721,7 +5721,7 @@
     "categories": ["nut_oilseed_processed"],
     "cropGroup": "TOURNESOL",
     "defaultOrigin": "France",
-    "density": 0,
+    "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -5743,7 +5743,7 @@
     "categories": ["nut_oilseed_processed"],
     "cropGroup": "COLZA",
     "defaultOrigin": "France",
-    "density": 0,
+    "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 1.0755,
@@ -5765,7 +5765,7 @@
     "categories": ["nut_oilseed_processed"],
     "cropGroup": "OLIVIERS",
     "defaultOrigin": "EuropeAndMaghreb",
-    "density": 0,
+    "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -7273,7 +7273,7 @@
     "categories": ["nut_oilseed_processed"],
     "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0,
+    "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
