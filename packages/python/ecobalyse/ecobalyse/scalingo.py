@@ -1,5 +1,7 @@
 import logging
+import os
 from datetime import datetime
+from pathlib import Path
 
 import requests
 from dateutil import parser
@@ -42,12 +44,34 @@ def list_logs_archives(
     return response.json()
 
 
+def download_archive(archive: dict, download_dir: Path) -> str | None:
+    url = archive["url"]
+
+    filename = url.rsplit("/", 1)[1].rsplit("?", 1)[0]
+    dest_file_path = os.path.join(download_dir, filename)
+
+    # Download only if file is not present on disk
+    if not Path(dest_file_path).is_file():
+        logger.info(f"Downloading `{url}`…")
+        response = requests.get(url, allow_redirects=True)
+        if response.status_code == 200:
+            open(dest_file_path, "wb").write(response.content)
+        else:
+            logger.error(f"Download failed: {response.status_code}, {response.content}")
+    else:
+        logger.info(
+            f"File `{filename}` already present in `{download_dir}`, skipping download"
+        )
+    return dest_file_path if Path(dest_file_path).is_file else None
+
+
 def list_logs_archives_for_range(
     start_date: datetime,
     end_date: datetime,
     bearer_token: str,
     application: str = "ecobalyse",
-) -> list[dict]:
+    download_dir: Path | None = None,
+) -> tuple[list[dict], list[dict]]:
     logging.info(f"-> Listing log archives from {start_date} to {end_date}")
 
     cursor = 1
@@ -63,6 +87,7 @@ def list_logs_archives_for_range(
 
     last_archive = archives[-1]
     last_archive_to_date = parse_archive_datetime(last_archive["to"])
+    downloaded_files = []
 
     while first_archive_from_date > start_date and archives_logs["has_more"]:
         cursor = archives_logs["next_cursor"]
@@ -76,10 +101,21 @@ def list_logs_archives_for_range(
         first_archive = archives[0]
         first_archive_from_date = parse_archive_datetime(first_archive["from"])
 
+    if download_dir:
+        downloaded_file: str | None = download_archive(first_archive, download_dir)
+        if downloaded_file:
+            downloaded_files.append(downloaded_file)
+
     while last_archive_to_date > end_date and archives_logs["has_more"]:
         cursor = archives_logs["next_cursor"]
         archives_logs = list_logs_archives(bearer_token=bearer_token, cursor=cursor)
         archives += archives_logs["archives"]
+
+        if download_dir:
+            for archive in archives_logs["archives"]:
+                downloaded_file: str | None = download_archive(archive, download_dir)
+                if downloaded_file:
+                    downloaded_files.append(downloaded_file)
 
         if len(archives) == 0:
             logger.info("-> No more archives, returning")
@@ -88,4 +124,4 @@ def list_logs_archives_for_range(
         last_archive = archives[-1]
         last_archive_to_date = parse_archive_datetime(last_archive["to"])
 
-    return archives
+    return (archives, downloaded_files)
