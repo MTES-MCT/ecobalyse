@@ -172,7 +172,7 @@ spinningProcessField { current, inputs, updateMaterialSpinning } =
                             [ for <| "spinning-for-" ++ Material.idToString material.id
                             , class "text-truncate w-25"
                             ]
-                            [ text material.shortName ]
+                            [ text material.name ]
                         , case Spinning.getAvailableProcesses material.origin of
                             [ spinningProcess ] ->
                                 span [ class " w-75" ]
@@ -605,8 +605,8 @@ viewMaterials config =
                         , class "d-flex justify-content-center align-items-center gap-1 no-outline"
                         , id "add-new-element"
                         , availableMaterials
-                            |> List.sortBy .shortName
-                            |> AutocompleteSelector.init .shortName
+                            |> List.sortBy .name
+                            |> AutocompleteSelector.init .name
                             |> config.addMaterialModal Nothing
                             |> config.setModal
                             |> onClick
@@ -708,7 +708,7 @@ createElementSelectorConfig cfg materialInput =
     , selectElement = \_ autocompleteState -> cfg.setModal (cfg.addMaterialModal (Just materialInput) autocompleteState)
     , selectedImpact = cfg.selectedImpact
     , toId = .id >> Material.idToString
-    , toString = .shortName
+    , toString = .name
     , toTooltip = .process >> Process.getDisplayName
     , update =
         \_ newElement ->

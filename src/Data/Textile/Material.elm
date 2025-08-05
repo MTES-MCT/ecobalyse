@@ -34,7 +34,6 @@ type alias Material =
     , process : Process
     , recycledFrom : Maybe String
     , recycledProcess : Maybe Process
-    , shortName : String
     }
 
 
@@ -119,7 +118,6 @@ decode processes =
         |> JDP.required "processId" (Process.decodeFromId processes)
         |> JDP.required "recycledFrom" (Decode.maybe Decode.string)
         |> DU.strictOptional "recycledProcessUuid" (Process.decodeFromId processes)
-        |> JDP.required "shortName" Decode.string
 
 
 decodeCFFData : Decoder CFFData
@@ -140,7 +138,6 @@ encode v =
         [ ( "id", encodeId v.id )
         , ( "alias", Encode.string v.alias )
         , ( "name", v.name |> Encode.string )
-        , ( "shortName", Encode.string v.shortName )
         , ( "origin", v.origin |> Origin.toString |> Encode.string )
         , ( "processId", Process.encodeId v.process.id )
         , ( "recycledProcessId"
