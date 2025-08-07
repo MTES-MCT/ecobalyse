@@ -181,7 +181,7 @@ def prerelease(
     ],
 ):
     """
-    Patch main index.html and Page.elm to add the version selector
+    Patch src/Data/Gihub.elm to handle prereleases
     """
     patch_prerelease(git_dir)
 
