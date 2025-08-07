@@ -67,24 +67,42 @@ def get_log_stats(filename):
         encoding="utf-8",
     ) as f:
         slowest_lines = []
+        statuses = {}
         max_lines = 20
+        error_lines = []
         for line in f:
             if "[router]" in line:
                 parsed_line = parse_log_line(line)
-                if len(slowest_lines) < max_lines:
+                status = parsed_line["status"]
+                duration = parsed_line["duration"]
+
+                if status in statuses:
+                    statuses[status] += 1
+                else:
+                    statuses[status] = 1
+
+                if len(slowest_lines) < max_lines and duration < 55.0 and duration > 3:
                     slowest_lines.append(parsed_line)
                     slowest_lines = sorted(
                         slowest_lines, key=lambda value: value["duration"], reverse=True
                     )
                     continue
 
-                if parsed_line["duration"] > slowest_lines[-1]["duration"]:
+                if (
+                    len(slowest_lines) > 0
+                    and duration > slowest_lines[-1]["duration"]
+                    and duration < 55.0
+                    and duration > 3
+                ):
                     slowest_lines.append(parsed_line)
                     slowest_lines = sorted(
                         slowest_lines, key=lambda value: value["duration"], reverse=True
-                    )[:10]
+                    )[:max_lines]
 
-        return slowest_lines
+                if status >= 400:
+                    error_lines.append(parsed_line)
+
+        return (slowest_lines, statuses, error_lines)
 
 
 @app.callback()
@@ -102,6 +120,9 @@ def log_archives(
         Optional[Path],
         typer.Argument(help="The output CSV file."),
     ] = Path("./archives_logs"),
+    download: Annotated[
+        bool, typer.Option(help="Download the archives from scalingo")
+    ] = True,
 ):
     """
     Get the list of archived logs
@@ -114,7 +135,7 @@ def log_archives(
     api_token = os.getenv("SCALINGO_API_TOKEN")
     bearer_token = scalingo.get_bearer_token(api_token=api_token)
 
-    if False:
+    if download:
         (archives, downloaded_files) = scalingo.list_logs_archives_for_range(
             start_date=now,
             end_date=now - timedelta(days=14),
@@ -126,17 +147,26 @@ def log_archives(
 
     slowest_lines = []
     with Pool(cpu_count) as pool:
-        logs_slowest_lines = pool.starmap(
+        results = pool.starmap(
             get_log_stats,
             [(filename,) for filename in glob.glob(f"{download_dir}/*.log-*.gz")],
         )
         slowest_lines = sorted(
             # Flatmap starmap results
-            [y for ys in logs_slowest_lines for y in ys],
+            [y for ys in results for y in ys[0]],
             key=lambda value: value["duration"],
-            reverse=True,
-        )[:20]
+        )[-40:]
 
+        statuses = {y: True for ys in results for y in ys[1]}
+
+        error_lines = sorted(
+            # Flatmap starmap results
+            [y for ys in results for y in ys[2]],
+            key=lambda value: value["status"],
+        )
+
+    print(statuses)
+    print(len(error_lines))
     print(slowest_lines)
 
 
