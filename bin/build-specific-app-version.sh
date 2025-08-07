@@ -151,8 +151,8 @@ else
 fi
 
 ELM_VERSION_FILE=$PUBLIC_GIT_CLONE_DIR"/src/Request/Version.elm"
+ELM_GITHUB_FILE=$PUBLIC_GIT_CLONE_DIR"/src/Data/Github.elm"
 INDEX_JS_FILE=$PUBLIC_GIT_CLONE_DIR"/index.js"
-
 
 # We should not patch if we are building the current version
 if [ -z "$BUILD_CURRENT_VERSION" ]; then
@@ -167,6 +167,9 @@ if [ -z "$BUILD_CURRENT_VERSION" ]; then
   uv run $ROOT_DIR/bin/patch_files_for_versions_compat.py elm-version $ELM_VERSION_FILE
   uv run $ROOT_DIR/bin/patch_files_for_versions_compat.py local-storage-key $INDEX_JS_FILE $COMMIT_OR_TAG
   uv run $ROOT_DIR/bin/patch_files_for_versions_compat.py version-selector $ROOT_DIR/packages/python/ecobalyse/ecobalyse/0001-feat-patch-homepage-link-and-inject-and-inject-versi.patch $PUBLIC_GIT_CLONE_DIR
+  if [ -f "$ELM_GITHUB_FILE" ]; then
+    uv run $ROOT_DIR/bin/patch_files_for_versions_compat.py prerelease $ROOT_DIR/packages/python/ecobalyse/ecobalyse/0003-patch-prerelease-selector.patch $PUBLIC_GIT_CLONE_DIR
+  fi
 fi
 
 cd $PUBLIC_GIT_CLONE_DIR

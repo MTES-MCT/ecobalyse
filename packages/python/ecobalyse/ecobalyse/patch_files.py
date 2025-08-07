@@ -146,3 +146,17 @@ def patch_version_selector(patch_file: pathlib.Path, git_dir: pathlib.Path):
                 f"Applying patch file `{patch_file}` to `{git_dir}` using `git apply`."
             )
             subprocess.run(["git", "apply", patch_file], check=True, cwd=git_dir)
+
+
+def patch_prerelease(patch_file: pathlib.Path, git_dir: pathlib.Path):
+    with open(os.path.join(git_dir, "src/Data/Github.elm")) as github_file:
+        github_data = github_file.read()
+        if github_data.count("prerelease") > 0:
+            logger.info(
+                "Patch content already present in `src/Data/Github.elm`, skipping."
+            )
+        else:
+            logger.info(
+                f"Applying patch file `{patch_file}` to `{git_dir}` using `git apply`."
+            )
+            subprocess.run(["git", "apply", patch_file], check=True, cwd=git_dir)
