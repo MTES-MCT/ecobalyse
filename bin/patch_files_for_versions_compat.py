@@ -168,18 +168,6 @@ def version_selector(
 
 @app.command()
 def prerelease(
-    patch_file: Annotated[
-        pathlib.Path,
-        typer.Argument(
-            help="The full path of the patch to apply.",
-            exists=True,
-            file_okay=True,
-            dir_okay=False,
-            writable=True,
-            readable=True,
-            resolve_path=True,
-        ),
-    ],
     git_dir: Annotated[
         pathlib.Path,
         typer.Argument(
@@ -195,7 +183,7 @@ def prerelease(
     """
     Patch main index.html and Page.elm to add the version selector
     """
-    patch_prerelease(patch_file, git_dir)
+    patch_prerelease(git_dir)
 
 
 @app.command()
