@@ -164,7 +164,9 @@ def patch_prerelease(git_dir: pathlib.Path):
             )
             return
 
-    logger.info(f"Overwriting `{github_file_path}` with new content.")
+    logger.info(
+        f"Overwriting `{os.path.join(git_dir, github_file_path)}` with new content."
+    )
     github_elm_new_content = """module Data.Github exposing
     ( Commit
     , Release
@@ -194,6 +196,7 @@ type alias Release =
     , hash : String
     , markdown : String
     , name : String
+    , prerelease : Bool
     , tag : String
     , url : String
     }
@@ -227,6 +230,7 @@ decodeRelease =
         |> Pipe.required "target_commitish" Decode.string
         |> Pipe.required "body" Decode.string
         |> Pipe.required "name" Decode.string
+        |> Pipe.required "prerelease" Decode.bool
         |> Pipe.required "tag_name" Decode.string
         |> Pipe.required "html_url" Decode.string
 
@@ -234,14 +238,19 @@ decodeRelease =
 decodeReleaseList : Decoder (List Release)
 decodeReleaseList =
     Decode.list decodeRelease
-        -- Exclude draft releases
-        |> Decode.andThen (List.filter (.draft >> not) >> Decode.succeed)
-
+        -- Exclude draft and pre-releases
+        |> Decode.map (List.filter (\{ draft, prerelease } -> not draft && not prerelease))
 
 unreleased : Release
 unreleased =
-    Release True "" "" "Unreleased" "Unreleased" ""
-"""
+    { draft = True
+    , hash = ""
+    , markdown = ""
+    , name = "Unreleased"
+    , prerelease = True
+    , tag = "Unreleased"
+    , url = ""
+    }"""
 
     with open(os.path.join(git_dir, github_file_path), "w") as filetowrite:
         filetowrite.write(github_elm_new_content)
