@@ -123,6 +123,7 @@ def log_archives(
     download: Annotated[
         bool, typer.Option(help="Download the archives from scalingo")
     ] = True,
+    days: Annotated[int, typer.Option(help="Number of days to download")] = 14,
 ):
     """
     Get the list of archived logs
@@ -138,7 +139,7 @@ def log_archives(
     if download:
         (archives, downloaded_files) = scalingo.list_logs_archives_for_range(
             start_date=now,
-            end_date=now - timedelta(days=14),
+            end_date=now - timedelta(days=days),
             bearer_token=bearer_token,
             download_dir=download_dir,
         )
