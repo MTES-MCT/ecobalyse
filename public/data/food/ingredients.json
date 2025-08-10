@@ -4710,9 +4710,14 @@
     "cropGroup": "FRUITS A COQUES",
     "defaultOrigin": "France",
     "density": 1.0,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 1.7442,
+      "plotSize": 5.0872
+    },
     "id": "b97e29ab-81b0-478e-b73b-4113aaf68470",
     "inediblePart": 0.5,
-    "landOccupation": 0,
+    "landOccupation": 5.81396,
     "name": "Amandes en coque Bio",
     "processId": "fc3d0649-1012-5aa1-8959-9eb54eb1e246",
     "rawToCookedRatio": 1.0,

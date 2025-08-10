@@ -17062,7 +17062,7 @@
   },
   {
     "categories": ["ingredient"],
-    "comment": "This input has been extrapolated from conventional LCI.\nPlease refer to the methodological report.",
+    "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
     "density": 0,
     "displayName": "Amandes en coque Bio",
     "elecMJ": 0,
@@ -17071,7 +17071,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 0,
+      "ecs": 308.59,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -17085,7 +17085,7 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 0,
+      "pef": 410.211,
       "pma": 0,
       "swe": 0,
       "tre": 0,
