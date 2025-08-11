@@ -10,6 +10,7 @@ import Result.Extra as RE
 type alias WellKnown =
     { boatCoolingTransport : Process
     , boatTransport : Process
+    , cooking : Process
     , domesticGasHeat : Process
     , lorryCoolingTransport : Process
     , lorryTransport : Process
@@ -32,6 +33,8 @@ load processes =
         |> fromIdString "3cb99d44-24f6-5f6e-a8f8-f754fe44d641"
         -- boat
         |> fromIdString "0c36759c-4480-53eb-add1-77ecfb2b202e"
+        -- cooking
+        |> fromIdString "a2836bb8-7f45-5cfa-bb00-8b38046291cf"
         -- domestic-gas-heat
         |> fromIdString "6cbd45fb-83ff-5852-97a7-87fffecc20f5"
         -- lorry-cooling

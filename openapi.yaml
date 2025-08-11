@@ -660,7 +660,7 @@ components:
             ratio:
               type: number
               description: |
-                Pourcentage de surface imprimée, exprimé entre `0` et `1`
+                Pourcentage de surface imprimée, exprimé entre `0` et `0.8` (entre 0% et 80%)
         surfaceMass:
           type: number
           description: |
