@@ -4469,13 +4469,13 @@
     "defaultOrigin": "France",
     "density": 0.447,
     "ecosystemicServices": {
-      "cropDiversity": 0.028323,
-      "hedges": 0.032214,
-      "plotSize": 0.039462
+      "cropDiversity": 0.028228,
+      "hedges": 0.032107,
+      "plotSize": 0.039331
     },
     "id": "3d3fc6bd-0a43-462b-bc39-fed04cf34498",
     "inediblePart": 0.1,
-    "landOccupation": 0.0450997,
+    "landOccupation": 0.0449494,
     "name": "Pomme Bio",
     "processId": "5d74b775-05a5-56b2-bd22-250d938f1c9a",
     "rawToCookedRatio": 0.856,
