@@ -1,7 +1,25 @@
 # Changelog
 
 
-## [7.0.0](https://github.com/MTES-MCT/ecobalyse/compare/v6.1.1..v7.0.0) (2025-07-28)
+## [7.1.0](https://github.com/MTES-MCT/ecobalyse/compare/v7.0.0..v7.1.0) (2025-08-13)
+
+
+
+### 🚀 Features
+
+- Implement Agribalyse 3.2 ([#1201](https://github.com/MTES-MCT/ecobalyse/issues/1201))
+
+### 🪲 Bug Fixes
+
+- Patch old versions selector to hide unreleased versions ([#1297](https://github.com/MTES-MCT/ecobalyse/issues/1297))
+
+### ⚙️ Miscellaneous Tasks
+
+- Improve token error feedback ([#1291](https://github.com/MTES-MCT/ecobalyse/issues/1291))
+- List and parse scalingo logs ([#1293](https://github.com/MTES-MCT/ecobalyse/issues/1293))
+
+
+## [7.0.0](https://github.com/MTES-MCT/ecobalyse/compare/v6.1.1..v7.0.0) (2025-07-29)
 
 
 
@@ -15,6 +33,7 @@
 - *(textile)* [**breaking**] Remove the traceability parameter. ([#1237](https://github.com/MTES-MCT/ecobalyse/issues/1237))
 - Add pretreatment dyeing average aquatic pollution scenario ([#1232](https://github.com/MTES-MCT/ecobalyse/issues/1232))
 - Allow configuring version polling interval ([#1283](https://github.com/MTES-MCT/ecobalyse/issues/1283))
+- *(bo)* Add user accounts admin ([#1266](https://github.com/MTES-MCT/ecobalyse/issues/1266))
 
 ### 🪲 Bug Fixes
 
