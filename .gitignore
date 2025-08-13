@@ -35,3 +35,6 @@ db.sqlite3
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# Scalingo logs
+/archives_logs/

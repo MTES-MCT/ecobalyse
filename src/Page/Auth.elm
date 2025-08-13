@@ -75,10 +75,10 @@ type Tab
     | ApiTokenCreated Token
     | ApiTokenDelete CreatedToken
     | ApiTokens (WebData (List CreatedToken))
-    | MagicLinkForm Email
+    | MagicLinkForm Email (WebData ())
     | MagicLinkLogin
     | MagicLinkSent Email
-    | Signup SignupForm FormErrors
+    | Signup SignupForm FormErrors (WebData ())
     | SignupCompleted Email
 
 
@@ -94,7 +94,7 @@ init session =
                     ]
 
         Nothing ->
-            { tab = MagicLinkForm "" }
+            { tab = MagicLinkForm "" RemoteData.NotAsked }
                 |> App.createUpdate session
 
 
@@ -116,7 +116,7 @@ initSignup session =
                 |> App.withCmds [ Nav.pushUrl session.navKey <| Route.toString Route.Auth ]
 
         Nothing ->
-            { tab = Signup User.emptySignupForm Dict.empty }
+            { tab = Signup User.emptySignupForm Dict.empty RemoteData.NotAsked }
                 |> App.createUpdate session
 
 
@@ -173,8 +173,8 @@ update session msg model =
                 ApiTokens apiTokens ->
                     updateApiTokensTab session apiTokens tabMsg model
 
-                MagicLinkForm email ->
-                    updateMagicLinkFormTab session email tabMsg model
+                MagicLinkForm email webData ->
+                    updateMagicLinkFormTab session email webData tabMsg model
 
                 MagicLinkLogin ->
                     updateMagicLinkLoginTab session tabMsg model
@@ -183,8 +183,8 @@ update session msg model =
                     App.createUpdate session model
                         |> App.withCmds [ Posthog.send Posthog.AuthMagicLinkSent ]
 
-                Signup signupForm _ ->
-                    updateSignupTab session signupForm tabMsg model
+                Signup signupForm _ webData ->
+                    updateSignupTab session signupForm webData tabMsg model
 
                 SignupCompleted _ ->
                     updateNothing session model
@@ -238,7 +238,7 @@ updateAccountTab session currentAuth profileForm _ msg model =
 
         ProfileResponse _ _ (RemoteData.Failure error) ->
             if (BackendError.mapErrorResponse error |> .statusCode) == 401 then
-                { model | tab = MagicLinkForm "" }
+                { model | tab = MagicLinkForm "" RemoteData.NotAsked }
                     |> App.createUpdate session
                     |> App.mapSession Session.logout
                     |> App.notifyInfo "Session invalide ou expirée, vous avez été deconnecté. Vous devrez vous reconnecter."
@@ -331,8 +331,8 @@ updateApiTokenDeleteTab session _ msg model =
             updateNothing session model
 
 
-updateMagicLinkFormTab : Session -> Email -> Msg -> Model -> PageUpdate Model Msg
-updateMagicLinkFormTab session email msg model =
+updateMagicLinkFormTab : Session -> Email -> WebData () -> Msg -> Model -> PageUpdate Model Msg
+updateMagicLinkFormTab session email webData msg model =
     case msg of
         MagicLinkResponse (RemoteData.Success _) ->
             { model | tab = MagicLinkSent email }
@@ -343,12 +343,12 @@ updateMagicLinkFormTab session email msg model =
                 |> App.createUpdate (session |> Session.notifyBackendError error)
 
         MagicLinkSubmit ->
-            model
+            { model | tab = MagicLinkForm email RemoteData.Loading }
                 |> App.createUpdate session
                 |> App.withCmds [ String.trim email |> Auth.askMagicLink session MagicLinkResponse ]
 
         UpdateMagicLinkForm email_ ->
-            { model | tab = MagicLinkForm email_ }
+            { model | tab = MagicLinkForm email_ webData }
                 |> App.createUpdate session
 
         _ ->
@@ -402,8 +402,8 @@ updateMagicLinkLoginTab session msg model =
             updateNothing session model
 
 
-updateSignupTab : Session -> SignupForm -> Msg -> Model -> PageUpdate Model Msg
-updateSignupTab session signupForm msg model =
+updateSignupTab : Session -> SignupForm -> WebData () -> Msg -> Model -> PageUpdate Model Msg
+updateSignupTab session signupForm webData msg model =
     case msg of
         SignupResponse (RemoteData.Success _) ->
             { model | tab = SignupCompleted signupForm.email }
@@ -411,28 +411,26 @@ updateSignupTab session signupForm msg model =
                 |> App.withCmds [ Posthog.send Posthog.AuthSignup ]
 
         SignupResponse (RemoteData.Failure error) ->
-            model
+            { model | tab = Signup signupForm Dict.empty RemoteData.NotAsked }
                 |> App.createUpdate (session |> Session.notifyBackendError error)
 
         SignupSubmit ->
             let
                 newFormErrors =
                     User.validateSignupForm signupForm
-
-                newModel =
-                    { model | tab = Signup signupForm newFormErrors }
             in
             if newFormErrors == Dict.empty then
-                newModel
+                { model | tab = Signup signupForm newFormErrors RemoteData.Loading }
                     |> App.createUpdate (session |> Session.clearNotifications)
                     |> App.withCmds [ Auth.signup session SignupResponse signupForm ]
 
             else
-                App.createUpdate session newModel
+                { model | tab = Signup signupForm newFormErrors RemoteData.NotAsked }
+                    |> App.createUpdate session
                     |> App.notifyError "Erreur de sauvegarde" "Veuillez corriger les champs en erreur"
 
         UpdateSignupForm signupForm_ ->
-            { model | tab = Signup signupForm_ Dict.empty }
+            { model | tab = Signup signupForm_ Dict.empty webData }
                 |> App.createUpdate session
 
         _ ->
@@ -458,8 +456,8 @@ viewTab session currentTab =
 
                 Nothing ->
                     ( "Connexion / Inscription"
-                    , [ ( "Inscription", Signup User.emptySignupForm Dict.empty )
-                      , ( "Connexion", MagicLinkForm "" )
+                    , [ ( "Inscription", Signup User.emptySignupForm Dict.empty RemoteData.NotAsked )
+                      , ( "Connexion", MagicLinkForm "" RemoteData.NotAsked )
                       ]
                     )
     in
@@ -499,8 +497,8 @@ viewTab session currentTab =
                     ApiTokens apiTokens ->
                         viewApiTokens apiTokens
 
-                    MagicLinkForm email ->
-                        viewMagicLinkForm email
+                    MagicLinkForm email webData ->
+                        viewMagicLinkForm email webData
 
                     MagicLinkLogin ->
                         Spinner.view
@@ -508,8 +506,8 @@ viewTab session currentTab =
                     MagicLinkSent email ->
                         viewMagicLinkSent email
 
-                    Signup signupForm formErrors ->
-                        viewSignupForm signupForm formErrors
+                    Signup signupForm formErrors webData ->
+                        viewSignupForm signupForm formErrors webData
 
                     SignupCompleted email ->
                         viewMagicLinkSent email
@@ -807,8 +805,8 @@ viewV6Alert =
         }
 
 
-viewMagicLinkForm : Email -> Html Msg
-viewMagicLinkForm email =
+viewMagicLinkForm : Email -> WebData () -> Html Msg
+viewMagicLinkForm email webData =
     div [ class "d-flex flex-column gap-3" ]
         [ viewV6Alert
         , Html.form
@@ -838,10 +836,17 @@ viewMagicLinkForm email =
                 [ button
                     [ type_ "submit"
                     , class "btn btn-primary"
-                    , disabled <| email == "" || User.validateEmailForm email /= Dict.empty
+                    , disabled <| email == "" || User.validateEmailForm email /= Dict.empty || webData == RemoteData.Loading
                     , attribute "data-testid" "auth-magic-link-submit"
                     ]
-                    [ text "Recevoir un email de connexion" ]
+                    [ text <|
+                        case webData of
+                            RemoteData.Loading ->
+                                "Email de connexion en cours d’envoi…"
+
+                            _ ->
+                                "Recevoir un email de connexion"
+                    ]
                 ]
             ]
         ]
@@ -862,8 +867,8 @@ viewMagicLinkSent email =
         }
 
 
-viewSignupForm : SignupForm -> FormErrors -> Html Msg
-viewSignupForm signupForm formErrors =
+viewSignupForm : SignupForm -> FormErrors -> WebData () -> Html Msg
+viewSignupForm signupForm formErrors webData =
     Html.form
         [ onSubmit SignupSubmit
         , attribute "data-testid" "auth-signup-form"
@@ -962,10 +967,17 @@ viewSignupForm signupForm formErrors =
             [ button
                 [ type_ "submit"
                 , class "btn btn-primary"
-                , disabled <| signupForm == User.emptySignupForm || formErrors /= Dict.empty
+                , disabled <| signupForm == User.emptySignupForm || formErrors /= Dict.empty || webData == RemoteData.Loading
                 , attribute "data-testid" "auth-signup-submit"
                 ]
-                [ text "Valider mon inscription" ]
+                [ text <|
+                    case webData of
+                        RemoteData.Loading ->
+                            "Envoi de la demande d’inscription en cours…"
+
+                        _ ->
+                            "Valider mon inscription"
+                ]
             ]
         ]
 
@@ -1102,28 +1114,28 @@ isActiveTab tab1 tab2 =
         ( ApiTokenCreated _, ApiTokens _ ) ->
             True
 
-        ( MagicLinkLogin, MagicLinkForm _ ) ->
+        ( MagicLinkLogin, MagicLinkForm _ _ ) ->
             True
 
-        ( MagicLinkForm _, MagicLinkLogin ) ->
+        ( MagicLinkForm _ _, MagicLinkLogin ) ->
             True
 
-        ( MagicLinkForm _, MagicLinkForm _ ) ->
+        ( MagicLinkForm _ _, MagicLinkForm _ _ ) ->
             True
 
-        ( MagicLinkForm _, MagicLinkSent _ ) ->
+        ( MagicLinkForm _ _, MagicLinkSent _ ) ->
             True
 
-        ( MagicLinkSent _, MagicLinkForm _ ) ->
+        ( MagicLinkSent _, MagicLinkForm _ _ ) ->
             True
 
-        ( Signup _ _, Signup _ _ ) ->
+        ( Signup _ _ _, Signup _ _ _ ) ->
             True
 
-        ( Signup _ _, SignupCompleted _ ) ->
+        ( Signup _ _ _, SignupCompleted _ ) ->
             True
 
-        ( SignupCompleted _, Signup _ _ ) ->
+        ( SignupCompleted _, Signup _ _ _ ) ->
             True
 
         _ ->

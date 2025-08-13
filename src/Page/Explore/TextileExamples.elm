@@ -4,6 +4,7 @@ import Data.Component as Component
 import Data.Dataset as Dataset
 import Data.Example exposing (Example)
 import Data.Scope exposing (Scope)
+import Data.Textile.Product as Product
 import Data.Textile.Query exposing (Query)
 import Data.Uuid as Uuid
 import Html exposing (..)
@@ -39,20 +40,36 @@ table db { maxScore, maxPer100g } { detailed, scope } =
           , toValue = Table.NoValue
           , toCell =
                 \( example, _ ) ->
-                    example.query.trims
-                        |> List.map (Component.itemToString db)
-                        |> RE.combine
-                        |> Result.map
-                            (String.join ", "
-                                >> (\s ->
-                                        if String.isEmpty s then
-                                            text "Aucun"
+                    case example.query.trims of
+                        -- The example provides specific trims
+                        Just trims ->
+                            trims
+                                |> List.map (Component.itemToString db)
+                                |> RE.combine
+                                |> Result.map
+                                    (String.join ", "
+                                        >> (\s ->
+                                                if String.isEmpty s then
+                                                    text "Aucun"
 
-                                        else
-                                            span [ class "cursor-help", title s ] [ text s ]
-                                   )
-                            )
-                        |> Result.withDefault (text "Aucun")
+                                                else
+                                                    span [ class "cursor-help", title s ] [ text s ]
+                                           )
+                                    )
+                                |> Result.withDefault (text "Aucun")
+
+                        -- The example relies on default trims for the product category
+                        Nothing ->
+                            case
+                                db.textile.products
+                                    |> Product.findById example.query.product
+                                    |> Result.andThen (.trims >> Component.itemsToString db)
+                            of
+                                Err error ->
+                                    div [ class "text-danger" ] [ text <| "Erreur : " ++ error ]
+
+                                Ok string ->
+                                    text string
           }
         , { label = "Coût Environnemental"
           , toValue = Table.FloatValue (Tuple.second >> .score)

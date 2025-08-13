@@ -24,6 +24,7 @@ import Data.Food.Preparation as Preparation
 import Data.Food.Query as Query exposing (Query)
 import Data.Food.Recipe as Recipe exposing (Recipe)
 import Data.Food.Retail as Retail
+import Data.Food.WellKnown exposing (WellKnown)
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
@@ -1044,8 +1045,8 @@ transportToTransformationView selectedImpact results =
         ]
 
 
-transportToPackagingView : Recipe -> Recipe.Results -> Html Msg
-transportToPackagingView recipe results =
+transportToPackagingView : WellKnown -> Recipe -> Recipe.Results -> Html Msg
+transportToPackagingView wellKnown recipe results =
     DownArrow.view
         []
         [ div []
@@ -1064,7 +1065,7 @@ transportToPackagingView recipe results =
                     [ span
                         [ title <| "(" ++ Process.getDisplayName transform.process ++ ")" ]
                         [ text "Masse après transformation : " ]
-                    , Recipe.getTransformedIngredientsMass recipe
+                    , Recipe.getTransformedIngredientsMass wellKnown recipe
                         |> Format.kg
                     , Link.smallPillExternal
                         [ href (Gitbook.publicUrlFromPath Gitbook.FoodRawToCookedRatio)
@@ -1079,13 +1080,13 @@ transportToPackagingView recipe results =
         ]
 
 
-transportToDistributionView : Definition -> Recipe -> Recipe.Results -> Html Msg
-transportToDistributionView selectedImpact recipe results =
+transportToDistributionView : WellKnown -> Definition -> Recipe -> Recipe.Results -> Html Msg
+transportToDistributionView wellKnown selectedImpact recipe results =
     DownArrow.view
         []
         [ div []
             [ text "Masse : "
-            , Recipe.getTransformedIngredientsMass recipe
+            , Recipe.getTransformedIngredientsMass wellKnown recipe
                 |> Format.kg
             , text " + Emballage : "
             , Recipe.getPackagingMass recipe
@@ -1115,12 +1116,12 @@ transportToDistributionView selectedImpact recipe results =
         ]
 
 
-transportToConsumptionView : Recipe -> Html Msg
-transportToConsumptionView recipe =
+transportToConsumptionView : WellKnown -> Recipe -> Html Msg
+transportToConsumptionView wellKnown recipe =
     DownArrow.view
         []
         [ text <| "Masse : "
-        , Recipe.getTransformedIngredientsMass recipe
+        , Recipe.getTransformedIngredientsMass wellKnown recipe
             |> Format.kg
         , text " + Emballage : "
         , Recipe.getPackagingMass recipe
@@ -1209,7 +1210,7 @@ distributionView selectedImpact recipe results =
 
 
 consumptionView : Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg)
-consumptionView db selectedImpact recipe results =
+consumptionView { food } selectedImpact recipe results =
     [ div
         [ class "card-header d-flex align-items-center justify-content-between"
         , StepsBorder.style Impact.stepsColors.usage
@@ -1257,7 +1258,7 @@ consumptionView db selectedImpact recipe results =
                                     ]
                             , span [ class "w-50 text-end" ]
                                 [ usedPreparation
-                                    |> Preparation.apply db.food.wellKnown results.recipe.transformedMass
+                                    |> Preparation.apply food.wellKnown results.recipe.transformedMass
                                     |> Format.formatImpact selectedImpact
                                 ]
                             , BaseElement.deleteItemButton { disabled = False } (DeletePreparation usedPreparation.id)
@@ -1372,20 +1373,20 @@ sidebarView session model results =
 
 
 stepListView : Db -> Session -> Model -> Recipe -> Recipe.Results -> Html Msg
-stepListView db session { impact, initialQuery } recipe results =
+stepListView ({ food } as db) session { impact, initialQuery } recipe results =
     div []
         [ div [ class "card shadow-sm" ]
             (ingredientListView db impact recipe results)
         , transportToTransformationView impact results
         , div [ class "card shadow-sm" ]
             (transformView db impact recipe results)
-        , transportToPackagingView recipe results
+        , transportToPackagingView food.wellKnown recipe results
         , div [ class "card shadow-sm" ]
             (packagingListView db impact recipe results)
-        , transportToDistributionView impact recipe results
+        , transportToDistributionView food.wellKnown impact recipe results
         , div [ class "card shadow-sm" ]
             (distributionView impact recipe results)
-        , transportToConsumptionView recipe
+        , transportToConsumptionView food.wellKnown recipe
         , div [ class "card shadow-sm" ]
             (consumptionView db impact recipe results)
         , transportAfterConsumptionView recipe results

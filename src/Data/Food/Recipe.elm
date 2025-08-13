@@ -30,6 +30,7 @@ import Data.Food.Origin as Origin
 import Data.Food.Preparation as Preparation exposing (Preparation)
 import Data.Food.Query as BuilderQuery exposing (Query)
 import Data.Food.Retail as Retail
+import Data.Food.WellKnown exposing (WellKnown)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
 import Data.Process as Process exposing (Process)
@@ -121,7 +122,7 @@ availablePackagings usedProcesses =
 
 
 compute : Db -> Query -> Result String ( Recipe, Results )
-compute db =
+compute ({ food } as db) =
     -- FIXME get the wellknown early and propagate the error to the computation
     fromQuery db
         >> Result.map
@@ -158,9 +159,9 @@ compute db =
                                 (\distrib ->
                                     let
                                         volume =
-                                            getTransformedIngredientsVolume recipe
+                                            getTransformedIngredientsVolume food.wellKnown recipe
                                     in
-                                    Retail.computeImpacts volume distrib db.food.wellKnown
+                                    Retail.computeImpacts volume distrib food.wellKnown
                                 )
                             |> Maybe.withDefault Impact.empty
 
@@ -171,7 +172,7 @@ compute db =
                     distributionTransport =
                         let
                             mass =
-                                getMassAtPackaging recipe
+                                getMassAtPackaging food.wellKnown recipe
 
                             transport =
                                 distribution
@@ -191,7 +192,7 @@ compute db =
                             ]
 
                     transformedIngredientsMass =
-                        getTransformedIngredientsMass recipe
+                        getTransformedIngredientsMass food.wellKnown recipe
 
                     packagingImpacts =
                         packaging
@@ -200,11 +201,11 @@ compute db =
 
                     preparationImpacts =
                         preparation
-                            |> List.map (Preparation.apply db.food.wellKnown transformedIngredientsMass)
+                            |> List.map (Preparation.apply food.wellKnown transformedIngredientsMass)
                             |> Impact.sumImpacts
 
                     preparedMass =
-                        getPreparedMassAtConsumer recipe
+                        getPreparedMassAtConsumer food.wellKnown recipe
 
                     totalComplementsImpact =
                         computeIngredientsTotalComplements ingredients
@@ -264,7 +265,7 @@ compute db =
                         }
                   , scoring = scoring
                   , total = totalImpacts
-                  , totalMass = getMassAtPackaging recipe
+                  , totalMass = getMassAtPackaging food.wellKnown recipe
                   , transports = Transport.sum [ ingredientsTransport, distributionTransport ]
                   }
                 )
@@ -459,10 +460,10 @@ fromQuery db query =
         |> RE.andMap (transformFromQuery db query)
 
 
-getMassAtPackaging : Recipe -> Mass
-getMassAtPackaging recipe =
+getMassAtPackaging : WellKnown -> Recipe -> Mass
+getMassAtPackaging wellKnown recipe =
     Quantity.sum
-        [ getTransformedIngredientsMass recipe
+        [ getTransformedIngredientsMass wellKnown recipe
         , getPackagingMass recipe
         ]
 
@@ -474,14 +475,14 @@ getPackagingMass recipe =
         |> Quantity.sum
 
 
-getPreparedMassAtConsumer : Recipe -> Mass
-getPreparedMassAtConsumer ({ ingredients, transform, preparation } as recipe) =
+getPreparedMassAtConsumer : WellKnown -> Recipe -> Mass
+getPreparedMassAtConsumer wellKnown ({ ingredients, transform, preparation } as recipe) =
     let
         cookedAtConsumer =
             preparation
                 |> List.any .applyRawToCookedRatio
     in
-    if not (isCookedAtPlant transform) && cookedAtConsumer then
+    if not (isCookedAtPlant wellKnown transform) && cookedAtConsumer then
         ingredients
             |> List.map
                 (\{ ingredient, mass } ->
@@ -491,18 +492,12 @@ getPreparedMassAtConsumer ({ ingredients, transform, preparation } as recipe) =
             |> Quantity.sum
 
     else
-        getTransformedIngredientsMass recipe
+        getTransformedIngredientsMass wellKnown recipe
 
 
-isCookedAtPlant : Maybe Transform -> Bool
-isCookedAtPlant transform =
-    case transform |> Maybe.map (.process >> .id >> Process.idToString) of
-        -- Check for cooking process
-        Just "83b897cf-9ed2-5604-83b4-67fab8606d35" ->
-            True
-
-        _ ->
-            False
+isCookedAtPlant : WellKnown -> Maybe Transform -> Bool
+isCookedAtPlant wellKnown transform =
+    Maybe.map .process transform == Just wellKnown.cooking
 
 
 removeIngredientsInedibleMass : List RecipeIngredient -> List RecipeIngredient
@@ -517,14 +512,14 @@ removeIngredientsInedibleMass =
         )
 
 
-getTransformedIngredientsMass : Recipe -> Mass
-getTransformedIngredientsMass { ingredients, transform } =
+getTransformedIngredientsMass : WellKnown -> Recipe -> Mass
+getTransformedIngredientsMass wellKnown { ingredients, transform } =
     ingredients
         -- Substract inedible mass from the ingredient total mass
         |> removeIngredientsInedibleMass
         |> List.map
             (\{ ingredient, mass } ->
-                if isCookedAtPlant transform then
+                if isCookedAtPlant wellKnown transform then
                     -- If the product is cooked, apply raw to cook ratio to ingredient masses
                     mass |> Quantity.multiplyBy (Unit.ratioToFloat ingredient.rawToCookedRatio)
 
@@ -550,9 +545,9 @@ getTransformedIngredientsDensity { ingredients, transform } =
             gramsPerCubicCentimeter 1
 
 
-getTransformedIngredientsVolume : Recipe -> Volume
-getTransformedIngredientsVolume recipe =
-    getTransformedIngredientsMass recipe |> Quantity.at_ (getTransformedIngredientsDensity recipe)
+getTransformedIngredientsVolume : WellKnown -> Recipe -> Volume
+getTransformedIngredientsVolume wellKnown recipe =
+    getTransformedIngredientsMass wellKnown recipe |> Quantity.at_ (getTransformedIngredientsDensity recipe)
 
 
 ingredientListFromQuery : Db -> Query -> Result String (List RecipeIngredient)

@@ -226,12 +226,12 @@ suite =
                           , preparation = []
                           }
                             |> Recipe.compute db
-                            |> Result.map (Tuple.first >> Recipe.getMassAtPackaging)
+                            |> Result.map (Tuple.first >> Recipe.getMassAtPackaging db.food.wellKnown)
                             |> Expect.equal (Ok (Mass.kilograms 0.23600000000000002))
                             |> asTest "should compute recipe ingredients mass with no cooking involved"
                         , royalPizza
                             |> Recipe.compute db
-                            |> Result.map (Tuple.first >> Recipe.getMassAtPackaging)
+                            |> Result.map (Tuple.first >> Recipe.getMassAtPackaging db.food.wellKnown)
                             |> Expect.equal (Ok (Mass.kilograms 0.4398824000000001))
                             |> asTest "should compute recipe ingredients mass applying raw to cooked ratio"
                         ]
@@ -239,12 +239,12 @@ suite =
                         royalPizzaWithPackaging =
                             royalPizza
                                 |> Recipe.compute db
-                                |> Result.map (Tuple.first >> Recipe.getTransformedIngredientsMass)
+                                |> Result.map (Tuple.first >> Recipe.getTransformedIngredientsMass db.food.wellKnown)
 
                         royalPizzaWithNoPackaging =
                             { royalPizza | packaging = [] }
                                 |> Recipe.compute db
-                                |> Result.map (Tuple.first >> Recipe.getTransformedIngredientsMass)
+                                |> Result.map (Tuple.first >> Recipe.getTransformedIngredientsMass db.food.wellKnown)
                       in
                       describe "getTransformedIngredientsMass"
                         [ royalPizzaWithPackaging

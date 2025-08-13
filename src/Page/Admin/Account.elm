@@ -1,0 +1,282 @@
+module Page.Admin.Account exposing
+    ( Model
+    , Msg(..)
+    , init
+    , subscriptions
+    , update
+    , view
+    )
+
+import App exposing (Msg, PageUpdate)
+import Data.Session exposing (Session)
+import Data.User as User exposing (User)
+import Html exposing (..)
+import Html.Attributes as Attr exposing (..)
+import Html.Events exposing (..)
+import Page.Admin.Section as AdminSection
+import RemoteData
+import Request.Auth as AuthApi
+import Request.BackendHttp exposing (WebData)
+import Table as SortableTable
+import Time exposing (Posix)
+import Views.Admin as AdminView
+import Views.Container as Container
+import Views.Format as Format
+import Views.WebData as WebDataView
+
+
+type alias Model =
+    { accounts : WebData (List User)
+    , filters : Filters
+    , section : AdminSection.Section
+    , tableState : SortableTable.State
+    }
+
+
+type Msg
+    = AccountListResponse (WebData (List User))
+    | SetFilters Filters
+    | SetTableState SortableTable.State
+
+
+type alias Filters =
+    { isActive : Maybe Bool
+    , isSuperuser : Maybe Bool
+    , isVerified : Maybe Bool
+    , emailOptin : Maybe Bool
+    , termsAccepted : Maybe Bool
+    }
+
+
+init : Session -> AdminSection.Section -> PageUpdate Model Msg
+init session section =
+    { accounts = RemoteData.NotAsked
+    , filters = defaultFilters
+    , section = section
+    , tableState = SortableTable.initialSort "Nom"
+    }
+        |> App.createUpdate session
+        |> App.withCmds [ AuthApi.listAccounts session AccountListResponse ]
+
+
+defaultFilters : Filters
+defaultFilters =
+    { isActive = Nothing
+    , isSuperuser = Nothing
+    , isVerified = Nothing
+    , emailOptin = Nothing
+    , termsAccepted = Nothing
+    }
+
+
+update : Session -> Msg -> Model -> PageUpdate Model Msg
+update session msg model =
+    case msg of
+        AccountListResponse response ->
+            App.createUpdate session
+                { model | accounts = response }
+
+        SetFilters filters ->
+            App.createUpdate session
+                { model | filters = filters }
+
+        SetTableState tableState ->
+            App.createUpdate session
+                { model | tableState = tableState }
+
+
+filterAccounts : Filters -> List User -> List User
+filterAccounts filters accounts =
+    accounts
+        |> List.filter (\account -> filters.isActive |> Maybe.map ((==) account.isActive) |> Maybe.withDefault True)
+        |> List.filter (\account -> filters.isSuperuser |> Maybe.map ((==) account.isSuperuser) |> Maybe.withDefault True)
+        |> List.filter (\account -> filters.isVerified |> Maybe.map ((==) account.isVerified) |> Maybe.withDefault True)
+        |> List.filter (\account -> filters.emailOptin |> Maybe.map ((==) account.profile.emailOptin) |> Maybe.withDefault True)
+        |> List.filter (\account -> filters.termsAccepted |> Maybe.map ((==) account.profile.termsAccepted) |> Maybe.withDefault True)
+
+
+yesNo : Bool -> String
+yesNo bool =
+    if bool then
+        "Oui"
+
+    else
+        "Non"
+
+
+booleanColumn : String -> (User -> Bool) -> SortableTable.Column User Msg
+booleanColumn name getter =
+    SortableTable.customColumn
+        { name = name
+        , viewData = getter >> yesNo
+        , sorter = SortableTable.increasingOrDecreasingBy (getter >> yesNo)
+        }
+
+
+dateColumn : String -> (User -> Posix) -> SortableTable.Column User Msg
+dateColumn name getter =
+    SortableTable.customColumn
+        { name = name
+        , viewData = getter >> Format.frenchDate
+        , sorter = SortableTable.increasingOrDecreasingBy (getter >> Time.posixToMillis)
+        }
+
+
+tableConfig : SortableTable.Config User Msg
+tableConfig =
+    let
+        defaultCustomizations =
+            SortableTable.defaultCustomizations
+    in
+    SortableTable.customConfig
+        { toId = .email
+        , toMsg = SetTableState
+        , columns =
+            [ SortableTable.stringColumn "Prénom" (.profile >> .firstName)
+            , SortableTable.stringColumn "Nom" (.profile >> .lastName)
+            , SortableTable.stringColumn "Email " .email
+            , SortableTable.stringColumn "Organisation" (.profile >> .organization >> User.organizationToString)
+            , booleanColumn "Actif" .isActive
+            , booleanColumn "Vérifié" .isVerified
+            , booleanColumn "Admin" .isSuperuser
+            , booleanColumn "Opt-in" (.profile >> .emailOptin)
+            , booleanColumn "CGU" (.profile >> .termsAccepted)
+            , dateColumn "Inscrit le" (.joinedAt >> Maybe.withDefault (Time.millisToPosix 0))
+            ]
+        , customizations =
+            { defaultCustomizations
+                | tableAttrs = [ class "table table-striped table-hover table-responsive mb-0 view-list cursor-pointer" ]
+            }
+        }
+
+
+view : Session -> Model -> ( String, List (Html Msg) )
+view _ model =
+    ( "Admin Utilisateurs"
+    , [ Container.centered [ class "d-flex flex-column gap-3 pb-5" ]
+            [ AdminView.header model.section
+            , viewFilters model.filters
+            , div [ class "row" ]
+                [ div [ class "col-lg-9 col-xl-10" ]
+                    [ model.accounts
+                        |> WebDataView.map (viewAccounts model.filters model.tableState)
+                    ]
+                , div [ class "col-lg-3 col-xl-2" ]
+                    [ viewFiltersForm model.filters ]
+                ]
+            ]
+      ]
+    )
+
+
+viewAccounts : Filters -> SortableTable.State -> List User -> Html Msg
+viewAccounts filters tableState accounts =
+    let
+        matches =
+            accounts
+                |> filterAccounts filters
+    in
+    div [ class "DatasetTable table-responsive" ]
+        [ if List.isEmpty matches then
+            div [ class "alert alert-info" ]
+                [ text "Aucun résultat" ]
+
+          else
+            matches
+                |> SortableTable.view tableConfig tableState
+        ]
+
+
+viewFilters : Filters -> Html Msg
+viewFilters filters =
+    if filters == defaultFilters then
+        text ""
+
+    else
+        availableFilters
+            |> List.filterMap
+                (\( field, ( getter, setter ) ) ->
+                    getter filters
+                        |> Maybe.map (\v -> ( field, yesNo v, setter ))
+                )
+            |> List.map
+                (\( field, value, setter ) ->
+                    small [ class "btn-group fs-9" ]
+                        [ span [ class "btn btn-sm btn-light" ] [ strong [] [ text field ] ]
+                        , span [ class "btn btn-sm btn-primary" ] [ text value ]
+                        , button
+                            [ type_ "button"
+                            , class "btn btn-sm btn-light"
+                            , onClick <| SetFilters (setter filters Nothing)
+                            ]
+                            [ text "✕" ]
+                        ]
+                )
+            |> div [ class "d-flex gap-2" ]
+
+
+availableFilters : List ( String, ( Filters -> Maybe Bool, Filters -> Maybe Bool -> Filters ) )
+availableFilters =
+    [ ( "Actif", ( .isActive, \f val -> { f | isActive = val } ) )
+    , ( "Admin", ( .isSuperuser, \f val -> { f | isSuperuser = val } ) )
+    , ( "CGU", ( .termsAccepted, \f val -> { f | termsAccepted = val } ) )
+    , ( "Opt-in", ( .emailOptin, \f val -> { f | emailOptin = val } ) )
+    , ( "Vérifié", ( .isVerified, \f val -> { f | isVerified = val } ) )
+    ]
+
+
+viewFiltersForm : Filters -> Html Msg
+viewFiltersForm filters =
+    let
+        filterRadio index name getter setter optionValue order =
+            let
+                domId =
+                    "filter-" ++ String.fromInt index ++ "-" ++ name ++ "-" ++ String.fromInt order
+            in
+            [ Html.input
+                [ type_ "radio"
+                , class "btn-check"
+                , id domId
+                , autocomplete False
+                , Attr.name <| "filter-" ++ String.fromInt index ++ "-" ++ name
+                , checked <| getter filters == optionValue
+                , onClick <| SetFilters (setter filters optionValue)
+                ]
+                []
+            , Html.label
+                [ class "btn btn-sm btn-outline-primary px-2 py-1 fs-8"
+                , for domId
+                ]
+                [ text name ]
+            ]
+    in
+    div [ class "card mt-3 mt-lg-0" ]
+        [ h2 [ class "h6 mb-0 ps-2 card-header" ] [ text "Filtres" ]
+        , availableFilters
+            |> List.indexedMap
+                (\index ( label, ( getter, setter ) ) ->
+                    div [ class "border-bottom p-2 pt-1" ]
+                        [ div [ class "fw-bold mb-1" ] [ text label ]
+                        , [ filterRadio index "Tout" getter setter Nothing 1
+                          , filterRadio index "Oui" getter setter (Just True) 2
+                          , filterRadio index "Non" getter setter (Just False) 3
+                          ]
+                            |> List.concat
+                            |> div [ class "btn-group w-100" ]
+                        ]
+                )
+            |> div [ class "card-body p-0 fs-7" ]
+        , div [ class "card-footer text-center p-1 border-top-0" ]
+            [ button
+                [ class "btn btn-sm btn-link"
+                , onClick <| SetFilters defaultFilters
+                , disabled <| filters == defaultFilters
+                ]
+                [ text "Réinitialiser les filtres" ]
+            ]
+        ]
+
+
+subscriptions : Model -> Sub Msg
+subscriptions _ =
+    Sub.none
