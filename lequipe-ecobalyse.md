@@ -7,7 +7,7 @@ L'équipe Ecobalyse réunit des professionnels animés par une mission commune :
 
 
 
-* _Les membres actuelles :_
+* _Les membres actuels :_
 
 | Nicolas Perriault                                                                                                                 |
 | --------------------------------------------------------------------------------------------------------------------------------- |
