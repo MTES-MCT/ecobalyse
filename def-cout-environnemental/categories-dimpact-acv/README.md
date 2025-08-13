@@ -4,7 +4,7 @@ icon: sigma
 
 # Catégories d'impact ACV
 
-L'analyse de Cycle de Vie vise à décrire tous les impacts environnementaux, à toutes les étapes de production (du berceau à la tombe) d'un produit. L'approche est expliquée en détails sur le[ site web agribalyse](https://doc.agribalyse.fr/documentation/les-donnees/methodologie-acv) par exemple.&#x20;
+L'analyse de Cycle de Vie vise à décrire tous les impacts environnementaux, à toutes les étapes de production (du berceau à la tombe) d'un produit. L'approche est expliquée en détails sur le[ site web agribalyse](https://doc.agribalyse.fr/documentation/les-donnees/methodologie-acv) par exemple. Les travaux sont portés par des équipes académiques répartis au niveau international; avec la construction progressive de consensus scientifiques. Le cadre méthodologique s'enrichit progressivement mais n'est pas encore "complet" pour tous les secteurs (d'où le besoin de compléments "hors ACV").&#x20;
 
 ## Impacts agrégés et impacts détaillés
 

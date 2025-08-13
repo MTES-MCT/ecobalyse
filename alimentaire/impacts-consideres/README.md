@@ -1,6 +1,6 @@
 # Cycle de vie des produits alimentaires
 
-Le coût environnemental reflète l'ensemble des impacts (consommation d'énergie, de ressources, les émissions de gaz à effet de serre, les pollutions...) liés à la fabrication des produits alimentaires. L'ensemble des étapes sont considérées, du champs à l'assiette, en incluant notamment la transformation, les emballages ou encore les transports. Il est calculé selon la méthode d'Analyse de Cycle de Vie (ACV) à partir des Inventaires de Cycle de Vie (ICV) de la base [Agribalyse](https://agribalyse.ademe.fr/) pilotée par l'ADEME.&#x20;
+Le coût environnemental reflète l'ensemble des impacts (consommation d'énergie, de ressources, les émissions de gaz à effet de serre, les pollutions...) liés à la fabrication des produits alimentaires. L'ensemble des étapes sont considérées, du champs à l'assiette, en incluant notamment la transformation, les emballages ou encore les transports. Il est calculé selon la [méthode d'Analyse de Cycle de Vie](https://doc.agribalyse.fr/documentation/les-donnees/methodologie-acv) (ACV) à partir des Inventaires de Cycle de Vie (ICV) de la base [Agribalyse](https://agribalyse.ademe.fr/) pilotée par l'ADEME.&#x20;
 
 Un ICV correspondent à la liste des consommations de ressources et des émissions de polluants associés à une étape de production (ex : quantité de nitrates émis dans l'eau pour la production d'1 kg de maïs, quantité de litres d'eau prélevée, quantité de pesticides émis dans le sol, etc.). &#x20;
 
