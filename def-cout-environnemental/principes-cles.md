@@ -2,13 +2,15 @@
 
 ## Méthode de l'Analyse de Cycle de Vie et compléments
 
-Le coût environnemental est le résultat du calcul d'impacts selon une méthode s'appuie sur le socle européen PEF (Product Environmental Footprint) pour l'Analyse de Cycle de Vie (ACV), auxquels s'ajoutent des corrections ou des compléments relatifs aux dimensions aujourd'hui mal couvertes par l'ACV.
+Le coût environnemental est le résultat du calcul d'impacts selon une méthode s'appuie sur le socle européen [PEF](https://green-forum.ec.europa.eu/green-business/environmental-footprint-methods_en) (Product Environmental Footprint) pour l'Analyse de Cycle de Vie (ACV), auxquels s'ajoutent des corrections ou des compléments relatifs aux dimensions aujourd'hui mal couvertes par l'ACV.
 
 $$
 Coût Environnemental = impacts ACVcorrigés +compléments HorsACV
 $$
 
 La page [Catégories d'impact ACV](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/cout-environnemental/categories-dimpact-acv) et ses sous-pages viennent détailler la contribution au coût environnemental liée à des catégories d'impact de l'ACV. Cette méthodologie est commune à tous les secteurs traités par Ecobalyse.
+
+Le dispositif PEF est [recommandée ](https://environment.ec.europa.eu/publications/recommendation-use-environmental-footprint-methods_en)par la commission européenne depuis 2021. Il est également repris dans la proposition de directive "[GreenClaims](https://environment.ec.europa.eu/topics/circular-economy/green-claims_en)"; qui pointe également certaines lacunes du cadre PEF et le besoin d'y remédier.&#x20;
 
 {% content-ref url="categories-dimpact-acv/" %}
 [categories-dimpact-acv](categories-dimpact-acv/)
