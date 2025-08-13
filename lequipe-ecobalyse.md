@@ -1,6 +1,6 @@
 # L'équipe ecobalyse
 
-L'équipe Ecobalyse réunit des professionnels animés par une mission commune : accélérer la mise en place de l'affichage environnemental en France. Notre équipe est placée sous l'égide du Ministère de l'Environnement et de l'ADEME. Elle combine des compétences variées en développement informatique, analyse de cycle de vie, design UX/UI, et expertise sectorielle.&#x20;
+L'équipe Ecobalyse réunit des professionnels animés par une mission commune : accélérer la mise en place de l'affichage environnemental en France. Notre équipe est placée sous l'égide du Ministère de l'Environnement et de l'ADEME, avec des salariés et des freelance. Elle combine des compétences variées en développement informatique, analyse de cycle de vie, design UX/UI, et expertise sectorielle.&#x20;
 
 
 
