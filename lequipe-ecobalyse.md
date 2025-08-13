@@ -2,6 +2,10 @@
 
 L'équipe Ecobalyse réunit des professionnels animés par une mission commune : accélérer la mise en place de l'affichage environnemental en France. Notre équipe est placée sous l'égide du Ministère de l'Environnement et de l'ADEME. Elle combine des compétences variées en développement informatique, analyse de cycle de vie, design UX/UI, et expertise sectorielle.&#x20;
 
+
+
+* _Les membres actuelles :_
+
 | Nicolas Perriault                                                                                                                 |
 | --------------------------------------------------------------------------------------------------------------------------------- |
 | Vincent Jousse                                                                                                                    |
@@ -19,6 +23,8 @@ L'équipe Ecobalyse réunit des professionnels animés par une mission commune :
 | Pascal Dagras, intrapreneur MTE                                                                                                   |
 |                                                                                                                                   |
 
+* _Les anciens_
 
+Livio Lumbroso : Coach
 
 &#x20;
