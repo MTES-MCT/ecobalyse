@@ -19,7 +19,7 @@ L'équipe Ecobalyse réunit des professionnels animés par une mission commune :
 | Nathalie Rosenberg                                                                                                                |
 | Alban Fournier, référent secteur ameublement                                                                                      |
 | Maurine Poirier, référente secteur textile                                                                                        |
-| Nicolas Planchenault, référent véhicule et méthode transversale                                                                   |
+| Nicolas Planchenault, référent véhicule et "méthode transversale"                                                                 |
 | Gabrielle Lestat, référente secteur alimentaire                                                                                   |
 | Thomas Menant, Coach                                                                                                              |
 |  <img src=".gitbook/assets/Vincent 2024.jpg" alt="" data-size="line">Vincent Colomb, intrapreneur ADEME, responsable scientifique |
