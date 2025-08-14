@@ -14,6 +14,7 @@ from ecobalyse.patch_files import (
     patch_double_slash,
     patch_elm_version_file,
     patch_index_js_file,
+    patch_prerelease,
     patch_version_selector,
 )
 from typing_extensions import Annotated
@@ -163,6 +164,26 @@ def version_selector(
     Patch main index.html and Page.elm to add the version selector
     """
     patch_version_selector(patch_file, git_dir)
+
+
+@app.command()
+def prerelease(
+    git_dir: Annotated[
+        pathlib.Path,
+        typer.Argument(
+            help="The full path of the git repo where to apply the patch.",
+            exists=True,
+            file_okay=False,
+            dir_okay=True,
+            readable=True,
+            resolve_path=True,
+        ),
+    ],
+):
+    """
+    Patch src/Data/Gihub.elm to handle prereleases
+    """
+    patch_prerelease(git_dir)
 
 
 @app.command()
