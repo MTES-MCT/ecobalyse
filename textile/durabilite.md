@@ -112,7 +112,7 @@ Précisions :&#x20;
 | <ul><li>Chemises en soie (non couvert par le cadre réglementaire en l'absence de données pour la soie)</li><li>*<em>Soutien gorges</em>*</li></ul> | <ul><li>Accessoires non majoritairement textiles : casquettes, chapeaux, serre-têtes, lanières</li><li>Autres accessoires : gants, bonnets, écharpes</li><li>Vêtements pour animaux</li><li><em>*les références qui ne s'adresseraient qu'à un sous-ensemble spécifique des clients potentiels (femmes enceintes, personnes handicapées, grande taille…)*</em></li></ul> |
 
 {% hint style="info" %}
-Exemple : Le site C.fr commercialise la marque A (2000 références), la marque B (3000 références) et la marque C (4000 références). La marque A et la marque B disposent par ailleurs de leur site internet propre. La marque B propose 2500 références sur B.fr. La marque C propose 3500 références sur C.fr.\
+Exemple : Le site C.fr commercialise la marque A (2000 références), la marque B (3000 références) et la marque C (4000 références). La marque A et la marque B disposent par ailleurs de leur site internet propre. La marque A propose 2500 références sur A.fr. La marque B propose 3500 références sur B.fr.\
 Les largeurs de gamme à considérer sont alors (cf. tableau ci-dessous) :\
 \- 2500 références pour la marque A\
 \- 3500 références pour la marque B\
