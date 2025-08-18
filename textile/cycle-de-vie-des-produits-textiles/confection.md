@@ -96,7 +96,7 @@ Le procédé d'électricité mobilisé s'exprime en MJ tandis que l'affichage su
 
 #### Délavage (jean)
 
-Pour le jean on intègre dans l'étape confection le délavage. Le délavage est un procédé qui s'applique après la confection et qui a un impact environnemental important. En effet le délavage demande des quantités significatives de chaleur, d'électricité et d'eau.
+Le délavage est intégré dans l'étape confection. Il s'agit d'un procédé qui s'applique après la confection et qui a un impact environnemental important. En effet le délavage demande des quantités significatives de chaleur, d'électricité et d'eau.
 
 Il existe différents procédés de délavage dans le socle technique actuellement utilisé : \
 \- mécanique ou chimique\
