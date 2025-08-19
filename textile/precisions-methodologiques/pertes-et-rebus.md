@@ -11,7 +11,7 @@ A chaque étape de la production, des pertes et rebut sont pris en compte. Les f
 | Non applicable | Matière        | [Matière](https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/etape-1-matieres) |
 | Matière        | Fil            | [Filature](../cycle-de-vie-des-produits-textiles/etape-2-fabrication-du-fil-1.md)                          |
 | Fil            | Etoffe         | [Tricotage / Tissage](../cycle-de-vie-des-produits-textiles/tricotage-tissage.md)                          |
-| Etoffe         | Tissu          | [Teinture](../cycle-de-vie-des-produits-textiles/ennoblissement/)                                          |
+| Etoffe         | Tissu          | [Teinture](../cycle-de-vie-des-produits-textiles/ennoblissement-1/)                                        |
 | Tissu          | Habit          | [Confection](../cycle-de-vie-des-produits-textiles/confection.md)                                          |
 | Habit          | Habit          | [Distribution](../cycle-de-vie-des-produits-textiles/distribution.md)                                      |
 
