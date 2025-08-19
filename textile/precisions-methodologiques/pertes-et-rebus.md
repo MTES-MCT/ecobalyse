@@ -6,14 +6,14 @@ description: Vision d'ensemble de la gestion des pertes et rebut dans l'outil
 
 A chaque étape de la production, des pertes et rebut sont pris en compte. Les formules de calcul sont développées dans chaque page dédiée au procédé en question (cf. tableau ci-après) :
 
-| Masse entrante | Masse sortante | Procédé                                                                                                               |
-| -------------- | -------------- | --------------------------------------------------------------------------------------------------------------------- |
-| Non applicable | Matière        | [Matière](https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/etape-1-matieres)            |
-| Matière        | Fil            | [Filature](https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/etape-2-fabrication-du-fil) |
-| Fil            | Etoffe         | [Tricotage / Tissage](../cycle-de-vie-des-produits-textiles/tricotage-tissage.md)                                     |
-| Etoffe         | Tissu          | [Teinture](../cycle-de-vie-des-produits-textiles/ennoblissement/)                                                     |
-| Tissu          | Habit          | [Confection](../cycle-de-vie-des-produits-textiles/confection.md)                                                     |
-| Habit          | Habit          | [Distribution](../cycle-de-vie-des-produits-textiles/distribution.md)                                                 |
+| Masse entrante | Masse sortante | Procédé                                                                                                    |
+| -------------- | -------------- | ---------------------------------------------------------------------------------------------------------- |
+| Non applicable | Matière        | [Matière](https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/etape-1-matieres) |
+| Matière        | Fil            | [Filature](../cycle-de-vie-des-produits-textiles/etape-2-fabrication-du-fil-1.md)                          |
+| Fil            | Etoffe         | [Tricotage / Tissage](../cycle-de-vie-des-produits-textiles/tricotage-tissage.md)                          |
+| Etoffe         | Tissu          | [Teinture](../cycle-de-vie-des-produits-textiles/ennoblissement/)                                          |
+| Tissu          | Habit          | [Confection](../cycle-de-vie-des-produits-textiles/confection.md)                                          |
+| Habit          | Habit          | [Distribution](../cycle-de-vie-des-produits-textiles/distribution.md)                                      |
 
 {% hint style="info" %}
 Dans cette documentation le taux de perte $$T$$ vaut :
