@@ -72,7 +72,6 @@ idFromString =
     Uuid.fromString >> Result.map Id
 
 
-
 getRecyclingData : Material -> List Material -> Maybe ( Material, CFFData )
 getRecyclingData material materials =
     -- If material is non-recycled, retrieve relevant recycled equivalent material & CFF data

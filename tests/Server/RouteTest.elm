@@ -8,7 +8,7 @@ import Data.Food.Query as FoodQuery
 import Data.Split as Split
 import Data.Textile.Material as Material
 import Data.Textile.Product as Product
-import Data.Textile.Query as TextileQuery exposing (tShirtCotonFrance, materialWithId)
+import Data.Textile.Query as TextileQuery exposing (materialWithId, tShirtCotonFrance)
 import Data.Unit as Unit
 import Dict
 import Expect
@@ -175,9 +175,10 @@ textileEndpoints db =
         , TextileQuery.encode
             { tShirtCotonFrance
                 | materials =
-                    case Material.idFromString
-
-                    "1c686e00-6db8-469e-8d7f-3864bd3238bd" of
+                    case
+                        Material.idFromString
+                            "1c686e00-6db8-469e-8d7f-3864bd3238bd"
+                    of
                         Ok decodedId ->
                             [ materialWithId decodedId Split.full Nothing Nothing ]
 

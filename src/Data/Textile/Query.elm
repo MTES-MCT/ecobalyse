@@ -59,7 +59,7 @@ type alias MaterialQuery =
 
 materialWithId : Material.Id -> Split -> Maybe Spinning -> Maybe Country.Code -> MaterialQuery
 materialWithId id share spinning country =
-    {  country = country
+    { country = country
     , id = id
     , share = share
     , spinning = spinning
@@ -461,9 +461,9 @@ default =
         case Material.idFromString "62a4d6fb-3276-4ba5-93a3-889ecd3bff84" of
             Err _ ->
                 []
+
             Ok id ->
                 [ materialWithId id Split.full Nothing Nothing ]
-
     , numberOfReferences = Nothing
     , physicalDurability = Nothing
     , price = Nothing

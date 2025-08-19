@@ -4,7 +4,7 @@ import Data.Country as Country
 import Data.Split as Split
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Material as Material
-import Data.Textile.Query exposing (default, tShirtCotonFrance, materialWithId)
+import Data.Textile.Query exposing (default, materialWithId, tShirtCotonFrance)
 import Data.Unit as Unit
 import Expect
 import List.Extra as LE
@@ -49,7 +49,7 @@ suite =
                     |> asTest "should compute OutOfEuropeEOL complement impact for a fully natural garment"
                 , { tShirtCotonFrance
                     | materials =
-                     case
+                        case
                             ( Material.idFromString "62a4d6fb-3276-4ba5-93a3-889ecd3bff84"
                             , Material.idFromString "73ef624d-250e-4a9a-af5d-43505b21b527"
                             )

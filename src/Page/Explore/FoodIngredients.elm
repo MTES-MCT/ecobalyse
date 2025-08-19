@@ -21,6 +21,7 @@ import Views.Format as Format
 import Views.Icon as Icon
 import Views.Link as Link
 
+
 table : FoodDb.Db -> { detailed : Bool, scope : Scope } -> Table Ingredient String msg
 table _ { detailed, scope } =
     { filename = "ingredients"
@@ -61,7 +62,7 @@ table _ { detailed, scope } =
           }
         , { label = "Surface mobilisée"
           , toValue = Table.FloatValue <| .landOccupation
-          , toCell = .landOccupation >>  (\v -> Format.formatFloat 2 v ++ " m2.an") >> text
+          , toCell = .landOccupation >> (\v -> Format.formatFloat 2 v ++ " m2.an") >> text
           }
         , { label = "Part non-comestible"
           , toValue = Table.FloatValue <| .inediblePart >> Split.toPercent
