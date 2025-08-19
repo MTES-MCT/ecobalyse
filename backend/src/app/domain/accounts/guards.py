@@ -9,6 +9,9 @@ from app.config.base import get_settings
 from app.db import models as m
 from app.domain.accounts import urls
 from app.domain.accounts.deps import provide_users_service
+from app.domain.accounts.services import TokenService
+from app.lib import crypt
+from app.lib.deps import create_service_provider
 from app.lib.middleware import CustomCookieAuthMiddleware
 from litestar.exceptions import PermissionDeniedException
 from litestar.security.jwt import OAuth2PasswordBearerAuth
@@ -91,7 +94,7 @@ def requires_verified_user(
 
 async def current_user_from_token(
     token: Token, connection: ASGIConnection[Any, Any, Any, Any]
-) -> m.User | None:
+) -> tuple[m.User, m.Token | None] | None:
     """Lookup current user from local JWT token.
 
     Fetches the user information from the database
@@ -105,13 +108,37 @@ async def current_user_from_token(
     Returns:
         User: User record mapped to the JWT identifier
     """
-    service = await anext(
+    user_service = await anext(
         provide_users_service(
             alchemy.provide_session(connection.app.state, connection.scope)
         )
     )
-    user = await service.get_one_or_none(email=token.sub)
-    return user if user and user.is_active else None
+    user = await user_service.get_one_or_none(email=token.sub)
+
+    token_id = token.extras.get("id")
+
+    if token_id:
+        token_service_provider = create_service_provider(TokenService)
+        token_service = await anext(
+            token_service_provider(
+                alchemy.provide_session(connection.app.state, connection.scope)
+            )
+        )
+
+        db_token = await token_service.get_one_or_none(id=token_id)
+
+        if db_token and await crypt.verify_password(
+            token.extras.get("secret"), db_token.hashed_token
+        ):
+            db_token.last_accessed_at = datetime.datetime.now(datetime.timezone.utc)
+            await token_service.repository.update(db_token)
+            # Authentication ok
+            return (user, db_token)
+        else:
+            # Authentication failed
+            return (user, None)
+
+    return (user, None) if user and user.is_active else None
 
 
 auth = OAuth2PasswordBearerAuth[m.User](

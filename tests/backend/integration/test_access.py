@@ -618,6 +618,7 @@ async def test_list_accounts_superuser_granted(
 
 
 async def test_components_access_with_eco_api_token(
+    session: AsyncSession,
     client: "AsyncClient",
     user_token_headers: dict[str, str],
     superuser_token_headers: dict[str, str],
@@ -667,3 +668,12 @@ async def test_components_access_with_eco_api_token(
     )
 
     assert response.status_code == 201
+
+    async with TokenService.new(session) as token_service:
+        tokens = await token_service.repository.list()
+        assert len(tokens) == 2
+        failed_access_token = tokens[0]
+        ok_access_token = tokens[1]
+
+        assert failed_access_token.last_accessed_at is None
+        assert ok_access_token.last_accessed_at is not None

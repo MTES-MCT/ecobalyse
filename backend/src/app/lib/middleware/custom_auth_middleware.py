@@ -169,7 +169,16 @@ class CustomAuthMiddleware(AbstractAuthenticationMiddleware):
                 sub=payload["email"],
                 # Be sure that the token expire in the future
                 exp=datetime.now(timezone.utc) + timedelta(days=1),
+                extras={"id": payload["id"], "secret": payload["secret"]},
             )
+
+            (user, token) = await self.retrieve_user_handler(token, connection)
+
+            if token:
+                return AuthenticationResult(user=user, auth=token)
+            else:
+                raise NotAuthorizedException()
+
         else:
             token = self.token_cls.decode(
                 encoded_token=encoded_token,
@@ -183,7 +192,7 @@ class CustomAuthMiddleware(AbstractAuthenticationMiddleware):
                 strict_audience=self.strict_audience,
             )
 
-        user = await self.retrieve_user_handler(token, connection)
+        (user, token) = await self.retrieve_user_handler(token, connection)
         token_revoked = False
 
         if self.revoked_token_handler:
