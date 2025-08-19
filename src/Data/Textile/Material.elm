@@ -134,8 +134,10 @@ decodeList processes =
 encode : Material -> Encode.Value
 encode v =
     Encode.object
-        [ ( "id", encodeId v.id )
-        , ( "alias", Encode.string v.alias )
+        [ ( "alias", Encode.string v.alias )
+        , ( "defaultCountry", v.defaultCountry |> Country.codeToString |> Encode.string )
+        , ( "id", encodeId v.id )
+        , ( "geographicOrigin", Encode.string v.geographicOrigin )
         , ( "name", v.name |> Encode.string )
         , ( "origin", v.origin |> Origin.toString |> Encode.string )
         , ( "processId", Process.encodeId v.process.id )
@@ -143,6 +145,4 @@ encode v =
           , v.recycledProcess |> Maybe.map (.id >> Process.encodeId) |> Maybe.withDefault Encode.null
           )
         , ( "recycledFrom", v.recycledFrom |> Maybe.map Encode.string |> Maybe.withDefault Encode.null )
-        , ( "geographicOrigin", Encode.string v.geographicOrigin )
-        , ( "defaultCountry", v.defaultCountry |> Country.codeToString |> Encode.string )
         ]
