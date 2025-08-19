@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+from datetime import datetime, timedelta, timezone
 from typing import TYPE_CHECKING, Awaitable, Callable, Sequence
 
+from app.domain.accounts.services import TokenService
 from litestar.exceptions import NotAuthorizedException
 from litestar.middleware.authentication import (
     AbstractAuthenticationMiddleware,
@@ -159,17 +161,27 @@ class CustomAuthMiddleware(AbstractAuthenticationMiddleware):
         Returns:
             AuthenticationResult
         """
-        token = self.token_cls.decode(
-            encoded_token=encoded_token,
-            secret=self.token_secret,
-            algorithm=self.algorithm,
-            audience=self.token_audience,
-            issuer=self.token_issuer,
-            require_claims=self.require_claims,
-            verify_exp=self.verify_expiry,
-            verify_nbf=self.verify_not_before,
-            strict_audience=self.strict_audience,
-        )
+        if encoded_token.startswith("eco_api"):
+            payload = await TokenService.extract_payload(encoded_token)
+
+            # Create fake token
+            token = Token(
+                sub=payload["email"],
+                # Be sure that the token expire in the future
+                exp=datetime.now(timezone.utc) + timedelta(days=1),
+            )
+        else:
+            token = self.token_cls.decode(
+                encoded_token=encoded_token,
+                secret=self.token_secret,
+                algorithm=self.algorithm,
+                audience=self.token_audience,
+                issuer=self.token_issuer,
+                require_claims=self.require_claims,
+                verify_exp=self.verify_expiry,
+                verify_nbf=self.verify_not_before,
+                strict_audience=self.strict_audience,
+            )
 
         user = await self.retrieve_user_handler(token, connection)
         token_revoked = False
