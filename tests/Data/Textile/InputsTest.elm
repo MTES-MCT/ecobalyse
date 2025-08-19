@@ -47,23 +47,21 @@ suite =
                 [ tShirtCotonFrance
                     |> testComplementEqual -41.65
                     |> asTest "should compute OutOfEuropeEOL complement impact for a fully natural garment"
-                , { tShirtCotonFrance
-                    | materials =
-                        case
-                            ( Material.idFromString "62a4d6fb-3276-4ba5-93a3-889ecd3bff84"
-                            , Material.idFromString "73ef624d-250e-4a9a-af5d-43505b21b527"
-                            )
-                        of
-                            ( Ok cottonId, Ok syntheticId ) ->
+                , TestUtils.suiteFromResult2
+                    "should compute OutOfEuropeEOL complement impact for a half-natural, half-synthetic garment"
+                    (Material.idFromString "62a4d6fb-3276-4ba5-93a3-889ecd3bff84")
+                    (Material.idFromString "73ef624d-250e-4a9a-af5d-43505b21b527")
+                    (\cottonId syntheticId ->
+                        [ { tShirtCotonFrance
+                            | materials =
                                 [ materialWithId cottonId Split.half Nothing Nothing
                                 , materialWithId syntheticId Split.half Nothing Nothing
                                 ]
-
-                            _ ->
-                                []
-                  }
-                    |> testComplementEqual -102.85
-                    |> asTest "should compute OutOfEuropeEOL complement impact for a half-natural, half-synthetic garment"
+                          }
+                            |> testComplementEqual -102.85
+                            |> asTest "compute OutOfEuropeEOL complement impact for a half-natural, half-synthetic garment"
+                        ]
+                    )
                 ]
             , let
                 testComplementEqual x =
@@ -76,23 +74,21 @@ suite =
                 [ tShirtCotonFrance
                     |> testComplementEqual -42.5
                     |> asTest "should compute Microfibers complement impact for a fully natural garment"
-                , { tShirtCotonFrance
-                    | materials =
-                        case
-                            ( Material.idFromString "62a4d6fb-3276-4ba5-93a3-889ecd3bff84"
-                            , Material.idFromString "73ef624d-250e-4a9a-af5d-43505b21b527"
-                            )
-                        of
-                            ( Ok cottonId, Ok syntheticId ) ->
+                , TestUtils.suiteFromResult2
+                    "should compute Microfibers complement impact for a half-natural, half-synthetic garment"
+                    (Material.idFromString "62a4d6fb-3276-4ba5-93a3-889ecd3bff84")
+                    (Material.idFromString "73ef624d-250e-4a9a-af5d-43505b21b527")
+                    (\cottonId syntheticId ->
+                        [ { tShirtCotonFrance
+                            | materials =
                                 [ materialWithId cottonId Split.half Nothing Nothing
                                 , materialWithId syntheticId Split.half Nothing Nothing
                                 ]
-
-                            _ ->
-                                []
-                  }
-                    |> testComplementEqual -90.95
-                    |> asTest "should compute Microfibers complement impact for a half-natural, half-synthetic garment"
+                          }
+                            |> testComplementEqual -90.95
+                            |> asTest "compute Microfibers complement impact for a half-natural, half-synthetic garment"
+                        ]
+                    )
                 ]
             ]
         )
