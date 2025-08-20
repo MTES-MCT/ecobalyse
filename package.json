@@ -58,7 +58,7 @@
     "@sentry/browser": "^9.40.0",
     "@sentry/node": "^9.40.0",
     "@sentry/profiling-node": "^9.40.0",
-    "@sentry/tracing": "^7.120.3",
+    "@sentry/tracing": "^7.120.4",
     "cors": "^2.8.5",
     "dotenv": "^17.2.0",
     "express": "^5.1.0",
