@@ -11,6 +11,7 @@ module Data.Textile.Query exposing
     , handleUpcycling
     , isAdvancedQuery
     , jupeCotonAsie
+    , materialWithId
     , parseBase64Query
     , regulatory
     , removeMaterial
@@ -53,6 +54,15 @@ type alias MaterialQuery =
     , id : Material.Id
     , share : Split
     , spinning : Maybe Spinning
+    }
+
+
+materialWithId : Material.Id -> Split -> Maybe Spinning -> Maybe Country.Code -> MaterialQuery
+materialWithId id share spinning country =
+    { country = country
+    , id = id
+    , share = share
+    , spinning = spinning
     }
 
 
@@ -175,7 +185,7 @@ decodeMaterialQuery : Decoder MaterialQuery
 decodeMaterialQuery =
     Decode.succeed MaterialQuery
         |> DU.strictOptional "country" Country.decodeCode
-        |> Pipe.required "id" (Decode.map Material.Id Decode.string)
+        |> Pipe.required "id" Material.decodeId
         |> Pipe.required "share" Split.decodeFloat
         |> DU.strictOptional "spinning" Spinning.decode
 
@@ -448,12 +458,12 @@ default =
     , makingWaste = Nothing
     , mass = Mass.kilograms 0.17
     , materials =
-        [ { country = Nothing
-          , id = Material.Id "ei-coton"
-          , share = Split.full
-          , spinning = Nothing
-          }
-        ]
+        case Material.idFromString "62a4d6fb-3276-4ba5-93a3-889ecd3bff84" of
+            Err _ ->
+                []
+
+            Ok id ->
+                [ materialWithId id Split.full Nothing Nothing ]
     , numberOfReferences = Nothing
     , physicalDurability = Nothing
     , price = Nothing
