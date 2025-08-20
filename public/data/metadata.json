@@ -1,5 +1,238 @@
 [
   {
+    "alias": "elasthane",
+    "cff": null,
+    "defaultCountry": "CN",
+    "displayName": "Elasthane (Lycra)",
+    "geographicOrigin": "Asie - Pacifique",
+    "id": "9973088b-c929-4cc5-894a-1e4d28c161d4",
+    "origin": "Synthetic",
+    "primary": false,
+    "processId": "394a29e7-3add-5b22-afe5-a8f4504f1137",
+    "recycledFrom": null,
+    "recycledProcessId": null,
+    "scopes": ["textile"]
+  },
+  {
+    "alias": "ei-acrylique",
+    "cff": null,
+    "defaultCountry": "CN",
+    "displayName": "Production de plexiglas (Polyméthacrylate de méthyle)",
+    "geographicOrigin": "Asie - Pacifique",
+    "id": "49a0bec0-f9f3-42db-a514-a9dcf06a8969",
+    "origin": "Synthetic",
+    "primary": false,
+    "processId": "e0a9037c-5ee8-598d-956d-74d4668f6a8e",
+    "recycledFrom": null,
+    "recycledProcessId": null,
+    "scopes": ["textile"]
+  },
+  {
+    "alias": "ei-jute-kenaf",
+    "cff": null,
+    "defaultCountry": "CN",
+    "displayName": "Production de jute, rouissage",
+    "geographicOrigin": "Asie - Pacifique",
+    "id": "a09b2677-2900-4417-a202-e5f9a1abcce1",
+    "origin": "NaturalFromVegetal",
+    "primary": false,
+    "processId": "75812092-c79d-5373-8c6a-bda0479526cf",
+    "recycledFrom": null,
+    "recycledProcessId": null,
+    "scopes": ["textile"]
+  },
+  {
+    "alias": "ei-pp",
+    "cff": null,
+    "defaultCountry": "FR",
+    "displayName": "Production de polypropylène, granulés",
+    "geographicOrigin": "Europe",
+    "id": "73ef624d-250e-4a9a-af5d-43505b21b527",
+    "origin": "Synthetic",
+    "primary": false,
+    "processId": "32e05060-154c-58fc-adc6-aa2b2bf493c3",
+    "recycledFrom": null,
+    "recycledProcessId": null,
+    "scopes": ["textile"]
+  },
+  {
+    "alias": "ei-pet",
+    "cff": null,
+    "defaultCountry": "CN",
+    "displayName": "Production de PET, granulés, amorphe",
+    "geographicOrigin": "Asie - Pacifique",
+    "id": "9dba0e95-0c35-4f8b-9267-62ddf47d4984",
+    "origin": "Synthetic",
+    "primary": true,
+    "processId": "f03fcc46-d927-5d3f-94c7-726eb911d86a",
+    "recycledFrom": null,
+    "recycledProcessId": null,
+    "scopes": ["textile"]
+  },
+  {
+    "alias": "ei-pet-r",
+    "cff": {
+      "manufacturerAllocation": 0.5,
+      "recycledQualityRatio": 1.0
+    },
+    "defaultCountry": "CN",
+    "displayName": "Production de PET recyclé, granulés, amorphe",
+    "geographicOrigin": "Asie - Pacifique",
+    "id": "8f44c680-1263-4588-b79b-a9e4dc3d8de4",
+    "origin": "Synthetic",
+    "primary": true,
+    "processId": "7418cfad-8546-56d8-88eb-4c1ff4d5b3bb",
+    "recycledFrom": "ei-pet",
+    "recycledProcessId": null,
+    "scopes": ["textile"]
+  },
+  {
+    "alias": "ei-pa",
+    "cff": null,
+    "defaultCountry": "FR",
+    "displayName": "Production de nylon 6-6",
+    "geographicOrigin": "Europe",
+    "id": "c84280ff-e921-4d5c-92d6-51030bf4f74e",
+    "origin": "Synthetic",
+    "primary": true,
+    "processId": "d30cf643-4446-5420-bc97-3f286abdd252",
+    "recycledFrom": null,
+    "recycledProcessId": null,
+    "scopes": ["textile"]
+  },
+  {
+    "alias": "ei-lin",
+    "cff": null,
+    "defaultCountry": "FR",
+    "displayName": "Production de fibres de lin, rouissage",
+    "geographicOrigin": "Europe",
+    "id": "a52e486c-b67e-40af-8337-e8143cbf9076",
+    "origin": "NaturalFromVegetal",
+    "primary": true,
+    "processId": "f99ff481-ac2c-55fb-9e69-bfcea96048bb",
+    "recycledFrom": null,
+    "recycledProcessId": null,
+    "scopes": ["textile"]
+  },
+  {
+    "alias": "ei-laine-par-defaut",
+    "cff": null,
+    "defaultCountry": "CN",
+    "displayName": "Laine par défaut",
+    "geographicOrigin": "Asie - Pacifique",
+    "id": "1fc3e17d-5661-429d-a150-7986eae16d9d",
+    "origin": "NaturalFromAnimal",
+    "primary": false,
+    "processId": "6b43f07f-675d-5853-b6ee-17201152b0f7",
+    "recycledFrom": null,
+    "recycledProcessId": null,
+    "scopes": ["textile"]
+  },
+  {
+    "alias": "ei-laine-nouvelle-filiere",
+    "cff": null,
+    "defaultCountry": "CN",
+    "displayName": "Laine nouvelle filière",
+    "geographicOrigin": "Asie - Pacifique",
+    "id": "72e29a61-52a9-4eb5-b3fc-5fb87edea041",
+    "origin": "NaturalFromAnimal",
+    "primary": true,
+    "processId": "f4e8e0c0-7c9d-58f6-96c5-50e0fafa306d",
+    "recycledFrom": null,
+    "recycledProcessId": null,
+    "scopes": ["textile"]
+  },
+  {
+    "alias": "ei-coton",
+    "cff": null,
+    "defaultCountry": "CN",
+    "displayName": "Production de fibres de coton",
+    "geographicOrigin": "Asie - Pacifique",
+    "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
+    "origin": "NaturalFromVegetal",
+    "primary": true,
+    "processId": "e5ff9b24-4778-59c4-b933-447b4de38e0f",
+    "recycledFrom": null,
+    "recycledProcessId": null,
+    "scopes": ["textile"]
+  },
+  {
+    "alias": "ei-coton-organic",
+    "cff": null,
+    "defaultCountry": "CN",
+    "displayName": "Production de fibres de coton bio",
+    "geographicOrigin": "Asie - Pacifique",
+    "id": "a1c1c2ec-33b1-49d6-bf8e-139e2eb7f097",
+    "origin": "NaturalFromVegetal",
+    "primary": true,
+    "processId": "c5074e5f-edb4-541a-82e3-2d01a78c94d0",
+    "recycledFrom": null,
+    "recycledProcessId": null,
+    "scopes": ["textile"]
+  },
+  {
+    "alias": "ei-chanvre",
+    "cff": null,
+    "defaultCountry": "CN",
+    "displayName": "Production de chanvre",
+    "geographicOrigin": "Asie - Pacifique",
+    "id": "0c1a4654-b030-4fe1-86b7-d96ce0b85bb8",
+    "origin": "NaturalFromVegetal",
+    "primary": true,
+    "processId": "82ee9d40-c3e8-517c-a31f-1b035105eade",
+    "recycledFrom": null,
+    "recycledProcessId": null,
+    "scopes": ["textile"]
+  },
+  {
+    "alias": "ei-viscose",
+    "cff": null,
+    "defaultCountry": "CN",
+    "displayName": "Fibre de viscose",
+    "geographicOrigin": "Asie - Pacifique",
+    "id": "c087d394-5901-4b03-ba7a-7d4b0db0490c",
+    "origin": "ArtificialFromOrganic",
+    "primary": true,
+    "processId": "b00b5fff-0167-581a-aae7-78314f662779",
+    "recycledFrom": null,
+    "recycledProcessId": null,
+    "scopes": ["textile"]
+  },
+  {
+    "alias": "coton-rdpc",
+    "cff": {
+      "manufacturerAllocation": 0.8,
+      "recycledQualityRatio": 0.5
+    },
+    "defaultCountry": "FR",
+    "displayName": "Production de coton recyclé (déchets post-consommation)",
+    "geographicOrigin": "France",
+    "id": "457e9b0d-9eda-4dca-b199-deeb0a154fa9",
+    "origin": "NaturalFromVegetal",
+    "primary": true,
+    "processId": "1f8fdf35-2c4e-548c-bb2c-3fbe82518318",
+    "recycledFrom": "ei-coton",
+    "recycledProcessId": null,
+    "scopes": ["textile"]
+  },
+  {
+    "alias": "coton-rdp",
+    "cff": {
+      "manufacturerAllocation": 0.8,
+      "recycledQualityRatio": 0.5
+    },
+    "defaultCountry": "FR",
+    "displayName": "Production de coton recyclé (déchets de production)",
+    "geographicOrigin": "Espagne & France",
+    "id": "d3d20384-88fb-4c75-ac12-c647365ac6c5",
+    "origin": "NaturalFromVegetal",
+    "primary": true,
+    "processId": "a8bd5100-988d-5acf-bb1a-42867078ae49",
+    "recycledFrom": "ei-coton",
+    "recycledProcessId": null,
+    "scopes": ["textile"]
+  },
+  {
     "alias": "egg-bleublanccoeur",
     "categories": ["animal_product", "bleublanccoeur"],
     "defaultOrigin": "France",
@@ -18,6 +251,7 @@
     "processId": "164db7e2-c7e5-5b60-b46c-59089d5f43e9",
     "rawToCookedRatio": 0.974,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Egg Bleu Blanc Coeur outdoor system at farm gate",
     "transportCooling": "none",
     "visible": true
@@ -41,6 +275,7 @@
     "processId": "ac3c80c9-648a-50c9-8e9d-d700ca6ecbdb",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Cow milk national average at farm gate",
     "transportCooling": "always",
     "visible": true
@@ -64,6 +299,7 @@
     "processId": "6aa3a6d6-8bb0-5164-a7ca-89f5a3412f09",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "cow milk organic national average",
     "transportCooling": "always",
     "visible": true
@@ -86,6 +322,7 @@
     "processId": "29c94e29-2d4d-5a38-bdfb-e6cb09f321e0",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Carrot, organic 2023, national average, at farm gate {FR}",
     "transportCooling": "always",
     "visible": true
@@ -108,6 +345,7 @@
     "processId": "29c94e29-2d4d-5a38-bdfb-e6cb09f321e0",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Carrot, organic 2023, national average, at farm gate {FR}",
     "transportCooling": "always",
     "visible": true
@@ -130,6 +368,7 @@
     "processId": "29c94e29-2d4d-5a38-bdfb-e6cb09f321e0",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Carrot, organic 2023, national average, at farm gate {FR}",
     "transportCooling": "always",
     "visible": true
@@ -152,6 +391,7 @@
     "processId": "1faa28f6-a2f5-5e6a-8626-1e481afd2832",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Wheat flour at industrial mill FR",
     "transportCooling": "once_transformed",
     "visible": true
@@ -174,6 +414,7 @@
     "processId": "f33c52a5-83aa-5832-b57a-519b26737764",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Wheat flour at industrial mill organic, constructed by Ecobalyse",
     "transportCooling": "once_transformed",
     "visible": true
@@ -196,6 +437,7 @@
     "processId": "4df6a297-0f50-5dc9-a8ce-331320e2df75",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Sunflower grain, consumption mix, organic 2023 {FR}",
     "transportCooling": "none",
     "visible": true
@@ -218,6 +460,7 @@
     "processId": "5d3cc7da-fbfd-5d25-827e-4f66dead9abe",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Winter rapeseed, organic, at farm gate {FR}",
     "transportCooling": "none",
     "visible": true
@@ -241,6 +484,7 @@
     "processId": "a7a9c7ce-6c5e-5ac2-8707-dced45423a19",
     "rawToCookedRatio": 0.792,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Ground beef fresh case ready for direct consumption at plant",
     "transportCooling": "always",
     "visible": true
@@ -264,6 +508,7 @@
     "processId": "ef38c342-cebe-5c10-b44d-3485af374683",
     "rawToCookedRatio": 0.792,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Ground beef fresh case ready for direct consumption at plant {{ground-beef-fresh-case-ready-direct-consumption-plant-organic}}, constructed by Ecobalyse",
     "transportCooling": "always",
     "visible": true
@@ -287,6 +532,7 @@
     "processId": "1a57ce88-7e1e-5151-8320-7cee886808b4",
     "rawToCookedRatio": 0.792,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Ground beef fresh case ready for direct consumption at plant {{ground-beef-fresh-case-ready-direct-consumption-plant-feedlot}}, constructed by Ecobalyse",
     "transportCooling": "always",
     "visible": true
@@ -310,6 +556,7 @@
     "processId": "7d675a77-fcfb-58c7-b61b-844a80c9c9ac",
     "rawToCookedRatio": 0.792,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Ground beef fresh case ready for direct consumption at plant {{ground-beef-fresh-case-ready-direct-consumption-plant-grass-fed}}, constructed by Ecobalyse",
     "transportCooling": "always",
     "visible": true
@@ -333,6 +580,7 @@
     "processId": "37cd8ae0-bad2-54dd-aae5-b61d6c6cb2df",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Cooked ham case ready at plant",
     "transportCooling": "always",
     "visible": true
@@ -356,6 +604,7 @@
     "processId": "d2f835a2-5860-535e-ab30-fac6714f1e86",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Cooked ham case ready at plant {{cooked-ham-case-ready-plant-organic}}, constructed by Ecobalyse",
     "transportCooling": "always",
     "visible": true
@@ -379,6 +628,7 @@
     "processId": "0f3f4dca-992d-54e2-a029-d6a060c00b47",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Cooked ham case ready at plant {{cooked-ham-case-ready-plant-bbc}}, constructed by Ecobalyse",
     "transportCooling": "always",
     "visible": true
@@ -402,6 +652,7 @@
     "processId": "afbfdf2e-0ba4-588c-904a-93226b9a8aa5",
     "rawToCookedRatio": 0.755,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Meat without bone chicken for direct consumption",
     "transportCooling": "always",
     "visible": true
@@ -425,6 +676,7 @@
     "processId": "af31abdc-2ecb-5fde-9339-6a9a60820246",
     "rawToCookedRatio": 0.755,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Meat without bone chicken for direct consumption {{meat-without-bone-chicken-direct-consumption-organic}}, constructed by Ecobalyse",
     "transportCooling": "always",
     "visible": true
@@ -448,6 +700,7 @@
     "processId": "ab6b6ae5-e818-5590-843f-3e9a9f104076",
     "rawToCookedRatio": 0.755,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Meat without bone chicken for direct consumption {{meat-without-bone-chicken-direct-consumption-organic-fr-organic}}, constructed by Ecobalyse",
     "transportCooling": "always",
     "visible": false
@@ -470,6 +723,7 @@
     "processId": "92296ef1-4c2a-510e-8187-576cc805ca72",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U",
     "transportCooling": "none",
     "visible": true
@@ -492,6 +746,7 @@
     "processId": "9f2c46a0-e12c-5dc6-b75e-188ed6766697",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U {{rapeseed-oil-oil-mill-glo-adapted-from-wfldb-u-organic}}, constructed by Ecobalyse",
     "transportCooling": "none",
     "visible": true
@@ -514,6 +769,7 @@
     "processId": "54c7cf28-bd95-51a7-bcb9-aab17f130178",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U",
     "transportCooling": "once_transformed",
     "visible": true
@@ -536,6 +792,7 @@
     "processId": "54c7cf28-bd95-51a7-bcb9-aab17f130178",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U",
     "transportCooling": "once_transformed",
     "visible": true
@@ -558,6 +815,7 @@
     "processId": "d8bf45ce-fab2-5cca-9971-a59117d6cad9",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U {{sunflower-oil-oil-mill-glo-adapted-from-wfldb-u-organic}}, constructed by Ecobalyse",
     "transportCooling": "once_transformed",
     "visible": true
@@ -580,6 +838,7 @@
     "processId": "2d858f49-8cea-5153-bc68-6c7e1bfc4475",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Zucchini, springtime, under tunnel, organic, at farm gate {FR}",
     "transportCooling": "always",
     "visible": true
@@ -602,6 +861,7 @@
     "processId": "2d858f49-8cea-5153-bc68-6c7e1bfc4475",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Zucchini, springtime, under tunnel, organic, at farm gate {FR}",
     "transportCooling": "none",
     "visible": true
@@ -624,6 +884,7 @@
     "processId": "9632b7cb-3d3b-5329-9eb6-be1c4d2cae4a",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Peach, organic, national average, at orchard {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -646,6 +907,7 @@
     "processId": "c1758f6d-7453-59d1-b3bd-b2283d8c6129",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Melon, organic, at farm gate FR",
     "transportCooling": "always",
     "visible": true
@@ -661,6 +923,7 @@
     "landOccupation": 9.17058,
     "processId": "4e1393e3-d640-5e5e-b5ac-f84cffe2d307",
     "rawToCookedRatio": 1.0,
+    "scopes": ["food"],
     "search": "Butter, 82% fat, unsalted, at dairy {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -676,6 +939,7 @@
     "landOccupation": 9.17058,
     "processId": "4e1393e3-d640-5e5e-b5ac-f84cffe2d307",
     "rawToCookedRatio": 1.0,
+    "scopes": ["food"],
     "search": "Butter, 82% fat, unsalted, at dairy {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -691,6 +955,7 @@
     "landOccupation": 11.5352,
     "processId": "fd26c3ef-2bde-533e-907a-bb2cf3c41070",
     "rawToCookedRatio": 1.0,
+    "scopes": ["food"],
     "search": "Butter, 82% fat, unsalted, at dairy {FR} U {{butter-82-fat-unsalted-dairy-fr-u-organic}}, constructed by Ecobalyse",
     "transportCooling": "always",
     "visible": true
@@ -706,6 +971,7 @@
     "landOccupation": 2.22964e-5,
     "processId": "2d53d4e2-09dd-56c8-b66f-ecb2b604537d",
     "rawToCookedRatio": 1.0,
+    "scopes": ["food"],
     "search": "Tap water Europe market",
     "transportCooling": "none",
     "visible": true
@@ -721,6 +987,7 @@
     "landOccupation": 2.22964e-5,
     "processId": "2d53d4e2-09dd-56c8-b66f-ecb2b604537d",
     "rawToCookedRatio": 1.0,
+    "scopes": ["food"],
     "search": "Tap water Europe market",
     "transportCooling": "none",
     "visible": true
@@ -736,6 +1003,7 @@
     "landOccupation": 6.30564,
     "processId": "32e39cf2-21b7-5e39-b2a4-d7a320decf8c",
     "rawToCookedRatio": 1.0,
+    "scopes": ["food"],
     "search": "Comte cheese, from cow's milk, at plant {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -751,6 +1019,7 @@
     "landOccupation": 6.64346,
     "processId": "f1639e9f-5ebc-5b6c-b553-4ddac1acb236",
     "rawToCookedRatio": 1.0,
+    "scopes": ["food"],
     "search": "Emmental cheese, from cow's milk, at plant {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -766,6 +1035,7 @@
     "landOccupation": 4.78585,
     "processId": "07557333-2462-5a24-9739-c3eafd35f73c",
     "rawToCookedRatio": 1.0,
+    "scopes": ["food"],
     "search": "Mozzarella cheese, from cow's milk, at plant {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -788,6 +1058,7 @@
     "processId": "c7570aeb-1e68-5bfb-a034-7e6a20ce3dac",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Carrot, organic, Lower Normandy, at farm gate",
     "transportCooling": "always",
     "visible": true
@@ -810,6 +1081,7 @@
     "processId": "5fb77311-2263-57d1-a0cb-3f18becf84f3",
     "rawToCookedRatio": 2.33,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Winter pea, from intercrop, organic, system number 1, at farm gate {FR} U",
     "transportCooling": "none",
     "visible": true
@@ -832,6 +1104,7 @@
     "processId": "23c4b2f6-2a22-5f88-b8e8-8ef91ab661b1",
     "rawToCookedRatio": 2.33,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Soybean, national average, animal feed, at farm gate {FR} U",
     "transportCooling": "none",
     "visible": true
@@ -854,6 +1127,7 @@
     "processId": "ffbffb16-94a1-55fe-8b2f-37e25091295c",
     "rawToCookedRatio": 2.33,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "soybean organic animal at farm gate {FR}",
     "transportCooling": "none",
     "visible": false
@@ -876,6 +1150,7 @@
     "processId": "cd2395a8-34f6-53aa-bc63-51138295778f",
     "rawToCookedRatio": 2.33,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Soybean, not associated to deforestation {BR}| market for soybean | Cut-off, U - Adapted from Ecoinvent",
     "transportCooling": "none",
     "visible": true
@@ -898,6 +1173,7 @@
     "processId": "2126300b-5a48-59a8-8ac3-e9dafae38d14",
     "rawToCookedRatio": 2.33,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Soybean {BR}| market for soybean | Cut-off, U copied from Ecoinvent",
     "transportCooling": "none",
     "visible": true
@@ -920,6 +1196,7 @@
     "processId": "be730582-4170-5f44-8d87-75023d579bd7",
     "rawToCookedRatio": 2.33,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Soybean grain dried, stored and transported, processing {FR}",
     "transportCooling": "none",
     "visible": false
@@ -935,6 +1212,7 @@
     "landOccupation": 9.35734,
     "processId": "33d15f29-1da7-5dce-a070-1b57970a6c4b",
     "rawToCookedRatio": 0.792,
+    "scopes": ["food"],
     "search": "Sausage meat, raw, at plant {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -950,6 +1228,7 @@
     "landOccupation": 19.3399,
     "processId": "4dcc942c-7691-5044-91d2-fb6764d956b0",
     "rawToCookedRatio": 0.792,
+    "scopes": ["food"],
     "search": "Toulouse sausage, raw, at plant {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -965,6 +1244,7 @@
     "landOccupation": 19.4461,
     "processId": "31f1ab17-87a3-5ab1-81c1-cb70583d9416",
     "rawToCookedRatio": 1.0,
+    "scopes": ["food"],
     "search": "Toulouse sausage, cooked, at plant {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -980,6 +1260,7 @@
     "landOccupation": 1.68661,
     "processId": "2247cf51-59e4-57c8-9572-350e7774ca3c",
     "rawToCookedRatio": 1.0,
+    "scopes": ["food"],
     "search": "Plant-based sausage with tofu (vegan), at plant {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -1002,6 +1283,7 @@
     "processId": "474f845e-d24a-5e3c-9345-2bd9a82bae6c",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Tomato paste, 30 degrees Brix, at plant {GLO} - Adapted from WFLDB U",
     "transportCooling": "none",
     "visible": true
@@ -1024,6 +1306,7 @@
     "processId": "ce7c3139-7031-5812-8d7b-04c5828d7407",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Tomato paste, 30 degrees Brix, for double concentrate, at plant {GLO}",
     "transportCooling": "none",
     "visible": true
@@ -1047,6 +1330,7 @@
     "processId": "3536bbc2-5008-5eb7-a9d6-4414abe09305",
     "rawToCookedRatio": 0.792,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Meat with bone, beef, for direct consumption",
     "transportCooling": "always",
     "visible": true
@@ -1070,6 +1354,7 @@
     "processId": "33cebc7f-253a-5637-b719-aa10c55840cd",
     "rawToCookedRatio": 0.792,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Meat with bone, beef, for direct consumption {{meat-with-bone-beef-direct-consumption-feedlot}}, constructed by Ecobalyse",
     "transportCooling": "always",
     "visible": true
@@ -1093,6 +1378,7 @@
     "processId": "482b9890-c519-5a04-ba0e-49661a3f5960",
     "rawToCookedRatio": 0.792,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Meat with bone, beef for direct consumption {{meat-with-bone-beef-direct-consumption-grass-fed}}, constructed by Ecobalyse",
     "transportCooling": "always",
     "visible": true
@@ -1116,6 +1402,7 @@
     "processId": "a82038db-d679-5538-962b-86e51dc5ba2d",
     "rawToCookedRatio": 0.792,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Meat with bone, beef for direct consumption {{meat-with-bone-beef-direct-consumption-organic}}, constructed by Ecobalyse",
     "transportCooling": "always",
     "visible": true
@@ -1139,6 +1426,7 @@
     "processId": "a82038db-d679-5538-962b-86e51dc5ba2d",
     "rawToCookedRatio": 0.792,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Meat with bone, beef for direct consumption {{meat-with-bone-beef-direct-consumption-organic}}, constructed by Ecobalyse",
     "transportCooling": "always",
     "visible": true
@@ -1162,6 +1450,7 @@
     "processId": "8cb040d0-593b-52bd-aac7-175ab68f3c81",
     "rawToCookedRatio": 0.792,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Meat without bone, beef, for direct consumption",
     "transportCooling": "always",
     "visible": true
@@ -1178,6 +1467,7 @@
     "processId": "8cb040d0-593b-52bd-aac7-175ab68f3c81",
     "rawToCookedRatio": 0.792,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Meat without bone, beef, for direct consumption",
     "transportCooling": "always",
     "visible": true
@@ -1201,6 +1491,7 @@
     "processId": "90f6ee2f-039b-53f0-9416-3657a28fb6bf",
     "rawToCookedRatio": 0.792,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Meat without bone, beef for direct consumption {{meat-without-bone-beef-direct-consumption-feedlot}}, constructed by Ecobalyse",
     "transportCooling": "always",
     "visible": true
@@ -1224,6 +1515,7 @@
     "processId": "4a139227-e15d-5e10-b4db-9af08962df7b",
     "rawToCookedRatio": 0.792,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Meat without bone, beef for direct consumption {{meat-without-bone-beef-direct-consumption-grass-fed}}, constructed by Ecobalyse",
     "transportCooling": "always",
     "visible": true
@@ -1246,6 +1538,7 @@
     "processId": "b820b37f-d2d1-575a-af56-aa0056b9f9d2",
     "rawToCookedRatio": 2.259,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Durum wheat, semolina, at plant {FR} U",
     "transportCooling": "none",
     "visible": true
@@ -1268,6 +1561,7 @@
     "processId": "8169d68e-5bf5-547d-ae86-0361c7949447",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Sugar, from sugar beet, at sugar refinery {GLO} - Adapted from WFLDB U",
     "transportCooling": "none",
     "visible": true
@@ -1283,6 +1577,7 @@
     "landOccupation": 11.8,
     "processId": "725b0099-f4f7-5dfe-9651-078c12c48801",
     "rawToCookedRatio": 1.0,
+    "scopes": ["food"],
     "search": "Dark chocolate, at plant {RER} - Adapted from WFLDB U",
     "transportCooling": "none",
     "visible": true
@@ -1306,6 +1601,7 @@
     "processId": "2dd455cb-db0d-5cce-93d5-348dc4fc629e",
     "rawToCookedRatio": 0.755,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Meat without bone chicken for direct consumption {{meat-without-bone-chicken-direct-consumption-br-max}}, constructed by Ecobalyse",
     "transportCooling": "always",
     "visible": true
@@ -1322,6 +1618,7 @@
     "processId": "2dd455cb-db0d-5cce-93d5-348dc4fc629e",
     "rawToCookedRatio": 0.755,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Meat without bone chicken for direct consumption {{meat-without-bone-chicken-direct-consumption-br-max}}, constructed by Ecobalyse",
     "transportCooling": "always",
     "visible": true
@@ -1345,6 +1642,7 @@
     "processId": "0915aa16-fbc2-51e4-96e9-7f851b3d79d2",
     "rawToCookedRatio": 0.755,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Meat without bone chicken for direct consumption {{meat-without-bone-chicken-direct-consumption-fr-feed}}, constructed by Ecobalyse",
     "transportCooling": "always",
     "visible": false
@@ -1367,6 +1665,7 @@
     "processId": "bde9022c-6ece-5925-9fac-c84c7c3d42c7",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "brown sugar at plant",
     "transportCooling": "none",
     "visible": true
@@ -1389,6 +1688,7 @@
     "processId": "a5645de2-3583-5de2-8133-2875a12c2ab1",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Tea, dried {RoW}| tea production, dried | Cut-off, U - Adapted from Ecoinvent",
     "transportCooling": "none",
     "visible": true
@@ -1411,6 +1711,7 @@
     "processId": "a5645de2-3583-5de2-8133-2875a12c2ab1",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Tea, dried {RoW}| tea production, dried | Cut-off, U - Adapted from Ecoinvent",
     "transportCooling": "none",
     "visible": true
@@ -1433,6 +1734,7 @@
     "processId": "c944c183-cb61-5e45-ba7d-0d70f6911bfc",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Coffee, roast and ground, at plant {FR} U",
     "transportCooling": "none",
     "visible": true
@@ -1455,6 +1757,7 @@
     "processId": "a343b92b-7334-530a-94e3-0f93c0842637",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Black pepper, dried, consumption mix",
     "transportCooling": "none",
     "visible": true
@@ -1470,6 +1773,7 @@
     "landOccupation": 21.533,
     "processId": "71e8aa5d-a93a-529d-8ddb-613e7c2a852f",
     "rawToCookedRatio": 1.0,
+    "scopes": ["food"],
     "search": "Milk, powder, skimmed, non rehydrated, at plant {FR} ",
     "transportCooling": "none",
     "visible": true
@@ -1492,6 +1796,7 @@
     "processId": "a6e9c229-0245-5587-85b9-81902a10d5e4",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Red Wine, from grape, in a cooperative cellar, packaged, French production mix, at plant, 1 L of red wine (PGi) {FR} U",
     "transportCooling": "none",
     "visible": true
@@ -1507,6 +1812,7 @@
     "landOccupation": 1.85786,
     "processId": "7c6a0644-f81b-5f96-896e-aaa07463cd74",
     "rawToCookedRatio": 0.819,
+    "scopes": ["food"],
     "search": "Fresh shrimps, China production FR U",
     "transportCooling": "always",
     "visible": true
@@ -1522,6 +1828,7 @@
     "landOccupation": 1.85786,
     "processId": "7c6a0644-f81b-5f96-896e-aaa07463cd74",
     "rawToCookedRatio": 0.819,
+    "scopes": ["food"],
     "search": "Fresh shrimps, China production FR U",
     "transportCooling": "always",
     "visible": true
@@ -1537,6 +1844,7 @@
     "landOccupation": 1.55784,
     "processId": "e7972a64-6568-55da-b4ea-c3e0e9edda27",
     "rawToCookedRatio": 0.819,
+    "scopes": ["food"],
     "search": "Large trout, 2-4kg, conventional, at farm gate FR U",
     "transportCooling": "always",
     "visible": true
@@ -1560,6 +1868,7 @@
     "processId": "2ac37f4d-93a0-5c12-8403-97341506ed7a",
     "rawToCookedRatio": 0.974,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Egg, conventional, indoor system, non-cage, at farm gate FR U",
     "transportCooling": "none",
     "visible": true
@@ -1583,6 +1892,7 @@
     "processId": "7fd20495-c97c-55e8-a9ec-167ea356e965",
     "rawToCookedRatio": 0.974,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Egg, conventional, indoor system, cage, at farm gate {FR} U",
     "transportCooling": "none",
     "visible": true
@@ -1606,6 +1916,7 @@
     "processId": "3b766478-8994-572a-8910-74f3d8b0e5b6",
     "rawToCookedRatio": 0.974,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Egg, conventional, outdoor system, at farm gate FR U",
     "transportCooling": "none",
     "visible": true
@@ -1629,6 +1940,7 @@
     "processId": "385d979a-4bea-5a6e-8e9f-b4ff1ba82474",
     "rawToCookedRatio": 0.974,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Egg, organic, at farm gate {FR} U",
     "transportCooling": "none",
     "visible": true
@@ -1651,6 +1963,7 @@
     "processId": "10ab6553-e36e-590f-b93e-8aa0748501bd",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Grape, integrated, variety mix, Languedoc-Roussillon, at vineyard, organic 2023 {FR} U",
     "transportCooling": "always",
     "visible": false
@@ -1674,6 +1987,7 @@
     "processId": "1ed52000-4d9f-5f44-9790-e0e5a4400369",
     "rawToCookedRatio": 0.792,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Meat without bone lamb",
     "transportCooling": "always",
     "visible": true
@@ -1697,6 +2011,7 @@
     "processId": "272218d3-c39b-5326-a593-02500e618ebb",
     "rawToCookedRatio": 0.792,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "lamb meat without bone {{lamb-meat-without-bone-organic}}, constructed by Ecobalyse",
     "transportCooling": "always",
     "visible": true
@@ -1719,6 +2034,7 @@
     "processId": "60d98832-00d5-5436-839b-f3a3dc54728b",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Pear, consumption mix, organic 2023 {FR} U",
     "transportCooling": "always",
     "visible": false
@@ -1741,6 +2057,7 @@
     "processId": "de210849-8e5f-54aa-9109-1e23bf233b29",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Carrot, conventional, national average, at farm gate {FR}",
     "transportCooling": "once_transformed",
     "visible": true
@@ -1763,6 +2080,7 @@
     "processId": "de210849-8e5f-54aa-9109-1e23bf233b29",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Carrot, conventional, national average, at farm gate {FR}",
     "transportCooling": "always",
     "visible": true
@@ -1785,6 +2103,7 @@
     "processId": "de210849-8e5f-54aa-9109-1e23bf233b29",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Carrot, conventional, national average, at farm gate {FR}",
     "transportCooling": "always",
     "visible": true
@@ -1807,6 +2126,7 @@
     "processId": "de210849-8e5f-54aa-9109-1e23bf233b29",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Carrot, conventional, national average, at farm gate {FR}",
     "transportCooling": "always",
     "visible": true
@@ -1829,6 +2149,7 @@
     "processId": "3c172594-07d2-5509-851b-b0103b4896fc",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Carrot {NL}| carrot production",
     "transportCooling": "always",
     "visible": false
@@ -1851,6 +2172,7 @@
     "processId": "3c172594-07d2-5509-851b-b0103b4896fc",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Carrot {NL}| carrot production",
     "transportCooling": "always",
     "visible": false
@@ -1873,6 +2195,7 @@
     "processId": "3c172594-07d2-5509-851b-b0103b4896fc",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Carrot {NL}| carrot production",
     "transportCooling": "always",
     "visible": true
@@ -1895,6 +2218,7 @@
     "processId": "0704b28a-7c53-5dfc-a3a2-b617025246e1",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
     "transportCooling": "always",
     "visible": false
@@ -1917,6 +2241,7 @@
     "processId": "0704b28a-7c53-5dfc-a3a2-b617025246e1",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
     "transportCooling": "always",
     "visible": false
@@ -1939,6 +2264,7 @@
     "processId": "0704b28a-7c53-5dfc-a3a2-b617025246e1",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
     "transportCooling": "always",
     "visible": true
@@ -1961,6 +2287,7 @@
     "processId": "42da3a0d-4dfb-5a38-b430-9b5308d3264a",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR}",
     "transportCooling": "always",
     "visible": true
@@ -1983,6 +2310,7 @@
     "processId": "42da3a0d-4dfb-5a38-b430-9b5308d3264a",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR}",
     "transportCooling": "none",
     "visible": true
@@ -2005,6 +2333,7 @@
     "processId": "42da3a0d-4dfb-5a38-b430-9b5308d3264a",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR}",
     "transportCooling": "none",
     "visible": true
@@ -2027,6 +2356,7 @@
     "processId": "42da3a0d-4dfb-5a38-b430-9b5308d3264a",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR}",
     "transportCooling": "none",
     "visible": true
@@ -2049,6 +2379,7 @@
     "processId": "fd10775a-8fd6-5ded-9728-7cac24d93212",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Zucchini, conventional, national average, at farm gate {FR}",
     "transportCooling": "always",
     "visible": true
@@ -2071,6 +2402,7 @@
     "processId": "fd10775a-8fd6-5ded-9728-7cac24d93212",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Zucchini, conventional, national average, at farm gate {FR}",
     "transportCooling": "always",
     "visible": true
@@ -2093,6 +2425,7 @@
     "processId": "fd10775a-8fd6-5ded-9728-7cac24d93212",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Zucchini, conventional, national average, at farm gate {FR}",
     "transportCooling": "always",
     "visible": true
@@ -2115,6 +2448,7 @@
     "processId": "966b5a4e-4952-5afd-9e07-3bd4788ff430",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Pear, conventional, at orchard {FR} U",
     "transportCooling": "none",
     "visible": true
@@ -2137,6 +2471,7 @@
     "processId": "83258fb7-2e72-573d-9fa9-8ed4965fa59e",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Pear {BE}| pear production | Cut-off, U - Adapted from Ecoinvent U {BE}",
     "transportCooling": "none",
     "visible": true
@@ -2159,6 +2494,7 @@
     "processId": "86eb0a99-e5d5-5e78-81ee-436af8fc1c8a",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Peach, production mix, national average, at orchard {FR} U",
     "transportCooling": "none",
     "visible": true
@@ -2181,6 +2517,7 @@
     "processId": "837efe8b-fd5a-5d95-912e-f93c6ccf2395",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Peach {ES}| peach production | Cut-off, U - Adapted from Ecoinvent U",
     "transportCooling": "none",
     "visible": true
@@ -2203,6 +2540,7 @@
     "processId": "d251c1f3-f256-5d75-98cf-226c7f967ce8",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Melon, conventional, national average, at farm gate {FR} U",
     "transportCooling": "none",
     "visible": true
@@ -2225,6 +2563,7 @@
     "processId": "d251c1f3-f256-5d75-98cf-226c7f967ce8",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Melon, conventional, national average, at farm gate {FR} U",
     "transportCooling": "none",
     "visible": true
@@ -2247,6 +2586,7 @@
     "processId": "d251c1f3-f256-5d75-98cf-226c7f967ce8",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Melon, conventional, national average, at farm gate {FR} U",
     "transportCooling": "none",
     "visible": true
@@ -2269,6 +2609,7 @@
     "processId": "81ddf9ab-a482-5c7e-8912-eb14402a7ab7",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Ware potato, conventional, for industrial use, at farm gate {FR} U",
     "transportCooling": "none",
     "visible": true
@@ -2291,6 +2632,7 @@
     "processId": "dfae6b86-eef4-5b0e-9b27-6fff1dd43629",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Ware potato, conventional, for fresh market, other varieties, at farm gate {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -2313,6 +2655,7 @@
     "processId": "6d2caad4-7316-5e6e-9826-e7c6ae53b0e5",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Potato starch {GLO}| market for | Cut-off, S - Copied from Ecoinvent U",
     "transportCooling": "none",
     "visible": true
@@ -2335,6 +2678,7 @@
     "processId": "bab17420-ed15-5b45-a51e-5cb366b43a1b",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Onion, national average, at farm {FR}",
     "transportCooling": "none",
     "visible": true
@@ -2357,6 +2701,7 @@
     "processId": "bab17420-ed15-5b45-a51e-5cb366b43a1b",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Onion, national average, at farm {FR}",
     "transportCooling": "always",
     "visible": true
@@ -2379,6 +2724,7 @@
     "processId": "53217102-c97c-59ea-8b00-0488b19c5b1e",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": " \tOnion {NL}| onion production | Cut-off, U - Adapted from Ecoinvent U",
     "transportCooling": "none",
     "visible": true
@@ -2401,6 +2747,7 @@
     "processId": "2db40513-37ae-50d7-8603-c5e06e0ec761",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Onion {RoW}| onion production | Cut-off, U - Copied from Ecoinvent U",
     "transportCooling": "none",
     "visible": true
@@ -2423,6 +2770,7 @@
     "processId": "cfc2e3da-5004-5c6f-9444-a9aeef93d13c",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "French bean, conventional, national average, at farm gate {FR}",
     "transportCooling": "always",
     "visible": true
@@ -2445,6 +2793,7 @@
     "processId": "cfc2e3da-5004-5c6f-9444-a9aeef93d13c",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "French bean, conventional, national average, at farm gate {FR}",
     "transportCooling": "always",
     "visible": true
@@ -2467,6 +2816,7 @@
     "processId": "cfc2e3da-5004-5c6f-9444-a9aeef93d13c",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "French bean, conventional, national average, at farm gate {FR}",
     "transportCooling": "always",
     "visible": true
@@ -2489,6 +2839,7 @@
     "processId": "8b163714-f488-5a70-b2f2-17cefad0c9eb",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Lettuce, conventional, national average, at farm gate {FR}",
     "transportCooling": "always",
     "visible": true
@@ -2511,6 +2862,7 @@
     "processId": "8b163714-f488-5a70-b2f2-17cefad0c9eb",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Lettuce, conventional, national average, at farm gate {FR}",
     "transportCooling": "always",
     "visible": true
@@ -2533,6 +2885,7 @@
     "processId": "8b163714-f488-5a70-b2f2-17cefad0c9eb",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Lettuce, conventional, national average, at farm gate {FR}",
     "transportCooling": "always",
     "visible": true
@@ -2555,6 +2908,7 @@
     "processId": "d5e9969e-fe4a-5ae3-b6f0-14b43508b099",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Iceberg lettuce {GLO}| production",
     "transportCooling": "always",
     "visible": false
@@ -2577,6 +2931,7 @@
     "processId": "d5e9969e-fe4a-5ae3-b6f0-14b43508b099",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Iceberg lettuce {GLO}| production",
     "transportCooling": "always",
     "visible": false
@@ -2599,6 +2954,7 @@
     "processId": "d5e9969e-fe4a-5ae3-b6f0-14b43508b099",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Iceberg lettuce {GLO}| production",
     "transportCooling": "always",
     "visible": true
@@ -2621,6 +2977,7 @@
     "processId": "d5e9969e-fe4a-5ae3-b6f0-14b43508b099",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Iceberg lettuce {GLO}| production",
     "transportCooling": "always",
     "visible": false
@@ -2643,6 +3000,7 @@
     "processId": "d5e9969e-fe4a-5ae3-b6f0-14b43508b099",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Iceberg lettuce {GLO}| production",
     "transportCooling": "always",
     "visible": false
@@ -2665,6 +3023,7 @@
     "processId": "16617a14-4723-513d-a87b-091fec175e14",
     "rawToCookedRatio": 2.33,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "annual vining pea conventional",
     "transportCooling": "always",
     "visible": true
@@ -2687,6 +3046,7 @@
     "processId": "16617a14-4723-513d-a87b-091fec175e14",
     "rawToCookedRatio": 2.33,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "annual vining pea conventional",
     "transportCooling": "none",
     "visible": true
@@ -2709,6 +3069,7 @@
     "processId": "d76044f3-b79b-5b37-8e4a-0ca6827071e4",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Cherry, conventional, national average, at orchard {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -2731,6 +3092,7 @@
     "processId": "d76044f3-b79b-5b37-8e4a-0ca6827071e4",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Cherry, conventional, national average, at orchard {FR} U",
     "transportCooling": "none",
     "visible": true
@@ -2753,6 +3115,7 @@
     "processId": "66c21857-59c7-5fde-a01c-bf8aea555f2c",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Lemon {ES}| lemon production | Cut-off, U - Adapted from Ecoinvent U",
     "transportCooling": "always",
     "visible": true
@@ -2775,6 +3138,7 @@
     "processId": "8dc1bd43-64fe-5339-b6a2-ab91a21e36eb",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Tomato, medium size, conventional, heated greenhouse, at greenhouse {FR} U",
     "transportCooling": "once_transformed",
     "visible": true
@@ -2797,6 +3161,7 @@
     "processId": "64e797fd-7b68-5b3d-9373-061b25f359cf",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse",
     "transportCooling": "once_transformed",
     "visible": true
@@ -2819,6 +3184,7 @@
     "processId": "64e797fd-7b68-5b3d-9373-061b25f359cf",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse",
     "transportCooling": "always",
     "visible": true
@@ -2841,6 +3207,7 @@
     "processId": "f352cafe-9964-5132-aac8-6e53ce7e82e3",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Tomato, fresh grade {ES}| tomato production, fresh grade, in unheated greenhouse | Cut-off, U - Copied from Ecoinvent U",
     "transportCooling": "once_transformed",
     "visible": true
@@ -2863,6 +3230,7 @@
     "processId": "734fc9e1-1888-511c-a5c6-714bcc30cc40",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Apricot {FR}| apricot production | Cut-off, U - Adapted from Ecoinvent U",
     "transportCooling": "always",
     "visible": true
@@ -2885,6 +3253,7 @@
     "processId": "734fc9e1-1888-511c-a5c6-714bcc30cc40",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Apricot {FR}| apricot production | Cut-off, U - Adapted from Ecoinvent U",
     "transportCooling": "always",
     "visible": true
@@ -2907,6 +3276,7 @@
     "processId": "58bcbc2b-3bf3-597b-a1a9-1b9dbdb8528b",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Hazelnut, in shell, at farm {TR} - Adapted from WFLDB U",
     "transportCooling": "none",
     "visible": false
@@ -2929,6 +3299,7 @@
     "processId": "d894c796-de57-5fe3-a2f8-e049582d7428",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": " \tHazelnut, in shell, at farm {IT} - Adapted from WFLDB U",
     "transportCooling": "none",
     "visible": true
@@ -2951,6 +3322,7 @@
     "processId": "2356e6e8-4a8b-541a-b374-0f2b67fd2905",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Hazelnut, unshelled, at plant {IT} U",
     "transportCooling": "none",
     "visible": true
@@ -2973,6 +3345,7 @@
     "processId": "c8f7c98e-18d0-5d26-87a9-8cb47965d463",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Hazelnut, unshelled, at plant {TR} U",
     "transportCooling": "none",
     "visible": false
@@ -2995,6 +3368,7 @@
     "processId": "c8f7c98e-18d0-5d26-87a9-8cb47965d463",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Hazelnut, unshelled, at plant {TR} U",
     "transportCooling": "none",
     "visible": true
@@ -3017,6 +3391,7 @@
     "processId": "757707ba-289d-51aa-9099-7925e9526003",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Cauliflower, conventional, national average, at farm gate {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -3039,6 +3414,7 @@
     "processId": "757707ba-289d-51aa-9099-7925e9526003",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Cauliflower, conventional, national average, at farm gate {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -3061,6 +3437,7 @@
     "processId": "757707ba-289d-51aa-9099-7925e9526003",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Cauliflower, conventional, national average, at farm gate {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -3083,6 +3460,7 @@
     "processId": "8857c822-9f3f-5c46-9daf-e91f988bcc06",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Cauliflower, organic 2023, national average, at farm gate {FR}",
     "transportCooling": "always",
     "visible": true
@@ -3105,6 +3483,7 @@
     "processId": "efa9e466-0db0-5fd0-af5d-3c7f9cd601c2",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Cauliflower, winter, organic, at farm gate {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -3127,6 +3506,7 @@
     "processId": "efa9e466-0db0-5fd0-af5d-3c7f9cd601c2",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Cauliflower, winter, organic, at farm gate {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -3149,6 +3529,7 @@
     "processId": "efa9e466-0db0-5fd0-af5d-3c7f9cd601c2",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Cauliflower, winter, organic, at farm gate {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -3171,6 +3552,7 @@
     "processId": "efa9e466-0db0-5fd0-af5d-3c7f9cd601c2",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Cauliflower, winter, organic, at farm gate {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -3193,6 +3575,7 @@
     "processId": "e3b308a4-a973-5767-9059-d3a976a27e81",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -3215,6 +3598,7 @@
     "processId": "e3b308a4-a973-5767-9059-d3a976a27e81",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -3237,6 +3621,7 @@
     "processId": "e3b308a4-a973-5767-9059-d3a976a27e81",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -3259,6 +3644,7 @@
     "processId": "e3b308a4-a973-5767-9059-d3a976a27e81",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -3281,6 +3667,7 @@
     "processId": "e3b308a4-a973-5767-9059-d3a976a27e81",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -3303,6 +3690,7 @@
     "processId": "e3b308a4-a973-5767-9059-d3a976a27e81",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -3325,6 +3713,7 @@
     "processId": "e3b308a4-a973-5767-9059-d3a976a27e81",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -3347,6 +3736,7 @@
     "processId": "e3b308a4-a973-5767-9059-d3a976a27e81",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -3369,6 +3759,7 @@
     "processId": "e3b308a4-a973-5767-9059-d3a976a27e81",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Cauliflower, winter, conventional, at farm gate {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -3391,6 +3782,7 @@
     "processId": "128500b1-4848-5b83-b812-c69bf2c58f89",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Leek, national average, at plant {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -3413,6 +3805,7 @@
     "processId": "9c6e24c1-1180-5259-a792-b891f0b9c6de",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Chinese cabbage (nappa cabbage or bok choy), consumption mix, organic 2023 {FR}",
     "transportCooling": "always",
     "visible": true
@@ -3435,6 +3828,7 @@
     "processId": "c5e9be6e-46d7-59ac-a5be-773a9f92744d",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Cabbage white {RoW}| cabbage white production",
     "transportCooling": "always",
     "visible": true
@@ -3457,6 +3851,7 @@
     "processId": "c5e9be6e-46d7-59ac-a5be-773a9f92744d",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Cabbage white {RoW}| cabbage white production",
     "transportCooling": "always",
     "visible": true
@@ -3479,6 +3874,7 @@
     "processId": "c5e9be6e-46d7-59ac-a5be-773a9f92744d",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Cabbage white {RoW}| cabbage white production",
     "transportCooling": "always",
     "visible": true
@@ -3501,6 +3897,7 @@
     "processId": "480db732-bab3-5abe-8904-e86446e0025c",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Cabbage red {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "transportCooling": "always",
     "visible": true
@@ -3523,6 +3920,7 @@
     "processId": "6ed89168-f971-5231-a77e-c783fa644ca8",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Orange, fresh grade, at farm {ES}",
     "transportCooling": "always",
     "visible": true
@@ -3545,6 +3943,7 @@
     "processId": "8829e2eb-0281-51d9-ae12-b625e4ebf980",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Orange, fresh grade {ZA}| orange production, fresh grade",
     "transportCooling": "always",
     "visible": false
@@ -3567,6 +3966,7 @@
     "processId": "cf104a6e-539e-5549-8f9f-538892dca746",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Olive {ES}| olive production | Cut-off, U",
     "transportCooling": "always",
     "visible": true
@@ -3589,6 +3989,7 @@
     "processId": "dbd25f6a-803e-5652-84a2-82248ce1c501",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Rape seed {FR}| production",
     "transportCooling": "once_transformed",
     "visible": true
@@ -3611,6 +4012,7 @@
     "processId": "554bde46-d0db-5cfd-8fc1-af9b9a270dbc",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Rapeseed, at farm {GLO}",
     "transportCooling": "none",
     "visible": false
@@ -3633,6 +4035,7 @@
     "processId": "437dd3eb-4d4a-5267-950a-2651912cc40e",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Rapeseed, at farm {CA}",
     "transportCooling": "none",
     "visible": false
@@ -3655,6 +4058,7 @@
     "processId": "d4e22691-4b74-5f41-91e3-cd0ed7644072",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Peanut {CN}| peanut production",
     "transportCooling": "none",
     "visible": true
@@ -3677,6 +4081,7 @@
     "processId": "dba924ad-f16f-55dd-bd5b-417104e5361b",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Peanut {IN}| peanut production | Cut-off, U - Adapted from Ecoinvent U",
     "transportCooling": "none",
     "visible": true
@@ -3699,6 +4104,7 @@
     "processId": "22baabdb-707b-503a-a0cc-eaae1389e458",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Extra Virgin Olive Oil consumption",
     "transportCooling": "none",
     "visible": true
@@ -3721,6 +4127,7 @@
     "processId": "25834344-fa85-5508-a0b9-321225a3e7b0",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Avocado {GLO}| production",
     "transportCooling": "always",
     "visible": true
@@ -3743,6 +4150,7 @@
     "processId": "25834344-fa85-5508-a0b9-321225a3e7b0",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Avocado {GLO}| production",
     "transportCooling": "always",
     "visible": true
@@ -3765,6 +4173,7 @@
     "processId": "a0f4eceb-b2e5-536a-857f-69eec45bacbc",
     "rawToCookedRatio": 2.33,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Winter pea, conventional, 15% moisture, at farm gate {FR} U",
     "transportCooling": "none",
     "visible": true
@@ -3787,6 +4196,7 @@
     "processId": "9a634936-8ec7-5adf-8246-200c3a0ae0a8",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Sunflower at farm FR Adapted from WFLDB",
     "transportCooling": "none",
     "visible": true
@@ -3809,6 +4219,7 @@
     "processId": "947c8431-a2d5-5a66-97c2-a523abca281e",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Sunflower, at farm {HU}",
     "transportCooling": "none",
     "visible": true
@@ -3831,6 +4242,7 @@
     "processId": "947c8431-a2d5-5a66-97c2-a523abca281e",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Sunflower, at farm {HU}",
     "transportCooling": "none",
     "visible": true
@@ -3853,6 +4265,7 @@
     "processId": "f76d9aea-59a7-5809-92a7-4b8bd76e4c76",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Sunflower, at farm {Glo}",
     "transportCooling": "none",
     "visible": false
@@ -3875,6 +4288,7 @@
     "processId": "6cb04edd-78fc-5e29-bc38-f718aad0ea10",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Kiwi FR, conventional, national average, at orchard {FR}",
     "transportCooling": "always",
     "visible": true
@@ -3897,6 +4311,7 @@
     "processId": "6639f083-b38b-5530-b473-a7d06ea1887f",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Kiwi {GLO}| production",
     "transportCooling": "always",
     "visible": true
@@ -3919,6 +4334,7 @@
     "processId": "6639f083-b38b-5530-b473-a7d06ea1887f",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Kiwi {GLO}| production",
     "transportCooling": "always",
     "visible": true
@@ -3941,6 +4357,7 @@
     "processId": "787ac3f4-6484-5635-8803-675d39e928a8",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Mango, conventional, Val de San Francisco, at orchard {BR} U",
     "transportCooling": "always",
     "visible": true
@@ -3963,6 +4380,7 @@
     "processId": "787ac3f4-6484-5635-8803-675d39e928a8",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Mango, conventional, Val de San Francisco, at orchard {BR} U",
     "transportCooling": "always",
     "visible": true
@@ -3985,6 +4403,7 @@
     "processId": "04277275-057f-5f3c-a3c2-9759739ea74d",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Spinach {GLO}| production",
     "transportCooling": "always",
     "visible": true
@@ -4007,6 +4426,7 @@
     "processId": "04277275-057f-5f3c-a3c2-9759739ea74d",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Spinach {GLO}| production",
     "transportCooling": "always",
     "visible": true
@@ -4029,6 +4449,7 @@
     "processId": "04277275-057f-5f3c-a3c2-9759739ea74d",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Spinach {GLO}| production",
     "transportCooling": "always",
     "visible": true
@@ -4051,6 +4472,7 @@
     "processId": "04277275-057f-5f3c-a3c2-9759739ea74d",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Spinach {GLO}| production",
     "transportCooling": "always",
     "visible": true
@@ -4073,6 +4495,7 @@
     "processId": "77c09b23-07f6-5403-aa18-237d6c2133e9",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Fennel {GLO}| production",
     "transportCooling": "always",
     "visible": true
@@ -4095,6 +4518,7 @@
     "processId": "77c09b23-07f6-5403-aa18-237d6c2133e9",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Fennel {GLO}| production",
     "transportCooling": "always",
     "visible": true
@@ -4117,6 +4541,7 @@
     "processId": "65ae013f-ac6c-54ce-892d-679626e8019d",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Broccoli {GLO}| production",
     "transportCooling": "always",
     "visible": true
@@ -4139,6 +4564,7 @@
     "processId": "65ae013f-ac6c-54ce-892d-679626e8019d",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Broccoli {GLO}| production",
     "transportCooling": "always",
     "visible": true
@@ -4161,6 +4587,7 @@
     "processId": "8842e963-44da-58bc-adbf-a6f49e4c17fb",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Blueberry, at farm {CA} - Adapted from WFLDB U",
     "transportCooling": "always",
     "visible": true
@@ -4183,6 +4610,7 @@
     "processId": "8842e963-44da-58bc-adbf-a6f49e4c17fb",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Blueberry, at farm {CA} - Adapted from WFLDB U",
     "transportCooling": "always",
     "visible": true
@@ -4205,6 +4633,7 @@
     "processId": "8842e963-44da-58bc-adbf-a6f49e4c17fb",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Blueberry, at farm {CA} - Adapted from WFLDB U",
     "transportCooling": "always",
     "visible": true
@@ -4227,6 +4656,7 @@
     "processId": "180eb65c-8b13-52f1-9272-2953e15317a0",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Raspberry, at farm {RS} - Adapted from WFLDB U",
     "transportCooling": "always",
     "visible": true
@@ -4249,6 +4679,7 @@
     "processId": "15cd1eef-9e24-5bf1-a7b3-7a46f8fb841c",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Strawberry for processing, open field, conventional, at farm gate {ES}",
     "transportCooling": "always",
     "visible": true
@@ -4271,6 +4702,7 @@
     "processId": "5215057d-59b3-5ef4-8a03-7d97d456f399",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Strawberry for processing, open field, conventional, at farm gate {MA}",
     "transportCooling": "always",
     "visible": true
@@ -4293,6 +4725,7 @@
     "processId": "f091d08a-07f4-56ea-8be1-24e8991cefcb",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Banana, mixed production, West Indies, at farm gate {WI} U",
     "transportCooling": "always",
     "visible": true
@@ -4315,6 +4748,7 @@
     "processId": "d64aeb9f-2e8a-50ec-acf7-82c1107d3b2b",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Banana, at farm {GLO}",
     "transportCooling": "always",
     "visible": true
@@ -4337,6 +4771,7 @@
     "processId": "9d6027fa-b123-56cd-a707-72959caca360",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Cucumber {GLO}| cucumber production, in heated greenhouse",
     "transportCooling": "always",
     "visible": true
@@ -4359,6 +4794,7 @@
     "processId": "9d6027fa-b123-56cd-a707-72959caca360",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Cucumber {GLO}| cucumber production, in heated greenhouse",
     "transportCooling": "always",
     "visible": true
@@ -4381,6 +4817,7 @@
     "processId": "bc62b3be-79aa-50fc-ab8c-654d2bb7e75a",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Strawberry, open field, conventional, at farm gate {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -4403,6 +4840,7 @@
     "processId": "e63885e3-efbc-5747-8d30-eb1cc3d3a4ae",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Strawberry, soilless protected crops, heated, conventional, at farm gate {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -4425,6 +4863,7 @@
     "processId": "aaaa8f85-c75d-53e7-ada7-7c044e299464",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Celery {GLO}| 675 production",
     "transportCooling": "always",
     "visible": true
@@ -4447,6 +4886,7 @@
     "processId": "aaaa8f85-c75d-53e7-ada7-7c044e299464",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Celery {GLO}| 675 production",
     "transportCooling": "always",
     "visible": true
@@ -4469,6 +4909,7 @@
     "processId": "aaaa8f85-c75d-53e7-ada7-7c044e299464",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Celery {GLO}| 675 production",
     "transportCooling": "always",
     "visible": true
@@ -4491,6 +4932,7 @@
     "processId": "1198d398-b2f4-5207-a794-d3f8997ba551",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Walnut, dried inshell, national average, at farm gate {FR} U",
     "transportCooling": "none",
     "visible": true
@@ -4513,6 +4955,7 @@
     "processId": "65bfbe9d-3f1f-5f36-b008-423e1f689f05",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Walnut, dried, husked, processed in FR | Ambient (long) | LDPE | at packaging {FR}",
     "transportCooling": "none",
     "visible": true
@@ -4535,6 +4978,7 @@
     "processId": "65bfbe9d-3f1f-5f36-b008-423e1f689f05",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Walnut, dried, husked, processed in FR | Ambient (long) | LDPE | at packaging {FR}",
     "transportCooling": "none",
     "visible": true
@@ -4557,6 +5001,7 @@
     "processId": "671a600b-a359-5215-b387-e63a701f197c",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Walnut, dried inshell, conventional, national average, at farm gate {FR}",
     "transportCooling": "none",
     "visible": true
@@ -4579,6 +5024,7 @@
     "processId": "080950ae-a7bd-57b8-9fe4-cf7b22c4ac63",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Mandarin {ES}| mandarin production",
     "transportCooling": "always",
     "visible": true
@@ -4601,6 +5047,7 @@
     "processId": "98157f34-5eab-5746-b24e-a49a8ec2349c",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Agaricus bisporus mushroom, fresh, at plant {NL} - Adapted from WFLDB U",
     "transportCooling": "always",
     "visible": true
@@ -4623,6 +5070,7 @@
     "processId": "98157f34-5eab-5746-b24e-a49a8ec2349c",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Agaricus bisporus mushroom, fresh, at plant {NL} - Adapted from WFLDB U",
     "transportCooling": "always",
     "visible": true
@@ -4645,6 +5093,7 @@
     "processId": "98cdeb14-4a06-5cdc-9eac-91e880db80ba",
     "rawToCookedRatio": 2.33,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Lentils, dry, at farm (WFLDB)",
     "transportCooling": "none",
     "visible": true
@@ -4667,6 +5116,7 @@
     "processId": "98cdeb14-4a06-5cdc-9eac-91e880db80ba",
     "rawToCookedRatio": 2.33,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Lentils, dry, at farm (WFLDB)",
     "transportCooling": "none",
     "visible": true
@@ -4689,6 +5139,7 @@
     "processId": "98cdeb14-4a06-5cdc-9eac-91e880db80ba",
     "rawToCookedRatio": 2.33,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Lentils, dry, at farm (WFLDB)",
     "transportCooling": "none",
     "visible": true
@@ -4711,6 +5162,7 @@
     "processId": "49cb2e8a-dd8c-5eef-962c-beed67c745be",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Clementine, export quality, Souss, at orchard {MA}",
     "transportCooling": "always",
     "visible": true
@@ -4733,6 +5185,7 @@
     "processId": "49cb2e8a-dd8c-5eef-962c-beed67c745be",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Clementine, export quality, Souss, at orchard {MA}",
     "transportCooling": "always",
     "visible": true
@@ -4755,6 +5208,7 @@
     "processId": "82d3e2d4-f8ee-5c9c-9292-e069da76c2de",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Grape full production integrated variety mix",
     "transportCooling": "always",
     "visible": true
@@ -4777,6 +5231,7 @@
     "processId": "7e861f69-860f-5e05-9dfe-025af9601437",
     "rawToCookedRatio": 2.259,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Maize grain, conventional, 28% moisture, national average, animal feed, at farm gate {FR} U",
     "transportCooling": "none",
     "visible": true
@@ -4799,6 +5254,7 @@
     "processId": "e8cefeef-00e9-51aa-ad68-bf2d55db3fa0",
     "rawToCookedRatio": 2.259,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Grain maize, organic, animal feed, at farm gate {FR}",
     "transportCooling": "none",
     "visible": true
@@ -4821,6 +5277,7 @@
     "processId": "d070fbe9-0c2d-573c-8900-296fd72404df",
     "rawToCookedRatio": 2.259,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Maize grain, non-irrigated, at farm {BR} - Adapted from WFLDB U",
     "transportCooling": "none",
     "visible": true
@@ -4843,6 +5300,7 @@
     "processId": "aa481da7-11c7-51d9-99b6-7ccd2c29a5de",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Pineapple glo",
     "transportCooling": "always",
     "visible": true
@@ -4865,6 +5323,7 @@
     "processId": "f737fe46-dc14-53fe-9525-b78449f6154d",
     "rawToCookedRatio": 2.33,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm",
     "transportCooling": "none",
     "visible": true
@@ -4887,6 +5346,7 @@
     "processId": "f737fe46-dc14-53fe-9525-b78449f6154d",
     "rawToCookedRatio": 2.33,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm",
     "transportCooling": "none",
     "visible": true
@@ -4909,6 +5369,7 @@
     "processId": "f737fe46-dc14-53fe-9525-b78449f6154d",
     "rawToCookedRatio": 2.33,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm",
     "transportCooling": "none",
     "visible": true
@@ -4931,6 +5392,7 @@
     "processId": "f737fe46-dc14-53fe-9525-b78449f6154d",
     "rawToCookedRatio": 2.33,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm",
     "transportCooling": "none",
     "visible": true
@@ -4953,6 +5415,7 @@
     "processId": "48d703df-0799-5c81-86ec-0b08a5b7a81b",
     "rawToCookedRatio": 2.259,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Rice, basmati {IN}| rice production, basmati | Cut-off, U - Adapted from Ecoinvent U",
     "transportCooling": "none",
     "visible": true
@@ -4975,6 +5438,7 @@
     "processId": "1f0de54d-0728-5f2c-a748-cb278f1010db",
     "rawToCookedRatio": 2.259,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Wheat, organic, national average, at farm gate FR U constructed by Ecobalyse",
     "transportCooling": "none",
     "visible": true
@@ -4997,6 +5461,7 @@
     "processId": "828f7a86-a871-56a6-8ca9-ce9cb0d9505c",
     "rawToCookedRatio": 2.259,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Soft wheat grain conventional national average animal feed at farm gate production",
     "transportCooling": "none",
     "visible": true
@@ -5019,6 +5484,7 @@
     "processId": "e9b39dc7-7c7d-5b6a-b37f-ccd67f4626ba",
     "rawToCookedRatio": 2.259,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Wheat grain, at farm {GLO} - Adapted from WFLDB U",
     "transportCooling": "none",
     "visible": true
@@ -5041,6 +5507,7 @@
     "processId": "e9b39dc7-7c7d-5b6a-b37f-ccd67f4626ba",
     "rawToCookedRatio": 2.259,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Wheat grain, at farm {GLO} - Adapted from WFLDB U",
     "transportCooling": "none",
     "visible": true
@@ -5063,6 +5530,7 @@
     "processId": "5e4b25ce-fbf1-5354-a98b-69ec9244f1e8",
     "rawToCookedRatio": 2.259,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Durum wheat grain, conventional, national average, at farm gate {FR}",
     "transportCooling": "none",
     "visible": true
@@ -5085,6 +5553,7 @@
     "processId": "e62b3f54-6528-53f7-af9a-c6a8b21ad0a1",
     "rawToCookedRatio": 2.259,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Durum wheat grain, at farm {GR} - Adapted from WFLDB U",
     "transportCooling": "none",
     "visible": true
@@ -5107,6 +5576,7 @@
     "processId": "75f1533c-d2c2-548f-a385-fea706776888",
     "rawToCookedRatio": 2.259,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Durum wheat grain, at farm {AU} - Adapted from WFLDB U",
     "transportCooling": "none",
     "visible": true
@@ -5129,6 +5599,7 @@
     "processId": "3fdf3c9a-762e-51aa-8673-9df91091147b",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Table apple, consumption mix, organic 2023 {FR}",
     "transportCooling": "always",
     "visible": true
@@ -5151,6 +5622,7 @@
     "processId": "983f49a8-2ad6-5343-855a-0ba3d18ecbd9",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Apple, conventional, national average, at orchard {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -5173,6 +5645,7 @@
     "processId": "6c65d61c-372f-5837-82cf-132d9c6421fa",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Ware potato, organic 2023, variety mix, national average, at farm gate {FR}",
     "transportCooling": "always",
     "visible": true
@@ -5195,6 +5668,7 @@
     "processId": "976ca9b0-ddc4-5941-9165-8db27973517e",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Ware potato, organic 2023, for industrial use, at farm gate {FR}",
     "transportCooling": "always",
     "visible": true
@@ -5217,6 +5691,7 @@
     "processId": "417cea8c-8a61-52a1-8fc8-e13b441843df",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Kiwi, consumption mix, organic 2023 {FR}",
     "transportCooling": "always",
     "visible": false
@@ -5239,6 +5714,7 @@
     "processId": "87445d96-6513-5577-a075-a29ebc84f0f2",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Red Cabbage, consumption mix, organic 2023 {FR}",
     "transportCooling": "always",
     "visible": true
@@ -5261,6 +5737,7 @@
     "processId": "9b332c84-7b46-5672-a85d-8e488658e69c",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Sugar beet, organic 2023 {FR}| sugar beet production",
     "transportCooling": "always",
     "visible": true
@@ -5283,6 +5760,7 @@
     "processId": "018b0fd1-fbca-5068-908e-0eedd52cceb8",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Papaya, consumption mix, organic 2023 {FR}",
     "transportCooling": "always",
     "visible": true
@@ -5305,6 +5783,7 @@
     "processId": "fae4ec8a-a03a-5762-b0ee-0cbff5d1a964",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Fresh tomato, consumption mix, organic 2023 {FR}",
     "transportCooling": "always",
     "visible": true
@@ -5327,6 +5806,7 @@
     "processId": "814ff947-2542-51ae-8adf-eb3db4f660e0",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Pineapple, organic 2023 {GLO}| production",
     "transportCooling": "always",
     "visible": true
@@ -5349,6 +5829,7 @@
     "processId": "7ed5cc83-3e08-578b-a318-64e7655e0410",
     "rawToCookedRatio": 2.33,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Garden peas, consumption mix, organic 2023 {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -5371,6 +5852,7 @@
     "processId": "70e8dbf4-7006-574d-8443-7e08ec554a91",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Almonds, in shell, at farm, organic 2023 {CN}",
     "transportCooling": "none",
     "visible": true
@@ -5393,6 +5875,7 @@
     "processId": "7e9001b2-e2de-57a2-8660-dd4f3f02c052",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Lettuce, organic 2023, national average, at farm gate {FR}",
     "transportCooling": "always",
     "visible": true
@@ -5415,6 +5898,7 @@
     "processId": "7e9001b2-e2de-57a2-8660-dd4f3f02c052",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Lettuce, organic 2023, national average, at farm gate {FR}",
     "transportCooling": "always",
     "visible": true
@@ -5437,6 +5921,7 @@
     "processId": "7e9001b2-e2de-57a2-8660-dd4f3f02c052",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Lettuce, organic 2023, national average, at farm gate {FR}",
     "transportCooling": "always",
     "visible": true
@@ -5459,6 +5944,7 @@
     "processId": "5c6a59df-39c2-5d62-8c1b-b585d0e00fad",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Mango, organic 2023, Val de San Francisco, at orchard {BR} U",
     "transportCooling": "always",
     "visible": true
@@ -5481,6 +5967,7 @@
     "processId": "5c6a59df-39c2-5d62-8c1b-b585d0e00fad",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Mango, organic 2023, Val de San Francisco, at orchard {BR} U",
     "transportCooling": "always",
     "visible": true
@@ -5503,6 +5990,7 @@
     "processId": "233de669-b67c-5c89-9a4d-0cdca987e416",
     "rawToCookedRatio": 2.259,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Oats, at farm {GLO} - Adapted from WFLDB U",
     "transportCooling": "none",
     "visible": false
@@ -5525,6 +6013,7 @@
     "processId": "233de669-b67c-5c89-9a4d-0cdca987e416",
     "rawToCookedRatio": 2.259,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Oats, at farm {GLO} - Adapted from WFLDB U",
     "transportCooling": "none",
     "visible": false
@@ -5547,6 +6036,7 @@
     "processId": "0bbb6e34-af7f-524c-9323-7239ed5f2f8f",
     "rawToCookedRatio": 2.259,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Spring oats, organic, national average, at feed plant {FR}",
     "transportCooling": "none",
     "visible": false
@@ -5569,6 +6059,7 @@
     "processId": "39222080-71ba-5531-b1b4-94568316a047",
     "rawToCookedRatio": 2.259,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Barley, feed grain, conventional, national average, animal feed, at farm gate {FR}",
     "transportCooling": "none",
     "visible": false
@@ -5591,6 +6082,7 @@
     "processId": "2fe3a354-9586-5ba8-9016-ac397707e8a4",
     "rawToCookedRatio": 2.259,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Barley, organic, animal feed, at farm gate {FR} U",
     "transportCooling": "none",
     "visible": false
@@ -5613,6 +6105,7 @@
     "processId": "f93b205a-8e1c-5c58-b6c2-c610ba75ec19",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Banana, consumption mix, organic 2023 {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -5635,6 +6128,7 @@
     "processId": "5b4bc88f-2091-5615-8980-2957a2198e43",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Orange, fresh grade, at farm, organic 2023 {ES}",
     "transportCooling": "always",
     "visible": true
@@ -5657,6 +6151,7 @@
     "processId": "d08f8aa0-f41a-5757-9a1b-1c2a4ab8e706",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Lemon, organic 2023 {ES}| lemon production",
     "transportCooling": "always",
     "visible": true
@@ -5679,6 +6174,7 @@
     "processId": "298354d9-813f-54c0-b81c-17f605a3f351",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Celery, organic 2023 {GLO}| 675 production",
     "transportCooling": "always",
     "visible": true
@@ -5701,6 +6197,7 @@
     "processId": "bddcff89-1bb4-58ed-b16b-a311656cd6ee",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Olive, organic 2023 {ES}| olive production",
     "transportCooling": "always",
     "visible": false
@@ -5723,6 +6220,7 @@
     "processId": "b1c34b7b-0173-5059-8229-e3f40e754d01",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Peanut, organic 2023 {RoW}| peanut production",
     "transportCooling": "none",
     "visible": true
@@ -5745,6 +6243,7 @@
     "processId": "62467b6c-708b-522e-bbc4-ddc44a44c71f",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Raspberry, at farm, organic 2023 {RS}",
     "transportCooling": "always",
     "visible": true
@@ -5767,6 +6266,7 @@
     "processId": "d4c8bae1-2e3f-51b2-ba2c-bb3d879ab92e",
     "rawToCookedRatio": 2.259,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Durum wheat grain, organic 2023, national average, at farm gate {FR}",
     "transportCooling": "none",
     "visible": false
@@ -5789,6 +6289,7 @@
     "processId": "0ed189f1-9682-5398-a38f-38239d3e1ab5",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Onion, national average, at farm, organic 2023 {FR}",
     "transportCooling": "none",
     "visible": true
@@ -5811,6 +6312,7 @@
     "processId": "0ed189f1-9682-5398-a38f-38239d3e1ab5",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Onion, national average, at farm, organic 2023 {FR}",
     "transportCooling": "always",
     "visible": true
@@ -5833,6 +6335,7 @@
     "processId": "21e45e77-5b76-59fc-81e3-58554a413456",
     "rawToCookedRatio": 2.259,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Rice, non-basmati, organic 2023 {GLO}| market for rice, non-basmati",
     "transportCooling": "none",
     "visible": true
@@ -5855,6 +6358,7 @@
     "processId": "7d34f88e-fccd-5b58-9bd7-07a2f880b1b4",
     "rawToCookedRatio": 2.259,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Triticale, organic, animal feed, at farm gate {FR} U",
     "transportCooling": "none",
     "visible": false
@@ -5877,6 +6381,7 @@
     "processId": "77f2accf-0a83-55bd-9f8c-5f192b34a4ac",
     "rawToCookedRatio": 2.259,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Pea, organic, animal feed, at farm gate {FR} U",
     "transportCooling": "none",
     "visible": false
@@ -5899,6 +6404,7 @@
     "processId": "477c8675-9502-54f0-a9f3-5c4c9be92199",
     "rawToCookedRatio": 2.259,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Alfalfa, hay, organic, animal feed, at farm gate {FR} U",
     "transportCooling": "none",
     "visible": false
@@ -5921,6 +6427,7 @@
     "processId": "e9872fb5-bcb9-5887-ab93-285f85672f81",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Radish, organic 2023 {GLO}| radish production, in unheated greenhouse",
     "transportCooling": "always",
     "visible": true
@@ -5943,6 +6450,7 @@
     "processId": "563a68c5-1ad0-5b33-805e-96a01e7f1f8e",
     "rawToCookedRatio": 2.33,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Lentil, organic 2023 {RoW}",
     "transportCooling": "none",
     "visible": true
@@ -5965,6 +6473,7 @@
     "processId": "f6b62cad-3e05-5c67-bb88-e57dd7f993f0",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Apricot, organic 2023 {FR}| apricot production",
     "transportCooling": "always",
     "visible": true
@@ -5987,6 +6496,7 @@
     "processId": "5d6bb97b-9553-5cf3-85ca-393fdd514e23",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Leek, national average, at plant, organic 2023 {FR}",
     "transportCooling": "always",
     "visible": true
@@ -6009,6 +6519,7 @@
     "processId": "e27286f0-dae4-5ca1-abd3-ca37da8e60bc",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Cherry, organic 2023, national average, at orchard {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -6031,6 +6542,7 @@
     "processId": "e27286f0-dae4-5ca1-abd3-ca37da8e60bc",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Cherry, organic 2023, national average, at orchard {FR} U",
     "transportCooling": "none",
     "visible": true
@@ -6053,6 +6565,7 @@
     "processId": "b724c877-00bf-56b0-b36b-572e06c8954d",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Blueberry, at farm, organic 2023 {CA}",
     "transportCooling": "always",
     "visible": true
@@ -6075,6 +6588,7 @@
     "processId": "4af3f1f1-7d37-5bad-a002-2f6570bf233e",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Spinach, organic 2023 {GLO}",
     "transportCooling": "always",
     "visible": true
@@ -6097,6 +6611,7 @@
     "processId": "4af3f1f1-7d37-5bad-a002-2f6570bf233e",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Spinach, organic 2023 {GLO}",
     "transportCooling": "always",
     "visible": true
@@ -6119,6 +6634,7 @@
     "processId": "72cc5e2d-2bc8-5bdf-95dd-b6aa2ff70036",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Melon, organic 2023, national average, at farm gate {FR}",
     "transportCooling": "always",
     "visible": true
@@ -6141,6 +6657,7 @@
     "processId": "5482a152-67b0-55b5-8178-ed58a1ffad8d",
     "rawToCookedRatio": 2.259,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Silage maize, conventional, national average, animal feed, at farm gate, production {FR} U",
     "transportCooling": "none",
     "visible": true
@@ -6163,6 +6680,7 @@
     "processId": "5482a152-67b0-55b5-8178-ed58a1ffad8d",
     "rawToCookedRatio": 2.259,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Silage maize, conventional, national average, animal feed, at farm gate, production {FR} U",
     "transportCooling": "none",
     "visible": true
@@ -6185,6 +6703,7 @@
     "processId": "5a51361d-e09f-541d-8fbb-4077b05c5d92",
     "rawToCookedRatio": 2.33,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Oilseed meal mix, as feed, at regional warehouse, as DM {RER} - Adapted from WFLDB",
     "transportCooling": "none",
     "visible": false
@@ -6207,6 +6726,7 @@
     "processId": "98e4fc1c-0c92-52b5-b25a-59400c291e44",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Grazed grass, temporary meadow, without clover, Northwestern region, on field {FR} U",
     "transportCooling": "none",
     "visible": false
@@ -6229,6 +6749,7 @@
     "processId": "c17c6ef0-db77-55e2-8c9a-a3880c04dd10",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Grazed grass, permanent meadow, without clover, Northwestern region, on field {FR} U",
     "transportCooling": "none",
     "visible": false
@@ -6251,6 +6772,7 @@
     "processId": "ad47199d-8748-5b10-8bbd-f42093ed2725",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Cherry, at farm (WFLDB) TR",
     "transportCooling": "always",
     "visible": true
@@ -6273,6 +6795,7 @@
     "processId": "816aba15-5f38-57be-86cf-c539a528859e",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Palm oil, refined, processed in EU, at plant {RER} U",
     "transportCooling": "none",
     "visible": true
@@ -6295,6 +6818,7 @@
     "processId": "d5678179-6a85-5065-9d2e-3d816afd5803",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Linseed oil, refined, at oil mill { FR} U",
     "transportCooling": "none",
     "visible": true
@@ -6317,6 +6841,7 @@
     "processId": "f99ce7e6-aa0c-5b4d-ad1e-60326e561a95",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Grapeseed oil, refined at plant {FR} U",
     "transportCooling": "none",
     "visible": true
@@ -6339,6 +6864,7 @@
     "processId": "b971a735-c6c6-557d-9009-81675fd27f85",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Soybean oil, refined, at plant  {FR} U",
     "transportCooling": "none",
     "visible": true
@@ -6361,6 +6887,7 @@
     "processId": "f447f013-88b7-51a1-aaeb-81f1dd9c4667",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Hazelnut oil, crude, at plant {FR} U",
     "transportCooling": "none",
     "visible": true
@@ -6383,6 +6910,7 @@
     "processId": "15b97d2e-b2b7-503d-86d6-ce49a379bd7c",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Peanut oil, at oil mill {SN} U",
     "transportCooling": "none",
     "visible": true
@@ -6405,6 +6933,7 @@
     "processId": "31736e19-6333-5ed8-93c2-947101925368",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Sunflower oil, refined, low dehulling at plant {FR} U",
     "transportCooling": "none",
     "visible": true
@@ -6427,6 +6956,7 @@
     "processId": "6bbec0a2-097d-5671-8c35-3076b77cb8c7",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Rapeseed oil, refined, at oil mill {FR} U",
     "transportCooling": "none",
     "visible": true
@@ -6449,6 +6979,7 @@
     "processId": "72cf9190-fce5-5931-a7f2-89901ba4c507",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Extra Virgin Olive Oil, at plant {ES} U",
     "transportCooling": "none",
     "visible": true
@@ -6465,6 +6996,7 @@
     "processId": "38b2d3f9-8fc5-5395-b0c0-19a2d94f041a",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "fresh cream 8% at plant",
     "transportCooling": "always",
     "visible": true
@@ -6481,6 +7013,7 @@
     "processId": "f7be6ad2-8148-501c-a364-c95cb38a8872",
     "rawToCookedRatio": 0.974,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "egg without shell",
     "transportCooling": "once_transformed",
     "visible": true
@@ -6497,6 +7030,7 @@
     "processId": "5dfb97bc-ab16-5775-98ce-d1cd59b1f718",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "yolk powder at plant",
     "transportCooling": "once_transformed",
     "visible": true
@@ -6513,6 +7047,7 @@
     "processId": "e758187a-5a22-51d7-af81-8cdfb80a7cf9",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "egg white powder at plant",
     "transportCooling": "once_transformed",
     "visible": true
@@ -6529,6 +7064,7 @@
     "processId": "e893de9c-8a19-5709-9073-3fdbdabf90da",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Emmental cheese, grated, cheese production, from cow's milk, hard cheese, French production mix, at plant, 1 kg of Emmental, grated cheese (PGi) {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -6551,6 +7087,7 @@
     "processId": "d7a8bddc-8032-522d-afb4-2da2eba11dd5",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "cocoa powder at plant FR",
     "transportCooling": "none",
     "visible": true
@@ -6573,6 +7110,7 @@
     "processId": "ff62e9a1-1648-5b99-a129-3edf588eb71e",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Salt {FR} U",
     "transportCooling": "none",
     "visible": true
@@ -6596,6 +7134,7 @@
     "processId": "9ac191cd-0722-580e-8a00-1b2ee9b24ca1",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "bacon at plant",
     "transportCooling": "always",
     "visible": true
@@ -6619,6 +7158,7 @@
     "processId": "49f066c9-810e-5803-a627-9ff3840c02de",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Bacon, back, at plant {{bacon-default}}",
     "transportCooling": "always",
     "visible": true
@@ -6642,6 +7182,7 @@
     "processId": "7db77e01-8053-50ba-9b0b-3ad6ea3825ba",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Bacon, back, at plant {{bacon-fr-bbc}}",
     "transportCooling": "always",
     "visible": true
@@ -6665,6 +7206,7 @@
     "processId": "f173a935-542d-53aa-ab5a-fefd8b0ed536",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Bacon, back, at plant {{bacon-fr-organic}}",
     "transportCooling": "always",
     "visible": true
@@ -6687,6 +7229,7 @@
     "processId": "d145ec12-db03-5ff7-90d0-de679a800b4d",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "glucose syrup",
     "transportCooling": "none",
     "visible": true
@@ -6709,6 +7252,7 @@
     "processId": "ef0f574b-641e-58b8-9238-ccdc29df6cee",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "compote apple at plant",
     "transportCooling": "none",
     "visible": true
@@ -6725,6 +7269,7 @@
     "processId": "63511660-6fcb-5dde-86f9-818eb6fdc64c",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Goat milk, consumption mix {FR} U",
     "transportCooling": "once_transformed",
     "visible": false
@@ -6747,6 +7292,7 @@
     "processId": "f026cafb-560e-5ac1-8c82-fff486cc709b",
     "rawToCookedRatio": 2.259,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "cereals rich at plant",
     "transportCooling": "none",
     "visible": true
@@ -6769,6 +7315,7 @@
     "processId": "6850d4f8-0a24-56e3-8732-870896d4e092",
     "rawToCookedRatio": 2.259,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "pasta dried plant wheat FR",
     "transportCooling": "none",
     "visible": false
@@ -6791,6 +7338,7 @@
     "processId": "660437cd-1481-582a-a16b-c512e7331506",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "garlic consumption mix",
     "transportCooling": "none",
     "visible": false
@@ -6813,6 +7361,7 @@
     "processId": "6fe8f35a-f5d2-5a28-80a3-47f1ec6cb7dc",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Diced mixed vegetables canned at plant",
     "transportCooling": "always",
     "visible": true
@@ -6829,6 +7378,7 @@
     "processId": "19ea4ebb-c1d4-5c7c-812a-143ac39a872f",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "tomato sauce bolognese at plant",
     "transportCooling": "none",
     "visible": true
@@ -6851,6 +7401,7 @@
     "processId": "fe6ad126-5eaa-5ec8-8d76-6b2850399014",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "honey at plant",
     "transportCooling": "none",
     "visible": true
@@ -6867,6 +7418,7 @@
     "processId": "1586448b-afcb-576f-bffc-98930dc449a1",
     "rawToCookedRatio": 0.755,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "turkey conventional at farm gate",
     "transportCooling": "always",
     "visible": true
@@ -6883,6 +7435,7 @@
     "processId": "b5973125-4403-565a-9e68-57461d307744",
     "rawToCookedRatio": 0.73,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "liver pork raw at distribution",
     "transportCooling": "always",
     "visible": true
@@ -6899,6 +7452,7 @@
     "processId": "623a9d9f-b617-50d8-8c1d-68875a585dd8",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Whey, at plant {FR} U",
     "transportCooling": "none",
     "visible": true
@@ -6921,6 +7475,7 @@
     "processId": "4c79943d-ce13-5d0c-8ff4-81cb3606cf59",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "strawberry coulis at plant",
     "transportCooling": "none",
     "visible": true
@@ -6937,6 +7492,7 @@
     "processId": "df2c2a09-7932-566d-871c-08c38dafbbff",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "yogurt milk cow at plant",
     "transportCooling": "always",
     "visible": true
@@ -6953,6 +7509,7 @@
     "processId": "2202c86e-8b28-5163-9355-a37be64c8951",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Cheese, from goat's milk, consumption mix {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -6975,6 +7532,7 @@
     "processId": "00af8eab-82d4-5077-9e62-56cd3a3b5a63",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "cocoa butter at plant FR",
     "transportCooling": "once_transformed",
     "visible": true
@@ -6997,6 +7555,7 @@
     "processId": "7089aed3-9549-5409-a269-419e2b579e5f",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "soy protein dehydrated at plant",
     "transportCooling": "none",
     "visible": true
@@ -7019,6 +7578,7 @@
     "processId": "f4158891-fc38-51c2-b206-4f66e087340c",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "vinegar alcohol",
     "transportCooling": "none",
     "visible": true
@@ -7035,6 +7595,7 @@
     "processId": "b7364b0c-6b66-513e-a122-17166ecc16b1",
     "rawToCookedRatio": 0.792,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "veal without bone",
     "transportCooling": "always",
     "visible": true
@@ -7057,6 +7618,7 @@
     "processId": "5b55f26e-439e-5a8e-a36c-35a598aff45f",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "french fries frozen at processing",
     "transportCooling": "none",
     "visible": true
@@ -7079,6 +7641,7 @@
     "processId": "9693e863-d9e2-5acb-ad06-a9470f95a2d3",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "tomato sauce vegetables prepacked at plant",
     "transportCooling": "none",
     "visible": true
@@ -7101,6 +7664,7 @@
     "processId": "4b01be5f-f0bb-555f-b1e3-d3e3a25f88cd",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Mustard, at plant {FR} U",
     "transportCooling": "none",
     "visible": true
@@ -7123,6 +7687,7 @@
     "processId": "ae85d9dd-ded6-5d9c-8138-20f0cdad1742",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "rice flour FR at mill",
     "transportCooling": "none",
     "visible": true
@@ -7139,6 +7704,7 @@
     "processId": "2d37d119-9508-54c6-8175-109e754fdde8",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Brie cheese, from cow's milk, consumption mix {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -7161,6 +7727,7 @@
     "processId": "c601b909-6d47-5b67-9a3d-847d21fc1e38",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "turmeric consumption mix",
     "transportCooling": "none",
     "visible": true
@@ -7183,6 +7750,7 @@
     "processId": "7003b13b-5841-5867-b82d-72abfa836298",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "candied fruits at plant",
     "transportCooling": "none",
     "visible": true
@@ -7199,6 +7767,7 @@
     "processId": "932f86e8-c0eb-50f1-a0b2-2826f911b107",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Reblochon cheese, from cow's milk, at plant {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -7221,6 +7790,7 @@
     "processId": "7cc626b0-58fc-5c51-8d77-64cbe9d6e758",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "fruits puree at plant",
     "transportCooling": "none",
     "visible": true
@@ -7243,6 +7813,7 @@
     "processId": "6a4b192d-358a-50c2-a55e-b6045b62aebe",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "apple juice concentrate",
     "transportCooling": "none",
     "visible": true
@@ -7265,6 +7836,7 @@
     "processId": "e4d477a4-7393-573d-884a-f0f6e3eb33fd",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "orange nectar at plant",
     "transportCooling": "always",
     "visible": true
@@ -7287,6 +7859,7 @@
     "processId": "d5987dd3-af63-5649-900d-58a112e6a726",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Soy drink, plain, at plant {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -7309,6 +7882,7 @@
     "processId": "08331570-137f-543c-98d1-e6a0684d7b92",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "lemon juice pure plant",
     "transportCooling": "always",
     "visible": true
@@ -7331,6 +7905,7 @@
     "processId": "1bc397ca-c766-595f-8a24-f49c958ef386",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "tomato juice plant",
     "transportCooling": "always",
     "visible": true
@@ -7353,6 +7928,7 @@
     "processId": "8ad9f3b5-40a9-5c0f-b685-cb073b0b80e1",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "balsamic packaging",
     "transportCooling": "always",
     "visible": true
@@ -7375,6 +7951,7 @@
     "processId": "8078e6c1-6bce-5670-9717-d7648b5ece9e",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "apricot glo",
     "transportCooling": "none",
     "visible": true
@@ -7391,6 +7968,7 @@
     "processId": "229d0421-30fa-5aa4-bc0b-5b4f4a0f7d09",
     "rawToCookedRatio": 0.792,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Lamb, fresh meat, at slaughterhouse (WFLDB) IE",
     "transportCooling": "always",
     "visible": false
@@ -7407,6 +7985,7 @@
     "processId": "fe45fa23-719e-57fd-bbaa-c1c2f173cd12",
     "rawToCookedRatio": 0.792,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Lamb, fresh meat, at slaughterhouse (WFLDB) NZ",
     "transportCooling": "always",
     "visible": false
@@ -7429,6 +8008,7 @@
     "processId": "6d17dc38-d4ff-518d-97ee-60c6344a2b08",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Almond mix",
     "transportCooling": "none",
     "visible": false
@@ -7451,6 +8031,7 @@
     "processId": "6d17dc38-d4ff-518d-97ee-60c6344a2b08",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Almond mix",
     "transportCooling": "none",
     "visible": true
@@ -7473,6 +8054,7 @@
     "processId": "6d17dc38-d4ff-518d-97ee-60c6344a2b08",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Almond mix",
     "transportCooling": "none",
     "visible": true
@@ -7495,6 +8077,7 @@
     "processId": "4f6c28ab-6a30-59ae-9b87-14fc7e6371d5",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Avocado, consumption mix {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -7517,6 +8100,7 @@
     "processId": "a1210bed-812f-5ab3-be62-56ef3b54da40",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Broccoli, consumption mix, organic 2023 {FR} U",
     "transportCooling": "always",
     "visible": false
@@ -7539,6 +8123,7 @@
     "processId": "7bfa8d2f-f965-5e21-84df-d3a31b0c43ee",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Broccoli, consumption mix {FR} U",
     "transportCooling": "always",
     "visible": false
@@ -7561,6 +8146,7 @@
     "processId": "138f88ea-f7b6-5d52-b585-83fcd0f972f1",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Cherry, at farm (WFLDB) GLO",
     "transportCooling": "always",
     "visible": true
@@ -7583,6 +8169,7 @@
     "processId": "138f88ea-f7b6-5d52-b585-83fcd0f972f1",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Cherry, at farm (WFLDB) GLO",
     "transportCooling": "none",
     "visible": true
@@ -7605,6 +8192,7 @@
     "processId": "138f88ea-f7b6-5d52-b585-83fcd0f972f1",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Cherry, at farm (WFLDB) GLO",
     "transportCooling": "none",
     "visible": true
@@ -7627,6 +8215,7 @@
     "processId": "8abb0d95-9268-5d85-b59e-03a64eda68b9",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Walnut, dried inshell, organic 2023, national average, at farm gate {FR} U",
     "transportCooling": "none",
     "visible": true
@@ -7649,6 +8238,7 @@
     "processId": "d8de7f30-1b4e-53ba-abea-cf380d57340a",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Cabbage white, organic 2023 {RoW}| cabbage white production | Cut-off, U",
     "transportCooling": "always",
     "visible": true
@@ -7671,6 +8261,7 @@
     "processId": "71268a67-a208-59d5-8dc0-495a96ef9fcb",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Palm oil, refined, consumption mix {FR} U",
     "transportCooling": "none",
     "visible": true
@@ -7693,6 +8284,7 @@
     "processId": "21fdaf21-5ae0-5b67-b1d3-c1b98c3bc9e3",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Sunflower oil, at plant {IT} U",
     "transportCooling": "once_transformed",
     "visible": true
@@ -7709,6 +8301,7 @@
     "processId": "7372c555-c580-5685-bb57-1358bcdbe886",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Raw cow milk archetype, feed mix IT-154, at farm (WFLDB)",
     "transportCooling": "always",
     "visible": true
@@ -7725,6 +8318,7 @@
     "processId": "fffc7e05-ac1f-526d-8704-62fe08fa2dd1",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Cow milk {CA-QC}| milk production, from cow | Cut-off, U - Copied from Ecoinvent U",
     "transportCooling": "always",
     "visible": true
@@ -7747,6 +8341,7 @@
     "processId": "62c2bd77-8dca-5904-b43b-c279fdef3996",
     "rawToCookedRatio": 2.259,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Sweet corn GLO",
     "transportCooling": "none",
     "visible": true
@@ -7763,6 +8358,7 @@
     "processId": "cda17a6c-47b9-537f-a1ce-fc4674951640",
     "rawToCookedRatio": 0.819,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Anchovy, consumption mix {FR} U",
     "transportCooling": "always",
     "visible": false
@@ -7779,6 +8375,7 @@
     "processId": "cda17a6c-47b9-537f-a1ce-fc4674951640",
     "rawToCookedRatio": 0.819,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Anchovy, consumption mix {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -7795,6 +8392,7 @@
     "processId": "cda17a6c-47b9-537f-a1ce-fc4674951640",
     "rawToCookedRatio": 0.819,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Anchovy, consumption mix {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -7811,6 +8409,7 @@
     "processId": "adc23af5-819e-59d5-b6c3-3b0c264436ee",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "European Pilchard, BBiscay, Seine, average, at landing {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -7827,6 +8426,7 @@
     "processId": "4c334817-b0e8-51df-9acb-dfc9e968cc3f",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "European pilchard or sardine, consumption mix {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -7843,6 +8443,7 @@
     "processId": "4c334817-b0e8-51df-9acb-dfc9e968cc3f",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "European pilchard or sardine, consumption mix {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -7859,6 +8460,7 @@
     "processId": "6401cc75-bf38-5a4c-ad71-89f10b6662f7",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Cod, consumption mix {FR}",
     "transportCooling": "always",
     "visible": true
@@ -7875,6 +8477,7 @@
     "processId": "ede9c39a-47a5-5a2b-b64c-07257de7de17",
     "rawToCookedRatio": 0.819,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Brown crab, 1 kg of product, at landing {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -7891,6 +8494,7 @@
     "processId": "f69308e4-36e3-5515-9283-7cf21d9cccb3",
     "rawToCookedRatio": 0.819,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Brown crab, 1 kg of product, at landing {GB} U",
     "transportCooling": "always",
     "visible": true
@@ -7907,6 +8511,7 @@
     "processId": "263c3b95-c665-594e-a0d4-34b96bb6482f",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Hake, consumption mix {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -7923,6 +8528,7 @@
     "processId": "d0816dd5-275b-5100-993b-b5bc01239892",
     "rawToCookedRatio": 0.819,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Lobster, 1 kg of product, at landing {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -7939,6 +8545,7 @@
     "processId": "1a64ad1d-1f77-5b83-a0d5-8280313f60e1",
     "rawToCookedRatio": 0.819,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Lobster, 1 kg of product, at landing {GB} U",
     "transportCooling": "always",
     "visible": true
@@ -7955,6 +8562,7 @@
     "processId": "c6aebb7a-3c90-58db-bb90-019568b90c19",
     "rawToCookedRatio": 0.819,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Lobster, 1 kg of product, at landing {US} U",
     "transportCooling": "always",
     "visible": true
@@ -7971,6 +8579,7 @@
     "processId": "dec904b0-c8a5-54b0-9f34-03c4444c3a07",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Salmon, fillet, raw, at processing {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -7987,6 +8596,7 @@
     "processId": "36ae95b1-eadf-5d89-a764-f57a6b54f50e",
     "rawToCookedRatio": 0.819,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Squid, consumption mix {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -8009,6 +8619,7 @@
     "processId": "6102aa16-9b27-5ada-b6b7-0ed59124e4ff",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Mandarin, at farm (WFLDB) cn",
     "transportCooling": "always",
     "visible": true
@@ -8031,6 +8642,7 @@
     "processId": "375e6b1d-fee4-5a8f-98e5-142cff7ae2cf",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Hazelnut, in shell, at farm, organic 2023 {IT}",
     "transportCooling": "none",
     "visible": true
@@ -8053,6 +8665,7 @@
     "processId": "a19efb04-495a-597a-b222-fa57998828dd",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Hazelnut, unshelled, consumption mix, organic 2023 {FR} U",
     "transportCooling": "none",
     "visible": false
@@ -8075,6 +8688,7 @@
     "processId": "f73c71b0-6382-570d-934f-25b3d3b00af9",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Hazelnut, unshelled, consumption mix {FR} U",
     "transportCooling": "none",
     "visible": false
@@ -8097,6 +8711,7 @@
     "processId": "e94dca0d-6fa6-534d-9f60-b392ce9f27e5",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Walnut, dried inshell, traditional varieties, organic 2023, at farm gate {FR} U",
     "transportCooling": "none",
     "visible": true
@@ -8119,6 +8734,7 @@
     "processId": "4f8cf4ec-bfb0-514a-bc22-d453ac1975b9",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Walnut, in shell, dried, at farm (WFLDB)",
     "transportCooling": "none",
     "visible": true
@@ -8141,6 +8757,7 @@
     "processId": "4f8cf4ec-bfb0-514a-bc22-d453ac1975b9",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Walnut, in shell, dried, at farm (WFLDB)",
     "transportCooling": "none",
     "visible": true
@@ -8163,6 +8780,7 @@
     "processId": "10f869f8-8726-5e55-bee6-cf801a5872fd",
     "rawToCookedRatio": 2.259,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Barley grain, non-irrigated, at farm {DE} - Adapted from WFLDB U",
     "transportCooling": "none",
     "visible": false
@@ -8185,6 +8803,7 @@
     "processId": "10f869f8-8726-5e55-bee6-cf801a5872fd",
     "rawToCookedRatio": 2.259,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Barley grain, non-irrigated, at farm {DE} - Adapted from WFLDB U",
     "transportCooling": "none",
     "visible": true
@@ -8207,6 +8826,7 @@
     "processId": "a7557022-afb7-55f2-8f4f-ff386441e6fd",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
+    "scopes": ["food"],
     "search": "Peanut, in shell, at farm, organic 2023 {GLO}",
     "transportCooling": "none",
     "visible": true
@@ -8229,6 +8849,7 @@
     "processId": "34210438-f9ab-5c54-8b45-4bc6228a2dd9",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "leek, consumption",
     "transportCooling": "always",
     "visible": true
@@ -8251,6 +8872,7 @@
     "processId": "34210438-f9ab-5c54-8b45-4bc6228a2dd9",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "leek, consumption",
     "transportCooling": "always",
     "visible": true
@@ -8273,6 +8895,7 @@
     "processId": "6fc6d470-190f-50d6-8ede-1a083846b4e5",
     "rawToCookedRatio": 2.259,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "protein pea//[GLO] market for protein pea",
     "transportCooling": "none",
     "visible": true
@@ -8295,6 +8918,7 @@
     "processId": "58f54038-8937-5206-9eeb-19b9b4e87ab0",
     "rawToCookedRatio": 2.259,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "protein pea FR",
     "transportCooling": "none",
     "visible": true
@@ -8317,6 +8941,7 @@
     "processId": "33272cd8-9b7b-531d-ae28-ef4bedcdd67e",
     "rawToCookedRatio": 2.259,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Spring pea, conventional, 15% moisture, animal feed, at farm gate, production {FR} U",
     "transportCooling": "none",
     "visible": true
@@ -8339,6 +8964,7 @@
     "processId": "4a508aec-8d7d-5584-a4bb-3cf2458ed42d",
     "rawToCookedRatio": 2.33,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "chickpea production RoW",
     "transportCooling": "none",
     "visible": true
@@ -8361,6 +8987,7 @@
     "processId": "e9232c54-41a0-5627-be49-f79e93389fb7",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Bell pepper {GLO}| bell pepper production, in unheated greenhouse",
     "transportCooling": "none",
     "visible": true
@@ -8383,6 +9010,7 @@
     "processId": "e9232c54-41a0-5627-be49-f79e93389fb7",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Bell pepper {GLO}| bell pepper production, in unheated greenhouse",
     "transportCooling": "none",
     "visible": true
@@ -8405,6 +9033,7 @@
     "processId": "e9232c54-41a0-5627-be49-f79e93389fb7",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Bell pepper {GLO}| bell pepper production, in unheated greenhouse",
     "transportCooling": "none",
     "visible": true
@@ -8427,6 +9056,7 @@
     "processId": "ca80d621-03bd-5a3c-b91d-4e69961766a7",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Apple, at farm CN",
     "transportCooling": "always",
     "visible": true
@@ -8449,6 +9079,7 @@
     "processId": "5c441f4d-b366-5a85-b79d-9c33bca9b833",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Potato, at farm (WFLDB) nl",
     "transportCooling": "always",
     "visible": true
@@ -8471,6 +9102,7 @@
     "processId": "eb720105-9258-5f73-bed6-6ea68e0aeebc",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Potato, at farm (WFLDB) cn",
     "transportCooling": "always",
     "visible": true
@@ -8487,6 +9119,7 @@
     "processId": "35b2c40f-5385-5048-ae9c-c8fbf4d9ce66",
     "rawToCookedRatio": 0.755,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Chicken meat at slaughterhouse PL",
     "transportCooling": "always",
     "visible": false
@@ -8509,6 +9142,7 @@
     "processId": "db967767-721b-5b6e-a2ef-570f2d7a4849",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Tomato puree, canned, processed in FR | Ambient (long) | Steel | at packaging {FR} U",
     "transportCooling": "none",
     "visible": true
@@ -8531,6 +9165,7 @@
     "processId": "797ae08f-8ccf-59a3-9bd1-7cfa3a9b3da7",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Radish, consumption mix {FR} U",
     "transportCooling": "always",
     "visible": true
@@ -8553,6 +9188,7 @@
     "processId": "c4cfb38f-eb55-5a98-b226-ed367ec99a25",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Radish {GLO}| radish production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
     "transportCooling": "always",
     "visible": true
@@ -8575,6 +9211,7 @@
     "processId": "5a985ac6-c912-564d-8099-d10cde253c64",
     "rawToCookedRatio": 2.259,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Basmati rice, consumption mix {FR} U",
     "transportCooling": "none",
     "visible": true
@@ -8597,6 +9234,7 @@
     "processId": "1c51d33c-90e0-5e21-bf77-78c45734eee8",
     "rawToCookedRatio": 2.259,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Durum wheat, semolina, at plant {GLO} - Adapted from WFLDB U",
     "transportCooling": "none",
     "visible": true
@@ -8619,6 +9257,7 @@
     "processId": "1c51d33c-90e0-5e21-bf77-78c45734eee8",
     "rawToCookedRatio": 2.259,
     "scenario": "import",
+    "scopes": ["food"],
     "search": "Durum wheat, semolina, at plant {GLO} - Adapted from WFLDB U",
     "transportCooling": "none",
     "visible": true
@@ -8641,6 +9280,7 @@
     "processId": "f5004ca4-10f8-5866-a0ac-bfdfebf9b49b",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "onions dried",
     "transportCooling": "none",
     "visible": true
@@ -8663,6 +9303,7 @@
     "processId": "54a312a6-010e-56d5-9192-96e119882a30",
     "rawToCookedRatio": 2.259,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Pasta, dried, from durum wheat, at plant, from GLO wheat and FR elec, constructed by Ecobalyse",
     "transportCooling": "none",
     "visible": true
@@ -8685,6 +9326,7 @@
     "processId": "7f38555f-c543-57be-8853-259cb2cf17c1",
     "rawToCookedRatio": 2.259,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Pasta, dried, from durum wheat, at plant, from GLO wheat and IT elec, constructed by Ecobalyse",
     "transportCooling": "none",
     "visible": true
@@ -8707,6 +9349,7 @@
     "processId": "fdd84f83-84d5-53f5-b8fb-7b1fbf906d5c",
     "rawToCookedRatio": 2.259,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Pasta, dried, from durum wheat, at plant, from GLO wheat and ES elec, constructed by Ecobalyse",
     "transportCooling": "none",
     "visible": true
@@ -8729,6 +9372,7 @@
     "processId": "578aed19-48dc-5f65-a2a3-b388ed265c7c",
     "rawToCookedRatio": 2.259,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Pasta, dried, from durum wheat, at plant, from GLO wheat and DE elec, constructed by Ecobalyse",
     "transportCooling": "none",
     "visible": true
@@ -8751,6 +9395,7 @@
     "processId": "51f13140-f535-5d60-959f-f86510831c5b",
     "rawToCookedRatio": 2.259,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Pasta, dried, from durum wheat, at plant, from GLO wheat and BE elec, constructed by Ecobalyse",
     "transportCooling": "none",
     "visible": true
@@ -8773,6 +9418,7 @@
     "processId": "b19e3ce6-e129-5c71-9e9d-3c9c20b08f6a",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Soup, mixed vegetables, prepacked, to be reheated, at plant {FR} U",
     "transportCooling": "none",
     "visible": true
@@ -8795,6 +9441,7 @@
     "processId": "eeb34df9-016e-5289-848b-92b1d819ae35",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Soup, mixed vegetables, prepacked, to be reheated, at plant {BE} U, constructed by Ecobalyse",
     "transportCooling": "none",
     "visible": true
@@ -8817,6 +9464,7 @@
     "processId": "6f88491e-4668-53c6-a941-7e3716b06ed8",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Soup, mixed vegetables, prepacked, to be reheated, at plant {DE} U, constructed by Ecobalyse",
     "transportCooling": "none",
     "visible": true
@@ -8839,6 +9487,7 @@
     "processId": "86d0644f-3896-560d-a78c-249a72fbd26b",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Soup, mixed vegetables, prepacked, to be reheated, at plant {IT} U, constructed by Ecobalyse",
     "transportCooling": "none",
     "visible": true
@@ -8861,6 +9510,7 @@
     "processId": "8f06c59c-bd70-5193-a098-64f0b81b0ab9",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Soup, mixed vegetables, prepacked, to be reheated, at plant {ES} U, constructed by Ecobalyse",
     "transportCooling": "none",
     "visible": true
@@ -8883,6 +9533,7 @@
     "processId": "070b1b9a-6a9e-5c7b-97bf-d95ccbd72aa3",
     "rawToCookedRatio": 12.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Soup, mixed vegetables, dehydrated, at plant {FR} U",
     "transportCooling": "none",
     "visible": true
@@ -8905,6 +9556,7 @@
     "processId": "284eb33c-9455-5949-9b4c-ee7ac23413f7",
     "rawToCookedRatio": 12.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Soup, mixed vegetables, dehydrated, at plant {BE} U",
     "transportCooling": "none",
     "visible": true
@@ -8927,6 +9579,7 @@
     "processId": "96cde3a0-a1a2-5f26-a21f-7fcb28f1c27b",
     "rawToCookedRatio": 12.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Soup, mixed vegetables, dehydrated, at plant {DE} U",
     "transportCooling": "none",
     "visible": true
@@ -8949,6 +9602,7 @@
     "processId": "fedd743e-18a2-56d3-9028-32609c6dfbf7",
     "rawToCookedRatio": 12.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Soup, mixed vegetables, dehydrated, at plant {IT} U",
     "transportCooling": "none",
     "visible": true
@@ -8971,6 +9625,7 @@
     "processId": "b001aaa1-ff1c-5909-b75f-3af83614b670",
     "rawToCookedRatio": 12.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "search": "Soup, mixed vegetables, dehydrated, at plant {ES} U",
     "transportCooling": "none",
     "visible": true
