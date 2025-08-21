@@ -16,6 +16,7 @@ import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Lazy as Lazy
 import Json.Encode as Encode
 import Page.Admin.Section as AdminSection
 import RemoteData
@@ -34,6 +35,7 @@ import Views.WebData as WebDataView
 type alias Model =
     { processes : WebData (List Process)
     , scopes : List Scope
+    , search : String
     , section : AdminSection.Section
     }
 
@@ -41,12 +43,14 @@ type alias Model =
 type Msg
     = ProcessListResponse (WebData (List Process))
     | UpdateScopeFilters (List Scope)
+    | UpdateSearch String
 
 
 init : Session -> AdminSection.Section -> PageUpdate Model Msg
 init session section =
     { processes = RemoteData.NotAsked
     , scopes = Scope.all
+    , search = ""
     , section = section
     }
         |> App.createUpdate session
@@ -71,6 +75,9 @@ update session msg model =
         UpdateScopeFilters scopes ->
             App.createUpdate session { model | scopes = scopes }
 
+        UpdateSearch search ->
+            App.createUpdate session { model | search = search }
+
 
 view : Session -> Model -> ( String, List (Html Msg) )
 view { db } model =
@@ -78,10 +85,29 @@ view { db } model =
     , [ Container.centered [ class "d-flex flex-column gap-3 pb-5" ]
             [ AdminView.header model.section
             , warning
-            , model.scopes
-                |> ScopeView.scopeFilterForm UpdateScopeFilters
+            , ScopeView.scopedSearchForm
+                { scopes = model.scopes
+                , search = UpdateSearch
+                , searched = model.search
+                , updateScopes = UpdateScopeFilters
+                }
             , model.processes
-                |> WebDataView.map (processListView db model.scopes)
+                |> WebDataView.map
+                    (\processes ->
+                        processes
+                            |> (case model.search of
+                                    "" ->
+                                        identity
+
+                                    _ ->
+                                        List.filter
+                                            (Process.getDisplayName
+                                                >> String.toLower
+                                                >> String.contains (String.toLower model.search)
+                                            )
+                               )
+                            |> Lazy.lazy3 processListView db model.scopes
+                    )
             , model.processes
                 |> WebDataView.map downloadDbButton
             ]
@@ -150,12 +176,12 @@ processListView db scopes processes =
 processRowView : Db -> Process -> Html Msg
 processRowView db process =
     tr []
-        ([ th [ class "align-middle text-truncate", style "max-width" "350px" ]
+        ([ th [ class "text-truncate", style "max-width" "350px" ]
             [ text (Process.getDisplayName process)
             , small [ class "d-block fw-normal" ]
                 [ code [] [ text (Process.idToString process.id) ] ]
             ]
-         , td [ class "align-middle" ]
+         , td []
             [ process.categories
                 |> List.map
                     (Category.toLabel
@@ -165,7 +191,7 @@ processRowView db process =
                     )
                 |> div []
             ]
-         , td [ class "align-middle" ]
+         , td []
             [ process.scopes
                 |> List.map
                     (Scope.toString
@@ -175,29 +201,29 @@ processRowView db process =
                     )
                 |> div []
             ]
-         , td [ class "align-middle text-nowrap" ]
+         , td [ class "text-nowrap" ]
             [ text process.source ]
-         , td [ class "align-middle" ]
+         , td []
             [ code [ class "fs-9" ]
                 [ text (Process.getTechnicalName process) ]
             ]
-         , td [ class "align-middle" ]
+         , td []
             [ text process.unit ]
-         , td [ class "align-middle text-end" ]
+         , td [ class "text-end" ]
             [ Format.kilowattHours process.elec ]
-         , td [ class "align-middle text-end" ]
+         , td [ class "text-end" ]
             [ Format.megajoules process.heat ]
-         , td [ class "align-middle text-end" ]
+         , td [ class "text-end" ]
             [ Format.splitAsPercentage 2 process.waste ]
-         , td [ class "align-middle text-end" ]
+         , td [ class "text-end" ]
             [ Format.density process ]
-         , td [ class "align-middle" ]
+         , td []
             [ span [ class "fs-9" ] [ text process.comment ] ]
          ]
             ++ (Definition.trigrams
                     |> List.map
                         (\trigram ->
-                            td [ class "align-middle text-nowrap text-end" ]
+                            td [ class "text-nowrap text-end" ]
                                 [ process.impacts
                                     |> Format.formatImpact (Definition.get trigram db.definitions)
                                 ]
