@@ -75,7 +75,7 @@ update session msg model =
             App.createUpdate session { model | scopes = scopes }
 
         UpdateSearch search ->
-            App.createUpdate session { model | search = search }
+            App.createUpdate session { model | search = String.toLower search }
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
@@ -136,7 +136,7 @@ processFilters scopes search =
                 List.filter
                     (Process.getDisplayName
                         >> String.toLower
-                        >> String.contains (String.toLower search)
+                        >> String.contains search
                     )
            )
 

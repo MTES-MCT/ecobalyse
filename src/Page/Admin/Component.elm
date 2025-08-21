@@ -249,7 +249,7 @@ update session msg model =
             App.createUpdate session { model | scopes = scopes }
 
         UpdateSearch search ->
-            App.createUpdate session { model | search = search }
+            App.createUpdate session { model | search = String.toLower search }
 
 
 commandsForModal : List Modal -> Cmd Msg
@@ -350,7 +350,7 @@ processFilters scopes search =
                 List.filter
                     (.name
                         >> String.toLower
-                        >> String.contains (String.toLower search)
+                        >> String.contains search
                     )
            )
 
