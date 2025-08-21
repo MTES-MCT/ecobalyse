@@ -9,20 +9,20 @@ module Page.Admin.Process exposing
 
 import App exposing (Msg, PageUpdate)
 import Base64
-import Data.Impact.Definition as Definition
+import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category
 import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Keyed as Keyed
 import Html.Lazy as Lazy
 import Json.Encode as Encode
 import Page.Admin.Section as AdminSection
 import RemoteData
 import Request.BackendHttp exposing (WebData)
 import Request.Process as ProcessApi
-import Static.Db exposing (Db)
 import Views.Admin as AdminView
 import Views.Alert as Alert
 import Views.Container as Container
@@ -95,18 +95,17 @@ view { db } model =
                 |> WebDataView.map
                     (\processes ->
                         processes
-                            |> (case model.search of
-                                    "" ->
-                                        identity
+                            |> (if model.search == "" then
+                                    identity
 
-                                    _ ->
-                                        List.filter
-                                            (Process.getDisplayName
-                                                >> String.toLower
-                                                >> String.contains (String.toLower model.search)
-                                            )
+                                else
+                                    List.filter
+                                        (Process.getDisplayName
+                                            >> String.toLower
+                                            >> String.contains (String.toLower model.search)
+                                        )
                                )
-                            |> Lazy.lazy3 processListView db model.scopes
+                            |> Lazy.lazy3 processListView db.definitions model.scopes
                     )
             , model.processes
                 |> WebDataView.map downloadDbButton
@@ -132,8 +131,8 @@ downloadDbButton processes =
         ]
 
 
-processListView : Db -> List Scope -> List Process -> Html Msg
-processListView db scopes processes =
+processListView : Definitions -> List Scope -> List Process -> Html Msg
+processListView definitions scopes processes =
     Table.responsiveDefault []
         [ thead []
             [ tr []
@@ -154,7 +153,7 @@ processListView db scopes processes =
                                 (\trigram ->
                                     th
                                         [ class "text-center cursor-help"
-                                        , Definition.get trigram db.definitions |> .label |> title
+                                        , Definition.get trigram definitions |> .label |> title
                                         ]
                                         [ text <| Definition.toString trigram ]
                                 )
@@ -168,13 +167,18 @@ processListView db scopes processes =
                 else
                     Scope.anyOf scopes
                )
-            |> List.map (processRowView db)
-            |> tbody []
+            |> List.map
+                (\process ->
+                    ( Process.idToString process.id
+                    , Lazy.lazy2 processRowView definitions process
+                    )
+                )
+            |> Keyed.node "tbody" []
         ]
 
 
-processRowView : Db -> Process -> Html Msg
-processRowView db process =
+processRowView : Definitions -> Process -> Html Msg
+processRowView definitions process =
     tr []
         ([ th [ class "text-truncate", style "max-width" "350px" ]
             [ text (Process.getDisplayName process)
@@ -225,7 +229,7 @@ processRowView db process =
                         (\trigram ->
                             td [ class "text-nowrap text-end" ]
                                 [ process.impacts
-                                    |> Format.formatImpact (Definition.get trigram db.definitions)
+                                    |> Format.formatImpact (Definition.get trigram definitions)
                                 ]
                         )
                )
