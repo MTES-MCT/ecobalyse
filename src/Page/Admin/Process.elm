@@ -27,7 +27,6 @@ import Views.Admin as AdminView
 import Views.Alert as Alert
 import Views.Container as Container
 import Views.Format as Format
-import Views.Scope as ScopeView
 import Views.Table as Table
 import Views.WebData as WebDataView
 
@@ -85,7 +84,7 @@ view { db } model =
     , [ Container.centered [ class "d-flex flex-column gap-3 pb-5" ]
             [ AdminView.header model.section
             , warning
-            , ScopeView.scopedSearchForm
+            , AdminView.scopedSearchForm
                 { scopes = model.scopes
                 , search = UpdateSearch
                 , searched = model.search
@@ -95,17 +94,8 @@ view { db } model =
                 |> WebDataView.map
                     (\processes ->
                         processes
-                            |> (if model.search == "" then
-                                    identity
-
-                                else
-                                    List.filter
-                                        (Process.getDisplayName
-                                            >> String.toLower
-                                            >> String.contains (String.toLower model.search)
-                                        )
-                               )
-                            |> Lazy.lazy3 processListView db.definitions model.scopes
+                            |> processFilters model.scopes model.search
+                            |> Lazy.lazy2 processListView db.definitions
                     )
             , model.processes
                 |> WebDataView.map downloadDbButton
@@ -131,8 +121,28 @@ downloadDbButton processes =
         ]
 
 
-processListView : Definitions -> List Scope -> List Process -> Html Msg
-processListView definitions scopes processes =
+processFilters : List Scope -> String -> List Process -> List Process
+processFilters scopes search =
+    (if scopes == [] then
+        List.filter (\p -> p.scopes == [])
+
+     else
+        Scope.anyOf scopes
+    )
+        >> (if search == "" then
+                identity
+
+            else
+                List.filter
+                    (Process.getDisplayName
+                        >> String.toLower
+                        >> String.contains (String.toLower search)
+                    )
+           )
+
+
+processListView : Definitions -> List Process -> Html Msg
+processListView definitions processes =
     Table.responsiveDefault []
         [ thead []
             [ tr []
@@ -161,12 +171,6 @@ processListView definitions scopes processes =
                 )
             ]
         , processes
-            |> (if scopes == [] then
-                    List.filter (\p -> p.scopes == [])
-
-                else
-                    Scope.anyOf scopes
-               )
             |> List.map
                 (\process ->
                     ( Process.idToString process.id

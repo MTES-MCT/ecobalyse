@@ -1,9 +1,15 @@
-module Views.Admin exposing (header)
+module Views.Admin exposing
+    ( header
+    , scopedSearchForm
+    )
 
+import Data.Scope exposing (Scope)
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Events exposing (..)
 import Page.Admin.Section as AdminSection exposing (Section(..))
 import Route
+import Views.Scope as ScopeView
 
 
 all : List ( Section, Bool )
@@ -50,3 +56,28 @@ menu currenSection =
             , attribute "role" "group"
             , attribute "aria-label" "Sections du back-office"
             ]
+
+
+scopedSearchForm :
+    { scopes : List Scope
+    , search : String -> msg
+    , searched : String
+    , updateScopes : List Scope -> msg
+    }
+    -> Html msg
+scopedSearchForm { scopes, search, searched, updateScopes } =
+    div [ class "row g-3" ]
+        [ div [ class "col-lg-8" ]
+            [ ScopeView.scopeFilterForm updateScopes scopes ]
+        , div [ class "col-lg-4 position-relative" ]
+            [ input
+                [ type_ "search"
+                , class "form-control"
+                , style "height" "calc(100% - 1px)"
+                , placeholder "🔍 Rechercher"
+                , onInput search
+                , value searched
+                ]
+                []
+            ]
+        ]

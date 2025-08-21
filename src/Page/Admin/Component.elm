@@ -48,6 +48,7 @@ import Views.WebData as WebDataView
 type alias Model =
     { components : WebData (List Component)
     , scopes : List Scope
+    , search : String
     , section : AdminSection.Section
     , modals : List Modal
     }
@@ -79,6 +80,7 @@ type Msg
     | SetModals (List Modal)
     | UpdateComponent Item
     | UpdateScopeFilters (List Scope)
+    | UpdateSearch String
 
 
 init : Session -> AdminSection.Section -> PageUpdate Model Msg
@@ -86,6 +88,7 @@ init session section =
     { components = RemoteData.NotAsked
     , modals = []
     , scopes = Scope.all
+    , search = ""
     , section = section
     }
         |> App.createUpdate session
@@ -245,6 +248,9 @@ update session msg model =
         UpdateScopeFilters scopes ->
             App.createUpdate session { model | scopes = scopes }
 
+        UpdateSearch search ->
+            App.createUpdate session { model | search = search }
+
 
 commandsForModal : List Modal -> Cmd Msg
 commandsForModal modals =
@@ -291,10 +297,17 @@ view { db } model =
     , [ Container.centered [ class "d-flex flex-column gap-3 pb-5" ]
             [ AdminView.header model.section
             , warning
-            , model.scopes
-                |> ScopeView.scopeFilterForm UpdateScopeFilters
+            , AdminView.scopedSearchForm
+                { scopes = model.scopes
+                , search = UpdateSearch
+                , searched = model.search
+                , updateScopes = UpdateScopeFilters
+                }
             , model.components
-                |> WebDataView.map (componentListView db model.scopes)
+                |> WebDataView.map
+                    (processFilters model.scopes model.search
+                        >> componentListView db
+                    )
             , model.components
                 |> WebDataView.map downloadDbButton
             , model.modals
@@ -322,8 +335,28 @@ downloadDbButton components =
         ]
 
 
-componentListView : Db -> List Scope -> List Component -> Html Msg
-componentListView db scopes components =
+processFilters : List Scope -> String -> List Component -> List Component
+processFilters scopes search =
+    (if scopes == [] then
+        List.filter (\p -> p.scopes == [])
+
+     else
+        Scope.anyOf scopes
+    )
+        >> (if search == "" then
+                identity
+
+            else
+                List.filter
+                    (.name
+                        >> String.toLower
+                        >> String.contains (String.toLower search)
+                    )
+           )
+
+
+componentListView : Db -> List Component -> Html Msg
+componentListView db components =
     Table.responsiveDefault []
         [ thead []
             [ tr []
@@ -333,12 +366,6 @@ componentListView db scopes components =
                 ]
             ]
         , components
-            |> (if scopes == [] then
-                    List.filter (\c -> c.scopes == [])
-
-                else
-                    Scope.anyOf scopes
-               )
             |> List.map (componentRowView db)
             |> tbody []
         ]

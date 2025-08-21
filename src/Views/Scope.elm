@@ -1,6 +1,5 @@
 module Views.Scope exposing
     ( scopeFilterForm
-    , scopedSearchForm
     , singleScopeForm
     )
 
@@ -45,31 +44,6 @@ scopeFilterForm update filtered =
                 update (List.filter ((/=) scope) filtered)
         )
         filtered
-
-
-scopedSearchForm :
-    { scopes : List Scope
-    , search : String -> msg
-    , searched : String
-    , updateScopes : List Scope -> msg
-    }
-    -> Html msg
-scopedSearchForm { scopes, search, searched, updateScopes } =
-    div [ class "row g-3" ]
-        [ div [ class "col-lg-8" ]
-            [ scopeFilterForm updateScopes scopes ]
-        , div [ class "col-lg-4 position-relative" ]
-            [ input
-                [ type_ "search"
-                , class "form-control"
-                , style "height" "calc(100% - 1px)"
-                , placeholder "🔍 Rechercher"
-                , onInput search
-                , value searched
-                ]
-                []
-            ]
-        ]
 
 
 singleScopeForm : (Scope -> msg) -> Scope -> Html msg
