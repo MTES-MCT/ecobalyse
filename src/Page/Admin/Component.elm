@@ -19,6 +19,7 @@ import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
 import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
+import Data.Text as Text
 import Diff
 import Diff.ToString as DiffToString
 import Html exposing (..)
@@ -343,16 +344,11 @@ processFilters scopes search =
      else
         Scope.anyOf scopes
     )
-        >> (if search == "" then
-                identity
-
-            else
-                List.filter
-                    (.name
-                        >> String.toLower
-                        >> String.contains search
-                    )
-           )
+        >> Text.search
+            { query = search
+            , sortBy = Nothing
+            , toString = .name
+            }
 
 
 componentListView : Db -> List Component -> Html Msg

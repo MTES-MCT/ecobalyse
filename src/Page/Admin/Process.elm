@@ -14,6 +14,7 @@ import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category
 import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
+import Data.Text as Text
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Keyed as Keyed
@@ -129,16 +130,11 @@ processFilters scopes search =
      else
         Scope.anyOf scopes
     )
-        >> (if search == "" then
-                identity
-
-            else
-                List.filter
-                    (Process.getDisplayName
-                        >> String.toLower
-                        >> String.contains search
-                    )
-           )
+        >> Text.search
+            { query = search
+            , sortBy = Nothing
+            , toString = Process.getDisplayName
+            }
 
 
 processListView : Definitions -> List Process -> Html Msg
@@ -146,29 +142,19 @@ processListView definitions processes =
     Table.responsiveDefault []
         [ thead []
             [ tr []
-                ([ th [] [ text "Nom" ]
-                 , th [] [ text "Catégories" ]
-                 , th [] [ text "Verticales" ]
-                 , th [] [ text "Source" ]
-                 , th [] [ text "Identifiant dans la source" ]
-                 , th [] [ text "Unité" ]
-                 , th [] [ text "Électricité" ]
-                 , th [] [ text "Chaleur" ]
-                 , th [] [ text "Pertes" ]
-                 , th [] [ text "Densité" ]
-                 , th [] [ text "Commentaire" ]
-                 ]
-                    ++ (Definition.trigrams
-                            |> List.map
-                                (\trigram ->
-                                    th
-                                        [ class "text-center cursor-help"
-                                        , Definition.get trigram definitions |> .label |> title
-                                        ]
-                                        [ text <| Definition.toString trigram ]
-                                )
-                       )
-                )
+                [ th [] [ text "Nom" ]
+                , th [] [ text "Catégories" ]
+                , th [] [ text "Verticales" ]
+                , th [] [ text "Source" ]
+                , th [] [ text "Identifiant dans la source" ]
+                , th [] [ text "Unité" ]
+                , th [] [ text "Élec" ]
+                , th [] [ text "Chaleur" ]
+                , th [] [ text "Pertes" ]
+                , th [] [ text "Densité" ]
+                , th [] [ text "Coût env." ]
+                , th [] [ text "Commentaire" ]
+                ]
             ]
         , processes
             |> List.map
@@ -184,12 +170,12 @@ processListView definitions processes =
 processRowView : Definitions -> Process -> Html Msg
 processRowView definitions process =
     tr []
-        ([ th [ class "text-truncate", style "max-width" "350px" ]
+        [ th [ class "text-truncate", style "max-width" "325px", title <| Process.getDisplayName process ]
             [ text (Process.getDisplayName process)
             , small [ class "d-block fw-normal" ]
                 [ code [] [ text (Process.idToString process.id) ] ]
             ]
-         , td []
+        , td []
             [ process.categories
                 |> List.map
                     (Category.toLabel
@@ -199,7 +185,7 @@ processRowView definitions process =
                     )
                 |> div []
             ]
-         , td []
+        , td []
             [ process.scopes
                 |> List.map
                     (Scope.toString
@@ -209,35 +195,27 @@ processRowView definitions process =
                     )
                 |> div []
             ]
-         , td [ class "text-nowrap" ]
+        , td [ class "text-nowrap" ]
             [ text process.source ]
-         , td []
+        , td []
             [ code [ class "fs-9" ]
                 [ text (Process.getTechnicalName process) ]
             ]
-         , td []
+        , td []
             [ text process.unit ]
-         , td [ class "text-end" ]
+        , td [ class "text-end" ]
             [ Format.kilowattHours process.elec ]
-         , td [ class "text-end" ]
+        , td [ class "text-end" ]
             [ Format.megajoules process.heat ]
-         , td [ class "text-end" ]
+        , td [ class "text-end" ]
             [ Format.splitAsPercentage 2 process.waste ]
-         , td [ class "text-end" ]
+        , td [ class "text-end" ]
             [ Format.density process ]
-         , td []
+        , td [ class "text-end" ]
+            [ process.impacts |> Format.formatImpact (Definition.get Definition.Ecs definitions) ]
+        , td []
             [ span [ class "fs-9" ] [ text process.comment ] ]
-         ]
-            ++ (Definition.trigrams
-                    |> List.map
-                        (\trigram ->
-                            td [ class "text-nowrap text-end" ]
-                                [ process.impacts
-                                    |> Format.formatImpact (Definition.get trigram definitions)
-                                ]
-                        )
-               )
-        )
+        ]
 
 
 warning : Html msg
