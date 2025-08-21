@@ -11,6 +11,8 @@ hidden: true
 Logique clé : Plus un meuble est durable, plus sa durée de vie estimée est élevé, plus faible est son impact.
 {% endhint %}
 
+<mark style="color:$warning;">Page a recalibrer pour retirer la partie transverse.</mark>&#x20;
+
 ## Quelles sont les dimensions de la durabilité ?
 
 Deux principales dimensions sont généralement considérées pour apprécier la durabilité d'un produit :

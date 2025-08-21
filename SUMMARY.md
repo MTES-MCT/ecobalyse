@@ -24,7 +24,7 @@
 
 ***
 
-* [📝 Le coût environnemental : approche méthodologique globale](impacts-consideres.md)
+* [📝 Le coût environnemental : approche méthodologique globale (old)](impacts-consideres.md)
 * [Compléments hors ACV - old](complements-hors-acv.md)
 
 ## 🍕 Alimentaire
@@ -38,16 +38,16 @@
     * [🛠️ Modifications ciblées des ICV ingrédients](alimentaire/impacts-consideres/etape-1-ingredients/modifications-ciblees-des-icv-ingredients.md)
   * [🥧 Etape 2 : transformation](alimentaire/impacts-consideres/transformation.md)
   * [📦 Etape 3 : emballages](alimentaire/impacts-consideres/etape-3-emballages.md)
-  * [👷‍♀️ Etape 4 : distribution](alimentaire/impacts-consideres/distribution-neglige.md)
+  * [👷‍♀️ Etape 4 : distribution](alimentaire/impacts-consideres/distribution.md)
   * [🍽️ Etape 5 : consommation](alimentaire/impacts-consideres/etape-5-consommation.md)
   * [🚛 Transport](alimentaire/impacts-consideres/transport.md)
   * [🥑 Part non comestible](alimentaire/impacts-consideres/part-non-comestible.md)
   * [🚣‍♀️ Densité](alimentaire/impacts-consideres/densite.md)
   * [🍚 Rapport cru/cuit](alimentaire/impacts-consideres/rapport-cru-cuit.md)
 * [Complément hors ACV](alimentaire/complement-hors-acv.md)
-* [Paramétrage](alimentaire/complements-hors-acv/README.md)
-  * [🧅 Paramétrage des ingrédients](alimentaire/complements-hors-acv/complements-hors-acv.md)
-  * [§Recette en pourcentage](alimentaire/complements-hors-acv/recette-en-pourcentage.md)
+* [Paramétrage (old)](alimentaire/complements-hors-acv/README.md)
+  * [🧅 Paramétrage des ingrédients - logique par défaut  (old)](alimentaire/complements-hors-acv/complements-hors-acv.md)
+  * [§Recette en pourcentage (old/brainstorm)](alimentaire/complements-hors-acv/recette-en-pourcentage-old-brainstorm.md)
   * [🥫 Paramétrage des emballages (à remplir une fois les travaux CTCPA implémentés)](alimentaire/complements-hors-acv/complements-hors-acv-1.md)
   * [🧊 Paramétrage de la conservation à l'étape distribution (cf. parties OLD à ajouter?)](alimentaire/complements-hors-acv/complements-hors-acv-2.md)
   * [🫕 Paramétrage de la conservation et de la transformation chez le consommateur (OLD: à vérifier)](alimentaire/complements-hors-acv/consommation.md)
@@ -73,19 +73,11 @@
     * [🍇 Raisin de cuve](alimentaire/etapes-du-cycles-de-vie/ingredients-agricoles-hors-viande/raisin-de-cuve.md)
     * [🥭 Mangue](alimentaire/etapes-du-cycles-de-vie/ingredients-agricoles-hors-viande/mangue.md)
     * [❓ Modèle](alimentaire/etapes-du-cycles-de-vie/ingredients-agricoles-hors-viande/modele.md)
-* [Old](alimentaire/old/README.md)
+* [Old (archive 2022)](alimentaire/old/README.md)
   * [Transverse](alimentaire/old/transverse/README.md)
     * [Indicateurs d'impacts ACV](alimentaire/old/transverse/impacts-consideres.md)
     * [Visualisation et comparaison des impacts dans l'outil Ecobalyse](alimentaire/old/transverse/impacts-consideres-1.md)
     * [Niveaux de calcul ?](alimentaire/old/transverse/niveaux-de-calcul.md)
-  * [Pages textiles old](alimentaire/old/pages-textiles-old/README.md)
-    * [FAQ](alimentaire/old/pages-textiles-old/faq.md)
-    * [Echelle comparative](alimentaire/old/pages-textiles-old/echelle-comparative.md)
-    * [Indicateurs environnementaux - old](alimentaire/old/pages-textiles-old/impacts-consideres.md)
-    * [Points de méthode spécifiques aux produits textiles](alimentaire/old/pages-textiles-old/demarche.md)
-    * [Limites méthodologiques](alimentaire/old/pages-textiles-old/limites-methodologiques/README.md)
-      * [OLD](alimentaire/old/pages-textiles-old/limites-methodologiques/old.md)
-    * [📃 Conditions d'utilisation](alimentaire/old/pages-textiles-old/conditions-dutilisation.md)
   * [🍒 Alimentaire](alimentaire/old/alimentaire/README.md)
     * [Données ACV mobilisées](alimentaire/old/alimentaire/donnees-acv-mobilisees.md)
     * [Choix des inventaires](alimentaire/old/alimentaire/choix-des-inventaires.md)
@@ -152,10 +144,18 @@
 * [Mises à jour](textile/mises-a-jour/README.md)
   * [Travaux finalisés](textile/mises-a-jour/travaux-finalises.md)
 * [Exemples](textile/exemples.md)
+* [Pages textiles old](textile/pages-textiles-old/README.md)
+  * [FAQ](textile/pages-textiles-old/faq.md)
+  * [Echelle comparative](textile/pages-textiles-old/echelle-comparative.md)
+  * [Indicateurs environnementaux - old](textile/pages-textiles-old/impacts-consideres.md)
+  * [Points de méthode spécifiques aux produits textiles](textile/pages-textiles-old/demarche.md)
+  * [Limites méthodologiques](textile/pages-textiles-old/limites-methodologiques/README.md)
+    * [OLD](textile/pages-textiles-old/limites-methodologiques/old.md)
+  * [📃 Conditions d'utilisation](textile/pages-textiles-old/conditions-dutilisation.md)
 
 ## 🍕 Copy of Alimentaire -EN CONSTRUCTION
 
-* [Cycle de vie des produits alimentaires](copy-of-alimentaire-en-construction/impacts-consideres/README.md)
+* [Cycle de vie des produits alimentaires (old)](copy-of-alimentaire-en-construction/impacts-consideres/README.md)
   * [Etape 1 : ingrédients](copy-of-alimentaire-en-construction/impacts-consideres/etape-1-ingredients/README.md)
     * [📖 La base Agribalyse](copy-of-alimentaire-en-construction/impacts-consideres/etape-1-ingredients/impacts-consideres.md)
     * [🍒 Ingrédients agricoles - inventaires mobilisés (impacts ACV)](copy-of-alimentaire-en-construction/impacts-consideres/etape-1-ingredients/impacts-consideres-1.md)
@@ -169,8 +169,8 @@
   * [🚣‍♀️ Densité (draft)](copy-of-alimentaire-en-construction/impacts-consideres/densite.md)
   * [🍚 Rapport cru/cuit (draft)](copy-of-alimentaire-en-construction/impacts-consideres/rapport-cru-cuit.md)
   * [🥧 Etape 2 : transformation (issu de OLD : à vérifier)](copy-of-alimentaire-en-construction/impacts-consideres/transformation.md)
-* [Compléments hors ACV](copy-of-alimentaire-en-construction/complements-hors-acv.md)
-* [Paramétrage](copy-of-alimentaire-en-construction/complements-hors-acv-1/README.md)
+* [Compléments hors ACV (old)](copy-of-alimentaire-en-construction/complements-hors-acv.md)
+* [Paramétrage (old)](copy-of-alimentaire-en-construction/complements-hors-acv-1/README.md)
   * [🧅 Paramétrage des ingrédients](copy-of-alimentaire-en-construction/complements-hors-acv-1/complements-hors-acv.md)
   * [§Recette en pourcentage](copy-of-alimentaire-en-construction/complements-hors-acv-1/recette-en-pourcentage.md)
   * [🥫 Paramétrage des emballages (à remplir une fois les travaux CTCPA implémentés)](copy-of-alimentaire-en-construction/complements-hors-acv-1/complements-hors-acv-1.md)
@@ -248,7 +248,7 @@
 ***
 
 * [Durabilité](durabilite.md)
-* [🚚 Transport](transport.md)
+* [🚚 Transport (old)](transport-old.md)
 
 ## 🛺 Véhicules
 

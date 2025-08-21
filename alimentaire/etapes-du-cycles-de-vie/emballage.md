@@ -65,5 +65,5 @@ $$
 
 Les impacts considérés peuvent être indifféremment :&#x20;
 
-* l'un des 16 impact PEF proposés dans la base Agribalyse (cf. [impacts-consideres.md](../old/pages-textiles-old/impacts-consideres.md "mention")) - \[_**TODO : une modif à prévoir sur cette page, voire sur l'explorateur, pour dissocier l'alimentaire et le textile**_]
+* l'un des 16 impact PEF proposés dans la base Agribalyse (cf. [impacts-consideres.md](../../textile/pages-textiles-old/impacts-consideres.md "mention")) - \[_**TODO : une modif à prévoir sur cette page, voire sur l'explorateur, pour dissocier l'alimentaire et le textile**_]
 * le score PEF calculé comme une somme pondérée des 16 impacts, en application de la méthode PEF (cf. [https://fabrique-numerique.gitbook.io/ecobalyse/textile/impacts-consideres#score-pef](https://fabrique-numerique.gitbook.io/ecobalyse/textile/impacts-consideres#score-pef) )

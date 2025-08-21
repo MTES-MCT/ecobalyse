@@ -25,7 +25,7 @@ Dans ce cas, merci de :
 Vous avez l'œil !\
 Certains indicateurs (ex : ecotoxicité aquatique) ne sont pas encore modélisables faute d'un socle technique/scientifique suffisamment avancé.\
 Nous sommes en relation avec les fournisseurs de données (référentiel européen PEF, ADEME, Ecoinvent, etc.) pour palier cette limite.\
-Cf. page méthodo sur ce sujet : [impacts considérés](../../../alimentaire/old/pages-textiles-old/impacts-consideres.md)
+Cf. page méthodo sur ce sujet : [impacts considérés](../../../textile/pages-textiles-old/impacts-consideres.md)
 
 ### Le résultat de ma simulation a changé entre deux visites !
 
