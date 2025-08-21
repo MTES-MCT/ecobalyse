@@ -8,6 +8,7 @@ module Page.Admin.Process exposing
     )
 
 import App exposing (Msg, PageUpdate)
+import Base64
 import Data.Impact.Definition as Definition
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category
@@ -97,6 +98,8 @@ downloadDbButton processes =
             , processes
                 |> Encode.list Process.encode
                 |> Encode.encode 2
+                |> Base64.encode
+                |> (++) "data:application/json;base64,"
                 |> href
             ]
             [ text "Exporter la base de données de procédés" ]
