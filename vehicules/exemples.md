@@ -1,5 +1,6 @@
 ---
 description: Page introduisant la notion d'exemples proposés au début du simulateur
+hidden: true
 ---
 
 # Draft - Exemples
