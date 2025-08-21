@@ -40,6 +40,7 @@ import Views.Container as Container
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Modal as Modal
+import Views.Scope as ScopeView
 import Views.Table as Table
 import Views.WebData as WebDataView
 
@@ -291,7 +292,7 @@ view { db } model =
             [ AdminView.header model.section
             , warning
             , model.scopes
-                |> scopeFilterForm UpdateScopeFilters
+                |> ScopeView.scopeFilterForm UpdateScopeFilters
             , model.components
                 |> WebDataView.map (componentListView db model.scopes)
             , model.components
@@ -611,7 +612,7 @@ componentScopesForm component item =
         |> Maybe.withDefault component.scopes
         |> List.head
         |> Maybe.withDefault Scope.Object
-        |> singleScopeForm
+        |> ScopeView.singleScopeForm
             (\scope ->
                 item
                     |> Component.toggleCustomScope component scope True
@@ -675,67 +676,6 @@ historyView entries =
                             ]
                     )
                 |> tbody []
-        ]
-
-
-scopeFilterForm : (List Scope -> Msg) -> List Scope -> Html Msg
-scopeFilterForm updateFilters filtered =
-    multipleScopesForm
-        (\scope enabled ->
-            if enabled then
-                updateFilters (scope :: filtered)
-
-            else
-                updateFilters (List.filter ((/=) scope) filtered)
-        )
-        filtered
-
-
-multipleScopesForm : (Scope -> Bool -> Msg) -> List Scope -> Html Msg
-multipleScopesForm check scopes =
-    div [ class "d-flex flex-row align-center input-group border" ]
-        [ h3 [ class "h6 mb-0 input-group-text" ] [ text "Verticales" ]
-        , Scope.all
-            |> List.map
-                (\scope ->
-                    div [ class "form-check form-check-inline" ]
-                        [ label [ class "form-check-label" ]
-                            [ input
-                                [ type_ "checkbox"
-                                , class "form-check-input"
-                                , checked <| List.member scope scopes
-                                , onCheck <| check scope
-                                ]
-                                []
-                            , text (Scope.toString scope)
-                            ]
-                        ]
-                )
-            |> div [ class "form-control bg-white" ]
-        ]
-
-
-singleScopeForm : (Scope -> Msg) -> Scope -> Html Msg
-singleScopeForm selectScope selectedScope =
-    div [ class "d-flex flex-row gap-3 align-items-center" ]
-        [ h3 [ class "h6 mb-0" ] [ text "Verticale" ]
-        , Scope.all
-            |> List.map
-                (\scope ->
-                    option
-                        [ selected <| scope == selectedScope
-                        , value <| Scope.toString scope
-                        ]
-                        [ text <| Scope.toLabel scope ]
-                )
-            |> select
-                [ class "form-select"
-                , onInput
-                    (Scope.fromString
-                        >> Result.withDefault selectedScope
-                        >> selectScope
-                    )
-                ]
         ]
 
 

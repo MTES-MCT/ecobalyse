@@ -15,7 +15,6 @@ import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Html.Events exposing (..)
 import Json.Encode as Encode
 import Page.Admin.Section as AdminSection
 import RemoteData
@@ -26,6 +25,7 @@ import Views.Admin as AdminView
 import Views.Alert as Alert
 import Views.Container as Container
 import Views.Format as Format
+import Views.Scope as ScopeView
 import Views.Table as Table
 import Views.WebData as WebDataView
 
@@ -78,7 +78,7 @@ view { db } model =
             [ AdminView.header model.section
             , warning
             , model.scopes
-                |> scopeFilterForm UpdateScopeFilters
+                |> ScopeView.scopeFilterForm UpdateScopeFilters
             , model.processes
                 |> WebDataView.map (processListView db model.scopes)
             , model.processes
@@ -201,43 +201,6 @@ processRowView db process =
                         )
                )
         )
-
-
-scopeFilterForm : (List Scope -> Msg) -> List Scope -> Html Msg
-scopeFilterForm updateFilters filtered =
-    multipleScopesForm
-        (\scope enabled ->
-            if enabled then
-                updateFilters (scope :: filtered)
-
-            else
-                updateFilters (List.filter ((/=) scope) filtered)
-        )
-        filtered
-
-
-multipleScopesForm : (Scope -> Bool -> Msg) -> List Scope -> Html Msg
-multipleScopesForm check scopes =
-    div [ class "d-flex flex-row align-center input-group border" ]
-        [ h3 [ class "h6 mb-0 input-group-text" ] [ text "Verticales" ]
-        , Scope.all
-            |> List.map
-                (\scope ->
-                    div [ class "form-check form-check-inline" ]
-                        [ label [ class "form-check-label" ]
-                            [ input
-                                [ type_ "checkbox"
-                                , class "form-check-input"
-                                , checked <| List.member scope scopes
-                                , onCheck <| check scope
-                                ]
-                                []
-                            , text (Scope.toString scope)
-                            ]
-                        ]
-                )
-            |> div [ class "form-control bg-white" ]
-        ]
 
 
 warning : Html msg
