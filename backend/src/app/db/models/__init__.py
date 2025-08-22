@@ -1,6 +1,8 @@
 from .component import Component
 from .journal_entry import JournalAction, JournalEntry
-from .process import ProcessModel
+from .process import Process
+from .process_category import ProcessCategory
+from .process_process_category import process_process_category
 from .role import Role
 from .token import Token
 from .user import User
@@ -11,10 +13,12 @@ __all__ = (
     "Component",
     "JournalAction",
     "JournalEntry",
-    "ProcessModel",
+    "Process",
+    "ProcessCategory",
     "Role",
     "Token",
     "User",
     "UserProfile",
     "UserRole",
+    "process_process_category",
 )
