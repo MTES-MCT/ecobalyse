@@ -139,7 +139,7 @@
     "categories": ["nut_oilseed_raw", "organic"],
     "cropGroup": "TOURNESOL",
     "defaultOrigin": "France",
-    "density": 1.0,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 19.914,
       "hedges": 2.1723,
@@ -161,7 +161,7 @@
     "categories": ["nut_oilseed_raw", "organic"],
     "cropGroup": "COLZA",
     "defaultOrigin": "France",
-    "density": 1.0,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 11.275,
       "hedges": 1.8591,
@@ -723,7 +723,7 @@
     "categories": ["nut_oilseed_raw", "organic"],
     "cropGroup": "LEGUMINEUSES A GRAIN",
     "defaultOrigin": "France",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 9.7025,
       "hedges": 0.80039,
@@ -745,7 +745,7 @@
     "categories": ["nut_oilseed_raw"],
     "cropGroup": "AUTRES OLEAGINEUX",
     "defaultOrigin": "France",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 1.0583,
@@ -767,7 +767,7 @@
     "categories": ["nut_oilseed_raw", "organic"],
     "cropGroup": "AUTRES OLEAGINEUX",
     "defaultOrigin": "France",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 18.858,
       "hedges": 2.0396,
@@ -789,7 +789,7 @@
     "categories": ["nut_oilseed_raw"],
     "cropGroup": "AUTRES OLEAGINEUX",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -811,7 +811,7 @@
     "categories": ["nut_oilseed_raw"],
     "cropGroup": "AUTRES OLEAGINEUX",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -833,7 +833,7 @@
     "categories": ["nut_oilseed_raw"],
     "cropGroup": "AUTRES OLEAGINEUX",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 1.0587,
@@ -2421,7 +2421,7 @@
     "categories": ["nut_oilseed_raw"],
     "cropGroup": "FRUITS A COQUES",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -2443,7 +2443,7 @@
     "categories": ["nut_oilseed_raw"],
     "cropGroup": "FRUITS A COQUES",
     "defaultOrigin": "EuropeAndMaghreb",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -2465,7 +2465,7 @@
     "categories": ["nut_oilseed_raw"],
     "cropGroup": "FRUITS A COQUES",
     "defaultOrigin": "EuropeAndMaghreb",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -2487,7 +2487,7 @@
     "categories": ["nut_oilseed_raw"],
     "cropGroup": "FRUITS A COQUES",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -2927,7 +2927,7 @@
     "categories": ["nut_oilseed_raw"],
     "cropGroup": "COLZA",
     "defaultOrigin": "France",
-    "density": 1.0,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0.83052,
@@ -2949,7 +2949,7 @@
     "categories": ["nut_oilseed_raw"],
     "cropGroup": "COLZA",
     "defaultOrigin": "EuropeAndMaghreb",
-    "density": 1.0,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -2971,7 +2971,7 @@
     "categories": ["nut_oilseed_raw"],
     "cropGroup": "COLZA",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 1.0,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -2993,7 +2993,7 @@
     "categories": ["nut_oilseed_raw"],
     "cropGroup": "FRUITS A COQUES",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -3015,7 +3015,7 @@
     "categories": ["nut_oilseed_raw"],
     "cropGroup": "FRUITS A COQUES",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -3081,7 +3081,7 @@
     "categories": ["nut_oilseed_raw"],
     "cropGroup": "LEGUMINEUSES A GRAIN",
     "defaultOrigin": "France",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0.59607,
@@ -3103,7 +3103,7 @@
     "categories": ["nut_oilseed_raw"],
     "cropGroup": "TOURNESOL",
     "defaultOrigin": "France",
-    "density": 1.0,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 1.9217,
       "hedges": 1.3624,
@@ -3125,7 +3125,7 @@
     "categories": ["nut_oilseed_raw"],
     "cropGroup": "TOURNESOL",
     "defaultOrigin": "EuropeAndMaghreb",
-    "density": 1.0,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -3147,7 +3147,7 @@
     "categories": ["nut_oilseed_raw"],
     "cropGroup": "TOURNESOL",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 1.0,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -3697,7 +3697,7 @@
     "categories": ["nut_oilseed_raw"],
     "cropGroup": "FRUITS A COQUES",
     "defaultOrigin": "France",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 2.199,
@@ -3719,7 +3719,7 @@
     "categories": ["nut_oilseed_raw"],
     "cropGroup": "FRUITS A COQUES",
     "defaultOrigin": "France",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0.011931,
@@ -3741,7 +3741,7 @@
     "categories": ["nut_oilseed_raw"],
     "cropGroup": "FRUITS A COQUES",
     "defaultOrigin": "France",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0.011931,
@@ -3763,7 +3763,7 @@
     "categories": ["nut_oilseed_raw"],
     "cropGroup": "FRUITS A COQUES",
     "defaultOrigin": "France",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 2.199,
@@ -3873,7 +3873,7 @@
     "categories": ["nut_oilseed_raw"],
     "cropGroup": "LEGUMINEUSES A GRAIN",
     "defaultOrigin": "France",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 1.2397,
@@ -4269,7 +4269,7 @@
     "categories": ["nut_oilseed_raw"],
     "cropGroup": "LEGUMES-FLEURS",
     "defaultOrigin": "EuropeAndMaghreb",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -4291,7 +4291,7 @@
     "categories": ["nut_oilseed_raw"],
     "cropGroup": "LEGUMES-FLEURS",
     "defaultOrigin": "France",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0.70052,
@@ -4709,7 +4709,7 @@
     "categories": ["nut_oilseed_raw", "organic"],
     "cropGroup": "FRUITS A COQUES",
     "defaultOrigin": "France",
-    "density": 1.0,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 1.7442,
@@ -5017,7 +5017,7 @@
     "categories": ["nut_oilseed_raw"],
     "cropGroup": "FRUITS A COQUES",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 1.7946,
@@ -5259,7 +5259,7 @@
     "categories": ["nut_oilseed_raw", "organic"],
     "cropGroup": "LEGUMINEUSES A GRAIN",
     "defaultOrigin": "France",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 30.173,
       "hedges": 2.4891,
@@ -6833,7 +6833,7 @@
     "categories": ["nut_oilseed_raw"],
     "cropGroup": "FRUITS A COQUES",
     "defaultOrigin": "France",
-    "density": 1.0,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 1.0594,
@@ -6855,7 +6855,7 @@
     "categories": ["nut_oilseed_raw"],
     "cropGroup": "FRUITS A COQUES",
     "defaultOrigin": "EuropeAndMaghreb",
-    "density": 1.0,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -6877,7 +6877,7 @@
     "categories": ["nut_oilseed_raw"],
     "cropGroup": "FRUITS A COQUES",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 1.0,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -7185,7 +7185,7 @@
     "categories": ["nut_oilseed_raw", "organic"],
     "cropGroup": "FRUITS A COQUES",
     "defaultOrigin": "France",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 2.811,
@@ -7437,7 +7437,7 @@
     "categories": ["nut_oilseed_raw"],
     "cropGroup": "LEGUMINEUSES A GRAIN",
     "defaultOrigin": "EuropeAndMaghreb",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -7459,7 +7459,7 @@
     "categories": ["nut_oilseed_raw"],
     "cropGroup": "LEGUMINEUSES A GRAIN",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -7525,7 +7525,7 @@
     "categories": ["nut_oilseed_raw"],
     "cropGroup": "TOURNESOL",
     "defaultOrigin": "EuropeAndMaghreb",
-    "density": 1.0,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -7668,7 +7668,7 @@
     "categories": ["nut_oilseed_raw"],
     "cropGroup": "FRUITS A COQUES",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -8040,7 +8040,7 @@
     "categories": ["nut_oilseed_raw", "organic"],
     "cropGroup": "FRUITS A COQUES",
     "defaultOrigin": "EuropeAndMaghreb",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 3.8323,
@@ -8062,7 +8062,7 @@
     "categories": ["nut_oilseed_raw", "organic"],
     "cropGroup": "FRUITS A COQUES",
     "defaultOrigin": "EuropeAndMaghreb",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 8.2246,
@@ -8084,7 +8084,7 @@
     "categories": ["nut_oilseed_raw"],
     "cropGroup": "FRUITS A COQUES",
     "defaultOrigin": "France",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 4.7348,
@@ -8106,7 +8106,7 @@
     "categories": ["nut_oilseed_raw", "organic"],
     "cropGroup": "FRUITS A COQUES",
     "defaultOrigin": "France",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 2.811,
@@ -8128,7 +8128,7 @@
     "categories": ["nut_oilseed_raw"],
     "cropGroup": "FRUITS A COQUES",
     "defaultOrigin": "EuropeAndMaghreb",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -8150,7 +8150,7 @@
     "categories": ["nut_oilseed_raw"],
     "cropGroup": "FRUITS A COQUES",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -8216,7 +8216,7 @@
     "categories": ["nut_oilseed_raw"],
     "cropGroup": "FRUITS A COQUES",
     "defaultOrigin": "EuropeAndMaghreb",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 1.6857,
@@ -8348,7 +8348,7 @@
     "categories": ["nut_oilseed_raw"],
     "cropGroup": "LEGUMINEUSES A GRAIN",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
