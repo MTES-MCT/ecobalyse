@@ -15,6 +15,7 @@ import Data.Textile.Query as TextileQuery
 import Html
 import Page.Admin.Account as AccountAdmin
 import Page.Admin.Component as ComponentAdmin
+import Page.Admin.Process as ProcessAdmin
 import Page.Admin.Section as AdminSection
 import Page.Api as Api
 import Page.Auth as Auth
@@ -61,6 +62,7 @@ type Page
     | LoadingPage
     | NotFoundPage
     | ObjectSimulatorPage ObjectSimulator.Model
+    | ProcessAdminPage ProcessAdmin.Model
     | RestrictedAccessPage
     | StatsPage Stats.Model
     | TextileSimulatorPage TextileSimulator.Model
@@ -94,6 +96,7 @@ type Msg
     | FoodBuilderMsg FoodBuilder.Msg
     | HomeMsg Home.Msg
     | ObjectSimulatorMsg ObjectSimulator.Msg
+    | ProcessAdminMsg ProcessAdmin.Msg
     | ReleasesReceived (WebData (List Github.Release))
     | StatsMsg Stats.Msg
     | StoreChanged String
@@ -243,10 +246,9 @@ setRoute url ( { state } as model, cmds ) =
                         |> requireSuperuser session
 
                 Just (Route.Admin AdminSection.ProcessSection) ->
-                    -- TODO: open this section when it's ready
-                    ( { model | state = Loaded session RestrictedAccessPage }
-                    , Cmd.none
-                    )
+                    ProcessAdmin.init session AdminSection.ProcessSection
+                        |> toPage session model cmds ProcessAdminPage ProcessAdminMsg
+                        |> requireSuperuser session
 
                 Just (Route.Editorial slug) ->
                     Editorial.init slug session
@@ -399,6 +401,10 @@ update rawMsg ({ state } as model) =
                     ComponentAdmin.update session adminMsg adminModel
                         |> toPage session model Cmd.none ComponentAdminPage ComponentAdminMsg
 
+                ( ProcessAdminMsg adminMsg, ProcessAdminPage adminModel ) ->
+                    ProcessAdmin.update session adminMsg adminModel
+                        |> toPage session model Cmd.none ProcessAdminPage ProcessAdminMsg
+
                 ( DetailedProcessesReceived (RemoteData.Success rawDetailedProcessesJson), currentPage ) ->
                     -- When detailed processes are received, rebuild the entire static db using them
                     case StaticDb.db rawDetailedProcessesJson of
@@ -523,6 +529,10 @@ subscriptions { state } =
                 ComponentAdmin.subscriptions subModel
                     |> Sub.map ComponentAdminMsg
 
+            Loaded _ (ProcessAdminPage subModel) ->
+                ProcessAdmin.subscriptions subModel
+                    |> Sub.map ProcessAdminMsg
+
             Loaded _ (ExplorePage subModel) ->
                 Explore.subscriptions subModel
                     |> Sub.map ExploreMsg
@@ -622,6 +632,11 @@ view { mobileNavigationOpened, state, tray } =
                     ObjectSimulator.view session simulatorModel
                         |> mapMsg ObjectSimulatorMsg
                         |> frame (Page.Object simulatorModel.scope)
+
+                ProcessAdminPage processAdminModel ->
+                    ProcessAdmin.view session processAdminModel
+                        |> mapMsg ProcessAdminMsg
+                        |> frame Page.Admin
 
                 RestrictedAccessPage ->
                     ( "Accès restreint", [ Page.restricted session ] )
