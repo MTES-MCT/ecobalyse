@@ -86,7 +86,7 @@ type Msg
 
 init : Session -> AdminSection.Section -> PageUpdate Model Msg
 init session section =
-    { components = RemoteData.NotAsked
+    { components = RemoteData.Loading
     , modals = []
     , scopes = Scope.all
     , search = ""

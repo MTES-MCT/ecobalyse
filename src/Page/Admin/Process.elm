@@ -48,7 +48,7 @@ type Msg
 
 init : Session -> AdminSection.Section -> PageUpdate Model Msg
 init session section =
-    { processes = RemoteData.NotAsked
+    { processes = RemoteData.Loading
     , scopes = Scope.all
     , search = ""
     , section = section

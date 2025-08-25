@@ -50,7 +50,7 @@ type alias Filters =
 
 init : Session -> AdminSection.Section -> PageUpdate Model Msg
 init session section =
-    { accounts = RemoteData.NotAsked
+    { accounts = RemoteData.Loading
     , filters = defaultFilters
     , section = section
     , tableState = SortableTable.initialSort "Nom"
