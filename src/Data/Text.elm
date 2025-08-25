@@ -13,13 +13,17 @@ type alias SearchConfig element comparable =
 
 search : SearchConfig element comparable -> List element -> List element
 search { minQueryLength, query, sortBy, toString } elements =
-    if query == "" || String.length query < minQueryLength then
+    let
+        trimmedQuery =
+            String.trim query
+    in
+    if trimmedQuery == "" || String.length trimmedQuery < minQueryLength then
         elements
 
     else
         let
             searchWords =
-                toWords (String.trim query)
+                toWords trimmedQuery
         in
         elements
             |> List.map (\element -> ( toWords (toString element), element ))
