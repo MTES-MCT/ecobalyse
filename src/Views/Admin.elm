@@ -14,10 +14,11 @@ import Views.Scope as ScopeView
 
 all : List ( Section, Bool )
 all =
-    [ ( AccountSection, True )
-    , ( ComponentSection, True )
-    , ( ProcessSection, True )
-    ]
+    List.sortBy (Tuple.first >> AdminSection.toLabel >> String.toLower)
+        [ ( AccountSection, True )
+        , ( ComponentSection, True )
+        , ( ProcessSection, True )
+        ]
 
 
 header : Section -> Html msg
