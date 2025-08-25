@@ -80,25 +80,23 @@ update session msg model =
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view { db } model =
+view { db } { processes, scopes, search, section } =
     ( "Admin Procédés"
     , [ Container.centered [ class "d-flex flex-column gap-3 pb-5" ]
-            [ AdminView.header model.section
+            [ AdminView.header section
             , warning
             , AdminView.scopedSearchForm
-                { scopes = model.scopes
+                { scopes = scopes
                 , search = UpdateSearch
-                , searched = model.search
+                , searched = search
                 , updateScopes = UpdateScopeFilters
                 }
-            , model.processes
+            , processes
                 |> WebDataView.map
-                    (\processes ->
-                        processes
-                            |> processFilters model.scopes model.search
-                            |> Lazy.lazy2 processListView db.definitions
+                    (processFilters scopes search
+                        >> Lazy.lazy2 processListView db.definitions
                     )
-            , model.processes
+            , processes
                 |> WebDataView.map downloadDbButton
             ]
       ]
@@ -131,9 +129,10 @@ processFilters scopes search =
         Scope.anyOf scopes
     )
         >> Text.search
-            { query = search
+            { minQueryLength = 2
+            , query = search
             , sortBy = Nothing
-            , toString = Process.getDisplayName
+            , toString = Process.asSearchableText
             }
 
 

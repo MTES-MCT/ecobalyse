@@ -345,7 +345,8 @@ processFilters scopes search =
         Scope.anyOf scopes
     )
         >> Text.search
-            { query = search
+            { minQueryLength = 2
+            , query = search
             , sortBy = Nothing
             , toString = .name
             }

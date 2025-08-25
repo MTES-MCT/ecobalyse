@@ -4,15 +4,16 @@ import String.Normalize as Normalize
 
 
 type alias SearchConfig element comparable =
-    { query : String
+    { minQueryLength : Int
+    , query : String
     , sortBy : Maybe (element -> comparable)
     , toString : element -> String
     }
 
 
 search : SearchConfig element comparable -> List element -> List element
-search { query, sortBy, toString } elements =
-    if query == "" then
+search { minQueryLength, query, sortBy, toString } elements =
+    if query == "" || String.length query < minQueryLength then
         elements
 
     else

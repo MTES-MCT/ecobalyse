@@ -18,7 +18,8 @@ init toString availableElements =
                     | choices =
                         availableElements
                             |> Text.search
-                                { query = lastChoices.query
+                                { minQueryLength = 1
+                                , query = lastChoices.query
                                 , sortBy = Nothing
                                 , toString = toString
                                 }

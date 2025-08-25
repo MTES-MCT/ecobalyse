@@ -1,6 +1,7 @@
 module Data.Process exposing
     ( Id
     , Process
+    , asSearchableText
     , available
     , decode
     , decodeFromId
@@ -187,6 +188,11 @@ getMaterialTypes =
                     _ ->
                         Nothing
             )
+
+
+asSearchableText : Process -> String
+asSearchableText process =
+    getDisplayName process ++ " " ++ getTechnicalName process ++ " " ++ process.comment
 
 
 getTechnicalName : Process -> String
