@@ -192,7 +192,13 @@ getMaterialTypes =
 
 asSearchableText : Process -> String
 asSearchableText process =
-    getDisplayName process ++ " " ++ getTechnicalName process ++ " " ++ process.comment
+    String.join " "
+        [ getDisplayName process
+        , getTechnicalName process
+        , process.categories |> List.map Category.toLabel |> String.join " "
+        , process.scopes |> List.map Scope.toString |> String.join " "
+        , process.comment
+        ]
 
 
 getTechnicalName : Process -> String
