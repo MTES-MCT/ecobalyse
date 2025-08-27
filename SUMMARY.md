@@ -282,6 +282,7 @@
 
 * [Prise en compte de la durabilité](pages-en-cours-de-revue/prise-en-compte-de-la-durabilite.md)
 * [📌 Modèle de page](pages-en-cours-de-revue/modele-de-page.md)
+* [⚡ Energies des étapes de transformation](pages-en-cours-de-revue/energies-des-etapes-de-transformation.md)
 * [💡 Electricité à l'utilisation](pages-en-cours-de-revue/electricite-a-lutilisation.md)
 * [🚚 Transport](pages-en-cours-de-revue/transport/README.md)
   * [Coût environnemental par voie de transport](pages-en-cours-de-revue/transport/cout-environnemental-par-voie-de-transport.md)
@@ -291,6 +292,5 @@
   * [🪚 Transport Ameublement](pages-en-cours-de-revue/transport/transport-ameublement.md)
   * [🛺 Transport Véhicules](pages-en-cours-de-revue/transport/transport-vehicules.md)
   * [🚚 OLD Transport](pages-en-cours-de-revue/transport/old-transport.md)
-* [⚡ Energies des étapes de transformation](pages-en-cours-de-revue/energies-des-etapes-de-transformation.md)
 * [Fin de vie](pages-en-cours-de-revue/fin-de-vie.md)
 * [♻️ Modèle d'impact de la fin de vie](pages-en-cours-de-revue/modele-dimpact-de-la-fin-de-vie.md)
