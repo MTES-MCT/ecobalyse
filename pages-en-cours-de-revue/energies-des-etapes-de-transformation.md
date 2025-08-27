@@ -6,14 +6,15 @@ Deux scénarios existent pour modéliser la consommation d'énergie des procéd�
 
 **Scénario 1** : l'énergie est intégrée dans le procédé mobilisé (voir source et nom technique dans l'explorateur de procédés) en tant que Flux Interne,
 
-**Scénario 2** : l'énergie est modélisée spécifiquement, avec des quantité et des mix géographiques dédiés.
+**Scénario 2** : l'énergie est modélisée spécifiquement, avec des quantités et des mix géographiques dédiés. La quantité d'énergie est alors une information associée au procédé Ecobalyse en tant que Flux Externe. Une quantité d'électricité et/ou de chaleur est alors indiquée dans les colonnes "Electricité" et "Chaleur" de l'Explorateur du secteur concerné, correspondant à ce Flux externe.
 
-* ou bien il n'y a pas de procédés source mobilisé (cas des procédés textile dégraissage, désencollage, mercerisage, teinture, tricotage par exemple)
-* ou bien il y a en complément un procédé source mobilisé. Il peut être construit spécifiquement (pour le blanchiment par exemple), ou issu d'une base de données (Base Impacts 2.01 pour le délavage chimique par exemple)
+Dans ce scénario 2, le coût environnemental de l'étape de transformation est la somme de plusieurs composantes :&#x20;
 
-Dans le cas du scénario 2, une quantité d'électricité et/ou de chaleur est indiquée dans les colonnes "Electricité" et "Chaleur" de l'Explorateur du secteur concerné, correspondant à ce Flux externe qui doit être modélisé en supplément du procédé de transformation.
-
-Sur certaines étapes de transformation, la quantité d'énergie pour ce flux Externe peut être définie par l'utilisateur.
+* le cout environnemental de l'électricité, calculé à partir de la quantité d'électricité associée au procédé, et d'un procédé électricité sélectionné en fonction de la zone géographique concernée
+* le coût environnemental de la chaleur, calculée selon le même principe
+* le coût environnement du procédé hors électricité et chaleur. Celui peut être nul (pas de procédé source associé).
+  * exemples de cas où ce coût environnemental est à zero : procédés textile dégraissage, désencollage, mercerisage, teinture, tricotage
+  * exemples de cas où ce coût environnemental est non nul : blanchiment, délavage chimique)
 
 Cette page détaille le calcul dans le scénario 2.
 
