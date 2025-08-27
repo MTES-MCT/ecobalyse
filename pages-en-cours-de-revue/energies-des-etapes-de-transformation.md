@@ -6,7 +6,7 @@ Deux scénarios existent pour modéliser la consommation d'énergie des procéd�
 
 **Scénario 1** : l'énergie est intégrée dans le procédé mobilisé (voir source et nom technique dans l'explorateur de procédés) en tant que Flux Interne,
 
-**Scénario 2** : l'énergie est modélisée spécifiquement, avec des quantités et des mix géographiques dédiés. La quantité d'énergie est alors une information associée au procédé Ecobalyse en tant que Flux Externe. Une quantité d'électricité et/ou de chaleur est alors indiquée dans les colonnes "Electricité" et "Chaleur" de l'Explorateur du secteur concerné, correspondant à ce Flux externe.
+**Scénario 2** : l'énergie est modélisée spécifiquement, avec des quantités et des mix géographiques dédiés. La quantité d'énergie est alors une information associée au procédé Ecobalyse en tant que Flux Externe. Une quantité d'électricité et/ou de chaleur par kg est alors indiquée dans les colonnes "Electricité" et "Chaleur" de l'Explorateur du secteur concerné, correspondant à ce Flux externe.
 
 Dans ce scénario 2, le coût environnemental de l'étape de transformation est la somme de plusieurs composantes :&#x20;
 
