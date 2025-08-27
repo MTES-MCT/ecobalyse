@@ -53,11 +53,11 @@ Note: docker est également une dépendance requise pour lancer la suite de test
 
 ### Frontend
 
-    $ NODE_ENV=development npm install
+    NODE_ENV=development npm install
 
 ### Backend
 
-    $ pipenv install -d
+    pipenv install -d
 
 Assurez-vous d'avoir un PostgreSQL >=16 qui tourne localement si vous souhaitez vous rapprocher de l'environnement de production. À défaut, `sqlite` sera utilisé.
 
@@ -81,7 +81,7 @@ Vous devriez pouvoir y accéder via votre `psql` local avec la commande suivante
 
 Pour initialiser la base de données (attention, toutes les données présentes, si il y en a, seront supprimées) :
 
-    $ pipenv run ./backend/update.sh
+    pipenv run ./backend/update.sh
 
 ## Développement
 
@@ -89,7 +89,7 @@ Pour initialiser la base de données (attention, toutes les données présentes,
 
 Le serveur local de développement se lance au moyen des deux commandes suivantes :
 
-    $ npm start
+    npm start
 
 Trois instances de développement sont alors accessibles :
 
@@ -98,6 +98,14 @@ Trois instances de développement sont alors accessibles :
 - [localhost:1234](http://localhost:1234/) est l'URL à utiliser en développement pour tester l'intégration des trois composants (le front, l'API et le Django) car un proxy Parcel renvoie certaines requêtes vers le port 8001 ou 8002 (voir `.proxyrc`). Le frontend est servi en mode _hot-reload_, pour recharger! l'interface Web à chaque modification du code frontend.
 
 > ℹ️ Pour accéder à l'admin django, utilisez l'email `foo@bar.baz`. Le lien d'activation pour se connecter automatiquement à l'admin sera affiché dans votre terminal.
+
+## Auto-hébergement avec Docker
+
+Vous trouverez dans `./docker` des scripts permettant d’héberger une version publiée d’Ecobalyse en local en utilisant `docker`. Vous pouvez éditez de `Dockerfile` pour spécifier la version que vous souhaitez lancer, puis la lancer en utilisant `docker compose` :
+
+    docker compose -f docker/compose.yaml up --build
+
+Un server `express` sera lancé sur `http://localhost:8001`.
 
 ### Hooks Git avec pre-commit et Formatage de Code avec Prettier et Ruff
 
@@ -108,21 +116,21 @@ Le build sur le CI échouera si les fichiers python, javascript et json ne sont 
 
 Pour installer les hooks pre-commit, exécutez la commande suivante :
 
-    $ pipenv run pre-commit install
+    pipenv run pre-commit install
 
 Un hook de pre-commit sera alors configuré pour vérifier que le code est bien formaté avant de permettre le commit. Le hook corrigera les erreurs dans la mesure du possible. Il vous suffira alors d'ajouter les modifications à votre staging, git puis à refaire votre commit.
 
 Il est possible de lancer la vérification du formatage à la main grâce à la commande suivante :
 
-    $ npm run lint:all
+    npm run lint:all
 
 Si vous voulez lancer la correction automatique de tous les problèmes détectés, lancez :
 
-    $ npm run fix:all
+    npm run fix:all
 
 Si vous ne souhaitez pas que la vérification se fasse de manière automatique, vous pouvez désinstaller pre-commit et les hooks associés :
 
-    $ pipenv run pre-commit uninstall
+    pipenv run pre-commit uninstall
 
 ### Débogage des emails
 
@@ -132,7 +140,7 @@ Une instance [maildev](https://github.com/maildev/maildev) est lancé en même t
 
 Pour compiler la partie client de l'application :
 
-    $ npm run build
+    npm run build
 
 Les fichiers sont alors générés dans le répertoire `build` à la racine du projet, qui peut être servi de façon statique.
 
@@ -174,8 +182,8 @@ Les variables d'environnement doivent être positionnées via l'interface de [co
 Pour lancer le serveur applicatif complet (frontend + backend), par exemple depuis un environnement de production, la démarche est la suivante :
 
 ```
-$ npm run build
-$ npm run server:start
+npm run build
+npm run server:start
 ```
 
 L'application est alors servie sur le port 1234.
