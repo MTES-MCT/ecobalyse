@@ -84,7 +84,9 @@ Ce choix présente deux limites :&#x20;
 * Ce choix n'est pas forcément représentatif de tous les industriels (qui peuvent aussi être raccordés en basse tension voire haute tension).
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/Coût environnemental des mix électriques mobilisés dans Ecobalyse (uPts _ kWh) (4).png" alt=""><figcaption><p>Mix électriques mobilisés dans Ecobalyse</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (359).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../.gitbook/assets/image (360).png" alt=""><figcaption></figcaption></figure>
 
 ### Procédés de modélisation de la chaleur
 
