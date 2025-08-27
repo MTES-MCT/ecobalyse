@@ -75,7 +75,14 @@ Pour chaque secteur, la liste des pays proposés et les procédés associés à 
 
 ### Procédés de modélisation de l'Electricité
 
-De manière générale, Ecobalyse utilise les procédés Ecoinvent moyenne tension des pays considérés (exemple pour la France : _market for electricity, medium voltage, FR_)
+De manière générale, Ecobalyse utilise les procédés Ecoinvent moyenne tension des pays considérés (exemple pour la France : _market for electricity, medium voltage, FR_).
+
+{% hint style="info" %}
+Ce choix présente deux limites :&#x20;
+
+* Ces procédés n'incluent pas la production d'électricité d'origine solaire photovoltaïque. Cette production est inclue par ecoinvent dans les procédés "low voltage". Les pays ayant une production significative d'électricité d'origine photovoltaïque sont donc susceptibles d'être pénalisés.
+* Ce choix n'est pas forcément représentatif de tous les industriels (qui peuvent aussi être raccordés en basse tension voire haute tension).
+{% endhint %}
 
 <figure><img src="../.gitbook/assets/Coût environnemental des mix électriques mobilisés dans Ecobalyse (uPts _ kWh) (4).png" alt=""><figcaption><p>Mix électriques mobilisés dans Ecobalyse</p></figcaption></figure>
 
