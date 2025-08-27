@@ -282,6 +282,7 @@
 
 * [Prise en compte de la durabilité](pages-en-cours-de-revue/prise-en-compte-de-la-durabilite.md)
 * [📌 Modèle de page](pages-en-cours-de-revue/modele-de-page.md)
+* [💡 Electricité à l'utilisation](pages-en-cours-de-revue/electricite-a-lutilisation.md)
 * [🚚 Transport](pages-en-cours-de-revue/transport/README.md)
   * [Coût environnemental par voie de transport](pages-en-cours-de-revue/transport/cout-environnemental-par-voie-de-transport.md)
   * [Choix des voies de transport](pages-en-cours-de-revue/transport/choix-des-voies-de-transport.md)
