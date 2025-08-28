@@ -1280,7 +1280,7 @@
     "categories": ["misc"],
     "cropGroup": "VERGERS",
     "defaultOrigin": "EuropeAndMaghreb",
-    "density": 1.0,
+    "density": 0.5,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -1345,7 +1345,7 @@
     "alias": "milk-powder",
     "categories": ["dairy_product"],
     "defaultOrigin": "France",
-    "density": 1.0,
+    "density": 0.24,
     "id": "b6776a28-ec84-4bf3-988c-07b3c29f6136",
     "inediblePart": 0,
     "landOccupation": 8.99055,
@@ -1569,7 +1569,7 @@
     "scenario": "organic",
     "search": "lamb meat without bone {{lamb-meat-without-bone-organic}}, constructed by Ecobalyse",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "alias": "pear-organic",
@@ -1884,7 +1884,7 @@
     "categories": ["vegetable_processed"],
     "cropGroup": "LEGUMES-FLEURS",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 1.0,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -2148,7 +2148,7 @@
     "categories": ["vegetable_fresh"],
     "cropGroup": "LEGUMES-FLEURS",
     "defaultOrigin": "France",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0.35526,
@@ -2170,7 +2170,7 @@
     "categories": ["vegetable_fresh"],
     "cropGroup": "LEGUMES-FLEURS",
     "defaultOrigin": "EuropeAndMaghreb",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -4194,7 +4194,7 @@
     "categories": ["vegetable_fresh"],
     "cropGroup": "PROTEAGINEUX",
     "defaultOrigin": "EuropeAndMaghreb",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -4216,7 +4216,7 @@
     "categories": ["vegetable_fresh"],
     "cropGroup": "PROTEAGINEUX",
     "defaultOrigin": "France",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0.66049,
@@ -4326,7 +4326,7 @@
     "categories": ["grain_raw"],
     "cropGroup": "RIZ",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -4348,7 +4348,7 @@
     "categories": ["grain_raw", "organic"],
     "cropGroup": "BLE TENDRE",
     "defaultOrigin": "France",
-    "density": 1.0,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 6.7653,
       "hedges": 0.94634,
@@ -4370,7 +4370,7 @@
     "categories": ["grain_raw"],
     "cropGroup": "BLE TENDRE",
     "defaultOrigin": "France",
-    "density": 1.0,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0.38277,
@@ -4392,7 +4392,7 @@
     "categories": ["grain_raw"],
     "cropGroup": "BLE TENDRE",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 1.0,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -4700,7 +4700,7 @@
     "categories": ["vegetable_fresh", "organic"],
     "cropGroup": "LEGUMES-FLEURS",
     "defaultOrigin": "France",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 13.951,
       "hedges": 2.8817,
@@ -4832,7 +4832,7 @@
     "categories": ["grain_raw"],
     "cropGroup": "AUTRES CEREALES",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 1.0,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -4854,7 +4854,7 @@
     "categories": ["grain_raw", "organic"],
     "cropGroup": "AUTRES CEREALES",
     "defaultOrigin": "EuropeAndMaghreb",
-    "density": 1.0,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 3.4691,
       "hedges": 1.2009,
@@ -4876,7 +4876,7 @@
     "categories": ["grain_raw"],
     "cropGroup": "ORGE",
     "defaultOrigin": "France",
-    "density": 1.0,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0.39641,
@@ -4898,7 +4898,7 @@
     "categories": ["grain_raw", "organic"],
     "cropGroup": "ORGE",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 1.0,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 6.556,
       "hedges": 1.1958,
@@ -5162,7 +5162,7 @@
     "categories": ["grain_raw", "organic"],
     "cropGroup": "RIZ",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0.20502,
@@ -5184,7 +5184,7 @@
     "categories": ["grain_raw", "organic"],
     "cropGroup": "AUTRES CEREALES",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 1.0,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 4.6449,
       "hedges": 1.6079,
@@ -5206,7 +5206,7 @@
     "categories": ["grain_raw", "organic"],
     "cropGroup": "AUTRES CEREALES",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 1.0,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 4.4966,
       "hedges": 1.5566,
@@ -5221,14 +5221,14 @@
     "scenario": "organic",
     "search": "Pea, organic, animal feed, at farm gate {FR} U",
     "transportCooling": "none",
-    "visible": false
+    "visible": true
   },
   {
     "alias": "alfalfa-organic",
     "categories": ["grain_raw", "organic"],
     "cropGroup": "AUTRES CEREALES",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 1.0,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 2.2767,
       "hedges": 0.78814,
@@ -5831,7 +5831,7 @@
     "alias": "egg-yolk-powder-fr",
     "categories": ["animal_product"],
     "defaultOrigin": "France",
-    "density": 1.0,
+    "density": 0.24,
     "id": "f6e84334-a8bb-4f07-915d-ef51e8dcf800",
     "inediblePart": 0,
     "landOccupation": 5.69846,
@@ -5847,7 +5847,7 @@
     "alias": "egg-white-powder-fr",
     "categories": ["animal_product"],
     "defaultOrigin": "France",
-    "density": 1.0,
+    "density": 0.24,
     "id": "7fe451fd-77c8-46f3-b7ae-c050a08b7be8",
     "inediblePart": 0,
     "landOccupation": 20.1046,
@@ -6098,7 +6098,7 @@
     "categories": ["grain_processed"],
     "cropGroup": "AUTRES CEREALES",
     "defaultOrigin": "France",
-    "density": 1.0,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 1.1863,
@@ -6120,7 +6120,7 @@
     "categories": ["grain_processed"],
     "cropGroup": "DIVERS",
     "defaultOrigin": "France",
-    "density": 1.0,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0.1375,
@@ -6142,7 +6142,7 @@
     "categories": ["grain_processed"],
     "cropGroup": "DIVERS",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 1.0,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0.1375,
@@ -6277,7 +6277,7 @@
     "alias": "whey",
     "categories": ["dairy_product"],
     "defaultOrigin": "France",
-    "density": 1.0,
+    "density": 0.24,
     "id": "33d2f3c2-ffa2-4b96-811e-50c1c8670e26",
     "inediblePart": 0,
     "landOccupation": 0.0488139,
@@ -6357,7 +6357,7 @@
     "id": "7b508b8e-7f3c-4ba4-93bc-4d11e5477dbe",
     "inediblePart": 0,
     "landOccupation": 11.9277,
-    "name": "Beurre de cacao par UE",
+    "name": "Beurre de cacao UE",
     "processId": "e959ac4d-1b20-59cd-a2f3-44f11703a015",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
@@ -6376,7 +6376,7 @@
       "hedges": 0,
       "plotSize": 0
     },
-    "id": "27eaf81b-9213-4d74-a4c9-40f3329d390c",
+    "id": "0ea5f5a0-51d9-41da-9ac4-cb60f3ddb86c",
     "inediblePart": 0,
     "landOccupation": 19.8412,
     "name": "Beurre de cacao par défaut",
@@ -6710,7 +6710,7 @@
       "hedges": 0,
       "plotSize": 0
     },
-    "id": "c7d5258c-a593-4b04-8525-0da00e5377e6",
+    "id": "fd79d142-7e34-45a4-a0d1-59922b4c8d09",
     "inediblePart": 0,
     "landOccupation": 1.38,
     "name": "Jus de citron UE",
@@ -7427,7 +7427,7 @@
     "scenario": "import",
     "search": "Raw cow milk archetype, feed mix IT-154, at farm (WFLDB)",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "alias": "milk-non-eu",
@@ -7531,7 +7531,7 @@
     "scenario": "import",
     "search": "Sweet corn GLO",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "alias": "unknown-cereals-and-grain-products",
@@ -7897,7 +7897,7 @@
     "scenario": "reference",
     "search": "Lobster, 1 kg of product, at landing {FR} U",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "alias": "lobster-eu",
@@ -7913,7 +7913,7 @@
     "scenario": "import",
     "search": "Lobster, 1 kg of product, at landing {GB} U",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "alias": "lobster-non-eu",
@@ -7929,7 +7929,7 @@
     "scenario": "import",
     "search": "Lobster, 1 kg of product, at landing {US} U",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "alias": "salmon-raw-eu",
@@ -8093,7 +8093,7 @@
     "scenario": "organic",
     "search": "Hazelnut, unshelled, consumption mix, organic 2025 {FR} U",
     "transportCooling": "none",
-    "visible": false
+    "visible": true
   },
   {
     "alias": "hazelnut-unshelled-fr",
@@ -8115,7 +8115,7 @@
     "scenario": "reference",
     "search": "Hazelnut, unshelled, consumption mix {FR} U",
     "transportCooling": "none",
-    "visible": false
+    "visible": true
   },
   {
     "alias": "chesnut-inshell-organic",
@@ -8188,7 +8188,7 @@
     "categories": ["grain_raw"],
     "cropGroup": "ORGE",
     "defaultOrigin": "EuropeAndMaghreb",
-    "density": 1.0,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -8210,7 +8210,7 @@
     "categories": ["grain_raw"],
     "cropGroup": "ORGE",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 1.0,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -8298,7 +8298,7 @@
     "categories": ["grain_raw"],
     "cropGroup": "AUTRES CEREALES",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 1.0,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -8320,7 +8320,7 @@
     "categories": ["grain_raw"],
     "cropGroup": "AUTRES CEREALES",
     "defaultOrigin": "EuropeAndMaghreb",
-    "density": 1.0,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -8342,7 +8342,7 @@
     "categories": ["grain_raw"],
     "cropGroup": "AUTRES CEREALES",
     "defaultOrigin": "France",
-    "density": 1.0,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 1.0702,
@@ -8392,7 +8392,7 @@
       "hedges": 0.018209,
       "plotSize": 0.045524
     },
-    "id": "5edd4f6b-2f8b-4658-b718-353088a41feb",
+    "id": "361139ac-1028-4cc8-9c0e-4955c5fa39d3",
     "inediblePart": 0.03,
     "landOccupation": 0.0728378,
     "name": "Poivron sous serre non chauffée FR",
@@ -8418,6 +8418,28 @@
     "inediblePart": 0.03,
     "landOccupation": 0.0728378,
     "name": "Poivron sous serre non chauffée UE",
+    "processId": "cac779d9-52e2-5978-9551-71e107141598",
+    "rawToCookedRatio": 0.856,
+    "scenario": "import",
+    "search": "Bell pepper {FR}| bell pepper production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
+    "transportCooling": "none",
+    "visible": true
+  },
+  {
+    "alias": "bellpepper-unheated-greenhouse-non-eu",
+    "categories": ["vegetable_fresh"],
+    "cropGroup": "LEGUMES-FLEURS",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
+    "density": 0.295,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0,
+      "plotSize": 0
+    },
+    "id": "d018ec1f-d3c8-4fa1-a70d-bca1b0380c47",
+    "inediblePart": 0.03,
+    "landOccupation": 0.0728378,
+    "name": "Poivron sous serre non chauffée par défaut",
     "processId": "cac779d9-52e2-5978-9551-71e107141598",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
@@ -8578,7 +8600,7 @@
     "categories": ["grain_raw"],
     "cropGroup": "RIZ",
     "defaultOrigin": "EuropeAndMaghreb",
-    "density": 0.24,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -8732,7 +8754,7 @@
     "categories": ["grain_processed"],
     "cropGroup": "BLE TENDRE",
     "defaultOrigin": "France",
-    "density": 1.0,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 1.0681,
@@ -8754,7 +8776,7 @@
     "categories": ["grain_processed"],
     "cropGroup": "BLE TENDRE",
     "defaultOrigin": "EuropeAndMaghreb",
-    "density": 1.0,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -8776,7 +8798,7 @@
     "categories": ["grain_processed"],
     "cropGroup": "BLE TENDRE",
     "defaultOrigin": "EuropeAndMaghreb",
-    "density": 1.0,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -8798,7 +8820,7 @@
     "categories": ["grain_processed"],
     "cropGroup": "BLE TENDRE",
     "defaultOrigin": "EuropeAndMaghreb",
-    "density": 1.0,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -8820,7 +8842,7 @@
     "categories": ["grain_processed"],
     "cropGroup": "BLE TENDRE",
     "defaultOrigin": "EuropeAndMaghreb",
-    "density": 1.0,
+    "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
