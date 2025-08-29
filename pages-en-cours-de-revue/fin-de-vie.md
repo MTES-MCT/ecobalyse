@@ -103,8 +103,8 @@ Ce scénario est applicablepar défaut pour les produits non collectés ou non r
 {% hint style="info" %}
 Sources :&#x20;
 
-* Tous matériaux (hors métaux) : données issues du scénario "meubles collectés non recyclables" de la filière Ameublement (cf. référentiel Meubles Meublants (2023/FCBA) )
-* Métaux : données issues de <mark style="color:orange;">\[xx]</mark>
+* Tous matériaux (hors métaux) : données issues du scénario "meubles collectés non recyclables" de la filière Ameublement (cf. référentiel Meubles Meublants 2023/FCBA )
+* Métaux : compromis entre les données FCBA (référence ci-dessus) et les données tous secteurs confondu (86% des emballages aciers et 37% des emballages aluminium sont recyclés (Citeo, 2023).
 {% endhint %}
 {% endtab %}
 
