@@ -90,7 +90,7 @@ La méthode de calcul des impacts de la fin de vie est précisée dans la [page 
 ### Calcul de la recyclabilité produit
 
 $$
-Rp_2=S_{op}*(1-F_{limitant})
+r_p=S_{op}*(1-F_{limitant})
 $$
 
 Avec :
@@ -105,8 +105,8 @@ Avec :
 
 L'existence d'une filière en fin de vie des produits est indiquée dans Ecobalyse par l'utilisateur :&#x20;
 
-* Oui : `S_op`  = 1
-* Non : `S_op`  =0
+* Oui : `S_op` = 1
+* Non : `S_op` =0
 
 ### Existence d'une filière en fin de vie des produits `F_limitant`
 
