@@ -1,4 +1,8 @@
-# ♻️ Modèle d'impact de la fin de vie
+---
+hidden: true
+---
+
+# ♻️ OLD - Modèle d'impact de la fin de vie
 
 ## Contexte
 

@@ -43,7 +43,7 @@ En 2022, 1,2 millions de tonnes ont été collectées par la filière; que ce so
 
 </details>
 
-### Deux  paramètres permettent de définir si un meuble est recyclable :&#x20;
+### Deux paramètres permettent de définir si un meuble est recyclable :&#x20;
 
 #### **L'existence d'un schéma opérationnel**&#x20;
 
@@ -53,7 +53,7 @@ Les catégories de meubles suivantes ne disposent pas de schéma opérationnel :
 
 * Décoration textile,
 * Rembourrés d'assise et de couchage,
-* Autres meubles rembourrés (ex : canapé, sommiers tappissiers)
+* Autres meubles rembourrés (ex : canapé, sommiers tapissiers)
 
 {% hint style="info" %}
 Cette liste reflète l'état de la filière à un instant T.&#x20;
@@ -87,23 +87,33 @@ L'utilisateur a la possibilité de modifier ce paramètre.
 
 La méthode de calcul des impacts de la fin de vie est précisée dans la [page de documentation transversale](https://fabrique-numerique.gitbook.io/ecobalyse/pages-en-cours-de-revue/fin-de-vie).
 
-### <mark style="color:red;">Calcul de la recyclabilité produit</mark>
+### Calcul de la recyclabilité produit
 
 $$
 Rp_2=S_{op}*(1-F_{limitant})
 $$
 
-<mark style="color:red;">Avec :</mark>
+Avec :
 
-* <mark style="color:red;">`r_p`</mark> <mark style="color:red;"></mark><mark style="color:red;">: la recyclabilité produit, égale à 1 (recyclable) ou 0 (non recyclable)</mark>
-* <mark style="color:red;">`S_op`</mark> <mark style="color:red;"></mark><mark style="color:red;">: l'existence d'une filière en fin de vie des produits (schéma opérationnel)</mark>
-* <mark style="color:red;">`F_limitant`</mark> <mark style="color:red;"></mark><mark style="color:red;">: la présence d'un facteur limitant (perturbateur de recyclage ou matériau majoritaire)</mark>&#x20;
+* `r_p` : la recyclabilité produit, égale à 1 (recyclable) ou 0 (non recyclable)
+* `S_op` : l'existence d'une filière en fin de vie des produits (schéma opérationnel)
+* `F_limitant` : la présence d'un facteur limitant (perturbateur de recyclage ou matériau majoritaire)&#x20;
 
 ## Paramètres retenus pour les meubles&#x20;
 
-### Recyclabilité&#x20;
+### Existence d'une filière en fin de vie des produits `S_op`&#x20;
 
-La recyclabilité du produit est indiquée dans Ecobalyse par l'utilisateur.
+L'existence d'une filière en fin de vie des produits est indiquée dans Ecobalyse par l'utilisateur :&#x20;
+
+* Oui : `S_op`  = 1
+* Non : `S_op`  =0
+
+### Existence d'une filière en fin de vie des produits `F_limitant`
+
+La présence d'un facteur limitant est indiquée dans Ecobalyse par l'utilisateur :&#x20;
+
+* Présence de facteur limitant : `F_limitant` = 1
+* Absence de facteur limitant : `F_limitant` =0
 
 ### Taux de collecte `TC`
 
@@ -117,7 +127,7 @@ Il n'y a pas d'export de meubles en fin de vie. `TE` est fixé à zéro.&#x20;
 
 Les taux de recyclage, incinération et enfouissement pour le scénario Spécifique matière (produits collectés et recyclables) sont détaillés ci-dessous:
 
-<table><thead><tr><th width="267">Matériau i</th><th>R_S,Rec,i</th><th>R_S,Inc,i</th><th>R_S,Enf,i</th></tr></thead><tbody><tr><td>Bois (massif &#x26; panneaux)*</td><td>69%</td><td>31</td><td>0%</td></tr><tr><td>Métal*</td><td>100%</td><td>0%</td><td>0%</td></tr><tr><td>Rembourré/Matelas/Mousse*</td><td>4%</td><td>94%</td><td>2%</td></tr><tr><td>Plastique*</td><td>92%</td><td>8%</td><td>0%</td></tr><tr><td>Emballage (carton)**</td><td>85%</td><td>11%</td><td>4%</td></tr><tr><td>Emballage (plastique)**</td><td>7%</td><td>68%</td><td>25%</td></tr><tr><td>Emballage (autres)**</td><td>0%</td><td>73%</td><td>27%</td></tr><tr><td>Autres matières</td><td>0%</td><td>82%</td><td>18%</td></tr></tbody></table>
+<table><thead><tr><th width="267">Matériau i</th><th>R_S,Rec,i</th><th>R_S,Inc,i</th><th>R_S,Enf,i</th></tr></thead><tbody><tr><td>Bois (massif &#x26; panneaux)*</td><td>69%</td><td>31%</td><td>0%</td></tr><tr><td>Métal*</td><td>100%</td><td>0%</td><td>0%</td></tr><tr><td>Rembourré/Matelas/Mousse*</td><td>4%</td><td>94%</td><td>2%</td></tr><tr><td>Plastique*</td><td>92%</td><td>8%</td><td>0%</td></tr><tr><td>Emballage (carton)**</td><td>85%</td><td>11%</td><td>4%</td></tr><tr><td>Emballage (plastique)**</td><td>7%</td><td>68%</td><td>25%</td></tr><tr><td>Emballage (autres)**</td><td>0%</td><td>73%</td><td>27%</td></tr><tr><td>Autres matières</td><td>0%</td><td>82%</td><td>18%</td></tr></tbody></table>
 
 ## Procédés utilisés pour le coût environnemental
 
