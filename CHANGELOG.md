@@ -1,7 +1,35 @@
 # Changelog
 
 
-## [7.0.0](https://github.com/MTES-MCT/ecobalyse/compare/v6.1.1..v7.0.0) (2025-07-28)
+## [7.1.0](https://github.com/MTES-MCT/ecobalyse/compare/v7.0.0..v7.1.0) (2025-08-29)
+
+
+
+### 🚀 Features
+
+- Implement Agribalyse 3.2 ([#1201](https://github.com/MTES-MCT/ecobalyse/issues/1201))
+- *(bo)* Add API to list processes ([#1167](https://github.com/MTES-MCT/ecobalyse/issues/1167))
+- *(bo)* Add processes admin ui ([#1306](https://github.com/MTES-MCT/ecobalyse/issues/1306))
+- *(bo)* Allow searching process source, scopes and categories. ([#1321](https://github.com/MTES-MCT/ecobalyse/issues/1321))
+
+### 🪲 Bug Fixes
+
+- Patch old versions selector to hide unreleased versions ([#1297](https://github.com/MTES-MCT/ecobalyse/issues/1297))
+- Corrected oil and seed/nuts densities ([#1294](https://github.com/MTES-MCT/ecobalyse/issues/1294))
+- Remove creosote (or related flows) and acetamiprid ([#1279](https://github.com/MTES-MCT/ecobalyse/issues/1279))
+- Fixed scenarios ([#1316](https://github.com/MTES-MCT/ecobalyse/issues/1316))
+
+### ⚙️ Miscellaneous Tasks
+
+- Improve token error feedback ([#1291](https://github.com/MTES-MCT/ecobalyse/issues/1291))
+- List and parse scalingo logs ([#1293](https://github.com/MTES-MCT/ecobalyse/issues/1293))
+- Upgrade posthog deps ([#1301](https://github.com/MTES-MCT/ecobalyse/issues/1301))
+- Npm dependencies upgrades, 2025-08 ([#1317](https://github.com/MTES-MCT/ecobalyse/issues/1317))
+- Fix food ids and densities  ([#1323](https://github.com/MTES-MCT/ecobalyse/issues/1323))
+- Restored last ingredient ids identity between v7.0.0 and next version ([#1330](https://github.com/MTES-MCT/ecobalyse/issues/1330))
+
+
+## [7.0.0](https://github.com/MTES-MCT/ecobalyse/compare/v6.1.1..v7.0.0) (2025-07-29)
 
 
 
@@ -15,6 +43,7 @@
 - *(textile)* [**breaking**] Remove the traceability parameter. ([#1237](https://github.com/MTES-MCT/ecobalyse/issues/1237))
 - Add pretreatment dyeing average aquatic pollution scenario ([#1232](https://github.com/MTES-MCT/ecobalyse/issues/1232))
 - Allow configuring version polling interval ([#1283](https://github.com/MTES-MCT/ecobalyse/issues/1283))
+- *(bo)* Add user accounts admin ([#1266](https://github.com/MTES-MCT/ecobalyse/issues/1266))
 
 ### 🪲 Bug Fixes
 
