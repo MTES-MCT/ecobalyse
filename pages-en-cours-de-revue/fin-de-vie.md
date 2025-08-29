@@ -10,7 +10,7 @@ icon: bin-recycle
 
 Les scénarios de fin de vie d'un produit peuvent être définis avec ces deux critères :&#x20;
 
-* la capacité de la filière à collecter le produit en fin de vie (taux de collecte), éventuellement décliné en une collecte pour traitement local d'une part et une collecte pour export d'autre part
+* la capacité de la filière à collecter le produit en fin de vie (taux de collecte), éventuellement décliné en une collecte pour traitement local d'une part et une collecte pour export d'autre part,
 * la recyclabilité du produit (oui vs non).
 
 Le schéma ci-dessous montre les scénarios possible de fin de vie :
@@ -21,7 +21,7 @@ Le schéma ci-dessous montre les scénarios possible de fin de vie :
 
 Les métaux, ferreux (aciers) ou non ferreux (aluminium notamment), ont un taux de recyclage élevé quelle que soit la fin de vie du produit. En effet, même dans les ordures ménagères incinérées, des systèmes permettent d'extraire ces matériaux.
 
-Si le produit est collecté et recyclable, les autres matériaux sont recyclé, incinéré ou mis en décharge selon des ratios spécifiques à chaque matériau.
+Si le produit est collecté et recyclable, les autres matériaux sont recyclés, incinérés ou mis en décharge selon des ratios spécifiques à chaque matériau.
 
 ## Méthode de calcul
 
@@ -30,7 +30,7 @@ Si le produit est collecté et recyclable, les autres matériaux sont recyclé, 
 
 Ecobalyse utilise à ce stade l'approche cut-off pour allouer l'impact du recyclage des matériaux.
 
-Dit autrement, l'impact du recyclage des matériaux est alloué 100% au produit utilisant ces matières recyclées. Ainsi, l'impact en fin de vie d'un meuble 100% recyclé serait nul.&#x20;
+Dit autrement, l'impact du recyclage des matériaux est alloué 100% au produit utilisant des matières recyclées. Ainsi, l'impact en fin de vie d'un meuble 100% recyclé serait nul.&#x20;
 {% endhint %}
 
 {% tabs %}
@@ -43,7 +43,8 @@ $$
 {% endtab %}
 
 {% tab title="Niveau 1" %}
-Impact de la fin de vie pour les scénarios de fin de vie S = Spécifique matière ou D = Déchets divers
+Impact des scénarios en fin de vie \
+(S = Spécifique matière / D = Déchets divers)
 
 $$
 I_{EoL,S}=TC*r_p*\sum_i m_i*(R_{S,Inc,i}*I_{EoL,incineration,i}+(1-R_{S,Rec,i}-R_{S,Inc,i})*I_{EoL,landfill,i})
@@ -87,55 +88,46 @@ Un taux de collecte de 70% est appliqué par défaut pour l'ensemble des produit
 
 ### Recyclabilité produit `rp`&#x20;
 
-La recyclabilité est définie pour chaque catégorie de produit selon des critères spécifiques à chaque secteur.&#x20;
+La recyclabilité de chaque produit est définie selon des règles spécifiques à chaque secteur. Se référerer aux pages sectorielles.&#x20;
 
 ### Taux de collecte pour export `TE`
 
 Un taux de collecte pour export de 0% est appliqué par défaut pour l'ensemble des produits, sauf mention explicite contraire dans les pages sectorielles.&#x20;
 
-### "Scénario Déchets Divers"
+{% tabs %}
+{% tab title="Scénario "Déchets Divers"" %}
+Ce scénario est applicablepar défaut pour les produits non collectés ou non recyclables :&#x20;
 
-Ce scénario est applicable aux matériaux des produits non collectés ou non recyclables, hors métaux.
-
-<table><thead><tr><th width="267">Matériau i</th><th>R_D,Rec,i</th><th>R_D,Inc,i</th><th>R_D,Enf,i</th></tr></thead><tbody><tr><td>Bois (massif &#x26; panneaux)*</td><td>0%</td><td>82%</td><td>0%</td></tr><tr><td>Métal*</td><td>90%</td><td>5%</td><td>5%</td></tr><tr><td>Rembourré/Matelas/Mousse*</td><td>0%</td><td>82%</td><td>18%</td></tr><tr><td>Plastique*</td><td>0%</td><td>82%</td><td>18%</td></tr><tr><td>Emballage (carton)**</td><td>0%</td><td>82%</td><td>18%</td></tr><tr><td>Emballage (plastique)**</td><td>0%</td><td>82%</td><td>18%</td></tr><tr><td>Emballage (autres)**</td><td>0%</td><td>82%</td><td>18%</td></tr><tr><td>Autres matières</td><td>0%</td><td>82%</td><td>18%</td></tr></tbody></table>
+<table><thead><tr><th width="267">Matériau i</th><th>Recyclage (R_D,Rec,i)</th><th>Incinération (R_D,Inc,i)</th><th>Enfouissement (R_D,Enf,i)</th></tr></thead><tbody><tr><td>Tous matériaux (hors métaux)</td><td>0%</td><td>82%</td><td>18%</td></tr><tr><td>Métaux</td><td>90%</td><td>5%</td><td>5%</td></tr></tbody></table>
 
 {% hint style="info" %}
-Ce scénario est basé sur le scénario de fin de vie d'un mobilier meublant dont la recyclabilité du meuble est de 0% dans la dernière version du référentiel BPX30 _Meubles Meublants \_ FCBA (Novembre 2023)_
-{% endhint %}
+Sources :&#x20;
 
-### Taux de recyclage et d'incinération spécifiques à chaque matière
+* Tous matériaux (hors métaux) : données issues du scénario "meubles collectés non recyclables" de la filière Ameublement (cf. référentiel Meubles Meublants (2023/FCBA) )
+* Métaux : données issues de <mark style="color:orange;">\[xx]</mark>
+{% endhint %}
+{% endtab %}
+
+{% tab title="Scénario "Spécifique Matière"" %}
+### Taux de recyclage + Incinération + Mise en décharge&#x20;
 
 Ces paramètres sont définis secteur par secteur dans les pages Fin de vie sectorielles.
+{% endtab %}
+{% endtabs %}
 
-### Taux de recyclage et de mise en décharge ouverte
 
-Le cas échéant, ces paramètres sont définis secteur par secteur dans les pages Fin de vie sectorielles.&#x20;
 
 ## Procédés utilisés pour le coût environnemental
 
-Les procédés utilisés sont identifiés dans l'Explorateur de procédé. Ils sont également détaillés ci-dessous.
+Les procédés utilisés sont identifiés dans l'Explorateur de procédé.&#x20;
 
-#### Liste des procédés
+Ils sont également détaillés ci-dessous.
 
-Procédés `I_EoL,incineration,i` et `I_EoL,landfill,i` utilisés pour modéliser le coût environnemental de la fin de vie des produits.  &#x20;
-
-<table data-full-width="false"><thead><tr><th width="113.6666259765625">Matériau (i)</th><th width="166.66656494140625">Recyclage</th><th>Incinération</th><th>Enfouissement</th></tr></thead><tbody><tr><td>Bois (massif &#x26; panneaux)</td><td>n/a (cut-off)</td><td>Treatment of waste wood, untreated, municipal incineration, CH</td><td>n/a</td></tr><tr><td>Métal</td><td>n/a (cut-off)</td><td>Treatment of scrap steel, municipal incineration with fly ash extraction, CH</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Rembourré / Matelas</td><td>n/a (cut-off)</td><td>Treatment of waste polyurethane, municipal incineration FAE, CH</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Plastique</td><td>n/a (cut-off)</td><td>Treatment of waste plastic, mixture, municipal incineration with fly ash extraction, CH</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Emballage (carton)</td><td>n/a (cut-off)</td><td>Treatment of waste paperboard, municipal incineration with fly ash extraction, CH</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Emballage (plastique)</td><td>n/a (cut-off)</td><td>Treatment of waste plastic, mixture, municipal incineration with fly ash extraction, CH</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Emballage (autre)</td><td>n/a</td><td>Treatment of municipal solid waste, municipal incineration, FR</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Autres</td><td>n/a</td><td>Treatment of municipal solid waste, municipal incineration, FR</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr></tbody></table>
+<table data-full-width="false"><thead><tr><th width="113.6666259765625">Matériau (i)</th><th width="166.66656494140625">Recyclage</th><th>Incinération</th><th>Enfouissement</th></tr></thead><tbody><tr><td>Bois (massif &#x26; panneaux)</td><td>n/a (cut-off)</td><td>Treatment of waste wood, untreated, municipal incineration, CH</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Métal</td><td>n/a (cut-off)</td><td>Treatment of scrap steel, municipal incineration with fly ash extraction, CH</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Rembourré / Matelas</td><td>n/a (cut-off)</td><td>Treatment of waste polyurethane, municipal incineration FAE, CH</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Plastique</td><td>n/a (cut-off)</td><td>Treatment of waste plastic, mixture, municipal incineration with fly ash extraction, CH</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Emballage (carton)</td><td>n/a (cut-off)</td><td>Treatment of waste paperboard, municipal incineration with fly ash extraction, CH</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Emballage (plastique)</td><td>n/a (cut-off)</td><td>Treatment of waste plastic, mixture, municipal incineration with fly ash extraction, CH</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Emballage (autre)</td><td>n/a</td><td>Treatment of municipal solid waste, municipal incineration, FR</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Autres</td><td>n/a</td><td>Treatment of municipal solid waste, municipal incineration, FR</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr></tbody></table>
 
 #### Coût environnemental (Pt d'impact / kg)&#x20;
 
 <table><thead><tr><th width="267">Matériau (i)</th><th>Irec(i)</th><th>Iinc(i)</th><th>Ienf(i)</th></tr></thead><tbody><tr><td>Bois (massif &#x26; panneaux)*</td><td>0</td><td>2</td><td>25</td></tr><tr><td>Métal*</td><td>0</td><td>2</td><td>25</td></tr><tr><td>Rembourré/Matelas/Mousse*</td><td>0</td><td>100</td><td>25</td></tr><tr><td>Plastique*</td><td>0</td><td>80</td><td>25</td></tr><tr><td>Emballage (carton)**</td><td>0</td><td>6</td><td>25</td></tr><tr><td>Emballage (plastique)**</td><td>0</td><td>79</td><td>25</td></tr><tr><td>Emballage (autres)**</td><td>n/a</td><td>21</td><td>25</td></tr><tr><td>Autres matières</td><td>n/a</td><td>21</td><td>25</td></tr></tbody></table>
-
-<details>
-
-<summary>Vision simplifiée des procédés spécifiques mobilisés</summary>
-
-<figure><img src="../.gitbook/assets/Coût environnement (Pt _ kg) des scénarios de fin de vie (1).png" alt=""><figcaption></figcaption></figure>
-
-<figure><img src="../.gitbook/assets/Tableau fin de vie.png" alt=""><figcaption></figcaption></figure>
-
-
-
-</details>
 
 ## Exemples&#x20;
 

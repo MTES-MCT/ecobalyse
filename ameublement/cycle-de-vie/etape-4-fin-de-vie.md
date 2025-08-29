@@ -124,7 +124,9 @@ L'utilisateur a la possibilité de modifier ce paramètre.
 
 ### Taux de collecte `TC`
 
-Pour l'Ameublement, un taux de collecte de 70% est appliqué par défaut pour l'ensemble des meubles. Cette valeur se base sur les tonnes collectés en fin de vie par la filière REP des éléments d'ameublement (1,2m en 2022) et les tonnes mises sur le marché comparables (c. 1,8m).&#x20;
+Pour l'Ameublement, un taux de collecte de 70% est appliqué par défaut pour l'ensemble des meubles.&#x20;
+
+Cette valeur se base sur les tonnes collectés en fin de vie par la filière REP des éléments d'ameublement (1,2m en 2022) et les tonnes mises sur le marché comparables (c. 1,8m).&#x20;
 
 <details>
 
@@ -161,9 +163,9 @@ Ce scénario est applicable aux matériaux non collectés et aux matériaux coll
 
 <table><thead><tr><th width="267">Matière</th><th>% recyclage</th><th>Inc (% incinération) </th><th>Enf (% enfouissement)</th></tr></thead><tbody><tr><td>Toutes</td><td>n/a</td><td>82%</td><td>18%</td></tr></tbody></table>
 
-`Ienf` = Treatment of municipal solid waste, sanitary landfill, RoW = 21 Pt / kg
+`Ienf` = Treatment of municipal solid waste, sanitary landfill, RoW = 25 Pt / kg
 
-`Iinc` = Treatment of municipal solid waste, municipal incineration, FR = 39 Pt / kg
+`Iinc` = Treatment of municipal solid waste, municipal incineration, FR = 21 Pt / kg
 
 {% hint style="info" %}
 Ce scénario est basé sur le scénario de fin de vie d'un mobilier meublant dont la recyclabilité du meuble est de 0% dans la dernière version du référentiel BPX30 _Meubles Meublants \_ FCBA (Novembre 2023)_
@@ -173,7 +175,7 @@ Ce scénario est basé sur le scénario de fin de vie d'un mobilier meublant don
 
 ### `Rec(i)`  `Inc(i)`  `Enf(i)`&#x20;
 
-<table><thead><tr><th width="267">Matériau (i)</th><th>Rec(i)</th><th>Inc(i)</th><th>Enf(i)</th></tr></thead><tbody><tr><td>Bois (massif &#x26; panneaux)*</td><td>69%</td><td>31</td><td>0%</td></tr><tr><td>Métal*</td><td>100%</td><td>0%</td><td>0%</td></tr><tr><td>Rembourré/Matelas/Mousse*</td><td>4%</td><td>94%</td><td>2%</td></tr><tr><td>Plastique*</td><td>92%</td><td>8%</td><td>0%</td></tr><tr><td>Emballage (carton)**</td><td>85%</td><td>11%</td><td>4%</td></tr><tr><td>Emballage (plastique)**</td><td>7%</td><td>68%</td><td>25%</td></tr><tr><td>Emballage (autres)**</td><td>0%</td><td>73%</td><td>27%</td></tr><tr><td>Autres matières</td><td>0%</td><td>82%</td><td>18%</td></tr></tbody></table>
+<table><thead><tr><th width="267">Matériau (i)</th><th>Rec(i)</th><th>Inc(i)</th><th>Enf(i)</th></tr></thead><tbody><tr><td>Bois (massif &#x26; panneaux)*</td><td>69%</td><td>31%</td><td>0%</td></tr><tr><td>Métal*</td><td>100%</td><td>0%</td><td>0%</td></tr><tr><td>Rembourré/Matelas/Mousse*</td><td>4%</td><td>94%</td><td>2%</td></tr><tr><td>Plastique*</td><td>92%</td><td>8%</td><td>0%</td></tr><tr><td>Emballage (carton)**</td><td>85%</td><td>11%</td><td>4%</td></tr><tr><td>Emballage (plastique)**</td><td>7%</td><td>68%</td><td>25%</td></tr><tr><td>Emballage (autres)**</td><td>0%</td><td>73%</td><td>27%</td></tr><tr><td>Autres matières</td><td>0%</td><td>82%</td><td>18%</td></tr></tbody></table>
 
 &#x20;   \*Source : Filière REP EA _données 2022 (Bilan annuel 2023)_\
 &#x20; _\*\*Source : Référentiel Mobilier Meublant  \__ scénarios emballages (FCBA-ADEME)
