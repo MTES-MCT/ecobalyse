@@ -293,5 +293,5 @@
   * [🪚 Transport Ameublement](pages-en-cours-de-revue/transport/transport-ameublement.md)
   * [🛺 Transport Véhicules](pages-en-cours-de-revue/transport/transport-vehicules.md)
   * [🚚 OLD Transport](pages-en-cours-de-revue/transport/old-transport.md)
-* [Fin de vie](pages-en-cours-de-revue/fin-de-vie.md)
+* [Fin de vie des composants](pages-en-cours-de-revue/fin-de-vie-des-composants.md)
 * [♻️ OLD - Modèle d'impact de la fin de vie](pages-en-cours-de-revue/old-modele-dimpact-de-la-fin-de-vie.md)

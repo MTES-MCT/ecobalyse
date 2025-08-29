@@ -108,6 +108,10 @@ L'existence d'une filière en fin de vie des produits dépend de la catégorie d
 * Oui : `S_op` = 1
 * Non : `S_op` =0
 
+{% hint style="info" %}
+Dans la première version, ce paramètre est figé et égal à 1. Le lien avec la catégorie de produit est en cours de développement.
+{% endhint %}
+
 ### Existence d'une filière en fin de vie des produits `F_limitant`
 
 La présence d'un facteur limitant est indiquée dans Ecobalyse par l'utilisateur :&#x20;

@@ -2,7 +2,15 @@
 icon: bin-recycle
 ---
 
-# Fin de vie
+# Fin de vie des composants
+
+{% hint style="warning" %}
+Cette section concerne les secteurs objets et véhicules. Les secteurs Textile et Alimentaire ne sont pour l'instant pas concernés par cette méthode.
+{% endhint %}
+
+{% hint style="warning" %}
+Ce modèle est en cours de déploiement. Les paramètres intégrés dans la première version en développement sont clairement indiqués.
+{% endhint %}
 
 ## Contexte &#x20;
 
@@ -40,8 +48,6 @@ Décomposition de l'impact par scénario de fin de vie (S = Spécifique matière
 $$
 I_{EoL} = TC*r_p*I_{EoL, S}+(1-TC*r_p-TE)*I_{EoL, D}+TE*I_{EoL, Export}
 $$
-
-{% include "../.gitbook/includes/fdv-tcmimpc+-1-tc-mimpnc.md" %}
 {% endtab %}
 
 {% tab title="Niveau 1" %}
@@ -90,6 +96,11 @@ Niveau 1 :
 
 ## Paramètres retenus pour le coût environnemental&#x20;
 
+{% hint style="warning" %}
+Dans la première version, il est considéré que 100% des produits suivent le scénario "Spécifique matière".\
+Ainsi, TC=1, r\_p=1 et TE=0
+{% endhint %}
+
 ### Taux de collecte `TC`
 
 Un taux de collecte de 70% est appliqué par défaut pour l'ensemble des produits, sauf mention explicite contraire dans les pages sectorielles.&#x20;
@@ -105,6 +116,14 @@ Un taux de collecte pour export de 0% est appliqué par défaut pour l'ensemble 
 ### Taux de recyclage, d'incinération et de mise en décharge `R_S,Rec`, `R_S,Inc,i`, `R_D,Rec,i`, `R_D,Rec,i`
 
 {% tabs %}
+{% tab title="Scénario "Spécifique Matière"" %}
+Ces paramètres sont définis secteur par secteur dans les pages Fin de vie sectorielles.
+
+{% hint style="warning" %}
+Dans la première version de la modélisation de la fin de vie, les données Ameublement sont utilisées pour les secteurs "Objets" et "Véhicules". Voir [page sectorielle Fin de vie Ameublement](https://fabrique-numerique.gitbook.io/ecobalyse/ameublement/cycle-de-vie/etape-4-fin-de-vie-ameublement)
+{% endhint %}
+{% endtab %}
+
 {% tab title="Scénario "Déchets Divers"" %}
 Ce scénario est applicable par défaut pour les produits non collectés ou non recyclables :&#x20;
 
@@ -116,10 +135,6 @@ Sources :&#x20;
 * Tous matériaux (hors métaux) : données issues du scénario "meubles collectés non recyclables" de la filière Ameublement (cf. référentiel Meubles Meublants 2023/FCBA )
 * Métaux : compromis entre les données FCBA (référence ci-dessus) et les données tous secteurs confondu (86% des emballages aciers et 37% des emballages aluminium sont recyclés (Citeo, 2023).
 {% endhint %}
-{% endtab %}
-
-{% tab title="Scénario "Spécifique Matière"" %}
-Ces paramètres sont définis secteur par secteur dans les pages Fin de vie sectorielles.
 {% endtab %}
 {% endtabs %}
 
