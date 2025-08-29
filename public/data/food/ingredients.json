@@ -1180,7 +1180,7 @@
       "hedges": 0.042139,
       "plotSize": 0.11345
     },
-    "id": "8f075c25-9ebf-430c-b41d-51d165c6e0d8",
+    "id": "5fc8032f-ca1c-4497-844b-f9213075eab3",
     "inediblePart": 0,
     "landOccupation": 0.4538,
     "name": "Sucre de betterave par défaut",
@@ -6688,7 +6688,7 @@
       "hedges": 0,
       "plotSize": 0
     },
-    "id": "afdc7ea9-6da0-4bab-9821-81acc46e23af",
+    "id": "f2f3c3f0-c7d1-4a3c-ad2f-f3659c9b546b",
     "inediblePart": 0,
     "landOccupation": 0.33323,
     "name": "Lait de soja FR",
@@ -6732,7 +6732,7 @@
       "hedges": 0,
       "plotSize": 0
     },
-    "id": "3f90faae-8a39-448e-93be-88a0a407f135",
+    "id": "65e6f518-e5fc-4fda-9af9-287d26e2bbe1",
     "inediblePart": 0,
     "landOccupation": 0.182549,
     "name": "Jus de tomate UE",
@@ -6754,7 +6754,7 @@
       "hedges": 0.05435,
       "plotSize": 0.13588
     },
-    "id": "65e6f518-e5fc-4fda-9af9-287d26e2bbe1",
+    "id": "3f90faae-8a39-448e-93be-88a0a407f135",
     "inediblePart": 0,
     "landOccupation": 0.217401,
     "name": "Jus de tomate FR",
