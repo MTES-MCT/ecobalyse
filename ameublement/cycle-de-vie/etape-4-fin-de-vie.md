@@ -6,11 +6,9 @@ icon: bin-recycle
 
 ## Contexte &#x20;
 
-Evaluer le coût environnemental de la fin de vie d'un meuble consiste à calculer l'impact environnemental des débouchés du meuble.&#x20;
+Lire la page suivante : [Fin de vie (transverse)](https://fabrique-numerique.gitbook.io/ecobalyse/pages-en-cours-de-revue/fin-de-vie)
 
-<figure><img src="../../.gitbook/assets/newplot.png" alt=""><figcaption></figcaption></figure>
-
-## Méthode de calcul
+## Méthode de calcul spécifique à l'Ameublement
 
 Le calcul de l'impact de la fin de vie d'un meuble se fait en trois temps :&#x20;
 
@@ -25,7 +23,7 @@ Un meuble peut être :&#x20;
 * recyclable
 * non recyclable
 
-Définir la recyclabilité du produit revient à comprendre les règles applicables tout au long de la filière de fin de vie du produit. Ces règles sont souvent spécifiques à chaque secteur d'activité (ex : la filière de fin de vie de véhicules thermiques est structurée différement de celle d'éléments d'ameublement).&#x20;
+Définir la recyclabilité du produit revient à comprendre les règles applicables tout au long de la filière de fin de vie du produit (ex : perturbateurs de recyclage, existence d'un schéma opérationnel, etc.). Ces règles sont souvent spécifiques à chaque secteur d'activité (ex : la filière de fin de vie de véhicules thermiques est structurée différement de celle d'éléments d'ameublement).&#x20;
 
 ### Etape 2 = Définir les scénarios de fin de vie du produit
 
@@ -33,6 +31,8 @@ Les scénarios de fin de vie d'un produit peuvent être définis avec ces deux c
 
 * la recyclabilité du produit (oui vs non),
 * la capacité de la filière à collecter le produit en fin de vie (taux de collecte),
+
+
 
 <figure><img src="../../.gitbook/assets/image (356).png" alt=""><figcaption></figcaption></figure>
 
