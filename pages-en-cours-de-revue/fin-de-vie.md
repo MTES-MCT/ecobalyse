@@ -35,19 +35,20 @@ Dit autrement, l'impact du recyclage des matériaux est alloué 100% au produit 
 
 {% tabs %}
 {% tab title="Niveau 0" %}
+Décomposition de l'impact par scénario de fin de vie (S = Spécifique matière / D = Déchets divers)
+
 $$
-I_{EoL} = I_{EoL, Spécifique}+I_{EoL, DechetsDivers}+I_{EoL, Export}
+I_{EoL} = TC*r_p*I_{EoL, S}+(1-TC*r_p-TE)*I_{EoL, D}+TE*I_{EoL, Export}
 $$
 
 {% include "../.gitbook/includes/fdv-tcmimpc+-1-tc-mimpnc.md" %}
 {% endtab %}
 
 {% tab title="Niveau 1" %}
-Impact des scénarios en fin de vie \
-(S = Spécifique matière / D = Déchets divers)
+Impact des scénarios en fin de vie (S = Spécifique matière / D = Déchets divers)
 
 $$
-I_{EoL,S}=TC*r_p*\sum_i m_i*(R_{S,Inc,i}*I_{EoL,incineration,i}+(1-R_{S,Rec,i}-R_{S,Inc,i})*I_{EoL,landfill,i})
+I_{EoL,S}=\sum_i m_i*(R_{S,Inc,i}*I_{EoL,incineration,i}+(1-R_{S,Rec,i}-R_{S,Inc,i})*I_{EoL,landfill,i})
 $$
 
 $$
@@ -57,28 +58,35 @@ $$
 Impact de la fin de vie pour le scénario Export :
 
 $$
-I_{EoL,Export}=TE*\sum_i m_i*(1-R_{E,Rec,i})*I_{EoL,openlandfill,i})
+I_{EoL,Export}=\sum_i m_i*(1-R_{E,Rec,i})*I_{EoL,openlandfill,i})
 $$
 {% endtab %}
 {% endtabs %}
 
 Avec :&#x20;
 
+Niveau 0 :
+
 * `I_EoL` : l'impact environnemental du produit en fin de vie, dans l'unité de la catégorie d'impact analysée
-* `m_i` : la masse relative à la famille de matériaux `i`, en kg
-* `I_EoL,incineration,i` : l'impact environnemental de la famille de matériaux `i` liée au recyclage, dans l'unité de la catégorie d'impact analysée
-* `I_EoL,landfill,i` : l'impact environnemental de la famille de matériaux `i` liée au recyclage, dans l'unité de la catégorie d'impact analysée
-* `I_EoL,openlandfill,i` : l'impact environnemental de la famille de matériaux `i` liée au recyclage, dans l'unité de la catégorie d'impact analysée
 * `TC` : le taux de collecte des produits, en %
-* `TE` : le taux de collecte pour export des produits, en %
 * `r_p` : la recyclabilité du produit, égale à 1 si le produit est recyclable ou 0 s'il ne l'est pas
+* `TE` : le taux de collecte pour export des produits, en %
+* `I_EoL,S` : l'impact environnemental du produit dans le scénario "Spécifique matière", dans l'unité de la catégorie d'impact analysée
+* `I_EoL,D` : l'impact environnemental du produit dans le scénario "Déchets Divers", dans l'unité de la catégorie d'impact analysée
+* `I_EoL,Export` : l'impact environnemental du produit dans le scénario "Spécifique matière", dans l'unité de la catégorie d'impact analysée
+
+Niveau 1 :
+
+* `m_i` : la masse relative à la famille de matériaux `i`, en kg
 * `R_S,Rec,i` : la part de recyclage du matériau (i) lorsque le produit est collecté et recyclable
 * `R_S,Inc,i` : la part d'incinération du matériau (i) lorsque le produit est collecté et recyclable
 * `R_D,Rec,i` : la part de recyclage du matériau (i) lorsque le produit n'est pas collecté ou pas recyclable (fin de vie déchets divers)
 * `R_D,Inc,i` : la part d'incinération du matériau (i) lorsque le produit n'est pas collecté ou pas recyclable (fin de vie déchets divers)
 * `R_E,Rec,i` : la part de recyclage du matériau (i) lorsque le produit est exporté
-* `I_recyclingEol,i` : l'impact environnemental du recyclage d'un kg d'un matériau de la famille de matériaux `i`, dans l'unité de la catégorie d'impact analysée - non pris en compte, égal à zéro
-* `I_EoL,rec,i` : l'impact environnemental de la famille de matériaux `i` liée au recyclage, dans l'unité de la catégorie d'impact analysée - non pris en compte, égal à zéro
+* `I_EoL,incineration,i` : l'impact environnemental de l'incinération d'un kg d'un matériau de la famille de matériaux `i`, dans l'unité de la catégorie d'impact analysée
+* `I_EoL,landfill,i` : l'impact environnemental de l'enfouissement d'un kg d'un matériau de la famille de matériaux `i` , dans l'unité de la catégorie d'impact analysée
+* `I_Eolrecycling,i` : l'impact environnemental du recyclage d'un kg d'un matériau de la famille de matériaux `i`, dans l'unité de la catégorie d'impact analysée - non pris en compte, égal à zéro
+* `I_EoL,openlandfill,i` : l'impact environnemental de la famille de matériaux `i` liée au recyclage, dans l'unité de la catégorie d'impact analysée
 
 ## Paramètres retenus pour le coût environnemental&#x20;
 
@@ -86,17 +94,19 @@ Avec :&#x20;
 
 Un taux de collecte de 70% est appliqué par défaut pour l'ensemble des produits, sauf mention explicite contraire dans les pages sectorielles.&#x20;
 
-### Recyclabilité produit `rp`&#x20;
+### Recyclabilité produit `r_p`&#x20;
 
-La recyclabilité de chaque produit est définie selon des règles spécifiques à chaque secteur. Se référerer aux pages sectorielles.&#x20;
+La recyclabilité de chaque produit est définie selon des règles spécifiques à chaque secteur. Se référer aux pages sectorielles.&#x20;
 
 ### Taux de collecte pour export `TE`
 
-Un taux de collecte pour export de 0% est appliqué par défaut pour l'ensemble des produits, sauf mention explicite contraire dans les pages sectorielles.&#x20;
+Un taux de collecte pour export de 0% est appliqué par défaut pour l'ensemble des produits, sauf mention explicite contraire dans les pages sectorielles.
+
+### Taux de recyclage, d'incinération et de mise en décharge `R_S,Rec`, `R_S,Inc,i`, `R_D,Rec,i`, `R_D,Rec,i`
 
 {% tabs %}
 {% tab title="Scénario "Déchets Divers"" %}
-Ce scénario est applicablepar défaut pour les produits non collectés ou non recyclables :&#x20;
+Ce scénario est applicable par défaut pour les produits non collectés ou non recyclables :&#x20;
 
 <table><thead><tr><th width="267">Matériau i</th><th>Recyclage (R_D,Rec,i)</th><th>Incinération (R_D,Inc,i)</th><th>Enfouissement (R_D,Enf,i)</th></tr></thead><tbody><tr><td>Tous matériaux (hors métaux)</td><td>0%</td><td>82%</td><td>18%</td></tr><tr><td>Métaux</td><td>90%</td><td>5%</td><td>5%</td></tr></tbody></table>
 
@@ -109,13 +119,9 @@ Sources :&#x20;
 {% endtab %}
 
 {% tab title="Scénario "Spécifique Matière"" %}
-### Taux de recyclage + Incinération + Mise en décharge&#x20;
-
 Ces paramètres sont définis secteur par secteur dans les pages Fin de vie sectorielles.
 {% endtab %}
 {% endtabs %}
-
-
 
 ## Procédés utilisés pour le coût environnemental
 
