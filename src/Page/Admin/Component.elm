@@ -26,6 +26,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Json.Encode as Encode
+import List.Extra as LE
 import Page.Admin.Section as AdminSection
 import Ports
 import RemoteData
@@ -51,6 +52,7 @@ type alias Model =
     , scopes : List Scope
     , search : String
     , section : AdminSection.Section
+    , selected : List Component.Id
     , modals : List Modal
     }
 
@@ -79,6 +81,8 @@ type Msg
     | OpenJournalEntryModal (JournalEntry Component)
     | SaveComponent
     | SetModals (List Modal)
+    | ToggleSelected Component.Id Bool
+    | ToggleSelectedAll Bool
     | UpdateComponent Item
     | UpdateScopeFilters (List Scope)
     | UpdateSearch String
@@ -91,6 +95,7 @@ init session section =
     , scopes = Scope.all
     , search = ""
     , section = section
+    , selected = []
     }
         |> App.createUpdate session
         |> App.withCmds [ ComponentApi.getComponents session ComponentListResponse ]
@@ -238,6 +243,14 @@ update session msg model =
                 |> App.createUpdate session
                 |> App.withCmds [ commandsForModal modals ]
 
+        ToggleSelected componentId add ->
+            { model | selected = model.selected |> toggleSelected componentId add }
+                |> App.createUpdate session
+
+        ToggleSelectedAll flag ->
+            { model | selected = model.components |> selectAll flag }
+                |> App.createUpdate session
+
         UpdateComponent customItem ->
             case model.modals of
                 (EditComponentModal component _) :: others ->
@@ -261,6 +274,20 @@ commandsForModal modals =
 
         _ ->
             Ports.addBodyClass "prevent-scrolling"
+
+
+selectAll : Bool -> WebData (List Component) -> List Component.Id
+selectAll flag webData =
+    case webData of
+        RemoteData.Success components ->
+            if flag then
+                List.map .id components
+
+            else
+                []
+
+        _ ->
+            []
 
 
 selectProcess :
@@ -292,6 +319,15 @@ selectProcess category (( component, _ ) as targetItem) maybeElementIndex autoco
                 |> App.notifyError "Erreur de sélection" "Aucun composant sélectionné"
 
 
+toggleSelected : Component.Id -> Bool -> List Component.Id -> List Component.Id
+toggleSelected componentId add =
+    if add then
+        (::) componentId >> LE.unique
+
+    else
+        List.filter <| (/=) componentId
+
+
 view : Session -> Model -> ( String, List (Html Msg) )
 view { db } model =
     ( "Admin Composants"
@@ -307,32 +343,47 @@ view { db } model =
             , model.components
                 |> WebDataView.map
                     (processFilters model.scopes model.search
-                        >> componentListView db
+                        >> componentListView db model.selected
                     )
             , model.components
-                |> WebDataView.map downloadDbButton
+                |> WebDataView.map (downloadDbButton model.selected)
             , model.modals
-                |> List.indexedMap (\index modal -> modalView db model.modals index modal)
+                |> List.indexedMap (modalView db model.modals)
                 |> div []
             ]
       ]
     )
 
 
-downloadDbButton : List Component -> Html Msg
-downloadDbButton components =
+downloadDbButton : List Component.Id -> List Component -> Html Msg
+downloadDbButton selected components =
+    let
+        toExport =
+            components
+                |> List.filter (\{ id } -> List.member id selected)
+    in
     p [ class "text-end mt-3" ]
         [ a
             [ class "btn btn-primary"
+            , classList [ ( "disabled", List.isEmpty toExport ) ]
             , download "components.json"
-            , components
+            , toExport
                 |> Encode.list Component.encode
                 |> Encode.encode 2
                 |> Base64.encode
                 |> (++) "data:application/json;base64,"
                 |> href
             ]
-            [ text "Exporter la base de données de composants" ]
+            [ "Exporter les {n} composant(s) sélectionné(s)"
+                |> String.replace "{n}"
+                    (if List.isEmpty selected then
+                        ""
+
+                     else
+                        String.fromInt (List.length toExport)
+                    )
+                |> text
+            ]
         ]
 
 
@@ -352,27 +403,52 @@ processFilters scopes search =
             }
 
 
-componentListView : Db -> List Component -> Html Msg
-componentListView db components =
+componentListView : Db -> List Component.Id -> List Component -> Html Msg
+componentListView db selected components =
     Table.responsiveDefault []
         [ thead []
             [ tr []
-                [ th [] [ text "Nom" ]
+                [ th [ class "align-start text-center" ]
+                    [ input
+                        [ type_ "checkbox"
+                        , class "form-check-input"
+                        , style "margin-top" "5px"
+                        , id "all-selected"
+                        , onCheck ToggleSelectedAll
+                        , checked (List.length selected == List.length components)
+                        , attribute "aria-label" "tout sélectionner"
+                        ]
+                        []
+                    ]
+                , th [] [ label [ for "all-selected" ] [ text "Nom" ] ]
                 , th [] [ text "Verticales" ]
                 , th [ colspan 3 ] [ text "Description" ]
                 ]
             ]
         , components
-            |> List.map (componentRowView db)
+            |> List.map (componentRowView db selected)
             |> tbody []
         ]
 
 
-componentRowView : Db -> Component -> Html Msg
-componentRowView db component =
+componentRowView : Db -> List Component.Id -> Component -> Html Msg
+componentRowView db selected component =
     tr []
-        [ th [ class "align-middle" ]
-            [ text component.name
+        [ td [ class "align-start text-center" ]
+            [ input
+                [ type_ "checkbox"
+                , class "form-check-input"
+                , style "margin-top" "5px"
+                , id <| Component.idToString component.id ++ "-selected"
+                , onCheck (ToggleSelected component.id)
+                , checked (List.member component.id selected)
+                , attribute "aria-label" "sélection"
+                ]
+                []
+            ]
+        , th [ class "align-middle" ]
+            [ label [ for <| Component.idToString component.id ++ "-selected" ]
+                [ text component.name ]
             , small [ class "d-block fw-normal" ]
                 [ code [] [ text (Component.idToString component.id) ] ]
             ]
