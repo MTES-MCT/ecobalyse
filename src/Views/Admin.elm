@@ -3,8 +3,10 @@ module Views.Admin exposing
     , header
     , scopedSearchForm
     , selectAll
-    , selectCheckboxAll
-    , selectCheckboxElement
+    , selectAllCheckbox
+    , selectAllId
+    , toggleElementCheckbox
+    , toggleElementId
     , toggleSelected
     )
 
@@ -136,45 +138,51 @@ scopedSearchForm { scopes, search, searched, updateScopes } =
 
 
 selectAll : Bool -> WebData (List (Selectable a id)) -> List id
-selectAll flag webData =
-    case webData of
-        RemoteData.Success elements ->
-            if flag then
-                List.map .id elements
-
-            else
-                []
+selectAll checked webData =
+    case ( checked, webData ) of
+        ( True, RemoteData.Success elements ) ->
+            List.map .id elements
 
         _ ->
             []
 
 
-selectCheckboxAll : (Bool -> msg) -> List a -> List b -> Html msg
-selectCheckboxAll check selected elements =
+selectAllCheckbox : (Bool -> msg) -> List a -> List b -> Html msg
+selectAllCheckbox checkAll selected elements =
     input
         [ type_ "checkbox"
         , class "form-check-input"
         , style "margin-top" "5px"
-        , id "all-selected"
-        , onCheck check
+        , id selectAllId
+        , onCheck checkAll
         , checked (List.length selected == List.length elements)
         , attribute "aria-label" "tout sélectionner"
         ]
         []
 
 
-selectCheckboxElement : (id -> String) -> (id -> Bool -> msg) -> id -> List id -> Html msg
-selectCheckboxElement toString toggle id selected =
+selectAllId : String
+selectAllId =
+    "all-selected"
+
+
+toggleElementCheckbox : (id -> String) -> (id -> Bool -> msg) -> id -> List id -> Html msg
+toggleElementCheckbox toString toggle id selected =
     input
         [ type_ "checkbox"
         , class "form-check-input"
         , style "margin-top" "5px"
-        , Attr.id <| toString id ++ "-selected"
+        , Attr.id <| toggleElementId toString id
         , onCheck (toggle id)
         , checked (List.member id selected)
         , attribute "aria-label" "sélection"
         ]
         []
+
+
+toggleElementId : (id -> String) -> id -> String
+toggleElementId toString id =
+    toString id ++ "-selected"
 
 
 toggleSelected : id -> Bool -> List id -> List id

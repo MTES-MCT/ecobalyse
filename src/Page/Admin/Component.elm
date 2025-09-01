@@ -353,9 +353,9 @@ componentListView db selected components =
         [ thead []
             [ tr []
                 [ th [ class "align-start text-center" ]
-                    [ AdminView.selectCheckboxAll ToggleSelectedAll components selected
+                    [ AdminView.selectAllCheckbox ToggleSelectedAll components selected
                     ]
-                , th [] [ label [ for "all-selected" ] [ text "Nom" ] ]
+                , th [] [ label [ for AdminView.selectAllId ] [ text "Nom" ] ]
                 , th [] [ text "Verticales" ]
                 , th [ colspan 3 ] [ text "Description" ]
                 ]
@@ -371,10 +371,10 @@ componentRowView db selected component =
     tr []
         [ td [ class "align-start text-center" ]
             [ selected
-                |> AdminView.selectCheckboxElement Component.idToString ToggleSelected component.id
+                |> AdminView.toggleElementCheckbox Component.idToString ToggleSelected component.id
             ]
         , th [ class "align-middle" ]
-            [ label [ for <| Component.idToString component.id ++ "-selected" ]
+            [ label [ for <| AdminView.toggleElementId Component.idToString component.id ]
                 [ text component.name ]
             , small [ class "d-block fw-normal" ]
                 [ code [] [ text (Component.idToString component.id) ] ]

@@ -75,16 +75,20 @@ update session msg model =
                     )
 
         ToggleSelected processId flag ->
-            App.createUpdate session { model | selected = model.selected |> AdminView.toggleSelected processId flag }
+            { model | selected = model.selected |> AdminView.toggleSelected processId flag }
+                |> App.createUpdate session
 
         ToggleSelectedAll flag ->
-            App.createUpdate session { model | selected = model.processes |> AdminView.selectAll flag }
+            { model | selected = model.processes |> AdminView.selectAll flag }
+                |> App.createUpdate session
 
         UpdateScopeFilters scopes ->
-            App.createUpdate session { model | scopes = scopes }
+            { model | scopes = scopes }
+                |> App.createUpdate session
 
         UpdateSearch search ->
-            App.createUpdate session { model | search = String.toLower search }
+            { model | search = String.toLower search }
+                |> App.createUpdate session
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
@@ -134,9 +138,9 @@ processListView definitions scopes search selected processes =
         [ thead []
             [ tr []
                 [ th [ class "align-start text-center" ]
-                    [ AdminView.selectCheckboxAll ToggleSelectedAll processes selected
+                    [ AdminView.selectAllCheckbox ToggleSelectedAll processes selected
                     ]
-                , th [] [ label [ for "all-selected" ] [ text "Nom" ] ]
+                , th [] [ label [ for AdminView.selectAllId ] [ text "Nom" ] ]
                 , th [] [ text "Catégories" ]
                 , th [] [ text "Verticales" ]
                 , th [] [ text "Source" ]
@@ -167,10 +171,10 @@ processRowView definitions selected process =
     tr []
         [ td [ class "align-start text-center" ]
             [ selected
-                |> AdminView.selectCheckboxElement Process.idToString ToggleSelected process.id
+                |> AdminView.toggleElementCheckbox Process.idToString ToggleSelected process.id
             ]
         , th [ class "text-truncate", style "max-width" "325px", title <| Process.getDisplayName process ]
-            [ label [ for <| Process.idToString process.id ++ "-selected" ]
+            [ label [ for <| AdminView.toggleElementId Process.idToString process.id ]
                 [ text (Process.getDisplayName process) ]
             , small [ class "d-block fw-normal" ]
                 [ code [] [ text (Process.idToString process.id) ] ]
