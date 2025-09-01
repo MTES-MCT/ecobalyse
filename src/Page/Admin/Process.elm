@@ -8,7 +8,6 @@ module Page.Admin.Process exposing
     )
 
 import App exposing (Msg, PageUpdate)
-import Base64
 import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category
@@ -19,7 +18,6 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Keyed as Keyed
 import Html.Lazy as Lazy
-import Json.Encode as Encode
 import Page.Admin.Section as AdminSection
 import RemoteData
 import Request.BackendHttp exposing (WebData)
@@ -106,42 +104,12 @@ view { db } { processes, scopes, search, section, selected } =
                     (Lazy.lazy5 processListView db.definitions scopes search selected)
             , processes
                 |> WebDataView.map
-                    (processFilters scopes search >> Lazy.lazy2 downloadDbButton selected)
+                    (processFilters scopes search
+                        >> Lazy.lazy4 AdminView.downloadElementsButton "processes.json" Process.encode selected
+                    )
             ]
       ]
     )
-
-
-downloadDbButton : List Process.Id -> List Process -> Html Msg
-downloadDbButton selected processes =
-    let
-        toExport =
-            processes
-                |> List.filter (\{ id } -> List.member id selected)
-    in
-    p [ class "text-end mt-3" ]
-        [ a
-            [ class "btn btn-primary"
-            , classList [ ( "disabled", List.isEmpty toExport ) ]
-            , download "processes.json"
-            , toExport
-                |> Encode.list Process.encode
-                |> Encode.encode 2
-                |> Base64.encode
-                |> (++) "data:application/json;base64,"
-                |> href
-            ]
-            [ "Exporter les {n} procédé(s) sélectionné(s)"
-                |> String.replace "{n}"
-                    (if List.isEmpty selected then
-                        ""
-
-                     else
-                        String.fromInt (List.length toExport)
-                    )
-                |> text
-            ]
-        ]
 
 
 processFilters : List Scope -> String -> List Process -> List Process

@@ -322,45 +322,13 @@ view { db } model =
                         >> componentListView db model.selected
                     )
             , model.components
-                |> WebDataView.map (downloadDbButton model.selected)
+                |> WebDataView.map (AdminView.downloadElementsButton "components.json" Component.encode model.selected)
             , model.modals
                 |> List.indexedMap (modalView db model.modals)
                 |> div []
             ]
       ]
     )
-
-
-downloadDbButton : List Component.Id -> List Component -> Html Msg
-downloadDbButton selected components =
-    let
-        toExport =
-            components
-                |> List.filter (\{ id } -> List.member id selected)
-    in
-    p [ class "text-end mt-3" ]
-        [ a
-            [ class "btn btn-primary"
-            , classList [ ( "disabled", List.isEmpty toExport ) ]
-            , download "components.json"
-            , toExport
-                |> Encode.list Component.encode
-                |> Encode.encode 2
-                |> Base64.encode
-                |> (++) "data:application/json;base64,"
-                |> href
-            ]
-            [ "Exporter les {n} composant(s) sélectionné(s)"
-                |> String.replace "{n}"
-                    (if List.isEmpty selected then
-                        ""
-
-                     else
-                        String.fromInt (List.length toExport)
-                    )
-                |> text
-            ]
-        ]
 
 
 processFilters : List Scope -> String -> List Component -> List Component

@@ -1,5 +1,6 @@
 module Views.Admin exposing
-    ( header
+    ( downloadElementsButton
+    , header
     , scopedSearchForm
     , selectAll
     , selectCheckboxAll
@@ -7,10 +8,12 @@ module Views.Admin exposing
     , toggleSelected
     )
 
+import Base64
 import Data.Scope exposing (Scope)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
+import Json.Encode as Encode
 import List.Extra as LE
 import Page.Admin.Section as AdminSection exposing (Section(..))
 import RemoteData
@@ -19,12 +22,53 @@ import Route
 import Views.Scope as ScopeView
 
 
+type alias Selectable a id =
+    { a | id : id }
+
+
 all : List ( Section, Bool )
 all =
     List.sortBy (Tuple.first >> AdminSection.toLabel >> String.toLower)
         [ ( AccountSection, True )
         , ( ComponentSection, True )
         , ( ProcessSection, True )
+        ]
+
+
+downloadElementsButton :
+    String
+    -> (Selectable a id -> Encode.Value)
+    -> List id
+    -> List (Selectable a id)
+    -> Html msg
+downloadElementsButton filename encode selected elements =
+    let
+        toExport =
+            elements
+                |> List.filter (\{ id } -> List.member id selected)
+    in
+    p [ class "text-end mt-3" ]
+        [ a
+            [ class "btn btn-primary"
+            , classList [ ( "disabled", List.isEmpty toExport ) ]
+            , download filename
+            , toExport
+                |> Encode.list encode
+                |> Encode.encode 2
+                |> Base64.encode
+                |> (++) "data:application/json;base64,"
+                |> href
+            ]
+            [ "Exporter les {n} élément(s) sélectionné(s)"
+                |> String.replace "{n}"
+                    (if List.isEmpty selected then
+                        ""
+
+                     else
+                        String.fromInt (List.length toExport)
+                    )
+                |> text
+            ]
         ]
 
 
@@ -91,7 +135,7 @@ scopedSearchForm { scopes, search, searched, updateScopes } =
         ]
 
 
-selectAll : Bool -> WebData (List { a | id : id }) -> List id
+selectAll : Bool -> WebData (List (Selectable a id)) -> List id
 selectAll flag webData =
     case webData of
         RemoteData.Success elements ->
