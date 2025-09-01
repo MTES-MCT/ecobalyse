@@ -17,9 +17,11 @@ import Data.Session as Session exposing (Session)
 import Data.Text as Text
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Events exposing (..)
 import Html.Keyed as Keyed
 import Html.Lazy as Lazy
 import Json.Encode as Encode
+import List.Extra as LE
 import Page.Admin.Section as AdminSection
 import RemoteData
 import Request.BackendHttp exposing (WebData)
@@ -37,11 +39,14 @@ type alias Model =
     , scopes : List Scope
     , search : String
     , section : AdminSection.Section
+    , selected : List Process.Id
     }
 
 
 type Msg
     = ProcessListResponse (WebData (List Process))
+    | ToggleSelected Process.Id Bool
+    | ToggleSelectedAll Bool
     | UpdateScopeFilters (List Scope)
     | UpdateSearch String
 
@@ -52,6 +57,7 @@ init session section =
     , scopes = Scope.all
     , search = ""
     , section = section
+    , selected = []
     }
         |> App.createUpdate session
         |> App.withCmds [ ProcessApi.getProcesses session ProcessListResponse ]
@@ -72,6 +78,12 @@ update session msg model =
                             identity
                     )
 
+        ToggleSelected processId flag ->
+            App.createUpdate session { model | selected = model.selected |> toggleSelected processId flag }
+
+        ToggleSelectedAll flag ->
+            App.createUpdate session { model | selected = model.processes |> selectAll flag }
+
         UpdateScopeFilters scopes ->
             App.createUpdate session { model | scopes = scopes }
 
@@ -79,8 +91,31 @@ update session msg model =
             App.createUpdate session { model | search = String.toLower search }
 
 
+selectAll : Bool -> WebData (List Process) -> List Process.Id
+selectAll flag webData =
+    case webData of
+        RemoteData.Success processes ->
+            if flag then
+                List.map .id processes
+
+            else
+                []
+
+        _ ->
+            []
+
+
+toggleSelected : Process.Id -> Bool -> List Process.Id -> List Process.Id
+toggleSelected processId add =
+    if add then
+        (::) processId >> LE.unique
+
+    else
+        List.filter <| (/=) processId
+
+
 view : Session -> Model -> ( String, List (Html Msg) )
-view { db } { processes, scopes, search, section } =
+view { db } { processes, scopes, search, section, selected } =
     ( "Admin Procédés"
     , [ Container.centered [ class "d-flex flex-column gap-3 pb-5" ]
             [ AdminView.header section
@@ -93,30 +128,44 @@ view { db } { processes, scopes, search, section } =
                 }
             , processes
                 |> WebDataView.map
-                    (processFilters scopes search
-                        >> Lazy.lazy2 processListView db.definitions
-                    )
+                    (Lazy.lazy5 processListView db.definitions scopes search selected)
             , processes
-                |> WebDataView.map downloadDbButton
+                |> WebDataView.map
+                    (processFilters scopes search >> Lazy.lazy2 downloadDbButton selected)
             ]
       ]
     )
 
 
-downloadDbButton : List Process -> Html Msg
-downloadDbButton processes =
+downloadDbButton : List Process.Id -> List Process -> Html Msg
+downloadDbButton selected processes =
+    let
+        toExport =
+            processes
+                |> List.filter (\{ id } -> List.member id selected)
+    in
     p [ class "text-end mt-3" ]
         [ a
             [ class "btn btn-primary"
+            , classList [ ( "disabled", List.isEmpty toExport ) ]
             , download "processes.json"
-            , processes
+            , toExport
                 |> Encode.list Process.encode
                 |> Encode.encode 2
                 |> Base64.encode
                 |> (++) "data:application/json;base64,"
                 |> href
             ]
-            [ text "Exporter la base de données de procédés" ]
+            [ "Exporter les {n} procédé(s) sélectionné(s)"
+                |> String.replace "{n}"
+                    (if List.isEmpty selected then
+                        ""
+
+                     else
+                        String.fromInt (List.length toExport)
+                    )
+                |> text
+            ]
         ]
 
 
@@ -136,12 +185,24 @@ processFilters scopes search =
             }
 
 
-processListView : Definitions -> List Process -> Html Msg
-processListView definitions processes =
+processListView : Definitions -> List Scope -> String -> List Process.Id -> List Process -> Html Msg
+processListView definitions scopes search selected processes =
     Table.responsiveDefault []
         [ thead []
             [ tr []
-                [ th [] [ text "Nom" ]
+                [ th [ class "align-start text-center" ]
+                    [ input
+                        [ type_ "checkbox"
+                        , class "form-check-input"
+                        , style "margin-top" "5px"
+                        , id "all-selected"
+                        , onCheck ToggleSelectedAll
+                        , checked (List.length selected == List.length processes)
+                        , attribute "aria-label" "tout sélectionner"
+                        ]
+                        []
+                    ]
+                , th [] [ label [ for "all-selected" ] [ text "Nom" ] ]
                 , th [] [ text "Catégories" ]
                 , th [] [ text "Verticales" ]
                 , th [] [ text "Source" ]
@@ -156,21 +217,35 @@ processListView definitions processes =
                 ]
             ]
         , processes
+            |> processFilters scopes search
             |> List.map
                 (\process ->
                     ( Process.idToString process.id
-                    , Lazy.lazy2 processRowView definitions process
+                    , Lazy.lazy3 processRowView definitions selected process
                     )
                 )
             |> Keyed.node "tbody" []
         ]
 
 
-processRowView : Definitions -> Process -> Html Msg
-processRowView definitions process =
+processRowView : Definitions -> List Process.Id -> Process -> Html Msg
+processRowView definitions selected process =
     tr []
-        [ th [ class "text-truncate", style "max-width" "325px", title <| Process.getDisplayName process ]
-            [ text (Process.getDisplayName process)
+        [ td [ class "align-start text-center" ]
+            [ input
+                [ type_ "checkbox"
+                , class "form-check-input"
+                , style "margin-top" "5px"
+                , id <| Process.idToString process.id ++ "-selected"
+                , onCheck (ToggleSelected process.id)
+                , checked (List.member process.id selected)
+                , attribute "aria-label" "sélection"
+                ]
+                []
+            ]
+        , th [ class "text-truncate", style "max-width" "325px", title <| Process.getDisplayName process ]
+            [ label [ for <| Process.idToString process.id ++ "-selected" ]
+                [ text (Process.getDisplayName process) ]
             , small [ class "d-block fw-normal" ]
                 [ code [] [ text (Process.idToString process.id) ] ]
             ]
