@@ -105,7 +105,7 @@ Vous trouverez dans `./docker` des scripts permettant d’héberger une version 
 
     docker compose -f docker/compose.yaml up --build
 
-Un server `express` sera lancé sur `http://localhost:8001`.
+Un server `express` sera lancé sur `http://localhost:8001`. À noter qu’actuellement, vous ne pouvez pas avoir accès aux impacts détailés de cette façon.
 
 ### Hooks Git avec pre-commit et Formatage de Code avec Prettier et Ruff
 
