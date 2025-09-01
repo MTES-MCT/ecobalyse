@@ -1,13 +1,18 @@
 module Views.Admin exposing
     ( header
     , scopedSearchForm
+    , selectAll
+    , toggleSelected
     )
 
 import Data.Scope exposing (Scope)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import List.Extra as LE
 import Page.Admin.Section as AdminSection exposing (Section(..))
+import RemoteData
+import Request.BackendHttp exposing (WebData)
 import Route
 import Views.Scope as ScopeView
 
@@ -82,3 +87,26 @@ scopedSearchForm { scopes, search, searched, updateScopes } =
                 []
             ]
         ]
+
+
+selectAll : Bool -> WebData (List { a | id : id }) -> List id
+selectAll flag webData =
+    case webData of
+        RemoteData.Success processes ->
+            if flag then
+                List.map .id processes
+
+            else
+                []
+
+        _ ->
+            []
+
+
+toggleSelected : id -> Bool -> List id -> List id
+toggleSelected processId add =
+    if add then
+        (::) processId >> LE.unique
+
+    else
+        List.filter <| (/=) processId

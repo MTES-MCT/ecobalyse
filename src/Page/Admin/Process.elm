@@ -21,7 +21,6 @@ import Html.Events exposing (..)
 import Html.Keyed as Keyed
 import Html.Lazy as Lazy
 import Json.Encode as Encode
-import List.Extra as LE
 import Page.Admin.Section as AdminSection
 import RemoteData
 import Request.BackendHttp exposing (WebData)
@@ -79,39 +78,16 @@ update session msg model =
                     )
 
         ToggleSelected processId flag ->
-            App.createUpdate session { model | selected = model.selected |> toggleSelected processId flag }
+            App.createUpdate session { model | selected = model.selected |> AdminView.toggleSelected processId flag }
 
         ToggleSelectedAll flag ->
-            App.createUpdate session { model | selected = model.processes |> selectAll flag }
+            App.createUpdate session { model | selected = model.processes |> AdminView.selectAll flag }
 
         UpdateScopeFilters scopes ->
             App.createUpdate session { model | scopes = scopes }
 
         UpdateSearch search ->
             App.createUpdate session { model | search = String.toLower search }
-
-
-selectAll : Bool -> WebData (List Process) -> List Process.Id
-selectAll flag webData =
-    case webData of
-        RemoteData.Success processes ->
-            if flag then
-                List.map .id processes
-
-            else
-                []
-
-        _ ->
-            []
-
-
-toggleSelected : Process.Id -> Bool -> List Process.Id -> List Process.Id
-toggleSelected processId add =
-    if add then
-        (::) processId >> LE.unique
-
-    else
-        List.filter <| (/=) processId
 
 
 view : Session -> Model -> ( String, List (Html Msg) )

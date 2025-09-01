@@ -26,7 +26,6 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Json.Encode as Encode
-import List.Extra as LE
 import Page.Admin.Section as AdminSection
 import Ports
 import RemoteData
@@ -244,11 +243,11 @@ update session msg model =
                 |> App.withCmds [ commandsForModal modals ]
 
         ToggleSelected componentId add ->
-            { model | selected = model.selected |> toggleSelected componentId add }
+            { model | selected = model.selected |> AdminView.toggleSelected componentId add }
                 |> App.createUpdate session
 
         ToggleSelectedAll flag ->
-            { model | selected = model.components |> selectAll flag }
+            { model | selected = model.components |> AdminView.selectAll flag }
                 |> App.createUpdate session
 
         UpdateComponent customItem ->
@@ -274,20 +273,6 @@ commandsForModal modals =
 
         _ ->
             Ports.addBodyClass "prevent-scrolling"
-
-
-selectAll : Bool -> WebData (List Component) -> List Component.Id
-selectAll flag webData =
-    case webData of
-        RemoteData.Success components ->
-            if flag then
-                List.map .id components
-
-            else
-                []
-
-        _ ->
-            []
 
 
 selectProcess :
@@ -317,15 +302,6 @@ selectProcess category (( component, _ ) as targetItem) maybeElementIndex autoco
         Nothing ->
             App.createUpdate session model
                 |> App.notifyError "Erreur de sélection" "Aucun composant sélectionné"
-
-
-toggleSelected : Component.Id -> Bool -> List Component.Id -> List Component.Id
-toggleSelected componentId add =
-    if add then
-        (::) componentId >> LE.unique
-
-    else
-        List.filter <| (/=) componentId
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
