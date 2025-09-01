@@ -27,7 +27,7 @@ import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Data.Uuid exposing (Uuid)
 import Html exposing (..)
-import Html.Attributes exposing (..)
+import Html.Attributes as Attr exposing (..)
 import List.Extra as LE
 import Ports
 import Request.Version as Version
@@ -536,6 +536,19 @@ simulatorView session model =
                         , scopeHome = Route.ObjectSimulatorHome model.scope
                         }
                     }
+                ]
+            , div [ class "d-flex flex-row gap-4 mt-2 mb-4" ]
+                [ label [ for "durability" ] [ text "Durabilité" ]
+                , input
+                    [ type_ "range"
+                    , class "form-range"
+                    , Attr.id "durability"
+                    , Attr.min "0.5"
+                    , Attr.max "1.5"
+                    , step "0.01"
+                    ]
+                    []
+                , span [] [ text "100%" ]
                 ]
             , ComponentView.editorView
                 { addLabel = "Ajouter un composant"
