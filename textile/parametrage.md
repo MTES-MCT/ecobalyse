@@ -38,7 +38,28 @@ Ce  paramètre n'est pas fixé, par défaut, sur des valeurs majorantes dans la 
 
 {% hint style="info" %}
 **Gestion du multi-sourcing**\
-Plusieurs paramètres concernent le pays dans lequel la matière est produite ou dans lequel différentes étapes de transformation sont réalisées. La valeur à donner au paramètre peut être complexe lorsque, pour une même référence, un producteur s'approvisionne dans différents pays (multi-sourcing).\
+Plusieurs paramètres concernent les pays dans lequel la matière est produite ou dans lesquels différentes étapes de transformation sont réalisées. La valeur à donner au paramètre peut être complexe lorsque, pour une même référence, un producteur s'approvisionne dans différents pays (multi-sourcing).\
 Dans un souci de capitalisation sur la réglementation existante et pour éviter un double exercice aux marques, le multi-sourcing doit être considérées suivant les mêmes règles que celles définies pour l'application du décret n° 2022-748 du 29 avril 2022 relatif à l'information du consommateur sur les qualités et caractéristiques environnementales des produits générateurs de déchets ([lien](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000045726094)). Ces règles sont précisées dans la foire aux questions publiée le 18 octobre 2023 ([lien](https://www.ecologie.gouv.fr/sites/default/files/documents/FAQ-020123v2.pdf)), et en particulier dans le paragraphe 2.9.2. repris ci-après.\
 ![](../.gitbook/assets/{F1DBF5B3-6028-4CE4-BE07-6CA5F2D064BC}.png)
+
+Ainsi, doit être considéré le pays « _où la plus grande proportion en masse des fibres textiles du modèle est réalisée_ ». Il revient à chaque acteur qui recourt à l’affichage du coût environnemental de justifier, en cas notamment de contrôle, la méthode précise qu’il a mise en œuvre pour déterminer ce pays à chaque étape.
+
+En guise d’exemples, trois approches sont proposées ci-après :
+
+_Approche 1 : Détermination à intervalles réguliers_
+
+La marque ou le producteur détermine le pays principal à une date donnée, à partir des approvisionnements constatés sur une période courte autour de cette date. Le pays principal ainsi déterminé peut continuer à être considéré a minima pendant \[6 mois] . Au-delà de ce délai, il est attendu qu’une nouvelle détermination du pays principal soit réalisée. Dans l’hypothèse où le pays principal aurait changé et où le résultat résultant d’un calcul mis à jour avec ce nouveau pays principal serait pénalisant, il est attendu que le coût environnemental soit mis à jour ainsi que la déclaration sur le portail de déclaration. Suivant cette approche, il convient que les dates considérées soient fixées à intervalle régulier, par exemple tous les 6 mois, et qu’elles ne soient pas choisies en opportunité pour mettre en avant une traçabilité qui serait favorable à une date donnée.
+
+&#x20;
+
+_Approche 2 : Moyenne sur l’année écoulée_
+
+La marque ou le producteur considère le pays « _où la plus grande proportion en masse des fibres textiles du modèle est réalisée_ » sur \[les douze derniers mois]. Cette approche requiert un suivi et un enregistrement en continu des différents pays d’origine. Le délai long permet de ne pas imposer que le calcul soit mis à jour à chaque fois que les pays d’approvisionnement évoluent.
+
+&#x20;
+
+_Approche 3 : Choix d’un paramétrage majorant_
+
+Lorsque la détermination, et donc la justification éventuelle, du pays « _où la plus grande proportion en masse des fibres textiles du modèle est réalisée_ ». La marque, le producteur ou le tiers (après un délai d’un an) garde la possibilité de choisir un pays majorant. Il s’agit de la logique proposée par ailleurs pour la détermination de la largeur de gamme : face à la variabilité d’un paramètre, le choix d’une valeur pénalisante ne sera pas contesté lors d’un contrôle.
 {% endhint %}
+
