@@ -11844,7 +11844,7 @@
     "waste": 0
   },
   {
-    "categories": ["end-of-life"],
+    "categories": ["eol"],
     "comment": "Précalcul Ecobalyse à partir de Base Impacts",
     "density": 0,
     "displayName": "Fin de vie hors voiture (transport en camion, incinération, mise en décharge)",
