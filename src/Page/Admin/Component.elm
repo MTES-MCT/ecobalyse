@@ -385,16 +385,7 @@ componentListView db selected components =
         [ thead []
             [ tr []
                 [ th [ class "align-start text-center" ]
-                    [ input
-                        [ type_ "checkbox"
-                        , class "form-check-input"
-                        , style "margin-top" "5px"
-                        , id "all-selected"
-                        , onCheck ToggleSelectedAll
-                        , checked (List.length selected == List.length components)
-                        , attribute "aria-label" "tout sélectionner"
-                        ]
-                        []
+                    [ AdminView.selectCheckboxAll ToggleSelectedAll components selected
                     ]
                 , th [] [ label [ for "all-selected" ] [ text "Nom" ] ]
                 , th [] [ text "Verticales" ]
@@ -411,16 +402,8 @@ componentRowView : Db -> List Component.Id -> Component -> Html Msg
 componentRowView db selected component =
     tr []
         [ td [ class "align-start text-center" ]
-            [ input
-                [ type_ "checkbox"
-                , class "form-check-input"
-                , style "margin-top" "5px"
-                , id <| Component.idToString component.id ++ "-selected"
-                , onCheck (ToggleSelected component.id)
-                , checked (List.member component.id selected)
-                , attribute "aria-label" "sélection"
-                ]
-                []
+            [ selected
+                |> AdminView.selectCheckboxElement Component.idToString ToggleSelected component.id
             ]
         , th [ class "align-middle" ]
             [ label [ for <| Component.idToString component.id ++ "-selected" ]

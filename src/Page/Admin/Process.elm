@@ -17,7 +17,6 @@ import Data.Session as Session exposing (Session)
 import Data.Text as Text
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Html.Events exposing (..)
 import Html.Keyed as Keyed
 import Html.Lazy as Lazy
 import Json.Encode as Encode
@@ -167,16 +166,7 @@ processListView definitions scopes search selected processes =
         [ thead []
             [ tr []
                 [ th [ class "align-start text-center" ]
-                    [ input
-                        [ type_ "checkbox"
-                        , class "form-check-input"
-                        , style "margin-top" "5px"
-                        , id "all-selected"
-                        , onCheck ToggleSelectedAll
-                        , checked (List.length selected == List.length processes)
-                        , attribute "aria-label" "tout sélectionner"
-                        ]
-                        []
+                    [ AdminView.selectCheckboxAll ToggleSelectedAll processes selected
                     ]
                 , th [] [ label [ for "all-selected" ] [ text "Nom" ] ]
                 , th [] [ text "Catégories" ]
@@ -208,16 +198,8 @@ processRowView : Definitions -> List Process.Id -> Process -> Html Msg
 processRowView definitions selected process =
     tr []
         [ td [ class "align-start text-center" ]
-            [ input
-                [ type_ "checkbox"
-                , class "form-check-input"
-                , style "margin-top" "5px"
-                , id <| Process.idToString process.id ++ "-selected"
-                , onCheck (ToggleSelected process.id)
-                , checked (List.member process.id selected)
-                , attribute "aria-label" "sélection"
-                ]
-                []
+            [ selected
+                |> AdminView.selectCheckboxElement Process.idToString ToggleSelected process.id
             ]
         , th [ class "text-truncate", style "max-width" "325px", title <| Process.getDisplayName process ]
             [ label [ for <| Process.idToString process.id ++ "-selected" ]

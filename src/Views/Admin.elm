@@ -2,12 +2,14 @@ module Views.Admin exposing
     ( header
     , scopedSearchForm
     , selectAll
+    , selectCheckboxAll
+    , selectCheckboxElement
     , toggleSelected
     )
 
 import Data.Scope exposing (Scope)
 import Html exposing (..)
-import Html.Attributes exposing (..)
+import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import List.Extra as LE
 import Page.Admin.Section as AdminSection exposing (Section(..))
@@ -92,9 +94,9 @@ scopedSearchForm { scopes, search, searched, updateScopes } =
 selectAll : Bool -> WebData (List { a | id : id }) -> List id
 selectAll flag webData =
     case webData of
-        RemoteData.Success processes ->
+        RemoteData.Success elements ->
             if flag then
-                List.map .id processes
+                List.map .id elements
 
             else
                 []
@@ -103,10 +105,38 @@ selectAll flag webData =
             []
 
 
+selectCheckboxAll : (Bool -> msg) -> List a -> List b -> Html msg
+selectCheckboxAll check selected elements =
+    input
+        [ type_ "checkbox"
+        , class "form-check-input"
+        , style "margin-top" "5px"
+        , id "all-selected"
+        , onCheck check
+        , checked (List.length selected == List.length elements)
+        , attribute "aria-label" "tout sélectionner"
+        ]
+        []
+
+
+selectCheckboxElement : (id -> String) -> (id -> Bool -> msg) -> id -> List id -> Html msg
+selectCheckboxElement toString toggle id selected =
+    input
+        [ type_ "checkbox"
+        , class "form-check-input"
+        , style "margin-top" "5px"
+        , Attr.id <| toString id ++ "-selected"
+        , onCheck (toggle id)
+        , checked (List.member id selected)
+        , attribute "aria-label" "sélection"
+        ]
+        []
+
+
 toggleSelected : id -> Bool -> List id -> List id
-toggleSelected processId add =
+toggleSelected id add =
     if add then
-        (::) processId >> LE.unique
+        (::) id >> LE.unique
 
     else
-        List.filter <| (/=) processId
+        List.filter <| (/=) id
