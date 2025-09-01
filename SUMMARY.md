@@ -240,8 +240,6 @@
   * [🔨 Etape 2 :](ameublement/cycle-de-vie/etape-2.md)
   * [Etape 3 : Utilisation](ameublement/cycle-de-vie/etape-3-utilisation.md)
   * [Etape 4 : Fin de vie](ameublement/cycle-de-vie/etape-4-fin-de-vie.md)
-  * [Etape 4 : Fin de vie (final)](ameublement/cycle-de-vie/etape-4-fin-de-vie-final.md)
-  * [Etape 4 : Fin de vie Ameublement](ameublement/cycle-de-vie/etape-4-fin-de-vie-ameublement.md)
 * [Complément hors ACV](ameublement/complement-hors-acv/README.md)
   * [🌍 Biodiversité x Bois](ameublement/complement-hors-acv/biodiversitebois.md)
   * [🌍 Old (complément biodiv)](ameublement/complement-hors-acv/biodiversitebois-1.md)
