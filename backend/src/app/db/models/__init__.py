@@ -1,4 +1,5 @@
 from .component import Component
+from .element import Element
 from .journal_entry import JournalAction, JournalEntry
 from .process import Process
 from .process_category import ProcessCategory
@@ -10,6 +11,7 @@ from .user_profile import UserProfile
 from .user_role import UserRole
 
 __all__ = (
+    "Element",
     "Component",
     "JournalAction",
     "JournalEntry",
