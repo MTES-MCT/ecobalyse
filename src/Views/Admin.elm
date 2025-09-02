@@ -1,15 +1,31 @@
 module Views.Admin exposing
-    ( header
+    ( downloadElementsButton
+    , header
     , scopedSearchForm
+    , selectAll
+    , selectAllCheckbox
+    , selectAllId
+    , toggleElementCheckbox
+    , toggleElementId
+    , toggleSelected
     )
 
+import Base64
 import Data.Scope exposing (Scope)
 import Html exposing (..)
-import Html.Attributes exposing (..)
+import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
+import Json.Encode as Encode
+import List.Extra as LE
 import Page.Admin.Section as AdminSection exposing (Section(..))
+import RemoteData
+import Request.BackendHttp exposing (WebData)
 import Route
 import Views.Scope as ScopeView
+
+
+type alias Selectable a id =
+    { a | id : id }
 
 
 all : List ( Section, Bool )
@@ -18,6 +34,43 @@ all =
         [ ( AccountSection, True )
         , ( ComponentSection, True )
         , ( ProcessSection, True )
+        ]
+
+
+downloadElementsButton :
+    String
+    -> (Selectable a id -> Encode.Value)
+    -> List id
+    -> List (Selectable a id)
+    -> Html msg
+downloadElementsButton filename encode selected elements =
+    let
+        toExport =
+            elements
+                |> List.filter (\{ id } -> List.member id selected)
+    in
+    p [ class "text-end mt-3" ]
+        [ a
+            [ class "btn btn-primary"
+            , classList [ ( "disabled", List.isEmpty toExport ) ]
+            , download filename
+            , toExport
+                |> Encode.list encode
+                |> Encode.encode 2
+                |> Base64.encode
+                |> (++) "data:application/json;base64,"
+                |> href
+            ]
+            [ "Exporter les {n} élément(s) sélectionné(s)"
+                |> String.replace "{n}"
+                    (if List.isEmpty selected then
+                        ""
+
+                     else
+                        String.fromInt (List.length toExport)
+                    )
+                |> text
+            ]
         ]
 
 
@@ -82,3 +135,60 @@ scopedSearchForm { scopes, search, searched, updateScopes } =
                 []
             ]
         ]
+
+
+selectAll : Bool -> WebData (List (Selectable a id)) -> List id
+selectAll checked webData =
+    case ( checked, webData ) of
+        ( True, RemoteData.Success elements ) ->
+            List.map .id elements
+
+        _ ->
+            []
+
+
+selectAllCheckbox : (Bool -> msg) -> List a -> List b -> Html msg
+selectAllCheckbox checkAll selected elements =
+    input
+        [ type_ "checkbox"
+        , class "form-check-input"
+        , style "margin-top" "5px"
+        , id selectAllId
+        , onCheck checkAll
+        , checked (List.length selected == List.length elements)
+        , attribute "aria-label" "tout sélectionner"
+        ]
+        []
+
+
+selectAllId : String
+selectAllId =
+    "all-selected"
+
+
+toggleElementCheckbox : (id -> String) -> (id -> Bool -> msg) -> id -> List id -> Html msg
+toggleElementCheckbox toString toggle id selected =
+    input
+        [ type_ "checkbox"
+        , class "form-check-input"
+        , style "margin-top" "5px"
+        , Attr.id <| toggleElementId toString id
+        , onCheck (toggle id)
+        , checked (List.member id selected)
+        , attribute "aria-label" "sélection"
+        ]
+        []
+
+
+toggleElementId : (id -> String) -> id -> String
+toggleElementId toString id =
+    toString id ++ "-selected"
+
+
+toggleSelected : id -> Bool -> List id -> List id
+toggleSelected id add =
+    if add then
+        (::) id >> LE.unique
+
+    else
+        List.filter <| (/=) id

@@ -8,7 +8,6 @@ module Page.Admin.Process exposing
     )
 
 import App exposing (Msg, PageUpdate)
-import Base64
 import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category
@@ -19,7 +18,6 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Keyed as Keyed
 import Html.Lazy as Lazy
-import Json.Encode as Encode
 import Page.Admin.Section as AdminSection
 import RemoteData
 import Request.BackendHttp exposing (WebData)
@@ -37,11 +35,14 @@ type alias Model =
     , scopes : List Scope
     , search : String
     , section : AdminSection.Section
+    , selected : List Process.Id
     }
 
 
 type Msg
     = ProcessListResponse (WebData (List Process))
+    | ToggleSelected Process.Id Bool
+    | ToggleSelectedAll Bool
     | UpdateScopeFilters (List Scope)
     | UpdateSearch String
 
@@ -52,6 +53,7 @@ init session section =
     , scopes = Scope.all
     , search = ""
     , section = section
+    , selected = []
     }
         |> App.createUpdate session
         |> App.withCmds [ ProcessApi.getProcesses session ProcessListResponse ]
@@ -72,15 +74,25 @@ update session msg model =
                             identity
                     )
 
+        ToggleSelected processId flag ->
+            { model | selected = model.selected |> AdminView.toggleSelected processId flag }
+                |> App.createUpdate session
+
+        ToggleSelectedAll flag ->
+            { model | selected = model.processes |> AdminView.selectAll flag }
+                |> App.createUpdate session
+
         UpdateScopeFilters scopes ->
-            App.createUpdate session { model | scopes = scopes }
+            { model | scopes = scopes }
+                |> App.createUpdate session
 
         UpdateSearch search ->
-            App.createUpdate session { model | search = String.toLower search }
+            { model | search = String.toLower search }
+                |> App.createUpdate session
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view { db } { processes, scopes, search, section } =
+view { db } { processes, scopes, search, section, selected } =
     ( "Admin Procédés"
     , [ Container.centered [ class "d-flex flex-column gap-3 pb-5" ]
             [ AdminView.header section
@@ -93,31 +105,15 @@ view { db } { processes, scopes, search, section } =
                 }
             , processes
                 |> WebDataView.map
-                    (processFilters scopes search
-                        >> Lazy.lazy2 processListView db.definitions
-                    )
+                    (Lazy.lazy5 processListView db.definitions scopes search selected)
             , processes
-                |> WebDataView.map downloadDbButton
+                |> WebDataView.map
+                    (processFilters scopes search
+                        >> Lazy.lazy4 AdminView.downloadElementsButton "processes.json" Process.encode selected
+                    )
             ]
       ]
     )
-
-
-downloadDbButton : List Process -> Html Msg
-downloadDbButton processes =
-    p [ class "text-end mt-3" ]
-        [ a
-            [ class "btn btn-primary"
-            , download "processes.json"
-            , processes
-                |> Encode.list Process.encode
-                |> Encode.encode 2
-                |> Base64.encode
-                |> (++) "data:application/json;base64,"
-                |> href
-            ]
-            [ text "Exporter la base de données de procédés" ]
-        ]
 
 
 processFilters : List Scope -> String -> List Process -> List Process
@@ -136,12 +132,15 @@ processFilters scopes search =
             }
 
 
-processListView : Definitions -> List Process -> Html Msg
-processListView definitions processes =
+processListView : Definitions -> List Scope -> String -> List Process.Id -> List Process -> Html Msg
+processListView definitions scopes search selected processes =
     Table.responsiveDefault []
         [ thead []
             [ tr []
-                [ th [] [ text "Nom" ]
+                [ th [ class "align-start text-center" ]
+                    [ AdminView.selectAllCheckbox ToggleSelectedAll processes selected
+                    ]
+                , th [] [ label [ for AdminView.selectAllId ] [ text "Nom" ] ]
                 , th [] [ text "Catégories" ]
                 , th [] [ text "Verticales" ]
                 , th [] [ text "Source" ]
@@ -156,21 +155,27 @@ processListView definitions processes =
                 ]
             ]
         , processes
+            |> processFilters scopes search
             |> List.map
                 (\process ->
                     ( Process.idToString process.id
-                    , Lazy.lazy2 processRowView definitions process
+                    , Lazy.lazy3 processRowView definitions selected process
                     )
                 )
             |> Keyed.node "tbody" []
         ]
 
 
-processRowView : Definitions -> Process -> Html Msg
-processRowView definitions process =
+processRowView : Definitions -> List Process.Id -> Process -> Html Msg
+processRowView definitions selected process =
     tr []
-        [ th [ class "text-truncate", style "max-width" "325px", title <| Process.getDisplayName process ]
-            [ text (Process.getDisplayName process)
+        [ td [ class "align-start text-center" ]
+            [ selected
+                |> AdminView.toggleElementCheckbox Process.idToString ToggleSelected process.id
+            ]
+        , th [ class "text-truncate", style "max-width" "325px", title <| Process.getDisplayName process ]
+            [ label [ for <| AdminView.toggleElementId Process.idToString process.id ]
+                [ text (Process.getDisplayName process) ]
             , small [ class "d-block fw-normal" ]
                 [ code [] [ text (Process.idToString process.id) ] ]
             ]

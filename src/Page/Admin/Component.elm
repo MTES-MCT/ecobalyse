@@ -51,6 +51,7 @@ type alias Model =
     , scopes : List Scope
     , search : String
     , section : AdminSection.Section
+    , selected : List Component.Id
     , modals : List Modal
     }
 
@@ -79,6 +80,8 @@ type Msg
     | OpenJournalEntryModal (JournalEntry Component)
     | SaveComponent
     | SetModals (List Modal)
+    | ToggleSelected Component.Id Bool
+    | ToggleSelectedAll Bool
     | UpdateComponent Item
     | UpdateScopeFilters (List Scope)
     | UpdateSearch String
@@ -91,6 +94,7 @@ init session section =
     , scopes = Scope.all
     , search = ""
     , section = section
+    , selected = []
     }
         |> App.createUpdate session
         |> App.withCmds [ ComponentApi.getComponents session ComponentListResponse ]
@@ -238,6 +242,14 @@ update session msg model =
                 |> App.createUpdate session
                 |> App.withCmds [ commandsForModal modals ]
 
+        ToggleSelected componentId add ->
+            { model | selected = model.selected |> AdminView.toggleSelected componentId add }
+                |> App.createUpdate session
+
+        ToggleSelectedAll flag ->
+            { model | selected = model.components |> AdminView.selectAll flag }
+                |> App.createUpdate session
+
         UpdateComponent customItem ->
             case model.modals of
                 (EditComponentModal component _) :: others ->
@@ -307,33 +319,16 @@ view { db } model =
             , model.components
                 |> WebDataView.map
                     (processFilters model.scopes model.search
-                        >> componentListView db
+                        >> componentListView db model.selected
                     )
             , model.components
-                |> WebDataView.map downloadDbButton
+                |> WebDataView.map (AdminView.downloadElementsButton "components.json" Component.encode model.selected)
             , model.modals
-                |> List.indexedMap (\index modal -> modalView db model.modals index modal)
+                |> List.indexedMap (modalView db model.modals)
                 |> div []
             ]
       ]
     )
-
-
-downloadDbButton : List Component -> Html Msg
-downloadDbButton components =
-    p [ class "text-end mt-3" ]
-        [ a
-            [ class "btn btn-primary"
-            , download "components.json"
-            , components
-                |> Encode.list Component.encode
-                |> Encode.encode 2
-                |> Base64.encode
-                |> (++) "data:application/json;base64,"
-                |> href
-            ]
-            [ text "Exporter la base de données de composants" ]
-        ]
 
 
 processFilters : List Scope -> String -> List Component -> List Component
@@ -352,27 +347,35 @@ processFilters scopes search =
             }
 
 
-componentListView : Db -> List Component -> Html Msg
-componentListView db components =
+componentListView : Db -> List Component.Id -> List Component -> Html Msg
+componentListView db selected components =
     Table.responsiveDefault []
         [ thead []
             [ tr []
-                [ th [] [ text "Nom" ]
+                [ th [ class "align-start text-center" ]
+                    [ AdminView.selectAllCheckbox ToggleSelectedAll components selected
+                    ]
+                , th [] [ label [ for AdminView.selectAllId ] [ text "Nom" ] ]
                 , th [] [ text "Verticales" ]
                 , th [ colspan 3 ] [ text "Description" ]
                 ]
             ]
         , components
-            |> List.map (componentRowView db)
+            |> List.map (componentRowView db selected)
             |> tbody []
         ]
 
 
-componentRowView : Db -> Component -> Html Msg
-componentRowView db component =
+componentRowView : Db -> List Component.Id -> Component -> Html Msg
+componentRowView db selected component =
     tr []
-        [ th [ class "align-middle" ]
-            [ text component.name
+        [ td [ class "align-start text-center" ]
+            [ selected
+                |> AdminView.toggleElementCheckbox Component.idToString ToggleSelected component.id
+            ]
+        , th [ class "align-middle" ]
+            [ label [ for <| AdminView.toggleElementId Component.idToString component.id ]
+                [ text component.name ]
             , small [ class "d-block fw-normal" ]
                 [ code [] [ text (Component.idToString component.id) ] ]
             ]
