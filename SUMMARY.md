@@ -124,6 +124,7 @@
   * [🌀 Etape 7 - Utilisation](textile/cycle-de-vie-des-produits-textiles/etape-6-utilisation.md)
   * [♻️ Etape 8 - Fin de vie](textile/cycle-de-vie-des-produits-textiles/etape-7-fin-de-vie.md)
   * [🚢 Transport](textile/cycle-de-vie-des-produits-textiles/transport.md)
+  * [🚢 Transport Textile](textile/cycle-de-vie-des-produits-textiles/transport-textile.md)
 * [🟩 Précisions méthodologiques](textile/precisions-methodologiques/README.md)
   * [⚡ Electricité](textile/precisions-methodologiques/electricite.md)
   * [🔥 Chaleur](textile/precisions-methodologiques/chaleur.md)
