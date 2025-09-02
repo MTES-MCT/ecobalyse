@@ -537,18 +537,20 @@ simulatorView session model =
                         }
                     }
                 ]
-            , div [ class "d-flex flex-row gap-4 mt-2 mb-4" ]
-                [ label [ for "durability" ] [ text "Durabilité" ]
-                , input
-                    [ type_ "range"
-                    , class "form-range"
-                    , Attr.id "durability"
-                    , Attr.min "0.5"
-                    , Attr.max "1.5"
-                    , step "0.01"
+            , div [ class "row" ]
+                [ div [ class "col-xl-6 offset-xl-6 d-flex flex-row gap-3 mt-2 mb-4" ]
+                    [ label [ for "durability" ] [ text "Durabilité" ]
+                    , input
+                        [ type_ "range"
+                        , class "form-range"
+                        , Attr.id "durability"
+                        , Attr.min "0.5"
+                        , Attr.max "1.5"
+                        , step "0.01"
+                        ]
+                        []
+                    , span [] [ text "100%" ]
                     ]
-                    []
-                , span [] [ text "100%" ]
                 ]
             , ComponentView.editorView
                 { addLabel = "Ajouter un composant"

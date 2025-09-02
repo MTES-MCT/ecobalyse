@@ -13,6 +13,7 @@ module Data.Object.Query exposing
 import Base64
 import Data.Component as Component exposing (Item)
 import Data.Scope as Scope exposing (Scope)
+import Data.Unit as Unit exposing (Ratio)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
@@ -21,6 +22,7 @@ import Url.Parser as Parser exposing (Parser)
 
 type alias Query =
     { components : List Item
+    , durability : Ratio
     }
 
 
@@ -47,20 +49,21 @@ decode : Decoder Query
 decode =
     Decode.succeed Query
         |> Pipe.required "components" (Decode.list Component.decodeItem)
+        |> Pipe.optional "durability" Unit.decodeRatio (Unit.ratio 1)
 
 
 default : Query
 default =
-    { components = [] }
+    { components = []
+    , durability = Unit.ratio 1
+    }
 
 
 encode : Query -> Encode.Value
 encode query =
     Encode.object
-        [ ( "components"
-          , query.components
-                |> Encode.list Component.encodeItem
-          )
+        [ ( "components", query.components |> Encode.list Component.encodeItem )
+        , ( "durability", query.durability |> Unit.encodeRatio )
         ]
 
 
