@@ -46,6 +46,11 @@ copy =
     icon "copy"
 
 
+crossRounded : Html msg
+crossRounded =
+    icon "cross-rounded"
+
+
 fileExport : Html msg
 fileExport =
     icon "file-export"

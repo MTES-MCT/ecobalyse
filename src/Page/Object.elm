@@ -31,6 +31,7 @@ import Data.Unit as Unit
 import Data.Uuid exposing (Uuid)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
+import Html.Events exposing (..)
 import List.Extra as LE
 import Ports
 import Request.Version as Version
@@ -671,7 +672,7 @@ durabilityView currentDurability =
                     |> Format.formatFloat 2
                     |> text
                 ]
-            , div [ class "col-sm-4 col-md-6" ]
+            , div [ class "col-sm-4 col-md-6 text-nowrap d-flex align-items-center gap-2" ]
                 [ RangeSlider.generic [ Attr.id "durability" ]
                     { disabled = False
                     , fromString =
@@ -696,6 +697,14 @@ durabilityView currentDurability =
                     , update = UpdateDurability
                     , value = currentDurability
                     }
+                , button
+                    [ type_ "button"
+                    , class "btn text-primary p-0 border-0"
+                    , onClick (UpdateDurability (Ok (Unit.ratio 1)))
+                    , title "Réinitialiser la durabilité"
+                    , disabled (currentDurability == Unit.ratio 1)
+                    ]
+                    [ Icon.crossRounded ]
                 ]
             ]
         ]
