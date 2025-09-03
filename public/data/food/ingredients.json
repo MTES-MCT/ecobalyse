@@ -6369,7 +6369,7 @@
     "alias": "cocoa-butter-fr",
     "categories": ["nut_oilseed_processed"],
     "cropGroup": "FRUITS A COQUES",
-    "defaultOrigin": "France",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -6378,7 +6378,7 @@
     },
     "id": "0ea5f5a0-51d9-41da-9ac4-cb60f3ddb86c",
     "inediblePart": 0,
-    "landOccupation": 19.8412,
+    "landOccupation": 11.9277,
     "name": "Beurre de cacao par défaut",
     "processId": "e959ac4d-1b20-59cd-a2f3-44f11703a015",
     "rawToCookedRatio": 1.0,
