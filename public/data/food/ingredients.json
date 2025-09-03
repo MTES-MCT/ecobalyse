@@ -1455,7 +1455,7 @@
     "scenario": "reference",
     "search": "Egg, conventional, indoor system, cage, at farm gate {FR} U",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "alias": "egg-outdoor-code1",
@@ -1478,7 +1478,7 @@
     "scenario": "reference",
     "search": "Egg, conventional, outdoor system, at farm gate FR U",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "alias": "egg-organic-code0",
