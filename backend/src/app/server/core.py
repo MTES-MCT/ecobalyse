@@ -52,6 +52,7 @@ class ApplicationCore(InitPluginProtocol, CLIPluginProtocol):
         from app.domain.accounts.services import RoleService, UserService
         from app.domain.components.controllers import ComponentController
         from app.domain.components.services import ComponentService
+        from app.domain.elements.services import ElementService
         from app.domain.journal_entries.controllers import JournalEntryController
         from app.domain.journal_entries.services import JournalEntryService
         from app.domain.processes.controllers import ProcessController
@@ -109,6 +110,7 @@ class ApplicationCore(InitPluginProtocol, CLIPluginProtocol):
                 "m": m,
                 "UUID": UUID,
                 "ComponentService": ComponentService,
+                "ElementService": ElementService,
                 "ProcessService": ProcessService,
                 "JournalEntryService": JournalEntryService,
                 "RoleService": RoleService,
