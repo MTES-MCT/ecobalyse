@@ -533,17 +533,18 @@ selectProcess category targetItem maybeElementIndex autocompleteState query ({ m
 simulatorView : Session -> Model -> Html Msg
 simulatorView session model =
     let
+        currentQuery =
+            session |> Session.objectQueryFromScope model.scope
+
         currentDurability =
-            session
-                |> Session.objectQueryFromScope model.scope
-                |> .durability
+            currentQuery |> .durability
     in
     div [ class "row" ]
         [ div [ class "col-lg-8 bg-white" ]
             [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
             , div [ class "sticky-md-top bg-white pb-3" ]
                 [ ExampleView.view
-                    { currentQuery = session |> Session.objectQueryFromScope model.scope
+                    { currentQuery = currentQuery
                     , emptyQuery = Query.default
                     , examples = model.examples
                     , helpUrl = Nothing
@@ -557,40 +558,7 @@ simulatorView session model =
                     }
                 ]
             , div [ class "row" ]
-                [ div [ class "col-xl-8 offset-xl-4 d-flex flex-row gap-3 mt-2 mb-4" ]
-                    [ label [ for "durability", class "text-nowrap" ]
-                        [ text "Coefficient de durabilité" ]
-                    , RangeSlider.generic [ Attr.id "durability" ]
-                        { disabled = False
-                        , fromString =
-                            String.toFloat
-                                >> Result.fromMaybe "Durabilité invalide"
-                                >> Result.andThen
-                                    (\float ->
-                                        if float < 0.5 then
-                                            Err "Durabilité trop faible"
-
-                                        else if float > 1.5 then
-                                            Err "Durabilité trop élevée"
-
-                                        else
-                                            Ok float
-                                    )
-                                >> Result.map Unit.ratio
-                        , max = Unit.ratio 1.5
-                        , min = Unit.ratio 0.5
-                        , step = "0.01"
-                        , toString = Unit.ratioToFloat >> String.fromFloat
-                        , update = UpdateDurability
-                        , value = currentDurability
-                        }
-                    , span [ class "text-end font-monospace", style "width" "50px" ]
-                        [ currentDurability
-                            |> Unit.ratioToFloat
-                            |> Format.formatFloat 2
-                            |> text
-                        ]
-                    ]
+                [ durabilityView currentDurability
                 ]
             , ComponentView.editorView
                 { addLabel = "Ajouter un composant"
@@ -601,10 +569,7 @@ simulatorView session model =
                 , docsUrl = Nothing
                 , explorerRoute = Just (Route.Explore model.scope (Dataset.Components model.scope Nothing))
                 , impact = model.impact
-                , items =
-                    session
-                        |> Session.objectQueryFromScope model.scope
-                        |> .components
+                , items = currentQuery |> .components
                 , maxItems = Nothing
                 , noOp = NoOp
                 , openSelectComponentModal = AddComponentModal >> SetModal
@@ -666,6 +631,47 @@ simulatorView session model =
                 , updateBookmarkName = UpdateBookmarkName
                 , switchBookmarkTab = SwitchBookmarksTab
                 }
+            ]
+        ]
+
+
+durabilityView : Unit.Ratio -> Html Msg
+durabilityView currentDurability =
+    -- Note: this is considered a temporary implementation for object and veli simulators,
+    -- things might actually want to be factored out and appropriately typed and handled
+    -- when ongoing discussions around holostic durability are completed.
+    div [ class "col-xl-8 offset-xl-4 d-flex flex-row gap-3 mt-2 mb-4" ]
+        [ label [ for "durability", class "text-nowrap" ]
+            [ text "Coefficient de durabilité" ]
+        , RangeSlider.generic [ Attr.id "durability" ]
+            { disabled = False
+            , fromString =
+                String.toFloat
+                    >> Result.fromMaybe "Durabilité invalide (un nombre est requis)"
+                    >> Result.andThen
+                        (\float ->
+                            if float < 0.5 then
+                                Err "Durabilité trop faible (minimum: 0.5)"
+
+                            else if float > 1.5 then
+                                Err "Durabilité trop élevée (maximum: 1.5)"
+
+                            else
+                                Ok float
+                        )
+                    >> Result.map Unit.ratio
+            , max = Unit.ratio 1.5
+            , min = Unit.ratio 0.5
+            , step = "0.01"
+            , toString = Unit.ratioToFloat >> String.fromFloat
+            , update = UpdateDurability
+            , value = currentDurability
+            }
+        , span [ class "text-end font-monospace", style "width" "50px" ]
+            [ currentDurability
+                |> Unit.ratioToFloat
+                |> Format.formatFloat 2
+                |> text
             ]
         ]
 

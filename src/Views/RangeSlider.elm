@@ -164,7 +164,7 @@ narrowLayout { attributes, id, label } =
                 [ text label ]
             ]
         , div [ class "col-xxl-6" ]
-            [ rangeInput (Attr.id id :: style "margin-top" "2px" :: attributes) ]
+            [ rangeInput (Attr.id id :: attributes) ]
         ]
 
 
@@ -176,7 +176,7 @@ wideLayout { attributes, id, label } =
                 [ text label ]
             ]
         , div [ class "col-xxl-10" ]
-            [ rangeInput (Attr.id id :: style "margin-top" "2px" :: attributes) ]
+            [ rangeInput (Attr.id id :: attributes) ]
         ]
 
 
