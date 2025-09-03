@@ -16,6 +16,7 @@ import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Component as Component exposing (Component, Index, TargetElement, TargetItem)
 import Data.Dataset as Dataset
 import Data.Example as Example exposing (Example)
+import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Object.Query as Query exposing (Query)
@@ -25,6 +26,7 @@ import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
 import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
+import Data.Unit as Unit
 import Data.Uuid exposing (Uuid)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
@@ -40,8 +42,10 @@ import Views.Comparator as ComparatorView
 import Views.Component as ComponentView
 import Views.Container as Container
 import Views.Example as ExampleView
+import Views.Format as Format
 import Views.ImpactTabs as ImpactTabs
 import Views.Modal as ModalView
+import Views.RangeSlider as RangeSlider
 import Views.Sidebar as SidebarView
 
 
@@ -96,6 +100,7 @@ type Msg
     | UpdateBookmarkName String
     | UpdateComponentItemName TargetItem String
     | UpdateComponentItemQuantity Index Component.Quantity
+    | UpdateDurability (Result String Unit.Ratio)
     | UpdateElementAmount TargetElement (Maybe Component.Amount)
 
 
@@ -440,6 +445,14 @@ update ({ navKey } as session) msg model =
                     )
                 |> App.withCmds [ Posthog.send <| Posthog.ComponentUpdated model.scope ]
 
+        ( UpdateDurability (Ok durability), _ ) ->
+            App.createUpdate session model
+                |> updateQuery (query |> Query.updateDurability durability)
+
+        ( UpdateDurability (Err error), _ ) ->
+            App.createUpdate session model
+                |> App.notifyError "Erreur de durabilité" error
+
         ( UpdateElementAmount _ Nothing, _ ) ->
             App.createUpdate session model
 
@@ -519,6 +532,12 @@ selectProcess category targetItem maybeElementIndex autocompleteState query ({ m
 
 simulatorView : Session -> Model -> Html Msg
 simulatorView session model =
+    let
+        currentDurability =
+            session
+                |> Session.objectQueryFromScope model.scope
+                |> .durability
+    in
     div [ class "row" ]
         [ div [ class "col-lg-8 bg-white" ]
             [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
@@ -538,18 +557,39 @@ simulatorView session model =
                     }
                 ]
             , div [ class "row" ]
-                [ div [ class "col-xl-6 offset-xl-6 d-flex flex-row gap-3 mt-2 mb-4" ]
-                    [ label [ for "durability" ] [ text "Durabilité" ]
-                    , input
-                        [ type_ "range"
-                        , class "form-range"
-                        , Attr.id "durability"
-                        , Attr.min "0.5"
-                        , Attr.max "1.5"
-                        , step "0.01"
+                [ div [ class "col-xl-8 offset-xl-4 d-flex flex-row gap-3 mt-2 mb-4" ]
+                    [ label [ for "durability", class "text-nowrap" ]
+                        [ text "Coefficient de durabilité" ]
+                    , RangeSlider.generic [ Attr.id "durability" ]
+                        { disabled = False
+                        , fromString =
+                            String.toFloat
+                                >> Result.fromMaybe "Durabilité invalide"
+                                >> Result.andThen
+                                    (\float ->
+                                        if float < 0.5 then
+                                            Err "Durabilité trop faible"
+
+                                        else if float > 1.5 then
+                                            Err "Durabilité trop élevée"
+
+                                        else
+                                            Ok float
+                                    )
+                                >> Result.map Unit.ratio
+                        , max = Unit.ratio 1.5
+                        , min = Unit.ratio 0.5
+                        , step = "0.01"
+                        , toString = Unit.ratioToFloat >> String.fromFloat
+                        , update = UpdateDurability
+                        , value = currentDurability
+                        }
+                    , span [ class "text-end font-monospace", style "width" "50px" ]
+                        [ currentDurability
+                            |> Unit.ratioToFloat
+                            |> Format.formatFloat 2
+                            |> text
                         ]
-                        []
-                    , span [] [ text "100%" ]
                     ]
                 ]
             , ComponentView.editorView
@@ -596,8 +636,18 @@ simulatorView session model =
                 -- Score
                 , customScoreInfo = Nothing
                 , productMass = Component.extractMass model.results
-                , totalImpacts = Component.extractImpacts model.results
-                , totalImpactsWithoutDurability = Nothing
+                , totalImpacts =
+                    model.results
+                        |> Component.extractImpacts
+                        |> Impact.multiplyBy (Unit.ratioToFloat currentDurability)
+                , totalImpactsWithoutDurability =
+                    if currentDurability == Unit.ratio 1 then
+                        Nothing
+
+                    else
+                        model.results
+                            |> Component.extractImpacts
+                            |> Just
 
                 -- Impacts tabs
                 , impactTabsConfig =

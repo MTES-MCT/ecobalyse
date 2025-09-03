@@ -8,6 +8,7 @@ module Data.Object.Query exposing
     , encode
     , parseBase64Query
     , updateComponents
+    , updateDurability
     )
 
 import Base64
@@ -22,6 +23,10 @@ import Url.Parser as Parser exposing (Parser)
 
 type alias Query =
     { components : List Item
+
+    -- Note: component durability is experimental, future work may eventually be needed to
+    -- reuse existing mechanics and handle holistic durability like it's implemented for textile,
+    -- though it's still an ongoing discussion and we need to move forward and iterate.
     , durability : Ratio
     }
 
@@ -70,6 +75,11 @@ encode query =
 updateComponents : (List Item -> List Item) -> Query -> Query
 updateComponents fn query =
     { query | components = fn query.components }
+
+
+updateDurability : Unit.Ratio -> Query -> Query
+updateDurability durability query =
+    { query | durability = durability }
 
 
 
