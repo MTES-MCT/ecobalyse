@@ -23,6 +23,7 @@ class Category(StrEnum):
     MATERIAL = "material"
     MATERIAL_TYPE_METAL = "material_type:metal"
     MATERIAL_TYPE_ORGANIC_FIBERS = "material_type:organic_fibers"
+    MATERIAL_TYPE_OTHER = "material_type:other"
     MATERIAL_TYPE_SYNTHETIC_FIBERS = "material_type:synthetic_fibers"
     MATERIAL_TYPE_PLASTIC = "material_type:plastic"
     MATERIAL_TYPE_UPHOLSTERY = "material_type:upholstery"
