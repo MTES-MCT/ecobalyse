@@ -15,6 +15,7 @@ import Browser.Navigation as Navigation
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Component as Component exposing (Component, Index, TargetElement, TargetItem)
 import Data.Dataset as Dataset
+import Data.Env as Env
 import Data.Example as Example exposing (Example)
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
@@ -38,11 +39,13 @@ import Task
 import Time exposing (Posix)
 import Views.AutocompleteSelector as AutocompleteSelectorView
 import Views.Bookmark as BookmarkView
+import Views.Button as Button
 import Views.Comparator as ComparatorView
 import Views.Component as ComponentView
 import Views.Container as Container
 import Views.Example as ExampleView
 import Views.Format as Format
+import Views.Icon as Icon
 import Views.ImpactTabs as ImpactTabs
 import Views.Modal as ModalView
 import Views.RangeSlider as RangeSlider
@@ -557,9 +560,7 @@ simulatorView session model =
                         }
                     }
                 ]
-            , div [ class "row" ]
-                [ durabilityView currentDurability
-                ]
+            , durabilityView currentDurability
             , ComponentView.editorView
                 { addLabel = "Ajouter un composant"
                 , customizable = True
@@ -640,38 +641,62 @@ durabilityView currentDurability =
     -- Note: this is considered a temporary implementation for object and veli simulators,
     -- things might actually want to be factored out and appropriately typed and handled
     -- when ongoing discussions around holostic durability are completed.
-    div [ class "col-xl-8 offset-xl-4 d-flex flex-row gap-3 mt-2 mb-4" ]
-        [ label [ for "durability", class "text-nowrap" ]
-            [ text "Coefficient de durabilité" ]
-        , RangeSlider.generic [ Attr.id "durability" ]
-            { disabled = False
-            , fromString =
-                String.toFloat
-                    >> Result.fromMaybe "Durabilité invalide (un nombre est requis)"
-                    >> Result.andThen
-                        (\float ->
-                            if float < 0.5 then
-                                Err "Durabilité trop faible (minimum: 0.5)"
+    div [ class "card shadow-sm pb-2 mb-3" ]
+        [ div [ class "card-header d-flex justify-content-between align-items-center" ]
+            [ h2 [ class "h5 mb-1 text-truncate" ] [ text "Durabilité" ]
+            , div [ class "d-flex align-items-center gap-2" ]
+                [ span [ class "d-none d-sm-flex text-truncate" ] [ text "Coefficient de durabilité\u{00A0}:" ]
+                , currentDurability
+                    |> Unit.ratioToFloat
+                    |> Format.formatFloat 2
+                    |> text
+                , Button.docsPillLink
+                    [ class "bg-secondary"
+                    , style "height" "24px"
+                    , href Env.gitbookUrl
+                    , title "Documentation"
+                    , target "_blank"
+                    ]
+                    [ Icon.question ]
+                ]
+            ]
+        , div [ class "card-body pb-1 row g-3 align-items-start flex-md-columns" ]
+            [ div [ class "col-sm-6 col-md-4" ]
+                [ label [ for "durability", class "text-truncate" ]
+                    [ text "Coefficient de durabilité" ]
+                ]
+            , div [ class "col-sm-2 col-md-2" ]
+                [ currentDurability
+                    |> Unit.ratioToFloat
+                    |> Format.formatFloat 2
+                    |> text
+                ]
+            , div [ class "col-sm-4 col-md-6" ]
+                [ RangeSlider.generic [ Attr.id "durability" ]
+                    { disabled = False
+                    , fromString =
+                        String.toFloat
+                            >> Result.fromMaybe "Durabilité invalide (un nombre est requis)"
+                            >> Result.andThen
+                                (\float ->
+                                    if float < 0.5 then
+                                        Err "Durabilité trop faible (minimum: 0.5)"
 
-                            else if float > 1.5 then
-                                Err "Durabilité trop élevée (maximum: 1.5)"
+                                    else if float > 1.5 then
+                                        Err "Durabilité trop élevée (maximum: 1.5)"
 
-                            else
-                                Ok float
-                        )
-                    >> Result.map Unit.ratio
-            , max = Unit.ratio 1.5
-            , min = Unit.ratio 0.5
-            , step = "0.01"
-            , toString = Unit.ratioToFloat >> String.fromFloat
-            , update = UpdateDurability
-            , value = currentDurability
-            }
-        , span [ class "text-end font-monospace", style "width" "50px" ]
-            [ currentDurability
-                |> Unit.ratioToFloat
-                |> Format.formatFloat 2
-                |> text
+                                    else
+                                        Ok float
+                                )
+                            >> Result.map Unit.ratio
+                    , max = Unit.ratio 1.5
+                    , min = Unit.ratio 0.5
+                    , step = "0.01"
+                    , toString = Unit.ratioToFloat >> String.fromFloat
+                    , update = UpdateDurability
+                    , value = currentDurability
+                    }
+                ]
             ]
         ]
 
