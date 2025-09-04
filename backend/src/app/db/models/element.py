@@ -10,7 +10,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from .process_element_transform import process_element_transform
 
 if TYPE_CHECKING:
-    from .process import Process
+    from .process import Component, Process
 
 
 def get_enum_values(enum_class):
@@ -25,11 +25,19 @@ class Element(UUIDAuditBase):
         ForeignKey("process.id", ondelete="cascade"), nullable=False
     )
 
+    component_id: Mapped[UUID] = mapped_column(
+        ForeignKey("component.id", ondelete="cascade"), nullable=False
+    )
+
     # -----------
     # ORM Relationships
     # ------------
 
-    material: Mapped[Process] = relationship(
+    component: Mapped[Component] = relationship(
+        back_populates="elements", innerjoin=True, lazy="joined"
+    )
+
+    material_process: Mapped[Process] = relationship(
         back_populates="elements_materials", innerjoin=True, lazy="joined"
     )
     process_transforms: Mapped[list[Process]] = relationship(
@@ -38,3 +46,13 @@ class Element(UUIDAuditBase):
         cascade="all, delete",
         passive_deletes=True,
     )
+
+    @property
+    def material(self) -> UUID:
+        return self.material_id
+
+    @property
+    def transforms(self) -> list[UUID]:
+        transforms = [transform.id for transform in self.process_transforms]
+
+        return transforms

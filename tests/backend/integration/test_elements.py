@@ -18,10 +18,22 @@ async def test_elements_creation(
     session: AsyncSession,
     superuser_token_headers: dict[str, str],
 ) -> None:
+    response = await client.post(
+        "/api/components",
+        json={
+            "name": "New Component",
+            "elements": [],
+        },
+        headers=superuser_token_headers,
+    )
+    json = response.json()
+    component_id = json["id"]
+
     elements_service = await anext(provide_elements_service(session))
 
     element = {
         "id": "67e699bc-5c86-4cc6-b6f2-114e12e48717",
+        "component_id": component_id,
         "amount": 1,
         "material": "d25636af-ab36-4857-a6d0-c66d1e7a281b",
         "transforms": [
@@ -42,6 +54,7 @@ async def test_elements_creation(
     # Remove one transform
     element = {
         "id": "67e699bc-5c86-4cc6-b6f2-114e12e48717",
+        "component_id": component_id,
         "amount": 2,
         "material": "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
         "transforms": [
@@ -54,10 +67,11 @@ async def test_elements_creation(
     updated_element = await elements_service.get_one_or_none(id=element["id"])
     assert len(updated_element.process_transforms) == 1
     assert updated_element.amount == 2
-    assert str(updated_element.material.id) == "af42fc20-e3ec-5b99-9b9c-83ba6735e597"
+    assert str(updated_element.material) == "af42fc20-e3ec-5b99-9b9c-83ba6735e597"
 
     element = {
         "id": "fad02e60-54a9-4098-8563-376d11c2acf1",
+        "component_id": component_id,
         "amount": 1,
         "material": "f077f20d-6b83-4317-b813-26d8476cc238",
         "transforms": [
@@ -69,6 +83,7 @@ async def test_elements_creation(
     # Should throw an error as the foreign key of the transforms doesn’t exist
     element = {
         "amount": 1,
+        "component_id": component_id,
         "material": "d25636af-ab36-4857-a6d0-c66d1e7a281b",
         "transforms": ["2b63e703-942e-4599-832a-b1b15f5b186f"],
     }

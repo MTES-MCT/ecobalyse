@@ -70,7 +70,7 @@ def fx_raw_processes() -> list[Scope | dict[str, Any]]:
             "waste": 0,
         },
         {
-            "categories": ["Input Output", "EU27 2003"],
+            "categories": ["material"],
             "comment": "Location:  Unspecified\nTechnology:  Unspecified\nTime period:  Unspecified",
             "density": 0.0,
             "displayName": "_22 Vegetable and animal oils and fats, EU27",
@@ -107,7 +107,7 @@ def fx_raw_processes() -> list[Scope | dict[str, Any]]:
             "waste": 0.0,
         },
         {
-            "categories": ["test", "material_type: other"],
+            "categories": ["material", "material_type:organic_fibers"],
             "comment": "Location:  Unspecified\nTechnology:  Unspecified\nTime period:  Unspecified",
             "density": 0.0,
             "displayName": "Test process",
