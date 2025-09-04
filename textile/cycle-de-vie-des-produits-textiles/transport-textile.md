@@ -99,6 +99,8 @@ Si 2 étapes successives ont lieu dans un même pays, on fait l'hypothèse que l
 * `D_terre` = 500
 * `D_air` = 0
 
+Ceci est notamment applicable à l'étape Distribution. Cette étape fait l'objet d'[une page dédiée](https://fabrique-numerique.gitbook.io/ecobalyse/~/revisions/b1YpAFodoqmd8dFgR0qj/textile/cycle-de-vie-des-produits-textiles/etape-6-distribution-new) mais le calcul du coût environnemental est une application du modèle en application pour toutes les étapes de transport.
+
 ### Distances entre pays
 
 La distance pour chaque voie de transport est calculés en fonction du pays d'origines et de destination pour chaque étape de transport considérée.

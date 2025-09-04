@@ -119,7 +119,7 @@
     * [🧪 Inventaires enrichis](textile/cycle-de-vie-des-produits-textiles/ennoblissement-1/inventaires-enrichis.md)
   * [👗 Etape 5 - Confection](textile/cycle-de-vie-des-produits-textiles/confection.md)
     * [🤐 Accessoires](textile/precisions-methodologiques/accessoires.md)
-  * [🚚 Etape 6 - Distribution](textile/cycle-de-vie-des-produits-textiles/distribution.md)
+  * [🚚 Etape 6 - Distribution](textile/cycle-de-vie-des-produits-textiles/etape-6-distribution.md)
   * [🚚 Etape 6 - Distribution (New)](textile/cycle-de-vie-des-produits-textiles/etape-6-distribution-new.md)
   * [🌀 Etape 7 - Utilisation](textile/cycle-de-vie-des-produits-textiles/etape-6-utilisation.md)
   * [♻️ Etape 8 - Fin de vie](textile/cycle-de-vie-des-produits-textiles/etape-7-fin-de-vie.md)
