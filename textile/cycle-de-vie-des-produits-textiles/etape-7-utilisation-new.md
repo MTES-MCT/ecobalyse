@@ -8,7 +8,7 @@ hidden: true
 
 ### Impacts pris en compte
 
-Les impacts de la phase d'utilisation concernent l'entretien du vêtement. Conformément à la documentation textile de la Base Impacts nous prenons en compte les impacts suivants :
+Les impacts de la phase d'utilisation concernent l'entretien du vêtement. Conformément à la documentation textile de la Base Impacts, nous prenons en compte les impacts suivants :
 
 * Lavage - Électricité
 * Lavage - Lessive
@@ -22,29 +22,33 @@ La durée de vie se définie en nombres de jours portés. Celle-ci est spécifiq
 
 Le coefficient de durabilité (cf. la section [Durabilité](https://fabrique-numerique.gitbook.io/ecobalyse/textile/durabilite)) vient corriger le nombre de jours portés.&#x20;
 
-Plus un vêtement est durable, plus élevés seront sa durée de vie et donc son nombre de jours portés.
+Plus un vêtement est durable, plus élevé sera sa durée de vie et donc son nombre de jours portés.
+
+### Repassage
+
+Pour l'étape de repassage, le PEFCR Apparel & Footwear, propose d'appliquer un ratio de produits repassés en fonction de la catégorie de produit. Par exemple on fait l'hypothèse qu'une chemise est repassé 70% du temps tandis qu'un pull n'est jamais repassé. De plus on fait l'hypothèse que le temps de repassage est différent pour chaque type de vêtement. Ainsi on suppose qu'un T-Shirt a un temps de repassage de 2 min tandis qu'un pantalon a un temps de repassage de 4,3 min.
 
 ## Méthodes de calcul
 
-### L'impact de l'utilisation&#x20;
-
-nombre de cycle d'entretien par défaut
+### Impact de l'utilisation&#x20;
 
 $$
-I_{7} = n_{cycles,i}*m*\Big(E_{7,hors repassage}*I_{élec} + I_{7,i} +E_{repassage,i}*I_{élec}\Big)
+I_{7} = n_{cycles}*m*\Big(E_{7,hors repassage}*I_{élec} + I_{7,i} +E_{repassage,i}*I_{élec}\Big)
 $$
 
 Avec :&#x20;
 
-* `n_cycles,i` : le nombre de cycle d'entretiens pour la catégorie de vêtement i; sans unité
+* `I_7` : I'impact environnemental associé à l'utilisation du vêtement sur sa durée de vie, exprimé en unité de la catégorie d'impact analysée.
+* `n_cycles` : le nombre de cycles d'entretiens du vêtement, sur l'ensemble de sa durée de vie, sans unité
 * `m` : la masse du vêtement, en kg
-* `E_7,horsrepassage,i` : la quantité d'électricité moyenne consommée (hors repassage) pour le cycle d'entretien d'un kg de vêtement de la catégorie i, en kWh/kg. Cette quantité est défini dans le procédé `Utilisation : Impact hors repassage (i)` comme flux externe.
-* `I_elec` : l'impact environnemental pour 1 kWh d'électricité, a quantité&#x20;
-* `I_élec_lavage` : l'impact dans l'indicateur sélectionné de l'électricité due au lavage du produit (unité : impact)
+* `E_7,horsrepassage,i` : la quantité d'électricité moyenne consommée (hors repassage) pour le cycle d'entretien d'un kg de vêtement de la catégorie `i`, en kWh/kg. Cette quantité est définie dans le procédé `Utilisation : Impact hors repassage (i)` comme flux externe.
+* `I_elec` : l'impact environnemental pour 1 kWh d'électricité, exprimé en unité de la catégorie d'impact analysée
 * `I_7,i` : I'impact environnemental associé à l'entretien d'1kg de vêtement de la catégorie i, exprimé en unité de la catégorie d'impact analysée par kg
 * `E_repassage,i` : la quantité d'électricité moyenne consommée associée au repassage, pour le cycle d'entretien d'un kg de vêtement de la catégorie i, en kWh/kg.&#x20;
 
-### Nombre de jours portés et nombre de cycles d'entretien
+### Durée de vie et nombre de cycles d'entretien
+
+#### Nombre de cycles par défaut
 
 Un nombre de cycle d'entretien par défaut est calculé pour chaque catégorie de vêtement i, en fonction de la durée de vie du vêtement (en nombre de jours portés) et de la durée entre deux cycles d'entretien (en jours) :
 
@@ -52,43 +56,75 @@ $$
 n_{cycles,i,defaut}= \frac{d_{portés,i}}{d_{cycle.entretien,i}}
 $$
 
-Un nombre de cycle corrigé est utilisé, calculé en fonction du coefficient de durabilité :&#x20;
+Avec :&#x20;
+
+* `n_cycles,i,defaut` : le nombre de cycles d'entretien par défaut pour la catégorie de produit i ;
+* `d_portés,i` : la durée de vie du vêtement, en nombre de jours portés ;
+* `d_cycle.entretien,i` : la durée entre deux cycles d'entretiens, en nombre de jours.
+
+#### Nombre de cycles d'entretien du vêtement
+
+Un nombre de cycle est calculé pour chaque vêtement, calculé en fonction du nombre de cycle par défaut et de son coefficient de durabilité :&#x20;
 
 $$
-n_{cycles,i}= n_{cycles,i,defaut}*C_{Durabilité}
+n_{cycles}= n_{cycles,i,defaut}*C_{Durabilité}
 $$
 
-###
+Avec :&#x20;
 
+* `n_cycles` : le nombre de cycles d'entretien pour la catégorie de produit i ;
+* `n_cycles,i,defaut` : le nombre de cycles d'entretien par défaut pour la catégorie de produit i ;
+* `C_Durabilité` : le coefficient de durabilité du produit, sans unité ;
 
+{% hint style="info" %}
+Par exemple, pour un t-shirt avec une durabilité élevée (coefficient de x1,35); le nombre de cycles d'entretiens retenu dans le calcul serait de 61 jours (45\*1,35).
+{% endhint %}
 
-
-
-
-
-Energie pour le repassage :&#x20;
+### Energie pour le repassage
 
 $$
 E_{repassage_i} = r_{repassage,i}*t_{repassage,1}*E_{repassage,heure}
 $$
 
-| Nombre de jours porté\* ↕ | Utilisations avant lavage\* ↕ | Cycles d'entretien (par défaut)\*\* ↑ | Repassage\* ↕ | Procédé d'utilisation hors-repassage\*\* ↕ | Séchage électrique\* ↕ | Repassage (part)\* ↕ | Repassage (temps)\* |
-| ------------------------- | ----------------------------- | ------------------------------------- | ------------- | ------------------------------------------ | ---------------------- | -------------------- | ------------------- |
+Avec :&#x20;
 
-{% hint style="info" %}
-Par exemple, pour un t-shirt avec une durabilité élevée (coefficient de x1,35); le nombre de jours d'utilisation retenu dans le calcul serait de 61 jours (45\*1,35).
-{% endhint %}
+* `E_repassage,i` : la quantité d'électricité moyenne consommée associée au repassage, pour le cycle d'entretien d'un kg de vêtement de la catégorie i, en kWh/kg ;
+* `r_repassage,i` : la part des vêtements de la catégorie i faisant l'objet d'un repassage, exprimé en pourcentage et situé entre 0% et 100% ;
+* `t_repassage,i` : le temps de repassage d'un vêtement de la catégorie i, exprimé en heures ;
+* `P_repassage,heure` : la puissance électrique nécessaire au repassage (ou consommation d'électricité moyenne pour une heure de repassage), en kWh ;
 
-{% hint style="info" %}
-Cette partie se compose essentiellement de formules de calcul et de l’introduction des paramètres mobilisés. Elle est très voire exclusivement “mathématique”, sans chiffre.
+## Paramètres retenus pour le coût environnemental
 
-Ci-dessous un exemple pour l'ennoblissement
-{% endhint %}
+### Calcul du nombre de cycles d'entretien
+
+Les paramètres suivants sont fournis pour chaque catégorie de produit dans l'[Explorateur ](https://ecobalyse.beta.gouv.fr/#/explore/textile/products):&#x20;
+
+* `n_cycles,i,defaut` : colonne _Cycles d'entretien (par défaut)_ ;
+* `d_portés,i` : colonne _Nombre de jours porté_ ;
+* `d_cycle.entretien,i` : colonne _Utilisations avant lavage_.
+
+### Repassage
+
+Les paramètres suivants sont fournis pour chaque catégorie de produit dans l'[Explorateur ](https://ecobalyse.beta.gouv.fr/#/explore/textile/products):&#x20;
+
+* `E_repassage,i` : colonne _Repassage_ ;
+* `r_repassage,i` : colonne _Repassage, part_ ;
+* `t_repassage,i` : colonne _Repassage, temps_ ;
+
+La consommation d'électricité est obtenue à partir de la puissance suivante :
+
+* `P_repassage,heure` : 1,5 kW (documentation ADEME) ;
+
+## Procédés utilisés pour le coût environnemental
+
+Des procédés dédiés ont été créés pour chaque catégorie de produit i
+
+
 
 Lavage et séchage
 
 $$
-I_{utilisation} = I_{élec\_lavage} + I_{lessive} + I_{eaux\_usées} + I_{élec\_séchage} + I_{élec\_repassage}
+I_{utilisation} = I_{élec\_lavage} + I_{lessive} + I_{eaux\_usées} + I_{élec\_séchage}
 $$
 
 
@@ -157,51 +193,6 @@ Pour l'étape de séchage en sèche-linge, en accord avec le projet de PEFCR App
 _ratio_\__sèche-linge(p) : la part de vêtement qui va être séché en sèche-linge (unité : sans unité)_
 
 _F\_kWh/kg\_sèche-linge : la quantité d'électricité nécessaire à sécher 1 kg de vêtement (unité : kWh/kg). En accord avec la documentation ADEME on prend une valeur de 0.335 kWh par kg de linge séché._
-
-### Repassage
-
-#### Électricité
-
-Pour l'étape de repassage, selon le PEFCR Apparel & Footwear, on applique un ratio de produits repassés différent pour chaque type de produit. Par exemple on fait l'hypothèse qu'une chemise est repassé 70% du temps tandis qu'un pull n'est jamais repassé. De plus on fait l'hypothèse que le temps de repassage est différent pour chaque type de vêtement. Ainsi on suppose qu'un T-Shirt a un temps de repassage de 2 min tandis qu'un pantalon a un temps de repassage de 4,3 min.
-
-_ratio_\__rpsg(p) : la part de vêtement qui va être repassé (unité : sans unité)_
-
-_tps_\__rpsg(p) : le temps qui va être passé pour repasser un produit (unité : heure)_
-
-_F\_kWh/tps\_rpsg : la quantité d'électricité nécessaire à repasser 1 h (unité : kWh/h = kW). En accord avec la documentation ADEME on prend une valeur de 1,5 kW._
-
-* <mark style="color:red;">`I_ennoblissement`</mark> <mark style="color:red;"></mark><mark style="color:red;">: l'impact environnemental de l'ennoblissement, dans l'unité de la catégorie d'impact analysée</mark>
-* <mark style="color:red;">`m`</mark> <mark style="color:red;"></mark><mark style="color:red;">la masse de tissu, exprimée en kg. Pour plus d'information sur la gestion des masses cf. la section</mark> [<mark style="color:red;">Pertes et rebut</mark>](../precisions-methodologiques/pertes-et-rebus.md)<mark style="color:red;">.</mark>
-* <mark style="color:red;">`e_i`</mark> <mark style="color:red;"></mark><mark style="color:red;">: la quantité d'électricité nécessaire au procédé i pour 1 kg de tissu, en kWh/kg</mark>
-* <mark style="color:red;">`a_i`</mark> <mark style="color:red;"></mark><mark style="color:red;">: Le taux d'application du procédé i pour le vêtement évalué, sans unité</mark>
-  * <mark style="color:red;">Egal à 1 si le procédé est mobilisé pour ce vêtement</mark>
-  * <mark style="color:red;">Egal à 0 si le procédé n'est pas mobilisé</mark>
-  * <mark style="color:red;">Situé entre 0 et 1 pour l'impression (voir paragraphe dédié)</mark>
-* <mark style="color:red;">`I_elec`</mark> <mark style="color:red;"></mark><mark style="color:red;">: l'impact environnemental de l'électricité pour le pays défini pour l'ennoblissement, dans l'unité de la catégorie d'impact analysée</mark>
-* <mark style="color:red;">`c_i`</mark> <mark style="color:red;"></mark><mark style="color:red;">: la quantité de chaleur nécessaire au procédé i pour 1 kg de tissu, en MJ/kg</mark>
-* <mark style="color:red;">`I_chaleur`</mark> <mark style="color:red;"></mark><mark style="color:red;">: l'impact environnemental de l'électricité pour le pays défini pour l'ennoblissement, dans l'unité de la catégorie d'impact analysée.</mark>
-
-## Paramètres retenus pour le coût environnemental
-
-{% hint style="info" %}
-Les paramètres retenus pour l’affichage environnemental sont présentés dans une partie séparée des formules de calcul, de façon à identifier facilement ce qui relève de la structure et ce qui relève du paramétrage.\
-Cette distinction devrait être en miroir de ce qui est dans le code.\
-Ne pas hésiter à renvoyer vers des pages de code si le nombre de paramètres est important mais à faible enjeu.
-{% endhint %}
-
-### Paramètres spécifiques pour l'affichage environnemental réglementaire
-
-
-
-## Procédés utilisés pour le coût environnemental
-
-Des procédés dédiés ont été créés pour chaque catégorie de produit.
-
-
-
-{% hint style="info" %}
-A priori un renvoi vers l'explorateur suffit ici. Si des procédés spécifiques sont construits, ils peuvent être expliqués ici.
-{% endhint %}
 
 Les procédés utilisés sont identifiés dans l'[Explorateur de procédé](https://ecobalyse.beta.gouv.fr/#/explore/textile/textile-processes), avec les noms utilisés dans cette page.
 
