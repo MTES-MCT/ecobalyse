@@ -39,7 +39,7 @@ Avec :
 
 Exemples :&#x20;
 
-* Exemple 1 (Textile) :  0,5 kg d'étoffe en sortie de l'étape Ennoblissement ; 0,1 kWh / kg d'électricité et 3.2 MJ/kg de chaleur pour l'étape de pré-traitement _Désencollage_.&#x20;
+* Exemple 1 (Textile) :  0,5 kg d'étoffe en sortie de l'étape Ennoblissement ; 0,20 kWh / kg d'électricité et 5.40 MJ/kg de chaleur pour l'étape de pré-traitement _Blanchiment_.
 * Exemple 2 (Véhicule) : véhicule de 1400kg ; 1 kWh/kg d'électricité et 3 MJ/kg de chaleur pour l'assemblage
 
 ## Procédés utilisés pour le coût environnemental
