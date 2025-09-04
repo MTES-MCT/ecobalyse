@@ -90,14 +90,17 @@ fromMaterialQuery materials countries =
     List.map
         (\{ country, id, share, spinning } ->
             let
-                countryResult =
-                    case country of
-                        Just countryCode ->
-                            Country.findByCode countryCode countries
-                                |> Result.map Just
+                unknownCountryResult =
+                    Country.findByCode Country.unknownCountryCode countries
 
-                        Nothing ->
-                            Ok Nothing
+                countryResult =
+                    Result.map Just <|
+                        case country of
+                            Just countryCode ->
+                                Country.findByCode countryCode countries
+
+                            Nothing ->
+                                unknownCountryResult
             in
             Result.map2
                 (\material_ country_ ->
