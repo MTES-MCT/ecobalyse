@@ -6,7 +6,7 @@ hidden: true
 
 ## Contexte
 
-## Principales étapes de transport <a href="#distribution" id="distribution"></a>
+### Principales étapes de transport <a href="#distribution" id="distribution"></a>
 
 Le transport considéré correspond à l'ensemble des transports mobilisés sur la chaîne de valeur du vêtement.
 
@@ -16,17 +16,19 @@ Entre chaque étape, la masse à considérer est ajustée en fonction des [Perte
 
 \*Pays paramétré directement dans le calculateur.
 
-### Modes de transport
+### Voies de transport
 
-3 types de transport sont considérés :
+3 voies de transport sont considérés :
 
 * terrestre
 * maritime
 * aérien
 
-La répartition des trois types de transport est ajustée en fonction des pays de départ et d'arrivée pour chaque étape de transport.
+La répartition des trois voies de transport est ajustée en fonction des pays de départ et d'arrivée pour chaque étape de transport.
 
-### **L'aérien est-il un mode de transport privilégié pour les acteurs de l'habillement ?**
+A chaque voie correspond un mode de transport unique : camion pour le terrestre, bateau pour la maritime, avion pour l'aérien.
+
+#### **Focus : l'aérien est-il un mode de transport privilégié pour les acteurs de l'habillement ?**
 
 Une récente [étude de l'ONG suisse "Public Eye" parue fin 2023 ](https://www.publiceye.ch/fr/thematiques/industrie-textile/en-mode-avion-zara-attise-la-crise-climatique)met en lumière l'importance du secteur Textile dans le fret aérien. De manière générale, peu de données précises sont disponibles sur ces pratiques car les entreprises Textile sont discrètes à ce sujet.
 
@@ -38,40 +40,53 @@ Quelques enseignements clés de l'étude :&#x20;
 
 ## Méthodes de calcul
 
-### Calcul de l'impact pour un mode de transport donné
+### Calcul de l'impact pour une voie de transport donné
 
 <mark style="color:red;">**A reprendre : voie = mode de transport**</mark>
 
 À chaque étape, le coût environnemental du transport pour une voie de transport i est calculé de la façon suivante :
 
 $$
-I_{v_i}=Masse*(D_{i,1}∗I_{m_1}+D_{i, 2}∗I_{m_2})
+I_{i}=\frac{m}{1000}*D_i∗I_i
 $$
 
 Avec :&#x20;
 
-* `I_v_i` : le coût environnemental par voie, exprimé en points d'impact Pts
-* `Masse` : la masse de produit transporté, exprimée en tonnes. Une conversion est donc à prendre en compte par rapport à la masse en kg dans les autres parties des calculs. La masse transportée dépend de l'étape du cycle de vie à laquelle a lieu le transport.
-* `D_i,j` : la distance parcourue par le mode de transport j pour la voie i, exprimée en km
-  * `D_mer,bateau` , `D_terre,camion`,`D_air,avion` , `D_fer,train` sont des paramètres dont les valeurs sont indiquées dans la section "Paramètres retenus pour l’affichage environnemental".
-  * Le calcul de `D_i,camion` est précisé dans la section suivante (hors voie terre)
-  * Les autres distances ne sont pas applicables
-* `I_m_j` : le coût environnemental du mode j, exprimé en Pts/t.km
+* `I_i` : le coût environnemental pour la voie i, exprimé en points d'impact Pts
+* `m` : la masse de produit transporté, exprimée en kg.
+* `D_i` : la distance parcourue pour la voie de transport i, exprimée en km
+  * Les valeurs des paramètres `D_mer` , `D_terre`,`D_air` sont indiquées dans la section "Paramètres retenus pour l’affichage environnemental".
+* `I_i` : le coût environnemental du mode de transport correspondant à la voie i, exprimé en Pts/t.km
+
+### Répartition entre voies de transport - de la matière première à la confection (étapes 1 à 4)
+
+Pour les étapes de transport utilisant cette modélisation, l'utilisateur ne peut pas choisir la voie de transport des ingrédients, matériaux ou composants. Sauf mention explicite dans la documentation spécifique métier, un mix de transports par voies terrestre et maritime est considéré.
+
+Le coût environnemental est calculé selon la formule suivante :
+
+
+
+Avec :&#x20;
+
+* `I_transport` : l'impact environnemental de l'étape de transport considérée, exprimé dans l'unité de la catégorie d'impact analysée
+* `t` : la part de voie terrestre considérée, établie selon le tableau indiqué dans la partie "Paramètres retenus pour l’affichage environnemental"
+* `I_terre` : le coût environnemental par voie terrestre, exprimé dans l'unité de la catégorie d'impact analysée
+* `I_mer` : le coût environnemental par voie maritime, exprimé dans l'unité de la catégorie d'impact analysée. Ceci inclut donc à la fois le transport par bateau et le transport par camion vers et depuis les ports
+
+### Répartition entre voies de transport - de la confection au stockage (étape 5)
+
+
 
 ### Transport au sein d'un même pays
 
 Lorsque deux étapes successives sont réalisées dans un même pays, les distances concernées sont calculées comme suit :&#x20;
 
 $$
-D_{terre, camion}=D_{terre, camion,interne}
+D_{terre}=D_{terre,interne}
 $$
 
 $$
 D_{air, avion}=D_{air, avion,interne} ;D_{air,camion}=(D_{terre, camion,interne})/2
-$$
-
-$$
-D_{fer,train}=D_{fer,train,interne}
 $$
 
 Les distances non mentionnées ici ne s'appliquent pas pour le transport interne à un pays.
