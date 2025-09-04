@@ -6,20 +6,19 @@ La durabilité d'un produit reflète sa capacité à perdurer dans le temps.&#x2
 
 Plus la durabilité d'un produit est élevée, plus faible est son coût environnemental.
 
-Le coût environnemental utilisé dans Ecobalyse repose sur une unité fonctionnelle fixe (ex : 45 jours de portées pour un t-shirt). Dès lors, pour chaque produit, un **coefficient de durabilité** `C_Durabilité` est établi afin de moduler le coût environnemental selon la durée de vie estimée.
+Le coût environnemental utilisé dans Ecobalyse repose sur une unité fonctionnelle fixe (ex : 45 jours de portées pour un t-shirt). Dès lors, pour chaque produit, un **coefficient de durabilité** `C_Durabilité` est établi afin de corriger le coût environnemental selon la durée de vie estimée.
 
 ## Méthode de calcul&#x20;
 
 $$
-I = \frac{I_{Hors Utilisation}}{C_{Durabilité}}+I_{Utilisation}
+CoûtEnvironnemental = \frac{Somme des Impacts}{C_{Durabilité}}
 $$
 
 Avec :&#x20;
 
-* `I` : le coût environnemental total du produit
-* `I_HorsUtilisation` : la somme du cout environnemental du produit à chaque étape du cycle de vie, hors utilisation du produit
+* `CoûtEnvironnemental` : le coût environnemental total du produit
+* `SommedesImpacts` : la somme du cout environnemental du produit à chaque étape du cycle de vie. Elle est aussi appelée _coût environnemental hors durabilité_
 * `C_Durabilité` : le coefficient de durabilité du produit, sans unité dont la valeur est située entre `Coeff_min` pour les produits les moins durables, et `Coef_max`  pour les produits les plus durables
-* `I_Utilisation` : le cout environnemental du produit relatif à son utilisation
 
 {% hint style="info" %}
 **L'unité fonctionnelle** utilisée pour le calcul du coût environnemental est un nombre de jours fixe d'utilisations (ex : 45 jours pour un t-shirt).

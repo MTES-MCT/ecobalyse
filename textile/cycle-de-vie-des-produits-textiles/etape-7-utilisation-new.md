@@ -4,25 +4,7 @@ hidden: true
 
 # 🌀 Etape 7 - Utilisation (New)
 
-{% hint style="danger" %}
-Cet encadré rouge et les 4 encadrés en gris doivent être supprimés avant mise en ligne
-{% endhint %}
-
 ## Contexte
-
-### Nombre de jours portés
-
-Une durée moyenne d'utilisation spécifique à chaque catégorie de vêtement (ex : 45 jours pour un t-shirt) est définie dans Ecobalyse (cf. [explorateur](https://ecobalyse.beta.gouv.fr/#/explore/textile/products)). Ces valeurs ont été définies en s'appuyant sur les données du projet de PEFCR Apparel & Footwear lorsque disponibles.
-
-De plus, un coefficient de durabilité (entre x0,5 et x1,5) a été introduit afin de préciser le nombre d'utilisation de chaque vêtement selon ses dimensions physiques et non physiques (cf. la section [Durabilité](https://fabrique-numerique.gitbook.io/ecobalyse/textile/durabilite)). Plus un vêtement est durable, plus élevés seront sa durée de vie et donc son nombre de jours portés.
-
-{% hint style="info" %}
-Il s’agit d’éléments de contexte sectoriels, permettant au lecteur de comprendre le sujet abordé.
-
-Cette partie n’est pas utile pour le développement du produit. Elle peut permettre d’introduire des choix méthodologiques, mais pas des choix de paramètres.
-
-Elle peut se limiter à une phrase d’introduction.
-{% endhint %}
 
 ### Impacts pris en compte
 
@@ -34,7 +16,33 @@ Les impacts de la phase d'utilisation concernent l'entretien du vêtement. Confo
 * Séchage - Électricité
 * Repassage - Électricité
 
+### Durée de vie des vêtements
+
+La durée de vie se définie en nombres de jours portés. Celle-ci est spécifique à chaque catégorie de vêtement (ex : 45 jours pour un t-shirt) et définie dans Ecobalyse (cf. [explorateur](https://ecobalyse.beta.gouv.fr/#/explore/textile/products)). Ces valeurs ont été définies en s'appuyant sur les données du projet de PEFCR Apparel & Footwear lorsque disponibles.
+
+Le coefficient de durabilité (cf. la section [Durabilité](https://fabrique-numerique.gitbook.io/ecobalyse/textile/durabilite)) vient corriger le nombre de jours portés.&#x20;
+
+Plus un vêtement est durable, plus élevés seront sa durée de vie et donc son nombre de jours portés.
+
 ## Méthodes de calcul
+
+### L'impact de l'utilisation&#x20;
+
+nombre de cycle d'entretien par défaut
+
+$$
+I_{7} = n_{cycles,i}*m*\Big(E_{7,hors repassage}*I_{élec} + I_{7,i} +E_{repassage,i}*I_{élec}\Big)
+$$
+
+Avec :&#x20;
+
+* `n_cycles,i` : le nombre de cycle d'entretiens pour la catégorie de vêtement i; sans unité
+* `m` : la masse du vêtement, en kg
+* `E_7,horsrepassage,i` : la quantité d'électricité moyenne consommée (hors repassage) pour le cycle d'entretien d'un kg de vêtement de la catégorie i, en kWh/kg. Cette quantité est défini dans le procédé `Utilisation : Impact hors repassage (i)` comme flux externe.
+* `I_elec` : l'impact environnemental pour 1 kWh d'électricité, a quantité&#x20;
+* `I_élec_lavage` : l'impact dans l'indicateur sélectionné de l'électricité due au lavage du produit (unité : impact)
+* `I_7,i` : I'impact environnemental associé à l'entretien d'1kg de vêtement de la catégorie i, exprimé en unité de la catégorie d'impact analysée par kg
+* `E_repassage,i` : la quantité d'électricité moyenne consommée associée au repassage, pour le cycle d'entretien d'un kg de vêtement de la catégorie i, en kWh/kg.&#x20;
 
 ### Nombre de jours portés et nombre de cycles d'entretien
 
@@ -47,27 +55,18 @@ $$
 Un nombre de cycle corrigé est utilisé, calculé en fonction du coefficient de durabilité :&#x20;
 
 $$
-n_{cycles,i}= n_{cycles,i,defaut}*C_{durabilité}
+n_{cycles,i}= n_{cycles,i,defaut}*C_{Durabilité}
 $$
 
-### Impact par cycle d'entretien
-
-nombre de cycle d'entretien par défaut
-
-$$
-I_{7} = n_{cycles,i}*m*\Big(E_{7,hors repassage}*I_{élec} + I_{7,i} +E_{repassage,i}*I_{élec}\Big)
-$$
-
-Avec :
-
-* `I_élec_lavage` : l'impact dans l'indicateur sélectionné de l'électricité due au lavage du produit (unité : impact)
-* `I_7,i` : Procédé d'utilisation hors-repassage
+###
 
 
 
-Repassage :&#x20;
 
 
+
+
+Energie pour le repassage :&#x20;
 
 $$
 E_{repassage_i} = r_{repassage,i}*t_{repassage,1}*E_{repassage,heure}

@@ -9,14 +9,14 @@ Pour la plupart des produits modélisés dans Ecobalyse, il s'agit d'une consomm
 ## Méthodes de calcul
 
 $$
-I_{utilisation, électricité} = m*C_{utilisation, élec}*I_{elec}
+I_{utilisation, électricité} = m*E_{utilisation}*I_{elec}
 $$
 
 Avec :
 
 * `I_utilisation, électricité` : l'impact environnemental à l'utilisation d'un produit, dans l'unité de la catégorie d'impact analysée
 * `m` la masse du produit, exprimée en kg.
-* `C_utilisation,elec` : la consommation d'électricité à l'utilisation par kg, en kWh/kg
+* `E_utilisation` : la consommation d'électricité à l'utilisation par kg, en kWh/kg
 * `I_elec` : l'impact environnemental de l'électricité pour le pays défini pour l'ennoblissement, dans l'unité de la catégorie d'impact analysée
 
 NB : un produit peut avoir plusieurs étapes d'utilisation. La formule est alors à dupliquer et sommer autant de fois que nécessaire.
