@@ -36,11 +36,11 @@ Les procédés mobilisés sont les suivants :
 
 En repartant des tableaux 41, 42 et 43 de la méthodologie Agribalyse ([lien](https://3613321239-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-LpO7Agg1DbhEBNAvmHP%2Fuploads%2FwE46PsDpfPPo7qd486O6%2FM%C3%A9thodologie%20AGB%203.1_Alimentation.pdf?alt=media\&token=0da7c4e0-4332-4bc3-9c86-83b7a6325971)), 9 techniques de préparation sont proposées :&#x20;
 
-<figure><img src="../../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Pour la **cuisson à la poêle**, la durée et la puissance de cuisson dépend de l'ingrédient (cf. tableau 42) :&#x20;
 
-<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 **En première approche**, il est seulement considéré deux modes de cuisson :
@@ -52,7 +52,7 @@ Pour la **cuisson à la poêle**, la durée et la puissance de cuisson dépend d
 
 Pour la **cuisson à l'eau ou sous pression**, la durée de cuisson et la quantité d'eau à ajouter dépendent du type d'ingrédient :&#x20;
 
-<figure><img src="../../.gitbook/assets/image (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 Ces données étant insuffisantes pour déduire l'énergie nécessaire à la cuisson à l'eau ou sous pression, cette option n'est pas proposée dans un premier temps.

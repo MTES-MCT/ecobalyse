@@ -18,15 +18,13 @@ Entre chaque étape, la masse à considérer est ajustée en fonction des [Perte
 
 ### Voies de transport
 
-3 voies de transport sont considérés :
+3 voies de transport sont considérés. A chaque voie correspond un mode de transport unique :
 
-* terrestre
-* maritime
-* aérien
+* terrestre (camion)
+* maritime (bateau)
+* aérien (avion)
 
 La répartition des trois voies de transport est ajustée en fonction des pays de départ et d'arrivée pour chaque étape de transport.
-
-A chaque voie correspond un mode de transport unique : camion pour le terrestre, bateau pour la maritime, avion pour l'aérien.
 
 #### **Focus : l'aérien est-il un mode de transport privilégié pour les acteurs de l'habillement ?**
 
@@ -40,44 +38,42 @@ Quelques enseignements clés de l'étude :&#x20;
 
 ## Méthodes de calcul
 
-### Calcul de l'impact pour une voie de transport donné
+### Calcul de l'impact pour une voie de transport donnée
 
-<mark style="color:red;">**A reprendre : voie = mode de transport**</mark>
-
-À chaque étape, le coût environnemental du transport pour une voie de transport i est calculé de la façon suivante :
+Pour chaque étape, le coût environnemental du transport pour une voie de transport i est calculé de la façon suivante :
 
 $$
-I_{i}=\frac{m}{1000}*D_i∗I_i
+I_{i}=\frac{m}{1000}*D_i∗I_{m_i}
 $$
 
 Avec :&#x20;
 
 * `I_i` : le coût environnemental pour la voie i, exprimé en points d'impact Pts
-* `m` : la masse de produit transporté, exprimée en kg.
+* `m` : la masse de produit transporté, exprimée en kg. La masse à considérer est ajustée en fonction des [Pertes et rebut](https://fabrique-numerique.gitbook.io/ecobalyse/textile/precisions-methodologiques/pertes-et-rebus).
 * `D_i` : la distance parcourue pour la voie de transport i, exprimée en km
   * Les valeurs des paramètres `D_mer` , `D_terre`,`D_air` sont indiquées dans la section "Paramètres retenus pour l’affichage environnemental".
-* `I_i` : le coût environnemental du mode de transport correspondant à la voie i, exprimé en Pts/t.km
+* `I_m_i` : le coût environnemental du mode de transport correspondant à la voie i, exprimé en Pts/t.km
 
-### Répartition entre voies de transport - de la matière première à la confection (étapes 1 à 4)
+### Répartition entre voies de transport
 
-Pour les étapes de transport utilisant cette modélisation, l'utilisateur ne peut pas choisir la voie de transport des ingrédients, matériaux ou composants. Sauf mention explicite dans la documentation spécifique métier, un mix de transports par voies terrestre et maritime est considéré.
+Ce modèle permet à l'utilisateur de définir une part de transport aérien.
 
-Le coût environnemental est calculé selon la formule suivante :
+L'impact du transport sur chaque étape se calcule comme une pondération des trois types de transport considérés.
 
+Calcul avec paramétrage d'une part de voie aérienne :&#x20;
 
+$$
+I_{transport}=a*I_{air}+(1-a)*( t∗I_{terre}+(1−t)∗I_{mer})
+$$
 
 Avec :&#x20;
 
-* `I_transport` : l'impact environnemental de l'étape de transport considérée, exprimé dans l'unité de la catégorie d'impact analysée
-* `t` : la part de voie terrestre considérée, établie selon le tableau indiqué dans la partie "Paramètres retenus pour l’affichage environnemental"
+* `I_transport` : le coût environnemental de l'étape de transport considérée, exprimé dans l'unité de la catégorie d'impact analysée
+* `a` : la part de voie aérienne, par rapport aux voies terrestre+maritime+aérienne combinées, valeur sans unité entre 0 et 1 (100%)
+* `t` : la part de voie terrestre, par rapport aux voies terrestre+maritime combinées, valeur sans unité entre 0 et 1 (100%)
+* `I_air` : le coût environnemental par voie aérienne, exprimé dans l'unité de la catégorie d'impact analysée
 * `I_terre` : le coût environnemental par voie terrestre, exprimé dans l'unité de la catégorie d'impact analysée
-* `I_mer` : le coût environnemental par voie maritime, exprimé dans l'unité de la catégorie d'impact analysée. Ceci inclut donc à la fois le transport par bateau et le transport par camion vers et depuis les ports
-
-### Répartition entre voies de transport - de la confection au stockage (étape 5)
-
-
-
-### Transport au sein d'un même pays
+* `I_mer` : le coût environnemental par voie maritime, exprimé dans l'unité de la catégorie d'impact analysée
 
 Lorsque deux étapes successives sont réalisées dans un même pays, les distances concernées sont calculées comme suit :&#x20;
 
@@ -91,21 +87,27 @@ $$
 
 Les distances non mentionnées ici ne s'appliquent pas pour le transport interne à un pays.
 
-<mark style="color:red;">**Ajouter réparttiion entre voies de transport**</mark>
-
 ## Paramètres retenus pour le coût environnemental
+
+### Transport au sein d'un même pays
+
+Si 2 étapes successives ont lieu dans un même pays, on fait l'hypothèse que le déplacement est fait à 100% par la voie terrestre avec une distance de 500 km :
+
+* `a` = 0
+* `t` = 1
+* `D_mer` = 0
+* `D_terre` = 500
+* `D_air` = 0
 
 ### Distances entre pays
 
-La distance pour chaque voie et mode de transport est calculés en fonction du pays d'origines et de destination pour chaque étape de transport considérée.
+La distance pour chaque voie de transport est calculés en fonction du pays d'origines et de destination pour chaque étape de transport considérée.
 
 Le tableau suivant décrit les sources de données et le mode de calcul des distances pour dans la situation où l'utilisateur connais les pays d'origine et de destination, et ceux-ci sont proposés dans Ecobalyse (Situation 1).
 
 <table><thead><tr><th width="170">Distances</th><th>Source</th></tr></thead><tbody><tr><td>D_terre</td><td>Distance calculée avec <a href="https://www.searates.com/services/distances-time/">https://www.searates.com/services/distances-time</a> (calculateur recommandé par le PEF, <a href="https://eplca.jrc.ec.europa.eu/permalink/PEFCR_guidance_v6.3-2.pdf">Product Environmental Footprint Category Rules Guidance</a>, 7.14.3 From factory to final client)</td></tr><tr><td>D_mer</td><td>Distance calculée avec <a href="https://www.searates.com/services/distances-time/">https://www.searates.com/services/distances-time</a> (calculateur recommandé par la méthode PEF)</td></tr><tr><td>D_air</td><td>Distance à vol d'oiseau calculée avec geopy.distance, entre le centre de chaque pays.</td></tr></tbody></table>
 
-[Toutes les distances entre pays (identifiés par leurs code alpha-2) sont visibles sur cette page](https://github.com/MTES-MCT/wikicarbone/blob/master/public/data/transports.json) (hors distances vers et depuis les ports et aéroports).
-
-Si 2 étapes successives ont lieu dans un même pays, on fait l'hypothèse que le déplacement est fait à 100% par la voie terrestre avec une distance de 500 km.
+[Toutes les distances entre pays (identifiés par leurs code alpha-2) sont visibles sur cette page](https://github.com/MTES-MCT/wikicarbone/blob/master/public/data/transports.json).
 
 ### Situations où l'un des pays n'est pas connu ou pas proposé dans Ecobalyse
 
@@ -137,35 +139,13 @@ Le transport est ensuite calculé de la même façon que si ce pays était direc
 
 Je sélectionne "Inconnu" ou "Inconnu (par défaut)"
 
-Dans ce cas, les distances suivantes sont fixées par défaut, en cohérence avec la méthode PEF ([Product Environmental Footprint Category Rules Guidance](https://eplca.jrc.ec.europa.eu/permalink/PEFCR_guidance_v6.3-2.pdf), 7.14.3 From factory to final client) :&#x20;
-
-* D\_mer, bateau = 18 000 km
-* D\_mer, camion = D\_mer, camion, défaut
-* D\_air, air = 10 000 km
-* D\_air, camion = D\_air, camion, défaut
-* D\_fer, fer = 10 000 km
-* D\_fer, camion = D\_fer, camion, défaut
-  * En pratique, le transport ferroviaire n'est pas mobilisé dans les scénarios par défaut.&#x20;
+Dans ce cas, l'Inde est utilisée en arrière plan comme pays de référence pour définir les distances et voies de transport.&#x20;
 
 </details>
 
-### Distances `D_i,camion` par défaut
+### Répartition terrestre - maritime (`t`)
 
-Les autres distances sont paramétrées comme suit pour l'affichage environnemental :
-
-* D\_mer,camion,défaut = 1000 km
-* D\_air,camion,défaut = 1000 km
-* D\_fer,camion,défaut = 0 km
-
-### Distances de transport au sein d'un même pays
-
-* D\_terre,interne = 500 km
-* D\_air,avion,interne = 500 km
-* D\_fer,train,interne = 500 km
-
-### Répartition terrestre - maritime
-
-La part du **transport terrestre (t)**, par rapport au transport "terrestre + maritime", est établie comme suit :&#x20;
+La part du **transport terrestre (`t`)**, par rapport au transport "terrestre + maritime", est établie comme suit :&#x20;
 
 | **Distance terrestre** | **t** |
 | ---------------------- | ----- |
@@ -175,55 +155,39 @@ La part du **transport terrestre (t)**, par rapport au transport "terrestre + ma
 | 2000 km <= 3000 km     | 25%   |
 | > 3000 km              | 0%    |
 
-Exemples :&#x20;
+_Exemples :_&#x20;
 
-| t        | Turquie | France | Espagne | Portugal |
-| -------- | ------- | ------ | ------- | -------- |
-| Turquie  | 100%    |        |         |          |
-| France   | 25%     | 100%   |         |          |
-| Espagne  | 0%      | 90%    | 100%    |          |
-| Portugal | 0%      | 50%    | 90%     | 100%     |
+<table><thead><tr><th width="196.98333740234375">t</th><th width="133">Turquie</th><th width="129.54998779296875">France</th><th width="128.9166259765625">Espagne</th><th>Portugal</th></tr></thead><tbody><tr><td>Turquie</td><td>100%</td><td></td><td></td><td></td></tr><tr><td>France</td><td>25%</td><td>100%</td><td></td><td></td></tr><tr><td>Espagne</td><td>0%</td><td>90%</td><td>100%</td><td></td></tr><tr><td>Portugal</td><td>0%</td><td>50%</td><td>90%</td><td>100%</td></tr></tbody></table>
 
 _"Pour un déplacement "Turquie-France", le transport terrestre-maritime sera fait de 25% de terrestre et de 75% de maritime"_
 
-### Part du transport aérien
+### Part du transport aérien (`a`)
 
-Une part de transport aérien est considérée, comme paramètre optionnel :
+Une part de transport aérien (`a`) est considérée comme paramètre optionnel, seulement pour le transport entre la confection et l'entrepôt (étape #5 ci-dessus)
 
-* Seulement pour le transport entre la confection et l'entrepôt (étape #5 ci-dessus)
-* Cette part n'est considérée que lorsque la confection est réalisée hors Europe (ou Turquie). Pour mémo, il est considéré que l'entrepôt est en France (cf. [Distribution](distribution.md))
+Ce paramètre est modifiable par l'utilisateur.
+
+#### Valeurs par défaut
 
 La part de **transport aérien (`a`)**, par rapport au transport "aérien + terrestre + maritime" est considérée comme suit pour la **valeur par défaut**: &#x20;
 
 **Si le coefficient de durabilité est > 1**
 
-* 0% pour les pays situés en Europe ou Afrique,
+* 0% pour les pays situés en Europe et Turquie,
 * 33% pour les autres pays.
 
 **Si le coefficient de durabilité est < 1**
 
-* 0% pour les pays situés en Europe ou Afrique,
+* 0% pour les pays situés en Europe et Turquie,
 * 100% pour les autres pays.
-
-{% hint style="info" %}
-Un curseur permettant d'ajuster la part du transport aérien en sortie de confection est proposé dans Ecobalyse
-
-Le curseur "part du transport aérien", proposé sous l'étape "confection" permet d'ajuster le paramètre `a`, en partant de l'hypothèse par défaut : 33% en provenance d'un pays hors Europe et hors-Afrique, 0% sinon.
-{% endhint %}
 
 ## Procédés utilisés pour le coût environnemental
 
-Les procédés utilisés, définissant les coûts environnementaux `I_m_j` , sont identifiés dans l'[Explorateur de procédé](https://ecobalyse.beta.gouv.fr/#/explore/textile/textile-processes), et listés ci-dessous :&#x20;
-
-<mark style="color:red;">**GRAPH a corriger, également pour page transverse**</mark>
+Les procédés utilisés, définissant les coûts environnementaux `I_m_i` , sont identifiés dans l'[Explorateur de procédé](https://ecobalyse.beta.gouv.fr/#/explore/textile/textile-processes), et listés ci-dessous :&#x20;
 
 <table><thead><tr><th width="230">Type de transport</th><th>Procédé (Source)</th></tr></thead><tbody><tr><td>Camion</td><td>market group for transport, freight, lorry, unspecified, GLO (Ecoinvent)</td></tr><tr><td>Bateau</td><td>market for transport, freight, sea, container ship, GLO (Ecoinvent)</td></tr><tr><td>Avion</td><td>market for transport, freight, aircraft, long haul, GLO (Ecoinvent)</td></tr></tbody></table>
 
-<figure><img src="../../.gitbook/assets/image (314).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
 
-## Exemple d'application
 
-{% hint style="info" %}
-\[optionnel mais utile] Application à un exemple, pour permettre une meilleure compréhension au lecteur
-{% endhint %}
 
