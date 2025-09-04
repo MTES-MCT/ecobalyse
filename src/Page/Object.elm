@@ -606,7 +606,7 @@ simulatorView session model =
                 , totalImpacts =
                     model.results
                         |> Component.extractImpacts
-                        |> Impact.multiplyBy (Unit.ratioToFloat currentDurability)
+                        |> Impact.divideBy (Unit.ratioToFloat currentDurability)
                 , totalImpactsWithoutDurability =
                     if currentDurability == Unit.ratio 1 then
                         Nothing
