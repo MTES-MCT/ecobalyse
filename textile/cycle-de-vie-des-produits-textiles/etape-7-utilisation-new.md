@@ -43,7 +43,7 @@ Avec :&#x20;
 * `m` : la masse du vêtement, en kg
 * `E_7,horsrepassage,i` : la quantité d'électricité moyenne consommée (hors repassage) pour le cycle d'entretien d'un kg de vêtement de la catégorie `i`, en kWh/kg. Cette quantité est définie dans le procédé `Utilisation : Impact hors repassage (i)` comme flux externe.
 * `I_elec` : l'impact environnemental pour 1 kWh d'électricité, exprimé en unité de la catégorie d'impact analysée
-* `I_7,i` : I'impact environnemental associé à l'entretien d'1kg de vêtement de la catégorie i, exprimé en unité de la catégorie d'impact analysée par kg
+* `I_7,i` : I'impact environnemental associé à l'entretien d'1kg de vêtement de la catégorie i, exprimé en unité de la catégorie d'impact analysée par kg. Il s'agit de l'impact du procédé  `Utilisation : Impact hors repassage (i)`&#x20;
 * `E_repassage,i` : la quantité d'électricité moyenne consommée associée au repassage, pour le cycle d'entretien d'un kg de vêtement de la catégorie i, en kWh/kg.&#x20;
 
 ### Durée de vie et nombre de cycles d'entretien
@@ -105,7 +105,7 @@ Les paramètres suivants sont fournis pour chaque catégorie de produit dans l'[
 
 ### Repassage
 
-Les paramètres suivants sont fournis pour chaque catégorie de produit dans l'[Explorateur ](https://ecobalyse.beta.gouv.fr/#/explore/textile/products):&#x20;
+Les paramètres suivants sont fournis pour chaque catégorie de produit dans l'[Explorateur produits ](https://ecobalyse.beta.gouv.fr/#/explore/textile/products):&#x20;
 
 * `E_repassage,i` : colonne _Repassage_ ;
 * `r_repassage,i` : colonne _Repassage, part_ ;
@@ -117,7 +117,50 @@ La consommation d'électricité est obtenue à partir de la puissance suivante :
 
 ## Procédés utilisés pour le coût environnemental
 
-Des procédés dédiés ont été créés pour chaque catégorie de produit i
+### Impacts hors repassage : `Utilisation : Impact hors repassage (i)`&#x20;
+
+Des procédés dédiés nommés `Utilisation : Impact hors repassage (i)`, avec `i` la catégorie de produit, ont été créés pour chaque catégorie de produit i. Ces procédés sont identifiés pour chaque catégorie de produit dans l'[Explorateur produits](https://ecobalyse.beta.gouv.fr/#/explore/textile/products), dans la colonne "_Procédé d'utilisation hors-repassage_". sous la dénomination ".
+
+Ces procédés sont identifiés dans l'[Explorateur de procédé](https://ecobalyse.beta.gouv.fr/#/explore/textile/textile-processes).
+
+Ils ont été construits spécifiquement par Ecobalyse.
+
+Ils précisent une consommation d'électricité, modélisée comme flux externe, ainsi que des impacts environnementaux.
+
+Les calculs de ces deux composantes sont précisés dans les deux sous-parties suivantes
+
+#### Consommation d'électricité pour 1kg de vêtement (hors repassage)
+
+E=E\_{lavage}+r\_{séchage,i}\*E\_{sechage}
+
+E\_lavage _: la quantité d'électricité nécessaire à laver 1 kg de vêtement (unité : kWh/kg). En accord avec la documentation ADEME on prend une valeur de 0.1847 kWh/kg_
+
+Pour l'étape de séchage en sèche-linge, en accord avec le projet de PEFCR Apparel & Footwear (Table 33 - version de l'été 2021) on applique un ratio de produits séchés en sèche-linge différent pour chaque type de produit. Par exemple on fait l'hypothèse qu'un T-Shirt est séché en sèche-linge 30% du temps tandis qu'une jupe n'est séchée en sèche-linge que 12% du temps.
+
+* r\_séchage,i _: la part de vêtement qui va être séché en sèche-linge (unité : sans unité)_
+* E\_sechage _: la quantité d'électricité nécessaire à sécher 1 kg de vêtement (unité : kWh/kg). En accord avec la documentation ADEME on prend une valeur de 0.335 kWh par kg de linge séché._
+
+#### Impacts environnementaux pour 1kg de vêtement (hors repassage)
+
+#### Lessive
+
+_F\_kg\_lessive/kg\_lavage : la masse de lessive nécessaire à laver 1 kg de vêtement (unité : kg/kg = sans unité). En accord avec la documentation ADEME on prend une valeur de 0.036 kg lessive par kg de linge lavé._
+
+_C\_impact/kg\_lessive : l'impact de la production d'1 kg de lessive (unité : impact/kg)_
+
+
+
+#### Traitement des eaux usées
+
+_F\_m3\_eaux/kg\_lavage : le volume d'eau nécessaire pour laver 1 kg de vêtement (unité : m3/kg). En accord avec la documentation ADEME on prend une valeur de 0.0097 m3 par kg de linge lavé._
+
+_C\_impact/m3\_eaux : l'impact du traitement d'1 m3 d'eaux usées (unité : impact/m3)_
+
+### Séchage
+
+#### Électricité
+
+
 
 
 
@@ -163,14 +206,7 @@ Avec
 
 
 
-_m_ : la masse de la pièce textile (unité : kg)
 
-_F\_kWh/kg\_lavage : la quantité d'électricité nécessaire à laver 1 kg de vêtement (unité : kWh/kg). En accord avec la documentation ADEME on prend une valeur de 0.1847 kWh/kg_
-
-_C\_impact/kWh : l'impact de la production d'1 kWh d'électricité dans le pays concerné (unité : impact/kWh)_
-
-_Sur l'interface, il est proposé de faire varier le nombre de cycles d'entretien (n\_cycles(p)), afin de visualiser les modifications d'impacts si un vêtement est entretenu plus souvent, ce qui correspond généralement à un vêtement porté plus longtemps._\
-&#xNAN;_&#x53;i l'impact global augmente avec le nombre de cycle d'entretien, l'impact par nombre de jour d'utilisation du même vêtement va en revanche diminuer. Cet aspect sera exploré prochainement à travers le projet de PERCR Apparel & Footwear._
 
 #### Lessive
 
@@ -194,7 +230,7 @@ _ratio_\__sèche-linge(p) : la part de vêtement qui va être séché en sèche-
 
 _F\_kWh/kg\_sèche-linge : la quantité d'électricité nécessaire à sécher 1 kg de vêtement (unité : kWh/kg). En accord avec la documentation ADEME on prend une valeur de 0.335 kWh par kg de linge séché._
 
-Les procédés utilisés sont identifiés dans l'[Explorateur de procédé](https://ecobalyse.beta.gouv.fr/#/explore/textile/textile-processes), avec les noms utilisés dans cette page.
+
 
 ## Exemple d'application
 
