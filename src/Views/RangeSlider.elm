@@ -1,5 +1,6 @@
 module Views.RangeSlider exposing
-    ( percent
+    ( generic
+    , percent
     , physicalDurability
     , surfaceMass
     , yarnSize
@@ -10,6 +11,35 @@ import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
+
+
+type alias Config unit msg =
+    { disabled : Bool
+    , fromString : String -> Result String unit
+    , max : unit
+    , min : unit
+    , step : String
+    , toString : unit -> String
+    , update : Result String unit -> msg
+    , value : unit
+    }
+
+
+generic : List (Attribute msg) -> Config unit msg -> Html msg
+generic attrs config =
+    rangeInput
+        (attrs
+            ++ [ onInput (config.fromString >> config.update)
+               , Attr.min (config.toString config.min)
+               , Attr.max (config.toString config.max)
+
+               -- WARNING: be careful when reordering attributes: for obscure reasons,
+               -- the `value` one MUST be set AFTER the `step` one.
+               , step config.step
+               , value <| config.toString config.value
+               , Attr.disabled config.disabled
+               ]
+        )
 
 
 type alias PercentConfig msg =
@@ -152,10 +182,4 @@ wideLayout { attributes, id, label } =
 
 rangeInput : List (Attribute msg) -> Html msg
 rangeInput attributes =
-    input
-        (type_ "range"
-            :: class "d-block form-range"
-            :: style "margin-top" "2px"
-            :: attributes
-        )
-        []
+    input (type_ "range" :: class "form-range" :: attributes) []

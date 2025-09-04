@@ -18,6 +18,7 @@ module Data.Unit exposing
     , encodeNonPhysicalDurability
     , encodePhysicalDurability
     , encodePickPerMeter
+    , encodeRatio
     , encodeSurfaceMass
     , encodeThreadDensity
     , encodeYarnSize
@@ -96,6 +97,11 @@ decodeRatio : Decoder Ratio
 decodeRatio =
     Decode.float
         |> Decode.map ratio
+
+
+encodeRatio : Ratio -> Encode.Value
+encodeRatio (Ratio float) =
+    Encode.float float
 
 
 
