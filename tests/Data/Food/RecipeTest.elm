@@ -30,7 +30,7 @@ suite =
                 ( db.food.examples
                     |> Data.Example.findByName "Pizza royale (350g) - 6"
                     |> Result.map .query
-                , ( Ingredient.idFromString "9cbc31e9-80a4-4b87-ac4b-ddc051c47f69"
+                , ( Ingredient.idFromString "cf30d3bc-e99c-418a-b7e3-89a894d410a5"
                   , Ingredient.idFromString "db0e5f44-34b4-4160-b003-77c828d75e60"
                   , Ingredient.idFromString "38788025-a65e-4edf-a92f-aab0b89b0d61"
                   )

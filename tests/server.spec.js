@@ -472,7 +472,7 @@ describe("API", () => {
         it("should compute 21 impacts", async () => {
           const response = await makePostRequest("/api/food", {
             ingredients: [
-              { id: "9cbc31e9-80a4-4b87-ac4b-ddc051c47f69", mass: 120 },
+              { id: "cf30d3bc-e99c-418a-b7e3-89a894d410a5", mass: 120 },
               { id: "38788025-a65e-4edf-a92f-aab0b89b0d61", mass: 140 },
               { id: "8f3863e7-f981-4367-90a2-e1aaa096a6e0", mass: 60 },
               { id: "4d5198e7-413a-4ae2-8448-535aa3b302ae", mass: 225 },
