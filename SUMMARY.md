@@ -137,6 +137,7 @@
   * [🌍 Export hors Europe](textile/complements-hors-acv/export-hors-europe.md)
   * [🐠 Microfibres](textile/complements-hors-acv/microfibres.md)
 * [🔴 Durabilité](textile/durabilite.md)
+* [🔴 Durabilité des vêtements](textile/durabilite-1.md)
 * [🟡 Périmètre](textile/perimetre.md)
 * [🔵 Paramétrage](textile/parametrage.md)
 * [Correctifs données](textile/correctifs-donnees/README.md)
@@ -282,7 +283,6 @@
 
 ## Pages en cours de revue
 
-* [Prise en compte de la durabilité](pages-en-cours-de-revue/prise-en-compte-de-la-durabilite.md)
 * [📌 Modèle de page](pages-en-cours-de-revue/modele-de-page.md)
 * [⚡ Energies des étapes de transformation](pages-en-cours-de-revue/energies-des-etapes-de-transformation.md)
 * [💡 Electricité à l'utilisation](pages-en-cours-de-revue/electricite-a-lutilisation.md)

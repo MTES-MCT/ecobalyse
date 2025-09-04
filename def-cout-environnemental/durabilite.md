@@ -4,7 +4,9 @@
 
 La durabilité d'un produit reflète sa capacité à perdurer dans le temps.&#x20;
 
-Plus la durabilité d'un produit est élevée, plus faible est son coût environnemental.
+Plus un produit est durable, plus il est utilisé, plus il est entretenu, plus la somme des impacts qu'il génère est importante (sur une durée d'utilisation plus longue).
+
+Le calcul du coût environnemental intègre la notion de durabilité, de telle sorte que **plus la durabilité d'un produit est élevée, plus faible est son coût environnemental.**
 
 Le coût environnemental utilisé dans Ecobalyse repose sur une unité fonctionnelle fixe (ex : 45 jours de portées pour un t-shirt). Dès lors, pour chaque produit, un **coefficient de durabilité** `C_Durabilité` est établi afin de corriger le coût environnemental selon la durée de vie estimée.
 
@@ -16,8 +18,8 @@ $$
 
 Avec :&#x20;
 
-* `CoûtEnvironnemental` : le coût environnemental total du produit
-* `SommedesImpacts` : la somme du cout environnemental du produit à chaque étape du cycle de vie. Elle est aussi appelée _coût environnemental hors durabilité_
+* `CoûtEnvironnemental` : le coût environnemental du produit
+* `SommedesImpacts` : la somme des impacts environnementaux du sur l'ensemble du cycle de vie. Elle est aussi appelée _coût environnemental hors durabilité._ Plus le produit est utilisé, plus cette valeur augmente.
 * `C_Durabilité` : le coefficient de durabilité du produit, sans unité dont la valeur est située entre `Coeff_min` pour les produits les moins durables, et `Coef_max`  pour les produits les plus durables
 
 {% hint style="info" %}
@@ -34,6 +36,4 @@ Dès lors :&#x20;
 ## Paramètres de calcul  <a href="#calcul-du-coefficient-de-durabilite-c_durabilite" id="calcul-du-coefficient-de-durabilite-c_durabilite"></a>
 
 Les calcul de `C_Durabilité` , `C_min`  et `C_max`  sont spécifiques à chaque secteur et précisés dans les pages de documentation sectorielles.
-
-
 
