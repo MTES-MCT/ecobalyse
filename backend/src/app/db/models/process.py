@@ -60,7 +60,7 @@ class Process(UUIDAuditBase):
     )
 
     elements_materials: Mapped[list[Element]] = relationship(
-        back_populates="material",
+        back_populates="material_process",
         lazy="selectin",
         uselist=True,
         cascade="all, delete",
