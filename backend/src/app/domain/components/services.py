@@ -19,8 +19,9 @@ from advanced_alchemy.service import (
 )
 from advanced_alchemy.utils.dataclass import Empty, EmptyType
 from app.db import models as m
-from app.domain.components.schemas import (
-    Component,
+from app.domain.components.schemas import Component, ComponentElement
+from app.domain.elements.deps import (
+    provide_elements_service,
 )
 from sqlalchemy.orm import InstrumentedAttribute
 
@@ -185,16 +186,33 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
         ):
             data["id"] = data.get("id", uuid4())
 
+            elements_service = await anext(
+                provide_elements_service(self.repository.session)
+            )
+
+            elements: list[ComponentElement] = data.pop("elements", [])
             data = await super().to_model(data)
 
+            if len(elements) > 0:
+                # Create the elements
+                elements_to_add = [
+                    await elements_service.to_model(
+                        element.to_dict(), operation="create"
+                    )
+                    for element in elements
+                ]
+                data.elements.extend(elements_to_add)
+
             if owner:
+                value = self.to_schema(data, schema_type=Component)
+
                 owner.journal_entries.append(
                     m.JournalEntry(
                         table_name=m.Component.__tablename__,
                         record_id=data.id,
                         action=m.JournalAction.CREATED,
                         user=owner,
-                        value=self.to_schema(data, schema_type=Component),
+                        value=value,
                     )
                 )
 

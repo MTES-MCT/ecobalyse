@@ -24,7 +24,7 @@ async def test_components_create(
             "name": "New Component",
             "comment": "A comment",
             "elements": [
-                {"amount": 0.91125, "material": "59b42284-3e45-5343-8a20-1d7d66137461"}
+                {"amount": 0.91125, "material": "97c209ec-7782-5a29-8c47-af7f17c82d11"}
             ],
         },
         headers=superuser_token_headers,
@@ -34,6 +34,7 @@ async def test_components_create(
     assert json["name"] == "New Component"
     assert json["comment"] == "A comment"
     assert len(json["elements"]) == 1
+
     assert len(json["id"]) == 36
 
     async with JournalEntryService.new(session) as journal_entries_service:
@@ -41,6 +42,7 @@ async def test_components_create(
         assert len(entries) == 1
         entry = entries[0]
         assert entry.action == m.JournalAction.CREATED
+        json["elements"][0]["transforms"] = []
         assert entry.value == json
 
 
@@ -55,7 +57,7 @@ async def test_components_create_with_scopes(
         json={
             "name": "New Component",
             "elements": [
-                {"amount": 0.91125, "material": "59b42284-3e45-5343-8a20-1d7d66137461"}
+                {"amount": 0.91125, "material": "97c209ec-7782-5a29-8c47-af7f17c82d11"}
             ],
             "scopes": scopes,
         },
@@ -73,6 +75,7 @@ async def test_components_create_with_scopes(
         assert entry.action == m.JournalAction.CREATED
         assert entry.table_name == m.Component.__tablename__
 
+        json["elements"][0]["transforms"] = []
         assert entry.value == json
 
 
@@ -87,7 +90,7 @@ async def test_components_access(
         json={
             "name": "New Component",
             "elements": [
-                {"amount": 0.91125, "material": "59b42284-3e45-5343-8a20-1d7d66137461"}
+                {"amount": 0.91125, "material": "97c209ec-7782-5a29-8c47-af7f17c82d11"}
             ],
         },
         headers=user_token_headers,
@@ -246,7 +249,7 @@ async def test_components_bulk_update(
                 "elements": [
                     {
                         "amount": 0.00022,
-                        "material": "07e9e916-e02b-45e2-a298-2b5084de6242",
+                        "material": "97c209ec-7782-5a29-8c47-af7f17c82d11",
                     }
                 ],
                 "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
@@ -256,7 +259,7 @@ async def test_components_bulk_update(
                 "elements": [
                     {
                         "amount": 0.734063,
-                        "material": "3295b2a5-328a-4c00-b046-e2ddeb0da823",
+                        "material": "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
                     }
                 ],
                 "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973",
@@ -266,7 +269,7 @@ async def test_components_bulk_update(
                 "elements": [
                     {
                         "amount": 0.91125,
-                        "material": "3295b2a5-328a-4c00-b046-e2ddeb0da823",
+                        "material": "d25636af-ab36-4857-a6d0-c66d1e7a281b",
                     }
                 ],
                 "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6",
@@ -274,7 +277,7 @@ async def test_components_bulk_update(
             },
             {
                 "elements": [
-                    {"amount": 0.89, "material": "07e9e916-e02b-45e2-a298-2b5084de6242"}
+                    {"amount": 0.89, "material": "d25636af-ab36-4857-a6d0-c66d1e7a281b"}
                 ],
                 "name": "Test component",
             },
@@ -282,18 +285,18 @@ async def test_components_bulk_update(
                 "elements": [
                     {
                         "amount": 1,
-                        "material": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
+                        "material": "97c209ec-7782-5a29-8c47-af7f17c82d11",
                         "transforms": [
-                            "9c478d79-ff6b-45e1-9396-c3bd897faa1d",
-                            "da9d1c32-a166-41ab-bac6-f67aff0cf44a",
+                            "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
+                            "d25636af-ab36-4857-a6d0-c66d1e7a281b",
                         ],
                     },
                     {
                         "amount": 1,
-                        "material": "9dba0e95-0c35-4f8b-9267-62ddf47d4984",
+                        "material": "d25636af-ab36-4857-a6d0-c66d1e7a281b",
                         "transforms": [
-                            "9c478d79-ff6b-45e1-9396-c3bd897faa1d",
-                            "ae9cbbad-7982-4f3c-9220-edf27946d347",
+                            "97c209ec-7782-5a29-8c47-af7f17c82d11",
+                            "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
                         ],
                     },
                 ],
