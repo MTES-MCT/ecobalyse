@@ -2,7 +2,7 @@
 
 ## Contexte
 
-L'utilisation d'un produit peut nécessiter de l'électricité lors de sa phase d'utilisation.
+Un produit peut nécessiter de l'électricité lors de sa phase d'utilisation.
 
 Pour la plupart des produits modélisés dans Ecobalyse, il s'agit d'une consommation domestique.
 
@@ -35,4 +35,4 @@ Ce procédé est rappelé dans l'[Explorateur de procédé](https://ecobalyse.be
 
 Utilisation des textiles : le lavage des textiles comprend de la consommation d'électricité. Dans cet exemple, `C_utilisation,elec,lavage`  est le produit du nombre de cycles d'entretien et de la consommation d'électricité par cycle.
 
-Pour les textiles, il y a en complément un possible repassage, correspondant également à de la consommation d'électricité.
+Pour le secteur textile, certains produits nécessitent un repassage, correspondant également à de la consommation d'électricité.
