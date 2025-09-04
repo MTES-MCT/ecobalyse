@@ -8,12 +8,6 @@ Cette page vient compléter la [page Durabilité](https://fabrique-numerique.git
 Mise à jour importante de cette page le 14/07/2025 pour intégrer les derniers ajustements sur les définitions, notamment pour la largeur de gamme, suite à la phase de consolidation qui a suivi le webinaire du mois de mai 2025. Les derniers modifications apportées sont \*_en italique pour les ajouts_\* et \*~~barré pour les suppressions~~\*.
 {% endhint %}
 
-{% hint style="info" %}
-<mark style="color:blue;background-color:green;">**Plus un vêtement est porté, plus son impact est faible**</mark>
-{% endhint %}
-
-La prise en compte de la durabilité doit permettre d'introduire une estimation du nombre de portées de chaque vêtement dans la modélisation du coût environnemental.
-
 ## Contexte
 
 ### Quelles sont les dimensions de la durabilité pour les vêtements ?&#x20;
@@ -56,18 +50,11 @@ Cette formule traduit l'idée qu'un vêtement arrive en fin de vie, soit pour un
 
 ### Calcul du coût environnemental
 
-Pour chaque vêtement, un **coefficient de durabilité** $$C_{Durabilité}$$ est établi. Sa valeur est comprise entre **0.67** pour les produits les moins durables et **1.45** pour les produits les plus durables.
+Voir la [page Durabilité](https://fabrique-numerique.gitbook.io/ecobalyse/~/revisions/Sx09GzA4X59kGhkHLk8B/def-cout-environnemental/durabilite) sur le coût environnemental.
 
-Le coût environnemental est établi comme suit :&#x20;
+Pour chaque vêtement la valeur du **coefficient de durabilité** $$C_{Durabilité}$$ est comprise entre **0.67** pour les produits les moins durables et **1.45** pour les produits les plus durables.
 
-$$
-CoûtEnvironnemental = \frac{Somme des Impacts}{C_{Durabilité}}
-$$
-
-Avec :&#x20;
-
-* $$SommedesImpacts$$ : Somme des impacts du vêtement considéré sur l'ensemble de son cycle de vie. Pour la phase d'utilisation, on considère un nombre de portés et un nombre de cycles d'utilisation proportionnels au coefficient de durabilité. Plus un vêtement est durable, plus il est porté, plus il est entretenu, plus la somme des impacts qu'il génère est importante (sur une durée d'utilisation plus longue).
-* $$Coût environnemental$$ : Le coût environnemental ainsi considéré revient à considérer une unité fonctionnelle "utilisation du vêtement sur une durée de X jours", où X est la durée moyenne d'utilisation considérée pour la catégorie de vêtement considérée (cf. nombre de portés et d'utilisation avant lavage spécifiés dans l'[explorateur](https://ecobalyse.beta.gouv.fr/#/explore/textile/products), en s'appuyant sur les données du PEFCR Apparel & Footwear lorsqu'elles sont disponibles).
+Le coût environnemental calculé revient à considérer une unité fonctionnelle "utilisation du vêtement sur une durée de X jours", où X est la durée moyenne d'utilisation considérée pour la catégorie de vêtement considérée (cf. nombre de portés et d'utilisation avant lavage spécifiés dans l'[explorateur](https://ecobalyse.beta.gouv.fr/#/explore/textile/products), en s'appuyant sur les données du PEFCR Apparel & Footwear lorsqu'elles sont disponibles).
 
 Exemple :&#x20;
 
