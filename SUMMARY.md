@@ -122,6 +122,7 @@
   * [🚚 Etape 6 - Distribution](textile/cycle-de-vie-des-produits-textiles/etape-6-distribution.md)
   * [🚚 Etape 6 - Distribution (New)](textile/cycle-de-vie-des-produits-textiles/etape-6-distribution-new.md)
   * [🌀 Etape 7 - Utilisation](textile/cycle-de-vie-des-produits-textiles/etape-6-utilisation.md)
+  * [🌀 Etape 7 - Utilisation (New)](textile/cycle-de-vie-des-produits-textiles/etape-7-utilisation-new.md)
   * [♻️ Etape 8 - Fin de vie](textile/cycle-de-vie-des-produits-textiles/etape-7-fin-de-vie.md)
   * [🚢 Transport](textile/cycle-de-vie-des-produits-textiles/transport.md)
   * [🚢 Transport Textile](textile/cycle-de-vie-des-produits-textiles/transport-textile.md)

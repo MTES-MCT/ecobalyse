@@ -17,7 +17,7 @@ A des fins de simplification, le transport entre un magasin ou un centre de dist
 La méthode est une application de la méthode appliquée à la modélisation du transport (voir [page Transport Textile](https://fabrique-numerique.gitbook.io/ecobalyse/~/revisions/PtzPKtOEZalbhnlYU97d/textile/cycle-de-vie-des-produits-textiles/transport-textile)).
 
 $$
-I_{distribution} = \frac{m}{1000}*D_{distribution,camion}*I_{camion}
+I_{6} = \frac{m}{1000}*D_{6,camion}*I_{camion}
 $$
 
 Avec :
