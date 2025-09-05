@@ -68,5 +68,50 @@
     "scopes": [
       "object"
     ]
+  },
+  {
+    "elements": [
+      {
+        "amount": 1,
+        "material": "f0dbe27b-1e74-55d0-88a2-bda812441744",
+        "transforms": [
+          "ace9db61-adc8-5287-a13b-dcd79a83fc28",
+          "0b86f5c1-9354-53c1-a8e8-2e73c382479f",
+          "852452b3-430f-5d07-8ef5-f701dad19c52",
+          "af135ae5-5a2c-5940-9bfb-55c7805e8fb9"
+        ]
+      },
+      {
+        "amount": 1,
+        "material": "1477fa12-1ea5-565d-b549-88356b039694",
+        "transforms": [
+          "aeb21302-d7b6-5c6c-b5dc-fbaf475b7ffc",
+          "904fec21-c2e8-504c-8142-93096aae9042",
+          "852452b3-430f-5d07-8ef5-f701dad19c52",
+          "7cdc9616-7fb4-5a69-9436-78e5b84ebf31"
+        ]
+      }
+    ],
+    "id": "5f74cda2-19a9-47c7-9fd7-7588c24adf21",
+    "name": "Tissu 2kg 50%coton 50%polyester (canapé 3p)",
+    "scopes": [
+      "object"
+    ]
+  },
+  {
+    "elements": [
+      {
+        "amount": 0.35,
+        "material": "39fd91f1-72b6-5fa3-89d4-ce25b352d107",
+        "transforms": [
+          "6e1779a0-3bc7-5850-9820-02a037813ce7"
+        ]
+      }
+    ],
+    "id": "3aaebbee-a087-404b-bce8-3a710245b0fa",
+    "name": "Barre penderie 60cm (acier)",
+    "scopes": [
+      "object"
+    ]
   }
 ]
