@@ -27,6 +27,11 @@
 * [📝 Le coût environnemental : approche méthodologique globale (old)](impacts-consideres.md)
 * [Compléments hors ACV - old](complements-hors-acv.md)
 
+## ⚙️ Méthodes transverses spécifiques
+
+* [⚡ Energies des étapes de transformation](methodes-transverses-specifiques/energies-des-etapes-de-transformation.md)
+* [💡 Electricité à l'utilisation](methodes-transverses-specifiques/electricite-a-lutilisation.md)
+
 ## 🍕 Alimentaire
 
 * [Cycle de vie des produits alimentaires](alimentaire/impacts-consideres/README.md)
@@ -284,8 +289,6 @@
 ## Pages en cours de revue
 
 * [📌 Modèle de page](pages-en-cours-de-revue/modele-de-page.md)
-* [⚡ Energies des étapes de transformation](pages-en-cours-de-revue/energies-des-etapes-de-transformation.md)
-* [💡 Electricité à l'utilisation](pages-en-cours-de-revue/electricite-a-lutilisation.md)
 * [🚚 Transport](pages-en-cours-de-revue/transport/README.md)
   * [Coût environnemental par voie de transport](pages-en-cours-de-revue/transport/cout-environnemental-par-voie-de-transport.md)
   * [Choix des voies de transport](pages-en-cours-de-revue/transport/choix-des-voies-de-transport.md)

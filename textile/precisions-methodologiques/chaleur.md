@@ -1,5 +1,6 @@
 ---
 description: Choix du procédé de chaleur en fonction du pays
+hidden: true
 ---
 
 # 🔥 Chaleur

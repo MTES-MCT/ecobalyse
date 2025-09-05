@@ -1,3 +1,7 @@
+---
+hidden: true
+---
+
 # 🔴 Durabilité des vêtements
 
 {% hint style="info" %}
