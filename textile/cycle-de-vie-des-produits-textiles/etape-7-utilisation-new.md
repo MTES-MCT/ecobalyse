@@ -196,7 +196,9 @@ $$
 Pour rentrer dans le détail :
 
 * `E_7,horsrepassage,i = 0.1847 + 12%*0.335 = 0.22 kWh/kg` (voir procédé [`Utilisation : Impact hors repassage (Jupe)`](https://ecobalyse.beta.gouv.fr/#/explore/textile/textile-processes/5ca66e62-356c-57ea-81e9-82951cb7f473))
+* Quantité d'électricité consommée sur le cycle de vie (hors repassage) : `23*0.3*0.22=1.518`
 * `E_repassage,i = 18 % * 0.08 * 1.5 = 0.0216 kWh/kg`
+* Quantité d'électricité consommée sur le cycle de vie pour le repassage : `23*0.3*0.2=0.14`
 
 
 
