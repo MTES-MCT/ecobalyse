@@ -90,14 +90,17 @@ fromMaterialQuery materials countries =
     List.map
         (\{ country, id, share, spinning } ->
             let
-                countryResult =
-                    case country of
-                        Just countryCode ->
-                            Country.findByCode countryCode countries
-                                |> Result.map Just
+                unknownCountryResult =
+                    Country.findByCode Country.unknownCountryCode countries
 
-                        Nothing ->
-                            Ok Nothing
+                countryResult =
+                    Result.map Just <|
+                        case country of
+                            Just countryCode ->
+                                Country.findByCode countryCode countries
+
+                            Nothing ->
+                                unknownCountryResult
             in
             Result.map2
                 (\material_ country_ ->
@@ -161,13 +164,13 @@ fromQuery { countries, textile } query =
                 |> Result.andThen (getMainMaterialCountry countries)
                 |> RE.orElse unknownCountryResult
 
-        getCountryResult fallbackResult maybeCode =
+        getCountryResult maybeCode =
             case maybeCode of
                 Just code ->
                     Country.findByCode code countries
 
                 Nothing ->
-                    fallbackResult
+                    unknownCountryResult
 
         trims =
             case query.trims of
@@ -184,14 +187,14 @@ fromQuery { countries, textile } query =
         |> RE.andMap (Ok query.business)
         -- The distribution country is always France
         |> RE.andMap franceResult
-        |> RE.andMap (getCountryResult unknownCountryResult query.countryDyeing)
+        |> RE.andMap (getCountryResult query.countryDyeing)
         -- The end of life country is always France
         |> RE.andMap franceResult
-        |> RE.andMap (getCountryResult unknownCountryResult query.countryFabric)
-        |> RE.andMap (getCountryResult unknownCountryResult query.countryMaking)
+        |> RE.andMap (getCountryResult query.countryFabric)
+        |> RE.andMap (getCountryResult query.countryMaking)
         -- Material country is constrained to be the first material's default country
         |> RE.andMap mainMaterialCountry
-        |> RE.andMap (getCountryResult unknownCountryResult query.countrySpinning)
+        |> RE.andMap (getCountryResult query.countrySpinning)
         -- The use country is always France
         |> RE.andMap franceResult
         |> RE.andMap (Ok query.disabledSteps)
