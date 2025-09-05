@@ -1,10 +1,69 @@
 [
   {
     "elements": [],
-    "id": "c38a56d0-c718-405b-963f-f43dbcba3571",
-    "name": "Composant vide",
+    "id": "1539f726-a802-4ae5-bf48-9682087575e5",
+    "name": "Composant à créer",
     "scopes": ["object"]
   },
+  {
+    "elements": [
+          {
+            "amount": 0.4,
+            "material": "36114140-2128-5334-949a-685d05c1a426",
+            "transforms": [
+              "6e1779a0-3bc7-5850-9820-02a037813ce7"
+            ]
+          }
+        ],
+      "id": "56373ee2-2f34-480a-8ab4-c43bd182b7cd",
+      "name": "Pied canapé (acier)",
+      "scopes": ["object"]
+    },
+    {
+      "elements": [
+            {
+              "amount": 29,
+              "material": "36114140-2128-5334-949a-685d05c1a426",
+              "transforms": [
+                "6e1779a0-3bc7-5850-9820-02a037813ce7"
+              ]
+            }
+          ],
+        "id": "f68da7e7-7dec-4160-a56c-4d4f6ec649b4",
+        "name": "Structure acier (canapé 3p)",
+        "scopes": ["object"]
+      },
+      {
+        "elements": [
+              {
+                "amount": 15,
+                "material": "7adec581-5650-5c76-b119-e907f2534de6",
+              }
+            ],
+          "id": "0e897186-196c-4475-9a86-25c2c9282a60",
+          "name": "Mousse polyurethane (canapé 3p)",
+          "scopes": ["object"]
+        },
+        {
+          "elements": [
+                {
+                  "amount": 1.26,
+                  "material": "59b42284-3e45-5343-8a20-1d7d66137461",
+                  "transforms": [
+                    "111539de-deea-588a-9581-6f6ceaa2dfa9"
+                  ]
+                }
+              ],
+            "id": "326205fc-344b-43d3-bfa5-628c42b76632",
+            "name": "Boite plastique PP 45L (55 * 45 * 39)",
+            "scopes": ["object"]
+          },
+
+
+
+
+
+
   {
     "elements": [
       {
