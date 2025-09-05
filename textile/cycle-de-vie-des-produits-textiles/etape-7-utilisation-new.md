@@ -200,30 +200,3 @@ Pour rentrer dans le détail :
 * `E_repassage,i = 18 % * 0.08 * 1.5 = 0.0216 kWh/kg`
 * Quantité d'électricité consommée sur le cycle de vie pour le repassage : `23*0.3*0.2=0.14`
 
-
-
-`I_7` =&#x20;
-
-```
-élec_non_ironing = n_cycles * m * P_non_ironing_élec
-Avec  P_non_ironing_élec : la quantité d'électricité (MJ) nécessaire pour l'étape hors repassage (lave-linge, sèche-linge) du cycle d'entretien d'une jupe.
-élec_non_ironing = 23 * 0.3 * 0.81
-élec_non_ironing = 5.59 MJ
-élec_non_ironing = 1.55 kWh
-
-impact_élec_non_ironing = élec_non_ironing * P_élec_fr_cch
-Avec P_élec_fr_cch : la quantité de kgCO2e émise pour produire 1 kWh d'électricité française
-impact_élec_non_ironing = 1.55 * 0.0729
-impact_élec_non_ironing = 0.11 kgCO2e
-
-
-impact_eaux_lessive_non_ironing = n_cycles * m * P_non_ironing_cch
-Avec P_non_ironing_cch : la quantité de kgCO2e émise pour le processus hors ironing (lessive + traitement des eaux usées) pour 1 kg de linge à laver.
-impact_eaux_lessive_non_ironing = 23 * 0.3 * 3.4E-02
-impact_eaux_lessive_non_ironing = 0.23 kgCO2e
-```
-
-{% hint style="info" %}
-\[optionnel mais utile] Application à un exemple, pour permettre une meilleure compréhension au lecteur
-{% endhint %}
-
