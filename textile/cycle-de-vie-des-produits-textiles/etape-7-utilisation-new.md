@@ -33,7 +33,7 @@ Pour l'étape de repassage, le PEFCR Apparel & Footwear, propose d'appliquer un 
 ### Impact de l'utilisation&#x20;
 
 $$
-I_{7} = n_{cycles}*m*\Big(E_{7,hors repassage}*I_{élec} + I_{7,i} +E_{repassage,i}*I_{élec}\Big)
+I_{7} = n_{cycles}*m*\Big(E_{7,hors repassage,i}*I_{élec} + I_{7,horsrepassage} +E_{repassage,i}*I_{élec}\Big)
 $$
 
 Avec :&#x20;
@@ -43,8 +43,8 @@ Avec :&#x20;
 * `m` : la masse du vêtement, en kg
 * `E_7,horsrepassage,i` : la quantité d'électricité moyenne consommée (hors repassage) pour le cycle d'entretien d'un kg de vêtement de la catégorie `i`, en kWh/kg. Cette quantité est définie dans le procédé `Utilisation : Impact hors repassage (i)` comme flux externe.
 * `I_elec` : l'impact environnemental pour 1 kWh d'électricité, exprimé en unité de la catégorie d'impact analysée
-* `I_7,i` : I'impact environnemental associé à l'entretien d'1kg de vêtement de la catégorie i, exprimé en unité de la catégorie d'impact analysée par kg. Il s'agit de l'impact du procédé  `Utilisation : Impact hors repassage (i)`&#x20;
-* `E_repassage,i` : la quantité d'électricité moyenne consommée associée au repassage, pour le cycle d'entretien d'un kg de vêtement de la catégorie i, en kWh/kg.&#x20;
+* `I_7,horsrepassage` : I'impact environnemental associé à l'entretien d'1kg de vêtement de la catégorie i, exprimé en unité de la catégorie d'impact analysée par kg. Il s'agit de l'impact des procédés  `Utilisation : Impact hors repassage (i)`&#x20;
+* `E_repassage,i` : la quantité d'électricité moyenne consommée associée au repassage, pour le cycle d'entretien d'un kg de vêtement de la catégorie i, en kWh/kg.
 
 ### Durée de vie et nombre de cycles d'entretien
 
@@ -83,7 +83,7 @@ Par exemple, pour un t-shirt avec une durabilité élevée (coefficient de x1,35
 ### Energie pour le repassage
 
 $$
-E_{repassage_i} = r_{repassage,i}*t_{repassage,1}*E_{repassage,heure}
+E_{repassage_i} = r_{repassage,i}*t_{repassage,i}*E_{repassage,heure}
 $$
 
 Avec :&#x20;
@@ -131,108 +131,95 @@ Les calculs de ces deux composantes sont précisés dans les deux sous-parties s
 
 #### Consommation d'électricité pour 1kg de vêtement (hors repassage)
 
-E=E\_{lavage}+r\_{séchage,i}\*E\_{sechage}
+$$
+E_{7,horsrepassage,i}=E_{lavage}+r_{séchage,i}*E_{sechage}
+$$
 
-E\_lavage _: la quantité d'électricité nécessaire à laver 1 kg de vêtement (unité : kWh/kg). En accord avec la documentation ADEME on prend une valeur de 0.1847 kWh/kg_
+Avec :
 
-Pour l'étape de séchage en sèche-linge, en accord avec le projet de PEFCR Apparel & Footwear (Table 33 - version de l'été 2021) on applique un ratio de produits séchés en sèche-linge différent pour chaque type de produit. Par exemple on fait l'hypothèse qu'un T-Shirt est séché en sèche-linge 30% du temps tandis qu'une jupe n'est séchée en sèche-linge que 12% du temps.
-
-* r\_séchage,i _: la part de vêtement qui va être séché en sèche-linge (unité : sans unité)_
-* E\_sechage _: la quantité d'électricité nécessaire à sécher 1 kg de vêtement (unité : kWh/kg). En accord avec la documentation ADEME on prend une valeur de 0.335 kWh par kg de linge séché._
+* `E_7,horsrepassage,i` : la quantité d'électricité moyenne consommée (hors repassage) pour le cycle d'entretien d'un kg de vêtement de la catégorie `i`, en kWh/kg. Cette quantité est définie dans le procédé `Utilisation : Impact hors repassage (i)` comme flux externe. Elle intervient directement dans le calcul de l'impact environnemental de l'utilisation du vêtement.
+* `E_lavage` : la quantité d'électricité nécessaire pour laver 1 kg de vêtement, exprimé en kWh/kg.&#x20;
+  * Une valeur de 0.1847 kWh/kg est retenue, en accord avec la documentation ADEME
+* `r_sechage,i` : la part de vêtement qui va être séché en sèche-linge, pour la catégorie de vêtement `i`, sans unité.
+  * En accord avec le projet de PEFCR Apparel & Footwear (Table 33 - version de l'été 2021) on applique un ratio de produits séchés en sèche-linge différent pour chaque type de produit. Par exemple on fait l'hypothèse qu'un T-Shirt est séché en sèche-linge 30% du temps tandis qu'une jupe n'est séchée en sèche-linge que 12% du temps. Ces ratios sont précisé dans l'[Explorateur produits](https://ecobalyse.beta.gouv.fr/#/explore/textile/products);
+* `E_sechage` : la quantité d'électricité nécessaire pour sécher 1 kg de vêtement, exprimé en kWh/kg.&#x20;
+  * Une valeur de 0.335 kWh/kg est retenue, en accord avec la documentation ADEME
 
 #### Impacts environnementaux pour 1kg de vêtement (hors repassage)
 
-#### Lessive
-
-_F\_kg\_lessive/kg\_lavage : la masse de lessive nécessaire à laver 1 kg de vêtement (unité : kg/kg = sans unité). En accord avec la documentation ADEME on prend une valeur de 0.036 kg lessive par kg de linge lavé._
-
-_C\_impact/kg\_lessive : l'impact de la production d'1 kg de lessive (unité : impact/kg)_
-
-
-
-#### Traitement des eaux usées
-
-_F\_m3\_eaux/kg\_lavage : le volume d'eau nécessaire pour laver 1 kg de vêtement (unité : m3/kg). En accord avec la documentation ADEME on prend une valeur de 0.0097 m3 par kg de linge lavé._
-
-_C\_impact/m3\_eaux : l'impact du traitement d'1 m3 d'eaux usées (unité : impact/m3)_
-
-### Séchage
-
-#### Électricité
-
-
-
-
-
-Lavage et séchage
+Cet impact est le même pour toutes les catégories de vêtement. Il est calculé comme suit :
 
 $$
-I_{utilisation} = I_{élec\_lavage} + I_{lessive} + I_{eaux\_usées} + I_{élec\_séchage}
+I_{7,hors repassage}=m_{lessive}*I_{lessive}+V_{eau}*I_{traitementEau}
 $$
 
+Avec :
 
+* `I_7,horsrepassage` : I'impact environnemental associé à l'entretien d'1kg de vêtement de la catégorie i, exprimé en unité de la catégorie d'impact analysée par kg.&#x20;
+* `m_lessive` : la quantité de lessive nécessaire pour laver 1 kg de linge, exprimé en kg/kg.&#x20;
+  * Une valeur de 0.036 kWh/kg est retenue, en accord avec la documentation ADEME
+* `I_lessive` : I'impact environnemental d'1kg de lessive, exprimé en unité de la catégorie d'impact analysée par kg.
+  *
+* `V_eau` : le volume d'eau de vêtement nécessaire pour laver 1 kg de linge, exprimé en m3/kg.
+  * &#x20;Une valeur de 0.0097 kWh/kg est retenue, en accord avec la documentation ADEME
+* `I_traitementEau` : I'impact environnemental associé au traitement d'1m3 d'eau, exprimé en unité de la catégorie d'impact analysée par m3.&#x20;
 
-Lessive
+### Procédé de modélisation de l'électricité
 
-$$
-I_{utilisation} = I_{élec\_lavage} + I_{lessive} + I_{eaux\_usées} + I_{élec\_séchage} + I_{élec\_repassage}
-$$
-
-
-
-Eaux usées
-
-$$
-I_{utilisation} = I_{élec\_lavage} + I_{lessive} + I_{eaux\_usées} + I_{élec\_séchage} + I_{élec\_repassage}
-$$
-
-
-
-Repassage
-
-$$
-I_{élec\_repassage}=X
-$$
-
-
-
-Avec :&#x20;
-
-Repassage
-
-#### Électricité
-
-Avec
-
-
-
-
-
-#### Lessive
-
-_F\_kg\_lessive/kg\_lavage : la masse de lessive nécessaire à laver 1 kg de vêtement (unité : kg/kg = sans unité). En accord avec la documentation ADEME on prend une valeur de 0.036 kg lessive par kg de linge lavé._
-
-_C\_impact/kg\_lessive : l'impact de la production d'1 kg de lessive (unité : impact/kg)_
-
-#### Traitement des eaux usées
-
-_F\_m3\_eaux/kg\_lavage : le volume d'eau nécessaire pour laver 1 kg de vêtement (unité : m3/kg). En accord avec la documentation ADEME on prend une valeur de 0.0097 m3 par kg de linge lavé._
-
-_C\_impact/m3\_eaux : l'impact du traitement d'1 m3 d'eaux usées (unité : impact/m3)_
-
-### Séchage
-
-#### Électricité
-
-Pour l'étape de séchage en sèche-linge, en accord avec le projet de PEFCR Apparel & Footwear (Table 33 - version de l'été 2021) on applique un ratio de produits séchés en sèche-linge différent pour chaque type de produit. Par exemple on fait l'hypothèse qu'un T-Shirt est séché en sèche-linge 30% du temps tandis qu'une jupe n'est séchée en sèche-linge que 12% du temps.
-
-_ratio_\__sèche-linge(p) : la part de vêtement qui va être séché en sèche-linge (unité : sans unité)_
-
-_F\_kWh/kg\_sèche-linge : la quantité d'électricité nécessaire à sécher 1 kg de vêtement (unité : kWh/kg). En accord avec la documentation ADEME on prend une valeur de 0.335 kWh par kg de linge séché._
-
-
+Le procédé utilisé pour modéliser l'électricité est indiqué dans la page [Electricité à l'utilisation](https://app.gitbook.com/u/9QFiIxzi1NajCEGcTK2jJf967VI2).
 
 ## Exemple d'application
+
+La méthode est détaillée ci-dessous avec l'exemple d'une jupe :
+
+* Catégorie : jupe
+  * paramètres associés : voir [Explorateur produit pour la jupe](https://ecobalyse.beta.gouv.fr/#/explore/textile/products/jupe)
+  * Procédé associé à l'utilisation : voir [Explorateur procédé](https://ecobalyse.beta.gouv.fr/#/explore/textile/textile-processes/5ca66e62-356c-57ea-81e9-82951cb7f473)
+* Coefficient de durabilité `C_Durabilité` = 1,&#x20;
+* Poids `m` = 0.3 kg
+* nombre de cycles d'entretien : `n_cycles` = 23
+
+Il en découle :&#x20;
+
+* Rappel de la formule de calcul
+
+$$
+I_{7} = n_{cycles}*m*\Big(E_{7,hors repassage,i}*I_{élec} + I_{7,horsrepassage} +E_{repassage,i}*I_{élec}\Big)
+$$
+
+* Calcul pour la jupe :
+
+$$
+I_{7} = 23*0.3*\Big(0.22*18,75 + 15.13 +0.02*18,75 \Big)
+$$
+
+Pour rentrer dans le détail :
+
+* `E_7,horsrepassage,i = 0.1847 + 12%*0.335 = 0.22 kWh/kg` (voir procédé [`Utilisation : Impact hors repassage (Jupe)`](https://ecobalyse.beta.gouv.fr/#/explore/textile/textile-processes/5ca66e62-356c-57ea-81e9-82951cb7f473))
+* `E_repassage,i = 18 % * 0.08 * 1.5 = 0.0216 kWh/kg`
+
+
+
+`I_7` =&#x20;
+
+```
+élec_non_ironing = n_cycles * m * P_non_ironing_élec
+Avec  P_non_ironing_élec : la quantité d'électricité (MJ) nécessaire pour l'étape hors repassage (lave-linge, sèche-linge) du cycle d'entretien d'une jupe.
+élec_non_ironing = 23 * 0.3 * 0.81
+élec_non_ironing = 5.59 MJ
+élec_non_ironing = 1.55 kWh
+
+impact_élec_non_ironing = élec_non_ironing * P_élec_fr_cch
+Avec P_élec_fr_cch : la quantité de kgCO2e émise pour produire 1 kWh d'électricité française
+impact_élec_non_ironing = 1.55 * 0.0729
+impact_élec_non_ironing = 0.11 kgCO2e
+
+
+impact_eaux_lessive_non_ironing = n_cycles * m * P_non_ironing_cch
+Avec P_non_ironing_cch : la quantité de kgCO2e émise pour le processus hors ironing (lessive + traitement des eaux usées) pour 1 kg de linge à laver.
+impact_eaux_lessive_non_ironing = 23 * 0.3 * 3.4E-02
+impact_eaux_lessive_non_ironing = 0.23 kgCO2e
+```
 
 {% hint style="info" %}
 \[optionnel mais utile] Application à un exemple, pour permettre une meilleure compréhension au lecteur
