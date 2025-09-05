@@ -659,7 +659,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["veli"],
+    "scopes": ["veli", "object"],
     "source": "Ecobalyse",
     "sourceId": "Aluminium extrusion, constructed by Ecobalyse",
     "unit": "kg",
@@ -1288,7 +1288,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["veli"],
+    "scopes": ["veli", "object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "polyethylene terephthalate, granulate, amorphous//[GLO] market for polyethylene terephthalate, granulate, amorphous",
     "unit": "kg",
@@ -2805,7 +2805,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["veli"],
+    "scopes": ["veli", "object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "aluminium, wrought alloy//[GLO] aluminium ingot, primary, to aluminium, wrought alloy market",
     "unit": "kg",
@@ -3767,7 +3767,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["veli"],
+    "scopes": ["veli", "object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "steel, unalloyed//[GLO] market for steel, unalloyed",
     "unit": "kg",
@@ -3952,7 +3952,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["veli"],
+    "scopes": ["veli", "object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "polycarbonate//[RER] polycarbonate production",
     "unit": "kg",
@@ -4174,7 +4174,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["veli"],
+    "scopes": ["veli", "object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "polymethyl methacrylate, sheet//[RER] polymethyl methacrylate production, sheet",
     "unit": "kg",
@@ -6394,7 +6394,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["veli"],
+    "scopes": ["veli", "object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "synthetic rubber//[RER] synthetic rubber production",
     "unit": "kg",
@@ -6542,7 +6542,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["veli"],
+    "scopes": ["veli", "object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "flat glass, uncoated//[RER] flat glass production, uncoated",
     "unit": "kg",
@@ -9321,7 +9321,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["veli"],
+    "scopes": ["veli", "object"],
     "source": "Ecobalyse",
     "sourceId": "Aluminium sheeet rolling, constructed by Ecobalyse",
     "unit": "kg",
@@ -9395,7 +9395,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["veli"],
+    "scopes": ["veli", "object"],
     "source": "Ecobalyse",
     "sourceId": "Aluminium working, average, constructed by Ecobalyse",
     "unit": "kg",
@@ -9765,7 +9765,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["veli"],
+    "scopes": ["veli", "object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "acrylonitrile-butadiene-styrene copolymer//[GLO] market for acrylonitrile-butadiene-styrene copolymer",
     "unit": "kg",
@@ -11726,7 +11726,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["veli"],
+    "scopes": ["veli", "object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "polypropylene, granulate//[GLO] market for polypropylene, granulate",
     "unit": "kg",
@@ -13243,7 +13243,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["veli"],
+    "scopes": ["veli", "object"],
     "source": "Ecobalyse",
     "sourceId": "chromium steel sheet rolling, constructed by Ecobalyse",
     "unit": "kg",
@@ -15463,7 +15463,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["veli"],
+    "scopes": ["veli", "object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "polyvinylchloride, suspension polymerised//[GLO] market for polyvinylchloride, suspension polymerised",
     "unit": "kg",
@@ -15500,7 +15500,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["veli"],
+    "scopes": ["veli", "object"],
     "source": "Ecobalyse",
     "sourceId": "chromium steel working, constructed by Ecobalyse",
     "unit": "kg",
@@ -15796,7 +15796,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["veli"],
+    "scopes": ["veli", "object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "steel, chromium steel 18/8//[GLO] market for steel, chromium steel 18/8",
     "unit": "kg",
@@ -16462,7 +16462,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["veli"],
+    "scopes": ["veli", "object"],
     "source": "Ecobalyse",
     "sourceId": "steel section bar rolling, constructed by Ecobalyse",
     "unit": "kg",
