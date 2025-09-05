@@ -46,7 +46,7 @@ buildApiQuery scope clientUrl query =
   -H "content-type: application/json" \\
   -d '%json%'
 """
-        |> String.replace "%apiUrl%" (clientUrl ++ "api/" ++ Scope.toString scope ++ "/simulator")
+        |> String.replace "%apiUrl%" (clientUrl ++ "/api/" ++ Scope.toString scope ++ "/simulator")
         |> String.replace "%json%" (encode query |> Encode.encode 0)
 
 
