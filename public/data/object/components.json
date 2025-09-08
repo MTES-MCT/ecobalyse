@@ -1,41 +1,95 @@
 [
   {
     "elements": [],
-    "id": "c38a56d0-c718-405b-963f-f43dbcba3571",
-    "name": "Composant vide",
+    "id": "f095456a-af9d-4f15-8b4e-d3e8358ff794",
+    "name": "Composant à créer",
     "scopes": ["object"]
   },
   {
     "elements": [
       {
-        "amount": 0.734063,
-        "material": "59b42284-3e45-5343-8a20-1d7d66137461"
+        "amount": 0.4,
+        "material": "39fd91f1-72b6-5fa3-89d4-ce25b352d107",
+        "transforms": ["6e1779a0-3bc7-5850-9820-02a037813ce7"]
       }
     ],
     "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973",
-    "name": "Dossier plastique (PP)",
+    "name": "Pied chaise acier",
     "scopes": ["object"]
   },
   {
     "elements": [
       {
-        "amount": 0.91125,
-        "material": "59b42284-3e45-5343-8a20-1d7d66137461"
+        "amount": 29,
+        "material": "39fd91f1-72b6-5fa3-89d4-ce25b352d107",
+        "transforms": ["6e1779a0-3bc7-5850-9820-02a037813ce7"]
       }
     ],
-    "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6",
-    "name": "Assise plastique (PP)",
+    "id": "b09809e2-9616-49d0-a039-f26d4806d141",
+    "name": "Structure acier (canapé 3p)",
     "scopes": ["object"]
   },
   {
     "elements": [
       {
-        "amount": 35,
-        "material": "59b42284-3e45-5343-8a20-1d7d66137461"
+        "amount": 15,
+        "material": "7adec581-5650-5c76-b119-e907f2534de6",
+        "transforms": []
       }
     ],
-    "id": "190276e9-5b90-42d6-8fbd-bc7ddfd4c960",
-    "name": "Cadre plastique",
+    "id": "330c2ce9-f91b-42f3-bcdd-335da7f1d141",
+    "name": "Mousse polyurethane (canapé 3p)",
+    "scopes": ["object"]
+  },
+  {
+    "elements": [
+      {
+        "amount": 1.26,
+        "material": "59b42284-3e45-5343-8a20-1d7d66137461",
+        "transforms": ["111539de-deea-588a-9581-6f6ceaa2dfa9"]
+      }
+    ],
+    "id": "10e199b6-7e5f-47d9-bc85-9959c4e9ee62",
+    "name": "Boite plastique PP 45L (55 * 45 * 39)",
+    "scopes": ["object"]
+  },
+  {
+    "elements": [
+      {
+        "amount": 1,
+        "material": "f0dbe27b-1e74-55d0-88a2-bda812441744",
+        "transforms": [
+          "ace9db61-adc8-5287-a13b-dcd79a83fc28",
+          "0b86f5c1-9354-53c1-a8e8-2e73c382479f",
+          "852452b3-430f-5d07-8ef5-f701dad19c52",
+          "af135ae5-5a2c-5940-9bfb-55c7805e8fb9"
+        ]
+      },
+      {
+        "amount": 1,
+        "material": "1477fa12-1ea5-565d-b549-88356b039694",
+        "transforms": [
+          "aeb21302-d7b6-5c6c-b5dc-fbaf475b7ffc",
+          "904fec21-c2e8-504c-8142-93096aae9042",
+          "852452b3-430f-5d07-8ef5-f701dad19c52",
+          "7cdc9616-7fb4-5a69-9436-78e5b84ebf31"
+        ]
+      }
+    ],
+    "id": "5f74cda2-19a9-47c7-9fd7-7588c24adf21",
+    "name": "Tissu 2kg 50%coton 50%polyester (canapé 3p)",
+    "scopes": ["object"]
+  },
+  {
+    "elements": [
+      {
+        "amount": 0.35,
+        "material": "39fd91f1-72b6-5fa3-89d4-ce25b352d107",
+        "transforms": ["6e1779a0-3bc7-5850-9820-02a037813ce7"]
+      }
+    ],
+    "id": "3aaebbee-a087-404b-bce8-3a710245b0fa",
+    "name": "Barre penderie 60cm (acier)",
     "scopes": ["object"]
   }
 ]

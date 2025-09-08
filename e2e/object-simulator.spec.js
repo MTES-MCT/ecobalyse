@@ -5,20 +5,20 @@ test("object simulator", async ({ page }) => {
   await page.getByLabel("Menu principal").getByRole("link", { name: "Objets" }).click();
 
   await page.getByRole("button", { name: "Ajouter un composant" }).click();
-  await page.getByRole("option", { name: "Dossier plastique (PP)" }).click();
+  await page.getByRole("option", { name: "Pied chaise acier" }).click();
   await page.getByRole("button", { name: "Ajouter un composant" }).click();
-  await page.getByRole("option", { name: "Assise plastique (PP)" }).click();
+  await page.getByRole("option", { name: "Structure acier (canapé 3p)" }).click();
   await page.getByRole("button", { name: "Ajouter un composant" }).click();
-  await page.getByRole("option", { name: "Cadre plastique" }).click();
+  await page.getByRole("option", { name: "Mousse polyurethane (canapé 3p)" }).click();
 
-  await page.getByRole("row", { name: "▶ Dossier plastique" }).getByRole("spinbutton").fill("2");
-  await page.getByRole("row", { name: "▶ Assise plastique" }).getByRole("spinbutton").fill("3");
-  await page.getByRole("row", { name: "▶ Cadre plastique" }).getByRole("spinbutton").fill("4");
+  await page.getByRole("row", { name: "▶ Pied chaise acier" }).getByRole("spinbutton").fill("2");
+  await page.getByRole("row", { name: "▶ Structure acier" }).getByRole("spinbutton").fill("3");
+  await page.getByRole("row", { name: "▶ Mousse polyurethane" }).getByRole("spinbutton").fill("4");
 
   // Update transform for the first component
   await page.getByRole("button", { name: "▶" }).first().click();
   await page.getByRole("button", { name: "Ajouter une transformation" }).click();
-  await page.getByRole("option", { name: "Moulage par injection" }).click();
+  await page.getByRole("option", { name: "Extrusion" }).click();
 
   await expect(page.getByTestId("score-card")).toBeVisible();
 
