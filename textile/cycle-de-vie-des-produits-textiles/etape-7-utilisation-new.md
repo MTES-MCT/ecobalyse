@@ -190,7 +190,7 @@ $$
 * Calcul pour la jupe :
 
 $$
-I_{7} = 23*0.3*\Big(0.22*18,75 + 15.13 +0.02*18,75 \Big)
+I_{7} = 23*0.3*\Big(0.22*19.33 + 15.13 +0.02*19.33 \Big)
 $$
 
 Pour rentrer dans le détail :
