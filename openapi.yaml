@@ -505,19 +505,19 @@ components:
           type: string
           description: |
             Code pays pour l'étape de **Teinture** (liste disponible sur le point d'entrée `textile/countries`)
-          minLength: 3
+          minLength: 2
           maxLength: 3
         countryFabric:
           type: string
           description: |
             Code pays pour l'étape de **Tissage/Tricotage** (liste disponible sur le point d'entrée `textile/countries`)
-          minLength: 3
+          minLength: 2
           maxLength: 3
         countryMaking:
           type: string
           description: |
             Code pays pour l'étape de **Confection** (liste disponible sur le point d'entrée `textile/countries`)
-          minLength: 3
+          minLength: 2
           maxLength: 3
         countrySpinning:
           type: string
@@ -525,7 +525,7 @@ components:
             Code pays pour l'étape de **Filature** (liste disponible sur le point d'entrée `textile/countries`).
             Si non spécifié, le pays de filature pris en considération est celui de production de
             la matière la plus représentée dans le mix.
-          minLength: 3
+          minLength: 2
           maxLength: 3
         disabledSteps:
           type: array
@@ -734,7 +734,7 @@ components:
         country:
           type: string
           description: Code du pays d'origine de la matière
-          minLength: 3
+          minLength: 2
           maxLength: 3
     FoodQuery:
       type: object
