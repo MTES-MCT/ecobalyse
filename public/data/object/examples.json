@@ -1,10 +1,39 @@
 [
   {
     "category": "",
-    "id": "0d08a9ff-5683-4d3d-a7b8-dce74f37cd3b",
-    "name": "Objet vide",
+    "id": "b8e768d4-35d9-454e-8b3b-e25160ce6d4c",
+    "name": "Canapé 3p (à finaliser)",
     "query": {
-      "components": []
+      "components": [
+        {
+          "id": "330c2ce9-f91b-42f3-bcdd-335da7f1d141",
+          "quantity": 1
+        },
+        {
+          "id": "5f74cda2-19a9-47c7-9fd7-7588c24adf21",
+          "quantity": 1
+        },
+        {
+          "id": "b09809e2-9616-49d0-a039-f26d4806d141",
+          "quantity": 1
+        }
+      ],
+      "durability": 1
+    },
+    "scope": "object"
+  },
+  {
+    "category": "",
+    "id": "ebbff4dc-e52d-42e7-916b-ac191605b474",
+    "name": "Lot de 3 boîtes plastiques PP 45L",
+    "query": {
+      "components": [
+        {
+          "id": "10e199b6-7e5f-47d9-bc85-9959c4e9ee62",
+          "quantity": 3
+        }
+      ],
+      "durability": 1
     },
     "scope": "object"
   }
