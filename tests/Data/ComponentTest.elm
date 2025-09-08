@@ -117,7 +117,7 @@ suite =
                             , mass = Mass.kilogram
                             , stage = Nothing
                             }
-                            |> Component.applyTransforms db.processes transforms
+                            |> Component.applyTransforms db.processes transforms Process.Kilogram
                             |> Result.withDefault Component.emptyResults
                             |> Component.extractMass
                             |> Mass.inKilograms
@@ -144,7 +144,7 @@ suite =
                             , mass = Mass.kilogram
                             , stage = Nothing
                             }
-                            |> Component.applyTransforms db.processes transforms
+                            |> Component.applyTransforms db.processes transforms Process.Kilogram
                             |> Result.withDefault Component.emptyResults
                             |> extractEcsImpact
                   in
@@ -194,7 +194,7 @@ suite =
                             , mass = Mass.kilogram
                             , stage = Nothing
                             }
-                            |> Component.applyTransforms db.processes transforms
+                            |> Component.applyTransforms db.processes transforms Process.Kilogram
                             |> Result.withDefault Component.emptyResults
                   in
                   describe "impacts & waste"
