@@ -325,7 +325,7 @@ components:
       value:
         mass: 0.17
         materials:
-        - id: "ei-coton"
+        - id: "62a4d6fb-3276-4ba5-93a3-889ecd3bff84"
           share: 1
           country: "FR"
         product: "tshirt"
@@ -339,7 +339,7 @@ components:
       value:
         mass: 0.17
         materials:
-        - id: "ei-coton"
+        - id: "62a4d6fb-3276-4ba5-93a3-889ecd3bff84"
           share: 1
         product: "tshirt"
         countrySpinning: "CN"
