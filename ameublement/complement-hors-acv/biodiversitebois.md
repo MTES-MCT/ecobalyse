@@ -2,7 +2,7 @@
 description: Présentation de la méthode de calcul du complément Biodiversité x Bois .
 ---
 
-# 🌍 Biodiversité x Bois
+# 🌍 Biodiversité x Bois (draft)
 
 ## Contexte
 
@@ -47,6 +47,35 @@ _Source : Règlement européen du 31 mai 2023 relatif à la déforestation impor
 {% endhint %}
 
 </details>
+
+### Quelques définitions
+
+Le règlement européen RDUE propose quelques définitions :&#x20;
+
+{% tabs %}
+{% tab title="Types de peuplements" %}
+4 types de peuplement sont définis &#x20;
+
+* &#x20;«forêt primaire» : une forêt naturellement régénérée d’essences d’arbres indigènes où aucune trace d’activité humaine n’est clairement visible et où les processus écologiques ne sont pas sensiblement perturbés;
+* «forêt naturellement régénérée» : forêt à prédominance d’arbres établis par régénération naturelle;
+* «forêt plantée» : une forêt à prédominance d’arbres établis par plantation et/ou par semis délibéré, et où les arbres plantés ou semés sont censés constituer plus de 50 % du matériel sur pied à maturité;
+* «forêt de plantation» : une forêt plantée soumise à une gestion intensive et qui, au moment de la plantation et de la maturité du peuplement, remplit tous les critères suivants: une ou deux essences, une structure équienne et un espacement régulier.
+{% endtab %}
+
+{% tab title="Pratiques forestières" %}
+Il n'est pas proposée de définitions claires sur les différentes pratiques forestières.&#x20;
+
+Les pratiques dégradant les forêts sont définies et rattachées au peuplement "forêt de plantation".&#x20;
+
+
+
+Extrait du RDUE :&#x20;
+
+Dégradation des forêts : les modifications structurelles apportées au couvert forestier, prenant la forme de la conversion: (i) de forêts primaires ou de forêts naturellement régénérées en forêts de plantation ou en d’autres surfaces boisées; (ii) de forêts primaires en forêts plantées.
+{% endtab %}
+{% endtabs %}
+
+
 
 ## Méthodes de calcul
 
