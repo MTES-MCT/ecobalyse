@@ -117,7 +117,7 @@ suite =
                             , mass = Mass.kilogram
                             , stage = Nothing
                             }
-                            |> Component.applyTransforms db.processes transforms Process.Kilogram
+                            |> Component.applyTransforms db.processes Process.Kilogram transforms
                             |> Result.withDefault Component.emptyResults
                             |> Component.extractMass
                             |> Mass.inKilograms
@@ -144,7 +144,7 @@ suite =
                             , mass = Mass.kilogram
                             , stage = Nothing
                             }
-                            |> Component.applyTransforms db.processes transforms Process.Kilogram
+                            |> Component.applyTransforms db.processes Process.Kilogram transforms
                             |> Result.withDefault Component.emptyResults
                             |> extractEcsImpact
                   in
@@ -186,6 +186,21 @@ suite =
                             |> Expect.within (Expect.Absolute 1) 776
                         )
                     ]
+                , TestUtils.suiteFromResult "unit mismatch"
+                    injectionMoulding
+                    (\transformInKg ->
+                        [ it "should reject when the unit of the material and the transforms do not match"
+                            (Component.Results
+                                { impacts = Impact.empty
+                                , items = []
+                                , mass = Mass.kilogram
+                                , stage = Nothing
+                                }
+                                |> Component.applyTransforms db.processes Process.CubicMeter [ transformInKg ]
+                                |> Expect.equal (Err "Les procédés de transformation ne partagent pas la même unité que la matière source (m3)\u{00A0}: Moulage par injection (kg)")
+                            )
+                        ]
+                    )
                 , let
                     getTestResults transforms =
                         Component.Results
@@ -194,7 +209,7 @@ suite =
                             , mass = Mass.kilogram
                             , stage = Nothing
                             }
-                            |> Component.applyTransforms db.processes transforms Process.Kilogram
+                            |> Component.applyTransforms db.processes Process.Kilogram transforms
                             |> Result.withDefault Component.emptyResults
                   in
                   describe "impacts & waste"

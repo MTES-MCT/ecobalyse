@@ -269,55 +269,69 @@ Note: for now we use average elec and heat mixes, but we might want to allow
 specifying specific country mixes in the future.
 
 -}
-applyTransforms : List Process -> List Process -> Process.Unit -> Results -> Result String Results
-applyTransforms allProcesses transforms unit materialResults =
+applyTransforms : List Process -> Process.Unit -> List Process -> Results -> Result String Results
+applyTransforms allProcesses unit transforms materialResults =
+    checkTransformsUnit unit transforms
+        |> Result.andThen (\_ -> loadDefaultEnergyMixes allProcesses)
+        |> Result.map
+            (\{ elec, heat } ->
+                transforms
+                    |> List.foldl
+                        (\transform (Results { impacts, items, mass }) ->
+                            let
+                                wastedMass =
+                                    mass |> Quantity.multiplyBy (Split.toFloat transform.waste)
+
+                                outputMass =
+                                    mass |> Quantity.minus wastedMass
+
+                                -- Note: impacts are always computed from input mass
+                                transformImpacts =
+                                    [ transform.impacts
+                                    , elec.impacts
+                                        |> Impact.multiplyBy (Energy.inKilowattHours transform.elec)
+                                    , heat.impacts
+                                        |> Impact.multiplyBy (Energy.inMegajoules transform.heat)
+                                    ]
+                                        |> Impact.sumImpacts
+                                        |> Impact.multiplyBy (Mass.inKilograms mass)
+                            in
+                            Results
+                                -- global result
+                                { impacts = Impact.sumImpacts [ transformImpacts, impacts ]
+                                , items =
+                                    items
+                                        ++ [ -- transform result
+                                             Results
+                                                { impacts = transformImpacts
+                                                , items = []
+                                                , mass = outputMass
+                                                , stage = Just TransformStage
+                                                }
+                                           ]
+                                , mass = outputMass
+                                , stage = Nothing
+                                }
+                        )
+                        materialResults
+            )
+
+
+checkTransformsUnit : Process.Unit -> List Process -> Result String (List Process)
+checkTransformsUnit unit transforms =
     if not <| List.all (.unit >> (==) unit) transforms then
-        Err "Les procédés de transformation doivent avoir la même unité que le matériau"
+        "Les procédés de transformation ne partagent pas la même unité que la matière source ("
+            ++ Process.unitToString unit
+            ++ ")\u{00A0}: "
+            ++ (transforms
+                    |> List.filter (.unit >> (/=) unit)
+                    |> List.map (\p -> Process.getDisplayName p ++ " (" ++ Process.unitToString p.unit ++ ")")
+                    |> String.join ", "
+               )
+            |> Err
 
     else
-        loadDefaultEnergyMixes allProcesses
-            |> Result.map
-                (\{ elec, heat } ->
-                    transforms
-                        |> List.foldl
-                            (\transform (Results { impacts, items, mass }) ->
-                                let
-                                    wastedMass =
-                                        mass |> Quantity.multiplyBy (Split.toFloat transform.waste)
-
-                                    outputMass =
-                                        mass |> Quantity.minus wastedMass
-
-                                    -- Note: impacts are always computed from input mass
-                                    transformImpacts =
-                                        [ transform.impacts
-                                        , elec.impacts
-                                            |> Impact.multiplyBy (Energy.inKilowattHours transform.elec)
-                                        , heat.impacts
-                                            |> Impact.multiplyBy (Energy.inMegajoules transform.heat)
-                                        ]
-                                            |> Impact.sumImpacts
-                                            |> Impact.multiplyBy (Mass.inKilograms mass)
-                                in
-                                Results
-                                    -- global result
-                                    { impacts = Impact.sumImpacts [ transformImpacts, impacts ]
-                                    , items =
-                                        items
-                                            ++ [ -- transform result
-                                                 Results
-                                                    { impacts = transformImpacts
-                                                    , items = []
-                                                    , mass = outputMass
-                                                    , stage = Just TransformStage
-                                                    }
-                                               ]
-                                    , mass = outputMass
-                                    , stage = Nothing
-                                    }
-                            )
-                            materialResults
-                )
+        Ok transforms
 
 
 {-| Computes impacts from a list of available components, processes and specified component items
@@ -340,7 +354,7 @@ computeElementResults processes =
                         (\initialAmount ->
                             material
                                 |> computeMaterialResults initialAmount
-                                |> applyTransforms processes transforms material.unit
+                                |> applyTransforms processes material.unit transforms
                         )
             )
 
