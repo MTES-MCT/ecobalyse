@@ -190,9 +190,9 @@ Le procédé utilisé pour modéliser l'électricité est indiqué dans la page 
 
 La méthode est détaillée ci-dessous avec l'exemple d'une jupe :
 
-* Catégorie : jupe
-  * paramètres associés : voir [Explorateur produit pour la jupe](https://ecobalyse.beta.gouv.fr/#/explore/textile/products/jupe)
-  * Procédé associé à l'utilisation : voir [Explorateur procédé](https://ecobalyse.beta.gouv.fr/#/explore/textile/textile-processes/5ca66e62-356c-57ea-81e9-82951cb7f473)
+* Catégorie : Jupe
+  * Paramètres associés : voir [Explorateur produit pour la jupe](https://ecobalyse.beta.gouv.fr/#/explore/textile/products/jupe)
+  * Procédé associé à l'utilisation : voir [procédé `Utilisation : Impact hors repassage (Jupe)` dans l'Explorateur procédés](https://ecobalyse.beta.gouv.fr/#/explore/textile/products/jupe)
 * Coefficient de durabilité `C_Durabilité` = 1,&#x20;
 * Poids `m` = 0.3 kg
 * nombre de cycles d'entretien : `n_cycles` = 23
