@@ -56,7 +56,7 @@ _Source : Règlement européen du 31 mai 2023 relatif à la déforestation impor
 
 <summary>Extraits bibliographiques</summary>
 
-:bulb: Suite au partage d'une première version de cette proposition méthodologique, des avis divergents (voir opposés) d'acteurs clés de la filière Bois-Ameublement sont apparus sur l'intérêt de ce complément. Afin d'enrichir les travaux et fluidifier nos échanges, nous partageons ci-dessous quelques extraits bibliographiques motivant notre souhait d'intégrer dans le coût environnemental l'impact sur la biodiversité de certaines pratiques sylvicoles.
+:bulb: Suite au partage d'une première version de cette proposition méthodologique, des débats au sein de la filière bois sont apparus sur l'intérêt de ce complément. Afin d'enrichir les travaux, nous partageons ci-dessous quelques extraits bibliographiques motivant notre souhait d'intégrer dans le coût environnemental l'impact sur la biodiversité de certaines pratiques sylvicoles.
 
 
 
