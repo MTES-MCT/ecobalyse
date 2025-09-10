@@ -4,6 +4,8 @@ description: Présentation de la méthode de calcul du complément Biodiversité
 
 # 🌍 Biodiversité x Bois (draft)
 
+##
+
 ## Contexte
 
 Ce complément est introduit afin d'intégrer dans le coût environnemental des meubles l'impact sur la biodiversité de pratiques forestières participant à la dégradation des forêts.&#x20;
@@ -45,6 +47,26 @@ Le bois fait partie des quelques produits de base consommés au sein de l'UE et 
 
 _Source : Règlement européen du 31 mai 2023 relatif à la déforestation importée_&#x20;
 {% endhint %}
+
+</details>
+
+
+
+<details>
+
+<summary>Extraits bibliographiques</summary>
+
+:bulb: Suite au partage d'une première version de cette proposition méthodologique, des avis divergents (voir opposés) d'acteurs clés de la filière Bois-Ameublement sont apparus sur l'intérêt de ce complément. Afin d'enrichir les travaux et fluidifier nos échanges, nous partageons ci-dessous quelques extraits bibliographiques motivant notre souhait d'intégrer dans le coût environnemental l'impact sur la biodiversité de certaines pratiques sylvicoles.
+
+
+
+Extrait :1  Indice de Biodiversité Potentielle (IBP) développé par CNPF/INRAE \
+&#xNAN;_"En particulier, les caractéristiques des coupes et le choix des essences influencent fortement les espèces présentes. Nos forêts ne sont donc pas à l’abri de problèmes d’érosion de la biodiversité. Des espèces sont ainsi devenues rares ou menacées."_&#x20;
+
+
+
+_Extrait 2 :_ [_Règlement_ ](https://eur-lex.europa.eu/legal-content/FR/TXT/HTML/?uri=CELEX:32023R1115)_européen du 31 mai 2023 relatif à la déforestation importée_ \
+_"_&#x4C;es forêts primaires et les forêts naturellement régénérées sont menacées, entre autres en raison de la gestion intensive, et leur biodiversité et leurs caractéristiques structurelles uniques en leur genre sont en péril. En outre, l’Agence européenne pour l’environnement a fait remarquer que, à l’heure actuelle, moins de 5 % des zones forestières européennes sont considérées comme non perturbées ou naturelles, tandis que 10 % des zones forestières européennes sont classées comme étant soumises à une gestion intensive. Les écosystèmes forestiers doivent faire face à de multiples pressions causées par le changement climatique, qui vont de régimes climatiques extrêmes aux organismes nuisibles, et à des activités humaines ayant une incidence négative sur les écosystèmes et les habitats. En particulier, la gestion intensive des forêts équiennes par la coupe à blanc et l’élimination du bois mort peut avoir de graves effets sur des habitats entiers."
 
 </details>
 
@@ -186,6 +208,8 @@ Les pays sont notés sur une échelle de 0 à 100, où 0 signifie un niveau de c
 </details>
 
 #### Liste des bois disponibles (i) et de leurs impacts biodiversité (Ref)&#x20;
+
+<mark style="color:orange;">Cette liste sera mise à jour suite à l'atelier collectif du 24/09/2025 (</mark>[<mark style="color:orange;">lien</mark>](https://affichage-environnemental.ademe.fr/ameublement)<mark style="color:orange;">)</mark>
 
 <figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>Impact biodiversité des différents bois proposés dans le Niveau 1 de la méthode ( Ref(i) )</p></figcaption></figure>
 
