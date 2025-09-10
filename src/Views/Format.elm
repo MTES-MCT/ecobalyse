@@ -1,6 +1,7 @@
 module Views.Format exposing
     ( amount
     , complement
+    , cubicMeters
     , days
     , density
     , diff
@@ -15,7 +16,6 @@ module Views.Format exposing
     , kgToString
     , kilowattHours
     , km
-    , m3
     , megajoules
     , minutes
     , percent
@@ -167,7 +167,7 @@ amount { unit } amount_ =
     in
     case unit of
         Process.CubicMeter ->
-            m3 <| Volume.cubicMeters floatAmount
+            cubicMeters <| Volume.cubicMeters floatAmount
 
         Process.Kilogram ->
             kg <| Mass.kilograms floatAmount
@@ -183,6 +183,11 @@ amount { unit } amount_ =
                 ++ " "
                 ++ Process.unitToString unit
                 |> text
+
+
+cubicMeters : Volume -> Html msg
+cubicMeters =
+    Volume.inCubicMeters >> formatRichFloat 3 "m³"
 
 
 kg : Mass -> Html msg
@@ -209,11 +214,6 @@ liters =
 kilowattHours : Energy -> Html msg
 kilowattHours =
     Energy.inKilowattHours >> formatRichFloat 2 "kWh"
-
-
-m3 : Volume -> Html msg
-m3 =
-    Volume.inCubicMeters >> formatRichFloat 3 "m³"
 
 
 megajoules : Energy -> Html msg
