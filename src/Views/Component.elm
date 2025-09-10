@@ -419,28 +419,14 @@ elementView config targetItem elementIndex { amount, material, transforms } elem
                   else
                     text "Quantité finale"
                 ]
-            , th [ class "align-middle", scope "col" ] [ text <| "Élément #" ++ String.fromInt (elementIndex + 1) ]
-            , th [ class "align-middle", scope "col" ] [ text "Pertes" ]
+            , th [ class "align-middle", scope "col" ]
+                [ text <| "Élément #" ++ String.fromInt (elementIndex + 1) ]
+            , th [ class "align-middle", scope "col" ]
+                [ text "Pertes" ]
             , th [ class "align-middle text-truncate", scope "col", Attr.title "Masse sortante" ]
-                [ case material.unit of
-                    Process.CubicMeter ->
-                        text "Volume"
-
-                    Process.Kilogram ->
-                        text "Masse"
-
-                    Process.Liter ->
-                        text "Volume"
-
-                    Process.SquareMeter ->
-                        text "Surface"
-
-                    _ ->
-                        text "Quantité"
-                ]
+                [ material.unit |> Process.unitLabel |> text ]
             , th [ class "align-middle text-end", scope "col" ]
-                [ Format.formatImpact config.impact <| Component.extractImpacts elementResults
-                ]
+                [ Format.formatImpact config.impact <| Component.extractImpacts elementResults ]
             , th [] []
             ]
             :: elementMaterialView config ( targetItem, elementIndex ) materialResults material amount
@@ -495,8 +481,7 @@ elementMaterialView config targetElement materialResults material amount =
                 amountInput config targetElement material.unit amount
             ]
         , td [ class "align-middle text-truncate w-100", title <| Process.getDisplayName material ]
-            [ selectMaterialButton config targetElement material
-            ]
+            [ selectMaterialButton config targetElement material ]
         , td [ class "text-end align-middle text-nowrap" ]
             []
         , td [ class "text-end align-middle text-nowrap" ]

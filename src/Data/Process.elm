@@ -18,6 +18,7 @@ module Data.Process exposing
     , idToString
     , listAvailableMaterialTransforms
     , listByCategory
+    , unitLabel
     , unitToString
     )
 
@@ -255,6 +256,34 @@ listByCategory category =
 listByUnit : Unit -> List Process -> List Process
 listByUnit unit =
     List.filter (.unit >> (==) unit)
+
+
+unitLabel : Unit -> String
+unitLabel unit =
+    case unit of
+        CubicMeter ->
+            "Volume"
+
+        Items ->
+            "Quantité"
+
+        Kilogram ->
+            "Masse"
+
+        KilowattHour ->
+            "Électricité"
+
+        Liter ->
+            "Volume"
+
+        Megajoule ->
+            "Chaleur"
+
+        SquareMeter ->
+            "Surface"
+
+        TonKilometer ->
+            "Transport"
 
 
 unitToString : Unit -> String
