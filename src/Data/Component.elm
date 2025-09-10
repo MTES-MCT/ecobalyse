@@ -178,7 +178,7 @@ type Quantity
 -}
 type Results
     = Results
-        { amount : Maybe Amount
+        { amount : Amount
         , impacts : Impacts
         , items : List Results
         , mass : Mass
@@ -271,8 +271,8 @@ amountToFloat (Amount float) =
     float
 
 
-applyTransform : EnergyMixes -> Process -> ( Amount, Results ) -> ( Amount, Results )
-applyTransform { elec, heat } transform ( inputAmount, Results { impacts, items, mass } ) =
+applyTransform : EnergyMixes -> Process -> Results -> Results
+applyTransform { elec, heat } transform (Results { amount, impacts, items, mass }) =
     let
         transformImpacts =
             [ transform.impacts
@@ -281,28 +281,24 @@ applyTransform { elec, heat } transform ( inputAmount, Results { impacts, items,
             ]
                 |> Impact.sumImpacts
                 -- Note: impacts are always computed from input amount
-                |> Impact.multiplyBy (amountToFloat inputAmount)
-
-        wastedMass =
-            mass |> Quantity.multiplyBy (Split.toFloat transform.waste)
-
-        outputMass =
-            mass |> Quantity.minus wastedMass
+                |> Impact.multiplyBy (amountToFloat amount)
 
         outputAmount =
-            inputAmount
-                |> mapAmount (\val -> val - (val * Split.toFloat transform.waste))
+            amount |> applyWaste transform.waste
+
+        outputMass =
+            mass
+                |> Quantity.minus
+                    (mass |> Quantity.multiplyBy (Split.toFloat transform.waste))
     in
-    ( outputAmount
-    , Results
-        -- global result
-        { amount = Just inputAmount
+    Results
+        { amount = outputAmount
         , impacts = Impact.sumImpacts [ transformImpacts, impacts ]
         , items =
             items
                 ++ [ -- transform result
                      Results
-                        { amount = Just inputAmount
+                        { amount = outputAmount
                         , impacts = transformImpacts
                         , items = []
                         , mass = outputMass
@@ -312,7 +308,6 @@ applyTransform { elec, heat } transform ( inputAmount, Results { impacts, items,
         , mass = outputMass
         , stage = Nothing
         }
-    )
 
 
 {-| Sequencially apply transforms to existing Results (typically, material ones).
@@ -321,16 +316,20 @@ Note: for now we use average elec and heat mixes, but we might want to allow
 specifying specific country mixes in the future.
 
 -}
-applyTransforms : List Process -> ( Amount, Process.Unit ) -> List Process -> Results -> Result String Results
-applyTransforms allProcesses ( amount, unit ) transforms materialResults =
+applyTransforms : List Process -> Process.Unit -> List Process -> Results -> Result String Results
+applyTransforms allProcesses unit transforms materialResults =
     checkTransformsUnit unit transforms
         |> Result.andThen (\_ -> loadDefaultEnergyMixes allProcesses)
         |> Result.map
             (\energyMixes ->
                 transforms
-                    |> List.foldl (applyTransform energyMixes) ( amount, materialResults )
+                    |> List.foldl (applyTransform energyMixes) materialResults
             )
-        |> Result.map Tuple.second
+
+
+applyWaste : Split -> Amount -> Amount
+applyWaste waste =
+    mapAmount (\amount -> amount - (amount * Split.toFloat waste))
 
 
 checkTransformsUnit : Process.Unit -> List Process -> Result String (List Process)
@@ -370,7 +369,7 @@ computeElementResults processes =
                         (\initialAmount ->
                             material
                                 |> computeMaterialResults initialAmount
-                                |> applyTransforms processes ( amount, material.unit ) transforms
+                                |> applyTransforms processes material.unit transforms
                         )
             )
 
@@ -416,7 +415,7 @@ computeItemResults { components, processes } { custom, id, quantity } =
         |> Result.map
             (\(Results { impacts, mass, items }) ->
                 Results
-                    { amount = Nothing
+                    { amount = Amount 0
                     , impacts =
                         impacts
                             |> List.repeat (quantityToInt quantity)
@@ -449,12 +448,12 @@ computeMaterialResults amount process =
     in
     -- global result
     Results
-        { amount = Just amount
+        { amount = amount
         , impacts = impacts
         , items =
             [ -- material result
               Results
-                { amount = Just amount
+                { amount = amount
                 , impacts = impacts
                 , items = []
                 , mass = mass
@@ -563,7 +562,7 @@ elementsToString db component =
 emptyResults : Results
 emptyResults =
     Results
-        { amount = Nothing
+        { amount = Amount 0
         , impacts = Impact.empty
         , items = []
         , mass = Quantity.zero
@@ -690,7 +689,7 @@ expandItems db =
     List.map (expandItem db) >> RE.combine
 
 
-extractAmount : Results -> Maybe Amount
+extractAmount : Results -> Amount
 extractAmount (Results { amount }) =
     amount
 

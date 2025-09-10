@@ -486,8 +486,7 @@ elementMaterialView config targetElement materialResults material amount =
             []
         , td [ class "text-end align-middle text-nowrap" ]
             [ Component.extractAmount materialResults
-                |> Maybe.map (Format.amount material)
-                |> Maybe.withDefault (text "")
+                |> Format.amount material
             ]
         , td [ class "text-end align-middle text-nowrap" ]
             [ Component.extractImpacts materialResults
@@ -525,8 +524,7 @@ elementTransformsView config targetElement transformsResults transforms =
                     [ Format.splitAsPercentage 2 transform.waste ]
                 , td [ class "text-end align-middle text-nowrap" ]
                     [ Component.extractAmount transformResult
-                        |> Maybe.map (Format.amount transform)
-                        |> Maybe.withDefault (text "")
+                        |> Format.amount transform
                     ]
                 , td [ class "text-end align-middle text-nowrap" ]
                     [ Component.extractImpacts transformResult

@@ -112,13 +112,13 @@ suite =
                 [ let
                     getTestMass transforms =
                         Component.Results
-                            { amount = Nothing
+                            { amount = Component.Amount 1
                             , impacts = Impact.empty
                             , items = []
                             , mass = Mass.kilogram
                             , stage = Nothing
                             }
-                            |> Component.applyTransforms db.processes ( Component.Amount 1, Process.Kilogram ) transforms
+                            |> Component.applyTransforms db.processes Process.Kilogram transforms
                             |> Result.withDefault Component.emptyResults
                             |> Component.extractMass
                             |> Mass.inKilograms
@@ -140,13 +140,13 @@ suite =
                 , let
                     getTestEcsImpact transforms =
                         Component.Results
-                            { amount = Nothing
+                            { amount = Component.Amount 1
                             , impacts = Impact.empty
                             , items = []
                             , mass = Mass.kilogram
                             , stage = Nothing
                             }
-                            |> Component.applyTransforms db.processes ( Component.Amount 1, Process.Kilogram ) transforms
+                            |> Component.applyTransforms db.processes Process.Kilogram transforms
                             |> Result.withDefault Component.emptyResults
                             |> extractEcsImpact
                   in
@@ -193,13 +193,13 @@ suite =
                     (\transformInKg ->
                         [ it "should reject when the unit of the material and the transforms do not match"
                             (Component.Results
-                                { amount = Nothing
+                                { amount = Component.Amount 1
                                 , impacts = Impact.empty
                                 , items = []
                                 , mass = Mass.kilogram
                                 , stage = Nothing
                                 }
-                                |> Component.applyTransforms db.processes ( Component.Amount 1, Process.CubicMeter ) [ transformInKg ]
+                                |> Component.applyTransforms db.processes Process.CubicMeter [ transformInKg ]
                                 |> Expect.equal (Err "Les procédés de transformation ne partagent pas la même unité que la matière source (m3)\u{00A0}: Moulage par injection (kg)")
                             )
                         ]
@@ -207,13 +207,13 @@ suite =
                 , let
                     getTestResults transforms =
                         Component.Results
-                            { amount = Nothing
+                            { amount = Component.Amount 1
                             , impacts = Impact.empty |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 100)
                             , items = []
                             , mass = Mass.kilogram
                             , stage = Nothing
                             }
-                            |> Component.applyTransforms db.processes ( Component.Amount 1, Process.Kilogram ) transforms
+                            |> Component.applyTransforms db.processes Process.Kilogram transforms
                             |> Result.withDefault Component.emptyResults
                   in
                   describe "impacts & waste"
@@ -321,7 +321,7 @@ suite =
                     [ it "should compute element impacts"
                         (elementResults
                             |> extractEcsImpact
-                            |> Expect.within (Expect.Absolute 1) 2152
+                            |> Expect.within (Expect.Absolute 1) 2176
                         )
                     , it "should compute element mass"
                         (elementResults
