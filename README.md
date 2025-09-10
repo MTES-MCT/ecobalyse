@@ -8,24 +8,25 @@ L'application est accessible [à cette adresse](https://ecobalyse.beta.gouv.fr/)
 
 ## Socle technique et prérequis
 
-Le frontend de cette application est écrite en [Elm](https://elm-lang.org/). Vous devez disposer d'un environnement [NodeJS](https://nodejs.org/fr/) 14+ et `npm`. Pour le backend vous devez disposer d'un environnement [python](https://www.python.org/) >=3.11, [pipenv](https://pipenv.pypa.io/) et [gettext](https://www.gnu.org/software/gettext/) sur votre machine. Certains fichiers d’impacts détaillés nécessitent d’installer et de configurer [`transcrypt`](https://github.com/elasticdog/transcrypt) pour les lire en local.
+Le frontend de cette application est écrite en [Elm](https://elm-lang.org/). Vous devez disposer d'un environnement [NodeJS](https://nodejs.org/fr/) 14+ et `npm`. Pour le backend vous devez disposer d'un environnement [python](https://www.python.org/) >=3.11, [uv](https://docs.astral.sh/uv/) et [gettext](https://www.gnu.org/software/gettext/) sur votre machine. Certains fichiers d’impacts détaillés nécessitent de configurer [`transcrypt`](https://github.com/elasticdog/transcrypt) pour les lire en local.
 
 ## Configuration
 
 Les variables d'environnement suivantes doivent être définies :
 
 - `BACKEND_ADMINS` : la liste des emails des administrateurs initiaux, séparés par une virgule
-- `DEFAULT_FROM_EMAIL` : l'email utilisé comme origine pour les mails liés à l'authentification (par défaut ecobalyse@beta.gouv.fr)
-- `DJANGO_DEBUG`: la valeur du mode DEBUG de Django (par défaut `True`)
-- `DJANGO_SECRET_KEY` : la [clé secrète de Django](https://docs.djangoproject.com/en/5.0/ref/settings/#std-setting-SECRET_KEY)
+- `DATABASE_URL` : voir plus bas pour les détails
+- `ECOBALYSE_DATA_DIR` : ?
+- `EMAIL_FROM`: l’expéditeur des emails du backend
 - `EMAIL_SERVER_HOST`: serveur SMTP (`localhost` permet de bénéficier d'une instance [maildev](https://github.com/maildev/maildev))
 - `EMAIL_SERVER_PASSWORD`: le mot de passe du serveur SMTP
-- `EMAIL_SERVER_PORT`: Port su serveur SMTP (`1025` permet de bénéficier d'une instance *maildev*)
+- `EMAIL_SERVER_PORT`: Port du serveur SMTP (`1025` permet de bénéficier d'une instance *maildev*)
 - `EMAIL_SERVER_USER`: Nom d'utilisateur SMTP
 - `EMAIL_SERVER_USE_TLS`: Utilisation de TLS (par defaut à `True`, positionner à `False` pour utiliser l'instance *maildev*)
 - `ENABLE_FOOD_SECTION` : affichage ou non de la section expérimentale dédiée à l'alimentaire (valeur `True` ou `False`, par défault `False`)
 - `ENABLE_OBJECTS_SECTION` : affichage ou non de la section expérimentale dédiée aux objets génériques (valeur `True` ou `False`, par défault `False`)
 - `ENABLE_VELI_SECTION` : affichage ou non de la section expérimentale dédiée aux véhicules intermédiaires (valeur `True` ou `False`, par défault `False`)
+- `ENCRYPTION_KEY` : la clé utilisée par les scripts `npm run encrypt` et  `npm run decrypt` pour chiffrer/déchiffrer les fichiers d’impacts détaillés inclus dans chaque archive de release. Pour générer une nouvelle clé, vous pouvez utiliser le script `bin/generate-crypto-key`.
 - `MATOMO_HOST`: le domaine de l'instance Matomo permettant le suivi d'audience du produit (typiquement `stats.beta.gouv.fr`).
 - `MATOMO_SITE_ID`: l'identifiant du site Ecobalyse sur l'instance Matomo permettant le suivi d'audience du produit.
 - `MATOMO_TOKEN`: le token Matomo permettant le suivi d'audience du produit.
@@ -33,19 +34,24 @@ Les variables d'environnement suivantes doivent être définies :
 - `PLAUSIBLE_HOST`: Le domaine du serveur [Plausible](https://plausible.io/) (optionnel)
 - `RATELIMIT_MAX_RPM`: le nombre de requêtes maximum par minute et par ip (par défaut: 5000)
 - `RATELIMIT_WHITELIST`: liste des adresses IP non soumises au rate-limiting, séparées par des virgules
-- `SCALINGO_POSTGRESQL_URL` : l'uri pour accéder à Postgresl (définie automatiquement par Scalingo). Si non défini sqlite3 est utilisé.
 - `SECRET_KEY`: le secret 32bits pour le backend; vous pouvez en générer une avec `openssl rand -hex 32`
 - `SENTRY_DSN`: le DSN [Sentry](https://sentry.io) à utiliser pour les rapports d'erreur.
+<!-- Elle ne s’appelle pas comme ça dans Vaultwarden, du coup j’ai confondu pendant un moment avec `ENCRYPTION_KEY`
+Est-ce qu’on veut donner ce genre de détails ici ?
+ -->
 - `TRANSCRYPT_KEY`: la clé utilisée et autogénérée par [transcrypt](https://github.com/elasticdog/transcrypt/blob/main/INSTALL.md) et disponible dans [https://vaultwarden.incubateur.net](https://vaultwarden.incubateur.net/).
-- `ENCRYPTION_KEY` : la clé utilisée par les scripts `npm run encrypt` et  `npm run decrypt` pour chiffrer/déchiffrer les fichiers d’impacts détaillés inclus dans chaque archive de release. Pour générer une nouvelle clé, vous pouvez utiliser le script `bin/generate-crypto-key`.
 - `VERSION_POLL_SECONDS`: The number of seconds between two http polls to retrieve the current app version (`/version.json`, défault: `300`)
 
 En développement, copiez le fichier `.env.sample`, renommez-le `.env`, et mettez à jour les valeurs qu'il contient ; le serveur de développement node chargera les variables en conséquences.
 
-Pour utiliser le PostgreSQL lancé avec docker, configurez la variable `SCALINGO_POSTGRESQL_URL` comme ceci :
+Pour utiliser un serveur PostgreSQL spécifique, configurez la variable `DATABASE_URL` comme ceci :
 
-    SCALINGO_POSTGRESQL_URL=postgres://postgres:password@localhost:5433/ecobalyse_dev
+    DATABASE_URL=postgresql+asyncpg://<username>:<pw>@localhost:5432/<nom de la bdd>)
 
+Sinon, une base de donnée par défaut dans un conteneur Docker sera utilisée.
+
+
+<!-- mais du coup est-ce qu’on peut utiliser un PG local quand même sans conflit avec les tests ? -->
 Note: docker est également une dépendance requise pour lancer la suite de tests (`npm test`).
 
 ## Installation
@@ -68,33 +74,7 @@ Note: docker est également une dépendance requise pour lancer la suite de test
 
 ### Backend
 
-    pipenv install -d
-
-Assurez-vous d'avoir un PostgreSQL >=16 qui tourne localement si vous souhaitez vous rapprocher de l'environnement de production. À défaut, `sqlite` sera utilisé.
-
-Pour créer et lancer un PostgreSQL sur le port 5433 en local en utilisant `docker` :
-
-    # Création du volume pour persister les données
-    docker volume create ecobalyse_postgres_data
-
-    # Lancement du docker postgres 16
-    docker run --name ecobalyse-postgres -e POSTGRES_PASSWORD=password -d -p 5433:5432 -v ecobalyse_postgres_data:/var/lib/postgresql/data postgres:16
-
-    # Création de la base de données ecobalyse_dev
-    docker exec -it ecobalyse-postgres createdb -U postgres ecobalyse_dev
-
-Vous devriez pouvoir y accéder via votre `psql` local avec la commande suivante :
-
-    psql -U postgres -p 5433 -h localhost ecobalyse_dev
-
-
-## Chargement des données par défaut
-
-Pour initialiser la base de données (attention, toutes les données présentes, si il y en a, seront supprimées) :
-
-    pipenv run ./backend/update.sh
-
-## Développement
+Voir [Backend](backend/README.md)
 
 ### Environnement de développement local
 
@@ -104,11 +84,11 @@ Le serveur local de développement se lance au moyen des deux commandes suivante
 
 Trois instances de développement sont alors accessibles :
 
-- [localhost:8002](http://localhost:8002/) sert le backend django utilisé pour l'authentification, et sert aussi les fichiers statiques de elm. Sert aussi [l'admin django](http://localhost:8002/admin/)
-- [localhost:8001](http://localhost:8001/) sert l'API ;
-- [localhost:1234](http://localhost:1234/) est l'URL à utiliser en développement pour tester l'intégration des trois composants (le front, l'API et le Django) car un proxy Parcel renvoie certaines requêtes vers le port 8001 ou 8002 (voir `.proxyrc`). Le frontend est servi en mode _hot-reload_, pour recharger! l'interface Web à chaque modification du code frontend.
+- [localhost:8002](http://localhost:8002/) sert le backend Litestar utilisé pour l'authentification, et sert aussi les fichiers statiques de elm.
+<!-- le README du backend utilise le port par default 8000 ; dommage de pas synchroniser -->
+- [localhost:8001](http://localhost:8001/) sert l'API ; (différente de l’API documentée sur http://localhost:8002/schema ? Et les fichiers statiques ont l’air d’être servis ici ?)
+- [localhost:1234](http://localhost:1234/) est l'URL à utiliser en développement pour tester l'intégration des trois composants (le front, l'API et le Django) car un proxy Parcel renvoie certaines requêtes vers le port 8001 ou 8002 (voir `.proxyrc.json`). Le frontend est servi en mode _hot-reload_, pour recharger! l'interface Web à chaque modification du code frontend.
 
-> ℹ️ Pour accéder à l'admin django, utilisez l'email `foo@bar.baz`. Le lien d'activation pour se connecter automatiquement à l'admin sera affiché dans votre terminal.
 
 ## Auto-hébergement avec Docker
 
@@ -127,13 +107,13 @@ Le build sur le CI échouera si les fichiers python, javascript et json ne sont 
 
 Pour installer les hooks pre-commit, exécutez la commande suivante :
 
-    pipenv run pre-commit install
+    $ uv run pre-commit install
 
 Un hook de pre-commit sera alors configuré pour vérifier que le code est bien formaté avant de permettre le commit. Le hook corrigera les erreurs dans la mesure du possible. Il vous suffira alors d'ajouter les modifications à votre staging, git puis à refaire votre commit.
 
 Il est possible de lancer la vérification du formatage à la main grâce à la commande suivante :
 
-    npm run lint:all
+    $ npm run lint:all
 
 Si vous voulez lancer la correction automatique de tous les problèmes détectés, lancez :
 
@@ -141,7 +121,7 @@ Si vous voulez lancer la correction automatique de tous les problèmes détecté
 
 Si vous ne souhaitez pas que la vérification se fasse de manière automatique, vous pouvez désinstaller pre-commit et les hooks associés :
 
-    pipenv run pre-commit uninstall
+    $ uv run pre-commit uninstall
 
 ### Débogage des emails
 
@@ -153,7 +133,7 @@ Pour compiler la partie client de l'application :
 
     npm run build
 
-Les fichiers sont alors générés dans le répertoire `build` à la racine du projet, qui peut être servi de façon statique.
+Les fichiers sont alors générés dans le répertoire `dist` à la racine du projet, qui peut être servi de façon statique.
 
 ## Déploiement
 
@@ -179,8 +159,6 @@ Des commandes supplémentaires sont disponibles pour chiffrer et déchiffrer les
     npm run decrypt dist/processes_impacts.json.enc dist/processes_impacts_textile.json
 
 #### Points d'attention
-
-Lors du merge d'une PR, il est important de merger d'abord la PR correspondante sur ecobalyse-private, puis celle sur ecobalyse.
 
 # Serveur de production
 
@@ -208,7 +186,7 @@ importer et exporter les données du projet Ecobalyse.
 
 Le versioning de l'application permet de revenir à des anciennes versions d'Ecobalyse. Pour que ce versioning puisse fonctionner, les anciennes versions (<= 2.0.0) doivent être patchées rétroactivement. Le script `./bin/build-specific-app-version.sh` permet de générer une version spécifique de l'application et d'appliquer les patchs si nécessaire. Par exemple, pour générer la version `1.3.2` (le deuxième paramètre est le commit du répertoire https://github.com/MTE-extended/ecobalyse-private associé à cette version, si applicable) :
 
-    pipenv run ./bin/build-specific-app-version.sh v1.3.2 3531c73f23a1eb6f1fc6b9c256a5344742230fcf
+    ./bin/build-specific-app-version.sh v1.3.2 3531c73f23a1eb6f1fc6b9c256a5344742230fcf
 
 Un fichier `v1.3.2-dist.tar.gz` sera disponible à la racine du projet et un répertoire `v1.3.2` aura été créé dans `versions/`.
 
