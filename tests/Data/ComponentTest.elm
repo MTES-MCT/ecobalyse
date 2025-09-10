@@ -112,7 +112,8 @@ suite =
                 [ let
                     getTestMass transforms =
                         Component.Results
-                            { impacts = Impact.empty
+                            { amount = Nothing
+                            , impacts = Impact.empty
                             , items = []
                             , mass = Mass.kilogram
                             , stage = Nothing
@@ -139,7 +140,8 @@ suite =
                 , let
                     getTestEcsImpact transforms =
                         Component.Results
-                            { impacts = Impact.empty
+                            { amount = Nothing
+                            , impacts = Impact.empty
                             , items = []
                             , mass = Mass.kilogram
                             , stage = Nothing
@@ -191,7 +193,8 @@ suite =
                     (\transformInKg ->
                         [ it "should reject when the unit of the material and the transforms do not match"
                             (Component.Results
-                                { impacts = Impact.empty
+                                { amount = Nothing
+                                , impacts = Impact.empty
                                 , items = []
                                 , mass = Mass.kilogram
                                 , stage = Nothing
@@ -204,7 +207,8 @@ suite =
                 , let
                     getTestResults transforms =
                         Component.Results
-                            { impacts = Impact.empty |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 100)
+                            { amount = Nothing
+                            , impacts = Impact.empty |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 100)
                             , items = []
                             , mass = Mass.kilogram
                             , stage = Nothing

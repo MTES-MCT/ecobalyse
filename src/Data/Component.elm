@@ -37,6 +37,7 @@ module Data.Component exposing
     , encodeResults
     , expandElements
     , expandItems
+    , extractAmount
     , extractImpacts
     , extractItems
     , extractMass
@@ -177,7 +178,8 @@ type Quantity
 -}
 type Results
     = Results
-        { impacts : Impacts
+        { amount : Maybe Amount
+        , impacts : Impacts
         , items : List Results
         , mass : Mass
         , stage : Maybe Stage
@@ -294,12 +296,14 @@ applyTransform { elec, heat } transform ( inputAmount, Results { impacts, items,
     ( outputAmount
     , Results
         -- global result
-        { impacts = Impact.sumImpacts [ transformImpacts, impacts ]
+        { amount = Just inputAmount
+        , impacts = Impact.sumImpacts [ transformImpacts, impacts ]
         , items =
             items
                 ++ [ -- transform result
                      Results
-                        { impacts = transformImpacts
+                        { amount = Just inputAmount
+                        , impacts = transformImpacts
                         , items = []
                         , mass = outputMass
                         , stage = Just TransformStage
@@ -412,7 +416,8 @@ computeItemResults { components, processes } { custom, id, quantity } =
         |> Result.map
             (\(Results { impacts, mass, items }) ->
                 Results
-                    { impacts =
+                    { amount = Nothing
+                    , impacts =
                         impacts
                             |> List.repeat (quantityToInt quantity)
                             |> Impact.sumImpacts
@@ -444,11 +449,13 @@ computeMaterialResults amount process =
     in
     -- global result
     Results
-        { impacts = impacts
+        { amount = Just amount
+        , impacts = impacts
         , items =
             [ -- material result
               Results
-                { impacts = impacts
+                { amount = Just amount
+                , impacts = impacts
                 , items = []
                 , mass = mass
                 , stage = Just MaterialStage
@@ -556,7 +563,8 @@ elementsToString db component =
 emptyResults : Results
 emptyResults =
     Results
-        { impacts = Impact.empty
+        { amount = Nothing
+        , impacts = Impact.empty
         , items = []
         , mass = Quantity.zero
         , stage = Nothing
@@ -680,6 +688,11 @@ expandItem { components, processes } { custom, id, quantity } =
 expandItems : DataContainer a -> List Item -> Result String (List ( Quantity, Component, List ExpandedElement ))
 expandItems db =
     List.map (expandItem db) >> RE.combine
+
+
+extractAmount : Results -> Maybe Amount
+extractAmount (Results { amount }) =
+    amount
 
 
 extractImpacts : Results -> Impacts

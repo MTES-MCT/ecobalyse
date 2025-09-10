@@ -421,7 +421,23 @@ elementView config targetItem elementIndex { amount, material, transforms } elem
                 ]
             , th [ class "align-middle", scope "col" ] [ text <| "Élément #" ++ String.fromInt (elementIndex + 1) ]
             , th [ class "align-middle", scope "col" ] [ text "Pertes" ]
-            , th [ class "align-middle text-truncate", scope "col", Attr.title "Masse sortante" ] [ text "Masse" ]
+            , th [ class "align-middle text-truncate", scope "col", Attr.title "Masse sortante" ]
+                [ case material.unit of
+                    Process.CubicMeter ->
+                        text "Volume"
+
+                    Process.Kilogram ->
+                        text "Masse"
+
+                    Process.Liter ->
+                        text "Volume"
+
+                    Process.SquareMeter ->
+                        text "Surface"
+
+                    _ ->
+                        text "Quantité"
+                ]
             , th [ class "align-middle", scope "col" ] [ text "Impact" ]
             , th [ class "align-middle", scope "col" ] []
             ]
@@ -482,9 +498,12 @@ elementMaterialView config targetElement materialResults material amount =
             [ selectMaterialButton config targetElement material
             ]
         , td [ class "text-end align-middle text-nowrap" ]
-            []
-        , td [ class "text-end align-middle text-nowrap" ]
             [ Format.kg <| Component.extractMass materialResults ]
+        , td [ class "text-end align-middle text-nowrap" ]
+            [ Component.extractAmount materialResults
+                |> Maybe.map (Format.amount material)
+                |> Maybe.withDefault (text "")
+            ]
         , td [ class "text-end align-middle text-nowrap" ]
             [ Component.extractImpacts materialResults
                 |> Format.formatImpact config.impact
@@ -520,7 +539,9 @@ elementTransformsView config targetElement transformsResults transforms =
                 , td [ class "align-middle text-end text-nowrap" ]
                     [ Format.splitAsPercentage 2 transform.waste ]
                 , td [ class "text-end align-middle text-nowrap" ]
-                    [ Format.kg <| Component.extractMass transformResult
+                    [ Component.extractAmount transformResult
+                        |> Maybe.map (Format.amount transform)
+                        |> Maybe.withDefault (text "")
                     ]
                 , td [ class "text-end align-middle text-nowrap" ]
                     [ Component.extractImpacts transformResult

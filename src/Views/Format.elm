@@ -174,6 +174,14 @@ amount { unit } amount_ =
             Mass.kilograms floatAmount
                 |> kg
 
+        Process.Liter ->
+            Volume.liters floatAmount
+                |> liters
+
+        Process.SquareMeter ->
+            Area.squareMeters floatAmount
+                |> squareMeters
+
         _ ->
             String.fromFloat floatAmount
                 ++ " "
@@ -197,6 +205,11 @@ km =
     Length.inKilometers >> formatRichFloat 0 "km"
 
 
+liters : Volume -> Html msg
+liters =
+    Volume.inLiters >> formatRichFloat 3 "L"
+
+
 kilowattHours : Energy -> Html msg
 kilowattHours =
     Energy.inKilowattHours >> formatRichFloat 2 "kWh"
@@ -204,7 +217,7 @@ kilowattHours =
 
 m3 : Volume -> Html msg
 m3 =
-    Volume.inCubicMeters >> formatRichFloat 2 "m³"
+    Volume.inCubicMeters >> formatRichFloat 3 "m³"
 
 
 megajoules : Energy -> Html msg
@@ -224,7 +237,7 @@ priceInEUR =
 
 squareMeters : Area -> Html msg
 squareMeters =
-    Area.inSquareMeters >> formatRichFloat 2 "m²"
+    Area.inSquareMeters >> formatRichFloat 3 "m²"
 
 
 surfaceMass : Unit.SurfaceMass -> Html msg
