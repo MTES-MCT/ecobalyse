@@ -489,9 +489,7 @@ elementMaterialView config targetElement materialResults material amount =
         [ td [] []
         , td [ class "text-end align-middle text-nowrap ps-0", style "min-width" "130px" ]
             [ if config.scopes == [ Scope.Textile ] then
-                amount
-                    |> Component.amountToFloat
-                    |> Format.formatRichFloat 3 (Process.unitToString material.unit)
+                Format.amount material amount
 
               else
                 amountInput config targetElement material.unit amount
@@ -500,7 +498,7 @@ elementMaterialView config targetElement materialResults material amount =
             [ selectMaterialButton config targetElement material
             ]
         , td [ class "text-end align-middle text-nowrap" ]
-            [ Format.kg <| Component.extractMass materialResults ]
+            []
         , td [ class "text-end align-middle text-nowrap" ]
             [ Component.extractAmount materialResults
                 |> Maybe.map (Format.amount material)
