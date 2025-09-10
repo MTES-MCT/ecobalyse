@@ -167,20 +167,16 @@ amount { unit } amount_ =
     in
     case unit of
         Process.CubicMeter ->
-            Volume.cubicMeters floatAmount
-                |> m3
+            m3 <| Volume.cubicMeters floatAmount
 
         Process.Kilogram ->
-            Mass.kilograms floatAmount
-                |> kg
+            kg <| Mass.kilograms floatAmount
 
         Process.Liter ->
-            Volume.liters floatAmount
-                |> liters
+            liters <| Volume.liters floatAmount
 
         Process.SquareMeter ->
-            Area.squareMeters floatAmount
-                |> squareMeters
+            squareMeters <| Area.squareMeters floatAmount
 
         _ ->
             String.fromFloat floatAmount
