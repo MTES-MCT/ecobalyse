@@ -438,8 +438,10 @@ elementView config targetItem elementIndex { amount, material, transforms } elem
                     _ ->
                         text "Quantité"
                 ]
-            , th [ class "align-middle", scope "col" ] [ text "Impact" ]
-            , th [ class "align-middle", scope "col" ] []
+            , th [ class "align-middle text-end", scope "col" ]
+                [ Format.formatImpact config.impact <| Component.extractImpacts elementResults
+                ]
+            , th [] []
             ]
             :: elementMaterialView config ( targetItem, elementIndex ) materialResults material amount
             :: elementTransformsView config ( targetItem, elementIndex ) transformsResults transforms
