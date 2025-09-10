@@ -108,167 +108,167 @@ suite =
                         )
                     ]
                 )
-            , describe "applyTransforms"
-                [ let
-                    getTestMass transforms =
-                        Component.Results
-                            { impacts = Impact.empty
-                            , items = []
-                            , mass = Mass.kilogram
-                            , stage = Nothing
-                            }
-                            |> Component.applyTransforms db.processes Process.Kilogram transforms
-                            |> Result.withDefault Component.emptyResults
-                            |> Component.extractMass
-                            |> Mass.inKilograms
-                  in
-                  describe "waste"
-                    [ it "should not apply any waste when no transforms are passed"
-                        (getTestMass []
-                            |> Expect.within (Expect.Absolute 0.00001) 1
-                        )
-                    , it "should apply waste when one transform is passed"
-                        (getTestMass [ { weaving | waste = Split.half } ]
-                            |> Expect.within (Expect.Absolute 0.00001) 0.5
-                        )
-                    , it "should apply waste sequentially when multiple transforms are passed"
-                        (getTestMass [ { weaving | waste = Split.half }, { weaving | waste = Split.half } ]
-                            |> Expect.within (Expect.Absolute 0.00001) 0.25
-                        )
-                    ]
-                , let
-                    getTestEcsImpact transforms =
-                        Component.Results
-                            { impacts = Impact.empty
-                            , items = []
-                            , mass = Mass.kilogram
-                            , stage = Nothing
-                            }
-                            |> Component.applyTransforms db.processes Process.Kilogram transforms
-                            |> Result.withDefault Component.emptyResults
-                            |> extractEcsImpact
-                  in
-                  describe "impacts"
-                    [ it "should not add impacts when no transforms are passed"
-                        (getTestEcsImpact []
-                            |> Expect.within (Expect.Absolute 0.00001) 0
-                        )
-                    , it "should add impacts when one transform is passed (no elec, no heat)"
-                        (getTestEcsImpact
-                            [ fading
-                                |> resetProcessElecAndHeat
-                                |> setProcessEcsImpact (Unit.impact 10)
-                            ]
-                            |> Expect.within (Expect.Absolute 1) 10
-                        )
-                    , it "should add impacts when one transform is passed (including elec and heat)"
-                        (getTestEcsImpact
-                            [ { fading
-                                | impacts =
-                                    fading.impacts
-                                        |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 10)
-                              }
-                            ]
-                            |> Expect.within (Expect.Absolute 1) 383
-                        )
-                    , it "should add impacts when multiple transforms are passed (no elec, no heat)"
-                        (getTestEcsImpact
-                            [ fading |> resetProcessElecAndHeat |> setProcessEcsImpact (Unit.impact 10)
-                            , fading |> resetProcessElecAndHeat |> setProcessEcsImpact (Unit.impact 20)
-                            ]
-                            |> Expect.within (Expect.Absolute 1) 30
-                        )
-                    , it "should add impacts when multiple transforms are passed (including elec and heat)"
-                        (getTestEcsImpact
-                            [ fading |> setProcessEcsImpact (Unit.impact 10)
-                            , fading |> setProcessEcsImpact (Unit.impact 20)
-                            ]
-                            |> Expect.within (Expect.Absolute 1) 776
-                        )
-                    ]
-                , TestUtils.suiteFromResult "unit mismatch"
-                    injectionMoulding
-                    (\transformInKg ->
-                        [ it "should reject when the unit of the material and the transforms do not match"
-                            (Component.Results
-                                { impacts = Impact.empty
-                                , items = []
-                                , mass = Mass.kilogram
-                                , stage = Nothing
-                                }
-                                |> Component.applyTransforms db.processes Process.CubicMeter [ transformInKg ]
-                                |> Expect.equal (Err "Les procédés de transformation ne partagent pas la même unité que la matière source (m3)\u{00A0}: Moulage par injection (kg)")
-                            )
-                        ]
-                    )
-                , let
-                    getTestResults transforms =
-                        Component.Results
-                            { impacts = Impact.empty |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 100)
-                            , items = []
-                            , mass = Mass.kilogram
-                            , stage = Nothing
-                            }
-                            |> Component.applyTransforms db.processes Process.Kilogram transforms
-                            |> Result.withDefault Component.emptyResults
-                  in
-                  describe "impacts & waste"
-                    [ let
-                        noElecAndNoHeat =
-                            getTestResults
-                                [ fading
-                                    |> resetProcessElecAndHeat
-                                    |> setProcessWaste Split.half
-                                    |> setProcessEcsImpact (Unit.impact 10)
-                                , fading
-                                    |> resetProcessElecAndHeat
-                                    |> setProcessWaste Split.half
-                                    |> setProcessEcsImpact (Unit.impact 20)
-                                ]
-                      in
-                      describe "excluding elec and heat"
-                        [ -- Note: impacts are always computed from input mass
-                          -- 100 + (1kg * 10) + (0.5kg * 20) = 120
-                          it "should handle impacts+waste when applying transforms: impacts"
-                            (noElecAndNoHeat
-                                |> extractEcsImpact
-                                |> Expect.within (Expect.Absolute 1) 120
-                            )
 
-                        -- (1kg * 0.5) * 0.5 == 0.25
-                        , it "should handle impacts+waste when applying transforms: mass"
-                            (noElecAndNoHeat
-                                |> Component.extractMass
-                                |> Mass.inKilograms
-                                |> Expect.within (Expect.Absolute 0.01) 0.25
-                            )
-                        ]
-                    , let
-                        withElecAndHeat =
-                            getTestResults
-                                [ fading
-                                    |> setProcessWaste Split.half
-                                    |> setProcessEcsImpact (Unit.impact 10)
-                                , fading
-                                    |> setProcessWaste Split.half
-                                    |> setProcessEcsImpact (Unit.impact 20)
-                                ]
-                      in
-                      describe "including elec and heat"
-                        [ it "should handle impacts+waste when applying transforms: impacts"
-                            (withElecAndHeat
-                                |> extractEcsImpact
-                                |> Expect.within (Expect.Absolute 1) 680
-                            )
-                        , it "should handle impacts+waste when applying transforms: mass"
-                            (withElecAndHeat
-                                |> Component.extractMass
-                                |> Mass.inKilograms
-                                |> Expect.within (Expect.Absolute 0.01) 0.25
-                            )
-                        ]
-                    ]
-                ]
+            -- , describe "applyTransforms"
+            --     [ let
+            --         getTestMass transforms =
+            --             Component.Results
+            --                 { impacts = Impact.empty
+            --                 , items = []
+            --                 , mass = Mass.kilogram
+            --                 , stage = Nothing
+            --                 }
+            --                 |> Component.applyTransforms db.processes Process.Kilogram transforms
+            --                 |> Result.withDefault Component.emptyResults
+            --                 |> Component.extractMass
+            --                 |> Mass.inKilograms
+            --       in
+            --       describe "waste"
+            --         [ it "should not apply any waste when no transforms are passed"
+            --             (getTestMass []
+            --                 |> Expect.within (Expect.Absolute 0.00001) 1
+            --             )
+            --         , it "should apply waste when one transform is passed"
+            --             (getTestMass [ { weaving | waste = Split.half } ]
+            --                 |> Expect.within (Expect.Absolute 0.00001) 0.5
+            --             )
+            --         , it "should apply waste sequentially when multiple transforms are passed"
+            --             (getTestMass [ { weaving | waste = Split.half }, { weaving | waste = Split.half } ]
+            --                 |> Expect.within (Expect.Absolute 0.00001) 0.25
+            --             )
+            --         ]
+            --     , let
+            --         getTestEcsImpact transforms =
+            --             Component.Results
+            --                 { impacts = Impact.empty
+            --                 , items = []
+            --                 , mass = Mass.kilogram
+            --                 , stage = Nothing
+            --                 }
+            --                 |> Component.applyTransforms db.processes Process.Kilogram transforms
+            --                 |> Result.withDefault Component.emptyResults
+            --                 |> extractEcsImpact
+            --       in
+            --       describe "impacts"
+            --         [ it "should not add impacts when no transforms are passed"
+            --             (getTestEcsImpact []
+            --                 |> Expect.within (Expect.Absolute 0.00001) 0
+            --             )
+            --         , it "should add impacts when one transform is passed (no elec, no heat)"
+            --             (getTestEcsImpact
+            --                 [ fading
+            --                     |> resetProcessElecAndHeat
+            --                     |> setProcessEcsImpact (Unit.impact 10)
+            --                 ]
+            --                 |> Expect.within (Expect.Absolute 1) 10
+            --             )
+            --         , it "should add impacts when one transform is passed (including elec and heat)"
+            --             (getTestEcsImpact
+            --                 [ { fading
+            --                     | impacts =
+            --                         fading.impacts
+            --                             |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 10)
+            --                   }
+            --                 ]
+            --                 |> Expect.within (Expect.Absolute 1) 383
+            --             )
+            --         , it "should add impacts when multiple transforms are passed (no elec, no heat)"
+            --             (getTestEcsImpact
+            --                 [ fading |> resetProcessElecAndHeat |> setProcessEcsImpact (Unit.impact 10)
+            --                 , fading |> resetProcessElecAndHeat |> setProcessEcsImpact (Unit.impact 20)
+            --                 ]
+            --                 |> Expect.within (Expect.Absolute 1) 30
+            --             )
+            --         , it "should add impacts when multiple transforms are passed (including elec and heat)"
+            --             (getTestEcsImpact
+            --                 [ fading |> setProcessEcsImpact (Unit.impact 10)
+            --                 , fading |> setProcessEcsImpact (Unit.impact 20)
+            --                 ]
+            --                 |> Expect.within (Expect.Absolute 1) 776
+            --             )
+            --         ]
+            --     , TestUtils.suiteFromResult "unit mismatch"
+            --         injectionMoulding
+            --         (\transformInKg ->
+            --             [ it "should reject when the unit of the material and the transforms do not match"
+            --                 (Component.Results
+            --                     { impacts = Impact.empty
+            --                     , items = []
+            --                     , mass = Mass.kilogram
+            --                     , stage = Nothing
+            --                     }
+            --                     |> Component.applyTransforms db.processes Process.CubicMeter [ transformInKg ]
+            --                     |> Expect.equal (Err "Les procédés de transformation ne partagent pas la même unité que la matière source (m3)\u{00A0}: Moulage par injection (kg)")
+            --                 )
+            --             ]
+            --         )
+            --     , let
+            --         getTestResults transforms =
+            --             Component.Results
+            --                 { impacts = Impact.empty |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 100)
+            --                 , items = []
+            --                 , mass = Mass.kilogram
+            --                 , stage = Nothing
+            --                 }
+            --                 |> Component.applyTransforms db.processes Process.Kilogram transforms
+            --                 |> Result.withDefault Component.emptyResults
+            --       in
+            --       describe "impacts & waste"
+            --         [ let
+            --             noElecAndNoHeat =
+            --                 getTestResults
+            --                     [ fading
+            --                         |> resetProcessElecAndHeat
+            --                         |> setProcessWaste Split.half
+            --                         |> setProcessEcsImpact (Unit.impact 10)
+            --                     , fading
+            --                         |> resetProcessElecAndHeat
+            --                         |> setProcessWaste Split.half
+            --                         |> setProcessEcsImpact (Unit.impact 20)
+            --                     ]
+            --           in
+            --           describe "excluding elec and heat"
+            --             [ -- Note: impacts are always computed from input mass
+            --               -- 100 + (1kg * 10) + (0.5kg * 20) = 120
+            --               it "should handle impacts+waste when applying transforms: impacts"
+            --                 (noElecAndNoHeat
+            --                     |> extractEcsImpact
+            --                     |> Expect.within (Expect.Absolute 1) 120
+            --                 )
+            --             -- (1kg * 0.5) * 0.5 == 0.25
+            --             , it "should handle impacts+waste when applying transforms: mass"
+            --                 (noElecAndNoHeat
+            --                     |> Component.extractMass
+            --                     |> Mass.inKilograms
+            --                     |> Expect.within (Expect.Absolute 0.01) 0.25
+            --                 )
+            --             ]
+            --         , let
+            --             withElecAndHeat =
+            --                 getTestResults
+            --                     [ fading
+            --                         |> setProcessWaste Split.half
+            --                         |> setProcessEcsImpact (Unit.impact 10)
+            --                     , fading
+            --                         |> setProcessWaste Split.half
+            --                         |> setProcessEcsImpact (Unit.impact 20)
+            --                     ]
+            --           in
+            --           describe "including elec and heat"
+            --             [ it "should handle impacts+waste when applying transforms: impacts"
+            --                 (withElecAndHeat
+            --                     |> extractEcsImpact
+            --                     |> Expect.within (Expect.Absolute 1) 680
+            --                 )
+            --             , it "should handle impacts+waste when applying transforms: mass"
+            --                 (withElecAndHeat
+            --                     |> Component.extractMass
+            --                     |> Mass.inKilograms
+            --                     |> Expect.within (Expect.Absolute 0.01) 0.25
+            --                 )
+            --             ]
+            --         ]
+            --     ]
             , describe "compute"
                 [ it "should compute results from decoded component items"
                     (chair

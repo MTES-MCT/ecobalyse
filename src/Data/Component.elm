@@ -95,6 +95,12 @@ type alias Component =
     }
 
 
+type alias EnergyMixes =
+    { elec : Process
+    , heat : Process
+    }
+
+
 {-| A compact reference to a component, a quantity of it, and optionally some overrides,
 typically used for queries
 -}
@@ -263,58 +269,66 @@ amountToFloat (Amount float) =
     float
 
 
+applyTransform : EnergyMixes -> Process -> ( Amount, Results ) -> ( Amount, Results )
+applyTransform { elec, heat } transform ( amount, Results { impacts, items, mass } ) =
+    let
+        -- TODO: Work with amount instead of mass:
+        --       compute wastedAmount
+        --       then compute outputAmount
+        --       then compute mass from output amount AND transform.unit which we KNOW is the same as the transformed material unit
+        wastedMass =
+            mass |> Quantity.multiplyBy (Split.toFloat transform.waste)
+
+        outputMass =
+            mass |> Quantity.minus wastedMass
+
+        -- Note: impacts are always computed from input mass
+        transformImpacts =
+            [ transform.impacts
+            , elec.impacts
+                |> Impact.multiplyBy (Energy.inKilowattHours transform.elec)
+            , heat.impacts
+                |> Impact.multiplyBy (Energy.inMegajoules transform.heat)
+            ]
+                |> Impact.sumImpacts
+                |> Impact.multiplyBy (Mass.inKilograms mass)
+    in
+    ( amount
+    , Results
+        -- global result
+        { impacts = Impact.sumImpacts [ transformImpacts, impacts ]
+        , items =
+            items
+                ++ [ -- transform result
+                     Results
+                        { impacts = transformImpacts
+                        , items = []
+                        , mass = outputMass
+                        , stage = Just TransformStage
+                        }
+                   ]
+        , mass = outputMass
+        , stage = Nothing
+        }
+    )
+
+
 {-| Sequencially apply transforms to existing Results (typically, material ones).
 
 Note: for now we use average elec and heat mixes, but we might want to allow
 specifying specific country mixes in the future.
 
 -}
-applyTransforms : List Process -> Process.Unit -> List Process -> Results -> Result String Results
-applyTransforms allProcesses unit transforms materialResults =
+applyTransforms : List Process -> Process.Unit -> List Process -> ( Amount, Results ) -> Result String Results
+applyTransforms allProcesses unit transforms ( amount, materialResults ) =
     checkTransformsUnit unit transforms
         |> Result.andThen (\_ -> loadDefaultEnergyMixes allProcesses)
         |> Result.map
-            (\{ elec, heat } ->
+            (\energyMixes ->
                 transforms
-                    |> List.foldl
-                        (\transform (Results { impacts, items, mass }) ->
-                            let
-                                wastedMass =
-                                    mass |> Quantity.multiplyBy (Split.toFloat transform.waste)
-
-                                outputMass =
-                                    mass |> Quantity.minus wastedMass
-
-                                -- Note: impacts are always computed from input mass
-                                transformImpacts =
-                                    [ transform.impacts
-                                    , elec.impacts
-                                        |> Impact.multiplyBy (Energy.inKilowattHours transform.elec)
-                                    , heat.impacts
-                                        |> Impact.multiplyBy (Energy.inMegajoules transform.heat)
-                                    ]
-                                        |> Impact.sumImpacts
-                                        |> Impact.multiplyBy (Mass.inKilograms mass)
-                            in
-                            Results
-                                -- global result
-                                { impacts = Impact.sumImpacts [ transformImpacts, impacts ]
-                                , items =
-                                    items
-                                        ++ [ -- transform result
-                                             Results
-                                                { impacts = transformImpacts
-                                                , items = []
-                                                , mass = outputMass
-                                                , stage = Just TransformStage
-                                                }
-                                           ]
-                                , mass = outputMass
-                                , stage = Nothing
-                                }
-                        )
-                        materialResults
+                    |> List.foldl (applyTransform energyMixes) ( amount, materialResults )
             )
+        |> Result.map Tuple.second
 
 
 checkTransformsUnit : Process.Unit -> List Process -> Result String (List Process)
@@ -414,7 +428,7 @@ computeItemResults { components, processes } { custom, id, quantity } =
             )
 
 
-computeMaterialResults : Amount -> Process -> Results
+computeMaterialResults : Amount -> Process -> ( Amount, Results )
 computeMaterialResults amount process =
     let
         impacts =
@@ -431,7 +445,8 @@ computeMaterialResults amount process =
                     amountToFloat amount * process.density
     in
     -- global result
-    Results
+    ( amount
+    , Results
         { impacts = impacts
         , items =
             [ -- material result
@@ -445,6 +460,7 @@ computeMaterialResults amount process =
         , mass = mass
         , stage = Nothing
         }
+    )
 
 
 createItem : Id -> Item
@@ -768,7 +784,7 @@ itemsToString db =
         >> Result.map (String.join ", ")
 
 
-loadDefaultEnergyMixes : List Process -> Result String { elec : Process, heat : Process }
+loadDefaultEnergyMixes : List Process -> Result String EnergyMixes
 loadDefaultEnergyMixes processes =
     let
         fromIdString =
