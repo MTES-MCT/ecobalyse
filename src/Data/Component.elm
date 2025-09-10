@@ -270,30 +270,28 @@ amountToFloat (Amount float) =
 
 
 applyTransform : EnergyMixes -> Process -> ( Amount, Results ) -> ( Amount, Results )
-applyTransform { elec, heat } transform ( amount, Results { impacts, items, mass } ) =
+applyTransform { elec, heat } transform ( inputAmount, Results { impacts, items, mass } ) =
     let
-        -- TODO: Work with amount instead of mass:
-        --       compute wastedAmount
-        --       then compute outputAmount
-        --       then compute mass from output amount AND transform.unit which we KNOW is the same as the transformed material unit
+        transformImpacts =
+            [ transform.impacts
+            , elec.impacts |> Impact.multiplyBy (Energy.inKilowattHours transform.elec)
+            , heat.impacts |> Impact.multiplyBy (Energy.inMegajoules transform.heat)
+            ]
+                |> Impact.sumImpacts
+                -- Note: impacts are always computed from input amount
+                |> Impact.multiplyBy (amountToFloat inputAmount)
+
         wastedMass =
             mass |> Quantity.multiplyBy (Split.toFloat transform.waste)
 
         outputMass =
             mass |> Quantity.minus wastedMass
 
-        -- Note: impacts are always computed from input mass
-        transformImpacts =
-            [ transform.impacts
-            , elec.impacts
-                |> Impact.multiplyBy (Energy.inKilowattHours transform.elec)
-            , heat.impacts
-                |> Impact.multiplyBy (Energy.inMegajoules transform.heat)
-            ]
-                |> Impact.sumImpacts
-                |> Impact.multiplyBy (Mass.inKilograms mass)
+        outputAmount =
+            inputAmount
+                |> mapAmount (\val -> val - (val * Split.toFloat transform.waste))
     in
-    ( amount
+    ( outputAmount
     , Results
         -- global result
         { impacts = Impact.sumImpacts [ transformImpacts, impacts ]
@@ -319,8 +317,8 @@ Note: for now we use average elec and heat mixes, but we might want to allow
 specifying specific country mixes in the future.
 
 -}
-applyTransforms : List Process -> Process.Unit -> List Process -> ( Amount, Results ) -> Result String Results
-applyTransforms allProcesses unit transforms ( amount, materialResults ) =
+applyTransforms : List Process -> ( Amount, Process.Unit ) -> List Process -> Results -> Result String Results
+applyTransforms allProcesses ( amount, unit ) transforms materialResults =
     checkTransformsUnit unit transforms
         |> Result.andThen (\_ -> loadDefaultEnergyMixes allProcesses)
         |> Result.map
@@ -368,7 +366,7 @@ computeElementResults processes =
                         (\initialAmount ->
                             material
                                 |> computeMaterialResults initialAmount
-                                |> applyTransforms processes material.unit transforms
+                                |> applyTransforms processes ( amount, material.unit ) transforms
                         )
             )
 
@@ -428,7 +426,7 @@ computeItemResults { components, processes } { custom, id, quantity } =
             )
 
 
-computeMaterialResults : Amount -> Process -> ( Amount, Results )
+computeMaterialResults : Amount -> Process -> Results
 computeMaterialResults amount process =
     let
         impacts =
@@ -445,8 +443,7 @@ computeMaterialResults amount process =
                     amountToFloat amount * process.density
     in
     -- global result
-    ( amount
-    , Results
+    Results
         { impacts = impacts
         , items =
             [ -- material result
@@ -460,7 +457,6 @@ computeMaterialResults amount process =
         , mass = mass
         , stage = Nothing
         }
-    )
 
 
 createItem : Id -> Item
@@ -794,6 +790,11 @@ loadDefaultEnergyMixes processes =
     Result.map2 (\elec heat -> { elec = elec, heat = heat })
         (fromIdString "a2129ece-5dd9-5e66-969c-2603b3c97244")
         (fromIdString "3561ace1-f710-50ce-a69c-9cf842e729e4")
+
+
+mapAmount : (Float -> Float) -> Amount -> Amount
+mapAmount fn (Amount float) =
+    Amount <| fn float
 
 
 quantityFromInt : Int -> Quantity
