@@ -29,6 +29,7 @@ module Data.Component exposing
     , decodeItem
     , decodeList
     , decodeListFromJsonString
+    , elementTransforms
     , elementsToString
     , emptyResults
     , encode
@@ -550,6 +551,17 @@ elementToString processes element =
                     ++ " "
                     ++ Process.getDisplayName process
             )
+
+
+elementTransforms : TargetElement -> List Item -> List Process.Id
+elementTransforms ( ( _, itemIndex ), elementIndex ) =
+    LE.getAt itemIndex
+        >> Maybe.andThen .custom
+        >> Maybe.map .elements
+        >> Maybe.withDefault []
+        >> LE.getAt elementIndex
+        >> Maybe.map .transforms
+        >> Maybe.withDefault []
 
 
 elementsToString : DataContainer db -> Component -> Result String String

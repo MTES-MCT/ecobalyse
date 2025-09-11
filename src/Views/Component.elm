@@ -103,19 +103,14 @@ addElementButton { db, openSelectProcessModal, scopes } targetItem =
 
 
 addElementTransformButton : Config db msg -> Process -> TargetElement -> Html msg
-addElementTransformButton { db, openSelectProcessModal, scopes } material ( ( component, itemIndex ), elementIndex ) =
+addElementTransformButton { db, items, openSelectProcessModal, scopes } material ( targetItem, elementIndex ) =
     let
         availableTransformProcesses =
             db.processes
                 |> Scope.anyOf scopes
                 |> Process.listAvailableMaterialTransforms material
                 |> List.sortBy Process.getDisplayName
-                |> Process.available
-                    (component.elements
-                        |> LE.getAt elementIndex
-                        |> Maybe.map .transforms
-                        |> Maybe.withDefault []
-                    )
+                |> Process.available (Component.elementTransforms ( targetItem, elementIndex ) items)
 
         autocompleteState =
             availableTransformProcesses
@@ -128,7 +123,7 @@ addElementTransformButton { db, openSelectProcessModal, scopes } material ( ( co
         , class "gap-1 w-100 p-0 pb-1"
         , disabled <| List.isEmpty availableTransformProcesses
         , autocompleteState
-            |> openSelectProcessModal Category.Transform ( component, itemIndex ) (Just elementIndex)
+            |> openSelectProcessModal Category.Transform targetItem (Just elementIndex)
             |> onClick
         ]
         [ Icon.plus
