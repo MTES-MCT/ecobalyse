@@ -16,17 +16,17 @@ Dans cette page, les définitions et paramètres suivants sont utilisés :
 
 ## Contexte
 
-Lorsqu'un produit est transporté par voie maritime (voie `mer`), en général deux modes de transport sont mobilisés : le bateau, mais aussi le camion pour le transport terrestre vers le port d'origine et depuis le port de destination :
+Lorsqu'un produit est transporté par voie maritime (voie `mer`), en général deux modes de transport sont mobilisés : le bateau, mais aussi le camion pour le transport terrestre vers le port d'origine et depuis le port de destination :&#x20;
 
-<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (373).png" alt=""><figcaption></figcaption></figure>
 
 Il en est de même pour le transport par voie aérienne (voie `air`) :&#x20;
 
-<figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (374).png" alt=""><figcaption></figcaption></figure>
 
 Pour le transport par voie routière (voie `terre`), le camion est le seul mode de transport :&#x20;
 
-<figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (375).png" alt=""><figcaption></figcaption></figure>
 
 Enfin, pour le transport par voie ferroviaire (voie `fer`), il peut y avoir une combinaison avec du transport routier. Cependant, aujourd'hui l'essentiel du transport ferroviaire de marchandise (hors transport messagerie) est réalisé pour des produits industriels dont le producteur et le destinataire sont raccordés au réseau ferroviaire (exemples : usine automobile vers un centre de distribution, transport de bois). Cette voie de transport n'est pas encore implémentée dans Ecobalyse.
 

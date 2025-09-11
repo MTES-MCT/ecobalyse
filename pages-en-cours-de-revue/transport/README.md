@@ -50,7 +50,7 @@ _A titre d'exemple,_&#x20;
 
 * _un transport par voie maritime se décompose comme suit, avec deux modes de transport (bateau et camion) :_&#x20;
 
-<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (372).png" alt=""><figcaption></figcaption></figure>
 
 * _Sur une période donnée, les exemplaires d'un produit peuvent être transportés en moyenne à 50% par voie maritime, à 30% par voie terrestre et à 20% par voie aérienne. Les voies maritimes et aérienne comprenant une part de transport par camion._
 
