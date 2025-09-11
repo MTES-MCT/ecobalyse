@@ -793,7 +793,7 @@ view session model =
                         , placeholderText = placeholderText
                         , title = title
                         , toLabel = Process.getDisplayName
-                        , toCategory = \_ -> ""
+                        , toCategory = .unit >> Process.unitToString
                         }
             ]
       ]

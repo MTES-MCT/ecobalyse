@@ -1,6 +1,7 @@
 module Views.Format exposing
     ( amount
     , complement
+    , cubicMeters
     , days
     , density
     , diff
@@ -15,7 +16,6 @@ module Views.Format exposing
     , kgToString
     , kilowattHours
     , km
-    , m3
     , megajoules
     , minutes
     , percent
@@ -33,7 +33,7 @@ import Area exposing (Area)
 import Data.Component as Component
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Definition)
-import Data.Process exposing (Process)
+import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
 import Data.Textile.Economics as Economics
 import Data.Unit as Unit
@@ -166,19 +166,28 @@ amount { unit } amount_ =
             Component.amountToFloat amount_
     in
     case unit of
-        "kg" ->
-            Mass.kilograms floatAmount
-                |> kg
+        Process.CubicMeter ->
+            cubicMeters <| Volume.cubicMeters floatAmount
 
-        "m3" ->
-            Volume.cubicMeters floatAmount
-                |> m3
+        Process.Kilogram ->
+            kg <| Mass.kilograms floatAmount
+
+        Process.Liter ->
+            liters <| Volume.liters floatAmount
+
+        Process.SquareMeter ->
+            squareMeters <| Area.squareMeters floatAmount
 
         _ ->
             String.fromFloat floatAmount
                 ++ " "
-                ++ unit
+                ++ Process.unitToString unit
                 |> text
+
+
+cubicMeters : Volume -> Html msg
+cubicMeters =
+    Volume.inCubicMeters >> formatRichFloat 3 "m³"
 
 
 kg : Mass -> Html msg
@@ -197,14 +206,14 @@ km =
     Length.inKilometers >> formatRichFloat 0 "km"
 
 
+liters : Volume -> Html msg
+liters =
+    Volume.inLiters >> formatRichFloat 3 "L"
+
+
 kilowattHours : Energy -> Html msg
 kilowattHours =
     Energy.inKilowattHours >> formatRichFloat 2 "kWh"
-
-
-m3 : Volume -> Html msg
-m3 =
-    Volume.inCubicMeters >> formatRichFloat 2 "m³"
 
 
 megajoules : Energy -> Html msg
@@ -224,7 +233,7 @@ priceInEUR =
 
 squareMeters : Area -> Html msg
 squareMeters =
-    Area.inSquareMeters >> formatRichFloat 2 "m²"
+    Area.inSquareMeters >> formatRichFloat 3 "m²"
 
 
 surfaceMass : Unit.SurfaceMass -> Html msg
@@ -290,10 +299,10 @@ minutes =
     Duration.inMinutes >> formatRichFloat 0 "min"
 
 
-density : { a | density : Float, unit : String } -> Html msg
+density : { a | density : Float, unit : Process.Unit } -> Html msg
 density process =
-    if process.unit /= "kg" then
-        formatRichFloat 0 ("kg/" ++ process.unit) process.density
+    if process.unit /= Process.Kilogram then
+        formatRichFloat 0 ("kg/" ++ Process.unitToString process.unit) process.density
 
     else
         text "N/A"

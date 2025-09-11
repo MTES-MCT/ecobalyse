@@ -103,19 +103,14 @@ addElementButton { db, openSelectProcessModal, scopes } targetItem =
 
 
 addElementTransformButton : Config db msg -> Process -> TargetElement -> Html msg
-addElementTransformButton { db, openSelectProcessModal, scopes } material ( ( component, itemIndex ), elementIndex ) =
+addElementTransformButton { db, items, openSelectProcessModal, scopes } material ( targetItem, elementIndex ) =
     let
         availableTransformProcesses =
             db.processes
                 |> Scope.anyOf scopes
                 |> Process.listAvailableMaterialTransforms material
                 |> List.sortBy Process.getDisplayName
-                |> Process.available
-                    (component.elements
-                        |> LE.getAt elementIndex
-                        |> Maybe.map .transforms
-                        |> Maybe.withDefault []
-                    )
+                |> Process.available (Component.elementTransforms ( targetItem, elementIndex ) items)
 
         autocompleteState =
             availableTransformProcesses
@@ -128,7 +123,7 @@ addElementTransformButton { db, openSelectProcessModal, scopes } material ( ( co
         , class "gap-1 w-100 p-0 pb-1"
         , disabled <| List.isEmpty availableTransformProcesses
         , autocompleteState
-            |> openSelectProcessModal Category.Transform ( component, itemIndex ) (Just elementIndex)
+            |> openSelectProcessModal Category.Transform targetItem (Just elementIndex)
             |> onClick
         ]
         [ Icon.plus
@@ -358,7 +353,7 @@ editorView ({ db, docsUrl, explorerRoute, maxItems, items, results, title } as c
         ]
 
 
-amountInput : Config db msg -> TargetElement -> String -> Amount -> Html msg
+amountInput : Config db msg -> TargetElement -> Process.Unit -> Amount -> Html msg
 amountInput config targetElement unit amount =
     let
         stringAmount =
@@ -394,7 +389,7 @@ amountInput config targetElement unit amount =
             ]
             []
         , small [ class "input-group-text fs-8" ]
-            [ text unit ]
+            [ text <| Process.unitToString unit ]
         ]
 
 
@@ -413,17 +408,21 @@ elementView config targetItem elementIndex { amount, material, transforms } elem
         (tr [ class "fs-7 text-muted" ]
             [ th [] []
             , th [ class "align-middle", scope "col" ]
-                [ if material.unit == "kg" then
+                [ if material.unit == Process.Kilogram then
                     text "Masse finale"
 
                   else
                     text "Quantité finale"
                 ]
-            , th [ class "align-middle", scope "col" ] [ text <| "Élément #" ++ String.fromInt (elementIndex + 1) ]
-            , th [ class "align-middle", scope "col" ] [ text "Pertes" ]
-            , th [ class "align-middle text-truncate", scope "col", Attr.title "Masse sortante" ] [ text "Masse" ]
-            , th [ class "align-middle", scope "col" ] [ text "Impact" ]
-            , th [ class "align-middle", scope "col" ] []
+            , th [ class "align-middle", scope "col" ]
+                [ text <| "Élément #" ++ String.fromInt (elementIndex + 1) ]
+            , th [ class "align-middle", scope "col" ]
+                [ text "Pertes" ]
+            , th [ class "align-middle text-truncate", scope "col", Attr.title "Masse sortante" ]
+                [ material.unit |> Process.unitLabel |> text ]
+            , th [ class "align-middle text-end", scope "col" ]
+                [ Format.formatImpact config.impact <| Component.extractImpacts elementResults ]
+            , th [] []
             ]
             :: elementMaterialView config ( targetItem, elementIndex ) materialResults material amount
             :: elementTransformsView config ( targetItem, elementIndex ) transformsResults transforms
@@ -471,20 +470,19 @@ elementMaterialView config targetElement materialResults material amount =
         [ td [] []
         , td [ class "text-end align-middle text-nowrap ps-0", style "min-width" "130px" ]
             [ if config.scopes == [ Scope.Textile ] then
-                amount
-                    |> Component.amountToFloat
-                    |> Format.formatRichFloat 3 material.unit
+                Format.amount material amount
 
               else
                 amountInput config targetElement material.unit amount
             ]
         , td [ class "align-middle text-truncate w-100", title <| Process.getDisplayName material ]
-            [ selectMaterialButton config targetElement material
-            ]
+            [ selectMaterialButton config targetElement material ]
         , td [ class "text-end align-middle text-nowrap" ]
             []
         , td [ class "text-end align-middle text-nowrap" ]
-            [ Format.kg <| Component.extractMass materialResults ]
+            [ Component.extractAmount materialResults
+                |> Format.amount material
+            ]
         , td [ class "text-end align-middle text-nowrap" ]
             [ Component.extractImpacts materialResults
                 |> Format.formatImpact config.impact
@@ -520,7 +518,8 @@ elementTransformsView config targetElement transformsResults transforms =
                 , td [ class "align-middle text-end text-nowrap" ]
                     [ Format.splitAsPercentage 2 transform.waste ]
                 , td [ class "text-end align-middle text-nowrap" ]
-                    [ Format.kg <| Component.extractMass transformResult
+                    [ Component.extractAmount transformResult
+                        |> Format.amount transform
                     ]
                 , td [ class "text-end align-middle text-nowrap" ]
                     [ Component.extractImpacts transformResult

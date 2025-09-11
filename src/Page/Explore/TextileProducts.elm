@@ -103,7 +103,7 @@ table db { detailed, scope } =
           , toCell =
                 \product ->
                     div [ classList [ ( "text-center", not detailed ) ] ]
-                        [ Format.m3 product.endOfLife.volume ]
+                        [ Format.cubicMeters product.endOfLife.volume ]
           }
         , { label = "Étoffe*"
           , toValue = Table.StringValue (.fabric >> Fabric.toLabel)

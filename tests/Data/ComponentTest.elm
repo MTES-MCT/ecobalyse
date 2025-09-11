@@ -112,12 +112,13 @@ suite =
                 [ let
                     getTestMass transforms =
                         Component.Results
-                            { impacts = Impact.empty
+                            { amount = Component.Amount 1
+                            , impacts = Impact.empty
                             , items = []
                             , mass = Mass.kilogram
                             , stage = Nothing
                             }
-                            |> Component.applyTransforms db.processes transforms
+                            |> Component.applyTransforms db.processes Process.Kilogram transforms
                             |> Result.withDefault Component.emptyResults
                             |> Component.extractMass
                             |> Mass.inKilograms
@@ -139,12 +140,13 @@ suite =
                 , let
                     getTestEcsImpact transforms =
                         Component.Results
-                            { impacts = Impact.empty
+                            { amount = Component.Amount 1
+                            , impacts = Impact.empty
                             , items = []
                             , mass = Mass.kilogram
                             , stage = Nothing
                             }
-                            |> Component.applyTransforms db.processes transforms
+                            |> Component.applyTransforms db.processes Process.Kilogram transforms
                             |> Result.withDefault Component.emptyResults
                             |> extractEcsImpact
                   in
@@ -186,15 +188,32 @@ suite =
                             |> Expect.within (Expect.Absolute 1) 776
                         )
                     ]
+                , TestUtils.suiteFromResult "unit mismatch"
+                    injectionMoulding
+                    (\transformInKg ->
+                        [ it "should reject when the unit of the material and the transforms do not match"
+                            (Component.Results
+                                { amount = Component.Amount 1
+                                , impacts = Impact.empty
+                                , items = []
+                                , mass = Mass.kilogram
+                                , stage = Nothing
+                                }
+                                |> Component.applyTransforms db.processes Process.CubicMeter [ transformInKg ]
+                                |> Expect.equal (Err "Les procédés de transformation ne partagent pas la même unité que la matière source (m3)\u{00A0}: Moulage par injection (kg)")
+                            )
+                        ]
+                    )
                 , let
                     getTestResults transforms =
                         Component.Results
-                            { impacts = Impact.empty |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 100)
+                            { amount = Component.Amount 1
+                            , impacts = Impact.empty |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 100)
                             , items = []
                             , mass = Mass.kilogram
                             , stage = Nothing
                             }
-                            |> Component.applyTransforms db.processes transforms
+                            |> Component.applyTransforms db.processes Process.Kilogram transforms
                             |> Result.withDefault Component.emptyResults
                   in
                   describe "impacts & waste"
@@ -283,35 +302,63 @@ suite =
                         |> TestUtils.expectResultWithin (Expect.Absolute 1) 314
                     )
                 ]
-            , TestUtils.suiteFromResult "computeElementResults"
-                -- setup
-                (Process.idFromString "f0dbe27b-1e74-55d0-88a2-bda812441744"
-                    |> Result.andThen
-                        (\cottonId ->
-                            Component.computeElementResults db.processes
-                                { amount = Component.Amount 1
-                                , material = cottonId
+            , describe "computeElementResults"
+                [ TestUtils.suiteFromResult "basic tests"
+                    -- setup
+                    (Process.idFromString "f0dbe27b-1e74-55d0-88a2-bda812441744"
+                        |> Result.andThen
+                            (\cottonId ->
+                                Component.computeElementResults db.processes
+                                    { amount = Component.Amount 1
+                                    , material = cottonId
 
-                                -- Note: weaving: 0.06253, fading: 0
-                                , transforms = [ weaving.id, fading.id ]
+                                    -- Note: weaving waste: 0.06253, fading: 0
+                                    , transforms = [ weaving.id, fading.id ]
+                                    }
+                            )
+                    )
+                    -- tests
+                    (\elementResults ->
+                        [ it "should compute element impacts"
+                            (elementResults
+                                |> extractEcsImpact
+                                |> Expect.within (Expect.Absolute 1) 2176
+                            )
+                        , it "should compute element mass"
+                            (elementResults
+                                |> Component.extractMass
+                                |> Mass.inKilograms
+                                |> Expect.within (Expect.Absolute 0.000001) 1
+                            )
+                        ]
+                    )
+                , TestUtils.suiteFromResult2 "unit preservation"
+                    woodenBoard
+                    sawing
+                    (\materialInCubicMeters transformInCubicMeters ->
+                        let
+                            results =
+                                { amount = Component.Amount 1
+                                , material = materialInCubicMeters.id
+                                , transforms = [ transformInCubicMeters.id ]
                                 }
-                        )
-                )
-                -- tests
-                (\elementResults ->
-                    [ it "should compute element impacts"
-                        (elementResults
-                            |> extractEcsImpact
-                            |> Expect.within (Expect.Absolute 1) 2176
-                        )
-                    , it "should compute element mass"
-                        (elementResults
-                            |> Component.extractMass
-                            |> Mass.inKilograms
-                            |> Expect.within (Expect.Absolute 0.000001) 1
-                        )
-                    ]
-                )
+                                    |> Component.computeElementResults db.processes
+                        in
+                        [ it "should compute impacts according on material unit"
+                            (results
+                                |> Result.map extractEcsImpact
+                                |> Result.withDefault 0
+                                |> Expect.within (Expect.Absolute 1) 72711
+                            )
+                        , it "should compute mass according on material unit"
+                            (results
+                                |> Result.map (Component.extractMass >> Mass.inKilograms)
+                                |> Result.withDefault 0
+                                |> Expect.within (Expect.Absolute 1) 600
+                            )
+                        ]
+                    )
+                ]
             , describe "computeInitialAmount"
                 [ it "should sequentially apply splits"
                     (Component.Amount 100
@@ -711,6 +758,7 @@ setupTestDb db =
                 , injectionMoulding
                 , woodenBoard
                 , plastic
+                , sawing
                 ]
 
         replace : List { a | id : id } -> List { a | id : id } -> List { a | id : id }
@@ -901,6 +949,49 @@ plastic =
                 "sourceId": "polypropylene, granulate//[RER] polypropylene production, granulate",
                 "unit": "kg",
                 "waste": 0
+            }
+        """
+
+
+sawing : Result String Process
+sawing =
+    decodeJson (Process.decode Impact.decodeImpacts) <|
+        """ {
+                "categories": ["transformation", "material_type:wood"],
+                "comment": "added by Ecobalyse",
+                "density": 0,
+                "displayName": "Sciage + séchage au four en Europe (bois)",
+                "elecMJ": 0,
+                "heatMJ": 0,
+                "id": "c172d131-b5d1-5d9b-822b-5762afb91c66",
+                "impacts": {
+                    "acd": 0,
+                    "cch": 0,
+                    "ecs": 12732.2,
+                    "etf": 0,
+                    "etf-c": 0,
+                    "fru": 0,
+                    "fwe": 0,
+                    "htc": 0,
+                    "htc-c": 0,
+                    "htn": 0,
+                    "htn-c": 0,
+                    "ior": 0,
+                    "ldu": 0,
+                    "mru": 0,
+                    "ozd": 0,
+                    "pco": 0,
+                    "pef": 13736.8,
+                    "pma": 0,
+                    "swe": 0,
+                    "tre": 0,
+                    "wtu": 0
+                },
+                "scopes": ["object"],
+                "source": "Ecobalyse",
+                "sourceId": "Sawing + kiln drying in Europe (wood), constructed by Ecobalyse",
+                "unit": "m3",
+                "waste": 0.5
             }
         """
 
