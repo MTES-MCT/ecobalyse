@@ -61,7 +61,7 @@ Quelques données sous labels sont déjà disponibles dans Agribalyse et ont pu 
 
 L’ensemble des appariements entre ingrédients et ICV Agribalyse est visible dans l’explorateur, et en surbrillance dans l’interface ecobalyse.
 
-<img src="../../../.gitbook/assets/image (4) (1).png" alt="" data-size="original">
+<img src="../../../.gitbook/assets/image (4) (1) (1).png" alt="" data-size="original">
 
 
 

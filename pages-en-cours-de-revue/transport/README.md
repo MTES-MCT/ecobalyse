@@ -44,10 +44,20 @@ Afin de bien modéliser les scénarios de transport, Ecobalyse distingue les not
 
 A des fins de simplification, ces quatre voies ne sont pas toujours proposés pour toutes les étapes de transport.
 
+### Exemple d'application des notions de voies et de mode de transport
+
+_A titre d'exemple,_&#x20;
+
+* _un transport par voie maritime se décompose comme suit, avec deux modes de transport (bateau et camion) :_&#x20;
+
+<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+* _Sur une période donnée, les exemplaires d'un produit peuvent être transportés en moyenne à 50% par voie maritime, à 30% par voie terrestre et à 20% par voie aérienne. Les voies maritimes et aérienne comprenant une part de transport par camion._
+
 ## Descriptif de la documentation Transport
 
 * La page [Coût environnemental par voie de transport](https://fabrique-numerique.gitbook.io/ecobalyse/transverse/transport/cout-environnemental-par-voie-de-transport) détaille le calcul du coût environnemental pour chacune des voies de transport, en fonction des situations.
-* La page [Choix des voies modes de transport](https://fabrique-numerique.gitbook.io/ecobalyse/transverse/transport/choix-des-voies-de-transport) détaille la façon dont une ou plusieurs voies de transport sont combinées pour une étape de transport donnée.
+* La page [Choix des voies de transport](https://fabrique-numerique.gitbook.io/ecobalyse/transverse/transport/choix-des-voies-de-transport) détaille la façon dont une ou plusieurs voies de transport sont combinées pour une étape de transport donnée.
 * Des pages dédiées par secteur décrivent les voies de transport proposées à chaque étape, et les éventuels paramètres spécifiques au secteur :
   * [Textile](https://fabrique-numerique.gitbook.io/ecobalyse/draft-documentation-transverse/transport/transport-textile)
   * [Alimentaire](https://fabrique-numerique.gitbook.io/ecobalyse/transverse/transport/transport-alimentaire)
