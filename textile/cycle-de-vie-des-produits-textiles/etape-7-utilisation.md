@@ -1,8 +1,4 @@
----
-hidden: true
----
-
-# 🌀 Etape 7 - Utilisation (New)
+# 🌀 Etape 7 - Utilisation
 
 ## Contexte
 

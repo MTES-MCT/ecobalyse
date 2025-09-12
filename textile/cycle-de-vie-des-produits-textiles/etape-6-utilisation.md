@@ -2,9 +2,10 @@
 description: >-
   Cette page décrit la modélisation de l'étape d'utilisation du cycle de vie
   d'un vêtement
+hidden: true
 ---
 
-# 🌀 Etape 7 - Utilisation
+# 🌀 Etape 7 - Utilisation (old) - archive
 
 L'étape Utilisation consiste à modéliser le nombre de jours portés du vêtement ainsi que les impacts associés.&#x20;
 
