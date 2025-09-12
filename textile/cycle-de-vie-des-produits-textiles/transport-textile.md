@@ -1,7 +1,3 @@
----
-hidden: true
----
-
 # 🚢 Transport Textile
 
 ## Contexte
@@ -28,11 +24,11 @@ La répartition des trois voies de transport est ajustée en fonction des pays d
 
 #### **Focus : l'aérien est-il un mode de transport privilégié pour les acteurs de l'habillement ?**
 
-Une récente [étude de l'ONG suisse "Public Eye" parue fin 2023 ](https://www.publiceye.ch/fr/thematiques/industrie-textile/en-mode-avion-zara-attise-la-crise-climatique)met en lumière l'importance du secteur Textile dans le fret aérien. De manière générale, peu de données précises sont disponibles sur ces pratiques car les entreprises Textile sont discrètes à ce sujet.
+Une [étude de l'ONG suisse "Public Eye" parue fin 2023 ](https://www.publiceye.ch/fr/thematiques/industrie-textile/en-mode-avion-zara-attise-la-crise-climatique)met en lumière l'importance du secteur textile dans le fret aérien. De manière générale, peu de données précises sont disponibles sur ces pratiques car les entreprises du secteur textile sont discrètes à ce sujet.
 
 Quelques enseignements clés de l'étude :&#x20;
 
-* le fret aérien est utilisé au sein même de l'UE alors que l'avantage en termes de temps reste faible (42 658 tonnes de vêtements transportées par avion au sein de l'UE en 2022 d'après les estimations de l'étude),
+* le fret aérien est utilisé au sein même de l'UE alors que l'avantage en terme de temps reste faible (42 658 tonnes de vêtements transportées par avion au sein de l'UE en 2022 d'après les estimations de l'étude),
 * Shein a signé un partenariat stratégique avec China Southern Airlines afin d'optimiser ses flux logistiques aériens,
 * Le groupe espagnol Inditex (propriétaire de Zara) affrète près de 1,600 vols par an depuis l'aéroport de Saragosse.
 
@@ -40,7 +36,7 @@ Quelques enseignements clés de l'étude :&#x20;
 
 ### Calcul de l'impact pour une voie de transport donnée
 
-Pour chaque étape, le coût environnemental du transport pour une voie de transport i est calculé de la façon suivante :
+Pour chaque étape, le coût environnemental du transport pour une voie de transport _i_ est calculé de la façon suivante :
 
 $$
 I_{i}=\frac{m}{1000}*D_i∗I_{m_i}
@@ -48,11 +44,11 @@ $$
 
 Avec :&#x20;
 
-* `I_i` : le coût environnemental pour la voie i, exprimé en points d'impact Pts
+* `I_i` : le coût environnemental pour la voie _i_, exprimé en points d'impact Pts
 * `m` : la masse de produit transporté, exprimée en kg. La masse à considérer est ajustée en fonction des [Pertes et rebut](https://fabrique-numerique.gitbook.io/ecobalyse/textile/precisions-methodologiques/pertes-et-rebus).
 * `D_i` : la distance parcourue pour la voie de transport i, exprimée en km
   * Les valeurs des paramètres `D_mer` , `D_terre`,`D_air` sont indiquées dans la section "Paramètres retenus pour l’affichage environnemental".
-* `I_m_i` : le coût environnemental du mode de transport correspondant à la voie i, exprimé en Pts/t.km
+* `I_m_i` : le coût environnemental du mode de transport correspondant à la voie _i_, exprimé en Pts/t.km
 
 ### Répartition entre voies de transport
 
@@ -69,8 +65,8 @@ $$
 Avec :&#x20;
 
 * `I_transport` : le coût environnemental de l'étape de transport considérée, exprimé dans l'unité de la catégorie d'impact analysée
-* `a` : la part de voie aérienne, par rapport aux voies terrestre+maritime+aérienne combinées, valeur sans unité entre 0 et 1 (100%)
-* `t` : la part de voie terrestre, par rapport aux voies terrestre+maritime combinées, valeur sans unité entre 0 et 1 (100%)
+* `a` : la part de voie aérienne, par rapport aux voies terrestre + maritime + aérienne combinées, valeur sans unité entre 0 et 1 (100%)
+* `t` : la part de voie terrestre, par rapport aux voies terrestre + maritime combinées, valeur sans unité entre 0 et 1 (100%)
 * `I_air` : le coût environnemental par voie aérienne, exprimé dans l'unité de la catégorie d'impact analysée
 * `I_terre` : le coût environnemental par voie terrestre, exprimé dans l'unité de la catégorie d'impact analysée
 * `I_mer` : le coût environnemental par voie maritime, exprimé dans l'unité de la catégorie d'impact analysée
@@ -103,7 +99,7 @@ Ceci est notamment applicable à l'étape Distribution. Cette étape fait l'obje
 
 ### Distances entre pays
 
-La distance pour chaque voie de transport est calculés en fonction du pays d'origines et de destination pour chaque étape de transport considérée.
+La distance pour chaque voie de transport est calculée en fonction du pays d'origines et de destination pour chaque étape de transport considérée.
 
 Le tableau suivant décrit les sources de données et le mode de calcul des distances pour dans la situation où l'utilisateur connais les pays d'origine et de destination, et ceux-ci sont proposés dans Ecobalyse (Situation 1).
 
@@ -141,7 +137,7 @@ Le transport est ensuite calculé de la même façon que si ce pays était direc
 
 Je sélectionne "Inconnu" ou "Inconnu (par défaut)"
 
-Dans ce cas, l'Inde est utilisée en arrière plan comme pays de référence pour définir les distances et voies de transport.&#x20;
+Dans ce cas, l'Inde est utilisée en arrière-plan comme pays de référence pour définir les distances et voies de transport.&#x20;
 
 </details>
 

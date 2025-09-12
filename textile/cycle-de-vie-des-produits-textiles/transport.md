@@ -1,3 +1,7 @@
+---
+hidden: true
+---
+
 # 🚢 Transport
 
 ## Vue d'ensemble
