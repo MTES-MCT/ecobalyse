@@ -18,7 +18,7 @@ Les impacts de la phase d'utilisation concernent l'entretien du vêtement. Confo
 
 ### Durée de vie des vêtements
 
-La durée de vie se définie en nombres de jours portés. Celle-ci est spécifique à chaque catégorie de vêtement (ex : 45 jours pour un t-shirt) et définie dans Ecobalyse (cf. [explorateur](https://ecobalyse.beta.gouv.fr/#/explore/textile/products)). Ces valeurs ont été définies en s'appuyant sur les données du projet de PEFCR Apparel & Footwear lorsque disponibles.
+La durée de vie se définie en nombres de jours portés. Celle-ci est spécifique à chaque catégorie de vêtement (ex : 45 jours pour un t-shirt) et définie dans Ecobalyse (cf. [explorateur](https://ecobalyse.beta.gouv.fr/#/explore/textile/products)). Ces valeurs ont été définies en s'appuyant sur les données du PEFCR Apparel & Footwear.
 
 Le coefficient de durabilité (cf. la section [Durabilité](https://fabrique-numerique.gitbook.io/ecobalyse/textile/durabilite)) vient corriger le nombre de jours portés.&#x20;
 
@@ -26,7 +26,7 @@ Plus un vêtement est durable, plus élevé sera sa durée de vie et donc son no
 
 ### Repassage
 
-Pour l'étape de repassage, le PEFCR Apparel & Footwear, propose d'appliquer un ratio de produits repassés en fonction de la catégorie de produit. Par exemple on fait l'hypothèse qu'une chemise est repassé 70% du temps tandis qu'un pull n'est jamais repassé. De plus on fait l'hypothèse que le temps de repassage est différent pour chaque type de vêtement. Ainsi on suppose qu'un T-Shirt a un temps de repassage de 2 min tandis qu'un pantalon a un temps de repassage de 4,3 min.
+Pour l'étape de repassage, le PEFCR Apparel & Footwear, propose d'appliquer un ratio de produits repassés en fonction de la catégorie de produit. Par exemple on fait l'hypothèse qu'une chemise est repassé 70% du temps tandis qu'un pull n'est jamais repassé. De plus on fait l'hypothèse que le temps de repassage est différent pour chaque type de vêtement. Ainsi on suppose qu'un t-shirt a un temps de repassage de 2 minutes tandis qu'un pantalon a un temps de repassage de 4,3 minutes.
 
 ## Méthodes de calcul
 
@@ -96,7 +96,7 @@ Par exemple, pour un t-shirt avec une durabilité élevée (coefficient de x1,35
 Les paramètres suivants sont fournis pour chaque catégorie de produit dans l'[Explorateur ](https://ecobalyse.beta.gouv.fr/#/explore/textile/products):&#x20;
 
 * `n_cycles,i,defaut` : colonne _Cycles d'entretien (par défaut)_ ;
-* `d_portés,i` : colonne _Nombre de jours porté_ ;
+* `d_portés,i` : colonne _Nombre de jours portés_ ;
 * `d_cycle.entretien,i` : colonne _Utilisations avant lavage_.
 
 ### Energie pour le repassage
@@ -122,7 +122,7 @@ Avec :&#x20;
 * `t_repassage,i` : le temps de repassage d'un vêtement de la catégorie i, exprimé en heures ;
   * Ce paramètre est fournis pour chaque catégorie de produit dans l'[Explorateur produits](https://ecobalyse.beta.gouv.fr/#/explore/textile/products), colonne _Repassage, temps_ ;
 * `P_repassage,heure` : la puissance électrique nécessaire au repassage (ou consommation d'électricité moyenne pour une heure de repassage), en kWh ;
-  * valeur : 1,5 kW (documentation ADEME) ;
+  * valeur : 1,5 kW (documentation Base Impacts ADEME) ;
 {% endhint %}
 
 ## Procédés utilisés pour le coût environnemental
@@ -154,11 +154,11 @@ Avec :
 
 * `E_7,horsrepassage,i` : la quantité d'électricité consommée (hors repassage) pour le cycle d'entretien d'un kg de vêtement de la catégorie `i`, en kWh/kg. Cette quantité est définie dans le procédé `Utilisation : Impact hors repassage (i)` comme flux externe. Elle intervient directement dans le calcul de l'impact environnemental de l'utilisation du vêtement.
 * `E_lavage` : la quantité d'électricité nécessaire pour laver 1 kg de vêtement, exprimé en kWh/kg.&#x20;
-  * Une valeur de 0.1847 kWh/kg est retenue, en accord avec la documentation ADEME
+  * Une valeur de 0.1847 kWh/kg est retenue, en accord avec la documentation Base Impacts - ADEME
 * `r_sechage,i` : la part de vêtement qui va être séché en sèche-linge, pour la catégorie de vêtement `i`, sans unité.
-  * En accord avec le projet de PEFCR Apparel & Footwear (Table 33 - version de l'été 2021) on applique un ratio de produits séchés en sèche-linge différent pour chaque type de produit. Par exemple on fait l'hypothèse qu'un T-Shirt est séché en sèche-linge 30% du temps tandis qu'une jupe n'est séchée en sèche-linge que 12% du temps. Ces ratios sont précisé dans l'[Explorateur produits](https://ecobalyse.beta.gouv.fr/#/explore/textile/products);
+  * En accord avec le PEFCR Apparel & Footwear (Table 33 - version de l'été 2021) on applique un ratio de produits séchés en sèche-linge différent pour chaque type de produit. Par exemple on fait l'hypothèse qu'un t-shirt est séché en sèche-linge 30% du temps tandis qu'une jupe n'est séchée en sèche-linge que 12% du temps. Ces ratios sont précisé dans l'[Explorateur produits](https://ecobalyse.beta.gouv.fr/#/explore/textile/products);
 * `E_sechage` : la quantité d'électricité nécessaire pour sécher 1 kg de vêtement, exprimé en kWh/kg.&#x20;
-  * Une valeur de 0.335 kWh/kg est retenue, en accord avec la documentation ADEME
+  * Une valeur de 0.335 kWh/kg est retenue, en accord avec la documentation Base Impacts - ADEME
 {% endhint %}
 
 {% hint style="info" %}
@@ -174,11 +174,11 @@ Avec :
 
 * `I_7,horsrepassage` : I'impact environnemental associé à l'entretien d'1kg de vêtement de la catégorie i, exprimé en unité de la catégorie d'impact analysée par kg.&#x20;
 * `m_lessive` : la quantité de lessive nécessaire pour laver 1 kg de linge, exprimé en kg/kg.&#x20;
-  * Une valeur de 0.036 kWh/kg est retenue, en accord avec la documentation ADEME
+  * Une valeur de 0.036 kWh/kg est retenue, en accord avec la documentation Base Impacts- ADEME
 * `I_lessive` : I'impact environnemental d'1kg de lessive, exprimé en unité de la catégorie d'impact analysée par kg.
   *
 * `V_eau` : le volume d'eau de vêtement nécessaire pour laver 1 kg de linge, exprimé en m3/kg.
-  * &#x20;Une valeur de 0.0097 kWh/kg est retenue, en accord avec la documentation ADEME
+  * &#x20;Une valeur de 0.0097 kWh/kg est retenue, en accord avec la documentation Base Impacts - ADEME
 * `I_traitementEau` : I'impact environnemental associé au traitement d'1m3 d'eau, exprimé en unité de la catégorie d'impact analysée par m3.&#x20;
 {% endhint %}
 
