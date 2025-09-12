@@ -19,7 +19,7 @@ $$
 Avec :&#x20;
 
 * `CoûtEnvironnemental` : le coût environnemental du produit
-* `SommedesImpacts` : la somme des impacts environnementaux du sur l'ensemble du cycle de vie. Elle est aussi appelée _coût environnemental hors durabilité._ Plus le produit est utilisé, plus cette valeur augmente.
+* `SommedesImpacts` : la somme des impacts environnementaux du produit sur l'ensemble du cycle de vie. Elle est aussi appelée _coût environnemental hors durabilité._ Plus le produit est utilisé, plus cette valeur augmente.
 * `C_Durabilité` : le coefficient de durabilité du produit, sans unité dont la valeur est située entre `Coeff_min` pour les produits les moins durables, et `Coef_max`  pour les produits les plus durables
 
 {% hint style="info" %}

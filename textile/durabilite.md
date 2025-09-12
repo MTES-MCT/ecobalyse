@@ -1,3 +1,7 @@
+---
+hidden: true
+---
+
 # 🔴 Durabilité
 
 {% hint style="warning" %}
