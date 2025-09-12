@@ -13,7 +13,7 @@ A chaque étape de la production, des pertes et rebut sont pris en compte. Les f
 | Fil            | Etoffe         | [Tricotage / Tissage](../cycle-de-vie-des-produits-textiles/tricotage-tissage.md)                          |
 | Etoffe         | Tissu          | [Teinture](../cycle-de-vie-des-produits-textiles/ennoblissement-1/)                                        |
 | Tissu          | Habit          | [Confection](../cycle-de-vie-des-produits-textiles/confection.md)                                          |
-| Habit          | Habit          | [Distribution](../cycle-de-vie-des-produits-textiles/etape-6-distribution.md)                              |
+| Habit          | Habit          | [Distribution](../cycle-de-vie-des-produits-textiles/etape-6-distribution-old-archive.md)                  |
 
 {% hint style="info" %}
 Dans cette documentation le taux de perte $$T$$ vaut :

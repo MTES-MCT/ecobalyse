@@ -1,24 +1,37 @@
----
-description: >-
-  Opérations et circuits permettant de mettre le produit à disposition des
-  consommateurs.
----
-
 # 🚚 Etape 6 - Distribution
 
-### Méthode de calcul
+## Contexte
 
-En première approche, le modèle de distribution considéré est très simple :
+La distribution correspond au transport entre l'entrepôt de stockage du produit final (après confection et transport), et un magasin ou centre de distribution. Il est considéré que l'entrepôt est en France.
 
-* il est considéré que l'entrepôt est en France ;
-* il est considéré, en moyenne, que 500 km sont parcourus en moyenne, en camion, pour distribuer le vêtement de l'entrepôt au point de vente ou de livraison.
+Ce type de transport se fait presque exclusivement par camion.
 
-La distance de 500 km est reprise du socle technique ADEME (Méthodologie d'évaluation des impacts environnementaux des articles d'habillement - Annexe A.2.b - p30).
+A des fins de simplification, le transport entre un magasin ou un centre de distribution et le client final n'est pas pris en compte à ce jour dans Ecobalyse.
 
-### Procédé utilisé pour le coût environnemental
+## Méthodes de calcul
 
-Un unique procédé issu de la Base Impacts est considéré pour modéliser la distribution, de l'entrepôt au point de vente ou de livraison.  Il est identifié dans l'[Explorateur](https://ecobalyse.beta.gouv.fr/#/explore/textile/textile-processes/3db67ae7-c169-5837-8e0a-3c3c31ffda67).
+La méthode est une application de la méthode appliquée à la modélisation du transport (voir [page Transport Textile](https://fabrique-numerique.gitbook.io/ecobalyse/~/revisions/PtzPKtOEZalbhnlYU97d/textile/cycle-de-vie-des-produits-textiles/transport-textile)).
 
-* Nom du procédé Base Impacts= Transport en camion non spécifié France (dont parc, utilisation et infrastructure) (50%) \[tkm], FR
+$$
+I_{6} = \frac{m}{1000}*D_{6,camion}*I_{camion}
+$$
 
-Les modalités de calcul de l'impact environnemental de ce transport sont précisées dans la page [transport](transport.md).
+Avec :
+
+* `I_distribution` : l'impact environnemental de la distribution, dans l'unité de la catégorie d'impact analysée
+* `m` la masse du produit final, exprimée en kg.
+* `D_distribution,camion` : la distance effectuée en camion entre l’entrepôt de stockage en France (ou l'industriel en France le cas échéant) et le point de vente ou de livraison locale, en km
+* `I_camion` : l'impact environnemental du transport par camion, dans l'unité de la catégorie d'impact analysée, rapportée à tonne.km
+
+## Paramètres retenus pour le coût environnemental
+
+`D_distribution,camion` = 500km
+
+La distance de 500 km est reprise du socle technique ADEME de 2023 (Méthodologie d'évaluation des impacts environnementaux des articles d'habillement - Annexe A.2.b - p30).
+
+## Procédé utilisé pour le coût environnemental
+
+Le procédé utilisé est identifié dans l'[Explorateur de procédé](https://ecobalyse.beta.gouv.fr/#/explore/textile/textile-processes) sous le nom "transport routier" :&#x20;
+
+* market group for transport, freight, lorry, unspecified, GLO, source Ecoinvent 3.9.1
+

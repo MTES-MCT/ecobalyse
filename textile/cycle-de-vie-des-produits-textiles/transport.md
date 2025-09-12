@@ -85,7 +85,7 @@ _"Pour un déplacement "Turquie-France", le transport terrestre-maritime sera fa
 Une part de transport aérien est considérée, comme paramètre optionnel :
 
 * Seulement pour le transport entre la confection et l'entrepôt (étape #5 ci-dessus)
-* Cette part n'est considérée que lorsque la confection est réalisée hors Europe (ou Turquie). Pour mémo, il est considéré que l'entrepôt est en France (cf. [Distribution](etape-6-distribution.md))
+* Cette part n'est considérée que lorsque la confection est réalisée hors Europe (ou Turquie). Pour mémo, il est considéré que l'entrepôt est en France (cf. [Distribution](etape-6-distribution-old-archive.md))
 
 La part de **transport aérien (`a`)**, par rapport au transport "aérien + terrestre + maritime" est considérée comme suit pour la **valeur par défaut**: &#x20;
 
