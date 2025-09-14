@@ -77,12 +77,6 @@ La part de **voie terrestre (`t`)**, par rapport au transport "terrestre + marit
 
 <table><thead><tr><th width="297">Distance terrestre</th><th>t</th></tr></thead><tbody><tr><td>&#x3C;=500 km</td><td>100%</td></tr><tr><td>500 km &#x3C;= 1000 km</td><td>90%</td></tr><tr><td>1000 km &#x3C;= 2000 km</td><td>50%</td></tr><tr><td>2000 km &#x3C;= 3000 km</td><td>25%</td></tr><tr><td>> 3000 km</td><td>0%</td></tr></tbody></table>
 
-Exemples :&#x20;
-
-<table><thead><tr><th>t (% terrestre)</th><th>Turquie</th><th>France</th><th width="120">Espagne</th><th>Portugal</th></tr></thead><tbody><tr><td>Turquie</td><td>100%</td><td></td><td></td><td></td></tr><tr><td>France</td><td>25%</td><td>100%</td><td></td><td></td></tr><tr><td>Espagne</td><td>0%</td><td>90%</td><td>100%</td><td></td></tr><tr><td>Portugal</td><td>0%</td><td>50%</td><td>90%</td><td>100%</td></tr></tbody></table>
-
-_"Pour un déplacement "Turquie-France", le transport sera fait de 25% de transport par voie terrestre et de 75% de transport par voie maritime (ce dernier incluant du transport par camion vers et depuis les ports concernés)"_
-
 ### Part de voie aérienne ou ferroviaire
 
 La part de **voie aérienne (`a`) ou de voie ferroviaire (`f`)**, par rapport au transport "terrestre + maritime + aérienne" ou "terrestre + maritime + ferroviaire" respectivement, est définie en fonction du secteur étudié, et décrite dans les pages Transport sectorielles.
@@ -91,3 +85,57 @@ La part de **voie aérienne (`a`) ou de voie ferroviaire (`f`)**, par rapport au
 
 L'impact par voie de transport `I_terre`, `I_mer`, `I_air` ou `I_fer` est calculé selon la méthode décrite dans la page [Coût environnemental par voie de transport](https://fabrique-numerique.gitbook.io/ecobalyse/transverse/transport/cout-environnemental-par-voie-de-transport).
 
+## Exemple d'application
+
+### Part de voie terrestre&#x20;
+
+<table><thead><tr><th>t (% terrestre)</th><th>Turquie</th><th>France</th><th width="120">Espagne</th><th>Portugal</th></tr></thead><tbody><tr><td>Turquie</td><td>100%</td><td></td><td></td><td></td></tr><tr><td>France</td><td>25%</td><td>100%</td><td></td><td></td></tr><tr><td>Espagne</td><td>0%</td><td>90%</td><td>100%</td><td></td></tr><tr><td>Portugal</td><td>0%</td><td>50%</td><td>90%</td><td>100%</td></tr></tbody></table>
+
+_"Pour un déplacement "Turquie-France", le transport sera fait de 25% de transport par voie terrestre et de 75% de transport par voie maritime (ce dernier incluant du transport par camion vers et depuis les ports concernés)"_
+
+### Exemple : transport depuis la Turquie vers la France
+
+#### Calcul de l'impact par voie de transport, pour 1kg
+
+* `D_mer,camion` = `D_mer,camion,défaut` = 1000 km (`D_terre,camion` > 2000km)
+* `D_mer,bateau` = 6108 km
+* `D_terre,camion` =  2971 km
+* `D_air,avion` =  2799 km
+
+Pour 1 kg transporté par voie maritime, le coût environnemental est calculé comme suit :
+
+$$
+I_{v.mer}=\frac{1}{1000}*(6108∗1.3+1000∗15.5)=24.4 Pts
+$$
+
+$$
+I_{v.terre}=\frac{1}{1000}*2971∗15.5=45.9 Pts
+$$
+
+$$
+I_{v.avion}=\frac{1}{1000}*(2799∗59.3+1000∗15.5)=181.5 Pts
+$$
+
+#### Calcul de l'impact hors avion
+
+* `t` = 25% ; `a` = 0% ; `f` = 0%
+
+<figure><img src="../../.gitbook/assets/image (376).png" alt=""><figcaption></figcaption></figure>
+
+$$
+I_{transport}=a*I_{air}+(1-a)*( t∗I_{terre}+(1−t)∗I_{mer})
+$$
+
+$$
+I_{transport}=0.25∗45.9+0.75*23.4=29.0Pts
+$$
+
+#### Calcul de l'impact avec avion
+
+* `t` = 25% ; `a` = 20% ; `f` = 0%
+
+<figure><img src="../../.gitbook/assets/image (377).png" alt=""><figcaption></figcaption></figure>
+
+$$
+I_{transport}=36.3+0.8*29.0=59.5Pts
+$$
