@@ -554,11 +554,11 @@ elementToString processes element =
 
 
 elementTransforms : TargetElement -> List Item -> List Process.Id
-elementTransforms ( ( _, itemIndex ), elementIndex ) =
+elementTransforms ( ( component, itemIndex ), elementIndex ) =
     LE.getAt itemIndex
         >> Maybe.andThen .custom
         >> Maybe.map .elements
-        >> Maybe.withDefault []
+        >> Maybe.withDefault component.elements
         >> LE.getAt elementIndex
         >> Maybe.map .transforms
         >> Maybe.withDefault []
