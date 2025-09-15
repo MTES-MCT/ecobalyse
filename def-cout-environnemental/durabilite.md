@@ -20,7 +20,7 @@ Avec :&#x20;
 
 * `CoûtEnvironnemental` : le coût environnemental du produit
 * `SommeDesImpacts` : la somme des impacts environnementaux du produit sur l'ensemble du cycle de vie. Ces impacts environnementaux sont affichés dans le simulateur pour chaque étape, leur calcul est décrit dans les pages méthodologiques de la documentation. \
-  &#xNAN;_&#x4C;a valeur_ `SommeDesImpacts` _est indiquée dans le simulateur sous le coût environnemental, avec la mention `hors durabilité`. Plus le produit est utilisé, plus cette valeur augmente._&#x20;
+  &#xNAN;_&#x4C;a valeur_ `SommeDesImpacts` _est indiquée dans le simulateur sous le coût environnemental, avec la mention `hors durabilité`. Plus le produit est utilisé, plus cette valeur augmente (si l'utilisation a un impact)._&#x20;
 * `C_Durabilité` : le coefficient de durabilité du produit, sans unité dont la valeur est située entre `Coeff_min` pour les produits les moins durables, et `Coef_max`  pour les produits les plus durables
 
 {% hint style="info" %}
