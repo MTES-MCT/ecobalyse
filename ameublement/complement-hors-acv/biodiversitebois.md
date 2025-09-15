@@ -4,7 +4,7 @@ description: Présentation de la méthode de calcul du complément Biodiversité
 
 # 🌍 Biodiversité x Bois (draft)
 
-##
+<mark style="color:$danger;">Cette page est en cours de mise à jour</mark>
 
 ## Contexte
 
