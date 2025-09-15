@@ -407,8 +407,7 @@ computeItemResults { components, processes } { custom, id, quantity } =
         |> Result.andThen
             (\component ->
                 custom
-                    |> Maybe.map .elements
-                    |> Maybe.withDefault component.elements
+                    |> customElements component
                     |> List.map (computeElementResults processes)
                     |> RE.combine
             )
@@ -469,6 +468,11 @@ computeMaterialResults amount process =
 createItem : Id -> Item
 createItem id =
     { custom = Nothing, id = id, quantity = quantityFromInt 1 }
+
+
+customElements : Component -> Maybe Custom -> List Element
+customElements { elements } =
+    Maybe.map .elements >> Maybe.withDefault elements
 
 
 decode : Decoder Component
@@ -554,11 +558,8 @@ elementToString processes element =
 
 
 elementTransforms : TargetElement -> List Item -> List Process.Id
-elementTransforms ( ( component, itemIndex ), elementIndex ) =
-    LE.getAt itemIndex
-        >> Maybe.andThen .custom
-        >> Maybe.map .elements
-        >> Maybe.withDefault component.elements
+elementTransforms ( targetItem, elementIndex ) =
+    itemElements targetItem
         >> LE.getAt elementIndex
         >> Maybe.map .transforms
         >> Maybe.withDefault []
@@ -687,8 +688,7 @@ expandItem { components, processes } { custom, id, quantity } =
         |> Result.andThen
             (\component ->
                 custom
-                    |> Maybe.map .elements
-                    |> Maybe.withDefault component.elements
+                    |> customElements component
                     |> expandElements processes
                     |> Result.map (\expanded -> ( quantity, component, expanded ))
             )
@@ -754,6 +754,13 @@ isEmpty component =
     List.isEmpty component.elements
 
 
+itemElements : TargetItem -> List Item -> List Element
+itemElements ( component, itemIndex ) =
+    LE.getAt itemIndex
+        >> Maybe.andThen .custom
+        >> customElements component
+
+
 itemToComponent : DataContainer db -> Item -> Result String Component
 itemToComponent { components } { custom, id } =
     findById id components
@@ -779,8 +786,7 @@ itemToString db { custom, id, quantity } =
         |> Result.andThen
             (\component ->
                 custom
-                    |> Maybe.map .elements
-                    |> Maybe.withDefault component.elements
+                    |> customElements component
                     |> RE.combineMap (elementToString db.processes)
                     |> Result.map (String.join " | ")
                     |> Result.map
