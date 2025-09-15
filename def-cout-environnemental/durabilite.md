@@ -4,12 +4,12 @@
 
 La durabilité d'un produit reflète sa capacité à perdurer dans le temps.&#x20;
 
-Plus un produit est durable, et plus il est vertueux.
+Plus un produit est durable, plus il est vertueux.
 
 Cependant, l'impact environnemental d'un produit peut augmenter avec sa durabilité. \
-En effet, si un produit génère un impact à l'utilisation (consommation d'énergie par exemple), alors **plus il est durable, plus il est utilisé, plus il est entretenu, et plus la somme des impacts qu'il génère est importante (sur une durée d'utilisation plus longue).**
+En effet, lorsqu'un produit génère un impact à l'utilisation (ex : consommation d'énergie pour laver un t-shirt), son impact environnemental augmente en parallèle de l'accroissement de sa durée d'utilisation plus longue.
 
-**Le calcul du coût environnemental intègre donc la notion de durabilité, de telle sorte que plus la durabilité d'un produit est élevée, plus faible est son coût environnemental.**
+Le calcul du coût environnemental intègre donc la notion de durabilité, de telle sorte que plus la durabilité d'un produit est élevée, plus faible est son coût environnemental.
 
 Le coût environnemental utilisé dans Ecobalyse repose sur une unité fonctionnelle fixe (ex : 45 jours de portées pour un t-shirt). Dès lors, pour chaque produit, un **coefficient de durabilité** `C_Durabilité` est établi afin de corriger le coût environnemental selon la durée de vie estimée.
 
