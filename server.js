@@ -324,7 +324,11 @@ version.all(
       body: req.body,
       processes: versionProcesses,
       jsResponseHandler: ({ status, body }) => {
-        respondWithFormattedJSON(res, status, body);
+        respondWithFormattedJSON(res, status, {
+          ...body,
+          // add current version to web urls
+          webUrl: body.webUrl?.replace("/#/", `/versions/${versionNumber}/#/`),
+        });
       },
     });
   },
