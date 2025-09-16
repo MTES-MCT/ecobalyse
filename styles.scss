@@ -1460,3 +1460,12 @@ q {
     }
   }
 }
+
+.page-notice {
+  position: relative;
+  background-color: #e8edff;
+  color: #0063cb;
+  padding: 1rem;
+  box-shadow: inset 0 3px 5px rgba(194, 209, 255, 0.8);
+  margin-top: -7px;
+}

@@ -68,6 +68,23 @@ frame ({ activePage } as config) ( title, content ) =
         [ stagingAlert config
         , newVersionAlert config
         , pageHeader config
+        , if activePage == TextileSimulator then
+            div [ class "page-notice", attribute "role" "notice" ]
+                [ div [ class "container" ]
+                    [ span [ class "me-1" ]
+                        [ Icon.info ]
+                    , span [ class "fw-bold" ]
+                        [ text "Cette version est en cours de développement." ]
+                    , span [ class "ms-1" ]
+                        [ text "La version réglementaire est la v7.0.0."
+                        , a [ href "/versions/v7.0.0/", class "ms-1" ]
+                            [ text "Accéder à la version réglementaire" ]
+                        ]
+                    ]
+                ]
+
+          else
+            text ""
         , if config.mobileNavigationOpened then
             mobileNavigation config
 
