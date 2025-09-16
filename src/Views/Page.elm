@@ -77,7 +77,12 @@ frame ({ activePage } as config) ( title, content ) =
                         [ text "Cette version est en cours de développement." ]
                     , span [ class "ms-1" ]
                         [ text "La version réglementaire est la v7.0.0."
-                        , a [ href "/versions/v7.0.0/", class "ms-1" ]
+                        , button
+                            [ type_ "button"
+                            , class "btn btn-link"
+                            , onClick <| config.toMsg <| App.LoadUrl "/versions/v7.0.0/#/textile/simulator"
+                            , class "ms-1"
+                            ]
                             [ text "Accéder à la version réglementaire" ]
                         ]
                     ]

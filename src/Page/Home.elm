@@ -7,12 +7,14 @@ module Page.Home exposing
     )
 
 import App exposing (Msg, PageUpdate)
+import Browser.Navigation as Nav
 import Data.Dataset as Dataset
 import Data.Env as Env
 import Data.Scope as Scope
 import Data.Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Events exposing (onClick)
 import Ports
 import Route exposing (Route)
 import Views.Container as Container
@@ -26,6 +28,7 @@ type alias Model =
 
 type Msg
     = NoOp
+    | ProcessLink Link
 
 
 type Link
@@ -49,26 +52,31 @@ init session =
 
 
 update : Session -> Msg -> Model -> PageUpdate Model Msg
-update session _ model =
-    App.createUpdate session model
+update session msg model =
+    case msg of
+        NoOp ->
+            App.createUpdate session model
 
+        ProcessLink link ->
+            App.createUpdate session model
+                |> App.withCmds
+                    [ Nav.load <|
+                        case link of
+                            ExternalLink url ->
+                                url
 
-linkHref : Link -> Attribute msg
-linkHref link =
-    case link of
-        ExternalLink url ->
-            href url
-
-        RouteLink route ->
-            Route.href route
+                            RouteLink route ->
+                                Route.toString route
+                    ]
 
 
 simulatorButton : ButtonParams -> Html Msg
 simulatorButton { label, subLabel, callToAction, link, testId } =
-    a
-        [ class "btn btn-lg d-flex flex-column align-items-center justify-content-center"
+    button
+        [ type_ "button"
+        , class "btn btn-lg d-flex flex-column align-items-center justify-content-center"
         , classList [ ( "btn-primary", callToAction ), ( "btn-outline-primary", not callToAction ) ]
-        , linkHref link
+        , onClick <| ProcessLink link
         , attribute "data-testid" testId
         ]
         [ text label
@@ -96,7 +104,7 @@ viewHero { enabledSections } =
             , div [ class "d-flex flex-column flex-sm-row gap-3 mb-4" ]
                 [ simulatorButton
                     { label = "Calculer l’impact d’un vêtement"
-                    , subLabel = Nothing
+                    , subLabel = Just "Version réglementaire"
                     , callToAction = True
                     , link = ExternalLink "/versions/v7.0.0/#/textile/simulator"
                     , testId = "textile-callout-button"
