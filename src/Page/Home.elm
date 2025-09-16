@@ -57,17 +57,13 @@ update session msg model =
         NoOp ->
             App.createUpdate session model
 
-        ProcessLink link ->
+        ProcessLink (ExternalLink url) ->
             App.createUpdate session model
-                |> App.withCmds
-                    [ Nav.load <|
-                        case link of
-                            ExternalLink url ->
-                                url
+                |> App.withCmds [ Nav.load url ]
 
-                            RouteLink route ->
-                                Route.toString route
-                    ]
+        ProcessLink (RouteLink route) ->
+            App.createUpdate session model
+                |> App.withCmds [ Nav.load <| Route.toString route ]
 
 
 simulatorButton : ButtonParams -> Html Msg
