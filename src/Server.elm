@@ -213,6 +213,12 @@ respondWith =
     Tuple.pair
 
 
+encodeSimulatorWithWebUrl : Simulator -> Encode.Value
+encodeSimulatorWithWebUrl ({ inputs } as simulator) =
+    simulator
+        |> Simulator.encode (Just <| serverRootUrl ++ toTextileWebUrl Nothing inputs)
+
+
 handleRequest : Db -> Request -> JsonResponse
 handleRequest db request =
     case Route.endpoint db request of
@@ -282,7 +288,7 @@ handleRequest db request =
 
         Just (Route.TextilePostSimulatorDetailed (Ok textileQuery)) ->
             textileQuery
-                |> executeTextileQuery db Simulator.encode
+                |> executeTextileQuery db encodeSimulatorWithWebUrl
 
         Just (Route.TextilePostSimulatorDetailed (Err error)) ->
             encodeValidationErrors error
