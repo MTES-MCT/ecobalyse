@@ -28,11 +28,16 @@ type Msg
     = NoOp
 
 
+type Link
+    = ExternalLink String
+    | RouteLink Route
+
+
 type alias ButtonParams =
     { label : String
     , subLabel : Maybe String
     , callToAction : Bool
-    , route : Route
+    , link : Link
     , testId : String
     }
 
@@ -48,12 +53,22 @@ update session _ model =
     App.createUpdate session model
 
 
+linkHref : Link -> Attribute msg
+linkHref link =
+    case link of
+        ExternalLink url ->
+            href url
+
+        RouteLink route ->
+            Route.href route
+
+
 simulatorButton : ButtonParams -> Html Msg
-simulatorButton { label, subLabel, callToAction, route, testId } =
+simulatorButton { label, subLabel, callToAction, link, testId } =
     a
         [ class "btn btn-lg d-flex flex-column align-items-center justify-content-center"
         , classList [ ( "btn-primary", callToAction ), ( "btn-outline-primary", not callToAction ) ]
-        , Route.href route
+        , linkHref link
         , attribute "data-testid" testId
         ]
         [ text label
@@ -83,7 +98,7 @@ viewHero { enabledSections } =
                     { label = "Calculer l’impact d’un vêtement"
                     , subLabel = Nothing
                     , callToAction = True
-                    , route = Route.TextileSimulatorHome
+                    , link = ExternalLink "/versions/v7.0.0/#/textile/simulator"
                     , testId = "textile-callout-button"
                     }
                 , if enabledSections.food then
@@ -91,7 +106,7 @@ viewHero { enabledSections } =
                         { label = "Calculer l’impact de l’alimentation"
                         , subLabel = Just "Méthodologie en concertation"
                         , callToAction = False
-                        , route = Route.FoodBuilderHome
+                        , link = RouteLink Route.FoodBuilderHome
                         , testId = "food-callout-button"
                         }
 
@@ -102,7 +117,7 @@ viewHero { enabledSections } =
                         { label = "Calculer l’impact d’un objet"
                         , subLabel = Just "Simulateur en construction"
                         , callToAction = False
-                        , route = Route.ObjectSimulatorHome Scope.Object
+                        , link = RouteLink <| Route.ObjectSimulatorHome Scope.Object
                         , testId = "object-callout-button"
                         }
 
@@ -113,7 +128,7 @@ viewHero { enabledSections } =
                         { label = "Calculer l’impact d’un véhicule"
                         , subLabel = Just "Simulateur en construction"
                         , callToAction = False
-                        , route = Route.ObjectSimulatorHome Scope.Veli
+                        , link = RouteLink <| Route.ObjectSimulatorHome Scope.Veli
                         , testId = "veli-callout-button"
                         }
 
