@@ -90,6 +90,9 @@ type Id
 {-| A Component is a named collection of elements
 -}
 type alias Component =
+    -- alembic migration
+    -- uv run backend database --help
+    -- modifier db/models
     { comment : String
     , elements : List Element
     , id : Id
