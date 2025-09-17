@@ -25,7 +25,7 @@ suite =
                 ]
             , describe "handleRequest"
                 [ "/invalid"
-                    |> createServerRequest dbs "GET" Encode.null
+                    |> createServerRequest dbs "fqdn" "GET" Encode.null
                     |> Server.handleRequest dbs
                     |> Tuple.first
                     |> Expect.equal 404
@@ -33,7 +33,7 @@ suite =
 
                 -- POST queries
                 , "/food"
-                    |> createServerRequest dbs "POST" Encode.null
+                    |> createServerRequest dbs "fqdn" "POST" Encode.null
                     |> Server.handleRequest dbs
                     |> Tuple.first
                     |> Expect.equal 400
@@ -43,6 +43,7 @@ suite =
                         Just id ->
                             "/food"
                                 |> createServerRequest dbs
+                                    "fqdn"
                                     "POST"
                                     (FoodQuery.encode
                                         { distribution = Nothing
