@@ -49,11 +49,12 @@ apiDocUrl =
 
 
 sendResponse : Int -> Request -> Encode.Value -> Cmd Msg
-sendResponse httpStatus { jsResponseHandler, method, url } body =
+sendResponse httpStatus { jsResponseHandler, method, url, host } body =
     Encode.object
         [ ( "status", Encode.int httpStatus )
         , ( "method", Encode.string method )
         , ( "url", Encode.string url )
+        , ( "host", Encode.string host )
         , ( "body", body )
         , ( "jsResponseHandler", jsResponseHandler )
         ]
@@ -78,10 +79,10 @@ toResponse encodedResult =
             ( 200, encoded )
 
 
-toAllImpactsSimple : WellKnown -> Simulator -> Encode.Value
-toAllImpactsSimple wellKnown { impacts, inputs } =
+toAllImpactsSimple : Request -> WellKnown -> Simulator -> Encode.Value
+toAllImpactsSimple request wellKnown { impacts, inputs } =
     Encode.object
-        [ ( "webUrl", serverRootUrl ++ toTextileWebUrl Nothing inputs |> Encode.string )
+        [ ( "webUrl", request.host ++ toTextileWebUrl Nothing inputs |> Encode.string )
         , ( "impacts", Impact.encode impacts )
         , ( "description", inputs |> Inputs.toString wellKnown |> Encode.string )
         , ( "query", inputs |> Inputs.toQuery |> TextileQuery.encode )
@@ -102,10 +103,10 @@ toTextileWebUrl maybeTrigram textileQuery =
         |> WebRoute.toString
 
 
-toSingleImpactSimple : WellKnown -> Definition.Trigram -> Simulator -> Encode.Value
-toSingleImpactSimple wellKnown trigram { impacts, inputs } =
+toSingleImpactSimple : Request -> WellKnown -> Definition.Trigram -> Simulator -> Encode.Value
+toSingleImpactSimple request wellKnown trigram { impacts, inputs } =
     Encode.object
-        [ ( "webUrl", serverRootUrl ++ toTextileWebUrl (Just trigram) inputs |> Encode.string )
+        [ ( "webUrl", request.host ++ toTextileWebUrl (Just trigram) inputs |> Encode.string )
         , ( "impacts"
           , Impact.encodeSingleImpact impacts trigram
           )
@@ -114,10 +115,10 @@ toSingleImpactSimple wellKnown trigram { impacts, inputs } =
         ]
 
 
-toFoodResults : FoodQuery.Query -> Recipe.Results -> Encode.Value
-toFoodResults query results =
+toFoodResults : Request -> FoodQuery.Query -> Recipe.Results -> Encode.Value
+toFoodResults request query results =
     Encode.object
-        [ ( "webUrl", serverRootUrl ++ toFoodWebUrl Impact.default query |> Encode.string )
+        [ ( "webUrl", request.host ++ toFoodWebUrl Impact.default query |> Encode.string )
         , ( "results", Recipe.encodeResults results )
         , ( "description", Encode.string "TODO" )
         , ( "query", FoodQuery.encode query )
@@ -266,7 +267,7 @@ handleRequest db request =
 
         -- POST routes
         Just (Route.FoodPostRecipe (Ok foodQuery)) ->
-            executeFoodQuery db (toFoodResults foodQuery) foodQuery
+            executeFoodQuery db (toFoodResults request foodQuery) foodQuery
 
         Just (Route.FoodPostRecipe (Err error)) ->
             encodeValidationErrors error
@@ -274,7 +275,7 @@ handleRequest db request =
 
         Just (Route.TextilePostSimulator (Ok textileQuery)) ->
             textileQuery
-                |> executeTextileQuery db (toAllImpactsSimple db.textile.wellKnown)
+                |> executeTextileQuery db (toAllImpactsSimple request db.textile.wellKnown)
 
         Just (Route.TextilePostSimulator (Err error)) ->
             encodeValidationErrors error
@@ -290,7 +291,7 @@ handleRequest db request =
 
         Just (Route.TextilePostSimulatorSingle (Ok textileQuery) trigram) ->
             textileQuery
-                |> executeTextileQuery db (toSingleImpactSimple db.textile.wellKnown trigram)
+                |> executeTextileQuery db (toSingleImpactSimple request db.textile.wellKnown trigram)
 
         Just (Route.TextilePostSimulatorSingle (Err error) _) ->
             encodeValidationErrors error

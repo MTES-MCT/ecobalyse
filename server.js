@@ -18,9 +18,8 @@ const { setupSentry } = require("./lib/sentry"); // MUST be required BEFORE expr
 const { createMatomoTracker } = require("./lib/matomo");
 const { createPosthogTracker } = require("./lib/posthog");
 const express = require("express");
-const os = require("os");
 
-const expressHost = os.hostname();
+const expressHost = "0.0.0.0";
 const expressPort = 8001;
 
 // Env vars
@@ -257,6 +256,7 @@ api.all(/(.*)/, bodyParser.json(), jsonErrorHandler, async (req, res) => {
   elmApp.ports.input.send({
     method: req.method,
     url: req.url,
+    host: req.get("host"),
     body: req.body,
     processes,
     jsResponseHandler: async ({ status, body }) => {

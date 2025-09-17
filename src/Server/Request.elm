@@ -18,4 +18,7 @@ type alias Request =
 
     -- ExpressJS' request `url` string
     , url : String
+
+    -- host retrieved from the request
+    , host : String
     }
