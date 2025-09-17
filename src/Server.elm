@@ -49,7 +49,7 @@ apiDocUrl =
 
 
 sendResponse : Int -> Request -> Encode.Value -> Cmd Msg
-sendResponse httpStatus { jsResponseHandler, method, url, host } body =
+sendResponse httpStatus { host, jsResponseHandler, method, url } body =
     Encode.object
         [ ( "status", Encode.int httpStatus )
         , ( "method", Encode.string method )

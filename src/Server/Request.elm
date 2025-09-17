@@ -7,6 +7,9 @@ type alias Request =
     { -- JSON body; if no JSON body exist in the request, fallbacks to `{}`
       body : Encode.Value
 
+    -- host retrieved from the request
+    , host : String
+
     -- ExpressJS response callback function
     , jsResponseHandler : Encode.Value
 
@@ -18,7 +21,4 @@ type alias Request =
 
     -- ExpressJS' request `url` string
     , url : String
-
-    -- host retrieved from the request
-    , host : String
     }
