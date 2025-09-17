@@ -253,10 +253,10 @@ paths:
                   - id: 4d5198e7-413a-4ae2-8448-535aa3b302ae
                     mass: 225
                   transform:
-                    id: 83b897cf-9ed2-5604-83b4-67fab8606d35
+                    id: a2836bb8-7f45-5cfa-bb00-8b38046291cf
                     mass: 545
                   packaging:
-                  - id: 25595091-35b6-5c62-869f-a29c318c367e
+                  - id: edefa2be-abe4-5bb6-b0fc-0f666050dcc1
                     mass: 105
                   distribution: ambient
                   preparation:
@@ -278,10 +278,10 @@ paths:
                     mass: 225
                     country: ES
                   transform:
-                    id: 83b897cf-9ed2-5604-83b4-67fab8606d35
+                    id: a2836bb8-7f45-5cfa-bb00-8b38046291cf
                     mass: 545
                   packaging:
-                  - id: 25595091-35b6-5c62-869f-a29c318c367e
+                  - id: edefa2be-abe4-5bb6-b0fc-0f666050dcc1
                     mass: 105
                   distribution: ambient
                   preparation:
