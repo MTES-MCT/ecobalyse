@@ -32,3 +32,5 @@ export ENABLE_FOOD_SECTION=True
 ./bin/build-specific-app-version.sh v6.1.0
 ./bin/build-specific-app-version.sh v6.1.1
 ./bin/build-specific-app-version.sh v7.0.0
+export ENABLE_OBJECTS_SECTION=True
+./bin/build-specific-app-version.sh v7.1.0
