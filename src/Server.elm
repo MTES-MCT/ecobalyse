@@ -23,6 +23,7 @@ import Data.Textile.Query as TextileQuery
 import Data.Textile.Simulator as Simulator exposing (Simulator)
 import Data.Textile.WellKnown exposing (WellKnown)
 import Data.Validation as Validation
+import Http exposing (request)
 import Json.Encode as Encode
 import Route as WebRoute
 import Server.Request exposing (Request)
@@ -38,14 +39,9 @@ type alias JsonResponse =
     ( Int, Encode.Value )
 
 
-serverRootUrl : String
-serverRootUrl =
-    "https://ecobalyse.beta.gouv.fr/"
-
-
-apiDocUrl : String
-apiDocUrl =
-    serverRootUrl ++ "#/api"
+apiDocUrl : String -> String
+apiDocUrl host =
+    host ++ "#/api"
 
 
 sendResponse : Int -> Request -> Encode.Value -> Cmd Msg
@@ -61,19 +57,19 @@ sendResponse httpStatus { host, jsResponseHandler, method, url } body =
         |> output
 
 
-encodeValidationErrors : Validation.Errors -> Encode.Value
-encodeValidationErrors errors =
+encodeValidationErrors : Request -> Validation.Errors -> Encode.Value
+encodeValidationErrors request errors =
     Encode.object
         [ ( "error", Validation.encodeErrors errors )
-        , ( "documentation", Encode.string apiDocUrl )
+        , ( "documentation", Encode.string <| apiDocUrl request.host )
         ]
 
 
-toResponse : Result Validation.Errors Encode.Value -> JsonResponse
-toResponse encodedResult =
+toResponse : Request -> Result Validation.Errors Encode.Value -> JsonResponse
+toResponse request encodedResult =
     case encodedResult of
         Err errors ->
-            ( 400, encodeValidationErrors errors )
+            ( 400, encodeValidationErrors request <| errors )
 
         Ok encoded ->
             ( 200, encoded )
@@ -125,20 +121,20 @@ toFoodResults request query results =
         ]
 
 
-executeFoodQuery : Db -> (Recipe.Results -> Encode.Value) -> FoodQuery.Query -> JsonResponse
-executeFoodQuery db encoder =
+executeFoodQuery : Request -> Db -> (Recipe.Results -> Encode.Value) -> FoodQuery.Query -> JsonResponse
+executeFoodQuery request db encoder =
     Recipe.compute db
         >> Result.mapError Validation.fromErrorString
         >> Result.map (Tuple.second >> encoder)
-        >> toResponse
+        >> toResponse request
 
 
-executeTextileQuery : Db -> (Simulator -> Encode.Value) -> TextileQuery.Query -> JsonResponse
-executeTextileQuery db encoder =
+executeTextileQuery : Request -> Db -> (Simulator -> Encode.Value) -> TextileQuery.Query -> JsonResponse
+executeTextileQuery request db encoder =
     Simulator.compute db
         >> Result.mapError Validation.fromErrorString
         >> Result.map encoder
-        >> toResponse
+        >> toResponse request
 
 
 encodeCountry : Country -> Encode.Value
@@ -267,40 +263,40 @@ handleRequest db request =
 
         -- POST routes
         Just (Route.FoodPostRecipe (Ok foodQuery)) ->
-            executeFoodQuery db (toFoodResults request foodQuery) foodQuery
+            executeFoodQuery request db (toFoodResults request foodQuery) foodQuery
 
         Just (Route.FoodPostRecipe (Err error)) ->
-            encodeValidationErrors error
+            encodeValidationErrors request error
                 |> respondWith 400
 
         Just (Route.TextilePostSimulator (Ok textileQuery)) ->
             textileQuery
-                |> executeTextileQuery db (toAllImpactsSimple request db.textile.wellKnown)
+                |> executeTextileQuery request db (toAllImpactsSimple request db.textile.wellKnown)
 
         Just (Route.TextilePostSimulator (Err error)) ->
-            encodeValidationErrors error
+            encodeValidationErrors request error
                 |> respondWith 400
 
         Just (Route.TextilePostSimulatorDetailed (Ok textileQuery)) ->
             textileQuery
-                |> executeTextileQuery db Simulator.encode
+                |> executeTextileQuery request db Simulator.encode
 
         Just (Route.TextilePostSimulatorDetailed (Err error)) ->
-            encodeValidationErrors error
+            encodeValidationErrors request error
                 |> respondWith 400
 
         Just (Route.TextilePostSimulatorSingle (Ok textileQuery) trigram) ->
             textileQuery
-                |> executeTextileQuery db (toSingleImpactSimple request db.textile.wellKnown trigram)
+                |> executeTextileQuery request db (toSingleImpactSimple request db.textile.wellKnown trigram)
 
         Just (Route.TextilePostSimulatorSingle (Err error) _) ->
-            encodeValidationErrors error
+            encodeValidationErrors request error
                 |> respondWith 400
 
         Nothing ->
             "Endpoint doesn't exist"
                 |> Validation.fromErrorString
-                |> encodeValidationErrors
+                |> encodeValidationErrors request
                 |> respondWith 404
 
 
@@ -312,7 +308,7 @@ update msg =
                 Err error ->
                     error
                         |> Validation.fromErrorString
-                        |> encodeValidationErrors
+                        |> encodeValidationErrors request
                         |> sendResponse 503 request
 
                 Ok db ->
