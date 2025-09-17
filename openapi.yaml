@@ -733,7 +733,7 @@ components:
           - SyntheticSpinning
         country:
           type: string
-          description: Code du pays d'origine de la matière
+          description: Code du pays d'origine de la matière (liste disponible sur le point d'entrée `/textile/countries`).
           minLength: 2
           maxLength: 3
     FoodQuery:
@@ -813,7 +813,7 @@ components:
           description: Masse de l'ingrédient, **en grammes**
         country:
           type: string
-          description: Code ISO du pays d'origine
+          description: Code du pays d'origine (liste disponible sur le point d'entrée `/food/countries`).
         byPlane:
           type: string
           description: Transport par avion
