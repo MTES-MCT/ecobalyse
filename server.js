@@ -18,8 +18,9 @@ const { setupSentry } = require("./lib/sentry"); // MUST be required BEFORE expr
 const { createMatomoTracker } = require("./lib/matomo");
 const { createPosthogTracker } = require("./lib/posthog");
 const express = require("express");
+const os = require("os");
 
-const expressHost = "0.0.0.0";
+const expressHost = os.hostname();
 const expressPort = 8001;
 
 // Env vars
