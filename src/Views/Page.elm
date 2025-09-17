@@ -70,7 +70,7 @@ frame ({ activePage } as config) ( title, content ) =
         , pageHeader config
         , if activePage == TextileSimulator then
             div [ class "page-notice", attribute "role" "notice" ]
-                [ div [ class "container" ]
+                [ div [ class "container px-4" ]
                     [ span [ class "me-1" ]
                         [ Icon.info ]
                     , span [ class "fw-bold" ]
@@ -79,7 +79,7 @@ frame ({ activePage } as config) ( title, content ) =
                         [ text "La version réglementaire est la v7.0.0."
                         , button
                             [ type_ "button"
-                            , class "btn btn-link"
+                            , class "btn btn-link p-0 mb-1"
                             , onClick <| config.toMsg <| App.LoadUrl "/versions/v7.0.0/#/textile/simulator"
                             , class "ms-1"
                             ]
