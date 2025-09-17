@@ -3,6 +3,8 @@ name: Create release archive
 env:
   TRANSCRYPT_KEY: ${{ secrets.TRANSCRYPT_KEY }}
   ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
+  ENABLE_FOOD_SECTION: "True"
+  ENABLE_OBJECTS_SECTION: "True"
 
 on:
   workflow_dispatch:
