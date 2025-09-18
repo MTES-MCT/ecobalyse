@@ -66,7 +66,7 @@ foodEndpoints db =
                             royalPizza.ingredients |> List.map (\i -> { i | mass = Mass.grams -1 })
                     }
                     |> testFoodEndpoint db
-                    |> expectFoodValidationError "ingredients" "La masse doit être supérieure ou égale à zéro"
+                    |> expectFoodValidationError "ingredients" "La masse doit être supérieure à zéro"
                     |> asTest "should validate an ingredient invalid mass"
                 , FoodQuery.encode
                     { royalPizza
@@ -89,14 +89,14 @@ foodEndpoints db =
                         | transform = royalPizza.transform |> Maybe.map (\t -> { t | mass = Mass.grams -1 })
                     }
                     |> testFoodEndpoint db
-                    |> expectFoodValidationError "transform" "La masse doit être supérieure ou égale à zéro"
+                    |> expectFoodValidationError "transform" "La masse doit être supérieure à zéro"
                     |> asTest "should validate a transform mass"
                 , FoodQuery.encode
                     { royalPizza
                         | packaging = royalPizza.packaging |> List.map (\p -> { p | mass = Mass.grams -1 })
                     }
                     |> testFoodEndpoint db
-                    |> expectFoodValidationError "packaging" "La masse doit être supérieure ou égale à zéro"
+                    |> expectFoodValidationError "packaging" "La masse doit être supérieure à zéro"
                     |> asTest "should validate a packaging mass"
                 , FoodQuery.encode
                     { royalPizza
