@@ -24,16 +24,16 @@ suite =
                     |> asTest "should apply output command"
                 ]
             , describe "handleRequest"
-                [ "/invalid"
-                    |> createServerRequest dbs "fqdn" "GET" "http" Encode.null
+                [ Encode.null
+                    |> createServerRequest dbs ( "GET", "http", "fqdn" ) "/invalid"
                     |> Server.handleRequest dbs
                     |> Tuple.first
                     |> Expect.equal 404
                     |> asTest "should catch invalid endpoints"
 
                 -- POST queries
-                , "/food"
-                    |> createServerRequest dbs "fqdn" "POST" "http" Encode.null
+                , Encode.null
+                    |> createServerRequest dbs ( "POST", "http", "fqdn" ) "/food"
                     |> Server.handleRequest dbs
                     |> Tuple.first
                     |> Expect.equal 400
@@ -41,25 +41,20 @@ suite =
                 , asTest "should accept a valid POST query" <|
                     case List.head dbs.food.ingredients |> Maybe.map .id of
                         Just id ->
-                            "/food"
-                                |> createServerRequest dbs
-                                    "fqdn"
-                                    "POST"
-                                    "http"
-                                    (FoodQuery.encode
-                                        { distribution = Nothing
-                                        , ingredients =
-                                            [ { country = Nothing
-                                              , id = id
-                                              , mass = Mass.kilogram
-                                              , planeTransport = Ingredient.NoPlane
-                                              }
-                                            ]
-                                        , packaging = []
-                                        , preparation = []
-                                        , transform = Nothing
-                                        }
-                                    )
+                            FoodQuery.encode
+                                { distribution = Nothing
+                                , ingredients =
+                                    [ { country = Nothing
+                                      , id = id
+                                      , mass = Mass.kilogram
+                                      , planeTransport = Ingredient.NoPlane
+                                      }
+                                    ]
+                                , packaging = []
+                                , preparation = []
+                                , transform = Nothing
+                                }
+                                |> createServerRequest dbs ( "POST", "http", "fqdn" ) "/food"
                                 |> Server.handleRequest dbs
                                 |> Tuple.first
                                 |> Expect.equal 200
