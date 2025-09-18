@@ -43,9 +43,9 @@ suite =
                         Just id ->
                             "/food"
                                 |> createServerRequest dbs
-                                    "http"
                                     "fqdn"
                                     "POST"
+                                    "http"
                                     (FoodQuery.encode
                                         { distribution = Nothing
                                         , ingredients =
