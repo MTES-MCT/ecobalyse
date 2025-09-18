@@ -25,7 +25,13 @@ suite =
                 ]
             , describe "handleRequest"
                 [ Encode.null
-                    |> createServerRequest dbs { method = "GET", protocol = "http", host = "fqdn", version = Nothing } "/invalid"
+                    |> createServerRequest dbs
+                        { method = "GET"
+                        , protocol = "http"
+                        , host = "fqdn"
+                        , url = "/invalid"
+                        , version = Nothing
+                        }
                     |> Server.handleRequest dbs
                     |> Tuple.first
                     |> Expect.equal 404
@@ -33,7 +39,13 @@ suite =
 
                 -- POST queries
                 , Encode.null
-                    |> createServerRequest dbs { method = "POST", protocol = "http", host = "fqdn", version = Nothing } "/food"
+                    |> createServerRequest dbs
+                        { method = "POST"
+                        , protocol = "http"
+                        , host = "fqdn"
+                        , url = "/food"
+                        , version = Nothing
+                        }
                     |> Server.handleRequest dbs
                     |> Tuple.first
                     |> Expect.equal 400
@@ -54,7 +66,13 @@ suite =
                                 , preparation = []
                                 , transform = Nothing
                                 }
-                                |> createServerRequest dbs { method = "POST", protocol = "http", host = "fqdn", version = Nothing } "/food"
+                                |> createServerRequest dbs
+                                    { method = "POST"
+                                    , protocol = "http"
+                                    , host = "fqdn"
+                                    , url = "/food"
+                                    , version = Nothing
+                                    }
                                 |> Server.handleRequest dbs
                                 |> Tuple.first
                                 |> Expect.equal 200
