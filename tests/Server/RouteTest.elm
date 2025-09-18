@@ -8,7 +8,7 @@ import Data.Food.Query as FoodQuery
 import Data.Split as Split
 import Data.Textile.Material as Material
 import Data.Textile.Product as Product
-import Data.Textile.Query as TextileQuery exposing (tShirtCotonFrance)
+import Data.Textile.Query as TextileQuery exposing (materialWithId, tShirtCotonFrance)
 import Data.Unit as Unit
 import Dict
 import Expect
@@ -150,19 +150,20 @@ textileEndpoints db =
             |> testTextileEndpoint db
             |> expectTextileValidationError "countrySpinning" "Code pays invalide: invalid."
             |> asTest "should reject invalid spinning country"
-        , TextileQuery.encode
-            { tShirtCotonFrance
-                | materials =
-                    [ { country = Just (Country.Code "invalid")
-                      , id = Material.Id "ei-coton"
-                      , share = Split.full
-                      , spinning = Nothing
-                      }
-                    ]
-            }
-            |> testTextileEndpoint db
-            |> expectTextileValidationError "materials" "Code pays invalide: invalid."
-            |> asTest "should reject invalid materials country"
+        , TestUtils.suiteFromResult
+            "should reject invalid materials country"
+            (Material.idFromString "62a4d6fb-3276-4ba5-93a3-889ecd3bff84")
+            (\decodedId ->
+                [ TextileQuery.encode
+                    { tShirtCotonFrance
+                        | materials =
+                            [ materialWithId decodedId Split.full Nothing (Just (Country.Code "invalid")) ]
+                    }
+                    |> testTextileEndpoint db
+                    |> expectTextileValidationError "materials" "Code pays invalide: invalid."
+                    |> asTest "reject invalid materials country"
+                ]
+            )
         ]
     , describe "materials param checks"
         [ TextileQuery.encode
@@ -172,32 +173,34 @@ textileEndpoints db =
             |> testTextileEndpoint db
             |> expectTextileValidationError "materials" "La liste 'materials' doit contenir 1 élément(s) minimum."
             |> asTest "should validate empty material list"
-        , TextileQuery.encode
-            { tShirtCotonFrance
-                | materials =
-                    [ { country = Nothing
-                      , id = Material.Id "notAnID"
-                      , share = Split.full
-                      , spinning = Nothing
-                      }
-                    ]
-            }
-            |> testTextileEndpoint db
-            |> expectTextileValidationError "materials" "Matière non trouvée id=notAnID."
-            |> asTest "should validate invalid material format"
-        , TextileQuery.encode
-            { tShirtCotonFrance
-                | materials =
-                    [ { country = Just <| Country.Code "NotACountryCode"
-                      , id = Material.Id "ei-coton"
-                      , share = Split.full
-                      , spinning = Nothing
-                      }
-                    ]
-            }
-            |> testTextileEndpoint db
-            |> expectTextileValidationError "materials" "Code pays invalide: NotACountryCode."
-            |> asTest "should validate a material country code"
+        , TestUtils.suiteFromResult
+            "should validate invalid material format"
+            (Material.idFromString "1c686e00-6db8-469e-8d7f-3864bd3238bd")
+            (\decodedId ->
+                [ TextileQuery.encode
+                    { tShirtCotonFrance
+                        | materials =
+                            [ materialWithId decodedId Split.full Nothing Nothing ]
+                    }
+                    |> testTextileEndpoint db
+                    |> expectTextileValidationError "materials" "Matière non trouvée id=1c686e00-6db8-469e-8d7f-3864bd3238bd."
+                    |> asTest "validate invalid material format"
+                ]
+            )
+        , TestUtils.suiteFromResult
+            "should validate a material country code"
+            (Material.idFromString "62a4d6fb-3276-4ba5-93a3-889ecd3bff84")
+            (\decodedId ->
+                [ TextileQuery.encode
+                    { tShirtCotonFrance
+                        | materials =
+                            [ materialWithId decodedId Split.full Nothing (Just (Country.Code "NotACountryCode")) ]
+                    }
+                    |> testTextileEndpoint db
+                    |> expectTextileValidationError "materials" "Code pays invalide: NotACountryCode."
+                    |> asTest "validate a material country code"
+                ]
+            )
         , TextileQuery.encode
             { tShirtCotonFrance
                 | countryDyeing = Just <| Country.Code "US"
