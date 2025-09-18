@@ -105,8 +105,13 @@ expectResultWithin precision target result =
             Expect.fail err
 
 
-createServerRequest : StaticDb.Db -> ( String, String, String ) -> String -> Encode.Value -> Request
-createServerRequest dbs ( method, protocol, host ) url body =
+createServerRequest :
+    StaticDb.Db
+    -> { method : String, protocol : String, host : String, version : Maybe String }
+    -> String
+    -> Encode.Value
+    -> Request
+createServerRequest dbs { method, protocol, host, version } url body =
     let
         encode encoder =
             Encode.list encoder >> Encode.encode 0
@@ -118,4 +123,5 @@ createServerRequest dbs ( method, protocol, host ) url body =
     , processes = dbs.processes |> encode Process.encode
     , protocol = protocol
     , url = url
+    , version = version
     }

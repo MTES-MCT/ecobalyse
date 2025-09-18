@@ -45,7 +45,16 @@ apiDocUrl request =
 
 serverRootUrl : Request -> String
 serverRootUrl request =
-    request.protocol ++ "://" ++ request.host ++ "/"
+    request.protocol
+        ++ "://"
+        ++ request.host
+        ++ (case request.version of
+                Just version ->
+                    "/versions/" ++ version ++ "/"
+
+                Nothing ->
+                    "/"
+           )
 
 
 sendResponse : Int -> Request -> Encode.Value -> Cmd Msg

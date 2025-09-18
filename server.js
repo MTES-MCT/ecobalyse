@@ -256,8 +256,9 @@ api.all(/(.*)/, bodyParser.json(), jsonErrorHandler, async (req, res) => {
   elmApp.ports.input.send({
     method: req.method,
     protocol: req.protocol,
-    url: req.url,
     host: req.get("host"),
+    url: req.url,
+    version: null, // note: no way to infer a version number from the request containing none
     body: req.body,
     processes,
     jsResponseHandler: async ({ status, body }) => {
@@ -325,14 +326,26 @@ version.all(
       protocol: req.protocol,
       host: req.get("host"),
       url: urlWithoutPrefix,
+      version: versionNumber,
       body: req.body,
       processes: versionProcesses,
       jsResponseHandler: ({ status, body }) => {
-        respondWithFormattedJSON(res, status, body);
+        respondWithFormattedJSON(res, status, ensureVersionedUrls(body, versionNumber));
       },
     });
   },
 );
+
+// Add version number to web urls (done here to avoid reverse patching old static version builds)
+function ensureVersionedUrls(body, versionNumber) {
+  if (body.apiDocUrl && !body.apiDocUrl.includes(versionNumber)) {
+    body.apiDocUrl = body.apiDocUrl.replace("/#/", `/versions/${versionNumber}/#/`);
+  }
+  if (body.webUrl && !body.webUrl.includes(versionNumber)) {
+    body.webUrl = body.webUrl.replace("/#/", `/versions/${versionNumber}/#/`);
+  }
+  return body;
+}
 
 version.get("/:versionNumber/processes/processes.json", checkVersionAndPath, async (req, res) => {
   const versionNumber = req.params.versionNumber;

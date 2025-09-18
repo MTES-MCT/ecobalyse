@@ -24,4 +24,7 @@ type alias Request =
 
     -- ExpressJS' request `url` string, actually a path
     , url : String
+
+    -- Version number, if any
+    , version : Maybe String
     }

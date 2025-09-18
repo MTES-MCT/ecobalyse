@@ -25,7 +25,7 @@ suite =
                 ]
             , describe "handleRequest"
                 [ Encode.null
-                    |> createServerRequest dbs ( "GET", "http", "fqdn" ) "/invalid"
+                    |> createServerRequest dbs { method = "GET", protocol = "http", host = "fqdn", version = Nothing } "/invalid"
                     |> Server.handleRequest dbs
                     |> Tuple.first
                     |> Expect.equal 404
@@ -33,7 +33,7 @@ suite =
 
                 -- POST queries
                 , Encode.null
-                    |> createServerRequest dbs ( "POST", "http", "fqdn" ) "/food"
+                    |> createServerRequest dbs { method = "POST", protocol = "http", host = "fqdn", version = Nothing } "/food"
                     |> Server.handleRequest dbs
                     |> Tuple.first
                     |> Expect.equal 400
@@ -54,7 +54,7 @@ suite =
                                 , preparation = []
                                 , transform = Nothing
                                 }
-                                |> createServerRequest dbs ( "POST", "http", "fqdn" ) "/food"
+                                |> createServerRequest dbs { method = "POST", protocol = "http", host = "fqdn", version = Nothing } "/food"
                                 |> Server.handleRequest dbs
                                 |> Tuple.first
                                 |> Expect.equal 200
