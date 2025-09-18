@@ -100,7 +100,7 @@ describe("API", () => {
         expectFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", { ...textileQuery, mass: -1 }),
           "mass",
-          /supérieure ou égale à zéro/,
+          /supérieure à zéro/,
         );
       });
 
@@ -512,7 +512,7 @@ describe("API", () => {
             ingredients: [{ id: "4d5198e7-413a-4ae2-8448-535aa3b302ae", mass: -1 }],
           }),
           "ingredients",
-          /masse doit être supérieure ou égale à zéro/,
+          /masse doit être supérieure à zéro/,
         );
       });
 
@@ -584,7 +584,7 @@ describe("API", () => {
             transform: { id: "a2836bb8-7f45-5cfa-bb00-8b38046291cf", mass: -1 },
           }),
           "transform",
-          /masse doit être supérieure ou égale à zéro/,
+          /masse doit être supérieure à zéro/,
         );
       });
 
@@ -606,7 +606,7 @@ describe("API", () => {
             packaging: [{ id: "edefa2be-abe4-5bb6-b0fc-0f666050dcc1", mass: -1 }],
           }),
           "packaging",
-          /masse doit être supérieure ou égale à zéro/,
+          /masse doit être supérieure à zéro/,
         );
       });
 
