@@ -23,7 +23,6 @@ import Data.Textile.Query as TextileQuery
 import Data.Textile.Simulator as Simulator exposing (Simulator)
 import Data.Textile.WellKnown exposing (WellKnown)
 import Data.Validation as Validation
-import Http exposing (request)
 import Json.Encode as Encode
 import Route as WebRoute
 import Server.Request exposing (Request)
