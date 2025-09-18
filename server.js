@@ -255,6 +255,7 @@ api.all(/(.*)/, bodyParser.json(), jsonErrorHandler, async (req, res) => {
 
   elmApp.ports.input.send({
     method: req.method,
+    protocol: req.protocol,
     url: req.url,
     host: req.get("host"),
     body: req.body,
@@ -321,6 +322,8 @@ version.all(
 
     elmApp.ports.input.send({
       method: req.method,
+      protocol: req.protocol,
+      host: req.get("host"),
       url: urlWithoutPrefix,
       body: req.body,
       processes: versionProcesses,

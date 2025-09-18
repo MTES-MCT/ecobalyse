@@ -9,6 +9,7 @@ module Data.Textile.Simulator exposing
     )
 
 import Array
+import Data.Common.EncodeUtils as EU
 import Data.Component as Component
 import Data.Country as Country
 import Data.Env as Env
@@ -52,18 +53,19 @@ type alias Simulator =
     }
 
 
-encode : Simulator -> Encode.Value
-encode v =
-    Encode.object
-        [ ( "complementsImpacts", Impact.encodeComplementsImpacts v.complementsImpacts )
-        , ( "daysOfWear", v.daysOfWear |> Duration.inDays |> round |> Encode.int )
-        , ( "durability", v.durability |> Unit.floatDurabilityFromHolistic |> Encode.float )
-        , ( "impacts", Impact.encode v.impacts )
-        , ( "impactsWithoutDurability", Impact.encode (getTotalImpactsWithoutDurability v) )
-        , ( "inputs", Inputs.encode v.inputs )
-        , ( "lifeCycle", LifeCycle.encode v.lifeCycle )
-        , ( "transport", Transport.encode v.transport )
-        , ( "useNbCycles", Encode.int v.useNbCycles )
+encode : Maybe String -> Simulator -> Encode.Value
+encode webUrl v =
+    EU.optionalPropertiesObject
+        [ ( "complementsImpacts", Impact.encodeComplementsImpacts v.complementsImpacts |> Just )
+        , ( "daysOfWear", v.daysOfWear |> Duration.inDays |> round |> Encode.int |> Just )
+        , ( "durability", v.durability |> Unit.floatDurabilityFromHolistic |> Encode.float |> Just )
+        , ( "impacts", Impact.encode v.impacts |> Just )
+        , ( "impactsWithoutDurability", Impact.encode (getTotalImpactsWithoutDurability v) |> Just )
+        , ( "inputs", Inputs.encode v.inputs |> Just )
+        , ( "lifeCycle", LifeCycle.encode v.lifeCycle |> Just )
+        , ( "transport", Transport.encode v.transport |> Just )
+        , ( "useNbCycles", Encode.int v.useNbCycles |> Just )
+        , ( "webUrl", webUrl |> Maybe.map Encode.string )
         ]
 
 

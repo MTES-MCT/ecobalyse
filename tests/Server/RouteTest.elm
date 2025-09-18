@@ -234,22 +234,22 @@ textileEndpoints db =
     ]
 
 
-testEndpoint : StaticDb.Db -> String -> String -> Encode.Value -> String -> Maybe Route.Route
-testEndpoint dbs host method body =
-    createServerRequest dbs host method body
+testEndpoint : StaticDb.Db -> String -> String -> String -> Encode.Value -> String -> Maybe Route.Route
+testEndpoint dbs host method protocol body =
+    createServerRequest dbs host method protocol body
         >> Route.endpoint dbs
 
 
 testFoodEndpoint : StaticDb.Db -> Encode.Value -> Maybe Route.Route
 testFoodEndpoint dbs body =
     "/food"
-        |> testEndpoint dbs "fqdn" "POST" body
+        |> testEndpoint dbs "fqdn" "POST" "http" body
 
 
 testTextileEndpoint : StaticDb.Db -> Encode.Value -> Maybe Route.Route
 testTextileEndpoint dbs body =
     "/textile/simulator"
-        |> testEndpoint dbs "fqdn" "POST" body
+        |> testEndpoint dbs "fqdn" "POST" "http" body
 
 
 expectFoodValidationError : String -> String -> Maybe Route.Route -> Expect.Expectation

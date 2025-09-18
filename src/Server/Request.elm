@@ -19,6 +19,9 @@ type alias Request =
     -- Raw JSON processes as a string
     , processes : String
 
-    -- ExpressJS' request `url` string
+    -- Protocol (either 'http' or 'https')
+    , protocol : String
+
+    -- ExpressJS' request `url` string, actually a path
     , url : String
     }
