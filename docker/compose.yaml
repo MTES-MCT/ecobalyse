@@ -1,0 +1,9 @@
+services:
+  server:
+    build:
+      context: ..
+      dockerfile: ./docker/Dockerfile
+    environment:
+      NODE_ENV: production
+    ports:
+      - 8001:8001
