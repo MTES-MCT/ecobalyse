@@ -1,6 +1,29 @@
 # Changelog
 
 
+## [7.2.0](https://github.com/MTES-MCT/ecobalyse/compare/v7.1.0..v7.2.0) (2025-09-20)
+
+
+
+### 🚀 Features
+
+- *(ui)* Update textile CTA links to regulatory version, add banner ([#1372](https://github.com/MTES-MCT/ecobalyse/issues/1372))
+
+### 🪲 Bug Fixes
+
+- *(object)* Apply transforms preserving material unit ([#1352](https://github.com/MTES-MCT/ecobalyse/issues/1352))
+- *(api)* Fix openapi docs for country code. ([#1346](https://github.com/MTES-MCT/ecobalyse/issues/1346))
+- Fixed food API examples (food "Carton" and "Cuisson") ([#1379](https://github.com/MTES-MCT/ecobalyse/issues/1379))
+- Fixed mass validation message ([#1380](https://github.com/MTES-MCT/ecobalyse/issues/1380))
+- *(api)* Fix JSON number reformatting ([#1383](https://github.com/MTES-MCT/ecobalyse/issues/1383))
+- *(api)* Expose server fqdn and version to urls in responses ([#1381](https://github.com/MTES-MCT/ecobalyse/issues/1381))
+
+### ⚙️ Miscellaneous Tasks
+
+- Force food and objects section on CI build ([#1373](https://github.com/MTES-MCT/ecobalyse/issues/1373))
+- Upgrade nodejs dependencies, 2025-09 ([#1382](https://github.com/MTES-MCT/ecobalyse/issues/1382))
+
+
 ## [7.1.0](https://github.com/MTES-MCT/ecobalyse/compare/v7.0.0..v7.1.0) (2025-09-08)
 
 
