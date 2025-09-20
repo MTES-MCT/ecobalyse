@@ -38,106 +38,122 @@ type alias JsonResponse =
     ( Int, Encode.Value )
 
 
-serverRootUrl : String
-serverRootUrl =
-    "https://ecobalyse.beta.gouv.fr/"
+apiDocUrl : Request -> String
+apiDocUrl request =
+    serverRootUrl request ++ "#/api"
 
 
-apiDocUrl : String
-apiDocUrl =
-    serverRootUrl ++ "#/api"
+serverRootUrl : Request -> String
+serverRootUrl request =
+    request.protocol
+        ++ "://"
+        ++ request.host
+        ++ (case request.version of
+                Just version ->
+                    "/versions/" ++ version ++ "/"
+
+                Nothing ->
+                    "/"
+           )
 
 
 sendResponse : Int -> Request -> Encode.Value -> Cmd Msg
-sendResponse httpStatus { jsResponseHandler, method, url } body =
+sendResponse httpStatus { host, jsResponseHandler, method, protocol, url } body =
     Encode.object
         [ ( "status", Encode.int httpStatus )
         , ( "method", Encode.string method )
+        , ( "protocol", Encode.string protocol )
         , ( "url", Encode.string url )
+        , ( "host", Encode.string host )
         , ( "body", body )
         , ( "jsResponseHandler", jsResponseHandler )
         ]
         |> output
 
 
-encodeValidationErrors : Validation.Errors -> Encode.Value
-encodeValidationErrors errors =
+encodeValidationErrors : Request -> Validation.Errors -> Encode.Value
+encodeValidationErrors request errors =
     Encode.object
         [ ( "error", Validation.encodeErrors errors )
-        , ( "documentation", Encode.string apiDocUrl )
+        , ( "documentation", Encode.string <| apiDocUrl request )
         ]
 
 
-toResponse : Result Validation.Errors Encode.Value -> JsonResponse
-toResponse encodedResult =
+toResponse : Request -> Result Validation.Errors Encode.Value -> JsonResponse
+toResponse request encodedResult =
     case encodedResult of
         Err errors ->
-            ( 400, encodeValidationErrors errors )
+            ( 400, encodeValidationErrors request <| errors )
 
         Ok encoded ->
             ( 200, encoded )
 
 
-toAllImpactsSimple : WellKnown -> Simulator -> Encode.Value
-toAllImpactsSimple wellKnown { impacts, inputs } =
+toAllImpactsSimple : Request -> WellKnown -> Simulator -> Encode.Value
+toAllImpactsSimple request wellKnown { impacts, inputs } =
     Encode.object
-        [ ( "webUrl", serverRootUrl ++ toTextileWebUrl Nothing inputs |> Encode.string )
+        [ ( "webUrl", inputs |> toTextileWebUrl request Nothing |> Encode.string )
         , ( "impacts", Impact.encode impacts )
         , ( "description", inputs |> Inputs.toString wellKnown |> Encode.string )
         , ( "query", inputs |> Inputs.toQuery |> TextileQuery.encode )
         ]
 
 
-toFoodWebUrl : Definition.Trigram -> FoodQuery.Query -> String
-toFoodWebUrl trigram foodQuery =
+toFoodWebUrl : Request -> Definition.Trigram -> FoodQuery.Query -> String
+toFoodWebUrl request trigram foodQuery =
     Just foodQuery
         |> WebRoute.FoodBuilder trigram
         |> WebRoute.toString
+        |> (++) (serverRootUrl request)
 
 
-toTextileWebUrl : Maybe Definition.Trigram -> Inputs.Inputs -> String
-toTextileWebUrl maybeTrigram textileQuery =
+toTextileWebUrl : Request -> Maybe Definition.Trigram -> Inputs.Inputs -> String
+toTextileWebUrl request maybeTrigram textileQuery =
     Just (Inputs.toQuery textileQuery)
         |> WebRoute.TextileSimulator (Maybe.withDefault Impact.default maybeTrigram)
         |> WebRoute.toString
+        |> (++) (serverRootUrl request)
 
 
-toSingleImpactSimple : WellKnown -> Definition.Trigram -> Simulator -> Encode.Value
-toSingleImpactSimple wellKnown trigram { impacts, inputs } =
+toDetailedTextileWebUrl : Request -> Simulator -> String
+toDetailedTextileWebUrl request =
+    .inputs >> toTextileWebUrl request Nothing
+
+
+toSingleImpactSimple : Request -> WellKnown -> Definition.Trigram -> Simulator -> Encode.Value
+toSingleImpactSimple request wellKnown trigram { impacts, inputs } =
     Encode.object
-        [ ( "webUrl", serverRootUrl ++ toTextileWebUrl (Just trigram) inputs |> Encode.string )
-        , ( "impacts"
-          , Impact.encodeSingleImpact impacts trigram
-          )
+        [ ( "webUrl", toTextileWebUrl request (Just trigram) inputs |> Encode.string )
+        , ( "impacts", Impact.encodeSingleImpact impacts trigram )
         , ( "description", inputs |> Inputs.toString wellKnown |> Encode.string )
         , ( "query", inputs |> Inputs.toQuery |> TextileQuery.encode )
         ]
 
 
-toFoodResults : FoodQuery.Query -> Recipe.Results -> Encode.Value
-toFoodResults query results =
+toFoodResults : Request -> FoodQuery.Query -> Recipe.Results -> Encode.Value
+toFoodResults request query results =
     Encode.object
-        [ ( "webUrl", serverRootUrl ++ toFoodWebUrl Impact.default query |> Encode.string )
+        [ ( "webUrl", query |> toFoodWebUrl request Impact.default |> Encode.string )
         , ( "results", Recipe.encodeResults results )
         , ( "description", Encode.string "TODO" )
         , ( "query", FoodQuery.encode query )
         ]
 
 
-executeFoodQuery : Db -> (Recipe.Results -> Encode.Value) -> FoodQuery.Query -> JsonResponse
-executeFoodQuery db encoder =
+executeFoodQuery : Request -> Db -> (Recipe.Results -> Encode.Value) -> FoodQuery.Query -> JsonResponse
+executeFoodQuery request db encoder =
     Recipe.compute db
         >> Result.mapError Validation.fromErrorString
         >> Result.map (Tuple.second >> encoder)
-        >> toResponse
+        >> toResponse request
 
 
-executeTextileQuery : Db -> (Simulator -> Encode.Value) -> TextileQuery.Query -> JsonResponse
-executeTextileQuery db encoder =
+executeTextileQuery : Request -> Db -> (Simulator -> Encode.Value) -> TextileQuery.Query -> JsonResponse
+executeTextileQuery request db encoder =
     Simulator.compute db
         >> Result.mapError Validation.fromErrorString
         >> Result.map encoder
-        >> toResponse
+        >> toResponse request
 
 
 encodeCountry : Country -> Encode.Value
@@ -266,40 +282,46 @@ handleRequest db request =
 
         -- POST routes
         Just (Route.FoodPostRecipe (Ok foodQuery)) ->
-            executeFoodQuery db (toFoodResults foodQuery) foodQuery
+            executeFoodQuery request db (toFoodResults request foodQuery) foodQuery
 
         Just (Route.FoodPostRecipe (Err error)) ->
-            encodeValidationErrors error
+            encodeValidationErrors request error
                 |> respondWith 400
 
         Just (Route.TextilePostSimulator (Ok textileQuery)) ->
             textileQuery
-                |> executeTextileQuery db (toAllImpactsSimple db.textile.wellKnown)
+                |> executeTextileQuery request db (toAllImpactsSimple request db.textile.wellKnown)
 
         Just (Route.TextilePostSimulator (Err error)) ->
-            encodeValidationErrors error
+            encodeValidationErrors request error
                 |> respondWith 400
 
         Just (Route.TextilePostSimulatorDetailed (Ok textileQuery)) ->
             textileQuery
-                |> executeTextileQuery db Simulator.encode
+                |> executeTextileQuery request
+                    db
+                    (\simulator ->
+                        Simulator.encode
+                            (toDetailedTextileWebUrl request simulator |> Just)
+                            simulator
+                    )
 
         Just (Route.TextilePostSimulatorDetailed (Err error)) ->
-            encodeValidationErrors error
+            encodeValidationErrors request error
                 |> respondWith 400
 
         Just (Route.TextilePostSimulatorSingle (Ok textileQuery) trigram) ->
             textileQuery
-                |> executeTextileQuery db (toSingleImpactSimple db.textile.wellKnown trigram)
+                |> executeTextileQuery request db (toSingleImpactSimple request db.textile.wellKnown trigram)
 
         Just (Route.TextilePostSimulatorSingle (Err error) _) ->
-            encodeValidationErrors error
+            encodeValidationErrors request error
                 |> respondWith 400
 
         Nothing ->
             "Endpoint doesn't exist"
                 |> Validation.fromErrorString
-                |> encodeValidationErrors
+                |> encodeValidationErrors request
                 |> respondWith 404
 
 
@@ -311,7 +333,7 @@ update msg =
                 Err error ->
                     error
                         |> Validation.fromErrorString
-                        |> encodeValidationErrors
+                        |> encodeValidationErrors request
                         |> sendResponse 503 request
 
                 Ok db ->
