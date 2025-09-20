@@ -5,6 +5,7 @@ import logging
 import multiprocessing
 import os
 import re
+from collections import Counter
 from datetime import UTC, datetime, timedelta
 from enum import Enum
 from multiprocessing import Pool
@@ -70,16 +71,31 @@ def get_log_stats(filename):
         statuses = {}
         max_lines = 20
         error_lines = []
+        versions = Counter()
+
+        versions_pattern = r"/versions/(v\d+\.\d+\.\d+)"
+
         for line in f:
             if "[router]" in line:
                 parsed_line = parse_log_line(line)
                 status = parsed_line["status"]
                 duration = parsed_line["duration"]
+                path = parsed_line["path"].strip()
 
                 if status in statuses:
                     statuses[status] += 1
                 else:
                     statuses[status] = 1
+
+                if path.startswith("/versions/v") and "version.json" not in path:
+                    match = re.search(versions_pattern, path)
+                    if match:
+                        version = match.group(1)
+                        if "/api/" in path:
+                            version += "-api"
+                        versions[version] += 1
+                    else:
+                        print(f"# -> Print no version match for {path}")
 
                 if len(slowest_lines) < max_lines and duration < 55.0 and duration > 3:
                     slowest_lines.append(parsed_line)
@@ -102,7 +118,7 @@ def get_log_stats(filename):
                 if status >= 400:
                     error_lines.append(parsed_line)
 
-        return (slowest_lines, statuses, error_lines)
+        return (slowest_lines, statuses, error_lines, versions)
 
 
 @app.callback()
@@ -134,9 +150,10 @@ def log_archives(
 
     now = datetime.now(UTC)
     api_token = os.getenv("SCALINGO_API_TOKEN")
-    bearer_token = scalingo.get_bearer_token(api_token=api_token)
 
     if download:
+        bearer_token = scalingo.get_bearer_token(api_token=api_token)
+
         (archives, downloaded_files) = scalingo.list_logs_archives_for_range(
             start_date=now,
             end_date=now - timedelta(days=days),
@@ -147,11 +164,13 @@ def log_archives(
     cpu_count = multiprocessing.cpu_count() - 1 or 1
 
     slowest_lines = []
+    versions = Counter()
     with Pool(cpu_count) as pool:
         results = pool.starmap(
             get_log_stats,
             [(filename,) for filename in glob.glob(f"{download_dir}/*.log-*.gz")],
         )
+
         slowest_lines = sorted(
             # Flatmap starmap results
             [y for ys in results for y in ys[0]],
@@ -166,9 +185,13 @@ def log_archives(
             key=lambda value: value["status"],
         )
 
+        for result in results:
+            versions.update(result[3])
+
     print(statuses)
     print(len(error_lines))
     print(slowest_lines)
+    print(dict(sorted(versions.items())))
 
 
 if __name__ == "__main__":
