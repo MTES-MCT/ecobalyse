@@ -90,10 +90,7 @@ type Id
 {-| A Component is a named collection of elements
 -}
 type alias Component =
-    -- alembic migration
-    -- uv run backend database --help
-    -- modifier db/models
-    { comment : String
+    { comment : Maybe String
     , elements : List Element
     , id : Id
     , name : String
@@ -482,7 +479,7 @@ customElements { elements } =
 decode : Decoder Component
 decode =
     Decode.succeed Component
-        |> Decode.optional "comment" Decode.string ""
+        |> DU.strictOptional "comment" Decode.string
         |> Decode.required "elements" (Decode.list decodeElement)
         |> Decode.required "id" (Decode.map Id Uuid.decoder)
         |> Decode.required "name" Decode.string
@@ -591,7 +588,7 @@ emptyResults =
 encode : Component -> Encode.Value
 encode v =
     Encode.object
-        [ ( "comment", v.comment |> Encode.string )
+        [ ( "comment", v.comment |> Maybe.map Encode.string |> Maybe.withDefault Encode.null )
         , ( "elements", v.elements |> Encode.list encodeElement )
         , ( "id", v.id |> encodeId )
         , ( "name", v.name |> Encode.string )

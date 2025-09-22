@@ -283,7 +283,7 @@ updateComponentComment : String -> Model -> Model
 updateComponentComment comment model =
     case model.modals of
         (EditComponentModal component item) :: others ->
-            { model | modals = EditComponentModal { component | comment = comment } item :: others }
+            { model | modals = EditComponentModal { component | comment = Just comment } item :: others }
 
         _ ->
             model
@@ -554,9 +554,11 @@ modalView db modals index modal =
                                 , placeholder "Ce composant est utilisé pour…"
                                 , rows 3
                                 , onInput UpdateComponentComment
-                                , value component.comment
                                 ]
-                                [ text component.comment ]
+                                [ component.comment
+                                    |> Maybe.withDefault ""
+                                    |> text
+                                ]
                             ]
                         ]
                     , footer =
