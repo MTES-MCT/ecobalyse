@@ -209,9 +209,7 @@ Les pays sont notés sur une échelle de 0 à 100, où 0 signifie un niveau de c
 
 #### Liste des bois disponibles (i) et de leurs impacts biodiversité (Ref)&#x20;
 
-<mark style="color:orange;">Cette liste sera mise à jour suite à l'atelier collectif du 24/09/2025 (</mark>[<mark style="color:orange;">lien</mark>](https://affichage-environnemental.ademe.fr/ameublement)<mark style="color:orange;">)</mark>
-
-<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>Impact biodiversité des différents bois proposés dans le Niveau 1 de la méthode ( Ref(i) )</p></figcaption></figure>
+<mark style="color:orange;">En cours d'adaptation.</mark>&#x20;
 
 <details>
 
