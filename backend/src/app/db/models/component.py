@@ -19,6 +19,7 @@ class Component(UUIDAuditBase):
     __tablename__ = "component"
     elements: Mapped[dict[str, Any] | None] = mapped_column(JsonB)
     name: Mapped[str]
+    comment: Mapped[str | None]
 
     # Note: when creating the migration Alembic will not detect the scope[] type
     # we need to create it manually in the generated migration

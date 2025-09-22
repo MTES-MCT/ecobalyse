@@ -268,7 +268,7 @@ viewDebug items results =
 editorView : Config db msg -> Html msg
 editorView ({ db, docsUrl, explorerRoute, maxItems, items, results, title } as config) =
     div []
-        [ div [ class "card shadow-sm mb-3" ]
+        [ div [ class "card shadow-sm" ]
             [ div [ class "card-header d-flex align-items-center justify-content-between" ]
                 [ h2 [ class "h5 mb-0" ]
                     [ text title

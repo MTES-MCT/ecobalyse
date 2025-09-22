@@ -90,6 +90,10 @@ table db { detailed, scope } =
                                     )
                                 |> ul [ class "m-0 px-2" ]
           }
+        , { label = "Commentaire"
+          , toValue = Table.StringValue <| .comment >> Maybe.withDefault "N/A"
+          , toCell = .comment >> Maybe.withDefault "N/A" >> text
+          }
         , { label = "Coût environnemental"
           , toValue = Table.FloatValue <| getComponentEcoscore scopedProcesses >> Result.withDefault 0
           , toCell =

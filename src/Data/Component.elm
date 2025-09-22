@@ -90,7 +90,8 @@ type Id
 {-| A Component is a named collection of elements
 -}
 type alias Component =
-    { elements : List Element
+    { comment : Maybe String
+    , elements : List Element
     , id : Id
     , name : String
     , scopes : List Scope
@@ -478,6 +479,7 @@ customElements { elements } =
 decode : Decoder Component
 decode =
     Decode.succeed Component
+        |> DU.strictOptional "comment" Decode.string
         |> Decode.required "elements" (Decode.list decodeElement)
         |> Decode.required "id" (Decode.map Id Uuid.decoder)
         |> Decode.required "name" Decode.string
@@ -585,11 +587,12 @@ emptyResults =
 
 encode : Component -> Encode.Value
 encode v =
-    EU.optionalPropertiesObject
-        [ ( "elements", v.elements |> Encode.list encodeElement |> Just )
-        , ( "id", v.id |> encodeId |> Just )
-        , ( "name", v.name |> Encode.string |> Just )
-        , ( "scopes", v.scopes |> Encode.list Scope.encode |> Just )
+    Encode.object
+        [ ( "comment", v.comment |> Maybe.map Encode.string |> Maybe.withDefault Encode.null )
+        , ( "elements", v.elements |> Encode.list encodeElement )
+        , ( "id", v.id |> encodeId )
+        , ( "name", v.name |> Encode.string )
+        , ( "scopes", v.scopes |> Encode.list Scope.encode )
         ]
 
 
