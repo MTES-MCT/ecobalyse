@@ -43,7 +43,7 @@ validateIngredient db ingredientQuery =
 validateMass : Mass -> Result String Mass
 validateMass mass =
     if Mass.inKilograms mass <= 0 then
-        Err "La masse doit être supérieure ou égale à zéro"
+        Err "La masse doit être supérieure à zéro"
 
     else
         Ok mass
