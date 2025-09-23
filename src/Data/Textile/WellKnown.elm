@@ -36,6 +36,7 @@ type alias WellKnown =
     , knittingMix : Process
     , knittingSeamless : Process
     , knittingStraight : Process
+    , lowVoltageFranceElec : Process
     , passengerCar : Process
     , printingDyes : Process
     , printingPaste : Process
@@ -64,6 +65,9 @@ getEnnoblingHeatProcess wk country =
 getEnnoblingPreTreatments : Origin -> WellKnown -> List Process
 getEnnoblingPreTreatments origin { bleaching, degreasing, washingSyntheticFibers } =
     case origin of
+        Origin.ArtificialFromOrganic ->
+            [ bleaching ]
+
         Origin.NaturalFromAnimal ->
             [ bleaching, degreasing ]
 
@@ -72,9 +76,6 @@ getEnnoblingPreTreatments origin { bleaching, degreasing, washingSyntheticFibers
 
         Origin.Synthetic ->
             [ washingSyntheticFibers ]
-
-        _ ->
-            []
 
 
 getPrintingProcess : Printing.Kind -> WellKnown -> { printingProcess : Process, printingToxicityProcess : Process }
@@ -136,6 +137,8 @@ load processes =
         |> fromIdString "b2dba726-83d2-55b2-8107-91c9e47bdca7"
         -- knittingStraight
         |> fromIdString "8343adad-0350-5895-a701-4db41a235ba9"
+        -- lowVoltageFranceElec
+        |> fromIdString "931c9bb0-619a-5f75-b41b-ab8061e2ad92"
         -- passengerCar
         |> fromIdString "2fd6b74f-600a-577c-ba37-b84d8f0482c2"
         -- printingDyes

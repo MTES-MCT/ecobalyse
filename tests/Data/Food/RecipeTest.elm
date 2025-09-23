@@ -30,7 +30,7 @@ suite =
                 ( db.food.examples
                     |> Data.Example.findByName "Pizza royale (350g) - 6"
                     |> Result.map .query
-                , ( Ingredient.idFromString "9cbc31e9-80a4-4b87-ac4b-ddc051c47f69"
+                , ( Ingredient.idFromString "cf30d3bc-e99c-418a-b7e3-89a894d410a5"
                   , Ingredient.idFromString "db0e5f44-34b4-4160-b003-77c828d75e60"
                   , Ingredient.idFromString "38788025-a65e-4edf-a92f-aab0b89b0d61"
                   )
@@ -136,7 +136,7 @@ suite =
                              , royalPizzaResults
                                 |> Result.map (Tuple.second >> .recipe >> .edibleMass >> Mass.inKilograms)
                                 |> Result.withDefault -99
-                                |> Expect.within (Expect.Absolute 0.01) 0.3439
+                                |> Expect.within (Expect.Absolute 0.01) 0.3425
                                 |> asTest "should compute ingredients total edible mass"
                              , asTest "should have the total ecs impact with the complement taken into account"
                                 (case royalPizzaResults |> Result.map (Tuple.second >> .recipe >> .total >> Impact.getImpact Definition.Ecs) of
@@ -145,7 +145,7 @@ suite =
 
                                     Ok result ->
                                         Unit.impactToFloat result
-                                            |> Expect.within (Expect.Absolute 0.1) 127.2
+                                            |> Expect.within (Expect.Absolute 0.1) 139.3
                                 )
                              , asTest "should have the ingredients' total ecs impact with the complement taken into account"
                                 (case royalPizzaResults |> Result.map (Tuple.second >> .recipe >> .ingredientsTotal >> Impact.getImpact Definition.Ecs) of
@@ -154,7 +154,7 @@ suite =
 
                                     Ok result ->
                                         Unit.impactToFloat result
-                                            |> Expect.within (Expect.Absolute 0.1) 104.1
+                                            |> Expect.within (Expect.Absolute 0.1) 114.4
                                 )
                              , describe "Scoring"
                                 (case royalPizzaResults |> Result.map (Tuple.second >> .scoring) of
@@ -165,28 +165,28 @@ suite =
 
                                     Ok scoring ->
                                         [ Unit.impactToFloat scoring.all
-                                            |> Expect.within (Expect.Absolute 0.01) 449.93
+                                            |> Expect.within (Expect.Absolute 0.01) 490.25
                                             |> asTest "should properly score total impact"
                                         , Unit.impactToFloat scoring.allWithoutComplements
-                                            |> Expect.within (Expect.Absolute 0.01) 448.77
+                                            |> Expect.within (Expect.Absolute 0.01) 487.03
                                             |> asTest "should properly score total impact without complements"
                                         , Unit.impactToFloat scoring.complements
-                                            |> Expect.within (Expect.Absolute 0.01) -1.155
+                                            |> Expect.within (Expect.Absolute 0.01) -3.21
                                             |> asTest "should properly score complement impact"
                                         , (Unit.impactToFloat scoring.allWithoutComplements - Unit.impactToFloat scoring.complements)
                                             |> Expect.within (Expect.Absolute 0.0001) (Unit.impactToFloat scoring.all)
                                             |> asTest "should expose coherent scoring"
                                         , Unit.impactToFloat scoring.biodiversity
-                                            |> Expect.within (Expect.Absolute 0.01) 189.31
+                                            |> Expect.within (Expect.Absolute 0.01) 219.09
                                             |> asTest "should properly score impact on biodiversity protected area"
                                         , Unit.impactToFloat scoring.climate
-                                            |> Expect.within (Expect.Absolute 0.01) 106.556731
+                                            |> Expect.within (Expect.Absolute 0.01) 106.18
                                             |> asTest "should properly score impact on climate protected area"
                                         , Unit.impactToFloat scoring.health
-                                            |> Expect.within (Expect.Absolute 0.01) 48.42281
+                                            |> Expect.within (Expect.Absolute 0.01) 48.8
                                             |> asTest "should properly score impact on health protected area"
                                         , Unit.impactToFloat scoring.resources
-                                            |> Expect.within (Expect.Absolute 0.01) 104.484
+                                            |> Expect.within (Expect.Absolute 0.01) 112.96
                                             |> asTest "should properly score impact on resources protected area"
                                         ]
                                 )
@@ -226,12 +226,12 @@ suite =
                           , preparation = []
                           }
                             |> Recipe.compute db
-                            |> Result.map (Tuple.first >> Recipe.getMassAtPackaging)
+                            |> Result.map (Tuple.first >> Recipe.getMassAtPackaging db.food.wellKnown)
                             |> Expect.equal (Ok (Mass.kilograms 0.23600000000000002))
                             |> asTest "should compute recipe ingredients mass with no cooking involved"
                         , royalPizza
                             |> Recipe.compute db
-                            |> Result.map (Tuple.first >> Recipe.getMassAtPackaging)
+                            |> Result.map (Tuple.first >> Recipe.getMassAtPackaging db.food.wellKnown)
                             |> Expect.equal (Ok (Mass.kilograms 0.4398824000000001))
                             |> asTest "should compute recipe ingredients mass applying raw to cooked ratio"
                         ]
@@ -239,12 +239,12 @@ suite =
                         royalPizzaWithPackaging =
                             royalPizza
                                 |> Recipe.compute db
-                                |> Result.map (Tuple.first >> Recipe.getTransformedIngredientsMass)
+                                |> Result.map (Tuple.first >> Recipe.getTransformedIngredientsMass db.food.wellKnown)
 
                         royalPizzaWithNoPackaging =
                             { royalPizza | packaging = [] }
                                 |> Recipe.compute db
-                                |> Result.map (Tuple.first >> Recipe.getTransformedIngredientsMass)
+                                |> Result.map (Tuple.first >> Recipe.getTransformedIngredientsMass db.food.wellKnown)
                       in
                       describe "getTransformedIngredientsMass"
                         [ royalPizzaWithPackaging

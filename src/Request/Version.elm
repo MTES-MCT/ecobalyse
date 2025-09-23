@@ -81,9 +81,9 @@ loadVersion event =
     Http.get "version.json" event decodeData
 
 
-pollVersion : msg -> Sub msg
-pollVersion event =
-    Time.every (60 * 1000) (always event)
+pollVersion : Int -> msg -> Sub msg
+pollVersion versionPollSeconds =
+    always >> Time.every (toFloat versionPollSeconds * 1000)
 
 
 toMaybe : Version -> Maybe VersionData

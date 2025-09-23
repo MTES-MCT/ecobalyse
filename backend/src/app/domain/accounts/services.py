@@ -3,7 +3,6 @@ from __future__ import annotations
 import base64
 import json
 from datetime import UTC, datetime, timedelta, timezone
-from functools import cache
 from typing import Any
 from uuid import UUID, uuid4  # noqa: TC003
 
@@ -86,7 +85,7 @@ class UserService(SQLAlchemyAsyncRepositoryService[m.User]):
         self, db_obj: m.User | None, password: str, hashed_password: str
     ) -> None:
         if hashed_password is None:
-            msg = "User not found or password invalid"
+            msg = "Token not found or already used"
             raise PermissionDeniedException(detail=msg)
         if not await crypt.verify_password(password, hashed_password):
             msg = "User not found or password invalid"
@@ -296,7 +295,8 @@ class TokenService(SQLAlchemyAsyncRepositoryService[m.Token]):
 
         return "eco_api_" + encoded_string
 
-    async def extract_payload(self, token: str) -> dict:
+    @staticmethod
+    async def extract_payload(token: str) -> dict:
         try:
             decoded_bytes = base64.urlsafe_b64decode(token.replace("eco_api_", ""))
             json_payload = decoded_bytes.decode("utf-8")
@@ -306,7 +306,6 @@ class TokenService(SQLAlchemyAsyncRepositoryService[m.Token]):
 
         return payload
 
-    @cache
     async def authenticate(self, secret: str, token_id: UUID) -> bool:
         token = await self.repository.get_one_or_none(id=token_id)
         if token and await crypt.verify_password(secret, token.hashed_token):

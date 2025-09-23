@@ -19,16 +19,18 @@ import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
 import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
+import Data.Text as Text
+import Data.Unit as Unit
 import Diff
 import Diff.ToString as DiffToString
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Json.Encode as Encode
+import Page.Admin.Section as AdminSection
 import Ports
 import RemoteData
 import Request.BackendHttp exposing (WebData)
-import Request.BackendHttp.Error as BackendError
 import Request.Component as ComponentApi
 import Route
 import Static.Db exposing (Db)
@@ -40,14 +42,17 @@ import Views.Container as Container
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Modal as Modal
-import Views.Spinner as Spinner
+import Views.Scope as ScopeView
 import Views.Table as Table
+import Views.WebData as WebDataView
 
 
 type alias Model =
     { components : WebData (List Component)
     , scopes : List Scope
-    , section : AdminView.Section
+    , search : String
+    , section : AdminSection.Section
+    , selected : List Component.Id
     , modals : List Modal
     }
 
@@ -76,16 +81,21 @@ type Msg
     | OpenJournalEntryModal (JournalEntry Component)
     | SaveComponent
     | SetModals (List Modal)
+    | ToggleSelected Component.Id Bool
+    | ToggleSelectedAll Bool
     | UpdateComponent Item
     | UpdateScopeFilters (List Scope)
+    | UpdateSearch String
 
 
-init : Session -> PageUpdate Model Msg
-init session =
-    { components = RemoteData.NotAsked
+init : Session -> AdminSection.Section -> PageUpdate Model Msg
+init session section =
+    { components = RemoteData.Loading
     , modals = []
     , scopes = Scope.all
-    , section = AdminView.ComponentSection
+    , search = ""
+    , section = section
+    , selected = []
     }
         |> App.createUpdate session
         |> App.withCmds [ ComponentApi.getComponents session ComponentListResponse ]
@@ -233,6 +243,14 @@ update session msg model =
                 |> App.createUpdate session
                 |> App.withCmds [ commandsForModal modals ]
 
+        ToggleSelected componentId add ->
+            { model | selected = model.selected |> AdminView.toggleSelected componentId add }
+                |> App.createUpdate session
+
+        ToggleSelectedAll flag ->
+            { model | selected = model.components |> AdminView.selectAll flag }
+                |> App.createUpdate session
+
         UpdateComponent customItem ->
             case model.modals of
                 (EditComponentModal component _) :: others ->
@@ -243,6 +261,9 @@ update session msg model =
 
         UpdateScopeFilters scopes ->
             App.createUpdate session { model | scopes = scopes }
+
+        UpdateSearch search ->
+            App.createUpdate session { model | search = String.toLower search }
 
 
 commandsForModal : List Modal -> Cmd Msg
@@ -286,68 +307,76 @@ selectProcess category (( component, _ ) as targetItem) maybeElementIndex autoco
 
 view : Session -> Model -> ( String, List (Html Msg) )
 view { db } model =
-    ( "admin"
+    ( "Admin Composants"
     , [ Container.centered [ class "d-flex flex-column gap-3 pb-5" ]
             [ AdminView.header model.section
             , warning
-            , model.scopes
-                |> scopeFilterForm UpdateScopeFilters
+            , AdminView.scopedSearchForm
+                { scopes = model.scopes
+                , search = UpdateSearch
+                , searched = model.search
+                , updateScopes = UpdateScopeFilters
+                }
             , model.components
-                |> mapRemoteData (componentListView db model.scopes)
+                |> WebDataView.map
+                    (processFilters model.scopes model.search
+                        >> componentListView db model.selected
+                    )
             , model.components
-                |> mapRemoteData downloadDbButton
+                |> WebDataView.map (AdminView.downloadElementsButton "components.json" Component.encode model.selected)
             , model.modals
-                |> List.indexedMap (\index modal -> modalView db model.modals index modal)
+                |> List.indexedMap (modalView db model.modals)
                 |> div []
             ]
       ]
     )
 
 
-downloadDbButton : List Component -> Html Msg
-downloadDbButton components =
-    p [ class "text-end mt-3" ]
-        [ a
-            [ class "btn btn-primary"
-            , download "components.json"
-            , components
-                |> Encode.list Component.encode
-                |> Encode.encode 2
-                |> Base64.encode
-                |> (++) "data:application/json;base64,"
-                |> href
-            ]
-            [ text "Exporter la base de données de composants" ]
-        ]
+processFilters : List Scope -> String -> List Component -> List Component
+processFilters scopes search =
+    (if scopes == [] then
+        List.filter (\p -> p.scopes == [])
+
+     else
+        Scope.anyOf scopes
+    )
+        >> Text.search
+            { minQueryLength = 2
+            , query = search
+            , sortBy = Nothing
+            , toString = .name
+            }
 
 
-componentListView : Db -> List Scope -> List Component -> Html Msg
-componentListView db scopes components =
+componentListView : Db -> List Component.Id -> List Component -> Html Msg
+componentListView db selected components =
     Table.responsiveDefault []
         [ thead []
             [ tr []
-                [ th [] [ text "Nom" ]
+                [ th [ class "align-start text-center" ]
+                    [ AdminView.selectAllCheckbox ToggleSelectedAll components selected
+                    ]
+                , th [] [ label [ for AdminView.selectAllId ] [ text "Nom" ] ]
                 , th [] [ text "Verticales" ]
                 , th [ colspan 3 ] [ text "Description" ]
                 ]
             ]
         , components
-            |> (if scopes == [] then
-                    List.filter (\c -> c.scopes == [])
-
-                else
-                    Scope.anyOf scopes
-               )
-            |> List.map (componentRowView db)
+            |> List.map (componentRowView db selected)
             |> tbody []
         ]
 
 
-componentRowView : Db -> Component -> Html Msg
-componentRowView db component =
+componentRowView : Db -> List Component.Id -> Component -> Html Msg
+componentRowView db selected component =
     tr []
-        [ th [ class "align-middle" ]
-            [ text component.name
+        [ td [ class "align-start text-center" ]
+            [ selected
+                |> AdminView.toggleElementCheckbox Component.idToString ToggleSelected component.id
+            ]
+        , th [ class "align-middle" ]
+            [ label [ for <| AdminView.toggleElementId Component.idToString component.id ]
+                [ text component.name ]
             , small [ class "d-block fw-normal" ]
                 [ code [] [ text (Component.idToString component.id) ] ]
             ]
@@ -395,7 +424,10 @@ componentRowView db component =
                 , a
                     [ class "btn btn-outline-primary"
                     , title "Utiliser dans le simulateur"
-                    , Just { components = [ Component.createItem component.id ] }
+                    , Just
+                        { components = [ Component.createItem component.id ]
+                        , durability = Unit.ratio 1
+                        }
                         |> Route.ObjectSimulator Scope.Object Definition.Ecs
                         |> Route.href
                     ]
@@ -503,7 +535,7 @@ modalView db modals index modal =
 
                 HistoryModal response ->
                     { title = "Historique des modifications"
-                    , content = [ response |> mapRemoteData historyView ]
+                    , content = [ response |> WebDataView.map historyView ]
                     , footer =
                         [ button
                             [ class "btn btn-primary"
@@ -611,7 +643,7 @@ componentScopesForm component item =
         |> Maybe.withDefault component.scopes
         |> List.head
         |> Maybe.withDefault Scope.Object
-        |> singleScopeForm
+        |> ScopeView.singleScopeForm
             (\scope ->
                 item
                     |> Component.toggleCustomScope component scope True
@@ -678,67 +710,6 @@ historyView entries =
         ]
 
 
-scopeFilterForm : (List Scope -> Msg) -> List Scope -> Html Msg
-scopeFilterForm updateFilters filtered =
-    multipleScopesForm
-        (\scope enabled ->
-            if enabled then
-                updateFilters (scope :: filtered)
-
-            else
-                updateFilters (List.filter ((/=) scope) filtered)
-        )
-        filtered
-
-
-multipleScopesForm : (Scope -> Bool -> Msg) -> List Scope -> Html Msg
-multipleScopesForm check scopes =
-    div [ class "d-flex flex-row gap-3" ]
-        [ h3 [ class "h6 mb-0" ] [ text "Verticales" ]
-        , Scope.all
-            |> List.map
-                (\scope ->
-                    div [ class "form-check form-check-inline" ]
-                        [ label [ class "form-check-label" ]
-                            [ input
-                                [ type_ "checkbox"
-                                , class "form-check-input"
-                                , checked <| List.member scope scopes
-                                , onCheck <| check scope
-                                ]
-                                []
-                            , text (Scope.toString scope)
-                            ]
-                        ]
-                )
-            |> div [ class "ScopeSelector" ]
-        ]
-
-
-singleScopeForm : (Scope -> Msg) -> Scope -> Html Msg
-singleScopeForm selectScope selectedScope =
-    div [ class "d-flex flex-row gap-3 align-items-center" ]
-        [ h3 [ class "h6 mb-0" ] [ text "Verticale" ]
-        , Scope.all
-            |> List.map
-                (\scope ->
-                    option
-                        [ selected <| scope == selectedScope
-                        , value <| Scope.toString scope
-                        ]
-                        [ text <| Scope.toLabel scope ]
-                )
-            |> select
-                [ class "form-select"
-                , onInput
-                    (Scope.fromString
-                        >> Result.withDefault selectedScope
-                        >> selectScope
-                    )
-                ]
-        ]
-
-
 updateSingleItem : (List Item -> List Item) -> Item -> Msg
 updateSingleItem fn item =
     item
@@ -760,22 +731,6 @@ warning =
         , level = Alert.Warning
         , title = Nothing
         }
-
-
-mapRemoteData : (a -> Html msg) -> WebData a -> Html msg
-mapRemoteData fn webData =
-    case webData of
-        RemoteData.Failure err ->
-            Alert.serverError <| BackendError.errorToString err
-
-        RemoteData.Loading ->
-            Spinner.view
-
-        RemoteData.NotAsked ->
-            text ""
-
-        RemoteData.Success data ->
-            fn data
 
 
 subscriptions : Model -> Sub Msg

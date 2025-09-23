@@ -78,7 +78,7 @@ type alias Query =
     , printing : Maybe Printing
     , product : Product.Id
     , surfaceMass : Maybe Unit.SurfaceMass
-    , trims : List Item
+    , trims : Maybe (List Item)
     , upcycled : Bool
     , yarnSize : Maybe Unit.YarnSize
     }
@@ -100,9 +100,35 @@ addMaterial material query =
     }
 
 
-updateTrims : (List Item -> List Item) -> Query -> Query
-updateTrims fn query =
-    { query | trims = fn query.trims }
+{-| Update query trims, falling back to product category defaults when none is defined yet
+-}
+updateTrims : List Product -> (List Item -> List Item) -> Query -> Query
+updateTrims products fn query =
+    let
+        productDefaultTrims =
+            products
+                |> Product.findById query.product
+                |> Result.map .trims
+    in
+    case ( query.trims, productDefaultTrims ) of
+        -- The query has custom trims, and the product has default trims
+        ( Just trims, Ok defaults ) ->
+            { query
+                | trims =
+                    if fn trims == defaults then
+                        Nothing
+
+                    else
+                        Just (fn trims)
+            }
+
+        -- The query has no custom trims, and the product has default trims
+        ( Nothing, Ok defaults ) ->
+            { query | trims = Just (fn defaults) }
+
+        -- Product category not found, should never happen
+        ( _, Err _ ) ->
+            { query | trims = Nothing }
 
 
 buildApiQuery : String -> Query -> String
@@ -112,7 +138,7 @@ buildApiQuery clientUrl query =
   -H "content-type: application/json" \\
   -d '%json%'
 """
-        |> String.replace "%apiUrl%" (clientUrl ++ "api/textile/simulator")
+        |> String.replace "%apiUrl%" (clientUrl ++ "/api/textile/simulator")
         |> String.replace "%json%" (encode query |> Encode.encode 0)
 
 
@@ -140,7 +166,7 @@ decode =
         |> DU.strictOptional "printing" Printing.decode
         |> Pipe.required "product" (Decode.map Product.Id Decode.string)
         |> DU.strictOptional "surfaceMass" Unit.decodeSurfaceMass
-        |> Pipe.optional "trims" (Decode.list Component.decodeItem) []
+        |> DU.strictOptional "trims" (Decode.list Component.decodeItem)
         |> Pipe.optional "upcycled" Decode.bool False
         |> DU.strictOptional "yarnSize" Unit.decodeYarnSize
 
@@ -185,7 +211,7 @@ encode query =
         , ( "printing", query.printing |> Maybe.map Printing.encode )
         , ( "product", query.product |> Product.idToString |> Encode.string |> Just )
         , ( "surfaceMass", query.surfaceMass |> Maybe.map Unit.encodeSurfaceMass )
-        , ( "trims", query.trims |> Encode.list Component.encodeItem |> Just )
+        , ( "trims", query.trims |> Maybe.map (Encode.list Component.encodeItem) )
         , ( "upcycled", Encode.bool query.upcycled |> Just )
         , ( "yarnSize", query.yarnSize |> Maybe.map Unit.encodeYarnSize )
         ]
@@ -232,8 +258,8 @@ handleUpcycling query =
         query
 
 
-isAdvancedQuery : List Product -> Query -> Bool
-isAdvancedQuery products query =
+isAdvancedQuery : Query -> Bool
+isAdvancedQuery query =
     List.any identity
         [ query.dyeingProcessType /= Nothing && query.dyeingProcessType /= Just Dyeing.Average
         , query.fabricProcess /= Nothing
@@ -243,10 +269,7 @@ isAdvancedQuery products query =
         , query.materials |> List.any (.spinning >> (/=) Nothing)
         , query.physicalDurability /= Nothing
         , query.surfaceMass /= Nothing
-        , products
-            |> Product.findById query.product
-            |> Result.map (.trims >> (/=) query.trims)
-            |> Result.withDefault False
+        , query.trims /= Nothing
         , not query.upcycled && List.length query.disabledSteps > 0
         , query.yarnSize /= Nothing
         ]
@@ -254,8 +277,8 @@ isAdvancedQuery products query =
 
 {-| Resets a query to use only regulatory-level fields.
 -}
-regulatory : List Product -> Query -> Query
-regulatory products query =
+regulatory : Query -> Query
+regulatory query =
     { query
         | disabledSteps = []
         , dyeingProcessType = Nothing
@@ -266,11 +289,7 @@ regulatory products query =
         , materials = query.materials |> List.map (\m -> { m | spinning = Nothing })
         , physicalDurability = Nothing
         , surfaceMass = Nothing
-        , trims =
-            products
-                |> Product.findById query.product
-                |> Result.map .trims
-                |> Result.withDefault []
+        , trims = Nothing
         , yarnSize = Nothing
     }
 
@@ -341,7 +360,7 @@ updateProduct product query =
             , printing = Nothing
             , product = product.id
             , surfaceMass = Nothing
-            , trims = product.trims
+            , trims = Nothing
             , yarnSize = Nothing
         }
 
@@ -441,7 +460,7 @@ default =
     , printing = Nothing
     , product = Product.Id "tshirt"
     , surfaceMass = Nothing
-    , trims = []
+    , trims = Nothing
     , upcycled = False
     , yarnSize = Nothing
     }

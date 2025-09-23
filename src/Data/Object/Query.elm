@@ -8,11 +8,13 @@ module Data.Object.Query exposing
     , encode
     , parseBase64Query
     , updateComponents
+    , updateDurability
     )
 
 import Base64
 import Data.Component as Component exposing (Item)
 import Data.Scope as Scope exposing (Scope)
+import Data.Unit as Unit exposing (Ratio)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
@@ -21,6 +23,11 @@ import Url.Parser as Parser exposing (Parser)
 
 type alias Query =
     { components : List Item
+
+    -- Note: component durability is experimental, future work may eventually be needed to
+    -- reuse existing mechanics and handle holistic durability like it's implemented for textile,
+    -- though it's still an ongoing discussion and we need to move forward and iterate.
+    , durability : Ratio
     }
 
 
@@ -39,7 +46,7 @@ buildApiQuery scope clientUrl query =
   -H "content-type: application/json" \\
   -d '%json%'
 """
-        |> String.replace "%apiUrl%" (clientUrl ++ "api/" ++ Scope.toString scope ++ "/simulator")
+        |> String.replace "%apiUrl%" (clientUrl ++ "/api/" ++ Scope.toString scope ++ "/simulator")
         |> String.replace "%json%" (encode query |> Encode.encode 0)
 
 
@@ -47,26 +54,32 @@ decode : Decoder Query
 decode =
     Decode.succeed Query
         |> Pipe.required "components" (Decode.list Component.decodeItem)
+        |> Pipe.optional "durability" Unit.decodeRatio (Unit.ratio 1)
 
 
 default : Query
 default =
-    { components = [] }
+    { components = []
+    , durability = Unit.ratio 1
+    }
 
 
 encode : Query -> Encode.Value
 encode query =
     Encode.object
-        [ ( "components"
-          , query.components
-                |> Encode.list Component.encodeItem
-          )
+        [ ( "components", query.components |> Encode.list Component.encodeItem )
+        , ( "durability", query.durability |> Unit.encodeRatio )
         ]
 
 
 updateComponents : (List Item -> List Item) -> Query -> Query
 updateComponents fn query =
     { query | components = fn query.components }
+
+
+updateDurability : Unit.Ratio -> Query -> Query
+updateDurability durability query =
+    { query | durability = durability }
 
 
 

@@ -1,6 +1,92 @@
 # Changelog
 
 
+## [7.1.0](https://github.com/MTES-MCT/ecobalyse/compare/v7.0.0..v7.1.0) (2025-09-08)
+
+
+
+### 🚀 Features
+
+- Implement Agribalyse 3.2 ([#1201](https://github.com/MTES-MCT/ecobalyse/issues/1201))
+- *(bo)* Add API to list processes ([#1167](https://github.com/MTES-MCT/ecobalyse/issues/1167))
+- *(bo)* Add processes admin ui ([#1306](https://github.com/MTES-MCT/ecobalyse/issues/1306))
+- *(bo)* Allow searching process source, scopes and categories. ([#1321](https://github.com/MTES-MCT/ecobalyse/issues/1321))
+- *(bo)* Allow exporting selected components. ([#1339](https://github.com/MTES-MCT/ecobalyse/issues/1339))
+- *(object)* Add durability slider ([#1343](https://github.com/MTES-MCT/ecobalyse/issues/1343))
+
+### 🪲 Bug Fixes
+
+- Patch old versions selector to hide unreleased versions ([#1297](https://github.com/MTES-MCT/ecobalyse/issues/1297))
+- Corrected oil and seed/nuts densities ([#1294](https://github.com/MTES-MCT/ecobalyse/issues/1294))
+- Remove creosote (or related flows) and acetamiprid ([#1279](https://github.com/MTES-MCT/ecobalyse/issues/1279))
+- Fixed scenarios ([#1316](https://github.com/MTES-MCT/ecobalyse/issues/1316))
+- *(ui)* Fix api request examples in the share tab. ([#1348](https://github.com/MTES-MCT/ecobalyse/issues/1348))
+
+### ⚙️ Miscellaneous Tasks
+
+- Improve token error feedback ([#1291](https://github.com/MTES-MCT/ecobalyse/issues/1291))
+- List and parse scalingo logs ([#1293](https://github.com/MTES-MCT/ecobalyse/issues/1293))
+- Upgrade posthog deps ([#1301](https://github.com/MTES-MCT/ecobalyse/issues/1301))
+- Npm dependencies upgrades, 2025-08 ([#1317](https://github.com/MTES-MCT/ecobalyse/issues/1317))
+- Fix food ids and densities  ([#1323](https://github.com/MTES-MCT/ecobalyse/issues/1323))
+- Restored last ingredient ids identity between v7.0.0 and next version ([#1330](https://github.com/MTES-MCT/ecobalyse/issues/1330))
+- Add board processes ([#1331](https://github.com/MTES-MCT/ecobalyse/issues/1331))
+- Fixed cocoa butter ([#1340](https://github.com/MTES-MCT/ecobalyse/issues/1340))
+- Less eggs for now ([#1344](https://github.com/MTES-MCT/ecobalyse/issues/1344))
+- Add object scope to veli processes ([#1347](https://github.com/MTES-MCT/ecobalyse/issues/1347))
+- Update components list for Object ([#1349](https://github.com/MTES-MCT/ecobalyse/issues/1349))
+- Create product examples for object ([#1350](https://github.com/MTES-MCT/ecobalyse/issues/1350))
+
+
+## [7.0.0](https://github.com/MTES-MCT/ecobalyse/compare/v6.1.1..v7.0.0) (2025-07-29)
+
+
+
+### 🚀 Features
+
+- *(sec)* Allow configuring rate limiting ([#1214](https://github.com/MTES-MCT/ecobalyse/issues/1214))
+- *(ui)* Improve error ux on expired magic link ([#1225](https://github.com/MTES-MCT/ecobalyse/issues/1225))
+- Add sawing process ([#1179](https://github.com/MTES-MCT/ecobalyse/issues/1179))
+- Add veli processes ([#1194](https://github.com/MTES-MCT/ecobalyse/issues/1194))
+- Improve KPI tracking with Posthog ([#1222](https://github.com/MTES-MCT/ecobalyse/issues/1222))
+- *(textile)* [**breaking**] Remove the traceability parameter. ([#1237](https://github.com/MTES-MCT/ecobalyse/issues/1237))
+- Add pretreatment dyeing average aquatic pollution scenario ([#1232](https://github.com/MTES-MCT/ecobalyse/issues/1232))
+- Allow configuring version polling interval ([#1283](https://github.com/MTES-MCT/ecobalyse/issues/1283))
+- *(bo)* Add user accounts admin ([#1266](https://github.com/MTES-MCT/ecobalyse/issues/1266))
+
+### 🪲 Bug Fixes
+
+- JSON parsing in versions ([#1212](https://github.com/MTES-MCT/ecobalyse/issues/1212))
+- *(ui)* Don't scrolltop on explorer modal closed ([#1218](https://github.com/MTES-MCT/ecobalyse/issues/1218))
+- Remove displayName duplicates ([#1249](https://github.com/MTES-MCT/ecobalyse/issues/1249))
+- Fix analytics initialization procedure. ([#1252](https://github.com/MTES-MCT/ecobalyse/issues/1252))
+- Fix Sentry express instrumentation ([#1254](https://github.com/MTES-MCT/ecobalyse/issues/1254))
+- Fix api requests logging ([#1258](https://github.com/MTES-MCT/ecobalyse/issues/1258))
+- Update CSP for posthog requirements ([#1259](https://github.com/MTES-MCT/ecobalyse/issues/1259))
+- *(api)* Filter food api transform processes ([#1275](https://github.com/MTES-MCT/ecobalyse/issues/1275))
+- *(api)* Fix textile api product field docs ([#1278](https://github.com/MTES-MCT/ecobalyse/issues/1278))
+- *(textile)* [**breaking**] Use low voltage FR elec at the utilization step, medium voltage otherwise ([#1276](https://github.com/MTES-MCT/ecobalyse/issues/1276))
+- Cache password verification to improve perfs ([#1284](https://github.com/MTES-MCT/ecobalyse/issues/1284))
+- *(textile)* [**breaking**] Apply bleaching pretreatments energy mix impacts ([#1282](https://github.com/MTES-MCT/ecobalyse/issues/1282))
+- *(textile)* Ensure examples use default product category trims ([#1287](https://github.com/MTES-MCT/ecobalyse/issues/1287))
+- *(textile)* [**breaking**] Limit printing surface ratio to 80% max ([#1277](https://github.com/MTES-MCT/ecobalyse/issues/1277))
+
+### 🚜 Refactor
+
+- Let invalid cooking process be detected as a compilation error ([#1289](https://github.com/MTES-MCT/ecobalyse/issues/1289))
+
+### ⚙️ Miscellaneous Tasks
+
+- Wtu m3 eq ([#1229](https://github.com/MTES-MCT/ecobalyse/issues/1229))
+- Update default trims following feedback ([#1236](https://github.com/MTES-MCT/ecobalyse/issues/1236))
+- Upgrade node.js and Elm deps, 2025-07 ([#1256](https://github.com/MTES-MCT/ecobalyse/issues/1256))
+- Improve general CSP configuration ([#1262](https://github.com/MTES-MCT/ecobalyse/issues/1262))
+- New pasta and soups ([#1221](https://github.com/MTES-MCT/ecobalyse/issues/1221))
+- Add mention in the API about the persistence of ids ([#1267](https://github.com/MTES-MCT/ecobalyse/issues/1267))
+- Restored the `oilseed-feed` ([#1255](https://github.com/MTES-MCT/ecobalyse/issues/1255))
+- Change elec name ([#1288](https://github.com/MTES-MCT/ecobalyse/issues/1288))
+
+
 ## [6.1.1](https://github.com/MTES-MCT/ecobalyse/compare/v6.1.0..v6.1.1) (2025-07-02)
 
 

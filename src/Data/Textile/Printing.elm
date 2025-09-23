@@ -32,13 +32,19 @@ decode : Decoder Printing
 decode =
     Decode.succeed Printing
         |> JDP.required "kind" decodeKind
-        |> JDP.optional "ratio" Split.decodeFloat defaultRatio
+        |> JDP.optional "ratio" decodePrintingRatio defaultRatio
 
 
 decodeKind : Decoder Kind
 decodeKind =
     Decode.string
         |> Decode.andThen (fromString >> DE.fromResult)
+
+
+decodePrintingRatio : Decoder Split
+decodePrintingRatio =
+    Decode.float
+        |> Decode.andThen (Split.fromBoundedFloat 0 0.8 >> DE.fromResult)
 
 
 defaultRatio : Split

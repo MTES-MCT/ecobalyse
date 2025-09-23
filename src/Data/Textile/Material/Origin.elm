@@ -14,8 +14,7 @@ import Json.Decode.Extra as DE
 
 
 type Origin
-    = ArtificialFromInorganic
-    | ArtificialFromOrganic
+    = ArtificialFromOrganic
     | NaturalFromAnimal
     | NaturalFromVegetal
     | Synthetic
@@ -30,9 +29,6 @@ decode =
 fromString : String -> Result String Origin
 fromString origin =
     case origin of
-        "ArtificialFromInorganic" ->
-            Ok ArtificialFromInorganic
-
         "ArtificialFromOrganic" ->
             Ok ArtificialFromOrganic
 
@@ -56,14 +52,11 @@ isSynthetic origin =
 
 toMicrofibersComplement : Origin -> Unit.Impact
 toMicrofibersComplement origin =
-    -- see https://fabrique-numerique.gitbook.io/ecobalyse/textile/limites-methodologiques/old/microfibres#calcul-du-complement-microfibres
+    -- see https://fabrique-numerique.gitbook.io/ecobalyse/textile/complements-hors-acv/microfibres
     -- Notes:
     -- - this is a malus expressed as a negative Pts/kg impact
     -- - the float value corresponds to Ref(f) * 1000 to ease applying the formula
     case origin of
-        ArtificialFromInorganic ->
-            Unit.impact -820
-
         ArtificialFromOrganic ->
             Unit.impact -330
 
@@ -80,9 +73,6 @@ toMicrofibersComplement origin =
 toLabel : Origin -> String
 toLabel origin =
     case origin of
-        ArtificialFromInorganic ->
-            "Matière artificielle d'origine inorganique"
-
         ArtificialFromOrganic ->
             "Matière artificielle d'origine organique"
 
@@ -99,9 +89,6 @@ toLabel origin =
 toString : Origin -> String
 toString origin =
     case origin of
-        ArtificialFromInorganic ->
-            "ArtificialFromInorganic"
-
         ArtificialFromOrganic ->
             "ArtificialFromOrganic"
 

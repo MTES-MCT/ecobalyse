@@ -1,6 +1,7 @@
 module Data.Process exposing
     ( Id
     , Process
+    , asSearchableText
     , available
     , decode
     , decodeFromId
@@ -59,6 +60,18 @@ type alias Process =
 
 type SourceId
     = SourceId String
+
+
+asSearchableText : Process -> String
+asSearchableText process =
+    String.join " "
+        [ getDisplayName process
+        , getTechnicalName process
+        , process.categories |> List.map Category.toLabel |> String.join " "
+        , process.scopes |> List.map Scope.toString |> String.join " "
+        , process.comment
+        , process.source
+        ]
 
 
 {-| List processes which ids are not part of the provided list of ids

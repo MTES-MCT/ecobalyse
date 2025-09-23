@@ -10,6 +10,7 @@ import Result.Extra as RE
 type alias WellKnown =
     { boatCoolingTransport : Process
     , boatTransport : Process
+    , cooking : Process
     , domesticGasHeat : Process
     , lorryCoolingTransport : Process
     , lorryTransport : Process
@@ -29,18 +30,20 @@ load processes =
     in
     Ok WellKnown
         -- boat-cooling
-        |> fromIdString "c739cf97-d424-5abd-b6ad-4c21d66081bb"
+        |> fromIdString "3cb99d44-24f6-5f6e-a8f8-f754fe44d641"
         -- boat
-        |> fromIdString "54145f9e-1a8e-5a69-96d9-d3b92f9a1cee"
+        |> fromIdString "0c36759c-4480-53eb-add1-77ecfb2b202e"
+        -- cooking
+        |> fromIdString "a2836bb8-7f45-5cfa-bb00-8b38046291cf"
         -- domestic-gas-heat
-        |> fromIdString "a21ee9bf-675f-502b-a9a3-395686a429e0"
+        |> fromIdString "6cbd45fb-83ff-5852-97a7-87fffecc20f5"
         -- lorry-cooling
-        |> fromIdString "a79eb385-fa19-590c-8e3b-16f6048c4303"
+        |> fromIdString "219b986c-9751-58cf-977e-7ba8f0b4ae2b"
         -- lorry
-        |> fromIdString "1f30553d-df08-5f07-b035-ba3ce5af7cf1"
+        |> fromIdString "0a3b3388-472c-58e5-9d1b-441cdda023f3"
         -- low-voltage-electricity
         |> fromIdString "931c9bb0-619a-5f75-b41b-ab8061e2ad92"
         -- plane
-        |> fromIdString "c8bca164-5574-5232-84b9-46c5b734cd0c"
+        |> fromIdString "3364ef93-b936-531a-8f5a-432349aef398"
         -- tap-water
-        |> fromIdString "d3fc19a4-7ace-5870-aeb3-fe35a8189d94"
+        |> fromIdString "7e1fb122-1320-519c-8751-2d926eb435da"
