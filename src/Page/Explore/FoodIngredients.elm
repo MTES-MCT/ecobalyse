@@ -101,8 +101,18 @@ table _ { detailed, scope } =
                 \{ process } ->
                     div []
                         [ div [ class "cursor-help", title <| Process.getTechnicalName process ]
-                            [ text <| Process.getDisplayName process ]
-                        , em [ class "cursor-help", title process.comment ]
+                            [ text <| Process.getDisplayName process
+                            , if detailed then
+                                em []
+                                    [ text " ("
+                                    , text <| Process.getTechnicalName process
+                                    , text ")"
+                                    ]
+
+                              else
+                                text ""
+                            ]
+                        , div [ class "cursor-help", title process.comment ]
                             [ text process.comment ]
                         ]
           }
