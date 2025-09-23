@@ -183,6 +183,7 @@ type Results
         { amount : Amount
         , impacts : Impacts
         , items : List Results
+        , label : Maybe String
         , mass : Mass
         , stage : Maybe Stage
         }
@@ -274,7 +275,7 @@ amountToFloat (Amount float) =
 
 
 applyTransform : EnergyMixes -> Process -> Results -> Results
-applyTransform { elec, heat } transform (Results { amount, impacts, items, mass }) =
+applyTransform { elec, heat } transform (Results { amount, label, impacts, items, mass }) =
     let
         transformImpacts =
             [ transform.impacts
@@ -303,10 +304,12 @@ applyTransform { elec, heat } transform (Results { amount, impacts, items, mass 
                         { amount = outputAmount
                         , impacts = transformImpacts
                         , items = []
+                        , label = Just <| Process.getDisplayName transform
                         , mass = outputMass
                         , stage = Just TransformStage
                         }
                    ]
+        , label = label
         , mass = outputMass
         , stage = Nothing
         }
@@ -358,6 +361,7 @@ compute db =
     List.map (computeItemResults db)
         >> RE.combine
         >> Result.map (List.foldr addResults emptyResults)
+        >> Result.map (\(Results results) -> Results { results | label = Just "Complete product" })
 
 
 computeElementResults : List Process -> Element -> Result String Results
@@ -403,8 +407,11 @@ computeImpacts processes =
 
 computeItemResults : DataContainer db -> Item -> Result String Results
 computeItemResults { components, processes } { custom, id, quantity } =
-    components
-        |> findById id
+    let
+        component_ =
+            findById id components
+    in
+    component_
         |> Result.andThen
             (\component ->
                 custom
@@ -422,6 +429,15 @@ computeItemResults { components, processes } { custom, id, quantity } =
                             |> List.repeat (quantityToInt quantity)
                             |> Impact.sumImpacts
                     , items = items
+                    , label =
+                        case custom |> Maybe.andThen .name of
+                            Just name ->
+                                Just name
+
+                            Nothing ->
+                                component_
+                                    |> Result.map (.name >> Just)
+                                    |> Result.withDefault Nothing
                     , mass =
                         mass
                             |> List.repeat (quantityToInt quantity)
@@ -457,10 +473,12 @@ computeMaterialResults amount process =
                 { amount = amount
                 , impacts = impacts
                 , items = []
+                , label = Just <| Process.getDisplayName process
                 , mass = mass
                 , stage = Just MaterialStage
                 }
             ]
+        , label = Just <| "Element: " ++ Process.getDisplayName process
         , mass = mass
         , stage = Nothing
         }
@@ -580,6 +598,7 @@ emptyResults =
         { amount = Amount 0
         , impacts = Impact.empty
         , items = []
+        , label = Nothing
         , mass = Quantity.zero
         , stage = Nothing
         }
@@ -645,7 +664,10 @@ encodeId =
 encodeResults : Maybe Trigram -> Results -> Encode.Value
 encodeResults maybeTrigram (Results results) =
     EU.optionalPropertiesObject
-        [ ( "impacts"
+        [ ( "label", results.label |> Maybe.map Encode.string )
+        , ( "stage", results.stage |> Maybe.map (stageToString >> Encode.string) )
+        , ( "mass", results.mass |> Mass.inKilograms |> Encode.float |> Just )
+        , ( "impacts"
           , Just
                 -- Note: even with no trigram provided, we always want impacts here
                 (case maybeTrigram of
@@ -660,8 +682,6 @@ encodeResults maybeTrigram (Results results) =
                 )
           )
         , ( "items", results.items |> Encode.list (encodeResults maybeTrigram) |> Just )
-        , ( "mass", results.mass |> Mass.inKilograms |> Encode.float |> Just )
-        , ( "stage", results.stage |> Maybe.map (stageToString >> Encode.string) )
         ]
 
 
