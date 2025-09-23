@@ -758,8 +758,8 @@ q {
 .ElementFormWrapper {
   border-bottom: $list-group-border-width solid $list-group-border-color;
   display: grid;
-  grid-gap: 5px 10px;
-  grid-template-columns: 100px 1fr 1fr auto 120px 31px;
+  grid-gap: 5px;
+  grid-template-columns: 100px 35% 2fr 1fr 90px 31px;
   grid-template-areas:
     "quantityInputWrapper  elementSelector  countrySelector     countrySelector     impactDisplay    baseElementDelete"
     ".                     complements      complements         complements         complements      .                "
@@ -768,7 +768,7 @@ q {
 
   @media screen and (max-width: $viewport-md) {
     grid-gap: 5px;
-    grid-template-columns: 90px 1fr 60px 31px;
+    grid-template-columns: 90px minmax(100px, 60%) 60px 31px;
     grid-template-areas:
       "quantityInputWrapper  elementSelector     impactDisplay    impactDisplay    "
       "countrySelector       countrySelector     countrySelector  baseElementDelete"
