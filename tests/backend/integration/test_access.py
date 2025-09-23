@@ -615,3 +615,65 @@ async def test_list_accounts_superuser_granted(
     assert response.status_code == 200
     data = response.json()
     assert isinstance(data, list)
+
+
+async def test_components_access_with_eco_api_token(
+    session: AsyncSession,
+    client: "AsyncClient",
+    user_token_headers: dict[str, str],
+    superuser_token_headers: dict[str, str],
+) -> None:
+    response = await client.post(
+        "/api/tokens",
+        headers=user_token_headers,
+    )
+    data = response.json()
+    token = data["token"]
+
+    eco_api_user_token_headers = {"Authorization": f"Bearer {token}"}
+
+    response = await client.post(
+        "/api/tokens",
+        headers=superuser_token_headers,
+    )
+    data = response.json()
+    token = data["token"]
+
+    eco_api_superuser_token_headers = {"Authorization": f"Bearer {token}"}
+
+    # Test create access
+    response = await client.post(
+        "/api/components",
+        json={
+            "name": "New Component",
+            "elements": [
+                {"amount": 0.91125, "material": "59b42284-3e45-5343-8a20-1d7d66137461"}
+            ],
+        },
+        headers=eco_api_user_token_headers,
+    )
+
+    assert response.status_code == 403
+
+    # Test create access
+    response = await client.post(
+        "/api/components",
+        json={
+            "name": "New Component",
+            "elements": [
+                {"amount": 0.91125, "material": "59b42284-3e45-5343-8a20-1d7d66137461"}
+            ],
+        },
+        headers=eco_api_superuser_token_headers,
+    )
+
+    assert response.status_code == 201
+
+    async with TokenService.new(session) as token_service:
+        tokens = await token_service.repository.list()
+        assert len(tokens) == 2
+        failed_access_token = tokens[0]
+        ok_access_token = tokens[1]
+
+        assert failed_access_token.last_accessed_at is None
+        assert ok_access_token.last_accessed_at is not None

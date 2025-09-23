@@ -279,6 +279,12 @@ input {
   }
 }
 
+textarea.form-control {
+  &::placeholder  {
+    color: $text-muted;
+  }
+}
+
 // Specifics for the comparator modal, when displaying the "total" impacts, we want
 // the stroke to be black instead of white by default.
 .total-impacts rect.highcharts-point {
@@ -1459,4 +1465,13 @@ q {
       margin-right: -.125rem;
     }
   }
+}
+
+.page-notice {
+  position: relative;
+  background-color: #e8edff;
+  color: #0063cb;
+  padding: 1rem;
+  box-shadow: inset 0 3px 5px rgba(194, 209, 255, 0.8);
+  margin-top: -7px;
 }

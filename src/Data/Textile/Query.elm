@@ -148,7 +148,7 @@ buildApiQuery clientUrl query =
   -H "content-type: application/json" \\
   -d '%json%'
 """
-        |> String.replace "%apiUrl%" (clientUrl ++ "api/textile/simulator")
+        |> String.replace "%apiUrl%" (clientUrl ++ "/api/textile/simulator")
         |> String.replace "%json%" (encode query |> Encode.encode 0)
 
 

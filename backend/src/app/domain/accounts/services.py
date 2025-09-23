@@ -295,7 +295,8 @@ class TokenService(SQLAlchemyAsyncRepositoryService[m.Token]):
 
         return "eco_api_" + encoded_string
 
-    async def extract_payload(self, token: str) -> dict:
+    @staticmethod
+    async def extract_payload(token: str) -> dict:
         try:
             decoded_bytes = base64.urlsafe_b64decode(token.replace("eco_api_", ""))
             json_payload = decoded_bytes.decode("utf-8")

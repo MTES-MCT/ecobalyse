@@ -15,7 +15,9 @@ import Browser.Navigation as Navigation
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Component as Component exposing (Component, Index, TargetElement, TargetItem)
 import Data.Dataset as Dataset
+import Data.Env as Env
 import Data.Example as Example exposing (Example)
+import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Object.Query as Query exposing (Query)
@@ -25,9 +27,11 @@ import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
 import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
+import Data.Unit as Unit
 import Data.Uuid exposing (Uuid)
 import Html exposing (..)
-import Html.Attributes exposing (..)
+import Html.Attributes as Attr exposing (..)
+import Html.Events exposing (..)
 import List.Extra as LE
 import Ports
 import Request.Version as Version
@@ -36,12 +40,16 @@ import Task
 import Time exposing (Posix)
 import Views.AutocompleteSelector as AutocompleteSelectorView
 import Views.Bookmark as BookmarkView
+import Views.Button as Button
 import Views.Comparator as ComparatorView
 import Views.Component as ComponentView
 import Views.Container as Container
 import Views.Example as ExampleView
+import Views.Format as Format
+import Views.Icon as Icon
 import Views.ImpactTabs as ImpactTabs
 import Views.Modal as ModalView
+import Views.RangeSlider as RangeSlider
 import Views.Sidebar as SidebarView
 
 
@@ -96,6 +104,7 @@ type Msg
     | UpdateBookmarkName String
     | UpdateComponentItemName TargetItem String
     | UpdateComponentItemQuantity Index Component.Quantity
+    | UpdateDurability (Result String Unit.Ratio)
     | UpdateElementAmount TargetElement (Maybe Component.Amount)
 
 
@@ -440,6 +449,14 @@ update ({ navKey } as session) msg model =
                     )
                 |> App.withCmds [ Posthog.send <| Posthog.ComponentUpdated model.scope ]
 
+        ( UpdateDurability (Ok durability), _ ) ->
+            App.createUpdate session model
+                |> updateQuery (query |> Query.updateDurability durability)
+
+        ( UpdateDurability (Err error), _ ) ->
+            App.createUpdate session model
+                |> App.notifyError "Erreur de durabilité" error
+
         ( UpdateElementAmount _ Nothing, _ ) ->
             App.createUpdate session model
 
@@ -519,12 +536,19 @@ selectProcess category targetItem maybeElementIndex autocompleteState query ({ m
 
 simulatorView : Session -> Model -> Html Msg
 simulatorView session model =
+    let
+        currentQuery =
+            session |> Session.objectQueryFromScope model.scope
+
+        currentDurability =
+            currentQuery |> .durability
+    in
     div [ class "row" ]
         [ div [ class "col-lg-8 bg-white" ]
             [ h1 [ class "visually-hidden" ] [ text "Simulateur " ]
             , div [ class "sticky-md-top bg-white pb-3" ]
                 [ ExampleView.view
-                    { currentQuery = session |> Session.objectQueryFromScope model.scope
+                    { currentQuery = currentQuery
                     , emptyQuery = Query.default
                     , examples = model.examples
                     , helpUrl = Nothing
@@ -537,6 +561,7 @@ simulatorView session model =
                         }
                     }
                 ]
+            , durabilityView currentDurability
             , ComponentView.editorView
                 { addLabel = "Ajouter un composant"
                 , customizable = True
@@ -546,10 +571,7 @@ simulatorView session model =
                 , docsUrl = Nothing
                 , explorerRoute = Just (Route.Explore model.scope (Dataset.Components model.scope Nothing))
                 , impact = model.impact
-                , items =
-                    session
-                        |> Session.objectQueryFromScope model.scope
-                        |> .components
+                , items = currentQuery |> .components
                 , maxItems = Nothing
                 , noOp = NoOp
                 , openSelectComponentModal = AddComponentModal >> SetModal
@@ -581,8 +603,18 @@ simulatorView session model =
                 -- Score
                 , customScoreInfo = Nothing
                 , productMass = Component.extractMass model.results
-                , totalImpacts = Component.extractImpacts model.results
-                , totalImpactsWithoutDurability = Nothing
+                , totalImpacts =
+                    model.results
+                        |> Component.extractImpacts
+                        |> Impact.divideBy (Unit.ratioToFloat currentDurability)
+                , totalImpactsWithoutDurability =
+                    if currentDurability == Unit.ratio 1 then
+                        Nothing
+
+                    else
+                        model.results
+                            |> Component.extractImpacts
+                            |> Just
 
                 -- Impacts tabs
                 , impactTabsConfig =
@@ -601,6 +633,74 @@ simulatorView session model =
                 , updateBookmarkName = UpdateBookmarkName
                 , switchBookmarkTab = SwitchBookmarksTab
                 }
+            ]
+        ]
+
+
+durabilityView : Unit.Ratio -> Html Msg
+durabilityView currentDurability =
+    -- Note: this is considered a temporary implementation for object and veli simulators,
+    -- things might actually want to be factored out and appropriately typed and handled
+    -- when ongoing discussions around holostic durability are completed.
+    div [ class "card shadow-sm pb-2 mb-3" ]
+        [ div [ class "card-header d-flex justify-content-between align-items-center" ]
+            [ h2 [ class "h5 mb-1 text-truncate" ] [ text "Durabilité" ]
+            , div [ class "d-flex align-items-center gap-2" ]
+                [ Button.docsPillLink
+                    [ class "bg-secondary"
+                    , style "height" "24px"
+                    , href Env.gitbookUrl
+                    , title "Documentation"
+                    , target "_blank"
+                    ]
+                    [ Icon.question ]
+                ]
+            ]
+        , div [ class "card-body pb-1 row g-3 align-items-start flex-md-columns" ]
+            [ div [ class "col-sm-6 col-md-4" ]
+                [ label [ for "durability", class "text-truncate" ]
+                    [ text "Coefficient de durabilité" ]
+                ]
+            , div [ class "col-sm-2 col-md-2" ]
+                [ currentDurability
+                    |> Unit.ratioToFloat
+                    |> Format.formatFloat 2
+                    |> text
+                ]
+            , div [ class "col-sm-4 col-md-6 text-nowrap d-flex align-items-center gap-2" ]
+                [ RangeSlider.generic [ Attr.id "durability" ]
+                    { disabled = False
+                    , fromString =
+                        String.toFloat
+                            >> Result.fromMaybe "Durabilité invalide (un nombre est requis)"
+                            >> Result.andThen
+                                (\float ->
+                                    if float < 0.5 then
+                                        Err "Durabilité trop faible (minimum: 0.5)"
+
+                                    else if float > 1.5 then
+                                        Err "Durabilité trop élevée (maximum: 1.5)"
+
+                                    else
+                                        Ok float
+                                )
+                            >> Result.map Unit.ratio
+                    , max = Unit.ratio 1.5
+                    , min = Unit.ratio 0.5
+                    , step = "0.01"
+                    , toString = Unit.ratioToFloat >> String.fromFloat
+                    , update = UpdateDurability
+                    , value = currentDurability
+                    }
+                , button
+                    [ type_ "button"
+                    , class "btn text-primary p-0 border-0"
+                    , onClick (UpdateDurability (Ok (Unit.ratio 1)))
+                    , title "Réinitialiser la durabilité"
+                    , disabled (currentDurability == Unit.ratio 1)
+                    ]
+                    [ Icon.crossRounded ]
+                ]
             ]
         ]
 
@@ -693,7 +793,7 @@ view session model =
                         , placeholderText = placeholderText
                         , title = title
                         , toLabel = Process.getDisplayName
-                        , toCategory = \_ -> ""
+                        , toCategory = .unit >> Process.unitToString
                         }
             ]
       ]

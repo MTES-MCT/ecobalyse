@@ -146,3 +146,111 @@ def patch_version_selector(patch_file: pathlib.Path, git_dir: pathlib.Path):
                 f"Applying patch file `{patch_file}` to `{git_dir}` using `git apply`."
             )
             subprocess.run(["git", "apply", patch_file], check=True, cwd=git_dir)
+
+
+def patch_prerelease(git_dir: pathlib.Path):
+    github_file_path = "src/Data/Github.elm"
+    with open(os.path.join(git_dir, github_file_path)) as github_file:
+        github_data = github_file.read()
+        if github_data.count("prerelease") > 0:
+            logger.info(
+                f"Patch content already present in `{github_file_path}`, skipping."
+            )
+            return
+        # Old version
+        elif github_data.count("unreleased") == 0:
+            logger.info(
+                f"Patch does not apply to this version of `{github_file_path}`, skipping."
+            )
+            return
+
+    logger.info(
+        f"Overwriting `{os.path.join(git_dir, github_file_path)}` with new content."
+    )
+    github_elm_new_content = """module Data.Github exposing
+    ( Commit
+    , Release
+    , decodeCommit
+    , decodeReleaseList
+    , unreleased
+    )
+
+import Iso8601
+import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Pipeline as Pipe
+import Time exposing (Posix)
+
+
+type alias Commit =
+    { sha : String
+    , message : String
+    , date : Posix
+    , authorName : String
+    , authorLogin : String
+    , authorAvatar : Maybe String
+    }
+
+
+type alias Release =
+    { draft : Bool
+    , hash : String
+    , markdown : String
+    , name : String
+    , prerelease : Bool
+    , tag : String
+    , url : String
+    }
+
+
+decodeCommit : Decoder Commit
+decodeCommit =
+    Decode.succeed Commit
+        |> Pipe.requiredAt [ "sha" ] Decode.string
+        |> Pipe.requiredAt [ "commit", "message" ] Decode.string
+        |> Pipe.requiredAt [ "commit", "author", "date" ] Iso8601.decoder
+        |> Pipe.requiredAt [ "commit", "author", "name" ] Decode.string
+        |> Pipe.optionalAt [ "author", "login" ] Decode.string "Ecobalyse"
+        |> Pipe.optionalAt [ "author", "avatar_url" ] (Decode.maybe Decode.string) Nothing
+        |> Decode.andThen
+            (\({ authorAvatar, authorName } as commit) ->
+                Decode.succeed
+                    (if authorAvatar == Nothing && authorName == "Ingredient editor" then
+                        { commit | authorAvatar = Just "img/ingredient-editor.png" }
+
+                     else
+                        commit
+                    )
+            )
+
+
+decodeRelease : Decoder Release
+decodeRelease =
+    Decode.succeed Release
+        |> Pipe.required "draft" Decode.bool
+        |> Pipe.required "target_commitish" Decode.string
+        |> Pipe.required "body" Decode.string
+        |> Pipe.required "name" Decode.string
+        |> Pipe.required "prerelease" Decode.bool
+        |> Pipe.required "tag_name" Decode.string
+        |> Pipe.required "html_url" Decode.string
+
+
+decodeReleaseList : Decoder (List Release)
+decodeReleaseList =
+    Decode.list decodeRelease
+        -- Exclude draft and pre-releases
+        |> Decode.map (List.filter (\{ draft, prerelease } -> not draft && not prerelease))
+
+unreleased : Release
+unreleased =
+    { draft = True
+    , hash = ""
+    , markdown = ""
+    , name = "Unreleased"
+    , prerelease = True
+    , tag = "Unreleased"
+    , url = ""
+    }"""
+
+    with open(os.path.join(git_dir, github_file_path), "w") as filetowrite:
+        filetowrite.write(github_elm_new_content)

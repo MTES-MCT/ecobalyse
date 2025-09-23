@@ -10,9 +10,7 @@ from advanced_alchemy.service.typing import (
 from app.domain.accounts.guards import requires_superuser
 from app.domain.journal_entries import urls
 from app.domain.journal_entries.deps import provide_journal_entries_service
-from app.domain.journal_entries.schemas import (
-    JournalEntry,
-)
+from app.domain.journal_entries.schemas import JournalEntry
 from litestar import get
 from litestar.controller import Controller
 from litestar.di import Provide

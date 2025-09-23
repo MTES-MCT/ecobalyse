@@ -1,6 +1,8 @@
 module Data.Process exposing
     ( Id
     , Process
+    , Unit(..)
+    , asSearchableText
     , available
     , decode
     , decodeFromId
@@ -16,6 +18,8 @@ module Data.Process exposing
     , idToString
     , listAvailableMaterialTransforms
     , listByCategory
+    , unitLabel
+    , unitToString
     )
 
 import Data.Common.DecodeUtils as DU
@@ -52,13 +56,36 @@ type alias Process =
     , scopes : List Scope
     , source : String
     , sourceId : SourceId
-    , unit : String
+    , unit : Unit
     , waste : Split
     }
 
 
 type SourceId
     = SourceId String
+
+
+type Unit
+    = CubicMeter
+    | Items
+    | Kilogram
+    | KilowattHour
+    | Liter
+    | Megajoule
+    | SquareMeter
+    | TonKilometer
+
+
+asSearchableText : Process -> String
+asSearchableText process =
+    String.join " "
+        [ getDisplayName process
+        , getTechnicalName process
+        , process.categories |> List.map Category.toLabel |> String.join " "
+        , process.scopes |> List.map Scope.toString |> String.join " "
+        , process.comment
+        , process.source
+        ]
 
 
 {-| List processes which ids are not part of the provided list of ids
@@ -104,7 +131,7 @@ decode impactsDecoder =
         |> Pipe.required "scopes" (Decode.list Scope.decode)
         |> Pipe.required "source" Decode.string
         |> Pipe.required "sourceId" (DU.decodeNonEmptyString |> Decode.map sourceIdFromString)
-        |> Pipe.required "unit" Decode.string
+        |> Pipe.required "unit" (Decode.string |> Decode.andThen (DE.fromResult << unitFromString))
         |> Pipe.required "waste" Split.decodeFloat
 
 
@@ -122,7 +149,7 @@ encode process =
         , ( "scopes", process.scopes |> Encode.list Scope.encode )
         , ( "source", Encode.string process.source )
         , ( "sourceId", encodeSourceId process.sourceId )
-        , ( "unit", Encode.string process.unit )
+        , ( "unit", process.unit |> unitToString |> Encode.string )
         , ( "waste", Split.encodeFloat process.waste )
         ]
 
@@ -226,6 +253,93 @@ listByCategory category =
     List.filter (.categories >> List.member category)
 
 
-listByUnit : String -> List Process -> List Process
+listByUnit : Unit -> List Process -> List Process
 listByUnit unit =
     List.filter (.unit >> (==) unit)
+
+
+unitLabel : Unit -> String
+unitLabel unit =
+    case unit of
+        CubicMeter ->
+            "Volume"
+
+        Items ->
+            "Quantité"
+
+        Kilogram ->
+            "Masse"
+
+        KilowattHour ->
+            "Électricité"
+
+        Liter ->
+            "Volume"
+
+        Megajoule ->
+            "Chaleur"
+
+        SquareMeter ->
+            "Surface"
+
+        TonKilometer ->
+            "Transport"
+
+
+unitToString : Unit -> String
+unitToString unit =
+    case unit of
+        CubicMeter ->
+            "m3"
+
+        Items ->
+            "Item(s)"
+
+        Kilogram ->
+            "kg"
+
+        KilowattHour ->
+            "kWh"
+
+        Liter ->
+            "L"
+
+        Megajoule ->
+            "MJ"
+
+        SquareMeter ->
+            "m2"
+
+        TonKilometer ->
+            "t⋅km"
+
+
+unitFromString : String -> Result String Unit
+unitFromString string =
+    case string of
+        "Item(s)" ->
+            Ok Items
+
+        "kg" ->
+            Ok Kilogram
+
+        "kWh" ->
+            Ok KilowattHour
+
+        "L" ->
+            Ok Liter
+
+        "m2" ->
+            Ok SquareMeter
+
+        "m3" ->
+            Ok CubicMeter
+
+        "MJ" ->
+            Ok Megajoule
+
+        "t⋅km" ->
+            Ok TonKilometer
+
+        _ ->
+            Err ("Invalid or non-supported process unit: " ++ string)

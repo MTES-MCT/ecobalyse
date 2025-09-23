@@ -29,6 +29,7 @@ module Data.Component exposing
     , decodeItem
     , decodeList
     , decodeListFromJsonString
+    , elementTransforms
     , elementsToString
     , emptyResults
     , encode
@@ -37,6 +38,7 @@ module Data.Component exposing
     , encodeResults
     , expandElements
     , expandItems
+    , extractAmount
     , extractImpacts
     , extractItems
     , extractMass
@@ -88,10 +90,17 @@ type Id
 {-| A Component is a named collection of elements
 -}
 type alias Component =
-    { elements : List Element
+    { comment : Maybe String
+    , elements : List Element
     , id : Id
     , name : String
     , scopes : List Scope
+    }
+
+
+type alias EnergyMixes =
+    { elec : Process
+    , heat : Process
     }
 
 
@@ -171,7 +180,8 @@ type Quantity
 -}
 type Results
     = Results
-        { impacts : Impacts
+        { amount : Amount
+        , impacts : Impacts
         , items : List Results
         , mass : Mass
         , stage : Maybe Stage
@@ -263,57 +273,82 @@ amountToFloat (Amount float) =
     float
 
 
+applyTransform : EnergyMixes -> Process -> Results -> Results
+applyTransform { elec, heat } transform (Results { amount, impacts, items, mass }) =
+    let
+        transformImpacts =
+            [ transform.impacts
+            , elec.impacts |> Impact.multiplyBy (Energy.inKilowattHours transform.elec)
+            , heat.impacts |> Impact.multiplyBy (Energy.inMegajoules transform.heat)
+            ]
+                |> Impact.sumImpacts
+                -- Note: impacts are always computed from input amount
+                |> Impact.multiplyBy (amountToFloat amount)
+
+        outputAmount =
+            amount |> applyWaste transform.waste
+
+        outputMass =
+            mass
+                |> Quantity.minus
+                    (mass |> Quantity.multiplyBy (Split.toFloat transform.waste))
+    in
+    Results
+        { amount = outputAmount
+        , impacts = Impact.sumImpacts [ transformImpacts, impacts ]
+        , items =
+            items
+                ++ [ -- transform result
+                     Results
+                        { amount = outputAmount
+                        , impacts = transformImpacts
+                        , items = []
+                        , mass = outputMass
+                        , stage = Just TransformStage
+                        }
+                   ]
+        , mass = outputMass
+        , stage = Nothing
+        }
+
+
 {-| Sequencially apply transforms to existing Results (typically, material ones).
 
 Note: for now we use average elec and heat mixes, but we might want to allow
 specifying specific country mixes in the future.
 
 -}
-applyTransforms : List Process -> List Process -> Results -> Result String Results
-applyTransforms allProcesses transforms materialResults =
-    loadDefaultEnergyMixes allProcesses
+applyTransforms : List Process -> Process.Unit -> List Process -> Results -> Result String Results
+applyTransforms allProcesses unit transforms materialResults =
+    checkTransformsUnit unit transforms
+        |> Result.andThen (\_ -> loadDefaultEnergyMixes allProcesses)
         |> Result.map
-            (\{ elec, heat } ->
+            (\energyMixes ->
                 transforms
-                    |> List.foldl
-                        (\transform (Results { impacts, items, mass }) ->
-                            let
-                                wastedMass =
-                                    mass |> Quantity.multiplyBy (Split.toFloat transform.waste)
-
-                                outputMass =
-                                    mass |> Quantity.minus wastedMass
-
-                                -- Note: impacts are always computed from input mass
-                                transformImpacts =
-                                    [ transform.impacts
-                                    , elec.impacts
-                                        |> Impact.multiplyBy (Energy.inKilowattHours transform.elec)
-                                    , heat.impacts
-                                        |> Impact.multiplyBy (Energy.inMegajoules transform.heat)
-                                    ]
-                                        |> Impact.sumImpacts
-                                        |> Impact.multiplyBy (Mass.inKilograms mass)
-                            in
-                            Results
-                                -- global result
-                                { impacts = Impact.sumImpacts [ transformImpacts, impacts ]
-                                , items =
-                                    items
-                                        ++ [ -- transform result
-                                             Results
-                                                { impacts = transformImpacts
-                                                , items = []
-                                                , mass = outputMass
-                                                , stage = Just TransformStage
-                                                }
-                                           ]
-                                , mass = outputMass
-                                , stage = Nothing
-                                }
-                        )
-                        materialResults
+                    |> List.foldl (applyTransform energyMixes) materialResults
             )
+
+
+applyWaste : Split -> Amount -> Amount
+applyWaste waste =
+    mapAmount (\amount -> amount - (amount * Split.toFloat waste))
+
+
+checkTransformsUnit : Process.Unit -> List Process -> Result String (List Process)
+checkTransformsUnit unit transforms =
+    if not <| List.all (.unit >> (==) unit) transforms then
+        "Les procédés de transformation ne partagent pas la même unité que la matière source ("
+            ++ Process.unitToString unit
+            ++ ")\u{00A0}: "
+            ++ (transforms
+                    |> List.filter (.unit >> (/=) unit)
+                    |> List.map (\p -> Process.getDisplayName p ++ " (" ++ Process.unitToString p.unit ++ ")")
+                    |> String.join ", "
+               )
+            |> Err
+
+    else
+        Ok transforms
 
 
 {-| Computes impacts from a list of available components, processes and specified component items
@@ -336,7 +371,7 @@ computeElementResults processes =
                         (\initialAmount ->
                             material
                                 |> computeMaterialResults initialAmount
-                                |> applyTransforms processes transforms
+                                |> applyTransforms processes material.unit transforms
                         )
             )
 
@@ -373,8 +408,7 @@ computeItemResults { components, processes } { custom, id, quantity } =
         |> Result.andThen
             (\component ->
                 custom
-                    |> Maybe.map .elements
-                    |> Maybe.withDefault component.elements
+                    |> customElements component
                     |> List.map (computeElementResults processes)
                     |> RE.combine
             )
@@ -382,7 +416,8 @@ computeItemResults { components, processes } { custom, id, quantity } =
         |> Result.map
             (\(Results { impacts, mass, items }) ->
                 Results
-                    { impacts =
+                    { amount = Amount 0
+                    , impacts =
                         impacts
                             |> List.repeat (quantityToInt quantity)
                             |> Impact.sumImpacts
@@ -405,7 +440,7 @@ computeMaterialResults amount process =
 
         mass =
             Mass.kilograms <|
-                if process.unit == "kg" then
+                if process.unit == Process.Kilogram then
                     amountToFloat amount
 
                 else
@@ -414,11 +449,13 @@ computeMaterialResults amount process =
     in
     -- global result
     Results
-        { impacts = impacts
+        { amount = amount
+        , impacts = impacts
         , items =
             [ -- material result
               Results
-                { impacts = impacts
+                { amount = amount
+                , impacts = impacts
                 , items = []
                 , mass = mass
                 , stage = Just MaterialStage
@@ -434,9 +471,15 @@ createItem id =
     { custom = Nothing, id = id, quantity = quantityFromInt 1 }
 
 
+customElements : Component -> Maybe Custom -> List Element
+customElements { elements } =
+    Maybe.map .elements >> Maybe.withDefault elements
+
+
 decode : Decoder Component
 decode =
     Decode.succeed Component
+        |> DU.strictOptional "comment" Decode.string
         |> Decode.required "elements" (Decode.list decodeElement)
         |> Decode.required "id" (Decode.map Id Uuid.decoder)
         |> Decode.required "name" Decode.string
@@ -510,10 +553,18 @@ elementToString processes element =
         |> Result.map
             (\process ->
                 String.fromFloat (amountToFloat element.amount)
-                    ++ process.unit
+                    ++ Process.unitToString process.unit
                     ++ " "
                     ++ Process.getDisplayName process
             )
+
+
+elementTransforms : TargetElement -> List Item -> List Process.Id
+elementTransforms ( targetItem, elementIndex ) =
+    itemElements targetItem
+        >> LE.getAt elementIndex
+        >> Maybe.map .transforms
+        >> Maybe.withDefault []
 
 
 elementsToString : DataContainer db -> Component -> Result String String
@@ -526,7 +577,8 @@ elementsToString db component =
 emptyResults : Results
 emptyResults =
     Results
-        { impacts = Impact.empty
+        { amount = Amount 0
+        , impacts = Impact.empty
         , items = []
         , mass = Quantity.zero
         , stage = Nothing
@@ -535,11 +587,12 @@ emptyResults =
 
 encode : Component -> Encode.Value
 encode v =
-    EU.optionalPropertiesObject
-        [ ( "elements", v.elements |> Encode.list encodeElement |> Just )
-        , ( "id", v.id |> encodeId |> Just )
-        , ( "name", v.name |> Encode.string |> Just )
-        , ( "scopes", v.scopes |> Encode.list Scope.encode |> Just )
+    Encode.object
+        [ ( "comment", v.comment |> Maybe.map Encode.string |> Maybe.withDefault Encode.null )
+        , ( "elements", v.elements |> Encode.list encodeElement )
+        , ( "id", v.id |> encodeId )
+        , ( "name", v.name |> Encode.string )
+        , ( "scopes", v.scopes |> Encode.list Scope.encode )
         ]
 
 
@@ -638,8 +691,7 @@ expandItem { components, processes } { custom, id, quantity } =
         |> Result.andThen
             (\component ->
                 custom
-                    |> Maybe.map .elements
-                    |> Maybe.withDefault component.elements
+                    |> customElements component
                     |> expandElements processes
                     |> Result.map (\expanded -> ( quantity, component, expanded ))
             )
@@ -650,6 +702,11 @@ expandItem { components, processes } { custom, id, quantity } =
 expandItems : DataContainer a -> List Item -> Result String (List ( Quantity, Component, List ExpandedElement ))
 expandItems db =
     List.map (expandItem db) >> RE.combine
+
+
+extractAmount : Results -> Amount
+extractAmount (Results { amount }) =
+    amount
 
 
 extractImpacts : Results -> Impacts
@@ -700,6 +757,13 @@ isEmpty component =
     List.isEmpty component.elements
 
 
+itemElements : TargetItem -> List Item -> List Element
+itemElements ( component, itemIndex ) =
+    LE.getAt itemIndex
+        >> Maybe.andThen .custom
+        >> customElements component
+
+
 itemToComponent : DataContainer db -> Item -> Result String Component
 itemToComponent { components } { custom, id } =
     findById id components
@@ -725,8 +789,7 @@ itemToString db { custom, id, quantity } =
         |> Result.andThen
             (\component ->
                 custom
-                    |> Maybe.map .elements
-                    |> Maybe.withDefault component.elements
+                    |> customElements component
                     |> RE.combineMap (elementToString db.processes)
                     |> Result.map (String.join " | ")
                     |> Result.map
@@ -750,7 +813,7 @@ itemsToString db =
         >> Result.map (String.join ", ")
 
 
-loadDefaultEnergyMixes : List Process -> Result String { elec : Process, heat : Process }
+loadDefaultEnergyMixes : List Process -> Result String EnergyMixes
 loadDefaultEnergyMixes processes =
     let
         fromIdString =
@@ -760,6 +823,11 @@ loadDefaultEnergyMixes processes =
     Result.map2 (\elec heat -> { elec = elec, heat = heat })
         (fromIdString "a2129ece-5dd9-5e66-969c-2603b3c97244")
         (fromIdString "3561ace1-f710-50ce-a69c-9cf842e729e4")
+
+
+mapAmount : (Float -> Float) -> Amount -> Amount
+mapAmount fn (Amount float) =
+    Amount <| fn float
 
 
 quantityFromInt : Int -> Quantity
