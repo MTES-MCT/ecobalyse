@@ -768,7 +768,7 @@ q {
 
   @media screen and (max-width: $viewport-md) {
     grid-gap: 5px;
-    grid-template-columns: 90px 1fr 60px 31px;
+    grid-template-columns: 90px minmax(100px, 60%) 60px 31px;
     grid-template-areas:
       "quantityInputWrapper  elementSelector     impactDisplay    impactDisplay    "
       "countrySelector       countrySelector     countrySelector  baseElementDelete"
