@@ -167,66 +167,77 @@ sur le portail dédié](https://affichage-environnemental.ecobalyse.beta.gouv.fr
         ]
 
 
-viewEcs : Html Msg
-viewEcs =
-    viewSection "En savoir plus sur les données et les impacts\u{202F}?"
-        [ """Vous pouvez en savoir plus sur nos données sources et nos modélisations en vous rendant dans [\u{202F}l’explorateur\u{202F}]({url_explorer}).
-            Consultez également le détail des impacts environnementaux de vos simulations en [\u{202F}créant votre compte Ecobalyse\u{202F}]({url_account})."""
-            |> String.replace "{url_explorer}" (Route.toString <| Route.Explore Scope.Textile (Dataset.TextileExamples Nothing))
-            |> String.replace "{url_account}" (Route.toString Route.Auth)
-            |> Markdown.simple []
-        ]
-
-
 viewTools : Html Msg
 viewTools =
-    viewSection "Les dessous du coût environnemental"
-        [ """Le coût environnemental s’appuie sur la méthodologie d’analyse du cycle de vie PEF (Product Environmental Footprint)
-        complétée sur les aspects qu’elle ne couvre pas encore. Il est issu du travail des pouvoirs publics (ADEME, Ministère de la transition écologique,\u{00A0}…)
-        en s’appuyant sur des experts et des parties prenantes mobilisées notamment lors de phase de concertation.
-        Ce cadre méthodologique est explicité dans [la page de documentation]({url_gitbook})."""
-            |> String.replace "{url_gitbook}" Env.gitbookUrl
-            |> Markdown.simple []
-        , div [ class "d-flex mt-4 gap-3" ]
-            [ Link.external
-                [ class "btn btn-primary"
-                , href <| Env.gitbookUrl
+    Container.centered []
+        [ div [ class "row px-md-5 gap-5 gap-md-0" ]
+            [ div [ class "col-md-6 d-flex flex-column justify-content-between gap-2" ]
+                [ h3 [] [ text "Les dessous du coût environnemental" ]
+                , """Le coût environnemental s’appuie sur la méthodologie [ACV]({url_acv}) du [PEF]({url_pef})
+complétée sur les aspects qu’elle ne couvre pas encore. Il est issu du travail des pouvoirs publics
+en s’appuyant sur des experts et parties prenantes mobilisés lors de concertations."""
+                    |> String.replace "{url_acv}" "https://fr.wikipedia.org/wiki/Analyse_du_cycle_de_vie"
+                    |> String.replace "{url_pef}" "https://eplca.jrc.ec.europa.eu/EnvironmentalFootprint.html"
+                    |> Markdown.simple [ class "flex-fill" ]
+                , div [ class "d-flex mt-4 gap-3" ]
+                    [ Link.external
+                        [ class "btn btn-primary text-truncate"
+                        , href <| Env.gitbookUrl
+                        ]
+                        [ text "Consulter la méthodologie du coût environnemental" ]
+                    ]
                 ]
-                [ text "Consulter la méthodologie du coût environnemental" ]
+            , div [ class "col-md-6 d-flex flex-column justify-content-between gap-2" ]
+                [ h3 [] [ text "Données et impacts" ]
+                , """Vous pouvez en savoir plus sur nos données sources et nos modélisations en vous rendant dans [\u{202F}l’explorateur\u{202F}]({url_explorer}).
+            Accédez également au détail des impacts environnementaux de vos simulations en créant un compte utilisateur."""
+                    |> String.replace "{url_explorer}" (Route.toString <| Route.Explore Scope.Textile (Dataset.TextileExamples Nothing))
+                    |> String.replace "{url_account}" (Route.toString Route.Auth)
+                    |> Markdown.simple []
+                , div [ class "d-flex mt-4 gap-3" ]
+                    [ Link.external
+                        [ class "btn btn-primary"
+                        , href <| Route.toString <| Route.AuthSignup
+                        ]
+                        [ text "Créer votre compte Ecobalyse" ]
+                    ]
+                ]
             ]
         ]
 
 
-viewContribution : Html Msg
-viewContribution =
-    viewSection "Des questions sur nos outils ou la méthode\u{202F}?"
-        [ """Ecobalyse est un outil ouvert et gratuit. Vos retours sur la méthode ou sur notre outil nous sont précieux."""
-            |> Markdown.simple []
-        , div [ class "d-flex mt-4 gap-3" ]
-            [ Link.external
-                [ class "btn btn-primary"
-                , href <| Env.communityUrl
-                ]
-                [ text "Rejoignez la communauté" ]
-            , Link.external
-                [ class "btn btn-outline-primary"
-                , href "https://fabrique-numerique.gitbook.io/ecobalyse/textile/nous-contacter"
-                ]
-                [ text "Contactez l’équipe Écobalyse" ]
-            ]
-        ]
-
-
-viewApi : Html Msg
-viewApi =
-    viewSection "Accéder au coût environnemental à travers notre API"
-        [ """[L’API HTTP Ecobalyse]({api_url}) permet de calculer les impacts environnementaux des différents produits.
+viewTools2 : Html Msg
+viewTools2 =
+    Container.centered []
+        [ div [ class "row px-md-5 gap-5 gap-md-0" ]
+            [ div [ class "col-md-6 d-flex flex-column justify-content-between gap-2" ]
+                [ h3 [] [ text "L'API Ecobalyse" ]
+                , """[L’API HTTP Ecobalyse]({api_url}) permet de calculer les impacts environnementaux des différents produits.
              Elle est expérimentale et donc ne garantit pas de continuité de service à ce stade."""
-            |> String.replace "{api_url}" (Route.toString <| Route.Api)
-            |> Markdown.simple []
-        , """Des questions\u{202F}? Consultez notre [\u{202F}FAQ API Ecobalyse\u{202F}]({api_faq_url})."""
-            |> String.replace "{api_faq_url}" (Route.toString <| Route.Editorial "api-faq")
-            |> Markdown.simple []
+                    |> String.replace "{api_url}" (Route.toString <| Route.Api)
+                    |> Markdown.simple []
+                , """Des questions\u{202F}? Consultez notre [\u{202F}FAQ dédiée à l’API\u{202F}]({api_faq_url})."""
+                    |> String.replace "{api_faq_url}" (Route.toString <| Route.Editorial "api-faq")
+                    |> Markdown.simple []
+                ]
+            , div [ class "col-md-6 d-flex flex-column justify-content-between gap-2" ]
+                [ h3 [] [ text "Des questions\u{00A0}?" ]
+                , """Ecobalyse est un outil **ouvert et gratuit**. Vos retours sur la méthode ou sur notre outil nous sont précieux."""
+                    |> Markdown.simple [ class "flex-fill" ]
+                , div [ class "d-flex flex-column flex-xl-row mt-4 gap-3" ]
+                    [ Link.external
+                        [ class "btn btn-primary text-truncate"
+                        , href <| Env.communityUrl
+                        ]
+                        [ text "Rejoignez la communauté" ]
+                    , Link.external
+                        [ class "btn btn-outline-primary text-truncate"
+                        , href "https://fabrique-numerique.gitbook.io/ecobalyse/textile/nous-contacter"
+                        ]
+                        [ text "Contactez l’équipe Écobalyse" ]
+                    ]
+                ]
+            ]
         ]
 
 
@@ -250,11 +261,7 @@ view session =
             , div [ class "bg-light p-5" ]
                 [ viewTools ]
             , div [ class "p-5" ]
-                [ viewEcs ]
-            , div [ class "bg-light p-5" ]
-                [ viewContribution ]
-            , div [ class "p-5" ]
-                [ viewApi ]
+                [ viewTools2 ]
             ]
       ]
     )
