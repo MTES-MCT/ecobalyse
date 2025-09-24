@@ -183,7 +183,7 @@ test.describe("auth", () => {
       await expectNotification(page, "Vous avez été deconnecté");
 
       await page.goto("/");
-      await page.getByTestId("textile-callout-button").click();
+      await page.getByTestId("food-callout-button").click();
 
       // When not logged in, the impact selector is not visible
       await expect(page.getByTestId("impact-selector")).not.toBeVisible();
@@ -192,7 +192,7 @@ test.describe("auth", () => {
       await loginUser(page, "bob@dylan.com");
 
       await page.goto("/");
-      await page.getByTestId("textile-callout-button").click();
+      await page.getByTestId("food-callout-button").click();
 
       await expect(page.getByTestId("impact-selector")).toBeVisible();
 
