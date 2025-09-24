@@ -148,8 +148,7 @@ viewInfo =
     Container.centered []
         [ div [ class "d-flex flex-column gap-2 p-0 px-md-5" ]
             [ h2 [ class "h3" ] [ text "Afficher le coût environnemental" ]
-            , """![Exemple d'étiquetage environnemental réglementaire de 360 points d'impact](img/etiquette-exemple.png)
-Le coût environnemental peut être utilisé pour comprendre, informer, enrichir un bilan carbone
+            , """Le coût environnemental peut être utilisé pour comprendre, informer, enrichir un bilan carbone
 ou pour différentes politiques publiques (marchés publics, eco-modulation…)
 
 L’affichage du coût environnemental d’un produit permet d’**informer le consommateur**. Depuis la loi Climat et
@@ -159,6 +158,7 @@ produits alimentaires ou encore l’ameublement. Pour plus d’informations, vou
 - le [site de l’ADEME](https://affichage-environnemental.ademe.fr)
 - le site du [ministère en charge de l’écologie](https://www.ecologie.gouv.fr/politiques-publiques/affichage-environnemental-vêtements)
 
+![Exemple d'étiquetage environnemental réglementaire de 360 points d'impact](img/etiquette-exemple.png)
 Pour les vêtements, **un cadre règlementaire complet a été publié le 9 septembre 2025**. Il encadre l’affichage
 volontaire du coût environnemental des vêtements. Une méthodologie de calcul règlementaire est ainsi arrêtée.
 Vous pouvez y accéder en version [7.0.0 via le mode règlementaire](/versions/v7.0.0/#/textile/simulator)\u{202F}!

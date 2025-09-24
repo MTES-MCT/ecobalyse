@@ -411,8 +411,8 @@ q {
 
 .illustrated-markdown {
   img {
-    float: right;
-    margin-left: 1rem;
+    float: left;
+    margin-right: 1rem;
     margin-bottom: 1rem;
     max-width: 100%;
 
@@ -427,13 +427,13 @@ q {
       max-width: 200px;
     }
     @media screen and (width > $viewport-lg) {
-      max-width: 250px;
+      max-width: 220px;
     }
     @media screen and (width > $viewport-xl) {
-      max-width: 280px;
+      max-width: 230px;
     }
     @media screen and (width > $viewport-xxl) {
-      max-width: 300px;
+      max-width: 250px;
     }
   }
 }
