@@ -174,8 +174,6 @@ viewEcs =
             Pour les vêtements, un cadre règlementaire complet a été publié le 9 septembre 2025. Il encadre l'affichage volontaire du coût environnemental des vêtements. Une méthodologie de calcul règlementaire est ainsi arrêtée. Vous pouvez y accéder en version 7.0.0 via le mode règlementaire.
 
             Pour afficher le coût environnemental sur vos produits textiles, il est nécessaire de déclarer leur coût sur [le site prévu à cet effet](https://affichage-environnemental.ecobalyse.beta.gouv.fr/declarations)."""
-                |> String.replace "{url_explorer}" (Route.toString <| Route.Explore Scope.Textile (Dataset.TextileExamples Nothing))
-                |> String.replace "{url_account}" (Route.toString Route.Auth)
                 |> Markdown.simple []
             ]
         ]
