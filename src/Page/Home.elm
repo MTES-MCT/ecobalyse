@@ -181,8 +181,8 @@ viewTools =
                     , text "Les dessous du coût environnemental"
                     ]
                 , """Le coût environnemental s’appuie sur la méthodologie [ACV]({url_acv}) du [PEF]({url_pef})
-complétée sur les aspects qu’elle ne couvre pas encore. Il est issu du travail des pouvoirs publics
-en s’appuyant sur des experts et parties prenantes mobilisés lors de concertations."""
+**complétée sur les aspects qu’elle ne couvre pas encore**. Il est issu du travail des pouvoirs publics
+en s’appuyant sur des **experts** et parties prenantes mobilisés lors de concertations."""
                     |> String.replace "{url_acv}" "https://fr.wikipedia.org/wiki/Analyse_du_cycle_de_vie"
                     |> String.replace "{url_pef}" "https://eplca.jrc.ec.europa.eu/EnvironmentalFootprint.html"
                     |> Markdown.simple [ class "flex-fill" ]
@@ -197,10 +197,10 @@ en s’appuyant sur des experts et parties prenantes mobilisés lors de concerta
             , div [ class "col-md-6 d-flex flex-column justify-content-between gap-2" ]
                 [ h3 [ class "h4 d-flex align-items-baseline gap-2" ]
                     [ span [ class "fs-5" ] [ Icon.material ]
-                    , text "Impacts et données"
+                    , text "Impacts et données détaillées"
                     ]
-                , """Vous pouvez en savoir plus sur nos données sources et nos modélisations en vous rendant dans [\u{202F}l’explorateur\u{202F}]({url_explorer}).
-            Accédez également au détail des impacts environnementaux de vos simulations en créant un compte utilisateur."""
+                , """Accédez à l'ensemble des modélisations et **données sources** en parcourant [\u{202F}l’explorateur\u{202F}]({url_explorer}).
+            Accédez aux **impacts environnementaux détaillés** de vos simulations en créant un compte utilisateur."""
                     |> String.replace "{url_explorer}" (Route.toString <| Route.Explore Scope.Textile (Dataset.TextileExamples Nothing))
                     |> String.replace "{url_account}" (Route.toString Route.Auth)
                     |> Markdown.simple [ class "flex-fill" ]
