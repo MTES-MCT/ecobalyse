@@ -236,7 +236,7 @@ view : Session -> ( String, List (Html Msg) )
 view session =
     ( "Accueil"
     , [ div [ class "d-flex flex-column" ]
-            [ div [ class "bg-light pt-5" ]
+            [ div [ class "bg-light pt-5 shadow-inner-top" ]
                 [ viewHero session ]
             , div [ class "pt-5 pb-5" ]
                 [ viewInfo ]
