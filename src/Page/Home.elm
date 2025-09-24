@@ -18,6 +18,7 @@ import Html.Events exposing (onClick)
 import Ports
 import Route exposing (Route)
 import Views.Container as Container
+import Views.Icon as Icon
 import Views.Link as Link
 import Views.Markdown as Markdown
 
@@ -144,8 +145,10 @@ viewHero { enabledSections } =
 
 viewInfo : Html Msg
 viewInfo =
-    viewSection "Afficher le coût environnemental"
-        [ """![Exemple d'étiquetage environnemental réglementaire de 360 points d'impact](img/etiquette-exemple.png)
+    Container.centered []
+        [ div [ class "d-flex flex-column gap-2 p-0 px-md-5" ]
+            [ h2 [ class "h3" ] [ text "Afficher le coût environnemental" ]
+            , """![Exemple d'étiquetage environnemental réglementaire de 360 points d'impact](img/etiquette-exemple.png)
 Le coût environnemental peut être utilisé pour comprendre, informer, enrichir un bilan carbone
 ou pour différentes politiques publiques (marchés publics, eco-modulation…)
 
@@ -163,7 +166,8 @@ Vous pouvez y accéder en version [7.0.0 via le mode règlementaire](/versions/v
 Pour afficher le coût environnemental sur vos produits textiles, il est nécessaire de [déclarer leur coût
 sur le portail dédié](https://affichage-environnemental.ecobalyse.beta.gouv.fr/declarations)\u{202F}!
 """
-            |> Markdown.simple [ class "illustrated-markdown" ]
+                |> Markdown.simple [ class "illustrated-markdown" ]
+            ]
         ]
 
 
@@ -172,7 +176,10 @@ viewTools =
     Container.centered []
         [ div [ class "row px-md-5 gap-5 gap-md-0" ]
             [ div [ class "col-md-6 d-flex flex-column justify-content-between gap-2" ]
-                [ h3 [] [ text "Les dessous du coût environnemental" ]
+                [ h3 [ class "h4 d-flex align-items-baseline gap-2" ]
+                    [ span [ class "fs-5" ] [ Icon.search ]
+                    , text "Les dessous du coût environnemental"
+                    ]
                 , """Le coût environnemental s’appuie sur la méthodologie [ACV]({url_acv}) du [PEF]({url_pef})
 complétée sur les aspects qu’elle ne couvre pas encore. Il est issu du travail des pouvoirs publics
 en s’appuyant sur des experts et parties prenantes mobilisés lors de concertations."""
@@ -188,12 +195,15 @@ en s’appuyant sur des experts et parties prenantes mobilisés lors de concerta
                     ]
                 ]
             , div [ class "col-md-6 d-flex flex-column justify-content-between gap-2" ]
-                [ h3 [] [ text "Données et impacts" ]
+                [ h3 [ class "h4 d-flex align-items-baseline gap-2" ]
+                    [ span [ class "fs-5" ] [ Icon.material ]
+                    , text "Impacts et données"
+                    ]
                 , """Vous pouvez en savoir plus sur nos données sources et nos modélisations en vous rendant dans [\u{202F}l’explorateur\u{202F}]({url_explorer}).
             Accédez également au détail des impacts environnementaux de vos simulations en créant un compte utilisateur."""
                     |> String.replace "{url_explorer}" (Route.toString <| Route.Explore Scope.Textile (Dataset.TextileExamples Nothing))
                     |> String.replace "{url_account}" (Route.toString Route.Auth)
-                    |> Markdown.simple []
+                    |> Markdown.simple [ class "flex-fill" ]
                 , div [ class "d-flex mt-4 gap-3" ]
                     [ Link.external
                         [ class "btn btn-primary"
@@ -211,7 +221,10 @@ viewTools2 =
     Container.centered []
         [ div [ class "row px-md-5 gap-5 gap-md-0" ]
             [ div [ class "col-md-6 d-flex flex-column justify-content-between gap-2" ]
-                [ h3 [] [ text "L'API Ecobalyse" ]
+                [ h3 [ class "h4 d-flex align-items-baseline gap-2" ]
+                    [ span [ class "fs-5" ] [ Icon.plug ]
+                    , text "L'API Ecobalyse"
+                    ]
                 , """[L’API HTTP Ecobalyse]({api_url}) permet de calculer les impacts environnementaux des différents produits.
              Elle est expérimentale et donc ne garantit pas de continuité de service à ce stade."""
                     |> String.replace "{api_url}" (Route.toString <| Route.Api)
@@ -221,7 +234,10 @@ viewTools2 =
                     |> Markdown.simple []
                 ]
             , div [ class "col-md-6 d-flex flex-column justify-content-between gap-2" ]
-                [ h3 [] [ text "Des questions\u{00A0}?" ]
+                [ h3 [ class "h4 d-flex align-items-baseline gap-2" ]
+                    [ span [ class "fs-5" ] [ Icon.question ]
+                    , text "Des questions\u{00A0}?"
+                    ]
                 , """Ecobalyse est un outil **ouvert et gratuit**. Vos retours sur la méthode ou sur notre outil nous sont précieux."""
                     |> Markdown.simple [ class "flex-fill" ]
                 , div [ class "d-flex flex-column flex-xl-row mt-4 gap-3" ]
@@ -229,24 +245,15 @@ viewTools2 =
                         [ class "btn btn-primary text-truncate"
                         , href <| Env.communityUrl
                         ]
-                        [ text "Rejoignez la communauté" ]
+                        [ text "Rejoindre la communauté" ]
                     , Link.external
                         [ class "btn btn-outline-primary text-truncate"
                         , href "https://fabrique-numerique.gitbook.io/ecobalyse/textile/nous-contacter"
                         ]
-                        [ text "Contactez l’équipe Écobalyse" ]
+                        [ text "Contacter l’équipe Écobalyse" ]
                     ]
                 ]
             ]
-        ]
-
-
-viewSection : String -> List (Html Msg) -> Html Msg
-viewSection heading content =
-    Container.centered []
-        [ h3 [] [ text heading ]
-            :: content
-            |> div [ class "d-flex flex-column gap-2 p-0 px-md-5" ]
         ]
 
 
