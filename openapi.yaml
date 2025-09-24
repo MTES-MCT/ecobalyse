@@ -253,10 +253,10 @@ paths:
                   - id: 4d5198e7-413a-4ae2-8448-535aa3b302ae
                     mass: 225
                   transform:
-                    id: 83b897cf-9ed2-5604-83b4-67fab8606d35
+                    id: a2836bb8-7f45-5cfa-bb00-8b38046291cf
                     mass: 545
                   packaging:
-                  - id: 25595091-35b6-5c62-869f-a29c318c367e
+                  - id: edefa2be-abe4-5bb6-b0fc-0f666050dcc1
                     mass: 105
                   distribution: ambient
                   preparation:
@@ -278,10 +278,10 @@ paths:
                     mass: 225
                     country: ES
                   transform:
-                    id: 83b897cf-9ed2-5604-83b4-67fab8606d35
+                    id: a2836bb8-7f45-5cfa-bb00-8b38046291cf
                     mass: 545
                   packaging:
-                  - id: 25595091-35b6-5c62-869f-a29c318c367e
+                  - id: edefa2be-abe4-5bb6-b0fc-0f666050dcc1
                     mass: 105
                   distribution: ambient
                   preparation:
@@ -506,19 +506,19 @@ components:
           description: |
             Code pays pour l'étape de **Teinture** (liste disponible sur le point d'entrée `textile/countries`)
           minLength: 2
-          maxLength: 2
+          maxLength: 3
         countryFabric:
           type: string
           description: |
             Code pays pour l'étape de **Tissage/Tricotage** (liste disponible sur le point d'entrée `textile/countries`)
           minLength: 2
-          maxLength: 2
+          maxLength: 3
         countryMaking:
           type: string
           description: |
             Code pays pour l'étape de **Confection** (liste disponible sur le point d'entrée `textile/countries`)
           minLength: 2
-          maxLength: 2
+          maxLength: 3
         countrySpinning:
           type: string
           description: |
@@ -526,7 +526,7 @@ components:
             Si non spécifié, le pays de filature pris en considération est celui de production de
             la matière la plus représentée dans le mix.
           minLength: 2
-          maxLength: 2
+          maxLength: 3
         disabledSteps:
           type: array
           description: |
@@ -733,9 +733,9 @@ components:
           - SyntheticSpinning
         country:
           type: string
-          description: Code du pays d'origine de la matière
+          description: Code du pays d'origine de la matière (liste disponible sur le point d'entrée `/textile/countries`).
           minLength: 2
-          maxLength: 2
+          maxLength: 3
     FoodQuery:
       type: object
       additionalProperties: false
@@ -813,7 +813,7 @@ components:
           description: Masse de l'ingrédient, **en grammes**
         country:
           type: string
-          description: Code ISO du pays d'origine
+          description: Code du pays d'origine (liste disponible sur le point d'entrée `/food/countries`).
         byPlane:
           type: string
           description: Transport par avion

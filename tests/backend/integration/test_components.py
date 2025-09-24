@@ -22,6 +22,7 @@ async def test_components_create(
         "/api/components",
         json={
             "name": "New Component",
+            "comment": "A comment",
             "elements": [
                 {"amount": 0.91125, "material": "59b42284-3e45-5343-8a20-1d7d66137461"}
             ],
@@ -31,6 +32,7 @@ async def test_components_create(
     json = response.json()
     assert response.status_code == 201
     assert json["name"] == "New Component"
+    assert json["comment"] == "A comment"
     assert len(json["elements"]) == 1
     assert len(json["id"]) == 36
 
@@ -144,12 +146,17 @@ async def test_components_update(
     async with JournalEntryService.new(session) as journal_entries_service:
         response = await client.patch(
             "/api/components/8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
-            json={"name": "Name Changed", "scopes": ["object", "food"]},
+            json={
+                "name": "Name Changed",
+                "comment": "Comment changed",
+                "scopes": ["object", "food"],
+            },
             headers=superuser_token_headers,
         )
         json = response.json()
         assert response.status_code == 200
         assert json["name"] == "Name Changed"
+        assert json["comment"] == "Comment changed"
         assert json["elements"] is None
         assert json["scopes"] == ["object", "food"]
 
@@ -160,6 +167,7 @@ async def test_components_update(
         assert entry.value == {
             "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
             "name": "Name Changed",
+            "comment": "Comment changed",
             "scopes": ["object", "food"],
         }
 
@@ -291,6 +299,7 @@ async def test_components_bulk_update(
                 ],
                 "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
                 "name": "Tissu pour joli canapé",
+                "comment": "Un commentaire",
                 "scopes": ["food"],
             },
         ]
@@ -304,6 +313,7 @@ async def test_components_bulk_update(
 
         assert len(json) == len(json_content)
         assert json[-1]["name"] == "Tissu pour joli canapé"
+        assert json[-1]["comment"] == "Un commentaire"
         assert json[-1]["scopes"] == ["food"]
 
         entries = await journal_entries_service.list()

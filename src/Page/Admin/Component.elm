@@ -84,6 +84,7 @@ type Msg
     | ToggleSelected Component.Id Bool
     | ToggleSelectedAll Bool
     | UpdateComponent Item
+    | UpdateComponentComment String
     | UpdateScopeFilters (List Scope)
     | UpdateSearch String
 
@@ -222,7 +223,7 @@ update session msg model =
                     App.createUpdate session { model | modals = [] }
                         |> App.withCmds [ ComponentApi.deleteComponent session ComponentDeleted component ]
 
-                [ EditComponentModal _ item ] ->
+                [ EditComponentModal { comment } item ] ->
                     case Component.itemToComponent session.db item of
                         Err error ->
                             { model | modals = [] }
@@ -232,7 +233,7 @@ update session msg model =
                         Ok component ->
                             { model | modals = [] }
                                 |> App.createUpdate session
-                                |> App.withCmds [ ComponentApi.patchComponent session ComponentUpdated component ]
+                                |> App.withCmds [ ComponentApi.patchComponent session ComponentUpdated { component | comment = comment } ]
                                 |> App.notifySuccess "Composant sauvegardé"
 
                 _ ->
@@ -252,18 +253,40 @@ update session msg model =
                 |> App.createUpdate session
 
         UpdateComponent customItem ->
-            case model.modals of
-                (EditComponentModal component _) :: others ->
-                    App.createUpdate session { model | modals = EditComponentModal component customItem :: others }
+            model
+                |> updateComponent customItem
+                |> App.createUpdate session
 
-                _ ->
-                    App.createUpdate session model
+        UpdateComponentComment comment ->
+            model
+                |> updateComponentComment comment
+                |> App.createUpdate session
 
         UpdateScopeFilters scopes ->
             App.createUpdate session { model | scopes = scopes }
 
         UpdateSearch search ->
             App.createUpdate session { model | search = String.toLower search }
+
+
+updateComponent : Item -> Model -> Model
+updateComponent customItem model =
+    case model.modals of
+        (EditComponentModal component _) :: others ->
+            { model | modals = EditComponentModal component customItem :: others }
+
+        _ ->
+            model
+
+
+updateComponentComment : String -> Model -> Model
+updateComponentComment comment model =
+    case model.modals of
+        (EditComponentModal component item) :: others ->
+            { model | modals = EditComponentModal { component | comment = Just comment } item :: others }
+
+        _ ->
+            model
 
 
 commandsForModal : List Modal -> Cmd Msg
@@ -523,6 +546,20 @@ modalView db modals index modal =
                                     item |> updateSingleItem (Component.updateItemCustomName targetItem name)
                             , updateItemQuantity = \_ _ -> NoOp
                             }
+                        , div [ class "p-3 pt-2" ]
+                            [ label [ class "form-label fw-bold", for "comment" ] [ text "Commentaire" ]
+                            , textarea
+                                [ class "form-control"
+                                , id "comment"
+                                , placeholder "Ce composant est utilisé pour…"
+                                , rows 3
+                                , onInput UpdateComponentComment
+                                ]
+                                [ component.comment
+                                    |> Maybe.withDefault ""
+                                    |> text
+                                ]
+                            ]
                         ]
                     , footer =
                         [ div [ class "d-flex flex-row justify-content-between align-items-center gap-3 w-100" ]

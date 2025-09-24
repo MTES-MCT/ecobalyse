@@ -206,7 +206,7 @@ processRowView definitions selected process =
                 [ text (Process.getTechnicalName process) ]
             ]
         , td []
-            [ text process.unit ]
+            [ text (Process.unitToString process.unit) ]
         , td [ class "text-end" ]
             [ Format.kilowattHours process.elec ]
         , td [ class "text-end" ]
