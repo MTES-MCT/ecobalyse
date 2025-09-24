@@ -137,7 +137,7 @@ viewHero { enabledSections } =
                         else
                             Nothing
                     )
-                |> div [ class "d-flex flex-column flex-sm-row gap-3 mb-4" ]
+                |> div [ class "d-flex flex-column flex-lg-row gap-3 mb-4" ]
             ]
         ]
 
@@ -145,23 +145,25 @@ viewHero { enabledSections } =
 viewInfo : Html Msg
 viewInfo =
     viewSection "Afficher le coût environnemental"
-        [ """Le coût environnemental peut être utilisé pour comprendre, informer, enrichir un bilan carbone
-ou pour différentes politiques publiques (marchés publics, eco-modulation...).
+        [ """![Exemple d'étiquetage environnemental réglementaire de 360 points d'impact](img/etiquette-exemple.png)
+Le coût environnemental peut être utilisé pour comprendre, informer, enrichir un bilan carbone
+ou pour différentes politiques publiques (marchés publics, eco-modulation…)
 
-L'affichage du coût environnemental d'un produit permet d'informer le consommateur. Depuis la loi Climat et
+L’affichage du coût environnemental d’un produit permet d’**informer le consommateur**. Depuis la loi Climat et
 Résilience de 2021, des travaux sont engagés pour permettre cet affichage. Ils portent sur les vêtements, les
-produits alimentaires ou encore l'ameublement. Pour plus d'informations, vous pouvez consulter\u{202F}:
+produits alimentaires ou encore l’ameublement. Pour plus d’informations, vous pouvez consulter\u{202F}:
 
-- le [site de l'ADEME](https://affichage-environnemental.ademe.fr)
-- le site du [ministère en charge de l'écologie](https://www.ecologie.gouv.fr/politiques-publiques/affichage-environnemental-vêtements)
+- le [site de l’ADEME](https://affichage-environnemental.ademe.fr)
+- le site du [ministère en charge de l’écologie](https://www.ecologie.gouv.fr/politiques-publiques/affichage-environnemental-vêtements)
 
-Pour les vêtements, un cadre règlementaire complet a été publié le 9 septembre 2025. Il encadre l'affichage
+Pour les vêtements, **un cadre règlementaire complet a été publié le 9 septembre 2025**. Il encadre l’affichage
 volontaire du coût environnemental des vêtements. Une méthodologie de calcul règlementaire est ainsi arrêtée.
 Vous pouvez y accéder en version [7.0.0 via le mode règlementaire](/versions/v7.0.0/#/textile/simulator)\u{202F}!
 
-Pour afficher le coût environnemental sur vos produits textiles, il est nécessaire de [déclarer leur coût sur le portail dédié](https://affichage-environnemental.ecobalyse.beta.gouv.fr/declarations)\u{202F}!
+Pour afficher le coût environnemental sur vos produits textiles, il est nécessaire de [déclarer leur coût
+sur le portail dédié](https://affichage-environnemental.ecobalyse.beta.gouv.fr/declarations)\u{202F}!
 """
-            |> Markdown.simple []
+            |> Markdown.simple [ class "illustrated-markdown" ]
         ]
 
 
@@ -218,7 +220,8 @@ viewContribution =
 viewApi : Html Msg
 viewApi =
     viewSection "Accéder au coût environnemental à travers notre API"
-        [ """[L’API HTTP Ecobalyse]({api_url}) permet de calculer les impacts environnementaux des différents produits. Elle est expérimentale et donc ne garantit pas de continuité de service à ce stade."""
+        [ """[L’API HTTP Ecobalyse]({api_url}) permet de calculer les impacts environnementaux des différents produits.
+             Elle est expérimentale et donc ne garantit pas de continuité de service à ce stade."""
             |> String.replace "{api_url}" (Route.toString <| Route.Api)
             |> Markdown.simple []
         , """Des questions\u{202F}? Consultez notre [\u{202F}FAQ API Ecobalyse\u{202F}]({api_faq_url})."""
@@ -232,7 +235,7 @@ viewSection heading content =
     Container.centered []
         [ h3 [] [ text heading ]
             :: content
-            |> div [ class "d-flex flex-column gap-2 px-5" ]
+            |> div [ class "d-flex flex-column gap-2 p-0 px-md-5" ]
         ]
 
 
