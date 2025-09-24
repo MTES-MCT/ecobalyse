@@ -145,16 +145,35 @@ viewHero { enabledSections } =
 
 viewInfo : Html Msg
 viewInfo =
-    Container.centered [ id "decouvrir-ecobalyse", class "overlappedImage" ]
-        [ img
-            [ src "img/illustration-score.png"
-            , alt "Une étiquette présentant différents scores d’impact environnemental"
-            ]
-            []
-        , div [ class "d-flex flex-column gap-2" ]
-            [ h3 [ class "mb-1" ] [ text "En savoir plus sur les données et les impacts\u{202F}?" ]
+    Container.centered [ id "afficher-cout" ]
+        [ div [ class "d-flex flex-column gap-2" ]
+            [ h3 [ class "mb-1" ] [ text "Afficher le coût environnemental" ]
             , """Vous pouvez en savoir plus sur nos données sources et nos modélisations en vous rendant dans [\u{202F}l’explorateur\u{202F}]({url_explorer}).
             Consultez également le détail des impacts environnementaux de vos simulations en [\u{202F}créant votre compte Ecobalyse\u{202F}]({url_account})."""
+                |> String.replace "{url_explorer}" (Route.toString <| Route.Explore Scope.Textile (Dataset.TextileExamples Nothing))
+                |> String.replace "{url_account}" (Route.toString Route.Auth)
+                |> Markdown.simple []
+            ]
+        ]
+
+
+viewEcs : Html Msg
+viewEcs =
+    Container.centered [ id "decouvrir-ecobalyse" ]
+        [ div [ class "d-flex flex-column gap-2" ]
+            [ h3 [ class "mb-1" ] [ text "En savoir plus sur les données et les impacts\u{202F}?" ]
+            , """Le coût environnemental peut être utilisé pour comprendre, informer, enrichir un bilan carbone ou pour différentes politiques publiques (marchés publics, eco-modulation...).
+
+            L'affichage du coût environnemental d'un produit permet d'informer le consommateur. Depuis la loi Climat et Résilience de 2021, des travaux sont engagés pour permettre cet affichage. Ils portent sur les vêtements, les produits alimentaires ou encore l'ameublement.
+
+            Pour plus d'informations, vous pouvez consulter\u{202F}:
+
+- Le [site de l’ADEME](https://affichage-environnemental.ademe.fr)
+- Le [site du ministère en charge de l'écologie](https://www.ecologie.gouv.fr/politiques-publiques/affichage-environnemental-vêtements)
+
+            Pour les vêtements, un cadre règlementaire complet a été publié le 9 septembre 2025. Il encadre l'affichage volontaire du coût environnemental des vêtements. Une méthodologie de calcul règlementaire est ainsi arrêtée. Vous pouvez y accéder en version 7.0.0 via le mode règlementaire.
+
+            Pour afficher le coût environnemental sur vos produits textiles, il est nécessaire de déclarer leur coût sur [le site prévu à cet effet](https://affichage-environnemental.ecobalyse.beta.gouv.fr/declarations)."""
                 |> String.replace "{url_explorer}" (Route.toString <| Route.Explore Scope.Textile (Dataset.TextileExamples Nothing))
                 |> String.replace "{url_account}" (Route.toString Route.Auth)
                 |> Markdown.simple []
@@ -221,12 +240,15 @@ view session =
     , [ div [ class "d-flex flex-column" ]
             [ div [ class "bg-light pt-5" ]
                 [ viewHero session ]
-            , viewInfo
+            , div [ class "pt-5 pb-5" ]
+                [ viewInfo ]
             , div [ class "bg-light pt-5 pb-5" ]
+                [ viewEcs ]
+            , div [ class "pt-5 pb-5" ]
                 [ viewTools ]
-            , div [ class "pt-5 mb-5" ]
-                [ viewContribution ]
             , div [ class "bg-light pt-5 pb-5" ]
+                [ viewContribution ]
+            , div [ class "pt-5 pb-5" ]
                 [ viewApi ]
             ]
       ]
