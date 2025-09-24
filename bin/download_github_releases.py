@@ -76,7 +76,11 @@ if __name__ == "__main__":
             continue
 
         if release.draft:
-            logger.info("Skipping draft release.")
+            logger.info(f"Skipping draft {release}.")
+            continue
+
+        if release.prerelease:
+            logger.info(f"Skipping prerelease {release}.")
             continue
 
         for asset in release.assets:
