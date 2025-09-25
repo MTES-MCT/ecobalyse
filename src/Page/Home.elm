@@ -64,7 +64,10 @@ update session msg model =
 
         ProcessLink (RouteLink route) ->
             App.createUpdate session model
-                |> App.withCmds [ Nav.load <| Route.toString route ]
+                |> App.withCmds
+                    [ Ports.scrollTo { x = 0, y = 0 }
+                    , Nav.load <| Route.toString route
+                    ]
 
 
 simulatorButton : ButtonParams -> Html Msg
@@ -93,8 +96,8 @@ viewHero { enabledSections } =
             [ h2 [ class "h1" ] [ text "Calculez le coût environnemental de vos produits" ]
             , div [ class "fs-5 mt-3 mb-5" ]
                 [ """Ecobalyse permet de comprendre et d’exprimer les impacts environnementaux des produits distribués en France
-                par le calcul d’un coût en points d’impact\u{202F}: **le coût environnemental**.
-                Découvrez nos outils et notre périmètre d’action\u{202F}!"""
+                     par le calcul d’un coût en points d’impact\u{202F}: **le coût environnemental**.
+                     Découvrez nos outils et notre périmètre d’action\u{202F}!"""
                     |> Markdown.simple []
                 ]
             , [ ( True
@@ -156,17 +159,40 @@ Résilience de 2021, des travaux sont engagés pour permettre cet affichage. Ils
 produits alimentaires ou encore l’ameublement. Pour plus d’informations, vous pouvez consulter\u{202F}:
 
 - le [site de l’ADEME](https://affichage-environnemental.ademe.fr)
-- le site du [ministère en charge de l’écologie](https://www.ecologie.gouv.fr/politiques-publiques/affichage-environnemental-vêtements)
-
-![Exemple d'étiquetage environnemental réglementaire de 360 points d'impact](img/etiquette-exemple.png)
-Pour les vêtements, **un cadre règlementaire complet a été publié le 9 septembre 2025**. Il encadre l’affichage
-volontaire du coût environnemental des vêtements. Une méthodologie de calcul règlementaire est ainsi arrêtée.
-Vous pouvez y accéder en version [7.0.0 via le mode règlementaire](/versions/v7.0.0/#/textile/simulator)\u{202F}!
-
-Pour afficher le coût environnemental sur vos produits textiles, il est nécessaire de [déclarer leur coût
-sur le portail dédié](https://affichage-environnemental.ecobalyse.beta.gouv.fr/declarations)\u{202F}!
-"""
-                |> Markdown.simple [ class "illustrated-markdown" ]
+- le site du [ministère en charge de l’écologie](https://www.ecologie.gouv.fr/politiques-publiques/affichage-environnemental-vêtements)"""
+                |> Markdown.simple []
+            , div [ class "d-flex flex-column flex-lg-row gap-3" ]
+                [ span [ class "home-illustration" ]
+                    [ img
+                        [ src "img/etiquette-exemple.png"
+                        , alt "Exemple d'étiquetage environnemental réglementaire de 930 points d'impact"
+                        ]
+                        []
+                    ]
+                , div [ class "row g-3" ]
+                    [ div [ class "col-lg-6 d-flex flex-column justify-content-between gap-2 h-100" ]
+                        [ """Pour les vêtements, **un cadre règlementaire complet a été publié le 9 septembre 2025**.
+                             Il encadre l’affichage volontaire du coût environnemental des vêtements. Une méthodologie
+                             de calcul règlementaire est ainsi arrêtée, la **v7.0.0**."""
+                            |> Markdown.simple []
+                        , button
+                            [ class "btn btn-primary"
+                            , onClick <| ProcessLink <| ExternalLink "/versions/v7.0.0/#/textile/simulator"
+                            ]
+                            [ text "Utiliser la version réglementaire 7.0.0" ]
+                        ]
+                    , div [ class "col-lg-6 d-flex flex-column justify-content-between gap-3 h-100" ]
+                        [ """Pour afficher le coût environnemental sur vos produits textiles, il est nécessaire de **déclarer leur coût**
+                             sur un portail dédié\u{202F}!"""
+                            |> Markdown.simple []
+                        , Link.external
+                            [ class "btn btn-outline-primary"
+                            , href "https://affichage-environnemental.ecobalyse.beta.gouv.fr/declarations"
+                            ]
+                            [ text "Accéder au portail de déclaration" ]
+                        ]
+                    ]
+                ]
             ]
         ]
 
@@ -180,18 +206,19 @@ viewTools =
                     [ span [ class "fs-5" ] [ Icon.search ]
                     , text "Les dessous du coût environnemental"
                     ]
-                , """Le coût environnemental s’appuie sur la méthodologie [ACV]({url_acv}) du [PEF]({url_pef})
-**complétée sur les aspects qu’elle ne couvre pas encore**. Il est issu du travail des pouvoirs publics
-en s’appuyant sur des **experts** et parties prenantes mobilisés lors de concertations."""
+                , """Le coût environnemental s’appuie sur la méthodologie [ACV]({url_acv} "Analyse en Cycle de Vie")
+                     du [PEF]({url_pef} "Product Environmental Footprint")
+                     **complétée sur les aspects qu’elle ne couvre pas encore**. Il est issu du travail des pouvoirs publics
+                     en s’appuyant sur des **experts** et parties prenantes mobilisés lors de concertations."""
                     |> String.replace "{url_acv}" "https://fr.wikipedia.org/wiki/Analyse_du_cycle_de_vie"
                     |> String.replace "{url_pef}" "https://eplca.jrc.ec.europa.eu/EnvironmentalFootprint.html"
                     |> Markdown.simple [ class "flex-fill" ]
-                , div [ class "d-flex mt-4 gap-3" ]
+                , div [ class "d-flex mt-3 gap-3" ]
                     [ Link.external
                         [ class "btn btn-primary text-truncate"
                         , href <| Env.gitbookUrl
                         ]
-                        [ text "Consulter la méthodologie du coût environnemental" ]
+                        [ text "Parcourir la documentation méthodologique" ]
                     ]
                 ]
             , div [ class "col-md-6 d-flex flex-column justify-content-between gap-2" ]
@@ -199,17 +226,19 @@ en s’appuyant sur des **experts** et parties prenantes mobilisés lors de conc
                     [ span [ class "fs-5" ] [ Icon.material ]
                     , text "Impacts et données détaillées"
                     ]
-                , """Accédez à l'ensemble des modélisations et **données sources** en parcourant [\u{202F}l’explorateur\u{202F}]({url_explorer}).
-            Accédez aux **impacts environnementaux détaillés** de vos simulations en créant un compte utilisateur."""
-                    |> String.replace "{url_explorer}" (Route.toString <| Route.Explore Scope.Textile (Dataset.TextileExamples Nothing))
-                    |> String.replace "{url_account}" (Route.toString Route.Auth)
-                    |> Markdown.simple [ class "flex-fill" ]
-                , div [ class "d-flex mt-4 gap-3" ]
+                , """Accédez aux **impacts environnementaux détaillés** de vos simulations en créant un compte utilisateur
+                     et à l'ensemble des modélisations et **données sources** en parcourant l’explorateur.""" |> Markdown.simple [ class "flex-fill" ]
+                , div [ class "d-flex mt-3 gap-3" ]
                     [ Link.external
                         [ class "btn btn-primary"
                         , href <| Route.toString <| Route.AuthSignup
                         ]
-                        [ text "Créer votre compte Ecobalyse" ]
+                        [ text "Créer un compte Ecobalyse" ]
+                    , button
+                        [ class "btn btn-outline-primary"
+                        , onClick <| ProcessLink <| RouteLink <| Route.Explore Scope.Textile (Dataset.TextileExamples Nothing)
+                        ]
+                        [ text "Explorer les données" ]
                     ]
                 ]
             ]
@@ -240,7 +269,7 @@ viewTools2 =
                     ]
                 , """Ecobalyse est un outil **ouvert et gratuit**. Vos retours sur la méthode ou sur notre outil nous sont précieux."""
                     |> Markdown.simple [ class "flex-fill" ]
-                , div [ class "d-flex flex-column flex-xl-row mt-4 gap-3" ]
+                , div [ class "d-flex flex-column flex-xl-row mt-3 gap-3" ]
                     [ Link.external
                         [ class "btn btn-primary text-truncate"
                         , href <| Env.communityUrl

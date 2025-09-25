@@ -409,31 +409,22 @@ q {
   height: auto !important;
 }
 
-.illustrated-markdown {
-  img {
-    float: left;
-    margin-right: 1rem;
-    margin-bottom: 1rem;
-    max-width: 100%;
+.home-illustration {
+  display: flex;
+  justify-content: center;
+  align-items: start;
 
-    @media screen and (width <= $viewport-md) {
-      display: block;
-      float: none;
-      max-width: 100%;
-      max-height: 120px;
-      margin: .25rem auto;
+  img {
+    margin: 0 auto;
+    max-width: 200px;
+    @media screen and (width >= $viewport-md) {
+      max-width: 240px;
     }
-    @media screen and (width > $viewport-md) {
-      max-width: 200px;
+    @media screen and (width >= $viewport-lg) {
+      max-width: 280px;
     }
-    @media screen and (width > $viewport-lg) {
-      max-width: 220px;
-    }
-    @media screen and (width > $viewport-xl) {
-      max-width: 230px;
-    }
-    @media screen and (width > $viewport-xxl) {
-      max-width: 250px;
+    @media screen and (width >= $viewport-xl) {
+      max-width: 320px;
     }
   }
 }
