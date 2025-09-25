@@ -26,6 +26,7 @@ import Request.Auth as Auth
 import Request.BackendHttp exposing (WebData)
 import Request.BackendHttp.Error as BackendError
 import Route
+import Url
 import Views.Alert as Alert
 import Views.Container as Container
 import Views.Format as Format
@@ -58,6 +59,7 @@ type Msg
     | LoginResponse (WebData AccessTokenData)
     | Logout User
     | LogoutResponse (WebData ())
+    | MagicLinkLoginConfirm Email AccessToken
     | MagicLinkResponse (WebData ())
     | MagicLinkSubmit
     | ProfileResponse { updated : Bool } AccessTokenData (WebData User)
@@ -76,7 +78,7 @@ type Tab
     | ApiTokenDelete CreatedToken
     | ApiTokens (WebData (List CreatedToken))
     | MagicLinkForm Email (WebData ())
-    | MagicLinkLogin
+    | MagicLinkLogin Email AccessToken
     | MagicLinkSent Email
     | Signup SignupForm FormErrors (WebData ())
     | SignupCompleted Email
@@ -102,9 +104,7 @@ init session =
 -}
 initLogin : Session -> Email -> AccessToken -> PageUpdate Model Msg
 initLogin session email token =
-    { tab = MagicLinkLogin }
-        |> App.createUpdate session
-        |> App.withCmds [ Auth.login session LoginResponse email token ]
+    App.createUpdate session { tab = MagicLinkLogin email token }
 
 
 initSignup : Session -> PageUpdate Model Msg
@@ -176,8 +176,8 @@ update session msg model =
                 MagicLinkForm email webData ->
                     updateMagicLinkFormTab session email webData tabMsg model
 
-                MagicLinkLogin ->
-                    updateMagicLinkLoginTab session tabMsg model
+                MagicLinkLogin email token ->
+                    updateMagicLinkLoginTab session email token tabMsg model
 
                 MagicLinkSent _ ->
                     App.createUpdate session model
@@ -355,11 +355,11 @@ updateMagicLinkFormTab session email webData msg model =
             updateNothing session model
 
 
-updateMagicLinkLoginTab : Session -> Msg -> Model -> PageUpdate Model Msg
-updateMagicLinkLoginTab session msg model =
+updateMagicLinkLoginTab : Session -> Email -> AccessToken -> Msg -> Model -> PageUpdate Model Msg
+updateMagicLinkLoginTab session email token msg model =
     case msg of
         LoginResponse (RemoteData.Success accessTokenData) ->
-            { model | tab = MagicLinkLogin }
+            { model | tab = MagicLinkLogin email token }
                 |> App.createUpdate session
                 |> App.withCmds
                     [ accessTokenData.accessToken
@@ -378,6 +378,11 @@ updateMagicLinkLoginTab session msg model =
                         session |> Session.notifyBackendError error
                     )
                 |> App.withCmds [ Nav.load <| Route.toString Route.Auth ]
+
+        MagicLinkLoginConfirm email_ token_ ->
+            { model | tab = MagicLinkLogin email_ token_ }
+                |> App.createUpdate session
+                |> App.withCmds [ Auth.login session LoginResponse email_ token_ ]
 
         ProfileResponse _ accessTokenData (RemoteData.Success user) ->
             let
@@ -500,8 +505,8 @@ viewTab session currentTab =
                     MagicLinkForm email webData ->
                         viewMagicLinkForm email webData
 
-                    MagicLinkLogin ->
-                        Spinner.view
+                    MagicLinkLogin email token ->
+                        viewMagicLinkLogin email token
 
                     MagicLinkSent email ->
                         viewMagicLinkSent email
@@ -852,6 +857,23 @@ viewMagicLinkForm email webData =
         ]
 
 
+viewMagicLinkLogin : Email -> AccessToken -> Html Msg
+viewMagicLinkLogin email token =
+    div [ class "d-flex flex-column justify-content-center p-3" ]
+        [ p [ class "d-flex align-items-baseline gap-1" ]
+            [ Icon.info
+            , text "Vous allez être connecté avec l'adresse email suivante\u{00A0}: "
+            , strong [] [ email |> Url.percentDecode |> Maybe.withDefault email |> text ]
+            ]
+        , button
+            [ class "btn btn-primary"
+            , onClick <| MagicLinkLoginConfirm email token
+            ]
+            [ text "Confirmer la connexion"
+            ]
+        ]
+
+
 viewMagicLinkSent : Email -> Html msg
 viewMagicLinkSent email =
     Alert.simple
@@ -1114,10 +1136,10 @@ isActiveTab tab1 tab2 =
         ( ApiTokenCreated _, ApiTokens _ ) ->
             True
 
-        ( MagicLinkLogin, MagicLinkForm _ _ ) ->
+        ( MagicLinkLogin _ _, MagicLinkForm _ _ ) ->
             True
 
-        ( MagicLinkForm _ _, MagicLinkLogin ) ->
+        ( MagicLinkForm _ _, MagicLinkLogin _ _ ) ->
             True
 
         ( MagicLinkForm _ _, MagicLinkForm _ _ ) ->
