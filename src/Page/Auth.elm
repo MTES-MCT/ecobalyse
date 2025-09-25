@@ -859,15 +859,19 @@ viewMagicLinkForm email webData =
 
 viewMagicLinkLogin : Email -> Html Msg
 viewMagicLinkLogin email =
-    div [ class "d-flex flex-column justify-content-center p-3" ]
+    Html.form
+        [ class "d-flex flex-column justify-content-center p-3"
+        , onSubmit MagicLinkLoginConfirm
+        ]
         [ p [ class "d-flex align-items-baseline gap-1" ]
             [ Icon.info
             , text "Vous allez être connecté avec l'adresse email suivante\u{00A0}: "
             , strong [] [ email |> Url.percentDecode |> Maybe.withDefault email |> text ]
             ]
         , button
-            [ class "btn btn-primary"
-            , onClick MagicLinkLoginConfirm
+            [ type_ "submit"
+            , attribute "data-testid" "auth-login-confirm"
+            , class "btn btn-primary"
             ]
             [ text "Confirmer la connexion"
             ]

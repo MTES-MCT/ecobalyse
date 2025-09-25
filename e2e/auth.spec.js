@@ -71,6 +71,8 @@ test.describe("auth", () => {
 
       await page.goto(links[0]);
 
+      await page.getByTestId("auth-login-confirm").click();
+
       await expect(page.getByRole("heading", { name: "Mon compte" })).toBeVisible();
     });
 
