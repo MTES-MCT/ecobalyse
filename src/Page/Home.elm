@@ -96,8 +96,8 @@ viewHero { enabledSections } =
             [ h2 [ class "h1" ] [ text "Calculez le coût environnemental de vos produits" ]
             , div [ class "fs-5 mt-3 mb-5" ]
                 [ """Ecobalyse permet de comprendre et d’exprimer les impacts environnementaux des produits distribués en France
-                par le calcul d’un coût en points d’impact\u{202F}: **le coût environnemental**.
-                Découvrez nos outils et notre périmètre d’action\u{202F}!"""
+                     par le calcul d’un coût en points d’impact\u{202F}: **le coût environnemental**.
+                     Découvrez nos outils et notre périmètre d’action\u{202F}!"""
                     |> Markdown.simple []
                 ]
             , [ ( True
@@ -171,9 +171,9 @@ produits alimentaires ou encore l’ameublement. Pour plus d’informations, vou
                     ]
                 , div [ class "row g-3" ]
                     [ div [ class "col-lg-6 d-flex flex-column justify-content-between gap-2 h-100" ]
-                        [ """ Pour les vêtements, **un cadre règlementaire complet a été publié le 9 septembre 2025**. Il encadre l’affichage
-                          volontaire du coût environnemental des vêtements. Une méthodologie de calcul règlementaire est ainsi arrêtée,
-                          la **v7.0.0**."""
+                        [ """Pour les vêtements, **un cadre règlementaire complet a été publié le 9 septembre 2025**.
+                             Il encadre l’affichage volontaire du coût environnemental des vêtements. Une méthodologie
+                             de calcul règlementaire est ainsi arrêtée, la **v7.0.0**."""
                             |> Markdown.simple []
                         , button
                             [ class "btn btn-primary"
@@ -182,8 +182,8 @@ produits alimentaires ou encore l’ameublement. Pour plus d’informations, vou
                             [ text "Utiliser la version réglementaire 7.0.0" ]
                         ]
                     , div [ class "col-lg-6 d-flex flex-column justify-content-between gap-3 h-100" ]
-                        [ """ Pour afficher le coût environnemental sur vos produits textiles, il est nécessaire de **déclarer leur coût**
-                          sur un portail dédié\u{202F}!"""
+                        [ """Pour afficher le coût environnemental sur vos produits textiles, il est nécessaire de **déclarer leur coût**
+                             sur un portail dédié\u{202F}!"""
                             |> Markdown.simple []
                         , Link.external
                             [ class "btn btn-outline-primary"
@@ -206,9 +206,10 @@ viewTools =
                     [ span [ class "fs-5" ] [ Icon.search ]
                     , text "Les dessous du coût environnemental"
                     ]
-                , """Le coût environnemental s’appuie sur la méthodologie [ACV]({url_acv}) du [PEF]({url_pef})
-**complétée sur les aspects qu’elle ne couvre pas encore**. Il est issu du travail des pouvoirs publics
-en s’appuyant sur des **experts** et parties prenantes mobilisés lors de concertations."""
+                , """Le coût environnemental s’appuie sur la méthodologie [ACV]({url_acv} "Analyse en Cycle de Vie")
+                     du [PEF]({url_pef} "Product Environmental Footprint")
+                     **complétée sur les aspects qu’elle ne couvre pas encore**. Il est issu du travail des pouvoirs publics
+                     en s’appuyant sur des **experts** et parties prenantes mobilisés lors de concertations."""
                     |> String.replace "{url_acv}" "https://fr.wikipedia.org/wiki/Analyse_du_cycle_de_vie"
                     |> String.replace "{url_pef}" "https://eplca.jrc.ec.europa.eu/EnvironmentalFootprint.html"
                     |> Markdown.simple [ class "flex-fill" ]
@@ -225,8 +226,8 @@ en s’appuyant sur des **experts** et parties prenantes mobilisés lors de conc
                     [ span [ class "fs-5" ] [ Icon.material ]
                     , text "Impacts et données détaillées"
                     ]
-                , """ Accédez aux **impacts environnementaux détaillés** de vos simulations en créant un compte utilisateur
-                      et à l'ensemble des modélisations et **données sources** en parcourant l’explorateur.""" |> Markdown.simple [ class "flex-fill" ]
+                , """Accédez aux **impacts environnementaux détaillés** de vos simulations en créant un compte utilisateur
+                     et à l'ensemble des modélisations et **données sources** en parcourant l’explorateur.""" |> Markdown.simple [ class "flex-fill" ]
                 , div [ class "d-flex mt-3 gap-3" ]
                     [ Link.external
                         [ class "btn btn-primary"
