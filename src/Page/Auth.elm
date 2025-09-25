@@ -59,7 +59,7 @@ type Msg
     | LoginResponse (WebData AccessTokenData)
     | Logout User
     | LogoutResponse (WebData ())
-    | MagicLinkLoginConfirm Email AccessToken
+    | MagicLinkLoginConfirm
     | MagicLinkResponse (WebData ())
     | MagicLinkSubmit
     | ProfileResponse { updated : Bool } AccessTokenData (WebData User)
@@ -379,10 +379,10 @@ updateMagicLinkLoginTab session email token msg model =
                     )
                 |> App.withCmds [ Nav.load <| Route.toString Route.Auth ]
 
-        MagicLinkLoginConfirm email_ token_ ->
-            { model | tab = MagicLinkLogin email_ token_ }
+        MagicLinkLoginConfirm ->
+            model
                 |> App.createUpdate session
-                |> App.withCmds [ Auth.login session LoginResponse email_ token_ ]
+                |> App.withCmds [ Auth.login session LoginResponse email token ]
 
         ProfileResponse _ accessTokenData (RemoteData.Success user) ->
             let
@@ -505,8 +505,8 @@ viewTab session currentTab =
                     MagicLinkForm email webData ->
                         viewMagicLinkForm email webData
 
-                    MagicLinkLogin email token ->
-                        viewMagicLinkLogin email token
+                    MagicLinkLogin email _ ->
+                        viewMagicLinkLogin email
 
                     MagicLinkSent email ->
                         viewMagicLinkSent email
@@ -857,8 +857,8 @@ viewMagicLinkForm email webData =
         ]
 
 
-viewMagicLinkLogin : Email -> AccessToken -> Html Msg
-viewMagicLinkLogin email token =
+viewMagicLinkLogin : Email -> Html Msg
+viewMagicLinkLogin email =
     div [ class "d-flex flex-column justify-content-center p-3" ]
         [ p [ class "d-flex align-items-baseline gap-1" ]
             [ Icon.info
@@ -867,7 +867,7 @@ viewMagicLinkLogin email token =
             ]
         , button
             [ class "btn btn-primary"
-            , onClick <| MagicLinkLoginConfirm email token
+            , onClick MagicLinkLoginConfirm
             ]
             [ text "Confirmer la connexion"
             ]
