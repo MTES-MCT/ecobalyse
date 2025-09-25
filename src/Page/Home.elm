@@ -156,17 +156,38 @@ Résilience de 2021, des travaux sont engagés pour permettre cet affichage. Ils
 produits alimentaires ou encore l’ameublement. Pour plus d’informations, vous pouvez consulter\u{202F}:
 
 - le [site de l’ADEME](https://affichage-environnemental.ademe.fr)
-- le site du [ministère en charge de l’écologie](https://www.ecologie.gouv.fr/politiques-publiques/affichage-environnemental-vêtements)
+- le site du [ministère en charge de l’écologie](https://www.ecologie.gouv.fr/politiques-publiques/affichage-environnemental-vêtements)"""
+                |> Markdown.simple []
+            , div [ class "d-flex flex-column flex-lg-row gap-3" ]
+                [ span [ class "home-illustration" ]
+                    [ img
+                        [ src "img/etiquette-exemple.png"
+                        , alt "Exemple d'étiquetage environnemental réglementaire de 930 points d'impact"
+                        ]
+                        []
+                    ]
+                , div [ class "flex-fill" ]
+                    [ """Pour les vêtements, **un cadre règlementaire complet a été publié le 9 septembre 2025**. Il encadre l’affichage
+volontaire du coût environnemental des vêtements. Une méthodologie de calcul règlementaire est ainsi arrêtée, la **v7.0.0**.
 
-![Exemple d'étiquetage environnemental réglementaire de 360 points d'impact](img/etiquette-exemple.png)
-Pour les vêtements, **un cadre règlementaire complet a été publié le 9 septembre 2025**. Il encadre l’affichage
-volontaire du coût environnemental des vêtements. Une méthodologie de calcul règlementaire est ainsi arrêtée.
-Vous pouvez y accéder en version [7.0.0 via le mode règlementaire](/versions/v7.0.0/#/textile/simulator)\u{202F}!
-
-Pour afficher le coût environnemental sur vos produits textiles, il est nécessaire de [déclarer leur coût
-sur le portail dédié](https://affichage-environnemental.ecobalyse.beta.gouv.fr/declarations)\u{202F}!
+Pour afficher le coût environnemental sur vos produits textiles, il est nécessaire de **déclarer leur coût**
+sur un portail dédié\u{202F}!
 """
-                |> Markdown.simple [ class "illustrated-markdown" ]
+                        |> Markdown.simple [ class "illustrated-markdown" ]
+                    , div [ class "d-flex flex-column flex-md-row mt-4 gap-3" ]
+                        [ button
+                            [ class "btn btn-primary"
+                            , onClick <| ProcessLink <| ExternalLink "/versions/v7.0.0/#/textile/simulator"
+                            ]
+                            [ text "Utiliser la version réglementaire 7.0.0" ]
+                        , Link.external
+                            [ class "btn btn-outline-primary"
+                            , href "https://affichage-environnemental.ecobalyse.beta.gouv.fr/declarations"
+                            ]
+                            [ text "Accéder au portail de déclaration" ]
+                        ]
+                    ]
+                ]
             ]
         ]
 
