@@ -22,7 +22,7 @@ C'est pourquoi un complément hors ACV "Export hors Eurpoe" a été introduit pa
 
 **Cette page décrit les méthodes pour la fin de vie incluent dans le PEFCR Apparel & Footwear v1.3, hors complément.**
 
-<figure><img src="../../.gitbook/assets/https___files.gitbook.com_v0_b_gitbook-x-prod.appspot.com_o_spaces_2F-MexpTrvmqKNzuVtxdad_2Fuploads_2F6rnYce06ym45GtOByKpW_2Fimage.avif" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (379).png" alt=""><figcaption></figcaption></figure>
 
 Le recyclage consiste essentiellement en du recyclage en chiffons (_wipers_) et en matériaux d'isolation (_insulation_). La prise en compte de ce recyclage se fait via la Circular Footprint Formula (CFF). [Nous avons estimé l'impact de ces circuits de recyclage et trouvé qu'il était négligeable sur cette page.](https://fabrique-numerique.gitbook.io/ecobalyse/textile/cycle-de-vie-des-produits-textiles/etape-1-matieres/circular-footprint-formula-cff-matiere-1)
 
@@ -45,33 +45,46 @@ $$
 I_{8} = m*\Big(\sum_{i} (e_i*t_i)*I_{elec}+\sum_{i} (c_i*t_i)*I_{chaleur}\Big)
 $$
 
-$$
-I_{8} = m*\Big(\sum_{i} (e_i*t_i)*I_{elec}+\sum_{i} (c_i*t_i)*I_{chaleur}\Big)
-$$
-
 Avec :
 
-* <mark style="color:red;">`I_8`</mark> <mark style="color:red;"></mark><mark style="color:red;">: l'impact environnemental de la fin de vie (hors complément hors ACV), dans l'unité de la catégorie d'impact analysée</mark>
-* <mark style="color:red;">`I_collection,car`</mark> <mark style="color:red;"></mark><mark style="color:red;">:  l'impact environnemental du transport en voiture, dans l'unité de la catégorie d'impact analysée</mark>
-* <mark style="color:red;">`I_collection,truck`</mark> <mark style="color:red;"></mark><mark style="color:red;">:  l'impact environnemental du transport en camion, dans l'unité de la catégorie d'impact analysée</mark>
-* <mark style="color:red;">`I_incineration`</mark> <mark style="color:red;"></mark><mark style="color:red;">:  l'impact environnemental du transport en voiture, dans l'unité de la catégorie d'impact analysée</mark>
-* <mark style="color:red;">`I_landfill`</mark> <mark style="color:red;"></mark><mark style="color:red;">:  l'impact environnemental du transport en voiture, dans l'unité de la catégorie d'impact analysée</mark>
+* `I_8` : l'impact environnemental de la fin de vie (hors complément hors ACV), dans l'unité de la catégorie d'impact analysée
+* `I_collection,car` :  l'impact environnemental du transport en voiture, dans l'unité de la catégorie d'impact analysée
+* `I_collection,truck` :  l'impact environnemental du transport en camion, dans l'unité de la catégorie d'impact analysée
+* `I_incineration` :  l'impact environnemental du transport en voiture, dans l'unité de la catégorie d'impact analysée
+* `I_landfill` :  l'impact environnemental du transport en voiture, dans l'unité de la catégorie d'impact analysée
 
-<mark style="color:red;">Impact environnemental du transport en voiture</mark>
+### Impact environnemental du transport en voiture
+
+$$
+I_{collection,car} =  \frac{m}{1000}* d_{recycling.collection}*r_{recycling}*I_{car}
+$$
+
+### Impact environnemental de la collecte camion
+
+$$
+I_{collection,truck} = \frac{m}{1000}*(d_{m.waste} + d_{rec,collection>sorting}+d_{rec,sorting>recycling}+d_{rec,sorting>incineration})*I_{truck}
+$$
+
+$$
+d_{m.waste} =d_{client>treatment}*r_{m.waste}
+$$
 
 
 
-* <mark style="color:red;">`m`</mark> <mark style="color:red;"></mark><mark style="color:red;">la masse de tissu, exprimée en kg. Pour plus d'information sur la gestion des masses cf. la section</mark> [<mark style="color:red;">Pertes et rebut</mark>](../precisions-methodologiques/pertes-et-rebus.md)<mark style="color:red;">.</mark>
-* <mark style="color:red;">`e_i`</mark> <mark style="color:red;"></mark><mark style="color:red;">: la quantité d'électricité nécessaire au procédé i pour 1 kg de tissu, en kWh/kg</mark>
-* <mark style="color:red;">`a_i`</mark> <mark style="color:red;"></mark><mark style="color:red;">: Le taux d'application du procédé i pour le vêtement évalué, sans unité</mark>
-  * <mark style="color:red;">Egal à 1 si le procédé est mobilisé pour ce vêtement</mark>
-  * <mark style="color:red;">Egal à 0 si le procédé n'est pas mobilisé</mark>
-  * <mark style="color:red;">Situé entre 0 et 1 pour l'impression (voir paragraphe dédié)</mark>
-* <mark style="color:red;">`I_elec`</mark> <mark style="color:red;"></mark><mark style="color:red;">: l'impact environnemental de l'électricité pour le pays défini pour l'ennoblissement, dans l'unité de la catégorie d'impact analysée</mark>
-* <mark style="color:red;">`c_i`</mark> <mark style="color:red;"></mark><mark style="color:red;">: la quantité de chaleur nécessaire au procédé i pour 1 kg de tissu, en MJ/kg</mark>
-* <mark style="color:red;">`I_chaleur`</mark> <mark style="color:red;"></mark><mark style="color:red;">: l'impact environnemental de l'électricité pour le pays défini pour l'ennoblissement, dans l'unité de la catégorie d'impact analysée.</mark>
+* `m` la masse du vêtement, exprimée en kg.
+* `I_chaleur` : l'impact environnemental de l'électricité pour le pays défini pour l'ennoblissement, dans l'unité de la catégorie d'impact analysée.
 
 ## Paramètres retenus pour le coût environnemental
+
+### Distances de transport
+
+<figure><img src="../../.gitbook/assets/Capture d&#x27;écran 2025-09-25 171126.png" alt=""><figcaption></figcaption></figure>
+
+### Volumes des vêtements
+
+<figure><img src="../../.gitbook/assets/image (378).png" alt=""><figcaption></figcaption></figure>
+
+
 
 {% hint style="info" %}
 Les paramètres retenus pour l’affichage environnemental sont présentés dans une partie séparée des formules de calcul, de façon à identifier facilement ce qui relève de la structure et ce qui relève du paramétrage.\
