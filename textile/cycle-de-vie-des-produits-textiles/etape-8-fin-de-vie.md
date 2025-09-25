@@ -4,10 +4,6 @@ hidden: true
 
 # ♻️ Etape 8 - Fin de vie
 
-{% hint style="danger" %}
-Cet encadré rouge et les 4 encadrés en gris doivent être supprimés avant mise en ligne
-{% endhint %}
-
 ## Contexte
 
 Trois scénarios de fin de vie sont identifiables pour les vêtements :
@@ -16,45 +12,55 @@ Trois scénarios de fin de vie sont identifiables pour les vêtements :
 2. Recyclage
 3. Export hors Europe avec fin de vie inconnue
 
-Le PEFCR Apparel & Footwear détaille bien les les deux premiers scénarios, mais présente une limite  (schéma ci-dessous).
+### Introduction d'un complément "Export hors Europe"
 
-Le cas de l'export hors Europe est , c'est pourquoi un complément hors ACV "Export hors Eurpoe" a été construit dans Ecobalyse. Ce complément est détaillé dans un page spécifique.
+Le PEFCR Apparel & Footwear détaille bien les deux premiers scénarios (voir ci-dessous), mais considère que 100% des vêtements exportés sont réutilisés et ne génèrent aucun impact, ce qui ne correspond pas à la réalité et présente une limite à la méthode.
 
-L'introduction du complément permet de répondre à la principale limite des scénarios proposés par le PEFCR A\&F (limite = 100% des vêtements exportés sont réutilisés et ne génèrent aucun impact).
+C'est pourquoi un complément hors ACV "Export hors Eurpoe" a été introduit par Ecobalyse en septembre 2023. Ce complément est détaillé dans une page spécifique [Export hors Europe](https://fabrique-numerique.gitbook.io/ecobalyse/textile/complements-hors-acv/export-hors-europe).&#x20;
 
-**Cette page décrit les méthodes pour la fin de vie hors complément**
+### **Scénarios** PEFCR Apparel & Footwear
 
-Le recyclage consiste essentiellement en du recyclage en chiffons (wipers) et en matériaux d'isolation (insulation).
+**Cette page décrit les méthodes pour la fin de vie incluent dans le PEFCR Apparel & Footwear v1.3, hors complément.**
 
 <figure><img src="../../.gitbook/assets/https___files.gitbook.com_v0_b_gitbook-x-prod.appspot.com_o_spaces_2F-MexpTrvmqKNzuVtxdad_2Fuploads_2F6rnYce06ym45GtOByKpW_2Fimage.avif" alt=""><figcaption></figcaption></figure>
 
-{% hint style="info" %}
-Il s’agit d’éléments de contexte sectoriels, permettant au lecteur de comprendre le sujet abordé.
+Le recyclage consiste essentiellement en du recyclage en chiffons (_wipers_) et en matériaux d'isolation (_insulation_). La prise en compte de ce recyclage se fait via la Circular Footprint Formula (CFF). [Nous avons estimé l'impact de ces circuits de recyclage et trouvé qu'il était négligeable sur cette page.](https://fabrique-numerique.gitbook.io/ecobalyse/textile/cycle-de-vie-des-produits-textiles/etape-1-matieres/circular-footprint-formula-cff-matiere-1)
 
-Cette partie n’est pas utile pour le développement du produit. Elle peut permettre d’introduire des choix méthodologiques, mais pas des choix de paramètres.
+Les étapes suivantes sont évaluées et détaillées dans cette page : Le traitement comme déchet municipal (_Municipal waste collection_) est évalué en prenant en compte les étapes suivantes :
 
-Elle peut se limiter à une phrase d’introduction.
-{% endhint %}
-
-
+* Transport en voiture par l'utilisateur du vêtement vers un point de collecte (_Recycling collection_)
+* Transport en camion vers un site de traitement (_Municipal waste collection_ et _Recycling collection_)
+* Incinération (Incineration)
+* Mise en décharge (Landfill)
 
 ## Méthodes de calcul
 
-{% hint style="info" %}
-Cette partie se compose essentiellement de formules de calcul et de l’introduction des paramètres mobilisés. Elle est très voire exclusivement “mathématique”, sans chiffre.
-
-Ci-dessous un exemple pour l'ennoblissement
-{% endhint %}
-
-
+Calcul général
 
 $$
-I_{ennoblissement} = m*\Big(\sum_{i} (e_i*t_i)*I_{elec}+\sum_{i} (c_i*t_i)*I_{chaleur}\Big)
+I_{8} = I_{collection,car} + I_{collection, truck}+I_{incineration}+I_{landfill}
+$$
+
+$$
+I_{8} = m*\Big(\sum_{i} (e_i*t_i)*I_{elec}+\sum_{i} (c_i*t_i)*I_{chaleur}\Big)
+$$
+
+$$
+I_{8} = m*\Big(\sum_{i} (e_i*t_i)*I_{elec}+\sum_{i} (c_i*t_i)*I_{chaleur}\Big)
 $$
 
 Avec :
 
-* <mark style="color:red;">`I_ennoblissement`</mark> <mark style="color:red;"></mark><mark style="color:red;">: l'impact environnemental de l'ennoblissement, dans l'unité de la catégorie d'impact analysée</mark>
+* <mark style="color:red;">`I_8`</mark> <mark style="color:red;"></mark><mark style="color:red;">: l'impact environnemental de la fin de vie (hors complément hors ACV), dans l'unité de la catégorie d'impact analysée</mark>
+* <mark style="color:red;">`I_collection,car`</mark> <mark style="color:red;"></mark><mark style="color:red;">:  l'impact environnemental du transport en voiture, dans l'unité de la catégorie d'impact analysée</mark>
+* <mark style="color:red;">`I_collection,truck`</mark> <mark style="color:red;"></mark><mark style="color:red;">:  l'impact environnemental du transport en camion, dans l'unité de la catégorie d'impact analysée</mark>
+* <mark style="color:red;">`I_incineration`</mark> <mark style="color:red;"></mark><mark style="color:red;">:  l'impact environnemental du transport en voiture, dans l'unité de la catégorie d'impact analysée</mark>
+* <mark style="color:red;">`I_landfill`</mark> <mark style="color:red;"></mark><mark style="color:red;">:  l'impact environnemental du transport en voiture, dans l'unité de la catégorie d'impact analysée</mark>
+
+<mark style="color:red;">Impact environnemental du transport en voiture</mark>
+
+
+
 * <mark style="color:red;">`m`</mark> <mark style="color:red;"></mark><mark style="color:red;">la masse de tissu, exprimée en kg. Pour plus d'information sur la gestion des masses cf. la section</mark> [<mark style="color:red;">Pertes et rebut</mark>](../precisions-methodologiques/pertes-et-rebus.md)<mark style="color:red;">.</mark>
 * <mark style="color:red;">`e_i`</mark> <mark style="color:red;"></mark><mark style="color:red;">: la quantité d'électricité nécessaire au procédé i pour 1 kg de tissu, en kWh/kg</mark>
 * <mark style="color:red;">`a_i`</mark> <mark style="color:red;"></mark><mark style="color:red;">: Le taux d'application du procédé i pour le vêtement évalué, sans unité</mark>
