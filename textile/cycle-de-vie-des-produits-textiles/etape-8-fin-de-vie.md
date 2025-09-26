@@ -35,14 +35,10 @@ Les étapes suivantes sont évaluées et détaillées dans cette page : Le trait
 
 ## Méthodes de calcul
 
-Calcul général
+### Calcul général
 
 $$
 I_{8} = I_{collection,car} + I_{collection, truck}+I_{incineration}+I_{landfill}
-$$
-
-$$
-I_{8} = m*\Big(\sum_{i} (e_i*t_i)*I_{elec}+\sum_{i} (c_i*t_i)*I_{chaleur}\Big)
 $$
 
 Avec :
@@ -56,8 +52,17 @@ Avec :
 ### Impact environnemental du transport en voiture
 
 $$
-I_{collection,car} =  \frac{m}{1000}* d_{recycling.collection}*r_{recycling}*I_{car}
+I_{collection,car} =  \frac{m}{1000}* d_{recycling.collection}*r_{recycling}*r_{coffre}*I_{car}
 $$
+
+Avec :
+
+* `I_collection,car` :  l'impact environnemental du transport en voiture, dans l'unité de la catégorie d'impact analysée
+* `m` : la passe du produit, en kg
+* d\_recycling.collection : la distance parcourue en voiture pour déposer un vêtement dans un point de collecte, en km
+* `r_recycling` : la part de produits allant en filière recyclage, sans unité
+* `r_coffre` : la part du coffre occupée par le vêtement, sans unité
+* `I_car` : l'impact environnemental du transport en voiture, dans l'unité de la catégorie d'impact analysée par km parcouru
 
 ### Impact environnemental de la collecte camion
 
@@ -69,7 +74,7 @@ $$
 d_{m.waste} =d_{client>treatment}*r_{m.waste}
 $$
 
-
+Avec :
 
 * `m` la masse du vêtement, exprimée en kg.
 * `I_chaleur` : l'impact environnemental de l'électricité pour le pays défini pour l'ennoblissement, dans l'unité de la catégorie d'impact analysée.
@@ -80,7 +85,21 @@ $$
 
 <figure><img src="../../.gitbook/assets/Capture d&#x27;écran 2025-09-25 171126.png" alt=""><figcaption></figcaption></figure>
 
-### Volumes des vêtements
+### Part du coffre occupée par le vêtement `r_coffre`
+
+Ces données sont directement issues du PEFCR Apparel & Footwear 3.1 (Table 44, colonne _Allocation_ voir ci-dessous).
+
+Ces données sont calculées comme suit :
+
+$$
+r_{coffre} = \frac{V_{vetement}}{V_{coffre}}
+$$
+
+Avec :
+
+* `r_coffre` : la part du coffre occupée par le vêtement
+* `V_vetement` : le volume du vêtement étudié (colonne _Default product_ dans le tableau ci-dessous)
+* `V_coffre` : le volume de coffre moyen d'une voiture, fixé à 0.2m3 (PEFCR Apparel & Footwear 3.1)
 
 <figure><img src="../../.gitbook/assets/image (378).png" alt=""><figcaption></figcaption></figure>
 
