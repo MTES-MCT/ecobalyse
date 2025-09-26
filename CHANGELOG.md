@@ -1,6 +1,15 @@
 # Changelog
 
 
+## [7.2.1](https://github.com/MTES-MCT/ecobalyse/compare/v7.2.0..v7.2.1) (2025-09-26)
+
+
+
+### 🪲 Bug Fixes
+
+- *(auth)* Require manual login confirmation ([#1398](https://github.com/MTES-MCT/ecobalyse/issues/1398))
+
+
 ## [7.2.0](https://github.com/MTES-MCT/ecobalyse/compare/v7.1.0..v7.2.0) (2025-09-25)
 
 
