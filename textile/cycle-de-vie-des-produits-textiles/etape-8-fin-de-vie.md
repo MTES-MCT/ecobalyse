@@ -41,7 +41,7 @@ Les étapes suivantes sont évaluées et détaillées dans cette page : Le trait
 ### Calcul général
 
 $$
-I_{8} = I_{rec,collection,car} + I_{rec,collection,truck}+ I_{mw,collection,truck}+I_{incineration}+I_{landfill}
+I_{8} = I_{rec,collection,car} + I_{rec,collection,truck}+ I_{mw,collection,truck}+I_{EoL,incineration}+I_{EoL,landfill}
 $$
 
 Avec :
@@ -50,8 +50,8 @@ Avec :
 * `I_re,collection,car` :  l'impact environnemental du transport en voiture, dans l'unité de la catégorie d'impact analysée
 * `I_rec,collection,truck` :  l'impact environnemental du transport en camion pour la collecte de vêtement destinés au recyclage, dans l'unité de la catégorie d'impact analysée
 * `I_wm,collection,truck` :  l'impact environnemental du transport en camion pour la collecte de vêtement en tant qu'ordures ménagères, dans l'unité de la catégorie d'impact analysée
-* `I_incineration` :  l'impact environnemental du transport en voiture, dans l'unité de la catégorie d'impact analysée
-* `I_landfill` :  l'impact environnemental du transport en voiture, dans l'unité de la catégorie d'impact analysée
+* `I_EoL,incineration` :  l'impact environnemental relatif à l'incinération, dans l'unité de la catégorie d'impact analysée
+* `I_EoL,landfill` :  l'impact environnemental relatif à l'enfouissement, dans l'unité de la catégorie d'impact analysée
 
 ### Impact environnemental du transport en voiture `I_rec,collection,car`
 
@@ -74,10 +74,6 @@ $$
 I_{sort,collection,truck} = \frac{m}{1000}*\big(d_{collect>sort}*r_{sort}+d_{sort>rec}*r_{rec}+d_{sort>inc}*r_{sort.inc}\big)*I_{truck}
 $$
 
-$$
-d_{m.waste} =d_{collection>treatment}*r_{m.waste}
-$$
-
 Avec :
 
 * `I_sort,collection,truck` : l'impact environnemental du transport en camion pour la collecte de vêtements faisant l'objet d'un tri en vue d'un recyclage, dans l'unité de la catégorie d'impact analysée
@@ -93,7 +89,7 @@ Avec :
 ### Impact environnemental camion pour la collecte en tant qu'ordure ménagère `I_mw,collection,truck`
 
 $$
-I_{collection,truck} = \frac{m}{1000}*(d_{mw,collection} *r_{mw})*I_{truck}
+I_{mw,collection,truck} = \frac{m}{1000}*(d_{mw,collection} *r_{mw})*I_{truck}
 $$
 
 Avec :
@@ -104,23 +100,27 @@ Avec :
 * `r_mw` : la part de produits traité comme ordure ménagère, sans unité
 * `I_truck` : l'impact environnemental du transport en voiture, dans l'unité de la catégorie d'impact analysée par tonne.km
 
-### Impact environnemental relatif à l'incinération `I_incineration`
+### Impact environnemental relatif à l'incinération `I_EoL,incineration`
+
+$$
+I_{EoL,incineration} = \frac{m}{1000}*(r_{mw}*r_{mw,incineration} +r_{sort,inc})*I_{truck}
+$$
+
+Avec :
+
+* `I_EoL,incineration` : l'impact environnemental relatif à l'incinération, dans l'unité de la catégorie d'impact analysée
+* `m` : la masse du vêtement, exprimée en kg
+* `I_EoL,incineration` : l'impact environnemental relatif à l'incinération d'1 kg de produits, dans l'unité de la catégorie d'impact analysée par kg
+
+### Impact environnemental relatif à l'enfouissement `I_EoL,landfill`
 
 
 
 Avec :
 
-* `I_incineration` :&#x20;
-* `m` : la masse du vêtement, exprimée en kg.
-
-### Impact environnemental relatif à l'enfouissement `I_landfill`
-
-
-
-Avec :
-
-* `I_landfill` :&#x20;
-* `m` : la masse du vêtement, exprimée en kg.
+* `I_EoL,landfill` : l'impact environnemental relatif à l'enfouissement, dans l'unité de la catégorie d'impact analysée
+* `m` : la masse du vêtement, exprimée en kg
+* `I_EoL,landfill` : l'impact environnemental relatif à l'incinération d'1 kg de produits, dans l'unité de la catégorie d'impact analysée par kg
 
 ## Paramètres retenus pour le coût environnemental
 
@@ -183,6 +183,17 @@ Les procédés utilisés sont identifiés dans l'[Explorateur de procédé](http
 Exemple pour un T-shirt de masse `m`=170g.
 
 $$
-I_{rec,collection,car} = d_{collection,car}*r_{sort}*\frac{V_{vetement}}{V_{coffre}}*I_{car}=1*0.195*\frac{0.0018}{0.2}*33.11=0.058
+I_{rec,collection,car} = d_{collection,car}*r_{sort}*\frac{V_{vetement}}{V_{coffre}}*I_{car}=1*0.195*\frac{0.0018}{0.2}*1.94=0.058
 $$
 
+$$
+I_{sort,collection,truck} = \frac{m}{1000}*\big(d_{collect>sort}*r_{sort}+d_{sort>rec}*r_{rec}+d_{sort>inc}*r_{sort.inc}\big)*I_{truck}
+$$
+
+$$
+I_{sort,collection,truck} = \frac{0.17}{1000}*\big(130*0.195+100*0.169+30*0.026)*20.6=\frac{0.17}{1000}*43.0*20.6=0.15Pts
+$$
+
+$$
+I_{mw,collection,truck} = \frac{m}{1000}*(d_{mw,collection} *r_{mw})*I_{truck}=\frac{0.17}{1000}*24.2*20.6=0.08Pts
+$$
