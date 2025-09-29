@@ -15,7 +15,6 @@ const rateLimit = require("express-rate-limit");
 const { createCSPDirectives, extractTokenFromHeaders } = require("./lib/http");
 // monitoring
 const { setupSentry } = require("./lib/sentry"); // MUST be required BEFORE express
-const { createMatomoTracker } = require("./lib/matomo");
 const { createPosthogTracker } = require("./lib/posthog");
 const express = require("express");
 
@@ -50,9 +49,6 @@ setupSentry(app);
 
 // Posthog API tracker
 const posthogTracker = createPosthogTracker(process.env);
-
-// Matomo
-const matomoTracker = createMatomoTracker(process.env);
 
 // Middleware
 const jsonErrorHandler = bodyParserErrorHandler({
@@ -231,7 +227,6 @@ elmApp.ports.output.subscribe(({ status, body, jsResponseHandler }) => {
 });
 
 api.get("/", async (req, res) => {
-  matomoTracker.track(200, req);
   await posthogTracker.captureEvent(200, req);
   res.status(200).send(openApiContents);
 });
@@ -262,7 +257,6 @@ api.all(/(.*)/, bodyParser.json(), jsonErrorHandler, async (req, res) => {
     body: req.body,
     processes,
     jsResponseHandler: async ({ status, body }) => {
-      matomoTracker.track(status, req);
       await posthogTracker.captureEvent(status, req);
       respondWithFormattedJSON(res, status, body);
     },
@@ -318,7 +312,6 @@ version.all(
 
     const urlWithoutPrefix = req.url.replace(/\/[^/]+\/api/, "");
 
-    matomoTracker.track(res.statusCode, req);
     await posthogTracker.captureEvent(res.statusCode, req);
 
     elmApp.ports.input.send({
