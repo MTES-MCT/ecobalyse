@@ -101,7 +101,7 @@ Trois instances de développement sont alors accessibles :
 
 ## Auto-hébergement avec Docker
 
-Vous trouverez dans `./docker` des scripts permettant d’héberger une version publiée d’Ecobalyse en local en utilisant `docker`. Vous pouvez éditez de `Dockerfile` pour spécifier la version que vous souhaitez lancer, puis la lancer en utilisant `docker compose` :
+Vous trouverez dans `./docker` des scripts permettant d’héberger une version publiée d’Ecobalyse en local en utilisant `docker`. Vous pouvez éditez le `Dockerfile` pour spécifier la version que vous souhaitez lancer, puis la lancer en utilisant `docker compose` :
 
     docker compose -f docker/compose.yaml up --build
 
