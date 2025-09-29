@@ -71,16 +71,6 @@ Avec :&#x20;
 * `I_terre` : le coût environnemental par voie terrestre, exprimé dans l'unité de la catégorie d'impact analysée
 * `I_mer` : le coût environnemental par voie maritime, exprimé dans l'unité de la catégorie d'impact analysée
 
-Lorsque deux étapes successives sont réalisées dans un même pays, les distances concernées sont calculées comme suit :&#x20;
-
-$$
-D_{terre}=D_{terre,interne}
-$$
-
-$$
-D_{air, avion}=D_{air, avion,interne} ;D_{air,camion}=(D_{terre, camion,interne})/2
-$$
-
 Les distances non mentionnées ici ne s'appliquent pas pour le transport interne à un pays.
 
 ## Paramètres retenus pour le coût environnemental
