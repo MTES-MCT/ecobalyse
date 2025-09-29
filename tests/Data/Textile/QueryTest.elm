@@ -1,6 +1,7 @@
 module Data.Textile.QueryTest exposing (..)
 
 import Data.Country as Country
+import Data.Notification exposing (error)
 import Data.Split as Split
 import Data.Textile.Inputs as Inputs
 import Data.Textile.MakingComplexity as MakingComplexity
@@ -12,17 +13,17 @@ import Test exposing (..)
 import TestUtils exposing (asTest, suiteFromResult, suiteFromResult2, suiteFromResult3, suiteWithDb)
 
 
-sampleQuery : Query
+sampleQuery : Result String Query
 sampleQuery =
-    { jupeCotonAsie
-        | materials =
-            case Material.idFromString "9dba0e95-0c35-4f8b-9267-62ddf47d4984" of
-                Ok id ->
-                    [ materialWithId id Split.full Nothing (Just (Country.Code "CN")) ]
+    case Material.idFromString "9dba0e95-0c35-4f8b-9267-62ddf47d4984" of
+        Ok id ->
+            Ok
+                { jupeCotonAsie
+                    | materials = [ materialWithId id Split.full Nothing (Just (Country.Code "CN")) ]
+                }
 
-                Err _ ->
-                    []
-    }
+        Err error ->
+            Err ("Invalid material ID in sampleQuery: " ++ error)
 
 
 suite : Test
@@ -30,20 +31,24 @@ suite =
     suiteWithDb "Data.Query"
         (\db ->
             [ describe "Base64"
-                [ describe "Encoding and decoding queries"
-                    [ sampleQuery
-                        |> Inputs.fromQuery db
-                        |> Result.map Inputs.toQuery
-                        |> Expect.equal (Ok sampleQuery)
-                        |> asTest "should encode and decode a query"
-                    ]
-                , describe "Base64 encoding and decoding queries"
-                    [ sampleQuery
-                        |> Query.b64encode
-                        |> Query.b64decode
-                        |> Expect.equal (Ok sampleQuery)
-                        |> asTest "should base64 encode and decode a query"
-                    ]
+                [ suiteFromResult "Encoding and decoding queries" sampleQuery
+                    (\query ->
+                        [ query
+                            |> Inputs.fromQuery db
+                            |> Result.map Inputs.toQuery
+                            |> Expect.equal (Ok query)
+                            |> asTest "should encode and decode a query"
+                        ]
+                    )
+                , suiteFromResult "Base64 encoding and decoding queries" sampleQuery
+                    (\query ->
+                        [ query
+                            |> Query.b64encode
+                            |> Query.b64decode
+                            |> Expect.equal (Ok query)
+                            |> asTest "should base64 encode and decode a query"
+                        ]
+                    )
                 ]
             , describe "handleUpcycling"
                 [ { jupeCotonAsie | upcycled = False }
