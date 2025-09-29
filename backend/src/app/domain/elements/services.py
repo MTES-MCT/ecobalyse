@@ -67,7 +67,7 @@ class ElementService(SQLAlchemyAsyncRepositoryService[m.Element]):
                 )
                 if len(to_extend) != len(transforms_added):
                     raise ForeignKeyError(
-                        detail="A foreign key for transforms is invalid"
+                        detail=f"A foreign key for transforms is invalid {to_extend} {transforms_added}"
                     )
 
                 data.process_transforms.extend(to_extend)

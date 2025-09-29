@@ -196,9 +196,7 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
             if len(elements) > 0:
                 # Create the elements
                 elements_to_add = [
-                    await elements_service.to_model(
-                        element.to_dict(), operation="create"
-                    )
+                    await elements_service.to_model(element, operation="create")
                     for element in elements
                 ]
                 data.elements.extend(elements_to_add)
