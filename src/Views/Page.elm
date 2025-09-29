@@ -69,7 +69,7 @@ frame ({ activePage } as config) ( title, content ) =
         , newVersionAlert config
         , pageHeader config
         , if activePage == TextileSimulator then
-            div [ class "page-notice", attribute "role" "notice" ]
+            div [ class "page-notice shadow-inner-top", attribute "role" "notice" ]
                 [ div [ class "container px-4" ]
                     [ span [ class "me-1" ]
                         [ Icon.info ]

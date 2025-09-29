@@ -48,6 +48,8 @@ export async function loginUser(page, email) {
 
   await page.goto(links[0]);
 
+  await page.getByTestId("auth-login-confirm").click();
+
   await expectNotification(page, "Vous avez désormais accès aux impacts détaillés");
 }
 
@@ -84,6 +86,8 @@ export async function registerAndLoginUser(
   expect(links).toHaveLength(1);
 
   await page.goto(links[0]);
+
+  await page.getByTestId("auth-login-confirm").click();
 
   await expectNotification(page, "Vous avez désormais accès aux impacts détaillés");
 }

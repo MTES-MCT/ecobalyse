@@ -115,6 +115,7 @@ suite =
                             { amount = Component.Amount 1
                             , impacts = Impact.empty
                             , items = []
+                            , label = Nothing
                             , mass = Mass.kilogram
                             , stage = Nothing
                             }
@@ -143,6 +144,7 @@ suite =
                             { amount = Component.Amount 1
                             , impacts = Impact.empty
                             , items = []
+                            , label = Nothing
                             , mass = Mass.kilogram
                             , stage = Nothing
                             }
@@ -196,6 +198,7 @@ suite =
                                 { amount = Component.Amount 1
                                 , impacts = Impact.empty
                                 , items = []
+                                , label = Nothing
                                 , mass = Mass.kilogram
                                 , stage = Nothing
                                 }
@@ -210,6 +213,7 @@ suite =
                             { amount = Component.Amount 1
                             , impacts = Impact.empty |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 100)
                             , items = []
+                            , label = Nothing
                             , mass = Mass.kilogram
                             , stage = Nothing
                             }

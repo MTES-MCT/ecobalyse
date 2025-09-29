@@ -18,6 +18,7 @@ import Html.Events exposing (onClick)
 import Ports
 import Route exposing (Route)
 import Views.Container as Container
+import Views.Icon as Icon
 import Views.Link as Link
 import Views.Markdown as Markdown
 
@@ -63,7 +64,10 @@ update session msg model =
 
         ProcessLink (RouteLink route) ->
             App.createUpdate session model
-                |> App.withCmds [ Nav.load <| Route.toString route ]
+                |> App.withCmds
+                    [ Ports.scrollTo { x = 0, y = 0 }
+                    , Nav.load <| Route.toString route
+                    ]
 
 
 simulatorButton : ButtonParams -> Html Msg
@@ -89,75 +93,106 @@ viewHero : Session -> Html Msg
 viewHero { enabledSections } =
     Container.centered [ class "pt-4 pb-5" ]
         [ div [ class "px-5" ]
-            [ h2 [ class "h1" ]
-                [ text "Calculez le coût environnemental de vos produits" ]
+            [ h2 [ class "h1" ] [ text "Calculez le coût environnemental de vos produits" ]
             , div [ class "fs-5 mt-3 mb-5" ]
                 [ """Ecobalyse permet de comprendre et d’exprimer les impacts environnementaux des produits distribués en France
-                par le calcul d’un coût en points d’impact\u{202F}: **le coût environnemental**.
-                Découvrez nos outils et notre périmètre d’action\u{202F}!"""
+                     par le calcul d’un coût en points d’impact\u{202F}: **le coût environnemental**.
+                     Découvrez nos outils et notre périmètre d’action\u{202F}!"""
                     |> Markdown.simple []
                 ]
-            , div [ class "d-flex flex-column flex-sm-row gap-3 mb-4" ]
-                [ simulatorButton
-                    { label = "Calculer l’impact d’un vêtement"
-                    , subLabel = Just "Version réglementaire"
-                    , callToAction = True
-                    , link = ExternalLink "/versions/v7.0.0/#/textile/simulator"
-                    , testId = "textile-callout-button"
-                    }
-                , if enabledSections.food then
-                    simulatorButton
-                        { label = "Calculer l’impact de l’alimentation"
-                        , subLabel = Just "Méthodologie en concertation"
-                        , callToAction = False
-                        , link = RouteLink Route.FoodBuilderHome
-                        , testId = "food-callout-button"
-                        }
+            , [ ( True
+                , { label = "Calculer l’impact d’un vêtement"
+                  , subLabel = Just "Version réglementaire"
+                  , callToAction = True
+                  , link = ExternalLink "/versions/v7.0.0/#/textile/simulator"
+                  , testId = "textile-callout-button"
+                  }
+                )
+              , ( enabledSections.food
+                , { label = "Calculer l’impact de l’alimentation"
+                  , subLabel = Just "Méthodologie en concertation"
+                  , callToAction = False
+                  , link = RouteLink Route.FoodBuilderHome
+                  , testId = "food-callout-button"
+                  }
+                )
+              , ( enabledSections.objects
+                , { label = "Calculer l’impact d’un objet"
+                  , subLabel = Just "Simulateur en construction"
+                  , callToAction = False
+                  , link = RouteLink <| Route.ObjectSimulatorHome Scope.Object
+                  , testId = "object-callout-button"
+                  }
+                )
+              , ( enabledSections.veli
+                , { label = "Calculer l’impact d’un véhicule"
+                  , subLabel = Just "Simulateur en construction"
+                  , callToAction = False
+                  , link = RouteLink <| Route.ObjectSimulatorHome Scope.Veli
+                  , testId = "veli-callout-button"
+                  }
+                )
+              ]
+                |> List.filterMap
+                    (\( enabled, button ) ->
+                        if enabled then
+                            Just <| simulatorButton button
 
-                  else
-                    text ""
-                , if enabledSections.objects then
-                    simulatorButton
-                        { label = "Calculer l’impact d’un objet"
-                        , subLabel = Just "Simulateur en construction"
-                        , callToAction = False
-                        , link = RouteLink <| Route.ObjectSimulatorHome Scope.Object
-                        , testId = "object-callout-button"
-                        }
-
-                  else
-                    text ""
-                , if enabledSections.veli then
-                    simulatorButton
-                        { label = "Calculer l’impact d’un véhicule"
-                        , subLabel = Just "Simulateur en construction"
-                        , callToAction = False
-                        , link = RouteLink <| Route.ObjectSimulatorHome Scope.Veli
-                        , testId = "veli-callout-button"
-                        }
-
-                  else
-                    text ""
-                ]
+                        else
+                            Nothing
+                    )
+                |> div [ class "d-flex flex-column flex-lg-row gap-3 mb-4" ]
             ]
         ]
 
 
 viewInfo : Html Msg
 viewInfo =
-    Container.centered [ id "decouvrir-ecobalyse", class "overlappedImage" ]
-        [ img
-            [ src "img/illustration-score.png"
-            , alt "Une étiquette présentant différents scores d’impact environnemental"
-            ]
-            []
-        , div [ class "d-flex flex-column gap-2" ]
-            [ h3 [ class "mb-1" ] [ text "En savoir plus sur les données et les impacts\u{202F}?" ]
-            , """Vous pouvez en savoir plus sur nos données sources et nos modélisations en vous rendant dans [\u{202F}l’explorateur\u{202F}]({url_explorer}).
-            Consultez également le détail des impacts environnementaux de vos simulations en [\u{202F}créant votre compte Ecobalyse\u{202F}]({url_account})."""
-                |> String.replace "{url_explorer}" (Route.toString <| Route.Explore Scope.Textile (Dataset.TextileExamples Nothing))
-                |> String.replace "{url_account}" (Route.toString Route.Auth)
+    Container.centered []
+        [ div [ class "d-flex flex-column gap-2 p-0 px-md-5" ]
+            [ h2 [ class "h3" ] [ text "Afficher le coût environnemental" ]
+            , """Le coût environnemental peut être utilisé pour comprendre, informer, enrichir un bilan carbone
+ou pour différentes politiques publiques (marchés publics, eco-modulation…)
+
+L’affichage du coût environnemental d’un produit permet d’**informer le consommateur**. Depuis la loi Climat et
+Résilience de 2021, des travaux sont engagés pour permettre cet affichage. Ils portent sur les vêtements, les
+produits alimentaires ou encore l’ameublement. Pour plus d’informations, vous pouvez consulter\u{202F}:
+
+- le [site de l’ADEME](https://affichage-environnemental.ademe.fr)
+- le site du [ministère en charge de l’écologie](https://www.ecologie.gouv.fr/politiques-publiques/affichage-environnemental-vêtements)"""
                 |> Markdown.simple []
+            , div [ class "d-flex flex-column flex-lg-row gap-3" ]
+                [ span [ class "home-illustration" ]
+                    [ img
+                        [ src "img/etiquette-exemple.png"
+                        , alt "Exemple d'étiquetage environnemental réglementaire de 930 points d'impact"
+                        ]
+                        []
+                    ]
+                , div [ class "row g-3" ]
+                    [ div [ class "col-lg-6 d-flex flex-column justify-content-between gap-2 h-100" ]
+                        [ """Pour les vêtements, **un cadre règlementaire complet a été publié le 9 septembre 2025**.
+                             Il encadre l’affichage volontaire du coût environnemental des vêtements. Une méthodologie
+                             de calcul règlementaire est ainsi arrêtée, la **v7.0.0**."""
+                            |> Markdown.simple []
+                        , button
+                            [ class "btn btn-primary"
+                            , onClick <| ProcessLink <| ExternalLink "/versions/v7.0.0/#/textile/simulator"
+                            ]
+                            [ text "Utiliser la version réglementaire 7.0.0" ]
+                        ]
+                    , div [ class "col-lg-6 d-flex flex-column justify-content-between gap-3 h-100" ]
+                        [ """Pour afficher le coût environnemental sur vos produits textiles, il est nécessaire de **déclarer leur coût**
+                             sur un portail dédié\u{202F}!"""
+                            |> Markdown.simple []
+                        , Link.external
+                            [ class "btn btn-outline-primary"
+                            , href "https://affichage-environnemental.ecobalyse.beta.gouv.fr/declarations"
+                            ]
+                            [ text "Accéder au portail de déclaration" ]
+                        ]
+                    ]
+                ]
             ]
         ]
 
@@ -165,53 +200,89 @@ viewInfo =
 viewTools : Html Msg
 viewTools =
     Container.centered []
-        [ h3 [ class "mb-2" ] [ text "Les dessous du coût environnemental" ]
-        , """Le coût environnemental s’appuie sur la méthodologie d’analyse du cycle de vie PEF (Product Environmental Footprint)
-        complétée sur les aspects qu’elle ne couvre pas encore. Il est issu du travail des pouvoirs publics (ADEME, Ministère de la transition écologique, ...)
-        en s’appuyant sur des experts et des parties prenantes mobilisées notamment lors de phase de concertation.
-        Ce cadre méthodologique est explicité dans [la page de documentation]({url_gitbook})."""
-            |> String.replace "{url_gitbook}" Env.gitbookUrl
-            |> Markdown.simple []
-        , div [ class "d-flex mt-4 gap-3" ]
-            [ Link.external
-                [ class "btn btn-primary"
-                , href <| Env.gitbookUrl
+        [ div [ class "row px-md-5 gap-5 gap-md-0" ]
+            [ div [ class "col-md-6 d-flex flex-column justify-content-between gap-2" ]
+                [ h3 [ class "h4 d-flex align-items-baseline gap-2" ]
+                    [ span [ class "fs-5" ] [ Icon.search ]
+                    , text "Les dessous du coût environnemental"
+                    ]
+                , """Le coût environnemental s’appuie sur la méthodologie [ACV]({url_acv} "Analyse en Cycle de Vie")
+                     du [PEF]({url_pef} "Product Environmental Footprint")
+                     **complétée sur les aspects qu’elle ne couvre pas encore**. Il est issu du travail des pouvoirs publics
+                     en s’appuyant sur des **experts** et parties prenantes mobilisés lors de concertations."""
+                    |> String.replace "{url_acv}" "https://fr.wikipedia.org/wiki/Analyse_du_cycle_de_vie"
+                    |> String.replace "{url_pef}" "https://eplca.jrc.ec.europa.eu/EnvironmentalFootprint.html"
+                    |> Markdown.simple [ class "flex-fill" ]
+                , div [ class "d-flex mt-3 gap-3" ]
+                    [ Link.external
+                        [ class "btn btn-primary text-truncate"
+                        , href <| Env.gitbookUrl
+                        ]
+                        [ text "Parcourir la documentation méthodologique" ]
+                    ]
                 ]
-                [ text "Consulter la méthodologie du coût environnemental" ]
+            , div [ class "col-md-6 d-flex flex-column justify-content-between gap-2" ]
+                [ h3 [ class "h4 d-flex align-items-baseline gap-2" ]
+                    [ span [ class "fs-5" ] [ Icon.material ]
+                    , text "Impacts et données détaillées"
+                    ]
+                , """Accédez aux **impacts environnementaux détaillés** de vos simulations en créant un compte utilisateur
+                     et à l'ensemble des modélisations et **données sources** en parcourant l’explorateur.""" |> Markdown.simple [ class "flex-fill" ]
+                , div [ class "d-flex mt-3 gap-3" ]
+                    [ Link.external
+                        [ class "btn btn-primary"
+                        , href <| Route.toString <| Route.AuthSignup
+                        ]
+                        [ text "Créer un compte Ecobalyse" ]
+                    , button
+                        [ class "btn btn-outline-primary"
+                        , onClick <| ProcessLink <| RouteLink <| Route.Explore Scope.Textile (Dataset.TextileExamples Nothing)
+                        ]
+                        [ text "Explorer les données" ]
+                    ]
+                ]
             ]
         ]
 
 
-viewContribution : Html Msg
-viewContribution =
+viewTools2 : Html Msg
+viewTools2 =
     Container.centered []
-        [ h3 [ class "mb-2" ] [ text "Des questions sur nos outils ou la méthode\u{202F}?" ]
-        , """Ecobalyse est un outil ouvert et gratuit. Vos retours sur la méthode ou sur notre outil nous sont précieux.""" |> Markdown.simple []
-        , div [ class "d-flex mt-4 gap-3" ]
-            [ Link.external
-                [ class "btn btn-primary"
-                , href <| Env.communityUrl
+        [ div [ class "row px-md-5 gap-5 gap-md-0" ]
+            [ div [ class "col-md-6 d-flex flex-column justify-content-between gap-2" ]
+                [ h3 [ class "h4 d-flex align-items-baseline gap-2" ]
+                    [ span [ class "fs-5" ] [ Icon.plug ]
+                    , text "L'API Ecobalyse"
+                    ]
+                , """[L’API HTTP Ecobalyse]({api_url}) permet de calculer les impacts environnementaux des différents produits.
+             Elle est expérimentale et donc ne garantit pas de continuité de service à ce stade."""
+                    |> String.replace "{api_url}" (Route.toString <| Route.Api)
+                    |> Markdown.simple []
+                , """Des questions\u{202F}? Consultez notre [\u{202F}FAQ dédiée à l’API\u{202F}]({api_faq_url})."""
+                    |> String.replace "{api_faq_url}" (Route.toString <| Route.Editorial "api-faq")
+                    |> Markdown.simple []
                 ]
-                [ text "Rejoignez la communauté" ]
-            , Link.external
-                [ class "btn btn-outline-primary"
-                , href "https://fabrique-numerique.gitbook.io/ecobalyse/textile/nous-contacter"
+            , div [ class "col-md-6 d-flex flex-column justify-content-between gap-2" ]
+                [ h3 [ class "h4 d-flex align-items-baseline gap-2" ]
+                    [ span [ class "fs-5" ] [ Icon.question ]
+                    , text "Des questions\u{00A0}?"
+                    ]
+                , """Ecobalyse est un outil **ouvert et gratuit**. Vos retours sur la méthode ou sur notre outil nous sont précieux."""
+                    |> Markdown.simple [ class "flex-fill" ]
+                , div [ class "d-flex flex-column flex-xl-row mt-3 gap-3" ]
+                    [ Link.external
+                        [ class "btn btn-primary text-truncate"
+                        , href <| Env.communityUrl
+                        ]
+                        [ text "Rejoindre la communauté" ]
+                    , Link.external
+                        [ class "btn btn-outline-primary text-truncate"
+                        , href "https://fabrique-numerique.gitbook.io/ecobalyse/textile/nous-contacter"
+                        ]
+                        [ text "Contacter l’équipe Écobalyse" ]
+                    ]
                 ]
-                [ text "Contactez l’équipe Écobalyse" ]
             ]
-        ]
-
-
-viewApi : Html Msg
-viewApi =
-    Container.centered []
-        [ h3 [ class "mb-2" ] [ text "Accéder au coût environnemental à travers notre API" ]
-        , """[L’API HTTP Ecobalyse]({api_url}) permet de calculer les impacts environnementaux des différents produits. Elle est expérimentale et donc ne garantit pas de continuité de service à ce stade."""
-            |> String.replace "{api_url}" (Route.toString <| Route.Api)
-            |> Markdown.simple []
-        , """Des questions\u{202F}? Consultez notre [\u{202F}FAQ API Ecobalyse\u{202F}]({api_faq_url})."""
-            |> String.replace "{api_faq_url}" (Route.toString <| Route.Editorial "api-faq")
-            |> Markdown.simple []
         ]
 
 
@@ -219,15 +290,14 @@ view : Session -> ( String, List (Html Msg) )
 view session =
     ( "Accueil"
     , [ div [ class "d-flex flex-column" ]
-            [ div [ class "bg-light pt-5" ]
+            [ div [ class "bg-light pt-5 shadow-inner-top" ]
                 [ viewHero session ]
-            , viewInfo
-            , div [ class "bg-light pt-5 pb-5" ]
+            , div [ class "p-5" ]
+                [ viewInfo ]
+            , div [ class "bg-light p-5" ]
                 [ viewTools ]
-            , div [ class "pt-5 mb-5" ]
-                [ viewContribution ]
-            , div [ class "bg-light pt-5 pb-5" ]
-                [ viewApi ]
+            , div [ class "p-5" ]
+                [ viewTools2 ]
             ]
       ]
     )

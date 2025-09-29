@@ -91,6 +91,11 @@ plane =
     icon "plane"
 
 
+plug : Html msg
+plug =
+    icon "plug"
+
+
 plus : Html msg
 plus =
     icon "plus"
