@@ -198,7 +198,6 @@ Application au cas du T-shirt, avec un coût moyen de réparation de 10€ :&#x2
 
 * Ce critère n'est pas considéré pour les \*_références de produits neufs, y compris remanufacturés,_\* dont les marques sont des PME et TPE.&#x20;
 * \*_Le critère « service de réparation » est considéré comme rempli dès lors qu’une marque propose un service de réparation, au moins pour ses produits, labellisé par un éco-organisme de la filière à responsabilité élargie des producteurs de textile, linge, chaussure (TLC)._\*
-* Le canal de vente considéré est celui introduit dans la définition de l'indice "largeur de gamme".
 
 Précisions :&#x20;
 
