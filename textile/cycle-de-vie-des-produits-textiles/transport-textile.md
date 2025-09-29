@@ -52,11 +52,7 @@ Avec :&#x20;
 
 ### Répartition entre voies de transport
 
-Ce modèle permet à l'utilisateur de définir une part de transport aérien.
-
-L'impact du transport sur chaque étape se calcule comme une pondération des trois types de transport considérés.
-
-Calcul avec paramétrage d'une part de voie aérienne :&#x20;
+L'impact du transport sur chaque étape se calcule comme une pondération des trois types de transport considérés :
 
 $$
 I_{transport}=a*I_{air}+(1-a)*( t∗I_{terre}+(1−t)∗I_{mer})
@@ -147,7 +143,7 @@ _Exemples :_&#x20;
 
 <table><thead><tr><th width="196.98333740234375">t</th><th width="133">Turquie</th><th width="129.54998779296875">France</th><th width="128.9166259765625">Espagne</th><th>Portugal</th></tr></thead><tbody><tr><td>Turquie</td><td>100%</td><td></td><td></td><td></td></tr><tr><td>France</td><td>25%</td><td>100%</td><td></td><td></td></tr><tr><td>Espagne</td><td>0%</td><td>90%</td><td>100%</td><td></td></tr><tr><td>Portugal</td><td>0%</td><td>50%</td><td>90%</td><td>100%</td></tr></tbody></table>
 
-_"Pour un déplacement "Turquie-France", le transport terrestre-maritime sera fait de 25% de terrestre et de 75% de maritime"_
+_"Pour un déplacement "Turquie-France", le transport (hors avion) sera fait à 25% de transport par voie terrestre (camion) et de 75% par voie maritime (bateau)"_
 
 ### Part du transport aérien (`a`)
 
