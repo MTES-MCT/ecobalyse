@@ -160,7 +160,7 @@ async def test_components_update(
         assert response.status_code == 200
         assert json["name"] == "Name Changed"
         assert json["comment"] == "Comment changed"
-        assert json["elements"] is None
+        assert json["elements"] == []
         assert json["scopes"] == ["object", "food"]
 
         entries = await journal_entries_service.list()
