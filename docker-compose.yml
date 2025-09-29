@@ -1,0 +1,17 @@
+services:
+  db:
+    container_name: ecobalyse_dev_db
+    # Use the same version than Scalingo in production
+    image: postgres:14
+    environment:
+      POSTGRES_DB: ecobalyse_dev
+      POSTGRES_USER: ecobalyse
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      # Don’t conflict with my local PG
+      - "5433:5432"
+    healthcheck:
+      test: "pg_isready -U ecobalyse"
+      interval: 5s
+      timeout: 5s
+      retries: 5
