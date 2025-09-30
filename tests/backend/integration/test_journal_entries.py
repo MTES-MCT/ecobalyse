@@ -149,7 +149,7 @@ async def test_components_journal(
                 "elements": [
                     {
                         "amount": 0.00022,
-                        "material": "07e9e916-e02b-45e2-a298-2b5084de6242",
+                        "material": "d25636af-ab36-4857-a6d0-c66d1e7a281b",
                     }
                 ],
                 "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
