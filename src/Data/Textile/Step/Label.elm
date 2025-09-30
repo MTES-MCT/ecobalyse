@@ -157,7 +157,7 @@ fromCodeString code =
         "ennobling" ->
             Ok Ennobling
 
-        "end-of-life" ->
+        "eol" ->
             Ok EndOfLife
 
         "fabric" ->
@@ -186,7 +186,7 @@ toCodeString label =
             "distribution"
 
         EndOfLife ->
-            "end-of-life"
+            "eol"
 
         Ennobling ->
             "ennobling"

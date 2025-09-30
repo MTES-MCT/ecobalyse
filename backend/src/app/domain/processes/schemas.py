@@ -18,7 +18,7 @@ from app.domain.components.schemas import Scope
 
 class Category(StrEnum):
     ENERGY = "energy"
-    EOL = "end-of-life"
+    EOL = "eol"
     INGREDIENT = "ingredient"
     MATERIAL = "material"
     MATERIAL_TYPE_METAL = "material_type:metal"

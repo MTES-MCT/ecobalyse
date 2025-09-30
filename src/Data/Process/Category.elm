@@ -39,7 +39,7 @@ encode =
 fromString : String -> Result String Category
 fromString string =
     case string of
-        "end-of-life" ->
+        "eol" ->
             Ok EndOfLife
 
         "energy" ->
@@ -81,7 +81,7 @@ toString : Category -> String
 toString category =
     case category of
         EndOfLife ->
-            "end-of-life"
+            "eol"
 
         Energy ->
             "energy"
