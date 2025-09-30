@@ -239,21 +239,24 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
                 # Create the elements
 
                 for element in elements:
-                    process_transforms = await processes_service.list(
-                        m.Process.id.in_(element.transforms)
-                    )
-
-                    if len(element.transforms) != len(process_transforms):
-                        raise ForeignKeyError(
-                            detail=f"A foreign key for transforms is invalid {element.transforms} {process_transforms}"
-                        )
-
                     element_to_add = m.Element(
                         component_id=data.id,
                         amount=element.amount,
                         material_id=element.material,
                     )
-                    element_to_add.process_transforms.extend(process_transforms)
+
+                    if element.transforms:
+                        process_transforms = await processes_service.list(
+                            m.Process.id.in_(element.transforms)
+                        )
+
+                        if len(element.transforms) != len(process_transforms):
+                            raise ForeignKeyError(
+                                detail=f"A foreign key for transforms is invalid {element.transforms} {process_transforms}"
+                            )
+
+                        element_to_add.process_transforms.extend(process_transforms)
+
                     data.elements.append(element_to_add)
 
             if owner:
