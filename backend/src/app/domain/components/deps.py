@@ -11,7 +11,8 @@ provide_components_service = create_service_provider(
     ComponentService,
     load=[
         selectinload(m.Component.elements).options(
-            joinedload(m.Element.material_process, innerjoin=True)
+            joinedload(m.Element.material_process, innerjoin=True),
+            joinedload(m.Element.process_transforms, innerjoin=True),
         ),
     ],
 )

@@ -5,7 +5,7 @@ from collections.abc import Sequence
 from typing import Any, Optional, Union, cast
 from uuid import uuid4
 
-from advanced_alchemy.exceptions import ErrorMessages
+from advanced_alchemy.exceptions import ErrorMessages, ForeignKeyError
 from advanced_alchemy.repository import (
     SQLAlchemyAsyncRepository,
 )
@@ -22,6 +22,9 @@ from app.db import models as m
 from app.domain.components.schemas import Component, ComponentElement
 from app.domain.elements.deps import (
     provide_elements_service,
+)
+from app.domain.processes.deps import (
+    provide_processes_service,
 )
 from sqlalchemy.orm import InstrumentedAttribute
 
@@ -178,6 +181,13 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
 
         owner: m.User | None = data.pop("owner", None)
         input_data = copy.deepcopy(data)
+        elements_service = await anext(
+            provide_elements_service(self.repository.session)
+        )
+
+        processes_service = await anext(
+            provide_processes_service(self.repository.session)
+        )
 
         if (
             operation == "create"
@@ -185,10 +195,6 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
             or (operation == "upsert" and not has_id)
         ):
             data["id"] = data.get("id", uuid4())
-
-            elements_service = await anext(
-                provide_elements_service(self.repository.session)
-            )
 
             elements: list[ComponentElement] = data.pop("elements", [])
             data = await super().to_model(data)
@@ -219,7 +225,37 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
             and is_dict(data)
             or (operation == "upsert" and has_id)
         ):
-            data = await super().to_model(data)
+            elements: list[ComponentElement] = data.pop("elements", [])
+            name = data.pop("name", "")
+            comment = data.pop("comment", "")
+            scopes = data.pop("scopes", [])
+
+            data = await super().get(item_id=data["id"])
+            data.name = name
+            data.comment = comment
+            data.scopes = scopes
+
+            if len(elements) > 0:
+                # Create the elements
+
+                for element in elements:
+                    process_transforms = await processes_service.list(
+                        m.Process.id.in_(element.transforms)
+                    )
+
+                    if len(element.transforms) != len(process_transforms):
+                        raise ForeignKeyError(
+                            detail=f"A foreign key for transforms is invalid {element.transforms} {process_transforms}"
+                        )
+
+                    element_to_add = m.Element(
+                        component_id=data.id,
+                        amount=element.amount,
+                        material_id=element.material,
+                    )
+                    element_to_add.process_transforms.extend(process_transforms)
+                    data.elements.append(element_to_add)
+
             if owner:
                 owner.journal_entries.append(
                     m.JournalEntry(
