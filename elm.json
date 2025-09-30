@@ -33,7 +33,6 @@
             "kuon/elm-string-normalize": "1.0.6",
             "miniBill/elm-diff": "1.1.0",
             "ohanhi/remotedata-http": "4.0.0",
-            "rtfeldman/elm-iso8601-date-strings": "1.1.4",
             "truqu/elm-base64": "2.0.4",
             "turboMaCk/any-dict": "2.6.0"
         },
@@ -51,6 +50,7 @@
             "robinheghan/murmur3": "1.0.0",
             "rtfeldman/elm-css": "17.1.1",
             "rtfeldman/elm-hex": "1.0.0",
+            "rtfeldman/elm-iso8601-date-strings": "1.1.4",
             "wolfadex/elm-ansi": "3.0.0"
         }
     },

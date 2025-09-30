@@ -86,10 +86,6 @@ const app = Elm.Main.init({
       veli: process.env.ENABLE_VELI_SECTION === "True",
     },
     rawStore: localStorage[storeKey] || "null",
-    matomo: {
-      host: process.env.MATOMO_HOST || "",
-      siteId: process.env.MATOMO_SITE_ID || "",
-    },
     versionPollSeconds: parseInt(process.env.VERSION_POLL_SECONDS) || 300,
   },
 });
@@ -103,17 +99,6 @@ app.ports.copyToClipboard.subscribe((text) => {
       );
     },
   );
-});
-
-app.ports.appStarted.subscribe(() => {
-  var _paq = (window._paq = window._paq || []);
-  _paq.push(["trackPageView"]);
-  _paq.push(["enableLinkTracking"]);
-  var u = `https://${process.env.MATOMO_HOST}/`;
-  _paq.push(["setTrackerUrl", u + "matomo.php"]);
-  _paq.push(["disableCookies"]);
-  _paq.push(["setSiteId", process.env.MATOMO_SITE_ID]);
-  loadScript(u + "matomo.js");
 });
 
 app.ports.loadRapidoc.subscribe((rapidocScriptUrl) => {
