@@ -18,9 +18,9 @@ import Views.Alert as Alert
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Link as Link
+import Data.Textile.Material exposing (Id)
 
-
-recycledToString : Maybe String -> String
+recycledToString : Maybe Id -> String
 recycledToString maybeMaterialID =
     maybeMaterialID
         |> Maybe.map (always "oui")

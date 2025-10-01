@@ -32,7 +32,7 @@ type alias Material =
     , name : String
     , origin : Origin
     , process : Process
-    , recycledFrom : Maybe String
+    , recycledFrom : Maybe Id
     , recycledProcess : Maybe Process
     }
 
@@ -78,8 +78,8 @@ getRecyclingData material materials =
     Maybe.map2 Tuple.pair
         (material.recycledFrom
             |> Maybe.andThen
-                (\alias ->
-                    findByAlias alias materials
+                (\materialId ->
+                    findById materialId materials
                         |> Result.toMaybe
                 )
         )
@@ -115,7 +115,7 @@ decode processes =
         |> JDP.required "name" Decode.string
         |> JDP.required "origin" Origin.decode
         |> JDP.required "processId" (Process.decodeFromId processes)
-        |> JDP.required "recycledFrom" (Decode.maybe Decode.string)
+        |> JDP.required "recycledFrom" (Decode.maybe decodeId)
         |> DU.strictOptional "recycledProcessUuid" (Process.decodeFromId processes)
 
 
@@ -144,5 +144,5 @@ encode v =
         , ( "recycledProcessId"
           , v.recycledProcess |> Maybe.map (.id >> Process.encodeId) |> Maybe.withDefault Encode.null
           )
-        , ( "recycledFrom", v.recycledFrom |> Maybe.map Encode.string |> Maybe.withDefault Encode.null )
+        , ( "recycledFrom", v.recycledFrom |> Maybe.map encodeId |> Maybe.withDefault Encode.null )
         ]
