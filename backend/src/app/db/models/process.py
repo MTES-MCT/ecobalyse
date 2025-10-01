@@ -50,8 +50,6 @@ class Process(UUIDAuditBase):
     process_categories: Mapped[list[ProcessCategory]] = relationship(
         secondary=lambda: process_process_category,
         back_populates="processes",
-        cascade="all, delete",
-        passive_deletes=True,
     )
 
     elements_transforms: Mapped[list[Element]] = relationship(
@@ -63,7 +61,7 @@ class Process(UUIDAuditBase):
         back_populates="material_process",
         lazy="selectin",
         uselist=True,
-        cascade="all, delete",
+        cascade="all, delete-orphan",
     )
 
     # Impacts

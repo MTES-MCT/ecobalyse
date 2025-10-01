@@ -43,8 +43,6 @@ class Element(UUIDAuditBase):
     process_transforms: Mapped[list[Process]] = relationship(
         secondary=lambda: process_element_transform,
         back_populates="elements_transforms",
-        cascade="all, delete",
-        passive_deletes=True,
     )
 
     @property

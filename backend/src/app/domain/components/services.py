@@ -225,39 +225,47 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
             and is_dict(data)
             or (operation == "upsert" and has_id)
         ):
-            elements: list[ComponentElement] = data.pop("elements", [])
-            name = data.pop("name", "")
-            comment = data.pop("comment", "")
-            scopes = data.pop("scopes", [])
+            elements: list[ComponentElement] = data.pop("elements", None)
+            name = data.pop("name", None)
+            comment = data.pop("comment", None)
+            scopes = data.pop("scopes", None)
 
             data = await super().get(item_id=data["id"])
-            data.name = name
-            data.comment = comment
-            data.scopes = scopes
 
-            if len(elements) > 0:
-                # Create the elements
+            if name is not None:
+                data.name = name
 
-                for element in elements:
-                    element_to_add = m.Element(
-                        component_id=data.id,
-                        amount=element.amount,
-                        material_id=element.material,
-                    )
+            if comment is not None:
+                data.comment = comment
+            if scopes is not None:
+                data.scopes = scopes
 
-                    if element.transforms:
-                        process_transforms = await processes_service.list(
-                            m.Process.id.in_(element.transforms)
+            if elements is not None:
+                data.elements = []
+
+                if len(elements) > 0:
+                    # Create the elements
+
+                    for element in elements:
+                        element_to_add = m.Element(
+                            component_id=data.id,
+                            amount=element.amount,
+                            material_id=element.material,
                         )
 
-                        if len(element.transforms) != len(process_transforms):
-                            raise ForeignKeyError(
-                                detail=f"A foreign key for transforms is invalid {element.transforms} {process_transforms}"
+                        if element.transforms:
+                            process_transforms = await processes_service.list(
+                                m.Process.id.in_(element.transforms)
                             )
 
-                        element_to_add.process_transforms.extend(process_transforms)
+                            if len(element.transforms) != len(process_transforms):
+                                raise ForeignKeyError(
+                                    detail=f"A foreign key for transforms is invalid {element.transforms} {process_transforms}"
+                                )
 
-                    data.elements.append(element_to_add)
+                            element_to_add.process_transforms.extend(process_transforms)
+
+                        data.elements.append(element_to_add)
 
             if owner:
                 owner.journal_entries.append(
