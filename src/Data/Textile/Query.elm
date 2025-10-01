@@ -10,12 +10,10 @@ module Data.Textile.Query exposing
     , encode
     , handleUpcycling
     , isAdvancedQuery
-    , jupeCotonAsie
     , materialWithId
     , parseBase64Query
     , regulatory
     , removeMaterial
-    , tShirtCotonFrance
     , toggleStep
     , updateMaterial
     , updateMaterialSpinning
@@ -443,6 +441,7 @@ validateMaterials materials =
 
 default : Query
 default =
+    -- Note: the default query doesn't have any materials
     { airTransportRatio = Nothing
     , business = Nothing
     , countryDyeing = Just (Country.Code "CN")
@@ -457,13 +456,7 @@ default =
     , makingDeadStock = Nothing
     , makingWaste = Nothing
     , mass = Mass.kilograms 0.17
-    , materials =
-        case Material.idFromString "62a4d6fb-3276-4ba5-93a3-889ecd3bff84" of
-            Err _ ->
-                []
-
-            Ok id ->
-                [ materialWithId id Split.full Nothing Nothing ]
+    , materials = []
     , numberOfReferences = Nothing
     , physicalDurability = Nothing
     , price = Nothing
@@ -473,25 +466,6 @@ default =
     , trims = Nothing
     , upcycled = False
     , yarnSize = Nothing
-    }
-
-
-jupeCotonAsie : Query
-jupeCotonAsie =
-    { default
-        | fabricProcess = Just Fabric.Weaving
-        , mass = Mass.kilograms 0.3
-        , product = Product.Id "jupe"
-    }
-
-
-tShirtCotonFrance : Query
-tShirtCotonFrance =
-    { default
-        | countryDyeing = Just (Country.Code "FR")
-        , countryFabric = Just (Country.Code "FR")
-        , countryMaking = Just (Country.Code "FR")
-        , countrySpinning = Just (Country.Code "FR")
     }
 
 

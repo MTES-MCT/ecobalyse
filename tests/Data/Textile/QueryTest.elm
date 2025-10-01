@@ -1,29 +1,27 @@
 module Data.Textile.QueryTest exposing (..)
 
 import Data.Country as Country
-import Data.Notification exposing (error)
 import Data.Split as Split
 import Data.Textile.Inputs as Inputs
 import Data.Textile.MakingComplexity as MakingComplexity
 import Data.Textile.Material as Material
-import Data.Textile.Query as Query exposing (Query, jupeCotonAsie, materialWithId)
+import Data.Textile.Query as Query exposing (Query, materialWithId)
 import Data.Textile.Step.Label as Label
 import Expect
 import Test exposing (..)
-import TestUtils exposing (asTest, suiteFromResult, suiteFromResult2, suiteFromResult3, suiteWithDb)
+import TestUtils exposing (asTest, jupeCotonAsie, suiteFromResult, suiteFromResult2, suiteFromResult3, suiteWithDb)
 
 
 sampleQuery : Result String Query
 sampleQuery =
-    case Material.idFromString "9dba0e95-0c35-4f8b-9267-62ddf47d4984" of
-        Ok id ->
-            Ok
-                { jupeCotonAsie
-                    | materials = [ materialWithId id Split.full Nothing (Just (Country.Code "CN")) ]
-                }
-
-        Err error ->
-            Err ("Invalid material ID in sampleQuery: " ++ error)
+    Result.map2
+        (\polyesterId jupe ->
+            { jupe
+                | materials = [ materialWithId polyesterId Split.full Nothing (Just (Country.Code "CN")) ]
+            }
+        )
+        (Material.idFromString "9dba0e95-0c35-4f8b-9267-62ddf47d4984")
+        jupeCotonAsie
 
 
 suite : Test
@@ -31,52 +29,76 @@ suite =
     suiteWithDb "Data.Query"
         (\db ->
             [ describe "Base64"
-                [ suiteFromResult "Encoding and decoding queries" sampleQuery
+                [ suiteFromResult "Encoding and decoding queries"
+                    sampleQuery
                     (\query ->
                         [ query
                             |> Inputs.fromQuery db
                             |> Result.map Inputs.toQuery
                             |> Expect.equal (Ok query)
-                            |> asTest "should encode and decode a query"
+                            |> asTest "encode and decode a query"
                         ]
                     )
-                , suiteFromResult "Base64 encoding and decoding queries" sampleQuery
+                , suiteFromResult "Base64 encoding and decoding queries"
+                    sampleQuery
                     (\query ->
                         [ query
                             |> Query.b64encode
                             |> Query.b64decode
                             |> Expect.equal (Ok query)
-                            |> asTest "should base64 encode and decode a query"
+                            |> asTest "base64 encode and decode a query"
                         ]
                     )
                 ]
             , describe "handleUpcycling"
-                [ { jupeCotonAsie | upcycled = False }
-                    |> Query.handleUpcycling
-                    |> .disabledSteps
-                    |> Expect.equal []
-                    |> asTest "should not touch disabled steps when not upcycled"
-                , { jupeCotonAsie | upcycled = False }
-                    |> Query.handleUpcycling
-                    |> .makingComplexity
-                    |> Expect.equal jupeCotonAsie.makingComplexity
-                    |> asTest "should not touch making complexity when not upcycled"
-                , { jupeCotonAsie | upcycled = True }
-                    |> Query.handleUpcycling
-                    |> .disabledSteps
-                    |> Expect.equal Label.upcyclables
-                    |> asTest "should disable specific steps when upcycled"
-                , { jupeCotonAsie | upcycled = True }
-                    |> Query.handleUpcycling
-                    |> .makingComplexity
-                    |> Expect.equal (Just MakingComplexity.High)
-                    |> asTest "should update making complexity to High when upcycled"
+                [ suiteFromResult "should not touch disabled steps when not upcycled"
+                    jupeCotonAsie
+                    (\query ->
+                        [ { query | upcycled = False }
+                            |> Query.handleUpcycling
+                            |> .disabledSteps
+                            |> Expect.equal []
+                            |> asTest "not touch disabled steps when not upcycled"
+                        ]
+                    )
+                , suiteFromResult "should not touch making complexity when not upcycled"
+                    jupeCotonAsie
+                    (\query ->
+                        [ { query | upcycled = False }
+                            |> Query.handleUpcycling
+                            |> .makingComplexity
+                            |> Expect.equal query.makingComplexity
+                            |> asTest "not touch making complexity when not upcycled"
+                        ]
+                    )
+                , suiteFromResult
+                    "should disable specific steps when upcycled"
+                    jupeCotonAsie
+                    (\query ->
+                        [ { query | upcycled = True }
+                            |> Query.handleUpcycling
+                            |> .disabledSteps
+                            |> Expect.equal Label.upcyclables
+                            |> asTest "disable specific steps when upcycled"
+                        ]
+                    )
+                , suiteFromResult
+                    "should update making complexity to High when upcycled"
+                    jupeCotonAsie
+                    (\query ->
+                        [ { query | upcycled = True }
+                            |> Query.handleUpcycling
+                            |> .makingComplexity
+                            |> Expect.equal (Just MakingComplexity.High)
+                            |> asTest "update making complexity to High when upcycled"
+                        ]
+                    )
                 ]
             , describe "validateMaterials"
                 [ []
                     |> Query.validateMaterials
                     |> Expect.ok
-                    |> asTest "should validate the sum of an empty list of materials"
+                    |> asTest "validate the sum of an empty list of materials"
                 , suiteFromResult "should validate the sum of an incomplete list of materials"
                     (Material.idFromString "62a4d6fb-3276-4ba5-93a3-889ecd3bff84")
                     (\id ->
