@@ -173,6 +173,13 @@ def fx_raw_components() -> list[Component | dict[str, Any]]:
             "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
             "name": "Tissu pour canapé",
             "scopes": ["textile"],
+            "elements": [
+                {
+                    "amount": 1,
+                    "material": "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
+                    "transforms": ["d25636af-ab36-4857-a6d0-c66d1e7a281b"],
+                }
+            ],
         },
     ]
 

@@ -45,5 +45,5 @@ class Component(UUIDAuditBase):
         back_populates="component",
         lazy="selectin",
         uselist=True,
-        cascade="all, delete",
+        cascade="all, delete-orphan",
     )

@@ -60,44 +60,90 @@ async def test_components_journal(
     other_superuser_token_headers: dict[str, str],
 ) -> None:
     async with JournalEntryService.new(session) as journal_entries_service:
-        json_content = [
-            {
+        response = await client.delete(
+            "/api/components/3d1ba21f-a139-4e1f-8192-082327ad855e",
+            headers=superuser_token_headers,
+        )
+        assert response.status_code == 204
+
+        response = await client.delete(
+            "/api/components/6f8d1621-324a-4c00-abe3-f90813d878d2",
+            headers=superuser_token_headers,
+        )
+
+        assert response.status_code == 204
+
+        response = await client.delete(
+            "/api/components/190276e9-5b90-42d6-8fbd-bc7ddfd4c960",
+            headers=superuser_token_headers,
+        )
+
+        assert response.status_code == 204
+
+        response = await client.patch(
+            "/api/components/64fa65b3-c2df-4fd0-958b-83965bd6aa08",
+            json={
                 "elements": [
                     {
                         "amount": 0.00022,
                         "material": "97c209ec-7782-5a29-8c47-af7f17c82d11",
                     }
                 ],
-                "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
                 "name": "Pied 70 cm (plein bois)",
             },
-            {
+            headers=superuser_token_headers,
+        )
+
+        assert response.status_code == 200
+
+        response = await client.patch(
+            "/api/components/ad9d7f23-076b-49c5-93a4-ee1cd7b53973",
+            json={
                 "elements": [
                     {
                         "amount": 0.734063,
                         "material": "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
                     }
                 ],
-                "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973",
                 "name": "Dossier plastique (PP)",
             },
-            {
+            headers=superuser_token_headers,
+        )
+
+        assert response.status_code == 200
+
+        response = await client.patch(
+            "/api/components/eda5dd7e-52e4-450f-8658-1876efc62bd6",
+            json={
                 "elements": [
                     {
                         "amount": 0.91125,
                         "material": "d25636af-ab36-4857-a6d0-c66d1e7a281b",
                     }
                 ],
-                "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6",
                 "name": "Assise plastique (PP)",
             },
-            {
+            headers=superuser_token_headers,
+        )
+
+        assert response.status_code == 200
+
+        response = await client.post(
+            "/api/components",
+            json={
                 "elements": [
                     {"amount": 0.89, "material": "d25636af-ab36-4857-a6d0-c66d1e7a281b"}
                 ],
                 "name": "Test component",
             },
-            {
+            headers=superuser_token_headers,
+        )
+
+        assert response.status_code == 201
+
+        response = await client.patch(
+            "/api/components/8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
+            json={
                 "elements": [
                     {
                         "amount": 1,
@@ -116,17 +162,12 @@ async def test_components_journal(
                         ],
                     },
                 ],
-                "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
                 "name": "Tissu pour joli canapé",
                 "scopes": ["food"],
             },
-        ]
-
-        response = await client.patch(
-            "/api/components",
-            json=json_content,
             headers=superuser_token_headers,
         )
+
         assert response.status_code == 200
 
         entries = await journal_entries_service.list()
@@ -144,43 +185,22 @@ async def test_components_journal(
             == 1
         )
 
-        json_content = [
-            {
-                "elements": [
-                    {
-                        "amount": 0.00022,
-                        "material": "d25636af-ab36-4857-a6d0-c66d1e7a281b",
-                    }
-                ],
-                "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
-                "name": "Pied 70 cm (plein bois) - Test",
-            },
-        ]
-
         # Ensure that we have entries with different users
-        response = await client.patch(
-            "/api/components",
-            json=json_content,
+        response = await client.delete(
+            "/api/components/8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
             headers=other_superuser_token_headers,
         )
 
-        # Remove everything
-
-        response = await client.patch(
-            "/api/components",
-            json=[],
-            headers=superuser_token_headers,
-        )
-        assert response.status_code == 200
+        assert response.status_code == 204
 
         entries = await journal_entries_service.list()
-        assert len(entries) == 14
+        assert len(entries) == 9
 
         response = await client.get("/api/journal", headers=superuser_token_headers)
         json_response = response.json()
         assert response.status_code == 200
 
-        assert len(json_response) == 14
+        assert len(json_response) == 9
 
         response = await client.get(
             "/api/journal/component", headers=superuser_token_headers
@@ -188,7 +208,7 @@ async def test_components_journal(
         json_response = response.json()
         assert response.status_code == 200
 
-        assert len(json_response) == 14
+        assert len(json_response) == 9
 
         response = await client.get(
             "/api/journal/unknown", headers=superuser_token_headers
