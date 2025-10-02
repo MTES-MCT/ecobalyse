@@ -5,7 +5,7 @@ from collections.abc import Sequence
 from typing import Any, Optional, Union, cast
 from uuid import uuid4
 
-from advanced_alchemy.exceptions import ErrorMessages, ForeignKeyError
+from advanced_alchemy.exceptions import ErrorMessages
 from advanced_alchemy.repository import (
     SQLAlchemyAsyncRepository,
 )
@@ -20,9 +20,6 @@ from advanced_alchemy.service import (
 from advanced_alchemy.utils.dataclass import Empty, EmptyType
 from app.db import models as m
 from app.domain.components.schemas import Component, ComponentElement
-from app.domain.elements.deps import (
-    provide_elements_service,
-)
 from app.domain.processes.deps import (
     provide_processes_service,
 )
@@ -177,107 +174,155 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
         data: ModelDictT[m.Component],
         operation: str | None,
     ) -> ModelDictT[m.Component]:
-        has_id = data.get("id") is not None
+        with self.repository.session.no_autoflush:
+            has_id = data.get("id") is not None
 
-        owner: m.User | None = data.pop("owner", None)
-        input_data = copy.deepcopy(data)
-        elements_service = await anext(
-            provide_elements_service(self.repository.session)
-        )
+            owner: m.User | None = data.pop("owner", None)
+            input_data = copy.deepcopy(data)
+            # elements_service = await anext(
+            #     provide_elements_service(self.repository.session)
+            # )
+            processes_service = await anext(
+                provide_processes_service(self.repository.session)
+            )
 
-        processes_service = await anext(
-            provide_processes_service(self.repository.session)
-        )
+            if (
+                operation == "create"
+                and is_dict(data)
+                or (operation == "upsert" and not has_id)
+            ):
+                data["id"] = data.get("id", uuid4())
+                elements: list[ComponentElement] = data.pop("elements", [])
+                model_elements = []
+                for element in elements:
+                    element_dict = element
+                    tranforms_ids = element_dict.pop("transforms")
 
-        if (
-            operation == "create"
-            and is_dict(data)
-            or (operation == "upsert" and not has_id)
-        ):
-            data["id"] = data.get("id", uuid4())
-
-            elements: list[ComponentElement] = data.pop("elements", [])
-            data = await super().to_model(data)
-
-            if len(elements) > 0:
-                # Create the elements
-                elements_to_add = [
-                    await elements_service.to_model(element, operation="create")
-                    for element in elements
-                ]
-                data.elements.extend(elements_to_add)
-
-            if owner:
-                value = self.to_schema(data, schema_type=Component)
-
-                owner.journal_entries.append(
-                    m.JournalEntry(
-                        table_name=m.Component.__tablename__,
-                        record_id=data.id,
-                        action=m.JournalAction.CREATED,
-                        user=owner,
-                        value=value,
+                    element_dict["material_id"] = element_dict.pop("material")
+                    element_dict["component_id"] = data["id"]
+                    elt = m.Element(**element_dict)
+                    self.repository.session.add(elt)
+                    elt.process_transforms.extend(
+                        await processes_service.list(m.Process.id.in_(tranforms_ids))
                     )
-                )
+                    model_elements.append(elt)
 
-        if (
-            operation == "update"
-            and is_dict(data)
-            or (operation == "upsert" and has_id)
-        ):
-            elements: list[ComponentElement] = data.pop("elements", None)
-            name = data.pop("name", None)
-            comment = data.pop("comment", None)
-            scopes = data.pop("scopes", None)
+                    # from rich.pretty import pprint
+                    #
+                    # pprint("elt.to_dict()")
+                    # pprint(elt.to_dict())
+                    #
+                    # if len(elt.process_transforms) > 0:
+                    #     pprint("pprint(elt.process_transforms[0].to_dict())")
+                    #     pprint(elt.process_transforms[0].to_dict())
 
-            data = await super().get(item_id=data["id"])
+                data["elements"] = model_elements
+                data = await super().to_model(data)
 
-            if name is not None:
-                data.name = name
+                if owner:
+                    value = self.to_schema(data, schema_type=Component)
 
-            if comment is not None:
-                data.comment = comment
-            if scopes is not None:
-                data.scopes = scopes
-
-            if elements is not None:
-                data.elements = []
-
-                if len(elements) > 0:
-                    # Create the elements
-
-                    for element in elements:
-                        element_to_add = m.Element(
-                            component_id=data.id,
-                            amount=element.amount,
-                            material_id=element.material,
+                    owner.journal_entries.append(
+                        m.JournalEntry(
+                            table_name=m.Component.__tablename__,
+                            record_id=data.id,
+                            action=m.JournalAction.CREATED,
+                            user=owner,
+                            value=value,
                         )
-
-                        if element.transforms:
-                            process_transforms = await processes_service.list(
-                                m.Process.id.in_(element.transforms)
-                            )
-
-                            if len(element.transforms) != len(process_transforms):
-                                raise ForeignKeyError(
-                                    detail=f"A foreign key for transforms is invalid {element.transforms} {process_transforms}"
-                                )
-
-                            element_to_add.process_transforms.extend(process_transforms)
-
-                        data.elements.append(element_to_add)
-
-            if owner:
-                owner.journal_entries.append(
-                    m.JournalEntry(
-                        table_name=m.Component.__tablename__,
-                        record_id=data.id,
-                        action=m.JournalAction.UPDATED,
-                        user=owner,
-                        value=input_data
-                        if is_dict(input_data)
-                        else input_data.to_dict(),
                     )
-                )
+
+            if (
+                operation == "update"
+                and is_dict(data)
+                or (operation == "upsert" and has_id)
+            ):
+                from rich.pretty import pprint
+
+                data["id"] = data.get("id", uuid4())
+                elements: list[ComponentElement] = data.pop("elements", [])
+                model_elements = []
+                for element in elements:
+                    element_dict = element.to_dict()
+                    tranforms_ids = element_dict.pop("transforms")
+
+                    element_dict["material_id"] = element_dict.pop("material")
+                    element_dict["component_id"] = data["id"]
+                    elt = m.Element(**element_dict)
+                    self.repository.session.add(elt)
+                    elt.process_transforms.extend(
+                        await processes_service.list(m.Process.id.in_(tranforms_ids))
+                    )
+                    model_elements.append(elt)
+
+                    # pprint("elt.to_dict()")
+                    # pprint(elt.to_dict())
+                    #
+                    # if len(elt.process_transforms) > 0:
+                    #     pprint("pprint(elt.process_transforms[0].to_dict())")
+                    #     pprint(elt.process_transforms[0].to_dict())
+
+                data["elements"] = model_elements
+                data = await super().to_model(data)
+                pprint(data.elements)
+
+                # data = await super().to_model(data)
+
+                # pprint(data)
+
+                # data = await super().to_model(data)
+                # data = m.Component(**data)
+
+                # data = await super().get(item_id=data["id"])
+
+                # if name is not None:
+                #     data.name = name
+                #
+                # if comment is not None:
+                #     data.comment = comment
+                # if scopes is not None:
+                #     data.scopes = scopes
+
+                # if elements is not None:
+                #     if len(elements) > 0:
+                #         # Create the elements
+                #
+                #         for element in elements:
+                #             element_to_add = m.Element(
+                #                 amount=element.amount,
+                #                 material_id=element.material,
+                #                 component=data,
+                #             )
+
+                # if element.transforms:
+                #     # if (obj := (await session.execute(statement)).scalar_one_or_none()) is None:
+                #     process_transforms = await processes_service.list(
+                #         m.Process.id.in_(element.transforms)
+                #     )
+                #
+                #     if len(element.transforms) != len(process_transforms):
+                #         raise ForeignKeyError(
+                #             detail=f"A foreign key for transforms is invalid {element.transforms} {process_transforms}"
+                #         )
+                #
+                #     element_to_add.process_transforms.extend(
+                #         process_transforms
+                #     )
+
+                # data.elements.append(element_to_add)
+                # self.repository.session.add(element_to_add)
+
+                if owner:
+                    owner.journal_entries.append(
+                        m.JournalEntry(
+                            table_name=m.Component.__tablename__,
+                            record_id=data.id,
+                            action=m.JournalAction.UPDATED,
+                            user=owner,
+                            value=input_data
+                            if is_dict(input_data)
+                            else input_data.to_dict(),
+                        )
+                    )
 
         return data
