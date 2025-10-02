@@ -2,6 +2,7 @@
 description: >-
   Cette section présente l'enrichissement de certains procédés/hotspots afin de
   mieux prendre en compte les émissions de substances chimiques.
+hidden: true
 ---
 
 # 💦 Inventaires enrichis
