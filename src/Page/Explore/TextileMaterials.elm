@@ -18,13 +18,24 @@ import Views.Alert as Alert
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Link as Link
+import Data.Textile.Material exposing (Id)
 
-
-recycledToString : Maybe Material.Id -> String
+recycledToString : Maybe Id -> String
 recycledToString maybeMaterialID =
     maybeMaterialID
         |> Maybe.map (always "oui")
         |> Maybe.withDefault "non"
+
+
+getRecycledProcess : Material -> List Material -> Maybe Process.Process
+getRecycledProcess material materials =
+    material.recycledFrom
+        |> Maybe.andThen
+            (\materialId ->
+                Material.findById materialId materials
+                    |> Result.toMaybe
+                    |> Maybe.map .process
+            )
 
 
 table : Db -> { detailed : Bool, scope : Scope } -> Table Material String msg
@@ -52,16 +63,16 @@ table db { detailed, scope } =
                             [ code [] [ text (Material.idToString material.id) ] ]
           }
         , { label = "Nom"
-          , toValue = Table.StringValue <| .shortName
-          , toCell = .shortName >> text
+          , toValue = Table.StringValue <| .name
+          , toCell = .name >> text
           }
         , { label = "Procédé"
-          , toValue = Table.StringValue <| .materialProcess >> Process.getDisplayName
-          , toCell = .materialProcess >> Process.getDisplayName >> text
+          , toValue = Table.StringValue <| .process >> Process.getDisplayName
+          , toCell = .process >> Process.getDisplayName >> text
           }
         , { label = "Source"
-          , toValue = Table.StringValue <| .materialProcess >> .source
-          , toCell = .materialProcess >> .source >> text
+          , toValue = Table.StringValue <| .process >> .source
+          , toCell = .process >> .source >> text
           }
         , { label = "Origine"
           , toValue = Table.StringValue <| .origin >> Origin.toLabel
@@ -89,8 +100,8 @@ table db { detailed, scope } =
                     >> withPill Gitbook.TextileSpinning
           }
         , { label = "Procédé de recyclage"
-          , toValue = Table.StringValue <| .recycledProcess >> Maybe.map Process.getDisplayName >> Maybe.withDefault "N/A"
-          , toCell = .recycledProcess >> Maybe.map (Process.getDisplayName >> text) >> Maybe.withDefault (text "N/A")
+          , toValue = Table.StringValue <| \material -> getRecycledProcess material db.textile.materials |> Maybe.map Process.getDisplayName |> Maybe.withDefault "N/A"
+          , toCell = \material -> getRecycledProcess material db.textile.materials |> Maybe.map (Process.getDisplayName >> text) |> Maybe.withDefault (text "N/A")
           }
         , { label = "Origine géographique"
           , toValue = Table.StringValue .geographicOrigin

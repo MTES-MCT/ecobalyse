@@ -5,18 +5,27 @@ module TestUtils exposing
     , expectResultErrorContains
     , expectResultWithin
     , it
+    , jupeCotonAsie
     , suiteFromResult
     , suiteFromResult2
     , suiteFromResult3
     , suiteWithDb
+    , tShirtCotonFrance
     )
 
+import Data.Country as Country
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Trigrams)
 import Data.Process as Process
+import Data.Split as Split
+import Data.Textile.Fabric as Fabric
+import Data.Textile.Material as Material
+import Data.Textile.Product as Product
+import Data.Textile.Query as TextileQuery
 import Data.Unit as Unit
 import Expect exposing (Expectation, FloatingPointTolerance)
 import Json.Encode as Encode
+import Mass
 import Server.Request exposing (Request)
 import Static.Db as StaticDb exposing (Db)
 import Static.Json as StaticJson
@@ -124,3 +133,40 @@ createServerRequest dbs { method, protocol, host, url, version } body =
     , url = url
     , version = version
     }
+
+
+jupeCotonAsie : Result String TextileQuery.Query
+jupeCotonAsie =
+    let
+        default =
+            TextileQuery.default
+    in
+    Material.idFromString "457e9b0d-9eda-4dca-b199-deeb0a154fa9"
+        |> Result.map
+            (\id ->
+                { default
+                    | fabricProcess = Just Fabric.Weaving
+                    , mass = Mass.kilograms 0.3
+                    , product = Product.Id "jupe"
+                    , materials = [ TextileQuery.materialWithId id Split.full Nothing Nothing ]
+                }
+            )
+
+
+tShirtCotonFrance : Result String TextileQuery.Query
+tShirtCotonFrance =
+    let
+        default =
+            TextileQuery.default
+    in
+    Material.idFromString "62a4d6fb-3276-4ba5-93a3-889ecd3bff84"
+        |> Result.map
+            (\id ->
+                { default
+                    | countryDyeing = Just (Country.Code "FR")
+                    , countryFabric = Just (Country.Code "FR")
+                    , countryMaking = Just (Country.Code "FR")
+                    , countrySpinning = Just (Country.Code "FR")
+                    , materials = [ TextileQuery.materialWithId id Split.full Nothing Nothing ]
+                }
+            )
