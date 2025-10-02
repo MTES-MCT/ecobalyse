@@ -133,7 +133,7 @@ Deux paramètres, exprimés en %,  permettent de définir le taux de pollution a
 1\) le taux de raccordement (R) du site industriel à un centre de traitement des eaux usées,\
 2\) l'efficacité (E) du centre de traitement des eaux usées. &#x20;
 
-Le taux de taux pollution aquatique (P) d'un site industriel se calcul ainsi :&#x20;
+Le taux de taux pollution aquatique (P) d'un site industriel se calcule ainsi :&#x20;
 
 $$P = 1-(R*E)$$
 
@@ -162,6 +162,13 @@ Les principaux référentiels existants (ex : Base Impacts, Ecoinvent, PEFCR A\&
 Des paramètres additionnels permettent de préciser ce taux de pollution aquatique tels que la présence d'un centre de traitement des eaux usées sur le site industriel, la mise en place de boucles fermées permettant de limiter la quantité d'eaux usées relarguée dans l'environnement, etc. Cependant, le niveau de détails actuellement proposé est jugé suffisant. Ecobalyse permet un calcul de Niveau 1 tandis que le niveau de maîtrise de ces enjeux par les marques est faible. La précision de ces paramètres pourra être détaillée dans le cadre du Niveau 2 en cours de construction.
 
 </details>
+
+Le taux de pollution est à appliquer aux inventaires enrichis.&#x20;
+
+La formule est ainsi la suivante :\
+taux de pollution aquatique du pays x inventaires enrichis/ taux de pollution average
+
+`CoefImpactInventaireEnrichi= taux de pollution aquatique du pays x inventaires enrichis/ taux de pollution average`
 
 #### Approche time-integrated
 
