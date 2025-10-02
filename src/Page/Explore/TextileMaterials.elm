@@ -27,6 +27,17 @@ recycledToString maybeMaterialID =
         |> Maybe.withDefault "non"
 
 
+getRecycledProcess : Material -> List Material -> Maybe Process.Process
+getRecycledProcess material materials =
+    material.recycledFrom
+        |> Maybe.andThen
+            (\materialId ->
+                Material.findById materialId materials
+                    |> Result.toMaybe
+                    |> Maybe.map .process
+            )
+
+
 table : Db -> { detailed : Bool, scope : Scope } -> Table Material String msg
 table db { detailed, scope } =
     let
@@ -89,8 +100,8 @@ table db { detailed, scope } =
                     >> withPill Gitbook.TextileSpinning
           }
         , { label = "Procédé de recyclage"
-          , toValue = Table.StringValue <| .recycledProcess >> Maybe.map Process.getDisplayName >> Maybe.withDefault "N/A"
-          , toCell = .recycledProcess >> Maybe.map (Process.getDisplayName >> text) >> Maybe.withDefault (text "N/A")
+          , toValue = Table.StringValue <| \material -> getRecycledProcess material db.textile.materials |> Maybe.map Process.getDisplayName |> Maybe.withDefault "N/A"
+          , toCell = \material -> getRecycledProcess material db.textile.materials |> Maybe.map (Process.getDisplayName >> text) |> Maybe.withDefault (text "N/A")
           }
         , { label = "Origine géographique"
           , toValue = Table.StringValue .geographicOrigin
