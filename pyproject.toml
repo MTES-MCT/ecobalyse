@@ -61,6 +61,7 @@ extend-select = ["I"]
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
+filterwarnings = "ignore::DeprecationWarning:passlib"
 
 [tool.ruff]
 target-version = "py312"
