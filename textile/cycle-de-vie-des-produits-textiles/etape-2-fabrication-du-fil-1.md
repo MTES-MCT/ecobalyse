@@ -24,6 +24,8 @@ Les fibres discontinues sont de différentes **longueurs**, on distingue génér
 
 De plus, la filature permet de fabriquer des fils plus ou moins **gros.** Plus un fil est fin, plus le fil nécessite des fibres de bonne qualité - donc longues -. La filature d'un fil fin nécessite généralement une étape supplémentaire dans la préparation du fil : le peignage.
 
+A noter, les étapes spécifiques à la filature de lin fibre longue (peignage, préparation, filature au mouillé) ne sont pas encore prises en compte dans ecobalyse.
+
 En **synthèse**, les procédés de filature peuvent être appréhendés comme suit :&#x20;
 
 ![](<../../.gitbook/assets/Filature 2.png>)
