@@ -29,7 +29,7 @@ _Fibre production, jute, retting, RoW_
 1. Culture et récolte du lin,\
    (semis au printemps puis floraison en juin => récolte en juillet)
 2. Rouissage,\
-   (août-septembre ; peut durer entre 2 semaines et 3 mois selon les conditions climatiques / consiste à laisser le lin au sol afin de permettre la dissociation des parties fibreuses de la plante grâce à l'alternance de pluie et soleil)
+   Macération de la paille permettant de dégrader les pectines liant les fibres aux autres composants de la tige. En Europe (3/4 de la production mondiale), il s’agit exclusivement de rouissage à terre, qui s’effectue dans le champ grâce à l’alternance de pluie et de soleil. Le rouissage à l’eau, par immersion des pailles dans des cuves d’eau chauffée avec adjuvants, peut être employé dans d’autres continents.
 3. Teillage.\
    (consiste à extraire les fibres se trouvant dans l'enveloppe de la tige en battant les plantes)
 
