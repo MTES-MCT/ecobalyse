@@ -19,8 +19,9 @@ from advanced_alchemy.service import (
 )
 from advanced_alchemy.utils.dataclass import Empty, EmptyType
 from app.db import models as m
-from app.domain.components.schemas import (
-    Component,
+from app.domain.components.schemas import Component, ComponentElement
+from app.domain.processes.deps import (
+    provide_processes_service,
 )
 from sqlalchemy.orm import InstrumentedAttribute
 
@@ -168,6 +169,85 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
             ),
         )
 
+    async def _create_element(
+        self,
+        element: ModelDictT[ComponentElement],
+        component_id: str,
+        processes_service,
+    ):
+        element_dict = (
+            element.to_dict() if type(element) is ComponentElement else element
+        )
+        tranforms_ids = element_dict.pop("transforms", None)
+
+        element_dict["material_id"] = element_dict.pop("material")
+        element_dict["component_id"] = component_id
+        elt = m.Element(**element_dict)
+        self.repository.session.add(elt)
+
+        if tranforms_ids is not None and len(tranforms_ids):
+            elt.process_transforms.extend(
+                await processes_service.list(m.Process.id.in_(tranforms_ids))
+            )
+        else:
+            elt.process_transforms = []
+        return elt
+
+    async def _create_component(
+        self, data: ModelDictT[m.Component], processes_service, owner: m.User | None
+    ):
+        data["id"] = data.get("id", uuid4())
+        elements: list[ModelDictT[ComponentElement]] = data.pop("elements", [])
+
+        model_elements = []
+        for element in elements:
+            elt = await self._create_element(element, data["id"], processes_service)
+            model_elements.append(elt)
+
+        model = await super().to_model(data)
+        model.elements = model_elements
+
+        if owner:
+            value = self.to_schema(model, schema_type=Component)
+            owner.journal_entries.append(
+                m.JournalEntry(
+                    table_name=m.Component.__tablename__,
+                    record_id=model.id,
+                    action=m.JournalAction.CREATED,
+                    user=owner,
+                    value=value,
+                )
+            )
+        return model
+
+    async def _update_component(
+        self, data: ModelDictT[m.Component], processes_service, owner: m.User | None
+    ):
+        input_data = copy.deepcopy(data)
+
+        data["id"] = data.get("id", uuid4())
+        elements: list[ComponentElement] = data.pop("elements", [])
+
+        model = await self.repository.get(item_id=data["id"])
+        model.elements = []
+
+        for element in elements:
+            await self._create_element(element, data["id"], processes_service)
+
+        model = await super().to_model(data)
+
+        if owner:
+            owner.journal_entries.append(
+                m.JournalEntry(
+                    table_name=m.Component.__tablename__,
+                    record_id=model.id,
+                    action=m.JournalAction.UPDATED,
+                    user=owner,
+                    value=input_data if is_dict(input_data) else input_data.to_dict(),
+                )
+            )
+        return model
+
     async def _populate_with_journaling(
         self,
         data: ModelDictT[m.Component],
@@ -176,45 +256,25 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
         has_id = data.get("id") is not None
 
         owner: m.User | None = data.pop("owner", None)
-        input_data = copy.deepcopy(data)
+
+        processes_service = await anext(
+            provide_processes_service(self.repository.session)
+        )
 
         if (
             operation == "create"
             and is_dict(data)
             or (operation == "upsert" and not has_id)
         ):
-            data["id"] = data.get("id", uuid4())
-
-            data = await super().to_model(data)
-
-            if owner:
-                owner.journal_entries.append(
-                    m.JournalEntry(
-                        table_name=m.Component.__tablename__,
-                        record_id=data.id,
-                        action=m.JournalAction.CREATED,
-                        user=owner,
-                        value=self.to_schema(data, schema_type=Component),
-                    )
-                )
+            with self.repository.session.no_autoflush:
+                return await self._create_component(data, processes_service, owner)
 
         if (
             operation == "update"
             and is_dict(data)
             or (operation == "upsert" and has_id)
         ):
-            data = await super().to_model(data)
-            if owner:
-                owner.journal_entries.append(
-                    m.JournalEntry(
-                        table_name=m.Component.__tablename__,
-                        record_id=data.id,
-                        action=m.JournalAction.UPDATED,
-                        user=owner,
-                        value=input_data
-                        if is_dict(input_data)
-                        else input_data.to_dict(),
-                    )
-                )
+            with self.repository.session.no_autoflush:
+                return await self._update_component(data, processes_service, owner)
 
         return data
