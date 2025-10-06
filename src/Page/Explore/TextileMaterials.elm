@@ -6,7 +6,7 @@ import Data.Gitbook as Gitbook
 import Data.Process as Process
 import Data.Scope exposing (Scope)
 import Data.Split as Split
-import Data.Textile.Material as Material exposing (Material)
+import Data.Textile.Material as Material exposing (Id, Material)
 import Data.Textile.Material.Origin as Origin
 import Data.Unit as Unit
 import Html exposing (..)
@@ -18,7 +18,7 @@ import Views.Alert as Alert
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Link as Link
-import Data.Textile.Material exposing (Id)
+
 
 recycledToString : Maybe Id -> String
 recycledToString maybeMaterialID =
@@ -27,12 +27,12 @@ recycledToString maybeMaterialID =
         |> Maybe.withDefault "non"
 
 
-getRecycledProcess : Material -> List Material -> Maybe Process.Process
-getRecycledProcess material materials =
+getRecycledProcess : List Material -> Material -> Maybe Process.Process
+getRecycledProcess materials material =
     material.recycledFrom
         |> Maybe.andThen
-            (\materialId ->
-                Material.findById materialId materials
+            (\id ->
+                Material.findById id materials
                     |> Result.toMaybe
                     |> Maybe.map .process
             )
@@ -100,8 +100,8 @@ table db { detailed, scope } =
                     >> withPill Gitbook.TextileSpinning
           }
         , { label = "Procédé de recyclage"
-          , toValue = Table.StringValue <| \material -> getRecycledProcess material db.textile.materials |> Maybe.map Process.getDisplayName |> Maybe.withDefault "N/A"
-          , toCell = \material -> getRecycledProcess material db.textile.materials |> Maybe.map (Process.getDisplayName >> text) |> Maybe.withDefault (text "N/A")
+          , toValue = Table.StringValue <| getRecycledProcess db.textile.materials >> Maybe.map Process.getDisplayName >> Maybe.withDefault "N/A"
+          , toCell = getRecycledProcess db.textile.materials >> Maybe.map (Process.getDisplayName >> text) >> Maybe.withDefault (text "N/A")
           }
         , { label = "Origine géographique"
           , toValue = Table.StringValue .geographicOrigin

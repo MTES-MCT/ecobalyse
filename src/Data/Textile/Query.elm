@@ -10,7 +10,6 @@ module Data.Textile.Query exposing
     , encode
     , handleUpcycling
     , isAdvancedQuery
-    , materialWithId
     , parseBase64Query
     , regulatory
     , removeMaterial
@@ -54,14 +53,6 @@ type alias MaterialQuery =
     , spinning : Maybe Spinning
     }
 
-
-materialWithId : Material.Id -> Split -> Maybe Spinning -> Maybe Country.Code -> MaterialQuery
-materialWithId id share spinning country =
-    { country = country
-    , id = id
-    , share = share
-    , spinning = spinning
-    }
 
 
 type alias Query =

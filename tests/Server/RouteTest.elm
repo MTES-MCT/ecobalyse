@@ -8,7 +8,7 @@ import Data.Food.Query as FoodQuery
 import Data.Split as Split
 import Data.Textile.Material as Material
 import Data.Textile.Product as Product
-import Data.Textile.Query as TextileQuery exposing (materialWithId)
+import Data.Textile.Query as TextileQuery
 import Data.Unit as Unit
 import Dict
 import Expect
@@ -112,7 +112,8 @@ foodEndpoints db =
 textileEndpoints : StaticDb.Db -> List Test
 textileEndpoints db =
     [ describe "POST endpoints"
-        [ suiteFromResult "should map the POST /textile/simulator endpoint with the body parsed as a valid query" tShirtCotonFrance
+        [ suiteFromResult "should map the POST /textile/simulator endpoint with the body parsed as a valid query"
+            tShirtCotonFrance
             (\query ->
                 [ TextileQuery.encode query
                     |> testTextileEndpoint db
@@ -124,7 +125,8 @@ textileEndpoints db =
             |> testTextileEndpoint db
             |> expectTextileValidationError "decoding" "Expecting an OBJECT with a field named `product`"
             |> asTest "map the POST /textile/simulator endpoint with an error when json body is invalid"
-        , suiteFromResult "should reject invalid product" tShirtCotonFrance
+        , suiteFromResult "should reject invalid product"
+            tShirtCotonFrance
             (\query ->
                 [ TextileQuery.encode
                     { query
@@ -135,7 +137,8 @@ textileEndpoints db =
                     |> asTest "reject invalid product"
                 ]
             )
-        , suiteFromResult "should reject invalid surfaceMass" tShirtCotonFrance
+        , suiteFromResult "should reject invalid surfaceMass"
+            tShirtCotonFrance
             (\query ->
                 [ TextileQuery.encode
                     { query
@@ -147,7 +150,8 @@ textileEndpoints db =
                     |> asTest "reject invalid surfaceMass"
                 ]
             )
-        , suiteFromResult "should reject invalid physicalDurability" tShirtCotonFrance
+        , suiteFromResult "should reject invalid physicalDurability"
+            tShirtCotonFrance
             (\query ->
                 [ TextileQuery.encode
                     { query
@@ -159,7 +163,8 @@ textileEndpoints db =
                     |> asTest "reject invalid physicalDurability"
                 ]
             )
-        , suiteFromResult "should reject invalid spinning country" tShirtCotonFrance
+        , suiteFromResult "should reject invalid spinning country"
+            tShirtCotonFrance
             (\query ->
                 [ TextileQuery.encode
                     { query
@@ -178,7 +183,12 @@ textileEndpoints db =
                 [ TextileQuery.encode
                     { query
                         | materials =
-                            [ materialWithId decodedId Split.full Nothing (Just (Country.Code "invalid")) ]
+                            [ { id = decodedId
+                              , share = Split.full
+                              , spinning = Nothing
+                              , country = Just (Country.Code "invalid")
+                              }
+                            ]
                     }
                     |> testTextileEndpoint db
                     |> expectTextileValidationError "materials" "Code pays invalide: invalid."
@@ -187,7 +197,8 @@ textileEndpoints db =
             )
         ]
     , describe "materials param checks"
-        [ suiteFromResult "should validate empty material list" tShirtCotonFrance
+        [ suiteFromResult "should validate empty material list"
+            tShirtCotonFrance
             (\query ->
                 [ TextileQuery.encode
                     { query
@@ -206,7 +217,12 @@ textileEndpoints db =
                 [ TextileQuery.encode
                     { query
                         | materials =
-                            [ materialWithId decodedId Split.full Nothing Nothing ]
+                            [ { id = decodedId
+                              , share = Split.full
+                              , spinning = Nothing
+                              , country = Nothing
+                              }
+                            ]
                     }
                     |> testTextileEndpoint db
                     |> expectTextileValidationError "materials" "Matière non trouvée id=1c686e00-6db8-469e-8d7f-3864bd3238bd."
@@ -221,14 +237,20 @@ textileEndpoints db =
                 [ TextileQuery.encode
                     { query
                         | materials =
-                            [ materialWithId decodedId Split.full Nothing (Just (Country.Code "NotACountryCode")) ]
+                            [ { id = decodedId
+                              , share = Split.full
+                              , spinning = Nothing
+                              , country = Just (Country.Code "NotACountryCode")
+                              }
+                            ]
                     }
                     |> testTextileEndpoint db
                     |> expectTextileValidationError "materials" "Code pays invalide: NotACountryCode."
                     |> asTest "validate a material country code"
                 ]
             )
-        , suiteFromResult "should validate that an ingredient country scope is valid" tShirtCotonFrance
+        , suiteFromResult "should validate that an ingredient country scope is valid"
+            tShirtCotonFrance
             (\query ->
                 [ TextileQuery.encode
                     { query
@@ -239,7 +261,8 @@ textileEndpoints db =
                     |> asTest "validate that an ingredient country scope is valid"
                 ]
             )
-        , suiteFromResult "should validate that a trim item id is valid" tShirtCotonFrance
+        , suiteFromResult "should validate that a trim item id is valid"
+            tShirtCotonFrance
             (\query ->
                 [ asTest "validate that a trim item id is valid" <|
                     -- Note: this component UUID doesn't exist
@@ -256,7 +279,8 @@ textileEndpoints db =
                             Expect.fail err
                 ]
             )
-        , suiteFromResult "should validate that a trim item quantity is a positive integer" tShirtCotonFrance
+        , suiteFromResult "should validate that a trim item quantity is a positive integer"
+            tShirtCotonFrance
             (\query ->
                 [ asTest "validate that a trim item quantity is a positive integer" <|
                     case Component.idFromString "0e8ea799-9b06-490c-a925-37564746c454" of

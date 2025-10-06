@@ -5,7 +5,7 @@ import Data.Split as Split
 import Data.Textile.Inputs as Inputs
 import Data.Textile.MakingComplexity as MakingComplexity
 import Data.Textile.Material as Material
-import Data.Textile.Query as Query exposing (Query, materialWithId)
+import Data.Textile.Query as Query exposing (Query)
 import Data.Textile.Step.Label as Label
 import Expect
 import Test exposing (..)
@@ -17,7 +17,13 @@ sampleQuery =
     Result.map2
         (\polyesterId jupe ->
             { jupe
-                | materials = [ materialWithId polyesterId Split.full Nothing (Just (Country.Code "CN")) ]
+                | materials =
+                    [ { id = polyesterId
+                      , share = Split.full
+                      , spinning = Nothing
+                      , country = Just (Country.Code "CN")
+                      }
+                    ]
             }
         )
         (Material.idFromString "9dba0e95-0c35-4f8b-9267-62ddf47d4984")
@@ -102,7 +108,12 @@ suite =
                 , suiteFromResult "should validate the sum of an incomplete list of materials"
                     (Material.idFromString "62a4d6fb-3276-4ba5-93a3-889ecd3bff84")
                     (\id ->
-                        [ [ materialWithId id Split.tenth Nothing Nothing ]
+                        [ [ { id = id
+                            , share = Split.tenth
+                            , spinning = Nothing
+                            , country = Nothing
+                            }
+                          ]
                             |> Query.validateMaterials
                             |> Expect.err
                             |> asTest "validates sum of an incomplete list of materials"
@@ -112,9 +123,17 @@ suite =
                     (Material.idFromString "62a4d6fb-3276-4ba5-93a3-889ecd3bff84")
                     (Material.idFromString "73ef624d-250e-4a9a-af5d-43505b21b527")
                     (\cottonId syntheticId ->
-                        [ [ materialWithId cottonId Split.half Nothing Nothing
-                          , materialWithId syntheticId Split.half Nothing Nothing
-                          ]
+                        [ [ { id = cottonId
+                                  , share = Split.half
+                                  , spinning = Nothing
+                                  , country = Nothing
+                                  }
+                                , { id = syntheticId
+                                  , share = Split.half
+                                  , spinning = Nothing
+                                  , country = Nothing
+                                  }
+                                ]
                             |> Query.validateMaterials
                             |> Expect.ok
                             |> asTest "validates complete sum of materials"
@@ -126,10 +145,22 @@ suite =
                     (Material.idFromString "73ef624d-250e-4a9a-af5d-43505b21b527")
                     (Material.idFromString "62a4d6fb-3276-4ba5-93a3-889ecd3bff84")
                     (\polyesterId polypropyleneId cottonId ->
-                        [ [ materialWithId polyesterId Split.sixty Nothing Nothing
-                          , materialWithId polypropyleneId Split.thirty Nothing Nothing
-                          , materialWithId cottonId Split.tenth Nothing Nothing
-                          ]
+                        [ [ { id = polyesterId
+                                  , share = Split.sixty
+                                  , spinning = Nothing
+                                  , country = Nothing
+                                  }
+                                , { id = polypropyleneId
+                                  , share = Split.thirty
+                                  , spinning = Nothing
+                                  , country = Nothing
+                                  }
+                                  , { id = cottonId
+                                  , share = Split.tenth
+                                  , spinning = Nothing
+                                  , country = Nothing
+                                  }
+                                ]
                             |> Query.validateMaterials
                             |> Expect.ok
                             |> asTest "validates complete sum of materials with rounding error"

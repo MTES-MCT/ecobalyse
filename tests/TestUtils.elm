@@ -135,38 +135,49 @@ createServerRequest dbs { method, protocol, host, url, version } body =
     }
 
 
-jupeCotonAsie : Result String TextileQuery.Query
-jupeCotonAsie =
+textileQueryFromMaterialId : String -> Result String TextileQuery.Query
+textileQueryFromMaterialId id =
     let
         default =
             TextileQuery.default
     in
-    Material.idFromString "457e9b0d-9eda-4dca-b199-deeb0a154fa9"
+    Material.idFromString id
         |> Result.map
-            (\id ->
+            (\id_ ->
                 { default
+                    | materials =
+                        [ { id = id_
+                          , share = Split.full
+                          , spinning = Nothing
+                          , country = Nothing
+                          }
+                        ]
+                }
+            )
+
+
+jupeCotonAsie : Result String TextileQuery.Query
+jupeCotonAsie =
+    textileQueryFromMaterialId "457e9b0d-9eda-4dca-b199-deeb0a154fa9"
+        |> Result.map
+            (\query ->
+                { query
                     | fabricProcess = Just Fabric.Weaving
                     , mass = Mass.kilograms 0.3
                     , product = Product.Id "jupe"
-                    , materials = [ TextileQuery.materialWithId id Split.full Nothing Nothing ]
                 }
             )
 
 
 tShirtCotonFrance : Result String TextileQuery.Query
 tShirtCotonFrance =
-    let
-        default =
-            TextileQuery.default
-    in
-    Material.idFromString "62a4d6fb-3276-4ba5-93a3-889ecd3bff84"
+    textileQueryFromMaterialId "62a4d6fb-3276-4ba5-93a3-889ecd3bff84"
         |> Result.map
-            (\id ->
-                { default
+            (\query ->
+                { query
                     | countryDyeing = Just (Country.Code "FR")
                     , countryFabric = Just (Country.Code "FR")
                     , countryMaking = Just (Country.Code "FR")
                     , countrySpinning = Just (Country.Code "FR")
-                    , materials = [ TextileQuery.materialWithId id Split.full Nothing Nothing ]
                 }
             )
