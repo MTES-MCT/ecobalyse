@@ -40,7 +40,7 @@ async def test_processes_journal(
         json_response = response.json()
         assert response.status_code == 200
 
-        assert len(json_response) == 1
+        assert len(json_response) == 8
 
         response = await client.get(
             "/api/journal/process", headers=superuser_token_headers
@@ -182,7 +182,7 @@ async def test_components_journal(
         )
         assert (
             len([entry for entry in entries if entry.action == m.JournalAction.CREATED])
-            == 1
+            == 8
         )
 
         # Ensure that we have entries with different users
@@ -194,13 +194,13 @@ async def test_components_journal(
         assert response.status_code == 204
 
         entries = await journal_entries_service.list()
-        assert len(entries) == 9
+        assert len(entries) == 16
 
         response = await client.get("/api/journal", headers=superuser_token_headers)
         json_response = response.json()
         assert response.status_code == 200
 
-        assert len(json_response) == 9
+        assert len(json_response) == 16
 
         response = await client.get(
             "/api/journal/component", headers=superuser_token_headers
@@ -208,7 +208,7 @@ async def test_components_journal(
         json_response = response.json()
         assert response.status_code == 200
 
-        assert len(json_response) == 9
+        assert len(json_response) == 16
 
         response = await client.get(
             "/api/journal/unknown", headers=superuser_token_headers
@@ -225,7 +225,7 @@ async def test_components_journal(
         json_response = response.json()
         assert response.status_code == 200
 
-        assert len(json_response) == 2
+        assert len(json_response) == 3
 
         assert json_response[0]["action"] == m.JournalAction.DELETED
         assert json_response[1]["action"] == m.JournalAction.UPDATED

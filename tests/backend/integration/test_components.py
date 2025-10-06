@@ -40,8 +40,8 @@ async def test_components_create(
 
     async with JournalEntryService.new(session) as journal_entries_service:
         entries = await journal_entries_service.list()
-        assert len(entries) == 1
-        entry = entries[0]
+        assert len(entries) == 8
+        entry = entries[7]
         assert entry.action == m.JournalAction.CREATED
         json["elements"][0]["transforms"] = []
         assert entry.value == json
@@ -71,8 +71,8 @@ async def test_components_create_with_scopes(
 
     async with JournalEntryService.new(session) as journal_entries_service:
         entries = await journal_entries_service.list()
-        assert len(entries) == 1
-        entry = entries[0]
+        assert len(entries) == 8
+        entry = entries[7]
         assert entry.action == m.JournalAction.CREATED
         assert entry.table_name == m.Component.__tablename__
 
@@ -221,8 +221,8 @@ async def test_components_update(
         )
 
         entries = await journal_entries_service.list()
-        assert len(entries) == 2
-        entry = entries[0]
+        assert len(entries) == 9
+        entry = entries[7]
         assert entry.action == m.JournalAction.UPDATED
         assert jsonp.dumps(entry.value) == jsonp.dumps(
             {
@@ -251,8 +251,8 @@ async def test_components_update(
         assert json["elements"] == []
 
         entries = await journal_entries_service.list()
-        assert len(entries) == 3
-        entry = entries[2]
+        assert len(entries) == 10
+        entry = entries[9]
         assert entry.action == m.JournalAction.UPDATED
         assert entry.value == {
             "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
@@ -266,7 +266,7 @@ async def test_components_update(
         )
 
         entries = await journal_entries_service.list()
-        assert len(entries) == 3
+        assert len(entries) == 10
 
         assert response.status_code == 400
 
@@ -285,7 +285,7 @@ async def test_components_delete(
         assert response.status_code == 403
 
         entries = await journal_entries_service.list()
-        assert len(entries) == 0
+        assert len(entries) == 7
 
         response = await client.delete(
             "/api/components/8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
@@ -294,8 +294,8 @@ async def test_components_delete(
         assert response.status_code == 204
 
         entries = await journal_entries_service.list()
-        assert len(entries) == 1
-        assert entries[0].action == "deleted"
+        assert len(entries) == 8
+        assert entries[7].action == "deleted"
 
         response = await client.get(
             "/api/components",
