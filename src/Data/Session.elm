@@ -63,7 +63,6 @@ type alias Session =
     , currentVersion : Version
     , db : Db
     , enabledSections : EnabledSections
-    , matomo : { host : String, siteId : String }
     , navKey : Nav.Key
     , notifications : List Notification
     , queries : Queries
