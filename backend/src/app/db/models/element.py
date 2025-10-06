@@ -54,3 +54,6 @@ class Element(UUIDAuditBase):
         transforms = [transform.id for transform in self.process_transforms]
 
         return transforms
+
+    def __repr__(self) -> str:
+        return f"Element(id={self.id!r}, amount={self.amount!r}, material_id={self.material_id!r}, component_id={self.component_id!r}, transforms={self.transforms!r})"
