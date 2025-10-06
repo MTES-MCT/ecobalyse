@@ -47,3 +47,6 @@ class Component(UUIDAuditBase):
         uselist=True,
         cascade="all, delete-orphan",
     )
+
+    def __repr__(self) -> str:
+        return f"Component(id={self.id!r}, name={self.name!r}, comment={self.comment!r}, scopes={self.scopes!r}, elements={self.elements!r})"

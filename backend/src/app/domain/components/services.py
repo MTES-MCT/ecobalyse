@@ -182,15 +182,14 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
 
         element_dict["material_id"] = element_dict.pop("material")
         element_dict["component_id"] = component_id
+
         elt = m.Element(**element_dict)
-        self.repository.session.add(elt)
 
         if tranforms_ids is not None and len(tranforms_ids):
             elt.process_transforms.extend(
                 await processes_service.list(m.Process.id.in_(tranforms_ids))
             )
-        else:
-            elt.process_transforms = []
+
         return elt
 
     async def _create_component(
@@ -199,13 +198,10 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
         data["id"] = data.get("id", uuid4())
         elements: list[ModelDictT[ComponentElement]] = data.pop("elements", [])
 
-        model_elements = []
+        model = await super().to_model(data)
         for element in elements:
             elt = await self._create_element(element, data["id"], processes_service)
-            model_elements.append(elt)
-
-        model = await super().to_model(data)
-        model.elements = model_elements
+            model.elements.append(elt)
 
         if owner:
             value = self.to_schema(model, schema_type=Component)
@@ -232,7 +228,8 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
         model.elements = []
 
         for element in elements:
-            await self._create_element(element, data["id"], processes_service)
+            elt = await self._create_element(element, model, processes_service)
+            model.elements.append(elt)
 
         model = await super().to_model(data)
 
@@ -261,20 +258,19 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
             provide_processes_service(self.repository.session)
         )
 
-        if (
-            operation == "create"
-            and is_dict(data)
-            or (operation == "upsert" and not has_id)
-        ):
-            with self.repository.session.no_autoflush:
+        with self.repository.session.no_autoflush:
+            if (
+                operation == "create"
+                and is_dict(data)
+                or (operation == "upsert" and not has_id)
+            ):
                 return await self._create_component(data, processes_service, owner)
 
-        if (
-            operation == "update"
-            and is_dict(data)
-            or (operation == "upsert" and has_id)
-        ):
-            with self.repository.session.no_autoflush:
+            if (
+                operation == "update"
+                and is_dict(data)
+                or (operation == "upsert" and has_id)
+            ):
                 return await self._update_component(data, processes_service, owner)
 
         return data
