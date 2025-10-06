@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import copy
 from collections.abc import Sequence
-from typing import Any, Optional, Union, cast
+from typing import TYPE_CHECKING, Any, Optional, Union, cast
 from uuid import uuid4
 
 from advanced_alchemy.exceptions import ErrorMessages
@@ -24,6 +24,9 @@ from app.domain.processes.deps import (
     provide_processes_service,
 )
 from sqlalchemy.orm import InstrumentedAttribute
+
+if TYPE_CHECKING:
+    from uuid import UUID
 
 __all__ = ("ComponentService",)
 
@@ -193,7 +196,7 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
         return elt
 
     async def _create_component(
-        self, data: ModelDictT[m.Component], processes_service, owner: m.User | None
+        self, data: ModelDictT[m.Component], processes_service, owner_id: UUID
     ):
         data["id"] = data.get("id", uuid4())
         elements: list[ModelDictT[ComponentElement]] = data.pop("elements", [])
@@ -203,21 +206,23 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
             elt = await self._create_element(element, data["id"], processes_service)
             model.elements.append(elt)
 
-        if owner:
-            value = self.to_schema(model, schema_type=Component)
-            owner.journal_entries.append(
-                m.JournalEntry(
-                    table_name=m.Component.__tablename__,
-                    record_id=model.id,
-                    action=m.JournalAction.CREATED,
-                    user=owner,
-                    value=value,
-                )
+        assert owner_id
+
+        value = self.to_schema(model, schema_type=Component)
+        self.repository.session.add(
+            m.JournalEntry(
+                table_name=m.Component.__tablename__,
+                record_id=model.id,
+                action=m.JournalAction.CREATED,
+                user_id=owner_id,
+                value=value,
             )
+        )
+
         return model
 
     async def _update_component(
-        self, data: ModelDictT[m.Component], processes_service, owner: m.User | None
+        self, data: ModelDictT[m.Component], processes_service, owner_id: UUID
     ):
         input_data = copy.deepcopy(data)
 
@@ -233,16 +238,17 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
 
         model = await super().to_model(data)
 
-        if owner:
-            owner.journal_entries.append(
-                m.JournalEntry(
-                    table_name=m.Component.__tablename__,
-                    record_id=model.id,
-                    action=m.JournalAction.UPDATED,
-                    user=owner,
-                    value=input_data if is_dict(input_data) else input_data.to_dict(),
-                )
-            )
+        assert owner_id
+
+        entry = m.JournalEntry(
+            table_name=m.Component.__tablename__,
+            record_id=model.id,
+            action=m.JournalAction.UPDATED,
+            user_id=owner_id,
+            value=input_data if is_dict(input_data) else input_data.to_dict(),
+        )
+        self.repository.session.add(entry)
+
         return model
 
     async def _populate_with_journaling(
@@ -253,6 +259,7 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
         has_id = data.get("id") is not None
 
         owner: m.User | None = data.pop("owner", None)
+        owner_id: UUID | None = data.pop("owner_id", None)
 
         processes_service = await anext(
             provide_processes_service(self.repository.session)
@@ -264,13 +271,17 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
                 and is_dict(data)
                 or (operation == "upsert" and not has_id)
             ):
-                return await self._create_component(data, processes_service, owner)
+                return await self._create_component(
+                    data, processes_service, owner.id if owner else owner_id
+                )
 
             if (
                 operation == "update"
                 and is_dict(data)
                 or (operation == "upsert" and has_id)
             ):
-                return await self._update_component(data, processes_service, owner)
+                return await self._update_component(
+                    data, processes_service, owner.id if owner else owner_id
+                )
 
         return data

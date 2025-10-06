@@ -154,21 +154,39 @@ def fx_raw_components() -> list[Component | dict[str, Any]]:
         {
             "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
             "name": "Pied 70 cm (plein bois)",
+            "owner_id": "97108ac1-ffcb-411d-8b1e-d9183399f63b",
+            "scopes": [],
         },
         {
             "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973",
             "name": "Dossier plastique (PP)",
+            "owner_id": "97108ac1-ffcb-411d-8b1e-d9183399f63b",
+            "scopes": [],
         },
-        {"id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "name": "Assise plastique (PP)"},
+        {
+            "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6",
+            "name": "Assise plastique (PP)",
+            "scopes": [],
+            "owner_id": "97108ac1-ffcb-411d-8b1e-d9183399f63b",
+        },
         {
             "id": "6f8d1621-324a-4c00-abe3-f90813d878d2",
             "name": "Pied 90 cm (plein bois)",
+            "owner_id": "97108ac1-ffcb-411d-8b1e-d9183399f63b",
+            "scopes": [],
         },
         {
             "id": "3d1ba21f-a139-4e1f-8192-082327ad855e",
             "name": "Plateau 200x100 (chêne)",
+            "owner_id": "97108ac1-ffcb-411d-8b1e-d9183399f63b",
+            "scopes": [],
         },
-        {"id": "190276e9-5b90-42d6-8fbd-bc7ddfd4c960", "name": "Cadre plastique"},
+        {
+            "id": "190276e9-5b90-42d6-8fbd-bc7ddfd4c960",
+            "name": "Cadre plastique",
+            "owner_id": "97108ac1-ffcb-411d-8b1e-d9183399f63b",
+            "scopes": [],
+        },
         {
             "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
             "name": "Tissu pour canapé",
@@ -180,6 +198,7 @@ def fx_raw_components() -> list[Component | dict[str, Any]]:
                     "transforms": ["d25636af-ab36-4857-a6d0-c66d1e7a281b"],
                 }
             ],
+            "owner_id": "97108ac1-ffcb-411d-8b1e-d9183399f63b",
         },
     ]
 
