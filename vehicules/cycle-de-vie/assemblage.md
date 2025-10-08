@@ -4,18 +4,13 @@ hidden: true
 
 # 🪛 Assemblage
 
+## Contexte
+
 L'assemblage des véhicules par les constructeurs nécessite de l'énergie.
-
-## Consommation d'énergie
-
-Cette énergie est fixée dans Ecobalyse à :&#x20;
-
-* 1 kWh d'électricité par kg de véhicule
-* 3 MJ de chaleur par kg de véhicule
 
 <details>
 
-<summary>Sources</summary>
+<summary>Publications relatives à la consommation d'énergie pour l'assemblage de véhicules</summary>
 
 * Sato, F. E. K., & Nakata, T. (2020). [Energy Consumption Analysis for Vehicle Production through a Material Flow Approach](https://doi.org/10.3390/en13092396). _Energies_, _13_(9), 2396 :&#x20;
   * données de l'étude : consommation d'énergie de 41.8MJ/kg, dont 13% pour l'assemblage
@@ -31,6 +26,17 @@ Cette énergie est fixée dans Ecobalyse à :&#x20;
 
 </details>
 
+## Méthode de calcul
+
+{% embed url="https://fabrique-numerique.gitbook.io/ecobalyse/~/revisions/GoOQOxssr5oxJOdJn2nn/methodes-transverses-specifiques/energies-des-etapes-de-transformation" %}
+
+## Paramètres retenus pour Consommation d'énergie
+
+La consommation d'énergie pour l'assemblage d'1kg de véhicule est fixée comme suit :&#x20;
+
+* E\_électricité = 1 kWh d'électricité par kg de véhicule
+* E\_chaleur = 3 MJ de chaleur par kg de véhicule
+
 ## Modélisation dans Ecobalyse
 
-Voir documentation transversale relative à l'électricité et à la chaleur.&#x20;
+Voir documentation transversale relative à la consommation d'énergie dans les étapes de transformation.&#x20;
