@@ -30,13 +30,13 @@ L'assemblage des véhicules par les constructeurs nécessite de l'énergie.
 
 {% embed url="https://fabrique-numerique.gitbook.io/ecobalyse/~/revisions/GoOQOxssr5oxJOdJn2nn/methodes-transverses-specifiques/energies-des-etapes-de-transformation" %}
 
-## Paramètres retenus pour Consommation d'énergie
+## Paramètres retenus pour le coût environnemental
 
 La consommation d'énergie pour l'assemblage d'1kg de véhicule est fixée comme suit :&#x20;
 
 * E\_électricité = 1 kWh d'électricité par kg de véhicule
 * E\_chaleur = 3 MJ de chaleur par kg de véhicule
 
-## Modélisation dans Ecobalyse
+## Procédés utilisés pour le coût environnemental <a href="#procedes-utilises-pour-le-cout-environnemental" id="procedes-utilises-pour-le-cout-environnemental"></a>
 
-Voir documentation transversale relative à la consommation d'énergie dans les étapes de transformation.&#x20;
+Voir [documentation transversale relative à la consommation d'énergie dans les étapes de transformation](https://fabrique-numerique.gitbook.io/ecobalyse/~/revisions/GoOQOxssr5oxJOdJn2nn/methodes-transverses-specifiques/energies-des-etapes-de-transformation).&#x20;
