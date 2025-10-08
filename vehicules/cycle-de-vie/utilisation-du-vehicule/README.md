@@ -52,19 +52,19 @@ Les émissions locales maximales des véhicules sont fixées par les normes euro
 
 Ces normes incluent les émissions liées à la combustion des carburants, mais aussi les émissions par l'usure des pneus et des plaquettes de frein.
 
-Les impacts de ces émissions en termes de santé humaine dans les villes sont mal pris en compte dans les méthodes d'Analyse de Cycle de vie, qui prennent en compte l'impact à l'échelle globale.
+Les impacts de ces émissions en termes de santé humaine dans les villes sont plutôt faiblement pris en compte dans les méthodes d'Analyse de Cycle de vie, qui prennent en compte l'impact à l'échelle globale.
 
 ## Méthodes de calcul
 
-### Périmètre retenu
+{% hint style="info" %}
+La première version d'Ecobalyse ne comprend que des exemples de véhicules électriques.
+{% endhint %}
 
-La première version d'Ecobalyse ne couvre que les véhicules électriques.
+{% hint style="info" %}
+L'impact des émissions locales en terme de santé humaine pourrait faire l'objet d'un complément hors ACV dans le futur (travaux en cours)
+{% endhint %}
 
-Les impacts des émissions locales en terme de santé humaine ne sont pas pris en compte à ce jour.
-
-### Calcul du coût environnemental
-
-Le coût environnemental de la consommation d'énergie se calcule comme suit :
+Le coût environnemental associé à la consommation d'énergie se calcule comme suit :
 
 $$
 I_{energie} = 100*D_{vie}*\sum_{0<i<n}C_i*I_i
@@ -95,18 +95,16 @@ Avec :&#x20;
 
 ## Paramètres retenus pour le coût environnemental
 
-### Paramètres précisés par l'utilisateur
+Les paramètres sont renseignés par l'utilisateur :&#x20;
 
-L'utilisateur renseigne les informations suivantes :&#x20;
-
-* Consommation du véhicule selon le cycle WMTC ou la procédure WLTP (kWh/100km ou L/100km)
-* Durée de vie du véhicule (en années)
-* Kilométrage annuel (en km/an)
+* Consommation du véhicule `C_i` selon le cycle WMTC ou la procédure WLTP (kWh/100km ou L/100km)
+* Durée de vie du véhicule `T_vie` (en années)
+* Kilométrage annuel `D_an` (en km/an)
 
 {% hint style="info" %}
-A ce stade la modélisation n'inclut pas de correction de la consommation sur le cycle de référence pour être plus représentative de la consommation réelle.
+A ce stade la modélisation n'inclut pas de correction de la consommation sur le cycle de référence. Une telle correction est prévue, au moins pour les véhicules hybrides rechargeables, afin d'être représentatif de la consommation réelle.
 {% endhint %}
 
-### Procédés utilisés pour chaque énergie
+## Procédés utilisés pour le coût environnemental
 
 Les procédés sont décrits dans l'Explorateur Ecobalyse.
