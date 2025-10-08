@@ -28,8 +28,8 @@ Voir page dédiée :
 
 ## Paramètres retenus pour le coût environnemental
 
-Les poids des composants et des matériaux qui les composent sont précisés dans l'<mark style="color:red;">Explorateur de composants</mark>, et expliqués dans la page [Exemple](https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/exemples).
+Les poids des composants et des matériaux qui les composent sont précisés dans l'[Explorateur de composants](https://ecobalyse.beta.gouv.fr/#/explore/veli/veli-components), et expliqués dans la page [Exemple](https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/exemples).
 
 ## Procédés utilisés pour le coût environnemental
 
-Les procédés utilisés sont identifiés dans l'<mark style="color:red;">Explorateur de composants</mark> et l'<mark style="color:red;">Explorateur de procédés</mark>.
+Les procédés utilisés sont identifiés dans l'[Explorateur de composants](https://ecobalyse.beta.gouv.fr/#/explore/veli/veli-components) et l'[Explorateur de procédés.](https://ecobalyse.beta.gouv.fr/#/explore/veli/veli-processes)
