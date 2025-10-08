@@ -98,8 +98,16 @@ Avec :&#x20;
 Les paramètres sont renseignés par l'utilisateur :&#x20;
 
 * Consommation du véhicule `C_i` selon le cycle WMTC ou la procédure WLTP (kWh/100km ou L/100km)
+* Durée de vie du véhicule `D_vie` , en km
+
+{% hint style="info" %}
+Dans un second temps, l'utilisateur pourrait avoir la possibilité de renseigner :&#x20;
+
 * Durée de vie du véhicule `T_vie` (en années)
 * Kilométrage annuel `D_an` (en km/an)
+
+La durée de vie du véhicule `D_vie`  en km serait alors calculée
+{% endhint %}
 
 {% hint style="info" %}
 A ce stade la modélisation n'inclut pas de correction de la consommation sur le cycle de référence. Une telle correction est prévue, au moins pour les véhicules hybrides rechargeables, afin d'être représentatif de la consommation réelle.
