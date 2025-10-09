@@ -160,7 +160,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/DetailedTextileResponse"
         400:
           description: Paramètres invalides
           content:
@@ -914,17 +914,29 @@ components:
       description: |
         Recipe impact results.
       properties:
+        webUrl:
+          type: string
+          description: URL vers la simulation dans l'interface web.
         results:
           type: object
           properties:
             impacts:
               $ref: "#/components/schemas/Impacts"
+        description:
+          type: string
+          description: Une description de la simulation.
+        query:
+          type: object
+          description: Le jeu de paramètres utilisé pour effectuer la simulation.
     GenericImpactsResponse:
       type: object
       description: |
         Impacts environnementaux exprimés dans leurs unités respectives, dont
         [la documentation est disponible ici](https://fabrique-numerique.gitbook.io/ecobalyse/methodologie/impacts-consideres).
       properties:
+        webUrl:
+          type: string
+          description: URL vers la simulation dans l'interface web.
         impacts:
           $ref: "#/components/schemas/Impacts"
         description:
@@ -936,6 +948,9 @@ components:
     SingleImpactResponse:
       type: object
       properties:
+        webUrl:
+          type: string
+          description: URL vers la simulation dans l'interface web.
         impacts:
           type: object
           properties:
@@ -948,6 +963,39 @@ components:
         query:
           type: object
           description: Le jeu de paramètres utilisé pour effectuer la simulation.
+    DetailedTextileResponse:
+      type: object
+      description: |
+        Réponse détaillée contenant tous les calculs intermédiaires pour un produit textile.
+      properties:
+        webUrl:
+          type: string
+          description: URL vers la simulation dans l'interface web.
+        impacts:
+          $ref: "#/components/schemas/Impacts"
+        impactsWithoutDurability:
+          $ref: "#/components/schemas/Impacts"
+        complementsImpacts:
+          type: object
+          description: Impacts des compléments (accessoires, etc.)
+        daysOfWear:
+          type: integer
+          description: Nombre de jours d'usage du produit
+        durability:
+          type: number
+          description: Durabilité du produit
+        inputs:
+          type: object
+          description: Paramètres d'entrée de la simulation
+        lifeCycle:
+          type: object
+          description: Détails du cycle de vie du produit
+        transport:
+          type: object
+          description: Détails du transport
+        useNbCycles:
+          type: integer
+          description: Nombre de cycles d'usage
     IngredientListResponse:
       type: array
       description: Liste des ingrédients utilisables dans une recette
