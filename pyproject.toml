@@ -63,4 +63,4 @@ extend-select = ["I"]
 pythonpath = ["."]
 
 [tool.ruff]
-target-version = "py311"
+target-version = "py312"
