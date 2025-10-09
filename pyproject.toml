@@ -3,7 +3,7 @@ name = "ecobalyse"
 version = "0.1.0"
 description = "Accélerer la mise en place de l'affichage environnemental"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = "==3.12.*"
 dependencies = [
     "litestar[jwt,sqlalchemy,standard]>=2.16.0",
     "aiosqlite>=0.21.0",
@@ -63,4 +63,4 @@ extend-select = ["I"]
 pythonpath = ["."]
 
 [tool.ruff]
-target-version = "py311"
+target-version = "py312"
