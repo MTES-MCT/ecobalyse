@@ -388,7 +388,8 @@ def migrate_elements() -> None:
             components = await components_service.list()
 
             for component in components:
-                if component.elements is None:
+                # Don’t try to add elements to components that already have some
+                if component.elements == []:
                     elements_json = copy.deepcopy(component.elements_json)
 
                     for element in elements_json:
