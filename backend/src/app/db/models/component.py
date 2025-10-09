@@ -1,8 +1,9 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from advanced_alchemy.base import UUIDAuditBase
+from advanced_alchemy.types import JsonB
 from app.domain.components.schemas import Scope
 from sqlalchemy import Enum
 from sqlalchemy.dialects import postgresql
@@ -31,6 +32,8 @@ class Component(UUIDAuditBase):
     #
     # And to drop it:
     # sa.Enum(name="scope").drop(op.get_bind(), checkfirst=False)
+
+    elements_json: Mapped[dict[str, Any] | None] = mapped_column(JsonB, name="elements")
 
     scopes: Mapped[list[Scope]] = mapped_column(
         # See https://docs.sqlalchemy.org/en/20/dialects/postgresql.html#postgresql-data-types
