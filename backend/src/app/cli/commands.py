@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 from pathlib import Path
 from typing import Any, cast
 
@@ -17,6 +18,7 @@ from app.domain.accounts.schemas import (
 )
 from app.domain.accounts.services import UserService
 from app.domain.components.deps import provide_components_service
+from app.domain.elements.deps import provide_elements_service
 from app.domain.processes.deps import provide_processes_service
 from rich import get_console
 from structlog import get_logger
@@ -356,3 +358,42 @@ def load_processes_json(json_file: click.File) -> None:
 
     console.rule("Loading processes file.")
     anyio.run(_load_processes_json, json_data)
+
+
+@click.group(
+    name="data",
+    invoke_without_command=False,
+    help="Manage data operations (migrations, debug, …).",
+)
+@click.pass_context
+def data_management_group(_: dict[str, Any]) -> None:
+    """Manage data migrations."""
+
+
+@data_management_group.command(
+    name="migrate-elements", help="Migrate existing elements."
+)
+def migrate_elements() -> None:
+    """Migrate existing elements"""
+
+    console = get_console()
+
+    console.rule("Migrating elements")
+
+    async def _migrate_elements() -> None:
+        async with alchemy.get_session() as db_session:
+            components_service = await anext(provide_components_service(db_session))
+            elements_service = await anext(provide_elements_service(db_session))
+
+            components = await components_service.list()
+
+            for component in components:
+                if component.elements is None:
+                    elements_json = copy.deepcopy(component.elements_json)
+
+                    for element in elements_json:
+                        element["component_id"] = component.id
+
+                        await elements_service.create(element, auto_commit=True)
+
+    anyio.run(_migrate_elements)
