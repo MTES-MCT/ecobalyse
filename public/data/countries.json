@@ -118,6 +118,15 @@
   },
   {
     "aquaticPollutionScenario": "Best",
+    "code": "DE",
+    "electricityProcessUuid": "c16e7089-e58e-5721-a9b3-aae889103ab6",
+    "heatProcessUuid": "f6ea2983-e024-5de2-b323-273f2436deba",
+    "name": "Allemagne",
+    "scopes": ["object", "veli"],
+    "zone": "Europe"
+  },
+  {
+    "aquaticPollutionScenario": "Best",
     "code": "ES",
     "electricityProcessUuid": "5d7e3f90-7c23-560d-bc71-8e726fb4549e",
     "heatProcessUuid": "f6ea2983-e024-5de2-b323-273f2436deba",
@@ -181,6 +190,15 @@
   },
   {
     "aquaticPollutionScenario": "Best",
+    "code": "NL",
+    "electricityProcessUuid": "e6e29828-3dc7-5239-9e6b-918cce78aff6",
+    "heatProcessUuid": "f6ea2983-e024-5de2-b323-273f2436deba",
+    "name": "Pays-bas",
+    "scopes": ["veli"],
+    "zone": "Europe"
+  },
+  {
+    "aquaticPollutionScenario": "Best",
     "code": "NZ",
     "electricityProcessUuid": "2d7bf521-6ab0-5e08-9175-75ae8835a4fa",
     "heatProcessUuid": "3561ace1-f710-50ce-a69c-9cf842e729e4",
@@ -205,6 +223,24 @@
     "name": "Pakistan",
     "scopes": ["textile", "object"],
     "zone": "Asia"
+  },
+  {
+    "aquaticPollutionScenario": "Best",
+    "code": "PL",
+    "electricityProcessUuid": "97aec3c3-4ed3-5e3a-99ca-d96cfac629df",
+    "heatProcessUuid": "f6ea2983-e024-5de2-b323-273f2436deba",
+    "name": "Pologne",
+    "scopes": ["object", "veli"],
+    "zone": "Europe"
+  },
+  {
+    "aquaticPollutionScenario": "Best",
+    "code": "PT",
+    "electricityProcessUuid": "c16db557-907d-5146-a65c-0ef4a2098f99",
+    "heatProcessUuid": "f6ea2983-e024-5de2-b323-273f2436deba",
+    "name": "Portugal",
+    "scopes": ["object", "veli"],
+    "zone": "Europe"
   },
   {
     "aquaticPollutionScenario": "Average",
