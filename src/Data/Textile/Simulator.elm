@@ -474,14 +474,14 @@ stepMaterialImpacts { textile } material step =
             step.outputMass
                 |> Formula.recycledMaterialImpacts step.impacts
                     { cffData = cffData
-                    , nonRecycledProcess = sourceMaterial.materialProcess
-                    , recycledProcess = material.materialProcess
+                    , nonRecycledProcess = sourceMaterial.process
+                    , recycledProcess = material.process
                     }
 
         -- Non-recycled Material
         Nothing ->
             step.outputMass
-                |> Formula.pureMaterialImpacts step.impacts material.materialProcess
+                |> Formula.pureMaterialImpacts step.impacts material.process
 
 
 computeMaterialImpacts : Db -> Simulator -> Simulator
@@ -667,7 +667,7 @@ computeMaterialStepWaste ({ inputs, lifeCycle } as simulator) =
                                 (\{ material, share } ->
                                     inputMass
                                         |> Quantity.multiplyBy (Split.toFloat share)
-                                        |> Formula.genericWaste material.materialProcess.waste
+                                        |> Formula.genericWaste material.process.waste
                                 )
                             |> List.foldl
                                 (\curr acc ->

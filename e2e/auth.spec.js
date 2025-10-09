@@ -113,7 +113,7 @@ test.describe("auth", () => {
         headers: { Authorization: `Bearer ${apiToken}`, "Content-Type": "application/json" },
         body: JSON.stringify({
           mass: 0.17,
-          materials: [{ id: "ei-coton", share: 1 }],
+          materials: [{ id: "62a4d6fb-3276-4ba5-93a3-889ecd3bff84", share: 1 }],
           product: "tshirt",
         }),
       });
@@ -147,7 +147,7 @@ test.describe("auth", () => {
         headers: { Authorization: `Bearer ${apiToken}`, "Content-Type": "application/json" },
         body: JSON.stringify({
           mass: 0.17,
-          materials: [{ id: "ei-coton", share: 1 }],
+          materials: [{ id: "62a4d6fb-3276-4ba5-93a3-889ecd3bff84", share: 1 }],
           product: "tshirt",
         }),
       });
