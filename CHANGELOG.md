@@ -1,6 +1,29 @@
 # Changelog
 
 
+## [7.3.0](https://github.com/MTES-MCT/ecobalyse/compare/v7.2.0..v7.3.0) (2025-10-09)
+
+
+
+### 🚀 Features
+
+- End of life processes according to material type ([#1273](https://github.com/MTES-MCT/ecobalyse/issues/1273))
+
+### 🪲 Bug Fixes
+
+- *(auth)* Require manual login confirmation ([#1398](https://github.com/MTES-MCT/ecobalyse/issues/1398))
+- Correct wrong impacts and hide ARM-x86/64 diff ([#1415](https://github.com/MTES-MCT/ecobalyse/issues/1415))
+- Validate version number param ([#1426](https://github.com/MTES-MCT/ecobalyse/issues/1426))
+
+### ⚙️ Miscellaneous Tasks
+
+- Add self hosting ([#1324](https://github.com/MTES-MCT/ecobalyse/issues/1324))
+- Add back pg docker-compose for dev ([#1409](https://github.com/MTES-MCT/ecobalyse/issues/1409))
+- Remove matomo tracking ([#1410](https://github.com/MTES-MCT/ecobalyse/issues/1410))
+- Add countries (1/2) ([#1401](https://github.com/MTES-MCT/ecobalyse/issues/1401))
+- Pin python version to 3.12.x to avoid psycopg-binary incompatibility ([#1425](https://github.com/MTES-MCT/ecobalyse/issues/1425))
+
+
 ## [7.2.0](https://github.com/MTES-MCT/ecobalyse/compare/v7.1.0..v7.2.0) (2025-09-25)
 
 
