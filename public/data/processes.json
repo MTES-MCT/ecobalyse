@@ -1473,7 +1473,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["object"],
+    "scopes": ["veli"],
     "source": "Ecobalyse",
     "sourceId": "aluminium, low-alloyed, virgin, market, RoW, constructed by Ecobalyse",
     "unit": "kg",
@@ -1843,7 +1843,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["object"],
+    "scopes": ["veli"],
     "source": "Ecobalyse",
     "sourceId": "diesel, B7, EURO4, constructed by Ecobalyse",
     "unit": "L",
@@ -2028,7 +2028,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["object"],
+    "scopes": ["veli"],
     "source": "Ecobalyse",
     "sourceId": "steel, low-alloyed, scrap, market, RoW, constructed by Ecobalyse",
     "unit": "kg",
@@ -2324,7 +2324,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["object"],
+    "scopes": ["veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "battery, lead acid, rechargeable, stationary//[RoW] battery production, lead acid, rechargeable, stationary",
     "unit": "kg",
@@ -2620,7 +2620,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["object"],
+    "scopes": ["veli"],
     "source": "Ecobalyse",
     "sourceId": "diesel, B7, EURO6, constructed by Ecobalyse",
     "unit": "L",
@@ -3064,7 +3064,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["object"],
+    "scopes": ["veli"],
     "source": "Ecobalyse",
     "sourceId": "aluminium, low-alloyed, virgin, market, RER, constructed by Ecobalyse",
     "unit": "kg",
@@ -5247,7 +5247,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["object"],
+    "scopes": ["veli"],
     "source": "Ecobalyse",
     "sourceId": "steel, low-alloyed, scrap, market, West Europe, constructed by Ecobalyse",
     "unit": "kg",
@@ -5765,7 +5765,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["object"],
+    "scopes": ["veli"],
     "source": "Ecobalyse",
     "sourceId": "steel, low-alloyed, scrap, market, FR, constructed by Ecobalyse",
     "unit": "kg",
@@ -5950,7 +5950,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["object"],
+    "scopes": ["veli"],
     "source": "Ecobalyse",
     "sourceId": "aluminium, low-alloyed, market, CN, constructed by Ecobalyse",
     "unit": "kg",
@@ -6283,7 +6283,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["object"],
+    "scopes": ["veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "aluminium, cast alloy//[RER] treatment of aluminium scrap, post-consumer, prepared for recycling, at refiner",
     "unit": "kg",
@@ -6838,7 +6838,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["object"],
+    "scopes": ["veli"],
     "source": "Ecobalyse",
     "sourceId": "aluminium, low-alloyed, market, RER, constructed by Ecobalyse",
     "unit": "kg",
@@ -7800,7 +7800,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["object"],
+    "scopes": ["veli"],
     "source": "Ecobalyse",
     "sourceId": "steel, low-alloyed, virgin, market, West Europe, constructed by Ecobalyse",
     "unit": "kg",
@@ -7948,7 +7948,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["object"],
+    "scopes": ["veli"],
     "source": "Ecobalyse",
     "sourceId": "steel, low-alloyed, market, RoW, constructed by Ecobalyse",
     "unit": "kg",
@@ -8429,7 +8429,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["object"],
+    "scopes": ["veli"],
     "source": "Ecobalyse",
     "sourceId": "steel, low-alloyed, market, East Europe, constructed by Ecobalyse",
     "unit": "kg",
@@ -8503,7 +8503,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["object"],
+    "scopes": ["veli"],
     "source": "Ecobalyse",
     "sourceId": "steel, low-alloyed, market, FR, constructed by Ecobalyse",
     "unit": "kg",
@@ -9650,7 +9650,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["object"],
+    "scopes": ["veli"],
     "source": "Ecobalyse",
     "sourceId": "steel, low-alloyed, virgin, market, RoW, constructed by Ecobalyse",
     "unit": "kg",
@@ -10505,7 +10505,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["object"],
+    "scopes": ["veli"],
     "source": "Ecobalyse",
     "sourceId": "petrol, E10, EURO6, constructed by Ecobalyse",
     "unit": "L",
@@ -10727,7 +10727,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["object"],
+    "scopes": ["veli"],
     "source": "Ecobalyse",
     "sourceId": "aluminium, low-alloyed, virgin, market, CN, constructed by Ecobalyse",
     "unit": "kg",
@@ -10801,7 +10801,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["object"],
+    "scopes": ["veli"],
     "source": "Ecobalyse",
     "sourceId": "steel, low-alloyed, scrap, market, East Europe, constructed by Ecobalyse",
     "unit": "kg",
@@ -11393,7 +11393,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["object"],
+    "scopes": ["veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "battery, Li-ion, NCA, rechargeable, prismatic//[CN] battery production, Li-ion, NCA, rechargeable, prismatic",
     "unit": "kg",
@@ -12096,7 +12096,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["object"],
+    "scopes": ["veli"],
     "source": "Ecobalyse",
     "sourceId": "steel, low-alloyed, virgin, market, East Europe, constructed by Ecobalyse",
     "unit": "kg",
@@ -12799,7 +12799,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["object"],
+    "scopes": ["veli"],
     "source": "Ecobalyse",
     "sourceId": "steel, low-alloyed, market, CN, constructed by Ecobalyse",
     "unit": "kg",
@@ -13724,7 +13724,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["object"],
+    "scopes": ["veli"],
     "source": "Ecobalyse",
     "sourceId": "steel, low-alloyed, market, West Europe, constructed by Ecobalyse",
     "unit": "kg",
@@ -13761,7 +13761,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["object"],
+    "scopes": ["veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "battery cell, Li-ion, NMC811//[CN] battery cell production, Li-ion, NMC811",
     "unit": "kg",
@@ -14242,7 +14242,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["object"],
+    "scopes": ["veli"],
     "source": "Ecobalyse",
     "sourceId": "steel, low-alloyed, virgin, market, CN, constructed by Ecobalyse",
     "unit": "kg",
@@ -14945,7 +14945,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["object"],
+    "scopes": ["veli"],
     "source": "Ecobalyse",
     "sourceId": "steel, low-alloyed, virgin, market, FR, constructed by Ecobalyse",
     "unit": "kg",
@@ -15056,7 +15056,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["object"],
+    "scopes": ["veli"],
     "source": "Ecobalyse",
     "sourceId": "aluminium, low-alloyed, market, RoW, constructed by Ecobalyse",
     "unit": "kg",
@@ -15278,7 +15278,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["object"],
+    "scopes": ["veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "battery cell, Li-ion, LFP//[CN] battery cell production, Li-ion, LFP",
     "unit": "kg",
@@ -16462,7 +16462,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["object"],
+    "scopes": ["veli"],
     "source": "Ecobalyse",
     "sourceId": "aluminium, low-alloyed, virgin, market, IN, constructed by Ecobalyse",
     "unit": "kg",
@@ -16758,7 +16758,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["object"],
+    "scopes": ["veli"],
     "source": "Ecobalyse",
     "sourceId": "steel, low-alloyed, scrap, market, CN, constructed by Ecobalyse",
     "unit": "kg",
@@ -17202,7 +17202,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["object"],
+    "scopes": ["veli"],
     "source": "Ecobalyse",
     "sourceId": "petrol, E85, EURO6, constructed by Ecobalyse",
     "unit": "L",
@@ -18423,7 +18423,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["object"],
+    "scopes": ["veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "used Li-ion battery//[GLO] market for used Li-ion battery",
     "unit": "kg",
