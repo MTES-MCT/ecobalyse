@@ -39,7 +39,9 @@ class ComponentCreate(CamelizedBaseStruct):
     scopes: list[Scope] = []
 
 
-class ComponentElement(CamelizedBaseStruct, omit_defaults=True):
+class ComponentElement(
+    CamelizedBaseStruct, omit_defaults=True, repr_omit_defaults=True
+):
     amount: float | None | msgspec.UnsetType = msgspec.UNSET
     material: UUID | None | msgspec.UnsetType = msgspec.UNSET
 

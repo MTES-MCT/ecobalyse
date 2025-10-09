@@ -136,7 +136,7 @@ async def test_processes_access(
     json_response = response.json()
 
     # Unauthenticated user should have zero detailed impacts
-    assert json_response[0]["impacts"] == {
+    assert json_response[1]["impacts"] == {
         "acd": 0.0,
         "cch": 0.0,
         "ecs": 2026.16,
@@ -168,7 +168,7 @@ async def test_processes_access(
     assert response.status_code == 200
     json_response = response.json()
 
-    assert json_response[0] == {
+    assert json_response[1] == {
         "alias": None,
         "categories": ["transformation"],
         "comment": "corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-impression-pigmentaire.",
