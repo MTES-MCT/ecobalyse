@@ -363,7 +363,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["textile"],
+    "scopes": ["textile", "object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[AU] market for electricity, medium voltage",
     "unit": "kWh",
@@ -1436,7 +1436,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["textile"],
+    "scopes": ["textile", "object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[RAF] market group for electricity, medium voltage",
     "unit": "kWh",
@@ -2176,7 +2176,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["textile"],
+    "scopes": ["textile", "object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[PK] market for electricity, medium voltage",
     "unit": "kWh",
@@ -2657,7 +2657,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["textile"],
+    "scopes": ["textile", "object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[CN] market group for electricity, medium voltage",
     "unit": "kWh",
@@ -2805,7 +2805,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["textile"],
+    "scopes": ["textile", "object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[BD] market for electricity, medium voltage",
     "unit": "kWh",
@@ -3804,7 +3804,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["textile"],
+    "scopes": ["textile", "object", "veli"],
     "source": "Custom",
     "sourceId": "Mix chaleur (Monde)",
     "unit": "MJ",
@@ -4433,7 +4433,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["textile"],
+    "scopes": ["textile", "object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[MM] market for electricity, medium voltage",
     "unit": "kWh",
@@ -5987,7 +5987,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["textile"],
+    "scopes": ["textile", "object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[IT] market for electricity, medium voltage",
     "unit": "kWh",
@@ -6616,7 +6616,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["textile"],
+    "scopes": ["textile", "object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[CZ] market for electricity, medium voltage",
     "unit": "kWh",
@@ -7430,7 +7430,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["textile"],
+    "scopes": ["textile", "object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[RNA] market group for electricity, medium voltage",
     "unit": "kWh",
@@ -10135,7 +10135,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["textile"],
+    "scopes": ["textile", "object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[TR] market for electricity, medium voltage",
     "unit": "kWh",
@@ -11097,7 +11097,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["textile"],
+    "scopes": ["textile", "object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[RAS] market group for electricity, medium voltage",
     "unit": "kWh",
@@ -11356,7 +11356,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["textile"],
+    "scopes": ["textile", "object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[MA] market for electricity, medium voltage",
     "unit": "kWh",
@@ -11726,7 +11726,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["textile"],
+    "scopes": ["textile", "object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[RLA] market group for electricity, medium voltage",
     "unit": "kWh",
@@ -13835,7 +13835,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["food", "textile"],
+    "scopes": ["food", "textile", "object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[FR] market for electricity, medium voltage",
     "unit": "kWh",
@@ -15574,7 +15574,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["textile"],
+    "scopes": ["textile", "object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[KH] market for electricity, medium voltage",
     "unit": "kWh",
@@ -16388,7 +16388,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["textile"],
+    "scopes": ["textile", "object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[IN] market group for electricity, medium voltage",
     "unit": "kWh",
@@ -16499,7 +16499,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["textile"],
+    "scopes": ["textile", "object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[RER] market group for electricity, medium voltage",
     "unit": "kWh",
@@ -16832,7 +16832,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["textile"],
+    "scopes": ["textile", "object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[TN] market for electricity, medium voltage",
     "unit": "kWh",
@@ -16943,7 +16943,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["textile"],
+    "scopes": ["textile", "object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[VN] market for electricity, medium voltage",
     "unit": "kWh",
@@ -17128,7 +17128,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["textile"],
+    "scopes": ["textile", "object", "veli"],
     "source": "Custom",
     "sourceId": "Mix chaleur (Europe)",
     "unit": "MJ",
@@ -17683,7 +17683,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["textile"],
+    "scopes": ["textile", "object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[RME] market group for electricity, medium voltage",
     "unit": "kWh",
