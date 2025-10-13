@@ -117,6 +117,7 @@ suite =
                             , items = []
                             , label = Nothing
                             , mass = Mass.kilogram
+                            , materialType = Nothing
                             , stage = Nothing
                             }
                             |> Component.applyTransforms db.processes Process.Kilogram transforms
@@ -146,6 +147,7 @@ suite =
                             , items = []
                             , label = Nothing
                             , mass = Mass.kilogram
+                            , materialType = Nothing
                             , stage = Nothing
                             }
                             |> Component.applyTransforms db.processes Process.Kilogram transforms
@@ -200,6 +202,7 @@ suite =
                                 , items = []
                                 , label = Nothing
                                 , mass = Mass.kilogram
+                                , materialType = Nothing
                                 , stage = Nothing
                                 }
                                 |> Component.applyTransforms db.processes Process.CubicMeter [ transformInKg ]
@@ -215,6 +218,7 @@ suite =
                             , items = []
                             , label = Nothing
                             , mass = Mass.kilogram
+                            , materialType = Nothing
                             , stage = Nothing
                             }
                             |> Component.applyTransforms db.processes Process.Kilogram transforms

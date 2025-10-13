@@ -13,6 +13,7 @@ module Data.Process exposing
     , findById
     , getDisplayName
     , getImpact
+    , getMaterialTypes
     , getTechnicalName
     , idFromString
     , idToString

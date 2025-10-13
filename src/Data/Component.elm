@@ -185,6 +185,7 @@ type Results
         , items : List Results
         , label : Maybe String
         , mass : Mass
+        , materialType : Maybe String
         , stage : Maybe Stage
         }
 
@@ -306,11 +307,13 @@ applyTransform { elec, heat } transform (Results { amount, label, impacts, items
                         , items = []
                         , label = Just <| Process.getDisplayName transform
                         , mass = outputMass
+                        , materialType = Nothing
                         , stage = Just TransformStage
                         }
                    ]
         , label = label
         , mass = outputMass
+        , materialType = Nothing
         , stage = Nothing
         }
 
@@ -442,6 +445,7 @@ computeItemResults { components, processes } { custom, id, quantity } =
                         mass
                             |> List.repeat (quantityToInt quantity)
                             |> Quantity.sum
+                    , materialType = Nothing
                     , stage = Nothing
                     }
             )
@@ -475,11 +479,13 @@ computeMaterialResults amount process =
                 , items = []
                 , label = Just <| Process.getDisplayName process
                 , mass = mass
+                , materialType = Process.getMaterialTypes process |> List.head
                 , stage = Just MaterialStage
                 }
             ]
         , label = Just <| "Element: " ++ Process.getDisplayName process
         , mass = mass
+        , materialType = Process.getMaterialTypes process |> List.head
         , stage = Nothing
         }
 
@@ -600,6 +606,7 @@ emptyResults =
         , items = []
         , label = Nothing
         , mass = Quantity.zero
+        , materialType = Nothing
         , stage = Nothing
         }
 
@@ -667,6 +674,7 @@ encodeResults maybeTrigram (Results results) =
         [ ( "label", results.label |> Maybe.map Encode.string )
         , ( "stage", results.stage |> Maybe.map (stageToString >> Encode.string) )
         , ( "mass", results.mass |> Mass.inKilograms |> Encode.float |> Just )
+        , ( "materialType", results.materialType |> Maybe.map Encode.string )
         , ( "impacts"
           , Just
                 -- Note: even with no trigram provided, we always want impacts here
