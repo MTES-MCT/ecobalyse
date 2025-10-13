@@ -21,6 +21,7 @@ module Data.Component exposing
     , applyTransforms
     , compute
     , computeElementResults
+    , computeEndOfLife
     , computeImpacts
     , computeInitialAmount
     , computeItemResults
@@ -73,6 +74,7 @@ import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
 import Data.Uuid as Uuid exposing (Uuid)
+import Dict exposing (Dict)
 import Energy
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Decode
@@ -186,6 +188,7 @@ type Results
         , label : Maybe String
         , mass : Mass
         , materialType : Maybe String
+        , quantity : Int
         , stage : Maybe Stage
         }
 
@@ -276,7 +279,7 @@ amountToFloat (Amount float) =
 
 
 applyTransform : EnergyMixes -> Process -> Results -> Results
-applyTransform { elec, heat } transform (Results { amount, label, impacts, items, mass }) =
+applyTransform { elec, heat } transform (Results { amount, label, impacts, items, mass, materialType }) =
     let
         transformImpacts =
             [ transform.impacts
@@ -307,13 +310,15 @@ applyTransform { elec, heat } transform (Results { amount, label, impacts, items
                         , items = []
                         , label = Just <| Process.getDisplayName transform
                         , mass = outputMass
-                        , materialType = Nothing
+                        , materialType = materialType
+                        , quantity = 1
                         , stage = Just TransformStage
                         }
                    ]
         , label = label
         , mass = outputMass
-        , materialType = Nothing
+        , materialType = materialType
+        , quantity = 1
         , stage = Nothing
         }
 
@@ -361,6 +366,7 @@ checkTransformsUnit unit transforms =
 -}
 compute : DataContainer db -> List Item -> Result String Results
 compute db =
+    -- TODO: add endOfLife results
     List.map (computeItemResults db)
         >> RE.combine
         >> Result.map (List.foldr addResults emptyResults)
@@ -381,6 +387,40 @@ computeElementResults processes =
                                 |> applyTransforms processes material.unit transforms
                         )
             )
+
+
+computeEndOfLife (Results results) =
+    -- computeEndOfLife : DataContainer db -> Results -> Result String Results
+    results.items
+        -- component level
+        |> List.concatMap
+            (\(Results { quantity, items }) ->
+                items |> List.map (\item -> ( quantity, item ))
+            )
+        -- element level
+        |> List.concatMap
+            (\( q, Results { items } ) ->
+                items |> List.map (\item -> ( q, item ))
+            )
+        -- sum masses per material types
+        |> List.foldl
+            (\( q, Results { mass, materialType } ) acc ->
+                let
+                    totalMass =
+                        mass |> Quantity.multiplyBy (toFloat q)
+                in
+                case materialType of
+                    Just materialType_ ->
+                        if Dict.member materialType_ acc then
+                            acc |> Dict.update materialType_ (Maybe.map (Quantity.plus totalMass))
+
+                        else
+                            Dict.insert materialType_ totalMass acc
+
+                    Nothing ->
+                        acc
+            )
+            Dict.empty
 
 
 {-| Compute an initially required amount from sequentially applied waste ratios
@@ -424,7 +464,7 @@ computeItemResults { components, processes } { custom, id, quantity } =
             )
         |> Result.map (List.foldr addResults emptyResults)
         |> Result.map
-            (\(Results { impacts, mass, items }) ->
+            (\(Results { impacts, mass, materialType, items }) ->
                 Results
                     { amount = Amount 0
                     , impacts =
@@ -445,7 +485,8 @@ computeItemResults { components, processes } { custom, id, quantity } =
                         mass
                             |> List.repeat (quantityToInt quantity)
                             |> Quantity.sum
-                    , materialType = Nothing
+                    , materialType = materialType
+                    , quantity = quantityToInt quantity
                     , stage = Nothing
                     }
             )
@@ -479,13 +520,19 @@ computeMaterialResults amount process =
                 , items = []
                 , label = Just <| Process.getDisplayName process
                 , mass = mass
-                , materialType = Process.getMaterialTypes process |> List.head
+                , materialType = Nothing
+                , quantity = 1
                 , stage = Just MaterialStage
                 }
             ]
         , label = Just <| "Element: " ++ Process.getDisplayName process
         , mass = mass
-        , materialType = Process.getMaterialTypes process |> List.head
+        , materialType =
+            Process.getMaterialTypes process
+                |> List.head
+                |> Maybe.withDefault "other"
+                |> Just
+        , quantity = 1
         , stage = Nothing
         }
 
@@ -607,6 +654,7 @@ emptyResults =
         , label = Nothing
         , mass = Quantity.zero
         , materialType = Nothing
+        , quantity = 1
         , stage = Nothing
         }
 
@@ -675,6 +723,7 @@ encodeResults maybeTrigram (Results results) =
         , ( "stage", results.stage |> Maybe.map (stageToString >> Encode.string) )
         , ( "mass", results.mass |> Mass.inKilograms |> Encode.float |> Just )
         , ( "materialType", results.materialType |> Maybe.map Encode.string )
+        , ( "quantity", results.quantity |> Encode.int |> Just )
         , ( "impacts"
           , Just
                 -- Note: even with no trigram provided, we always want impacts here
