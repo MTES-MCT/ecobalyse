@@ -242,33 +242,35 @@ viewDebug : List Item -> Results -> Html msg
 viewDebug items results =
     div []
         [ pre [ style "white-space" "pre-wrap" ]
-            [ Component.computeEndOfLife results
+            [ Component.getMaterialMassDistribution results
                 |> Debug.toString
                 |> text
             ]
-        , details [ class "card-body py-2" ]
-            [ summary [] [ text "Debug" ]
-            , div [ class "row g-2" ]
-                [ div [ class "col-6" ]
-                    [ h5 [] [ text "Query" ]
-                    , pre [ class "bg-light p-2 mb-0" ]
-                        [ items
-                            |> Encode.list Component.encodeItem
-                            |> Encode.encode 2
-                            |> text
-                        ]
+        , -- details [ class "card-body py-2" ]
+          --     [ summary [] [ text "Debug" ]
+          --     ,
+          div [ class "row g-2" ]
+            [ div [ class "col-6" ]
+                [ h5 [] [ text "Query" ]
+                , pre [ class "bg-light p-2 mb-0" ]
+                    [ items
+                        |> Encode.list Component.encodeItem
+                        |> Encode.encode 2
+                        |> text
                     ]
-                , div [ class "col-6" ]
-                    [ h5 [] [ text "Results" ]
-                    , pre [ class "p-2 bg-light" ]
-                        [ results
-                            |> Component.encodeResults (Just Definition.Ecs)
-                            |> Encode.encode 2
-                            |> text
-                        ]
+                ]
+            , div [ class "col-6" ]
+                [ h5 [] [ text "Results" ]
+                , pre [ class "p-2 bg-light" ]
+                    [ results
+                        |> Component.encodeResults (Just Definition.Ecs)
+                        |> Encode.encode 2
+                        |> text
                     ]
                 ]
             ]
+
+        -- ]
         ]
 
 

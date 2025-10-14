@@ -21,7 +21,6 @@ module Data.Component exposing
     , applyTransforms
     , compute
     , computeElementResults
-    , computeEndOfLife
     , computeImpacts
     , computeInitialAmount
     , computeItemResults
@@ -44,6 +43,7 @@ module Data.Component exposing
     , extractItems
     , extractMass
     , findById
+    , getMaterialMassDistribution
     , idFromString
     , idToString
     , isEmpty
@@ -279,7 +279,7 @@ amountToFloat (Amount float) =
 
 
 applyTransform : EnergyMixes -> Process -> Results -> Results
-applyTransform { elec, heat } transform (Results { amount, label, impacts, items, mass, materialType }) =
+applyTransform { elec, heat } transform (Results { amount, label, impacts, items, mass }) =
     let
         transformImpacts =
             [ transform.impacts
@@ -310,14 +310,14 @@ applyTransform { elec, heat } transform (Results { amount, label, impacts, items
                         , items = []
                         , label = Just <| Process.getDisplayName transform
                         , mass = outputMass
-                        , materialType = materialType
+                        , materialType = Nothing
                         , quantity = 1
                         , stage = Just TransformStage
                         }
                    ]
         , label = label
         , mass = outputMass
-        , materialType = materialType
+        , materialType = Nothing
         , quantity = 1
         , stage = Nothing
         }
@@ -387,40 +387,6 @@ computeElementResults processes =
                                 |> applyTransforms processes material.unit transforms
                         )
             )
-
-
-computeEndOfLife (Results results) =
-    -- computeEndOfLife : DataContainer db -> Results -> Result String Results
-    results.items
-        -- component level
-        |> List.concatMap
-            (\(Results { quantity, items }) ->
-                items |> List.map (\item -> ( quantity, item ))
-            )
-        -- element level
-        |> List.concatMap
-            (\( q, Results { items } ) ->
-                items |> List.map (\item -> ( q, item ))
-            )
-        -- sum masses per material types
-        |> List.foldl
-            (\( q, Results { mass, materialType } ) acc ->
-                let
-                    totalMass =
-                        mass |> Quantity.multiplyBy (toFloat q)
-                in
-                case materialType of
-                    Just materialType_ ->
-                        if Dict.member materialType_ acc then
-                            acc |> Dict.update materialType_ (Maybe.map (Quantity.plus totalMass))
-
-                        else
-                            Dict.insert materialType_ totalMass acc
-
-                    Nothing ->
-                        acc
-            )
-            Dict.empty
 
 
 {-| Compute an initially required amount from sequentially applied waste ratios
@@ -507,6 +473,12 @@ computeMaterialResults amount process =
                 else
                     -- apply density
                     amountToFloat amount * process.density
+
+        materialType =
+            Process.getMaterialTypes process
+                |> List.head
+                |> Maybe.withDefault "other"
+                |> Just
     in
     -- global result
     Results
@@ -520,18 +492,14 @@ computeMaterialResults amount process =
                 , items = []
                 , label = Just <| Process.getDisplayName process
                 , mass = mass
-                , materialType = Nothing
+                , materialType = materialType
                 , quantity = 1
                 , stage = Just MaterialStage
                 }
             ]
         , label = Just <| "Element: " ++ Process.getDisplayName process
         , mass = mass
-        , materialType =
-            Process.getMaterialTypes process
-                |> List.head
-                |> Maybe.withDefault "other"
-                |> Just
+        , materialType = materialType
         , quantity = 1
         , stage = Nothing
         }
@@ -808,6 +776,41 @@ findById id =
     List.filter (.id >> (==) id)
         >> List.head
         >> Result.fromMaybe ("Aucun composant avec id=" ++ idToString id)
+
+
+{-| Compute mass distribution by material types
+-}
+getMaterialMassDistribution : Results -> Dict String Mass
+getMaterialMassDistribution (Results results) =
+    results.items
+        -- component level
+        -- propagate component quantity to children elements
+        |> List.concatMap
+            (\(Results { quantity, items }) -> items |> List.map (\item -> ( quantity, item )))
+        -- element level
+        -- propagate element unit mass to material children
+        |> List.concatMap
+            (\( quantity, Results { items, mass } ) -> items |> List.map (\item -> ( quantity, mass, item )))
+        -- exclude whatever doesn't have a material type and isn't tagged as material
+        |> List.filter
+            (\( _, _, Results { materialType, stage } ) -> materialType /= Nothing && stage == Just MaterialStage)
+        -- sum masses per material types
+        |> List.foldl
+            (\( quantity, unitMass, Results { materialType } ) acc ->
+                let
+                    materialType_ =
+                        materialType |> Maybe.withDefault "other"
+
+                    totalMass =
+                        unitMass |> Quantity.multiplyBy (toFloat quantity)
+                in
+                if Dict.member materialType_ acc then
+                    acc |> Dict.update materialType_ (Maybe.map (Quantity.plus totalMass))
+
+                else
+                    acc |> Dict.insert materialType_ totalMass
+            )
+            Dict.empty
 
 
 idFromString : String -> Result String Id
