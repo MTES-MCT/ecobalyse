@@ -3,6 +3,8 @@ module Data.Process.Category exposing
     , Material(..)
     , decodeList
     , encode
+    , materialTypeFromString
+    , materialTypeToLabel
     , materialTypeToString
     , toLabel
     )

@@ -18,6 +18,7 @@ import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
 import Data.Scope as Scope exposing (Scope)
+import Dict
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
@@ -241,36 +242,29 @@ componentView config itemIndex item ( quantity, component, expandedElements ) it
 viewDebug : List Item -> Results -> Html msg
 viewDebug items results =
     div []
-        [ pre [ style "white-space" "pre-wrap" ]
-            [ Component.getMaterialMassDistribution results
-                |> Debug.toString
-                |> text
-            ]
-        , -- details [ class "card-body py-2" ]
-          --     [ summary [] [ text "Debug" ]
-          --     ,
-          div [ class "row g-2" ]
-            [ div [ class "col-6" ]
-                [ h5 [] [ text "Query" ]
-                , pre [ class "bg-light p-2 mb-0" ]
-                    [ items
-                        |> Encode.list Component.encodeItem
-                        |> Encode.encode 2
-                        |> text
+        [ details [ class "card-body py-2" ]
+            [ summary [] [ text "Debug" ]
+            , div [ class "row g-2" ]
+                [ div [ class "col-6" ]
+                    [ h5 [] [ text "Query" ]
+                    , pre [ class "bg-light p-2 mb-0" ]
+                        [ items
+                            |> Encode.list Component.encodeItem
+                            |> Encode.encode 2
+                            |> text
+                        ]
                     ]
-                ]
-            , div [ class "col-6" ]
-                [ h5 [] [ text "Results" ]
-                , pre [ class "p-2 bg-light" ]
-                    [ results
-                        |> Component.encodeResults (Just Definition.Ecs)
-                        |> Encode.encode 2
-                        |> text
+                , div [ class "col-6" ]
+                    [ h5 [] [ text "Results" ]
+                    , pre [ class "p-2 bg-light" ]
+                        [ results
+                            |> Component.encodeResults (Just Definition.Ecs)
+                            |> Encode.encode 2
+                            |> text
+                        ]
                     ]
                 ]
             ]
-
-        -- ]
         ]
 
 
@@ -355,15 +349,7 @@ editorView ({ db, docsUrl, explorerRoute, maxItems, items, results, title } as c
                 addComponentButton config
             ]
         , if config.scopes /= [ Scope.Textile ] then
-            div [ class "card shadow-sm" ]
-                [ div [ class "card-header d-flex align-items-center justify-content-between" ]
-                    [ h2 [ class "h5 mb-0" ]
-                        [ text "Fin de vie" ]
-                    ]
-                , div [ class "card-body" ]
-                    [ text "plop"
-                    ]
-                ]
+            endOfLifeView config results
 
           else
             text ""
@@ -372,6 +358,34 @@ editorView ({ db, docsUrl, explorerRoute, maxItems, items, results, title } as c
 
           else
             text ""
+        ]
+
+
+endOfLifeView : Config db msg -> Results -> Html msg
+endOfLifeView _ results =
+    div [ class "card shadow-sm" ]
+        [ div [ class "card-header d-flex align-items-center justify-content-between" ]
+            [ h2 [ class "h5 mb-0" ]
+                [ text "Fin de vie" ]
+            ]
+        , div [ class "card-body p-0" ]
+            [ Component.getMaterialMassDistribution results
+                |> Dict.toList
+                |> List.map
+                    (\( materialType, mass ) ->
+                        span []
+                            [ materialType
+                                |> Category.materialTypeFromString
+                                |> Result.map Category.materialTypeToLabel
+                                |> Result.withDefault materialType
+                                |> text
+                            , text " : "
+                            , Format.kg mass
+                            ]
+                    )
+                |> List.map (\html -> li [ class "list-group-item" ] [ html ])
+                |> ul [ class "list-group list-group-flush" ]
+            ]
         ]
 
 
