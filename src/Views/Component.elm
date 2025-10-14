@@ -18,7 +18,7 @@ import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
 import Data.Scope as Scope exposing (Scope)
-import Dict
+import Dict.Any as AnyDict
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
@@ -370,15 +370,11 @@ endOfLifeView _ results =
             ]
         , div [ class "card-body p-0" ]
             [ Component.getMaterialMassDistribution results
-                |> Dict.toList
+                |> AnyDict.toList
                 |> List.map
                     (\( materialType, mass ) ->
                         span []
-                            [ materialType
-                                |> Category.materialTypeFromString
-                                |> Result.map Category.materialTypeToLabel
-                                |> Result.withDefault materialType
-                                |> text
+                            [ text <| Category.materialTypeToLabel materialType
                             , text " : "
                             , Format.kg mass
                             ]

@@ -74,7 +74,7 @@ import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
 import Data.Uuid as Uuid exposing (Uuid)
-import Dict exposing (Dict)
+import Dict.Any as AnyDict exposing (AnyDict)
 import Energy
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Decode
@@ -176,6 +176,12 @@ type Amount
 -}
 type Quantity
     = Quantity Int
+
+
+{-| Holds the distribution of material masses per material type
+-}
+type alias MaterialMassDistribution =
+    AnyDict String Category.Material Mass
 
 
 {-| A nested data structure carrying the impacts and mass resulting from a computation
@@ -391,10 +397,20 @@ computeElementResults processes =
 
 computeEndOfLifeResults : DataContainer db -> Results -> Result String Results
 computeEndOfLifeResults _ (Results results) =
-    let
-        materialMassDistribution =
-            getMaterialMassDistribution (Results results)
-    in
+    -- let
+    --     materialMassDistribution =
+    --         getMaterialMassDistribution (Results results)
+    --     -- endOfLifeCategories =
+    --     --     -- TODO
+    --     -- wood: recycling = 69% , incinerating = 31% , landfilling = 0%
+    --     -- plastic: recycling = 92% , incinerating = 8% , landfilling = 0%
+    --     -- metal: recycling = 100%, incinerating = 0% , landfilling = 0%
+    --     -- upholstery: recycling = 4%, incinerating = 94%, landfilling = 2%
+    --     -- Define ratio for undefined material type:
+    --     -- recycling = 0%
+    --     -- incinerating = 82% , attached process is : Treatment of municipal solid waste, municipal incineration, FR
+    --     -- landfilling = 18%, attached process is : Treatment of municipal solid waste, sanitary landfill, RoW
+    -- in
     Ok <|
         Results
             { results
@@ -793,7 +809,7 @@ findById id =
 
 {-| Compute mass distribution by material types
 -}
-getMaterialMassDistribution : Results -> Dict String Mass
+getMaterialMassDistribution : Results -> MaterialMassDistribution
 getMaterialMassDistribution (Results results) =
     results.items
         -- component level
@@ -814,18 +830,17 @@ getMaterialMassDistribution (Results results) =
                     materialKey =
                         materialType
                             |> Maybe.withDefault Category.OtherMaterial
-                            |> Category.materialTypeToString
 
                     totalMass =
                         unitMass |> Quantity.multiplyBy (toFloat quantity)
                 in
-                if Dict.member materialKey acc then
-                    acc |> Dict.update materialKey (Maybe.map (Quantity.plus totalMass))
+                if AnyDict.member materialKey acc then
+                    acc |> AnyDict.update materialKey (Maybe.map (Quantity.plus totalMass))
 
                 else
-                    acc |> Dict.insert materialKey totalMass
+                    acc |> AnyDict.insert materialKey totalMass
             )
-            Dict.empty
+            (AnyDict.empty Category.materialTypeToString)
 
 
 idFromString : String -> Result String Id
