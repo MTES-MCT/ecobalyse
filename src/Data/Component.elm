@@ -184,6 +184,15 @@ type alias MaterialMassDistribution =
     AnyDict String Category.Material Mass
 
 
+{-| Material end of life strategies (must sum up to 100%)
+-}
+type alias EoLStrategyShares =
+    { incinerating : Split
+    , landfilling : Split
+    , recycling : Split
+    }
+
+
 {-| A nested data structure carrying the impacts and mass resulting from a computation
 -}
 type Results
@@ -397,25 +406,40 @@ computeElementResults processes =
 
 computeEndOfLifeResults : DataContainer db -> Results -> Result String Results
 computeEndOfLifeResults _ (Results results) =
-    -- let
-    --     materialMassDistribution =
-    --         getMaterialMassDistribution (Results results)
-    --     -- endOfLifeCategories =
-    --     --     -- TODO
-    --     -- wood: recycling = 69% , incinerating = 31% , landfilling = 0%
-    --     -- plastic: recycling = 92% , incinerating = 8% , landfilling = 0%
-    --     -- metal: recycling = 100%, incinerating = 0% , landfilling = 0%
-    --     -- upholstery: recycling = 4%, incinerating = 94%, landfilling = 2%
-    --     -- Define ratio for undefined material type:
-    --     -- recycling = 0%
-    --     -- incinerating = 82% , attached process is : Treatment of municipal solid waste, municipal incineration, FR
-    --     -- landfilling = 18%, attached process is : Treatment of municipal solid waste, sanitary landfill, RoW
-    -- in
+    let
+        materialMassDistribution =
+            getMaterialMassDistribution (Results results)
+
+        -- Processes to load
+        -- incinerating: Treatment of municipal solid waste, municipal incineration, FR
+        -- landfilling:  Treatment of municipal solid waste, sanitary landfill, RoW
+    in
     Ok <|
         Results
             { results
                 | impacts = Impact.sumImpacts [ results.impacts ]
             }
+
+
+getEoLStrategyShares : Category.Material -> EoLStrategyShares
+getEoLStrategyShares material =
+    -- TODO: eventually, it would be nice to load this from an external config file or
+    --       even better, from the backend
+    let
+        split =
+            Split.fromPercent >> Result.withDefault Split.zero
+
+        defaultShares =
+            { incinerating = split 82, landfilling = split 18, recycling = Split.zero }
+    in
+    [ ( Category.Metal, { incinerating = Split.zero, landfilling = Split.zero, recycling = Split.full } )
+    , ( Category.Plastic, { incinerating = split 8, landfilling = Split.zero, recycling = split 92 } )
+    , ( Category.Upholstery, { incinerating = split 94, landfilling = split 2, recycling = split 4 } )
+    , ( Category.Wood, { incinerating = split 31, landfilling = Split.zero, recycling = split 69 } )
+    ]
+        |> AnyDict.fromList Category.materialTypeToString
+        |> AnyDict.get material
+        |> Maybe.withDefault defaultShares
 
 
 {-| Compute an initially required amount from sequentially applied waste ratios
@@ -828,8 +852,7 @@ getMaterialMassDistribution (Results results) =
             (\( quantity, unitMass, Results { materialType } ) acc ->
                 let
                     materialKey =
-                        materialType
-                            |> Maybe.withDefault Category.OtherMaterial
+                        materialType |> Maybe.withDefault Category.OtherMaterial
 
                     totalMass =
                         unitMass |> Quantity.multiplyBy (toFloat quantity)
