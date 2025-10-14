@@ -181,14 +181,14 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
         element_dict = (
             element.to_dict() if type(element) is ComponentElement else element
         )
-        tranforms_ids = element_dict.pop("transforms", None)
+        tranforms_ids = element_dict.pop("transforms", [])
 
         element_dict["material_process_id"] = element_dict.pop("material")
         element_dict["component_id"] = component_id
 
         elt = m.Element(**element_dict)
 
-        if tranforms_ids is not None and len(tranforms_ids):
+        if len(tranforms_ids):
             elt.process_transforms.extend(
                 await processes_service.list(m.Process.id.in_(tranforms_ids))
             )
