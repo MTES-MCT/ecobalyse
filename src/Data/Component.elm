@@ -366,11 +366,11 @@ checkTransformsUnit unit transforms =
 -}
 compute : DataContainer db -> List Item -> Result String Results
 compute db =
-    -- TODO: add endOfLife results
     List.map (computeItemResults db)
         >> RE.combine
         >> Result.map (List.foldr addResults emptyResults)
-        >> Result.map (\(Results results) -> Results { results | label = Just "Complete product" })
+        >> Result.map (\(Results results) -> Results { results | label = Just "Production" })
+        >> Result.andThen (computeEndOfLifeResults db)
 
 
 computeElementResults : List Process -> Element -> Result String Results
@@ -387,6 +387,19 @@ computeElementResults processes =
                                 |> applyTransforms processes material.unit transforms
                         )
             )
+
+
+computeEndOfLifeResults : DataContainer db -> Results -> Result String Results
+computeEndOfLifeResults _ (Results results) =
+    let
+        materialMassDistribution =
+            getMaterialMassDistribution (Results results)
+    in
+    Ok <|
+        Results
+            { results
+                | impacts = Impact.sumImpacts [ results.impacts ]
+            }
 
 
 {-| Compute an initially required amount from sequentially applied waste ratios
