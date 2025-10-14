@@ -276,7 +276,7 @@ viewDebug items results =
 
 editorView : Config db msg -> Html msg
 editorView ({ db, docsUrl, explorerRoute, maxItems, items, results, title } as config) =
-    div []
+    div [ class "d-flex flex-column gap-3" ]
         [ div [ class "card shadow-sm" ]
             [ div [ class "card-header d-flex align-items-center justify-content-between" ]
                 [ h2 [ class "h5 mb-0" ]
@@ -354,6 +354,19 @@ editorView ({ db, docsUrl, explorerRoute, maxItems, items, results, title } as c
               else
                 addComponentButton config
             ]
+        , if config.scopes /= [ Scope.Textile ] then
+            div [ class "card shadow-sm" ]
+                [ div [ class "card-header d-flex align-items-center justify-content-between" ]
+                    [ h2 [ class "h5 mb-0" ]
+                        [ text "Fin de vie" ]
+                    ]
+                , div [ class "card-body" ]
+                    [ text "plop"
+                    ]
+                ]
+
+          else
+            text ""
         , if config.debug then
             viewDebug items results
 
