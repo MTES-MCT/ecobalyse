@@ -47,7 +47,6 @@ class Component(UUIDAuditBase):
     elements: Mapped[list[Element]] = relationship(
         back_populates="component",
         lazy="selectin",
-        uselist=True,
         cascade="all, delete-orphan",
     )
 

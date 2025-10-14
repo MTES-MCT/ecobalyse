@@ -46,13 +46,11 @@ class User(UUIDAuditBase):
     journal_entries: Mapped[list[JournalEntry]] = relationship(
         back_populates="user",
         lazy="selectin",
-        uselist=True,
         cascade="all, delete",
     )
     roles: Mapped[list[UserRole]] = relationship(
         back_populates="user",
         lazy="selectin",
-        uselist=True,
         cascade="all, delete",
     )
 
@@ -63,6 +61,5 @@ class User(UUIDAuditBase):
     tokens: Mapped[list[Token]] = relationship(
         back_populates="user",
         lazy="selectin",
-        uselist=True,
         cascade="all, delete",
     )
