@@ -3,6 +3,7 @@ import sys
 from functools import lru_cache
 from typing import Any, Callable, cast
 
+import sentry_sdk
 import structlog
 from advanced_alchemy.extensions.litestar.exception_handler import (
     ConflictError,
@@ -38,12 +39,33 @@ from litestar.status_codes import (
     HTTP_409_CONFLICT,
     HTTP_500_INTERNAL_SERVER_ERROR,
 )
+from sentry_sdk.integrations.litestar import LitestarIntegration
 from structlog.types import Processor
 from structlog.typing import EventDict
 
 from .base import get_settings
 
 settings = get_settings()
+
+sentry_dsn = settings.app.SENTRY_DSN
+
+if sentry_dsn:
+    sentry_sdk.init(
+        dsn=sentry_dsn,
+        environment=settings.app.SENTRY_ENVIRONMENT,
+        enable_logs=True,
+        traces_sample_rate=0,
+        send_default_pii=False,
+        integrations=[
+            LitestarIntegration(
+                # TODO: let’s see what’s useful and what’s too noisy. We’ll restrict
+                # the range later on.
+                failed_request_status_codes={*range(400, 600)},
+            ),
+        ],
+    )
+    sentry_sdk.set_tag("subsystem", "back-end")
+
 
 compression = CompressionConfig(backend="gzip")
 csrf = CSRFConfig(

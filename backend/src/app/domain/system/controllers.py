@@ -8,7 +8,7 @@ from litestar.response import Response
 from sqlalchemy import text
 
 from .schemas import SystemHealth
-from .urls import SYSTEM_HEALTH
+from .urls import SENTRY_CHECK, SYSTEM_HEALTH
 
 if TYPE_CHECKING:
     from sqlalchemy.ext.asyncio import AsyncSession
@@ -60,3 +60,14 @@ class SystemController(Controller):
             status_code=200 if db_ping else 500,
             media_type=MediaType.JSON,
         )
+
+    @get(
+        operation_id="ErrorCheck",
+        path=SENTRY_CHECK,
+        exclude_from_auth=True,
+        include_in_schema=False,
+    )
+    async def check_sentry(self) -> Response[str]:
+        """Provokes an error in order to check that the error reporting system is working"""
+        1 / 0
+        return "Hello!"

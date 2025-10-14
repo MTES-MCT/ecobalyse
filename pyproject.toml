@@ -23,6 +23,7 @@ dependencies = [
     "typer>=0.16.0",
     "pytest-mock>=3.14.1",
     "asyncstdlib>=3.13.1",
+    "sentry-sdk[litestar]>=2.41"
 ]
 
 [build-system]

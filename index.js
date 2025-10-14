@@ -63,8 +63,11 @@ if (NODE_ENV === "production" && SENTRY_DSN) {
       // Most often due to DOM-aggressive browser extensions
       /_VirtualDom_applyPatch/,
     ],
+    // IS_REVIEW_APP is set by `scalingo.json` only on review apps
+    // See: https://developers.scalingo.com/scalingo-json-schema/
     environment: process.env.IS_REVIEW_APP ? "review-app" : NODE_ENV || "development",
   });
+  Sentry.setTag("subsystem", "front-end");
 }
 
 function loadScript(scriptUrl) {
