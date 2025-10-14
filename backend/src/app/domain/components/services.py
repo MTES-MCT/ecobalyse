@@ -224,6 +224,8 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
     async def _update_component(
         self, data: ModelDictT[m.Component], processes_service, owner_id: UUID
     ):
+        # Used for journaling as it is the only moment where we have the full object in json
+        # In the following code, the model is either without the name/scopes changes
         input_data = copy.deepcopy(data)
 
         data["id"] = data.get("id", uuid4())
@@ -245,7 +247,7 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
             record_id=model.id,
             action=m.JournalAction.UPDATED,
             user_id=owner_id,
-            value=input_data if is_dict(input_data) else input_data.to_dict(),
+            value=input_data,
         )
         self.repository.session.add(entry)
 
