@@ -21,7 +21,7 @@ class Element(UUIDAuditBase):
     __tablename__ = "element"
     amount: Mapped[float] = mapped_column(Float, nullable=False, default=0)
 
-    material_id: Mapped[UUID] = mapped_column(
+    material_process_id: Mapped[UUID] = mapped_column(
         ForeignKey("process.id", ondelete="cascade"), nullable=False
     )
 
@@ -47,7 +47,8 @@ class Element(UUIDAuditBase):
 
     @property
     def material(self) -> UUID:
-        return self.material_id
+        # Used for json/msgspec serialization
+        return self.material_process_id
 
     @property
     def transforms(self) -> list[UUID]:
@@ -56,4 +57,4 @@ class Element(UUIDAuditBase):
         return transforms
 
     def __repr__(self) -> str:
-        return f"Element(id={self.id!r}, amount={self.amount!r}, material_id={self.material_id!r}, component_id={self.component_id!r}, transforms={self.transforms!r})"
+        return f"Element(id={self.id!r}, amount={self.amount!r}, material_process_id={self.material_process_id!r}, component_id={self.component_id!r}, transforms={self.transforms!r})"

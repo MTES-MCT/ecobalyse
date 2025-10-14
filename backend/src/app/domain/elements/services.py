@@ -57,7 +57,7 @@ class ElementService(SQLAlchemyAsyncRepositoryService[m.Element]):
         if operation == "create" and is_dict(data):
             transforms_added: list[str] = data.pop("transforms", [])
             data["id"] = data.get("id", uuid4())
-            data["material_id"] = data.pop("material")
+            data["material_process_id"] = data.pop("material")
 
             data = await super().to_model(data)
 
@@ -74,11 +74,11 @@ class ElementService(SQLAlchemyAsyncRepositoryService[m.Element]):
 
         if operation == "update" and is_dict(data):
             transforms_updated: list[str] = data.pop("transforms", [])
-            material_id = data.pop("material")
+            material_process_id = data.pop("material")
             amount = data.pop("amount")
 
             data = await super().get(item_id=data["id"])
-            data.material_id = material_id
+            data.material_process_id = material_process_id
             data.amount = amount
 
             if transforms_updated:

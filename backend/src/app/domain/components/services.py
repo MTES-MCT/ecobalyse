@@ -183,7 +183,7 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
         )
         tranforms_ids = element_dict.pop("transforms", None)
 
-        element_dict["material_id"] = element_dict.pop("material")
+        element_dict["material_process_id"] = element_dict.pop("material")
         element_dict["component_id"] = component_id
 
         elt = m.Element(**element_dict)
