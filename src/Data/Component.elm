@@ -187,7 +187,7 @@ type Results
         , items : List Results
         , label : Maybe String
         , mass : Mass
-        , materialType : Maybe String
+        , materialType : Maybe Category.Material
         , quantity : Int
         , stage : Maybe Stage
         }
@@ -477,7 +477,7 @@ computeMaterialResults amount process =
         materialType =
             Process.getMaterialTypes process
                 |> List.head
-                |> Maybe.withDefault "other"
+                |> Maybe.withDefault Category.OtherMaterial
                 |> Just
     in
     -- global result
@@ -690,7 +690,7 @@ encodeResults maybeTrigram (Results results) =
         [ ( "label", results.label |> Maybe.map Encode.string )
         , ( "stage", results.stage |> Maybe.map (stageToString >> Encode.string) )
         , ( "mass", results.mass |> Mass.inKilograms |> Encode.float |> Just )
-        , ( "materialType", results.materialType |> Maybe.map Encode.string )
+        , ( "materialType", results.materialType |> Maybe.map (Category.materialTypeToString >> Encode.string) )
         , ( "quantity", results.quantity |> Encode.int |> Just )
         , ( "impacts"
           , Just
@@ -798,17 +798,19 @@ getMaterialMassDistribution (Results results) =
         |> List.foldl
             (\( quantity, unitMass, Results { materialType } ) acc ->
                 let
-                    materialType_ =
-                        materialType |> Maybe.withDefault "other"
+                    materialKey =
+                        materialType
+                            |> Maybe.withDefault Category.OtherMaterial
+                            |> Category.materialTypeToString
 
                     totalMass =
                         unitMass |> Quantity.multiplyBy (toFloat quantity)
                 in
-                if Dict.member materialType_ acc then
-                    acc |> Dict.update materialType_ (Maybe.map (Quantity.plus totalMass))
+                if Dict.member materialKey acc then
+                    acc |> Dict.update materialKey (Maybe.map (Quantity.plus totalMass))
 
                 else
-                    acc |> Dict.insert materialType_ totalMass
+                    acc |> Dict.insert materialKey totalMass
             )
             Dict.empty
 

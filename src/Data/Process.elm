@@ -203,7 +203,7 @@ getDisplayName process =
             getTechnicalName process
 
 
-getMaterialTypes : Process -> List String
+getMaterialTypes : Process -> List Category.Material
 getMaterialTypes =
     .categories
         >> List.filterMap
