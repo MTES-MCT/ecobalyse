@@ -178,9 +178,7 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
         component_id: str,
         processes_service,
     ):
-        element_dict = (
-            element.to_dict() if type(element) is ComponentElement else element
-        )
+        element_dict = element if is_dict(element) else element.to_dict()
         tranforms_ids = element_dict.pop("transforms", [])
 
         element_dict["material_process_id"] = element_dict.pop("material")
