@@ -362,21 +362,29 @@ editorView ({ db, docsUrl, explorerRoute, maxItems, items, results, title } as c
 
 
 endOfLifeView : Config db msg -> Results -> Html msg
-endOfLifeView _ results =
+endOfLifeView config results =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header d-flex align-items-center justify-content-between" ]
             [ h2 [ class "h5 mb-0" ]
                 [ text "Fin de vie" ]
             ]
         , div [ class "card-body p-0" ]
-            [ Component.getMaterialMassDistribution results
+            [ Component.getMaterialDistribution results
                 |> AnyDict.toList
                 |> List.map
-                    (\( materialType, mass ) ->
+                    (\( materialType, ( mass, impacts, eolStrategyShares ) ) ->
                         span []
                             [ text <| Category.materialTypeToLabel materialType
                             , text " : "
                             , Format.kg mass
+                            , text " - "
+                            , Format.formatImpact config.impact impacts
+                            , text " - Recyclage : "
+                            , Format.splitAsPercentage 0 eolStrategyShares.recycling
+                            , text " - Incinération : "
+                            , Format.splitAsPercentage 0 eolStrategyShares.incinerating
+                            , text " - Mise en décharge : "
+                            , Format.splitAsPercentage 0 eolStrategyShares.landfilling
                             ]
                     )
                 |> List.map (\html -> li [ class "list-group-item" ] [ html ])

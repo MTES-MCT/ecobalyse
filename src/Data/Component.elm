@@ -43,7 +43,7 @@ module Data.Component exposing
     , extractItems
     , extractMass
     , findById
-    , getMaterialMassDistribution
+    , getMaterialDistribution
     , idFromString
     , idToString
     , isEmpty
@@ -180,16 +180,16 @@ type Quantity
 
 {-| Holds the distribution of material masses per material type
 -}
-type alias MaterialMassDistribution =
-    AnyDict String Category.Material Mass
+type alias MaterialDistribution =
+    AnyDict String Category.Material ( Mass, Impacts, EoLStrategy Split )
 
 
 {-| Material end of life strategies (must sum up to 100%)
 -}
-type alias EoLStrategyShares =
-    { incinerating : Split
-    , landfilling : Split
-    , recycling : Split
+type alias EoLStrategy a =
+    { incinerating : a
+    , landfilling : a
+    , recycling : a
     }
 
 
@@ -406,14 +406,13 @@ computeElementResults processes =
 
 computeEndOfLifeResults : DataContainer db -> Results -> Result String Results
 computeEndOfLifeResults _ (Results results) =
-    let
-        materialMassDistribution =
-            getMaterialMassDistribution (Results results)
-
-        -- Processes to load
-        -- incinerating: Treatment of municipal solid waste, municipal incineration, FR
-        -- landfilling:  Treatment of municipal solid waste, sanitary landfill, RoW
-    in
+    -- let
+    --     materialMassDistribution =
+    --         getMaterialDistribution (Results results)
+    --     -- Processes to load
+    --     -- incinerating: Treatment of municipal solid waste, municipal incineration, FR
+    --     -- landfilling:  Treatment of municipal solid waste, sanitary landfill, RoW
+    -- in
     Ok <|
         Results
             { results
@@ -421,10 +420,8 @@ computeEndOfLifeResults _ (Results results) =
             }
 
 
-getEoLStrategyShares : Category.Material -> EoLStrategyShares
+getEoLStrategyShares : Category.Material -> EoLStrategy Split
 getEoLStrategyShares material =
-    -- TODO: eventually, it would be nice to load this from an external config file or
-    --       even better, from the backend
     let
         split =
             Split.fromPercent >> Result.withDefault Split.zero
@@ -432,6 +429,8 @@ getEoLStrategyShares material =
         defaultShares =
             { incinerating = split 82, landfilling = split 18, recycling = Split.zero }
     in
+    -- TODO: eventually, it would be nice to load this from an external config file or
+    --       even better, from the backend
     [ ( Category.Metal, { incinerating = Split.zero, landfilling = Split.zero, recycling = Split.full } )
     , ( Category.Plastic, { incinerating = split 8, landfilling = Split.zero, recycling = split 92 } )
     , ( Category.Upholstery, { incinerating = split 94, landfilling = split 2, recycling = split 4 } )
@@ -833,8 +832,8 @@ findById id =
 
 {-| Compute mass distribution by material types
 -}
-getMaterialMassDistribution : Results -> MaterialMassDistribution
-getMaterialMassDistribution (Results results) =
+getMaterialDistribution : Results -> MaterialDistribution
+getMaterialDistribution (Results results) =
     results.items
         -- component level
         -- propagate component quantity to children elements
@@ -854,14 +853,17 @@ getMaterialMassDistribution (Results results) =
                     materialKey =
                         materialType |> Maybe.withDefault Category.OtherMaterial
 
+                    eolStrategyShares =
+                        getEoLStrategyShares materialKey
+
                     totalMass =
                         unitMass |> Quantity.multiplyBy (toFloat quantity)
                 in
                 if AnyDict.member materialKey acc then
-                    acc |> AnyDict.update materialKey (Maybe.map (Quantity.plus totalMass))
+                    acc |> AnyDict.update materialKey (Maybe.map (\( mass, impacts, eolStrategyShares_ ) -> ( Quantity.plus totalMass mass, impacts, eolStrategyShares_ )))
 
                 else
-                    acc |> AnyDict.insert materialKey totalMass
+                    acc |> AnyDict.insert materialKey ( totalMass, Impact.empty, eolStrategyShares )
             )
             (AnyDict.empty Category.materialTypeToString)
 
