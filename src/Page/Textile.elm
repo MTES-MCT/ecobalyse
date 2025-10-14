@@ -882,7 +882,7 @@ lifeCycleStepsView db { activeTab, impact } simulator =
 
 simulatorFormView : Session -> Model -> Simulator -> List (Html Msg)
 simulatorFormView session model ({ inputs } as simulator) =
-    [ div [ class "row align-items-start flex-md-columns g-2 mb-3" ]
+    [ div [ class "row align-items-start flex-md-columns g-2" ]
         [ div [ class "col-md-6" ]
             [ inputs
                 |> Inputs.toQuery
@@ -944,7 +944,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , updateItemName = \_ _ -> NoOp
         , updateItemQuantity = UpdateTrimQuantity
         }
-    , div [ class "card shadow-sm pb-2 mb-3" ]
+    , div [ class "card shadow-sm pb-2" ]
         [ div [ class "card-header d-flex justify-content-between align-items-center" ]
             [ h2 [ class "h5 mb-1 text-truncate" ] [ text "Durabilité" ]
             , div [ class "d-flex align-items-center gap-2" ]
@@ -1085,7 +1085,7 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                     , content =
                         [ simulator
                             |> simulatorFormView session model
-                            |> div [ class "card-body p-2" ]
+                            |> div [ class "card-body p-2 d-flex flex-column gap-3" ]
                         ]
                     }
                 ]
