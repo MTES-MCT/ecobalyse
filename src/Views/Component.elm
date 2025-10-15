@@ -14,6 +14,7 @@ import Data.Component as Component
         , TargetElement
         , TargetItem
         )
+import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
@@ -30,6 +31,7 @@ import Views.Button as Button
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Link as Link
+import Views.Table as Table
 
 
 type alias Config db msg =
@@ -369,26 +371,52 @@ endOfLifeView config results =
                 [ text "Fin de vie" ]
             ]
         , div [ class "card-body p-0" ]
-            [ Component.getMaterialDistribution results
-                |> AnyDict.toList
-                |> List.map
-                    (\( materialType, ( mass, impacts, eolStrategyShares ) ) ->
-                        span []
-                            [ text <| Category.materialTypeToLabel materialType
-                            , text " : "
-                            , Format.kg mass
-                            , text " - "
-                            , Format.formatImpact config.impact impacts
-                            , text " - Recyclage : "
-                            , Format.splitAsPercentage 0 eolStrategyShares.recycling
-                            , text " - Incinération : "
-                            , Format.splitAsPercentage 0 eolStrategyShares.incinerating
-                            , text " - Mise en décharge : "
-                            , Format.splitAsPercentage 0 eolStrategyShares.landfilling
-                            ]
-                    )
-                |> List.map (\html -> li [ class "list-group-item" ] [ html ])
-                |> ul [ class "list-group list-group-flush" ]
+            [ Table.responsiveDefault
+                []
+                [ thead []
+                    [ tr []
+                        [ th [ class "ps-3" ] [ text "Matière" ]
+                        , th [ class "text-end" ] [ text "Masse" ]
+                        , th [ class "text-end" ] [ text "Recyclage" ]
+                        , th [ class "text-end" ] [ text "Mise en décharge" ]
+                        , th [ class "text-end" ] [ text "Incinération" ]
+                        , th [ class "text-end pe-3" ] [ text "Impact" ]
+                        ]
+                    ]
+                , Component.getEndOfLifeImpacts results
+                    |> AnyDict.toList
+                    |> List.map
+                        (\( materialType, ( mass, { incinerating, landfilling, recycling } ) ) ->
+                            tr []
+                                [ td [ class "ps-3" ] [ text <| Category.materialTypeToLabel materialType ]
+                                , td [ class "text-end" ] [ Format.kg mass ]
+                                , td [ class "text-end" ]
+                                    [ recycling |> Tuple.first |> Format.splitAsPercentage 0
+                                    , text ", "
+                                    , recycling |> Tuple.second |> Format.formatImpact config.impact
+                                    ]
+                                , td [ class "text-end" ]
+                                    [ incinerating |> Tuple.first |> Format.splitAsPercentage 0
+                                    , text ", "
+                                    , incinerating |> Tuple.second |> Format.formatImpact config.impact
+                                    ]
+                                , td [ class "text-end" ]
+                                    [ landfilling |> Tuple.first |> Format.splitAsPercentage 0
+                                    , text ", "
+                                    , landfilling |> Tuple.second |> Format.formatImpact config.impact
+                                    ]
+                                , td [ class "text-end pe-3 fw-bold" ]
+                                    [ [ Tuple.second recycling
+                                      , Tuple.second incinerating
+                                      , Tuple.second landfilling
+                                      ]
+                                        |> Impact.sumImpacts
+                                        |> Format.formatImpact config.impact
+                                    ]
+                                ]
+                        )
+                    |> tbody []
+                ]
             ]
         ]
 

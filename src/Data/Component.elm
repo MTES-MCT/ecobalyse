@@ -43,7 +43,7 @@ module Data.Component exposing
     , extractItems
     , extractMass
     , findById
-    , getMaterialDistribution
+    , getEndOfLifeImpacts
     , idFromString
     , idToString
     , isEmpty
@@ -180,8 +180,8 @@ type Quantity
 
 {-| Holds the distribution of material masses per material type
 -}
-type alias MaterialDistribution =
-    AnyDict String Category.Material ( Mass, Impacts, EoLStrategy Split )
+type alias MaterialDistribution a =
+    AnyDict String Category.Material a
 
 
 {-| Material end of life strategies (must sum up to 100%)
@@ -830,9 +830,35 @@ findById id =
         >> Result.fromMaybe ("Aucun composant avec id=" ++ idToString id)
 
 
+getEndOfLifeImpacts : Results -> MaterialDistribution ( Mass, EoLStrategy ( Split, Impacts ) )
+getEndOfLifeImpacts =
+    let
+        computeShareImpacts mass =
+            -- TODO:
+            -- - import required processes
+            -- - multiply process impacts per kg with mass
+            Split.applyToQuantity mass >> (\_ -> Impact.empty)
+    in
+    getMaterialDistribution
+        >> AnyDict.map
+            (\materialCategory mass ->
+                let
+                    { incinerating, landfilling, recycling } =
+                        getEoLStrategyShares materialCategory
+
+                    splitAndImpacts =
+                        { incinerating = ( incinerating, computeShareImpacts mass incinerating )
+                        , landfilling = ( landfilling, computeShareImpacts mass landfilling )
+                        , recycling = ( recycling, computeShareImpacts mass recycling )
+                        }
+                in
+                ( mass, splitAndImpacts )
+            )
+
+
 {-| Compute mass distribution by material types
 -}
-getMaterialDistribution : Results -> MaterialDistribution
+getMaterialDistribution : Results -> MaterialDistribution Mass
 getMaterialDistribution (Results results) =
     results.items
         -- component level
@@ -850,20 +876,18 @@ getMaterialDistribution (Results results) =
         |> List.foldl
             (\( quantity, unitMass, Results { materialType } ) acc ->
                 let
-                    materialKey =
+                    materialCategory =
                         materialType |> Maybe.withDefault Category.OtherMaterial
-
-                    eolStrategyShares =
-                        getEoLStrategyShares materialKey
 
                     totalMass =
                         unitMass |> Quantity.multiplyBy (toFloat quantity)
                 in
-                if AnyDict.member materialKey acc then
-                    acc |> AnyDict.update materialKey (Maybe.map (\( mass, impacts, eolStrategyShares_ ) -> ( Quantity.plus totalMass mass, impacts, eolStrategyShares_ )))
-
-                else
-                    acc |> AnyDict.insert materialKey ( totalMass, Impact.empty, eolStrategyShares )
+                acc
+                    |> AnyDict.update materialCategory
+                        (Maybe.map (Quantity.plus totalMass)
+                            >> Maybe.withDefault totalMass
+                            >> Just
+                        )
             )
             (AnyDict.empty Category.materialTypeToString)
 
