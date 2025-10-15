@@ -606,16 +606,16 @@ simulatorView session model =
                 , customScoreInfo = Nothing
                 , productMass = Component.extractMass model.results.production
                 , totalImpacts =
-                    model.results.production
-                        |> Component.extractImpacts
+                    model.results
+                        |> Component.sumLifeCycleImpacts
                         |> Impact.divideBy (Unit.ratioToFloat currentDurability)
                 , totalImpactsWithoutDurability =
                     if currentDurability == Unit.ratio 1 then
                         Nothing
 
                     else
-                        model.results.production
-                            |> Component.extractImpacts
+                        model.results
+                            |> Component.sumLifeCycleImpacts
                             |> Just
 
                 -- Impacts tabs
