@@ -4,9 +4,11 @@ import Data.Component as Component exposing (Component, Item)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
 import Data.Process as Process exposing (Process)
+import Data.Process.Category as Category
 import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
+import Dict.Any as AnyDict
 import Expect
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
@@ -510,6 +512,44 @@ suite =
                         )
                     ]
                 )
+            , TestUtils.suiteFromResult "getEndOfLifeDetailedImpacts"
+                -- setup
+                (""" [ { "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 }
+                     ]"""
+                    |> decodeJsonThen (Decode.list Component.decodeItem)
+                        (Component.compute db
+                            >> Result.map .production
+                            >> Result.andThen (Component.getEndOfLifeDetailedImpacts db.processes)
+                        )
+                )
+                -- tests
+                (\materialGroups ->
+                    [ it "should group materials"
+                        (materialGroups
+                            |> AnyDict.keys
+                            |> Expect.equal [ Category.OrganicFibers, Category.SyntheticFibers ]
+                        )
+                    , it "should group materials masses"
+                        (materialGroups
+                            |> AnyDict.values
+                            |> List.map Tuple.first
+                            |> Expect.equal [ Mass.kilogram, Mass.kilogram ]
+                        )
+                    , it "should group materials impacts"
+                        (materialGroups
+                            |> AnyDict.values
+                            |> List.map
+                                (Tuple.second
+                                    >> .incinerating
+                                    >> Tuple.second
+                                    >> Impact.getImpact Definition.Ecs
+                                    >> Unit.impactToFloat
+                                )
+                            |> List.all (\x -> x > 0)
+                            |> Expect.equal True
+                        )
+                    ]
+                )
             , TestUtils.suiteFromResult2 "removeElement"
                 -- setup
                 sofaFabric
@@ -604,6 +644,11 @@ suite =
                         )
                     , it "should compute transformation stage impacts"
                         (stagesImpacts.transformation
+                            |> getEcsImpact
+                            |> Expect.greaterThan 0
+                        )
+                    , it "should compute end of life stage impacts"
+                        (stagesImpacts.endOfLife
                             |> getEcsImpact
                             |> Expect.greaterThan 0
                         )
