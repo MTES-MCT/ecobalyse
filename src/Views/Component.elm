@@ -20,6 +20,7 @@ import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
 import Data.Scope as Scope exposing (Scope)
+import Data.Unit as Unit
 import Dict.Any as AnyDict
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
@@ -626,6 +627,14 @@ endOfLifeView config results =
                     |> Component.getEndOfLifeDetailedImpacts config.db.processes
                     |> Result.map AnyDict.toList
                     |> Result.withDefault []
+                    |> List.sortBy
+                        (\( _, ( _, { incinerating, landfilling, recycling } ) ) ->
+                            [ Tuple.second incinerating, Tuple.second landfilling, Tuple.second recycling ]
+                                |> Impact.sumImpacts
+                                |> Impact.getImpact config.impact.trigram
+                                |> Unit.impactToFloat
+                        )
+                    |> List.reverse
                     |> List.map
                         (\( materialType, ( mass, { incinerating, landfilling, recycling } ) ) ->
                             tr []
