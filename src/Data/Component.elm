@@ -838,7 +838,10 @@ findById id =
         >> Result.fromMaybe ("Aucun composant avec id=" ++ idToString id)
 
 
-getEndOfLifeDetailedImpacts : List Process -> Results -> Result String (MaterialDistribution ( Mass, EndOfLifeStrategy ( Split, Impacts ) ))
+getEndOfLifeDetailedImpacts :
+    List Process
+    -> Results
+    -> Result String (MaterialDistribution ( Mass, EndOfLifeStrategy ( Split, Impacts ) ))
 getEndOfLifeDetailedImpacts processes =
     let
         computeShareImpacts : Mass -> ( Split, Maybe Process ) -> Impacts
