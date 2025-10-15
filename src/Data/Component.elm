@@ -8,6 +8,7 @@ module Data.Component exposing
     , Id
     , Index
     , Item
+    , LifeCycle
     , Quantity
     , Results(..)
     , Stage(..)
@@ -31,11 +32,12 @@ module Data.Component exposing
     , decodeListFromJsonString
     , elementTransforms
     , elementsToString
+    , emptyLifeCycle
     , emptyResults
     , encode
     , encodeId
     , encodeItem
-    , encodeResults
+    , encodeLifeCycle
     , expandElements
     , expandItems
     , extractAmount
@@ -57,6 +59,7 @@ module Data.Component exposing
     , removeElementTransform
     , setElementMaterial
     , stagesImpacts
+    , sumLifeCycleImpacts
     , toggleCustomScope
     , updateElement
     , updateElementAmount
@@ -194,6 +197,12 @@ type alias EndOfLifeStrategy a =
     }
 
 
+type alias LifeCycle =
+    { endOfLife : Impacts
+    , production : Results
+    }
+
+
 {-| A nested data structure carrying the impacts and mass resulting from a computation
 -}
 type Results
@@ -215,7 +224,8 @@ type Stage
 
 
 type alias StagesImpacts =
-    { material : Impacts
+    { endOfLife : Impacts
+    , material : Impacts
     , transformation : Impacts
     }
 
@@ -380,12 +390,12 @@ checkTransformsUnit unit transforms =
 
 {-| Computes impacts from a list of available components, processes and specified component items
 -}
-compute : DataContainer db -> List Item -> Result String Results
+compute : DataContainer db -> List Item -> Result String LifeCycle
 compute db =
     List.map (computeItemResults db)
         >> RE.combine
         >> Result.map (List.foldr addResults emptyResults)
-        >> Result.map (\(Results results) -> Results { results | label = Just "Production" })
+        >> Result.map (\(Results results) -> { emptyLifeCycle | production = Results { results | label = Just "Production" } })
         >> Result.andThen (computeEndOfLifeResults db)
 
 
@@ -405,18 +415,11 @@ computeElementResults processes =
             )
 
 
-computeEndOfLifeResults : DataContainer db -> Results -> Result String Results
-computeEndOfLifeResults db (Results results) =
-    Results results
+computeEndOfLifeResults : DataContainer db -> LifeCycle -> Result String LifeCycle
+computeEndOfLifeResults db lifeCycle =
+    lifeCycle.production
         |> getEndOfLifeImpacts db
-        |> Result.map
-            (\eolImpacts ->
-                Results
-                    { results
-                      -- FIXME: move adding this elsewhere
-                        | impacts = Impact.sumImpacts [ results.impacts, eolImpacts ]
-                    }
-            )
+        |> Result.map (\endOfLife -> { lifeCycle | endOfLife = endOfLife })
 
 
 {-| Compute an initially required amount from sequentially applied waste ratios
@@ -643,6 +646,13 @@ elementsToString db component =
         |> Result.map (String.join " | ")
 
 
+emptyLifeCycle : LifeCycle
+emptyLifeCycle =
+    { endOfLife = Impact.empty
+    , production = emptyResults
+    }
+
+
 emptyResults : Results
 emptyResults =
     Results
@@ -714,6 +724,24 @@ encodeId =
     idToString >> Encode.string
 
 
+encodeLifeCycle : Maybe Trigram -> LifeCycle -> Encode.Value
+encodeLifeCycle maybeTrigram lifeCycle =
+    Encode.object
+        [ ( "production", encodeResults maybeTrigram lifeCycle.production )
+        , ( "endOfLife"
+          , case maybeTrigram of
+                Just trigram ->
+                    lifeCycle.endOfLife
+                        |> Impact.getImpact trigram
+                        |> Unit.impactToFloat
+                        |> Encode.float
+
+                Nothing ->
+                    Impact.encode lifeCycle.endOfLife
+          )
+        ]
+
+
 encodeResults : Maybe Trigram -> Results -> Encode.Value
 encodeResults maybeTrigram (Results results) =
     EU.optionalPropertiesObject
@@ -723,9 +751,8 @@ encodeResults maybeTrigram (Results results) =
         , ( "materialType", results.materialType |> Maybe.map (Category.materialTypeToString >> Encode.string) )
         , ( "quantity", results.quantity |> Encode.int |> Just )
         , ( "impacts"
-          , Just
-                -- Note: even with no trigram provided, we always want impacts here
-                (case maybeTrigram of
+          , Just <|
+                case maybeTrigram of
                     Just trigram ->
                         results.impacts
                             |> Impact.getImpact trigram
@@ -734,7 +761,6 @@ encodeResults maybeTrigram (Results results) =
 
                     Nothing ->
                         Impact.encode results.impacts
-                )
           )
         , ( "items", results.items |> Encode.list (encodeResults maybeTrigram) |> Just )
         ]
@@ -1102,9 +1128,10 @@ setElementMaterial targetElement material items =
             |> Ok
 
 
-stagesImpacts : Results -> StagesImpacts
-stagesImpacts (Results results) =
-    results.items
+stagesImpacts : LifeCycle -> StagesImpacts
+stagesImpacts lifeCycle =
+    lifeCycle.production
+        |> extractItems
         -- component level
         |> List.concatMap extractItems
         -- element level
@@ -1121,7 +1148,10 @@ stagesImpacts (Results results) =
                     Nothing ->
                         acc
             )
-            { material = Impact.empty, transformation = Impact.empty }
+            { endOfLife = lifeCycle.endOfLife
+            , material = Impact.empty
+            , transformation = Impact.empty
+            }
 
 
 stageToString : Stage -> String
@@ -1132,6 +1162,14 @@ stageToString stage =
 
         TransformStage ->
             "transformation"
+
+
+sumLifeCycleImpacts : LifeCycle -> Impacts
+sumLifeCycleImpacts lifeCycle =
+    Impact.sumImpacts
+        [ extractImpacts lifeCycle.production
+        , lifeCycle.endOfLife
+        ]
 
 
 toggleCustomScope : Component -> Scope -> Bool -> Item -> Item

@@ -63,7 +63,7 @@ type alias Model =
     , impact : Definition
     , initialQuery : Query
     , modal : Modal
-    , results : Component.Results
+    , results : Component.LifeCycle
     , scope : Scope
     }
 
@@ -136,8 +136,9 @@ init scope trigram maybeUrlQuery session =
     , initialQuery = initialQuery
     , modal = NoModal
     , results =
-        Simulator.compute session.db initialQuery
-            |> Result.withDefault Component.emptyResults
+        initialQuery
+            |> Simulator.compute session.db
+            |> Result.withDefault Component.emptyLifeCycle
     , scope = scope
     }
         |> App.createUpdate (session |> Session.updateObjectQuery scope initialQuery)
@@ -181,8 +182,9 @@ initFromExample session scope uuid =
     , initialQuery = exampleQuery
     , modal = NoModal
     , results =
-        Simulator.compute session.db exampleQuery
-            |> Result.withDefault Component.emptyResults
+        exampleQuery
+            |> Simulator.compute session.db
+            |> Result.withDefault Component.emptyLifeCycle
     , scope = scope
     }
         |> App.createUpdate (session |> Session.updateObjectQuery scope exampleQuery)
@@ -226,7 +228,7 @@ updateQuery query ({ model, session } as pageUpdate) =
                 , results =
                     query
                         |> Simulator.compute session.db
-                        |> Result.withDefault Component.emptyResults
+                        |> Result.withDefault Component.emptyLifeCycle
             }
         , session = session |> Session.updateObjectQuery model.scope query
     }
@@ -602,9 +604,9 @@ simulatorView session model =
 
                 -- Score
                 , customScoreInfo = Nothing
-                , productMass = Component.extractMass model.results
+                , productMass = Component.extractMass model.results.production
                 , totalImpacts =
-                    model.results
+                    model.results.production
                         |> Component.extractImpacts
                         |> Impact.divideBy (Unit.ratioToFloat currentDurability)
                 , totalImpactsWithoutDurability =
@@ -612,7 +614,7 @@ simulatorView session model =
                         Nothing
 
                     else
-                        model.results
+                        model.results.production
                             |> Component.extractImpacts
                             |> Just
 

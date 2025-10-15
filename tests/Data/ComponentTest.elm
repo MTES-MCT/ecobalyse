@@ -289,7 +289,7 @@ suite =
                 [ it "should compute results from decoded component items"
                     (chair
                         |> Result.andThen (Component.compute db)
-                        |> Result.map extractEcsImpact
+                        |> Result.map (.production >> extractEcsImpact)
                         |> TestUtils.expectResultWithin (Expect.Absolute 1) 293
                     )
                 , it "should compute results from decoded component items with custom component elements"
@@ -310,7 +310,7 @@ suite =
                          , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
                          ]"""
                         |> decodeJsonThen (Decode.list Component.decodeItem) (Component.compute db)
-                        |> Result.map extractEcsImpact
+                        |> Result.map (.production >> extractEcsImpact)
                         |> TestUtils.expectResultWithin (Expect.Absolute 1) 314
                     )
                 ]
@@ -596,7 +596,7 @@ suite =
                     |> decodeJsonThen (Decode.list Component.decodeItem) (Component.compute db)
                     |> Result.map (\results -> ( results, Component.stagesImpacts results ))
                 )
-                (\( results, stagesImpacts ) ->
+                (\( lifeCycle, stagesImpacts ) ->
                     [ it "should compute material stage impacts"
                         (stagesImpacts.material
                             |> getEcsImpact
@@ -611,7 +611,7 @@ suite =
                         ([ stagesImpacts.material, stagesImpacts.transformation ]
                             |> Impact.sumImpacts
                             |> getEcsImpact
-                            |> Expect.within (Expect.Absolute 1) (extractEcsImpact results)
+                            |> Expect.within (Expect.Absolute 1) (extractEcsImpact lifeCycle.production)
                         )
                     ]
                 )

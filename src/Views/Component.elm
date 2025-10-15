@@ -9,6 +9,7 @@ import Data.Component as Component
         , ExpandedElement
         , Index
         , Item
+        , LifeCycle
         , Quantity
         , Results
         , TargetElement
@@ -52,7 +53,7 @@ type alias Config db msg =
     , removeElement : TargetElement -> msg
     , removeElementTransform : TargetElement -> Index -> msg
     , removeItem : Index -> msg
-    , results : Results
+    , results : LifeCycle
     , scopes : List Scope
     , setDetailed : List Index -> msg
     , title : String
@@ -242,8 +243,8 @@ componentView config itemIndex item ( quantity, component, expandedElements ) it
         ]
 
 
-viewDebug : List Item -> Results -> Html msg
-viewDebug items results =
+viewDebug : List Item -> LifeCycle -> Html msg
+viewDebug items lifeCycle =
     div []
         [ details [ class "card-body py-2" ]
             [ summary [] [ text "Debug" ]
@@ -260,8 +261,8 @@ viewDebug items results =
                 , div [ class "col-6" ]
                     [ h5 [] [ text "Results" ]
                     , pre [ class "p-2 bg-light" ]
-                        [ results
-                            |> Component.encodeResults (Just Definition.Ecs)
+                        [ lifeCycle
+                            |> Component.encodeLifeCycle (Just Definition.Ecs)
                             |> Encode.encode 2
                             |> text
                         ]
@@ -291,7 +292,7 @@ editorView ({ db, docsUrl, explorerRoute, maxItems, items, results, title } as c
                             text ""
                     ]
                 , div [ class "d-flex align-items-center gap-2" ]
-                    [ results
+                    [ results.production
                         |> Component.extractImpacts
                         |> Format.formatImpact config.impact
                     , case docsUrl of
@@ -341,7 +342,7 @@ editorView ({ db, docsUrl, explorerRoute, maxItems, items, results, title } as c
                                             (List.range 0 (List.length items - 1))
                                             items
                                             expandedItems
-                                            (Component.extractItems results)
+                                            (Component.extractItems results.production)
                                         )
                                 )
                             ]
@@ -354,7 +355,7 @@ editorView ({ db, docsUrl, explorerRoute, maxItems, items, results, title } as c
         , if config.scopes /= [ Scope.Textile ] then
             div []
                 [ DownArrow.view [] []
-                , endOfLifeView config results
+                , endOfLifeView config results.production
                 ]
 
           else

@@ -198,16 +198,19 @@ forFood results config =
     }
 
 
-forObject : Component.Results -> Config msg -> Config msg
-forObject results config =
+forObject : Component.LifeCycle -> Config msg -> Config msg
+forObject lifeCycle config =
     let
         stageStats =
-            Component.stagesImpacts results
+            Component.stagesImpacts lifeCycle
     in
     { config
         | stepsImpacts =
             { distribution = Nothing
-            , endOfLife = Nothing
+            , endOfLife =
+                stageStats.endOfLife
+                    |> Impact.getImpact config.impactDefinition.trigram
+                    |> Just
             , materials =
                 stageStats.material
                     |> Impact.getImpact config.impactDefinition.trigram

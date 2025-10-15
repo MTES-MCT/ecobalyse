@@ -530,7 +530,7 @@ modalView db modals index modal =
                             , results =
                                 [ item ]
                                     |> Component.compute db
-                                    |> Result.withDefault Component.emptyResults
+                                    |> Result.withDefault Component.emptyLifeCycle
                             , scopes = Scope.all
                             , setDetailed = \_ -> NoOp
                             , title = ""

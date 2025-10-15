@@ -936,7 +936,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , results =
             inputs.trims
                 |> Component.compute session.db
-                |> Result.withDefault Component.emptyResults
+                |> Result.withDefault Component.emptyLifeCycle
         , scopes = [ Scope.Textile ]
         , setDetailed = \_ -> NoOp
         , title = "Accessoires"
