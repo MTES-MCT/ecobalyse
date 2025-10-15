@@ -420,37 +420,6 @@ computeEndOfLifeResults _ (Results results) =
             }
 
 
-getEoLStrategies : Category.Material -> Result String (EoLStrategy Split)
-getEoLStrategies material =
-    let
-        split =
-            Split.fromPercent >> Result.withDefault Split.zero
-
-        defaultShares =
-            { incinerating = split 82, landfilling = split 18, recycling = Split.zero }
-    in
-    -- TODO: eventually, it would be nice to load this from an external config file or
-    --       even better, from the backend
-    -- TODO: load and attach required processes
-    [ ( Category.Metal
-      , { incinerating = Split.zero, landfilling = Split.zero, recycling = Split.full }
-      )
-    , ( Category.Plastic
-      , { incinerating = split 8, landfilling = Split.zero, recycling = split 92 }
-      )
-    , ( Category.Upholstery
-      , { incinerating = split 94, landfilling = split 2, recycling = split 4 }
-      )
-    , ( Category.Wood
-      , { incinerating = split 31, landfilling = Split.zero, recycling = split 69 }
-      )
-    ]
-        |> AnyDict.fromList Category.materialTypeToString
-        |> AnyDict.get material
-        |> Maybe.withDefault defaultShares
-        |> Ok
-
-
 {-| Compute an initially required amount from sequentially applied waste ratios
 -}
 computeInitialAmount : List Split -> Amount -> Result String Amount
@@ -840,26 +809,33 @@ findById id =
         >> Result.fromMaybe ("Aucun composant avec id=" ++ idToString id)
 
 
-getEndOfLifeImpacts : Results -> Result String (MaterialDistribution ( Mass, EoLStrategy ( Split, Impacts ) ))
-getEndOfLifeImpacts =
+getEndOfLifeImpacts : List Process -> Results -> Result String (MaterialDistribution ( Mass, EoLStrategy ( Split, Impacts ) ))
+getEndOfLifeImpacts processes =
     let
-        computeShareImpacts mass =
-            -- TODO:
-            -- - import required processes
-            -- - multiply process impacts per kg with mass
-            Split.applyToQuantity mass >> (\_ -> Impact.empty)
+        computeShareImpacts : Mass -> ( Split, Maybe Process ) -> Impacts
+        computeShareImpacts mass ( split, process ) =
+            process
+                |> Maybe.map
+                    (.impacts
+                        >> Impact.multiplyBy
+                            (split
+                                |> Split.applyToQuantity mass
+                                |> Mass.inKilograms
+                            )
+                    )
+                |> Maybe.withDefault Impact.empty
     in
     getMaterialDistribution
         >> AnyDict.map
             (\materialCategory mass ->
-                -- FIXME: pass processes db
-                getEoLStrategies materialCategory
+                materialCategory
+                    |> getEoLStrategies processes
                     |> Result.map
                         (\{ incinerating, landfilling, recycling } ->
                             ( mass
-                            , { incinerating = ( incinerating, computeShareImpacts mass incinerating )
-                              , landfilling = ( landfilling, computeShareImpacts mass landfilling )
-                              , recycling = ( recycling, computeShareImpacts mass recycling )
+                            , { incinerating = ( Tuple.first incinerating, computeShareImpacts mass incinerating )
+                              , landfilling = ( Tuple.first landfilling, computeShareImpacts mass landfilling )
+                              , recycling = ( Tuple.first recycling, computeShareImpacts mass recycling )
                               }
                             )
                         )
@@ -868,6 +844,63 @@ getEndOfLifeImpacts =
         >> List.map RE.combineSecond
         >> RE.combine
         >> Result.map (AnyDict.fromList Category.materialTypeToString)
+
+
+getEoLStrategies : List Process -> Category.Material -> Result String (EoLStrategy ( Split, Maybe Process ))
+getEoLStrategies processes material =
+    -- TODO: eventually, it would be nice to load this from an external config file or
+    --       even better, from the backend
+    Result.map5
+        (\defaultIncinerating defaultLandfilling plasticIncinerating woodIncinerating upholsteryIncinerating ->
+            let
+                split =
+                    Split.fromPercent >> Result.withDefault Split.zero
+
+                defaultStrategies =
+                    { incinerating = ( split 82, Just defaultIncinerating )
+                    , landfilling = ( split 18, Just defaultLandfilling )
+                    , recycling = ( Split.zero, Nothing )
+                    }
+            in
+            [ ( Category.Metal
+              , { incinerating = ( Split.zero, Nothing )
+                , landfilling = ( Split.zero, Nothing )
+                , recycling = ( Split.full, Nothing )
+                }
+              )
+            , ( Category.Plastic
+              , { incinerating = ( split 8, Just plasticIncinerating )
+                , landfilling = ( Split.zero, Just defaultLandfilling )
+                , recycling = ( split 92, Nothing )
+                }
+              )
+            , ( Category.Upholstery
+              , { incinerating = ( split 94, Just upholsteryIncinerating )
+                , landfilling = ( split 2, Just defaultLandfilling )
+                , recycling = ( split 4, Nothing )
+                }
+              )
+            , ( Category.Wood
+              , { incinerating = ( split 31, Just woodIncinerating )
+                , landfilling = ( Split.zero, Just defaultLandfilling )
+                , recycling = ( split 69, Nothing )
+                }
+              )
+            ]
+                |> AnyDict.fromList Category.materialTypeToString
+                |> AnyDict.get material
+                |> Maybe.withDefault defaultStrategies
+        )
+        -- Default incineration process
+        (Process.findByStringId "6fad4e70-5736-552d-a686-97e4fb627c37" processes)
+        -- Default landfilling process
+        (Process.findByStringId "d4954f69-e647-531d-aa32-c34be5556736" processes)
+        -- Plastic incineration process
+        (Process.findByStringId "17986210-aeb8-5f4f-99fd-cbecb5439fde" processes)
+        -- Wood incineration process
+        (Process.findByStringId "316be695-bf3e-5562-9f09-77f213c3ec67" processes)
+        -- Upholstery incineration process
+        (Process.findByStringId "3fe5a5b1-c1b2-5c17-8b59-0e37b09f1037" processes)
 
 
 {-| Compute mass distribution by material types

@@ -365,10 +365,25 @@ editorView ({ db, docsUrl, explorerRoute, maxItems, items, results, title } as c
 
 endOfLifeView : Config db msg -> Results -> Html msg
 endOfLifeView config results =
+    let
+        formatShareImpacts ( split, impacts ) =
+            div []
+                [ impacts |> Format.formatImpact config.impact
+                , text "\u{00A0}("
+                , split |> Format.splitAsPercentage 0
+                , text ")"
+                ]
+    in
     div [ class "card shadow-sm" ]
         [ div [ class "card-header d-flex align-items-center justify-content-between" ]
             [ h2 [ class "h5 mb-0" ]
                 [ text "Fin de vie" ]
+            , div [ class "d-flex align-items-center gap-2" ]
+                [ text "TODO: total"
+
+                -- Impact.empty
+                --     |> Format.formatImpact config.impact
+                ]
             ]
         , div [ class "card-body p-0" ]
             [ Table.responsiveDefault
@@ -378,12 +393,13 @@ endOfLifeView config results =
                         [ th [ class "ps-3" ] [ text "Matière" ]
                         , th [ class "text-end" ] [ text "Masse" ]
                         , th [ class "text-end" ] [ text "Recyclage" ]
-                        , th [ class "text-end" ] [ text "Mise en décharge" ]
+                        , th [ class "text-end" ] [ text "Enfouissement" ]
                         , th [ class "text-end" ] [ text "Incinération" ]
                         , th [ class "text-end pe-3" ] [ text "Impact" ]
                         ]
                     ]
-                , Component.getEndOfLifeImpacts results
+                , results
+                    |> Component.getEndOfLifeImpacts config.db.processes
                     |> Result.map AnyDict.toList
                     |> Result.withDefault []
                     |> List.map
@@ -391,21 +407,9 @@ endOfLifeView config results =
                             tr []
                                 [ td [ class "ps-3" ] [ text <| Category.materialTypeToLabel materialType ]
                                 , td [ class "text-end" ] [ Format.kg mass ]
-                                , td [ class "text-end" ]
-                                    [ recycling |> Tuple.first |> Format.splitAsPercentage 0
-                                    , text ", "
-                                    , recycling |> Tuple.second |> Format.formatImpact config.impact
-                                    ]
-                                , td [ class "text-end" ]
-                                    [ incinerating |> Tuple.first |> Format.splitAsPercentage 0
-                                    , text ", "
-                                    , incinerating |> Tuple.second |> Format.formatImpact config.impact
-                                    ]
-                                , td [ class "text-end" ]
-                                    [ landfilling |> Tuple.first |> Format.splitAsPercentage 0
-                                    , text ", "
-                                    , landfilling |> Tuple.second |> Format.formatImpact config.impact
-                                    ]
+                                , td [ class "text-end" ] [ formatShareImpacts recycling ]
+                                , td [ class "text-end" ] [ formatShareImpacts incinerating ]
+                                , td [ class "text-end" ] [ formatShareImpacts landfilling ]
                                 , td [ class "text-end pe-3 fw-bold" ]
                                     [ [ Tuple.second recycling
                                       , Tuple.second incinerating

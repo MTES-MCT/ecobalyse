@@ -140,7 +140,7 @@ materialTypeToLabel material =
             "Fibres synthétiques"
 
         Upholstery ->
-            "Tapisserie"
+            "Mousses et rembourrés"
 
         Wood ->
             "Bois"
