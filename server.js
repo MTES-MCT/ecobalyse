@@ -265,14 +265,25 @@ api.all(/(.*)/, bodyParser.json(), jsonErrorHandler, async (req, res) => {
 
 // Middleware to check version number and file path
 const checkVersionAndPath = (req, res, next) => {
-  const versionNumber = req.params.versionNumber;
+  const handleError = (message) => {
+    // return a json error on json requests, redirect to root otherwise
+    if (req.get("accept").split(",")[0].startsWith("application/json")) {
+      return res.status(404).json({ error: message });
+    } else {
+      return res.redirect("/");
+    }
+  };
+
+  const { versionNumber } = req.params;
+  if (!/^v\d+\.\d+\.\d+$/.test(versionNumber)) {
+    return handleError("Invalid version format");
+  }
 
   const version = availableVersions.find((version) => version.dir === versionNumber);
-
   if (!version) {
-    // If no version is found, don’t display a blank page but redirect to the home
-    res.redirect("/");
+    return handleError("Version not found");
   }
+
   const staticDir = path.join(__dirname, "versions", versionNumber);
   req.staticDir = staticDir;
   next();
