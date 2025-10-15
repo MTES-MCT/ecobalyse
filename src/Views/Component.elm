@@ -20,6 +20,7 @@ import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
 import Data.Scope as Scope exposing (Scope)
+import Data.Split as Split
 import Data.Unit as Unit
 import Dict.Any as AnyDict
 import Html exposing (..)
@@ -589,13 +590,28 @@ quantityInput config itemIndex quantity =
 endOfLifeView : Config db msg -> LifeCycle -> Html msg
 endOfLifeView config lifeCycle =
     let
-        formatShareImpacts ( split, impacts ) =
-            div []
-                [ impacts |> Format.formatImpact config.impact
-                , text "\u{00A0}("
-                , split |> Format.splitAsPercentage 0
-                , text ")"
-                ]
+        formatShareImpacts isRecycling ( split, impacts ) =
+            if split == Split.zero then
+                text "-"
+
+            else
+                let
+                    impact =
+                        impacts |> Impact.getImpact config.impact.trigram
+
+                    formatted =
+                        impacts |> Format.formatImpact config.impact
+                in
+                div []
+                    [ if isRecycling && Unit.impactToFloat impact == 0 then
+                        span [ class "cursor-help", title "Le recyclage est ici considéré sans impact" ]
+                            [ formatted, text "*" ]
+
+                      else
+                        formatted
+                    , small []
+                        [ text "\u{00A0}(", split |> Format.splitAsPercentage 0, text ")" ]
+                    ]
     in
     div [ class "card shadow-sm" ]
         [ div [ class "card-header d-flex align-items-center justify-content-between" ]
@@ -640,9 +656,9 @@ endOfLifeView config lifeCycle =
                             tr []
                                 [ td [ class "ps-3" ] [ text <| Category.materialTypeToLabel materialType ]
                                 , td [ class "text-end" ] [ Format.kg mass ]
-                                , td [ class "text-end" ] [ formatShareImpacts recycling ]
-                                , td [ class "text-end" ] [ formatShareImpacts incinerating ]
-                                , td [ class "text-end" ] [ formatShareImpacts landfilling ]
+                                , td [ class "text-end" ] [ formatShareImpacts True recycling ]
+                                , td [ class "text-end" ] [ formatShareImpacts False incinerating ]
+                                , td [ class "text-end" ] [ formatShareImpacts False landfilling ]
                                 , td [ class "text-end pe-3 fw-bold" ]
                                     [ [ Tuple.second recycling
                                       , Tuple.second incinerating
