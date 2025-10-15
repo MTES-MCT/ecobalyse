@@ -352,7 +352,7 @@ editorView ({ db, docsUrl, explorerRoute, maxItems, items, results, title } as c
               else
                 addComponentButton config
             ]
-        , if config.scopes /= [ Scope.Textile ] then
+        , if config.scopes /= [ Scope.Textile ] && not (List.isEmpty items) then
             div []
                 [ DownArrow.view [] []
                 , endOfLifeView config results.production
