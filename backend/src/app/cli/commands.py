@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import copy
 from pathlib import Path
 from typing import Any, cast
 
@@ -18,7 +17,6 @@ from app.domain.accounts.schemas import (
 )
 from app.domain.accounts.services import UserService
 from app.domain.components.deps import provide_components_service
-from app.domain.elements.deps import provide_elements_service
 from app.domain.processes.deps import provide_processes_service
 from rich import get_console
 from structlog import get_logger
@@ -220,9 +218,7 @@ def load_test_fixtures() -> None:
     anyio.run(_load_test_fixtures)
 
 
-async def load_components_fixtures(components_data: dict) -> None:
-    """Import/Synchronize Database Fixtures."""
-
+async def get_or_create_default_user(db_session):
     logger = get_logger()
 
     async with alchemy.get_session() as db_session:
@@ -251,6 +247,17 @@ async def load_components_fixtures(components_data: dict) -> None:
             user = await users_service.get_one_or_none(
                 email=settings.app.DEFAULT_USER_EMAIL
             )
+
+        return user
+
+
+async def load_components_fixtures(components_data: dict) -> None:
+    """Import/Synchronize Database Fixtures."""
+
+    logger = get_logger()
+
+    async with alchemy.get_session() as db_session:
+        user = await get_or_create_default_user(db_session)
 
         components_service = await anext(provide_components_service(db_session))
 
@@ -380,21 +387,29 @@ def migrate_elements() -> None:
 
     console.rule("Migrating elements")
 
-    async def _migrate_elements() -> None:
+    async def _migrate() -> None:
         async with alchemy.get_session() as db_session:
-            components_service = await anext(provide_components_service(db_session))
-            elements_service = await anext(provide_elements_service(db_session))
+            await _migrate_elements(db_session)
 
-            components = await components_service.list()
+    anyio.run(_migrate)
 
-            for component in components:
-                # Don’t try to add elements to components that already have some
-                if component.elements == []:
-                    elements_json = copy.deepcopy(component.elements_json)
 
-                    for element in elements_json:
-                        element["component_id"] = component.id
+async def _migrate_elements(db_session) -> None:
+    components_service = await anext(provide_components_service(db_session))
 
-                        await elements_service.create(element, auto_commit=True)
+    components = await components_service.list()
 
-    anyio.run(_migrate_elements)
+    user = await get_or_create_default_user(db_session)
+
+    for component in components:
+        # Don’t try to add elements to components that already have some
+        if component.elements == []:
+            if component.elements_json:
+                await components_service.update(
+                    item_id=component.id,
+                    data={
+                        "id": component.id,
+                        "owner_id": user.id,
+                        "elements": component.elements_json,
+                    },
+                )

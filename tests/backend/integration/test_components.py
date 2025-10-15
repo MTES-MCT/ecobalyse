@@ -120,6 +120,8 @@ async def test_components_access(
         "/api/components",
     )
     assert response.status_code == 200
+    json = response.json()
+    assert len(json) == 7
 
     response = await client.get(
         "/api/components/8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
