@@ -420,8 +420,8 @@ computeEndOfLifeResults _ (Results results) =
             }
 
 
-getEoLStrategyShares : Category.Material -> EoLStrategy Split
-getEoLStrategyShares material =
+getEoLStrategies : Category.Material -> Result String (EoLStrategy Split)
+getEoLStrategies material =
     let
         split =
             Split.fromPercent >> Result.withDefault Split.zero
@@ -431,14 +431,24 @@ getEoLStrategyShares material =
     in
     -- TODO: eventually, it would be nice to load this from an external config file or
     --       even better, from the backend
-    [ ( Category.Metal, { incinerating = Split.zero, landfilling = Split.zero, recycling = Split.full } )
-    , ( Category.Plastic, { incinerating = split 8, landfilling = Split.zero, recycling = split 92 } )
-    , ( Category.Upholstery, { incinerating = split 94, landfilling = split 2, recycling = split 4 } )
-    , ( Category.Wood, { incinerating = split 31, landfilling = Split.zero, recycling = split 69 } )
+    -- TODO: load and attach required processes
+    [ ( Category.Metal
+      , { incinerating = Split.zero, landfilling = Split.zero, recycling = Split.full }
+      )
+    , ( Category.Plastic
+      , { incinerating = split 8, landfilling = Split.zero, recycling = split 92 }
+      )
+    , ( Category.Upholstery
+      , { incinerating = split 94, landfilling = split 2, recycling = split 4 }
+      )
+    , ( Category.Wood
+      , { incinerating = split 31, landfilling = Split.zero, recycling = split 69 }
+      )
     ]
         |> AnyDict.fromList Category.materialTypeToString
         |> AnyDict.get material
         |> Maybe.withDefault defaultShares
+        |> Ok
 
 
 {-| Compute an initially required amount from sequentially applied waste ratios
@@ -830,7 +840,7 @@ findById id =
         >> Result.fromMaybe ("Aucun composant avec id=" ++ idToString id)
 
 
-getEndOfLifeImpacts : Results -> MaterialDistribution ( Mass, EoLStrategy ( Split, Impacts ) )
+getEndOfLifeImpacts : Results -> Result String (MaterialDistribution ( Mass, EoLStrategy ( Split, Impacts ) ))
 getEndOfLifeImpacts =
     let
         computeShareImpacts mass =
@@ -842,18 +852,22 @@ getEndOfLifeImpacts =
     getMaterialDistribution
         >> AnyDict.map
             (\materialCategory mass ->
-                let
-                    { incinerating, landfilling, recycling } =
-                        getEoLStrategyShares materialCategory
-
-                    splitAndImpacts =
-                        { incinerating = ( incinerating, computeShareImpacts mass incinerating )
-                        , landfilling = ( landfilling, computeShareImpacts mass landfilling )
-                        , recycling = ( recycling, computeShareImpacts mass recycling )
-                        }
-                in
-                ( mass, splitAndImpacts )
+                -- FIXME: pass processes db
+                getEoLStrategies materialCategory
+                    |> Result.map
+                        (\{ incinerating, landfilling, recycling } ->
+                            ( mass
+                            , { incinerating = ( incinerating, computeShareImpacts mass incinerating )
+                              , landfilling = ( landfilling, computeShareImpacts mass landfilling )
+                              , recycling = ( recycling, computeShareImpacts mass recycling )
+                              }
+                            )
+                        )
             )
+        >> AnyDict.toList
+        >> List.map RE.combineSecond
+        >> RE.combine
+        >> Result.map (AnyDict.fromList Category.materialTypeToString)
 
 
 {-| Compute mass distribution by material types

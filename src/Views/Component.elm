@@ -384,7 +384,8 @@ endOfLifeView config results =
                         ]
                     ]
                 , Component.getEndOfLifeImpacts results
-                    |> AnyDict.toList
+                    |> Result.map AnyDict.toList
+                    |> Result.withDefault []
                     |> List.map
                         (\( materialType, ( mass, { incinerating, landfilling, recycling } ) ) ->
                             tr []
