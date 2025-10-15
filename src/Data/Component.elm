@@ -43,6 +43,7 @@ module Data.Component exposing
     , extractItems
     , extractMass
     , findById
+    , getEndOfLifeDetailedImpacts
     , getEndOfLifeImpacts
     , idFromString
     , idToString
@@ -184,9 +185,9 @@ type alias MaterialDistribution a =
     AnyDict String Category.Material a
 
 
-{-| Material end of life strategies (must sum up to 100%)
+{-| Material end of life strategy (incinerating, landfilling, recycling)
 -}
-type alias EoLStrategy a =
+type alias EndOfLifeStrategy a =
     { incinerating : a
     , landfilling : a
     , recycling : a
@@ -405,19 +406,17 @@ computeElementResults processes =
 
 
 computeEndOfLifeResults : DataContainer db -> Results -> Result String Results
-computeEndOfLifeResults _ (Results results) =
-    -- let
-    --     materialMassDistribution =
-    --         getMaterialDistribution (Results results)
-    --     -- Processes to load
-    --     -- incinerating: Treatment of municipal solid waste, municipal incineration, FR
-    --     -- landfilling:  Treatment of municipal solid waste, sanitary landfill, RoW
-    -- in
-    Ok <|
-        Results
-            { results
-                | impacts = Impact.sumImpacts [ results.impacts ]
-            }
+computeEndOfLifeResults db (Results results) =
+    Results results
+        |> getEndOfLifeImpacts db
+        |> Result.map
+            (\eolImpacts ->
+                Results
+                    { results
+                      -- FIXME: move adding this elsewhere
+                        | impacts = Impact.sumImpacts [ results.impacts, eolImpacts ]
+                    }
+            )
 
 
 {-| Compute an initially required amount from sequentially applied waste ratios
@@ -809,8 +808,8 @@ findById id =
         >> Result.fromMaybe ("Aucun composant avec id=" ++ idToString id)
 
 
-getEndOfLifeImpacts : List Process -> Results -> Result String (MaterialDistribution ( Mass, EoLStrategy ( Split, Impacts ) ))
-getEndOfLifeImpacts processes =
+getEndOfLifeDetailedImpacts : List Process -> Results -> Result String (MaterialDistribution ( Mass, EndOfLifeStrategy ( Split, Impacts ) ))
+getEndOfLifeDetailedImpacts processes =
     let
         computeShareImpacts : Mass -> ( Split, Maybe Process ) -> Impacts
         computeShareImpacts mass ( split, process ) =
@@ -829,7 +828,7 @@ getEndOfLifeImpacts processes =
         >> AnyDict.map
             (\materialCategory mass ->
                 materialCategory
-                    |> getEoLStrategies processes
+                    |> getEndOfLifeStrategies processes
                     |> Result.map
                         (\{ incinerating, landfilling, recycling } ->
                             ( mass
@@ -846,8 +845,27 @@ getEndOfLifeImpacts processes =
         >> Result.map (AnyDict.fromList Category.materialTypeToString)
 
 
-getEoLStrategies : List Process -> Category.Material -> Result String (EoLStrategy ( Split, Maybe Process ))
-getEoLStrategies processes material =
+getEndOfLifeImpacts : DataContainer db -> Results -> Result String Impacts
+getEndOfLifeImpacts db (Results results) =
+    Results results
+        |> getEndOfLifeDetailedImpacts db.processes
+        |> Result.map
+            (AnyDict.map
+                (\_ ( _, { incinerating, landfilling, recycling } ) ->
+                    Impact.sumImpacts
+                        [ Tuple.second incinerating
+                        , Tuple.second landfilling
+                        , Tuple.second recycling
+                        ]
+                )
+                >> AnyDict.toList
+                >> List.map Tuple.second
+                >> Impact.sumImpacts
+            )
+
+
+getEndOfLifeStrategies : List Process -> Category.Material -> Result String (EndOfLifeStrategy ( Split, Maybe Process ))
+getEndOfLifeStrategies processes material =
     -- TODO: eventually, it would be nice to load this from an external config file or
     --       even better, from the backend
     Result.map5

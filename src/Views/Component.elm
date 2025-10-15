@@ -28,6 +28,7 @@ import List.Extra as LE
 import Route exposing (Route)
 import Views.Alert as Alert
 import Views.Button as Button
+import Views.Component.DownArrow as DownArrow
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Link as Link
@@ -272,7 +273,7 @@ viewDebug items results =
 
 editorView : Config db msg -> Html msg
 editorView ({ db, docsUrl, explorerRoute, maxItems, items, results, title } as config) =
-    div [ class "d-flex flex-column gap-3" ]
+    div [ class "d-flex flex-column" ]
         [ div [ class "card shadow-sm" ]
             [ div [ class "card-header d-flex align-items-center justify-content-between" ]
                 [ h2 [ class "h5 mb-0" ]
@@ -351,7 +352,10 @@ editorView ({ db, docsUrl, explorerRoute, maxItems, items, results, title } as c
                 addComponentButton config
             ]
         , if config.scopes /= [ Scope.Textile ] then
-            endOfLifeView config results
+            div []
+                [ DownArrow.view [] []
+                , endOfLifeView config results
+                ]
 
           else
             text ""
@@ -360,69 +364,6 @@ editorView ({ db, docsUrl, explorerRoute, maxItems, items, results, title } as c
 
           else
             text ""
-        ]
-
-
-endOfLifeView : Config db msg -> Results -> Html msg
-endOfLifeView config results =
-    let
-        formatShareImpacts ( split, impacts ) =
-            div []
-                [ impacts |> Format.formatImpact config.impact
-                , text "\u{00A0}("
-                , split |> Format.splitAsPercentage 0
-                , text ")"
-                ]
-    in
-    div [ class "card shadow-sm" ]
-        [ div [ class "card-header d-flex align-items-center justify-content-between" ]
-            [ h2 [ class "h5 mb-0" ]
-                [ text "Fin de vie" ]
-            , div [ class "d-flex align-items-center gap-2" ]
-                [ text "TODO: total"
-
-                -- Impact.empty
-                --     |> Format.formatImpact config.impact
-                ]
-            ]
-        , div [ class "card-body p-0" ]
-            [ Table.responsiveDefault
-                []
-                [ thead []
-                    [ tr []
-                        [ th [ class "ps-3" ] [ text "Matière" ]
-                        , th [ class "text-end" ] [ text "Masse" ]
-                        , th [ class "text-end" ] [ text "Recyclage" ]
-                        , th [ class "text-end" ] [ text "Enfouissement" ]
-                        , th [ class "text-end" ] [ text "Incinération" ]
-                        , th [ class "text-end pe-3" ] [ text "Impact" ]
-                        ]
-                    ]
-                , results
-                    |> Component.getEndOfLifeImpacts config.db.processes
-                    |> Result.map AnyDict.toList
-                    |> Result.withDefault []
-                    |> List.map
-                        (\( materialType, ( mass, { incinerating, landfilling, recycling } ) ) ->
-                            tr []
-                                [ td [ class "ps-3" ] [ text <| Category.materialTypeToLabel materialType ]
-                                , td [ class "text-end" ] [ Format.kg mass ]
-                                , td [ class "text-end" ] [ formatShareImpacts recycling ]
-                                , td [ class "text-end" ] [ formatShareImpacts incinerating ]
-                                , td [ class "text-end" ] [ formatShareImpacts landfilling ]
-                                , td [ class "text-end pe-3 fw-bold" ]
-                                    [ [ Tuple.second recycling
-                                      , Tuple.second incinerating
-                                      , Tuple.second landfilling
-                                      ]
-                                        |> Impact.sumImpacts
-                                        |> Format.formatImpact config.impact
-                                    ]
-                                ]
-                        )
-                    |> tbody []
-                ]
-            ]
         ]
 
 
@@ -640,4 +581,69 @@ quantityInput config itemIndex quantity =
                         |> Maybe.withDefault config.noOp
             ]
             []
+        ]
+
+
+endOfLifeView : Config db msg -> Results -> Html msg
+endOfLifeView config results =
+    let
+        formatShareImpacts ( split, impacts ) =
+            div []
+                [ impacts |> Format.formatImpact config.impact
+                , text "\u{00A0}("
+                , split |> Format.splitAsPercentage 0
+                , text ")"
+                ]
+    in
+    div [ class "card shadow-sm" ]
+        [ div [ class "card-header d-flex align-items-center justify-content-between" ]
+            [ h2 [ class "h5 mb-0" ]
+                [ text "Fin de vie" ]
+            , div [ class "d-flex align-items-center gap-2" ]
+                [ case Component.getEndOfLifeImpacts config.db results of
+                    Err error ->
+                        span [ class "text-danger" ] [ text error ]
+
+                    Ok impacts ->
+                        Format.formatImpact config.impact impacts
+                ]
+            ]
+        , div [ class "card-body p-0" ]
+            [ Table.responsiveDefault
+                []
+                [ thead []
+                    [ tr []
+                        [ th [ class "ps-3" ] [ text "Matière" ]
+                        , th [ class "text-end" ] [ text "Masse" ]
+                        , th [ class "text-end" ] [ text "Recyclage" ]
+                        , th [ class "text-end" ] [ text "Enfouissement" ]
+                        , th [ class "text-end" ] [ text "Incinération" ]
+                        , th [ class "text-end pe-3" ] [ text "Impact" ]
+                        ]
+                    ]
+                , results
+                    |> Component.getEndOfLifeDetailedImpacts config.db.processes
+                    |> Result.map AnyDict.toList
+                    |> Result.withDefault []
+                    |> List.map
+                        (\( materialType, ( mass, { incinerating, landfilling, recycling } ) ) ->
+                            tr []
+                                [ td [ class "ps-3" ] [ text <| Category.materialTypeToLabel materialType ]
+                                , td [ class "text-end" ] [ Format.kg mass ]
+                                , td [ class "text-end" ] [ formatShareImpacts recycling ]
+                                , td [ class "text-end" ] [ formatShareImpacts incinerating ]
+                                , td [ class "text-end" ] [ formatShareImpacts landfilling ]
+                                , td [ class "text-end pe-3 fw-bold" ]
+                                    [ [ Tuple.second recycling
+                                      , Tuple.second incinerating
+                                      , Tuple.second landfilling
+                                      ]
+                                        |> Impact.sumImpacts
+                                        |> Format.formatImpact config.impact
+                                    ]
+                                ]
+                        )
+                    |> tbody []
+                ]
+            ]
         ]
