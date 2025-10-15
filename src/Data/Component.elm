@@ -197,6 +197,8 @@ type alias EndOfLifeStrategy a =
     }
 
 
+{-| Lifecycle impacts
+-}
 type alias LifeCycle =
     { endOfLife : Impacts
     , production : Results
@@ -218,6 +220,8 @@ type Results
         }
 
 
+{-| Lifecycle stage. Note: End of life stage is handled separately.
+-}
 type Stage
     = MaterialStage
     | TransformStage

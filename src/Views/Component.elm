@@ -47,6 +47,7 @@ type alias Config db msg =
     , explorerRoute : Maybe Route
     , impact : Definition
     , items : List Item
+    , lifeCycle : LifeCycle
     , maxItems : Maybe Int
     , noOp : msg
     , openSelectComponentModal : Autocomplete Component -> msg
@@ -54,7 +55,6 @@ type alias Config db msg =
     , removeElement : TargetElement -> msg
     , removeElementTransform : TargetElement -> Index -> msg
     , removeItem : Index -> msg
-    , results : LifeCycle
     , scopes : List Scope
     , setDetailed : List Index -> msg
     , title : String
@@ -274,7 +274,7 @@ viewDebug items lifeCycle =
 
 
 editorView : Config db msg -> Html msg
-editorView ({ db, docsUrl, explorerRoute, maxItems, items, results, title } as config) =
+editorView ({ db, docsUrl, explorerRoute, maxItems, items, lifeCycle, title } as config) =
     div [ class "d-flex flex-column" ]
         [ div [ class "card shadow-sm" ]
             [ div [ class "card-header d-flex align-items-center justify-content-between" ]
@@ -293,7 +293,7 @@ editorView ({ db, docsUrl, explorerRoute, maxItems, items, results, title } as c
                             text ""
                     ]
                 , div [ class "d-flex align-items-center gap-2" ]
-                    [ results.production
+                    [ lifeCycle.production
                         |> Component.extractImpacts
                         |> Format.formatImpact config.impact
                     , case docsUrl of
@@ -343,7 +343,7 @@ editorView ({ db, docsUrl, explorerRoute, maxItems, items, results, title } as c
                                             (List.range 0 (List.length items - 1))
                                             items
                                             expandedItems
-                                            (Component.extractItems results.production)
+                                            (Component.extractItems lifeCycle.production)
                                         )
                                 )
                             ]
@@ -356,13 +356,13 @@ editorView ({ db, docsUrl, explorerRoute, maxItems, items, results, title } as c
         , if config.scopes /= [ Scope.Textile ] && not (List.isEmpty items) then
             div []
                 [ DownArrow.view [] []
-                , endOfLifeView config results.production
+                , endOfLifeView config lifeCycle
                 ]
 
           else
             text ""
         , if config.debug then
-            viewDebug items results
+            viewDebug items lifeCycle
 
           else
             text ""
@@ -586,8 +586,8 @@ quantityInput config itemIndex quantity =
         ]
 
 
-endOfLifeView : Config db msg -> Results -> Html msg
-endOfLifeView config results =
+endOfLifeView : Config db msg -> LifeCycle -> Html msg
+endOfLifeView config lifeCycle =
     let
         formatShareImpacts ( split, impacts ) =
             div []
@@ -602,7 +602,7 @@ endOfLifeView config results =
             [ h2 [ class "h5 mb-0" ]
                 [ text "Fin de vie" ]
             , div [ class "d-flex align-items-center gap-2" ]
-                [ case Component.getEndOfLifeImpacts config.db results of
+                [ case Component.getEndOfLifeImpacts config.db lifeCycle.production of
                     Err error ->
                         span [ class "text-danger" ] [ text error ]
 
@@ -623,7 +623,7 @@ endOfLifeView config results =
                         , th [ class "text-end pe-3" ] [ text "Impact" ]
                         ]
                     ]
-                , results
+                , lifeCycle.production
                     |> Component.getEndOfLifeDetailedImpacts config.db.processes
                     |> Result.map AnyDict.toList
                     |> Result.withDefault []
