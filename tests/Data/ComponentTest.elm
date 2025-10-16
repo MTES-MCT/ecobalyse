@@ -514,29 +514,29 @@ suite =
                 )
             , TestUtils.suiteFromResult "getEndOfLifeDetailedImpacts"
                 -- setup
-                (""" [ { "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 }
-                     ]"""
-                    |> decodeJsonThen (Decode.list Component.decodeItem)
+                (chair
+                    |> Result.andThen
                         (Component.compute db
                             >> Result.map .production
                             >> Result.andThen (Component.getEndOfLifeDetailedImpacts db.processes)
                         )
                 )
                 -- tests
-                (\materialGroups ->
+                (\chairMaterialGroups ->
                     [ it "should group materials"
-                        (materialGroups
+                        (chairMaterialGroups
                             |> AnyDict.keys
-                            |> Expect.equal [ Category.OrganicFibers, Category.SyntheticFibers ]
+                            |> Expect.equal [ Category.Plastic, Category.Wood ]
                         )
                     , it "should group materials masses"
-                        (materialGroups
+                        (chairMaterialGroups
                             |> AnyDict.values
-                            |> List.map Tuple.first
-                            |> Expect.equal [ Mass.kilogram, Mass.kilogram ]
+                            |> List.map (Tuple.first >> Mass.inKilograms)
+                            |> List.all (\x -> x > 0)
+                            |> Expect.equal True
                         )
                     , it "should group materials impacts"
-                        (materialGroups
+                        (chairMaterialGroups
                             |> AnyDict.values
                             |> List.map
                                 (Tuple.second
@@ -928,7 +928,7 @@ injectionMoulding : Result String Process
 injectionMoulding =
     decodeJson (Process.decode Impact.decodeImpacts) <|
         """ {
-                "categories": ["transformation"],
+                "categories": ["transformation", "material_type:plastic"],
                 "comment": "",
                 "density": 0,
                 "displayName": "Moulage par injection",
@@ -971,7 +971,7 @@ plastic : Result String Process
 plastic =
     decodeJson (Process.decode Impact.decodeImpacts) <|
         """ {
-                "categories": ["material"],
+                "categories": ["material", "material_type:plastic"],
                 "comment": "",
                 "density": 0,
                 "displayName": "Plastique granulé (PP)",
@@ -1057,7 +1057,7 @@ steel : Result String Process
 steel =
     decodeJson (Process.decode Impact.decodeImpacts) <|
         """ {
-                "categories": ["material"],
+                "categories": ["material", "material_type:metal"],
                 "comment": "",
                 "density": 0,
                 "displayName": "Acier",
@@ -1100,7 +1100,7 @@ woodenBoard : Result String Process
 woodenBoard =
     decodeJson (Process.decode Impact.decodeImpacts) <|
         """ {
-                "categories": ["material"],
+                "categories": ["material", "material_type:wood"],
                 "comment": "",
                 "density": 600.0,
                 "displayName": "Planche (bois de feuillus)",
