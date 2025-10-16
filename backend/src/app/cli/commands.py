@@ -341,42 +341,56 @@ async def load_processes_fixtures(processes_data: dict) -> None:
     logger = get_logger()
 
     async with alchemy.get_session() as db_session:
-        users_service = await anext(provide_users_service(db_session))
-
-        settings = get_settings()
-        user = await users_service.get_one_or_none(
-            email=settings.app.DEFAULT_USER_EMAIL
-        )
-        if not user:
-            await logger.awarning(
-                f"default super user {settings.app.DEFAULT_USER_EMAIL} not found, creating it"
-            )
-
-            await _create_user(
-                email=settings.app.DEFAULT_USER_EMAIL,
-                first_name="Admin",
-                last_name="Ecobalyse",
-                organization="Ecobalyse",
-                # Not super user
-                superuser=False,
-                # Deactivate default user
-                is_active=False,
-            )
-
-            user = await users_service.get_one_or_none(
-                email=settings.app.DEFAULT_USER_EMAIL
-            )
+        user = await get_or_create_default_user(db_session)
 
         processes_service = await anext(provide_processes_service(db_session))
 
+        processes_fixtures_ids = []
         for process in processes_data:
             process["owner"] = user
+            processes_fixtures_ids.append(process["id"])
 
-        await processes_service.create_many(
-            data=processes_data,
-            auto_commit=True,
-        )
-        await logger.ainfo("loaded processes fixtures")
+        existing_processes = await processes_service.list()
+        existing_processes_ids = [str(process.id) for process in existing_processes]
+
+        processes_to_add = []
+        processes_to_update = []
+        processes_ids_to_delete = []
+
+        await logger.ainfo(f"Existing processes in db {len(existing_processes)}")
+
+        for process_fixture in processes_data:
+            if process_fixture["id"] not in existing_processes_ids:
+                processes_to_add.append(process_fixture)
+
+        for existing_process in existing_processes:
+            if str(existing_process.id) in processes_fixtures_ids:
+                processes_to_update.append(existing_process)
+            else:
+                processes_ids_to_delete.append(existing_process.id)
+
+        if processes_to_add:
+            await processes_service.create_many(
+                data=processes_to_add,
+                auto_commit=True,
+            )
+
+        if processes_to_update:
+            await processes_service.update_many(
+                data=processes_to_add,
+                auto_commit=True,
+            )
+
+        if processes_ids_to_delete:
+            await processes_service.delete_many(
+                item_ids=processes_ids_to_delete,
+                auto_commit=True,
+            )
+
+        await logger.ainfo(f"Loaded {len(processes_data)} processes fixtures")
+        await logger.ainfo(f"Added: {len(processes_to_add)}")
+        await logger.ainfo(f"Updated: {len(processes_to_update)}")
+        await logger.ainfo(f"Deleted: {len(processes_ids_to_delete)}")
 
 
 @fixtures_management_group.command(
