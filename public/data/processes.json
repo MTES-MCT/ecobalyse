@@ -2953,7 +2953,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["veli", "object"],
+    "scopes": ["object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "aluminium, wrought alloy//[GLO] aluminium ingot, primary, to aluminium, wrought alloy market",
     "unit": "kg",
@@ -3989,7 +3989,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["veli", "object"],
+    "scopes": ["object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "steel, unalloyed//[GLO] market for steel, unalloyed",
     "unit": "kg",
@@ -7430,7 +7430,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["textile", "veli"],
+    "scopes": ["textile"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "steel, low-alloyed//[GLO] market for steel, low-alloyed",
     "unit": "kg",

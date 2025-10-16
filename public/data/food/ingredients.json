@@ -64,7 +64,7 @@
     "processId": "1782b099-df28-5c5f-b2e4-17ac2e60583e",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
-    "search": "cow milk organic national average, constructed by Ecobalyse",
+    "search": "cow milk organic national average",
     "transportCooling": "always",
     "visible": true
   },
@@ -5983,7 +5983,7 @@
     "processId": "a5c1eb34-5613-5b49-b46a-43b1d1191314",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
-    "search": "Bacon, back, at plant {{bacon-default}}, constructed by Ecobalyse",
+    "search": "Bacon, back, at plant {{bacon-default}}",
     "transportCooling": "always",
     "visible": true
   },
@@ -6006,7 +6006,7 @@
     "processId": "79dc0633-2115-513c-a011-98982292e461",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
-    "search": "Bacon, back, at plant {{bacon-fr-bbc}}, constructed by Ecobalyse",
+    "search": "Bacon, back, at plant {{bacon-fr-bbc}}",
     "transportCooling": "always",
     "visible": true
   },
@@ -6029,7 +6029,7 @@
     "processId": "e97292b7-c692-5554-b607-9cc369774ff1",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
-    "search": "Bacon, back, at plant {{bacon-fr-organic}}, constructed by Ecobalyse",
+    "search": "Bacon, back, at plant {{bacon-fr-organic}}",
     "transportCooling": "always",
     "visible": true
   },
@@ -9009,7 +9009,7 @@
     "processId": "c10d2318-bf02-58b4-93cc-df882b6d75b3",
     "rawToCookedRatio": 12.0,
     "scenario": "import",
-    "search": "Soup, mixed vegetables, dehydrated, at plant {BE} U, constructed by Ecobalyse",
+    "search": "Soup, mixed vegetables, dehydrated, at plant {BE} U",
     "transportCooling": "none",
     "visible": true
   },
@@ -9031,7 +9031,7 @@
     "processId": "f74a1f56-55cb-54d3-aa93-aae041c5f37c",
     "rawToCookedRatio": 12.0,
     "scenario": "import",
-    "search": "Soup, mixed vegetables, dehydrated, at plant {DE} U, constructed by Ecobalyse",
+    "search": "Soup, mixed vegetables, dehydrated, at plant {DE} U",
     "transportCooling": "none",
     "visible": true
   },
@@ -9053,7 +9053,7 @@
     "processId": "f76d41a1-259f-5e47-99f2-ef490aeab78f",
     "rawToCookedRatio": 12.0,
     "scenario": "import",
-    "search": "Soup, mixed vegetables, dehydrated, at plant {IT} U, constructed by Ecobalyse",
+    "search": "Soup, mixed vegetables, dehydrated, at plant {IT} U",
     "transportCooling": "none",
     "visible": true
   },
@@ -9075,7 +9075,7 @@
     "processId": "7201a69c-aaee-53b9-920b-08bc74418e20",
     "rawToCookedRatio": 12.0,
     "scenario": "import",
-    "search": "Soup, mixed vegetables, dehydrated, at plant {ES} U, constructed by Ecobalyse",
+    "search": "Soup, mixed vegetables, dehydrated, at plant {ES} U",
     "transportCooling": "none",
     "visible": true
   }
