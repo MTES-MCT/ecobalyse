@@ -218,9 +218,7 @@ def load_test_fixtures() -> None:
     anyio.run(_load_test_fixtures)
 
 
-async def load_components_fixtures(components_data: dict) -> None:
-    """Import/Synchronize Database Fixtures."""
-
+async def get_or_create_default_user(db_session):
     logger = get_logger()
 
     async with alchemy.get_session() as db_session:
@@ -249,6 +247,17 @@ async def load_components_fixtures(components_data: dict) -> None:
             user = await users_service.get_one_or_none(
                 email=settings.app.DEFAULT_USER_EMAIL
             )
+
+        return user
+
+
+async def load_components_fixtures(components_data: dict) -> None:
+    """Import/Synchronize Database Fixtures."""
+
+    logger = get_logger()
+
+    async with alchemy.get_session() as db_session:
+        user = await get_or_create_default_user(db_session)
 
         components_service = await anext(provide_components_service(db_session))
 
@@ -356,3 +365,52 @@ def load_processes_json(json_file: click.File) -> None:
 
     console.rule("Loading processes file.")
     anyio.run(_load_processes_json, json_data)
+
+
+@click.group(
+    name="data",
+    invoke_without_command=False,
+    help="Manage data operations (migrations, debug, …).",
+)
+@click.pass_context
+def data_management_group(_: dict[str, Any]) -> None:
+    """Manage data migrations."""
+
+
+@data_management_group.command(
+    name="migrate-elements", help="Migrate existing elements."
+)
+def migrate_elements() -> None:
+    """Migrate existing elements"""
+
+    console = get_console()
+
+    console.rule("Migrating elements")
+
+    async def _migrate() -> None:
+        async with alchemy.get_session() as db_session:
+            await _migrate_elements(db_session)
+
+    anyio.run(_migrate)
+
+
+async def _migrate_elements(db_session) -> None:
+    components_service = await anext(provide_components_service(db_session))
+
+    components = await components_service.list()
+
+    user = await get_or_create_default_user(db_session)
+
+    for component in components:
+        # Don’t try to add elements to components that already have some
+        if component.elements == []:
+            if component.elements_json:
+                await components_service.update(
+                    item_id=component.id,
+                    data={
+                        "id": component.id,
+                        "owner_id": user.id,
+                        "elements": component.elements_json,
+                    },
+                    auto_commit=True,
+                )
