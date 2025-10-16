@@ -588,7 +588,7 @@ quantityInput config itemIndex quantity =
 
 
 endOfLifeView : Config db msg -> LifeCycle -> Html msg
-endOfLifeView config lifeCycle =
+endOfLifeView ({ db } as config) lifeCycle =
     let
         formatShareImpacts isRecycling ( split, impacts ) =
             if split == Split.zero then
@@ -639,37 +639,46 @@ endOfLifeView config lifeCycle =
                         , th [ class "text-end pe-3" ] [ text "Impact" ]
                         ]
                     ]
-                , lifeCycle.production
-                    |> Component.getEndOfLifeDetailedImpacts config.db.processes
-                    |> Result.map AnyDict.toList
-                    |> Result.withDefault []
-                    |> List.sortBy
-                        (\( _, ( _, { incinerating, landfilling, recycling } ) ) ->
-                            [ Tuple.second incinerating, Tuple.second landfilling, Tuple.second recycling ]
-                                |> Impact.sumImpacts
-                                |> Impact.getImpact config.impact.trigram
-                                |> Unit.impactToFloat
-                        )
-                    |> List.reverse
-                    |> List.map
-                        (\( materialType, ( mass, { incinerating, landfilling, recycling } ) ) ->
-                            tr []
-                                [ td [ class "ps-3" ] [ text <| Category.materialTypeToLabel materialType ]
-                                , td [ class "text-end" ] [ Format.kg mass ]
-                                , td [ class "text-end" ] [ formatShareImpacts True recycling ]
-                                , td [ class "text-end" ] [ formatShareImpacts False incinerating ]
-                                , td [ class "text-end" ] [ formatShareImpacts False landfilling ]
-                                , td [ class "text-end pe-3 fw-bold" ]
-                                    [ [ Tuple.second recycling
-                                      , Tuple.second incinerating
-                                      , Tuple.second landfilling
-                                      ]
+                , case Component.getEndOfLifeDetailedImpacts db.processes lifeCycle.production of
+                    Err error ->
+                        Alert.simple
+                            { attributes = []
+                            , close = Nothing
+                            , content = [ text <| "Erreur lors du calcul de l'impact de fin de vie\u{00A0}: " ++ error ]
+                            , level = Alert.Danger
+                            , title = Nothing
+                            }
+
+                    Ok categories ->
+                        categories
+                            |> AnyDict.toList
+                            |> List.sortBy
+                                (\( _, ( _, { incinerating, landfilling, recycling } ) ) ->
+                                    [ Tuple.second incinerating, Tuple.second landfilling, Tuple.second recycling ]
                                         |> Impact.sumImpacts
-                                        |> Format.formatImpact config.impact
-                                    ]
-                                ]
-                        )
-                    |> tbody []
+                                        |> Impact.getImpact config.impact.trigram
+                                        |> Unit.impactToFloat
+                                )
+                            |> List.reverse
+                            |> List.map
+                                (\( materialType, ( mass, { incinerating, landfilling, recycling } ) ) ->
+                                    tr []
+                                        [ td [ class "ps-3" ] [ text <| Category.materialTypeToLabel materialType ]
+                                        , td [ class "text-end" ] [ Format.kg mass ]
+                                        , td [ class "text-end" ] [ formatShareImpacts True recycling ]
+                                        , td [ class "text-end" ] [ formatShareImpacts False incinerating ]
+                                        , td [ class "text-end" ] [ formatShareImpacts False landfilling ]
+                                        , td [ class "text-end pe-3 fw-bold" ]
+                                            [ [ Tuple.second recycling
+                                              , Tuple.second incinerating
+                                              , Tuple.second landfilling
+                                              ]
+                                                |> Impact.sumImpacts
+                                                |> Format.formatImpact config.impact
+                                            ]
+                                        ]
+                                )
+                            |> tbody []
                 ]
             ]
         ]
