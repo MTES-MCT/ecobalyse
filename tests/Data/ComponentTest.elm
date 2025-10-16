@@ -23,8 +23,8 @@ import TestUtils exposing (expectResultErrorContains, it, suiteWithDb)
 
 suite : Test
 suite =
-    suiteWithDb "Data.Component"
-        (\originalDb ->
+    suiteWithDb "Data.Component" <|
+        \originalDb ->
             let
                 -- these will be adapted and used as test transform processes
                 ( fading, weaving ) =
@@ -749,7 +749,6 @@ suite =
                     ]
                 )
             ]
-        )
 
 
 extractEcsImpact : Component.Results -> Float

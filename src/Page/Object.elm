@@ -63,7 +63,7 @@ type alias Model =
     , impact : Definition
     , initialQuery : Query
     , modal : Modal
-    , results : Component.LifeCycle
+    , lifeCycle : Component.LifeCycle
     , scope : Scope
     }
 
@@ -135,7 +135,7 @@ init scope trigram maybeUrlQuery session =
     , impact = Definition.get trigram session.db.definitions
     , initialQuery = initialQuery
     , modal = NoModal
-    , results =
+    , lifeCycle =
         initialQuery
             |> Simulator.compute session.db
             |> Result.withDefault Component.emptyLifeCycle
@@ -181,7 +181,7 @@ initFromExample session scope uuid =
     , impact = Definition.get Definition.Ecs session.db.definitions
     , initialQuery = exampleQuery
     , modal = NoModal
-    , results =
+    , lifeCycle =
         exampleQuery
             |> Simulator.compute session.db
             |> Result.withDefault Component.emptyLifeCycle
@@ -225,7 +225,7 @@ updateQuery query ({ model, session } as pageUpdate) =
             { model
                 | initialQuery = query
                 , bookmarkName = query |> suggestBookmarkName session model.examples
-                , results =
+                , lifeCycle =
                     query
                         |> Simulator.compute session.db
                         |> Result.withDefault Component.emptyLifeCycle
@@ -584,7 +584,7 @@ simulatorView session model =
                 , removeElement = RemoveElement
                 , removeElementTransform = RemoveElementTransform
                 , removeItem = RemoveComponentItem
-                , lifeCycle = model.results
+                , lifeCycle = model.lifeCycle
                 , scopes = [ model.scope ]
                 , setDetailed = SetDetailedComponents
                 , title = "Production des composants"
@@ -604,9 +604,9 @@ simulatorView session model =
 
                 -- Score
                 , customScoreInfo = Nothing
-                , productMass = Component.extractMass model.results.production
+                , productMass = Component.extractMass model.lifeCycle.production
                 , totalImpacts =
-                    model.results
+                    model.lifeCycle
                         |> Component.sumLifeCycleImpacts
                         |> Impact.divideBy (Unit.ratioToFloat currentDurability)
                 , totalImpactsWithoutDurability =
@@ -614,7 +614,7 @@ simulatorView session model =
                         Nothing
 
                     else
-                        model.results
+                        model.lifeCycle
                             |> Component.sumLifeCycleImpacts
                             |> Just
 
@@ -622,7 +622,7 @@ simulatorView session model =
                 , impactTabsConfig =
                     SwitchImpactsTab
                         |> ImpactTabs.createConfig session model.impact model.activeImpactsTab (always NoOp)
-                        |> ImpactTabs.forObject model.results
+                        |> ImpactTabs.forObject model.lifeCycle
                         |> Just
 
                 -- Bookmarks
