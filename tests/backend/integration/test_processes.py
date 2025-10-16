@@ -1,10 +1,12 @@
 import os
 from pathlib import Path
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 import orjson
 import pytest
+from app.domain.processes.deps import provide_processes_service
 from app.domain.processes.schemas import Category, Unit
+from sqlalchemy.ext.asyncio import AsyncSession
 
 if TYPE_CHECKING:
     from httpx import AsyncClient
@@ -40,7 +42,35 @@ async def test_process_units() -> None:
             assert process["unit"] in possible_units
 
 
-async def test_detailed_processe_access(
+async def test_update_process(
+    session: AsyncSession, raw_processes: list[dict[str, Any]]
+):
+    process_id = "97c209ec-7782-5a29-8c47-af7f17c82d11"
+    processes_service = await anext(provide_processes_service(session))
+
+    for process in raw_processes:
+        if process["id"] == process_id:
+            process["displayName"] = "New test"
+            process["categories"] = [
+                "material",
+                "material_type:organic_fibers",
+            ]
+
+            await processes_service.update(item_id=process["id"], data=process)
+
+            new_process = await processes_service.get(item_id=process_id)
+            assert new_process.display_name == "New test"
+            assert sorted(
+                [category.name for category in new_process.process_categories]
+            ) == sorted(
+                [
+                    "material",
+                    "material_type:organic_fibers",
+                ]
+            )
+
+
+async def test_detailed_process_access(
     client: "AsyncClient",
     user_token_headers: dict[str, str],
 ) -> None:

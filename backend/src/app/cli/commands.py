@@ -346,6 +346,7 @@ async def load_processes_fixtures(processes_data: dict) -> None:
         processes_service = await anext(provide_processes_service(db_session))
 
         processes_fixtures_ids = []
+
         for process in processes_data:
             process["owner"] = user
             processes_fixtures_ids.append(process["id"])
@@ -362,11 +363,11 @@ async def load_processes_fixtures(processes_data: dict) -> None:
         for process_fixture in processes_data:
             if process_fixture["id"] not in existing_processes_ids:
                 processes_to_add.append(process_fixture)
+            else:
+                processes_to_update.append(process_fixture)
 
         for existing_process in existing_processes:
-            if str(existing_process.id) in processes_fixtures_ids:
-                processes_to_update.append(existing_process)
-            else:
+            if str(existing_process.id) not in processes_fixtures_ids:
                 processes_ids_to_delete.append(existing_process.id)
 
         if processes_to_add:
@@ -376,10 +377,13 @@ async def load_processes_fixtures(processes_data: dict) -> None:
             )
 
         if processes_to_update:
-            await processes_service.update_many(
-                data=processes_to_add,
-                auto_commit=True,
-            )
+            for process_to_update in processes_to_update:
+                await logger.ainfo(f"Updating: {process_to_update}")
+                await processes_service.update(
+                    item_id=process_to_update["id"],
+                    data=process_to_update,
+                    auto_commit=True,
+                )
 
         if processes_ids_to_delete:
             await processes_service.delete_many(
