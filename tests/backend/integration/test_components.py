@@ -1,3 +1,4 @@
+import json as jsonp
 from typing import TYPE_CHECKING
 
 import pytest
@@ -24,7 +25,7 @@ async def test_components_create(
             "name": "New Component",
             "comment": "A comment",
             "elements": [
-                {"amount": 0.91125, "material": "59b42284-3e45-5343-8a20-1d7d66137461"}
+                {"amount": 0.91125, "material": "97c209ec-7782-5a29-8c47-af7f17c82d11"}
             ],
         },
         headers=superuser_token_headers,
@@ -34,13 +35,15 @@ async def test_components_create(
     assert json["name"] == "New Component"
     assert json["comment"] == "A comment"
     assert len(json["elements"]) == 1
+
     assert len(json["id"]) == 36
 
     async with JournalEntryService.new(session) as journal_entries_service:
         entries = await journal_entries_service.list()
-        assert len(entries) == 1
-        entry = entries[0]
+        assert len(entries) == 8
+        entry = entries[7]
         assert entry.action == m.JournalAction.CREATED
+        json["elements"][0]["transforms"] = []
         assert entry.value == json
 
 
@@ -55,7 +58,7 @@ async def test_components_create_with_scopes(
         json={
             "name": "New Component",
             "elements": [
-                {"amount": 0.91125, "material": "59b42284-3e45-5343-8a20-1d7d66137461"}
+                {"amount": 0.91125, "material": "97c209ec-7782-5a29-8c47-af7f17c82d11"}
             ],
             "scopes": scopes,
         },
@@ -68,11 +71,12 @@ async def test_components_create_with_scopes(
 
     async with JournalEntryService.new(session) as journal_entries_service:
         entries = await journal_entries_service.list()
-        assert len(entries) == 1
-        entry = entries[0]
+        assert len(entries) == 8
+        entry = entries[7]
         assert entry.action == m.JournalAction.CREATED
         assert entry.table_name == m.Component.__tablename__
 
+        json["elements"][0]["transforms"] = []
         assert entry.value == json
 
 
@@ -87,7 +91,7 @@ async def test_components_access(
         json={
             "name": "New Component",
             "elements": [
-                {"amount": 0.91125, "material": "59b42284-3e45-5343-8a20-1d7d66137461"}
+                {"amount": 0.91125, "material": "97c209ec-7782-5a29-8c47-af7f17c82d11"}
             ],
         },
         headers=user_token_headers,
@@ -112,25 +116,12 @@ async def test_components_access(
     )
     assert response.status_code == 403
 
-    # Test update access
-    response = await client.patch(
-        "/api/components",
-        json=[],
-    )
-    assert response.status_code == 401
-
-    # Test bulk update access
-    response = await client.patch(
-        "/api/components",
-        json=[],
-        headers=user_token_headers,
-    )
-    assert response.status_code == 403
-
     response = await client.get(
         "/api/components",
     )
     assert response.status_code == 200
+    json = response.json()
+    assert len(json) == 7
 
     response = await client.get(
         "/api/components/8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
@@ -144,32 +135,112 @@ async def test_components_update(
     superuser_token_headers: dict[str, str],
 ) -> None:
     async with JournalEntryService.new(session) as journal_entries_service:
+        response = await client.get(
+            "/api/components/8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
+        )
+        assert response.status_code == 200
+        json = response.json()
+
+        assert jsonp.dumps(json["elements"]) == jsonp.dumps(
+            [
+                {
+                    "amount": 1.0,
+                    "material": "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
+                    "transforms": ["d25636af-ab36-4857-a6d0-c66d1e7a281b"],
+                }
+            ]
+        )
+
         response = await client.patch(
             "/api/components/8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
             json={
                 "name": "Name Changed",
                 "comment": "Comment changed",
                 "scopes": ["object", "food"],
+                "elements": [
+                    {
+                        "amount": 2,
+                        "material": "d25636af-ab36-4857-a6d0-c66d1e7a281b",
+                        "transforms": ["97c209ec-7782-5a29-8c47-af7f17c82d11"],
+                    }
+                ],
             },
             headers=superuser_token_headers,
         )
         json = response.json()
+
+        response = await client.get(
+            "/api/components/8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
+        )
         assert response.status_code == 200
+
+        json = response.json()
+
         assert json["name"] == "Name Changed"
         assert json["comment"] == "Comment changed"
-        assert json["elements"] is None
         assert json["scopes"] == ["object", "food"]
+        assert jsonp.dumps(json["elements"]) == jsonp.dumps(
+            [
+                {
+                    "amount": 2.0,
+                    "material": "d25636af-ab36-4857-a6d0-c66d1e7a281b",
+                    "transforms": ["97c209ec-7782-5a29-8c47-af7f17c82d11"],
+                }
+            ]
+        )
+
+        response = await client.patch(
+            "/api/components/8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
+            json={
+                "elements": [
+                    {
+                        "amount": 3,
+                        "material": "d25636af-ab36-4857-a6d0-c66d1e7a281b",
+                    }
+                ],
+            },
+            headers=superuser_token_headers,
+        )
+        json = response.json()
+
+        response = await client.get(
+            "/api/components/8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
+        )
+        assert response.status_code == 200
+
+        json = response.json()
+
+        assert json["name"] == "Name Changed"
+        assert json["comment"] == "Comment changed"
+        assert jsonp.dumps(json["elements"]) == jsonp.dumps(
+            [
+                {
+                    "amount": 3.0,
+                    "material": "d25636af-ab36-4857-a6d0-c66d1e7a281b",
+                    "transforms": [],
+                }
+            ]
+        )
 
         entries = await journal_entries_service.list()
-        assert len(entries) == 1
-        entry = entries[0]
+        assert len(entries) == 9
+        entry = entries[7]
         assert entry.action == m.JournalAction.UPDATED
-        assert entry.value == {
-            "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
-            "name": "Name Changed",
-            "comment": "Comment changed",
-            "scopes": ["object", "food"],
-        }
+        assert jsonp.dumps(entry.value) == jsonp.dumps(
+            {
+                "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
+                "name": "Name Changed",
+                "scopes": ["object", "food"],
+                "comment": "Comment changed",
+                "elements": [
+                    {
+                        "amount": 2.0,
+                        "material": "d25636af-ab36-4857-a6d0-c66d1e7a281b",
+                        "transforms": ["97c209ec-7782-5a29-8c47-af7f17c82d11"],
+                    }
+                ],
+            }
+        )
 
         response = await client.patch(
             "/api/components/8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
@@ -179,10 +250,11 @@ async def test_components_update(
         json = response.json()
         assert response.status_code == 200
         assert json["scopes"] == ["object"]
+        assert json["elements"] == []
 
         entries = await journal_entries_service.list()
-        assert len(entries) == 2
-        entry = entries[1]
+        assert len(entries) == 10
+        entry = entries[9]
         assert entry.action == m.JournalAction.UPDATED
         assert entry.value == {
             "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
@@ -196,7 +268,7 @@ async def test_components_update(
         )
 
         entries = await journal_entries_service.list()
-        assert len(entries) == 2
+        assert len(entries) == 10
 
         assert response.status_code == 400
 
@@ -215,7 +287,7 @@ async def test_components_delete(
         assert response.status_code == 403
 
         entries = await journal_entries_service.list()
-        assert len(entries) == 0
+        assert len(entries) == 7
 
         response = await client.delete(
             "/api/components/8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
@@ -224,8 +296,8 @@ async def test_components_delete(
         assert response.status_code == 204
 
         entries = await journal_entries_service.list()
-        assert len(entries) == 1
-        assert entries[0].action == "deleted"
+        assert len(entries) == 8
+        assert entries[7].action == "deleted"
 
         response = await client.get(
             "/api/components",
@@ -233,112 +305,3 @@ async def test_components_delete(
         )
 
         assert len(response.json()) == 6
-
-
-async def test_components_bulk_update(
-    client: "AsyncClient",
-    session: AsyncSession,
-    superuser_token_headers: dict[str, str],
-) -> None:
-    async with JournalEntryService.new(session) as journal_entries_service:
-        json_content = [
-            {
-                "elements": [
-                    {
-                        "amount": 0.00022,
-                        "material": "07e9e916-e02b-45e2-a298-2b5084de6242",
-                    }
-                ],
-                "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
-                "name": "Pied 70 cm (plein bois)",
-            },
-            {
-                "elements": [
-                    {
-                        "amount": 0.734063,
-                        "material": "3295b2a5-328a-4c00-b046-e2ddeb0da823",
-                    }
-                ],
-                "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973",
-                "name": "Dossier plastique (PP)",
-            },
-            {
-                "elements": [
-                    {
-                        "amount": 0.91125,
-                        "material": "3295b2a5-328a-4c00-b046-e2ddeb0da823",
-                    }
-                ],
-                "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6",
-                "name": "Assise plastique (PP)",
-            },
-            {
-                "elements": [
-                    {"amount": 0.89, "material": "07e9e916-e02b-45e2-a298-2b5084de6242"}
-                ],
-                "name": "Test component",
-            },
-            {
-                "elements": [
-                    {
-                        "amount": 1,
-                        "material": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
-                        "transforms": [
-                            "9c478d79-ff6b-45e1-9396-c3bd897faa1d",
-                            "da9d1c32-a166-41ab-bac6-f67aff0cf44a",
-                        ],
-                    },
-                    {
-                        "amount": 1,
-                        "material": "9dba0e95-0c35-4f8b-9267-62ddf47d4984",
-                        "transforms": [
-                            "9c478d79-ff6b-45e1-9396-c3bd897faa1d",
-                            "ae9cbbad-7982-4f3c-9220-edf27946d347",
-                        ],
-                    },
-                ],
-                "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
-                "name": "Tissu pour joli canapé",
-                "comment": "Un commentaire",
-                "scopes": ["food"],
-            },
-        ]
-        response = await client.patch(
-            "/api/components",
-            json=json_content,
-            headers=superuser_token_headers,
-        )
-        json = response.json()
-        assert response.status_code == 200
-
-        assert len(json) == len(json_content)
-        assert json[-1]["name"] == "Tissu pour joli canapé"
-        assert json[-1]["comment"] == "Un commentaire"
-        assert json[-1]["scopes"] == ["food"]
-
-        entries = await journal_entries_service.list()
-
-        assert (
-            len([entry for entry in entries if entry.action == m.JournalAction.DELETED])
-            == 3
-        )
-        assert (
-            len([entry for entry in entries if entry.action == m.JournalAction.UPDATED])
-            == 4
-        )
-        assert (
-            len([entry for entry in entries if entry.action == m.JournalAction.CREATED])
-            == 1
-        )
-
-        # Remove everything
-
-        response = await client.patch(
-            "/api/components",
-            json=[],
-            headers=superuser_token_headers,
-        )
-        json = response.json()
-        assert response.status_code == 200
-
-        assert len(json) == 0
