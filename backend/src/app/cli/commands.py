@@ -412,4 +412,5 @@ async def _migrate_elements(db_session) -> None:
                         "owner_id": user.id,
                         "elements": component.elements_json,
                     },
+                    auto_commit=True,
                 )
