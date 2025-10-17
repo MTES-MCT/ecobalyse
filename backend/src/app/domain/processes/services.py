@@ -154,13 +154,9 @@ class ProcessService(SQLAlchemyAsyncRepositoryService[m.Process]):
                 for category_rm in categories_to_remove:
                     data.process_categories.remove(category_rm)
 
-                process_categories = await self.repository.session.execute(
+                process_categories = await self.repository.session.scalars(
                     select(m.ProcessCategory)
                 )
-
-                # @FIXME: We should not need that…
-                for c in process_categories:
-                    pass
 
                 categories = []
 
