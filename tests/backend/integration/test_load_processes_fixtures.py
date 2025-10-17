@@ -2,7 +2,6 @@ from typing import TYPE_CHECKING, Any
 
 import pytest
 from app.cli.commands import load_processes_fixtures
-from app.domain.components.schemas import Scope
 from app.domain.processes.deps import provide_processes_service
 from sqlalchemy.ext.asyncio import (
     AsyncSession,
@@ -16,7 +15,10 @@ pytestmark = pytest.mark.anyio
 
 
 async def test_load_processes(
-    client: "AsyncClient", session: AsyncSession, raw_processes: list[dict[str, Any]]
+    client: "AsyncClient",
+    user_token_headers: dict[str, str],
+    session: AsyncSession,
+    raw_processes: list[dict[str, Any]],
 ) -> None:
     processes_service = await anext(provide_processes_service(session))
     processes = await processes_service.list()
@@ -63,9 +65,14 @@ async def test_load_processes(
     # We add a new process
     raw_processes.append(new_process)
 
-    await load_processes_fixtures(raw_processes)
+    await load_processes_fixtures(session, processes_service, raw_processes)
 
-    processes = await processes_service.list()
+    response = await client.get(
+        "/api/processes/",
+        headers=user_token_headers,
+    )
+    assert response.status_code == 200
+    processes = response.json()
 
     assert initial_processes_nb + 1 == len(processes)
 
@@ -73,21 +80,34 @@ async def test_load_processes(
     raw_processes[-1]["scopes"] = ["textile", "food"]
     raw_processes[-1]["displayName"] = "New test"
 
-    await load_processes_fixtures(raw_processes)
+    await load_processes_fixtures(session, processes_service, raw_processes)
+    await session.commit()
 
     processes = await processes_service.list()
 
     assert initial_processes_nb + 1 == len(processes)
 
-    for process in processes:
-        if str(process.id) == new_process["id"]:
-            assert process.display_name == "New test"
-            assert process.scopes == [Scope.TEXTILE, Scope.FOOD]
+    response = await client.get(
+        "/api/processes/" + raw_processes[-1]["id"],
+        headers=user_token_headers,
+    )
+    assert response.status_code == 200
+    json_response = response.json()
+
+    assert json_response["displayName"] == "New test"
+    assert json_response["scopes"] == ["textile", "food"]
 
     # We remove a process
     raw_processes.pop()
 
-    await load_processes_fixtures(raw_processes)
+    await load_processes_fixtures(session, processes_service, raw_processes)
+    await session.commit()
 
-    processes = await processes_service.list()
+    response = await client.get(
+        "/api/processes/",
+        headers=user_token_headers,
+    )
+    assert response.status_code == 200
+    processes = response.json()
+
     assert initial_processes_nb == len(processes)

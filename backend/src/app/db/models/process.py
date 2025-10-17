@@ -122,6 +122,9 @@ class Process(UUIDAuditBase):
         }
         return impacts
 
+    def __repr__(self) -> str:
+        return f"Process(id={self.id!r}, display_name={self.display_name!r}, comment={self.comment!r}, scopes={self.scopes!r}, caterories={self.process_categories!r})"
+
 
 def _process_element_transforms() -> Table:
     from .process_element_transform import process_element_transform

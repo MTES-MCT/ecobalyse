@@ -134,59 +134,56 @@ class ProcessService(SQLAlchemyAsyncRepositoryService[m.Process]):
                 )
 
         if operation == "update" and is_dict(data):
-            with self.repository.session.no_autoflush:
-                categories_names_updated: list[str] = data.pop("categories", [])
-                data = await super().to_model(data)
+            categories_names_updated: list[str] = data.pop("categories", [])
+            data = await super().to_model(data)
 
-                if categories_names_updated:
-                    existing_categories_names = [
-                        category.name for category in data.process_categories
-                    ]
-                    categories_to_remove = [
-                        category
-                        for category in data.process_categories
-                        if category.name not in categories_names_updated
-                    ]
-                    categories_names_to_add = [
-                        category
-                        for category in categories_names_updated
-                        if category not in existing_categories_names
-                    ]
-                    for category_rm in categories_to_remove:
-                        data.process_categories.remove(category_rm)
+            if categories_names_updated:
+                existing_categories_names = [
+                    category.name for category in data.process_categories
+                ]
+                categories_to_remove = [
+                    category
+                    for category in data.process_categories
+                    if category.name not in categories_names_updated
+                ]
+                categories_names_to_add = [
+                    category
+                    for category in categories_names_updated
+                    if category not in existing_categories_names
+                ]
+                for category_rm in categories_to_remove:
+                    data.process_categories.remove(category_rm)
 
-                    process_categories = await self.repository.session.execute(
-                        select(m.ProcessCategory)
+                process_categories = await self.repository.session.execute(
+                    select(m.ProcessCategory)
+                )
+
+                # @FIXME: We should not need that…
+                for c in process_categories:
+                    pass
+
+                categories = []
+
+                for name_to_add in categories_names_to_add:
+                    if name_to_add not in [c.name for c in process_categories]:
+                        categories.append(m.ProcessCategory(name=name_to_add))
+                    else:
+                        for pc in process_categories:
+                            if pc.name == name_to_add:
+                                categories.append(pc)
+
+                if categories:
+                    data.process_categories.extend(categories)
+
+            if owner:
+                owner.journal_entries.append(
+                    m.JournalEntry(
+                        table_name=m.Process.__tablename__,
+                        record_id=data.id,
+                        action=m.JournalAction.UPDATED,
+                        user=owner,
+                        value=self.to_schema(data, schema_type=Process),
                     )
-
-                    # @FIXME: We should not need that…
-                    for c in process_categories:
-                        pass
-
-                    categories = []
-
-                    for name_to_add in categories_names_to_add:
-                        if name_to_add not in [c.name for c in process_categories]:
-                            categories.append(m.ProcessCategory(name=name_to_add))
-                        else:
-                            for pc in process_categories:
-                                if pc.name == name_to_add:
-                                    categories.append(pc)
-
-                    if categories:
-                        data.process_categories.extend(categories)
-
-                if owner:
-                    owner.journal_entries.append(
-                        m.JournalEntry(
-                            table_name=m.Process.__tablename__,
-                            record_id=data.id,
-                            action=m.JournalAction.UPDATED,
-                            user=owner,
-                            value=self.to_schema(data, schema_type=Process),
-                        )
-                    )
-
-                return data
+                )
 
         return data
