@@ -162,9 +162,11 @@ Avec :
 * `m` : la masse du vêtement, exprimée en kg
 * `I_EoL,landfill` : l'impact environnemental relatif à l'incinération d'1 kg de produits, dans l'unité de la catégorie d'impact analysée par kg
 
-Les valeurs des paramètres sont directement issues du PEFCR Apparel & Footwear 3.1, essentiellement dans la _Table 45_ ci-dessous).
 
-Les valeurs de chaque paramètre sont également détaillées dans les sections suivantes.
+
+_<mark style="color:$info;">**NB : Les valeurs des paramètres sont directement issues du PEFCR Apparel & Footwear 3.1, essentiellement dans la Table 45 ci-dessous).**</mark>_
+
+_<mark style="color:$info;">**Les valeurs de chaque paramètre sont également détaillées dans les sections suivantes.**</mark>_
 
 
 {% endhint %}
