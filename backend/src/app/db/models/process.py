@@ -50,6 +50,7 @@ class Process(UUIDAuditBase):
     process_categories: Mapped[list[ProcessCategory]] = relationship(
         secondary=lambda: process_process_category,
         back_populates="processes",
+        lazy="selectin",
     )
 
     elements_transforms: Mapped[list[Element]] = relationship(
@@ -123,7 +124,7 @@ class Process(UUIDAuditBase):
         return impacts
 
     def __repr__(self) -> str:
-        return f"Process(id={self.id!r}, display_name={self.display_name!r}, comment={self.comment!r}, scopes={self.scopes!r}, caterories={self.process_categories!r})"
+        return f"Process(id={self.id!r}, display_name={self.display_name!r}, comment={self.comment!r}, scopes={self.scopes!r}, categories={self.process_categories!r})"
 
 
 def _process_element_transforms() -> Table:

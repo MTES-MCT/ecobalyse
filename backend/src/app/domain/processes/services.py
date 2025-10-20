@@ -137,6 +137,10 @@ class ProcessService(SQLAlchemyAsyncRepositoryService[m.Process]):
             categories_names_updated: list[str] = data.pop("categories", [])
             data = await super().to_model(data)
 
+            # Avoid SAWarning: Object of type <Process> not in session, add operation along 'ProcessCategory.processes' won't proceed
+            # By merging the process we are creating into the existing session
+            data = await self.repository.session.merge(data)
+
             if categories_names_updated:
                 existing_categories_names = [
                     category.name for category in data.process_categories
