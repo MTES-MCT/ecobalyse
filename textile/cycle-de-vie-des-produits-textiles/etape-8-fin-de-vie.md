@@ -40,18 +40,22 @@ Les étapes suivantes sont évaluées et détaillées dans cette page : Le trait
 
 ### Calcul général
 
+Le calcul se décompose en une partie&#x20;
+
 $$
-I_{8} = I_{rec,collection,car} + I_{rec,collection,truck}+ I_{mw,collection,truck}+I_{EoL,incineration}+I_{EoL,landfill}
+I_{8} = I_{rec,collection,car}+ I_{rec,collection,truck}+ I_{mw,collection,truck}+I_{EoL,incineration}+I_{EoL,landfill}
+$$
+
+$$
+I_{8} = \frac{m}{1000}* I_{EoL}+I_{rec,collection,car}
 $$
 
 Avec :
 
 * `I_8` : l'impact environnemental de la fin de vie (hors complément hors ACV), dans l'unité de la catégorie d'impact analysée
-* `I_re,collection,car` :  l'impact environnemental du transport en voiture, dans l'unité de la catégorie d'impact analysée
-* `I_rec,collection,truck` :  l'impact environnemental du transport en camion pour la collecte de vêtement destinés au recyclage, dans l'unité de la catégorie d'impact analysée
-* `I_wm,collection,truck` :  l'impact environnemental du transport en camion pour la collecte de vêtement en tant qu'ordures ménagères, dans l'unité de la catégorie d'impact analysée
-* `I_EoL,incineration` :  l'impact environnemental relatif à l'incinération, dans l'unité de la catégorie d'impact analysée
-* `I_EoL,landfill` :  l'impact environnemental relatif à l'enfouissement, dans l'unité de la catégorie d'impact analysée
+* `m` : la masse du vêtement, exprimée en kg,
+* `I_EoL` :  l'impact environnemental relatif à la fin de vie, dans l'unité de la catégorie d'impact analysée par kg
+* `I_rec,collection,car` :  l'impact environnemental du transport en voiture, dans l'unité de la catégorie d'impact analysée
 
 ### Impact environnemental du transport en voiture `I_rec,collection,car`
 
@@ -67,60 +71,6 @@ Avec :
 * `V_vetement` : le volume du vêtement étudié, en m3
 * `V_coffre` : le volume de coffre moyen d'une voiture, en m3
 * `I_car` : l'impact environnemental du transport en voiture, dans l'unité de la catégorie d'impact analysée par km parcouru
-
-### Impact environnemental camion pour la collecte en vue d'un recyclage `I_sort,collection,truck`
-
-$$
-I_{sort,collection,truck} = \frac{m}{1000}*\big(d_{collect>sort}*r_{sort}+d_{sort>rec}*r_{rec}+d_{sort>inc}*r_{sort.inc}\big)*I_{truck}
-$$
-
-Avec :
-
-* `I_sort,collection,truck` : l'impact environnemental du transport en camion pour la collecte de vêtements faisant l'objet d'un tri en vue d'un recyclage, dans l'unité de la catégorie d'impact analysée
-* `m` : la masse du vêtement, exprimée en kg
-* `d_collect>sort` : la distance entre le point de collecte et le site de tri, exprimée en km
-* `r_sort` : la part de produits collectée et triée en vue d'un recyclage, sans unité
-* `d_collect>sort` : la distance entre le site de tri et le site de recyclage, exprimée en km
-* `r_rec` : la part de produits collectée et triée puis recyclée, sans unité
-* `d_collect>sort` : la distance entre le site de tri et le site d'incinération, exprimée en km
-* `r_sort,inc` : la part de produits collectée et triée puis incinérée, sans unité
-* `I_truck` : l'impact environnemental du transport en voiture, dans l'unité de la catégorie d'impact analysée par tonne.km
-
-### Impact environnemental camion pour la collecte en tant qu'ordure ménagère `I_mw,collection,truck`
-
-$$
-I_{mw,collection,truck} = \frac{m}{1000}*(d_{mw,collection} *r_{mw})*I_{truck}
-$$
-
-Avec :
-
-* `I_mw,collection,truck` :&#x20;
-* `m` : la masse du vêtement, exprimée en kg
-* `d_mw,collection` : Distance entre le domicile du consommateur et le centre de traitement des ordures ménagères, exprimée en km
-* `r_mw` : la part de produits traité comme ordure ménagère, sans unité
-* `I_truck` : l'impact environnemental du transport en voiture, dans l'unité de la catégorie d'impact analysée par tonne.km
-
-### Impact environnemental relatif à l'incinération `I_EoL,incineration`
-
-$$
-I_{EoL,incineration} = \frac{m}{1000}*(r_{mw}*r_{mw,incineration} +r_{sort,inc})*I_{truck}
-$$
-
-Avec :
-
-* `I_EoL,incineration` : l'impact environnemental relatif à l'incinération, dans l'unité de la catégorie d'impact analysée
-* `m` : la masse du vêtement, exprimée en kg
-* `I_EoL,incineration` : l'impact environnemental relatif à l'incinération d'1 kg de produits, dans l'unité de la catégorie d'impact analysée par kg
-
-### Impact environnemental relatif à l'enfouissement `I_EoL,landfill`
-
-
-
-Avec :
-
-* `I_EoL,landfill` : l'impact environnemental relatif à l'enfouissement, dans l'unité de la catégorie d'impact analysée
-* `m` : la masse du vêtement, exprimée en kg
-* `I_EoL,landfill` : l'impact environnemental relatif à l'incinération d'1 kg de produits, dans l'unité de la catégorie d'impact analysée par kg
 
 ## Paramètres retenus pour le coût environnemental
 
@@ -168,15 +118,82 @@ Le rapport des deux correspond à la part du coffre occupée par le vêtement. C
 
 ## Procédés utilisés pour le coût environnemental
 
-{% hint style="info" %}
-A priori un renvoi vers l'explorateur suffit ici. Si des procédés spécifiques sont construits, ils peuvent être expliqués ici.
-{% endhint %}
+Les procédés utilisés sont identifiés dans l'[Explorateur de procédé](https://ecobalyse.beta.gouv.fr/#/explore/textile/textile-processes),&#x20;
 
-Les procédés utilisés sont identifiés dans l'[Explorateur de procédé](https://ecobalyse.beta.gouv.fr/#/explore/textile/textile-processes), avec les noms utilisés dans cette page.
+* [Fin de vie hors voiture (transport en camion, incinération, mise en décharge)](https://ecobalyse.beta.gouv.fr/versions/v7.0.0/#/explore/textile/textile-processes/ab96b73f-8534-59ad-9f34-a579abe3b023)
+* [Transport en voiture jusqu'au point de collecte précalculé pour la fin de vie](https://ecobalyse.beta.gouv.fr/versions/v7.0.0/#/explore/textile/textile-processes/2fd6b74f-600a-577c-ba37-b84d8f0482c2)
 
-* `I_car`
-* `I_truck`
-*
+
+
+### Calcul du procédé Fin de vie hors voiture
+
+Le calcul se décompose en une partie&#x20;
+
+$$
+I_EoL = I_{rec,collection,truck}+ I_{mw,collection,truck}+I_{EoL,incineration}+I_{EoL,landfill}
+$$
+
+Avec :
+
+* `I_EoL` :  l'impact environnemental relatif à la fin de vie, dans l'unité de la catégorie d'impact analysée par kg
+* `I_rec,collection,truck` :  l'impact environnemental du transport en camion pour la collecte de vêtement destinés au recyclage, dans l'unité de la catégorie d'impact analysée
+* `I_wm,collection,truck` :  l'impact environnemental du transport en camion pour la collecte de vêtement en tant qu'ordures ménagères, dans l'unité de la catégorie d'impact analysée
+* `I_EoL,incineration` :  l'impact environnemental relatif à l'incinération, dans l'unité de la catégorie d'impact analysée
+* `I_EoL,landfill` :  l'impact environnemental relatif à l'enfouissement, dans l'unité de la catégorie d'impact analysée
+
+#### Impact environnemental camion pour la collecte en vue d'un recyclage `I_sort,collection,truck`
+
+$$
+I_{sort,collection,truck} = \frac{m}{1000}*\big(d_{collect>sort}*r_{sort}+d_{sort>rec}*r_{rec}+d_{sort>inc}*r_{sort.inc}\big)*I_{truck}
+$$
+
+Avec :
+
+* `I_sort,collection,truck` : l'impact environnemental du transport en camion pour la collecte de vêtements faisant l'objet d'un tri en vue d'un recyclage, dans l'unité de la catégorie d'impact analysée
+* `m` : la masse du vêtement, exprimée en kg
+* `d_collect>sort` : la distance entre le point de collecte et le site de tri, exprimée en km
+* `r_sort` : la part de produits collectée et triée en vue d'un recyclage, sans unité
+* `d_collect>sort` : la distance entre le site de tri et le site de recyclage, exprimée en km
+* `r_rec` : la part de produits collectée et triée puis recyclée, sans unité
+* `d_collect>sort` : la distance entre le site de tri et le site d'incinération, exprimée en km
+* `r_sort,inc` : la part de produits collectée et triée puis incinérée, sans unité
+* `I_truck` : l'impact environnemental du transport en voiture, dans l'unité de la catégorie d'impact analysée par tonne.km
+
+#### Impact environnemental camion pour la collecte en tant qu'ordure ménagère `I_mw,collection,truck`
+
+$$
+I_{mw,collection,truck} = \frac{m}{1000}*(d_{mw,collection} *r_{mw})*I_{truck}
+$$
+
+Avec :
+
+* `I_mw,collection,truck` :&#x20;
+* `m` : la masse du vêtement, exprimée en kg
+* `d_mw,collection` : Distance entre le domicile du consommateur et le centre de traitement des ordures ménagères, exprimée en km
+* `r_mw` : la part de produits traité comme ordure ménagère, sans unité
+* `I_truck` : l'impact environnemental du transport en voiture, dans l'unité de la catégorie d'impact analysée par tonne.km
+
+#### Impact environnemental relatif à l'incinération `I_EoL,incineration`
+
+$$
+I_{EoL,incineration} = \frac{m}{1000}*(r_{mw}*r_{mw,incineration} +r_{sort,inc})*I_{truck}
+$$
+
+Avec :
+
+* `I_EoL,incineration` : l'impact environnemental relatif à l'incinération, dans l'unité de la catégorie d'impact analysée
+* `m` : la masse du vêtement, exprimée en kg
+* `I_EoL,incineration` : l'impact environnemental relatif à l'incinération d'1 kg de produits, dans l'unité de la catégorie d'impact analysée par kg
+
+#### Impact environnemental relatif à l'enfouissement `I_EoL,landfill`
+
+
+
+Avec :
+
+* `I_EoL,landfill` : l'impact environnemental relatif à l'enfouissement, dans l'unité de la catégorie d'impact analysée
+* `m` : la masse du vêtement, exprimée en kg
+* `I_EoL,landfill` : l'impact environnemental relatif à l'incinération d'1 kg de produits, dans l'unité de la catégorie d'impact analysée par kg
 
 ## Exemple d'application
 
@@ -197,3 +214,16 @@ $$
 $$
 I_{mw,collection,truck} = \frac{m}{1000}*(d_{mw,collection} *r_{mw})*I_{truck}=\frac{0.17}{1000}*24.2*20.6=0.08Pts
 $$
+
+
+
+FDV tot : 5.65Pt (5629/170kg)
+
+FDV : 33,11 /kg
+
+FDV voiture : 1.94Pts
+
+
+
+
+
