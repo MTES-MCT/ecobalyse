@@ -9,15 +9,20 @@ import Data.Component as Component
         , ExpandedElement
         , Index
         , Item
+        , LifeCycle
         , Quantity
         , Results
         , TargetElement
         , TargetItem
         )
+import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
 import Data.Scope as Scope exposing (Scope)
+import Data.Split as Split
+import Data.Unit as Unit
+import Dict.Any as AnyDict
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
@@ -26,9 +31,11 @@ import List.Extra as LE
 import Route exposing (Route)
 import Views.Alert as Alert
 import Views.Button as Button
+import Views.Component.DownArrow as DownArrow
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Link as Link
+import Views.Table as Table
 
 
 type alias Config db msg =
@@ -41,6 +48,7 @@ type alias Config db msg =
     , explorerRoute : Maybe Route
     , impact : Definition
     , items : List Item
+    , lifeCycle : LifeCycle
     , maxItems : Maybe Int
     , noOp : msg
     , openSelectComponentModal : Autocomplete Component -> msg
@@ -48,7 +56,6 @@ type alias Config db msg =
     , removeElement : TargetElement -> msg
     , removeElementTransform : TargetElement -> Index -> msg
     , removeItem : Index -> msg
-    , results : Results
     , scopes : List Scope
     , setDetailed : List Index -> msg
     , title : String
@@ -238,27 +245,29 @@ componentView config itemIndex item ( quantity, component, expandedElements ) it
         ]
 
 
-viewDebug : List Item -> Results -> Html msg
-viewDebug items results =
-    details [ class "card-body py-2" ]
-        [ summary [] [ text "Debug" ]
-        , div [ class "row g-2" ]
-            [ div [ class "col-6" ]
-                [ h5 [] [ text "Query" ]
-                , pre [ class "bg-light p-2 mb-0" ]
-                    [ items
-                        |> Encode.list Component.encodeItem
-                        |> Encode.encode 2
-                        |> text
+viewDebug : List Item -> LifeCycle -> Html msg
+viewDebug items lifeCycle =
+    div []
+        [ details [ class "card-body py-2" ]
+            [ summary [] [ text "Debug" ]
+            , div [ class "row g-2" ]
+                [ div [ class "col-6" ]
+                    [ h5 [] [ text "Query" ]
+                    , pre [ class "bg-light p-2 mb-0" ]
+                        [ items
+                            |> Encode.list Component.encodeItem
+                            |> Encode.encode 2
+                            |> text
+                        ]
                     ]
-                ]
-            , div [ class "col-6" ]
-                [ h5 [] [ text "Results" ]
-                , pre [ class "p-2 bg-light" ]
-                    [ results
-                        |> Component.encodeResults (Just Definition.Ecs)
-                        |> Encode.encode 2
-                        |> text
+                , div [ class "col-6" ]
+                    [ h5 [] [ text "Results" ]
+                    , pre [ class "p-2 bg-light" ]
+                        [ lifeCycle
+                            |> Component.encodeLifeCycle (Just Definition.Ecs)
+                            |> Encode.encode 2
+                            |> text
+                        ]
                     ]
                 ]
             ]
@@ -266,8 +275,8 @@ viewDebug items results =
 
 
 editorView : Config db msg -> Html msg
-editorView ({ db, docsUrl, explorerRoute, maxItems, items, results, title } as config) =
-    div []
+editorView ({ db, docsUrl, explorerRoute, maxItems, items, lifeCycle, title } as config) =
+    div [ class "d-flex flex-column" ]
         [ div [ class "card shadow-sm" ]
             [ div [ class "card-header d-flex align-items-center justify-content-between" ]
                 [ h2 [ class "h5 mb-0" ]
@@ -285,7 +294,7 @@ editorView ({ db, docsUrl, explorerRoute, maxItems, items, results, title } as c
                             text ""
                     ]
                 , div [ class "d-flex align-items-center gap-2" ]
-                    [ results
+                    [ lifeCycle.production
                         |> Component.extractImpacts
                         |> Format.formatImpact config.impact
                     , case docsUrl of
@@ -335,7 +344,7 @@ editorView ({ db, docsUrl, explorerRoute, maxItems, items, results, title } as c
                                             (List.range 0 (List.length items - 1))
                                             items
                                             expandedItems
-                                            (Component.extractItems results)
+                                            (Component.extractItems lifeCycle.production)
                                         )
                                 )
                             ]
@@ -345,8 +354,16 @@ editorView ({ db, docsUrl, explorerRoute, maxItems, items, results, title } as c
               else
                 addComponentButton config
             ]
+        , if config.scopes /= [ Scope.Textile ] && not (List.isEmpty items) then
+            div []
+                [ DownArrow.view [] []
+                , endOfLifeView config lifeCycle
+                ]
+
+          else
+            text ""
         , if config.debug then
-            viewDebug items results
+            viewDebug items lifeCycle
 
           else
             text ""
@@ -567,4 +584,107 @@ quantityInput config itemIndex quantity =
                         |> Maybe.withDefault config.noOp
             ]
             []
+        ]
+
+
+endOfLifeView : Config db msg -> LifeCycle -> Html msg
+endOfLifeView ({ db } as config) lifeCycle =
+    let
+        formatShareImpacts isRecycling { impacts, process, split } =
+            if split == Split.zero then
+                text "-"
+
+            else
+                let
+                    impact =
+                        impacts |> Impact.getImpact config.impact.trigram
+
+                    formatted =
+                        impacts |> Format.formatImpact config.impact
+                in
+                div []
+                    [ if isRecycling && Unit.impactToFloat impact == 0 then
+                        span [ class "cursor-help", title "Le recyclage est ici considéré sans impact" ]
+                            [ formatted, text "*" ]
+
+                      else
+                        case process of
+                            Just process_ ->
+                                span [ class "cursor-help", title <| Process.getTechnicalName process_ ]
+                                    [ formatted ]
+
+                            Nothing ->
+                                formatted
+                    , small []
+                        [ text "\u{00A0}(", split |> Format.splitAsPercentage 0, text ")" ]
+                    ]
+    in
+    div [ class "card shadow-sm" ]
+        [ div [ class "card-header d-flex align-items-center justify-content-between" ]
+            [ h2 [ class "h5 mb-0" ]
+                [ text "Fin de vie" ]
+            , div [ class "d-flex align-items-center gap-2" ]
+                [ case Component.getEndOfLifeImpacts config.db lifeCycle.production of
+                    Err error ->
+                        span [ class "text-danger" ] [ text error ]
+
+                    Ok impacts ->
+                        Format.formatImpact config.impact impacts
+                ]
+            ]
+        , div [ class "card-body p-0" ]
+            [ Table.responsiveDefault
+                []
+                [ thead []
+                    [ tr []
+                        [ th [ class "ps-3" ] [ text "Matière" ]
+                        , th [ class "text-end" ] [ text "Masse" ]
+                        , th [ class "text-end" ] [ text "Recyclage" ]
+                        , th [ class "text-end" ] [ text "Incinération" ]
+                        , th [ class "text-end" ] [ text "Enfouissement" ]
+                        , th [ class "text-end pe-3" ] [ text "Impact" ]
+                        ]
+                    ]
+                , case Component.getEndOfLifeDetailedImpacts db.processes lifeCycle.production of
+                    Err error ->
+                        Alert.simple
+                            { attributes = []
+                            , close = Nothing
+                            , content = [ text <| "Erreur lors du calcul de l'impact de fin de vie\u{00A0}: " ++ error ]
+                            , level = Alert.Danger
+                            , title = Nothing
+                            }
+
+                    Ok categories ->
+                        categories
+                            |> AnyDict.toList
+                            |> List.sortBy
+                                (\( _, ( _, { incinerating, landfilling, recycling } ) ) ->
+                                    [ incinerating.impacts, landfilling.impacts, recycling.impacts ]
+                                        |> Impact.sumImpacts
+                                        |> Impact.getImpact config.impact.trigram
+                                        |> Unit.impactToFloat
+                                )
+                            |> List.reverse
+                            |> List.map
+                                (\( materialType, ( mass, { incinerating, landfilling, recycling } ) ) ->
+                                    tr []
+                                        [ td [ class "ps-3" ] [ text <| Category.materialTypeToLabel materialType ]
+                                        , td [ class "text-end" ] [ Format.kg mass ]
+                                        , td [ class "text-end" ] [ formatShareImpacts True recycling ]
+                                        , td [ class "text-end" ] [ formatShareImpacts False incinerating ]
+                                        , td [ class "text-end" ] [ formatShareImpacts False landfilling ]
+                                        , td [ class "text-end pe-3 fw-bold" ]
+                                            [ [ recycling.impacts
+                                              , incinerating.impacts
+                                              , landfilling.impacts
+                                              ]
+                                                |> Impact.sumImpacts
+                                                |> Format.formatImpact config.impact
+                                            ]
+                                        ]
+                                )
+                            |> tbody []
+                ]
+            ]
         ]

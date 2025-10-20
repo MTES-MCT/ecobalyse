@@ -926,6 +926,10 @@ simulatorFormView session model ({ inputs } as simulator) =
         , explorerRoute = Just (Route.Explore Scope.Textile (Dataset.Components Scope.Textile Nothing))
         , impact = model.impact
         , items = inputs.trims
+        , lifeCycle =
+            inputs.trims
+                |> Component.compute session.db
+                |> Result.withDefault Component.emptyLifeCycle
         , maxItems = Nothing
         , noOp = NoOp
         , openSelectComponentModal = AddTrimModal >> SetModal
@@ -933,10 +937,6 @@ simulatorFormView session model ({ inputs } as simulator) =
         , removeElement = \_ -> NoOp
         , removeElementTransform = \_ _ -> NoOp
         , removeItem = RemoveTrim
-        , results =
-            inputs.trims
-                |> Component.compute session.db
-                |> Result.withDefault Component.emptyResults
         , scopes = [ Scope.Textile ]
         , setDetailed = \_ -> NoOp
         , title = "Accessoires"
@@ -1162,7 +1162,7 @@ view session model =
                                 , onAutocompleteSelect = OnAutocompleteSelect
                                 , placeholderText = "tapez ici le nom de la matière première pour la rechercher"
                                 , title = "Sélectionnez une matière première"
-                                , toLabel = .shortName
+                                , toLabel = .name
                                 , toCategory = .origin >> Origin.toLabel
                                 }
 

@@ -514,6 +514,10 @@ modalView db modals index modal =
                             , explorerRoute = Nothing
                             , impact = db.definitions |> Definition.get Definition.Ecs
                             , items = [ item ]
+                            , lifeCycle =
+                                [ item ]
+                                    |> Component.compute db
+                                    |> Result.withDefault Component.emptyLifeCycle
                             , maxItems = Just 1
                             , noOp = NoOp
                             , openSelectComponentModal = \_ -> NoOp
@@ -527,10 +531,6 @@ modalView db modals index modal =
                                 \targetElement transformIndex ->
                                     item |> updateSingleItem (Component.removeElementTransform targetElement transformIndex)
                             , removeItem = \_ -> NoOp
-                            , results =
-                                [ item ]
-                                    |> Component.compute db
-                                    |> Result.withDefault Component.emptyResults
                             , scopes = Scope.all
                             , setDetailed = \_ -> NoOp
                             , title = ""

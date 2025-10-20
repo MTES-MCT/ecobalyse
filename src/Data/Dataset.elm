@@ -304,7 +304,7 @@ setIdFromString idString dataset =
             TextileExamples (idString |> Uuid.fromString |> Result.toMaybe)
 
         TextileMaterials _ ->
-            TextileMaterials (Just (Material.Id idString))
+            TextileMaterials (Material.idFromString idString |> Result.toMaybe)
 
         TextileProducts _ ->
             TextileProducts (Just (Product.Id idString))

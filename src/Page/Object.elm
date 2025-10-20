@@ -63,7 +63,7 @@ type alias Model =
     , impact : Definition
     , initialQuery : Query
     , modal : Modal
-    , results : Component.Results
+    , lifeCycle : Component.LifeCycle
     , scope : Scope
     }
 
@@ -135,9 +135,10 @@ init scope trigram maybeUrlQuery session =
     , impact = Definition.get trigram session.db.definitions
     , initialQuery = initialQuery
     , modal = NoModal
-    , results =
-        Simulator.compute session.db initialQuery
-            |> Result.withDefault Component.emptyResults
+    , lifeCycle =
+        initialQuery
+            |> Simulator.compute session.db
+            |> Result.withDefault Component.emptyLifeCycle
     , scope = scope
     }
         |> App.createUpdate (session |> Session.updateObjectQuery scope initialQuery)
@@ -180,9 +181,10 @@ initFromExample session scope uuid =
     , impact = Definition.get Definition.Ecs session.db.definitions
     , initialQuery = exampleQuery
     , modal = NoModal
-    , results =
-        Simulator.compute session.db exampleQuery
-            |> Result.withDefault Component.emptyResults
+    , lifeCycle =
+        exampleQuery
+            |> Simulator.compute session.db
+            |> Result.withDefault Component.emptyLifeCycle
     , scope = scope
     }
         |> App.createUpdate (session |> Session.updateObjectQuery scope exampleQuery)
@@ -223,10 +225,10 @@ updateQuery query ({ model, session } as pageUpdate) =
             { model
                 | initialQuery = query
                 , bookmarkName = query |> suggestBookmarkName session model.examples
-                , results =
+                , lifeCycle =
                     query
                         |> Simulator.compute session.db
-                        |> Result.withDefault Component.emptyResults
+                        |> Result.withDefault Component.emptyLifeCycle
             }
         , session = session |> Session.updateObjectQuery model.scope query
     }
@@ -582,7 +584,7 @@ simulatorView session model =
                 , removeElement = RemoveElement
                 , removeElementTransform = RemoveElementTransform
                 , removeItem = RemoveComponentItem
-                , results = model.results
+                , lifeCycle = model.lifeCycle
                 , scopes = [ model.scope ]
                 , setDetailed = SetDetailedComponents
                 , title = "Production des composants"
@@ -602,25 +604,25 @@ simulatorView session model =
 
                 -- Score
                 , customScoreInfo = Nothing
-                , productMass = Component.extractMass model.results
+                , productMass = Component.extractMass model.lifeCycle.production
                 , totalImpacts =
-                    model.results
-                        |> Component.extractImpacts
+                    model.lifeCycle
+                        |> Component.sumLifeCycleImpacts
                         |> Impact.divideBy (Unit.ratioToFloat currentDurability)
                 , totalImpactsWithoutDurability =
                     if currentDurability == Unit.ratio 1 then
                         Nothing
 
                     else
-                        model.results
-                            |> Component.extractImpacts
+                        model.lifeCycle
+                            |> Component.sumLifeCycleImpacts
                             |> Just
 
                 -- Impacts tabs
                 , impactTabsConfig =
                     SwitchImpactsTab
                         |> ImpactTabs.createConfig session model.impact model.activeImpactsTab (always NoOp)
-                        |> ImpactTabs.forObject model.results
+                        |> ImpactTabs.forObject model.lifeCycle
                         |> Just
 
                 -- Bookmarks
