@@ -362,7 +362,7 @@ materialsToString materials =
                 in
                 Split.toPercentString 0 share
                     ++ "% "
-                    ++ material.shortName
+                    ++ material.name
                     ++ " provenance "
                     ++ countryName
             )

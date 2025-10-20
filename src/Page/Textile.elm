@@ -1162,7 +1162,7 @@ view session model =
                                 , onAutocompleteSelect = OnAutocompleteSelect
                                 , placeholderText = "tapez ici le nom de la matière première pour la rechercher"
                                 , title = "Sélectionnez une matière première"
-                                , toLabel = .shortName
+                                , toLabel = .name
                                 , toCategory = .origin >> Origin.toLabel
                                 }
 

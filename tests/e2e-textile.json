@@ -8,7 +8,7 @@
       "mass": 0.17,
       "materials": [
         {
-          "id": "ei-coton",
+          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
           "share": 1
         }
       ],
@@ -48,7 +48,7 @@
       "mass": 0.17,
       "materials": [
         {
-          "id": "ei-coton",
+          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
           "share": 1
         }
       ],
@@ -88,7 +88,7 @@
       "mass": 0.3,
       "materials": [
         {
-          "id": "ei-acrylique",
+          "id": "49a0bec0-f9f3-42db-a514-a9dcf06a8969",
           "share": 1
         }
       ],
@@ -127,15 +127,15 @@
       "mass": 0.17,
       "materials": [
         {
-          "id": "ei-coton",
+          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
           "share": 0.5
         },
         {
-          "id": "ei-pet",
+          "id": "9dba0e95-0c35-4f8b-9267-62ddf47d4984",
           "share": 0.45
         },
         {
-          "id": "elasthane",
+          "id": "9973088b-c929-4cc5-894a-1e4d28c161d4",
           "share": 0.05
         }
       ],
@@ -177,7 +177,7 @@
       "mass": 0.17,
       "materials": [
         {
-          "id": "ei-coton",
+          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
           "share": 1
         }
       ],
@@ -218,11 +218,11 @@
       "mass": 0.45,
       "materials": [
         {
-          "id": "ei-coton",
+          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
           "share": 0.9
         },
         {
-          "id": "elasthane",
+          "id": "9973088b-c929-4cc5-894a-1e4d28c161d4",
           "share": 0.1
         }
       ],
@@ -263,7 +263,7 @@
       "mass": 0.45,
       "materials": [
         {
-          "id": "ei-coton",
+          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
           "share": 1
         }
       ],
@@ -304,7 +304,7 @@
       "mass": 0.45,
       "materials": [
         {
-          "id": "ei-coton",
+          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
           "share": 1
         }
       ],
@@ -345,7 +345,7 @@
       "mass": 0.45,
       "materials": [
         {
-          "id": "ei-coton",
+          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
           "share": 1
         }
       ],
@@ -395,7 +395,7 @@
       "mass": 0.17,
       "materials": [
         {
-          "id": "ei-coton",
+          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
           "share": 1
         }
       ],
@@ -435,7 +435,7 @@
       "mass": 0.17,
       "materials": [
         {
-          "id": "ei-coton",
+          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
           "share": 1
         }
       ],
@@ -474,7 +474,7 @@
       "mass": 0.3,
       "materials": [
         {
-          "id": "ei-coton",
+          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
           "share": 1
         }
       ],
@@ -517,7 +517,7 @@
       "mass": 0.3,
       "materials": [
         {
-          "id": "ei-coton",
+          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
           "share": 1
         }
       ],
@@ -561,7 +561,7 @@
       "mass": 0.3,
       "materials": [
         {
-          "id": "ei-coton",
+          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
           "share": 1
         }
       ],
@@ -605,7 +605,7 @@
       "mass": 0.17,
       "materials": [
         {
-          "id": "ei-coton",
+          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
           "share": 1
         }
       ],

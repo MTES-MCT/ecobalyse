@@ -12,7 +12,7 @@
       "mass": 0.15,
       "materials": [
         {
-          "id": "ei-lin",
+          "id": "a52e486c-b67e-40af-8337-e8143cbf9076",
           "share": 1
         }
       ],
@@ -35,7 +35,7 @@
       "mass": 0.15,
       "materials": [
         {
-          "id": "ei-coton-organic",
+          "id": "a1c1c2ec-33b1-49d6-bf8e-139e2eb7f097",
           "share": 1
         }
       ],
@@ -58,7 +58,7 @@
       "mass": 0.55,
       "materials": [
         {
-          "id": "ei-pet",
+          "id": "9dba0e95-0c35-4f8b-9267-62ddf47d4984",
           "share": 1
         }
       ],
@@ -81,7 +81,7 @@
       "mass": 0.55,
       "materials": [
         {
-          "id": "ei-coton",
+          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
           "share": 1
         }
       ],
@@ -104,11 +104,11 @@
       "mass": 0.55,
       "materials": [
         {
-          "id": "ei-viscose",
+          "id": "c087d394-5901-4b03-ba7a-7d4b0db0490c",
           "share": 0.7
         },
         {
-          "id": "ei-pet",
+          "id": "9dba0e95-0c35-4f8b-9267-62ddf47d4984",
           "share": 0.3
         }
       ],
@@ -131,7 +131,7 @@
       "mass": 0.55,
       "materials": [
         {
-          "id": "ei-coton",
+          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
           "share": 1
         }
       ],
@@ -154,7 +154,7 @@
       "mass": 0.55,
       "materials": [
         {
-          "id": "ei-coton-organic",
+          "id": "a1c1c2ec-33b1-49d6-bf8e-139e2eb7f097",
           "share": 1
         }
       ],
@@ -177,7 +177,7 @@
       "mass": 0.55,
       "materials": [
         {
-          "id": "ei-laine-par-defaut",
+          "id": "1fc3e17d-5661-429d-a150-7986eae16d9d",
           "share": 1
         }
       ],
@@ -201,7 +201,7 @@
       "materials": [
         {
           "country": "FR",
-          "id": "ei-laine-nouvelle-filiere",
+          "id": "72e29a61-52a9-4eb5-b3fc-5fb87edea041",
           "share": 1
         }
       ],
@@ -224,11 +224,11 @@
       "mass": 0.15,
       "materials": [
         {
-          "id": "ei-pet",
+          "id": "9dba0e95-0c35-4f8b-9267-62ddf47d4984",
           "share": 0.95
         },
         {
-          "id": "ei-pp",
+          "id": "73ef624d-250e-4a9a-af5d-43505b21b527",
           "share": 0.05
         }
       ],
@@ -251,11 +251,11 @@
       "mass": 0.15,
       "materials": [
         {
-          "id": "ei-coton",
+          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
           "share": 0.75
         },
         {
-          "id": "coton-rdp",
+          "id": "d3d20384-88fb-4c75-ac12-c647365ac6c5",
           "share": 0.25
         }
       ],
@@ -278,7 +278,7 @@
       "mass": 0.15,
       "materials": [
         {
-          "id": "ei-coton",
+          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
           "share": 1
         }
       ],
@@ -301,7 +301,7 @@
       "mass": 0.15,
       "materials": [
         {
-          "id": "ei-coton",
+          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
           "share": 1
         }
       ],
@@ -320,7 +320,7 @@
       "mass": 0.3,
       "materials": [
         {
-          "id": "ei-coton",
+          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
           "share": 1
         }
       ],
@@ -328,8 +328,14 @@
       "price": 15,
       "product": "jupe",
       "trims": [
-        { "id": "0e8ea799-9b06-490c-a925-37564746c454", "quantity": 1 },
-        { "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a", "quantity": 1 }
+        {
+          "id": "0e8ea799-9b06-490c-a925-37564746c454",
+          "quantity": 1
+        },
+        {
+          "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a",
+          "quantity": 1
+        }
       ]
     },
     "scope": "textile"
@@ -343,14 +349,19 @@
       "mass": 0.25,
       "materials": [
         {
-          "id": "ei-coton",
+          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
           "share": 1
         }
       ],
       "numberOfReferences": 100000,
       "price": 15,
       "product": "chemise",
-      "trims": [{ "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a", "quantity": 10 }]
+      "trims": [
+        {
+          "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a",
+          "quantity": 10
+        }
+      ]
     },
     "scope": "textile"
   },
@@ -364,7 +375,7 @@
       "mass": 0.45,
       "materials": [
         {
-          "id": "ei-coton",
+          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
           "share": 1
         }
       ],
@@ -372,8 +383,14 @@
       "price": 20,
       "product": "jean",
       "trims": [
-        { "id": "0c903fc7-279b-4375-8cfa-ca8133b8e973", "quantity": 1 },
-        { "id": "0e8ea799-9b06-490c-a925-37564746c454", "quantity": 1 }
+        {
+          "id": "0c903fc7-279b-4375-8cfa-ca8133b8e973",
+          "quantity": 1
+        },
+        {
+          "id": "0e8ea799-9b06-490c-a925-37564746c454",
+          "quantity": 1
+        }
       ]
     },
     "scope": "textile"
@@ -387,7 +404,7 @@
       "mass": 0.45,
       "materials": [
         {
-          "id": "ei-coton",
+          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
           "share": 1
         }
       ],
@@ -395,8 +412,14 @@
       "price": 20,
       "product": "pantalon",
       "trims": [
-        { "id": "0c903fc7-279b-4375-8cfa-ca8133b8e973", "quantity": 1 },
-        { "id": "0e8ea799-9b06-490c-a925-37564746c454", "quantity": 1 }
+        {
+          "id": "0c903fc7-279b-4375-8cfa-ca8133b8e973",
+          "quantity": 1
+        },
+        {
+          "id": "0e8ea799-9b06-490c-a925-37564746c454",
+          "quantity": 1
+        }
       ]
     },
     "scope": "textile"
@@ -410,7 +433,7 @@
       "mass": 0.95,
       "materials": [
         {
-          "id": "ei-coton",
+          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
           "share": 1
         }
       ],
@@ -418,8 +441,14 @@
       "price": 40,
       "product": "manteau",
       "trims": [
-        { "id": "86b877ff-0d59-482f-bb34-3ff306b07496", "quantity": 1 },
-        { "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a", "quantity": 3 }
+        {
+          "id": "86b877ff-0d59-482f-bb34-3ff306b07496",
+          "quantity": 1
+        },
+        {
+          "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a",
+          "quantity": 3
+        }
       ]
     },
     "scope": "textile"
@@ -434,7 +463,7 @@
       "mass": 0.15,
       "materials": [
         {
-          "id": "ei-coton",
+          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
           "share": 1
         }
       ],
@@ -453,7 +482,7 @@
       "mass": 0.15,
       "materials": [
         {
-          "id": "ei-coton",
+          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
           "share": 1
         }
       ],
@@ -474,7 +503,7 @@
       "mass": 0.55,
       "materials": [
         {
-          "id": "ei-coton",
+          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
           "share": 1
         }
       ],
@@ -494,7 +523,7 @@
       "mass": 0.04,
       "materials": [
         {
-          "id": "ei-coton",
+          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
           "share": 1
         }
       ],
@@ -514,7 +543,7 @@
       "mass": 0.04,
       "materials": [
         {
-          "id": "ei-coton",
+          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
           "share": 1
         }
       ],
@@ -534,7 +563,7 @@
       "mass": 0.03,
       "materials": [
         {
-          "id": "ei-coton",
+          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
           "share": 1
         }
       ],
@@ -554,7 +583,7 @@
       "mass": 0.1,
       "materials": [
         {
-          "id": "ei-pet",
+          "id": "9dba0e95-0c35-4f8b-9267-62ddf47d4984",
           "share": 1
         }
       ],
