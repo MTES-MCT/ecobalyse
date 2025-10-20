@@ -648,7 +648,11 @@ getObjectScore : Db -> Example ObjectQuery.Query -> Float
 getObjectScore db =
     .query
         >> ObjectSimulator.compute db
-        >> Result.map (Component.extractImpacts >> Impact.getImpact Definition.Ecs >> Unit.impactToFloat)
+        >> Result.map
+            (Component.sumLifeCycleImpacts
+                >> Impact.getImpact Definition.Ecs
+                >> Unit.impactToFloat
+            )
         >> Result.withDefault 0
 
 
