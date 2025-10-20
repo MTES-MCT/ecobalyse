@@ -388,7 +388,6 @@ async def load_processes_fixtures(
                     ),
                 ],
             )
-            # await logger.ainfo(f"Updated: {updated}")
 
     if processes_ids_to_delete:
         await processes_service.delete_many(
