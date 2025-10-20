@@ -130,12 +130,12 @@ addToComparison session { name, query } =
             objectQuery
                 |> ObjectSimulator.compute session.db
                 |> Result.map
-                    (\results ->
+                    (\lifeCycle ->
                         { complementsImpact = Impact.noComplementsImpacts
-                        , impacts = Component.extractImpacts results
+                        , impacts = Component.sumLifeCycleImpacts lifeCycle
                         , label = name
                         , stepsImpacts =
-                            results
+                            lifeCycle
                                 |> ObjectSimulator.toStepsImpacts Definition.Ecs
                         }
                     )
@@ -158,12 +158,12 @@ addToComparison session { name, query } =
             objectQuery
                 |> ObjectSimulator.compute session.db
                 |> Result.map
-                    (\results ->
+                    (\lifeCycle ->
                         { complementsImpact = Impact.noComplementsImpacts
-                        , impacts = Component.extractImpacts results
+                        , impacts = Component.sumLifeCycleImpacts lifeCycle
                         , label = name
                         , stepsImpacts =
-                            results
+                            lifeCycle
                                 |> ObjectSimulator.toStepsImpacts Definition.Ecs
                         }
                     )

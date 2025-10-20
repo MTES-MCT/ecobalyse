@@ -208,7 +208,7 @@ handleTrimsWeight db ({ inputs } as simulator) =
         trimsMass =
             inputs.trims
                 |> Component.compute db
-                |> Result.map Component.extractMass
+                |> Result.map (.production >> Component.extractMass)
                 |> Result.withDefault Quantity.zero
     in
     simulator
@@ -748,7 +748,8 @@ computeTrims : Db -> Simulator -> Result String Simulator
 computeTrims db ({ durability, inputs } as simulator) =
     inputs.trims
         |> Component.compute db
-        |> Result.map Component.extractImpacts
+        -- FIXME
+        |> Result.map (.production >> Component.extractImpacts)
         |> Result.map
             (\trimsImpacts ->
                 { simulator

@@ -11,8 +11,10 @@ module Data.Process exposing
     , encode
     , encodeId
     , findById
+    , findByStringId
     , getDisplayName
     , getImpact
+    , getMaterialTypes
     , getTechnicalName
     , idFromString
     , idToString
@@ -192,6 +194,13 @@ findById id processes =
         |> Result.fromMaybe ("Procédé introuvable par id : " ++ idToString id)
 
 
+findByStringId : String -> List Process -> Result String Process
+findByStringId stringId processes =
+    stringId
+        |> Uuid.fromString
+        |> Result.andThen (\id -> findById (Id id) processes)
+
+
 getDisplayName : Process -> String
 getDisplayName process =
     case process.displayName of
@@ -202,7 +211,7 @@ getDisplayName process =
             getTechnicalName process
 
 
-getMaterialTypes : Process -> List String
+getMaterialTypes : Process -> List Category.Material
 getMaterialTypes =
     .categories
         >> List.filterMap

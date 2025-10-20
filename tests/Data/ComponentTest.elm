@@ -4,9 +4,11 @@ import Data.Component as Component exposing (Component, Item)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
 import Data.Process as Process exposing (Process)
+import Data.Process.Category as Category
 import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
+import Dict.Any as AnyDict
 import Expect
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
@@ -21,8 +23,8 @@ import TestUtils exposing (expectResultErrorContains, it, suiteWithDb)
 
 suite : Test
 suite =
-    suiteWithDb "Data.Component"
-        (\originalDb ->
+    suiteWithDb "Data.Component" <|
+        \originalDb ->
             let
                 -- these will be adapted and used as test transform processes
                 ( fading, weaving ) =
@@ -117,6 +119,8 @@ suite =
                             , items = []
                             , label = Nothing
                             , mass = Mass.kilogram
+                            , materialType = Nothing
+                            , quantity = 1
                             , stage = Nothing
                             }
                             |> Component.applyTransforms db.processes Process.Kilogram transforms
@@ -146,6 +150,8 @@ suite =
                             , items = []
                             , label = Nothing
                             , mass = Mass.kilogram
+                            , materialType = Nothing
+                            , quantity = 1
                             , stage = Nothing
                             }
                             |> Component.applyTransforms db.processes Process.Kilogram transforms
@@ -200,6 +206,8 @@ suite =
                                 , items = []
                                 , label = Nothing
                                 , mass = Mass.kilogram
+                                , materialType = Nothing
+                                , quantity = 1
                                 , stage = Nothing
                                 }
                                 |> Component.applyTransforms db.processes Process.CubicMeter [ transformInKg ]
@@ -215,6 +223,8 @@ suite =
                             , items = []
                             , label = Nothing
                             , mass = Mass.kilogram
+                            , materialType = Nothing
+                            , quantity = 1
                             , stage = Nothing
                             }
                             |> Component.applyTransforms db.processes Process.Kilogram transforms
@@ -281,7 +291,7 @@ suite =
                 [ it "should compute results from decoded component items"
                     (chair
                         |> Result.andThen (Component.compute db)
-                        |> Result.map extractEcsImpact
+                        |> Result.map (.production >> extractEcsImpact)
                         |> TestUtils.expectResultWithin (Expect.Absolute 1) 293
                     )
                 , it "should compute results from decoded component items with custom component elements"
@@ -302,7 +312,7 @@ suite =
                          , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
                          ]"""
                         |> decodeJsonThen (Decode.list Component.decodeItem) (Component.compute db)
-                        |> Result.map extractEcsImpact
+                        |> Result.map (.production >> extractEcsImpact)
                         |> TestUtils.expectResultWithin (Expect.Absolute 1) 314
                     )
                 ]
@@ -502,6 +512,44 @@ suite =
                         )
                     ]
                 )
+            , TestUtils.suiteFromResult "getEndOfLifeDetailedImpacts"
+                -- setup
+                (chair
+                    |> Result.andThen
+                        (Component.compute db
+                            >> Result.map .production
+                            >> Result.andThen (Component.getEndOfLifeDetailedImpacts db.processes)
+                        )
+                )
+                -- tests
+                (\chairMaterialGroups ->
+                    [ it "should group materials"
+                        (chairMaterialGroups
+                            |> AnyDict.keys
+                            |> Expect.equal [ Category.Plastic, Category.Wood ]
+                        )
+                    , it "should group materials masses"
+                        (chairMaterialGroups
+                            |> AnyDict.values
+                            |> List.map (Tuple.first >> Mass.inKilograms)
+                            |> List.all (\x -> x > 0)
+                            |> Expect.equal True
+                        )
+                    , it "should group materials impacts"
+                        (chairMaterialGroups
+                            |> AnyDict.values
+                            |> List.map
+                                (Tuple.second
+                                    >> .incinerating
+                                    >> .impacts
+                                    >> Impact.getImpact Definition.Ecs
+                                    >> Unit.impactToFloat
+                                )
+                            |> List.all (\x -> x > 0)
+                            |> Expect.equal True
+                        )
+                    ]
+                )
             , TestUtils.suiteFromResult2 "removeElement"
                 -- setup
                 sofaFabric
@@ -588,7 +636,7 @@ suite =
                     |> decodeJsonThen (Decode.list Component.decodeItem) (Component.compute db)
                     |> Result.map (\results -> ( results, Component.stagesImpacts results ))
                 )
-                (\( results, stagesImpacts ) ->
+                (\( lifeCycle, stagesImpacts ) ->
                     [ it "should compute material stage impacts"
                         (stagesImpacts.material
                             |> getEcsImpact
@@ -599,11 +647,16 @@ suite =
                             |> getEcsImpact
                             |> Expect.greaterThan 0
                         )
+                    , it "should compute end of life stage impacts"
+                        (stagesImpacts.endOfLife
+                            |> getEcsImpact
+                            |> Expect.greaterThan 0
+                        )
                     , it "should have total stages impacts equal total impacts"
                         ([ stagesImpacts.material, stagesImpacts.transformation ]
                             |> Impact.sumImpacts
                             |> getEcsImpact
-                            |> Expect.within (Expect.Absolute 1) (extractEcsImpact results)
+                            |> Expect.within (Expect.Absolute 1) (extractEcsImpact lifeCycle.production)
                         )
                     ]
                 )
@@ -696,7 +749,6 @@ suite =
                     ]
                 )
             ]
-        )
 
 
 extractEcsImpact : Component.Results -> Float
@@ -875,7 +927,7 @@ injectionMoulding : Result String Process
 injectionMoulding =
     decodeJson (Process.decode Impact.decodeImpacts) <|
         """ {
-                "categories": ["transformation"],
+                "categories": ["transformation", "material_type:plastic"],
                 "comment": "",
                 "density": 0,
                 "displayName": "Moulage par injection",
@@ -918,7 +970,7 @@ plastic : Result String Process
 plastic =
     decodeJson (Process.decode Impact.decodeImpacts) <|
         """ {
-                "categories": ["material"],
+                "categories": ["material", "material_type:plastic"],
                 "comment": "",
                 "density": 0,
                 "displayName": "Plastique granulé (PP)",
@@ -1004,7 +1056,7 @@ steel : Result String Process
 steel =
     decodeJson (Process.decode Impact.decodeImpacts) <|
         """ {
-                "categories": ["material"],
+                "categories": ["material", "material_type:metal"],
                 "comment": "",
                 "density": 0,
                 "displayName": "Acier",
@@ -1047,7 +1099,7 @@ woodenBoard : Result String Process
 woodenBoard =
     decodeJson (Process.decode Impact.decodeImpacts) <|
         """ {
-                "categories": ["material"],
+                "categories": ["material", "material_type:wood"],
                 "comment": "",
                 "density": 600.0,
                 "displayName": "Planche (bois de feuillus)",
