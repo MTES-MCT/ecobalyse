@@ -1443,7 +1443,7 @@
     "waste": 0
   },
   {
-    "categories": ["material"],
+    "categories": ["material", "material_type:metal"],
     "comment": "added by Ecobalyse",
     "density": 0,
     "displayName": "Aluminium vierge mix marché (RoW)",
@@ -2923,7 +2923,7 @@
     "waste": 0
   },
   {
-    "categories": ["material"],
+    "categories": ["material", "material_type:metal"],
     "comment": "added by Ecobalyse",
     "density": 0,
     "displayName": "Aluminium vierge mix marché (RER)",
@@ -4396,7 +4396,44 @@
       "tre": 0,
       "wtu": 0
     },
-    "scopes": ["food", "object", "veli"],
+    "scopes": ["food", "object"],
+    "source": "Ecoinvent 3.9.1",
+    "sourceId": "steel, unalloyed//[RER] steel production, converter, unalloyed",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "categories": ["material", "material_type:metal"],
+    "comment": "",
+    "density": 0,
+    "displayName": "Acier vierge (non allié, Europe)",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "39fd91f1-72b6-5fa3-89d4-ce25b352d107",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 111.22,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pef": 129.75,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "scopes": ["veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "steel, unalloyed//[RER] steel production, converter, unalloyed",
     "unit": "kg",
@@ -6068,7 +6105,7 @@
     "waste": 0
   },
   {
-    "categories": ["material"],
+    "categories": ["material", "material_type:metal"],
     "comment": "",
     "density": 0,
     "displayName": "Aluminium recyclé",
@@ -6623,7 +6660,7 @@
     "waste": 0
   },
   {
-    "categories": ["material"],
+    "categories": ["material", "material_type:metal"],
     "comment": "added by Ecobalyse",
     "density": 0,
     "displayName": "Aluminium mix marché (RER)",
@@ -7400,7 +7437,7 @@
     "waste": 0
   },
   {
-    "categories": ["material"],
+    "categories": ["material", "material_type:metal"],
     "comment": "densité energétique : 6.3 kWh/kg",
     "density": 0,
     "displayName": "Batterie Li-ion (Autres)",
@@ -7622,7 +7659,7 @@
     "waste": 0
   },
   {
-    "categories": ["material"],
+    "categories": ["material", "material_type:metal"],
     "comment": "densité energétique : 8.6 kWh/kg",
     "density": 0,
     "displayName": "Batterie Li-ion (LFP)",
@@ -7918,7 +7955,7 @@
     "waste": 0
   },
   {
-    "categories": ["material"],
+    "categories": ["material", "material_type:metal"],
     "comment": "",
     "density": 0,
     "displayName": "Composants électroniques",
@@ -8177,7 +8214,7 @@
     "waste": 0.12
   },
   {
-    "categories": ["material"],
+    "categories": ["material", "material_type:metal"],
     "comment": "densité energétique : 6.7 kWh/kg",
     "density": 0,
     "displayName": "Batterie Li-ion (NMC811)",
@@ -8214,7 +8251,7 @@
     "waste": 0
   },
   {
-    "categories": ["material"],
+    "categories": ["material", "material_type:metal"],
     "comment": "",
     "density": 0,
     "displayName": "Acier recyclé (faiblement allié, Europe)",
@@ -8362,7 +8399,7 @@
     "waste": 0.55
   },
   {
-    "categories": ["material"],
+    "categories": ["material", "material_type:metal"],
     "comment": "added by Ecobalyse",
     "density": 0,
     "displayName": "Acier mix marché (Europe)",
@@ -8584,7 +8621,7 @@
     "waste": 0
   },
   {
-    "categories": ["material"],
+    "categories": ["material", "material_type:metal"],
     "comment": "",
     "density": 0,
     "displayName": "Acier recyclé (faiblement allié, Reste du monde)",
@@ -8843,7 +8880,7 @@
     "waste": 0
   },
   {
-    "categories": ["material", "material_type:plastic"],
+    "categories": ["material"],
     "comment": "",
     "density": 0,
     "displayName": "Noir de carbone",
@@ -9361,7 +9398,7 @@
     "waste": 0
   },
   {
-    "categories": ["material"],
+    "categories": ["material", "material_type:metal"],
     "comment": "",
     "density": 0,
     "displayName": "Acier vierge (non allié, Reste du monde)",
@@ -10697,7 +10734,7 @@
     "waste": 0
   },
   {
-    "categories": ["material"],
+    "categories": ["material", "material_type:metal"],
     "comment": "added by Ecobalyse",
     "density": 0,
     "displayName": "Aluminium mix marché (CN)",
@@ -10734,7 +10771,7 @@
     "waste": 0
   },
   {
-    "categories": ["material"],
+    "categories": ["material", "material_type:metal"],
     "comment": "",
     "density": 0,
     "displayName": "Moteur électrique",
@@ -10876,6 +10913,43 @@
       "wtu": 0
     },
     "scopes": ["food", "textile"],
+    "source": "Ecoinvent 3.9.1",
+    "sourceId": "electricity, low voltage//[FR] market for electricity, low voltage",
+    "unit": "kWh",
+    "waste": 0
+  },
+  {
+    "categories": ["energy"],
+    "comment": "",
+    "density": 0,
+    "displayName": "Electricité basse tension, France",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "931c9bb0-619a-5f75-b41b-ab8061e2ad92",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 19.331,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pef": 22.463,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "scopes": ["food", "textile", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, low voltage//[FR] market for electricity, low voltage",
     "unit": "kWh",
@@ -12806,7 +12880,7 @@
     "waste": 0
   },
   {
-    "categories": ["material"],
+    "categories": ["material", "material_type:metal"],
     "comment": "added by Ecobalyse",
     "density": 0,
     "displayName": "Acier mix marché (Reste du monde)",
@@ -13731,7 +13805,7 @@
     "waste": 0
   },
   {
-    "categories": ["material"],
+    "categories": ["material", "material_type:metal"],
     "comment": "densité energétique : 33.3 kWh/kg",
     "density": 0,
     "displayName": "Batterie Plomb",
@@ -15100,7 +15174,7 @@
     "waste": 0
   },
   {
-    "categories": ["material"],
+    "categories": ["material", "material_type:metal"],
     "comment": "added by Ecobalyse",
     "density": 0,
     "displayName": "Aluminium mix marché (RoW)",
@@ -16469,7 +16543,7 @@
     "waste": 0
   },
   {
-    "categories": ["material"],
+    "categories": ["material", "material_type:metal"],
     "comment": "added by Ecobalyse",
     "density": 0,
     "displayName": "Aluminium vierge mix marché (IN)",
