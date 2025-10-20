@@ -46,6 +46,43 @@ async def load_database_fixtures() -> None:
         await logger.ainfo("loaded users")
 
 
+async def _create_users(
+    users_list_string: str,
+    organization: str | None,
+    superuser: bool = False,
+    is_active: bool = True,
+) -> None:
+    entries: list[str] = users_list_string.split(",")
+    users_to_upsert = []
+    for user in entries:
+        parts = user.split("/")
+        email = parts[0]
+        first_name = parts[1]
+        last_name = parts[2]
+
+        user_in = UserCreate(
+            email=email,
+            first_name=first_name,
+            last_name=last_name,
+            organization=OrganizationCreate(
+                name=organization, type=OrganizationType.LOCAL_AUTHORITY
+            ),
+            is_superuser=superuser,
+            is_active=is_active,
+            terms_accepted=True,
+        )
+        users_to_upsert.append(user_in.to_dict())
+
+    console = get_console()
+
+    async with alchemy.get_session() as db_session:
+        users_service = await anext(provide_users_service(db_session))
+        user = await users_service.upsert_many(
+            data=users_to_upsert, auto_commit=True, match_fields=["email"]
+        )
+        console.print(f"Users upserted: {[user['email'] for user in users_to_upsert]}")
+
+
 async def _create_user(
     email: str,
     first_name: str,
@@ -126,6 +163,54 @@ def create_default_user(
         cast("bool", superuser),
         # Deactivate default user
         False,
+    )
+
+
+# Here is the format
+# email@test.com/Firstname/Lastname,other@email.com/Other first name/Other name
+@user_management_group.command(
+    name="create-users", help="Create multiple users from a string"
+)
+@click.option(
+    "--users",
+    help="Users to be created, format is: email@test.com/Firstname/Lastname,other@email.com/Other first name/Other name",
+    type=click.STRING,
+    required=True,
+    show_default=False,
+)
+@click.option(
+    "--organization",
+    help="Organization of the new user",
+    type=click.STRING,
+    required=False,
+    show_default=False,
+    default="Ecobalyse",
+)
+@click.option(
+    "--superuser",
+    help="Should create super users",
+    type=click.BOOL,
+    default=False,
+    required=False,
+    show_default=False,
+    is_flag=True,
+)
+def create_users(
+    users: str,
+    organization: str | None,
+    superuser: bool | None,
+) -> None:
+    """Create multiple users."""
+
+    console = get_console()
+
+    console.rule("Create multiple users.")
+
+    anyio.run(
+        _create_users,
+        cast("str", users),
+        organization,
+        cast("bool", superuser),
     )
 
 
