@@ -14,7 +14,6 @@ from advanced_alchemy.service import (
 )
 from app.db import models as m
 from app.domain.processes.schemas import Impacts, Process
-from sqlalchemy import select
 
 if TYPE_CHECKING:
     from advanced_alchemy.service import ModelDictT
@@ -158,22 +157,15 @@ class ProcessService(SQLAlchemyAsyncRepositoryService[m.Process]):
                 for category_rm in categories_to_remove:
                     data.process_categories.remove(category_rm)
 
-                process_categories = (
-                    await self.repository.session.scalars(select(m.ProcessCategory))
-                ).all()
-
-                categories = []
-
-                for name_to_add in categories_names_to_add:
-                    if name_to_add not in [c.name for c in process_categories]:
-                        categories.append(m.ProcessCategory(name=name_to_add))
-                    else:
-                        for pc in process_categories:
-                            if pc.name == name_to_add:
-                                categories.append(pc)
-
-                if categories:
-                    data.process_categories.extend(categories)
+                data.process_categories.extend(
+                    [
+                        await m.ProcessCategory.as_unique_async(
+                            self.repository.session,
+                            name=category_name,
+                        )
+                        for category_name in categories_names_to_add
+                    ],
+                )
 
             if owner:
                 owner.journal_entries.append(
