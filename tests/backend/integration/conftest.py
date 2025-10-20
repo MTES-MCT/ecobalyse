@@ -117,10 +117,10 @@ async def fx_session(
 @pytest.fixture(autouse=True)
 async def _seed_db(
     engine: AsyncEngine,
-    sessionmaker: async_sessionmaker[AsyncSession],
+    session: AsyncSession,
+    raw_processes: list[Process | dict[str, Any]],
     raw_components: list[Component | dict[str, Any]],
     raw_users: list[User | dict[str, Any]],
-    raw_processes: list[Process | dict[str, Any]],
 ) -> AsyncGenerator[None, None]:
     """Populate test database with.
 
@@ -139,7 +139,7 @@ async def _seed_db(
         await conn.run_sync(metadata.drop_all)
         await conn.run_sync(metadata.create_all)
 
-    async with RoleService.new(sessionmaker()) as service:
+    async with RoleService.new(session) as service:
         fixture = await open_fixture_async(fixtures_path, "role")
         for obj in fixture:
             _ = await service.repository.get_or_upsert(
@@ -147,14 +147,14 @@ async def _seed_db(
             )
         await service.repository.session.commit()
 
-    async with UserService.new(sessionmaker()) as users_service:
+    async with UserService.new(session) as users_service:
         await users_service.create_many(raw_users, auto_commit=True)
 
-    async with ComponentService.new(sessionmaker()) as components_service:
-        await components_service.create_many(raw_components, auto_commit=True)
-
-    async with ProcessService.new(sessionmaker()) as processes_service:
+    async with ProcessService.new(session) as processes_service:
         await processes_service.create_many(raw_processes, auto_commit=True)
+
+    async with ComponentService.new(session) as components_service:
+        await components_service.create_many(raw_components, auto_commit=True)
 
     yield
 
