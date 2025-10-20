@@ -130,6 +130,7 @@
   * [🌀 Etape 7 - Utilisation (old) - archive](textile/cycle-de-vie-des-produits-textiles/etape-6-utilisation.md)
   * [🌀 Etape 7 - Utilisation](textile/cycle-de-vie-des-produits-textiles/etape-7-utilisation.md)
   * [♻️ Etape 8 - Fin de vie](textile/cycle-de-vie-des-produits-textiles/etape-8-fin-de-vie.md)
+  * [♻️ Copy of Etape 8 - Fin de vie](textile/cycle-de-vie-des-produits-textiles/copy-of-etape-8-fin-de-vie.md)
   * [♻️ Etape 8 - Fin de vie](textile/cycle-de-vie-des-produits-textiles/etape-7-fin-de-vie.md)
   * [🚢 Transport](textile/cycle-de-vie-des-produits-textiles/transport.md)
   * [🚢 Transport Textile](textile/cycle-de-vie-des-produits-textiles/transport-textile.md)
