@@ -541,7 +541,7 @@ suite =
                             |> List.map
                                 (Tuple.second
                                     >> .incinerating
-                                    >> Tuple.second
+                                    >> .impacts
                                     >> Impact.getImpact Definition.Ecs
                                     >> Unit.impactToFloat
                                 )

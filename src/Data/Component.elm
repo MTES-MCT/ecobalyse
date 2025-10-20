@@ -190,10 +190,17 @@ type alias MaterialDistribution a =
 
 {-| Material end of life strategy (incinerating, landfilling, recycling)
 -}
-type alias EndOfLifeStrategy a =
-    { incinerating : a
-    , landfilling : a
-    , recycling : a
+type alias EndOfLifeStrategies =
+    { incinerating : EndOfLifeStrategy
+    , landfilling : EndOfLifeStrategy
+    , recycling : EndOfLifeStrategy
+    }
+
+
+type alias EndOfLifeStrategy =
+    { impacts : Impacts
+    , process : Maybe Process
+    , split : Split
     }
 
 
@@ -841,11 +848,11 @@ findById id =
 getEndOfLifeDetailedImpacts :
     List Process
     -> Results
-    -> Result String (MaterialDistribution ( Mass, EndOfLifeStrategy ( Split, Impacts ) ))
+    -> Result String (MaterialDistribution ( Mass, EndOfLifeStrategies ))
 getEndOfLifeDetailedImpacts processes =
     let
-        computeShareImpacts : Mass -> ( Split, Maybe Process ) -> Impacts
-        computeShareImpacts mass ( split, process ) =
+        computeShareImpacts : Mass -> EndOfLifeStrategy -> Impacts
+        computeShareImpacts mass { process, split } =
             process
                 |> Maybe.map
                     (.impacts
@@ -865,16 +872,15 @@ getEndOfLifeDetailedImpacts processes =
                     |> Result.map
                         (\{ incinerating, landfilling, recycling } ->
                             ( mass
-                            , { incinerating = ( Tuple.first incinerating, computeShareImpacts mass incinerating )
-                              , landfilling = ( Tuple.first landfilling, computeShareImpacts mass landfilling )
-                              , recycling = ( Tuple.first recycling, computeShareImpacts mass recycling )
+                            , { incinerating = { incinerating | impacts = computeShareImpacts mass incinerating }
+                              , landfilling = { landfilling | impacts = computeShareImpacts mass landfilling }
+                              , recycling = { recycling | impacts = computeShareImpacts mass recycling }
                               }
                             )
                         )
             )
         >> AnyDict.toList
-        >> List.map RE.combineSecond
-        >> RE.combine
+        >> RE.combineMap (\( category, strategy ) -> strategy |> Result.map (Tuple.pair category))
         >> Result.map (AnyDict.fromList Category.materialTypeToString)
 
 
@@ -885,56 +891,56 @@ getEndOfLifeImpacts db (Results results) =
         |> Result.map
             (AnyDict.map
                 (\_ ( _, { incinerating, landfilling, recycling } ) ->
-                    Impact.sumImpacts
-                        [ Tuple.second incinerating
-                        , Tuple.second landfilling
-                        , Tuple.second recycling
-                        ]
+                    [ incinerating, landfilling, recycling ]
+                        |> List.map .impacts
+                        |> Impact.sumImpacts
                 )
-                >> AnyDict.toList
-                >> List.map Tuple.second
+                >> AnyDict.values
                 >> Impact.sumImpacts
             )
 
 
-getEndOfLifeStrategies : List Process -> Category.Material -> Result String (EndOfLifeStrategy ( Split, Maybe Process ))
+getEndOfLifeStrategies : List Process -> Category.Material -> Result String EndOfLifeStrategies
 getEndOfLifeStrategies processes material =
     -- TODO: eventually, it would be nice to load this from an external config file or
     --       even better, from the backend
     Result.map5
         (\defaultIncinerating defaultLandfilling plasticIncinerating woodIncinerating upholsteryIncinerating ->
             let
+                emptyStrategy =
+                    { impacts = Impact.empty, process = Nothing, split = Split.zero }
+
                 split =
                     Split.fromPercent >> Result.withDefault Split.zero
 
                 defaultStrategies =
-                    { incinerating = ( split 82, Just defaultIncinerating )
-                    , landfilling = ( split 18, Just defaultLandfilling )
-                    , recycling = ( Split.zero, Nothing )
+                    { incinerating = { emptyStrategy | process = Just defaultIncinerating, split = split 82 }
+                    , landfilling = { emptyStrategy | process = Just defaultLandfilling, split = split 18 }
+                    , recycling = { emptyStrategy | process = Nothing, split = Split.zero }
                     }
             in
             [ ( Category.Metal
-              , { incinerating = ( Split.zero, Nothing )
-                , landfilling = ( Split.zero, Nothing )
-                , recycling = ( Split.full, Nothing )
+              , { incinerating = emptyStrategy
+                , landfilling = emptyStrategy
+                , recycling = { emptyStrategy | process = Nothing, split = Split.full }
                 }
               )
             , ( Category.Plastic
-              , { incinerating = ( split 8, Just plasticIncinerating )
-                , landfilling = ( Split.zero, Just defaultLandfilling )
-                , recycling = ( split 92, Nothing )
+              , { incinerating = { emptyStrategy | process = Just plasticIncinerating, split = split 8 }
+                , landfilling = emptyStrategy
+                , recycling = { emptyStrategy | process = Nothing, split = split 92 }
                 }
               )
             , ( Category.Upholstery
-              , { incinerating = ( split 94, Just upholsteryIncinerating )
-                , landfilling = ( split 2, Just defaultLandfilling )
-                , recycling = ( split 4, Nothing )
+              , { incinerating = { emptyStrategy | process = Just upholsteryIncinerating, split = split 94 }
+                , landfilling = { emptyStrategy | process = Just defaultLandfilling, split = split 2 }
+                , recycling = { emptyStrategy | process = Nothing, split = split 4 }
                 }
               )
             , ( Category.Wood
-              , { incinerating = ( split 31, Just woodIncinerating )
-                , landfilling = ( Split.zero, Just defaultLandfilling )
-                , recycling = ( split 69, Nothing )
+              , { incinerating = { emptyStrategy | process = Just woodIncinerating, split = split 31 }
+                , landfilling = emptyStrategy
+                , recycling = { emptyStrategy | process = Nothing, split = split 69 }
                 }
               )
             ]

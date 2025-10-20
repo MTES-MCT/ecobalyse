@@ -590,7 +590,7 @@ quantityInput config itemIndex quantity =
 endOfLifeView : Config db msg -> LifeCycle -> Html msg
 endOfLifeView ({ db } as config) lifeCycle =
     let
-        formatShareImpacts isRecycling ( split, impacts ) =
+        formatShareImpacts isRecycling { impacts, process, split } =
             if split == Split.zero then
                 text "-"
 
@@ -608,7 +608,13 @@ endOfLifeView ({ db } as config) lifeCycle =
                             [ formatted, text "*" ]
 
                       else
-                        formatted
+                        case process of
+                            Just process_ ->
+                                span [ class "cursor-help", title <| Process.getTechnicalName process_ ]
+                                    [ formatted ]
+
+                            Nothing ->
+                                formatted
                     , small []
                         [ text "\u{00A0}(", split |> Format.splitAsPercentage 0, text ")" ]
                     ]
@@ -654,7 +660,7 @@ endOfLifeView ({ db } as config) lifeCycle =
                             |> AnyDict.toList
                             |> List.sortBy
                                 (\( _, ( _, { incinerating, landfilling, recycling } ) ) ->
-                                    [ Tuple.second incinerating, Tuple.second landfilling, Tuple.second recycling ]
+                                    [ incinerating.impacts, landfilling.impacts, recycling.impacts ]
                                         |> Impact.sumImpacts
                                         |> Impact.getImpact config.impact.trigram
                                         |> Unit.impactToFloat
@@ -669,9 +675,9 @@ endOfLifeView ({ db } as config) lifeCycle =
                                         , td [ class "text-end" ] [ formatShareImpacts False incinerating ]
                                         , td [ class "text-end" ] [ formatShareImpacts False landfilling ]
                                         , td [ class "text-end pe-3 fw-bold" ]
-                                            [ [ Tuple.second recycling
-                                              , Tuple.second incinerating
-                                              , Tuple.second landfilling
+                                            [ [ recycling.impacts
+                                              , incinerating.impacts
+                                              , landfilling.impacts
                                               ]
                                                 |> Impact.sumImpacts
                                                 |> Format.formatImpact config.impact
