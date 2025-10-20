@@ -220,23 +220,27 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
         return model
 
     async def _update_component(
-        self, data: ModelDictT[m.Component], processes_service, owner_id: UUID
+        self, model: ModelDictT[m.Component], processes_service, owner_id: UUID
     ):
         # Used for journaling as it is the only moment where we have the full object in json
         # In the following code, the model is either without the name/scopes changes
-        input_data = copy.deepcopy(data)
+        input_data = copy.deepcopy(model)
 
-        data["id"] = data.get("id", uuid4())
-        elements: list[ComponentElement] = data.pop("elements", [])
+        elements: list[ComponentElement] = model.pop("elements", [])
 
-        model = await self.repository.get(item_id=data["id"])
+        model = await super().to_model(model)
+
+        # Avoid SAWarning: Object of type <Process> not in session, add operation along 'ProcessCategory.processes' won't proceed
+        # By merging the process we are creating into the existing session
+        model = await self.repository.session.merge(model)
+
         model.elements = []
 
         for element in elements:
-            elt = await self._create_element(element, model, processes_service)
-            model.elements.append(elt)
-
-        model = await super().to_model(data)
+            # As elements are not comparable (they don’t have ids) we prefer to remove all the existing elements and re-create theme
+            model.elements.append(
+                await self._create_element(element, model, processes_service)
+            )
 
         assert owner_id
 
@@ -265,23 +269,22 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
             provide_processes_service(self.repository.session)
         )
 
-        with self.repository.session.no_autoflush:
-            if (
-                operation == "create"
-                and is_dict(data)
-                or (operation == "upsert" and not has_id)
-            ):
-                return await self._create_component(
-                    data, processes_service, owner.id if owner else owner_id
-                )
+        if (
+            operation == "create"
+            and is_dict(data)
+            or (operation == "upsert" and not has_id)
+        ):
+            return await self._create_component(
+                data, processes_service, owner.id if owner else owner_id
+            )
 
-            if (
-                operation == "update"
-                and is_dict(data)
-                or (operation == "upsert" and has_id)
-            ):
-                return await self._update_component(
-                    data, processes_service, owner.id if owner else owner_id
-                )
+        if (
+            operation == "update"
+            and is_dict(data)
+            or (operation == "upsert" and has_id)
+        ):
+            return await self._update_component(
+                data, processes_service, owner.id if owner else owner_id
+            )
 
         return data
