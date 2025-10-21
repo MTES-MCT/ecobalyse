@@ -48,7 +48,8 @@ async def load_database_fixtures() -> None:
 
 async def _create_users(
     users_list_string: str,
-    organization: str | None,
+    organization: str,
+    organization_type: OrganizationType,
     superuser: bool = False,
     is_active: bool = True,
 ) -> None:
@@ -64,9 +65,7 @@ async def _create_users(
             email=email,
             first_name=first_name,
             last_name=last_name,
-            organization=OrganizationCreate(
-                name=organization, type=OrganizationType.LOCAL_AUTHORITY
-            ),
+            organization=OrganizationCreate(name=organization, type=organization_type),
             is_superuser=superuser,
             is_active=is_active,
             terms_accepted=True,
@@ -87,87 +86,20 @@ async def _create_user(
     email: str,
     first_name: str,
     last_name: str,
-    organization: str | None,
+    organization: str,
+    organization_type: OrganizationType = OrganizationType.LOCAL_AUTHORITY,
     superuser: bool = False,
     is_active: bool = True,
 ) -> None:
-    obj_in = UserCreate(
-        email=email,
-        first_name=first_name,
-        last_name=last_name,
-        organization=OrganizationCreate(
-            name=organization, type=OrganizationType.LOCAL_AUTHORITY
-        ),
-        is_superuser=superuser,
-        is_active=is_active,
-        terms_accepted=True,
-    )
-
-    console = get_console()
-
-    async with alchemy.get_session() as db_session:
-        users_service = await anext(provide_users_service(db_session))
-        user = await users_service.upsert(
-            data=obj_in.to_dict(), auto_commit=True, match_fields=["email"]
-        )
-        console.print(f"User upserted: {user.email}")
-
-
-@user_management_group.command(
-    name="create-default-user", help="Create the default user"
-)
-@click.option(
-    "--first-name",
-    help="First name of the new user",
-    type=click.STRING,
-    required=False,
-    show_default=False,
-    default="Admin",
-)
-@click.option(
-    "--last-name",
-    help="Last name of the new user",
-    type=click.STRING,
-    required=False,
-    show_default=False,
-    default="Ecobalyse",
-)
-@click.option(
-    "--organization",
-    help="Organization of the new user",
-    type=click.STRING,
-    required=False,
-    show_default=False,
-    default="Ecobalyse",
-)
-def create_default_user(
-    first_name: str,
-    last_name: str,
-    organization: str | None,
-) -> None:
-    """Create the default user of the app."""
-
-    console = get_console()
-
-    console.rule("Create the default user of the app.")
-    superuser = False
-
-    settings = get_settings()
-
-    anyio.run(
-        _create_user,
-        cast("str", settings.app.DEFAULT_USER_EMAIL),
-        cast("str", first_name),
-        cast("str", last_name),
+    await _create_users(
+        f"{email}/{first_name}/{last_name}",
         organization,
-        cast("bool", superuser),
-        # Deactivate default user
-        False,
+        organization_type,
+        superuser,
+        is_active,
     )
 
 
-# Here is the format
-# email@test.com/Firstname/Lastname,other@email.com/Other first name/Other name
 @user_management_group.command(
     name="create-users", help="Create multiple users from a string"
 )
@@ -187,6 +119,14 @@ def create_default_user(
     default="Ecobalyse",
 )
 @click.option(
+    "--organization-type",
+    help="Organization of the new user",
+    type=click.Choice(OrganizationType),
+    required=False,
+    show_default=False,
+    default=OrganizationType.LOCAL_AUTHORITY,
+)
+@click.option(
     "--superuser",
     help="Should create super users",
     type=click.BOOL,
@@ -197,8 +137,9 @@ def create_default_user(
 )
 def create_users(
     users: str,
-    organization: str | None,
-    superuser: bool | None,
+    organization: str,
+    organization_type: OrganizationType,
+    superuser: bool,
 ) -> None:
     """Create multiple users."""
 
@@ -210,6 +151,7 @@ def create_users(
         _create_users,
         cast("str", users),
         organization,
+        organization_type,
         cast("bool", superuser),
     )
 
@@ -245,6 +187,14 @@ def create_users(
     default="Ecobalyse",
 )
 @click.option(
+    "--organization-type",
+    help="Organization of the new user",
+    type=click.Choice(OrganizationType),
+    required=False,
+    show_default=False,
+    default=OrganizationType.LOCAL_AUTHORITY,
+)
+@click.option(
     "--superuser",
     help="Is a superuser",
     type=click.BOOL,
@@ -257,7 +207,8 @@ def create_user(
     email: str,
     first_name: str,
     last_name: str,
-    organization: str | None,
+    organization: str,
+    organization_type: OrganizationType,
     superuser: bool | None,
 ) -> None:
     """Create a user."""
@@ -276,6 +227,7 @@ def create_user(
         cast("str", first_name),
         cast("str", last_name),
         organization,
+        organization_type,
         cast("bool", superuser),
     )
 
