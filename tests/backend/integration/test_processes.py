@@ -1,10 +1,14 @@
 import os
 from pathlib import Path
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 import orjson
 import pytest
+from app.db import models as m
+from app.domain.processes.deps import provide_processes_service
 from app.domain.processes.schemas import Category, Unit
+from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
 
 if TYPE_CHECKING:
     from httpx import AsyncClient
@@ -40,7 +44,62 @@ async def test_process_units() -> None:
             assert process["unit"] in possible_units
 
 
-async def test_detailed_processe_access(
+async def test_update_process(
+    session: AsyncSession, raw_processes: list[dict[str, Any]]
+):
+    from app.db.models.process_process_category import (
+        process_process_category as process_process_category_table,
+    )
+
+    process_id = "97c209ec-7782-5a29-8c47-af7f17c82d11"
+    processes_service = await anext(provide_processes_service(session))
+
+    categories = (await session.scalars(select(m.ProcessCategory))).all()
+
+    # We intially have 3 categories in the fixtures
+    init_categories_len = 3
+    assert len(categories) == init_categories_len
+
+    process_categories = (
+        await session.execute(select(process_process_category_table))
+    ).all()
+
+    # Categories are linked 4 times in the data fixtures
+    assert len(process_categories) == init_categories_len + 1
+
+    for process in raw_processes:
+        if process["id"] == process_id:
+            process["displayName"] = "New test"
+            process["categories"] = [
+                "material",
+                "material_type:organic_fibers",
+                "material_type:upholstery",
+            ]
+
+            await processes_service.update(item_id=process["id"], data=process)
+
+            new_process = await processes_service.get(item_id=process_id)
+            assert new_process.display_name == "New test"
+            assert sorted(
+                [category.name for category in new_process.process_categories]
+            ) == sorted(
+                ["material", "material_type:organic_fibers", "material_type:upholstery"]
+            )
+
+    categories = (await session.scalars(select(m.ProcessCategory))).all()
+
+    # Created "material_type:upholstery"
+    assert len(categories) == init_categories_len + 1
+
+    process_categories = (
+        await session.execute(select(process_process_category_table))
+    ).all()
+
+    # We’ve removed one category link (transformation) and added 3 new categories link
+    assert len(process_categories) == init_categories_len + 1 - 1 + 3
+
+
+async def test_detailed_process_access(
     client: "AsyncClient",
     user_token_headers: dict[str, str],
 ) -> None:

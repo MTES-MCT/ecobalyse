@@ -179,6 +179,7 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
         processes_service,
     ):
         element_dict = element if is_dict(element) else element.to_dict()
+
         tranforms_ids = element_dict.pop("transforms", [])
 
         element_dict["material_process_id"] = element_dict.pop("material")
@@ -200,6 +201,7 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
         elements: list[ModelDictT[ComponentElement]] = data.pop("elements", [])
 
         model = await super().to_model(data)
+
         for element in elements:
             elt = await self._create_element(element, data["id"], processes_service)
             model.elements.append(elt)
@@ -220,23 +222,27 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
         return model
 
     async def _update_component(
-        self, data: ModelDictT[m.Component], processes_service, owner_id: UUID
+        self, model: ModelDictT[m.Component], processes_service, owner_id: UUID
     ):
         # Used for journaling as it is the only moment where we have the full object in json
         # In the following code, the model is either without the name/scopes changes
-        input_data = copy.deepcopy(data)
+        input_data = copy.deepcopy(model)
 
-        data["id"] = data.get("id", uuid4())
-        elements: list[ComponentElement] = data.pop("elements", [])
+        elements: list[ComponentElement] = model.pop("elements", [])
 
-        model = await self.repository.get(item_id=data["id"])
+        model = await super().to_model(model)
+
+        # Avoid SAWarning: Object of type <Process> not in session, add operation along 'ProcessCategory.processes' won't proceed
+        # By merging the process we are creating into the existing session
+        model = await self.repository.session.merge(model)
+
         model.elements = []
 
         for element in elements:
-            elt = await self._create_element(element, model, processes_service)
-            model.elements.append(elt)
-
-        model = await super().to_model(data)
+            # As elements are not comparable (they don’t have ids) we prefer to remove all the existing elements and re-create theme
+            model.elements.append(
+                await self._create_element(element, model, processes_service)
+            )
 
         assert owner_id
 
