@@ -66,6 +66,7 @@
     "express-rate-limit": "^8.1.0",
     "helmet": "^8.1.0",
     "js-yaml": "^4.1.0",
+    "piwik": "^1.0.10",
     "posthog-js": "^1.275.3",
     "posthog-node": "^5.10.0"
   },

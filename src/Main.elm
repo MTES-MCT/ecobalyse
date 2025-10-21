@@ -44,6 +44,7 @@ import Views.Page as Page
 type alias Flags =
     { clientUrl : String
     , enabledSections : Session.EnabledSections
+    , matomo : { host : String, siteId : String }
     , rawStore : String
     , versionPollSeconds : Int
     }
@@ -132,7 +133,8 @@ init flags requestedUrl navKey =
                   , url = requestedUrl
                   }
                 , Cmd.batch
-                    [ Request.Version.loadVersion VersionReceived
+                    [ Ports.appStarted ()
+                    , Request.Version.loadVersion VersionReceived
                     , Request.Github.getReleases ReleasesReceived
                     , if Session.isAuthenticated session then
                         Request.Auth.processes session DetailedProcessesReceived
@@ -151,6 +153,7 @@ setupSession navKey flags db =
         , currentVersion = Request.Version.Unknown
         , db = db
         , enabledSections = flags.enabledSections
+        , matomo = flags.matomo
         , navKey = navKey
         , notifications = []
         , queries =
