@@ -30,6 +30,7 @@
 
 ## ⚙️ Méthodes transverses spécifiques
 
+* [🧩 Composants](methodes-transverses-specifiques/composants.md)
 * [⚡ Energies des étapes de transformation](methodes-transverses-specifiques/energies-des-etapes-de-transformation.md)
 * [💡 Electricité à l'utilisation](methodes-transverses-specifiques/electricite-a-lutilisation.md)
 
