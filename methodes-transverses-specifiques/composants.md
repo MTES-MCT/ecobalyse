@@ -81,8 +81,8 @@ $$p=\frac{m_{perte}}{m_{entrante}}$$
 
 Avec :&#x20;
 
-* `m_perte` la quantité de matière perdue lors du procédé de transformation, en kg par exemple
-* `m_entrante`​​​ la quantité de matière avant transformation, en kg
+* `m_perte` la quantité de matière perdue lors du procédé de transformation, en kg ;
+* `m_entrante`​​​ la quantité de matière avant transformation, en kg.
 
 Pour remonter la chaîne de production, on calcule la quantité de matière _avant_ transformation `m_entrante` à partir de la quantité de matière _après_ transformation `m_sortante` et du taux de perte `p` de l'étape en utilisant cette formule :&#x20;
 
@@ -90,7 +90,7 @@ $$m_{entrante} = \frac{m_{sortante}}{1- p}$$&#x20;
 {% endhint %}
 
 {% hint style="info" %}
-Pour le bois, l'unité n'est pas la masse en kg mais le volume en m3.
+Pour le bois, l'unité de mesure de la quantité n'est pas la masse (en kg) mais le volume, exprimé en m3.
 {% endhint %}
 
 ## Procédés utilisés pour le coût environnemental
