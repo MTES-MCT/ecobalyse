@@ -1,7 +1,7 @@
 ---
 name: Tâche
 about: Une tâche
-title: Description succinte du problème à résoudre
+title: A short summary of the problem the task should solve
 labels: ''
 assignees: ''
 
