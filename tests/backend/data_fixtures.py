@@ -7,7 +7,6 @@ import pytest
 from app.domain.accounts.schemas import OrganizationCreate, OrganizationType
 
 if TYPE_CHECKING:
-    from app.db.models import Component, Scope, User
     from litestar import Litestar
     from pytest import MonkeyPatch
 
@@ -28,7 +27,7 @@ def fx_app(pytestconfig: pytest.Config, monkeypatch: MonkeyPatch) -> Litestar:
 
 
 @pytest.fixture(name="raw_processes")
-def fx_raw_processes() -> list[Scope | dict[str, Any]]:
+def fx_raw_processes() -> list[dict[str, Any]]:
     """Unstructured processes representations."""
 
     return [
@@ -147,7 +146,7 @@ def fx_raw_processes() -> list[Scope | dict[str, Any]]:
 
 
 @pytest.fixture(name="raw_components")
-def fx_raw_components() -> list[Component | dict[str, Any]]:
+def fx_raw_components() -> list[dict[str, Any]]:
     """Unstructured components representations."""
 
     return [
@@ -211,7 +210,7 @@ def fx_raw_components() -> list[Component | dict[str, Any]]:
 
 
 @pytest.fixture(name="raw_users")
-def fx_raw_users() -> list[User | dict[str, Any]]:
+def fx_raw_users() -> list[dict[str, Any]]:
     """Unstructured user representations."""
 
     return [

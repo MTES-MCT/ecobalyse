@@ -1,8 +1,10 @@
 import json as jsonp
+import warnings
 from typing import TYPE_CHECKING
 
 import pytest
 from app.db import models as m
+from app.domain.components.deps import provide_components_service
 from app.domain.journal_entries.services import JournalEntryService
 from sqlalchemy.ext.asyncio import (
     AsyncSession,
@@ -14,7 +16,7 @@ if TYPE_CHECKING:
 pytestmark = pytest.mark.anyio
 
 
-async def test_components_create(
+async def test_components_api_create(
     client: "AsyncClient",
     session: AsyncSession,
     superuser_token_headers: dict[str, str],
@@ -25,7 +27,11 @@ async def test_components_create(
             "name": "New Component",
             "comment": "A comment",
             "elements": [
-                {"amount": 0.91125, "material": "97c209ec-7782-5a29-8c47-af7f17c82d11"}
+                {
+                    "amount": 0.91125,
+                    "material": "97c209ec-7782-5a29-8c47-af7f17c82d11",
+                    "transforms": ["d25636af-ab36-4857-a6d0-c66d1e7a281b"],
+                }
             ],
         },
         headers=superuser_token_headers,
@@ -35,6 +41,7 @@ async def test_components_create(
     assert json["name"] == "New Component"
     assert json["comment"] == "A comment"
     assert len(json["elements"]) == 1
+    assert json["elements"][0]["transforms"] == ["d25636af-ab36-4857-a6d0-c66d1e7a281b"]
 
     assert len(json["id"]) == 36
 
@@ -43,8 +50,45 @@ async def test_components_create(
         assert len(entries) == 8
         entry = entries[7]
         assert entry.action == m.JournalAction.CREATED
-        json["elements"][0]["transforms"] = []
         assert entry.value == json
+
+
+async def test_components_db_create(
+    session: AsyncSession,
+) -> None:
+    json = [
+        {
+            "elements": [
+                {
+                    "amount": 0.42,
+                    "material": "97c209ec-7782-5a29-8c47-af7f17c82d11",
+                    "transforms": ["d25636af-ab36-4857-a6d0-c66d1e7a281b"],
+                }
+            ],
+            "id": "a3963ed9-410d-4f4a-adec-992a2b59277e",
+            "name": "Test composant",
+            "scopes": ["object"],
+            "owner_id": "97108ac1-ffcb-411d-8b1e-d9183399f63b",
+        },
+        {
+            "elements": [
+                {
+                    "amount": 29,
+                    "material": "97c209ec-7782-5a29-8c47-af7f17c82d11",
+                    "transforms": ["d25636af-ab36-4857-a6d0-c66d1e7a281b"],
+                }
+            ],
+            "id": "c8d08b9d-c150-4441-a4f7-3f15c59e982c",
+            "name": "Test composant 2",
+            "owner_id": "97108ac1-ffcb-411d-8b1e-d9183399f63b",
+            "scopes": ["object"],
+        },
+    ]
+
+    with warnings.catch_warnings():
+        warnings.simplefilter("error")
+        components_service = await anext(provide_components_service(session))
+        await components_service.create_many(data=json, auto_commit=True)
 
 
 async def test_components_create_with_scopes(

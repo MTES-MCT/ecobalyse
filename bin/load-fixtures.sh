@@ -10,8 +10,14 @@ if [ "$IS_REVIEW_APP" == "true" ]; then
    echo "-> In review app, resetting DB";
    uv run backend database drop-all --no-prompt
    uv run backend database upgrade --no-prompt
+fi
+
+# Always update the processes with the latest data, even on staging or production
+uv run backend fixtures load-processes public/data/processes_impacts.json
+
+if [ "$IS_REVIEW_APP" == "true" ]; then
+   # We want to keep the staging components as they are, so we only load the default ones on review apps
    echo "-> Loading components fixtures";
-   uv run backend fixtures load-processes public/data/processes_impacts.json
    uv run backend fixtures load-components public/data/object/components.json
 fi
 
