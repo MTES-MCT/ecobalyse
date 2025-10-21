@@ -1,5 +1,6 @@
 port module Ports exposing
     ( addBodyClass
+    , appStarted
     , copyToClipboard
     , loadRapidoc
     , removeBodyClass
@@ -14,6 +15,9 @@ port module Ports exposing
 
 
 port addBodyClass : String -> Cmd msg
+
+
+port appStarted : () -> Cmd msg
 
 
 port copyToClipboard : String -> Cmd msg
