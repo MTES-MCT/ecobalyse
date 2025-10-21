@@ -57,6 +57,7 @@ class Process(UUIDAuditBase):
         secondary=lambda: _process_element_transforms(),
         back_populates="process_transforms",
         cascade="all",
+        lazy="selectin",
     )
 
     elements_materials: Mapped[list[Element]] = relationship(

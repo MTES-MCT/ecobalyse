@@ -269,22 +269,23 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
             provide_processes_service(self.repository.session)
         )
 
-        if (
-            operation == "create"
-            and is_dict(data)
-            or (operation == "upsert" and not has_id)
-        ):
-            return await self._create_component(
-                data, processes_service, owner.id if owner else owner_id
-            )
+        with self.repository.session.no_autoflush:
+            if (
+                operation == "create"
+                and is_dict(data)
+                or (operation == "upsert" and not has_id)
+            ):
+                return await self._create_component(
+                    data, processes_service, owner.id if owner else owner_id
+                )
 
-        if (
-            operation == "update"
-            and is_dict(data)
-            or (operation == "upsert" and has_id)
-        ):
-            return await self._update_component(
-                data, processes_service, owner.id if owner else owner_id
-            )
+            if (
+                operation == "update"
+                and is_dict(data)
+                or (operation == "upsert" and has_id)
+            ):
+                return await self._update_component(
+                    data, processes_service, owner.id if owner else owner_id
+                )
 
         return data
