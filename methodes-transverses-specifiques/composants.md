@@ -6,9 +6,9 @@ hidden: true
 
 ## Contexte
 
-La plupart des produits consistent en un assemblage de composants, eux même constitués de plusieurs matières transformées.
+La plupart des produits consistent en un assemblage de composants, eux mêmes constitués de plusieurs matériaux transformés.
 
-Dans une logique de déploiement du calcul du coût environnemental sur un nombre croissant de secteur, Ecobalyse a construit un module Composant, permet de modéliser un composant à partir de matières et d'étapes de transformation.
+Dans une logique de déploiement du calcul du coût environnemental pour un nombre croissant de secteurs et de produits, Ecobalyse a construit un module Composant, qui permet de modéliser un composant à partir de matériaux de base et d'étapes de transformation.
 
 Les cas d'usages sont nombreux, en voici quelques exemples :&#x20;
 
