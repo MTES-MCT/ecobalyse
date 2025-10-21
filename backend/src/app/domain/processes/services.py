@@ -157,15 +157,16 @@ class ProcessService(SQLAlchemyAsyncRepositoryService[m.Process]):
                 for category_rm in categories_to_remove:
                     data.process_categories.remove(category_rm)
 
-                data.process_categories.extend(
-                    [
-                        await m.ProcessCategory.as_unique_async(
-                            self.repository.session,
-                            name=category_name,
-                        )
-                        for category_name in categories_names_to_add
-                    ],
-                )
+                if len(categories_names_to_add) > 0:
+                    data.process_categories.extend(
+                        [
+                            await m.ProcessCategory.as_unique_async(
+                                self.repository.session,
+                                name=category_name,
+                            )
+                            for category_name in categories_names_to_add
+                        ],
+                    )
 
             if owner:
                 owner.journal_entries.append(

@@ -98,6 +98,7 @@ async def test_load_processes(
     assert json_response["scopes"] == ["textile", "food"]
 
     # We remove a process
+    last_process_id = raw_processes[-1]["id"]
     raw_processes.pop()
 
     await load_processes_fixtures(session, processes_service, raw_processes)
@@ -111,3 +112,9 @@ async def test_load_processes(
     processes = response.json()
 
     assert initial_processes_nb == len(processes)
+
+    response = await client.get(
+        "/api/processes/" + last_process_id,
+        headers=user_token_headers,
+    )
+    assert response.status_code == 404

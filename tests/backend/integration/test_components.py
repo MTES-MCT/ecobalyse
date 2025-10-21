@@ -1,4 +1,5 @@
 import json as jsonp
+import warnings
 from typing import TYPE_CHECKING
 
 import pytest
@@ -84,8 +85,10 @@ async def test_components_db_create(
         },
     ]
 
-    components_service = await anext(provide_components_service(session))
-    await components_service.create_many(data=json, auto_commit=True)
+    with warnings.catch_warnings():
+        warnings.simplefilter("error")
+        components_service = await anext(provide_components_service(session))
+        await components_service.create_many(data=json, auto_commit=True)
 
 
 async def test_components_create_with_scopes(

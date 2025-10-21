@@ -10,6 +10,7 @@ from advanced_alchemy.extensions.litestar.exception_handler import (
     ForeignKeyError,
     IntegrityError,
     InternalServerException,
+    NotFoundError,
 )
 from litestar.config.compression import CompressionConfig
 from litestar.config.cors import CORSConfig
@@ -32,7 +33,11 @@ from litestar.plugins.sqlalchemy import (
 )
 from litestar.plugins.structlog import StructlogConfig
 from litestar.serialization.msgspec_hooks import _msgspec_json_encoder
-from litestar.status_codes import HTTP_409_CONFLICT, HTTP_500_INTERNAL_SERVER_ERROR
+from litestar.status_codes import (
+    HTTP_404_NOT_FOUND,
+    HTTP_409_CONFLICT,
+    HTTP_500_INTERNAL_SERVER_ERROR,
+)
 from structlog.types import Processor
 from structlog.typing import EventDict
 
@@ -65,6 +70,12 @@ def convert_sqlalchemy_exceptions_conflict_to_problem_details(
     return ProblemDetailsException(detail=exc.detail, status_code=HTTP_409_CONFLICT)
 
 
+def convert_sqlalchemy_exceptions_not_found_to_problem_details(
+    exc: NotFoundError,
+) -> ProblemDetailsException:
+    return ProblemDetailsException(detail=exc.detail, status_code=HTTP_404_NOT_FOUND)
+
+
 def convert_sqlalchemy_exceptions_internal_to_problem_details(
     exc: InternalServerException,
 ) -> ProblemDetailsException:
@@ -88,6 +99,7 @@ problem_details = ProblemDetailsConfig(
         IntegrityError: convert_sqlalchemy_exceptions_conflict_to_problem_details,
         ForeignKeyError: convert_sqlalchemy_exceptions_conflict_to_problem_details,
         InternalServerException: convert_sqlalchemy_exceptions_internal_to_problem_details,
+        NotFoundError: convert_sqlalchemy_exceptions_not_found_to_problem_details,
         HTTP_500_INTERNAL_SERVER_ERROR: convert_unknown_exception_to_problem_details,
     },
 )
