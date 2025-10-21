@@ -38,7 +38,7 @@ Avec :&#x20;
 {% endtab %}
 
 {% tab title="Exemple B : 2 éléments, dont 1 transfo." %}
-Méthode de calcul pour un composant constitué de deux éléments `e1` et `e1`, `e1` subissant une transformation `t` :&#x20;
+Méthode de calcul pour un composant constitué de deux éléments `e1` et `e2`, `e1` subissant une transformation `t` :&#x20;
 
 $$
 I_{c} =\frac{1}{(1-p_{t})} *m_{e1}*I_{e1} + \frac{1}{(1-p_{t})}*m_{e1}*I_{t1} + m_{e2}*I_{e2}
