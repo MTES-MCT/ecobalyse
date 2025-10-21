@@ -11,16 +11,11 @@ if [ "$IS_REVIEW_APP" == "true" ]; then
    uv run backend database drop-all --no-prompt
    uv run backend database upgrade --no-prompt
    echo "-> Loading components fixtures";
-   uv run backend users create-default-user
-   uv run backend fixtures load-components public/data/object/components.json
    uv run backend fixtures load-processes public/data/processes_impacts.json
+   uv run backend fixtures load-components public/data/object/components.json
 fi
 
 # Test if variable is set
 if test -n "${BACKEND_ADMINS:+x}"; then
- IFS=',' read -ra ADDR <<< "$BACKEND_ADMINS"
- for entry in "${ADDR[@]}"; do
-   IFS='/' read -r email first_name last_name <<< "$entry"
-   uv run backend users create-user --email "$email" --first-name "$first_name" --last-name "$last_name" --organization "Ecobalyse" --superuser
- done
+  uv run backend users create-users --users "$BACKEND_ADMINS" --organization "Ecobalyse" --superuser
 fi
