@@ -1,7 +1,3 @@
----
-hidden: true
----
-
 # ♻️ Etape 8 - Fin de vie
 
 ## Contexte
@@ -28,7 +24,7 @@ C'est pourquoi un complément hors ACV "Export hors Eurpoe" a été introduit pa
 
 Le recyclage consiste essentiellement en du recyclage en chiffons (_wipers_) et en matériaux d'isolation (_insulation_). La prise en compte de ce recyclage se fait via la Circular Footprint Formula (CFF). [Nous avons estimé l'impact de ces circuits de recyclage et trouvé qu'il était négligeable sur cette page.](https://fabrique-numerique.gitbook.io/ecobalyse/textile/cycle-de-vie-des-produits-textiles/etape-1-matieres/circular-footprint-formula-cff-matiere-1)
 
-Les étapes suivantes sont évaluées et détaillées dans cette page : Le traitement comme déchet municipal (_Municipal waste collection_) est évalué en prenant en compte les étapes suivantes :
+Les étapes suivantes sont évaluées et détaillées dans ce paragraphe : Le traitement comme déchet municipal (_Municipal waste collection_) est évalué en prenant en compte les étapes suivantes :
 
 * Transport en voiture par l'utilisateur du vêtement vers un point de collecte (_Recycling collection_) ;
 * Transport en camion vers un site de tri puis de recyclage ou à défaut incinération (_Recycling collection_) ;
@@ -115,7 +111,7 @@ Avec :
   * `r_sort` = 19.5% (= `1-r_mw`)
 * `d_sort>rec` : la distance entre le site de tri et le site de recyclage, exprimée en km
   * `d_sort>rec` = 100km
-* `r_rec` : la part de produits collectée et triée puis recyclée, sans unité
+* `r_rec` : la part de produits collectées et triées puis recyclée, sans unité
   * `r_rec` = 16.9%
 * `d_sort>inc` : la distance entre le site de tri et le site d'incinération, exprimée en km
   * `d_sort>inc` = 30km

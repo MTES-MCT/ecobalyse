@@ -1,4 +1,8 @@
-# ♻️ Etape 8 - Fin de vie
+---
+hidden: true
+---
+
+# ♻️ Etape 8 - Fin de vie - old
 
 L'impact de la fin de vie se décompose en deux modules :&#x20;
 
