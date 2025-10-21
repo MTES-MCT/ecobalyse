@@ -82,6 +82,9 @@ class ComponentController(Controller):
 
         component = await components_service.create(data=data)
 
+        # @FIXME: Reload component from DB or tranforms will be missing
+        component = await components_service.get(component.id)
+
         return components_service.to_schema(component, schema_type=Component)
 
     @patch(

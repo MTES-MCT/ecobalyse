@@ -179,6 +179,7 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
         processes_service,
     ):
         element_dict = element if is_dict(element) else element.to_dict()
+
         tranforms_ids = element_dict.pop("transforms", [])
 
         element_dict["material_process_id"] = element_dict.pop("material")
@@ -200,6 +201,7 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
         elements: list[ModelDictT[ComponentElement]] = data.pop("elements", [])
 
         model = await super().to_model(data)
+
         for element in elements:
             elt = await self._create_element(element, data["id"], processes_service)
             model.elements.append(elt)
