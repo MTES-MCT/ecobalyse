@@ -3,6 +3,7 @@ from __future__ import annotations
 import binascii
 import json
 import os
+import sys
 from dataclasses import dataclass, field
 from functools import lru_cache
 from pathlib import Path
@@ -398,9 +399,8 @@ class Settings:
     server: ServerSettings = field(default_factory=ServerSettings)
     log: LogSettings = field(default_factory=LogSettings)
 
-    @classmethod
-    def is_test_env() -> bool:
-        return get_env("PYTEST_CURRENT_TEST", False)
+    def is_test_env(self) -> bool:
+        return "pytest" in sys.modules
 
     @classmethod
     def from_env(cls, dotenv_filename: str = ".env") -> Settings:
