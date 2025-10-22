@@ -4,6 +4,7 @@ describe("Rate Limiting", () => {
   let originalEnv;
 
   function setupTestApp(env) {
+    process.env.MATOMO_HOST = "";
     process.env.NODE_ENV = "production";
     process.env.POSTHOG_HOST = "";
     process.env.SENTRY_DSN = "";
@@ -17,6 +18,7 @@ describe("Rate Limiting", () => {
   beforeAll(() => {
     // Store original environment variables
     originalEnv = {
+      MATOMO_HOST: process.env.MATOMO_HOST,
       NODE_ENV: process.env.NODE_ENV,
       POSTHOG_HOST: process.env.POSTHOG_HOST,
       RATELIMIT_MAX_RPM: process.env.RATELIMIT_MAX_RPM,
