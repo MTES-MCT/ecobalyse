@@ -399,6 +399,10 @@ class Settings:
     log: LogSettings = field(default_factory=LogSettings)
 
     @classmethod
+    def is_test_env() -> bool:
+        return get_env("PYTEST_CURRENT_TEST", False)
+
+    @classmethod
     def from_env(cls, dotenv_filename: str = ".env") -> Settings:
         from litestar.cli._utils import console
 

@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Literal, TypeVar
 
 import structlog
+from app.domain.accounts.guards import requires_superuser
 from litestar import Controller, MediaType, Request, get
 from litestar.response import Response
 from sqlalchemy import text
@@ -64,8 +65,8 @@ class SystemController(Controller):
     @get(
         operation_id="ErrorCheck",
         path=SENTRY_CHECK,
-        exclude_from_auth=True,
         include_in_schema=False,
+        guards=[requires_superuser],
     )
     async def check_sentry(self) -> Response[str]:
         """Provokes an error in order to check that the error reporting system is working"""

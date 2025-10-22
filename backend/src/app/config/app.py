@@ -49,7 +49,7 @@ settings = get_settings()
 
 sentry_dsn = settings.app.SENTRY_DSN
 
-if sentry_dsn:
+if sentry_dsn and not settings.is_test_env:
     sentry_sdk.init(
         dsn=sentry_dsn,
         environment=settings.app.SENTRY_ENVIRONMENT,
