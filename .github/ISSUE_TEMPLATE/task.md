@@ -1,20 +1,26 @@
 ---
-name: Task
-about: A technical task
+name: Tâche
+about: Une tâche
 title: A short summary of the problem the task should solve
+labels: ''
+assignees: ''
+
 ---
 
-## :wrench: Problem
-<!-- Describe the problem you're trying to solve, the reason why you are creating this task. -->
+:wrench: Problème
 
-## :cake: Solution
-<!-- Optionally, explain the functional or technical solution that should be implemented to solve the problem. Otherwise leave this section blank so it can be discussed in the comment section. -->
+<!-- Décrivez le problème que vous essayez de résoudre, la raison pour laquelle vous créez cette tâche. -->
 
-## :rotating_light:  Points to watch/comments
-<!-- If there is anything unusual or some clarifications needed for the implementer to better understand the requirements or the constraints, mention it here. -->
+:cake: Solution
 
-## :desert_island: How to test
-<!-- What should someone do to validate that the proposed solution and implementation is working as expected and properly addresses the needs. Don't hesitate to be too verbose and to explain in details, using bullet points for example, the steps to follow to test the expected behavior. -->
+<!-- (Optionnel) Expliquez la solution fonctionnelle ou technique qui devrait être implémentée pour résoudre le problème. Sinon, laissez cette section vide pour qu'elle puisse être discutée dans la section commentaires. -->
 
-- [ ] Example expectation
-- [ ] Another example expectation
+:rotating_light: Points d'attention/commentaires
+
+<!-- S'il y a quelque chose d'inhabituel ou des clarifications nécessaires pour que l'implémenteur comprenne mieux les exigences ou les contraintes, mentionnez-le ici. -->
+
+:desert_island: Comment tester
+
+<!-- Que devrait faire quelqu'un pour valider que la solution proposée et l'implémentation fonctionnent comme attendu et répondent correctement aux besoins. N'hésitez pas à être très verbeux et à expliquer en détail, en utilisant des puces par exemple, les étapes à suivre pour tester le comportement attendu. -->
+[ ] Exemple d'attente
+[ ] Autre exemple d'attente
