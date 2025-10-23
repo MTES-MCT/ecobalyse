@@ -877,7 +877,7 @@ getEndOfLifeDetailedImpacts processes scope =
                         )
             )
         >> AnyDict.toList
-        >> RE.combineMap (\( category, strategy ) -> strategy |> Result.map (Tuple.pair category))
+        >> RE.combineMap RE.combineSecond
         >> Result.map (AnyDict.fromList Category.materialTypeToString)
 
 
