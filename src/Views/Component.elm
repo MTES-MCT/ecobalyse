@@ -658,30 +658,30 @@ endOfLifeView ({ db } as config) lifeCycle =
                     Ok categories ->
                         categories
                             |> AnyDict.toList
-                            |> List.sortBy
-                                (\( _, ( _, { incinerating, landfilling, recycling } ) ) ->
-                                    [ incinerating.impacts, landfilling.impacts, recycling.impacts ]
-                                        |> Impact.sumImpacts
-                                        |> Impact.getImpact config.impact.trigram
-                                        |> Unit.impactToFloat
-                                )
                             |> List.reverse
                             |> List.map
-                                (\( materialType, ( mass, { incinerating, landfilling, recycling } ) ) ->
+                                (\( materialType, { collected, nonCollected } ) ->
                                     tr []
                                         [ td [ class "ps-3" ] [ text <| Category.materialTypeToLabel materialType ]
-                                        , td [ class "text-end" ] [ Format.kg mass ]
-                                        , td [ class "text-end" ] [ formatShareImpacts True recycling ]
-                                        , td [ class "text-end" ] [ formatShareImpacts False incinerating ]
-                                        , td [ class "text-end" ] [ formatShareImpacts False landfilling ]
-                                        , td [ class "text-end pe-3 fw-bold" ]
-                                            [ [ recycling.impacts
-                                              , incinerating.impacts
-                                              , landfilling.impacts
-                                              ]
-                                                |> Impact.sumImpacts
-                                                |> Format.formatImpact config.impact
+                                        , td [ class "text-end" ]
+                                            [ text "Collecté: "
+                                            , collected |> Tuple.first |> Format.kg
+                                            , br [] []
+                                            , text "Non-collecté: "
+                                            , nonCollected |> Tuple.first |> Format.kg
                                             ]
+
+                                        -- , td [ class "text-end" ] [ formatShareImpacts True recycling ]
+                                        -- , td [ class "text-end" ] [ formatShareImpacts False incinerating ]
+                                        -- , td [ class "text-end" ] [ formatShareImpacts False landfilling ]
+                                        -- , td [ class "text-end pe-3 fw-bold" ]
+                                        --     [ [ recycling.impacts
+                                        --       , incinerating.impacts
+                                        --       , landfilling.impacts
+                                        --       ]
+                                        --         |> Impact.sumImpacts
+                                        --         |> Format.formatImpact config.impact
+                                        --     ]
                                         ]
                                 )
                             |> tbody []
