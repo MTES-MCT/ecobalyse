@@ -10,6 +10,7 @@ import Data.Food.Recipe as Recipe
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Object.Simulator as ObjectSimulator
+import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Data.Textile.Simulator as TextileSimulator
 import Data.Unit as Unit
@@ -128,7 +129,7 @@ addToComparison session { name, query } =
 
         Bookmark.Object objectQuery ->
             objectQuery
-                |> ObjectSimulator.compute session.db
+                |> ObjectSimulator.compute session.db Scope.Object
                 |> Result.map
                     (\lifeCycle ->
                         { complementsImpact = Impact.noComplementsImpacts
@@ -156,7 +157,7 @@ addToComparison session { name, query } =
 
         Bookmark.Veli objectQuery ->
             objectQuery
-                |> ObjectSimulator.compute session.db
+                |> ObjectSimulator.compute session.db Scope.Veli
                 |> Result.map
                     (\lifeCycle ->
                         { complementsImpact = Impact.noComplementsImpacts

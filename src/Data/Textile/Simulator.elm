@@ -15,6 +15,7 @@ import Data.Country as Country
 import Data.Env as Env
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
+import Data.Scope as Scope
 import Data.Split as Split
 import Data.Textile.Dyeing as Dyeing
 import Data.Textile.Economics as Economics
@@ -207,7 +208,7 @@ handleTrimsWeight db ({ inputs } as simulator) =
     let
         trimsMass =
             inputs.trims
-                |> Component.compute db
+                |> Component.compute db Scope.Textile
                 |> Result.map (.production >> Component.extractMass)
                 |> Result.withDefault Quantity.zero
     in
@@ -747,7 +748,7 @@ computeTotalTransportImpacts simulator =
 computeTrims : Db -> Simulator -> Result String Simulator
 computeTrims db ({ durability, inputs } as simulator) =
     inputs.trims
-        |> Component.compute db
+        |> Component.compute db Scope.Textile
         -- FIXME
         |> Result.map (.production >> Component.extractImpacts)
         |> Result.map

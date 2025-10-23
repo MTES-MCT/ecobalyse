@@ -438,8 +438,7 @@ componentsExplorer :
 componentsExplorer db scope tableConfig tableState maybeId =
     let
         scopedComponents =
-            db.components
-                |> Scope.anyOf [ scope ]
+            db.components |> List.filter (.scope >> (==) scope)
     in
     [ scopedComponents
         |> List.sortBy .name
@@ -473,7 +472,7 @@ objectExamplesExplorer db tableConfig tableState scope maybeId =
         scoredExamples =
             db.object.examples
                 |> List.filter (\example -> example.scope == scope)
-                |> List.map (\example -> ( example, { score = getObjectScore db example } ))
+                |> List.map (\example -> ( example, { score = getObjectScore db scope example } ))
                 |> List.sortBy (Tuple.first >> .name)
 
         max =
@@ -496,7 +495,7 @@ objectExamplesExplorer db tableConfig tableState scope maybeId =
                         alert error
 
                     Ok example ->
-                        ( example, { score = getObjectScore db example } )
+                        ( example, { score = getObjectScore db scope example } )
                             |> Table.viewDetails scope (ObjectExamples.table max)
                 )
 
@@ -644,10 +643,10 @@ getFoodScorePer100g db =
         >> Result.withDefault 0
 
 
-getObjectScore : Db -> Example ObjectQuery.Query -> Float
-getObjectScore db =
+getObjectScore : Db -> Scope -> Example ObjectQuery.Query -> Float
+getObjectScore db scope =
     .query
-        >> ObjectSimulator.compute db
+        >> ObjectSimulator.compute db scope
         >> Result.map
             (Component.sumLifeCycleImpacts
                 >> Impact.getImpact Definition.Ecs

@@ -276,7 +276,7 @@ handleRequest db request =
 
         Just Route.TextileGetTrimList ->
             db.components
-                |> Scope.anyOf [ Scope.Textile ]
+                |> List.filter (.scope >> (==) Scope.Textile)
                 |> Encode.list encodeComponent
                 |> respondWith 200
 

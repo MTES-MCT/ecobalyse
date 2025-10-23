@@ -290,7 +290,7 @@ suite =
             , describe "compute"
                 [ it "should compute results from decoded component items"
                     (chair
-                        |> Result.andThen (Component.compute db)
+                        |> Result.andThen (Component.compute db Scope.Object)
                         |> Result.map (.production >> extractEcsImpact)
                         |> TestUtils.expectResultWithin (Expect.Absolute 1) 293
                     )
@@ -311,7 +311,7 @@ suite =
                          , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
                          , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
                          ]"""
-                        |> decodeJsonThen (Decode.list Component.decodeItem) (Component.compute db)
+                        |> decodeJsonThen (Decode.list Component.decodeItem) (Component.compute db Scope.Object)
                         |> Result.map (.production >> extractEcsImpact)
                         |> TestUtils.expectResultWithin (Expect.Absolute 1) 314
                     )
@@ -516,9 +516,9 @@ suite =
                 -- setup
                 (chair
                     |> Result.andThen
-                        (Component.compute db
+                        (Component.compute db Scope.Object
                             >> Result.map .production
-                            >> Result.andThen (Component.getEndOfLifeDetailedImpacts db.processes)
+                            >> Result.andThen (Component.getEndOfLifeDetailedImpacts db.processes Scope.Object)
                         )
                 )
                 -- tests
@@ -528,18 +528,40 @@ suite =
                             |> AnyDict.keys
                             |> Expect.equal [ Category.Plastic, Category.Wood ]
                         )
-                    , it "should group materials masses"
+                    , it "should group materials collected masses"
                         (chairMaterialGroups
                             |> AnyDict.values
-                            |> List.map (Tuple.first >> Mass.inKilograms)
+                            |> List.map (.collected >> Tuple.first >> Mass.inKilograms)
                             |> List.all (\x -> x > 0)
                             |> Expect.equal True
                         )
-                    , it "should group materials impacts"
+                    , it "should group materials non-collected masses"
+                        (chairMaterialGroups
+                            |> AnyDict.values
+                            |> List.map (.nonCollected >> Tuple.first >> Mass.inKilograms)
+                            |> List.all (\x -> x > 0)
+                            |> Expect.equal True
+                        )
+                    , it "should group materials collected impacts"
                         (chairMaterialGroups
                             |> AnyDict.values
                             |> List.map
-                                (Tuple.second
+                                (.collected
+                                    >> Tuple.second
+                                    >> .incinerating
+                                    >> .impacts
+                                    >> Impact.getImpact Definition.Ecs
+                                    >> Unit.impactToFloat
+                                )
+                            |> List.all (\x -> x > 0)
+                            |> Expect.equal True
+                        )
+                    , it "should group materials non-collected impacts"
+                        (chairMaterialGroups
+                            |> AnyDict.values
+                            |> List.map
+                                (.nonCollected
+                                    >> Tuple.second
                                     >> .incinerating
                                     >> .impacts
                                     >> Impact.getImpact Definition.Ecs
@@ -633,7 +655,7 @@ suite =
             , TestUtils.suiteFromResult "stagesImpacts"
                 (""" [ { "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 }
                      ]"""
-                    |> decodeJsonThen (Decode.list Component.decodeItem) (Component.compute db)
+                    |> decodeJsonThen (Decode.list Component.decodeItem) (Component.compute db Scope.Object)
                     |> Result.map (\results -> ( results, Component.stagesImpacts results ))
                 )
                 (\( lifeCycle, stagesImpacts ) ->
@@ -660,8 +682,7 @@ suite =
                         )
                     ]
                 )
-            , TestUtils.suiteFromResult "toggleCustomScope"
-                -- See why we disabled multi-scopes decoding in Data.Component.decode
+            , TestUtils.suiteFromResult "setCustomScope"
                 -- setup
                 ("""{ "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 }"""
                     |> decodeJson Component.decodeItem
@@ -672,42 +693,35 @@ suite =
                                 |> Result.map (\component -> ( component, item ))
                         )
                 )
-                (\( component, item ) ->
-                    [ it "should have no custom scopes by default"
-                        (item.custom
+                (\( sofaFabricComponent, sofaFabricItem ) ->
+                    [ it "should have the expected initial component scope"
+                        (sofaFabricComponent.scope
+                            |> Expect.equal Scope.Object
+                        )
+                    , it "should have no custom scopes by default"
+                        (sofaFabricItem.custom
                             |> Expect.equal Nothing
                         )
-                    , it "should toggle a custom scope"
-                        (item
-                            |> Component.toggleCustomScope component Scope.Textile False
+                    , it "should set a custom scope"
+                        (sofaFabricItem
+                            |> Component.setCustomScope sofaFabricComponent Scope.Textile
                             |> .custom
-                            |> Maybe.map .scopes
-                            |> Expect.equal (Just [ Scope.Food ])
-                        )
-                    , it "should sequentially toggle custom scopes"
-                        (item
-                            |> Component.toggleCustomScope component Scope.Food False
-                            |> Component.toggleCustomScope component Scope.Object False
-                            |> Component.toggleCustomScope component Scope.Textile False
-                            |> Component.toggleCustomScope component Scope.Object True
-                            |> .custom
-                            |> Maybe.map .scopes
-                            |> Expect.equal (Just [ Scope.Object ])
+                            |> Maybe.andThen .scope
+                            |> Expect.equal (Just Scope.Textile)
                         )
                     , it "should reset custom scopes when they match initial component ones"
-                        (item
-                            |> Component.toggleCustomScope component Scope.Food False
-                            |> Component.toggleCustomScope component Scope.Food True
+                        (sofaFabricItem
+                            |> Component.setCustomScope sofaFabricComponent Scope.Object
                             |> .custom
-                            |> Maybe.map .scopes
+                            |> Maybe.andThen .scope
                             |> Expect.equal Nothing
                         )
                     , it "should export custom scopes to component"
-                        (item
-                            |> Component.toggleCustomScope component Scope.Textile False
+                        (sofaFabricItem
+                            |> Component.setCustomScope sofaFabricComponent Scope.Textile
                             |> Component.itemToComponent db
-                            |> Result.map .scopes
-                            |> Expect.equal (Ok [ Scope.Food ])
+                            |> Result.map .scope
+                            |> Expect.equal (Ok Scope.Textile)
                         )
                     ]
                 )
@@ -851,7 +865,7 @@ chairBack =
                 ],
                 "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973",
                 "name": "Dossier plastique (PP)",
-                "scopes": ["food", "object", "textile", "veli"]
+                "scopes": ["object"]
             }
         """
 
@@ -868,7 +882,7 @@ chairLeg =
                 ],
                 "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
                 "name": "Pied 70 cm (plein bois)",
-                "scopes": ["food", "object", "textile", "veli"]
+                "scopes": ["object"]
             }
         """
 
@@ -885,7 +899,7 @@ chairSeat =
                 ],
                 "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6",
                 "name": "Assise plastique (PP)",
-                "scopes": ["food", "object", "textile", "veli"]
+                "scopes": ["object"]
             }
         """
 
@@ -914,7 +928,7 @@ sofaFabric =
                 ],
                 "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
                 "name": "Tissu pour canapé",
-                "scopes": ["food", "object", "textile"]
+                "scopes": ["object"]
             }
         """
 
