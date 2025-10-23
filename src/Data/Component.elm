@@ -45,6 +45,7 @@ module Data.Component exposing
     , extractItems
     , extractMass
     , findById
+    , getEndOfLifeCollectionShare
     , getEndOfLifeDetailedImpacts
     , getEndOfLifeImpacts
     , idFromString
