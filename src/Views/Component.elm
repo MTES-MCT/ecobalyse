@@ -664,24 +664,56 @@ endOfLifeView ({ db } as config) lifeCycle =
                                     tr []
                                         [ td [ class "ps-3" ] [ text <| Category.materialTypeToLabel materialType ]
                                         , td [ class "text-end" ]
-                                            [ text "Collecté: "
-                                            , collected |> Tuple.first |> Format.kg
-                                            , br [] []
-                                            , text "Non-collecté: "
-                                            , nonCollected |> Tuple.first |> Format.kg
+                                            [ div []
+                                                [ text "Collecté: "
+                                                , collected |> Tuple.first |> Format.kg
+                                                ]
+                                            , div []
+                                                [ text "Non-collecté: "
+                                                , nonCollected |> Tuple.first |> Format.kg
+                                                ]
                                             ]
-
-                                        -- , td [ class "text-end" ] [ formatShareImpacts True recycling ]
-                                        -- , td [ class "text-end" ] [ formatShareImpacts False incinerating ]
-                                        -- , td [ class "text-end" ] [ formatShareImpacts False landfilling ]
-                                        -- , td [ class "text-end pe-3 fw-bold" ]
-                                        --     [ [ recycling.impacts
-                                        --       , incinerating.impacts
-                                        --       , landfilling.impacts
-                                        --       ]
-                                        --         |> Impact.sumImpacts
-                                        --         |> Format.formatImpact config.impact
-                                        --     ]
+                                        , td [ class "text-end" ]
+                                            [ div []
+                                                [ text "Collecté: "
+                                                , collected |> Tuple.second |> .recycling |> formatShareImpacts True
+                                                ]
+                                            , div []
+                                                [ text "Non-collecté: "
+                                                , nonCollected |> Tuple.second |> .recycling |> formatShareImpacts True
+                                                ]
+                                            ]
+                                        , td [ class "text-end" ]
+                                            [ div []
+                                                [ text "Collecté: "
+                                                , collected |> Tuple.second |> .incinerating |> formatShareImpacts False
+                                                ]
+                                            , div []
+                                                [ text "Non-collecté: "
+                                                , nonCollected |> Tuple.second |> .incinerating |> formatShareImpacts False
+                                                ]
+                                            ]
+                                        , td [ class "text-end" ]
+                                            [ div []
+                                                [ text "Collecté: "
+                                                , collected |> Tuple.second |> .landfilling |> formatShareImpacts False
+                                                ]
+                                            , div []
+                                                [ text "Non-collecté: "
+                                                , nonCollected |> Tuple.second |> .landfilling |> formatShareImpacts False
+                                                ]
+                                            ]
+                                        , td [ class "text-end pe-3 fw-bold" ]
+                                            [ [ collected |> Tuple.second |> .recycling |> .impacts
+                                              , collected |> Tuple.second |> .incinerating |> .impacts
+                                              , collected |> Tuple.second |> .landfilling |> .impacts
+                                              , nonCollected |> Tuple.second |> .recycling |> .impacts
+                                              , nonCollected |> Tuple.second |> .incinerating |> .impacts
+                                              , nonCollected |> Tuple.second |> .landfilling |> .impacts
+                                              ]
+                                                |> Impact.sumImpacts
+                                                |> Format.formatImpact config.impact
+                                            ]
                                         ]
                                 )
                             |> tbody []

@@ -528,18 +528,40 @@ suite =
                             |> AnyDict.keys
                             |> Expect.equal [ Category.Plastic, Category.Wood ]
                         )
-                    , it "should group materials masses"
+                    , it "should group materials collected masses"
                         (chairMaterialGroups
                             |> AnyDict.values
-                            |> List.map (Tuple.first >> Mass.inKilograms)
+                            |> List.map (.collected >> Tuple.first >> Mass.inKilograms)
                             |> List.all (\x -> x > 0)
                             |> Expect.equal True
                         )
-                    , it "should group materials impacts"
+                    , it "should group materials non-collected masses"
+                        (chairMaterialGroups
+                            |> AnyDict.values
+                            |> List.map (.nonCollected >> Tuple.first >> Mass.inKilograms)
+                            |> List.all (\x -> x > 0)
+                            |> Expect.equal True
+                        )
+                    , it "should group materials collected impacts"
                         (chairMaterialGroups
                             |> AnyDict.values
                             |> List.map
-                                (Tuple.second
+                                (.collected
+                                    >> Tuple.second
+                                    >> .incinerating
+                                    >> .impacts
+                                    >> Impact.getImpact Definition.Ecs
+                                    >> Unit.impactToFloat
+                                )
+                            |> List.all (\x -> x > 0)
+                            |> Expect.equal True
+                        )
+                    , it "should group materials non-collected impacts"
+                        (chairMaterialGroups
+                            |> AnyDict.values
+                            |> List.map
+                                (.nonCollected
+                                    >> Tuple.second
                                     >> .incinerating
                                     >> .impacts
                                     >> Impact.getImpact Definition.Ecs

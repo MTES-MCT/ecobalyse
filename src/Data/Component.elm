@@ -887,30 +887,26 @@ getEndOfLifeDetailedImpacts processes scope =
             Split.complement collectionRatio
 
         applyStrategies { incinerating, landfilling, recycling } mass =
-            { incinerating = { incinerating | impacts = incinerating |> computeShareImpacts mass }
-            , landfilling = { landfilling | impacts = landfilling |> computeShareImpacts mass }
-            , recycling = { recycling | impacts = recycling |> computeShareImpacts mass }
-            }
+            ( mass
+            , { incinerating = { incinerating | impacts = incinerating |> computeShareImpacts mass }
+              , landfilling = { landfilling | impacts = landfilling |> computeShareImpacts mass }
+              , recycling = { recycling | impacts = recycling |> computeShareImpacts mass }
+              }
+            )
     in
     getMaterialDistribution
         >> AnyDict.map
             (\materialCategory mass ->
                 Result.map2
                     (\collectionStrategies nonCollectionStrategies ->
-                        let
-                            ( collectedMass, nonCollectedMass ) =
-                                ( collectionRatio |> Split.applyToQuantity mass
-                                , nonCollectionRatio |> Split.applyToQuantity mass
-                                )
-                        in
                         { collected =
-                            ( collectedMass
-                            , applyStrategies collectionStrategies collectedMass
-                            )
+                            collectionRatio
+                                |> Split.applyToQuantity mass
+                                |> applyStrategies collectionStrategies
                         , nonCollected =
-                            ( nonCollectedMass
-                            , applyStrategies nonCollectionStrategies nonCollectedMass
-                            )
+                            nonCollectionRatio
+                                |> Split.applyToQuantity mass
+                                |> applyStrategies nonCollectionStrategies
                         }
                     )
                     (materialCategory |> getEndOfLifeCollectionStrategies processes)
@@ -1009,22 +1005,38 @@ getEndOfLifeCollectionStrategies processes material =
 
 getEndOfLifeNonCollectionStrategies : List Process -> Category.Material -> Result String EndOfLifeStrategies
 getEndOfLifeNonCollectionStrategies processes material =
-    -- TODO: define non-collected materials strategies as per defined in issue
-    let
-        emptyStrategy =
-            { impacts = Impact.empty, process = Nothing, split = Split.zero }
+    Result.map3
+        (\defaultIncinerating metalIncineration defaultLandfilling ->
+            let
+                emptyStrategy =
+                    { impacts = Impact.empty, process = Nothing, split = Split.zero }
 
-        defaultStrategies =
-            { incinerating = emptyStrategy
-            , landfilling = emptyStrategy
-            , recycling = emptyStrategy
-            }
-    in
-    []
-        |> AnyDict.fromList Category.materialTypeToString
-        |> AnyDict.get material
-        |> Maybe.withDefault defaultStrategies
-        |> Ok
+                split =
+                    Split.fromPercent >> Result.withDefault Split.zero
+
+                defaultStrategies =
+                    { incinerating = { emptyStrategy | process = Just defaultIncinerating, split = split 82 }
+                    , landfilling = { emptyStrategy | process = Just defaultLandfilling, split = split 18 }
+                    , recycling = { emptyStrategy | process = Nothing, split = Split.zero }
+                    }
+            in
+            [ ( Category.Metal
+              , { incinerating = { emptyStrategy | process = Just metalIncineration, split = split 5 }
+                , landfilling = { emptyStrategy | process = Just defaultLandfilling, split = split 5 }
+                , recycling = { emptyStrategy | process = Nothing, split = split 90 }
+                }
+              )
+            ]
+                |> AnyDict.fromList Category.materialTypeToString
+                |> AnyDict.get material
+                |> Maybe.withDefault defaultStrategies
+        )
+        -- Default incineration process
+        (Process.findByStringId "6fad4e70-5736-552d-a686-97e4fb627c37" processes)
+        -- Metal Incineration process
+        (Process.findByStringId "5719f399-c2a3-5268-84e2-894aba588f1b" processes)
+        -- Default landfilling process
+        (Process.findByStringId "d4954f69-e647-531d-aa32-c34be5556736" processes)
 
 
 {-| Compute mass distribution by material types
