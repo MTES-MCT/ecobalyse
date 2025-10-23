@@ -408,7 +408,7 @@ compute db scope =
         >> RE.combine
         >> Result.map (List.foldr addResults emptyResults)
         >> Result.map (\(Results results) -> { emptyLifeCycle | production = Results { results | label = Just "Production" } })
-        >> Result.andThen (computeEndOfLifeResults db)
+        >> Result.andThen (computeEndOfLifeResults db scope)
 
 
 computeElementResults : List Process -> Element -> Result String Results
@@ -427,10 +427,10 @@ computeElementResults processes =
             )
 
 
-computeEndOfLifeResults : DataContainer db -> LifeCycle -> Result String LifeCycle
-computeEndOfLifeResults db lifeCycle =
+computeEndOfLifeResults : DataContainer db -> Scope -> LifeCycle -> Result String LifeCycle
+computeEndOfLifeResults db scope lifeCycle =
     lifeCycle.production
-        |> getEndOfLifeImpacts db
+        |> getEndOfLifeImpacts db scope
         |> Result.map (\endOfLife -> { lifeCycle | endOfLife = endOfLife })
 
 
@@ -885,8 +885,9 @@ getEndOfLifeDetailedImpacts processes =
         >> Result.map (AnyDict.fromList Category.materialTypeToString)
 
 
-getEndOfLifeImpacts : DataContainer db -> Results -> Result String Impacts
-getEndOfLifeImpacts db (Results results) =
+getEndOfLifeImpacts : DataContainer db -> Scope -> Results -> Result String Impacts
+getEndOfLifeImpacts db scope (Results results) =
+    -- TODO: leverage scope
     Results results
         |> getEndOfLifeDetailedImpacts db.processes
         |> Result.map
@@ -997,9 +998,9 @@ getMaterialDistribution (Results results) =
             (AnyDict.empty Category.materialTypeToString)
 
 
-getPrimaryScope : Component -> Scope
+getPrimaryScope : List Scope -> Scope
 getPrimaryScope =
-    .scopes >> List.head >> Maybe.withDefault Scope.Object
+    List.head >> Maybe.withDefault Scope.Object
 
 
 idFromString : String -> Result String Id

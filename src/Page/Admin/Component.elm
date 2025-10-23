@@ -516,7 +516,7 @@ modalView db modals index modal =
                             , items = [ item ]
                             , lifeCycle =
                                 [ item ]
-                                    |> Component.compute db (Component.getPrimaryScope component)
+                                    |> Component.compute db (Component.getPrimaryScope component.scopes)
                                     |> Result.withDefault Component.emptyLifeCycle
                             , maxItems = Just 1
                             , noOp = NoOp
@@ -531,7 +531,7 @@ modalView db modals index modal =
                                 \targetElement transformIndex ->
                                     item |> updateSingleItem (Component.removeElementTransform targetElement transformIndex)
                             , removeItem = \_ -> NoOp
-                            , scopes = Scope.all
+                            , scopes = component.scopes
                             , setDetailed = \_ -> NoOp
                             , title = ""
                             , updateElementAmount =

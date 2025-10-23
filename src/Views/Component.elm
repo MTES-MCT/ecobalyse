@@ -354,14 +354,21 @@ editorView ({ db, docsUrl, explorerRoute, maxItems, items, lifeCycle, title } as
               else
                 addComponentButton config
             ]
-        , if config.scopes /= [ Scope.Textile ] && not (List.isEmpty items) then
-            div []
-                [ DownArrow.view [] []
-                , endOfLifeView config lifeCycle
-                ]
+        , case ( config.scopes, not (List.isEmpty items) ) of
+            ( [ Scope.Object ], True ) ->
+                div []
+                    [ DownArrow.view [] []
+                    , endOfLifeView config lifeCycle
+                    ]
 
-          else
-            text ""
+            ( [ Scope.Veli ], True ) ->
+                div []
+                    [ DownArrow.view [] []
+                    , endOfLifeView config lifeCycle
+                    ]
+
+            _ ->
+                text ""
         , if config.debug then
             viewDebug items lifeCycle
 
@@ -624,7 +631,7 @@ endOfLifeView ({ db } as config) lifeCycle =
             [ h2 [ class "h5 mb-0" ]
                 [ text "Fin de vie" ]
             , div [ class "d-flex align-items-center gap-2" ]
-                [ case Component.getEndOfLifeImpacts config.db lifeCycle.production of
+                [ case Component.getEndOfLifeImpacts config.db Scope.Object lifeCycle.production of
                     Err error ->
                         span [ class "text-danger" ] [ text error ]
 
