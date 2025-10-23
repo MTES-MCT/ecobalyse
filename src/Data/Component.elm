@@ -47,6 +47,7 @@ module Data.Component exposing
     , findById
     , getEndOfLifeDetailedImpacts
     , getEndOfLifeImpacts
+    , getPrimaryScope
     , idFromString
     , idToString
     , isEmpty
@@ -401,8 +402,8 @@ checkTransformsUnit unit transforms =
 
 {-| Computes impacts from a list of available components, processes and specified component items
 -}
-compute : DataContainer db -> List Item -> Result String LifeCycle
-compute db =
+compute : DataContainer db -> Scope -> List Item -> Result String LifeCycle
+compute db scope =
     List.map (computeItemResults db)
         >> RE.combine
         >> Result.map (List.foldr addResults emptyResults)
@@ -994,6 +995,11 @@ getMaterialDistribution (Results results) =
                         )
             )
             (AnyDict.empty Category.materialTypeToString)
+
+
+getPrimaryScope : Component -> Scope
+getPrimaryScope =
+    .scopes >> List.head >> Maybe.withDefault Scope.Object
 
 
 idFromString : String -> Result String Id

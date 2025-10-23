@@ -137,7 +137,7 @@ init scope trigram maybeUrlQuery session =
     , modal = NoModal
     , lifeCycle =
         initialQuery
-            |> Simulator.compute session.db
+            |> Simulator.compute session.db scope
             |> Result.withDefault Component.emptyLifeCycle
     , scope = scope
     }
@@ -183,7 +183,7 @@ initFromExample session scope uuid =
     , modal = NoModal
     , lifeCycle =
         exampleQuery
-            |> Simulator.compute session.db
+            |> Simulator.compute session.db scope
             |> Result.withDefault Component.emptyLifeCycle
     , scope = scope
     }
@@ -227,7 +227,7 @@ updateQuery query ({ model, session } as pageUpdate) =
                 , bookmarkName = query |> suggestBookmarkName session model.examples
                 , lifeCycle =
                     query
-                        |> Simulator.compute session.db
+                        |> Simulator.compute session.db model.scope
                         |> Result.withDefault Component.emptyLifeCycle
             }
         , session = session |> Session.updateObjectQuery model.scope query

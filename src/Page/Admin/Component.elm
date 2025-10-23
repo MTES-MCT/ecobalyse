@@ -516,7 +516,7 @@ modalView db modals index modal =
                             , items = [ item ]
                             , lifeCycle =
                                 [ item ]
-                                    |> Component.compute db
+                                    |> Component.compute db (Component.getPrimaryScope component)
                                     |> Result.withDefault Component.emptyLifeCycle
                             , maxItems = Just 1
                             , noOp = NoOp

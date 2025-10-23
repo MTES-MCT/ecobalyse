@@ -290,7 +290,7 @@ suite =
             , describe "compute"
                 [ it "should compute results from decoded component items"
                     (chair
-                        |> Result.andThen (Component.compute db)
+                        |> Result.andThen (Component.compute db Scope.Object)
                         |> Result.map (.production >> extractEcsImpact)
                         |> TestUtils.expectResultWithin (Expect.Absolute 1) 293
                     )
@@ -311,7 +311,7 @@ suite =
                          , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
                          , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
                          ]"""
-                        |> decodeJsonThen (Decode.list Component.decodeItem) (Component.compute db)
+                        |> decodeJsonThen (Decode.list Component.decodeItem) (Component.compute db Scope.Object)
                         |> Result.map (.production >> extractEcsImpact)
                         |> TestUtils.expectResultWithin (Expect.Absolute 1) 314
                     )
@@ -516,7 +516,7 @@ suite =
                 -- setup
                 (chair
                     |> Result.andThen
-                        (Component.compute db
+                        (Component.compute db Scope.Object
                             >> Result.map .production
                             >> Result.andThen (Component.getEndOfLifeDetailedImpacts db.processes)
                         )
@@ -633,7 +633,7 @@ suite =
             , TestUtils.suiteFromResult "stagesImpacts"
                 (""" [ { "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 }
                      ]"""
-                    |> decodeJsonThen (Decode.list Component.decodeItem) (Component.compute db)
+                    |> decodeJsonThen (Decode.list Component.decodeItem) (Component.compute db Scope.Object)
                     |> Result.map (\results -> ( results, Component.stagesImpacts results ))
                 )
                 (\( lifeCycle, stagesImpacts ) ->
