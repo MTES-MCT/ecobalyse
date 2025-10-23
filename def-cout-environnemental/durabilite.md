@@ -50,16 +50,16 @@ Dès lors :&#x20;
 
 ## Calcul du coefficient de durabilité `C_Durabilité` <a href="#calcul-du-coefficient-de-durabilite-c_durabilite" id="calcul-du-coefficient-de-durabilite-c_durabilite"></a>
 
-$$
-C_{Durabilité} = x*C_{Physique} + (1-x)*C_{NonPhysique}
-$$
-
 Le coefficient de durabilité du produit est issu de la combinaison de deux paramètres :&#x20;
 
 * `C_physique` : le coefficient de durabilité physique,
 * `C_nonPhysique` : le coefficient de durabilité non-physique.
 
 Ces deux paramètres sont pondérés selon une variable de pondération `x` permettant de refléter les causes de fin de vie spécifiques à chaque secteur d'activité. Cette pondération permet donc de préciser l'importance donnée à chacune des deux dimensions de la durabilité selon les réalités d'usage constatées sur le marché. &#x20;
+
+$$
+C_{Durabilité} = x*C_{Physique} + (1-x)*C_{NonPhysique}
+$$
 
 {% hint style="info" %}
 Le choix d'une pondération permet, quels que soient les coefficients de durabilité `C_physique` et `C_nonphysique`, d'encourager les entreprises à améliorer leur produit sur les deux dimensions de la durabilité.
