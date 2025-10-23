@@ -6,15 +6,37 @@ hidden: true
 
 ## Contexte
 
-La plupart des produits consistent en un assemblage de composants, eux mêmes constitués de plusieurs matériaux transformés.
+La plupart des produits consistent en un assemblage de composants, eux mêmes constitués de plusieurs éléments (un élément étant une matière transformée).
 
-Dans une logique de déploiement du calcul du coût environnemental pour un nombre croissant de secteurs et de produits, Ecobalyse a construit un module Composant, qui permet de modéliser un composant à partir de matériaux de base et d'étapes de transformation.
+Dans une logique de déploiement à grande échelle du calcul du coût environnemental, un module Composant a été développé. Ce dernier permet de modéliser un grand nombre de produits grâce à la création de un ou plusieurs composants. \
+Chaque composant est créé à partir d'une liste de matériaux (ex : acier, plastique, bois, etc.) et de procédés de transformation associés (ex : sciage de grumes de bois, moulage plastique, etc.).
 
-Les cas d'usages sont nombreux, en voici quelques exemples :&#x20;
+Les cas d'usages sont nombreux; voici quelques exemples :&#x20;
 
 * boutons d'un vêtement (composant avec des paramètres imposés pour l'affichage réglementaire)
-* pied d'une chaise
+* pied de chaise
 * pneu d'une voiture
+* ampoule d'une lampe
+
+{% tabs %}
+{% tab title="Composants d'un produit" %}
+<figure><img src="../.gitbook/assets/image (382).png" alt=""><figcaption></figcaption></figure>
+
+Un ou plusieurs composants peuvent être modélisés (3 dans l'exemple ci-dessus).&#x20;
+
+Un composant peut être présent en une ou plusieurs unités (ex : 2 tissus dans un canapé, 4 pieds de chaise, 4 pneus de voiture, etc.).
+
+Chaque composant est constitué d'au moins une matière transformée (cf. "_Focus Elément_")
+{% endtab %}
+
+{% tab title="Détail d'un composant" %}
+<figure><img src="../.gitbook/assets/image (383).png" alt=""><figcaption></figcaption></figure>
+
+Chaque composant est constitué d'au moins un élément. Un élément correspond à une matière qui peut être transformée.&#x20;
+
+Dans l'exemple ci-dessus, la structure acier du canapé est constituée d'un seul élément (de l'acier sur lequel est appliqué un procédé de transformation).&#x20;
+{% endtab %}
+{% endtabs %}
 
 ## Méthode de calcul
 
