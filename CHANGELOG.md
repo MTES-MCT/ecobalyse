@@ -1,6 +1,22 @@
 # Changelog
 
 
+## [8.1.0](https://github.com/MTES-MCT/ecobalyse/compare/v8.0.0..v8.1.0) (2025-10-23)
+
+
+
+### 🚀 Features
+
+- Add metal incineration process ([#1461](https://github.com/MTES-MCT/ecobalyse/issues/1461))
+- Add vehicle processes ([#1419](https://github.com/MTES-MCT/ecobalyse/issues/1419))
+
+### ⚙️ Miscellaneous Tasks
+
+- Traduire le template d'issue en français ([#1465](https://github.com/MTES-MCT/ecobalyse/issues/1465))
+- Add Sentry integration to the backend ([#1445](https://github.com/MTES-MCT/ecobalyse/issues/1445))
+- Replace deprecated passlib ([#1469](https://github.com/MTES-MCT/ecobalyse/issues/1469))
+
+
 ## [8.0.0](https://github.com/MTES-MCT/ecobalyse/compare/v7.2.0..v8.0.0) (2025-10-21)
 
 
