@@ -5,7 +5,7 @@ echo "-> Install 'transcrypt' to /usr/local/bin"
 
 mkdir -p "$PWD/.local/bin"
 export PATH="$PWD/.local/bin":$PATH
-wget https://raw.githubusercontent.com/elasticdog/transcrypt/016b2e4b31951be5ea96233d8d2badef9c9836b6/transcrypt -O "$PWD/.local/bin/transcrypt"
+curl https://raw.githubusercontent.com/elasticdog/transcrypt/016b2e4b31951be5ea96233d8d2badef9c9836b6/transcrypt -o "$PWD/.local/bin/transcrypt"
 chmod +x "$PWD/.local/bin/transcrypt"
 echo "PATH: $PATH"
 
@@ -32,16 +32,3 @@ cd ..
 
 echo "-> Removing 'ecobalyse' directory"
 rm -rf ecobalyse
-
-
-echo "-> Install 'uv' and create 'requirements.txt'"
-curl -LsSf https://astral.sh/uv/install.sh | env UV_UNMANAGED_INSTALL="$PWD/.local/bin" sh
-
-uv run ./bin/download_github_releases.py
-
-# Remove big map files from old versions for a slimer scalingo image
-find versions/ -type f -name "*.js.map" -delete
-find versions/ -type f -name "*.css.map" -delete
-
-# Add uv path to profile
-echo "export PATH=~/.local/bin:\$PATH" >> ~/.profile
