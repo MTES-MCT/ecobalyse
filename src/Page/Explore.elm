@@ -438,8 +438,7 @@ componentsExplorer :
 componentsExplorer db scope tableConfig tableState maybeId =
     let
         scopedComponents =
-            db.components
-                |> Scope.anyOf [ scope ]
+            db.components |> List.filter (.scope >> (==) scope)
     in
     [ scopedComponents
         |> List.sortBy .name

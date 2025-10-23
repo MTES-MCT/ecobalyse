@@ -56,7 +56,7 @@ type alias Config db msg =
     , removeElement : TargetElement -> msg
     , removeElementTransform : TargetElement -> Index -> msg
     , removeItem : Index -> msg
-    , scopes : List Scope
+    , scope : Scope
     , setDetailed : List Index -> msg
     , title : String
     , updateElementAmount : TargetElement -> Maybe Amount -> msg
@@ -66,12 +66,12 @@ type alias Config db msg =
 
 
 addComponentButton : Config db msg -> Html msg
-addComponentButton { addLabel, db, openSelectComponentModal, scopes } =
+addComponentButton { addLabel, db, openSelectComponentModal, scope } =
     let
         availableComponents =
             db.components
                 |> List.filter (not << Component.isEmpty)
-                |> Scope.anyOf scopes
+                |> List.filter (.scope >> (==) scope)
 
         autocompleteState =
             AutocompleteSelector.init .name availableComponents
@@ -90,14 +90,14 @@ addComponentButton { addLabel, db, openSelectComponentModal, scopes } =
 
 
 addElementButton : Config db msg -> TargetItem -> Html msg
-addElementButton { db, openSelectProcessModal, scopes } targetItem =
+addElementButton { db, openSelectProcessModal, scope } targetItem =
     button
         [ type_ "button"
         , class "btn btn-link text-decoration-none"
         , class "d-flex justify-content-end align-items-center"
         , class "gap-2 w-100 p-0 pb-1 text-end"
         , db.processes
-            |> Scope.anyOf scopes
+            |> Scope.anyOf [ scope ]
             |> Process.listByCategory Category.Material
             |> List.sortBy Process.getDisplayName
             |> AutocompleteSelector.init Process.getDisplayName
@@ -110,11 +110,11 @@ addElementButton { db, openSelectProcessModal, scopes } targetItem =
 
 
 addElementTransformButton : Config db msg -> Process -> TargetElement -> Html msg
-addElementTransformButton { db, items, openSelectProcessModal, scopes } material ( targetItem, elementIndex ) =
+addElementTransformButton { db, items, openSelectProcessModal, scope } material ( targetItem, elementIndex ) =
     let
         availableTransformProcesses =
             db.processes
-                |> Scope.anyOf scopes
+                |> Scope.anyOf [ scope ]
                 |> Process.listAvailableMaterialTransforms material
                 |> List.sortBy Process.getDisplayName
                 |> Process.available (Component.elementTransforms ( targetItem, elementIndex ) items)
@@ -275,7 +275,7 @@ viewDebug items lifeCycle =
 
 
 editorView : Config db msg -> Html msg
-editorView ({ db, docsUrl, explorerRoute, maxItems, items, lifeCycle, title } as config) =
+editorView ({ db, docsUrl, explorerRoute, maxItems, items, lifeCycle, scope, title } as config) =
     div [ class "d-flex flex-column" ]
         [ div [ class "card shadow-sm" ]
             [ div [ class "card-header d-flex align-items-center justify-content-between" ]
@@ -354,21 +354,14 @@ editorView ({ db, docsUrl, explorerRoute, maxItems, items, lifeCycle, title } as
               else
                 addComponentButton config
             ]
-        , case ( config.scopes, not (List.isEmpty items) ) of
-            ( [ Scope.Object ], True ) ->
-                div []
-                    [ DownArrow.view [] []
-                    , endOfLifeView config lifeCycle
-                    ]
+        , if not (List.isEmpty items) && List.member scope [ Scope.Object, Scope.Veli ] then
+            div []
+                [ DownArrow.view [] []
+                , endOfLifeView config lifeCycle
+                ]
 
-            ( [ Scope.Veli ], True ) ->
-                div []
-                    [ DownArrow.view [] []
-                    , endOfLifeView config lifeCycle
-                    ]
-
-            _ ->
-                text ""
+          else
+            text ""
         , if config.debug then
             viewDebug items lifeCycle
 
@@ -450,7 +443,7 @@ elementView config targetItem elementIndex { amount, material, transforms } elem
             ]
             :: elementMaterialView config ( targetItem, elementIndex ) materialResults material amount
             :: elementTransformsView config ( targetItem, elementIndex ) transformsResults transforms
-            ++ (if config.scopes /= [ Scope.Textile ] then
+            ++ (if config.scope /= Scope.Textile then
                     [ tr []
                         [ td [ colspan 2 ] []
                         , td [ colspan 5 ]
@@ -493,7 +486,7 @@ elementMaterialView config targetElement materialResults material amount =
     tr [ class "fs-7" ]
         [ td [] []
         , td [ class "text-end align-middle text-nowrap ps-0", style "min-width" "130px" ]
-            [ if config.scopes == [ Scope.Textile ] then
+            [ if config.scope == Scope.Textile then
                 Format.amount material amount
 
               else
@@ -652,7 +645,7 @@ endOfLifeView ({ db } as config) lifeCycle =
                         , th [ class "text-end pe-3" ] [ text "Impact" ]
                         ]
                     ]
-                , case Component.getEndOfLifeDetailedImpacts db.processes lifeCycle.production of
+                , case Component.getEndOfLifeDetailedImpacts db.processes config.scope lifeCycle.production of
                     Err error ->
                         Alert.simple
                             { attributes = []

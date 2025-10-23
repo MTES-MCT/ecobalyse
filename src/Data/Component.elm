@@ -47,7 +47,6 @@ module Data.Component exposing
     , findById
     , getEndOfLifeDetailedImpacts
     , getEndOfLifeImpacts
-    , getPrimaryScope
     , idFromString
     , idToString
     , isEmpty
@@ -58,10 +57,10 @@ module Data.Component exposing
     , quantityToInt
     , removeElement
     , removeElementTransform
+    , setCustomScope
     , setElementMaterial
     , stagesImpacts
     , sumLifeCycleImpacts
-    , toggleCustomScope
     , updateElement
     , updateElementAmount
     , updateItem
@@ -101,7 +100,7 @@ type alias Component =
     , elements : List Element
     , id : Id
     , name : String
-    , scopes : List Scope
+    , scope : Scope
     }
 
 
@@ -124,7 +123,7 @@ type alias Item =
 type alias Custom =
     { elements : List Element
     , name : Maybe String
-    , scopes : List Scope
+    , scope : Maybe Scope
     }
 
 
@@ -567,17 +566,11 @@ decode =
         |> Decode.required "elements" (Decode.list decodeElement)
         |> Decode.required "id" (Decode.map Id Uuid.decoder)
         |> Decode.required "name" Decode.string
-        |> Decode.optional "scopes" (Decode.list Scope.decode) Scope.all
-        |> Decode.andThen
-            (\component ->
-                -- Note: it's been decided to only allow a single scope per component, though we keep
-                --       the list of scopes for backward compatibility and/or future re-enabling
-                case List.head component.scopes of
-                    Just scope ->
-                        Decode.succeed { component | scopes = [ scope ] }
-
-                    Nothing ->
-                        Decode.fail <| "Aucun scope pour le composant id=" ++ idToString component.id
+        |> Decode.required "scopes"
+            -- Note: the backend exposes multiple scopes per component, though it's been decided
+            -- a component should only allow one, so here we take the first declared scope.
+            (Decode.list Scope.decode
+                |> Decode.map (List.head >> Maybe.withDefault Scope.Object)
             )
 
 
@@ -586,7 +579,9 @@ decodeCustom =
     Decode.succeed Custom
         |> Decode.required "elements" (Decode.list decodeElement)
         |> DU.strictOptional "name" Decode.string
-        |> Decode.optional "scopes" (Decode.list Scope.decode) []
+        |> DU.strictOptionalWithDefault "scopes"
+            (Decode.list Scope.decode |> Decode.map List.head)
+            Nothing
 
 
 decodeElement : Decoder Element
@@ -686,7 +681,7 @@ encode v =
         , ( "elements", v.elements |> Encode.list encodeElement )
         , ( "id", v.id |> encodeId )
         , ( "name", v.name |> Encode.string )
-        , ( "scopes", v.scopes |> Encode.list Scope.encode )
+        , ( "scopes", [ v.scope ] |> Encode.list Scope.encode )
         ]
 
 
@@ -848,9 +843,10 @@ findById id =
 
 getEndOfLifeDetailedImpacts :
     List Process
+    -> Scope
     -> Results
     -> Result String (MaterialDistribution ( Mass, EndOfLifeStrategies ))
-getEndOfLifeDetailedImpacts processes =
+getEndOfLifeDetailedImpacts processes scope =
     let
         computeShareImpacts : Mass -> EndOfLifeStrategy -> Impacts
         computeShareImpacts mass { process, split } =
@@ -889,7 +885,7 @@ getEndOfLifeImpacts : DataContainer db -> Scope -> Results -> Result String Impa
 getEndOfLifeImpacts db scope (Results results) =
     -- TODO: leverage scope
     Results results
-        |> getEndOfLifeDetailedImpacts db.processes
+        |> getEndOfLifeDetailedImpacts db.processes scope
         |> Result.map
             (AnyDict.map
                 (\_ ( _, { incinerating, landfilling, recycling } ) ->
@@ -998,11 +994,6 @@ getMaterialDistribution (Results results) =
             (AnyDict.empty Category.materialTypeToString)
 
 
-getPrimaryScope : List Scope -> Scope
-getPrimaryScope =
-    List.head >> Maybe.withDefault Scope.Object
-
-
 idFromString : String -> Result String Id
 idFromString =
     Uuid.fromString >> Result.map Id
@@ -1018,7 +1009,7 @@ isCustomized component custom =
     List.any identity
         [ custom.elements /= component.elements
         , custom.name /= Nothing && custom.name /= Just component.name
-        , custom.scopes /= component.scopes
+        , custom.scope /= Nothing && custom.scope /= Just component.scope
         ]
 
 
@@ -1040,11 +1031,11 @@ itemToComponent { components } { custom, id } =
         |> Result.map
             (\component ->
                 case custom of
-                    Just { elements, name, scopes } ->
+                    Just { elements, name, scope } ->
                         { component
                             | elements = elements
                             , name = name |> Maybe.withDefault component.name
-                            , scopes = scopes
+                            , scope = scope |> Maybe.withDefault component.scope
                         }
 
                     Nothing ->
@@ -1129,6 +1120,25 @@ removeElementTransform targetElement transformIndex =
         \el -> { el | transforms = el.transforms |> LE.removeAt transformIndex }
 
 
+setCustomScope : Component -> Scope -> Item -> Item
+setCustomScope component scope item =
+    { item
+        | custom =
+            item.custom
+                |> updateCustom component
+                    (\custom ->
+                        { custom
+                            | scope =
+                                if scope == component.scope then
+                                    Nothing
+
+                                else
+                                    Just scope
+                        }
+                    )
+    }
+
+
 setElementMaterial : TargetElement -> Process -> List Item -> Result String (List Item)
 setElementMaterial targetElement material items =
     if not <| List.member Category.Material material.categories then
@@ -1192,25 +1202,6 @@ sumLifeCycleImpacts lifeCycle =
         ]
 
 
-toggleCustomScope : Component -> Scope -> Bool -> Item -> Item
-toggleCustomScope component scope enabled item =
-    { item
-        | custom =
-            item.custom
-                |> updateCustom component
-                    (\custom ->
-                        { custom
-                            | scopes =
-                                if enabled then
-                                    scope :: custom.scopes
-
-                                else
-                                    List.filter ((/=) scope) custom.scopes
-                        }
-                    )
-    }
-
-
 updateCustom : Component -> (Custom -> Custom) -> Maybe Custom -> Maybe Custom
 updateCustom component fn maybeCustom =
     case maybeCustom of
@@ -1230,7 +1221,7 @@ updateCustom component fn maybeCustom =
                 (fn
                     { elements = component.elements
                     , name = Nothing
-                    , scopes = component.scopes
+                    , scope = Nothing
                     }
                 )
 

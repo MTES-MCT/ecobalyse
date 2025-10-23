@@ -357,12 +357,7 @@ view { db } model =
 
 processFilters : List Scope -> String -> List Component -> List Component
 processFilters scopes search =
-    (if scopes == [] then
-        List.filter (\p -> p.scopes == [])
-
-     else
-        Scope.anyOf scopes
-    )
+    List.filter (\{ scope } -> List.isEmpty scopes || List.member scope scopes)
         >> Text.search
             { minQueryLength = 2
             , query = search
@@ -380,7 +375,7 @@ componentListView db selected components =
                     [ AdminView.selectAllCheckbox ToggleSelectedAll components selected
                     ]
                 , th [] [ label [ for AdminView.selectAllId ] [ text "Nom" ] ]
-                , th [] [ text "Verticales" ]
+                , th [] [ text "Verticale" ]
                 , th [ colspan 3 ] [ text "Description" ]
                 ]
             ]
@@ -404,14 +399,8 @@ componentRowView db selected component =
                 [ code [] [ text (Component.idToString component.id) ] ]
             ]
         , td [ class "align-middle" ]
-            [ component.scopes
-                |> List.map
-                    (Scope.toString
-                        >> text
-                        >> List.singleton
-                        >> small [ class "badge bg-secondary fs-10" ]
-                    )
-                |> div []
+            [ small [ class "badge bg-secondary fs-10" ]
+                [ text <| Scope.toString component.scope ]
             ]
         , td [ class "align-middle w-100" ]
             [ case Component.elementsToString db component of
@@ -516,7 +505,7 @@ modalView db modals index modal =
                             , items = [ item ]
                             , lifeCycle =
                                 [ item ]
-                                    |> Component.compute db (Component.getPrimaryScope component.scopes)
+                                    |> Component.compute db component.scope
                                     |> Result.withDefault Component.emptyLifeCycle
                             , maxItems = Just 1
                             , noOp = NoOp
@@ -531,7 +520,7 @@ modalView db modals index modal =
                                 \targetElement transformIndex ->
                                     item |> updateSingleItem (Component.removeElementTransform targetElement transformIndex)
                             , removeItem = \_ -> NoOp
-                            , scopes = component.scopes
+                            , scope = component.scope
                             , setDetailed = \_ -> NoOp
                             , title = ""
                             , updateElementAmount =
@@ -676,14 +665,12 @@ modalView db modals index modal =
 componentScopesForm : Component -> Item -> Html Msg
 componentScopesForm component item =
     item.custom
-        |> Maybe.map .scopes
-        |> Maybe.withDefault component.scopes
-        |> List.head
-        |> Maybe.withDefault Scope.Object
+        |> Maybe.andThen .scope
+        |> Maybe.withDefault component.scope
         |> ScopeView.singleScopeForm
             (\scope ->
                 item
-                    |> Component.toggleCustomScope component scope True
+                    |> Component.setCustomScope component scope
                     |> UpdateComponent
             )
 
