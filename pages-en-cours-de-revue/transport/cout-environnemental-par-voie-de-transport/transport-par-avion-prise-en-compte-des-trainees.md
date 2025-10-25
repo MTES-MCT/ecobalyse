@@ -14,7 +14,7 @@ Les procédés ecoinvent n'intègrent cependant pas l'impact des trainées d'avi
 
 Le schéma suivant illustre le phénomène à l'oeuvre :
 
-<figure><img src="../.gitbook/assets/liens_entre_aviation_et_climat_strapi.webp" alt=""><figcaption><p>Illustration des trainées d'avion, réalisée par Carbone 4 pour un <a href="https://www.carbone4.com/analyse-faq-aviation-climat">article dédié à ce sujet</a></p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/liens_entre_aviation_et_climat_strapi.webp" alt=""><figcaption><p>Illustration des trainées d'avion, réalisée par Carbone 4 pour un <a href="https://www.carbone4.com/analyse-faq-aviation-climat">article dédié à ce sujet</a></p></figcaption></figure>
 
 Une étude de 2021 estime que les trainée d'avion et autres impacts "hors CO2" représentent un forçage radiatif de 57.4 mW/m2 contre 34.3mW/m2 pour les émissions de CO2 à la combustion, avec de fortes incertitudes sur les impact hors CO2 (entre 17 et 98 mW/m2 pour l'impact des trainées). Une étude publiée en 2024 sur les trainées de 2029 à 2021 évalue l'impact des trainées à 62.1mW/m2, avec de fortes différences entre les régions du monde. Notamment, le forcage radiatif du aux trainées est évalué à 876 mW m2 en Europe.&#x20;
 

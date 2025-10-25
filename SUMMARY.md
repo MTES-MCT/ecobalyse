@@ -293,10 +293,10 @@
 ## Pages en cours de revue
 
 * [📌 Modèle de page](pages-en-cours-de-revue/modele-de-page.md)
-* [✈️ Transport par avion - prise en compte des trainées](pages-en-cours-de-revue/transport-par-avion-prise-en-compte-des-trainees.md)
 * [📌 Procédés Ecobalyse Acier et Aluminium](pages-en-cours-de-revue/procedes-ecobalyse-acier-et-aluminium.md)
 * [🚚 Transport](pages-en-cours-de-revue/transport/README.md)
-  * [Coût environnemental par voie de transport](pages-en-cours-de-revue/transport/cout-environnemental-par-voie-de-transport.md)
+  * [Coût environnemental par voie de transport](pages-en-cours-de-revue/transport/cout-environnemental-par-voie-de-transport/README.md)
+    * [✈️ Transport par avion - prise en compte des trainées](pages-en-cours-de-revue/transport/cout-environnemental-par-voie-de-transport/transport-par-avion-prise-en-compte-des-trainees.md)
   * [Choix des voies de transport](pages-en-cours-de-revue/transport/choix-des-voies-de-transport.md)
   * [👕 Transport Textile](pages-en-cours-de-revue/transport/transport-textile.md)
   * [🍕 Transport Alimentaire](pages-en-cours-de-revue/transport/transport-alimentaire.md)
