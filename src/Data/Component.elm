@@ -4,6 +4,7 @@ module Data.Component exposing
     , Custom
     , DataContainer
     , Element
+    , EndOfLifeMaterialImpacts
     , ExpandedElement
     , Id
     , Index
@@ -208,10 +209,13 @@ type alias EndOfLifeStrategy =
 {-| A data structure exposing detailed impacts at the end of life stage of the lifeCycle
 -}
 type alias DetailedEndOfLifeImpacts =
-    MaterialDistribution
-        { collected : ( Mass, EndOfLifeStrategies )
-        , nonCollected : ( Mass, EndOfLifeStrategies )
-        }
+    MaterialDistribution EndOfLifeMaterialImpacts
+
+
+type alias EndOfLifeMaterialImpacts =
+    { collected : ( Mass, EndOfLifeStrategies )
+    , nonCollected : ( Mass, EndOfLifeStrategies )
+    }
 
 
 {-| Lifecycle impacts

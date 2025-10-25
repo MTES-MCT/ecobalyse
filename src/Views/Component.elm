@@ -6,6 +6,7 @@ import Data.Component as Component
     exposing
         ( Amount
         , Component
+        , EndOfLifeMaterialImpacts
         , ExpandedElement
         , Index
         , Item
@@ -588,42 +589,6 @@ quantityInput config itemIndex quantity =
 
 endOfLifeView : Config db msg -> LifeCycle -> Html msg
 endOfLifeView ({ db } as config) lifeCycle =
-    let
-        collectionShare =
-            Component.getEndOfLifeCollectionShare config.scope
-
-        nonCollectionShare =
-            Split.complement collectionShare
-
-        formatShareImpacts isRecycling { impacts, process, split } =
-            if split == Split.zero then
-                text "-"
-
-            else
-                let
-                    impact =
-                        impacts |> Impact.getImpact config.impact.trigram
-
-                    formatted =
-                        impacts |> Format.formatImpact config.impact
-                in
-                div []
-                    [ if isRecycling && Unit.impactToFloat impact == 0 then
-                        span [ class "cursor-help", title "Le recyclage est ici considéré sans impact" ]
-                            [ formatted, text "*" ]
-
-                      else
-                        case process of
-                            Just process_ ->
-                                span [ class "cursor-help", title <| Process.getTechnicalName process_ ]
-                                    [ formatted ]
-
-                            Nothing ->
-                                formatted
-                    , small []
-                        [ text "\u{00A0}(", split |> Format.splitAsPercentage 0, text ")" ]
-                    ]
-    in
     div [ class "card shadow-sm" ]
         [ div [ class "card-header d-flex align-items-center justify-content-between" ]
             [ h2 [ class "h5 mb-0" ]
@@ -663,56 +628,94 @@ endOfLifeView ({ db } as config) lifeCycle =
                         categories
                             |> AnyDict.toList
                             |> List.sortBy (Tuple.first >> Category.materialTypeToLabel)
-                            |> List.concatMap
-                                (\( materialType, { collected, nonCollected } ) ->
-                                    [ tr [ class "table-active" ]
-                                        [ th [ class "text-end" ] [ text <| Category.materialTypeToLabel materialType ]
-                                        , td [ class "text-end", colspan 4 ] []
-                                        , td [ class "text-end pe-3 fw-bold" ]
-                                            [ [ collected |> Tuple.second |> .recycling |> .impacts
-                                              , collected |> Tuple.second |> .incinerating |> .impacts
-                                              , collected |> Tuple.second |> .landfilling |> .impacts
-                                              , nonCollected |> Tuple.second |> .recycling |> .impacts
-                                              , nonCollected |> Tuple.second |> .incinerating |> .impacts
-                                              , nonCollected |> Tuple.second |> .landfilling |> .impacts
-                                              ]
-                                                |> Impact.sumImpacts
-                                                |> Format.formatImpact config.impact
-                                            ]
-                                        ]
-                                    , tr []
-                                        [ td [ class "text-end" ] [ text "Collecté à ", Format.splitAsPercentage 0 collectionShare ]
-                                        , td [ class "text-end" ] [ collected |> Tuple.first |> Format.kg ]
-                                        , td [ class "text-end" ] [ collected |> Tuple.second |> .recycling |> formatShareImpacts True ]
-                                        , td [ class "text-end" ] [ collected |> Tuple.second |> .incinerating |> formatShareImpacts False ]
-                                        , td [ class "text-end" ] [ collected |> Tuple.second |> .landfilling |> formatShareImpacts False ]
-                                        , td [ class "text-end pe-3" ]
-                                            [ [ collected |> Tuple.second |> .recycling |> .impacts
-                                              , collected |> Tuple.second |> .incinerating |> .impacts
-                                              , collected |> Tuple.second |> .landfilling |> .impacts
-                                              ]
-                                                |> Impact.sumImpacts
-                                                |> Format.formatImpact config.impact
-                                            ]
-                                        ]
-                                    , tr []
-                                        [ td [ class "text-end" ] [ text "Non-collecté à ", Format.splitAsPercentage 0 nonCollectionShare ]
-                                        , td [ class "text-end" ] [ nonCollected |> Tuple.first |> Format.kg ]
-                                        , td [ class "text-end" ] [ nonCollected |> Tuple.second |> .recycling |> formatShareImpacts True ]
-                                        , td [ class "text-end" ] [ nonCollected |> Tuple.second |> .incinerating |> formatShareImpacts False ]
-                                        , td [ class "text-end" ] [ nonCollected |> Tuple.second |> .landfilling |> formatShareImpacts False ]
-                                        , td [ class "text-end pe-3" ]
-                                            [ [ nonCollected |> Tuple.second |> .recycling |> .impacts
-                                              , nonCollected |> Tuple.second |> .incinerating |> .impacts
-                                              , nonCollected |> Tuple.second |> .landfilling |> .impacts
-                                              ]
-                                                |> Impact.sumImpacts
-                                                |> Format.formatImpact config.impact
-                                            ]
-                                        ]
-                                    ]
-                                )
+                            |> List.concatMap (endOfLifeMaterialRow config)
                             |> tbody []
                 ]
             ]
         ]
+
+
+endOfLifeMaterialRow : Config db msg -> ( Category.Material, EndOfLifeMaterialImpacts ) -> List (Html msg)
+endOfLifeMaterialRow config ( materialType, { collected, nonCollected } ) =
+    let
+        collectionShare =
+            Component.getEndOfLifeCollectionShare config.scope
+
+        nonCollectionShare =
+            Split.complement collectionShare
+
+        formatShareImpacts isRecycling { impacts, process, split } =
+            if split == Split.zero then
+                text "-"
+
+            else
+                let
+                    impact =
+                        impacts |> Impact.getImpact config.impact.trigram
+
+                    formatted =
+                        impacts |> Format.formatImpact config.impact
+                in
+                div []
+                    [ if isRecycling && Unit.impactToFloat impact == 0 then
+                        span [ class "cursor-help", title "Le recyclage est ici considéré sans impact" ]
+                            [ formatted, text "*" ]
+
+                      else
+                        case process of
+                            Just process_ ->
+                                span [ class "cursor-help", title <| Process.getTechnicalName process_ ]
+                                    [ formatted ]
+
+                            Nothing ->
+                                formatted
+                    , small []
+                        [ text "\u{00A0}(", split |> Format.splitAsPercentage 0, text ")" ]
+                    ]
+    in
+    [ tr [ class "table-active" ]
+        [ th [ class "text-end" ] [ text <| Category.materialTypeToLabel materialType ]
+        , td [ class "text-end", colspan 4 ] []
+        , td [ class "text-end pe-3 fw-bold" ]
+            [ [ collected |> Tuple.second |> .recycling |> .impacts
+              , collected |> Tuple.second |> .incinerating |> .impacts
+              , collected |> Tuple.second |> .landfilling |> .impacts
+              , nonCollected |> Tuple.second |> .recycling |> .impacts
+              , nonCollected |> Tuple.second |> .incinerating |> .impacts
+              , nonCollected |> Tuple.second |> .landfilling |> .impacts
+              ]
+                |> Impact.sumImpacts
+                |> Format.formatImpact config.impact
+            ]
+        ]
+    , tr []
+        [ td [ class "text-end" ] [ text "Collecté à ", Format.splitAsPercentage 0 collectionShare ]
+        , td [ class "text-end" ] [ collected |> Tuple.first |> Format.kg ]
+        , td [ class "text-end" ] [ collected |> Tuple.second |> .recycling |> formatShareImpacts True ]
+        , td [ class "text-end" ] [ collected |> Tuple.second |> .incinerating |> formatShareImpacts False ]
+        , td [ class "text-end" ] [ collected |> Tuple.second |> .landfilling |> formatShareImpacts False ]
+        , td [ class "text-end pe-3" ]
+            [ [ collected |> Tuple.second |> .recycling |> .impacts
+              , collected |> Tuple.second |> .incinerating |> .impacts
+              , collected |> Tuple.second |> .landfilling |> .impacts
+              ]
+                |> Impact.sumImpacts
+                |> Format.formatImpact config.impact
+            ]
+        ]
+    , tr []
+        [ td [ class "text-end" ] [ text "Non-collecté à ", Format.splitAsPercentage 0 nonCollectionShare ]
+        , td [ class "text-end" ] [ nonCollected |> Tuple.first |> Format.kg ]
+        , td [ class "text-end" ] [ nonCollected |> Tuple.second |> .recycling |> formatShareImpacts True ]
+        , td [ class "text-end" ] [ nonCollected |> Tuple.second |> .incinerating |> formatShareImpacts False ]
+        , td [ class "text-end" ] [ nonCollected |> Tuple.second |> .landfilling |> formatShareImpacts False ]
+        , td [ class "text-end pe-3" ]
+            [ [ nonCollected |> Tuple.second |> .recycling |> .impacts
+              , nonCollected |> Tuple.second |> .incinerating |> .impacts
+              , nonCollected |> Tuple.second |> .landfilling |> .impacts
+              ]
+                |> Impact.sumImpacts
+                |> Format.formatImpact config.impact
+            ]
+        ]
+    ]
