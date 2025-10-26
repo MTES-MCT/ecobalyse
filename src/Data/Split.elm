@@ -4,6 +4,7 @@ module Data.Split exposing
     , applyToQuantity
     , complement
     , decodeFloat
+    , decodePercent
     , divideBy
     , encodeFloat
     , fifteen
@@ -15,6 +16,7 @@ module Data.Split exposing
     , half
     , quarter
     , sixty
+    , sum
     , tenth
     , third
     , thirty
@@ -140,6 +142,21 @@ fromPercent float =
         Ok (Split float)
 
 
+{-| Sums splits, fails if total exceeds 100%
+-}
+sum : List Split -> Result String Split
+sum splits =
+    let
+        total =
+            splits |> List.map toFloat |> List.sum
+    in
+    if total > 100 then
+        Err <| "La somme des parts ne doit pas excéder 100%; ici\u{00A0}: " ++ String.fromFloat (total * 100) ++ "%"
+
+    else
+        Ok (Split total)
+
+
 toFloat : Split -> Float
 toFloat (Split float) =
     float / 100
@@ -184,6 +201,12 @@ decodeFloat : Decoder Split
 decodeFloat =
     Decode.float
         |> Decode.andThen (fromFloat >> DE.fromResult)
+
+
+decodePercent : Decoder Split
+decodePercent =
+    Decode.float
+        |> Decode.andThen (fromPercent >> DE.fromResult)
 
 
 encodeFloat : Split -> Encode.Value

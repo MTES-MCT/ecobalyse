@@ -72,6 +72,7 @@ module Data.Component exposing
 
 import Data.Common.DecodeUtils as DU
 import Data.Common.EncodeUtils as EU
+import Data.Component.Config as Config exposing (EndOfLifeConfig, EndOfLifeStrategies, EndOfLifeStrategy)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Trigram)
 import Data.Process as Process exposing (Process)
@@ -184,32 +185,17 @@ type Quantity
     = Quantity Int
 
 
-{-| Holds the distribution of material masses per material type
+{-| Holds a dict where keys are material types
+TODO: move to Data.Process.Category?
 -}
-type alias MaterialDistribution a =
+type alias MaterialDict a =
     AnyDict String Category.Material a
-
-
-{-| Material end of life strategy (incinerating, landfilling, recycling)
--}
-type alias EndOfLifeStrategies =
-    { incinerating : EndOfLifeStrategy
-    , landfilling : EndOfLifeStrategy
-    , recycling : EndOfLifeStrategy
-    }
-
-
-type alias EndOfLifeStrategy =
-    { impacts : Impacts
-    , process : Maybe Process
-    , split : Split
-    }
 
 
 {-| A data structure exposing detailed impacts at the end of life stage of the lifeCycle
 -}
 type alias DetailedEndOfLifeImpacts =
-    MaterialDistribution EndOfLifeMaterialImpacts
+    MaterialDict EndOfLifeMaterialImpacts
 
 
 type alias EndOfLifeMaterialImpacts =
@@ -416,12 +402,17 @@ checkTransformsUnit unit transforms =
 {-| Computes impacts from a list of available components, processes and specified component items
 -}
 compute : DataContainer db -> Scope -> List Item -> Result String LifeCycle
-compute db scope =
-    List.map (computeItemResults db)
-        >> RE.combine
-        >> Result.map (List.foldr addResults emptyResults)
-        >> Result.map (\(Results results) -> { emptyLifeCycle | production = Results { results | label = Just "Production" } })
-        >> Result.andThen (computeEndOfLifeResults db scope)
+compute db scope items =
+    Config.config db.processes
+        |> Result.andThen
+            (\config ->
+                items
+                    |> List.map (computeItemResults db)
+                    |> RE.combine
+                    |> Result.map (List.foldr addResults emptyResults)
+                    |> Result.map (\(Results results) -> { emptyLifeCycle | production = Results { results | label = Just "Production" } })
+                    |> Result.andThen (computeEndOfLifeResults config.endOfLife db scope)
+            )
 
 
 computeElementResults : List Process -> Element -> Result String Results
@@ -440,8 +431,8 @@ computeElementResults processes =
             )
 
 
-computeEndOfLifeResults : DataContainer db -> Scope -> LifeCycle -> Result String LifeCycle
-computeEndOfLifeResults db scope lifeCycle =
+computeEndOfLifeResults : EndOfLifeConfig -> DataContainer db -> Scope -> LifeCycle -> Result String LifeCycle
+computeEndOfLifeResults endOfLifeConfig db scope lifeCycle =
     lifeCycle.production
         |> getEndOfLifeImpacts db scope
         |> Result.map (\endOfLife -> { lifeCycle | endOfLife = endOfLife })
@@ -1046,7 +1037,7 @@ getEndOfLifeNonCollectionStrategies processes material =
 
 {-| Compute mass distribution by material types
 -}
-getMaterialDistribution : Results -> MaterialDistribution Mass
+getMaterialDistribution : Results -> MaterialDict Mass
 getMaterialDistribution (Results results) =
     results.items
         -- component level
