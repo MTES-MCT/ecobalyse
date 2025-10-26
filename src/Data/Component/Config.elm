@@ -24,24 +24,27 @@ type alias MaterialDict a =
     AnyDict String Category.Material a
 
 
+{-| Holds a dict where keys are scopes
+TODO: move to Data.Scope?
+-}
+type alias ScopeDict a =
+    AnyDict String Scope a
+
+
 type alias Config =
     { endOfLife : EndOfLifeConfig
     }
 
 
 type alias EndOfLifeConfig =
-    { strategies : EndOfLifeStrategiesConfig
-
-    -- TODO:
-    -- "scopeCollectionRates": {
-    --     "object": 70
-    -- },
+    { scopeCollectionRates : ScopeDict Split
+    , strategies : EndOfLifeStrategiesConfig
     }
 
 
 type alias EndOfLifeStrategiesConfig =
-    { collected : MaterialDict EndOfLifeStrategies
-    , default : EndOfLifeStrategies
+    { default : EndOfLifeStrategies
+    , collected : MaterialDict EndOfLifeStrategies
     , nonCollected : MaterialDict EndOfLifeStrategies
     }
 
@@ -69,14 +72,23 @@ decodeConfig processes =
 decodeEndOfLifeConfig : List Process -> Decoder EndOfLifeConfig
 decodeEndOfLifeConfig processes =
     Decode.succeed EndOfLifeConfig
+        |> Decode.required "scopeCollectionRates" decodeScopeCollectionRates
         |> Decode.required "strategies" (decodeEndOfLifeStrategiesConfig processes)
+
+
+decodeScopeCollectionRates : Decoder (ScopeDict Split)
+decodeScopeCollectionRates =
+    AnyDict.decode_
+        (\key _ -> Scope.fromString key)
+        Scope.toString
+        Split.decodePercent
 
 
 decodeEndOfLifeStrategiesConfig : List Process -> Decoder EndOfLifeStrategiesConfig
 decodeEndOfLifeStrategiesConfig processes =
     Decode.succeed EndOfLifeStrategiesConfig
+        |> Decode.required "default" (decodeEndOfLifeStrategies processes)
         |> Decode.required "collected" (decodeMaterialStrategies processes)
-        |> Decode.required "_default" (decodeEndOfLifeStrategies processes)
         |> Decode.required "nonCollected" (decodeMaterialStrategies processes)
 
 
@@ -122,7 +134,7 @@ jsonConfig =
               "object": 70
             },
             "strategies": {
-                "_default": {
+                "default": {
                     "incinerating": { "process": "6fad4e70-5736-552d-a686-97e4fb627c37", "share": 82 },
                     "landfilling": { "process": "d4954f69-e647-531d-aa32-c34be5556736", "share": 18 },
                     "recycling": null
