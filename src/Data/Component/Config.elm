@@ -24,20 +24,13 @@ type alias MaterialDict a =
     AnyDict String Category.Material a
 
 
-{-| Holds a dict where keys are scopes
-TODO: move to Data.Scope?
--}
-type alias ScopeDict a =
-    AnyDict String Scope a
-
-
 type alias Config =
     { endOfLife : EndOfLifeConfig
     }
 
 
 type alias EndOfLifeConfig =
-    { scopeCollectionRates : ScopeDict Split
+    { scopeCollectionRates : Scope.Dict Split
     , strategies : EndOfLifeStrategiesConfig
     }
 
@@ -72,16 +65,8 @@ decodeConfig processes =
 decodeEndOfLifeConfig : List Process -> Decoder EndOfLifeConfig
 decodeEndOfLifeConfig processes =
     Decode.succeed EndOfLifeConfig
-        |> Decode.required "scopeCollectionRates" decodeScopeCollectionRates
+        |> Decode.required "scopeCollectionRates" (Scope.decodeDict Split.decodePercent)
         |> Decode.required "strategies" (decodeEndOfLifeStrategiesConfig processes)
-
-
-decodeScopeCollectionRates : Decoder (ScopeDict Split)
-decodeScopeCollectionRates =
-    AnyDict.decode_
-        (\key _ -> Scope.fromString key)
-        Scope.toString
-        Split.decodePercent
 
 
 decodeEndOfLifeStrategiesConfig : List Process -> Decoder EndOfLifeStrategiesConfig

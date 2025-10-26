@@ -1,8 +1,10 @@
 module Data.Scope exposing
-    ( Scope(..)
+    ( Dict
+    , Scope(..)
     , all
     , anyOf
     , decode
+    , decodeDict
     , encode
     , fromString
     , parse
@@ -10,6 +12,7 @@ module Data.Scope exposing
     , toString
     )
 
+import Dict.Any as AnyDict exposing (AnyDict)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Encode as Encode
@@ -21,6 +24,10 @@ type Scope
     | Object
     | Textile
     | Veli
+
+
+type alias Dict a =
+    AnyDict String Scope a
 
 
 all : List Scope
@@ -41,6 +48,11 @@ decode : Decoder Scope
 decode =
     Decode.string
         |> Decode.andThen (fromString >> DE.fromResult)
+
+
+decodeDict : Decoder a -> Decoder (Dict a)
+decodeDict =
+    AnyDict.decode_ (\key _ -> fromString key) toString
 
 
 encode : Scope -> Encode.Value
