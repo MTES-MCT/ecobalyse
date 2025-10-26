@@ -26,6 +26,8 @@ type Scope
     | Veli
 
 
+{-| A dict where keys are typed as `Scope`
+-}
 type alias Dict a =
     AnyDict String Scope a
 

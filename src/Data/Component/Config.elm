@@ -9,19 +9,11 @@ module Data.Component.Config exposing
 import Data.Common.DecodeUtils as DU
 import Data.Impact as Impact exposing (Impacts)
 import Data.Process as Process exposing (Process)
-import Data.Process.Category as Category
-import Data.Scope as Scope exposing (Scope)
+import Data.Process.Category as Category exposing (MaterialDict)
+import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
-import Dict.Any as AnyDict exposing (AnyDict)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Decode
-
-
-{-| Holds a dict where keys are material types
-TODO: move to Data.Process.Category?
--}
-type alias MaterialDict a =
-    AnyDict String Category.Material a
 
 
 type alias Config =
@@ -73,16 +65,8 @@ decodeEndOfLifeStrategiesConfig : List Process -> Decoder EndOfLifeStrategiesCon
 decodeEndOfLifeStrategiesConfig processes =
     Decode.succeed EndOfLifeStrategiesConfig
         |> Decode.required "default" (decodeEndOfLifeStrategies processes)
-        |> Decode.required "collected" (decodeMaterialStrategies processes)
-        |> Decode.required "nonCollected" (decodeMaterialStrategies processes)
-
-
-decodeMaterialStrategies : List Process -> Decoder (MaterialDict EndOfLifeStrategies)
-decodeMaterialStrategies processes =
-    AnyDict.decode_
-        (\key _ -> Category.materialTypeFromString key)
-        Category.materialTypeToString
-        (decodeEndOfLifeStrategies processes)
+        |> Decode.required "collected" (Category.decodeMaterialDict (decodeEndOfLifeStrategies processes))
+        |> Decode.required "nonCollected" (Category.decodeMaterialDict (decodeEndOfLifeStrategies processes))
 
 
 decodeEndOfLifeStrategies : List Process -> Decoder EndOfLifeStrategies

@@ -76,12 +76,12 @@ import Data.Component.Config as Config exposing (EndOfLifeConfig, EndOfLifeStrat
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Trigram)
 import Data.Process as Process exposing (Process)
-import Data.Process.Category as Category exposing (Category)
+import Data.Process.Category as Category exposing (Category, MaterialDict)
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
 import Data.Uuid as Uuid exposing (Uuid)
-import Dict.Any as AnyDict exposing (AnyDict)
+import Dict.Any as AnyDict
 import Energy
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Decode
@@ -183,13 +183,6 @@ type Amount
 -}
 type Quantity
     = Quantity Int
-
-
-{-| Holds a dict where keys are material types
-TODO: move to Data.Process.Category?
--}
-type alias MaterialDict a =
-    AnyDict String Category.Material a
 
 
 {-| A data structure exposing detailed impacts at the end of life stage of the lifeCycle
