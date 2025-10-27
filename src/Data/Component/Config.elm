@@ -71,23 +71,29 @@ decodeEndOfLifeStrategiesConfig processes =
 
 decodeEndOfLifeStrategies : List Process -> Decoder EndOfLifeStrategies
 decodeEndOfLifeStrategies processes =
+    let
+        noStrategy =
+            { impacts = Impact.empty, process = Nothing, split = Split.zero }
+    in
     Decode.succeed EndOfLifeStrategies
-        |> Decode.required "incinerating" (decodeEndOfLifeStrategy processes)
-        |> Decode.required "landfilling" (decodeEndOfLifeStrategy processes)
-        |> Decode.required "recycling" (decodeEndOfLifeStrategy processes)
-        |> Decode.andThen
-            (\({ incinerating, landfilling, recycling } as strategy) ->
-                case
-                    [ incinerating, landfilling, recycling ]
-                        |> List.map .split
-                        |> Split.assemble
-                of
-                    Err err ->
-                        Decode.fail err
+        |> DU.strictOptionalWithDefault "incinerating" (decodeEndOfLifeStrategy processes) noStrategy
+        |> DU.strictOptionalWithDefault "landfilling" (decodeEndOfLifeStrategy processes) noStrategy
+        |> DU.strictOptionalWithDefault "recycling" (decodeEndOfLifeStrategy processes) noStrategy
+        |> Decode.andThen validateEndOfLifeStrategies
 
-                    Ok _ ->
-                        Decode.succeed strategy
-            )
+
+validateEndOfLifeStrategies : EndOfLifeStrategies -> Decoder EndOfLifeStrategies
+validateEndOfLifeStrategies ({ incinerating, landfilling, recycling } as strategy) =
+    case
+        [ incinerating, landfilling, recycling ]
+            |> List.map .split
+            |> Split.assemble
+    of
+        Err err ->
+            Decode.fail <| "Stratégies de fin de vie invalides\u{00A0}: " ++ err
+
+        Ok _ ->
+            Decode.succeed strategy
 
 
 decodeEndOfLifeStrategy : List Process -> Decoder EndOfLifeStrategy
