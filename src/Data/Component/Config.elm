@@ -77,7 +77,11 @@ decodeEndOfLifeStrategies processes =
         |> Decode.required "recycling" (decodeEndOfLifeStrategy processes)
         |> Decode.andThen
             (\({ incinerating, landfilling, recycling } as strategy) ->
-                case [ incinerating, landfilling, recycling ] |> List.map .split |> Split.sum of
+                case
+                    [ incinerating, landfilling, recycling ]
+                        |> List.map .split
+                        |> Split.assemble
+                of
                     Err err ->
                         Decode.fail err
 

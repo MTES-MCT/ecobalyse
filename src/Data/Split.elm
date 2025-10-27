@@ -2,6 +2,7 @@ module Data.Split exposing
     ( Split
     , apply
     , applyToQuantity
+    , assemble
     , complement
     , decodeFloat
     , decodePercent
@@ -16,7 +17,6 @@ module Data.Split exposing
     , half
     , quarter
     , sixty
-    , sum
     , tenth
     , third
     , thirty
@@ -29,10 +29,9 @@ module Data.Split exposing
     , zero
     )
 
-{-|
+{-| This module manages splits, or "shares", eg: 0.33, or 33%, or a third. Also, the precision will be up to two decimals, so the equivalent of a percent.
 
-    This module manages splits, or "shares", eg: 0.33, or 33%, or a third. Also, the precision will be up to two decimals, so the equivalent of a percent.
-    0.121 or 1.119 will both be rounded to 0.12 or 12%.
+0.121 or 1.119 will both be rounded to 0.12 or 12%.
 
 -}
 
@@ -142,21 +141,6 @@ fromPercent float =
         Ok (Split float)
 
 
-{-| Sums splits, fails if total exceeds 100%
--}
-sum : List Split -> Result String Split
-sum splits =
-    let
-        total =
-            splits |> List.map toFloat |> List.sum
-    in
-    if total > 100 then
-        Err <| "La somme des parts ne doit pas excéder 100%; ici\u{00A0}: " ++ String.fromFloat (total * 100) ++ "%"
-
-    else
-        Ok (Split total)
-
-
 toFloat : Split -> Float
 toFloat (Split float) =
     float / 100
@@ -190,6 +174,24 @@ apply input split =
 applyToQuantity : Quantity Float units -> Split -> Quantity Float units
 applyToQuantity quantity split =
     Quantity.multiplyBy (toFloat split) quantity
+
+
+{-| Sums splits, fails if total is not 100%
+-}
+assemble : List Split -> Result String Split
+assemble splits =
+    let
+        total =
+            splits |> List.map toFloat |> List.sum
+    in
+    if round total /= 100 then
+        Err <|
+            "La somme des parts ne doit pas excéder 100%; ici\u{00A0}: "
+                ++ String.fromFloat (total * 100)
+                ++ "%"
+
+    else
+        Ok (Split total)
 
 
 divideBy : Float -> Split -> Float
