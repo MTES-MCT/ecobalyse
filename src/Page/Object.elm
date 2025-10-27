@@ -135,7 +135,17 @@ init scope trigram maybeUrlQuery session =
     , impact = Definition.get trigram session.db.definitions
     , initialQuery = initialQuery
     , modal = NoModal
-    , lifeCycle = initialQuery |> Simulator.compute session.db scope
+    , lifeCycle =
+        Component.defaultConfig session.db.processes
+            |> Result.andThen
+                (\config ->
+                    initialQuery
+                        |> Simulator.compute
+                            { config = config
+                            , db = session.db
+                            , scope = scope
+                            }
+                )
     , scope = scope
     }
         |> App.createUpdate (session |> Session.updateObjectQuery scope initialQuery)
@@ -178,7 +188,17 @@ initFromExample session scope uuid =
     , impact = Definition.get Definition.Ecs session.db.definitions
     , initialQuery = exampleQuery
     , modal = NoModal
-    , lifeCycle = exampleQuery |> Simulator.compute session.db scope
+    , lifeCycle =
+        Component.defaultConfig session.db.processes
+            |> Result.andThen
+                (\config ->
+                    exampleQuery
+                        |> Simulator.compute
+                            { config = config
+                            , db = session.db
+                            , scope = scope
+                            }
+                )
     , scope = scope
     }
         |> App.createUpdate (session |> Session.updateObjectQuery scope exampleQuery)
@@ -219,7 +239,17 @@ updateQuery query ({ model, session } as pageUpdate) =
             { model
                 | initialQuery = query
                 , bookmarkName = query |> suggestBookmarkName session model.examples
-                , lifeCycle = query |> Simulator.compute session.db model.scope
+                , lifeCycle =
+                    Component.defaultConfig session.db.processes
+                        |> Result.andThen
+                            (\config ->
+                                query
+                                    |> Simulator.compute
+                                        { config = config
+                                        , db = session.db
+                                        , scope = model.scope
+                                        }
+                            )
             }
         , session = session |> Session.updateObjectQuery model.scope query
     }

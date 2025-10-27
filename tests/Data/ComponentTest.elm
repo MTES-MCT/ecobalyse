@@ -1,6 +1,6 @@
 module Data.ComponentTest exposing (..)
 
-import Data.Component as Component exposing (Component, Item)
+import Data.Component as Component exposing (Component, Item, LifeCycle, defaultConfig)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
 import Data.Process as Process exposing (Process)
@@ -290,7 +290,7 @@ suite =
             , describe "compute"
                 [ it "should compute results from decoded component items"
                     (chair
-                        |> Result.andThen (Component.compute db Scope.Object)
+                        |> Result.andThen (computeWithDefaultConfig db)
                         |> Result.map (.production >> extractEcsImpact)
                         |> TestUtils.expectResultWithin (Expect.Absolute 1) 293
                     )
@@ -311,7 +311,7 @@ suite =
                          , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
                          , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
                          ]"""
-                        |> decodeJsonThen (Decode.list Component.decodeItem) (Component.compute db Scope.Object)
+                        |> decodeJsonThen (Decode.list Component.decodeItem) (computeWithDefaultConfig db)
                         |> Result.map (.production >> extractEcsImpact)
                         |> TestUtils.expectResultWithin (Expect.Absolute 1) 314
                     )
@@ -515,11 +515,9 @@ suite =
             , TestUtils.suiteFromResult "getEndOfLifeDetailedImpacts"
                 -- setup
                 (chair
-                    |> Result.andThen
-                        (Component.compute db Scope.Object
-                            >> Result.map .production
-                            >> Result.andThen (Component.getEndOfLifeDetailedImpacts db.processes Scope.Object)
-                        )
+                    |> Result.andThen (computeWithDefaultConfig db)
+                    |> Result.map .production
+                    |> Result.andThen (Component.getEndOfLifeDetailedImpacts db.processes Scope.Object)
                 )
                 -- tests
                 (\chairMaterialGroups ->
@@ -655,7 +653,7 @@ suite =
             , TestUtils.suiteFromResult "stagesImpacts"
                 (""" [ { "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 }
                      ]"""
-                    |> decodeJsonThen (Decode.list Component.decodeItem) (Component.compute db Scope.Object)
+                    |> decodeJsonThen (Decode.list Component.decodeItem) (computeWithDefaultConfig db)
                     |> Result.map (\results -> ( results, Component.stagesImpacts results ))
                 )
                 (\( lifeCycle, stagesImpacts ) ->
@@ -763,6 +761,20 @@ suite =
                     ]
                 )
             ]
+
+
+computeWithDefaultConfig : Db -> List Item -> Result String LifeCycle
+computeWithDefaultConfig db items =
+    Component.defaultConfig db.processes
+        |> Result.andThen
+            (\config ->
+                items
+                    |> Component.compute
+                        { config = config
+                        , db = db
+                        , scope = Scope.Object
+                        }
+            )
 
 
 extractEcsImpact : Component.Results -> Float

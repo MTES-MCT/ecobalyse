@@ -1,6 +1,7 @@
 module Data.Component exposing
     ( Amount(..)
     , Component
+    , Config
     , Custom
     , DataContainer
     , Element
@@ -11,6 +12,7 @@ module Data.Component exposing
     , Item
     , LifeCycle
     , Quantity
+    , Requirements
     , Results(..)
     , Stage(..)
     , TargetElement
@@ -31,6 +33,7 @@ module Data.Component exposing
     , decodeItem
     , decodeList
     , decodeListFromJsonString
+    , defaultConfig
     , elementTransforms
     , elementsToString
     , emptyLifeCycle
@@ -55,6 +58,7 @@ module Data.Component exposing
     , itemToComponent
     , itemToString
     , itemsToString
+    , parseConfig
     , quantityFromInt
     , quantityToInt
     , removeElement
@@ -105,6 +109,12 @@ type alias Component =
     , name : String
     , scope : Scope
     }
+
+
+{-| Proxified for convenience
+-}
+type alias Config =
+    Config.Config
 
 
 type alias EnergyMixes =
@@ -231,6 +241,13 @@ type alias StagesImpacts =
     { endOfLife : Impacts
     , material : Impacts
     , transformation : Impacts
+    }
+
+
+type alias Requirements db =
+    { config : Config
+    , db : DataContainer db
+    , scope : Scope
     }
 
 
@@ -394,18 +411,14 @@ checkTransformsUnit unit transforms =
 
 {-| Computes impacts from a list of available components, processes and specified component items
 -}
-compute : DataContainer db -> Scope -> List Item -> Result String LifeCycle
-compute db scope items =
-    Config.config db.processes
-        |> Result.andThen
-            (\config ->
-                items
-                    |> List.map (computeItemResults db)
-                    |> RE.combine
-                    |> Result.map (List.foldr addResults emptyResults)
-                    |> Result.map (\(Results results) -> { emptyLifeCycle | production = Results { results | label = Just "Production" } })
-                    |> Result.andThen (computeEndOfLifeResults config.endOfLife db scope)
-            )
+compute : Requirements db -> List Item -> Result String LifeCycle
+compute { config, db, scope } items =
+    items
+        |> List.map (computeItemResults db)
+        |> RE.combine
+        |> Result.map (List.foldr addResults emptyResults)
+        |> Result.map (\(Results results) -> { emptyLifeCycle | production = Results { results | label = Just "Production" } })
+        |> Result.andThen (computeEndOfLifeResults config.endOfLife db scope)
 
 
 computeElementResults : List Process -> Element -> Result String Results
@@ -635,6 +648,13 @@ decodeQuantity =
                     Decode.succeed int
             )
         |> Decode.map Quantity
+
+
+{-| Proxified for convenience
+-}
+defaultConfig : List Process -> Result String Config
+defaultConfig =
+    Config.default
 
 
 elementToString : List Process -> Element -> Result String String
@@ -1159,6 +1179,13 @@ loadDefaultEnergyMixes processes =
 mapAmount : (Float -> Float) -> Amount -> Amount
 mapAmount fn (Amount float) =
     Amount <| fn float
+
+
+{-| Proxified for convenience
+-}
+parseConfig : List Process -> String -> Result String Config
+parseConfig =
+    Config.parse
 
 
 quantityFromInt : Int -> Quantity

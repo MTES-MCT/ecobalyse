@@ -644,34 +644,49 @@ getFoodScorePer100g db =
 
 
 getObjectScore : Db -> Scope -> Example ObjectQuery.Query -> Float
-getObjectScore db scope =
-    .query
-        >> ObjectSimulator.compute db scope
-        >> Result.map
-            (Component.sumLifeCycleImpacts
-                >> Impact.getImpact Definition.Ecs
-                >> Unit.impactToFloat
+getObjectScore db scope { query } =
+    -- FIXME: should accept non-default config
+    Component.defaultConfig db.processes
+        |> Result.andThen
+            (\config ->
+                query
+                    |> ObjectSimulator.compute { config = config, db = db, scope = scope }
+                    |> Result.map
+                        (Component.sumLifeCycleImpacts
+                            >> Impact.getImpact Definition.Ecs
+                            >> Unit.impactToFloat
+                        )
             )
-        >> Result.withDefault 0
+        |> Result.withDefault 0
 
 
 getTextileScore : Db -> Example TextileQuery.Query -> Float
-getTextileScore db =
-    .query
-        >> Simulator.compute db
-        >> Result.map (.impacts >> Impact.getImpact Definition.Ecs >> Unit.impactToFloat)
-        >> Result.withDefault 0
+getTextileScore db { query } =
+    -- FIXME: should accept non-default config
+    Component.defaultConfig db.processes
+        |> Result.andThen
+            (\config ->
+                query
+                    |> Simulator.compute db config
+                    |> Result.map (.impacts >> Impact.getImpact Definition.Ecs >> Unit.impactToFloat)
+            )
+        |> Result.withDefault 0
 
 
 getTextileScorePer100g : Db -> Example TextileQuery.Query -> Float
 getTextileScorePer100g db { query } =
-    query
-        |> Simulator.compute db
-        |> Result.map
-            (.impacts
-                >> Impact.per100grams query.mass
-                >> Impact.getImpact Definition.Ecs
-                >> Unit.impactToFloat
+    -- FIXME: should accept non-default config
+    Component.defaultConfig db.processes
+        |> Result.andThen
+            (\config ->
+                query
+                    |> Simulator.compute db config
+                    |> Result.map
+                        (.impacts
+                            >> Impact.per100grams query.mass
+                            >> Impact.getImpact Definition.Ecs
+                            >> Unit.impactToFloat
+                        )
             )
         |> Result.withDefault 0
 

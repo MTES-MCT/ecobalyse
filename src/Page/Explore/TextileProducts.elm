@@ -113,9 +113,13 @@ table db { detailed, scope } =
             picking product surfaceMass ys =
                 let
                     outputMass =
-                        TextileQuery.default
-                            |> TextileQuery.updateProduct product
-                            |> Simulator.compute db
+                        Component.defaultConfig db.processes
+                            |> Result.andThen
+                                (\config ->
+                                    TextileQuery.default
+                                        |> TextileQuery.updateProduct product
+                                        |> Simulator.compute db config
+                                )
                             |> Result.map (.lifeCycle >> LifeCycle.getStepProp Label.Fabric .outputMass Quantity.zero)
                             |> Result.withDefault Quantity.zero
 

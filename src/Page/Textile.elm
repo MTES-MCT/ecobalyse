@@ -165,8 +165,12 @@ init trigram maybeUrlQuery session =
                 |> Maybe.withDefault session.queries.textile
 
         simulator =
-            initialQuery
-                |> Simulator.compute session.db
+            Component.defaultConfig session.db.processes
+                |> Result.andThen
+                    (\config ->
+                        initialQuery
+                            |> Simulator.compute session.db config
+                    )
     in
     { simulator = simulator
     , bookmarkName = initialQuery |> suggestBookmarkName session
@@ -216,8 +220,12 @@ initFromExample session uuid =
                 |> Result.withDefault session.queries.textile
 
         simulator =
-            exampleQuery
-                |> Simulator.compute session.db
+            Component.defaultConfig session.db.processes
+                |> Result.andThen
+                    (\config ->
+                        exampleQuery
+                            |> Simulator.compute session.db config
+                    )
     in
     { simulator = simulator
     , bookmarkName = exampleQuery |> suggestBookmarkName session
@@ -271,7 +279,13 @@ updateQuery query ({ model, session } as pageUpdate) =
     { pageUpdate
         | model =
             { model
-                | simulator = query |> Simulator.compute session.db
+                | simulator =
+                    Component.defaultConfig session.db.processes
+                        |> Result.andThen
+                            (\config ->
+                                query
+                                    |> Simulator.compute session.db config
+                            )
                 , bookmarkName = query |> suggestBookmarkName session
             }
         , session = session |> Session.updateTextileQuery query
@@ -909,7 +923,17 @@ simulatorFormView session model ({ inputs } as simulator) =
         , explorerRoute = Just (Route.Explore Scope.Textile (Dataset.Components Scope.Textile Nothing))
         , impact = model.impact
         , items = inputs.trims
-        , lifeCycle = inputs.trims |> Component.compute session.db Scope.Textile
+        , lifeCycle =
+            Component.defaultConfig session.db.processes
+                |> Result.andThen
+                    (\config ->
+                        inputs.trims
+                            |> Component.compute
+                                { config = config
+                                , db = session.db
+                                , scope = Scope.Textile
+                                }
+                    )
         , maxItems = Nothing
         , noOp = NoOp
         , openSelectComponentModal = AddTrimModal >> SetModal

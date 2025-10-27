@@ -1,8 +1,10 @@
 module Data.Textile.SimulatorTest exposing (..)
 
+import Data.Component as Component
 import Data.Country as Country
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
+import Data.Scope as Scope
 import Data.Split as Split
 import Data.Textile.Economics as Economics
 import Data.Textile.LifeCycle as LifeCycle
@@ -18,13 +20,17 @@ import TestUtils exposing (asTest, suiteFromResult, suiteWithDb, tShirtCotonFran
 
 
 getImpact : Db -> Definition.Trigram -> Query -> Result String Float
-getImpact db trigram =
-    Simulator.compute db
-        >> Result.map
-            (.impacts
-                >> Impact.getImpact trigram
-                >> Unit.impactToFloat
-            )
+getImpact db trigram query =
+    Component.defaultConfig db.processes
+        (\config ->
+            query
+                |> Simulator.compute db config
+                |> Result.map
+                    (.impacts
+                        >> Impact.getImpact trigram
+                        >> Unit.impactToFloat
+                    )
+        )
 
 
 expectImpact : Db -> Definition.Trigram -> Float -> Query -> Expectation
@@ -48,7 +54,8 @@ suite =
     suiteWithDb "Data.Textile.Simulator"
         (\db ->
             [ describe "Simulator.compute"
-                [ suiteFromResult "should compute a simulation ecs impact" tShirtCotonFrance
+                [ suiteFromResult "should compute a simulation ecs impact"
+                    tShirtCotonFrance
                     (\query ->
                         [ { query
                             | countrySpinning = Nothing
@@ -58,7 +65,8 @@ suite =
                         ]
                     )
                 , describe "disabled steps"
-                    [ suiteFromResult "should be handled from passed query" tShirtCotonFrance
+                    [ suiteFromResult "should be handled from passed query"
+                        tShirtCotonFrance
                         (\query ->
                             [ { query | disabledSteps = [ Label.Ennobling ] }
                                 |> Simulator.compute db
@@ -67,7 +75,8 @@ suite =
                                 |> asTest "be handled from passed query"
                             ]
                         )
-                    , suiteFromResult "should handle disabled steps" tShirtCotonFrance
+                    , suiteFromResult "should handle disabled steps"
+                        tShirtCotonFrance
                         (\query ->
                             [ asTest "handle disabled steps"
                                 (case
@@ -83,7 +92,8 @@ suite =
                                 )
                             ]
                         )
-                    , suiteFromResult "should allow disabling steps" tShirtCotonFrance
+                    , suiteFromResult "should allow disabling steps"
+                        tShirtCotonFrance
                         (\query ->
                             [ asTest "allow disabling steps"
                                 (case
@@ -102,7 +112,8 @@ suite =
                     ]
                 ]
             , describe "compute holistic durability"
-                [ suiteFromResult "should have default durability" tShirtCotonFrance
+                [ suiteFromResult "should have default durability"
+                    tShirtCotonFrance
                     (\query ->
                         [ query
                             |> Simulator.compute db
@@ -116,7 +127,8 @@ suite =
                         |> Unit.floatDurabilityFromHolistic
                         |> Expect.within (Expect.Absolute 0.001) 0.67
                     )
-                , suiteFromResult "should take into account when non physical durability changes" tShirtCotonFrance
+                , suiteFromResult "should take into account when non physical durability changes"
+                    tShirtCotonFrance
                     (\query ->
                         let
                             tShirtCotonWithSmallerPhysicalDurability =
@@ -140,7 +152,8 @@ suite =
                     )
                 ]
             , describe "compute airTransportRatio"
-                [ suiteFromResult "should be zero for products from Europe or Turkey" tShirtCotonFrance
+                [ suiteFromResult "should be zero for products from Europe or Turkey"
+                    tShirtCotonFrance
                     (\query ->
                         [ query
                             |> Simulator.compute db
@@ -149,7 +162,8 @@ suite =
                             |> asTest "be zero for products from Europe or Turkey"
                         ]
                     )
-                , suiteFromResult "should be full for products not coming from Europe or Turkey" tShirtCotonFrance
+                , suiteFromResult "should be full for products not coming from Europe or Turkey"
+                    tShirtCotonFrance
                     (\query ->
                         [ { query | countryMaking = Just (Country.Code "CN") }
                             |> Simulator.compute db
@@ -158,7 +172,8 @@ suite =
                             |> asTest "be full for products not coming from Europe or Turkey"
                         ]
                     )
-                , suiteFromResult "should be 0.33 for products not coming from Europe or Turkey but with a durability >= 1" tShirtCotonFrance
+                , suiteFromResult "should be 0.33 for products not coming from Europe or Turkey but with a durability >= 1"
+                    tShirtCotonFrance
                     (\query ->
                         let
                             tShirtCotonWithSmallerPhysicalDurabilityCn =
@@ -176,7 +191,8 @@ suite =
                             |> asTest "be 0.33 for products not coming from Europe or Turkey but with a durability >= 1"
                         ]
                     )
-                , suiteFromResult "should keep the user provided value" tShirtCotonFrance
+                , suiteFromResult "should keep the user provided value"
+                    tShirtCotonFrance
                     (\query ->
                         [ { query
                             | countryMaking = Just (Country.Code "CN")
@@ -190,10 +206,14 @@ suite =
                     )
                 ]
             , describe "getTotalImpactsWithoutComplements"
-                [ suiteFromResult "should compute total impacts without complements" tShirtCotonFrance
+                [ suiteFromResult "should compute total impacts without complements"
+                    tShirtCotonFrance
                     (\query ->
-                        [ query
-                            |> Simulator.compute db
+                        [ Component.defaultConfig db.processes
+                            |> Result.andThen
+                                (\config ->
+                                    query |> Simulator.compute db config
+                                )
                             |> Result.map
                                 (Simulator.getTotalImpactsWithoutComplements
                                     >> Impact.getImpact Definition.Ecs

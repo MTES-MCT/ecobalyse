@@ -503,7 +503,18 @@ modalView db modals index modal =
                             , explorerRoute = Nothing
                             , impact = db.definitions |> Definition.get Definition.Ecs
                             , items = [ item ]
-                            , lifeCycle = [ item ] |> Component.compute db component.scope
+                            , lifeCycle =
+                                -- FIXME: handle when loaded over http
+                                Component.defaultConfig db.processes
+                                    |> Result.andThen
+                                        (\config ->
+                                            [ item ]
+                                                |> Component.compute
+                                                    { config = config
+                                                    , db = db
+                                                    , scope = component.scope
+                                                    }
+                                        )
                             , maxItems = Just 1
                             , noOp = NoOp
                             , openSelectComponentModal = \_ -> NoOp

@@ -149,11 +149,17 @@ executeFoodQuery request db encoder =
 
 
 executeTextileQuery : Request -> Db -> (Simulator -> Encode.Value) -> TextileQuery.Query -> JsonResponse
-executeTextileQuery request db encoder =
-    Simulator.compute db
-        >> Result.mapError Validation.fromErrorString
-        >> Result.map encoder
-        >> toResponse request
+executeTextileQuery request db encoder query =
+    Component.defaultConfig db.processes
+        |> Result.map
+            (\config ->
+                query
+                    |> Simulator.compute db config
+                    |> Result.mapError Validation.fromErrorString
+                    |> Result.map encoder
+                    |> toResponse request
+            )
+        |> Result.withDefault ( 500, Encode.string "Impossible de charger la configuration des composants" )
 
 
 encodeCountry : Country -> Encode.Value

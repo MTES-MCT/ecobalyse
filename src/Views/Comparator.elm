@@ -128,8 +128,17 @@ addToComparison session { name, query } =
                     )
 
         Bookmark.Object objectQuery ->
-            objectQuery
-                |> ObjectSimulator.compute session.db Scope.Object
+            -- FIXME: load component config from http
+            Component.defaultConfig session.db.processes
+                |> Result.andThen
+                    (\config ->
+                        objectQuery
+                            |> ObjectSimulator.compute
+                                { config = config
+                                , db = session.db
+                                , scope = Scope.Object
+                                }
+                    )
                 |> Result.map
                     (\lifeCycle ->
                         { complementsImpact = Impact.noComplementsImpacts
@@ -142,8 +151,13 @@ addToComparison session { name, query } =
                     )
 
         Bookmark.Textile textileQuery ->
-            textileQuery
-                |> TextileSimulator.compute session.db
+            -- FIXME: load component config from http
+            Component.defaultConfig session.db.processes
+                |> Result.andThen
+                    (\config ->
+                        textileQuery
+                            |> TextileSimulator.compute session.db config
+                    )
                 |> Result.map
                     (\simulator ->
                         { complementsImpact = simulator.complementsImpacts
@@ -156,8 +170,17 @@ addToComparison session { name, query } =
                     )
 
         Bookmark.Veli objectQuery ->
-            objectQuery
-                |> ObjectSimulator.compute session.db Scope.Veli
+            -- FIXME: load component config from http
+            Component.defaultConfig session.db.processes
+                |> Result.andThen
+                    (\config ->
+                        objectQuery
+                            |> ObjectSimulator.compute
+                                { config = config
+                                , db = session.db
+                                , scope = Scope.Veli
+                                }
+                    )
                 |> Result.map
                     (\lifeCycle ->
                         { complementsImpact = Impact.noComplementsImpacts

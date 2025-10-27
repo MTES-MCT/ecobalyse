@@ -3,7 +3,8 @@ module Data.Component.Config exposing
     , EndOfLifeConfig
     , EndOfLifeStrategies
     , EndOfLifeStrategy
-    , config
+    , default
+    , parse
     )
 
 import Data.Common.DecodeUtils as DU
@@ -104,8 +105,8 @@ decodeEndOfLifeStrategy processes =
         |> Decode.required "share" Split.decodePercent
 
 
-jsonConfig : String
-jsonConfig =
+defaultJsonConfig : String
+defaultJsonConfig =
     """
     {
         "endOfLife": {
@@ -153,8 +154,14 @@ jsonConfig =
     """
 
 
-config : List Process -> Result String Config
-config processes =
-    jsonConfig
+default : List Process -> Result String Config
+default processes =
+    defaultJsonConfig
+        |> parse processes
+
+
+parse : List Process -> String -> Result String Config
+parse processes json =
+    json
         |> Decode.decodeString (decodeConfig processes)
         |> Result.mapError Decode.errorToString
