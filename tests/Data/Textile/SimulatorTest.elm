@@ -4,12 +4,11 @@ import Data.Component as Component
 import Data.Country as Country
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
-import Data.Scope as Scope
 import Data.Split as Split
 import Data.Textile.Economics as Economics
 import Data.Textile.LifeCycle as LifeCycle
 import Data.Textile.Query as Query exposing (Query)
-import Data.Textile.Simulator as Simulator
+import Data.Textile.Simulator as Simulator exposing (Simulator)
 import Data.Textile.Step.Label as Label
 import Data.Unit as Unit
 import Expect exposing (Expectation)
@@ -22,15 +21,16 @@ import TestUtils exposing (asTest, suiteFromResult, suiteWithDb, tShirtCotonFran
 getImpact : Db -> Definition.Trigram -> Query -> Result String Float
 getImpact db trigram query =
     Component.defaultConfig db.processes
-        (\config ->
-            query
-                |> Simulator.compute db config
-                |> Result.map
-                    (.impacts
-                        >> Impact.getImpact trigram
-                        >> Unit.impactToFloat
-                    )
-        )
+        |> Result.andThen
+            (\config ->
+                query
+                    |> Simulator.compute db config
+                    |> Result.map
+                        (.impacts
+                            >> Impact.getImpact trigram
+                            >> Unit.impactToFloat
+                        )
+            )
 
 
 expectImpact : Db -> Definition.Trigram -> Float -> Query -> Expectation
@@ -47,6 +47,12 @@ expectImpact db trigram value query =
 ecs : Definition.Trigram
 ecs =
     Definition.Ecs
+
+
+computeWithDefaultComponentConfig : Db -> Query -> Result String Simulator
+computeWithDefaultComponentConfig db query =
+    Component.defaultConfig db.processes
+        |> Result.andThen (\config -> query |> Simulator.compute db config)
 
 
 suite : Test
@@ -69,7 +75,7 @@ suite =
                         tShirtCotonFrance
                         (\query ->
                             [ { query | disabledSteps = [ Label.Ennobling ] }
-                                |> Simulator.compute db
+                                |> computeWithDefaultComponentConfig db
                                 |> Result.map (.lifeCycle >> LifeCycle.getStepProp Label.Ennobling .enabled True)
                                 |> Expect.equal (Ok False)
                                 |> asTest "be handled from passed query"
@@ -116,7 +122,7 @@ suite =
                     tShirtCotonFrance
                     (\query ->
                         [ query
-                            |> Simulator.compute db
+                            |> computeWithDefaultComponentConfig db
                             |> Result.map .durability
                             |> Expect.equal (Ok { physical = Unit.physicalDurability 1.45, nonPhysical = Unit.nonPhysicalDurability 0.67 })
                             |> asTest "have default durability"
@@ -139,12 +145,12 @@ suite =
                                 }
                         in
                         [ tShirtCotonWithSmallerPhysicalDurability
-                            |> Simulator.compute db
+                            |> computeWithDefaultComponentConfig db
                             |> Result.map .durability
                             |> Expect.equal (Ok { physical = Unit.physicalDurability 1, nonPhysical = Unit.nonPhysicalDurability 1.32 })
                             |> asTest "take into account when non physical durability changes"
                         , tShirtCotonWithSmallerPhysicalDurability
-                            |> Simulator.compute db
+                            |> computeWithDefaultComponentConfig db
                             |> Result.map (.durability >> Unit.floatDurabilityFromHolistic)
                             |> Expect.equal (Ok 1)
                             |> asTest "return non physical durability if it is the smallest"
@@ -156,7 +162,7 @@ suite =
                     tShirtCotonFrance
                     (\query ->
                         [ query
-                            |> Simulator.compute db
+                            |> computeWithDefaultComponentConfig db
                             |> Result.map (.lifeCycle >> LifeCycle.getStepProp Label.Making .airTransportRatio Split.half)
                             |> Expect.equal (Ok Split.zero)
                             |> asTest "be zero for products from Europe or Turkey"
@@ -166,7 +172,7 @@ suite =
                     tShirtCotonFrance
                     (\query ->
                         [ { query | countryMaking = Just (Country.Code "CN") }
-                            |> Simulator.compute db
+                            |> computeWithDefaultComponentConfig db
                             |> Result.map (.lifeCycle >> LifeCycle.getStepProp Label.Making .airTransportRatio Split.half)
                             |> Expect.equal (Ok Split.full)
                             |> asTest "be full for products not coming from Europe or Turkey"
@@ -185,7 +191,7 @@ suite =
                                 }
                         in
                         [ tShirtCotonWithSmallerPhysicalDurabilityCn
-                            |> Simulator.compute db
+                            |> computeWithDefaultComponentConfig db
                             |> Result.map (.lifeCycle >> LifeCycle.getStepProp Label.Making .airTransportRatio Split.half)
                             |> Expect.equal (Ok Split.third)
                             |> asTest "be 0.33 for products not coming from Europe or Turkey but with a durability >= 1"
@@ -198,7 +204,7 @@ suite =
                             | countryMaking = Just (Country.Code "CN")
                             , airTransportRatio = Just Split.two
                           }
-                            |> Simulator.compute db
+                            |> computeWithDefaultComponentConfig db
                             |> Result.map (.lifeCycle >> LifeCycle.getStepProp Label.Making .airTransportRatio Split.half)
                             |> Expect.equal (Ok Split.two)
                             |> asTest "keep the user provided value"
@@ -232,7 +238,7 @@ suite =
                             jsonQuery
                                 |> Decode.decodeString Query.decode
                                 |> Result.mapError Decode.errorToString
-                                |> Result.andThen (Simulator.compute db)
+                                |> Result.andThen (computeWithDefaultComponentConfig db)
                                 |> Result.map
                                     (\simulator ->
                                         ( simulator.impacts |> Impact.getImpact Definition.Ecs |> Unit.impactToFloat
