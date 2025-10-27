@@ -503,10 +503,7 @@ modalView db modals index modal =
                             , explorerRoute = Nothing
                             , impact = db.definitions |> Definition.get Definition.Ecs
                             , items = [ item ]
-                            , lifeCycle =
-                                [ item ]
-                                    |> Component.compute db component.scope
-                                    |> Result.withDefault Component.emptyLifeCycle
+                            , lifeCycle = [ item ] |> Component.compute db component.scope
                             , maxItems = Just 1
                             , noOp = NoOp
                             , openSelectComponentModal = \_ -> NoOp

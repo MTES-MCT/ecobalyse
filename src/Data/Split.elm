@@ -184,7 +184,7 @@ assemble splits =
         total =
             splits |> List.map toFloat |> List.sum
     in
-    if round total /= 100 then
+    if total /= 1 then
         Err <|
             "La somme des parts ne doit pas excéder 100%; ici\u{00A0}: "
                 ++ String.fromFloat (total * 100)

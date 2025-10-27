@@ -926,10 +926,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , explorerRoute = Just (Route.Explore Scope.Textile (Dataset.Components Scope.Textile Nothing))
         , impact = model.impact
         , items = inputs.trims
-        , lifeCycle =
-            inputs.trims
-                |> Component.compute session.db Scope.Textile
-                |> Result.withDefault Component.emptyLifeCycle
+        , lifeCycle = inputs.trims |> Component.compute session.db Scope.Textile
         , maxItems = Nothing
         , noOp = NoOp
         , openSelectComponentModal = AddTrimModal >> SetModal

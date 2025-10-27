@@ -48,7 +48,7 @@ type alias Config db msg =
     , explorerRoute : Maybe Route
     , impact : Definition
     , items : List Item
-    , lifeCycle : LifeCycle
+    , lifeCycle : Result String LifeCycle
     , maxItems : Maybe Int
     , noOp : msg
     , openSelectComponentModal : Autocomplete Component -> msg
@@ -275,7 +275,23 @@ viewDebug items lifeCycle =
 
 
 editorView : Config db msg -> Html msg
-editorView ({ db, docsUrl, explorerRoute, maxItems, items, lifeCycle, scope, title } as config) =
+editorView config =
+    case config.lifeCycle of
+        Err error ->
+            Alert.simple
+                { attributes = []
+                , close = Nothing
+                , content = [ text error ]
+                , level = Alert.Danger
+                , title = Just "Erreur de chargement du calculateur"
+                }
+
+        Ok lifeCycle ->
+            lifeCycleView config lifeCycle
+
+
+lifeCycleView : Config db msg -> LifeCycle -> Html msg
+lifeCycleView ({ db, docsUrl, explorerRoute, maxItems, items, scope, title } as config) lifeCycle =
     div [ class "d-flex flex-column" ]
         [ div [ class "card shadow-sm" ]
             [ div [ class "card-header d-flex align-items-center justify-content-between" ]
