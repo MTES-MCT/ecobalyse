@@ -3,6 +3,7 @@ module Main exposing (main)
 import App exposing (PageUpdate)
 import Browser exposing (Document)
 import Browser.Navigation as Nav
+import Data.Component as Component
 import Data.Example as Example
 import Data.Food.Query as FoodQuery
 import Data.Github as Github
@@ -109,8 +110,15 @@ type Msg
 
 init : Flags -> Url -> Nav.Key -> ( Model, Cmd Msg )
 init flags requestedUrl navKey =
-    setRoute requestedUrl <|
-        case StaticDb.db StaticJson.processesJson of
+    setRoute requestedUrl
+        (case
+            StaticDb.db StaticJson.processesJson
+                |> Result.andThen
+                    (\db ->
+                        Component.defaultConfig db.processes
+                            |> Result.map (Tuple.pair db)
+                    )
+         of
             Err err ->
                 ( { mobileNavigationOpened = False
                   , navKey = navKey
@@ -121,10 +129,10 @@ init flags requestedUrl navKey =
                 , Posthog.send <| Posthog.PageErrored requestedUrl err
                 )
 
-            Ok db ->
+            Ok ( db, componentConfig ) ->
                 let
                     session =
-                        setupSession navKey flags db
+                        setupSession navKey flags db componentConfig
                 in
                 ( { mobileNavigationOpened = False
                   , navKey = navKey
@@ -144,12 +152,14 @@ init flags requestedUrl navKey =
                     , Posthog.send <| Posthog.PageViewed requestedUrl
                     ]
                 )
+        )
 
 
-setupSession : Nav.Key -> Flags -> Db -> Session
-setupSession navKey flags db =
+setupSession : Nav.Key -> Flags -> Db -> Component.Config -> Session
+setupSession navKey flags db componentConfig =
     Session.decodeRawStore flags.rawStore
         { clientUrl = flags.clientUrl
+        , componentConfig = componentConfig
         , currentVersion = Request.Version.Unknown
         , db = db
         , enabledSections = flags.enabledSections

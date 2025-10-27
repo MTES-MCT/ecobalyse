@@ -101,8 +101,8 @@ decodeEndOfLifeStrategy : List Process -> Decoder EndOfLifeStrategy
 decodeEndOfLifeStrategy processes =
     Decode.succeed EndOfLifeStrategy
         |> Decode.hardcoded Impact.empty
-        |> DU.strictOptional "process" (Process.decodeFromId processes)
-        |> Decode.required "share" Split.decodePercent
+        |> DU.strictOptional "processId" (Process.decodeFromId processes)
+        |> Decode.required "percent" Split.decodePercent
 
 
 defaultJsonConfig : String
@@ -115,37 +115,37 @@ defaultJsonConfig =
             },
             "strategies": {
                 "default": {
-                    "incinerating": { "process": "6fad4e70-5736-552d-a686-97e4fb627c37", "share": 82 },
-                    "landfilling": { "process": "d4954f69-e647-531d-aa32-c34be5556736", "share": 18 },
+                    "incinerating": { "processId": "6fad4e70-5736-552d-a686-97e4fb627c37", "percent": 82 },
+                    "landfilling": { "processId": "d4954f69-e647-531d-aa32-c34be5556736", "percent": 18 },
                     "recycling": null
                 },
                 "collected": {
                     "metal": {
                         "incinerating": null,
                         "landfilling": null,
-                        "recycling": { "share": 100 }
+                        "recycling": { "percent": 100 }
                     },
                     "plastic": {
-                        "incinerating": { "process": "17986210-aeb8-5f4f-99fd-cbecb5439fde", "share": 8 },
+                        "incinerating": { "processId": "17986210-aeb8-5f4f-99fd-cbecb5439fde", "percent": 8 },
                         "landfilling": null,
-                        "recycling": { "share": 92 }
+                        "recycling": { "percent": 92 }
                     },
                     "upholstery": {
-                        "incinerating": { "process": "3fe5a5b1-c1b2-5c17-8b59-0e37b09f1037", "share": 94 },
-                        "landfilling": { "process": "d4954f69-e647-531d-aa32-c34be5556736", "share": 2 },
-                        "recycling": { "share": 4 }
+                        "incinerating": { "processId": "3fe5a5b1-c1b2-5c17-8b59-0e37b09f1037", "percent": 94 },
+                        "landfilling": { "processId": "d4954f69-e647-531d-aa32-c34be5556736", "percent": 2 },
+                        "recycling": { "percent": 4 }
                     },
                     "wood": {
-                        "incinerating": { "process": "316be695-bf3e-5562-9f09-77f213c3ec67", "share": 31 },
+                        "incinerating": { "processId": "316be695-bf3e-5562-9f09-77f213c3ec67", "percent": 31 },
                         "landfilling": null,
-                        "recycling": { "share": 69 }
+                        "recycling": { "percent": 69 }
                     }
                 },
                 "nonCollected": {
                     "metal": {
-                        "incinerating": { "process": "5719f399-c2a3-5268-84e2-894aba588f1b", "share": 5 },
-                        "landfilling": { "process": "d4954f69-e647-531d-aa32-c34be5556736", "share": 5 },
-                        "recycling": { "share": 90 }
+                        "incinerating": { "processId": "5719f399-c2a3-5268-84e2-894aba588f1b", "percent": 5 },
+                        "landfilling": { "processId": "d4954f69-e647-531d-aa32-c34be5556736", "percent": 5 },
+                        "recycling": { "percent": 90 }
                     }
                 }
             }
