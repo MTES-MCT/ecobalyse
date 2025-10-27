@@ -165,12 +165,8 @@ init trigram maybeUrlQuery session =
                 |> Maybe.withDefault session.queries.textile
 
         simulator =
-            Component.defaultConfig session.db.processes
-                |> Result.andThen
-                    (\config ->
-                        initialQuery
-                            |> Simulator.compute session.db config
-                    )
+            initialQuery
+                |> Simulator.compute session.db session.componentConfig
     in
     { simulator = simulator
     , bookmarkName = initialQuery |> suggestBookmarkName session
@@ -220,12 +216,8 @@ initFromExample session uuid =
                 |> Result.withDefault session.queries.textile
 
         simulator =
-            Component.defaultConfig session.db.processes
-                |> Result.andThen
-                    (\config ->
-                        exampleQuery
-                            |> Simulator.compute session.db config
-                    )
+            exampleQuery
+                |> Simulator.compute session.db session.componentConfig
     in
     { simulator = simulator
     , bookmarkName = exampleQuery |> suggestBookmarkName session
@@ -279,13 +271,7 @@ updateQuery query ({ model, session } as pageUpdate) =
     { pageUpdate
         | model =
             { model
-                | simulator =
-                    Component.defaultConfig session.db.processes
-                        |> Result.andThen
-                            (\config ->
-                                query
-                                    |> Simulator.compute session.db config
-                            )
+                | simulator = query |> Simulator.compute session.db session.componentConfig
                 , bookmarkName = query |> suggestBookmarkName session
             }
         , session = session |> Session.updateTextileQuery query
@@ -915,6 +901,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         ]
     , ComponentView.editorView
         { addLabel = "Ajouter un accessoire"
+        , componentConfig = session.componentConfig
         , customizable = False
         , db = session.db
         , debug = False
@@ -924,16 +911,12 @@ simulatorFormView session model ({ inputs } as simulator) =
         , impact = model.impact
         , items = inputs.trims
         , lifeCycle =
-            Component.defaultConfig session.db.processes
-                |> Result.andThen
-                    (\config ->
-                        inputs.trims
-                            |> Component.compute
-                                { config = config
-                                , db = session.db
-                                , scope = Scope.Textile
-                                }
-                    )
+            inputs.trims
+                |> Component.compute
+                    { config = session.componentConfig
+                    , db = session.db
+                    , scope = Scope.Textile
+                    }
         , maxItems = Nothing
         , noOp = NoOp
         , openSelectComponentModal = AddTrimModal >> SetModal

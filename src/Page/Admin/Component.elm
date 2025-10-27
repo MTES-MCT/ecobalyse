@@ -329,7 +329,7 @@ selectProcess category (( component, _ ) as targetItem) maybeElementIndex autoco
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view { db } model =
+view session model =
     ( "Admin Composants"
     , [ Container.centered [ class "d-flex flex-column gap-3 pb-5" ]
             [ AdminView.header model.section
@@ -343,12 +343,12 @@ view { db } model =
             , model.components
                 |> WebDataView.map
                     (processFilters model.scopes model.search
-                        >> componentListView db model.selected
+                        >> componentListView session.db model.selected
                     )
             , model.components
                 |> WebDataView.map (AdminView.downloadElementsButton "components.json" Component.encode model.selected)
             , model.modals
-                |> List.indexedMap (modalView db model.modals)
+                |> List.indexedMap (modalView session model.modals)
                 |> div []
             ]
       ]
@@ -472,8 +472,8 @@ componentRowView db selected component =
         ]
 
 
-modalView : Db -> List Modal -> Int -> Modal -> Html Msg
-modalView db modals index modal =
+modalView : Session -> List Modal -> Int -> Modal -> Html Msg
+modalView { componentConfig, db } modals index modal =
     let
         { title, content, footer, size } =
             case modal of
@@ -495,6 +495,7 @@ modalView db modals index modal =
                     , content =
                         [ ComponentView.editorView
                             { addLabel = ""
+                            , componentConfig = componentConfig
                             , customizable = True
                             , db = db
                             , debug = False
@@ -504,17 +505,12 @@ modalView db modals index modal =
                             , impact = db.definitions |> Definition.get Definition.Ecs
                             , items = [ item ]
                             , lifeCycle =
-                                -- FIXME: handle when loaded over http
-                                Component.defaultConfig db.processes
-                                    |> Result.andThen
-                                        (\config ->
-                                            [ item ]
-                                                |> Component.compute
-                                                    { config = config
-                                                    , db = db
-                                                    , scope = component.scope
-                                                    }
-                                        )
+                                [ item ]
+                                    |> Component.compute
+                                        { config = componentConfig
+                                        , db = db
+                                        , scope = component.scope
+                                        }
                             , maxItems = Just 1
                             , noOp = NoOp
                             , openSelectComponentModal = \_ -> NoOp

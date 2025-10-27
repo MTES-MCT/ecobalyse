@@ -142,6 +142,8 @@ init flags requestedUrl navKey =
                   }
                 , Cmd.batch
                     [ Ports.appStarted ()
+
+                    -- TODO: initiate loading of component config over http
                     , Request.Version.loadVersion VersionReceived
                     , Request.Github.getReleases ReleasesReceived
                     , if Session.isAuthenticated session then

@@ -40,6 +40,7 @@ import Views.Link as Link
 
 type alias Config db msg =
     { addLabel : String
+    , componentConfig : Component.Config
     , customizable : Bool
     , db : Component.DataContainer db
     , debug : Bool
@@ -604,29 +605,19 @@ quantityInput config itemIndex quantity =
 
 
 endOfLifeView : Config db msg -> LifeCycle -> Html msg
-endOfLifeView ({ db } as config) lifeCycle =
+endOfLifeView ({ componentConfig } as config) lifeCycle =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header d-flex align-items-center justify-content-between" ]
             [ h2 [ class "h5 mb-0" ]
                 [ text "Fin de vie" ]
             , div [ class "d-flex align-items-center gap-2" ]
-                [ case
-                    Component.defaultConfig db.processes
-                        |> Result.map
-                            (\componentConfig ->
-                                lifeCycle.production
-                                    |> Component.getEndOfLifeImpacts
-                                        { config = componentConfig
-                                        , db = config.db
-                                        , scope = config.scope
-                                        }
-                            )
-                  of
-                    Err error ->
-                        span [ class "text-danger" ] [ text error ]
-
-                    Ok impacts ->
-                        Format.formatImpact config.impact impacts
+                [ lifeCycle.production
+                    |> Component.getEndOfLifeImpacts
+                        { config = componentConfig
+                        , db = config.db
+                        , scope = config.scope
+                        }
+                    |> Format.formatImpact config.impact
                 ]
             ]
         , div [ class "card-body table-responsive p-0" ]
@@ -641,45 +632,26 @@ endOfLifeView ({ db } as config) lifeCycle =
                         , th [ class "text-end pe-3" ] [ text "Impact" ]
                         ]
                     ]
-                , case
-                    Component.defaultConfig db.processes
-                        |> Result.map
-                            (\componentConfig ->
-                                lifeCycle.production
-                                    |> Component.getEndOfLifeDetailedImpacts
-                                        { config = componentConfig
-                                        , db = config.db
-                                        , scope = config.scope
-                                        }
-                            )
-                  of
-                    Err error ->
-                        Alert.simple
-                            { attributes = []
-                            , close = Nothing
-                            , content = [ text <| "Erreur lors du calcul de l'impact de fin de vie\u{00A0}: " ++ error ]
-                            , level = Alert.Danger
-                            , title = Nothing
-                            }
-
-                    Ok categories ->
-                        categories
-                            |> AnyDict.toList
-                            |> List.sortBy (Tuple.first >> Category.materialTypeToLabel)
-                            |> List.concatMap (endOfLifeMaterialRow config)
-                            |> tbody []
+                , lifeCycle.production
+                    |> Component.getEndOfLifeDetailedImpacts
+                        { config = componentConfig
+                        , db = config.db
+                        , scope = config.scope
+                        }
+                    |> AnyDict.toList
+                    |> List.sortBy (Tuple.first >> Category.materialTypeToLabel)
+                    |> List.concatMap (endOfLifeMaterialRow config)
+                    |> tbody []
                 ]
             ]
         ]
 
 
 endOfLifeMaterialRow : Config db msg -> ( Category.Material, EndOfLifeMaterialImpacts ) -> List (Html msg)
-endOfLifeMaterialRow ({ db, scope } as config) ( materialType, { collected, nonCollected } ) =
+endOfLifeMaterialRow ({ componentConfig, scope } as config) ( materialType, { collected, nonCollected } ) =
     let
         collectionShare =
-            Component.defaultConfig db.processes
-                |> Result.map (Component.getEndOfLifeScopeCollectionRate scope)
-                |> Result.withDefault Split.full
+            scope |> Component.getEndOfLifeScopeCollectionRate componentConfig
 
         nonCollectionShare =
             Split.complement collectionShare

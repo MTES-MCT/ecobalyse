@@ -5,6 +5,7 @@ import Data.Dataset as Dataset
 import Data.Env as Env
 import Data.Process as Process
 import Data.Scope exposing (Scope)
+import Data.Session exposing (Session)
 import Data.Split as Split
 import Data.Textile.Economics as Economics
 import Data.Textile.Fabric as Fabric
@@ -23,7 +24,6 @@ import Html.Attributes exposing (..)
 import Page.Explore.Table as Table exposing (Table)
 import Quantity
 import Route
-import Static.Db exposing (Db)
 import Views.Format as Format
 import Volume
 
@@ -33,8 +33,8 @@ withTitle str =
     span [ title str ] [ text str ]
 
 
-table : Db -> { detailed : Bool, scope : Scope } -> Table Product String msg
-table db { detailed, scope } =
+table : Session -> { detailed : Bool, scope : Scope } -> Table Product String msg
+table { componentConfig, db } { detailed, scope } =
     { filename = "products"
     , toId = .id >> Product.idToString
     , toRoute = .id >> Just >> Dataset.TextileProducts >> Route.Explore scope
@@ -113,13 +113,9 @@ table db { detailed, scope } =
             picking product surfaceMass ys =
                 let
                     outputMass =
-                        Component.defaultConfig db.processes
-                            |> Result.andThen
-                                (\config ->
-                                    TextileQuery.default
-                                        |> TextileQuery.updateProduct product
-                                        |> Simulator.compute db config
-                                )
+                        TextileQuery.default
+                            |> TextileQuery.updateProduct product
+                            |> Simulator.compute db componentConfig
                             |> Result.map (.lifeCycle >> LifeCycle.getStepProp Label.Fabric .outputMass Quantity.zero)
                             |> Result.withDefault Quantity.zero
 

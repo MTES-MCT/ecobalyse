@@ -136,16 +136,12 @@ init scope trigram maybeUrlQuery session =
     , initialQuery = initialQuery
     , modal = NoModal
     , lifeCycle =
-        Component.defaultConfig session.db.processes
-            |> Result.andThen
-                (\config ->
-                    initialQuery
-                        |> Simulator.compute
-                            { config = config
-                            , db = session.db
-                            , scope = scope
-                            }
-                )
+        initialQuery
+            |> Simulator.compute
+                { config = session.componentConfig
+                , db = session.db
+                , scope = scope
+                }
     , scope = scope
     }
         |> App.createUpdate (session |> Session.updateObjectQuery scope initialQuery)
@@ -189,16 +185,12 @@ initFromExample session scope uuid =
     , initialQuery = exampleQuery
     , modal = NoModal
     , lifeCycle =
-        Component.defaultConfig session.db.processes
-            |> Result.andThen
-                (\config ->
-                    exampleQuery
-                        |> Simulator.compute
-                            { config = config
-                            , db = session.db
-                            , scope = scope
-                            }
-                )
+        exampleQuery
+            |> Simulator.compute
+                { config = session.componentConfig
+                , db = session.db
+                , scope = scope
+                }
     , scope = scope
     }
         |> App.createUpdate (session |> Session.updateObjectQuery scope exampleQuery)
@@ -240,16 +232,12 @@ updateQuery query ({ model, session } as pageUpdate) =
                 | initialQuery = query
                 , bookmarkName = query |> suggestBookmarkName session model.examples
                 , lifeCycle =
-                    Component.defaultConfig session.db.processes
-                        |> Result.andThen
-                            (\config ->
-                                query
-                                    |> Simulator.compute
-                                        { config = config
-                                        , db = session.db
-                                        , scope = model.scope
-                                        }
-                            )
+                    query
+                        |> Simulator.compute
+                            { config = session.componentConfig
+                            , db = session.db
+                            , scope = model.scope
+                            }
             }
         , session = session |> Session.updateObjectQuery model.scope query
     }
@@ -587,6 +575,7 @@ simulatorView session model =
             , durabilityView currentDurability
             , ComponentView.editorView
                 { addLabel = "Ajouter un composant"
+                , componentConfig = session.componentConfig
                 , customizable = True
                 , db = session.db
                 , debug = True

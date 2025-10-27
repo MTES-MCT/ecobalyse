@@ -878,7 +878,7 @@ getEndOfLifeDetailedImpacts : Requirements db -> Results -> DetailedEndOfLifeImp
 getEndOfLifeDetailedImpacts { config, scope } =
     let
         collectionRatio =
-            getEndOfLifeScopeCollectionRate scope config
+            getEndOfLifeScopeCollectionRate config scope
 
         nonCollectionRatio =
             Split.complement collectionRatio
@@ -940,8 +940,8 @@ getEndOfLifeImpacts requirements (Results results) =
         |> Impact.sumImpacts
 
 
-getEndOfLifeScopeCollectionRate : Scope -> Config -> Split
-getEndOfLifeScopeCollectionRate scope { endOfLife } =
+getEndOfLifeScopeCollectionRate : Config -> Scope -> Split
+getEndOfLifeScopeCollectionRate { endOfLife } scope =
     endOfLife.scopeCollectionRates
         |> AnyDict.get scope
         -- Assume every material is fully collected by default
