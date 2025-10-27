@@ -594,7 +594,7 @@ endOfLifeView ({ db } as config) lifeCycle =
             [ h2 [ class "h5 mb-0" ]
                 [ text "Fin de vie" ]
             , div [ class "d-flex align-items-center gap-2" ]
-                [ case Component.getEndOfLifeImpacts config.db Scope.Object lifeCycle.production of
+                [ case Component.getEndOfLifeImpacts config.db config.scope lifeCycle.production of
                     Err error ->
                         span [ class "text-danger" ] [ text error ]
 
