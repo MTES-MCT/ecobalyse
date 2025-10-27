@@ -30,6 +30,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U",
@@ -67,6 +68,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "NL",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Agaricus bisporus mushroom, fresh, at plant {NL} - Adapted from WFLDB U",
@@ -104,6 +106,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Pear, conventional, national average, at orchard {FR} U",
@@ -141,6 +144,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Pasta, dried, from durum wheat, at plant, from GLO wheat and DE elec, constructed by Ecobalyse",
@@ -178,6 +182,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "WFLDB",
     "sourceId": "Apricot, at farm (WFLDB)",
@@ -215,6 +220,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "BR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Mango, conventional, Val de San Francisco, at orchard {BR} U",
@@ -252,6 +258,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Tomato juice, pure juice, filled, at plant {FR} U",
@@ -289,6 +296,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Turkey, conventional, at farm gate {FR} U",
@@ -326,6 +334,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "IE",
     "scopes": ["food"],
     "source": "WFLDB",
     "sourceId": "Lamb, fresh meat, at slaughterhouse (WFLDB)",
@@ -363,6 +372,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "AU",
     "scopes": ["textile", "object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[AU] market for electricity, medium voltage",
@@ -400,6 +410,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RER",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Polystyrene, expandable {RER}| production | Cut-off, S - Copied from Ecoinvent U",
@@ -437,6 +448,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "TR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Hazelnut, unshelled, at plant {TR} U",
@@ -474,6 +486,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RER",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Kraft paper {RER}| kraft paper production | Cut-off, S - Copied from Ecoinvent U",
@@ -511,6 +524,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Spring pea, conventional, 15% moisture, animal feed, at farm gate, production {FR} U",
@@ -548,6 +562,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Sausage meat, raw, recipe, at plant {FR} U",
@@ -585,6 +600,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RER",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Transport, freight, lorry 16-32 metric ton, EURO5 {RER}| transport, freight, lorry 16-32 metric ton, EURO5 | Cut-off, S - Copied from Ecoinvent U",
@@ -622,6 +638,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Cherry, conventional, national average, at orchard {FR} U",
@@ -659,6 +676,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RER",
     "scopes": ["veli", "object"],
     "source": "Ecobalyse",
     "sourceId": "Aluminium extrusion, constructed by Ecobalyse",
@@ -696,6 +714,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Chinese cabbage (nappa cabbage or bok choy), consumption mix, organic 2025 {FR} U",
@@ -733,6 +752,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["object"],
     "source": "Custom",
     "sourceId": "Blanchiment (scénario de pollution aquatique moyen)",
@@ -770,6 +790,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Transport, freight, sea, container ship {GLO}| transport, freight, sea, container ship | Cut-off, S - Copied from Ecoinvent U",
@@ -807,6 +828,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Grazed grass, temporary meadow, without clover, Northwestern region, on field {FR} U",
@@ -844,6 +866,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Durum wheat grain, organic 2025, national average, at farm gate {FR} U",
@@ -881,6 +904,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Cooked ham case ready at plant {{cooked-ham-case-ready-plant-organic}}, constructed by Ecobalyse",
@@ -918,6 +942,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RER",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Dark chocolate, at plant {RER} - Adapted from WFLDB U",
@@ -955,6 +980,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Carrot, conventional, national average, at farm gate {FR} U",
@@ -992,6 +1018,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "ES",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Olive, organic 2025 {ES}| olive production | Cut-off, U",
@@ -1029,6 +1056,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
@@ -1066,6 +1094,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Melon, organic 2025, national average, at farm gate {FR} U",
@@ -1103,6 +1132,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RER",
     "scopes": ["object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "injection moulding//[RER] injection moulding",
@@ -1140,6 +1170,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Sunflower grain, consumption mix, organic 2025 {FR} U",
@@ -1177,6 +1208,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "IN",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Peanut {IN}| peanut production | Cut-off, U - Adapted from Ecoinvent U",
@@ -1214,6 +1246,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Garlic, consumption mix {FR} U",
@@ -1251,6 +1284,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "extrusion of plastic sheets and thermoforming, inline//[GLO] market for extrusion of plastic sheets and thermoforming, inline",
@@ -1288,6 +1322,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["veli", "object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "polyethylene terephthalate, granulate, amorphous//[GLO] market for polyethylene terephthalate, granulate, amorphous",
@@ -1325,6 +1360,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U",
@@ -1362,6 +1398,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Black pepper, dried, consumption mix {FR} U",
@@ -1399,6 +1436,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "BR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Maize grain, non-irrigated, at farm {BR} - Adapted from WFLDB U",
@@ -1436,6 +1474,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RAF",
     "scopes": ["textile", "object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[RAF] market group for electricity, medium voltage",
@@ -1444,7 +1483,7 @@
   },
   {
     "categories": ["material", "material_type:metal"],
-    "comment": "added by Ecobalyse",
+    "comment": "",
     "density": 0,
     "displayName": "Aluminium vierge mix marché (RoW)",
     "elecMJ": 0,
@@ -1473,6 +1512,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["veli"],
     "source": "Ecobalyse",
     "sourceId": "aluminium, low-alloyed, virgin, market, RoW, constructed by Ecobalyse",
@@ -1510,6 +1550,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Broccoli, consumption mix {FR} U",
@@ -1547,6 +1588,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile"],
     "source": "Custom",
     "sourceId": "Utilisation : Impact hors repassage (Chemisier)",
@@ -1584,6 +1626,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "DE",
     "scopes": ["object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "sawlog and veneer log, hardwood, measured as solid wood under bark//[DE] hardwood forestry, beech, sustainable forest management",
@@ -1621,6 +1664,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile", "object"],
     "source": "Custom",
     "sourceId": "Dégraissage",
@@ -1658,6 +1702,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RER",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Polyethylene, high density, granulate {RER}| production | Cut-off, S - Copied from Ecoinvent U",
@@ -1666,7 +1711,7 @@
   },
   {
     "categories": ["ingredient"],
-    "comment": "added by Ecobalyse",
+    "comment": "",
     "density": 0,
     "displayName": "Lait Bio",
     "elecMJ": 0,
@@ -1695,6 +1740,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Cow milk, organic, national average, at farm gate FR U, constructed by Ecobalyse",
@@ -1732,6 +1778,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "CH",
     "scopes": ["object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "waste plastic, mixture//[CH] treatment of waste plastic, mixture, municipal incineration",
@@ -1769,6 +1816,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "ES",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Peach {ES}| peach production | Cut-off, U - Adapted from Ecoinvent U",
@@ -1806,6 +1854,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Leek, consumption mix {FR} U",
@@ -1814,7 +1863,7 @@
   },
   {
     "categories": ["energy"],
-    "comment": "added by Ecobalyse",
+    "comment": "",
     "density": 0,
     "displayName": "Diesel (B7), norme Euro4",
     "elecMJ": 0,
@@ -1843,6 +1892,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["veli"],
     "source": "Ecobalyse",
     "sourceId": "diesel, B7, EURO4, constructed by Ecobalyse",
@@ -1880,6 +1930,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "CH",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
@@ -1917,6 +1968,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Pasta, dried, from durum wheat, at plant, from GLO wheat and BE elec, constructed by Ecobalyse",
@@ -1954,6 +2006,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Vinegar, balsamic, processed in FR | Ambient (long) | Pack proxy | at packaging {FR} U",
@@ -1991,6 +2044,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "IT",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Hazelnut, unshelled, at plant {IT} U",
@@ -2028,6 +2082,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Liver, pork, raw, processed in FR | Chilled | Pack | at distribution {FR} U",
@@ -2065,6 +2120,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Soup, mixed vegetables, prepacked, to be reheated, at plant {DE} U, constructed by Ecobalyse",
@@ -2102,6 +2158,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GB",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Lobster, 1 kg of product, at landing {GB} U",
@@ -2139,6 +2196,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Meat with bone, beef, for direct consumption {{meat-with-bone-beef-direct-consumption-feedlot}}, constructed by Ecobalyse",
@@ -2176,6 +2234,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RER",
     "scopes": ["object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "acrylic varnish, with water, in 53% solution state//[RER] acrylic varnish production, with water, in 53% solution state",
@@ -2213,6 +2272,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Barley, feed grain, conventional, national average, animal feed, at farm gate {FR} U",
@@ -2250,6 +2310,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "PK",
     "scopes": ["textile", "object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[PK] market for electricity, medium voltage",
@@ -2287,6 +2348,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "CN",
     "scopes": ["food"],
     "source": "WFLDB",
     "sourceId": "Mandarin, at farm (WFLDB)",
@@ -2324,6 +2386,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["textile"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "transport, freight, sea, container ship//[GLO] market for transport, freight, sea, container ship",
@@ -2361,6 +2424,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling {GLO}| transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling | Cut-off, S - Copied from Ecoinvent U",
@@ -2398,6 +2462,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Brie cheese, from cow's milk, consumption mix {FR} U",
@@ -2435,6 +2500,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "IT",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Hazelnut, in shell, at farm, organic 2025 {IT}",
@@ -2472,6 +2538,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "US",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Lobster, 1 kg of product, at landing {US} U",
@@ -2509,6 +2576,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "NL",
     "scopes": ["food"],
     "source": "WFLDB",
     "sourceId": "Potato, at farm (WFLDB)",
@@ -2517,7 +2585,7 @@
   },
   {
     "categories": ["energy"],
-    "comment": "added by Ecobalyse",
+    "comment": "",
     "density": 0,
     "displayName": "Diesel (B7), norme Euro6",
     "elecMJ": 0,
@@ -2546,6 +2614,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["veli"],
     "source": "Ecobalyse",
     "sourceId": "diesel, B7, EURO6, constructed by Ecobalyse",
@@ -2583,6 +2652,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile"],
     "source": "Custom",
     "sourceId": "Tissage (habillement)",
@@ -2620,6 +2690,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "PE",
     "scopes": ["textile"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[PE] market for electricity, medium voltage",
@@ -2657,6 +2728,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Pea, organic, animal feed, at farm gate {FR} U",
@@ -2694,6 +2766,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Onions, dried, consumption mix {FR} U",
@@ -2731,6 +2804,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile"],
     "source": "Base Impacts 2.01",
     "sourceId": "Délavage chimique, procédé majorant, traitement inefficace des eaux usées",
@@ -2768,6 +2842,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "CN",
     "scopes": ["textile", "object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[CN] market group for electricity, medium voltage",
@@ -2805,6 +2880,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Soft wheat grain, conventional, national average, animal feed, at farm gate, production {FR} U",
@@ -2842,6 +2918,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Cooked ham case ready at plant {{cooked-ham-case-ready-plant-bbc}}, constructed by Ecobalyse",
@@ -2879,6 +2956,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Fresh cream cheese, plain, creamy, around 8% fat, at plant {FR} U",
@@ -2916,6 +2994,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "BD",
     "scopes": ["textile", "object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[BD] market for electricity, medium voltage",
@@ -2924,7 +3003,7 @@
   },
   {
     "categories": ["material", "material_type:metal"],
-    "comment": "added by Ecobalyse",
+    "comment": "",
     "density": 0,
     "displayName": "Aluminium vierge mix marché (RER)",
     "elecMJ": 0,
@@ -2953,6 +3032,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["veli"],
     "source": "Ecobalyse",
     "sourceId": "aluminium, low-alloyed, virgin, market, RER, constructed by Ecobalyse",
@@ -2990,6 +3070,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Cabbage red {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
@@ -3027,6 +3108,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RoW",
     "scopes": ["textile"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "polypropylene, granulate//[RoW] polypropylene production, granulate",
@@ -3064,6 +3146,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RER",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Polyvinylchloride, suspension polymerised {RER}| polyvinylchloride production, suspension polymerisation | Cut-off, S - Copied from Ecoinvent U",
@@ -3101,6 +3184,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile"],
     "source": "Custom",
     "sourceId": "Tricotage moyen (mix de métiers circulaire & rectiligne)",
@@ -3138,6 +3222,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "ES",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Olive {ES}| olive production | Cut-off, U - Adapted from Ecoinvent U",
@@ -3175,6 +3260,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Cauliflower, winter, conventional, at farm gate {FR} U",
@@ -3212,6 +3298,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Grape, integrated, variety mix, Languedoc-Roussillon, at vineyard, organic 2025 {FR} U",
@@ -3249,6 +3336,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "ES",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Strawberry for processing, open field, conventional, at farm gate {ES} U",
@@ -3286,6 +3374,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Pasta, dried, from durum wheat, at plant, from GLO wheat and ES elec, constructed by Ecobalyse",
@@ -3323,6 +3412,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "NZ",
     "scopes": ["textile"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[NZ] market for electricity, medium voltage",
@@ -3360,6 +3450,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "IT",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Sunflower oil, at plant {IT} U",
@@ -3397,6 +3488,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "BR",
     "scopes": ["textile"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[BR] market group for electricity, medium voltage",
@@ -3434,6 +3526,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile"],
     "source": "Base Impacts 2.01",
     "sourceId": "Transport en voiture jusqu'au point de collecte précalculé pour la fin de vie",
@@ -3471,6 +3564,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Tomato paste, 30 degrees Brix, for double concentrate, at plant {GLO} - Adapted from WFLDB U",
@@ -3508,6 +3602,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Durum wheat grain, conventional, national average, at farm gate {FR} U",
@@ -3545,6 +3640,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "PL",
     "scopes": ["food"],
     "source": "WFLDB",
     "sourceId": "Chicken, fresh meat, at slaughterhouse (WFLDB)",
@@ -3582,6 +3678,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "CH",
     "scopes": ["object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "waste wood, untreated//[CH] treatment of waste wood, untreated, municipal incineration",
@@ -3619,6 +3716,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Corn glucose syrup, at plant {GLO} - Adapted from WFLDB U",
@@ -3656,6 +3754,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RER w/o CH+DE",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Packaging glass, white {RER w/o CH+DE}| production | Cut-off, S - Copied from Ecoinvent U",
@@ -3693,6 +3792,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "TR",
     "scopes": ["food"],
     "source": "WFLDB",
     "sourceId": "Cherry, at farm (WFLDB)",
@@ -3730,6 +3830,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["textile"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "transport, freight, aircraft, long haul//[GLO] market for transport, freight, aircraft, long haul",
@@ -3767,6 +3868,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RER",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Polyethylene terephthalate, granulate, bottle grade {RER}| production | Cut-off, S - Copied from Ecoinvent U",
@@ -3804,6 +3906,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Transport, freight, aircraft, unspecified {GLO}| market for transport, freight, aircraft, unspecified | Cut-off, S - Copied from Ecoinvent U",
@@ -3841,6 +3944,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Egg, Bleu Blanc Coeur, outdoor system, at farm gate {FR} U",
@@ -3878,6 +3982,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Annual vining pea for industry, Conventional, National average, at farm gate {FR} U",
@@ -3915,6 +4020,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile", "object", "veli"],
     "source": "Custom",
     "sourceId": "Mix chaleur (Monde)",
@@ -3952,6 +4058,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Winter pea, conventional, 15% moisture, at farm gate {FR} U",
@@ -3989,6 +4096,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Strawberry, coulis, recipe, at plant {FR} U",
@@ -4026,6 +4134,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Rapeseed, at farm {GLO} - Adapted from WFLDB U",
@@ -4063,6 +4172,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "ET",
     "scopes": ["textile"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[ET] market for electricity, medium voltage",
@@ -4100,6 +4210,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RER",
     "scopes": ["veli", "object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "polycarbonate//[RER] polycarbonate production",
@@ -4137,6 +4248,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Butter, 82% fat, unsalted, at dairy {FR} U {{butter-82-fat-unsalted-dairy-fr-u-organic}}, constructed by Ecobalyse",
@@ -4174,6 +4286,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Alfalfa, hay, organic, animal feed, at farm gate {FR} U",
@@ -4211,6 +4324,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Avocado, consumption mix {FR} U",
@@ -4248,6 +4362,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Carrot, organic, Lower Normandy, at farm gate {FR} U",
@@ -4285,6 +4400,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Pasta, dried, from durum wheat, at plant {GLO} - Adapted from WFLDB U",
@@ -4322,6 +4438,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RER",
     "scopes": ["veli", "object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "polymethyl methacrylate, sheet//[RER] polymethyl methacrylate production, sheet",
@@ -4359,6 +4476,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Apple juice, reconstituted from a concentrate, at plant {FR} U",
@@ -4396,6 +4514,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RER",
     "scopes": ["food", "object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "steel, unalloyed//[RER] steel production, converter, unalloyed",
@@ -4404,7 +4523,7 @@
   },
   {
     "categories": ["transformation", "material_type:wood"],
-    "comment": "added by Ecobalyse",
+    "comment": "",
     "density": 0,
     "displayName": "Panneaux, MDF (transformation)",
     "elecMJ": 0,
@@ -4433,6 +4552,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["object"],
     "source": "Ecobalyse",
     "sourceId": "Board, MDF (transformation), constructed by Ecobalyse",
@@ -4470,6 +4590,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Soup, mixed vegetables, prepacked, to be reheated, at plant {ES} U, constructed by Ecobalyse",
@@ -4507,6 +4628,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile"],
     "source": "Woolmark",
     "sourceId": "wool; sheep; production mix; at farm; 1 kg greasy wool",
@@ -4544,6 +4666,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "MM",
     "scopes": ["textile", "object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[MM] market for electricity, medium voltage",
@@ -4581,6 +4704,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RS",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Raspberry, at farm, organic 2025 {RS}",
@@ -4618,6 +4742,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile"],
     "source": "Custom",
     "sourceId": "Apprêts chimiques",
@@ -4655,6 +4780,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Transport, freight, sea, container ship with reefer, cooling {GLO}| transport, freight, sea, container ship with reefer, cooling | Cut-off, S - Copied from Ecoinvent U",
@@ -4692,6 +4818,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "AU",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Durum wheat grain, at farm {AU} - Adapted from WFLDB U",
@@ -4729,6 +4856,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile"],
     "source": "Base Impacts 2.01",
     "sourceId": "Transport en camion non spécifié France",
@@ -4766,6 +4894,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "CH",
     "scopes": ["object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "waste polyurethane//[CH] treatment of waste polyurethane, municipal incineration",
@@ -4803,6 +4932,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile"],
     "source": "Custom",
     "sourceId": "Laine nouvelle filière",
@@ -4840,6 +4970,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Melon, conventional, national average, at farm gate {FR} U",
@@ -4877,6 +5008,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "chemical, organic//[GLO] market for chemical, organic",
@@ -4914,6 +5046,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Lettuce, conventional, national average, at farm gate {FR} U",
@@ -4951,6 +5084,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "European pilchard or sardine, consumption mix {FR} U",
@@ -4988,6 +5122,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "ES",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Lemon {ES}| lemon production | Cut-off, U - Adapted from Ecoinvent U",
@@ -5025,6 +5160,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "BR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Soybean, not associated to deforestation {BR}| market for soybean, without transport | Cut-off, U - Adapted from Ecoinvent",
@@ -5062,6 +5198,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Egg, organic, at farm gate {FR} U",
@@ -5099,6 +5236,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile"],
     "source": "Custom",
     "sourceId": "Désencollage",
@@ -5136,6 +5274,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Durum wheat grain, at farm {GR} - Adapted from WFLDB U",
@@ -5173,6 +5312,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["textile"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "transport, freight, lorry, unspecified//[GLO] market group for transport, freight, lorry, unspecified",
@@ -5210,6 +5350,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Rice, non-basmati, organic 2025 {GLO}| market for rice, non-basmati | Cut-off, U",
@@ -5247,6 +5388,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "ES",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Mandarin {ES}| mandarin production | Cut-off, U - Adapted from Ecoinvent U",
@@ -5284,6 +5426,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Soybean, organic, animal feed, at farm gate {FR} U",
@@ -5321,6 +5464,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Cheese, from goat's milk, consumption mix {FR} U",
@@ -5358,6 +5502,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Anchovy, consumption mix {FR} U",
@@ -5395,6 +5540,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Garden peas, consumption mix, organic 2025 {FR} U",
@@ -5432,6 +5578,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Cull cow, organic, milk system number 1, at farm gate {FR} U",
@@ -5469,6 +5616,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Cooked ham, case ready, at plant {FR} U",
@@ -5506,6 +5654,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Peach, organic, national average, at orchard {FR} U",
@@ -5543,6 +5692,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "CN",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Almonds, in shell, at farm, organic 2025 {CN}",
@@ -5580,6 +5730,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Apple compote, recipe, at plant {FR} U",
@@ -5617,6 +5768,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "European Pilchard, Sardina pilchardus, BBiscay, Seine, average, at landing {FR} U",
@@ -5654,6 +5806,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RER",
     "scopes": ["object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "phenolic resin//[RER] market for phenolic resin",
@@ -5691,6 +5844,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RoW",
     "scopes": ["food"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "chickpea//[RoW] chickpea production",
@@ -5728,6 +5882,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Hake, consumption mix {FR} U",
@@ -5765,6 +5920,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Rapeseed oil, refined, at oil mill {FR} U",
@@ -5802,6 +5958,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Ware potato, conventional, for fresh market, other varieties, at farm gate {FR} U",
@@ -5839,6 +5996,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "ES",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Extra Virgin Olive Oil, at plant {ES} U",
@@ -5876,6 +6034,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "IT",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Lemon juice, pure juice, at plant {IT} U",
@@ -5913,6 +6072,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Wheat grain, at farm {GLO} - Adapted from WFLDB U",
@@ -5950,6 +6110,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Meat without bone chicken for direct consumption {{meat-without-bone-chicken-direct-consumption-fr-feed}}, constructed by Ecobalyse",
@@ -5987,6 +6148,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
@@ -6024,6 +6186,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U",
@@ -6061,6 +6224,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "IT",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Hazelnut, in shell, at farm {IT} - Adapted from WFLDB U",
@@ -6098,6 +6262,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RER",
     "scopes": ["veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "aluminium, cast alloy//[RER] treatment of aluminium scrap, post-consumer, prepared for recycling, at refiner",
@@ -6135,6 +6300,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Meat without bone, veal {FR} U",
@@ -6172,6 +6338,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "IT",
     "scopes": ["textile", "object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[IT] market for electricity, medium voltage",
@@ -6209,6 +6376,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile"],
     "source": "Custom",
     "sourceId": "Utilisation : Impact hors repassage (T-shirt)",
@@ -6246,6 +6414,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Kiwi FR, conventional, national average, at orchard {FR} U",
@@ -6283,6 +6452,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Butter, 82% fat, unsalted, at dairy {FR} U",
@@ -6320,6 +6490,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "CH",
     "scopes": ["object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "scrap steel//[CH] treatment of scrap steel, municipal incineration with fly ash extraction",
@@ -6357,6 +6528,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "US",
     "scopes": ["textile"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[US] market group for electricity, medium voltage",
@@ -6394,6 +6566,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RER",
     "scopes": ["object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "polypropylene, granulate//[RER] polypropylene production, granulate",
@@ -6431,6 +6604,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Egg yolk, powder, at plant {FR} U",
@@ -6468,6 +6642,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "SK",
     "scopes": ["textile"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[SK] market for electricity, medium voltage",
@@ -6505,6 +6680,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Egg, conventional, indoor system, cage, at farm gate {FR} U",
@@ -6542,6 +6718,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Kiwi, consumption mix, organic 2025 {FR} U",
@@ -6579,6 +6756,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile"],
     "source": "Base Impacts 2.01",
     "sourceId": "Impression fixé-lavé, procédé représentatif, traitement moyen des eaux usées",
@@ -6616,6 +6794,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile"],
     "source": "Custom",
     "sourceId": "Utilisation : Impact hors repassage (Jupe)",
@@ -6653,6 +6832,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RER",
     "scopes": ["veli", "object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "synthetic rubber//[RER] synthetic rubber production",
@@ -6661,7 +6841,7 @@
   },
   {
     "categories": ["material", "material_type:metal"],
-    "comment": "added by Ecobalyse",
+    "comment": "",
     "density": 0,
     "displayName": "Aluminium mix marché (RER)",
     "elecMJ": 0,
@@ -6690,6 +6870,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["veli"],
     "source": "Ecobalyse",
     "sourceId": "aluminium, low-alloyed, market, RER, constructed by Ecobalyse",
@@ -6727,6 +6908,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Table apple, consumption mix, organic 2025 {FR} U",
@@ -6764,6 +6946,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "ES",
     "scopes": ["textile"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[ES] market for electricity, medium voltage",
@@ -6801,6 +6984,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Cucumber {GLO}| cucumber production, in heated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
@@ -6838,6 +7022,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RER",
     "scopes": ["veli", "object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "flat glass, uncoated//[RER] flat glass production, uncoated",
@@ -6875,6 +7060,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "CZ",
     "scopes": ["textile", "object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[CZ] market for electricity, medium voltage",
@@ -6912,6 +7098,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Toulouse sausage, raw, recipe, at plant {FR} U",
@@ -6949,6 +7136,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "Europe without Switzerland",
     "scopes": ["object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "wood chips, wet, measured as dry mass//[Europe without Switzerland] market for wood chips, wet, measured as dry mass",
@@ -6986,6 +7174,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Meat with bone, beef for direct consumption {{meat-with-bone-beef-direct-consumption-grass-fed}}, constructed by Ecobalyse",
@@ -7023,6 +7212,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RoW",
     "scopes": ["textile", "object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "polyethylene terephthalate, granulate, amorphous//[RoW] polyethylene terephthalate production, granulate, amorphous",
@@ -7060,6 +7250,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Sugar, from sugarcane, at sugar refinery {GLO} - Adapted from WFLDB U",
@@ -7097,6 +7288,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "lamb meat without bone {{lamb-meat-without-bone-organic}}, constructed by Ecobalyse",
@@ -7134,6 +7326,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Ground beef fresh case ready for direct consumption at plant {{ground-beef-fresh-case-ready-direct-consumption-plant-feedlot}}, constructed by Ecobalyse",
@@ -7171,6 +7364,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Pasta, dried, from durum wheat, at plant, from GLO wheat and IT elec, constructed by Ecobalyse",
@@ -7208,6 +7402,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Ground beef fresh case ready for direct consumption at plant {{ground-beef-fresh-case-ready-direct-consumption-plant-grass-fed}}, constructed by Ecobalyse",
@@ -7245,6 +7440,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "CA",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Blueberry, at farm, organic 2025 {CA}",
@@ -7282,6 +7478,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Meat without bone chicken for direct consumption {{meat-without-bone-chicken-direct-consumption-organic-fr-organic}}, constructed by Ecobalyse",
@@ -7319,6 +7516,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Sugar, from sugar beet, at sugar refinery {GLO} - Adapted from WFLDB U",
@@ -7356,6 +7554,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
@@ -7393,6 +7592,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["textile"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "steel, low-alloyed//[GLO] market for steel, low-alloyed",
@@ -7430,6 +7630,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "IN",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Rice, basmati {IN}| rice production, basmati | Cut-off, U - Adapted from Ecoinvent U",
@@ -7467,6 +7668,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "CN",
     "scopes": ["veli"],
     "source": "Ecoinvent 3.11",
     "sourceId": "Battery, Li-ion, NCA, rechargeable {CN}| battery production, Li-ion, NCA, rechargeable | Cut-off, U",
@@ -7504,6 +7706,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Spring oats, organic, national average, at feed plant {FR} U",
@@ -7541,6 +7744,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile"],
     "source": "Custom",
     "sourceId": "Tricotage fully-fashioned",
@@ -7578,6 +7782,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Breakfast cereals, rich in fibre, with chocolate, fortified with vitamins and chemical elements, recipe, at plant {FR} U",
@@ -7615,6 +7820,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Grape, full production (phase), integrated, variety mix, Languedoc-Roussillon, at vineyard {FR} U",
@@ -7652,6 +7858,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RER",
     "scopes": ["object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "epoxy resin, liquid//[RER] epoxy resin production, liquid",
@@ -7689,6 +7896,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "CN",
     "scopes": ["veli"],
     "source": "Ecoinvent 3.11",
     "sourceId": "Battery, Li-ion, LFP, rechargeable {CN}| battery production, Li-ion, LFP, rechargeable | Cut-off, U",
@@ -7726,6 +7934,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Emmental cheese, grated, cheese production, from cow's milk, hard cheese, French production mix, at plant, 1 kg of Emmental, grated cheese (PGi) {FR} U",
@@ -7763,6 +7972,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RNA",
     "scopes": ["textile", "object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[RNA] market group for electricity, medium voltage",
@@ -7800,6 +8010,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile"],
     "source": "Custom",
     "sourceId": "Production de coton recyclé (déchets post-consommation)",
@@ -7837,6 +8048,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Cauliflower, organic 2025, national average, at farm gate {FR} U",
@@ -7874,6 +8086,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RER",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Oilseed meal mix, as feed, at regional warehouse, as DM {RER} - Adapted from WFLDB U",
@@ -7911,6 +8124,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "MA",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Strawberry for processing, open field, conventional, at farm gate {MA} U",
@@ -7948,6 +8162,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "Europe without Switzerland",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Heat, central or small-scale, natural gas {Europe without Switzerland}| market for heat, central or small-scale, natural gas | Cut-off, S - Copied from Ecoinvent U",
@@ -7985,6 +8200,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electronic component, passive, unspecified//[GLO] market for electronic component, passive, unspecified",
@@ -8022,6 +8238,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RER",
     "scopes": ["veli", "object"],
     "source": "Ecobalyse",
     "sourceId": "steel working, constructed by Ecobalyse",
@@ -8059,6 +8276,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Meat without bone, lamb {FR} U",
@@ -8096,6 +8314,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RoW",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Cabbage white, organic 2025 {RoW}| cabbage white production | Cut-off, U",
@@ -8133,6 +8352,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Wheat flour, at plant {FR} U",
@@ -8170,6 +8390,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "municipal solid waste//[FR] treatment of municipal solid waste, incineration",
@@ -8207,6 +8428,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile", "object"],
     "source": "Custom",
     "sourceId": "Filature non conventionnelle (40 Nm)",
@@ -8244,6 +8466,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "CN",
     "scopes": ["veli"],
     "source": "Ecoinvent 3.11",
     "sourceId": "Battery cell, Li-ion, NMC811 {CN}| battery cell production, Li-ion, NMC811 | Cut-off, U",
@@ -8281,6 +8504,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "Europe without Switzerland and Austria",
     "scopes": ["veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "steel, low-alloyed//[Europe without Switzerland and Austria] steel production, electric, low-alloyed",
@@ -8318,6 +8542,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Cauliflower, conventional, national average, at farm gate {FR} U",
@@ -8355,6 +8580,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Soup, mixed vegetables, dehydrated, at plant {ES} U, constructed by Ecobalyse",
@@ -8363,7 +8589,7 @@
   },
   {
     "categories": ["transformation", "material_type:wood"],
-    "comment": "added by Ecobalyse",
+    "comment": "",
     "density": 0,
     "displayName": "Panneaux, HDF (transformation)",
     "elecMJ": 0,
@@ -8392,6 +8618,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["object"],
     "source": "Ecobalyse",
     "sourceId": "Board, hard fibreboard (transformation), constructed by Ecobalyse",
@@ -8400,7 +8627,7 @@
   },
   {
     "categories": ["material", "material_type:metal"],
-    "comment": "added by Ecobalyse",
+    "comment": "",
     "density": 0,
     "displayName": "Acier mix marché (Europe)",
     "elecMJ": 0,
@@ -8429,6 +8656,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["veli"],
     "source": "Ecobalyse",
     "sourceId": "steel, low-alloyed, market, FR, constructed by Ecobalyse",
@@ -8466,6 +8694,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Meat without bone, chicken, for direct consumption {FR} U",
@@ -8503,6 +8732,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "KE",
     "scopes": ["textile"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[KE] market for electricity, medium voltage",
@@ -8540,6 +8770,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Soybean, national average, animal feed, at farm gate {FR} U",
@@ -8577,6 +8808,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Basmati rice, consumption mix {FR} U",
@@ -8614,6 +8846,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U {{sunflower-oil-oil-mill-glo-adapted-from-wfldb-u-organic}}, constructed by Ecobalyse",
@@ -8651,6 +8884,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RoW",
     "scopes": ["veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "steel, low-alloyed//[RoW] steel production, electric, low-alloyed",
@@ -8688,6 +8922,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "CN",
     "scopes": ["food"],
     "source": "WFLDB",
     "sourceId": "Apple, at farm (WFLDB)",
@@ -8725,6 +8960,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Oats, at farm {GLO} - Adapted from WFLDB U",
@@ -8762,6 +8998,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Onion, organic 2025, national average, at farm {FR} U",
@@ -8799,6 +9036,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RoW",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Onion {RoW}| onion production | Cut-off, U - Copied from Ecoinvent U",
@@ -8836,6 +9074,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Bacon, back, at plant {{bacon-fr-bbc}}, constructed by Ecobalyse",
@@ -8873,6 +9112,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GB",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Brown crab, 1 kg of product, at landing {GB} U",
@@ -8910,6 +9150,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "carbon black//[GLO] carbon black production",
@@ -8947,6 +9188,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RER",
     "scopes": ["object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "polyurethane, rigid foam//[RER] polyurethane production, rigid foam",
@@ -8984,6 +9226,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Almond, consumption mix {FR} U",
@@ -9021,6 +9264,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Rice flour, at industrial mill {FR} U",
@@ -9058,6 +9302,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile"],
     "source": "Custom",
     "sourceId": "Production de coton recyclé (déchets de production)",
@@ -9095,6 +9340,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile", "object"],
     "source": "Custom",
     "sourceId": "Lavage (fibres synthétiques)",
@@ -9132,6 +9378,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Extra Virgin Olive Oil, consumption mix {FR} U",
@@ -9169,6 +9416,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Diced mixed vegetables, canned, recipe, at plant {FR} U",
@@ -9206,6 +9454,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile"],
     "source": "Ecobalyse",
     "sourceId": "Teinture en discontinu",
@@ -9243,6 +9492,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "Europe without Switzerland",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Tap water {Europe without Switzerland}| market for | Cut-off, S - Copied from Ecoinvent U",
@@ -9280,6 +9530,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RER",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Polypropylene, granulate {RER}| production | Cut-off, S - Copied from Ecoinvent U",
@@ -9317,6 +9568,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Hazelnut oil, crude, at plant {FR} U",
@@ -9354,6 +9606,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Lobster, 1 kg of product, at landing {FR} U",
@@ -9391,6 +9644,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "French fries or chips, frozen, at processing {FR} U",
@@ -9428,6 +9682,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RoW",
     "scopes": ["veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "steel, unalloyed//[RoW] steel production, converter, unalloyed",
@@ -9465,6 +9720,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RoW",
     "scopes": ["textile"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "sunn hemp plant, harvested//[RoW] sunn hemp production",
@@ -9502,6 +9758,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile"],
     "source": "Custom",
     "sourceId": "Tricotage rectiligne",
@@ -9539,6 +9796,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Sugar beet, organic 2025 {FR}| sugar beet production | Cut-off, U",
@@ -9576,6 +9834,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "TR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Hazelnut, in shell, at farm {TR} - Adapted from WFLDB U",
@@ -9613,6 +9872,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RER",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Packaging film, low density polyethylene {RER}| production | Cut-off, S - Copied from Ecoinvent U",
@@ -9650,6 +9910,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Banana, consumption mix, organic 2025 {FR} U",
@@ -9691,6 +9952,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile", "object"],
     "source": "Custom",
     "sourceId": "Tissage (40Nm et 250 g/m2)",
@@ -9728,6 +9990,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "DE",
     "scopes": ["object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "sawlog and veneer log, softwood, measured as solid wood under bark//[DE] softwood forestry, spruce, sustainable forest management",
@@ -9765,6 +10028,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Pasta, dried, from durum wheat, at plant, from GLO wheat and FR elec, constructed by Ecobalyse",
@@ -9802,6 +10066,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "ES",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Tomato juice, pure juice, at processing {ES} U",
@@ -9839,6 +10104,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Tomato paste, 30 degrees Brix, at plant {GLO} - Adapted from WFLDB U",
@@ -9876,6 +10142,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RoW",
     "scopes": ["textile"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "fibre, jute//[RoW] fibre production, jute, retting",
@@ -9913,6 +10180,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RER",
     "scopes": ["veli", "object"],
     "source": "Ecobalyse",
     "sourceId": "Aluminium sheeet rolling, constructed by Ecobalyse",
@@ -9950,6 +10218,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Soup, mixed vegetables, prepacked, to be reheated, at plant {BE} U, constructed by Ecobalyse",
@@ -9987,6 +10256,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RER",
     "scopes": ["veli", "object"],
     "source": "Ecobalyse",
     "sourceId": "Aluminium working, average, constructed by Ecobalyse",
@@ -10024,6 +10294,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Palm oil, refined, consumption mix {FR} U",
@@ -10061,6 +10332,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Winter pea, from intercrop, organic, system number 1, at farm gate {FR} U",
@@ -10098,6 +10370,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Apple, conventional, national average, at orchard {FR} U",
@@ -10135,6 +10408,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RoW",
     "scopes": ["textile"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "polymethyl methacrylate, beads//[RoW] polymethyl methacrylate production, beads",
@@ -10172,6 +10446,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Rape seed {FR}| production | Cut-off, U - Adapted from Ecoinvent U",
@@ -10209,6 +10484,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Potato starch {GLO}| market for | Cut-off, S - Copied from Ecoinvent U",
@@ -10246,6 +10522,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Spinach, organic 2025 {GLO}| production | Cut-off, U",
@@ -10283,6 +10560,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U {{rapeseed-oil-oil-mill-glo-adapted-from-wfldb-u-organic}}, constructed by Ecobalyse",
@@ -10291,7 +10569,7 @@
   },
   {
     "categories": ["transformation", "material_type:wood"],
-    "comment": "added by Ecobalyse",
+    "comment": "",
     "density": 0,
     "displayName": "Panneaux, aggloméré/particules (transformation)",
     "elecMJ": 0,
@@ -10320,6 +10598,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["object"],
     "source": "Ecobalyse",
     "sourceId": "Board, particleboard (transformation), constructed by Ecobalyse",
@@ -10357,6 +10636,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["veli", "object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "acrylonitrile-butadiene-styrene copolymer//[GLO] market for acrylonitrile-butadiene-styrene copolymer",
@@ -10394,6 +10674,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Sunflower oil, refined, low dehulling at plant {FR} U",
@@ -10431,6 +10712,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile"],
     "source": "Custom",
     "sourceId": "Utilisation : Impact hors repassage (Manteau)",
@@ -10468,6 +10750,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Whey, at plant {FR} U",
@@ -10476,7 +10759,7 @@
   },
   {
     "categories": ["energy"],
-    "comment": "added by Ecobalyse",
+    "comment": "",
     "density": 0,
     "displayName": "Essence (E10), norme Euro6",
     "elecMJ": 0,
@@ -10505,6 +10788,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["veli"],
     "source": "Ecobalyse",
     "sourceId": "petrol, E10, EURO6, constructed by Ecobalyse",
@@ -10542,6 +10826,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["object"],
     "source": "Custom",
     "sourceId": "Teinture moyenne pour fibres synthétiques (scénario de pollution aquatique moyen)",
@@ -10579,6 +10864,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Winter rapeseed, organic, at farm gate {FR} U",
@@ -10616,6 +10902,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "protein pea//[FR] protein pea production",
@@ -10624,7 +10911,7 @@
   },
   {
     "categories": ["transformation", "material_type:wood"],
-    "comment": "added by Ecobalyse",
+    "comment": "",
     "density": 0,
     "displayName": "Panneaux, OSB (transformation)",
     "elecMJ": 0,
@@ -10653,6 +10940,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["object"],
     "source": "Ecobalyse",
     "sourceId": "Board, OSB (transformation), constructed by Ecobalyse",
@@ -10690,6 +10978,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse {FR} U",
@@ -10727,6 +11016,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile"],
     "source": "Custom",
     "sourceId": "Utilisation : Impact hors repassage (Robe)",
@@ -10735,7 +11025,7 @@
   },
   {
     "categories": ["material", "material_type:metal"],
-    "comment": "added by Ecobalyse",
+    "comment": "",
     "density": 0,
     "displayName": "Aluminium mix marché (CN)",
     "elecMJ": 0,
@@ -10764,6 +11054,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["veli"],
     "source": "Ecobalyse",
     "sourceId": "aluminium, low-alloyed, virgin, market, CN, constructed by Ecobalyse",
@@ -10801,6 +11092,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electric motor, electric passenger car//[GLO] electric motor production, vehicle (electric powertrain)",
@@ -10809,7 +11101,7 @@
   },
   {
     "categories": ["transformation", "material_type:wood"],
-    "comment": "added by Ecobalyse",
+    "comment": "",
     "density": 0,
     "displayName": "Panneaux, contreplaqué (transformation)",
     "elecMJ": 0,
@@ -10838,6 +11130,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["object"],
     "source": "Ecobalyse",
     "sourceId": "Board, plywood (transformation), constructed by Ecobalyse",
@@ -10875,6 +11168,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "TR",
     "scopes": ["textile", "object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[TR] market for electricity, medium voltage",
@@ -10912,6 +11206,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food", "textile", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, low voltage//[FR] market for electricity, low voltage",
@@ -10949,6 +11244,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Squid, consumption mix {FR} U",
@@ -10986,6 +11282,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Fruits puree, without sugar added, recipe, at plant {FR} U",
@@ -11023,6 +11320,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile"],
     "source": "Base Impacts 2.01",
     "sourceId": "Impression pigmentaire, procédé représentatif, traitement moyen des eaux usées",
@@ -11060,6 +11358,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "ES",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Orange, fresh grade, at farm {ES} - Adapted from WFLDB U",
@@ -11097,6 +11396,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Orange nectar, recipe, at plant {FR} U",
@@ -11134,6 +11434,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "PL",
     "scopes": ["object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[PL] market for electricity, medium voltage",
@@ -11171,6 +11472,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile"],
     "source": "Custom",
     "sourceId": "Impression (pigmentaire)",
@@ -11208,6 +11510,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RoW",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
@@ -11245,6 +11548,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Lettuce, organic 2025, national average, at farm gate {FR} U",
@@ -11282,6 +11586,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Onion, conventional, national average, at farm {FR} U",
@@ -11319,6 +11624,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Candied fruits, recipe, at plant {FR} U",
@@ -11356,6 +11662,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RoW",
     "scopes": ["textile"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "polyethylene terephthalate, granulate, amorphous, recycled//[RoW] polyethylene terephthalate production, granulate, amorphous, recycled",
@@ -11393,6 +11700,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Egg, conventional, indoor system, non-cage, at farm gate {FR} U",
@@ -11430,6 +11738,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Vinegar alcohol, consumption mix {FR} U",
@@ -11467,6 +11776,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "BR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Soybean {BR}| market for soybean | Cut-off, U - Copied from Ecoinvent U",
@@ -11504,6 +11814,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "MA",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Clementine, export quality, Souss, at orchard {MA} U",
@@ -11541,6 +11852,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Plant-based sausage with tofu (vegan), recipe, at plant {FR} U",
@@ -11578,6 +11890,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "CA",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Rapeseed, at farm {CA} - Adapted from WFLDB U",
@@ -11615,6 +11928,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Broccoli {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
@@ -11652,6 +11966,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Chicken egg, raw, without shell, at plant {FR} U",
@@ -11689,6 +12004,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Fresh tomato, consumption mix, organic 2025 {FR} U",
@@ -11726,6 +12042,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Peanut, in shell, at farm, organic 2025 {GLO}",
@@ -11763,6 +12080,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Soy protein, textured, dehydrated, from soy flour, at plant {FR} U",
@@ -11800,6 +12118,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Apricot, organic 2025 {FR}| apricot production | Cut-off, U",
@@ -11837,6 +12156,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RAS",
     "scopes": ["textile", "object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[RAS] market group for electricity, medium voltage",
@@ -11874,6 +12194,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Avocado {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
@@ -11911,6 +12232,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Ware potato, organic 2025, variety mix, national average, at farm gate {FR} U",
@@ -11948,6 +12270,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Cooking, industrial, 1kg of cooked product {FR} U",
@@ -11985,6 +12308,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Meat without bone, beef for direct consumption {{meat-without-bone-beef-direct-consumption-grass-fed}}, constructed by Ecobalyse",
@@ -12022,6 +12346,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Leek, organic 2025, national average, at plant {FR} U",
@@ -12059,6 +12384,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Soup, mixed vegetables, dehydrated, at plant {FR} U",
@@ -12096,6 +12422,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "MA",
     "scopes": ["textile", "object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[MA] market for electricity, medium voltage",
@@ -12133,6 +12460,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "WI",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Banana, mixed production, West Indies, at farm gate {WI} U",
@@ -12170,6 +12498,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Cherry, organic 2025, national average, at orchard {FR} U",
@@ -12207,6 +12536,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Fresh shrimps, China production {FR} U",
@@ -12244,6 +12574,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Kiwi {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
@@ -12281,6 +12612,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Bacon, back, at plant {{bacon-default}}, constructed by Ecobalyse",
@@ -12318,6 +12650,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "melamine urea formaldehyde adhesive//[GLO] market for melamine urea formaldehyde adhesive",
@@ -12355,6 +12688,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Canning fruits or vegetables, industrial, 1kg of canned product {FR} U",
@@ -12392,6 +12726,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RER",
     "scopes": ["object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "urea formaldehyde resin//[RER] market for urea formaldehyde resin",
@@ -12429,6 +12764,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["veli", "object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "polypropylene, granulate//[GLO] market for polypropylene, granulate",
@@ -12466,6 +12802,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile"],
     "source": "Custom",
     "sourceId": "Utilisation : Impact hors repassage (Pull)",
@@ -12503,6 +12840,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Soybean oil, refined, at plant {FR} U",
@@ -12540,6 +12878,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RLA",
     "scopes": ["textile", "object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[RLA] market group for electricity, medium voltage",
@@ -12577,6 +12916,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile"],
     "source": "Custom",
     "sourceId": "Fin de vie hors voiture (transport en camion, incinération, mise en décharge)",
@@ -12614,6 +12954,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "AL",
     "scopes": ["textile"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[AL] market for electricity, medium voltage",
@@ -12651,6 +12992,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Carrot, organic 2025, national average, at farm gate {FR} U",
@@ -12688,6 +13030,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile", "object"],
     "source": "Custom",
     "sourceId": "Filature conventionnelle (40 Nm)",
@@ -12725,6 +13068,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Tomato sauce, with meat or Bolognese sauce, prepacked, recipe, at plant {FR} U",
@@ -12762,6 +13106,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "ES",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Lemon, organic 2025 {ES}| lemon production | Cut-off, U",
@@ -12799,6 +13144,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Egg, conventional, outdoor system, at farm gate {FR} U",
@@ -12836,6 +13182,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Red Cabbage, consumption mix, organic 2025 {FR} U",
@@ -12844,7 +13191,7 @@
   },
   {
     "categories": ["material", "material_type:metal"],
-    "comment": "added by Ecobalyse",
+    "comment": "",
     "density": 0,
     "displayName": "Acier mix marché (Reste du monde)",
     "elecMJ": 0,
@@ -12873,6 +13220,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["veli"],
     "source": "Ecobalyse",
     "sourceId": "steel, low-alloyed, market, CN, constructed by Ecobalyse",
@@ -12910,6 +13258,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RoW",
     "scopes": ["textile", "object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "fibre, cotton, organic//[RoW] fibre production, cotton, organic, ginning",
@@ -12947,6 +13296,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile", "object"],
     "source": "Custom",
     "sourceId": "Filage (40 Nm)",
@@ -12984,6 +13334,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["object"],
     "source": "Custom",
     "sourceId": "Teinture moyenne (scénario de pollution aquatique moyen)",
@@ -13021,6 +13372,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Triticale, organic, animal feed, at farm gate {FR} U",
@@ -13058,6 +13410,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Cow milk, conventional, national average, at farm gate {FR} U",
@@ -13095,6 +13448,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "DE",
     "scopes": ["object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "sawlog and veneer log, hardwood, measured as solid wood under bark//[DE] hardwood forestry, oak, sustainable forest management",
@@ -13132,6 +13486,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Coffee, roast and ground, at plant {FR} U",
@@ -13169,6 +13524,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Salmon, fillet, raw, at processing {FR} U",
@@ -13206,6 +13562,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["veli"],
     "source": "Ecoinvent 3.11",
     "sourceId": "Used Li-ion battery {GLO}| market for used Li-ion battery | Cut-off, U",
@@ -13243,6 +13600,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Soup, mixed vegetables, prepacked, to be reheated, recipe, at plant {FR} U",
@@ -13280,6 +13638,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Toulouse sausage, cooked, recipe, at plant {FR} U",
@@ -13317,6 +13676,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "protein pea//[GLO] market for protein pea",
@@ -13354,6 +13714,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RoW",
     "scopes": ["textile"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "nylon 6-6//[RoW] nylon 6-6 production",
@@ -13391,6 +13752,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile"],
     "source": "Custom",
     "sourceId": "Elasthane (Lycra)",
@@ -13428,6 +13790,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile"],
     "source": "Custom",
     "sourceId": "Tricotage seamless",
@@ -13465,6 +13828,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Linseed oil, refined, at oil mill {FR} U",
@@ -13502,6 +13866,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Fennel {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
@@ -13539,6 +13904,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile"],
     "source": "Custom",
     "sourceId": "Blanchiment",
@@ -13576,6 +13942,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RoW",
     "scopes": ["textile"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "fibre, flax//[RoW] fibre production, flax, retting",
@@ -13613,6 +13980,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Banana, at farm {GLO} - Adapted from WFLDB U",
@@ -13650,6 +14018,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RER",
     "scopes": ["food"],
     "source": "WFLDB",
     "sourceId": "Raw cow milk archetype, feed mix IT-154, at farm (WFLDB)",
@@ -13687,6 +14056,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile"],
     "source": "Ecobalyse",
     "sourceId": "Teinture moyenne",
@@ -13724,6 +14094,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Soup, mixed vegetables, prepacked, to be reheated, at plant {IT} U, constructed by Ecobalyse",
@@ -13761,6 +14132,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RER",
     "scopes": [],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "coating, with melamine impregnated paper//[RER] coating service, melamine impregnated paper, double-sided",
@@ -13798,6 +14170,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RoW",
     "scopes": ["veli"],
     "source": "Ecoinvent 3.11",
     "sourceId": "Battery, lead acid, rechargeable, stationary {RoW}| battery production, lead acid, rechargeable, stationary | Cut-off, U",
@@ -13835,6 +14208,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "WFLDB",
     "sourceId": "Sweet corn, at farm (WFLDB)",
@@ -13872,6 +14246,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "French bean, conventional, national average, at farm gate {FR} U",
@@ -13909,6 +14284,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RER",
     "scopes": ["object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "powder coat, steel//[RER] powder coating, steel",
@@ -13946,6 +14322,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Sunflower, at farm {FR} - Adapted from WFLDB U",
@@ -13983,6 +14360,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Yogurt, from cow milk, at plant {FR} U",
@@ -14020,6 +14398,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "DE",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Barley grain, non-irrigated, at farm {DE} - Adapted from WFLDB U",
@@ -14057,6 +14436,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RER",
     "scopes": ["veli", "object"],
     "source": "Ecobalyse",
     "sourceId": "chromium steel sheet rolling, constructed by Ecobalyse",
@@ -14094,6 +14474,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Soup, mixed vegetables, dehydrated, at plant {BE} U, constructed by Ecobalyse",
@@ -14131,6 +14512,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "PT",
     "scopes": ["object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[PT] market for electricity, medium voltage",
@@ -14168,6 +14550,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "DE",
     "scopes": ["object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[DE] market for electricity, medium voltage",
@@ -14176,7 +14559,7 @@
   },
   {
     "categories": ["transformation", "material_type:wood"],
-    "comment": "added by Ecobalyse",
+    "comment": "",
     "density": 0,
     "displayName": "Sciage + séchage au four en Europe (bois)",
     "elecMJ": 0,
@@ -14205,6 +14588,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["object"],
     "source": "Ecobalyse",
     "sourceId": "Sawing + kiln drying in Europe (wood), constructed by Ecobalyse",
@@ -14242,6 +14626,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Radish, consumption mix {FR} U",
@@ -14279,6 +14664,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Meat with bone, beef for direct consumption {{meat-with-bone-beef-direct-consumption-organic}}, constructed by Ecobalyse",
@@ -14316,6 +14702,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Tomato, medium size, conventional, heated greenhouse, at greenhouse {FR} U",
@@ -14353,6 +14740,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Papaya, consumption mix, organic 2025 {FR} U",
@@ -14390,6 +14778,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile"],
     "source": "Custom",
     "sourceId": "Teinture fibres cellulosiques",
@@ -14427,6 +14816,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Cauliflower, winter, organic, at farm gate {FR} U",
@@ -14464,6 +14854,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Emmental cheese, from cow's milk, at plant {FR} U",
@@ -14501,6 +14892,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "SN",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Peanut oil, at oil mill {SN} U",
@@ -14538,6 +14930,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "ES",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Orange, fresh grade, at farm, organic 2025 {ES}",
@@ -14575,6 +14968,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Barley, organic, animal feed, at farm gate {FR} U",
@@ -14612,6 +15006,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Soy drink, plain, recipe, at plant {FR} U",
@@ -14649,6 +15044,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Bacon, back, at plant {FR} U",
@@ -14686,6 +15082,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile"],
     "source": "Ecobalyse",
     "sourceId": "Teinture en continu",
@@ -14694,7 +15091,7 @@
   },
   {
     "categories": ["ingredient"],
-    "comment": "added by Ecobalyse",
+    "comment": "",
     "density": 0,
     "displayName": "Blé tendre Bio",
     "elecMJ": 0,
@@ -14723,6 +15120,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Wheat, organic, national average, at farm gate FR U, constructed by Ecobalyse",
@@ -14760,6 +15158,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food", "textile", "object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[FR] market for electricity, medium voltage",
@@ -14797,6 +15196,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RER",
     "scopes": ["object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "wood chips, from post-consumer wood, measured as dry mass//[RER] market for wood chips, from post-consumer wood, measured as dry mass",
@@ -14834,6 +15234,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Meat without bone, beef for direct consumption {{meat-without-bone-beef-direct-consumption-feedlot}}, constructed by Ecobalyse",
@@ -14871,6 +15272,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Bell pepper {FR}| bell pepper production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
@@ -14908,6 +15310,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Maize grain, conventional, 28% moisture, national average, animal feed, at farm gate {FR} U",
@@ -14945,6 +15348,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Broccoli, consumption mix, organic 2025 {FR} U",
@@ -14982,6 +15386,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "ES",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Tomato, fresh grade {ES}| tomato production, fresh grade, in unheated greenhouse | Cut-off, U - Copied from Ecoinvent U",
@@ -15019,6 +15424,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Strawberry, soilless protected crops, heated, conventional, at farm gate {FR} U",
@@ -15056,6 +15462,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Cocoa powder, consumption mix {FR} U",
@@ -15093,6 +15500,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "DE",
     "scopes": ["object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "sawlog and veneer log, softwood, measured as solid wood under bark//[DE] softwood forestry, pine, sustainable forest management",
@@ -15130,6 +15538,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["textile"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "transport, freight train//[GLO] market group for transport, freight train",
@@ -15138,7 +15547,7 @@
   },
   {
     "categories": ["material", "material_type:metal"],
-    "comment": "added by Ecobalyse",
+    "comment": "",
     "density": 0,
     "displayName": "Aluminium mix marché (RoW)",
     "elecMJ": 0,
@@ -15167,6 +15576,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["veli"],
     "source": "Ecobalyse",
     "sourceId": "aluminium, low-alloyed, market, RoW, constructed by Ecobalyse",
@@ -15204,6 +15614,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile"],
     "source": "Custom",
     "sourceId": "Utilisation : Impact hors repassage (Jean)",
@@ -15241,6 +15652,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Large trout, 2-4kg, conventional, at farm gate {FR} U",
@@ -15278,6 +15690,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile"],
     "source": "Custom",
     "sourceId": "Impression fixé-lavé (colorants)",
@@ -15315,6 +15728,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Grazed grass, permanent meadow, without clover, Northwestern region, on field {FR} U",
@@ -15352,6 +15766,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Radish, organic 2025 {FR}| radish production, in unheated greenhouse | Cut-off, U",
@@ -15389,6 +15804,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Celery, organic 2025 {GLO}| 675 production | Cut-off, U",
@@ -15426,6 +15842,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Meat without bone chicken for direct consumption {{meat-without-bone-chicken-direct-consumption-br-max}}, constructed by Ecobalyse",
@@ -15463,6 +15880,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Walnut, dried inshell, traditional varieties, organic, at farm gate {FR} U",
@@ -15500,6 +15918,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "ZA",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Orange, fresh grade {ZA}| orange production, fresh grade | Cut-off, U - Adapted from Ecoinvent U",
@@ -15537,6 +15956,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Hazelnut, unshelled, consumption mix {FR} U",
@@ -15574,6 +15994,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Milk powder, skimmed, non rehydrated, at plant {FR} U",
@@ -15611,6 +16032,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Comte cheese, from cow's milk, at plant {FR} U",
@@ -15648,6 +16070,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Zucchini, springtime, under tunnel, organic, at farm gate {FR} U",
@@ -15685,6 +16108,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Pear, organic, at farm gate {FR} U",
@@ -15722,6 +16146,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Ware potato, organic 2025, for industrial use, at farm gate {FR} U",
@@ -15759,6 +16184,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Durum wheat, semolina, at plant {GLO} - Adapted from WFLDB U",
@@ -15796,6 +16222,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RoW",
     "scopes": ["object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "municipal solid waste//[RoW] treatment of municipal solid waste, sanitary landfill",
@@ -15833,6 +16260,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["textile"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "fibre, viscose//[GLO] market for fibre, viscose",
@@ -15870,6 +16298,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Wheat flour, organic at industrial mill {FR} U {{wheat-flour-organic-national-average}}, created by Ecobalyse, constructed by Ecobalyse",
@@ -15907,6 +16336,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Walnut, dried inshell, conventional, national average, at farm gate {FR} U",
@@ -15944,6 +16374,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Grain maize, organic, animal feed, at farm gate {FR} U",
@@ -15981,6 +16412,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Grapeseed oil, refined at plant {FR} U",
@@ -16018,6 +16450,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Mozzarella cheese, from cow's milk, at plant {FR} U",
@@ -16055,6 +16488,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Tomato pulp, canned {FR} U",
@@ -16092,6 +16526,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RoW",
     "scopes": ["textile", "object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "brass//[RoW] market for brass",
@@ -16129,6 +16564,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Meat without bone chicken for direct consumption {{meat-without-bone-chicken-direct-consumption-organic}}, constructed by Ecobalyse",
@@ -16166,6 +16602,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile"],
     "source": "Custom",
     "sourceId": "Tricotage circulaire",
@@ -16203,6 +16640,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Meat without bone, beef, for direct consumption {FR} U",
@@ -16240,6 +16678,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Strawberry, open field, conventional, at farm gate {FR} U",
@@ -16277,6 +16716,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "BE",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Pear {BE}| pear production | Cut-off, U - Adapted from Ecoinvent U",
@@ -16314,6 +16754,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Meat with bone, beef, for direct consumption {FR} U",
@@ -16351,6 +16792,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "CA-SK",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Lentil {CA-SK}| lentil production | Cut-off, U - Adapted from Ecoinvent U",
@@ -16388,6 +16830,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "[Dummy] Mixing, processing, at plant {FR} U",
@@ -16425,6 +16868,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["veli", "object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "polyvinylchloride, suspension polymerised//[GLO] market for polyvinylchloride, suspension polymerised",
@@ -16462,6 +16906,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RER",
     "scopes": ["veli", "object"],
     "source": "Ecobalyse",
     "sourceId": "chromium steel working, constructed by Ecobalyse",
@@ -16499,6 +16944,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Tomato sauce, w vegetables, prepacked, recipe, at plant {FR} U",
@@ -16507,7 +16953,7 @@
   },
   {
     "categories": ["material", "material_type:metal"],
-    "comment": "added by Ecobalyse",
+    "comment": "",
     "density": 0,
     "displayName": "Aluminium vierge mix marché (IN)",
     "elecMJ": 0,
@@ -16536,6 +16982,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["veli"],
     "source": "Ecobalyse",
     "sourceId": "aluminium, low-alloyed, virgin, market, IN, constructed by Ecobalyse",
@@ -16573,6 +17020,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RER",
     "scopes": ["veli", "object"],
     "source": "Ecobalyse",
     "sourceId": "steel sheet rolling, constructed by Ecobalyse",
@@ -16610,6 +17058,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "KH",
     "scopes": ["textile", "object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[KH] market for electricity, medium voltage",
@@ -16647,6 +17096,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Egg white, powder, at plant {FR} U",
@@ -16684,6 +17134,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Celery {GLO}| 675 production | Cut-off, U - Adapted from Ecoinvent U",
@@ -16721,6 +17172,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "CA",
     "scopes": ["food"],
     "source": "WFLDB",
     "sourceId": "Lentils, dry, at farm (WFLDB)",
@@ -16758,6 +17210,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "CA-SK",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Lentil, organic 2025 {CA-SK}| lentil production | Cut-off, U",
@@ -16795,6 +17248,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["veli", "object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "steel, chromium steel 18/8//[GLO] market for steel, chromium steel 18/8",
@@ -16832,6 +17286,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile"],
     "source": "Custom",
     "sourceId": "Teinture fibres synthétiques",
@@ -16869,6 +17324,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "NL",
     "scopes": ["veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[NL] market for electricity, medium voltage",
@@ -16906,6 +17362,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "paraffin//[GLO] market for paraffin",
@@ -16943,6 +17400,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Red Wine, from grape, in a cooperative cellar, packaged, French production mix, at plant, 1 L of red wine (PGi) {FR} U",
@@ -16980,6 +17438,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "BR",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Mango, organic 2025, Val de San Francisco, at orchard {BR} U",
@@ -17017,6 +17476,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Ware potato, conventional, for industrial use, at farm gate {FR} U",
@@ -17054,6 +17514,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Peach, production mix, national average, at orchard {FR} U",
@@ -17091,6 +17552,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RER",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Cocoa butter, at plant {RER} - Adapted from WFLDB U",
@@ -17128,6 +17590,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Bacon, back, at plant {{bacon-fr-organic}}, constructed by Ecobalyse",
@@ -17165,6 +17628,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Turmeric, consumption mix {FR} U",
@@ -17202,6 +17666,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RER",
     "scopes": ["object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "powder coat, aluminium sheet//[RER] powder coating, aluminium sheet",
@@ -17239,6 +17704,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Apricot {FR}| apricot production | Cut-off, U - Adapted from Ecoinvent U",
@@ -17276,6 +17742,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Reblochon cheese, from cow's milk, at plant {FR} U",
@@ -17284,7 +17751,7 @@
   },
   {
     "categories": ["energy"],
-    "comment": "added by Ecobalyse",
+    "comment": "",
     "density": 0,
     "displayName": "Superéthanol (E85), norme Euro6",
     "elecMJ": 0,
@@ -17313,6 +17780,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["veli"],
     "source": "Ecobalyse",
     "sourceId": "petrol, E85, EURO6, constructed by Ecobalyse",
@@ -17350,6 +17818,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "HU",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Sunflower, at farm {HU} - Adapted from WFLDB U",
@@ -17387,6 +17856,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Melon, organic, at farm gate {FR} U",
@@ -17424,6 +17894,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile"],
     "source": "Custom",
     "sourceId": "Mercerisage",
@@ -17461,6 +17932,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Ground beef fresh case ready for direct consumption at plant {{ground-beef-fresh-case-ready-direct-consumption-plant-organic}}, constructed by Ecobalyse",
@@ -17498,6 +17970,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "IN",
     "scopes": ["textile", "object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[IN] market group for electricity, medium voltage",
@@ -17535,6 +18008,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RER",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Corrugated board box {RER}| production | Cut-off, S - Copied from Ecoinvent U",
@@ -17572,6 +18046,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RER",
     "scopes": ["textile", "object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[RER] market group for electricity, medium voltage",
@@ -17609,6 +18084,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "NL",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
@@ -17646,6 +18122,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "NL",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Onion {NL}| onion production | Cut-off, U - Adapted from Ecoinvent U",
@@ -17683,6 +18160,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Sunflower, at farm {GLO} - Adapted from WFLDB U",
@@ -17720,6 +18198,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RER",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Palm oil, refined, processed in EU, at plant {RER} U",
@@ -17757,6 +18236,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RoW",
     "scopes": ["textile", "object"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "fibre, cotton//[RoW] fibre production, cotton, ginning",
@@ -17794,6 +18274,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Soybean grain dried, stored and transported, processing {FR} U",
@@ -17831,6 +18312,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Silage maize, conventional, national average, animal feed, at farm gate, production {FR} U",
@@ -17868,6 +18350,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Leek, conventional, national average, at plant {FR} U",
@@ -17905,6 +18388,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "TN",
     "scopes": ["textile", "object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[TN] market for electricity, medium voltage",
@@ -17942,6 +18426,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Goat milk, consumption mix {FR} U",
@@ -17979,6 +18464,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile"],
     "source": "Custom",
     "sourceId": "Utilisation : Impact hors repassage (Pantalon)",
@@ -18016,6 +18502,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "VN",
     "scopes": ["textile", "object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[VN] market for electricity, medium voltage",
@@ -18053,6 +18540,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Pineapple, organic 2025 {GLO}| production | Cut-off, U",
@@ -18090,6 +18578,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "CA",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Blueberry, at farm {CA} - Adapted from WFLDB U",
@@ -18127,6 +18616,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "GLO",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Pineapple {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
@@ -18164,6 +18654,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Salt {FR} U",
@@ -18201,6 +18692,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": null,
     "scopes": ["textile", "object", "veli"],
     "source": "Custom",
     "sourceId": "Mix chaleur (Europe)",
@@ -18238,6 +18730,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Soup, mixed vegetables, dehydrated, at plant {DE} U, constructed by Ecobalyse",
@@ -18275,6 +18768,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Hazelnut, unshelled, consumption mix, organic 2025 {FR} U",
@@ -18312,6 +18806,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Ecobalyse",
     "sourceId": "Soup, mixed vegetables, dehydrated, at plant {IT} U, constructed by Ecobalyse",
@@ -18349,6 +18844,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Brown crab, 1 kg of product, at landing {FR} U",
@@ -18386,6 +18882,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RoW",
     "scopes": ["food"],
     "source": "Ginko 2025",
     "sourceId": "Peanut, organic 2025 {RoW}| peanut production | Cut-off, U",
@@ -18423,6 +18920,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "CA-QC",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Cow milk {CA-QC}| milk production, from cow | Cut-off, U - Copied from Ecoinvent U",
@@ -18460,6 +18958,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RS",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Raspberry, at farm {RS} - Adapted from WFLDB U",
@@ -18497,6 +18996,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "CN",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Peanut {CN}| peanut production | Cut-off, U - Adapted from Ecoinvent U",
@@ -18534,6 +19034,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Mustard, recipe, at plant {FR} U",
@@ -18571,6 +19072,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Cod, consumption mix {FR} U",
@@ -18608,6 +19110,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Zucchini, conventional, national average, at farm gate {FR} U",
@@ -18645,6 +19148,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RoW",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Cabbage white {RoW}| cabbage white production | Cut-off, U - Adapted from Ecoinvent U",
@@ -18682,6 +19186,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Walnut, dried, husked, processed in FR | Ambient (long) | Pack proxy | at packaging {FR} U",
@@ -18719,6 +19224,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RoW",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Tea, dried {RoW}| tea production, dried | Cut-off, U - Adapted from Ecoinvent U",
@@ -18756,6 +19262,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RME",
     "scopes": ["textile", "object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "sourceId": "electricity, medium voltage//[RME] market group for electricity, medium voltage",
@@ -18793,6 +19300,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "RoW",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Aluminium, primary, ingot {RoW}| production | Cut-off, S - Copied from Ecoinvent U",
@@ -18830,6 +19338,7 @@
       "tre": 0,
       "wtu": 0
     },
+    "location": "FR",
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
     "sourceId": "Honey, at plant {FR} U",
