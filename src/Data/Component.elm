@@ -412,13 +412,13 @@ checkTransformsUnit unit transforms =
 {-| Computes impacts from a list of available components, processes and specified component items
 -}
 compute : Requirements db -> List Item -> Result String LifeCycle
-compute { config, db, scope } items =
+compute requirements items =
     items
-        |> List.map (computeItemResults db)
+        |> List.map (computeItemResults requirements.db)
         |> RE.combine
         |> Result.map (List.foldr addResults emptyResults)
         |> Result.map (\(Results results) -> { emptyLifeCycle | production = Results { results | label = Just "Production" } })
-        |> Result.andThen (computeEndOfLifeResults config.endOfLife db scope)
+        |> Result.andThen (computeEndOfLifeResults requirements)
 
 
 computeElementResults : List Process -> Element -> Result String Results
@@ -437,10 +437,10 @@ computeElementResults processes =
             )
 
 
-computeEndOfLifeResults : EndOfLifeConfig -> DataContainer db -> Scope -> LifeCycle -> Result String LifeCycle
-computeEndOfLifeResults endOfLifeConfig db scope lifeCycle =
+computeEndOfLifeResults : Requirements db -> LifeCycle -> Result String LifeCycle
+computeEndOfLifeResults requirements lifeCycle =
     lifeCycle.production
-        |> getEndOfLifeImpacts db scope
+        |> getEndOfLifeImpacts requirements
         |> Result.map (\endOfLife -> { lifeCycle | endOfLife = endOfLife })
 
 
@@ -886,8 +886,8 @@ getEndOfLifeCollectionShare scope =
         |> Result.withDefault Split.zero
 
 
-getEndOfLifeDetailedImpacts : List Process -> Scope -> Results -> Result String DetailedEndOfLifeImpacts
-getEndOfLifeDetailedImpacts processes scope =
+getEndOfLifeDetailedImpacts : Requirements db -> Results -> Result String DetailedEndOfLifeImpacts
+getEndOfLifeDetailedImpacts { config, db, scope } =
     let
         collectionRatio =
             getEndOfLifeCollectionShare scope
@@ -918,18 +918,18 @@ getEndOfLifeDetailedImpacts processes scope =
                                 |> applyStrategies nonCollectionStrategies
                         }
                     )
-                    (materialCategory |> getEndOfLifeCollectionStrategies processes)
-                    (materialCategory |> getEndOfLifeNonCollectionStrategies processes)
+                    (materialCategory |> getEndOfLifeCollectionStrategies db.processes)
+                    (materialCategory |> getEndOfLifeNonCollectionStrategies db.processes)
             )
         >> AnyDict.toList
         >> RE.combineMap RE.combineSecond
         >> Result.map (AnyDict.fromList Category.materialTypeToString)
 
 
-getEndOfLifeImpacts : DataContainer db -> Scope -> Results -> Result String Impacts
-getEndOfLifeImpacts db scope (Results results) =
+getEndOfLifeImpacts : Requirements db -> Results -> Result String Impacts
+getEndOfLifeImpacts requirements (Results results) =
     Results results
-        |> getEndOfLifeDetailedImpacts db.processes scope
+        |> getEndOfLifeDetailedImpacts requirements
         |> Result.map
             (AnyDict.map
                 (\_ { collected, nonCollected } ->

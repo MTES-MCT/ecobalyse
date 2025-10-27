@@ -516,8 +516,19 @@ suite =
                 -- setup
                 (chair
                     |> Result.andThen (computeWithDefaultConfig db)
-                    |> Result.map .production
-                    |> Result.andThen (Component.getEndOfLifeDetailedImpacts db.processes Scope.Object)
+                    |> Result.andThen
+                        (\{ production } ->
+                            Component.defaultConfig db.processes
+                                |> Result.andThen
+                                    (\config ->
+                                        production
+                                            |> Component.getEndOfLifeDetailedImpacts
+                                                { config = config
+                                                , db = db
+                                                , scope = Scope.Object
+                                                }
+                                    )
+                        )
                 )
                 -- tests
                 (\chairMaterialGroups ->

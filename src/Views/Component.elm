@@ -610,7 +610,18 @@ endOfLifeView ({ db } as config) lifeCycle =
             [ h2 [ class "h5 mb-0" ]
                 [ text "Fin de vie" ]
             , div [ class "d-flex align-items-center gap-2" ]
-                [ case Component.getEndOfLifeImpacts config.db config.scope lifeCycle.production of
+                [ case
+                    Component.defaultConfig db.processes
+                        |> Result.andThen
+                            (\componentConfig ->
+                                lifeCycle.production
+                                    |> Component.getEndOfLifeImpacts
+                                        { config = componentConfig
+                                        , db = config.db
+                                        , scope = config.scope
+                                        }
+                            )
+                  of
                     Err error ->
                         span [ class "text-danger" ] [ text error ]
 
@@ -630,7 +641,18 @@ endOfLifeView ({ db } as config) lifeCycle =
                         , th [ class "text-end pe-3" ] [ text "Impact" ]
                         ]
                     ]
-                , case Component.getEndOfLifeDetailedImpacts db.processes config.scope lifeCycle.production of
+                , case
+                    Component.defaultConfig db.processes
+                        |> Result.andThen
+                            (\componentConfig ->
+                                lifeCycle.production
+                                    |> Component.getEndOfLifeDetailedImpacts
+                                        { config = componentConfig
+                                        , db = config.db
+                                        , scope = config.scope
+                                        }
+                            )
+                  of
                     Err error ->
                         Alert.simple
                             { attributes = []
