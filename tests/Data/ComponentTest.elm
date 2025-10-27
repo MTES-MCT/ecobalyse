@@ -1,6 +1,6 @@
 module Data.ComponentTest exposing (..)
 
-import Data.Component as Component exposing (Component, Item, LifeCycle, defaultConfig)
+import Data.Component as Component exposing (Component, Item, LifeCycle)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
 import Data.Process as Process exposing (Process)

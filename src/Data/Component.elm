@@ -49,16 +49,15 @@ module Data.Component exposing
     , extractItems
     , extractMass
     , findById
-    , getEndOfLifeCollectionShare
     , getEndOfLifeDetailedImpacts
     , getEndOfLifeImpacts
+    , getEndOfLifeScopeCollectionRate
     , idFromString
     , idToString
     , isEmpty
     , itemToComponent
     , itemToString
     , itemsToString
-    , parseConfig
     , quantityFromInt
     , quantityToInt
     , removeElement
@@ -76,7 +75,7 @@ module Data.Component exposing
 
 import Data.Common.DecodeUtils as DU
 import Data.Common.EncodeUtils as EU
-import Data.Component.Config as Config exposing (EndOfLifeConfig, EndOfLifeStrategies, EndOfLifeStrategy)
+import Data.Component.Config as Config exposing (EndOfLifeStrategies, EndOfLifeStrategy)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Trigram)
 import Data.Process as Process exposing (Process)
@@ -873,24 +872,18 @@ findById id =
         >> Result.fromMaybe ("Aucun composant avec id=" ++ idToString id)
 
 
-getEndOfLifeCollectionShare : Scope -> Split
-getEndOfLifeCollectionShare scope =
-    (case scope of
-        Scope.Object ->
-            70
-
-        _ ->
-            100
-    )
-        |> Split.fromPercent
-        |> Result.withDefault Split.zero
+getEndOfLifeScopeCollectionRate : Scope -> Config -> Split
+getEndOfLifeScopeCollectionRate scope { endOfLife } =
+    endOfLife.scopeCollectionRates
+        |> AnyDict.get scope
+        |> Maybe.withDefault Split.full
 
 
 getEndOfLifeDetailedImpacts : Requirements db -> Results -> Result String DetailedEndOfLifeImpacts
 getEndOfLifeDetailedImpacts { config, db, scope } =
     let
         collectionRatio =
-            getEndOfLifeCollectionShare scope
+            getEndOfLifeScopeCollectionRate scope config
 
         nonCollectionRatio =
             Split.complement collectionRatio
@@ -1179,13 +1172,6 @@ loadDefaultEnergyMixes processes =
 mapAmount : (Float -> Float) -> Amount -> Amount
 mapAmount fn (Amount float) =
     Amount <| fn float
-
-
-{-| Proxified for convenience
--}
-parseConfig : List Process -> String -> Result String Config
-parseConfig =
-    Config.parse
 
 
 quantityFromInt : Int -> Quantity

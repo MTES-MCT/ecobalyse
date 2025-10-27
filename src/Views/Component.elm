@@ -674,10 +674,12 @@ endOfLifeView ({ db } as config) lifeCycle =
 
 
 endOfLifeMaterialRow : Config db msg -> ( Category.Material, EndOfLifeMaterialImpacts ) -> List (Html msg)
-endOfLifeMaterialRow config ( materialType, { collected, nonCollected } ) =
+endOfLifeMaterialRow ({ db, scope } as config) ( materialType, { collected, nonCollected } ) =
     let
         collectionShare =
-            Component.getEndOfLifeCollectionShare config.scope
+            Component.defaultConfig db.processes
+                |> Result.map (Component.getEndOfLifeScopeCollectionRate scope)
+                |> Result.withDefault Split.full
 
         nonCollectionShare =
             Split.complement collectionShare

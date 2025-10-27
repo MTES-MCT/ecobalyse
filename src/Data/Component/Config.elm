@@ -4,7 +4,6 @@ module Data.Component.Config exposing
     , EndOfLifeStrategies
     , EndOfLifeStrategy
     , default
-    , parse
     )
 
 import Data.Common.DecodeUtils as DU
