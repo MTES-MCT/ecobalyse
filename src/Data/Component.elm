@@ -875,7 +875,7 @@ findById id =
 
 
 getEndOfLifeDetailedImpacts : Requirements db -> Results -> DetailedEndOfLifeImpacts
-getEndOfLifeDetailedImpacts ({ config, scope } as requirements) =
+getEndOfLifeDetailedImpacts { config, scope } =
     let
         collectionRatio =
             getEndOfLifeScopeCollectionRate scope config
@@ -897,11 +897,19 @@ getEndOfLifeDetailedImpacts ({ config, scope } as requirements) =
                 { collected =
                     collectionRatio
                         |> Split.applyToQuantity mass
-                        |> applyStrategies (materialCategory |> getEndOfLifeCollectionStrategies requirements)
+                        |> applyStrategies
+                            (config.endOfLife.strategies.collected
+                                |> AnyDict.get materialCategory
+                                |> Maybe.withDefault config.endOfLife.strategies.default
+                            )
                 , nonCollected =
                     nonCollectionRatio
                         |> Split.applyToQuantity mass
-                        |> applyStrategies (materialCategory |> getEndOfLifeNonCollectionStrategies requirements)
+                        |> applyStrategies
+                            (config.endOfLife.strategies.nonCollected
+                                |> AnyDict.get materialCategory
+                                |> Maybe.withDefault config.endOfLife.strategies.default
+                            )
                 }
             )
         >> AnyDict.toList
@@ -930,20 +938,6 @@ getEndOfLifeImpacts requirements (Results results) =
             )
         |> AnyDict.values
         |> Impact.sumImpacts
-
-
-getEndOfLifeCollectionStrategies : Requirements db -> Category.Material -> EndOfLifeStrategies
-getEndOfLifeCollectionStrategies { config } material =
-    config.endOfLife.strategies.collected
-        |> AnyDict.get material
-        |> Maybe.withDefault config.endOfLife.strategies.default
-
-
-getEndOfLifeNonCollectionStrategies : Requirements db -> Category.Material -> EndOfLifeStrategies
-getEndOfLifeNonCollectionStrategies { config } material =
-    config.endOfLife.strategies.nonCollected
-        |> AnyDict.get material
-        |> Maybe.withDefault config.endOfLife.strategies.default
 
 
 getEndOfLifeScopeCollectionRate : Scope -> Config -> Split

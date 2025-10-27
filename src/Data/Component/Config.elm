@@ -2,6 +2,7 @@ module Data.Component.Config exposing
     ( Config
     , EndOfLifeConfig
     , EndOfLifeStrategies
+    , EndOfLifeStrategiesConfig
     , EndOfLifeStrategy
     , default
     )
