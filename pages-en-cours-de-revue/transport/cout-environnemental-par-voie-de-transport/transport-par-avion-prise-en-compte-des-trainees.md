@@ -6,9 +6,9 @@ hidden: true
 
 ## Contexte
 
-Les trainées de condensation des avions (contrails en anglais) sont les traces blanche que l'on aperçoit dans le ciel derrière les avions. Ces trainées, ont un impact significatif sur le changement climatique, qui n'est pas associé à des émissions de gaz à effet de serre.&#x20;
+Les trainées de condensation des avions (contrails en anglais) sont les traces blanche que l'on aperçoit dans le ciel derrière les avions. Ces trainées, contribuent au  changement climatique. &#x20;
 
-Les procédés ecoinvent n'intègrent cependant pas l'impact des trainées d'avion sur le changement climatique.
+Actuellement les procédés de transport aérien ecoinvent omettent l'impact de ces trainées sur le climat. Nous proposons donc une première approche simplifiée pour les intégrer dans la méthode du "cout environnemental". Des travaux plus approfondis sont en cours au niveau de la base empreinte, et permettront de préciser la modélisation de ce phénomène à l'avenir.&#x20;
 
 ### Plus d'information sur les trainées d'avion
 
@@ -27,7 +27,7 @@ Une étude de 2021 estime que les trainée d'avion et autres impacts "hors CO2" 
 
 ## Création du procédé Ecobalyse
 
-Le procédé ecoinvent 3.9.1 "`market for transport, freight, aircraft, long haul, GLO`" est modifié pour y ajouter des émissions de CO2 `e_{CO2,trainées}` modélisant artificiellement l'impact des trainées.
+Le procédé ecoinvent 3.9.1 "`market for transport, freight, aircraft, long haul, GLO`" est modifié pour y ajouter des émissions de CO2 `e_{CO2,trainées}` modélisant "artificiellement" l'impact des trainées. Ces émissions s'ajoutent aux émissions issus de la combustion du carburant.&#x20;
 
 $$
 e_{CO2,trainées} = e_{CO2,combustion} * \frac{RF_{trainées}}{RF_{CO2,combustion}}
