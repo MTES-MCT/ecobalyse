@@ -23,7 +23,6 @@ import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
-import Data.Notification as Notification
 import Data.Posthog as Posthog
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
@@ -190,14 +189,6 @@ init trigram maybeUrlQuery session =
     , activeImpactsTab = ImpactTabs.StepImpactsTab
     }
         |> App.createUpdate (session |> Session.updateTextileQuery initialQuery)
-        |> App.withAppMsgs
-            (case simulator of
-                Err error ->
-                    [ App.AddToast (Notification.error "Erreur de récupération des paramètres d'entrée" error) ]
-
-                Ok _ ->
-                    []
-            )
         |> App.withCmds
             [ case maybeUrlQuery of
                 -- If we do have an URL query, we either come from a bookmark, a saved simulation click or
@@ -244,14 +235,6 @@ initFromExample session uuid =
     , activeImpactsTab = ImpactTabs.StepImpactsTab
     }
         |> App.createUpdate (session |> Session.updateTextileQuery exampleQuery)
-        |> App.withAppMsgs
-            (case simulator of
-                Err error ->
-                    [ App.AddToast (Notification.error "Erreur de récupération des paramètres d'entrée" error) ]
-
-                Ok _ ->
-                    []
-            )
         |> App.withCmds [ Ports.scrollTo { x = 0, y = 0 } ]
 
 
