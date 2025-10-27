@@ -519,7 +519,7 @@ suite =
                     |> Result.andThen
                         (\{ production } ->
                             Component.defaultConfig db.processes
-                                |> Result.andThen
+                                |> Result.map
                                     (\config ->
                                         production
                                             |> Component.getEndOfLifeDetailedImpacts

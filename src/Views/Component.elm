@@ -612,7 +612,7 @@ endOfLifeView ({ db } as config) lifeCycle =
             , div [ class "d-flex align-items-center gap-2" ]
                 [ case
                     Component.defaultConfig db.processes
-                        |> Result.andThen
+                        |> Result.map
                             (\componentConfig ->
                                 lifeCycle.production
                                     |> Component.getEndOfLifeImpacts
@@ -643,7 +643,7 @@ endOfLifeView ({ db } as config) lifeCycle =
                     ]
                 , case
                     Component.defaultConfig db.processes
-                        |> Result.andThen
+                        |> Result.map
                             (\componentConfig ->
                                 lifeCycle.production
                                     |> Component.getEndOfLifeDetailedImpacts
