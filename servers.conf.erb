@@ -23,6 +23,11 @@ server {
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for ;
   }
 
+  location /versions/v7.0.0/version.json {
+    add_header Content-Type application/json;
+    return 200 '{"hash": "ff54d50654168255a07af4c36873ee40197cb494", "tag": "v7.0.0" }';
+  }
+
   # Reroute v7 to textile stable version
   location ~ ^/versions/v7.0.0/(.*)$ {
     rewrite ^/versions/v7.0.0/(.*)$ /$1 break;
