@@ -4,6 +4,7 @@ module Data.Component exposing
     , Custom
     , DataContainer
     , Element
+    , EndOfLifeMaterialImpacts
     , ExpandedElement
     , Id
     , Index
@@ -45,6 +46,7 @@ module Data.Component exposing
     , extractItems
     , extractMass
     , findById
+    , getEndOfLifeCollectionShare
     , getEndOfLifeDetailedImpacts
     , getEndOfLifeImpacts
     , idFromString
@@ -57,10 +59,10 @@ module Data.Component exposing
     , quantityToInt
     , removeElement
     , removeElementTransform
+    , setCustomScope
     , setElementMaterial
     , stagesImpacts
     , sumLifeCycleImpacts
-    , toggleCustomScope
     , updateElement
     , updateElementAmount
     , updateItem
@@ -100,7 +102,7 @@ type alias Component =
     , elements : List Element
     , id : Id
     , name : String
-    , scopes : List Scope
+    , scope : Scope
     }
 
 
@@ -123,7 +125,7 @@ type alias Item =
 type alias Custom =
     { elements : List Element
     , name : Maybe String
-    , scopes : List Scope
+    , scope : Maybe Scope
     }
 
 
@@ -201,6 +203,18 @@ type alias EndOfLifeStrategy =
     { impacts : Impacts
     , process : Maybe Process
     , split : Split
+    }
+
+
+{-| A data structure exposing detailed impacts at the end of life stage of the lifeCycle
+-}
+type alias DetailedEndOfLifeImpacts =
+    MaterialDistribution EndOfLifeMaterialImpacts
+
+
+type alias EndOfLifeMaterialImpacts =
+    { collected : ( Mass, EndOfLifeStrategies )
+    , nonCollected : ( Mass, EndOfLifeStrategies )
     }
 
 
@@ -401,13 +415,13 @@ checkTransformsUnit unit transforms =
 
 {-| Computes impacts from a list of available components, processes and specified component items
 -}
-compute : DataContainer db -> List Item -> Result String LifeCycle
-compute db =
+compute : DataContainer db -> Scope -> List Item -> Result String LifeCycle
+compute db scope =
     List.map (computeItemResults db)
         >> RE.combine
         >> Result.map (List.foldr addResults emptyResults)
         >> Result.map (\(Results results) -> { emptyLifeCycle | production = Results { results | label = Just "Production" } })
-        >> Result.andThen (computeEndOfLifeResults db)
+        >> Result.andThen (computeEndOfLifeResults db scope)
 
 
 computeElementResults : List Process -> Element -> Result String Results
@@ -426,10 +440,10 @@ computeElementResults processes =
             )
 
 
-computeEndOfLifeResults : DataContainer db -> LifeCycle -> Result String LifeCycle
-computeEndOfLifeResults db lifeCycle =
+computeEndOfLifeResults : DataContainer db -> Scope -> LifeCycle -> Result String LifeCycle
+computeEndOfLifeResults db scope lifeCycle =
     lifeCycle.production
-        |> getEndOfLifeImpacts db
+        |> getEndOfLifeImpacts db scope
         |> Result.map (\endOfLife -> { lifeCycle | endOfLife = endOfLife })
 
 
@@ -549,6 +563,20 @@ computeMaterialResults amount process =
         }
 
 
+computeShareImpacts : Mass -> EndOfLifeStrategy -> Impacts
+computeShareImpacts mass { process, split } =
+    process
+        |> Maybe.map
+            (.impacts
+                >> Impact.multiplyBy
+                    (split
+                        |> Split.applyToQuantity mass
+                        |> Mass.inKilograms
+                    )
+            )
+        |> Maybe.withDefault Impact.empty
+
+
 createItem : Id -> Item
 createItem id =
     { custom = Nothing, id = id, quantity = quantityFromInt 1 }
@@ -566,17 +594,11 @@ decode =
         |> Decode.required "elements" (Decode.list decodeElement)
         |> Decode.required "id" (Decode.map Id Uuid.decoder)
         |> Decode.required "name" Decode.string
-        |> Decode.optional "scopes" (Decode.list Scope.decode) Scope.all
-        |> Decode.andThen
-            (\component ->
-                -- Note: it's been decided to only allow a single scope per component, though we keep
-                --       the list of scopes for backward compatibility and/or future re-enabling
-                case List.head component.scopes of
-                    Just scope ->
-                        Decode.succeed { component | scopes = [ scope ] }
-
-                    Nothing ->
-                        Decode.fail <| "Aucun scope pour le composant id=" ++ idToString component.id
+        |> Decode.required "scopes"
+            -- Note: the backend exposes multiple scopes per component, though it's been decided
+            -- a component should only allow one, so here we take the first declared scope.
+            (Decode.list Scope.decode
+                |> Decode.map (List.head >> Maybe.withDefault Scope.Object)
             )
 
 
@@ -585,7 +607,9 @@ decodeCustom =
     Decode.succeed Custom
         |> Decode.required "elements" (Decode.list decodeElement)
         |> DU.strictOptional "name" Decode.string
-        |> Decode.optional "scopes" (Decode.list Scope.decode) []
+        |> DU.strictOptionalWithDefault "scopes"
+            (Decode.list Scope.decode |> Decode.map List.head)
+            Nothing
 
 
 decodeElement : Decoder Element
@@ -685,7 +709,7 @@ encode v =
         , ( "elements", v.elements |> Encode.list encodeElement )
         , ( "id", v.id |> encodeId )
         , ( "name", v.name |> Encode.string )
-        , ( "scopes", v.scopes |> Encode.list Scope.encode )
+        , ( "scopes", [ v.scope ] |> Encode.list Scope.encode )
         ]
 
 
@@ -845,53 +869,77 @@ findById id =
         >> Result.fromMaybe ("Aucun composant avec id=" ++ idToString id)
 
 
-getEndOfLifeDetailedImpacts :
-    List Process
-    -> Results
-    -> Result String (MaterialDistribution ( Mass, EndOfLifeStrategies ))
-getEndOfLifeDetailedImpacts processes =
+getEndOfLifeCollectionShare : Scope -> Split
+getEndOfLifeCollectionShare scope =
+    (case scope of
+        Scope.Object ->
+            70
+
+        _ ->
+            100
+    )
+        |> Split.fromPercent
+        |> Result.withDefault Split.zero
+
+
+getEndOfLifeDetailedImpacts : List Process -> Scope -> Results -> Result String DetailedEndOfLifeImpacts
+getEndOfLifeDetailedImpacts processes scope =
     let
-        computeShareImpacts : Mass -> EndOfLifeStrategy -> Impacts
-        computeShareImpacts mass { process, split } =
-            process
-                |> Maybe.map
-                    (.impacts
-                        >> Impact.multiplyBy
-                            (split
-                                |> Split.applyToQuantity mass
-                                |> Mass.inKilograms
-                            )
-                    )
-                |> Maybe.withDefault Impact.empty
+        collectionRatio =
+            getEndOfLifeCollectionShare scope
+
+        nonCollectionRatio =
+            Split.complement collectionRatio
+
+        applyStrategies { incinerating, landfilling, recycling } mass =
+            ( mass
+            , { incinerating = { incinerating | impacts = incinerating |> computeShareImpacts mass }
+              , landfilling = { landfilling | impacts = landfilling |> computeShareImpacts mass }
+              , recycling = { recycling | impacts = recycling |> computeShareImpacts mass }
+              }
+            )
     in
     getMaterialDistribution
         >> AnyDict.map
             (\materialCategory mass ->
-                materialCategory
-                    |> getEndOfLifeStrategies processes
-                    |> Result.map
-                        (\{ incinerating, landfilling, recycling } ->
-                            ( mass
-                            , { incinerating = { incinerating | impacts = computeShareImpacts mass incinerating }
-                              , landfilling = { landfilling | impacts = computeShareImpacts mass landfilling }
-                              , recycling = { recycling | impacts = computeShareImpacts mass recycling }
-                              }
-                            )
-                        )
+                Result.map2
+                    (\collectionStrategies nonCollectionStrategies ->
+                        { collected =
+                            collectionRatio
+                                |> Split.applyToQuantity mass
+                                |> applyStrategies collectionStrategies
+                        , nonCollected =
+                            nonCollectionRatio
+                                |> Split.applyToQuantity mass
+                                |> applyStrategies nonCollectionStrategies
+                        }
+                    )
+                    (materialCategory |> getEndOfLifeCollectionStrategies processes)
+                    (materialCategory |> getEndOfLifeNonCollectionStrategies processes)
             )
         >> AnyDict.toList
-        >> RE.combineMap (\( category, strategy ) -> strategy |> Result.map (Tuple.pair category))
+        >> RE.combineMap RE.combineSecond
         >> Result.map (AnyDict.fromList Category.materialTypeToString)
 
 
-getEndOfLifeImpacts : DataContainer db -> Results -> Result String Impacts
-getEndOfLifeImpacts db (Results results) =
+getEndOfLifeImpacts : DataContainer db -> Scope -> Results -> Result String Impacts
+getEndOfLifeImpacts db scope (Results results) =
     Results results
-        |> getEndOfLifeDetailedImpacts db.processes
+        |> getEndOfLifeDetailedImpacts db.processes scope
         |> Result.map
             (AnyDict.map
-                (\_ ( _, { incinerating, landfilling, recycling } ) ->
-                    [ incinerating, landfilling, recycling ]
+                (\_ { collected, nonCollected } ->
+                    let
+                        ( collectedStrategies, nonCollectedStrategies ) =
+                            ( Tuple.second collected, Tuple.second nonCollected )
+                    in
+                    [ collectedStrategies.incinerating
+                    , collectedStrategies.landfilling
+                    , collectedStrategies.recycling
+                    , nonCollectedStrategies.incinerating
+                    , nonCollectedStrategies.landfilling
+                    , nonCollectedStrategies.recycling
+                    ]
                         |> List.map .impacts
                         |> Impact.sumImpacts
                 )
@@ -900,8 +948,8 @@ getEndOfLifeImpacts db (Results results) =
             )
 
 
-getEndOfLifeStrategies : List Process -> Category.Material -> Result String EndOfLifeStrategies
-getEndOfLifeStrategies processes material =
+getEndOfLifeCollectionStrategies : List Process -> Category.Material -> Result String EndOfLifeStrategies
+getEndOfLifeCollectionStrategies processes material =
     -- TODO: eventually, it would be nice to load this from an external config file or
     --       even better, from the backend
     Result.map5
@@ -960,6 +1008,42 @@ getEndOfLifeStrategies processes material =
         (Process.findByStringId "3fe5a5b1-c1b2-5c17-8b59-0e37b09f1037" processes)
 
 
+getEndOfLifeNonCollectionStrategies : List Process -> Category.Material -> Result String EndOfLifeStrategies
+getEndOfLifeNonCollectionStrategies processes material =
+    Result.map3
+        (\defaultIncinerating metalIncineration defaultLandfilling ->
+            let
+                emptyStrategy =
+                    { impacts = Impact.empty, process = Nothing, split = Split.zero }
+
+                split =
+                    Split.fromPercent >> Result.withDefault Split.zero
+
+                defaultStrategies =
+                    { incinerating = { emptyStrategy | process = Just defaultIncinerating, split = split 82 }
+                    , landfilling = { emptyStrategy | process = Just defaultLandfilling, split = split 18 }
+                    , recycling = { emptyStrategy | process = Nothing, split = Split.zero }
+                    }
+            in
+            [ ( Category.Metal
+              , { incinerating = { emptyStrategy | process = Just metalIncineration, split = split 5 }
+                , landfilling = { emptyStrategy | process = Just defaultLandfilling, split = split 5 }
+                , recycling = { emptyStrategy | process = Nothing, split = split 90 }
+                }
+              )
+            ]
+                |> AnyDict.fromList Category.materialTypeToString
+                |> AnyDict.get material
+                |> Maybe.withDefault defaultStrategies
+        )
+        -- Default incineration process
+        (Process.findByStringId "6fad4e70-5736-552d-a686-97e4fb627c37" processes)
+        -- Metal Incineration process
+        (Process.findByStringId "5719f399-c2a3-5268-84e2-894aba588f1b" processes)
+        -- Default landfilling process
+        (Process.findByStringId "d4954f69-e647-531d-aa32-c34be5556736" processes)
+
+
 {-| Compute mass distribution by material types
 -}
 getMaterialDistribution : Results -> MaterialDistribution Mass
@@ -1011,7 +1095,7 @@ isCustomized component custom =
     List.any identity
         [ custom.elements /= component.elements
         , custom.name /= Nothing && custom.name /= Just component.name
-        , custom.scopes /= component.scopes
+        , custom.scope /= Nothing && custom.scope /= Just component.scope
         ]
 
 
@@ -1033,11 +1117,11 @@ itemToComponent { components } { custom, id } =
         |> Result.map
             (\component ->
                 case custom of
-                    Just { elements, name, scopes } ->
+                    Just { elements, name, scope } ->
                         { component
                             | elements = elements
                             , name = name |> Maybe.withDefault component.name
-                            , scopes = scopes
+                            , scope = scope |> Maybe.withDefault component.scope
                         }
 
                     Nothing ->
@@ -1122,6 +1206,25 @@ removeElementTransform targetElement transformIndex =
         \el -> { el | transforms = el.transforms |> LE.removeAt transformIndex }
 
 
+setCustomScope : Component -> Scope -> Item -> Item
+setCustomScope component scope item =
+    { item
+        | custom =
+            item.custom
+                |> updateCustom component
+                    (\custom ->
+                        { custom
+                            | scope =
+                                if scope == component.scope then
+                                    Nothing
+
+                                else
+                                    Just scope
+                        }
+                    )
+    }
+
+
 setElementMaterial : TargetElement -> Process -> List Item -> Result String (List Item)
 setElementMaterial targetElement material items =
     if not <| List.member Category.Material material.categories then
@@ -1185,25 +1288,6 @@ sumLifeCycleImpacts lifeCycle =
         ]
 
 
-toggleCustomScope : Component -> Scope -> Bool -> Item -> Item
-toggleCustomScope component scope enabled item =
-    { item
-        | custom =
-            item.custom
-                |> updateCustom component
-                    (\custom ->
-                        { custom
-                            | scopes =
-                                if enabled then
-                                    scope :: custom.scopes
-
-                                else
-                                    List.filter ((/=) scope) custom.scopes
-                        }
-                    )
-    }
-
-
 updateCustom : Component -> (Custom -> Custom) -> Maybe Custom -> Maybe Custom
 updateCustom component fn maybeCustom =
     case maybeCustom of
@@ -1223,7 +1307,7 @@ updateCustom component fn maybeCustom =
                 (fn
                     { elements = component.elements
                     , name = Nothing
-                    , scopes = component.scopes
+                    , scope = Nothing
                     }
                 )
 

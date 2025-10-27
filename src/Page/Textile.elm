@@ -928,7 +928,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , items = inputs.trims
         , lifeCycle =
             inputs.trims
-                |> Component.compute session.db
+                |> Component.compute session.db Scope.Textile
                 |> Result.withDefault Component.emptyLifeCycle
         , maxItems = Nothing
         , noOp = NoOp
@@ -937,7 +937,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , removeElement = \_ -> NoOp
         , removeElementTransform = \_ _ -> NoOp
         , removeItem = RemoveTrim
-        , scopes = [ Scope.Textile ]
+        , scope = Scope.Textile
         , setDetailed = \_ -> NoOp
         , title = "Accessoires"
         , updateElementAmount = \_ _ -> NoOp
