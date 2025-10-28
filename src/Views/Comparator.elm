@@ -129,7 +129,11 @@ addToComparison session { name, query } =
 
         Bookmark.Object objectQuery ->
             objectQuery
-                |> ObjectSimulator.compute session.db Scope.Object
+                |> ObjectSimulator.compute
+                    { config = session.componentConfig
+                    , db = session.db
+                    , scope = Scope.Object
+                    }
                 |> Result.map
                     (\lifeCycle ->
                         { complementsImpact = Impact.noComplementsImpacts
@@ -143,7 +147,7 @@ addToComparison session { name, query } =
 
         Bookmark.Textile textileQuery ->
             textileQuery
-                |> TextileSimulator.compute session.db
+                |> TextileSimulator.compute session.db session.componentConfig
                 |> Result.map
                     (\simulator ->
                         { complementsImpact = simulator.complementsImpacts
@@ -157,7 +161,11 @@ addToComparison session { name, query } =
 
         Bookmark.Veli objectQuery ->
             objectQuery
-                |> ObjectSimulator.compute session.db Scope.Veli
+                |> ObjectSimulator.compute
+                    { config = session.componentConfig
+                    , db = session.db
+                    , scope = Scope.Veli
+                    }
                 |> Result.map
                     (\lifeCycle ->
                         { complementsImpact = Impact.noComplementsImpacts

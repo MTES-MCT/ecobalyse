@@ -50,6 +50,7 @@ config =
     , NoUnsortedRecordFields.rule
         |> Rule.ignoreErrorsForDirectories [ "tests/" ]
         |> Rule.ignoreErrorsForDirectories [ "src/Page" ]
+        |> Rule.ignoreErrorsForFiles [ "src/Data/Component/Config.elm" ]
         |> Rule.ignoreErrorsForFiles [ "src/Data/Impact/Definition.elm" ]
     , NoUnsortedConstructors.rule
         |> Rule.ignoreErrorsForDirectories [ "tests/" ]

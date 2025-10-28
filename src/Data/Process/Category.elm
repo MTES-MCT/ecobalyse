@@ -1,13 +1,16 @@
 module Data.Process.Category exposing
     ( Category(..)
     , Material(..)
+    , MaterialDict
     , decodeList
+    , decodeMaterialDict
     , encode
     , materialTypeToLabel
     , materialTypeToString
     , toLabel
     )
 
+import Dict.Any as AnyDict exposing (AnyDict)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Encode as Encode
@@ -35,6 +38,17 @@ type Material
     | SyntheticFibers
     | Upholstery
     | Wood
+
+
+{-| A dict where keys are typed as `Material`
+-}
+type alias MaterialDict a =
+    AnyDict String Material a
+
+
+decodeMaterialDict : Decoder a -> Decoder (MaterialDict a)
+decodeMaterialDict =
+    AnyDict.decode_ (\key _ -> materialTypeFromString key) materialTypeToString
 
 
 decodeList : Decoder (List Category)
