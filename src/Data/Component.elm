@@ -58,6 +58,7 @@ module Data.Component exposing
     , itemToComponent
     , itemToString
     , itemsToString
+    , parseConfig
     , quantityFromInt
     , quantityToInt
     , removeElement
@@ -1079,6 +1080,13 @@ loadDefaultEnergyMixes processes =
 mapAmount : (Float -> Float) -> Amount -> Amount
 mapAmount fn (Amount float) =
     Amount <| fn float
+
+
+{-| Proxified for convenience
+-}
+parseConfig : List Process -> String -> Result String Config
+parseConfig =
+    Config.parse
 
 
 quantityFromInt : Int -> Quantity

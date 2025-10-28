@@ -20,6 +20,7 @@ import TestUtils exposing (asTest, suiteFromResult, suiteWithDb, tShirtCotonFran
 
 getImpact : Db -> Definition.Trigram -> Query -> Result String Float
 getImpact db trigram query =
+    -- FIXME: Use test config
     Component.defaultConfig db.processes
         |> Result.andThen
             (\config ->
@@ -51,6 +52,7 @@ ecs =
 
 computeWithDefaultComponentConfig : Db -> Query -> Result String Simulator
 computeWithDefaultComponentConfig db query =
+    -- Note: this uses the default config which doesn't compute end of life impacts for trims components
     Component.defaultConfig db.processes
         |> Result.andThen (\config -> query |> Simulator.compute db config)
 
@@ -215,7 +217,8 @@ suite =
                 [ suiteFromResult "should compute total impacts without complements"
                     tShirtCotonFrance
                     (\query ->
-                        [ Component.defaultConfig db.processes
+                        [ -- FIXME: Use test config
+                          Component.defaultConfig db.processes
                             |> Result.andThen
                                 (\config ->
                                     query |> Simulator.compute db config

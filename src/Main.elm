@@ -4,6 +4,7 @@ import App exposing (PageUpdate)
 import Browser exposing (Document)
 import Browser.Navigation as Nav
 import Data.Component as Component
+import Data.Component.Config as ComponentConfig
 import Data.Example as Example
 import Data.Food.Query as FoodQuery
 import Data.Github as Github
@@ -29,9 +30,11 @@ import Page.Stats as Stats
 import Page.Textile as TextileSimulator
 import Ports
 import RemoteData exposing (WebData)
+import RemoteData.Http as Http
 import Request.Auth
 import Request.BackendHttp as BackendHttp
 import Request.BackendHttp.Error as BackendError
+import Request.Common
 import Request.Github
 import Request.Version exposing (VersionData)
 import Route
@@ -91,6 +94,7 @@ type Msg
     | AppMsg App.Msg
     | AuthMsg Auth.Msg
     | ComponentAdminMsg ComponentAdmin.Msg
+    | ComponentConfigReceived (WebData Component.Config)
     | DetailedProcessesReceived (BackendHttp.WebData String)
     | EditorialMsg Editorial.Msg
     | ExploreMsg Explore.Msg
@@ -142,8 +146,8 @@ init flags requestedUrl navKey =
                   }
                 , Cmd.batch
                     [ Ports.appStarted ()
-
-                    -- TODO: initiate loading of component config over http
+                    , ComponentConfig.decode db.processes
+                        |> Http.get "/data/components/config.json" ComponentConfigReceived
                     , Request.Version.loadVersion VersionReceived
                     , Request.Github.getReleases ReleasesReceived
                     , if Session.isAuthenticated session then
@@ -413,6 +417,19 @@ update rawMsg ({ state } as model) =
                     ComponentAdmin.update session adminMsg adminModel
                         |> toPage session model Cmd.none ComponentAdminPage ComponentAdminMsg
 
+                ( ComponentConfigReceived (RemoteData.Success componentConfig), currentPage ) ->
+                    ( { model | state = currentPage |> Loaded { session | componentConfig = componentConfig } }
+                    , Cmd.none
+                    )
+
+                ( ComponentConfigReceived (RemoteData.Failure error), _ ) ->
+                    ( { model | state = Errored <| Request.Common.errorToString error }
+                    , Cmd.none
+                    )
+
+                ( ComponentConfigReceived _, _ ) ->
+                    ( model, Cmd.none )
+
                 ( ProcessAdminMsg adminMsg, ProcessAdminPage adminModel ) ->
                     ProcessAdmin.update session adminMsg adminModel
                         |> toPage session model Cmd.none ProcessAdminPage ProcessAdminMsg
@@ -570,9 +587,10 @@ view : Model -> Document Msg
 view { mobileNavigationOpened, state, tray } =
     case state of
         Errored error ->
+            -- FIXME: proper error page
             { body =
                 [ Html.h1 [] [ Html.text <| "Erreur" ]
-                , Html.p [] [ Html.text error ]
+                , Html.pre [] [ Html.text error ]
                 ]
             , title = "Erreur"
             }

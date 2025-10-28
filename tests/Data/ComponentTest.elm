@@ -290,7 +290,7 @@ suite =
             , describe "compute"
                 [ it "should compute results from decoded component items"
                     (chair
-                        |> Result.andThen (computeWithDefaultConfig db)
+                        |> Result.andThen (computeWithTestConfig db)
                         |> Result.map (.production >> extractEcsImpact)
                         |> TestUtils.expectResultWithin (Expect.Absolute 1) 293
                     )
@@ -311,7 +311,7 @@ suite =
                          , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
                          , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
                          ]"""
-                        |> decodeJsonThen (Decode.list Component.decodeItem) (computeWithDefaultConfig db)
+                        |> decodeJsonThen (Decode.list Component.decodeItem) (computeWithTestConfig db)
                         |> Result.map (.production >> extractEcsImpact)
                         |> TestUtils.expectResultWithin (Expect.Absolute 1) 314
                     )
@@ -515,10 +515,10 @@ suite =
             , TestUtils.suiteFromResult "getEndOfLifeDetailedImpacts"
                 -- setup
                 (chair
-                    |> Result.andThen (computeWithDefaultConfig db)
+                    |> Result.andThen (computeWithTestConfig db)
                     |> Result.andThen
                         (\{ production } ->
-                            Component.defaultConfig db.processes
+                            testComponentConfig db.processes
                                 |> Result.map
                                     (\config ->
                                         production
@@ -664,7 +664,7 @@ suite =
             , TestUtils.suiteFromResult "stagesImpacts"
                 (""" [ { "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 }
                      ]"""
-                    |> decodeJsonThen (Decode.list Component.decodeItem) (computeWithDefaultConfig db)
+                    |> decodeJsonThen (Decode.list Component.decodeItem) (computeWithTestConfig db)
                     |> Result.map (\results -> ( results, Component.stagesImpacts results ))
                 )
                 (\( lifeCycle, stagesImpacts ) ->
@@ -774,9 +774,59 @@ suite =
             ]
 
 
-computeWithDefaultConfig : Db -> List Item -> Result String LifeCycle
-computeWithDefaultConfig db items =
-    Component.defaultConfig db.processes
+testComponentConfig : List Process -> Result String Component.Config
+testComponentConfig processes =
+    Component.parseConfig processes
+        """
+        {
+            "endOfLife": {
+                "scopeCollectionRates": {
+                "object": 70
+                },
+                "strategies": {
+                    "default": {
+                        "incinerating": { "processId": "6fad4e70-5736-552d-a686-97e4fb627c37", "percent": 82 },
+                        "landfilling": { "processId": "d4954f69-e647-531d-aa32-c34be5556736", "percent": 18 },
+                        "recycling": null
+                    },
+                    "collected": {
+                        "metal": {
+                            "incinerating": null,
+                            "landfilling": null,
+                            "recycling": { "percent": 100 }
+                        },
+                        "plastic": {
+                            "incinerating": { "processId": "17986210-aeb8-5f4f-99fd-cbecb5439fde", "percent": 8 },
+                            "landfilling": null,
+                            "recycling": { "percent": 92 }
+                        },
+                        "upholstery": {
+                            "incinerating": { "processId": "3fe5a5b1-c1b2-5c17-8b59-0e37b09f1037", "percent": 94 },
+                            "landfilling": { "processId": "d4954f69-e647-531d-aa32-c34be5556736", "percent": 2 },
+                            "recycling": { "percent": 4 }
+                        },
+                        "wood": {
+                            "incinerating": { "processId": "316be695-bf3e-5562-9f09-77f213c3ec67", "percent": 31 },
+                            "landfilling": null,
+                            "recycling": { "percent": 69 }
+                        }
+                    },
+                    "nonCollected": {
+                        "metal": {
+                            "incinerating": { "processId": "5719f399-c2a3-5268-84e2-894aba588f1b", "percent": 5 },
+                            "landfilling": { "processId": "d4954f69-e647-531d-aa32-c34be5556736", "percent": 5 },
+                            "recycling": { "percent": 90 }
+                        }
+                    }
+                }
+            }
+        }
+        """
+
+
+computeWithTestConfig : Db -> List Item -> Result String LifeCycle
+computeWithTestConfig db items =
+    testComponentConfig db.processes
         |> Result.andThen
             (\config ->
                 items

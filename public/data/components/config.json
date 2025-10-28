@@ -1,0 +1,43 @@
+{
+  "endOfLife": {
+    "scopeCollectionRates": {
+      "object": 70
+    },
+    "strategies": {
+      "collected": {
+        "metal": {
+          "incinerating": null,
+          "landfilling": null,
+          "recycling": { "percent": 100 }
+        },
+        "plastic": {
+          "incinerating": { "percent": 8, "processId": "17986210-aeb8-5f4f-99fd-cbecb5439fde" },
+          "landfilling": null,
+          "recycling": { "percent": 92 }
+        },
+        "upholstery": {
+          "incinerating": { "percent": 94, "processId": "3fe5a5b1-c1b2-5c17-8b59-0e37b09f1037" },
+          "landfilling": { "percent": 2, "processId": "d4954f69-e647-531d-aa32-c34be5556736" },
+          "recycling": { "percent": 4 }
+        },
+        "wood": {
+          "incinerating": { "percent": 31, "processId": "316be695-bf3e-5562-9f09-77f213c3ec67" },
+          "landfilling": null,
+          "recycling": { "percent": 69 }
+        }
+      },
+      "default": {
+        "incinerating": { "percent": 82, "processId": "6fad4e70-5736-552d-a686-97e4fb627c37" },
+        "landfilling": { "percent": 18, "processId": "d4954f69-e647-531d-aa32-c34be5556736" },
+        "recycling": null
+      },
+      "nonCollected": {
+        "metal": {
+          "incinerating": { "percent": 5, "processId": "5719f399-c2a3-5268-84e2-894aba588f1b" },
+          "landfilling": { "percent": 5, "processId": "d4954f69-e647-531d-aa32-c34be5556736" },
+          "recycling": { "percent": 90 }
+        }
+      }
+    }
+  }
+}
