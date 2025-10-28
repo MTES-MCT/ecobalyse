@@ -150,6 +150,10 @@ executeFoodQuery request db encoder =
 
 executeTextileQuery : Request -> Db -> (Simulator -> Encode.Value) -> TextileQuery.Query -> JsonResponse
 executeTextileQuery request db encoder query =
+    -- Important note: the Textile API doesn't currently use any specific component configuration
+    -- for trims so only the production stage impacts are taken into account.
+    -- This might change if we ever want to compute, say, EoL impacts for trims: then we should apply a
+    -- non-passthrough component configuration like the one used for other scopes like Object and Veli.
     Component.defaultConfig db.processes
         |> Result.map
             (\config ->

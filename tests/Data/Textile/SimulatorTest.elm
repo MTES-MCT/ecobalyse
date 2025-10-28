@@ -20,7 +20,7 @@ import TestUtils exposing (asTest, suiteFromResult, suiteWithDb, tShirtCotonFran
 
 getImpact : Db -> Definition.Trigram -> Query -> Result String Float
 getImpact db trigram query =
-    -- Note: for Textile we use the default component config for trims
+    -- Note: Tesxtile trims use the default component config which only provide production stage impacts.
     Component.defaultConfig db.processes
         |> Result.andThen
             (\config ->
@@ -52,7 +52,7 @@ ecs =
 
 computeWithDefaultComponentConfig : Db -> Query -> Result String Simulator
 computeWithDefaultComponentConfig db query =
-    -- Note: this uses the default config which doesn't compute end of life impacts for trims components
+    -- Note: Tesxtile trims use the default component config which only provide production stage impacts.
     Component.defaultConfig db.processes
         |> Result.andThen (\config -> query |> Simulator.compute db config)
 
@@ -217,7 +217,7 @@ suite =
                 [ suiteFromResult "should compute total impacts without complements"
                     tShirtCotonFrance
                     (\query ->
-                        [ -- Note: for Textile we use the default component config for trims
+                        [ -- Note: Tesxtile trims use the default component config which only provide production stage impacts.
                           Component.defaultConfig db.processes
                             |> Result.andThen
                                 (\config ->
