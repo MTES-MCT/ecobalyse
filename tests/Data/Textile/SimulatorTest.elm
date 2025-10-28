@@ -20,7 +20,7 @@ import TestUtils exposing (asTest, suiteFromResult, suiteWithDb, tShirtCotonFran
 
 getImpact : Db -> Definition.Trigram -> Query -> Result String Float
 getImpact db trigram query =
-    -- FIXME: Use test config
+    -- Note: for Textile we use the default component config for trims
     Component.defaultConfig db.processes
         |> Result.andThen
             (\config ->
@@ -217,7 +217,7 @@ suite =
                 [ suiteFromResult "should compute total impacts without complements"
                     tShirtCotonFrance
                     (\query ->
-                        [ -- FIXME: Use test config
+                        [ -- Note: for Textile we use the default component config for trims
                           Component.defaultConfig db.processes
                             |> Result.andThen
                                 (\config ->
