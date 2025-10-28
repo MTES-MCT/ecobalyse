@@ -884,7 +884,8 @@ getEndOfLifeDetailedImpacts { config, scope } =
         nonCollectionRatio =
             Split.complement collectionRatio
 
-        applyStrategies { incinerating, landfilling, recycling } mass =
+        applyStrategies : Mass -> EndOfLifeStrategies -> ( Mass, EndOfLifeStrategies )
+        applyStrategies mass { incinerating, landfilling, recycling } =
             ( mass
             , { incinerating = { incinerating | impacts = incinerating |> computeShareImpacts mass }
               , landfilling = { landfilling | impacts = landfilling |> computeShareImpacts mass }
@@ -896,21 +897,15 @@ getEndOfLifeDetailedImpacts { config, scope } =
         >> AnyDict.map
             (\materialCategory mass ->
                 { collected =
-                    collectionRatio
-                        |> Split.applyToQuantity mass
-                        |> applyStrategies
-                            (config.endOfLife.strategies.collected
-                                |> AnyDict.get materialCategory
-                                |> Maybe.withDefault config.endOfLife.strategies.default
-                            )
+                    config.endOfLife.strategies.collected
+                        |> AnyDict.get materialCategory
+                        |> Maybe.withDefault config.endOfLife.strategies.default
+                        |> applyStrategies (collectionRatio |> Split.applyToQuantity mass)
                 , nonCollected =
-                    nonCollectionRatio
-                        |> Split.applyToQuantity mass
-                        |> applyStrategies
-                            (config.endOfLife.strategies.nonCollected
-                                |> AnyDict.get materialCategory
-                                |> Maybe.withDefault config.endOfLife.strategies.default
-                            )
+                    config.endOfLife.strategies.nonCollected
+                        |> AnyDict.get materialCategory
+                        |> Maybe.withDefault config.endOfLife.strategies.default
+                        |> applyStrategies (nonCollectionRatio |> Split.applyToQuantity mass)
                 }
             )
         >> AnyDict.toList
