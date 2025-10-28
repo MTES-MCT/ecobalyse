@@ -23,7 +23,6 @@ import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
-import Data.Notification as Notification
 import Data.Posthog as Posthog
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
@@ -167,7 +166,7 @@ init trigram maybeUrlQuery session =
 
         simulator =
             initialQuery
-                |> Simulator.compute session.db
+                |> Simulator.compute session.db session.componentConfig
     in
     { simulator = simulator
     , bookmarkName = initialQuery |> suggestBookmarkName session
@@ -190,14 +189,6 @@ init trigram maybeUrlQuery session =
     , activeImpactsTab = ImpactTabs.StepImpactsTab
     }
         |> App.createUpdate (session |> Session.updateTextileQuery initialQuery)
-        |> App.withAppMsgs
-            (case simulator of
-                Err error ->
-                    [ App.AddToast (Notification.error "Erreur de récupération des paramètres d'entrée" error) ]
-
-                Ok _ ->
-                    []
-            )
         |> App.withCmds
             [ case maybeUrlQuery of
                 -- If we do have an URL query, we either come from a bookmark, a saved simulation click or
@@ -226,7 +217,7 @@ initFromExample session uuid =
 
         simulator =
             exampleQuery
-                |> Simulator.compute session.db
+                |> Simulator.compute session.db session.componentConfig
     in
     { simulator = simulator
     , bookmarkName = exampleQuery |> suggestBookmarkName session
@@ -244,14 +235,6 @@ initFromExample session uuid =
     , activeImpactsTab = ImpactTabs.StepImpactsTab
     }
         |> App.createUpdate (session |> Session.updateTextileQuery exampleQuery)
-        |> App.withAppMsgs
-            (case simulator of
-                Err error ->
-                    [ App.AddToast (Notification.error "Erreur de récupération des paramètres d'entrée" error) ]
-
-                Ok _ ->
-                    []
-            )
         |> App.withCmds [ Ports.scrollTo { x = 0, y = 0 } ]
 
 
@@ -288,7 +271,7 @@ updateQuery query ({ model, session } as pageUpdate) =
     { pageUpdate
         | model =
             { model
-                | simulator = query |> Simulator.compute session.db
+                | simulator = query |> Simulator.compute session.db session.componentConfig
                 , bookmarkName = query |> suggestBookmarkName session
             }
         , session = session |> Session.updateTextileQuery query
@@ -918,6 +901,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         ]
     , ComponentView.editorView
         { addLabel = "Ajouter un accessoire"
+        , componentConfig = session.componentConfig
         , customizable = False
         , db = session.db
         , debug = False
@@ -928,8 +912,11 @@ simulatorFormView session model ({ inputs } as simulator) =
         , items = inputs.trims
         , lifeCycle =
             inputs.trims
-                |> Component.compute session.db Scope.Textile
-                |> Result.withDefault Component.emptyLifeCycle
+                |> Component.compute
+                    { config = session.componentConfig
+                    , db = session.db
+                    , scope = Scope.Textile
+                    }
         , maxItems = Nothing
         , noOp = NoOp
         , openSelectComponentModal = AddTrimModal >> SetModal

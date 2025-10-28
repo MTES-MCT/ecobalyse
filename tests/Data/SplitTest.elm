@@ -6,6 +6,7 @@ import Json.Decode as Decode
 import Json.Encode as Encode
 import Mass
 import Quantity
+import Result.Extra as RE
 import Test exposing (..)
 import TestUtils exposing (asTest)
 
@@ -110,6 +111,25 @@ suite =
                 |> Split.applyToQuantity Mass.kilogram
                 |> Expect.equal (Mass.kilograms 0.5)
                 |> asTest "should return half of the quantity when applying a half split"
+            ]
+        , describe "assemble"
+            [ [ Split.zero, Split.full ]
+                |> Split.assemble
+                |> Expect.ok
+                |> asTest "should accept a list of splits summing to exactly 100%"
+            , [ Split.zero, Split.tenth ]
+                |> Split.assemble
+                |> Expect.err
+                |> asTest "should reject a list of splits < 100%"
+            , [ Split.full, Split.full ]
+                |> Split.assemble
+                |> Expect.err
+                |> asTest "should reject a list of splits exceeding 100%"
+            , [ Split.fromFloat (1 / 3), Split.fromFloat (1 / 3), Split.fromFloat (1 / 3) ]
+                |> RE.combine
+                |> Result.andThen Split.assemble
+                |> Expect.ok
+                |> asTest "should accept a list of splits summing to 100% with float precision error"
             ]
         , describe "divideBy"
             [ Split.zero

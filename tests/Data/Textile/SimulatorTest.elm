@@ -1,5 +1,6 @@
 module Data.Textile.SimulatorTest exposing (..)
 
+import Data.Component as Component
 import Data.Country as Country
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
@@ -7,7 +8,7 @@ import Data.Split as Split
 import Data.Textile.Economics as Economics
 import Data.Textile.LifeCycle as LifeCycle
 import Data.Textile.Query as Query exposing (Query)
-import Data.Textile.Simulator as Simulator
+import Data.Textile.Simulator as Simulator exposing (Simulator)
 import Data.Textile.Step.Label as Label
 import Data.Unit as Unit
 import Expect exposing (Expectation)
@@ -18,12 +19,18 @@ import TestUtils exposing (asTest, suiteFromResult, suiteWithDb, tShirtCotonFran
 
 
 getImpact : Db -> Definition.Trigram -> Query -> Result String Float
-getImpact db trigram =
-    Simulator.compute db
-        >> Result.map
-            (.impacts
-                >> Impact.getImpact trigram
-                >> Unit.impactToFloat
+getImpact db trigram query =
+    -- Note: Tesxtile trims use the default component config which only provide production stage impacts.
+    Component.defaultConfig db.processes
+        |> Result.andThen
+            (\config ->
+                query
+                    |> Simulator.compute db config
+                    |> Result.map
+                        (.impacts
+                            >> Impact.getImpact trigram
+                            >> Unit.impactToFloat
+                        )
             )
 
 
@@ -43,12 +50,20 @@ ecs =
     Definition.Ecs
 
 
+computeWithDefaultComponentConfig : Db -> Query -> Result String Simulator
+computeWithDefaultComponentConfig db query =
+    -- Note: Tesxtile trims use the default component config which only provide production stage impacts.
+    Component.defaultConfig db.processes
+        |> Result.andThen (\config -> query |> Simulator.compute db config)
+
+
 suite : Test
 suite =
     suiteWithDb "Data.Textile.Simulator"
         (\db ->
             [ describe "Simulator.compute"
-                [ suiteFromResult "should compute a simulation ecs impact" tShirtCotonFrance
+                [ suiteFromResult "should compute a simulation ecs impact"
+                    tShirtCotonFrance
                     (\query ->
                         [ { query
                             | countrySpinning = Nothing
@@ -58,16 +73,18 @@ suite =
                         ]
                     )
                 , describe "disabled steps"
-                    [ suiteFromResult "should be handled from passed query" tShirtCotonFrance
+                    [ suiteFromResult "should be handled from passed query"
+                        tShirtCotonFrance
                         (\query ->
                             [ { query | disabledSteps = [ Label.Ennobling ] }
-                                |> Simulator.compute db
+                                |> computeWithDefaultComponentConfig db
                                 |> Result.map (.lifeCycle >> LifeCycle.getStepProp Label.Ennobling .enabled True)
                                 |> Expect.equal (Ok False)
                                 |> asTest "be handled from passed query"
                             ]
                         )
-                    , suiteFromResult "should handle disabled steps" tShirtCotonFrance
+                    , suiteFromResult "should handle disabled steps"
+                        tShirtCotonFrance
                         (\query ->
                             [ asTest "handle disabled steps"
                                 (case
@@ -83,7 +100,8 @@ suite =
                                 )
                             ]
                         )
-                    , suiteFromResult "should allow disabling steps" tShirtCotonFrance
+                    , suiteFromResult "should allow disabling steps"
+                        tShirtCotonFrance
                         (\query ->
                             [ asTest "allow disabling steps"
                                 (case
@@ -102,10 +120,11 @@ suite =
                     ]
                 ]
             , describe "compute holistic durability"
-                [ suiteFromResult "should have default durability" tShirtCotonFrance
+                [ suiteFromResult "should have default durability"
+                    tShirtCotonFrance
                     (\query ->
                         [ query
-                            |> Simulator.compute db
+                            |> computeWithDefaultComponentConfig db
                             |> Result.map .durability
                             |> Expect.equal (Ok { physical = Unit.physicalDurability 1.45, nonPhysical = Unit.nonPhysicalDurability 0.67 })
                             |> asTest "have default durability"
@@ -116,7 +135,8 @@ suite =
                         |> Unit.floatDurabilityFromHolistic
                         |> Expect.within (Expect.Absolute 0.001) 0.67
                     )
-                , suiteFromResult "should take into account when non physical durability changes" tShirtCotonFrance
+                , suiteFromResult "should take into account when non physical durability changes"
+                    tShirtCotonFrance
                     (\query ->
                         let
                             tShirtCotonWithSmallerPhysicalDurability =
@@ -127,12 +147,12 @@ suite =
                                 }
                         in
                         [ tShirtCotonWithSmallerPhysicalDurability
-                            |> Simulator.compute db
+                            |> computeWithDefaultComponentConfig db
                             |> Result.map .durability
                             |> Expect.equal (Ok { physical = Unit.physicalDurability 1, nonPhysical = Unit.nonPhysicalDurability 1.32 })
                             |> asTest "take into account when non physical durability changes"
                         , tShirtCotonWithSmallerPhysicalDurability
-                            |> Simulator.compute db
+                            |> computeWithDefaultComponentConfig db
                             |> Result.map (.durability >> Unit.floatDurabilityFromHolistic)
                             |> Expect.equal (Ok 1)
                             |> asTest "return non physical durability if it is the smallest"
@@ -140,25 +160,28 @@ suite =
                     )
                 ]
             , describe "compute airTransportRatio"
-                [ suiteFromResult "should be zero for products from Europe or Turkey" tShirtCotonFrance
+                [ suiteFromResult "should be zero for products from Europe or Turkey"
+                    tShirtCotonFrance
                     (\query ->
                         [ query
-                            |> Simulator.compute db
+                            |> computeWithDefaultComponentConfig db
                             |> Result.map (.lifeCycle >> LifeCycle.getStepProp Label.Making .airTransportRatio Split.half)
                             |> Expect.equal (Ok Split.zero)
                             |> asTest "be zero for products from Europe or Turkey"
                         ]
                     )
-                , suiteFromResult "should be full for products not coming from Europe or Turkey" tShirtCotonFrance
+                , suiteFromResult "should be full for products not coming from Europe or Turkey"
+                    tShirtCotonFrance
                     (\query ->
                         [ { query | countryMaking = Just (Country.Code "CN") }
-                            |> Simulator.compute db
+                            |> computeWithDefaultComponentConfig db
                             |> Result.map (.lifeCycle >> LifeCycle.getStepProp Label.Making .airTransportRatio Split.half)
                             |> Expect.equal (Ok Split.full)
                             |> asTest "be full for products not coming from Europe or Turkey"
                         ]
                     )
-                , suiteFromResult "should be 0.33 for products not coming from Europe or Turkey but with a durability >= 1" tShirtCotonFrance
+                , suiteFromResult "should be 0.33 for products not coming from Europe or Turkey but with a durability >= 1"
+                    tShirtCotonFrance
                     (\query ->
                         let
                             tShirtCotonWithSmallerPhysicalDurabilityCn =
@@ -170,19 +193,20 @@ suite =
                                 }
                         in
                         [ tShirtCotonWithSmallerPhysicalDurabilityCn
-                            |> Simulator.compute db
+                            |> computeWithDefaultComponentConfig db
                             |> Result.map (.lifeCycle >> LifeCycle.getStepProp Label.Making .airTransportRatio Split.half)
                             |> Expect.equal (Ok Split.third)
                             |> asTest "be 0.33 for products not coming from Europe or Turkey but with a durability >= 1"
                         ]
                     )
-                , suiteFromResult "should keep the user provided value" tShirtCotonFrance
+                , suiteFromResult "should keep the user provided value"
+                    tShirtCotonFrance
                     (\query ->
                         [ { query
                             | countryMaking = Just (Country.Code "CN")
                             , airTransportRatio = Just Split.two
                           }
-                            |> Simulator.compute db
+                            |> computeWithDefaultComponentConfig db
                             |> Result.map (.lifeCycle >> LifeCycle.getStepProp Label.Making .airTransportRatio Split.half)
                             |> Expect.equal (Ok Split.two)
                             |> asTest "keep the user provided value"
@@ -190,10 +214,15 @@ suite =
                     )
                 ]
             , describe "getTotalImpactsWithoutComplements"
-                [ suiteFromResult "should compute total impacts without complements" tShirtCotonFrance
+                [ suiteFromResult "should compute total impacts without complements"
+                    tShirtCotonFrance
                     (\query ->
-                        [ query
-                            |> Simulator.compute db
+                        [ -- Note: Tesxtile trims use the default component config which only provide production stage impacts.
+                          Component.defaultConfig db.processes
+                            |> Result.andThen
+                                (\config ->
+                                    query |> Simulator.compute db config
+                                )
                             |> Result.map
                                 (Simulator.getTotalImpactsWithoutComplements
                                     >> Impact.getImpact Definition.Ecs
@@ -212,7 +241,7 @@ suite =
                             jsonQuery
                                 |> Decode.decodeString Query.decode
                                 |> Result.mapError Decode.errorToString
-                                |> Result.andThen (Simulator.compute db)
+                                |> Result.andThen (computeWithDefaultComponentConfig db)
                                 |> Result.map
                                     (\simulator ->
                                         ( simulator.impacts |> Impact.getImpact Definition.Ecs |> Unit.impactToFloat

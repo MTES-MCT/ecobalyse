@@ -63,7 +63,7 @@ type alias Model =
     , impact : Definition
     , initialQuery : Query
     , modal : Modal
-    , lifeCycle : Component.LifeCycle
+    , lifeCycle : Result String Component.LifeCycle
     , scope : Scope
     }
 
@@ -137,8 +137,11 @@ init scope trigram maybeUrlQuery session =
     , modal = NoModal
     , lifeCycle =
         initialQuery
-            |> Simulator.compute session.db scope
-            |> Result.withDefault Component.emptyLifeCycle
+            |> Simulator.compute
+                { config = session.componentConfig
+                , db = session.db
+                , scope = scope
+                }
     , scope = scope
     }
         |> App.createUpdate (session |> Session.updateObjectQuery scope initialQuery)
@@ -183,8 +186,11 @@ initFromExample session scope uuid =
     , modal = NoModal
     , lifeCycle =
         exampleQuery
-            |> Simulator.compute session.db scope
-            |> Result.withDefault Component.emptyLifeCycle
+            |> Simulator.compute
+                { config = session.componentConfig
+                , db = session.db
+                , scope = scope
+                }
     , scope = scope
     }
         |> App.createUpdate (session |> Session.updateObjectQuery scope exampleQuery)
@@ -227,8 +233,11 @@ updateQuery query ({ model, session } as pageUpdate) =
                 , bookmarkName = query |> suggestBookmarkName session model.examples
                 , lifeCycle =
                     query
-                        |> Simulator.compute session.db model.scope
-                        |> Result.withDefault Component.emptyLifeCycle
+                        |> Simulator.compute
+                            { config = session.componentConfig
+                            , db = session.db
+                            , scope = model.scope
+                            }
             }
         , session = session |> Session.updateObjectQuery model.scope query
     }
@@ -566,6 +575,7 @@ simulatorView session model =
             , durabilityView currentDurability
             , ComponentView.editorView
                 { addLabel = "Ajouter un composant"
+                , componentConfig = session.componentConfig
                 , customizable = True
                 , db = session.db
                 , debug = True
@@ -594,7 +604,12 @@ simulatorView session model =
                 }
             ]
         , div [ class "col-lg-4 bg-white" ]
-            [ SidebarView.view
+            [ let
+                lifeCycle =
+                    model.lifeCycle
+                        |> Result.withDefault Component.emptyLifeCycle
+              in
+              SidebarView.view
                 { session = session
                 , scope = model.scope
 
@@ -604,9 +619,9 @@ simulatorView session model =
 
                 -- Score
                 , customScoreInfo = Nothing
-                , productMass = Component.extractMass model.lifeCycle.production
+                , productMass = Component.extractMass lifeCycle.production
                 , totalImpacts =
-                    model.lifeCycle
+                    lifeCycle
                         |> Component.sumLifeCycleImpacts
                         |> Impact.divideBy (Unit.ratioToFloat currentDurability)
                 , totalImpactsWithoutDurability =
@@ -614,7 +629,7 @@ simulatorView session model =
                         Nothing
 
                     else
-                        model.lifeCycle
+                        lifeCycle
                             |> Component.sumLifeCycleImpacts
                             |> Just
 
@@ -622,7 +637,7 @@ simulatorView session model =
                 , impactTabsConfig =
                     SwitchImpactsTab
                         |> ImpactTabs.createConfig session model.impact model.activeImpactsTab (always NoOp)
-                        |> ImpactTabs.forObject model.lifeCycle
+                        |> ImpactTabs.forObject lifeCycle
                         |> Just
 
                 -- Bookmarks
