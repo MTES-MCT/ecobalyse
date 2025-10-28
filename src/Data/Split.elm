@@ -54,57 +54,57 @@ zero =
 
 two : Split
 two =
-    Split 2
+    Split 0.02
 
 
 tenth : Split
 tenth =
-    Split 10
+    Split 0.1
 
 
 fifteen : Split
 fifteen =
-    Split 15
+    Split 0.15
 
 
 twenty : Split
 twenty =
-    Split 20
+    Split 0.2
 
 
 quarter : Split
 quarter =
-    Split 25
+    Split 0.25
 
 
 thirty : Split
 thirty =
-    Split 30
+    Split 0.3
 
 
 third : Split
 third =
-    Split 33
+    Split 0.33
 
 
 fourty : Split
 fourty =
-    Split 40
+    Split 0.4
 
 
 half : Split
 half =
-    Split 50
+    Split 0.5
 
 
 sixty : Split
 sixty =
-    Split 60
+    Split 0.6
 
 
 full : Split
 full =
-    Split 100
+    Split 1
 
 
 fromFloat : Float -> Result String Split
@@ -126,29 +126,26 @@ fromBoundedFloat min max float =
             )
 
     else
-        float
-            |> (*) 100
-            |> Split
-            |> Ok
+        Ok <| Split float
 
 
 fromPercent : Float -> Result String Split
-fromPercent float =
-    if float < 0 || float > 100 then
-        Err ("Une part (en pourcentage) doit être comprise entre 0 et 100 inclus (ici\u{202F}: " ++ String.fromFloat float ++ ")")
+fromPercent percentFloat =
+    if percentFloat < 0 || percentFloat > 100 then
+        Err ("Une part (en pourcentage) doit être comprise entre 0 et 100 inclus (ici\u{202F}: " ++ String.fromFloat percentFloat ++ ")")
 
     else
-        Ok (Split float)
+        Ok (Split (percentFloat / 100))
 
 
 toFloat : Split -> Float
 toFloat (Split float) =
-    float / 100
+    float
 
 
 toPercent : Split -> Float
 toPercent (Split float) =
-    float
+    float * 100
 
 
 toFloatString : Split -> String
@@ -163,7 +160,7 @@ toPercentString decimals =
 
 complement : Split -> Split
 complement (Split float) =
-    Split (100 - float)
+    Split (1 - float)
 
 
 apply : Float -> Split -> Float
@@ -184,7 +181,8 @@ assemble splits =
         total =
             splits |> List.map toFloat |> List.sum
     in
-    if total /= 1 then
+    -- Note: taking care of float number rounding precision errors https://en.wikipedia.org/wiki/Round-off_error
+    if not (List.member total [ 1, 0.6 + 0.3 + 0.1 ]) then
         Err <|
             "La somme des parts ne doit pas excéder 100%; ici\u{00A0}: "
                 ++ String.fromFloat (total * 100)
