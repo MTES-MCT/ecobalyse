@@ -34,7 +34,6 @@ import RemoteData.Http as Http
 import Request.Auth
 import Request.BackendHttp as BackendHttp
 import Request.BackendHttp.Error as BackendError
-import Request.Common
 import Request.Github
 import Request.Version exposing (VersionData)
 import Route
@@ -422,9 +421,14 @@ update rawMsg ({ state } as model) =
                     , Cmd.none
                     )
 
-                ( ComponentConfigReceived (RemoteData.Failure error), _ ) ->
-                    ( { model | state = Errored <| Request.Common.errorToString error }
-                    , Cmd.none
+                ( ComponentConfigReceived (RemoteData.Failure _), _ ) ->
+                    ( model
+                    , Notification.error "Erreur"
+                        ("Impossible de charger la configuration des composants. Une configuration par défaut sera"
+                            ++ " utilisée, les résultats fournis sont probablement invalides ou incomplets."
+                        )
+                        |> App.AddToast
+                        |> App.toCmd AppMsg
                     )
 
                 ( ComponentConfigReceived _, _ ) ->
