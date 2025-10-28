@@ -109,6 +109,7 @@ app.ports.copyToClipboard.subscribe((text) => {
 });
 
 app.ports.appStarted.subscribe(() => {
+  // Matomo
   var _paq = (window._paq = window._paq || []);
   _paq.push(["trackPageView"]);
   _paq.push(["enableLinkTracking"]);
@@ -117,6 +118,13 @@ app.ports.appStarted.subscribe(() => {
   _paq.push(["disableCookies"]);
   _paq.push(["setSiteId", process.env.MATOMO_SITE_ID]);
   loadScript(u + "matomo.js");
+
+  // Plausible
+  window.plausible =
+    window.plausible ||
+    function () {
+      (window.plausible.q = window.plausible.q || []).push(arguments);
+    };
 });
 
 app.ports.loadRapidoc.subscribe((rapidocScriptUrl) => {
