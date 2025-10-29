@@ -304,7 +304,7 @@ update ({ db, queries, navKey } as session) msg model =
         ( OpenComparator, _ ) ->
             { model | modal = ComparatorModal }
                 |> App.createUpdate (session |> Session.checkComparedSimulations)
-                |> App.withCmds [ Plausible.send <| Plausible.ComparatorOpened Scope.Textile ]
+                |> App.withCmds [ Plausible.send session <| Plausible.ComparatorOpened Scope.Textile ]
 
         ( OnAutocompleteTrim autocompleteMsg, AddTrimModal autocompleteState ) ->
             let
@@ -397,7 +397,7 @@ update ({ db, queries, navKey } as session) msg model =
                             (SaveBookmarkWithTime model.bookmarkName
                                 (Bookmark.Textile query)
                             )
-                    , Plausible.send <| Plausible.BookmarkSaved Scope.Textile
+                    , Plausible.send session <| Plausible.BookmarkSaved Scope.Textile
                     ]
 
         ( SaveBookmarkWithTime name foodQuery now, _ ) ->
@@ -429,7 +429,7 @@ update ({ db, queries, navKey } as session) msg model =
                 |> App.createUpdate session
                 |> App.withCmds
                     [ Plausible.TabSelected Scope.Textile "Partager"
-                        |> Plausible.sendIf (bookmarkTab == BookmarkView.ShareTab)
+                        |> Plausible.sendIf session (bookmarkTab == BookmarkView.ShareTab)
                     ]
 
         ( SwitchComparisonType displayChoice, _ ) ->
@@ -438,7 +438,7 @@ update ({ db, queries, navKey } as session) msg model =
                 |> App.withCmds
                     [ ComparatorView.comparisonTypeToString displayChoice
                         |> Plausible.ComparisonTypeSelected Scope.Textile
-                        |> Plausible.send
+                        |> Plausible.send session
                     ]
 
         ( SwitchImpact (Ok trigram), _ ) ->
@@ -448,7 +448,7 @@ update ({ db, queries, navKey } as session) msg model =
                         |> Route.TextileSimulator trigram
                         |> Route.toString
                         |> Navigation.pushUrl navKey
-                    , Plausible.send <| Plausible.ImpactSelected Scope.Textile trigram
+                    , Plausible.send session <| Plausible.ImpactSelected Scope.Textile trigram
                     ]
 
         ( SwitchImpact (Err error), _ ) ->
@@ -461,7 +461,7 @@ update ({ db, queries, navKey } as session) msg model =
                 |> App.withCmds
                     [ ImpactTabs.tabToString impactsTab
                         |> Plausible.TabSelected Scope.Textile
-                        |> Plausible.send
+                        |> Plausible.send session
                     ]
 
         ( SwitchTab RegulatoryTab, _ ) ->
@@ -472,12 +472,12 @@ update ({ db, queries, navKey } as session) msg model =
                  else
                     { model | activeTab = RegulatoryTab }
                 )
-                |> App.withCmds [ Plausible.send <| Plausible.TabSelected Scope.Textile "Regulatory" ]
+                |> App.withCmds [ Plausible.send session <| Plausible.TabSelected Scope.Textile "Regulatory" ]
 
         ( SwitchTab ExploratoryTab, _ ) ->
             { model | activeTab = ExploratoryTab }
                 |> App.createUpdate session
-                |> App.withCmds [ Plausible.send <| Plausible.TabSelected Scope.Textile "Exploratory" ]
+                |> App.withCmds [ Plausible.send session <| Plausible.TabSelected Scope.Textile "Exploratory" ]
 
         ( ToggleComparedSimulation bookmark checked, _ ) ->
             model
@@ -641,7 +641,7 @@ selectExample autocompleteState { model, session } =
         |> App.createUpdate (Session.updateTextileQuery example session)
         |> App.apply update (SetModal NoModal)
         |> updateQuery example
-        |> App.withCmds [ Plausible.send <| Plausible.ExampleSelected Scope.Textile ]
+        |> App.withCmds [ Plausible.send session <| Plausible.ExampleSelected Scope.Textile ]
 
 
 selectTrim : Autocomplete Component -> PageUpdate Model Msg -> PageUpdate Model Msg

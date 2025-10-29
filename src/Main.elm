@@ -129,7 +129,7 @@ init flags requestedUrl navKey =
                   , tray = Toast.tray
                   , url = requestedUrl
                   }
-                , Plausible.send <| Plausible.PageErrored requestedUrl err
+                , Cmd.none
                 )
 
             Ok ( db, componentConfig ) ->
@@ -154,7 +154,7 @@ init flags requestedUrl navKey =
 
                       else
                         Cmd.none
-                    , Plausible.send <| Plausible.PageViewed requestedUrl
+                    , Plausible.send session <| Plausible.PageViewed requestedUrl
                     ]
                 )
         )
@@ -494,7 +494,7 @@ update rawMsg ({ state } as model) =
                 ( UrlChanged url, _ ) ->
                     ( { model | mobileNavigationOpened = False, url = url }, Cmd.none )
                         |> setRoute url
-                        |> Tuple.mapSecond (\cmd -> Cmd.batch [ cmd, Plausible.send <| Plausible.PageViewed url ])
+                        |> Tuple.mapSecond (\cmd -> Cmd.batch [ cmd, Plausible.send session <| Plausible.PageViewed url ])
 
                 ( UrlRequested (Browser.Internal url), _ ) ->
                     ( { model | url = url }, Nav.pushUrl session.navKey (Url.toString url) )

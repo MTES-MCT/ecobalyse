@@ -322,7 +322,7 @@ update ({ navKey } as session) msg model =
         ( OpenComparator, _ ) ->
             { model | modal = ComparatorModal }
                 |> App.createUpdate (session |> Session.checkComparedSimulations)
-                |> App.withCmds [ Plausible.send <| Plausible.ComparatorOpened model.scope ]
+                |> App.withCmds [ Plausible.send session <| Plausible.ComparatorOpened model.scope ]
 
         ( RemoveComponentItem itemIndex, _ ) ->
             { model
@@ -333,12 +333,12 @@ update ({ navKey } as session) msg model =
             }
                 |> App.createUpdate session
                 |> updateQuery (query |> Query.updateComponents (LE.removeAt itemIndex))
-                |> App.withCmds [ Plausible.send <| Plausible.ComponentUpdated model.scope ]
+                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
 
         ( RemoveElement targetElement, _ ) ->
             App.createUpdate session model
                 |> updateQuery (query |> Query.updateComponents (Component.removeElement targetElement))
-                |> App.withCmds [ Plausible.send <| Plausible.ComponentUpdated model.scope ]
+                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
 
         ( RemoveElementTransform targetElement transformIndex, _ ) ->
             App.createUpdate session model
@@ -347,7 +347,7 @@ update ({ navKey } as session) msg model =
                         |> Query.updateComponents
                             (Component.removeElementTransform targetElement transformIndex)
                     )
-                |> App.withCmds [ Plausible.send <| Plausible.ComponentUpdated model.scope ]
+                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
 
         ( SaveBookmark, _ ) ->
             App.createUpdate session model
@@ -362,7 +362,7 @@ update ({ navKey } as session) msg model =
                                     Bookmark.Object query
                                 )
                             )
-                    , Plausible.send <| Plausible.BookmarkSaved model.scope
+                    , Plausible.send session <| Plausible.BookmarkSaved model.scope
                     ]
 
         ( SaveBookmarkWithTime name objectQuery now, _ ) ->
@@ -400,7 +400,7 @@ update ({ navKey } as session) msg model =
                 |> App.createUpdate session
                 |> App.withCmds
                     [ Plausible.TabSelected model.scope "Partager"
-                        |> Plausible.sendIf (bookmarkTab == BookmarkView.ShareTab)
+                        |> Plausible.sendIf session (bookmarkTab == BookmarkView.ShareTab)
                     ]
 
         ( SwitchComparisonType displayChoice, _ ) ->
@@ -409,7 +409,7 @@ update ({ navKey } as session) msg model =
                 |> App.withCmds
                     [ ComparatorView.comparisonTypeToString displayChoice
                         |> Plausible.ComparisonTypeSelected model.scope
-                        |> Plausible.send
+                        |> Plausible.send session
                     ]
 
         ( SwitchImpact (Ok trigram), _ ) ->
@@ -419,7 +419,7 @@ update ({ navKey } as session) msg model =
                         |> Route.ObjectSimulator model.scope trigram
                         |> Route.toString
                         |> Navigation.pushUrl navKey
-                    , Plausible.send <| Plausible.ImpactSelected model.scope trigram
+                    , Plausible.send session <| Plausible.ImpactSelected model.scope trigram
                     ]
 
         ( SwitchImpact (Err error), _ ) ->
@@ -432,7 +432,7 @@ update ({ navKey } as session) msg model =
                 |> App.withCmds
                     [ ImpactTabs.tabToString impactsTab
                         |> Plausible.TabSelected model.scope
-                        |> Plausible.send
+                        |> Plausible.send session
                     ]
 
         ( ToggleComparedSimulation bookmark checked, _ ) ->
@@ -458,7 +458,7 @@ update ({ navKey } as session) msg model =
                         |> Query.updateComponents
                             (Component.updateItem itemIndex (\item -> { item | quantity = quantity }))
                     )
-                |> App.withCmds [ Plausible.send <| Plausible.ComponentUpdated model.scope ]
+                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
 
         ( UpdateDurability (Ok durability), _ ) ->
             App.createUpdate session model
@@ -500,7 +500,7 @@ selectExample autocompleteState ({ model } as pageUpdate) =
     pageUpdate
         |> updateQuery exampleQuery
         |> App.apply update (SetModal NoModal)
-        |> App.withCmds [ Plausible.send <| Plausible.ExampleSelected model.scope ]
+        |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ExampleSelected model.scope ]
 
 
 selectComponent : Query -> Autocomplete Component -> PageUpdate Model Msg -> PageUpdate Model Msg
@@ -510,7 +510,7 @@ selectComponent query autocompleteState ({ model } as pageUpdate) =
             pageUpdate
                 |> updateQuery (query |> Query.updateComponents (Component.addItem component.id))
                 |> App.apply update (SetModal NoModal)
-                |> App.withCmds [ Plausible.send <| Plausible.ComponentAdded model.scope ]
+                |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ComponentAdded model.scope ]
 
         Nothing ->
             pageUpdate |> App.notifyWarning "Aucun composant sélectionné"
@@ -539,7 +539,7 @@ selectProcess category targetItem maybeElementIndex autocompleteState query ({ m
                     pageUpdate
                         |> updateQuery validQuery
                         |> App.apply update (SetModal NoModal)
-                        |> App.withCmds [ Plausible.send <| Plausible.ComponentUpdated model.scope ]
+                        |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ComponentUpdated model.scope ]
 
         Nothing ->
             pageUpdate |> App.notifyWarning "Aucun composant sélectionné"

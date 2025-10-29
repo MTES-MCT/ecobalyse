@@ -135,7 +135,7 @@ update session msg model =
                 |> App.createUpdate (session |> Session.updateDbProcesses rawDetailedProcessesJson)
                 |> App.withCmds [ Nav.pushUrl session.navKey <| Route.toString Route.Auth ]
                 |> App.notifyInfo "Vous avez désormais accès aux impacts détaillés"
-                |> App.withCmds [ Plausible.send Plausible.AuthLoginOK ]
+                |> App.withCmds [ Plausible.send session Plausible.AuthLoginOK ]
 
         DetailedProcessesResponse (RemoteData.Failure error) ->
             model
@@ -181,7 +181,7 @@ update session msg model =
 
                 MagicLinkSent _ ->
                     App.createUpdate session model
-                        |> App.withCmds [ Plausible.send Plausible.AuthMagicLinkSent ]
+                        |> App.withCmds [ Plausible.send session Plausible.AuthMagicLinkSent ]
 
                 Signup signupForm _ webData ->
                     updateSignupTab session signupForm webData tabMsg model
@@ -230,7 +230,7 @@ updateAccountTab session currentAuth profileForm _ msg model =
                 |> App.notifyInfoIf updated "Votre profil a été mis à jour avec succès"
                 |> App.withCmds
                     [ if updated then
-                        Plausible.send Plausible.AuthProfileUpdated
+                        Plausible.send session Plausible.AuthProfileUpdated
 
                       else
                         Cmd.none
@@ -293,7 +293,7 @@ updateApiTokensTab session _ tabMsg model =
                 |> App.createUpdate session
                 |> App.withCmds
                     [ ApiTokenHttp.list session ApiTokensResponse
-                    , Plausible.send Plausible.AuthApiTokenCreated
+                    , Plausible.send session Plausible.AuthApiTokenCreated
                     ]
 
         CreateTokenResponse (RemoteData.Failure error) ->
@@ -413,7 +413,7 @@ updateSignupTab session signupForm webData msg model =
         SignupResponse (RemoteData.Success _) ->
             { model | tab = SignupCompleted signupForm.email }
                 |> App.createUpdate session
-                |> App.withCmds [ Plausible.send Plausible.AuthSignup ]
+                |> App.withCmds [ Plausible.send session Plausible.AuthSignup ]
 
         SignupResponse (RemoteData.Failure error) ->
             { model | tab = Signup signupForm Dict.empty RemoteData.NotAsked }

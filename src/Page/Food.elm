@@ -320,7 +320,7 @@ update ({ db, queries } as session) msg model =
         OpenComparator ->
             { model | modal = ComparatorModal }
                 |> App.createUpdate (session |> Session.checkComparedSimulations)
-                |> App.withCmds [ Plausible.send <| Plausible.ComparatorOpened Scope.Food ]
+                |> App.withCmds [ Plausible.send session <| Plausible.ComparatorOpened Scope.Food ]
 
         Reset ->
             App.createUpdate session model
@@ -342,7 +342,7 @@ update ({ db, queries } as session) msg model =
                             (SaveBookmarkWithTime model.bookmarkName
                                 (Bookmark.Food query)
                             )
-                    , Plausible.send <| Plausible.BookmarkSaved Scope.Food
+                    , Plausible.send session <| Plausible.BookmarkSaved Scope.Food
                     ]
 
         SaveBookmarkWithTime name foodQuery now ->
@@ -374,7 +374,7 @@ update ({ db, queries } as session) msg model =
                 |> App.createUpdate session
                 |> App.withCmds
                     [ Plausible.TabSelected Scope.Food "Partager"
-                        |> Plausible.sendIf (bookmarkTab == BookmarkView.ShareTab)
+                        |> Plausible.sendIf session (bookmarkTab == BookmarkView.ShareTab)
                     ]
 
         SwitchComparisonType displayChoice ->
@@ -383,7 +383,7 @@ update ({ db, queries } as session) msg model =
                 |> App.withCmds
                     [ ComparatorView.comparisonTypeToString displayChoice
                         |> Plausible.ComparisonTypeSelected Scope.Food
-                        |> Plausible.send
+                        |> Plausible.send session
                     ]
 
         SwitchImpact (Ok trigram) ->
@@ -393,7 +393,7 @@ update ({ db, queries } as session) msg model =
                         |> Route.FoodBuilder trigram
                         |> Route.toString
                         |> Navigation.pushUrl session.navKey
-                    , Plausible.send <| Plausible.ImpactSelected Scope.Food trigram
+                    , Plausible.send session <| Plausible.ImpactSelected Scope.Food trigram
                     ]
 
         SwitchImpact (Err error) ->
@@ -406,7 +406,7 @@ update ({ db, queries } as session) msg model =
                 |> App.withCmds
                     [ ImpactTabs.tabToString impactsTab
                         |> Plausible.TabSelected Scope.Food
-                        |> Plausible.send
+                        |> Plausible.send session
                     ]
 
         ToggleComparedSimulation bookmark checked ->
@@ -539,7 +539,7 @@ selectExample autocompleteState pageUpdate =
             LoadQuery example
     in
     update pageUpdate.session msg pageUpdate.model
-        |> App.withCmds [ Plausible.send <| Plausible.ExampleSelected Scope.Food ]
+        |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ExampleSelected Scope.Food ]
 
 
 
