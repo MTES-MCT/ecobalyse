@@ -11,7 +11,11 @@ port module Ports exposing
     , storeChanged
     )
 
--- Outgoing
+import Json.Encode as Encode
+
+
+
+-- Outgoingas
 
 
 port addBodyClass : String -> Cmd msg
@@ -38,7 +42,7 @@ port scrollIntoView : String -> Cmd msg
 port scrollTo : { x : Float, y : Float } -> Cmd msg
 
 
-port sendPlausibleEvent : { name : String, properties : List ( String, String ) } -> Cmd msg
+port sendPlausibleEvent : { name : String, properties : List ( String, Encode.Value ) } -> Cmd msg
 
 
 

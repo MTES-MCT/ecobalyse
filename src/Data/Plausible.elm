@@ -31,7 +31,7 @@ type Event
 
 type alias SerializedEvent =
     { name : String
-    , properties : List ( String, String )
+    , properties : List ( String, Encode.Value )
     }
 
 
@@ -42,102 +42,112 @@ send session event =
             AuthApiTokenCreated ->
                 custom session
                     "auth_api_token_created"
-                    [ ( "feature", "auth" )
-                    ]
+                    [ string "feature" "auth" ]
 
             AuthLoginOK ->
                 custom session
                     "auth_login_ok"
-                    [ ( "feature", "auth" ) ]
+                    [ string "feature" "auth" ]
 
             AuthMagicLinkSent ->
                 custom session
                     "auth_magic_link_sent"
-                    [ ( "feature", "auth" ) ]
+                    [ string "feature" "auth" ]
 
             AuthProfileUpdated ->
                 custom session
                     "auth_profile_updated"
-                    [ ( "feature", "auth" ) ]
+                    [ string "feature" "auth" ]
 
             AuthSignup ->
                 custom session
                     "auth_signup"
-                    [ ( "feature", "auth" ) ]
+                    [ string "feature" "auth" ]
 
             BookmarkSaved scope ->
                 custom session
                     "bookmark_saved"
-                    [ ( "feature", "bookmarks" )
-                    , ( "scope", Scope.toString scope )
+                    [ string "feature" "bookmarks"
+                    , string "scope" (Scope.toString scope)
                     ]
 
             ComparatorOpened scope ->
                 custom session
                     "comparator_opened"
-                    [ ( "feature", "comparator" )
-                    , ( "scope", Scope.toString scope )
+                    [ string "feature" "comparator"
+                    , string "scope" (Scope.toString scope)
                     ]
 
             ComparisonTypeSelected scope comparisonType ->
                 custom session
                     "comparison_type_selected"
-                    [ ( "feature", "comparator" )
-                    , ( "scope", Scope.toString scope )
-                    , ( "comparison_type", comparisonType )
+                    [ string "feature" "comparator"
+                    , string "scope" (Scope.toString scope)
+                    , string "comparison_type" comparisonType
                     ]
 
             ComponentAdded scope ->
                 custom session
                     "component_added"
-                    [ ( "feature", "simulator" )
-                    , ( "scope", Scope.toString scope )
+                    [ string "feature" "simulator"
+                    , string "scope" (Scope.toString scope)
                     ]
 
             ComponentUpdated scope ->
                 custom session
                     "component_updated"
-                    [ ( "feature", "simulator" )
-                    , ( "scope", Scope.toString scope )
+                    [ string "feature" "simulator"
+                    , string "scope" (Scope.toString scope)
                     ]
 
             ExampleSelected scope ->
                 custom session
                     "example_selected"
-                    [ ( "feature", "simulator" )
-                    , ( "scope", Scope.toString scope )
+                    [ string "feature" "simulator"
+                    , string "scope" (Scope.toString scope)
                     ]
 
             ImpactSelected scope trigram ->
                 custom session
                     "impact_selected"
-                    [ ( "feature", "simulator" )
-                    , ( "scope", Scope.toString scope )
-                    , ( "trigram", Definition.toString trigram )
+                    [ string "feature" "simulator"
+                    , string "scope" (Scope.toString scope)
+                    , string "trigram" (Definition.toString trigram)
                     ]
 
             PageViewed url ->
-                custom session "pageview" [ ( "url", safeUrl url ) ]
+                custom session
+                    "pageview"
+                    [ string "url" (safeUrl url) ]
 
             TabSelected scope tab ->
                 custom session
                     "tab_selected"
-                    [ ( "feature", "share" )
-                    , ( "scope", Scope.toString scope )
-                    , ( "tab", tab )
+                    [ string "feature" "share"
+                    , string "scope" (Scope.toString scope)
+                    , string "tab" tab
                     ]
 
 
-custom : Session -> String -> List ( String, String ) -> SerializedEvent
+bool : String -> Bool -> ( String, Encode.Value )
+bool key value =
+    ( key, Encode.bool value )
+
+
+string : String -> String -> ( String, Encode.Value )
+string key value =
+    ( key, Encode.string value )
+
+
+custom : Session -> String -> List ( String, Encode.Value ) -> SerializedEvent
 custom session name properties =
     { name = name
-    , properties = ( "authenticated", encodeAuthenticated session ) :: properties
+    , properties =
+        -- generic properties
+        bool "authenticated" (Session.isAuthenticated session)
+            :: string "clientUrl" session.clientUrl
+            :: properties
     }
-
-
-encodeAuthenticated : Session -> String
-encodeAuthenticated =
-    Session.isAuthenticated >> Encode.bool >> Encode.encode 0
 
 
 safeUrl : Url -> String
