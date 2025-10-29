@@ -30,9 +30,17 @@ type Event
     | TabSelected Scope String
 
 
+type alias Key =
+    String
+
+
+type alias Property =
+    ( Key, Encode.Value )
+
+
 type alias SerializedEvent =
     { name : String
-    , properties : List ( String, Encode.Value )
+    , properties : List Property
     }
 
 
@@ -130,17 +138,22 @@ send session event =
                     ]
 
 
-bool : String -> Bool -> ( String, Encode.Value )
+bool : Key -> Bool -> Property
 bool key value =
     ( key, Encode.bool value )
 
 
-null : String -> ( String, Encode.Value )
+maybe : (Key -> a -> Property) -> Key -> Maybe a -> Property
+maybe fn key =
+    Maybe.map (fn key) >> Maybe.withDefault (null key)
+
+
+null : Key -> Property
 null key =
     ( key, Encode.null )
 
 
-string : String -> String -> ( String, Encode.Value )
+string : Key -> String -> Property
 string key value =
     ( key, Encode.string value )
 
@@ -165,7 +178,7 @@ sendIf session condition event =
         Cmd.none
 
 
-track : Session -> String -> List ( String, Encode.Value ) -> SerializedEvent
+track : Session -> String -> List Property -> SerializedEvent
 track session name properties =
     { name = name
     , properties =
@@ -174,9 +187,6 @@ track session name properties =
             :: bool "authenticated" (Session.isAuthenticated session)
             :: string "clientUrl" session.clientUrl
             :: string "subsystem" "front-end"
-            :: (Version.getTag session.currentVersion
-                    |> Maybe.map (string "version")
-                    |> Maybe.withDefault (null "version")
-               )
+            :: maybe string "version" (Version.getTag session.currentVersion)
             :: properties
     }
