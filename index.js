@@ -10,7 +10,8 @@ const clientUrl = (location.origin + location.pathname).replace(/\/+$/g, "");
 
 // using a `let` statement to avoid this error:
 // @parcel/optimizer-swc: 'const' declarations must be initialized
-let { NODE_ENV, SENTRY_DSN } = process.env;
+let { FORCE_PLAUSIBLE, NODE_ENV, SENTRY_DSN } = process.env;
+const plausibleEnabled = NODE_ENV === "production" || FORCE_PLAUSIBLE;
 
 // Sentry
 if (NODE_ENV === "production" && SENTRY_DSN) {
@@ -112,6 +113,8 @@ app.ports.removeBodyClass.subscribe((cls) => {
 });
 
 app.ports.sendPlausibleEvent.subscribe(({ name, properties }) => {
+  if (!plausibleEnabled) return;
+
   try {
     const props = Object.fromEntries(properties);
     const event = name === "pageview" ? { u: props.url, props } : { props };
