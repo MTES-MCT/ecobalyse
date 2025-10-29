@@ -48,8 +48,8 @@ app.use(
 // Sentry monitoring
 setupSentry(app);
 
-// Posthog API tracker
-const posthogTracker = createPlausibleTracker(process.env);
+// Plausible API tracker
+const plausibleTracker = createPlausibleTracker(process.env);
 
 // Matomo
 const matomoTracker = createMatomoTracker(process.env);
@@ -232,7 +232,7 @@ elmApp.ports.output.subscribe(({ status, body, jsResponseHandler }) => {
 
 api.get("/", async (req, res) => {
   matomoTracker.track(200, req);
-  await posthogTracker.captureEvent(200, req);
+  await plausibleTracker.captureEvent(200, req);
   res.status(200).send(openApiContents);
 });
 
@@ -263,7 +263,7 @@ api.all(/(.*)/, bodyParser.json(), jsonErrorHandler, async (req, res) => {
     processes,
     jsResponseHandler: async ({ status, body }) => {
       matomoTracker.track(status, req);
-      await posthogTracker.captureEvent(status, req);
+      await plausibleTracker.captureEvent(status, req);
       respondWithFormattedJSON(res, status, body);
     },
   });
@@ -330,7 +330,7 @@ version.all(
     const urlWithoutPrefix = req.url.replace(/\/[^/]+\/api/, "");
 
     matomoTracker.track(res.statusCode, req);
-    await posthogTracker.captureEvent(res.statusCode, req);
+    await plausibleTracker.captureEvent(res.statusCode, req);
 
     elmApp.ports.input.send({
       method: req.method,
