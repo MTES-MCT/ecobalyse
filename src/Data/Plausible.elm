@@ -9,6 +9,7 @@ import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Json.Encode as Encode
 import Ports
+import Request.Version as Version
 import Url exposing (Url)
 
 
@@ -134,6 +135,11 @@ bool key value =
     ( key, Encode.bool value )
 
 
+null : String -> ( String, Encode.Value )
+null key =
+    ( key, Encode.null )
+
+
 string : String -> String -> ( String, Encode.Value )
 string key value =
     ( key, Encode.string value )
@@ -146,6 +152,10 @@ custom session name properties =
         -- generic properties
         bool "authenticated" (Session.isAuthenticated session)
             :: string "clientUrl" session.clientUrl
+            :: (Version.getTag session.currentVersion
+                    |> Maybe.map (string "version")
+                    |> Maybe.withDefault (null "version")
+               )
             :: properties
     }
 
