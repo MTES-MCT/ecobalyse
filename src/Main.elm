@@ -154,6 +154,7 @@ init flags requestedUrl navKey =
 
                       else
                         Cmd.none
+                    , Plausible.send <| Plausible.PageViewed requestedUrl
                     ]
                 )
         )
@@ -491,8 +492,9 @@ update rawMsg ({ state } as model) =
 
                 -- Url
                 ( UrlChanged url, _ ) ->
-                    setRoute url
-                        ( { model | mobileNavigationOpened = False, url = url }, Cmd.none )
+                    ( { model | mobileNavigationOpened = False, url = url }, Cmd.none )
+                        |> setRoute url
+                        |> Tuple.mapSecond (\cmd -> Cmd.batch [ cmd, Plausible.send <| Plausible.PageViewed url ])
 
                 ( UrlRequested (Browser.Internal url), _ ) ->
                     ( { model | url = url }, Nav.pushUrl session.navKey (Url.toString url) )

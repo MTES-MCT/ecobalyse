@@ -24,6 +24,7 @@ type Event
     | ExampleSelected Scope
     | ImpactSelected Scope Trigram
     | PageErrored Url String
+    | PageViewed Url
     | TabSelected Scope String
 
 
@@ -38,62 +39,85 @@ send event =
     Ports.sendPlausibleEvent <|
         case event of
             AuthApiTokenCreated ->
-                simple "auth_api_token_created"
+                custom "auth_api_token_created"
+                    [ ( "feature", "auth" ) ]
 
             AuthLoginOK ->
-                simple "auth_login_ok"
+                custom "auth_login_ok"
+                    [ ( "feature", "auth" ) ]
 
             AuthMagicLinkSent ->
-                simple "auth_magic_link_sent"
+                custom "auth_magic_link_sent"
+                    [ ( "feature", "auth" ) ]
 
             AuthProfileUpdated ->
-                simple "auth_profile_updated"
+                custom "auth_profile_updated"
+                    [ ( "feature", "auth" ) ]
 
             AuthSignup ->
-                simple "auth_signup"
+                custom "auth_signup"
+                    [ ( "feature", "auth" ) ]
 
             BookmarkSaved scope ->
                 custom "bookmark_saved"
-                    [ ( "scope", Scope.toString scope ) ]
+                    [ ( "feature", "bookmarks" )
+                    , ( "scope", Scope.toString scope )
+                    ]
 
             ComparatorOpened scope ->
                 custom "comparator_opened"
-                    [ ( "scope", Scope.toString scope ) ]
+                    [ ( "feature", "comparator" )
+                    , ( "scope", Scope.toString scope )
+                    ]
 
             ComparisonTypeSelected scope comparisonType ->
                 custom "comparison_type_selected"
-                    [ ( "scope", Scope.toString scope )
+                    [ ( "feature", "comparator" )
+                    , ( "scope", Scope.toString scope )
                     , ( "comparison_type", comparisonType )
                     ]
 
             ComponentAdded scope ->
                 custom "component_added"
-                    [ ( "scope", Scope.toString scope )
+                    [ ( "feature", "simulator" )
+                    , ( "scope", Scope.toString scope )
                     ]
 
             ComponentUpdated scope ->
                 custom "component_updated"
-                    [ ( "scope", Scope.toString scope ) ]
+                    [ ( "feature", "simulator" )
+                    , ( "scope", Scope.toString scope )
+                    ]
 
             ExampleSelected scope ->
                 custom "example_selected"
-                    [ ( "scope", Scope.toString scope ) ]
+                    [ ( "feature", "simulator" )
+                    , ( "scope", Scope.toString scope )
+                    ]
 
             ImpactSelected scope trigram ->
                 custom "impact_selected"
-                    [ ( "scope", Scope.toString scope )
+                    [ ( "feature", "simulator" )
+                    , ( "scope", Scope.toString scope )
                     , ( "trigram", Definition.toString trigram )
                     ]
 
             PageErrored url error ->
                 custom "page_errored"
-                    [ ( "url", Url.toString url )
+                    [ ( "feature", "navigation" )
+                    , ( "url", Url.toString url )
                     , ( "error", error )
+                    ]
+
+            PageViewed url ->
+                custom "pageview"
+                    [ ( "url", safeUrl url )
                     ]
 
             TabSelected scope tab ->
                 custom "tab_selected"
-                    [ ( "scope", Scope.toString scope )
+                    [ ( "feature", "share" )
+                    , ( "scope", Scope.toString scope )
                     , ( "tab", tab )
                     ]
 
@@ -103,9 +127,16 @@ custom name properties =
     { name = name, properties = properties }
 
 
-simple : String -> SerializedEvent
-simple name =
-    { name = name, properties = [] }
+safeUrl : Url -> String
+safeUrl url =
+    Url.toString <|
+        Debug.log "Elm url" <|
+            -- Clean auth urls as they might contain sensitive information
+            if url.fragment |> Maybe.map (String.startsWith "/auth/") |> Maybe.withDefault False then
+                { url | fragment = Just "/auth/<obfuscated_for_security>/" }
+
+            else
+                url
 
 
 sendIf : Bool -> Event -> Cmd msg
