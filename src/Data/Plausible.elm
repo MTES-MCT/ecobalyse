@@ -173,7 +173,7 @@ track session name properties =
         bool "admin" (Session.isSuperuser session)
             :: bool "authenticated" (Session.isAuthenticated session)
             :: string "clientUrl" session.clientUrl
-            :: string "context" "web"
+            :: string "subsystem" "front-end"
             :: (Version.getTag session.currentVersion
                     |> Maybe.map (string "version")
                     |> Maybe.withDefault (null "version")
