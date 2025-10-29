@@ -113,12 +113,10 @@ app.ports.removeBodyClass.subscribe((cls) => {
 
 app.ports.sendPlausibleEvent.subscribe(({ name, properties }) => {
   try {
-    let event;
-    if (name === "pageview") {
-      event = { u: Object.fromEntries(properties).url };
-    } else {
-      event = { props: Object.fromEntries(properties) };
-    }
+    const event =
+      name === "pageview"
+        ? { u: Object.fromEntries(properties).url }
+        : { props: Object.fromEntries(properties) };
     window.plausible(name, event);
     console.debug("plausible event", name, JSON.stringify(event, null, 2));
   } catch (e) {

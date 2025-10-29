@@ -130,13 +130,12 @@ custom name properties =
 safeUrl : Url -> String
 safeUrl url =
     Url.toString <|
-        Debug.log "Elm url" <|
-            -- Clean auth urls as they might contain sensitive information
-            if url.fragment |> Maybe.map (String.startsWith "/auth/") |> Maybe.withDefault False then
-                { url | fragment = Just "/auth/<obfuscated_for_security>/" }
+        -- Clean auth urls as they might contain sensitive information
+        if url.fragment |> Maybe.map (String.startsWith "/auth/") |> Maybe.withDefault False then
+            { url | fragment = Just "/auth/<obfuscated_for_security>/" }
 
-            else
-                url
+        else
+            url
 
 
 sendIf : Bool -> Event -> Cmd msg
