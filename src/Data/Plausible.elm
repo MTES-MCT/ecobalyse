@@ -41,46 +41,46 @@ send session event =
     Ports.sendPlausibleEvent <|
         case event of
             AuthApiTokenCreated ->
-                custom session
+                track session
                     "auth_api_token_created"
                     [ string "feature" "auth" ]
 
             AuthLoginOK ->
-                custom session
+                track session
                     "auth_login_ok"
                     [ string "feature" "auth" ]
 
             AuthMagicLinkSent ->
-                custom session
+                track session
                     "auth_magic_link_sent"
                     [ string "feature" "auth" ]
 
             AuthProfileUpdated ->
-                custom session
+                track session
                     "auth_profile_updated"
                     [ string "feature" "auth" ]
 
             AuthSignup ->
-                custom session
+                track session
                     "auth_signup"
                     [ string "feature" "auth" ]
 
             BookmarkSaved scope ->
-                custom session
+                track session
                     "bookmark_saved"
                     [ string "feature" "bookmarks"
                     , string "scope" (Scope.toString scope)
                     ]
 
             ComparatorOpened scope ->
-                custom session
+                track session
                     "comparator_opened"
                     [ string "feature" "comparator"
                     , string "scope" (Scope.toString scope)
                     ]
 
             ComparisonTypeSelected scope comparisonType ->
-                custom session
+                track session
                     "comparison_type_selected"
                     [ string "feature" "comparator"
                     , string "scope" (Scope.toString scope)
@@ -88,28 +88,28 @@ send session event =
                     ]
 
             ComponentAdded scope ->
-                custom session
+                track session
                     "component_added"
                     [ string "feature" "simulator"
                     , string "scope" (Scope.toString scope)
                     ]
 
             ComponentUpdated scope ->
-                custom session
+                track session
                     "component_updated"
                     [ string "feature" "simulator"
                     , string "scope" (Scope.toString scope)
                     ]
 
             ExampleSelected scope ->
-                custom session
+                track session
                     "example_selected"
                     [ string "feature" "simulator"
                     , string "scope" (Scope.toString scope)
                     ]
 
             ImpactSelected scope trigram ->
-                custom session
+                track session
                     "impact_selected"
                     [ string "feature" "simulator"
                     , string "scope" (Scope.toString scope)
@@ -117,12 +117,12 @@ send session event =
                     ]
 
             PageViewed url ->
-                custom session
+                track session
                     "pageview"
                     [ string "url" (safeUrl url) ]
 
             TabSelected scope tab ->
-                custom session
+                track session
                     "tab_selected"
                     [ string "feature" "share"
                     , string "scope" (Scope.toString scope)
@@ -145,21 +145,6 @@ string key value =
     ( key, Encode.string value )
 
 
-custom : Session -> String -> List ( String, Encode.Value ) -> SerializedEvent
-custom session name properties =
-    { name = name
-    , properties =
-        -- generic properties
-        bool "authenticated" (Session.isAuthenticated session)
-            :: string "clientUrl" session.clientUrl
-            :: (Version.getTag session.currentVersion
-                    |> Maybe.map (string "version")
-                    |> Maybe.withDefault (null "version")
-               )
-            :: properties
-    }
-
-
 safeUrl : Url -> String
 safeUrl url =
     Url.toString <|
@@ -178,3 +163,20 @@ sendIf session condition event =
 
     else
         Cmd.none
+
+
+track : Session -> String -> List ( String, Encode.Value ) -> SerializedEvent
+track session name properties =
+    { name = name
+    , properties =
+        -- generic properties
+        bool "admin" (Session.isSuperuser session)
+            :: bool "authenticated" (Session.isAuthenticated session)
+            :: string "clientUrl" session.clientUrl
+            :: string "context" "web"
+            :: (Version.getTag session.currentVersion
+                    |> Maybe.map (string "version")
+                    |> Maybe.withDefault (null "version")
+               )
+            :: properties
+    }
