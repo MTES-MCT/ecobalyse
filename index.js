@@ -1,7 +1,6 @@
 import { Elm } from "./src/Main.elm";
 import * as Sentry from "@sentry/browser";
 import Charts from "./lib/charts";
-import posthog from "posthog-js/dist/module.no-external";
 
 // The localStorage key to use to store serialized session data
 const storeKey = "store";
@@ -11,41 +10,7 @@ const clientUrl = (location.origin + location.pathname).replace(/\/+$/g, "");
 
 // using a `let` statement to avoid this error:
 // @parcel/optimizer-swc: 'const' declarations must be initialized
-let { FORCE_POSTHOG = false, NODE_ENV, POSTHOG_KEY, POSTHOG_HOST, SENTRY_DSN } = process.env;
-
-const posthogEnabled = (NODE_ENV === "production" || FORCE_POSTHOG) && POSTHOG_KEY && POSTHOG_HOST;
-
-// Posthog
-if (posthogEnabled) {
-  posthog.init(POSTHOG_KEY, {
-    api_host: POSTHOG_HOST,
-    person_profiles: "identified_only",
-    autocapture: false,
-    capture_pageleave: true,
-    capture_pageview: false, // handled in Elm land
-    cross_subdomain_cookie: false,
-    disable_external_dependency_loading: true,
-    disable_web_experiments: true,
-    rageclick: false,
-    rate_limiting: {
-      events_per_second: 5,
-      events_burst_limit: 10,
-    },
-    respect_dnt: !Boolean(FORCE_POSTHOG),
-    session_replay: false,
-    before_send: (event) => {
-      // hash-based routing handling
-      // https://posthog.com/tutorials/hash-based-routing
-      if (event?.properties?.$current_url) {
-        const parsed = new URL(event.properties.$current_url);
-        if (parsed.hash) {
-          event.properties.$pathname = parsed.pathname + parsed.hash;
-        }
-      }
-      return event;
-    },
-  });
-}
+let { NODE_ENV, SENTRY_DSN } = process.env;
 
 // Sentry
 if (NODE_ENV === "production" && SENTRY_DSN) {
@@ -146,12 +111,12 @@ app.ports.removeBodyClass.subscribe((cls) => {
   document.body.classList.remove(cls);
 });
 
-app.ports.sendPosthogEvent.subscribe(({ name, properties }) => {
-  const params = Object.fromEntries(properties);
-  if (posthogEnabled) {
-    posthog.capture(name, params);
-  } else {
-    console.debug("posthog event", name, JSON.stringify(params));
+app.ports.sendPlausibleEvent.subscribe(({ name, properties }) => {
+  // port sendPlausibleEvent : { name : String, properties : List ( String, String ) } -> Cmd msg
+  try {
+    window.plausible(name, { props: Object.fromEntries(properties) });
+  } catch (e) {
+    console.error(e);
   }
 });
 

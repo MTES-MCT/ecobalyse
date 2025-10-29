@@ -12,7 +12,7 @@ import App exposing (PageUpdate)
 import Browser.Navigation as Nav
 import Data.ApiToken as ApiToken exposing (CreatedToken, Token)
 import Data.Env as Env
-import Data.Posthog as Posthog
+import Data.Plausible as Plausible
 import Data.Session as Session exposing (Session)
 import Data.User as User exposing (AccessTokenData, FormErrors, ProfileForm, SignupForm, User)
 import Dict
@@ -135,7 +135,7 @@ update session msg model =
                 |> App.createUpdate (session |> Session.updateDbProcesses rawDetailedProcessesJson)
                 |> App.withCmds [ Nav.pushUrl session.navKey <| Route.toString Route.Auth ]
                 |> App.notifyInfo "Vous avez désormais accès aux impacts détaillés"
-                |> App.withCmds [ Posthog.send Posthog.AuthLoginOK ]
+                |> App.withCmds [ Plausible.send Plausible.AuthLoginOK ]
 
         DetailedProcessesResponse (RemoteData.Failure error) ->
             model
@@ -181,7 +181,7 @@ update session msg model =
 
                 MagicLinkSent _ ->
                     App.createUpdate session model
-                        |> App.withCmds [ Posthog.send Posthog.AuthMagicLinkSent ]
+                        |> App.withCmds [ Plausible.send Plausible.AuthMagicLinkSent ]
 
                 Signup signupForm _ webData ->
                     updateSignupTab session signupForm webData tabMsg model
@@ -230,7 +230,7 @@ updateAccountTab session currentAuth profileForm _ msg model =
                 |> App.notifyInfoIf updated "Votre profil a été mis à jour avec succès"
                 |> App.withCmds
                     [ if updated then
-                        Posthog.send Posthog.AuthProfileUpdated
+                        Plausible.send Plausible.AuthProfileUpdated
 
                       else
                         Cmd.none
@@ -293,7 +293,7 @@ updateApiTokensTab session _ tabMsg model =
                 |> App.createUpdate session
                 |> App.withCmds
                     [ ApiTokenHttp.list session ApiTokensResponse
-                    , Posthog.send Posthog.AuthApiTokenCreated
+                    , Plausible.send Plausible.AuthApiTokenCreated
                     ]
 
         CreateTokenResponse (RemoteData.Failure error) ->
@@ -413,7 +413,7 @@ updateSignupTab session signupForm webData msg model =
         SignupResponse (RemoteData.Success _) ->
             { model | tab = SignupCompleted signupForm.email }
                 |> App.createUpdate session
-                |> App.withCmds [ Posthog.send Posthog.AuthSignup ]
+                |> App.withCmds [ Plausible.send Plausible.AuthSignup ]
 
         SignupResponse (RemoteData.Failure error) ->
             { model | tab = Signup signupForm Dict.empty RemoteData.NotAsked }

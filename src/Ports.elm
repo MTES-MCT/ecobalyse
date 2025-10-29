@@ -7,7 +7,7 @@ port module Ports exposing
     , saveStore
     , scrollIntoView
     , scrollTo
-    , sendPosthogEvent
+    , sendPlausibleEvent
     , storeChanged
     )
 
@@ -38,7 +38,7 @@ port scrollIntoView : String -> Cmd msg
 port scrollTo : { x : Float, y : Float } -> Cmd msg
 
 
-port sendPosthogEvent : { name : String, properties : List ( String, String ) } -> Cmd msg
+port sendPlausibleEvent : { name : String, properties : List ( String, String ) } -> Cmd msg
 
 
 

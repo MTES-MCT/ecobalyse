@@ -11,7 +11,7 @@ import Data.Github as Github
 import Data.Impact as Impact
 import Data.Notification as Notification exposing (Notification)
 import Data.Object.Query as ObjectQuery
-import Data.Posthog as Posthog
+import Data.Plausible as Plausible
 import Data.Session as Session exposing (Session)
 import Data.Textile.Query as TextileQuery
 import Html
@@ -129,7 +129,7 @@ init flags requestedUrl navKey =
                   , tray = Toast.tray
                   , url = requestedUrl
                   }
-                , Posthog.send <| Posthog.PageErrored requestedUrl err
+                , Plausible.send <| Plausible.PageErrored requestedUrl err
                 )
 
             Ok ( db, componentConfig ) ->
@@ -154,7 +154,6 @@ init flags requestedUrl navKey =
 
                       else
                         Cmd.none
-                    , Posthog.send <| Posthog.PageViewed requestedUrl
                     ]
                 )
         )
@@ -492,9 +491,8 @@ update rawMsg ({ state } as model) =
 
                 -- Url
                 ( UrlChanged url, _ ) ->
-                    ( { model | mobileNavigationOpened = False, url = url }, Cmd.none )
-                        |> setRoute url
-                        |> Tuple.mapSecond (\cmd -> Cmd.batch [ cmd, Posthog.send <| Posthog.PageViewed url ])
+                    setRoute url
+                        ( { model | mobileNavigationOpened = False, url = url }, Cmd.none )
 
                 ( UrlRequested (Browser.Internal url), _ ) ->
                     ( { model | url = url }, Nav.pushUrl session.navKey (Url.toString url) )

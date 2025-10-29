@@ -23,7 +23,7 @@ import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
-import Data.Posthog as Posthog
+import Data.Plausible as Plausible
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Data.Split exposing (Split)
@@ -304,7 +304,7 @@ update ({ db, queries, navKey } as session) msg model =
         ( OpenComparator, _ ) ->
             { model | modal = ComparatorModal }
                 |> App.createUpdate (session |> Session.checkComparedSimulations)
-                |> App.withCmds [ Posthog.send <| Posthog.ComparatorOpened Scope.Textile ]
+                |> App.withCmds [ Plausible.send <| Plausible.ComparatorOpened Scope.Textile ]
 
         ( OnAutocompleteTrim autocompleteMsg, AddTrimModal autocompleteState ) ->
             let
@@ -397,7 +397,7 @@ update ({ db, queries, navKey } as session) msg model =
                             (SaveBookmarkWithTime model.bookmarkName
                                 (Bookmark.Textile query)
                             )
-                    , Posthog.send <| Posthog.BookmarkSaved Scope.Textile
+                    , Plausible.send <| Plausible.BookmarkSaved Scope.Textile
                     ]
 
         ( SaveBookmarkWithTime name foodQuery now, _ ) ->
@@ -428,8 +428,8 @@ update ({ db, queries, navKey } as session) msg model =
             { model | bookmarkTab = bookmarkTab }
                 |> App.createUpdate session
                 |> App.withCmds
-                    [ Posthog.TabSelected Scope.Textile "Partager"
-                        |> Posthog.sendIf (bookmarkTab == BookmarkView.ShareTab)
+                    [ Plausible.TabSelected Scope.Textile "Partager"
+                        |> Plausible.sendIf (bookmarkTab == BookmarkView.ShareTab)
                     ]
 
         ( SwitchComparisonType displayChoice, _ ) ->
@@ -437,8 +437,8 @@ update ({ db, queries, navKey } as session) msg model =
                 |> App.createUpdate session
                 |> App.withCmds
                     [ ComparatorView.comparisonTypeToString displayChoice
-                        |> Posthog.ComparisonTypeSelected Scope.Textile
-                        |> Posthog.send
+                        |> Plausible.ComparisonTypeSelected Scope.Textile
+                        |> Plausible.send
                     ]
 
         ( SwitchImpact (Ok trigram), _ ) ->
@@ -448,7 +448,7 @@ update ({ db, queries, navKey } as session) msg model =
                         |> Route.TextileSimulator trigram
                         |> Route.toString
                         |> Navigation.pushUrl navKey
-                    , Posthog.send <| Posthog.ImpactSelected Scope.Textile trigram
+                    , Plausible.send <| Plausible.ImpactSelected Scope.Textile trigram
                     ]
 
         ( SwitchImpact (Err error), _ ) ->
@@ -460,8 +460,8 @@ update ({ db, queries, navKey } as session) msg model =
                 |> App.createUpdate session
                 |> App.withCmds
                     [ ImpactTabs.tabToString impactsTab
-                        |> Posthog.TabSelected Scope.Textile
-                        |> Posthog.send
+                        |> Plausible.TabSelected Scope.Textile
+                        |> Plausible.send
                     ]
 
         ( SwitchTab RegulatoryTab, _ ) ->
@@ -472,12 +472,12 @@ update ({ db, queries, navKey } as session) msg model =
                  else
                     { model | activeTab = RegulatoryTab }
                 )
-                |> App.withCmds [ Posthog.send <| Posthog.TabSelected Scope.Textile "Regulatory" ]
+                |> App.withCmds [ Plausible.send <| Plausible.TabSelected Scope.Textile "Regulatory" ]
 
         ( SwitchTab ExploratoryTab, _ ) ->
             { model | activeTab = ExploratoryTab }
                 |> App.createUpdate session
-                |> App.withCmds [ Posthog.send <| Posthog.TabSelected Scope.Textile "Exploratory" ]
+                |> App.withCmds [ Plausible.send <| Plausible.TabSelected Scope.Textile "Exploratory" ]
 
         ( ToggleComparedSimulation bookmark checked, _ ) ->
             model
@@ -641,7 +641,7 @@ selectExample autocompleteState { model, session } =
         |> App.createUpdate (Session.updateTextileQuery example session)
         |> App.apply update (SetModal NoModal)
         |> updateQuery example
-        |> App.withCmds [ Posthog.send <| Posthog.ExampleSelected Scope.Textile ]
+        |> App.withCmds [ Plausible.send <| Plausible.ExampleSelected Scope.Textile ]
 
 
 selectTrim : Autocomplete Component -> PageUpdate Model Msg -> PageUpdate Model Msg

@@ -29,7 +29,7 @@ import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
-import Data.Posthog as Posthog
+import Data.Plausible as Plausible
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as ProcessCategory
 import Data.Scope as Scope
@@ -320,7 +320,7 @@ update ({ db, queries } as session) msg model =
         OpenComparator ->
             { model | modal = ComparatorModal }
                 |> App.createUpdate (session |> Session.checkComparedSimulations)
-                |> App.withCmds [ Posthog.send <| Posthog.ComparatorOpened Scope.Food ]
+                |> App.withCmds [ Plausible.send <| Plausible.ComparatorOpened Scope.Food ]
 
         Reset ->
             App.createUpdate session model
@@ -342,7 +342,7 @@ update ({ db, queries } as session) msg model =
                             (SaveBookmarkWithTime model.bookmarkName
                                 (Bookmark.Food query)
                             )
-                    , Posthog.send <| Posthog.BookmarkSaved Scope.Food
+                    , Plausible.send <| Plausible.BookmarkSaved Scope.Food
                     ]
 
         SaveBookmarkWithTime name foodQuery now ->
@@ -373,8 +373,8 @@ update ({ db, queries } as session) msg model =
             { model | bookmarkTab = bookmarkTab }
                 |> App.createUpdate session
                 |> App.withCmds
-                    [ Posthog.TabSelected Scope.Food "Partager"
-                        |> Posthog.sendIf (bookmarkTab == BookmarkView.ShareTab)
+                    [ Plausible.TabSelected Scope.Food "Partager"
+                        |> Plausible.sendIf (bookmarkTab == BookmarkView.ShareTab)
                     ]
 
         SwitchComparisonType displayChoice ->
@@ -382,8 +382,8 @@ update ({ db, queries } as session) msg model =
                 |> App.createUpdate session
                 |> App.withCmds
                     [ ComparatorView.comparisonTypeToString displayChoice
-                        |> Posthog.ComparisonTypeSelected Scope.Food
-                        |> Posthog.send
+                        |> Plausible.ComparisonTypeSelected Scope.Food
+                        |> Plausible.send
                     ]
 
         SwitchImpact (Ok trigram) ->
@@ -393,7 +393,7 @@ update ({ db, queries } as session) msg model =
                         |> Route.FoodBuilder trigram
                         |> Route.toString
                         |> Navigation.pushUrl session.navKey
-                    , Posthog.send <| Posthog.ImpactSelected Scope.Food trigram
+                    , Plausible.send <| Plausible.ImpactSelected Scope.Food trigram
                     ]
 
         SwitchImpact (Err error) ->
@@ -405,8 +405,8 @@ update ({ db, queries } as session) msg model =
                 |> App.createUpdate session
                 |> App.withCmds
                     [ ImpactTabs.tabToString impactsTab
-                        |> Posthog.TabSelected Scope.Food
-                        |> Posthog.send
+                        |> Plausible.TabSelected Scope.Food
+                        |> Plausible.send
                     ]
 
         ToggleComparedSimulation bookmark checked ->
@@ -539,7 +539,7 @@ selectExample autocompleteState pageUpdate =
             LoadQuery example
     in
     update pageUpdate.session msg pageUpdate.model
-        |> App.withCmds [ Posthog.send <| Posthog.ExampleSelected Scope.Food ]
+        |> App.withCmds [ Plausible.send <| Plausible.ExampleSelected Scope.Food ]
 
 
 

@@ -1,4 +1,4 @@
-module Data.Posthog exposing
+module Data.Plausible exposing
     ( Event(..)
     , send
     , sendIf
@@ -24,7 +24,6 @@ type Event
     | ExampleSelected Scope
     | ImpactSelected Scope Trigram
     | PageErrored Url String
-    | PageViewed Url
     | TabSelected Scope String
 
 
@@ -36,7 +35,7 @@ type alias SerializedEvent =
 
 send : Event -> Cmd msg
 send event =
-    Ports.sendPosthogEvent <|
+    Ports.sendPlausibleEvent <|
         case event of
             AuthApiTokenCreated ->
                 simple "auth_api_token_created"
@@ -91,12 +90,6 @@ send event =
                     [ ( "url", Url.toString url )
                     , ( "error", error )
                     ]
-
-            PageViewed url ->
-                --  Note: $pageview is a special event handled by posthog
-                custom "$pageview"
-                    -- same for $current_url
-                    [ ( "$current_url", Url.toString url ) ]
 
             TabSelected scope tab ->
                 custom "tab_selected"
