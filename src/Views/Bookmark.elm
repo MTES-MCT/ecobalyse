@@ -297,7 +297,7 @@ bookmarkView cfg ({ name, query, version } as bookmark) =
         beingRenamed =
             case cfg.bookmarkBeingRenamed of
                 Just renamedBookmark ->
-                    renamedBookmark == bookmark
+                    renamedBookmark.query == bookmark.query
 
                 _ ->
                     False
@@ -317,32 +317,33 @@ bookmarkView cfg ({ name, query, version } as bookmark) =
         , classList [ ( "active", query == currentQuery ) ]
         ]
         [ VersionView.view version
-        , if beingRenamed then
-            input
-                [ type_ "text"
-                , class "form-control"
-                , onInput cfg.update
-                , placeholder "Nom de la simulation"
-                , value name
-                , required True
-                , pattern "^(?!\\s*$).+"
-                ]
-                []
+        , case ( beingRenamed, cfg.bookmarkBeingRenamed ) of
+            ( True, Just renamedBookmark ) ->
+                input
+                    [ type_ "text"
+                    , class "form-control"
+                    , onInput (cfg.updateRenamedBookmarkName bookmark)
+                    , placeholder "Nom de la simulation"
+                    , value renamedBookmark.name
+                    , required True
+                    , pattern "^(?!\\s*$).+"
+                    ]
+                    []
 
-          else
-            a
-                [ class "flex-fill text-truncate"
-                , classList [ ( "active text-white", query == currentQuery ) ]
-                , bookmark
-                    |> Bookmark.toQueryDescription cfg.session.db
-                    |> title
-                , bookmarkRoute
-                    |> Route.toString
-                    |> (++) cfg.session.clientUrl
-                    |> href
-                ]
-                [ text name
-                ]
+            _ ->
+                a
+                    [ class "flex-fill text-truncate"
+                    , classList [ ( "active text-white", query == currentQuery ) ]
+                    , bookmark
+                        |> Bookmark.toQueryDescription cfg.session.db
+                        |> title
+                    , bookmarkRoute
+                        |> Route.toString
+                        |> (++) cfg.session.clientUrl
+                        |> href
+                    ]
+                    [ text name
+                    ]
         , if beingRenamed then
             button
                 [ type_ "submit"
