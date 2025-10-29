@@ -56,6 +56,7 @@ import Views.Sidebar as SidebarView
 
 type alias Model =
     { activeImpactsTab : ImpactTabs.Tab
+    , bookmarkBeingRenamed : Maybe Bookmark
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonType : ComparatorView.ComparisonType
@@ -108,6 +109,7 @@ type Msg
     | UpdateComponentItemQuantity Index Component.Quantity
     | UpdateDurability (Result String Unit.Ratio)
     | UpdateElementAmount TargetElement (Maybe Component.Amount)
+    | UpdateRenamedBookmarkName Bookmark String
 
 
 init : Scope -> Definition.Trigram -> Maybe Query -> Session -> PageUpdate Model Msg
@@ -133,6 +135,7 @@ init scope trigram maybeUrlQuery session =
         else
             ComparatorView.Steps
     , detailedComponents = []
+    , bookmarkBeingRenamed = Nothing
     , examples = examples
     , impact = Definition.get trigram session.db.definitions
     , initialQuery = initialQuery
@@ -182,6 +185,7 @@ initFromExample session scope uuid =
     , bookmarkTab = BookmarkView.SaveTab
     , comparisonType = ComparatorView.Subscores
     , detailedComponents = []
+    , bookmarkBeingRenamed = Nothing
     , examples = examples
     , impact = Definition.get Definition.Ecs session.db.definitions
     , initialQuery = exampleQuery
@@ -479,6 +483,10 @@ update ({ navKey } as session) msg model =
             App.createUpdate session model
                 |> App.notifyError "Erreur de durabilité" error
 
+        ( UpdateRenamedBookmarkName bookmark name, _ ) ->
+            { model | bookmarkBeingRenamed = Just { bookmark | name = name } }
+                |> App.createUpdate session
+
         ( UpdateElementAmount _ Nothing, _ ) ->
             App.createUpdate session model
 
@@ -654,12 +662,14 @@ simulatorView session model =
 
                 -- Bookmarks
                 , activeBookmarkTab = model.bookmarkTab
+                , bookmarkBeingRenamed = model.bookmarkBeingRenamed
                 , bookmarkName = model.bookmarkName
                 , copyToClipBoard = CopyToClipBoard
                 , compareBookmarks = OpenComparator
                 , deleteBookmark = DeleteBookmark
                 , saveBookmark = SaveBookmark
                 , updateBookmarkName = UpdateBookmarkName
+                , updateRenamedBookmarkName = UpdateRenamedBookmarkName
                 , switchBookmarkTab = SwitchBookmarksTab
                 }
             ]

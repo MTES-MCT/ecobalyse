@@ -16,6 +16,7 @@ import Views.Score as ScoreView
 
 type alias Config msg =
     { activeBookmarkTab : BookmarkView.ActiveTab
+    , bookmarkBeingRenamed : Maybe Bookmark
     , bookmarkName : String
     , compareBookmarks : msg
     , copyToClipBoard : String -> msg
@@ -32,6 +33,7 @@ type alias Config msg =
     , totalImpacts : Impacts
     , totalImpactsWithoutDurability : Maybe Impacts
     , updateBookmarkName : String -> msg
+    , updateRenamedBookmarkName : Bookmark -> String -> msg
     }
 
 
@@ -69,6 +71,7 @@ view config =
                 text ""
         , BookmarkView.view
             { activeTab = config.activeBookmarkTab
+            , bookmarkBeingRenamed = config.bookmarkBeingRenamed
             , bookmarkName = config.bookmarkName
             , compare = config.compareBookmarks
             , copyToClipBoard = config.copyToClipBoard
@@ -79,5 +82,6 @@ view config =
             , session = config.session
             , switchTab = config.switchBookmarkTab
             , update = config.updateBookmarkName
+            , updateRenamedBookmarkName = config.updateRenamedBookmarkName
             }
         ]

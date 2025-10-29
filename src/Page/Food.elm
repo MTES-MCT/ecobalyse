@@ -73,6 +73,7 @@ import Views.Transport as TransportView
 type alias Model =
     { impact : Definition
     , initialQuery : Query
+    , bookmarkBeingRenamed : Maybe Bookmark
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonType : ComparatorView.ComparisonType
@@ -125,6 +126,7 @@ type Msg
     | UpdateIngredient Query.IngredientQuery Query.IngredientQuery
     | UpdatePackaging Process.Id Query.ProcessQuery
     | UpdatePreparation Preparation.Id Preparation.Id
+    | UpdateRenamedBookmarkName Bookmark String
     | UpdateTransform Query.ProcessQuery
 
 
@@ -140,6 +142,7 @@ init session trigram maybeQuery =
     in
     { impact = impact
     , initialQuery = query
+    , bookmarkBeingRenamed = Nothing
     , bookmarkName = query |> findExistingBookmarkName session
     , bookmarkTab = BookmarkView.SaveTab
     , comparisonType =
@@ -168,6 +171,7 @@ initFromExample session uuid =
     in
     { impact = session.db.definitions |> Definition.get Definition.Ecs
     , initialQuery = query
+    , bookmarkBeingRenamed = Nothing
     , bookmarkName = query |> findExistingBookmarkName session
     , bookmarkTab = BookmarkView.SaveTab
     , comparisonType = ComparatorView.Subscores
@@ -431,6 +435,10 @@ update ({ db, queries } as session) msg model =
         UpdatePreparation oldId newId ->
             App.createUpdate session model
                 |> updateQuery (Query.updatePreparation oldId newId query)
+
+        UpdateRenamedBookmarkName bookmark name ->
+            { model | bookmarkBeingRenamed = Just { bookmark | name = name } }
+                |> App.createUpdate session
 
         UpdateTransform newTransform ->
             App.createUpdate session model
@@ -1362,12 +1370,14 @@ sidebarView session model results =
 
         -- Bookmarks
         , activeBookmarkTab = model.bookmarkTab
+        , bookmarkBeingRenamed = model.bookmarkBeingRenamed
         , bookmarkName = model.bookmarkName
         , copyToClipBoard = CopyToClipBoard
         , compareBookmarks = OpenComparator
         , deleteBookmark = DeleteBookmark
         , saveBookmark = SaveBookmark
         , updateBookmarkName = UpdateBookmarkName
+        , updateRenamedBookmarkName = UpdateRenamedBookmarkName
         , switchBookmarkTab = SwitchBookmarksTab
         }
 

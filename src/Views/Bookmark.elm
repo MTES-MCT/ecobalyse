@@ -19,6 +19,7 @@ import Views.Version as VersionView
 
 type alias ManagerConfig msg =
     { activeTab : ActiveTab
+    , bookmarkBeingRenamed : Maybe Bookmark
     , bookmarkName : String
     , compare : msg
     , copyToClipBoard : String -> msg
@@ -29,6 +30,7 @@ type alias ManagerConfig msg =
     , session : Session
     , switchTab : ActiveTab -> msg
     , update : String -> msg
+    , updateRenamedBookmarkName : Bookmark -> String -> msg
     }
 
 
@@ -291,25 +293,66 @@ bookmarkView cfg ({ name, query, version } as bookmark) =
                 Bookmark.Veli veliQuery ->
                     Just veliQuery
                         |> Route.ObjectSimulator Scope.Veli cfg.impact.trigram
+
+        beingRenamed =
+            case cfg.bookmarkBeingRenamed of
+                Just renamedBookmark ->
+                    renamedBookmark == bookmark
+
+                _ ->
+                    False
+
+        renameButton bk =
+            button
+                [ type_ "button"
+                , class "btn btn-sm btn-info"
+                , title "Renommer"
+                , attribute "aria-label" "Renommer"
+                , onClick (cfg.updateRenamedBookmarkName bk bk.name)
+                ]
+                [ Icon.pencil ]
     in
     li
         [ class "list-group-item d-flex justify-content-between align-items-center gap-1 fs-7"
         , classList [ ( "active", query == currentQuery ) ]
         ]
         [ VersionView.view version
-        , a
-            [ class "flex-fill text-truncate"
-            , classList [ ( "active text-white", query == currentQuery ) ]
-            , bookmark
-                |> Bookmark.toQueryDescription cfg.session.db
-                |> title
-            , bookmarkRoute
-                |> Route.toString
-                |> (++) cfg.session.clientUrl
-                |> href
-            ]
-            [ text name
-            ]
+        , if beingRenamed then
+            input
+                [ type_ "text"
+                , class "form-control"
+                , onInput cfg.update
+                , placeholder "Nom de la simulation"
+                , value name
+                , required True
+                , pattern "^(?!\\s*$).+"
+                ]
+                []
+
+          else
+            a
+                [ class "flex-fill text-truncate"
+                , classList [ ( "active text-white", query == currentQuery ) ]
+                , bookmark
+                    |> Bookmark.toQueryDescription cfg.session.db
+                    |> title
+                , bookmarkRoute
+                    |> Route.toString
+                    |> (++) cfg.session.clientUrl
+                    |> href
+                ]
+                [ text name
+                ]
+        , if beingRenamed then
+            button
+                [ type_ "submit"
+                , class "btn btn-sm btn-success"
+                , title "Sauvegarder la simulation dans le stockage local au navigateur"
+                ]
+                [ Icon.check ]
+
+          else
+            renameButton bookmark
         , button
             [ type_ "button"
             , class "btn btn-sm btn-danger"
