@@ -1444,7 +1444,7 @@
   },
   {
     "categories": ["material", "material_type:metal"],
-    "comment": "added by Ecobalyse",
+    "comment": "",
     "density": 0,
     "displayName": "Aluminium vierge mix marché (RoW)",
     "elecMJ": 0,
@@ -1666,7 +1666,7 @@
   },
   {
     "categories": ["ingredient"],
-    "comment": "added by Ecobalyse",
+    "comment": "",
     "density": 0,
     "displayName": "Lait Bio",
     "elecMJ": 0,
@@ -1814,7 +1814,7 @@
   },
   {
     "categories": ["energy"],
-    "comment": "added by Ecobalyse",
+    "comment": "",
     "density": 0,
     "displayName": "Diesel (B7), norme Euro4",
     "elecMJ": 0,
@@ -2517,7 +2517,7 @@
   },
   {
     "categories": ["energy"],
-    "comment": "added by Ecobalyse",
+    "comment": "",
     "density": 0,
     "displayName": "Diesel (B7), norme Euro6",
     "elecMJ": 0,
@@ -2924,7 +2924,7 @@
   },
   {
     "categories": ["material", "material_type:metal"],
-    "comment": "added by Ecobalyse",
+    "comment": "",
     "density": 0,
     "displayName": "Aluminium vierge mix marché (RER)",
     "elecMJ": 0,
@@ -4404,7 +4404,7 @@
   },
   {
     "categories": ["transformation", "material_type:wood"],
-    "comment": "added by Ecobalyse",
+    "comment": "",
     "density": 0,
     "displayName": "Panneaux, MDF (transformation)",
     "elecMJ": 0,
@@ -6661,7 +6661,7 @@
   },
   {
     "categories": ["material", "material_type:metal"],
-    "comment": "added by Ecobalyse",
+    "comment": "",
     "density": 0,
     "displayName": "Aluminium mix marché (RER)",
     "elecMJ": 0,
@@ -8363,7 +8363,7 @@
   },
   {
     "categories": ["transformation", "material_type:wood"],
-    "comment": "added by Ecobalyse",
+    "comment": "",
     "density": 0,
     "displayName": "Panneaux, HDF (transformation)",
     "elecMJ": 0,
@@ -8400,7 +8400,7 @@
   },
   {
     "categories": ["material", "material_type:metal"],
-    "comment": "added by Ecobalyse",
+    "comment": "",
     "density": 0,
     "displayName": "Acier mix marché (Europe)",
     "elecMJ": 0,
@@ -10291,7 +10291,7 @@
   },
   {
     "categories": ["transformation", "material_type:wood"],
-    "comment": "added by Ecobalyse",
+    "comment": "",
     "density": 0,
     "displayName": "Panneaux, aggloméré/particules (transformation)",
     "elecMJ": 0,
@@ -10476,7 +10476,7 @@
   },
   {
     "categories": ["energy"],
-    "comment": "added by Ecobalyse",
+    "comment": "",
     "density": 0,
     "displayName": "Essence (E10), norme Euro6",
     "elecMJ": 0,
@@ -10624,7 +10624,7 @@
   },
   {
     "categories": ["transformation", "material_type:wood"],
-    "comment": "added by Ecobalyse",
+    "comment": "",
     "density": 0,
     "displayName": "Panneaux, OSB (transformation)",
     "elecMJ": 0,
@@ -10735,7 +10735,7 @@
   },
   {
     "categories": ["material", "material_type:metal"],
-    "comment": "added by Ecobalyse",
+    "comment": "",
     "density": 0,
     "displayName": "Aluminium mix marché (CN)",
     "elecMJ": 0,
@@ -10809,7 +10809,7 @@
   },
   {
     "categories": ["transformation", "material_type:wood"],
-    "comment": "added by Ecobalyse",
+    "comment": "",
     "density": 0,
     "displayName": "Panneaux, contreplaqué (transformation)",
     "elecMJ": 0,
@@ -12844,7 +12844,7 @@
   },
   {
     "categories": ["material", "material_type:metal"],
-    "comment": "added by Ecobalyse",
+    "comment": "",
     "density": 0,
     "displayName": "Acier mix marché (Reste du monde)",
     "elecMJ": 0,
@@ -14176,7 +14176,7 @@
   },
   {
     "categories": ["transformation", "material_type:wood"],
-    "comment": "added by Ecobalyse",
+    "comment": "",
     "density": 0,
     "displayName": "Sciage + séchage au four en Europe (bois)",
     "elecMJ": 0,
@@ -14694,7 +14694,7 @@
   },
   {
     "categories": ["ingredient"],
-    "comment": "added by Ecobalyse",
+    "comment": "",
     "density": 0,
     "displayName": "Blé tendre Bio",
     "elecMJ": 0,
@@ -15138,7 +15138,7 @@
   },
   {
     "categories": ["material", "material_type:metal"],
-    "comment": "added by Ecobalyse",
+    "comment": "",
     "density": 0,
     "displayName": "Aluminium mix marché (RoW)",
     "elecMJ": 0,
@@ -16507,7 +16507,7 @@
   },
   {
     "categories": ["material", "material_type:metal"],
-    "comment": "added by Ecobalyse",
+    "comment": "",
     "density": 0,
     "displayName": "Aluminium vierge mix marché (IN)",
     "elecMJ": 0,
@@ -17284,7 +17284,7 @@
   },
   {
     "categories": ["energy"],
-    "comment": "added by Ecobalyse",
+    "comment": "",
     "density": 0,
     "displayName": "Superéthanol (E85), norme Euro6",
     "elecMJ": 0,
