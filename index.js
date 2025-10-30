@@ -10,8 +10,8 @@ const clientUrl = (location.origin + location.pathname).replace(/\/+$/g, "");
 
 // using a `let` statement to avoid this error:
 // @parcel/optimizer-swc: 'const' declarations must be initialized
-let { FORCE_PLAUSIBLE, NODE_ENV, SENTRY_DSN } = process.env;
-const plausibleEnabled = NODE_ENV === "production" || FORCE_PLAUSIBLE;
+let { FORCE_PLAUSIBLE, NODE_ENV, PLAUSIBLE_HOST, SENTRY_DSN } = process.env;
+const plausibleEnabled = PLAUSIBLE_HOST && (NODE_ENV === "production" || FORCE_PLAUSIBLE);
 
 // Sentry
 if (NODE_ENV === "production" && SENTRY_DSN) {
@@ -36,12 +36,15 @@ if (NODE_ENV === "production" && SENTRY_DSN) {
   Sentry.setTag("subsystem", "front-end");
 }
 
-function loadScript(scriptUrl) {
+function loadScript(scriptUrl, attributes = {}) {
   var d = document,
     g = d.createElement("script"),
     s = d.getElementsByTagName("script")[0];
   g.async = true;
   g.src = scriptUrl;
+  for (const [key, value] of Object.entries(attributes)) {
+    g.setAttribute(key, value);
+  }
   s.parentNode.insertBefore(g, s);
 }
 
@@ -87,11 +90,21 @@ app.ports.appStarted.subscribe(() => {
   loadScript(u + "matomo.js");
 
   // Plausible
-  window.plausible =
-    window.plausible ||
-    function () {
-      (window.plausible.q = window.plausible.q || []).push(arguments);
-    };
+  if (plausibleEnabled) {
+    window.plausible =
+      window.plausible ||
+      function () {
+        (window.plausible.q = window.plausible.q || []).push(arguments);
+      };
+    loadScript(
+      `https://${PLAUSIBLE_HOST}/js/script.hash.file-downloads.outbound-links.pageview-props.tagged-events.manual.local.js`,
+      {
+        defer: true,
+        "data-domain":
+          process.env.APP === "ecobalyse" ? "ecobalyse.beta.gouv.fr" : "ecobalyse.test",
+      },
+    );
+  }
 });
 
 app.ports.loadRapidoc.subscribe((rapidocScriptUrl) => {
