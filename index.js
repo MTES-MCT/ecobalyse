@@ -133,7 +133,9 @@ app.ports.sendPlausibleEvent.subscribe(({ name, properties }) => {
     const props = Object.fromEntries(properties);
     const event = name === "pageview" ? { u: props.url, props } : { props };
     window.plausible(name, event);
-    console.debug("plausible event", name, JSON.stringify(event, null, 2));
+    if (NODE_ENV === "development") {
+      console.debug("plausible event", name, JSON.stringify(event, null, 2));
+    }
   } catch (e) {
     console.error("plausible error", e);
   }
