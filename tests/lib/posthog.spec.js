@@ -11,7 +11,7 @@ describe("lib.plausible", () => {
       });
       expect(event).toEqual({
         name: "pageview",
-        domain: "localhost",
+        domain: "ecobalyse.test",
         url: "/food",
         props: {
           authenticated: false,
@@ -37,7 +37,7 @@ describe("lib.plausible", () => {
       );
       expect(event).toEqual({
         name: "pageview",
-        domain: "localhost",
+        domain: "ecobalyse.beta.gouv.fr",
         url: "/food",
         props: {
           authenticated: true,
@@ -63,7 +63,7 @@ describe("lib.plausible", () => {
       );
       expect(event).toEqual({
         name: "pageview",
-        domain: "localhost",
+        domain: "ecobalyse.test",
         url: "/textile/detailed",
         props: {
           authenticated: false,
@@ -85,7 +85,7 @@ describe("lib.plausible", () => {
       });
       expect(event).toEqual({
         name: "pageview",
-        domain: "localhost",
+        domain: "ecobalyse.test",
         url: "/",
         props: {
           authenticated: false,
