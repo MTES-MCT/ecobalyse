@@ -15,7 +15,7 @@ import Json.Encode as Encode
 
 
 
--- Outgoingas
+-- Outgoing
 
 
 port addBodyClass : String -> Cmd msg
