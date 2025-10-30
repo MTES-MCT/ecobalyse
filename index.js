@@ -97,7 +97,7 @@ app.ports.appStarted.subscribe(() => {
         (window.plausible.q = window.plausible.q || []).push(arguments);
       };
     loadScript(
-      `https://${PLAUSIBLE_HOST}/js/script.hash.file-downloads.outbound-links.pageview-props.tagged-events.manual.local.js`,
+      `https://${PLAUSIBLE_HOST}/js/script.file-downloads.outbound-links.pageview-props.tagged-events.manual.local.js`,
       {
         defer: true,
         "data-domain":
@@ -131,7 +131,7 @@ app.ports.sendPlausibleEvent.subscribe(({ name, properties }) => {
 
   try {
     const props = Object.fromEntries(properties);
-    const event = name === "pageview" ? { u: props.url, props } : { props };
+    const event = name === "pageview" ? { u: props.url.replace("/#/", "/"), props } : { props };
     window.plausible(name, event);
     if (NODE_ENV === "development") {
       console.debug("plausible event", name, JSON.stringify(event, null, 2));
