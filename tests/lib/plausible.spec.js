@@ -1,5 +1,5 @@
 const { createEvent } = require("../../lib/plausible");
-const { sha1 } = require("../../lib/crypto");
+const { createAnonHash } = require("../../lib/crypto");
 
 describe("lib.plausible", () => {
   describe("createEvent", () => {
@@ -15,7 +15,7 @@ describe("lib.plausible", () => {
         url: "/food",
         props: {
           authenticated: false,
-          distinctId: null,
+          anonHash: null,
           method: "GET",
           scalingoAppName: null,
           scope: "food",
@@ -41,7 +41,7 @@ describe("lib.plausible", () => {
         url: "/food",
         props: {
           authenticated: true,
-          distinctId: sha1("1234567890"),
+          anonHash: createAnonHash("1234567890"),
           method: "GET",
           scalingoAppName: "ecobalyse",
           scope: "food",
@@ -67,7 +67,7 @@ describe("lib.plausible", () => {
         url: "/textile/detailed",
         props: {
           authenticated: false,
-          distinctId: null,
+          anonHash: null,
           method: "GET",
           scalingoAppName: "ecobalyse-staging",
           scope: "textile",
@@ -89,7 +89,7 @@ describe("lib.plausible", () => {
         url: "/",
         props: {
           authenticated: false,
-          distinctId: null,
+          anonHash: null,
           method: "GET",
           scalingoAppName: null,
           statusCode: 200,
