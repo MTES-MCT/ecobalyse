@@ -47,7 +47,8 @@ type Id
 {-| A process is an entry from processes.json or processes\_impacts.json.
 -}
 type alias Process =
-    { categories : List Category
+    { activityName : ActivityName
+    , categories : List Category
     , comment : String
     , density : Float
     , displayName : Maybe String
@@ -55,16 +56,16 @@ type alias Process =
     , heat : Energy
     , id : Id
     , impacts : Impacts
+    , location : Maybe String
     , scopes : List Scope
     , source : String
-    , sourceId : SourceId
     , unit : Unit
     , waste : Split
     }
 
 
-type SourceId
-    = SourceId String
+type ActivityName
+    = ActivityName String
 
 
 type Unit
@@ -109,19 +110,20 @@ getImpact trigram =
     .impacts >> Impact.getImpact trigram
 
 
-sourceIdFromString : String -> SourceId
-sourceIdFromString =
-    SourceId
+activityNameFromString : String -> ActivityName
+activityNameFromString =
+    ActivityName
 
 
-sourceIdToString : SourceId -> String
-sourceIdToString (SourceId string) =
+activityNameToString : ActivityName -> String
+activityNameToString (ActivityName string) =
     string
 
 
 decode : Decoder Impact.Impacts -> Decoder Process
 decode impactsDecoder =
     Decode.succeed Process
+        |> Pipe.required "activityName" (DU.decodeNonEmptyString |> Decode.map activityNameFromString)
         |> Pipe.required "categories" Category.decodeList
         |> Pipe.required "comment" Decode.string
         |> Pipe.required "density" Decode.float
@@ -130,9 +132,9 @@ decode impactsDecoder =
         |> Pipe.required "heatMJ" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "id" decodeId
         |> Pipe.required "impacts" impactsDecoder
+        |> Pipe.required "location" (Decode.maybe Decode.string)
         |> Pipe.required "scopes" (Decode.list Scope.decode)
         |> Pipe.required "source" Decode.string
-        |> Pipe.required "sourceId" (DU.decodeNonEmptyString |> Decode.map sourceIdFromString)
         |> Pipe.required "unit" (Decode.string |> Decode.andThen (DE.fromResult << unitFromString))
         |> Pipe.required "waste" Split.decodeFloat
 
@@ -140,7 +142,8 @@ decode impactsDecoder =
 encode : Process -> Encode.Value
 encode process =
     Encode.object
-        [ ( "categories", Encode.list Category.encode process.categories )
+        [  ( "activityName", encodeActivityName process.activityName ),
+        ( "categories", Encode.list Category.encode process.categories )
         , ( "comment", Encode.string process.comment )
         , ( "density", Encode.float process.density )
         , ( "displayName", EncodeExtra.maybe Encode.string process.displayName )
@@ -148,9 +151,9 @@ encode process =
         , ( "heatMJ", Encode.float (Energy.inMegajoules process.heat) )
         , ( "id", encodeId process.id )
         , ( "impacts", Impact.encode process.impacts )
+        , ( "location", EncodeExtra.maybe Encode.string process.location )
         , ( "scopes", process.scopes |> Encode.list Scope.encode )
         , ( "source", Encode.string process.source )
-        , ( "sourceId", encodeSourceId process.sourceId )
         , ( "unit", process.unit |> unitToString |> Encode.string )
         , ( "waste", Split.encodeFloat process.waste )
         ]
@@ -171,9 +174,9 @@ encodeId (Id uuid) =
     Uuid.encoder uuid
 
 
-encodeSourceId : SourceId -> Encode.Value
-encodeSourceId =
-    sourceIdToString >> Encode.string
+encodeActivityName : ActivityName -> Encode.Value
+encodeActivityName =
+    activityNameToString >> Encode.string
 
 
 idFromString : String -> Result String Id
@@ -226,8 +229,8 @@ getMaterialTypes =
 
 
 getTechnicalName : Process -> String
-getTechnicalName { sourceId } =
-    sourceIdToString sourceId
+getTechnicalName { activityName } =
+    activityNameToString activityName
 
 
 listAvailableMaterialTransforms : Process -> List Process -> List Process
