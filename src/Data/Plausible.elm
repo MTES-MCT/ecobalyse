@@ -163,7 +163,7 @@ safeUrl url =
     Url.toString <|
         -- Clean auth urls as they might contain sensitive information
         if url.fragment |> Maybe.map (String.startsWith "/auth/") |> Maybe.withDefault False then
-            { url | fragment = Just "/auth/<obfuscated_for_security>/" }
+            { url | fragment = Just "/auth/<***>/" }
 
         else
             url
