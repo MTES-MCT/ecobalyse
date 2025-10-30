@@ -49,6 +49,7 @@ type alias Flags =
     , enabledSections : Session.EnabledSections
     , matomo : { host : String, siteId : String }
     , rawStore : String
+    , scalingoAppName : Maybe String
     , versionPollSeconds : Int
     }
 
@@ -182,6 +183,7 @@ setupSession navKey flags db componentConfig =
             , veli = ObjectQuery.default
             }
         , releases = RemoteData.NotAsked
+        , scalingoAppName = flags.scalingoAppName
         , store = Session.defaultStore
         , versionPollSeconds = flags.versionPollSeconds
         }

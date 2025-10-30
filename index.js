@@ -59,6 +59,7 @@ const app = Elm.Main.init({
       host: process.env.MATOMO_HOST || "",
       siteId: process.env.MATOMO_SITE_ID || "",
     },
+    scalingoAppName: process.env.APP || null,
     versionPollSeconds: parseInt(process.env.VERSION_POLL_SECONDS) || 300,
   },
 });

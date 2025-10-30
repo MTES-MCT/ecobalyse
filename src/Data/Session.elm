@@ -70,6 +70,7 @@ type alias Session =
     , notifications : List Notification
     , queries : Queries
     , releases : WebData (List Github.Release)
+    , scalingoAppName : Maybe String
     , store : Store
     , versionPollSeconds : Int
     }

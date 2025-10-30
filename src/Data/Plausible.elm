@@ -186,6 +186,7 @@ track session name properties =
         bool "admin" (Session.isSuperuser session)
             :: bool "authenticated" (Session.isAuthenticated session)
             :: string "clientUrl" session.clientUrl
+            :: maybe string "scalingoAppName" session.scalingoAppName
             :: string "subsystem" "front-end"
             :: maybe string "version" (Version.getTag session.currentVersion)
             :: properties

@@ -20,7 +20,7 @@ describe("lib.plausible", () => {
           scalingoAppName: null,
           scope: "food",
           statusCode: 200,
-          subsystem: "api",
+          subsystem: "public-api",
         },
       });
     });
@@ -46,7 +46,7 @@ describe("lib.plausible", () => {
           scalingoAppName: "ecobalyse",
           scope: "food",
           statusCode: 200,
-          subsystem: "api",
+          subsystem: "public-api",
         },
       });
     });
@@ -72,7 +72,7 @@ describe("lib.plausible", () => {
           scalingoAppName: "ecobalyse-staging",
           scope: "textile",
           statusCode: 200,
-          subsystem: "api",
+          subsystem: "public-api",
         },
       });
     });
@@ -93,7 +93,7 @@ describe("lib.plausible", () => {
           method: "GET",
           scalingoAppName: null,
           statusCode: 200,
-          subsystem: "api",
+          subsystem: "public-api",
         },
       });
     });
