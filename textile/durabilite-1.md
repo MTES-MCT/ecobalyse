@@ -81,6 +81,24 @@ Ou aussi&#x20;
 
 $$C_{Durabilité} = 0.67 + (1,45-0,67)*( 0.5*I_{incitation réparation} +  0.5*I_{largeur de gamme} )$$
 
+<details>
+
+<summary><mark style="color:$info;background-color:$primary;">Pour en savoir plus</mark></summary>
+
+* Acte délégué textile pour ESPR:
+
+_"a study revealed that users are more prone to dispose of cheaper products than of higher-priced items because they usually develop higher emotional attachment to the latter than to the former (Forbrugerrådet Tænk, 2022)"_
+
+
+
+* JRC, Task 4 of the preparatory study on textiles for product policy instruments, November 2024, p29.
+
+_“The price of repair compared to the price of the new item plays a crucial role when the user decides to repair or replace an item of textile apparel. Expensive items tend to be repaired more often than cheap ones due to the cost-effectiveness of the choice (Gwilt, 2021). In particular, if the price of repair exceeds about 40% of the price of the new item, users tend to replace the product rather than repairing it (Cordella, Sanfelix, et al., 2019;Ribeiro et al., 2023). A simple exercise reported in section 2.5 shows that in the EU, professional repair operations can be much more expensive than the purchase of a new item. In this context, the user prefers to buy a new item rather than repairing the damaged one.”_
+
+
+
+</details>
+
 ### <mark style="color:red;">Largeur de gamme</mark>
 
 #### Définition
