@@ -185,13 +185,6 @@ def fx_raw_components() -> list[dict[str, Any]]:
             "name": "Cadre plastique",
             "owner_id": "97108ac1-ffcb-411d-8b1e-d9183399f63b",
             "scopes": [],
-            "elements_json": [
-                {
-                    "amount": 3,
-                    "material": "d25636af-ab36-4857-a6d0-c66d1e7a281b",
-                    "transforms": ["97c209ec-7782-5a29-8c47-af7f17c82d11"],
-                }
-            ],
         },
         {
             "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9",

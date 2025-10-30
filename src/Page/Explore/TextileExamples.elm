@@ -4,6 +4,7 @@ import Data.Component as Component
 import Data.Dataset as Dataset
 import Data.Example exposing (Example)
 import Data.Scope exposing (Scope)
+import Data.Session exposing (Session)
 import Data.Textile.Product as Product
 import Data.Textile.Query exposing (Query)
 import Data.Uuid as Uuid
@@ -13,16 +14,15 @@ import Page.Explore.Common as Common
 import Page.Explore.Table as Table exposing (Table)
 import Result.Extra as RE
 import Route
-import Static.Db exposing (Db)
 import Views.Icon as Icon
 
 
 table :
-    Db
+    Session
     -> { maxScore : Float, maxPer100g : Float }
     -> { detailed : Bool, scope : Scope }
     -> Table ( Example Query, { score : Float, per100g : Float } ) String msg
-table db { maxScore, maxPer100g } { detailed, scope } =
+table { db } { maxScore, maxPer100g } { detailed, scope } =
     { filename = "examples"
     , toId = Tuple.first >> .id >> Uuid.toString
     , toRoute = Tuple.first >> .id >> Just >> Dataset.TextileExamples >> Route.Explore scope

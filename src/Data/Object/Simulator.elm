@@ -7,14 +7,13 @@ import Data.Component as Component exposing (LifeCycle)
 import Data.Impact as Impact exposing (noStepsImpacts)
 import Data.Impact.Definition as Definition
 import Data.Object.Query exposing (Query)
-import Data.Scope exposing (Scope)
 import Static.Db exposing (Db)
 
 
-compute : Db -> Scope -> Query -> Result String LifeCycle
-compute db scope query =
+compute : Component.Requirements Db -> Query -> Result String LifeCycle
+compute requirements query =
     query.components
-        |> Component.compute db scope
+        |> Component.compute requirements
 
 
 toStepsImpacts : Definition.Trigram -> LifeCycle -> Impact.StepsImpacts

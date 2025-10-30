@@ -3,6 +3,8 @@ module Main exposing (main)
 import App exposing (PageUpdate)
 import Browser exposing (Document)
 import Browser.Navigation as Nav
+import Data.Component as Component
+import Data.Component.Config as ComponentConfig
 import Data.Example as Example
 import Data.Food.Query as FoodQuery
 import Data.Github as Github
@@ -28,6 +30,7 @@ import Page.Stats as Stats
 import Page.Textile as TextileSimulator
 import Ports
 import RemoteData exposing (WebData)
+import RemoteData.Http as Http
 import Request.Auth
 import Request.BackendHttp as BackendHttp
 import Request.BackendHttp.Error as BackendError
@@ -90,6 +93,7 @@ type Msg
     | AppMsg App.Msg
     | AuthMsg Auth.Msg
     | ComponentAdminMsg ComponentAdmin.Msg
+    | ComponentConfigReceived (WebData Component.Config)
     | DetailedProcessesReceived (BackendHttp.WebData String)
     | EditorialMsg Editorial.Msg
     | ExploreMsg Explore.Msg
@@ -109,8 +113,15 @@ type Msg
 
 init : Flags -> Url -> Nav.Key -> ( Model, Cmd Msg )
 init flags requestedUrl navKey =
-    setRoute requestedUrl <|
-        case StaticDb.db StaticJson.processesJson of
+    setRoute requestedUrl
+        (case
+            StaticDb.db StaticJson.processesJson
+                |> Result.andThen
+                    (\db ->
+                        Component.defaultConfig db.processes
+                            |> Result.map (Tuple.pair db)
+                    )
+         of
             Err err ->
                 ( { mobileNavigationOpened = False
                   , navKey = navKey
@@ -121,10 +132,10 @@ init flags requestedUrl navKey =
                 , Posthog.send <| Posthog.PageErrored requestedUrl err
                 )
 
-            Ok db ->
+            Ok ( db, componentConfig ) ->
                 let
                     session =
-                        setupSession navKey flags db
+                        setupSession navKey flags db componentConfig
                 in
                 ( { mobileNavigationOpened = False
                   , navKey = navKey
@@ -134,6 +145,8 @@ init flags requestedUrl navKey =
                   }
                 , Cmd.batch
                     [ Ports.appStarted ()
+                    , ComponentConfig.decode db.processes
+                        |> Http.get "/data/components/config.json" ComponentConfigReceived
                     , Request.Version.loadVersion VersionReceived
                     , Request.Github.getReleases ReleasesReceived
                     , if Session.isAuthenticated session then
@@ -144,12 +157,14 @@ init flags requestedUrl navKey =
                     , Posthog.send <| Posthog.PageViewed requestedUrl
                     ]
                 )
+        )
 
 
-setupSession : Nav.Key -> Flags -> Db -> Session
-setupSession navKey flags db =
+setupSession : Nav.Key -> Flags -> Db -> Component.Config -> Session
+setupSession navKey flags db componentConfig =
     Session.decodeRawStore flags.rawStore
         { clientUrl = flags.clientUrl
+        , componentConfig = componentConfig
         , currentVersion = Request.Version.Unknown
         , db = db
         , enabledSections = flags.enabledSections
@@ -401,6 +416,24 @@ update rawMsg ({ state } as model) =
                     ComponentAdmin.update session adminMsg adminModel
                         |> toPage session model Cmd.none ComponentAdminPage ComponentAdminMsg
 
+                ( ComponentConfigReceived (RemoteData.Success componentConfig), currentPage ) ->
+                    ( { model | state = currentPage |> Loaded { session | componentConfig = componentConfig } }
+                    , Cmd.none
+                    )
+
+                ( ComponentConfigReceived (RemoteData.Failure _), _ ) ->
+                    ( model
+                    , Notification.error "Erreur"
+                        ("Impossible de charger la configuration des composants. Une configuration par défaut sera"
+                            ++ " utilisée, les résultats fournis sont probablement invalides ou incomplets."
+                        )
+                        |> App.AddToast
+                        |> App.toCmd AppMsg
+                    )
+
+                ( ComponentConfigReceived _, _ ) ->
+                    ( model, Cmd.none )
+
                 ( ProcessAdminMsg adminMsg, ProcessAdminPage adminModel ) ->
                     ProcessAdmin.update session adminMsg adminModel
                         |> toPage session model Cmd.none ProcessAdminPage ProcessAdminMsg
@@ -558,9 +591,10 @@ view : Model -> Document Msg
 view { mobileNavigationOpened, state, tray } =
     case state of
         Errored error ->
+            -- FIXME: proper error page
             { body =
                 [ Html.h1 [] [ Html.text <| "Erreur" ]
-                , Html.p [] [ Html.text error ]
+                , Html.pre [] [ Html.text error ]
                 ]
             , title = "Erreur"
             }

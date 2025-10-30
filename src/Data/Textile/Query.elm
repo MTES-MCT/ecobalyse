@@ -54,7 +54,6 @@ type alias MaterialQuery =
     }
 
 
-
 type alias Query =
     { airTransportRatio : Maybe Split
     , business : Maybe Economics.Business

@@ -1,6 +1,7 @@
 module Data.Component exposing
     ( Amount(..)
     , Component
+    , Config
     , Custom
     , DataContainer
     , Element
@@ -11,6 +12,7 @@ module Data.Component exposing
     , Item
     , LifeCycle
     , Quantity
+    , Requirements
     , Results(..)
     , Stage(..)
     , TargetElement
@@ -31,6 +33,7 @@ module Data.Component exposing
     , decodeItem
     , decodeList
     , decodeListFromJsonString
+    , defaultConfig
     , elementTransforms
     , elementsToString
     , emptyLifeCycle
@@ -46,15 +49,16 @@ module Data.Component exposing
     , extractItems
     , extractMass
     , findById
-    , getEndOfLifeCollectionShare
     , getEndOfLifeDetailedImpacts
     , getEndOfLifeImpacts
+    , getEndOfLifeScopeCollectionRate
     , idFromString
     , idToString
     , isEmpty
     , itemToComponent
     , itemToString
     , itemsToString
+    , parseConfig
     , quantityFromInt
     , quantityToInt
     , removeElement
@@ -72,15 +76,16 @@ module Data.Component exposing
 
 import Data.Common.DecodeUtils as DU
 import Data.Common.EncodeUtils as EU
+import Data.Component.Config as Config exposing (EndOfLifeStrategies, EndOfLifeStrategy)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Trigram)
 import Data.Process as Process exposing (Process)
-import Data.Process.Category as Category exposing (Category)
+import Data.Process.Category as Category exposing (Category, MaterialDict)
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
 import Data.Uuid as Uuid exposing (Uuid)
-import Dict.Any as AnyDict exposing (AnyDict)
+import Dict.Any as AnyDict
 import Energy
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Decode
@@ -104,6 +109,12 @@ type alias Component =
     , name : String
     , scope : Scope
     }
+
+
+{-| Proxified for convenience
+-}
+type alias Config =
+    Config.Config
 
 
 type alias EnergyMixes =
@@ -184,32 +195,10 @@ type Quantity
     = Quantity Int
 
 
-{-| Holds the distribution of material masses per material type
--}
-type alias MaterialDistribution a =
-    AnyDict String Category.Material a
-
-
-{-| Material end of life strategy (incinerating, landfilling, recycling)
--}
-type alias EndOfLifeStrategies =
-    { incinerating : EndOfLifeStrategy
-    , landfilling : EndOfLifeStrategy
-    , recycling : EndOfLifeStrategy
-    }
-
-
-type alias EndOfLifeStrategy =
-    { impacts : Impacts
-    , process : Maybe Process
-    , split : Split
-    }
-
-
 {-| A data structure exposing detailed impacts at the end of life stage of the lifeCycle
 -}
 type alias DetailedEndOfLifeImpacts =
-    MaterialDistribution EndOfLifeMaterialImpacts
+    MaterialDict EndOfLifeMaterialImpacts
 
 
 type alias EndOfLifeMaterialImpacts =
@@ -252,6 +241,13 @@ type alias StagesImpacts =
     { endOfLife : Impacts
     , material : Impacts
     , transformation : Impacts
+    }
+
+
+type alias Requirements db =
+    { config : Config
+    , db : DataContainer db
+    , scope : Scope
     }
 
 
@@ -415,13 +411,14 @@ checkTransformsUnit unit transforms =
 
 {-| Computes impacts from a list of available components, processes and specified component items
 -}
-compute : DataContainer db -> Scope -> List Item -> Result String LifeCycle
-compute db scope =
-    List.map (computeItemResults db)
-        >> RE.combine
-        >> Result.map (List.foldr addResults emptyResults)
-        >> Result.map (\(Results results) -> { emptyLifeCycle | production = Results { results | label = Just "Production" } })
-        >> Result.andThen (computeEndOfLifeResults db scope)
+compute : Requirements db -> List Item -> Result String LifeCycle
+compute requirements items =
+    items
+        |> List.map (computeItemResults requirements.db)
+        |> RE.combine
+        |> Result.map (List.foldr addResults emptyResults)
+        |> Result.map (\(Results results) -> { emptyLifeCycle | production = Results { results | label = Just "Production" } })
+        |> Result.map (computeEndOfLifeResults requirements)
 
 
 computeElementResults : List Process -> Element -> Result String Results
@@ -440,11 +437,13 @@ computeElementResults processes =
             )
 
 
-computeEndOfLifeResults : DataContainer db -> Scope -> LifeCycle -> Result String LifeCycle
-computeEndOfLifeResults db scope lifeCycle =
-    lifeCycle.production
-        |> getEndOfLifeImpacts db scope
-        |> Result.map (\endOfLife -> { lifeCycle | endOfLife = endOfLife })
+computeEndOfLifeResults : Requirements db -> LifeCycle -> LifeCycle
+computeEndOfLifeResults requirements lifeCycle =
+    { lifeCycle
+        | endOfLife =
+            lifeCycle.production
+                |> getEndOfLifeImpacts requirements
+    }
 
 
 {-| Compute an initially required amount from sequentially applied waste ratios
@@ -651,6 +650,13 @@ decodeQuantity =
                     Decode.succeed int
             )
         |> Decode.map Quantity
+
+
+{-| Proxified for convenience
+-}
+defaultConfig : List Process -> Result String Config
+defaultConfig =
+    Config.default
 
 
 elementToString : List Process -> Element -> Result String String
@@ -869,29 +875,17 @@ findById id =
         >> Result.fromMaybe ("Aucun composant avec id=" ++ idToString id)
 
 
-getEndOfLifeCollectionShare : Scope -> Split
-getEndOfLifeCollectionShare scope =
-    (case scope of
-        Scope.Object ->
-            70
-
-        _ ->
-            100
-    )
-        |> Split.fromPercent
-        |> Result.withDefault Split.zero
-
-
-getEndOfLifeDetailedImpacts : List Process -> Scope -> Results -> Result String DetailedEndOfLifeImpacts
-getEndOfLifeDetailedImpacts processes scope =
+getEndOfLifeDetailedImpacts : Requirements db -> Results -> DetailedEndOfLifeImpacts
+getEndOfLifeDetailedImpacts { config, scope } =
     let
         collectionRatio =
-            getEndOfLifeCollectionShare scope
+            getEndOfLifeScopeCollectionRate config scope
 
         nonCollectionRatio =
             Split.complement collectionRatio
 
-        applyStrategies { incinerating, landfilling, recycling } mass =
+        applyStrategies : Mass -> EndOfLifeStrategies -> ( Mass, EndOfLifeStrategies )
+        applyStrategies mass { incinerating, landfilling, recycling } =
             ( mass
             , { incinerating = { incinerating | impacts = incinerating |> computeShareImpacts mass }
               , landfilling = { landfilling | impacts = landfilling |> computeShareImpacts mass }
@@ -902,151 +896,57 @@ getEndOfLifeDetailedImpacts processes scope =
     getMaterialDistribution
         >> AnyDict.map
             (\materialCategory mass ->
-                Result.map2
-                    (\collectionStrategies nonCollectionStrategies ->
-                        { collected =
-                            collectionRatio
-                                |> Split.applyToQuantity mass
-                                |> applyStrategies collectionStrategies
-                        , nonCollected =
-                            nonCollectionRatio
-                                |> Split.applyToQuantity mass
-                                |> applyStrategies nonCollectionStrategies
-                        }
-                    )
-                    (materialCategory |> getEndOfLifeCollectionStrategies processes)
-                    (materialCategory |> getEndOfLifeNonCollectionStrategies processes)
+                { collected =
+                    config.endOfLife.strategies.collected
+                        |> AnyDict.get materialCategory
+                        |> Maybe.withDefault config.endOfLife.strategies.default
+                        |> applyStrategies (collectionRatio |> Split.applyToQuantity mass)
+                , nonCollected =
+                    config.endOfLife.strategies.nonCollected
+                        |> AnyDict.get materialCategory
+                        |> Maybe.withDefault config.endOfLife.strategies.default
+                        |> applyStrategies (nonCollectionRatio |> Split.applyToQuantity mass)
+                }
             )
         >> AnyDict.toList
-        >> RE.combineMap RE.combineSecond
-        >> Result.map (AnyDict.fromList Category.materialTypeToString)
+        >> AnyDict.fromList Category.materialTypeToString
 
 
-getEndOfLifeImpacts : DataContainer db -> Scope -> Results -> Result String Impacts
-getEndOfLifeImpacts db scope (Results results) =
+getEndOfLifeImpacts : Requirements db -> Results -> Impacts
+getEndOfLifeImpacts requirements (Results results) =
     Results results
-        |> getEndOfLifeDetailedImpacts db.processes scope
-        |> Result.map
-            (AnyDict.map
-                (\_ { collected, nonCollected } ->
-                    let
-                        ( collectedStrategies, nonCollectedStrategies ) =
-                            ( Tuple.second collected, Tuple.second nonCollected )
-                    in
-                    [ collectedStrategies.incinerating
-                    , collectedStrategies.landfilling
-                    , collectedStrategies.recycling
-                    , nonCollectedStrategies.incinerating
-                    , nonCollectedStrategies.landfilling
-                    , nonCollectedStrategies.recycling
-                    ]
-                        |> List.map .impacts
-                        |> Impact.sumImpacts
-                )
-                >> AnyDict.values
-                >> Impact.sumImpacts
+        |> getEndOfLifeDetailedImpacts requirements
+        |> AnyDict.map
+            (\_ { collected, nonCollected } ->
+                let
+                    ( collectedStrategies, nonCollectedStrategies ) =
+                        ( Tuple.second collected, Tuple.second nonCollected )
+                in
+                [ collectedStrategies.incinerating
+                , collectedStrategies.landfilling
+                , collectedStrategies.recycling
+                , nonCollectedStrategies.incinerating
+                , nonCollectedStrategies.landfilling
+                , nonCollectedStrategies.recycling
+                ]
+                    |> List.map .impacts
+                    |> Impact.sumImpacts
             )
+        |> AnyDict.values
+        |> Impact.sumImpacts
 
 
-getEndOfLifeCollectionStrategies : List Process -> Category.Material -> Result String EndOfLifeStrategies
-getEndOfLifeCollectionStrategies processes material =
-    -- TODO: eventually, it would be nice to load this from an external config file or
-    --       even better, from the backend
-    Result.map5
-        (\defaultIncinerating defaultLandfilling plasticIncinerating woodIncinerating upholsteryIncinerating ->
-            let
-                emptyStrategy =
-                    { impacts = Impact.empty, process = Nothing, split = Split.zero }
-
-                split =
-                    Split.fromPercent >> Result.withDefault Split.zero
-
-                defaultStrategies =
-                    { incinerating = { emptyStrategy | process = Just defaultIncinerating, split = split 82 }
-                    , landfilling = { emptyStrategy | process = Just defaultLandfilling, split = split 18 }
-                    , recycling = { emptyStrategy | process = Nothing, split = Split.zero }
-                    }
-            in
-            [ ( Category.Metal
-              , { incinerating = emptyStrategy
-                , landfilling = emptyStrategy
-                , recycling = { emptyStrategy | process = Nothing, split = Split.full }
-                }
-              )
-            , ( Category.Plastic
-              , { incinerating = { emptyStrategy | process = Just plasticIncinerating, split = split 8 }
-                , landfilling = emptyStrategy
-                , recycling = { emptyStrategy | process = Nothing, split = split 92 }
-                }
-              )
-            , ( Category.Upholstery
-              , { incinerating = { emptyStrategy | process = Just upholsteryIncinerating, split = split 94 }
-                , landfilling = { emptyStrategy | process = Just defaultLandfilling, split = split 2 }
-                , recycling = { emptyStrategy | process = Nothing, split = split 4 }
-                }
-              )
-            , ( Category.Wood
-              , { incinerating = { emptyStrategy | process = Just woodIncinerating, split = split 31 }
-                , landfilling = emptyStrategy
-                , recycling = { emptyStrategy | process = Nothing, split = split 69 }
-                }
-              )
-            ]
-                |> AnyDict.fromList Category.materialTypeToString
-                |> AnyDict.get material
-                |> Maybe.withDefault defaultStrategies
-        )
-        -- Default incineration process
-        (Process.findByStringId "6fad4e70-5736-552d-a686-97e4fb627c37" processes)
-        -- Default landfilling process
-        (Process.findByStringId "d4954f69-e647-531d-aa32-c34be5556736" processes)
-        -- Plastic incineration process
-        (Process.findByStringId "17986210-aeb8-5f4f-99fd-cbecb5439fde" processes)
-        -- Wood incineration process
-        (Process.findByStringId "316be695-bf3e-5562-9f09-77f213c3ec67" processes)
-        -- Upholstery incineration process
-        (Process.findByStringId "3fe5a5b1-c1b2-5c17-8b59-0e37b09f1037" processes)
-
-
-getEndOfLifeNonCollectionStrategies : List Process -> Category.Material -> Result String EndOfLifeStrategies
-getEndOfLifeNonCollectionStrategies processes material =
-    Result.map3
-        (\defaultIncinerating metalIncineration defaultLandfilling ->
-            let
-                emptyStrategy =
-                    { impacts = Impact.empty, process = Nothing, split = Split.zero }
-
-                split =
-                    Split.fromPercent >> Result.withDefault Split.zero
-
-                defaultStrategies =
-                    { incinerating = { emptyStrategy | process = Just defaultIncinerating, split = split 82 }
-                    , landfilling = { emptyStrategy | process = Just defaultLandfilling, split = split 18 }
-                    , recycling = { emptyStrategy | process = Nothing, split = Split.zero }
-                    }
-            in
-            [ ( Category.Metal
-              , { incinerating = { emptyStrategy | process = Just metalIncineration, split = split 5 }
-                , landfilling = { emptyStrategy | process = Just defaultLandfilling, split = split 5 }
-                , recycling = { emptyStrategy | process = Nothing, split = split 90 }
-                }
-              )
-            ]
-                |> AnyDict.fromList Category.materialTypeToString
-                |> AnyDict.get material
-                |> Maybe.withDefault defaultStrategies
-        )
-        -- Default incineration process
-        (Process.findByStringId "6fad4e70-5736-552d-a686-97e4fb627c37" processes)
-        -- Metal Incineration process
-        (Process.findByStringId "5719f399-c2a3-5268-84e2-894aba588f1b" processes)
-        -- Default landfilling process
-        (Process.findByStringId "d4954f69-e647-531d-aa32-c34be5556736" processes)
+getEndOfLifeScopeCollectionRate : Config -> Scope -> Split
+getEndOfLifeScopeCollectionRate { endOfLife } scope =
+    endOfLife.scopeCollectionRates
+        |> AnyDict.get scope
+        -- Assume every material is fully collected by default
+        |> Maybe.withDefault Split.full
 
 
 {-| Compute mass distribution by material types
 -}
-getMaterialDistribution : Results -> MaterialDistribution Mass
+getMaterialDistribution : Results -> MaterialDict Mass
 getMaterialDistribution (Results results) =
     results.items
         -- component level
@@ -1175,6 +1075,13 @@ loadDefaultEnergyMixes processes =
 mapAmount : (Float -> Float) -> Amount -> Amount
 mapAmount fn (Amount float) =
     Amount <| fn float
+
+
+{-| Proxified for convenience
+-}
+parseConfig : List Process -> String -> Result String Config
+parseConfig =
+    Config.parse
 
 
 quantityFromInt : Int -> Quantity
