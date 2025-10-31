@@ -17,7 +17,7 @@ import Data.Component as Component
         , TargetElement
         , TargetItem
         )
-import Data.Country as Country
+import Data.Country as Country exposing (Country)
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Process as Process exposing (Process)
@@ -455,7 +455,7 @@ amountInput config targetElement unit amount =
 
 
 elementView : Config db msg -> TargetItem -> Index -> ExpandedElement -> Results -> Html msg
-elementView config targetItem elementIndex { amount, material, transforms } elementResults =
+elementView config targetItem elementIndex { amount, country, material, transforms } elementResults =
     let
         ( materialResults, transformsResults ) =
             case Component.extractItems elementResults of
@@ -486,7 +486,7 @@ elementView config targetItem elementIndex { amount, material, transforms } elem
             , th [] []
             ]
             :: elementMaterialView config ( targetItem, elementIndex ) materialResults material amount
-            :: elementTransformsView config ( targetItem, elementIndex ) transformsResults transforms
+            :: elementTransformsView config ( targetItem, elementIndex ) country transformsResults transforms
             ++ (if config.scope /= Scope.Textile then
                     [ tr []
                         [ td [ colspan 2 ] []
@@ -559,19 +559,34 @@ elementMaterialView config targetElement materialResults material amount =
         ]
 
 
-elementTransformsView : Config db msg -> TargetElement -> List Results -> List Process -> List (Html msg)
-elementTransformsView config targetElement transformsResults transforms =
+elementTransformsView : Config db msg -> TargetElement -> Maybe Country -> List Results -> List Process -> List (Html msg)
+elementTransformsView config targetElement maybeCountry transformsResults transforms =
     List.map3
         (\transformIndex transformResult transform ->
+            let
+                tooltipText =
+                    "Procédé\u{00A0}: "
+                        ++ Process.getDisplayName transform
+                        ++ (Component.loadEnergyMixes config.db.processes maybeCountry
+                                |> Result.map
+                                    (\{ elec, heat } ->
+                                        "\nÉlectricité\u{00A0}: "
+                                            ++ Process.getDisplayName elec
+                                            ++ "\nChaleur\u{00A0}: "
+                                            ++ Process.getDisplayName heat
+                                    )
+                                |> Result.withDefault ""
+                           )
+            in
             tr [ class "fs-7" ]
                 [ td [] []
                 , td [ class "text-end align-middle text-nowrap" ] []
                 , td
-                    [ class "text-truncate align-middle w-100"
+                    [ class "text-truncate align-middle w-100 cursor-help"
 
                     -- Note: allows truncated ellipsis in table cells https://stackoverflow.com/a/11877033/330911
                     , style "max-width" "0"
-                    , title <| Process.getDisplayName transform
+                    , title tooltipText
                     ]
                     [ span [ class "ComponentElementIcon" ] [ Icon.transform ]
                     , text <| Process.getDisplayName transform

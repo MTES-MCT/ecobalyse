@@ -59,6 +59,7 @@ module Data.Component exposing
     , itemToComponent
     , itemToString
     , itemsToString
+    , loadEnergyMixes
     , parseConfig
     , quantityFromInt
     , quantityToInt
