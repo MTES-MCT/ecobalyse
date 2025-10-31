@@ -322,7 +322,7 @@ suite =
                     (Process.idFromString "f0dbe27b-1e74-55d0-88a2-bda812441744"
                         |> Result.andThen
                             (\cottonId ->
-                                Component.computeElementResults db.processes
+                                Component.computeElementResults db
                                     { amount = Component.Amount 1
                                     , material = cottonId
 
@@ -356,7 +356,7 @@ suite =
                                 , material = materialInCubicMeters.id
                                 , transforms = [ transformInCubicMeters.id ]
                                 }
-                                    |> Component.computeElementResults db.processes
+                                    |> Component.computeElementResults db
                         in
                         [ it "should compute impacts according on material unit"
                             (results

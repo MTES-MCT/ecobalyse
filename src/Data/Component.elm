@@ -433,8 +433,8 @@ compute requirements items =
         |> Result.map (computeEndOfLifeResults requirements)
 
 
-computeElementResults : List Process -> Element -> Result String Results
-computeElementResults processes =
+computeElementResults : DataContainer db -> Element -> Result String Results
+computeElementResults { processes } =
     expandElement processes
         >> Result.andThen
             (\{ amount, material, transforms } ->
@@ -476,25 +476,25 @@ computeInitialAmount wastes amount =
 
 
 computeImpacts : DataContainer db -> Component -> Result String Results
-computeImpacts { processes } =
+computeImpacts db =
     .elements
-        >> List.map (computeElementResults processes)
+        >> List.map (computeElementResults db)
         >> RE.combine
         >> Result.map (List.foldr addResults emptyResults)
 
 
 computeItemResults : DataContainer db -> Item -> Result String Results
-computeItemResults { components, processes } { custom, id, quantity } =
+computeItemResults db { custom, id, quantity } =
     let
         component_ =
-            findById id components
+            findById id db.components
     in
     component_
         |> Result.andThen
             (\component ->
                 custom
                     |> customElements component
-                    |> List.map (computeElementResults processes)
+                    |> List.map (computeElementResults db)
                     |> RE.combine
             )
         |> Result.map (List.foldr addResults emptyResults)
