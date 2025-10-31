@@ -78,7 +78,7 @@ module Data.Component exposing
 import Data.Common.DecodeUtils as DU
 import Data.Common.EncodeUtils as EU
 import Data.Component.Config as Config exposing (EndOfLifeStrategies, EndOfLifeStrategy)
-import Data.Country as Country
+import Data.Country as Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Trigram)
 import Data.Process as Process exposing (Process)
@@ -125,8 +125,8 @@ type alias EnergyMixes =
     }
 
 
-{-| A compact reference to a component, a quantity of it, and optionally some overrides,
-typically used for queries
+{-| A compact reference to a component, a quantity of it, a production localization
+and optional overrides, typically used for queries
 -}
 type alias Item =
     { country : Maybe Country.Code
@@ -137,8 +137,8 @@ type alias Item =
 
 
 type alias ExpandedItem =
-    { -- country : Maybe Country,
-      component : Component
+    { component : Component
+    , country : Maybe Country
     , elements : List ExpandedElement
     , quantity : Quantity
     }
@@ -156,6 +156,7 @@ type alias Custom =
 type alias DataContainer db =
     { db
         | components : List Component
+        , countries : List Country
         , processes : List Process
     }
 
@@ -474,8 +475,8 @@ computeInitialAmount wastes amount =
             |> Ok
 
 
-computeImpacts : List Process -> Component -> Result String Results
-computeImpacts processes =
+computeImpacts : DataContainer db -> Component -> Result String Results
+computeImpacts { processes } =
     .elements
         >> List.map (computeElementResults processes)
         >> RE.combine
@@ -530,6 +531,7 @@ computeMaterialResults : Amount -> Process -> Results
 computeMaterialResults amount process =
     let
         impacts =
+            -- Note: materials impacts embed energy ones
             process.impacts
                 |> Impact.multiplyBy (amountToFloat amount)
 
@@ -844,20 +846,29 @@ expandElements processes =
 
 
 expandItem : DataContainer a -> Item -> Result String ExpandedItem
-expandItem { components, processes } { custom, id, quantity } =
+expandItem { components, countries, processes } { country, custom, id, quantity } =
     findById id components
         |> Result.andThen
             (\component ->
-                custom
-                    |> customElements component
-                    |> expandElements processes
-                    |> Result.map
-                        (\expandedElements ->
-                            { component = component
-                            , elements = expandedElements
-                            , quantity = quantity
-                            }
-                        )
+                Result.map2
+                    (\expandedCountry expandedElements ->
+                        { component = component
+                        , country = expandedCountry
+                        , elements = expandedElements
+                        , quantity = quantity
+                        }
+                    )
+                    (case country of
+                        Just code ->
+                            countries |> Country.findByCode code |> Result.map Just
+
+                        Nothing ->
+                            Ok Nothing
+                    )
+                    (custom
+                        |> customElements component
+                        |> expandElements processes
+                    )
             )
 
 

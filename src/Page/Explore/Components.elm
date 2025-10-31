@@ -4,8 +4,8 @@ import Data.Component as Component exposing (Component)
 import Data.Dataset as Dataset
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
-import Data.Process as Process exposing (Process)
-import Data.Scope as Scope exposing (Scope)
+import Data.Process as Process
+import Data.Scope exposing (Scope)
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -18,11 +18,6 @@ import Views.Format as Format
 
 table : Db -> { detailed : Bool, scope : Scope } -> Table Component.Component String msg
 table db { detailed, scope } =
-    let
-        scopedProcesses =
-            db.processes
-                |> Scope.anyOf [ scope ]
-    in
     { filename = "components"
     , toId = .id >> Component.idToString
     , toRoute = .id >> Just >> Dataset.Components scope >> Route.Explore scope
@@ -95,9 +90,9 @@ table db { detailed, scope } =
           , toCell = .comment >> Maybe.withDefault "N/A" >> text
           }
         , { label = "Coût environnemental"
-          , toValue = Table.FloatValue <| getComponentEcoscore scopedProcesses >> Result.withDefault 0
+          , toValue = Table.FloatValue <| getComponentEcoscore db >> Result.withDefault 0
           , toCell =
-                getComponentEcoscore db.processes
+                getComponentEcoscore db
                     >> Result.map (Format.formatImpactFloat { decimals = 2, unit = "Pts par composant" })
                     >> Result.withDefault (text "N/A")
           }
@@ -105,9 +100,9 @@ table db { detailed, scope } =
     }
 
 
-getComponentEcoscore : List Process -> Component -> Result String Float
-getComponentEcoscore processes =
-    Component.computeImpacts processes
+getComponentEcoscore : Db -> Component -> Result String Float
+getComponentEcoscore db =
+    Component.computeImpacts db
         >> Result.map
             (Component.extractImpacts
                 >> Impact.getImpact Definition.Ecs
