@@ -123,7 +123,7 @@ suite =
                             , quantity = 1
                             , stage = Nothing
                             }
-                            |> Component.applyTransforms db.processes Process.Kilogram transforms
+                            |> Component.applyTransforms db.processes Nothing Process.Kilogram transforms
                             |> Result.withDefault Component.emptyResults
                             |> Component.extractMass
                             |> Mass.inKilograms
@@ -154,7 +154,7 @@ suite =
                             , quantity = 1
                             , stage = Nothing
                             }
-                            |> Component.applyTransforms db.processes Process.Kilogram transforms
+                            |> Component.applyTransforms db.processes Nothing Process.Kilogram transforms
                             |> Result.withDefault Component.emptyResults
                             |> extractEcsImpact
                   in
@@ -210,7 +210,7 @@ suite =
                                 , quantity = 1
                                 , stage = Nothing
                                 }
-                                |> Component.applyTransforms db.processes Process.CubicMeter [ transformInKg ]
+                                |> Component.applyTransforms db.processes Nothing Process.CubicMeter [ transformInKg ]
                                 |> Expect.equal (Err "Les procédés de transformation ne partagent pas la même unité que la matière source (m3)\u{00A0}: Moulage par injection (kg)")
                             )
                         ]
@@ -227,7 +227,7 @@ suite =
                             , quantity = 1
                             , stage = Nothing
                             }
-                            |> Component.applyTransforms db.processes Process.Kilogram transforms
+                            |> Component.applyTransforms db.processes Nothing Process.Kilogram transforms
                             |> Result.withDefault Component.emptyResults
                   in
                   describe "impacts & waste"
