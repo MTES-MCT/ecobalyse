@@ -63,6 +63,7 @@ type alias Config db msg =
     , setDetailed : List Index -> msg
     , title : String
     , updateElementAmount : TargetElement -> Maybe Amount -> msg
+    , updateItemCountry : Index -> Maybe Country.Code -> msg
     , updateItemName : TargetItem -> String -> msg
     , updateItemQuantity : Index -> Quantity -> msg
     }
@@ -179,9 +180,9 @@ componentView config itemIndex item { component, country, elements, quantity } i
                         [ quantity |> quantityInput config itemIndex
                         ]
                     , td [ class "align-middle text-truncate w-100", colspan 2 ]
-                        [ div [ class "d-flex gap-2" ]
-                            [ if config.customizable then
-                                input
+                        [ div [ class "d-flex gap-2" ] <|
+                            if config.customizable then
+                                [ input
                                     [ type_ "text"
                                     , class "form-control"
                                     , onInput (config.updateItemName ( component, itemIndex ))
@@ -192,29 +193,38 @@ componentView config itemIndex item { component, country, elements, quantity } i
                                         |> value
                                     ]
                                     []
+                                , config.db.countries
+                                    |> Scope.anyOf [ config.scope ]
+                                    |> List.sortBy .name
+                                    |> List.map (\{ code, name } -> ( name, Just code ))
+                                    |> (::) ( "Monde", Nothing )
+                                    |> List.map
+                                        (\( name, maybeCode ) ->
+                                            option
+                                                [ maybeCode
+                                                    |> Maybe.map Country.codeToString
+                                                    |> Maybe.withDefault ""
+                                                    |> value
+                                                , selected <| Maybe.map .code country == maybeCode
+                                                ]
+                                                [ text name ]
+                                        )
+                                    |> select
+                                        [ class "form-select w-33"
+                                        , onInput <|
+                                            \str ->
+                                                config.updateItemCountry itemIndex
+                                                    (if String.isEmpty str then
+                                                        Nothing
 
-                              else
-                                span [ class "fw-bold" ] [ text component.name ]
-                            , config.db.countries
-                                |> Scope.anyOf [ config.scope ]
-                                |> List.sortBy .name
-                                |> List.map (\{ code, name } -> ( name, Just code ))
-                                |> (::) ( "Monde", Nothing )
-                                |> List.map
-                                    (\( name, maybeCode ) ->
-                                        option
-                                            [ maybeCode
-                                                |> Maybe.map Country.codeToString
-                                                |> Maybe.withDefault ""
-                                                |> value
-                                            , selected <| Maybe.map .code country == maybeCode
-                                            ]
-                                            [ text name ]
-                                    )
-                                |> select
-                                    [ class "form-select w-33"
-                                    ]
-                            ]
+                                                     else
+                                                        Just <| Country.codeFromString str
+                                                    )
+                                        ]
+                                ]
+
+                            else
+                                [ span [ class "fw-bold" ] [ text component.name ] ]
                         ]
                     , td [ class "text-end align-middle text-nowrap" ]
                         [ Component.extractMass itemResults

@@ -599,6 +599,9 @@ simulatorView session model =
                 , setDetailed = SetDetailedComponents
                 , title = "Production des composants"
                 , updateElementAmount = UpdateElementAmount
+
+                -- FIXME: implement
+                , updateItemCountry = \_ _ -> NoOp
                 , updateItemName = UpdateComponentItemName
                 , updateItemQuantity = UpdateComponentItemQuantity
                 }
