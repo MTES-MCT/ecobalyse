@@ -17,6 +17,7 @@ import Data.Component as Component
         , TargetElement
         , TargetItem
         )
+import Data.Country as Country
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Process as Process exposing (Process)
@@ -141,7 +142,7 @@ addElementTransformButton { db, items, openSelectProcessModal, scope } material 
 
 
 componentView : Config db msg -> Index -> Item -> ExpandedItem -> Results -> List (Html msg)
-componentView config itemIndex item { component, elements, quantity } itemResults =
+componentView config itemIndex item { component, country, elements, quantity } itemResults =
     let
         collapsed =
             config.detailed
@@ -178,21 +179,42 @@ componentView config itemIndex item { component, elements, quantity } itemResult
                         [ quantity |> quantityInput config itemIndex
                         ]
                     , td [ class "align-middle text-truncate w-100", colspan 2 ]
-                        [ if config.customizable then
-                            input
-                                [ type_ "text"
-                                , class "form-control"
-                                , onInput (config.updateItemName ( component, itemIndex ))
-                                , placeholder "Nom du composant"
-                                , item.custom
-                                    |> Maybe.andThen .name
-                                    |> Maybe.withDefault component.name
-                                    |> value
-                                ]
-                                []
+                        [ div [ class "d-flex gap-2" ]
+                            [ if config.customizable then
+                                input
+                                    [ type_ "text"
+                                    , class "form-control"
+                                    , onInput (config.updateItemName ( component, itemIndex ))
+                                    , placeholder "Nom du composant"
+                                    , item.custom
+                                        |> Maybe.andThen .name
+                                        |> Maybe.withDefault component.name
+                                        |> value
+                                    ]
+                                    []
 
-                          else
-                            span [ class "fw-bold" ] [ text component.name ]
+                              else
+                                span [ class "fw-bold" ] [ text component.name ]
+                            , config.db.countries
+                                |> Scope.anyOf [ config.scope ]
+                                |> List.sortBy .name
+                                |> List.map (\{ code, name } -> ( name, Just code ))
+                                |> (::) ( "Monde", Nothing )
+                                |> List.map
+                                    (\( name, maybeCode ) ->
+                                        option
+                                            [ maybeCode
+                                                |> Maybe.map Country.codeToString
+                                                |> Maybe.withDefault ""
+                                                |> value
+                                            , selected <| Maybe.map .code country == maybeCode
+                                            ]
+                                            [ text name ]
+                                    )
+                                |> select
+                                    [ class "form-select w-33"
+                                    ]
+                            ]
                         ]
                     , td [ class "text-end align-middle text-nowrap" ]
                         [ Component.extractMass itemResults
