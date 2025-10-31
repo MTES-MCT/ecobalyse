@@ -323,6 +323,7 @@ suite =
                         |> Result.andThen
                             (\cottonId ->
                                 Component.computeElementResults db
+                                    Nothing
                                     { amount = Component.Amount 1
                                     , material = cottonId
 
@@ -356,7 +357,7 @@ suite =
                                 , material = materialInCubicMeters.id
                                 , transforms = [ transformInCubicMeters.id ]
                                 }
-                                    |> Component.computeElementResults db
+                                    |> Component.computeElementResults db Nothing
                         in
                         [ it "should compute impacts according on material unit"
                             (results

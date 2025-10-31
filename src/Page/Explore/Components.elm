@@ -42,7 +42,7 @@ table db { detailed, scope } =
           , toValue =
                 Table.StringValue <|
                     \{ elements } ->
-                        case Component.expandElements db.processes elements of
+                        case Component.expandElements db.processes Nothing elements of
                             Err _ ->
                                 ""
 
@@ -58,7 +58,7 @@ table db { detailed, scope } =
                                     |> String.join ", "
           , toCell =
                 \{ elements } ->
-                    case Component.expandElements db.processes elements of
+                    case Component.expandElements db.processes Nothing elements of
                         Err err ->
                             Alert.simple
                                 { attributes = []

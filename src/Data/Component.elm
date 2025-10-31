@@ -174,6 +174,7 @@ type alias Element =
 -}
 type alias ExpandedElement =
     { amount : Amount
+    , country : Maybe Country
     , material : Process
     , transforms : List Process
     }
@@ -433,9 +434,9 @@ compute requirements items =
         |> Result.map (computeEndOfLifeResults requirements)
 
 
-computeElementResults : DataContainer db -> Element -> Result String Results
-computeElementResults { processes } =
-    expandElement processes
+computeElementResults : DataContainer db -> Maybe Country -> Element -> Result String Results
+computeElementResults { processes } maybeCountry =
+    expandElement processes maybeCountry
         >> Result.andThen
             (\{ amount, material, transforms } ->
                 amount
@@ -478,7 +479,7 @@ computeInitialAmount wastes amount =
 computeImpacts : DataContainer db -> Component -> Result String Results
 computeImpacts db =
     .elements
-        >> List.map (computeElementResults db)
+        >> List.map (computeElementResults db Nothing)
         >> RE.combine
         >> Result.map (List.foldr addResults emptyResults)
 
@@ -494,7 +495,7 @@ computeItemResults db { custom, id, quantity } =
             (\component ->
                 custom
                     |> customElements component
-                    |> List.map (computeElementResults db)
+                    |> List.map (computeElementResults db Nothing)
                     |> RE.combine
             )
         |> Result.map (List.foldr addResults emptyResults)
@@ -827,9 +828,10 @@ encodeResults maybeTrigram (Results results) =
 
 {-| Turn an Element to an ExpandedElement
 -}
-expandElement : List Process -> Element -> Result String ExpandedElement
-expandElement processes { amount, material, transforms } =
+expandElement : List Process -> Maybe Country -> Element -> Result String ExpandedElement
+expandElement processes maybeCountry { amount, material, transforms } =
     Ok (ExpandedElement amount)
+        |> RE.andMap (Ok maybeCountry)
         |> RE.andMap (Process.findById material processes)
         |> RE.andMap
             (transforms
@@ -840,9 +842,9 @@ expandElement processes { amount, material, transforms } =
 
 {-| Take a list of elements and resolve them with fully qualified processes
 -}
-expandElements : List Process -> List Element -> Result String (List ExpandedElement)
-expandElements processes =
-    RE.combineMap (expandElement processes)
+expandElements : List Process -> Maybe Country -> List Element -> Result String (List ExpandedElement)
+expandElements processes maybeCountry =
+    RE.combineMap (expandElement processes maybeCountry)
 
 
 expandItem : DataContainer a -> Item -> Result String ExpandedItem
@@ -850,26 +852,32 @@ expandItem { components, countries, processes } { country, custom, id, quantity 
     findById id components
         |> Result.andThen
             (\component ->
-                Result.map2
-                    (\expandedCountry expandedElements ->
-                        { component = component
-                        , country = expandedCountry
-                        , elements = expandedElements
-                        , quantity = quantity
-                        }
-                    )
-                    (case country of
-                        Just code ->
-                            countries |> Country.findByCode code |> Result.map Just
-
-                        Nothing ->
-                            Ok Nothing
-                    )
-                    (custom
-                        |> customElements component
-                        |> expandElements processes
-                    )
+                resolveCountry countries country
+                    |> Result.andThen
+                        (\maybeCountry ->
+                            custom
+                                |> customElements component
+                                |> expandElements processes maybeCountry
+                                |> Result.map
+                                    (\expandedElements ->
+                                        { component = component
+                                        , country = maybeCountry
+                                        , elements = expandedElements
+                                        , quantity = quantity
+                                        }
+                                    )
+                        )
             )
+
+
+resolveCountry : List Country -> Maybe Country.Code -> Result String (Maybe Country)
+resolveCountry countries maybeCode =
+    case maybeCode of
+        Just code ->
+            countries |> Country.findByCode code |> Result.map Just
+
+        Nothing ->
+            Ok Nothing
 
 
 {-| Take a list of component items and resolve them with actual components and processes
