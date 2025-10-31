@@ -390,9 +390,9 @@ specifying specific country mixes in the future.
 
 -}
 applyTransforms : List Process -> Maybe Country -> Process.Unit -> List Process -> Results -> Result String Results
-applyTransforms allProcesses maybeCountry unit transforms materialResults =
+applyTransforms processes maybeCountry unit transforms materialResults =
     checkTransformsUnit unit transforms
-        |> Result.andThen (\_ -> loadEnergyMixes allProcesses maybeCountry)
+        |> Result.andThen (\_ -> loadEnergyMixes processes maybeCountry)
         |> Result.map
             (\energyMixes ->
                 transforms
@@ -476,6 +476,8 @@ computeInitialAmount wastes amount =
             |> Ok
 
 
+{-| Compute a single component impact
+-}
 computeImpacts : DataContainer db -> Component -> Result String Results
 computeImpacts db =
     .elements
@@ -1119,8 +1121,7 @@ loadDefaultEnergyMixes processes =
 
 loadEnergyMixes : List Process -> Maybe Country -> Result String EnergyMixes
 loadEnergyMixes processes =
-    Debug.log "plop"
-        >> Maybe.map (\{ electricityProcess, heatProcess } -> Ok <| EnergyMixes electricityProcess heatProcess)
+    Maybe.map (\{ electricityProcess, heatProcess } -> Ok <| EnergyMixes electricityProcess heatProcess)
         >> Maybe.withDefault (loadDefaultEnergyMixes processes)
 
 
