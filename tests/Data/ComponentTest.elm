@@ -621,7 +621,8 @@ suite =
                             |> Expect.equal
                                 (Ok <|
                                     Just
-                                        { custom = Nothing
+                                        { country = Nothing
+                                        , custom = Nothing
                                         , id = testComponent.id
                                         , quantity = Component.quantityFromInt 1
                                         }

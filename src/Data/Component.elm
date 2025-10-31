@@ -77,6 +77,7 @@ module Data.Component exposing
 import Data.Common.DecodeUtils as DU
 import Data.Common.EncodeUtils as EU
 import Data.Component.Config as Config exposing (EndOfLifeStrategies, EndOfLifeStrategy)
+import Data.Country as Country
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Trigram)
 import Data.Process as Process exposing (Process)
@@ -127,7 +128,8 @@ type alias EnergyMixes =
 typically used for queries
 -}
 type alias Item =
-    { custom : Maybe Custom
+    { country : Maybe Country.Code
+    , custom : Maybe Custom
     , id : Id
     , quantity : Quantity
     }
@@ -578,7 +580,11 @@ computeShareImpacts mass { process, split } =
 
 createItem : Id -> Item
 createItem id =
-    { custom = Nothing, id = id, quantity = quantityFromInt 1 }
+    { country = Nothing
+    , custom = Nothing
+    , id = id
+    , quantity = quantityFromInt 1
+    }
 
 
 customElements : Component -> Maybe Custom -> List Element
@@ -622,6 +628,7 @@ decodeElement =
 decodeItem : Decoder Item
 decodeItem =
     Decode.succeed Item
+        |> DU.strictOptional "country" Country.decodeCode
         |> DU.strictOptional "custom" decodeCustom
         |> Decode.required "id" (Decode.map Id Uuid.decoder)
         |> Decode.required "quantity" decodeQuantity
