@@ -7,6 +7,7 @@ module Data.Component exposing
     , Element
     , EndOfLifeMaterialImpacts
     , ExpandedElement
+    , ExpandedItem
     , Id
     , Index
     , Item
@@ -131,6 +132,14 @@ type alias Item =
     { country : Maybe Country.Code
     , custom : Maybe Custom
     , id : Id
+    , quantity : Quantity
+    }
+
+
+type alias ExpandedItem =
+    { -- country : Maybe Country,
+      component : Component
+    , elements : List ExpandedElement
     , quantity : Quantity
     }
 
@@ -834,7 +843,7 @@ expandElements processes =
     RE.combineMap (expandElement processes)
 
 
-expandItem : DataContainer a -> Item -> Result String ( Quantity, Component, List ExpandedElement )
+expandItem : DataContainer a -> Item -> Result String ExpandedItem
 expandItem { components, processes } { custom, id, quantity } =
     findById id components
         |> Result.andThen
@@ -842,13 +851,19 @@ expandItem { components, processes } { custom, id, quantity } =
                 custom
                     |> customElements component
                     |> expandElements processes
-                    |> Result.map (\expanded -> ( quantity, component, expanded ))
+                    |> Result.map
+                        (\expandedElements ->
+                            { component = component
+                            , elements = expandedElements
+                            , quantity = quantity
+                            }
+                        )
             )
 
 
 {-| Take a list of component items and resolve them with actual components and processes
 -}
-expandItems : DataContainer a -> List Item -> Result String (List ( Quantity, Component, List ExpandedElement ))
+expandItems : DataContainer a -> List Item -> Result String (List ExpandedItem)
 expandItems db =
     List.map (expandItem db) >> RE.combine
 

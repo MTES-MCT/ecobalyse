@@ -8,6 +8,7 @@ import Data.Component as Component
         , Component
         , EndOfLifeMaterialImpacts
         , ExpandedElement
+        , ExpandedItem
         , Index
         , Item
         , LifeCycle
@@ -139,14 +140,8 @@ addElementTransformButton { db, items, openSelectProcessModal, scope } material 
         ]
 
 
-componentView :
-    Config db msg
-    -> Index
-    -> Item
-    -> ( Quantity, Component, List ExpandedElement )
-    -> Results
-    -> List (Html msg)
-componentView config itemIndex item ( quantity, component, expandedElements ) itemResults =
+componentView : Config db msg -> Index -> Item -> ExpandedItem -> Results -> List (Html msg)
+componentView config itemIndex item { component, elements, quantity } itemResults =
     let
         collapsed =
             config.detailed
@@ -225,8 +220,8 @@ componentView config itemIndex item ( quantity, component, expandedElements ) it
         , if not collapsed then
             List.map3
                 (elementView config ( component, itemIndex ))
-                (List.range 0 (List.length expandedElements - 1))
-                expandedElements
+                (List.range 0 (List.length elements - 1))
+                elements
                 (Component.extractItems itemResults)
 
           else
