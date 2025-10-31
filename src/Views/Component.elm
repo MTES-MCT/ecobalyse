@@ -226,11 +226,11 @@ componentView config itemIndex item { component, country, elements, quantity } i
                             else
                                 [ span [ class "fw-bold" ] [ text component.name ] ]
                         ]
-                    , td [ class "text-end align-middle text-nowrap" ]
+                    , td [ class "text-end align-middle text-nowrap fs-7" ]
                         [ Component.extractMass itemResults
                             |> Format.kg
                         ]
-                    , td [ class "text-end align-middle text-nowrap" ]
+                    , td [ class "text-end align-middle text-nowrap fs-7" ]
                         [ Component.extractImpacts itemResults
                             |> Format.formatImpact config.impact
                         ]

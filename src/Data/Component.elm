@@ -775,6 +775,7 @@ encodeItem item =
     EU.optionalPropertiesObject
         [ ( "id", item.id |> idToString |> Encode.string |> Just )
         , ( "quantity", item.quantity |> quantityToInt |> Encode.int |> Just )
+        , ( "country", item.country |> Maybe.map Country.encodeCode )
         , ( "custom", item.custom |> Maybe.map encodeCustom )
         ]
 
