@@ -21,6 +21,7 @@ import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
 import Dict.Any as Dict exposing (AnyDict)
 import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Pipeline as Decode
 import Json.Encode as Encode
 import Length exposing (Length)
 import Mass exposing (Mass)
@@ -204,15 +205,15 @@ encodeKm =
 
 decode : Decoder Transport
 decode =
-    Decode.map6 Transport
-        (Decode.field "air" decodeKm)
-        (Decode.succeed Impact.empty)
-        (Decode.field "road" decodeKm)
+    Decode.succeed Transport
+        |> Decode.required "air" decodeKm
+        |> Decode.hardcoded Impact.empty
+        |> Decode.required "road" decodeKm
         -- roadCooled
-        (Decode.succeed Quantity.zero)
-        (Decode.field "sea" decodeKm)
+        |> Decode.hardcoded Quantity.zero
+        |> Decode.required "sea" decodeKm
         -- seaCooled
-        (Decode.succeed Quantity.zero)
+        |> Decode.hardcoded Quantity.zero
 
 
 encode : Transport -> Encode.Value
