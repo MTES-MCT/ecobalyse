@@ -149,11 +149,14 @@ componentView config itemIndex item { component, country, elements, quantity } i
             config.detailed
                 |> List.member itemIndex
                 |> not
+
+        componentDomId str =
+            "component-" ++ String.fromInt itemIndex ++ "-" ++ str
     in
     List.concat
         [ [ tbody []
                 [ tr [ class "border-top border-bottom" ]
-                    [ th [ class "ps-2 align-middle", scope "col" ]
+                    [ th [ class "ps-2 align-middle pt-3", scope "col" ]
                         [ if config.customizable && config.maxItems /= Just 1 then
                             button
                                 [ type_ "button"
@@ -176,65 +179,77 @@ componentView config itemIndex item { component, country, elements, quantity } i
                           else
                             text ""
                         ]
-                    , td [ class "ps-0 py-2 align-middle" ]
-                        [ quantity |> quantityInput config itemIndex
+                    , td [ class "ps-0 pb-2 pt-0 align-middle" ]
+                        [ label [ class "fs-8 text-muted", for <| componentDomId "qty" ]
+                            [ text "Quantité" ]
+                        , quantity |> quantityInput config itemIndex (componentDomId "qty")
                         ]
-                    , td [ class "align-middle text-truncate w-100", colspan 2 ]
-                        [ div [ class "d-flex gap-2" ] <|
+                    , td [ class "ps-0 pb-2 pt-0 align-middle w-100", colspan 2 ]
+                        [ div [ class "d-flex jusify-content-between gap-2" ] <|
                             if config.customizable then
-                                [ input
-                                    [ type_ "text"
-                                    , class "form-control"
-                                    , onInput (config.updateItemName ( component, itemIndex ))
-                                    , placeholder "Nom du composant"
-                                    , item.custom
-                                        |> Maybe.andThen .name
-                                        |> Maybe.withDefault component.name
-                                        |> value
-                                    ]
-                                    []
-                                , config.db.countries
-                                    |> Scope.anyOf [ config.scope ]
-                                    |> List.sortBy .name
-                                    |> List.map (\{ code, name } -> ( name, Just code ))
-                                    |> (::) ( "Monde", Nothing )
-                                    |> List.map
-                                        (\( name, maybeCode ) ->
-                                            option
-                                                [ maybeCode
-                                                    |> Maybe.map Country.codeToString
-                                                    |> Maybe.withDefault ""
-                                                    |> value
-                                                , selected <| Maybe.map .code country == maybeCode
-                                                ]
-                                                [ text name ]
-                                        )
-                                    |> select
-                                        [ class "form-select w-33"
-                                        , onInput <|
-                                            \str ->
-                                                config.updateItemCountry itemIndex
-                                                    (if String.isEmpty str then
-                                                        Nothing
-
-                                                     else
-                                                        Just <| Country.codeFromString str
-                                                    )
+                                [ div [ class "w-100" ]
+                                    [ label [ class "fs-8 text-muted", for <| componentDomId "name" ]
+                                        [ text "Nom du composant" ]
+                                    , input
+                                        [ type_ "text"
+                                        , id <| componentDomId "name"
+                                        , class "form-control"
+                                        , onInput (config.updateItemName ( component, itemIndex ))
+                                        , placeholder "Nom du composant"
+                                        , item.custom
+                                            |> Maybe.andThen .name
+                                            |> Maybe.withDefault component.name
+                                            |> value
                                         ]
+                                        []
+                                    ]
+                                , div []
+                                    [ label [ class "fs-8 text-muted", for <| componentDomId "origin" ]
+                                        [ text "Origine" ]
+                                    , config.db.countries
+                                        |> Scope.anyOf [ config.scope ]
+                                        |> List.sortBy .name
+                                        |> List.map (\{ code, name } -> ( name, Just code ))
+                                        |> (::) ( "Monde", Nothing )
+                                        |> List.map
+                                            (\( name, maybeCode ) ->
+                                                option
+                                                    [ maybeCode
+                                                        |> Maybe.map Country.codeToString
+                                                        |> Maybe.withDefault ""
+                                                        |> value
+                                                    , selected <| Maybe.map .code country == maybeCode
+                                                    ]
+                                                    [ text name ]
+                                            )
+                                        |> select
+                                            [ class "form-select"
+                                            , id <| componentDomId "origin"
+                                            , onInput <|
+                                                \str ->
+                                                    config.updateItemCountry itemIndex
+                                                        (if String.isEmpty str then
+                                                            Nothing
+
+                                                         else
+                                                            Just <| Country.codeFromString str
+                                                        )
+                                            ]
+                                    ]
                                 ]
 
                             else
                                 [ span [ class "fw-bold" ] [ text component.name ] ]
                         ]
-                    , td [ class "text-end align-middle text-nowrap fs-7" ]
+                    , td [ class "text-end align-middle text-nowrap fs-7 pt-3" ]
                         [ Component.extractMass itemResults
                             |> Format.kg
                         ]
-                    , td [ class "text-end align-middle text-nowrap fs-7" ]
+                    , td [ class "text-end align-middle text-nowrap fs-7 pt-3" ]
                         [ Component.extractImpacts itemResults
                             |> Format.formatImpact config.impact
                         ]
-                    , td [ class "pe-3 text-end align-middle text-nowrap" ]
+                    , td [ class "pe-3 text-end align-middle text-nowrap pt-3" ]
                         [ if config.maxItems == Just 1 then
                             text ""
 
@@ -618,11 +633,12 @@ elementTransformsView config targetElement maybeCountry transformsResults transf
         transforms
 
 
-quantityInput : Config db msg -> Index -> Quantity -> Html msg
-quantityInput config itemIndex quantity =
+quantityInput : Config db msg -> Index -> String -> Quantity -> Html msg
+quantityInput config itemIndex domId quantity =
     div [ class "input-group", style "width" "130px" ]
         [ input
             [ type_ "number"
+            , id domId
             , class "form-control text-end"
             , quantity |> Component.quantityToInt |> String.fromInt |> value
             , step "1"
