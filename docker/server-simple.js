@@ -143,16 +143,4 @@ const server = app.listen(expressPort, expressHost, () => {
   console.log(`Server listening at http://${expressHost}:${expressPort} (NODE_ENV=${NODE_ENV})`);
 });
 
-async function handleExit(signal) {
-  // Since the Node client batches events to PostHog, the shutdown function
-  // ensures that all the events are captured before shutting down
-  console.log(`Received ${signal}. Flushing…`);
-  console.log("Flush complete");
-  server.close(() => process.exit(0));
-}
-
-process.on("SIGINT", handleExit);
-process.on("SIGQUIT", handleExit);
-process.on("SIGTERM", handleExit);
-
 module.exports = server;
