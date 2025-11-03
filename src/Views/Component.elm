@@ -38,6 +38,7 @@ import Views.Component.DownArrow as DownArrow
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Link as Link
+import Views.Transport as TransportView
 
 
 type alias Config db msg =
@@ -398,6 +399,14 @@ lifeCycleView ({ db, docsUrl, explorerRoute, maxItems, items, scope, title } as 
               else
                 addComponentButton config
             ]
+        , if (List.length items > 1) && List.member scope [ Scope.Object, Scope.Veli ] then
+            div []
+                [ DownArrow.view [] []
+                , assemblyView config lifeCycle
+                ]
+
+          else
+            text ""
         , if not (List.isEmpty items) && List.member scope [ Scope.Object, Scope.Veli ] then
             div []
                 [ DownArrow.view [] []
@@ -643,6 +652,32 @@ quantityInput config itemIndex quantity =
                         |> Maybe.withDefault config.noOp
             ]
             []
+        ]
+
+
+assemblyView : Config db msg -> LifeCycle -> Html msg
+assemblyView config lifeCycle =
+    div [ class "card shadow-sm" ]
+        [ div [ class "card-header d-flex align-items-center justify-content-between" ]
+            [ h2 [ class "h5 mb-0" ]
+                [ text "Assemblage" ]
+            , div [ class "d-flex align-items-center gap-2" ]
+                [ lifeCycle.transports.impacts
+                    |> Format.formatImpact config.impact
+                ]
+            ]
+        , div [ class "card-body" ]
+            [ lifeCycle.transports
+                |> TransportView.viewDetails
+                    { airTransportLabel = Nothing
+                    , fullWidth = True
+                    , hideNoLength = False
+                    , onlyIcons = False
+                    , roadTransportLabel = Nothing
+                    , seaTransportLabel = Nothing
+                    }
+                |> div []
+            ]
         ]
 
 

@@ -86,6 +86,7 @@ import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category, MaterialDict)
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
+import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Data.Uuid as Uuid exposing (Uuid)
 import Dict.Any as AnyDict
@@ -227,6 +228,7 @@ type alias EndOfLifeMaterialImpacts =
 type alias LifeCycle =
     { endOfLife : Impacts
     , production : Results
+    , transports : Transport
     }
 
 
@@ -434,6 +436,7 @@ compute requirements items =
         |> Result.map (List.foldr addResults emptyResults)
         |> Result.map (\(Results results) -> { emptyLifeCycle | production = Results { results | label = Just "Production" } })
         |> Result.map (computeEndOfLifeResults requirements)
+        |> Result.map (computeTransports requirements items)
 
 
 computeElementResults : DataContainer db -> Maybe Country.Code -> Element -> Result String Results
@@ -594,6 +597,13 @@ computeShareImpacts mass { process, split } =
         |> Maybe.withDefault Impact.empty
 
 
+computeTransports : Requirements db -> List Item -> LifeCycle -> LifeCycle
+computeTransports requirements items lifeCycle =
+    -- TODO: get all components, and for each get distances from country/default country
+    -- sums
+    lifeCycle
+
+
 createItem : Id -> Item
 createItem id =
     { country = Nothing
@@ -718,6 +728,7 @@ emptyLifeCycle : LifeCycle
 emptyLifeCycle =
     { endOfLife = Impact.empty
     , production = emptyResults
+    , transports = Transport.default Impact.empty
     }
 
 
