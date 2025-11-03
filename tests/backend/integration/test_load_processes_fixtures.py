@@ -25,6 +25,7 @@ async def test_load_processes(
     initial_processes_nb = len(processes)
 
     new_process = {
+        "activityName": "test",
         "categories": ["transformation"],
         "comment": "",
         "density": 0,
@@ -57,7 +58,6 @@ async def test_load_processes(
         },
         "scopes": ["textile"],
         "source": "Custom",
-        "sourceId": "test",
         "unit": "kg",
         "waste": 0,
     }

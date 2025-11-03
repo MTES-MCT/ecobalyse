@@ -32,6 +32,7 @@ def fx_raw_processes() -> list[dict[str, Any]]:
 
     return [
         {
+            "activityName": "This process is not linked to a Brightway activity",
             "categories": ["transformation"],
             "comment": "corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-impression-pigmentaire.",
             "density": 0,
@@ -64,11 +65,11 @@ def fx_raw_processes() -> list[dict[str, Any]]:
             },
             "scopes": ["textile"],
             "source": "Custom",
-            "sourceId": "Impression (pigmentaire)",
             "unit": "kg",
             "waste": 0,
         },
         {
+            "activityName": "_22 Vegetable and animal oils and fats, EU27",
             "categories": ["material"],
             "comment": "Location:  Unspecified\nTechnology:  Unspecified\nTime period:  Unspecified",
             "density": 0.0,
@@ -101,11 +102,11 @@ def fx_raw_processes() -> list[dict[str, Any]]:
             },
             "scopes": [],
             "source": "forwast",
-            "sourceId": "_22 Vegetable and animal oils and fats, EU27",
             "unit": "kg",
             "waste": 0.0,
         },
         {
+            "activityName": "test",
             "categories": ["material", "material_type:organic_fibers"],
             "comment": "Location:  Unspecified\nTechnology:  Unspecified\nTime period:  Unspecified",
             "density": 0.0,
@@ -138,7 +139,6 @@ def fx_raw_processes() -> list[dict[str, Any]]:
             },
             "scopes": [],
             "source": "forwast",
-            "sourceId": "test",
             "unit": "kg",
             "waste": 0.0,
         },
