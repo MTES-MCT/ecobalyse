@@ -6,7 +6,7 @@ describe("Rate Limiting", () => {
   function setupTestApp(env) {
     process.env.MATOMO_HOST = "";
     process.env.NODE_ENV = "production";
-    process.env.POSTHOG_HOST = "";
+    process.env.PLAUSIBLE_HOST = "";
     process.env.SENTRY_DSN = "";
     for (const key in env) {
       process.env[key] = env[key];
@@ -20,7 +20,7 @@ describe("Rate Limiting", () => {
     originalEnv = {
       MATOMO_HOST: process.env.MATOMO_HOST,
       NODE_ENV: process.env.NODE_ENV,
-      POSTHOG_HOST: process.env.POSTHOG_HOST,
+      PLAUSIBLE_HOST: process.env.PLAUSIBLE_HOST,
       RATELIMIT_MAX_RPM: process.env.RATELIMIT_MAX_RPM,
       RATELIMIT_WHITELIST: process.env.RATELIMIT_WHITELIST,
     };
@@ -40,7 +40,7 @@ describe("Rate Limiting", () => {
     let app;
 
     beforeEach(() => {
-      app = setupTestApp({ RATELIMIT_MAX_RPM: "2" });
+      app = setupTestApp({ PLAUSIBLE_HOST: "", RATELIMIT_MAX_RPM: "2" });
     });
 
     it("should allow requests within rate limit", async () => {

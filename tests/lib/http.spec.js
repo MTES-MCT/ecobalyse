@@ -5,7 +5,7 @@ describe("lib.http", () => {
     test("should create a CSP directives object", () => {
       const sampleEnv = {
         MATOMO_HOST: "matomo.example.com",
-        POSTHOG_HOST: "https://posthog.example.com",
+        PLAUSIBLE_HOST: "plausible.example.com",
         SENTRY_DSN: "https://12345@sentry.example.com/67890",
       };
       const directives = createCSPDirectives(sampleEnv);
@@ -14,8 +14,7 @@ describe("lib.http", () => {
         "https://api.github.com",
         "https://raw.githubusercontent.com",
         "https://matomo.example.com",
-        "https://posthog.example.com",
-        "https://eu-assets.i.posthog.com",
+        "https://plausible.example.com",
         "https://sentry.example.com",
       ]);
       expect(directives["frame-src"]).toEqual(["'self'", "https://matomo.example.com"]);
@@ -23,14 +22,9 @@ describe("lib.http", () => {
         "'self'",
         "'unsafe-inline'",
         "https://matomo.example.com",
-        "https://posthog.example.com",
-        "https://eu-assets.i.posthog.com",
+        "https://plausible.example.com",
       ]);
-      expect(directives["worker-src"]).toEqual([
-        "'self'",
-        "https://posthog.example.com",
-        "https://eu-assets.i.posthog.com",
-      ]);
+      expect(directives["worker-src"]).toEqual(["'self'", "https://plausible.example.com"]);
     });
 
     test("should create a CSP directives object with no tracker hosts", () => {
