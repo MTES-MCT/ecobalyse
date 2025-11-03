@@ -33,7 +33,6 @@ import RemoteData exposing (WebData)
 import RemoteData.Http as Http
 import Request.Auth
 import Request.BackendHttp as BackendHttp
-import Request.BackendHttp.Error as BackendError
 import Request.Github
 import Request.Version exposing (VersionData)
 import Route
@@ -424,14 +423,9 @@ update rawMsg ({ state } as model) =
                     )
 
                 ( ComponentConfigReceived (RemoteData.Failure _), _ ) ->
-                    ( model
-                    , Notification.error "Erreur"
-                        ("Impossible de charger la configuration des composants. Une configuration par défaut sera"
+                    notifyError model "Erreur" <|
+                        "Impossible de charger la configuration des composants. Une configuration par défaut sera"
                             ++ " utilisée, les résultats fournis sont probablement invalides ou incomplets."
-                        )
-                        |> App.AddToast
-                        |> App.toCmd AppMsg
-                    )
 
                 ( ComponentConfigReceived _, _ ) ->
                     ( model, Cmd.none )
@@ -443,16 +437,18 @@ update rawMsg ({ state } as model) =
                 ( DetailedProcessesReceived (RemoteData.Success rawDetailedProcessesJson), currentPage ) ->
                     -- When detailed processes are received, rebuild the entire static db using them
                     case StaticDb.db rawDetailedProcessesJson of
-                        Err error ->
-                            ( { model | state = Errored error }, Cmd.none )
+                        Err _ ->
+                            notifyError model "Erreur" <|
+                                "Impossible de décoder les impacts détaillés; les impacts agrégés seront utilisés."
 
                         Ok detailedDb ->
-                            ( { model | state = currentPage |> Loaded { session | db = detailedDb } }, Cmd.none )
+                            ( { model | state = currentPage |> Loaded { session | db = detailedDb } }
+                            , Cmd.none
+                            )
 
-                ( DetailedProcessesReceived (RemoteData.Failure error), _ ) ->
-                    ( { model | state = Errored (BackendError.errorToString error) }
-                    , Cmd.none
-                    )
+                ( DetailedProcessesReceived (RemoteData.Failure _), _ ) ->
+                    notifyError model "Erreur" <|
+                        "Impossible de charger les impacts détaillés; les impacts agrégés seront utilisés."
 
                 ( EditorialMsg editorialMsg, EditorialPage editorialModel ) ->
                     Editorial.update session editorialMsg editorialModel
@@ -543,6 +539,15 @@ update rawMsg ({ state } as model) =
 
         ( Errored _, _ ) ->
             ( model, Cmd.none )
+
+
+notifyError : Model -> String -> String -> ( Model, Cmd Msg )
+notifyError model title message =
+    ( model
+    , Notification.error title message
+        |> App.AddToast
+        |> App.toCmd AppMsg
+    )
 
 
 subscriptions : Model -> Sub Msg
