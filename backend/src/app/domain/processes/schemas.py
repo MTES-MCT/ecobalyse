@@ -68,7 +68,7 @@ class Process(CamelizedBaseStruct):
     id: UUID
     impacts: Impacts
     source: str
-    source_id: Optional[str]
+    activity_name: Optional[str]
     unit: Unit
 
     # Optional fields

@@ -144,7 +144,7 @@ async def test_detailed_process_access(
     json_response = response.json()
 
     assert json_response == {
-        "activityName": "Impression (pigmentaire)",
+        "activityName": "This process is not linked to a Brightway activity",
         "alias": None,
         "categories": ["transformation"],
         "comment": "corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-impression-pigmentaire.",
