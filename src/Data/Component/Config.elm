@@ -15,12 +15,14 @@ import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (MaterialDict)
 import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
+import Data.Transport as Transport exposing (Transport)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Decode
 
 
 type alias Config =
     { endOfLife : EndOfLifeConfig
+    , transports : TransportConfig
     }
 
 
@@ -51,10 +53,16 @@ type alias EndOfLifeStrategy =
     }
 
 
+type alias TransportConfig =
+    { defaultDistance : Transport
+    }
+
+
 decode : List Process -> Decoder Config
 decode processes =
     Decode.succeed Config
         |> Decode.required "endOfLife" (decodeEndOfLifeConfig processes)
+        |> Decode.required "transports" (decodeTransportConfig processes)
 
 
 decodeEndOfLifeConfig : List Process -> Decoder EndOfLifeConfig
@@ -107,6 +115,13 @@ decodeEndOfLifeStrategy processes =
         |> Decode.required "percent" Split.decodePercent
 
 
+decodeTransportConfig : List Process -> Decoder TransportConfig
+decodeTransportConfig processes =
+    -- TODO: handle processes
+    Decode.succeed TransportConfig
+        |> Decode.required "defaultDistance" Transport.decode
+
+
 default : List Process -> Result String Config
 default processes =
     parse processes
@@ -122,6 +137,13 @@ default processes =
                     },
                     "collected": {},
                     "nonCollected": {}
+                }
+            },
+            "transports": {
+                "defaultDistance": {
+                    "air": 0,
+                    "road": 0,
+                    "sea": 0
                 }
             }
         }

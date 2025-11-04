@@ -821,6 +821,13 @@ testComponentConfig processes =
                         }
                     }
                 }
+            },
+            "transports": {
+                "defaultDistance": {
+                    "air": 0,
+                    "road": 0,
+                    "sea": 0
+                }
             }
         }
         """

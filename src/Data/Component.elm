@@ -183,6 +183,7 @@ type alias DataContainer db =
     { db
         | components : List Component
         , countries : List Country
+        , distances : Transport.Distances
         , processes : List Process
     }
 
@@ -621,9 +622,28 @@ computeShareImpacts mass { process, split } =
 
 
 computeTransports : Requirements db -> Query -> LifeCycle -> LifeCycle
-computeTransports requirements query lifeCycle =
-    -- TODO: get all components, and for each get distances from country/default
+computeTransports { config, db } query lifeCycle =
+    -- TODO: - get all components, and for each get distances from country/default
     --       country to assembly step country (parameter to be passed to this function)
+    --       - multiply distance with appropriate transport process impacts
+    let
+        distances =
+            case query.assemblyCountry of
+                Just assemblyCountry ->
+                    query.items
+                        |> List.map
+                            (\item ->
+                                case item.country of
+                                    Just itemCountry ->
+                                        Transport.getTransportBetween Impact.empty itemCountry assemblyCountry db.distances
+
+                                    Nothing ->
+                                        config.transports.defaultDistance
+                            )
+
+                Nothing ->
+                    [ config.transports.defaultDistance ]
+    in
     lifeCycle
 
 

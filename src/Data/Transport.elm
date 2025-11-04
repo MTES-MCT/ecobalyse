@@ -5,6 +5,7 @@ module Data.Transport exposing
     , add
     , addRoadWithCooling
     , computeImpacts
+    , decode
     , decodeDistances
     , default
     , encode
