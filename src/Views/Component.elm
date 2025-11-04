@@ -194,34 +194,13 @@ componentView config itemIndex item { component, country, elements, quantity } i
                                         |> value
                                     ]
                                     []
-                                , config.db.countries
-                                    |> Scope.anyOf [ config.scope ]
-                                    |> List.sortBy .name
-                                    |> List.map (\{ code, name } -> ( name, Just code ))
-                                    |> (::) ( "Monde", Nothing )
-                                    |> List.map
-                                        (\( name, maybeCode ) ->
-                                            option
-                                                [ maybeCode
-                                                    |> Maybe.map Country.codeToString
-                                                    |> Maybe.withDefault ""
-                                                    |> value
-                                                , selected <| Maybe.map .code country == maybeCode
-                                                ]
-                                                [ text name ]
-                                        )
-                                    |> select
-                                        [ class "form-select w-33"
-                                        , onInput <|
-                                            \str ->
-                                                config.updateItemCountry itemIndex
-                                                    (if String.isEmpty str then
-                                                        Nothing
-
-                                                     else
-                                                        Just <| Country.codeFromString str
-                                                    )
-                                        ]
+                                , countrySelector
+                                    { countries = config.db.countries
+                                    , domId = "item-country-" ++ String.fromInt itemIndex
+                                    , scope = config.scope
+                                    , select = config.updateItemCountry itemIndex
+                                    , selected = country
+                                    }
                                 ]
 
                             else
@@ -463,6 +442,48 @@ amountInput config targetElement unit amount =
         ]
 
 
+type alias CountrySelector msg =
+    { countries : List Country
+    , domId : String
+    , scope : Scope
+    , select : Maybe Country.Code -> msg
+    , selected : Maybe Country
+    }
+
+
+countrySelector : CountrySelector msg -> Html msg
+countrySelector config =
+    config.countries
+        |> Scope.anyOf [ config.scope ]
+        |> List.sortBy .name
+        |> List.map (\{ code, name } -> ( name, Just code ))
+        |> (::) ( "Monde", Nothing )
+        |> List.map
+            (\( name, maybeCode ) ->
+                option
+                    [ maybeCode
+                        |> Maybe.map Country.codeToString
+                        |> Maybe.withDefault ""
+                        |> value
+                    , selected <| Maybe.map .code config.selected == maybeCode
+                    ]
+                    [ text name ]
+            )
+        |> select
+            [ class "form-select w-33"
+            , id config.domId
+            , onInput <|
+                \str ->
+                    config.select
+                        (if String.isEmpty str then
+                            Nothing
+
+                         else
+                            Just <| Country.codeFromString str
+                        )
+            ]
+
+
 elementView : Config db msg -> TargetItem -> Index -> ExpandedElement -> Results -> Html msg
 elementView config targetItem elementIndex { amount, country, material, transforms } elementResults =
     let
@@ -667,7 +688,21 @@ assemblyView config lifeCycle =
                 ]
             ]
         , div [ class "card-body" ]
-            [ lifeCycle.transports
+            [ div []
+                [ label [ for "assembly-country" ] [ text "Pays d'assemblage" ]
+                , countrySelector
+                    { countries = config.db.countries
+                    , domId = "assembly-country"
+                    , scope = config.scope
+
+                    -- TODO: add updateAssemblyCountry event
+                    , select = \_ -> config.noOp
+
+                    -- TODO: after having query moved into config, use query.assemblyCountry
+                    , selected = Nothing
+                    }
+                ]
+            , lifeCycle.transports
                 |> TransportView.viewDetails
                     { airTransportLabel = Nothing
                     , fullWidth = True

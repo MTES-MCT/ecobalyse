@@ -116,7 +116,7 @@ decodeEndOfLifeStrategy processes =
 
 
 decodeTransportConfig : List Process -> Decoder TransportConfig
-decodeTransportConfig processes =
+decodeTransportConfig _ =
     -- TODO: handle processes
     Decode.succeed TransportConfig
         |> Decode.required "defaultDistance" Transport.decode

@@ -628,23 +628,24 @@ computeTransports { config, db } query lifeCycle =
     --       - multiply distance with appropriate transport process impacts
     let
         distances =
-            case query.assemblyCountry of
-                Just assemblyCountry ->
-                    query.items
-                        |> List.map
-                            (\item ->
-                                case item.country of
-                                    Just itemCountry ->
-                                        Transport.getTransportBetween Impact.empty itemCountry assemblyCountry db.distances
+            Transport.sum <|
+                case query.assemblyCountry of
+                    Just assemblyCountry ->
+                        query.items
+                            |> List.map
+                                (\item ->
+                                    case item.country of
+                                        Just itemCountry ->
+                                            Transport.getTransportBetween Impact.empty itemCountry assemblyCountry db.distances
 
-                                    Nothing ->
-                                        config.transports.defaultDistance
-                            )
+                                        Nothing ->
+                                            config.transports.defaultDistance
+                                )
 
-                Nothing ->
-                    [ config.transports.defaultDistance ]
+                    Nothing ->
+                        [ config.transports.defaultDistance ]
     in
-    lifeCycle
+    { lifeCycle | transports = distances }
 
 
 createItem : Id -> Item
