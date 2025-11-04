@@ -13,6 +13,7 @@ import Data.Component as Component
         , Item
         , LifeCycle
         , Quantity
+        , Query
         , Results
         , TargetElement
         , TargetItem
@@ -51,12 +52,12 @@ type alias Config db msg =
     , docsUrl : Maybe String
     , explorerRoute : Maybe Route
     , impact : Definition
-    , items : List Item
     , lifeCycle : Result String LifeCycle
     , maxItems : Maybe Int
     , noOp : msg
     , openSelectComponentModal : Autocomplete Component -> msg
     , openSelectProcessModal : Category -> TargetItem -> Maybe Index -> Autocomplete Process -> msg
+    , query : Query
     , removeElement : TargetElement -> msg
     , removeElementTransform : TargetElement -> Index -> msg
     , removeItem : Index -> msg
@@ -115,14 +116,14 @@ addElementButton { db, openSelectProcessModal, scope } targetItem =
 
 
 addElementTransformButton : Config db msg -> Process -> TargetElement -> Html msg
-addElementTransformButton { db, items, openSelectProcessModal, scope } material ( targetItem, elementIndex ) =
+addElementTransformButton { db, openSelectProcessModal, query, scope } material ( targetItem, elementIndex ) =
     let
         availableTransformProcesses =
             db.processes
                 |> Scope.anyOf [ scope ]
                 |> Process.listAvailableMaterialTransforms material
                 |> List.sortBy Process.getDisplayName
-                |> Process.available (Component.elementTransforms ( targetItem, elementIndex ) items)
+                |> Process.available (Component.elementTransforms ( targetItem, elementIndex ) query.items)
 
         autocompleteState =
             availableTransformProcesses
@@ -253,8 +254,8 @@ componentView config itemIndex item { component, country, elements, quantity } i
         ]
 
 
-viewDebug : List Item -> LifeCycle -> Html msg
-viewDebug items lifeCycle =
+viewDebug : Query -> LifeCycle -> Html msg
+viewDebug query lifeCycle =
     div []
         [ details [ class "card-body py-2" ]
             [ summary [] [ text "Debug" ]
@@ -262,8 +263,8 @@ viewDebug items lifeCycle =
                 [ div [ class "col-6" ]
                     [ h5 [] [ text "Query" ]
                     , pre [ class "bg-light p-2 mb-0" ]
-                        [ items
-                            |> Encode.list Component.encodeItem
+                        [ query
+                            |> Component.encodeQuery
                             |> Encode.encode 2
                             |> text
                         ]
@@ -299,7 +300,7 @@ editorView config =
 
 
 lifeCycleView : Config db msg -> LifeCycle -> Html msg
-lifeCycleView ({ db, docsUrl, explorerRoute, maxItems, items, scope, title } as config) lifeCycle =
+lifeCycleView ({ db, docsUrl, explorerRoute, maxItems, query, scope, title } as config) lifeCycle =
     div [ class "d-flex flex-column" ]
         [ div [ class "card shadow-sm" ]
             [ div [ class "card-header d-flex align-items-center justify-content-between" ]
@@ -331,11 +332,11 @@ lifeCycleView ({ db, docsUrl, explorerRoute, maxItems, items, scope, title } as 
                             text ""
                     ]
                 ]
-            , if List.isEmpty items then
+            , if List.isEmpty query.items then
                 div [ class "card-body" ] [ text "Aucun élément." ]
 
               else
-                case Component.expandItems db items of
+                case Component.expandItems db query.items of
                     Err error ->
                         Alert.simple
                             { attributes = []
@@ -365,8 +366,8 @@ lifeCycleView ({ db, docsUrl, explorerRoute, maxItems, items, scope, title } as 
                                  )
                                     :: List.concat
                                         (List.map4 (componentView config)
-                                            (List.range 0 (List.length items - 1))
-                                            items
+                                            (List.range 0 (List.length query.items - 1))
+                                            query.items
                                             expandedItems
                                             (Component.extractItems lifeCycle.production)
                                         )
@@ -378,7 +379,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, maxItems, items, scope, title } as 
               else
                 addComponentButton config
             ]
-        , if (List.length items > 1) && List.member scope [ Scope.Object, Scope.Veli ] then
+        , if (List.length query.items > 1) && List.member scope [ Scope.Object, Scope.Veli ] then
             div []
                 [ DownArrow.view [] []
                 , assemblyView config lifeCycle
@@ -386,7 +387,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, maxItems, items, scope, title } as 
 
           else
             text ""
-        , if not (List.isEmpty items) && List.member scope [ Scope.Object, Scope.Veli ] then
+        , if not (List.isEmpty query.items) && List.member scope [ Scope.Object, Scope.Veli ] then
             div []
                 [ DownArrow.view [] []
                 , endOfLifeView config lifeCycle
@@ -395,7 +396,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, maxItems, items, scope, title } as 
           else
             text ""
         , if config.debug then
-            viewDebug items lifeCycle
+            viewDebug query lifeCycle
 
           else
             text ""

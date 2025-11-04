@@ -964,7 +964,6 @@ simulatorFormView session model ({ inputs } as simulator) =
         , docsUrl = Just <| Gitbook.publicUrlFromPath Gitbook.TextileTrims
         , explorerRoute = Just (Route.Explore Scope.Textile (Dataset.Components Scope.Textile Nothing))
         , impact = model.impact
-        , items = inputs.trims
         , lifeCycle =
             Component.emptyQuery
                 |> Component.setQueryItems inputs.trims
@@ -977,6 +976,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , noOp = NoOp
         , openSelectComponentModal = AddTrimModal >> SetModal
         , openSelectProcessModal = \_ _ _ _ -> SetModal NoModal
+        , query = Component.emptyQuery |> Component.setQueryItems inputs.trims
         , removeElement = \_ -> NoOp
         , removeElementTransform = \_ _ -> NoOp
         , removeItem = RemoveTrim

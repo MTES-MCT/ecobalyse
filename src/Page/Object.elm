@@ -648,7 +648,6 @@ simulatorView session model =
                 , docsUrl = Nothing
                 , explorerRoute = Just (Route.Explore model.scope (Dataset.Components model.scope Nothing))
                 , impact = model.impact
-                , items = currentQuery.items
                 , maxItems = Nothing
                 , noOp = NoOp
                 , openSelectComponentModal = AddComponentModal >> SetModal
@@ -656,6 +655,7 @@ simulatorView session model =
                     \p ti ei s ->
                         SelectProcessModal p ti ei s
                             |> SetModal
+                , query = Component.emptyQuery |> Component.setQueryItems currentQuery.items
                 , removeElement = RemoveElement
                 , removeElementTransform = RemoveElementTransform
                 , removeItem = RemoveComponentItem

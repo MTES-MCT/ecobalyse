@@ -543,7 +543,6 @@ modalView { componentConfig, db } modals index modal =
                             , docsUrl = Nothing
                             , explorerRoute = Nothing
                             , impact = db.definitions |> Definition.get Definition.Ecs
-                            , items = [ item ]
                             , lifeCycle =
                                 Component.emptyQuery
                                     |> Component.setQueryItems [ item ]
@@ -558,6 +557,7 @@ modalView { componentConfig, db } modals index modal =
                             , openSelectProcessModal =
                                 \p ti ei s ->
                                     SetModals (SelectProcessModal p ti ei s :: modals)
+                            , query = Component.emptyQuery |> Component.setQueryItems [ item ]
                             , removeElement =
                                 \targetElement ->
                                     item |> updateSingleItem (Component.removeElement targetElement)
