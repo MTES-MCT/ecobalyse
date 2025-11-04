@@ -557,6 +557,8 @@ modalView { componentConfig, db } modals index modal =
                             , openSelectProcessModal =
                                 \p ti ei s ->
                                     SetModals (SelectProcessModal p ti ei s :: modals)
+
+                            -- Note: we don't handle assembly country in the admin
                             , query = Component.emptyQuery |> Component.setQueryItems [ item ]
                             , removeElement =
                                 \targetElement ->
@@ -568,6 +570,7 @@ modalView { componentConfig, db } modals index modal =
                             , scope = component.scope
                             , setDetailed = \_ -> NoOp
                             , title = ""
+                            , updateAssemblyCountry = \_ -> NoOp
                             , updateElementAmount =
                                 \targetElement ->
                                     Maybe.map

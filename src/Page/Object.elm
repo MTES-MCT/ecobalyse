@@ -109,6 +109,7 @@ type Msg
     | SwitchImpact (Result String Definition.Trigram)
     | SwitchImpactsTab ImpactTabs.Tab
     | ToggleComparedSimulation Bookmark Bool
+    | UpdateAssemblyCountry (Maybe Country.Code)
     | UpdateBookmarkName String
     | UpdateComponentItemCountry Index (Maybe Country.Code)
     | UpdateComponentItemName TargetItem String
@@ -491,6 +492,10 @@ update ({ navKey } as session) msg model =
             model
                 |> App.createUpdate (session |> Session.toggleComparedSimulation bookmark checked)
 
+        ( UpdateAssemblyCountry maybeCountry, _ ) ->
+            App.createUpdate session model
+                |> updateQuery { query | assemblyCountry = maybeCountry }
+
         ( UpdateBookmarkName newName, _ ) ->
             { model | bookmarkName = newName }
                 |> App.createUpdate session
@@ -655,7 +660,7 @@ simulatorView session model =
                     \p ti ei s ->
                         SelectProcessModal p ti ei s
                             |> SetModal
-                , query = Component.emptyQuery |> Component.setQueryItems currentQuery.items
+                , query = currentQuery
                 , removeElement = RemoveElement
                 , removeElementTransform = RemoveElementTransform
                 , removeItem = RemoveComponentItem
@@ -663,6 +668,7 @@ simulatorView session model =
                 , scope = model.scope
                 , setDetailed = SetDetailedComponents
                 , title = "Production des composants"
+                , updateAssemblyCountry = UpdateAssemblyCountry
                 , updateElementAmount = UpdateElementAmount
                 , updateItemCountry = UpdateComponentItemCountry
                 , updateItemName = UpdateComponentItemName

@@ -983,6 +983,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , scope = Scope.Textile
         , setDetailed = \_ -> NoOp
         , title = "Accessoires"
+        , updateAssemblyCountry = \_ -> NoOp
         , updateElementAmount = \_ _ -> NoOp
         , updateItemCountry = \_ _ -> NoOp
         , updateItemName = \_ _ -> NoOp

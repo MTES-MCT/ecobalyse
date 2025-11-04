@@ -64,6 +64,7 @@ type alias Config db msg =
     , scope : Scope
     , setDetailed : List Index -> msg
     , title : String
+    , updateAssemblyCountry : Maybe Country.Code -> msg
     , updateElementAmount : TargetElement -> Maybe Amount -> msg
     , updateItemCountry : Index -> Maybe Country.Code -> msg
     , updateItemName : TargetItem -> String -> msg
@@ -200,7 +201,7 @@ componentView config itemIndex item { component, country, elements, quantity } i
                                     , domId = "item-country-" ++ String.fromInt itemIndex
                                     , scope = config.scope
                                     , select = config.updateItemCountry itemIndex
-                                    , selected = country
+                                    , selected = Maybe.map .code country
                                     }
                                 ]
 
@@ -448,7 +449,7 @@ type alias CountrySelector msg =
     , domId : String
     , scope : Scope
     , select : Maybe Country.Code -> msg
-    , selected : Maybe Country
+    , selected : Maybe Country.Code
     }
 
 
@@ -466,7 +467,7 @@ countrySelector config =
                         |> Maybe.map Country.codeToString
                         |> Maybe.withDefault ""
                         |> value
-                    , selected <| Maybe.map .code config.selected == maybeCode
+                    , selected <| config.selected == maybeCode
                     ]
                     [ text name ]
             )
@@ -475,13 +476,12 @@ countrySelector config =
             , id config.domId
             , onInput <|
                 \str ->
-                    config.select
-                        (if String.isEmpty str then
+                    config.select <|
+                        if String.isEmpty str then
                             Nothing
 
-                         else
+                        else
                             Just <| Country.codeFromString str
-                        )
             ]
 
 
@@ -695,12 +695,8 @@ assemblyView config lifeCycle =
                     { countries = config.db.countries
                     , domId = "assembly-country"
                     , scope = config.scope
-
-                    -- TODO: add updateAssemblyCountry event
-                    , select = \_ -> config.noOp
-
-                    -- TODO: after having query moved into config, use query.assemblyCountry
-                    , selected = Nothing
+                    , select = config.updateAssemblyCountry
+                    , selected = config.query.assemblyCountry
                     }
                 ]
             , lifeCycle.transports
