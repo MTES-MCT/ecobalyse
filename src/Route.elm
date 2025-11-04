@@ -11,7 +11,6 @@ import Data.Example as Example
 import Data.Food.Query as FoodQuery
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
-import Data.Object.Query as ObjectQuery
 import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Query as TextileQuery
 import Data.Uuid as Uuid exposing (Uuid)
@@ -34,7 +33,7 @@ type Route
     | FoodBuilderExample Uuid
     | FoodBuilderHome
     | Home
-    | ObjectSimulator Scope Definition.Trigram (Maybe ObjectQuery.Query)
+    | ObjectSimulator Scope Definition.Trigram (Maybe Component.Query)
     | ObjectSimulatorExample Scope Uuid
     | ObjectSimulatorHome Scope
     | Stats

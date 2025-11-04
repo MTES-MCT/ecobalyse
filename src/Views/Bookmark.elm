@@ -4,7 +4,6 @@ import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Component as Component
 import Data.Food.Query as FoodQuery
 import Data.Impact.Definition exposing (Definition)
-import Data.Object.Query as ObjectQuery
 import Data.Scope as Scope exposing (Scope)
 import Data.Session exposing (Session)
 import Data.Textile.Query as TextileQuery
@@ -67,6 +66,17 @@ view cfg =
         }
 
 
+buildObjectApiQuery : Scope -> String -> Component.Query -> String
+buildObjectApiQuery scope clientUrl query =
+    """curl -sS -X POST %apiUrl% \\
+  -H "accept: application/json" \\
+  -H "content-type: application/json" \\
+  -d '%json%'
+"""
+        |> String.replace "%apiUrl%" (clientUrl ++ "/api/" ++ Scope.toString scope ++ "/simulator")
+        |> String.replace "%json%" (Component.encodeQuery query |> Encode.encode 0)
+
+
 shareTabView : ManagerConfig msg -> Html msg
 shareTabView { copyToClipBoard, impact, scope, session } =
     let
@@ -95,7 +105,7 @@ shareTabView { copyToClipBoard, impact, scope, session } =
                         |> Route.ObjectSimulator scope impact.trigram
                         |> Route.toString
                         |> (++) session.clientUrl
-                    , ObjectQuery.buildApiQuery scope session.clientUrl query
+                    , buildObjectApiQuery scope session.clientUrl query
                     , Component.encodeQuery query
                         |> Encode.encode 2
                     )
@@ -123,7 +133,7 @@ shareTabView { copyToClipBoard, impact, scope, session } =
                         |> Route.ObjectSimulator scope impact.trigram
                         |> Route.toString
                         |> (++) session.clientUrl
-                    , ObjectQuery.buildApiQuery scope session.clientUrl query
+                    , buildObjectApiQuery scope session.clientUrl query
                     , Component.encodeQuery query
                         |> Encode.encode 2
                     )

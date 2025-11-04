@@ -23,7 +23,6 @@ import Data.Food.Recipe as Recipe
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Key as Key
-import Data.Object.Query as ObjectQuery
 import Data.Object.Simulator as ObjectSimulator
 import Data.Process as Process exposing (Process)
 import Data.Scope as Scope exposing (Scope)
@@ -462,7 +461,7 @@ componentsExplorer db scope tableConfig tableState maybeId =
 
 objectExamplesExplorer :
     Session
-    -> Table.Config ( Example ObjectQuery.Query, { score : Float } ) Msg
+    -> Table.Config ( Example Component.Query, { score : Float } ) Msg
     -> SortableTable.State
     -> Scope
     -> Maybe Uuid
@@ -643,7 +642,7 @@ getFoodScorePer100g db =
         >> Result.withDefault 0
 
 
-getObjectScore : Session -> Scope -> Example ObjectQuery.Query -> Float
+getObjectScore : Session -> Scope -> Example Component.Query -> Float
 getObjectScore { componentConfig, db } scope { query } =
     query
         |> ObjectSimulator.compute { config = componentConfig, db = db, scope = scope }

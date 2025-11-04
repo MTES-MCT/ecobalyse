@@ -65,6 +65,7 @@ module Data.Component exposing
     , itemToString
     , itemsToString
     , loadEnergyMixes
+    , mapItems
     , parseBase64Query
     , parseConfig
     , quantityFromInt
@@ -76,6 +77,8 @@ module Data.Component exposing
     , setQueryItems
     , stagesImpacts
     , sumLifeCycleImpacts
+    , tryMapItems
+    , updateDurability
     , updateElement
     , updateElementAmount
     , updateItem
@@ -1208,6 +1211,11 @@ mapAmount fn (Amount float) =
     Amount <| fn float
 
 
+mapItems : (List Item -> List Item) -> Query -> Query
+mapItems fn query =
+    { query | items = fn query.items }
+
+
 parseBase64Query : Parser (Maybe Query -> a) a
 parseBase64Query =
     Parser.custom "QUERY" <|
@@ -1339,6 +1347,14 @@ sumLifeCycleImpacts lifeCycle =
         ]
 
 
+{-| Update a list of component items that may fail
+-}
+tryMapItems : (List Item -> Result String (List Item)) -> Query -> Result String Query
+tryMapItems fn query =
+    fn query.items
+        |> Result.map (\items -> { query | items = items })
+
+
 updateCustom : Component -> (Custom -> Custom) -> Maybe Custom -> Maybe Custom
 updateCustom component fn maybeCustom =
     case maybeCustom of
@@ -1361,6 +1377,11 @@ updateCustom component fn maybeCustom =
                     , scope = Nothing
                     }
                 )
+
+
+updateDurability : Unit.Ratio -> Query -> Query
+updateDurability durability query =
+    { query | durability = durability }
 
 
 updateElement : TargetElement -> (Element -> Element) -> List Item -> List Item

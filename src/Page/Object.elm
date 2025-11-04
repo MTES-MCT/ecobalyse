@@ -21,7 +21,6 @@ import Data.Example as Example exposing (Example)
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
-import Data.Object.Query as Query exposing (Query)
 import Data.Object.Simulator as Simulator
 import Data.Plausible as Plausible
 import Data.Process as Process exposing (Process)
@@ -63,9 +62,9 @@ type alias Model =
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonType : ComparatorView.ComparisonType
     , detailedComponents : List Index
-    , examples : List (Example Query)
+    , examples : List (Example Component.Query)
     , impact : Definition
-    , initialQuery : Query
+    , initialQuery : Component.Query
     , modal : Modal
     , lifeCycle : Result String Component.LifeCycle
     , scope : Scope
@@ -76,7 +75,7 @@ type Modal
     = AddComponentModal (Autocomplete Component)
     | ComparatorModal
     | NoModal
-    | SelectExampleModal (Autocomplete Query)
+    | SelectExampleModal (Autocomplete Component.Query)
     | SelectProcessModal Category TargetItem (Maybe Index) (Autocomplete Process)
 
 
@@ -86,7 +85,7 @@ type Msg
     | NoOp
     | OnAutocompleteAddComponent (Autocomplete.Msg Component)
     | OnAutocompleteAddProcess Category TargetItem (Maybe Index) (Autocomplete.Msg Process)
-    | OnAutocompleteExample (Autocomplete.Msg Query)
+    | OnAutocompleteExample (Autocomplete.Msg Component.Query)
     | OnAutocompleteSelectComponent
     | OnAutocompleteSelectExample
     | OnAutocompleteSelectProcess Category TargetItem (Maybe Index)
@@ -119,7 +118,7 @@ type Msg
     | UpdateRenamedBookmarkName Bookmark String
 
 
-init : Scope -> Definition.Trigram -> Maybe Query -> Session -> PageUpdate Model Msg
+init : Scope -> Definition.Trigram -> Maybe Component.Query -> Session -> PageUpdate Model Msg
 init scope trigram maybeUrlQuery session =
     let
         initialQuery =
@@ -214,7 +213,7 @@ initFromExample session scope uuid =
         |> App.withCmds [ Ports.scrollTo { x = 0, y = 0 } ]
 
 
-suggestBookmarkName : Session -> List (Example Query) -> Query -> String
+suggestBookmarkName : Session -> List (Example Component.Query) -> Component.Query -> String
 suggestBookmarkName { db, store } examples query =
     let
         -- Existing user bookmark?
@@ -241,7 +240,7 @@ suggestBookmarkName { db, store } examples query =
                 |> Result.withDefault "N/A"
 
 
-updateQuery : Query -> PageUpdate Model Msg -> PageUpdate Model Msg
+updateQuery : Component.Query -> PageUpdate Model Msg -> PageUpdate Model Msg
 updateQuery query ({ model, session } as pageUpdate) =
     { pageUpdate
         | model =
@@ -373,19 +372,19 @@ update ({ navKey } as session) msg model =
                         |> LE.updateIf (\x -> x > itemIndex) (\x -> x - 1)
             }
                 |> App.createUpdate session
-                |> updateQuery (query |> Query.updateComponents (LE.removeAt itemIndex))
+                |> updateQuery (query |> Component.mapItems (LE.removeAt itemIndex))
                 |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
 
         ( RemoveElement targetElement, _ ) ->
             App.createUpdate session model
-                |> updateQuery (query |> Query.updateComponents (Component.removeElement targetElement))
+                |> updateQuery (query |> Component.mapItems (Component.removeElement targetElement))
                 |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
 
         ( RemoveElementTransform targetElement transformIndex, _ ) ->
             App.createUpdate session model
                 |> updateQuery
                     (query
-                        |> Query.updateComponents
+                        |> Component.mapItems
                             (Component.removeElementTransform targetElement transformIndex)
                     )
                 |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
@@ -500,7 +499,7 @@ update ({ navKey } as session) msg model =
             App.createUpdate session model
                 |> updateQuery
                     (query
-                        |> Query.updateComponents
+                        |> Component.mapItems
                             (Component.updateItem itemIndex (\item -> { item | country = country }))
                     )
                 |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
@@ -509,7 +508,7 @@ update ({ navKey } as session) msg model =
             App.createUpdate session model
                 |> updateQuery
                     (query
-                        |> Query.updateComponents
+                        |> Component.mapItems
                             (Component.updateItemCustomName targetItem name)
                     )
 
@@ -517,14 +516,14 @@ update ({ navKey } as session) msg model =
             App.createUpdate session model
                 |> updateQuery
                     (query
-                        |> Query.updateComponents
+                        |> Component.mapItems
                             (Component.updateItem itemIndex (\item -> { item | quantity = quantity }))
                     )
                 |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
 
         ( UpdateDurability (Ok durability), _ ) ->
             App.createUpdate session model
-                |> updateQuery (query |> Query.updateDurability durability)
+                |> updateQuery (query |> Component.updateDurability durability)
 
         ( UpdateDurability (Err error), _ ) ->
             App.createUpdate session model
@@ -541,7 +540,7 @@ update ({ navKey } as session) msg model =
             App.createUpdate session model
                 |> updateQuery
                     (query
-                        |> Query.updateComponents
+                        |> Component.mapItems
                             (Component.updateElement targetElement (\el -> { el | amount = amount }))
                     )
 
@@ -556,7 +555,7 @@ commandsForModal modal =
             Ports.addBodyClass "prevent-scrolling"
 
 
-selectExample : Autocomplete Query -> PageUpdate Model Msg -> PageUpdate Model Msg
+selectExample : Autocomplete Component.Query -> PageUpdate Model Msg -> PageUpdate Model Msg
 selectExample autocompleteState ({ model } as pageUpdate) =
     let
         exampleQuery =
@@ -569,12 +568,12 @@ selectExample autocompleteState ({ model } as pageUpdate) =
         |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ExampleSelected model.scope ]
 
 
-selectComponent : Query -> Autocomplete Component -> PageUpdate Model Msg -> PageUpdate Model Msg
+selectComponent : Component.Query -> Autocomplete Component -> PageUpdate Model Msg -> PageUpdate Model Msg
 selectComponent query autocompleteState ({ model } as pageUpdate) =
     case Autocomplete.selectedValue autocompleteState of
         Just component ->
             pageUpdate
-                |> updateQuery (query |> Query.updateComponents (Component.addItem component.id))
+                |> updateQuery (query |> Component.mapItems (Component.addItem component.id))
                 |> App.apply update (SetModal NoModal)
                 |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ComponentAdded model.scope ]
 
@@ -587,7 +586,7 @@ selectProcess :
     -> TargetItem
     -> Maybe Index
     -> Autocomplete Process
-    -> Query
+    -> Component.Query
     -> PageUpdate Model Msg
     -> PageUpdate Model Msg
 selectProcess category targetItem maybeElementIndex autocompleteState query ({ model } as pageUpdate) =
@@ -595,7 +594,7 @@ selectProcess category targetItem maybeElementIndex autocompleteState query ({ m
         Just process ->
             case
                 query
-                    |> Query.attemptUpdateComponents
+                    |> Component.tryMapItems
                         (Component.addOrSetProcess category targetItem maybeElementIndex process)
             of
                 Err err ->
