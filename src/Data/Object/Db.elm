@@ -6,13 +6,13 @@ module Data.Object.Db exposing
 {-| Note: The Object database also holds examples for VeLi
 -}
 
+import Data.Component as Component
 import Data.Example as Example exposing (Example)
-import Data.Object.Query as Query exposing (Query)
 import Result.Extra as RE
 
 
 type alias Db =
-    { examples : List (Example Query)
+    { examples : List (Example Component.Query)
     }
 
 
@@ -22,9 +22,9 @@ buildFromJson objectExamplesJson veliExamplesJson =
         |> RE.andMap
             (Result.map2 (++)
                 (objectExamplesJson
-                    |> Example.decodeListFromJsonString Query.decode
+                    |> Example.decodeListFromJsonString Component.decodeQuery
                 )
                 (veliExamplesJson
-                    |> Example.decodeListFromJsonString Query.decode
+                    |> Example.decodeListFromJsonString Component.decodeQuery
                 )
             )

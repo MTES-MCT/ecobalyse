@@ -236,7 +236,7 @@ suggestBookmarkName { db, store } examples query =
             name
 
         _ ->
-            query.components
+            query.items
                 |> Component.itemsToString db
                 |> Result.withDefault "N/A"
 
@@ -561,7 +561,7 @@ selectExample autocompleteState ({ model } as pageUpdate) =
     let
         exampleQuery =
             Autocomplete.selectedValue autocompleteState
-                |> Maybe.withDefault Query.default
+                |> Maybe.withDefault Component.emptyQuery
     in
     pageUpdate
         |> updateQuery exampleQuery
@@ -626,7 +626,7 @@ simulatorView session model =
             , div [ class "sticky-md-top bg-white pb-3" ]
                 [ ExampleView.view
                     { currentQuery = currentQuery
-                    , emptyQuery = Query.default
+                    , emptyQuery = Component.emptyQuery
                     , examples = model.examples
                     , helpUrl = Nothing
                     , onOpen = SelectExampleModal >> SetModal
@@ -649,7 +649,7 @@ simulatorView session model =
                 , docsUrl = Nothing
                 , explorerRoute = Just (Route.Explore model.scope (Dataset.Components model.scope Nothing))
                 , impact = model.impact
-                , items = currentQuery |> .components
+                , items = currentQuery.items
                 , maxItems = Nothing
                 , noOp = NoOp
                 , openSelectComponentModal = AddComponentModal >> SetModal

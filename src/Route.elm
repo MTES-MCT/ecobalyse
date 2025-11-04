@@ -5,6 +5,7 @@ module Route exposing
     , toString
     )
 
+import Data.Component as Component
 import Data.Dataset as Dataset exposing (Dataset)
 import Data.Example as Example
 import Data.Food.Query as FoodQuery
@@ -87,7 +88,7 @@ parser =
             Parser.s "object"
                 </> Parser.s "simulator"
                 </> Impact.parseTrigram
-                </> ObjectQuery.parseBase64Query
+                </> Component.parseBase64Query
         , Parser.map (ObjectSimulatorExample Scope.Object)
             (Parser.s "object"
                 </> Parser.s "edit-example"
@@ -111,7 +112,7 @@ parser =
             Parser.s "veli"
                 </> Parser.s "simulator"
                 </> Impact.parseTrigram
-                </> ObjectQuery.parseBase64Query
+                </> Component.parseBase64Query
         , Parser.map (ObjectSimulatorExample Scope.Veli)
             (Parser.s "veli"
                 </> Parser.s "edit-example"
@@ -244,7 +245,7 @@ toString route =
                     [ Scope.toString scope
                     , "simulator"
                     , Definition.toString trigram
-                    , ObjectQuery.b64encode query
+                    , Component.encodeBase64Query query
                     ]
 
                 ObjectSimulator scope trigram Nothing ->

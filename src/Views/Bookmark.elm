@@ -1,6 +1,7 @@
 module Views.Bookmark exposing (ActiveTab(..), view)
 
 import Data.Bookmark as Bookmark exposing (Bookmark)
+import Data.Component as Component
 import Data.Food.Query as FoodQuery
 import Data.Impact.Definition exposing (Definition)
 import Data.Object.Query as ObjectQuery
@@ -95,7 +96,7 @@ shareTabView { copyToClipBoard, impact, scope, session } =
                         |> Route.toString
                         |> (++) session.clientUrl
                     , ObjectQuery.buildApiQuery scope session.clientUrl query
-                    , ObjectQuery.encode query
+                    , Component.encodeQuery query
                         |> Encode.encode 2
                     )
 
@@ -123,7 +124,7 @@ shareTabView { copyToClipBoard, impact, scope, session } =
                         |> Route.toString
                         |> (++) session.clientUrl
                     , ObjectQuery.buildApiQuery scope session.clientUrl query
-                    , ObjectQuery.encode query
+                    , Component.encodeQuery query
                         |> Encode.encode 2
                     )
     in

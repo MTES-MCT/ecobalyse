@@ -12,7 +12,7 @@ import Static.Db exposing (Db)
 
 compute : Component.Requirements Db -> Query -> Result String LifeCycle
 compute requirements query =
-    query.components
+    query
         |> Component.compute requirements
 
 

@@ -13,6 +13,7 @@ module Data.Component exposing
     , Item
     , LifeCycle
     , Quantity
+    , Query
     , Requirements
     , Results(..)
     , Stage(..)
@@ -34,15 +35,19 @@ module Data.Component exposing
     , decodeItem
     , decodeList
     , decodeListFromJsonString
+    , decodeQuery
     , defaultConfig
     , elementTransforms
     , elementsToString
     , emptyLifeCycle
+    , emptyQuery
     , emptyResults
     , encode
+    , encodeBase64Query
     , encodeId
     , encodeItem
     , encodeLifeCycle
+    , encodeQuery
     , expandElements
     , expandItems
     , extractAmount
@@ -60,6 +65,7 @@ module Data.Component exposing
     , itemToString
     , itemsToString
     , loadEnergyMixes
+    , parseBase64Query
     , parseConfig
     , quantityFromInt
     , quantityToInt
@@ -67,6 +73,7 @@ module Data.Component exposing
     , removeElementTransform
     , setCustomScope
     , setElementMaterial
+    , setQueryItems
     , stagesImpacts
     , sumLifeCycleImpacts
     , updateElement
@@ -76,6 +83,7 @@ module Data.Component exposing
     , validateItem
     )
 
+import Base64
 import Data.Common.DecodeUtils as DU
 import Data.Common.EncodeUtils as EU
 import Data.Component.Config as Config exposing (EndOfLifeStrategies, EndOfLifeStrategy)
@@ -98,6 +106,7 @@ import List.Extra as LE
 import Mass exposing (Mass)
 import Quantity
 import Result.Extra as RE
+import Url.Parser as Parser exposing (Parser)
 
 
 type Id
@@ -125,6 +134,17 @@ type alias Config =
 type alias EnergyMixes =
     { elec : Process
     , heat : Process
+    }
+
+
+type alias Query =
+    { assemblyCountry : Maybe Country.Code
+
+    -- Note: component durability is experimental, future work may eventually be needed to
+    -- reuse existing mechanics and handle holistic durability like it's implemented for textile,
+    -- though it's still an ongoing discussion and we need to move forward and iterate.
+    , durability : Unit.Ratio
+    , items : List Item
     }
 
 
@@ -428,15 +448,15 @@ checkTransformsUnit unit transforms =
 
 {-| Computes impacts from a list of available components, processes and specified component items
 -}
-compute : Requirements db -> List Item -> Result String LifeCycle
-compute requirements items =
-    items
+compute : Requirements db -> Query -> Result String LifeCycle
+compute requirements query =
+    query.items
         |> List.map (computeItemResults requirements.db)
         |> RE.combine
         |> Result.map (List.foldr addResults emptyResults)
         |> Result.map (\(Results results) -> { emptyLifeCycle | production = Results { results | label = Just "Production" } })
         |> Result.map (computeEndOfLifeResults requirements)
-        |> Result.map (computeTransports requirements items)
+        |> Result.map (computeTransports requirements query)
 
 
 computeElementResults : DataContainer db -> Maybe Country.Code -> Element -> Result String Results
@@ -597,10 +617,10 @@ computeShareImpacts mass { process, split } =
         |> Maybe.withDefault Impact.empty
 
 
-computeTransports : Requirements db -> List Item -> LifeCycle -> LifeCycle
-computeTransports requirements items lifeCycle =
-    -- TODO: get all components, and for each get distances from country/default country
-    -- sums
+computeTransports : Requirements db -> Query -> LifeCycle -> LifeCycle
+computeTransports requirements query lifeCycle =
+    -- TODO: get all components, and for each get distances from country/default
+    --       country to assembly step country (parameter to be passed to this function)
     lifeCycle
 
 
@@ -634,6 +654,15 @@ decode =
             -- a component should only allow one, so here we take the first declared scope.
             (Decode.list Scope.decode
                 |> Decode.map (List.head >> Maybe.withDefault Scope.Object)
+            )
+
+
+decodeBase64Query : String -> Result String Query
+decodeBase64Query =
+    Base64.decode
+        >> Result.andThen
+            (Decode.decodeString decodeQuery
+                >> Result.mapError Decode.errorToString
             )
 
 
@@ -689,6 +718,14 @@ decodeQuantity =
         |> Decode.map Quantity
 
 
+decodeQuery : Decoder Query
+decodeQuery =
+    Decode.succeed Query
+        |> DU.strictOptional "assemblyCountry" Country.decodeCode
+        |> Decode.optional "durability" Unit.decodeRatio (Unit.ratio 1)
+        |> Decode.required "components" (Decode.list decodeItem)
+
+
 {-| Proxified for convenience
 -}
 defaultConfig : List Process -> Result String Config
@@ -732,6 +769,14 @@ emptyLifeCycle =
     }
 
 
+emptyQuery : Query
+emptyQuery =
+    { assemblyCountry = Nothing
+    , durability = Unit.ratio 1
+    , items = []
+    }
+
+
 emptyResults : Results
 emptyResults =
     Results
@@ -756,6 +801,11 @@ encode v =
         , ( "published", v.published |> Encode.bool )
         , ( "scopes", [ v.scope ] |> Encode.list Scope.encode )
         ]
+
+
+encodeBase64Query : Query -> String
+encodeBase64Query =
+    encodeQuery >> Encode.encode 0 >> Base64.encode
 
 
 encodeCustom : Custom -> Encode.Value
@@ -790,6 +840,11 @@ encodeElement element =
         ]
 
 
+encodeId : Id -> Encode.Value
+encodeId =
+    idToString >> Encode.string
+
+
 encodeItem : Item -> Encode.Value
 encodeItem item =
     EU.optionalPropertiesObject
@@ -798,11 +853,6 @@ encodeItem item =
         , ( "country", item.country |> Maybe.map Country.encodeCode )
         , ( "custom", item.custom |> Maybe.map encodeCustom )
         ]
-
-
-encodeId : Id -> Encode.Value
-encodeId =
-    idToString >> Encode.string
 
 
 encodeLifeCycle : Maybe Trigram -> LifeCycle -> Encode.Value
@@ -820,6 +870,15 @@ encodeLifeCycle maybeTrigram lifeCycle =
                 Nothing ->
                     Impact.encode lifeCycle.endOfLife
           )
+        ]
+
+
+encodeQuery : Query -> Encode.Value
+encodeQuery query =
+    EU.optionalPropertiesObject
+        [ ( "assemblyCountry", query.assemblyCountry |> Maybe.map Country.encodeCode )
+        , ( "durability", query.durability |> Unit.encodeRatio |> Just )
+        , ( "components", query.items |> Encode.list encodeItem |> Just )
         ]
 
 
@@ -1119,6 +1178,7 @@ itemToString db { custom, id, quantity } =
 
 itemsToString : DataContainer db -> List Item -> Result String String
 itemsToString db =
+    -- FIXME: handle query
     RE.combineMap (itemToString db)
         >> Result.map (String.join ", ")
 
@@ -1146,6 +1206,14 @@ loadEnergyMixes processes =
 mapAmount : (Float -> Float) -> Amount -> Amount
 mapAmount fn (Amount float) =
     Amount <| fn float
+
+
+parseBase64Query : Parser (Maybe Query -> a) a
+parseBase64Query =
+    Parser.custom "QUERY" <|
+        decodeBase64Query
+            >> Result.toMaybe
+            >> Just
 
 
 {-| Proxified for convenience
@@ -1220,6 +1288,11 @@ setElementMaterial targetElement material items =
                     }
                 )
             |> Ok
+
+
+setQueryItems : List Item -> Query -> Query
+setQueryItems items query =
+    { query | items = items }
 
 
 stagesImpacts : LifeCycle -> StagesImpacts

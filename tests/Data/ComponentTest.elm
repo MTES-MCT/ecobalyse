@@ -831,7 +831,8 @@ computeWithTestConfig db items =
     testComponentConfig db.processes
         |> Result.andThen
             (\config ->
-                items
+                Component.emptyQuery
+                    |> Component.setQueryItems items
                     |> Component.compute
                         { config = config
                         , db = db

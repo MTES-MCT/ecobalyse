@@ -484,7 +484,7 @@ objectExamplesExplorer session tableConfig tableState scope maybeId =
             }
     in
     [ scoredExamples
-        |> List.filter (Tuple.first >> .query >> (/=) ObjectQuery.default)
+        |> List.filter (Tuple.first >> .query >> (/=) Component.emptyQuery)
         |> List.sortBy (Tuple.first >> .name)
         |> Table.viewList OpenDetail tableConfig tableState scope (ObjectExamples.table max)
     , case maybeId of

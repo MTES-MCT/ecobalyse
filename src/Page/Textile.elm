@@ -966,7 +966,8 @@ simulatorFormView session model ({ inputs } as simulator) =
         , impact = model.impact
         , items = inputs.trims
         , lifeCycle =
-            inputs.trims
+            Component.emptyQuery
+                |> Component.setQueryItems inputs.trims
                 |> Component.compute
                     { config = session.componentConfig
                     , db = session.db
