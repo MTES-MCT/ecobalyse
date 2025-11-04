@@ -6,13 +6,29 @@ hidden: true
 
 ## Contexte
 
-Les trainées de condensation des avions (contrails en anglais) sont les traces blanche que l'on aperçoit dans le ciel derrière les avions. Ces trainées, contribuent au  changement climatique. &#x20;
+Les trainées de condensation des avions (contrails en anglais) sont les traces blanche que l'on aperçoit dans le ciel derrière les avions. Ces trainées, contribuent au changement climatique. &#x20;
 
 Actuellement les procédés de transport aérien ecoinvent omettent l'impact de ces trainées sur le climat. Nous proposons donc une première approche simplifiée pour les intégrer dans la méthode du "cout environnemental". Des travaux plus approfondis sont en cours au niveau de la base empreinte, et permettront de préciser la modélisation de ce phénomène à l'avenir.&#x20;
 
+{% hint style="warning" %}
+Les émissions de CO2 indiquées dans cette page correspondent uniquement aux émissions du Dioxyde de Carbone directement dans l'environnement. \
+Il ne s'agit pas des émissions de CO2-équivalent, qui couvrent les émissions (directes et/ou indirectes) de tous les gaz à effet de serre en les ramenant au poids de CO2 équivalent en termes d'impact sur le changement climatique, \
+Sauf mention contraire, l'unité utilisé ici est donc le kg de CO2, et non le kgCO2e.
+{% endhint %}
+
+### Part des émissions de CO2 dans le coût environnemental du transport par avion
+
+Le procédé ecoinvent 3.9.1 "`market for transport, freight, aircraft, long haul, GLO` est utilisé comme référence pour modéliser l'impact environnemental du transport de biens par avion.
+
+Le coût environnemental associé est de 59.32 Pt/tkm, dont 38.7% pour le changement climatique.
+
+L'impact sur le changement climatique est de 0.8233 kgCO2e, dont 0.6282 kgCO2e (76%) due aux émissions directes de CO2 à la combustion.
+
+Les émissions de CO2 à la combustion, évoquées dans la partie suivante, représentent donc, avant prise en compte des trainées, 30% du coût environnemental.
+
 ### Plus d'information sur les trainées d'avion
 
-Le schéma suivant illustre le phénomène à l'oeuvre :
+Le schéma suivant illustre le phénomène à l’œuvre :
 
 <figure><img src="../../../.gitbook/assets/liens_entre_aviation_et_climat_strapi.webp" alt=""><figcaption><p>Illustration des trainées d'avion, réalisée par Carbone 4 pour un <a href="https://www.carbone4.com/analyse-faq-aviation-climat">article dédié à ce sujet</a></p></figcaption></figure>
 
@@ -25,9 +41,15 @@ Une étude de 2021 estime que les trainée d'avion et autres impacts "hors CO2" 
   * [The contribution of global aviation to anthropogenic climate forcing for 2000 to 2018, D.S. Lee & al, Atmospheric Environment, Volume 244, 2021](https://www.sciencedirect.com/science/article/pii/S1352231020305689).
   * [Global aviation contrail climate effects from 2019 to 2021 Roger Teoh et al (2024)](https://acp.copernicus.org/articles/24/6071/2024/)
 
-## Création du procédé Ecobalyse
+## Méthode de calcul
 
-Le procédé ecoinvent 3.9.1 "`market for transport, freight, aircraft, long haul, GLO`" est modifié pour y ajouter des émissions de CO2 `e_{CO2,trainées}` modélisant "artificiellement" l'impact des trainées. Ces émissions s'ajoutent aux émissions issus de la combustion du carburant.&#x20;
+L'intégration des trainées est réalisée en ajoutant artificiellement des émissions de CO2 (flux vers l'environnement) au procédé utilisé pour modéliser le transport aérien.
+
+Cet ajout est réalisé au pro-rata du forçage radiatif, les émissions de CO2 et le forçage radiatif étant liés de façon linéaire.
+
+### Création du procédé Ecobalyse
+
+Le procédé ecoinvent 3.9.1 "`market for transport, freight, aircraft, long haul, GLO`" est modifié pour y ajouter les émissions de CO2 `e_{CO2,trainées}` modélisant "artificiellement" l'impact des trainées. Ces émissions sont calculées sur la base des émissions issus de la combustion du carburant `e_{CO2,combustion}`, principales contributrice de ce procédé en termes de changement climatique.&#x20;
 
 $$
 e_{CO2,trainées} = e_{CO2,combustion} * \frac{RF_{trainées}}{RF_{CO2,combustion}}
@@ -35,14 +57,16 @@ $$
 
 Avec :
 
-* `e_{CO2,trainées}` les émissions de CO2 ajoutées au procédé pour modéliser l'impact des trainées.
-* `RF_{CO2,combustion}` le forcage radiatif retenu pour les trainées : 57.4 mW/m2
-* `RF_{trainées}` le forcage radiatif retenu relatif aux émissions directes de CO2 à la combustion : 34.3mW/m2
+* `e_{CO2,trainées}` les émissions de CO2 ajoutées au procédé pour modéliser l'impact des trainées, en kg de CO2 / tkm
+* `RF_{CO2,combustion}` le forçage radiatif retenu pour les trainées : 57.4 mW/m2
+* `RF_{trainées}` le forçage radiatif retenu relatif aux émissions directes de CO2 à la combustion : 34.3mW/m2
 * `e_{CO2,combustion}` les émissions de CO2 à la combustion pour ce procédé : 0.6282 kg/tkm
 
 $$
-e_{CO2,trainées} = 1.001
+e_{CO2,trainées} = 1.05 kg/tkm
 $$
 
+Le coût environnemental du procédé ainsi obtenu est de 88.6 Pt/tkm.
 
+Cela correspond à une augmentation de 128% de l'impact sur le changement climatique, et à une augmentation de 49% du coût environnemental.
 
