@@ -459,7 +459,7 @@ countrySelector config =
         |> Scope.anyOf [ config.scope ]
         |> List.sortBy .name
         |> List.map (\{ code, name } -> ( name, Just code ))
-        |> (::) ( "Monde", Nothing )
+        |> (::) ( "Inconnu", Nothing )
         |> List.map
             (\( name, maybeCode ) ->
                 option
