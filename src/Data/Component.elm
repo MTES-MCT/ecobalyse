@@ -7,6 +7,7 @@ module Data.Component exposing
     , Element
     , EndOfLifeMaterialImpacts
     , ExpandedElement
+    , ExpandedItem
     , Id
     , Index
     , Item
@@ -58,6 +59,7 @@ module Data.Component exposing
     , itemToComponent
     , itemToString
     , itemsToString
+    , loadEnergyMixes
     , parseConfig
     , quantityFromInt
     , quantityToInt
@@ -77,6 +79,7 @@ module Data.Component exposing
 import Data.Common.DecodeUtils as DU
 import Data.Common.EncodeUtils as EU
 import Data.Component.Config as Config exposing (EndOfLifeStrategies, EndOfLifeStrategy)
+import Data.Country as Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Trigram)
 import Data.Process as Process exposing (Process)
@@ -123,12 +126,21 @@ type alias EnergyMixes =
     }
 
 
-{-| A compact reference to a component, a quantity of it, and optionally some overrides,
-typically used for queries
+{-| A compact reference to a component, a quantity of it, a production localization
+and optional overrides, typically used for queries
 -}
 type alias Item =
-    { custom : Maybe Custom
+    { country : Maybe Country.Code
+    , custom : Maybe Custom
     , id : Id
+    , quantity : Quantity
+    }
+
+
+type alias ExpandedItem =
+    { component : Component
+    , country : Maybe Country
+    , elements : List ExpandedElement
     , quantity : Quantity
     }
 
@@ -145,6 +157,7 @@ type alias Custom =
 type alias DataContainer db =
     { db
         | components : List Component
+        , countries : List Country
         , processes : List Process
     }
 
@@ -162,6 +175,7 @@ type alias Element =
 -}
 type alias ExpandedElement =
     { amount : Amount
+    , country : Maybe Country
     , material : Process
     , transforms : List Process
     }
@@ -376,10 +390,10 @@ Note: for now we use average elec and heat mixes, but we might want to allow
 specifying specific country mixes in the future.
 
 -}
-applyTransforms : List Process -> Process.Unit -> List Process -> Results -> Result String Results
-applyTransforms allProcesses unit transforms materialResults =
+applyTransforms : List Process -> Maybe Country -> Process.Unit -> List Process -> Results -> Result String Results
+applyTransforms processes maybeCountry unit transforms materialResults =
     checkTransformsUnit unit transforms
-        |> Result.andThen (\_ -> loadDefaultEnergyMixes allProcesses)
+        |> Result.andThen (\_ -> loadEnergyMixes processes maybeCountry)
         |> Result.map
             (\energyMixes ->
                 transforms
@@ -421,18 +435,18 @@ compute requirements items =
         |> Result.map (computeEndOfLifeResults requirements)
 
 
-computeElementResults : List Process -> Element -> Result String Results
-computeElementResults processes =
-    expandElement processes
+computeElementResults : DataContainer db -> Maybe Country.Code -> Element -> Result String Results
+computeElementResults db maybeCountry =
+    expandElement db maybeCountry
         >> Result.andThen
-            (\{ amount, material, transforms } ->
+            (\{ amount, country, material, transforms } ->
                 amount
                     |> computeInitialAmount (List.map .waste transforms)
                     |> Result.andThen
                         (\initialAmount ->
                             material
                                 |> computeMaterialResults initialAmount
-                                |> applyTransforms processes material.unit transforms
+                                |> applyTransforms db.processes country material.unit transforms
                         )
             )
 
@@ -463,26 +477,28 @@ computeInitialAmount wastes amount =
             |> Ok
 
 
-computeImpacts : List Process -> Component -> Result String Results
-computeImpacts processes =
+{-| Compute a single component impact
+-}
+computeImpacts : DataContainer db -> Component -> Result String Results
+computeImpacts db =
     .elements
-        >> List.map (computeElementResults processes)
+        >> List.map (computeElementResults db Nothing)
         >> RE.combine
         >> Result.map (List.foldr addResults emptyResults)
 
 
 computeItemResults : DataContainer db -> Item -> Result String Results
-computeItemResults { components, processes } { custom, id, quantity } =
+computeItemResults db { country, custom, id, quantity } =
     let
         component_ =
-            findById id components
+            findById id db.components
     in
     component_
         |> Result.andThen
             (\component ->
                 custom
                     |> customElements component
-                    |> List.map (computeElementResults processes)
+                    |> List.map (computeElementResults db country)
                     |> RE.combine
             )
         |> Result.map (List.foldr addResults emptyResults)
@@ -519,6 +535,7 @@ computeMaterialResults : Amount -> Process -> Results
 computeMaterialResults amount process =
     let
         impacts =
+            -- Note: materials impacts embed energy ones
             process.impacts
                 |> Impact.multiplyBy (amountToFloat amount)
 
@@ -578,7 +595,11 @@ computeShareImpacts mass { process, split } =
 
 createItem : Id -> Item
 createItem id =
-    { custom = Nothing, id = id, quantity = quantityFromInt 1 }
+    { country = Nothing
+    , custom = Nothing
+    , id = id
+    , quantity = quantityFromInt 1
+    }
 
 
 customElements : Component -> Maybe Custom -> List Element
@@ -622,6 +643,7 @@ decodeElement =
 decodeItem : Decoder Item
 decodeItem =
     Decode.succeed Item
+        |> DU.strictOptional "country" Country.decodeCode
         |> DU.strictOptional "custom" decodeCustom
         |> Decode.required "id" (Decode.map Id Uuid.decoder)
         |> Decode.required "quantity" decodeQuantity
@@ -756,6 +778,7 @@ encodeItem item =
     EU.optionalPropertiesObject
         [ ( "id", item.id |> idToString |> Encode.string |> Just )
         , ( "quantity", item.quantity |> quantityToInt |> Encode.int |> Just )
+        , ( "country", item.country |> Maybe.map Country.encodeCode )
         , ( "custom", item.custom |> Maybe.map encodeCustom )
         ]
 
@@ -809,9 +832,10 @@ encodeResults maybeTrigram (Results results) =
 
 {-| Turn an Element to an ExpandedElement
 -}
-expandElement : List Process -> Element -> Result String ExpandedElement
-expandElement processes { amount, material, transforms } =
+expandElement : DataContainer db -> Maybe Country.Code -> Element -> Result String ExpandedElement
+expandElement { countries, processes } maybeCountry { amount, material, transforms } =
     Ok (ExpandedElement amount)
+        |> RE.andMap (resolveCountry countries maybeCountry)
         |> RE.andMap (Process.findById material processes)
         |> RE.andMap
             (transforms
@@ -822,26 +846,48 @@ expandElement processes { amount, material, transforms } =
 
 {-| Take a list of elements and resolve them with fully qualified processes
 -}
-expandElements : List Process -> List Element -> Result String (List ExpandedElement)
-expandElements processes =
-    RE.combineMap (expandElement processes)
+expandElements : DataContainer db -> Maybe Country.Code -> List Element -> Result String (List ExpandedElement)
+expandElements db maybeCountry =
+    RE.combineMap (expandElement db maybeCountry)
 
 
-expandItem : DataContainer a -> Item -> Result String ( Quantity, Component, List ExpandedElement )
-expandItem { components, processes } { custom, id, quantity } =
+expandItem : DataContainer a -> Item -> Result String ExpandedItem
+expandItem ({ components, countries } as db) { country, custom, id, quantity } =
     findById id components
         |> Result.andThen
             (\component ->
-                custom
-                    |> customElements component
-                    |> expandElements processes
-                    |> Result.map (\expanded -> ( quantity, component, expanded ))
+                country
+                    |> resolveCountry countries
+                    |> Result.andThen
+                        (\maybeCountry ->
+                            custom
+                                |> customElements component
+                                |> expandElements db country
+                                |> Result.map
+                                    (\expandedElements ->
+                                        { component = component
+                                        , country = maybeCountry
+                                        , elements = expandedElements
+                                        , quantity = quantity
+                                        }
+                                    )
+                        )
             )
+
+
+resolveCountry : List Country -> Maybe Country.Code -> Result String (Maybe Country)
+resolveCountry countries maybeCode =
+    case maybeCode of
+        Just code ->
+            countries |> Country.findByCode code |> Result.map Just
+
+        Nothing ->
+            Ok Nothing
 
 
 {-| Take a list of component items and resolve them with actual components and processes
 -}
-expandItems : DataContainer a -> List Item -> Result String (List ( Quantity, Component, List ExpandedElement ))
+expandItems : DataContainer a -> List Item -> Result String (List ExpandedItem)
 expandItems db =
     List.map (expandItem db) >> RE.combine
 
@@ -1068,8 +1114,16 @@ loadDefaultEnergyMixes processes =
                 >> Result.andThen (\id -> Process.findById id processes)
     in
     Result.map2 (\elec heat -> { elec = elec, heat = heat })
+        -- Électricité moyenne tension, Asie
         (fromIdString "a2129ece-5dd9-5e66-969c-2603b3c97244")
+        -- Mix chaleur (Monde)
         (fromIdString "3561ace1-f710-50ce-a69c-9cf842e729e4")
+
+
+loadEnergyMixes : List Process -> Maybe Country -> Result String EnergyMixes
+loadEnergyMixes processes =
+    Maybe.map (\{ electricityProcess, heatProcess } -> Ok <| EnergyMixes electricityProcess heatProcess)
+        >> Maybe.withDefault (loadDefaultEnergyMixes processes)
 
 
 mapAmount : (Float -> Float) -> Amount -> Amount

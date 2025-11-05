@@ -8,6 +8,7 @@ import Data.Component as Component
         , Component
         , EndOfLifeMaterialImpacts
         , ExpandedElement
+        , ExpandedItem
         , Index
         , Item
         , LifeCycle
@@ -16,6 +17,7 @@ import Data.Component as Component
         , TargetElement
         , TargetItem
         )
+import Data.Country as Country exposing (Country)
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Process as Process exposing (Process)
@@ -61,6 +63,7 @@ type alias Config db msg =
     , setDetailed : List Index -> msg
     , title : String
     , updateElementAmount : TargetElement -> Maybe Amount -> msg
+    , updateItemCountry : Index -> Maybe Country.Code -> msg
     , updateItemName : TargetItem -> String -> msg
     , updateItemQuantity : Index -> Quantity -> msg
     }
@@ -139,14 +142,8 @@ addElementTransformButton { db, items, openSelectProcessModal, scope } material 
         ]
 
 
-componentView :
-    Config db msg
-    -> Index
-    -> Item
-    -> ( Quantity, Component, List ExpandedElement )
-    -> Results
-    -> List (Html msg)
-componentView config itemIndex item ( quantity, component, expandedElements ) itemResults =
+componentView : Config db msg -> Index -> Item -> ExpandedItem -> Results -> List (Html msg)
+componentView config itemIndex item { component, country, elements, quantity } itemResults =
     let
         collapsed =
             config.detailed
@@ -183,27 +180,57 @@ componentView config itemIndex item ( quantity, component, expandedElements ) it
                         [ quantity |> quantityInput config itemIndex
                         ]
                     , td [ class "align-middle text-truncate w-100", colspan 2 ]
-                        [ if config.customizable then
-                            input
-                                [ type_ "text"
-                                , class "form-control"
-                                , onInput (config.updateItemName ( component, itemIndex ))
-                                , placeholder "Nom du composant"
-                                , item.custom
-                                    |> Maybe.andThen .name
-                                    |> Maybe.withDefault component.name
-                                    |> value
-                                ]
-                                []
+                        [ div [ class "d-flex gap-2" ] <|
+                            if config.customizable then
+                                [ input
+                                    [ type_ "text"
+                                    , class "form-control"
+                                    , onInput (config.updateItemName ( component, itemIndex ))
+                                    , placeholder "Nom du composant"
+                                    , item.custom
+                                        |> Maybe.andThen .name
+                                        |> Maybe.withDefault component.name
+                                        |> value
+                                    ]
+                                    []
+                                , config.db.countries
+                                    |> Scope.anyOf [ config.scope ]
+                                    |> List.sortBy .name
+                                    |> List.map (\{ code, name } -> ( name, Just code ))
+                                    |> (::) ( "Monde", Nothing )
+                                    |> List.map
+                                        (\( name, maybeCode ) ->
+                                            option
+                                                [ maybeCode
+                                                    |> Maybe.map Country.codeToString
+                                                    |> Maybe.withDefault ""
+                                                    |> value
+                                                , selected <| Maybe.map .code country == maybeCode
+                                                ]
+                                                [ text name ]
+                                        )
+                                    |> select
+                                        [ class "form-select w-33"
+                                        , onInput <|
+                                            \str ->
+                                                config.updateItemCountry itemIndex
+                                                    (if String.isEmpty str then
+                                                        Nothing
 
-                          else
-                            span [ class "fw-bold" ] [ text component.name ]
+                                                     else
+                                                        Just <| Country.codeFromString str
+                                                    )
+                                        ]
+                                ]
+
+                            else
+                                [ span [ class "fw-bold" ] [ text component.name ] ]
                         ]
-                    , td [ class "text-end align-middle text-nowrap" ]
+                    , td [ class "text-end align-middle text-nowrap fs-7" ]
                         [ Component.extractMass itemResults
                             |> Format.kg
                         ]
-                    , td [ class "text-end align-middle text-nowrap" ]
+                    , td [ class "text-end align-middle text-nowrap fs-7" ]
                         [ Component.extractImpacts itemResults
                             |> Format.formatImpact config.impact
                         ]
@@ -225,8 +252,8 @@ componentView config itemIndex item ( quantity, component, expandedElements ) it
         , if not collapsed then
             List.map3
                 (elementView config ( component, itemIndex ))
-                (List.range 0 (List.length expandedElements - 1))
-                expandedElements
+                (List.range 0 (List.length elements - 1))
+                elements
                 (Component.extractItems itemResults)
 
           else
@@ -428,7 +455,7 @@ amountInput config targetElement unit amount =
 
 
 elementView : Config db msg -> TargetItem -> Index -> ExpandedElement -> Results -> Html msg
-elementView config targetItem elementIndex { amount, material, transforms } elementResults =
+elementView config targetItem elementIndex { amount, country, material, transforms } elementResults =
     let
         ( materialResults, transformsResults ) =
             case Component.extractItems elementResults of
@@ -459,7 +486,7 @@ elementView config targetItem elementIndex { amount, material, transforms } elem
             , th [] []
             ]
             :: elementMaterialView config ( targetItem, elementIndex ) materialResults material amount
-            :: elementTransformsView config ( targetItem, elementIndex ) transformsResults transforms
+            :: elementTransformsView config ( targetItem, elementIndex ) country transformsResults transforms
             ++ (if config.scope /= Scope.Textile then
                     [ tr []
                         [ td [ colspan 2 ] []
@@ -532,19 +559,34 @@ elementMaterialView config targetElement materialResults material amount =
         ]
 
 
-elementTransformsView : Config db msg -> TargetElement -> List Results -> List Process -> List (Html msg)
-elementTransformsView config targetElement transformsResults transforms =
+elementTransformsView : Config db msg -> TargetElement -> Maybe Country -> List Results -> List Process -> List (Html msg)
+elementTransformsView config targetElement maybeCountry transformsResults transforms =
     List.map3
         (\transformIndex transformResult transform ->
+            let
+                tooltipText =
+                    "Procédé\u{00A0}: "
+                        ++ Process.getDisplayName transform
+                        ++ (Component.loadEnergyMixes config.db.processes maybeCountry
+                                |> Result.map
+                                    (\{ elec, heat } ->
+                                        "\nÉlectricité\u{00A0}: "
+                                            ++ Process.getDisplayName elec
+                                            ++ "\nChaleur\u{00A0}: "
+                                            ++ Process.getDisplayName heat
+                                    )
+                                |> Result.withDefault ""
+                           )
+            in
             tr [ class "fs-7" ]
                 [ td [] []
                 , td [ class "text-end align-middle text-nowrap" ] []
                 , td
-                    [ class "text-truncate align-middle w-100"
+                    [ class "text-truncate align-middle w-100 cursor-help"
 
                     -- Note: allows truncated ellipsis in table cells https://stackoverflow.com/a/11877033/330911
                     , style "max-width" "0"
-                    , title <| Process.getDisplayName transform
+                    , title tooltipText
                     ]
                     [ span [ class "ComponentElementIcon" ] [ Icon.transform ]
                     , text <| Process.getDisplayName transform

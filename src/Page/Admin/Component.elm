@@ -412,7 +412,7 @@ componentRowView db selected component =
             ]
         , td [ class "align-middle text-end fw-bold" ]
             [ component
-                |> Component.computeImpacts db.processes
+                |> Component.computeImpacts db
                 |> Result.map
                     (Component.extractImpacts
                         >> Format.formatImpact (Definition.get Definition.Ecs db.definitions)
@@ -534,6 +534,7 @@ modalView { componentConfig, db } modals index modal =
                                             item |> updateSingleItem (Component.updateElementAmount targetElement amount)
                                         )
                                         >> Maybe.withDefault NoOp
+                            , updateItemCountry = \_ _ -> NoOp
                             , updateItemName =
                                 \targetItem name ->
                                     item |> updateSingleItem (Component.updateItemCustomName targetItem name)

@@ -123,7 +123,7 @@ suite =
                             , quantity = 1
                             , stage = Nothing
                             }
-                            |> Component.applyTransforms db.processes Process.Kilogram transforms
+                            |> Component.applyTransforms db.processes Nothing Process.Kilogram transforms
                             |> Result.withDefault Component.emptyResults
                             |> Component.extractMass
                             |> Mass.inKilograms
@@ -154,7 +154,7 @@ suite =
                             , quantity = 1
                             , stage = Nothing
                             }
-                            |> Component.applyTransforms db.processes Process.Kilogram transforms
+                            |> Component.applyTransforms db.processes Nothing Process.Kilogram transforms
                             |> Result.withDefault Component.emptyResults
                             |> extractEcsImpact
                   in
@@ -210,7 +210,7 @@ suite =
                                 , quantity = 1
                                 , stage = Nothing
                                 }
-                                |> Component.applyTransforms db.processes Process.CubicMeter [ transformInKg ]
+                                |> Component.applyTransforms db.processes Nothing Process.CubicMeter [ transformInKg ]
                                 |> Expect.equal (Err "Les procédés de transformation ne partagent pas la même unité que la matière source (m3)\u{00A0}: Moulage par injection (kg)")
                             )
                         ]
@@ -227,7 +227,7 @@ suite =
                             , quantity = 1
                             , stage = Nothing
                             }
-                            |> Component.applyTransforms db.processes Process.Kilogram transforms
+                            |> Component.applyTransforms db.processes Nothing Process.Kilogram transforms
                             |> Result.withDefault Component.emptyResults
                   in
                   describe "impacts & waste"
@@ -322,7 +322,8 @@ suite =
                     (Process.idFromString "f0dbe27b-1e74-55d0-88a2-bda812441744"
                         |> Result.andThen
                             (\cottonId ->
-                                Component.computeElementResults db.processes
+                                Component.computeElementResults db
+                                    Nothing
                                     { amount = Component.Amount 1
                                     , material = cottonId
 
@@ -356,7 +357,7 @@ suite =
                                 , material = materialInCubicMeters.id
                                 , transforms = [ transformInCubicMeters.id ]
                                 }
-                                    |> Component.computeElementResults db.processes
+                                    |> Component.computeElementResults db Nothing
                         in
                         [ it "should compute impacts according on material unit"
                             (results
@@ -621,7 +622,8 @@ suite =
                             |> Expect.equal
                                 (Ok <|
                                     Just
-                                        { custom = Nothing
+                                        { country = Nothing
+                                        , custom = Nothing
                                         , id = testComponent.id
                                         , quantity = Component.quantityFromInt 1
                                         }

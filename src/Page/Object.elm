@@ -14,6 +14,7 @@ import Browser.Events
 import Browser.Navigation as Navigation
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Component as Component exposing (Component, Index, TargetElement, TargetItem)
+import Data.Country as Country
 import Data.Dataset as Dataset
 import Data.Env as Env
 import Data.Example as Example exposing (Example)
@@ -102,6 +103,7 @@ type Msg
     | SwitchImpactsTab ImpactTabs.Tab
     | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
+    | UpdateComponentItemCountry Index (Maybe Country.Code)
     | UpdateComponentItemName TargetItem String
     | UpdateComponentItemQuantity Index Component.Quantity
     | UpdateDurability (Result String Unit.Ratio)
@@ -443,6 +445,15 @@ update ({ navKey } as session) msg model =
             { model | bookmarkName = newName }
                 |> App.createUpdate session
 
+        ( UpdateComponentItemCountry itemIndex country, _ ) ->
+            App.createUpdate session model
+                |> updateQuery
+                    (query
+                        |> Query.updateComponents
+                            (Component.updateItem itemIndex (\item -> { item | country = country }))
+                    )
+                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
+
         ( UpdateComponentItemName targetItem name, _ ) ->
             App.createUpdate session model
                 |> updateQuery
@@ -599,6 +610,7 @@ simulatorView session model =
                 , setDetailed = SetDetailedComponents
                 , title = "Production des composants"
                 , updateElementAmount = UpdateElementAmount
+                , updateItemCountry = UpdateComponentItemCountry
                 , updateItemName = UpdateComponentItemName
                 , updateItemQuantity = UpdateComponentItemQuantity
                 }

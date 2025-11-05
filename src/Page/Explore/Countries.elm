@@ -11,6 +11,7 @@ import Dict.Any as Dict
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Page.Explore.Table as Table exposing (Table)
+import Quantity
 import Route
 import Views.Format as Format
 import Views.Icon as Icon
@@ -114,6 +115,14 @@ distancesToRows countries countryCode transport rows =
 
 transportToRow : Country.Code -> List Country.Country -> Transport.Transport -> Html msg
 transportToRow countryCode countries transport =
+    let
+        formatDistance length =
+            if length == Quantity.zero then
+                span [ title "Non-applicable" ] [ text "N/A" ]
+
+            else
+                Format.km length
+    in
     tr []
         [ td
             [ Country.findByCode countryCode countries
@@ -122,7 +131,7 @@ transportToRow countryCode countries transport =
                 |> title
             ]
             [ text <| Country.codeToString countryCode ]
-        , td [] [ Format.km transport.air ]
-        , td [] [ Format.km transport.road ]
-        , td [] [ Format.km transport.sea ]
+        , td [] [ formatDistance transport.air ]
+        , td [] [ formatDistance transport.road ]
+        , td [] [ formatDistance transport.sea ]
         ]
