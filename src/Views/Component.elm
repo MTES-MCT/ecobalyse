@@ -155,17 +155,21 @@ componentView config itemIndex item { component, country, elements, quantity } i
     in
     List.concat
         [ [ tbody []
-                [ tr [ class "border-top" ]
-                    [ th [] []
-                    , th [ class "pb-0 fs-8 fw-normal text-muted" ] [ text "Quantité" ]
-                    , th [ class "pb-0 fs-8 fw-normal text-muted", colspan 2 ]
-                        [ div [ class "d-flex justify-content-between" ]
-                            [ span [] [ text "Nom du composant" ]
-                            , span [] [ text "Région" ]
+                [ if config.scope /= Scope.Textile then
+                    tr [ class "border-top" ]
+                        [ th [] []
+                        , th [ class "pb-0 fs-8 fw-normal text-muted" ] [ text "Quantité" ]
+                        , th [ class "pb-0 fs-8 fw-normal text-muted", colspan 2 ]
+                            [ div [ class "d-flex justify-content-between" ]
+                                [ span [] [ text "Nom du composant" ]
+                                , span [] [ text "Région" ]
+                                ]
                             ]
+                        , th [ colspan 3 ] []
                         ]
-                    , th [ colspan 3 ] []
-                    ]
+
+                  else
+                    tr [] [ td [ colspan 7 ] [] ]
                 , tr [ class "border-bottom" ]
                     [ th [ class "ps-2 pt-0 pb-2 align-middle", scope "col" ]
                         [ if config.customizable && config.maxItems /= Just 1 then
@@ -265,6 +269,38 @@ componentView config itemIndex item { component, country, elements, quantity } i
                    , tr [ class "bg-light border-top border-bottom" ]
                         [ th [] []
                         , th [ class "pb-1", colspan 6 ] [ text "Acheminement" ]
+                        ]
+                   , tr []
+                        [ td [] []
+                        , td [ class "py-2", colspan 2 ]
+                            (case
+                                ( country
+                                , config.query.assemblyCountry
+                                    |> Maybe.andThen
+                                        (\code ->
+                                            config.db.countries
+                                                |> Country.findByCode code
+                                                |> Result.toMaybe
+                                        )
+                                )
+                             of
+                                ( Just from, Just to ) ->
+                                    [ text "De "
+                                    , text from.name
+                                    , text " à "
+                                    , text to.name
+                                    ]
+
+                                ( Just from, Nothing ) ->
+                                    [ text "De ", text from.name ]
+
+                                ( Nothing, Just to ) ->
+                                    [ text "À destination de ", text to.name ]
+
+                                _ ->
+                                    [ text "Pas d'information précise d'acheminement, majoration" ]
+                            )
+                        , td [] [ text "plop" ]
                         ]
                    ]
 
