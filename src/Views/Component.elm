@@ -445,6 +445,8 @@ lifeCycleView ({ db, docsUrl, explorerRoute, maxItems, query, scope, title } as 
         , if not (List.isEmpty query.items) && List.member scope [ Scope.Object, Scope.Veli ] then
             div []
                 [ DownArrow.view [] []
+                , distributionView config lifeCycle
+                , DownArrow.view [] []
                 , endOfLifeView config lifeCycle
                 ]
 
@@ -763,6 +765,22 @@ assemblyView config lifeCycle =
                     , seaTransportLabel = Nothing
                     }
                 |> div []
+            ]
+        ]
+
+
+distributionView : Config db msg -> LifeCycle -> Html msg
+distributionView _ _ =
+    div [ class "card shadow-sm" ]
+        [ div [ class "card-header d-flex align-items-center justify-content-between" ]
+            [ h2 [ class "h5 mb-0" ]
+                [ text "Distribution" ]
+            , div [ class "d-flex align-items-center gap-2" ]
+                [ text "TODO"
+                ]
+            ]
+        , div [ class "card-body" ]
+            [ text "France"
             ]
         ]
 
