@@ -243,23 +243,30 @@ componentView config itemIndex item { component, country, elements, quantity } i
                 ]
           ]
         , if not collapsed then
-            List.map3
-                (elementView config ( component, itemIndex ))
-                (List.range 0 (List.length elements - 1))
-                elements
-                (Component.extractItems itemResults)
-
-          else
-            []
-        , if not collapsed then
-            [ tbody []
-                [ tr [ class "border-top" ]
-                    [ td [ colspan 7, class "pe-3" ]
-                        [ addElementButton config ( component, itemIndex )
-                        ]
-                    ]
+            tr [ class "bg-light border-bottom" ]
+                [ th [] []
+                , th [ class "pb-1", colspan 6 ] [ text "Composition" ]
                 ]
-            ]
+                :: (if List.isEmpty elements then
+                        [ tr [] [ th [] [], td [] [ text "Aucun élément" ] ] ]
+
+                    else
+                        List.map3
+                            (elementView config ( component, itemIndex ))
+                            (List.range 0 (List.length elements - 1))
+                            elements
+                            (Component.extractItems itemResults)
+                   )
+                ++ [ tr [ class "border-top" ]
+                        [ td [ colspan 7, class "pe-3" ]
+                            [ addElementButton config ( component, itemIndex )
+                            ]
+                        ]
+                   , tr [ class "bg-light border-top border-bottom" ]
+                        [ th [] []
+                        , th [ class "pb-1", colspan 6 ] [ text "Acheminement" ]
+                        ]
+                   ]
 
           else
             []
@@ -507,7 +514,7 @@ elementView config targetItem elementIndex { amount, country, material, transfor
                 materialResults_ :: transformsResults_ ->
                     ( materialResults_, transformsResults_ )
     in
-    tbody [ style "border-bottom" "1px solid #fff" ]
+    tbody []
         (tr [ class "fs-7 text-muted" ]
             [ th [] []
             , th [ class "align-middle", scope "col" ]
