@@ -68,10 +68,12 @@ class Process(CamelizedBaseStruct):
     id: UUID
     impacts: Impacts
     source: str
-    activity_name: Optional[str]
     unit: Unit
 
     # Optional fields
+
+    activity_name: Optional[str]
+    location: Optional[str]
     alias: Optional[str] = None
     density: float = 0
     elec_mj: float = msgspec.field(name="elecMJ", default=0)
