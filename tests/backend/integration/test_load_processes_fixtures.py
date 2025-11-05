@@ -56,6 +56,7 @@ async def test_load_processes(
             "tre": 5,
             "wtu": 5,
         },
+        "location": "GLO",
         "scopes": ["textile"],
         "source": "Custom",
         "unit": "kg",
