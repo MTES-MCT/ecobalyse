@@ -25,6 +25,7 @@ async def test_load_processes(
     initial_processes_nb = len(processes)
 
     new_process = {
+        "activityName": "test",
         "categories": ["transformation"],
         "comment": "",
         "density": 0,
@@ -55,9 +56,9 @@ async def test_load_processes(
             "tre": 5,
             "wtu": 5,
         },
+        "location": "GLO",
         "scopes": ["textile"],
         "source": "Custom",
-        "sourceId": "test",
         "unit": "kg",
         "waste": 0,
     }

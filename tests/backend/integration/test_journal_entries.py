@@ -49,7 +49,7 @@ async def test_processes_journal(
         assert response.status_code == 200
 
         assert len(json_response) == 1
-        assert json_response[0]["value"]["sourceId"] == raw_process["sourceId"]
+        assert json_response[0]["value"]["activityName"] == raw_process["activityName"]
         assert json_response[0]["value"]["impacts"] == raw_process["impacts"]
 
 

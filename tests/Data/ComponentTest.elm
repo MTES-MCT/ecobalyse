@@ -71,7 +71,7 @@ suite =
                 -- setup
                 chairBack
                 injectionMoulding
-                woodenBoard
+                wood
                 -- tests
                 (\testComponent validTransformProcess invalidTransformProcess ->
                     [ it "should add a valid transformation process to a component element"
@@ -292,7 +292,7 @@ suite =
                     (chair
                         |> Result.andThen (computeWithTestConfig db)
                         |> Result.map (.production >> extractEcsImpact)
-                        |> TestUtils.expectResultWithin (Expect.Absolute 1) 293
+                        |> TestUtils.expectResultWithin (Expect.Absolute 1) 276
                     )
                 , it "should compute results from decoded component items with custom component elements"
                     (""" [ {
@@ -302,7 +302,7 @@ suite =
                                "elements": [
                                  {
                                    "amount": 0.00044,
-                                   "material": "fe8a97ba-405a-5542-b1be-bd6983537d58",
+                                   "material": "17431e06-2973-516e-b043-be9ad405e4fb",
                                    "transforms": []
                                  }
                                ]
@@ -313,7 +313,7 @@ suite =
                          ]"""
                         |> decodeJsonThen (Decode.list Component.decodeItem) (computeWithTestConfig db)
                         |> Result.map (.production >> extractEcsImpact)
-                        |> TestUtils.expectResultWithin (Expect.Absolute 1) 314
+                        |> TestUtils.expectResultWithin (Expect.Absolute 1) 282
                     )
                 ]
             , describe "computeElementResults"
@@ -348,7 +348,7 @@ suite =
                         ]
                     )
                 , TestUtils.suiteFromResult2 "unit preservation"
-                    woodenBoard
+                    wood
                     sawing
                     (\materialInCubicMeters transformInCubicMeters ->
                         let
@@ -363,13 +363,13 @@ suite =
                             (results
                                 |> Result.map extractEcsImpact
                                 |> Result.withDefault 0
-                                |> Expect.within (Expect.Absolute 1) 72711
+                                |> Expect.within (Expect.Absolute 1) 38342
                             )
                         , it "should compute mass according on material unit"
                             (results
                                 |> Result.map (Component.extractMass >> Mass.inKilograms)
                                 |> Result.withDefault 0
-                                |> Expect.within (Expect.Absolute 1) 600
+                                |> Expect.within (Expect.Absolute 1) 660
                             )
                         ]
                     )
@@ -432,7 +432,7 @@ suite =
                               "elements": [
                                 {
                                   "amount": 0.00044,
-                                  "material": "fe8a97ba-405a-5542-b1be-bd6983537d58"
+                                  "material": "17431e06-2973-516e-b043-be9ad405e4fb"
                                 }
                               ]
                             }
@@ -459,7 +459,7 @@ suite =
                         "elements": [
                           {
                             "amount": 0.00044,
-                            "material": "fe8a97ba-405a-5542-b1be-bd6983537d58"
+                            "material": "17431e06-2973-516e-b043-be9ad405e4fb"
                           }
                         ]
                       }
@@ -494,7 +494,7 @@ suite =
                         "elements": [
                           {
                             "amount": 0.00044,
-                            "material": "fe8a97ba-405a-5542-b1be-bd6983537d58"
+                            "material": "17431e06-2973-516e-b043-be9ad405e4fb"
                           },
                           {
                             "amount": 0.00088,
@@ -509,7 +509,7 @@ suite =
                 (\string ->
                     [ it "should serialise an item as a human readable string representation"
                         (Expect.equal string
-                            "1 Custom piece [ 0.00044m3 Planche (bois de feuillus) | 0.00088kg Plastique granulé (PP) ]"
+                            "1 Custom piece [ 0.00044m3 Bois d'oeuvre (Feuillus / Hêtre) | 0.00088kg Plastique granulé (PP) ]"
                         )
                     ]
                 )
@@ -901,7 +901,7 @@ setupTestDb db =
             RE.combine
                 [ steel
                 , injectionMoulding
-                , woodenBoard
+                , wood
                 , plastic
                 , sawing
                 ]
@@ -952,7 +952,7 @@ chairLeg =
                 "elements": [
                 {
                     "amount": 0.00022,
-                    "material": "fe8a97ba-405a-5542-b1be-bd6983537d58"
+                    "material": "17431e06-2973-516e-b043-be9ad405e4fb"
                 }
                 ],
                 "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
@@ -1016,6 +1016,7 @@ injectionMoulding : Result String Process
 injectionMoulding =
     decodeJson (Process.decode Impact.decodeImpacts) <|
         """ {
+                "activityName": "injection moulding//[RER] injection moulding",
                 "categories": ["transformation", "material_type:plastic"],
                 "comment": "",
                 "density": 0,
@@ -1026,7 +1027,7 @@ injectionMoulding =
                 "impacts": {
                     "acd": 0,
                     "cch": 0,
-                    "ecs": 75.9018,
+                    "ecs": 67.739,
                     "etf": 0,
                     "etf-c": 0,
                     "fru": 0,
@@ -1040,15 +1041,15 @@ injectionMoulding =
                     "mru": 0,
                     "ozd": 0,
                     "pco": 0,
-                    "pef": 81.8084,
+                    "pef": 71.513,
                     "pma": 0,
                     "swe": 0,
                     "tre": 0,
                     "wtu": 0
                 },
-                "scopes": ["object"],
+                "location": "RER",
+                "scopes": ["object", "veli"],
                 "source": "Ecoinvent 3.9.1",
-                "sourceId": "injection moulding//[RER] injection moulding",
                 "unit": "kg",
                 "waste": 0.006
             }
@@ -1059,6 +1060,7 @@ plastic : Result String Process
 plastic =
     decodeJson (Process.decode Impact.decodeImpacts) <|
         """ {
+                "activityName": "polypropylene, granulate//[RER] polypropylene production, granulate",
                 "categories": ["material", "material_type:plastic"],
                 "comment": "",
                 "density": 0,
@@ -1069,7 +1071,7 @@ plastic =
                 "impacts": {
                     "acd": 0,
                     "cch": 0,
-                    "ecs": 165.71,
+                    "ecs": 164.69,
                     "etf": 0,
                     "etf-c": 0,
                     "fru": 0,
@@ -1083,15 +1085,15 @@ plastic =
                     "mru": 0,
                     "ozd": 0,
                     "pco": 0,
-                    "pef": 192.164,
+                    "pef": 190.88,
                     "pma": 0,
                     "swe": 0,
                     "tre": 0,
                     "wtu": 0
                 },
+                "location": "RER",
                 "scopes": ["object"],
                 "source": "Ecoinvent 3.9.1",
-                "sourceId": "polypropylene, granulate//[RER] polypropylene production, granulate",
                 "unit": "kg",
                 "waste": 0
             }
@@ -1102,8 +1104,9 @@ sawing : Result String Process
 sawing =
     decodeJson (Process.decode Impact.decodeImpacts) <|
         """ {
+                "activityName": "Sawing + kiln drying in Europe (wood), constructed by Ecobalyse",
                 "categories": ["transformation", "material_type:wood"],
-                "comment": "added by Ecobalyse",
+                "comment": "",
                 "density": 0,
                 "displayName": "Sciage + séchage au four en Europe (bois)",
                 "elecMJ": 0,
@@ -1112,7 +1115,7 @@ sawing =
                 "impacts": {
                     "acd": 0,
                     "cch": 0,
-                    "ecs": 12732.2,
+                    "ecs": 12732.0,
                     "etf": 0,
                     "etf-c": 0,
                     "fru": 0,
@@ -1126,15 +1129,15 @@ sawing =
                     "mru": 0,
                     "ozd": 0,
                     "pco": 0,
-                    "pef": 13736.8,
+                    "pef": 13737.0,
                     "pma": 0,
                     "swe": 0,
                     "tre": 0,
                     "wtu": 0
                 },
+                "location": "GLO",
                 "scopes": ["object"],
                 "source": "Ecobalyse",
-                "sourceId": "Sawing + kiln drying in Europe (wood), constructed by Ecobalyse",
                 "unit": "m3",
                 "waste": 0.5
             }
@@ -1145,17 +1148,18 @@ steel : Result String Process
 steel =
     decodeJson (Process.decode Impact.decodeImpacts) <|
         """ {
+                "activityName": "steel, low-alloyed//[GLO] market for steel, low-alloyed",
                 "categories": ["material", "material_type:metal"],
                 "comment": "",
                 "density": 0,
-                "displayName": "Acier",
+                "displayName": "Acier (faiblement allié)",
                 "elecMJ": 0,
                 "heatMJ": 0,
                 "id": "6527710e-2434-5347-9bef-2205e0aa4f66",
                 "impacts": {
                     "acd": 0,
                     "cch": 0,
-                    "ecs": 172.483,
+                    "ecs": 160.04,
                     "etf": 0,
                     "etf-c": 0,
                     "fru": 0,
@@ -1169,36 +1173,37 @@ steel =
                     "mru": 0,
                     "ozd": 0,
                     "pco": 0,
-                    "pef": 201.311,
+                    "pef": 185.62,
                     "pma": 0,
                     "swe": 0,
                     "tre": 0,
                     "wtu": 0
                 },
-                "scopes": ["object"],
+                "location": "GLO",
+                "scopes": ["textile"],
                 "source": "Ecoinvent 3.9.1",
-                "sourceId": "steel, low-alloyed//[GLO] market for steel, low-alloyed",
                 "unit": "kg",
                 "waste": 0
             }
         """
 
 
-woodenBoard : Result String Process
-woodenBoard =
+wood : Result String Process
+wood =
     decodeJson (Process.decode Impact.decodeImpacts) <|
         """ {
+                "activityName": "sawlog and veneer log, hardwood, measured as solid wood under bark//[DE] hardwood forestry, beech, sustainable forest management",
                 "categories": ["material", "material_type:wood"],
                 "comment": "",
-                "density": 600.0,
-                "displayName": "Planche (bois de feuillus)",
+                "density": 660.0,
+                "displayName": "Bois d'oeuvre (Feuillus / Hêtre)",
                 "elecMJ": 0,
                 "heatMJ": 0,
-                "id": "fe8a97ba-405a-5542-b1be-bd6983537d58",
+                "id": "17431e06-2973-516e-b043-be9ad405e4fb",
                 "impacts": {
                     "acd": 0,
                     "cch": 0,
-                    "ecs": 23623.4,
+                    "ecs": 6439.2,
                     "etf": 0,
                     "etf-c": 0,
                     "fru": 0,
@@ -1212,15 +1217,15 @@ woodenBoard =
                     "mru": 0,
                     "ozd": 0,
                     "pco": 0,
-                    "pef": 27337.4,
+                    "pef": 7557.5,
                     "pma": 0,
                     "swe": 0,
                     "tre": 0,
                     "wtu": 0
                 },
-                "scopes": ["object"],
+                "location": "DE",
+                "scopes": ["object", "veli"],
                 "source": "Ecoinvent 3.9.1",
-                "sourceId": "sawnwood, board, hardwood, dried (u=10%), planed//[Europe without Switzerland] market for sawnwood, board, hardwood, dried (u=10%), planed",
                 "unit": "m3",
                 "waste": 0
             }

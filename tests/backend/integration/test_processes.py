@@ -144,6 +144,7 @@ async def test_detailed_process_access(
     json_response = response.json()
 
     assert json_response == {
+        "activityName": "This process is not linked to a Brightway activity",
         "alias": None,
         "categories": ["transformation"],
         "comment": "corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-impression-pigmentaire.",
@@ -175,9 +176,9 @@ async def test_detailed_process_access(
             "tre": 5.0,
             "wtu": 5.0,
         },
+        "location": "GLO",
         "scopes": ["textile"],
         "source": "Custom",
-        "sourceId": "Impression (pigmentaire)",
         "unit": "kg",
         "waste": 0.0,
     }
@@ -228,6 +229,7 @@ async def test_processes_access(
     json_response = response.json()
 
     assert json_response[1] == {
+        "activityName": "This process is not linked to a Brightway activity",
         "alias": None,
         "categories": ["transformation"],
         "comment": "corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-impression-pigmentaire.",
@@ -259,9 +261,9 @@ async def test_processes_access(
             "tre": 5.0,
             "wtu": 5.0,
         },
+        "location": "GLO",
         "scopes": ["textile"],
         "source": "Custom",
-        "sourceId": "Impression (pigmentaire)",
         "unit": "kg",
         "waste": 0.0,
     }

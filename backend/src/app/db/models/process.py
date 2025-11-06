@@ -39,9 +39,10 @@ class Process(UUIDAuditBase):
         default=[],
     )
     source: Mapped[str]
-    source_id: Mapped[str] = mapped_column(String, nullable=False)
+    activity_name: Mapped[str] = mapped_column(String, nullable=False)
 
     unit: Mapped[Unit] = mapped_column(Enum(Unit, values_callable=get_enum_values))
+    location: Mapped[Optional[str]] = mapped_column(String, nullable=True)
     waste: Mapped[float] = mapped_column(Float, nullable=False, default=0)
 
     # -----------
