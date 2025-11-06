@@ -349,6 +349,7 @@ bookmarkView cfg ({ name, query, version } as bookmark) =
             button
                 [ type_ "submit"
                 , class "btn btn-sm btn-success"
+                , style "max-width" "30px"
                 , title "Sauvegarder la simulation dans le stockage local du navigateur"
                 , onClick cfg.rename
                 ]
