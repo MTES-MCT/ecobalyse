@@ -63,7 +63,7 @@ def fx_raw_processes() -> list[dict[str, Any]]:
                 "tre": 5,
                 "wtu": 5,
             },
-            "location": None,
+            "location": "GLO",
             "scopes": ["textile"],
             "source": "Custom",
             "unit": "kg",
