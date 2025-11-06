@@ -322,7 +322,7 @@ bookmarkView cfg ({ name, query, version } as bookmark) =
             ( True, Just renamedBookmark ) ->
                 input
                     [ type_ "text"
-                    , class "form-control-sm"
+                    , class "form-control form-control-sm"
                     , onInput (cfg.updateRenamedBookmarkName bookmark)
                     , placeholder "Nom de la simulation"
                     , value renamedBookmark.name
