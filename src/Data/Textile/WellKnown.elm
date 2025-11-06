@@ -108,11 +108,11 @@ load processes =
         -- dyeingCellulosic
         |> fromIdString "c49a5379-95c4-599a-84da-b5faaa345b97"
         -- dyeingProcessAverage
-        |> fromIdString "b7fa51fc-0421-57b0-bb0a-e0573e293c7a"
+        |> fromIdString "4165fe59-46a6-5364-af5e-913b9fea64eb"
         -- dyeingProcessContinuous
-        |> fromIdString "c8be445c-ae33-5240-9007-e7973e97fc24"
+        |> fromIdString "228dd299-6e93-5b47-904d-459c7c13fde8"
         -- dyeingProcessDiscontinuous
-        |> fromIdString "7e17b44d-108a-504f-9e0d-0cfe5b5db054"
+        |> fromIdString "ec8768ff-e99f-5b92-aab1-d1c9c3fc4025"
         -- dyeingSynthetic
         |> fromIdString "e5e43c57-bd12-5ab7-8a22-7d12cdcece58"
         -- elecMediumTensionAsia
