@@ -12,7 +12,7 @@ module Data.Dataset exposing
     )
 
 import Data.Component as Component
-import Data.Country as Country
+import Data.Country.Code as CountryCode
 import Data.Food.Ingredient as Ingredient
 import Data.Impact.Definition as Definition
 import Data.Process as Process
@@ -30,7 +30,7 @@ It's used by Page.Explore and related routes.
 -}
 type Dataset
     = Components Scope (Maybe Component.Id)
-    | Countries (Maybe Country.Code)
+    | Countries (Maybe CountryCode.Code)
     | FoodExamples (Maybe Uuid)
     | FoodIngredients (Maybe Ingredient.Id)
     | Impacts (Maybe Definition.Trigram)
@@ -283,7 +283,7 @@ setIdFromString idString dataset =
             Components scope (Component.idFromString idString |> Result.toMaybe)
 
         Countries _ ->
-            Countries (Just (Country.codeFromString idString))
+            Countries (Just (CountryCode.fromString idString))
 
         FoodExamples _ ->
             FoodExamples (idString |> Uuid.fromString |> Result.toMaybe)
@@ -365,7 +365,7 @@ toRoutePath dataset =
             [ slug dataset ]
 
         Countries (Just code) ->
-            [ slug dataset, Country.codeToString code ]
+            [ slug dataset, CountryCode.toString code ]
 
         Countries Nothing ->
             [ slug dataset ]

@@ -14,7 +14,7 @@ module Data.Transport exposing
     , totalKm
     )
 
-import Data.Country as Country
+import Data.Country.Code as CountryCode
 import Data.Food.WellKnown exposing (WellKnown)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Split as Split exposing (Split)
@@ -29,11 +29,11 @@ import Quantity
 
 
 type alias Distance =
-    AnyDict String Country.Code Transport
+    AnyDict String CountryCode.Code Transport
 
 
 type alias Distances =
-    AnyDict String Country.Code Distance
+    AnyDict String CountryCode.Code Distance
 
 
 type alias Transport =
@@ -172,8 +172,8 @@ roadSeaTransportRatio { road, sea } =
 
 getTransportBetween :
     Impacts
-    -> Country.Code
-    -> Country.Code
+    -> CountryCode.Code
+    -> CountryCode.Code
     -> Distances
     -> Transport
 getTransportBetween impacts cA cB distances =
@@ -232,8 +232,8 @@ decodeDistance : Decoder Distance
 decodeDistance =
     -- FIXME: Ideally we want to check for available country codes
     Dict.decode
-        (\str _ -> Country.codeFromString str)
-        Country.codeToString
+        (\str _ -> CountryCode.fromString str)
+        CountryCode.toString
         decode
 
 
@@ -241,6 +241,6 @@ decodeDistances : Decoder Distances
 decodeDistances =
     -- FIXME: Ideally we want to check for available country codes
     Dict.decode
-        (\str _ -> Country.codeFromString str)
-        Country.codeToString
+        (\str _ -> CountryCode.fromString str)
+        CountryCode.toString
         decodeDistance

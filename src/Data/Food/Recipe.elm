@@ -24,6 +24,7 @@ module Data.Food.Recipe exposing
     )
 
 import Data.Country as Country exposing (Country)
+import Data.Country.Code as CountryCode
 import Data.Food.EcosystemicServices as EcosystemicServices exposing (EcosystemicServices)
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Origin as Origin
@@ -51,9 +52,9 @@ import String.Extra as SE
 import Volume exposing (Volume)
 
 
-france : Country.Code
+france : CountryCode.Code
 france =
-    Country.codeFromString "FR"
+    CountryCode.fromString "FR"
 
 
 type alias Packaging =
@@ -373,7 +374,7 @@ computeIngredientTransport db { country, ingredient, mass, planeTransport } =
             -- [transport documentation](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)
             case country of
                 Just { code } ->
-                    if code /= Country.codeFromString "FR" then
+                    if code /= CountryCode.fromString "FR" then
                         Transport.addRoadWithCooling (Length.kilometers 500) (ingredient.transportCooling == Ingredient.AlwaysCool) t
 
                     else

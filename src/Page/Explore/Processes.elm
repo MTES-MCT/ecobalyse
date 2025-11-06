@@ -1,5 +1,7 @@
 module Page.Explore.Processes exposing (table)
 
+import Data.Country as Country exposing (Country)
+import Data.Country.Code as CountryCode
 import Data.Dataset as Dataset
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
@@ -13,6 +15,7 @@ import Energy
 import Html exposing (..)
 import Page.Explore.Table as Table exposing (Column, Table)
 import Route
+import Static.Db exposing (Db)
 import Views.Format as Format
 
 
@@ -22,12 +25,12 @@ table session { detailed, scope } =
     , toId = .id >> Process.idToString
     , toRoute = .id >> Just >> Dataset.Processes scope >> Route.Explore scope
     , legend = []
-    , columns = baseColumns detailed scope ++ impactsColumns session
+    , columns = baseColumns session.db detailed scope ++ impactsColumns session
     }
 
 
-baseColumns : Bool -> Scope -> List (Column Process String msg)
-baseColumns detailed scope =
+baseColumns : Db -> Bool -> Scope -> List (Column Process String msg)
+baseColumns db detailed scope =
     [ { label = "Identifiant"
       , toValue = Table.StringValue <| .id >> Process.idToString
       , toCell =
@@ -52,8 +55,8 @@ baseColumns detailed scope =
       , toCell = .source >> text
       }
     , { label = "Région"
-      , toValue = Table.StringValue <| .location >> Maybe.withDefault "N/A"
-      , toCell = .location >> Maybe.withDefault "N/A" >> text
+      , toValue = Table.StringValue <| getFullProcessLocation db.countries
+      , toCell = getFullProcessLocation db.countries >> text
       }
     , { label = "Catégories"
       , toValue =
@@ -108,3 +111,21 @@ impactsColumns session =
 
     else
         []
+
+
+getFullProcessLocation : List Country -> Process -> String
+getFullProcessLocation countries { location } =
+    case
+        location
+            |> Maybe.andThen
+                (\code ->
+                    countries
+                        |> Country.findByCode code
+                        |> Result.toMaybe
+                )
+    of
+        Just { name, code } ->
+            name ++ " (" ++ CountryCode.toString code ++ ")"
+
+        Nothing ->
+            "N/A"

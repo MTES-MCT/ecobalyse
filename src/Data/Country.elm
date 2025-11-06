@@ -1,20 +1,15 @@
 module Data.Country exposing
     ( AquaticPollutionScenario(..)
-    , Code(..)
     , Country
-    , codeFromString
-    , codeToString
-    , decodeCode
     , decodeList
     , encode
-    , encodeCode
     , findByCode
     , getAquaticPollutionRatio
     , isEuropeOrTurkey
-    , unknownCountryCode
     , validateForScope
     )
 
+import Data.Country.Code as CountryCode exposing (Code)
 import Data.Process as Process exposing (Process)
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
@@ -23,10 +18,6 @@ import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
-
-
-type Code
-    = Code String
 
 
 type AquaticPollutionScenario
@@ -46,38 +37,23 @@ type alias Country =
     }
 
 
-codeFromString : String -> Code
-codeFromString =
-    Code
-
-
-codeToString : Code -> String
-codeToString (Code string) =
-    string
-
-
 findByCode : Code -> List Country -> Result String Country
 findByCode code =
     List.filter (.code >> (==) code)
         >> List.head
-        >> Result.fromMaybe ("Code pays invalide: " ++ codeToString code ++ ".")
+        >> Result.fromMaybe ("Code pays invalide: " ++ CountryCode.toString code ++ ".")
 
 
 decode : List Process -> Decoder Country
 decode processes =
     Decode.succeed Country
         |> Pipe.required "aquaticPollutionScenario" decodeAquaticPollutionScenario
-        |> Pipe.required "code" decodeCode
+        |> Pipe.required "code" CountryCode.decode
         |> Pipe.required "electricityProcessId" (Process.decodeFromId processes)
         |> Pipe.required "heatProcessId" (Process.decodeFromId processes)
         |> Pipe.required "name" Decode.string
         |> Pipe.optional "scopes" (Decode.list Scope.decode) [ Scope.Food, Scope.Textile ]
         |> Pipe.required "zone" Zone.decode
-
-
-decodeCode : Decoder Code
-decodeCode =
-    Decode.map Code Decode.string
 
 
 decodeList : List Process -> Decoder (List Country)
@@ -89,17 +65,12 @@ encode : Country -> Encode.Value
 encode v =
     Encode.object
         [ ( "aquaticPollutionScenario", v.aquaticPollutionScenario |> aquaticPollutionScenarioToString |> Encode.string )
-        , ( "code", encodeCode v.code )
+        , ( "code", CountryCode.encode v.code )
         , ( "electricityProcessId", v.electricityProcess.id |> Process.idToString |> Encode.string )
         , ( "heatProcessId", v.heatProcess.id |> Process.idToString |> Encode.string )
         , ( "name", Encode.string v.name )
         , ( "scopes", v.scopes |> Encode.list Scope.encode )
         ]
-
-
-encodeCode : Code -> Encode.Value
-encodeCode =
-    codeToString >> Encode.string
 
 
 decodeAquaticPollutionScenario : Decoder AquaticPollutionScenario
@@ -154,12 +125,7 @@ getAquaticPollutionRatio scenario =
 
 isEuropeOrTurkey : Country -> Bool
 isEuropeOrTurkey country =
-    country.zone == Zone.Europe || country.code == codeFromString "TR"
-
-
-unknownCountryCode : Code
-unknownCountryCode =
-    Code "---"
+    country.zone == Zone.Europe || country.code == CountryCode.fromString "TR"
 
 
 validateForScope : Scope -> List Country -> Code -> Result String Code
@@ -173,7 +139,7 @@ validateForScope scope countries countryCode =
 
                 else
                     "Le code pays "
-                        ++ codeToString countryCode
+                        ++ CountryCode.toString countryCode
                         ++ " n'est pas utilisable dans un contexte "
                         ++ Scope.toLabel scope
                         ++ "."

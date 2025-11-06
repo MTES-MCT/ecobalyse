@@ -17,7 +17,8 @@ import Data.Component as Component
         , TargetElement
         , TargetItem
         )
-import Data.Country as Country exposing (Country)
+import Data.Country exposing (Country)
+import Data.Country.Code as CountryCode
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Process as Process exposing (Process)
@@ -63,7 +64,7 @@ type alias Config db msg =
     , setDetailed : List Index -> msg
     , title : String
     , updateElementAmount : TargetElement -> Maybe Amount -> msg
-    , updateItemCountry : Index -> Maybe Country.Code -> msg
+    , updateItemCountry : Index -> Maybe CountryCode.Code -> msg
     , updateItemName : TargetItem -> String -> msg
     , updateItemQuantity : Index -> Quantity -> msg
     }
@@ -202,7 +203,7 @@ componentView config itemIndex item { component, country, elements, quantity } i
                                         (\( name, maybeCode ) ->
                                             option
                                                 [ maybeCode
-                                                    |> Maybe.map Country.codeToString
+                                                    |> Maybe.map CountryCode.toString
                                                     |> Maybe.withDefault ""
                                                     |> value
                                                 , selected <| Maybe.map .code country == maybeCode
@@ -218,7 +219,7 @@ componentView config itemIndex item { component, country, elements, quantity } i
                                                         Nothing
 
                                                      else
-                                                        Just <| Country.codeFromString str
+                                                        Just <| CountryCode.fromString str
                                                     )
                                         ]
                                 ]

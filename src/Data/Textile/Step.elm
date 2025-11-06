@@ -24,6 +24,7 @@ module Data.Textile.Step exposing
 
 import Area exposing (Area)
 import Data.Country as Country exposing (Country)
+import Data.Country.Code as CountryCode
 import Data.Impact as Impact exposing (Impacts)
 import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
@@ -494,7 +495,7 @@ airTransportDisabled : Step -> Bool
 airTransportDisabled { country, enabled, label } =
     not enabled
         || -- Note: disallow air transport from France to France at the Making step
-           (label == Label.Making && country.code == Country.codeFromString "FR")
+           (label == Label.Making && country.code == CountryCode.fromString "FR")
 
 
 airTransportRatioToString : Split -> String

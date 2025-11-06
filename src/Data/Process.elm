@@ -24,6 +24,7 @@ module Data.Process exposing
     )
 
 import Data.Common.DecodeUtils as DU
+import Data.Country.Code as CountryCode
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
 import Data.Process.Category as Category exposing (Category)
@@ -55,7 +56,7 @@ type alias Process =
     , heat : Energy
     , id : Id
     , impacts : Impacts
-    , location : Maybe String
+    , location : Maybe CountryCode.Code
     , scopes : List Scope
     , source : String
     , unit : Unit
@@ -131,7 +132,7 @@ decode impactsDecoder =
         |> Pipe.required "heatMJ" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "id" decodeId
         |> Pipe.required "impacts" impactsDecoder
-        |> Pipe.required "location" (Decode.maybe Decode.string)
+        |> DU.strictOptional "location" CountryCode.decode
         |> Pipe.required "scopes" (Decode.list Scope.decode)
         |> Pipe.required "source" Decode.string
         |> Pipe.required "unit" (Decode.string |> Decode.andThen (DE.fromResult << unitFromString))
@@ -141,8 +142,8 @@ decode impactsDecoder =
 encode : Process -> Encode.Value
 encode process =
     Encode.object
-        [  ( "activityName", encodeActivityName process.activityName ),
-        ( "categories", Encode.list Category.encode process.categories )
+        [ ( "activityName", encodeActivityName process.activityName )
+        , ( "categories", Encode.list Category.encode process.categories )
         , ( "comment", Encode.string process.comment )
         , ( "density", Encode.float process.density )
         , ( "displayName", EncodeExtra.maybe Encode.string process.displayName )
@@ -150,7 +151,7 @@ encode process =
         , ( "heatMJ", Encode.float (Energy.inMegajoules process.heat) )
         , ( "id", encodeId process.id )
         , ( "impacts", Impact.encode process.impacts )
-        , ( "location", EncodeExtra.maybe Encode.string process.location )
+        , ( "location", EncodeExtra.maybe CountryCode.encode process.location )
         , ( "scopes", process.scopes |> Encode.list Scope.encode )
         , ( "source", Encode.string process.source )
         , ( "unit", process.unit |> unitToString |> Encode.string )

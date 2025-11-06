@@ -1,6 +1,7 @@
 module Page.Explore.Countries exposing (table)
 
 import Data.Country as Country exposing (Country)
+import Data.Country.Code as CountryCode
 import Data.Dataset as Dataset
 import Data.Gitbook as Gitbook
 import Data.Process as Process
@@ -21,22 +22,22 @@ import Views.Link as Link
 table : Transport.Distances -> List Country.Country -> { detailed : Bool, scope : Scope } -> Table Country String msg
 table distances countries { detailed, scope } =
     { filename = "countries"
-    , toId = .code >> Country.codeToString
+    , toId = .code >> CountryCode.toString
     , toRoute = .code >> Just >> Dataset.Countries >> Route.Explore scope
     , legend = []
     , columns =
         List.filterMap identity
             [ Just
                 { label = "Code"
-                , toValue = Table.StringValue <| .code >> Country.codeToString
+                , toValue = Table.StringValue <| .code >> CountryCode.toString
                 , toCell =
                     \country ->
                         if detailed then
-                            code [] [ text (Country.codeToString country.code) ]
+                            code [] [ text (CountryCode.toString country.code) ]
 
                         else
                             a [ Route.href (Route.Explore scope (Dataset.Countries (Just country.code))) ]
-                                [ code [] [ text (Country.codeToString country.code) ] ]
+                                [ code [] [ text (CountryCode.toString country.code) ] ]
                 }
             , Just
                 { label = "Nom"
@@ -107,13 +108,13 @@ displayDistances countries distances country =
             text ""
 
 
-distancesToRows : List Country.Country -> Country.Code -> Transport.Transport -> List (Html msg) -> List (Html msg)
+distancesToRows : List Country.Country -> CountryCode.Code -> Transport.Transport -> List (Html msg) -> List (Html msg)
 distancesToRows countries countryCode transport rows =
     rows
         |> (::) (transportToRow countryCode countries transport)
 
 
-transportToRow : Country.Code -> List Country.Country -> Transport.Transport -> Html msg
+transportToRow : CountryCode.Code -> List Country.Country -> Transport.Transport -> Html msg
 transportToRow countryCode countries transport =
     let
         formatDistance length =
@@ -130,7 +131,7 @@ transportToRow countryCode countries transport =
                 |> Result.withDefault ""
                 |> title
             ]
-            [ text <| Country.codeToString countryCode ]
+            [ text <| CountryCode.toString countryCode ]
         , td [] [ formatDistance transport.air ]
         , td [] [ formatDistance transport.road ]
         , td [] [ formatDistance transport.sea ]

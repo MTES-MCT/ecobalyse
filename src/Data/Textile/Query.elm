@@ -26,7 +26,7 @@ import Base64
 import Data.Common.DecodeUtils as DU
 import Data.Common.EncodeUtils as EU
 import Data.Component as Component exposing (Item)
-import Data.Country as Country
+import Data.Country.Code as CountryCode
 import Data.Split as Split exposing (Split)
 import Data.Textile.Dyeing as Dyeing exposing (ProcessType)
 import Data.Textile.Economics as Economics
@@ -47,7 +47,7 @@ import Url.Parser as Parser exposing (Parser)
 
 
 type alias MaterialQuery =
-    { country : Maybe Country.Code
+    { country : Maybe CountryCode.Code
     , id : Material.Id
     , share : Split
     , spinning : Maybe Spinning
@@ -57,10 +57,10 @@ type alias MaterialQuery =
 type alias Query =
     { airTransportRatio : Maybe Split
     , business : Maybe Economics.Business
-    , countryDyeing : Maybe Country.Code
-    , countryFabric : Maybe Country.Code
-    , countryMaking : Maybe Country.Code
-    , countrySpinning : Maybe Country.Code
+    , countryDyeing : Maybe CountryCode.Code
+    , countryFabric : Maybe CountryCode.Code
+    , countryMaking : Maybe CountryCode.Code
+    , countrySpinning : Maybe CountryCode.Code
     , disabledSteps : List Label
     , dyeingProcessType : Maybe ProcessType
     , fabricProcess : Maybe Fabric
@@ -145,10 +145,10 @@ decode =
     Decode.succeed Query
         |> DU.strictOptional "airTransportRatio" Split.decodeFloat
         |> DU.strictOptional "business" Economics.decodeBusiness
-        |> DU.strictOptional "countryDyeing" Country.decodeCode
-        |> DU.strictOptional "countryFabric" Country.decodeCode
-        |> DU.strictOptional "countryMaking" Country.decodeCode
-        |> DU.strictOptional "countrySpinning" Country.decodeCode
+        |> DU.strictOptional "countryDyeing" CountryCode.decode
+        |> DU.strictOptional "countryFabric" CountryCode.decode
+        |> DU.strictOptional "countryMaking" CountryCode.decode
+        |> DU.strictOptional "countrySpinning" CountryCode.decode
         |> Pipe.optional "disabledSteps" (Decode.list Label.decodeFromCode) []
         |> DU.strictOptional "dyeingProcessType" Dyeing.decode
         |> DU.strictOptional "fabricProcess" Fabric.decode
@@ -172,7 +172,7 @@ decode =
 decodeMaterialQuery : Decoder MaterialQuery
 decodeMaterialQuery =
     Decode.succeed MaterialQuery
-        |> DU.strictOptional "country" Country.decodeCode
+        |> DU.strictOptional "country" CountryCode.decode
         |> Pipe.required "id" Material.decodeId
         |> Pipe.required "share" Split.decodeFloat
         |> DU.strictOptional "spinning" Spinning.decode
@@ -183,10 +183,10 @@ encode query =
     EU.optionalPropertiesObject
         [ ( "airTransportRatio", query.airTransportRatio |> Maybe.map Split.encodeFloat )
         , ( "business", query.business |> Maybe.map Economics.encodeBusiness )
-        , ( "countryDyeing", query.countryDyeing |> Maybe.map Country.encodeCode )
-        , ( "countryFabric", query.countryFabric |> Maybe.map Country.encodeCode )
-        , ( "countryMaking", query.countryMaking |> Maybe.map Country.encodeCode )
-        , ( "countrySpinning", query.countrySpinning |> Maybe.map Country.encodeCode )
+        , ( "countryDyeing", query.countryDyeing |> Maybe.map CountryCode.encode )
+        , ( "countryFabric", query.countryFabric |> Maybe.map CountryCode.encode )
+        , ( "countryMaking", query.countryMaking |> Maybe.map CountryCode.encode )
+        , ( "countrySpinning", query.countrySpinning |> Maybe.map CountryCode.encode )
         , ( "disabledSteps"
           , case query.disabledSteps of
                 [] ->
@@ -218,7 +218,7 @@ encode query =
 encodeMaterialQuery : MaterialQuery -> Encode.Value
 encodeMaterialQuery v =
     EU.optionalPropertiesObject
-        [ ( "country", v.country |> Maybe.map Country.encodeCode )
+        [ ( "country", v.country |> Maybe.map CountryCode.encode )
         , ( "id", Material.encodeId v.id |> Just )
         , ( "share", Split.encodeFloat v.share |> Just )
         , ( "spinning", v.spinning |> Maybe.map Spinning.encode )
@@ -366,11 +366,11 @@ updateProduct product query =
         query
 
 
-updateStepCountry : Label -> Country.Code -> Query -> Query
+updateStepCountry : Label -> CountryCode.Code -> Query -> Query
 updateStepCountry label code query =
     let
         maybeCode =
-            if code == Country.unknownCountryCode then
+            if code == CountryCode.unknown then
                 Nothing
 
             else
@@ -434,10 +434,10 @@ default =
     -- Note: the default query doesn't have any materials
     { airTransportRatio = Nothing
     , business = Nothing
-    , countryDyeing = Just (Country.Code "CN")
-    , countryFabric = Just (Country.Code "CN")
-    , countryMaking = Just (Country.Code "CN")
-    , countrySpinning = Just (Country.Code "CN")
+    , countryDyeing = Just (CountryCode.Code "CN")
+    , countryFabric = Just (CountryCode.Code "CN")
+    , countryMaking = Just (CountryCode.Code "CN")
+    , countrySpinning = Just (CountryCode.Code "CN")
     , disabledSteps = []
     , dyeingProcessType = Nothing
     , fabricProcess = Nothing

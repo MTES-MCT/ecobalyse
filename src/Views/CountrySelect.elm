@@ -1,6 +1,7 @@
 module Views.CountrySelect exposing (view)
 
-import Data.Country as Country exposing (Country)
+import Data.Country exposing (Country)
+import Data.Country.Code as CountryCode
 import Data.Scope as Scope exposing (Scope)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -10,9 +11,9 @@ import Html.Events exposing (..)
 type alias Config msg =
     { attributes : List (Attribute msg)
     , countries : List Country
-    , onSelect : Country.Code -> msg
+    , onSelect : CountryCode.Code -> msg
     , scope : Scope
-    , selectedCountry : Country.Code
+    , selectedCountry : CountryCode.Code
     }
 
 
@@ -25,13 +26,13 @@ view { attributes, countries, onSelect, scope, selectedCountry } =
             (\{ code, name } ->
                 option
                     [ selected (selectedCountry == code)
-                    , value <| Country.codeToString code
+                    , value <| CountryCode.toString code
                     ]
                     [ text name ]
             )
         |> select
             (class
                 "form-select"
-                :: onInput (Country.codeFromString >> onSelect)
+                :: onInput (CountryCode.fromString >> onSelect)
                 :: attributes
             )

@@ -1,7 +1,7 @@
 module Server.RouteTest exposing (..)
 
 import Data.Component as Component
-import Data.Country as Country
+import Data.Country.Code as CountryCode
 import Data.Example as Example
 import Data.Food.Preparation as Preparation
 import Data.Food.Query as FoodQuery
@@ -71,7 +71,7 @@ foodEndpoints db =
                 , FoodQuery.encode
                     { royalPizza
                         | ingredients =
-                            royalPizza.ingredients |> List.map (\i -> { i | country = Just <| Country.Code "XX" })
+                            royalPizza.ingredients |> List.map (\i -> { i | country = Just <| CountryCode.Code "XX" })
                     }
                     |> testFoodEndpoint db
                     |> expectFoodValidationError "ingredients" "Code pays invalide: XX."
@@ -79,7 +79,7 @@ foodEndpoints db =
                 , FoodQuery.encode
                     { royalPizza
                         | ingredients =
-                            royalPizza.ingredients |> List.map (\i -> { i | country = Just <| Country.Code "BD" })
+                            royalPizza.ingredients |> List.map (\i -> { i | country = Just <| CountryCode.Code "BD" })
                     }
                     |> testFoodEndpoint db
                     |> expectFoodValidationError "ingredients" "Le code pays BD n'est pas utilisable dans un contexte Alimentaire."
@@ -168,7 +168,7 @@ textileEndpoints db =
             (\query ->
                 [ TextileQuery.encode
                     { query
-                        | countrySpinning = Just (Country.Code "invalid")
+                        | countrySpinning = Just (CountryCode.Code "invalid")
                     }
                     |> testTextileEndpoint db
                     |> expectTextileValidationError "countrySpinning" "Code pays invalide: invalid."
@@ -186,7 +186,7 @@ textileEndpoints db =
                             [ { id = decodedId
                               , share = Split.full
                               , spinning = Nothing
-                              , country = Just (Country.Code "invalid")
+                              , country = Just (CountryCode.Code "invalid")
                               }
                             ]
                     }
@@ -240,7 +240,7 @@ textileEndpoints db =
                             [ { id = decodedId
                               , share = Split.full
                               , spinning = Nothing
-                              , country = Just (Country.Code "NotACountryCode")
+                              , country = Just (CountryCode.Code "NotACountryCode")
                               }
                             ]
                     }
@@ -254,7 +254,7 @@ textileEndpoints db =
             (\query ->
                 [ TextileQuery.encode
                     { query
-                        | countryDyeing = Just <| Country.Code "US"
+                        | countryDyeing = Just <| CountryCode.Code "US"
                     }
                     |> testTextileEndpoint db
                     |> expectTextileValidationError "countryDyeing" "Le code pays US n'est pas utilisable dans un contexte Textile."

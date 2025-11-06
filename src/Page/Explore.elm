@@ -14,6 +14,7 @@ import Browser.Events
 import Browser.Navigation as Nav
 import Data.Component as Component exposing (Component)
 import Data.Country as Country exposing (Country)
+import Data.Country.Code as CountryCode
 import Data.Dataset as Dataset exposing (Dataset)
 import Data.Example as Example exposing (Example)
 import Data.Food.Db as FoodDb
@@ -263,7 +264,7 @@ countriesExplorer :
     -> Table.Config Country Msg
     -> SortableTable.State
     -> Scope
-    -> Maybe Country.Code
+    -> Maybe CountryCode.Code
     -> List (Html Msg)
 countriesExplorer { distances, countries } tableConfig tableState scope maybeCode =
     [ countries

@@ -80,6 +80,7 @@ import Data.Common.DecodeUtils as DU
 import Data.Common.EncodeUtils as EU
 import Data.Component.Config as Config exposing (EndOfLifeStrategies, EndOfLifeStrategy)
 import Data.Country as Country exposing (Country)
+import Data.Country.Code as CountryCode
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Trigram)
 import Data.Process as Process exposing (Process)
@@ -130,7 +131,7 @@ type alias EnergyMixes =
 and optional overrides, typically used for queries
 -}
 type alias Item =
-    { country : Maybe Country.Code
+    { country : Maybe CountryCode.Code
     , custom : Maybe Custom
     , id : Id
     , quantity : Quantity
@@ -435,7 +436,7 @@ compute requirements items =
         |> Result.map (computeEndOfLifeResults requirements)
 
 
-computeElementResults : DataContainer db -> Maybe Country.Code -> Element -> Result String Results
+computeElementResults : DataContainer db -> Maybe CountryCode.Code -> Element -> Result String Results
 computeElementResults db maybeCountry =
     expandElement db maybeCountry
         >> Result.andThen
@@ -643,7 +644,7 @@ decodeElement =
 decodeItem : Decoder Item
 decodeItem =
     Decode.succeed Item
-        |> DU.strictOptional "country" Country.decodeCode
+        |> DU.strictOptional "country" CountryCode.decode
         |> DU.strictOptional "custom" decodeCustom
         |> Decode.required "id" (Decode.map Id Uuid.decoder)
         |> Decode.required "quantity" decodeQuantity
@@ -778,7 +779,7 @@ encodeItem item =
     EU.optionalPropertiesObject
         [ ( "id", item.id |> idToString |> Encode.string |> Just )
         , ( "quantity", item.quantity |> quantityToInt |> Encode.int |> Just )
-        , ( "country", item.country |> Maybe.map Country.encodeCode )
+        , ( "country", item.country |> Maybe.map CountryCode.encode )
         , ( "custom", item.custom |> Maybe.map encodeCustom )
         ]
 
@@ -832,7 +833,7 @@ encodeResults maybeTrigram (Results results) =
 
 {-| Turn an Element to an ExpandedElement
 -}
-expandElement : DataContainer db -> Maybe Country.Code -> Element -> Result String ExpandedElement
+expandElement : DataContainer db -> Maybe CountryCode.Code -> Element -> Result String ExpandedElement
 expandElement { countries, processes } maybeCountry { amount, material, transforms } =
     Ok (ExpandedElement amount)
         |> RE.andMap (resolveCountry countries maybeCountry)
@@ -846,7 +847,7 @@ expandElement { countries, processes } maybeCountry { amount, material, transfor
 
 {-| Take a list of elements and resolve them with fully qualified processes
 -}
-expandElements : DataContainer db -> Maybe Country.Code -> List Element -> Result String (List ExpandedElement)
+expandElements : DataContainer db -> Maybe CountryCode.Code -> List Element -> Result String (List ExpandedElement)
 expandElements db maybeCountry =
     RE.combineMap (expandElement db maybeCountry)
 
@@ -875,7 +876,7 @@ expandItem ({ components, countries } as db) { country, custom, id, quantity } =
             )
 
 
-resolveCountry : List Country -> Maybe Country.Code -> Result String (Maybe Country)
+resolveCountry : List Country -> Maybe CountryCode.Code -> Result String (Maybe Country)
 resolveCountry countries maybeCode =
     case maybeCode of
         Just code ->

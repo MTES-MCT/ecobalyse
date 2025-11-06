@@ -1,6 +1,6 @@
 module Data.TransportTest exposing (..)
 
-import Data.Country as Country
+import Data.Country.Code as CountryCode
 import Data.Impact as Impact exposing (Impacts)
 import Data.Transport as Transport exposing (Transport, getTransportBetween)
 import Dict.Any as AnyDict
@@ -38,16 +38,16 @@ suite =
                         AnyDict.keys db.distances
                             |> List.member code
                             |> Expect.equal True
-                            |> asTest ("Country " ++ Country.codeToString code ++ " should have transports data available")
+                            |> asTest ("Country " ++ CountryCode.toString code ++ " should have transports data available")
                     )
                 |> describe "transports data availability checks"
             , describe "getTransportBetween"
                 [ db.distances
-                    |> Transport.getTransportBetween Impact.empty (Country.Code "FR") (Country.Code "CN")
+                    |> Transport.getTransportBetween Impact.empty (CountryCode.Code "FR") (CountryCode.Code "CN")
                     |> Expect.equal (franceChina Impact.empty)
                     |> asTest "should retrieve distance between two countries"
                 , db.distances
-                    |> Transport.getTransportBetween Impact.empty (Country.Code "CN") (Country.Code "FR")
+                    |> Transport.getTransportBetween Impact.empty (CountryCode.Code "CN") (CountryCode.Code "FR")
                     |> Expect.equal (franceChina Impact.empty)
                     |> asTest "should retrieve distance between two swapped countries"
                 , db.countries

@@ -17,6 +17,7 @@ module Data.Textile.Inputs exposing
 import Data.Common.EncodeUtils as EU
 import Data.Component as Component exposing (Item)
 import Data.Country as Country exposing (Country)
+import Data.Country.Code as CountryCode
 import Data.Impact as Impact
 import Data.Process as Process
 import Data.Split as Split exposing (Split)
@@ -151,10 +152,10 @@ fromQuery { countries, textile } query =
                 |> fromMaterialQuery textile.materials countries
 
         franceResult =
-            Country.findByCode (Country.Code "FR") countries
+            Country.findByCode (CountryCode.Code "FR") countries
 
         unknownCountryResult =
-            Country.findByCode Country.unknownCountryCode countries
+            Country.findByCode CountryCode.unknown countries
 
         mainMaterialCountry =
             materials_
@@ -248,9 +249,9 @@ toQuery inputs =
     }
 
 
-toQueryCountryCode : Country.Code -> Maybe Country.Code
+toQueryCountryCode : CountryCode.Code -> Maybe CountryCode.Code
 toQueryCountryCode c =
-    if c == Country.unknownCountryCode then
+    if c == CountryCode.unknown then
         Nothing
 
     else
@@ -481,7 +482,7 @@ getOutOfEuropeEOLComplement { mass, materials } =
          )
 
 
-computeMaterialTransport : Distances -> Country.Code -> MaterialInput -> Transport
+computeMaterialTransport : Distances -> CountryCode.Code -> MaterialInput -> Transport
 computeMaterialTransport distances nextCountryCode { country, material, share } =
     if share /= Split.zero then
         let
@@ -537,7 +538,7 @@ encode inputs =
 encodeMaterialInput : MaterialInput -> Encode.Value
 encodeMaterialInput v =
     EU.optionalPropertiesObject
-        [ ( "country", v.country |> Maybe.map (.code >> Country.encodeCode) )
+        [ ( "country", v.country |> Maybe.map (.code >> CountryCode.encode) )
         , ( "material", Material.encode v.material |> Just )
         , ( "share", Split.encodeFloat v.share |> Just )
         , ( "spinning", v.spinning |> Maybe.map Spinning.encode )
