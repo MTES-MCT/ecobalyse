@@ -322,7 +322,7 @@ bookmarkView cfg ({ name, query, version } as bookmark) =
             ( True, Just renamedBookmark ) ->
                 input
                     [ type_ "text"
-                    , class "form-control"
+                    , class "form-control-sm"
                     , onInput (cfg.updateRenamedBookmarkName bookmark)
                     , placeholder "Nom de la simulation"
                     , value renamedBookmark.name
@@ -349,7 +349,7 @@ bookmarkView cfg ({ name, query, version } as bookmark) =
             button
                 [ type_ "submit"
                 , class "btn btn-sm btn-success"
-                , title "Sauvegarder la simulation dans le stockage local au navigateur"
+                , title "Sauvegarder la simulation dans le stockage local du navigateur"
                 , onClick cfg.rename
                 ]
                 [ Icon.check ]

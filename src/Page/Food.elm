@@ -336,7 +336,7 @@ update ({ db, queries } as session) msg model =
                                 |> Session.renameBookmark bookmark
                             )
 
-                _ ->
+                Nothing ->
                     App.createUpdate session model
 
         Reset ->

@@ -365,7 +365,7 @@ update ({ navKey } as session) msg model =
                                 |> Session.renameBookmark bookmark
                             )
 
-                _ ->
+                Nothing ->
                     App.createUpdate session model
 
         ( SaveBookmark, _ ) ->

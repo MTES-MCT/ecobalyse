@@ -399,7 +399,7 @@ update ({ db, queries, navKey } as session) msg model =
                                 |> Session.renameBookmark bookmark
                             )
 
-                _ ->
+                Nothing ->
                     App.createUpdate session model
 
         ( Reset, _ ) ->
