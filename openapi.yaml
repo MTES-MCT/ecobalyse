@@ -402,7 +402,7 @@ components:
           description: "Changement climatique (kg éq. CO2)"
         ecs:
           type: number
-          description: "Score d'impacts (µPts d'impact)"
+          description: "Score d'impacts (Pts d'impact)"
         etf:
           type: number
           description: "Écotoxicité de l'eau douce (CTUe)"
