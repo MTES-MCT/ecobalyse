@@ -44,6 +44,7 @@ import Data.User as User2
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
+import List.Extra as LE
 import RemoteData exposing (WebData)
 import Request.BackendHttp.Error as BackendError
 import Request.Version exposing (Version)
@@ -142,14 +143,7 @@ renameBookmark bookmark =
             { store
                 | bookmarks =
                     store.bookmarks
-                        |> List.map
-                            (\b ->
-                                if b.query == bookmark.query then
-                                    bookmark
-
-                                else
-                                    b
-                            )
+                        |> LE.updateIf (.query >> (==) bookmark.query) (always bookmark)
             }
         )
 
