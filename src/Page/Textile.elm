@@ -120,6 +120,7 @@ type Msg
     | OpenComparator
     | RemoveMaterial Material.Id
     | RemoveTrim Index
+    | RenameBookmark
     | Reset
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
@@ -388,6 +389,18 @@ update ({ db, queries, navKey } as session) msg model =
         ( RemoveTrim itemIndex, _ ) ->
             App.createUpdate session model
                 |> updateQuery (query |> Query.updateTrims db.textile.products (LE.removeAt itemIndex))
+
+        ( RenameBookmark, _ ) ->
+            case model.bookmarkBeingRenamed of
+                Just bookmark ->
+                    { model | bookmarkBeingRenamed = Nothing }
+                        |> App.createUpdate
+                            (session
+                                |> Session.renameBookmark bookmark
+                            )
+
+                _ ->
+                    App.createUpdate session model
 
         ( Reset, _ ) ->
             App.createUpdate session model
@@ -1123,6 +1136,7 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                 , copyToClipBoard = CopyToClipBoard
                 , compareBookmarks = OpenComparator
                 , deleteBookmark = DeleteBookmark
+                , renameBookmark = RenameBookmark
                 , saveBookmark = SaveBookmark
                 , updateBookmarkName = UpdateBookmarkName
                 , updateRenamedBookmarkName = UpdateRenamedBookmarkName

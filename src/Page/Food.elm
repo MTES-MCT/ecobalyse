@@ -108,6 +108,7 @@ type Msg
     | OnAutocompleteSelect
     | OnStepClick String
     | OpenComparator
+    | RenameBookmark
     | Reset
     | ResetDistribution
     | ResetTransform
@@ -325,6 +326,18 @@ update ({ db, queries } as session) msg model =
             { model | modal = ComparatorModal }
                 |> App.createUpdate (session |> Session.checkComparedSimulations)
                 |> App.withCmds [ Plausible.send session <| Plausible.ComparatorOpened Scope.Food ]
+
+        RenameBookmark ->
+            case model.bookmarkBeingRenamed of
+                Just bookmark ->
+                    { model | bookmarkBeingRenamed = Nothing }
+                        |> App.createUpdate
+                            (session
+                                |> Session.renameBookmark bookmark
+                            )
+
+                _ ->
+                    App.createUpdate session model
 
         Reset ->
             App.createUpdate session model
@@ -1375,6 +1388,7 @@ sidebarView session model results =
         , copyToClipBoard = CopyToClipBoard
         , compareBookmarks = OpenComparator
         , deleteBookmark = DeleteBookmark
+        , renameBookmark = RenameBookmark
         , saveBookmark = SaveBookmark
         , updateBookmarkName = UpdateBookmarkName
         , updateRenamedBookmarkName = UpdateRenamedBookmarkName

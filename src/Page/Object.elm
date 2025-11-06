@@ -92,6 +92,7 @@ type Msg
     | RemoveComponentItem Int
     | RemoveElement TargetElement
     | RemoveElementTransform TargetElement Index
+    | RenameBookmark
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
     | SelectAllBookmarks
@@ -354,6 +355,18 @@ update ({ navKey } as session) msg model =
                             (Component.removeElementTransform targetElement transformIndex)
                     )
                 |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
+
+        ( RenameBookmark, _ ) ->
+            case model.bookmarkBeingRenamed of
+                Just bookmark ->
+                    { model | bookmarkBeingRenamed = Nothing }
+                        |> App.createUpdate
+                            (session
+                                |> Session.renameBookmark bookmark
+                            )
+
+                _ ->
+                    App.createUpdate session model
 
         ( SaveBookmark, _ ) ->
             App.createUpdate session model
@@ -667,6 +680,7 @@ simulatorView session model =
                 , copyToClipBoard = CopyToClipBoard
                 , compareBookmarks = OpenComparator
                 , deleteBookmark = DeleteBookmark
+                , renameBookmark = RenameBookmark
                 , saveBookmark = SaveBookmark
                 , updateBookmarkName = UpdateBookmarkName
                 , updateRenamedBookmarkName = UpdateRenamedBookmarkName

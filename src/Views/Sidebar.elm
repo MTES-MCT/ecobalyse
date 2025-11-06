@@ -24,6 +24,7 @@ type alias Config msg =
     , deleteBookmark : Bookmark -> msg
     , impactTabsConfig : Maybe (ImpactTabs.Config msg)
     , productMass : Mass
+    , renameBookmark : msg
     , saveBookmark : msg
     , scope : Scope
     , selectedImpact : Definition
@@ -77,6 +78,7 @@ view config =
             , copyToClipBoard = config.copyToClipBoard
             , delete = config.deleteBookmark
             , impact = config.selectedImpact
+            , rename = config.renameBookmark
             , save = config.saveBookmark
             , scope = config.scope
             , session = config.session

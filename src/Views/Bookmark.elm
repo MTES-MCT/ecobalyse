@@ -25,6 +25,7 @@ type alias ManagerConfig msg =
     , copyToClipBoard : String -> msg
     , delete : Bookmark -> msg
     , impact : Definition
+    , rename : msg
     , save : msg
     , scope : Scope
     , session : Session
@@ -349,6 +350,7 @@ bookmarkView cfg ({ name, query, version } as bookmark) =
                 [ type_ "submit"
                 , class "btn btn-sm btn-success"
                 , title "Sauvegarder la simulation dans le stockage local au navigateur"
+                , onClick cfg.rename
                 ]
                 [ Icon.check ]
 

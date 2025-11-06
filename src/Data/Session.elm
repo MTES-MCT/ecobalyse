@@ -16,6 +16,7 @@ module Data.Session exposing
     , logout
     , notifyBackendError
     , objectQueryFromScope
+    , renameBookmark
     , saveBookmark
     , selectAllBookmarks
     , selectNoBookmarks
@@ -130,6 +131,25 @@ deleteBookmark bookmark =
             { store
                 | bookmarks =
                     List.filter ((/=) bookmark) store.bookmarks
+            }
+        )
+
+
+renameBookmark : Bookmark -> Session -> Session
+renameBookmark bookmark =
+    updateStore
+        (\store ->
+            { store
+                | bookmarks =
+                    store.bookmarks
+                        |> List.map
+                            (\b ->
+                                if b.query == bookmark.query then
+                                    bookmark
+
+                                else
+                                    b
+                            )
             }
         )
 
