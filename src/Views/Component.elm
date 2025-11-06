@@ -25,6 +25,7 @@ import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split
+import Data.Transport as Transport
 import Data.Unit as Unit
 import Dict.Any as AnyDict
 import Html exposing (..)
@@ -270,42 +271,60 @@ componentView config itemIndex item { component, country, elements, quantity } i
                         [ th [] []
                         , th [ class "pb-1", colspan 6 ] [ text "Acheminement" ]
                         ]
-                   , tr []
-                        [ td [] []
-                        , td [ class "py-2", colspan 2 ]
-                            (case
-                                ( country
-                                , config.query.assemblyCountry
-                                    |> Maybe.andThen
-                                        (\code ->
-                                            config.db.countries
-                                                |> Country.findByCode code
-                                                |> Result.toMaybe
-                                        )
-                                )
-                             of
-                                ( Just from, Just to ) ->
-                                    [ text "De "
-                                    , text from.name
-                                    , text " à "
-                                    , text to.name
-                                    ]
-
-                                ( Just from, Nothing ) ->
-                                    [ text "De ", text from.name ]
-
-                                ( Nothing, Just to ) ->
-                                    [ text "À destination de ", text to.name ]
-
-                                _ ->
-                                    [ text "Pas d'information précise d'acheminement, majoration" ]
-                            )
-                        , td [] [ text "plop" ]
-                        ]
+                   , componentDistanceToAssembly config country
                    ]
 
           else
             []
+        ]
+
+
+componentDistanceToAssembly : Config db msg -> Maybe Country -> Html msg
+componentDistanceToAssembly { componentConfig, db, query } country =
+    let
+        ( label, transport ) =
+            case
+                ( country
+                , query.assemblyCountry
+                    |> Maybe.andThen
+                        (\code ->
+                            db.countries
+                                |> Country.findByCode code
+                                |> Result.toMaybe
+                        )
+                )
+            of
+                ( Just from, Just to ) ->
+                    ( if from == to then
+                        "→ " ++ from.name ++ " ←"
+
+                      else
+                        from.name ++ " → " ++ to.name
+                    , db.distances
+                        |> Transport.getTransportBetween Impact.empty from.code to.code
+                    )
+
+                ( Just from, Nothing ) ->
+                    ( from.name ++ " → ?"
+                    , componentConfig.transports.defaultDistance
+                    )
+
+                ( Nothing, Just to ) ->
+                    ( "? → " ++ to.name
+                    , componentConfig.transports.defaultDistance
+                    )
+
+                _ ->
+                    ( "? → ? (majoration)"
+                    , componentConfig.transports.defaultDistance
+                    )
+    in
+    tr []
+        [ td [] []
+        , td [ class "py-2", colspan 2 ]
+            [ text label ]
+        , td []
+            [ text "plop" ]
         ]
 
 
@@ -434,7 +453,9 @@ lifeCycleView ({ db, docsUrl, explorerRoute, maxItems, query, scope, title } as 
               else
                 addComponentButton config
             ]
-        , if (List.length query.items > 1) && List.member scope [ Scope.Object, Scope.Veli ] then
+
+        -- FIXME: test for List.length query.items > 1
+        , if List.member scope [ Scope.Object, Scope.Veli ] then
             div []
                 [ DownArrow.view [] []
                 , assemblyView config lifeCycle

@@ -42,9 +42,9 @@
   },
   "transports": {
     "defaultDistance": {
-      "air": 0,
-      "road": 0,
-      "sea": 0
+      "air": 10000,
+      "road": null,
+      "sea": 18000
     }
   }
 }
