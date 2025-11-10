@@ -4,6 +4,10 @@ hidden: true
 
 # 🏙️ Complément : santé humaine en zone très dense
 
+{% hint style="info" %}
+Ce complément est en court d'étude. La co-construction avec les acteurs devra permettre de confirmer ou non sa pertinence et de préciser le cas échéant son calcul.
+{% endhint %}
+
 ## Contexte
 
 La modélisation de la consommation de carburant inclut la modélisation des émissions de particules fines et autres polluants ayant un impact sur la santé humaine à une échelle locale.
