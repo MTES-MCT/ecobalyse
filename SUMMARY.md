@@ -264,7 +264,7 @@
 
 ## 🛺 Véhicules
 
-* [Cycle de vie](vehicules/cycle-de-vie/README.md)
+* [Cycle de vie des véhicules](vehicules/cycle-de-vie/README.md)
   * [🔧 Fabrication des composants](vehicules/cycle-de-vie/fabrication-des-composants/README.md)
     * [🔋 Batterie](vehicules/cycle-de-vie/fabrication-des-composants/batterie.md)
     * [⛓️ Autres composants, non quantifiés](vehicules/cycle-de-vie/fabrication-des-composants/autres-composants-non-quantifies.md)
@@ -285,7 +285,7 @@
   * [🛣️ Utilisation des infrastructures](vehicules/cycle-de-vie/utilisation-des-infrastructures.md)
   * [🛞 Usures des pneus et freins](vehicules/cycle-de-vie/usures-des-pneus-et-freins.md)
   * [🔧 Maintenance et remplacement de pièces](vehicules/cycle-de-vie/maintenance-et-remplacement-de-pieces.md)
-* [Calcul de la durabilité](vehicules/durabilite-physique.md)
+* [🔴 Durabilité des véhicules](vehicules/durabilite-des-vehicules.md)
 * [Draft - Paramétrage](vehicules/parametrage/README.md)
   * [Caractéristiques du véhicule](vehicules/parametrage/caracteristiques-du-vehicule.md)
 * [Draft - Exemples](vehicules/exemples.md)

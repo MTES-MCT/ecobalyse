@@ -8,7 +8,7 @@ Les véhicules sont décomposés en une série de composants.
 
 ### Composants quantifiés, hors batterie
 
-Ces composants sont modélisés comme des modules composant Ecobalyse. La méthode de calcul de l'impact de chaque composant est décrite dans la page de méthodes transverses <mark style="color:red;">Modélisation comme</mark> <mark style="color:red;"></mark><mark style="color:red;">`module composant Ecobalyse`</mark>.
+Ces composants sont modélisés comme des modules composant Ecobalyse. La méthode de calcul de l'impact de chaque composant est décrite dans la page de méthodes transverses [Composants](https://fabrique-numerique.gitbook.io/ecobalyse/~/revisions/RcGq1X8IQKWdYJnh42Mt/methodes-transverses-specifiques/composants).
 
 ### Batterie
 

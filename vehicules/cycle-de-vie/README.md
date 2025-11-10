@@ -4,7 +4,7 @@ description: >-
   catégories VAE et L1 à L7e. Ils sont entre le vélo et la voiture.
 ---
 
-# Cycle de vie
+# Cycle de vie des véhicules
 
 ## Objectif
 
@@ -59,19 +59,11 @@ Les étapes et analyses suivantes ne sont à ce stade pas prises en compte :
 [transport-vehicules.md](../../pages-en-cours-de-revue/transport/transport-vehicules.md)
 {% endcontent-ref %}
 
+{% content-ref url="assemblage.md" %}
+[assemblage.md](assemblage.md)
+{% endcontent-ref %}
+
 {% content-ref url="utilisation-du-vehicule/" %}
 [utilisation-du-vehicule](utilisation-du-vehicule/)
-{% endcontent-ref %}
-
-{% content-ref url="utilisation-des-infrastructures.md" %}
-[utilisation-des-infrastructures.md](utilisation-des-infrastructures.md)
-{% endcontent-ref %}
-
-{% content-ref url="usures-des-pneus-et-freins.md" %}
-[usures-des-pneus-et-freins.md](usures-des-pneus-et-freins.md)
-{% endcontent-ref %}
-
-{% content-ref url="maintenance-et-remplacement-de-pieces.md" %}
-[maintenance-et-remplacement-de-pieces.md](maintenance-et-remplacement-de-pieces.md)
 {% endcontent-ref %}
 
