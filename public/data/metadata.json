@@ -1,5 +1,222 @@
 [
   {
+    "alias": "elasthane",
+    "cff": null,
+    "defaultCountry": "CN",
+    "geographicOrigin": "Asie - Pacifique",
+    "id": "9973088b-c929-4cc5-894a-1e4d28c161d4",
+    "name": "Elasthane (Lycra)",
+    "origin": "Synthetic",
+    "primary": false,
+    "processId": "b2340802-bde9-56e4-984f-37110706225e",
+    "recycledFrom": null,
+    "scopes": ["textile"]
+  },
+  {
+    "alias": "ei-acrylique",
+    "cff": null,
+    "defaultCountry": "CN",
+    "geographicOrigin": "Asie - Pacifique",
+    "id": "49a0bec0-f9f3-42db-a514-a9dcf06a8969",
+    "name": "Acrylique",
+    "origin": "Synthetic",
+    "primary": false,
+    "processId": "89bd29cf-9ae0-5cf0-825d-8a6d4a73a34f",
+    "recycledFrom": null,
+    "scopes": ["textile"]
+  },
+  {
+    "alias": "ei-jute-kenaf",
+    "cff": null,
+    "defaultCountry": "CN",
+    "geographicOrigin": "Asie - Pacifique",
+    "id": "a09b2677-2900-4417-a202-e5f9a1abcce1",
+    "name": "Jute",
+    "origin": "NaturalFromVegetal",
+    "primary": false,
+    "processId": "8782714f-1332-589a-85ca-885c47f5e58b",
+    "recycledFrom": null,
+    "scopes": ["textile"]
+  },
+  {
+    "alias": "ei-pp",
+    "cff": null,
+    "defaultCountry": "FR",
+    "geographicOrigin": "Europe",
+    "id": "73ef624d-250e-4a9a-af5d-43505b21b527",
+    "name": "Polypropylène",
+    "origin": "Synthetic",
+    "primary": false,
+    "processId": "28a36af2-cca9-5baa-a83e-d01b2e52ced6",
+    "recycledFrom": null,
+    "scopes": ["textile"]
+  },
+  {
+    "alias": "ei-pet",
+    "cff": null,
+    "defaultCountry": "CN",
+    "geographicOrigin": "Asie - Pacifique",
+    "id": "9dba0e95-0c35-4f8b-9267-62ddf47d4984",
+    "name": "Polyester",
+    "origin": "Synthetic",
+    "primary": true,
+    "processId": "61bab541-9097-5680-9884-254c98f25d80",
+    "recycledFrom": null,
+    "scopes": ["textile"]
+  },
+  {
+    "alias": "ei-pet-r",
+    "cff": {
+      "manufacturerAllocation": 0.5,
+      "recycledQualityRatio": 1.0
+    },
+    "defaultCountry": "CN",
+    "geographicOrigin": "Asie - Pacifique",
+    "id": "8f44c680-1263-4588-b79b-a9e4dc3d8de4",
+    "name": "Polyester recyclé",
+    "origin": "Synthetic",
+    "primary": true,
+    "processId": "994efc14-cc89-526c-b9d0-0d6a99adbd4f",
+    "recycledFrom": "9dba0e95-0c35-4f8b-9267-62ddf47d4984",
+    "scopes": ["textile"]
+  },
+  {
+    "alias": "ei-pa",
+    "cff": null,
+    "defaultCountry": "FR",
+    "geographicOrigin": "Europe",
+    "id": "c84280ff-e921-4d5c-92d6-51030bf4f74e",
+    "name": "Nylon",
+    "origin": "Synthetic",
+    "primary": true,
+    "processId": "b2318c3f-6d7b-5d95-b201-6b95470db3b7",
+    "recycledFrom": null,
+    "scopes": ["textile"]
+  },
+  {
+    "alias": "ei-lin",
+    "cff": null,
+    "defaultCountry": "FR",
+    "geographicOrigin": "Europe",
+    "id": "a52e486c-b67e-40af-8337-e8143cbf9076",
+    "name": "Lin",
+    "origin": "NaturalFromVegetal",
+    "primary": true,
+    "processId": "b4e7353b-7963-5d88-b4bc-84bd925f5a86",
+    "recycledFrom": null,
+    "scopes": ["textile"]
+  },
+  {
+    "alias": "ei-laine-par-defaut",
+    "cff": null,
+    "defaultCountry": "CN",
+    "geographicOrigin": "Asie - Pacifique",
+    "id": "1fc3e17d-5661-429d-a150-7986eae16d9d",
+    "name": "Laine par défaut",
+    "origin": "NaturalFromAnimal",
+    "primary": false,
+    "processId": "3b45f504-83ac-5d0d-ab96-388850f3ef6f",
+    "recycledFrom": null,
+    "scopes": ["textile"]
+  },
+  {
+    "alias": "ei-laine-nouvelle-filiere",
+    "cff": null,
+    "defaultCountry": "CN",
+    "geographicOrigin": "Asie - Pacifique",
+    "id": "72e29a61-52a9-4eb5-b3fc-5fb87edea041",
+    "name": "Laine nouvelle filière",
+    "origin": "NaturalFromAnimal",
+    "primary": true,
+    "processId": "40ec17ee-6b44-5ee2-8fbc-559aed52764f",
+    "recycledFrom": null,
+    "scopes": ["textile"]
+  },
+  {
+    "alias": "ei-coton",
+    "cff": null,
+    "defaultCountry": "CN",
+    "geographicOrigin": "Asie - Pacifique",
+    "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
+    "name": "Coton",
+    "origin": "NaturalFromVegetal",
+    "primary": true,
+    "processId": "f0dbe27b-1e74-55d0-88a2-bda812441744",
+    "recycledFrom": null,
+    "scopes": ["textile"]
+  },
+  {
+    "alias": "ei-coton-organic",
+    "cff": null,
+    "defaultCountry": "CN",
+    "geographicOrigin": "Asie - Pacifique",
+    "id": "a1c1c2ec-33b1-49d6-bf8e-139e2eb7f097",
+    "name": "Coton biologique",
+    "origin": "NaturalFromVegetal",
+    "primary": true,
+    "processId": "ae34a9bc-36c5-5ffa-8520-150e219569fe",
+    "recycledFrom": null,
+    "scopes": ["textile"]
+  },
+  {
+    "alias": "ei-chanvre",
+    "cff": null,
+    "defaultCountry": "CN",
+    "geographicOrigin": "Asie - Pacifique",
+    "id": "0c1a4654-b030-4fe1-86b7-d96ce0b85bb8",
+    "name": "Chanvre",
+    "origin": "NaturalFromVegetal",
+    "primary": true,
+    "processId": "82aab465-3b46-52d2-9625-a68625a3f9fc",
+    "recycledFrom": null,
+    "scopes": ["textile"]
+  },
+  {
+    "alias": "ei-viscose",
+    "cff": null,
+    "defaultCountry": "CN",
+    "geographicOrigin": "Asie - Pacifique",
+    "id": "c087d394-5901-4b03-ba7a-7d4b0db0490c",
+    "name": "Viscose",
+    "origin": "ArtificialFromOrganic",
+    "primary": true,
+    "processId": "d60beb93-af80-56f5-84bf-71f5c76fd4a8",
+    "recycledFrom": null,
+    "scopes": ["textile"]
+  },
+  {
+    "alias": "coton-rdpc",
+    "cff": {
+      "manufacturerAllocation": 0.8,
+      "recycledQualityRatio": 0.5
+    },
+    "defaultCountry": "FR",
+    "geographicOrigin": "France",
+    "id": "457e9b0d-9eda-4dca-b199-deeb0a154fa9",
+    "name": "Coton recyclé (déchets post-consommation)",
+    "origin": "NaturalFromVegetal",
+    "primary": true,
+    "processId": "698746cf-6528-582e-a5e8-df4367bdb9e2",
+    "recycledFrom": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
+    "scopes": ["textile"]
+  },
+  {
+    "alias": "coton-rdp",
+    "cff": {
+      "manufacturerAllocation": 0.8,
+      "recycledQualityRatio": 0.5
+    },
+    "defaultCountry": "FR",
+    "geographicOrigin": "Espagne & France",
+    "id": "d3d20384-88fb-4c75-ac12-c647365ac6c5",
+    "name": "Coton recyclé (déchets de production)",
+    "origin": "NaturalFromVegetal",
+    "primary": true,
+    "processId": "7c1986fd-fb5c-53b9-8a7a-aea3650145eb",
+    "recycledFrom": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
+    "scopes": ["textile"]
+  },
+  {
     "activityName": "Egg, Bleu Blanc Coeur, outdoor system, at farm gate {FR} U",
     "alias": "egg-bleublanccoeur",
     "categories": ["animal_product", "bleublanccoeur"],
@@ -20,6 +237,7 @@
     "processId": "346a7b44-b666-582f-a3f1-aef98c55392a",
     "rawToCookedRatio": 0.974,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -44,6 +262,7 @@
     "processId": "af882009-fd6a-5f8f-a1fc-74a5f4c6d543",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -68,6 +287,7 @@
     "processId": "1782b099-df28-5c5f-b2e4-17ac2e60583e",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -91,6 +311,7 @@
     "processId": "aca17031-05bd-5cb4-8908-b85daa23a6c7",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -114,6 +335,7 @@
     "processId": "aca17031-05bd-5cb4-8908-b85daa23a6c7",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -137,6 +359,7 @@
     "processId": "aca17031-05bd-5cb4-8908-b85daa23a6c7",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -160,6 +383,7 @@
     "processId": "6f5dbce2-6d88-55c5-bb96-0c41de8b0072",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "once_transformed",
     "visible": true
   },
@@ -183,6 +407,7 @@
     "processId": "d78f41f4-fe75-5ee7-96e6-7a9d1352545c",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "once_transformed",
     "visible": true
   },
@@ -206,6 +431,7 @@
     "processId": "122b9612-09cb-5d1d-ba18-3d4e3809e509",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -229,6 +455,7 @@
     "processId": "90b5a0cb-1cb1-5acf-901f-506278b15d22",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -253,6 +480,7 @@
     "processId": "149ac87d-7e47-56c6-a39a-e6b5cf8dea56",
     "rawToCookedRatio": 0.792,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -277,6 +505,7 @@
     "processId": "ed2f34df-710f-52c8-9bf6-e42ab1d64dbe",
     "rawToCookedRatio": 0.792,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -301,6 +530,7 @@
     "processId": "62cce1fb-5980-52ff-bb1f-63fa756ca169",
     "rawToCookedRatio": 0.792,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -325,6 +555,7 @@
     "processId": "62dbf767-ba1a-5b4a-bcc9-52c013ce5922",
     "rawToCookedRatio": 0.792,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -349,6 +580,7 @@
     "processId": "4b796abf-97ec-5578-9d70-e781627bc90c",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -373,6 +605,7 @@
     "processId": "0ccbe554-2dd8-52b8-b3b5-744bf12bdc5f",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -397,6 +630,7 @@
     "processId": "25cb5ccb-5dde-52a9-b5ac-2125fdaa1a77",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -421,6 +655,7 @@
     "processId": "72e94715-bb24-59c1-8917-c4d00489c1fe",
     "rawToCookedRatio": 0.755,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -445,6 +680,7 @@
     "processId": "dd390137-4fa7-57b4-a0a6-bbda3a6585a8",
     "rawToCookedRatio": 0.755,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -469,6 +705,7 @@
     "processId": "633b4e77-9bc3-54aa-9dce-a9684ec52515",
     "rawToCookedRatio": 0.755,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": false
   },
@@ -492,6 +729,7 @@
     "processId": "543ad281-c288-5a2b-870b-8d918a21cbe0",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -515,6 +753,7 @@
     "processId": "8d2d6d07-6700-5c72-b8f6-ea1b96bfe06c",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -538,6 +777,7 @@
     "processId": "0065536b-4fd4-592d-a4dd-d82a0a2bd8e2",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "once_transformed",
     "visible": true
   },
@@ -561,6 +801,7 @@
     "processId": "0065536b-4fd4-592d-a4dd-d82a0a2bd8e2",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "once_transformed",
     "visible": true
   },
@@ -584,6 +825,7 @@
     "processId": "74316df8-a65f-5999-af15-448b841aab30",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "once_transformed",
     "visible": true
   },
@@ -607,6 +849,7 @@
     "processId": "d399abe1-42a8-5292-af8c-5dda32a20d21",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -630,6 +873,7 @@
     "processId": "d399abe1-42a8-5292-af8c-5dda32a20d21",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -653,6 +897,7 @@
     "processId": "4beed7d4-e7a9-586b-b7f9-39373cffdf2d",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -676,6 +921,7 @@
     "processId": "ec780463-622d-55aa-9df3-aebf8874f50d",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -693,6 +939,7 @@
     "processId": "570fc07d-d926-5405-8b71-6f855c8f06e1",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -710,6 +957,7 @@
     "processId": "570fc07d-d926-5405-8b71-6f855c8f06e1",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -727,6 +975,7 @@
     "processId": "387b0378-8ad4-519a-97b0-33c3a7e7664f",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -744,6 +993,7 @@
     "processId": "7e1fb122-1320-519c-8751-2d926eb435da",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -761,6 +1011,7 @@
     "processId": "7e1fb122-1320-519c-8751-2d926eb435da",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -778,6 +1029,7 @@
     "processId": "d3772933-1a5a-547f-b6ce-6bf65ac3b2cc",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -795,6 +1047,7 @@
     "processId": "c6051714-549e-540b-9f88-9d7c34c82ec8",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -812,6 +1065,7 @@
     "processId": "da05b6a9-f02b-518c-8ab1-d7da28ed51f5",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -835,6 +1089,7 @@
     "processId": "38f77126-c723-5c63-b922-b13650ad9031",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -858,6 +1113,7 @@
     "processId": "89871c43-7b9f-53b4-a7b1-70b29eb565f4",
     "rawToCookedRatio": 2.33,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -881,6 +1137,7 @@
     "processId": "74190248-e958-5427-99a3-b16d1593f46a",
     "rawToCookedRatio": 2.33,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -904,6 +1161,7 @@
     "processId": "47f90f36-8629-5d8d-ae17-c64305c68ddb",
     "rawToCookedRatio": 2.33,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": false
   },
@@ -927,6 +1185,7 @@
     "processId": "4394f635-f067-54b5-b881-c1be56920d90",
     "rawToCookedRatio": 2.33,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -950,6 +1209,7 @@
     "processId": "9b4a341d-1411-5042-bbff-9d3232e71295",
     "rawToCookedRatio": 2.33,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -973,6 +1233,7 @@
     "processId": "f19cf944-7a9c-51b2-ad22-ecc9f95e2c88",
     "rawToCookedRatio": 2.33,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": false
   },
@@ -990,6 +1251,7 @@
     "processId": "09a19a0e-c516-5091-a5a2-3e79dca3d049",
     "rawToCookedRatio": 0.792,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -1007,6 +1269,7 @@
     "processId": "5f6559d9-1fa7-56ea-b655-bbd471c11a43",
     "rawToCookedRatio": 0.792,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -1024,6 +1287,7 @@
     "processId": "b19dd010-16ff-5064-9ec9-06ac0eea9597",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -1040,6 +1304,7 @@
     "name": "Saucisse végétale tofu FR",
     "processId": "9c31da32-7c5e-5da7-aa6e-9a116ea32897",
     "rawToCookedRatio": 1.0,
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -1063,6 +1328,7 @@
     "processId": "871a25c9-5d85-5fcb-a1a5-4b925d942524",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -1086,6 +1352,7 @@
     "processId": "3072909f-a8aa-54c6-997a-d409bd0765f7",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -1110,6 +1377,7 @@
     "processId": "df074caf-ee11-5573-8324-e3acaf92e2ae",
     "rawToCookedRatio": 0.792,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -1134,6 +1402,7 @@
     "processId": "1d8ee50f-211e-57a2-96a6-130a9b72fb00",
     "rawToCookedRatio": 0.792,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -1158,6 +1427,7 @@
     "processId": "61651aef-b4eb-5e46-9ebb-c02be2d31936",
     "rawToCookedRatio": 0.792,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -1182,6 +1452,7 @@
     "processId": "c29b1e77-ce81-5794-ba00-730636c6d8de",
     "rawToCookedRatio": 0.792,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -1206,6 +1477,7 @@
     "processId": "c29b1e77-ce81-5794-ba00-730636c6d8de",
     "rawToCookedRatio": 0.792,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -1230,6 +1502,7 @@
     "processId": "de11b2d4-2820-5c1c-8a55-bbc6d58b8c27",
     "rawToCookedRatio": 0.792,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -1247,6 +1520,7 @@
     "processId": "de11b2d4-2820-5c1c-8a55-bbc6d58b8c27",
     "rawToCookedRatio": 0.792,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -1271,6 +1545,7 @@
     "processId": "ca2328f4-90ee-500a-a377-6d7fddd89aaa",
     "rawToCookedRatio": 0.792,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -1295,6 +1570,7 @@
     "processId": "a28b796f-bd2c-5fa9-b162-9e7291f44ae1",
     "rawToCookedRatio": 0.792,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -1318,6 +1594,7 @@
     "processId": "d3e8debc-63df-587e-b552-8557bb96eb84",
     "rawToCookedRatio": 2.259,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -1341,6 +1618,7 @@
     "processId": "d3e8debc-63df-587e-b552-8557bb96eb84",
     "rawToCookedRatio": 2.259,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -1364,6 +1642,7 @@
     "processId": "d3e8debc-63df-587e-b552-8557bb96eb84",
     "rawToCookedRatio": 2.259,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -1387,6 +1666,7 @@
     "processId": "63e87a59-6c93-5359-919f-629740cdc970",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -1404,6 +1684,7 @@
     "processId": "0d235a67-c74d-57aa-92eb-aa4fe79d619b",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -1428,6 +1709,7 @@
     "processId": "d1d25df6-b039-52ae-b67f-32da12d75e8f",
     "rawToCookedRatio": 0.755,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -1445,6 +1727,7 @@
     "processId": "d1d25df6-b039-52ae-b67f-32da12d75e8f",
     "rawToCookedRatio": 0.755,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -1469,6 +1752,7 @@
     "processId": "53f3f0e1-45e3-5676-a4ec-b78b5d2dfffc",
     "rawToCookedRatio": 0.755,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": false
   },
@@ -1492,6 +1776,7 @@
     "processId": "623c75ca-c86e-5e92-96bd-c315cea7fb41",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -1515,6 +1800,7 @@
     "processId": "fe523677-2620-5378-b2e2-68fe6a1c19fd",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -1538,6 +1824,7 @@
     "processId": "fe523677-2620-5378-b2e2-68fe6a1c19fd",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -1561,6 +1848,7 @@
     "processId": "b0cedbbc-6e19-5082-a33f-e1ebb8e57f2c",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -1584,6 +1872,7 @@
     "processId": "15216785-bcf6-5ba4-a974-e9e31337b9f8",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -1601,6 +1890,7 @@
     "processId": "d3159c54-3fc8-52f5-ba87-9d92297812dc",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -1624,6 +1914,7 @@
     "processId": "e7a1682b-e2a2-5167-aa90-ed507c4e0e90",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -1641,6 +1932,7 @@
     "processId": "a52241fa-2076-5f27-a60d-f4b533f98efa",
     "rawToCookedRatio": 0.819,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -1658,6 +1950,7 @@
     "processId": "a52241fa-2076-5f27-a60d-f4b533f98efa",
     "rawToCookedRatio": 0.819,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -1675,6 +1968,7 @@
     "processId": "cf946224-f726-5923-b0e7-a9e70d596235",
     "rawToCookedRatio": 0.819,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -1699,6 +1993,7 @@
     "processId": "9a38e883-4ad0-5740-b63d-a4eab07aa491",
     "rawToCookedRatio": 0.974,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -1723,6 +2018,7 @@
     "processId": "5bad1f5e-34de-57aa-827b-afeda19f8fe5",
     "rawToCookedRatio": 0.974,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": false
   },
@@ -1747,6 +2043,7 @@
     "processId": "ad59238f-a580-5942-b0f8-5b4547008744",
     "rawToCookedRatio": 0.974,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": false
   },
@@ -1771,6 +2068,7 @@
     "processId": "443b5511-8714-51c5-9ded-c428a27c08d0",
     "rawToCookedRatio": 0.974,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -1794,6 +2092,7 @@
     "processId": "2b015eff-b903-543a-ae51-190977252af1",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": false
   },
@@ -1818,6 +2117,7 @@
     "processId": "6e8e9591-9d76-549d-b551-9d7d228fb5bb",
     "rawToCookedRatio": 0.792,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -1842,6 +2142,7 @@
     "processId": "62a5bc6e-f8fc-5332-8db6-547246029a9b",
     "rawToCookedRatio": 0.792,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -1865,6 +2166,7 @@
     "processId": "d39c12d6-f91b-5445-baf7-64988ab50761",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": false
   },
@@ -1888,6 +2190,7 @@
     "processId": "0d80b8b8-1afc-505c-9195-e030e53857a9",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "once_transformed",
     "visible": true
   },
@@ -1911,6 +2214,7 @@
     "processId": "0d80b8b8-1afc-505c-9195-e030e53857a9",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -1934,6 +2238,7 @@
     "processId": "0d80b8b8-1afc-505c-9195-e030e53857a9",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -1957,6 +2262,7 @@
     "processId": "0d80b8b8-1afc-505c-9195-e030e53857a9",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -1980,6 +2286,7 @@
     "processId": "ee211d20-de3c-5a1f-bf56-8588c12abafb",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": false
   },
@@ -2003,6 +2310,7 @@
     "processId": "ee211d20-de3c-5a1f-bf56-8588c12abafb",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": false
   },
@@ -2026,6 +2334,7 @@
     "processId": "ee211d20-de3c-5a1f-bf56-8588c12abafb",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -2049,6 +2358,7 @@
     "processId": "983d5ebc-f9bb-51d1-8fa0-3097970f3d2c",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": false
   },
@@ -2072,6 +2382,7 @@
     "processId": "983d5ebc-f9bb-51d1-8fa0-3097970f3d2c",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": false
   },
@@ -2095,6 +2406,7 @@
     "processId": "983d5ebc-f9bb-51d1-8fa0-3097970f3d2c",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -2118,6 +2430,7 @@
     "processId": "63ec68c9-cf85-5ef6-abfe-457939aba029",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -2141,6 +2454,7 @@
     "processId": "63ec68c9-cf85-5ef6-abfe-457939aba029",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -2164,6 +2478,7 @@
     "processId": "63ec68c9-cf85-5ef6-abfe-457939aba029",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -2187,6 +2502,7 @@
     "processId": "63ec68c9-cf85-5ef6-abfe-457939aba029",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -2210,6 +2526,7 @@
     "processId": "fd10572d-1b9c-5b7d-b355-49888c1721b7",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -2233,6 +2550,7 @@
     "processId": "fd10572d-1b9c-5b7d-b355-49888c1721b7",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -2256,6 +2574,7 @@
     "processId": "fd10572d-1b9c-5b7d-b355-49888c1721b7",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -2279,6 +2598,7 @@
     "processId": "00b230d5-f589-5352-add1-18d24e58799f",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -2302,6 +2622,7 @@
     "processId": "de7a45ad-3947-5110-8a68-893f3afb6f04",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -2325,6 +2646,7 @@
     "processId": "e9553ddf-857a-58be-b1e7-55f7f556c96f",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -2348,6 +2670,7 @@
     "processId": "17e2572c-243b-5da1-8dec-13a7fbd688d4",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -2371,6 +2694,7 @@
     "processId": "4111a9a4-48a1-5dd7-9467-c677f36526f7",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -2394,6 +2718,7 @@
     "processId": "4111a9a4-48a1-5dd7-9467-c677f36526f7",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -2417,6 +2742,7 @@
     "processId": "4111a9a4-48a1-5dd7-9467-c677f36526f7",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -2440,6 +2766,7 @@
     "processId": "e949fbaa-d02d-59cb-be3d-c552ffed37c2",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -2463,6 +2790,7 @@
     "processId": "502d8075-c62e-51ff-893f-f2b9faed162a",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -2486,6 +2814,7 @@
     "processId": "8bfee7f3-3f0e-54f1-8f71-55933c720a03",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -2509,6 +2838,7 @@
     "processId": "98da8cb9-325b-57c5-a984-ea78a7b11367",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -2532,6 +2862,7 @@
     "processId": "98da8cb9-325b-57c5-a984-ea78a7b11367",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -2555,6 +2886,7 @@
     "processId": "ee7c6756-fd7f-535c-b28a-de50cf042cc7",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -2578,6 +2910,7 @@
     "processId": "79bd1332-375a-5aa9-8cc2-b3619a56faba",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -2601,6 +2934,7 @@
     "processId": "bef56d20-ec50-53ea-aaba-219e98fa25cd",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -2624,6 +2958,7 @@
     "processId": "bef56d20-ec50-53ea-aaba-219e98fa25cd",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -2647,6 +2982,7 @@
     "processId": "bef56d20-ec50-53ea-aaba-219e98fa25cd",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -2670,6 +3006,7 @@
     "processId": "41590079-3f24-54f3-912d-c0a149f40d30",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -2693,6 +3030,7 @@
     "processId": "41590079-3f24-54f3-912d-c0a149f40d30",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -2716,6 +3054,7 @@
     "processId": "41590079-3f24-54f3-912d-c0a149f40d30",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -2739,6 +3078,7 @@
     "processId": "0fd37188-1f5c-52cf-97c9-76347567f38d",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": false
   },
@@ -2762,6 +3102,7 @@
     "processId": "0fd37188-1f5c-52cf-97c9-76347567f38d",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": false
   },
@@ -2785,6 +3126,7 @@
     "processId": "0fd37188-1f5c-52cf-97c9-76347567f38d",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -2808,6 +3150,7 @@
     "processId": "0fd37188-1f5c-52cf-97c9-76347567f38d",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": false
   },
@@ -2831,6 +3174,7 @@
     "processId": "0fd37188-1f5c-52cf-97c9-76347567f38d",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": false
   },
@@ -2854,6 +3198,7 @@
     "processId": "354f7646-cb05-517b-b9d7-e3e142b5793a",
     "rawToCookedRatio": 2.33,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -2877,6 +3222,7 @@
     "processId": "354f7646-cb05-517b-b9d7-e3e142b5793a",
     "rawToCookedRatio": 2.33,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -2900,6 +3246,7 @@
     "processId": "0a71f9e5-6368-5a12-ac7f-4040d88a2222",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -2923,6 +3270,7 @@
     "processId": "0a71f9e5-6368-5a12-ac7f-4040d88a2222",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -2946,6 +3294,7 @@
     "processId": "43389eb0-7495-5b8c-9e1d-effb41a5b82d",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -2969,6 +3318,7 @@
     "processId": "c2c52a71-4b6a-5cb9-9210-6541119e2d0a",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "once_transformed",
     "visible": true
   },
@@ -2992,6 +3342,7 @@
     "processId": "9125cc12-caea-5bab-9090-6ca1d9703412",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "once_transformed",
     "visible": true
   },
@@ -3015,6 +3366,7 @@
     "processId": "9125cc12-caea-5bab-9090-6ca1d9703412",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -3038,6 +3390,7 @@
     "processId": "cb7a8284-e815-51d9-bc5a-fbf5a4301f91",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "once_transformed",
     "visible": true
   },
@@ -3061,6 +3414,7 @@
     "processId": "ea69800b-4826-5255-b633-9712080c91b8",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -3084,6 +3438,7 @@
     "processId": "ea69800b-4826-5255-b633-9712080c91b8",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -3107,6 +3462,7 @@
     "processId": "83ab8cfe-df27-5e70-99ff-f1ab850bfdcd",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": false
   },
@@ -3130,6 +3486,7 @@
     "processId": "5480e882-3629-5734-b444-f70363982918",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -3153,6 +3510,7 @@
     "processId": "1b50ea0d-2e40-5cc8-99c3-4a19bcebe775",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -3176,6 +3534,7 @@
     "processId": "08102afb-c044-51e3-bc3c-24e7bad4e2dc",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": false
   },
@@ -3199,6 +3558,7 @@
     "processId": "08102afb-c044-51e3-bc3c-24e7bad4e2dc",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -3222,6 +3582,7 @@
     "processId": "713f3426-7d8c-5b26-b7c0-98cb92ed0ab7",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -3245,6 +3606,7 @@
     "processId": "713f3426-7d8c-5b26-b7c0-98cb92ed0ab7",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -3268,6 +3630,7 @@
     "processId": "713f3426-7d8c-5b26-b7c0-98cb92ed0ab7",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -3291,6 +3654,7 @@
     "processId": "6aef3a0d-65bf-5358-9ff8-d731b0170fc3",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -3314,6 +3678,7 @@
     "processId": "c55887bb-7316-5689-b010-5cf3ac5054bf",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -3337,6 +3702,7 @@
     "processId": "c55887bb-7316-5689-b010-5cf3ac5054bf",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -3360,6 +3726,7 @@
     "processId": "c55887bb-7316-5689-b010-5cf3ac5054bf",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -3383,6 +3750,7 @@
     "processId": "c55887bb-7316-5689-b010-5cf3ac5054bf",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -3406,6 +3774,7 @@
     "processId": "2af84cce-9afb-533c-b9c9-16d372425bdf",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -3429,6 +3798,7 @@
     "processId": "2af84cce-9afb-533c-b9c9-16d372425bdf",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -3452,6 +3822,7 @@
     "processId": "2af84cce-9afb-533c-b9c9-16d372425bdf",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -3475,6 +3846,7 @@
     "processId": "2af84cce-9afb-533c-b9c9-16d372425bdf",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -3498,6 +3870,7 @@
     "processId": "2af84cce-9afb-533c-b9c9-16d372425bdf",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -3521,6 +3894,7 @@
     "processId": "2af84cce-9afb-533c-b9c9-16d372425bdf",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -3544,6 +3918,7 @@
     "processId": "2af84cce-9afb-533c-b9c9-16d372425bdf",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -3567,6 +3942,7 @@
     "processId": "2af84cce-9afb-533c-b9c9-16d372425bdf",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -3590,6 +3966,7 @@
     "processId": "2af84cce-9afb-533c-b9c9-16d372425bdf",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -3613,6 +3990,7 @@
     "processId": "f23fb5d9-4b50-5522-8ff9-f3cebb75034e",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -3636,6 +4014,7 @@
     "processId": "0b5db395-ea46-53ee-8af1-456b7cf97225",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -3659,6 +4038,7 @@
     "processId": "fdca416b-3599-5a17-8c86-c7243403514b",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -3682,6 +4062,7 @@
     "processId": "fdca416b-3599-5a17-8c86-c7243403514b",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -3705,6 +4086,7 @@
     "processId": "fdca416b-3599-5a17-8c86-c7243403514b",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -3728,6 +4110,7 @@
     "processId": "28864990-2cb7-5320-b0de-1d11f7917fe1",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -3751,6 +4134,7 @@
     "processId": "9507422d-6b86-5782-be6e-a41828b55a8a",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -3774,6 +4158,7 @@
     "processId": "d2b3821c-d838-5a0d-9e46-eb40c55fcea6",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": false
   },
@@ -3797,6 +4182,7 @@
     "processId": "2a6ee2b6-f32f-5afb-9169-4ff3b1c4d4be",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -3820,6 +4206,7 @@
     "processId": "8ad926df-1d15-5699-a9d0-75c5fc5c08bc",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "once_transformed",
     "visible": true
   },
@@ -3843,6 +4230,7 @@
     "processId": "37bf23d8-2c84-5aee-8715-8b38424ce44f",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": false
   },
@@ -3866,6 +4254,7 @@
     "processId": "9c5ace91-4bd4-5def-bb52-4f174d01d5fb",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": false
   },
@@ -3889,6 +4278,7 @@
     "processId": "fbae9eff-5128-5eae-9c6b-f82d066229aa",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -3912,6 +4302,7 @@
     "processId": "1296d699-8b98-5d93-b1b5-508323b1302a",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -3935,6 +4326,7 @@
     "processId": "7cec809d-b5dc-560b-bb8f-0c9e14f74dfc",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -3958,6 +4350,7 @@
     "processId": "a22991db-b071-5ce1-8672-64cd941276cf",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -3981,6 +4374,7 @@
     "processId": "a22991db-b071-5ce1-8672-64cd941276cf",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -4004,6 +4398,7 @@
     "processId": "36c495e5-0aca-5c53-bfaf-b9a3ba061964",
     "rawToCookedRatio": 2.33,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -4027,6 +4422,7 @@
     "processId": "bf00fe85-788a-5676-948c-da40b630bb15",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -4050,6 +4446,7 @@
     "processId": "eb15bb83-38f3-54be-9cc6-d0c59687cf40",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -4073,6 +4470,7 @@
     "processId": "eb15bb83-38f3-54be-9cc6-d0c59687cf40",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -4096,6 +4494,7 @@
     "processId": "eed4eacb-f996-5d55-b02d-c3e3f23d7d0a",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": false
   },
@@ -4119,6 +4518,7 @@
     "processId": "56cd1f16-f2d4-5c4a-a6ba-4a2e3321914e",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -4142,6 +4542,7 @@
     "processId": "a54c2a40-275b-5b68-a7f6-df81e8cc85d6",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -4165,6 +4566,7 @@
     "processId": "a54c2a40-275b-5b68-a7f6-df81e8cc85d6",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -4188,6 +4590,7 @@
     "processId": "03ab5b2e-e1fe-5a46-b99b-32c2c9320af7",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -4211,6 +4614,7 @@
     "processId": "03ab5b2e-e1fe-5a46-b99b-32c2c9320af7",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -4234,6 +4638,7 @@
     "processId": "543622a6-3e36-58cd-b77c-66c678eb7959",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -4257,6 +4662,7 @@
     "processId": "543622a6-3e36-58cd-b77c-66c678eb7959",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -4280,6 +4686,7 @@
     "processId": "543622a6-3e36-58cd-b77c-66c678eb7959",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -4303,6 +4710,7 @@
     "processId": "543622a6-3e36-58cd-b77c-66c678eb7959",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -4326,6 +4734,7 @@
     "processId": "b3f17eec-c537-5b65-af1b-3dd496bbe9c7",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -4349,6 +4758,7 @@
     "processId": "b3f17eec-c537-5b65-af1b-3dd496bbe9c7",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -4372,6 +4782,7 @@
     "processId": "9cab280c-527f-56b6-a620-5f12170108f3",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -4395,6 +4806,7 @@
     "processId": "9cab280c-527f-56b6-a620-5f12170108f3",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -4418,6 +4830,7 @@
     "processId": "f42f7ae6-af44-5a02-b421-76bba5ea2183",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -4441,6 +4854,7 @@
     "processId": "f42f7ae6-af44-5a02-b421-76bba5ea2183",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -4464,6 +4878,7 @@
     "processId": "f42f7ae6-af44-5a02-b421-76bba5ea2183",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -4487,6 +4902,7 @@
     "processId": "fa788be2-e63a-5c3a-b770-1aa7304b1b97",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -4510,6 +4926,7 @@
     "processId": "2cfc0491-33fd-52c1-ac7e-9cd3e31ace27",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -4533,6 +4950,7 @@
     "processId": "6bf0c865-2ee1-5690-867b-9c602dc03afc",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -4556,6 +4974,7 @@
     "processId": "a3d13f74-6d65-58dc-8323-34bf259e7c92",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -4579,6 +4998,7 @@
     "processId": "b63c1ef7-1434-5148-9eb3-020feff64caf",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -4602,6 +5022,7 @@
     "processId": "5de89b65-5a7b-5ae7-9009-9d2776bd5457",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -4625,6 +5046,7 @@
     "processId": "5de89b65-5a7b-5ae7-9009-9d2776bd5457",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -4648,6 +5070,7 @@
     "processId": "de1d34f6-d229-5dbe-aaef-d1f1c18d05f8",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -4671,6 +5094,7 @@
     "processId": "cb853b96-275b-5a2c-bfcb-8b1b0a867691",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -4694,6 +5118,7 @@
     "processId": "e43c0236-b838-54cc-b0fd-1682e560c5c9",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -4717,6 +5142,7 @@
     "processId": "e43c0236-b838-54cc-b0fd-1682e560c5c9",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -4740,6 +5166,7 @@
     "processId": "e43c0236-b838-54cc-b0fd-1682e560c5c9",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -4763,6 +5190,7 @@
     "processId": "d8540361-d9cf-56df-b716-9f4636ec250c",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -4786,6 +5214,7 @@
     "processId": "d8540361-d9cf-56df-b716-9f4636ec250c",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -4803,6 +5232,7 @@
     "processId": "d8540361-d9cf-56df-b716-9f4636ec250c",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -4820,6 +5250,7 @@
     "processId": "d8540361-d9cf-56df-b716-9f4636ec250c",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -4843,6 +5274,7 @@
     "processId": "fe2503b1-10b5-5e7a-a265-9dadbf1eb48b",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -4866,6 +5298,7 @@
     "processId": "fe2503b1-10b5-5e7a-a265-9dadbf1eb48b",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -4889,6 +5322,7 @@
     "processId": "47a6326d-969a-5507-9f37-946a10aca6fa",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -4912,6 +5346,7 @@
     "processId": "007db9be-fbb0-5c2f-ac8a-4780bc4a5304",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -4935,6 +5370,7 @@
     "processId": "007db9be-fbb0-5c2f-ac8a-4780bc4a5304",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -4958,6 +5394,7 @@
     "processId": "e45f6ccb-035e-569c-80c5-f8a26993c5b3",
     "rawToCookedRatio": 2.33,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -4981,6 +5418,7 @@
     "processId": "e45f6ccb-035e-569c-80c5-f8a26993c5b3",
     "rawToCookedRatio": 2.33,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -5004,6 +5442,7 @@
     "processId": "9be3efe6-2ba6-5f65-895b-f7173e18f510",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -5027,6 +5466,7 @@
     "processId": "9be3efe6-2ba6-5f65-895b-f7173e18f510",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -5050,6 +5490,7 @@
     "processId": "6782d9ba-d838-5e68-baaf-e2b71f01e6c0",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -5073,6 +5514,7 @@
     "processId": "cb2a7bff-4fdf-558d-b7db-c9ac0f57356f",
     "rawToCookedRatio": 2.259,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -5096,6 +5538,7 @@
     "processId": "d8acf28f-b1a6-5a65-b39b-224071f0c220",
     "rawToCookedRatio": 2.259,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -5119,6 +5562,7 @@
     "processId": "155ffeb2-2732-52ff-9d6d-39d6fa6d49b0",
     "rawToCookedRatio": 2.259,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -5142,6 +5586,7 @@
     "processId": "f49057d9-83e2-5647-9bf6-bc57bebe9cbb",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -5165,6 +5610,7 @@
     "processId": "18d33ded-b853-5f0a-a0dc-2337cc4d9553",
     "rawToCookedRatio": 2.33,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -5188,6 +5634,7 @@
     "processId": "18d33ded-b853-5f0a-a0dc-2337cc4d9553",
     "rawToCookedRatio": 2.33,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -5211,6 +5658,7 @@
     "processId": "18d33ded-b853-5f0a-a0dc-2337cc4d9553",
     "rawToCookedRatio": 2.33,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -5234,6 +5682,7 @@
     "processId": "18d33ded-b853-5f0a-a0dc-2337cc4d9553",
     "rawToCookedRatio": 2.33,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -5257,6 +5706,7 @@
     "processId": "65b736e2-5707-52d2-9248-ec6a8f180150",
     "rawToCookedRatio": 2.259,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -5280,6 +5730,7 @@
     "processId": "c8ecf4f4-fcb7-59e5-b1da-da2c2852e4c5",
     "rawToCookedRatio": 2.259,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -5303,6 +5754,7 @@
     "processId": "254f64de-62c8-5b34-bbd3-7ffcfd2f16f9",
     "rawToCookedRatio": 2.259,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -5326,6 +5778,7 @@
     "processId": "522c5380-a9b5-5f13-9b51-8ac5059be56c",
     "rawToCookedRatio": 2.259,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -5349,6 +5802,7 @@
     "processId": "522c5380-a9b5-5f13-9b51-8ac5059be56c",
     "rawToCookedRatio": 2.259,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -5372,6 +5826,7 @@
     "processId": "3102b143-60d6-539c-b7c5-6df221985b78",
     "rawToCookedRatio": 2.259,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -5395,6 +5850,7 @@
     "processId": "463139b8-7c36-5c9c-84e6-f1fdb73f3455",
     "rawToCookedRatio": 2.259,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -5418,6 +5874,7 @@
     "processId": "3db38105-5636-53f6-a788-cc705904d4a4",
     "rawToCookedRatio": 2.259,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -5441,6 +5898,7 @@
     "processId": "5d74b775-05a5-56b2-bd22-250d938f1c9a",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -5464,6 +5922,7 @@
     "processId": "89897143-e8e9-569c-93cb-f41e1fa51f9d",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -5487,6 +5946,7 @@
     "processId": "a2413ded-866a-5d9c-b027-1a2420eef88f",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -5510,6 +5970,7 @@
     "processId": "d3a43c9f-bb4e-5bf9-b6fc-2326a8dd42c6",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -5533,6 +5994,7 @@
     "processId": "5be2d9d0-38c8-5894-9625-094cb47aabac",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": false
   },
@@ -5556,6 +6018,7 @@
     "processId": "ad7ce0b2-ad65-5096-8f81-17cc0aaf4f48",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -5579,6 +6042,7 @@
     "processId": "8363d7bb-f267-5cea-ba97-caf42cfcc8b4",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -5602,6 +6066,7 @@
     "processId": "c2eacbad-d503-5a97-ad05-43b3c613a5fc",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -5625,6 +6090,7 @@
     "processId": "9e03dbbc-3f99-5892-a52d-c99c92a2a5ef",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -5648,6 +6114,7 @@
     "processId": "f3bd799b-42b6-50d2-b547-cc7678f6b0f6",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -5671,6 +6138,7 @@
     "processId": "4a08b465-3f96-5f3a-8f97-cf3ac05b8c38",
     "rawToCookedRatio": 2.33,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -5694,6 +6162,7 @@
     "processId": "4c09eadf-dcad-5c37-8fc6-bab7f69136d7",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -5717,6 +6186,7 @@
     "processId": "9888f9f1-f608-56b0-b1bf-f6b1767114c1",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -5740,6 +6210,7 @@
     "processId": "9888f9f1-f608-56b0-b1bf-f6b1767114c1",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -5763,6 +6234,7 @@
     "processId": "9888f9f1-f608-56b0-b1bf-f6b1767114c1",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -5786,6 +6258,7 @@
     "processId": "e8660bef-5298-5e11-8f52-b597d74f5974",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -5809,6 +6282,7 @@
     "processId": "e8660bef-5298-5e11-8f52-b597d74f5974",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -5832,6 +6306,7 @@
     "processId": "786a7e5d-e48c-5989-8c31-bd49aabab932",
     "rawToCookedRatio": 2.259,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": false
   },
@@ -5855,6 +6330,7 @@
     "processId": "786a7e5d-e48c-5989-8c31-bd49aabab932",
     "rawToCookedRatio": 2.259,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": false
   },
@@ -5878,6 +6354,7 @@
     "processId": "66b57474-7f48-5016-b79c-87bc090fd016",
     "rawToCookedRatio": 2.259,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": false
   },
@@ -5901,6 +6378,7 @@
     "processId": "1dafb792-e215-58fa-a64d-1f9b2d9a2cde",
     "rawToCookedRatio": 2.259,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": false
   },
@@ -5924,6 +6402,7 @@
     "processId": "c75a676a-b792-56c8-9c18-646f8f83266b",
     "rawToCookedRatio": 2.259,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": false
   },
@@ -5947,6 +6426,7 @@
     "processId": "84fac69c-5b0b-5ca7-b149-00a9c9c1f8f4",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -5970,6 +6450,7 @@
     "processId": "c6ac33f4-e547-5887-80af-2d3d62b0ccee",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -5993,6 +6474,7 @@
     "processId": "ad3c37a4-32b8-5033-a643-b3b20c2621f6",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -6016,6 +6498,7 @@
     "processId": "d140217c-1a40-5e91-8bad-9b8f954c74b7",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -6039,6 +6522,7 @@
     "processId": "0e30cb0a-22bc-5b74-8e00-359101390284",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": false
   },
@@ -6062,6 +6546,7 @@
     "processId": "f9733315-7662-5ff9-a544-ddb50aa7fcfa",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -6085,6 +6570,7 @@
     "processId": "3bd75842-f9d9-55d8-8506-e6ea53be8495",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -6108,6 +6594,7 @@
     "processId": "0c86442e-e863-5250-91ed-17b53f5560e7",
     "rawToCookedRatio": 2.259,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": false
   },
@@ -6131,6 +6618,7 @@
     "processId": "78fd0a9f-52de-5cf3-998b-817e77b2fdbd",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -6154,6 +6642,7 @@
     "processId": "78fd0a9f-52de-5cf3-998b-817e77b2fdbd",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -6177,6 +6666,7 @@
     "processId": "4726d346-5cc8-593c-8a15-b010d858d158",
     "rawToCookedRatio": 2.259,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -6200,6 +6690,7 @@
     "processId": "af46369a-ac48-5f19-8278-ce85106e50e7",
     "rawToCookedRatio": 2.259,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": false
   },
@@ -6223,6 +6714,7 @@
     "processId": "23e36bdc-12af-5f37-9de8-cf707916be39",
     "rawToCookedRatio": 2.259,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -6246,6 +6738,7 @@
     "processId": "38e5aebd-b15c-5724-90bc-3cf114d103f2",
     "rawToCookedRatio": 2.259,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": false
   },
@@ -6269,6 +6762,7 @@
     "processId": "d0192856-fcd0-5f56-90d6-f8707cf835fc",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -6292,6 +6786,7 @@
     "processId": "e4b46739-6483-5f69-9549-ddab528d9835",
     "rawToCookedRatio": 2.33,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -6315,6 +6810,7 @@
     "processId": "a1b049ab-ea51-5a1e-a63e-2c697dfec112",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -6338,6 +6834,7 @@
     "processId": "a3009f50-fad3-52fd-9a7e-f2e467a784b0",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -6361,6 +6858,7 @@
     "processId": "a4d4d704-2b13-5722-a2ed-d4e8f71925bf",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -6384,6 +6882,7 @@
     "processId": "a4d4d704-2b13-5722-a2ed-d4e8f71925bf",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -6407,6 +6906,7 @@
     "processId": "62f50fa0-12c8-5ff8-8066-d8ba68416b3d",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -6430,6 +6930,7 @@
     "processId": "8cbe17a6-7737-579a-8d82-775f048afa05",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -6453,6 +6954,7 @@
     "processId": "8cbe17a6-7737-579a-8d82-775f048afa05",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -6476,6 +6978,7 @@
     "processId": "0ff273ad-f94f-50cf-912c-53e22b8eae3d",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -6499,6 +7002,7 @@
     "processId": "f22c4816-818b-569a-8f42-931035f860c8",
     "rawToCookedRatio": 2.259,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -6522,6 +7026,7 @@
     "processId": "f22c4816-818b-569a-8f42-931035f860c8",
     "rawToCookedRatio": 2.259,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -6545,6 +7050,7 @@
     "processId": "6bd27f6b-5c60-5768-abbf-440ab5e78be0",
     "rawToCookedRatio": 2.33,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": false
   },
@@ -6568,6 +7074,7 @@
     "processId": "0c45b91e-f807-598f-b58b-28eee5c6db7e",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": false
   },
@@ -6591,6 +7098,7 @@
     "processId": "cffed1a1-f77d-51f3-bbf6-4adf4905c783",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": false
   },
@@ -6614,6 +7122,7 @@
     "processId": "31f47ffb-0ac9-5140-a61e-f41246644d45",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -6637,6 +7146,7 @@
     "processId": "31f47ffb-0ac9-5140-a61e-f41246644d45",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -6660,6 +7170,7 @@
     "processId": "31f47ffb-0ac9-5140-a61e-f41246644d45",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -6683,6 +7194,7 @@
     "processId": "31f47ffb-0ac9-5140-a61e-f41246644d45",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -6706,6 +7218,7 @@
     "processId": "efe74b6f-b497-5052-8308-1e968aca2807",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -6729,6 +7242,7 @@
     "processId": "b3e35472-6ed9-5404-9a13-fdce55e3e506",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -6752,6 +7266,7 @@
     "processId": "d964e4e0-c201-5306-be65-4dc2886dacaf",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -6775,6 +7290,7 @@
     "processId": "aa0a0ccc-1598-58a1-bbc8-dc1913fa8cc0",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -6798,6 +7314,7 @@
     "processId": "7ef31a3e-f77b-5ce5-af4d-cd93e1176151",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -6821,6 +7338,7 @@
     "processId": "c61cb7a0-e4e5-5a9d-8779-cd9284f33ee9",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -6844,6 +7362,7 @@
     "processId": "8e0beff3-1532-50ab-bbec-9a61933ba66f",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -6867,6 +7386,7 @@
     "processId": "4f84affb-e3f9-5a97-9a49-a9e4d965bd49",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -6890,6 +7410,7 @@
     "processId": "50599f17-c18d-51fc-a464-64c50ffc1606",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -6907,6 +7428,7 @@
     "processId": "25e0ca1b-41e1-556c-a117-81fe3d131a6f",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -6924,6 +7446,7 @@
     "processId": "9cf1ea38-7315-5a26-9747-c26e4440a357",
     "rawToCookedRatio": 0.974,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "once_transformed",
     "visible": true
   },
@@ -6941,6 +7464,7 @@
     "processId": "59c5e707-db3b-5ed7-b6c1-a97a1e2a369e",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "once_transformed",
     "visible": true
   },
@@ -6958,6 +7482,7 @@
     "processId": "e327d611-5762-5bf8-a574-aa248d0252b2",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "once_transformed",
     "visible": true
   },
@@ -6975,6 +7500,7 @@
     "processId": "682c262e-e8e3-5cb7-99ff-bc4e3814b928",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -6998,6 +7524,7 @@
     "processId": "cd4ce74c-2c6e-55e1-a72f-062614a59553",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -7015,6 +7542,7 @@
     "processId": "cd4ce74c-2c6e-55e1-a72f-062614a59553",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -7038,6 +7566,7 @@
     "processId": "f56af26e-a6f5-5261-8a8a-2d8f531b88bf",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -7062,6 +7591,7 @@
     "processId": "c88eb25b-93f4-5333-bfff-0dbb15b8c90a",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -7086,6 +7616,7 @@
     "processId": "a5c1eb34-5613-5b49-b46a-43b1d1191314",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -7110,6 +7641,7 @@
     "processId": "79dc0633-2115-513c-a011-98982292e461",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -7134,6 +7666,7 @@
     "processId": "e97292b7-c692-5554-b607-9cc369774ff1",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -7157,6 +7690,7 @@
     "processId": "318c3bec-0cb7-5bb3-9656-de9757735286",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -7180,6 +7714,7 @@
     "processId": "4c9bbe9d-9502-5810-a006-bdb2c82923e4",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -7197,6 +7732,7 @@
     "processId": "f360ae33-51fc-5cc7-a121-5ac6f6469cce",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "once_transformed",
     "visible": false
   },
@@ -7220,6 +7756,7 @@
     "processId": "6723a379-33f1-5571-ad41-5fb83ed6fd41",
     "rawToCookedRatio": 2.259,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -7243,6 +7780,7 @@
     "processId": "390a7925-02ce-5a2a-9d72-b8fcc0c56d0a",
     "rawToCookedRatio": 2.259,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -7266,6 +7804,7 @@
     "processId": "390a7925-02ce-5a2a-9d72-b8fcc0c56d0a",
     "rawToCookedRatio": 2.259,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": false
   },
@@ -7289,6 +7828,7 @@
     "processId": "13e41065-7e42-5225-b950-81d8e60a459d",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": false
   },
@@ -7312,6 +7852,7 @@
     "processId": "7dffda5e-1e8e-5e97-9005-07fb20bef5a6",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -7329,6 +7870,7 @@
     "processId": "acf19430-b9cb-522b-aa8c-9beca5b0e761",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -7352,6 +7894,7 @@
     "processId": "fef670b0-ef94-5738-ab83-3f927c698dd4",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -7369,6 +7912,7 @@
     "processId": "051c01d7-eb24-52f5-ac8a-0a6e48eaab06",
     "rawToCookedRatio": 0.755,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -7386,6 +7930,7 @@
     "processId": "1bfe5238-8125-51b6-91fd-f6b5aa885c6d",
     "rawToCookedRatio": 0.73,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -7403,6 +7948,7 @@
     "processId": "8fe04c35-9fc3-5eba-a65c-e7e9b0f29d62",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -7426,6 +7972,7 @@
     "processId": "373c3cf1-dad1-57be-9f95-13a815c6d128",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -7443,6 +7990,7 @@
     "processId": "bf655bc6-7f4a-5890-ac61-80b2ade4ee05",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -7460,6 +8008,7 @@
     "processId": "482bea72-b3e2-5a57-ab70-324254899d7a",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -7483,6 +8032,7 @@
     "processId": "e959ac4d-1b20-59cd-a2f3-44f11703a015",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "once_transformed",
     "visible": true
   },
@@ -7506,6 +8056,7 @@
     "processId": "e959ac4d-1b20-59cd-a2f3-44f11703a015",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "once_transformed",
     "visible": true
   },
@@ -7529,6 +8080,7 @@
     "processId": "a17484e2-a2fe-5733-b135-1445fc3bc8f7",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -7552,6 +8104,7 @@
     "processId": "9aa797a6-7eba-5b2f-af18-79df36032ebb",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -7569,6 +8122,7 @@
     "processId": "549c1346-26e6-5a06-ad41-037d65b9a57d",
     "rawToCookedRatio": 0.792,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -7592,6 +8146,7 @@
     "processId": "7fe83417-ee25-52c0-90a5-b7291bf1e02a",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -7615,6 +8170,7 @@
     "processId": "e0cda604-6fad-5e65-9034-a8222058fcd7",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -7638,6 +8194,7 @@
     "processId": "fbb479c0-2a32-52cb-bacb-070416350c1a",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -7661,6 +8218,7 @@
     "processId": "7bbdba11-a06e-5ab9-9d0a-6b031195435f",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -7678,6 +8236,7 @@
     "processId": "21ae29d3-8860-5e24-8997-106fffe0eb85",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -7701,6 +8260,7 @@
     "processId": "e9f00d47-7c55-579b-9a9f-3ab02e3a3079",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -7724,6 +8284,7 @@
     "processId": "98e02da4-68bd-5330-92a8-0a3015ca8658",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -7741,6 +8302,7 @@
     "processId": "eaa302de-7b3e-5d25-bff1-5e1eecbd2410",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -7764,6 +8326,7 @@
     "processId": "9394aedc-0c7f-5691-8340-725176c45732",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -7787,6 +8350,7 @@
     "processId": "397b6faf-7387-5ff5-944b-720f1a264eaa",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -7810,6 +8374,7 @@
     "processId": "95cf8e59-9db9-52d4-bcfc-a95fcf1e19b9",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -7833,6 +8398,7 @@
     "processId": "c8440201-4cac-58f9-b469-0b3fdf52c928",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -7856,6 +8422,7 @@
     "processId": "505d6b15-5ffc-5101-b3d4-7cbfc0ca79ca",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -7879,6 +8446,7 @@
     "processId": "867503bb-8abb-5fc8-992b-0030f07ba812",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -7902,6 +8470,7 @@
     "processId": "03d11278-5fce-5f34-b935-0a4b1dc7f20e",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -7925,6 +8494,7 @@
     "processId": "1ada0a0e-4dc5-57d9-bf34-60f617c63d9b",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -7948,6 +8518,7 @@
     "processId": "035fb863-c652-5caa-acc7-dcf993929b11",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -7965,6 +8536,7 @@
     "processId": "05b3b3c3-e0c0-5df5-9b95-eb67e0625cba",
     "rawToCookedRatio": 0.792,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": false
   },
@@ -7982,6 +8554,7 @@
     "processId": "05b3b3c3-e0c0-5df5-9b95-eb67e0625cba",
     "rawToCookedRatio": 0.792,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": false
   },
@@ -8005,6 +8578,7 @@
     "processId": "7b78962a-2d8e-5aff-b6e6-f65c76e9f799",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": false
   },
@@ -8028,6 +8602,7 @@
     "processId": "7b78962a-2d8e-5aff-b6e6-f65c76e9f799",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -8051,6 +8626,7 @@
     "processId": "7b78962a-2d8e-5aff-b6e6-f65c76e9f799",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -8074,6 +8650,7 @@
     "processId": "38eea6ed-8ca8-58c4-be1d-f5cab5de02b1",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -8097,6 +8674,7 @@
     "processId": "cb5e6f6b-1b17-55c7-bca5-bc69894ade58",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": false
   },
@@ -8120,6 +8698,7 @@
     "processId": "15a81629-bed1-5726-a134-f6aca998eea5",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": false
   },
@@ -8143,6 +8722,7 @@
     "processId": "d1f276bb-d2a3-5259-9517-b5c1545de12e",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -8166,6 +8746,7 @@
     "processId": "d1f276bb-d2a3-5259-9517-b5c1545de12e",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -8189,6 +8770,7 @@
     "processId": "6efd58e4-7ff2-5ab9-9be8-b9d357f65606",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -8212,6 +8794,7 @@
     "processId": "89421fa8-b27c-5d69-ab44-b9b5ec8a2a36",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -8235,6 +8818,7 @@
     "processId": "2e292d5a-893f-5c8d-970f-34e8d16da1e0",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "once_transformed",
     "visible": true
   },
@@ -8252,6 +8836,7 @@
     "processId": "b7386800-8318-56d3-8f1b-1f802f304a8c",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": false
   },
@@ -8269,6 +8854,7 @@
     "processId": "f989adeb-0631-5d8d-b937-c25c73885c8b",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -8292,6 +8878,7 @@
     "processId": "df2d5183-1356-5119-aaec-1ab1683323be",
     "rawToCookedRatio": 2.33,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -8315,6 +8902,7 @@
     "processId": "bb5f2ee6-2b42-5422-b5e6-23f3c3075cee",
     "rawToCookedRatio": 2.259,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": false
   },
@@ -8332,6 +8920,7 @@
     "processId": "4980f239-131e-54a6-b7dc-a16823f5c9d2",
     "rawToCookedRatio": 0.819,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": false
   },
@@ -8349,6 +8938,7 @@
     "processId": "4980f239-131e-54a6-b7dc-a16823f5c9d2",
     "rawToCookedRatio": 0.819,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -8366,6 +8956,7 @@
     "processId": "4980f239-131e-54a6-b7dc-a16823f5c9d2",
     "rawToCookedRatio": 0.819,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -8383,6 +8974,7 @@
     "processId": "4e689c0a-009d-5798-b31b-f04357f2b724",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -8400,6 +8992,7 @@
     "processId": "41b15ace-9a9c-5bd0-a561-944fc883d342",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -8417,6 +9010,7 @@
     "processId": "41b15ace-9a9c-5bd0-a561-944fc883d342",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -8434,6 +9028,7 @@
     "processId": "fc9efae9-2dd7-59b6-b2db-62b6f62f00d8",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -8451,6 +9046,7 @@
     "processId": "f8c88512-2b57-5f1a-abba-46ac604886f4",
     "rawToCookedRatio": 0.819,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -8468,6 +9064,7 @@
     "processId": "7a6c37cc-8701-5591-ba2d-83654f89d8f3",
     "rawToCookedRatio": 0.819,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -8485,6 +9082,7 @@
     "processId": "4f41f725-37a1-5e0f-8739-c0aa256caef7",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -8502,6 +9100,7 @@
     "processId": "7f18bd68-9e29-5b54-900e-af2e4d2f0d1b",
     "rawToCookedRatio": 0.819,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": false
   },
@@ -8519,6 +9118,7 @@
     "processId": "1c5fd173-8531-5074-b09b-a0d254fffee0",
     "rawToCookedRatio": 0.819,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": false
   },
@@ -8536,6 +9136,7 @@
     "processId": "229d86fa-5c43-573b-b6c9-cb83e46619c1",
     "rawToCookedRatio": 0.819,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": false
   },
@@ -8553,6 +9154,7 @@
     "processId": "b11a9236-ae0e-5426-a68a-822f771a3335",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -8570,6 +9172,7 @@
     "processId": "936e5a40-efcd-537c-80e0-6c9fbf70e187",
     "rawToCookedRatio": 0.819,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -8593,6 +9196,7 @@
     "processId": "205fbb70-754d-5160-98aa-736cf6231c22",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -8616,6 +9220,7 @@
     "processId": "21bfc885-e198-5fd7-844c-ec386f73cd45",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -8639,6 +9244,7 @@
     "processId": "f769ed20-3665-563a-8d50-dd8788e89e7b",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -8662,6 +9268,7 @@
     "processId": "d30eb143-0ad2-5f4e-b05c-243351d52251",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -8685,6 +9292,7 @@
     "processId": "c097a91b-0cb8-5e4e-8242-4053f54d9d2b",
     "rawToCookedRatio": 2.259,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": false
   },
@@ -8708,6 +9316,7 @@
     "processId": "c097a91b-0cb8-5e4e-8242-4053f54d9d2b",
     "rawToCookedRatio": 2.259,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -8731,6 +9340,7 @@
     "processId": "9eefad0d-204e-5072-aaad-cfca514816cf",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -8754,6 +9364,7 @@
     "processId": "18b6dc5f-20cd-5030-bf69-c99023c024fc",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -8777,6 +9388,7 @@
     "processId": "18b6dc5f-20cd-5030-bf69-c99023c024fc",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -8800,6 +9412,7 @@
     "processId": "b1de3c75-d408-5099-b3f6-8de91704766d",
     "rawToCookedRatio": 2.259,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -8823,6 +9436,7 @@
     "processId": "90f96aaa-159f-50a4-8456-55bad07c4cc4",
     "rawToCookedRatio": 2.259,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -8846,6 +9460,7 @@
     "processId": "08b72843-ca81-57ab-8eed-520f20b07fff",
     "rawToCookedRatio": 2.259,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -8869,6 +9484,7 @@
     "processId": "4f4050d3-9afe-5a90-b1ff-7505465f0a31",
     "rawToCookedRatio": 2.33,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -8892,6 +9508,7 @@
     "processId": "cac779d9-52e2-5978-9551-71e107141598",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -8915,6 +9532,7 @@
     "processId": "cac779d9-52e2-5978-9551-71e107141598",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -8938,6 +9556,7 @@
     "processId": "cac779d9-52e2-5978-9551-71e107141598",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -8961,6 +9580,7 @@
     "processId": "75a76ed9-ad03-5269-a6f5-0fb86ce1073f",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -8984,6 +9604,7 @@
     "processId": "22dbe2d5-b300-5ccb-be44-88aa86c9c545",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -9007,6 +9628,7 @@
     "processId": "22dbe2d5-b300-5ccb-be44-88aa86c9c545",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -9024,6 +9646,7 @@
     "processId": "311355dc-d317-565e-8496-48f248fd1b58",
     "rawToCookedRatio": 0.755,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": false
   },
@@ -9047,6 +9670,7 @@
     "processId": "da0b61f8-a284-5ec6-8266-07c7c6a57d54",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -9070,6 +9694,7 @@
     "processId": "c281aa78-11b0-5daf-9735-5de5d322213a",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -9093,6 +9718,7 @@
     "processId": "c281aa78-11b0-5daf-9735-5de5d322213a",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "always",
     "visible": true
   },
@@ -9116,6 +9742,7 @@
     "processId": "742f7798-b666-5551-a959-965856c51063",
     "rawToCookedRatio": 2.259,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -9139,6 +9766,7 @@
     "processId": "23f18220-12d7-5c14-87ff-6d00f5aca043",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -9162,6 +9790,7 @@
     "processId": "85e316a2-7f09-50d5-b0bb-3b8735faeac5",
     "rawToCookedRatio": 2.259,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -9185,6 +9814,7 @@
     "processId": "62daf7e7-0f77-50f7-a81b-891823b336de",
     "rawToCookedRatio": 2.259,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -9208,6 +9838,7 @@
     "processId": "2d0ef86b-3865-57f9-a896-e45c8f680b2c",
     "rawToCookedRatio": 2.259,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -9231,6 +9862,7 @@
     "processId": "01aaf607-7a6c-56d9-8f92-901d93e7bf30",
     "rawToCookedRatio": 2.259,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -9254,6 +9886,7 @@
     "processId": "19ea8c4d-44aa-56a9-9bd8-91533020b214",
     "rawToCookedRatio": 2.259,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -9277,6 +9910,7 @@
     "processId": "b186621a-0953-565d-a908-21ea8fa3da2e",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -9300,6 +9934,7 @@
     "processId": "884d58ae-0f84-58b0-9930-8073074a2cf8",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -9323,6 +9958,7 @@
     "processId": "1c27e968-92e7-548a-948a-0aa9336cf8a9",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -9346,6 +9982,7 @@
     "processId": "b827d807-310f-5d03-9238-0ed2b3ec6f5d",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -9369,6 +10006,7 @@
     "processId": "3b3a6ad1-7928-5bc5-8e51-765f9e44681e",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -9392,6 +10030,7 @@
     "processId": "a30166e4-1eb6-5419-8a1a-8663da9d1f70",
     "rawToCookedRatio": 12.0,
     "scenario": "reference",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -9415,6 +10054,7 @@
     "processId": "c10d2318-bf02-58b4-93cc-df882b6d75b3",
     "rawToCookedRatio": 12.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -9438,6 +10078,7 @@
     "processId": "f74a1f56-55cb-54d3-aa93-aae041c5f37c",
     "rawToCookedRatio": 12.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -9461,6 +10102,7 @@
     "processId": "f76d41a1-259f-5e47-99f2-ef490aeab78f",
     "rawToCookedRatio": 12.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   },
@@ -9484,6 +10126,7 @@
     "processId": "7201a69c-aaee-53b9-920b-08bc74418e20",
     "rawToCookedRatio": 12.0,
     "scenario": "import",
+    "scopes": ["food"],
     "transportCooling": "none",
     "visible": true
   }
