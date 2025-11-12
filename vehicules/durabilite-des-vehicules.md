@@ -3,7 +3,7 @@
 Cette page vient préciser la [page transverse Durabilité](https://fabrique-numerique.gitbook.io/ecobalyse/~/revisions/bUCb5XokARXVhhZXF5Xd/def-cout-environnemental/durabilite), qui s'applique à tous les secteurs et précise comment la durabilité est prise en compte dans le calcul du coût environnemental.
 
 {% hint style="warning" %}
-Les méthodes proposées ici ont vocation à servir de base de discussion pour une phase de co-construction avec les acteurs.
+Les méthodes indiquées ici ne sont qu'une première proposition, ayant pour vocation de servir de base de discussion pour une phase de co-construction avec les acteurs.
 {% endhint %}
 
 ## Contexte
@@ -17,9 +17,29 @@ Deux nouveautés majeures dans la conception des véhicules viennent impacter le
 * L'avènement des véhicules électriques et l'intégration d'une batterie, composant majeur des ces véhicules. La réparation de ces batteries peut être très couteuse, notamment en raison des choix de conception (facilité de remplacement de la batterie, capacité à remplacer des éléments de la batterie, voire des cellules)
 * Le procédé du gigacasting (ou, dans une moindre mesure, le megacasting), consistant à fabriquer des grandes pièces de chassis par moulage, plutôt que de fabriquer puis d'assembler une multitude de pièces. Cela peut aller jusqu'à mouler le chassis en une seule pièce. Ceci augmente le coût de réparation, et peut même rendre une réparation impossible : là où il était possible de réparer ou remplacer un petit élément, il faut désormais réparer ou remplacer un élément de grande ou très grande taille.
 
-En fonction des catégories de véhicules, d'autres critères, plus précis, peuvent être définis. Un coefficient de durabilité physique est définit secteur par secteur.
+Concrètement, les facteurs de durabilités des véhicules sont les suivants :&#x20;
 
+* Démontabilité et réparabilité de la batterie
+* Démontabilité du véhicule
+* Capacité à accéder aux informations du véhicule (compteur fiable pour les véhicules les plus légers, Etat de santé de la batterie, diagnostic véhicule)...
+* Garantie de disponibilité des pièces détachées
+* Facilitation de l'usage de pièces de réemploi
+* Possibilité de réparation hors réparateur agréé
+* Capacité de fonctionnement sans dépendance "cloud", en particulier extra-européenne
+
+L'importance de chacun de ces critères dépend des catégories de véhicules. Un coefficient de durabilité physique est donc à définir par secteur.
+
+{% hint style="info" %}
+Pour les véhicules légers intermédiaires, un indice de durabilité a été construit dans le cadre d'un groupe de travail dédié.
+{% endhint %}
+
+{% hint style="info" %}
 Pour les vélos à assistance électrique, un indice de réparabilité réglementaire va voir le jour en 2026.
+{% endhint %}
+
+{% hint style="info" %}
+Un indice de réparabilité automobile est en cours d'élaboration par un groupe de travail de l'association Mobilians ([voir article](https://www.auto-infos.fr/article/les-independants-posent-les-bases-d-un-futur-indice-de-reparabilite-automobile.286910)). France Assureur a également annoncé la création d'un indice de réparabilité automobile, dont la conception est confiée à l'association SRA, regroupant les entreprises d'assurance automobile ([voir communiqué](https://www.franceassureurs.fr/espace-presse/transition-vers-le-vehicule-electrique-quels-impacts-pour-lassurance-quelles-propositions-pour-preserver-une-assurance-automobile-accessible-a-tous/)).
+{% endhint %}
 
 ### Durabilité non physique
 
@@ -41,7 +61,7 @@ Pour l'instant, le calcul du coefficient de durabilité n'est pas inclut dans Ec
 
 ### Vélos à assistance électrique
 
-Le coefficient de durabilité physique `C_physique` est calculé en fonction de l'indice de réparabilité :&#x20;
+Le coefficient de durabilité physique `C_physique` est calculé en fonction de l'indice de réparabilité (à paraitre en 2026) :&#x20;
 
 $$
 C_{Durabilité} = Coef_{min}+I_{Durabilité} * \frac{Coef_{max}-Coef_{min}}{10}
@@ -49,7 +69,9 @@ $$
 
 ### Voitures
 
-Le coefficient de durabilité physique `C_physique` est fixé par défaut à 1 et est corrigé comme suit, sans pouvoir être inférieur à `Coef_min`.
+Le calcul du coefficient de durabilité pourra se baser sur un indice de réparabilité à venir, si celui-ci est pertinent au regard des besoins d'Ecobalyse.
+
+A court terme, il est proposé de fixer le coefficient de durabilité physique `C_physique` par défaut à 1 et de le corriger comme suit, sans pouvoir être inférieur à `Coef_min` :
 
 | Caractéristique                                          | Correction de C\_physique |
 | -------------------------------------------------------- | ------------------------- |
