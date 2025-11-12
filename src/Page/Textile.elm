@@ -23,8 +23,7 @@ import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
-import Data.Notification as Notification
-import Data.Posthog as Posthog
+import Data.Plausible as Plausible
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Data.Split exposing (Split)
@@ -167,7 +166,7 @@ init trigram maybeUrlQuery session =
 
         simulator =
             initialQuery
-                |> Simulator.compute session.db
+                |> Simulator.compute session.db session.componentConfig
     in
     { simulator = simulator
     , bookmarkName = initialQuery |> suggestBookmarkName session
@@ -190,14 +189,6 @@ init trigram maybeUrlQuery session =
     , activeImpactsTab = ImpactTabs.StepImpactsTab
     }
         |> App.createUpdate (session |> Session.updateTextileQuery initialQuery)
-        |> App.withAppMsgs
-            (case simulator of
-                Err error ->
-                    [ App.AddToast (Notification.error "Erreur de récupération des paramètres d'entrée" error) ]
-
-                Ok _ ->
-                    []
-            )
         |> App.withCmds
             [ case maybeUrlQuery of
                 -- If we do have an URL query, we either come from a bookmark, a saved simulation click or
@@ -226,7 +217,7 @@ initFromExample session uuid =
 
         simulator =
             exampleQuery
-                |> Simulator.compute session.db
+                |> Simulator.compute session.db session.componentConfig
     in
     { simulator = simulator
     , bookmarkName = exampleQuery |> suggestBookmarkName session
@@ -244,14 +235,6 @@ initFromExample session uuid =
     , activeImpactsTab = ImpactTabs.StepImpactsTab
     }
         |> App.createUpdate (session |> Session.updateTextileQuery exampleQuery)
-        |> App.withAppMsgs
-            (case simulator of
-                Err error ->
-                    [ App.AddToast (Notification.error "Erreur de récupération des paramètres d'entrée" error) ]
-
-                Ok _ ->
-                    []
-            )
         |> App.withCmds [ Ports.scrollTo { x = 0, y = 0 } ]
 
 
@@ -288,7 +271,7 @@ updateQuery query ({ model, session } as pageUpdate) =
     { pageUpdate
         | model =
             { model
-                | simulator = query |> Simulator.compute session.db
+                | simulator = query |> Simulator.compute session.db session.componentConfig
                 , bookmarkName = query |> suggestBookmarkName session
             }
         , session = session |> Session.updateTextileQuery query
@@ -321,7 +304,7 @@ update ({ db, queries, navKey } as session) msg model =
         ( OpenComparator, _ ) ->
             { model | modal = ComparatorModal }
                 |> App.createUpdate (session |> Session.checkComparedSimulations)
-                |> App.withCmds [ Posthog.send <| Posthog.ComparatorOpened Scope.Textile ]
+                |> App.withCmds [ Plausible.send session <| Plausible.ComparatorOpened Scope.Textile ]
 
         ( OnAutocompleteTrim autocompleteMsg, AddTrimModal autocompleteState ) ->
             let
@@ -414,7 +397,7 @@ update ({ db, queries, navKey } as session) msg model =
                             (SaveBookmarkWithTime model.bookmarkName
                                 (Bookmark.Textile query)
                             )
-                    , Posthog.send <| Posthog.BookmarkSaved Scope.Textile
+                    , Plausible.send session <| Plausible.BookmarkSaved Scope.Textile
                     ]
 
         ( SaveBookmarkWithTime name foodQuery now, _ ) ->
@@ -445,8 +428,8 @@ update ({ db, queries, navKey } as session) msg model =
             { model | bookmarkTab = bookmarkTab }
                 |> App.createUpdate session
                 |> App.withCmds
-                    [ Posthog.TabSelected Scope.Textile "Partager"
-                        |> Posthog.sendIf (bookmarkTab == BookmarkView.ShareTab)
+                    [ Plausible.TabSelected Scope.Textile "Partager"
+                        |> Plausible.sendIf session (bookmarkTab == BookmarkView.ShareTab)
                     ]
 
         ( SwitchComparisonType displayChoice, _ ) ->
@@ -454,8 +437,8 @@ update ({ db, queries, navKey } as session) msg model =
                 |> App.createUpdate session
                 |> App.withCmds
                     [ ComparatorView.comparisonTypeToString displayChoice
-                        |> Posthog.ComparisonTypeSelected Scope.Textile
-                        |> Posthog.send
+                        |> Plausible.ComparisonTypeSelected Scope.Textile
+                        |> Plausible.send session
                     ]
 
         ( SwitchImpact (Ok trigram), _ ) ->
@@ -465,7 +448,7 @@ update ({ db, queries, navKey } as session) msg model =
                         |> Route.TextileSimulator trigram
                         |> Route.toString
                         |> Navigation.pushUrl navKey
-                    , Posthog.send <| Posthog.ImpactSelected Scope.Textile trigram
+                    , Plausible.send session <| Plausible.ImpactSelected Scope.Textile trigram
                     ]
 
         ( SwitchImpact (Err error), _ ) ->
@@ -477,8 +460,8 @@ update ({ db, queries, navKey } as session) msg model =
                 |> App.createUpdate session
                 |> App.withCmds
                     [ ImpactTabs.tabToString impactsTab
-                        |> Posthog.TabSelected Scope.Textile
-                        |> Posthog.send
+                        |> Plausible.TabSelected Scope.Textile
+                        |> Plausible.send session
                     ]
 
         ( SwitchTab RegulatoryTab, _ ) ->
@@ -489,12 +472,12 @@ update ({ db, queries, navKey } as session) msg model =
                  else
                     { model | activeTab = RegulatoryTab }
                 )
-                |> App.withCmds [ Posthog.send <| Posthog.TabSelected Scope.Textile "Regulatory" ]
+                |> App.withCmds [ Plausible.send session <| Plausible.TabSelected Scope.Textile "Regulatory" ]
 
         ( SwitchTab ExploratoryTab, _ ) ->
             { model | activeTab = ExploratoryTab }
                 |> App.createUpdate session
-                |> App.withCmds [ Posthog.send <| Posthog.TabSelected Scope.Textile "Exploratory" ]
+                |> App.withCmds [ Plausible.send session <| Plausible.TabSelected Scope.Textile "Exploratory" ]
 
         ( ToggleComparedSimulation bookmark checked, _ ) ->
             model
@@ -658,7 +641,7 @@ selectExample autocompleteState { model, session } =
         |> App.createUpdate (Session.updateTextileQuery example session)
         |> App.apply update (SetModal NoModal)
         |> updateQuery example
-        |> App.withCmds [ Posthog.send <| Posthog.ExampleSelected Scope.Textile ]
+        |> App.withCmds [ Plausible.send session <| Plausible.ExampleSelected Scope.Textile ]
 
 
 selectTrim : Autocomplete Component -> PageUpdate Model Msg -> PageUpdate Model Msg
@@ -918,6 +901,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         ]
     , ComponentView.editorView
         { addLabel = "Ajouter un accessoire"
+        , componentConfig = session.componentConfig
         , customizable = False
         , db = session.db
         , debug = False
@@ -926,6 +910,13 @@ simulatorFormView session model ({ inputs } as simulator) =
         , explorerRoute = Just (Route.Explore Scope.Textile (Dataset.Components Scope.Textile Nothing))
         , impact = model.impact
         , items = inputs.trims
+        , lifeCycle =
+            inputs.trims
+                |> Component.compute
+                    { config = session.componentConfig
+                    , db = session.db
+                    , scope = Scope.Textile
+                    }
         , maxItems = Nothing
         , noOp = NoOp
         , openSelectComponentModal = AddTrimModal >> SetModal
@@ -933,14 +924,11 @@ simulatorFormView session model ({ inputs } as simulator) =
         , removeElement = \_ -> NoOp
         , removeElementTransform = \_ _ -> NoOp
         , removeItem = RemoveTrim
-        , results =
-            inputs.trims
-                |> Component.compute session.db
-                |> Result.withDefault Component.emptyResults
-        , scopes = [ Scope.Textile ]
+        , scope = Scope.Textile
         , setDetailed = \_ -> NoOp
         , title = "Accessoires"
         , updateElementAmount = \_ _ -> NoOp
+        , updateItemCountry = \_ _ -> NoOp
         , updateItemName = \_ _ -> NoOp
         , updateItemQuantity = UpdateTrimQuantity
         }
@@ -1162,7 +1150,7 @@ view session model =
                                 , onAutocompleteSelect = OnAutocompleteSelect
                                 , placeholderText = "tapez ici le nom de la matière première pour la rechercher"
                                 , title = "Sélectionnez une matière première"
-                                , toLabel = .shortName
+                                , toLabel = .name
                                 , toCategory = .origin >> Origin.toLabel
                                 }
 

@@ -25,7 +25,10 @@ class ApplicationCore(InitPluginProtocol, CLIPluginProtocol):
     app_slug: str
 
     def on_cli_init(self, cli: Group) -> None:
-        from app.cli.commands import fixtures_management_group, user_management_group
+        from app.cli.commands import (
+            fixtures_management_group,
+            user_management_group,
+        )
         from app.config import get_settings
 
         settings = get_settings()

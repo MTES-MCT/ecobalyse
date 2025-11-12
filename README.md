@@ -26,9 +26,11 @@ Les variables d'environnement suivantes doivent être définies :
 - `ENABLE_FOOD_SECTION` : affichage ou non de la section expérimentale dédiée à l'alimentaire (valeur `True` ou `False`, par défault `False`)
 - `ENABLE_OBJECTS_SECTION` : affichage ou non de la section expérimentale dédiée aux objets génériques (valeur `True` ou `False`, par défault `False`)
 - `ENABLE_VELI_SECTION` : affichage ou non de la section expérimentale dédiée aux véhicules intermédiaires (valeur `True` ou `False`, par défault `False`)
+- `MATOMO_HOST`: le domaine de l'instance Matomo permettant le suivi d'audience du produit (typiquement `stats.beta.gouv.fr`).
+- `MATOMO_SITE_ID`: l'identifiant du site Ecobalyse sur l'instance Matomo permettant le suivi d'audience du produit.
+- `MATOMO_TOKEN`: le token Matomo permettant le suivi d'audience du produit.
 - `NODE_ENV`: l'environnement d'exécution nodejs (par défaut, `development`)
-- `POSTHOG_HOST`: l'URL racine du serveur [Posthog](https://eu.posthog.com/) (optionnel)
-- `POSTHOG_KEY`: la clé Posthog pour la mesure d'audience (optionnel)
+- `PLAUSIBLE_HOST`: Le domaine du serveur [Plausible](https://plausible.io/) (optionnel)
 - `RATELIMIT_MAX_RPM`: le nombre de requêtes maximum par minute et par ip (par défaut: 5000)
 - `RATELIMIT_WHITELIST`: liste des adresses IP non soumises au rate-limiting, séparées par des virgules
 - `SCALINGO_POSTGRESQL_URL` : l'uri pour accéder à Postgresl (définie automatiquement par Scalingo). Si non défini sqlite3 est utilisé.

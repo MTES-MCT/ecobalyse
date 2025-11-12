@@ -51,6 +51,10 @@ baseColumns detailed scope =
       , toValue = Table.StringValue <| .source
       , toCell = .source >> text
       }
+    , { label = "Région"
+      , toValue = Table.StringValue <| .location >> Maybe.withDefault "N/A"
+      , toCell = .location >> Maybe.withDefault "N/A" >> text
+      }
     , { label = "Catégories"
       , toValue =
             Table.StringValue <|

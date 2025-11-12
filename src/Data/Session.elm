@@ -33,6 +33,7 @@ module Data.Session exposing
 import Browser.Navigation as Nav
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Common.DecodeUtils as DU
+import Data.Component as Component
 import Data.Food.Query as FoodQuery
 import Data.Github as Github
 import Data.Object.Query as ObjectQuery
@@ -60,13 +61,16 @@ type alias Queries =
 
 type alias Session =
     { clientUrl : String
+    , componentConfig : Component.Config
     , currentVersion : Version
     , db : Db
     , enabledSections : EnabledSections
+    , matomo : { host : String, siteId : String }
     , navKey : Nav.Key
     , notifications : List Notification
     , queries : Queries
     , releases : WebData (List Github.Release)
+    , scalingoAppName : Maybe String
     , store : Store
     , versionPollSeconds : Int
     }

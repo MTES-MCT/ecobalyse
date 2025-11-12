@@ -1,0 +1,135 @@
+module Data.Component.Config exposing
+    ( Config
+    , EndOfLifeConfig
+    , EndOfLifeStrategies
+    , EndOfLifeStrategiesConfig
+    , EndOfLifeStrategy
+    , decode
+    , default
+    , parse
+    )
+
+import Data.Common.DecodeUtils as DU
+import Data.Impact as Impact exposing (Impacts)
+import Data.Process as Process exposing (Process)
+import Data.Process.Category as Category exposing (MaterialDict)
+import Data.Scope as Scope
+import Data.Split as Split exposing (Split)
+import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Pipeline as Decode
+
+
+type alias Config =
+    { endOfLife : EndOfLifeConfig
+    }
+
+
+type alias EndOfLifeConfig =
+    { scopeCollectionRates : Scope.Dict Split
+    , strategies : EndOfLifeStrategiesConfig
+    }
+
+
+type alias EndOfLifeStrategiesConfig =
+    { default : EndOfLifeStrategies
+    , collected : MaterialDict EndOfLifeStrategies
+    , nonCollected : MaterialDict EndOfLifeStrategies
+    }
+
+
+type alias EndOfLifeStrategies =
+    { incinerating : EndOfLifeStrategy
+    , landfilling : EndOfLifeStrategy
+    , recycling : EndOfLifeStrategy
+    }
+
+
+type alias EndOfLifeStrategy =
+    { impacts : Impacts
+    , process : Maybe Process
+    , split : Split
+    }
+
+
+decode : List Process -> Decoder Config
+decode processes =
+    Decode.succeed Config
+        |> Decode.required "endOfLife" (decodeEndOfLifeConfig processes)
+
+
+decodeEndOfLifeConfig : List Process -> Decoder EndOfLifeConfig
+decodeEndOfLifeConfig processes =
+    Decode.succeed EndOfLifeConfig
+        |> Decode.required "scopeCollectionRates" (Scope.decodeDict Split.decodePercent)
+        |> Decode.required "strategies" (decodeEndOfLifeStrategiesConfig processes)
+
+
+decodeEndOfLifeStrategiesConfig : List Process -> Decoder EndOfLifeStrategiesConfig
+decodeEndOfLifeStrategiesConfig processes =
+    Decode.succeed EndOfLifeStrategiesConfig
+        |> Decode.required "default" (decodeEndOfLifeStrategies processes)
+        |> Decode.required "collected" (Category.decodeMaterialDict (decodeEndOfLifeStrategies processes))
+        |> Decode.required "nonCollected" (Category.decodeMaterialDict (decodeEndOfLifeStrategies processes))
+
+
+decodeEndOfLifeStrategies : List Process -> Decoder EndOfLifeStrategies
+decodeEndOfLifeStrategies processes =
+    let
+        noStrategy =
+            { impacts = Impact.empty, process = Nothing, split = Split.zero }
+    in
+    Decode.succeed EndOfLifeStrategies
+        |> DU.strictOptionalWithDefault "incinerating" (decodeEndOfLifeStrategy processes) noStrategy
+        |> DU.strictOptionalWithDefault "landfilling" (decodeEndOfLifeStrategy processes) noStrategy
+        |> DU.strictOptionalWithDefault "recycling" (decodeEndOfLifeStrategy processes) noStrategy
+        |> Decode.andThen validateEndOfLifeStrategies
+
+
+validateEndOfLifeStrategies : EndOfLifeStrategies -> Decoder EndOfLifeStrategies
+validateEndOfLifeStrategies ({ incinerating, landfilling, recycling } as strategy) =
+    case
+        [ incinerating, landfilling, recycling ]
+            |> List.map .split
+            |> Split.assemble
+    of
+        Err err ->
+            Decode.fail <| "Stratégies de fin de vie invalides\u{00A0}: " ++ err
+
+        Ok _ ->
+            Decode.succeed strategy
+
+
+decodeEndOfLifeStrategy : List Process -> Decoder EndOfLifeStrategy
+decodeEndOfLifeStrategy processes =
+    Decode.succeed EndOfLifeStrategy
+        |> Decode.hardcoded Impact.empty
+        |> DU.strictOptional "processId" (Process.decodeFromId processes)
+        |> Decode.required "percent" Split.decodePercent
+
+
+default : List Process -> Result String Config
+default processes =
+    parse processes
+        """
+        {
+            "endOfLife": {
+                "scopeCollectionRates": {},
+                "strategies": {
+                    "default": {
+                        "incinerating": null,
+                        "landfilling": null,
+                        "recycling": { "percent": 100 }
+                    },
+                    "collected": {},
+                    "nonCollected": {}
+                }
+            }
+        }
+        """
+
+
+parse : List Process -> String -> Result String Config
+parse processes json =
+    json
+        |> Decode.decodeString (decode processes)
+        |> Result.mapError Decode.errorToString

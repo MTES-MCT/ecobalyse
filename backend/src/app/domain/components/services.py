@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import copy
 from collections.abc import Sequence
-from typing import Any, Optional, Union, cast
+from typing import TYPE_CHECKING, Any, Optional, Union, cast
 from uuid import uuid4
 
 from advanced_alchemy.exceptions import ErrorMessages
@@ -19,10 +19,14 @@ from advanced_alchemy.service import (
 )
 from advanced_alchemy.utils.dataclass import Empty, EmptyType
 from app.db import models as m
-from app.domain.components.schemas import (
-    Component,
+from app.domain.components.schemas import Component, ComponentElement
+from app.domain.processes.deps import (
+    provide_processes_service,
 )
 from sqlalchemy.orm import InstrumentedAttribute
+
+if TYPE_CHECKING:
+    from uuid import UUID
 
 __all__ = ("ComponentService",)
 
@@ -168,6 +172,91 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
             ),
         )
 
+    async def _create_element(
+        self,
+        element: ModelDictT[ComponentElement],
+        component_id: str,
+        processes_service,
+    ):
+        element_dict = element if is_dict(element) else element.to_dict()
+
+        tranforms_ids = element_dict.pop("transforms", [])
+
+        element_dict["material_process_id"] = element_dict.pop("material")
+        element_dict["component_id"] = component_id
+
+        elt = m.Element(**element_dict)
+
+        if len(tranforms_ids):
+            elt.process_transforms.extend(
+                await processes_service.list(m.Process.id.in_(tranforms_ids))
+            )
+
+        return elt
+
+    async def _create_component(
+        self, data: ModelDictT[m.Component], processes_service, owner_id: UUID
+    ):
+        data["id"] = data.get("id", uuid4())
+        elements: list[ModelDictT[ComponentElement]] = data.pop("elements", [])
+
+        model = await super().to_model(data)
+
+        for element in elements:
+            elt = await self._create_element(element, data["id"], processes_service)
+            model.elements.append(elt)
+
+        assert owner_id
+
+        value = self.to_schema(model, schema_type=Component)
+        self.repository.session.add(
+            m.JournalEntry(
+                table_name=m.Component.__tablename__,
+                record_id=model.id,
+                action=m.JournalAction.CREATED,
+                user_id=owner_id,
+                value=value,
+            )
+        )
+
+        return model
+
+    async def _update_component(
+        self, model: ModelDictT[m.Component], processes_service, owner_id: UUID
+    ):
+        # Used for journaling as it is the only moment where we have the full object in json
+        # In the following code, the model is either without the name/scopes changes
+        input_data = copy.deepcopy(model)
+
+        elements: list[ComponentElement] = model.pop("elements", [])
+
+        model = await super().to_model(model)
+
+        # Avoid SAWarning: Object of type <Process> not in session, add operation along 'ProcessCategory.processes' won't proceed
+        # By merging the process we are creating into the existing session
+        model = await self.repository.session.merge(model)
+
+        model.elements = []
+
+        for element in elements:
+            # As elements are not comparable (they don’t have ids) we prefer to remove all the existing elements and re-create theme
+            model.elements.append(
+                await self._create_element(element, model, processes_service)
+            )
+
+        assert owner_id
+
+        entry = m.JournalEntry(
+            table_name=m.Component.__tablename__,
+            record_id=model.id,
+            action=m.JournalAction.UPDATED,
+            user_id=owner_id,
+            value=input_data,
+        )
+        self.repository.session.add(entry)
+
+        return model
+
     async def _populate_with_journaling(
         self,
         data: ModelDictT[m.Component],
@@ -176,45 +265,29 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
         has_id = data.get("id") is not None
 
         owner: m.User | None = data.pop("owner", None)
-        input_data = copy.deepcopy(data)
+        owner_id: UUID | None = data.pop("owner_id", None)
 
-        if (
-            operation == "create"
-            and is_dict(data)
-            or (operation == "upsert" and not has_id)
-        ):
-            data["id"] = data.get("id", uuid4())
+        processes_service = await anext(
+            provide_processes_service(self.repository.session)
+        )
 
-            data = await super().to_model(data)
-
-            if owner:
-                owner.journal_entries.append(
-                    m.JournalEntry(
-                        table_name=m.Component.__tablename__,
-                        record_id=data.id,
-                        action=m.JournalAction.CREATED,
-                        user=owner,
-                        value=self.to_schema(data, schema_type=Component),
-                    )
+        with self.repository.session.no_autoflush:
+            if (
+                operation == "create"
+                and is_dict(data)
+                or (operation == "upsert" and not has_id)
+            ):
+                return await self._create_component(
+                    data, processes_service, owner.id if owner else owner_id
                 )
 
-        if (
-            operation == "update"
-            and is_dict(data)
-            or (operation == "upsert" and has_id)
-        ):
-            data = await super().to_model(data)
-            if owner:
-                owner.journal_entries.append(
-                    m.JournalEntry(
-                        table_name=m.Component.__tablename__,
-                        record_id=data.id,
-                        action=m.JournalAction.UPDATED,
-                        user=owner,
-                        value=input_data
-                        if is_dict(input_data)
-                        else input_data.to_dict(),
-                    )
+            if (
+                operation == "update"
+                and is_dict(data)
+                or (operation == "upsert" and has_id)
+            ):
+                return await self._update_component(
+                    data, processes_service, owner.id if owner else owner_id
                 )
 
         return data

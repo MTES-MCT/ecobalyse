@@ -329,7 +329,7 @@ selectProcess category (( component, _ ) as targetItem) maybeElementIndex autoco
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view { db } model =
+view session model =
     ( "Admin Composants"
     , [ Container.centered [ class "d-flex flex-column gap-3 pb-5" ]
             [ AdminView.header model.section
@@ -343,12 +343,12 @@ view { db } model =
             , model.components
                 |> WebDataView.map
                     (processFilters model.scopes model.search
-                        >> componentListView db model.selected
+                        >> componentListView session.db model.selected
                     )
             , model.components
                 |> WebDataView.map (AdminView.downloadElementsButton "components.json" Component.encode model.selected)
             , model.modals
-                |> List.indexedMap (modalView db model.modals)
+                |> List.indexedMap (modalView session model.modals)
                 |> div []
             ]
       ]
@@ -357,12 +357,7 @@ view { db } model =
 
 processFilters : List Scope -> String -> List Component -> List Component
 processFilters scopes search =
-    (if scopes == [] then
-        List.filter (\p -> p.scopes == [])
-
-     else
-        Scope.anyOf scopes
-    )
+    List.filter (\{ scope } -> List.isEmpty scopes || List.member scope scopes)
         >> Text.search
             { minQueryLength = 2
             , query = search
@@ -380,7 +375,7 @@ componentListView db selected components =
                     [ AdminView.selectAllCheckbox ToggleSelectedAll components selected
                     ]
                 , th [] [ label [ for AdminView.selectAllId ] [ text "Nom" ] ]
-                , th [] [ text "Verticales" ]
+                , th [] [ text "Verticale" ]
                 , th [ colspan 3 ] [ text "Description" ]
                 ]
             ]
@@ -404,14 +399,8 @@ componentRowView db selected component =
                 [ code [] [ text (Component.idToString component.id) ] ]
             ]
         , td [ class "align-middle" ]
-            [ component.scopes
-                |> List.map
-                    (Scope.toString
-                        >> text
-                        >> List.singleton
-                        >> small [ class "badge bg-secondary fs-10" ]
-                    )
-                |> div []
+            [ small [ class "badge bg-secondary fs-10" ]
+                [ text <| Scope.toString component.scope ]
             ]
         , td [ class "align-middle w-100" ]
             [ case Component.elementsToString db component of
@@ -423,7 +412,7 @@ componentRowView db selected component =
             ]
         , td [ class "align-middle text-end fw-bold" ]
             [ component
-                |> Component.computeImpacts db.processes
+                |> Component.computeImpacts db
                 |> Result.map
                     (Component.extractImpacts
                         >> Format.formatImpact (Definition.get Definition.Ecs db.definitions)
@@ -483,8 +472,8 @@ componentRowView db selected component =
         ]
 
 
-modalView : Db -> List Modal -> Int -> Modal -> Html Msg
-modalView db modals index modal =
+modalView : Session -> List Modal -> Int -> Modal -> Html Msg
+modalView { componentConfig, db } modals index modal =
     let
         { title, content, footer, size } =
             case modal of
@@ -506,6 +495,7 @@ modalView db modals index modal =
                     , content =
                         [ ComponentView.editorView
                             { addLabel = ""
+                            , componentConfig = componentConfig
                             , customizable = True
                             , db = db
                             , debug = False
@@ -514,6 +504,13 @@ modalView db modals index modal =
                             , explorerRoute = Nothing
                             , impact = db.definitions |> Definition.get Definition.Ecs
                             , items = [ item ]
+                            , lifeCycle =
+                                [ item ]
+                                    |> Component.compute
+                                        { config = componentConfig
+                                        , db = db
+                                        , scope = component.scope
+                                        }
                             , maxItems = Just 1
                             , noOp = NoOp
                             , openSelectComponentModal = \_ -> NoOp
@@ -527,11 +524,7 @@ modalView db modals index modal =
                                 \targetElement transformIndex ->
                                     item |> updateSingleItem (Component.removeElementTransform targetElement transformIndex)
                             , removeItem = \_ -> NoOp
-                            , results =
-                                [ item ]
-                                    |> Component.compute db
-                                    |> Result.withDefault Component.emptyResults
-                            , scopes = Scope.all
+                            , scope = component.scope
                             , setDetailed = \_ -> NoOp
                             , title = ""
                             , updateElementAmount =
@@ -541,6 +534,7 @@ modalView db modals index modal =
                                             item |> updateSingleItem (Component.updateElementAmount targetElement amount)
                                         )
                                         >> Maybe.withDefault NoOp
+                            , updateItemCountry = \_ _ -> NoOp
                             , updateItemName =
                                 \targetItem name ->
                                     item |> updateSingleItem (Component.updateItemCustomName targetItem name)
@@ -676,14 +670,12 @@ modalView db modals index modal =
 componentScopesForm : Component -> Item -> Html Msg
 componentScopesForm component item =
     item.custom
-        |> Maybe.map .scopes
-        |> Maybe.withDefault component.scopes
-        |> List.head
-        |> Maybe.withDefault Scope.Object
+        |> Maybe.andThen .scope
+        |> Maybe.withDefault component.scope
         |> ScopeView.singleScopeForm
             (\scope ->
                 item
-                    |> Component.toggleCustomScope component scope True
+                    |> Component.setCustomScope component scope
                     |> UpdateComponent
             )
 

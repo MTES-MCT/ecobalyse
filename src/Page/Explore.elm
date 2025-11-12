@@ -438,8 +438,7 @@ componentsExplorer :
 componentsExplorer db scope tableConfig tableState maybeId =
     let
         scopedComponents =
-            db.components
-                |> Scope.anyOf [ scope ]
+            db.components |> List.filter (.scope >> (==) scope)
     in
     [ scopedComponents
         |> List.sortBy .name
@@ -462,18 +461,18 @@ componentsExplorer db scope tableConfig tableState maybeId =
 
 
 objectExamplesExplorer :
-    Db
+    Session
     -> Table.Config ( Example ObjectQuery.Query, { score : Float } ) Msg
     -> SortableTable.State
     -> Scope
     -> Maybe Uuid
     -> List (Html Msg)
-objectExamplesExplorer db tableConfig tableState scope maybeId =
+objectExamplesExplorer session tableConfig tableState scope maybeId =
     let
         scoredExamples =
-            db.object.examples
+            session.db.object.examples
                 |> List.filter (\example -> example.scope == scope)
-                |> List.map (\example -> ( example, { score = getObjectScore db example } ))
+                |> List.map (\example -> ( example, { score = getObjectScore session scope example } ))
                 |> List.sortBy (Tuple.first >> .name)
 
         max =
@@ -491,12 +490,12 @@ objectExamplesExplorer db tableConfig tableState scope maybeId =
     , case maybeId of
         Just id ->
             detailsModal
-                (case Example.findByUuid id db.object.examples of
+                (case Example.findByUuid id session.db.object.examples of
                     Err error ->
                         alert error
 
                     Ok example ->
-                        ( example, { score = getObjectScore db example } )
+                        ( example, { score = getObjectScore session scope example } )
                             |> Table.viewDetails scope (ObjectExamples.table max)
                 )
 
@@ -506,20 +505,20 @@ objectExamplesExplorer db tableConfig tableState scope maybeId =
 
 
 textileExamplesExplorer :
-    Db
+    Session
     -> Table.Config ( Example TextileQuery.Query, { score : Float, per100g : Float } ) Msg
     -> SortableTable.State
     -> Maybe Uuid
     -> List (Html Msg)
-textileExamplesExplorer db tableConfig tableState maybeId =
+textileExamplesExplorer session tableConfig tableState maybeId =
     let
         scoredExamples =
-            db.textile.examples
+            session.db.textile.examples
                 |> List.map
                     (\example ->
                         ( example
-                        , { score = getTextileScore db example
-                          , per100g = getTextileScorePer100g db example
+                        , { score = getTextileScore session example
+                          , per100g = getTextileScorePer100g session example
                           }
                         )
                     )
@@ -540,20 +539,20 @@ textileExamplesExplorer db tableConfig tableState maybeId =
     in
     [ scoredExamples
         |> List.sortBy (Tuple.first >> .name)
-        |> Table.viewList OpenDetail tableConfig tableState Scope.Textile (TextileExamples.table db max)
+        |> Table.viewList OpenDetail tableConfig tableState Scope.Textile (TextileExamples.table session max)
     , case maybeId of
         Just id ->
             detailsModal
-                (case Example.findByUuid id db.textile.examples of
+                (case Example.findByUuid id session.db.textile.examples of
                     Err error ->
                         alert error
 
                     Ok example ->
                         Table.viewDetails Scope.Textile
-                            (TextileExamples.table db max)
+                            (TextileExamples.table session max)
                             ( example
-                            , { score = getTextileScore db example
-                              , per100g = getTextileScorePer100g db example
+                            , { score = getTextileScore session example
+                              , per100g = getTextileScorePer100g session example
                               }
                             )
                 )
@@ -564,23 +563,23 @@ textileExamplesExplorer db tableConfig tableState maybeId =
 
 
 textileProductsExplorer :
-    Db
+    Session
     -> Table.Config Product Msg
     -> SortableTable.State
     -> Maybe Product.Id
     -> List (Html Msg)
-textileProductsExplorer db tableConfig tableState maybeId =
-    [ db.textile.products
-        |> Table.viewList OpenDetail tableConfig tableState Scope.Textile (TextileProducts.table db)
+textileProductsExplorer session tableConfig tableState maybeId =
+    [ session.db.textile.products
+        |> Table.viewList OpenDetail tableConfig tableState Scope.Textile (TextileProducts.table session)
     , case maybeId of
         Just id ->
             detailsModal
-                (case Product.findById id db.textile.products of
+                (case Product.findById id session.db.textile.products of
                     Err error ->
                         alert error
 
                     Ok product ->
-                        Table.viewDetails Scope.Textile (TextileProducts.table db) product
+                        Table.viewDetails Scope.Textile (TextileProducts.table session) product
                 )
 
         Nothing ->
@@ -644,26 +643,30 @@ getFoodScorePer100g db =
         >> Result.withDefault 0
 
 
-getObjectScore : Db -> Example ObjectQuery.Query -> Float
-getObjectScore db =
-    .query
-        >> ObjectSimulator.compute db
-        >> Result.map (Component.extractImpacts >> Impact.getImpact Definition.Ecs >> Unit.impactToFloat)
-        >> Result.withDefault 0
-
-
-getTextileScore : Db -> Example TextileQuery.Query -> Float
-getTextileScore db =
-    .query
-        >> Simulator.compute db
-        >> Result.map (.impacts >> Impact.getImpact Definition.Ecs >> Unit.impactToFloat)
-        >> Result.withDefault 0
-
-
-getTextileScorePer100g : Db -> Example TextileQuery.Query -> Float
-getTextileScorePer100g db { query } =
+getObjectScore : Session -> Scope -> Example ObjectQuery.Query -> Float
+getObjectScore { componentConfig, db } scope { query } =
     query
-        |> Simulator.compute db
+        |> ObjectSimulator.compute { config = componentConfig, db = db, scope = scope }
+        |> Result.map
+            (Component.sumLifeCycleImpacts
+                >> Impact.getImpact Definition.Ecs
+                >> Unit.impactToFloat
+            )
+        |> Result.withDefault 0
+
+
+getTextileScore : Session -> Example TextileQuery.Query -> Float
+getTextileScore { componentConfig, db } { query } =
+    query
+        |> Simulator.compute db componentConfig
+        |> Result.map (.impacts >> Impact.getImpact Definition.Ecs >> Unit.impactToFloat)
+        |> Result.withDefault 0
+
+
+getTextileScorePer100g : Session -> Example TextileQuery.Query -> Float
+getTextileScorePer100g { componentConfig, db } { query } =
+    query
+        |> Simulator.compute db componentConfig
         |> Result.map
             (.impacts
                 >> Impact.per100grams query.mass
@@ -706,22 +709,22 @@ explore ({ db } as session) { scope, dataset, tableState } =
             impactsExplorer db.definitions tableConfig tableState scope maybeTrigram
 
         Dataset.ObjectExamples maybeId ->
-            objectExamplesExplorer db tableConfig tableState Scope.Object maybeId
+            objectExamplesExplorer session tableConfig tableState Scope.Object maybeId
 
         Dataset.Processes scope_ maybeId ->
             processesExplorer session scope_ tableConfig tableState maybeId
 
         Dataset.TextileExamples maybeId ->
-            textileExamplesExplorer db tableConfig tableState maybeId
+            textileExamplesExplorer session tableConfig tableState maybeId
 
         Dataset.TextileMaterials maybeId ->
             textileMaterialsExplorer db tableConfig tableState maybeId
 
         Dataset.TextileProducts maybeId ->
-            textileProductsExplorer db tableConfig tableState maybeId
+            textileProductsExplorer session tableConfig tableState maybeId
 
         Dataset.VeliExamples maybeId ->
-            objectExamplesExplorer db tableConfig tableState Scope.Veli maybeId
+            objectExamplesExplorer session tableConfig tableState Scope.Veli maybeId
 
 
 view : Session -> Model -> ( String, List (Html Msg) )

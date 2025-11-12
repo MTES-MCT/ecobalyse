@@ -33,7 +33,7 @@ class UserProfile(UUIDAuditBase):
     # ORM Relationships
     # ------------
     user: Mapped[User] = relationship(
-        back_populates="profile", innerjoin=True, uselist=False, lazy="joined"
+        back_populates="profile", innerjoin=True, lazy="joined"
     )
     user_email: AssociationProxy[str] = association_proxy("user", "email")
 

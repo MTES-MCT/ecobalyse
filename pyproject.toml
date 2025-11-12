@@ -15,7 +15,6 @@ dependencies = [
     "asyncpg>=0.30.0",
     "structlog>=25.2.0",
     "orjson>=3.10.16",
-    "passlib[argon2]>=1.7.4",
     "aiosmtplib>=4.0.0",
     "emails>=0.6",
     "python-stdnum>=2.1",
@@ -23,6 +22,8 @@ dependencies = [
     "typer>=0.16.0",
     "pytest-mock>=3.14.1",
     "asyncstdlib>=3.13.1",
+    "sentry-sdk[litestar]>=2.41",
+    "pwdlib[argon2]>=0.2.1",
 ]
 
 [build-system]

@@ -29,6 +29,7 @@ fromString str =
         _ ->
             Err <| "Scénario invalide : " ++ str
 
+
 toLabel : Scenario -> String
 toLabel scenario =
     case scenario of
@@ -43,8 +44,6 @@ toLabel scenario =
 
         Reference ->
             "Référence"
-
-
 
 
 decode : Decoder Scenario

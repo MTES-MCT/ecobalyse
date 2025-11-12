@@ -15,6 +15,7 @@ import Data.Country as Country
 import Data.Env as Env
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
+import Data.Scope as Scope
 import Data.Split as Split
 import Data.Textile.Dyeing as Dyeing
 import Data.Textile.Economics as Economics
@@ -42,6 +43,7 @@ import Static.Db exposing (Db)
 
 type alias Simulator =
     { complementsImpacts : Impact.ComplementsImpacts
+    , componentConfig : Component.Config
     , daysOfWear : Duration
     , durability : Unit.HolisticDurability
     , impacts : Impacts
@@ -69,8 +71,8 @@ encode webUrl v =
         ]
 
 
-init : Db -> Query -> Result String Simulator
-init db =
+init : Db -> Component.Config -> Query -> Result String Simulator
+init db componentConfig =
     Query.handleUpcycling
         >> Inputs.fromQuery db
         >> Result.map
@@ -79,6 +81,7 @@ init db =
                     |> LifeCycle.init db
                     |> (\lifeCycle ->
                             { complementsImpacts = Impact.noComplementsImpacts
+                            , componentConfig = componentConfig
                             , daysOfWear = inputs.product.use.daysOfWear
                             , durability =
                                 { nonPhysical = Unit.standardDurability Unit.NonPhysicalDurability
@@ -97,8 +100,8 @@ init db =
 
 {-| Computes simulation impacts.
 -}
-compute : Db -> Query -> Result String Simulator
-compute db query =
+compute : Db -> Component.Config -> Query -> Result String Simulator
+compute db componentConfig query =
     let
         next fn =
             Result.map fn
@@ -126,7 +129,7 @@ compute db query =
             else
                 identity
     in
-    init db query
+    init db componentConfig query
         -- Ensure end product mass is first applied to the final Distribution step
         |> next initializeFinalMass
         --
@@ -201,14 +204,14 @@ initializeFinalMass ({ inputs } as simulator) =
 
 
 handleTrimsWeight : Db -> Simulator -> Simulator
-handleTrimsWeight db ({ inputs } as simulator) =
+handleTrimsWeight db ({ componentConfig, inputs } as simulator) =
     -- We need to substract trims weight at the Material, Spinning, Fabric and Ennobling steps
     -- because they're added at the Making step and carried through the next steps of the lifecycle
     let
         trimsMass =
             inputs.trims
-                |> Component.compute db
-                |> Result.map Component.extractMass
+                |> Component.compute { config = componentConfig, db = db, scope = Scope.Textile }
+                |> Result.map (.production >> Component.extractMass)
                 |> Result.withDefault Quantity.zero
     in
     simulator
@@ -474,14 +477,14 @@ stepMaterialImpacts { textile } material step =
             step.outputMass
                 |> Formula.recycledMaterialImpacts step.impacts
                     { cffData = cffData
-                    , nonRecycledProcess = sourceMaterial.materialProcess
-                    , recycledProcess = material.materialProcess
+                    , nonRecycledProcess = sourceMaterial.process
+                    , recycledProcess = material.process
                     }
 
         -- Non-recycled Material
         Nothing ->
             step.outputMass
-                |> Formula.pureMaterialImpacts step.impacts material.materialProcess
+                |> Formula.pureMaterialImpacts step.impacts material.process
 
 
 computeMaterialImpacts : Db -> Simulator -> Simulator
@@ -667,7 +670,7 @@ computeMaterialStepWaste ({ inputs, lifeCycle } as simulator) =
                                 (\{ material, share } ->
                                     inputMass
                                         |> Quantity.multiplyBy (Split.toFloat share)
-                                        |> Formula.genericWaste material.materialProcess.waste
+                                        |> Formula.genericWaste material.process.waste
                                 )
                             |> List.foldl
                                 (\curr acc ->
@@ -745,10 +748,11 @@ computeTotalTransportImpacts simulator =
 
 
 computeTrims : Db -> Simulator -> Result String Simulator
-computeTrims db ({ durability, inputs } as simulator) =
+computeTrims db ({ componentConfig, durability, inputs } as simulator) =
     inputs.trims
-        |> Component.compute db
-        |> Result.map Component.extractImpacts
+        |> Component.compute { config = componentConfig, db = db, scope = Scope.Textile }
+        -- FIXME: atm we don't include eol impacts, would we ever want that for textile?
+        |> Result.map (.production >> Component.extractImpacts)
         |> Result.map
             (\trimsImpacts ->
                 { simulator

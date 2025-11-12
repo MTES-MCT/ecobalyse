@@ -3,13 +3,15 @@ module Main exposing (main)
 import App exposing (PageUpdate)
 import Browser exposing (Document)
 import Browser.Navigation as Nav
+import Data.Component as Component
+import Data.Component.Config as ComponentConfig
 import Data.Example as Example
 import Data.Food.Query as FoodQuery
 import Data.Github as Github
 import Data.Impact as Impact
 import Data.Notification as Notification exposing (Notification)
 import Data.Object.Query as ObjectQuery
-import Data.Posthog as Posthog
+import Data.Plausible as Plausible
 import Data.Session as Session exposing (Session)
 import Data.Textile.Query as TextileQuery
 import Html
@@ -28,9 +30,9 @@ import Page.Stats as Stats
 import Page.Textile as TextileSimulator
 import Ports
 import RemoteData exposing (WebData)
+import RemoteData.Http as Http
 import Request.Auth
 import Request.BackendHttp as BackendHttp
-import Request.BackendHttp.Error as BackendError
 import Request.Github
 import Request.Version exposing (VersionData)
 import Route
@@ -44,7 +46,9 @@ import Views.Page as Page
 type alias Flags =
     { clientUrl : String
     , enabledSections : Session.EnabledSections
+    , matomo : { host : String, siteId : String }
     , rawStore : String
+    , scalingoAppName : Maybe String
     , versionPollSeconds : Int
     }
 
@@ -89,6 +93,7 @@ type Msg
     | AppMsg App.Msg
     | AuthMsg Auth.Msg
     | ComponentAdminMsg ComponentAdmin.Msg
+    | ComponentConfigReceived (WebData Component.Config)
     | DetailedProcessesReceived (BackendHttp.WebData String)
     | EditorialMsg Editorial.Msg
     | ExploreMsg Explore.Msg
@@ -108,8 +113,15 @@ type Msg
 
 init : Flags -> Url -> Nav.Key -> ( Model, Cmd Msg )
 init flags requestedUrl navKey =
-    setRoute requestedUrl <|
-        case StaticDb.db StaticJson.processesJson of
+    setRoute requestedUrl
+        (case
+            StaticDb.db StaticJson.processesJson
+                |> Result.andThen
+                    (\db ->
+                        Component.defaultConfig db.processes
+                            |> Result.map (Tuple.pair db)
+                    )
+         of
             Err err ->
                 ( { mobileNavigationOpened = False
                   , navKey = navKey
@@ -117,13 +129,13 @@ init flags requestedUrl navKey =
                   , tray = Toast.tray
                   , url = requestedUrl
                   }
-                , Posthog.send <| Posthog.PageErrored requestedUrl err
+                , Cmd.none
                 )
 
-            Ok db ->
+            Ok ( db, componentConfig ) ->
                 let
                     session =
-                        setupSession navKey flags db
+                        setupSession navKey flags db componentConfig
                 in
                 ( { mobileNavigationOpened = False
                   , navKey = navKey
@@ -132,25 +144,31 @@ init flags requestedUrl navKey =
                   , url = requestedUrl
                   }
                 , Cmd.batch
-                    [ Request.Version.loadVersion VersionReceived
+                    [ Ports.appStarted ()
+                    , ComponentConfig.decode db.processes
+                        |> Http.get "/data/components/config.json" ComponentConfigReceived
+                    , Request.Version.loadVersion VersionReceived
                     , Request.Github.getReleases ReleasesReceived
                     , if Session.isAuthenticated session then
                         Request.Auth.processes session DetailedProcessesReceived
 
                       else
                         Cmd.none
-                    , Posthog.send <| Posthog.PageViewed requestedUrl
+                    , Plausible.send session <| Plausible.PageViewed requestedUrl
                     ]
                 )
+        )
 
 
-setupSession : Nav.Key -> Flags -> Db -> Session
-setupSession navKey flags db =
+setupSession : Nav.Key -> Flags -> Db -> Component.Config -> Session
+setupSession navKey flags db componentConfig =
     Session.decodeRawStore flags.rawStore
         { clientUrl = flags.clientUrl
+        , componentConfig = componentConfig
         , currentVersion = Request.Version.Unknown
         , db = db
         , enabledSections = flags.enabledSections
+        , matomo = flags.matomo
         , navKey = navKey
         , notifications = []
         , queries =
@@ -164,6 +182,7 @@ setupSession navKey flags db =
             , veli = ObjectQuery.default
             }
         , releases = RemoteData.NotAsked
+        , scalingoAppName = flags.scalingoAppName
         , store = Session.defaultStore
         , versionPollSeconds = flags.versionPollSeconds
         }
@@ -398,6 +417,19 @@ update rawMsg ({ state } as model) =
                     ComponentAdmin.update session adminMsg adminModel
                         |> toPage session model Cmd.none ComponentAdminPage ComponentAdminMsg
 
+                ( ComponentConfigReceived (RemoteData.Success componentConfig), currentPage ) ->
+                    ( { model | state = currentPage |> Loaded { session | componentConfig = componentConfig } }
+                    , Cmd.none
+                    )
+
+                ( ComponentConfigReceived (RemoteData.Failure _), _ ) ->
+                    notifyError model "Erreur" <|
+                        "Impossible de charger la configuration des composants. Une configuration par défaut sera"
+                            ++ " utilisée, les résultats fournis sont probablement invalides ou incomplets."
+
+                ( ComponentConfigReceived _, _ ) ->
+                    ( model, Cmd.none )
+
                 ( ProcessAdminMsg adminMsg, ProcessAdminPage adminModel ) ->
                     ProcessAdmin.update session adminMsg adminModel
                         |> toPage session model Cmd.none ProcessAdminPage ProcessAdminMsg
@@ -405,16 +437,18 @@ update rawMsg ({ state } as model) =
                 ( DetailedProcessesReceived (RemoteData.Success rawDetailedProcessesJson), currentPage ) ->
                     -- When detailed processes are received, rebuild the entire static db using them
                     case StaticDb.db rawDetailedProcessesJson of
-                        Err error ->
-                            ( { model | state = Errored error }, Cmd.none )
+                        Err _ ->
+                            notifyError model "Erreur" <|
+                                "Impossible de décoder les impacts détaillés; les impacts agrégés seront utilisés."
 
                         Ok detailedDb ->
-                            ( { model | state = currentPage |> Loaded { session | db = detailedDb } }, Cmd.none )
+                            ( { model | state = currentPage |> Loaded { session | db = detailedDb } }
+                            , Cmd.none
+                            )
 
-                ( DetailedProcessesReceived (RemoteData.Failure error), _ ) ->
-                    ( { model | state = Errored (BackendError.errorToString error) }
-                    , Cmd.none
-                    )
+                ( DetailedProcessesReceived (RemoteData.Failure _), _ ) ->
+                    notifyError model "Erreur" <|
+                        "Impossible de charger les impacts détaillés; les impacts agrégés seront utilisés."
 
                 ( EditorialMsg editorialMsg, EditorialPage editorialModel ) ->
                     Editorial.update session editorialMsg editorialModel
@@ -458,7 +492,7 @@ update rawMsg ({ state } as model) =
                 ( UrlChanged url, _ ) ->
                     ( { model | mobileNavigationOpened = False, url = url }, Cmd.none )
                         |> setRoute url
-                        |> Tuple.mapSecond (\cmd -> Cmd.batch [ cmd, Posthog.send <| Posthog.PageViewed url ])
+                        |> Tuple.mapSecond (\cmd -> Cmd.batch [ cmd, Plausible.send session <| Plausible.PageViewed url ])
 
                 ( UrlRequested (Browser.Internal url), _ ) ->
                     ( { model | url = url }, Nav.pushUrl session.navKey (Url.toString url) )
@@ -505,6 +539,15 @@ update rawMsg ({ state } as model) =
 
         ( Errored _, _ ) ->
             ( model, Cmd.none )
+
+
+notifyError : Model -> String -> String -> ( Model, Cmd Msg )
+notifyError model title message =
+    ( model
+    , Notification.error title message
+        |> App.AddToast
+        |> App.toCmd AppMsg
+    )
 
 
 subscriptions : Model -> Sub Msg
@@ -555,9 +598,10 @@ view : Model -> Document Msg
 view { mobileNavigationOpened, state, tray } =
     case state of
         Errored error ->
+            -- FIXME: proper error page
             { body =
                 [ Html.h1 [] [ Html.text <| "Erreur" ]
-                , Html.p [] [ Html.text error ]
+                , Html.pre [] [ Html.text error ]
                 ]
             , title = "Erreur"
             }

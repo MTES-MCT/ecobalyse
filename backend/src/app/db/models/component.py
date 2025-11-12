@@ -1,14 +1,16 @@
 from __future__ import annotations
 
-from typing import Any
+from typing import TYPE_CHECKING
 
 from advanced_alchemy.base import UUIDAuditBase
-from advanced_alchemy.types import JsonB
 from app.domain.components.schemas import Scope
 from sqlalchemy import Enum
 from sqlalchemy.dialects import postgresql
 from sqlalchemy.ext.mutable import MutableList
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+if TYPE_CHECKING:
+    from .element import Element
 
 
 def get_enum_values(enum_class):
@@ -17,7 +19,6 @@ def get_enum_values(enum_class):
 
 class Component(UUIDAuditBase):
     __tablename__ = "component"
-    elements: Mapped[dict[str, Any] | None] = mapped_column(JsonB)
     name: Mapped[str]
     comment: Mapped[str | None]
 
@@ -39,3 +40,12 @@ class Component(UUIDAuditBase):
         ),
         default=[],
     )
+
+    elements: Mapped[list[Element]] = relationship(
+        back_populates="component",
+        lazy="selectin",
+        cascade="all, delete-orphan",
+    )
+
+    def __repr__(self) -> str:
+        return f"Component(id={self.id!r}, name={self.name!r}, comment={self.comment!r}, scopes={self.scopes!r}, elements={self.elements!r})"

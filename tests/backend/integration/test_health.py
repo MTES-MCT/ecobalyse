@@ -16,3 +16,25 @@ async def test_health(client: AsyncClient) -> None:
     }
 
     assert response.json() == expected
+
+
+async def test_sentry_check(
+    client: AsyncClient,
+    user_token_headers: dict[str, str],
+    superuser_token_headers: dict[str, str],
+) -> None:
+    response = await client.get("/check-sentry")
+    assert response.status_code == 401
+
+    response = await client.get(
+        "/check-sentry",
+        headers=user_token_headers,
+    )
+    assert response.status_code == 403
+
+    # Only superuser can generate an error
+    response = await client.get(
+        "/check-sentry",
+        headers=superuser_token_headers,
+    )
+    assert response.status_code == 500

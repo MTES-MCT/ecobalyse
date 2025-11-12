@@ -15,7 +15,8 @@ const rateLimit = require("express-rate-limit");
 const { createCSPDirectives, extractTokenFromHeaders } = require("./lib/http");
 // monitoring
 const { setupSentry } = require("./lib/sentry"); // MUST be required BEFORE express
-const { createPosthogTracker } = require("./lib/posthog");
+const { createMatomoTracker } = require("./lib/matomo");
+const { createPlausibleTracker } = require("./lib/plausible");
 const express = require("express");
 
 const expressHost = "0.0.0.0";
@@ -47,8 +48,11 @@ app.use(
 // Sentry monitoring
 setupSentry(app);
 
-// Posthog API tracker
-const posthogTracker = createPosthogTracker(process.env);
+// Plausible API tracker
+const plausibleTracker = createPlausibleTracker(process.env);
+
+// Matomo
+const matomoTracker = createMatomoTracker(process.env);
 
 // Middleware
 const jsonErrorHandler = bodyParserErrorHandler({
@@ -227,7 +231,8 @@ elmApp.ports.output.subscribe(({ status, body, jsResponseHandler }) => {
 });
 
 api.get("/", async (req, res) => {
-  await posthogTracker.captureEvent(200, req);
+  matomoTracker.track(200, req);
+  await plausibleTracker.captureEvent(200, req);
   res.status(200).send(openApiContents);
 });
 
@@ -257,7 +262,8 @@ api.all(/(.*)/, bodyParser.json(), jsonErrorHandler, async (req, res) => {
     body: req.body,
     processes,
     jsResponseHandler: async ({ status, body }) => {
-      await posthogTracker.captureEvent(status, req);
+      matomoTracker.track(status, req);
+      await plausibleTracker.captureEvent(status, req);
       respondWithFormattedJSON(res, status, body);
     },
   });
@@ -323,7 +329,8 @@ version.all(
 
     const urlWithoutPrefix = req.url.replace(/\/[^/]+\/api/, "");
 
-    await posthogTracker.captureEvent(res.statusCode, req);
+    matomoTracker.track(res.statusCode, req);
+    await plausibleTracker.captureEvent(res.statusCode, req);
 
     elmApp.ports.input.send({
       method: req.method,
@@ -371,18 +378,5 @@ app.use("/versions", version);
 const server = app.listen(expressPort, expressHost, () => {
   console.log(`Server listening at http://${expressHost}:${expressPort} (NODE_ENV=${NODE_ENV})`);
 });
-
-async function handleExit(signal) {
-  // Since the Node client batches events to PostHog, the shutdown function
-  // ensures that all the events are captured before shutting down
-  console.log(`Received ${signal}. Flushing…`);
-  await posthogTracker.shutdown();
-  console.log("Flush complete");
-  server.close(() => process.exit(0));
-}
-
-process.on("SIGINT", handleExit);
-process.on("SIGQUIT", handleExit);
-process.on("SIGTERM", handleExit);
 
 module.exports = server;

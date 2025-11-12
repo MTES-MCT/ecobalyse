@@ -2,40 +2,41 @@ module Data.Textile.Material exposing
     ( CFFData
     , Id(..)
     , Material
+    , decodeId
     , decodeList
     , encode
     , encodeId
     , findById
     , getRecyclingData
+    , idFromString
     , idToString
     )
 
-import Data.Common.DecodeUtils as DU
 import Data.Country as Country
 import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
 import Data.Textile.Material.Origin as Origin exposing (Origin)
+import Data.Uuid as Uuid exposing (Uuid)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
 
 
 type alias Material =
-    { cffData : Maybe CFFData
+    { alias : String
+    , cffData : Maybe CFFData
     , defaultCountry : Country.Code -- Default country for Material and Spinning steps
     , geographicOrigin : String -- A textual information about the geographic origin of the material
     , id : Id
-    , materialProcess : Process
     , name : String
     , origin : Origin
+    , process : Process
     , recycledFrom : Maybe Id
-    , recycledProcess : Maybe Process
-    , shortName : String
     }
 
 
 type Id
-    = Id String
+    = Id Uuid
 
 
 
@@ -49,14 +50,34 @@ type alias CFFData =
     }
 
 
+decodeId : Decoder Id
+decodeId =
+    Decode.map Id Uuid.decoder
+
+
+encodeId : Id -> Encode.Value
+encodeId (Id uuid) =
+    Uuid.encoder uuid
+
+
+idToString : Id -> String
+idToString (Id uuid) =
+    Uuid.toString uuid
+
+
+idFromString : String -> Result String Id
+idFromString =
+    Uuid.fromString >> Result.map Id
+
+
 getRecyclingData : Material -> List Material -> Maybe ( Material, CFFData )
 getRecyclingData material materials =
     -- If material is non-recycled, retrieve relevant recycled equivalent material & CFF data
     Maybe.map2 Tuple.pair
         (material.recycledFrom
             |> Maybe.andThen
-                (\id ->
-                    findById id materials
+                (\materialId ->
+                    findById materialId materials
                         |> Result.toMaybe
                 )
         )
@@ -65,7 +86,6 @@ getRecyclingData material materials =
 
 
 ---- Helpers
-
 
 findById : Id -> List Material -> Result String Material
 findById id =
@@ -77,16 +97,15 @@ findById id =
 decode : List Process -> Decoder Material
 decode processes =
     Decode.succeed Material
+        |> JDP.required "alias" Decode.string
         |> JDP.required "cff" (Decode.maybe decodeCFFData)
         |> JDP.required "defaultCountry" (Decode.string |> Decode.map Country.codeFromString)
         |> JDP.required "geographicOrigin" Decode.string
-        |> JDP.required "id" (Decode.map Id Decode.string)
-        |> JDP.required "materialProcessUuid" (Process.decodeFromId processes)
+        |> JDP.required "id" decodeId
         |> JDP.required "name" Decode.string
         |> JDP.required "origin" Origin.decode
-        |> JDP.required "recycledFrom" (Decode.maybe (Decode.map Id Decode.string))
-        |> DU.strictOptional "recycledProcessUuid" (Process.decodeFromId processes)
-        |> JDP.required "shortName" Decode.string
+        |> JDP.required "processId" (Process.decodeFromId processes)
+        |> JDP.required "recycledFrom" (Decode.maybe decodeId)
 
 
 decodeCFFData : Decoder CFFData
@@ -104,25 +123,12 @@ decodeList processes =
 encode : Material -> Encode.Value
 encode v =
     Encode.object
-        [ ( "id", encodeId v.id )
-        , ( "name", v.name |> Encode.string )
-        , ( "shortName", Encode.string v.shortName )
-        , ( "origin", v.origin |> Origin.toString |> Encode.string )
-        , ( "materialProcessUuid", Process.encodeId v.materialProcess.id )
-        , ( "recycledProcessUuid"
-          , v.recycledProcess |> Maybe.map (.id >> Process.encodeId) |> Maybe.withDefault Encode.null
-          )
-        , ( "recycledFrom", v.recycledFrom |> Maybe.map encodeId |> Maybe.withDefault Encode.null )
-        , ( "geographicOrigin", Encode.string v.geographicOrigin )
+        [ ( "alias", Encode.string v.alias )
         , ( "defaultCountry", v.defaultCountry |> Country.codeToString |> Encode.string )
+        , ( "id", encodeId v.id )
+        , ( "geographicOrigin", Encode.string v.geographicOrigin )
+        , ( "name", v.name |> Encode.string )
+        , ( "origin", v.origin |> Origin.toString |> Encode.string )
+        , ( "processId", Process.encodeId v.process.id )
+        , ( "recycledFrom", v.recycledFrom |> Maybe.map encodeId |> Maybe.withDefault Encode.null )
         ]
-
-
-encodeId : Id -> Encode.Value
-encodeId =
-    idToString >> Encode.string
-
-
-idToString : Id -> String
-idToString (Id string) =
-    string

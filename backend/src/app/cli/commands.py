@@ -9,6 +9,7 @@ import orjson
 from advanced_alchemy.utils.fixtures import open_fixture_async
 from app.config import get_settings
 from app.config.app import alchemy
+from app.db import models as m
 from app.domain.accounts.deps import provide_users_service
 from app.domain.accounts.schemas import (
     OrganizationCreate,
@@ -19,6 +20,7 @@ from app.domain.accounts.services import UserService
 from app.domain.components.deps import provide_components_service
 from app.domain.processes.deps import provide_processes_service
 from rich import get_console
+from sqlalchemy.orm import joinedload, selectinload
 from structlog import get_logger
 
 
@@ -46,54 +48,69 @@ async def load_database_fixtures() -> None:
         await logger.ainfo("loaded users")
 
 
-async def _create_user(
-    email: str,
-    first_name: str,
-    last_name: str,
-    organization: str | None,
+async def _create_users(
+    users_list_string: str,
+    organization: str,
+    organization_type: OrganizationType,
     superuser: bool = False,
     is_active: bool = True,
 ) -> None:
-    obj_in = UserCreate(
-        email=email,
-        first_name=first_name,
-        last_name=last_name,
-        organization=OrganizationCreate(
-            name=organization, type=OrganizationType.LOCAL_AUTHORITY
-        ),
-        is_superuser=superuser,
-        is_active=is_active,
-        terms_accepted=True,
-    )
+    entries: list[str] = users_list_string.split(",")
+    users_to_upsert = []
+    for user in entries:
+        parts = user.split("/")
+        email = parts[0]
+        first_name = parts[1]
+        last_name = parts[2]
+
+        user_in = UserCreate(
+            email=email,
+            first_name=first_name,
+            last_name=last_name,
+            organization=OrganizationCreate(name=organization, type=organization_type),
+            is_superuser=superuser,
+            is_active=is_active,
+            terms_accepted=True,
+        )
+        users_to_upsert.append(user_in.to_dict())
 
     console = get_console()
 
     async with alchemy.get_session() as db_session:
         users_service = await anext(provide_users_service(db_session))
-        user = await users_service.upsert(
-            data=obj_in.to_dict(), auto_commit=True, match_fields=["email"]
+        user = await users_service.upsert_many(
+            data=users_to_upsert, auto_commit=True, match_fields=["email"]
         )
-        console.print(f"User upserted: {user.email}")
+        console.print(f"Users upserted: {[user['email'] for user in users_to_upsert]}")
+
+
+async def _create_user(
+    email: str,
+    first_name: str,
+    last_name: str,
+    organization: str,
+    organization_type: OrganizationType = OrganizationType.LOCAL_AUTHORITY,
+    superuser: bool = False,
+    is_active: bool = True,
+) -> None:
+    await _create_users(
+        f"{email}/{first_name}/{last_name}",
+        organization,
+        organization_type,
+        superuser,
+        is_active,
+    )
 
 
 @user_management_group.command(
-    name="create-default-user", help="Create the default user"
+    name="create-users", help="Create multiple users from a string"
 )
 @click.option(
-    "--first-name",
-    help="First name of the new user",
+    "--users",
+    help="Users to be created, format is: email@test.com/Firstname/Lastname,other@email.com/Other first name/Other name",
     type=click.STRING,
-    required=False,
+    required=True,
     show_default=False,
-    default="Admin",
-)
-@click.option(
-    "--last-name",
-    help="Last name of the new user",
-    type=click.STRING,
-    required=False,
-    show_default=False,
-    default="Ecobalyse",
 )
 @click.option(
     "--organization",
@@ -103,29 +120,41 @@ async def _create_user(
     show_default=False,
     default="Ecobalyse",
 )
-def create_default_user(
-    first_name: str,
-    last_name: str,
-    organization: str | None,
+@click.option(
+    "--organization-type",
+    help="Organization of the new user",
+    type=click.Choice(OrganizationType),
+    required=False,
+    show_default=False,
+    default=OrganizationType.LOCAL_AUTHORITY,
+)
+@click.option(
+    "--superuser",
+    help="Should create super users",
+    type=click.BOOL,
+    default=False,
+    required=False,
+    show_default=False,
+    is_flag=True,
+)
+def create_users(
+    users: str,
+    organization: str,
+    organization_type: OrganizationType,
+    superuser: bool,
 ) -> None:
-    """Create the default user of the app."""
+    """Create multiple users."""
 
     console = get_console()
 
-    console.rule("Create the default user of the app.")
-    superuser = False
-
-    settings = get_settings()
+    console.rule("Create multiple users.")
 
     anyio.run(
-        _create_user,
-        cast("str", settings.app.DEFAULT_USER_EMAIL),
-        cast("str", first_name),
-        cast("str", last_name),
+        _create_users,
+        cast("str", users),
         organization,
+        organization_type,
         cast("bool", superuser),
-        # Deactivate default user
-        False,
     )
 
 
@@ -160,6 +189,14 @@ def create_default_user(
     default="Ecobalyse",
 )
 @click.option(
+    "--organization-type",
+    help="Organization of the new user",
+    type=click.Choice(OrganizationType),
+    required=False,
+    show_default=False,
+    default=OrganizationType.LOCAL_AUTHORITY,
+)
+@click.option(
     "--superuser",
     help="Is a superuser",
     type=click.BOOL,
@@ -172,7 +209,8 @@ def create_user(
     email: str,
     first_name: str,
     last_name: str,
-    organization: str | None,
+    organization: str,
+    organization_type: OrganizationType,
     superuser: bool | None,
 ) -> None:
     """Create a user."""
@@ -191,6 +229,7 @@ def create_user(
         cast("str", first_name),
         cast("str", last_name),
         organization,
+        organization_type,
         cast("bool", superuser),
     )
 
@@ -218,9 +257,7 @@ def load_test_fixtures() -> None:
     anyio.run(_load_test_fixtures)
 
 
-async def load_components_fixtures(components_data: dict) -> None:
-    """Import/Synchronize Database Fixtures."""
-
+async def get_or_create_default_user(db_session):
     logger = get_logger()
 
     async with alchemy.get_session() as db_session:
@@ -249,6 +286,17 @@ async def load_components_fixtures(components_data: dict) -> None:
             user = await users_service.get_one_or_none(
                 email=settings.app.DEFAULT_USER_EMAIL
             )
+
+        return user
+
+
+async def load_components_fixtures(components_data: dict) -> None:
+    """Import/Synchronize Database Fixtures."""
+
+    logger = get_logger()
+
+    async with alchemy.get_session() as db_session:
+        user = await get_or_create_default_user(db_session)
 
         components_service = await anext(provide_components_service(db_session))
 
@@ -287,50 +335,70 @@ def load_components_json(json_file: click.File) -> None:
     anyio.run(_load_components_json, json_data)
 
 
-async def load_processes_fixtures(processes_data: dict) -> None:
+async def load_processes_fixtures(
+    db_session, processes_service, processes_data: dict
+) -> None:
     """Import/Synchronize Database Fixtures."""
 
     from structlog import get_logger
 
     logger = get_logger()
 
-    async with alchemy.get_session() as db_session:
-        users_service = await anext(provide_users_service(db_session))
+    user = await get_or_create_default_user(db_session)
 
-        settings = get_settings()
-        user = await users_service.get_one_or_none(
-            email=settings.app.DEFAULT_USER_EMAIL
-        )
-        if not user:
-            await logger.awarning(
-                f"default super user {settings.app.DEFAULT_USER_EMAIL} not found, creating it"
-            )
+    processes_fixtures_ids = []
 
-            await _create_user(
-                email=settings.app.DEFAULT_USER_EMAIL,
-                first_name="Admin",
-                last_name="Ecobalyse",
-                organization="Ecobalyse",
-                # Not super user
-                superuser=False,
-                # Deactivate default user
-                is_active=False,
-            )
+    for process in processes_data:
+        process["owner"] = user
+        processes_fixtures_ids.append(process["id"])
 
-            user = await users_service.get_one_or_none(
-                email=settings.app.DEFAULT_USER_EMAIL
-            )
+    existing_processes = await processes_service.list()
+    existing_processes_ids = [str(process.id) for process in existing_processes]
 
-        processes_service = await anext(provide_processes_service(db_session))
+    processes_to_add = []
+    processes_to_update = []
+    processes_ids_to_delete = []
 
-        for process in processes_data:
-            process["owner"] = user
+    for process_fixture in processes_data:
+        if process_fixture["id"] not in existing_processes_ids:
+            processes_to_add.append(process_fixture)
+        else:
+            processes_to_update.append(process_fixture)
 
+    for existing_process in existing_processes:
+        if str(existing_process.id) not in processes_fixtures_ids:
+            processes_ids_to_delete.append(existing_process.id)
+
+    if processes_to_add:
         await processes_service.create_many(
-            data=processes_data,
+            data=processes_to_add,
             auto_commit=True,
         )
-        await logger.ainfo("loaded processes fixtures")
+
+    if processes_to_update:
+        for process_to_update in processes_to_update:
+            await processes_service.update(
+                item_id=process_to_update["id"],
+                data=process_to_update,
+                auto_commit=True,
+                auto_refresh=True,
+                load=[
+                    selectinload(m.Process.process_categories).options(
+                        joinedload(m.ProcessCategory.processes, innerjoin=True),
+                    ),
+                ],
+            )
+
+    if processes_ids_to_delete:
+        await processes_service.delete_many(
+            item_ids=processes_ids_to_delete,
+            auto_commit=True,
+        )
+
+    await logger.ainfo(f"Loaded {len(processes_data)} processes fixtures")
+    await logger.ainfo(f"Added: {len(processes_to_add)}")
+    await logger.ainfo(f"Updated: {len(processes_to_update)}")
+    await logger.ainfo(f"Deleted: {len(processes_ids_to_delete)}")
 
 
 @fixtures_management_group.command(
@@ -352,7 +420,11 @@ def load_processes_json(json_file: click.File) -> None:
     json_data = orjson.loads(json_file.read())
 
     async def _load_processes_json(components_data) -> None:
-        await load_processes_fixtures(components_data)
+        async with alchemy.get_session() as db_session:
+            processes_service = await anext(provide_processes_service(db_session))
+            await load_processes_fixtures(
+                db_session, processes_service, components_data
+            )
 
     console.rule("Loading processes file.")
     anyio.run(_load_processes_json, json_data)

@@ -1345,7 +1345,7 @@ q {
   height: 0px;
   max-height: 0px;
   width: calc(100% - 2rem * 2);
-  z-index: 0;
+  z-index: 9999;
 
   @media screen and (width < $viewport-md) {
     left: 1rem;

@@ -1,7 +1,6 @@
 import { Elm } from "./src/Main.elm";
 import * as Sentry from "@sentry/browser";
 import Charts from "./lib/charts";
-import posthog from "posthog-js/dist/module.no-external";
 
 // The localStorage key to use to store serialized session data
 const storeKey = "store";
@@ -11,41 +10,8 @@ const clientUrl = (location.origin + location.pathname).replace(/\/+$/g, "");
 
 // using a `let` statement to avoid this error:
 // @parcel/optimizer-swc: 'const' declarations must be initialized
-let { FORCE_POSTHOG = false, NODE_ENV, POSTHOG_KEY, POSTHOG_HOST, SENTRY_DSN } = process.env;
-
-const posthogEnabled = (NODE_ENV === "production" || FORCE_POSTHOG) && POSTHOG_KEY && POSTHOG_HOST;
-
-// Posthog
-if (posthogEnabled) {
-  posthog.init(POSTHOG_KEY, {
-    api_host: POSTHOG_HOST,
-    person_profiles: "identified_only",
-    autocapture: false,
-    capture_pageleave: true,
-    capture_pageview: false, // handled in Elm land
-    cross_subdomain_cookie: false,
-    disable_external_dependency_loading: true,
-    disable_web_experiments: true,
-    rageclick: false,
-    rate_limiting: {
-      events_per_second: 5,
-      events_burst_limit: 10,
-    },
-    respect_dnt: !Boolean(FORCE_POSTHOG),
-    session_replay: false,
-    before_send: (event) => {
-      // hash-based routing handling
-      // https://posthog.com/tutorials/hash-based-routing
-      if (event?.properties?.$current_url) {
-        const parsed = new URL(event.properties.$current_url);
-        if (parsed.hash) {
-          event.properties.$pathname = parsed.pathname + parsed.hash;
-        }
-      }
-      return event;
-    },
-  });
-}
+let { FORCE_PLAUSIBLE, NODE_ENV, PLAUSIBLE_HOST, SENTRY_DSN } = process.env;
+const plausibleEnabled = PLAUSIBLE_HOST && (NODE_ENV === "production" || FORCE_PLAUSIBLE);
 
 // Sentry
 if (NODE_ENV === "production" && SENTRY_DSN) {
@@ -63,16 +29,22 @@ if (NODE_ENV === "production" && SENTRY_DSN) {
       // Most often due to DOM-aggressive browser extensions
       /_VirtualDom_applyPatch/,
     ],
+    // IS_REVIEW_APP is set by `scalingo.json` only on review apps
+    // See: https://developers.scalingo.com/scalingo-json-schema/
     environment: process.env.IS_REVIEW_APP ? "review-app" : NODE_ENV || "development",
   });
+  Sentry.setTag("subsystem", "front-end");
 }
 
-function loadScript(scriptUrl) {
+function loadScript(scriptUrl, attributes = {}) {
   var d = document,
     g = d.createElement("script"),
     s = d.getElementsByTagName("script")[0];
   g.async = true;
   g.src = scriptUrl;
+  for (const [key, value] of Object.entries(attributes)) {
+    g.setAttribute(key, value);
+  }
   s.parentNode.insertBefore(g, s);
 }
 
@@ -86,6 +58,11 @@ const app = Elm.Main.init({
       veli: process.env.ENABLE_VELI_SECTION === "True",
     },
     rawStore: localStorage[storeKey] || "null",
+    matomo: {
+      host: process.env.MATOMO_HOST || "",
+      siteId: process.env.MATOMO_SITE_ID || "",
+    },
+    scalingoAppName: process.env.APP || null,
     versionPollSeconds: parseInt(process.env.VERSION_POLL_SECONDS) || 300,
   },
 });
@@ -99,6 +76,35 @@ app.ports.copyToClipboard.subscribe((text) => {
       );
     },
   );
+});
+
+app.ports.appStarted.subscribe(() => {
+  // Matomo
+  var _paq = (window._paq = window._paq || []);
+  _paq.push(["trackPageView"]);
+  _paq.push(["enableLinkTracking"]);
+  var u = `https://${process.env.MATOMO_HOST}/`;
+  _paq.push(["setTrackerUrl", u + "matomo.php"]);
+  _paq.push(["disableCookies"]);
+  _paq.push(["setSiteId", process.env.MATOMO_SITE_ID]);
+  loadScript(u + "matomo.js");
+
+  // Plausible
+  if (plausibleEnabled) {
+    window.plausible =
+      window.plausible ||
+      function () {
+        (window.plausible.q = window.plausible.q || []).push(arguments);
+      };
+    loadScript(
+      `https://${PLAUSIBLE_HOST}/js/script.file-downloads.outbound-links.pageview-props.tagged-events.manual.local.js`,
+      {
+        defer: true,
+        "data-domain":
+          process.env.APP === "ecobalyse" ? "ecobalyse.beta.gouv.fr" : "ecobalyse.test",
+      },
+    );
+  }
 });
 
 app.ports.loadRapidoc.subscribe((rapidocScriptUrl) => {
@@ -120,12 +126,18 @@ app.ports.removeBodyClass.subscribe((cls) => {
   document.body.classList.remove(cls);
 });
 
-app.ports.sendPosthogEvent.subscribe(({ name, properties }) => {
-  const params = Object.fromEntries(properties);
-  if (posthogEnabled) {
-    posthog.capture(name, params);
-  } else {
-    console.debug("posthog event", name, JSON.stringify(params));
+app.ports.sendPlausibleEvent.subscribe(({ name, properties }) => {
+  if (!plausibleEnabled) return;
+
+  try {
+    const props = Object.fromEntries(properties);
+    const event = name === "pageview" ? { u: props.url.replace("/#/", "/"), props } : { props };
+    window.plausible(name, event);
+    if (NODE_ENV === "development") {
+      console.debug("plausible event", name, JSON.stringify(event, null, 2));
+    }
+  } catch (e) {
+    console.error("plausible error", e);
   }
 });
 

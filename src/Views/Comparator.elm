@@ -10,6 +10,7 @@ import Data.Food.Recipe as Recipe
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Object.Simulator as ObjectSimulator
+import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Data.Textile.Simulator as TextileSimulator
 import Data.Unit as Unit
@@ -128,21 +129,25 @@ addToComparison session { name, query } =
 
         Bookmark.Object objectQuery ->
             objectQuery
-                |> ObjectSimulator.compute session.db
+                |> ObjectSimulator.compute
+                    { config = session.componentConfig
+                    , db = session.db
+                    , scope = Scope.Object
+                    }
                 |> Result.map
-                    (\results ->
+                    (\lifeCycle ->
                         { complementsImpact = Impact.noComplementsImpacts
-                        , impacts = Component.extractImpacts results
+                        , impacts = Component.sumLifeCycleImpacts lifeCycle
                         , label = name
                         , stepsImpacts =
-                            results
+                            lifeCycle
                                 |> ObjectSimulator.toStepsImpacts Definition.Ecs
                         }
                     )
 
         Bookmark.Textile textileQuery ->
             textileQuery
-                |> TextileSimulator.compute session.db
+                |> TextileSimulator.compute session.db session.componentConfig
                 |> Result.map
                     (\simulator ->
                         { complementsImpact = simulator.complementsImpacts
@@ -156,14 +161,18 @@ addToComparison session { name, query } =
 
         Bookmark.Veli objectQuery ->
             objectQuery
-                |> ObjectSimulator.compute session.db
+                |> ObjectSimulator.compute
+                    { config = session.componentConfig
+                    , db = session.db
+                    , scope = Scope.Veli
+                    }
                 |> Result.map
-                    (\results ->
+                    (\lifeCycle ->
                         { complementsImpact = Impact.noComplementsImpacts
-                        , impacts = Component.extractImpacts results
+                        , impacts = Component.sumLifeCycleImpacts lifeCycle
                         , label = name
                         , stepsImpacts =
-                            results
+                            lifeCycle
                                 |> ObjectSimulator.toStepsImpacts Definition.Ecs
                         }
                     )
