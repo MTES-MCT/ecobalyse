@@ -28,6 +28,15 @@ server {
       return 200 '{"hash": "ff54d50654168255a07af4c36873ee40197cb494", "tag": "v7.0.0" }';
   }
 
+  # Reroute v7 backend to master backend
+  location ~ ^/versions/v7.0.0/backend/(.*)$ {
+    rewrite ^/versions/v7.0.0/backend/(.*)$ /$1 break;
+    proxy_pass http://localhost:8002;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  }
+
   # Reroute v7 to textile stable version
   location ~ ^/versions/v7.0.0/(.*)$ {
     rewrite ^/versions/v7.0.0/(.*)$ /$1 break;
