@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from advanced_alchemy.base import UUIDAuditBase
 from app.domain.components.schemas import Scope
 from app.domain.processes.schemas import Unit
-from sqlalchemy import Enum, Float, String
+from sqlalchemy import Enum, Float, String, Table
 from sqlalchemy.dialects import postgresql
 from sqlalchemy.ext.mutable import MutableList
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -13,6 +13,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from .process_process_category import process_process_category
 
 if TYPE_CHECKING:
+    from .element import Element
     from .process_category import ProcessCategory
 
 
@@ -38,9 +39,10 @@ class Process(UUIDAuditBase):
         default=[],
     )
     source: Mapped[str]
-    source_id: Mapped[str] = mapped_column(String, nullable=False)
+    activity_name: Mapped[str] = mapped_column(String, nullable=False)
 
     unit: Mapped[Unit] = mapped_column(Enum(Unit, values_callable=get_enum_values))
+    location: Mapped[Optional[str]] = mapped_column(String, nullable=True)
     waste: Mapped[float] = mapped_column(Float, nullable=False, default=0)
 
     # -----------
@@ -49,8 +51,20 @@ class Process(UUIDAuditBase):
     process_categories: Mapped[list[ProcessCategory]] = relationship(
         secondary=lambda: process_process_category,
         back_populates="processes",
-        cascade="all, delete",
-        passive_deletes=True,
+        lazy="selectin",
+    )
+
+    elements_transforms: Mapped[list[Element]] = relationship(
+        secondary=lambda: _process_element_transforms(),
+        back_populates="process_transforms",
+        cascade="all",
+        lazy="selectin",
+    )
+
+    elements_materials: Mapped[list[Element]] = relationship(
+        back_populates="material_process",
+        lazy="selectin",
+        cascade="all, delete-orphan",
     )
 
     # Impacts
@@ -110,3 +124,12 @@ class Process(UUIDAuditBase):
             "wtu": self.wtu,
         }
         return impacts
+
+    def __repr__(self) -> str:
+        return f"Process(id={self.id!r}, display_name={self.display_name!r}, comment={self.comment!r}, scopes={self.scopes!r}, categories={self.process_categories!r})"
+
+
+def _process_element_transforms() -> Table:
+    from .process_element_transform import process_element_transform
+
+    return process_element_transform

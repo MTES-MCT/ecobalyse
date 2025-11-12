@@ -14,6 +14,7 @@ import Browser.Events
 import Browser.Navigation as Navigation
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Component as Component exposing (Component, Index, TargetElement, TargetItem)
+import Data.Country as Country
 import Data.Dataset as Dataset
 import Data.Env as Env
 import Data.Example as Example exposing (Example)
@@ -22,7 +23,7 @@ import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Object.Query as Query exposing (Query)
 import Data.Object.Simulator as Simulator
-import Data.Posthog as Posthog
+import Data.Plausible as Plausible
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
 import Data.Scope as Scope exposing (Scope)
@@ -63,7 +64,7 @@ type alias Model =
     , impact : Definition
     , initialQuery : Query
     , modal : Modal
-    , results : Component.Results
+    , lifeCycle : Result String Component.LifeCycle
     , scope : Scope
     }
 
@@ -102,6 +103,7 @@ type Msg
     | SwitchImpactsTab ImpactTabs.Tab
     | ToggleComparedSimulation Bookmark Bool
     | UpdateBookmarkName String
+    | UpdateComponentItemCountry Index (Maybe Country.Code)
     | UpdateComponentItemName TargetItem String
     | UpdateComponentItemQuantity Index Component.Quantity
     | UpdateDurability (Result String Unit.Ratio)
@@ -135,9 +137,13 @@ init scope trigram maybeUrlQuery session =
     , impact = Definition.get trigram session.db.definitions
     , initialQuery = initialQuery
     , modal = NoModal
-    , results =
-        Simulator.compute session.db initialQuery
-            |> Result.withDefault Component.emptyResults
+    , lifeCycle =
+        initialQuery
+            |> Simulator.compute
+                { config = session.componentConfig
+                , db = session.db
+                , scope = scope
+                }
     , scope = scope
     }
         |> App.createUpdate (session |> Session.updateObjectQuery scope initialQuery)
@@ -180,9 +186,13 @@ initFromExample session scope uuid =
     , impact = Definition.get Definition.Ecs session.db.definitions
     , initialQuery = exampleQuery
     , modal = NoModal
-    , results =
-        Simulator.compute session.db exampleQuery
-            |> Result.withDefault Component.emptyResults
+    , lifeCycle =
+        exampleQuery
+            |> Simulator.compute
+                { config = session.componentConfig
+                , db = session.db
+                , scope = scope
+                }
     , scope = scope
     }
         |> App.createUpdate (session |> Session.updateObjectQuery scope exampleQuery)
@@ -223,10 +233,13 @@ updateQuery query ({ model, session } as pageUpdate) =
             { model
                 | initialQuery = query
                 , bookmarkName = query |> suggestBookmarkName session model.examples
-                , results =
+                , lifeCycle =
                     query
-                        |> Simulator.compute session.db
-                        |> Result.withDefault Component.emptyResults
+                        |> Simulator.compute
+                            { config = session.componentConfig
+                            , db = session.db
+                            , scope = model.scope
+                            }
             }
         , session = session |> Session.updateObjectQuery model.scope query
     }
@@ -311,7 +324,7 @@ update ({ navKey } as session) msg model =
         ( OpenComparator, _ ) ->
             { model | modal = ComparatorModal }
                 |> App.createUpdate (session |> Session.checkComparedSimulations)
-                |> App.withCmds [ Posthog.send <| Posthog.ComparatorOpened model.scope ]
+                |> App.withCmds [ Plausible.send session <| Plausible.ComparatorOpened model.scope ]
 
         ( RemoveComponentItem itemIndex, _ ) ->
             { model
@@ -322,12 +335,12 @@ update ({ navKey } as session) msg model =
             }
                 |> App.createUpdate session
                 |> updateQuery (query |> Query.updateComponents (LE.removeAt itemIndex))
-                |> App.withCmds [ Posthog.send <| Posthog.ComponentUpdated model.scope ]
+                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
 
         ( RemoveElement targetElement, _ ) ->
             App.createUpdate session model
                 |> updateQuery (query |> Query.updateComponents (Component.removeElement targetElement))
-                |> App.withCmds [ Posthog.send <| Posthog.ComponentUpdated model.scope ]
+                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
 
         ( RemoveElementTransform targetElement transformIndex, _ ) ->
             App.createUpdate session model
@@ -336,7 +349,7 @@ update ({ navKey } as session) msg model =
                         |> Query.updateComponents
                             (Component.removeElementTransform targetElement transformIndex)
                     )
-                |> App.withCmds [ Posthog.send <| Posthog.ComponentUpdated model.scope ]
+                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
 
         ( SaveBookmark, _ ) ->
             App.createUpdate session model
@@ -351,7 +364,7 @@ update ({ navKey } as session) msg model =
                                     Bookmark.Object query
                                 )
                             )
-                    , Posthog.send <| Posthog.BookmarkSaved model.scope
+                    , Plausible.send session <| Plausible.BookmarkSaved model.scope
                     ]
 
         ( SaveBookmarkWithTime name objectQuery now, _ ) ->
@@ -388,8 +401,8 @@ update ({ navKey } as session) msg model =
             { model | bookmarkTab = bookmarkTab }
                 |> App.createUpdate session
                 |> App.withCmds
-                    [ Posthog.TabSelected model.scope "Partager"
-                        |> Posthog.sendIf (bookmarkTab == BookmarkView.ShareTab)
+                    [ Plausible.TabSelected model.scope "Partager"
+                        |> Plausible.sendIf session (bookmarkTab == BookmarkView.ShareTab)
                     ]
 
         ( SwitchComparisonType displayChoice, _ ) ->
@@ -397,8 +410,8 @@ update ({ navKey } as session) msg model =
                 |> App.createUpdate session
                 |> App.withCmds
                     [ ComparatorView.comparisonTypeToString displayChoice
-                        |> Posthog.ComparisonTypeSelected model.scope
-                        |> Posthog.send
+                        |> Plausible.ComparisonTypeSelected model.scope
+                        |> Plausible.send session
                     ]
 
         ( SwitchImpact (Ok trigram), _ ) ->
@@ -408,7 +421,7 @@ update ({ navKey } as session) msg model =
                         |> Route.ObjectSimulator model.scope trigram
                         |> Route.toString
                         |> Navigation.pushUrl navKey
-                    , Posthog.send <| Posthog.ImpactSelected model.scope trigram
+                    , Plausible.send session <| Plausible.ImpactSelected model.scope trigram
                     ]
 
         ( SwitchImpact (Err error), _ ) ->
@@ -420,8 +433,8 @@ update ({ navKey } as session) msg model =
                 |> App.createUpdate session
                 |> App.withCmds
                     [ ImpactTabs.tabToString impactsTab
-                        |> Posthog.TabSelected model.scope
-                        |> Posthog.send
+                        |> Plausible.TabSelected model.scope
+                        |> Plausible.send session
                     ]
 
         ( ToggleComparedSimulation bookmark checked, _ ) ->
@@ -431,6 +444,15 @@ update ({ navKey } as session) msg model =
         ( UpdateBookmarkName newName, _ ) ->
             { model | bookmarkName = newName }
                 |> App.createUpdate session
+
+        ( UpdateComponentItemCountry itemIndex country, _ ) ->
+            App.createUpdate session model
+                |> updateQuery
+                    (query
+                        |> Query.updateComponents
+                            (Component.updateItem itemIndex (\item -> { item | country = country }))
+                    )
+                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
 
         ( UpdateComponentItemName targetItem name, _ ) ->
             App.createUpdate session model
@@ -447,7 +469,7 @@ update ({ navKey } as session) msg model =
                         |> Query.updateComponents
                             (Component.updateItem itemIndex (\item -> { item | quantity = quantity }))
                     )
-                |> App.withCmds [ Posthog.send <| Posthog.ComponentUpdated model.scope ]
+                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
 
         ( UpdateDurability (Ok durability), _ ) ->
             App.createUpdate session model
@@ -489,7 +511,7 @@ selectExample autocompleteState ({ model } as pageUpdate) =
     pageUpdate
         |> updateQuery exampleQuery
         |> App.apply update (SetModal NoModal)
-        |> App.withCmds [ Posthog.send <| Posthog.ExampleSelected model.scope ]
+        |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ExampleSelected model.scope ]
 
 
 selectComponent : Query -> Autocomplete Component -> PageUpdate Model Msg -> PageUpdate Model Msg
@@ -499,7 +521,7 @@ selectComponent query autocompleteState ({ model } as pageUpdate) =
             pageUpdate
                 |> updateQuery (query |> Query.updateComponents (Component.addItem component.id))
                 |> App.apply update (SetModal NoModal)
-                |> App.withCmds [ Posthog.send <| Posthog.ComponentAdded model.scope ]
+                |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ComponentAdded model.scope ]
 
         Nothing ->
             pageUpdate |> App.notifyWarning "Aucun composant sélectionné"
@@ -528,7 +550,7 @@ selectProcess category targetItem maybeElementIndex autocompleteState query ({ m
                     pageUpdate
                         |> updateQuery validQuery
                         |> App.apply update (SetModal NoModal)
-                        |> App.withCmds [ Posthog.send <| Posthog.ComponentUpdated model.scope ]
+                        |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ComponentUpdated model.scope ]
 
         Nothing ->
             pageUpdate |> App.notifyWarning "Aucun composant sélectionné"
@@ -564,6 +586,7 @@ simulatorView session model =
             , durabilityView currentDurability
             , ComponentView.editorView
                 { addLabel = "Ajouter un composant"
+                , componentConfig = session.componentConfig
                 , customizable = True
                 , db = session.db
                 , debug = True
@@ -582,17 +605,23 @@ simulatorView session model =
                 , removeElement = RemoveElement
                 , removeElementTransform = RemoveElementTransform
                 , removeItem = RemoveComponentItem
-                , results = model.results
-                , scopes = [ model.scope ]
+                , lifeCycle = model.lifeCycle
+                , scope = model.scope
                 , setDetailed = SetDetailedComponents
                 , title = "Production des composants"
                 , updateElementAmount = UpdateElementAmount
+                , updateItemCountry = UpdateComponentItemCountry
                 , updateItemName = UpdateComponentItemName
                 , updateItemQuantity = UpdateComponentItemQuantity
                 }
             ]
         , div [ class "col-lg-4 bg-white" ]
-            [ SidebarView.view
+            [ let
+                lifeCycle =
+                    model.lifeCycle
+                        |> Result.withDefault Component.emptyLifeCycle
+              in
+              SidebarView.view
                 { session = session
                 , scope = model.scope
 
@@ -602,25 +631,25 @@ simulatorView session model =
 
                 -- Score
                 , customScoreInfo = Nothing
-                , productMass = Component.extractMass model.results
+                , productMass = Component.extractMass lifeCycle.production
                 , totalImpacts =
-                    model.results
-                        |> Component.extractImpacts
+                    lifeCycle
+                        |> Component.sumLifeCycleImpacts
                         |> Impact.divideBy (Unit.ratioToFloat currentDurability)
                 , totalImpactsWithoutDurability =
                     if currentDurability == Unit.ratio 1 then
                         Nothing
 
                     else
-                        model.results
-                            |> Component.extractImpacts
+                        lifeCycle
+                            |> Component.sumLifeCycleImpacts
                             |> Just
 
                 -- Impacts tabs
                 , impactTabsConfig =
                     SwitchImpactsTab
                         |> ImpactTabs.createConfig session model.impact model.activeImpactsTab (always NoOp)
-                        |> ImpactTabs.forObject model.results
+                        |> ImpactTabs.forObject lifeCycle
                         |> Just
 
                 -- Bookmarks

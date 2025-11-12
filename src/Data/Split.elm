@@ -2,8 +2,10 @@ module Data.Split exposing
     ( Split
     , apply
     , applyToQuantity
+    , assemble
     , complement
     , decodeFloat
+    , decodePercent
     , divideBy
     , encodeFloat
     , fifteen
@@ -27,10 +29,9 @@ module Data.Split exposing
     , zero
     )
 
-{-|
+{-| This module manages splits, or "shares", eg: 0.33, or 33%, or a third. Also, the precision will be up to two decimals, so the equivalent of a percent.
 
-    This module manages splits, or "shares", eg: 0.33, or 33%, or a third. Also, the precision will be up to two decimals, so the equivalent of a percent.
-    0.121 or 1.119 will both be rounded to 0.12 or 12%.
+0.121 or 1.119 will both be rounded to 0.12 or 12%.
 
 -}
 
@@ -53,57 +54,57 @@ zero =
 
 two : Split
 two =
-    Split 2
+    Split 0.02
 
 
 tenth : Split
 tenth =
-    Split 10
+    Split 0.1
 
 
 fifteen : Split
 fifteen =
-    Split 15
+    Split 0.15
 
 
 twenty : Split
 twenty =
-    Split 20
+    Split 0.2
 
 
 quarter : Split
 quarter =
-    Split 25
+    Split 0.25
 
 
 thirty : Split
 thirty =
-    Split 30
+    Split 0.3
 
 
 third : Split
 third =
-    Split 33
+    Split 0.33
 
 
 fourty : Split
 fourty =
-    Split 40
+    Split 0.4
 
 
 half : Split
 half =
-    Split 50
+    Split 0.5
 
 
 sixty : Split
 sixty =
-    Split 60
+    Split 0.6
 
 
 full : Split
 full =
-    Split 100
+    Split 1
 
 
 fromFloat : Float -> Result String Split
@@ -125,29 +126,26 @@ fromBoundedFloat min max float =
             )
 
     else
-        float
-            |> (*) 100
-            |> Split
-            |> Ok
+        Ok <| Split float
 
 
 fromPercent : Float -> Result String Split
-fromPercent float =
-    if float < 0 || float > 100 then
-        Err ("Une part (en pourcentage) doit être comprise entre 0 et 100 inclus (ici\u{202F}: " ++ String.fromFloat float ++ ")")
+fromPercent percentFloat =
+    if percentFloat < 0 || percentFloat > 100 then
+        Err ("Une part (en pourcentage) doit être comprise entre 0 et 100 inclus (ici\u{202F}: " ++ String.fromFloat percentFloat ++ ")")
 
     else
-        Ok (Split float)
+        Ok (Split (percentFloat / 100))
 
 
 toFloat : Split -> Float
 toFloat (Split float) =
-    float / 100
+    float
 
 
 toPercent : Split -> Float
 toPercent (Split float) =
-    float
+    float * 100
 
 
 toFloatString : Split -> String
@@ -162,7 +160,7 @@ toPercentString decimals =
 
 complement : Split -> Split
 complement (Split float) =
-    Split (100 - float)
+    Split (1 - float)
 
 
 apply : Float -> Split -> Float
@@ -175,6 +173,25 @@ applyToQuantity quantity split =
     Quantity.multiplyBy (toFloat split) quantity
 
 
+{-| Sums splits, fails if total is not 100%
+-}
+assemble : List Split -> Result String Split
+assemble splits =
+    let
+        total =
+            splits |> List.map toFloat |> List.sum
+    in
+    -- Note: taking care of float number rounding precision errors https://en.wikipedia.org/wiki/Round-off_error
+    if not (List.member total [ 1, 0.6 + 0.3 + 0.1 ]) then
+        Err <|
+            "La somme des parts ne doit pas excéder 100%; ici\u{00A0}: "
+                ++ String.fromFloat (total * 100)
+                ++ "%"
+
+    else
+        Ok (Split total)
+
+
 divideBy : Float -> Split -> Float
 divideBy input split =
     input / toFloat split
@@ -184,6 +201,12 @@ decodeFloat : Decoder Split
 decodeFloat =
     Decode.float
         |> Decode.andThen (fromFloat >> DE.fromResult)
+
+
+decodePercent : Decoder Split
+decodePercent =
+    Decode.float
+        |> Decode.andThen (fromPercent >> DE.fromResult)
 
 
 encodeFloat : Split -> Encode.Value

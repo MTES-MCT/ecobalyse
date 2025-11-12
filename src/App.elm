@@ -11,7 +11,6 @@ module App exposing
     , notifySuccess
     , notifyWarning
     , toCmd
-    , withAppMsgs
     , withCmds
     )
 

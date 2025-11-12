@@ -1,10 +1,16 @@
 module Data.Process.Category exposing
     ( Category(..)
+    , Material(..)
+    , MaterialDict
     , decodeList
+    , decodeMaterialDict
     , encode
+    , materialTypeToLabel
+    , materialTypeToString
     , toLabel
     )
 
+import Dict.Any as AnyDict exposing (AnyDict)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Encode as Encode
@@ -15,13 +21,34 @@ type Category
     | Energy
     | Ingredient
     | Material
-    | MaterialType String
+    | MaterialType Material
     | Packaging
     | TextileMaterial
     | Transform
     | Transport
     | Use
     | WasteTreatment
+
+
+type Material
+    = Metal
+    | OrganicFibers
+    | OtherMaterial
+    | Plastic
+    | SyntheticFibers
+    | Upholstery
+    | Wood
+
+
+{-| A dict where keys are typed as `Material`
+-}
+type alias MaterialDict a =
+    AnyDict String Material a
+
+
+decodeMaterialDict : Decoder a -> Decoder (MaterialDict a)
+decodeMaterialDict =
+    AnyDict.decode_ (\key _ -> materialTypeFromString key) materialTypeToString
 
 
 decodeList : Decoder (List Category)
@@ -71,10 +98,91 @@ fromString string =
 
         _ ->
             if String.startsWith "material_type:" string then
-                Ok (MaterialType (String.dropLeft 14 string))
+                string
+                    |> String.dropLeft 14
+                    |> materialTypeFromString
+                    |> Result.map MaterialType
 
             else
                 Err <| "Catégorie de procédé invalide: " ++ string
+
+
+materialTypeFromString : String -> Result String Material
+materialTypeFromString string =
+    case string of
+        "metal" ->
+            Ok Metal
+
+        "organic_fibers" ->
+            Ok OrganicFibers
+
+        "plastic" ->
+            Ok Plastic
+
+        "synthetic_fibers" ->
+            Ok SyntheticFibers
+
+        "upholstery" ->
+            Ok Upholstery
+
+        "wood" ->
+            Ok Wood
+
+        "other" ->
+            Ok OtherMaterial
+
+        _ ->
+            Err <| "Type de matière non supporté: " ++ string
+
+
+materialTypeToLabel : Material -> String
+materialTypeToLabel material =
+    case material of
+        Metal ->
+            "Métal"
+
+        OrganicFibers ->
+            "Fibres organiques"
+
+        OtherMaterial ->
+            "Autre type de matière"
+
+        Plastic ->
+            "Plastique"
+
+        SyntheticFibers ->
+            "Fibres synthétiques"
+
+        Upholstery ->
+            "Mousses et rembourrés"
+
+        Wood ->
+            "Bois"
+
+
+materialTypeToString : Material -> String
+materialTypeToString material =
+    case material of
+        Metal ->
+            "metal"
+
+        OrganicFibers ->
+            "organic_fibers"
+
+        OtherMaterial ->
+            "other"
+
+        Plastic ->
+            "plastic"
+
+        SyntheticFibers ->
+            "synthetic_fibers"
+
+        Upholstery ->
+            "upholstery"
+
+        Wood ->
+            "wood"
 
 
 toString : Category -> String
@@ -93,7 +201,7 @@ toString category =
             "material"
 
         MaterialType str ->
-            "material_type:" ++ str
+            "material_type:" ++ materialTypeToString str
 
         Packaging ->
             "packaging"
@@ -130,7 +238,7 @@ toLabel category =
             "Matériau"
 
         MaterialType str ->
-            "Type de matériau:" ++ str
+            "Type de matériau:" ++ materialTypeToLabel str
 
         Packaging ->
             "Emballage"

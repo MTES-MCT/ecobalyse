@@ -1,7 +1,7 @@
-const { createEvent } = require("../../lib/posthog");
-const { sha1 } = require("../../lib/crypto");
+const { createEvent } = require("../../lib/plausible");
+const { createAnonHash } = require("../../lib/crypto");
 
-describe("lib.posthog", () => {
+describe("lib.plausible", () => {
   describe("createEvent", () => {
     test("should create an anonymous event", () => {
       const event = createEvent(200, {
@@ -10,15 +10,17 @@ describe("lib.posthog", () => {
         url: "/food",
       });
       expect(event).toEqual({
-        event: "api_request",
-        distinctId: "anonymous",
-        properties: {
-          $current_url: "/api/food",
+        name: "pageview",
+        domain: "ecobalyse.test",
+        url: "/food",
+        props: {
+          authenticated: false,
+          anonHash: null,
           method: "GET",
-          path: "/food",
           scalingoAppName: null,
           scope: "food",
           statusCode: 200,
+          subsystem: "public-api",
         },
       });
     });
@@ -34,15 +36,17 @@ describe("lib.posthog", () => {
         "ecobalyse",
       );
       expect(event).toEqual({
-        event: "api_request",
-        distinctId: sha1("1234567890"),
-        properties: {
-          $current_url: "https://ecobalyse.beta.gouv.fr/api/food",
+        name: "pageview",
+        domain: "ecobalyse.beta.gouv.fr",
+        url: "/food",
+        props: {
+          authenticated: true,
+          anonHash: createAnonHash("1234567890"),
           method: "GET",
-          path: "/food",
           scalingoAppName: "ecobalyse",
           scope: "food",
           statusCode: 200,
+          subsystem: "public-api",
         },
       });
     });
@@ -58,15 +62,17 @@ describe("lib.posthog", () => {
         "ecobalyse-staging",
       );
       expect(event).toEqual({
-        event: "api_request",
-        distinctId: "anonymous",
-        properties: {
-          $current_url: "https://staging-ecobalyse.incubateur.net/api/textile/detailed",
+        name: "pageview",
+        domain: "ecobalyse.test",
+        url: "/textile/detailed",
+        props: {
+          authenticated: false,
+          anonHash: null,
           method: "GET",
-          path: "/textile/detailed",
           scalingoAppName: "ecobalyse-staging",
           scope: "textile",
           statusCode: 200,
+          subsystem: "public-api",
         },
       });
     });
@@ -78,14 +84,16 @@ describe("lib.posthog", () => {
         url: "/",
       });
       expect(event).toEqual({
-        event: "api_request",
-        distinctId: "anonymous",
-        properties: {
-          $current_url: "/api/",
+        name: "pageview",
+        domain: "ecobalyse.test",
+        url: "/",
+        props: {
+          authenticated: false,
+          anonHash: null,
           method: "GET",
-          path: "/",
           scalingoAppName: null,
           statusCode: 200,
+          subsystem: "public-api",
         },
       });
     });

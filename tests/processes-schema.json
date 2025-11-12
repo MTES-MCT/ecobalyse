@@ -87,7 +87,7 @@
       "source": {
         "type": "string"
       },
-      "sourceId": {
+      "activityName": {
         "type": "string"
       },
       "unit": {
@@ -101,6 +101,7 @@
       }
     },
     "required": [
+      "activityName",
       "categories",
       "comment",
       "density",
@@ -109,7 +110,6 @@
       "id",
       "impacts",
       "source",
-      "sourceId",
       "unit",
       "waste"
     ]

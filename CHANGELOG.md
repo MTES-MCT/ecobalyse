@@ -1,6 +1,42 @@
 # Changelog
 
 
+## [8.0.0](https://github.com/MTES-MCT/ecobalyse/compare/v7.2.0..v8.0.0) (2025-10-21)
+
+
+
+### 🚀 Features
+
+- End of life processes according to material type ([#1273](https://github.com/MTES-MCT/ecobalyse/issues/1273))
+- *(object)* Implement basic end of life lifecycle stage ([#1444](https://github.com/MTES-MCT/ecobalyse/issues/1444))
+- *(textile,data,api)* [**breaking**] Use UUIDs for material identifiers. ([#1285](https://github.com/MTES-MCT/ecobalyse/issues/1285))
+
+### 🪲 Bug Fixes
+
+- *(auth)* Require manual login confirmation ([#1398](https://github.com/MTES-MCT/ecobalyse/issues/1398))
+- Correct wrong impacts and hide ARM-x86/64 diff ([#1415](https://github.com/MTES-MCT/ecobalyse/issues/1415))
+- Validate version number param ([#1426](https://github.com/MTES-MCT/ecobalyse/issues/1426))
+- Missing paraffin processes ([#1428](https://github.com/MTES-MCT/ecobalyse/issues/1428))
+- *(ui)* Fix styling issue in textile layout ([#1443](https://github.com/MTES-MCT/ecobalyse/issues/1443))
+
+### 🚜 Refactor
+
+- Add elements model to the DB ([#1341](https://github.com/MTES-MCT/ecobalyse/issues/1341))
+
+### ⚙️ Miscellaneous Tasks
+
+- Add self hosting ([#1324](https://github.com/MTES-MCT/ecobalyse/issues/1324))
+- Add back pg docker-compose for dev ([#1409](https://github.com/MTES-MCT/ecobalyse/issues/1409))
+- Remove matomo tracking ([#1410](https://github.com/MTES-MCT/ecobalyse/issues/1410))
+- Add countries (1/2) ([#1401](https://github.com/MTES-MCT/ecobalyse/issues/1401))
+- Pin python version to 3.12.x to avoid psycopg-binary incompatibility ([#1425](https://github.com/MTES-MCT/ecobalyse/issues/1425))
+- Transport data (2/2) ([#1404](https://github.com/MTES-MCT/ecobalyse/issues/1404))
+- Upgrade node dependencies, 2025-10-15 ([#1451](https://github.com/MTES-MCT/ecobalyse/issues/1451))
+- Add command to add multiple users at once ([#1459](https://github.com/MTES-MCT/ecobalyse/issues/1459))
+- Add command to update processes from fixtures ([#1453](https://github.com/MTES-MCT/ecobalyse/issues/1453))
+- Reintroduce matomo tracking. ([#1463](https://github.com/MTES-MCT/ecobalyse/issues/1463))
+
+
 ## [7.2.0](https://github.com/MTES-MCT/ecobalyse/compare/v7.1.0..v7.2.0) (2025-09-25)
 
 

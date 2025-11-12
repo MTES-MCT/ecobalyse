@@ -647,7 +647,7 @@ async def test_components_access_with_eco_api_token(
         json={
             "name": "New Component",
             "elements": [
-                {"amount": 0.91125, "material": "59b42284-3e45-5343-8a20-1d7d66137461"}
+                {"amount": 0.91125, "material": "d25636af-ab36-4857-a6d0-c66d1e7a281b"}
             ],
         },
         headers=eco_api_user_token_headers,
@@ -661,7 +661,7 @@ async def test_components_access_with_eco_api_token(
         json={
             "name": "New Component",
             "elements": [
-                {"amount": 0.91125, "material": "59b42284-3e45-5343-8a20-1d7d66137461"}
+                {"amount": 0.91125, "material": "d25636af-ab36-4857-a6d0-c66d1e7a281b"}
             ],
         },
         headers=eco_api_superuser_token_headers,

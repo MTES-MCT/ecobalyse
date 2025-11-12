@@ -1,14 +1,19 @@
 module Data.Component exposing
     ( Amount(..)
     , Component
+    , Config
     , Custom
     , DataContainer
     , Element
+    , EndOfLifeMaterialImpacts
     , ExpandedElement
+    , ExpandedItem
     , Id
     , Index
     , Item
+    , LifeCycle
     , Quantity
+    , Requirements
     , Results(..)
     , Stage(..)
     , TargetElement
@@ -29,13 +34,15 @@ module Data.Component exposing
     , decodeItem
     , decodeList
     , decodeListFromJsonString
+    , defaultConfig
     , elementTransforms
     , elementsToString
+    , emptyLifeCycle
     , emptyResults
     , encode
     , encodeId
     , encodeItem
-    , encodeResults
+    , encodeLifeCycle
     , expandElements
     , expandItems
     , extractAmount
@@ -43,19 +50,25 @@ module Data.Component exposing
     , extractItems
     , extractMass
     , findById
+    , getEndOfLifeDetailedImpacts
+    , getEndOfLifeImpacts
+    , getEndOfLifeScopeCollectionRate
     , idFromString
     , idToString
     , isEmpty
     , itemToComponent
     , itemToString
     , itemsToString
+    , loadEnergyMixes
+    , parseConfig
     , quantityFromInt
     , quantityToInt
     , removeElement
     , removeElementTransform
+    , setCustomScope
     , setElementMaterial
     , stagesImpacts
-    , toggleCustomScope
+    , sumLifeCycleImpacts
     , updateElement
     , updateElementAmount
     , updateItem
@@ -65,14 +78,17 @@ module Data.Component exposing
 
 import Data.Common.DecodeUtils as DU
 import Data.Common.EncodeUtils as EU
+import Data.Component.Config as Config exposing (EndOfLifeStrategies, EndOfLifeStrategy)
+import Data.Country as Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Trigram)
 import Data.Process as Process exposing (Process)
-import Data.Process.Category as Category exposing (Category)
+import Data.Process.Category as Category exposing (Category, MaterialDict)
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
 import Data.Uuid as Uuid exposing (Uuid)
+import Dict.Any as AnyDict
 import Energy
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Decode
@@ -94,8 +110,14 @@ type alias Component =
     , elements : List Element
     , id : Id
     , name : String
-    , scopes : List Scope
+    , scope : Scope
     }
+
+
+{-| Proxified for convenience
+-}
+type alias Config =
+    Config.Config
 
 
 type alias EnergyMixes =
@@ -104,12 +126,21 @@ type alias EnergyMixes =
     }
 
 
-{-| A compact reference to a component, a quantity of it, and optionally some overrides,
-typically used for queries
+{-| A compact reference to a component, a quantity of it, a production localization
+and optional overrides, typically used for queries
 -}
 type alias Item =
-    { custom : Maybe Custom
+    { country : Maybe Country.Code
+    , custom : Maybe Custom
     , id : Id
+    , quantity : Quantity
+    }
+
+
+type alias ExpandedItem =
+    { component : Component
+    , country : Maybe Country
+    , elements : List ExpandedElement
     , quantity : Quantity
     }
 
@@ -117,7 +148,7 @@ type alias Item =
 type alias Custom =
     { elements : List Element
     , name : Maybe String
-    , scopes : List Scope
+    , scope : Maybe Scope
     }
 
 
@@ -126,6 +157,7 @@ type alias Custom =
 type alias DataContainer db =
     { db
         | components : List Component
+        , countries : List Country
         , processes : List Process
     }
 
@@ -143,6 +175,7 @@ type alias Element =
 -}
 type alias ExpandedElement =
     { amount : Amount
+    , country : Maybe Country
     , material : Process
     , transforms : List Process
     }
@@ -176,6 +209,26 @@ type Quantity
     = Quantity Int
 
 
+{-| A data structure exposing detailed impacts at the end of life stage of the lifeCycle
+-}
+type alias DetailedEndOfLifeImpacts =
+    MaterialDict EndOfLifeMaterialImpacts
+
+
+type alias EndOfLifeMaterialImpacts =
+    { collected : ( Mass, EndOfLifeStrategies )
+    , nonCollected : ( Mass, EndOfLifeStrategies )
+    }
+
+
+{-| Lifecycle impacts
+-}
+type alias LifeCycle =
+    { endOfLife : Impacts
+    , production : Results
+    }
+
+
 {-| A nested data structure carrying the impacts and mass resulting from a computation
 -}
 type Results
@@ -185,18 +238,30 @@ type Results
         , items : List Results
         , label : Maybe String
         , mass : Mass
+        , materialType : Maybe Category.Material
+        , quantity : Int
         , stage : Maybe Stage
         }
 
 
+{-| Lifecycle stage. Note: End of life stage is handled separately.
+-}
 type Stage
     = MaterialStage
     | TransformStage
 
 
 type alias StagesImpacts =
-    { material : Impacts
+    { endOfLife : Impacts
+    , material : Impacts
     , transformation : Impacts
+    }
+
+
+type alias Requirements db =
+    { config : Config
+    , db : DataContainer db
+    , scope : Scope
     }
 
 
@@ -306,11 +371,15 @@ applyTransform { elec, heat } transform (Results { amount, label, impacts, items
                         , items = []
                         , label = Just <| Process.getDisplayName transform
                         , mass = outputMass
+                        , materialType = Nothing
+                        , quantity = 1
                         , stage = Just TransformStage
                         }
                    ]
         , label = label
         , mass = outputMass
+        , materialType = Nothing
+        , quantity = 1
         , stage = Nothing
         }
 
@@ -321,10 +390,10 @@ Note: for now we use average elec and heat mixes, but we might want to allow
 specifying specific country mixes in the future.
 
 -}
-applyTransforms : List Process -> Process.Unit -> List Process -> Results -> Result String Results
-applyTransforms allProcesses unit transforms materialResults =
+applyTransforms : List Process -> Maybe Country -> Process.Unit -> List Process -> Results -> Result String Results
+applyTransforms processes maybeCountry unit transforms materialResults =
     checkTransformsUnit unit transforms
-        |> Result.andThen (\_ -> loadDefaultEnergyMixes allProcesses)
+        |> Result.andThen (\_ -> loadEnergyMixes processes maybeCountry)
         |> Result.map
             (\energyMixes ->
                 transforms
@@ -356,28 +425,39 @@ checkTransformsUnit unit transforms =
 
 {-| Computes impacts from a list of available components, processes and specified component items
 -}
-compute : DataContainer db -> List Item -> Result String Results
-compute db =
-    List.map (computeItemResults db)
-        >> RE.combine
-        >> Result.map (List.foldr addResults emptyResults)
-        >> Result.map (\(Results results) -> Results { results | label = Just "Complete product" })
+compute : Requirements db -> List Item -> Result String LifeCycle
+compute requirements items =
+    items
+        |> List.map (computeItemResults requirements.db)
+        |> RE.combine
+        |> Result.map (List.foldr addResults emptyResults)
+        |> Result.map (\(Results results) -> { emptyLifeCycle | production = Results { results | label = Just "Production" } })
+        |> Result.map (computeEndOfLifeResults requirements)
 
 
-computeElementResults : List Process -> Element -> Result String Results
-computeElementResults processes =
-    expandElement processes
+computeElementResults : DataContainer db -> Maybe Country.Code -> Element -> Result String Results
+computeElementResults db maybeCountry =
+    expandElement db maybeCountry
         >> Result.andThen
-            (\{ amount, material, transforms } ->
+            (\{ amount, country, material, transforms } ->
                 amount
                     |> computeInitialAmount (List.map .waste transforms)
                     |> Result.andThen
                         (\initialAmount ->
                             material
                                 |> computeMaterialResults initialAmount
-                                |> applyTransforms processes material.unit transforms
+                                |> applyTransforms db.processes country material.unit transforms
                         )
             )
+
+
+computeEndOfLifeResults : Requirements db -> LifeCycle -> LifeCycle
+computeEndOfLifeResults requirements lifeCycle =
+    { lifeCycle
+        | endOfLife =
+            lifeCycle.production
+                |> getEndOfLifeImpacts requirements
+    }
 
 
 {-| Compute an initially required amount from sequentially applied waste ratios
@@ -397,31 +477,33 @@ computeInitialAmount wastes amount =
             |> Ok
 
 
-computeImpacts : List Process -> Component -> Result String Results
-computeImpacts processes =
+{-| Compute a single component impact
+-}
+computeImpacts : DataContainer db -> Component -> Result String Results
+computeImpacts db =
     .elements
-        >> List.map (computeElementResults processes)
+        >> List.map (computeElementResults db Nothing)
         >> RE.combine
         >> Result.map (List.foldr addResults emptyResults)
 
 
 computeItemResults : DataContainer db -> Item -> Result String Results
-computeItemResults { components, processes } { custom, id, quantity } =
+computeItemResults db { country, custom, id, quantity } =
     let
         component_ =
-            findById id components
+            findById id db.components
     in
     component_
         |> Result.andThen
             (\component ->
                 custom
                     |> customElements component
-                    |> List.map (computeElementResults processes)
+                    |> List.map (computeElementResults db country)
                     |> RE.combine
             )
         |> Result.map (List.foldr addResults emptyResults)
         |> Result.map
-            (\(Results { impacts, mass, items }) ->
+            (\(Results { impacts, mass, materialType, items }) ->
                 Results
                     { amount = Amount 0
                     , impacts =
@@ -442,6 +524,8 @@ computeItemResults { components, processes } { custom, id, quantity } =
                         mass
                             |> List.repeat (quantityToInt quantity)
                             |> Quantity.sum
+                    , materialType = materialType
+                    , quantity = quantityToInt quantity
                     , stage = Nothing
                     }
             )
@@ -451,6 +535,7 @@ computeMaterialResults : Amount -> Process -> Results
 computeMaterialResults amount process =
     let
         impacts =
+            -- Note: materials impacts embed energy ones
             process.impacts
                 |> Impact.multiplyBy (amountToFloat amount)
 
@@ -462,6 +547,12 @@ computeMaterialResults amount process =
                 else
                     -- apply density
                     amountToFloat amount * process.density
+
+        materialType =
+            Process.getMaterialTypes process
+                |> List.head
+                |> Maybe.withDefault Category.OtherMaterial
+                |> Just
     in
     -- global result
     Results
@@ -475,18 +566,40 @@ computeMaterialResults amount process =
                 , items = []
                 , label = Just <| Process.getDisplayName process
                 , mass = mass
+                , materialType = materialType
+                , quantity = 1
                 , stage = Just MaterialStage
                 }
             ]
         , label = Just <| "Element: " ++ Process.getDisplayName process
         , mass = mass
+        , materialType = materialType
+        , quantity = 1
         , stage = Nothing
         }
 
 
+computeShareImpacts : Mass -> EndOfLifeStrategy -> Impacts
+computeShareImpacts mass { process, split } =
+    process
+        |> Maybe.map
+            (.impacts
+                >> Impact.multiplyBy
+                    (split
+                        |> Split.applyToQuantity mass
+                        |> Mass.inKilograms
+                    )
+            )
+        |> Maybe.withDefault Impact.empty
+
+
 createItem : Id -> Item
 createItem id =
-    { custom = Nothing, id = id, quantity = quantityFromInt 1 }
+    { country = Nothing
+    , custom = Nothing
+    , id = id
+    , quantity = quantityFromInt 1
+    }
 
 
 customElements : Component -> Maybe Custom -> List Element
@@ -501,17 +614,11 @@ decode =
         |> Decode.required "elements" (Decode.list decodeElement)
         |> Decode.required "id" (Decode.map Id Uuid.decoder)
         |> Decode.required "name" Decode.string
-        |> Decode.optional "scopes" (Decode.list Scope.decode) Scope.all
-        |> Decode.andThen
-            (\component ->
-                -- Note: it's been decided to only allow a single scope per component, though we keep
-                --       the list of scopes for backward compatibility and/or future re-enabling
-                case List.head component.scopes of
-                    Just scope ->
-                        Decode.succeed { component | scopes = [ scope ] }
-
-                    Nothing ->
-                        Decode.fail <| "Aucun scope pour le composant id=" ++ idToString component.id
+        |> Decode.required "scopes"
+            -- Note: the backend exposes multiple scopes per component, though it's been decided
+            -- a component should only allow one, so here we take the first declared scope.
+            (Decode.list Scope.decode
+                |> Decode.map (List.head >> Maybe.withDefault Scope.Object)
             )
 
 
@@ -520,7 +627,9 @@ decodeCustom =
     Decode.succeed Custom
         |> Decode.required "elements" (Decode.list decodeElement)
         |> DU.strictOptional "name" Decode.string
-        |> Decode.optional "scopes" (Decode.list Scope.decode) []
+        |> DU.strictOptionalWithDefault "scopes"
+            (Decode.list Scope.decode |> Decode.map List.head)
+            Nothing
 
 
 decodeElement : Decoder Element
@@ -534,6 +643,7 @@ decodeElement =
 decodeItem : Decoder Item
 decodeItem =
     Decode.succeed Item
+        |> DU.strictOptional "country" Country.decodeCode
         |> DU.strictOptional "custom" decodeCustom
         |> Decode.required "id" (Decode.map Id Uuid.decoder)
         |> Decode.required "quantity" decodeQuantity
@@ -564,6 +674,13 @@ decodeQuantity =
         |> Decode.map Quantity
 
 
+{-| Proxified for convenience
+-}
+defaultConfig : List Process -> Result String Config
+defaultConfig =
+    Config.default
+
+
 elementToString : List Process -> Element -> Result String String
 elementToString processes element =
     processes
@@ -592,6 +709,13 @@ elementsToString db component =
         |> Result.map (String.join " | ")
 
 
+emptyLifeCycle : LifeCycle
+emptyLifeCycle =
+    { endOfLife = Impact.empty
+    , production = emptyResults
+    }
+
+
 emptyResults : Results
 emptyResults =
     Results
@@ -600,6 +724,8 @@ emptyResults =
         , items = []
         , label = Nothing
         , mass = Quantity.zero
+        , materialType = Nothing
+        , quantity = 1
         , stage = Nothing
         }
 
@@ -611,7 +737,7 @@ encode v =
         , ( "elements", v.elements |> Encode.list encodeElement )
         , ( "id", v.id |> encodeId )
         , ( "name", v.name |> Encode.string )
-        , ( "scopes", v.scopes |> Encode.list Scope.encode )
+        , ( "scopes", [ v.scope ] |> Encode.list Scope.encode )
         ]
 
 
@@ -652,6 +778,7 @@ encodeItem item =
     EU.optionalPropertiesObject
         [ ( "id", item.id |> idToString |> Encode.string |> Just )
         , ( "quantity", item.quantity |> quantityToInt |> Encode.int |> Just )
+        , ( "country", item.country |> Maybe.map Country.encodeCode )
         , ( "custom", item.custom |> Maybe.map encodeCustom )
         ]
 
@@ -661,16 +788,35 @@ encodeId =
     idToString >> Encode.string
 
 
+encodeLifeCycle : Maybe Trigram -> LifeCycle -> Encode.Value
+encodeLifeCycle maybeTrigram lifeCycle =
+    Encode.object
+        [ ( "production", encodeResults maybeTrigram lifeCycle.production )
+        , ( "endOfLife"
+          , case maybeTrigram of
+                Just trigram ->
+                    lifeCycle.endOfLife
+                        |> Impact.getImpact trigram
+                        |> Unit.impactToFloat
+                        |> Encode.float
+
+                Nothing ->
+                    Impact.encode lifeCycle.endOfLife
+          )
+        ]
+
+
 encodeResults : Maybe Trigram -> Results -> Encode.Value
 encodeResults maybeTrigram (Results results) =
     EU.optionalPropertiesObject
         [ ( "label", results.label |> Maybe.map Encode.string )
         , ( "stage", results.stage |> Maybe.map (stageToString >> Encode.string) )
         , ( "mass", results.mass |> Mass.inKilograms |> Encode.float |> Just )
+        , ( "materialType", results.materialType |> Maybe.map (Category.materialTypeToString >> Encode.string) )
+        , ( "quantity", results.quantity |> Encode.int |> Just )
         , ( "impacts"
-          , Just
-                -- Note: even with no trigram provided, we always want impacts here
-                (case maybeTrigram of
+          , Just <|
+                case maybeTrigram of
                     Just trigram ->
                         results.impacts
                             |> Impact.getImpact trigram
@@ -679,7 +825,6 @@ encodeResults maybeTrigram (Results results) =
 
                     Nothing ->
                         Impact.encode results.impacts
-                )
           )
         , ( "items", results.items |> Encode.list (encodeResults maybeTrigram) |> Just )
         ]
@@ -687,9 +832,10 @@ encodeResults maybeTrigram (Results results) =
 
 {-| Turn an Element to an ExpandedElement
 -}
-expandElement : List Process -> Element -> Result String ExpandedElement
-expandElement processes { amount, material, transforms } =
+expandElement : DataContainer db -> Maybe Country.Code -> Element -> Result String ExpandedElement
+expandElement { countries, processes } maybeCountry { amount, material, transforms } =
     Ok (ExpandedElement amount)
+        |> RE.andMap (resolveCountry countries maybeCountry)
         |> RE.andMap (Process.findById material processes)
         |> RE.andMap
             (transforms
@@ -700,26 +846,48 @@ expandElement processes { amount, material, transforms } =
 
 {-| Take a list of elements and resolve them with fully qualified processes
 -}
-expandElements : List Process -> List Element -> Result String (List ExpandedElement)
-expandElements processes =
-    RE.combineMap (expandElement processes)
+expandElements : DataContainer db -> Maybe Country.Code -> List Element -> Result String (List ExpandedElement)
+expandElements db maybeCountry =
+    RE.combineMap (expandElement db maybeCountry)
 
 
-expandItem : DataContainer a -> Item -> Result String ( Quantity, Component, List ExpandedElement )
-expandItem { components, processes } { custom, id, quantity } =
+expandItem : DataContainer a -> Item -> Result String ExpandedItem
+expandItem ({ components, countries } as db) { country, custom, id, quantity } =
     findById id components
         |> Result.andThen
             (\component ->
-                custom
-                    |> customElements component
-                    |> expandElements processes
-                    |> Result.map (\expanded -> ( quantity, component, expanded ))
+                country
+                    |> resolveCountry countries
+                    |> Result.andThen
+                        (\maybeCountry ->
+                            custom
+                                |> customElements component
+                                |> expandElements db country
+                                |> Result.map
+                                    (\expandedElements ->
+                                        { component = component
+                                        , country = maybeCountry
+                                        , elements = expandedElements
+                                        , quantity = quantity
+                                        }
+                                    )
+                        )
             )
+
+
+resolveCountry : List Country -> Maybe Country.Code -> Result String (Maybe Country)
+resolveCountry countries maybeCode =
+    case maybeCode of
+        Just code ->
+            countries |> Country.findByCode code |> Result.map Just
+
+        Nothing ->
+            Ok Nothing
 
 
 {-| Take a list of component items and resolve them with actual components and processes
 -}
-expandItems : DataContainer a -> List Item -> Result String (List ( Quantity, Component, List ExpandedElement ))
+expandItems : DataContainer a -> List Item -> Result String (List ExpandedItem)
 expandItems db =
     List.map (expandItem db) >> RE.combine
 
@@ -753,6 +921,111 @@ findById id =
         >> Result.fromMaybe ("Aucun composant avec id=" ++ idToString id)
 
 
+getEndOfLifeDetailedImpacts : Requirements db -> Results -> DetailedEndOfLifeImpacts
+getEndOfLifeDetailedImpacts { config, scope } =
+    let
+        collectionRatio =
+            getEndOfLifeScopeCollectionRate config scope
+
+        nonCollectionRatio =
+            Split.complement collectionRatio
+
+        applyStrategies : Mass -> EndOfLifeStrategies -> ( Mass, EndOfLifeStrategies )
+        applyStrategies mass { incinerating, landfilling, recycling } =
+            ( mass
+            , { incinerating = { incinerating | impacts = incinerating |> computeShareImpacts mass }
+              , landfilling = { landfilling | impacts = landfilling |> computeShareImpacts mass }
+              , recycling = { recycling | impacts = recycling |> computeShareImpacts mass }
+              }
+            )
+    in
+    getMaterialDistribution
+        >> AnyDict.map
+            (\materialCategory mass ->
+                { collected =
+                    config.endOfLife.strategies.collected
+                        |> AnyDict.get materialCategory
+                        |> Maybe.withDefault config.endOfLife.strategies.default
+                        |> applyStrategies (collectionRatio |> Split.applyToQuantity mass)
+                , nonCollected =
+                    config.endOfLife.strategies.nonCollected
+                        |> AnyDict.get materialCategory
+                        |> Maybe.withDefault config.endOfLife.strategies.default
+                        |> applyStrategies (nonCollectionRatio |> Split.applyToQuantity mass)
+                }
+            )
+        >> AnyDict.toList
+        >> AnyDict.fromList Category.materialTypeToString
+
+
+getEndOfLifeImpacts : Requirements db -> Results -> Impacts
+getEndOfLifeImpacts requirements (Results results) =
+    Results results
+        |> getEndOfLifeDetailedImpacts requirements
+        |> AnyDict.map
+            (\_ { collected, nonCollected } ->
+                let
+                    ( collectedStrategies, nonCollectedStrategies ) =
+                        ( Tuple.second collected, Tuple.second nonCollected )
+                in
+                [ collectedStrategies.incinerating
+                , collectedStrategies.landfilling
+                , collectedStrategies.recycling
+                , nonCollectedStrategies.incinerating
+                , nonCollectedStrategies.landfilling
+                , nonCollectedStrategies.recycling
+                ]
+                    |> List.map .impacts
+                    |> Impact.sumImpacts
+            )
+        |> AnyDict.values
+        |> Impact.sumImpacts
+
+
+getEndOfLifeScopeCollectionRate : Config -> Scope -> Split
+getEndOfLifeScopeCollectionRate { endOfLife } scope =
+    endOfLife.scopeCollectionRates
+        |> AnyDict.get scope
+        -- Assume every material is fully collected by default
+        |> Maybe.withDefault Split.full
+
+
+{-| Compute mass distribution by material types
+-}
+getMaterialDistribution : Results -> MaterialDict Mass
+getMaterialDistribution (Results results) =
+    results.items
+        -- component level
+        -- propagate component quantity to children elements
+        |> List.concatMap
+            (\(Results { quantity, items }) -> items |> List.map (\item -> ( quantity, item )))
+        -- element level
+        -- propagate element unit mass to material children
+        |> List.concatMap
+            (\( quantity, Results { items, mass } ) -> items |> List.map (\item -> ( quantity, mass, item )))
+        -- exclude whatever doesn't have a material type and isn't tagged as material
+        |> List.filter
+            (\( _, _, Results { materialType, stage } ) -> materialType /= Nothing && stage == Just MaterialStage)
+        -- sum masses per material types
+        |> List.foldl
+            (\( quantity, unitMass, Results { materialType } ) acc ->
+                let
+                    materialCategory =
+                        materialType |> Maybe.withDefault Category.OtherMaterial
+
+                    totalMass =
+                        unitMass |> Quantity.multiplyBy (toFloat quantity)
+                in
+                acc
+                    |> AnyDict.update materialCategory
+                        (Maybe.map (Quantity.plus totalMass)
+                            >> Maybe.withDefault totalMass
+                            >> Just
+                        )
+            )
+            (AnyDict.empty Category.materialTypeToString)
+
+
 idFromString : String -> Result String Id
 idFromString =
     Uuid.fromString >> Result.map Id
@@ -768,7 +1041,7 @@ isCustomized component custom =
     List.any identity
         [ custom.elements /= component.elements
         , custom.name /= Nothing && custom.name /= Just component.name
-        , custom.scopes /= component.scopes
+        , custom.scope /= Nothing && custom.scope /= Just component.scope
         ]
 
 
@@ -790,11 +1063,11 @@ itemToComponent { components } { custom, id } =
         |> Result.map
             (\component ->
                 case custom of
-                    Just { elements, name, scopes } ->
+                    Just { elements, name, scope } ->
                         { component
                             | elements = elements
                             , name = name |> Maybe.withDefault component.name
-                            , scopes = scopes
+                            , scope = scope |> Maybe.withDefault component.scope
                         }
 
                     Nothing ->
@@ -841,13 +1114,28 @@ loadDefaultEnergyMixes processes =
                 >> Result.andThen (\id -> Process.findById id processes)
     in
     Result.map2 (\elec heat -> { elec = elec, heat = heat })
+        -- Électricité moyenne tension, Asie
         (fromIdString "a2129ece-5dd9-5e66-969c-2603b3c97244")
+        -- Mix chaleur (Monde)
         (fromIdString "3561ace1-f710-50ce-a69c-9cf842e729e4")
+
+
+loadEnergyMixes : List Process -> Maybe Country -> Result String EnergyMixes
+loadEnergyMixes processes =
+    Maybe.map (\{ electricityProcess, heatProcess } -> Ok <| EnergyMixes electricityProcess heatProcess)
+        >> Maybe.withDefault (loadDefaultEnergyMixes processes)
 
 
 mapAmount : (Float -> Float) -> Amount -> Amount
 mapAmount fn (Amount float) =
     Amount <| fn float
+
+
+{-| Proxified for convenience
+-}
+parseConfig : List Process -> String -> Result String Config
+parseConfig =
+    Config.parse
 
 
 quantityFromInt : Int -> Quantity
@@ -879,6 +1167,25 @@ removeElementTransform targetElement transformIndex =
         \el -> { el | transforms = el.transforms |> LE.removeAt transformIndex }
 
 
+setCustomScope : Component -> Scope -> Item -> Item
+setCustomScope component scope item =
+    { item
+        | custom =
+            item.custom
+                |> updateCustom component
+                    (\custom ->
+                        { custom
+                            | scope =
+                                if scope == component.scope then
+                                    Nothing
+
+                                else
+                                    Just scope
+                        }
+                    )
+    }
+
+
 setElementMaterial : TargetElement -> Process -> List Item -> Result String (List Item)
 setElementMaterial targetElement material items =
     if not <| List.member Category.Material material.categories then
@@ -898,9 +1205,10 @@ setElementMaterial targetElement material items =
             |> Ok
 
 
-stagesImpacts : Results -> StagesImpacts
-stagesImpacts (Results results) =
-    results.items
+stagesImpacts : LifeCycle -> StagesImpacts
+stagesImpacts lifeCycle =
+    lifeCycle.production
+        |> extractItems
         -- component level
         |> List.concatMap extractItems
         -- element level
@@ -917,7 +1225,10 @@ stagesImpacts (Results results) =
                     Nothing ->
                         acc
             )
-            { material = Impact.empty, transformation = Impact.empty }
+            { endOfLife = lifeCycle.endOfLife
+            , material = Impact.empty
+            , transformation = Impact.empty
+            }
 
 
 stageToString : Stage -> String
@@ -930,23 +1241,12 @@ stageToString stage =
             "transformation"
 
 
-toggleCustomScope : Component -> Scope -> Bool -> Item -> Item
-toggleCustomScope component scope enabled item =
-    { item
-        | custom =
-            item.custom
-                |> updateCustom component
-                    (\custom ->
-                        { custom
-                            | scopes =
-                                if enabled then
-                                    scope :: custom.scopes
-
-                                else
-                                    List.filter ((/=) scope) custom.scopes
-                        }
-                    )
-    }
+sumLifeCycleImpacts : LifeCycle -> Impacts
+sumLifeCycleImpacts lifeCycle =
+    Impact.sumImpacts
+        [ extractImpacts lifeCycle.production
+        , lifeCycle.endOfLife
+        ]
 
 
 updateCustom : Component -> (Custom -> Custom) -> Maybe Custom -> Maybe Custom
@@ -968,7 +1268,7 @@ updateCustom component fn maybeCustom =
                 (fn
                     { elements = component.elements
                     , name = Nothing
-                    , scopes = component.scopes
+                    , scope = Nothing
                     }
                 )
 

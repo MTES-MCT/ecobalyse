@@ -64,18 +64,20 @@ class Process(CamelizedBaseStruct):
 
     categories: list[Category]
     comment: str
-    display_name: Optional[str]
     id: UUID
     impacts: Impacts
     source: str
-    source_id: Optional[str]
     unit: Unit
 
     # Optional fields
+
+    activity_name: Optional[str] = None
     alias: Optional[str] = None
     density: float = 0
+    display_name: Optional[str] = None
     elec_mj: float = msgspec.field(name="elecMJ", default=0)
     heat_mj: float = msgspec.field(name="heatMJ", default=0)
+    location: Optional[str] = None
     scopes: list[Scope] = []
     waste: float = 0
 

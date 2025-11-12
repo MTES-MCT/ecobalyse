@@ -55,6 +55,12 @@ class ProcessService(SQLAlchemyAsyncRepositoryService[m.Process]):
         data = schema_dump(data)
         return await self._populate_with_categories_and_impacts(data, "create")
 
+    async def to_model_on_update(
+        self, data: ModelDictT[m.Process]
+    ) -> ModelDictT[m.Process]:
+        data = schema_dump(data)
+        return await self._populate_with_categories_and_impacts(data, "update")
+
     match_fields = ["display_name"]
 
     @staticmethod
@@ -87,19 +93,21 @@ class ProcessService(SQLAlchemyAsyncRepositoryService[m.Process]):
     ) -> ModelDictT[m.Team]:
         owner: m.User | None = data.pop("owner", None)
 
+        renamed_process = {}
+        for key in data:
+            if key == "impacts":
+                for impact_key in data[key]:
+                    renamed_process[impact_key.replace("-", "_")] = data[key][
+                        impact_key
+                    ]
+            else:
+                renamed_process[camel_to_snake(key)] = data[key]
+
+        data = renamed_process
+
         if operation == "create" and is_dict(data):
             categories_added: list[str] = data.pop("categories", [])
             data["id"] = data.get("id", uuid4())
-
-            renamed_process = {}
-            for key in data:
-                if key == "impacts":
-                    for impact_key in data[key]:
-                        renamed_process[impact_key.replace("-", "_")] = data[key][
-                            impact_key
-                        ]
-                else:
-                    renamed_process[camel_to_snake(key)] = data[key]
 
             data = await super().to_model(renamed_process)
             if categories_added:
@@ -119,6 +127,53 @@ class ProcessService(SQLAlchemyAsyncRepositoryService[m.Process]):
                         table_name=m.Process.__tablename__,
                         record_id=data.id,
                         action=m.JournalAction.CREATED,
+                        user=owner,
+                        value=self.to_schema(data, schema_type=Process),
+                    )
+                )
+
+        if operation == "update" and is_dict(data):
+            categories_names_updated: list[str] = data.pop("categories", [])
+            data = await super().to_model(data)
+
+            # Avoid SAWarning: Object of type <Process> not in session, add operation along 'ProcessCategory.processes' won't proceed
+            # By merging the process we are creating into the existing session
+            data = await self.repository.session.merge(data)
+
+            if categories_names_updated:
+                existing_categories_names = [
+                    category.name for category in data.process_categories
+                ]
+                categories_to_remove = [
+                    category
+                    for category in data.process_categories
+                    if category.name not in categories_names_updated
+                ]
+                categories_names_to_add = [
+                    category
+                    for category in categories_names_updated
+                    if category not in existing_categories_names
+                ]
+                for category_rm in categories_to_remove:
+                    data.process_categories.remove(category_rm)
+
+                if len(categories_names_to_add) > 0:
+                    data.process_categories.extend(
+                        [
+                            await m.ProcessCategory.as_unique_async(
+                                self.repository.session,
+                                name=category_name,
+                            )
+                            for category_name in categories_names_to_add
+                        ],
+                    )
+
+            if owner:
+                owner.journal_entries.append(
+                    m.JournalEntry(
+                        table_name=m.Process.__tablename__,
+                        record_id=data.id,
+                        action=m.JournalAction.UPDATED,
                         user=owner,
                         value=self.to_schema(data, schema_type=Process),
                     )

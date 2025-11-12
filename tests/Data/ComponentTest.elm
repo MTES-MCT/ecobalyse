@@ -1,12 +1,14 @@
 module Data.ComponentTest exposing (..)
 
-import Data.Component as Component exposing (Component, Item)
+import Data.Component as Component exposing (Component, Item, LifeCycle)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
 import Data.Process as Process exposing (Process)
+import Data.Process.Category as Category
 import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
+import Dict.Any as AnyDict
 import Expect
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
@@ -21,8 +23,8 @@ import TestUtils exposing (expectResultErrorContains, it, suiteWithDb)
 
 suite : Test
 suite =
-    suiteWithDb "Data.Component"
-        (\originalDb ->
+    suiteWithDb "Data.Component" <|
+        \originalDb ->
             let
                 -- these will be adapted and used as test transform processes
                 ( fading, weaving ) =
@@ -69,7 +71,7 @@ suite =
                 -- setup
                 chairBack
                 injectionMoulding
-                woodenBoard
+                wood
                 -- tests
                 (\testComponent validTransformProcess invalidTransformProcess ->
                     [ it "should add a valid transformation process to a component element"
@@ -117,9 +119,11 @@ suite =
                             , items = []
                             , label = Nothing
                             , mass = Mass.kilogram
+                            , materialType = Nothing
+                            , quantity = 1
                             , stage = Nothing
                             }
-                            |> Component.applyTransforms db.processes Process.Kilogram transforms
+                            |> Component.applyTransforms db.processes Nothing Process.Kilogram transforms
                             |> Result.withDefault Component.emptyResults
                             |> Component.extractMass
                             |> Mass.inKilograms
@@ -146,9 +150,11 @@ suite =
                             , items = []
                             , label = Nothing
                             , mass = Mass.kilogram
+                            , materialType = Nothing
+                            , quantity = 1
                             , stage = Nothing
                             }
-                            |> Component.applyTransforms db.processes Process.Kilogram transforms
+                            |> Component.applyTransforms db.processes Nothing Process.Kilogram transforms
                             |> Result.withDefault Component.emptyResults
                             |> extractEcsImpact
                   in
@@ -200,9 +206,11 @@ suite =
                                 , items = []
                                 , label = Nothing
                                 , mass = Mass.kilogram
+                                , materialType = Nothing
+                                , quantity = 1
                                 , stage = Nothing
                                 }
-                                |> Component.applyTransforms db.processes Process.CubicMeter [ transformInKg ]
+                                |> Component.applyTransforms db.processes Nothing Process.CubicMeter [ transformInKg ]
                                 |> Expect.equal (Err "Les procédés de transformation ne partagent pas la même unité que la matière source (m3)\u{00A0}: Moulage par injection (kg)")
                             )
                         ]
@@ -215,9 +223,11 @@ suite =
                             , items = []
                             , label = Nothing
                             , mass = Mass.kilogram
+                            , materialType = Nothing
+                            , quantity = 1
                             , stage = Nothing
                             }
-                            |> Component.applyTransforms db.processes Process.Kilogram transforms
+                            |> Component.applyTransforms db.processes Nothing Process.Kilogram transforms
                             |> Result.withDefault Component.emptyResults
                   in
                   describe "impacts & waste"
@@ -280,9 +290,9 @@ suite =
             , describe "compute"
                 [ it "should compute results from decoded component items"
                     (chair
-                        |> Result.andThen (Component.compute db)
-                        |> Result.map extractEcsImpact
-                        |> TestUtils.expectResultWithin (Expect.Absolute 1) 293
+                        |> Result.andThen (computeWithTestConfig db)
+                        |> Result.map (.production >> extractEcsImpact)
+                        |> TestUtils.expectResultWithin (Expect.Absolute 1) 276
                     )
                 , it "should compute results from decoded component items with custom component elements"
                     (""" [ {
@@ -292,7 +302,7 @@ suite =
                                "elements": [
                                  {
                                    "amount": 0.00044,
-                                   "material": "fe8a97ba-405a-5542-b1be-bd6983537d58",
+                                   "material": "17431e06-2973-516e-b043-be9ad405e4fb",
                                    "transforms": []
                                  }
                                ]
@@ -301,9 +311,9 @@ suite =
                          , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
                          , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
                          ]"""
-                        |> decodeJsonThen (Decode.list Component.decodeItem) (Component.compute db)
-                        |> Result.map extractEcsImpact
-                        |> TestUtils.expectResultWithin (Expect.Absolute 1) 314
+                        |> decodeJsonThen (Decode.list Component.decodeItem) (computeWithTestConfig db)
+                        |> Result.map (.production >> extractEcsImpact)
+                        |> TestUtils.expectResultWithin (Expect.Absolute 1) 282
                     )
                 ]
             , describe "computeElementResults"
@@ -312,7 +322,8 @@ suite =
                     (Process.idFromString "f0dbe27b-1e74-55d0-88a2-bda812441744"
                         |> Result.andThen
                             (\cottonId ->
-                                Component.computeElementResults db.processes
+                                Component.computeElementResults db
+                                    Nothing
                                     { amount = Component.Amount 1
                                     , material = cottonId
 
@@ -337,7 +348,7 @@ suite =
                         ]
                     )
                 , TestUtils.suiteFromResult2 "unit preservation"
-                    woodenBoard
+                    wood
                     sawing
                     (\materialInCubicMeters transformInCubicMeters ->
                         let
@@ -346,19 +357,19 @@ suite =
                                 , material = materialInCubicMeters.id
                                 , transforms = [ transformInCubicMeters.id ]
                                 }
-                                    |> Component.computeElementResults db.processes
+                                    |> Component.computeElementResults db Nothing
                         in
                         [ it "should compute impacts according on material unit"
                             (results
                                 |> Result.map extractEcsImpact
                                 |> Result.withDefault 0
-                                |> Expect.within (Expect.Absolute 1) 72711
+                                |> Expect.within (Expect.Absolute 1) 38342
                             )
                         , it "should compute mass according on material unit"
                             (results
                                 |> Result.map (Component.extractMass >> Mass.inKilograms)
                                 |> Result.withDefault 0
-                                |> Expect.within (Expect.Absolute 1) 600
+                                |> Expect.within (Expect.Absolute 1) 660
                             )
                         ]
                     )
@@ -421,7 +432,7 @@ suite =
                               "elements": [
                                 {
                                   "amount": 0.00044,
-                                  "material": "fe8a97ba-405a-5542-b1be-bd6983537d58"
+                                  "material": "17431e06-2973-516e-b043-be9ad405e4fb"
                                 }
                               ]
                             }
@@ -448,7 +459,7 @@ suite =
                         "elements": [
                           {
                             "amount": 0.00044,
-                            "material": "fe8a97ba-405a-5542-b1be-bd6983537d58"
+                            "material": "17431e06-2973-516e-b043-be9ad405e4fb"
                           }
                         ]
                       }
@@ -483,7 +494,7 @@ suite =
                         "elements": [
                           {
                             "amount": 0.00044,
-                            "material": "fe8a97ba-405a-5542-b1be-bd6983537d58"
+                            "material": "17431e06-2973-516e-b043-be9ad405e4fb"
                           },
                           {
                             "amount": 0.00088,
@@ -498,7 +509,76 @@ suite =
                 (\string ->
                     [ it "should serialise an item as a human readable string representation"
                         (Expect.equal string
-                            "1 Custom piece [ 0.00044m3 Planche (bois de feuillus) | 0.00088kg Plastique granulé (PP) ]"
+                            "1 Custom piece [ 0.00044m3 Bois d'oeuvre (Feuillus / Hêtre) | 0.00088kg Plastique granulé (PP) ]"
+                        )
+                    ]
+                )
+            , TestUtils.suiteFromResult "getEndOfLifeDetailedImpacts"
+                -- setup
+                (chair
+                    |> Result.andThen (computeWithTestConfig db)
+                    |> Result.andThen
+                        (\{ production } ->
+                            testComponentConfig db.processes
+                                |> Result.map
+                                    (\config ->
+                                        production
+                                            |> Component.getEndOfLifeDetailedImpacts
+                                                { config = config
+                                                , db = db
+                                                , scope = Scope.Object
+                                                }
+                                    )
+                        )
+                )
+                -- tests
+                (\chairMaterialGroups ->
+                    [ it "should group materials"
+                        (chairMaterialGroups
+                            |> AnyDict.keys
+                            |> Expect.equal [ Category.Plastic, Category.Wood ]
+                        )
+                    , it "should group materials collected masses"
+                        (chairMaterialGroups
+                            |> AnyDict.values
+                            |> List.map (.collected >> Tuple.first >> Mass.inKilograms)
+                            |> List.all (\x -> x > 0)
+                            |> Expect.equal True
+                        )
+                    , it "should group materials non-collected masses"
+                        (chairMaterialGroups
+                            |> AnyDict.values
+                            |> List.map (.nonCollected >> Tuple.first >> Mass.inKilograms)
+                            |> List.all (\x -> x > 0)
+                            |> Expect.equal True
+                        )
+                    , it "should group materials collected impacts"
+                        (chairMaterialGroups
+                            |> AnyDict.values
+                            |> List.map
+                                (.collected
+                                    >> Tuple.second
+                                    >> .incinerating
+                                    >> .impacts
+                                    >> Impact.getImpact Definition.Ecs
+                                    >> Unit.impactToFloat
+                                )
+                            |> List.all (\x -> x > 0)
+                            |> Expect.equal True
+                        )
+                    , it "should group materials non-collected impacts"
+                        (chairMaterialGroups
+                            |> AnyDict.values
+                            |> List.map
+                                (.nonCollected
+                                    >> Tuple.second
+                                    >> .incinerating
+                                    >> .impacts
+                                    >> Impact.getImpact Definition.Ecs
+                                    >> Unit.impactToFloat
+                                )
+                            |> List.all (\x -> x > 0)
+                            |> Expect.equal True
                         )
                     ]
                 )
@@ -542,7 +622,8 @@ suite =
                             |> Expect.equal
                                 (Ok <|
                                     Just
-                                        { custom = Nothing
+                                        { country = Nothing
+                                        , custom = Nothing
                                         , id = testComponent.id
                                         , quantity = Component.quantityFromInt 1
                                         }
@@ -585,10 +666,10 @@ suite =
             , TestUtils.suiteFromResult "stagesImpacts"
                 (""" [ { "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 }
                      ]"""
-                    |> decodeJsonThen (Decode.list Component.decodeItem) (Component.compute db)
+                    |> decodeJsonThen (Decode.list Component.decodeItem) (computeWithTestConfig db)
                     |> Result.map (\results -> ( results, Component.stagesImpacts results ))
                 )
-                (\( results, stagesImpacts ) ->
+                (\( lifeCycle, stagesImpacts ) ->
                     [ it "should compute material stage impacts"
                         (stagesImpacts.material
                             |> getEcsImpact
@@ -599,16 +680,20 @@ suite =
                             |> getEcsImpact
                             |> Expect.greaterThan 0
                         )
+                    , it "should compute end of life stage impacts"
+                        (stagesImpacts.endOfLife
+                            |> getEcsImpact
+                            |> Expect.greaterThan 0
+                        )
                     , it "should have total stages impacts equal total impacts"
                         ([ stagesImpacts.material, stagesImpacts.transformation ]
                             |> Impact.sumImpacts
                             |> getEcsImpact
-                            |> Expect.within (Expect.Absolute 1) (extractEcsImpact results)
+                            |> Expect.within (Expect.Absolute 1) (extractEcsImpact lifeCycle.production)
                         )
                     ]
                 )
-            , TestUtils.suiteFromResult "toggleCustomScope"
-                -- See why we disabled multi-scopes decoding in Data.Component.decode
+            , TestUtils.suiteFromResult "setCustomScope"
                 -- setup
                 ("""{ "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 }"""
                     |> decodeJson Component.decodeItem
@@ -619,42 +704,35 @@ suite =
                                 |> Result.map (\component -> ( component, item ))
                         )
                 )
-                (\( component, item ) ->
-                    [ it "should have no custom scopes by default"
-                        (item.custom
+                (\( sofaFabricComponent, sofaFabricItem ) ->
+                    [ it "should have the expected initial component scope"
+                        (sofaFabricComponent.scope
+                            |> Expect.equal Scope.Object
+                        )
+                    , it "should have no custom scopes by default"
+                        (sofaFabricItem.custom
                             |> Expect.equal Nothing
                         )
-                    , it "should toggle a custom scope"
-                        (item
-                            |> Component.toggleCustomScope component Scope.Textile False
+                    , it "should set a custom scope"
+                        (sofaFabricItem
+                            |> Component.setCustomScope sofaFabricComponent Scope.Textile
                             |> .custom
-                            |> Maybe.map .scopes
-                            |> Expect.equal (Just [ Scope.Food ])
-                        )
-                    , it "should sequentially toggle custom scopes"
-                        (item
-                            |> Component.toggleCustomScope component Scope.Food False
-                            |> Component.toggleCustomScope component Scope.Object False
-                            |> Component.toggleCustomScope component Scope.Textile False
-                            |> Component.toggleCustomScope component Scope.Object True
-                            |> .custom
-                            |> Maybe.map .scopes
-                            |> Expect.equal (Just [ Scope.Object ])
+                            |> Maybe.andThen .scope
+                            |> Expect.equal (Just Scope.Textile)
                         )
                     , it "should reset custom scopes when they match initial component ones"
-                        (item
-                            |> Component.toggleCustomScope component Scope.Food False
-                            |> Component.toggleCustomScope component Scope.Food True
+                        (sofaFabricItem
+                            |> Component.setCustomScope sofaFabricComponent Scope.Object
                             |> .custom
-                            |> Maybe.map .scopes
+                            |> Maybe.andThen .scope
                             |> Expect.equal Nothing
                         )
                     , it "should export custom scopes to component"
-                        (item
-                            |> Component.toggleCustomScope component Scope.Textile False
+                        (sofaFabricItem
+                            |> Component.setCustomScope sofaFabricComponent Scope.Textile
                             |> Component.itemToComponent db
-                            |> Result.map .scopes
-                            |> Expect.equal (Ok [ Scope.Food ])
+                            |> Result.map .scope
+                            |> Expect.equal (Ok Scope.Textile)
                         )
                     ]
                 )
@@ -696,7 +774,70 @@ suite =
                     ]
                 )
             ]
-        )
+
+
+testComponentConfig : List Process -> Result String Component.Config
+testComponentConfig processes =
+    Component.parseConfig processes
+        """
+        {
+            "endOfLife": {
+                "scopeCollectionRates": {
+                "object": 70
+                },
+                "strategies": {
+                    "default": {
+                        "incinerating": { "processId": "6fad4e70-5736-552d-a686-97e4fb627c37", "percent": 82 },
+                        "landfilling": { "processId": "d4954f69-e647-531d-aa32-c34be5556736", "percent": 18 },
+                        "recycling": null
+                    },
+                    "collected": {
+                        "metal": {
+                            "incinerating": null,
+                            "landfilling": null,
+                            "recycling": { "percent": 100 }
+                        },
+                        "plastic": {
+                            "incinerating": { "processId": "17986210-aeb8-5f4f-99fd-cbecb5439fde", "percent": 8 },
+                            "landfilling": null,
+                            "recycling": { "percent": 92 }
+                        },
+                        "upholstery": {
+                            "incinerating": { "processId": "3fe5a5b1-c1b2-5c17-8b59-0e37b09f1037", "percent": 94 },
+                            "landfilling": { "processId": "d4954f69-e647-531d-aa32-c34be5556736", "percent": 2 },
+                            "recycling": { "percent": 4 }
+                        },
+                        "wood": {
+                            "incinerating": { "processId": "316be695-bf3e-5562-9f09-77f213c3ec67", "percent": 31 },
+                            "landfilling": null,
+                            "recycling": { "percent": 69 }
+                        }
+                    },
+                    "nonCollected": {
+                        "metal": {
+                            "incinerating": { "processId": "5719f399-c2a3-5268-84e2-894aba588f1b", "percent": 5 },
+                            "landfilling": { "processId": "d4954f69-e647-531d-aa32-c34be5556736", "percent": 5 },
+                            "recycling": { "percent": 90 }
+                        }
+                    }
+                }
+            }
+        }
+        """
+
+
+computeWithTestConfig : Db -> List Item -> Result String LifeCycle
+computeWithTestConfig db items =
+    testComponentConfig db.processes
+        |> Result.andThen
+            (\config ->
+                items
+                    |> Component.compute
+                        { config = config
+                        , db = db
+                        , scope = Scope.Object
+                        }
+            )
 
 
 extractEcsImpact : Component.Results -> Float
@@ -760,7 +901,7 @@ setupTestDb db =
             RE.combine
                 [ steel
                 , injectionMoulding
-                , woodenBoard
+                , wood
                 , plastic
                 , sawing
                 ]
@@ -799,7 +940,7 @@ chairBack =
                 ],
                 "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973",
                 "name": "Dossier plastique (PP)",
-                "scopes": ["food", "object", "textile", "veli"]
+                "scopes": ["object"]
             }
         """
 
@@ -811,12 +952,12 @@ chairLeg =
                 "elements": [
                 {
                     "amount": 0.00022,
-                    "material": "fe8a97ba-405a-5542-b1be-bd6983537d58"
+                    "material": "17431e06-2973-516e-b043-be9ad405e4fb"
                 }
                 ],
                 "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
                 "name": "Pied 70 cm (plein bois)",
-                "scopes": ["food", "object", "textile", "veli"]
+                "scopes": ["object"]
             }
         """
 
@@ -833,7 +974,7 @@ chairSeat =
                 ],
                 "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6",
                 "name": "Assise plastique (PP)",
-                "scopes": ["food", "object", "textile", "veli"]
+                "scopes": ["object"]
             }
         """
 
@@ -862,7 +1003,7 @@ sofaFabric =
                 ],
                 "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
                 "name": "Tissu pour canapé",
-                "scopes": ["food", "object", "textile"]
+                "scopes": ["object"]
             }
         """
 
@@ -875,7 +1016,8 @@ injectionMoulding : Result String Process
 injectionMoulding =
     decodeJson (Process.decode Impact.decodeImpacts) <|
         """ {
-                "categories": ["transformation"],
+                "activityName": "injection moulding//[RER] injection moulding",
+                "categories": ["transformation", "material_type:plastic"],
                 "comment": "",
                 "density": 0,
                 "displayName": "Moulage par injection",
@@ -885,7 +1027,7 @@ injectionMoulding =
                 "impacts": {
                     "acd": 0,
                     "cch": 0,
-                    "ecs": 75.9018,
+                    "ecs": 67.739,
                     "etf": 0,
                     "etf-c": 0,
                     "fru": 0,
@@ -899,15 +1041,15 @@ injectionMoulding =
                     "mru": 0,
                     "ozd": 0,
                     "pco": 0,
-                    "pef": 81.8084,
+                    "pef": 71.513,
                     "pma": 0,
                     "swe": 0,
                     "tre": 0,
                     "wtu": 0
                 },
-                "scopes": ["object"],
+                "location": "RER",
+                "scopes": ["object", "veli"],
                 "source": "Ecoinvent 3.9.1",
-                "sourceId": "injection moulding//[RER] injection moulding",
                 "unit": "kg",
                 "waste": 0.006
             }
@@ -918,7 +1060,8 @@ plastic : Result String Process
 plastic =
     decodeJson (Process.decode Impact.decodeImpacts) <|
         """ {
-                "categories": ["material"],
+                "activityName": "polypropylene, granulate//[RER] polypropylene production, granulate",
+                "categories": ["material", "material_type:plastic"],
                 "comment": "",
                 "density": 0,
                 "displayName": "Plastique granulé (PP)",
@@ -928,7 +1071,7 @@ plastic =
                 "impacts": {
                     "acd": 0,
                     "cch": 0,
-                    "ecs": 165.71,
+                    "ecs": 164.69,
                     "etf": 0,
                     "etf-c": 0,
                     "fru": 0,
@@ -942,15 +1085,15 @@ plastic =
                     "mru": 0,
                     "ozd": 0,
                     "pco": 0,
-                    "pef": 192.164,
+                    "pef": 190.88,
                     "pma": 0,
                     "swe": 0,
                     "tre": 0,
                     "wtu": 0
                 },
+                "location": "RER",
                 "scopes": ["object"],
                 "source": "Ecoinvent 3.9.1",
-                "sourceId": "polypropylene, granulate//[RER] polypropylene production, granulate",
                 "unit": "kg",
                 "waste": 0
             }
@@ -961,8 +1104,9 @@ sawing : Result String Process
 sawing =
     decodeJson (Process.decode Impact.decodeImpacts) <|
         """ {
+                "activityName": "Sawing + kiln drying in Europe (wood), constructed by Ecobalyse",
                 "categories": ["transformation", "material_type:wood"],
-                "comment": "added by Ecobalyse",
+                "comment": "",
                 "density": 0,
                 "displayName": "Sciage + séchage au four en Europe (bois)",
                 "elecMJ": 0,
@@ -971,7 +1115,7 @@ sawing =
                 "impacts": {
                     "acd": 0,
                     "cch": 0,
-                    "ecs": 12732.2,
+                    "ecs": 12732.0,
                     "etf": 0,
                     "etf-c": 0,
                     "fru": 0,
@@ -985,15 +1129,15 @@ sawing =
                     "mru": 0,
                     "ozd": 0,
                     "pco": 0,
-                    "pef": 13736.8,
+                    "pef": 13737.0,
                     "pma": 0,
                     "swe": 0,
                     "tre": 0,
                     "wtu": 0
                 },
+                "location": "GLO",
                 "scopes": ["object"],
                 "source": "Ecobalyse",
-                "sourceId": "Sawing + kiln drying in Europe (wood), constructed by Ecobalyse",
                 "unit": "m3",
                 "waste": 0.5
             }
@@ -1004,17 +1148,18 @@ steel : Result String Process
 steel =
     decodeJson (Process.decode Impact.decodeImpacts) <|
         """ {
-                "categories": ["material"],
+                "activityName": "steel, low-alloyed//[GLO] market for steel, low-alloyed",
+                "categories": ["material", "material_type:metal"],
                 "comment": "",
                 "density": 0,
-                "displayName": "Acier",
+                "displayName": "Acier (faiblement allié)",
                 "elecMJ": 0,
                 "heatMJ": 0,
                 "id": "6527710e-2434-5347-9bef-2205e0aa4f66",
                 "impacts": {
                     "acd": 0,
                     "cch": 0,
-                    "ecs": 172.483,
+                    "ecs": 160.04,
                     "etf": 0,
                     "etf-c": 0,
                     "fru": 0,
@@ -1028,36 +1173,37 @@ steel =
                     "mru": 0,
                     "ozd": 0,
                     "pco": 0,
-                    "pef": 201.311,
+                    "pef": 185.62,
                     "pma": 0,
                     "swe": 0,
                     "tre": 0,
                     "wtu": 0
                 },
-                "scopes": ["object"],
+                "location": "GLO",
+                "scopes": ["textile"],
                 "source": "Ecoinvent 3.9.1",
-                "sourceId": "steel, low-alloyed//[GLO] market for steel, low-alloyed",
                 "unit": "kg",
                 "waste": 0
             }
         """
 
 
-woodenBoard : Result String Process
-woodenBoard =
+wood : Result String Process
+wood =
     decodeJson (Process.decode Impact.decodeImpacts) <|
         """ {
-                "categories": ["material"],
+                "activityName": "sawlog and veneer log, hardwood, measured as solid wood under bark//[DE] hardwood forestry, beech, sustainable forest management",
+                "categories": ["material", "material_type:wood"],
                 "comment": "",
-                "density": 600.0,
-                "displayName": "Planche (bois de feuillus)",
+                "density": 660.0,
+                "displayName": "Bois d'oeuvre (Feuillus / Hêtre)",
                 "elecMJ": 0,
                 "heatMJ": 0,
-                "id": "fe8a97ba-405a-5542-b1be-bd6983537d58",
+                "id": "17431e06-2973-516e-b043-be9ad405e4fb",
                 "impacts": {
                     "acd": 0,
                     "cch": 0,
-                    "ecs": 23623.4,
+                    "ecs": 6439.2,
                     "etf": 0,
                     "etf-c": 0,
                     "fru": 0,
@@ -1071,15 +1217,15 @@ woodenBoard =
                     "mru": 0,
                     "ozd": 0,
                     "pco": 0,
-                    "pef": 27337.4,
+                    "pef": 7557.5,
                     "pma": 0,
                     "swe": 0,
                     "tre": 0,
                     "wtu": 0
                 },
-                "scopes": ["object"],
+                "location": "DE",
+                "scopes": ["object", "veli"],
                 "source": "Ecoinvent 3.9.1",
-                "sourceId": "sawnwood, board, hardwood, dried (u=10%), planed//[Europe without Switzerland] market for sawnwood, board, hardwood, dried (u=10%), planed",
                 "unit": "m3",
                 "waste": 0
             }

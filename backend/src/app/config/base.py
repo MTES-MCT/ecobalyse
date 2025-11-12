@@ -3,6 +3,7 @@ from __future__ import annotations
 import binascii
 import json
 import os
+import sys
 from dataclasses import dataclass, field
 from functools import lru_cache
 from pathlib import Path
@@ -16,7 +17,7 @@ from sqlalchemy import event
 from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine
 from sqlalchemy.pool import NullPool
 
-from ._utils import get_env
+from ._utils import get_config_val, get_env
 
 if TYPE_CHECKING:
     from collections.abc import Callable
@@ -255,6 +256,16 @@ class LogSettings:
     """Level to log uvicorn error logs."""
 
 
+def _get_sentry_environment():
+    # We use the `NODE_ENV` envvar here even though we are on the Python side, as
+    # we want to synchronise the sentry environment value with the one set on the
+    # front end.
+    if get_config_val("IS_REVIEW_APP", None):
+        return "review-app"
+    else:
+        return get_config_val("NODE_ENV", None)
+
+
 @dataclass
 class AppSettings:
     """Application configuration"""
@@ -297,6 +308,12 @@ class AppSettings:
         default_factory=get_env("DEFAULT_USER_EMAIL", "admin@ecobalyse.dev")
     )
     """The default super user email"""
+
+    SENTRY_DSN: str = field(default_factory=get_env("SENTRY_DSN", ""))
+    """Sentry DSN"""
+
+    SENTRY_ENVIRONMENT: str = field(default_factory=_get_sentry_environment)
+    """The `environment` value expected by Sentry (production, development, …)"""
 
     @property
     def slug(self) -> str:
@@ -381,6 +398,9 @@ class Settings:
     email: EmailSettings = field(default_factory=EmailSettings)
     server: ServerSettings = field(default_factory=ServerSettings)
     log: LogSettings = field(default_factory=LogSettings)
+
+    def is_test_env(self) -> bool:
+        return "pytest" in sys.modules
 
     @classmethod
     def from_env(cls, dotenv_filename: str = ".env") -> Settings:
