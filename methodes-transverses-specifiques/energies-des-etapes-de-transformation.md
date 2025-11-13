@@ -48,30 +48,31 @@ Le flux externe d'énergie est modélisé avec un procédé correspondant à la 
 
 <figure><img src="../.gitbook/assets/image (290).png" alt=""><figcaption><p>Illustration de la zone géographique à préciser par l'utilisateur</p></figcaption></figure>
 
-Trois scénarios sont possibles :&#x20;
+Trois cas sont possibles :&#x20;
 
-* Scénario 1 : le pays de transformation n'est pas connu.\
-  Lorsque l'utilisateur ne connaît pas le pays, il sélectionne la zone géographique "Inconnu". Dans ce cas, ce sont les procédés retenus pour l'Inde qui sont utilisés, correspondant aujourd'hui à un majorant pertinent à l'échelle internationale :&#x20;
-  * Electricité : _market group for electricity, medium voltage, IN_ (Ecoinvent)
+* Cas 1 : le pays de transformation n'est pas connu.\
+  Lorsque l'utilisateur ne connaît pas le pays, il sélectionne la valeur "Inconnu" dans la liste de zones géographiques proposées. Dans ce cas, ce sont les procédés suivants qui sont retenus :&#x20;
+  * Electricité : _market group for electricity, medium voltage, IN_ (Mix électrique de l'Inde, Ecoinvent)
   * Chaleur : _Heat mix (World)_ (Ecobalyse)
-* Scénario 2 : le pays de transformation est connu et est dans la liste de pays proposés \
+* Cas 2 : le pays de transformation est connu et est dans la liste proposée. \
   L'utilisateur sélectionne donc ce pays. Les pays proposés dépendent du secteur (textile, alimentaire...).
-* Scénario 3 : le pays de transformation est connu mais n'est pas dans la liste de pays proposés.\
-  Dans ce cas, l'utilisateur sélectionne la région dans laquelle se situe le pays. 8 régions sont proposées.
-  * la région lorsque le pays n'est pas disponible dans Ecobalyse (cf. liste ci-dessous).&#x20;
+* Cas 3 : le pays de transformation est connu mais n'est pas dans la liste proposée.\
+  Dans ce cas, l'utilisateur sélectionne la région dans laquelle se situe le pays. 8 régions sont proposées (cf. liste ci-dessous).
 
-| Régions (8)       |
-| ----------------- |
-| Europe de l'Ouest |
-| Europe de l'Est   |
-| Asie              |
-| Moyen-Orient      |
-| Afrique           |
-| Amérique Latine   |
-| Amérique du Nord  |
-| Océanie           |
+<table><thead><tr><th width="322.33331298828125">Régions (8)</th><th>Procédé électricité</th></tr></thead><tbody><tr><td>Europe de l'Ouest</td><td>electricity, medium voltage//[RER] market group for electricity, medium voltage</td></tr><tr><td>Europe de l'Est</td><td>electricity, medium voltage//[CZ] market for electricity, medium voltage</td></tr><tr><td>Asie</td><td>electricity, medium voltage//[RAS] market group for electricity, medium voltage</td></tr><tr><td>Moyen-Orient</td><td>electricity, medium voltage//[RME] market group for electricity, medium voltage</td></tr><tr><td>Afrique</td><td>electricity, medium voltage//[RAF] market group for electricity, medium voltage</td></tr><tr><td>Amérique Latine</td><td>electricity, medium voltage//[RLA] market group for electricity, medium voltage</td></tr><tr><td>Amérique du Nord</td><td>electricity, medium voltage//[RNA] market group for electricity, medium voltage</td></tr><tr><td>Océanie</td><td>electricity, medium voltage//[AU] market for electricity, medium voltage</td></tr></tbody></table>
 
-Pour chaque secteur, la liste des pays proposés et les procédés associés à chaque pays pour modéliser l'électricité et la chaleur sont indiqués dans l'Explorateur.
+Pour chaque secteur, la liste des zones géographiques proposées et les procédés associés à chaque zone pour modéliser l'électricité et la chaleur sont indiqués dans l'Explorateur.
+
+NB : en l'absence de procédé ecoinvent 3.9.1 adapté, le mix électrique de l'Australie est utilisé pour modéliser la région Océanie, et celui de la République Tchèque pour l'Europe de l'Est.
+
+{% hint style="info" %}
+Choix des procédés retenus pour modéliser mon produit lorsque je ne connais pas l'une des zones géographique demandée :
+
+Ecobalyse retient le choix d'un "majorant raisonnable" pour le cas où une information n'est pas connue, comme cela peut être le cas du pays ici. Ce choix permet d'encourager la traçabilité en défavorisant un utilisateur qui a recourt à la sélection "Inconnu", sans pour autant utiliser une valeur maximale qui serait très peu réaliste (exemple : mix électrique d'un petit pays insulaire)
+
+* Pour l'électricité, le mix électrique de l'Inde est celui correspondant le mieux à ce principe : l'Inde est un grand pays industriel, et aucun pays de grande taille n'a un mix électrique à l'impact environnemental plus élevé que l'Inde.
+* Pour la chaleur, le procédé "Monde" est retenu, puisqu'il n'y a pas de distinction pays par pays ici.
+{% endhint %}
 
 ### Procédés de modélisation de l'Electricité
 
