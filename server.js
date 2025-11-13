@@ -188,6 +188,8 @@ const getProcesses = async (headers, customProcessesImpacts, customProcesses) =>
   let isValidToken = false;
   const token = extractTokenFromHeaders(headers);
 
+  console.log("Getting token from headers", token);
+  console.log("Using URL", `${INTERNAL_BACKEND_URL}/api/tokens/validate`);
   if (token) {
     try {
       const tokenRes = await fetch(`${INTERNAL_BACKEND_URL}/api/tokens/validate`, {
