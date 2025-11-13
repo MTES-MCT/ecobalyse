@@ -1,7 +1,3 @@
----
-hidden: true
----
-
 # 🧩 Composants
 
 ## Contexte
