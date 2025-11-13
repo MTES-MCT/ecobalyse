@@ -73,6 +73,7 @@ import Views.Transport as TransportView
 type alias Model =
     { impact : Definition
     , initialQuery : Query
+    , bookmarkBeingRenamed : Maybe Bookmark
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonType : ComparatorView.ComparisonType
@@ -107,6 +108,7 @@ type Msg
     | OnAutocompleteSelect
     | OnStepClick String
     | OpenComparator
+    | RenameBookmark
     | Reset
     | ResetDistribution
     | ResetTransform
@@ -125,6 +127,7 @@ type Msg
     | UpdateIngredient Query.IngredientQuery Query.IngredientQuery
     | UpdatePackaging Process.Id Query.ProcessQuery
     | UpdatePreparation Preparation.Id Preparation.Id
+    | UpdateRenamedBookmarkName Bookmark String
     | UpdateTransform Query.ProcessQuery
 
 
@@ -140,6 +143,7 @@ init session trigram maybeQuery =
     in
     { impact = impact
     , initialQuery = query
+    , bookmarkBeingRenamed = Nothing
     , bookmarkName = query |> findExistingBookmarkName session
     , bookmarkTab = BookmarkView.SaveTab
     , comparisonType =
@@ -168,6 +172,7 @@ initFromExample session uuid =
     in
     { impact = session.db.definitions |> Definition.get Definition.Ecs
     , initialQuery = query
+    , bookmarkBeingRenamed = Nothing
     , bookmarkName = query |> findExistingBookmarkName session
     , bookmarkTab = BookmarkView.SaveTab
     , comparisonType = ComparatorView.Subscores
@@ -322,6 +327,18 @@ update ({ db, queries } as session) msg model =
                 |> App.createUpdate (session |> Session.checkComparedSimulations)
                 |> App.withCmds [ Plausible.send session <| Plausible.ComparatorOpened Scope.Food ]
 
+        RenameBookmark ->
+            case model.bookmarkBeingRenamed of
+                Just bookmark ->
+                    { model | bookmarkBeingRenamed = Nothing }
+                        |> App.createUpdate
+                            (session
+                                |> Session.renameBookmark bookmark
+                            )
+
+                Nothing ->
+                    App.createUpdate session model
+
         Reset ->
             App.createUpdate session model
                 |> updateQuery model.initialQuery
@@ -431,6 +448,10 @@ update ({ db, queries } as session) msg model =
         UpdatePreparation oldId newId ->
             App.createUpdate session model
                 |> updateQuery (Query.updatePreparation oldId newId query)
+
+        UpdateRenamedBookmarkName bookmark name ->
+            { model | bookmarkBeingRenamed = Just { bookmark | name = name } }
+                |> App.createUpdate session
 
         UpdateTransform newTransform ->
             App.createUpdate session model
@@ -1362,12 +1383,15 @@ sidebarView session model results =
 
         -- Bookmarks
         , activeBookmarkTab = model.bookmarkTab
+        , bookmarkBeingRenamed = model.bookmarkBeingRenamed
         , bookmarkName = model.bookmarkName
         , copyToClipBoard = CopyToClipBoard
         , compareBookmarks = OpenComparator
         , deleteBookmark = DeleteBookmark
+        , renameBookmark = RenameBookmark
         , saveBookmark = SaveBookmark
         , updateBookmarkName = UpdateBookmarkName
+        , updateRenamedBookmarkName = UpdateRenamedBookmarkName
         , switchBookmarkTab = SwitchBookmarksTab
         }
 

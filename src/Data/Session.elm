@@ -16,6 +16,7 @@ module Data.Session exposing
     , logout
     , notifyBackendError
     , objectQueryFromScope
+    , renameBookmark
     , saveBookmark
     , selectAllBookmarks
     , selectNoBookmarks
@@ -43,6 +44,7 @@ import Data.User as User2
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
+import List.Extra as LE
 import RemoteData exposing (WebData)
 import Request.BackendHttp.Error as BackendError
 import Request.Version exposing (Version)
@@ -130,6 +132,18 @@ deleteBookmark bookmark =
             { store
                 | bookmarks =
                     List.filter ((/=) bookmark) store.bookmarks
+            }
+        )
+
+
+renameBookmark : Bookmark -> Session -> Session
+renameBookmark bookmark =
+    updateStore
+        (\store ->
+            { store
+                | bookmarks =
+                    store.bookmarks
+                        |> LE.updateIf (.query >> (==) bookmark.query) (always bookmark)
             }
         )
 

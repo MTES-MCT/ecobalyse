@@ -78,6 +78,7 @@ import Views.Textile.Step as StepView
 
 type alias Model =
     { simulator : Result String Simulator
+    , bookmarkBeingRenamed : Maybe Bookmark
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonType : ComparatorView.ComparisonType
@@ -119,6 +120,7 @@ type Msg
     | OpenComparator
     | RemoveMaterial Material.Id
     | RemoveTrim Index
+    | RenameBookmark
     | Reset
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
@@ -148,6 +150,7 @@ type Msg
     | UpdatePhysicalDurability (Maybe Unit.PhysicalDurability)
     | UpdatePrice (Maybe Economics.Price)
     | UpdatePrinting (Maybe Printing)
+    | UpdateRenamedBookmarkName Bookmark String
     | UpdateStepCountry Label Country.Code
     | UpdateSurfaceMass (Maybe Unit.SurfaceMass)
     | UpdateTrimQuantity Index Component.Quantity
@@ -169,6 +172,7 @@ init trigram maybeUrlQuery session =
                 |> Simulator.compute session.db session.componentConfig
     in
     { simulator = simulator
+    , bookmarkBeingRenamed = Nothing
     , bookmarkName = initialQuery |> suggestBookmarkName session
     , bookmarkTab = BookmarkView.SaveTab
     , comparisonType =
@@ -220,6 +224,7 @@ initFromExample session uuid =
                 |> Simulator.compute session.db session.componentConfig
     in
     { simulator = simulator
+    , bookmarkBeingRenamed = Nothing
     , bookmarkName = exampleQuery |> suggestBookmarkName session
     , bookmarkTab = BookmarkView.SaveTab
     , comparisonType = ComparatorView.Subscores
@@ -384,6 +389,18 @@ update ({ db, queries, navKey } as session) msg model =
         ( RemoveTrim itemIndex, _ ) ->
             App.createUpdate session model
                 |> updateQuery (query |> Query.updateTrims db.textile.products (LE.removeAt itemIndex))
+
+        ( RenameBookmark, _ ) ->
+            case model.bookmarkBeingRenamed of
+                Just bookmark ->
+                    { model | bookmarkBeingRenamed = Nothing }
+                        |> App.createUpdate
+                            (session
+                                |> Session.renameBookmark bookmark
+                            )
+
+                Nothing ->
+                    App.createUpdate session model
 
         ( Reset, _ ) ->
             App.createUpdate session model
@@ -560,6 +577,10 @@ update ({ db, queries, navKey } as session) msg model =
         ( UpdatePrinting printing, _ ) ->
             App.createUpdate session model
                 |> updateQuery { query | printing = printing }
+
+        ( UpdateRenamedBookmarkName bookmark name, _ ) ->
+            { model | bookmarkBeingRenamed = Just { bookmark | name = name } }
+                |> App.createUpdate session
 
         ( UpdateStepCountry label code, _ ) ->
             App.createUpdate session model
@@ -1110,12 +1131,15 @@ simulatorView session model ({ inputs, impacts } as simulator) =
 
                 -- Bookmarks
                 , activeBookmarkTab = model.bookmarkTab
+                , bookmarkBeingRenamed = model.bookmarkBeingRenamed
                 , bookmarkName = model.bookmarkName
                 , copyToClipBoard = CopyToClipBoard
                 , compareBookmarks = OpenComparator
                 , deleteBookmark = DeleteBookmark
+                , renameBookmark = RenameBookmark
                 , saveBookmark = SaveBookmark
                 , updateBookmarkName = UpdateBookmarkName
+                , updateRenamedBookmarkName = UpdateRenamedBookmarkName
                 , switchBookmarkTab = SwitchBookmarksTab
                 }
             ]
