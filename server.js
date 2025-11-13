@@ -196,6 +196,10 @@ const getProcesses = async (headers, customProcessesImpacts, customProcesses) =>
         method: "POST",
         body: JSON.stringify({ token }),
       });
+
+      console.log("tokenRes", tokenRes);
+      console.log("tokenRes status", tokenRes.status);
+
       isValidToken = tokenRes.status == 201;
     } catch (error) {
       console.error("Error validating token from the auth backend", error);
