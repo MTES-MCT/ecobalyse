@@ -169,7 +169,7 @@ Le choix est fait de ne pas différencier les procédés en fonction de la géog
 
 Il en résulte les coûts environnementaux par mode de transport suivant (correspondant aux valeurs `I_m_j` ci-dessus) :&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Exemples d'application
 

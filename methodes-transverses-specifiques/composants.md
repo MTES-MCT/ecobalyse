@@ -40,6 +40,77 @@ Dans l'exemple ci-dessus, la structure acier du canapé est constituée d'un seu
 
 ## Méthode de calcul
 
+### Grands principes
+
+Un composant est constitué d'un ou plusieurs éléments, chaque élément correspondant à un matériaux pouvant subir une ou des transformations.
+
+{% hint style="info" %}
+### Prise en compte du taux de perte <a href="#calcul-des-masses" id="calcul-des-masses"></a>
+
+Dans cette documentation le taux de perte `p` est définit comme suit :&#x20;
+
+$$p=\frac{m_{perte}}{m_{entrante}}$$
+
+Avec :&#x20;
+
+* `m_perte` la quantité de matière perdue lors du procédé de transformation, en kg ;
+* `m_entrante`​​​ la quantité de matière avant transformation, en kg.
+
+Pour remonter la chaîne de production, on calcule la quantité de matière _avant_ transformation `m_entrante` à partir de la quantité de matière _après_ transformation `m_sortante` et du taux de perte `p` de l'étape en utilisant cette formule :&#x20;
+
+$$m_{entrante} = \frac{m_{sortante}}{1- p}$$&#x20;
+{% endhint %}
+
+<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+
+{% hint style="info" %}
+### Prise en compte du taux de perte <a href="#calcul-des-masses" id="calcul-des-masses"></a>
+
+Dans Ecobalyse le taux de perte `p` est définit comme suit :&#x20;
+
+$$p=\frac{m_{perte}}{m_{entrante}}$$
+
+Avec :&#x20;
+
+* `m_perte` la quantité de matière perdue lors du procédé de transformation, en kg ;
+* `m_entrante`​​​ la quantité de matière avant transformation, en kg.
+
+Pour remonter la chaîne de production, on calcule la quantité de matière _avant_ transformation `m_entrante` à partir de la quantité de matière _après_ transformation `m_sortante` et du taux de perte `p` de l'étape en utilisant cette formule :&#x20;
+
+$$m_{entrante} = \frac{m_{sortante}}{1- p}$$&#x20;
+{% endhint %}
+
+### Calculs schématisés
+
+L'impact environnemental d'un composant est la somme des impacts de ses éléments. L'impact d'un élément est l'impact du matériau correspondant plus la somme des impacts éventuels des transformations de ce matériau. L'impact est la multiplication de la quantité (en général, masse en kg) par l'impact unitaire (en général, en Pt par kg)
+
+<figure><img src="../.gitbook/assets/image (5).png" alt="" width="375"><figcaption></figcaption></figure>
+
+La masse de matériaux nécessaire à la fabrication d'un élément est calculée en remontant le calcul suivant :&#x20;
+
+<figure><img src="../.gitbook/assets/image (3).png" alt="" width="318"><figcaption></figcaption></figure>
+
+Avec `p_i,j` le taux de perte lié à l'étape de transformation `j` de l'élément `i`, en pourcentage&#x20;
+
+{% hint style="info" %}
+### Prise en compte du taux de perte <a href="#calcul-des-masses" id="calcul-des-masses"></a>
+
+Dans Ecobalyse le taux de perte `p` est définit comme suit :&#x20;
+
+$$p=\frac{m_{perte}}{m_{entrante}}$$
+
+Avec :&#x20;
+
+* `m_perte` la quantité de matière perdue lors du procédé de transformation, en kg ;
+* `m_entrante`​​​ la quantité de matière avant transformation, en kg.
+
+Pour remonter la chaîne de production, on calcule la quantité de matière _avant_ transformation `m_entrante` à partir de la quantité de matière _après_ transformation `m_sortante` et du taux de perte `p` de l'étape en utilisant cette formule :&#x20;
+
+$$m_{entrante} = \frac{m_{sortante}}{1- p}$$&#x20;
+{% endhint %}
+
+### Formules de calcul détaillées
+
 {% tabs %}
 {% tab title="Exemple A : 1 élément, 2 transformations " %}
 Méthode de calcul pour un composant constitué d'un élément `e` subissant deux transformations, `t1` puis `t2` :&#x20;
