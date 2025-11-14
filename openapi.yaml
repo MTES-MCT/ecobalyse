@@ -977,7 +977,7 @@ components:
           $ref: "#/components/schemas/Impacts"
         complementsImpacts:
           type: object
-          description: Impacts des compléments (accessoires, etc.)
+          description: Impact des compléments avec application du coefficient de durabilité (microfibres, export hors europe, etc.)
         daysOfWear:
           type: integer
           description: Nombre de jours d'usage du produit
