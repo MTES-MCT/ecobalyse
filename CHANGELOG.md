@@ -1,6 +1,37 @@
 # Changelog
 
 
+## [8.1.0](https://github.com/MTES-MCT/ecobalyse/compare/v8.0.0..v8.1.0) (2025-11-14)
+
+
+
+### 🚀 Features
+
+- Add metal incineration process ([#1461](https://github.com/MTES-MCT/ecobalyse/issues/1461))
+- Add vehicle processes ([#1419](https://github.com/MTES-MCT/ecobalyse/issues/1419))
+- *(object)* Handle product end of life collection strategies ([#1477](https://github.com/MTES-MCT/ecobalyse/issues/1477))
+- *(component)* Load component life cycle configuration over HTTP/JSON ([#1482](https://github.com/MTES-MCT/ecobalyse/issues/1482))
+- Replace Posthog with Plausible. ([#1504](https://github.com/MTES-MCT/ecobalyse/issues/1504))
+- *(object)* Compute impacts against localized energy mixes ([#1511](https://github.com/MTES-MCT/ecobalyse/issues/1511))
+- Allow renaming bookmarks ([#1506](https://github.com/MTES-MCT/ecobalyse/issues/1506))
+
+### 🪲 Bug Fixes
+
+- Use consistent json field naming. ([#1503](https://github.com/MTES-MCT/ecobalyse/issues/1503))
+- Resynchronize the processes files with the ecobalyse-data repository ([#1505](https://github.com/MTES-MCT/ecobalyse/issues/1505))
+- *(explorer)* Render empty distances as N/A in transport tables ([#1515](https://github.com/MTES-MCT/ecobalyse/issues/1515))
+- Change the unit displayed in the comparator from µPts to Pts ([#1522](https://github.com/MTES-MCT/ecobalyse/issues/1522))
+- *(openapi)* Add missing properties and schema ([#1536](https://github.com/MTES-MCT/ecobalyse/issues/1536))
+
+### ⚙️ Miscellaneous Tasks
+
+- Traduire le template d'issue en français ([#1465](https://github.com/MTES-MCT/ecobalyse/issues/1465))
+- Add Sentry integration to the backend ([#1445](https://github.com/MTES-MCT/ecobalyse/issues/1445))
+- Replace deprecated passlib ([#1469](https://github.com/MTES-MCT/ecobalyse/issues/1469))
+- Remove obsolete `elements_json` field ([#1481](https://github.com/MTES-MCT/ecobalyse/issues/1481))
+- Add location and rename sourceId->activityName ([#1507](https://github.com/MTES-MCT/ecobalyse/issues/1507))
+
+
 ## [8.0.0](https://github.com/MTES-MCT/ecobalyse/compare/v7.2.0..v8.0.0) (2025-10-21)
 
 
