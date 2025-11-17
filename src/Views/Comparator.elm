@@ -18,6 +18,7 @@ import Dict
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
+import Json.Decode as Decode
 import Json.Encode as Encode
 import Result.Extra as RE
 import Set
@@ -26,9 +27,38 @@ import Views.Container as Container
 import Views.Version as VersionView
 
 
+onDragStart : msg -> Attribute msg
+onDragStart msg =
+    on "dragstart" <|
+        Decode.succeed msg
+
+
+onDragOver : msg -> Attribute msg
+onDragOver msg =
+    preventDefaultOn "dragover" <|
+        Decode.succeed ( msg, True )
+
+
+onDragLeave : msg -> Attribute msg
+onDragLeave msg =
+    on "dragleave" <|
+        Decode.succeed msg
+
+
+onDrop : msg -> Attribute msg
+onDrop msg =
+    preventDefaultOn "drop" <|
+        Decode.succeed ( msg, True )
+
+
 type alias Config msg =
-    { comparisonType : ComparisonType
+    { bookmarkBeingOvered : Maybe Bookmark
+    , comparisonType : ComparisonType
     , impact : Definition
+    , onDragLeaveBookmark : msg
+    , onDragOverBookmark : Bookmark -> msg
+    , onDragStartBookmark : Bookmark -> msg
+    , onDropBookmark : Bookmark -> msg
     , selectAll : msg
     , selectNone : msg
     , session : Session
@@ -65,7 +95,7 @@ view config =
 
 
 sidebarView : Config msg -> List (Html msg)
-sidebarView { selectAll, selectNone, session, toggle } =
+sidebarView { bookmarkBeingOvered, onDragLeaveBookmark, onDragOverBookmark, onDragStartBookmark, onDropBookmark, selectAll, selectNone, session, toggle } =
     [ div [ class "p-2 ps-3 mb-0 text-muted" ]
         [ text "Sélectionnez des simulations pour les comparer"
         ]
@@ -85,8 +115,21 @@ sidebarView { selectAll, selectNone, session, toggle } =
                         )
                 in
                 label
-                    [ class "form-check-label list-group-item text-nowrap ps-3"
+                    [ class
+                        ("form-check-label list-group-item text-nowrap ps-3 ms-1"
+                            ++ (if bookmarkBeingOvered == Just bookmark then
+                                    " over"
+
+                                else
+                                    ""
+                               )
+                        )
                     , title description
+                    , draggable "true"
+                    , onDragStart (onDragStartBookmark bookmark)
+                    , onDragLeave onDragLeaveBookmark
+                    , onDragOver (onDragOverBookmark bookmark)
+                    , onDrop (onDropBookmark bookmark)
                     ]
                     [ input
                         [ type_ "checkbox"
@@ -106,7 +149,7 @@ sidebarView { selectAll, selectNone, session, toggle } =
                         ]
                     ]
             )
-        |> div [ class "list-group list-group-flush overflow-x-hidden" ]
+        |> div [ class "list-group list-group-flush overflow-x-hidden ComparatorList" ]
     ]
 
 

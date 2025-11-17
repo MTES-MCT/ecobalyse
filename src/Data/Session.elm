@@ -14,6 +14,8 @@ module Data.Session exposing
     , isAuthenticated
     , isSuperuser
     , logout
+    , moveBookmark
+    , moveListElement
     , notifyBackendError
     , objectQueryFromScope
     , renameBookmark
@@ -132,6 +134,58 @@ deleteBookmark bookmark =
             { store
                 | bookmarks =
                     List.filter ((/=) bookmark) store.bookmarks
+            }
+        )
+
+
+moveListElement : a -> a -> List a -> List a
+moveListElement from to list =
+    let
+        fromIndex =
+            list
+                |> LE.elemIndex from
+                |> Maybe.withDefault 0
+
+        toIndex =
+            list
+                |> LE.elemIndex to
+                |> Maybe.withDefault 0
+    in
+    -- If there is an actual move
+    if fromIndex /= toIndex then
+        list
+            |> List.concatMap
+                (\current ->
+                    if current == from then
+                        -- Remove the dragged bookmark from the list
+                        []
+
+                    else if current == to then
+                        -- If the current bookmark is the drop target
+                        if fromIndex < toIndex then
+                            -- Drag from bottom to top: insert after
+                            [ current, from ]
+
+                        else
+                            -- Drag from top to bottom: insert before
+                            [ from, current ]
+
+                    else
+                        [ current ]
+                )
+
+    else
+        list
+
+
+moveBookmark : Bookmark -> Bookmark -> Session -> Session
+moveBookmark dragged target =
+    updateStore
+        (\store ->
+            { store
+                | bookmarks =
+                    store.bookmarks
+                        |> moveListElement dragged target
             }
         )
 
