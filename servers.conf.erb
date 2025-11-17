@@ -41,7 +41,6 @@ server {
   location ~ ^/versions/v7.0.0/(.*)$ {
     rewrite ^/versions/v7.0.0/(.*)$ /$1 break;
     proxy_pass <%= ENV["TEXTILE_URL"] %>;
-    proxy_ssl_verify off;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
   }
