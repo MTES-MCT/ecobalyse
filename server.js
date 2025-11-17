@@ -23,9 +23,13 @@ const expressHost = "0.0.0.0";
 const expressPort = 8001;
 
 // Env vars
-const { ENABLE_FOOD_SECTION, NODE_ENV, RATELIMIT_MAX_RPM, RATELIMIT_WHITELIST } = process.env;
-
-const INTERNAL_BACKEND_URL = "http://localhost:8002";
+const {
+  ENABLE_FOOD_SECTION,
+  INTERNAL_BACKEND_URL,
+  NODE_ENV,
+  RATELIMIT_MAX_RPM,
+  RATELIMIT_WHITELIST,
+} = process.env;
 
 const app = express(); // web app
 const api = express(); // api app
@@ -190,6 +194,7 @@ const getProcesses = async (headers, customProcessesImpacts, customProcesses) =>
         method: "POST",
         body: JSON.stringify({ token }),
       });
+
       isValidToken = tokenRes.status == 201;
     } catch (error) {
       console.error("Error validating token from the auth backend", error);
