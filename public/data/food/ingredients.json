@@ -479,7 +479,9 @@
   {
     "activityName": "Soybean, not associated to deforestation {BR}| market for soybean, without transport | Cut-off, U - Adapted from Ecoinvent",
     "alias": "soybean-br-no-deforestation",
-    "categories": ["nut_oilseed_raw"],
+    "categories": [
+      "nut_oilseed_raw"
+    ],
     "cropGroup": "AUTRES OLEAGINEUX",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.72,
@@ -2165,7 +2167,9 @@
   {
     "activityName": "Hazelnut, unshelled, at plant {IT} U",
     "alias": "hazelnut-unshelled-eu",
-    "categories": ["nut_oilseed_raw"],
+    "categories": [
+      "nut_oilseed_raw"
+    ],
     "cropGroup": "FRUITS A COQUES",
     "defaultOrigin": "EuropeAndMaghreb",
     "density": 0.72,
@@ -2558,7 +2562,9 @@
   {
     "activityName": "Olive {ES}| olive production | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "olive-eu",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "cropGroup": "OLIVIERS",
     "defaultOrigin": "EuropeAndMaghreb",
     "density": 0.447,
@@ -3840,7 +3846,10 @@
   {
     "activityName": "Cauliflower, winter, organic, at farm gate {FR} U",
     "alias": "brussels-sprout-organic",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "cropGroup": "LEGUMES-FLEURS",
     "defaultOrigin": "France",
     "density": 0.362,
@@ -4596,7 +4605,10 @@
   {
     "activityName": "Kiwi, consumption mix, organic 2025 {FR} U",
     "alias": "kiwi-organic",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "cropGroup": "VERGERS",
     "defaultOrigin": "France",
     "density": 0.447,
@@ -5171,7 +5183,10 @@
   {
     "activityName": "Pea, organic, animal feed, at farm gate {FR} U",
     "alias": "bean-organic",
-    "categories": ["grain_raw", "organic"],
+    "categories": [
+      "grain_raw",
+      "organic"
+    ],
     "cropGroup": "AUTRES CEREALES",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.72,
@@ -6944,7 +6959,9 @@
   {
     "activityName": "Vinegar, balsamic, processed in FR | Ambient (long) | Pack proxy | at packaging {FR} U",
     "alias": "balsamic-vinegar",
-    "categories": ["vegetable_processed"],
+    "categories": [
+      "vegetable_processed"
+    ],
     "cropGroup": "DIVERS",
     "defaultOrigin": "France",
     "density": 1.0,
@@ -6990,7 +7007,9 @@
   {
     "activityName": "Apricot, at farm (WFLDB)",
     "alias": "apricot-non-eu",
-    "categories": ["vegetable_fresh"],
+    "categories": [
+      "vegetable_fresh"
+    ],
     "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
@@ -7418,7 +7437,10 @@
   {
     "activityName": "Broccoli, consumption mix, organic 2025 {FR} U",
     "alias": "broccoli-organic",
-    "categories": ["vegetable_fresh", "organic"],
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
     "cropGroup": "LEGUMES-FLEURS",
     "defaultOrigin": "EuropeAndMaghreb",
     "density": 0.2355,
@@ -7872,7 +7894,9 @@
   {
     "activityName": "Raw cow milk archetype, feed mix IT-154, at farm (WFLDB)",
     "alias": "milk-eu",
-    "categories": ["dairy_product"],
+    "categories": [
+      "dairy_product"
+    ],
     "defaultOrigin": "EuropeAndMaghreb",
     "density": 1.0,
     "id": "dbba1f04-b86c-42aa-96f9-93cfcdf4a141",
@@ -9335,7 +9359,9 @@
   {
     "activityName": "Pasta, dried, from durum wheat, at plant, from GLO wheat and BE elec, constructed by Ecobalyse",
     "alias": "pasta-glo-be",
-    "categories": ["grain_processed"],
+    "categories": [
+      "grain_processed"
+    ],
     "cropGroup": "BLE TENDRE",
     "defaultOrigin": "EuropeAndMaghreb",
     "density": 0.72,
