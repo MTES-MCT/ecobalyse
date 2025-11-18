@@ -23,12 +23,18 @@ import Result.Extra as RE
 import Set
 import Views.Alert as Alert
 import Views.Container as Container
+import Views.Events as Events
 import Views.Version as VersionView
 
 
 type alias Config msg =
-    { comparisonType : ComparisonType
+    { bookmarkBeingOvered : Maybe Bookmark
+    , comparisonType : ComparisonType
     , impact : Definition
+    , onDragLeaveBookmark : msg
+    , onDragOverBookmark : Bookmark -> msg
+    , onDragStartBookmark : Bookmark -> msg
+    , onDropBookmark : Bookmark -> msg
     , selectAll : msg
     , selectNone : msg
     , session : Session
@@ -65,33 +71,39 @@ view config =
 
 
 sidebarView : Config msg -> List (Html msg)
-sidebarView { selectAll, selectNone, session, toggle } =
+sidebarView config =
     [ div [ class "p-2 ps-3 mb-0 text-muted" ]
         [ text "Sélectionnez des simulations pour les comparer"
         ]
     , div [ class "text-center" ]
-        [ button [ class "btn btn-sm btn-link pt-0", onClick selectAll ] [ text "tout sélectionner" ]
-        , button [ class "btn btn-sm btn-link pt-0", onClick selectNone ] [ text "tout désélectionner" ]
+        [ button [ class "btn btn-sm btn-link pt-0", onClick config.selectAll ] [ text "tout sélectionner" ]
+        , button [ class "btn btn-sm btn-link pt-0", onClick config.selectNone ] [ text "tout désélectionner" ]
         ]
-    , session.store.bookmarks
+    , config.session.store.bookmarks
         |> List.map
             (\bookmark ->
                 let
                     ( description, isCompared ) =
                         ( bookmark
-                            |> Bookmark.toQueryDescription session.db
-                        , session.store.comparedSimulations
+                            |> Bookmark.toQueryDescription config.session.db
+                        , config.session.store.comparedSimulations
                             |> Set.member (Bookmark.toId bookmark)
                         )
                 in
                 label
-                    [ class "form-check-label list-group-item text-nowrap ps-3"
+                    [ class "form-check-label list-group-item text-nowrap ps-3 ms-1"
+                    , classList [ ( "over", config.bookmarkBeingOvered == Just bookmark ) ]
                     , title description
+                    , draggable "true"
+                    , Events.onDragStart (config.onDragStartBookmark bookmark)
+                    , Events.onDragLeave config.onDragLeaveBookmark
+                    , Events.onDragOver (config.onDragOverBookmark bookmark)
+                    , Events.onDrop (config.onDropBookmark bookmark)
                     ]
                     [ input
                         [ type_ "checkbox"
                         , class "form-check-input"
-                        , onCheck (toggle bookmark)
+                        , onCheck (config.toggle bookmark)
                         , checked isCompared
                         ]
                         []
@@ -106,7 +118,7 @@ sidebarView { selectAll, selectNone, session, toggle } =
                         ]
                     ]
             )
-        |> div [ class "list-group list-group-flush overflow-x-hidden" ]
+        |> div [ class "list-group list-group-flush overflow-x-hidden ComparatorList" ]
     ]
 
 

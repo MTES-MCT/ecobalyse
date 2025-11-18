@@ -14,6 +14,8 @@ module Data.Session exposing
     , isAuthenticated
     , isSuperuser
     , logout
+    , moveBookmark
+    , moveListElement
     , notifyBackendError
     , objectQueryFromScope
     , renameBookmark
@@ -132,6 +134,33 @@ deleteBookmark bookmark =
             { store
                 | bookmarks =
                     List.filter ((/=) bookmark) store.bookmarks
+            }
+        )
+
+
+insertAt : Int -> a -> List a -> List a
+insertAt index value list =
+    List.concat [ List.take index list, [ value ], List.drop index list ]
+
+
+moveListElement : a -> a -> List a -> List a
+moveListElement from to list =
+    case LE.elemIndex to list of
+        Just toIndex ->
+            list |> LE.remove from |> insertAt toIndex from
+
+        Nothing ->
+            list
+
+
+moveBookmark : Bookmark -> Bookmark -> Session -> Session
+moveBookmark dragged target =
+    updateStore
+        (\store ->
+            { store
+                | bookmarks =
+                    store.bookmarks
+                        |> moveListElement dragged target
             }
         )
 

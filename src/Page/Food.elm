@@ -73,6 +73,8 @@ import Views.Transport as TransportView
 type alias Model =
     { impact : Definition
     , initialQuery : Query
+    , bookmarkBeingDragged : Maybe Bookmark
+    , bookmarkBeingOvered : Maybe Bookmark
     , bookmarkBeingRenamed : Maybe Bookmark
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
@@ -106,6 +108,10 @@ type Msg
     | OnAutocompleteExample (Autocomplete.Msg Query)
     | OnAutocompleteIngredient (Autocomplete.Msg Ingredient)
     | OnAutocompleteSelect
+    | OnDragLeaveBookmark
+    | OnDragOverBookmark Bookmark
+    | OnDragStartBookmark Bookmark
+    | OnDropBookmark Bookmark
     | OnStepClick String
     | OpenComparator
     | RenameBookmark
@@ -143,6 +149,8 @@ init session trigram maybeQuery =
     in
     { impact = impact
     , initialQuery = query
+    , bookmarkBeingDragged = Nothing
+    , bookmarkBeingOvered = Nothing
     , bookmarkBeingRenamed = Nothing
     , bookmarkName = query |> findExistingBookmarkName session
     , bookmarkTab = BookmarkView.SaveTab
@@ -172,6 +180,8 @@ initFromExample session uuid =
     in
     { impact = session.db.definitions |> Definition.get Definition.Ecs
     , initialQuery = query
+    , bookmarkBeingDragged = Nothing
+    , bookmarkBeingOvered = Nothing
     , bookmarkBeingRenamed = Nothing
     , bookmarkName = query |> findExistingBookmarkName session
     , bookmarkTab = BookmarkView.SaveTab
@@ -316,6 +326,30 @@ update ({ db, queries } as session) msg model =
                         |> selectExample autocompleteState
 
                 _ ->
+                    App.createUpdate session model
+
+        OnDragLeaveBookmark ->
+            { model | bookmarkBeingOvered = Nothing }
+                |> App.createUpdate session
+
+        OnDragOverBookmark bookmarkBeingOvered ->
+            { model | bookmarkBeingOvered = Just bookmarkBeingOvered }
+                |> App.createUpdate session
+
+        OnDragStartBookmark bookmark ->
+            { model | bookmarkBeingDragged = Just bookmark }
+                |> App.createUpdate session
+
+        OnDropBookmark target ->
+            case model.bookmarkBeingDragged of
+                Just dragged ->
+                    { model | bookmarkBeingDragged = Nothing, bookmarkBeingOvered = Nothing }
+                        |> App.createUpdate
+                            (session
+                                |> Session.moveBookmark dragged target
+                            )
+
+                Nothing ->
                     App.createUpdate session model
 
         OnStepClick stepId ->
@@ -1512,11 +1546,16 @@ view session model =
                         , formAction = Nothing
                         , content =
                             [ ComparatorView.view
-                                { session = session
-                                , impact = model.impact
+                                { bookmarkBeingOvered = model.bookmarkBeingOvered
                                 , comparisonType = model.comparisonType
+                                , impact = model.impact
+                                , onDragLeaveBookmark = OnDragLeaveBookmark
+                                , onDragOverBookmark = OnDragOverBookmark
+                                , onDragStartBookmark = OnDragStartBookmark
+                                , onDropBookmark = OnDropBookmark
                                 , selectAll = SelectAllBookmarks
                                 , selectNone = SelectNoBookmarks
+                                , session = session
                                 , switchComparisonType = SwitchComparisonType
                                 , toggle = ToggleComparedSimulation
                                 }

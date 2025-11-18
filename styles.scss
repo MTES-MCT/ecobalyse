@@ -667,6 +667,21 @@ q {
   }
 }
 
+.ComparatorList {
+  label {
+    cursor: grab;
+
+    &:active {
+      cursor: grabbing;
+    }
+  }
+
+  .over {
+    border: 1px dashed $dark;
+    opacity: 0.5;
+  }
+}
+
 .ComplementsDetails {
   grid-area: complements;
 
