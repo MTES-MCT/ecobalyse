@@ -70,9 +70,9 @@
   },
   "devDependencies": {
     "@apidevtools/swagger-cli": "^4.0.4",
-    "@parcel/transformer-elm": "^2.16.0",
-    "@parcel/transformer-image": "^2.16.0",
-    "@parcel/transformer-sass": "^2.16.0",
+    "@parcel/transformer-elm": "^2.16.1",
+    "@parcel/transformer-image": "^2.16.1",
+    "@parcel/transformer-sass": "^2.16.1",
     "@playwright/test": "^1.56.0",
     "@types/node": "^24.7.2",
     "ajv-cli": "^5.0.0",
