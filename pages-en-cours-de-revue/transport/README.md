@@ -1,14 +1,12 @@
 # 🚚 Transport
 
-{% hint style="info" %}
-Cette page décrit les principes communs aux différents types de produits susceptibles d'être modélisés dans Ecobalyse.&#x20;
-
-Le cas échéant, les spécificités relatives à chaque produit sont décrites dans la documentation métier correspondante.
-{% endhint %}
-
 ## _<mark style="color:red;">Implémentation en cours</mark>_ <a href="#distribution" id="distribution"></a>
 
-La [page Transport de la section Textile](https://fabrique-numerique.gitbook.io/ecobalyse/textile/cycle-de-vie-des-produits-textiles/transport) fait à ce jour référence
+{% hint style="warning" %}
+Cette page décrit les principes communs aux différents types de produits susceptibles d'être modélisés dans Ecobalyse. Le cas échéant, les spécificités relatives à chaque produit sont décrites dans la documentation métier correspondante.
+
+A ce jour, les méthodes transport ne s'appliquent qu'au transport des composants vers le site d'assemblage. De plus, elles ne s'appliquent pas encore aux secteurs Textile et Alimentaire.
+{% endhint %}
 
 ## Principales étapes de transport <a href="#distribution" id="distribution"></a>
 

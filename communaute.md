@@ -26,8 +26,4 @@ Une fois inscrit et connecté :
 
 
 
-    {% hint style="info" %}
-    Pour rejoindre un canal, il suffit de s'y rendre en suivant les liens ci-dessus, ou alors d'utiliser le moteur de recherche de Mattermost pour les retrouver : \
-    \
-    ![](.gitbook/assets/ezgif-2-b290f475bf.gif)
-    {% endhint %}
+    <div data-gb-custom-block data-tag="hint" data-style="info" class="hint hint-info"><p>Pour rejoindre un canal, il suffit de s'y rendre en suivant les liens ci-dessus, ou alors d'utiliser le moteur de recherche de Mattermost pour les retrouver : <br><br><img src=".gitbook/assets/ezgif-2-b290f475bf.gif" alt=""></p></div>
