@@ -7,7 +7,7 @@ npm run server:start & SERVER_PID=$!
 bin/run             & NGINX_PID=$!
 
 # on SIGTERM kill the children we started
-trap 'kill -TERM "$SERVER_PID" "$NGINX_PID" 2>/dev/null' SIGTERM
+trap 'kill -TERM "$SERVER_PID" "$NGINX_PID"' SIGTERM
 
 # wait for the first job to finish
 wait -n
