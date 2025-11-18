@@ -1,20 +1,17 @@
 #!/usr/bin/env bash
+ROOT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." &>/dev/null && pwd)
+cd "$ROOT_DIR"
 
-ROOT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )/.." &> /dev/null && pwd )
-cd $ROOT_DIR
+# start jobs and remember their PIDs
+npm run server:start & SERVER_PID=$!
+bin/run             & NGINX_PID=$!
 
-# run all tasks in the background
+# on SIGTERM kill the children we started
+trap 'kill -TERM "$SERVER_PID" "$NGINX_PID" 2>/dev/null' SIGTERM
 
-# express
-npm run server:start &
-
-# nginx
-bin/run &
-
-# if the current shell is killed, also terminate all its children
-trap "pkill SIGTERM -P $$" SIGTERM
-
-# wait for a single child to finish,
+# wait for the first job to finish
 wait -n
-# then kill all the other tasks
-pkill -P $$
+
+# kill the remaining job(s)
+kill -TERM "$SERVER_PID" "$NGINX_PID" 2>/dev/null
+wait
