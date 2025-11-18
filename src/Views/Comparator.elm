@@ -115,15 +115,9 @@ sidebarView { bookmarkBeingOvered, onDragLeaveBookmark, onDragOverBookmark, onDr
                         )
                 in
                 label
-                    [ class
-                        ("form-check-label list-group-item text-nowrap ps-3 ms-1"
-                            ++ (if bookmarkBeingOvered == Just bookmark then
-                                    " over"
-
-                                else
-                                    ""
-                               )
-                        )
+                label
+                    [ class "form-check-label list-group-item text-nowrap ps-3 ms-1"
+                    , classList [ ( "over", bookmarkBeingOvered == Just bookmark ) ]
                     , title description
                     , draggable "true"
                     , onDragStart (onDragStartBookmark bookmark)
