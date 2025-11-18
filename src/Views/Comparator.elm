@@ -18,37 +18,13 @@ import Dict
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
-import Json.Decode as Decode
 import Json.Encode as Encode
 import Result.Extra as RE
 import Set
 import Views.Alert as Alert
 import Views.Container as Container
+import Views.Events as Events
 import Views.Version as VersionView
-
-
-onDragStart : msg -> Attribute msg
-onDragStart msg =
-    on "dragstart" <|
-        Decode.succeed msg
-
-
-onDragOver : msg -> Attribute msg
-onDragOver msg =
-    preventDefaultOn "dragover" <|
-        Decode.succeed ( msg, True )
-
-
-onDragLeave : msg -> Attribute msg
-onDragLeave msg =
-    on "dragleave" <|
-        Decode.succeed msg
-
-
-onDrop : msg -> Attribute msg
-onDrop msg =
-    preventDefaultOn "drop" <|
-        Decode.succeed ( msg, True )
 
 
 type alias Config msg =
@@ -95,40 +71,39 @@ view config =
 
 
 sidebarView : Config msg -> List (Html msg)
-sidebarView { bookmarkBeingOvered, onDragLeaveBookmark, onDragOverBookmark, onDragStartBookmark, onDropBookmark, selectAll, selectNone, session, toggle } =
+sidebarView config =
     [ div [ class "p-2 ps-3 mb-0 text-muted" ]
         [ text "Sélectionnez des simulations pour les comparer"
         ]
     , div [ class "text-center" ]
-        [ button [ class "btn btn-sm btn-link pt-0", onClick selectAll ] [ text "tout sélectionner" ]
-        , button [ class "btn btn-sm btn-link pt-0", onClick selectNone ] [ text "tout désélectionner" ]
+        [ button [ class "btn btn-sm btn-link pt-0", onClick config.selectAll ] [ text "tout sélectionner" ]
+        , button [ class "btn btn-sm btn-link pt-0", onClick config.selectNone ] [ text "tout désélectionner" ]
         ]
-    , session.store.bookmarks
+    , config.session.store.bookmarks
         |> List.map
             (\bookmark ->
                 let
                     ( description, isCompared ) =
                         ( bookmark
-                            |> Bookmark.toQueryDescription session.db
-                        , session.store.comparedSimulations
+                            |> Bookmark.toQueryDescription config.session.db
+                        , config.session.store.comparedSimulations
                             |> Set.member (Bookmark.toId bookmark)
                         )
                 in
                 label
-                label
                     [ class "form-check-label list-group-item text-nowrap ps-3 ms-1"
-                    , classList [ ( "over", bookmarkBeingOvered == Just bookmark ) ]
+                    , classList [ ( "over", config.bookmarkBeingOvered == Just bookmark ) ]
                     , title description
                     , draggable "true"
-                    , onDragStart (onDragStartBookmark bookmark)
-                    , onDragLeave onDragLeaveBookmark
-                    , onDragOver (onDragOverBookmark bookmark)
-                    , onDrop (onDropBookmark bookmark)
+                    , Events.onDragStart (config.onDragStartBookmark bookmark)
+                    , Events.onDragLeave config.onDragLeaveBookmark
+                    , Events.onDragOver (config.onDragOverBookmark bookmark)
+                    , Events.onDrop (config.onDropBookmark bookmark)
                     ]
                     [ input
                         [ type_ "checkbox"
                         , class "form-check-input"
-                        , onCheck (toggle bookmark)
+                        , onCheck (config.toggle bookmark)
                         , checked isCompared
                         ]
                         []
