@@ -199,6 +199,8 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
     ):
         data["id"] = data.get("id", uuid4())
         elements: list[ModelDictT[ComponentElement]] = data.pop("elements", [])
+        if "published" not in data:
+            data["published"] = False
 
         model = await super().to_model(data)
 
