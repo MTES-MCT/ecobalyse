@@ -375,6 +375,7 @@ componentListView db selected components =
                     [ AdminView.selectAllCheckbox ToggleSelectedAll components selected
                     ]
                 , th [] [ label [ for AdminView.selectAllId ] [ text "Nom" ] ]
+                , th [] [ text "Publié" ]
                 , th [] [ text "Verticale" ]
                 , th [ colspan 3 ] [ text "Description" ]
                 ]
@@ -398,7 +399,16 @@ componentRowView db selected component =
             , small [ class "d-block fw-normal" ]
                 [ code [] [ text (Component.idToString component.id) ] ]
             ]
-        , td [ class "align-middle" ]
+        , td [ class "align-middle text-center" ]
+            [ small [ class "fs-10", classList [ ( "text-danger", not component.published ), ( "text-success", component.published ) ] ]
+                [ if component.published then
+                    Icon.check
+
+                  else
+                    Icon.crossRounded
+                ]
+            ]
+        , td [ class "align-middle text-center" ]
             [ small [ class "badge bg-secondary fs-10" ]
                 [ text <| Scope.toString component.scope ]
             ]
