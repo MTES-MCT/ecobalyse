@@ -108,11 +108,11 @@ load processes =
         -- dyeingCellulosic
         |> fromIdString "c49a5379-95c4-599a-84da-b5faaa345b97"
         -- dyeingProcessAverage
-        |> fromIdString "b7fa51fc-0421-57b0-bb0a-e0573e293c7a"
+        |> fromIdString "4165fe59-46a6-5364-af5e-913b9fea64eb"
         -- dyeingProcessContinuous
-        |> fromIdString "c8be445c-ae33-5240-9007-e7973e97fc24"
+        |> fromIdString "228dd299-6e93-5b47-904d-459c7c13fde8"
         -- dyeingProcessDiscontinuous
-        |> fromIdString "7e17b44d-108a-504f-9e0d-0cfe5b5db054"
+        |> fromIdString "ec8768ff-e99f-5b92-aab1-d1c9c3fc4025"
         -- dyeingSynthetic
         |> fromIdString "e5e43c57-bd12-5ab7-8a22-7d12cdcece58"
         -- elecMediumTensionAsia
@@ -120,7 +120,7 @@ load processes =
         -- endOfLife
         |> fromIdString "ab96b73f-8534-59ad-9f34-a579abe3b023"
         -- fading
-        |> fromIdString "24edc372-b238-5426-8ac9-059218936641"
+        |> fromIdString "03975521-8854-5c5e-bb25-b2c331fc8267"
         -- finishing
         |> fromIdString "3c66588d-fffb-55cb-b9d5-c197b7e2e591"
         -- heatEurope
@@ -140,15 +140,15 @@ load processes =
         -- lowVoltageFranceElec
         |> fromIdString "931c9bb0-619a-5f75-b41b-ab8061e2ad92"
         -- passengerCar
-        |> fromIdString "2fd6b74f-600a-577c-ba37-b84d8f0482c2"
+        |> fromIdString "de348b8b-d73f-5c28-8e85-e70c84037558"
         -- printingDyes
         |> fromIdString "cfdc5e31-25fc-56ff-9a54-04670ecad301"
         -- printingPaste
         |> fromIdString "97c209ec-7782-5a29-8c47-af7f17c82d11"
         -- printingPigment
-        |> fromIdString "9418bfb4-34e5-5bba-920f-b50e2feff1bd"
+        |> fromIdString "03cdc509-254f-539c-a0a9-a3f52d48e0d8"
         -- printingSubstantive
-        |> fromIdString "5c21e378-b941-57f7-98c9-67345847dbda"
+        |> fromIdString "ca0bf3c5-fcd3-5b3a-921b-1b9aaf5f679d"
         -- roadTransport
         |> fromIdString "46e96f29-9ca5-5475-bb3c-6397f43b7a5b"
         -- seaTransport
