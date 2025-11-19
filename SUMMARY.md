@@ -34,6 +34,7 @@
 * [⚡ Energies des étapes de transformation](methodes-transverses-specifiques/energies-des-etapes-de-transformation.md)
 * [💡 Electricité à l'utilisation](methodes-transverses-specifiques/electricite-a-lutilisation.md)
 * [✈️ Transport par avion - prise en compte des trainées](methodes-transverses-specifiques/modelisation-fret-aerien.md)
+* [Fin de vie des composants](methodes-transverses-specifiques/fin-de-vie-des-composants.md)
 
 ## 🍕 Alimentaire
 
@@ -304,5 +305,4 @@
   * [🪚 Transport Ameublement](pages-en-cours-de-revue/transport/transport-ameublement.md)
   * [🛺 Transport Véhicules](pages-en-cours-de-revue/transport/transport-vehicules.md)
   * [🚚 OLD Transport](pages-en-cours-de-revue/transport/old-transport.md)
-* [Fin de vie des composants](pages-en-cours-de-revue/fin-de-vie-des-composants.md)
 * [♻️ OLD - Modèle d'impact de la fin de vie](pages-en-cours-de-revue/old-modele-dimpact-de-la-fin-de-vie.md)
