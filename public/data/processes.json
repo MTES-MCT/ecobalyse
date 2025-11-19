@@ -2464,7 +2464,7 @@
       "wtu": 0
     },
     "location": "GLO",
-    "scopes": ["textile"],
+    "scopes": ["textile", "veli", "object"],
     "source": "Ecoinvent 3.9.1",
     "unit": "t⋅km",
     "waste": 0
@@ -5352,7 +5352,7 @@
       "wtu": 0
     },
     "location": "GLO",
-    "scopes": ["textile"],
+    "scopes": ["textile", "veli", "object"],
     "source": "Ecoinvent 3.9.1",
     "unit": "t⋅km",
     "waste": 0
@@ -15464,7 +15464,7 @@
       "wtu": 0
     },
     "location": "GLO",
-    "scopes": ["textile"],
+    "scopes": ["textile", "object", "veli"],
     "source": "Ecoinvent 3.9.1",
     "unit": "t⋅km",
     "waste": 0
