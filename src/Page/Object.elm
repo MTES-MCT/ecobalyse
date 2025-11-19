@@ -818,7 +818,7 @@ view session model =
                         , close = SetModal NoModal
                         , noOp = NoOp
                         , title = "Comparateur de simulations sauvegardées"
-                        , subTitle = Just "en score d'impact, par produit"
+                        , subTitle = Just "Coût environnemental, par produit"
                         , formAction = Nothing
                         , content =
                             [ ComparatorView.view
