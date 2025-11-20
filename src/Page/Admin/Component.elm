@@ -234,7 +234,10 @@ update session msg model =
                         Ok component ->
                             { model | modals = [] }
                                 |> App.createUpdate session
-                                |> App.withCmds [ ComponentApi.patchComponent session ComponentUpdated { component | comment = comment, published = published } ]
+                                |> App.withCmds
+                                    [ { component | comment = comment, published = published }
+                                        |> ComponentApi.patchComponent session ComponentUpdated
+                                    ]
                                 |> App.notifySuccess "Composant sauvegardé"
 
                 _ ->
@@ -404,6 +407,14 @@ componentListView db selected components =
 
 componentRowView : Db -> List Component.Id -> Component -> Html Msg
 componentRowView db selected component =
+    let
+        publishedStatus =
+            if component.published then
+                "Publié"
+
+            else
+                "Non publié"
+    in
     tr []
         [ td [ class "align-start text-center" ]
             [ selected
@@ -416,7 +427,12 @@ componentRowView db selected component =
                 [ code [] [ text (Component.idToString component.id) ] ]
             ]
         , td [ class "align-middle text-center" ]
-            [ small [ class "fs-10", classList [ ( "text-danger", not component.published ), ( "text-success", component.published ) ] ]
+            [ small
+                [ title publishedStatus
+                , attribute "aria-label" publishedStatus
+                , class "fs-10"
+                , classList [ ( "text-danger", not component.published ), ( "text-success", component.published ) ]
+                ]
                 [ if component.published then
                     Icon.check
 
