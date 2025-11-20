@@ -23,9 +23,9 @@ describe("Web", () => {
 
 describe("API", () => {
   const textileQuery = {
-    countryFabric: "CN",
-    countryDyeing: "CN",
-    countryMaking: "CN",
+    geoZoneFabric: "CN",
+    geoZoneDyeing: "CN",
+    geoZoneMaking: "CN",
     mass: 0.17,
     materials: [
       { id: "62a4d6fb-3276-4ba5-93a3-889ecd3bff84", share: 0.5 },
@@ -64,9 +64,9 @@ describe("API", () => {
   });
 
   describe("Textile", () => {
-    describe("/textile/countries", () => {
-      it("should render with textile countries list", async () => {
-        await expectListResponseContains("/api/textile/countries", { code: "FR", name: "France" });
+    describe("/textile/geo-zones", () => {
+      it("should render with textile geographical zones list", async () => {
+        await expectListResponseContains("/api/textile/geo-zones", { code: "FR", name: "France" });
       });
     });
 
@@ -123,47 +123,47 @@ describe("API", () => {
         );
       });
 
-      it("should validate the countrySpinning param (invalid code)", async () => {
+      it("should validate the geoZoneSpinning param (invalid code)", async () => {
         expectFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", {
             ...textileQuery,
-            countrySpinning: "XX",
+            geoZoneSpinning: "XX",
           }),
-          "countrySpinning",
-          /Code pays invalide: XX/,
+          "geoZoneSpinning",
+          /Code de zone géographique invalide: XX/,
         );
       });
 
-      it("should validate the countryFabric param (invalid code)", async () => {
+      it("should validate the geoZoneFabric param (invalid code)", async () => {
         expectFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", {
             ...textileQuery,
-            countryFabric: "XX",
+            geoZoneFabric: "XX",
           }),
-          "countryFabric",
-          /Code pays invalide: XX/,
+          "geoZoneFabric",
+          /Code de zone géographique invalide: XX/,
         );
       });
 
-      it("should validate the countryDyeing param (invalid code)", async () => {
+      it("should validate the geoZoneDyeing param (invalid code)", async () => {
         expectFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", {
             ...textileQuery,
-            countryDyeing: "XX",
+            geoZoneDyeing: "XX",
           }),
-          "countryDyeing",
-          /Code pays invalide: XX/,
+          "geoZoneDyeing",
+          /Code de zone géographique invalide: XX/,
         );
       });
 
-      it("should validate the countryMaking param (invalid code)", async () => {
+      it("should validate the geoZoneMaking param (invalid code)", async () => {
         expectFieldErrorMessage(
           await makePostRequest("/api/textile/simulator", {
             ...textileQuery,
-            countryMaking: "XX",
+            geoZoneMaking: "XX",
           }),
-          "countryMaking",
-          /Code pays invalide: XX/,
+          "geoZoneMaking",
+          /Code de zone géographique invalide: XX/,
         );
       });
 
@@ -322,11 +322,11 @@ describe("API", () => {
       it("should validate multiple errored parameters", async () => {
         const response = await makePostRequest("/api/textile/simulator", {
           ...textileQuery,
-          countryDyeing: "BadDyeingCode",
-          countrySpinning: "BadSpinningCode",
+          geoZoneDyeing: "BadDyeingCode",
+          geoZoneSpinning: "BadSpinningCode",
         });
 
-        expect(Object.keys(response.body.error)).toEqual(["countryDyeing", "countrySpinning"]);
+        expect(Object.keys(response.body.error)).toEqual(["geoZoneDyeing", "geoZoneSpinning"]);
       });
     });
 
@@ -397,9 +397,9 @@ describe("API", () => {
         product: "jean",
         fabricProcess: "weaving",
         materials: [{ id: "62a4d6fb-3276-4ba5-93a3-889ecd3bff84", share: 1 }],
-        countryFabric: "TR",
-        countryDyeing: "TR",
-        countryMaking: "TR",
+        geoZoneFabric: "TR",
+        geoZoneDyeing: "TR",
+        geoZoneMaking: "TR",
         fading: true,
       };
 
@@ -433,9 +433,9 @@ describe("API", () => {
   });
 
   describe("Food", () => {
-    describe("/food/countries", () => {
-      it("should render with food countries list", async () => {
-        await expectListResponseContains("/api/food/countries", { code: "FR", name: "France" });
+    describe("/food/geo-zones", () => {
+      it("should render with food geographical zones list", async () => {
+        await expectListResponseContains("/api/food/geo-zones", { code: "FR", name: "France" });
       });
     });
 
@@ -516,19 +516,19 @@ describe("API", () => {
         );
       });
 
-      it("should validate an ingredient country code", async () => {
+      it("should validate an ingredient geoZone code", async () => {
         expectFieldErrorMessage(
           await makePostRequest("/api/food", {
             ingredients: [
               {
-                country: "BadCountryCode",
+                geoZone: "BadGeoZoneCode",
                 id: "4d5198e7-413a-4ae2-8448-535aa3b302ae",
                 mass: 123,
               },
             ],
           }),
           "ingredients",
-          /Code pays invalide: BadCountryCode/,
+          /Code de zone géographique invalide: BadGeoZoneCode/,
         );
       });
 
@@ -538,7 +538,7 @@ describe("API", () => {
             ingredients: [
               {
                 byPlane: "badValue",
-                country: "BR",
+                geoZone: "BR",
                 id: "db0e5f44-34b4-4160-b003-77c828d75e60",
                 mass: 123,
               },
@@ -555,7 +555,7 @@ describe("API", () => {
             ingredients: [
               {
                 byPlane: "byPlane",
-                country: "BR",
+                geoZone: "BR",
                 id: "4d5198e7-413a-4ae2-8448-535aa3b302ae",
                 mass: 123,
               },

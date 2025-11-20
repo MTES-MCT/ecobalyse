@@ -39,18 +39,18 @@ paths:
       responses:
         200:
           description: Documentation de l'API au format OpenAPI.
-  /textile/countries:
+  /textile/geo-zones:
     get:
       tags:
         - Textile
-      summary: Liste des pays utilisables pour les simulations textiles.
+      summary: Liste des zones géographiques utilisables pour les simulations textiles.
       responses:
         200:
           description: Opération réussie
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CountryListResponse"
+                $ref: "#/components/schemas/GeoZoneListResponse"
   /textile/materials:
     get:
       tags:
@@ -179,18 +179,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/TrimListResponse"
-  /food/countries:
+  /food/geo-zones:
     get:
       tags:
         - Alimentaire
-      summary: Liste des pays utilisables pour les simulations alimentairess.
+      summary: Liste des zones géographiques utilisables pour les simulations alimentaires.
       responses:
         200:
           description: Opération réussie
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CountryListResponse"
+                $ref: "#/components/schemas/GeoZoneListResponse"
   /food/ingredients:
     get:
       tags:
@@ -267,16 +267,16 @@ paths:
                   ingredients:
                   - id: cfd4a437-aa49-49ff-818e-353421f2fc09
                     mass: 120
-                    country: ES
+                    geoZone: ES
                   - id: a98b8776-a96d-48e9-b218-976f5452907a
                     mass: 140
-                    country: ES
+                    geoZone: ES
                   - id: 2bf307e8-8cb0-400b-a4f1-cf615d9e96f4
                     mass: 60
-                    country: ES
+                    geoZone: ES
                   - id: 9042b6d0-c309-4757-a03f-ba802f0c8c01
                     mass: 225
-                    country: ES
+                    geoZone: ES
                   transform:
                     id: a2836bb8-7f45-5cfa-bb00-8b38046291cf
                     mass: 545
@@ -292,7 +292,7 @@ paths:
                   ingredients:
                   - id: db0e5f44-34b4-4160-b003-77c828d75e60
                     mass: 500
-                    country: BR
+                    geoZone: BR
                   transform: null
                   packaging: []
                   distribution: ambient
@@ -327,12 +327,12 @@ components:
         materials:
         - id: "62a4d6fb-3276-4ba5-93a3-889ecd3bff84"
           share: 1
-          country: "FR"
+          geoZone: "FR"
         product: "tshirt"
-        countrySpinning: "FR"
-        countryFabric: "FR"
-        countryDyeing: "FR"
-        countryMaking: "FR"
+        geoZoneSpinning: "FR"
+        geoZoneFabric: "FR"
+        geoZoneDyeing: "FR"
+        geoZoneMaking: "FR"
         fabricProcess: "knitting-mix"
     tShirtChina:
       summary: "T-Shirt Chine, low-cost, 100% Coton"
@@ -342,10 +342,10 @@ components:
         - id: "62a4d6fb-3276-4ba5-93a3-889ecd3bff84"
           share: 1
         product: "tshirt"
-        countrySpinning: "CN"
-        countryFabric: "CN"
-        countryDyeing: "CN"
-        countryMaking: "CN"
+        geoZoneSpinning: "CN"
+        geoZoneFabric: "CN"
+        geoZoneDyeing: "CN"
+        geoZoneMaking: "CN"
         airTransportRatio: 0.33
         makingWaste: null
         makingDeadStock: null
@@ -501,29 +501,29 @@ components:
             - small-business
             - large-business-with-services
             - large-business-without-services
-        countryDyeing:
+        geoZoneDyeing:
           type: string
           description: |
-            Code pays pour l'étape de **Teinture** (liste disponible sur le point d'entrée `textile/countries`)
+            Code de zone géographique pour l'étape de **Teinture** (liste disponible sur le point d'entrée `textile/geo-zones`)
           minLength: 2
           maxLength: 3
-        countryFabric:
+        geoZoneFabric:
           type: string
           description: |
-            Code pays pour l'étape de **Tissage/Tricotage** (liste disponible sur le point d'entrée `textile/countries`)
+            Code de zone géographique pour l'étape de **Tissage/Tricotage** (liste disponible sur le point d'entrée `textile/geo-zones`)
           minLength: 2
           maxLength: 3
-        countryMaking:
+        geoZoneMaking:
           type: string
           description: |
-            Code pays pour l'étape de **Confection** (liste disponible sur le point d'entrée `textile/countries`)
+            Code de zone géographique pour l'étape de **Confection** (liste disponible sur le point d'entrée `textile/geo-zones`)
           minLength: 2
           maxLength: 3
-        countrySpinning:
+        geoZoneSpinning:
           type: string
           description: |
-            Code pays pour l'étape de **Filature** (liste disponible sur le point d'entrée `textile/countries`).
-            Si non spécifié, le pays de filature pris en considération est celui de production de
+            Code de zone géographique pour l'étape de **Filature** (liste disponible sur le point d'entrée `textile/geo-zones`).
+            Si non spécifié, la zone géographique de filature prise en considération est celle de production de
             la matière la plus représentée dans le mix.
           minLength: 2
           maxLength: 3
@@ -731,9 +731,9 @@ components:
           - ConventionalSpinning
           - UnconventionalSpinning
           - SyntheticSpinning
-        country:
+        geoZone:
           type: string
-          description: Code du pays d'origine de la matière (liste disponible sur le point d'entrée `/textile/countries`).
+          description: Code de la zone géographique d'origine de la matière (liste disponible sur le point d'entrée `/textile/geo-zones`).
           minLength: 2
           maxLength: 3
     FoodQuery:
@@ -796,7 +796,7 @@ components:
 
         - l'identifiant de la matière (pour avoir la liste, utiliser l'API de liste d'ingrédients)
         - sa masse **exprimée en grammes**
-        - un éventuel code de pays d'origine (ex: `BR` pour le Brésil)
+        - un éventuel code de zone géographique d'origine (ex: `BR` pour le Brésil)
         - un éventuel transport par avion *uniquement si c'est un [ingrédient de catégorie
           "HORS EUROPE-MAGHREB (AVION)"](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)*
           (valeurs possible: `<vide>`, `byPlane`, `noPlane`)
@@ -811,9 +811,9 @@ components:
         mass:
           type: number
           description: Masse de l'ingrédient, **en grammes**
-        country:
+        geoZone:
           type: string
-          description: Code du pays d'origine (liste disponible sur le point d'entrée `/food/countries`).
+          description: Code de la zone géographique d'origine (liste disponible sur le point d'entrée `/food/geo-zones`).
         byPlane:
           type: string
           description: Transport par avion
@@ -869,9 +869,9 @@ components:
           type: string
           description: |
             Lien hypertexte vers la documentation de l'API
-    CountryListResponse:
+    GeoZoneListResponse:
       type: array
-      description: Liste des pays.
+      description: Liste des zones géographiques.
       items:
         type: object
         properties:

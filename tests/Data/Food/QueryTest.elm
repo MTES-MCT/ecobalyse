@@ -14,15 +14,15 @@ suite =
             |> Decode.decodeString Query.decode
             |> Expect.err
             |> asTest "should fail on invalid JSON"
-        , """{"ingredients": [{"id":"db0e5f44-34b4-4160-b003-77c828d75e60","mass":500,"country":"BR"}],"transform":null,"packaging":[],"distribution":"ambient","preparation":[]}"""
+        , """{"ingredients": [{"id":"db0e5f44-34b4-4160-b003-77c828d75e60","mass":500,"geoZone":"BR"}],"transform":null,"packaging":[],"distribution":"ambient","preparation":[]}"""
             |> Decode.decodeString Query.decode
             |> Expect.ok
             |> asTest "should decode a null transform"
-        , """{"ingredients": [{"id":"db0e5f44-34b4-4160-b003-77c828d75e60","mass":500,"country":"BR"}],"packaging":[],"distribution":"ambient","preparation":[]}"""
+        , """{"ingredients": [{"id":"db0e5f44-34b4-4160-b003-77c828d75e60","mass":500,"geoZone":"BR"}],"packaging":[],"distribution":"ambient","preparation":[]}"""
             |> Decode.decodeString Query.decode
             |> Expect.ok
             |> asTest "should decode a missing transform"
-        , """{"ingredients": [{"id":"db0e5f44-34b4-4160-b003-77c828d75e60","mass":500,"country":"BR"}],"packaging":[],"distribution":"invalid","preparation":[]}"""
+        , """{"ingredients": [{"id":"db0e5f44-34b4-4160-b003-77c828d75e60","mass":500,"geoZone":"BR"}],"packaging":[],"distribution":"invalid","preparation":[]}"""
             |> Decode.decodeString Query.decode
             |> Expect.err
             |> asTest "should fail an invalid distribution"

@@ -208,7 +208,7 @@ def create_df_textile(
         "mass": query["mass"],
         "elements": json.dumps(query["materials"]),
         "lifecycle_step": step_label,
-        "lifecycle_step_country": step.get("country", {}).get("code", ""),
+        "lifecycle_step_geo_zone": step.get("geo_zone", {}).get("code", ""),
         "impact": impacts.index.tolist(),
         "value": impacts.values.tolist(),
     }
@@ -229,7 +229,7 @@ def create_df_textile(
             "mass": query["mass"],
             "elements": json.dumps(query["materials"]),
             "lifecycle_step": step_label,
-            "lifecycle_step_country": step.get("country", {}).get("code", ""),
+            "lifecycle_step_geo_zone": step.get("geo_zone", {}).get("code", ""),
             "impact": complementsImpacts.index.tolist(),
             "value": 0,
             "norm_value_ecs": complementsImpacts.values.tolist(),
@@ -316,7 +316,7 @@ def create_df_food(
 
     Returns:
     - pd.DataFrame: A DataFrame with columns for datetime, branch, commit, domain, product name, product ID,
-                    query, mass, elements, lifecycle step and country, impact indices, values,
+                    query, mass, elements, lifecycle step and geo_zone, impact indices, values,
                     and normalized impact values expressed in 'ecs' units.
     """
     if lifecycle_step == "ingredients":
@@ -335,7 +335,7 @@ def create_df_food(
         "mass": example["response"]["results"]["preparedMass"],
         "elements": json.dumps(example["query"]["ingredients"]),
         "lifecycle_step": lifecycle_step,
-        "lifecycle_step_country": "",
+        "lifecycle_step_geo_zone": "",
         "impact": impacts_sr.index.tolist(),
         "value": impacts_sr.values.tolist(),
     }
@@ -356,7 +356,7 @@ def create_df_food(
             "mass": example["response"]["results"]["preparedMass"],
             "elements": json.dumps(example["query"]["ingredients"]),
             "lifecycle_step": lifecycle_step,
-            "lifecycle_step_country": "",
+            "lifecycle_step_geo_zone": "",
             "impact": complementsImpacts.index.tolist(),
             "value": 0,
             "norm_value_ecs": complementsImpacts.values.tolist(),
@@ -398,7 +398,7 @@ def are_df_different(df1, df2, tolerance=0.0001):
         "product_name",
         "query",
         "lifecycle_step",
-        "lifecycle_step_country",
+        "lifecycle_step_geo_zone",
         "impact",
     ]
 

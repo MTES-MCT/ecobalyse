@@ -525,7 +525,7 @@ updateExistingIngredient query model session oldRecipeIngredient newIngredient =
         ingredientQuery =
             { id = newIngredient.id
             , mass = oldRecipeIngredient.mass
-            , country = Nothing
+            , geoZone = Nothing
             , planeTransport = Ingredient.byPlaneByDefault newIngredient
             }
     in
@@ -677,20 +677,20 @@ createElementSelectorConfig db ingredientQuery { excluded, recipeIngredient, imp
         baseElement =
             { element = recipeIngredient.ingredient
             , quantity = recipeIngredient.mass
-            , country = recipeIngredient.country
+            , geoZone = recipeIngredient.geoZone
             }
     in
     { allowEmptyList = True
     , baseElement = baseElement
     , db =
         { elements = db.food.ingredients
-        , countries =
-            db.countries
+        , geoZones =
+            db.geoZones
                 |> Scope.anyOf [ Scope.Food ]
                 |> List.sortBy .name
         , definitions = db.definitions
         }
-    , defaultCountry = Origin.toLabel recipeIngredient.ingredient.defaultOrigin
+    , defaultGeoZone = Origin.toLabel recipeIngredient.ingredient.defaultOrigin
     , delete = \element -> DeleteIngredient element.id
     , excluded =
         db.food.ingredients
@@ -714,7 +714,7 @@ createElementSelectorConfig db ingredientQuery { excluded, recipeIngredient, imp
                 { ingredientQuery
                     | id = newElement.element.id
                     , mass = newElement.quantity
-                    , country = Maybe.map .code newElement.country
+                    , geoZone = Maybe.map .code newElement.geoZone
                 }
     }
 
@@ -726,7 +726,7 @@ updateIngredientFormView db ({ recipeIngredient, selectedImpact, transportImpact
         ingredientQuery =
             { id = recipeIngredient.ingredient.id
             , mass = recipeIngredient.mass
-            , country = recipeIngredient.country |> Maybe.map .code
+            , geoZone = recipeIngredient.geoZone |> Maybe.map .code
             , planeTransport = recipeIngredient.planeTransport
             }
 

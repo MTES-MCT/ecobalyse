@@ -1,6 +1,6 @@
 module Data.Food.Validation exposing (validate)
 
-import Data.Country as Country
+import Data.GeoZone as GeoZone
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Preparation as Preparation
 import Data.Food.Query exposing (IngredientQuery, ProcessQuery, Query)
@@ -28,8 +28,8 @@ validateIngredient : Db -> IngredientQuery -> Result String IngredientQuery
 validateIngredient db ingredientQuery =
     Ok IngredientQuery
         |> RE.andMap
-            (ingredientQuery.country
-                |> validateMaybe (Country.validateForScope Scope.Food db.countries)
+            (ingredientQuery.geoZone
+                |> validateMaybe (GeoZone.validateForScope Scope.Food db.geoZones)
             )
         |> RE.andMap
             (db.food.ingredients

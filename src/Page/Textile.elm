@@ -16,7 +16,7 @@ import Browser.Navigation as Navigation
 import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Component as Component exposing (Component, Index)
-import Data.Country as Country
+import Data.GeoZone as GeoZone
 import Data.Dataset as Dataset
 import Data.Example as Example
 import Data.Gitbook as Gitbook
@@ -157,7 +157,7 @@ type Msg
     | UpdatePrice (Maybe Economics.Price)
     | UpdatePrinting (Maybe Printing)
     | UpdateRenamedBookmarkName Bookmark String
-    | UpdateStepCountry Label Country.Code
+    | UpdateStepGeoZone Label GeoZone.Code
     | UpdateSurfaceMass (Maybe Unit.SurfaceMass)
     | UpdateTrimQuantity Index Component.Quantity
     | UpdateUpcycled Bool
@@ -616,9 +616,9 @@ update ({ db, queries, navKey } as session) msg model =
             { model | bookmarkBeingRenamed = Just { bookmark | name = name } }
                 |> App.createUpdate session
 
-        ( UpdateStepCountry label code, _ ) ->
+        ( UpdateStepGeoZone label code, _ ) ->
             App.createUpdate session model
-                |> updateQuery (Query.updateStepCountry label code query)
+                |> updateQuery (Query.updateStepGeoZone label code query)
 
         ( UpdateSurfaceMass surfaceMass, _ ) ->
             App.createUpdate session model
@@ -659,7 +659,7 @@ updateExistingMaterial query pageUpdate oldMaterial newMaterial =
             { id = newMaterial.id
             , share = oldMaterial.share
             , spinning = Nothing
-            , country = Nothing
+            , geoZone = Nothing
             }
     in
     pageUpdate
@@ -889,7 +889,7 @@ lifeCycleStepsView db { activeTab, impact } simulator =
                     , setModal = SetModal
                     , toggleFading = ToggleFading
                     , toggleStep = ToggleStep
-                    , updateCountry = UpdateStepCountry
+                    , updateGeoZone = UpdateStepGeoZone
                     , updateAirTransportRatio = UpdateAirTransportRatio
                     , updateDyeingProcessType = UpdateDyeingProcessType
                     , updateMaterial = UpdateMaterial
@@ -983,7 +983,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , setDetailed = \_ -> NoOp
         , title = "Accessoires"
         , updateElementAmount = \_ _ -> NoOp
-        , updateItemCountry = \_ _ -> NoOp
+        , updateItemGeoZone = \_ _ -> NoOp
         , updateItemName = \_ _ -> NoOp
         , updateItemQuantity = UpdateTrimQuantity
         }

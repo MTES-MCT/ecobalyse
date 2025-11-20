@@ -13,7 +13,7 @@ module TestUtils exposing
     , tShirtCotonFrance
     )
 
-import Data.Country as Country
+import Data.GeoZone as GeoZone
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Trigrams)
 import Data.Process as Process
@@ -149,7 +149,7 @@ textileQueryFromMaterialId id =
                         [ { id = id_
                           , share = Split.full
                           , spinning = Nothing
-                          , country = Nothing
+                          , geoZone = Nothing
                           }
                         ]
                 }
@@ -175,9 +175,9 @@ tShirtCotonFrance =
         |> Result.map
             (\query ->
                 { query
-                    | countryDyeing = Just (Country.Code "FR")
-                    , countryFabric = Just (Country.Code "FR")
-                    , countryMaking = Just (Country.Code "FR")
-                    , countrySpinning = Just (Country.Code "FR")
+                    | geoZoneDyeing = Just (GeoZone.Code "FR")
+                    , geoZoneFabric = Just (GeoZone.Code "FR")
+                    , geoZoneMaking = Just (GeoZone.Code "FR")
+                    , geoZoneSpinning = Just (GeoZone.Code "FR")
                 }
             )
