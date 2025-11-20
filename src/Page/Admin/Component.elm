@@ -600,9 +600,8 @@ modalView { componentConfig, db } modals index modal =
                     , footer =
                         [ div [ class "d-flex flex-row justify-content-between align-items-center gap-3 w-100" ]
                             [ componentScopesForm component item
-                            , div [ class "d-flex flex-row gap-3 align-items-center" ]
-                                [ label [ class "h6 mb-0", for "componentPublished" ] [ text "Publié" ]
-                                , input
+                            , label [ class "d-flex flex-fill align-items-center gap-2 fw-bold", for "componentPublished" ]
+                                [ input
                                     [ type_ "checkbox"
                                     , class "form-check-input"
                                     , id "componentPublished"
@@ -610,6 +609,7 @@ modalView { componentConfig, db } modals index modal =
                                     , onCheck UpdateComponentPublished
                                     ]
                                     []
+                                , text "Publié"
                                 ]
                             , button [ class "btn btn-primary" ] [ text "Sauvegarder le composant" ]
                             ]
