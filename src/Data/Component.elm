@@ -742,6 +742,7 @@ encode v =
         , ( "elements", v.elements |> Encode.list encodeElement )
         , ( "id", v.id |> encodeId )
         , ( "name", v.name |> Encode.string )
+        , ( "published", v.published |> Encode.bool )
         , ( "scopes", [ v.scope ] |> Encode.list Scope.encode )
         ]
 
