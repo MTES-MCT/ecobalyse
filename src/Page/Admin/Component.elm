@@ -85,6 +85,7 @@ type Msg
     | ToggleSelectedAll Bool
     | UpdateComponent Item
     | UpdateComponentComment String
+    | UpdateComponentPublished Bool
     | UpdateScopeFilters (List Scope)
     | UpdateSearch String
 
@@ -223,7 +224,7 @@ update session msg model =
                     App.createUpdate session { model | modals = [] }
                         |> App.withCmds [ ComponentApi.deleteComponent session ComponentDeleted component ]
 
-                [ EditComponentModal { comment } item ] ->
+                [ EditComponentModal { comment, published } item ] ->
                     case Component.itemToComponent session.db item of
                         Err error ->
                             { model | modals = [] }
@@ -233,7 +234,10 @@ update session msg model =
                         Ok component ->
                             { model | modals = [] }
                                 |> App.createUpdate session
-                                |> App.withCmds [ ComponentApi.patchComponent session ComponentUpdated { component | comment = comment } ]
+                                |> App.withCmds
+                                    [ { component | comment = comment, published = published }
+                                        |> ComponentApi.patchComponent session ComponentUpdated
+                                    ]
                                 |> App.notifySuccess "Composant sauvegardé"
 
                 _ ->
@@ -262,6 +266,11 @@ update session msg model =
                 |> updateComponentComment comment
                 |> App.createUpdate session
 
+        UpdateComponentPublished published ->
+            model
+                |> updateComponentPublished published
+                |> App.createUpdate session
+
         UpdateScopeFilters scopes ->
             App.createUpdate session { model | scopes = scopes }
 
@@ -284,6 +293,16 @@ updateComponentComment comment model =
     case model.modals of
         (EditComponentModal component item) :: others ->
             { model | modals = EditComponentModal { component | comment = Just comment } item :: others }
+
+        _ ->
+            model
+
+
+updateComponentPublished : Bool -> Model -> Model
+updateComponentPublished published model =
+    case model.modals of
+        (EditComponentModal component item) :: others ->
+            { model | modals = EditComponentModal { component | published = published } item :: others }
 
         _ ->
             model
@@ -375,6 +394,7 @@ componentListView db selected components =
                     [ AdminView.selectAllCheckbox ToggleSelectedAll components selected
                     ]
                 , th [] [ label [ for AdminView.selectAllId ] [ text "Nom" ] ]
+                , th [] [ text "Publié" ]
                 , th [] [ text "Verticale" ]
                 , th [ colspan 3 ] [ text "Description" ]
                 ]
@@ -387,6 +407,14 @@ componentListView db selected components =
 
 componentRowView : Db -> List Component.Id -> Component -> Html Msg
 componentRowView db selected component =
+    let
+        publishedStatus =
+            if component.published then
+                "Publié"
+
+            else
+                "Non publié"
+    in
     tr []
         [ td [ class "align-start text-center" ]
             [ selected
@@ -398,7 +426,21 @@ componentRowView db selected component =
             , small [ class "d-block fw-normal" ]
                 [ code [] [ text (Component.idToString component.id) ] ]
             ]
-        , td [ class "align-middle" ]
+        , td [ class "align-middle text-center" ]
+            [ small
+                [ title publishedStatus
+                , attribute "aria-label" publishedStatus
+                , class "fs-10"
+                , classList [ ( "text-danger", not component.published ), ( "text-success", component.published ) ]
+                ]
+                [ if component.published then
+                    Icon.check
+
+                  else
+                    Icon.crossRounded
+                ]
+            ]
+        , td [ class "align-middle text-center" ]
             [ small [ class "badge bg-secondary fs-10" ]
                 [ text <| Scope.toString component.scope ]
             ]
@@ -558,6 +600,17 @@ modalView { componentConfig, db } modals index modal =
                     , footer =
                         [ div [ class "d-flex flex-row justify-content-between align-items-center gap-3 w-100" ]
                             [ componentScopesForm component item
+                            , label [ class "d-flex flex-fill align-items-center gap-2 fw-bold", for "componentPublished" ]
+                                [ input
+                                    [ type_ "checkbox"
+                                    , class "form-check-input"
+                                    , id "componentPublished"
+                                    , checked component.published
+                                    , onCheck UpdateComponentPublished
+                                    ]
+                                    []
+                                , text "Publié"
+                                ]
                             , button [ class "btn btn-primary" ] [ text "Sauvegarder le composant" ]
                             ]
                         ]

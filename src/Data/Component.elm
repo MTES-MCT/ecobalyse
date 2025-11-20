@@ -110,6 +110,7 @@ type alias Component =
     , elements : List Element
     , id : Id
     , name : String
+    , published : Bool
     , scope : Scope
     }
 
@@ -614,6 +615,10 @@ decode =
         |> Decode.required "elements" (Decode.list decodeElement)
         |> Decode.required "id" (Decode.map Id Uuid.decoder)
         |> Decode.required "name" Decode.string
+        -- If there is no published field provided, we’re reading the values from
+        -- static files and by default, all components in the static files should
+        -- be considered as published
+        |> Decode.optional "published" Decode.bool True
         |> Decode.required "scopes"
             -- Note: the backend exposes multiple scopes per component, though it's been decided
             -- a component should only allow one, so here we take the first declared scope.
@@ -737,6 +742,7 @@ encode v =
         , ( "elements", v.elements |> Encode.list encodeElement )
         , ( "id", v.id |> encodeId )
         , ( "name", v.name |> Encode.string )
+        , ( "published", v.published |> Encode.bool )
         , ( "scopes", [ v.scope ] |> Encode.list Scope.encode )
         ]
 

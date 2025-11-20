@@ -105,6 +105,7 @@ async def test_components_create_with_scopes(
                 {"amount": 0.91125, "material": "97c209ec-7782-5a29-8c47-af7f17c82d11"}
             ],
             "scopes": scopes,
+            "published": True,
         },
         headers=superuser_token_headers,
     )
@@ -112,6 +113,7 @@ async def test_components_create_with_scopes(
     assert response.status_code == 201
     assert json["name"] == "New Component"
     assert json["scopes"] == scopes
+    assert json["published"]
 
     async with JournalEntryService.new(session) as journal_entries_service:
         entries = await journal_entries_service.list()
@@ -171,6 +173,24 @@ async def test_components_access(
         "/api/components/8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
     )
     assert response.status_code == 200
+    assert response.json() == {
+        "comment": None,
+        "elements": [
+            {
+                "amount": 1.0,
+                "material": "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
+                "transforms": [
+                    "d25636af-ab36-4857-a6d0-c66d1e7a281b",
+                ],
+            },
+        ],
+        "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
+        "name": "Tissu pour canapé",
+        "published": False,
+        "scopes": [
+            "textile",
+        ],
+    }
 
 
 async def test_components_update(
@@ -195,12 +215,15 @@ async def test_components_update(
             ]
         )
 
+        assert not json["published"]
+
         response = await client.patch(
             "/api/components/8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
             json={
                 "name": "Name Changed",
                 "comment": "Comment changed",
                 "scopes": ["object", "food"],
+                "published": True,
                 "elements": [
                     {
                         "amount": 2,
@@ -211,11 +234,7 @@ async def test_components_update(
             },
             headers=superuser_token_headers,
         )
-        json = response.json()
 
-        response = await client.get(
-            "/api/components/8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
-        )
         assert response.status_code == 200
 
         json = response.json()
@@ -223,6 +242,7 @@ async def test_components_update(
         assert json["name"] == "Name Changed"
         assert json["comment"] == "Comment changed"
         assert json["scopes"] == ["object", "food"]
+        assert json["published"]
         assert jsonp.dumps(json["elements"]) == jsonp.dumps(
             [
                 {
@@ -283,6 +303,7 @@ async def test_components_update(
                         "transforms": ["97c209ec-7782-5a29-8c47-af7f17c82d11"],
                     }
                 ],
+                "published": True,
             }
         )
 

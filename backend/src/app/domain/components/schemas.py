@@ -29,6 +29,7 @@ class Component(CamelizedBaseStruct):
     name: str
     elements: list[ComponentElement] | None
     comment: str | None
+    published: bool
     scopes: list[Scope] = []
 
 
@@ -36,6 +37,7 @@ class ComponentCreate(CamelizedBaseStruct):
     name: str
     elements: list[ComponentElement]
     comment: str | None = None
+    published: bool = False
     scopes: list[Scope] = []
 
 
@@ -49,10 +51,9 @@ class ComponentElement(
 
 
 class ComponentUpdate(CamelizedBaseStruct, omit_defaults=True):
-    id: UUID | None | msgspec.UnsetType = msgspec.UNSET
-    name: str | None | msgspec.UnsetType = msgspec.UNSET
     comment: str | None | msgspec.UnsetType = msgspec.UNSET
-
+    id: UUID | None | msgspec.UnsetType = msgspec.UNSET
     elements: list[ComponentElement] | None | msgspec.UnsetType = msgspec.UNSET
-
+    name: str | None | msgspec.UnsetType = msgspec.UNSET
+    published: bool | None | msgspec.UnsetType = msgspec.UNSET
     scopes: list[Scope] = []

@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 
 from advanced_alchemy.base import UUIDAuditBase
 from app.domain.components.schemas import Scope
-from sqlalchemy import Enum
+from sqlalchemy import Boolean, Enum
 from sqlalchemy.dialects import postgresql
 from sqlalchemy.ext.mutable import MutableList
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -21,6 +21,10 @@ class Component(UUIDAuditBase):
     __tablename__ = "component"
     name: Mapped[str]
     comment: Mapped[str | None]
+
+    published: Mapped[bool] = mapped_column(
+        Boolean, nullable=False, default=False, server_default="f"
+    )
 
     # Note: when creating the migration Alembic will not detect the scope[] type
     # we need to create it manually in the generated migration
