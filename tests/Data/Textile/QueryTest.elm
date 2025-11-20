@@ -1,6 +1,6 @@
 module Data.Textile.QueryTest exposing (..)
 
-import Data.Country as Country
+import Data.GeoZone as GeoZone
 import Data.Split as Split
 import Data.Textile.Inputs as Inputs
 import Data.Textile.MakingComplexity as MakingComplexity
@@ -21,7 +21,7 @@ sampleQuery =
                     [ { id = polyesterId
                       , share = Split.full
                       , spinning = Nothing
-                      , country = Just (Country.Code "CN")
+                      , geoZone = Just (GeoZone.Code "CN")
                       }
                     ]
             }
@@ -111,7 +111,7 @@ suite =
                         [ [ { id = id
                             , share = Split.tenth
                             , spinning = Nothing
-                            , country = Nothing
+                            , geoZone = Nothing
                             }
                           ]
                             |> Query.validateMaterials
@@ -126,12 +126,12 @@ suite =
                         [ [ { id = cottonId
                                   , share = Split.half
                                   , spinning = Nothing
-                                  , country = Nothing
+                                  , geoZone = Nothing
                                   }
                                 , { id = syntheticId
                                   , share = Split.half
                                   , spinning = Nothing
-                                  , country = Nothing
+                                  , geoZone = Nothing
                                   }
                                 ]
                             |> Query.validateMaterials
@@ -148,17 +148,17 @@ suite =
                         [ [ { id = polyesterId
                                   , share = Split.sixty
                                   , spinning = Nothing
-                                  , country = Nothing
+                                  , geoZone = Nothing
                                   }
                                 , { id = polypropyleneId
                                   , share = Split.thirty
                                   , spinning = Nothing
-                                  , country = Nothing
+                                  , geoZone = Nothing
                                   }
                                   , { id = cottonId
                                   , share = Split.tenth
                                   , spinning = Nothing
-                                  , country = Nothing
+                                  , geoZone = Nothing
                                   }
                                 ]
                             |> Query.validateMaterials

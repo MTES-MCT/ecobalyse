@@ -1,6 +1,6 @@
 module Static.Json exposing
     ( RawJsonComponents
-    , countriesJson
+    , geoZonesJson
     , foodIngredientsJson
     , foodProductExamplesJson
     , impactsJson
@@ -22,9 +22,9 @@ type alias RawJsonComponents =
     }
 
 
-countriesJson : String
-countriesJson =
-    """%countriesJson%"""
+geoZonesJson : String
+geoZonesJson =
+    """%geoZonesJson%"""
 
 
 foodProductExamplesJson : String

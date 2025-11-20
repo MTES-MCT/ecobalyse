@@ -17,7 +17,7 @@ import Data.Component as Component
         , TargetElement
         , TargetItem
         )
-import Data.Country as Country exposing (Country)
+import Data.GeoZone as GeoZone exposing (GeoZone)
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Process as Process exposing (Process)
@@ -63,7 +63,7 @@ type alias Config db msg =
     , setDetailed : List Index -> msg
     , title : String
     , updateElementAmount : TargetElement -> Maybe Amount -> msg
-    , updateItemCountry : Index -> Maybe Country.Code -> msg
+    , updateItemGeoZone : Index -> Maybe GeoZone.Code -> msg
     , updateItemName : TargetItem -> String -> msg
     , updateItemQuantity : Index -> Quantity -> msg
     }
@@ -143,7 +143,7 @@ addElementTransformButton { db, items, openSelectProcessModal, scope } material 
 
 
 componentView : Config db msg -> Index -> Item -> ExpandedItem -> Results -> List (Html msg)
-componentView config itemIndex item { component, country, elements, quantity } itemResults =
+componentView config itemIndex item { component, elements, geoZone, quantity } itemResults =
     let
         collapsed =
             config.detailed
@@ -193,7 +193,7 @@ componentView config itemIndex item { component, country, elements, quantity } i
                                         |> value
                                     ]
                                     []
-                                , config.db.countries
+                                , config.db.geoZones
                                     |> Scope.anyOf [ config.scope ]
                                     |> List.sortBy .name
                                     |> List.map (\{ code, name } -> ( name, Just code ))
@@ -202,10 +202,10 @@ componentView config itemIndex item { component, country, elements, quantity } i
                                         (\( name, maybeCode ) ->
                                             option
                                                 [ maybeCode
-                                                    |> Maybe.map Country.codeToString
+                                                    |> Maybe.map GeoZone.codeToString
                                                     |> Maybe.withDefault ""
                                                     |> value
-                                                , selected <| Maybe.map .code country == maybeCode
+                                                , selected <| Maybe.map .code geoZone == maybeCode
                                                 ]
                                                 [ text name ]
                                         )
@@ -213,12 +213,12 @@ componentView config itemIndex item { component, country, elements, quantity } i
                                         [ class "form-select w-33"
                                         , onInput <|
                                             \str ->
-                                                config.updateItemCountry itemIndex
+                                                config.updateItemGeoZone itemIndex
                                                     (if String.isEmpty str then
                                                         Nothing
 
                                                      else
-                                                        Just <| Country.codeFromString str
+                                                        Just <| GeoZone.codeFromString str
                                                     )
                                         ]
                                 ]
@@ -455,7 +455,7 @@ amountInput config targetElement unit amount =
 
 
 elementView : Config db msg -> TargetItem -> Index -> ExpandedElement -> Results -> Html msg
-elementView config targetItem elementIndex { amount, country, material, transforms } elementResults =
+elementView config targetItem elementIndex { amount, geoZone, material, transforms } elementResults =
     let
         ( materialResults, transformsResults ) =
             case Component.extractItems elementResults of
@@ -486,7 +486,7 @@ elementView config targetItem elementIndex { amount, country, material, transfor
             , th [] []
             ]
             :: elementMaterialView config ( targetItem, elementIndex ) materialResults material amount
-            :: elementTransformsView config ( targetItem, elementIndex ) country transformsResults transforms
+            :: elementTransformsView config ( targetItem, elementIndex ) geoZone transformsResults transforms
             ++ (if config.scope /= Scope.Textile then
                     [ tr []
                         [ td [ colspan 2 ] []
@@ -559,15 +559,15 @@ elementMaterialView config targetElement materialResults material amount =
         ]
 
 
-elementTransformsView : Config db msg -> TargetElement -> Maybe Country -> List Results -> List Process -> List (Html msg)
-elementTransformsView config targetElement maybeCountry transformsResults transforms =
+elementTransformsView : Config db msg -> TargetElement -> Maybe GeoZone -> List Results -> List Process -> List (Html msg)
+elementTransformsView config targetElement maybeGeoZone transformsResults transforms =
     List.map3
         (\transformIndex transformResult transform ->
             let
                 tooltipText =
                     "Procédé\u{00A0}: "
                         ++ Process.getDisplayName transform
-                        ++ (Component.loadEnergyMixes config.db.processes maybeCountry
+                        ++ (Component.loadEnergyMixes config.db.processes maybeGeoZone
                                 |> Result.map
                                     (\{ elec, heat } ->
                                         "\nÉlectricité\u{00A0}: "

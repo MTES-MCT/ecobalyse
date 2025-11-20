@@ -1,7 +1,7 @@
-module Data.Country exposing
+module Data.GeoZone exposing
     ( AquaticPollutionScenario(..)
     , Code(..)
-    , Country
+    , GeoZone
     , codeFromString
     , codeToString
     , decodeCode
@@ -11,14 +11,14 @@ module Data.Country exposing
     , findByCode
     , getAquaticPollutionRatio
     , isEuropeOrTurkey
-    , unknownCountryCode
+    , unknownGeoZoneCode
     , validateForScope
     )
 
 import Data.Process as Process exposing (Process)
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
-import Data.Zone as Zone exposing (Zone)
+import Data.WorldRegion as WorldRegion exposing (WorldRegion)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
@@ -35,14 +35,14 @@ type AquaticPollutionScenario
     | Worst
 
 
-type alias Country =
+type alias GeoZone =
     { aquaticPollutionScenario : AquaticPollutionScenario
     , code : Code
     , electricityProcess : Process
     , heatProcess : Process
     , name : String
     , scopes : List Scope
-    , zone : Zone
+    , worldRegion : WorldRegion
     }
 
 
@@ -56,23 +56,23 @@ codeToString (Code string) =
     string
 
 
-findByCode : Code -> List Country -> Result String Country
+findByCode : Code -> List GeoZone -> Result String GeoZone
 findByCode code =
     List.filter (.code >> (==) code)
         >> List.head
-        >> Result.fromMaybe ("Code pays invalide: " ++ codeToString code ++ ".")
+        >> Result.fromMaybe ("Code de zone géographique invalide: " ++ codeToString code ++ ".")
 
 
-decode : List Process -> Decoder Country
+decode : List Process -> Decoder GeoZone
 decode processes =
-    Decode.succeed Country
+    Decode.succeed GeoZone
         |> Pipe.required "aquaticPollutionScenario" decodeAquaticPollutionScenario
         |> Pipe.required "code" decodeCode
         |> Pipe.required "electricityProcessId" (Process.decodeFromId processes)
         |> Pipe.required "heatProcessId" (Process.decodeFromId processes)
         |> Pipe.required "name" Decode.string
         |> Pipe.optional "scopes" (Decode.list Scope.decode) [ Scope.Food, Scope.Textile ]
-        |> Pipe.required "zone" Zone.decode
+        |> Pipe.required "worldRegion" WorldRegion.decode
 
 
 decodeCode : Decoder Code
@@ -80,12 +80,12 @@ decodeCode =
     Decode.map Code Decode.string
 
 
-decodeList : List Process -> Decoder (List Country)
+decodeList : List Process -> Decoder (List GeoZone)
 decodeList processes =
     Decode.list (decode processes)
 
 
-encode : Country -> Encode.Value
+encode : GeoZone -> Encode.Value
 encode v =
     Encode.object
         [ ( "aquaticPollutionScenario", v.aquaticPollutionScenario |> aquaticPollutionScenarioToString |> Encode.string )
@@ -152,28 +152,28 @@ getAquaticPollutionRatio scenario =
                 Split.fromPercent 37
 
 
-isEuropeOrTurkey : Country -> Bool
-isEuropeOrTurkey country =
-    country.zone == Zone.Europe || country.code == codeFromString "TR"
+isEuropeOrTurkey : GeoZone -> Bool
+isEuropeOrTurkey geoZone =
+    geoZone.worldRegion == WorldRegion.Europe || geoZone.code == codeFromString "TR"
 
 
-unknownCountryCode : Code
-unknownCountryCode =
+unknownGeoZoneCode : Code
+unknownGeoZoneCode =
     Code "---"
 
 
-validateForScope : Scope -> List Country -> Code -> Result String Code
-validateForScope scope countries countryCode =
-    countries
-        |> findByCode countryCode
+validateForScope : Scope -> List GeoZone -> Code -> Result String Code
+validateForScope scope geoZones geoZoneCode =
+    geoZones
+        |> findByCode geoZoneCode
         |> Result.andThen
             (\{ code, scopes } ->
                 if List.member scope scopes then
                     Ok code
 
                 else
-                    "Le code pays "
-                        ++ codeToString countryCode
+                    "Le code de zone géographique "
+                        ++ codeToString geoZoneCode
                         ++ " n'est pas utilisable dans un contexte "
                         ++ Scope.toLabel scope
                         ++ "."

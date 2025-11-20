@@ -1,6 +1,6 @@
 module Data.Textile.InputsTest exposing (..)
 
-import Data.Country as Country
+import Data.GeoZone as GeoZone
 import Data.Split as Split
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Material as Material
@@ -16,30 +16,30 @@ suite : Test
 suite =
     suiteWithDb "Data.Inputs"
         (\db ->
-            [ describe "Query countries validation"
-                [ suiteFromResult "should replace the first country with the material's default country"
+            [ describe "Query geographical zones validation"
+                [ suiteFromResult "should replace the first geographical zone with the material's default geographical zone"
                     tShirtCotonFrance
                     (\query ->
                         [ { query
-                            | countryFabric = Just (Country.Code "CN")
-                            , countryDyeing = Just (Country.Code "CN")
-                            , countryMaking = Just (Country.Code "CN")
+                            | geoZoneFabric = Just (GeoZone.Code "CN")
+                            , geoZoneDyeing = Just (GeoZone.Code "CN")
+                            , geoZoneMaking = Just (GeoZone.Code "CN")
                           }
                             |> Inputs.fromQuery db
-                            |> Result.map Inputs.countryList
+                            |> Result.map Inputs.geoZoneList
                             |> Result.andThen (LE.getAt 0 >> Maybe.map .code >> Result.fromMaybe "")
-                            |> Expect.equal (Ok (Country.codeFromString "CN"))
-                            |> asTest "replace the first country with the material's default country"
+                            |> Expect.equal (Ok (GeoZone.codeFromString "CN"))
+                            |> asTest "replace the first geographical zone with the material's default geographical zone"
                         ]
                     )
                 , { default
-                    | countryFabric = Just (Country.Code "XX")
-                    , countryDyeing = Just (Country.Code "CN")
-                    , countryMaking = Just (Country.Code "CN")
+                    | geoZoneFabric = Just (GeoZone.Code "XX")
+                    , geoZoneDyeing = Just (GeoZone.Code "CN")
+                    , geoZoneMaking = Just (GeoZone.Code "CN")
                   }
                     |> Inputs.fromQuery db
-                    |> Expect.equal (Err "Code pays invalide: XX.")
-                    |> asTest "validate country codes"
+                    |> Expect.equal (Err "Code de zone géographique invalide: XX.")
+                    |> asTest "validate geographical zone codes"
                 ]
             , let
                 testComplementEqual x =
@@ -68,12 +68,12 @@ suite =
                                 [ { id = cottonId
                                   , share = Split.half
                                   , spinning = Nothing
-                                  , country = Nothing
+                                  , geoZone = Nothing
                                   }
                                 , { id = syntheticId
                                   , share = Split.half
                                   , spinning = Nothing
-                                  , country = Nothing
+                                  , geoZone = Nothing
                                   }
                                 ]
                           }
@@ -109,12 +109,12 @@ suite =
                                 [ { id = cottonId
                                   , share = Split.half
                                   , spinning = Nothing
-                                  , country = Nothing
+                                  , geoZone = Nothing
                                   }
                                 , { id = syntheticId
                                   , share = Split.half
                                   , spinning = Nothing
-                                  , country = Nothing
+                                  , geoZone = Nothing
                                   }
                                 ]
                           }
