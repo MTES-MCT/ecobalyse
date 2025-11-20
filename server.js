@@ -237,7 +237,7 @@ api.get("/", async (req, res) => {
 });
 
 // Redirects: API
-api.get(/^\/countries$/, (_, res) => res.redirect("textile/countries"));
+api.get(/^\/geo-zones$/, (_, res) => res.redirect("textile/geo-zones"));
 api.get(/^\/materials$/, (_, res) => res.redirect("textile/materials"));
 api.get(/^\/products$/, (_, res) => res.redirect("textile/products"));
 const cleanRedirect = (url) => (url.startsWith("/") ? url : "");

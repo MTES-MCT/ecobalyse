@@ -89,7 +89,7 @@
       "distribution": "ambient",
       "ingredients": [
         {
-          "country": "BR",
+          "geoZone": "BR",
           "id": "db0e5f44-34b4-4160-b003-77c828d75e60",
           "mass": 120
         }
@@ -133,7 +133,7 @@
       "ingredients": [
         {
           "byPlane": "byPlane",
-          "country": "BR",
+          "geoZone": "BR",
           "id": "db0e5f44-34b4-4160-b003-77c828d75e60",
           "mass": 120
         }
@@ -177,7 +177,7 @@
       "ingredients": [
         {
           "byPlane": "noPlane",
-          "country": "BR",
+          "geoZone": "BR",
           "id": "db0e5f44-34b4-4160-b003-77c828d75e60",
           "mass": 120
         }

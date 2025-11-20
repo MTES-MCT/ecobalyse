@@ -1,5 +1,5 @@
-module Data.Zone exposing
-    ( Zone(..)
+module Data.WorldRegion exposing
+    ( WorldRegion(..)
     , decode
     )
 
@@ -7,7 +7,7 @@ import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 
 
-type Zone
+type WorldRegion
     = Africa
     | Asia
     | Europe
@@ -17,13 +17,13 @@ type Zone
     | SouthAmerica
 
 
-decode : Decoder Zone
+decode : Decoder WorldRegion
 decode =
     Decode.string
         |> Decode.andThen (fromString >> DE.fromResult)
 
 
-fromString : String -> Result String Zone
+fromString : String -> Result String WorldRegion
 fromString string =
     case string of
         "Africa" ->
@@ -48,4 +48,4 @@ fromString string =
             Ok SouthAmerica
 
         _ ->
-            Err <| "Zone géographique inconnue : " ++ string
+            Err <| "Région géographique inconnue : " ++ string
