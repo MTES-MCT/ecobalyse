@@ -3516,6 +3516,48 @@
     "waste": 0
   },
   {
+    "activityName": "Lamb, fresh meat, at slaughterhouse (WFLDB)",
+    "categories": [
+      "ingredient"
+    ],
+    "comment": "PEFCR Guidance 6.3, for fresh meat and edible offal",
+    "density": 0,
+    "displayName": "Viande d'agneau (désossée) par défaut",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "29612858-1fc3-4604-b001-c4064c083ed3",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 1360.7,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pef": 1515.6,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "NZ",
+    "scopes": [
+      "food"
+    ],
+    "source": "WFLDB",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "This process is not linked to a Brightway activity",
     "categories": [
       "transformation"
@@ -11823,6 +11865,48 @@
     "waste": 0.38
   },
   {
+    "activityName": "Potato, at farm (WFLDB)",
+    "categories": [
+      "ingredient"
+    ],
+    "comment": "CHINA",
+    "density": 0,
+    "displayName": "Pomme de terre de table par défaut",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "8dc26445-77f3-4447-8b88-594c09928a78",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 67.884,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pef": 74.047,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "CN",
+    "scopes": [
+      "food"
+    ],
+    "source": "WFLDB",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "acrylonitrile-butadiene-styrene copolymer//[GLO] market for acrylonitrile-butadiene-styrene copolymer",
     "categories": [
       "material",
@@ -13050,6 +13134,48 @@
       "food"
     ],
     "source": "Agribalyse 3.2",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Cherry, at farm (WFLDB)",
+    "categories": [
+      "ingredient"
+    ],
+    "comment": "Average of modeled countries based on market share of global export --> the 4 countries modeled represent 47.6% of the global export (faostat data 2009-2013)",
+    "density": 0,
+    "displayName": "Cerise UE",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "9a5e1ae9-5dca-4813-9b76-a0c1e1a02834",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 742.39,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pef": 411.67,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "GLO",
+    "scopes": [
+      "food"
+    ],
+    "source": "WFLDB",
     "unit": "kg",
     "waste": 0
   },
