@@ -3095,7 +3095,7 @@
     "categories": [
       "transformation"
     ],
-    "comment": "Ancien identifiant (12/2024): 49adf2a8-c74f-46af-b4c7-e1a8e1f5a6cb.",
+    "comment": "Données provenant de Base Impacts 2.01. Ancien identifiant (12/2024): 49adf2a8-c74f-46af-b4c7-e1a8e1f5a6cb.",
     "density": 0,
     "displayName": "Délavage chimique, procédé majorant, traitement inefficace des eaux usées",
     "elecMJ": 6.53,
@@ -3128,7 +3128,7 @@
     "scopes": [
       "textile"
     ],
-    "source": "Base Impacts 2.01",
+    "source": "Custom",
     "unit": "kg",
     "waste": 0
   },
@@ -3940,7 +3940,7 @@
     "categories": [
       "transport"
     ],
-    "comment": "Ancien identifiant (12/2024): 1ead35dd-fc71-4b0c-9410-7e39da95c7dc.",
+    "comment": "Données provenant de Base Impacts 2.01. Ancien identifiant (12/2024): 1ead35dd-fc71-4b0c-9410-7e39da95c7dc.",
     "density": 0,
     "displayName": "Transport en voiture jusqu'au point de collecte précalculé pour la fin de vie",
     "elecMJ": 0,
@@ -3973,7 +3973,7 @@
     "scopes": [
       "textile"
     ],
-    "source": "Base Impacts 2.01",
+    "source": "Custom",
     "unit": "Item(s)",
     "waste": 0
   },
@@ -5424,7 +5424,7 @@
     "categories": [
       "transport"
     ],
-    "comment": "Ancien identifiant (12/2024): f49b27fa-f22e-c6e1-ab4b-e9f873e2e648.",
+    "comment": "Données provenant de Base Impacts 2.01. Ancien identifiant (12/2024): f49b27fa-f22e-c6e1-ab4b-e9f873e2e648.",
     "density": 0,
     "displayName": "Transport en camion non spécifié France",
     "elecMJ": 0,
@@ -5457,7 +5457,7 @@
     "scopes": [
       "textile"
     ],
-    "source": "Base Impacts 2.01",
+    "source": "Custom",
     "unit": "t⋅km",
     "waste": 0
   },
@@ -7535,7 +7535,7 @@
     "categories": [
       "transformation"
     ],
-    "comment": "Ancien identifiant (12/2024): 0810b8e5-a3d9-4607-bccc-83d112573260.",
+    "comment": "Données provenant de Base Impacts 2.01. Ancien identifiant (12/2024): 0810b8e5-a3d9-4607-bccc-83d112573260.",
     "density": 0,
     "displayName": "Impression fixé-lavé, procédé représentatif, traitement moyen des eaux usées",
     "elecMJ": 5.22,
@@ -7568,7 +7568,7 @@
     "scopes": [
       "textile"
     ],
-    "source": "Base Impacts 2.01",
+    "source": "Custom",
     "unit": "m2",
     "waste": 0
   },
@@ -10586,7 +10586,7 @@
     "scopes": [
       "textile"
     ],
-    "source": "Ecobalyse",
+    "source": "Custom",
     "unit": "kg",
     "waste": 0
   },
@@ -12678,7 +12678,7 @@
     "categories": [
       "transformation"
     ],
-    "comment": "Ancien identifiant (12/2024): 710987ca-f483-4f1c-9122-38b620f4062b.",
+    "comment": "Données provenant de Base Impacts 2.01. Ancien identifiant (12/2024): 710987ca-f483-4f1c-9122-38b620f4062b.",
     "density": 0,
     "displayName": "Impression pigmentaire, procédé représentatif, traitement moyen des eaux usées",
     "elecMJ": 4.56,
@@ -12711,7 +12711,7 @@
     "scopes": [
       "textile"
     ],
-    "source": "Base Impacts 2.01",
+    "source": "Custom",
     "unit": "m2",
     "waste": 0
   },
@@ -15804,7 +15804,7 @@
     "scopes": [
       "textile"
     ],
-    "source": "Ecobalyse",
+    "source": "Custom",
     "unit": "kg",
     "waste": 0
   },
@@ -16945,7 +16945,7 @@
     "scopes": [
       "textile"
     ],
-    "source": "Ecobalyse",
+    "source": "Custom",
     "unit": "kg",
     "waste": 0
   },
