@@ -54,7 +54,21 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "22 juillet 2025"
+    [ { date = "24 novembre 2025"
+      , level = "major"
+      , domains = [ "Alimentaire", "Textile" ]
+      , md = """Les points d’entrée `/textile/countries` et `/food/countries` on été remplacés par
+                `textile/geo-zones` et `/food/geo-zones`.
+
+                De même, chaque fois que le mot `country` apparaissait dans le nom d’un paramètre,
+                il a été remplacé par `geoZone`.
+
+                Par exemple:
+- `country` => `geoZone`
+- `countrySpinning` => `geoZoneSpinning`.
+                """
+      }
+    , { date = "22 juillet 2025"
       , level = "major"
       , domains = [ "Textile" ]
       , md = """Le paramétrage de la surface d'impression interdit désormais les valeurs supérieures à 80%."""
