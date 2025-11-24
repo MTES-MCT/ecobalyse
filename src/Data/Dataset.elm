@@ -331,7 +331,7 @@ strings dataset =
             { label = "Ingrédients", slug = "ingredients" }
 
         GeoZones _ ->
-            { label = "Zone géographique", slug = "geo-zones" }
+            { label = "Zone", slug = "geo-zones" }
 
         Impacts _ ->
             { label = "Impacts", slug = "impacts" }

@@ -92,7 +92,7 @@ displayDistances geoZones distances geoZone =
                         Html.table [ class "table table-striped table-hover text-center w-100" ]
                             [ thead []
                                 [ tr []
-                                    [ th [] [ text "Code de zone géographique" ]
+                                    [ th [] [ text "Zone" ]
                                     , th [] [ text "Aérien" ]
                                     , th [] [ text "Routier" ]
                                     , th [] [ text "Maritime" ]
