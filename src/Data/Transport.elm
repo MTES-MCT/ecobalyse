@@ -111,8 +111,8 @@ applyTransportRatios airTransportRatio ({ air, road, sea } as transport) =
     }
 
 
-computeImpacts : { a | wellKnown : WellKnown } -> Mass -> Transport -> Transport
-computeImpacts { wellKnown } mass transport =
+computeImpacts : WellKnown -> Mass -> Transport -> Transport
+computeImpacts wellKnown mass transport =
     let
         transportImpacts =
             [ ( wellKnown.lorryTransport, transport.road )

@@ -636,7 +636,9 @@ computeTransports { config, db } query lifeCycle =
                                 (\item ->
                                     case item.country of
                                         Just itemCountry ->
-                                            Transport.getTransportBetween Impact.empty itemCountry assemblyCountry db.distances
+                                            db.distances
+                                                |> Transport.getTransportBetween Impact.empty itemCountry assemblyCountry
+                                                |> Transport.applyTransportRatios Split.zero
 
                                         Nothing ->
                                             config.transports.defaultDistance
