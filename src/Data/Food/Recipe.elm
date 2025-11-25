@@ -181,7 +181,7 @@ compute ({ food } as db) =
                                         )
                                     |> Maybe.withDefault (Transport.default Impact.empty)
                         in
-                        Transport.computeImpacts db.food.wellKnown mass transport
+                        Transport.computeImpacts (convertWellKnownToTransportModes db.food.wellKnown) mass transport
 
                     recipeImpacts =
                         Impact.sumImpacts
@@ -269,6 +269,16 @@ compute ({ food } as db) =
                   }
                 )
             )
+
+
+convertWellKnownToTransportModes : WellKnown -> Transport.ModeProcesses
+convertWellKnownToTransportModes wellKnown =
+    { boat = wellKnown.boatTransport
+    , boatCooling = wellKnown.boatCoolingTransport
+    , lorry = wellKnown.lorryTransport
+    , lorryCooling = wellKnown.lorryCoolingTransport
+    , plane = wellKnown.planeTransport
+    }
 
 
 computeIngredientComplementsImpacts : EcosystemicServices -> Mass -> Impact.ComplementsImpacts
@@ -390,7 +400,7 @@ computeIngredientTransport db { country, ingredient, mass, planeTransport } =
                 |> toTransformation
                 |> toLogistics
     in
-    Transport.computeImpacts db.food.wellKnown mass transport
+    Transport.computeImpacts (convertWellKnownToTransportModes db.food.wellKnown) mass transport
 
 
 preparationListFromQuery : Query -> Result String (List Preparation)

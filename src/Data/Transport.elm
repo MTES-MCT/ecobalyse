@@ -18,7 +18,6 @@ module Data.Transport exposing
     )
 
 import Data.Country as Country
-import Data.Food.WellKnown exposing (WellKnown)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
@@ -123,15 +122,15 @@ applyTransportRatios airTransportRatio ({ air, road, sea } as transport) =
     }
 
 
-computeImpacts : WellKnown -> Mass -> Transport -> Transport
-computeImpacts wellKnown mass transport =
-    let
-        transportImpacts =
-            [ ( wellKnown.lorryTransport, transport.road )
-            , ( wellKnown.lorryCoolingTransport, transport.roadCooled )
-            , ( wellKnown.boatTransport, transport.sea )
-            , ( wellKnown.boatCoolingTransport, transport.seaCooled )
-            , ( wellKnown.planeTransport, transport.air )
+computeImpacts : ModeProcesses -> Mass -> Transport -> Transport
+computeImpacts modes mass transport =
+    { transport
+        | impacts =
+            [ ( modes.lorry, transport.road )
+            , ( modes.lorryCooling, transport.roadCooled )
+            , ( modes.boat, transport.sea )
+            , ( modes.boatCooling, transport.seaCooled )
+            , ( modes.plane, transport.air )
             ]
                 |> List.map
                     (\( transportProcess, distance ) ->
@@ -145,8 +144,7 @@ computeImpacts wellKnown mass transport =
                                 )
                     )
                 |> Impact.sumImpacts
-    in
-    { transport | impacts = transportImpacts }
+    }
 
 
 sum : List Transport -> Transport
