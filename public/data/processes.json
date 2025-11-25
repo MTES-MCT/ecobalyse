@@ -7452,7 +7452,8 @@
     "activityName": "This process is not linked to a Brightway activity",
     "categories": [
       "transformation",
-      "material_type:other"
+      "material_type:other",
+      "material_type:wood"
     ],
     "comment": "Energy consumption based on average data from wood-based panels processes displayed in Ecobalyse (OSB, particleboard, HDF, MDF, plywood). No waste is considered as this process is used for inputs other than virgin wood (ex : recycled wood, glue, resins, etc.).",
     "density": 0,
