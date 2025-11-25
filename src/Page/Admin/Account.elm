@@ -136,6 +136,7 @@ tableConfig =
             , SortableTable.stringColumn "Nom" (.profile >> .lastName)
             , SortableTable.stringColumn "Email " .email
             , SortableTable.stringColumn "Organisation" (.profile >> .organization >> User.organizationToString)
+            , SortableTable.stringColumn "SIREN" (.profile >> .organization >> User.organizationToSirenString)
             , booleanColumn "Actif" .isActive
             , booleanColumn "Vérifié" .isVerified
             , booleanColumn "Admin" .isSuperuser
