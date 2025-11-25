@@ -4,13 +4,13 @@ module Data.Transport exposing
     , Transport
     , add
     , addRoadWithCooling
+    , applyTransportRatios
     , computeImpacts
     , decode
     , decodeDistances
     , default
     , encode
     , getTransportBetween
-    , roadSeaTransportRatio
     , sum
     , totalKm
     )
@@ -87,6 +87,28 @@ addRoadWithCooling distance withCooling transport =
 
     else
         { transport | road = transport.road |> Quantity.plus distance }
+
+
+{-| Applies transportation modes distribution strategies (see methodology docs and the
+`roadSeaTransportRatio` function in this modules)
+-}
+applyTransportRatios : Split -> Transport -> Transport
+applyTransportRatios airTransportRatio ({ air, road, sea } as transport) =
+    let
+        nonAirTransportRatio =
+            Split.complement airTransportRatio
+
+        roadRatio =
+            roadSeaTransportRatio transport
+
+        seaRatio =
+            Split.complement roadRatio
+    in
+    { transport
+        | air = air |> Quantity.multiplyBy (Split.toFloat airTransportRatio)
+        , road = road |> Quantity.multiplyBy (Split.apply (Split.toFloat roadRatio) nonAirTransportRatio)
+        , sea = sea |> Quantity.multiplyBy (Split.apply (Split.toFloat seaRatio) nonAirTransportRatio)
+    }
 
 
 computeImpacts : { a | wellKnown : WellKnown } -> Mass -> Transport -> Transport

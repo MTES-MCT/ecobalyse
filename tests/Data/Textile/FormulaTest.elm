@@ -5,6 +5,7 @@ import Data.Impact.Definition as Definition
 import Data.Split as Split exposing (Split)
 import Data.Textile.Formula as Formula
 import Data.Textile.MakingComplexity as MakingComplexity
+import Data.Transport as Transport
 import Data.Unit as Unit
 import Energy
 import Expect
@@ -215,7 +216,7 @@ testTransportRatio airTransportRatio { road, sea, air } =
     , air = km air
     , impacts = Impact.empty
     }
-        |> Formula.transportRatio airTransportRatio
+        |> Transport.applyTransportRatios airTransportRatio
         |> (\t ->
                 ( t.road |> Length.inKilometers |> round
                 , t.sea |> Length.inKilometers |> round

@@ -37,7 +37,6 @@ import Data.Process as Process exposing (Process)
 import Data.Process.Category as ProcessCategory
 import Data.Scoring as Scoring exposing (Scoring)
 import Data.Split as Split
-import Data.Textile.Formula as Formula
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Density exposing (Density, gramsPerCubicCentimeter)
@@ -342,7 +341,7 @@ computeIngredientTransport db { country, ingredient, mass, planeTransport } =
                         Just { code } ->
                             db.distances
                                 |> Transport.getTransportBetween emptyImpacts code france
-                                |> Formula.transportRatio planeRatio
+                                |> Transport.applyTransportRatios planeRatio
 
                         -- Otherwise retrieve ingredient's default origin transport data
                         Nothing ->
