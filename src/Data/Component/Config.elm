@@ -55,6 +55,7 @@ type alias EndOfLifeStrategy =
 
 type alias TransportConfig =
     { defaultDistance : Transport
+    , modeProcesses : Transport.ModeProcesses
     }
 
 
@@ -116,10 +117,10 @@ decodeEndOfLifeStrategy processes =
 
 
 decodeTransportConfig : List Process -> Decoder TransportConfig
-decodeTransportConfig _ =
-    -- TODO: handle processes
+decodeTransportConfig processes =
     Decode.succeed TransportConfig
         |> Decode.required "defaultDistance" Transport.decode
+        |> Decode.required "modeProcesses" (Transport.decodeModeProcesses processes)
 
 
 default : List Process -> Result String Config

@@ -1,6 +1,7 @@
 module Data.Transport exposing
     ( Distance
     , Distances
+    , ModeProcesses
     , Transport
     , add
     , addRoadWithCooling
@@ -8,6 +9,7 @@ module Data.Transport exposing
     , computeImpacts
     , decode
     , decodeDistances
+    , decodeModeProcesses
     , default
     , encode
     , getTransportBetween
@@ -18,6 +20,7 @@ module Data.Transport exposing
 import Data.Country as Country
 import Data.Food.WellKnown exposing (WellKnown)
 import Data.Impact as Impact exposing (Impacts)
+import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
 import Dict.Any as Dict exposing (AnyDict)
@@ -35,6 +38,15 @@ type alias Distance =
 
 type alias Distances =
     AnyDict String Country.Code Distance
+
+
+type alias ModeProcesses =
+    { boat : Process
+    , boatCooling : Process
+    , lorry : Process
+    , lorryCooling : Process
+    , plane : Process
+    }
 
 
 type alias Transport =
@@ -267,3 +279,13 @@ decodeDistances =
         (\str _ -> Country.codeFromString str)
         Country.codeToString
         decodeDistance
+
+
+decodeModeProcesses : List Process -> Decoder ModeProcesses
+decodeModeProcesses processes =
+    Decode.succeed ModeProcesses
+        |> Decode.required "boat" (Process.decodeFromId processes)
+        |> Decode.required "boatCooling" (Process.decodeFromId processes)
+        |> Decode.required "lorry" (Process.decodeFromId processes)
+        |> Decode.required "lorryCooling" (Process.decodeFromId processes)
+        |> Decode.required "plane" (Process.decodeFromId processes)
