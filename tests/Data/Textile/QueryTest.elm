@@ -1,6 +1,6 @@
 module Data.Textile.QueryTest exposing (..)
 
-import Data.GeoZone as GeoZone
+import Data.Geozone as Geozone
 import Data.Split as Split
 import Data.Textile.Inputs as Inputs
 import Data.Textile.MakingComplexity as MakingComplexity
@@ -21,7 +21,7 @@ sampleQuery =
                     [ { id = polyesterId
                       , share = Split.full
                       , spinning = Nothing
-                      , geoZone = Just (GeoZone.Code "CN")
+                      , geozone = Just (Geozone.Code "CN")
                       }
                     ]
             }
@@ -111,7 +111,7 @@ suite =
                         [ [ { id = id
                             , share = Split.tenth
                             , spinning = Nothing
-                            , geoZone = Nothing
+                            , geozone = Nothing
                             }
                           ]
                             |> Query.validateMaterials
@@ -124,16 +124,16 @@ suite =
                     (Material.idFromString "73ef624d-250e-4a9a-af5d-43505b21b527")
                     (\cottonId syntheticId ->
                         [ [ { id = cottonId
-                                  , share = Split.half
-                                  , spinning = Nothing
-                                  , geoZone = Nothing
-                                  }
-                                , { id = syntheticId
-                                  , share = Split.half
-                                  , spinning = Nothing
-                                  , geoZone = Nothing
-                                  }
-                                ]
+                            , share = Split.half
+                            , spinning = Nothing
+                            , geozone = Nothing
+                            }
+                          , { id = syntheticId
+                            , share = Split.half
+                            , spinning = Nothing
+                            , geozone = Nothing
+                            }
+                          ]
                             |> Query.validateMaterials
                             |> Expect.ok
                             |> asTest "validates complete sum of materials"
@@ -146,21 +146,21 @@ suite =
                     (Material.idFromString "62a4d6fb-3276-4ba5-93a3-889ecd3bff84")
                     (\polyesterId polypropyleneId cottonId ->
                         [ [ { id = polyesterId
-                                  , share = Split.sixty
-                                  , spinning = Nothing
-                                  , geoZone = Nothing
-                                  }
-                                , { id = polypropyleneId
-                                  , share = Split.thirty
-                                  , spinning = Nothing
-                                  , geoZone = Nothing
-                                  }
-                                  , { id = cottonId
-                                  , share = Split.tenth
-                                  , spinning = Nothing
-                                  , geoZone = Nothing
-                                  }
-                                ]
+                            , share = Split.sixty
+                            , spinning = Nothing
+                            , geozone = Nothing
+                            }
+                          , { id = polypropyleneId
+                            , share = Split.thirty
+                            , spinning = Nothing
+                            , geozone = Nothing
+                            }
+                          , { id = cottonId
+                            , share = Split.tenth
+                            , spinning = Nothing
+                            , geozone = Nothing
+                            }
+                          ]
                             |> Query.validateMaterials
                             |> Expect.ok
                             |> asTest "validates complete sum of materials with rounding error"

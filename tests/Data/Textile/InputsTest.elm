@@ -1,6 +1,6 @@
 module Data.Textile.InputsTest exposing (..)
 
-import Data.GeoZone as GeoZone
+import Data.Geozone as Geozone
 import Data.Split as Split
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Material as Material
@@ -21,21 +21,21 @@ suite =
                     tShirtCotonFrance
                     (\query ->
                         [ { query
-                            | geoZoneFabric = Just (GeoZone.Code "CN")
-                            , geoZoneDyeing = Just (GeoZone.Code "CN")
-                            , geoZoneMaking = Just (GeoZone.Code "CN")
+                            | geozoneFabric = Just (Geozone.Code "CN")
+                            , geozoneDyeing = Just (Geozone.Code "CN")
+                            , geozoneMaking = Just (Geozone.Code "CN")
                           }
                             |> Inputs.fromQuery db
-                            |> Result.map Inputs.geoZoneList
+                            |> Result.map Inputs.geozoneList
                             |> Result.andThen (LE.getAt 0 >> Maybe.map .code >> Result.fromMaybe "")
-                            |> Expect.equal (Ok (GeoZone.codeFromString "CN"))
+                            |> Expect.equal (Ok (Geozone.codeFromString "CN"))
                             |> asTest "replace the first geographical zone with the material's default geographical zone"
                         ]
                     )
                 , { default
-                    | geoZoneFabric = Just (GeoZone.Code "XX")
-                    , geoZoneDyeing = Just (GeoZone.Code "CN")
-                    , geoZoneMaking = Just (GeoZone.Code "CN")
+                    | geozoneFabric = Just (Geozone.Code "XX")
+                    , geozoneDyeing = Just (Geozone.Code "CN")
+                    , geozoneMaking = Just (Geozone.Code "CN")
                   }
                     |> Inputs.fromQuery db
                     |> Expect.equal (Err "Code de zone géographique invalide: XX.")
@@ -68,12 +68,12 @@ suite =
                                 [ { id = cottonId
                                   , share = Split.half
                                   , spinning = Nothing
-                                  , geoZone = Nothing
+                                  , geozone = Nothing
                                   }
                                 , { id = syntheticId
                                   , share = Split.half
                                   , spinning = Nothing
-                                  , geoZone = Nothing
+                                  , geozone = Nothing
                                   }
                                 ]
                           }
@@ -109,12 +109,12 @@ suite =
                                 [ { id = cottonId
                                   , share = Split.half
                                   , spinning = Nothing
-                                  , geoZone = Nothing
+                                  , geozone = Nothing
                                   }
                                 , { id = syntheticId
                                   , share = Split.half
                                   , spinning = Nothing
-                                  , geoZone = Nothing
+                                  , geozone = Nothing
                                   }
                                 ]
                           }

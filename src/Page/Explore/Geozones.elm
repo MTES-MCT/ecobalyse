@@ -1,7 +1,7 @@
-module Page.Explore.GeoZones exposing (table)
+module Page.Explore.Geozones exposing (table)
 
 import Data.Dataset as Dataset
-import Data.GeoZone as GeoZone exposing (GeoZone)
+import Data.Geozone as Geozone exposing (Geozone)
 import Data.Gitbook as Gitbook
 import Data.Process as Process
 import Data.Scope as Scope exposing (Scope)
@@ -18,25 +18,25 @@ import Views.Icon as Icon
 import Views.Link as Link
 
 
-table : Transport.Distances -> List GeoZone.GeoZone -> { detailed : Bool, scope : Scope } -> Table GeoZone String msg
-table distances geoZones { detailed, scope } =
-    { filename = "geo-zones"
-    , toId = .code >> GeoZone.codeToString
-    , toRoute = .code >> Just >> Dataset.GeoZones >> Route.Explore scope
+table : Transport.Distances -> List Geozone.Geozone -> { detailed : Bool, scope : Scope } -> Table Geozone String msg
+table distances geozones { detailed, scope } =
+    { filename = "geozones"
+    , toId = .code >> Geozone.codeToString
+    , toRoute = .code >> Just >> Dataset.Geozones >> Route.Explore scope
     , legend = []
     , columns =
         List.filterMap identity
             [ Just
                 { label = "Code"
-                , toValue = Table.StringValue <| .code >> GeoZone.codeToString
+                , toValue = Table.StringValue <| .code >> Geozone.codeToString
                 , toCell =
-                    \geoZone ->
+                    \geozone ->
                         if detailed then
-                            code [] [ text (GeoZone.codeToString geoZone.code) ]
+                            code [] [ text (Geozone.codeToString geozone.code) ]
 
                         else
-                            a [ Route.href (Route.Explore scope (Dataset.GeoZones (Just geoZone.code))) ]
-                                [ code [] [ text (GeoZone.codeToString geoZone.code) ] ]
+                            a [ Route.href (Route.Explore scope (Dataset.Geozones (Just geozone.code))) ]
+                                [ code [] [ text (Geozone.codeToString geozone.code) ] ]
                 }
             , Just
                 { label = "Nom"
@@ -56,11 +56,11 @@ table distances geoZones { detailed, scope } =
             , if scope == Scope.Textile then
                 Just
                     { label = "Taux de pollution aquatique"
-                    , toValue = Table.FloatValue (.aquaticPollutionScenario >> GeoZone.getAquaticPollutionRatio >> Split.toPercent)
+                    , toValue = Table.FloatValue (.aquaticPollutionScenario >> Geozone.getAquaticPollutionRatio >> Split.toPercent)
                     , toCell =
-                        \geoZone ->
+                        \geozone ->
                             div [ classList [ ( "text-end", not detailed ) ] ]
-                                [ Format.splitAsPercentage 2 (GeoZone.getAquaticPollutionRatio geoZone.aquaticPollutionScenario)
+                                [ Format.splitAsPercentage 2 (Geozone.getAquaticPollutionRatio geozone.aquaticPollutionScenario)
                                 , Link.smallPillExternal
                                     [ href (Gitbook.publicUrlFromPath Gitbook.TextileEnnoblingCountriesAquaticPollution) ]
                                     [ Icon.info ]
@@ -73,7 +73,7 @@ table distances geoZones { detailed, scope } =
                 Just
                     { label = "Distances"
                     , toValue = Table.StringValue <| always ""
-                    , toCell = displayDistances geoZones distances
+                    , toCell = displayDistances geozones distances
                     }
 
               else
@@ -82,12 +82,12 @@ table distances geoZones { detailed, scope } =
     }
 
 
-displayDistances : List GeoZone.GeoZone -> Transport.Distances -> GeoZone -> Html msg
-displayDistances geoZones distances geoZone =
-    case Dict.get geoZone.code distances of
-        Just geoZoneDistances ->
-            geoZoneDistances
-                |> Dict.foldl (distancesToRows geoZones) []
+displayDistances : List Geozone.Geozone -> Transport.Distances -> Geozone -> Html msg
+displayDistances geozones distances geozone =
+    case Dict.get geozone.code distances of
+        Just geozoneDistances ->
+            geozoneDistances
+                |> Dict.foldl (distancesToRows geozones) []
                 |> (\rows ->
                         Html.table [ class "table table-striped table-hover text-center w-100" ]
                             [ thead []
@@ -107,14 +107,14 @@ displayDistances geoZones distances geoZone =
             text ""
 
 
-distancesToRows : List GeoZone.GeoZone -> GeoZone.Code -> Transport.Transport -> List (Html msg) -> List (Html msg)
-distancesToRows geoZones geoZoneCode transport rows =
+distancesToRows : List Geozone.Geozone -> Geozone.Code -> Transport.Transport -> List (Html msg) -> List (Html msg)
+distancesToRows geozones geozoneCode transport rows =
     rows
-        |> (::) (transportToRow geoZoneCode geoZones transport)
+        |> (::) (transportToRow geozoneCode geozones transport)
 
 
-transportToRow : GeoZone.Code -> List GeoZone.GeoZone -> Transport.Transport -> Html msg
-transportToRow geoZoneCode geoZones transport =
+transportToRow : Geozone.Code -> List Geozone.Geozone -> Transport.Transport -> Html msg
+transportToRow geozoneCode geozones transport =
     let
         formatDistance length =
             if length == Quantity.zero then
@@ -125,12 +125,12 @@ transportToRow geoZoneCode geoZones transport =
     in
     tr []
         [ td
-            [ GeoZone.findByCode geoZoneCode geoZones
+            [ Geozone.findByCode geozoneCode geozones
                 |> Result.map .name
                 |> Result.withDefault ""
                 |> title
             ]
-            [ text <| GeoZone.codeToString geoZoneCode ]
+            [ text <| Geozone.codeToString geozoneCode ]
         , td [] [ formatDistance transport.air ]
         , td [] [ formatDistance transport.road ]
         , td [] [ formatDistance transport.sea ]

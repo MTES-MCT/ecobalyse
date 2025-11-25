@@ -800,7 +800,7 @@ q {
   grid-gap: 5px;
   grid-template-columns: 100px 35% 2fr 1fr 90px 31px;
   grid-template-areas:
-    "quantityInputWrapper  elementSelector  geoZoneSelector     geoZoneSelector     impactDisplay    baseElementDelete"
+    "quantityInputWrapper  elementSelector  geozoneSelector     geozoneSelector     impactDisplay    baseElementDelete"
     ".                     complements      complements         complements         complements      .                "
     ".                     .                transportDistances  transportDistances  transportImpact  .                ";
   align-items: center;
@@ -810,7 +810,7 @@ q {
     grid-template-columns: 90px minmax(100px, 60%) 60px 31px;
     grid-template-areas:
       "quantityInputWrapper  elementSelector     impactDisplay    impactDisplay    "
-      "geoZoneSelector       geoZoneSelector     geoZoneSelector  baseElementDelete"
+      "geozoneSelector       geozoneSelector     geozoneSelector  baseElementDelete"
       "complements           complements         complements      complements      "
       "transportDistances    transportDistances  transportImpact  transportImpact  ";
   }
@@ -824,8 +824,8 @@ q {
       margin-right: 5px;
     }
   }
-  .GeoZoneSelector {
-    grid-area: geoZoneSelector;
+  .GeozoneSelector {
+    grid-area: geozoneSelector;
   }
   .ElementDelete {
     grid-area: baseElementDelete;

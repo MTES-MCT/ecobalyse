@@ -23,7 +23,6 @@ module Data.Food.Recipe exposing
     , toString
     )
 
-import Data.GeoZone as GeoZone exposing (GeoZone)
 import Data.Food.EcosystemicServices as EcosystemicServices exposing (EcosystemicServices)
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Origin as Origin
@@ -31,6 +30,7 @@ import Data.Food.Preparation as Preparation exposing (Preparation)
 import Data.Food.Query as BuilderQuery exposing (Query)
 import Data.Food.Retail as Retail
 import Data.Food.WellKnown exposing (WellKnown)
+import Data.Geozone as Geozone exposing (Geozone)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
 import Data.Process as Process exposing (Process)
@@ -51,9 +51,9 @@ import String.Extra as SE
 import Volume exposing (Volume)
 
 
-france : GeoZone.Code
+france : Geozone.Code
 france =
-    GeoZone.codeFromString "FR"
+    Geozone.codeFromString "FR"
 
 
 type alias Packaging =
@@ -63,7 +63,7 @@ type alias Packaging =
 
 
 type alias RecipeIngredient =
-    { geoZone : Maybe GeoZone
+    { geozone : Maybe Geozone
     , ingredient : Ingredient
     , mass : Mass
     , planeTransport : Ingredient.PlaneTransport
@@ -320,7 +320,7 @@ computeIngredientsTotalComplements =
 
 
 computeIngredientTransport : Db -> RecipeIngredient -> Transport
-computeIngredientTransport db { geoZone, ingredient, mass, planeTransport } =
+computeIngredientTransport db { geozone, ingredient, mass, planeTransport } =
     let
         emptyImpacts =
             Impact.empty
@@ -337,7 +337,7 @@ computeIngredientTransport db { geoZone, ingredient, mass, planeTransport } =
         baseTransport =
             let
                 base =
-                    case geoZone of
+                    case geozone of
                         -- In case a custom geographical zone is provided, compute the distances to it from France
                         Just { code } ->
                             db.distances
@@ -371,9 +371,9 @@ computeIngredientTransport db { geoZone, ingredient, mass, planeTransport } =
             -- 500km of road transport are added for every ingredient that are not coming from France.
             -- This corresponds to the step "2. RECETTE" in the
             -- [transport documentation](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)
-            case geoZone of
+            case geozone of
                 Just { code } ->
-                    if code /= GeoZone.codeFromString "FR" then
+                    if code /= Geozone.codeFromString "FR" then
                         Transport.addRoadWithCooling (Length.kilometers 500) (ingredient.transportCooling == Ingredient.AlwaysCool) t
 
                     else
@@ -556,16 +556,16 @@ ingredientListFromQuery db =
 
 
 ingredientFromQuery : Db -> BuilderQuery.IngredientQuery -> Result String RecipeIngredient
-ingredientFromQuery db { geoZone, id, mass, planeTransport } =
+ingredientFromQuery db { geozone, id, mass, planeTransport } =
     let
         ingredientResult =
             Ingredient.findById id db.food.ingredients
     in
     Ok RecipeIngredient
         |> RE.andMap
-            (case Maybe.map (\c -> GeoZone.findByCode c db.geoZones) geoZone of
-                Just (Ok geoZone_) ->
-                    Ok (Just geoZone_)
+            (case Maybe.map (\c -> Geozone.findByCode c db.geozones) geozone of
+                Just (Ok geozone_) ->
+                    Ok (Just geozone_)
 
                 Just (Err error) ->
                     Err error
@@ -583,7 +583,7 @@ ingredientFromQuery db { geoZone, id, mass, planeTransport } =
 
 ingredientQueryFromIngredient : Ingredient -> BuilderQuery.IngredientQuery
 ingredientQueryFromIngredient ingredient =
-    { geoZone = Nothing
+    { geozone = Nothing
     , id = ingredient.id
     , mass = Mass.grams 100
     , planeTransport = Ingredient.byPlaneByDefault ingredient

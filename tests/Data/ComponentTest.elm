@@ -622,7 +622,7 @@ suite =
                             |> Expect.equal
                                 (Ok <|
                                     Just
-                                        { geoZone = Nothing
+                                        { geozone = Nothing
                                         , custom = Nothing
                                         , id = testComponent.id
                                         , quantity = Component.quantityFromInt 1

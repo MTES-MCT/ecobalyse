@@ -1,8 +1,8 @@
 module Data.Textile.Validation exposing (validate)
 
 import Data.Component as Component
-import Data.GeoZone as GeoZone
 import Data.Env as Env
+import Data.Geozone as Geozone
 import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
 import Data.Textile.Economics as Economics
@@ -27,10 +27,10 @@ validate db query =
         |> Validation.ok "dyeingProcessType" query.dyeingProcessType
         |> Validation.ok "fabricProcess" query.fabricProcess
         |> Validation.ok "fading" query.fading
-        |> Validation.maybe "geoZoneDyeing" query.geoZoneDyeing (GeoZone.validateForScope Scope.Textile db.geoZones)
-        |> Validation.maybe "geoZoneFabric" query.geoZoneFabric (GeoZone.validateForScope Scope.Textile db.geoZones)
-        |> Validation.maybe "geoZoneMaking" query.geoZoneMaking (GeoZone.validateForScope Scope.Textile db.geoZones)
-        |> Validation.maybe "geoZoneSpinning" query.geoZoneSpinning (GeoZone.validateForScope Scope.Textile db.geoZones)
+        |> Validation.maybe "geozoneDyeing" query.geozoneDyeing (Geozone.validateForScope Scope.Textile db.geozones)
+        |> Validation.maybe "geozoneFabric" query.geozoneFabric (Geozone.validateForScope Scope.Textile db.geozones)
+        |> Validation.maybe "geozoneMaking" query.geozoneMaking (Geozone.validateForScope Scope.Textile db.geozones)
+        |> Validation.maybe "geozoneSpinning" query.geozoneSpinning (Geozone.validateForScope Scope.Textile db.geozones)
         |> Validation.ok "makingComplexity" query.makingComplexity
         |> Validation.maybe "makingDeadStock" query.makingDeadStock validateMakingDeadStock
         |> Validation.maybe "makingWaste" query.makingWaste validateMakingWaste
@@ -80,8 +80,8 @@ validateMaterialQuery : Db -> MaterialQuery -> Result String MaterialQuery
 validateMaterialQuery db materialQuery =
     Ok MaterialQuery
         |> RE.andMap
-            (materialQuery.geoZone
-                |> validateMaybe (GeoZone.validateForScope Scope.Textile db.geoZones)
+            (materialQuery.geozone
+                |> validateMaybe (Geozone.validateForScope Scope.Textile db.geozones)
             )
         |> RE.andMap
             (db.textile.materials

@@ -12,7 +12,7 @@ module Data.Textile.Material exposing
     , idToString
     )
 
-import Data.GeoZone as GeoZone
+import Data.Geozone as Geozone
 import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
 import Data.Textile.Material.Origin as Origin exposing (Origin)
@@ -25,7 +25,7 @@ import Json.Encode as Encode
 type alias Material =
     { alias : String
     , cffData : Maybe CFFData
-    , defaultGeoZone : GeoZone.Code -- Default geographical zone for Material and Spinning steps
+    , defaultGeozone : Geozone.Code -- Default geographical zone for Material and Spinning steps
     , geographicOrigin : String -- A textual information about the geographic origin of the material
     , id : Id
     , name : String
@@ -87,6 +87,7 @@ getRecyclingData material materials =
 
 ---- Helpers
 
+
 findById : Id -> List Material -> Result String Material
 findById id =
     List.filter (.id >> (==) id)
@@ -99,7 +100,7 @@ decode processes =
     Decode.succeed Material
         |> JDP.required "alias" Decode.string
         |> JDP.required "cff" (Decode.maybe decodeCFFData)
-        |> JDP.required "defaultGeoZone" (Decode.string |> Decode.map GeoZone.codeFromString)
+        |> JDP.required "defaultGeozone" (Decode.string |> Decode.map Geozone.codeFromString)
         |> JDP.required "geographicOrigin" Decode.string
         |> JDP.required "id" decodeId
         |> JDP.required "name" Decode.string
@@ -124,7 +125,7 @@ encode : Material -> Encode.Value
 encode v =
     Encode.object
         [ ( "alias", Encode.string v.alias )
-        , ( "defaultGeoZone", v.defaultGeoZone |> GeoZone.codeToString |> Encode.string )
+        , ( "defaultGeozone", v.defaultGeozone |> Geozone.codeToString |> Encode.string )
         , ( "id", encodeId v.id )
         , ( "geographicOrigin", Encode.string v.geographicOrigin )
         , ( "name", v.name |> Encode.string )

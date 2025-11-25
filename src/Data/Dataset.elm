@@ -13,7 +13,7 @@ module Data.Dataset exposing
 
 import Data.Component as Component
 import Data.Food.Ingredient as Ingredient
-import Data.GeoZone as GeoZone
+import Data.Geozone as Geozone
 import Data.Impact.Definition as Definition
 import Data.Process as Process
 import Data.Scope as Scope exposing (Scope)
@@ -32,7 +32,7 @@ type Dataset
     = Components Scope (Maybe Component.Id)
     | FoodExamples (Maybe Uuid)
     | FoodIngredients (Maybe Ingredient.Id)
-    | GeoZones (Maybe GeoZone.Code)
+    | Geozones (Maybe Geozone.Code)
     | Impacts (Maybe Definition.Trigram)
     | ObjectExamples (Maybe Uuid)
     | Processes Scope (Maybe Process.Id)
@@ -49,7 +49,7 @@ datasets scope =
             [ FoodExamples Nothing
             , Impacts Nothing
             , FoodIngredients Nothing
-            , GeoZones Nothing
+            , Geozones Nothing
             , Processes Scope.Food Nothing
             ]
 
@@ -65,7 +65,7 @@ datasets scope =
             , Components Scope.Textile Nothing
             , Impacts Nothing
             , TextileMaterials Nothing
-            , GeoZones Nothing
+            , Geozones Nothing
             , Processes Scope.Textile Nothing
             , TextileProducts Nothing
             ]
@@ -97,8 +97,8 @@ defaultDatasetFor scope =
 fromSlug : String -> Dataset
 fromSlug string =
     case string of
-        "geo-zones" ->
-            GeoZones Nothing
+        "geozones" ->
+            Geozones Nothing
 
         "food-examples" ->
             FoodExamples Nothing
@@ -161,7 +161,7 @@ isDetailed dataset =
         FoodIngredients (Just _) ->
             True
 
-        GeoZones (Just _) ->
+        Geozones (Just _) ->
             True
 
         Impacts (Just _) ->
@@ -211,8 +211,8 @@ reset dataset =
         FoodIngredients _ ->
             FoodIngredients Nothing
 
-        GeoZones _ ->
-            GeoZones Nothing
+        Geozones _ ->
+            Geozones Nothing
 
         Impacts _ ->
             Impacts Nothing
@@ -239,7 +239,7 @@ reset dataset =
 same : Dataset -> Dataset -> Bool
 same a b =
     case ( a, b ) of
-        ( GeoZones _, GeoZones _ ) ->
+        ( Geozones _, Geozones _ ) ->
             True
 
         ( FoodExamples _, FoodExamples _ ) ->
@@ -288,8 +288,8 @@ setIdFromString idString dataset =
         FoodIngredients _ ->
             FoodIngredients (idString |> Ingredient.idFromString |> Result.toMaybe)
 
-        GeoZones _ ->
-            GeoZones (Just (GeoZone.codeFromString idString))
+        Geozones _ ->
+            Geozones (Just (Geozone.codeFromString idString))
 
         Impacts _ ->
             Impacts (Definition.toTrigram idString |> Result.toMaybe)
@@ -330,8 +330,8 @@ strings dataset =
         FoodIngredients _ ->
             { label = "Ingrédients", slug = "ingredients" }
 
-        GeoZones _ ->
-            { label = "Zone", slug = "geo-zones" }
+        Geozones _ ->
+            { label = "Zone", slug = "geozones" }
 
         Impacts _ ->
             { label = "Impacts", slug = "impacts" }
@@ -376,10 +376,10 @@ toRoutePath dataset =
         FoodIngredients Nothing ->
             [ slug dataset ]
 
-        GeoZones (Just code) ->
-            [ slug dataset, GeoZone.codeToString code ]
+        Geozones (Just code) ->
+            [ slug dataset, Geozone.codeToString code ]
 
-        GeoZones Nothing ->
+        Geozones Nothing ->
             [ slug dataset ]
 
         Impacts (Just trigram) ->

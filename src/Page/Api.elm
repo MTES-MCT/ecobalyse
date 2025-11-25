@@ -58,14 +58,14 @@ changelog =
       , level = "major"
       , domains = [ "Alimentaire", "Textile" ]
       , md = """Les points d’entrée `/textile/countries` et `/food/countries` on été remplacés par
-                `textile/geo-zones` et `/food/geo-zones`.
+                `textile/geozones` et `/food/geozones`.
 
                 De même, chaque fois que le mot `country` apparaissait dans le nom d’un paramètre,
-                il a été remplacé par `geoZone`.
+                il a été remplacé par `geozone`.
 
                 Par exemple:
-- `country` => `geoZone`
-- `countrySpinning` => `geoZoneSpinning`.
+- `country` => `geozone`
+- `countrySpinning` => `geozoneSpinning`.
                 """
       }
     , { date = "22 juillet 2025"

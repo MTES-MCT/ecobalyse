@@ -6,11 +6,11 @@ port module Server exposing
     )
 
 import Data.Component as Component exposing (Component)
-import Data.GeoZone as GeoZone exposing (GeoZone)
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Origin as Origin
 import Data.Food.Query as FoodQuery
 import Data.Food.Recipe as Recipe
+import Data.Geozone as Geozone exposing (Geozone)
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Process as Process exposing (Process)
@@ -166,10 +166,10 @@ executeTextileQuery request db encoder query =
         |> Result.withDefault ( 500, Encode.string "Impossible de charger la configuration des composants" )
 
 
-encodeGeoZone : GeoZone -> Encode.Value
-encodeGeoZone { code, name } =
+encodeGeozone : Geozone -> Encode.Value
+encodeGeozone { code, name } =
     Encode.object
-        [ ( "code", GeoZone.encodeCode code )
+        [ ( "code", Geozone.encodeCode code )
         , ( "name", Encode.string name )
         ]
 
@@ -243,10 +243,10 @@ handleRequest : Db -> Request -> JsonResponse
 handleRequest db request =
     case Route.endpoint db request of
         -- GET routes
-        Just Route.FoodGetGeoZoneList ->
-            db.geoZones
+        Just Route.FoodGetGeozoneList ->
+            db.geozones
                 |> Scope.anyOf [ Scope.Food ]
-                |> Encode.list encodeGeoZone
+                |> Encode.list encodeGeozone
                 |> respondWith 200
 
         Just Route.FoodGetIngredientList ->
@@ -268,10 +268,10 @@ handleRequest db request =
                 |> encodeProcessList
                 |> respondWith 200
 
-        Just Route.TextileGetGeoZoneList ->
-            db.geoZones
+        Just Route.TextileGetGeozoneList ->
+            db.geozones
                 |> Scope.anyOf [ Scope.Textile ]
-                |> Encode.list encodeGeoZone
+                |> Encode.list encodeGeozone
                 |> respondWith 200
 
         Just Route.TextileGetMaterialList ->

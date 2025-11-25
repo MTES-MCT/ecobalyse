@@ -13,13 +13,13 @@ import App exposing (Msg, PageUpdate)
 import Browser.Events
 import Browser.Navigation as Nav
 import Data.Component as Component exposing (Component)
-import Data.GeoZone as GeoZone exposing (GeoZone)
 import Data.Dataset as Dataset exposing (Dataset)
 import Data.Example as Example exposing (Example)
 import Data.Food.Db as FoodDb
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Query as FoodQuery
 import Data.Food.Recipe as Recipe
+import Data.Geozone as Geozone exposing (Geozone)
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Key as Key
@@ -38,9 +38,9 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Page.Explore.Components as Components
-import Page.Explore.GeoZones as ExploreGeoZones
 import Page.Explore.FoodExamples as FoodExamples
 import Page.Explore.FoodIngredients as FoodIngredients
+import Page.Explore.Geozones as ExploreGeozones
 import Page.Explore.Impacts as ExploreImpacts
 import Page.Explore.ObjectExamples as ObjectExamples
 import Page.Explore.Processes as Processes
@@ -86,7 +86,7 @@ init scope dataset session =
                 Dataset.FoodIngredients _ ->
                     "Identifiant"
 
-                Dataset.GeoZones _ ->
+                Dataset.Geozones _ ->
                     "Nom"
 
                 Dataset.Impacts _ ->
@@ -153,8 +153,8 @@ update session msg model =
                 |> App.withCmds
                     [ (case model.dataset of
                         -- Try selecting the most appropriate tab when switching scope.
-                        Dataset.GeoZones _ ->
-                            Dataset.GeoZones Nothing
+                        Dataset.Geozones _ ->
+                            Dataset.Geozones Nothing
 
                         Dataset.Impacts _ ->
                             Dataset.Impacts Nothing
@@ -258,27 +258,27 @@ alert error =
         ]
 
 
-geoZonesExplorer :
+geozonesExplorer :
     Db
-    -> Table.Config GeoZone Msg
+    -> Table.Config Geozone Msg
     -> SortableTable.State
     -> Scope
-    -> Maybe GeoZone.Code
+    -> Maybe Geozone.Code
     -> List (Html Msg)
-geoZonesExplorer { distances, geoZones } tableConfig tableState scope maybeCode =
-    [ geoZones
+geozonesExplorer { distances, geozones } tableConfig tableState scope maybeCode =
+    [ geozones
         |> List.filter (.scopes >> List.member scope)
-        |> Table.viewList OpenDetail tableConfig tableState scope (ExploreGeoZones.table distances geoZones)
+        |> Table.viewList OpenDetail tableConfig tableState scope (ExploreGeozones.table distances geozones)
     , case maybeCode of
         Just code ->
             detailsModal
-                (case GeoZone.findByCode code geoZones of
+                (case Geozone.findByCode code geozones of
                     Err error ->
                         alert error
 
-                    Ok geoZone ->
-                        geoZone
-                            |> Table.viewDetails scope (ExploreGeoZones.table distances geoZones)
+                    Ok geozone ->
+                        geozone
+                            |> Table.viewDetails scope (ExploreGeozones.table distances geozones)
                 )
 
         Nothing ->
@@ -702,8 +702,8 @@ explore ({ db } as session) { scope, dataset, tableState } =
         Dataset.FoodIngredients maybeId ->
             foodIngredientsExplorer db tableConfig tableState maybeId
 
-        Dataset.GeoZones maybeCode ->
-            geoZonesExplorer db tableConfig tableState scope maybeCode
+        Dataset.Geozones maybeCode ->
+            geozonesExplorer db tableConfig tableState scope maybeCode
 
         Dataset.Impacts maybeTrigram ->
             impactsExplorer db.definitions tableConfig tableState scope maybeTrigram

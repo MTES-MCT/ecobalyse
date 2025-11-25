@@ -1,7 +1,7 @@
-module Data.GeoZone exposing
+module Data.Geozone exposing
     ( AquaticPollutionScenario(..)
     , Code(..)
-    , GeoZone
+    , Geozone
     , codeFromString
     , codeToString
     , decodeCode
@@ -11,7 +11,7 @@ module Data.GeoZone exposing
     , findByCode
     , getAquaticPollutionRatio
     , isEuropeOrTurkey
-    , unknownGeoZoneCode
+    , unknownGeozoneCode
     , validateForScope
     )
 
@@ -35,7 +35,7 @@ type AquaticPollutionScenario
     | Worst
 
 
-type alias GeoZone =
+type alias Geozone =
     { aquaticPollutionScenario : AquaticPollutionScenario
     , code : Code
     , electricityProcess : Process
@@ -56,16 +56,16 @@ codeToString (Code string) =
     string
 
 
-findByCode : Code -> List GeoZone -> Result String GeoZone
+findByCode : Code -> List Geozone -> Result String Geozone
 findByCode code =
     List.filter (.code >> (==) code)
         >> List.head
         >> Result.fromMaybe ("Code de zone géographique invalide: " ++ codeToString code ++ ".")
 
 
-decode : List Process -> Decoder GeoZone
+decode : List Process -> Decoder Geozone
 decode processes =
-    Decode.succeed GeoZone
+    Decode.succeed Geozone
         |> Pipe.required "aquaticPollutionScenario" decodeAquaticPollutionScenario
         |> Pipe.required "code" decodeCode
         |> Pipe.required "electricityProcessId" (Process.decodeFromId processes)
@@ -80,12 +80,12 @@ decodeCode =
     Decode.map Code Decode.string
 
 
-decodeList : List Process -> Decoder (List GeoZone)
+decodeList : List Process -> Decoder (List Geozone)
 decodeList processes =
     Decode.list (decode processes)
 
 
-encode : GeoZone -> Encode.Value
+encode : Geozone -> Encode.Value
 encode v =
     Encode.object
         [ ( "aquaticPollutionScenario", v.aquaticPollutionScenario |> aquaticPollutionScenarioToString |> Encode.string )
@@ -152,20 +152,20 @@ getAquaticPollutionRatio scenario =
                 Split.fromPercent 37
 
 
-isEuropeOrTurkey : GeoZone -> Bool
-isEuropeOrTurkey geoZone =
-    geoZone.worldRegion == WorldRegion.Europe || geoZone.code == codeFromString "TR"
+isEuropeOrTurkey : Geozone -> Bool
+isEuropeOrTurkey geozone =
+    geozone.worldRegion == WorldRegion.Europe || geozone.code == codeFromString "TR"
 
 
-unknownGeoZoneCode : Code
-unknownGeoZoneCode =
+unknownGeozoneCode : Code
+unknownGeozoneCode =
     Code "---"
 
 
-validateForScope : Scope -> List GeoZone -> Code -> Result String Code
-validateForScope scope geoZones geoZoneCode =
-    geoZones
-        |> findByCode geoZoneCode
+validateForScope : Scope -> List Geozone -> Code -> Result String Code
+validateForScope scope geozones geozoneCode =
+    geozones
+        |> findByCode geozoneCode
         |> Result.andThen
             (\{ code, scopes } ->
                 if List.member scope scopes then
@@ -173,7 +173,7 @@ validateForScope scope geoZones geoZoneCode =
 
                 else
                     "Le code de zone géographique "
-                        ++ codeToString geoZoneCode
+                        ++ codeToString geozoneCode
                         ++ " n'est pas utilisable dans un contexte "
                         ++ Scope.toLabel scope
                         ++ "."

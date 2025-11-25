@@ -5,10 +5,10 @@
     "name": "Tshirt lin (150g) - France - Mode \"éthique\"",
     "query": {
       "business": "small-business",
-      "geoZoneDyeing": "FR",
-      "geoZoneFabric": "FR",
-      "geoZoneMaking": "FR",
-      "geoZoneSpinning": "TR",
+      "geozoneDyeing": "FR",
+      "geozoneFabric": "FR",
+      "geozoneMaking": "FR",
+      "geozoneSpinning": "TR",
       "mass": 0.15,
       "materials": [
         {
@@ -28,10 +28,10 @@
     "name": "Tshirt coton bio (150g) - France - Mode \"éthique\"",
     "query": {
       "business": "small-business",
-      "geoZoneDyeing": "FR",
-      "geoZoneFabric": "FR",
-      "geoZoneMaking": "FR",
-      "geoZoneSpinning": "TR",
+      "geozoneDyeing": "FR",
+      "geozoneFabric": "FR",
+      "geozoneMaking": "FR",
+      "geozoneSpinning": "TR",
       "mass": 0.15,
       "materials": [
         {
@@ -51,10 +51,10 @@
     "name": "Pull polyester (550g) - Asie - Mode \"ultra fast fashion\"",
     "query": {
       "business": "large-business-without-services",
-      "geoZoneDyeing": "RAS",
-      "geoZoneFabric": "RAS",
-      "geoZoneMaking": "RAS",
-      "geoZoneSpinning": "RAS",
+      "geozoneDyeing": "RAS",
+      "geozoneFabric": "RAS",
+      "geozoneMaking": "RAS",
+      "geozoneSpinning": "RAS",
       "mass": 0.55,
       "materials": [
         {
@@ -74,10 +74,10 @@
     "name": "Pull coton (550g) - Chine - Mode \"fast fashion\"",
     "query": {
       "business": "large-business-without-services",
-      "geoZoneDyeing": "CN",
-      "geoZoneFabric": "CN",
-      "geoZoneMaking": "CN",
-      "geoZoneSpinning": "CN",
+      "geozoneDyeing": "CN",
+      "geozoneFabric": "CN",
+      "geozoneMaking": "CN",
+      "geozoneSpinning": "CN",
       "mass": 0.55,
       "materials": [
         {
@@ -97,10 +97,10 @@
     "name": "Pull viscose (550g) - Chine - Mode \"fast fashion\"",
     "query": {
       "business": "large-business-without-services",
-      "geoZoneDyeing": "CN",
-      "geoZoneFabric": "CN",
-      "geoZoneMaking": "CN",
-      "geoZoneSpinning": "CN",
+      "geozoneDyeing": "CN",
+      "geozoneFabric": "CN",
+      "geozoneMaking": "CN",
+      "geozoneSpinning": "CN",
       "mass": 0.55,
       "materials": [
         {
@@ -124,10 +124,10 @@
     "name": "Pull coton (550g) - Pakistan - Mode \"traditionnelle\"",
     "query": {
       "business": "large-business-without-services",
-      "geoZoneDyeing": "PK",
-      "geoZoneFabric": "PK",
-      "geoZoneMaking": "PK",
-      "geoZoneSpinning": "PK",
+      "geozoneDyeing": "PK",
+      "geozoneFabric": "PK",
+      "geozoneMaking": "PK",
+      "geozoneSpinning": "PK",
       "mass": 0.55,
       "materials": [
         {
@@ -147,10 +147,10 @@
     "name": "Pull coton bio (550g) - France - Mode \"traditionnelle\"",
     "query": {
       "business": "large-business-with-services",
-      "geoZoneDyeing": "FR",
-      "geoZoneFabric": "FR",
-      "geoZoneMaking": "FR",
-      "geoZoneSpinning": "IN",
+      "geozoneDyeing": "FR",
+      "geozoneFabric": "FR",
+      "geozoneMaking": "FR",
+      "geozoneSpinning": "IN",
       "mass": 0.55,
       "materials": [
         {
@@ -170,10 +170,10 @@
     "name": "Pull laine (550g) - France - Mode \"éthique\"",
     "query": {
       "business": "small-business",
-      "geoZoneDyeing": "FR",
-      "geoZoneFabric": "FR",
-      "geoZoneMaking": "FR",
-      "geoZoneSpinning": "CN",
+      "geozoneDyeing": "FR",
+      "geozoneFabric": "FR",
+      "geozoneMaking": "FR",
+      "geozoneSpinning": "CN",
       "mass": 0.55,
       "materials": [
         {
@@ -193,14 +193,14 @@
     "name": "Pull laine paysanne (550g) - France - Mode \"éthique\"",
     "query": {
       "business": "small-business",
-      "geoZoneDyeing": "FR",
-      "geoZoneFabric": "FR",
-      "geoZoneMaking": "FR",
-      "geoZoneSpinning": "FR",
+      "geozoneDyeing": "FR",
+      "geozoneFabric": "FR",
+      "geozoneMaking": "FR",
+      "geozoneSpinning": "FR",
       "mass": 0.55,
       "materials": [
         {
-          "geoZone": "FR",
+          "geozone": "FR",
           "id": "72e29a61-52a9-4eb5-b3fc-5fb87edea041",
           "share": 1
         }
@@ -217,10 +217,10 @@
     "name": "Tshirt synthétique (150g) - Asie - Mode \"ultra fast fashion\"",
     "query": {
       "business": "large-business-without-services",
-      "geoZoneDyeing": "RAS",
-      "geoZoneFabric": "RAS",
-      "geoZoneMaking": "RAS",
-      "geoZoneSpinning": "RAS",
+      "geozoneDyeing": "RAS",
+      "geozoneFabric": "RAS",
+      "geozoneMaking": "RAS",
+      "geozoneSpinning": "RAS",
       "mass": 0.15,
       "materials": [
         {
@@ -244,10 +244,10 @@
     "name": "Tshirt coton (150g) - Chine - Mode \"fast fashion\"",
     "query": {
       "business": "large-business-without-services",
-      "geoZoneDyeing": "CN",
-      "geoZoneFabric": "CN",
-      "geoZoneMaking": "CN",
-      "geoZoneSpinning": "CN",
+      "geozoneDyeing": "CN",
+      "geozoneFabric": "CN",
+      "geozoneMaking": "CN",
+      "geozoneSpinning": "CN",
       "mass": 0.15,
       "materials": [
         {
@@ -271,10 +271,10 @@
     "name": "Tshirt coton (150g) - Pakistan - Mode \"traditionnelle\"",
     "query": {
       "business": "large-business-with-services",
-      "geoZoneDyeing": "PK",
-      "geoZoneFabric": "PK",
-      "geoZoneMaking": "PK",
-      "geoZoneSpinning": "PK",
+      "geozoneDyeing": "PK",
+      "geozoneFabric": "PK",
+      "geozoneMaking": "PK",
+      "geozoneSpinning": "PK",
       "mass": 0.15,
       "materials": [
         {
@@ -294,10 +294,10 @@
     "name": "Tshirt coton (150g) - France - Mode \"traditionnelle\"",
     "query": {
       "business": "large-business-with-services",
-      "geoZoneDyeing": "FR",
-      "geoZoneFabric": "FR",
-      "geoZoneMaking": "FR",
-      "geoZoneSpinning": "TR",
+      "geozoneDyeing": "FR",
+      "geozoneFabric": "FR",
+      "geozoneMaking": "FR",
+      "geozoneSpinning": "TR",
       "mass": 0.15,
       "materials": [
         {
@@ -316,7 +316,7 @@
     "id": "307b3586-41f4-4d93-833a-e03b5be137cc",
     "name": "Jupe coton (300g) - Majorant par défaut",
     "query": {
-      "geoZoneSpinning": "CN",
+      "geozoneSpinning": "CN",
       "mass": 0.3,
       "materials": [
         {
@@ -345,7 +345,7 @@
     "id": "536e3785-039a-49d6-a119-3cfce485420c",
     "name": "Chemise coton (250g) - Majorant par défaut",
     "query": {
-      "geoZoneSpinning": "CN",
+      "geozoneSpinning": "CN",
       "mass": 0.25,
       "materials": [
         {
@@ -371,7 +371,7 @@
     "name": "Jean coton (450g) - Majorant par défaut",
     "query": {
       "fading": true,
-      "geoZoneSpinning": "CN",
+      "geozoneSpinning": "CN",
       "mass": 0.45,
       "materials": [
         {
@@ -400,7 +400,7 @@
     "id": "f86835d3-7018-40fa-8144-2d1f6aa264b9",
     "name": "Pantalon coton (450g) - Majorant par défaut",
     "query": {
-      "geoZoneSpinning": "CN",
+      "geozoneSpinning": "CN",
       "mass": 0.45,
       "materials": [
         {
@@ -429,7 +429,7 @@
     "id": "32c8973b-864f-4060-977d-a0738f6414c4",
     "name": "Manteau coton (950g) - Majorant par défaut",
     "query": {
-      "geoZoneSpinning": "CN",
+      "geozoneSpinning": "CN",
       "mass": 0.95,
       "materials": [
         {
@@ -459,7 +459,7 @@
     "name": "Tshirt coton (150g) - Majorant par défaut",
     "query": {
       "business": "large-business-without-services",
-      "geoZoneSpinning": "CN",
+      "geozoneSpinning": "CN",
       "mass": 0.15,
       "materials": [
         {
@@ -499,7 +499,7 @@
     "name": "Pull coton (550g) - Majorant par défaut",
     "query": {
       "business": "large-business-without-services",
-      "geoZoneSpinning": "CN",
+      "geozoneSpinning": "CN",
       "mass": 0.55,
       "materials": [
         {
@@ -519,7 +519,7 @@
     "name": "Chaussettes coton (40g) - Majorant par défaut",
     "query": {
       "business": "large-business-without-services",
-      "geoZoneSpinning": "CN",
+      "geozoneSpinning": "CN",
       "mass": 0.04,
       "materials": [
         {
@@ -539,7 +539,7 @@
     "name": "Caleçon coton (40g) - Majorant par défaut",
     "query": {
       "business": "large-business-without-services",
-      "geoZoneSpinning": "CN",
+      "geozoneSpinning": "CN",
       "mass": 0.04,
       "materials": [
         {
@@ -559,7 +559,7 @@
     "name": "Slip coton (30g) - Majorant par défaut",
     "query": {
       "business": "large-business-without-services",
-      "geoZoneSpinning": "CN",
+      "geozoneSpinning": "CN",
       "mass": 0.03,
       "materials": [
         {
@@ -579,7 +579,7 @@
     "name": "Maillot de bain polyester (100g) - Majorant par défaut",
     "query": {
       "business": "large-business-without-services",
-      "geoZoneSpinning": "CN",
+      "geozoneSpinning": "CN",
       "mass": 0.1,
       "materials": [
         {

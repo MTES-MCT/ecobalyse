@@ -14,8 +14,8 @@ module Data.Transport exposing
     , totalKm
     )
 
-import Data.GeoZone as GeoZone
 import Data.Food.WellKnown exposing (WellKnown)
+import Data.Geozone as Geozone
 import Data.Impact as Impact exposing (Impacts)
 import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
@@ -29,11 +29,11 @@ import Quantity
 
 
 type alias Distance =
-    AnyDict String GeoZone.Code Transport
+    AnyDict String Geozone.Code Transport
 
 
 type alias Distances =
-    AnyDict String GeoZone.Code Distance
+    AnyDict String Geozone.Code Distance
 
 
 type alias Transport =
@@ -172,8 +172,8 @@ roadSeaTransportRatio { road, sea } =
 
 getTransportBetween :
     Impacts
-    -> GeoZone.Code
-    -> GeoZone.Code
+    -> Geozone.Code
+    -> Geozone.Code
     -> Distances
     -> Transport
 getTransportBetween impacts cA cB distances =
@@ -232,8 +232,8 @@ decodeDistance : Decoder Distance
 decodeDistance =
     -- FIXME: Ideally we want to check for available geographical zones codes
     Dict.decode
-        (\str _ -> GeoZone.codeFromString str)
-        GeoZone.codeToString
+        (\str _ -> Geozone.codeFromString str)
+        Geozone.codeToString
         decode
 
 
@@ -241,6 +241,6 @@ decodeDistances : Decoder Distances
 decodeDistances =
     -- FIXME: Ideally we want to check for available geographical zones codes
     Dict.decode
-        (\str _ -> GeoZone.codeFromString str)
-        GeoZone.codeToString
+        (\str _ -> Geozone.codeFromString str)
+        Geozone.codeToString
         decodeDistance

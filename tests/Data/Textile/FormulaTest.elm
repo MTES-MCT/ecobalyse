@@ -58,14 +58,14 @@ suite =
                                 defaultImpacts
                                 { makingComplexity = MakingComplexity.Medium
                                 , fadingProcess = Nothing
-                                , geoZoneElecProcess =
+                                , geozoneElecProcess =
                                     { sampleProcess
                                         | impacts =
                                             Impact.empty
                                                 |> Impact.updateImpact db.definitions Definition.Cch (Unit.impact 0.5)
                                                 |> Impact.updateImpact db.definitions Definition.Fwe (Unit.impact 1.5)
                                     }
-                                , geoZoneHeatProcess =
+                                , geozoneHeatProcess =
                                     { sampleProcess
                                         | impacts =
                                             Impact.empty
@@ -78,16 +78,16 @@ suite =
                     |> Impact.getImpact Definition.Cch
                     |> Unit.impactToFloat
                     |> Expect.within (Expect.Absolute 0.01) 0.435
-                    |> asTest "should compute Making step cch from process and geoZone data"
+                    |> asTest "should compute Making step cch from process and geozone data"
                  , res.impacts
                     |> Impact.getImpact Definition.Fwe
                     |> Unit.impactToFloat
                     |> Expect.within (Expect.Absolute 0.01) 1.305
-                    |> asTest "should compute Making step fwe from process and geoZone data"
+                    |> asTest "should compute Making step fwe from process and geozone data"
                  , res.kwh
                     |> Energy.inKilowattHours
                     |> Expect.within (Expect.Absolute 0.01) 0.87
-                    |> asTest "should compute Making step kwh from process and geoZone data"
+                    |> asTest "should compute Making step kwh from process and geozone data"
                  ]
                 )
             , describe "Formula.weavingImpact"
@@ -95,7 +95,7 @@ suite =
                     res =
                         Formula.weavingImpacts
                             defaultImpacts
-                            { geoZoneElecProcess =
+                            { geozoneElecProcess =
                                 { sampleProcess
                                     | impacts =
                                         Impact.empty
@@ -135,7 +135,7 @@ suite =
                             |> Formula.knittingImpacts
                                 defaultImpacts
                                 { elec = Energy.kilowattHours 5
-                                , geoZoneElecProcess =
+                                , geozoneElecProcess =
                                     { sampleProcess
                                         | impacts =
                                             Impact.empty

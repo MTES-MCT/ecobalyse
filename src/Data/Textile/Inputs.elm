@@ -2,9 +2,9 @@ module Data.Textile.Inputs exposing
     ( Inputs
     , MaterialInput
     , computeMaterialTransport
-    , geoZoneList
     , encode
     , fromQuery
+    , geozoneList
     , getMaterialMicrofibersComplement
     , getOutOfEuropeEOLComplement
     , getOutOfEuropeEOLProbability
@@ -16,7 +16,7 @@ module Data.Textile.Inputs exposing
 
 import Data.Common.EncodeUtils as EU
 import Data.Component as Component exposing (Item)
-import Data.GeoZone as GeoZone exposing (GeoZone)
+import Data.Geozone as Geozone exposing (Geozone)
 import Data.Impact as Impact
 import Data.Process as Process
 import Data.Split as Split exposing (Split)
@@ -43,7 +43,7 @@ import Views.Format as Format
 
 
 type alias MaterialInput =
-    { geoZone : Maybe GeoZone
+    { geozone : Maybe Geozone
     , material : Material
     , share : Split
     , spinning : Maybe Spinning
@@ -57,17 +57,17 @@ type alias Inputs =
     , dyeingProcessType : Maybe ProcessType
     , fabricProcess : Maybe Fabric
     , fading : Maybe Bool
-    , geoZoneDistribution : GeoZone
-    , geoZoneDyeing : GeoZone
-    , geoZoneEndOfLife : GeoZone
-    , geoZoneFabric : GeoZone
-    , geoZoneMaking : GeoZone
+    , geozoneDistribution : Geozone
+    , geozoneDyeing : Geozone
+    , geozoneEndOfLife : Geozone
+    , geozoneFabric : Geozone
+    , geozoneMaking : Geozone
 
-    -- TODO: geoZoneMaterial isn't used anymore, but we still need it because `geoZoneList` uses it,
+    -- TODO: geozoneMaterial isn't used anymore, but we still need it because `geozoneList` uses it,
     -- which in turn is used to build the lifecycle, which needs a geographical zone for each step.
-    , geoZoneMaterial : GeoZone
-    , geoZoneSpinning : GeoZone
-    , geoZoneUse : GeoZone
+    , geozoneMaterial : Geozone
+    , geozoneSpinning : Geozone
+    , geozoneUse : Geozone
     , makingComplexity : Maybe MakingComplexity
     , makingDeadStock : Maybe Split
     , makingWaste : Maybe Split
@@ -85,30 +85,30 @@ type alias Inputs =
     }
 
 
-fromMaterialQuery : List Material -> List GeoZone -> List MaterialQuery -> Result String (List MaterialInput)
-fromMaterialQuery materials geoZones =
+fromMaterialQuery : List Material -> List Geozone -> List MaterialQuery -> Result String (List MaterialInput)
+fromMaterialQuery materials geozones =
     List.map
-        (\{ geoZone, id, share, spinning } ->
+        (\{ geozone, id, share, spinning } ->
             let
-                geoZoneResult =
-                    case geoZone of
-                        Just geoZoneCode ->
-                            GeoZone.findByCode geoZoneCode geoZones
+                geozoneResult =
+                    case geozone of
+                        Just geozoneCode ->
+                            Geozone.findByCode geozoneCode geozones
                                 |> Result.map Just
 
                         Nothing ->
                             Ok Nothing
             in
             Result.map2
-                (\material_ geoZone_ ->
-                    { geoZone = geoZone_
+                (\material_ geozone_ ->
+                    { geozone = geozone_
                     , material = material_
                     , share = share
                     , spinning = spinning
                     }
                 )
                 (Material.findById id materials)
-                geoZoneResult
+                geozoneResult
         )
         >> RE.combine
 
@@ -116,8 +116,8 @@ fromMaterialQuery materials geoZones =
 toMaterialQuery : List MaterialInput -> List MaterialQuery
 toMaterialQuery =
     List.map
-        (\{ geoZone, material, share, spinning } ->
-            { geoZone = geoZone |> Maybe.andThen (.code >> toQueryGeoZoneCode)
+        (\{ geozone, material, share, spinning } ->
+            { geozone = geozone |> Maybe.andThen (.code >> toQueryGeozoneCode)
             , id = material.id
             , share = share
             , spinning = spinning
@@ -134,37 +134,37 @@ getMainMaterial =
         >> Result.fromMaybe "La liste de matières est vide."
 
 
-getMainMaterialGeoZone : List GeoZone -> List MaterialInput -> Result String GeoZone
-getMainMaterialGeoZone geoZones =
+getMainMaterialGeozone : List Geozone -> List MaterialInput -> Result String Geozone
+getMainMaterialGeozone geozones =
     getMainMaterial
         >> Result.andThen
-            (\{ defaultGeoZone } ->
-                GeoZone.findByCode defaultGeoZone geoZones
+            (\{ defaultGeozone } ->
+                Geozone.findByCode defaultGeozone geozones
             )
 
 
 fromQuery : Db -> Query -> Result String Inputs
-fromQuery { geoZones, textile } query =
+fromQuery { geozones, textile } query =
     let
         materials_ =
             query.materials
-                |> fromMaterialQuery textile.materials geoZones
+                |> fromMaterialQuery textile.materials geozones
 
         franceResult =
-            GeoZone.findByCode (GeoZone.Code "FR") geoZones
+            Geozone.findByCode (Geozone.Code "FR") geozones
 
-        unknownGeoZoneResult =
-            GeoZone.findByCode GeoZone.unknownGeoZoneCode geoZones
+        unknownGeozoneResult =
+            Geozone.findByCode Geozone.unknownGeozoneCode geozones
 
-        mainMaterialGeoZone =
+        mainMaterialGeozone =
             materials_
-                |> Result.andThen (getMainMaterialGeoZone geoZones)
-                |> RE.orElse unknownGeoZoneResult
+                |> Result.andThen (getMainMaterialGeozone geozones)
+                |> RE.orElse unknownGeozoneResult
 
-        getGeoZoneResult fallbackResult maybeCode =
+        getGeozoneResult fallbackResult maybeCode =
             case maybeCode of
                 Just code ->
-                    GeoZone.findByCode code geoZones
+                    Geozone.findByCode code geozones
 
                 Nothing ->
                     fallbackResult
@@ -188,14 +188,14 @@ fromQuery { geoZones, textile } query =
         |> RE.andMap (Ok query.fading)
         -- The distribution geographical zone is always France
         |> RE.andMap franceResult
-        |> RE.andMap (getGeoZoneResult unknownGeoZoneResult query.geoZoneDyeing)
+        |> RE.andMap (getGeozoneResult unknownGeozoneResult query.geozoneDyeing)
         -- The end of life geographical zone is always France
         |> RE.andMap franceResult
-        |> RE.andMap (getGeoZoneResult unknownGeoZoneResult query.geoZoneFabric)
-        |> RE.andMap (getGeoZoneResult unknownGeoZoneResult query.geoZoneMaking)
+        |> RE.andMap (getGeozoneResult unknownGeozoneResult query.geozoneFabric)
+        |> RE.andMap (getGeozoneResult unknownGeozoneResult query.geozoneMaking)
         -- The material geographical zone is constrained to be the first material's default geographical zone
-        |> RE.andMap mainMaterialGeoZone
-        |> RE.andMap (getGeoZoneResult unknownGeoZoneResult query.geoZoneSpinning)
+        |> RE.andMap mainMaterialGeozone
+        |> RE.andMap (getGeozoneResult unknownGeozoneResult query.geozoneSpinning)
         -- The use geographical zone is always France
         |> RE.andMap franceResult
         |> RE.andMap (Ok query.makingComplexity)
@@ -222,10 +222,10 @@ toQuery inputs =
     , dyeingProcessType = inputs.dyeingProcessType
     , fabricProcess = inputs.fabricProcess
     , fading = inputs.fading
-    , geoZoneDyeing = toQueryGeoZoneCode inputs.geoZoneDyeing.code
-    , geoZoneFabric = toQueryGeoZoneCode inputs.geoZoneFabric.code
-    , geoZoneMaking = toQueryGeoZoneCode inputs.geoZoneMaking.code
-    , geoZoneSpinning = toQueryGeoZoneCode inputs.geoZoneSpinning.code
+    , geozoneDyeing = toQueryGeozoneCode inputs.geozoneDyeing.code
+    , geozoneFabric = toQueryGeozoneCode inputs.geozoneFabric.code
+    , geozoneMaking = toQueryGeozoneCode inputs.geozoneMaking.code
+    , geozoneSpinning = toQueryGeozoneCode inputs.geozoneSpinning.code
     , makingComplexity = inputs.makingComplexity
     , makingDeadStock = inputs.makingDeadStock
     , makingWaste = inputs.makingWaste
@@ -248,9 +248,9 @@ toQuery inputs =
     }
 
 
-toQueryGeoZoneCode : GeoZone.Code -> Maybe GeoZone.Code
-toQueryGeoZoneCode c =
-    if c == GeoZone.unknownGeoZoneCode then
+toQueryGeozoneCode : Geozone.Code -> Maybe Geozone.Code
+toQueryGeozoneCode c =
+    if c == Geozone.unknownGeozoneCode then
         Nothing
 
     else
@@ -289,7 +289,7 @@ stepsToStrings wellKnown inputs =
         ]
     , ifStepEnabled Label.Spinning
         [ "filature"
-        , inputs.geoZoneSpinning.name
+        , inputs.geozoneSpinning.name
         ]
     , case inputs.yarnSize of
         Just yarnSize ->
@@ -301,7 +301,7 @@ stepsToStrings wellKnown inputs =
         [ inputs.fabricProcess
             |> Maybe.withDefault inputs.product.fabric
             |> Fabric.toLabel
-        , inputs.geoZoneFabric.name
+        , inputs.geozoneFabric.name
         ]
     , ifStepEnabled Label.Ennobling
         [ "ennoblissement\u{00A0}: "
@@ -309,32 +309,32 @@ stepsToStrings wellKnown inputs =
                     |> Dyeing.toProcess wellKnown
                     |> Process.getDisplayName
                )
-        , inputs.geoZoneDyeing.name
+        , inputs.geozoneDyeing.name
         ]
     , ifStepEnabled Label.Ennobling
         [ "impression"
         , case inputs.printing of
             Just printing ->
-                "impression " ++ Printing.toFullLabel printing ++ "\u{00A0}: " ++ inputs.geoZoneDyeing.name
+                "impression " ++ Printing.toFullLabel printing ++ "\u{00A0}: " ++ inputs.geozoneDyeing.name
 
             Nothing ->
                 "non"
         ]
     , ifStepEnabled Label.Making
         [ "confection"
-        , inputs.geoZoneMaking.name ++ makingOptionsToString inputs
+        , inputs.geozoneMaking.name ++ makingOptionsToString inputs
         ]
     , ifStepEnabled Label.Distribution
         [ "distribution"
-        , inputs.geoZoneDistribution.name
+        , inputs.geozoneDistribution.name
         ]
     , ifStepEnabled Label.Use
         [ "utilisation"
-        , inputs.geoZoneUse.name
+        , inputs.geozoneUse.name
         ]
     , ifStepEnabled Label.EndOfLife
         [ "fin de vie"
-        , inputs.geoZoneEndOfLife.name
+        , inputs.geozoneEndOfLife.name
         ]
     ]
         |> List.filter (not << List.isEmpty)
@@ -353,10 +353,10 @@ materialsToString materials =
     materials
         |> List.filter (\{ share } -> Split.toFloat share > 0)
         |> List.map
-            (\{ geoZone, material, share } ->
+            (\{ geozone, material, share } ->
                 let
-                    geoZoneName =
-                        geoZone
+                    geozoneName =
+                        geozone
                             |> Maybe.map .name
                             |> Maybe.withDefault (" par défaut (" ++ material.geographicOrigin ++ ")")
                 in
@@ -364,7 +364,7 @@ materialsToString materials =
                     ++ "% "
                     ++ material.name
                     ++ " provenance "
-                    ++ geoZoneName
+                    ++ geozoneName
             )
         |> String.join ", "
 
@@ -403,16 +403,16 @@ makingOptionsToString { airTransportRatio, fading, makingComplexity, makingDeadS
            )
 
 
-geoZoneList : Inputs -> List GeoZone
-geoZoneList inputs =
-    [ inputs.geoZoneMaterial
-    , inputs.geoZoneSpinning
-    , inputs.geoZoneFabric
-    , inputs.geoZoneDyeing
-    , inputs.geoZoneMaking
-    , inputs.geoZoneDistribution
-    , inputs.geoZoneUse
-    , inputs.geoZoneEndOfLife
+geozoneList : Inputs -> List Geozone
+geozoneList inputs =
+    [ inputs.geozoneMaterial
+    , inputs.geozoneSpinning
+    , inputs.geozoneFabric
+    , inputs.geozoneDyeing
+    , inputs.geozoneMaking
+    , inputs.geozoneDistribution
+    , inputs.geozoneUse
+    , inputs.geozoneEndOfLife
     ]
 
 
@@ -481,20 +481,20 @@ getOutOfEuropeEOLComplement { mass, materials } =
          )
 
 
-computeMaterialTransport : Distances -> GeoZone.Code -> MaterialInput -> Transport
-computeMaterialTransport distances nextGeoZoneCode { geoZone, material, share } =
+computeMaterialTransport : Distances -> Geozone.Code -> MaterialInput -> Transport
+computeMaterialTransport distances nextGeozoneCode { geozone, material, share } =
     if share /= Split.zero then
         let
             emptyImpacts =
                 Impact.empty
 
-            geoZoneCode =
-                geoZone
+            geozoneCode =
+                geozone
                     |> Maybe.map .code
-                    |> Maybe.withDefault material.defaultGeoZone
+                    |> Maybe.withDefault material.defaultGeozone
         in
         distances
-            |> Transport.getTransportBetween emptyImpacts geoZoneCode nextGeoZoneCode
+            |> Transport.getTransportBetween emptyImpacts geozoneCode nextGeozoneCode
 
     else
         Transport.default Impact.empty
@@ -510,9 +510,9 @@ encode inputs =
     Encode.object
         [ ( "airTransportRatio", inputs.airTransportRatio |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
         , ( "business", inputs.business |> Maybe.map Economics.encodeBusiness |> Maybe.withDefault Encode.null )
-        , ( "geoZoneDyeing", GeoZone.encode inputs.geoZoneDyeing )
-        , ( "geoZoneFabric", GeoZone.encode inputs.geoZoneFabric )
-        , ( "geoZoneMaking", GeoZone.encode inputs.geoZoneMaking )
+        , ( "geozoneDyeing", Geozone.encode inputs.geozoneDyeing )
+        , ( "geozoneFabric", Geozone.encode inputs.geozoneFabric )
+        , ( "geozoneMaking", Geozone.encode inputs.geozoneMaking )
         , ( "disabledSteps", Encode.list Label.encode inputs.disabledSteps )
         , ( "dyeingProcessType", inputs.dyeingProcessType |> Maybe.map Dyeing.encode |> Maybe.withDefault Encode.null )
         , ( "fabricProcess", inputs.fabricProcess |> Maybe.map Fabric.encode |> Maybe.withDefault Encode.null )
@@ -537,7 +537,7 @@ encode inputs =
 encodeMaterialInput : MaterialInput -> Encode.Value
 encodeMaterialInput v =
     EU.optionalPropertiesObject
-        [ ( "geoZone", v.geoZone |> Maybe.map (.code >> GeoZone.encodeCode) )
+        [ ( "geozone", v.geozone |> Maybe.map (.code >> Geozone.encodeCode) )
         , ( "material", Material.encode v.material |> Just )
         , ( "share", Split.encodeFloat v.share |> Just )
         , ( "spinning", v.spinning |> Maybe.map Spinning.encode )

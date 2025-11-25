@@ -1,7 +1,7 @@
 module Page.Explore.TextileMaterials exposing (table)
 
 import Data.Dataset as Dataset
-import Data.GeoZone as GeoZone
+import Data.Geozone as Geozone
 import Data.Gitbook as Gitbook
 import Data.Process as Process
 import Data.Scope exposing (Scope)
@@ -110,14 +110,14 @@ table db { detailed, scope } =
         , { label = "Zone géographique de production et de filature par défaut"
           , toValue =
                 Table.StringValue <|
-                    .defaultGeoZone
-                        >> (\maybeGeoZone -> GeoZone.findByCode maybeGeoZone db.geoZones)
+                    .defaultGeozone
+                        >> (\maybeGeozone -> Geozone.findByCode maybeGeozone db.geozones)
                         >> Result.map .name
                         >> Result.toMaybe
                         >> Maybe.withDefault "error"
           , toCell =
                 \material ->
-                    case GeoZone.findByCode material.defaultGeoZone db.geoZones of
+                    case Geozone.findByCode material.defaultGeozone db.geozones of
                         Err error ->
                             Alert.simple
                                 { attributes = []
@@ -127,8 +127,8 @@ table db { detailed, scope } =
                                 , content = [ text error ]
                                 }
 
-                        Ok geoZone ->
-                            text geoZone.name
+                        Ok geozone ->
+                            text geozone.name
           }
         , { label = "CFF: Coefficient d'allocation"
           , toValue =

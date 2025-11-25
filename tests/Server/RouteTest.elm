@@ -1,10 +1,10 @@
 module Server.RouteTest exposing (..)
 
 import Data.Component as Component
-import Data.GeoZone as GeoZone
 import Data.Example as Example
 import Data.Food.Preparation as Preparation
 import Data.Food.Query as FoodQuery
+import Data.Geozone as Geozone
 import Data.Split as Split
 import Data.Textile.Material as Material
 import Data.Textile.Product as Product
@@ -71,7 +71,7 @@ foodEndpoints db =
                 , FoodQuery.encode
                     { royalPizza
                         | ingredients =
-                            royalPizza.ingredients |> List.map (\i -> { i | geoZone = Just <| GeoZone.Code "XX" })
+                            royalPizza.ingredients |> List.map (\i -> { i | geozone = Just <| Geozone.Code "XX" })
                     }
                     |> testFoodEndpoint db
                     |> expectFoodValidationError "ingredients" "Code de zone géographique invalide: XX."
@@ -79,7 +79,7 @@ foodEndpoints db =
                 , FoodQuery.encode
                     { royalPizza
                         | ingredients =
-                            royalPizza.ingredients |> List.map (\i -> { i | geoZone = Just <| GeoZone.Code "BD" })
+                            royalPizza.ingredients |> List.map (\i -> { i | geozone = Just <| Geozone.Code "BD" })
                     }
                     |> testFoodEndpoint db
                     |> expectFoodValidationError "ingredients" "Le code de zone géographique BD n'est pas utilisable dans un contexte Alimentaire."
@@ -163,15 +163,15 @@ textileEndpoints db =
                     |> asTest "reject invalid physicalDurability"
                 ]
             )
-        , suiteFromResult "should reject invalid spinning geoZone"
+        , suiteFromResult "should reject invalid spinning geozone"
             tShirtCotonFrance
             (\query ->
                 [ TextileQuery.encode
                     { query
-                        | geoZoneSpinning = Just (GeoZone.Code "invalid")
+                        | geozoneSpinning = Just (Geozone.Code "invalid")
                     }
                     |> testTextileEndpoint db
-                    |> expectTextileValidationError "geoZoneSpinning" "Code de zone géographique invalide: invalid."
+                    |> expectTextileValidationError "geozoneSpinning" "Code de zone géographique invalide: invalid."
                     |> asTest "reject invalid spinning geographical zone"
                 ]
             )
@@ -186,7 +186,7 @@ textileEndpoints db =
                             [ { id = decodedId
                               , share = Split.full
                               , spinning = Nothing
-                              , geoZone = Just (GeoZone.Code "invalid")
+                              , geozone = Just (Geozone.Code "invalid")
                               }
                             ]
                     }
@@ -220,7 +220,7 @@ textileEndpoints db =
                             [ { id = decodedId
                               , share = Split.full
                               , spinning = Nothing
-                              , geoZone = Nothing
+                              , geozone = Nothing
                               }
                             ]
                     }
@@ -230,7 +230,7 @@ textileEndpoints db =
                 ]
             )
         , TestUtils.suiteFromResult2
-            "should validate a material geoZone code"
+            "should validate a material geozone code"
             tShirtCotonFrance
             (Material.idFromString "62a4d6fb-3276-4ba5-93a3-889ecd3bff84")
             (\query decodedId ->
@@ -240,25 +240,25 @@ textileEndpoints db =
                             [ { id = decodedId
                               , share = Split.full
                               , spinning = Nothing
-                              , geoZone = Just (GeoZone.Code "NotAGeoZoneCode")
+                              , geozone = Just (Geozone.Code "NotAGeozoneCode")
                               }
                             ]
                     }
                     |> testTextileEndpoint db
-                    |> expectTextileValidationError "materials" "Code de zone géographique invalide: NotAGeoZoneCode."
-                    |> asTest "validate a material geoZone code"
+                    |> expectTextileValidationError "materials" "Code de zone géographique invalide: NotAGeozoneCode."
+                    |> asTest "validate a material geozone code"
                 ]
             )
-        , suiteFromResult "should validate that an ingredient geoZone scope is valid"
+        , suiteFromResult "should validate that an ingredient geozone scope is valid"
             tShirtCotonFrance
             (\query ->
                 [ TextileQuery.encode
                     { query
-                        | geoZoneDyeing = Just <| GeoZone.Code "US"
+                        | geozoneDyeing = Just <| Geozone.Code "US"
                     }
                     |> testTextileEndpoint db
-                    |> expectTextileValidationError "geoZoneDyeing" "Le code de zone géographique US n'est pas utilisable dans un contexte Textile."
-                    |> asTest "validate that an ingredient geoZone scope is valid"
+                    |> expectTextileValidationError "geozoneDyeing" "Le code de zone géographique US n'est pas utilisable dans un contexte Textile."
+                    |> asTest "validate that an ingredient geozone scope is valid"
                 ]
             )
         , suiteFromResult "should validate that a trim item id is valid"
@@ -272,7 +272,7 @@ textileEndpoints db =
                                 { query
                                     | trims =
                                         Just
-                                            [ { geoZone = Nothing
+                                            [ { geozone = Nothing
                                               , custom = Nothing
                                               , id = nonExistentId
                                               , quantity = Component.quantityFromInt 1
@@ -296,7 +296,7 @@ textileEndpoints db =
                                 { query
                                     | trims =
                                         Just
-                                            [ { geoZone = Nothing
+                                            [ { geozone = Nothing
                                               , custom = Nothing
                                               , id = id
                                               , quantity = Component.quantityFromInt -1

@@ -11,8 +11,8 @@ module Data.Textile.Simulator exposing
 import Array
 import Data.Common.EncodeUtils as EU
 import Data.Component as Component
-import Data.GeoZone as GeoZone
 import Data.Env as Env
+import Data.Geozone as Geozone
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
 import Data.Scope as Scope
@@ -260,7 +260,7 @@ computeMakingAirTransportRatio : Simulator -> Simulator
 computeMakingAirTransportRatio ({ durability, inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Label.Making
-            (\({ geoZone } as step) ->
+            (\({ geozone } as step) ->
                 { step
                     | airTransportRatio =
                         case inputs.airTransportRatio of
@@ -269,8 +269,8 @@ computeMakingAirTransportRatio ({ durability, inputs } as simulator) =
                                 airTransportRatio
 
                             Nothing ->
-                                if GeoZone.isEuropeOrTurkey geoZone then
-                                    -- If Making geoZone is Europe or Turkey, airTransportRatio is always 0
+                                if Geozone.isEuropeOrTurkey geozone then
+                                    -- If Making geozone is Europe or Turkey, airTransportRatio is always 0
                                     Split.zero
 
                                 else if Unit.floatDurabilityFromHolistic durability >= 1 then
@@ -278,8 +278,8 @@ computeMakingAirTransportRatio ({ durability, inputs } as simulator) =
                                     Split.third
 
                                 else
-                                    -- FIXME: how about falling back to geoZone default?
-                                    -- geoZone.airTransportRatio
+                                    -- FIXME: how about falling back to geozone default?
+                                    -- geozone.airTransportRatio
                                     Split.full
                 }
             )
@@ -289,14 +289,14 @@ computeEndOfLifeImpacts : Db -> Simulator -> Simulator
 computeEndOfLifeImpacts { textile } simulator =
     simulator
         |> updateLifeCycleStep Label.EndOfLife
-            (\({ geoZone } as step) ->
+            (\({ geozone } as step) ->
                 let
                     { heat, impacts, kwh } =
                         step.outputMass
                             |> Formula.endOfLifeImpacts step.impacts
                                 { endOfLife = textile.wellKnown.endOfLife
-                                , geoZoneElecProcess = geoZone.electricityProcess
-                                , heatProcess = geoZone.heatProcess
+                                , geozoneElecProcess = geozone.electricityProcess
+                                , heatProcess = geozone.heatProcess
                                 , passengerCar = textile.wellKnown.passengerCar
                                 , volume = simulator.inputs.product.endOfLife.volume
                                 }
@@ -319,7 +319,7 @@ computeUseImpacts { textile } ({ inputs, useNbCycles } as simulator) =
                         step.outputMass
                             |> Formula.useImpacts step.impacts
                                 -- Note: The use step is always located in France using low voltage electricity
-                                { geoZoneElecProcess = textile.wellKnown.lowVoltageFranceElec
+                                { geozoneElecProcess = textile.wellKnown.lowVoltageFranceElec
                                 , ironingElec = inputs.product.use.ironingElec
                                 , nonIroningProcess = inputs.product.use.nonIroningProcess
                                 , useNbCycles = useNbCycles
@@ -333,7 +333,7 @@ computeMakingImpacts : Db -> Simulator -> Simulator
 computeMakingImpacts { textile } ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Label.Making
-            (\({ geoZone } as step) ->
+            (\({ geozone } as step) ->
                 let
                     { heat, impacts, kwh } =
                         step.outputMass
@@ -345,8 +345,8 @@ computeMakingImpacts { textile } ({ inputs } as simulator) =
 
                                     else
                                         Nothing
-                                , geoZoneElecProcess = geoZone.electricityProcess
-                                , geoZoneHeatProcess = geoZone.heatProcess
+                                , geozoneElecProcess = geozone.electricityProcess
+                                , geozoneHeatProcess = geozone.heatProcess
                                 , makingComplexity =
                                     inputs.fabricProcess
                                         |> Fabric.getMakingComplexity inputs.product.making.complexity inputs.makingComplexity
@@ -360,10 +360,10 @@ computeDyeingImpacts : Db -> Simulator -> Simulator
 computeDyeingImpacts { textile } ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Label.Ennobling
-            (\({ geoZone, dyeingProcessType } as step) ->
+            (\({ geozone, dyeingProcessType } as step) ->
                 let
                     heatProcess =
-                        WellKnown.getEnnoblingHeatProcess textile.wellKnown geoZone
+                        WellKnown.getEnnoblingHeatProcess textile.wellKnown geozone
 
                     dyeingProcess =
                         Dyeing.toProcess textile.wellKnown dyeingProcessType
@@ -373,7 +373,7 @@ computeDyeingImpacts { textile } ({ inputs } as simulator) =
                             |> List.map
                                 (\{ material, share } ->
                                     Formula.materialDyeingToxicityImpacts step.impacts
-                                        { aquaticPollutionScenario = step.geoZone.aquaticPollutionScenario
+                                        { aquaticPollutionScenario = step.geozone.aquaticPollutionScenario
                                         , dyeingToxicityProcess =
                                             if Origin.isSynthetic material.origin then
                                                 textile.wellKnown.dyeingSynthetic
@@ -394,7 +394,7 @@ computeDyeingImpacts { textile } ({ inputs } as simulator) =
                             |> Formula.dyeingImpacts step.impacts
                                 dyeingProcess
                                 heatProcess
-                                geoZone.electricityProcess
+                                geozone.electricityProcess
                 in
                 { step
                     | heat = Quantity.sum [ step.heat, heat, preTreatments.heat ]
@@ -409,7 +409,7 @@ computePrintingImpacts : Db -> Simulator -> Simulator
 computePrintingImpacts { textile } ({ inputs } as simulator) =
     simulator
         |> updateLifeCycleStep Label.Ennobling
-            (\({ geoZone } as step) ->
+            (\({ geozone } as step) ->
                 case step.printing of
                     Just { kind, ratio } ->
                         let
@@ -419,8 +419,8 @@ computePrintingImpacts { textile } ({ inputs } as simulator) =
                             { heat, impacts, kwh } =
                                 step.outputMass
                                     |> Formula.printingImpacts step.impacts
-                                        { elecProcess = geoZone.electricityProcess
-                                        , heatProcess = WellKnown.getEnnoblingHeatProcess textile.wellKnown geoZone
+                                        { elecProcess = geozone.electricityProcess
+                                        , heatProcess = WellKnown.getEnnoblingHeatProcess textile.wellKnown geozone
                                         , printingProcess = printingProcess
                                         , ratio = ratio
                                         , surfaceMass = inputs.surfaceMass |> Maybe.withDefault inputs.product.surfaceMass
@@ -430,7 +430,7 @@ computePrintingImpacts { textile } ({ inputs } as simulator) =
                                 step.outputMass
                                     |> Formula.materialPrintingToxicityImpacts
                                         step.impacts
-                                        { aquaticPollutionScenario = step.geoZone.aquaticPollutionScenario
+                                        { aquaticPollutionScenario = step.geozone.aquaticPollutionScenario
                                         , printingToxicityProcess = printingToxicityProcess
                                         , surfaceMass = inputs.surfaceMass |> Maybe.withDefault inputs.product.surfaceMass
                                         }
@@ -451,14 +451,14 @@ computeFinishingImpacts : Db -> Simulator -> Simulator
 computeFinishingImpacts { textile } simulator =
     simulator
         |> updateLifeCycleStep Label.Ennobling
-            (\({ geoZone } as step) ->
+            (\({ geozone } as step) ->
                 let
                     { heat, impacts, kwh } =
                         step.outputMass
                             |> Formula.finishingImpacts step.impacts
-                                { elecProcess = geoZone.electricityProcess
+                                { elecProcess = geozone.electricityProcess
                                 , finishingProcess = textile.wellKnown.finishing
-                                , heatProcess = WellKnown.getEnnoblingHeatProcess textile.wellKnown geoZone
+                                , heatProcess = WellKnown.getEnnoblingHeatProcess textile.wellKnown geozone
                                 }
                 in
                 { step
@@ -523,7 +523,7 @@ stepSpinningImpacts material maybeSpinning product step =
                 |> Energy.kilowattHours
     in
     Formula.spinningImpacts step.impacts
-        { geoZoneElecProcess = step.geoZone.electricityProcess
+        { geozoneElecProcess = step.geozone.electricityProcess
         , spinningKwh = kwh
         }
 
@@ -567,7 +567,7 @@ computeFabricImpacts { textile } ({ inputs, lifeCycle } as simulator) =
     in
     simulator
         |> updateLifeCycleStep Label.Fabric
-            (\({ geoZone } as step) ->
+            (\({ geozone } as step) ->
                 let
                     process =
                         inputs.fabricProcess
@@ -583,7 +583,7 @@ computeFabricImpacts { textile } ({ inputs, lifeCycle } as simulator) =
                             step.outputMass
                                 |> Formula.knittingImpacts step.impacts
                                     { elec = process.elec
-                                    , geoZoneElecProcess = geoZone.electricityProcess
+                                    , geozoneElecProcess = geozone.electricityProcess
                                     }
 
                         else
@@ -593,7 +593,7 @@ computeFabricImpacts { textile } ({ inputs, lifeCycle } as simulator) =
                                         |> Maybe.withDefault inputs.product.surfaceMass
                             in
                             Formula.weavingImpacts step.impacts
-                                { geoZoneElecProcess = geoZone.electricityProcess
+                                { geozoneElecProcess = geozone.electricityProcess
                                 , outputMass = fabricOutputMass
                                 , pickingElec = WellKnown.weavingElecPPPM
                                 , surfaceMass = surfaceMass

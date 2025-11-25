@@ -16,9 +16,9 @@ import Browser.Navigation as Navigation
 import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Component as Component exposing (Component, Index)
-import Data.GeoZone as GeoZone
 import Data.Dataset as Dataset
 import Data.Example as Example
+import Data.Geozone as Geozone
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
@@ -157,7 +157,7 @@ type Msg
     | UpdatePrice (Maybe Economics.Price)
     | UpdatePrinting (Maybe Printing)
     | UpdateRenamedBookmarkName Bookmark String
-    | UpdateStepGeoZone Label GeoZone.Code
+    | UpdateStepGeozone Label Geozone.Code
     | UpdateSurfaceMass (Maybe Unit.SurfaceMass)
     | UpdateTrimQuantity Index Component.Quantity
     | UpdateUpcycled Bool
@@ -616,9 +616,9 @@ update ({ db, queries, navKey } as session) msg model =
             { model | bookmarkBeingRenamed = Just { bookmark | name = name } }
                 |> App.createUpdate session
 
-        ( UpdateStepGeoZone label code, _ ) ->
+        ( UpdateStepGeozone label code, _ ) ->
             App.createUpdate session model
-                |> updateQuery (Query.updateStepGeoZone label code query)
+                |> updateQuery (Query.updateStepGeozone label code query)
 
         ( UpdateSurfaceMass surfaceMass, _ ) ->
             App.createUpdate session model
@@ -659,7 +659,7 @@ updateExistingMaterial query pageUpdate oldMaterial newMaterial =
             { id = newMaterial.id
             , share = oldMaterial.share
             , spinning = Nothing
-            , geoZone = Nothing
+            , geozone = Nothing
             }
     in
     pageUpdate
@@ -889,7 +889,7 @@ lifeCycleStepsView db { activeTab, impact } simulator =
                     , setModal = SetModal
                     , toggleFading = ToggleFading
                     , toggleStep = ToggleStep
-                    , updateGeoZone = UpdateStepGeoZone
+                    , updateGeozone = UpdateStepGeozone
                     , updateAirTransportRatio = UpdateAirTransportRatio
                     , updateDyeingProcessType = UpdateDyeingProcessType
                     , updateMaterial = UpdateMaterial
@@ -983,7 +983,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , setDetailed = \_ -> NoOp
         , title = "Accessoires"
         , updateElementAmount = \_ _ -> NoOp
-        , updateItemGeoZone = \_ _ -> NoOp
+        , updateItemGeozone = \_ _ -> NoOp
         , updateItemName = \_ _ -> NoOp
         , updateItemQuantity = UpdateTrimQuantity
         }

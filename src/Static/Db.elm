@@ -5,8 +5,8 @@ module Static.Db exposing
 
 import Data.Common.Db as Common
 import Data.Component as Component exposing (Component)
-import Data.GeoZone exposing (GeoZone)
 import Data.Food.Db as FoodDb
+import Data.Geozone exposing (Geozone)
 import Data.Impact as Impact
 import Data.Impact.Definition exposing (Definitions)
 import Data.Object.Db as ObjectDb
@@ -23,7 +23,7 @@ type alias Db =
     , definitions : Definitions
     , distances : Distances
     , food : FoodDb.Db
-    , geoZones : List GeoZone
+    , geozones : List Geozone
     , object : ObjectDb.Db
     , processes : List Process
     , textile : TextileDb.Db
@@ -46,7 +46,7 @@ db =
                                 StaticJson.foodProductExamplesJson
                                 StaticJson.foodIngredientsJson
                         )
-                    |> RE.andMap (geoZones processes)
+                    |> RE.andMap (geozones processes)
                     |> RE.andMap
                         (ObjectDb.buildFromJson
                             StaticJson.objectExamplesJson
@@ -81,9 +81,9 @@ impactDefinitions =
     Common.impactsFromJson StaticJson.impactsJson
 
 
-geoZones : List Process -> Result String (List GeoZone)
-geoZones processes =
-    Common.geoZonesFromJson processes StaticJson.geoZonesJson
+geozones : List Process -> Result String (List Geozone)
+geozones processes =
+    Common.geozonesFromJson processes StaticJson.geozonesJson
 
 
 distances : Result String Distances

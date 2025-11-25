@@ -20,7 +20,7 @@ module Data.Textile.Formula exposing
     )
 
 import Area exposing (Area)
-import Data.GeoZone as GeoZone
+import Data.Geozone as Geozone
 import Data.Impact as Impact exposing (Impacts)
 import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
@@ -122,15 +122,15 @@ recycledMaterialImpacts impacts { cffData, nonRecycledProcess, recycledProcess }
 
 spinningImpacts :
     Impacts
-    -> { geoZoneElecProcess : Process, spinningKwh : Energy }
+    -> { geozoneElecProcess : Process, spinningKwh : Energy }
     -> StepValues
-spinningImpacts impacts { geoZoneElecProcess, spinningKwh } =
+spinningImpacts impacts { geozoneElecProcess, spinningKwh } =
     { heat = Quantity.zero
     , impacts =
         impacts
             |> Impact.mapImpacts
                 (\trigram _ ->
-                    spinningKwh |> Unit.forKWh (Process.getImpact trigram geoZoneElecProcess)
+                    spinningKwh |> Unit.forKWh (Process.getImpact trigram geozoneElecProcess)
                 )
     , kwh = spinningKwh
     }
@@ -139,8 +139,8 @@ spinningImpacts impacts { geoZoneElecProcess, spinningKwh } =
 dyeingImpacts :
     Impacts
     -> Process -- Inbound: Dyeing process
-    -> Process -- Outbound: geoZone heat impact
-    -> Process -- Outbound: geoZone electricity impact
+    -> Process -- Outbound: geozone heat impact
+    -> Process -- Outbound: geozone electricity impact
     -> Mass
     -> StepValues
 dyeingImpacts impacts dyeingProcess heatProcess elecProcess baseMass =
@@ -173,8 +173,8 @@ dyeingImpacts impacts dyeingProcess heatProcess elecProcess baseMass =
 printingImpacts :
     Impacts
     ->
-        { elecProcess : Process -- Outbound: geoZone electricity impact
-        , heatProcess : Process -- Outbound: geoZone heat impact
+        { elecProcess : Process -- Outbound: geozone electricity impact
+        , heatProcess : Process -- Outbound: geozone heat impact
         , printingProcess : Process -- Inbound: Printing process
         , ratio : Split
         , surfaceMass : Unit.SurfaceMass
@@ -215,9 +215,9 @@ printingImpacts impacts { elecProcess, heatProcess, printingProcess, ratio, surf
 finishingImpacts :
     Impacts
     ->
-        { elecProcess : Process -- Outbound: geoZone electricity impact
+        { elecProcess : Process -- Outbound: geozone electricity impact
         , finishingProcess : Process -- Inbound: Printing process
-        , heatProcess : Process -- Outbound: geoZone heat impact
+        , heatProcess : Process -- Outbound: geozone heat impact
         }
     -> Mass
     -> StepValues
@@ -246,7 +246,7 @@ finishingImpacts impacts { elecProcess, finishingProcess, heatProcess } baseMass
 materialDyeingToxicityImpacts :
     Impacts
     ->
-        { aquaticPollutionScenario : GeoZone.AquaticPollutionScenario
+        { aquaticPollutionScenario : Geozone.AquaticPollutionScenario
         , dyeingToxicityProcess : Process -- Inbound: dyeing process
         }
     -> Mass
@@ -260,7 +260,7 @@ materialDyeingToxicityImpacts impacts { aquaticPollutionScenario, dyeingToxicity
                     |> Unit.forKg (Process.getImpact trigram dyeingToxicityProcess)
                     |> Quantity.multiplyBy
                         (aquaticPollutionScenario
-                            |> GeoZone.getAquaticPollutionRatio
+                            |> Geozone.getAquaticPollutionRatio
                             |> Split.toFloat
                         )
                     |> (\impact -> Split.applyToQuantity impact split)
@@ -270,7 +270,7 @@ materialDyeingToxicityImpacts impacts { aquaticPollutionScenario, dyeingToxicity
 materialPrintingToxicityImpacts :
     Impacts
     ->
-        { aquaticPollutionScenario : GeoZone.AquaticPollutionScenario
+        { aquaticPollutionScenario : Geozone.AquaticPollutionScenario
         , printingToxicityProcess : Process -- Inbound: printing process
         , surfaceMass : Unit.SurfaceMass
         }
@@ -286,7 +286,7 @@ materialPrintingToxicityImpacts impacts { aquaticPollutionScenario, printingToxi
                     |> Unit.forSquareMeter (Process.getImpact trigram printingToxicityProcess)
                     |> Quantity.multiplyBy
                         (aquaticPollutionScenario
-                            |> GeoZone.getAquaticPollutionRatio
+                            |> Geozone.getAquaticPollutionRatio
                             |> Split.toFloat
                         )
                     |> (\impact -> Split.applyToQuantity impact split)
@@ -297,13 +297,13 @@ makingImpacts :
     Impacts
     ->
         { fadingProcess : Maybe Process
-        , geoZoneElecProcess : Process
-        , geoZoneHeatProcess : Process
+        , geozoneElecProcess : Process
+        , geozoneHeatProcess : Process
         , makingComplexity : MakingComplexity
         }
     -> Mass
     -> StepValues
-makingImpacts impacts { fadingProcess, geoZoneElecProcess, geoZoneHeatProcess, makingComplexity } outputMass =
+makingImpacts impacts { fadingProcess, geozoneElecProcess, geozoneHeatProcess, makingComplexity } outputMass =
     -- Note: Fading, when enabled, is applied at the Making step because
     -- it can only be applied on finished products (using step output mass).
     -- Also:
@@ -336,7 +336,7 @@ makingImpacts impacts { fadingProcess, geoZoneElecProcess, geoZoneHeatProcess, m
                     Quantity.sum
                         [ -- Making process (per-item)
                           elec
-                            |> Unit.forKWh (Process.getImpact trigram geoZoneElecProcess)
+                            |> Unit.forKWh (Process.getImpact trigram geozoneElecProcess)
 
                         -- Fading process (mass-dependent)
                         , outputMass
@@ -346,9 +346,9 @@ makingImpacts impacts { fadingProcess, geoZoneElecProcess, geoZoneHeatProcess, m
                                     |> Maybe.withDefault Quantity.zero
                                 )
                         , fadingElec
-                            |> Unit.forKWh (Process.getImpact trigram geoZoneElecProcess)
+                            |> Unit.forKWh (Process.getImpact trigram geozoneElecProcess)
                         , fadingHeat
-                            |> Unit.forMJ (Process.getImpact trigram geoZoneHeatProcess)
+                            |> Unit.forMJ (Process.getImpact trigram geozoneHeatProcess)
                         ]
                 )
     , kwh = Quantity.sum [ elec, fadingElec ]
@@ -357,7 +357,7 @@ makingImpacts impacts { fadingProcess, geoZoneElecProcess, geoZoneHeatProcess, m
 
 knittingImpacts :
     Impacts
-    -> { elec : Energy, geoZoneElecProcess : Process }
+    -> { elec : Energy, geozoneElecProcess : Process }
     -> Mass
     ->
         { impacts : Impacts
@@ -365,7 +365,7 @@ knittingImpacts :
         , picking : Maybe Unit.PickPerMeter
         , threadDensity : Maybe Unit.ThreadDensity
         }
-knittingImpacts impacts { elec, geoZoneElecProcess } baseMass =
+knittingImpacts impacts { elec, geozoneElecProcess } baseMass =
     let
         electricityKWh =
             Energy.kilowattHours
@@ -377,7 +377,7 @@ knittingImpacts impacts { elec, geoZoneElecProcess } baseMass =
             |> Impact.mapImpacts
                 (\trigram _ ->
                     electricityKWh
-                        |> Unit.forKWh (Process.getImpact trigram geoZoneElecProcess)
+                        |> Unit.forKWh (Process.getImpact trigram geozoneElecProcess)
                 )
     , kwh = electricityKWh
     , picking = Nothing
@@ -388,7 +388,7 @@ knittingImpacts impacts { elec, geoZoneElecProcess } baseMass =
 weavingImpacts :
     Impacts
     ->
-        { geoZoneElecProcess : Process
+        { geozoneElecProcess : Process
         , outputMass : Mass
         , pickingElec : Float
         , surfaceMass : Unit.SurfaceMass
@@ -400,7 +400,7 @@ weavingImpacts :
         , picking : Maybe Unit.PickPerMeter
         , threadDensity : Maybe Unit.ThreadDensity
         }
-weavingImpacts impacts { geoZoneElecProcess, outputMass, pickingElec, surfaceMass, yarnSize } =
+weavingImpacts impacts { geozoneElecProcess, outputMass, pickingElec, surfaceMass, yarnSize } =
     -- Methodology: https://fabrique-numerique.gitbook.io/ecobalyse/textile/etapes-du-cycle-de-vie/tricotage-tissage
     let
         outputSurface =
@@ -423,7 +423,7 @@ weavingImpacts impacts { geoZoneElecProcess, outputMass, pickingElec, surfaceMas
             |> Impact.mapImpacts
                 (\trigram _ ->
                     electricityKWh
-                        |> Unit.forKWh (Process.getImpact trigram geoZoneElecProcess)
+                        |> Unit.forKWh (Process.getImpact trigram geozoneElecProcess)
                 )
     , kwh = electricityKWh
     , picking = Just picking
@@ -463,14 +463,14 @@ computePicking threadDensity outputSurface =
 useImpacts :
     Impacts
     ->
-        { geoZoneElecProcess : Process
+        { geozoneElecProcess : Process
         , ironingElec : Energy
         , nonIroningProcess : Process
         , useNbCycles : Int
         }
     -> Mass
     -> StepValues
-useImpacts impacts { geoZoneElecProcess, ironingElec, nonIroningProcess, useNbCycles } baseMass =
+useImpacts impacts { geozoneElecProcess, ironingElec, nonIroningProcess, useNbCycles } baseMass =
     let
         totalEnergy =
             -- Note: Ironing is expressed per-item, non-ironing is mass-depdendent
@@ -488,7 +488,7 @@ useImpacts impacts { geoZoneElecProcess, ironingElec, nonIroningProcess, useNbCy
                 (\trigram _ ->
                     Quantity.sum
                         [ totalEnergy
-                            |> Unit.forKWh (Process.getImpact trigram geoZoneElecProcess)
+                            |> Unit.forKWh (Process.getImpact trigram geozoneElecProcess)
                         , baseMass
                             |> Unit.forKg (Process.getImpact trigram nonIroningProcess)
                             |> Quantity.multiplyBy (toFloat useNbCycles)
@@ -502,14 +502,14 @@ endOfLifeImpacts :
     Impacts
     ->
         { endOfLife : Process
-        , geoZoneElecProcess : Process
+        , geozoneElecProcess : Process
         , heatProcess : Process
         , passengerCar : Process
         , volume : Volume
         }
     -> Mass
     -> StepValues
-endOfLifeImpacts impacts { endOfLife, geoZoneElecProcess, heatProcess, passengerCar, volume } baseMass =
+endOfLifeImpacts impacts { endOfLife, geozoneElecProcess, heatProcess, passengerCar, volume } baseMass =
     -- Notes:
     -- - passengerCar is expressed per-item
     -- - endOfLife is mass-dependent
@@ -544,7 +544,7 @@ endOfLifeImpacts impacts { endOfLife, geoZoneElecProcess, heatProcess, passenger
                         [ Process.getImpact trigram passengerCar
                             |> Quantity.multiplyBy carTrunkAllocationRatio
                         , elecEnergy
-                            |> Unit.forKWh (Process.getImpact trigram geoZoneElecProcess)
+                            |> Unit.forKWh (Process.getImpact trigram geozoneElecProcess)
                         , heatEnergy
                             |> Unit.forMJ (Process.getImpact trigram heatProcess)
                         , baseMass

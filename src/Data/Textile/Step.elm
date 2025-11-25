@@ -23,7 +23,7 @@ module Data.Textile.Step exposing
     )
 
 import Area exposing (Area)
-import Data.GeoZone as GeoZone exposing (GeoZone)
+import Data.Geozone as Geozone exposing (Geozone)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
@@ -56,7 +56,7 @@ type alias Step =
     , dyeingProcessType : Maybe ProcessType
     , editable : Bool
     , enabled : Bool
-    , geoZone : GeoZone
+    , geozone : Geozone
     , heat : Energy
     , impacts : Impacts
     , inputMass : Mass
@@ -95,8 +95,8 @@ type alias ProcessInfo =
     , endOfLife : Maybe String
     , fabric : Maybe String
     , fading : Maybe String
-    , geoZoneElec : Maybe String
-    , geoZoneHeat : Maybe String
+    , geozoneElec : Maybe String
+    , geozoneHeat : Maybe String
     , making : Maybe String
     , passengerCar : Maybe String
     , printing : Maybe String
@@ -107,20 +107,20 @@ type alias ProcessInfo =
     }
 
 
-create : { editable : Bool, enabled : Bool, geoZone : GeoZone, label : Label } -> Step
-create { editable, enabled, geoZone, label } =
+create : { editable : Bool, enabled : Bool, geozone : Geozone, label : Label } -> Step
+create { editable, enabled, geozone, label } =
     let
         defaultImpacts =
             Impact.empty
     in
-    { airTransportRatio = Split.zero -- Note: this depends on next step geoZone, so we can't set an accurate default value initially
+    { airTransportRatio = Split.zero -- Note: this depends on next step geozone, so we can't set an accurate default value initially
     , complementsImpacts = Impact.noComplementsImpacts
     , deadstock = Quantity.zero
     , durability = Unit.standardDurability Unit.NonPhysicalDurability
     , dyeingProcessType = Nothing
     , editable = editable
     , enabled = enabled
-    , geoZone = geoZone
+    , geozone = geozone
     , heat = Quantity.zero
     , impacts = defaultImpacts
     , inputMass = Quantity.zero
@@ -161,8 +161,8 @@ defaultProcessInfo =
     , endOfLife = Nothing
     , fabric = Nothing
     , fading = Nothing
-    , geoZoneElec = Nothing
-    , geoZoneHeat = Nothing
+    , geozoneElec = Nothing
+    , geozoneHeat = Nothing
     , making = Nothing
     , passengerCar = Nothing
     , printing = Nothing
@@ -173,21 +173,21 @@ defaultProcessInfo =
     }
 
 
-computeMaterialTransportAndImpact : Db -> GeoZone -> Mass -> Inputs.MaterialInput -> Transport
-computeMaterialTransportAndImpact { distances, textile } geoZone outputMass materialInput =
+computeMaterialTransportAndImpact : Db -> Geozone -> Mass -> Inputs.MaterialInput -> Transport
+computeMaterialTransportAndImpact { distances, textile } geozone outputMass materialInput =
     let
         materialMass =
             materialInput.share
                 |> Split.applyToQuantity outputMass
     in
     materialInput
-        |> Inputs.computeMaterialTransport distances geoZone.code
+        |> Inputs.computeMaterialTransport distances geozone.code
         |> Formula.transportRatio Split.zero
         |> computeTransportImpacts Impact.empty textile.wellKnown textile.wellKnown.roadTransport materialMass
 
 
-computePreTreatment : GeoZone -> Mass -> Process -> PreTreatments
-computePreTreatment geoZone mass process =
+computePreTreatment : Geozone -> Mass -> Process -> PreTreatments
+computePreTreatment geozone mass process =
     let
         massInKg =
             Mass.inKilograms mass
@@ -199,9 +199,9 @@ computePreTreatment geoZone mass process =
     in
     { energy =
         Impact.sumImpacts
-            [ geoZone.electricityProcess.impacts
+            [ geozone.electricityProcess.impacts
                 |> Impact.multiplyBy (Energy.inKilowattHours consumedElec)
-            , geoZone.heatProcess.impacts
+            , geozone.heatProcess.impacts
                 |> Impact.multiplyBy (Energy.inMegajoules consumedHeat)
             ]
     , heat = consumedHeat
@@ -210,15 +210,15 @@ computePreTreatment geoZone mass process =
     , toxicity =
         process.impacts
             |> Impact.multiplyBy
-                (geoZone.aquaticPollutionScenario
-                    |> GeoZone.getAquaticPollutionRatio
+                (geozone.aquaticPollutionScenario
+                    |> Geozone.getAquaticPollutionRatio
                     |> Split.apply massInKg
                 )
     }
 
 
 computePreTreatments : WellKnown -> List Inputs.MaterialInput -> Step -> PreTreatments
-computePreTreatments wellKnown materials { geoZone, inputMass } =
+computePreTreatments wellKnown materials { geozone, inputMass } =
     materials
         |> List.concatMap
             (\{ material, share } ->
@@ -227,7 +227,7 @@ computePreTreatments wellKnown materials { geoZone, inputMass } =
                     |> List.map
                         (share
                             |> Split.applyToQuantity inputMass
-                            |> computePreTreatment geoZone
+                            |> computePreTreatment geozone
                         )
             )
         |> List.foldl
@@ -254,12 +254,12 @@ computeTransports db inputs next ({ processInfo } as current) =
         transport =
             if current.label == Label.Material then
                 inputs.materials
-                    |> List.map (computeMaterialTransportAndImpact db next.geoZone current.outputMass)
+                    |> List.map (computeMaterialTransportAndImpact db next.geozone current.outputMass)
                     |> Transport.sum
 
             else
                 db.distances
-                    |> Transport.getTransportBetween current.transport.impacts current.geoZone.code next.geoZone.code
+                    |> Transport.getTransportBetween current.transport.impacts current.geozone.code next.geozone.code
                     |> computeTransportSummary current
                     |> computeTransportImpacts current.transport.impacts
                         db.textile.wellKnown
@@ -356,7 +356,7 @@ getTransportedMass inputs { label, outputMass } =
 
 
 updateFromInputs : Textile.Db -> Inputs -> Step -> Step
-updateFromInputs { wellKnown } inputs ({ label, geoZone, complementsImpacts } as step) =
+updateFromInputs { wellKnown } inputs ({ label, geozone, complementsImpacts } as step) =
     let
         { dyeingProcessType, makingComplexity, makingDeadStock, makingWaste, printing, surfaceMass, yarnSize } =
             inputs
@@ -377,8 +377,8 @@ updateFromInputs { wellKnown } inputs ({ label, geoZone, complementsImpacts } as
                 , processInfo =
                     { defaultProcessInfo
                         | endOfLife = Just <| Process.getDisplayName wellKnown.endOfLife
-                        , geoZoneElec = Just <| Process.getDisplayName geoZone.electricityProcess
-                        , geoZoneHeat = Just <| Process.getDisplayName geoZone.heatProcess
+                        , geozoneElec = Just <| Process.getDisplayName geozone.electricityProcess
+                        , geozoneHeat = Just <| Process.getDisplayName geozone.heatProcess
                         , passengerCar = Just "Transport en voiture vers point de collecte (1km)"
                     }
             }
@@ -390,8 +390,8 @@ updateFromInputs { wellKnown } inputs ({ label, geoZone, complementsImpacts } as
                 , processInfo =
                     { defaultProcessInfo
                         | dyeing = Nothing
-                        , geoZoneElec = Just <| Process.getDisplayName geoZone.electricityProcess
-                        , geoZoneHeat = Just <| Process.getDisplayName geoZone.heatProcess
+                        , geozoneElec = Just <| Process.getDisplayName geozone.electricityProcess
+                        , geozoneHeat = Just <| Process.getDisplayName geozone.heatProcess
                         , printing =
                             printing
                                 |> Maybe.map
@@ -413,7 +413,7 @@ updateFromInputs { wellKnown } inputs ({ label, geoZone, complementsImpacts } as
                                 |> Fabric.getProcess wellKnown
                                 |> Process.getDisplayName
                                 |> Just
-                        , geoZoneElec = Just <| Process.getDisplayName geoZone.electricityProcess
+                        , geozoneElec = Just <| Process.getDisplayName geozone.electricityProcess
                     }
                 , surfaceMass = surfaceMass
                 , yarnSize = yarnSize
@@ -427,7 +427,7 @@ updateFromInputs { wellKnown } inputs ({ label, geoZone, complementsImpacts } as
                 , processInfo =
                     { defaultProcessInfo
                         | fading = Just <| Process.getDisplayName wellKnown.fading
-                        , geoZoneElec = Just <| Process.getDisplayName geoZone.electricityProcess
+                        , geozoneElec = Just <| Process.getDisplayName geozone.electricityProcess
                     }
             }
 
@@ -442,7 +442,7 @@ updateFromInputs { wellKnown } inputs ({ label, geoZone, complementsImpacts } as
 
         Label.Spinning ->
             { step
-                | processInfo = { defaultProcessInfo | geoZoneElec = Just <| Process.getDisplayName geoZone.electricityProcess }
+                | processInfo = { defaultProcessInfo | geozoneElec = Just <| Process.getDisplayName geozone.electricityProcess }
                 , yarnSize = yarnSize
             }
 
@@ -451,7 +451,7 @@ updateFromInputs { wellKnown } inputs ({ label, geoZone, complementsImpacts } as
                 | processInfo =
                     { defaultProcessInfo
                         | -- Note: French low voltage electricity process is always used at the Use step
-                          geoZoneElec = Just <| Process.getDisplayName wellKnown.lowVoltageFranceElec
+                          geozoneElec = Just <| Process.getDisplayName wellKnown.lowVoltageFranceElec
                         , useIroning =
                             -- Note: Much better expressing electricity consumption in kWh than in MJ
                             inputs.product.use.ironingElec
@@ -491,10 +491,10 @@ updateDeadStock deadstock mass step =
 
 
 airTransportDisabled : Step -> Bool
-airTransportDisabled { enabled, geoZone, label } =
+airTransportDisabled { enabled, geozone, label } =
     not enabled
         || -- Note: disallow air transport from France to France at the Making step
-           (label == Label.Making && geoZone.code == GeoZone.codeFromString "FR")
+           (label == Label.Making && geozone.code == Geozone.codeFromString "FR")
 
 
 airTransportRatioToString : Split -> String
@@ -545,7 +545,7 @@ encode v =
     Encode.object
         [ ( "airTransportRatio", Split.encodeFloat v.airTransportRatio )
         , ( "complementsImpacts", Impact.encodeComplementsImpacts v.complementsImpacts )
-        , ( "geoZone", GeoZone.encode v.geoZone )
+        , ( "geozone", Geozone.encode v.geozone )
         , ( "deadstock", Encode.float (Mass.inKilograms v.deadstock) )
         , ( "durability", Unit.encodeNonPhysicalDurability v.durability )
         , ( "editable", Encode.bool v.editable )
@@ -590,8 +590,8 @@ encodeProcessInfo v =
     Encode.object
         [ ( "airTransport", encodeMaybeString v.airTransport )
         , ( "airTransportRatio", encodeMaybeString v.airTransportRatio )
-        , ( "geoZoneElec", encodeMaybeString v.geoZoneElec )
-        , ( "geoZoneHeat", encodeMaybeString v.geoZoneHeat )
+        , ( "geozoneElec", encodeMaybeString v.geozoneElec )
+        , ( "geozoneHeat", encodeMaybeString v.geozoneHeat )
         , ( "distribution", encodeMaybeString v.distribution )
         , ( "endOfLife", encodeMaybeString v.endOfLife )
         , ( "fabric", encodeMaybeString v.fabric )

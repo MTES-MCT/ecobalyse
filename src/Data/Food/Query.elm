@@ -26,10 +26,10 @@ module Data.Food.Query exposing
 import Base64
 import Data.Common.DecodeUtils as DU
 import Data.Common.EncodeUtils as EU
-import Data.GeoZone as GeoZone
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Preparation as Preparation
 import Data.Food.Retail as Retail
+import Data.Geozone as Geozone
 import Data.Process as Process
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
@@ -40,7 +40,7 @@ import Url.Parser as Parser exposing (Parser)
 
 
 type alias IngredientQuery =
-    { geoZone : Maybe GeoZone.Code
+    { geozone : Maybe Geozone.Code
     , id : Ingredient.Id
     , mass : Mass
     , planeTransport : Ingredient.PlaneTransport
@@ -144,7 +144,7 @@ decodeProcess =
 decodeIngredient : Decoder IngredientQuery
 decodeIngredient =
     Decode.succeed IngredientQuery
-        |> DU.strictOptional "geoZone" GeoZone.decodeCode
+        |> DU.strictOptional "geozone" Geozone.decodeCode
         |> Pipe.required "id" Ingredient.decodeId
         |> Pipe.required "mass" decodeMassInGrams
         |> DU.strictOptionalWithDefault "byPlane" decodePlaneTransport Ingredient.PlaneNotApplicable
@@ -212,7 +212,7 @@ encodeIngredient v =
     EU.optionalPropertiesObject
         [ ( "id", Ingredient.encodeId v.id |> Just )
         , ( "mass", encodeMassAsGrams v.mass |> Just )
-        , ( "geoZone", v.geoZone |> Maybe.map GeoZone.encodeCode )
+        , ( "geozone", v.geozone |> Maybe.map Geozone.encodeCode )
         , ( "byPlane", v.planeTransport |> Ingredient.encodePlaneTransport )
         ]
 

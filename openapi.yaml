@@ -39,7 +39,7 @@ paths:
       responses:
         200:
           description: Documentation de l'API au format OpenAPI.
-  /textile/geo-zones:
+  /textile/geozones:
     get:
       tags:
         - Textile
@@ -50,7 +50,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GeoZoneListResponse"
+                $ref: "#/components/schemas/GeozoneListResponse"
   /textile/materials:
     get:
       tags:
@@ -179,7 +179,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/TrimListResponse"
-  /food/geo-zones:
+  /food/geozones:
     get:
       tags:
         - Alimentaire
@@ -190,7 +190,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GeoZoneListResponse"
+                $ref: "#/components/schemas/GeozoneListResponse"
   /food/ingredients:
     get:
       tags:
@@ -267,16 +267,16 @@ paths:
                   ingredients:
                   - id: cfd4a437-aa49-49ff-818e-353421f2fc09
                     mass: 120
-                    geoZone: ES
+                    geozone: ES
                   - id: a98b8776-a96d-48e9-b218-976f5452907a
                     mass: 140
-                    geoZone: ES
+                    geozone: ES
                   - id: 2bf307e8-8cb0-400b-a4f1-cf615d9e96f4
                     mass: 60
-                    geoZone: ES
+                    geozone: ES
                   - id: 9042b6d0-c309-4757-a03f-ba802f0c8c01
                     mass: 225
-                    geoZone: ES
+                    geozone: ES
                   transform:
                     id: a2836bb8-7f45-5cfa-bb00-8b38046291cf
                     mass: 545
@@ -292,7 +292,7 @@ paths:
                   ingredients:
                   - id: db0e5f44-34b4-4160-b003-77c828d75e60
                     mass: 500
-                    geoZone: BR
+                    geozone: BR
                   transform: null
                   packaging: []
                   distribution: ambient
@@ -327,12 +327,12 @@ components:
         materials:
         - id: "62a4d6fb-3276-4ba5-93a3-889ecd3bff84"
           share: 1
-          geoZone: "FR"
+          geozone: "FR"
         product: "tshirt"
-        geoZoneSpinning: "FR"
-        geoZoneFabric: "FR"
-        geoZoneDyeing: "FR"
-        geoZoneMaking: "FR"
+        geozoneSpinning: "FR"
+        geozoneFabric: "FR"
+        geozoneDyeing: "FR"
+        geozoneMaking: "FR"
         fabricProcess: "knitting-mix"
     tShirtChina:
       summary: "T-Shirt Chine, low-cost, 100% Coton"
@@ -342,10 +342,10 @@ components:
         - id: "62a4d6fb-3276-4ba5-93a3-889ecd3bff84"
           share: 1
         product: "tshirt"
-        geoZoneSpinning: "CN"
-        geoZoneFabric: "CN"
-        geoZoneDyeing: "CN"
-        geoZoneMaking: "CN"
+        geozoneSpinning: "CN"
+        geozoneFabric: "CN"
+        geozoneDyeing: "CN"
+        geozoneMaking: "CN"
         airTransportRatio: 0.33
         makingWaste: null
         makingDeadStock: null
@@ -501,28 +501,28 @@ components:
             - small-business
             - large-business-with-services
             - large-business-without-services
-        geoZoneDyeing:
+        geozoneDyeing:
           type: string
           description: |
-            Code de zone géographique pour l'étape de **Teinture** (liste disponible sur le point d'entrée `textile/geo-zones`)
+            Code de zone géographique pour l'étape de **Teinture** (liste disponible sur le point d'entrée `textile/geozones`)
           minLength: 2
           maxLength: 3
-        geoZoneFabric:
+        geozoneFabric:
           type: string
           description: |
-            Code de zone géographique pour l'étape de **Tissage/Tricotage** (liste disponible sur le point d'entrée `textile/geo-zones`)
+            Code de zone géographique pour l'étape de **Tissage/Tricotage** (liste disponible sur le point d'entrée `textile/geozones`)
           minLength: 2
           maxLength: 3
-        geoZoneMaking:
+        geozoneMaking:
           type: string
           description: |
-            Code de zone géographique pour l'étape de **Confection** (liste disponible sur le point d'entrée `textile/geo-zones`)
+            Code de zone géographique pour l'étape de **Confection** (liste disponible sur le point d'entrée `textile/geozones`)
           minLength: 2
           maxLength: 3
-        geoZoneSpinning:
+        geozoneSpinning:
           type: string
           description: |
-            Code de zone géographique pour l'étape de **Filature** (liste disponible sur le point d'entrée `textile/geo-zones`).
+            Code de zone géographique pour l'étape de **Filature** (liste disponible sur le point d'entrée `textile/geozones`).
             Si non spécifié, la zone géographique de filature prise en considération est celle de production de
             la matière la plus représentée dans le mix.
           minLength: 2
@@ -731,9 +731,9 @@ components:
           - ConventionalSpinning
           - UnconventionalSpinning
           - SyntheticSpinning
-        geoZone:
+        geozone:
           type: string
-          description: Code de la zone géographique d'origine de la matière (liste disponible sur le point d'entrée `/textile/geo-zones`).
+          description: Code de la zone géographique d'origine de la matière (liste disponible sur le point d'entrée `/textile/geozones`).
           minLength: 2
           maxLength: 3
     FoodQuery:
@@ -811,9 +811,9 @@ components:
         mass:
           type: number
           description: Masse de l'ingrédient, **en grammes**
-        geoZone:
+        geozone:
           type: string
-          description: Code de la zone géographique d'origine (liste disponible sur le point d'entrée `/food/geo-zones`).
+          description: Code de la zone géographique d'origine (liste disponible sur le point d'entrée `/food/geozones`).
         byPlane:
           type: string
           description: Transport par avion
@@ -869,7 +869,7 @@ components:
           type: string
           description: |
             Lien hypertexte vers la documentation de l'API
-    GeoZoneListResponse:
+    GeozoneListResponse:
       type: array
       description: Liste des zones géographiques.
       items:

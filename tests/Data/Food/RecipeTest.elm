@@ -1,11 +1,11 @@
 module Data.Food.RecipeTest exposing (..)
 
-import Data.GeoZone as GeoZone
 import Data.Example
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Preparation as Preparation
 import Data.Food.Recipe as Recipe
 import Data.Food.Retail as Retail
+import Data.Geozone as Geozone
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Unit as Unit
@@ -211,12 +211,12 @@ suite =
                         [ { ingredients =
                                 [ { id = eggId
                                   , mass = Mass.grams 120
-                                  , geoZone = Nothing
+                                  , geozone = Nothing
                                   , planeTransport = Ingredient.PlaneNotApplicable
                                   }
                                 , { id = wheatId
                                   , mass = Mass.grams 140
-                                  , geoZone = Nothing
+                                  , geozone = Nothing
                                   , planeTransport = Ingredient.PlaneNotApplicable
                                   }
                                 ]
@@ -258,7 +258,7 @@ suite =
                         mango =
                             { id = mangoId
                             , mass = Mass.grams 120
-                            , geoZone = Nothing
+                            , geozone = Nothing
                             , planeTransport = Ingredient.ByPlane
                             }
 
@@ -274,7 +274,7 @@ suite =
                         [ { ingredients =
                                 [ { id = eggId
                                   , mass = Mass.grams 120
-                                  , geoZone = Nothing
+                                  , geozone = Nothing
                                   , planeTransport = Ingredient.PlaneNotApplicable
                                   }
                                 ]
@@ -297,7 +297,7 @@ suite =
                             |> Result.map firstIngredientAirDistance
                             |> Expect.equal (Ok (Just 18000))
                             |> asTest "should have air transport for mango from its default origin"
-                        , { ingredients = [ { mango | geoZone = Just (GeoZone.codeFromString "CN"), planeTransport = Ingredient.ByPlane } ]
+                        , { ingredients = [ { mango | geozone = Just (Geozone.codeFromString "CN"), planeTransport = Ingredient.ByPlane } ]
                           , transform = Nothing
                           , packaging = []
                           , distribution = Just Retail.ambient
@@ -307,7 +307,7 @@ suite =
                             |> Result.map firstIngredientAirDistance
                             |> Expect.equal (Ok (Just 8189))
                             |> asTest "should always have air transport for mango even from other geographical zones if 'planeTransport' is 'byPlane'"
-                        , { ingredients = [ { mango | geoZone = Just (GeoZone.codeFromString "CN"), planeTransport = Ingredient.NoPlane } ]
+                        , { ingredients = [ { mango | geozone = Just (Geozone.codeFromString "CN"), planeTransport = Ingredient.NoPlane } ]
                           , transform = Nothing
                           , packaging = []
                           , distribution = Just Retail.ambient

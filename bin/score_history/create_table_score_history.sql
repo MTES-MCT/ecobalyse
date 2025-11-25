@@ -9,7 +9,7 @@ CREATE TABLE score_history (
   mass numeric NOT NULL,
   elements text NOT NULL,
   lifecycle_step text NOT NULL,
-  lifecycle_step_geo_zone text NOT NULL,
+  lifecycle_step_geozone text NOT NULL,
   impact text NOT NULL,
   value numeric NOT NULL,
   norm_value_ecs numeric NOT NULL

@@ -2,9 +2,9 @@ module Views.Textile.Step exposing (view)
 
 import Autocomplete exposing (Autocomplete)
 import Data.AutocompleteSelector as AutocompleteSelector
-import Data.GeoZone as GeoZone
 import Data.Dataset as Dataset
 import Data.Env as Env
+import Data.Geozone as Geozone
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact exposing (noComplementsImpacts)
 import Data.Impact.Definition as Definition exposing (Definition)
@@ -41,8 +41,8 @@ import Views.Button as Button
 import Views.ComplementsDetails as ComplementsDetails
 import Views.Component.SplitInput as SplitInput
 import Views.Component.StepsBorder as StepsBorder
-import Views.GeoZoneSelect as GeoZoneSelect
 import Views.Format as Format
+import Views.GeozoneSelect as GeozoneSelect
 import Views.Icon as Icon
 import Views.Link as Link
 import Views.RangeSlider as RangeSlider
@@ -67,7 +67,7 @@ type alias Config msg modal =
     , updateAirTransportRatio : Maybe Split -> msg
     , updateDyeingProcessType : ProcessType -> msg
     , updateFabricProcess : Fabric -> msg
-    , updateGeoZone : Label -> GeoZone.Code -> msg
+    , updateGeozone : Label -> Geozone.Code -> msg
     , updateMakingComplexity : MakingComplexity -> msg
     , updateMakingDeadStock : Maybe Split -> msg
     , updateMakingWaste : Maybe Split -> msg
@@ -84,20 +84,20 @@ type alias ViewWithTransport msg =
     { step : Html msg, transport : Html msg }
 
 
-geoZoneField : Config msg modal -> Html msg
-geoZoneField { current, db, updateGeoZone } =
+geozoneField : Config msg modal -> Html msg
+geozoneField { current, db, updateGeozone } =
     div []
         [ if current.editable then
-            GeoZoneSelect.view
+            GeozoneSelect.view
                 { attributes =
                     [ class "form-select"
                     , disabled (not current.enabled)
-                    , onInput (GeoZone.codeFromString >> updateGeoZone current.label)
+                    , onInput (Geozone.codeFromString >> updateGeozone current.label)
                     ]
-                , geoZones = db.geoZones
-                , onSelect = updateGeoZone current.label
+                , geozones = db.geozones
+                , onSelect = updateGeozone current.label
                 , scope = Scope.Textile
-                , selectedGeoZone = current.geoZone.code
+                , selectedGeozone = current.geozone.code
                 }
 
           else
@@ -107,7 +107,7 @@ geoZoneField { current, db, updateGeoZone } =
                     , title "La zone géographique n'est pas modifiable à cette étape"
                     ]
                     [ Icon.lock ]
-                , text current.geoZone.name
+                , text current.geozone.name
                 ]
         ]
 
@@ -517,14 +517,14 @@ viewMaterials config =
             |> List.map
                 (\materialInput ->
                     let
-                        nextGeoZone =
+                        nextGeozone =
                             config.next
                                 |> Maybe.withDefault config.current
-                                |> .geoZone
+                                |> .geozone
 
                         transport =
                             materialInput
-                                |> Step.computeMaterialTransportAndImpact config.db nextGeoZone config.current.outputMass
+                                |> Step.computeMaterialTransportAndImpact config.db nextGeozone config.current.outputMass
                     in
                     li [ class "ElementFormWrapper list-group-item" ]
                         (List.concat
@@ -662,7 +662,7 @@ createElementSelectorConfig cfg materialInput =
     let
         materialQuery : MaterialQuery
         materialQuery =
-            { geoZone = materialInput.geoZone |> Maybe.map .code
+            { geozone = materialInput.geozone |> Maybe.map .code
             , id = materialInput.material.id
             , share = materialInput.share
             , spinning = materialInput.spinning
@@ -670,7 +670,7 @@ createElementSelectorConfig cfg materialInput =
 
         baseElement =
             { element = materialInput.material
-            , geoZone = materialInput.geoZone
+            , geozone = materialInput.geozone
             , quantity = materialInput.share
             }
 
@@ -688,12 +688,12 @@ createElementSelectorConfig cfg materialInput =
     , db =
         { definitions = cfg.db.definitions
         , elements = cfg.db.textile.materials
-        , geoZones =
-            cfg.db.geoZones
+        , geozones =
+            cfg.db.geozones
                 |> Scope.anyOf [ Scope.Textile ]
                 |> List.sortBy .name
         }
-    , defaultGeoZone = materialInput.material.geographicOrigin
+    , defaultGeozone = materialInput.material.geographicOrigin
     , delete = cfg.deleteMaterial
     , excluded = excluded
     , impact = impacts
@@ -715,7 +715,7 @@ createElementSelectorConfig cfg materialInput =
             cfg.updateMaterial
                 materialQuery
                 { materialQuery
-                    | geoZone = newElement.geoZone |> Maybe.map .code
+                    | geozone = newElement.geozone |> Maybe.map .code
                     , id = newElement.element.id
                     , share = newElement.quantity
                 }
@@ -832,7 +832,7 @@ ennoblingToxicityView db ({ selectedImpact, inputs } as config) current =
                     |> List.map
                         (\{ material, share } ->
                             Formula.materialDyeingToxicityImpacts current.impacts
-                                { aquaticPollutionScenario = current.geoZone.aquaticPollutionScenario
+                                { aquaticPollutionScenario = current.geozone.aquaticPollutionScenario
                                 , dyeingToxicityProcess =
                                     if Origin.isSynthetic material.origin then
                                         db.textile.wellKnown.dyeingSynthetic
@@ -855,7 +855,7 @@ ennoblingToxicityView db ({ selectedImpact, inputs } as config) current =
                         in
                         current.outputMass
                             |> Formula.materialPrintingToxicityImpacts current.impacts
-                                { aquaticPollutionScenario = current.geoZone.aquaticPollutionScenario
+                                { aquaticPollutionScenario = current.geozone.aquaticPollutionScenario
                                 , printingToxicityProcess = printingToxicityProcess
                                 , surfaceMass = inputs.surfaceMass |> Maybe.withDefault inputs.product.surfaceMass
                                 }
@@ -1044,7 +1044,7 @@ regulatoryStepView ({ current } as config) =
     div
         [ class "StepBody card-body row align-items-center" ]
         [ div [ class "col-lg-7" ]
-            [ geoZoneField config
+            [ geozoneField config
             , case current.label of
                 Label.Ennobling ->
                     div [ class "mt-2" ]
@@ -1080,9 +1080,9 @@ advancedStepView ({ db, inputs, selectedImpact, current } as config) =
     div [ class "card-group" ]
         [ div [ class "card border-start-0 border-top-0 border-bottom-0" ]
             [ infoListElement
-                [ li [ class "list-group-item" ] [ geoZoneField config ]
-                , viewProcessInfo <| Maybe.map ((++) "Elec : ") current.processInfo.geoZoneElec
-                , viewProcessInfo <| Maybe.map ((++) "Chaleur : ") current.processInfo.geoZoneHeat
+                [ li [ class "list-group-item" ] [ geozoneField config ]
+                , viewProcessInfo <| Maybe.map ((++) "Elec : ") current.processInfo.geozoneElec
+                , viewProcessInfo <| Maybe.map ((++) "Chaleur : ") current.processInfo.geozoneHeat
                 , viewProcessInfo current.processInfo.distribution
                 , viewProcessInfo current.processInfo.useIroning
                 , viewProcessInfo current.processInfo.useNonIroning
