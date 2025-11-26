@@ -623,9 +623,10 @@ computeShareImpacts mass { process, split } =
 
 computeTransports : Requirements db -> Query -> LifeCycle -> LifeCycle
 computeTransports { config, db } query lifeCycle =
-    -- TODO: - get all components, and for each get distances from country/default
-    --       country to assembly step country (parameter to be passed to this function)
-    --       - multiply distance with appropriate transport process impacts
+    -- TODO:
+    -- - get all components, and for each get distances from country/default
+    --   country to assembly step country (parameter to be passed to this function)
+    -- - multiply distance with appropriate transport process impacts
     let
         distances =
             Transport.sum <|
@@ -638,6 +639,7 @@ computeTransports { config, db } query lifeCycle =
                                         Just itemCountry ->
                                             db.distances
                                                 |> Transport.getTransportBetween Impact.empty itemCountry assemblyCountry
+                                                -- Note: for now it's assumed there's never air transport
                                                 |> Transport.applyTransportRatios Split.zero
 
                                         Nothing ->
