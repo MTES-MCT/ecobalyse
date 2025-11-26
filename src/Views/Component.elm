@@ -25,7 +25,7 @@ import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split
-import Data.Transport as Transport
+import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Dict.Any as AnyDict
 import Html exposing (..)
@@ -476,21 +476,8 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, maxItems, query, scope, tit
         , if not (List.isEmpty query.items) && List.member scope [ Scope.Object, Scope.Veli ] then
             div []
                 [ DownArrow.view []
-                    [ div [ class "d-flex gap-2" ]
-                        [ Format.kg <| Component.extractMass lifeCycle.production
-                        , lifeCycle.transports.toDistribution
-                            |> TransportView.viewDetails
-                                { airTransportLabel = Nothing
-                                , fullWidth = True
-                                , hideNoLength = True
-                                , onlyIcons = False
-                                , roadTransportLabel = Nothing
-                                , seaTransportLabel = Nothing
-                                }
-                            |> div [ class "d-flex gap-2" ]
-                        , lifeCycle.transports.toDistribution.impacts
-                            |> Format.formatImpact impact
-                        ]
+                    [ lifeCycle.transports.toDistribution
+                        |> viewTransports impact (Component.extractMass lifeCycle.production)
                     ]
                 , distributionView config lifeCycle
                 , DownArrow.view [] []
@@ -504,6 +491,25 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, maxItems, query, scope, tit
 
           else
             text ""
+        ]
+
+
+viewTransports : Definition -> Mass -> Transport -> Html msg
+viewTransports selectedImpact mass transport =
+    div [ class "d-flex gap-2" ]
+        [ transport
+            |> TransportView.viewDetails
+                { airTransportLabel = Nothing
+                , fullWidth = True
+                , hideNoLength = True
+                , onlyIcons = False
+                , roadTransportLabel = Nothing
+                , seaTransportLabel = Nothing
+                }
+            |> div [ class "d-flex gap-2" ]
+        , Format.kg mass
+        , transport.impacts
+            |> Format.formatImpact selectedImpact
         ]
 
 
