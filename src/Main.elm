@@ -235,6 +235,21 @@ setRoute url ( { state } as model, cmds ) =
 
         Loaded session _ ->
             case Route.fromUrl url of
+                Just (Route.Admin AdminSection.AccountSection) ->
+                    AccountAdmin.init session AdminSection.AccountSection
+                        |> toPage session model cmds AccountAdminPage AccountAdminMsg
+                        |> requireSuperuser session
+
+                Just (Route.Admin AdminSection.ComponentSection) ->
+                    ComponentAdmin.init session AdminSection.ComponentSection
+                        |> toPage session model cmds ComponentAdminPage ComponentAdminMsg
+                        |> requireSuperuser session
+
+                Just (Route.Admin AdminSection.ProcessSection) ->
+                    ProcessAdmin.init session AdminSection.ProcessSection
+                        |> toPage session model cmds ProcessAdminPage ProcessAdminMsg
+                        |> requireSuperuser session
+
                 Just Route.Api ->
                     Api.init session
                         |> toPage session model cmds ApiPage ApiMsg
@@ -250,21 +265,6 @@ setRoute url ( { state } as model, cmds ) =
                 Just Route.AuthSignup ->
                     Auth.initSignup session
                         |> toPage session model cmds AuthPage AuthMsg
-
-                Just (Route.Admin AdminSection.AccountSection) ->
-                    AccountAdmin.init session AdminSection.AccountSection
-                        |> toPage session model cmds AccountAdminPage AccountAdminMsg
-                        |> requireSuperuser session
-
-                Just (Route.Admin AdminSection.ComponentSection) ->
-                    ComponentAdmin.init session AdminSection.ComponentSection
-                        |> toPage session model cmds ComponentAdminPage ComponentAdminMsg
-                        |> requireSuperuser session
-
-                Just (Route.Admin AdminSection.ProcessSection) ->
-                    ProcessAdmin.init session AdminSection.ProcessSection
-                        |> toPage session model cmds ProcessAdminPage ProcessAdminMsg
-                        |> requireSuperuser session
 
                 Just (Route.Editorial slug) ->
                     Editorial.init slug session
@@ -397,10 +397,6 @@ update rawMsg ({ state } as model) =
                     ( { model | tray = newTray }, Cmd.map (AppMsg << App.ToastMsg) newToastMsg )
 
                 -- Pages
-                ( HomeMsg homeMsg, HomePage homeModel ) ->
-                    Home.update session homeMsg homeModel
-                        |> toPage session model Cmd.none HomePage HomeMsg
-
                 ( AccountAdminMsg adminMsg, AccountAdminPage adminModel ) ->
                     AccountAdmin.update session adminMsg adminModel
                         |> toPage session model Cmd.none AccountAdminPage AccountAdminMsg
@@ -417,22 +413,22 @@ update rawMsg ({ state } as model) =
                     ComponentAdmin.update session adminMsg adminModel
                         |> toPage session model Cmd.none ComponentAdminPage ComponentAdminMsg
 
-                ( ComponentConfigReceived (RemoteData.Success componentConfig), currentPage ) ->
-                    ( { model | state = currentPage |> Loaded { session | componentConfig = componentConfig } }
-                    , Cmd.none
-                    )
-
                 ( ComponentConfigReceived (RemoteData.Failure _), _ ) ->
                     notifyError model "Erreur" <|
                         "Impossible de charger la configuration des composants. Une configuration par défaut sera"
                             ++ " utilisée, les résultats fournis sont probablement invalides ou incomplets."
 
+                ( ComponentConfigReceived (RemoteData.Success componentConfig), currentPage ) ->
+                    ( { model | state = currentPage |> Loaded { session | componentConfig = componentConfig } }
+                    , Cmd.none
+                    )
+
                 ( ComponentConfigReceived _, _ ) ->
                     ( model, Cmd.none )
 
-                ( ProcessAdminMsg adminMsg, ProcessAdminPage adminModel ) ->
-                    ProcessAdmin.update session adminMsg adminModel
-                        |> toPage session model Cmd.none ProcessAdminPage ProcessAdminMsg
+                ( DetailedProcessesReceived (RemoteData.Failure _), _ ) ->
+                    notifyError model "Erreur" <|
+                        "Impossible de charger les impacts détaillés; les impacts agrégés seront utilisés."
 
                 ( DetailedProcessesReceived (RemoteData.Success rawDetailedProcessesJson), currentPage ) ->
                     -- When detailed processes are received, rebuild the entire static db using them
@@ -446,10 +442,6 @@ update rawMsg ({ state } as model) =
                             , Cmd.none
                             )
 
-                ( DetailedProcessesReceived (RemoteData.Failure _), _ ) ->
-                    notifyError model "Erreur" <|
-                        "Impossible de charger les impacts détaillés; les impacts agrégés seront utilisés."
-
                 ( EditorialMsg editorialMsg, EditorialPage editorialModel ) ->
                     Editorial.update session editorialMsg editorialModel
                         |> toPage session model Cmd.none EditorialPage EditorialMsg
@@ -457,6 +449,14 @@ update rawMsg ({ state } as model) =
                 ( ExploreMsg examplesMsg, ExplorePage examplesModel ) ->
                     Explore.update session examplesMsg examplesModel
                         |> toPage session model Cmd.none ExplorePage ExploreMsg
+
+                ( HomeMsg homeMsg, HomePage homeModel ) ->
+                    Home.update session homeMsg homeModel
+                        |> toPage session model Cmd.none HomePage HomeMsg
+
+                ( ProcessAdminMsg adminMsg, ProcessAdminPage adminModel ) ->
+                    ProcessAdmin.update session adminMsg adminModel
+                        |> toPage session model Cmd.none ProcessAdminPage ProcessAdminMsg
 
                 -- Food
                 ( FoodBuilderMsg foodMsg, FoodBuilderPage foodModel ) ->
@@ -569,10 +569,6 @@ subscriptions { state } =
                 ComponentAdmin.subscriptions subModel
                     |> Sub.map ComponentAdminMsg
 
-            Loaded _ (ProcessAdminPage subModel) ->
-                ProcessAdmin.subscriptions subModel
-                    |> Sub.map ProcessAdminMsg
-
             Loaded _ (ExplorePage subModel) ->
                 Explore.subscriptions subModel
                     |> Sub.map ExploreMsg
@@ -584,6 +580,10 @@ subscriptions { state } =
             Loaded _ (ObjectSimulatorPage subModel) ->
                 ObjectSimulator.subscriptions subModel
                     |> Sub.map ObjectSimulatorMsg
+
+            Loaded _ (ProcessAdminPage subModel) ->
+                ProcessAdmin.subscriptions subModel
+                    |> Sub.map ProcessAdminMsg
 
             Loaded _ (TextileSimulatorPage subModel) ->
                 TextileSimulator.subscriptions subModel
