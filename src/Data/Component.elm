@@ -58,6 +58,7 @@ module Data.Component exposing
     , getEndOfLifeDetailedImpacts
     , getEndOfLifeImpacts
     , getEndOfLifeScopeCollectionRate
+    , getTotalTransportImpacts
     , idFromString
     , idToString
     , isEmpty
@@ -289,6 +290,7 @@ type alias StagesImpacts =
     { endOfLife : Impacts
     , material : Impacts
     , transformation : Impacts
+    , transports : Impacts
     }
 
 
@@ -635,28 +637,34 @@ computeTransports { config, db } query lifeCycle =
     --   country to assembly step country (parameter to be passed to this function)
     -- - multiply distance with appropriate transport process impacts
     let
+        finalMass =
+            extractMass lifeCycle.production
+
         toAssembly =
-            case query.assemblyCountry of
-                Just assemblyCountry ->
-                    query.items
-                        |> List.map
-                            (\item ->
-                                case item.country of
-                                    Just itemCountry ->
+            query.items
+                |> List.indexedMap
+                    (\index item ->
+                        let
+                            itemTransport =
+                                case ( item.country, query.assemblyCountry ) of
+                                    ( Just from, Just to ) ->
                                         db.distances
-                                            |> Transport.getTransportBetween Impact.empty itemCountry assemblyCountry
-                                            -- Note: for now it's assumed there's never air transport
-                                            |> Transport.applyTransportRatios Split.zero
+                                            |> Transport.getTransportBetween Impact.empty from to
 
-                                    -- TODO: retrieve mass from lifeCycle production results?
-                                    -- |> Transport.computeImpacts config.transports.modeProcesses mass
-                                    Nothing ->
+                                    _ ->
                                         config.transports.defaultDistance
-                            )
-                        |> Transport.sum
 
-                Nothing ->
-                    config.transports.defaultDistance
+                            itemMass =
+                                extractItems lifeCycle.production
+                                    |> LE.getAt index
+                                    |> Maybe.map extractMass
+                                    |> Maybe.withDefault Quantity.zero
+                        in
+                        itemTransport
+                            |> Transport.applyTransportRatios Split.zero
+                            |> Transport.computeImpacts config.transports.modeProcesses itemMass
+                    )
+                |> Transport.sum
 
         toDistribution =
             case query.assemblyCountry of
@@ -664,18 +672,18 @@ computeTransports { config, db } query lifeCycle =
                     -- Note: distribution is always France
                     db.distances
                         |> Transport.getTransportBetween Impact.empty assemblyCountry (Country.Code "FR")
-                        -- Note: for now it's assumed there's never air transport
-                        |> Transport.applyTransportRatios Split.zero
 
-                -- TODO: retrieve mass from lifeCycle production results?
-                -- |> Transport.computeImpacts config.transports.modeProcesses mass
                 Nothing ->
                     config.transports.defaultDistance
     in
+    -- Note: for now it's assumed there's never air transport
     { lifeCycle
         | transports =
             { toAssembly = toAssembly
-            , toDistribution = toDistribution
+            , toDistribution =
+                toDistribution
+                    |> Transport.applyTransportRatios Split.zero
+                    |> Transport.computeImpacts config.transports.modeProcesses finalMass
             }
     }
 
@@ -1165,6 +1173,14 @@ getMaterialDistribution (Results results) =
             (AnyDict.empty Category.materialTypeToString)
 
 
+getTotalTransportImpacts : LifeCycleTransport -> Impacts
+getTotalTransportImpacts transports =
+    Impact.sumImpacts
+        [ transports.toAssembly.impacts
+        , transports.toDistribution.impacts
+        ]
+
+
 idFromString : String -> Result String Id
 idFromString =
     Uuid.fromString >> Result.map Id
@@ -1386,6 +1402,7 @@ stagesImpacts lifeCycle =
             { endOfLife = lifeCycle.endOfLife
             , material = Impact.empty
             , transformation = Impact.empty
+            , transports = getTotalTransportImpacts lifeCycle.transports
             }
 
 
@@ -1404,6 +1421,8 @@ sumLifeCycleImpacts lifeCycle =
     Impact.sumImpacts
         [ extractImpacts lifeCycle.production
         , lifeCycle.endOfLife
+        , lifeCycle.transports.toAssembly.impacts
+        , lifeCycle.transports.toDistribution.impacts
         ]
 
 

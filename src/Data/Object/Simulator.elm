@@ -26,4 +26,8 @@ toStepsImpacts trigram lifeCycle =
             Component.extractImpacts lifeCycle.production
                 |> Impact.getImpact trigram
                 |> Just
+        , transports =
+            Component.getTotalTransportImpacts lifeCycle.transports
+                |> Impact.getImpact trigram
+                |> Just
     }
