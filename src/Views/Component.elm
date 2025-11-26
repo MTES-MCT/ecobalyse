@@ -33,6 +33,7 @@ import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import Json.Encode as Encode
 import List.Extra as LE
+import Mass exposing (Mass)
 import Route exposing (Route)
 import Views.Alert as Alert
 import Views.Button as Button
@@ -269,9 +270,10 @@ componentView config itemIndex item { component, country, elements, quantity } i
                         ]
                    , tr [ class "bg-light border-top border-bottom" ]
                         [ th [] []
-                        , th [ class "pb-1", colspan 6 ] [ text "Acheminement" ]
+                        , th [ class "pb-1", colspan 6 ] [ text "Acheminement vers assemblage" ]
                         ]
-                   , componentDistanceToAssembly config country
+                   , Component.extractMass itemResults
+                        |> componentTrensportToAssembly config country
                    ]
 
           else
@@ -279,10 +281,10 @@ componentView config itemIndex item { component, country, elements, quantity } i
         ]
 
 
-componentDistanceToAssembly : Config db msg -> Maybe Country -> Html msg
-componentDistanceToAssembly { componentConfig, db, query } country =
+componentTrensportToAssembly : Config db msg -> Maybe Country -> Mass -> Html msg
+componentTrensportToAssembly { componentConfig, db, impact, query } country mass =
     let
-        ( label, transport ) =
+        ( label, transports ) =
             case
                 ( country
                 , query.assemblyCountry
@@ -319,12 +321,26 @@ componentDistanceToAssembly { componentConfig, db, query } country =
                     , componentConfig.transports.defaultDistance
                     )
     in
-    tr []
+    tr [ class "fs-7" ]
         [ td [] []
-        , td [ class "py-2", colspan 2 ]
-            [ text label ]
-        , td []
-            [ text "plop" ]
+        , td [ class "py-1", colspan 4 ]
+            [ div [ class "d-flex justify-content-between align-items-center gap-2" ]
+                [ span [ class "fw-bold" ] [ text label ]
+                , div [ class "d-flex justify-content-between align-items-center gap-2" ]
+                    [ Icon.boat
+                    , Format.km transports.sea
+                    , Icon.bus
+                    , Format.km transports.road
+                    ]
+                ]
+            ]
+        , td [ class "text-end" ]
+            [ transports
+                |> Transport.computeImpacts componentConfig.transports.modeProcesses mass
+                |> .impacts
+                |> Format.formatImpact impact
+            ]
+        , td [] []
         ]
 
 
