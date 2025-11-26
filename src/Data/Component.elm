@@ -635,33 +635,47 @@ computeTransports { config, db } query lifeCycle =
     --   country to assembly step country (parameter to be passed to this function)
     -- - multiply distance with appropriate transport process impacts
     let
-        distances =
-            Transport.sum <|
-                case query.assemblyCountry of
-                    Just assemblyCountry ->
-                        query.items
-                            |> List.map
-                                (\item ->
-                                    case item.country of
-                                        Just itemCountry ->
-                                            db.distances
-                                                |> Transport.getTransportBetween Impact.empty itemCountry assemblyCountry
-                                                -- Note: for now it's assumed there's never air transport
-                                                |> Transport.applyTransportRatios Split.zero
+        toAssembly =
+            case query.assemblyCountry of
+                Just assemblyCountry ->
+                    query.items
+                        |> List.map
+                            (\item ->
+                                case item.country of
+                                    Just itemCountry ->
+                                        db.distances
+                                            |> Transport.getTransportBetween Impact.empty itemCountry assemblyCountry
+                                            -- Note: for now it's assumed there's never air transport
+                                            |> Transport.applyTransportRatios Split.zero
 
-                                        Nothing ->
-                                            config.transports.defaultDistance
-                                )
+                                    -- TODO: retrieve mass from lifeCycle production results?
+                                    -- |> Transport.computeImpacts config.transports.modeProcesses mass
+                                    Nothing ->
+                                        config.transports.defaultDistance
+                            )
+                        |> Transport.sum
 
-                    Nothing ->
-                        [ config.transports.defaultDistance ]
+                Nothing ->
+                    config.transports.defaultDistance
+
+        toDistribution =
+            case query.assemblyCountry of
+                Just assemblyCountry ->
+                    -- Note: distribution is always France
+                    db.distances
+                        |> Transport.getTransportBetween Impact.empty assemblyCountry (Country.Code "FR")
+                        -- Note: for now it's assumed there's never air transport
+                        |> Transport.applyTransportRatios Split.zero
+
+                -- TODO: retrieve mass from lifeCycle production results?
+                -- |> Transport.computeImpacts config.transports.modeProcesses mass
+                Nothing ->
+                    config.transports.defaultDistance
     in
     { lifeCycle
         | transports =
-            { toAssembly = distances
-
-            -- TODO
-            , toDistribution = Transport.default Impact.empty
+            { toAssembly = toAssembly
+            , toDistribution = toDistribution
             }
     }
 
