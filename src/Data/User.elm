@@ -17,6 +17,7 @@ module Data.User exposing
     , encodeUpdateProfileForm
     , encodeUser
     , getOrganizationName
+    , organizationToSirenString
     , organizationToString
     , organizationTypeToString
     , organizationTypes
@@ -481,6 +482,16 @@ updateOrganizationType type_ organization =
 
         _ ->
             organization
+
+
+organizationToSirenString : Organization -> String
+organizationToSirenString organization =
+    case organization of
+        Business _ siren ->
+            sirenToString siren
+
+        _ ->
+            ""
 
 
 organizationToString : Organization -> String
