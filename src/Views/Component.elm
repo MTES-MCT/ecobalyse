@@ -817,9 +817,8 @@ distributionView { impact } _ =
                   Format.formatImpact impact Impact.empty
                 ]
             ]
-        , div [ class "card-body" ]
-            [ text "France"
-            ]
+        , div [ class "card-body d-flex align-items-center gap-1" ]
+            [ Icon.lock, text "France" ]
         ]
 
 
