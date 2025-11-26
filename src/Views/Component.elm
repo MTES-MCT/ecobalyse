@@ -280,7 +280,7 @@ componentView config itemIndex item { component, country, elements, quantity } i
                         , th [ class "pb-1", colspan 6 ] [ text "Acheminement vers assemblage" ]
                         ]
                    , Component.extractMass itemResults
-                        |> componentTrensportToAssembly config country
+                        |> componentTransportToAssembly config country
                    ]
 
           else
@@ -288,8 +288,8 @@ componentView config itemIndex item { component, country, elements, quantity } i
         ]
 
 
-componentTrensportToAssembly : Config db msg -> Maybe Country -> Mass -> Html msg
-componentTrensportToAssembly { componentConfig, db, impact, query } country mass =
+componentTransportToAssembly : Config db msg -> Maybe Country -> Mass -> Html msg
+componentTransportToAssembly { componentConfig, db, impact, query } country mass =
     let
         ( label, transports ) =
             case
@@ -304,30 +304,15 @@ componentTrensportToAssembly { componentConfig, db, impact, query } country mass
                 )
             of
                 ( Just from, Just to ) ->
-                    ( if from == to then
-                        "→ " ++ from.name ++ " ←"
-
-                      else
-                        from.name ++ " → " ++ to.name
+                    ( from.name ++ " → " ++ to.name
                     , db.distances
                         |> Transport.getTransportBetween Impact.empty from.code to.code
+                        -- Note: at this stage, it's assumed products are never shipped by plane to assembly
                         |> Transport.applyTransportRatios Split.zero
                     )
 
-                ( Just from, Nothing ) ->
-                    ( from.name ++ " → ?"
-                    , componentConfig.transports.defaultDistance
-                    )
-
-                ( Nothing, Just to ) ->
-                    ( "? → " ++ to.name
-                    , componentConfig.transports.defaultDistance
-                    )
-
                 _ ->
-                    ( "? → ? (majoration)"
-                    , componentConfig.transports.defaultDistance
-                    )
+                    ( "Trajet inconnu majoré", componentConfig.transports.defaultDistance )
     in
     tr [ class "fs-7" ]
         [ td [] []
