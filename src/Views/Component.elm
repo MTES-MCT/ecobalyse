@@ -772,7 +772,7 @@ assemblyView config lifeCycle =
             [ h2 [ class "h5 mb-0" ]
                 [ text "Assemblage" ]
             , div [ class "d-flex align-items-center gap-2" ]
-                [ lifeCycle.transports.impacts
+                [ lifeCycle.transports.toAssembly.impacts
                     |> Format.formatImpact config.impact
                 ]
             ]
@@ -787,7 +787,7 @@ assemblyView config lifeCycle =
                     , selected = config.query.assemblyCountry
                     }
                 ]
-            , lifeCycle.transports
+            , lifeCycle.transports.toAssembly
                 |> TransportView.viewDetails
                     { airTransportLabel = Nothing
                     , fullWidth = True

@@ -252,7 +252,14 @@ type alias EndOfLifeMaterialImpacts =
 type alias LifeCycle =
     { endOfLife : Impacts
     , production : Results
-    , transports : Transport
+    , transports : LifeCycleTransport
+    }
+
+
+type alias LifeCycleTransport =
+    -- TODO: rename to TransportsDetails?
+    { toAssembly : Transport
+    , toDistribution : Transport
     }
 
 
@@ -649,7 +656,14 @@ computeTransports { config, db } query lifeCycle =
                     Nothing ->
                         [ config.transports.defaultDistance ]
     in
-    { lifeCycle | transports = distances }
+    { lifeCycle
+        | transports =
+            { toAssembly = distances
+
+            -- TODO
+            , toDistribution = Transport.default Impact.empty
+            }
+    }
 
 
 createItem : Id -> Item
@@ -793,7 +807,14 @@ emptyLifeCycle : LifeCycle
 emptyLifeCycle =
     { endOfLife = Impact.empty
     , production = emptyResults
-    , transports = Transport.default Impact.empty
+    , transports = emptyLifeCycleTransports
+    }
+
+
+emptyLifeCycleTransports : LifeCycleTransport
+emptyLifeCycleTransports =
+    { toAssembly = Transport.default Impact.empty
+    , toDistribution = Transport.default Impact.empty
     }
 
 
