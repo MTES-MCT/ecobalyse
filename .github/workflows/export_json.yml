@@ -1,0 +1,54 @@
+name: Export static JSON
+
+on:
+  workflow_dispatch:
+
+jobs:
+  export_json:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.x]
+        python-version: [3.12]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          version: "latest"
+          python-version: ${{ matrix.python-version }}
+
+      - name: Add scalingo to know hosts
+        run: echo "KNOWN_HOSTS=$(ssh-keyscan -H ssh.osc-fr1.scalingo.com)" >> $GITHUB_ENV
+
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.PRIVATE_SSH_KEY }}
+          name: id_rsa # optional
+          known_hosts: ${{ env.KNOWN_HOSTS }}
+          config: ${{ secrets.CONFIG }} # ssh_config; optional
+          if_key_exists: fail # replace / ignore / fail; optional (defaults to fail)
+
+
+      - name: Score History
+        env:
+          GITHUB_REF_NAME: ${{ github.ref_name }}
+          SCALINGO_POSTGRESQL_SCORE_URL: ${{ secrets.SCALINGO_POSTGRESQL_TUNNEL_SCORE_URL }}
+          SCALINGO_REGION: ${{ secrets.SCALINGO_REGION }}
+          SCALINGO_APP: ecobalyse
+          SCALINGO_API_TOKEN: ${{ secrets.SCALINGO_API_TOKEN }}
+        run: |
+          npm run server:build
+          scalingo db-tunnel DATABASE_URL &
+          npm run server:start &
+
+          for attempt in {1..20}; do if curl -s http://localhost:8001/ > /dev/null; then echo "-> Node server is up and ready on port 8001"; break; fi; echo "-> Waiting for the Node server to boot..."; sleep 1; done
+          for attempt in {1..20}; do if lsof -i:10000 > /dev/null; then echo "-> PG Tunnel to Scalingo is up and ready on port 10000"; break; fi; echo "-> Waiting for the PG tunnel to Scalingo..."; sleep 1; done
+
+          uv run python bin/score_history/score_history.py http://localhost:8001 $GITHUB_REF_NAME $GITHUB_SHA $SCALINGO_POSTGRESQL_SCORE_URL
