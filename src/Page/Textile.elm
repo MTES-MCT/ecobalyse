@@ -76,7 +76,8 @@ import Views.Textile.Stage as StageView
 
 
 type alias Model =
-    { simulator : Result String Simulator
+    { activeImpactsTab : ImpactTabs.Tab
+    , activeTab : Tab
     , bookmarkBeingDragged : Maybe Bookmark
     , bookmarkBeingOvered : Maybe Bookmark
     , bookmarkBeingRenamed : Maybe Bookmark
@@ -86,8 +87,7 @@ type alias Model =
     , initialQuery : Query
     , impact : Definition
     , modal : Modal
-    , activeTab : Tab
-    , activeImpactsTab : ImpactTabs.Tab
+    , simulator : Result String Simulator
     }
 
 
@@ -178,7 +178,13 @@ init trigram maybeUrlQuery session =
             initialQuery
                 |> Simulator.compute session.db session.componentConfig
     in
-    { simulator = simulator
+    { activeTab =
+        if Query.isAdvancedQuery initialQuery then
+            ExploratoryTab
+
+        else
+            RegulatoryTab
+    , activeImpactsTab = ImpactTabs.StagesImpactsTab
     , bookmarkBeingDragged = Nothing
     , bookmarkBeingOvered = Nothing
     , bookmarkBeingRenamed = Nothing
@@ -193,13 +199,7 @@ init trigram maybeUrlQuery session =
     , initialQuery = initialQuery
     , impact = Definition.get trigram session.db.definitions
     , modal = NoModal
-    , activeTab =
-        if Query.isAdvancedQuery initialQuery then
-            ExploratoryTab
-
-        else
-            RegulatoryTab
-    , activeImpactsTab = ImpactTabs.StagesImpactsTab
+    , simulator = simulator
     }
         |> createPageUpdate (session |> Session.updateTextileQuery initialQuery)
         |> App.withCmds
@@ -232,7 +232,13 @@ initFromExample session uuid =
             exampleQuery
                 |> Simulator.compute session.db session.componentConfig
     in
-    { simulator = simulator
+    { activeTab =
+        if Query.isAdvancedQuery exampleQuery then
+            ExploratoryTab
+
+        else
+            RegulatoryTab
+    , activeImpactsTab = ImpactTabs.StagesImpactsTab
     , bookmarkBeingDragged = Nothing
     , bookmarkBeingOvered = Nothing
     , bookmarkBeingRenamed = Nothing
@@ -242,13 +248,7 @@ initFromExample session uuid =
     , initialQuery = exampleQuery
     , impact = Definition.get Definition.Ecs session.db.definitions
     , modal = NoModal
-    , activeTab =
-        if Query.isAdvancedQuery exampleQuery then
-            ExploratoryTab
-
-        else
-            RegulatoryTab
-    , activeImpactsTab = ImpactTabs.StagesImpactsTab
+    , simulator = simulator
     }
         |> createPageUpdate (session |> Session.updateTextileQuery exampleQuery)
         |> App.withCmds [ Ports.scrollTo { x = 0, y = 0 } ]
