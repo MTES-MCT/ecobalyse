@@ -104,7 +104,7 @@ addElementButton { db, openSelectProcessModal, scope } targetItem =
         [ type_ "button"
         , class "btn btn-link text-decoration-none"
         , class "d-flex justify-content-end align-items-center"
-        , class "gap-2 w-100 p-0 pb-1 text-end"
+        , class "gap-2 w-100 p-0 pb-1 text-end fs-7"
         , db.processes
             |> Scope.anyOf [ scope ]
             |> Process.listByCategory Category.Material
@@ -807,13 +807,14 @@ assemblyView config lifeCycle =
 
 
 distributionView : Config db msg -> LifeCycle -> Html msg
-distributionView _ _ =
+distributionView { impact } _ =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header d-flex align-items-center justify-content-between" ]
             [ h2 [ class "h5 mb-0" ]
                 [ text "Distribution" ]
             , div [ class "d-flex align-items-center gap-2" ]
-                [ text "TODO"
+                [ -- Note: For now, distribution has no impacts by design
+                  Format.formatImpact impact Impact.empty
                 ]
             ]
         , div [ class "card-body" ]
