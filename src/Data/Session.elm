@@ -404,10 +404,7 @@ defaultStore =
 decodeStore : Decoder Store
 decodeStore =
     Decode.succeed Store
-        --@FIXME: we may want to decode `auth` instead of `auth2` now as
-        -- conflicts with the old auth system should not be a problem anymore
-        -- maybe using oneOf here
-        |> DU.strictOptional "auth2" decodeAuth
+        |> DU.strictOptional "auth" decodeAuth
         |> JDP.optional "bookmarks" Bookmark.decodeJsonList []
         |> JDP.optional "comparedSimulations" (Decode.map Set.fromList (Decode.list Decode.string)) Set.empty
 
@@ -417,7 +414,7 @@ encodeStore store =
     Encode.object
         [ ( "comparedSimulations", store.comparedSimulations |> Encode.set Encode.string )
         , ( "bookmarks", store.bookmarks |> Bookmark.encodeJsonList )
-        , ( "auth2", store.auth |> Maybe.map encodeAuth |> Maybe.withDefault Encode.null )
+        , ( "auth", store.auth |> Maybe.map encodeAuth |> Maybe.withDefault Encode.null )
         ]
 
 
