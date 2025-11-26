@@ -304,6 +304,7 @@ componentTrensportToAssembly { componentConfig, db, impact, query } country mass
                         from.name ++ " → " ++ to.name
                     , db.distances
                         |> Transport.getTransportBetween Impact.empty from.code to.code
+                        |> Transport.applyTransportRatios Split.zero
                     )
 
                 ( Just from, Nothing ) ->
@@ -323,7 +324,7 @@ componentTrensportToAssembly { componentConfig, db, impact, query } country mass
     in
     tr [ class "fs-7" ]
         [ td [] []
-        , td [ class "py-1", colspan 4 ]
+        , td [ class "py-1", colspan 3 ]
             [ div [ class "d-flex justify-content-between align-items-center gap-2" ]
                 [ span [ class "fw-bold" ] [ text label ]
                 , div [ class "d-flex justify-content-between align-items-center gap-2" ]
@@ -334,6 +335,8 @@ componentTrensportToAssembly { componentConfig, db, impact, query } country mass
                     ]
                 ]
             ]
+        , td [ class "text-end" ]
+            [ Format.kg mass ]
         , td [ class "text-end" ]
             [ transports
                 |> Transport.computeImpacts componentConfig.transports.modeProcesses mass
