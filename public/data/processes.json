@@ -12551,7 +12551,8 @@
   {
     "activityName": "electricity, low voltage//[FR] market for electricity, low voltage",
     "categories": [
-      "energy"
+      "energy",
+      "use"
     ],
     "comment": "",
     "density": 0,
