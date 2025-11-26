@@ -405,8 +405,8 @@ update rawMsg ({ state } as model) =
                     Api.update session apiMsg apiModel
                         |> toPage session model Cmd.none ApiPage ApiMsg
 
-                ( AuthMsg auth2Msg, AuthPage auth2Model ) ->
-                    Auth.update session auth2Msg auth2Model
+                ( AuthMsg authMsg, AuthPage authModel ) ->
+                    Auth.update session authMsg authModel
                         |> toPage session model Cmd.none AuthPage AuthMsg
 
                 ( ComponentAdminMsg adminMsg, ComponentAdminPage adminModel ) ->
@@ -631,8 +631,8 @@ view { mobileNavigationOpened, state, tray } =
                         |> mapMsg ApiMsg
                         |> frame Page.Api
 
-                AuthPage auth2Model ->
-                    Auth.view session auth2Model
+                AuthPage authModel ->
+                    Auth.view session authModel
                         |> mapMsg AuthMsg
                         |> frame Page.Auth
 

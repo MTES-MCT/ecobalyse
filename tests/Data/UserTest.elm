@@ -11,7 +11,7 @@ import TestUtils as TU exposing (it)
 
 suite : Test
 suite =
-    describe "Data.Auth2"
+    describe "Data.Auth"
         [ describe "decodeUser"
             [ it "should decode a user"
                 (userJson
