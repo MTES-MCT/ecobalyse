@@ -156,9 +156,16 @@ componentView config itemIndex item { component, country, elements, quantity } i
                 |> not
     in
     List.concat
-        [ [ tbody []
+        [ [ tbody
+                (if itemIndex > 0 then
+                    -- Better visually separate components items when they're stacked and opened
+                    [ style "border-top" "1px solid #777" ]
+
+                 else
+                    []
+                )
                 [ if config.scope /= Scope.Textile then
-                    tr [ class "border-top" ]
+                    tr []
                         [ th [] []
                         , th [ class "pb-0 fs-8 fw-normal text-muted" ] [ text "Quantité" ]
                         , th [ class "pb-0 fs-8 fw-normal text-muted", colspan 2 ]
