@@ -7957,7 +7957,7 @@
     "waste": 0
   },
   {
-    "activityName": "wood chips, wet, measured as dry mass, in m3 //[Europe without Switzerland] market for wood chips, wet, measured as dry mass, in m3 , constructed by Ecobalyse",
+    "activityName": "wood chips, wet, measured as dry mass, in m3 //[Europe without Switzerland] market for wood chips, wet, measured as dry mass, in m3, constructed by Ecobalyse",
     "categories": [
       "material",
       "material_type:wood"
@@ -17043,7 +17043,7 @@
       "material_type:wood"
     ],
     "comment": "Average density from softwood (490kg/m3)and hardwood (640kg/m3) species",
-    "density": 0,
+    "density": 565.0,
     "displayName": "Bois recyclé (copeaux), post-consommation",
     "elecMJ": 0,
     "heatMJ": 0,
