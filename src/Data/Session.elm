@@ -42,7 +42,7 @@ import Data.Github as Github
 import Data.Object.Query as ObjectQuery
 import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Query as TextileQuery
-import Data.User as User2
+import Data.User as User
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
@@ -300,23 +300,23 @@ selectNoBookmarks =
 
 
 type alias Auth =
-    { accessTokenData : User2.AccessTokenData
-    , user : User2.User
+    { accessTokenData : User.AccessTokenData
+    , user : User.User
     }
 
 
 decodeAuth : Decoder Auth
 decodeAuth =
     Decode.succeed Auth
-        |> JDP.required "accessTokenData" User2.decodeAccessTokenData
-        |> JDP.required "user" User2.decodeUser
+        |> JDP.required "accessTokenData" User.decodeAccessTokenData
+        |> JDP.required "user" User.decodeUser
 
 
 encodeAuth : Auth -> Encode.Value
 encodeAuth auth2 =
     Encode.object
-        [ ( "accessTokenData", User2.encodeAccessTokenData auth2.accessTokenData )
-        , ( "user", User2.encodeUser auth2.user )
+        [ ( "accessTokenData", User.encodeAccessTokenData auth2.accessTokenData )
+        , ( "user", User.encodeUser auth2.user )
         ]
 
 
