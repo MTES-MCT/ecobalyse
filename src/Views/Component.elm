@@ -384,7 +384,7 @@ editorView config =
 
 
 lifeCycleView : Config db msg -> LifeCycle -> Html msg
-lifeCycleView ({ db, docsUrl, explorerRoute, maxItems, query, scope, title } as config) lifeCycle =
+lifeCycleView ({ db, docsUrl, explorerRoute, impact, maxItems, query, scope, title } as config) lifeCycle =
     div [ class "d-flex flex-column" ]
         [ div [ class "card shadow-sm" ]
             [ div [ class "card-header d-flex align-items-center justify-content-between" ]
@@ -475,7 +475,23 @@ lifeCycleView ({ db, docsUrl, explorerRoute, maxItems, query, scope, title } as 
             text ""
         , if not (List.isEmpty query.items) && List.member scope [ Scope.Object, Scope.Veli ] then
             div []
-                [ DownArrow.view [] []
+                [ DownArrow.view []
+                    [ div [ class "d-flex gap-2" ]
+                        [ Format.kg <| Component.extractMass lifeCycle.production
+                        , lifeCycle.transports.toDistribution
+                            |> TransportView.viewDetails
+                                { airTransportLabel = Nothing
+                                , fullWidth = True
+                                , hideNoLength = True
+                                , onlyIcons = False
+                                , roadTransportLabel = Nothing
+                                , seaTransportLabel = Nothing
+                                }
+                            |> div [ class "d-flex gap-2" ]
+                        , lifeCycle.transports.toDistribution.impacts
+                            |> Format.formatImpact impact
+                        ]
+                    ]
                 , distributionView config lifeCycle
                 , DownArrow.view [] []
                 , endOfLifeView config lifeCycle
@@ -776,7 +792,7 @@ assemblyView config lifeCycle =
                 ]
             ]
         , div [ class "card-body" ]
-            [ div []
+            [ div [ class "d-flex align-items-center gap-2" ]
                 [ label [ for "assembly-country" ] [ text "Pays d'assemblage" ]
                 , countrySelector
                     { countries = config.db.countries
@@ -786,16 +802,6 @@ assemblyView config lifeCycle =
                     , selected = config.query.assemblyCountry
                     }
                 ]
-            , lifeCycle.transports.toAssembly
-                |> TransportView.viewDetails
-                    { airTransportLabel = Nothing
-                    , fullWidth = True
-                    , hideNoLength = False
-                    , onlyIcons = False
-                    , roadTransportLabel = Nothing
-                    , seaTransportLabel = Nothing
-                    }
-                |> div []
             ]
         ]
 
