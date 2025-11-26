@@ -403,9 +403,11 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, maxItems, query, scope, tit
                             text ""
                     ]
                 , div [ class "d-flex align-items-center gap-2" ]
-                    [ lifeCycle.production
-                        |> Component.extractImpacts
-                        |> Format.formatImpact config.impact
+                    [ span [ class "cursor-help", Attr.title "Hors transports" ]
+                        [ lifeCycle.production
+                            |> Component.extractImpacts
+                            |> Format.formatImpact config.impact
+                        ]
                     , case docsUrl of
                         Just url ->
                             Button.docsPillLink
@@ -467,7 +469,13 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, maxItems, query, scope, tit
         -- FIXME: test for List.length query.items > 1
         , if List.member scope [ Scope.Object, Scope.Veli ] then
             div []
-                [ DownArrow.view [] []
+                [ DownArrow.view []
+                    [ div [ class "d-flex gap-2" ]
+                        [ lifeCycle.transports.toAssembly.impacts
+                            |> Format.formatImpact impact
+                        , text "(détails en dépliant les composants ci-dessus)"
+                        ]
+                    ]
                 , assemblyView config lifeCycle
                 ]
 
@@ -787,13 +795,13 @@ quantityInput config itemIndex quantity =
 
 
 assemblyView : Config db msg -> LifeCycle -> Html msg
-assemblyView config lifeCycle =
+assemblyView config _ =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header d-flex align-items-center justify-content-between" ]
             [ h2 [ class "h5 mb-0" ]
                 [ text "Assemblage" ]
             , div [ class "d-flex align-items-center gap-2" ]
-                [ lifeCycle.transports.toAssembly.impacts
+                [ Impact.empty
                     |> Format.formatImpact config.impact
                 ]
             ]
