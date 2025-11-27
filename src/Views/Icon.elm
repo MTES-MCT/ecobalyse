@@ -81,6 +81,11 @@ material =
     icon "material"
 
 
+package : Html msg
+package =
+    icon "package"
+
+
 pencil : Html msg
 pencil =
     icon "pencil"

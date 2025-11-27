@@ -469,7 +469,10 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, maxItems, query, scope, tit
         -- FIXME: test for List.length query.items > 1
         , if List.member scope [ Scope.Object, Scope.Veli ] then
             div []
-                [ DownArrow.view []
+                [ DownArrow.view
+                    [ div [ class "d-flex justify-content-end align-items-center gap-1" ]
+                        [ text "Transport", span [] [ Icon.package, Icon.package, Icon.package ] ]
+                    ]
                     [ div [ class "d-flex gap-2" ]
                         [ lifeCycle.transports.toAssembly.impacts
                             |> Format.formatImpact impact
@@ -483,12 +486,11 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, maxItems, query, scope, tit
             text ""
         , if not (List.isEmpty query.items) && List.member scope [ Scope.Object, Scope.Veli ] then
             div []
-                [ DownArrow.view []
-                    [ lifeCycle.transports.toDistribution
-                        |> viewTransports impact (Component.extractMass lifeCycle.production)
-                    ]
+                [ lifeCycle.transports.toDistribution
+                    |> transportView impact (Component.extractMass lifeCycle.production)
                 , distributionView config lifeCycle
-                , DownArrow.view [] []
+                , Transport.default Impact.empty
+                    |> transportView impact (Component.extractMass lifeCycle.production)
                 , endOfLifeView config lifeCycle
                 ]
 
@@ -502,22 +504,29 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, maxItems, query, scope, tit
         ]
 
 
-viewTransports : Definition -> Mass -> Transport -> Html msg
-viewTransports selectedImpact mass transport =
-    div [ class "d-flex gap-2" ]
-        [ transport
-            |> TransportView.viewDetails
-                { airTransportLabel = Nothing
-                , fullWidth = True
-                , hideNoLength = True
-                , onlyIcons = False
-                , roadTransportLabel = Nothing
-                , seaTransportLabel = Nothing
-                }
-            |> div [ class "d-flex gap-2" ]
-        , Format.kg mass
-        , transport.impacts
-            |> Format.formatImpact selectedImpact
+transportView : Definition -> Mass -> Transport -> Html msg
+transportView selectedImpact mass transport =
+    DownArrow.view
+        [ div [ class "d-flex justify-content-end align-items-center gap-1" ]
+            [ text "Transport"
+            , Icon.package
+            , Format.kg mass
+            ]
+        ]
+        [ div [ class "d-flex gap-2" ]
+            [ transport
+                |> TransportView.viewDetails
+                    { airTransportLabel = Nothing
+                    , fullWidth = True
+                    , hideNoLength = True
+                    , onlyIcons = False
+                    , roadTransportLabel = Nothing
+                    , seaTransportLabel = Nothing
+                    }
+                |> div [ class "d-flex gap-2" ]
+            , transport.impacts
+                |> Format.formatImpact selectedImpact
+            ]
         ]
 
 
