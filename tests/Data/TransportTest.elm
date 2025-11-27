@@ -22,8 +22,8 @@ km =
     Length.kilometers
 
 
-franceChina : Transport
-franceChina =
+chinaToFrance : Transport
+chinaToFrance =
     { road = km 9005
     , roadCooled = km 0
     , sea = km 21549
@@ -48,32 +48,32 @@ suite =
                 |> describe "transports data availability checks"
             , describe "applyTransportRatios"
                 [ it "should apply transport ratio with no air transport"
-                    (franceChina
+                    (chinaToFrance
                         |> Transport.applyTransportRatios Split.zero
                         |> .air
                         |> Length.inKilometers
                         |> Expect.equal 0
                     )
                 , it "should apply transport ratio with 50% air transport"
-                    (franceChina
+                    (chinaToFrance
                         |> Transport.applyTransportRatios Split.half
                         |> .air
                         |> Length.inKilometers
-                        |> Expect.within (Expect.Absolute 0.1) (Length.inKilometers franceChina.air / 2)
+                        |> Expect.within (Expect.Absolute 0.1) (Length.inKilometers chinaToFrance.air / 2)
                     )
                 , it "should apply transport ratio with 100% air transport"
-                    (franceChina
+                    (chinaToFrance
                         |> Transport.applyTransportRatios Split.full
                         |> .air
                         |> Length.inKilometers
-                        |> Expect.within (Expect.Absolute 0.1) (Length.inKilometers franceChina.air)
+                        |> Expect.within (Expect.Absolute 0.1) (Length.inKilometers chinaToFrance.air)
                     )
                 ]
             , TestUtils.suiteFromResult "computeImpacts"
                 (ComponentConfig.default db.processes)
                 (\{ transports } ->
                     [ it "should compute transport impacts"
-                        (franceChina
+                        (chinaToFrance
                             |> Transport.computeImpacts transports.modeProcesses Mass.kilogram
                             |> .impacts
                             |> Impact.getImpact Definition.Ecs
@@ -85,11 +85,11 @@ suite =
             , describe "getTransportBetween"
                 [ db.distances
                     |> Transport.getTransportBetween Impact.empty (Country.Code "FR") (Country.Code "CN")
-                    |> Expect.equal franceChina
+                    |> Expect.equal chinaToFrance
                     |> asTest "should retrieve distance between two countries"
                 , db.distances
                     |> Transport.getTransportBetween Impact.empty (Country.Code "CN") (Country.Code "FR")
-                    |> Expect.equal franceChina
+                    |> Expect.equal chinaToFrance
                     |> asTest "should retrieve distance between two swapped countries"
                 , db.countries
                     |> List.map .code
