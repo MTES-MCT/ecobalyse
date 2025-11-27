@@ -465,9 +465,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, maxItems, query, scope, tit
               else
                 addComponentButton config
             ]
-
-        -- FIXME: test for List.length query.items > 1
-        , if List.member scope [ Scope.Object, Scope.Veli ] then
+        , if List.member scope [ Scope.Object, Scope.Veli ] && List.length query.items > 1 then
             div []
                 [ DownArrow.view
                     [ div [ class "d-flex justify-content-end align-items-center gap-1" ]
