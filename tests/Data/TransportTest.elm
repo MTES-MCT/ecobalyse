@@ -1,15 +1,19 @@
 module Data.TransportTest exposing (..)
 
+import Data.Component.Config as ComponentConfig
 import Data.Country as Country
 import Data.Impact as Impact exposing (Impacts)
+import Data.Impact.Definition as Definition
 import Data.Transport as Transport exposing (Transport, getTransportBetween)
+import Data.Unit as Unit
 import Dict.Any as AnyDict
 import Expect
 import Length
 import List.Extra as LE
+import Mass
 import Quantity
 import Test exposing (..)
-import TestUtils exposing (asTest, suiteWithDb)
+import TestUtils exposing (asTest, it, suiteWithDb)
 
 
 km : Float -> Length.Length
@@ -41,6 +45,19 @@ suite =
                             |> asTest ("Country " ++ Country.codeToString code ++ " should have transports data available")
                     )
                 |> describe "transports data availability checks"
+            , TestUtils.suiteFromResult "computeImpacts"
+                (ComponentConfig.default db.processes)
+                (\{ transports } ->
+                    [ it "should compute transport impacts"
+                        (franceChina Impact.empty
+                            |> Transport.computeImpacts transports.modeProcesses Mass.kilogram
+                            |> .impacts
+                            |> Impact.getImpact Definition.Ecs
+                            |> Unit.impactToFloat
+                            |> Expect.greaterThan 0
+                        )
+                    ]
+                )
             , describe "getTransportBetween"
                 [ db.distances
                     |> Transport.getTransportBetween Impact.empty (Country.Code "FR") (Country.Code "CN")
