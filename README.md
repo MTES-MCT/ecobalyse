@@ -63,7 +63,7 @@ Note: docker est également une dépendance requise pour lancer la suite de test
 
     ```sh
     export TRANSCRYPT_KEY="<clé de déchiffrement>"
-    ./bin/run-transcrypt.sh`
+    ./bin/run-transcrypt.sh
     ```
 
 ### Backend
