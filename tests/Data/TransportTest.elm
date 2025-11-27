@@ -2,8 +2,9 @@ module Data.TransportTest exposing (..)
 
 import Data.Component.Config as ComponentConfig
 import Data.Country as Country
-import Data.Impact as Impact exposing (Impacts)
+import Data.Impact as Impact
 import Data.Impact.Definition as Definition
+import Data.Split as Split
 import Data.Transport as Transport exposing (Transport, getTransportBetween)
 import Data.Unit as Unit
 import Dict.Any as AnyDict
@@ -21,14 +22,14 @@ km =
     Length.kilometers
 
 
-franceChina : Impacts -> Transport
-franceChina impacts =
+franceChina : Transport
+franceChina =
     { road = km 9005
     , roadCooled = km 0
     , sea = km 21549
     , seaCooled = km 0
     , air = km 8189
-    , impacts = impacts
+    , impacts = Impact.empty
     }
 
 
@@ -45,11 +46,34 @@ suite =
                             |> asTest ("Country " ++ Country.codeToString code ++ " should have transports data available")
                     )
                 |> describe "transports data availability checks"
+            , describe "applyTransportRatios"
+                [ it "should apply transport ratio with no air transport"
+                    (franceChina
+                        |> Transport.applyTransportRatios Split.zero
+                        |> .air
+                        |> Length.inKilometers
+                        |> Expect.equal 0
+                    )
+                , it "should apply transport ratio with 50% air transport"
+                    (franceChina
+                        |> Transport.applyTransportRatios Split.half
+                        |> .air
+                        |> Length.inKilometers
+                        |> Expect.within (Expect.Absolute 0.1) (Length.inKilometers franceChina.air / 2)
+                    )
+                , it "should apply transport ratio with 100% air transport"
+                    (franceChina
+                        |> Transport.applyTransportRatios Split.full
+                        |> .air
+                        |> Length.inKilometers
+                        |> Expect.within (Expect.Absolute 0.1) (Length.inKilometers franceChina.air)
+                    )
+                ]
             , TestUtils.suiteFromResult "computeImpacts"
                 (ComponentConfig.default db.processes)
                 (\{ transports } ->
                     [ it "should compute transport impacts"
-                        (franceChina Impact.empty
+                        (franceChina
                             |> Transport.computeImpacts transports.modeProcesses Mass.kilogram
                             |> .impacts
                             |> Impact.getImpact Definition.Ecs
@@ -61,11 +85,11 @@ suite =
             , describe "getTransportBetween"
                 [ db.distances
                     |> Transport.getTransportBetween Impact.empty (Country.Code "FR") (Country.Code "CN")
-                    |> Expect.equal (franceChina Impact.empty)
+                    |> Expect.equal franceChina
                     |> asTest "should retrieve distance between two countries"
                 , db.distances
                     |> Transport.getTransportBetween Impact.empty (Country.Code "CN") (Country.Code "FR")
-                    |> Expect.equal (franceChina Impact.empty)
+                    |> Expect.equal franceChina
                     |> asTest "should retrieve distance between two swapped countries"
                 , db.countries
                     |> List.map .code
