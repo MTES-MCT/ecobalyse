@@ -8,7 +8,7 @@ L'application est accessible [à cette adresse](https://ecobalyse.beta.gouv.fr/)
 
 ## Socle technique et prérequis
 
-Le frontend de cette application est écrite en [Elm](https://elm-lang.org/). Vous devez disposer d'un environnement [NodeJS](https://nodejs.org/fr/) 14+ et `npm`. Pour le backend vous devez disposer d'un environnement [python](https://www.python.org/) >=3.11, [pipenv](https://pipenv.pypa.io/) et [gettext](https://www.gnu.org/software/gettext/) sur votre machine. Certains fichiers d’impacts détaillés nécessitent de configurer [`transcrypt`](https://github.com/elasticdog/transcrypt) pour les lire en local.
+Le frontend de cette application est écrite en [Elm](https://elm-lang.org/). Vous devez disposer d'un environnement [NodeJS](https://nodejs.org/fr/) 14+ et `npm`. Pour le backend vous devez disposer d'un environnement [python](https://www.python.org/) >=3.11, [pipenv](https://pipenv.pypa.io/) et [gettext](https://www.gnu.org/software/gettext/) sur votre machine. Certains fichiers d’impacts détaillés nécessitent d’installer et de configurer [`transcrypt`](https://github.com/elasticdog/transcrypt) pour les lire en local.
 
 ## Configuration
 
@@ -52,7 +52,19 @@ Note: docker est également une dépendance requise pour lancer la suite de test
 
 ### Frontend
 
-    NODE_ENV=development npm install
+- Installation des dépendances
+
+    ```sh
+    npm ci --ignore-scripts
+    ```
+
+- Déchiffrage du fichier des impacts détaillés. Attention, la variable d’environnement
+`TRANSCRYPT_KEY` documentée plus haut **doit** être renseignée et exportée auparavant.
+
+    ```sh
+    export TRANSCRYPT_KEY="<clé de déchiffrement>"
+    ./bin/run-transcrypt.sh`
+    ```
 
 ### Backend
 

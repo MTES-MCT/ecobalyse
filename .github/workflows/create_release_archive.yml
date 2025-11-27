@@ -32,7 +32,7 @@ jobs:
           cache: 'npm'
 
       - name: Install Node dependencies
-        run: npm ci --prefer-offline --no-audit
+        run: npm ci --prefer-offline --no-audit --ignore-scripts
 
       - name: Create the dist archive for this release
         id: create-release
