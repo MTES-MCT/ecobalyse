@@ -598,6 +598,7 @@ countrySelector config =
         |> select
             [ class "form-select w-33"
             , id config.domId
+            , autocomplete False
             , onInput <|
                 \str ->
                     config.select <|
