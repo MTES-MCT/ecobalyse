@@ -632,48 +632,6 @@
     "waste": 0
   },
   {
-    "activityName": "Transport, freight, lorry 16-32 metric ton, EURO5 {RER}| transport, freight, lorry 16-32 metric ton, EURO5 | Cut-off, S - Copied from Ecoinvent U",
-    "categories": [
-      "transport"
-    ],
-    "comment": "",
-    "density": 0,
-    "displayName": "Camion",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "0a3b3388-472c-58e5-9d1b-441cdda023f3",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 15.453,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pef": 15.249,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "location": "RER",
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "t⋅km",
-    "waste": 0
-  },
-  {
     "activityName": "Cherry, conventional, national average, at orchard {FR} U",
     "categories": [
       "ingredient"
@@ -842,48 +800,6 @@
     ],
     "source": "Custom",
     "unit": "kg",
-    "waste": 0
-  },
-  {
-    "activityName": "Transport, freight, sea, container ship {GLO}| transport, freight, sea, container ship | Cut-off, S - Copied from Ecoinvent U",
-    "categories": [
-      "transport"
-    ],
-    "comment": "",
-    "density": 0,
-    "displayName": "Bateau",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "0c36759c-4480-53eb-add1-77ecfb2b202e",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 1.3014,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pef": 1.4257,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "location": "GLO",
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "t⋅km",
     "waste": 0
   },
   {
@@ -2664,7 +2580,8 @@
     "scopes": [
       "textile",
       "veli",
-      "object"
+      "object",
+      "food"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "t⋅km",
@@ -4308,7 +4225,8 @@
     },
     "location": "GLO",
     "scopes": [
-      "textile"
+      "textile",
+      "food"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "t⋅km",
@@ -4354,48 +4272,6 @@
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "waste": 0
-  },
-  {
-    "activityName": "Transport, freight, aircraft, unspecified {GLO}| market for transport, freight, aircraft, unspecified | Cut-off, S - Copied from Ecoinvent U",
-    "categories": [
-      "transport"
-    ],
-    "comment": "",
-    "density": 0,
-    "displayName": "Avion",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "3364ef93-b936-531a-8f5a-432349aef398",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 59.694,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pef": 57.398,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "location": "GLO",
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "t⋅km",
     "waste": 0
   },
   {
@@ -6007,7 +5883,8 @@
     "scopes": [
       "textile",
       "veli",
-      "object"
+      "object",
+      "food"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "t⋅km",
