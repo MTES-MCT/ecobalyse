@@ -68,6 +68,8 @@ view cfg =
 
 buildObjectApiQuery : Scope -> String -> Component.Query -> String
 buildObjectApiQuery scope clientUrl query =
+    -- FIXME: the Object/Veli API doesn't exist just yet, but we already expose what
+    -- could be used when it's live
     """curl -sS -X POST %apiUrl% \\
   -H "accept: application/json" \\
   -H "content-type: application/json" \\
