@@ -44,8 +44,7 @@ Une contexture est formulée comme suit : 30 x 27 Nm 56/50 :&#x20;
    Les fils de chaîne sont alimentés à partir d’une ensouple (cylindre autour duquel est enroulée la chaîne du tissu) qui est installée à l’arrière d’un métier à tisser. La préparation de l'ensouple de tissage se fait par le procédé d'ourdissage.\
    \
    &#xNAN;_&#x45;ncollage_\
-   Afin de protéger et lubrifier les fils de chaîne, des agents d'encollage sont appliqués après l'ourdissage (sous forme de solutions ou de dispersion d'eau). Dans ce cas précis, il sera nécessaire post-tissage de procéder au désencollage de ces mêmes fils afin de ne pas empêcher les colorants de se fixer sur la matière textile lors de l'ennoblissement. Deux types d'agents d'encollage sont utilisés : les polymères synthétiques vs naturels (à base de polysaccharides).\
-
+   Afin de protéger et lubrifier les fils de chaîne, des agents d'encollage sont appliqués après l'ourdissage (sous forme de solutions ou de dispersion d'eau). Dans ce cas précis, il sera nécessaire post-tissage de procéder au désencollage de ces mêmes fils afin de ne pas empêcher les colorants de se fixer sur la matière textile lors de l'ennoblissement. Deux types d'agents d'encollage sont utilisés : les polymères synthétiques vs naturels (à base de polysaccharides).<br>
 2. **Tissage**\
    Il existe différents types de métiers en fonction des besoins de production, des largeurs de tissus, des matériaux utilisés, des motifs voulus, etc.\
    \
@@ -243,8 +242,7 @@ Ce paramètre est mobilisé car il constitue un paramètre clé pour évaluer le
 En fonction du vêtement sélectionné (jean, t-shirt, etc.), un grammage par défaut est appliqué. L'utilisateur a la possibilité de modifier ce paramètre.&#x20;
 
 :warning: La valeur à renseigner correspond à celle constatée sur le produit fini (hors accessoires). A ce stade, le calculateur permet de modéliser uniquement des produits mono-composant. Dès lors, la valeur à renseigner concerne le grammage de l'étoffe post-confection. \
-:bulb: Il existe généralement une différence entre le poids de l'étoffe en sortie de l'étape de fabrication de l'étoffe et le poids constaté sur le produit fini pour différentes raisons (ex : ajout d'apprêts sur l'étoffe lors de l'étape d'ennoblissement, différence de tension des fils/boucles, etc.).\
-
+:bulb: Il existe généralement une différence entre le poids de l'étoffe en sortie de l'étape de fabrication de l'étoffe et le poids constaté sur le produit fini pour différentes raisons (ex : ajout d'apprêts sur l'étoffe lors de l'étape d'ennoblissement, différence de tension des fils/boucles, etc.).<br>
 
 Cf. la section _Hypothèses par défaut_ pour plus d'info.
 

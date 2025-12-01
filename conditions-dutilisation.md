@@ -25,8 +25,7 @@ La « Plateforme » correspond au service web et toutes les fonctionnalités ass
 ## Article 4 - Fonctionnalités
 
 La Plateforme propose un calculateur de coût environnemental pour les produits textiles et alimentaires. L’Editeur se réserve le droit de compléter ou de supprimer des références ou catégories de biens pour tout motif.\
-L’utilisation de la Plateforme ne peut se faire que dans le cadre de la vente de produits sur le marché français.\
-
+L’utilisation de la Plateforme ne peut se faire que dans le cadre de la vente de produits sur le marché français.<br>
 
 #### 4.1 Calcul du coût environnemental d’un produit
 
@@ -41,8 +40,7 @@ Seuls les Utilisateurs ayant créé un compte sur la Plateforme ont accès à ce
 
 La Plateforme propose aux Utilisateurs un espace communauté afin de s'informer, d’échanger et de participer à la co-construction de la méthodologie d'évaluation des impacts environnementaux.
 
-Seuls les Utilisateurs ayant créé un compte sur la Plateforme ont accès à cette fonctionnalité.\
-
+Seuls les Utilisateurs ayant créé un compte sur la Plateforme ont accès à cette fonctionnalité.<br>
 
 ## Article 5 – Propriété intellectuelle&#x20;
 
@@ -111,10 +109,9 @@ L’API Ecobalyse est un dispositif mis en œuvre conjointement par l’Agence d
 
 L'API Ecobalyse permet de calculer les impacts environnementaux des produits textiles et alimentaires. Elle est accessible à l'adresse [https://ecobalyse.beta.gouv.fr/api](https://ecobalyse.beta.gouv.fr/api)&#x20;
 
-### Article 3 – Définitions 
+### Article 3 – Définitions<br>
 
-« API » : désigne l’interface de programmation applicative, comprenant un ensemble de méthodes, fonctions et classes, mise à disposition par l’intermédiaire d’une interface dont le but est d’offrir des services à d'autres logiciels. Il s’agit dans les présentes CGU de l’API Ecobalyse.\
-
+« API » : désigne l’interface de programmation applicative, comprenant un ensemble de méthodes, fonctions et classes, mise à disposition par l’intermédiaire d’une interface dont le but est d’offrir des services à d'autres logiciels. Il s’agit dans les présentes CGU de l’API Ecobalyse.<br>
 
 « Éditeur » désigne les personnes morales qui mettent à la disposition du public l’API Ecobalyse, à savoir le CGDD et l’ADEME.&#x20;
 
@@ -130,8 +127,7 @@ L’API Ecobalyse ne fixe aucun quota maximum en nombre d’appels. L’Editeur 
 
 L’API Ecobalyse ne stocke ni les paramètres passés, ni les résultats fournis par l'API dans aucune base de données. Le protocole de communication avec l'API est chiffré (HTTPS) et limite quasi totalement le risque d'interception du trafic par un tiers malintentionné.
 
-L’Utilisateur peut contrôler totalement l'environnement d'exécution du serveur d'API en décidant d'auto-héberger le service sur sa propre infrastructure.\
-
+L’Utilisateur peut contrôler totalement l'environnement d'exécution du serveur d'API en décidant d'auto-héberger le service sur sa propre infrastructure.<br>
 
 L’Utilisateur peut faire remonter les dysfonctionnements ou obtenir un appui technique en sollicitant [l’espace d’échange Ecobalyse](https://fabrique-numerique.gitbook.io/ecobalyse/communaute) du Gitbook Ecobalyse. L’équipe Ecobalyse déploie ses meilleurs efforts pour répondre dans les meilleurs délais aux demandes d’appui technique.
 
@@ -195,10 +191,9 @@ Les conditions d’utilisation des données sont fixées par la licence accessib
 
 La violation de tout ou partie des présentes CGU entraîne le retrait du jeton d’accès à l’API Ecobalyse. Selon les circonstances, ce retrait peut donner lieu l’engagement de poursuites devant les autorités publiques compétentes.&#x20;
 
-En cas de violation, le CGDD et l’ADEME contactent l’Utilisateur par tout moyen pour lui communiquer sa décision de retrait du jeton d’accès. L’Utilisateur peut répondre à la décision dans un délai de deux (2) semaines en apportant les correctifs nécessaires. Les éléments correctifs sont communiqués à l’adresse suivante : [ecobalyse@beta.gouv.fr](mailto:ecobalyse@beta.gouv.fr) \
+En cas de violation, le CGDD et l’ADEME contactent l’Utilisateur par tout moyen pour lui communiquer sa décision de retrait du jeton d’accès. L’Utilisateur peut répondre à la décision dans un délai de deux (2) semaines en apportant les correctifs nécessaires. Les éléments correctifs sont communiqués à l’adresse suivante : [ecobalyse@beta.gouv.fr](mailto:ecobalyse@beta.gouv.fr) <br>
 
-
-### Article 9 – Droit applicable et mise à jour des conditions générales d’utilisation 
+### Article 9 – Droit applicable et mise à jour des conditions générales d’utilisation<br>
 
 Le droit français s’applique aux présentes CGU.
 
@@ -206,4 +201,4 @@ Les termes des présentes CGU peuvent être amendés à tout moment, sans préav
 
 \
 \
-\
+<br>

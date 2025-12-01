@@ -33,6 +33,7 @@
 * [🧩 Composants](methodes-transverses-specifiques/composants.md)
 * [⚡ Energies des étapes de transformation](methodes-transverses-specifiques/energies-des-etapes-de-transformation.md)
 * [💡 Electricité à l'utilisation](methodes-transverses-specifiques/electricite-a-lutilisation.md)
+* [◻️ Procédés Acier et Aluminium](methodes-transverses-specifiques/procedes-acier-et-aluminium.md)
 * [✈️ Transport par avion - prise en compte des trainées](methodes-transverses-specifiques/modelisation-fret-aerien.md)
 * [Fin de vie des composants](methodes-transverses-specifiques/fin-de-vie-des-composants.md)
 
@@ -296,7 +297,6 @@
 ## Pages en cours de revue
 
 * [📌 Modèle de page](pages-en-cours-de-revue/modele-de-page.md)
-* [📌 Procédés Ecobalyse Acier et Aluminium](pages-en-cours-de-revue/procedes-ecobalyse-acier-et-aluminium.md)
 * [🚚 Transport](pages-en-cours-de-revue/transport/README.md)
   * [Coût environnemental par voie de transport](pages-en-cours-de-revue/transport/cout-environnemental-par-voie-de-transport.md)
   * [Choix des voies de transport](pages-en-cours-de-revue/transport/choix-des-voies-de-transport.md)

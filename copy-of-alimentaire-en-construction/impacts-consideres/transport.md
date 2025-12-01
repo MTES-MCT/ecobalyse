@@ -25,8 +25,7 @@ Les étapes suivantes sont donc considérées :&#x20;
 **Ingrédients agricoles et ingrédients industrie**.\
 Dans le cas des ingrédients importés, le pays d'origine peut être précisé (étape 3. RECETTE dans le tableau ci-dessus) : \
 \- import d'un ingrédient agricole (ex: tomate brute)\
-\- import d'un ingrédient transformé (ex: coulis de tomate) \
-
+\- import d'un ingrédient transformé (ex: coulis de tomate) <br>
 
 Par simplification, on considère de manière similaire l'import de l'ingrédient ou du produit transformé; en considérant que l'étape de transformation est systématiquement en France (usage du mix électrique FR pour la transformation).
 {% endhint %}

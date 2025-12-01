@@ -1,12 +1,8 @@
----
-hidden: true
----
-
-# 📌 Procédés Ecobalyse Acier et Aluminium
+# ◻️ Procédés Acier et Aluminium
 
 ## Contexte
 
-L'acier et l'aluminium sont des matériaux largement utilisé dans tous types de produits. Ils sont notamment prépondérant dans la fabrication de véhicules.
+L'acier et l'aluminium sont des matériaux largement utilisés dans tous types de produits. Ils sont notamment prépondérants dans la fabrication de véhicules.
 
 Leur impact environnemental dépend essentiellement de deux paramètres :
 
@@ -23,7 +19,7 @@ Pour les cas d'usage d'Ecobalyse, il est plus pertinent de travailler à partir 
 Par exemple : un fabricant français utilise une grande quantité d'acier dans la fabrication de ses produit. Il achète cet acier sous deux formes :&#x20;
 
 * des pièces métalliques, qu'il va ensuite découper, plier et souder
-* au sein de composants qu'il achète tout près auprès de fournisseurs allemands
+* au sein de composants qu'il achète tous prêts auprès d'un fournisseur allemand
 
 Dans les deux cas, il achète auprès d'industriels qui eux-même s'approvisionnent auprès d'un ensemble de fournisseurs d'acier.
 
@@ -34,17 +30,21 @@ Cependant, on peut prendre l'hypothèse que l'acier qu'il achète correspond au 
 
 ## Procédés utilisés pour le coût environnemental
 
-Des procédés Acier et Aluminium ont été construits pour plusieurs zones géographiques à partir des travaux menés par le Service Transport et Mobilité de l'ADEME. Ces travaux ont permis de créer&#x20;
+Des procédés Acier et Aluminium ont été construits pour plusieurs zones géographiques à partir des travaux menés par le Service Transport et Mobilité de l'ADEME. Ces travaux ont permis de créer :
 
-* 4 procédés pour l'Acier : France, Europe de l'Ouest, Europe de l'Est, Reste du Monde
-* 11 procédés pour l'aluminium
-  * 6 procédés Aluminium neuf
-  * 5 procédés Aluminium moyen (neuf + issu de matière recyclées)
+* 6 procédés pour l'Acier :&#x20;
+  * Acier vierge, acier recyclé, mix vierge + recyclé
+  * Pour chacun, deux géographies : Europe et Reste du Monde
+* 7 procédés pour l'aluminium :&#x20;
+  * Aluminium vierge, Aluminium recyclé, mix vierge + recyclé
+  * 3 géographies pour l'aluminium vierge : Europe, Inde, Reste du Monde
+  * 1 procéé pour l'aluminium recyclé
+  * 3 géographies pour le mix : Europe, Chine, Reste du Monde)
 
 Les procédés construits sont identifiés dans l'[Explorateur de procédé](https://ecobalyse.beta.gouv.fr/#/explore/textile/textile-processes).
 
 {% hint style="info" %}
-Les travaux du Service Transport et Mobilité de l'ADEME ont permis la construction de plus de 30 facteurs d'émissions (impact sur le changement climatique uniquement). A ce stade, à des fins de simplicité et de lisibilité pour l'utilisateur, seule une partie est construite dans Ecobalyse, représentative des résultats obtenus.
+Les travaux du Service Transport et Mobilité de l'ADEME ont permis la construction de facteurs d'émissions (impact sur le changement climatique uniquement) pour tous les pays producteurs de véhicules électriques (plus de 30) et trois zones géographiques complémentaires. A ce stade, à des fins de simplicité et de lisibilité pour l'utilisateur, seule une partie est construite dans Ecobalyse, représentative des résultats obtenus.
 {% endhint %}
 
 ### Acier :&#x20;

@@ -177,8 +177,7 @@ Une vingtaine de sites industriels ont pargé leurs consommations annuelles par 
 
 Les valeurs retenues par Ecobalyse ont été calculées ainsi : \
 1\) Extraction manuelle des valeurs Min-Max-Average (cf. graphes ci-dessous / Partie _3.6 Specific water and energy consumption)._\
-2\) Majoration de +50% appliquée sur la valeur "Average/Moyenne" car les sites ayant participé à l'étude sont considérés comme ce qui se fait de mieux en termes d'efficacité.\
-
+2\) Majoration de +50% appliquée sur la valeur "Average/Moyenne" car les sites ayant participé à l'étude sont considérés comme ce qui se fait de mieux en termes d'efficacité.<br>
 
 &#x20;\* Les consommations d'énergie des deux procédés d'impression sont reprises des _procédés représentatifs_ de la Base Impacts  (ADEME).
 {% endhint %}

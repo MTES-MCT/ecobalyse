@@ -16,8 +16,7 @@ Un taux de perte par défaut est appliqué par type de vêtement.&#x20;
 
 Plus cette valeur est élevée, plus la quantité d'étoffe à produire est élevée.&#x20;
 
-L'utilisateur a la possibilité de modifier ce paramètre dans le calculateur.\
-
+L'utilisateur a la possibilité de modifier ce paramètre dans le calculateur.<br>
 
 Cf. l'[Explorateur](https://ecobalyse.beta.gouv.fr/#/explore/textile/products) pour les valeurs par défaut.
 

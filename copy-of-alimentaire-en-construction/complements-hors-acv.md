@@ -1,4 +1,4 @@
-# Compléments hors ACV
+# Compléments hors ACV (old)
 
 Ces compléments hors ACV visent à prendre en compte les **externalités environnementales de certains modes de production** telles que désignées dans l’[article 2 de la loi Climat et résilience](https://www.legifrance.gouv.fr/jorf/article_jo/JORFARTI000043956979). Ces externalités ne sont aujourd'hui pas intégrées à l'ACV. Pourtant, elles sont essentielles pour appréhender au mieux l'impact systémique de l'agriculture, notamment à l'échelle des territoires. En effet, les pratiques agricoles façonnent grandement les écosystèmes et les paysages, que ce soit en termes de biodiversité (maintien de zones refuges, de corridors écologiques, d'une mosaïque paysagère diversifiée, etc.) ou en termes de résilience face aux aléas divers (préservation contre l'érosion des sols, bouclage des cycles et moindre dépendance à certains nutriments exogènes, régulation naturelle des ravageurs de cultures, etc.). Cinq compléments sont ainsi ajoutés pour prendre en compte ces effets.
 
@@ -107,8 +107,7 @@ Croisement entre :
 * Registre Parcellaire Graphique (RPG) “conventionnel” x BD HAIE
 * RPG Bio x BD HAIE
 
-Par défaut on considère que RPG conventionnel = RPG (IGN) - RPG Bio (Agence Bio)\
-
+Par défaut on considère que RPG conventionnel = RPG (IGN) - RPG Bio (Agence Bio)<br>
 
 <figure><img src="https://lh7-us.googleusercontent.com/slidesz/AGV_vUeyvyKVUTf9UE2rcirVXR-iJ-ki3mhvrHHbf3ARNEO1kjm_2hV2ZH16FI5D7J40vb_uBBFnbC19F7TL0To0WagWubP-bi8qa0XDcTbuXZzOVV-LCFMbLT2AtugXYzPTfOrCnbXHUheYp70W6KVzRapReLm7wGMF=s2048?key=EL5kZ_dddkIc8Ka_PGQ4sg" alt=""><figcaption></figcaption></figure>
 

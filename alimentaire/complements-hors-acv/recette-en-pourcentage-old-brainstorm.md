@@ -2,7 +2,7 @@
 hidden: true
 ---
 
-# §Recette en pourcentage
+# §Recette en pourcentage (old/brainstorm)
 
 ### La masse du produit fini
 
@@ -43,8 +43,7 @@ Je rentre la recette du gâteau à la banane notée telle que sur mon cahier des
 
 
 
-Or, le gâteau à subit une étape de cuisson, il faut donc remonter depuis la masse du produit final jusqu'à la masse pré-cuisson.\
-
+Or, le gâteau à subit une étape de cuisson, il faut donc remonter depuis la masse du produit final jusqu'à la masse pré-cuisson.<br>
 
 | Ingrédients | Rapport Cru/Cuit |
 | ----------- | ---------------- |

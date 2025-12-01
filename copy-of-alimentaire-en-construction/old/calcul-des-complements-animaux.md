@@ -88,8 +88,7 @@ Le services écosystémiques prairies permanentes est la quantité de m2.an de p
 
 ## Chargement - livestockDensity
 
-Le taux de chargement est un complément qui pénalise les productions animales dont la concentration géographique excède la capacité d'une région, entraînant pollution et déséquilibres écologiques. Cela est particulièrement pertinent pour des cas spécifiques tels que l'élevage porcin en Bretagne et les problématiques d'algues vertes.\
-
+Le taux de chargement est un complément qui pénalise les productions animales dont la concentration géographique excède la capacité d'une région, entraînant pollution et déséquilibres écologiques. Cela est particulièrement pertinent pour des cas spécifiques tels que l'élevage porcin en Bretagne et les problématiques d'algues vertes.<br>
 
 Pour calculer ce complément on a besoin, du chargement par UGB (Unité Gros Bétail) $$C_{UGB}$$ qui réflète le niveau de concentration par production animale et par scénario :
 

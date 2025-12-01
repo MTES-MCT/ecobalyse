@@ -29,7 +29,6 @@ Sources :
 [https://librairie.ademe.fr/agriculture-alimentation-foret-bioeconomie/8345-10127-construction-d-icv-des-productions-agricoles-biologiques-sur-la-base-d-icv-conventionnels.html](https://librairie.ademe.fr/agriculture-alimentation-foret-bioeconomie/8345-10127-construction-d-icv-des-productions-agricoles-biologiques-sur-la-base-d-icv-conventionnels.html)
 
 [https://librairie.ademe.fr/agriculture-alimentation-foret-bioeconomie/8346-10128-icv-pour-la-production-agricole-biologique-evaluation-de-la-methode-de-construction.html#](https://librairie.ademe.fr/agriculture-alimentation-foret-bioeconomie/8346-10128-icv-pour-la-production-agricole-biologique-evaluation-de-la-methode-de-construction.html)\
-\
-
+<br>
 
 ## &#x20;

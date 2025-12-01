@@ -116,8 +116,7 @@ Croisement entre :
 * RPG Bio x BD HAIE
 
 Par défaut on considère que RPG conventionnel = RPG (IGN) - RPG Bio (Agence Bio)\
-\
-
+<br>
 
 <figure><img src="https://lh7-us.googleusercontent.com/slidesz/AGV_vUeyvyKVUTf9UE2rcirVXR-iJ-ki3mhvrHHbf3ARNEO1kjm_2hV2ZH16FI5D7J40vb_uBBFnbC19F7TL0To0WagWubP-bi8qa0XDcTbuXZzOVV-LCFMbLT2AtugXYzPTfOrCnbXHUheYp70W6KVzRapReLm7wGMF=s2048?key=EL5kZ_dddkIc8Ka_PGQ4sg" alt=""><figcaption></figcaption></figure>
 

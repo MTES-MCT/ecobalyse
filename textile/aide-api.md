@@ -51,8 +51,7 @@ Dans l'UI les valeurs (hors valeurs "total" dans l'encadré bleu) sont affichés
 
 ### API
 
-Dans l'API le fonctionnement est le même. Dans la décomposition par étape du cycle de vie "lifecycle" les valeurs sont AVANT la prise en compte du coefficient de durabilité.\
-
+Dans l'API le fonctionnement est le même. Dans la décomposition par étape du cycle de vie "lifecycle" les valeurs sont AVANT la prise en compte du coefficient de durabilité.<br>
 
 <figure><img src="../.gitbook/assets/image (308).png" alt="" width="371"><figcaption><p>API "Jean coton (450g) - Majorant par défaut" au 2024-06-06, impact "Matières premières" donc AVANT durabilité</p></figcaption></figure>
 
