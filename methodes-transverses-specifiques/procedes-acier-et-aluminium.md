@@ -2,7 +2,7 @@
 
 ## Contexte
 
-L'acier et l'aluminium sont des matériaux largement utilisés dans tous types de produits. Ils sont notamment prépondérants dans la fabrication de véhicules.
+L'acier et l'aluminium sont des matériaux largement utilisés dans tous types de produits.
 
 Leur impact environnemental dépend essentiellement de deux paramètres :
 
