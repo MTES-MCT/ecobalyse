@@ -69,7 +69,7 @@ jobs:
 
       - name: Install Node dependencies
         if: steps.tag_creation.outputs.tag_created
-        run: npm ci --prefer-offline --no-audit
+        run: npm ci --prefer-offline --no-audit --ignore-scripts
 
       - name: Create the dist archive for this release
         if: steps.tag_creation.outputs.tag_created

@@ -79,7 +79,7 @@ jobs:
         restore-keys: elm-cache-
 
     - name: Install Node dependencies
-      run: npm ci --prefer-offline --no-audit
+      run: npm ci --prefer-offline --no-audit --ignore-scripts
 
     - name: Check JSON db formating
       run: npm run db:validate
