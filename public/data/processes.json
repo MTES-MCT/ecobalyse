@@ -1779,6 +1779,49 @@
     "waste": 0
   },
   {
+    "activityName": "wood chips, from post-consumer wood, measured as dry mass, in m3//[RER] market for wood chips, from post-consumer wood, measured as dry mass, in m3, constructed by Ecobalyse",
+    "categories": [
+      "material",
+      "material_type:wood"
+    ],
+    "comment": "Average density from softwood (490kg/m3)and hardwood (640kg/m3) species",
+    "density": 565.0,
+    "displayName": "Bois recyclé (copeaux), post-consommation",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "16d436ab-7a90-4b91-b268-85befecb7d6d",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 1351.9,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pef": 1396.1,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "GLO",
+    "scopes": [
+      "object"
+    ],
+    "source": "Ecobalyse",
+    "unit": "m3",
+    "waste": 0
+  },
+  {
     "activityName": "sawlog and veneer log, hardwood, measured as solid wood under bark//[DE] hardwood forestry, beech, sustainable forest management",
     "categories": [
       "material",
@@ -8046,50 +8089,6 @@
     "waste": 0
   },
   {
-    "activityName": "wood chips, wet, measured as dry mass//[Europe without Switzerland] market for wood chips, wet, measured as dry mass",
-    "categories": [
-      "material",
-      "material_type:wood"
-    ],
-    "comment": "",
-    "density": 575.0,
-    "displayName": "Bois d'industrie",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "603ef0f5-352c-5b7d-83b9-fa00cd081681",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 7.9579,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pef": 8.9026,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "location": "Europe without Switzerland",
-    "scopes": [
-      "object",
-      "veli"
-    ],
-    "source": "Ecoinvent 3.9.1",
-    "unit": "kg",
-    "waste": 0
-  },
-  {
     "activityName": "Meat with bone, beef for direct consumption {{meat-with-bone-beef-direct-consumption-grass-fed}}, constructed by Ecobalyse",
     "categories": [
       "ingredient"
@@ -13231,6 +13230,50 @@
     "waste": 0
   },
   {
+    "activityName": "wood chips, wet, measured as dry mass, in m3 //[Europe without Switzerland] market for wood chips, wet, measured as dry mass, in m3, constructed by Ecobalyse",
+    "categories": [
+      "material",
+      "material_type:wood"
+    ],
+    "comment": "",
+    "density": 565.0,
+    "displayName": "Bois d'industrie",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "994c7524-1d73-430b-9daa-800904613370",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 4496.2,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pef": 5030.0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "GLO",
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Ecobalyse",
+    "unit": "m3",
+    "waste": 0
+  },
+  {
     "activityName": "polyethylene terephthalate, granulate, amorphous, recycled//[RoW] polyethylene terephthalate production, granulate, amorphous, recycled",
     "categories": [
       "material",
@@ -17255,49 +17298,6 @@
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
-    "waste": 0
-  },
-  {
-    "activityName": "wood chips, from post-consumer wood, measured as dry mass//[RER] market for wood chips, from post-consumer wood, measured as dry mass",
-    "categories": [
-      "material",
-      "material_type:wood"
-    ],
-    "comment": "Average density from softwood (490kg/m3)and hardwood (640kg/m3) species",
-    "density": 0,
-    "displayName": "Bois recyclé (copeaux), post-consommation",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "c9fc3db3-273d-57a8-9002-e4d9c7bee347",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 2.3928,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pef": 2.4711,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "location": "RER",
-    "scopes": [
-      "object"
-    ],
-    "source": "Ecoinvent 3.9.1",
-    "unit": "kg",
     "waste": 0
   },
   {
