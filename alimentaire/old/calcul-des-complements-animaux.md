@@ -8,6 +8,8 @@ Les services écosystémiques de haie, taille de parcelle et diversité (hedges,
 
 ### Rations
 
+Le lien vers les rations animales utilisées pour calculer les compléments est [ici](https://github.com/MTES-MCT/ecobalyse-data/blob/ba87b0b8ffccc895b2c559f9eb3cf9e621ee36ff/food/ecosystemic_services/feed.json#L4).&#x20;
+
 Par exemple pour 1 kg de viande de boeuf haché.  Faisons l'hypothèse que les rations en végétaux nécessaires sont les suivantes (exprimées en kg) :
 
 ```
