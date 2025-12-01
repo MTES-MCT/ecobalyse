@@ -51,4 +51,9 @@ jobs:
           scalingo db-tunnel DATABASE_URL &
           for attempt in {1..20}; do if lsof -i:10000 > /dev/null; then echo "-> PG Tunnel to Scalingo is up and ready on port 10000"; break; fi; echo "-> Waiting for the PG tunnel to Scalingo..."; sleep 1; done
 
-          uv run backend json dump-components
+          uv run backend json dump-components > components.json
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: components
+          path: components.json
