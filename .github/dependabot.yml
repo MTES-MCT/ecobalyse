@@ -1,2 +1,8 @@
-cooldown:
-  default-days: 7
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    cooldown:
+      default-days: 7
