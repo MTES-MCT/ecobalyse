@@ -2080,7 +2080,8 @@
   {
     "activityName": "diesel, B7, EURO4, constructed by Ecobalyse",
     "categories": [
-      "energy"
+      "energy",
+      "use"
     ],
     "comment": "",
     "density": 0,
@@ -2883,7 +2884,8 @@
   {
     "activityName": "diesel, B7, EURO6, constructed by Ecobalyse",
     "categories": [
-      "energy"
+      "energy",
+      "use"
     ],
     "comment": "",
     "density": 0,
@@ -12210,7 +12212,8 @@
   {
     "activityName": "petrol, E10, EURO6, constructed by Ecobalyse",
     "categories": [
-      "energy"
+      "energy",
+      "use"
     ],
     "comment": "",
     "density": 0,
@@ -12722,7 +12725,8 @@
   {
     "activityName": "electricity, low voltage//[FR] market for electricity, low voltage",
     "categories": [
-      "energy"
+      "energy",
+      "use"
     ],
     "comment": "",
     "density": 0,
@@ -20135,7 +20139,8 @@
   {
     "activityName": "petrol, E85, EURO6, constructed by Ecobalyse",
     "categories": [
-      "energy"
+      "energy",
+      "use"
     ],
     "comment": "",
     "density": 0,
