@@ -36,19 +36,15 @@ jobs:
           if_key_exists: fail # replace / ignore / fail; optional (defaults to fail)
 
 
-      - name: Score History
+      - name: Export JSON
         env:
           GITHUB_REF_NAME: ${{ github.ref_name }}
-          SCALINGO_POSTGRESQL_SCORE_URL: ${{ secrets.SCALINGO_POSTGRESQL_TUNNEL_SCORE_URL }}
           SCALINGO_REGION: ${{ secrets.SCALINGO_REGION }}
-          SCALINGO_APP: ecobalyse
+          SCALINGO_APP: ecobalyse-staging
           SCALINGO_API_TOKEN: ${{ secrets.SCALINGO_API_TOKEN }}
+          DATABASE_URL: ${{ secrets.SCALINGO_POSTGRESQL_TUNNEL_STAGING_URL }}
         run: |
-          npm run server:build
           scalingo db-tunnel DATABASE_URL &
-          npm run server:start &
-
-          for attempt in {1..20}; do if curl -s http://localhost:8001/ > /dev/null; then echo "-> Node server is up and ready on port 8001"; break; fi; echo "-> Waiting for the Node server to boot..."; sleep 1; done
           for attempt in {1..20}; do if lsof -i:10000 > /dev/null; then echo "-> PG Tunnel to Scalingo is up and ready on port 10000"; break; fi; echo "-> Waiting for the PG tunnel to Scalingo..."; sleep 1; done
 
-          uv run python bin/score_history/score_history.py http://localhost:8001 $GITHUB_REF_NAME $GITHUB_SHA $SCALINGO_POSTGRESQL_SCORE_URL
+          uv run backend json dump-components
