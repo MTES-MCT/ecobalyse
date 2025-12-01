@@ -18,6 +18,9 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Install Scalingo CLI
+        uses: ./.github/actions/scalingo-cli
+
       - name: Install the latest version of uv
         uses: astral-sh/setup-uv@v4
         with:
