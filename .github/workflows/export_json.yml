@@ -2,6 +2,7 @@ name: Export static JSON
 
 on:
   workflow_dispatch:
+  push:
 
 jobs:
   export_json:
