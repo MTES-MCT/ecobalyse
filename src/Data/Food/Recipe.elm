@@ -271,6 +271,11 @@ compute ({ food } as db) =
             )
 
 
+{-| Converts food well-known transport processes to generic transport configuration format.
+
+TODO: migrate food to use the new format entirely, so we have a single place to configure them for all scopes
+
+-}
 convertWellKnownToTransportModes : WellKnown -> Transport.ModeProcesses
 convertWellKnownToTransportModes wellKnown =
     { boat = wellKnown.boatTransport
@@ -399,8 +404,11 @@ computeIngredientTransport db { country, ingredient, mass, planeTransport } =
             baseTransport
                 |> toTransformation
                 |> toLogistics
+
+        modes =
+            convertWellKnownToTransportModes db.food.wellKnown
     in
-    Transport.computeImpacts (convertWellKnownToTransportModes db.food.wellKnown) mass transport
+    Transport.computeImpacts modes mass transport
 
 
 preparationListFromQuery : Query -> Result String (List Preparation)
