@@ -26,6 +26,9 @@ jobs:
       - name: Install Transcrypt
         uses: ./.github/actions/transcrypt-cli
 
+      - name: Decrypt impact files
+        run: ./bin/run-transcrypt.sh
+
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
