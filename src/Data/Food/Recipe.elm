@@ -180,8 +180,11 @@ compute ({ food } as db) =
                                             Retail.distributionTransport distrib distributionTransportNeedsCooling
                                         )
                                     |> Maybe.withDefault (Transport.default Impact.empty)
+
+                            modes =
+                                convertWellKnownToTransportModes db.food.wellKnown
                         in
-                        Transport.computeImpacts (convertWellKnownToTransportModes db.food.wellKnown) mass transport
+                        Transport.computeImpacts modes mass transport
 
                     recipeImpacts =
                         Impact.sumImpacts
