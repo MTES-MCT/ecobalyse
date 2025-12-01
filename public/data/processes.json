@@ -5083,21 +5083,21 @@
     "waste": 0
   },
   {
-    "activityName": "Board, MDF (transformation), constructed by Ecobalyse",
+    "activityName": "packaging film, low density polyethylene//[RER] packaging film production, low density polyethylene",
     "categories": [
-      "transformation",
-      "material_type:wood"
+      "material",
+      "material_type:plastic"
     ],
     "comment": "",
     "density": 0,
-    "displayName": "Panneaux, MDF (transformation)",
+    "displayName": "Film plastique",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "3af71917-482a-57a6-80d2-ef556b377ba6",
+    "id": "3a32da6a-c655-5a2a-8bb7-5f47e4d6847f",
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 25526.0,
+      "ecs": 243.88,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5111,17 +5111,60 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 27564.0,
+      "pef": 269.87,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "location": "GLO",
+    "location": "RER",
     "scopes": [
       "object"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecoinvent 3.9.1",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transformation",
+      "material_type:wood"
+    ],
+    "comment": "Energy consumptions based on Ecobalyse litterature review with an average scenario hypothesis. Wastes are based on French technical institue FCBA.",
+    "density": 0,
+    "displayName": "Panneaux, MDF (transformation)",
+    "elecMJ": 1080.0,
+    "heatMJ": 3200.0,
+    "id": "3af71917-482a-57a6-80d2-ef556b377ba6",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pef": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": null,
+    "scopes": [
+      "object"
+    ],
+    "source": "Custom",
     "unit": "m3",
     "waste": 0.44
   },
@@ -7319,6 +7362,50 @@
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
+    "waste": 0
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transformation",
+      "material_type:other",
+      "material_type:wood"
+    ],
+    "comment": "Energy consumption based on average data from wood-based panels processes displayed in Ecobalyse (OSB, particleboard, HDF, MDF, plywood). No waste is considered as this process is used for inputs other than virgin wood (ex : recycled wood, glue, resins, etc.).",
+    "density": 0,
+    "displayName": "Panneaux (transformation, post-déchiquetage)",
+    "elecMJ": 0,
+    "heatMJ": 2248.0,
+    "id": "57f5f968-82cc-5efc-aa76-1d0ac79b5d66",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pef": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": null,
+    "scopes": [
+      "object"
+    ],
+    "source": "Custom",
+    "unit": "m3",
     "waste": 0
   },
   {
@@ -9618,21 +9705,21 @@
     "waste": 0
   },
   {
-    "activityName": "Board, hard fibreboard (transformation), constructed by Ecobalyse",
+    "activityName": "This process is not linked to a Brightway activity",
     "categories": [
       "transformation",
       "material_type:wood"
     ],
-    "comment": "",
+    "comment": "Energy consumptions based on Ecobalyse litterature review with an average scenario hypothesis. Wastes are based on French technical institue FCBA.",
     "density": 0,
     "displayName": "Panneaux, HDF (transformation)",
-    "elecMJ": 0,
-    "heatMJ": 0,
+    "elecMJ": 1764.0,
+    "heatMJ": 3600.0,
     "id": "72440595-10c6-5f79-83d8-f0204613c46c",
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 32640.0,
+      "ecs": 0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9646,17 +9733,17 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 35244.0,
+      "pef": 0,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "location": "GLO",
+    "location": null,
     "scopes": [
       "object"
     ],
-    "source": "Ecobalyse",
+    "source": "Custom",
     "unit": "m3",
     "waste": 0.55
   },
@@ -10973,6 +11060,50 @@
     "waste": 0
   },
   {
+    "activityName": "metal working, average for metal product manufacturing//[RER] metal working, average for metal product manufacturing",
+    "categories": [
+      "transformation",
+      "material_type:metal"
+    ],
+    "comment": "",
+    "density": 0,
+    "displayName": "Transformation métallique (moyenne)",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "8394320a-5e71-51b9-a286-183c64cae8e5",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 385.79,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pef": 449.38,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "RER",
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Ecoinvent 3.9.1",
+    "unit": "kg",
+    "waste": 0.158
+  },
+  {
     "activityName": "Hazelnut, in shell, at farm {TR} - Adapted from WFLDB U",
     "categories": [
       "ingredient"
@@ -11824,21 +11955,21 @@
     "waste": 0
   },
   {
-    "activityName": "Board, particleboard (transformation), constructed by Ecobalyse",
+    "activityName": "This process is not linked to a Brightway activity",
     "categories": [
       "transformation",
       "material_type:wood"
     ],
-    "comment": "",
+    "comment": "Energy consumptions based on Ecobalyse litterature review with an average scenario hypothesis. Wastes are based on French technical institue FCBA.",
     "density": 0,
     "displayName": "Panneaux, aggloméré/particules (transformation)",
-    "elecMJ": 0,
-    "heatMJ": 0,
+    "elecMJ": 558.0,
+    "heatMJ": 1500.0,
     "id": "8d354948-7ab2-57d3-b51f-4841a02fd6a1",
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 12335.0,
+      "ecs": 0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -11852,17 +11983,17 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 13320.0,
+      "pef": 0,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "location": "GLO",
+    "location": null,
     "scopes": [
       "object"
     ],
-    "source": "Ecobalyse",
+    "source": "Custom",
     "unit": "m3",
     "waste": 0.38
   },
@@ -12249,21 +12380,21 @@
     "waste": 0
   },
   {
-    "activityName": "Board, OSB (transformation), constructed by Ecobalyse",
+    "activityName": "This process is not linked to a Brightway activity",
     "categories": [
       "transformation",
       "material_type:wood"
     ],
-    "comment": "",
+    "comment": "Energy consumptions based on Ecobalyse litterature review with an average scenario hypothesis. Wastes are based on French technical institue FCBA.",
     "density": 0,
     "displayName": "Panneaux, OSB (transformation)",
-    "elecMJ": 0,
-    "heatMJ": 0,
+    "elecMJ": 720.0,
+    "heatMJ": 1900.0,
     "id": "91036be4-6bd8-51aa-ae0e-646dc92c9666",
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 15719.0,
+      "ecs": 0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -12277,17 +12408,17 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 16973.0,
+      "pef": 0,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "location": "GLO",
+    "location": null,
     "scopes": [
       "object"
     ],
-    "source": "Ecobalyse",
+    "source": "Custom",
     "unit": "m3",
     "waste": 0.5
   },
@@ -12332,6 +12463,49 @@
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transformation",
+      "material_type:wood"
+    ],
+    "comment": "Energy consumptions based on Ecobalyse litterature review with an average scenario hypothesis (main sources : FAO national statistics  + Swedish manufacturing plants statistics  + Canada manufacturing plants statistics + Ecoinvent resources)",
+    "density": 0,
+    "displayName": "Sciage + séchage au four (bois)",
+    "elecMJ": 216.0,
+    "heatMJ": 1000.0,
+    "id": "9154831a-090d-5636-81d3-ca89b8af20d2",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pef": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": null,
+    "scopes": [
+      "object"
+    ],
+    "source": "Custom",
+    "unit": "m3",
+    "waste": 0.5
   },
   {
     "activityName": "This process is not linked to a Brightway activity",
@@ -12462,21 +12636,21 @@
     "waste": 0
   },
   {
-    "activityName": "Board, plywood (transformation), constructed by Ecobalyse",
+    "activityName": "This process is not linked to a Brightway activity",
     "categories": [
       "transformation",
       "material_type:wood"
     ],
-    "comment": "",
+    "comment": "Energy consumptions based on Ecobalyse litterature review with an average scenario hypothesis. Wastes are based on French technical institue FCBA.",
     "density": 0,
     "displayName": "Panneaux, contreplaqué (transformation)",
-    "elecMJ": 0,
-    "heatMJ": 0,
+    "elecMJ": 720.0,
+    "heatMJ": 1040.0,
     "id": "92b623ad-1b3a-5310-ae42-5da1026a341d",
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 10932.0,
+      "ecs": 0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -12490,17 +12664,17 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 11804.0,
+      "pef": 0,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "location": "GLO",
+    "location": null,
     "scopes": [
       "object"
     ],
-    "source": "Ecobalyse",
+    "source": "Custom",
     "unit": "m3",
     "waste": 0.5
   },
@@ -15855,6 +16029,49 @@
     "waste": 0
   },
   {
+    "activityName": "corrugated board box//[RER] corrugated board box production",
+    "categories": [
+      "material",
+      "material_type:other"
+    ],
+    "comment": "",
+    "density": 0,
+    "displayName": "Carton ondulé",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "b992fdec-14e3-5404-bbcd-114fa3535fda",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 94.1,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pef": 86.935,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "RER",
+    "scopes": [
+      "object"
+    ],
+    "source": "Ecoinvent 3.9.1",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "coating, with melamine impregnated paper//[RER] coating service, melamine impregnated paper, double-sided",
     "categories": [
       "material",
@@ -16365,21 +16582,21 @@
     "waste": 0
   },
   {
-    "activityName": "Sawing + kiln drying in Europe (wood), constructed by Ecobalyse",
+    "activityName": "This process is not linked to a Brightway activity",
     "categories": [
       "transformation",
       "material_type:wood"
     ],
-    "comment": "",
+    "comment": "Energy consumptions based on Ecobalyse litterature review with an average scenario hypothesis (main sources : FAO national statistics  + Swedish manufacturing plants statistics  + Canada manufacturing plants statistics + Ecoinvent resources)",
     "density": 0,
-    "displayName": "Sciage + séchage au four en Europe (bois)",
-    "elecMJ": 0,
+    "displayName": "Sciage + séchage à l'air libre (bois)",
+    "elecMJ": 108.0,
     "heatMJ": 0,
     "id": "c172d131-b5d1-5d9b-822b-5762afb91c66",
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 12732.0,
+      "ecs": 0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -16393,17 +16610,17 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 13737.0,
+      "pef": 0,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "location": "GLO",
+    "location": null,
     "scopes": [
       "object"
     ],
-    "source": "Ecobalyse",
+    "source": "Custom",
     "unit": "m3",
     "waste": 0.5
   },
