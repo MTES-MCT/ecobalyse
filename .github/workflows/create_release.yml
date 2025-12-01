@@ -38,6 +38,9 @@ jobs:
       - name: Install Transcrypt
         uses: ./.github/actions/transcrypt-cli
 
+      - name: Decrypt impact files
+        run: ./bin/run-transcrypt.sh
+
       - name: Get latest version
         uses: orhun/git-cliff-action@v4
         id: git_cliff

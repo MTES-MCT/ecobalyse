@@ -50,12 +50,11 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Install transcrypt
-      run: |
-        mkdir -p $HOME/.local/bin
-        echo "$HOME/.local/bin" >> $GITHUB_PATH
-        wget https://raw.githubusercontent.com/elasticdog/transcrypt/016b2e4b31951be5ea96233d8d2badef9c9836b6/transcrypt -O "$HOME/.local/bin/transcrypt"
-        chmod +x "$HOME/.local/bin/transcrypt"
+    - name: Install Transcrypt
+      uses: ./.github/actions/transcrypt-cli
+
+    - name: Decrypt impact files
+      run: ./bin/run-transcrypt.sh
 
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
