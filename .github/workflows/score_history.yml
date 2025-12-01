@@ -25,12 +25,11 @@ jobs:
 
       - uses: actions/checkout@v4
 
-      - name: Install transcrypt
-        run: |
-          mkdir -p $HOME/.local/bin
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
-          wget https://raw.githubusercontent.com/elasticdog/transcrypt/016b2e4b31951be5ea96233d8d2badef9c9836b6/transcrypt -O "$HOME/.local/bin/transcrypt"
-          chmod +x "$HOME/.local/bin/transcrypt"
+      - name: Install Transcrypt
+        uses: ./.github/actions/transcrypt-cli
+
+      - name: Decrypt impact files
+        run: ./bin/run-transcrypt.sh
 
       - name: Install Scalingo CLI
         uses: ./.github/actions/scalingo-cli
@@ -64,7 +63,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Install Node dependencies
-        run: npm ci --prefer-offline --no-audit
+        run: npm ci --prefer-offline --no-audit --ignore-scripts
 
       - name: Install Ubuntu dependencies
         run: |

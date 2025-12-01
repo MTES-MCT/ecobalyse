@@ -183,7 +183,7 @@ cd $PUBLIC_GIT_CLONE_DIR
 # Installing node stuff
 # We need to specify dev as the env to avoid errors with needed dev packages at build time like
 # old husky prerequesite
-NODE_ENV=development npm ci
+NODE_ENV=development npm ci --ignore-scripts
 
 # We want a production build
 export NODE_ENV=production

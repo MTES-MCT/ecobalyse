@@ -3,6 +3,8 @@ name: Create tag and release
 env:
   TRANSCRYPT_KEY: ${{ secrets.TRANSCRYPT_KEY }}
   ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
+  ENABLE_FOOD_SECTION: "True"
+  ENABLE_OBJECTS_SECTION: "True"
 
 on:
   workflow_dispatch:
@@ -38,6 +40,9 @@ jobs:
       - name: Install Transcrypt
         uses: ./.github/actions/transcrypt-cli
 
+      - name: Decrypt impact files
+        run: ./bin/run-transcrypt.sh
+
       - name: Get latest version
         uses: orhun/git-cliff-action@v4
         id: git_cliff
@@ -69,7 +74,7 @@ jobs:
 
       - name: Install Node dependencies
         if: steps.tag_creation.outputs.tag_created
-        run: npm ci --prefer-offline --no-audit
+        run: npm ci --prefer-offline --no-audit --ignore-scripts
 
       - name: Create the dist archive for this release
         if: steps.tag_creation.outputs.tag_created
