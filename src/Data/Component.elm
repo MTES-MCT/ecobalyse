@@ -199,6 +199,9 @@ type alias Element =
 
 
 {-| A full representation of an amount of material and optional transformations of it
+
+Note: the `country` field is propagated from the parent component item, for convenience
+
 -}
 type alias ExpandedElement =
     { amount : Amount
