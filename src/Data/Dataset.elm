@@ -12,8 +12,8 @@ module Data.Dataset exposing
     )
 
 import Data.Component as Component
-import Data.Country as Country
 import Data.Food.Ingredient as Ingredient
+import Data.Geozone as Geozone
 import Data.Impact.Definition as Definition
 import Data.Process as Process
 import Data.Scope as Scope exposing (Scope)
@@ -30,9 +30,9 @@ It's used by Page.Explore and related routes.
 -}
 type Dataset
     = Components Scope (Maybe Component.Id)
-    | Countries (Maybe Country.Code)
     | FoodExamples (Maybe Uuid)
     | FoodIngredients (Maybe Ingredient.Id)
+    | Geozones (Maybe Geozone.Code)
     | Impacts (Maybe Definition.Trigram)
     | ObjectExamples (Maybe Uuid)
     | Processes Scope (Maybe Process.Id)
@@ -49,7 +49,7 @@ datasets scope =
             [ FoodExamples Nothing
             , Impacts Nothing
             , FoodIngredients Nothing
-            , Countries Nothing
+            , Geozones Nothing
             , Processes Scope.Food Nothing
             ]
 
@@ -65,7 +65,7 @@ datasets scope =
             , Components Scope.Textile Nothing
             , Impacts Nothing
             , TextileMaterials Nothing
-            , Countries Nothing
+            , Geozones Nothing
             , Processes Scope.Textile Nothing
             , TextileProducts Nothing
             ]
@@ -97,8 +97,8 @@ defaultDatasetFor scope =
 fromSlug : String -> Dataset
 fromSlug string =
     case string of
-        "countries" ->
-            Countries Nothing
+        "geozones" ->
+            Geozones Nothing
 
         "food-examples" ->
             FoodExamples Nothing
@@ -155,13 +155,13 @@ isDetailed dataset =
         Components _ (Just _) ->
             True
 
-        Countries (Just _) ->
-            True
-
         FoodExamples (Just _) ->
             True
 
         FoodIngredients (Just _) ->
+            True
+
+        Geozones (Just _) ->
             True
 
         Impacts (Just _) ->
@@ -205,14 +205,14 @@ reset dataset =
         Components scope _ ->
             Components scope Nothing
 
-        Countries _ ->
-            Countries Nothing
-
         FoodExamples _ ->
             FoodExamples Nothing
 
         FoodIngredients _ ->
             FoodIngredients Nothing
+
+        Geozones _ ->
+            Geozones Nothing
 
         Impacts _ ->
             Impacts Nothing
@@ -239,7 +239,7 @@ reset dataset =
 same : Dataset -> Dataset -> Bool
 same a b =
     case ( a, b ) of
-        ( Countries _, Countries _ ) ->
+        ( Geozones _, Geozones _ ) ->
             True
 
         ( FoodExamples _, FoodExamples _ ) ->
@@ -282,14 +282,14 @@ setIdFromString idString dataset =
         Components scope _ ->
             Components scope (Component.idFromString idString |> Result.toMaybe)
 
-        Countries _ ->
-            Countries (Just (Country.codeFromString idString))
-
         FoodExamples _ ->
             FoodExamples (idString |> Uuid.fromString |> Result.toMaybe)
 
         FoodIngredients _ ->
             FoodIngredients (idString |> Ingredient.idFromString |> Result.toMaybe)
+
+        Geozones _ ->
+            Geozones (Just (Geozone.codeFromString idString))
 
         Impacts _ ->
             Impacts (Definition.toTrigram idString |> Result.toMaybe)
@@ -324,14 +324,14 @@ strings dataset =
         Components scope _ ->
             { label = "Composants", slug = Scope.toString scope ++ "-components" }
 
-        Countries _ ->
-            { label = "Pays", slug = "countries" }
-
         FoodExamples _ ->
             { label = "Exemples", slug = "food-examples" }
 
         FoodIngredients _ ->
             { label = "Ingrédients", slug = "ingredients" }
+
+        Geozones _ ->
+            { label = "Zone", slug = "geozones" }
 
         Impacts _ ->
             { label = "Impacts", slug = "impacts" }
@@ -364,12 +364,6 @@ toRoutePath dataset =
         Components _ Nothing ->
             [ slug dataset ]
 
-        Countries (Just code) ->
-            [ slug dataset, Country.codeToString code ]
-
-        Countries Nothing ->
-            [ slug dataset ]
-
         FoodExamples (Just id) ->
             [ slug dataset, Uuid.toString id ]
 
@@ -380,6 +374,12 @@ toRoutePath dataset =
             [ slug dataset, Ingredient.idToString id ]
 
         FoodIngredients Nothing ->
+            [ slug dataset ]
+
+        Geozones (Just code) ->
+            [ slug dataset, Geozone.codeToString code ]
+
+        Geozones Nothing ->
             [ slug dataset ]
 
         Impacts (Just trigram) ->

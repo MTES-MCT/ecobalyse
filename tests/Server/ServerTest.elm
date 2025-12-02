@@ -56,7 +56,7 @@ suite =
                             FoodQuery.encode
                                 { distribution = Nothing
                                 , ingredients =
-                                    [ { country = Nothing
+                                    [ { geozone = Nothing
                                       , id = id
                                       , mass = Mass.kilogram
                                       , planeTransport = Ingredient.NoPlane

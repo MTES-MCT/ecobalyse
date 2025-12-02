@@ -23,7 +23,7 @@ module Data.Textile.Step exposing
     )
 
 import Area exposing (Area)
-import Data.Country as Country exposing (Country)
+import Data.Geozone as Geozone exposing (Geozone)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
@@ -51,12 +51,12 @@ import Views.Format as Format
 type alias Step =
     { airTransportRatio : Split
     , complementsImpacts : Impact.ComplementsImpacts
-    , country : Country
     , deadstock : Mass
     , durability : Unit.NonPhysicalDurability
     , dyeingProcessType : Maybe ProcessType
     , editable : Bool
     , enabled : Bool
+    , geozone : Geozone
     , heat : Energy
     , impacts : Impacts
     , inputMass : Mass
@@ -90,13 +90,13 @@ type alias PreTreatments =
 type alias ProcessInfo =
     { airTransport : Maybe String
     , airTransportRatio : Maybe String
-    , countryElec : Maybe String
-    , countryHeat : Maybe String
     , distribution : Maybe String
     , dyeing : Maybe String
     , endOfLife : Maybe String
     , fabric : Maybe String
     , fading : Maybe String
+    , geozoneElec : Maybe String
+    , geozoneHeat : Maybe String
     , making : Maybe String
     , passengerCar : Maybe String
     , printing : Maybe String
@@ -107,20 +107,20 @@ type alias ProcessInfo =
     }
 
 
-create : { country : Country, editable : Bool, enabled : Bool, label : Label } -> Step
-create { country, editable, enabled, label } =
+create : { editable : Bool, enabled : Bool, geozone : Geozone, label : Label } -> Step
+create { editable, enabled, geozone, label } =
     let
         defaultImpacts =
             Impact.empty
     in
-    { airTransportRatio = Split.zero -- Note: this depends on next step country, so we can't set an accurate default value initially
+    { airTransportRatio = Split.zero -- Note: this depends on next step geozone, so we can't set an accurate default value initially
     , complementsImpacts = Impact.noComplementsImpacts
-    , country = country
     , deadstock = Quantity.zero
     , durability = Unit.standardDurability Unit.NonPhysicalDurability
     , dyeingProcessType = Nothing
     , editable = editable
     , enabled = enabled
+    , geozone = geozone
     , heat = Quantity.zero
     , impacts = defaultImpacts
     , inputMass = Quantity.zero
@@ -156,13 +156,13 @@ defaultProcessInfo : ProcessInfo
 defaultProcessInfo =
     { airTransport = Nothing
     , airTransportRatio = Nothing
-    , countryElec = Nothing
-    , countryHeat = Nothing
     , distribution = Nothing
     , dyeing = Nothing
     , endOfLife = Nothing
     , fabric = Nothing
     , fading = Nothing
+    , geozoneElec = Nothing
+    , geozoneHeat = Nothing
     , making = Nothing
     , passengerCar = Nothing
     , printing = Nothing
@@ -173,21 +173,21 @@ defaultProcessInfo =
     }
 
 
-computeMaterialTransportAndImpact : Db -> Country -> Mass -> Inputs.MaterialInput -> Transport
-computeMaterialTransportAndImpact { distances, textile } country outputMass materialInput =
+computeMaterialTransportAndImpact : Db -> Geozone -> Mass -> Inputs.MaterialInput -> Transport
+computeMaterialTransportAndImpact { distances, textile } geozone outputMass materialInput =
     let
         materialMass =
             materialInput.share
                 |> Split.applyToQuantity outputMass
     in
     materialInput
-        |> Inputs.computeMaterialTransport distances country.code
+        |> Inputs.computeMaterialTransport distances geozone.code
         |> Formula.transportRatio Split.zero
         |> computeTransportImpacts Impact.empty textile.wellKnown textile.wellKnown.roadTransport materialMass
 
 
-computePreTreatment : Country -> Mass -> Process -> PreTreatments
-computePreTreatment country mass process =
+computePreTreatment : Geozone -> Mass -> Process -> PreTreatments
+computePreTreatment geozone mass process =
     let
         massInKg =
             Mass.inKilograms mass
@@ -199,9 +199,9 @@ computePreTreatment country mass process =
     in
     { energy =
         Impact.sumImpacts
-            [ country.electricityProcess.impacts
+            [ geozone.electricityProcess.impacts
                 |> Impact.multiplyBy (Energy.inKilowattHours consumedElec)
-            , country.heatProcess.impacts
+            , geozone.heatProcess.impacts
                 |> Impact.multiplyBy (Energy.inMegajoules consumedHeat)
             ]
     , heat = consumedHeat
@@ -210,15 +210,15 @@ computePreTreatment country mass process =
     , toxicity =
         process.impacts
             |> Impact.multiplyBy
-                (country.aquaticPollutionScenario
-                    |> Country.getAquaticPollutionRatio
+                (geozone.aquaticPollutionScenario
+                    |> Geozone.getAquaticPollutionRatio
                     |> Split.apply massInKg
                 )
     }
 
 
 computePreTreatments : WellKnown -> List Inputs.MaterialInput -> Step -> PreTreatments
-computePreTreatments wellKnown materials { country, inputMass } =
+computePreTreatments wellKnown materials { geozone, inputMass } =
     materials
         |> List.concatMap
             (\{ material, share } ->
@@ -227,7 +227,7 @@ computePreTreatments wellKnown materials { country, inputMass } =
                     |> List.map
                         (share
                             |> Split.applyToQuantity inputMass
-                            |> computePreTreatment country
+                            |> computePreTreatment geozone
                         )
             )
         |> List.foldl
@@ -254,12 +254,12 @@ computeTransports db inputs next ({ processInfo } as current) =
         transport =
             if current.label == Label.Material then
                 inputs.materials
-                    |> List.map (computeMaterialTransportAndImpact db next.country current.outputMass)
+                    |> List.map (computeMaterialTransportAndImpact db next.geozone current.outputMass)
                     |> Transport.sum
 
             else
                 db.distances
-                    |> Transport.getTransportBetween current.transport.impacts current.country.code next.country.code
+                    |> Transport.getTransportBetween current.transport.impacts current.geozone.code next.geozone.code
                     |> computeTransportSummary current
                     |> computeTransportImpacts current.transport.impacts
                         db.textile.wellKnown
@@ -356,7 +356,7 @@ getTransportedMass inputs { label, outputMass } =
 
 
 updateFromInputs : Textile.Db -> Inputs -> Step -> Step
-updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as step) =
+updateFromInputs { wellKnown } inputs ({ label, geozone, complementsImpacts } as step) =
     let
         { dyeingProcessType, makingComplexity, makingDeadStock, makingWaste, printing, surfaceMass, yarnSize } =
             inputs
@@ -376,9 +376,9 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
                     }
                 , processInfo =
                     { defaultProcessInfo
-                        | countryElec = Just <| Process.getDisplayName country.electricityProcess
-                        , countryHeat = Just <| Process.getDisplayName country.heatProcess
-                        , endOfLife = Just <| Process.getDisplayName wellKnown.endOfLife
+                        | endOfLife = Just <| Process.getDisplayName wellKnown.endOfLife
+                        , geozoneElec = Just <| Process.getDisplayName geozone.electricityProcess
+                        , geozoneHeat = Just <| Process.getDisplayName geozone.heatProcess
                         , passengerCar = Just "Transport en voiture vers point de collecte (1km)"
                     }
             }
@@ -389,9 +389,9 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
                 , printing = printing
                 , processInfo =
                     { defaultProcessInfo
-                        | countryElec = Just <| Process.getDisplayName country.electricityProcess
-                        , countryHeat = Just <| Process.getDisplayName country.heatProcess
-                        , dyeing = Nothing
+                        | dyeing = Nothing
+                        , geozoneElec = Just <| Process.getDisplayName geozone.electricityProcess
+                        , geozoneHeat = Just <| Process.getDisplayName geozone.heatProcess
                         , printing =
                             printing
                                 |> Maybe.map
@@ -408,12 +408,12 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
             { step
                 | processInfo =
                     { defaultProcessInfo
-                        | countryElec = Just <| Process.getDisplayName country.electricityProcess
-                        , fabric =
+                        | fabric =
                             inputs.product.fabric
                                 |> Fabric.getProcess wellKnown
                                 |> Process.getDisplayName
                                 |> Just
+                        , geozoneElec = Just <| Process.getDisplayName geozone.electricityProcess
                     }
                 , surfaceMass = surfaceMass
                 , yarnSize = yarnSize
@@ -426,8 +426,8 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
                 , makingWaste = makingWaste
                 , processInfo =
                     { defaultProcessInfo
-                        | countryElec = Just <| Process.getDisplayName country.electricityProcess
-                        , fading = Just <| Process.getDisplayName wellKnown.fading
+                        | fading = Just <| Process.getDisplayName wellKnown.fading
+                        , geozoneElec = Just <| Process.getDisplayName geozone.electricityProcess
                     }
             }
 
@@ -442,7 +442,7 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
 
         Label.Spinning ->
             { step
-                | processInfo = { defaultProcessInfo | countryElec = Just <| Process.getDisplayName country.electricityProcess }
+                | processInfo = { defaultProcessInfo | geozoneElec = Just <| Process.getDisplayName geozone.electricityProcess }
                 , yarnSize = yarnSize
             }
 
@@ -451,7 +451,7 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
                 | processInfo =
                     { defaultProcessInfo
                         | -- Note: French low voltage electricity process is always used at the Use step
-                          countryElec = Just <| Process.getDisplayName wellKnown.lowVoltageFranceElec
+                          geozoneElec = Just <| Process.getDisplayName wellKnown.lowVoltageFranceElec
                         , useIroning =
                             -- Note: Much better expressing electricity consumption in kWh than in MJ
                             inputs.product.use.ironingElec
@@ -491,10 +491,10 @@ updateDeadStock deadstock mass step =
 
 
 airTransportDisabled : Step -> Bool
-airTransportDisabled { country, enabled, label } =
+airTransportDisabled { enabled, geozone, label } =
     not enabled
         || -- Note: disallow air transport from France to France at the Making step
-           (label == Label.Making && country.code == Country.codeFromString "FR")
+           (label == Label.Making && geozone.code == Geozone.codeFromString "FR")
 
 
 airTransportRatioToString : Split -> String
@@ -545,7 +545,7 @@ encode v =
     Encode.object
         [ ( "airTransportRatio", Split.encodeFloat v.airTransportRatio )
         , ( "complementsImpacts", Impact.encodeComplementsImpacts v.complementsImpacts )
-        , ( "country", Country.encode v.country )
+        , ( "geozone", Geozone.encode v.geozone )
         , ( "deadstock", Encode.float (Mass.inKilograms v.deadstock) )
         , ( "durability", Unit.encodeNonPhysicalDurability v.durability )
         , ( "editable", Encode.bool v.editable )
@@ -590,8 +590,8 @@ encodeProcessInfo v =
     Encode.object
         [ ( "airTransport", encodeMaybeString v.airTransport )
         , ( "airTransportRatio", encodeMaybeString v.airTransportRatio )
-        , ( "countryElec", encodeMaybeString v.countryElec )
-        , ( "countryHeat", encodeMaybeString v.countryHeat )
+        , ( "geozoneElec", encodeMaybeString v.geozoneElec )
+        , ( "geozoneHeat", encodeMaybeString v.geozoneHeat )
         , ( "distribution", encodeMaybeString v.distribution )
         , ( "endOfLife", encodeMaybeString v.endOfLife )
         , ( "fabric", encodeMaybeString v.fabric )

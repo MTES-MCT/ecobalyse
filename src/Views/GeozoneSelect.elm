@@ -1,6 +1,6 @@
-module Views.CountrySelect exposing (view)
+module Views.GeozoneSelect exposing (view)
 
-import Data.Country as Country exposing (Country)
+import Data.Geozone as Geozone exposing (Geozone)
 import Data.Scope as Scope exposing (Scope)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -9,29 +9,29 @@ import Html.Events exposing (..)
 
 type alias Config msg =
     { attributes : List (Attribute msg)
-    , countries : List Country
-    , onSelect : Country.Code -> msg
+    , geozones : List Geozone
+    , onSelect : Geozone.Code -> msg
     , scope : Scope
-    , selectedCountry : Country.Code
+    , selectedGeozone : Geozone.Code
     }
 
 
 view : Config msg -> Html msg
-view { attributes, countries, onSelect, scope, selectedCountry } =
-    countries
+view { attributes, geozones, onSelect, scope, selectedGeozone } =
+    geozones
         |> Scope.anyOf [ scope ]
         |> List.sortBy .name
         |> List.map
             (\{ code, name } ->
                 option
-                    [ selected (selectedCountry == code)
-                    , value <| Country.codeToString code
+                    [ selected (selectedGeozone == code)
+                    , value <| Geozone.codeToString code
                     ]
                     [ text name ]
             )
         |> select
             (class
                 "form-select"
-                :: onInput (Country.codeFromString >> onSelect)
+                :: onInput (Geozone.codeFromString >> onSelect)
                 :: attributes
             )

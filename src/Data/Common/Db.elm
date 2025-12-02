@@ -1,10 +1,10 @@
 module Data.Common.Db exposing
-    ( countriesFromJson
+    ( geozonesFromJson
     , impactsFromJson
     , transportsFromJson
     )
 
-import Data.Country as Country exposing (Country)
+import Data.Geozone as Geozone exposing (Geozone)
 import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Process exposing (Process)
 import Data.Transport as Transport exposing (Distances)
@@ -17,9 +17,9 @@ impactsFromJson =
         >> Result.mapError Decode.errorToString
 
 
-countriesFromJson : List Process -> String -> Result String (List Country)
-countriesFromJson processes =
-    Decode.decodeString (Country.decodeList processes)
+geozonesFromJson : List Process -> String -> Result String (List Geozone)
+geozonesFromJson processes =
+    Decode.decodeString (Geozone.decodeList processes)
         >> Result.mapError Decode.errorToString
 
 

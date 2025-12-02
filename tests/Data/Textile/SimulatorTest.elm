@@ -1,7 +1,7 @@
 module Data.Textile.SimulatorTest exposing (..)
 
 import Data.Component as Component
-import Data.Country as Country
+import Data.Geozone as Geozone
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Split as Split
@@ -66,7 +66,7 @@ suite =
                     tShirtCotonFrance
                     (\query ->
                         [ { query
-                            | countrySpinning = Nothing
+                            | geozoneSpinning = Nothing
                           }
                             |> expectImpact db ecs 1290.7
                             |> asTest "compute a simulation ecs impact"
@@ -173,7 +173,7 @@ suite =
                 , suiteFromResult "should be full for products not coming from Europe or Turkey"
                     tShirtCotonFrance
                     (\query ->
-                        [ { query | countryMaking = Just (Country.Code "CN") }
+                        [ { query | geozoneMaking = Just (Geozone.Code "CN") }
                             |> computeWithDefaultComponentConfig db
                             |> Result.map (.lifeCycle >> LifeCycle.getStepProp Label.Making .airTransportRatio Split.half)
                             |> Expect.equal (Ok Split.full)
@@ -189,7 +189,7 @@ suite =
                                     | numberOfReferences = Just 10
                                     , price = Just <| Economics.priceFromFloat 100
                                     , physicalDurability = Just <| Unit.physicalDurability 1.1
-                                    , countryMaking = Just (Country.Code "CN")
+                                    , geozoneMaking = Just (Geozone.Code "CN")
                                 }
                         in
                         [ tShirtCotonWithSmallerPhysicalDurabilityCn
@@ -203,7 +203,7 @@ suite =
                     tShirtCotonFrance
                     (\query ->
                         [ { query
-                            | countryMaking = Just (Country.Code "CN")
+                            | geozoneMaking = Just (Geozone.Code "CN")
                             , airTransportRatio = Just Split.two
                           }
                             |> computeWithDefaultComponentConfig db
@@ -258,7 +258,7 @@ suite =
                 [ -- This example gives a durability index different from 1, ecoscores should differ
                   """ {
                           "business": "small-business",
-                          "countrySpinning": "MA",
+                          "geozoneSpinning": "MA",
                           "mass": 0.3,
                           "materials": [
                               {
@@ -280,7 +280,7 @@ suite =
                   -- durability should be strictly equivalent
                   """ {
                           "business": "small-business",
-                          "countrySpinning": "MA",
+                          "geozoneSpinning": "MA",
                           "mass": 0.3,
                           "materials": [
                               {

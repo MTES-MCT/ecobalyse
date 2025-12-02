@@ -1,6 +1,6 @@
 module Data.Textile.LifeCycleTest exposing (..)
 
-import Data.Country as Country
+import Data.Geozone as Geozone
 import Data.Textile.Inputs as Inputs
 import Data.Textile.LifeCycle as LifeCycle exposing (LifeCycle)
 import Data.Textile.Query exposing (Query)
@@ -43,9 +43,9 @@ suite =
                             |> Result.map
                                 (\query ->
                                     { query
-                                        | countryFabric = Just (Country.Code "FR")
-                                        , countryDyeing = Just (Country.Code "IN") -- Ennoblement in India
-                                        , countryMaking = Just (Country.Code "FR")
+                                        | geozoneFabric = Just (Geozone.Code "FR")
+                                        , geozoneDyeing = Just (Geozone.Code "IN") -- Ennoblement in India
+                                        , geozoneMaking = Just (Geozone.Code "FR")
                                     }
                                 )
                   in

@@ -16,7 +16,7 @@
       "distribution": "ambient",
       "ingredients": [
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "db791ac8-02b9-41b0-bc2b-2913e745bd19",
           "mass": 1000
         }
@@ -38,7 +38,7 @@
       "distribution": "ambient",
       "ingredients": [
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "a2e25aca-1f42-4bc8-bc0e-4d7c751775aa",
           "mass": 1000
         }
@@ -81,7 +81,7 @@
       "distribution": "frozen",
       "ingredients": [
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "a360871c-fc35-4cb3-af2c-5eeb8bd6f984",
           "mass": 250
         }
@@ -104,7 +104,7 @@
       "distribution": "frozen",
       "ingredients": [
         {
-          "country": "BR",
+          "geozone": "BR",
           "id": "8fb5024c-ceec-4201-b069-ea253c537ad6",
           "mass": 250
         }
@@ -193,57 +193,57 @@
       "distribution": "frozen",
       "ingredients": [
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "a2e25aca-1f42-4bc8-bc0e-4d7c751775aa",
           "mass": 148
         },
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "6523c72b-2c28-474d-9bf8-45e018bbd0be",
           "mass": 100
         },
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "faa513ae-9c32-4e6c-874e-58c13309339e",
           "mass": 19
         },
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "41d65ed4-230f-4a47-a67c-9a8015f50420",
           "mass": 43
         },
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "5fc8032f-ca1c-4497-844b-f9213075eab3",
           "mass": 3
         },
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "96b301d9-d21b-4cea-8903-bd7917e95a30",
           "mass": 5
         },
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "36b3ffec-51e7-4e26-b1b5-7d52554e0aa6",
           "mass": 33
         },
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "74314f2e-aa88-4ac1-aa78-bb29dceebf0b",
           "mass": 19
         },
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "3cfab110-363e-442a-9170-1af337fe9ea3",
           "mass": 2
         },
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "97cde31b-e46e-472d-836d-9b217c3845df",
           "mass": 14
         },
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "4d5198e7-413a-4ae2-8448-535aa3b302ae",
           "mass": 6
         }
@@ -270,57 +270,57 @@
       "distribution": "frozen",
       "ingredients": [
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "db791ac8-02b9-41b0-bc2b-2913e745bd19",
           "mass": 148
         },
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "6523c72b-2c28-474d-9bf8-45e018bbd0be",
           "mass": 100
         },
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "faa513ae-9c32-4e6c-874e-58c13309339e",
           "mass": 19
         },
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "4e3009f3-1b33-41d7-b6f3-dc7230331da0",
           "mass": 43
         },
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "5fc8032f-ca1c-4497-844b-f9213075eab3",
           "mass": 3
         },
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "51f8e8d2-13c0-446c-bf0a-9272fc46edde",
           "mass": 5
         },
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "36b3ffec-51e7-4e26-b1b5-7d52554e0aa6",
           "mass": 33
         },
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "74314f2e-aa88-4ac1-aa78-bb29dceebf0b",
           "mass": 19
         },
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "64fb23f2-0cac-403c-bbfa-1973c9a0ea40",
           "mass": 2
         },
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "97cde31b-e46e-472d-836d-9b217c3845df",
           "mass": 14
         },
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "9042b6d0-c309-4757-a03f-ba802f0c8c01",
           "mass": 6
         }
@@ -405,37 +405,37 @@
       "distribution": "frozen",
       "ingredients": [
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "a2e25aca-1f42-4bc8-bc0e-4d7c751775aa",
           "mass": 97
         },
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "6523c72b-2c28-474d-9bf8-45e018bbd0be",
           "mass": 89
         },
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "faa513ae-9c32-4e6c-874e-58c13309339e",
           "mass": 70
         },
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "755225f1-f0c5-497f-b8a9-263828a84a22",
           "mass": 16
         },
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "5fc8032f-ca1c-4497-844b-f9213075eab3",
           "mass": 5
         },
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "5d22559d-c16d-4545-94b9-be2ff51e2879",
           "mass": 31
         },
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "96b301d9-d21b-4cea-8903-bd7917e95a30",
           "mass": 16
         },
@@ -444,7 +444,7 @@
           "mass": 1
         },
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "36b3ffec-51e7-4e26-b1b5-7d52554e0aa6",
           "mass": 22
         }
@@ -537,27 +537,27 @@
       "distribution": "frozen",
       "ingredients": [
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "a2e25aca-1f42-4bc8-bc0e-4d7c751775aa",
           "mass": 113
         },
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "6523c72b-2c28-474d-9bf8-45e018bbd0be",
           "mass": 76
         },
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "faa513ae-9c32-4e6c-874e-58c13309339e",
           "mass": 36.00000000000001
         },
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "5fc8032f-ca1c-4497-844b-f9213075eab3",
           "mass": 4
         },
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "96b301d9-d21b-4cea-8903-bd7917e95a30",
           "mass": 21
         },
@@ -566,27 +566,27 @@
           "mass": 2
         },
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "74314f2e-aa88-4ac1-aa78-bb29dceebf0b",
           "mass": 12
         },
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "16caaefa-40f5-4d29-a3e6-26349846f2c9",
           "mass": 36.00000000000001
         },
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "361139ac-1028-4cc8-9c0e-4955c5fa39d3",
           "mass": 36.00000000000001
         },
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "97cde31b-e46e-472d-836d-9b217c3845df",
           "mass": 12
         },
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "36b3ffec-51e7-4e26-b1b5-7d52554e0aa6",
           "mass": 22
         }
@@ -613,7 +613,7 @@
       "distribution": "frozen",
       "ingredients": [
         {
-          "country": "BR",
+          "geozone": "BR",
           "id": "ce073919-1aff-4892-a1f5-b25ee94bccd8",
           "mass": 200
         }
@@ -636,7 +636,7 @@
       "distribution": "frozen",
       "ingredients": [
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "41d65ed4-230f-4a47-a67c-9a8015f50420",
           "mass": 250
         }
@@ -659,7 +659,7 @@
       "distribution": "frozen",
       "ingredients": [
         {
-          "country": "FR",
+          "geozone": "FR",
           "id": "4e3009f3-1b33-41d7-b6f3-dc7230331da0",
           "mass": 200
         }

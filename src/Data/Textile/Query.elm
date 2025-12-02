@@ -17,7 +17,7 @@ module Data.Textile.Query exposing
     , updateMaterial
     , updateMaterialSpinning
     , updateProduct
-    , updateStepCountry
+    , updateStepGeozone
     , updateTrims
     , validateMaterials
     )
@@ -26,7 +26,7 @@ import Base64
 import Data.Common.DecodeUtils as DU
 import Data.Common.EncodeUtils as EU
 import Data.Component as Component exposing (Item)
-import Data.Country as Country
+import Data.Geozone as Geozone
 import Data.Split as Split exposing (Split)
 import Data.Textile.Dyeing as Dyeing exposing (ProcessType)
 import Data.Textile.Economics as Economics
@@ -47,7 +47,7 @@ import Url.Parser as Parser exposing (Parser)
 
 
 type alias MaterialQuery =
-    { country : Maybe Country.Code
+    { geozone : Maybe Geozone.Code
     , id : Material.Id
     , share : Split
     , spinning : Maybe Spinning
@@ -57,14 +57,14 @@ type alias MaterialQuery =
 type alias Query =
     { airTransportRatio : Maybe Split
     , business : Maybe Economics.Business
-    , countryDyeing : Maybe Country.Code
-    , countryFabric : Maybe Country.Code
-    , countryMaking : Maybe Country.Code
-    , countrySpinning : Maybe Country.Code
     , disabledSteps : List Label
     , dyeingProcessType : Maybe ProcessType
     , fabricProcess : Maybe Fabric
     , fading : Maybe Bool
+    , geozoneDyeing : Maybe Geozone.Code
+    , geozoneFabric : Maybe Geozone.Code
+    , geozoneMaking : Maybe Geozone.Code
+    , geozoneSpinning : Maybe Geozone.Code
     , makingComplexity : Maybe MakingComplexity
     , makingDeadStock : Maybe Split
     , makingWaste : Maybe Split
@@ -86,7 +86,7 @@ addMaterial : Material -> Query -> Query
 addMaterial material query =
     let
         materialQuery =
-            { country = Nothing
+            { geozone = Nothing
             , id = material.id
             , share = Split.zero
             , spinning = Nothing
@@ -145,14 +145,14 @@ decode =
     Decode.succeed Query
         |> DU.strictOptional "airTransportRatio" Split.decodeFloat
         |> DU.strictOptional "business" Economics.decodeBusiness
-        |> DU.strictOptional "countryDyeing" Country.decodeCode
-        |> DU.strictOptional "countryFabric" Country.decodeCode
-        |> DU.strictOptional "countryMaking" Country.decodeCode
-        |> DU.strictOptional "countrySpinning" Country.decodeCode
         |> Pipe.optional "disabledSteps" (Decode.list Label.decodeFromCode) []
         |> DU.strictOptional "dyeingProcessType" Dyeing.decode
         |> DU.strictOptional "fabricProcess" Fabric.decode
         |> DU.strictOptional "fading" Decode.bool
+        |> DU.strictOptional "geozoneDyeing" Geozone.decodeCode
+        |> DU.strictOptional "geozoneFabric" Geozone.decodeCode
+        |> DU.strictOptional "geozoneMaking" Geozone.decodeCode
+        |> DU.strictOptional "geozoneSpinning" Geozone.decodeCode
         |> DU.strictOptional "makingComplexity" MakingComplexity.decode
         |> DU.strictOptional "makingDeadStock" Split.decodeFloat
         |> DU.strictOptional "makingWaste" Split.decodeFloat
@@ -172,7 +172,7 @@ decode =
 decodeMaterialQuery : Decoder MaterialQuery
 decodeMaterialQuery =
     Decode.succeed MaterialQuery
-        |> DU.strictOptional "country" Country.decodeCode
+        |> DU.strictOptional "geozone" Geozone.decodeCode
         |> Pipe.required "id" Material.decodeId
         |> Pipe.required "share" Split.decodeFloat
         |> DU.strictOptional "spinning" Spinning.decode
@@ -183,10 +183,10 @@ encode query =
     EU.optionalPropertiesObject
         [ ( "airTransportRatio", query.airTransportRatio |> Maybe.map Split.encodeFloat )
         , ( "business", query.business |> Maybe.map Economics.encodeBusiness )
-        , ( "countryDyeing", query.countryDyeing |> Maybe.map Country.encodeCode )
-        , ( "countryFabric", query.countryFabric |> Maybe.map Country.encodeCode )
-        , ( "countryMaking", query.countryMaking |> Maybe.map Country.encodeCode )
-        , ( "countrySpinning", query.countrySpinning |> Maybe.map Country.encodeCode )
+        , ( "geozoneDyeing", query.geozoneDyeing |> Maybe.map Geozone.encodeCode )
+        , ( "geozoneFabric", query.geozoneFabric |> Maybe.map Geozone.encodeCode )
+        , ( "geozoneMaking", query.geozoneMaking |> Maybe.map Geozone.encodeCode )
+        , ( "geozoneSpinning", query.geozoneSpinning |> Maybe.map Geozone.encodeCode )
         , ( "disabledSteps"
           , case query.disabledSteps of
                 [] ->
@@ -218,7 +218,7 @@ encode query =
 encodeMaterialQuery : MaterialQuery -> Encode.Value
 encodeMaterialQuery v =
     EU.optionalPropertiesObject
-        [ ( "country", v.country |> Maybe.map Country.encodeCode )
+        [ ( "geozone", v.geozone |> Maybe.map Geozone.encodeCode )
         , ( "id", Material.encodeId v.id |> Just )
         , ( "share", Split.encodeFloat v.share |> Just )
         , ( "spinning", v.spinning |> Maybe.map Spinning.encode )
@@ -309,7 +309,7 @@ updateMaterial oldMaterialId newMaterial =
     updateMaterialQuery oldMaterialId
         (\materialQuery ->
             { materialQuery
-                | country = newMaterial.country
+                | geozone = newMaterial.geozone
                 , id = newMaterial.id
                 , share = newMaterial.share
                 , spinning = Nothing
@@ -366,11 +366,11 @@ updateProduct product query =
         query
 
 
-updateStepCountry : Label -> Country.Code -> Query -> Query
-updateStepCountry label code query =
+updateStepGeozone : Label -> Geozone.Code -> Query -> Query
+updateStepGeozone label code query =
     let
         maybeCode =
-            if code == Country.unknownCountryCode then
+            if code == Geozone.unknownGeozoneCode then
                 Nothing
 
             else
@@ -378,25 +378,25 @@ updateStepCountry label code query =
     in
     case label of
         Label.Ennobling ->
-            { query | countryDyeing = maybeCode }
+            { query | geozoneDyeing = maybeCode }
 
         Label.Fabric ->
-            { query | countryFabric = maybeCode }
+            { query | geozoneFabric = maybeCode }
 
         Label.Making ->
             { query
                 | airTransportRatio =
-                    if query.countryMaking /= maybeCode then
-                        -- reset custom value as we just switched country
+                    if query.geozoneMaking /= maybeCode then
+                        -- reset custom value as we just switched geozone
                         Nothing
 
                     else
                         query.airTransportRatio
-                , countryMaking = maybeCode
+                , geozoneMaking = maybeCode
             }
 
         Label.Spinning ->
-            { query | countrySpinning = maybeCode }
+            { query | geozoneSpinning = maybeCode }
 
         _ ->
             query
@@ -434,14 +434,14 @@ default =
     -- Note: the default query doesn't have any materials
     { airTransportRatio = Nothing
     , business = Nothing
-    , countryDyeing = Just (Country.Code "CN")
-    , countryFabric = Just (Country.Code "CN")
-    , countryMaking = Just (Country.Code "CN")
-    , countrySpinning = Just (Country.Code "CN")
     , disabledSteps = []
     , dyeingProcessType = Nothing
     , fabricProcess = Nothing
     , fading = Nothing
+    , geozoneDyeing = Just (Geozone.Code "CN")
+    , geozoneFabric = Just (Geozone.Code "CN")
+    , geozoneMaking = Just (Geozone.Code "CN")
+    , geozoneSpinning = Just (Geozone.Code "CN")
     , makingComplexity = Nothing
     , makingDeadStock = Nothing
     , makingWaste = Nothing

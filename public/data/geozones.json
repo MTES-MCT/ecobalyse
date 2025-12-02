@@ -4,9 +4,9 @@
     "code": "---",
     "electricityProcessId": "ed6d177e-44bb-5ba4-beec-d683dc21be9f",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
-    "name": "Pays inconnu (par défaut)",
+    "name": "Zone inconnue (par défaut)",
     "scopes": ["textile"],
-    "zone": "Asia"
+    "worldRegion": "Asia"
   },
   {
     "aquaticPollutionScenario": "Best",
@@ -15,7 +15,7 @@
     "heatProcessId": "f6ea2983-e024-5de2-b323-273f2436deba",
     "name": "Région - Europe de l'Ouest",
     "scopes": ["textile", "object", "veli"],
-    "zone": "Europe"
+    "worldRegion": "Europe"
   },
   {
     "aquaticPollutionScenario": "Best",
@@ -24,7 +24,7 @@
     "heatProcessId": "f6ea2983-e024-5de2-b323-273f2436deba",
     "name": "Région - Europe de l'Est",
     "scopes": ["textile", "object", "veli"],
-    "zone": "Europe"
+    "worldRegion": "Europe"
   },
   {
     "aquaticPollutionScenario": "Worst",
@@ -33,7 +33,7 @@
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Région - Asie",
     "scopes": ["textile", "object", "veli"],
-    "zone": "Asia"
+    "worldRegion": "Asia"
   },
   {
     "aquaticPollutionScenario": "Worst",
@@ -42,7 +42,7 @@
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Région - Afrique",
     "scopes": ["textile", "object", "veli"],
-    "zone": "Africa"
+    "worldRegion": "Africa"
   },
   {
     "aquaticPollutionScenario": "Average",
@@ -51,7 +51,7 @@
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Région - Moyen-Orient",
     "scopes": ["textile", "object", "veli"],
-    "zone": "Middle_East"
+    "worldRegion": "Middle_East"
   },
   {
     "aquaticPollutionScenario": "Average",
@@ -60,7 +60,7 @@
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Région - Amérique Latine",
     "scopes": ["textile", "object", "veli"],
-    "zone": "South_America"
+    "worldRegion": "South_America"
   },
   {
     "aquaticPollutionScenario": "Worst",
@@ -69,7 +69,7 @@
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Région - Amérique du nord",
     "scopes": ["textile", "object", "veli"],
-    "zone": "North_America"
+    "worldRegion": "North_America"
   },
   {
     "aquaticPollutionScenario": "Worst",
@@ -78,7 +78,7 @@
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Région - Océanie",
     "scopes": ["textile", "object", "veli"],
-    "zone": "Oceania"
+    "worldRegion": "Oceania"
   },
   {
     "aquaticPollutionScenario": "Worst",
@@ -87,7 +87,7 @@
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Myanmar",
     "scopes": ["textile", "object"],
-    "zone": "Asia"
+    "worldRegion": "Asia"
   },
   {
     "aquaticPollutionScenario": "Worst",
@@ -96,7 +96,7 @@
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Bangladesh",
     "scopes": ["textile", "object"],
-    "zone": "Asia"
+    "worldRegion": "Asia"
   },
   {
     "aquaticPollutionScenario": "Worst",
@@ -105,7 +105,7 @@
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Brésil",
     "scopes": ["food"],
-    "zone": "South_America"
+    "worldRegion": "South_America"
   },
   {
     "aquaticPollutionScenario": "Average",
@@ -114,7 +114,7 @@
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Chine",
     "scopes": ["food", "textile", "object", "veli"],
-    "zone": "Asia"
+    "worldRegion": "Asia"
   },
   {
     "aquaticPollutionScenario": "Best",
@@ -123,7 +123,7 @@
     "heatProcessId": "f6ea2983-e024-5de2-b323-273f2436deba",
     "name": "Allemagne",
     "scopes": ["object", "veli"],
-    "zone": "Europe"
+    "worldRegion": "Europe"
   },
   {
     "aquaticPollutionScenario": "Best",
@@ -132,7 +132,7 @@
     "heatProcessId": "f6ea2983-e024-5de2-b323-273f2436deba",
     "name": "Espagne",
     "scopes": ["food"],
-    "zone": "Europe"
+    "worldRegion": "Europe"
   },
   {
     "aquaticPollutionScenario": "Best",
@@ -141,7 +141,7 @@
     "heatProcessId": "f6ea2983-e024-5de2-b323-273f2436deba",
     "name": "France",
     "scopes": ["food", "textile", "object", "veli"],
-    "zone": "Europe"
+    "worldRegion": "Europe"
   },
   {
     "aquaticPollutionScenario": "Worst",
@@ -150,7 +150,7 @@
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Inde",
     "scopes": ["textile", "object", "veli"],
-    "zone": "Asia"
+    "worldRegion": "Asia"
   },
   {
     "aquaticPollutionScenario": "Best",
@@ -159,7 +159,7 @@
     "heatProcessId": "f6ea2983-e024-5de2-b323-273f2436deba",
     "name": "Italie",
     "scopes": ["food", "object", "veli"],
-    "zone": "Europe"
+    "worldRegion": "Europe"
   },
   {
     "aquaticPollutionScenario": "Average",
@@ -168,7 +168,7 @@
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Kenya",
     "scopes": ["food"],
-    "zone": "Africa"
+    "worldRegion": "Africa"
   },
   {
     "aquaticPollutionScenario": "Average",
@@ -177,7 +177,7 @@
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Cambodge",
     "scopes": ["textile", "object"],
-    "zone": "Asia"
+    "worldRegion": "Asia"
   },
   {
     "aquaticPollutionScenario": "Average",
@@ -186,7 +186,7 @@
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Maroc",
     "scopes": ["food", "textile", "object", "veli"],
-    "zone": "Africa"
+    "worldRegion": "Africa"
   },
   {
     "aquaticPollutionScenario": "Best",
@@ -195,7 +195,7 @@
     "heatProcessId": "f6ea2983-e024-5de2-b323-273f2436deba",
     "name": "Pays-bas",
     "scopes": ["veli"],
-    "zone": "Europe"
+    "worldRegion": "Europe"
   },
   {
     "aquaticPollutionScenario": "Best",
@@ -204,7 +204,7 @@
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Nouvelle-Zélande",
     "scopes": ["food"],
-    "zone": "Oceania"
+    "worldRegion": "Oceania"
   },
   {
     "aquaticPollutionScenario": "Worst",
@@ -213,7 +213,7 @@
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Pérou",
     "scopes": ["food"],
-    "zone": "South_America"
+    "worldRegion": "South_America"
   },
   {
     "aquaticPollutionScenario": "Worst",
@@ -222,7 +222,7 @@
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Pakistan",
     "scopes": ["textile", "object"],
-    "zone": "Asia"
+    "worldRegion": "Asia"
   },
   {
     "aquaticPollutionScenario": "Best",
@@ -231,7 +231,7 @@
     "heatProcessId": "f6ea2983-e024-5de2-b323-273f2436deba",
     "name": "Pologne",
     "scopes": ["object", "veli"],
-    "zone": "Europe"
+    "worldRegion": "Europe"
   },
   {
     "aquaticPollutionScenario": "Best",
@@ -240,7 +240,7 @@
     "heatProcessId": "f6ea2983-e024-5de2-b323-273f2436deba",
     "name": "Portugal",
     "scopes": ["object", "veli"],
-    "zone": "Europe"
+    "worldRegion": "Europe"
   },
   {
     "aquaticPollutionScenario": "Average",
@@ -249,7 +249,7 @@
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Tunisie",
     "scopes": ["textile", "object", "veli"],
-    "zone": "Africa"
+    "worldRegion": "Africa"
   },
   {
     "aquaticPollutionScenario": "Average",
@@ -258,7 +258,7 @@
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Turquie",
     "scopes": ["textile", "object", "veli"],
-    "zone": "Middle_East"
+    "worldRegion": "Middle_East"
   },
   {
     "aquaticPollutionScenario": "Best",
@@ -267,7 +267,7 @@
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Etats-Unis",
     "scopes": ["food"],
-    "zone": "North_America"
+    "worldRegion": "North_America"
   },
   {
     "aquaticPollutionScenario": "Average",
@@ -276,6 +276,6 @@
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Vietnam",
     "scopes": ["textile", "object", "veli"],
-    "zone": "Asia"
+    "worldRegion": "Asia"
   }
 ]

@@ -1,6 +1,6 @@
 module Data.TransportTest exposing (..)
 
-import Data.Country as Country
+import Data.Geozone as Geozone
 import Data.Impact as Impact exposing (Impacts)
 import Data.Transport as Transport exposing (Transport, getTransportBetween)
 import Dict.Any as AnyDict
@@ -32,25 +32,25 @@ suite : Test
 suite =
     suiteWithDb "Data.Transport"
         (\db ->
-            [ db.countries
+            [ db.geozones
                 |> List.map
                     (\{ code } ->
                         AnyDict.keys db.distances
                             |> List.member code
                             |> Expect.equal True
-                            |> asTest ("Country " ++ Country.codeToString code ++ " should have transports data available")
+                            |> asTest ("Geozone " ++ Geozone.codeToString code ++ " should have transports data available")
                     )
                 |> describe "transports data availability checks"
             , describe "getTransportBetween"
                 [ db.distances
-                    |> Transport.getTransportBetween Impact.empty (Country.Code "FR") (Country.Code "CN")
+                    |> Transport.getTransportBetween Impact.empty (Geozone.Code "FR") (Geozone.Code "CN")
                     |> Expect.equal (franceChina Impact.empty)
-                    |> asTest "should retrieve distance between two countries"
+                    |> asTest "should retrieve distance between two geographical zones"
                 , db.distances
-                    |> Transport.getTransportBetween Impact.empty (Country.Code "CN") (Country.Code "FR")
+                    |> Transport.getTransportBetween Impact.empty (Geozone.Code "CN") (Geozone.Code "FR")
                     |> Expect.equal (franceChina Impact.empty)
-                    |> asTest "should retrieve distance between two swapped countries"
-                , db.countries
+                    |> asTest "should retrieve distance between two swapped geographical zones"
+                , db.geozones
                     |> List.map .code
                     |> LE.uniquePairs
                     |> List.map
@@ -64,7 +64,7 @@ suite =
                         )
                     |> List.length
                     |> Expect.equal 0
-                    |> asTest "should always give a distance greater than 0 between two countries"
+                    |> asTest "should always give a distance greater than 0 between two geographical zones"
                 ]
             ]
         )

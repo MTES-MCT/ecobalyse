@@ -7,11 +7,11 @@ module Data.Textile.WellKnown exposing
     , weavingElecPPPM
     )
 
-import Data.Country exposing (Country)
+import Data.Geozone exposing (Geozone)
 import Data.Process as Process exposing (Process)
 import Data.Textile.Material.Origin as Origin exposing (Origin)
 import Data.Textile.Printing as Printing
-import Data.Zone as Zone
+import Data.WorldRegion as WorldRegion
 import Result.Extra as RE
 
 
@@ -50,12 +50,12 @@ type alias WellKnown =
     }
 
 
-getEnnoblingHeatProcess : WellKnown -> Country -> Process
-getEnnoblingHeatProcess wk country =
+getEnnoblingHeatProcess : WellKnown -> Geozone -> Process
+getEnnoblingHeatProcess wk geozone =
     -- Note: As per methodology documentation, retrieve a RER heat source process
     --       for european countries, RSA otherwise.
-    case country.zone of
-        Zone.Europe ->
+    case geozone.worldRegion of
+        WorldRegion.Europe ->
             wk.heatEurope
 
         _ ->

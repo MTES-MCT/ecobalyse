@@ -79,7 +79,7 @@ module Data.Component exposing
 import Data.Common.DecodeUtils as DU
 import Data.Common.EncodeUtils as EU
 import Data.Component.Config as Config exposing (EndOfLifeStrategies, EndOfLifeStrategy)
-import Data.Country as Country exposing (Country)
+import Data.Geozone as Geozone exposing (Geozone)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Trigram)
 import Data.Process as Process exposing (Process)
@@ -131,8 +131,8 @@ type alias EnergyMixes =
 and optional overrides, typically used for queries
 -}
 type alias Item =
-    { country : Maybe Country.Code
-    , custom : Maybe Custom
+    { custom : Maybe Custom
+    , geozone : Maybe Geozone.Code
     , id : Id
     , quantity : Quantity
     }
@@ -140,8 +140,8 @@ type alias Item =
 
 type alias ExpandedItem =
     { component : Component
-    , country : Maybe Country
     , elements : List ExpandedElement
+    , geozone : Maybe Geozone
     , quantity : Quantity
     }
 
@@ -158,7 +158,7 @@ type alias Custom =
 type alias DataContainer db =
     { db
         | components : List Component
-        , countries : List Country
+        , geozones : List Geozone
         , processes : List Process
     }
 
@@ -176,7 +176,7 @@ type alias Element =
 -}
 type alias ExpandedElement =
     { amount : Amount
-    , country : Maybe Country
+    , geozone : Maybe Geozone
     , material : Process
     , transforms : List Process
     }
@@ -388,13 +388,13 @@ applyTransform { elec, heat } transform (Results { amount, label, impacts, items
 {-| Sequencially apply transforms to existing Results (typically, material ones).
 
 Note: for now we use average elec and heat mixes, but we might want to allow
-specifying specific country mixes in the future.
+specifying specific geographical zones mixes in the future.
 
 -}
-applyTransforms : List Process -> Maybe Country -> Process.Unit -> List Process -> Results -> Result String Results
-applyTransforms processes maybeCountry unit transforms materialResults =
+applyTransforms : List Process -> Maybe Geozone -> Process.Unit -> List Process -> Results -> Result String Results
+applyTransforms processes maybeGeozone unit transforms materialResults =
     checkTransformsUnit unit transforms
-        |> Result.andThen (\_ -> loadEnergyMixes processes maybeCountry)
+        |> Result.andThen (\_ -> loadEnergyMixes processes maybeGeozone)
         |> Result.map
             (\energyMixes ->
                 transforms
@@ -436,18 +436,18 @@ compute requirements items =
         |> Result.map (computeEndOfLifeResults requirements)
 
 
-computeElementResults : DataContainer db -> Maybe Country.Code -> Element -> Result String Results
-computeElementResults db maybeCountry =
-    expandElement db maybeCountry
+computeElementResults : DataContainer db -> Maybe Geozone.Code -> Element -> Result String Results
+computeElementResults db maybeGeozone =
+    expandElement db maybeGeozone
         >> Result.andThen
-            (\{ amount, country, material, transforms } ->
+            (\{ amount, geozone, material, transforms } ->
                 amount
                     |> computeInitialAmount (List.map .waste transforms)
                     |> Result.andThen
                         (\initialAmount ->
                             material
                                 |> computeMaterialResults initialAmount
-                                |> applyTransforms db.processes country material.unit transforms
+                                |> applyTransforms db.processes geozone material.unit transforms
                         )
             )
 
@@ -489,7 +489,7 @@ computeImpacts db =
 
 
 computeItemResults : DataContainer db -> Item -> Result String Results
-computeItemResults db { country, custom, id, quantity } =
+computeItemResults db { custom, geozone, id, quantity } =
     let
         component_ =
             findById id db.components
@@ -499,7 +499,7 @@ computeItemResults db { country, custom, id, quantity } =
             (\component ->
                 custom
                     |> customElements component
-                    |> List.map (computeElementResults db country)
+                    |> List.map (computeElementResults db geozone)
                     |> RE.combine
             )
         |> Result.map (List.foldr addResults emptyResults)
@@ -596,8 +596,8 @@ computeShareImpacts mass { process, split } =
 
 createItem : Id -> Item
 createItem id =
-    { country = Nothing
-    , custom = Nothing
+    { custom = Nothing
+    , geozone = Nothing
     , id = id
     , quantity = quantityFromInt 1
     }
@@ -648,8 +648,8 @@ decodeElement =
 decodeItem : Decoder Item
 decodeItem =
     Decode.succeed Item
-        |> DU.strictOptional "country" Country.decodeCode
         |> DU.strictOptional "custom" decodeCustom
+        |> DU.strictOptional "geozone" Geozone.decodeCode
         |> Decode.required "id" (Decode.map Id Uuid.decoder)
         |> Decode.required "quantity" decodeQuantity
 
@@ -784,7 +784,7 @@ encodeItem item =
     EU.optionalPropertiesObject
         [ ( "id", item.id |> idToString |> Encode.string |> Just )
         , ( "quantity", item.quantity |> quantityToInt |> Encode.int |> Just )
-        , ( "country", item.country |> Maybe.map Country.encodeCode )
+        , ( "geozone", item.geozone |> Maybe.map Geozone.encodeCode )
         , ( "custom", item.custom |> Maybe.map encodeCustom )
         ]
 
@@ -838,10 +838,10 @@ encodeResults maybeTrigram (Results results) =
 
 {-| Turn an Element to an ExpandedElement
 -}
-expandElement : DataContainer db -> Maybe Country.Code -> Element -> Result String ExpandedElement
-expandElement { countries, processes } maybeCountry { amount, material, transforms } =
+expandElement : DataContainer db -> Maybe Geozone.Code -> Element -> Result String ExpandedElement
+expandElement { geozones, processes } maybeGeozone { amount, material, transforms } =
     Ok (ExpandedElement amount)
-        |> RE.andMap (resolveCountry countries maybeCountry)
+        |> RE.andMap (resolveGeozone geozones maybeGeozone)
         |> RE.andMap (Process.findById material processes)
         |> RE.andMap
             (transforms
@@ -852,28 +852,28 @@ expandElement { countries, processes } maybeCountry { amount, material, transfor
 
 {-| Take a list of elements and resolve them with fully qualified processes
 -}
-expandElements : DataContainer db -> Maybe Country.Code -> List Element -> Result String (List ExpandedElement)
-expandElements db maybeCountry =
-    RE.combineMap (expandElement db maybeCountry)
+expandElements : DataContainer db -> Maybe Geozone.Code -> List Element -> Result String (List ExpandedElement)
+expandElements db maybeGeozone =
+    RE.combineMap (expandElement db maybeGeozone)
 
 
 expandItem : DataContainer a -> Item -> Result String ExpandedItem
-expandItem ({ components, countries } as db) { country, custom, id, quantity } =
+expandItem ({ components, geozones } as db) { custom, geozone, id, quantity } =
     findById id components
         |> Result.andThen
             (\component ->
-                country
-                    |> resolveCountry countries
+                geozone
+                    |> resolveGeozone geozones
                     |> Result.andThen
-                        (\maybeCountry ->
+                        (\maybeGeozone ->
                             custom
                                 |> customElements component
-                                |> expandElements db country
+                                |> expandElements db geozone
                                 |> Result.map
                                     (\expandedElements ->
                                         { component = component
-                                        , country = maybeCountry
                                         , elements = expandedElements
+                                        , geozone = maybeGeozone
                                         , quantity = quantity
                                         }
                                     )
@@ -881,11 +881,11 @@ expandItem ({ components, countries } as db) { country, custom, id, quantity } =
             )
 
 
-resolveCountry : List Country -> Maybe Country.Code -> Result String (Maybe Country)
-resolveCountry countries maybeCode =
+resolveGeozone : List Geozone -> Maybe Geozone.Code -> Result String (Maybe Geozone)
+resolveGeozone geozones maybeCode =
     case maybeCode of
         Just code ->
-            countries |> Country.findByCode code |> Result.map Just
+            geozones |> Geozone.findByCode code |> Result.map Just
 
         Nothing ->
             Ok Nothing
@@ -1126,7 +1126,7 @@ loadDefaultEnergyMixes processes =
         (fromIdString "3561ace1-f710-50ce-a69c-9cf842e729e4")
 
 
-loadEnergyMixes : List Process -> Maybe Country -> Result String EnergyMixes
+loadEnergyMixes : List Process -> Maybe Geozone -> Result String EnergyMixes
 loadEnergyMixes processes =
     Maybe.map (\{ electricityProcess, heatProcess } -> Ok <| EnergyMixes electricityProcess heatProcess)
         >> Maybe.withDefault (loadDefaultEnergyMixes processes)

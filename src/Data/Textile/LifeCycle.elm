@@ -126,13 +126,13 @@ fromQuery db =
 
 init : Db -> Inputs -> LifeCycle
 init { textile } inputs =
-    Inputs.countryList inputs
+    Inputs.geozoneList inputs
         |> List.map2
-            (\( label, editable ) country ->
+            (\( label, editable ) geozone ->
                 Step.create
-                    { country = country
-                    , editable = editable
+                    { editable = editable
                     , enabled = not (List.member label inputs.disabledSteps)
+                    , geozone = geozone
                     , label = label
                     }
             )

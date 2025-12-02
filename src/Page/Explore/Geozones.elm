@@ -1,7 +1,7 @@
-module Page.Explore.Countries exposing (table)
+module Page.Explore.Geozones exposing (table)
 
-import Data.Country as Country exposing (Country)
 import Data.Dataset as Dataset
+import Data.Geozone as Geozone exposing (Geozone)
 import Data.Gitbook as Gitbook
 import Data.Process as Process
 import Data.Scope as Scope exposing (Scope)
@@ -18,25 +18,25 @@ import Views.Icon as Icon
 import Views.Link as Link
 
 
-table : Transport.Distances -> List Country.Country -> { detailed : Bool, scope : Scope } -> Table Country String msg
-table distances countries { detailed, scope } =
-    { filename = "countries"
-    , toId = .code >> Country.codeToString
-    , toRoute = .code >> Just >> Dataset.Countries >> Route.Explore scope
+table : Transport.Distances -> List Geozone.Geozone -> { detailed : Bool, scope : Scope } -> Table Geozone String msg
+table distances geozones { detailed, scope } =
+    { filename = "geozones"
+    , toId = .code >> Geozone.codeToString
+    , toRoute = .code >> Just >> Dataset.Geozones >> Route.Explore scope
     , legend = []
     , columns =
         List.filterMap identity
             [ Just
                 { label = "Code"
-                , toValue = Table.StringValue <| .code >> Country.codeToString
+                , toValue = Table.StringValue <| .code >> Geozone.codeToString
                 , toCell =
-                    \country ->
+                    \geozone ->
                         if detailed then
-                            code [] [ text (Country.codeToString country.code) ]
+                            code [] [ text (Geozone.codeToString geozone.code) ]
 
                         else
-                            a [ Route.href (Route.Explore scope (Dataset.Countries (Just country.code))) ]
-                                [ code [] [ text (Country.codeToString country.code) ] ]
+                            a [ Route.href (Route.Explore scope (Dataset.Geozones (Just geozone.code))) ]
+                                [ code [] [ text (Geozone.codeToString geozone.code) ] ]
                 }
             , Just
                 { label = "Nom"
@@ -44,7 +44,7 @@ table distances countries { detailed, scope } =
                 , toCell = .name >> text
                 }
             , Just
-                { label = "Mix éléctrique"
+                { label = "Mix électrique"
                 , toValue = Table.StringValue <| .electricityProcess >> Process.getDisplayName
                 , toCell = .electricityProcess >> Process.getDisplayName >> text
                 }
@@ -56,11 +56,11 @@ table distances countries { detailed, scope } =
             , if scope == Scope.Textile then
                 Just
                     { label = "Taux de pollution aquatique"
-                    , toValue = Table.FloatValue (.aquaticPollutionScenario >> Country.getAquaticPollutionRatio >> Split.toPercent)
+                    , toValue = Table.FloatValue (.aquaticPollutionScenario >> Geozone.getAquaticPollutionRatio >> Split.toPercent)
                     , toCell =
-                        \country ->
+                        \geozone ->
                             div [ classList [ ( "text-end", not detailed ) ] ]
-                                [ Format.splitAsPercentage 2 (Country.getAquaticPollutionRatio country.aquaticPollutionScenario)
+                                [ Format.splitAsPercentage 2 (Geozone.getAquaticPollutionRatio geozone.aquaticPollutionScenario)
                                 , Link.smallPillExternal
                                     [ href (Gitbook.publicUrlFromPath Gitbook.TextileEnnoblingCountriesAquaticPollution) ]
                                     [ Icon.info ]
@@ -73,7 +73,7 @@ table distances countries { detailed, scope } =
                 Just
                     { label = "Distances"
                     , toValue = Table.StringValue <| always ""
-                    , toCell = displayDistances countries distances
+                    , toCell = displayDistances geozones distances
                     }
 
               else
@@ -82,17 +82,17 @@ table distances countries { detailed, scope } =
     }
 
 
-displayDistances : List Country.Country -> Transport.Distances -> Country -> Html msg
-displayDistances countries distances country =
-    case Dict.get country.code distances of
-        Just countryDistances ->
-            countryDistances
-                |> Dict.foldl (distancesToRows countries) []
+displayDistances : List Geozone.Geozone -> Transport.Distances -> Geozone -> Html msg
+displayDistances geozones distances geozone =
+    case Dict.get geozone.code distances of
+        Just geozoneDistances ->
+            geozoneDistances
+                |> Dict.foldl (distancesToRows geozones) []
                 |> (\rows ->
                         Html.table [ class "table table-striped table-hover text-center w-100" ]
                             [ thead []
                                 [ tr []
-                                    [ th [] [ text "Code pays" ]
+                                    [ th [] [ text "Zone" ]
                                     , th [] [ text "Aérien" ]
                                     , th [] [ text "Routier" ]
                                     , th [] [ text "Maritime" ]
@@ -107,14 +107,14 @@ displayDistances countries distances country =
             text ""
 
 
-distancesToRows : List Country.Country -> Country.Code -> Transport.Transport -> List (Html msg) -> List (Html msg)
-distancesToRows countries countryCode transport rows =
+distancesToRows : List Geozone.Geozone -> Geozone.Code -> Transport.Transport -> List (Html msg) -> List (Html msg)
+distancesToRows geozones geozoneCode transport rows =
     rows
-        |> (::) (transportToRow countryCode countries transport)
+        |> (::) (transportToRow geozoneCode geozones transport)
 
 
-transportToRow : Country.Code -> List Country.Country -> Transport.Transport -> Html msg
-transportToRow countryCode countries transport =
+transportToRow : Geozone.Code -> List Geozone.Geozone -> Transport.Transport -> Html msg
+transportToRow geozoneCode geozones transport =
     let
         formatDistance length =
             if length == Quantity.zero then
@@ -125,12 +125,12 @@ transportToRow countryCode countries transport =
     in
     tr []
         [ td
-            [ Country.findByCode countryCode countries
+            [ Geozone.findByCode geozoneCode geozones
                 |> Result.map .name
                 |> Result.withDefault ""
                 |> title
             ]
-            [ text <| Country.codeToString countryCode ]
+            [ text <| Geozone.codeToString geozoneCode ]
         , td [] [ formatDistance transport.air ]
         , td [] [ formatDistance transport.road ]
         , td [] [ formatDistance transport.sea ]

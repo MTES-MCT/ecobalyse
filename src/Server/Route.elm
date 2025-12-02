@@ -27,8 +27,8 @@ ExpressJS server directly (see server.js).
 type Route
     = -- Food Routes
       --   GET
-      --     Food country list
-      FoodGetCountryList
+      --     Food geozone list
+      FoodGetGeozoneList
       --     Food ingredient list
     | FoodGetIngredientList
       --     Food packaging list
@@ -41,8 +41,8 @@ type Route
       --
       -- Textile Routes
       --   GET
-      --     Textile country list
-    | TextileGetCountryList
+      --     Textile geozone list
+    | TextileGetGeozoneList
       --     Textile Material list
     | TextileGetMaterialList
       --     Textile Product list
@@ -62,8 +62,8 @@ parser : Db -> Encode.Value -> Parser (Route -> a) a
 parser db body =
     Parser.oneOf
         [ -- Food
-          (s "GET" </> s "food" </> s "countries")
-            |> Parser.map FoodGetCountryList
+          (s "GET" </> s "food" </> s "geozones")
+            |> Parser.map FoodGetGeozoneList
         , (s "GET" </> s "food" </> s "ingredients")
             |> Parser.map FoodGetIngredientList
         , (s "GET" </> s "food" </> s "transforms")
@@ -74,8 +74,8 @@ parser db body =
             |> Parser.map (FoodPostRecipe (decodeFoodQueryBody db body))
 
         -- Textile
-        , (s "GET" </> s "textile" </> s "countries")
-            |> Parser.map TextileGetCountryList
+        , (s "GET" </> s "textile" </> s "geozones")
+            |> Parser.map TextileGetGeozoneList
         , (s "GET" </> s "textile" </> s "materials")
             |> Parser.map TextileGetMaterialList
         , (s "GET" </> s "textile" </> s "products")

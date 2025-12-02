@@ -2,7 +2,7 @@ module Views.BaseElement exposing (Config, deleteItemButton, view)
 
 import Autocomplete exposing (Autocomplete)
 import Data.AutocompleteSelector as AutocompleteSelector
-import Data.Country as Country exposing (Country)
+import Data.Geozone as Geozone exposing (Geozone)
 import Data.Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Definition, Definitions)
 import Html exposing (..)
@@ -13,16 +13,16 @@ import Views.Icon as Icon
 
 
 type alias BaseElement element quantity =
-    { country : Maybe Country
-    , element : element
+    { element : element
+    , geozone : Maybe Geozone
     , quantity : quantity
     }
 
 
 type alias Db element =
-    { countries : List Country
-    , definitions : Definitions
+    { definitions : Definitions
     , elements : List element
+    , geozones : List Geozone
     }
 
 
@@ -30,7 +30,7 @@ type alias Config element quantity msg =
     { allowEmptyList : Bool
     , baseElement : BaseElement element quantity
     , db : Db element
-    , defaultCountry : String
+    , defaultGeozone : String
     , delete : element -> msg
     , excluded : List element
     , impact : Impacts
@@ -76,33 +76,33 @@ view ({ baseElement, db, impact } as config) =
     , autocompleteState
         |> config.selectElement baseElement.element
         |> selectorView config
-    , db.countries
+    , db.geozones
         |> List.sortBy .name
         |> List.map
             (\{ code, name } ->
                 option
-                    [ selected (Maybe.map .code baseElement.country == Just code)
-                    , value <| Country.codeToString code
+                    [ selected (Maybe.map .code baseElement.geozone == Just code)
+                    , value <| Geozone.codeToString code
                     ]
                     [ text name ]
             )
         |> (::)
             (option
                 [ value ""
-                , selected (baseElement.country == Nothing)
+                , selected (baseElement.geozone == Nothing)
                 ]
-                [ text <| "Par défaut (" ++ config.defaultCountry ++ ")" ]
+                [ text <| "Par défaut (" ++ config.defaultGeozone ++ ")" ]
             )
         |> select
-            [ class "form-select form-select CountrySelector"
+            [ class "form-select form-select GeozoneSelector"
             , onInput
                 (\val ->
                     updateEvent
                         { baseElement
-                            | country =
+                            | geozone =
                                 if val /= "" then
-                                    Country.codeFromString val
-                                        |> (\countryCode -> Country.findByCode countryCode db.countries)
+                                    Geozone.codeFromString val
+                                        |> (\geozoneCode -> Geozone.findByCode geozoneCode db.geozones)
                                         |> Result.toMaybe
 
                                 else
