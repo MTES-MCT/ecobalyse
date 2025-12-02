@@ -1602,7 +1602,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "location": "RoW",
+    "location": "GLO",
     "scopes": [
       "veli"
     ],
@@ -1729,7 +1729,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "location": "RER",
+    "location": "GLO",
     "scopes": [
       "object"
     ],
@@ -1901,7 +1901,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "location": null,
+    "location": "GLO",
     "scopes": [
       "food"
     ],
@@ -2071,7 +2071,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "location": null,
+    "location": "GLO",
     "scopes": [
       "veli"
     ],
@@ -2876,7 +2876,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "location": null,
+    "location": "GLO",
     "scopes": [
       "veli"
     ],
@@ -3342,7 +3342,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "location": "RER",
+    "location": "GLO",
     "scopes": [
       "veli"
     ],
@@ -7702,7 +7702,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "location": "RER",
+    "location": "GLO",
     "scopes": [
       "veli"
     ],
@@ -9658,7 +9658,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "location": "FR",
+    "location": "GLO",
     "scopes": [
       "veli"
     ],
@@ -12120,7 +12120,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "location": null,
+    "location": "GLO",
     "scopes": [
       "veli"
     ],
@@ -12460,7 +12460,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "location": "CN",
+    "location": "GLO",
     "scopes": [
       "veli"
     ],
@@ -13141,7 +13141,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "location": "Europe without Switzerland",
+    "location": "GLO",
     "scopes": [
       "object",
       "veli"
@@ -14962,7 +14962,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "location": "CN",
+    "location": "GLO",
     "scopes": [
       "veli"
     ],
@@ -17124,7 +17124,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "location": "FR",
+    "location": "GLO",
     "scopes": [
       "food"
     ],
@@ -17594,7 +17594,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "location": "RoW",
+    "location": "GLO",
     "scopes": [
       "veli"
     ],
@@ -19157,7 +19157,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "location": "IN",
+    "location": "GLO",
     "scopes": [
       "veli"
     ],
@@ -20048,7 +20048,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "location": null,
+    "location": "GLO",
     "scopes": [
       "veli"
     ],
