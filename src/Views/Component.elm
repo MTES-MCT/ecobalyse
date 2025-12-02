@@ -307,6 +307,7 @@ componentTransportToAssembly { componentConfig, db, impact, query } country mass
                     ( from.name ++ " → " ++ to.name
                     , db.distances
                         |> Transport.getTransportBetween Impact.empty from.code to.code
+                        |> Transport.applyTransportRatios Split.zero
                     )
 
                 _ ->
@@ -329,7 +330,6 @@ componentTransportToAssembly { componentConfig, db, impact, query } country mass
             [ Format.kg mass ]
         , td [ class "text-end" ]
             [ transports
-                |> Transport.applyTransportRatios Split.zero
                 |> Transport.computeImpacts componentConfig.transports.modeProcesses mass
                 |> .impacts
                 |> Format.formatImpact impact
