@@ -4235,11 +4235,11 @@
     "waste": 0
   },
   {
-    "activityName": "transport, freight, aircraft, long haul//[GLO] market for transport, freight, aircraft, long haul",
+    "activityName": "market for transport, freight, aircraft, long haul, with longtails, GLO, constructed by Ecobalyse",
     "categories": [
       "transport"
     ],
-    "comment": "Ancien identifiant (12/2024): d3130e7ed9686fcc4bbe980e0375ad88.",
+    "comment": "Ancien identifiant : d3130e7ed9686fcc4bbe980e0375ad88 (12/2024) ; puis ajout des trainées (12/2025)",
     "density": 0,
     "displayName": "transport aérien long-courrier",
     "elecMJ": 0,
@@ -4248,7 +4248,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 59.316,
+      "ecs": 88.593,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4262,7 +4262,7 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 57.096,
+      "pef": 86.372,
       "pma": 0,
       "swe": 0,
       "tre": 0,
@@ -4273,7 +4273,7 @@
       "textile",
       "food"
     ],
-    "source": "Ecoinvent 3.9.1",
+    "source": "Ecobalyse",
     "unit": "t⋅km",
     "waste": 0
   },
