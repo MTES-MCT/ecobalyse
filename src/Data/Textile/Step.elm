@@ -30,7 +30,6 @@ import Data.Split as Split exposing (Split)
 import Data.Textile.Db as Textile
 import Data.Textile.Dyeing exposing (ProcessType)
 import Data.Textile.Fabric as Fabric
-import Data.Textile.Formula as Formula
 import Data.Textile.Inputs as Inputs exposing (Inputs)
 import Data.Textile.MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Printing exposing (Printing)
@@ -182,7 +181,7 @@ computeMaterialTransportAndImpact { distances, textile } country outputMass mate
     in
     materialInput
         |> Inputs.computeMaterialTransport distances country.code
-        |> Formula.transportRatio Split.zero
+        |> Transport.applyTransportRatios Split.zero
         |> computeTransportImpacts Impact.empty textile.wellKnown textile.wellKnown.roadTransport materialMass
 
 
@@ -319,7 +318,7 @@ computeTransportSummary step transport =
         Label.Making ->
             -- Air transport only applies between the Making and the Distribution steps
             transport
-                |> Formula.transportRatio step.airTransportRatio
+                |> Transport.applyTransportRatios step.airTransportRatio
 
         Label.Use ->
             -- Product Use leverages no transports
@@ -328,7 +327,7 @@ computeTransportSummary step transport =
         _ ->
             -- All other steps don't use air transport, force a 0 split
             transport
-                |> Formula.transportRatio Split.zero
+                |> Transport.applyTransportRatios Split.zero
 
 
 getInputSurface : Inputs -> Step -> Area

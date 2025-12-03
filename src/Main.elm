@@ -10,7 +10,6 @@ import Data.Food.Query as FoodQuery
 import Data.Github as Github
 import Data.Impact as Impact
 import Data.Notification as Notification exposing (Notification)
-import Data.Object.Query as ObjectQuery
 import Data.Plausible as Plausible
 import Data.Session as Session exposing (Session)
 import Data.Textile.Query as TextileQuery
@@ -173,13 +172,13 @@ setupSession navKey flags db componentConfig =
         , notifications = []
         , queries =
             { food = FoodQuery.empty
-            , object = ObjectQuery.default
+            , object = Component.emptyQuery
             , textile =
                 db.textile.examples
                     |> Example.findByName "Tshirt coton (150g) - Majorant par défaut"
                     |> Result.map .query
                     |> Result.withDefault TextileQuery.default
-            , veli = ObjectQuery.default
+            , veli = Component.emptyQuery
             }
         , releases = RemoteData.NotAsked
         , scalingoAppName = flags.scalingoAppName

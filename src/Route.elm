@@ -5,12 +5,12 @@ module Route exposing
     , toString
     )
 
+import Data.Component as Component
 import Data.Dataset as Dataset exposing (Dataset)
 import Data.Example as Example
 import Data.Food.Query as FoodQuery
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
-import Data.Object.Query as ObjectQuery
 import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Query as TextileQuery
 import Data.Uuid as Uuid exposing (Uuid)
@@ -33,7 +33,7 @@ type Route
     | FoodBuilderExample Uuid
     | FoodBuilderHome
     | Home
-    | ObjectSimulator Scope Definition.Trigram (Maybe ObjectQuery.Query)
+    | ObjectSimulator Scope Definition.Trigram (Maybe Component.Query)
     | ObjectSimulatorExample Scope Uuid
     | ObjectSimulatorHome Scope
     | Stats
@@ -87,7 +87,7 @@ parser =
             Parser.s "object"
                 </> Parser.s "simulator"
                 </> Impact.parseTrigram
-                </> ObjectQuery.parseBase64Query
+                </> Component.parseBase64Query
         , Parser.map (ObjectSimulatorExample Scope.Object)
             (Parser.s "object"
                 </> Parser.s "edit-example"
@@ -111,7 +111,7 @@ parser =
             Parser.s "veli"
                 </> Parser.s "simulator"
                 </> Impact.parseTrigram
-                </> ObjectQuery.parseBase64Query
+                </> Component.parseBase64Query
         , Parser.map (ObjectSimulatorExample Scope.Veli)
             (Parser.s "veli"
                 </> Parser.s "edit-example"
@@ -244,7 +244,7 @@ toString route =
                     [ Scope.toString scope
                     , "simulator"
                     , Definition.toString trigram
-                    , ObjectQuery.b64encode query
+                    , Component.encodeBase64Query query
                     ]
 
                 ObjectSimulator scope trigram Nothing ->

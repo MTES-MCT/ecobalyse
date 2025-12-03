@@ -14,7 +14,6 @@ module Data.Textile.Formula exposing
     , pureMaterialImpacts
     , recycledMaterialImpacts
     , spinningImpacts
-    , transportRatio
     , useImpacts
     , weavingImpacts
     )
@@ -26,7 +25,6 @@ import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
 import Data.Textile.MakingComplexity as MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Material exposing (CFFData)
-import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Duration
 import Energy exposing (Energy)
@@ -552,24 +550,4 @@ endOfLifeImpacts impacts { countryElecProcess, endOfLife, heatProcess, passenger
                         ]
                 )
     , kwh = elecEnergy
-    }
-
-
-
--- Transports
-
-
-transportRatio : Split -> Transport -> Transport
-transportRatio airTransportRatio ({ road, sea, air } as transport) =
-    let
-        roadRatio =
-            Transport.roadSeaTransportRatio transport
-
-        seaRatio =
-            Split.complement roadRatio
-    in
-    { transport
-        | air = air |> Quantity.multiplyBy (Split.toFloat airTransportRatio)
-        , road = road |> Quantity.multiplyBy (Split.apply (Split.toFloat roadRatio) (Split.complement airTransportRatio))
-        , sea = sea |> Quantity.multiplyBy (Split.apply (Split.toFloat seaRatio) (Split.complement airTransportRatio))
     }

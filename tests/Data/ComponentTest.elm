@@ -821,6 +821,20 @@ testComponentConfig processes =
                         }
                     }
                 }
+            },
+            "transports": {
+                "defaultDistance": {
+                    "air": 0,
+                    "road": 0,
+                    "sea": 0
+                },
+                "modeProcesses": {
+                    "boat": "20a62b2c-a543-5076-83aa-c5b7d340206a",
+                    "boatCooling": "3cb99d44-24f6-5f6e-a8f8-f754fe44d641",
+                    "lorry": "46e96f29-9ca5-5475-bb3c-6397f43b7a5b",
+                    "lorryCooling": "219b986c-9751-58cf-977e-7ba8f0b4ae2b",
+                    "plane": "326369d9-792a-5ab5-8276-c54108c80cb1"
+                }
             }
         }
         """
@@ -831,7 +845,8 @@ computeWithTestConfig db items =
     testComponentConfig db.processes
         |> Result.andThen
             (\config ->
-                items
+                Component.emptyQuery
+                    |> Component.setQueryItems items
                     |> Component.compute
                         { config = config
                         , db = db
