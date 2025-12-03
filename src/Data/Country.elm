@@ -11,6 +11,7 @@ module Data.Country exposing
     , findByCode
     , getAquaticPollutionRatio
     , isEuropeOrTurkey
+    , resolveMaybe
     , unknownCountryCode
     , validateForScope
     )
@@ -155,6 +156,16 @@ getAquaticPollutionRatio scenario =
 isEuropeOrTurkey : Country -> Bool
 isEuropeOrTurkey country =
     country.zone == Zone.Europe || country.code == codeFromString "TR"
+
+
+resolveMaybe : List Country -> Maybe Code -> Result String (Maybe Country)
+resolveMaybe countries maybeCode =
+    case maybeCode of
+        Just code ->
+            countries |> findByCode code |> Result.map Just
+
+        Nothing ->
+            Ok Nothing
 
 
 unknownCountryCode : Code

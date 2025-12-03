@@ -30,6 +30,7 @@ module Data.Component exposing
     , computeImpacts
     , computeInitialAmount
     , computeItemResults
+    , computeItemTransportToAssembly
     , createItem
     , decode
     , decodeItem
@@ -472,7 +473,7 @@ compute requirements query =
         |> Result.map (List.foldr addResults emptyResults)
         |> Result.map (\(Results results) -> { emptyLifeCycle | production = Results { results | label = Just "Production" } })
         |> Result.map (computeEndOfLifeResults requirements)
-        |> Result.map (computeTransports requirements query)
+        |> Result.andThen (computeTransports requirements query)
 
 
 computeElementResults : DataContainer db -> Maybe Country.Code -> Element -> Result String Results
@@ -571,6 +572,27 @@ computeItemResults db { country, custom, id, quantity } =
             )
 
 
+computeItemTransportToAssembly : Requirements db -> Maybe Country -> ExpandedItem -> Results -> ( String, Transport )
+computeItemTransportToAssembly { config, db } assemblyCountry item itemResults =
+    let
+        ( label, itemTransport ) =
+            case ( item.country, assemblyCountry ) of
+                ( Just from, Just to ) ->
+                    ( from.name ++ " → " ++ to.name
+                    , db.distances
+                        |> Transport.getTransportBetween Impact.empty from.code to.code
+                    )
+
+                _ ->
+                    ( "Trajet inconnu majoré", config.transports.defaultDistance )
+    in
+    ( label
+    , itemTransport
+        |> Transport.applyTransportRatios Split.zero
+        |> Transport.computeImpacts config.transports.modeProcesses (extractMass itemResults)
+    )
+
+
 computeMaterialResults : Amount -> Process -> Results
 computeMaterialResults amount process =
     let
@@ -633,66 +655,52 @@ computeShareImpacts mass { process, split } =
         |> Maybe.withDefault Impact.empty
 
 
-computeTransports : Requirements db -> Query -> LifeCycle -> LifeCycle
-computeTransports ({ config, db } as requirements) query lifeCycle =
-    let
-        finalMass =
-            extractMass lifeCycle.production
+computeTransports : Requirements db -> Query -> LifeCycle -> Result String LifeCycle
+computeTransports ({ config, db } as req) query lifeCycle =
+    Result.map2
+        (\expandedItems maybeAssemblyCountry ->
+            let
+                toAssembly =
+                    -- Only convey multiple items to assembly step
+                    -- TODO: refactor query to handle this through types https://github.com/MTES-MCT/ecobalyse/issues/1609
+                    if List.length query.items > 1 then
+                        expandedItems
+                            |> List.indexedMap
+                                (\index item ->
+                                    lifeCycle.production
+                                        |> extractItems
+                                        |> LE.getAt index
+                                        |> Maybe.map (computeItemTransportToAssembly req maybeAssemblyCountry item >> Tuple.second)
+                                )
+                            |> List.filterMap identity
+                            |> Transport.sum
 
-        toAssembly =
-            -- Only convey multiple items to assembly step
-            -- TODO: refactor query to handle this through types https://github.com/MTES-MCT/ecobalyse/issues/1609
-            if List.length query.items > 1 then
-                query.items
-                    |> List.indexedMap (computeItemTransportToAssembly requirements query.assemblyCountry lifeCycle.production)
-                    |> Transport.sum
+                    else
+                        Transport.default Impact.empty
 
-            else
-                Transport.default Impact.empty
+                toDistribution =
+                    case query.assemblyCountry of
+                        Just assemblyCountry ->
+                            -- Note: distribution is always France
+                            db.distances
+                                |> Transport.getTransportBetween Impact.empty assemblyCountry (Country.Code "FR")
 
-        toDistribution =
-            case query.assemblyCountry of
-                Just assemblyCountry ->
-                    -- Note: distribution is always France
-                    db.distances
-                        |> Transport.getTransportBetween Impact.empty assemblyCountry (Country.Code "FR")
-
-                Nothing ->
-                    config.transports.defaultDistance
-    in
-    -- Note: for now it's assumed there's never air transport
-    { lifeCycle
-        | transports =
-            { toAssembly = toAssembly
-            , toDistribution =
-                toDistribution
-                    |> Transport.applyTransportRatios Split.zero
-                    |> Transport.computeImpacts config.transports.modeProcesses finalMass
+                        Nothing ->
+                            config.transports.defaultDistance
+            in
+            -- Note: for now it's assumed there's never air transport
+            { lifeCycle
+                | transports =
+                    { toAssembly = toAssembly
+                    , toDistribution =
+                        toDistribution
+                            |> Transport.applyTransportRatios Split.zero
+                            |> Transport.computeImpacts config.transports.modeProcesses (extractMass lifeCycle.production)
+                    }
             }
-    }
-
-
-computeItemTransportToAssembly : Requirements db -> Maybe Country.Code -> Results -> Index -> Item -> Transport
-computeItemTransportToAssembly { config, db } assemblyCountry productionResults index item =
-    let
-        itemTransport =
-            case ( item.country, assemblyCountry ) of
-                ( Just from, Just to ) ->
-                    db.distances
-                        |> Transport.getTransportBetween Impact.empty from to
-
-                _ ->
-                    config.transports.defaultDistance
-
-        itemMass =
-            extractItems productionResults
-                |> LE.getAt index
-                |> Maybe.map extractMass
-                |> Maybe.withDefault Quantity.zero
-    in
-    itemTransport
-        |> Transport.applyTransportRatios Split.zero
-        |> Transport.computeImpacts config.transports.modeProcesses itemMass
+        )
+        (expandItems db query.items)
+        (resolveCountry db.countries query.assemblyCountry)
 
 
 createItem : Id -> Item

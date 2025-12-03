@@ -148,7 +148,7 @@ addElementTransformButton { db, openSelectProcessModal, query, scope } material 
 
 
 componentView : Config db msg -> Index -> Item -> ExpandedItem -> Results -> List (Html msg)
-componentView config itemIndex item { component, country, elements, quantity } itemResults =
+componentView config itemIndex item ({ component, country, elements, quantity } as expandedItem) itemResults =
     let
         collapsed =
             config.detailed
@@ -279,8 +279,7 @@ componentView config itemIndex item { component, country, elements, quantity } i
                         [ th [] []
                         , th [ class "pb-1", colspan 6 ] [ text "Acheminement vers assemblage" ]
                         ]
-                   , Component.extractMass itemResults
-                        |> componentTransportToAssembly config country
+                   , componentTransportToAssembly config expandedItem itemResults
                    ]
 
           else
@@ -288,33 +287,24 @@ componentView config itemIndex item { component, country, elements, quantity } i
         ]
 
 
-componentTransportToAssembly : Config db msg -> Maybe Country -> Mass -> Html msg
-componentTransportToAssembly { componentConfig, db, impact, query } country mass =
+componentTransportToAssembly : Config db msg -> ExpandedItem -> Results -> Html msg
+componentTransportToAssembly { componentConfig, db, impact, query, scope } expandedItem itemResults =
     let
-        ( label, transports ) =
-            case
-                ( country
-                , query.assemblyCountry
-                    |> Maybe.andThen
-                        (\code ->
-                            db.countries
-                                |> Country.findByCode code
-                                |> Result.toMaybe
-                        )
-                )
-            of
-                ( Just from, Just to ) ->
-                    ( from.name ++ " → " ++ to.name
-                    , db.distances
-                        |> Transport.getTransportBetween Impact.empty from.code to.code
-                        |> Transport.applyTransportRatios Split.zero
-                    )
+        mass =
+            Component.extractMass itemResults
 
-                _ ->
-                    ( "Trajet inconnu majoré"
-                    , componentConfig.transports.defaultDistance
-                        |> Transport.applyTransportRatios Split.zero
+        ( label, transports ) =
+            query.assemblyCountry
+                |> Country.resolveMaybe db.countries
+                |> Result.map
+                    (\assemblyCountry ->
+                        Component.computeItemTransportToAssembly
+                            { config = componentConfig, db = db, scope = scope }
+                            assemblyCountry
+                            expandedItem
+                            itemResults
                     )
+                |> Result.withDefault ( "Erreur", Transport.default Impact.empty )
     in
     tr [ class "fs-7" ]
         [ td [] []
