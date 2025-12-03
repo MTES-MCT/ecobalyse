@@ -214,6 +214,8 @@ componentView config itemIndex item ({ component, country, elements, quantity } 
                                     , class "form-control"
                                     , onInput (config.updateItemName ( component, itemIndex ))
                                     , placeholder "Nom du composant"
+
+                                    -- FIXME: how to get rid of the item arg? used only here in this whole fn
                                     , item.custom
                                         |> Maybe.andThen .name
                                         |> Maybe.withDefault component.name
@@ -256,31 +258,47 @@ componentView config itemIndex item ({ component, country, elements, quantity } 
                 ]
           ]
         , if not collapsed then
-            tr [ class "bg-light border-bottom" ]
+            componentDetailedView config elements itemIndex expandedItem itemResults
+
+          else
+            []
+        ]
+
+
+componentDetailedView : Config db msg -> List ExpandedElement -> Index -> ExpandedItem -> Results -> List (Html msg)
+componentDetailedView config elements itemIndex expandedItem itemResults =
+    List.concat
+        [ [ tr [ class "bg-light border-bottom" ]
                 [ th [] []
                 , th [ class "pb-1", colspan 6 ] [ text "Composition" ]
                 ]
-                :: (if List.isEmpty elements then
-                        [ tr [] [ th [] [], td [] [ text "Aucun élément" ] ] ]
+          ]
+        , if List.isEmpty elements then
+            [ tr []
+                [ th [] []
+                , td [] [ text "Aucun élément" ]
+                ]
+            ]
 
-                    else
-                        List.map3
-                            (elementView config ( component, itemIndex ))
-                            (List.range 0 (List.length elements - 1))
-                            elements
-                            (Component.extractItems itemResults)
-                   )
-                ++ [ tr [ class "border-top" ]
-                        [ td [ colspan 7, class "pe-3" ]
-                            [ addElementButton config ( component, itemIndex )
-                            ]
-                        ]
-                   , tr [ class "bg-light border-top border-bottom" ]
-                        [ th [] []
-                        , th [ class "pb-1", colspan 6 ] [ text "Acheminement vers assemblage" ]
-                        ]
-                   , componentTransportToAssembly config expandedItem itemResults
-                   ]
+          else
+            List.map3
+                (elementView config ( expandedItem.component, itemIndex ))
+                (List.range 0 (List.length elements - 1))
+                elements
+                (Component.extractItems itemResults)
+        , [ tr [ class "border-top" ]
+                [ td [ colspan 7, class "pe-3" ]
+                    [ addElementButton config ( expandedItem.component, itemIndex )
+                    ]
+                ]
+          ]
+        , if List.length config.query.items > 1 then
+            [ tr [ class "bg-light border-top border-bottom" ]
+                [ th [] []
+                , th [ class "pb-1", colspan 6 ] [ text "Acheminement vers assemblage" ]
+                ]
+            , componentTransportToAssembly config expandedItem itemResults
+            ]
 
           else
             []
