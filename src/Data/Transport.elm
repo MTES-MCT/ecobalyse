@@ -1,22 +1,25 @@
 module Data.Transport exposing
     ( Distance
     , Distances
+    , ModeProcesses
     , Transport
     , add
     , addRoadWithCooling
+    , applyTransportRatios
     , computeImpacts
+    , decode
     , decodeDistances
+    , decodeModeProcesses
     , default
     , encode
     , getTransportBetween
-    , roadSeaTransportRatio
     , sum
     , totalKm
     )
 
 import Data.Country as Country
-import Data.Food.WellKnown exposing (WellKnown)
 import Data.Impact as Impact exposing (Impacts)
+import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
 import Dict.Any as Dict exposing (AnyDict)
@@ -34,6 +37,15 @@ type alias Distance =
 
 type alias Distances =
     AnyDict String Country.Code Distance
+
+
+type alias ModeProcesses =
+    { boat : Process
+    , boatCooling : Process
+    , lorry : Process
+    , lorryCooling : Process
+    , plane : Process
+    }
 
 
 type alias Transport =
@@ -88,15 +100,37 @@ addRoadWithCooling distance withCooling transport =
         { transport | road = transport.road |> Quantity.plus distance }
 
 
-computeImpacts : { a | wellKnown : WellKnown } -> Mass -> Transport -> Transport
-computeImpacts { wellKnown } mass transport =
+{-| Applies transportation modes distribution strategies (see methodology docs and the
+`roadSeaTransportRatio` function in this modules)
+-}
+applyTransportRatios : Split -> Transport -> Transport
+applyTransportRatios airTransportRatio ({ air, road, sea } as transport) =
     let
-        transportImpacts =
-            [ ( wellKnown.lorryTransport, transport.road )
-            , ( wellKnown.lorryCoolingTransport, transport.roadCooled )
-            , ( wellKnown.boatTransport, transport.sea )
-            , ( wellKnown.boatCoolingTransport, transport.seaCooled )
-            , ( wellKnown.planeTransport, transport.air )
+        nonAirTransportRatio =
+            Split.complement airTransportRatio
+
+        roadRatio =
+            roadSeaTransportRatio transport
+
+        seaRatio =
+            Split.complement roadRatio
+    in
+    { transport
+        | air = air |> Quantity.multiplyBy (Split.toFloat airTransportRatio)
+        , road = road |> Quantity.multiplyBy (Split.apply (Split.toFloat roadRatio) nonAirTransportRatio)
+        , sea = sea |> Quantity.multiplyBy (Split.apply (Split.toFloat seaRatio) nonAirTransportRatio)
+    }
+
+
+computeImpacts : ModeProcesses -> Mass -> Transport -> Transport
+computeImpacts modes mass transport =
+    { transport
+        | impacts =
+            [ ( modes.lorry, transport.road )
+            , ( modes.lorryCooling, transport.roadCooled )
+            , ( modes.boat, transport.sea )
+            , ( modes.boatCooling, transport.seaCooled )
+            , ( modes.plane, transport.air )
             ]
                 |> List.map
                     (\( transportProcess, distance ) ->
@@ -110,8 +144,7 @@ computeImpacts { wellKnown } mass transport =
                                 )
                     )
                 |> Impact.sumImpacts
-    in
-    { transport | impacts = transportImpacts }
+    }
 
 
 sum : List Transport -> Transport
@@ -244,3 +277,13 @@ decodeDistances =
         (\str _ -> Country.codeFromString str)
         Country.codeToString
         decodeDistance
+
+
+decodeModeProcesses : List Process -> Decoder ModeProcesses
+decodeModeProcesses processes =
+    Decode.succeed ModeProcesses
+        |> Decode.required "boat" (Process.decodeFromId processes)
+        |> Decode.required "boatCooling" (Process.decodeFromId processes)
+        |> Decode.required "lorry" (Process.decodeFromId processes)
+        |> Decode.required "lorryCooling" (Process.decodeFromId processes)
+        |> Decode.required "plane" (Process.decodeFromId processes)

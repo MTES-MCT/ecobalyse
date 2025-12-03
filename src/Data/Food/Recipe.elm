@@ -37,7 +37,6 @@ import Data.Process as Process exposing (Process)
 import Data.Process.Category as ProcessCategory
 import Data.Scoring as Scoring exposing (Scoring)
 import Data.Split as Split
-import Data.Textile.Formula as Formula
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Density exposing (Density, gramsPerCubicCentimeter)
@@ -181,8 +180,11 @@ compute ({ food } as db) =
                                             Retail.distributionTransport distrib distributionTransportNeedsCooling
                                         )
                                     |> Maybe.withDefault (Transport.default Impact.empty)
+
+                            modes =
+                                convertWellKnownToTransportModes db.food.wellKnown
                         in
-                        Transport.computeImpacts db.food mass transport
+                        Transport.computeImpacts modes mass transport
 
                     recipeImpacts =
                         Impact.sumImpacts
@@ -272,6 +274,21 @@ compute ({ food } as db) =
             )
 
 
+{-| Converts food well-known transport processes to generic transport configuration format.
+
+TODO: migrate food to use the new format entirely, so we have a single place to configure them for all scopes
+
+-}
+convertWellKnownToTransportModes : WellKnown -> Transport.ModeProcesses
+convertWellKnownToTransportModes wellKnown =
+    { boat = wellKnown.boatTransport
+    , boatCooling = wellKnown.boatCoolingTransport
+    , lorry = wellKnown.lorryTransport
+    , lorryCooling = wellKnown.lorryCoolingTransport
+    , plane = wellKnown.planeTransport
+    }
+
+
 computeIngredientComplementsImpacts : EcosystemicServices -> Mass -> Impact.ComplementsImpacts
 computeIngredientComplementsImpacts { cropDiversity, hedges, livestockDensity, permanentPasture, plotSize } ingredientMass =
     let
@@ -342,7 +359,7 @@ computeIngredientTransport db { country, ingredient, mass, planeTransport } =
                         Just { code } ->
                             db.distances
                                 |> Transport.getTransportBetween emptyImpacts code france
-                                |> Formula.transportRatio planeRatio
+                                |> Transport.applyTransportRatios planeRatio
 
                         -- Otherwise retrieve ingredient's default origin transport data
                         Nothing ->
@@ -390,8 +407,11 @@ computeIngredientTransport db { country, ingredient, mass, planeTransport } =
             baseTransport
                 |> toTransformation
                 |> toLogistics
+
+        modes =
+            convertWellKnownToTransportModes db.food.wellKnown
     in
-    Transport.computeImpacts db.food mass transport
+    Transport.computeImpacts modes mass transport
 
 
 preparationListFromQuery : Query -> Result String (List Preparation)

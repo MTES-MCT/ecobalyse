@@ -3,9 +3,9 @@ module Page.Explore.ObjectExamples exposing (table)
 {-| Note: This module is used to display both objects and veli examples.
 -}
 
+import Data.Component as Component
 import Data.Dataset as Dataset
 import Data.Example exposing (Example)
-import Data.Object.Query exposing (Query)
 import Data.Scope as Scope exposing (Scope)
 import Data.Uuid as Uuid
 import Html exposing (..)
@@ -19,7 +19,7 @@ import Views.Icon as Icon
 table :
     { maxScore : Float }
     -> { detailed : Bool, scope : Scope }
-    -> Table ( Example Query, { score : Float } ) String msg
+    -> Table ( Example Component.Query, { score : Float } ) String msg
 table { maxScore } { detailed, scope } =
     { filename = "examples"
     , toId = Tuple.first >> .id >> Uuid.toString

@@ -15,12 +15,14 @@ import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (MaterialDict)
 import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
+import Data.Transport as Transport exposing (Transport)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Decode
 
 
 type alias Config =
     { endOfLife : EndOfLifeConfig
+    , transports : TransportConfig
     }
 
 
@@ -51,10 +53,17 @@ type alias EndOfLifeStrategy =
     }
 
 
+type alias TransportConfig =
+    { defaultDistance : Transport
+    , modeProcesses : Transport.ModeProcesses
+    }
+
+
 decode : List Process -> Decoder Config
 decode processes =
     Decode.succeed Config
         |> Decode.required "endOfLife" (decodeEndOfLifeConfig processes)
+        |> Decode.required "transports" (decodeTransportConfig processes)
 
 
 decodeEndOfLifeConfig : List Process -> Decoder EndOfLifeConfig
@@ -107,6 +116,13 @@ decodeEndOfLifeStrategy processes =
         |> Decode.required "percent" Split.decodePercent
 
 
+decodeTransportConfig : List Process -> Decoder TransportConfig
+decodeTransportConfig processes =
+    Decode.succeed TransportConfig
+        |> Decode.required "defaultDistance" Transport.decode
+        |> Decode.required "modeProcesses" (Transport.decodeModeProcesses processes)
+
+
 default : List Process -> Result String Config
 default processes =
     parse processes
@@ -122,6 +138,20 @@ default processes =
                     },
                     "collected": {},
                     "nonCollected": {}
+                }
+            },
+            "transports": {
+                "defaultDistance": {
+                    "air": 0,
+                    "road": 0,
+                    "sea": 0
+                },
+                "modeProcesses": {
+                    "boat": "20a62b2c-a543-5076-83aa-c5b7d340206a",
+                    "boatCooling": "3cb99d44-24f6-5f6e-a8f8-f754fe44d641",
+                    "lorry": "46e96f29-9ca5-5475-bb3c-6397f43b7a5b",
+                    "lorryCooling": "219b986c-9751-58cf-977e-7ba8f0b4ae2b",
+                    "plane": "326369d9-792a-5ab5-8276-c54108c80cb1"
                 }
             }
         }

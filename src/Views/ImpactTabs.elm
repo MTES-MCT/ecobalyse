@@ -220,7 +220,10 @@ forObject lifeCycle config =
                 stageStats.transformation
                     |> Impact.getImpact config.impactDefinition.trigram
                     |> Just
-            , transports = Nothing
+            , transports =
+                stageStats.transports
+                    |> Impact.getImpact config.impactDefinition.trigram
+                    |> Just
             , trims = Nothing
             , usage = Nothing
             }
