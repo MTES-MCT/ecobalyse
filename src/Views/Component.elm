@@ -290,27 +290,29 @@ componentView config itemIndex item ({ component, country, elements, quantity } 
 componentTransportToAssembly : Config db msg -> ExpandedItem -> Results -> Html msg
 componentTransportToAssembly { componentConfig, db, impact, query, scope } expandedItem itemResults =
     let
-        mass =
-            Component.extractMass itemResults
-
         ( label, transports ) =
-            query.assemblyCountry
-                |> Country.resolveMaybe db.countries
-                |> Result.map
-                    (\assemblyCountry ->
+            case Country.resolveMaybe query.assemblyCountry db.countries of
+                Err error ->
+                    ( span [ class "text-danger" ] [ text <| "Erreur\u{00A0}: " ++ error ]
+                    , Transport.default Impact.empty
+                    )
+
+                Ok assemblyCountry ->
+                    Tuple.mapFirst text <|
                         Component.computeItemTransportToAssembly
                             { config = componentConfig, db = db, scope = scope }
                             assemblyCountry
                             expandedItem
                             itemResults
-                    )
-                |> Result.withDefault ( "Erreur", Transport.default Impact.empty )
+
+        mass =
+            Component.extractMass itemResults
     in
     tr [ class "fs-7" ]
         [ td [] []
         , td [ class "py-1", colspan 3 ]
             [ div [ class "d-flex justify-content-between align-items-center gap-2" ]
-                [ span [ class "fw-bold" ] [ text label ]
+                [ span [ class "fw-bold" ] [ label ]
                 , div [ class "d-flex justify-content-between align-items-center gap-2" ]
                     [ Icon.boat
                     , Format.km transports.sea
@@ -322,11 +324,7 @@ componentTransportToAssembly { componentConfig, db, impact, query, scope } expan
         , td [ class "text-end" ]
             [ Format.kg mass ]
         , td [ class "text-end" ]
-            [ transports
-                |> Transport.computeImpacts componentConfig.transports.modeProcesses mass
-                |> .impacts
-                |> Format.formatImpact impact
-            ]
+            [ transports |> .impacts |> Format.formatImpact impact ]
         , td [] []
         ]
 

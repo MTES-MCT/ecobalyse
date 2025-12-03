@@ -700,7 +700,7 @@ computeTransports ({ config, db } as req) query lifeCycle =
             }
         )
         (expandItems db query.items)
-        (resolveCountry db.countries query.assemblyCountry)
+        (Country.resolveMaybe query.assemblyCountry db.countries)
 
 
 createItem : Id -> Item
@@ -997,7 +997,7 @@ encodeResults maybeTrigram (Results results) =
 expandElement : DataContainer db -> Maybe Country.Code -> Element -> Result String ExpandedElement
 expandElement { countries, processes } maybeCountry { amount, material, transforms } =
     Ok (ExpandedElement amount)
-        |> RE.andMap (resolveCountry countries maybeCountry)
+        |> RE.andMap (Country.resolveMaybe maybeCountry countries)
         |> RE.andMap (Process.findById material processes)
         |> RE.andMap
             (transforms
@@ -1018,8 +1018,8 @@ expandItem ({ components, countries } as db) { country, custom, id, quantity } =
     findById id components
         |> Result.andThen
             (\component ->
-                country
-                    |> resolveCountry countries
+                countries
+                    |> Country.resolveMaybe country
                     |> Result.andThen
                         (\maybeCountry ->
                             custom
@@ -1035,16 +1035,6 @@ expandItem ({ components, countries } as db) { country, custom, id, quantity } =
                                     )
                         )
             )
-
-
-resolveCountry : List Country -> Maybe Country.Code -> Result String (Maybe Country)
-resolveCountry countries maybeCode =
-    case maybeCode of
-        Just code ->
-            countries |> Country.findByCode code |> Result.map Just
-
-        Nothing ->
-            Ok Nothing
 
 
 {-| Take a list of component items and resolve them with actual components and processes

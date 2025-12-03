@@ -158,8 +158,8 @@ isEuropeOrTurkey country =
     country.zone == Zone.Europe || country.code == codeFromString "TR"
 
 
-resolveMaybe : List Country -> Maybe Code -> Result String (Maybe Country)
-resolveMaybe countries maybeCode =
+resolveMaybe : Maybe Code -> List Country -> Result String (Maybe Country)
+resolveMaybe maybeCode countries =
     case maybeCode of
         Just code ->
             countries |> findByCode code |> Result.map Just
