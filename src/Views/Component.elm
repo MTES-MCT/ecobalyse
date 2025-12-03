@@ -311,7 +311,10 @@ componentTransportToAssembly { componentConfig, db, impact, query } country mass
                     )
 
                 _ ->
-                    ( "Trajet inconnu majoré", componentConfig.transports.defaultDistance )
+                    ( "Trajet inconnu majoré"
+                    , componentConfig.transports.defaultDistance
+                        |> Transport.applyTransportRatios Split.zero
+                    )
     in
     tr [ class "fs-7" ]
         [ td [] []
