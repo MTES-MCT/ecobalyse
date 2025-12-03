@@ -57,3 +57,13 @@ class ComponentUpdate(CamelizedBaseStruct, omit_defaults=True):
     name: str | None | msgspec.UnsetType = msgspec.UNSET
     published: bool | None | msgspec.UnsetType = msgspec.UNSET
     scopes: list[Scope] = []
+
+
+class JsonComponent(CamelizedBaseStruct):
+    """Component properties to use for a JSON dump."""
+
+    id: UUID
+    name: str
+    elements: list[ComponentElement] | None
+    comment: str | None
+    scopes: list[Scope] = []

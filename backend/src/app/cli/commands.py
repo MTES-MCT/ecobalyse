@@ -1,14 +1,20 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 from typing import Any, cast
 
 import anyio
 import click
+import msgspec
 import orjson
+from advanced_alchemy.filters import OrderBy
+from advanced_alchemy.service.typing import (
+    convert,
+)
 from advanced_alchemy.utils.fixtures import open_fixture_async
 from app.config import get_settings
-from app.config.app import alchemy
+from app.config.app import alchemy, default_json_serializer
 from app.db import models as m
 from app.domain.accounts.deps import provide_users_service
 from app.domain.accounts.schemas import (
@@ -18,6 +24,9 @@ from app.domain.accounts.schemas import (
 )
 from app.domain.accounts.services import UserService
 from app.domain.components.deps import provide_components_service
+from app.domain.components.schemas import (
+    JsonComponent,
+)
 from app.domain.processes.deps import provide_processes_service
 from rich import get_console
 from sqlalchemy.orm import joinedload, selectinload
@@ -428,3 +437,49 @@ def load_processes_json(json_file: click.File) -> None:
 
     console.rule("Loading processes file.")
     anyio.run(_load_processes_json, json_data)
+
+
+async def dump_components(db_session, components_service) -> None:
+    """Dump components JSON"""
+
+    # Disable ruff check for True equality as this syntax in required by SQLAlchemy
+    results = await components_service.list(
+        m.Component.published == True,  # noqa: E712
+        OrderBy(field_name="name", sort_order="asc"),
+        uniquify=True,
+    )
+
+    components = convert(
+        obj=results,
+        type=list[JsonComponent],  # type: ignore[valid-type]
+        from_attributes=True,
+    )
+
+    # Needed for converting non JSON types to JSON compatibles types using msgspec
+    components_dict = msgspec.json.decode(default_json_serializer(components))
+
+    print(json.dumps(components_dict, indent=2, ensure_ascii=False))
+
+
+@click.group(
+    name="json",
+    invoke_without_command=False,
+    help="Manage JSON extraction.",
+)
+@click.pass_context
+def json_management_group(_: dict[str, Any]) -> None:
+    """Manage JSON extraction."""
+
+
+@json_management_group.command(
+    name="dump-components", help="Extract components from the DB into a JSON file."
+)
+def dump_components_command() -> None:
+    """Dump components JSON."""
+
+    async def _dump_components() -> None:
+        async with alchemy.get_session() as db_session:
+            components_service = await anext(provide_components_service(db_session))
+            await dump_components(db_session, components_service)
+
+    anyio.run(_dump_components)
