@@ -10,7 +10,6 @@ import Data.Component as Component
         , ExpandedElement
         , ExpandedItem
         , Index
-        , Item
         , LifeCycle
         , Quantity
         , Query
@@ -147,8 +146,8 @@ addElementTransformButton { db, openSelectProcessModal, query, scope } material 
         ]
 
 
-componentView : Config db msg -> Index -> Item -> ExpandedItem -> Results -> List (Html msg)
-componentView config itemIndex item ({ component, country, elements, quantity } as expandedItem) itemResults =
+componentView : Config db msg -> Index -> ExpandedItem -> Results -> List (Html msg)
+componentView config itemIndex ({ component, country, elements, quantity } as expandedItem) itemResults =
     let
         collapsed =
             config.detailed
@@ -214,12 +213,7 @@ componentView config itemIndex item ({ component, country, elements, quantity } 
                                     , class "form-control"
                                     , onInput (config.updateItemName ( component, itemIndex ))
                                     , placeholder "Nom du composant"
-
-                                    -- FIXME: how to get rid of the item arg? used only here in this whole fn
-                                    , item.custom
-                                        |> Maybe.andThen .name
-                                        |> Maybe.withDefault component.name
-                                        |> value
+                                    , value component.name
                                     ]
                                     []
                                 , countrySelector
@@ -460,9 +454,8 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, maxItems, query, scope, tit
                                     text ""
                                  )
                                     :: List.concat
-                                        (List.map4 (componentView config)
+                                        (List.map3 (componentView config)
                                             (List.range 0 (List.length query.items - 1))
-                                            query.items
                                             expandedItems
                                             (Component.extractItems lifeCycle.production)
                                         )

@@ -1027,7 +1027,13 @@ expandItem ({ components, countries } as db) { country, custom, id, quantity } =
                                 |> expandElements db country
                                 |> Result.map
                                     (\expandedElements ->
-                                        { component = component
+                                        { component =
+                                            case custom |> Maybe.andThen .name of
+                                                Just customName ->
+                                                    { component | name = customName }
+
+                                                Nothing ->
+                                                    component
                                         , country = maybeCountry
                                         , elements = expandedElements
                                         , quantity = quantity
