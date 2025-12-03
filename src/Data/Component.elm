@@ -634,7 +634,7 @@ computeShareImpacts mass { process, split } =
 
 
 computeTransports : Requirements db -> Query -> LifeCycle -> LifeCycle
-computeTransports { config, db } query lifeCycle =
+computeTransports ({ config, db } as requirements) query lifeCycle =
     let
         finalMass =
             extractMass lifeCycle.production
@@ -644,28 +644,7 @@ computeTransports { config, db } query lifeCycle =
             -- TODO: refactor query to handle this through types https://github.com/MTES-MCT/ecobalyse/issues/1609
             if List.length query.items > 1 then
                 query.items
-                    |> List.indexedMap
-                        (\index item ->
-                            let
-                                itemTransport =
-                                    case ( item.country, query.assemblyCountry ) of
-                                        ( Just from, Just to ) ->
-                                            db.distances
-                                                |> Transport.getTransportBetween Impact.empty from to
-
-                                        _ ->
-                                            config.transports.defaultDistance
-
-                                itemMass =
-                                    extractItems lifeCycle.production
-                                        |> LE.getAt index
-                                        |> Maybe.map extractMass
-                                        |> Maybe.withDefault Quantity.zero
-                            in
-                            itemTransport
-                                |> Transport.applyTransportRatios Split.zero
-                                |> Transport.computeImpacts config.transports.modeProcesses itemMass
-                        )
+                    |> List.indexedMap (computeItemTransportToAssembly requirements query.assemblyCountry lifeCycle.production)
                     |> Transport.sum
 
             else
@@ -691,6 +670,29 @@ computeTransports { config, db } query lifeCycle =
                     |> Transport.computeImpacts config.transports.modeProcesses finalMass
             }
     }
+
+
+computeItemTransportToAssembly : Requirements db -> Maybe Country.Code -> Results -> Index -> Item -> Transport
+computeItemTransportToAssembly { config, db } assemblyCountry productionResults index item =
+    let
+        itemTransport =
+            case ( item.country, assemblyCountry ) of
+                ( Just from, Just to ) ->
+                    db.distances
+                        |> Transport.getTransportBetween Impact.empty from to
+
+                _ ->
+                    config.transports.defaultDistance
+
+        itemMass =
+            extractItems productionResults
+                |> LE.getAt index
+                |> Maybe.map extractMass
+                |> Maybe.withDefault Quantity.zero
+    in
+    itemTransport
+        |> Transport.applyTransportRatios Split.zero
+        |> Transport.computeImpacts config.transports.modeProcesses itemMass
 
 
 createItem : Id -> Item
