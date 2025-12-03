@@ -20,7 +20,6 @@ import Data.Process.Category as Category exposing (Category)
 import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Data.Text as Text
-import Data.Unit as Unit
 import Diff
 import Diff.ToString as DiffToString
 import Html exposing (..)
@@ -478,10 +477,9 @@ componentRowView db selected component =
                 , a
                     [ class "btn btn-outline-primary"
                     , title "Utiliser dans le simulateur"
-                    , Just
-                        { components = [ Component.createItem component.id ]
-                        , durability = Unit.ratio 1
-                        }
+                    , Component.emptyQuery
+                        |> Component.setQueryItems [ Component.createItem component.id ]
+                        |> Just
                         |> Route.ObjectSimulator Scope.Object Definition.Ecs
                         |> Route.href
                     ]
@@ -545,9 +543,9 @@ modalView { componentConfig, db } modals index modal =
                             , docsUrl = Nothing
                             , explorerRoute = Nothing
                             , impact = db.definitions |> Definition.get Definition.Ecs
-                            , items = [ item ]
                             , lifeCycle =
-                                [ item ]
+                                Component.emptyQuery
+                                    |> Component.setQueryItems [ item ]
                                     |> Component.compute
                                         { config = componentConfig
                                         , db = db
@@ -559,6 +557,9 @@ modalView { componentConfig, db } modals index modal =
                             , openSelectProcessModal =
                                 \p ti ei s ->
                                     SetModals (SelectProcessModal p ti ei s :: modals)
+
+                            -- Note: we don't handle assembly country in the admin
+                            , query = Component.emptyQuery |> Component.setQueryItems [ item ]
                             , removeElement =
                                 \targetElement ->
                                     item |> updateSingleItem (Component.removeElement targetElement)
@@ -569,6 +570,7 @@ modalView { componentConfig, db } modals index modal =
                             , scope = component.scope
                             , setDetailed = \_ -> NoOp
                             , title = ""
+                            , updateAssemblyCountry = \_ -> NoOp
                             , updateElementAmount =
                                 \targetElement ->
                                     Maybe.map

@@ -8,7 +8,7 @@ view : List (Html msg) -> List (Html msg) -> Html msg
 view leftChildren rightChildren =
     div [ class "d-flex justify-content-between text-muted" ]
         [ span
-            [ class "w-50 fs-7 py-4"
+            [ class "w-50 fs-7 py-4 text-end"
             , style "padding" ".5rem 1rem"
             ]
             leftChildren

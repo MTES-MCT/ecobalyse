@@ -209,7 +209,8 @@ handleTrimsWeight db ({ componentConfig, inputs } as simulator) =
     -- because they're added at the Making step and carried through the next steps of the lifecycle
     let
         trimsMass =
-            inputs.trims
+            Component.emptyQuery
+                |> Component.setQueryItems inputs.trims
                 |> Component.compute { config = componentConfig, db = db, scope = Scope.Textile }
                 |> Result.map (.production >> Component.extractMass)
                 |> Result.withDefault Quantity.zero
@@ -749,7 +750,8 @@ computeTotalTransportImpacts simulator =
 
 computeTrims : Db -> Simulator -> Result String Simulator
 computeTrims db ({ componentConfig, durability, inputs } as simulator) =
-    inputs.trims
+    Component.emptyQuery
+        |> Component.setQueryItems inputs.trims
         |> Component.compute { config = componentConfig, db = db, scope = Scope.Textile }
         -- FIXME: atm we don't include eol impacts, would we ever want that for textile?
         |> Result.map (.production >> Component.extractImpacts)

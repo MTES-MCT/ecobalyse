@@ -13,6 +13,7 @@ import Data.Component as Component
         , Item
         , LifeCycle
         , Quantity
+        , Query
         , Results
         , TargetElement
         , TargetItem
@@ -24,6 +25,7 @@ import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split
+import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Dict.Any as AnyDict
 import Html exposing (..)
@@ -31,6 +33,7 @@ import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import Json.Encode as Encode
 import List.Extra as LE
+import Mass exposing (Mass)
 import Route exposing (Route)
 import Views.Alert as Alert
 import Views.Button as Button
@@ -38,6 +41,7 @@ import Views.Component.DownArrow as DownArrow
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Link as Link
+import Views.Transport as TransportView
 
 
 type alias Config db msg =
@@ -50,18 +54,19 @@ type alias Config db msg =
     , docsUrl : Maybe String
     , explorerRoute : Maybe Route
     , impact : Definition
-    , items : List Item
     , lifeCycle : Result String LifeCycle
     , maxItems : Maybe Int
     , noOp : msg
     , openSelectComponentModal : Autocomplete Component -> msg
     , openSelectProcessModal : Category -> TargetItem -> Maybe Index -> Autocomplete Process -> msg
+    , query : Query
     , removeElement : TargetElement -> msg
     , removeElementTransform : TargetElement -> Index -> msg
     , removeItem : Index -> msg
     , scope : Scope
     , setDetailed : List Index -> msg
     , title : String
+    , updateAssemblyCountry : Maybe Country.Code -> msg
     , updateElementAmount : TargetElement -> Maybe Amount -> msg
     , updateItemCountry : Index -> Maybe Country.Code -> msg
     , updateItemName : TargetItem -> String -> msg
@@ -99,7 +104,7 @@ addElementButton { db, openSelectProcessModal, scope } targetItem =
         [ type_ "button"
         , class "btn btn-link text-decoration-none"
         , class "d-flex justify-content-end align-items-center"
-        , class "gap-2 w-100 p-0 pb-1 text-end"
+        , class "gap-2 w-100 p-0 pb-1 text-end fs-7"
         , db.processes
             |> Scope.anyOf [ scope ]
             |> Process.listByCategory Category.Material
@@ -114,14 +119,14 @@ addElementButton { db, openSelectProcessModal, scope } targetItem =
 
 
 addElementTransformButton : Config db msg -> Process -> TargetElement -> Html msg
-addElementTransformButton { db, items, openSelectProcessModal, scope } material ( targetItem, elementIndex ) =
+addElementTransformButton { db, openSelectProcessModal, query, scope } material ( targetItem, elementIndex ) =
     let
         availableTransformProcesses =
             db.processes
                 |> Scope.anyOf [ scope ]
                 |> Process.listAvailableMaterialTransforms material
                 |> List.sortBy Process.getDisplayName
-                |> Process.available (Component.elementTransforms ( targetItem, elementIndex ) items)
+                |> Process.available (Component.elementTransforms ( targetItem, elementIndex ) query.items)
 
         autocompleteState =
             availableTransformProcesses
@@ -151,9 +156,31 @@ componentView config itemIndex item { component, country, elements, quantity } i
                 |> not
     in
     List.concat
-        [ [ tbody []
-                [ tr [ class "border-top border-bottom" ]
-                    [ th [ class "ps-2 align-middle", scope "col" ]
+        [ [ tbody
+                (if itemIndex > 0 then
+                    -- Better visually separate components items when they're stacked and opened
+                    [ style "border-top" "1px solid #777" ]
+
+                 else
+                    []
+                )
+                [ if config.scope /= Scope.Textile then
+                    tr []
+                        [ th [] []
+                        , th [ class "pb-0 fs-8 fw-normal text-muted" ] [ text "Quantité" ]
+                        , th [ class "pb-0 fs-8 fw-normal text-muted", colspan 2 ]
+                            [ div [ class "d-flex justify-content-between" ]
+                                [ span [] [ text "Nom du composant" ]
+                                , span [] [ text "Région" ]
+                                ]
+                            ]
+                        , th [ colspan 3 ] []
+                        ]
+
+                  else
+                    tr [] [ td [ colspan 7 ] [] ]
+                , tr [ class "border-bottom" ]
+                    [ th [ class "ps-2 pt-0 pb-2 align-middle", scope "col" ]
                         [ if config.customizable && config.maxItems /= Just 1 then
                             button
                                 [ type_ "button"
@@ -176,10 +203,10 @@ componentView config itemIndex item { component, country, elements, quantity } i
                           else
                             text ""
                         ]
-                    , td [ class "ps-0 py-2 align-middle" ]
+                    , td [ class "ps-0 pt-0 pb-2 align-middle" ]
                         [ quantity |> quantityInput config itemIndex
                         ]
-                    , td [ class "align-middle text-truncate w-100", colspan 2 ]
+                    , td [ class "pt-0 pb-2 align-middle text-truncate w-100", colspan 2 ]
                         [ div [ class "d-flex gap-2" ] <|
                             if config.customizable then
                                 [ input
@@ -193,48 +220,27 @@ componentView config itemIndex item { component, country, elements, quantity } i
                                         |> value
                                     ]
                                     []
-                                , config.db.countries
-                                    |> Scope.anyOf [ config.scope ]
-                                    |> List.sortBy .name
-                                    |> List.map (\{ code, name } -> ( name, Just code ))
-                                    |> (::) ( "Monde", Nothing )
-                                    |> List.map
-                                        (\( name, maybeCode ) ->
-                                            option
-                                                [ maybeCode
-                                                    |> Maybe.map Country.codeToString
-                                                    |> Maybe.withDefault ""
-                                                    |> value
-                                                , selected <| Maybe.map .code country == maybeCode
-                                                ]
-                                                [ text name ]
-                                        )
-                                    |> select
-                                        [ class "form-select w-33"
-                                        , onInput <|
-                                            \str ->
-                                                config.updateItemCountry itemIndex
-                                                    (if String.isEmpty str then
-                                                        Nothing
-
-                                                     else
-                                                        Just <| Country.codeFromString str
-                                                    )
-                                        ]
+                                , countrySelector
+                                    { countries = config.db.countries
+                                    , domId = "item-country-" ++ String.fromInt itemIndex
+                                    , scope = config.scope
+                                    , select = config.updateItemCountry itemIndex
+                                    , selected = Maybe.map .code country
+                                    }
                                 ]
 
                             else
                                 [ span [ class "fw-bold" ] [ text component.name ] ]
                         ]
-                    , td [ class "text-end align-middle text-nowrap fs-7" ]
+                    , td [ class "pt-0 pb-2 text-end align-middle text-nowrap fs-7" ]
                         [ Component.extractMass itemResults
                             |> Format.kg
                         ]
-                    , td [ class "text-end align-middle text-nowrap fs-7" ]
+                    , td [ class "pt-0 pb-2 text-end align-middle text-nowrap fs-7" ]
                         [ Component.extractImpacts itemResults
                             |> Format.formatImpact config.impact
                         ]
-                    , td [ class "pe-3 text-end align-middle text-nowrap" ]
+                    , td [ class "pe-3 pt-0 pb-2 text-end align-middle text-nowrap" ]
                         [ if config.maxItems == Just 1 then
                             text ""
 
@@ -250,31 +256,90 @@ componentView config itemIndex item { component, country, elements, quantity } i
                 ]
           ]
         , if not collapsed then
-            List.map3
-                (elementView config ( component, itemIndex ))
-                (List.range 0 (List.length elements - 1))
-                elements
-                (Component.extractItems itemResults)
-
-          else
-            []
-        , if not collapsed then
-            [ tbody []
-                [ tr [ class "border-top" ]
-                    [ td [ colspan 7, class "pe-3" ]
-                        [ addElementButton config ( component, itemIndex )
-                        ]
-                    ]
+            tr [ class "bg-light border-bottom" ]
+                [ th [] []
+                , th [ class "pb-1", colspan 6 ] [ text "Composition" ]
                 ]
-            ]
+                :: (if List.isEmpty elements then
+                        [ tr [] [ th [] [], td [] [ text "Aucun élément" ] ] ]
+
+                    else
+                        List.map3
+                            (elementView config ( component, itemIndex ))
+                            (List.range 0 (List.length elements - 1))
+                            elements
+                            (Component.extractItems itemResults)
+                   )
+                ++ [ tr [ class "border-top" ]
+                        [ td [ colspan 7, class "pe-3" ]
+                            [ addElementButton config ( component, itemIndex )
+                            ]
+                        ]
+                   , tr [ class "bg-light border-top border-bottom" ]
+                        [ th [] []
+                        , th [ class "pb-1", colspan 6 ] [ text "Acheminement vers assemblage" ]
+                        ]
+                   , Component.extractMass itemResults
+                        |> componentTransportToAssembly config country
+                   ]
 
           else
             []
         ]
 
 
-viewDebug : List Item -> LifeCycle -> Html msg
-viewDebug items lifeCycle =
+componentTransportToAssembly : Config db msg -> Maybe Country -> Mass -> Html msg
+componentTransportToAssembly { componentConfig, db, impact, query } country mass =
+    let
+        ( label, transports ) =
+            case
+                ( country
+                , query.assemblyCountry
+                    |> Maybe.andThen
+                        (\code ->
+                            db.countries
+                                |> Country.findByCode code
+                                |> Result.toMaybe
+                        )
+                )
+            of
+                ( Just from, Just to ) ->
+                    ( from.name ++ " → " ++ to.name
+                    , db.distances
+                        |> Transport.getTransportBetween Impact.empty from.code to.code
+                        |> Transport.applyTransportRatios Split.zero
+                    )
+
+                _ ->
+                    ( "Trajet inconnu majoré", componentConfig.transports.defaultDistance )
+    in
+    tr [ class "fs-7" ]
+        [ td [] []
+        , td [ class "py-1", colspan 3 ]
+            [ div [ class "d-flex justify-content-between align-items-center gap-2" ]
+                [ span [ class "fw-bold" ] [ text label ]
+                , div [ class "d-flex justify-content-between align-items-center gap-2" ]
+                    [ Icon.boat
+                    , Format.km transports.sea
+                    , Icon.bus
+                    , Format.km transports.road
+                    ]
+                ]
+            ]
+        , td [ class "text-end" ]
+            [ Format.kg mass ]
+        , td [ class "text-end" ]
+            [ transports
+                |> Transport.computeImpacts componentConfig.transports.modeProcesses mass
+                |> .impacts
+                |> Format.formatImpact impact
+            ]
+        , td [] []
+        ]
+
+
+viewDebug : Query -> LifeCycle -> Html msg
+viewDebug query lifeCycle =
     div []
         [ details [ class "card-body py-2" ]
             [ summary [] [ text "Debug" ]
@@ -282,8 +347,8 @@ viewDebug items lifeCycle =
                 [ div [ class "col-6" ]
                     [ h5 [] [ text "Query" ]
                     , pre [ class "bg-light p-2 mb-0" ]
-                        [ items
-                            |> Encode.list Component.encodeItem
+                        [ query
+                            |> Component.encodeQuery
                             |> Encode.encode 2
                             |> text
                         ]
@@ -319,7 +384,7 @@ editorView config =
 
 
 lifeCycleView : Config db msg -> LifeCycle -> Html msg
-lifeCycleView ({ db, docsUrl, explorerRoute, maxItems, items, scope, title } as config) lifeCycle =
+lifeCycleView ({ db, docsUrl, explorerRoute, impact, maxItems, query, scope, title } as config) lifeCycle =
     div [ class "d-flex flex-column" ]
         [ div [ class "card shadow-sm" ]
             [ div [ class "card-header d-flex align-items-center justify-content-between" ]
@@ -338,9 +403,11 @@ lifeCycleView ({ db, docsUrl, explorerRoute, maxItems, items, scope, title } as 
                             text ""
                     ]
                 , div [ class "d-flex align-items-center gap-2" ]
-                    [ lifeCycle.production
-                        |> Component.extractImpacts
-                        |> Format.formatImpact config.impact
+                    [ span [ class "cursor-help", Attr.title "Hors transports" ]
+                        [ lifeCycle.production
+                            |> Component.extractImpacts
+                            |> Format.formatImpact config.impact
+                        ]
                     , case docsUrl of
                         Just url ->
                             Button.docsPillLink
@@ -351,11 +418,11 @@ lifeCycleView ({ db, docsUrl, explorerRoute, maxItems, items, scope, title } as 
                             text ""
                     ]
                 ]
-            , if List.isEmpty items then
+            , if List.isEmpty query.items then
                 div [ class "card-body" ] [ text "Aucun élément." ]
 
               else
-                case Component.expandItems db items of
+                case Component.expandItems db query.items of
                     Err error ->
                         Alert.simple
                             { attributes = []
@@ -385,8 +452,8 @@ lifeCycleView ({ db, docsUrl, explorerRoute, maxItems, items, scope, title } as 
                                  )
                                     :: List.concat
                                         (List.map4 (componentView config)
-                                            (List.range 0 (List.length items - 1))
-                                            items
+                                            (List.range 0 (List.length query.items - 1))
+                                            query.items
                                             expandedItems
                                             (Component.extractItems lifeCycle.production)
                                         )
@@ -398,19 +465,66 @@ lifeCycleView ({ db, docsUrl, explorerRoute, maxItems, items, scope, title } as 
               else
                 addComponentButton config
             ]
-        , if not (List.isEmpty items) && List.member scope [ Scope.Object, Scope.Veli ] then
+        , if List.member scope [ Scope.Object, Scope.Veli ] && List.length query.items > 1 then
             div []
-                [ DownArrow.view [] []
+                [ DownArrow.view
+                    [ div [ class "d-flex justify-content-end align-items-center gap-1" ]
+                        [ text "Transport", span [] [ Icon.package, Icon.package, Icon.package ] ]
+                    ]
+                    [ div [ class "d-flex gap-2" ]
+                        [ lifeCycle.transports.toAssembly.impacts
+                            |> Format.formatImpact impact
+                        , text "(détails en dépliant les composants ci-dessus)"
+                        ]
+                    ]
+                , assemblyView config lifeCycle
+                ]
+
+          else
+            text ""
+        , if not (List.isEmpty query.items) && List.member scope [ Scope.Object, Scope.Veli ] then
+            div []
+                [ lifeCycle.transports.toDistribution
+                    |> transportView impact (Component.extractMass lifeCycle.production)
+                , distributionView config lifeCycle
+                , Transport.default Impact.empty
+                    |> transportView impact (Component.extractMass lifeCycle.production)
                 , endOfLifeView config lifeCycle
                 ]
 
           else
             text ""
         , if config.debug then
-            viewDebug items lifeCycle
+            viewDebug query lifeCycle
 
           else
             text ""
+        ]
+
+
+transportView : Definition -> Mass -> Transport -> Html msg
+transportView selectedImpact mass transport =
+    DownArrow.view
+        [ div [ class "d-flex justify-content-end align-items-center gap-1" ]
+            [ text "Transport"
+            , Icon.package
+            , Format.kg mass
+            ]
+        ]
+        [ div [ class "d-flex gap-2" ]
+            [ transport
+                |> TransportView.viewDetails
+                    { airTransportLabel = Nothing
+                    , fullWidth = True
+                    , hideNoLength = True
+                    , onlyIcons = False
+                    , roadTransportLabel = Nothing
+                    , seaTransportLabel = Nothing
+                    }
+                |> div [ class "d-flex gap-2" ]
+            , transport.impacts
+                |> Format.formatImpact selectedImpact
+            ]
         ]
 
 
@@ -454,6 +568,48 @@ amountInput config targetElement unit amount =
         ]
 
 
+type alias CountrySelector msg =
+    { countries : List Country
+    , domId : String
+    , scope : Scope
+    , select : Maybe Country.Code -> msg
+    , selected : Maybe Country.Code
+    }
+
+
+countrySelector : CountrySelector msg -> Html msg
+countrySelector config =
+    config.countries
+        |> Scope.anyOf [ config.scope ]
+        |> List.sortBy .name
+        |> List.map (\{ code, name } -> ( name, Just code ))
+        |> (::) ( "Inconnu", Nothing )
+        |> List.map
+            (\( name, maybeCode ) ->
+                option
+                    [ maybeCode
+                        |> Maybe.map Country.codeToString
+                        |> Maybe.withDefault ""
+                        |> value
+                    , selected <| config.selected == maybeCode
+                    ]
+                    [ text name ]
+            )
+        |> select
+            [ class "form-select w-33"
+            , id config.domId
+            , autocomplete False
+            , onInput <|
+                \str ->
+                    config.select <|
+                        if String.isEmpty str then
+                            Nothing
+
+                        else
+                            Just <| Country.codeFromString str
+            ]
+
+
 elementView : Config db msg -> TargetItem -> Index -> ExpandedElement -> Results -> Html msg
 elementView config targetItem elementIndex { amount, country, material, transforms } elementResults =
     let
@@ -465,7 +621,7 @@ elementView config targetItem elementIndex { amount, country, material, transfor
                 materialResults_ :: transformsResults_ ->
                     ( materialResults_, transformsResults_ )
     in
-    tbody [ style "border-bottom" "1px solid #fff" ]
+    tbody []
         (tr [ class "fs-7 text-muted" ]
             [ th [] []
             , th [ class "align-middle", scope "col" ]
@@ -643,6 +799,48 @@ quantityInput config itemIndex quantity =
                         |> Maybe.withDefault config.noOp
             ]
             []
+        ]
+
+
+assemblyView : Config db msg -> LifeCycle -> Html msg
+assemblyView config _ =
+    div [ class "card shadow-sm" ]
+        [ div [ class "card-header d-flex align-items-center justify-content-between" ]
+            [ h2 [ class "h5 mb-0" ]
+                [ text "Assemblage" ]
+            , div [ class "d-flex align-items-center gap-2" ]
+                [ Impact.empty
+                    |> Format.formatImpact config.impact
+                ]
+            ]
+        , div [ class "card-body" ]
+            [ div [ class "d-flex align-items-center gap-2" ]
+                [ label [ for "assembly-country" ] [ text "Pays d'assemblage" ]
+                , countrySelector
+                    { countries = config.db.countries
+                    , domId = "assembly-country"
+                    , scope = config.scope
+                    , select = config.updateAssemblyCountry
+                    , selected = config.query.assemblyCountry
+                    }
+                ]
+            ]
+        ]
+
+
+distributionView : Config db msg -> LifeCycle -> Html msg
+distributionView { impact } _ =
+    div [ class "card shadow-sm" ]
+        [ div [ class "card-header d-flex align-items-center justify-content-between" ]
+            [ h2 [ class "h5 mb-0" ]
+                [ text "Distribution" ]
+            , div [ class "d-flex align-items-center gap-2" ]
+                [ -- Note: For now, distribution has no impacts by design
+                  Format.formatImpact impact Impact.empty
+                ]
+            ]
+        , div [ class "card-body d-flex align-items-center gap-1" ]
+            [ Icon.lock, text "France" ]
         ]
 
 
