@@ -422,48 +422,6 @@
     "waste": 0
   },
   {
-    "activityName": "Polystyrene, expandable {RER}| production | Cut-off, S - Copied from Ecoinvent U",
-    "categories": [
-      "packaging"
-    ],
-    "comment": "EcoSpold01Location=RER\nProperties\nCarbon content, fossil: 0.923076923076923 kg C/kg dry mass\nCarbon content, non-fossil: 0 kg C/kg dry mass\nDry mass: 1 kg\nHeating value, net: 38.67 MJ\nWet mass: 1 kg",
-    "density": 0,
-    "displayName": "Polystyrène",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "075073d4-3b33-536d-88b4-0be61b73613d",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 245.75,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pef": 281.95,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "location": "RER",
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg",
-    "waste": 0
-  },
-  {
     "activityName": "Hazelnut, unshelled, at plant {TR} U",
     "categories": [
       "ingredient"
@@ -498,48 +456,6 @@
       "wtu": 0
     },
     "location": "TR",
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg",
-    "waste": 0
-  },
-  {
-    "activityName": "Kraft paper {RER}| kraft paper production | Cut-off, S - Copied from Ecoinvent U",
-    "categories": [
-      "packaging"
-    ],
-    "comment": "Properties\nCarbon content, fossil: 0.0020219 kg C/kg dry mass\nCarbon content, non-fossil: 0.41662 kg C/kg dry mass\nDry mass: 0.945 kg\nHeating value, net: 14.11 MJ\nWet mass: 1 kg",
-    "density": 0,
-    "displayName": "Papier",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "0835ba67-1168-5dab-a2a5-b6508ed48ade",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 79.723,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pef": 83.241,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "location": "RER",
     "scopes": [
       "food"
     ],
@@ -1602,7 +1518,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "location": "GLO",
+    "location": "RoW",
     "scopes": [
       "veli"
     ],
@@ -1729,7 +1645,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "location": "GLO",
+    "location": "RER",
     "scopes": [
       "object"
     ],
@@ -1826,48 +1742,6 @@
     "waste": 0
   },
   {
-    "activityName": "Polyethylene, high density, granulate {RER}| production | Cut-off, S - Copied from Ecoinvent U",
-    "categories": [
-      "packaging"
-    ],
-    "comment": "Reference Product\nProperties\nCarbon content, fossil: 0.857142857142857 kg C/kg dry mass\nCarbon content, non-fossil: 0 kg C/kg dry mass\nDry mass: 1 kg\nHeating value, net: 42.47 MJ\nWet mass: 1 kg",
-    "density": 0,
-    "displayName": "Polyéthylène haute densité",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "174ad4a0-c386-5a34-abba-c7cc1839701b",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 170.98,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pef": 197.78,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "location": "RER",
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg",
-    "waste": 0
-  },
-  {
     "activityName": "Cow milk, organic, national average, at farm gate FR U, constructed by Ecobalyse",
     "categories": [
       "ingredient"
@@ -1901,7 +1775,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "location": "GLO",
+    "location": "FR",
     "scopes": [
       "food"
     ],
@@ -2071,7 +1945,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "location": "GLO",
+    "location": null,
     "scopes": [
       "veli"
     ],
@@ -2876,7 +2750,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "location": "GLO",
+    "location": null,
     "scopes": [
       "veli"
     ],
@@ -3342,7 +3216,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "location": "GLO",
+    "location": "RER",
     "scopes": [
       "veli"
     ],
@@ -3432,48 +3306,6 @@
       "textile"
     ],
     "source": "Ecoinvent 3.9.1",
-    "unit": "kg",
-    "waste": 0
-  },
-  {
-    "activityName": "Polyvinylchloride, suspension polymerised {RER}| polyvinylchloride production, suspension polymerisation | Cut-off, S - Copied from Ecoinvent U",
-    "categories": [
-      "packaging"
-    ],
-    "comment": "Reference Product\nProperties\nCarbon content, fossil: 0.387096774193548 kg C/kg dry mass\nCarbon content, non-fossil: 0 kg C/kg dry mass\nDry mass: 1 kg\nHeating value, net: 21.5 MJ\nWet mass: 1 kg",
-    "density": 0,
-    "displayName": "PVC",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "28fc90df-448e-5a31-994d-2fd83208747e",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 191.12,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pef": 208.92,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "location": "RER",
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
   },
@@ -4151,48 +3983,6 @@
     "waste": 0
   },
   {
-    "activityName": "Packaging glass, white {RER w/o CH+DE}| production | Cut-off, S - Copied from Ecoinvent U",
-    "categories": [
-      "packaging"
-    ],
-    "comment": "Properties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0 kg C/kg dry mass\nDry mass: 1 kg\nWet mass: 1 kg",
-    "density": 0,
-    "displayName": "Verre",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "318cc7ba-e796-5f12-b93e-f704f01a3f05",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 85.603,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pef": 89.234,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "location": "RER w/o CH+DE",
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg",
-    "waste": 0
-  },
-  {
     "activityName": "Cherry, at farm (WFLDB)",
     "categories": [
       "ingredient"
@@ -4235,11 +4025,11 @@
     "waste": 0
   },
   {
-    "activityName": "transport, freight, aircraft, long haul//[GLO] market for transport, freight, aircraft, long haul",
+    "activityName": "market for transport, freight, aircraft, long haul, with longtails, GLO, constructed by Ecobalyse",
     "categories": [
       "transport"
     ],
-    "comment": "Ancien identifiant (12/2024): d3130e7ed9686fcc4bbe980e0375ad88.",
+    "comment": "Ancien identifiant : d3130e7ed9686fcc4bbe980e0375ad88 (12/2024) ; puis ajout des trainées (12/2025)",
     "density": 0,
     "displayName": "transport aérien long-courrier",
     "elecMJ": 0,
@@ -4248,7 +4038,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 59.316,
+      "ecs": 88.593,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4262,7 +4052,7 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 57.096,
+      "pef": 86.372,
       "pma": 0,
       "swe": 0,
       "tre": 0,
@@ -4273,50 +4063,8 @@
       "textile",
       "food"
     ],
-    "source": "Ecoinvent 3.9.1",
+    "source": "Ecobalyse",
     "unit": "t⋅km",
-    "waste": 0
-  },
-  {
-    "activityName": "Polyethylene terephthalate, granulate, bottle grade {RER}| production | Cut-off, S - Copied from Ecoinvent U",
-    "categories": [
-      "packaging"
-    ],
-    "comment": "Reference Product\nProperties\nCarbon content, fossil: 0.625 kg C/kg dry mass\nCarbon content, non-fossil: 0 kg C/kg dry mass\nDry mass: 1 kg\nHeating value, net: 22.95 MJ\nWet mass: 1 kg",
-    "density": 0,
-    "displayName": "PET",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "327429d4-c20d-5e3e-85bd-161b151130ae",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 569.79,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pef": 684.0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "location": "RER",
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg",
     "waste": 0
   },
   {
@@ -4959,8 +4707,7 @@
     "activityName": "steel, unalloyed//[RER] steel production, converter, unalloyed",
     "categories": [
       "material",
-      "material_type:metal",
-      "packaging"
+      "material_type:metal"
     ],
     "comment": "",
     "density": 0,
@@ -4993,7 +4740,6 @@
     },
     "location": "RER",
     "scopes": [
-      "food",
       "object",
       "veli"
     ],
@@ -5423,6 +5169,48 @@
     ],
     "source": "Custom",
     "unit": "t⋅km",
+    "waste": 0
+  },
+  {
+    "activityName": "Fresh sausages, 330g | Packaging System, N0, All, PP Tray with Lid {FR} U",
+    "categories": [
+      "packaging"
+    ],
+    "comment": "",
+    "density": 0,
+    "displayName": "Barquette en plastique (APET) pour saucisse fraîche - 250g à 330g",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "3f5a7b9c-1d2e-3f4a-5b6c-7d8e9f0a1b2c",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 20.941,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pef": 21.62,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "FR",
+    "scopes": [
+      "food"
+    ],
+    "source": "Agribalyse 3.2",
+    "unit": "kg",
     "waste": 0
   },
   {
@@ -7702,7 +7490,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "location": "GLO",
+    "location": "RER",
     "scopes": [
       "veli"
     ],
@@ -8986,6 +8774,48 @@
     "waste": 0
   },
   {
+    "activityName": "Dairy desserts - cat A, 500g | Packaging System, N0, All, Cardboard pots pack {FR} U",
+    "categories": [
+      "packaging"
+    ],
+    "comment": "?",
+    "density": 0,
+    "displayName": "Lot de 4 pots (complexes avec carton) pour produits laitiers - 500g",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "6b8d0e2f-4a6c-8e0f-2a4b-6c8d0e2f4a6c",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 54.654,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pef": 54.798,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "FR",
+    "scopes": [
+      "food"
+    ],
+    "source": "Agribalyse 3.2",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "Oilseed meal mix, as feed, at regional warehouse, as DM {RER} - Adapted from WFLDB U",
     "categories": [
       "ingredient"
@@ -9658,7 +9488,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "location": "GLO",
+    "location": "FR",
     "scopes": [
       "veli"
     ],
@@ -10598,20 +10428,20 @@
     "waste": 0
   },
   {
-    "activityName": "Polypropylene, granulate {RER}| production | Cut-off, S - Copied from Ecoinvent U",
+    "activityName": "Milk, other than from cow, 1000g | Packaging System, N0, All, HDPE bottle {FR} U",
     "categories": [
       "packaging"
     ],
-    "comment": "Reference Product\nProperties\nCarbon content, fossil: 0.857142857142857 kg C/kg dry mass\nCarbon content, non-fossil: 0 kg C/kg dry mass\nDry mass: 1 kg\nHeating value, net: 32.78 MJ\nWet mass: 1 kg",
+    "comment": "?",
     "density": 0,
-    "displayName": "Polypropylène",
+    "displayName": "Bouteille en plastique (PEHD) pour lait - 1L",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "7e2f2f7a-d94c-57d0-93b3-760bc8dc3838",
+    "id": "7e8f9a3d-2b4c-4d5e-8f9a-1b2c3d4e5f6a",
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 168.4,
+      "ecs": 10.019,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -10625,13 +10455,13 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 195.49,
+      "pef": 10.864,
       "pma": 0,
       "swe": 0,
       "tre": 0,
       "wtu": 0
     },
-    "location": "RER",
+    "location": "FR",
     "scopes": [
       "food"
     ],
@@ -11014,48 +10844,6 @@
       "wtu": 0
     },
     "location": "TR",
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg",
-    "waste": 0
-  },
-  {
-    "activityName": "Packaging film, low density polyethylene {RER}| production | Cut-off, S - Copied from Ecoinvent U",
-    "categories": [
-      "packaging"
-    ],
-    "comment": "EcoSpold01Location=RER\nProperties\nCarbon content, fossil: 0.857142857142857 kg C/kg dry mass\nCarbon content, non-fossil: 0 kg C/kg dry mass\nDry mass: 1 kg\nHeating value, net: 42.47 MJ\nWet mass: 1 kg",
-    "density": 0,
-    "displayName": "Polyéthylène basse densité",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "84220670-dac3-5820-8d09-eaffde5b2ee2",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 245.89,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pef": 272.24,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "location": "RER",
     "scopes": [
       "food"
     ],
@@ -12120,7 +11908,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "location": "GLO",
+    "location": null,
     "scopes": [
       "veli"
     ],
@@ -12460,7 +12248,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "location": "GLO",
+    "location": "CN",
     "scopes": [
       "veli"
     ],
@@ -13141,7 +12929,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "location": "GLO",
+    "location": "Europe without Switzerland",
     "scopes": [
       "object",
       "veli"
@@ -13396,6 +13184,48 @@
       "wtu": 0
     },
     "location": "MA",
+    "scopes": [
+      "food"
+    ],
+    "source": "Agribalyse 3.2",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Fish products mackerel, ambient, 169g | Packaging System, N0, All, Aluminium can {FR} U",
+    "categories": [
+      "packaging"
+    ],
+    "comment": "",
+    "density": 0,
+    "displayName": "Boîte en aluminium imprimée pour maquereau, ambiant - 169g",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "9c1d2e3f-4a5b-6c7d-8e9f-0a1b2c3d4e5f",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 70.154,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pef": 75.751,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "FR",
     "scopes": [
       "food"
     ],
@@ -14962,7 +14792,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "location": "GLO",
+    "location": "CN",
     "scopes": [
       "veli"
     ],
@@ -17124,7 +16954,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "location": "GLO",
+    "location": "FR",
     "scopes": [
       "food"
     ],
@@ -17594,7 +17424,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "location": "GLO",
+    "location": "RoW",
     "scopes": [
       "veli"
     ],
@@ -17809,6 +17639,48 @@
       "food"
     ],
     "source": "Ginko 2025",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Still wine, 75cl | Packaging System, N0, All, Glass bottle (green) 450g with cork stopper {FR} U",
+    "categories": [
+      "packaging"
+    ],
+    "comment": "",
+    "density": 0,
+    "displayName": "Bouteille de vin en verre (couleur: vert) 75cl, 450g, bouchon en liège",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "d10b53b4-c4f5-42c1-a093-7e7e1b4f07b6",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 58.227,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pef": 52.044,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "FR",
+    "scopes": [
+      "food"
+    ],
+    "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
   },
@@ -19157,7 +19029,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "location": "GLO",
+    "location": "IN",
     "scopes": [
       "veli"
     ],
@@ -20048,7 +19920,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "location": "GLO",
+    "location": null,
     "scopes": [
       "veli"
     ],
@@ -20266,48 +20138,6 @@
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
-    "waste": 0
-  },
-  {
-    "activityName": "Corrugated board box {RER}| production | Cut-off, S - Copied from Ecoinvent U",
-    "categories": [
-      "packaging"
-    ],
-    "comment": "Properties\nCarbon content, fossil: 0.00365436916119075 kg C/kg dry mass\nCarbon content, non-fossil: 0.450247687297085 kg C/kg dry mass\nDry mass: 0.945 kg\nHeating value, net: 12.86 MJ\nWet mass: 1 kg",
-    "density": 0,
-    "displayName": "Carton",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "edefa2be-abe4-5bb6-b0fc-0f666050dcc1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 93.406,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pef": 85.857,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "location": "RER",
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg",
     "waste": 0
   },
   {
@@ -21707,48 +21537,6 @@
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
-    "waste": 0
-  },
-  {
-    "activityName": "Aluminium, primary, ingot {RoW}| production | Cut-off, S - Copied from Ecoinvent U",
-    "categories": [
-      "packaging"
-    ],
-    "comment": "Annual production\nProperties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0 kg C/kg dry mass\nDry mass: 1 kg\nWet mass: 1 kg",
-    "density": 0,
-    "displayName": "Aluminium",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "fe7de139-f149-52fb-9f33-d1824cd38ac1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 1501.1,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pef": 1651.0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "location": "RoW",
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg",
     "waste": 0
   },
   {
