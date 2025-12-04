@@ -10,7 +10,6 @@ import Data.Component as Component
         , ExpandedElement
         , ExpandedItem
         , Index
-        , Item
         , LifeCycle
         , Quantity
         , Query
@@ -147,8 +146,8 @@ addElementTransformButton { db, openSelectProcessModal, query, scope } material 
         ]
 
 
-componentView : Config db msg -> Index -> Item -> ExpandedItem -> Results -> List (Html msg)
-componentView config itemIndex item { component, country, elements, quantity } itemResults =
+componentView : Config db msg -> Index -> ExpandedItem -> Results -> List (Html msg)
+componentView config itemIndex ({ component, country, elements, quantity } as expandedItem) itemResults =
     let
         collapsed =
             config.detailed
@@ -214,10 +213,7 @@ componentView config itemIndex item { component, country, elements, quantity } i
                                     , class "form-control"
                                     , onInput (config.updateItemName ( component, itemIndex ))
                                     , placeholder "Nom du composant"
-                                    , item.custom
-                                        |> Maybe.andThen .name
-                                        |> Maybe.withDefault component.name
-                                        |> value
+                                    , value component.name
                                     ]
                                     []
                                 , countrySelector
@@ -256,68 +252,79 @@ componentView config itemIndex item { component, country, elements, quantity } i
                 ]
           ]
         , if not collapsed then
-            tr [ class "bg-light border-bottom" ]
-                [ th [] []
-                , th [ class "pb-1", colspan 6 ] [ text "Composition" ]
-                ]
-                :: (if List.isEmpty elements then
-                        [ tr [] [ th [] [], td [] [ text "Aucun élément" ] ] ]
-
-                    else
-                        List.map3
-                            (elementView config ( component, itemIndex ))
-                            (List.range 0 (List.length elements - 1))
-                            elements
-                            (Component.extractItems itemResults)
-                   )
-                ++ [ tr [ class "border-top" ]
-                        [ td [ colspan 7, class "pe-3" ]
-                            [ addElementButton config ( component, itemIndex )
-                            ]
-                        ]
-                   , tr [ class "bg-light border-top border-bottom" ]
-                        [ th [] []
-                        , th [ class "pb-1", colspan 6 ] [ text "Acheminement vers assemblage" ]
-                        ]
-                   , Component.extractMass itemResults
-                        |> componentTransportToAssembly config country
-                   ]
+            componentDetailedView config elements itemIndex expandedItem itemResults
 
           else
             []
         ]
 
 
-componentTransportToAssembly : Config db msg -> Maybe Country -> Mass -> Html msg
-componentTransportToAssembly { componentConfig, db, impact, query } country mass =
+componentDetailedView : Config db msg -> List ExpandedElement -> Index -> ExpandedItem -> Results -> List (Html msg)
+componentDetailedView config elements itemIndex expandedItem itemResults =
+    List.concat
+        [ [ tr [ class "bg-light border-bottom" ]
+                [ th [] []
+                , th [ class "pb-1", colspan 6 ] [ text "Composition" ]
+                ]
+          ]
+        , if List.isEmpty elements then
+            [ tr []
+                [ th [] []
+                , td [] [ text "Aucun élément" ]
+                ]
+            ]
+
+          else
+            List.map3
+                (elementView config ( expandedItem.component, itemIndex ))
+                (List.range 0 (List.length elements - 1))
+                elements
+                (Component.extractItems itemResults)
+        , [ tr [ class "border-top" ]
+                [ td [ colspan 7, class "pe-3" ]
+                    [ addElementButton config ( expandedItem.component, itemIndex )
+                    ]
+                ]
+          ]
+        , if List.length config.query.items > 1 then
+            [ tr [ class "bg-light border-top border-bottom" ]
+                [ th [] []
+                , th [ class "pb-1", colspan 6 ] [ text "Acheminement vers assemblage" ]
+                ]
+            , componentTransportToAssembly config expandedItem itemResults
+            ]
+
+          else
+            []
+        ]
+
+
+componentTransportToAssembly : Config db msg -> ExpandedItem -> Results -> Html msg
+componentTransportToAssembly { componentConfig, db, impact, query, scope } expandedItem itemResults =
     let
         ( label, transports ) =
-            case
-                ( country
-                , query.assemblyCountry
-                    |> Maybe.andThen
-                        (\code ->
-                            db.countries
-                                |> Country.findByCode code
-                                |> Result.toMaybe
-                        )
-                )
-            of
-                ( Just from, Just to ) ->
-                    ( from.name ++ " → " ++ to.name
-                    , db.distances
-                        |> Transport.getTransportBetween Impact.empty from.code to.code
-                        |> Transport.applyTransportRatios Split.zero
+            case Country.resolveMaybe query.assemblyCountry db.countries of
+                Err error ->
+                    ( span [ class "text-danger" ] [ text <| "Erreur\u{00A0}: " ++ error ]
+                    , Transport.default Impact.empty
                     )
 
-                _ ->
-                    ( "Trajet inconnu majoré", componentConfig.transports.defaultDistance )
+                Ok assemblyCountry ->
+                    Tuple.mapFirst text <|
+                        Component.computeItemTransportToAssembly
+                            { config = componentConfig, db = db, scope = scope }
+                            assemblyCountry
+                            expandedItem
+                            itemResults
+
+        mass =
+            Component.extractMass itemResults
     in
     tr [ class "fs-7" ]
         [ td [] []
         , td [ class "py-1", colspan 3 ]
-            [ div [ class "d-flex justify-content-between align-items-center gap-2" ]
-                [ span [ class "fw-bold" ] [ text label ]
+            [ div [ class "d-flex justify-content-between align-items-center gap-2 ps-0" ]
+                [ span [ class "fw-bold" ] [ label ]
                 , div [ class "d-flex justify-content-between align-items-center gap-2" ]
                     [ Icon.boat
                     , Format.km transports.sea
@@ -329,11 +336,7 @@ componentTransportToAssembly { componentConfig, db, impact, query } country mass
         , td [ class "text-end" ]
             [ Format.kg mass ]
         , td [ class "text-end" ]
-            [ transports
-                |> Transport.computeImpacts componentConfig.transports.modeProcesses mass
-                |> .impacts
-                |> Format.formatImpact impact
-            ]
+            [ transports |> .impacts |> Format.formatImpact impact ]
         , td [] []
         ]
 
@@ -451,9 +454,8 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, maxItems, query, scope, tit
                                     text ""
                                  )
                                     :: List.concat
-                                        (List.map4 (componentView config)
+                                        (List.map3 (componentView config)
                                             (List.range 0 (List.length query.items - 1))
-                                            query.items
                                             expandedItems
                                             (Component.extractItems lifeCycle.production)
                                         )
@@ -469,7 +471,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, maxItems, query, scope, tit
             div []
                 [ DownArrow.view
                     [ div [ class "d-flex justify-content-end align-items-center gap-1" ]
-                        [ text "Transport", span [] [ Icon.package, Icon.package, Icon.package ] ]
+                        [ text "Transport", span [] [ Icon.package, Icon.forkWay, Icon.package ] ]
                     ]
                     [ div [ class "d-flex gap-2" ]
                         [ lifeCycle.transports.toAssembly.impacts
@@ -624,7 +626,7 @@ elementView config targetItem elementIndex { amount, country, material, transfor
     tbody []
         (tr [ class "fs-7 text-muted" ]
             [ th [] []
-            , th [ class "align-middle", scope "col" ]
+            , th [ class "align-middle ps-0", scope "col" ]
                 [ if material.unit == Process.Kilogram then
                     text "Masse finale"
 

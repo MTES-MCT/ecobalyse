@@ -56,6 +56,11 @@ fileExport =
     icon "file-export"
 
 
+forkWay : Html msg
+forkWay =
+    icon "fork-way"
+
+
 ham : Html msg
 ham =
     icon "ham"

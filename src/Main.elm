@@ -92,7 +92,7 @@ type Msg
     | AppMsg App.Msg
     | AuthMsg Auth.Msg
     | ComponentAdminMsg ComponentAdmin.Msg
-    | ComponentConfigReceived (WebData Component.Config)
+    | ComponentConfigReceived Url (WebData Component.Config)
     | DetailedProcessesReceived (BackendHttp.WebData String)
     | EditorialMsg Editorial.Msg
     | ExploreMsg Explore.Msg
@@ -145,7 +145,7 @@ init flags requestedUrl navKey =
                 , Cmd.batch
                     [ Ports.appStarted ()
                     , ComponentConfig.decode db.processes
-                        |> Http.get "/data/components/config.json" ComponentConfigReceived
+                        |> Http.get "/data/components/config.json" (ComponentConfigReceived requestedUrl)
                     , Request.Version.loadVersion VersionReceived
                     , Request.Github.getReleases ReleasesReceived
                     , if Session.isAuthenticated session then
@@ -416,17 +416,18 @@ update rawMsg ({ state } as model) =
                     ComponentAdmin.update session adminMsg adminModel
                         |> toPage session model Cmd.none ComponentAdminPage ComponentAdminMsg
 
-                ( ComponentConfigReceived (RemoteData.Success componentConfig), currentPage ) ->
-                    ( { model | state = currentPage |> Loaded { session | componentConfig = componentConfig } }
-                    , Cmd.none
-                    )
+                ( ComponentConfigReceived requestedUrl (RemoteData.Success componentConfig), currentPage ) ->
+                    setRoute requestedUrl
+                        ( { model | state = currentPage |> Loaded { session | componentConfig = componentConfig } }
+                        , Cmd.none
+                        )
 
-                ( ComponentConfigReceived (RemoteData.Failure _), _ ) ->
+                ( ComponentConfigReceived _ (RemoteData.Failure _), _ ) ->
                     notifyError model "Erreur" <|
                         "Impossible de charger la configuration des composants. Une configuration par défaut sera"
                             ++ " utilisée, les résultats fournis sont probablement invalides ou incomplets."
 
-                ( ComponentConfigReceived _, _ ) ->
+                ( ComponentConfigReceived _ _, _ ) ->
                     ( model, Cmd.none )
 
                 ( ProcessAdminMsg adminMsg, ProcessAdminPage adminModel ) ->

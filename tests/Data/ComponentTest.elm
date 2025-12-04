@@ -450,6 +450,40 @@ suite =
                     )
                  ]
                 )
+            , describe "computeTransports"
+                [ TestUtils.suiteFromResult2 "unknown locations"
+                    -- setup
+                    ("""[{ "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }]"""
+                        |> decodeJsonThen (Decode.list Component.decodeItem) (computeWithTestConfig db)
+                    )
+                    ("""[ { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 },
+                          { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
+                        ]"""
+                        |> decodeJsonThen (Decode.list Component.decodeItem) (computeWithTestConfig db)
+                    )
+                    -- tests
+                    (\singleItem multipleItems ->
+                        [ it "should not add transports to assembly when a single item is shipped"
+                            (singleItem
+                                |> .transports
+                                |> .toAssembly
+                                |> .impacts
+                                |> Impact.getImpact Definition.Ecs
+                                |> Unit.impactToFloat
+                                |> Expect.equal 0
+                            )
+                        , it "should add transports to assembly when multiple items are shipped"
+                            (multipleItems
+                                |> .transports
+                                |> .toAssembly
+                                |> .impacts
+                                |> Impact.getImpact Definition.Ecs
+                                |> Unit.impactToFloat
+                                |> Expect.greaterThan 0
+                            )
+                        ]
+                    )
+                ]
             , TestUtils.suiteFromResult "itemToComponent"
                 -- setup
                 ("""{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
@@ -824,9 +858,9 @@ testComponentConfig processes =
             },
             "transports": {
                 "defaultDistance": {
-                    "air": 0,
-                    "road": 0,
-                    "sea": 0
+                    "air": 10000,
+                    "road": null,
+                    "sea": 18000
                 },
                 "modeProcesses": {
                     "boat": "20a62b2c-a543-5076-83aa-c5b7d340206a",
