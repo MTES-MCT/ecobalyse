@@ -471,7 +471,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, maxItems, query, scope, tit
             div []
                 [ DownArrow.view
                     [ div [ class "d-flex justify-content-end align-items-center gap-1" ]
-                        [ text "Transport", span [] [ Icon.package, Icon.package, Icon.package ] ]
+                        [ text "Transport", span [] [ Icon.package, Icon.forkWay, Icon.package ] ]
                     ]
                     [ div [ class "d-flex gap-2" ]
                         [ lifeCycle.transports.toAssembly.impacts
