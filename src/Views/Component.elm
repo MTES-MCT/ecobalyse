@@ -323,7 +323,7 @@ componentTransportToAssembly { componentConfig, db, impact, query, scope } expan
     tr [ class "fs-7" ]
         [ td [] []
         , td [ class "py-1", colspan 3 ]
-            [ div [ class "d-flex justify-content-between align-items-center gap-2" ]
+            [ div [ class "d-flex justify-content-between align-items-center gap-2 ps-0" ]
                 [ span [ class "fw-bold" ] [ label ]
                 , div [ class "d-flex justify-content-between align-items-center gap-2" ]
                     [ Icon.boat
@@ -626,7 +626,7 @@ elementView config targetItem elementIndex { amount, country, material, transfor
     tbody []
         (tr [ class "fs-7 text-muted" ]
             [ th [] []
-            , th [ class "align-middle", scope "col" ]
+            , th [ class "align-middle ps-0", scope "col" ]
                 [ if material.unit == Process.Kilogram then
                     text "Masse finale"
 
