@@ -1300,7 +1300,7 @@ mapAmount fn (Amount float) =
 
 mapItems : (List Item -> List Item) -> Query -> Query
 mapItems fn query =
-    { query | items = fn query.items }
+    setQueryItems (fn query.items) query
 
 
 parseBase64Query : Parser (Maybe Query -> a) a
@@ -1385,9 +1385,20 @@ setElementMaterial targetElement material items =
             |> Ok
 
 
+{-| Sets query items, adapting the country of assembly if needed
+-}
 setQueryItems : List Item -> Query -> Query
 setQueryItems items query =
-    { query | items = items }
+    { query
+        | assemblyCountry =
+            if List.length items > 1 then
+                query.assemblyCountry
+
+            else
+                -- reset assembly country if no or single item
+                Nothing
+        , items = items
+    }
 
 
 stagesImpacts : LifeCycle -> StagesImpacts
@@ -1442,7 +1453,7 @@ sumLifeCycleImpacts lifeCycle =
 tryMapItems : (List Item -> Result String (List Item)) -> Query -> Result String Query
 tryMapItems fn query =
     fn query.items
-        |> Result.map (\items -> { query | items = items })
+        |> Result.map (\items -> setQueryItems items query)
 
 
 updateCustom : Component -> (Custom -> Custom) -> Maybe Custom -> Maybe Custom
