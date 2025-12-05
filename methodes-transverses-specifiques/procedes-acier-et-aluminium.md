@@ -30,22 +30,27 @@ Cependant, on peut prendre l'hypothèse que l'acier qu'il achète correspond au 
 
 ## Procédés utilisés pour le coût environnemental
 
-Des procédés Acier et Aluminium ont été construits pour plusieurs zones géographiques à partir des travaux menés par le Service Transport et Mobilité de l'ADEME. Ces travaux ont permis de créer :
-
-* 6 procédés pour l'Acier :&#x20;
-  * Acier vierge, acier recyclé, mix vierge + recyclé
-  * Pour chacun, deux géographies : Europe et Reste du Monde
-* 7 procédés pour l'aluminium :&#x20;
-  * Aluminium vierge, Aluminium recyclé, mix vierge + recyclé
-  * 3 géographies pour l'aluminium vierge : Europe, Inde, Reste du Monde
-  * 1 procéé pour l'aluminium recyclé
-  * 3 géographies pour le mix : Europe, Chine, Reste du Monde)
-
-Les procédés construits sont identifiés dans l'[Explorateur de procédé](https://ecobalyse.beta.gouv.fr/#/explore/textile/textile-processes).
+Des procédés Acier et Aluminium ont été construits pour plusieurs zones géographiques à partir des travaux menés par le Service Transport et Mobilité de l'ADEME.&#x20;
 
 {% hint style="info" %}
 Les travaux du Service Transport et Mobilité de l'ADEME ont permis la construction de facteurs d'émissions (impact sur le changement climatique uniquement) pour tous les pays producteurs de véhicules électriques (plus de 30) et trois zones géographiques complémentaires. A ce stade, à des fins de simplicité et de lisibilité pour l'utilisateur, seule une partie est construite dans Ecobalyse, représentative des résultats obtenus.
 {% endhint %}
+
+Pour Ecobalyse, les procédés suivants ont été créés :
+
+* 5 procédés pour l'Acier :&#x20;
+  * Acier vierge, acier recyclé, mix vierge + recyclé
+  * 1 procédé pour l'acier vierge
+  * 2 géographies pour l'acier recyclé et le mix : Europe et Reste du Monde
+* 7 procédés pour l'aluminium :&#x20;
+  * Aluminium vierge, Aluminium recyclé, mix vierge + recyclé
+  * 3 géographies pour l'aluminium vierge : Europe, Inde, Reste du Monde
+  * 1 procédé pour l'aluminium recyclé
+  * 3 géographies pour le mix : Europe, Chine, Reste du Monde.
+
+Les procédés construits sont identifiés dans l'[Explorateur de procédé](https://ecobalyse.beta.gouv.fr/#/explore/textile/textile-processes).
+
+<figure><img src="../.gitbook/assets/image (385).png" alt=""><figcaption></figcaption></figure>
 
 ### Acier :&#x20;
 
