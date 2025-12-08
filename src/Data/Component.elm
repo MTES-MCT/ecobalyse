@@ -659,41 +659,29 @@ computeTransports : Requirements db -> Query -> LifeCycle -> Result String LifeC
 computeTransports ({ config, db } as req) query lifeCycle =
     Result.map2
         (\expandedItems maybeAssemblyCountry ->
-            let
-                toAssembly =
-                    -- Only convey multiple items to assembly step
-                    -- TODO: refactor query to handle this through types https://github.com/MTES-MCT/ecobalyse/issues/1609
-                    if List.length query.items > 1 then
-                        expandedItems
-                            |> List.indexedMap
-                                (\index item ->
-                                    lifeCycle.production
-                                        |> extractItems
-                                        |> LE.getAt index
-                                        |> Maybe.map (computeItemTransportToAssembly req maybeAssemblyCountry item >> Tuple.second)
-                                )
-                            |> List.filterMap identity
-                            |> Transport.sum
-
-                    else
-                        Transport.default Impact.empty
-
-                toDistribution =
-                    case query.assemblyCountry of
-                        Just assemblyCountry ->
-                            -- Note: distribution is always France
-                            db.distances
-                                |> Transport.getTransportBetween Impact.empty assemblyCountry (Country.Code "FR")
-
-                        Nothing ->
-                            config.transports.defaultDistance
-            in
-            -- Note: for now it's assumed there's never air transport
             { lifeCycle
                 | transports =
-                    { toAssembly = toAssembly
+                    -- Note: for now it's assumed there's never air transport
+                    { toAssembly =
+                        -- Only convey multiple items to assembly step
+                        -- TODO: refactor query to handle this through types https://github.com/MTES-MCT/ecobalyse/issues/1609
+                        if List.length query.items > 1 then
+                            expandedItems
+                                |> List.indexedMap
+                                    (\index item ->
+                                        lifeCycle.production
+                                            |> extractItems
+                                            |> LE.getAt index
+                                            |> Maybe.map (computeItemTransportToAssembly req maybeAssemblyCountry item >> Tuple.second)
+                                    )
+                                |> List.filterMap identity
+                                |> Transport.sum
+
+                        else
+                            Transport.default Impact.empty
                     , toDistribution =
-                        toDistribution
+                        expandedItems
+                            |> computeDistributionTransports req maybeAssemblyCountry
                             |> Transport.applyTransportRatios Split.zero
                             |> Transport.computeImpacts config.transports.modeProcesses (extractMass lifeCycle.production)
                     }
@@ -701,6 +689,32 @@ computeTransports ({ config, db } as req) query lifeCycle =
         )
         (expandItems db query.items)
         (Country.resolveMaybe query.assemblyCountry db.countries)
+
+
+{-| Computes transports of components from either their respective country of production or country
+of assembly to France.
+-}
+computeDistributionTransports : Requirements db -> Maybe Country -> List ExpandedItem -> Transport
+computeDistributionTransports { config, db } maybeAssemblyCountry items =
+    case ( items, maybeAssemblyCountry ) of
+        -- No items at all
+        ( [], _ ) ->
+            Transport.default Impact.empty
+
+        -- Single item, no possible assembly country
+        ( [ { country } ], _ ) ->
+            country
+                |> Maybe.map (\{ code } -> db.distances |> Transport.getTransportBetween Impact.empty code (Country.Code "FR"))
+                |> Maybe.withDefault config.transports.defaultDistance
+
+        -- Many items, assembly country specified
+        ( _, Just { code } ) ->
+            db.distances
+                |> Transport.getTransportBetween Impact.empty code (Country.Code "FR")
+
+        -- Many items, no assembly country specified
+        ( _, Nothing ) ->
+            config.transports.defaultDistance
 
 
 createItem : Id -> Item
