@@ -691,8 +691,8 @@ computeTransports ({ config, db } as req) query lifeCycle =
         (Country.resolveMaybe query.assemblyCountry db.countries)
 
 
-{-| Computes transports of components from either their respective country of production or country
-of assembly to France.
+{-| Computes transports of components from the number of shipped items, and either their respective country
+of production or country of assembly to France (the only possible distribution destination).
 -}
 computeDistributionTransports : Requirements db -> Maybe Country -> List ExpandedItem -> Transport
 computeDistributionTransports { config, db } maybeAssemblyCountry items =
@@ -704,7 +704,11 @@ computeDistributionTransports { config, db } maybeAssemblyCountry items =
         -- Single item, no possible assembly country
         ( [ { country } ], _ ) ->
             country
-                |> Maybe.map (\{ code } -> db.distances |> Transport.getTransportBetween Impact.empty code (Country.Code "FR"))
+                |> Maybe.map
+                    (\{ code } ->
+                        db.distances
+                            |> Transport.getTransportBetween Impact.empty code (Country.Code "FR")
+                    )
                 |> Maybe.withDefault config.transports.defaultDistance
 
         -- Many items, assembly country specified
