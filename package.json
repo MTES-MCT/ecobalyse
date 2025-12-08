@@ -86,7 +86,7 @@
     "highcharts": "^12.4.0",
     "jest": "^30.2.0",
     "maildev": "^2.2.1",
-    "nodemon": "^3.1.10",
+    "nodemon": "^3.1.11",
     "npm-check-updates": "^19.1.0",
     "parcel": "^2.16.1",
     "prettier": "^3.6.2",
