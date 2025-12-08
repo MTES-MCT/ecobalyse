@@ -154,7 +154,7 @@ executeTextileQuery request db encoder query =
     -- for trims so only the production stage impacts are taken into account.
     -- This might change if we ever want to compute, say, EoL impacts for trims: then we should apply a
     -- non-passthrough component configuration like the one used for other scopes like Object and Veli.
-    Component.defaultConfig db.processes
+    Component.defaultConfig db.processes db.countries
         |> Result.map
             (\config ->
                 query

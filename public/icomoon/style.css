@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?tt6not');
-  src:  url('fonts/icomoon.eot?tt6not#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?tt6not') format('truetype'),
-    url('fonts/icomoon.woff?tt6not') format('woff'),
-    url('fonts/icomoon.svg?tt6not#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?e214z6');
+  src:  url('fonts/icomoon.eot?e214z6#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?e214z6') format('truetype'),
+    url('fonts/icomoon.woff?e214z6') format('woff'),
+    url('fonts/icomoon.svg?e214z6#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -63,6 +63,9 @@
 }
 .icon-cancel:before {
   content: "\e905";
+}
+.icon-fork-way:before {
+  content: "\e913";
 }
 .icon-mail:before {
   content: "\e90e";

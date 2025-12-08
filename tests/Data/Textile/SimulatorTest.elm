@@ -21,7 +21,7 @@ import TestUtils exposing (asTest, suiteFromResult, suiteWithDb, tShirtCotonFran
 getImpact : Db -> Definition.Trigram -> Query -> Result String Float
 getImpact db trigram query =
     -- Note: Tesxtile trims use the default component config which only provide production stage impacts.
-    Component.defaultConfig db.processes
+    Component.defaultConfig db.processes db.countries
         |> Result.andThen
             (\config ->
                 query
@@ -53,7 +53,7 @@ ecs =
 computeWithDefaultComponentConfig : Db -> Query -> Result String Simulator
 computeWithDefaultComponentConfig db query =
     -- Note: Tesxtile trims use the default component config which only provide production stage impacts.
-    Component.defaultConfig db.processes
+    Component.defaultConfig db.processes db.countries
         |> Result.andThen (\config -> query |> Simulator.compute db config)
 
 
@@ -218,7 +218,7 @@ suite =
                     tShirtCotonFrance
                     (\query ->
                         [ -- Note: Tesxtile trims use the default component config which only provide production stage impacts.
-                          Component.defaultConfig db.processes
+                          Component.defaultConfig db.processes db.countries
                             |> Result.andThen
                                 (\config ->
                                     query |> Simulator.compute db config
