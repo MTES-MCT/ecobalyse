@@ -1,4 +1,7 @@
 {
+  "distribution": {
+    "country": "FR"
+  },
   "endOfLife": {
     "scopeCollectionRates": {
       "object": 70

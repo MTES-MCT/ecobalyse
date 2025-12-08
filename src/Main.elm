@@ -117,7 +117,7 @@ init flags requestedUrl navKey =
             StaticDb.db StaticJson.processesJson
                 |> Result.andThen
                     (\db ->
-                        Component.defaultConfig db.processes
+                        Component.defaultConfig db.processes db.countries
                             |> Result.map (Tuple.pair db)
                     )
          of
@@ -144,7 +144,7 @@ init flags requestedUrl navKey =
                   }
                 , Cmd.batch
                     [ Ports.appStarted ()
-                    , ComponentConfig.decode db.processes
+                    , ComponentConfig.decode db.processes db.countries
                         |> Http.get "/data/components/config.json" (ComponentConfigReceived requestedUrl)
                     , Request.Version.loadVersion VersionReceived
                     , Request.Github.getReleases ReleasesReceived

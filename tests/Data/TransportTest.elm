@@ -96,7 +96,7 @@ suite =
                     ]
                 ]
             , TestUtils.suiteFromResult "computeImpacts"
-                (ComponentConfig.default db.processes)
+                (ComponentConfig.default db.processes db.countries)
                 (\{ transports } ->
                     [ it "should compute transport impacts"
                         (chinaToFrance

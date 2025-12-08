@@ -5,6 +5,7 @@ module Data.Country exposing
     , codeFromString
     , codeToString
     , decodeCode
+    , decodeFromCode
     , decodeList
     , encode
     , encodeCode
@@ -79,6 +80,17 @@ decode processes =
 decodeCode : Decoder Code
 decodeCode =
     Decode.map Code Decode.string
+
+
+decodeFromCode : List Country -> Decoder Country
+decodeFromCode countries =
+    decodeCode
+        |> Decode.andThen
+            (\code ->
+                countries
+                    |> findByCode code
+                    |> DE.fromResult
+            )
 
 
 decodeList : List Process -> Decoder (List Country)

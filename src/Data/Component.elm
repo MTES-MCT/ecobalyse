@@ -707,14 +707,14 @@ computeDistributionTransports { config, db } maybeAssemblyCountry items =
                 |> Maybe.map
                     (\{ code } ->
                         db.distances
-                            |> Transport.getTransportBetween Impact.empty code (Country.Code "FR")
+                            |> Transport.getTransportBetween Impact.empty code config.distribution.country.code
                     )
                 |> Maybe.withDefault config.transports.defaultDistance
 
         -- Many items, assembly country specified
         ( _, Just { code } ) ->
             db.distances
-                |> Transport.getTransportBetween Impact.empty code (Country.Code "FR")
+                |> Transport.getTransportBetween Impact.empty code config.distribution.country.code
 
         -- Many items, no assembly country specified
         ( _, Nothing ) ->
@@ -825,7 +825,7 @@ decodeQuery =
 
 {-| Proxified for convenience
 -}
-defaultConfig : List Process -> Result String Config
+defaultConfig : List Process -> List Country -> Result String Config
 defaultConfig =
     Config.default
 
@@ -1331,7 +1331,7 @@ parseBase64Query =
 
 {-| Proxified for convenience
 -}
-parseConfig : List Process -> String -> Result String Config
+parseConfig : List Process -> List Country -> String -> Result String Config
 parseConfig =
     Config.parse
 

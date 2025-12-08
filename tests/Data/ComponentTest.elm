@@ -1,6 +1,7 @@
 module Data.ComponentTest exposing (..)
 
 import Data.Component as Component exposing (Component, Item, LifeCycle)
+import Data.Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
 import Data.Process as Process exposing (Process)
@@ -553,7 +554,7 @@ suite =
                     |> Result.andThen (computeWithTestConfig db)
                     |> Result.andThen
                         (\{ production } ->
-                            testComponentConfig db.processes
+                            testComponentConfig db.processes db.countries
                                 |> Result.map
                                     (\config ->
                                         production
@@ -810,11 +811,14 @@ suite =
             ]
 
 
-testComponentConfig : List Process -> Result String Component.Config
-testComponentConfig processes =
-    Component.parseConfig processes
+testComponentConfig : List Process -> List Country -> Result String Component.Config
+testComponentConfig processes countries =
+    Component.parseConfig processes countries <|
         """
         {
+            "distribution": {
+                "country": "FR"
+            },
             "endOfLife": {
                 "scopeCollectionRates": {
                 "object": 70
@@ -876,7 +880,7 @@ testComponentConfig processes =
 
 computeWithTestConfig : Db -> List Item -> Result String LifeCycle
 computeWithTestConfig db items =
-    testComponentConfig db.processes
+    testComponentConfig db.processes db.countries
         |> Result.andThen
             (\config ->
                 Component.emptyQuery
