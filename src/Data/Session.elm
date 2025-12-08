@@ -39,7 +39,6 @@ import Data.Common.DecodeUtils as DU
 import Data.Component as Component
 import Data.Food.Query as FoodQuery
 import Data.Github as Github
-import Data.Object.Query as ObjectQuery
 import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Query as TextileQuery
 import Data.User as User2
@@ -57,9 +56,9 @@ import Static.Json as StaticJson
 
 type alias Queries =
     { food : FoodQuery.Query
-    , object : ObjectQuery.Query
+    , object : Component.Query
     , textile : TextileQuery.Query
-    , veli : ObjectQuery.Query
+    , veli : Component.Query
     }
 
 
@@ -201,7 +200,7 @@ updateDb fn session =
 -- Queries
 
 
-objectQueryFromScope : Scope -> Session -> ObjectQuery.Query
+objectQueryFromScope : Scope -> Session -> Component.Query
 objectQueryFromScope scope session =
     if scope == Scope.Veli then
         session.queries.veli
@@ -215,7 +214,7 @@ updateFoodQuery foodQuery ({ queries } as session) =
     { session | queries = { queries | food = foodQuery } }
 
 
-updateObjectQuery : Scope -> ObjectQuery.Query -> Session -> Session
+updateObjectQuery : Scope -> Component.Query -> Session -> Session
 updateObjectQuery scope objectQuery ({ queries } as session) =
     { session
         | queries =

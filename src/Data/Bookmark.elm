@@ -19,7 +19,6 @@ import Data.Common.DecodeUtils as DU
 import Data.Component as Component
 import Data.Food.Query as FoodQuery
 import Data.Food.Recipe as Recipe
-import Data.Object.Query as ObjectQuery
 import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Query as TextileQuery
@@ -42,9 +41,9 @@ type alias Bookmark =
 
 type Query
     = Food FoodQuery.Query
-    | Object ObjectQuery.Query
+    | Object Component.Query
     | Textile TextileQuery.Query
-    | Veli ObjectQuery.Query
+    | Veli Component.Query
 
 
 decode : Decoder Bookmark
@@ -70,7 +69,7 @@ decodeQuery : Decoder Query
 decodeQuery =
     Decode.oneOf
         [ Decode.map Food FoodQuery.decode
-        , Decode.map Object ObjectQuery.decode
+        , Decode.map Object Component.decodeQuery
         , Decode.map Textile TextileQuery.decode
         ]
 
@@ -107,13 +106,13 @@ encodeQuery v =
             FoodQuery.encode query
 
         Object query ->
-            ObjectQuery.encode query
+            Component.encodeQuery query
 
         Textile query ->
             TextileQuery.encode query
 
         Veli query ->
-            ObjectQuery.encode query
+            Component.encodeQuery query
 
 
 isFood : Bookmark -> Bool
@@ -167,7 +166,7 @@ findByFoodQuery foodQuery =
     findByQuery (Food foodQuery)
 
 
-findByObjectQuery : ObjectQuery.Query -> List Bookmark -> Maybe Bookmark
+findByObjectQuery : Component.Query -> List Bookmark -> Maybe Bookmark
 findByObjectQuery objectQuery =
     findByQuery (Object objectQuery)
 
@@ -213,7 +212,7 @@ toQueryDescription db bookmark =
                 |> Result.withDefault bookmark.name
 
         Object objectQuery ->
-            objectQuery.components
+            objectQuery.items
                 |> Component.itemsToString db
                 |> Result.withDefault "N/A"
 
@@ -224,6 +223,6 @@ toQueryDescription db bookmark =
                 |> Result.withDefault bookmark.name
 
         Veli objectQuery ->
-            objectQuery.components
+            objectQuery.items
                 |> Component.itemsToString db
                 |> Result.withDefault "N/A"
