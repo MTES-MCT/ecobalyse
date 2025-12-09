@@ -446,7 +446,6 @@ updateAggregatedScores definitions impacts =
     in
     impacts
         |> aggregateScore .ecoscoreData Definition.Ecs
-        |> aggregateScore .pefData Definition.Pef
 
 
 getAggregatedScoreData :

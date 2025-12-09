@@ -18,8 +18,8 @@ suite =
         (\db ->
             [ Definition.trigrams
                 |> List.length
-                |> Expect.equal 21
-                |> asTest "There are 21 impact trigrams"
+                |> Expect.equal 20
+                |> asTest "There are 20 impact trigrams"
             , Definition.trigrams
                 |> List.map ((\trigram -> Definition.get trigram db.definitions) >> .trigram >> Definition.toString)
                 |> Set.fromList
@@ -57,12 +57,12 @@ suite =
                 |> asTest "filter will zero all the values for fields filtered out"
             , Definition.toList db.definitions
                 |> List.length
-                |> Expect.equal 21
+                |> Expect.equal 20
                 |> asTest "there are 21 impacts in total"
             , Definition.init 1
                 |> Definition.filter Definition.isAggregate (always 0)
                 |> sumDefinitions
-                |> Expect.equal 2
-                |> asTest "There are exactly two aggregated scores"
+                |> Expect.equal 1
+                |> asTest "There are exactly one aggregated scores"
             ]
         )

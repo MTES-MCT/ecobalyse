@@ -24,19 +24,7 @@ suite =
                         |> Unit.impactToFloat
                         |> Expect.within (Expect.Absolute 0.01) expectedValue
             in
-            [ describe "computeAggregatedScore"
-                [ defaultImpacts
-                    |> Impact.updateImpact db.definitions Definition.Cch (Unit.impact 1)
-                    |> Impact.getImpact Definition.Pef
-                    |> expectScoreEquals 27.88266508497196
-                    |> asTest "should compute aggregate score from cch impact"
-                , defaultImpacts
-                    |> Impact.updateImpact db.definitions Definition.Fwe (Unit.impact 1)
-                    |> Impact.getImpact Definition.Pef
-                    |> expectScoreEquals 17425.397516880857
-                    |> asTest "should compute aggregate score from fwe impact"
-                ]
-            , describe "mapImpacts"
+            [ describe "mapImpacts"
                 [ defaultImpacts
                     |> Impact.updateImpact db.definitions Definition.Cch (Unit.impact 1)
                     |> Impact.mapImpacts (\_ -> Quantity.multiplyBy 2)
@@ -90,25 +78,11 @@ suite =
                     |> Impact.getImpact Definition.Ecs
                     |> expectScoreEquals 13843.73355346908
                     |> asTest "should update EcoScore"
-                , impacts
-                    |> Impact.getImpact Definition.Pef
-                    |> expectScoreEquals 17453.28018196583
-                    |> asTest "should update PEF score"
                 ]
             , describe "total weighting for impacts' ecoscoreData"
                 [ Definition.trigrams
                     |> List.map (\trigram -> Definition.get trigram db.definitions)
                     |> List.filterMap .ecoscoreData
-                    |> List.map .weighting
-                    |> List.map Split.toFloat
-                    |> List.sum
-                    |> Expect.within (Expect.Absolute 0.01) 1
-                    |> asTest "should be 1"
-                ]
-            , describe "total weighting for impacts' pefData"
-                [ Definition.trigrams
-                    |> List.map (\trigram -> Definition.get trigram db.definitions)
-                    |> List.filterMap .pefData
                     |> List.map .weighting
                     |> List.map Split.toFloat
                     |> List.sum
