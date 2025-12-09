@@ -997,9 +997,11 @@ viewSignupForm signupForm formErrors webData =
                 ]
                 []
             , label [ class "form-check-label", for "termsAccepted" ]
-                [ text "Je m’engage à respecter les "
-                , a [ href Env.cguUrl, target "_blank" ] [ text "conditions d'utilisation" ]
-                , text ", et suis informé(e) que cette utilisation ne peut se faire que dans le cadre de la vente de produits sur le marché français."
+                [ p [] [ text "Je m'engage à respecter les CGU spécifiques aux données EcoInvent et accepte que les informations recueillies sur ce formulaire soient enregistrées dans un fichier informatisé par l’ADEME pour\u{202F}:" ]
+                , ul []
+                    [ li [] [ text "Authentification des utilisateurs sur la plateforme web ou via l’API afin d'accéder aux impacts détaillés (ex: changement climatique)," ]
+                    , li [] [ text "délivrance de licences nominatives par EcoInvent aux utilisateurs des données EcoInvent via Ecobalyse (les données sont transmises si l’utilisateur consent au moins une fois via son compte Ecobalyse dans l'année)." ]
+                    ]
                 ]
             , viewFieldError "termsAccepted" formErrors
             ]
