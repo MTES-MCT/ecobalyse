@@ -57,7 +57,7 @@ Pour remonter la chaîne de production, on calcule la quantité de matière _ava
 $$m_{entrante} = \frac{m_{sortante}}{1- p}$$&#x20;
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 ### Prise en compte du taux de perte <a href="#calcul-des-masses" id="calcul-des-masses"></a>

@@ -23,7 +23,7 @@ Les scénarios de fin de vie d'un produit peuvent être définis avec ces deux c
 
 Le schéma ci-dessous montre les scénarios possible de fin de vie :
 
-<figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 ### Le recyclage des matériaux
 
