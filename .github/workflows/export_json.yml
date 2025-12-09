@@ -1,0 +1,58 @@
+name: Export static JSON
+
+on:
+  workflow_dispatch:
+
+jobs:
+  export_json:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.x]
+        python-version: [3.12]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Scalingo CLI
+        uses: ./.github/actions/scalingo-cli
+
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          version: "latest"
+          python-version: ${{ matrix.python-version }}
+
+      - name: Add scalingo to know hosts
+        run: echo "KNOWN_HOSTS=$(ssh-keyscan -H ssh.osc-fr1.scalingo.com)" >> $GITHUB_ENV
+
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.PRIVATE_SSH_KEY }}
+          name: id_rsa # optional
+          known_hosts: ${{ env.KNOWN_HOSTS }}
+          config: ${{ secrets.CONFIG }} # ssh_config; optional
+          if_key_exists: fail # replace / ignore / fail; optional (defaults to fail)
+
+
+      - name: Export JSON
+        env:
+          GITHUB_REF_NAME: ${{ github.ref_name }}
+          SCALINGO_REGION: ${{ secrets.SCALINGO_REGION }}
+          SCALINGO_APP: ecobalyse-staging
+          SCALINGO_API_TOKEN: ${{ secrets.SCALINGO_API_TOKEN }}
+          DATABASE_URL: ${{ secrets.SCALINGO_POSTGRESQL_TUNNEL_STAGING_URL }}
+        run: |
+          scalingo db-tunnel DATABASE_URL &
+          for attempt in {1..20}; do if lsof -i:10000 > /dev/null; then echo "-> PG Tunnel to Scalingo is up and ready on port 10000"; break; fi; echo "-> Waiting for the PG tunnel to Scalingo..."; sleep 1; done
+
+          uv run backend json dump-components > components.json
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: components
+          path: components.json
