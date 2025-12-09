@@ -965,7 +965,7 @@
     "rawToCookedRatio": 0.792,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "protein pea//[GLO] market for protein pea",
@@ -2888,7 +2888,7 @@
     "rawToCookedRatio": 0.792,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cauliflower, winter, conventional, at farm gate {FR} U",
@@ -2996,7 +2996,7 @@
     "rawToCookedRatio": 0.792,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Pasta, dried, from durum wheat, at plant, from GLO wheat and DE elec, constructed by Ecobalyse",
@@ -3480,7 +3480,7 @@
     "rawToCookedRatio": 0.792,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Brown crab, 1 kg of product, at landing {GB} U",
@@ -4838,7 +4838,7 @@
     "rawToCookedRatio": 0.792,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Walnut, dried inshell, conventional, national average, at farm gate {FR} U",
@@ -6715,7 +6715,7 @@
     "rawToCookedRatio": 0.792,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Peanut, organic 2025 {RoW}| peanut production | Cut-off, U",
@@ -8556,7 +8556,7 @@
     "rawToCookedRatio": 0.792,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Strawberry for processing, open field, conventional, at farm gate {ES} U",
@@ -10585,7 +10585,7 @@
     "rawToCookedRatio": 0.792,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Orange, fresh grade {ZA}| orange production, fresh grade | Cut-off, U - Adapted from Ecoinvent U",
@@ -11227,7 +11227,7 @@
     "rawToCookedRatio": 0.792,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Tomato pulp, canned {FR} U",
