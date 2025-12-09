@@ -3768,7 +3768,7 @@
       "textile"
     ],
     "source": "Custom",
-    "unit": "Item(s)",
+    "unit": "item",
     "waste": 0
   },
   {
@@ -5210,7 +5210,7 @@
       "food"
     ],
     "source": "Agribalyse 3.2",
-    "unit": "kg",
+    "unit": "item",
     "waste": 0
   },
   {
@@ -8812,7 +8812,7 @@
       "food"
     ],
     "source": "Agribalyse 3.2",
-    "unit": "kg",
+    "unit": "item",
     "waste": 0
   },
   {
@@ -10466,7 +10466,7 @@
       "food"
     ],
     "source": "Agribalyse 3.2",
-    "unit": "kg",
+    "unit": "item",
     "waste": 0
   },
   {
@@ -13230,7 +13230,7 @@
       "food"
     ],
     "source": "Agribalyse 3.2",
-    "unit": "kg",
+    "unit": "item",
     "waste": 0
   },
   {
@@ -17681,7 +17681,7 @@
       "food"
     ],
     "source": "Agribalyse 3.2",
-    "unit": "kg",
+    "unit": "item",
     "waste": 0
   },
   {
