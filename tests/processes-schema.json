@@ -92,7 +92,7 @@
       },
       "unit": {
         "type": "string",
-        "enum": ["kg", "t⋅km", "kWh", "MJ", "L", "Item(s)", "m2", "m3"]
+        "enum": ["kg", "t⋅km", "kWh", "MJ", "L", "item", "m2", "m3"]
       },
       "waste": {
         "type": "number",
