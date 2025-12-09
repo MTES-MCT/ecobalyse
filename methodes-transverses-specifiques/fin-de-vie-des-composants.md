@@ -21,7 +21,7 @@ Les scénarios de fin de vie d'un produit peuvent être définis avec ces deux c
 * la capacité de la filière à collecter le produit en fin de vie (taux de collecte), éventuellement décliné en une collecte pour traitement local d'une part et une collecte pour export d'autre part,
 * la recyclabilité du produit (oui vs non).
 
-Le schéma ci-dessous montre les scénarios possible de fin de vie :
+Le schéma ci-dessous montre les scénarios possibles de fin de vie :
 
 <figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
