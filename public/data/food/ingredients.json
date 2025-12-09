@@ -11202,7 +11202,7 @@
     "visible": true
   },
   {
-    "activityName": "Meat with bone, beef for direct consumption {{meat-with-bone-beef-direct-consumption-organic}}, constructed by Ecobalyse",
+    "activityName": "Meat without bone, beef for direct consumption {{meat-without-bone-beef-direct-consumption-organic}}, constructed by Ecobalyse",
     "alias": "beef-without-bone-organic",
     "categories": [
       "animal_product",
@@ -11220,14 +11220,14 @@
     },
     "id": "ff532795-d725-4c6b-82bc-022d38b83bff",
     "inediblePart": 0,
-    "landOccupation": 37.017,
+    "landOccupation": 46.272,
     "location": "FR",
     "name": "Viande de boeuf sans os Bio (crue)",
-    "processId": "c29b1e77-ce81-5794-ba00-730636c6d8de",
+    "processId": "5834b4db-bfae-47d7-91b8-24f6479aeac8",
     "rawToCookedRatio": 0.792,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Tomato pulp, canned {FR} U",
