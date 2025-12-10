@@ -57,7 +57,7 @@
           "swe": { "type": "number" },
           "tre": { "type": "number" },
           "wtu": { "type": "number" },
-          "ecs": { "type": "number" },
+          "ecs": { "type": "number" }
         },
         "required": [
           "acd",
@@ -79,7 +79,7 @@
           "swe",
           "tre",
           "wtu",
-          "ecs",
+          "ecs"
         ]
       },
       "source": {
