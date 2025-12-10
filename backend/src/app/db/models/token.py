@@ -39,5 +39,5 @@ class Token(UUIDAuditBase):
     # ORM Relationships
     # ------------
     user: Mapped[User] = relationship(
-        back_populates="tokens", innerjoin=True, lazy="joined"
+        back_populates="tokens", innerjoin=True, lazy="selectin"
     )
