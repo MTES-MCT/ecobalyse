@@ -58,7 +58,6 @@
           "tre": { "type": "number" },
           "wtu": { "type": "number" },
           "ecs": { "type": "number" },
-          "pef": { "type": "number" }
         },
         "required": [
           "acd",
@@ -81,7 +80,6 @@
           "tre",
           "wtu",
           "ecs",
-          "pef"
         ]
       },
       "source": {
