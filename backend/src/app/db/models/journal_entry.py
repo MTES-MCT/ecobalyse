@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import datetime
+import json
 from enum import StrEnum
 from typing import TYPE_CHECKING, Any
 from uuid import UUID
@@ -53,3 +54,10 @@ class JournalEntry(
     user: Mapped[User] = relationship(
         back_populates="journal_entries", innerjoin=True, lazy="joined"
     )
+
+    @property
+    def value_str(self) -> str | None:
+        if self.value is not None:
+            # Used for json/msgspec serialization
+            return json.dumps(self.value, ensure_ascii=False, indent=2)
+        return self.value
