@@ -2927,6 +2927,48 @@
     "waste": 0
   },
   {
+    "activityName": "Dairy desserts - cat A, 500g | Packaging System, N0, All, Cardboard pots pack {FR} U",
+    "categories": [
+      "packaging"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024.\n\nN0, all Identification key for packaging system containing one or more element.\n\"Cat A\", \"Cat B, \"Cat C\", \"Cat D\", \"Cat E\", \"Cat F\", \"Cat G\",\"Cat H\" : Categories specific to the types of packaging defined in the PACK_AGB report (e.g case of packaging for cheese).\nFor more information, please refer to the methodological report  : Colombin, M., Audoye, P., Farrant, L., Allain, D., Anneraud, C., Bosque, F., Besnier, A., Bozec, A.(2024). Rapport méthodologique : volet emballages Agribalyse 3.2.\n\nThe inventory refers to a pack of 4 cardboard pots and the associated elements allowing to condition a total weight of 500 g of dairy desserts.  \nThis inventory of packaging solution can only be used for products in sub-category \"Dairy products and desserts\" (PACK_AGB) : refer to the report for more details. \n\nThe packaging solution describes the 4 cardboard/ LDPE complex pots with their complex lids and the grouping cardboard sheath. \nThe data was produced from study of packaging on the French market (supermarket reference) and data collection from manufacturers.\nThe inventory includes : (1) production of packaging materials***, (2) manufacture and finishing of packaging components, (3) intermediate transport from the production of materials to the packaging site, and (4) the end-of-life management of packaging*** as it takes place in France. ***Application of CCF, rate of virgin and recycled materials corresponding to the FR scenario (2022) \nThe inventory does not include distribution transport (integrated into the next stage at distribution in AGRIBALYSE)\n\nThe packaging solutions developed as part of the PACK_AGB project have not been developed for use in comparative LCAs of packaging solutions: if this is your purpose, we recommend that you follow the ADEME reference framework on comparative comparative LCA between different packaging solutions: https://librairie.ademe.fr/dechets-economie-circulaire/5309-cadre-de-reference-acv-comparatives-entre-differentes-solutions-d-emballages.html \n\nOverall data quality : DQR= 1,75; Technological representativeness (TeR) = 2; Geographical representativeness (GR) = 2; Time-related representativeness (TiR) = 2; Precision (P material) = 1; Precision (P processing) = 1\nTime period: the data describing the packaging solution was collected over the period 2020-2022. \nThe inventory is modelled for France. Packaging waste management is representative of packaging waste management in France. \nProperty rights : OpenData, licence \"Ecolab\".  \nProperty data : ADEME",
+    "density": 0,
+    "displayName": "Lot de 4 pots (complexes avec carton) pour produits laitiers - 500g",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "2466c674-3185-43ce-aeaa-beb225572309",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 54.654,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pef": 54.798,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "FR",
+    "scopes": [
+      "food"
+    ],
+    "source": "Agribalyse 3.2",
+    "unit": "item",
+    "waste": 0
+  },
+  {
     "activityName": "This process is not linked to a Brightway activity",
     "categories": [
       "transformation"
@@ -5169,48 +5211,6 @@
     ],
     "source": "Custom",
     "unit": "t⋅km",
-    "waste": 0
-  },
-  {
-    "activityName": "Fresh sausages, 330g | Packaging System, N0, All, PP Tray with Lid {FR} U",
-    "categories": [
-      "packaging"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024.\n\nN0, all Identification key for packaging system containing one or more element.\nFor more information, please refer to the methodological report  : Colombin, M., Audoye, P., Farrant, L., Allain, D., Anneraud, C., Bosque, F., Besnier, A., Bozec, A.(2024). Rapport méthodologique : volet emballages Agribalyse 3.2.\n\nThe inventory refers to a \"PP tray\" and the associated elements allowing to condition a weight of 330g of fresh sausages. \nApplication to other cases: This inventory of packaging solution can only be used for products in sub-category \"Fresh sausages\" (PACK_AGB) : refer to the report for more details. This inventory cannot be used to represent the same type of packaging for other products outside the sub-category \"Fresh sausages\" (PACK_AGB).\n\nThe data was produced from study of packaging on the French market (supermarket reference), weighing of two references and CTCPA packaging expertise.\nTwo references were weighed to best represent the French market. They are marketed both under own brand and under private label.\nThe weight of 330g of product used was obtained by averaging two references of 330g and 330g. The weight of the packaging corresponds to the average of the weighed packaging.\n\nThe inventory includes : (1) production of packaging materials***, (2) manufacture and finishing of packaging components, (3) intermediate transport from the production of materials to the packaging site, and (4) the end-of-life management of packaging*** as it takes place in France. ***Application of CCF, rate of virgin and recycled materials corresponding to the FR scenario (2022) \nThe inventory does not include distribution transport (integrated into the next stage at distribution in AGRIBALYSE).\n\nThe packaging solutions developed as part of the PACK_AGB project have not been developed for use in comparative LCAs of packaging solutions: if this is your purpose, we recommend that you follow the ADEME reference framework on comparative comparative LCA between different packaging solutions: https://librairie.ademe.fr/dechets-economie-circulaire/5309-cadre-de-reference-acv-comparatives-entre-differentes-solutions-d-emballages.html .\n\nOverall data quality : DQR= 1,25; Technological representativeness (TeR) = 1; Geographical representativeness (GR) = 2; Time-related representativeness (TiR) = 1; Precision (P material) = 1; Precision (P processing) = 1\nTime period: the data describing the packaging solution was collected over the period 2020-2022. \nThe inventory is modelled for France. Packaging waste management is representative of packaging waste management in France. \nProperty rights : OpenData, licence \"Ecolab\".  \nProperty data : ADEME",
-    "density": 0,
-    "displayName": "Barquette en plastique (APET) pour saucisse fraîche - 250g à 330g",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "3f5a7b9c-1d2e-3f4a-5b6c-7d8e9f0a1b2c",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 20.941,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pef": 21.62,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "location": "FR",
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "item",
     "waste": 0
   },
   {
@@ -8774,48 +8774,6 @@
     "waste": 0
   },
   {
-    "activityName": "Dairy desserts - cat A, 500g | Packaging System, N0, All, Cardboard pots pack {FR} U",
-    "categories": [
-      "packaging"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024.\n\nN0, all Identification key for packaging system containing one or more element.\n\"Cat A\", \"Cat B, \"Cat C\", \"Cat D\", \"Cat E\", \"Cat F\", \"Cat G\",\"Cat H\" : Categories specific to the types of packaging defined in the PACK_AGB report (e.g case of packaging for cheese).\nFor more information, please refer to the methodological report  : Colombin, M., Audoye, P., Farrant, L., Allain, D., Anneraud, C., Bosque, F., Besnier, A., Bozec, A.(2024). Rapport méthodologique : volet emballages Agribalyse 3.2.\n\nThe inventory refers to a pack of 4 cardboard pots and the associated elements allowing to condition a total weight of 500 g of dairy desserts.  \nThis inventory of packaging solution can only be used for products in sub-category \"Dairy products and desserts\" (PACK_AGB) : refer to the report for more details. \n\nThe packaging solution describes the 4 cardboard/ LDPE complex pots with their complex lids and the grouping cardboard sheath. \nThe data was produced from study of packaging on the French market (supermarket reference) and data collection from manufacturers.\nThe inventory includes : (1) production of packaging materials***, (2) manufacture and finishing of packaging components, (3) intermediate transport from the production of materials to the packaging site, and (4) the end-of-life management of packaging*** as it takes place in France. ***Application of CCF, rate of virgin and recycled materials corresponding to the FR scenario (2022) \nThe inventory does not include distribution transport (integrated into the next stage at distribution in AGRIBALYSE)\n\nThe packaging solutions developed as part of the PACK_AGB project have not been developed for use in comparative LCAs of packaging solutions: if this is your purpose, we recommend that you follow the ADEME reference framework on comparative comparative LCA between different packaging solutions: https://librairie.ademe.fr/dechets-economie-circulaire/5309-cadre-de-reference-acv-comparatives-entre-differentes-solutions-d-emballages.html \n\nOverall data quality : DQR= 1,75; Technological representativeness (TeR) = 2; Geographical representativeness (GR) = 2; Time-related representativeness (TiR) = 2; Precision (P material) = 1; Precision (P processing) = 1\nTime period: the data describing the packaging solution was collected over the period 2020-2022. \nThe inventory is modelled for France. Packaging waste management is representative of packaging waste management in France. \nProperty rights : OpenData, licence \"Ecolab\".  \nProperty data : ADEME",
-    "density": 0,
-    "displayName": "Lot de 4 pots (complexes avec carton) pour produits laitiers - 500g",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "6b8d0e2f-4a6c-8e0f-2a4b-6c8d0e2f4a6c",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 54.654,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pef": 54.798,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "location": "FR",
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "item",
-    "waste": 0
-  },
-  {
     "activityName": "Oilseed meal mix, as feed, at regional warehouse, as DM {RER} - Adapted from WFLDB U",
     "categories": [
       "ingredient"
@@ -10428,20 +10386,20 @@
     "waste": 0
   },
   {
-    "activityName": "Milk, other than from cow, 1000g | Packaging System, N0, All, HDPE bottle {FR} U",
+    "activityName": "Fish products mackerel, ambient, 169g | Packaging System, N0, All, Aluminium can {FR} U",
     "categories": [
       "packaging"
     ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024.\n\nN0, all Identification key for packaging system containing one or more element.\nFor more information, please refer to the methodological report  : Colombin, M., Audoye, P., Farrant, L., Allain, D., Anneraud, C., Bosque, F., Besnier, A., Bozec, A.(2024). Rapport méthodologique : volet emballages Agribalyse 3.2.\n\nThe inventory refers to a PEHD bottle and the associated elements allowing to condition a total weight of 1000 g of liquid milk.  \nThis inventory of packaging solution can only be used for products in sub-category \"Milk and milk products\" (PACK_AGB) : refer to the report for more details. \n\nThe packaging solution describes a PEHD 1L bottle with aluminium lid, PEHD stopper and paper label.\nThe data was produced from study of packaging on the French market (supermarket reference) and data collection from manufacturers. \nThe inventory includes : (1) production of packaging materials***, (2) manufacture and finishing of packaging components, (3) intermediate transport from the production of materials to the packaging site, and (4) the end-of-life management of packaging*** as it takes place in France. ***Application of CCF, rate of virgin and recycled materials corresponding to the FR scenario (2022) \nThe inventory does not include distribution transport (integrated into the next stage at distribution in AGRIBALYSE)\n\nThe packaging solutions developed as part of the PACK_AGB project have not been developed for use in comparative LCAs of packaging solutions: if this is your purpose, we recommend that you follow the ADEME reference framework on comparative comparative LCA between different packaging solutions: https://librairie.ademe.fr/dechets-economie-circulaire/5309-cadre-de-reference-acv-comparatives-entre-differentes-solutions-d-emballages.html \n\nOverall data quality : DQR= 1,25; Technological representativeness (TeR) = 1; Geographical representativeness (GR) = 2; Time-related representativeness (TiR) = 1; Precision (P material) = 1; Precision (P processing) = 1\nTime period: the data describing the packaging solution was collected over the period 2020-2022. \nThe inventory is modelled for France. Packaging waste management is representative of packaging waste management in France. \nProperty rights : OpenData, licence \"Ecolab\".  \nProperty data : ADEME",
+    "comment": "AGRIBALYSE v3.2 dataset, 2024.\n\nN0, all Identification key for packaging system containing one or more element.\nFor more information, please refer to the methodological report  : Colombin, M., Audoye, P., Farrant, L., Allain, D., Anneraud, C., Bosque, F., Besnier, A., Bozec, A.(2024). Rapport méthodologique : volet emballages Agribalyse 3.2.\n\nThe inventory refers to an aluminium can and the associated elements allowing to condition a total weight of 169 g (size) of fish products mack (ambient).\nThis inventory of packaging solution can only be used for products in sub-category \"fish product mackerel (ambient)\" (PACK_AGB) : refer to the report for more details. This inventory cannot be used to represent the same type of packaging for other products outside the sub-category \"fish product mackerel (ambient)\" (PACK_AGB) \n\nThe data was produced from study of packaging on the French market (supermarket reference), weighing and CTCPA packaging expertise.\nThe inventory includes : (1) production of packaging materials***, (2) manufacture and finishing of packaging components, (3) intermediate transport from the production of materials to the packaging site, and (4) the end-of-life management of packaging*** as it takes place in France. ***Application of CCF, rate of virgin and recycled materials corresponding to the FR scenario (2022) \nThe inventory does not include distribution transport (integrated into the next stage at distribution in AGRIBALYSE)\n\nThe packaging solutions developed as part of the PACK_AGB project have not been developed for use in comparative LCAs of packaging solutions: if this is your purpose, we recommend that you follow the ADEME reference framework on comparative comparative LCA between different packaging solutions: https://librairie.ademe.fr/dechets-economie-circulaire/5309-cadre-de-reference-acv-comparatives-entre-differentes-solutions-d-emballages.html \n\nOverall data quality : DQR= 2; Technological representativeness (TeR) = 3; Geographical representativeness (GR) = 2; Time-related representativeness (TiR) = 2; Precision (P material) = 1; Precision (P processing) = 1\nTime period: the data describing the packaging solution was collected over the period 2020-2022. \nThe inventory is modelled for France. Packaging waste management is representative of packaging waste management in France. \nProperty rights : OpenData, licence \"Ecolab\".  \nProperty data : ADEME",
     "density": 0,
-    "displayName": "Bouteille en plastique (PEHD) pour lait - 1L",
+    "displayName": "Boîte en aluminium imprimée pour maquereau, ambiant - 169g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "7e8f9a3d-2b4c-4d5e-8f9a-1b2c3d4e5f6a",
+    "id": "7e34718b-5600-4b51-91f5-545247061594",
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 10.019,
+      "ecs": 70.154,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -10455,7 +10413,7 @@
       "mru": 0,
       "ozd": 0,
       "pco": 0,
-      "pef": 10.864,
+      "pef": 75.751,
       "pma": 0,
       "swe": 0,
       "tre": 0,
@@ -13189,48 +13147,6 @@
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "waste": 0
-  },
-  {
-    "activityName": "Fish products mackerel, ambient, 169g | Packaging System, N0, All, Aluminium can {FR} U",
-    "categories": [
-      "packaging"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024.\n\nN0, all Identification key for packaging system containing one or more element.\nFor more information, please refer to the methodological report  : Colombin, M., Audoye, P., Farrant, L., Allain, D., Anneraud, C., Bosque, F., Besnier, A., Bozec, A.(2024). Rapport méthodologique : volet emballages Agribalyse 3.2.\n\nThe inventory refers to an aluminium can and the associated elements allowing to condition a total weight of 169 g (size) of fish products mack (ambient).\nThis inventory of packaging solution can only be used for products in sub-category \"fish product mackerel (ambient)\" (PACK_AGB) : refer to the report for more details. This inventory cannot be used to represent the same type of packaging for other products outside the sub-category \"fish product mackerel (ambient)\" (PACK_AGB) \n\nThe data was produced from study of packaging on the French market (supermarket reference), weighing and CTCPA packaging expertise.\nThe inventory includes : (1) production of packaging materials***, (2) manufacture and finishing of packaging components, (3) intermediate transport from the production of materials to the packaging site, and (4) the end-of-life management of packaging*** as it takes place in France. ***Application of CCF, rate of virgin and recycled materials corresponding to the FR scenario (2022) \nThe inventory does not include distribution transport (integrated into the next stage at distribution in AGRIBALYSE)\n\nThe packaging solutions developed as part of the PACK_AGB project have not been developed for use in comparative LCAs of packaging solutions: if this is your purpose, we recommend that you follow the ADEME reference framework on comparative comparative LCA between different packaging solutions: https://librairie.ademe.fr/dechets-economie-circulaire/5309-cadre-de-reference-acv-comparatives-entre-differentes-solutions-d-emballages.html \n\nOverall data quality : DQR= 2; Technological representativeness (TeR) = 3; Geographical representativeness (GR) = 2; Time-related representativeness (TiR) = 2; Precision (P material) = 1; Precision (P processing) = 1\nTime period: the data describing the packaging solution was collected over the period 2020-2022. \nThe inventory is modelled for France. Packaging waste management is representative of packaging waste management in France. \nProperty rights : OpenData, licence \"Ecolab\".  \nProperty data : ADEME",
-    "density": 0,
-    "displayName": "Boîte en aluminium imprimée pour maquereau, ambiant - 169g",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "9c1d2e3f-4a5b-6c7d-8e9f-0a1b2c3d4e5f",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 70.154,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pef": 75.751,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "location": "FR",
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "item",
     "waste": 0
   },
   {
@@ -20738,6 +20654,48 @@
     "waste": 0
   },
   {
+    "activityName": "Milk, other than from cow, 1000g | Packaging System, N0, All, HDPE bottle {FR} U",
+    "categories": [
+      "packaging"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024.\n\nN0, all Identification key for packaging system containing one or more element.\nFor more information, please refer to the methodological report  : Colombin, M., Audoye, P., Farrant, L., Allain, D., Anneraud, C., Bosque, F., Besnier, A., Bozec, A.(2024). Rapport méthodologique : volet emballages Agribalyse 3.2.\n\nThe inventory refers to a PEHD bottle and the associated elements allowing to condition a total weight of 1000 g of liquid milk.  \nThis inventory of packaging solution can only be used for products in sub-category \"Milk and milk products\" (PACK_AGB) : refer to the report for more details. \n\nThe packaging solution describes a PEHD 1L bottle with aluminium lid, PEHD stopper and paper label.\nThe data was produced from study of packaging on the French market (supermarket reference) and data collection from manufacturers. \nThe inventory includes : (1) production of packaging materials***, (2) manufacture and finishing of packaging components, (3) intermediate transport from the production of materials to the packaging site, and (4) the end-of-life management of packaging*** as it takes place in France. ***Application of CCF, rate of virgin and recycled materials corresponding to the FR scenario (2022) \nThe inventory does not include distribution transport (integrated into the next stage at distribution in AGRIBALYSE)\n\nThe packaging solutions developed as part of the PACK_AGB project have not been developed for use in comparative LCAs of packaging solutions: if this is your purpose, we recommend that you follow the ADEME reference framework on comparative comparative LCA between different packaging solutions: https://librairie.ademe.fr/dechets-economie-circulaire/5309-cadre-de-reference-acv-comparatives-entre-differentes-solutions-d-emballages.html \n\nOverall data quality : DQR= 1,25; Technological representativeness (TeR) = 1; Geographical representativeness (GR) = 2; Time-related representativeness (TiR) = 1; Precision (P material) = 1; Precision (P processing) = 1\nTime period: the data describing the packaging solution was collected over the period 2020-2022. \nThe inventory is modelled for France. Packaging waste management is representative of packaging waste management in France. \nProperty rights : OpenData, licence \"Ecolab\".  \nProperty data : ADEME",
+    "density": 0,
+    "displayName": "Bouteille en plastique (PEHD) pour lait - 1L",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "f405ad19-681d-4324-8c29-aaa52c370039",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 10.019,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pef": 10.864,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "FR",
+    "scopes": [
+      "food"
+    ],
+    "source": "Agribalyse 3.2",
+    "unit": "item",
+    "waste": 0
+  },
+  {
     "activityName": "Blueberry, at farm {CA} - Adapted from WFLDB U",
     "categories": [
       "ingredient"
@@ -21031,6 +20989,48 @@
     ],
     "source": "Ecobalyse",
     "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Fresh sausages, 330g | Packaging System, N0, All, PP Tray with Lid {FR} U",
+    "categories": [
+      "packaging"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024.\n\nN0, all Identification key for packaging system containing one or more element.\nFor more information, please refer to the methodological report  : Colombin, M., Audoye, P., Farrant, L., Allain, D., Anneraud, C., Bosque, F., Besnier, A., Bozec, A.(2024). Rapport méthodologique : volet emballages Agribalyse 3.2.\n\nThe inventory refers to a \"PP tray\" and the associated elements allowing to condition a weight of 330g of fresh sausages. \nApplication to other cases: This inventory of packaging solution can only be used for products in sub-category \"Fresh sausages\" (PACK_AGB) : refer to the report for more details. This inventory cannot be used to represent the same type of packaging for other products outside the sub-category \"Fresh sausages\" (PACK_AGB).\n\nThe data was produced from study of packaging on the French market (supermarket reference), weighing of two references and CTCPA packaging expertise.\nTwo references were weighed to best represent the French market. They are marketed both under own brand and under private label.\nThe weight of 330g of product used was obtained by averaging two references of 330g and 330g. The weight of the packaging corresponds to the average of the weighed packaging.\n\nThe inventory includes : (1) production of packaging materials***, (2) manufacture and finishing of packaging components, (3) intermediate transport from the production of materials to the packaging site, and (4) the end-of-life management of packaging*** as it takes place in France. ***Application of CCF, rate of virgin and recycled materials corresponding to the FR scenario (2022) \nThe inventory does not include distribution transport (integrated into the next stage at distribution in AGRIBALYSE).\n\nThe packaging solutions developed as part of the PACK_AGB project have not been developed for use in comparative LCAs of packaging solutions: if this is your purpose, we recommend that you follow the ADEME reference framework on comparative comparative LCA between different packaging solutions: https://librairie.ademe.fr/dechets-economie-circulaire/5309-cadre-de-reference-acv-comparatives-entre-differentes-solutions-d-emballages.html .\n\nOverall data quality : DQR= 1,25; Technological representativeness (TeR) = 1; Geographical representativeness (GR) = 2; Time-related representativeness (TiR) = 1; Precision (P material) = 1; Precision (P processing) = 1\nTime period: the data describing the packaging solution was collected over the period 2020-2022. \nThe inventory is modelled for France. Packaging waste management is representative of packaging waste management in France. \nProperty rights : OpenData, licence \"Ecolab\".  \nProperty data : ADEME",
+    "density": 0,
+    "displayName": "Barquette en plastique (APET) pour saucisse fraîche - 250g à 330g",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "f7ac3460-f207-483a-b854-2562715a45c0",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 20.941,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pef": 21.62,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "FR",
+    "scopes": [
+      "food"
+    ],
+    "source": "Agribalyse 3.2",
+    "unit": "item",
     "waste": 0
   },
   {

@@ -483,7 +483,7 @@ describe("API", () => {
             },
             packaging: [
               {
-                id: "edefa2be-abe4-5bb6-b0fc-0f666050dcc1",
+                id: "3f5a7b9c-1d2e-3f4a-5b6c-7d8e9f0a1b2c",
                 mass: 105,
               },
             ],
@@ -603,7 +603,7 @@ describe("API", () => {
         expectFieldErrorMessage(
           await makePostRequest("/api/food", {
             ingredients: [{ id: "4d5198e7-413a-4ae2-8448-535aa3b302ae", mass: 268 }],
-            packaging: [{ id: "edefa2be-abe4-5bb6-b0fc-0f666050dcc1", mass: -1 }],
+            packaging: [{ id: "3f5a7b9c-1d2e-3f4a-5b6c-7d8e9f0a1b2c", mass: -1 }],
           }),
           "packaging",
           /masse doit être supérieure à zéro/,
