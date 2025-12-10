@@ -25,7 +25,7 @@ suite =
                 |> Set.fromList
                 |> Set.size
                 |> Expect.equal (List.length Definition.trigrams)
-                |> asTest "There are 21 unique impact definitions and trigrams"
+                |> asTest "There are 20 unique impact definitions and trigrams"
             , Definition.trigrams
                 |> List.map Definition.toString
                 |> List.filterMap (Definition.toTrigram >> Result.toMaybe)
@@ -58,7 +58,7 @@ suite =
             , Definition.toList db.definitions
                 |> List.length
                 |> Expect.equal 20
-                |> asTest "there are 21 impacts in total"
+                |> asTest "there are 20 impacts in total"
             , Definition.init 1
                 |> Definition.filter Definition.isAggregate (always 0)
                 |> sumDefinitions
