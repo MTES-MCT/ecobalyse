@@ -95,6 +95,7 @@ class User(CamelizedBaseStruct):
     is_verified: bool = False
     roles: list[UserRole] = []
     magic_link_sent_at: datetime | None = None
+    has_active_token: bool = False
 
 
 class TermsAcceptedUser(CamelizedBaseStruct):
