@@ -206,6 +206,7 @@ userJson =
         "isSuperuser": false,
         "isVerified": false,
         "magicLinkSentAt": null,
+        "hasActiveToken": false,
         "profile": {
             "firstName": "John",
             "lastName": "Doe",
