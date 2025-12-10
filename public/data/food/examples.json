@@ -139,7 +139,7 @@
           "mass": 19
         },
         {
-          "id": "ce073919-1aff-4892-a1f5-b25ee94bccd8",
+          "id": "91f8ec52-d3bb-44db-84be-08bb1996caf8",
           "mass": 43
         },
         {
@@ -209,7 +209,7 @@
         },
         {
           "country": "FR",
-          "id": "41d65ed4-230f-4a47-a67c-9a8015f50420",
+          "id": "22179caa-eb41-49c0-ae04-49eda23da4da",
           "mass": 43
         },
         {
@@ -286,7 +286,7 @@
         },
         {
           "country": "FR",
-          "id": "4e3009f3-1b33-41d7-b6f3-dc7230331da0",
+          "id": "ff532795-d725-4c6b-82bc-022d38b83bff",
           "mass": 43
         },
         {
@@ -614,7 +614,7 @@
       "ingredients": [
         {
           "country": "BR",
-          "id": "ce073919-1aff-4892-a1f5-b25ee94bccd8",
+          "id": "91f8ec52-d3bb-44db-84be-08bb1996caf8",
           "mass": 200
         }
       ],
@@ -637,7 +637,7 @@
       "ingredients": [
         {
           "country": "FR",
-          "id": "41d65ed4-230f-4a47-a67c-9a8015f50420",
+          "id": "22179caa-eb41-49c0-ae04-49eda23da4da",
           "mass": 250
         }
       ],
@@ -660,7 +660,7 @@
       "ingredients": [
         {
           "country": "FR",
-          "id": "4e3009f3-1b33-41d7-b6f3-dc7230331da0",
+          "id": "ff532795-d725-4c6b-82bc-022d38b83bff",
           "mass": 200
         }
       ],

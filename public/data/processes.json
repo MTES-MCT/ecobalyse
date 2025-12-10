@@ -7117,6 +7117,48 @@
     "waste": 0
   },
   {
+    "activityName": "Meat without bone, beef for direct consumption {{meat-without-bone-beef-direct-consumption-organic}}, constructed by Ecobalyse",
+    "categories": [
+      "ingredient"
+    ],
+    "comment": "This dataset includes packaging",
+    "density": 0,
+    "displayName": "Viande de boeuf sans os Bio",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "5834b4db-bfae-47d7-91b8-24f6479aeac8",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 2047.7,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pef": 2344.4,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "FR",
+    "scopes": [
+      "food"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "polypropylene, granulate//[RER] polypropylene production, granulate",
     "categories": [
       "material",

@@ -5,12 +5,14 @@ module Data.Country exposing
     , codeFromString
     , codeToString
     , decodeCode
+    , decodeFromCode
     , decodeList
     , encode
     , encodeCode
     , findByCode
     , getAquaticPollutionRatio
     , isEuropeOrTurkey
+    , resolveMaybe
     , unknownCountryCode
     , validateForScope
     )
@@ -78,6 +80,17 @@ decode processes =
 decodeCode : Decoder Code
 decodeCode =
     Decode.map Code Decode.string
+
+
+decodeFromCode : List Country -> Decoder Country
+decodeFromCode countries =
+    decodeCode
+        |> Decode.andThen
+            (\code ->
+                countries
+                    |> findByCode code
+                    |> DE.fromResult
+            )
 
 
 decodeList : List Process -> Decoder (List Country)
@@ -155,6 +168,16 @@ getAquaticPollutionRatio scenario =
 isEuropeOrTurkey : Country -> Bool
 isEuropeOrTurkey country =
     country.zone == Zone.Europe || country.code == codeFromString "TR"
+
+
+resolveMaybe : Maybe Code -> List Country -> Result String (Maybe Country)
+resolveMaybe maybeCode countries =
+    case maybeCode of
+        Just code ->
+            countries |> findByCode code |> Result.map Just
+
+        Nothing ->
+            Ok Nothing
 
 
 unknownCountryCode : Code

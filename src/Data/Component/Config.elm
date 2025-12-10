@@ -10,6 +10,7 @@ module Data.Component.Config exposing
     )
 
 import Data.Common.DecodeUtils as DU
+import Data.Country as Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (MaterialDict)
@@ -21,9 +22,14 @@ import Json.Decode.Pipeline as Decode
 
 
 type alias Config =
-    { endOfLife : EndOfLifeConfig
+    { distribution : DistributionConfig
+    , endOfLife : EndOfLifeConfig
     , transports : TransportConfig
     }
+
+
+type alias DistributionConfig =
+    { country : Country }
 
 
 type alias EndOfLifeConfig =
@@ -59,11 +65,18 @@ type alias TransportConfig =
     }
 
 
-decode : List Process -> Decoder Config
-decode processes =
+decode : List Process -> List Country -> Decoder Config
+decode processes countries =
     Decode.succeed Config
+        |> Decode.required "distribution" (decodeDistributionConfig countries)
         |> Decode.required "endOfLife" (decodeEndOfLifeConfig processes)
         |> Decode.required "transports" (decodeTransportConfig processes)
+
+
+decodeDistributionConfig : List Country -> Decoder DistributionConfig
+decodeDistributionConfig countries =
+    Decode.succeed DistributionConfig
+        |> Decode.required "country" (Country.decodeFromCode countries)
 
 
 decodeEndOfLifeConfig : List Process -> Decoder EndOfLifeConfig
@@ -123,11 +136,14 @@ decodeTransportConfig processes =
         |> Decode.required "modeProcesses" (Transport.decodeModeProcesses processes)
 
 
-default : List Process -> Result String Config
-default processes =
-    parse processes
+default : List Process -> List Country -> Result String Config
+default processes countries =
+    parse processes countries <|
         """
         {
+            "distribution": {
+                "country": "FR"
+            },
             "endOfLife": {
                 "scopeCollectionRates": {},
                 "strategies": {
@@ -158,8 +174,8 @@ default processes =
         """
 
 
-parse : List Process -> String -> Result String Config
-parse processes json =
+parse : List Process -> List Country -> String -> Result String Config
+parse processes countries json =
     json
-        |> Decode.decodeString (decode processes)
+        |> Decode.decodeString (decode processes countries)
         |> Result.mapError Decode.errorToString
