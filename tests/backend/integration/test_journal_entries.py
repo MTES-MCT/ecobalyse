@@ -260,4 +260,5 @@ async def test_components_journal(
             },
             ensure_ascii=False,
             indent=2,
+            sort_keys=True,
         )

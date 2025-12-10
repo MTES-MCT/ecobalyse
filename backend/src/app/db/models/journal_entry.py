@@ -1,4 +1,5 @@
 from __future__ import annotations
+from sqlalchemy.util.topological import sort
 
 import datetime
 import json
@@ -59,5 +60,5 @@ class JournalEntry(
     def value_str(self) -> str | None:
         if self.value is not None:
             # Used for json/msgspec serialization
-            return json.dumps(self.value, ensure_ascii=False, indent=2)
+            return json.dumps(self.value, ensure_ascii=False, indent=2, sort_keys=True)
         return self.value
