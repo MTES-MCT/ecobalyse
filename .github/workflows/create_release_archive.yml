@@ -45,7 +45,7 @@ jobs:
       - name: Install Elm dependencies
         if: steps.elm_cache.outputs.cache-hit != 'true'
         run: |
-          echo "module A exposing (a)\na=0" > Temp.elm
+          echo -e "module A exposing (a)\na=0" > Temp.elm
           npx elm make Temp.elm --output=/dev/null
           rm Temp.elm
 
