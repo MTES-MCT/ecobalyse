@@ -1,3 +1,4 @@
+import json
 from typing import TYPE_CHECKING, Any
 from uuid import uuid4
 
@@ -49,8 +50,9 @@ async def test_processes_journal(
         assert response.status_code == 200
 
         assert len(json_response) == 1
-        assert json_response[0]["value"]["activityName"] == raw_process["activityName"]
-        assert json_response[0]["value"]["impacts"] == raw_process["impacts"]
+        value_as_json = json.loads(json_response[0]["value"])
+        assert value_as_json["activityName"] == raw_process["activityName"]
+        assert value_as_json["impacts"] == raw_process["impacts"]
 
 
 async def test_components_journal(
@@ -229,3 +231,34 @@ async def test_components_journal(
 
         assert json_response[0]["action"] == m.JournalAction.DELETED
         assert json_response[1]["action"] == m.JournalAction.UPDATED
+
+        assert isinstance(json_response[1]["value"], str)
+
+        assert json_response[1]["value"] == json.dumps(
+            {
+                "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
+                "name": "Tissu pour joli canapé",
+                "scopes": ["food"],
+                "elements": [
+                    {
+                        "amount": 1.0,
+                        "material": "97c209ec-7782-5a29-8c47-af7f17c82d11",
+                        "transforms": [
+                            "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
+                            "d25636af-ab36-4857-a6d0-c66d1e7a281b",
+                        ],
+                    },
+                    {
+                        "amount": 1.0,
+                        "material": "d25636af-ab36-4857-a6d0-c66d1e7a281b",
+                        "transforms": [
+                            "97c209ec-7782-5a29-8c47-af7f17c82d11",
+                            "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
+                        ],
+                    },
+                ],
+            },
+            ensure_ascii=False,
+            indent=2,
+            sort_keys=True,
+        )
