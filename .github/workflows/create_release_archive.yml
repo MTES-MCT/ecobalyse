@@ -35,20 +35,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
-      - name: Cache Elm dependencies
-        id: elm_cache
-        uses: actions/cache@v3
-        with:
-          path: .elm
-          key: elm-${{ runner.os }}-${{ hashFiles('elm.json') }}
-
-      - name: Install Elm dependencies
-        if: steps.elm_cache.outputs.cache-hit != 'true'
-        run: |
-          echo -e "module A exposing (a)\na=0" > Temp.elm
-          npx elm make Temp.elm --output=/dev/null
-          rm Temp.elm
-
       - name: Install Node dependencies
         run: npm ci --prefer-offline --no-audit --ignore-scripts
 
