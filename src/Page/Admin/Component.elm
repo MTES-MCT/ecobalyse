@@ -396,7 +396,7 @@ componentListView db selected components =
                 , th [] [ label [ for AdminView.selectAllId ] [ text "Nom" ] ]
                 , th [] [ text "Publié" ]
                 , th [] [ text "Verticale" ]
-                , th [ colspan 3 ] [ text "Description" ]
+                , th [ colspan 3 ] [ text "Commentaire" ]
                 ]
             ]
         , components
@@ -444,13 +444,21 @@ componentRowView db selected component =
             [ small [ class "badge bg-secondary fs-10" ]
                 [ text <| Scope.toString component.scope ]
             ]
-        , td [ class "align-middle w-100" ]
-            [ case Component.elementsToString db component of
-                Err error ->
-                    span [ class "text-danger" ] [ text <| "Erreur: " ++ error ]
-
-                Ok string ->
-                    text string
+        , td
+            [ class "align-middle cursor-help"
+            , title <|
+                Maybe.withDefault "Sans commentaire" component.comment
+                    ++ "\nComposition: "
+                    ++ (component
+                            |> Component.elementsToString db
+                            |> Result.withDefault "N/A"
+                       )
+            ]
+            [ div [ class "w-100 text-truncate", style "max-width" "400px" ]
+                [ component.comment
+                    |> Maybe.map text
+                    |> Maybe.withDefault (em [ class "text-muted" ] [ text "Aucun commentaire" ])
+                ]
             ]
         , td [ class "align-middle text-end fw-bold" ]
             [ component
