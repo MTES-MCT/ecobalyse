@@ -163,7 +163,7 @@ init session trigram maybeQuery =
     , modal = NoModal
     , activeImpactsTab = ImpactTabs.StepImpactsTab
     }
-        |> App.createUpdate (session |> Session.updateFoodQuery query)
+        |> createPageUpdate (session |> Session.updateFoodQuery query)
 
 
 initFromExample : Session -> Uuid -> PageUpdate Model Msg
@@ -189,7 +189,7 @@ initFromExample session uuid =
     , modal = NoModal
     , activeImpactsTab = ImpactTabs.StepImpactsTab
     }
-        |> App.createUpdate (session |> Session.updateFoodQuery query)
+        |> createPageUpdate (session |> Session.updateFoodQuery query)
         |> App.withCmds [ Ports.scrollTo { x = 0, y = 0 } ]
 
 
@@ -202,16 +202,16 @@ update ({ db, queries } as session) msg model =
         maybeUpdateQuery : (a -> Query) -> Maybe a -> PageUpdate Model Msg
         maybeUpdateQuery toQuery maybeThing =
             maybeThing
-                |> Maybe.map (\thing -> updateQuery (toQuery thing) (App.createUpdate session model))
-                |> Maybe.withDefault (App.createUpdate session model)
+                |> Maybe.map (\thing -> updateQuery (toQuery thing) (createPageUpdate session model))
+                |> Maybe.withDefault (createPageUpdate session model)
     in
     case msg of
         AddDistribution ->
-            App.createUpdate session model
+            createPageUpdate session model
                 |> updateQuery (Query.setDistribution Retail.ambient query)
 
         AddIngredient ingredient ->
-            App.createUpdate session model
+            createPageUpdate session model
                 |> App.apply update (SetModal NoModal)
                 |> updateQuery (query |> Query.addIngredient (Recipe.ingredientQueryFromIngredient ingredient))
 
@@ -256,24 +256,24 @@ update ({ db, queries } as session) msg model =
                 |> maybeUpdateQuery (\transform -> Query.setTransform transform query)
 
         CopyToClipBoard shareableLink ->
-            App.createUpdate session model
+            createPageUpdate session model
                 |> App.withCmds [ Ports.copyToClipboard shareableLink ]
 
         DeleteBookmark bookmark ->
-            App.createUpdate session model
+            createPageUpdate session model
                 |> updateQuery query
                 |> App.mapSession (Session.deleteBookmark bookmark)
 
         DeleteIngredient ingredientId ->
-            App.createUpdate session model
+            createPageUpdate session model
                 |> updateQuery (Query.deleteIngredient ingredientId query)
 
         DeletePackaging code ->
-            App.createUpdate session model
+            createPageUpdate session model
                 |> updateQuery (Recipe.deletePackaging code query)
 
         DeletePreparation id ->
-            App.createUpdate session model
+            createPageUpdate session model
                 |> updateQuery (Query.deletePreparation id query)
 
         LoadQuery queryToLoad ->
@@ -281,12 +281,12 @@ update ({ db, queries } as session) msg model =
                 updatedModel =
                     { model | initialQuery = queryToLoad }
             in
-            App.createUpdate session updatedModel
+            createPageUpdate session updatedModel
                 |> App.apply update (SetModal NoModal)
                 |> updateQuery queryToLoad
 
         NoOp ->
-            App.createUpdate session model
+            createPageUpdate session model
 
         OnAutocompleteExample autocompleteMsg ->
             case model.modal of
@@ -296,11 +296,11 @@ update ({ db, queries } as session) msg model =
                             Autocomplete.update autocompleteMsg autocompleteState
                     in
                     { model | modal = SelectExampleModal newAutocompleteState }
-                        |> App.createUpdate session
+                        |> createPageUpdate session
                         |> App.withCmds [ Cmd.map OnAutocompleteExample autoCompleteCmd ]
 
                 _ ->
-                    App.createUpdate session model
+                    createPageUpdate session model
 
         OnAutocompleteIngredient autocompleteMsg ->
             case model.modal of
@@ -310,11 +310,11 @@ update ({ db, queries } as session) msg model =
                             Autocomplete.update autocompleteMsg autocompleteState
                     in
                     { model | modal = AddIngredientModal maybeOldIngredient newAutocompleteState }
-                        |> App.createUpdate session
+                        |> createPageUpdate session
                         |> App.withCmds [ Cmd.map OnAutocompleteIngredient autoCompleteCmd ]
 
                 _ ->
-                    App.createUpdate session model
+                    createPageUpdate session model
 
         OnAutocompleteSelect ->
             case model.modal of
@@ -322,71 +322,71 @@ update ({ db, queries } as session) msg model =
                     updateIngredient query model session maybeOldRecipeIngredient autocompleteState
 
                 SelectExampleModal autocompleteState ->
-                    App.createUpdate session model
+                    createPageUpdate session model
                         |> selectExample autocompleteState
 
                 _ ->
-                    App.createUpdate session model
+                    createPageUpdate session model
 
         OnDragLeaveBookmark ->
             { model | bookmarkBeingOvered = Nothing }
-                |> App.createUpdate session
+                |> createPageUpdate session
 
         OnDragOverBookmark bookmarkBeingOvered ->
             { model | bookmarkBeingOvered = Just bookmarkBeingOvered }
-                |> App.createUpdate session
+                |> createPageUpdate session
 
         OnDragStartBookmark bookmark ->
             { model | bookmarkBeingDragged = Just bookmark }
-                |> App.createUpdate session
+                |> createPageUpdate session
 
         OnDropBookmark target ->
             case model.bookmarkBeingDragged of
                 Just dragged ->
                     { model | bookmarkBeingDragged = Nothing, bookmarkBeingOvered = Nothing }
-                        |> App.createUpdate
+                        |> createPageUpdate
                             (session
                                 |> Session.moveBookmark dragged target
                             )
 
                 Nothing ->
-                    App.createUpdate session model
+                    createPageUpdate session model
 
         OnStepClick stepId ->
-            App.createUpdate session model
+            createPageUpdate session model
                 |> App.withCmds [ Ports.scrollIntoView stepId ]
 
         OpenComparator ->
             { model | modal = ComparatorModal }
-                |> App.createUpdate (session |> Session.checkComparedSimulations)
+                |> createPageUpdate (session |> Session.checkComparedSimulations)
                 |> App.withCmds [ Plausible.send session <| Plausible.ComparatorOpened Scope.Food ]
 
         RenameBookmark ->
             case model.bookmarkBeingRenamed of
                 Just bookmark ->
                     { model | bookmarkBeingRenamed = Nothing }
-                        |> App.createUpdate
+                        |> createPageUpdate
                             (session
                                 |> Session.renameBookmark bookmark
                             )
 
                 Nothing ->
-                    App.createUpdate session model
+                    createPageUpdate session model
 
         Reset ->
-            App.createUpdate session model
+            createPageUpdate session model
                 |> updateQuery model.initialQuery
 
         ResetDistribution ->
-            App.createUpdate session model
+            createPageUpdate session model
                 |> updateQuery (Recipe.resetDistribution query)
 
         ResetTransform ->
-            App.createUpdate session model
+            createPageUpdate session model
                 |> updateQuery (Recipe.resetTransform query)
 
         SaveBookmark ->
-            App.createUpdate session model
+            createPageUpdate session model
                 |> App.withCmds
                     [ Time.now
                         |> Task.perform
@@ -397,7 +397,7 @@ update ({ db, queries } as session) msg model =
                     ]
 
         SaveBookmarkWithTime name foodQuery now ->
-            App.createUpdate
+            createPageUpdate
                 (session
                     |> Session.saveBookmark
                         { name = String.trim name
@@ -410,19 +410,17 @@ update ({ db, queries } as session) msg model =
                 model
 
         SelectAllBookmarks ->
-            App.createUpdate (Session.selectAllBookmarks session) model
+            createPageUpdate (Session.selectAllBookmarks session) model
 
         SelectNoBookmarks ->
-            App.createUpdate (Session.selectNoBookmarks session) model
+            createPageUpdate (Session.selectNoBookmarks session) model
 
         SetModal modal ->
-            { model | modal = modal }
-                |> App.createUpdate session
-                |> App.withCmds [ commandsForModal modal ]
+            createPageUpdate session { model | modal = modal }
 
         SwitchBookmarksTab bookmarkTab ->
             { model | bookmarkTab = bookmarkTab }
-                |> App.createUpdate session
+                |> createPageUpdate session
                 |> App.withCmds
                     [ Plausible.TabSelected Scope.Food "Partager"
                         |> Plausible.sendIf session (bookmarkTab == BookmarkView.ShareTab)
@@ -430,7 +428,7 @@ update ({ db, queries } as session) msg model =
 
         SwitchComparisonType displayChoice ->
             { model | comparisonType = displayChoice }
-                |> App.createUpdate session
+                |> createPageUpdate session
                 |> App.withCmds
                     [ ComparatorView.comparisonTypeToString displayChoice
                         |> Plausible.ComparisonTypeSelected Scope.Food
@@ -438,7 +436,7 @@ update ({ db, queries } as session) msg model =
                     ]
 
         SwitchImpact (Ok trigram) ->
-            App.createUpdate session model
+            createPageUpdate session model
                 |> App.withCmds
                     [ Just query
                         |> Route.FoodBuilder trigram
@@ -448,12 +446,12 @@ update ({ db, queries } as session) msg model =
                     ]
 
         SwitchImpact (Err error) ->
-            App.createUpdate session model
+            createPageUpdate session model
                 |> App.notifyError "Erreur de sélection d'impact" error
 
         SwitchImpactsTab impactsTab ->
             { model | activeImpactsTab = impactsTab }
-                |> App.createUpdate session
+                |> createPageUpdate session
                 |> App.withCmds
                     [ ImpactTabs.tabToString impactsTab
                         |> Plausible.TabSelected Scope.Food
@@ -461,34 +459,34 @@ update ({ db, queries } as session) msg model =
                     ]
 
         ToggleComparedSimulation bookmark checked ->
-            App.createUpdate (session |> Session.toggleComparedSimulation bookmark checked) model
+            createPageUpdate (session |> Session.toggleComparedSimulation bookmark checked) model
 
         UpdateBookmarkName recipeName ->
             { model | bookmarkName = recipeName }
-                |> App.createUpdate session
+                |> createPageUpdate session
 
         UpdateDistribution newDistribution ->
-            App.createUpdate session model
+            createPageUpdate session model
                 |> updateQuery (Query.updateDistribution newDistribution query)
 
         UpdateIngredient oldIngredient newIngredient ->
-            App.createUpdate session model
+            createPageUpdate session model
                 |> updateQuery (Query.updateIngredient oldIngredient.id newIngredient query)
 
         UpdatePackaging code newPackaging ->
-            App.createUpdate session model
+            createPageUpdate session model
                 |> updateQuery (Query.updatePackaging code newPackaging query)
 
         UpdatePreparation oldId newId ->
-            App.createUpdate session model
+            createPageUpdate session model
                 |> updateQuery (Query.updatePreparation oldId newId query)
 
         UpdateRenamedBookmarkName bookmark name ->
             { model | bookmarkBeingRenamed = Just { bookmark | name = name } }
-                |> App.createUpdate session
+                |> createPageUpdate session
 
         UpdateTransform newTransform ->
-            App.createUpdate session model
+            createPageUpdate session model
                 |> updateQuery (Query.updateTransform newTransform query)
 
 
@@ -507,14 +505,19 @@ updateQuery query pageUpdate =
     }
 
 
-commandsForModal : Modal -> Cmd Msg
-commandsForModal modal =
-    case modal of
-        NoModal ->
-            Ports.removeBodyClass "prevent-scrolling"
+{-| Create a page update preventing the body to be scrollable when one or more modals are opened.
+-}
+createPageUpdate : Session -> Model -> PageUpdate Model Msg
+createPageUpdate session model =
+    App.createUpdate session model
+        |> App.withCmds
+            [ case model.modal of
+                NoModal ->
+                    Ports.removeBodyClass "prevent-scrolling"
 
-        _ ->
-            Ports.addBodyClass "prevent-scrolling"
+                _ ->
+                    Ports.addBodyClass "prevent-scrolling"
+            ]
 
 
 updateExistingIngredient : Query -> Model -> Session -> Recipe.RecipeIngredient -> Ingredient -> PageUpdate Model Msg
@@ -530,7 +533,7 @@ updateExistingIngredient query model session oldRecipeIngredient newIngredient =
             }
     in
     model
-        |> App.createUpdate session
+        |> createPageUpdate session
         |> App.apply update (SetModal NoModal)
         |> updateQuery (Query.updateIngredient oldRecipeIngredient.ingredient.id ingredientQuery query)
 
@@ -548,7 +551,7 @@ updateIngredient query model session maybeOldRecipeIngredient autocompleteState 
         |> Maybe.withDefault
             -- Add a new ingredient
             (model
-                |> App.createUpdate session
+                |> createPageUpdate session
                 |> App.apply update (SetModal NoModal)
                 |> selectIngredient autocompleteState
             )
