@@ -1,5 +1,4 @@
 from __future__ import annotations
-from sqlalchemy.util.topological import sort
 
 import datetime
 import json
