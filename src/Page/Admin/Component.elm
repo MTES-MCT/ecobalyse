@@ -644,7 +644,7 @@ modalView { componentConfig, db } modals index modal =
                         [ div [ class "row" ]
                             [ div [ class "col-12 col-md-6" ]
                                 [ pre [ class "bg-light p-3 mb-0 border-end overflow-auto" ]
-                                    [ text <| Encode.encode 2 <| Encode.string value ]
+                                    [ text value ]
                                 ]
                             , div [ class "col-12 col-md-6" ]
                                 [ dl [ class "mt-3" ]
