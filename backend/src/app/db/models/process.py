@@ -88,7 +88,6 @@ class Process(UUIDAuditBase):
     tre: Mapped[float] = mapped_column(Float, nullable=False, default=0)
     wtu: Mapped[float] = mapped_column(Float, nullable=False, default=0)
     ecs: Mapped[float] = mapped_column(Float, nullable=False, default=0)
-    pef: Mapped[float] = mapped_column(Float, nullable=False, default=0)
 
     @property
     def categories(self) -> list[str]:
@@ -117,7 +116,6 @@ class Process(UUIDAuditBase):
             "mru": self.mru,
             "ozd": self.ozd,
             "pco": self.pco,
-            "pef": self.pef,
             "pma": self.pma,
             "swe": self.swe,
             "tre": self.tre,

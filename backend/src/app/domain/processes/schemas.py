@@ -56,7 +56,6 @@ class Impacts(CamelizedBaseStruct):
     tre: float = 0
     wtu: float = 0
     ecs: float = 0
-    pef: float = 0
 
 
 class Process(CamelizedBaseStruct):

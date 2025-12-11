@@ -54,7 +54,12 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "22 juillet 2025"
+    [ { date = "11 décembre 2025"
+      , level = "major"
+      , domains = [ "Textile", "Alimentaire", "Objets" ]
+      , md = """Suppression de l’indicateur PEF obsolète dans les réponses de l’API."""
+      }
+    , { date = "22 juillet 2025"
       , level = "major"
       , domains = [ "Textile" ]
       , md = """Le paramétrage de la surface d'impression interdit désormais les valeurs supérieures à 80%."""

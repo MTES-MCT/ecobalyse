@@ -50,7 +50,6 @@ async def test_load_processes(
             "mru": 4,
             "ozd": 2,
             "pco": 7,
-            "pef": 9,
             "pma": 7,
             "swe": 7,
             "tre": 5,
