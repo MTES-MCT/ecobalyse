@@ -91,14 +91,14 @@ type Msg
 
 init : Session -> AdminSection.Section -> PageUpdate Model Msg
 init session section =
-    { components = RemoteData.Loading
-    , modals = []
-    , scopes = Scope.all
-    , search = ""
-    , section = section
-    , selected = []
-    }
-        |> App.createUpdate session
+    createUpdate session
+        { components = RemoteData.Loading
+        , modals = []
+        , scopes = Scope.all
+        , search = ""
+        , section = section
+        , selected = []
+        }
         |> App.withCmds [ ComponentApi.getComponents session ComponentListResponse ]
 
 
@@ -107,39 +107,39 @@ update session msg model =
     case msg of
         ComponentCreated (RemoteData.Failure err) ->
             model
-                |> App.createUpdate (session |> Session.notifyBackendError err)
+                |> createUpdate (session |> Session.notifyBackendError err)
 
         ComponentCreated (RemoteData.Success component) ->
             { model | modals = [ EditComponentModal component (Component.createItem component.id) ] }
-                |> App.createUpdate session
+                |> createUpdate session
                 |> App.withCmds [ ComponentApi.getComponents session ComponentListResponse ]
 
         ComponentCreated _ ->
-            App.createUpdate session model
+            createUpdate session model
 
         ComponentDeleted (RemoteData.Failure err) ->
-            App.createUpdate (session |> Session.notifyBackendError err) model
+            createUpdate (session |> Session.notifyBackendError err) model
 
         ComponentDeleted (RemoteData.Success _) ->
-            App.createUpdate session model
+            createUpdate session model
                 |> App.withCmds [ ComponentApi.getComponents session ComponentListResponse ]
 
         ComponentDeleted _ ->
-            App.createUpdate session model
+            createUpdate session model
 
         ComponentEditResponse (RemoteData.Success component) ->
-            { model | modals = [ EditComponentModal component (Component.createItem component.id) ] }
-                |> App.createUpdate session
+            createUpdate session
+                { model | modals = [ EditComponentModal component (Component.createItem component.id) ] }
 
         ComponentEditResponse (RemoteData.Failure err) ->
-            App.createUpdate (session |> Session.notifyBackendError err) model
+            createUpdate (session |> Session.notifyBackendError err) model
 
         ComponentEditResponse _ ->
-            App.createUpdate session model
+            createUpdate session model
 
         ComponentJournalResponse response ->
-            { model | modals = [ HistoryModal response ] }
-                |> App.createUpdate session
+            createUpdate session
+                { model | modals = [ HistoryModal response ] }
 
         ComponentListResponse response ->
             let
@@ -151,27 +151,27 @@ update session msg model =
                         _ ->
                             session
             in
-            App.createUpdate newSession { model | components = response }
+            createUpdate newSession { model | components = response }
 
         ComponentUpdated (RemoteData.Failure err) ->
-            App.createUpdate (session |> Session.notifyBackendError err) model
+            createUpdate (session |> Session.notifyBackendError err) model
 
         ComponentUpdated (RemoteData.Success _) ->
-            App.createUpdate session model
+            createUpdate session model
                 |> App.withCmds [ ComponentApi.getComponents session ComponentListResponse ]
 
         ComponentUpdated _ ->
-            App.createUpdate session model
+            createUpdate session model
 
         DuplicateComponent component ->
-            App.createUpdate session model
+            createUpdate session model
                 |> App.withCmds
                     [ { component | name = component.name ++ " (copie)" }
                         |> ComponentApi.createComponent session ComponentCreated
                     ]
 
         NoOp ->
-            App.createUpdate session model
+            createUpdate session model
 
         OnAutocompleteAddProcess category targetItem maybeElementIndex autocompleteMsg ->
             case model.modals of
@@ -180,7 +180,7 @@ update session msg model =
                         ( newAutocompleteState, autoCompleteCmd ) =
                             Autocomplete.update autocompleteMsg autocompleteState
                     in
-                    App.createUpdate session
+                    createUpdate session
                         { model
                             | modals =
                                 [ SelectProcessModal category targetItem maybeElementIndex newAutocompleteState
@@ -193,7 +193,7 @@ update session msg model =
                             ]
 
                 _ ->
-                    App.createUpdate session model
+                    createUpdate session model
 
         OnAutocompleteSelectProcess category targetItem maybeElementIndex ->
             case model.modals of
@@ -201,38 +201,35 @@ update session msg model =
                     selectProcess category targetItem maybeElementIndex autocompleteState item model session
 
                 _ ->
-                    App.createUpdate session model
+                    createUpdate session model
 
         OpenEditModal component ->
-            { model | modals = [] }
-                |> App.createUpdate session
+            createUpdate session { model | modals = [] }
                 |> App.withCmds [ ComponentApi.getComponent session ComponentEditResponse component.id ]
 
         OpenHistoryModal component ->
             { model | modals = [ HistoryModal RemoteData.Loading ] }
-                |> App.createUpdate session
+                |> createUpdate session
                 |> App.withCmds [ ComponentApi.getJournal session ComponentJournalResponse component.id ]
 
         OpenJournalEntryModal journalEntry ->
             { model | modals = JournalEntryModal journalEntry :: model.modals }
-                |> App.createUpdate session
+                |> createUpdate session
 
         SaveComponent ->
             case model.modals of
                 [ DeleteComponentModal component ] ->
-                    App.createUpdate session { model | modals = [] }
+                    createUpdate session { model | modals = [] }
                         |> App.withCmds [ ComponentApi.deleteComponent session ComponentDeleted component ]
 
                 [ EditComponentModal { comment, published } item ] ->
                     case Component.itemToComponent session.db item of
                         Err error ->
-                            { model | modals = [] }
-                                |> App.createUpdate session
+                            createUpdate session { model | modals = [] }
                                 |> App.notifyError "Erreur lors de la sauvegarde du composant" error
 
                         Ok component ->
-                            { model | modals = [] }
-                                |> App.createUpdate session
+                            createUpdate session { model | modals = [] }
                                 |> App.withCmds
                                     [ { component | comment = comment, published = published }
                                         |> ComponentApi.patchComponent session ComponentUpdated
@@ -240,41 +237,54 @@ update session msg model =
                                 |> App.notifySuccess "Composant sauvegardé"
 
                 _ ->
-                    App.createUpdate session model
+                    createUpdate session model
 
         SetModals modals ->
-            { model | modals = modals }
-                |> App.createUpdate session
-                |> App.withCmds [ commandsForModal modals ]
+            createUpdate session { model | modals = modals }
 
         ToggleSelected componentId add ->
             { model | selected = model.selected |> AdminView.toggleSelected componentId add }
-                |> App.createUpdate session
+                |> createUpdate session
 
         ToggleSelectedAll flag ->
             { model | selected = model.components |> AdminView.selectAll flag }
-                |> App.createUpdate session
+                |> createUpdate session
 
         UpdateComponent customItem ->
             model
                 |> updateComponent customItem
-                |> App.createUpdate session
+                |> createUpdate session
 
         UpdateComponentComment comment ->
             model
                 |> updateComponentComment comment
-                |> App.createUpdate session
+                |> createUpdate session
 
         UpdateComponentPublished published ->
             model
                 |> updateComponentPublished published
-                |> App.createUpdate session
+                |> createUpdate session
 
         UpdateScopeFilters scopes ->
-            App.createUpdate session { model | scopes = scopes }
+            createUpdate session { model | scopes = scopes }
 
         UpdateSearch search ->
-            App.createUpdate session { model | search = String.toLower search }
+            createUpdate session { model | search = String.toLower search }
+
+
+{-| Create a page update preventing the body to be scrollable when one or more modals are opened.
+-}
+createUpdate : Session -> Model -> PageUpdate Model Msg
+createUpdate session model =
+    App.createUpdate session model
+        |> App.withCmds
+            [ case model.modals of
+                [] ->
+                    Ports.removeBodyClass "prevent-scrolling"
+
+                _ ->
+                    Ports.addBodyClass "prevent-scrolling"
+            ]
 
 
 updateComponent : Item -> Model -> Model
@@ -307,16 +317,6 @@ updateComponentPublished published model =
             model
 
 
-commandsForModal : List Modal -> Cmd Msg
-commandsForModal modals =
-    case modals of
-        [] ->
-            Ports.removeBodyClass "prevent-scrolling"
-
-        _ ->
-            Ports.addBodyClass "prevent-scrolling"
-
-
 selectProcess :
     Category
     -> TargetItem
@@ -335,14 +335,14 @@ selectProcess category (( component, _ ) as targetItem) maybeElementIndex autoco
                     |> Result.andThen (List.head >> Result.fromMaybe "Pas d'élément résultant")
             of
                 Err err ->
-                    App.createUpdate session model
+                    createUpdate session model
                         |> App.notifyError "Erreur de sélection" err
 
                 Ok updatedItem ->
-                    App.createUpdate session { model | modals = [ EditComponentModal component updatedItem ] }
+                    createUpdate session { model | modals = [ EditComponentModal component updatedItem ] }
 
         Nothing ->
-            App.createUpdate session model
+            createUpdate session model
                 |> App.notifyError "Erreur de sélection" "Aucun composant sélectionné"
 
 
