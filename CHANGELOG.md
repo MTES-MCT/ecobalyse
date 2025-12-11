@@ -1,6 +1,20 @@
 # Changelog
 
 
+## [8.2.1](https://github.com/MTES-MCT/ecobalyse/compare/v8.2.0..v8.2.1) (2025-12-11)
+
+
+
+### 🪲 Bug Fixes
+
+- *(admin,ui)* Prevent unscrollable ui state ([#1636](https://github.com/MTES-MCT/ecobalyse/issues/1636))
+
+### ⚙️ Miscellaneous Tasks
+
+- Cache elm deps ([#1635](https://github.com/MTES-MCT/ecobalyse/issues/1635))
+- Serialize the JournalEntries values as string ([#1634](https://github.com/MTES-MCT/ecobalyse/issues/1634))
+
+
 ## [8.2.0](https://github.com/MTES-MCT/ecobalyse/compare/v8.1.0..v8.2.0) (2025-12-10)
 
 
