@@ -1,11 +1,10 @@
 name: Create release archive
 
 env:
-  ELM_HOME: ".elm"
+  TRANSCRYPT_KEY: ${{ secrets.TRANSCRYPT_KEY }}
   ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
   ENABLE_FOOD_SECTION: "True"
   ENABLE_OBJECTS_SECTION: "True"
-  TRANSCRYPT_KEY: ${{ secrets.TRANSCRYPT_KEY }}
 
 on:
   workflow_dispatch:
