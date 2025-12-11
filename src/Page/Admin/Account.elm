@@ -43,6 +43,7 @@ type alias Filters =
     { isActive : Maybe Bool
     , isSuperuser : Maybe Bool
     , isVerified : Maybe Bool
+    , hasActiveToken : Maybe Bool
     , emailOptin : Maybe Bool
     , termsAccepted : Maybe Bool
     }
@@ -64,6 +65,7 @@ defaultFilters =
     { isActive = Nothing
     , isSuperuser = Nothing
     , isVerified = Nothing
+    , hasActiveToken = Nothing
     , emailOptin = Nothing
     , termsAccepted = Nothing
     }
@@ -91,6 +93,7 @@ filterAccounts filters accounts =
         |> List.filter (\account -> filters.isActive |> Maybe.map ((==) account.isActive) |> Maybe.withDefault True)
         |> List.filter (\account -> filters.isSuperuser |> Maybe.map ((==) account.isSuperuser) |> Maybe.withDefault True)
         |> List.filter (\account -> filters.isVerified |> Maybe.map ((==) account.isVerified) |> Maybe.withDefault True)
+        |> List.filter (\account -> filters.hasActiveToken |> Maybe.map ((==) account.hasActiveToken) |> Maybe.withDefault True)
         |> List.filter (\account -> filters.emailOptin |> Maybe.map ((==) account.profile.emailOptin) |> Maybe.withDefault True)
         |> List.filter (\account -> filters.termsAccepted |> Maybe.map ((==) account.profile.termsAccepted) |> Maybe.withDefault True)
 
@@ -142,6 +145,7 @@ tableConfig =
             , booleanColumn "Admin" .isSuperuser
             , booleanColumn "Opt-in" (.profile >> .emailOptin)
             , booleanColumn "CGU" (.profile >> .termsAccepted)
+            , booleanColumn "Token actif" .hasActiveToken
             , dateColumn "Inscrit le" (.joinedAt >> Maybe.withDefault (Time.millisToPosix 0))
             ]
         , customizations =
@@ -223,6 +227,7 @@ availableFilters =
     , ( "CGU", ( .termsAccepted, \f val -> { f | termsAccepted = val } ) )
     , ( "Opt-in", ( .emailOptin, \f val -> { f | emailOptin = val } ) )
     , ( "Vérifié", ( .isVerified, \f val -> { f | isVerified = val } ) )
+    , ( "Token actif", ( .hasActiveToken, \f val -> { f | hasActiveToken = val } ) )
     ]
 
 

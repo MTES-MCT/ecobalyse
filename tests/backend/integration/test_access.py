@@ -1,3 +1,4 @@
+import datetime
 import urllib
 from typing import Any
 
@@ -156,6 +157,7 @@ async def test_user_profile(
         "isVerified": False,
         "joinedAt": json["joinedAt"],
         "magicLinkSentAt": json["magicLinkSentAt"],
+        "hasActiveToken": False,
     }
 
 
@@ -190,6 +192,7 @@ async def test_user_update_profile(
         "isVerified": False,
         "joinedAt": json["joinedAt"],
         "magicLinkSentAt": json["magicLinkSentAt"],
+        "hasActiveToken": False,
     }
 
     response = await client.patch(
@@ -302,6 +305,7 @@ async def test_user_signup_and_login(
             "isVerified": False,
             "joinedAt": json["joinedAt"],
             "magicLinkSentAt": None,
+            "hasActiveToken": False,
             "roles": [
                 {
                     "roleId": json["roles"][0]["roleId"],
@@ -615,6 +619,73 @@ async def test_list_accounts_superuser_granted(
     assert response.status_code == 200
     data = response.json()
     assert isinstance(data, list)
+
+
+async def test_list_accounts_show_recent_token_use(
+    session: AsyncSession,
+    client: "AsyncClient",
+    superuser_token_headers: dict[str, str],
+    user_token_headers: dict[str, str],
+) -> None:
+    async def _get_token_status():
+        response = await client.get("/api/accounts", headers=superuser_token_headers)
+        return next(
+            user for user in response.json() if user["email"] == "user@example.com"
+        )["hasActiveToken"]
+
+    # Ensure there are no pre-existing tokens
+
+    response = await client.get(
+        "/api/tokens",
+        headers=user_token_headers,
+    )
+    assert len(response.json()) == 0
+
+    # has_active_token is False if the user has no token
+
+    assert await _get_token_status() is False
+
+    # An unused token is not considered active
+
+    response = await client.post(
+        "/api/tokens",
+        headers=user_token_headers,
+    )
+    data = response.json()
+    assert await _get_token_status() is False
+
+    # Accessing detailled impacts should set the `last_accessed_at` date and
+    # "activate" the token
+
+    token = data["token"]
+    eco_api_user_token_headers = {"Authorization": f"Bearer {token}"}
+
+    await client.get(
+        "/api/processes",
+        headers=eco_api_user_token_headers,
+    )
+    assert await _get_token_status() is True
+
+    async with TokenService.new(session) as token_service:
+        # The last_accessed_at date is now
+
+        all_tokens = await token_service.repository.list()
+        assert len(all_tokens) == 1
+        token = all_tokens[0]
+        assert token.last_accessed_at is not None
+        now = datetime.datetime.now(datetime.timezone.utc)
+        assert (
+            datetime.timedelta(seconds=0)
+            < now - token.last_accessed_at
+            < datetime.timedelta(seconds=1)
+        )
+
+        # A last_accessed_at date older than one year does not make the token
+        # count as "active"
+
+        token.last_accessed_at = now - datetime.timedelta(days=367)
+        await token_service.repository.session.commit()
+        assert await _get_token_status() is False
 
 
 async def test_components_access_with_eco_api_token(
