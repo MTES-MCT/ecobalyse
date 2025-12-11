@@ -11,7 +11,6 @@ module Page.Auth exposing
 import App exposing (PageUpdate)
 import Browser.Navigation as Nav
 import Data.ApiToken as ApiToken exposing (CreatedToken, Token)
-import Data.Env as Env
 import Data.Plausible as Plausible
 import Data.Session as Session exposing (Session)
 import Data.User as User exposing (AccessTokenData, FormErrors, ProfileForm, SignupForm, User)
@@ -792,17 +791,13 @@ viewApiTokenDelete apiToken =
         ]
 
 
-viewV6Alert : Html Msg
-viewV6Alert =
+viewTocAlert : Html Msg
+viewTocAlert =
     Alert.simple
         { attributes = []
         , close = Nothing
         , content =
-            [ """ Depuis le **2 juillet 2025** et la mise en ligne de la version 6.0.0,
-                      **les comptes précédemment existants ont été supprimés**. Vous devez
-                      **[recréer un nouveau compte]({url})**.
-                  """
-                |> String.replace "{url}" (Route.toString Route.AuthSignup)
+            [ """Notre politique de confidentialité de données personnelles a changé depuis le **9 décembre 2025**. Pour continuer à accéder aux impacts détaillés, connectez-vous et consentez au traitement particulier de vos données personnelles liés à l'usage des impacts détaillés."""
                 |> Markdown.simple []
             ]
         , level = Alert.Info
@@ -813,7 +808,7 @@ viewV6Alert =
 viewMagicLinkForm : Email -> WebData () -> Html Msg
 viewMagicLinkForm email webData =
     div [ class "d-flex flex-column gap-3" ]
-        [ viewV6Alert
+        [ viewTocAlert
         , Html.form
             [ onSubmit MagicLinkSubmit
             , attribute "data-testid" "auth-magic-link-form"
@@ -983,9 +978,11 @@ viewSignupForm signupForm formErrors webData =
                 ]
                 []
             , label [ class "form-check-label", for "termsAccepted" ]
-                [ text "Je m’engage à respecter les "
-                , a [ href Env.cguUrl, target "_blank" ] [ text "conditions d'utilisation" ]
-                , text ", et suis informé(e) que cette utilisation ne peut se faire que dans le cadre de la vente de produits sur le marché français."
+                [ p [] [ text "Je m’engage à respecter les CGU spécifiques aux données EcoInvent et accepte que les informations recueillies sur ce formulaire soient enregistrées dans un fichier informatisé par l’ADEME pour\u{202F}:" ]
+                , ul []
+                    [ li [] [ text "Authentification des utilisateurs sur la plateforme web ou via l’API afin d'accéder aux impacts détaillés (ex: changement climatique)," ]
+                    , li [] [ text "délivrance de licences nominatives par EcoInvent aux utilisateurs des données EcoInvent via Ecobalyse (les données sont transmises si l’utilisateur consent au moins une fois via son compte Ecobalyse dans l'année)." ]
+                    ]
                 ]
             , viewFieldError "termsAccepted" formErrors
             ]
