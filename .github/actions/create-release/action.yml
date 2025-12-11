@@ -17,20 +17,13 @@ runs:
   using: "composite"
   steps:
 
-    - name: Cache Elm dependencies
-      id: elm_cache
-      uses: actions/cache@v3
+    - name: Cache ~/.elm
+      # see https://docs.microsoft.com/en-us/answers/questions/510640/deploy-elm-app-to-azure-static-website-from-github.html
+      uses: actions/cache@v4
       with:
-        path: .elm
-        key: elm-${{ runner.os }}-${{ hashFiles('elm.json') }}
-
-    - name: Install Elm dependencies
-      if: steps.elm_cache.outputs.cache-hit != 'true'
-      shell: bash
-      run: |
-        echo -e "module A exposing (a)\na=0" > Temp.elm
-        npx elm make Temp.elm --output=/dev/null
-        rm Temp.elm
+        path: ~/.elm
+        key: elm-cache-${{ hashFiles('elm.json') }}
+        restore-keys: elm-cache-
 
     - name: Build app
       id: build-app
