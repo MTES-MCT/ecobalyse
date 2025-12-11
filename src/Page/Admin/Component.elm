@@ -28,6 +28,7 @@ import Html.Events exposing (..)
 import Json.Encode as Encode
 import Page.Admin.Section as AdminSection
 import Ports
+import Prng.Uuid as Uuid
 import RemoteData
 import Request.BackendHttp exposing (WebData)
 import Request.Component as ComponentApi
@@ -59,8 +60,8 @@ type alias Model =
 type Modal
     = DeleteComponentModal Component
     | EditComponentModal Component Item
-    | HistoryModal (WebData (List (JournalEntry Component)))
-    | JournalEntryModal (JournalEntry Component)
+    | HistoryModal (WebData (List (JournalEntry String)))
+    | JournalEntryModal (JournalEntry String)
     | SelectProcessModal Category TargetItem (Maybe Index) (Autocomplete Process)
 
 
@@ -68,7 +69,7 @@ type Msg
     = ComponentCreated (WebData Component)
     | ComponentDeleted (WebData ())
     | ComponentEditResponse (WebData Component)
-    | ComponentJournalResponse (WebData (List (JournalEntry Component)))
+    | ComponentJournalResponse (WebData (List (JournalEntry String)))
     | ComponentListResponse (WebData (List Component))
     | ComponentUpdated (WebData Component)
     | DuplicateComponent Component
@@ -77,7 +78,7 @@ type Msg
     | OnAutocompleteSelectProcess Category TargetItem (Maybe Index)
     | OpenEditModal Component
     | OpenHistoryModal Component
-    | OpenJournalEntryModal (JournalEntry Component)
+    | OpenJournalEntryModal (JournalEntry String)
     | SaveComponent
     | SetModals (List Modal)
     | ToggleSelected Component.Id Bool
@@ -632,16 +633,18 @@ modalView { componentConfig, db } modals index modal =
                     , size = Modal.ExtraLarge
                     }
 
-                JournalEntryModal { action, value, user, createdAt } ->
+                JournalEntryModal { action, createdAt, recordId, tableName, user, value } ->
                     { title =
                         JournalEntry.actionToString action
-                            ++ " — "
-                            ++ value.name
+                            ++ ": "
+                            ++ tableName
+                            ++ "/"
+                            ++ Uuid.toString recordId
                     , content =
                         [ div [ class "row" ]
                             [ div [ class "col-12 col-md-6" ]
                                 [ pre [ class "bg-light p-3 mb-0 border-end overflow-auto" ]
-                                    [ text <| Encode.encode 2 <| Component.encode value ]
+                                    [ text <| Encode.encode 2 <| Encode.string value ]
                                 ]
                             , div [ class "col-12 col-md-6" ]
                                 [ dl [ class "mt-3" ]
@@ -735,7 +738,7 @@ componentScopesForm component item =
             )
 
 
-historyView : List (JournalEntry Component) -> Html Msg
+historyView : List (JournalEntry String) -> Html Msg
 historyView entries =
     let
         differences =
@@ -746,9 +749,7 @@ historyView entries =
                         { action = to.action
                         , createdAt = to.createdAt
                         , diff =
-                            Diff.diffLinesWith Diff.defaultOptions
-                                (from.value |> Component.encode |> Encode.encode 2)
-                                (to.value |> Component.encode |> Encode.encode 2)
+                            Diff.diffLinesWith Diff.defaultOptions from.value to.value
                                 |> DiffToString.diffToString { context = 2, color = False }
                         , id = to.id
                         , journalEntry = to
