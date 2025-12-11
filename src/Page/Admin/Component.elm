@@ -445,7 +445,13 @@ componentRowView db selected component =
             ]
         , td
             [ class "align-middle cursor-help"
-            , component.comment |> Maybe.withDefault "Sans commentaire" |> title
+            , title <|
+                Maybe.withDefault "Sans commentaire" component.comment
+                    ++ "\nComposition: "
+                    ++ (component
+                            |> Component.elementsToString db
+                            |> Result.withDefault "N/A"
+                       )
             ]
             [ div [ class "w-100 text-truncate", style "max-width" "400px" ]
                 [ component.comment
