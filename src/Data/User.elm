@@ -46,7 +46,7 @@ import Time exposing (Posix)
 
 type alias User =
     { email : String
-    , hasActiveToken: Bool
+    , hasActiveToken : Maybe Bool
     , id : Id
     , isActive : Bool
     , isSuperuser : Bool
@@ -139,7 +139,7 @@ decodeUser : Decoder User
 decodeUser =
     Decode.succeed User
         |> JDP.required "email" Decode.string
-        |> JDP.required "hasActiveToken" Decode.bool
+        |> DU.strictOptional "hasActiveToken" Decode.bool
         |> JDP.required "id" (Decode.map Id Uuid.decoder)
         |> JDP.required "isActive" Decode.bool
         |> JDP.required "isSuperuser" Decode.bool
@@ -237,7 +237,11 @@ encodeUser : User -> Encode.Value
 encodeUser user =
     Encode.object
         [ ( "email", user.email |> Encode.string )
-        , ("hasActiveToken", user.hasActiveToken |> Encode.bool)
+        , ( "hasActiveToken"
+          , user.hasActiveToken
+                |> Maybe.map Encode.bool
+                |> Maybe.withDefault Encode.null
+          )
         , ( "id", user.id |> encodeId )
         , ( "isActive", user.isActive |> Encode.bool )
         , ( "isSuperuser", user.isSuperuser |> Encode.bool )

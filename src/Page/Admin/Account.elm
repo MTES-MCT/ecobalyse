@@ -93,7 +93,12 @@ filterAccounts filters accounts =
         |> List.filter (\account -> filters.isActive |> Maybe.map ((==) account.isActive) |> Maybe.withDefault True)
         |> List.filter (\account -> filters.isSuperuser |> Maybe.map ((==) account.isSuperuser) |> Maybe.withDefault True)
         |> List.filter (\account -> filters.isVerified |> Maybe.map ((==) account.isVerified) |> Maybe.withDefault True)
-        |> List.filter (\account -> filters.hasActiveToken |> Maybe.map ((==) account.hasActiveToken) |> Maybe.withDefault True)
+        |> List.filter
+            (\account ->
+                filters.hasActiveToken
+                    |> Maybe.map ((==) (account.hasActiveToken |> Maybe.withDefault False))
+                    |> Maybe.withDefault True
+            )
         |> List.filter (\account -> filters.emailOptin |> Maybe.map ((==) account.profile.emailOptin) |> Maybe.withDefault True)
         |> List.filter (\account -> filters.termsAccepted |> Maybe.map ((==) account.profile.termsAccepted) |> Maybe.withDefault True)
 
@@ -145,7 +150,7 @@ tableConfig =
             , booleanColumn "Admin" .isSuperuser
             , booleanColumn "Opt-in" (.profile >> .emailOptin)
             , booleanColumn "CGU" (.profile >> .termsAccepted)
-            , booleanColumn "Token actif" .hasActiveToken
+            , booleanColumn "Token actif" (.hasActiveToken >> Maybe.withDefault False)
             , dateColumn "Inscrit le" (.joinedAt >> Maybe.withDefault (Time.millisToPosix 0))
             ]
         , customizations =
