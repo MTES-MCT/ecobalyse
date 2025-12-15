@@ -374,7 +374,7 @@
       "energy"
     ],
     "comment": "Ancien identifiant (12/2024): 53c7378e585cf74cea4837819be6e631.",
-    "density": 0,
+    "density": null,
     "displayName": "Électricité moyenne tension, Australie",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -664,7 +664,7 @@
       "material_type:metal"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Extrusion (aluminium)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -748,7 +748,7 @@
       "material_type:organic_fibers"
     ],
     "comment": "Même commentaire que `bleaching` sauf qu'en plus les impacts sont multipliés par 19% (scénario de pollution aquatique moyen). corr3 et corr2 (cf doc). Corr3 : valeurs d'élec et de chaleur issues du rapport BAT2023 avec majoration de 50%. corr2 : valeur d'écotox issue d'inventaires enrichis.",
-    "density": 0,
+    "density": null,
     "displayName": "Blanchiment (scénario de pollution aquatique moyen)",
     "elecMJ": 0.72,
     "heatMJ": 5.4,
@@ -1118,7 +1118,7 @@
       "material_type:plastic"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Moulage par injection",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -1284,7 +1284,7 @@
       "material_type:plastic"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Extrusion + thermoformage (plastique)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -1328,7 +1328,7 @@
       "material_type:synthetic_fibers"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Plastique granulé (PET)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -1493,7 +1493,7 @@
       "energy"
     ],
     "comment": "Ancien identifiant (12/2024): elec-medium-region-africa.",
-    "density": 0,
+    "density": null,
     "displayName": "Électricité moyenne tension, Afrique",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -1537,7 +1537,7 @@
       "material_type:metal"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Aluminium vierge mix marché (RoW)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -1619,7 +1619,7 @@
       "use"
     ],
     "comment": "Ancien identifiant (12/2024): 406d1f98-1052-458d-8f50-1901853d896d.",
-    "density": 0,
+    "density": null,
     "displayName": "Utilisation : Impact hors repassage (Chemisier)",
     "elecMJ": 0.80952,
     "heatMJ": 0,
@@ -1746,7 +1746,7 @@
       "material_type:organic_fibers"
     ],
     "comment": "corr3 (cf doc): valeurs issues du rapport BAT2023 avec majoration de 50%",
-    "density": 0,
+    "density": null,
     "displayName": "Dégraissage",
     "elecMJ": 1.08,
     "heatMJ": 13.5,
@@ -1871,7 +1871,7 @@
       "material_type:plastic"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Incinération du plastique",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -1995,7 +1995,7 @@
       "use"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Diesel (B7), norme Euro4",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -2365,7 +2365,7 @@
       "material_type:wood"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Revêtement bois (huile ou vernis acrylique)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -2448,7 +2448,7 @@
       "energy"
     ],
     "comment": "Ancien identifiant (12/2024): 028c9bf863a1ab77a0e636029afc5839.",
-    "density": 0,
+    "density": null,
     "displayName": "Électricité moyenne tension, Pakistan",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -2531,7 +2531,7 @@
       "transport"
     ],
     "comment": "Ancien identifiant (12/2024): 86ac591e1e5c1d96a0d004ac830563d9.",
-    "density": 0,
+    "density": null,
     "displayName": "transport maritime",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -2781,7 +2781,7 @@
       "use"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Diesel (B7), norme Euro6",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -2822,7 +2822,7 @@
       "transformation"
     ],
     "comment": "Bien que `elecMJ` = 0, ce procédé consomme de l'électricité mais dans une autre unité (kWh/pick.m). Voir weavingElecPPPM. Ancien identifiant (12/2024): f9686809-f55e-4b96-b1f0-3298959de7d0.",
-    "density": 0,
+    "density": null,
     "displayName": "Tissage (habillement)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -2863,7 +2863,7 @@
       "energy"
     ],
     "comment": "Ancien identifiant (12/2024): debdaaba938a58ac1ab0131e47186092.",
-    "density": 0,
+    "density": null,
     "displayName": "Électricité moyenne tension, Pérou",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -2986,7 +2986,7 @@
       "transformation"
     ],
     "comment": "Données provenant de Base Impacts 2.01. Ancien identifiant (12/2024): 49adf2a8-c74f-46af-b4c7-e1a8e1f5a6cb.",
-    "density": 0,
+    "density": null,
     "displayName": "Délavage chimique, procédé majorant, traitement inefficace des eaux usées",
     "elecMJ": 6.53,
     "heatMJ": 37.81,
@@ -3027,7 +3027,7 @@
       "energy"
     ],
     "comment": "Ancien identifiant (12/2024): 8bbc2475141687462993329f9b7c2ddf.",
-    "density": 0,
+    "density": null,
     "displayName": "Électricité moyenne tension, Chine",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -3193,7 +3193,7 @@
       "energy"
     ],
     "comment": "Ancien identifiant (12/2024): 0b69950358f3e8f0d3fb049d71481186.",
-    "density": 0,
+    "density": null,
     "displayName": "Électricité moyenne tension, Bangladesh",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -3236,7 +3236,7 @@
       "material_type:metal"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Aluminium vierge mix marché (RER)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -3319,7 +3319,7 @@
       "textile_material"
     ],
     "comment": "Ancien identifiant (12/2024): 6e442b958af0d26f85ecacce2eeb23d0.",
-    "density": 0,
+    "density": null,
     "displayName": "Production de polypropylène, granulés",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -3442,7 +3442,7 @@
       "transformation"
     ],
     "comment": "Ancien identifiant (12/2024): 9c478d79-ff6b-45e1-9396-c3bd897faa1d.",
-    "density": 0,
+    "density": null,
     "displayName": "Tricotage moyen (mix de métiers circulaire & rectiligne)",
     "elecMJ": 8.64,
     "heatMJ": 0,
@@ -3688,7 +3688,7 @@
       "energy"
     ],
     "comment": "Ancien identifiant (12/2024): 609797e4710a81c9903bc72c141ff191.",
-    "density": 0,
+    "density": null,
     "displayName": "Électricité moyenne tension, Nouvelle-Zélande",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -3770,7 +3770,7 @@
       "energy"
     ],
     "comment": "Ancien identifiant (12/2024): 825dae104f028cb558dac151f7c45f03.",
-    "density": 0,
+    "density": null,
     "displayName": "Électricité moyenne tension, Brésil",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -3811,7 +3811,7 @@
       "transport"
     ],
     "comment": "Données provenant de Base Impacts 2.01. Ancien identifiant (12/2024): 1ead35dd-fc71-4b0c-9410-7e39da95c7dc.",
-    "density": 0,
+    "density": null,
     "displayName": "Transport en voiture jusqu'au point de collecte précalculé pour la fin de vie",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -3976,7 +3976,7 @@
       "material_type:wood"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Incinération du bois",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -4140,7 +4140,7 @@
       "transport"
     ],
     "comment": "Ancien identifiant : d3130e7ed9686fcc4bbe980e0375ad88 (12/2024) ; puis ajout des trainées (12/2025)",
-    "density": 0,
+    "density": null,
     "displayName": "transport aérien long-courrier",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -4305,7 +4305,7 @@
       "energy"
     ],
     "comment": "Reconstitution du mix depuis Ecoinvent 3.9.1\nAncien identifiant (12/2024): heat-row.",
-    "density": 0,
+    "density": null,
     "displayName": "Mix chaleur (Monde)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -4471,7 +4471,7 @@
       "energy"
     ],
     "comment": "Ancien identifiant (12/2024): 2c27aa8ba10e717c63b8508b487909bd.",
-    "density": 0,
+    "density": null,
     "displayName": "Électricité moyenne tension, Éthiopie",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -4513,7 +4513,7 @@
       "material_type:plastic"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Plastique rigide (PC)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -4761,7 +4761,7 @@
       "material_type:plastic"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Plexiglas®",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -4846,7 +4846,7 @@
       "packaging"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Acier vierge (non allié, Europe)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -4890,7 +4890,7 @@
       "material_type:plastic"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Film plastique",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -4932,7 +4932,7 @@
       "material_type:wood"
     ],
     "comment": "Energy consumptions based on Ecobalyse litterature review with an average scenario hypothesis. Wastes are based on French technical institue FCBA.",
-    "density": 0,
+    "density": null,
     "displayName": "Panneaux, MDF (transformation)",
     "elecMJ": 1080.0,
     "heatMJ": 3200.0,
@@ -5015,7 +5015,7 @@
       "textile_material"
     ],
     "comment": "Ancien identifiant (12/2024): wool-default.",
-    "density": 0,
+    "density": null,
     "displayName": "Laine par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -5056,7 +5056,7 @@
       "energy"
     ],
     "comment": "Ancien identifiant (12/2024): 4968e9f8cf72cb72700d94b242048db0.",
-    "density": 0,
+    "density": null,
     "displayName": "Électricité moyenne tension, Myanmar",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -5139,7 +5139,7 @@
       "transformation"
     ],
     "comment": "corr3 : valeurs d'élec et de chaleur issues du rapport BAT2023 avec majoration de 50%",
-    "density": 0,
+    "density": null,
     "displayName": "Apprêts chimiques",
     "elecMJ": 2.16,
     "heatMJ": 13.5,
@@ -5262,7 +5262,7 @@
       "transport"
     ],
     "comment": "Données provenant de Base Impacts 2.01. Ancien identifiant (12/2024): f49b27fa-f22e-c6e1-ab4b-e9f873e2e648.",
-    "density": 0,
+    "density": null,
     "displayName": "Transport en camion non spécifié France",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -5304,7 +5304,7 @@
       "material_type:upholstery"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Incinération des mousses et rembourrés",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -5346,7 +5346,7 @@
       "textile_material"
     ],
     "comment": "corr4: Impacts de la laine par défaut multiplié par le coefficient 4%/37%=0.108. Cela vient d'une différence de taux d'allocation : 4% pour cette laine et 37% pour la laine par défaut.",
-    "density": 0,
+    "density": null,
     "displayName": "Laine nouvelle filière",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -5429,7 +5429,7 @@
       "material_type:plastic"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Composé organique",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -5675,7 +5675,7 @@
       "transformation"
     ],
     "comment": "corr3 (cf doc): valeurs issues du rapport BAT2023 avec majoration de 50%",
-    "density": 0,
+    "density": null,
     "displayName": "Désencollage",
     "elecMJ": 0.36,
     "heatMJ": 3.2,
@@ -5757,7 +5757,7 @@
       "transport"
     ],
     "comment": "Ancien identifiant (12/2024): f37aba954435f9f158c19a9449d373b2.",
-    "density": 0,
+    "density": null,
     "displayName": "transport routier",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -6294,7 +6294,7 @@
       "material_type:other"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Résine (phénol-formaldéhyde)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -6787,7 +6787,7 @@
       "material_type:metal"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Aluminium recyclé",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -6869,7 +6869,7 @@
       "energy"
     ],
     "comment": "Ancien identifiant (12/2024): ae9240745e54987338d2228c3be2a5ec.",
-    "density": 0,
+    "density": null,
     "displayName": "Électricité moyenne tension, Italie",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -6912,7 +6912,7 @@
       "use"
     ],
     "comment": "Ancien identifiant (12/2024): 7f76529e-521d-4795-bb36-ff896c4692da.",
-    "density": 0,
+    "density": null,
     "displayName": "Utilisation : Impact hors repassage (T-shirt)",
     "elecMJ": 1.0266,
     "heatMJ": 0,
@@ -7035,7 +7035,7 @@
       "end-of-life"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Incinération du métal",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -7077,7 +7077,7 @@
       "energy"
     ],
     "comment": "Ancien identifiant (12/2024): 99b549d4ba7a0f5f4ab6050d6a6689ad.",
-    "density": 0,
+    "density": null,
     "displayName": "Électricité moyenne tension, USA",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -7120,7 +7120,7 @@
       "material_type:wood"
     ],
     "comment": "Energy consumption based on average data from wood-based panels processes displayed in Ecobalyse (OSB, particleboard, HDF, MDF, plywood). No waste is considered as this process is used for inputs other than virgin wood (ex : recycled wood, glue, resins, etc.).",
-    "density": 0,
+    "density": null,
     "displayName": "Panneaux (transformation, post-déchiquetage)",
     "elecMJ": 0,
     "heatMJ": 2248.0,
@@ -7203,7 +7203,7 @@
       "material_type:plastic"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Plastique granulé (PP)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -7285,7 +7285,7 @@
       "energy"
     ],
     "comment": "Ancien identifiant (12/2024): e0f11b283ad36b3da097649bee199149.",
-    "density": 0,
+    "density": null,
     "displayName": "Électricité moyenne tension, Sri Lanka",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -7408,7 +7408,7 @@
       "transformation"
     ],
     "comment": "Données provenant de Base Impacts 2.01. Ancien identifiant (12/2024): 0810b8e5-a3d9-4607-bccc-83d112573260.",
-    "density": 0,
+    "density": null,
     "displayName": "Impression fixé-lavé, procédé représentatif, traitement moyen des eaux usées",
     "elecMJ": 5.22,
     "heatMJ": 8.72,
@@ -7449,7 +7449,7 @@
       "use"
     ],
     "comment": "Ancien identifiant (12/2024): 2572015b-7320-4ce1-bc99-cc6de371a654.",
-    "density": 0,
+    "density": null,
     "displayName": "Utilisation : Impact hors repassage (Jupe)",
     "elecMJ": 0.80952,
     "heatMJ": 0,
@@ -7491,7 +7491,7 @@
       "material_type:plastic"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Caoutchouc synthétique",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -7534,7 +7534,7 @@
       "material_type:metal"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Aluminium mix marché (RER)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -7616,7 +7616,7 @@
       "energy"
     ],
     "comment": "Ancien identifiant (12/2024): 80ff4bc21a0e197ea3f69d809fd8d4f1.",
-    "density": 0,
+    "density": null,
     "displayName": "Électricité moyenne tension, Espagne",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -7698,7 +7698,7 @@
       "material"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Verre plat",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -7740,7 +7740,7 @@
       "energy"
     ],
     "comment": "Ancien identifiant (12/2024): 2764d908c1a6fe88976d6eabf16295da.",
-    "density": 0,
+    "density": null,
     "displayName": "Électricité moyenne tension, République Tchèque",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -7867,7 +7867,7 @@
       "material_type:synthetic_fibers"
     ],
     "comment": "Ancien identifiant (12/2024): f32024fc5e736e01fa14321363900581.",
-    "density": 0,
+    "density": null,
     "displayName": "Production de PET, granulés, amorphe",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -8279,7 +8279,7 @@
       "material_type:metal"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Acier (faiblement allié)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -8362,7 +8362,7 @@
       "material_type:metal"
     ],
     "comment": "densité energétique : 6.3 kWh/kg",
-    "density": 0,
+    "density": null,
     "displayName": "Batterie Li-ion (Autres)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -8444,7 +8444,7 @@
       "transformation"
     ],
     "comment": "Ancien identifiant (12/2024): 6524ac1e-cc95-4b5a-b462-2fccad7a0bce.",
-    "density": 0,
+    "density": null,
     "displayName": "Tricotage fully-fashioned",
     "elecMJ": 6.0644,
     "heatMJ": 0,
@@ -8568,7 +8568,7 @@
       "material_type:wood"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Revêtement bois (résine epoxy)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -8611,7 +8611,7 @@
       "material_type:metal"
     ],
     "comment": "densité energétique : 8.6 kWh/kg",
-    "density": 0,
+    "density": null,
     "displayName": "Batterie Li-ion (LFP)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -8693,7 +8693,7 @@
       "energy"
     ],
     "comment": "Ancien identifiant (12/2024): elec-medium-region-north-america.",
-    "density": 0,
+    "density": null,
     "displayName": "Électricité moyenne tension, Amérique du nord",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -8738,7 +8738,7 @@
       "material_type:organic_fibers"
     ],
     "comment": "corr1: Données Base Impacts 2.01 uuid_bi=d23093d-1346-4018-8c0f-7aae33c67bcd auquel a été retranché l'impact de la filature\nAncien identifiant (12/2024): 993955be-5888-6f39-137c-56af8c5187c1.",
-    "density": 0,
+    "density": null,
     "displayName": "Production de coton recyclé (déchets post-consommation)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -8944,7 +8944,7 @@
       "material_type:metal"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Composants électroniques",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -8986,7 +8986,7 @@
       "material_type:metal"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Transformation finale (acier)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -9151,7 +9151,7 @@
       "end-of-life"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Incinération",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -9193,7 +9193,7 @@
       "material_type:organic_fibers"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Filature non conventionnelle (40 Nm)",
     "elecMJ": 6.552,
     "heatMJ": 0,
@@ -9236,7 +9236,7 @@
       "material_type:metal"
     ],
     "comment": "densité energétique : 6.7 kWh/kg",
-    "density": 0,
+    "density": null,
     "displayName": "Batterie Li-ion (NMC811)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -9278,7 +9278,7 @@
       "material_type:metal"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Acier recyclé (faiblement allié, Europe)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -9402,7 +9402,7 @@
       "material_type:wood"
     ],
     "comment": "Energy consumptions based on Ecobalyse litterature review with an average scenario hypothesis. Wastes are based on French technical institue FCBA.",
-    "density": 0,
+    "density": null,
     "displayName": "Panneaux, HDF (transformation)",
     "elecMJ": 1764.0,
     "heatMJ": 3600.0,
@@ -9444,7 +9444,7 @@
       "material_type:metal"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Acier mix marché (Europe)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -9526,7 +9526,7 @@
       "energy"
     ],
     "comment": "Ancien identifiant (12/2024): e5f92d33532b4e649da2541b264fa363.",
-    "density": 0,
+    "density": null,
     "displayName": "Électricité moyenne tension, Kenya",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -9691,7 +9691,7 @@
       "material_type:metal"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Acier recyclé (faiblement allié, Reste du monde)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -9978,7 +9978,7 @@
       "material"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Noir de carbone",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -10020,7 +10020,7 @@
       "material_type:upholstery"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Mousse rigide (PUR)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -10146,7 +10146,7 @@
       "material_type:organic_fibers"
     ],
     "comment": "corr1: Données Base Impacts 2.01 uuid_bi=2b24abb0-c1ec-4298-9b58-350904a26104 auquel a été retranché l'impact de la filature\nAncien identifiant (12/2024): 9c6ab710-4a08-c720-cede-24428a013fda.",
-    "density": 0,
+    "density": null,
     "displayName": "Production de coton recyclé (déchets de production)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -10188,7 +10188,7 @@
       "material_type:synthetic_fibers"
     ],
     "comment": "corr3 (cf doc): valeurs issues du rapport BAT2023 avec majoration de 50%",
-    "density": 0,
+    "density": null,
     "displayName": "Lavage (fibres synthétiques)",
     "elecMJ": 0.72,
     "heatMJ": 10.8,
@@ -10312,7 +10312,7 @@
       "transformation"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Teinture en discontinu",
     "elecMJ": 4.32,
     "heatMJ": 32.4,
@@ -10559,7 +10559,7 @@
       "material_type:metal"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Acier vierge (non allié, Reste du monde)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -10601,7 +10601,7 @@
       "textile_material"
     ],
     "comment": "Ancien identifiant (12/2024): fa590941e8bbf72c8956b5c3ba793eb7.",
-    "density": 0,
+    "density": null,
     "displayName": "Production de chanvre",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -10642,7 +10642,7 @@
       "transformation"
     ],
     "comment": "Ancien identifiant (12/2024): 364298ad-2058-4ec4-b2d0-47f5214abffb.",
-    "density": 0,
+    "density": null,
     "displayName": "Tricotage rectiligne",
     "elecMJ": 4.194,
     "heatMJ": 0,
@@ -10725,7 +10725,7 @@
       "material_type:metal"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Transformation métallique (moyenne)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -10892,7 +10892,7 @@
       "material_type:organic_fibers"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Tissage (40Nm et 250 g/m2)",
     "elecMJ": 20.952,
     "heatMJ": 0,
@@ -11101,7 +11101,7 @@
       "textile_material"
     ],
     "comment": "Ancien identifiant (12/2024): 4d81aa5f76872e1e4c0e1bb14b01e93b.",
-    "density": 0,
+    "density": null,
     "displayName": "Production de jute, rouissage",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -11143,7 +11143,7 @@
       "material_type:metal"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Lamination (aluminium)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -11227,7 +11227,7 @@
       "material_type:metal"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Transformation finale (aluminium)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -11393,7 +11393,7 @@
       "textile_material"
     ],
     "comment": "Ancien identifiant (12/2024): 75b27555d86fe1c66686cdf4339efc89.",
-    "density": 0,
+    "density": null,
     "displayName": "Production de plexiglas (Polyméthacrylate de méthyle)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -11599,7 +11599,7 @@
       "material_type:wood"
     ],
     "comment": "Energy consumptions based on Ecobalyse litterature review with an average scenario hypothesis. Wastes are based on French technical institue FCBA.",
-    "density": 0,
+    "density": null,
     "displayName": "Panneaux, aggloméré/particules (transformation)",
     "elecMJ": 558.0,
     "heatMJ": 1500.0,
@@ -11682,7 +11682,7 @@
       "material_type:plastic"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Plastique rigide (ABS)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -11765,7 +11765,7 @@
       "use"
     ],
     "comment": "Ancien identifiant (12/2024): 8c040f35-e137-424b-a67f-2e50b628c1bf.",
-    "density": 0,
+    "density": null,
     "displayName": "Utilisation : Impact hors repassage (Manteau)",
     "elecMJ": 0.9663,
     "heatMJ": 0,
@@ -11848,7 +11848,7 @@
       "use"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Essence (E10), norme Euro6",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -11890,7 +11890,7 @@
       "material_type:synthetic_fibers"
     ],
     "comment": "Même commentaire que `dyeing-synthetic-fiber` sauf qu'en plus les impacts sont multipliés par 19% (scénario de pollution aquatique moyen). corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-teinture-fibres-synthetiques.",
-    "density": 0,
+    "density": null,
     "displayName": "Teinture moyenne pour fibres synthétiques (scénario de pollution aquatique moyen)",
     "elecMJ": 3.6,
     "heatMJ": 24.3,
@@ -12014,7 +12014,7 @@
       "material_type:wood"
     ],
     "comment": "Energy consumptions based on Ecobalyse litterature review with an average scenario hypothesis. Wastes are based on French technical institue FCBA.",
-    "density": 0,
+    "density": null,
     "displayName": "Panneaux, OSB (transformation)",
     "elecMJ": 720.0,
     "heatMJ": 1900.0,
@@ -12097,7 +12097,7 @@
       "material_type:wood"
     ],
     "comment": "Energy consumptions based on Ecobalyse litterature review with an average scenario hypothesis (main sources : FAO national statistics  + Swedish manufacturing plants statistics  + Canada manufacturing plants statistics + Ecoinvent resources)",
-    "density": 0,
+    "density": null,
     "displayName": "Sciage + séchage au four (bois)",
     "elecMJ": 216.0,
     "heatMJ": 1000.0,
@@ -12138,7 +12138,7 @@
       "use"
     ],
     "comment": "Ancien identifiant (12/2024): d3bff7b7-efc1-459b-856d-ea0801d6912f.",
-    "density": 0,
+    "density": null,
     "displayName": "Utilisation : Impact hors repassage (Robe)",
     "elecMJ": 0.80952,
     "heatMJ": 0,
@@ -12180,7 +12180,7 @@
       "material_type:metal"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Aluminium mix marché (CN)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -12222,7 +12222,7 @@
       "material_type:metal"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Moteur électrique",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -12264,7 +12264,7 @@
       "material_type:wood"
     ],
     "comment": "Energy consumptions based on Ecobalyse litterature review with an average scenario hypothesis. Wastes are based on French technical institue FCBA.",
-    "density": 0,
+    "density": null,
     "displayName": "Panneaux, contreplaqué (transformation)",
     "elecMJ": 720.0,
     "heatMJ": 1040.0,
@@ -12305,7 +12305,7 @@
       "energy"
     ],
     "comment": "Ancien identifiant (12/2024): 32644303e316aebb9ffa31e9856c8f6b.",
-    "density": 0,
+    "density": null,
     "displayName": "Électricité moyenne tension, Turquie",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -12474,7 +12474,7 @@
       "transformation"
     ],
     "comment": "Données provenant de Base Impacts 2.01. Ancien identifiant (12/2024): 710987ca-f483-4f1c-9122-38b620f4062b.",
-    "density": 0,
+    "density": null,
     "displayName": "Impression pigmentaire, procédé représentatif, traitement moyen des eaux usées",
     "elecMJ": 4.56,
     "heatMJ": 7.25,
@@ -12597,7 +12597,7 @@
       "energy"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Electricité moyenne tension, Pologne",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -12639,7 +12639,7 @@
       "transformation"
     ],
     "comment": "corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-impression-pigmentaire.",
-    "density": 0,
+    "density": null,
     "displayName": "Impression (pigmentaire)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -12888,7 +12888,7 @@
       "textile_material"
     ],
     "comment": "Ancien identifiant (12/2024): 087896096b5bede914ef3ec1062b1c02.",
-    "density": 0,
+    "density": null,
     "displayName": "Production de PET recyclé, granulés, amorphe",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -13462,7 +13462,7 @@
       "energy"
     ],
     "comment": "Ancien identifiant (12/2024): elec-medium-region-asia.",
-    "density": 0,
+    "density": null,
     "displayName": "Électricité moyenne tension, Asie",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -13751,7 +13751,7 @@
       "energy"
     ],
     "comment": "Ancien identifiant (12/2024): d3287580187139b11ce76f80013510d0.",
-    "density": 0,
+    "density": null,
     "displayName": "Électricité moyenne tension, Maroc",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -14000,7 +14000,7 @@
       "material_type:other"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Résine (mélamine-urée-formaldéhyde)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -14083,7 +14083,7 @@
       "material_type:other"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Résine (urée-formaldéhyde)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -14125,7 +14125,7 @@
       "material_type:plastic"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Plastique granulé (divers)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -14167,7 +14167,7 @@
       "use"
     ],
     "comment": "Ancien identifiant (12/2024): 2b39a7ac-38bd-435f-85a4-783023d845bf.",
-    "density": 0,
+    "density": null,
     "displayName": "Utilisation : Impact hors repassage (Pull)",
     "elecMJ": 1.0266,
     "heatMJ": 0,
@@ -14249,7 +14249,7 @@
       "energy"
     ],
     "comment": "Ancien identifiant (12/2024): elec-medium-region-latin-america.",
-    "density": 0,
+    "density": null,
     "displayName": "Électricité moyenne tension, Amérique latine",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -14292,7 +14292,7 @@
       "end-of-life"
     ],
     "comment": "Précalcul Ecobalyse à partir de Base Impacts",
-    "density": 0,
+    "density": null,
     "displayName": "Fin de vie hors voiture (transport en camion, incinération, mise en décharge)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -14333,7 +14333,7 @@
       "energy"
     ],
     "comment": "Ancien identifiant (12/2024): d33cefdc558e3fe890174e6f1e205015.",
-    "density": 0,
+    "density": null,
     "displayName": "Électricité moyenne tension, Albanie",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -14416,7 +14416,7 @@
       "material_type:organic_fibers"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Filature conventionnelle (40 Nm)",
     "elecMJ": 13.104,
     "heatMJ": 0,
@@ -14623,7 +14623,7 @@
       "material_type:metal"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Acier mix marché (Reste du monde)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -14666,7 +14666,7 @@
       "material_type:organic_fibers"
     ],
     "comment": "Ancien identifiant (12/2024): coton-bio.",
-    "density": 0,
+    "density": null,
     "displayName": "Production de fibres de coton bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -14709,7 +14709,7 @@
       "material_type:synthetic_fibers"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Filage (40 Nm)",
     "elecMJ": 4.896,
     "heatMJ": 0,
@@ -14752,7 +14752,7 @@
       "material_type:organic_fibers"
     ],
     "comment": "Même commentaire que `dyeing-cellulosic-fiber` sauf qu'en plus les impacts sont multipliés par 19% (scénario de pollution aquatique moyen). corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-teinture-fibres-cellulosiques.",
-    "density": 0,
+    "density": null,
     "displayName": "Teinture moyenne (scénario de pollution aquatique moyen)",
     "elecMJ": 3.6,
     "heatMJ": 24.3,
@@ -15165,7 +15165,7 @@
       "textile_material"
     ],
     "comment": "Ancien identifiant (12/2024): 88a1395a1c61be31b0bc692e977dd10b.",
-    "density": 0,
+    "density": null,
     "displayName": "Production de nylon 6-6",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -15207,7 +15207,7 @@
       "textile_material"
     ],
     "comment": "Ancien identifiant (12/2024): elasthane-lycra.",
-    "density": 0,
+    "density": null,
     "displayName": "Elasthane (Lycra)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -15248,7 +15248,7 @@
       "transformation"
     ],
     "comment": "Ancien identifiant (12/2024): 11648b33-f117-4eca-bb09-233c0ad0757f.",
-    "density": 0,
+    "density": null,
     "displayName": "Tricotage seamless",
     "elecMJ": 13.211,
     "heatMJ": 0,
@@ -15372,7 +15372,7 @@
       "material_type:organic_fibers"
     ],
     "comment": "corr3 et corr2 (cf doc). Corr3 : valeurs d'élec et de chaleur issues du rapport BAT2023 avec majoration de 50%. corr2 : valeur d'écotox issue d'inventaires enrichis.",
-    "density": 0,
+    "density": null,
     "displayName": "Blanchiment",
     "elecMJ": 0.72,
     "heatMJ": 5.4,
@@ -15414,7 +15414,7 @@
       "textile_material"
     ],
     "comment": "Ancien identifiant (12/2024): cf76c9e1872effbd04d49aec742e7952.",
-    "density": 0,
+    "density": null,
     "displayName": "Production de fibres de lin, rouissage",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -15537,7 +15537,7 @@
       "transformation"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Teinture moyenne",
     "elecMJ": 3.6,
     "heatMJ": 24.3,
@@ -15620,7 +15620,7 @@
       "material_type:other"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Carton ondulé",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -15662,7 +15662,7 @@
       "material_type:wood"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Revêtement panneaux (papier mélaminé)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -15702,7 +15702,7 @@
       "material_type:metal"
     ],
     "comment": "densité energétique : 33.3 kWh/kg",
-    "density": 0,
+    "density": null,
     "displayName": "Batterie Plomb",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -15826,7 +15826,7 @@
       "material_type:metal"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Thermolaquage (acier)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -15992,7 +15992,7 @@
       "material_type:metal"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Lamination (inox)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -16075,7 +16075,7 @@
       "energy"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Electricité moyenne tension, Portugal",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -16117,7 +16117,7 @@
       "energy"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Electricité moyenne tension, Allemagne",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -16160,7 +16160,7 @@
       "material_type:wood"
     ],
     "comment": "Energy consumptions based on Ecobalyse litterature review with an average scenario hypothesis (main sources : FAO national statistics  + Swedish manufacturing plants statistics  + Canada manufacturing plants statistics + Ecoinvent resources)",
-    "density": 0,
+    "density": null,
     "displayName": "Sciage + séchage à l'air libre (bois)",
     "elecMJ": 108.0,
     "heatMJ": 0,
@@ -16365,7 +16365,7 @@
       "transformation"
     ],
     "comment": "corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-teinture-fibres-cellulosiques.",
-    "density": 0,
+    "density": null,
     "displayName": "Teinture fibres cellulosiques",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -16693,7 +16693,7 @@
       "transformation"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Teinture en continu",
     "elecMJ": 2.88,
     "heatMJ": 16.2,
@@ -17149,7 +17149,7 @@
       "transport"
     ],
     "comment": "Ancien identifiant (12/2024): 7037ea59d8d644fd35f80fd1982f9fe9.",
-    "density": 0,
+    "density": null,
     "displayName": "transport ferroviaire",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -17193,7 +17193,7 @@
       "material_type:metal"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Aluminium mix marché (RoW)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -17234,7 +17234,7 @@
       "use"
     ],
     "comment": "Ancien identifiant (12/2024): 4964273a-cdbd-43cf-8cf8-4b017aee4f03.",
-    "density": 0,
+    "density": null,
     "displayName": "Utilisation : Impact hors repassage (Jean)",
     "elecMJ": 1.0266,
     "heatMJ": 0,
@@ -17316,7 +17316,7 @@
       "transformation"
     ],
     "comment": "corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-impression-fixe-lave-colorants.",
-    "density": 0,
+    "density": null,
     "displayName": "Impression fixé-lavé (colorants)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -17890,7 +17890,7 @@
       "end-of-life"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Enfouissement",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -17932,7 +17932,7 @@
       "textile_material"
     ],
     "comment": "Ancien identifiant (12/2024): f89bba0c170190e003fa3f643591cca5.",
-    "density": 0,
+    "density": null,
     "displayName": "Fibre de viscose",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -18220,7 +18220,7 @@
       "material_type:metal"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Laiton",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -18304,7 +18304,7 @@
       "transformation"
     ],
     "comment": "Ancien identifiant (12/2024): 2e16787c-7a89-4883-acdf-37d3d362bdab.",
-    "density": 0,
+    "density": null,
     "displayName": "Tricotage circulaire",
     "elecMJ": 4.251,
     "heatMJ": 0,
@@ -18592,7 +18592,7 @@
       "material_type:plastic"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Plastique granulé (PVC)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -18635,7 +18635,7 @@
       "material_type:metal"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Transformation finale (inox)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -18719,7 +18719,7 @@
       "material_type:metal"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Aluminium vierge mix marché (IN)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -18761,7 +18761,7 @@
       "material_type:metal"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Lamination (acier)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -18803,7 +18803,7 @@
       "energy"
     ],
     "comment": "Ancien identifiant (12/2024): de2cd7848f853b1c9b8a5d7b0f255144.",
-    "density": 0,
+    "density": null,
     "displayName": "Électricité moyenne tension, Cambodge",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -19010,7 +19010,7 @@
       "material_type:metal"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Acier inoxydable",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -19052,7 +19052,7 @@
       "transformation"
     ],
     "comment": "corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-teinture-fibres-synthetiques.",
-    "density": 0,
+    "density": null,
     "displayName": "Teinture fibres synthétiques",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -19093,7 +19093,7 @@
       "energy"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Electricité moyenne tension, Pays-bas",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -19135,7 +19135,7 @@
       "material_type:other"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Paraffine (wax/cire)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -19464,7 +19464,7 @@
       "material_type:metal"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Thermolaquage (aluminium)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -19589,7 +19589,7 @@
       "use"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Superéthanol (E85), norme Euro6",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -19712,7 +19712,7 @@
       "transformation"
     ],
     "comment": "corr3 (cf doc): valeurs issues du rapport BAT2023 avec majoration de 50%",
-    "density": 0,
+    "density": null,
     "displayName": "Mercerisage",
     "elecMJ": 0.36,
     "heatMJ": 2.7,
@@ -19794,7 +19794,7 @@
       "energy"
     ],
     "comment": "Ancien identifiant (12/2024): 4ee8150b0cbf3603e03345d780ba7a61.",
-    "density": 0,
+    "density": null,
     "displayName": "Électricité moyenne tension, Inde",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -19878,7 +19878,7 @@
       "energy"
     ],
     "comment": "Ancien identifiant (12/2024): region-elec-west-europe.",
-    "density": 0,
+    "density": null,
     "displayName": "Électricité moyenne tension, Europe",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -20087,7 +20087,7 @@
       "material_type:organic_fibers"
     ],
     "comment": "Ancien identifiant (12/2024): a211822aabe83653a6079b9d5677daed.",
-    "density": 0,
+    "density": null,
     "displayName": "Production de fibres de coton",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -20252,7 +20252,7 @@
       "energy"
     ],
     "comment": "Ancien identifiant (12/2024): b42506cbed4b459815c78d741b453e8e.",
-    "density": 0,
+    "density": null,
     "displayName": "Électricité moyenne tension, Tunisie",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -20336,7 +20336,7 @@
       "use"
     ],
     "comment": "Ancien identifiant (12/2024): ea7afeed-c058-4dbb-be01-66704a9afb1f.",
-    "density": 0,
+    "density": null,
     "displayName": "Utilisation : Impact hors repassage (Pantalon)",
     "elecMJ": 1.0266,
     "heatMJ": 0,
@@ -20377,7 +20377,7 @@
       "energy"
     ],
     "comment": "Ancien identifiant (12/2024): 3f90d52cc1dfe32119bf53db2713c407.",
-    "density": 0,
+    "density": null,
     "displayName": "Électricité moyenne tension, Viet Nam",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -20584,7 +20584,7 @@
       "energy"
     ],
     "comment": "Reconstitution du mix depuis Ecoinvent 3.9.1\nAncien identifiant (12/2024): heat-europe.",
-    "density": 0,
+    "density": null,
     "displayName": "Mix chaleur (Europe)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -21201,7 +21201,7 @@
       "energy"
     ],
     "comment": "Ancien identifiant (12/2024): elec-medium-region-middle-east.",
-    "density": 0,
+    "density": null,
     "displayName": "Électricité moyenne tension, Moyen-Orient",
     "elecMJ": 0,
     "heatMJ": 0,
