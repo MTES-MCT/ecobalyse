@@ -219,3 +219,16 @@ def fx_user_token_headers() -> dict[str, str]:
     return {
         "Authorization": f"Bearer {auth.create_token(identifier='user@example.com')}"
     }
+
+
+@pytest.fixture(name="toc_not_accepted_user_token_headers")
+def fx_toc_not_accepted_user_token_headers() -> dict[str, str]:
+    """Valid user token.
+
+    ```text
+    ValueError: The future belongs to a different loop than the one specified as the loop argument
+    ```
+    """
+    return {
+        "Authorization": f"Bearer {auth.create_token(identifier='another@example.com')}"
+    }
