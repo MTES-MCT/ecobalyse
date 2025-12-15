@@ -73,7 +73,7 @@
     "@parcel/transformer-image": "^2.16.1",
     "@parcel/transformer-sass": "^2.16.1",
     "@playwright/test": "^1.56.0",
-    "@types/node": "^24.7.2",
+    "@types/node": "^24.10.1",
     "ajv-cli": "^5.0.0",
     "ajv-formats": "^3.0.1",
     "bootstrap": "^5.3.8",
