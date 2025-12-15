@@ -16,6 +16,15 @@ outputs:
 runs:
   using: "composite"
   steps:
+
+    - name: Cache ~/.elm
+      # see https://docs.microsoft.com/en-us/answers/questions/510640/deploy-elm-app-to-azure-static-website-from-github.html
+      uses: actions/cache@v4
+      with:
+        path: ~/.elm
+        key: elm-cache-${{ hashFiles('elm.json') }}
+        restore-keys: elm-cache-
+
     - name: Build app
       id: build-app
       shell: bash

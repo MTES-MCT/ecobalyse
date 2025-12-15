@@ -158,7 +158,7 @@ init scope trigram maybeUrlQuery session =
                 }
     , scope = scope
     }
-        |> App.createUpdate (session |> Session.updateObjectQuery scope initialQuery)
+        |> createPageUpdate (session |> Session.updateObjectQuery scope initialQuery)
         |> App.withCmds
             (case maybeUrlQuery of
                 -- If we do have an URL query, we either come from a bookmark, a saved simulation click or
@@ -210,7 +210,7 @@ initFromExample session scope uuid =
                 }
     , scope = scope
     }
-        |> App.createUpdate (session |> Session.updateObjectQuery scope exampleQuery)
+        |> createPageUpdate (session |> Session.updateObjectQuery scope exampleQuery)
         |> App.withCmds [ Ports.scrollTo { x = 0, y = 0 } ]
 
 
@@ -269,15 +269,15 @@ update ({ navKey } as session) msg model =
     in
     case ( msg, model.modal ) of
         ( CopyToClipBoard shareableLink, _ ) ->
-            App.createUpdate session model
+            createPageUpdate session model
                 |> App.withCmds [ Ports.copyToClipboard shareableLink ]
 
         ( DeleteBookmark bookmark, _ ) ->
             model
-                |> App.createUpdate (session |> Session.deleteBookmark bookmark)
+                |> createPageUpdate (session |> Session.deleteBookmark bookmark)
 
         ( NoOp, _ ) ->
-            App.createUpdate session model
+            createPageUpdate session model
 
         ( OnAutocompleteAddComponent autocompleteMsg, AddComponentModal autocompleteState ) ->
             let
@@ -285,11 +285,11 @@ update ({ navKey } as session) msg model =
                     Autocomplete.update autocompleteMsg autocompleteState
             in
             { model | modal = AddComponentModal newAutocompleteState }
-                |> App.createUpdate session
+                |> createPageUpdate session
                 |> App.withCmds [ Cmd.map OnAutocompleteAddComponent autoCompleteCmd ]
 
         ( OnAutocompleteAddComponent _, _ ) ->
-            App.createUpdate session model
+            createPageUpdate session model
 
         ( OnAutocompleteAddProcess category targetItem maybeIndex autocompleteMsg, SelectProcessModal _ _ _ autocompleteState ) ->
             let
@@ -297,11 +297,11 @@ update ({ navKey } as session) msg model =
                     Autocomplete.update autocompleteMsg autocompleteState
             in
             { model | modal = SelectProcessModal category targetItem maybeIndex newAutocompleteState }
-                |> App.createUpdate session
+                |> createPageUpdate session
                 |> App.withCmds [ Cmd.map (OnAutocompleteAddProcess category targetItem maybeIndex) autoCompleteCmd ]
 
         ( OnAutocompleteAddProcess _ _ _ _, _ ) ->
-            App.createUpdate session model
+            createPageUpdate session model
 
         ( OnAutocompleteExample autocompleteMsg, SelectExampleModal autocompleteState ) ->
             let
@@ -309,60 +309,60 @@ update ({ navKey } as session) msg model =
                     Autocomplete.update autocompleteMsg autocompleteState
             in
             { model | modal = SelectExampleModal newAutocompleteState }
-                |> App.createUpdate session
+                |> createPageUpdate session
                 |> App.withCmds [ Cmd.map OnAutocompleteExample autoCompleteCmd ]
 
         ( OnAutocompleteExample _, _ ) ->
-            App.createUpdate session model
+            createPageUpdate session model
 
         ( OnAutocompleteSelectComponent, AddComponentModal autocompleteState ) ->
-            App.createUpdate session model
+            createPageUpdate session model
                 |> selectComponent query autocompleteState
 
         ( OnAutocompleteSelectComponent, _ ) ->
-            App.createUpdate session model
+            createPageUpdate session model
 
         ( OnAutocompleteSelectExample, SelectExampleModal autocompleteState ) ->
-            App.createUpdate session model
+            createPageUpdate session model
                 |> selectExample autocompleteState
 
         ( OnAutocompleteSelectExample, _ ) ->
-            App.createUpdate session model
+            createPageUpdate session model
 
         ( OnAutocompleteSelectProcess category targetItem elementIndex, SelectProcessModal _ _ _ autocompleteState ) ->
-            App.createUpdate session model
+            createPageUpdate session model
                 |> selectProcess category targetItem elementIndex autocompleteState query
 
         ( OnAutocompleteSelectProcess _ _ _, _ ) ->
-            App.createUpdate session model
+            createPageUpdate session model
 
         ( OnDragLeaveBookmark, _ ) ->
             { model | bookmarkBeingOvered = Nothing }
-                |> App.createUpdate session
+                |> createPageUpdate session
 
         ( OnDragOverBookmark bookmarkBeingOvered, _ ) ->
             { model | bookmarkBeingOvered = Just bookmarkBeingOvered }
-                |> App.createUpdate session
+                |> createPageUpdate session
 
         ( OnDragStartBookmark bookmark, _ ) ->
             { model | bookmarkBeingDragged = Just bookmark }
-                |> App.createUpdate session
+                |> createPageUpdate session
 
         ( OnDropBookmark target, _ ) ->
             case model.bookmarkBeingDragged of
                 Just dragged ->
                     { model | bookmarkBeingDragged = Nothing, bookmarkBeingOvered = Nothing }
-                        |> App.createUpdate
+                        |> createPageUpdate
                             (session
                                 |> Session.moveBookmark dragged target
                             )
 
                 Nothing ->
-                    App.createUpdate session model
+                    createPageUpdate session model
 
         ( OpenComparator, _ ) ->
             { model | modal = ComparatorModal }
-                |> App.createUpdate (session |> Session.checkComparedSimulations)
+                |> createPageUpdate (session |> Session.checkComparedSimulations)
                 |> App.withCmds [ Plausible.send session <| Plausible.ComparatorOpened model.scope ]
 
         ( RemoveComponentItem itemIndex, _ ) ->
@@ -372,17 +372,17 @@ update ({ navKey } as session) msg model =
                         |> LE.remove itemIndex
                         |> LE.updateIf (\x -> x > itemIndex) (\x -> x - 1)
             }
-                |> App.createUpdate session
+                |> createPageUpdate session
                 |> updateQuery (query |> Component.mapItems (LE.removeAt itemIndex))
                 |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
 
         ( RemoveElement targetElement, _ ) ->
-            App.createUpdate session model
+            createPageUpdate session model
                 |> updateQuery (query |> Component.mapItems (Component.removeElement targetElement))
                 |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
 
         ( RemoveElementTransform targetElement transformIndex, _ ) ->
-            App.createUpdate session model
+            createPageUpdate session model
                 |> updateQuery
                     (query
                         |> Component.mapItems
@@ -394,16 +394,16 @@ update ({ navKey } as session) msg model =
             case model.bookmarkBeingRenamed of
                 Just bookmark ->
                     { model | bookmarkBeingRenamed = Nothing }
-                        |> App.createUpdate
+                        |> createPageUpdate
                             (session
                                 |> Session.renameBookmark bookmark
                             )
 
                 Nothing ->
-                    App.createUpdate session model
+                    createPageUpdate session model
 
         ( SaveBookmark, _ ) ->
-            App.createUpdate session model
+            createPageUpdate session model
                 |> App.withCmds
                     [ Time.now
                         |> Task.perform
@@ -420,7 +420,7 @@ update ({ navKey } as session) msg model =
 
         ( SaveBookmarkWithTime name objectQuery now, _ ) ->
             model
-                |> App.createUpdate
+                |> createPageUpdate
                     (session
                         |> Session.saveBookmark
                             { name = String.trim name
@@ -433,24 +433,22 @@ update ({ navKey } as session) msg model =
 
         ( SelectAllBookmarks, _ ) ->
             model
-                |> App.createUpdate (Session.selectAllBookmarks session)
+                |> createPageUpdate (Session.selectAllBookmarks session)
 
         ( SelectNoBookmarks, _ ) ->
             model
-                |> App.createUpdate (Session.selectNoBookmarks session)
+                |> createPageUpdate (Session.selectNoBookmarks session)
 
         ( SetDetailedComponents detailedComponents, _ ) ->
             { model | detailedComponents = detailedComponents }
-                |> App.createUpdate session
+                |> createPageUpdate session
 
         ( SetModal modal, _ ) ->
-            { model | modal = modal }
-                |> App.createUpdate session
-                |> App.withCmds [ commandsForModal modal ]
+            createPageUpdate session { model | modal = modal }
 
         ( SwitchBookmarksTab bookmarkTab, _ ) ->
             { model | bookmarkTab = bookmarkTab }
-                |> App.createUpdate session
+                |> createPageUpdate session
                 |> App.withCmds
                     [ Plausible.TabSelected model.scope "Partager"
                         |> Plausible.sendIf session (bookmarkTab == BookmarkView.ShareTab)
@@ -458,7 +456,7 @@ update ({ navKey } as session) msg model =
 
         ( SwitchComparisonType displayChoice, _ ) ->
             { model | comparisonType = displayChoice }
-                |> App.createUpdate session
+                |> createPageUpdate session
                 |> App.withCmds
                     [ ComparatorView.comparisonTypeToString displayChoice
                         |> Plausible.ComparisonTypeSelected model.scope
@@ -466,7 +464,7 @@ update ({ navKey } as session) msg model =
                     ]
 
         ( SwitchImpact (Ok trigram), _ ) ->
-            App.createUpdate session model
+            createPageUpdate session model
                 |> App.withCmds
                     [ Just query
                         |> Route.ObjectSimulator model.scope trigram
@@ -476,12 +474,12 @@ update ({ navKey } as session) msg model =
                     ]
 
         ( SwitchImpact (Err error), _ ) ->
-            App.createUpdate session model
+            createPageUpdate session model
                 |> App.notifyError "Erreur de sélection d'impact" error
 
         ( SwitchImpactsTab impactsTab, _ ) ->
             { model | activeImpactsTab = impactsTab }
-                |> App.createUpdate session
+                |> createPageUpdate session
                 |> App.withCmds
                     [ ImpactTabs.tabToString impactsTab
                         |> Plausible.TabSelected model.scope
@@ -490,18 +488,18 @@ update ({ navKey } as session) msg model =
 
         ( ToggleComparedSimulation bookmark checked, _ ) ->
             model
-                |> App.createUpdate (session |> Session.toggleComparedSimulation bookmark checked)
+                |> createPageUpdate (session |> Session.toggleComparedSimulation bookmark checked)
 
         ( UpdateAssemblyCountry maybeCountry, _ ) ->
-            App.createUpdate session model
+            createPageUpdate session model
                 |> updateQuery { query | assemblyCountry = maybeCountry }
 
         ( UpdateBookmarkName newName, _ ) ->
             { model | bookmarkName = newName }
-                |> App.createUpdate session
+                |> createPageUpdate session
 
         ( UpdateComponentItemCountry itemIndex country, _ ) ->
-            App.createUpdate session model
+            createPageUpdate session model
                 |> updateQuery
                     (query
                         |> Component.mapItems
@@ -510,7 +508,7 @@ update ({ navKey } as session) msg model =
                 |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
 
         ( UpdateComponentItemName targetItem name, _ ) ->
-            App.createUpdate session model
+            createPageUpdate session model
                 |> updateQuery
                     (query
                         |> Component.mapItems
@@ -518,7 +516,7 @@ update ({ navKey } as session) msg model =
                     )
 
         ( UpdateComponentItemQuantity itemIndex quantity, _ ) ->
-            App.createUpdate session model
+            createPageUpdate session model
                 |> updateQuery
                     (query
                         |> Component.mapItems
@@ -527,22 +525,22 @@ update ({ navKey } as session) msg model =
                 |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
 
         ( UpdateDurability (Ok durability), _ ) ->
-            App.createUpdate session model
+            createPageUpdate session model
                 |> updateQuery (query |> Component.updateDurability durability)
 
         ( UpdateDurability (Err error), _ ) ->
-            App.createUpdate session model
+            createPageUpdate session model
                 |> App.notifyError "Erreur de durabilité" error
 
         ( UpdateRenamedBookmarkName bookmark name, _ ) ->
             { model | bookmarkBeingRenamed = Just { bookmark | name = name } }
-                |> App.createUpdate session
+                |> createPageUpdate session
 
         ( UpdateElementAmount _ Nothing, _ ) ->
-            App.createUpdate session model
+            createPageUpdate session model
 
         ( UpdateElementAmount targetElement (Just amount), _ ) ->
-            App.createUpdate session model
+            createPageUpdate session model
                 |> updateQuery
                     (query
                         |> Component.mapItems
@@ -550,14 +548,19 @@ update ({ navKey } as session) msg model =
                     )
 
 
-commandsForModal : Modal -> Cmd Msg
-commandsForModal modal =
-    case modal of
-        NoModal ->
-            Ports.removeBodyClass "prevent-scrolling"
+{-| Create a page update preventing the body to be scrollable when one or more modals are opened.
+-}
+createPageUpdate : Session -> Model -> PageUpdate Model Msg
+createPageUpdate session model =
+    App.createUpdate session model
+        |> App.withCmds
+            [ case model.modal of
+                NoModal ->
+                    Ports.removeBodyClass "prevent-scrolling"
 
-        _ ->
-            Ports.addBodyClass "prevent-scrolling"
+                _ ->
+                    Ports.addBodyClass "prevent-scrolling"
+            ]
 
 
 selectExample : Autocomplete Component.Query -> PageUpdate Model Msg -> PageUpdate Model Msg

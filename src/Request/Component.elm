@@ -42,7 +42,7 @@ getComponents session event =
     BackendHttp.get session "components" event Component.decodeList
 
 
-getJournal : Session -> (WebData (List (JournalEntry Component)) -> msg) -> Component.Id -> Cmd msg
+getJournal : Session -> (WebData (List (JournalEntry String)) -> msg) -> Component.Id -> Cmd msg
 getJournal =
     JournalHttp.getForComponent
 

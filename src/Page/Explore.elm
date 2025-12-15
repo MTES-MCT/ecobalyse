@@ -109,25 +109,18 @@ init scope dataset session =
                 Dataset.VeliExamples _ ->
                     "Coût Environnemental"
     in
-    App.createUpdate session
+    createPageUpdate session
         { dataset = dataset
         , scope = scope
         , tableState = SortableTable.initialSort initialSort
         }
-        |> App.withCmds
-            [ if Dataset.isDetailed dataset then
-                Ports.addBodyClass "prevent-scrolling"
-
-              else
-                Ports.removeBodyClass "prevent-scrolling"
-            ]
 
 
 update : Session -> Msg -> Model -> PageUpdate Model Msg
 update session msg model =
     case msg of
         CloseModal ->
-            App.createUpdate session model
+            createPageUpdate session model
                 |> App.withCmds
                     [ model.dataset
                         |> Dataset.reset
@@ -137,10 +130,10 @@ update session msg model =
                     ]
 
         NoOp ->
-            App.createUpdate session model
+            createPageUpdate session model
 
         OpenDetail route ->
-            App.createUpdate session model
+            createPageUpdate session model
                 |> App.withCmds
                     [ route
                         |> Route.toString
@@ -148,7 +141,7 @@ update session msg model =
                     ]
 
         ScopeChange scope ->
-            App.createUpdate session { model | scope = scope }
+            createPageUpdate session { model | scope = scope }
                 |> App.withCmds
                     [ (case model.dataset of
                         -- Try selecting the most appropriate tab when switching scope.
@@ -178,8 +171,21 @@ update session msg model =
                     ]
 
         SetTableState tableState ->
-            { model | tableState = tableState }
-                |> App.createUpdate session
+            createPageUpdate session { model | tableState = tableState }
+
+
+{-| Create a page update preventing the body to be scrollable when one or more modals are opened.
+-}
+createPageUpdate : Session -> Model -> PageUpdate Model Msg
+createPageUpdate session model =
+    App.createUpdate session model
+        |> App.withCmds
+            [ if Dataset.isDetailed model.dataset then
+                Ports.addBodyClass "prevent-scrolling"
+
+              else
+                Ports.removeBodyClass "prevent-scrolling"
+            ]
 
 
 datasetsMenuView : Model -> Html Msg
