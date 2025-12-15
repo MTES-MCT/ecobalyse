@@ -10,11 +10,6 @@
     },
     "label_en": "Acidification",
     "label_fr": "Acidification",
-    "pef": {
-      "color": "#ff1493",
-      "normalization": 55.5695,
-      "weighting": 0.062
-    },
     "short_unit": "molH+e",
     "unit_en": "mol H+ eq",
     "unit_fr": "mol éq. H+"
@@ -30,11 +25,6 @@
     },
     "label_en": "Climate change",
     "label_fr": "Changement climatique",
-    "pef": {
-      "color": "#800000",
-      "normalization": 7553.08,
-      "weighting": 0.2106
-    },
     "short_unit": "kgCO₂e",
     "unit_en": "kg CO₂ eq",
     "unit_fr": "kg éq. CO₂"
@@ -46,7 +36,6 @@
     "ecoscore": null,
     "label_en": "Environmental Cost",
     "label_fr": "Coût environnemental",
-    "pef": null,
     "short_unit": "Pts",
     "unit_en": "Pts",
     "unit_fr": "Pts"
@@ -58,11 +47,6 @@
     "ecoscore": null,
     "label_en": "Ecotoxicity, freshwater",
     "label_fr": "Écotoxicité de l'eau douce",
-    "pef": {
-      "color": "#03A764",
-      "normalization": 56716.6,
-      "weighting": 0.0192
-    },
     "short_unit": "CTUe",
     "unit_en": "CTUe",
     "unit_fr": "CTUe"
@@ -88,7 +72,6 @@
     },
     "label_en": "Ecotoxicity, freshwater, corrected",
     "label_fr": "Écotoxicité de l'eau douce, corrigée",
-    "pef": null,
     "short_unit": "CTUe",
     "unit_en": "CTUe",
     "unit_fr": "CTUe"
@@ -104,11 +87,6 @@
     },
     "label_en": "Resource use, fossils",
     "label_fr": "Utilisation de ressources fossiles",
-    "pef": {
-      "color": "#000000",
-      "normalization": 65004.3,
-      "weighting": 0.0832
-    },
     "short_unit": "MJ",
     "unit_en": "MJ",
     "unit_fr": "MJ"
@@ -124,11 +102,6 @@
     },
     "label_en": "Eutrophication, freshwater",
     "label_fr": "Eutrophisation eaux douces",
-    "pef": {
-      "color": "#1f7dca",
-      "normalization": 1.60685,
-      "weighting": 0.028
-    },
     "short_unit": "kgPe",
     "unit_en": "kg P eq",
     "unit_fr": "kg éq. P"
@@ -140,11 +113,6 @@
     "ecoscore": null,
     "label_en": "Human toxicity, cancer",
     "label_fr": "Toxicité humaine - cancer",
-    "pef": {
-      "color": "#ffff00",
-      "normalization": 1.72529e-05,
-      "weighting": 0.0213
-    },
     "short_unit": "CTUh",
     "unit_en": "CTUh",
     "unit_fr": "CTUh"
@@ -170,7 +138,6 @@
     },
     "label_en": "Human toxicity, cancer, corrected",
     "label_fr": "Toxicité humaine - cancer, corrigée",
-    "pef": null,
     "short_unit": "CTUh",
     "unit_en": "CTUh",
     "unit_fr": "CTUh"
@@ -182,11 +149,6 @@
     "ecoscore": null,
     "label_en": "Human toxicity, non-cancer",
     "label_fr": "Toxicité humaine - non-cancer",
-    "pef": {
-      "color": "#FFA907",
-      "normalization": 0.000128736,
-      "weighting": 0.0184
-    },
     "short_unit": "CTUh",
     "unit_en": "CTUh",
     "unit_fr": "CTUh"
@@ -212,7 +174,6 @@
     },
     "label_en": "Human toxicity, non-cancer, corrected",
     "label_fr": "Toxicité humaine - non-cancer, corrigée",
-    "pef": null,
     "short_unit": "CTUh",
     "unit_en": "CTUh",
     "unit_fr": "CTUh"
@@ -228,11 +189,6 @@
     },
     "label_en": "Ionising radiation",
     "label_fr": "Radiations ionisantes",
-    "pef": {
-      "color": "#ffd700",
-      "normalization": 4220.16,
-      "weighting": 0.0501
-    },
     "short_unit": "kBqU235e",
     "unit_en": "kBq U-235 eq",
     "unit_fr": "éq. kBq U235"
@@ -248,11 +204,6 @@
     },
     "label_en": "Land use",
     "label_fr": "Utilisation des sols",
-    "pef": {
-      "color": "#006400",
-      "normalization": 819498.0,
-      "weighting": 0.0794
-    },
     "short_unit": "Pt",
     "unit_en": "Pt",
     "unit_fr": "sans dimension (Pt)"
@@ -268,11 +219,6 @@
     },
     "label_en": "Resource use, minerals and metals",
     "label_fr": "Utilisation de ressources minérales et métalliques",
-    "pef": {
-      "color": "#a9a9a9",
-      "normalization": 0.0636226,
-      "weighting": 0.0755
-    },
     "short_unit": "kgSbe",
     "unit_en": "kg Sb eq",
     "unit_fr": "kg éq. Sb"
@@ -288,11 +234,6 @@
     },
     "label_en": "Ozone depletion",
     "label_fr": "Appauvrissement de la couche d'ozone",
-    "pef": {
-      "color": "#800080",
-      "normalization": 0.053648,
-      "weighting": 0.0631
-    },
     "short_unit": "kgCFC11e",
     "unit_en": "kg CFC11 eq",
     "unit_fr": "kg éq. CFC 11"
@@ -308,26 +249,9 @@
     },
     "label_en": "Photochemical ozone formation",
     "label_fr": "Formation d'ozone photochimique",
-    "pef": {
-      "color": "#da70d6",
-      "normalization": 40.8592,
-      "weighting": 0.0478
-    },
     "short_unit": "kgNMVOCe",
     "unit_en": "kg NMVOC eq",
     "unit_fr": "kg éq. COVNM"
-  },
-  "pef": {
-    "decimals": 2,
-    "description_en": "Aggregated impact: sum of the weighted and normalized impact of all environmental impact categories according to the PEF methodology.",
-    "description_fr": "Impact *agrégé* : somme des impacts **normalisés** et **pondérés** de chaque catégorie d'impact selon la méthode *single score* du PEF. 12 impacts différents pris en compte à ce stade. 4 encore à ajouter.\n\nCet indicateur n'a **pas de dimension**, il se mesure en **Points** (`Pt`), en **milliPoints** (`mPt`) ou en **microPoints** (`µPt`) avec `1 Pt = 1 000 mPt = 1 000 000 µPt`. `1 Pt` correspond à l'impact total d'un européen sur une année.",
-    "ecoscore": null,
-    "label_en": "PEF Score",
-    "label_fr": "Score PEF",
-    "pef": null,
-    "short_unit": "µPt PEF",
-    "unit_en": "µPt PEF",
-    "unit_fr": "µPt PEF"
   },
   "pma": {
     "decimals": 2,
@@ -340,11 +264,6 @@
     },
     "label_en": "Particulate matter",
     "label_fr": "Particules",
-    "pef": {
-      "color": "#696969",
-      "normalization": 0.000595367,
-      "weighting": 0.0896
-    },
     "short_unit": "dis.inc.",
     "unit_en": "disease inc.",
     "unit_fr": "incidence de maladie"
@@ -360,11 +279,6 @@
     },
     "label_en": "Eutrophication, marine",
     "label_fr": "Eutrophisation marine",
-    "pef": {
-      "color": "#000080",
-      "normalization": 19.5452,
-      "weighting": 0.0296
-    },
     "short_unit": "kgNe",
     "unit_en": "kg N eq",
     "unit_fr": "kg éq. N"
@@ -380,11 +294,6 @@
     },
     "label_en": "Eutrophication, terrestrial",
     "label_fr": "Eutrophisation terrestre",
-    "pef": {
-      "color": "#20b2aa",
-      "normalization": 176.755,
-      "weighting": 0.0371
-    },
     "short_unit": "molNe",
     "unit_en": "mol N eq",
     "unit_fr": "mol éq. N"
@@ -400,11 +309,6 @@
     },
     "label_en": "Water use",
     "label_fr": "Utilisation de ressources en eau",
-    "pef": {
-      "color": "#00ffff",
-      "normalization": 11468.7,
-      "weighting": 0.0851
-    },
     "short_unit": "m³ eq",
     "unit_en": "m³ eq",
     "unit_fr": "m³ éq"

@@ -382,7 +382,6 @@ components:
           - "mru"
           - "ozd"
           - "pco"
-          - "pef"
           - "pma"
           - "swe"
           - "tre"
@@ -433,9 +432,6 @@ components:
         pco:
           type: number
           description: "Formation d'ozone photochimique (kg éq. COVNM)"
-        pef:
-          type: number
-          description: "Score PEF (µPt)"
         pma:
           type: number
           description: "Particules (incidence de maladie)"
