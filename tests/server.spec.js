@@ -189,11 +189,11 @@ describe("API", () => {
         );
       });
 
-      it("should perform a simulation featuring 21 impacts for textile", async () => {
+      it("should perform a simulation featuring 20 impacts for textile", async () => {
         const response = await makePostRequest("/api/textile/simulator/", textileQuery);
 
         expectStatus(response, 200);
-        expect(Object.keys(response.body.impacts)).toHaveLength(21);
+        expect(Object.keys(response.body.impacts)).toHaveLength(20);
       });
 
       it("should validate the airTransportRatio param", async () => {
@@ -469,7 +469,7 @@ describe("API", () => {
 
     describe("/food", () => {
       describe("POST", () => {
-        it("should compute 21 impacts", async () => {
+        it("should compute 20 impacts", async () => {
           const response = await makePostRequest("/api/food", {
             ingredients: [
               { id: "cf30d3bc-e99c-418a-b7e3-89a894d410a5", mass: 120 },
@@ -492,7 +492,7 @@ describe("API", () => {
           });
 
           expectStatus(response, 200);
-          expect(Object.keys(response.body.results.total)).toHaveLength(21);
+          expect(Object.keys(response.body.results.total)).toHaveLength(20);
         });
       });
 
