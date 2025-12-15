@@ -14,6 +14,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Route exposing (Route)
+import String.Normalize as Normalize
 import Table as SortableTable
 import Views.Alert as Alert
 import Views.Table as TableView
@@ -117,7 +118,11 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
                                                     SortableTable.unsortable
 
                                                 StringValue getString ->
-                                                    SortableTable.increasingOrDecreasingBy getString
+                                                    SortableTable.increasingOrDecreasingBy
+                                                        (getString
+                                                            >> String.toLower
+                                                            >> Normalize.removeDiacritics
+                                                        )
                                         }
                                 )
                     , customizations =
