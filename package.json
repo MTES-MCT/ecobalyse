@@ -87,7 +87,7 @@
     "jest": "^30.2.0",
     "maildev": "^2.2.1",
     "nodemon": "^3.1.10",
-    "npm-check-updates": "^19.1.0",
+    "npm-check-updates": "^19.1.2",
     "parcel": "^2.16.1",
     "prettier": "^3.6.2",
     "prettier-plugin-sort-json": "^4.1.1",
