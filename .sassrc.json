@@ -1,4 +1,4 @@
 {
   "quietDeps": true,
-  "silenceDeprecations": ["color-functions", "import", "global-builtin"]
+  "silenceDeprecations": ["color-functions", "if-function", "import", "global-builtin"]
 }
