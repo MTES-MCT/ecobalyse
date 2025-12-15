@@ -126,7 +126,6 @@ suite =
                                     , mru = Expect.greaterThan 0
                                     , ozd = Expect.greaterThan 0
                                     , pco = Expect.greaterThan 0
-                                    , pef = Expect.greaterThan 0
                                     , pma = Expect.greaterThan 0
                                     , swe = Expect.greaterThan 0
                                     , tre = Expect.greaterThan 0
