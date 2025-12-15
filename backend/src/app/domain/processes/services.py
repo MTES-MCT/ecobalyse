@@ -42,7 +42,7 @@ class ProcessService(SQLAlchemyAsyncRepositoryService[m.Process]):
     ) -> Process:
         schema_process = self.to_schema(process, schema_type=Process)
 
-        if not user:
+        if not user or not user.profile.terms_accepted:
             schema_process.impacts = ProcessService.remove_detailed_impacts(
                 schema_process.impacts
             )

@@ -241,6 +241,7 @@ def fx_raw_users() -> list[dict[str, Any]]:
             "is_active": True,
             "first_name": "Example",
             "last_name": "User",
+            "terms_accepted": True,
             "organization": OrganizationCreate(
                 name="Example business organization",
                 type=OrganizationType.BUSINESS,
