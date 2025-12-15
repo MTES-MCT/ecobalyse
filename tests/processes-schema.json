@@ -17,7 +17,7 @@
         "type": "string"
       },
       "density": {
-        "type": "number",
+        "type": ["number", "null"],
         "minimum": 0
       },
       "displayName": {
@@ -107,6 +107,7 @@
       "heatMJ",
       "id",
       "impacts",
+      "location",
       "source",
       "unit",
       "waste"

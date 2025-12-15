@@ -5,7 +5,7 @@
       "ingredient"
     ],
     "comment": "Economic allocation:\nPrice for 1 kg Sunflower oil = 0.72 US $/pound = 1.58 $/kg; \nPrice for 1 kg Sunflower oil cake = 0.11 US $/pound = 0.24 $/kg.  Price ratio of cake : oil = 0.15\nSunflower lecithin assumed to have the same value as soybean lecithin: 600 euro/kg = 0.700 $/kg (source: based on soybean lecithin in the Fediol report)",
-    "density": 0,
+    "density": null,
     "displayName": "Huile de tournesol par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -46,7 +46,7 @@
       "ingredient"
     ],
     "comment": "Mushroom production in the Netherlands. Mainly based on Leiva 2015a data, adapted to NL for the electricity and water. \nThis dataset includes the compost substrate input inoculated with the mycellium, the growing chambers disinfection, soil covering, the chambers temperature and humidity control (energy consumption) and the growing process. The direct emissions from peat are included. \nThe infrastructure are excluded as well as the mushroom packaging.",
-    "density": 0,
+    "density": null,
     "displayName": "Champignon frais UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -87,7 +87,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Poire FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -128,7 +128,7 @@
       "ingredient"
     ],
     "comment": "Process based on Bevilacqua 2007. \nDurum wheat pasta produced in integrated process plant producing 1000 tonnes pasta/day. \nIncluded steps: semolina stocking (in silos), dosing (water addition), kneading (in vacuum condition),bronze drawing, drying, packing, stocking (warehouse).",
-    "density": 0,
+    "density": null,
     "displayName": "Pâtes DE (blé GLO + élec DE)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -169,7 +169,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Abricot par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -210,7 +210,7 @@
       "ingredient"
     ],
     "comment": "BRAZIL",
-    "density": 0,
+    "density": null,
     "displayName": "Mangue par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -251,7 +251,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Jus de tomate FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -292,7 +292,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Viande de dinde FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -333,7 +333,7 @@
       "ingredient"
     ],
     "comment": "PEFCR Guidance 6.3, for fresh meat and edible offal",
-    "density": 0,
+    "density": null,
     "displayName": "Viande d'agneau (désossée) UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -417,7 +417,7 @@
       "packaging"
     ],
     "comment": "EcoSpold01Location=RER\nProperties\nCarbon content, fossil: 0.923076923076923 kg C/kg dry mass\nCarbon content, non-fossil: 0 kg C/kg dry mass\nDry mass: 1 kg\nHeating value, net: 38.67 MJ\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Polystyrène",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -458,7 +458,7 @@
       "ingredient"
     ],
     "comment": "Dataset of the shelling of hazelnut in shell. Energy consumption are not considered. 2kg of hazelnut in shell are needed to produce 1kg of hazelnut unshelled and 1kg of hazelnut hulls. \nSource : Hazelnuts, unshelled, at processing/FR U, from AGB 3.0. All impact are allocated to Hazelnut, unshelled.",
-    "density": 0,
+    "density": null,
     "displayName": "Noisette décortiquée par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -499,7 +499,7 @@
       "packaging"
     ],
     "comment": "Properties\nCarbon content, fossil: 0.0020219 kg C/kg dry mass\nCarbon content, non-fossil: 0.41662 kg C/kg dry mass\nDry mass: 0.945 kg\nHeating value, net: 14.11 MJ\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Papier",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -540,7 +540,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Pois FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -581,7 +581,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Chair à saucisse crue FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -622,7 +622,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Cerise FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -706,7 +706,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Chou chinois Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -789,7 +789,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Herbe de prairie temporaire FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -830,7 +830,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Blé dur Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -871,7 +871,7 @@
       "ingredient"
     ],
     "comment": "Product already packed.",
-    "density": 0,
+    "density": null,
     "displayName": "Jambon cuit Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -912,7 +912,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Chocolat noir par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -953,7 +953,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Carotte FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -994,7 +994,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Olive Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -1035,7 +1035,7 @@
       "ingredient"
     ],
     "comment": "Properties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.0282798 kg C/kg dry mass\nDry mass: 0.054 kg\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Laitue UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -1076,7 +1076,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Pastèque Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -1160,7 +1160,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Tournesol Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -1201,7 +1201,7 @@
       "ingredient"
     ],
     "comment": "Reference flow: Yield = 1000 kg/ha\nProperties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.58063 kg C/kg dry mass\nDry mass: 0.943681111279 kg\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Arachide avec coque par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -1242,7 +1242,7 @@
       "ingredient"
     ],
     "comment": "This process describes the average consumption mix of Garlic in France.\nIncluded activities are : production in country of origin and transport. \nThe consumption mix was evaluated using data extracted from FAOstat\nThe production is assumed to be similar to : onion",
-    "density": 0,
+    "density": null,
     "displayName": "Ail FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -1370,7 +1370,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Boeuf haché cru FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -1411,7 +1411,7 @@
       "ingredient"
     ],
     "comment": "This process describes the average consumption mix of black pepper imported to France. Transport is added from the farm gate (in the producing country) to a french plant in Carpentras.",
-    "density": 0,
+    "density": null,
     "displayName": "Poivre noir par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -1452,7 +1452,7 @@
       "ingredient"
     ],
     "comment": "Economic allocation based on Whitman et al. 2011, assuming 15% stover removed from the field and 65 $/t stover",
-    "density": 0,
+    "density": null,
     "displayName": "Maïs doux par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -1578,7 +1578,7 @@
       "ingredient"
     ],
     "comment": "This process describes the average consumption mix of Broccoli in France.\nIncluded activities are : production in country of origin and transport. \nThe consumption mix was evaluated using data extracted from FAOstat\nThe production is assumed to be similar to : Cauliflower",
-    "density": 0,
+    "density": null,
     "displayName": "Brocoli FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -1788,7 +1788,7 @@
       "packaging"
     ],
     "comment": "Reference Product\nProperties\nCarbon content, fossil: 0.857142857142857 kg C/kg dry mass\nCarbon content, non-fossil: 0 kg C/kg dry mass\nDry mass: 1 kg\nHeating value, net: 42.47 MJ\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Polyéthylène haute densité",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -1829,7 +1829,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Lait Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -1912,7 +1912,7 @@
       "ingredient"
     ],
     "comment": "Reference flow: Yield = 27000 kg/ha table fruit quality\nProperties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.412732283 kg C/kg dry mass\nDry mass: 0.533902829685 kg\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Pêche UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -1953,7 +1953,7 @@
       "ingredient"
     ],
     "comment": "This process describes the average consumption mix of Leek in France.\nIncluded activities are : production in country of origin and transport. \nThe consumption mix was evaluated using data extracted from FAOstat",
-    "density": 0,
+    "density": null,
     "displayName": "Poireau UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -2036,7 +2036,7 @@
       "ingredient"
     ],
     "comment": "Properties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.469607953269 kg C/kg dry mass\nDry mass: 0.87 kg\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Fève UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -2077,7 +2077,7 @@
       "ingredient"
     ],
     "comment": "Process based on Bevilacqua 2007. \nDurum wheat pasta produced in integrated process plant producing 1000 tonnes pasta/day. \nIncluded steps: semolina stocking (in silos), dosing (water addition), kneading (in vacuum condition),bronze drawing, drying, packing, stocking (warehouse).",
-    "density": 0,
+    "density": null,
     "displayName": "Pâtes BE (blé GLO + élec BE)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -2118,7 +2118,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Vinaigre balsamique FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -2159,7 +2159,7 @@
       "ingredient"
     ],
     "comment": "Dataset of the shelling of hazelnut in shell in IT. The dataset includes the production of hazelnut in shell in Turkey and unshelling process.  Energy consumption are not considered. 2kg of hazelnut in shell are needed to produce 1kg of hazelnut unshelled and 1kg of hazelnut hulls. \nSource : Hazelnuts, unshelled, at processing/FR U, from AGB 3.0. All impact are allocated to Hazelnut, unshelled.",
-    "density": 0,
+    "density": null,
     "displayName": "Noisette décortiquée UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -2200,7 +2200,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Foie de porc cru FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -2241,7 +2241,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Soupe DE (légumes FR + élec DE)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -2282,7 +2282,7 @@
       "ingredient"
     ],
     "comment": "Mass allocation : 94,5%. Source : https://waves-vagues.dfo-mpo.gc.ca/Library/360446.pdf",
-    "density": 0,
+    "density": null,
     "displayName": "Homard UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -2323,7 +2323,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Viande de boeuf avec os par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -2407,7 +2407,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Orge FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -2490,7 +2490,7 @@
       "ingredient"
     ],
     "comment": "CHINA",
-    "density": 0,
+    "density": null,
     "displayName": "Mandarine par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -2575,7 +2575,7 @@
       "transport"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Camion frigorifique",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -2616,7 +2616,7 @@
       "ingredient"
     ],
     "comment": "This process describes the average consumption mix of Brie soft cheese in France.\nIncluded activities are production in country of origin and transport.",
-    "density": 0,
+    "density": null,
     "displayName": "Brie FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -2657,7 +2657,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Noisette avec coque Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -2698,7 +2698,7 @@
       "ingredient"
     ],
     "comment": "Only lobsters are caught (there is no brown crab in USA).",
-    "density": 0,
+    "density": null,
     "displayName": "Homard par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -2739,7 +2739,7 @@
       "ingredient"
     ],
     "comment": "FAOstat average 2012-2016",
-    "density": 0,
+    "density": null,
     "displayName": "Pomme de terre de table UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -2904,7 +2904,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Pois Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -2945,7 +2945,7 @@
       "ingredient"
     ],
     "comment": "This process describes the average consumption mix of dried Onions in France.\nIncluded activities are : production in country of origin and transport. \nThe consumption mix was evaluated using data extracted from FAOstat",
-    "density": 0,
+    "density": null,
     "displayName": "Oignons déshydratés par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -3070,7 +3070,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Blé tendre FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -3111,7 +3111,7 @@
       "ingredient"
     ],
     "comment": "Product already packed.",
-    "density": 0,
+    "density": null,
     "displayName": "Jambon cuit (alim. ani. 100%FR) FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -3152,7 +3152,7 @@
       "ingredient"
     ],
     "comment": "This process describes the production of Fresh cream cheese, plain, creamy, around 8% fat in France.\nIncluded activities are : production in country of origin and transport",
-    "density": 0,
+    "density": null,
     "displayName": "Crème fraiche FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -3277,7 +3277,7 @@
       "ingredient"
     ],
     "comment": "Properties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.047752 kg C/kg dry mass\nDry mass: 0.094 kg\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Chou rouge par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -3360,7 +3360,7 @@
       "packaging"
     ],
     "comment": "Reference Product\nProperties\nCarbon content, fossil: 0.387096774193548 kg C/kg dry mass\nCarbon content, non-fossil: 0 kg C/kg dry mass\nDry mass: 1 kg\nHeating value, net: 21.5 MJ\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "PVC",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -3401,7 +3401,7 @@
       "ingredient"
     ],
     "comment": "PEFCR Guidance 6.3, for fresh meat and edible offal",
-    "density": 0,
+    "density": null,
     "displayName": "Viande d'agneau (désossée) par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -3483,7 +3483,7 @@
       "ingredient"
     ],
     "comment": "Reference flow: Yield = 5020.0 kg/ha table fruit quality\nProperties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.599451774113 kg C/kg dry mass\nDry mass: 0.572082379863 kg\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Olive UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -3524,7 +3524,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Chou-fleur FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -3565,7 +3565,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Raisin de cuve Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -3606,7 +3606,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Fraise UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -3647,7 +3647,7 @@
       "ingredient"
     ],
     "comment": "Process based on Bevilacqua 2007. \nDurum wheat pasta produced in integrated process plant producing 1000 tonnes pasta/day. \nIncluded steps: semolina stocking (in silos), dosing (water addition), kneading (in vacuum condition),bronze drawing, drying, packing, stocking (warehouse).",
-    "density": 0,
+    "density": null,
     "displayName": "Pâtes ES (blé GLO + élec ES)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -3729,7 +3729,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Huile de tournesol UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -3852,7 +3852,7 @@
       "ingredient"
     ],
     "comment": "1 kg output from plant (tomato paste) excluding packaging\n6.18 kg of fresh whole tomatoes (with a content of 3% skin and skin) at 5° Brix necessary for 1 kg of tomato paste at 30° Brix",
-    "density": 0,
+    "density": null,
     "displayName": "Concentré de tomates par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -3893,7 +3893,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Blé dur FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -3934,7 +3934,7 @@
       "ingredient"
     ],
     "comment": "European Fat Processors and Renderers Association (http://www.efpra.eu/)",
-    "density": 0,
+    "density": null,
     "displayName": "Blanc de poulet cru UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -4017,7 +4017,7 @@
       "ingredient"
     ],
     "comment": "This process produced a syrup at 67% DM. The starch enzymatic hydrolysis dataset is fully built by Quantis based on available literature, stoichiometric calculation and partial data from Syral 2014. Enzyme production based on Nielsen et al 2007.",
-    "density": 0,
+    "density": null,
     "displayName": "Sirop de glucose FR ou UE ou par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -4058,7 +4058,7 @@
       "packaging"
     ],
     "comment": "Properties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0 kg C/kg dry mass\nDry mass: 1 kg\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Verre",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -4099,7 +4099,7 @@
       "ingredient"
     ],
     "comment": "Average yield for sweet and sour cherries according to faostat data from 2012 to 2016.",
-    "density": 0,
+    "density": null,
     "displayName": "Cerise par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -4182,7 +4182,7 @@
       "packaging"
     ],
     "comment": "Reference Product\nProperties\nCarbon content, fossil: 0.625 kg C/kg dry mass\nCarbon content, non-fossil: 0 kg C/kg dry mass\nDry mass: 1 kg\nHeating value, net: 22.95 MJ\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "PET",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -4223,7 +4223,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Oeuf Bleu-Blanc-Cœur FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -4264,7 +4264,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Petit pois FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -4348,7 +4348,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Pois chiche FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -4389,7 +4389,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Purée de fraise FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -4430,7 +4430,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Colza UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -4555,7 +4555,7 @@
       "ingredient"
     ],
     "comment": "Allocation based on dry matter content (IDF 2015). DM content = 84.4% (EDA 2018)",
-    "density": 0,
+    "density": null,
     "displayName": "Beurre Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -4596,7 +4596,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Luzerne Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -4637,7 +4637,7 @@
       "ingredient"
     ],
     "comment": "This process describes the average consumption mix of Avocado in France.\nIncluded activities are : production in country of origin and transport. \nThe consumption mix was evaluated using data from technical institutes (Interfel (Agreste) - TradeMap).",
-    "density": 0,
+    "density": null,
     "displayName": "Avocat Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -4678,7 +4678,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Navet Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -4719,7 +4719,7 @@
       "ingredient"
     ],
     "comment": "Process based on Bevilacqua 2007. \nDurum wheat pasta produced in integrated process plant producing 1000 tonnes pasta/day. \nIncluded steps: semolina stocking (in silos), dosing (water addition), kneading (in vacuum condition),bronze drawing, drying, packing, stocking (warehouse).",
-    "density": 0,
+    "density": null,
     "displayName": "Pâtes FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -4803,7 +4803,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Jus de pomme FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -4973,7 +4973,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Soupe ES (légumes FR + élec ES)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -5098,7 +5098,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Framboise Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -5180,7 +5180,7 @@
       "transport"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Bateau frigorifique",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -5221,7 +5221,7 @@
       "ingredient"
     ],
     "comment": "Economic allocation for wheat based on FEFAC (2015)\nYield, irrigation (no irrigation in Australia), fertilizers (type and amount) and pesticides (total amount) application, diesel consumption and seed consumption based on the PEF Screening report for dry pasta.",
-    "density": 0,
+    "density": null,
     "displayName": "Blé dur par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -5387,7 +5387,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Melon FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -5470,7 +5470,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Laitue FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -5511,7 +5511,7 @@
       "ingredient"
     ],
     "comment": "This process describes the average consumption mix of European pilchard or sardine in France.\nIncluded activities are : production in country of origin and transport \nFor all fish data are based on expert say.\nThe share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)\nThe mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Clotre, April 2019)",
-    "density": 0,
+    "density": null,
     "displayName": "Sardine UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -5552,7 +5552,7 @@
       "ingredient"
     ],
     "comment": "Reference flow: Yield = 37000 kg/ha\nProperties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.3841230769 kg C/kg dry mass\nDry mass: 0.542888165038 kg\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Citron UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -5593,7 +5593,7 @@
       "ingredient"
     ],
     "comment": "Properties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.524507692307692 kg C/kg dry mass\nDry mass: 0.89 kg\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Soja (non déforestant) par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -5634,7 +5634,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Oeuf Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -5716,7 +5716,7 @@
       "ingredient"
     ],
     "comment": "Economic allocation for wheat based on FEFAC (2015)",
-    "density": 0,
+    "density": null,
     "displayName": "Blé dur UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -5801,7 +5801,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Riz basmati Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -5842,7 +5842,7 @@
       "ingredient"
     ],
     "comment": "Reference flow: Yield = 30000 kg/ha table fruit quality\nProperties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.3841230769 kg C/kg dry mass\nDry mass: 0.542888165038 kg\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Mandarine UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -5883,7 +5883,7 @@
       "ingredient"
     ],
     "comment": "Rdt mean = 2,25 t/ha",
-    "density": 0,
+    "density": null,
     "displayName": "Soja Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -5924,7 +5924,7 @@
       "ingredient"
     ],
     "comment": "This process describes the average consumption mix of Cheese, from goat's milk in France.\nIncluded activities are production in country of origin and transport.",
-    "density": 0,
+    "density": null,
     "displayName": "Fromage de chèvre FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -5965,7 +5965,7 @@
       "ingredient"
     ],
     "comment": "This process describes the average consumption mix of Anchovy in France.\nIncluded activities are : production in country of origin and transport \nFor all fish data are based on expert say.\nThe share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)\nThe mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Clotre, April 2019)",
-    "density": 0,
+    "density": null,
     "displayName": "Anchois FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -6006,7 +6006,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Petit pois Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -6047,7 +6047,7 @@
       "material"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Vache de réforme bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -6088,7 +6088,7 @@
       "ingredient"
     ],
     "comment": "Product already packed.",
-    "density": 0,
+    "density": null,
     "displayName": "Jambon cuit FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -6129,7 +6129,7 @@
       "ingredient"
     ],
     "comment": "FRANCE",
-    "density": 0,
+    "density": null,
     "displayName": "Pêche Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -6170,7 +6170,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Amandes en coque Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -6211,7 +6211,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Compote de pomme FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -6252,7 +6252,7 @@
       "ingredient"
     ],
     "comment": "European Pilchard - Sardina pilchardus",
-    "density": 0,
+    "density": null,
     "displayName": "Sardine FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -6335,7 +6335,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Pois chiche par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -6376,7 +6376,7 @@
       "ingredient"
     ],
     "comment": "This process describes the average consumption mix of Hake in France.\nIncluded activities are : production in country of origin and transport \nFor all fish data are based on expert say.\nThe share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)\nThe mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Clotre, April 2019)",
-    "density": 0,
+    "density": null,
     "displayName": "Colin UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -6417,7 +6417,7 @@
       "ingredient"
     ],
     "comment": "According to data from the ACéVOL study (FNCG and ITERG, 2012), 2010 production data collected from French industrial sites, considered representative of national production.\nEconomic Allocation\nEconomic value from AGECO report : 0,9192/kg of refined rapeseed oil",
-    "density": 0,
+    "density": null,
     "displayName": "Huile de colza (raffinée) FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -6458,7 +6458,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Pomme de terre de table FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -6499,7 +6499,7 @@
       "ingredient"
     ],
     "comment": "This dataset represents the virgin oil extraction in Spain from olive produced in Spain. \n\nIncluded processes: This process includes the production of olive in Spain, cleaning and rinsing of harvest olives and Extra Virgin Olive Oil extraction from two phases process. \nRemark : Inventory refers to the production of 1kg of Extra Virgin Olive Oil and 4,46 kg of pomace from 5,83 kg of harvest olives. System boundary is at Spain mill. Electricity, water consumption and extraction Yield_ are based on default value proposed by PEFCR for Olive rules (3rd Draft, 2016). \nEconomic Allocation is applied between Extra Virgin Olive Oil and pomace, based on price proposed in PEFCR : Extra Virgin Olive Oil : 1,88/kg and Pomace : 0,01/kg\nGeography: Extra Virgin Olive Oil production in Spain\nTechnology: Extra Virgin Olive Oil extraction two phases, representative of extraction process in Spain. \nTime period: Data from PEFCR Olive Oil, 2016,",
-    "density": 0,
+    "density": null,
     "displayName": "Huile d'olive (extra vierge) UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -6540,7 +6540,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Jus de citron UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -6581,7 +6581,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Blé tendre par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -6622,7 +6622,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Blanc de poulet cru (alim. ani. 100%FR) FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -6663,7 +6663,7 @@
       "ingredient"
     ],
     "comment": "Properties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.0465962 kg C/kg dry mass\nDry mass: 0.083 kg\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Epinard par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -6704,7 +6704,7 @@
       "ingredient"
     ],
     "comment": "Allocation is based on the price ratio of cake : oil = 0.29",
-    "density": 0,
+    "density": null,
     "displayName": "Huile de colza par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -6745,7 +6745,7 @@
       "ingredient"
     ],
     "comment": "FAOstats average 2013 - 2017",
-    "density": 0,
+    "density": null,
     "displayName": "Noisette avec coque UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -6828,7 +6828,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Viande de veau FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -6953,7 +6953,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Kiwi FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -6994,7 +6994,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Beurre FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -7161,7 +7161,7 @@
       "ingredient"
     ],
     "comment": "This dataset includes packaging",
-    "density": 0,
+    "density": null,
     "displayName": "Viande de boeuf sans os Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -7244,7 +7244,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "poudre de jaune d'oeuf FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -7326,7 +7326,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Oeuf (code 3) FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -7367,7 +7367,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Kiwi Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -7575,7 +7575,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Pomme Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -7657,7 +7657,7 @@
       "ingredient"
     ],
     "comment": "Properties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.020088 kg C/kg dry mass\nDry mass: 0.04 kg\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Concombre hors saison FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -7783,7 +7783,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Saucisse de Toulouse (crue) FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -7824,7 +7824,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Viande de boeuf avec os - vache de réforme 100% herbe FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -7909,7 +7909,7 @@
       "ingredient"
     ],
     "comment": "Economic allocation, according to carbon balance for CO2 emissions",
-    "density": 0,
+    "density": null,
     "displayName": "Sucre de canne par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -7950,7 +7950,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Viande d'agneau Bio (désossée)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -7991,7 +7991,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Boeuf haché cru par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -8032,7 +8032,7 @@
       "ingredient"
     ],
     "comment": "Process based on Bevilacqua 2007. \nDurum wheat pasta produced in integrated process plant producing 1000 tonnes pasta/day. \nIncluded steps: semolina stocking (in silos), dosing (water addition), kneading (in vacuum condition),bronze drawing, drying, packing, stocking (warehouse).",
-    "density": 0,
+    "density": null,
     "displayName": "Pâtes IT (blé GLO + élec IT)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -8073,7 +8073,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Boeuf haché cru - v. de réforme 100% herbe FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -8114,7 +8114,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Myrtille Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -8155,7 +8155,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Blanc de poulet cru (alim. ani. 100%FR) Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -8196,7 +8196,7 @@
       "ingredient"
     ],
     "comment": "Economic allocation",
-    "density": 0,
+    "density": null,
     "displayName": "Sucre de betterave par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -8237,7 +8237,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Courgette FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -8320,7 +8320,7 @@
       "ingredient"
     ],
     "comment": "Properties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.46412 kg C/kg dry mass\nDry mass: 0.87 kg\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Riz basmati par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -8403,7 +8403,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Avoine Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -8485,7 +8485,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Mélange de céréales FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -8526,7 +8526,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Raisin de cuve FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -8652,7 +8652,7 @@
       "ingredient"
     ],
     "comment": "(3,3,2,1,2),",
-    "density": 0,
+    "density": null,
     "displayName": "Emmental rapé FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -8779,7 +8779,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Artichaut Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -8820,7 +8820,7 @@
       "ingredient"
     ],
     "comment": "Feed mixture inventory is built for 1 kg DM, but contains inputs with various DM content, for a total fresh matter above 1 kg.\nThe average DM of this mixture is 0.89, hence transport modelling should add an additional mass of 0.11 kg/kg DM for the water content.\nGross energy content is 19.70 MJ/kg DM and crude protein content is 46.4%.\nProportions between the oilseeds estimated based on FAOSTAT 2017 data at global level",
-    "density": 0,
+    "density": null,
     "displayName": "Tourteau FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -8861,7 +8861,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Fraise par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -8902,7 +8902,7 @@
       "energy"
     ],
     "comment": "Properties\nHeating value, net: 1 MJ",
-    "density": 0,
+    "density": null,
     "displayName": "Gaz de ville",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -9028,7 +9028,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Viande d'agneau (désossée) FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -9069,7 +9069,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Chou blanc Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -9110,7 +9110,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Farine UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -9319,7 +9319,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Artichaut FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -9360,7 +9360,7 @@
       "ingredient"
     ],
     "comment": "The CIQUAL food item 'Soup, mixed vegetables, dehydrated' is approximated by the CIQUAL recipe 'Soup, mixed vegetables, prepacked, to be reheated'. Dehydration process is added to obtain dehydrated product at plant.",
-    "density": 0,
+    "density": null,
     "displayName": "Soupe déshydratée ES",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -9485,7 +9485,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Blanc de poulet cru FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -9567,7 +9567,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Soja FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -9608,7 +9608,7 @@
       "ingredient"
     ],
     "comment": "This process describes the average consumption mix of Basmati rice in France.\nIncluded activities are : production in country of origin and transport. \nThe consumption mix was evaluated using data extracted from FAOstat",
-    "density": 0,
+    "density": null,
     "displayName": "Riz basmati UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -9649,7 +9649,7 @@
       "ingredient"
     ],
     "comment": "Economic allocation:\nPrice for 1 kg Sunflower oil = 0.72 US $/pound = 1.58 $/kg; \nPrice for 1 kg Sunflower oil cake = 0.11 US $/pound = 0.24 $/kg.  Price ratio of cake : oil = 0.15\nSunflower lecithin assumed to have the same value as soybean lecithin: 600 euro/kg = 0.700 $/kg (source: based on soybean lecithin in the Fediol report)",
-    "density": 0,
+    "density": null,
     "displayName": "Huile de tournesol Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -9732,7 +9732,7 @@
       "ingredient"
     ],
     "comment": "CHINA",
-    "density": 0,
+    "density": null,
     "displayName": "Pomme par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -9773,7 +9773,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Avoine par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -9814,7 +9814,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Oignon Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -9855,7 +9855,7 @@
       "ingredient"
     ],
     "comment": "Properties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.331061403509 kg C/kg dry mass\nDry mass: 0.530222693531 kg\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Oignon par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -9896,7 +9896,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Poitrine de porc (alim. ani. 100% FR)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -9937,7 +9937,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Crabe UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -10062,7 +10062,7 @@
       "ingredient"
     ],
     "comment": "This process describes the average consumption mix of Almond in France.\nIncluded activities are : production in country of origin and transport. \nThe consumption mix was evaluated using data extracted from FAOstat",
-    "density": 0,
+    "density": null,
     "displayName": "Amandes en coque FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -10103,7 +10103,7 @@
       "ingredient"
     ],
     "comment": "The process used is adapted from : Wheat flour, at industrial mill (adapted from WFLDB)/GLO U.\nSame mass and economic allocation were kept.",
-    "density": 0,
+    "density": null,
     "displayName": "Farine de riz par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -10230,7 +10230,7 @@
       "ingredient"
     ],
     "comment": "Data representative of virgin olive oil consumption in France. Virgin Olive oil consumption mix is determined from average FAOSTAT data over 4 years (2014-2018) from production and importation of virgin olive oil in France. Average consumption mix for virgin olive oil in France is : Spain, 65%, Italy, 20%, others origins, 15%. The coverage market mix of virgin olive  oil consumed in France is 85%.",
-    "density": 0,
+    "density": null,
     "displayName": "Huile d'olive UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -10271,7 +10271,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Mélange de légumes",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -10353,7 +10353,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Eau du robinet UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -10394,7 +10394,7 @@
       "packaging"
     ],
     "comment": "Reference Product\nProperties\nCarbon content, fossil: 0.857142857142857 kg C/kg dry mass\nCarbon content, non-fossil: 0 kg C/kg dry mass\nDry mass: 1 kg\nHeating value, net: 32.78 MJ\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Polypropylène",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -10435,7 +10435,7 @@
       "ingredient"
     ],
     "comment": "Dataset of the production of crude hazelnut oil in France. It includes crushing of unshelled hazelnut kernel, by mechanical cold pressing. \n2,5 kg of unshelled hazelnut are needed for the production of 1 kg of crude hazelnut oil and 1,5 of hazelnut oil cake. \n\nEconomic allocation is made between oil and cake\nPrice for 1 kg crude Hazelnut  oil = 4  TL/ kg (0,4/kg) \n Price for 1 kg Hazelnut oil  cake = 1 TL/kg ( 0,10/kg). Source : Turkish Grain Board (TMO)\nData from ITERG, based on cold pressing for rapeseed seeds",
-    "density": 0,
+    "density": null,
     "displayName": "Huile de noisette (vierge) FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -10476,7 +10476,7 @@
       "ingredient"
     ],
     "comment": "Mass allocation : 94,5%. Source : https://waves-vagues.dfo-mpo.gc.ca/Library/360446.pdf",
-    "density": 0,
+    "density": null,
     "displayName": "Homard FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -10517,7 +10517,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Frites de pomme de terre congelées FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -10683,7 +10683,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Betterave sucrière Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -10767,7 +10767,7 @@
       "ingredient"
     ],
     "comment": "FAOstats average 2013-2017",
-    "density": 0,
+    "density": null,
     "displayName": "Noisette avec coque par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -10808,7 +10808,7 @@
       "packaging"
     ],
     "comment": "EcoSpold01Location=RER\nProperties\nCarbon content, fossil: 0.857142857142857 kg C/kg dry mass\nCarbon content, non-fossil: 0 kg C/kg dry mass\nDry mass: 1 kg\nHeating value, net: 42.47 MJ\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Polyéthylène basse densité",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -10849,7 +10849,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Banane Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -10977,7 +10977,7 @@
       "ingredient"
     ],
     "comment": "Process based on Bevilacqua 2007. \nDurum wheat pasta produced in integrated process plant producing 1000 tonnes pasta/day. \nIncluded steps: semolina stocking (in silos), dosing (water addition), kneading (in vacuum condition),bronze drawing, drying, packing, stocking (warehouse).",
-    "density": 0,
+    "density": null,
     "displayName": "Pâtes FR (blé GLO + élec FR)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -11018,7 +11018,7 @@
       "ingredient"
     ],
     "comment": "Economic allocation : 97,4 %/ Source for the price of the juice : average price of french distributors. Source for the price of the byproduct : data from Liansheng supplier (data for dry pomace).",
-    "density": 0,
+    "density": null,
     "displayName": "Jus de tomate UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -11059,7 +11059,7 @@
       "ingredient"
     ],
     "comment": "1 kg output from plant (tomato paste) excluding packaging\n6.18 kg of fresh whole tomatoes (with a content of 3% skin and skin) at 5° Brix necessary for 1 kg of tomato paste at 30° Brix",
-    "density": 0,
+    "density": null,
     "displayName": "Purée de tomates par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -11185,7 +11185,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Soupe BE (légumes FR + élec BE)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -11269,7 +11269,7 @@
       "ingredient"
     ],
     "comment": "This process describes the average consumption mix of refined palm oil in France.\nIncluded activity are production of refined palm oil in Europe and transport to France",
-    "density": 0,
+    "density": null,
     "displayName": "Huile de palme (raffinée) par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -11310,7 +11310,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Pois chiche Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -11351,7 +11351,7 @@
       "ingredient"
     ],
     "comment": "FRANCE",
-    "density": 0,
+    "density": null,
     "displayName": "Pomme FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -11434,7 +11434,7 @@
       "ingredient"
     ],
     "comment": "EcoSpold01Location=FR\nProperties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.574 kg C/kg dry mass\nDry mass: 0.9 kg\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Colza FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -11475,7 +11475,7 @@
       "ingredient"
     ],
     "comment": "Properties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.46 kg C/kg dry mass\nDry mass: 0.8 kg\nHeating value, net: 10.66 MJ\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Fécule de pomme de terre par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -11516,7 +11516,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Epinard Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -11557,7 +11557,7 @@
       "ingredient"
     ],
     "comment": "Allocation is based on the price ratio of cake : oil = 0.29",
-    "density": 0,
+    "density": null,
     "displayName": "Huile de colza Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -11640,7 +11640,7 @@
       "ingredient"
     ],
     "comment": "CHINA",
-    "density": 0,
+    "density": null,
     "displayName": "Pomme de terre de table par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -11724,7 +11724,7 @@
       "ingredient"
     ],
     "comment": "According to data from the ACéVOL study (FNCG and ITERG, 2012), 2010 production data collected from French industrial sites, considered representative of national production.\nEconomic Allocation\nEconomic value from AGECO report : 0,9517/kg of refined sunflower oil",
-    "density": 0,
+    "density": null,
     "displayName": "Huile de tournesol (raffinée) FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -11806,7 +11806,7 @@
       "ingredient"
     ],
     "comment": "Prices: cheese (emmental): average 2008-2012: 4,37/kg of emmental(FranceAgriMer, 2014), whey: according to an expert: 0,02/kg of whey",
-    "density": 0,
+    "density": null,
     "displayName": "Poudre de lactosérum FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -11931,7 +11931,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Colza Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -11972,7 +11972,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Pois UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -12055,7 +12055,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Tomate sous serre non chauffée FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -12349,7 +12349,7 @@
       "use"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Electricité basse tension, France",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -12392,7 +12392,7 @@
       "ingredient"
     ],
     "comment": "This process describes the average consumption mix of Squid in France.\nIncluded activities are : production in country of origin and transport \nFor all fish data are based on expert say.\nThe share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)\nThe mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Clotre, April 2019)",
-    "density": 0,
+    "density": null,
     "displayName": "Calmar FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -12433,7 +12433,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Purée de fruits FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -12515,7 +12515,7 @@
       "ingredient"
     ],
     "comment": "SPAIN",
-    "density": 0,
+    "density": null,
     "displayName": "Orange UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -12556,7 +12556,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Jus d'orange par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -12680,7 +12680,7 @@
       "ingredient"
     ],
     "comment": "Properties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.417429547395 kg C/kg dry mass\nDry mass: 0.531095650327 kg\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Carotte par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -12721,7 +12721,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Laitue Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -12762,7 +12762,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Oignon FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -12803,7 +12803,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Fruits confits FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -12929,7 +12929,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Oeuf FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -12970,7 +12970,7 @@
       "ingredient"
     ],
     "comment": "Average of modeled countries based on market share of global export --> the 4 countries modeled represent 47.6% of the global export (faostat data 2009-2013)",
-    "density": 0,
+    "density": null,
     "displayName": "Cerise UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -13011,7 +13011,7 @@
       "ingredient"
     ],
     "comment": "This process describes the average consumption mix of vinegar alcohol : 15% sugar beet roots (FR) and 85% tap water",
-    "density": 0,
+    "density": null,
     "displayName": "Vinaigre d'alcool FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -13052,7 +13052,7 @@
       "ingredient"
     ],
     "comment": "Properties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.524507692307692 kg C/kg dry mass\nDry mass: 0.89 kg\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Soja déforestant par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -13093,7 +13093,7 @@
       "ingredient"
     ],
     "comment": "MOROCCO",
-    "density": 0,
+    "density": null,
     "displayName": "Clémentine par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -13134,7 +13134,7 @@
       "ingredient"
     ],
     "comment": "\"This dataset represents plant-based sausage production from Tofu. The recipe was determined with OpenFoodFact, 2021 based on 2 industrial recipes and assumptions. \"",
-    "density": 0,
+    "density": null,
     "displayName": "Saucisse végétale tofu FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -13175,7 +13175,7 @@
       "ingredient"
     ],
     "comment": "CANADA",
-    "density": 0,
+    "density": null,
     "displayName": "Colza par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -13216,7 +13216,7 @@
       "ingredient"
     ],
     "comment": "Properties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.0496806 kg C/kg dry mass\nDry mass: 0.093 kg\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Brocoli UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -13257,7 +13257,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Oeuf cru décoquillé FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -13298,7 +13298,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Tomate Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -13339,7 +13339,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Pistache avec coque Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -13380,7 +13380,7 @@
       "ingredient"
     ],
     "comment": "The dataset corresponds to the production of textured soy protein from soy protein flour by dry extrusion.\nIt includes production of Texturated Soy protein (20% moisture content) after extrusion and drying for production of texturated soy protein with 8% moisture content.\nData from Sarens, 2021, Life cycle assessment of burger patties produced w.pdf",
-    "density": 0,
+    "density": null,
     "displayName": "Protéines de soja par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -13421,7 +13421,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Abricot Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -13505,7 +13505,7 @@
       "ingredient"
     ],
     "comment": "Properties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.1723508 kg C/kg dry mass\nDry mass: 0.236 kg\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Avocat par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -13546,7 +13546,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Pomme de terre de table Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -13587,7 +13587,7 @@
       "transformation"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Cuisson",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -13628,7 +13628,7 @@
       "ingredient"
     ],
     "comment": "This dataset includes packaging",
-    "density": 0,
+    "density": null,
     "displayName": "Viande de boeuf sans os - vache de réforme 100% herbe FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -13669,7 +13669,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Poireau Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -13710,7 +13710,7 @@
       "ingredient"
     ],
     "comment": "The CIQUAL food item 'Soup, mixed vegetables, dehydrated' is approximated by the CIQUAL recipe 'Soup, mixed vegetables, prepacked, to be reheated'. Dehydration process is added to obtain dehydrated product at plant.",
-    "density": 0,
+    "density": null,
     "displayName": "Soupe déshydratée FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -13794,7 +13794,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Banane antillaise",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -13835,7 +13835,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Cerise Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -13876,7 +13876,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Crevettes fraîches par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -13917,7 +13917,7 @@
       "ingredient"
     ],
     "comment": "Properties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.084694 kg C/kg dry mass\nDry mass: 0.17 kg\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Kiwi UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -13958,7 +13958,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Poitrine de porc par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -14041,7 +14041,7 @@
       "transformation"
     ],
     "comment": "\"Functional Unit\nTo obtain 1kg of canned vegetable or fruit. \nAn input of 0,626kg of food is required. Added packaging should account for the 1% loss.\n\nBoundaries\nFrom peeled fruit or vegetable to canned product: food slicing, can filling (38% water) and sterilization. 1% loss rate is applied at the end. The washing of fruit and vegetable prior to canning and the production and EoL of packaging is out of scope (because already considered upstream or downstream in Agribalyse v3.0).\nContrary to canned fruits, canned vegetables go through a blanching step prior to canning: Canned vegetables generally require more severe processing than do fruits because the vegetables have much lower acidity and contain more heat-resistant soil organisms. Many vegetables also require more cooking than fruits to develop their most desirable flavor and texture.\nwe considered 50% of canned vegetables (with a blanching step) and 50% of canned fruits (without any blanching) to model the canning process.\"",
-    "density": 0,
+    "density": null,
     "displayName": "Mise en conserve",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -14208,7 +14208,7 @@
       "ingredient"
     ],
     "comment": "Data are representative of refined soybean oil production from soybean seeds. 5,4k g of soybean seeds are needed to produce 1 kg of refined soybean oil and 4,24 kg of soybean oil cake. \nData source : industrial data, representative for crushing and refining of soybean oil in Europe. Data from FEDIOL, 2013. Life cycle assessment of EU Oilseed Crushing and Vegetable oil refining. Final report 59 pages\nEconomic Allocation\nEconomic value from FEDIOL report : 0,809/kg of refined soybean oil, 0,297/kg of soybean oil meal, 0,6/kg of soybean lecithin, 0,35/kg of soybean soap stock\n\nThe consumption mix of soybean oil in France was determined with importation and production data from FAOSTAT (average 2015-2019). The average conusmption mix (2015-2019) was : France, 70%, Spain, 12%, others origins (mainly UE countries)  : 18%. Only French  origin are considered in this datasets, representing 70% of market mix",
-    "density": 0,
+    "density": null,
     "displayName": "Huile de soja (raffinée) FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -14374,7 +14374,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Carotte Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -14458,7 +14458,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Sauce tomate à la viande FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -14499,7 +14499,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Citron Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -14540,7 +14540,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Oeuf (code 1) FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -14581,7 +14581,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Chou rouge Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -14793,7 +14793,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Triricale Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -14834,7 +14834,7 @@
       "ingredient"
     ],
     "comment": "FRANCE",
-    "density": 0,
+    "density": null,
     "displayName": "Lait FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -14918,7 +14918,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Café moulu par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -14959,7 +14959,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Saumon cru UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -15000,7 +15000,7 @@
       "material"
     ],
     "comment": "Carbon content, fossil: 0.328011302325953 kg C/kg dry mass\nCarbon content, non-fossil: 0.0 kg C/kg dry mass\nDry mass: 1.0 kg\nWet mass: 1.0 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Traitement de batterie en fin de vie",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -15041,7 +15041,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Soupe FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -15082,7 +15082,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Saucisse de Toulouse (cuite) FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -15123,7 +15123,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Pois par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -15289,7 +15289,7 @@
       "ingredient"
     ],
     "comment": "Dataset of the production of refined linseed oil in France. It includes crushing of linseed grain, representative of French consumption mix, and refining of crude oil. \n3,36 kg of linseed are needed for the production of 1kg of refined Linseed oil and Linseed oil cake.\nEconomic allocation is made between oil, cake and refining co-products\nPrice for 1 kg Linseed oil = 1,49 /kg ; price for 1 kg Linseed oil cake = 0,286/kg, according to WFLDB economic value. Price for soap stocks and deodorization condensates were approximated from the economic values of rapeseed co-products: 0,2179 /kg Linseed soap stock, 0,2179 /kg Linseed deodorisation condensates.\nIncluding consumptions at crushing and refining\nData for crushing come from AGRIBALYSE 1.4 datateset  \"Flaxseed crushing, processing/FR U\", from AGRIBALYSE 1.4, based on expert informations. Data from crude Linseed oil refining are based on industrial data for 2013, representative of refining step for linseed oil in France.",
-    "density": 0,
+    "density": null,
     "displayName": "Huile de lin (raffinée) FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -15330,7 +15330,7 @@
       "ingredient"
     ],
     "comment": "Properties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.0409734 kg C/kg dry mass\nDry mass: 0.078 kg\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Fenouil FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -15455,7 +15455,7 @@
       "ingredient"
     ],
     "comment": "Average of modeled countries (Ecuador, Costa Rica, Colombia, India) based on market share of global export. The four countries modeled represent 50% of the global export: Ecuador (29.5%), Costa Rica (10.5%), Colombia (9.7%), India (0.35%) (FAOSTAT, 2010)\nIndia is considered since it is a major banana producer, with 29% of global production.",
-    "density": 0,
+    "density": null,
     "displayName": "Banane par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -15496,7 +15496,7 @@
       "ingredient"
     ],
     "comment": "Dairy farm archetype IT-154 according to FAO, IDF, IFCN (2014).\n\nIT-154 represents an average-sized farm in northern Italy (Lombardy), having Holstein cows with a milk yield of 8 810 kg milk/cow per year. The cows are kept in a free stall barn where milking is done in a parlour system. The farm operates on 72 ha of land that is very fertile and can also be used for cash crops. About 56 percent of the work on the farm is done by family members.\n\nAllocation for milk based on mass balance (IDF 2015)\nInventory is for 1 kg raw milk, uncorrected. Mass produced is given for FPCM equivalent.",
-    "density": 0,
+    "density": null,
     "displayName": "Lait UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -15578,7 +15578,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Soupe IT (légumes FR + élec IT)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -15743,7 +15743,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Maïs doux UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -15784,7 +15784,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Haricot vert FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -15868,7 +15868,7 @@
       "ingredient"
     ],
     "comment": "FRANCE",
-    "density": 0,
+    "density": null,
     "displayName": "Tournesol FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -15909,7 +15909,7 @@
       "ingredient"
     ],
     "comment": "This process describes the production of Yogurt, from cow milk in France.\nIncluded activities are : production in country of origin and transport",
-    "density": 0,
+    "density": null,
     "displayName": "Fromage blanc FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -15950,7 +15950,7 @@
       "ingredient"
     ],
     "comment": "Economic allocation based on FEFAC (2015)",
-    "density": 0,
+    "density": null,
     "displayName": "Orge UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -16034,7 +16034,7 @@
       "ingredient"
     ],
     "comment": "The CIQUAL food item 'Soup, mixed vegetables, dehydrated' is approximated by the CIQUAL recipe 'Soup, mixed vegetables, prepacked, to be reheated'. Dehydration process is added to obtain dehydrated product at plant.",
-    "density": 0,
+    "density": null,
     "displayName": "Soupe déshydratée BE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -16201,7 +16201,7 @@
       "ingredient"
     ],
     "comment": "This process describes the average consumption mix of Radish in France.\nIncluded activities are : production in country of origin and transport",
-    "density": 0,
+    "density": null,
     "displayName": "Radis FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -16242,7 +16242,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Viande de boeuf avec os Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -16283,7 +16283,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Tomate sous serre chauffée par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -16324,7 +16324,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Papaye Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -16406,7 +16406,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Chou-fleur Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -16447,7 +16447,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Emmental FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -16488,7 +16488,7 @@
       "ingredient"
     ],
     "comment": "Production of 1kg refined peanut oil in Senegal\nSource : Schmidt, J. H. (2015). Life cycle assessment of five vegetable oils\nAllocation is based on the price ratio of cake : oil = 0.10\nEconomic allocation is applied. Price for 1 kg Peanut oil = 0.51 US $/pound; price for 1 kg Peanut oil cake = 0.05 US $/pound.",
-    "density": 0,
+    "density": null,
     "displayName": "Huile d'arachide (raffinée) par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -16529,7 +16529,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Orange Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -16570,7 +16570,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Orge Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -16611,7 +16611,7 @@
       "ingredient"
     ],
     "comment": "Economic Allocation 99,5% (Based on Rafaiane MacedoGuimarà£es (2018) Okara: A soybean by-product as an alternative to enrich vegetable paste; 227 US$ / ton okara vs 1960 US$ / ton soymilk )",
-    "density": 0,
+    "density": null,
     "displayName": "Lait de soja FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -16652,7 +16652,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Poitrine de porc FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -16734,7 +16734,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Blé tendre Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -16775,7 +16775,7 @@
       "energy"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Electricité moyenne tension, France",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -16819,7 +16819,7 @@
       "ingredient"
     ],
     "comment": "This dataset includes packaging",
-    "density": 0,
+    "density": null,
     "displayName": "Viande de boeuf sans os par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -16860,7 +16860,7 @@
       "ingredient"
     ],
     "comment": "Properties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.0369484 kg C/kg dry mass\nDry mass: 0.071 kg\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Poivron sous serre non chauffée FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -16901,7 +16901,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Maïs doux FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -16942,7 +16942,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Brocoli Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -16983,7 +16983,7 @@
       "ingredient"
     ],
     "comment": "Yield = 165000.0 kg/haOutput of tomato, fresh grade, produced for direct human consumption.\nProperties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.383275862069 kg C/kg dry mass\nDry mass: 0.514933058702 kg\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Tomate UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -17024,7 +17024,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Fraise hors saison FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -17065,7 +17065,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Poudre de cacao UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -17275,7 +17275,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Truite d'élevage FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -17357,7 +17357,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Herbe de prairie permanente FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -17398,7 +17398,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Radis Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -17439,7 +17439,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Céleri branche Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -17480,7 +17480,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Blanc de poulet cru (alim. ani. 100%BR) par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -17521,7 +17521,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Noix avec coque Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -17562,7 +17562,7 @@
       "ingredient"
     ],
     "comment": "Orange, fresh grade, South African production. Output of orange, fresh grade, produced for direct human consumption.\nProperties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.350629370629 kg C/kg dry mass\nDry mass: 0.542888165038 kg\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Orange par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -17603,7 +17603,7 @@
       "ingredient"
     ],
     "comment": "This dataset corresponds to average consumption of hazelnuts, unshelled in France. \nIncluded processes: This process includes the production of hazelnut in shell in Italy and Turkey, shelling process and transport to France. \nRemark: Inventory refers to the production of 1 kg hazelnut, unshelled.\nThe consumption mix was evaluated using data from FAOSTAT (2014-2019) for hazelnut, unshelled in France. \nRelative import share for hazelnut unshelled in France : Italie, 17%, Turkey, 70% (average FAOSTAT data from 2014-2019 )",
-    "density": 0,
+    "density": null,
     "displayName": "Noisette décortiquée FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -17644,7 +17644,7 @@
       "ingredient"
     ],
     "comment": "This process describes the production of Milk, powder, skimmed in France.\nIncluded activities are : production in country of origin and transport",
-    "density": 0,
+    "density": null,
     "displayName": "Poudre de lait écrémé FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -17685,7 +17685,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Comté FR AOP",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -17726,7 +17726,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Courgette Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -17767,7 +17767,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Poire Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -17808,7 +17808,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Pomme de terre industrie Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -17849,7 +17849,7 @@
       "ingredient"
     ],
     "comment": "Data based on Bevilacqua 2007. Durum wheat semolina production in a mill producing 68'000 tonnes semolina/year. \n9 tonnes durum wheat gives 6.8 tonnes semolina and 2.1 tonnes co-products (mainly bran)\nIncluded steps are: stocking (in silos), cleaning (wheat separated from extraneous materials), conditioning (water addition), grinding, sifting (classification: gives 76% semolina, 24% subproducts). Subproducts are used for catle feed.\nPrice of durum wheat semolina based on alibaba.com, accessed May 2015, 10 first price data considered: 393 EUR/tonne",
-    "density": 0,
+    "density": null,
     "displayName": "Semoule de blé dur FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -17973,7 +17973,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Farine Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -18014,7 +18014,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Noix avec coque FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -18055,7 +18055,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Maïs doux Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -18096,7 +18096,7 @@
       "ingredient"
     ],
     "comment": "Data are representative of refined grapeseed oil production from dry grapeseed. 7,18kg of dry grapeseed are needed to produce 1kg of refined grapeseed oil and 5,87 of grapeseed oil meal. Data source : Data source : industrial data, representative for crushing and refining of grapeseed oil in France.\nEconomic Allocation\nEconomic value from AGECO report : 1,71/kg of refined grapeseed oil, 0,212/kg of grapeseed oil meal, 0,21792/kg of grapeseed soap stock, 0,21792/kg of grapeseed deodorization condensate\nData source : industrial data, representative for grapeseed drying. Reference year : 2014",
-    "density": 0,
+    "density": null,
     "displayName": "Huile de pépin de raisin (raffinée) FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -18137,7 +18137,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Mozzarella FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -18178,7 +18178,7 @@
       "ingredient"
     ],
     "comment": "Vegetables are cooked prior to be canned",
-    "density": 0,
+    "density": null,
     "displayName": "Purée de tomates FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -18263,7 +18263,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Blanc de poulet cru Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -18345,7 +18345,7 @@
       "ingredient"
     ],
     "comment": "This dataset includes packaging",
-    "density": 0,
+    "density": null,
     "displayName": "Viande de boeuf sans os (crue) FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -18386,7 +18386,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Fraise de saison FR ",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -18427,7 +18427,7 @@
       "ingredient"
     ],
     "comment": "Reference flow: Yield = 48205 kg/ha table fruit quality\nProperties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.476186274463 kg C/kg dry mass\nDry mass: 0.543596434007 kg\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Poire UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -18468,7 +18468,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Viande de boeuf avec os (crue) FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -18509,7 +18509,7 @@
       "ingredient"
     ],
     "comment": "Properties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.475 kg C/kg dry mass\nDry mass: 0.9174 kg\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Lentilles par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -18550,7 +18550,7 @@
       "transformation"
     ],
     "comment": "This process is a dummy process. It is assumed that no energy or water addition is needed for this process.",
-    "density": 0,
+    "density": null,
     "displayName": "Mélange",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -18677,7 +18677,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Sauce tomate FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -18845,7 +18845,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "poudre de blanc d'oeuf FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -18886,7 +18886,7 @@
       "ingredient"
     ],
     "comment": "Properties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.028392 kg C/kg dry mass\nDry mass: 0.0560000000000001 kg\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Céleri branche FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -18927,7 +18927,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Lentilles FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -18968,7 +18968,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Lentilles Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -19176,7 +19176,7 @@
       "ingredient"
     ],
     "comment": "(4,4,2,1,2),",
-    "density": 0,
+    "density": null,
     "displayName": "Vin rouge FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -19217,7 +19217,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Mangue Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -19258,7 +19258,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Pomme de terre industrie FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -19299,7 +19299,7 @@
       "ingredient"
     ],
     "comment": "FRANCE",
-    "density": 0,
+    "density": null,
     "displayName": "Pêche FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -19340,7 +19340,7 @@
       "ingredient"
     ],
     "comment": "Product from cocoa beans processing.  319 kg cocoa liquor, 231 kg cocoa butter, 98 kg cocoa shell/t cocoa beans (Ntiamoah and Afrane, 2008). According to WFLDB industrial partners expertise, there are losses of 65 kg/t cocoa beans input and the difference to 1 t is considered to be cocoa powder (i.e., 286 kg) and no cocoa cake production is considered. \n3000-3500 USD/tonne (www.alibaba.com/product-gs/516129012/Manufacturer_in_China_High_quality_Cocoa.html?s=p). Average used: 3250 USD/tonne",
-    "density": 0,
+    "density": null,
     "displayName": "Beurre de cacao UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -19381,7 +19381,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Poitrine de porc Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -19422,7 +19422,7 @@
       "ingredient"
     ],
     "comment": "This process describes the average consumption mix of Turmeric in France.\nIncluded activities are : production in country of origin and transport\nNo production dataset was found. The proxy used is : Black pepper dried",
-    "density": 0,
+    "density": null,
     "displayName": "Curcuma par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -19506,7 +19506,7 @@
       "ingredient"
     ],
     "comment": "Reference flow: Yield = 20000 kg/ha table fruit quality\nProperties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.412732283 kg C/kg dry mass\nDry mass: 0.539665407447 kg\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Abricot FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -19547,7 +19547,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Reblochon FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -19630,7 +19630,7 @@
       "ingredient"
     ],
     "comment": "HUNGARY",
-    "density": 0,
+    "density": null,
     "displayName": "Tournesol UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -19671,7 +19671,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Melon Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -19753,7 +19753,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Boeuf haché cru Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -19837,7 +19837,7 @@
       "packaging"
     ],
     "comment": "Properties\nCarbon content, fossil: 0.00365436916119075 kg C/kg dry mass\nCarbon content, non-fossil: 0.450247687297085 kg C/kg dry mass\nDry mass: 0.945 kg\nHeating value, net: 12.86 MJ\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Carton",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -19921,7 +19921,7 @@
       "ingredient"
     ],
     "comment": "Reference flow: Yield = 56880 kg/ha\nProperties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.417429547395 kg C/kg dry mass\nDry mass: 0.531095650327 kg\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Carotte UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -19962,7 +19962,7 @@
       "ingredient"
     ],
     "comment": "Reference flow: Yield = 55000 kg/ha\nProperties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.331061403509 kg C/kg dry mass\nDry mass: 0.530222693531 kg\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Oignon UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -20003,7 +20003,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Tournesol par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -20044,7 +20044,7 @@
       "ingredient"
     ],
     "comment": "Modification : ITERG\n\nIncluded processes: This process includes the refining of crude palm oil, in Europe. Transport of inputs are considered. System boundary is at the oil mill.\nRemark: Inventory refers to the production of 1 kg refined palm oil, respectively 0,07 kg of Fatty Acids Distallates.   \nEconomic allocation : Economic Allocation between refined palm oil and palm oil fatty acids distillates\nPalm oil : 803/T",
-    "density": 0,
+    "density": null,
     "displayName": "Huile de palme (raffinée) UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -20129,7 +20129,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Soja feed par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -20170,7 +20170,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Ensilage maïs FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -20211,7 +20211,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Poireau FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -20295,7 +20295,7 @@
       "ingredient"
     ],
     "comment": "This process describes the average consumption mix of goat milk in France.\nIncluded activities are production in country of origin and transport.",
-    "density": 0,
+    "density": null,
     "displayName": "Lait de chèvre FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -20420,7 +20420,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Ananas Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -20461,7 +20461,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Myrtille par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -20502,7 +20502,7 @@
       "ingredient"
     ],
     "comment": "Properties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.0639495 kg C/kg dry mass\nDry mass: 0.135 kg\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Ananas par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -20543,7 +20543,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Sel",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -20627,7 +20627,7 @@
       "ingredient"
     ],
     "comment": "The CIQUAL food item 'Soup, mixed vegetables, dehydrated' is approximated by the CIQUAL recipe 'Soup, mixed vegetables, prepacked, to be reheated'. Dehydration process is added to obtain dehydrated product at plant.",
-    "density": 0,
+    "density": null,
     "displayName": "Soupe déshydratée DE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -20668,7 +20668,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Noisette décortiquée Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -20709,7 +20709,7 @@
       "ingredient"
     ],
     "comment": "The CIQUAL food item 'Soup, mixed vegetables, dehydrated' is approximated by the CIQUAL recipe 'Soup, mixed vegetables, prepacked, to be reheated'. Dehydration process is added to obtain dehydrated product at plant.",
-    "density": 0,
+    "density": null,
     "displayName": "Soupe déshydratée IT",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -20750,7 +20750,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Crabe FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -20791,7 +20791,7 @@
       "ingredient"
     ],
     "comment": "This input has been extrapolated from conventional LCI. Please refer to the methodological report.",
-    "density": 0,
+    "density": null,
     "displayName": "Arachide avec coque Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -20832,7 +20832,7 @@
       "ingredient"
     ],
     "comment": "kg of Fat and Protein Corrected Milk. FPCM is 4.0% fat and 3.3% true protein content. Conversion to FPCM is as follow, according to the International Dairy Federation: FPCM (kg/yr) = Production (kg/yr) x [0.1226 x Fat% + 0.0776 x Protein% + 0.2534]\nRaw milk density: 1031 kg/m3\nProperties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.53797 kg C/kg dry mass\nDry mass: 0.1231 kg\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Lait par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -20873,7 +20873,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Framboise UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -20914,7 +20914,7 @@
       "ingredient"
     ],
     "comment": "Reference flow: Yield = 3470 kg/ha\nProperties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.58063 kg C/kg dry mass\nDry mass: 0.943681111279 kg\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Pistache avec coque par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -20955,7 +20955,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Moutarde FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -20996,7 +20996,7 @@
       "ingredient"
     ],
     "comment": "This process describes the average consumption mix of Cod in France.\nIncluded activities are : production in country of origin and transport \nFor all fish data are based on expert say.\nThe share of domestic production is 40%, while the remainder is split equitably between EU import (refrigerated truck transport per 1,000 km) and non-EU import (refrigerated boat transport per 10,000 km)\nThe mapping with fishing datasets is based on the predominant fishing mode of each species. This work was developed with the help of technical institute (Comité des pêches, Thomas Clotre, April 2019)",
-    "density": 0,
+    "density": null,
     "displayName": "Morue UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -21037,7 +21037,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Courgette UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -21078,7 +21078,7 @@
       "ingredient"
     ],
     "comment": "Properties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.0476544 kg C/kg dry mass\nDry mass: 0.096 kg\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Chou blanc par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -21119,7 +21119,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Noix décortiquées FR",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -21160,7 +21160,7 @@
       "ingredient"
     ],
     "comment": "Properties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0.490083333333 kg C/kg dry mass\nDry mass: 0.929022668153 kg\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Thé (feuilles) UE",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -21244,7 +21244,7 @@
       "packaging"
     ],
     "comment": "Annual production\nProperties\nCarbon content, fossil: 0 kg C/kg dry mass\nCarbon content, non-fossil: 0 kg C/kg dry mass\nDry mass: 1 kg\nWet mass: 1 kg",
-    "density": 0,
+    "density": null,
     "displayName": "Aluminium",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -21285,7 +21285,7 @@
       "ingredient"
     ],
     "comment": "",
-    "density": 0,
+    "density": null,
     "displayName": "Miel FR",
     "elecMJ": 0,
     "heatMJ": 0,
