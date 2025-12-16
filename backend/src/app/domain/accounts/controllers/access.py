@@ -188,6 +188,7 @@ class AccessController(Controller):
     async def validate_token(
         self,
         tokens_service: TokenService,
+        users_service: UserService,
         data: ApiToken,
     ) -> None:
         """Validate a token"""
@@ -195,19 +196,34 @@ class AccessController(Controller):
         if data.token.startswith("eco_api_"):
             payload = await tokens_service.extract_payload(data.token)
 
-            await tokens_service.authenticate(
+            token = await tokens_service.authenticate(
                 secret=payload["secret"], token_id=payload["id"]
             )
-            return
+
+            user = await users_service.get_one_or_none(email=token.sub)
+
+            if user.profile.terms_accepted:
+                return
+            else:
+                raise PermissionDeniedException(
+                    detail="You must accept the terms to have access to detailed impacts"
+                )
         else:
             try:
-                Token.decode_payload(
+                payload = Token.decode_payload(
                     data.token, settings.app.SECRET_KEY, [auth.algorithm]
                 )
+
+                user = await users_service.get_one_or_none(email=payload["sub"])
+
+                if user.profile.terms_accepted:
+                    return
+                else:
+                    raise PermissionDeniedException(
+                        detail="You must accept the terms to have access to detailed impacts"
+                    )
             except Exception:
                 raise PermissionDeniedException(detail="Error decoding Token")
-
-            return
 
         raise PermissionDeniedException(detail="Invalid token")
 

@@ -11,6 +11,7 @@ module Data.Session exposing
     , defaultStore
     , deleteBookmark
     , getAuth
+    , hasTermsAccepted
     , isAuthenticated
     , isSuperuser
     , logout
@@ -329,6 +330,16 @@ isAuthenticated { store } =
     case store.auth2 of
         Just _ ->
             True
+
+        Nothing ->
+            False
+
+
+hasTermsAccepted : Session -> Bool
+hasTermsAccepted { store } =
+    case store.auth2 of
+        Just auth ->
+            auth.user.profile.termsAccepted
 
         Nothing ->
             False
