@@ -237,6 +237,7 @@ updateAccountTab session currentAuth profileForm msg model =
                             { emailOptin = user.profile.emailOptin
                             , firstName = user.profile.firstName
                             , lastName = user.profile.lastName
+                            , termsAccepted = user.profile.termsAccepted
                             }
                             Dict.empty
                 }
@@ -466,9 +467,9 @@ viewTab session currentTab =
     let
         ( heading, tabs ) =
             case Session.getAuth session of
-                Just user ->
+                Just auth ->
                     ( "Mon compte"
-                    , [ ( "Compte", Account user User.emptyProfileForm Dict.empty )
+                    , [ ( "Compte", Account auth User.emptyProfileForm Dict.empty )
                       , ( "Jetons d'API", ApiTokens RemoteData.Loading )
                       ]
                     )
@@ -617,6 +618,19 @@ viewAccount { user } profileForm formErrors =
                 , label [ class "form-check-label", for "emailOptin" ]
                     [ text "J’accepte de recevoir des informations de la part d'Ecobalyse par email."
                     ]
+                , viewFieldError "emailOptin" formErrors
+                ]
+            , div [ class "mb-3 form-check" ]
+                [ input
+                    [ type_ "checkbox"
+                    , class "form-check-input"
+                    , classList [ ( "is-invalid", Dict.member "termsAccepted" formErrors ) ]
+                    , id "termsAccepted"
+                    , checked profileForm.termsAccepted
+                    , onCheck <| \termsAccepted -> UpdateProfileForm { profileForm | termsAccepted = termsAccepted }
+                    ]
+                    []
+                , label [ class "form-check-label", for "termsAccepted" ] termsView
                 , viewFieldError "termsAccepted" formErrors
                 ]
             , div [ class "d-grid" ]
@@ -641,6 +655,16 @@ viewAccount { user } profileForm formErrors =
                 [ text "Déconnexion" ]
             ]
         ]
+
+
+termsView : List (Html Msg)
+termsView =
+    [ p [] [ text "Je m’engage à respecter les CGU spécifiques aux données EcoInvent et accepte que les informations recueillies sur ce formulaire soient enregistrées dans un fichier informatisé par l’ADEME pour\u{202F}:" ]
+    , ul []
+        [ li [] [ text "Authentification des utilisateurs sur la plateforme web ou via l’API afin d'accéder aux impacts détaillés (ex: changement climatique)," ]
+        , li [] [ text "délivrance de licences nominatives par EcoInvent aux utilisateurs des données EcoInvent via Ecobalyse (les données sont transmises si l’utilisateur consent au moins une fois via son compte Ecobalyse dans l'année)." ]
+        ]
+    ]
 
 
 viewOrganization : User.Organization -> String
@@ -812,7 +836,7 @@ viewTocAlert =
         { attributes = []
         , close = Nothing
         , content =
-            [ """Notre politique de confidentialité de données personnelles a changé depuis le **9 décembre 2025**. Pour continuer à accéder aux impacts détaillés, connectez-vous et consentez au traitement particulier de vos données personnelles liés à l'usage des impacts détaillés."""
+            [ """Notre politique de confidentialité de données personnelles a changé depuis le **9 décembre 2025**. Pour continuer à accéder aux impacts détaillés, connectez-vous et consentez au traitement particulier de vos données personnelles liées à l'usage des impacts détaillés."""
                 |> Markdown.simple []
             ]
         , level = Alert.Info
@@ -829,8 +853,7 @@ viewMagicLinkForm email webData =
             , attribute "data-testid" "auth-magic-link-form"
             ]
             [ p []
-                [ text """ En revanche, si vous avez créé un compte depuis cette date, vous pouvez
-                           recevoir un lien de connexion en soumettant votre adresse email ci-dessous.
+                [ text """ Recevez un lien de connexion en soumettant votre adresse email ci-dessous.
                        """
                 ]
             , div [ class "mb-3" ]
@@ -979,7 +1002,7 @@ viewSignupForm signupForm formErrors webData =
             , label [ class "form-check-label", for "emailOptin" ]
                 [ text "J’accepte de recevoir des informations de la part d'Ecobalyse par email."
                 ]
-            , viewFieldError "termsAccepted" formErrors
+            , viewFieldError "emailOptin" formErrors
             ]
         , div [ class "mb-3 form-check" ]
             [ input
@@ -992,13 +1015,7 @@ viewSignupForm signupForm formErrors webData =
                 , required True
                 ]
                 []
-            , label [ class "form-check-label", for "termsAccepted" ]
-                [ p [] [ text "Je m’engage à respecter les CGU spécifiques aux données EcoInvent et accepte que les informations recueillies sur ce formulaire soient enregistrées dans un fichier informatisé par l’ADEME pour\u{202F}:" ]
-                , ul []
-                    [ li [] [ text "Authentification des utilisateurs sur la plateforme web ou via l’API afin d'accéder aux impacts détaillés (ex: changement climatique)," ]
-                    , li [] [ text "délivrance de licences nominatives par EcoInvent aux utilisateurs des données EcoInvent via Ecobalyse (les données sont transmises si l’utilisateur consent au moins une fois via son compte Ecobalyse dans l'année)." ]
-                    ]
-                ]
+            , label [ class "form-check-label", for "termsAccepted" ] termsView
             , viewFieldError "termsAccepted" formErrors
             ]
         , div [ class "d-grid" ]
