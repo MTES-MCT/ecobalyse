@@ -601,6 +601,42 @@ async def test_token_validation(
     assert response.status_code == 403
 
 
+async def test_token_validation_no_terms(
+    session: AsyncSession,
+    client: "AsyncClient",
+    toc_not_accepted_user_token_headers: dict[str, str],
+    raw_users: list[User | dict[str, Any]],
+) -> None:
+    response = await client.post(
+        "/api/tokens", headers=toc_not_accepted_user_token_headers
+    )
+
+    assert response.status_code == 201
+    data = response.json()
+    token = data["token"]
+    assert token.startswith("eco_api_eyJlbWFpbCI6ICJ")
+
+    # Validate API token for user
+    response = await client.post(
+        "/api/tokens/validate",
+        json=data,
+    )
+
+    assert response.status_code == 403
+
+    bearer_token = toc_not_accepted_user_token_headers["Authorization"].replace(
+        "Bearer ", ""
+    )
+
+    # Validate Bearer token for user
+    response = await client.post(
+        "/api/tokens/validate",
+        json={"token": bearer_token},
+    )
+
+    assert response.status_code == 403
+
+
 async def test_list_accounts_guest_denied(client: "AsyncClient") -> None:
     response = await client.get("/api/accounts")
     assert response.status_code == 401

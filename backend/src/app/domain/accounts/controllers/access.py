@@ -196,11 +196,11 @@ class AccessController(Controller):
         if data.token.startswith("eco_api_"):
             payload = await tokens_service.extract_payload(data.token)
 
-            token = await tokens_service.authenticate(
+            await tokens_service.authenticate(
                 secret=payload["secret"], token_id=payload["id"]
             )
 
-            user = await users_service.get_one_or_none(email=token.sub)
+            user = await users_service.get_one_or_none(email=payload["email"])
 
             if user.profile.terms_accepted:
                 return
