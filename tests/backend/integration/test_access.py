@@ -198,11 +198,12 @@ async def test_user_update_profile(
     response = await client.patch(
         "/api/me",
         headers=user_token_headers,
-        json={"emailOptin": False},
+        json={"emailOptin": False, "termsAccepted": False},
     )
     assert response.status_code == 200
     json = response.json()
     assert not json["profile"]["emailOptin"]
+    assert not json["profile"]["termsAccepted"]
 
 
 async def test_user_signup_and_login(

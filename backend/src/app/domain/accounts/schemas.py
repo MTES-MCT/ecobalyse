@@ -116,9 +116,10 @@ class UserCreate(TermsAcceptedUser):
 
 
 class UserProfileUpdate(CamelizedBaseStruct, omit_defaults=True):
+    email_optin: bool | None | msgspec.UnsetType = msgspec.UNSET
     first_name: str | None | msgspec.UnsetType = msgspec.UNSET
     last_name: str | None | msgspec.UnsetType = msgspec.UNSET
-    email_optin: bool | None | msgspec.UnsetType = msgspec.UNSET
+    terms_accepted: bool | None | msgspec.UnsetType = msgspec.UNSET
 
 
 class AccountLogin(CamelizedBaseStruct):

@@ -79,6 +79,7 @@ type alias ProfileForm =
     { emailOptin : Bool
     , firstName : String
     , lastName : String
+    , termsAccepted : Bool
     }
 
 
@@ -219,6 +220,7 @@ emptyProfileForm =
     { emailOptin = False
     , firstName = ""
     , lastName = ""
+    , termsAccepted = False
     }
 
 
@@ -346,6 +348,7 @@ encodeUpdateProfileForm form =
         [ ( "emailOptin", form.emailOptin |> Encode.bool )
         , ( "firstName", form.firstName |> Encode.string )
         , ( "lastName", form.lastName |> Encode.string )
+        , ( "termsAccepted", form.termsAccepted |> Encode.bool )
         ]
 
 
