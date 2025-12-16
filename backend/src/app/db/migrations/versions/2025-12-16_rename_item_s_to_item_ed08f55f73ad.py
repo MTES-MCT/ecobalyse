@@ -2,8 +2,8 @@
 """Rename Item(s) to item
 
 Revision ID: ed08f55f73ad
-Revises: 8cc0196fc74c
-Create Date: 2025-12-09 15:55:54.181207
+Revises: 40e15168080c
+Create Date: 2025-12-16 15:55:54.181207
 
 """
 
@@ -41,7 +41,7 @@ sa.EncryptedText = EncryptedText
 
 # revision identifiers, used by Alembic.
 revision = "ed08f55f73ad"
-down_revision = "8cc0196fc74c"
+down_revision = "40e15168080c"
 branch_labels = None
 depends_on = None
 
