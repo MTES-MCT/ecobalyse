@@ -63,3 +63,11 @@ class User(UUIDAuditBase):
         lazy="selectin",
         cascade="all, delete",
     )
+
+    @property
+    def has_active_token(self) -> bool:
+        now = datetime.datetime.now(datetime.timezone.utc)
+        # We don’t care much about exactitude here, leap years are ignored.
+        # An alternative would be to use the dateutil module.
+        one_year_ago = now - datetime.timedelta(days=365)
+        return any(t.last_accessed_at > one_year_ago for t in self.tokens)
