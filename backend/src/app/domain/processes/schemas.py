@@ -82,7 +82,7 @@ class Process(CamelizedBaseStruct):
 
 
 class Unit(StrEnum):
-    ITEM = "Item(s)"
+    ITEM = "item"
     KG = "kg"
     KWH = "kWh"
     L = "L"

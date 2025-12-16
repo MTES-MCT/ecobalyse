@@ -321,7 +321,7 @@ unitToString unit =
 unitFromString : String -> Result String Unit
 unitFromString string =
     case string of
-        "Item(s)" ->
+        "item" ->
             Ok Items
 
         "kg" ->
