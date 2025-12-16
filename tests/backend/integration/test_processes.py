@@ -1,3 +1,4 @@
+import json
 import os
 from pathlib import Path
 from typing import TYPE_CHECKING, Any
@@ -210,8 +211,8 @@ async def test_processes_access(
     assert response.status_code == 200
     json_response = response.json()
     no_detailed_impacts = {
-        "acd": 0.0,
-        "cch": 0.0,
+        "acd": 0,
+        "cch": 0,
         "ecs": 2026.16,
         "etf": 0.0,
         "etf-c": 0.0,
@@ -233,7 +234,9 @@ async def test_processes_access(
     }
 
     # Unauthenticated user should have zero detailed impacts
-    assert json_response[1]["impacts"] == no_detailed_impacts
+    assert json.dumps(json_response[1]["impacts"], sort_keys=True) == json.dumps(
+        no_detailed_impacts, sort_keys=True
+    )
 
     # Authenticated user with toc not accepted
     response = await client.get(
@@ -242,32 +245,11 @@ async def test_processes_access(
     )
     assert response.status_code == 200
     json_response = response.json()
-    no_detailed_impacts = {
-        "acd": 0.0,
-        "cch": 0.0,
-        "ecs": 2026.16,
-        "etf": 0.0,
-        "etf-c": 0.0,
-        "fru": 0.0,
-        "fwe": 0.0,
-        "htc": 0.0,
-        "htc-c": 0.0,
-        "htn": 0.0,
-        "htn-c": 0.0,
-        "ior": 0.0,
-        "ldu": 0.0,
-        "mru": 0.0,
-        "ozd": 0.0,
-        "pco": 0.0,
-        "pef": 9.0,
-        "pma": 0.0,
-        "swe": 0.0,
-        "tre": 0.0,
-        "wtu": 0.0,
-    }
 
     # Unauthenticated user should have zero detailed impacts
-    assert json_response[1]["impacts"] == no_detailed_impacts
+    assert json.dumps(json_response[1]["impacts"], sort_keys=True) == json.dumps(
+        no_detailed_impacts, sort_keys=True
+    )
 
     # Authenticated user should have detailed impacts
     response = await client.get(
@@ -277,41 +259,44 @@ async def test_processes_access(
     assert response.status_code == 200
     json_response = response.json()
 
-    assert json_response[1] == {
-        "activityName": "This process is not linked to a Brightway activity",
-        "alias": None,
-        "categories": ["transformation"],
-        "comment": "corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-impression-pigmentaire.",
-        "massPerUnit": None,
-        "displayName": "Impression (pigmentaire)",
-        "elecMJ": 1.61,
-        "heatMJ": 10.74,
-        "id": "97c209ec-7782-5a29-8c47-af7f17c82d11",
-        "impacts": {
-            "acd": 1.0,
-            "cch": 2.0,
-            "ecs": 2026.16,
-            "etf": 1.0,
-            "etf-c": 944.0,
-            "fru": 2.0,
-            "fwe": 3.0,
-            "htc": 3.0,
-            "htc-c": 1.11e-11,
-            "htn": 2.0,
-            "htn-c": 2.03e-8,
-            "ior": 2.0,
-            "ldu": 5.0,
-            "mru": 4.0,
-            "ozd": 2.0,
-            "pco": 7.0,
-            "pma": 7.0,
-            "swe": 7.0,
-            "tre": 5.0,
-            "wtu": 5.0,
+    assert json.dumps(json_response[1], sort_keys=True) == json.dumps(
+        {
+            "activityName": "This process is not linked to a Brightway activity",
+            "alias": None,
+            "categories": ["transformation"],
+            "comment": "corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-impression-pigmentaire.",
+            "density": 0.0,
+            "displayName": "Impression (pigmentaire)",
+            "elecMJ": 1.61,
+            "heatMJ": 10.74,
+            "id": "97c209ec-7782-5a29-8c47-af7f17c82d11",
+            "impacts": {
+                "acd": 1.0,
+                "cch": 2.0,
+                "ecs": 2026.16,
+                "etf": 1.0,
+                "etf-c": 944.0,
+                "fru": 2.0,
+                "fwe": 3.0,
+                "htc": 3.0,
+                "htc-c": 1.11e-11,
+                "htn": 2.0,
+                "htn-c": 2.03e-8,
+                "ior": 2.0,
+                "ldu": 5.0,
+                "mru": 4.0,
+                "ozd": 2.0,
+                "pco": 7.0,
+                "pma": 7.0,
+                "swe": 7.0,
+                "tre": 5.0,
+                "wtu": 5.0,
+            },
+            "location": "GLO",
+            "scopes": ["textile"],
+            "source": "Custom",
+            "unit": "kg",
+            "waste": 0.0,
         },
-        "location": "GLO",
-        "scopes": ["textile"],
-        "source": "Custom",
-        "unit": "kg",
-        "waste": 0.0,
-    }
+        sort_keys=True,
+    )
