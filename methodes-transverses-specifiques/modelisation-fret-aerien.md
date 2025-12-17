@@ -1,7 +1,3 @@
----
-hidden: true
----
-
 # ✈️ Transport par avion - prise en compte des trainées
 
 ## Contexte
