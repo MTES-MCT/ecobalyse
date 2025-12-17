@@ -123,7 +123,7 @@
     "waste": 0
   },
   {
-    "activityName": "Pasta, dried, from durum wheat, at plant, from GLO wheat and DE elec, constructed by Ecobalyse",
+    "activityName": "Pasta, dried, from durum wheat, at plant, from GLO wheat and DE elec",
     "categories": [
       "ingredient"
     ],
@@ -658,7 +658,7 @@
     "waste": 0
   },
   {
-    "activityName": "Aluminium extrusion, constructed by Ecobalyse",
+    "activityName": "Aluminium extrusion",
     "categories": [
       "transformation",
       "material_type:metal"
@@ -866,7 +866,7 @@
     "waste": 0
   },
   {
-    "activityName": "Cooked ham case ready at plant {{cooked-ham-case-ready-plant-organic}}, constructed by Ecobalyse",
+    "activityName": "Cooked ham case ready at plant {{cooked-ham-case-ready-plant-organic}}",
     "categories": [
       "ingredient"
     ],
@@ -1531,7 +1531,7 @@
     "waste": 0
   },
   {
-    "activityName": "aluminium, low-alloyed, virgin, market, RoW, constructed by Ecobalyse",
+    "activityName": "aluminium, low-alloyed, virgin, market, RoW",
     "categories": [
       "material",
       "material_type:metal"
@@ -1655,7 +1655,7 @@
     "waste": 0
   },
   {
-    "activityName": "wood chips, from post-consumer wood, measured as dry mass, in m3//[RER] market for wood chips, from post-consumer wood, measured as dry mass, in m3, constructed by Ecobalyse",
+    "activityName": "wood chips, from post-consumer wood, measured as dry mass, in m3//[RER] market for wood chips, from post-consumer wood, measured as dry mass, in m3",
     "categories": [
       "material",
       "material_type:wood"
@@ -1824,7 +1824,7 @@
     "waste": 0
   },
   {
-    "activityName": "Cow milk, organic, national average, at farm gate FR U, constructed by Ecobalyse",
+    "activityName": "Cow milk, organic, national average, at farm gate FR U",
     "categories": [
       "ingredient"
     ],
@@ -1989,7 +1989,7 @@
     "waste": 0
   },
   {
-    "activityName": "diesel, B7, EURO4, constructed by Ecobalyse",
+    "activityName": "diesel, B7, EURO4",
     "categories": [
       "energy",
       "use"
@@ -2072,7 +2072,7 @@
     "waste": 0
   },
   {
-    "activityName": "Pasta, dried, from durum wheat, at plant, from GLO wheat and BE elec, constructed by Ecobalyse",
+    "activityName": "Pasta, dried, from durum wheat, at plant, from GLO wheat and BE elec",
     "categories": [
       "ingredient"
     ],
@@ -2236,7 +2236,7 @@
     "waste": 0
   },
   {
-    "activityName": "Soup, mixed vegetables, prepacked, to be reheated, at plant {DE} U, constructed by Ecobalyse",
+    "activityName": "Soup, mixed vegetables, prepacked, to be reheated, at plant {DE} U",
     "categories": [
       "ingredient"
     ],
@@ -2318,7 +2318,7 @@
     "waste": 0
   },
   {
-    "activityName": "Meat with bone, beef, for direct consumption {{meat-with-bone-beef-direct-consumption-feedlot}}, constructed by Ecobalyse",
+    "activityName": "Meat with bone, beef, for direct consumption {{meat-with-bone-beef-direct-consumption-feedlot}}",
     "categories": [
       "ingredient"
     ],
@@ -2775,7 +2775,7 @@
     "waste": 0
   },
   {
-    "activityName": "diesel, B7, EURO6, constructed by Ecobalyse",
+    "activityName": "diesel, B7, EURO6",
     "categories": [
       "energy",
       "use"
@@ -3147,7 +3147,7 @@
     "waste": 0
   },
   {
-    "activityName": "Cooked ham case ready at plant {{cooked-ham-case-ready-plant-bbc}}, constructed by Ecobalyse",
+    "activityName": "Cooked ham case ready at plant {{cooked-ham-case-ready-plant-bbc}}",
     "categories": [
       "ingredient"
     ],
@@ -3271,7 +3271,7 @@
     "waste": 0
   },
   {
-    "activityName": "aluminium, low-alloyed, virgin, market, RER, constructed by Ecobalyse",
+    "activityName": "aluminium, low-alloyed, virgin, market, RER",
     "categories": [
       "material",
       "material_type:metal"
@@ -3683,7 +3683,7 @@
     "waste": 0
   },
   {
-    "activityName": "Pasta, dried, from durum wheat, at plant, from GLO wheat and ES elec, constructed by Ecobalyse",
+    "activityName": "Pasta, dried, from durum wheat, at plant, from GLO wheat and ES elec",
     "categories": [
       "ingredient"
     ],
@@ -4176,7 +4176,7 @@
     "waste": 0
   },
   {
-    "activityName": "market for transport, freight, aircraft, long haul, with longtails, GLO, constructed by Ecobalyse",
+    "activityName": "market for transport, freight, aircraft, long haul, with longtails, GLO",
     "categories": [
       "transport"
     ],
@@ -4591,7 +4591,7 @@
     "waste": 0
   },
   {
-    "activityName": "Butter, 82% fat, unsalted, at dairy {FR} U {{butter-82-fat-unsalted-dairy-fr-u-organic}}, constructed by Ecobalyse",
+    "activityName": "Butter, 82% fat, unsalted, at dairy {FR} U {{butter-82-fat-unsalted-dairy-fr-u-organic}}",
     "categories": [
       "ingredient"
     ],
@@ -5009,7 +5009,7 @@
     "waste": 0.44
   },
   {
-    "activityName": "Soup, mixed vegetables, prepacked, to be reheated, at plant {ES} U, constructed by Ecobalyse",
+    "activityName": "Soup, mixed vegetables, prepacked, to be reheated, at plant {ES} U",
     "categories": [
       "ingredient"
     ],
@@ -6658,7 +6658,7 @@
     "waste": 0
   },
   {
-    "activityName": "Meat without bone chicken for direct consumption {{meat-without-bone-chicken-direct-consumption-fr-feed}}, constructed by Ecobalyse",
+    "activityName": "Meat without bone chicken for direct consumption {{meat-without-bone-chicken-direct-consumption-fr-feed}}",
     "categories": [
       "ingredient"
     ],
@@ -7197,7 +7197,7 @@
     "waste": 0
   },
   {
-    "activityName": "Meat without bone, beef for direct consumption {{meat-without-bone-beef-direct-consumption-organic}}, constructed by Ecobalyse",
+    "activityName": "Meat without bone, beef for direct consumption {{meat-without-bone-beef-direct-consumption-organic}}",
     "categories": [
       "ingredient"
     ],
@@ -7569,7 +7569,7 @@
     "waste": 0
   },
   {
-    "activityName": "aluminium, low-alloyed, market, RER, constructed by Ecobalyse",
+    "activityName": "aluminium, low-alloyed, market, RER",
     "categories": [
       "material",
       "material_type:metal"
@@ -7860,7 +7860,7 @@
     "waste": 0
   },
   {
-    "activityName": "Meat with bone, beef for direct consumption {{meat-with-bone-beef-direct-consumption-grass-fed}}, constructed by Ecobalyse",
+    "activityName": "Meat with bone, beef for direct consumption {{meat-with-bone-beef-direct-consumption-grass-fed}}",
     "categories": [
       "ingredient"
     ],
@@ -7986,7 +7986,7 @@
     "waste": 0
   },
   {
-    "activityName": "lamb meat without bone {{lamb-meat-without-bone-organic}}, constructed by Ecobalyse",
+    "activityName": "lamb meat without bone {{lamb-meat-without-bone-organic}}",
     "categories": [
       "ingredient"
     ],
@@ -8027,7 +8027,7 @@
     "waste": 0
   },
   {
-    "activityName": "Ground beef fresh case ready for direct consumption at plant {{ground-beef-fresh-case-ready-direct-consumption-plant-feedlot}}, constructed by Ecobalyse",
+    "activityName": "Ground beef fresh case ready for direct consumption at plant {{ground-beef-fresh-case-ready-direct-consumption-plant-feedlot}}",
     "categories": [
       "ingredient"
     ],
@@ -8068,7 +8068,7 @@
     "waste": 0
   },
   {
-    "activityName": "Pasta, dried, from durum wheat, at plant, from GLO wheat and IT elec, constructed by Ecobalyse",
+    "activityName": "Pasta, dried, from durum wheat, at plant, from GLO wheat and IT elec",
     "categories": [
       "ingredient"
     ],
@@ -8109,7 +8109,7 @@
     "waste": 0
   },
   {
-    "activityName": "Ground beef fresh case ready for direct consumption at plant {{ground-beef-fresh-case-ready-direct-consumption-plant-grass-fed}}, constructed by Ecobalyse",
+    "activityName": "Ground beef fresh case ready for direct consumption at plant {{ground-beef-fresh-case-ready-direct-consumption-plant-grass-fed}}",
     "categories": [
       "ingredient"
     ],
@@ -8191,7 +8191,7 @@
     "waste": 0
   },
   {
-    "activityName": "Meat without bone chicken for direct consumption {{meat-without-bone-chicken-direct-consumption-organic-fr-organic}}, constructed by Ecobalyse",
+    "activityName": "Meat without bone chicken for direct consumption {{meat-without-bone-chicken-direct-consumption-organic-fr-organic}}",
     "categories": [
       "ingredient"
     ],
@@ -9021,7 +9021,7 @@
     "waste": 0
   },
   {
-    "activityName": "steel working, constructed by Ecobalyse",
+    "activityName": "steel working",
     "categories": [
       "transformation",
       "material_type:metal"
@@ -9396,7 +9396,7 @@
     "waste": 0
   },
   {
-    "activityName": "Soup, mixed vegetables, dehydrated, at plant {ES} U, constructed by Ecobalyse",
+    "activityName": "Soup, mixed vegetables, dehydrated, at plant {ES} U",
     "categories": [
       "ingredient"
     ],
@@ -9479,7 +9479,7 @@
     "waste": 0.55
   },
   {
-    "activityName": "steel, low-alloyed, market, FR, constructed by Ecobalyse",
+    "activityName": "steel, low-alloyed, market, FR",
     "categories": [
       "material",
       "material_type:metal"
@@ -9685,7 +9685,7 @@
     "waste": 0
   },
   {
-    "activityName": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U {{sunflower-oil-oil-mill-glo-adapted-from-wfldb-u-organic}}, constructed by Ecobalyse",
+    "activityName": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U {{sunflower-oil-oil-mill-glo-adapted-from-wfldb-u-organic}}",
     "categories": [
       "ingredient"
     ],
@@ -9932,7 +9932,7 @@
     "waste": 0
   },
   {
-    "activityName": "Bacon, back, at plant {{bacon-fr-bbc}}, constructed by Ecobalyse",
+    "activityName": "Bacon, back, at plant {{bacon-fr-bbc}}",
     "categories": [
       "ingredient"
     ],
@@ -11054,7 +11054,7 @@
     "waste": 0
   },
   {
-    "activityName": "Pasta, dried, from durum wheat, at plant, from GLO wheat and FR elec, constructed by Ecobalyse",
+    "activityName": "Pasta, dried, from durum wheat, at plant, from GLO wheat and FR elec",
     "categories": [
       "ingredient"
     ],
@@ -11219,7 +11219,7 @@
     "waste": 0
   },
   {
-    "activityName": "Aluminium sheeet rolling, constructed by Ecobalyse",
+    "activityName": "Aluminium sheeet rolling",
     "categories": [
       "transformation",
       "material_type:metal"
@@ -11262,7 +11262,7 @@
     "waste": 0.012
   },
   {
-    "activityName": "Soup, mixed vegetables, prepacked, to be reheated, at plant {BE} U, constructed by Ecobalyse",
+    "activityName": "Soup, mixed vegetables, prepacked, to be reheated, at plant {BE} U",
     "categories": [
       "ingredient"
     ],
@@ -11303,7 +11303,7 @@
     "waste": 0
   },
   {
-    "activityName": "Aluminium working, average, constructed by Ecobalyse",
+    "activityName": "Aluminium working, average",
     "categories": [
       "transformation",
       "material_type:metal"
@@ -11634,7 +11634,7 @@
     "waste": 0
   },
   {
-    "activityName": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U {{rapeseed-oil-oil-mill-glo-adapted-from-wfldb-u-organic}}, constructed by Ecobalyse",
+    "activityName": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U {{rapeseed-oil-oil-mill-glo-adapted-from-wfldb-u-organic}}",
     "categories": [
       "ingredient"
     ],
@@ -11924,7 +11924,7 @@
     "waste": 0
   },
   {
-    "activityName": "petrol, E10, EURO6, constructed by Ecobalyse",
+    "activityName": "petrol, E10, EURO6",
     "categories": [
       "energy",
       "use"
@@ -12256,7 +12256,7 @@
     "waste": 0
   },
   {
-    "activityName": "aluminium, low-alloyed, virgin, market, CN, constructed by Ecobalyse",
+    "activityName": "aluminium, low-alloyed, virgin, market, CN",
     "categories": [
       "material",
       "material_type:metal"
@@ -12921,7 +12921,7 @@
     "waste": 0
   },
   {
-    "activityName": "wood chips, wet, measured as dry mass, in m3 //[Europe without Switzerland] market for wood chips, wet, measured as dry mass, in m3, constructed by Ecobalyse",
+    "activityName": "wood chips, wet, measured as dry mass, in m3 //[Europe without Switzerland] market for wood chips, wet, measured as dry mass, in m3",
     "categories": [
       "material",
       "material_type:wood"
@@ -13705,7 +13705,7 @@
     "waste": 0
   },
   {
-    "activityName": "Meat without bone, beef for direct consumption {{meat-without-bone-beef-direct-consumption-grass-fed}}, constructed by Ecobalyse",
+    "activityName": "Meat without bone, beef for direct consumption {{meat-without-bone-beef-direct-consumption-grass-fed}}",
     "categories": [
       "ingredient"
     ],
@@ -14035,7 +14035,7 @@
     "waste": 0
   },
   {
-    "activityName": "Bacon, back, at plant {{bacon-default}}, constructed by Ecobalyse",
+    "activityName": "Bacon, back, at plant {{bacon-default}}",
     "categories": [
       "ingredient"
     ],
@@ -14699,7 +14699,7 @@
     "waste": 0
   },
   {
-    "activityName": "steel, low-alloyed, market, CN, constructed by Ecobalyse",
+    "activityName": "steel, low-alloyed, market, CN",
     "categories": [
       "material",
       "material_type:metal"
@@ -15655,7 +15655,7 @@
     "waste": 0
   },
   {
-    "activityName": "Soup, mixed vegetables, prepacked, to be reheated, at plant {IT} U, constructed by Ecobalyse",
+    "activityName": "Soup, mixed vegetables, prepacked, to be reheated, at plant {IT} U",
     "categories": [
       "ingredient"
     ],
@@ -16068,7 +16068,7 @@
     "waste": 0
   },
   {
-    "activityName": "chromium steel sheet rolling, constructed by Ecobalyse",
+    "activityName": "chromium steel sheet rolling",
     "categories": [
       "transformation",
       "material_type:metal"
@@ -16111,7 +16111,7 @@
     "waste": 0.051
   },
   {
-    "activityName": "Soup, mixed vegetables, dehydrated, at plant {BE} U, constructed by Ecobalyse",
+    "activityName": "Soup, mixed vegetables, dehydrated, at plant {BE} U",
     "categories": [
       "ingredient"
     ],
@@ -16319,7 +16319,7 @@
     "waste": 0
   },
   {
-    "activityName": "Meat with bone, beef for direct consumption {{meat-with-bone-beef-direct-consumption-organic}}, constructed by Ecobalyse",
+    "activityName": "Meat with bone, beef for direct consumption {{meat-with-bone-beef-direct-consumption-organic}}",
     "categories": [
       "ingredient"
     ],
@@ -16811,7 +16811,7 @@
     "waste": 0
   },
   {
-    "activityName": "Wheat, organic, national average, at farm gate FR U, constructed by Ecobalyse",
+    "activityName": "Wheat, organic, national average, at farm gate FR U",
     "categories": [
       "ingredient"
     ],
@@ -16896,7 +16896,7 @@
     "waste": 0
   },
   {
-    "activityName": "Meat without bone, beef for direct consumption {{meat-without-bone-beef-direct-consumption-feedlot}}, constructed by Ecobalyse",
+    "activityName": "Meat without bone, beef for direct consumption {{meat-without-bone-beef-direct-consumption-feedlot}}",
     "categories": [
       "ingredient"
     ],
@@ -17269,7 +17269,7 @@
     "waste": 0
   },
   {
-    "activityName": "aluminium, low-alloyed, market, RoW, constructed by Ecobalyse",
+    "activityName": "aluminium, low-alloyed, market, RoW",
     "categories": [
       "material",
       "material_type:metal"
@@ -17598,7 +17598,7 @@
     "waste": 0
   },
   {
-    "activityName": "Meat without bone chicken for direct consumption {{meat-without-bone-chicken-direct-consumption-br-max}}, constructed by Ecobalyse",
+    "activityName": "Meat without bone chicken for direct consumption {{meat-without-bone-chicken-direct-consumption-br-max}}",
     "categories": [
       "ingredient"
     ],
@@ -18091,7 +18091,7 @@
     "waste": 0
   },
   {
-    "activityName": "Wheat flour, organic at industrial mill {FR} U {{wheat-flour-organic-national-average}}, created by Ecobalyse, constructed by Ecobalyse",
+    "activityName": "Wheat flour, organic at industrial mill {FR} U {{wheat-flour-organic-national-average}}",
     "categories": [
       "ingredient"
     ],
@@ -18381,7 +18381,7 @@
     "waste": 0
   },
   {
-    "activityName": "Meat without bone chicken for direct consumption {{meat-without-bone-chicken-direct-consumption-organic}}, constructed by Ecobalyse",
+    "activityName": "Meat without bone chicken for direct consumption {{meat-without-bone-chicken-direct-consumption-organic}}",
     "categories": [
       "ingredient"
     ],
@@ -18752,7 +18752,7 @@
     "waste": 0
   },
   {
-    "activityName": "chromium steel working, constructed by Ecobalyse",
+    "activityName": "chromium steel working",
     "categories": [
       "transformation",
       "material_type:metal"
@@ -18836,7 +18836,7 @@
     "waste": 0
   },
   {
-    "activityName": "aluminium, low-alloyed, virgin, market, IN, constructed by Ecobalyse",
+    "activityName": "aluminium, low-alloyed, virgin, market, IN",
     "categories": [
       "material",
       "material_type:metal"
@@ -18878,7 +18878,7 @@
     "waste": 0
   },
   {
-    "activityName": "steel sheet rolling, constructed by Ecobalyse",
+    "activityName": "steel sheet rolling",
     "categories": [
       "transformation",
       "material_type:metal"
@@ -19499,7 +19499,7 @@
     "waste": 0
   },
   {
-    "activityName": "Bacon, back, at plant {{bacon-fr-organic}}, constructed by Ecobalyse",
+    "activityName": "Bacon, back, at plant {{bacon-fr-organic}}",
     "categories": [
       "ingredient"
     ],
@@ -19706,7 +19706,7 @@
     "waste": 0
   },
   {
-    "activityName": "petrol, E85, EURO6, constructed by Ecobalyse",
+    "activityName": "petrol, E85, EURO6",
     "categories": [
       "energy",
       "use"
@@ -19871,7 +19871,7 @@
     "waste": 0
   },
   {
-    "activityName": "Ground beef fresh case ready for direct consumption at plant {{ground-beef-fresh-case-ready-direct-consumption-plant-organic}}, constructed by Ecobalyse",
+    "activityName": "Ground beef fresh case ready for direct consumption at plant {{ground-beef-fresh-case-ready-direct-consumption-plant-organic}}",
     "categories": [
       "ingredient"
     ],
@@ -20786,7 +20786,7 @@
     "waste": 0
   },
   {
-    "activityName": "Soup, mixed vegetables, dehydrated, at plant {DE} U, constructed by Ecobalyse",
+    "activityName": "Soup, mixed vegetables, dehydrated, at plant {DE} U",
     "categories": [
       "ingredient"
     ],
@@ -20868,7 +20868,7 @@
     "waste": 0
   },
   {
-    "activityName": "Soup, mixed vegetables, dehydrated, at plant {IT} U, constructed by Ecobalyse",
+    "activityName": "Soup, mixed vegetables, dehydrated, at plant {IT} U",
     "categories": [
       "ingredient"
     ],

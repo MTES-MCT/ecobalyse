@@ -381,7 +381,7 @@
     "visible": true
   },
   {
-    "activityName": "Soup, mixed vegetables, prepacked, to be reheated, at plant {ES} U, constructed by Ecobalyse",
+    "activityName": "Soup, mixed vegetables, prepacked, to be reheated, at plant {ES} U",
     "alias": "soup-es",
     "categories": [
       "vegetable_processed"
@@ -941,7 +941,7 @@
     "visible": true
   },
   {
-    "activityName": "Meat with bone, beef, for direct consumption {{meat-with-bone-beef-direct-consumption-feedlot}}, constructed by Ecobalyse",
+    "activityName": "Meat with bone, beef, for direct consumption {{meat-with-bone-beef-direct-consumption-feedlot}}",
     "alias": "beef-with-bone-feedlot",
     "categories": [
       "animal_product"
@@ -1076,7 +1076,7 @@
     "visible": true
   },
   {
-    "activityName": "Cooked ham case ready at plant {{cooked-ham-case-ready-plant-bbc}}, constructed by Ecobalyse",
+    "activityName": "Cooked ham case ready at plant {{cooked-ham-case-ready-plant-bbc}}",
     "alias": "cooked-ham-bbc",
     "categories": [
       "animal_product"
@@ -1719,7 +1719,7 @@
     "visible": true
   },
   {
-    "activityName": "Soup, mixed vegetables, prepacked, to be reheated, at plant {BE} U, constructed by Ecobalyse",
+    "activityName": "Soup, mixed vegetables, prepacked, to be reheated, at plant {BE} U",
     "alias": "soup-be",
     "categories": [
       "vegetable_processed"
@@ -1963,7 +1963,7 @@
     "visible": false
   },
   {
-    "activityName": "Cow milk, organic, national average, at farm gate FR U, constructed by Ecobalyse",
+    "activityName": "Cow milk, organic, national average, at farm gate FR U",
     "alias": "milk-organic",
     "categories": [
       "dairy_product",
@@ -2012,7 +2012,7 @@
     "visible": true
   },
   {
-    "activityName": "Soup, mixed vegetables, dehydrated, at plant {ES} U, constructed by Ecobalyse",
+    "activityName": "Soup, mixed vegetables, dehydrated, at plant {ES} U",
     "alias": "soup-dehydrated-es",
     "categories": [
       "vegetable_processed"
@@ -2863,7 +2863,7 @@
     "visible": true
   },
   {
-    "activityName": "Ground beef fresh case ready for direct consumption at plant {{ground-beef-fresh-case-ready-direct-consumption-plant-grass-fed}}, constructed by Ecobalyse",
+    "activityName": "Ground beef fresh case ready for direct consumption at plant {{ground-beef-fresh-case-ready-direct-consumption-plant-grass-fed}}",
     "alias": "ground-beef-grass-fed",
     "categories": [
       "animal_product",
@@ -2999,7 +2999,7 @@
     "visible": false
   },
   {
-    "activityName": "Pasta, dried, from durum wheat, at plant, from GLO wheat and DE elec, constructed by Ecobalyse",
+    "activityName": "Pasta, dried, from durum wheat, at plant, from GLO wheat and DE elec",
     "alias": "pasta-glo-de",
     "categories": [
       "grain_processed"
@@ -3183,7 +3183,7 @@
     "visible": true
   },
   {
-    "activityName": "Soup, mixed vegetables, dehydrated, at plant {BE} U, constructed by Ecobalyse",
+    "activityName": "Soup, mixed vegetables, dehydrated, at plant {BE} U",
     "alias": "soup-dehydrated-be",
     "categories": [
       "vegetable_processed"
@@ -3400,7 +3400,7 @@
     "visible": false
   },
   {
-    "activityName": "Cooked ham case ready at plant {{cooked-ham-case-ready-plant-organic}}, constructed by Ecobalyse",
+    "activityName": "Cooked ham case ready at plant {{cooked-ham-case-ready-plant-organic}}",
     "alias": "cooked-ham-organic",
     "categories": [
       "animal_product",
@@ -3455,7 +3455,7 @@
     "visible": true
   },
   {
-    "activityName": "Ground beef fresh case ready for direct consumption at plant {{ground-beef-fresh-case-ready-direct-consumption-plant-organic}}, constructed by Ecobalyse",
+    "activityName": "Ground beef fresh case ready for direct consumption at plant {{ground-beef-fresh-case-ready-direct-consumption-plant-organic}}",
     "alias": "ground-beef-organic",
     "categories": [
       "animal_product",
@@ -3720,7 +3720,7 @@
     "visible": true
   },
   {
-    "activityName": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U {{rapeseed-oil-oil-mill-glo-adapted-from-wfldb-u-organic}}, constructed by Ecobalyse",
+    "activityName": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U {{rapeseed-oil-oil-mill-glo-adapted-from-wfldb-u-organic}}",
     "alias": "rapeseed-oil-organic",
     "categories": [
       "nut_oilseed_processed",
@@ -4146,7 +4146,7 @@
     "visible": true
   },
   {
-    "activityName": "Pasta, dried, from durum wheat, at plant, from GLO wheat and FR elec, constructed by Ecobalyse",
+    "activityName": "Pasta, dried, from durum wheat, at plant, from GLO wheat and FR elec",
     "alias": "pasta-glo-fr",
     "categories": [
       "grain_processed"
@@ -4437,7 +4437,7 @@
     "visible": true
   },
   {
-    "activityName": "Soup, mixed vegetables, prepacked, to be reheated, at plant {DE} U, constructed by Ecobalyse",
+    "activityName": "Soup, mixed vegetables, prepacked, to be reheated, at plant {DE} U",
     "alias": "soup-de",
     "categories": [
       "vegetable_processed"
@@ -4491,7 +4491,7 @@
     "visible": true
   },
   {
-    "activityName": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U {{sunflower-oil-oil-mill-glo-adapted-from-wfldb-u-organic}}, constructed by Ecobalyse",
+    "activityName": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U {{sunflower-oil-oil-mill-glo-adapted-from-wfldb-u-organic}}",
     "alias": "sunflower-oil-organic",
     "categories": [
       "nut_oilseed_processed",
@@ -4737,7 +4737,7 @@
     "visible": true
   },
   {
-    "activityName": "Meat without bone, beef for direct consumption {{meat-without-bone-beef-direct-consumption-grass-fed}}, constructed by Ecobalyse",
+    "activityName": "Meat without bone, beef for direct consumption {{meat-without-bone-beef-direct-consumption-grass-fed}}",
     "alias": "beef-without-bone-grass-fed",
     "categories": [
       "animal_product"
@@ -4813,7 +4813,7 @@
     "visible": true
   },
   {
-    "activityName": "Meat with bone, beef for direct consumption {{meat-with-bone-beef-direct-consumption-organic}}, constructed by Ecobalyse",
+    "activityName": "Meat with bone, beef for direct consumption {{meat-with-bone-beef-direct-consumption-organic}}",
     "alias": "beef-with-bone-organic",
     "categories": [
       "animal_product",
@@ -5024,7 +5024,7 @@
     "visible": true
   },
   {
-    "activityName": "Bacon, back, at plant {{bacon-fr-bbc}}, constructed by Ecobalyse",
+    "activityName": "Bacon, back, at plant {{bacon-fr-bbc}}",
     "alias": "bacon-fr-bbc",
     "categories": [
       "animal_product"
@@ -5286,7 +5286,7 @@
     "visible": true
   },
   {
-    "activityName": "Soup, mixed vegetables, dehydrated, at plant {DE} U, constructed by Ecobalyse",
+    "activityName": "Soup, mixed vegetables, dehydrated, at plant {DE} U",
     "alias": "soup-dehydrated-de",
     "categories": [
       "vegetable_processed"
@@ -6236,7 +6236,7 @@
     "visible": true
   },
   {
-    "activityName": "Meat without bone chicken for direct consumption {{meat-without-bone-chicken-direct-consumption-br-max}}, constructed by Ecobalyse",
+    "activityName": "Meat without bone chicken for direct consumption {{meat-without-bone-chicken-direct-consumption-br-max}}",
     "alias": "chicken-breast-br-max",
     "categories": [
       "animal_product"
@@ -6339,7 +6339,7 @@
     "visible": false
   },
   {
-    "activityName": "Meat without bone, beef for direct consumption {{meat-without-bone-beef-direct-consumption-feedlot}}, constructed by Ecobalyse",
+    "activityName": "Meat without bone, beef for direct consumption {{meat-without-bone-beef-direct-consumption-feedlot}}",
     "alias": "beef-without-bone-feedlot",
     "categories": [
       "animal_product"
@@ -6637,7 +6637,7 @@
     "visible": true
   },
   {
-    "activityName": "Pasta, dried, from durum wheat, at plant, from GLO wheat and ES elec, constructed by Ecobalyse",
+    "activityName": "Pasta, dried, from durum wheat, at plant, from GLO wheat and ES elec",
     "alias": "pasta-glo-es",
     "categories": [
       "grain_processed"
@@ -7044,7 +7044,7 @@
     "visible": true
   },
   {
-    "activityName": "Wheat, organic, national average, at farm gate FR U, constructed by Ecobalyse",
+    "activityName": "Wheat, organic, national average, at farm gate FR U",
     "alias": "soft-wheat-organic",
     "categories": [
       "grain_raw",
@@ -7222,7 +7222,7 @@
     "visible": true
   },
   {
-    "activityName": "Butter, 82% fat, unsalted, at dairy {FR} U {{butter-82-fat-unsalted-dairy-fr-u-organic}}, constructed by Ecobalyse",
+    "activityName": "Butter, 82% fat, unsalted, at dairy {FR} U {{butter-82-fat-unsalted-dairy-fr-u-organic}}",
     "alias": "butter-organic",
     "categories": [
       "dairy_product",
@@ -7461,7 +7461,7 @@
     "visible": true
   },
   {
-    "activityName": "Meat without bone chicken for direct consumption {{meat-without-bone-chicken-direct-consumption-organic}}, constructed by Ecobalyse",
+    "activityName": "Meat without bone chicken for direct consumption {{meat-without-bone-chicken-direct-consumption-organic}}",
     "alias": "chicken-breast-organic",
     "categories": [
       "animal_product",
@@ -7696,7 +7696,7 @@
     "visible": true
   },
   {
-    "activityName": "Meat without bone chicken for direct consumption {{meat-without-bone-chicken-direct-consumption-organic-fr-organic}}, constructed by Ecobalyse",
+    "activityName": "Meat without bone chicken for direct consumption {{meat-without-bone-chicken-direct-consumption-organic-fr-organic}}",
     "alias": "chicken-breast-fr-organic",
     "categories": [
       "animal_product",
@@ -7724,7 +7724,7 @@
     "visible": false
   },
   {
-    "activityName": "Bacon, back, at plant {{bacon-fr-organic}}, constructed by Ecobalyse",
+    "activityName": "Bacon, back, at plant {{bacon-fr-organic}}",
     "alias": "bacon-organic",
     "categories": [
       "animal_product",
@@ -8146,7 +8146,7 @@
     "visible": true
   },
   {
-    "activityName": "Pasta, dried, from durum wheat, at plant, from GLO wheat and IT elec, constructed by Ecobalyse",
+    "activityName": "Pasta, dried, from durum wheat, at plant, from GLO wheat and IT elec",
     "alias": "pasta-glo-it",
     "categories": [
       "grain_processed"
@@ -8532,7 +8532,7 @@
     "visible": true
   },
   {
-    "activityName": "Ground beef fresh case ready for direct consumption at plant {{ground-beef-fresh-case-ready-direct-consumption-plant-feedlot}}, constructed by Ecobalyse",
+    "activityName": "Ground beef fresh case ready for direct consumption at plant {{ground-beef-fresh-case-ready-direct-consumption-plant-feedlot}}",
     "alias": "ground-beef-feedlot",
     "categories": [
       "animal_product"
@@ -9031,7 +9031,7 @@
     "visible": true
   },
   {
-    "activityName": "Soup, mixed vegetables, prepacked, to be reheated, at plant {IT} U, constructed by Ecobalyse",
+    "activityName": "Soup, mixed vegetables, prepacked, to be reheated, at plant {IT} U",
     "alias": "soup-it",
     "categories": [
       "vegetable_processed"
@@ -9290,7 +9290,7 @@
     "visible": true
   },
   {
-    "activityName": "Wheat flour, organic at industrial mill {FR} U {{wheat-flour-organic-national-average}}, created by Ecobalyse, constructed by Ecobalyse",
+    "activityName": "Wheat flour, organic at industrial mill {FR} U {{wheat-flour-organic-national-average}}",
     "alias": "flour-organic",
     "categories": [
       "grain_processed",
@@ -9818,7 +9818,7 @@
     "visible": false
   },
   {
-    "activityName": "lamb meat without bone {{lamb-meat-without-bone-organic}}, constructed by Ecobalyse",
+    "activityName": "lamb meat without bone {{lamb-meat-without-bone-organic}}",
     "alias": "lamb-meat-without-bone-organic",
     "categories": [
       "animal_product",
@@ -10301,7 +10301,7 @@
     "visible": true
   },
   {
-    "activityName": "Soup, mixed vegetables, dehydrated, at plant {IT} U, constructed by Ecobalyse",
+    "activityName": "Soup, mixed vegetables, dehydrated, at plant {IT} U",
     "alias": "soup-dehydrated-it",
     "categories": [
       "vegetable_processed"
@@ -10561,7 +10561,7 @@
     "visible": true
   },
   {
-    "activityName": "Meat with bone, beef for direct consumption {{meat-with-bone-beef-direct-consumption-grass-fed}}, constructed by Ecobalyse",
+    "activityName": "Meat with bone, beef for direct consumption {{meat-with-bone-beef-direct-consumption-grass-fed}}",
     "alias": "beef-with-bone-grass-fed",
     "categories": [
       "animal_product"
@@ -10696,7 +10696,7 @@
     "visible": true
   },
   {
-    "activityName": "Bacon, back, at plant {{bacon-default}}, constructed by Ecobalyse",
+    "activityName": "Bacon, back, at plant {{bacon-default}}",
     "alias": "bacon-default",
     "categories": [
       "animal_product"
@@ -10949,7 +10949,7 @@
     "visible": true
   },
   {
-    "activityName": "Meat without bone chicken for direct consumption {{meat-without-bone-chicken-direct-consumption-fr-feed}}, constructed by Ecobalyse",
+    "activityName": "Meat without bone chicken for direct consumption {{meat-without-bone-chicken-direct-consumption-fr-feed}}",
     "alias": "chicken-breast-fr-feed",
     "categories": [
       "animal_product"
@@ -11051,7 +11051,7 @@
     "visible": true
   },
   {
-    "activityName": "Pasta, dried, from durum wheat, at plant, from GLO wheat and BE elec, constructed by Ecobalyse",
+    "activityName": "Pasta, dried, from durum wheat, at plant, from GLO wheat and BE elec",
     "alias": "pasta-glo-be",
     "categories": [
       "grain_processed"
@@ -11181,7 +11181,7 @@
     "visible": true
   },
   {
-    "activityName": "Meat without bone chicken for direct consumption {{meat-without-bone-chicken-direct-consumption-br-max}}, constructed by Ecobalyse",
+    "activityName": "Meat without bone chicken for direct consumption {{meat-without-bone-chicken-direct-consumption-br-max}}",
     "alias": "unknown-white-meat",
     "categories": [
       "animal_product"
@@ -11202,7 +11202,7 @@
     "visible": true
   },
   {
-    "activityName": "Meat without bone, beef for direct consumption {{meat-without-bone-beef-direct-consumption-organic}}, constructed by Ecobalyse",
+    "activityName": "Meat without bone, beef for direct consumption {{meat-without-bone-beef-direct-consumption-organic}}",
     "alias": "beef-without-bone-organic",
     "categories": [
       "animal_product",

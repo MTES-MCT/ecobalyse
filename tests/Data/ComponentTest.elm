@@ -1155,7 +1155,7 @@ sawing : Result String Process
 sawing =
     decodeJson (Process.decode Impact.decodeImpacts) <|
         """ {
-                "activityName": "Sawing + kiln drying in Europe (wood), constructed by Ecobalyse",
+                "activityName": "Sawing + kiln drying in Europe (wood)",
                 "categories": ["transformation", "material_type:wood"],
                 "comment": "",
                 "density": 0,
