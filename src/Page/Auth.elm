@@ -1012,7 +1012,6 @@ viewSignupForm signupForm formErrors webData =
                 , id "termsAccepted"
                 , checked signupForm.termsAccepted
                 , onCheck <| \termsAccepted -> UpdateSignupForm { signupForm | termsAccepted = termsAccepted }
-                , required True
                 ]
                 []
             , label [ class "form-check-label", for "termsAccepted" ] termsView
