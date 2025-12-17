@@ -134,7 +134,13 @@ update session msg model =
             model
                 |> App.createUpdate (session |> Session.updateDbProcesses rawDetailedProcessesJson)
                 |> App.withCmds [ Nav.pushUrl session.navKey <| Route.toString Route.Auth ]
-                |> App.notifyInfo "Vous avez désormais accès aux impacts détaillés"
+                |> App.notifyInfo
+                    (if Session.hasAccessToDetailedImpacts session then
+                        "Vous avez désormais accès aux impacts détaillés"
+
+                     else
+                        "Vous devez valider les CGU pour avoir accès aux impacts détaillés"
+                    )
                 |> App.withCmds [ Plausible.send session Plausible.AuthLoginOK ]
 
         DetailedProcessesResponse (RemoteData.Failure error) ->

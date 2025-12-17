@@ -11,6 +11,7 @@ module Data.Session exposing
     , defaultStore
     , deleteBookmark
     , getAuth
+    , hasAccessToDetailedImpacts
     , hasTermsAccepted
     , isAuthenticated
     , isSuperuser
@@ -343,6 +344,11 @@ hasTermsAccepted { store } =
 
         Nothing ->
             False
+
+
+hasAccessToDetailedImpacts : Session -> Bool
+hasAccessToDetailedImpacts session =
+    isAuthenticated session && hasTermsAccepted session
 
 
 isSuperuser : Session -> Bool
