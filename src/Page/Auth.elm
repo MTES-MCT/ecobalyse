@@ -659,7 +659,7 @@ viewAccount { user } profileForm formErrors =
 
 termsView : List (Html Msg)
 termsView =
-    [ p [] [ text "Je m’engage à respecter les CGU spécifiques aux données EcoInvent et accepte que les informations recueillies sur ce formulaire soient enregistrées dans un fichier informatisé par l’ADEME pour\u{202F}:" ]
+    [ p [] [ text "Je m’engage à respecter les ", a [ href Env.cguUrl, target "_blank" ] [ text "CGU spécifiques aux données EcoInvent" ], text " et accepte que les informations recueillies sur ce formulaire soient enregistrées dans un fichier informatisé par l’ADEME pour\u{202F}:" ]
     , ul []
         [ li [] [ text "Authentification des utilisateurs sur la plateforme web ou via l’API afin d'accéder aux impacts détaillés (ex: changement climatique)," ]
         , li [] [ text "délivrance de licences nominatives par EcoInvent aux utilisateurs des données EcoInvent via Ecobalyse (les données sont transmises si l’utilisateur consent au moins une fois via son compte Ecobalyse dans l'année)." ]
