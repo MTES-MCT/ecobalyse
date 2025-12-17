@@ -148,7 +148,13 @@ update session msg model =
                     , ComponentConfig.decode newSession.db
                         |> Http.get "/data/components/config.json" ComponentConfigReceived
                     ]
-                |> App.notifyInfo "Vous avez désormais accès aux impacts détaillés"
+                |> App.notifyInfo
+                    (if Session.hasAccessToDetailedImpacts session then
+                        "Vous avez désormais accès aux impacts détaillés"
+
+                     else
+                        "Vous devez valider les CGU pour avoir accès aux impacts détaillés"
+                    )
                 |> App.withCmds [ Plausible.send session Plausible.AuthLoginOK ]
 
         DetailedProcessesResponse (RemoteData.Failure error) ->
