@@ -1278,34 +1278,6 @@
     "scopes": ["object"]
   },
   {
-    "comment": "Chassis-carosserie pour un véhicule de 100kg environ.",
-    "elements": [
-      {
-        "amount": 0.3,
-        "material": "159c4209-cb85-5784-ac76-a93a2458075b",
-        "transforms": ["88f4f125-db8a-5560-b757-a7d4b3d883de"]
-      },
-      {
-        "amount": 1.0,
-        "material": "baa00e99-2c18-5d16-bbfc-512c4de77b65",
-        "transforms": ["c101c49e-ae54-55c9-a022-902622097418"]
-      },
-      {
-        "amount": 1.0,
-        "material": "65de8793-2840-5c8e-a044-eb2f883c9c7a",
-        "transforms": []
-      },
-      {
-        "amount": 1.0,
-        "material": "857bd47a-62f2-5662-81b2-df286aa7973f",
-        "transforms": []
-      }
-    ],
-    "id": "3c0b85bd-e567-40cd-871f-915ef451d055",
-    "name": "test nico",
-    "scopes": ["veli"]
-  },
-  {
     "comment": null,
     "elements": [
       {
