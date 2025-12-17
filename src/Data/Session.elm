@@ -12,7 +12,6 @@ module Data.Session exposing
     , deleteBookmark
     , getAuth
     , hasAccessToDetailedImpacts
-    , hasTermsAccepted
     , isAuthenticated
     , isSuperuser
     , logout
