@@ -9290,7 +9290,7 @@
     "visible": true
   },
   {
-    "activityName": "Wheat flour, organic at industrial mill {FR} U {{wheat-flour-organic-national-average}}, created by Ecobalyse",
+    "activityName": "Wheat flour, organic at industrial mill {FR} U {{wheat-flour-organic-national-average}}",
     "alias": "flour-organic",
     "categories": [
       "grain_processed",
