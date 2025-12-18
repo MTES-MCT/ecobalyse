@@ -5,55 +5,55 @@
     "name": "Vélo à assistance électrique",
     "query": {
       "components": [
-    		{
-    		  "id": "49a16258-22eb-4700-88c4-5e3d1af071e7",
-    		  "quantity": 1
-    		},
-    		{
-    		  "id": "990f4263-3b6c-48ce-92e8-566584edf5b2",
-    		  "quantity": 1
-    		},
-    		{
-    		  "id": "20b35f34-166f-4da7-abc4-54d2a64de367",
-    		  "quantity": 1
-    		},
-    		{
-    		  "id": "1bd0f5c3-c368-4a2f-b404-2214a6c9b677",
-    		  "quantity": 1
-    		},
-    		{
-    		  "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc",
-    		  "quantity": 2
-    		},
-    		{
-    		  "id": "a94918a7-8915-4841-9cdc-deec0536c724",
-    		  "quantity": 2
-    		},
-    		{
-    		  "id": "6ab7bcdf-7648-43b5-beb6-b4fa11c2d5d3",
-    		  "quantity": 1
-    		},
-    		{
-    		  "id": "b4d552ed-6a9b-4b29-b293-50349c62e1c0",
-    		  "quantity": 1
-    		},
-    		{
-    		  "id": "c4a8eb8f-b4c6-42b8-bd04-0f68e9083424",
-    		  "quantity": 1
-    		},
-    		{
-    		  "id": "4a273102-9973-4352-8683-2503aea7bfbb",
-    		  "quantity": 1
-    		},
-    		{
-    		  "id": "29a80ed1-26c9-419e-9f46-9c9b77d06458",
-    		  "quantity": 1
-    		},
-    		{
-    		  "id": "892ba9b4-e6d4-408c-87b9-5eef455f5b4f",
-    		  "quantity": 1
-    		}
-  	  ]
+        {
+          "id": "49a16258-22eb-4700-88c4-5e3d1af071e7",
+          "quantity": 1
+        },
+        {
+          "id": "990f4263-3b6c-48ce-92e8-566584edf5b2",
+          "quantity": 1
+        },
+        {
+          "id": "20b35f34-166f-4da7-abc4-54d2a64de367",
+          "quantity": 1
+        },
+        {
+          "id": "1bd0f5c3-c368-4a2f-b404-2214a6c9b677",
+          "quantity": 1
+        },
+        {
+          "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc",
+          "quantity": 2
+        },
+        {
+          "id": "a94918a7-8915-4841-9cdc-deec0536c724",
+          "quantity": 2
+        },
+        {
+          "id": "6ab7bcdf-7648-43b5-beb6-b4fa11c2d5d3",
+          "quantity": 1
+        },
+        {
+          "id": "b4d552ed-6a9b-4b29-b293-50349c62e1c0",
+          "quantity": 1
+        },
+        {
+          "id": "c4a8eb8f-b4c6-42b8-bd04-0f68e9083424",
+          "quantity": 1
+        },
+        {
+          "id": "4a273102-9973-4352-8683-2503aea7bfbb",
+          "quantity": 1
+        },
+        {
+          "id": "29a80ed1-26c9-419e-9f46-9c9b77d06458",
+          "quantity": 1
+        },
+        {
+          "id": "892ba9b4-e6d4-408c-87b9-5eef455f5b4f",
+          "quantity": 1
+        }
+      ]
     },
     "scope": "veli"
   },
@@ -62,44 +62,44 @@
     "id": "611c25c4-46a8-4f07-acff-b0ce9c99b86c",
     "name": "Vélo de ville, cadre aluminium",
     "query": {
-	  "components": [
-    		{
-    		  "id": "b0b390e5-eb33-4222-8726-809bb4e8f4e1",
-    		  "quantity": 1
-    		},
-    		{
-    		  "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc",
-    		  "quantity": 2
-    		},
-    		{
-    		  "id": "a94918a7-8915-4841-9cdc-deec0536c724",
-    		  "quantity": 2
-    		},
-    		{
-    		  "id": "6ab7bcdf-7648-43b5-beb6-b4fa11c2d5d3",
-    		  "quantity": 1
-    		},
-    		{
-    		  "id": "c4a8eb8f-b4c6-42b8-bd04-0f68e9083424",
-    		  "quantity": 1
-    		},
-    		{
-    		  "id": "892ba9b4-e6d4-408c-87b9-5eef455f5b4f",
-    		  "quantity": 1
-    		},
-    		{
-    		  "id": "658611b7-4b76-4f1d-aed7-55ec11f299e3",
-    		  "quantity": 1
-    		},
-    		{
-    		  "id": "347629ff-e7e9-4822-a948-d8c7757b2a9a",
-    		  "quantity": 1
-    		},
-    		{
-    		  "id": "d2228b50-8187-4940-92a5-6dffe2a2ba85",
-    		  "quantity": 1
-    		}
-  	  ]
+      "components": [
+        {
+          "id": "b0b390e5-eb33-4222-8726-809bb4e8f4e1",
+          "quantity": 1
+        },
+        {
+          "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc",
+          "quantity": 2
+        },
+        {
+          "id": "a94918a7-8915-4841-9cdc-deec0536c724",
+          "quantity": 2
+        },
+        {
+          "id": "6ab7bcdf-7648-43b5-beb6-b4fa11c2d5d3",
+          "quantity": 1
+        },
+        {
+          "id": "c4a8eb8f-b4c6-42b8-bd04-0f68e9083424",
+          "quantity": 1
+        },
+        {
+          "id": "892ba9b4-e6d4-408c-87b9-5eef455f5b4f",
+          "quantity": 1
+        },
+        {
+          "id": "658611b7-4b76-4f1d-aed7-55ec11f299e3",
+          "quantity": 1
+        },
+        {
+          "id": "347629ff-e7e9-4822-a948-d8c7757b2a9a",
+          "quantity": 1
+        },
+        {
+          "id": "d2228b50-8187-4940-92a5-6dffe2a2ba85",
+          "quantity": 1
+        }
+      ]
     },
     "scope": "veli"
   },
@@ -108,40 +108,40 @@
     "id": "78517d8b-65cb-4205-accc-3bbab581176d",
     "name": "Veli, 45-90km/h max",
     "query": {
-	  "components": [
-    		{
-    		  "id": "189674e0-737e-4d6d-aab0-3fdfc19839ed",
-    		  "quantity": 1
-    		},
-    		{
-    		  "id": "cdc7add7-06ac-4861-9f28-efc005598e4c",
-    		  "quantity": 1
-    		},
-    		{
-    		  "id": "edca4c52-b34a-4906-b2e0-4f726bfcc8f7",
-    		  "quantity": 1
-    		},
-    		{
-    		  "id": "d4583813-5f80-47e0-b028-df438f59cfe2",
-    		  "quantity": 4
-    		},
-    		{
-    		  "id": "6b3d7f30-e87b-426c-93ed-3a1179238583",
-    		  "quantity": 4
-    		},
-    		{
-    		  "id": "d3ef64c0-3deb-4ef2-838d-015d8ece019e",
-    		  "quantity": 1
-    		},
-    		{
-    		  "id": "1d2de15a-53d9-465d-a2cf-fa2c5f68f5e9",
-    		  "quantity": 2
-    		},
-    		{
-    		  "id": "71086438-51a9-4980-ac3b-f24d5baa4cd5",
-    		  "quantity": 1
-    		}
-  	  ]
+      "components": [
+        {
+          "id": "189674e0-737e-4d6d-aab0-3fdfc19839ed",
+          "quantity": 1
+        },
+        {
+          "id": "cdc7add7-06ac-4861-9f28-efc005598e4c",
+          "quantity": 1
+        },
+        {
+          "id": "edca4c52-b34a-4906-b2e0-4f726bfcc8f7",
+          "quantity": 1
+        },
+        {
+          "id": "d4583813-5f80-47e0-b028-df438f59cfe2",
+          "quantity": 4
+        },
+        {
+          "id": "6b3d7f30-e87b-426c-93ed-3a1179238583",
+          "quantity": 4
+        },
+        {
+          "id": "d3ef64c0-3deb-4ef2-838d-015d8ece019e",
+          "quantity": 1
+        },
+        {
+          "id": "1d2de15a-53d9-465d-a2cf-fa2c5f68f5e9",
+          "quantity": 2
+        },
+        {
+          "id": "71086438-51a9-4980-ac3b-f24d5baa4cd5",
+          "quantity": 1
+        }
+      ]
     },
     "scope": "veli"
   },
@@ -150,40 +150,40 @@
     "id": "1fd65352-4574-4800-853c-5623dd9eb40c",
     "name": "Veli actif, 25km/h max",
     "query": {
-	  "components": [
-    		{
-    		  "id": "f50ff677-3501-49cb-b69d-e826d4114681",
-    		  "quantity": 1
-    		},
-    		{
-    		  "id": "7cfe659e-3764-4a8c-a25b-201396cbc09f",
-    		  "quantity": 1
-    		},
-    		{
-    		  "id": "059f0f35-099d-4305-8a60-1666222dadb2",
-    		  "quantity": 1
-    		},
-    		{
-    		  "id": "9d294fb5-b42a-4a9f-adc6-ff38f6d27e65",
-    		  "quantity": 4
-    		},
-    		{
-    		  "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc",
-    		  "quantity": 4
-    		},
-    		{
-    		  "id": "ae9c83de-71bf-4f21-9030-afbfd4ad3b3a",
-    		  "quantity": 2
-    		},
-    		{
-    		  "id": "f134b3fd-0439-4b25-a06e-f1b8fd6e201c",
-    		  "quantity": 1
-    		},
-    		{
-    		  "id": "6cb4338a-4663-4325-90b6-f7279a498c9b",
-    		  "quantity": 1
-    		}
-  	  ]
+      "components": [
+        {
+          "id": "f50ff677-3501-49cb-b69d-e826d4114681",
+          "quantity": 1
+        },
+        {
+          "id": "7cfe659e-3764-4a8c-a25b-201396cbc09f",
+          "quantity": 1
+        },
+        {
+          "id": "059f0f35-099d-4305-8a60-1666222dadb2",
+          "quantity": 1
+        },
+        {
+          "id": "9d294fb5-b42a-4a9f-adc6-ff38f6d27e65",
+          "quantity": 4
+        },
+        {
+          "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc",
+          "quantity": 4
+        },
+        {
+          "id": "ae9c83de-71bf-4f21-9030-afbfd4ad3b3a",
+          "quantity": 2
+        },
+        {
+          "id": "f134b3fd-0439-4b25-a06e-f1b8fd6e201c",
+          "quantity": 1
+        },
+        {
+          "id": "6cb4338a-4663-4325-90b6-f7279a498c9b",
+          "quantity": 1
+        }
+      ]
     },
     "scope": "veli"
   }
