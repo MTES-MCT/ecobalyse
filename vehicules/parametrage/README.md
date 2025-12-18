@@ -26,8 +26,8 @@ L'impact de la fabrication des composants est calculée à partir de l'identific
 Les caractéristiques générales du véhicule et les données sur les composants permettent de calculer automatiquement :
 
 * [l'impact des composants non quantifiés directement](../cycle-de-vie/fabrication-des-composants/autres-composants-non-quantifies.md) (liste ci-dessus), par différence de poids entre la somme des poids des composants identifiés et le poids total du véhicule,
-* [l'impact du transport des composants](../../pages-en-cours-de-revue/transport/), à partir de l'origine de chaque composants et du lieu d'assemblage du véhicule,
-* [l'impact du transport des véhicules](../../pages-en-cours-de-revue/transport/transport-vehicules.md), à partir du lieu d'assemblage du véhicule.
+* [l'impact du transport des composants](../../methodes-transverses-specifiques/transport/), à partir de l'origine de chaque composants et du lieu d'assemblage du véhicule,
+* [l'impact du transport des véhicules](../cycle-de-vie/transport-vehicules.md), à partir du lieu d'assemblage du véhicule.
 
 ## Unité de calcul du coût environnemental
 

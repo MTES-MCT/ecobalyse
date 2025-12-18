@@ -31,10 +31,13 @@
 ## ⚙️ Méthodes transverses spécifiques
 
 * [🧩 Composants](methodes-transverses-specifiques/composants.md)
-* [⚡ Energies des étapes de transformation](methodes-transverses-specifiques/energies-des-etapes-de-transformation.md)
-* [💡 Electricité à l'utilisation](methodes-transverses-specifiques/electricite-a-lutilisation.md)
 * [◻️ Procédés Acier et Aluminium](methodes-transverses-specifiques/procedes-acier-et-aluminium.md)
-* [✈️ Transport par avion - prise en compte des trainées](methodes-transverses-specifiques/modelisation-fret-aerien.md)
+* [⚡ Energies des étapes de transformation](methodes-transverses-specifiques/energies-des-etapes-de-transformation.md)
+* [🚚 Transport](methodes-transverses-specifiques/transport/README.md)
+  * [Coût environnemental par voie de transport](methodes-transverses-specifiques/transport/cout-environnemental-par-voie-de-transport.md)
+  * [Choix des voies de transport](methodes-transverses-specifiques/transport/choix-des-voies-de-transport.md)
+  * [✈️ Transport par avion - prise en compte des trainées](methodes-transverses-specifiques/transport/modelisation-fret-aerien.md)
+* [💡 Electricité à l'utilisation](methodes-transverses-specifiques/electricite-a-lutilisation.md)
 * [Fin de vie des composants](methodes-transverses-specifiques/fin-de-vie-des-composants.md)
 
 ## 🍕 Alimentaire
@@ -256,6 +259,7 @@
   * [🔨 Etape 2 :](ameublement/cycle-de-vie/etape-2.md)
   * [Etape 3 : Utilisation](ameublement/cycle-de-vie/etape-3-utilisation.md)
   * [Etape 4 : Fin de vie](ameublement/cycle-de-vie/etape-4-fin-de-vie.md)
+  * [🪚 Transport Ameublement](ameublement/cycle-de-vie/transport-ameublement.md)
 * [Complément hors ACV](ameublement/complement-hors-acv/README.md)
   * [🌍 Biodiversité x Bois (draft)](ameublement/complement-hors-acv/biodiversitebois.md)
   * [🌍 Old (complément biodiv)](ameublement/complement-hors-acv/biodiversitebois-1.md)
@@ -288,6 +292,7 @@
   * [🛣️ Utilisation des infrastructures](vehicules/cycle-de-vie/utilisation-des-infrastructures.md)
   * [🛞 Usures des pneus et freins](vehicules/cycle-de-vie/usures-des-pneus-et-freins.md)
   * [🔧 Maintenance et remplacement de pièces](vehicules/cycle-de-vie/maintenance-et-remplacement-de-pieces.md)
+  * [🛺 Transport Véhicules](vehicules/cycle-de-vie/transport-vehicules.md)
 * [🔴 Durabilité des véhicules](vehicules/durabilite-des-vehicules.md)
 * [🏙️ Complément : santé humaine en zone très dense](vehicules/complement-sante-humaine-en-zone-tres-dense.md)
 * [Draft - Paramétrage](vehicules/parametrage/README.md)
@@ -297,12 +302,7 @@
 ## Pages en cours de revue
 
 * [📌 Modèle de page](pages-en-cours-de-revue/modele-de-page.md)
-* [🚚 Transport](pages-en-cours-de-revue/transport/README.md)
-  * [Coût environnemental par voie de transport](pages-en-cours-de-revue/transport/cout-environnemental-par-voie-de-transport.md)
-  * [Choix des voies de transport](pages-en-cours-de-revue/transport/choix-des-voies-de-transport.md)
-  * [👕 Transport Textile](pages-en-cours-de-revue/transport/transport-textile.md)
-  * [🍕 Transport Alimentaire](pages-en-cours-de-revue/transport/transport-alimentaire.md)
-  * [🪚 Transport Ameublement](pages-en-cours-de-revue/transport/transport-ameublement.md)
-  * [🛺 Transport Véhicules](pages-en-cours-de-revue/transport/transport-vehicules.md)
-  * [🚚 OLD Transport](pages-en-cours-de-revue/transport/old-transport.md)
 * [♻️ OLD - Modèle d'impact de la fin de vie](pages-en-cours-de-revue/old-modele-dimpact-de-la-fin-de-vie.md)
+* [🚚 OLD Transport](pages-en-cours-de-revue/old-transport.md)
+* [👕 Transport Textile](pages-en-cours-de-revue/transport-textile.md)
+* [🍕 Transport Alimentaire](pages-en-cours-de-revue/transport-alimentaire.md)

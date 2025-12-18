@@ -1,11 +1,11 @@
 # 🚚 Transport
 
-## _<mark style="color:red;">Implémentation en cours</mark>_ <a href="#distribution" id="distribution"></a>
+{% hint style="warning" %}
+Ces méthodes s'appliquent pour l'instant aux objets uniquement. Pour le textile et l'alimentaire, le transport est pour l'instant modélisé de façon spécifique. Les méthodes sont détaillées dans les pages [Transport Textile](https://fabrique-numerique.gitbook.io/ecobalyse/textile/cycle-de-vie-des-produits-textiles/transport-textile) et [Transport Alimentaire](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/transport)..
+{% endhint %}
 
 {% hint style="warning" %}
-Cette page décrit les principes communs aux différents types de produits susceptibles d'être modélisés dans Ecobalyse. Le cas échéant, les spécificités relatives à chaque produit sont décrites dans la documentation métier correspondante.
-
-A ce jour, les méthodes transport ne s'appliquent qu'au transport des composants vers le site d'assemblage. De plus, elles ne s'appliquent pas encore aux secteurs Textile et Alimentaire.
+Le calcul du transport est en cours de développement. Une partie des méthodes décrites ci-dessous ne sont pas encore implémentées.&#x20;
 {% endhint %}
 
 ## Principales étapes de transport <a href="#distribution" id="distribution"></a>

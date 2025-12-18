@@ -26,7 +26,7 @@ Les émissions de CO2 à la combustion, évoquées dans la partie suivante, repr
 
 Le schéma suivant illustre le phénomène à l’œuvre :
 
-<figure><img src="../.gitbook/assets/liens_entre_aviation_et_climat_strapi.webp" alt=""><figcaption><p>Illustration des trainées d'avion, réalisée par Carbone 4 pour un <a href="https://www.carbone4.com/analyse-faq-aviation-climat">article dédié à ce sujet</a></p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/liens_entre_aviation_et_climat_strapi.webp" alt=""><figcaption><p>Illustration des trainées d'avion, réalisée par Carbone 4 pour un <a href="https://www.carbone4.com/analyse-faq-aviation-climat">article dédié à ce sujet</a></p></figcaption></figure>
 
 Une étude de 2021 ([D.S. Lee & al](https://www.sciencedirect.com/science/article/pii/S1352231020305689), 1) estime que les trainées d'avion représentent un forçage radiatif (RF) de 111 mW/m2 et un forçage radiatif effectif ("ERF") de 57.4 mW/m2. ,&#x20;
 

@@ -1,5 +1,15 @@
 # Choix des voies de transport
 
+qsc
+
+{% hint style="warning" %}
+Ces méthodes s'appliquent pour l'instant aux objets uniquement. Pour le textile et l'alimentaire, le transport est pour l'instant modélisé de façon spécifique. Les méthodes sont détaillées dans les pages [Transport Textile](https://fabrique-numerique.gitbook.io/ecobalyse/textile/cycle-de-vie-des-produits-textiles/transport-textile) et [Transport Alimentaire](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/transport)..
+{% endhint %}
+
+{% hint style="warning" %}
+Le calcul du transport est en cours de développement. Une partie des méthodes décrites ci-dessous ne sont pas encore implémentées.
+{% endhint %}
+
 ## Contexte
 
 En pratique, pour une même chaine d'approvisionnement, plusieurs voies de transports sont utilisées, dans des proportions qui dépendent du type de produit, de la distance et de choix industriels :
