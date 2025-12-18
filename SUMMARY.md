@@ -292,7 +292,7 @@
 * [🏙️ Complément : santé humaine en zone très dense](vehicules/complement-sante-humaine-en-zone-tres-dense.md)
 * [Draft - Paramétrage](vehicules/parametrage/README.md)
   * [Caractéristiques du véhicule](vehicules/parametrage/caracteristiques-du-vehicule.md)
-* [Draft - Exemples](vehicules/exemples.md)
+* [Exemples](vehicules/exemples.md)
 
 ## Pages en cours de revue
 
