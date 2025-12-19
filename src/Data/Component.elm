@@ -79,6 +79,7 @@ module Data.Component exposing
     , setQueryItems
     , stagesImpacts
     , sumLifeCycleImpacts
+    , toSearchableString
     , tryMapItems
     , updateDurability
     , updateElement
@@ -1463,6 +1464,16 @@ sumLifeCycleImpacts lifeCycle =
         , lifeCycle.endOfLife
         , lifeCycle.transports.toAssembly.impacts
         , lifeCycle.transports.toDistribution.impacts
+        ]
+
+
+toSearchableString : DataContainer db -> Component -> String
+toSearchableString db component =
+    String.join " "
+        [ component.id |> idToString
+        , component.name
+        , component.comment |> Maybe.withDefault ""
+        , component |> elementsToString db |> Result.withDefault ""
         ]
 
 

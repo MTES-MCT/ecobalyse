@@ -21,9 +21,7 @@ table db { detailed, scope } =
     { filename = "components"
     , toId = .id >> Component.idToString
     , toRoute = .id >> Just >> Dataset.Components scope >> Route.Explore scope
-
-    -- TODO
-    , toSearchableString = always ""
+    , toSearchableString = Component.toSearchableString db
     , legend = []
     , columns =
         [ { label = "Identifiant"
