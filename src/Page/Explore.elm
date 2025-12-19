@@ -746,7 +746,7 @@ searchInputView _ { search } =
         [ label [ for "search-field", class "visually-hidden" ] [ text "Rechercher" ]
         , input
             [ type_ "search"
-            , class "form-control mb-2"
+            , class "form-control mb-1"
             , id "search-field"
             , placeholder "Rechercher"
             , value search
