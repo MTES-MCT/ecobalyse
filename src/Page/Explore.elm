@@ -213,8 +213,9 @@ datasetsMenuView { scope, dataset } =
 
 scopesMenuView : Session -> Model -> Html Msg
 scopesMenuView { enabledSections } model =
-    div [ class "d-flex align-items-center gap-3 mb-1" ]
-        [ label [ class "fw-bold", for "scope-selector" ] [ text "Secteur" ]
+    div [ class "d-flex align-items-center gap-3" ]
+        [ label [ class "fw-bold d-none d-sm-block", for "scope-selector" ]
+            [ text "Secteur" ]
         , [ ( Scope.Food, enabledSections.food )
           , ( Scope.Object, enabledSections.objects )
           , ( Scope.Textile, True )
@@ -688,7 +689,7 @@ getTextileScorePer100g { componentConfig, db } { query } =
 
 
 exploreView : Session -> Model -> List (Html Msg)
-exploreView ({ db } as session) ({ scope, dataset, tableState, search } as model) =
+exploreView ({ db } as session) { scope, dataset, tableState, search } =
     let
         defaultCustomizations =
             SortableTable.defaultCustomizations
@@ -704,51 +705,48 @@ exploreView ({ db } as session) ({ scope, dataset, tableState, search } as model
                 }
             }
     in
-    [ searchInputView session model
-    , div [] <|
-        case dataset of
-            Dataset.Components scope_ maybeId ->
-                componentsExplorer db scope_ tableConfig tableState maybeId
+    case dataset of
+        Dataset.Components scope_ maybeId ->
+            componentsExplorer db scope_ tableConfig tableState maybeId
 
-            Dataset.Countries maybeCode ->
-                countriesExplorer db tableConfig tableState scope maybeCode
+        Dataset.Countries maybeCode ->
+            countriesExplorer db tableConfig tableState scope maybeCode
 
-            Dataset.FoodExamples maybeId ->
-                foodExamplesExplorer db tableConfig tableState maybeId
+        Dataset.FoodExamples maybeId ->
+            foodExamplesExplorer db tableConfig tableState maybeId
 
-            Dataset.FoodIngredients maybeId ->
-                foodIngredientsExplorer db tableConfig tableState maybeId
+        Dataset.FoodIngredients maybeId ->
+            foodIngredientsExplorer db tableConfig tableState maybeId
 
-            Dataset.Impacts maybeTrigram ->
-                impactsExplorer db.definitions tableConfig tableState scope maybeTrigram
+        Dataset.Impacts maybeTrigram ->
+            impactsExplorer db.definitions tableConfig tableState scope maybeTrigram
 
-            Dataset.ObjectExamples maybeId ->
-                objectExamplesExplorer session tableConfig tableState Scope.Object maybeId
+        Dataset.ObjectExamples maybeId ->
+            objectExamplesExplorer session tableConfig tableState Scope.Object maybeId
 
-            Dataset.Processes scope_ maybeId ->
-                processesExplorer session scope_ tableConfig tableState maybeId
+        Dataset.Processes scope_ maybeId ->
+            processesExplorer session scope_ tableConfig tableState maybeId
 
-            Dataset.TextileExamples maybeId ->
-                textileExamplesExplorer session tableConfig tableState maybeId
+        Dataset.TextileExamples maybeId ->
+            textileExamplesExplorer session tableConfig tableState maybeId
 
-            Dataset.TextileMaterials maybeId ->
-                textileMaterialsExplorer db tableConfig tableState maybeId
+        Dataset.TextileMaterials maybeId ->
+            textileMaterialsExplorer db tableConfig tableState maybeId
 
-            Dataset.TextileProducts maybeId ->
-                textileProductsExplorer session tableConfig tableState maybeId
+        Dataset.TextileProducts maybeId ->
+            textileProductsExplorer session tableConfig tableState maybeId
 
-            Dataset.VeliExamples maybeId ->
-                objectExamplesExplorer session tableConfig tableState Scope.Veli maybeId
-    ]
+        Dataset.VeliExamples maybeId ->
+            objectExamplesExplorer session tableConfig tableState Scope.Veli maybeId
 
 
 searchInputView : Session -> Model -> Html Msg
 searchInputView _ { search } =
-    div [ class "d-flex justify-content-end align-items-center gap-2 pb-3" ]
+    div [ class "d-flex justify-content-start align-items-center gap-2" ]
         [ label [ for "search-field", class "visually-hidden" ] [ text "Rechercher" ]
         , input
             [ type_ "search"
-            , class "form-control w-100 w-lg-50"
+            , class "form-control mb-2"
             , id "search-field"
             , placeholder "Rechercher"
             , value search
@@ -763,11 +761,14 @@ view session model =
     ( Dataset.label model.dataset ++ " | Explorer "
     , [ Container.centered [ class "pb-3" ]
             [ div []
-                [ h1 [ class "mb-3" ] [ text "Explorateur" ]
-                , div [ class "row d-flex align-items-stretch mt-1 mx-0 g-0" ]
-                    [ div [ class "col-12 col-lg-3 d-flex align-items-center pb-2 pb-lg-0 mb-4 mb-lg-0 border-bottom ps-0 ms-0" ]
-                        [ scopesMenuView session model ]
-                    , div [ class "col-12 col-lg-9 pe-0 me-0" ]
+                [ div [ class "row d-flex align-item-end" ]
+                    [ div [ class "col-sm-8 mb-1" ] [ h1 [] [ text "Explorateur" ] ]
+                    , div [ class "col-sm-4 mt-2" ] [ scopesMenuView session model ]
+                    ]
+                , div [ class "row d-flex align-items-end mt-1 mx-0 g-0" ]
+                    [ div [ class "col-12 col-xl-3 col-xxl-4 border-bottom" ]
+                        [ searchInputView session model ]
+                    , div [ class "col-12 col-xl-9 col-xxl-8 pe-0 me-0" ]
                         [ datasetsMenuView model ]
                     ]
                 ]
