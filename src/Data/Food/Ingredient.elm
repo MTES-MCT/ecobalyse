@@ -13,6 +13,7 @@ module Data.Food.Ingredient exposing
     , getDefaultOriginTransport
     , idFromString
     , idToString
+    , toSearchableString
     , transportCoolingToString
     )
 
@@ -227,3 +228,17 @@ transportCoolingToString v =
 
         NoCooling ->
             "Non frigorifique"
+
+
+toSearchableString : Ingredient -> String
+toSearchableString ingredient =
+    String.join " "
+        [ ingredient.categories |> List.map IngredientCategory.toLabel |> String.join " "
+        , ingredient.cropGroup |> CropGroup.toLabel
+        , ingredient.defaultOrigin |> Origin.toLabel
+        , ingredient.name
+        , ingredient.process |> Process.getDisplayName
+        , ingredient.process |> Process.getTechnicalName
+        , ingredient.scenario |> Scenario.toLabel
+        , ingredient.transportCooling |> transportCoolingToString
+        ]
