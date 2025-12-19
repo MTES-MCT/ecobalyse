@@ -1,7 +1,7 @@
 module Page.Explore.FoodExamples exposing (table)
 
 import Data.Dataset as Dataset
-import Data.Example exposing (Example)
+import Data.Example as Example exposing (Example)
 import Data.Food.Query exposing (Query)
 import Data.Scope exposing (Scope)
 import Data.Uuid as Uuid
@@ -21,9 +21,7 @@ table { maxScore, maxPer100g } { detailed, scope } =
     { filename = "examples"
     , toId = Tuple.first >> .id >> Uuid.toString
     , toRoute = Tuple.first >> .id >> Just >> Dataset.FoodExamples >> Route.Explore scope
-
-    -- TODO
-    , toSearchableString = always ""
+    , toSearchableString = Tuple.first >> Example.toSearchableString
     , legend = []
     , columns =
         [ { label = "Nom"
