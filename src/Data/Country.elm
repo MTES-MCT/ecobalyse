@@ -188,7 +188,7 @@ toSearchableString { code, electricityProcess, heatProcess, name, scopes, zone }
         , name
         , electricityProcess |> Process.getDisplayName
         , heatProcess |> Process.getDisplayName
-        , scopes |> List.map Scope.toLabel |> String.join ","
+        , scopes |> List.map Scope.toLabel |> String.join " "
         , zone |> Zone.toString
         ]
 
