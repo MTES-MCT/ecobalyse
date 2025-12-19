@@ -4,16 +4,5 @@
     "id": "89b27c2a-0bb6-42c4-a052-8fb4c5a26bfc",
     "name": "Composant vide",
     "scopes": ["veli"]
-  },
-  {
-    "elements": [
-      {
-        "amount": 0.4,
-        "material": "74b5e1ef-2418-5c10-a27c-78434a301e9c"
-      }
-    ],
-    "id": "04752be7-ddb1-4d74-978c-aa39ac35f1e7",
-    "name": "Composant acier",
-    "scopes": ["veli"]
   }
 ]
