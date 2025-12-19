@@ -760,20 +760,18 @@ view : Session -> Model -> ( String, List (Html Msg) )
 view session model =
     ( Dataset.label model.dataset ++ " | Explorer "
     , [ Container.centered [ class "pb-3" ]
-            [ div []
-                [ div [ class "row d-flex align-item-end" ]
-                    [ div [ class "col-sm-8 mb-1" ] [ h1 [] [ text "Explorateur" ] ]
-                    , div [ class "col-sm-4 mt-2" ] [ scopesMenuView session model ]
-                    ]
-                , div [ class "row d-flex align-items-end mt-1 mx-0 g-0" ]
-                    [ div [ class "col-12 col-xl-3 col-xxl-4 border-bottom" ]
-                        [ searchInputView session model ]
-                    , div [ class "col-12 col-xl-9 col-xxl-8 pe-0 me-0" ]
-                        [ datasetsMenuView model ]
-                    ]
+            [ div [ class "row d-flex align-item-end" ]
+                [ div [ class "col-sm-8 mb-1" ] [ h1 [] [ text "Explorateur" ] ]
+                , div [ class "col-sm-4 mt-2" ] [ scopesMenuView session model ]
                 ]
-            , exploreView session model
-                |> div [ class "mt-3" ]
+            , div [ class "row d-flex align-items-end mt-1 mx-0 g-0" ]
+                [ div [ class "col-12 col-xl-3 col-xxl-4 border-bottom" ]
+                    [ searchInputView session model ]
+                , div [ class "col-12 col-xl-9 col-xxl-8 pe-0 me-0" ]
+                    [ datasetsMenuView model ]
+                ]
+            , div [ class "mt-3" ] <|
+                exploreView session model
             ]
       ]
     )
