@@ -27,6 +27,9 @@ table _ { detailed, scope } =
     { filename = "ingredients"
     , toId = .id >> Ingredient.idToString
     , toRoute = .id >> Just >> Dataset.FoodIngredients >> Route.Explore scope
+
+    -- TODO
+    , toSearchableString = always ""
     , legend = []
     , columns =
         [ { label = "Identifiant"

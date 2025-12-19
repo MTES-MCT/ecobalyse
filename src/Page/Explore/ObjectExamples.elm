@@ -34,6 +34,9 @@ table { maxScore } { detailed, scope } =
                     Dataset.ObjectExamples
                )
             >> Route.Explore scope
+
+    -- TODO
+    , toSearchableString = always ""
     , legend = []
     , columns =
         [ { label = "Nom"

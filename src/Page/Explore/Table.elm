@@ -10,6 +10,7 @@ module Page.Explore.Table exposing
 import Base64
 import Csv.Encode as EncodeCsv exposing (Csv)
 import Data.Scope as Scope exposing (Scope)
+import Data.Text as Text
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -17,6 +18,7 @@ import Route exposing (Route)
 import String.Normalize as Normalize
 import Table as SortableTable
 import Views.Alert as Alert
+import Views.Markdown as Markdown
 import Views.Table as TableView
 
 
@@ -24,6 +26,7 @@ type alias Table data comparable msg =
     { filename : String
     , toId : data -> String
     , toRoute : data -> Route
+    , toSearchableString : data -> String
     , columns : List (Column data comparable msg)
     , legend : List (Html msg)
     }
@@ -88,7 +91,7 @@ viewList :
     -> Html msg
 viewList routeToMsg defaultConfig tableState scope createTable items =
     let
-        ({ filename, toId, toRoute, columns, legend } as table) =
+        ({ filename, toId, toRoute, toSearchableString, columns, legend } as table) =
             createTable { detailed = False, scope = scope }
 
         customizations =
@@ -155,9 +158,22 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
     else
         div []
             [ div [ class "DatasetTable table-responsive" ]
-                [ items
-                    |> searchItems defaultConfig
-                    |> SortableTable.view config tableState
+                [ case items |> searchItems defaultConfig toSearchableString of
+                    [] ->
+                        Alert.simple
+                            { attributes = []
+                            , close = Nothing
+                            , content =
+                                [ "Aucun résultat pour la recherche *«{search}»*"
+                                    |> String.replace "{search}" defaultConfig.search
+                                    |> Markdown.simple []
+                                ]
+                            , level = Alert.Info
+                            , title = Nothing
+                            }
+
+                    results ->
+                        results |> SortableTable.view config tableState
                 , div [ class "text-muted fs-7" ] legend
                 ]
             , div [ class "text-end pt-3" ]
@@ -171,9 +187,14 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
             ]
 
 
-searchItems : Config data msg -> List a -> List a
-searchItems _ items =
-    items
+searchItems : Config data msg -> (data -> String) -> List data -> List data
+searchItems { search } toSearchableString =
+    Text.search
+        { minQueryLength = 1
+        , query = search
+        , sortBy = Nothing
+        , toString = toSearchableString
+        }
 
 
 toCSV : Table data comparable msg -> List data -> Csv

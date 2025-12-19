@@ -26,6 +26,9 @@ table { db } { maxScore, maxPer100g } { detailed, scope } =
     { filename = "examples"
     , toId = Tuple.first >> .id >> Uuid.toString
     , toRoute = Tuple.first >> .id >> Just >> Dataset.TextileExamples >> Route.Explore scope
+
+    -- TODO
+    , toSearchableString = always ""
     , legend = []
     , columns =
         [ { label = "Nom"

@@ -21,6 +21,9 @@ table { maxScore, maxPer100g } { detailed, scope } =
     { filename = "examples"
     , toId = Tuple.first >> .id >> Uuid.toString
     , toRoute = Tuple.first >> .id >> Just >> Dataset.FoodExamples >> Route.Explore scope
+
+    -- TODO
+    , toSearchableString = always ""
     , legend = []
     , columns =
         [ { label = "Nom"
