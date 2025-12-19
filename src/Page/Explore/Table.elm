@@ -48,6 +48,7 @@ type alias Config data msg =
     , toMsg : SortableTable.State -> msg
     , columns : List (SortableTable.Column data msg)
     , customizations : SortableTable.Customizations data msg
+    , search : String
     }
 
 
@@ -95,40 +96,40 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
 
         config =
             SortableTable.customConfig
-                { defaultConfig
-                    | toId = toId
-                    , columns =
-                        columns
-                            |> List.map
-                                (\{ label, toCell, toValue } ->
-                                    SortableTable.veryCustomColumn
-                                        { name = label
-                                        , viewData = \item -> { attributes = [], children = [ toCell item ] }
-                                        , sorter =
-                                            -- Note: yes, this looks odd but provides necessary type hints
-                                            --       to the compiler so all branches are type-consistent
-                                            case toValue of
-                                                FloatValue getFloat ->
-                                                    SortableTable.increasingOrDecreasingBy getFloat
+                { toId = toId
+                , toMsg = defaultConfig.toMsg
+                , columns =
+                    columns
+                        |> List.map
+                            (\{ label, toCell, toValue } ->
+                                SortableTable.veryCustomColumn
+                                    { name = label
+                                    , viewData = \item -> { attributes = [], children = [ toCell item ] }
+                                    , sorter =
+                                        -- Note: yes, this looks odd but provides necessary type hints
+                                        --       to the compiler so all branches are type-consistent
+                                        case toValue of
+                                            FloatValue getFloat ->
+                                                SortableTable.increasingOrDecreasingBy getFloat
 
-                                                IntValue getInt ->
-                                                    SortableTable.increasingOrDecreasingBy getInt
+                                            IntValue getInt ->
+                                                SortableTable.increasingOrDecreasingBy getInt
 
-                                                NoValue ->
-                                                    SortableTable.unsortable
+                                            NoValue ->
+                                                SortableTable.unsortable
 
-                                                StringValue getString ->
-                                                    SortableTable.increasingOrDecreasingBy
-                                                        (getString
-                                                            >> String.toLower
-                                                            >> Normalize.removeDiacritics
-                                                        )
-                                        }
-                                )
-                    , customizations =
-                        { customizations
-                            | rowAttrs = toRoute >> routeToMsg >> onClick >> List.singleton
-                        }
+                                            StringValue getString ->
+                                                SortableTable.increasingOrDecreasingBy
+                                                    (getString
+                                                        >> String.toLower
+                                                        >> Normalize.removeDiacritics
+                                                    )
+                                    }
+                            )
+                , customizations =
+                    { customizations
+                        | rowAttrs = toRoute >> routeToMsg >> onClick >> List.singleton
+                    }
                 }
 
         csv =
@@ -154,7 +155,9 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
     else
         div []
             [ div [ class "DatasetTable table-responsive" ]
-                [ SortableTable.view config tableState items
+                [ items
+                    |> searchItems defaultConfig
+                    |> SortableTable.view config tableState
                 , div [ class "text-muted fs-7" ] legend
                 ]
             , div [ class "text-end pt-3" ]
@@ -166,6 +169,11 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
                     [ text "Télécharger ces données au format CSV" ]
                 ]
             ]
+
+
+searchItems : Config data msg -> List a -> List a
+searchItems _ items =
+    items
 
 
 toCSV : Table data comparable msg -> List data -> Csv

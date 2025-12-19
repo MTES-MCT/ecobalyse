@@ -688,7 +688,7 @@ getTextileScorePer100g { componentConfig, db } { query } =
 
 
 exploreView : Session -> Model -> List (Html Msg)
-exploreView ({ db } as session) ({ scope, dataset, tableState } as model) =
+exploreView ({ db } as session) ({ scope, dataset, tableState, search } as model) =
     let
         defaultCustomizations =
             SortableTable.defaultCustomizations
@@ -696,6 +696,7 @@ exploreView ({ db } as session) ({ scope, dataset, tableState } as model) =
         tableConfig =
             { toId = always "" -- Placeholder
             , toMsg = SetTableState
+            , search = search
             , columns = []
             , customizations =
                 { defaultCustomizations
