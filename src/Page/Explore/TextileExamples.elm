@@ -2,7 +2,7 @@ module Page.Explore.TextileExamples exposing (table)
 
 import Data.Component as Component
 import Data.Dataset as Dataset
-import Data.Example exposing (Example)
+import Data.Example as Example exposing (Example)
 import Data.Scope exposing (Scope)
 import Data.Session exposing (Session)
 import Data.Textile.Product as Product
@@ -26,9 +26,7 @@ table { db } { maxScore, maxPer100g } { detailed, scope } =
     { filename = "examples"
     , toId = Tuple.first >> .id >> Uuid.toString
     , toRoute = Tuple.first >> .id >> Just >> Dataset.TextileExamples >> Route.Explore scope
-
-    -- TODO
-    , toSearchableString = always ""
+    , toSearchableString = Tuple.first >> Example.toSearchableString
     , legend = []
     , columns =
         [ { label = "Nom"

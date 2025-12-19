@@ -8,6 +8,7 @@ module Data.Example exposing
     , parseUuid
     , toCategory
     , toName
+    , toSearchableString
     )
 
 import Data.Scope as Scope exposing (Scope)
@@ -100,3 +101,12 @@ toName examples q =
             )
         |> List.head
         |> Maybe.withDefault "Produit personnalisé"
+
+
+toSearchableString : Example query -> String
+toSearchableString example =
+    String.join " "
+        [ example.id |> Uuid.toString
+        , example.name
+        , example.scope |> Scope.toString
+        ]
