@@ -21,9 +21,7 @@ table session { detailed, scope } =
     { filename = "processes"
     , toId = .id >> Process.idToString
     , toRoute = .id >> Just >> Dataset.Processes scope >> Route.Explore scope
-
-    -- TODO
-    , toSearchableString = always ""
+    , toSearchableString = Process.toSearchableString
     , legend = []
     , columns = baseColumns detailed scope ++ impactsColumns session
     }

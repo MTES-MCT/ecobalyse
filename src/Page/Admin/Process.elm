@@ -128,7 +128,7 @@ processFilters scopes search =
             { minQueryLength = 2
             , query = search
             , sortBy = Nothing
-            , toString = Process.asSearchableText
+            , toString = Process.toSearchableString
             }
 
 
