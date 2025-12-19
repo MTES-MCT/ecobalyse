@@ -23,9 +23,7 @@ table distances countries { detailed, scope } =
     { filename = "countries"
     , toId = .code >> Country.codeToString
     , toRoute = .code >> Just >> Dataset.Countries >> Route.Explore scope
-
-    -- TODO
-    , toSearchableString = always ""
+    , toSearchableString = Country.toSearchableString
     , legend = []
     , columns =
         List.filterMap identity

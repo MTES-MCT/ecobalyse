@@ -13,6 +13,7 @@ module Data.Country exposing
     , getAquaticPollutionRatio
     , isEuropeOrTurkey
     , resolveMaybe
+    , toSearchableString
     , unknownCountryCode
     , validateForScope
     )
@@ -178,6 +179,18 @@ resolveMaybe maybeCode countries =
 
         Nothing ->
             Ok Nothing
+
+
+toSearchableString : Country -> String
+toSearchableString { code, electricityProcess, heatProcess, name, scopes, zone } =
+    String.join " "
+        [ code |> codeToString
+        , name
+        , electricityProcess |> Process.getDisplayName
+        , heatProcess |> Process.getDisplayName
+        , scopes |> List.map Scope.toLabel |> String.join ","
+        , zone |> Zone.toString
+        ]
 
 
 unknownCountryCode : Code
