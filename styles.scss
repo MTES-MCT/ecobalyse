@@ -221,12 +221,6 @@ input {
   }
 }
 
-.w-lg-50 {
-  @media screen and (min-width: $viewport-lg) {
-    width: 50% !important;
-  }
-}
-
 // Highcharts overriden styles
 .highcharts-data-table {
   table {

@@ -109,8 +109,6 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
                                     { name = label
                                     , viewData = \item -> { attributes = [], children = [ toCell item ] }
                                     , sorter =
-                                        -- Note: yes, this looks odd but provides necessary type hints
-                                        --       to the compiler so all branches are type-consistent
                                         case toValue of
                                             FloatValue getFloat ->
                                                 SortableTable.increasingOrDecreasingBy getFloat

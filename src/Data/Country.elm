@@ -182,14 +182,14 @@ resolveMaybe maybeCode countries =
 
 
 toSearchableString : Country -> String
-toSearchableString { code, electricityProcess, heatProcess, name, scopes, zone } =
+toSearchableString country =
     String.join " "
-        [ code |> codeToString
-        , name
-        , electricityProcess |> Process.getDisplayName
-        , heatProcess |> Process.getDisplayName
-        , scopes |> List.map Scope.toLabel |> String.join " "
-        , zone |> Zone.toString
+        [ country.code |> codeToString
+        , country.name
+        , country.electricityProcess |> Process.getDisplayName
+        , country.heatProcess |> Process.getDisplayName
+        , country.scopes |> List.map Scope.toLabel |> String.join " "
+        , country.zone |> Zone.toString
         ]
 
 
