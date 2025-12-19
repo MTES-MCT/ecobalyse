@@ -49,9 +49,7 @@ table db { detailed, scope } =
     { filename = "materials"
     , toId = .id >> Material.idToString
     , toRoute = .id >> Just >> Dataset.TextileMaterials >> Route.Explore scope
-
-    -- TODO
-    , toSearchableString = always ""
+    , toSearchableString = Material.toSearchableString db.countries
     , legend = []
     , columns =
         [ { label = "Identifiant"
