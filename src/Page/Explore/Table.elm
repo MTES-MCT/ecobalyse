@@ -133,10 +133,14 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
                     }
                 }
 
+        resultItems =
+            items
+                |> searchItems defaultConfig toSearchableString
+
         csv =
             { filename = "ecobalyse-" ++ Scope.toString scope ++ "-" ++ filename ++ ".csv"
             , content =
-                items
+                resultItems
                     |> toCSV table
                     |> EncodeCsv.toString
             }
@@ -156,7 +160,7 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
     else
         div []
             [ div [ class "DatasetTable table-responsive" ]
-                [ case items |> searchItems defaultConfig toSearchableString of
+                [ case resultItems of
                     [] ->
                         Alert.simple
                             { attributes = []
@@ -170,8 +174,8 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
                             , title = Nothing
                             }
 
-                    results ->
-                        results |> SortableTable.view config tableState
+                    nonEmptyResult ->
+                        nonEmptyResult |> SortableTable.view config tableState
                 , div [ class "text-muted fs-7" ] legend
                 ]
             , div [ class "text-end pt-3" ]
