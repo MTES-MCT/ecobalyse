@@ -14,6 +14,12 @@ type alias SearchConfig element =
     }
 
 
+{-| Filter a list of stringifyable items against provided search terms:
+
+  - case and accented letters insensitive
+  - exact matches listed first, partial matches second, rest is unlisted
+
+-}
 search : SearchConfig element -> List element -> List element
 search { minQueryLength, query, toString } elements =
     let
@@ -28,25 +34,23 @@ search { minQueryLength, query, toString } elements =
             searchWords =
                 toWords trimmedQuery
 
+            checkAll fn element =
+                searchWords
+                    |> List.all (\word -> fn word (toWords (toString element)))
+
             exactWordMatches =
+                elements
+                    |> List.filter (checkAll (String.toLower >> List.member))
+
+            partialWordsMatches =
                 elements
                     |> List.filter
                         (\element ->
-                            List.all (\w -> List.member (String.toLower w) (toWords (toString element))) searchWords
+                            not (List.member element exactWordMatches)
+                                && checkAll (String.contains >> List.any) element
                         )
         in
-        List.concat
-            [ -- Full word matches first
-              exactWordMatches
-
-            -- Partial word matches last
-            , elements
-                |> List.filter
-                    (\element ->
-                        not (List.member element exactWordMatches)
-                            && List.all (\w -> List.any (String.contains w) (toWords (toString element))) searchWords
-                    )
-            ]
+        exactWordMatches ++ partialWordsMatches
 
 
 toWords : String -> List String
