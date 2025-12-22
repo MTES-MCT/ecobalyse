@@ -1,5 +1,9 @@
-module Data.Text exposing (search)
+module Data.Text exposing
+    ( search
+    , toWords
+    )
 
+import Regex
 import String.Normalize as Normalize
 
 
@@ -28,6 +32,7 @@ search { minQueryLength, query, toString } elements =
             |> List.map (\element -> ( toWords (toString element), element ))
             |> List.filter
                 (\( words, _ ) ->
+                    -- List.all (\w -> List.member (String.toLower w) words) searchWords
                     List.all (\w -> List.any (String.contains w) words) searchWords
                 )
             |> List.map Tuple.second
@@ -37,13 +42,12 @@ toWords : String -> List String
 toWords =
     String.toLower
         >> Normalize.removeDiacritics
-        >> String.foldl
-            (\c acc ->
-                if not (List.member c [ '(', ')' ]) then
-                    String.cons c acc
+        >> String.trim
+        >> (case Regex.fromString "[\\W_-]+" of
+                Just regex ->
+                    Regex.replace regex (always " ")
 
-                else
-                    acc
-            )
-            ""
+                Nothing ->
+                    identity
+           )
         >> String.split " "
