@@ -335,19 +335,14 @@ isAuthenticated { store } =
             False
 
 
-hasTermsAccepted : Session -> Bool
-hasTermsAccepted { store } =
+hasAccessToDetailedImpacts : Session -> Bool
+hasAccessToDetailedImpacts { store } =
     case store.auth2 of
         Just auth ->
             auth.user.profile.termsAccepted
 
         Nothing ->
             False
-
-
-hasAccessToDetailedImpacts : Session -> Bool
-hasAccessToDetailedImpacts session =
-    isAuthenticated session && hasTermsAccepted session
 
 
 isSuperuser : Session -> Bool

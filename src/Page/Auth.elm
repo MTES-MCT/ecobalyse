@@ -133,7 +133,7 @@ update session msg model =
         CopyToClipboard accessToken ->
             App.createUpdate session model
                 |> App.withCmds [ Ports.copyToClipboard accessToken ]
-                |> App.notifyInfo "Le jeton d'API a été copié dans le presse-papiers"
+                |> App.notifyInfo "Le jeton d’API a été copié dans le presse-papiers"
 
         -- Update db with detailed processes when we get them
         DetailedProcessesResponse (RemoteData.Success rawDetailedProcessesJson) ->
@@ -341,7 +341,7 @@ updateApiTokenDeleteTab session msg model =
         DeleteApiTokenResponse (RemoteData.Success _) ->
             { model | tab = ApiTokens RemoteData.Loading }
                 |> App.createUpdate session
-                |> App.notifySuccess "Le jeton d'API a été supprimé"
+                |> App.notifySuccess "Le jeton d’API a été supprimé"
                 |> App.withCmds [ ApiTokenHttp.list session ApiTokensResponse ]
 
         DeleteApiTokenResponse (RemoteData.Failure error) ->
@@ -476,7 +476,7 @@ viewTab session currentTab =
                 Just auth ->
                     ( "Mon compte"
                     , [ ( "Compte", Account auth User.emptyProfileForm Dict.empty )
-                      , ( "Jetons d'API", ApiTokens RemoteData.Loading )
+                      , ( "Jetons d’API", ApiTokens RemoteData.Loading )
                       ]
                     )
 
@@ -622,7 +622,7 @@ viewAccount { user } profileForm formErrors =
                     ]
                     []
                 , label [ class "form-check-label", for "emailOptin" ]
-                    [ text "J’accepte de recevoir des informations de la part d'Ecobalyse par email."
+                    [ text "J’accepte de recevoir des informations de la part d’Ecobalyse par email."
                     ]
                 , viewFieldError "emailOptin" formErrors
                 ]
@@ -652,7 +652,7 @@ viewAccount { user } profileForm formErrors =
         , hr [ class "mt-3 mb-0" ] []
         , div [ class "d-flex justify-content-center align-items-center gap-3" ]
             [ a [ Route.href Route.Home ]
-                [ text "Retour à l'accueil" ]
+                [ text "Retour à l’accueil" ]
             , button
                 [ type_ "button"
                 , class "btn btn-primary my-3"
@@ -665,11 +665,15 @@ viewAccount { user } profileForm formErrors =
 
 termsView : List (Html Msg)
 termsView =
-    [ p [] [ text "Je m’engage à respecter les ", a [ href Env.cguUrl, target "_blank" ] [ text "CGU spécifiques aux données EcoInvent" ], text " et accepte que les informations recueillies sur ce formulaire soient enregistrées dans un fichier informatisé par l’ADEME pour\u{202F}:" ]
-    , ul []
-        [ li [] [ text "Authentification des utilisateurs sur la plateforme web ou via l’API afin d'accéder aux impacts détaillés (ex: changement climatique)," ]
-        , li [] [ text "délivrance de licences nominatives par EcoInvent aux utilisateurs des données EcoInvent via Ecobalyse (les données sont transmises si l’utilisateur consent au moins une fois via son compte Ecobalyse dans l'année)." ]
-        ]
+    [ """Je m’engage à respecter les [CGU Ecobalyse]({url_cgu} "CGU Ecobalyse")
+         et accepte que les informations recueillies sur ce formulaire soient enregistrées dans un fichier
+         informatisé par l’ADEME pour\u{202F}:
+
+           - Authentification des utilisateurs sur la plateforme web ou via l’API afin d’accéder aux impacts détaillés (ex: changement climatique),
+
+           - délivrance de licences nominatives par EcoInvent aux utilisateurs des données EcoInvent via Ecobalyse (les données sont transmises si l’utilisateur consent au moins une fois via son compte Ecobalyse dans l’année)."""
+        |> String.replace "{url_cgu}" Env.cguUrl
+        |> Markdown.simple []
     ]
 
 
@@ -705,13 +709,13 @@ viewApiTokenCreated : Token -> Html Msg
 viewApiTokenCreated token =
     div []
         [ h2 [ class "h5 mb-3" ]
-            [ text "✅\u{00A0}Un nouveau jeton d'API a été créé" ]
+            [ text "✅\u{00A0}Un nouveau jeton d’API a été créé" ]
         , p []
-            [ text "Il vous permet d'effectuer des requêtes sur "
-            , a [ Route.href Route.Api, target "_blank" ] [ text "l'API Ecobalyse" ]
+            [ text "Il vous permet d’effectuer des requêtes sur "
+            , a [ Route.href Route.Api, target "_blank" ] [ text "l’API Ecobalyse" ]
             , text "."
             ]
-        , """Attention, **ce jeton d'API ne vous sera affiché qu'une seule et unique fois ci-dessous**.
+        , """Attention, **ce jeton d’API ne vous sera affiché qu’une seule et unique fois ci-dessous**.
              Conservez-le précieusement."""
             |> Markdown.simple [ class "alert alert-warning d-flex align-items-center gap-1 mb-3" ]
         , div
@@ -733,12 +737,12 @@ viewApiTokenCreated token =
                 ]
             ]
         , p [ class "fs-8 text-muted mt-1 mb-0" ]
-            [ text "Vous pouvez copier le jeton d'API ci-dessus en cliquant sur le bouton copier à droite du champ."
+            [ text "Vous pouvez copier le jeton d’API ci-dessus en cliquant sur le bouton copier à droite du champ."
             ]
         , div [ class "d-grid mt-2" ]
             [ button
                 [ class "btn btn-link", onClick <| SwitchTab (ApiTokens RemoteData.Loading) ]
-                [ text "«\u{00A0}Retour à la liste des jetons d'API" ]
+                [ text "«\u{00A0}Retour à la liste des jetons d’API" ]
             ]
         ]
 
@@ -748,7 +752,7 @@ viewApiTokens apiTokens =
     case apiTokens of
         RemoteData.Failure error ->
             p [ class "alert alert-danger" ]
-                [ text <| "Erreur lors de la récupération des jetons d'API : " ++ BackendError.errorToString error ]
+                [ text <| "Erreur lors de la récupération des jetons d’API : " ++ BackendError.errorToString error ]
 
         RemoteData.Loading ->
             Spinner.view
@@ -759,7 +763,7 @@ viewApiTokens apiTokens =
         RemoteData.Success tokens ->
             div []
                 [ if List.isEmpty tokens then
-                    p [] [ text "Aucun jeton d'API actif." ]
+                    p [] [ text "Aucun jeton d’API actif." ]
 
                   else
                     div [ class "table-responsive border shadow-sm", attribute "data-testid" "auth-api-tokens-table" ]
@@ -798,7 +802,7 @@ viewApiTokens apiTokens =
                 , div [ class "d-grid mt-3" ]
                     [ button
                         [ class "btn btn-primary", onClick CreateToken ]
-                        [ text "Créer un jeton d'API" ]
+                        [ text "Créer un jeton d’API" ]
                     ]
                 ]
 
@@ -806,10 +810,10 @@ viewApiTokens apiTokens =
 viewApiTokenDelete : CreatedToken -> Html Msg
 viewApiTokenDelete apiToken =
     div []
-        [ h2 [ class "h5 mb-3" ] [ text "Supprimer et invalider ce jeton d'API" ]
+        [ h2 [ class "h5 mb-3" ] [ text "Supprimer et invalider ce jeton d’API" ]
         , p []
-            [ """Êtes-vous sûr de vouloir supprimer et invalider ce jeton d'API\u{00A0}?
-                 Vous ne pourrez plus l'utiliser."""
+            [ """Êtes-vous sûr de vouloir supprimer et invalider ce jeton d’API\u{00A0}?
+                 Vous ne pourrez plus l’utiliser."""
                 |> Markdown.simple []
             ]
         , case apiToken.lastAccessedAt of
@@ -823,7 +827,7 @@ viewApiTokenDelete apiToken =
             Nothing ->
                 p [ class "alert alert-success d-flex align-items-center gap-1" ]
                     [ Icon.info
-                    , text "Le token n'a jamais été utilisé"
+                    , text "Le token n’a jamais été utilisé"
                     ]
         , div [ class "d-flex justify-content-center gap-2 mt-1" ]
             [ button
@@ -831,18 +835,20 @@ viewApiTokenDelete apiToken =
                 [ text "Annuler" ]
             , button
                 [ class "btn btn-danger", onClick <| DeleteApiToken apiToken ]
-                [ text "Supprimer et invalider ce jeton d'API" ]
+                [ text "Supprimer et invalider ce jeton d’API" ]
             ]
         ]
 
 
-viewTocAlert : Html Msg
-viewTocAlert =
+viewToSAlert : Html Msg
+viewToSAlert =
     Alert.simple
         { attributes = []
         , close = Nothing
         , content =
-            [ """Notre politique de confidentialité de données personnelles a changé depuis le **9 décembre 2025**. Pour continuer à accéder aux impacts détaillés, connectez-vous et consentez au traitement particulier de vos données personnelles liées à l'usage des impacts détaillés."""
+            [ """Notre politique de confidentialité de données personnelles a changé depuis le **9 décembre 2025**.
+            Pour continuer à accéder aux impacts détaillés, connectez-vous et consentez au traitement particulier de vos
+            données personnelles liées à l’usage des impacts détaillés."""
                 |> Markdown.simple []
             ]
         , level = Alert.Info
@@ -853,7 +859,7 @@ viewTocAlert =
 viewMagicLinkForm : Email -> WebData () -> Html Msg
 viewMagicLinkForm email webData =
     div [ class "d-flex flex-column gap-3" ]
-        [ viewTocAlert
+        [ viewToSAlert
         , Html.form
             [ onSubmit MagicLinkSubmit
             , attribute "data-testid" "auth-magic-link-form"
@@ -904,7 +910,7 @@ viewMagicLinkLogin email =
         ]
         [ p [ class "d-flex align-items-baseline gap-1" ]
             [ Icon.info
-            , text "Vous allez être connecté avec l'adresse email suivante\u{00A0}: "
+            , text "Vous allez être connecté avec l’adresse email suivante\u{00A0}: "
             , strong [] [ email |> Url.percentDecode |> Maybe.withDefault email |> text ]
             ]
         , button
@@ -923,7 +929,7 @@ viewMagicLinkSent email =
         { attributes = []
         , close = Nothing
         , content =
-            [ "Si vous possédez un compte, un email contenant un lien de connexion au service a été envoyé à l'adresse **`{email}`**."
+            [ "Si vous possédez un compte, un email contenant un lien de connexion au service a été envoyé à l’adresse **`{email}`**."
                 |> String.replace "{email}" email
                 |> Markdown.simple []
             ]
@@ -1006,7 +1012,7 @@ viewSignupForm signupForm formErrors webData =
                 ]
                 []
             , label [ class "form-check-label", for "emailOptin" ]
-                [ text "J’accepte de recevoir des informations de la part d'Ecobalyse par email."
+                [ text "J’accepte de recevoir des informations de la part d’Ecobalyse par email."
                 ]
             , viewFieldError "emailOptin" formErrors
             ]
@@ -1048,7 +1054,7 @@ viewOrganizationForm signupForm formErrors =
         [ div [ class "col-md-6" ]
             [ div [ class "mb-3" ]
                 [ label [ for "organizationType", class "form-label" ]
-                    [ text "Type d'organisation" ]
+                    [ text "Type d’organisation" ]
                 , User.organizationTypes
                     |> List.sortBy Tuple.second
                     |> List.map
@@ -1082,7 +1088,7 @@ viewOrganizationForm signupForm formErrors =
             div [ class "col-md-6" ]
                 [ div [ class "mb-3" ]
                     [ label [ for "organization", class "form-label" ]
-                        [ text "Nom de l'organisation" ]
+                        [ text "Nom de l’organisation" ]
                     , input
                         [ type_ "text"
                         , class "form-control"
@@ -1131,9 +1137,9 @@ viewOrganizationForm signupForm formErrors =
                         []
                     , viewFieldError "organization.siren" formErrors
                     , p [ class "fs-8 text-muted mt-1 mb-0" ]
-                        [ text "Vous pouvez rechercher le numéro SIREN à 9 chiffres d'une entreprise sur le "
+                        [ text "Vous pouvez rechercher le numéro SIREN à 9 chiffres d’une entreprise sur le "
                         , a [ href "https://annuaire-entreprises.data.gouv.fr/", target "_blank" ]
-                            [ text "service d'annuaire des entreprises data.gouv.fr" ]
+                            [ text "service d’annuaire des entreprises data.gouv.fr" ]
                         ]
                     ]
 

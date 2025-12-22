@@ -193,39 +193,30 @@ class AccessController(Controller):
     ) -> None:
         """Validate a token"""
 
+        user_email = None
+
         if data.token.startswith("eco_api_"):
             payload = await tokens_service.extract_payload(data.token)
 
             await tokens_service.authenticate(
                 secret=payload["secret"], token_id=payload["id"]
             )
-
-            user = await users_service.get_one_or_none(email=payload["email"])
-
-            if user.profile.terms_accepted:
-                return
-            else:
-                raise PermissionDeniedException(
-                    detail="You must accept the terms to have access to detailed impacts"
-                )
+            user_email: str = payload["email"]
         else:
             try:
                 payload = Token.decode_payload(
                     data.token, settings.app.SECRET_KEY, [auth.algorithm]
                 )
-
-                user = await users_service.get_one_or_none(email=payload["sub"])
-
-                if user.profile.terms_accepted:
-                    return
-                else:
-                    raise PermissionDeniedException(
-                        detail="You must accept the terms to have access to detailed impacts"
-                    )
+                user_email: str = payload["sub"]
             except Exception:
                 raise PermissionDeniedException(detail="Error decoding Token")
 
-        raise PermissionDeniedException(detail="Invalid token")
+        user: m.User | None = await users_service.get_one_or_none(email=user_email)
+
+        if not user.profile.terms_accepted:
+            raise PermissionDeniedException(
+                detail="You must accept the terms to have access to detailed impacts"
+            )
 
     @post(
         operation_id="GenerateToken",
