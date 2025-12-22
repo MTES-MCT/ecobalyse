@@ -189,7 +189,7 @@ toSearchableString country =
         , country.electricityProcess |> Process.getDisplayName
         , country.heatProcess |> Process.getDisplayName
         , country.scopes |> List.map Scope.toLabel |> String.join " "
-        , country.zone |> Zone.toString
+        , country.zone |> Zone.toLabel
         ]
 
 

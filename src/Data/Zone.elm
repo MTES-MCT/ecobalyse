@@ -1,7 +1,7 @@
 module Data.Zone exposing
     ( Zone(..)
     , decode
-    , toString
+    , toLabel
     )
 
 import Json.Decode as Decode exposing (Decoder)
@@ -52,26 +52,26 @@ fromString string =
             Err <| "Zone géographique inconnue : " ++ string
 
 
-toString : Zone -> String
-toString zone =
+toLabel : Zone -> String
+toLabel zone =
     case zone of
         Africa ->
-            "Africa"
+            "Afrique"
 
         Asia ->
-            "Asia"
+            "Asie"
 
         Europe ->
             "Europe"
 
         MiddleEast ->
-            "Middle_East"
+            "Moyen-Orient"
 
         NorthAmerica ->
-            "North_America"
+            "Amérique du Nord"
 
         Oceania ->
-            "Oceania"
+            "Océanie"
 
         SouthAmerica ->
-            "South_America"
+            "Amérique du Sud"
