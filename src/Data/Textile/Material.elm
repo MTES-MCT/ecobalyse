@@ -93,6 +93,7 @@ toSearchableString countries material =
         , material.alias
         , material.origin |> Origin.toString
         , material.process |> Process.getDisplayName
+        , material.process.source
         , material.defaultCountry |> Country.codeToString
         , countries
             |> Country.findByCode material.defaultCountry
