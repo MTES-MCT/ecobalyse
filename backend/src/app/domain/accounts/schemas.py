@@ -98,13 +98,7 @@ class User(CamelizedBaseStruct):
     has_active_token: bool = False
 
 
-class TermsAcceptedUser(CamelizedBaseStruct):
-    def __post_init__(self):
-        if not self.terms_accepted:
-            raise ValidationException("You need to explicitly accept terms")
-
-
-class UserCreate(TermsAcceptedUser):
+class UserCreate(CamelizedBaseStruct):
     email: str
     first_name: str
     last_name: str
@@ -116,16 +110,17 @@ class UserCreate(TermsAcceptedUser):
 
 
 class UserProfileUpdate(CamelizedBaseStruct, omit_defaults=True):
+    email_optin: bool | None | msgspec.UnsetType = msgspec.UNSET
     first_name: str | None | msgspec.UnsetType = msgspec.UNSET
     last_name: str | None | msgspec.UnsetType = msgspec.UNSET
-    email_optin: bool | None | msgspec.UnsetType = msgspec.UNSET
+    terms_accepted: bool | None | msgspec.UnsetType = msgspec.UNSET
 
 
 class AccountLogin(CamelizedBaseStruct):
     email: str
 
 
-class AccountRegisterMagicLink(TermsAcceptedUser):
+class AccountRegisterMagicLink(CamelizedBaseStruct):
     email: str
     first_name: str
     last_name: str

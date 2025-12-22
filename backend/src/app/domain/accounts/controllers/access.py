@@ -188,9 +188,12 @@ class AccessController(Controller):
     async def validate_token(
         self,
         tokens_service: TokenService,
+        users_service: UserService,
         data: ApiToken,
     ) -> None:
         """Validate a token"""
+
+        user_email = None
 
         if data.token.startswith("eco_api_"):
             payload = await tokens_service.extract_payload(data.token)
@@ -198,18 +201,22 @@ class AccessController(Controller):
             await tokens_service.authenticate(
                 secret=payload["secret"], token_id=payload["id"]
             )
-            return
+            user_email: str = payload["email"]
         else:
             try:
-                Token.decode_payload(
+                payload = Token.decode_payload(
                     data.token, settings.app.SECRET_KEY, [auth.algorithm]
                 )
+                user_email: str = payload["sub"]
             except Exception:
                 raise PermissionDeniedException(detail="Error decoding Token")
 
-            return
+        user: m.User | None = await users_service.get_one_or_none(email=user_email)
 
-        raise PermissionDeniedException(detail="Invalid token")
+        if not user.profile.terms_accepted:
+            raise PermissionDeniedException(
+                detail="You must accept the terms to have access to detailed impacts"
+            )
 
     @post(
         operation_id="GenerateToken",

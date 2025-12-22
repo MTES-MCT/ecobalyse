@@ -213,6 +213,7 @@ def fx_raw_users() -> list[dict[str, Any]]:
             "magic_link_token": "Test_Password1!_token",
             "is_superuser": True,
             "is_active": True,
+            "terms_accepted": True,
             "first_name": "Super",
             "last_name": "User",
             "organization": OrganizationCreate(
@@ -241,6 +242,7 @@ def fx_raw_users() -> list[dict[str, Any]]:
             "is_active": True,
             "first_name": "Example",
             "last_name": "User",
+            "terms_accepted": True,
             "organization": OrganizationCreate(
                 name="Example business organization",
                 type=OrganizationType.BUSINESS,
