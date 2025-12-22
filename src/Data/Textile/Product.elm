@@ -9,6 +9,7 @@ module Data.Textile.Product exposing
     , getMakingDurationInMinutes
     , idFromString
     , idToString
+    , toSearchableString
     )
 
 import Data.Component as Component
@@ -189,3 +190,13 @@ customDaysOfWear { daysOfWear, wearsPerCycle } =
     Duration.inDays daysOfWear
         / toFloat (clamp 1 wearsPerCycle wearsPerCycle)
         |> round
+
+
+toSearchableString : Product -> String
+toSearchableString product =
+    String.join " "
+        [ product.id |> idToString
+        , product.name
+        , product.fabric |> Fabric.toLabel
+        , product.fabric |> Fabric.toString
+        ]

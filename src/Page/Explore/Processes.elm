@@ -11,6 +11,7 @@ import Data.Split as Split
 import Data.Unit as Unit
 import Energy
 import Html exposing (..)
+import Html.Attributes exposing (..)
 import Page.Explore.Table as Table exposing (Column, Table)
 import Route
 import Views.Format as Format
@@ -21,6 +22,7 @@ table session { detailed, scope } =
     { filename = "processes"
     , toId = .id >> Process.idToString
     , toRoute = .id >> Just >> Dataset.Processes scope >> Route.Explore scope
+    , toSearchableString = Process.toSearchableString
     , legend = []
     , columns = baseColumns detailed scope ++ impactsColumns session
     }
@@ -41,11 +43,11 @@ baseColumns detailed scope =
       }
     , { label = "Nom"
       , toValue = Table.StringValue Process.getDisplayName
-      , toCell = Process.getDisplayName >> text
+      , toCell = Process.getDisplayName >> tooltipedCell
       }
     , { label = "Nom technique"
       , toValue = Table.StringValue Process.getTechnicalName
-      , toCell = Process.getTechnicalName >> text
+      , toCell = Process.getTechnicalName >> tooltipedCell
       }
     , { label = "Source"
       , toValue = Table.StringValue <| .source
@@ -65,7 +67,7 @@ baseColumns detailed scope =
             .categories
                 >> List.map ProcessCategory.toLabel
                 >> String.join ", "
-                >> text
+                >> tooltipedCell
       }
     , { label = "Unité"
       , toValue = Table.StringValue <| .unit >> Process.unitToString
@@ -108,3 +110,9 @@ impactsColumns session =
 
     else
         []
+
+
+tooltipedCell : String -> Html msg
+tooltipedCell string =
+    span [ class "cursor-help", title string ]
+        [ text string ]

@@ -14,6 +14,7 @@ module Data.Impact.Definition exposing
     , isAggregate
     , map
     , toList
+    , toSearchableString
     , toString
     , toTrigram
     , trigrams
@@ -489,6 +490,16 @@ toTrigram str =
 isAggregate : Trigram -> Bool
 isAggregate trigram =
     trigram == Ecs
+
+
+toSearchableString : Definition -> String
+toSearchableString definition =
+    String.join " "
+        [ definition.trigram |> toString
+        , definition.description
+        , definition.label
+        , definition.unit
+        ]
 
 
 

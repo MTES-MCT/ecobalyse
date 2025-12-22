@@ -18,6 +18,7 @@ table { detailed, scope } =
     { filename = "impacts"
     , toId = .trigram >> Definition.toString
     , toRoute = .trigram >> Just >> Dataset.Impacts >> Route.Explore scope
+    , toSearchableString = Definition.toSearchableString
     , legend = []
     , columns =
         [ { label = "Code"

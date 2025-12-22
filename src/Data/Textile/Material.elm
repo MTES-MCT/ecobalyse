@@ -10,9 +10,10 @@ module Data.Textile.Material exposing
     , getRecyclingData
     , idFromString
     , idToString
+    , toSearchableString
     )
 
-import Data.Country as Country
+import Data.Country as Country exposing (Country)
 import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
 import Data.Textile.Material.Origin as Origin exposing (Origin)
@@ -84,8 +85,26 @@ getRecyclingData material materials =
         material.cffData
 
 
+toSearchableString : List Country -> Material -> String
+toSearchableString countries material =
+    String.join " "
+        [ material.id |> idToString
+        , material.name
+        , material.alias
+        , material.origin |> Origin.toString
+        , material.process |> Process.getDisplayName
+        , material.process.source
+        , material.defaultCountry |> Country.codeToString
+        , countries
+            |> Country.findByCode material.defaultCountry
+            |> Result.map .name
+            |> Result.withDefault ""
+        ]
+
+
 
 ---- Helpers
+
 
 findById : Id -> List Material -> Result String Material
 findById id =

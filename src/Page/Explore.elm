@@ -59,6 +59,7 @@ import Views.Modal as ModalView
 type alias Model =
     { dataset : Dataset
     , scope : Scope
+    , search : String
     , tableState : SortableTable.State
     }
 
@@ -69,6 +70,7 @@ type Msg
     | OpenDetail Route
     | ScopeChange Scope
     | SetTableState SortableTable.State
+    | UpdateSearch String
 
 
 init : Scope -> Dataset -> Session -> PageUpdate Model Msg
@@ -112,6 +114,7 @@ init scope dataset session =
     createPageUpdate session
         { dataset = dataset
         , scope = scope
+        , search = ""
         , tableState = SortableTable.initialSort initialSort
         }
 
@@ -173,6 +176,9 @@ update session msg model =
         SetTableState tableState ->
             createPageUpdate session { model | tableState = tableState }
 
+        UpdateSearch search ->
+            createPageUpdate session { model | search = search }
+
 
 {-| Create a page update preventing the body to be scrollable when one or more modals are opened.
 -}
@@ -207,8 +213,9 @@ datasetsMenuView { scope, dataset } =
 
 scopesMenuView : Session -> Model -> Html Msg
 scopesMenuView { enabledSections } model =
-    div [ class "d-flex align-items-center gap-3 mb-1" ]
-        [ label [ class "fw-bold", for "scope-selector" ] [ text "Secteur" ]
+    div [ class "d-flex align-items-center gap-3" ]
+        [ label [ class "fw-bold d-none d-sm-block", for "scope-selector" ]
+            [ text "Secteur" ]
         , [ ( Scope.Food, enabledSections.food )
           , ( Scope.Object, enabledSections.objects )
           , ( Scope.Textile, True )
@@ -681,8 +688,8 @@ getTextileScorePer100g { componentConfig, db } { query } =
         |> Result.withDefault 0
 
 
-explore : Session -> Model -> List (Html Msg)
-explore ({ db } as session) { scope, dataset, tableState } =
+exploreView : Session -> Model -> List (Html Msg)
+exploreView ({ db } as session) { scope, dataset, tableState, search } =
     let
         defaultCustomizations =
             SortableTable.defaultCustomizations
@@ -690,6 +697,7 @@ explore ({ db } as session) { scope, dataset, tableState } =
         tableConfig =
             { toId = always "" -- Placeholder
             , toMsg = SetTableState
+            , search = search
             , columns = []
             , customizations =
                 { defaultCustomizations
@@ -732,21 +740,38 @@ explore ({ db } as session) { scope, dataset, tableState } =
             objectExamplesExplorer session tableConfig tableState Scope.Veli maybeId
 
 
+searchInputView : Session -> Model -> Html Msg
+searchInputView _ { search } =
+    div [ class "d-flex justify-content-start align-items-center gap-2" ]
+        [ label [ for "search-field", class "visually-hidden" ] [ text "Rechercher" ]
+        , input
+            [ type_ "search"
+            , class "form-control mb-1"
+            , id "search-field"
+            , placeholder "Rechercher"
+            , value search
+            , onInput UpdateSearch
+            ]
+            []
+        ]
+
+
 view : Session -> Model -> ( String, List (Html Msg) )
 view session model =
     ( Dataset.label model.dataset ++ " | Explorer "
     , [ Container.centered [ class "pb-3" ]
-            [ div []
-                [ h1 [ class "mb-3" ] [ text "Explorateur" ]
-                , div [ class "row d-flex align-items-stretch mt-1 mx-0 g-0" ]
-                    [ div [ class "col-12 col-lg-5 d-flex align-items-center pb-2 pb-lg-0 mb-4 mb-lg-0 border-bottom ps-0 ms-0" ]
-                        [ scopesMenuView session model ]
-                    , div [ class "col-12 col-lg-7 pe-0 me-0" ]
-                        [ datasetsMenuView model ]
-                    ]
+            [ div [ class "row d-flex align-item-end" ]
+                [ div [ class "col-sm-8 mb-1" ] [ h1 [] [ text "Explorateur" ] ]
+                , div [ class "col-sm-4 mt-2" ] [ scopesMenuView session model ]
                 ]
-            , explore session model
-                |> div [ class "mt-3" ]
+            , div [ class "row d-flex align-items-end mt-1 mx-0 g-0" ]
+                [ div [ class "col-12 col-xl-3 col-xxl-4 border-bottom" ]
+                    [ searchInputView session model ]
+                , div [ class "col-12 col-xl-9 col-xxl-8 pe-0 me-0" ]
+                    [ datasetsMenuView model ]
+                ]
+            , div [ class "mt-3" ] <|
+                exploreView session model
             ]
       ]
     )

@@ -2,7 +2,6 @@ module Data.Process exposing
     ( Id
     , Process
     , Unit(..)
-    , asSearchableText
     , available
     , decode
     , decodeFromId
@@ -19,6 +18,7 @@ module Data.Process exposing
     , idToString
     , listAvailableMaterialTransforms
     , listByCategory
+    , toSearchableString
     , unitLabel
     , unitToString
     )
@@ -78,18 +78,6 @@ type Unit
     | TonKilometer
 
 
-asSearchableText : Process -> String
-asSearchableText process =
-    String.join " "
-        [ getDisplayName process
-        , getTechnicalName process
-        , process.categories |> List.map Category.toLabel |> String.join " "
-        , process.scopes |> List.map Scope.toString |> String.join " "
-        , process.comment
-        , process.source
-        ]
-
-
 {-| List processes which ids are not part of the provided list of ids
 -}
 available : List Id -> List Process -> List Process
@@ -141,8 +129,8 @@ decode impactsDecoder =
 encode : Process -> Encode.Value
 encode process =
     Encode.object
-        [  ( "activityName", encodeActivityName process.activityName ),
-        ( "categories", Encode.list Category.encode process.categories )
+        [ ( "activityName", encodeActivityName process.activityName )
+        , ( "categories", Encode.list Category.encode process.categories )
         , ( "comment", Encode.string process.comment )
         , ( "density", Encode.float process.density )
         , ( "displayName", EncodeExtra.maybe Encode.string process.displayName )
@@ -260,6 +248,19 @@ listByCategory category =
 listByUnit : Unit -> List Process -> List Process
 listByUnit unit =
     List.filter (.unit >> (==) unit)
+
+
+toSearchableString : Process -> String
+toSearchableString process =
+    String.join " "
+        [ idToString process.id
+        , getDisplayName process
+        , getTechnicalName process
+        , process.categories |> List.map Category.toLabel |> String.join " "
+        , process.scopes |> List.map Scope.toString |> String.join " "
+        , process.comment
+        , process.source
+        ]
 
 
 unitLabel : Unit -> String

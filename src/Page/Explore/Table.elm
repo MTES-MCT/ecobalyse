@@ -10,6 +10,7 @@ module Page.Explore.Table exposing
 import Base64
 import Csv.Encode as EncodeCsv exposing (Csv)
 import Data.Scope as Scope exposing (Scope)
+import Data.Text as Text
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -17,6 +18,7 @@ import Route exposing (Route)
 import String.Normalize as Normalize
 import Table as SortableTable
 import Views.Alert as Alert
+import Views.Markdown as Markdown
 import Views.Table as TableView
 
 
@@ -24,6 +26,7 @@ type alias Table data comparable msg =
     { filename : String
     , toId : data -> String
     , toRoute : data -> Route
+    , toSearchableString : data -> String
     , columns : List (Column data comparable msg)
     , legend : List (Html msg)
     }
@@ -48,6 +51,7 @@ type alias Config data msg =
     , toMsg : SortableTable.State -> msg
     , columns : List (SortableTable.Column data msg)
     , customizations : SortableTable.Customizations data msg
+    , search : String
     }
 
 
@@ -87,7 +91,7 @@ viewList :
     -> Html msg
 viewList routeToMsg defaultConfig tableState scope createTable items =
     let
-        ({ filename, toId, toRoute, columns, legend } as table) =
+        ({ filename, toId, toRoute, toSearchableString, columns, legend } as table) =
             createTable { detailed = False, scope = scope }
 
         customizations =
@@ -95,18 +99,21 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
 
         config =
             SortableTable.customConfig
-                { defaultConfig
-                    | toId = toId
-                    , columns =
-                        columns
-                            |> List.map
-                                (\{ label, toCell, toValue } ->
-                                    SortableTable.veryCustomColumn
-                                        { name = label
-                                        , viewData = \item -> { attributes = [], children = [ toCell item ] }
-                                        , sorter =
-                                            -- Note: yes, this looks odd but provides necessary type hints
-                                            --       to the compiler so all branches are type-consistent
+                { toId = toId
+                , toMsg = defaultConfig.toMsg
+                , columns =
+                    columns
+                        |> List.map
+                            (\{ label, toCell, toValue } ->
+                                SortableTable.veryCustomColumn
+                                    { name = label
+                                    , viewData = \item -> { attributes = [], children = [ toCell item ] }
+                                    , sorter =
+                                        -- Search handles sorting its own way
+                                        if String.trim defaultConfig.search /= "" then
+                                            SortableTable.unsortable
+
+                                        else
                                             case toValue of
                                                 FloatValue getFloat ->
                                                     SortableTable.increasingOrDecreasingBy getFloat
@@ -123,18 +130,22 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
                                                             >> String.toLower
                                                             >> Normalize.removeDiacritics
                                                         )
-                                        }
-                                )
-                    , customizations =
-                        { customizations
-                            | rowAttrs = toRoute >> routeToMsg >> onClick >> List.singleton
-                        }
+                                    }
+                            )
+                , customizations =
+                    { customizations
+                        | rowAttrs = toRoute >> routeToMsg >> onClick >> List.singleton
+                    }
                 }
+
+        resultItems =
+            items
+                |> searchItems defaultConfig toSearchableString
 
         csv =
             { filename = "ecobalyse-" ++ Scope.toString scope ++ "-" ++ filename ++ ".csv"
             , content =
-                items
+                resultItems
                     |> toCSV table
                     |> EncodeCsv.toString
             }
@@ -154,7 +165,22 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
     else
         div []
             [ div [ class "DatasetTable table-responsive" ]
-                [ SortableTable.view config tableState items
+                [ case resultItems of
+                    [] ->
+                        Alert.simple
+                            { attributes = []
+                            , close = Nothing
+                            , content =
+                                [ "Aucun résultat pour la recherche *«{search}»*"
+                                    |> String.replace "{search}" defaultConfig.search
+                                    |> Markdown.simple []
+                                ]
+                            , level = Alert.Info
+                            , title = Nothing
+                            }
+
+                    nonEmptyResult ->
+                        nonEmptyResult |> SortableTable.view config tableState
                 , div [ class "text-muted fs-7" ] legend
                 ]
             , div [ class "text-end pt-3" ]
@@ -166,6 +192,15 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
                     [ text "Télécharger ces données au format CSV" ]
                 ]
             ]
+
+
+searchItems : Config data msg -> (data -> String) -> List data -> List data
+searchItems { search } toSearchableString =
+    Text.search
+        { minQueryLength = 2
+        , query = search
+        , toString = toSearchableString
+        }
 
 
 toCSV : Table data comparable msg -> List data -> Csv

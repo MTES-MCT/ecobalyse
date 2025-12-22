@@ -5,7 +5,7 @@ module Page.Explore.ObjectExamples exposing (table)
 
 import Data.Component as Component
 import Data.Dataset as Dataset
-import Data.Example exposing (Example)
+import Data.Example as Example exposing (Example)
 import Data.Scope as Scope exposing (Scope)
 import Data.Uuid as Uuid
 import Html exposing (..)
@@ -34,6 +34,7 @@ table { maxScore } { detailed, scope } =
                     Dataset.ObjectExamples
                )
             >> Route.Explore scope
+    , toSearchableString = Tuple.first >> Example.toSearchableString
     , legend = []
     , columns =
         [ { label = "Nom"

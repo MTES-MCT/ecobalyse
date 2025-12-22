@@ -1,18 +1,27 @@
-module Data.Text exposing (search)
+module Data.Text exposing
+    ( search
+    , toWords
+    )
 
+import Regex
 import String.Normalize as Normalize
 
 
-type alias SearchConfig element comparable =
+type alias SearchConfig element =
     { minQueryLength : Int
     , query : String
-    , sortBy : Maybe (element -> comparable)
     , toString : element -> String
     }
 
 
-search : SearchConfig element comparable -> List element -> List element
-search { minQueryLength, query, sortBy, toString } elements =
+{-| Filter a list of stringifyable items against provided search terms:
+
+  - case and accented letters insensitive
+  - exact matches listed first, partial matches second, rest is unlisted
+
+-}
+search : SearchConfig element -> List element -> List element
+search { minQueryLength, query, toString } elements =
     let
         trimmedQuery =
             String.trim query
@@ -24,34 +33,35 @@ search { minQueryLength, query, sortBy, toString } elements =
         let
             searchWords =
                 toWords trimmedQuery
-        in
-        elements
-            |> List.map (\element -> ( toWords (toString element), element ))
-            |> List.filter
-                (\( words, _ ) ->
-                    List.all (\w -> List.any (String.contains w) words) searchWords
-                )
-            |> (case sortBy of
-                    Just sortBy_ ->
-                        List.sortBy <| Tuple.second >> sortBy_
 
-                    Nothing ->
-                        identity
-               )
-            |> List.map Tuple.second
+            checkMatches fn element =
+                searchWords
+                    |> List.all
+                        (\word ->
+                            fn (String.toLower word) <|
+                                toWords (toString element)
+                        )
+
+            exactWordsMatches =
+                elements
+                    |> List.filter (checkMatches List.member)
+
+            partialWordsMatches =
+                elements
+                    |> List.filter
+                        (\element ->
+                            not (List.member element exactWordsMatches)
+                                && checkMatches (String.contains >> List.any) element
+                        )
+        in
+        exactWordsMatches ++ partialWordsMatches
 
 
 toWords : String -> List String
 toWords =
     String.toLower
         >> Normalize.removeDiacritics
-        >> String.foldl
-            (\c acc ->
-                if not (List.member c [ '(', ')' ]) then
-                    String.cons c acc
-
-                else
-                    acc
+        >> Regex.split
+            (Regex.fromString "[\\W_]+"
+                |> Maybe.withDefault Regex.never
             )
-            ""
-        >> String.split " "
