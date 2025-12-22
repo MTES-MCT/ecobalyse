@@ -34,35 +34,34 @@ search { minQueryLength, query, toString } elements =
             searchWords =
                 toWords trimmedQuery
 
-            checkAll fn element =
+            checkMatches fn element =
                 searchWords
-                    |> List.all (\word -> fn word (toWords (toString element)))
+                    |> List.all
+                        (\word ->
+                            fn (String.toLower word) <|
+                                toWords (toString element)
+                        )
 
-            exactWordMatches =
+            exactWordsMatches =
                 elements
-                    |> List.filter (checkAll (String.toLower >> List.member))
+                    |> List.filter (checkMatches List.member)
 
             partialWordsMatches =
                 elements
                     |> List.filter
                         (\element ->
-                            not (List.member element exactWordMatches)
-                                && checkAll (String.contains >> List.any) element
+                            not (List.member element exactWordsMatches)
+                                && checkMatches (String.contains >> List.any) element
                         )
         in
-        exactWordMatches ++ partialWordsMatches
+        exactWordsMatches ++ partialWordsMatches
 
 
 toWords : String -> List String
 toWords =
     String.toLower
         >> Normalize.removeDiacritics
-        >> String.trim
-        >> (case Regex.fromString "[\\W_-]+" of
-                Just regex ->
-                    Regex.replace regex (always " ")
-
-                Nothing ->
-                    identity
-           )
-        >> String.split " "
+        >> Regex.split
+            (Regex.fromString "[\\W_]+"
+                |> Maybe.withDefault Regex.never
+            )

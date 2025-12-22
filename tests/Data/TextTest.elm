@@ -11,8 +11,7 @@ suite =
     describe "Data.Text"
         [ describe "toWords"
             [ it "should transform a string to a list of searchable words"
-                ("Abc1 - dE1f / h2Ij (3klM) été-hiver"
-                    |> Text.toWords
+                (Text.toWords "Abc1 - dE1f / h2Ij (3klM) été-hiver"
                     |> Expect.equal [ "abc1", "de1f", "h2ij", "3klm", "ete", "hiver" ]
                 )
             ]
@@ -22,13 +21,13 @@ suite =
                     |> Text.search { minQueryLength = 2, query = "x", toString = identity }
                     |> Expect.equal sampleItems
                 )
-            , it "should sort a single result placing exact word match first"
+            , it "should search a term placing exact word matches first"
                 (sampleItems
                     |> Text.search { minQueryLength = 2, query = "def", toString = identity }
                     |> List.head
                     |> Expect.equal (Just "def")
                 )
-            , it "should sort multiple results placing exact word matches first"
+            , it "should search a term placing exact word matches first, partial matches second"
                 (sampleItems
                     |> Text.search { minQueryLength = 2, query = "def", toString = identity }
                     |> Expect.equal [ "def", "abc def", "defy" ]

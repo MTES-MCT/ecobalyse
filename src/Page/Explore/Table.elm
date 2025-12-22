@@ -197,7 +197,7 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
 searchItems : Config data msg -> (data -> String) -> List data -> List data
 searchItems { search } toSearchableString =
     Text.search
-        { minQueryLength = 1
+        { minQueryLength = 2
         , query = search
         , toString = toSearchableString
         }
