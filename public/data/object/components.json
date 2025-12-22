@@ -1582,6 +1582,19 @@
     "scopes": ["object"]
   },
   {
+    "comment": null,
+    "elements": [
+      {
+        "amount": 0.11,
+        "material": "59b42284-3e45-5343-8a20-1d7d66137461",
+        "transforms": ["111539de-deea-588a-9581-6f6ceaa2dfa9"]
+      }
+    ],
+    "id": "c5d86519-e56a-4ad7-aada-d4f7fffd5628",
+    "name": "Toile protection PP (jardinière pin 80 * 40 * 28)",
+    "scopes": ["object"]
+  },
+  {
     "comment": "Ensemble des éléments de transmission pour un vélo, avec vitesses et plateau unique, incluant pédalier et pédales, chaine, cassette, levier de vitesse, câble et gaine associée, dérailleur.",
     "elements": [
       {
