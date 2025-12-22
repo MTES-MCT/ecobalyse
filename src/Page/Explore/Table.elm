@@ -109,22 +109,27 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
                                     { name = label
                                     , viewData = \item -> { attributes = [], children = [ toCell item ] }
                                     , sorter =
-                                        case toValue of
-                                            FloatValue getFloat ->
-                                                SortableTable.increasingOrDecreasingBy getFloat
+                                        -- Search handles sorting its own way
+                                        if String.trim defaultConfig.search /= "" then
+                                            SortableTable.unsortable
 
-                                            IntValue getInt ->
-                                                SortableTable.increasingOrDecreasingBy getInt
+                                        else
+                                            case toValue of
+                                                FloatValue getFloat ->
+                                                    SortableTable.increasingOrDecreasingBy getFloat
 
-                                            NoValue ->
-                                                SortableTable.unsortable
+                                                IntValue getInt ->
+                                                    SortableTable.increasingOrDecreasingBy getInt
 
-                                            StringValue getString ->
-                                                SortableTable.increasingOrDecreasingBy
-                                                    (getString
-                                                        >> String.toLower
-                                                        >> Normalize.removeDiacritics
-                                                    )
+                                                NoValue ->
+                                                    SortableTable.unsortable
+
+                                                StringValue getString ->
+                                                    SortableTable.increasingOrDecreasingBy
+                                                        (getString
+                                                            >> String.toLower
+                                                            >> Normalize.removeDiacritics
+                                                        )
                                     }
                             )
                 , customizations =

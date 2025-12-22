@@ -27,15 +27,26 @@ search { minQueryLength, query, toString } elements =
         let
             searchWords =
                 toWords trimmedQuery
+
+            exactWordMatches =
+                elements
+                    |> List.filter
+                        (\element ->
+                            List.all (\w -> List.member (String.toLower w) (toWords (toString element))) searchWords
+                        )
         in
-        elements
-            |> List.filter
-                (\element ->
-                    -- Partial word match
-                    -- List.all (\w -> List.any (String.contains w) (toWords (toString element))) searchWords
-                    -- Full word match
-                    List.all (\w -> List.member (String.toLower w) (toWords (toString element))) searchWords
-                )
+        List.concat
+            [ -- Full word matches first
+              exactWordMatches
+
+            -- Partial word matches last
+            , elements
+                |> List.filter
+                    (\element ->
+                        not (List.member element exactWordMatches)
+                            && List.all (\w -> List.any (String.contains w) (toWords (toString element))) searchWords
+                    )
+            ]
 
 
 toWords : String -> List String
