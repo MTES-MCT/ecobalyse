@@ -29,13 +29,13 @@ search { minQueryLength, query, toString } elements =
                 toWords trimmedQuery
         in
         elements
-            |> List.map (\element -> ( toWords (toString element), element ))
             |> List.filter
-                (\( words, _ ) ->
-                    -- List.all (\w -> List.member (String.toLower w) words) searchWords
-                    List.all (\w -> List.any (String.contains w) words) searchWords
+                (\element ->
+                    -- Partial word match
+                    -- List.all (\w -> List.any (String.contains w) (toWords (toString element))) searchWords
+                    -- Full word match
+                    List.all (\w -> List.member (String.toLower w) (toWords (toString element))) searchWords
                 )
-            |> List.map Tuple.second
 
 
 toWords : String -> List String
