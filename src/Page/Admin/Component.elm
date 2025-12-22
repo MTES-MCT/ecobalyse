@@ -380,7 +380,6 @@ processFilters scopes search =
         >> Text.search
             { minQueryLength = 2
             , query = search
-            , sortBy = Nothing
             , toString = .name
             }
 

@@ -3,16 +3,15 @@ module Data.Text exposing (search)
 import String.Normalize as Normalize
 
 
-type alias SearchConfig element comparable =
+type alias SearchConfig element =
     { minQueryLength : Int
     , query : String
-    , sortBy : Maybe (element -> comparable)
     , toString : element -> String
     }
 
 
-search : SearchConfig element comparable -> List element -> List element
-search { minQueryLength, query, sortBy, toString } elements =
+search : SearchConfig element -> List element -> List element
+search { minQueryLength, query, toString } elements =
     let
         trimmedQuery =
             String.trim query
@@ -31,13 +30,6 @@ search { minQueryLength, query, sortBy, toString } elements =
                 (\( words, _ ) ->
                     List.all (\w -> List.any (String.contains w) words) searchWords
                 )
-            |> (case sortBy of
-                    Just sortBy_ ->
-                        List.sortBy <| Tuple.second >> sortBy_
-
-                    Nothing ->
-                        identity
-               )
             |> List.map Tuple.second
 
 

@@ -20,7 +20,6 @@ init toString availableElements =
                             |> Text.search
                                 { minQueryLength = 1
                                 , query = lastChoices.query
-                                , sortBy = Nothing
                                 , toString = toString
                                 }
                 }

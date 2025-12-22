@@ -194,7 +194,6 @@ searchItems { search } toSearchableString =
     Text.search
         { minQueryLength = 1
         , query = search
-        , sortBy = Nothing
         , toString = toSearchableString
         }
 
