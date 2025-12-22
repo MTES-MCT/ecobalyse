@@ -1,20 +1,48 @@
 [
   {
     "category": "",
-    "id": "b8e768d4-35d9-454e-8b3b-e25160ce6d4c",
-    "name": "Canapé 3p (à finaliser)",
+    "id": "78dfebcb-9eab-4f83-a260-5c5dd24d4fac",
+    "name": "Table 4p chêne et acier (250 x 100)",
     "query": {
       "components": [
         {
-          "id": "330c2ce9-f91b-42f3-bcdd-335da7f1d141",
-          "quantity": 1
+          "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973",
+          "quantity": 4
         },
         {
-          "id": "5f74cda2-19a9-47c7-9fd7-7588c24adf21",
+          "id": "260bdfe2-1bef-4fd6-bf68-6e6174686d0d",
           "quantity": 1
-        },
+        }
+      ],
+      "durability": 1
+    },
+    "scope": "object"
+  },
+  {
+    "category": "",
+    "id": "ce3c8c63-aef7-4090-bbab-479e826fe4b9",
+    "name": "Boite plastique 45L (Chine)",
+    "query": {
+      "components": [
         {
-          "id": "b09809e2-9616-49d0-a039-f26d4806d141",
+          "country": "CN",
+          "id": "10e199b6-7e5f-47d9-bc85-9959c4e9ee62",
+          "quantity": 1
+        }
+      ],
+      "durability": 1
+    },
+    "scope": "object"
+  },
+  {
+    "category": "",
+    "id": "6ab8769d-24d9-4990-8f00-ae1b5823946e",
+    "name": "Boite plastique 45L (France)",
+    "query": {
+      "components": [
+        {
+          "country": "FR",
+          "id": "10e199b6-7e5f-47d9-bc85-9959c4e9ee62",
           "quantity": 1
         }
       ],
@@ -31,6 +59,149 @@
         {
           "id": "10e199b6-7e5f-47d9-bc85-9959c4e9ee62",
           "quantity": 3
+        }
+      ],
+      "durability": 1
+    },
+    "scope": "object"
+  },
+  {
+    "category": "",
+    "id": "ffea421b-03b4-42f1-bf39-f17362d23cb0",
+    "name": "Jardinière d'extérieur en bois (séchage bois au four)",
+    "query": {
+      "components": [
+        {
+          "id": "6ff284b4-976d-4cf4-a4be-164f1c46ede2",
+          "quantity": 1
+        },
+        {
+          "id": "c5d86519-e56a-4ad7-aada-d4f7fffd5628",
+          "quantity": 1
+        }
+      ],
+      "durability": 1
+    },
+    "scope": "object"
+  },
+  {
+    "category": "",
+    "id": "141eea6d-5ebb-434b-9b02-da99db1d0a28",
+    "name": "Jardinière d'extérieur en bois (séchage bois en extérieur)",
+    "query": {
+      "components": [
+        {
+          "id": "c5d86519-e56a-4ad7-aada-d4f7fffd5628",
+          "quantity": 1
+        },
+        {
+          "id": "c845482e-8347-4a3c-9dd4-392d8fc2cb3f",
+          "quantity": 1
+        }
+      ],
+      "durability": 1
+    },
+    "scope": "object"
+  },
+  {
+    "category": "",
+    "id": "3caed878-2825-43cc-8f59-84ba39dc1206",
+    "name": "Caisse de rangement en bois (40 x 30 x 20)",
+    "query": {
+      "components": [
+        {
+          "id": "f27f7f37-5165-49b8-9f41-36d4f15a9170",
+          "quantity": 2
+        }
+      ],
+      "durability": 1
+    },
+    "scope": "object"
+  },
+  {
+    "category": "",
+    "id": "ac90b072-6b5f-4524-a65f-fbe95dd9c52a",
+    "name": "Canapé 3 places",
+    "query": {
+      "components": [
+        {
+          "id": "b99b2141-12c8-4a33-bd16-4f9fa10eb3ae",
+          "quantity": 2
+        },
+        {
+          "id": "b09809e2-9616-49d0-a039-f26d4806d141",
+          "quantity": 1
+        },
+        {
+          "custom": {
+            "elements": [
+              {
+                "amount": 9,
+                "material": "7adec581-5650-5c76-b119-e907f2534de6",
+                "transforms": []
+              }
+            ],
+            "name": "Mousse polyurethane canapé 3p"
+          },
+          "id": "01181ac8-bb9e-431d-aee4-f1ca97737d88",
+          "quantity": 1
+        },
+        {
+          "id": "3955d88b-4c39-4e1e-9af1-0a0908ea7d5f",
+          "quantity": 3
+        },
+        {
+          "id": "a5d0097f-1121-407b-acb1-35065d4f9fda",
+          "quantity": 3
+        },
+        {
+          "id": "fa9820b7-5694-4b33-834e-03adc9a7b9b1",
+          "quantity": 4
+        }
+      ],
+      "durability": 1
+    },
+    "scope": "object"
+  },
+  {
+    "category": "",
+    "id": "b91b3f52-5fc9-49a7-b0de-d333d6b636ec",
+    "name": "Dressing 205 x 120 x 54",
+    "query": {
+      "components": [
+        {
+          "custom": {
+            "elements": [
+              {
+                "amount": 0.2,
+                "material": "82608838-0607-5ccc-a8cf-9c9c0d26994a",
+                "transforms": ["6e1779a0-3bc7-5850-9820-02a037813ce7"]
+              }
+            ],
+            "name": "Charnières en acier"
+          },
+          "id": "fc1c8108-4fff-4952-b842-a35125e9c5dc",
+          "quantity": 8
+        },
+        {
+          "id": "3aaebbee-a087-404b-bce8-3a710245b0fa",
+          "quantity": 1
+        },
+        {
+          "id": "01181ac8-bb9e-431d-aee4-f1ca97737d88",
+          "quantity": 1
+        },
+        {
+          "id": "3955d88b-4c39-4e1e-9af1-0a0908ea7d5f",
+          "quantity": 1
+        },
+        {
+          "id": "a5d0097f-1121-407b-acb1-35065d4f9fda",
+          "quantity": 1
+        },
+        {
+          "id": "53dc3966-c0c5-4ce2-86da-74583fda95ae",
+          "quantity": 15
         }
       ],
       "durability": 1
