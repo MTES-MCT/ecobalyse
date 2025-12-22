@@ -22,10 +22,16 @@ suite =
                     |> Text.search { minQueryLength = 2, query = "x", toString = identity }
                     |> Expect.equal sampleItems
                 )
-            , it "should sort results placing exact word matches first"
-                ([ "abc", "def", "ghi", "defy" ]
+            , it "should sort a single result placing exact word match first"
+                (sampleItems
                     |> Text.search { minQueryLength = 2, query = "def", toString = identity }
-                    |> Expect.equal [ "def", "defy" ]
+                    |> List.head
+                    |> Expect.equal (Just "def")
+                )
+            , it "should sort multiple results placing exact word matches first"
+                (sampleItems
+                    |> Text.search { minQueryLength = 2, query = "def", toString = identity }
+                    |> Expect.equal [ "def", "abc def", "defy" ]
                 )
             ]
         ]
@@ -33,4 +39,4 @@ suite =
 
 sampleItems : List String
 sampleItems =
-    [ "abc", "defy", "def", "ghi" ]
+    [ "abc", "defy", "def", "ghi", "abc def" ]
