@@ -85,14 +85,14 @@ test.describe("auth", () => {
     await test.step("api tokens", async () => {
       await page.getByRole("link", { name: "Mon compte" }).click();
 
-      await page.getByRole("button", { name: "Jetons d'API" }).click();
+      await page.getByRole("button", { name: "Jetons d’API" }).click();
 
-      await expect(page.getByText("Aucun jeton d'API actif")).toBeVisible();
+      await expect(page.getByText("Aucun jeton d’API actif")).toBeVisible();
 
-      await page.getByRole("button", { name: "Créer un jeton d'API" }).click();
+      await page.getByRole("button", { name: "Créer un jeton d’API" }).click();
 
       await expect(
-        page.getByRole("heading", { name: "Un nouveau jeton d'API a été créé" }),
+        page.getByRole("heading", { name: "Un nouveau jeton d’API a été créé" }),
       ).toBeVisible();
 
       const apiTokenField = page.getByTestId("auth-api-token");
@@ -121,7 +121,7 @@ test.describe("auth", () => {
       expect(apiResponseJson.impacts.cch).toBeGreaterThan(0);
 
       await page.reload();
-      await page.getByRole("button", { name: "Jetons d'API" }).click();
+      await page.getByRole("button", { name: "Jetons d’API" }).click();
 
       await expect(apiTokensTable.locator("tbody tr td:nth-child(2)")).not.toHaveText(
         "Jamais utilisé",
@@ -130,16 +130,16 @@ test.describe("auth", () => {
       await page.getByRole("button", { name: "Supprimer ce jeton" }).click();
 
       await expect(
-        page.getByRole("heading", { name: "Supprimer et invalider ce jeton d'API" }),
+        page.getByRole("heading", { name: "Supprimer et invalider ce jeton d’API" }),
       ).toBeVisible();
 
       await expect(page.getByText("Dernière utilisation")).toBeVisible();
 
       await page.getByRole("button", { name: "Supprimer et invalider" }).click();
 
-      await expectNotification(page, "Le jeton d'API a été supprimé");
+      await expectNotification(page, "Le jeton d’API a été supprimé");
 
-      await expect(page.getByText("Aucun jeton d'API actif")).toBeVisible();
+      await expect(page.getByText("Aucun jeton d’API actif")).toBeVisible();
 
       // Try reusing the deleted token
       const apiResponse2 = await fetch("http://localhost:1234/api/textile/simulator/detailed", {
