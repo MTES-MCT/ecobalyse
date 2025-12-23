@@ -131,7 +131,7 @@ type Msg
     | UpdateBookmarkName String
     | UpdateDistribution String
     | UpdateIngredient Query.IngredientQuery Query.IngredientQuery
-    | UpdatePackaging Process.Id Query.ProcessQuery
+    | UpdatePackaging Process.Id Query.PackagingQuery
     | UpdatePreparation Preparation.Id Preparation.Id
     | UpdateRenamedBookmarkName Bookmark String
     | UpdateTransform Query.ProcessQuery
@@ -1054,7 +1054,7 @@ packagingListView db selectedImpact recipe results =
                             , processQuery = { id = packaging.process.id, mass = packaging.mass }
                             , impact =
                                 packaging
-                                    |> Recipe.computeProcessImpacts
+                                    |> Recipe.computePackagingImpacts
                                     |> Format.formatImpact selectedImpact
                             , updateEvent = UpdatePackaging packaging.process.id
                             , deleteEvent = DeletePackaging packaging.process.id
@@ -1146,9 +1146,7 @@ transportToDistributionView wellKnown selectedImpact recipe results =
             [ text "Masse : "
             , Recipe.getTransformedIngredientsMass wellKnown recipe
                 |> Format.kg
-            , text " + Emballage : "
-            , Recipe.getPackagingMass recipe
-                |> Format.kg
+            , text " + Emballage : aggrégé aux procédés mobilisés"
             ]
         , div [ class "d-flex justify-content-between" ]
             [ div []
@@ -1181,21 +1179,17 @@ transportToConsumptionView wellKnown recipe =
         [ text <| "Masse : "
         , Recipe.getTransformedIngredientsMass wellKnown recipe
             |> Format.kg
-        , text " + Emballage : "
-        , Recipe.getPackagingMass recipe
-            |> Format.kg
+        , text " + Emballage : aggrégé aux procédés mobilisés"
         ]
 
 
-transportAfterConsumptionView : Recipe -> Recipe.Results -> Html Msg
-transportAfterConsumptionView recipe result =
+transportAfterConsumptionView : Recipe.Results -> Html Msg
+transportAfterConsumptionView result =
     DownArrow.view
         []
         [ text <| "Masse : "
         , Format.kg result.preparedMass
-        , text " + Emballage : "
-        , Recipe.getPackagingMass recipe
-            |> Format.kg
+        , text " + Emballage : aggrégé aux procédés mobilisés"
         ]
 
 
@@ -1450,7 +1444,7 @@ stepListView ({ food } as db) session { impact, initialQuery } recipe results =
         , transportToConsumptionView food.wellKnown recipe
         , div [ class "card shadow-sm" ]
             (consumptionView db impact recipe results)
-        , transportAfterConsumptionView recipe results
+        , transportAfterConsumptionView results
         , div [ class "d-flex align-items-center justify-content-between mt-3 mb-5" ]
             [ a [ Route.href Route.Home ]
                 [ text "« Retour à l'accueil" ]

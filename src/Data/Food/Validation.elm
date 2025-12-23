@@ -3,7 +3,7 @@ module Data.Food.Validation exposing (validate)
 import Data.Country as Country
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Preparation as Preparation
-import Data.Food.Query exposing (IngredientQuery, ProcessQuery, Query)
+import Data.Food.Query exposing (IngredientQuery, PackagingQuery, ProcessQuery, Query)
 import Data.Process as Process
 import Data.Scope as Scope
 import Data.Validation as Validation
@@ -19,7 +19,7 @@ validate db query =
     Ok Query
         |> Validation.ok "distribution" query.distribution
         |> Validation.list "ingredients" query.ingredients (validateIngredient db)
-        |> Validation.list "packaging" query.packaging (validateProcess db)
+        |> Validation.list "packaging" query.packaging (validatePackaging db)
         |> Validation.boundedList { max = Just 2, min = 0 } "preparation" query.preparation validatePreparation
         |> Validation.maybe "transform" query.transform (validateProcess db)
 
@@ -40,6 +40,15 @@ validateIngredient db ingredientQuery =
         |> RE.andMap (Ok ingredientQuery.planeTransport)
 
 
+validateAmount : Float -> Result String Float
+validateAmount amount =
+    if amount <= 0 then
+        Err "La quantité doit être supérieure à zéro"
+
+    else
+        Ok amount
+
+
 validateMass : Mass -> Result String Mass
 validateMass mass =
     if Mass.inKilograms mass <= 0 then
@@ -58,6 +67,17 @@ validateMaybe fn =
 validatePreparation : Preparation.Id -> Result String Preparation.Id
 validatePreparation =
     Preparation.findById >> Result.map .id
+
+
+validatePackaging : Db -> PackagingQuery -> Result String PackagingQuery
+validatePackaging db packagingQuery =
+    Ok PackagingQuery
+        |> RE.andMap
+            (db.processes
+                |> Process.findById packagingQuery.id
+                |> Result.map .id
+            )
+        |> RE.andMap (validateAmount packagingQuery.amount)
 
 
 validateProcess : Db -> ProcessQuery -> Result String ProcessQuery
