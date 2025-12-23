@@ -1,5 +1,6 @@
 module Data.Food.Query exposing
     ( IngredientQuery
+    , PackagingQuery
     , ProcessQuery
     , Query
     , addIngredient
@@ -53,10 +54,16 @@ type alias ProcessQuery =
     }
 
 
+type alias PackagingQuery =
+    { id : Process.Id
+    , amount : Float
+    }
+
+
 type alias Query =
     { distribution : Maybe Retail.Distribution
     , ingredients : List IngredientQuery
-    , packaging : List ProcessQuery
+    , packaging : List PackagingQuery
     , preparation : List Preparation.Id
     , transform : Maybe ProcessQuery
     }
@@ -81,7 +88,7 @@ addIngredient ingredient query =
         |> updateTransformMass
 
 
-addPackaging : ProcessQuery -> Query -> Query
+addPackaging : PackagingQuery -> Query -> Query
 addPackaging packaging query =
     { query
         | packaging =
@@ -106,7 +113,7 @@ decode =
     Decode.succeed Query
         |> DU.strictOptional "distribution" Retail.decode
         |> Pipe.required "ingredients" (Decode.list decodeIngredient)
-        |> Pipe.optional "packaging" (Decode.list decodeProcess) []
+        |> Pipe.optional "packaging" (Decode.list decodePackaging) []
         |> Pipe.optional "preparation" (Decode.list Preparation.decodeId) []
         |> DU.strictOptional "transform" decodeProcess
 
@@ -132,6 +139,13 @@ decodeMassInGrams : Decoder Mass
 decodeMassInGrams =
     Decode.float
         |> Decode.map Mass.grams
+
+
+decodePackaging : Decoder PackagingQuery
+decodePackaging =
+    Decode.map2 PackagingQuery
+        (Decode.field "id" Process.decodeId)
+        (Decode.field "amount" Decode.float)
 
 
 decodeProcess : Decoder ProcessQuery
@@ -189,7 +203,7 @@ encode v =
                     Nothing
 
                 list ->
-                    Encode.list encodeProcess list |> Just
+                    Encode.list encodePackaging list |> Just
           )
         , ( "distribution", v.distribution |> Maybe.map Retail.encode )
         , ( "preparation"
@@ -220,6 +234,14 @@ encodeIngredient v =
 encodeMassAsGrams : Mass -> Encode.Value
 encodeMassAsGrams =
     Mass.inGrams >> Encode.float
+
+
+encodePackaging : PackagingQuery -> Encode.Value
+encodePackaging v =
+    Encode.object
+        [ ( "id", Process.encodeId v.id )
+        , ( "amount", Encode.float v.amount )
+        ]
 
 
 encodeProcess : ProcessQuery -> Encode.Value
@@ -280,7 +302,7 @@ updateIngredient oldIngredientId newIngredient query =
         |> updateTransformMass
 
 
-updatePackaging : Process.Id -> ProcessQuery -> Query -> Query
+updatePackaging : Process.Id -> PackagingQuery -> Query -> Query
 updatePackaging oldPackagingProcessId newPackaging query =
     { query
         | packaging =
