@@ -8,12 +8,12 @@ module Data.Food.Recipe exposing
     , compute
     , computeIngredientComplementsImpacts
     , computeIngredientTransport
+    , computePackagingImpacts
     , computeProcessImpacts
     , deletePackaging
     , encodeResults
     , fromQuery
     , getMassAtPackaging
-    , getPackagingMass
     , getTransformedIngredientsMass
     , ingredientQueryFromIngredient
     , processQueryFromProcess
@@ -56,7 +56,7 @@ france =
 
 
 type alias Packaging =
-    { mass : Mass
+    { amount : Float
     , process : Process.Process
     }
 
@@ -198,7 +198,7 @@ compute ({ food } as db) =
 
                     packagingImpacts =
                         packaging
-                            |> List.map computeProcessImpacts
+                            |> List.map computePackagingImpacts
                             |> Impact.sumImpacts
 
                     preparationImpacts =
@@ -311,6 +311,15 @@ computeImpact mass _ =
     Unit.impactToFloat
         >> (*) (Mass.inKilograms mass)
         >> Unit.impact
+
+
+computePackagingImpacts : { a | amount : Float, process : Process } -> Impacts
+computePackagingImpacts item =
+    item.process.impacts
+        |> Impact.mapImpacts
+            (\_ impact ->
+                Unit.impactToFloat impact * item.amount |> Unit.impact
+            )
 
 
 computeProcessImpacts : { a | mass : Mass, process : Process } -> Impacts
@@ -484,15 +493,7 @@ getMassAtPackaging : WellKnown -> Recipe -> Mass
 getMassAtPackaging wellKnown recipe =
     Quantity.sum
         [ getTransformedIngredientsMass wellKnown recipe
-        , getPackagingMass recipe
         ]
-
-
-getPackagingMass : Recipe -> Mass
-getPackagingMass recipe =
-    recipe.packaging
-        |> List.map .mass
-        |> Quantity.sum
 
 
 getPreparedMassAtConsumer : WellKnown -> Recipe -> Mass
@@ -610,17 +611,17 @@ ingredientQueryFromIngredient ingredient =
     }
 
 
-packagingListFromQuery : Db -> { a | packaging : List BuilderQuery.ProcessQuery } -> Result String (List Packaging)
+packagingListFromQuery : Db -> { a | packaging : List BuilderQuery.PackagingQuery } -> Result String (List Packaging)
 packagingListFromQuery db query =
     query.packaging
         |> RE.combineMap (packagingFromQuery db)
 
 
-packagingFromQuery : Db -> BuilderQuery.ProcessQuery -> Result String Packaging
-packagingFromQuery { processes } { id, mass } =
+packagingFromQuery : Db -> BuilderQuery.PackagingQuery -> Result String Packaging
+packagingFromQuery { processes } { id, amount } =
     processes
         |> Process.findById id
-        |> Result.map (Packaging mass)
+        |> Result.map (Packaging amount)
 
 
 processQueryFromProcess : Process -> BuilderQuery.ProcessQuery
