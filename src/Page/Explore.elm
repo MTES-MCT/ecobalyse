@@ -50,7 +50,7 @@ import Page.Explore.TextileProducts as TextileProducts
 import Ports
 import Route exposing (Route)
 import Static.Db exposing (Db)
-import Table as SortableTable
+import Table as SortableTable exposing (defaultCustomizations)
 import Views.Alert as Alert
 import Views.Container as Container
 import Views.Modal as ModalView
@@ -691,9 +691,6 @@ getTextileScorePer100g { componentConfig, db } { query } =
 exploreView : Session -> Model -> List (Html Msg)
 exploreView ({ db } as session) { scope, dataset, tableState, search } =
     let
-        defaultCustomizations =
-            SortableTable.defaultCustomizations
-
         tableConfig =
             { toId = always "" -- Placeholder
             , toMsg = SetTableState
@@ -701,7 +698,7 @@ exploreView ({ db } as session) { scope, dataset, tableState, search } =
             , columns = []
             , customizations =
                 { defaultCustomizations
-                    | tableAttrs = [ class "table table-striped table-hover table-responsive mb-0 view-list cursor-pointer" ]
+                    | tableAttrs = [ class "table table-striped table-hover mb-0 view-list cursor-pointer" ]
                 }
             }
     in
