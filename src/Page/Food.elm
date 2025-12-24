@@ -222,7 +222,7 @@ update ({ db, queries } as session) msg model =
                         |> Recipe.availablePackagings (List.map .id query.packaging)
                         |> List.sortBy Process.getDisplayName
                         |> List.head
-                        |> Maybe.map Recipe.processQueryFromProcess
+                        |> Maybe.map Recipe.packagingQueryFromProcess
             in
             firstPackaging
                 |> maybeUpdateQuery (\packaging -> Query.addPackaging packaging query)
@@ -627,7 +627,7 @@ addProcessFormView { isDisabled, event, kind } =
         ]
 
 
-type alias UpdateProcessConfig =
+type alias UpdateTransformConfig =
     { processes : List Process
     , excluded : List Process.Id
     , processQuery : Query.ProcessQuery
@@ -637,8 +637,8 @@ type alias UpdateProcessConfig =
     }
 
 
-updateProcessFormView : UpdateProcessConfig -> Html Msg
-updateProcessFormView { processes, excluded, processQuery, impact, updateEvent, deleteEvent } =
+updateTransformFormView : UpdateTransformConfig -> Html Msg
+updateTransformFormView { processes, excluded, processQuery, impact, updateEvent, deleteEvent } =
     li [ class "ElementFormWrapper list-group-item" ]
         [ span [ class "QuantityInputWrapper" ]
             [ MassInput.view
@@ -653,6 +653,45 @@ updateProcessFormView { processes, excluded, processQuery, impact, updateEvent, 
                                 NoOp
                 , disabled = False
                 }
+            ]
+        , processes
+            |> List.sortBy Process.getDisplayName
+            |> processSelectorView
+                processQuery.id
+                (\id -> updateEvent { processQuery | id = id })
+                excluded
+        , span [ class "text-end ImpactDisplay fs-7" ] [ impact ]
+        , BaseElement.deleteItemButton { disabled = False } deleteEvent
+        ]
+
+
+type alias UpdatePackagingConfig =
+    { processes : List Process
+    , excluded : List Process.Id
+    , processQuery : Query.PackagingQuery
+    , impact : Html Msg
+    , updateEvent : Query.PackagingQuery -> Msg
+    , deleteEvent : Msg
+    }
+
+
+updatePackagingFormView : UpdatePackagingConfig -> Html Msg
+updatePackagingFormView { processes, excluded, processQuery, impact, updateEvent, deleteEvent } =
+    li [ class "ElementFormWrapper list-group-item" ]
+        [ span [ class "QuantityInputWrapper" ]
+            [ input
+                [ type_ "number"
+                , value (String.fromFloat processQuery.amount)
+                , onInput <|
+                    \string ->
+                        case String.toFloat string of
+                            Just amount ->
+                                updateEvent { processQuery | amount = amount }
+
+                            _ ->
+                                NoOp
+                ]
+                []
             ]
         , processes
             |> List.sortBy Process.getDisplayName
@@ -1046,12 +1085,12 @@ packagingListView db selectedImpact recipe results =
             recipe.packaging
                 |> List.map
                     (\packaging ->
-                        updateProcessFormView
+                        updatePackagingFormView
                             { processes =
                                 db.processes
                                     |> Process.listByCategory ProcessCategory.Packaging
                             , excluded = recipe.packaging |> List.map (.process >> .id)
-                            , processQuery = { id = packaging.process.id, mass = packaging.mass }
+                            , processQuery = { id = packaging.process.id, amount = packaging.amount }
                             , impact =
                                 packaging
                                     |> Recipe.computePackagingImpacts
@@ -1488,7 +1527,7 @@ transformView db selectedImpact recipe results =
     , ul [ class "CardList list-group list-group-flush border-top-0 border-bottom-0" ]
         [ case recipe.transform of
             Just transform ->
-                updateProcessFormView
+                updateTransformFormView
                     { processes =
                         db.processes
                             |> Process.listByCategory ProcessCategory.Transform
