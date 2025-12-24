@@ -151,6 +151,15 @@ tableConfig =
         , customizations =
             { defaultCustomizations
                 | tableAttrs = [ class "table table-striped table-hover mb-0 view-list cursor-pointer" ]
+                , thead =
+                    \headers ->
+                        let
+                            htmlDetails =
+                                defaultCustomizations.thead headers
+                        in
+                        { htmlDetails
+                            | attributes = htmlDetails.attributes ++ [ class "sticky-md-top bg-white" ]
+                        }
             }
         }
 
@@ -181,7 +190,7 @@ viewAccounts filters tableState accounts =
             accounts
                 |> filterAccounts filters
     in
-    div [ class "DatasetTable table-responsive" ]
+    div [ class "DatasetTable table-responsive table-scroll position-relative" ]
         [ if List.isEmpty matches then
             div [ class "alert alert-info" ]
                 [ text "Aucun résultat" ]
