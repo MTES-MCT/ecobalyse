@@ -743,6 +743,10 @@ q {
 }
 
 .DatasetTable {
+  @media screen and (min-width: $viewport-md) {
+    max-height: 62vh;
+  }
+
   .table {
     &.view-list {
       tbody {

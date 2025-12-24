@@ -94,8 +94,22 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
         ({ filename, toId, toRoute, toSearchableString, columns, legend } as table) =
             createTable { detailed = False, scope = scope }
 
-        customizations =
-            defaultConfig.customizations
+        { customizations } =
+            defaultConfig
+
+        listCustomizations =
+            { customizations
+                | rowAttrs = toRoute >> routeToMsg >> onClick >> List.singleton
+                , thead =
+                    \headers ->
+                        let
+                            htmlDetails =
+                                customizations.thead headers
+                        in
+                        { htmlDetails
+                            | attributes = htmlDetails.attributes ++ [ class "sticky-md-top bg-white" ]
+                        }
+            }
 
         config =
             SortableTable.customConfig
@@ -132,10 +146,7 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
                                                         )
                                     }
                             )
-                , customizations =
-                    { customizations
-                        | rowAttrs = toRoute >> routeToMsg >> onClick >> List.singleton
-                    }
+                , customizations = listCustomizations
                 }
 
         resultItems =
@@ -164,7 +175,7 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
 
     else
         div []
-            [ div [ class "DatasetTable table-responsive" ]
+            [ div [ class "DatasetTable table-responsive table-scroll position-relative" ]
                 [ case resultItems of
                     [] ->
                         Alert.simple

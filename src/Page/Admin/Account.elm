@@ -150,7 +150,7 @@ tableConfig =
             ]
         , customizations =
             { defaultCustomizations
-                | tableAttrs = [ class "table table-striped table-hover table-responsive mb-0 view-list cursor-pointer" ]
+                | tableAttrs = [ class "table table-striped table-hover mb-0 view-list cursor-pointer" ]
             }
         }
 
