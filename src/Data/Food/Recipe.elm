@@ -16,6 +16,7 @@ module Data.Food.Recipe exposing
     , getMassAtPackaging
     , getTransformedIngredientsMass
     , ingredientQueryFromIngredient
+    , packagingQueryFromProcess
     , processQueryFromProcess
     , resetDistribution
     , resetTransform
@@ -622,6 +623,13 @@ packagingFromQuery { processes } { id, amount } =
     processes
         |> Process.findById id
         |> Result.map (Packaging amount)
+
+
+packagingQueryFromProcess : Process -> BuilderQuery.PackagingQuery
+packagingQueryFromProcess process =
+    { id = process.id
+    , amount = 1
+    }
 
 
 processQueryFromProcess : Process -> BuilderQuery.ProcessQuery
