@@ -18,7 +18,7 @@ type alias DataPoint msg =
 
 responsiveDefault : List (Attribute msg) -> List (Html msg) -> Html msg
 responsiveDefault attrs content =
-    div [ class "DatasetTable table-responsive table-scroll" ]
+    div [ class "DatasetTable table-responsive table-scroll position-relative" ]
         [ table (class "table table-striped table-hover mb-0" :: attrs) content
         ]
 

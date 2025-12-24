@@ -134,7 +134,7 @@ processFilters scopes search =
 processListView : Definitions -> List Scope -> String -> List Process.Id -> List Process -> Html Msg
 processListView definitions scopes search selected processes =
     Table.responsiveDefault []
-        [ thead []
+        [ thead [ class "sticky-md-top" ]
             [ tr []
                 [ th [ class "align-start text-center" ]
                     [ AdminView.selectAllCheckbox ToggleSelectedAll processes selected
