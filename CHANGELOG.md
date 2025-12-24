@@ -1,6 +1,37 @@
 # Changelog
 
 
+## [8.3.0](https://github.com/MTES-MCT/ecobalyse/compare/v8.2.0..v8.3.0) (2025-12-24)
+
+
+
+### 🚀 Features
+
+- *(admin,ui)* Render comment column in component admin ([#1639](https://github.com/MTES-MCT/ecobalyse/issues/1639))
+- Add packaging from ctcpa ([#1615](https://github.com/MTES-MCT/ecobalyse/issues/1615))
+- *(bo)* Add the token usage state to the users table ([#1633](https://github.com/MTES-MCT/ecobalyse/issues/1633))
+- *(explorer)* Make explorer datasets searchable ([#1663](https://github.com/MTES-MCT/ecobalyse/issues/1663))
+- *(explorer)* Freeze table header position to top when scrolling ([#1677](https://github.com/MTES-MCT/ecobalyse/issues/1677))
+
+### 🪲 Bug Fixes
+
+- *(admin,ui)* Prevent unscrollable ui state ([#1636](https://github.com/MTES-MCT/ecobalyse/issues/1636))
+- *(explorer)* Sort string columns alphabetically ([#1643](https://github.com/MTES-MCT/ecobalyse/issues/1643))
+
+### ⚙️ Miscellaneous Tasks
+
+- Cache elm deps ([#1635](https://github.com/MTES-MCT/ecobalyse/issues/1635))
+- Serialize the JournalEntries values as string ([#1634](https://github.com/MTES-MCT/ecobalyse/issues/1634))
+- Upgrade node dependencies, 2025-12-15 ([#1644](https://github.com/MTES-MCT/ecobalyse/issues/1644))
+- Remove pef score ([#1628](https://github.com/MTES-MCT/ecobalyse/issues/1628))
+- Remove obsolete suffix and cleanup ([#1651](https://github.com/MTES-MCT/ecobalyse/issues/1651))
+- Update components ([#1641](https://github.com/MTES-MCT/ecobalyse/issues/1641))
+- Update list of Veli examples ([#1661](https://github.com/MTES-MCT/ecobalyse/issues/1661))
+- Update components from staging db ([#1666](https://github.com/MTES-MCT/ecobalyse/issues/1666))
+- Update components from staging db ([#1667](https://github.com/MTES-MCT/ecobalyse/issues/1667))
+- Update list of Object examples ([#1662](https://github.com/MTES-MCT/ecobalyse/issues/1662))
+
+
 ## [8.2.0](https://github.com/MTES-MCT/ecobalyse/compare/v8.1.0..v8.2.0) (2025-12-10)
 
 
