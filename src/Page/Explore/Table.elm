@@ -98,18 +98,10 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
             defaultConfig
 
         listCustomizations =
-            { customizations
-                | rowAttrs = toRoute >> routeToMsg >> onClick >> List.singleton
-                , thead =
-                    \headers ->
-                        let
-                            htmlDetails =
-                                customizations.thead headers
-                        in
-                        { htmlDetails
-                            | attributes = htmlDetails.attributes ++ [ class "sticky-md-top bg-white" ]
-                        }
-            }
+            TableView.freezeSortableHeaders
+                { customizations
+                    | rowAttrs = toRoute >> routeToMsg >> onClick >> List.singleton
+                }
 
         config =
             SortableTable.customConfig

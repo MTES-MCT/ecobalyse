@@ -22,6 +22,7 @@ import Time exposing (Posix)
 import Views.Admin as AdminView
 import Views.Container as Container
 import Views.Format as Format
+import Views.Table as Table
 import Views.WebData as WebDataView
 
 
@@ -149,18 +150,10 @@ tableConfig =
             , dateColumn "Inscrit le" (.joinedAt >> Maybe.withDefault (Time.millisToPosix 0))
             ]
         , customizations =
-            { defaultCustomizations
-                | tableAttrs = [ class "table table-striped table-hover mb-0 view-list cursor-pointer" ]
-                , thead =
-                    \headers ->
-                        let
-                            htmlDetails =
-                                defaultCustomizations.thead headers
-                        in
-                        { htmlDetails
-                            | attributes = htmlDetails.attributes ++ [ class "sticky-md-top bg-white" ]
-                        }
-            }
+            Table.freezeSortableHeaders
+                { defaultCustomizations
+                    | tableAttrs = [ class "table table-striped table-hover mb-0 view-list cursor-pointer" ]
+                }
         }
 
 
