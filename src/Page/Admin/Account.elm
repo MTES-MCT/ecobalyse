@@ -1,6 +1,6 @@
 module Page.Admin.Account exposing
     ( Model
-    , Msg(..)
+    , Msg
     , init
     , subscriptions
     , update
@@ -157,8 +157,8 @@ tableConfig =
         }
 
 
-view : Session -> Model -> ( String, List (Html Msg) )
-view _ model =
+view : Model -> ( String, List (Html Msg) )
+view model =
     ( "Admin Utilisateurs"
     , [ Container.centered [ class "d-flex flex-column gap-3 pb-5" ]
             [ AdminView.header model.section
@@ -285,6 +285,6 @@ viewFiltersForm filters =
         ]
 
 
-subscriptions : Model -> Sub Msg
-subscriptions _ =
+subscriptions : Sub Msg
+subscriptions =
     Sub.none

@@ -1,7 +1,6 @@
 module Page.Explore.FoodIngredients exposing (table)
 
 import Data.Dataset as Dataset
-import Data.Food.Db as FoodDb
 import Data.Food.EcosystemicServices as EcosystemicServices
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
@@ -22,8 +21,8 @@ import Views.Icon as Icon
 import Views.Link as Link
 
 
-table : FoodDb.Db -> { detailed : Bool, scope : Scope } -> Table Ingredient String msg
-table _ { detailed, scope } =
+table : { detailed : Bool, scope : Scope } -> Table Ingredient String msg
+table { detailed, scope } =
     { filename = "ingredients"
     , toId = .id >> Ingredient.idToString
     , toRoute = .id >> Just >> Dataset.FoodIngredients >> Route.Explore scope

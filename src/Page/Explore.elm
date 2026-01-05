@@ -1,6 +1,6 @@
 module Page.Explore exposing
     ( Model
-    , Msg(..)
+    , Msg
     , foodIngredientDetails
     , init
     , subscriptions
@@ -16,7 +16,6 @@ import Data.Component as Component exposing (Component)
 import Data.Country as Country exposing (Country)
 import Data.Dataset as Dataset exposing (Dataset)
 import Data.Example as Example exposing (Example)
-import Data.Food.Db as FoodDb
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Query as FoodQuery
 import Data.Food.Recipe as Recipe
@@ -385,7 +384,7 @@ foodIngredientsExplorer :
 foodIngredientsExplorer { food } tableConfig tableState maybeId =
     [ food.ingredients
         |> List.sortBy .name
-        |> Table.viewList OpenDetail tableConfig tableState Scope.Food (FoodIngredients.table food)
+        |> Table.viewList OpenDetail tableConfig tableState Scope.Food FoodIngredients.table
     , case maybeId of
         Just id ->
             detailsModal
@@ -394,7 +393,7 @@ foodIngredientsExplorer { food } tableConfig tableState maybeId =
                         alert error
 
                     Ok ingredient ->
-                        foodIngredientDetails food ingredient
+                        foodIngredientDetails ingredient
                 )
 
         Nothing ->
@@ -402,9 +401,9 @@ foodIngredientsExplorer { food } tableConfig tableState maybeId =
     ]
 
 
-foodIngredientDetails : FoodDb.Db -> Ingredient -> Html msg
-foodIngredientDetails foodDb =
-    Table.viewDetails Scope.Food (FoodIngredients.table foodDb)
+foodIngredientDetails : Ingredient -> Html msg
+foodIngredientDetails =
+    Table.viewDetails Scope.Food FoodIngredients.table
 
 
 processesExplorer :
@@ -737,8 +736,8 @@ exploreView ({ db } as session) { scope, dataset, tableState, search } =
             objectExamplesExplorer session tableConfig tableState Scope.Veli maybeId
 
 
-searchInputView : Session -> Model -> Html Msg
-searchInputView _ { search } =
+searchInputView : Model -> Html Msg
+searchInputView { search } =
     div [ class "d-flex justify-content-start align-items-center gap-2" ]
         [ label [ for "search-field", class "visually-hidden" ] [ text "Rechercher" ]
         , input
@@ -763,7 +762,7 @@ view session model =
                 ]
             , div [ class "row d-flex align-items-end mt-1 mx-0 g-0" ]
                 [ div [ class "col-12 col-xl-3 col-xxl-4 border-bottom" ]
-                    [ searchInputView session model ]
+                    [ searchInputView model ]
                 , div [ class "col-12 col-xl-9 col-xxl-8 pe-0 me-0" ]
                     [ datasetsMenuView model ]
                 ]

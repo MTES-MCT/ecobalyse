@@ -1,6 +1,6 @@
 module Page.Editorial exposing
     ( Model
-    , Msg(..)
+    , Msg
     , init
     , update
     , view
@@ -54,8 +54,8 @@ update session msg model =
                 |> App.createUpdate session
 
 
-view : Session -> Model -> ( String, List (Html Msg) )
-view _ model =
+view : Model -> ( String, List (Html Msg) )
+view model =
     case model.content of
         RemoteData.Failure httpError ->
             ( "Erreur de chargement", [ Alert.serverError <| RequestCommon.errorToString httpError ] )

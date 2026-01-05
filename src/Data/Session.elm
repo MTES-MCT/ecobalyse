@@ -392,7 +392,7 @@ decodeStore =
 encodeStore : Store -> Encode.Value
 encodeStore store =
     Encode.object
-        [ ( "comparedSimulations", store.comparedSimulations |> Set.toList |> Encode.list Encode.string )
+        [ ( "comparedSimulations", store.comparedSimulations |> Encode.set Encode.string )
         , ( "bookmarks", Encode.list Bookmark.encode store.bookmarks )
         , ( "auth2", store.auth2 |> Maybe.map encodeAuth |> Maybe.withDefault Encode.null )
         ]

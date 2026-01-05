@@ -1,6 +1,6 @@
 module Page.Admin.Component exposing
     ( Model
-    , Msg(..)
+    , Msg
     , init
     , subscriptions
     , update

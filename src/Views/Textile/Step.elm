@@ -342,7 +342,7 @@ fadingField { inputs, toggleFading } =
 
 
 makingComplexityField : Config msg modal -> Html msg
-makingComplexityField ({ current, inputs, updateMakingComplexity } as config) =
+makingComplexityField { current, inputs, updateMakingComplexity } =
     let
         makingComplexity =
             inputs.fabricProcess
@@ -350,7 +350,7 @@ makingComplexityField ({ current, inputs, updateMakingComplexity } as config) =
     in
     li [ class "list-group-item d-flex align-items-center gap-2" ]
         [ label [ class "text-nowrap w-25", for "making-complexity" ] [ text "Complexité" ]
-        , inlineDocumentationLink config Gitbook.TextileMakingComplexity
+        , inlineDocumentationLink Gitbook.TextileMakingComplexity
         , if inputs |> Inputs.isFabricOfType Fabric.KnittingIntegral then
             text "Non applicable"
 
@@ -444,8 +444,8 @@ yarnSizeField { current, inputs, updateYarnSize } =
         ]
 
 
-inlineDocumentationLink : Config msg modal -> Gitbook.Path -> Html msg
-inlineDocumentationLink _ path =
+inlineDocumentationLink : Gitbook.Path -> Html msg
+inlineDocumentationLink path =
     Button.smallPillLink
         [ href (Gitbook.publicUrlFromPath path)
         , target "_blank"
@@ -723,7 +723,7 @@ createElementSelectorConfig cfg materialInput =
 
 
 viewTransport : Config msg modal -> Html msg
-viewTransport ({ selectedImpact, current, inputs } as config) =
+viewTransport { current, inputs, selectedImpact } =
     div []
         [ span []
             [ text "Masse\u{00A0}: "
@@ -745,7 +745,7 @@ viewTransport ({ selectedImpact, current, inputs } as config) =
                 , span []
                     [ current.transport.impacts
                         |> Format.formatImpact selectedImpact
-                    , inlineDocumentationLink config Gitbook.TextileTransport
+                    , inlineDocumentationLink Gitbook.TextileTransport
                     ]
                 ]
         ]
@@ -823,7 +823,7 @@ surfaceInfoView inputs current =
 
 
 ennoblingToxicityView : Db -> Config msg modal -> Step -> Html msg
-ennoblingToxicityView db ({ selectedImpact, inputs } as config) current =
+ennoblingToxicityView db { inputs, selectedImpact } current =
     showIf (current.label == Label.Ennobling) <|
         let
             -- FIXME: this should be computed and exposed only once in the simulator
@@ -881,7 +881,7 @@ ennoblingToxicityView db ({ selectedImpact, inputs } as config) current =
                             |> Impact.sumImpacts
                             |> Format.formatImpact selectedImpact
                         , text ")"
-                        , inlineDocumentationLink config Gitbook.TextileEnnoblingToxicity
+                        , inlineDocumentationLink Gitbook.TextileEnnoblingToxicity
                         ]
                     ]
                 , toxicityDetails
@@ -950,7 +950,7 @@ deadstockView config deadstock =
             (if deadstock /= Quantity.zero then
                 [ text "Dont stocks dormants\u{00A0}:\u{00A0}"
                 , Format.kgToString deadstock |> text
-                , inlineDocumentationLink config Gitbook.TextileMakingDeadStock
+                , inlineDocumentationLink Gitbook.TextileMakingDeadStock
                 ]
 
              else
@@ -959,13 +959,13 @@ deadstockView config deadstock =
 
 
 wasteView : Config msg modal -> Mass -> Html msg
-wasteView ({ current } as config) waste =
+wasteView { current } waste =
     showIf (current.label == Label.Making || current.label == Label.Fabric) <|
         li [ class "list-group-item text-muted d-flex justify-content-center gap-2" ]
             (if waste /= Quantity.zero then
                 [ text "Pertes\u{00A0}:\u{00A0}"
                 , Format.kgToString waste |> text
-                , inlineDocumentationLink config
+                , inlineDocumentationLink
                     (if current.label == Label.Fabric then
                         Gitbook.TextileFabricWaste
 
@@ -1140,12 +1140,12 @@ advancedStepView ({ db, inputs, selectedImpact, current } as config) =
                         [ span [ class "d-flex align-items-center" ]
                             [ span [ class "me-1" ] [ text "Chaleur" ]
                             , Format.megajoules current.heat
-                            , inlineDocumentationLink config Gitbook.TextileHeat
+                            , inlineDocumentationLink Gitbook.TextileHeat
                             ]
                         , span [ class "d-flex align-items-center" ]
                             [ span [ class "me-1" ] [ text "Électricité" ]
                             , Format.kilowattHours current.kwh
-                            , inlineDocumentationLink config Gitbook.TextileElectricity
+                            , inlineDocumentationLink Gitbook.TextileElectricity
                             ]
                         ]
                 , surfaceInfoView inputs current
@@ -1173,7 +1173,7 @@ advancedStepView ({ db, inputs, selectedImpact, current } as config) =
                                         [ inputs.materials
                                             |> Inputs.getOutOfEuropeEOLProbability
                                             |> Format.splitAsPercentage 2
-                                        , inlineDocumentationLink config Gitbook.TextileEndOfLifeOutOfEuropeComplement
+                                        , inlineDocumentationLink Gitbook.TextileEndOfLifeOutOfEuropeComplement
                                         ]
                                     ]
                                 ]
