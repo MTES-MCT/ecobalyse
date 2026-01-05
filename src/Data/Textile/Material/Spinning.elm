@@ -1,5 +1,5 @@
 module Data.Textile.Material.Spinning exposing
-    ( Spinning(..)
+    ( Spinning
     , decode
     , encode
     , fromString

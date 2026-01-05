@@ -1,5 +1,5 @@
 module Data.Food.Ingredient.Category exposing
-    ( Category(..)
+    ( Category
     , decode
     , toLabel
     )

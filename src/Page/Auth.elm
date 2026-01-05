@@ -1,6 +1,6 @@
 module Page.Auth exposing
     ( Model
-    , Msg(..)
+    , Msg
     , init
     , initLogin
     , initSignup
@@ -161,17 +161,17 @@ update session msg model =
         -- Specific tab updates
         tabMsg ->
             case model.tab of
-                Account auth profileForm formErrors ->
-                    updateAccountTab session auth profileForm formErrors tabMsg model
+                Account auth profileForm _ ->
+                    updateAccountTab session auth profileForm tabMsg model
 
                 ApiTokenCreated _ ->
                     App.createUpdate session model
 
-                ApiTokenDelete apiToken ->
-                    updateApiTokenDeleteTab session apiToken tabMsg model
+                ApiTokenDelete _ ->
+                    updateApiTokenDeleteTab session tabMsg model
 
-                ApiTokens apiTokens ->
-                    updateApiTokensTab session apiTokens tabMsg model
+                ApiTokens _ ->
+                    updateApiTokensTab session tabMsg model
 
                 MagicLinkForm email webData ->
                     updateMagicLinkFormTab session email webData tabMsg model
@@ -190,8 +190,8 @@ update session msg model =
                     updateNothing session model
 
 
-updateAccountTab : Session -> Session.Auth -> ProfileForm -> FormErrors -> Msg -> Model -> PageUpdate Model Msg
-updateAccountTab session currentAuth profileForm _ msg model =
+updateAccountTab : Session -> Session.Auth -> ProfileForm -> Msg -> Model -> PageUpdate Model Msg
+updateAccountTab session currentAuth profileForm msg model =
     case msg of
         Logout user ->
             model
@@ -255,7 +255,7 @@ updateAccountTab session currentAuth profileForm _ msg model =
                 newModel =
                     { model | tab = Account currentAuth profileForm newFormErrors }
             in
-            if newFormErrors == Dict.empty then
+            if Dict.isEmpty newFormErrors then
                 newModel
                     |> App.createUpdate (session |> Session.clearNotifications)
                     |> App.withCmds
@@ -276,8 +276,8 @@ updateAccountTab session currentAuth profileForm _ msg model =
             updateNothing session model
 
 
-updateApiTokensTab : Session -> WebData (List CreatedToken) -> Msg -> Model -> PageUpdate Model Msg
-updateApiTokensTab session _ tabMsg model =
+updateApiTokensTab : Session -> Msg -> Model -> PageUpdate Model Msg
+updateApiTokensTab session tabMsg model =
     case tabMsg of
         ApiTokensResponse newApiTokens ->
             { model | tab = ApiTokens newApiTokens }
@@ -309,8 +309,8 @@ updateApiTokensTab session _ tabMsg model =
             updateNothing session model
 
 
-updateApiTokenDeleteTab : Session -> CreatedToken -> Msg -> Model -> PageUpdate Model Msg
-updateApiTokenDeleteTab session _ msg model =
+updateApiTokenDeleteTab : Session -> Msg -> Model -> PageUpdate Model Msg
+updateApiTokenDeleteTab session msg model =
     case msg of
         DeleteApiToken apiToken ->
             model
@@ -424,7 +424,7 @@ updateSignupTab session signupForm webData msg model =
                 newFormErrors =
                     User.validateSignupForm signupForm
             in
-            if newFormErrors == Dict.empty then
+            if Dict.isEmpty newFormErrors then
                 { model | tab = Signup signupForm newFormErrors RemoteData.Loading }
                     |> App.createUpdate (session |> Session.clearNotifications)
                     |> App.withCmds [ Auth.signup session SignupResponse signupForm ]
@@ -609,7 +609,7 @@ viewAccount { user } profileForm formErrors =
                 [ button
                     [ type_ "submit"
                     , class "btn btn-primary"
-                    , disabled <| profileForm == User.emptyProfileForm || formErrors /= Dict.empty
+                    , disabled <| profileForm == User.emptyProfileForm || not (Dict.isEmpty formErrors)
                     , attribute "data-testid" "auth-signup-submit"
                     ]
                     [ text "Mettre à jour mes informations" ]
@@ -841,7 +841,7 @@ viewMagicLinkForm email webData =
                 [ button
                     [ type_ "submit"
                     , class "btn btn-primary"
-                    , disabled <| email == "" || User.validateEmailForm email /= Dict.empty || webData == RemoteData.Loading
+                    , disabled <| email == "" || not (Dict.isEmpty (User.validateEmailForm email)) || webData == RemoteData.Loading
                     , attribute "data-testid" "auth-magic-link-submit"
                     ]
                     [ text <|
@@ -993,7 +993,7 @@ viewSignupForm signupForm formErrors webData =
             [ button
                 [ type_ "submit"
                 , class "btn btn-primary"
-                , disabled <| signupForm == User.emptySignupForm || formErrors /= Dict.empty || webData == RemoteData.Loading
+                , disabled <| signupForm == User.emptySignupForm || not (Dict.isEmpty formErrors) || webData == RemoteData.Loading
                 , attribute "data-testid" "auth-signup-submit"
                 ]
                 [ text <|

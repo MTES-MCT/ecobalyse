@@ -1,6 +1,6 @@
 module Page.Admin.Process exposing
     ( Model
-    , Msg(..)
+    , Msg
     , init
     , subscriptions
     , update
@@ -118,8 +118,8 @@ view { db } { processes, scopes, search, section, selected } =
 
 processFilters : List Scope -> String -> List Process -> List Process
 processFilters scopes search =
-    (if scopes == [] then
-        List.filter (\p -> p.scopes == [])
+    (if List.isEmpty scopes then
+        List.filter (\p -> List.isEmpty p.scopes)
 
      else
         Scope.anyOf scopes
@@ -234,6 +234,6 @@ warning =
         }
 
 
-subscriptions : Model -> Sub Msg
-subscriptions _ =
+subscriptions : Sub Msg
+subscriptions =
     Sub.none

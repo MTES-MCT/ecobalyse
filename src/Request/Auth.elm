@@ -35,7 +35,7 @@ askMagicLink session event email =
 login : Session -> (WebData AccessTokenData -> msg) -> String -> String -> Cmd msg
 login session event email token =
     BackendHttp.get session
-        ("access/login" ++ "?email=" ++ email ++ "&token=" ++ token)
+        ("access/login?email=" ++ email ++ "&token=" ++ token)
         event
         User.decodeAccessTokenData
 

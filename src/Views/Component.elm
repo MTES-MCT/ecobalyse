@@ -479,7 +479,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, maxItems, query, scope, tit
                         , text "(détails en dépliant les composants ci-dessus)"
                         ]
                     ]
-                , assemblyView config lifeCycle
+                , assemblyView config
                 ]
 
           else
@@ -488,7 +488,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, maxItems, query, scope, tit
             div []
                 [ lifeCycle.transports.toDistribution
                     |> transportView impact (Component.extractMass lifeCycle.production)
-                , distributionView config lifeCycle
+                , distributionView config
                 , Transport.default Impact.empty
                     |> transportView impact (Component.extractMass lifeCycle.production)
                 , endOfLifeView config lifeCycle
@@ -804,8 +804,8 @@ quantityInput config itemIndex quantity =
         ]
 
 
-assemblyView : Config db msg -> LifeCycle -> Html msg
-assemblyView config _ =
+assemblyView : Config db msg -> Html msg
+assemblyView config =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header d-flex align-items-center justify-content-between" ]
             [ h2 [ class "h5 mb-0" ]
@@ -830,8 +830,8 @@ assemblyView config _ =
         ]
 
 
-distributionView : Config db msg -> LifeCycle -> Html msg
-distributionView { impact } _ =
+distributionView : Config db msg -> Html msg
+distributionView { impact } =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header d-flex align-items-center justify-content-between" ]
             [ h2 [ class "h5 mb-0" ]

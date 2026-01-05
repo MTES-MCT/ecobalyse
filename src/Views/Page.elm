@@ -590,8 +590,8 @@ notFound =
         ]
 
 
-restricted : Session -> Html msg
-restricted _ =
+restricted : Html msg
+restricted =
     Container.centered [ class "pb-5" ]
         [ h1 [ class "mb-3" ] [ text "Accès refusé" ]
         , p [] [ text "Cette page n'est accessible qu'à l'équipe Ecobalyse." ]

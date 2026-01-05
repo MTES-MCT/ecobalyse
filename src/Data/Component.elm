@@ -16,7 +16,7 @@ module Data.Component exposing
     , Query
     , Requirements
     , Results(..)
-    , Stage(..)
+    , Stage
     , TargetElement
     , TargetItem
     , addElement

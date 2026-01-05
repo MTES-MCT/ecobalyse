@@ -404,7 +404,7 @@ updateStepCountry label code query =
 
 validateMaterials : List MaterialQuery -> Result String (List MaterialQuery)
 validateMaterials materials =
-    if materials == [] then
+    if List.isEmpty materials then
         Ok []
 
     else

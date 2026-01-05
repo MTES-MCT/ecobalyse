@@ -561,16 +561,16 @@ subscriptions { state } =
             _ ->
                 Sub.none
         , case state of
-            Loaded _ (AccountAdminPage subModel) ->
-                AccountAdmin.subscriptions subModel
+            Loaded _ (AccountAdminPage _) ->
+                AccountAdmin.subscriptions
                     |> Sub.map AccountAdminMsg
 
             Loaded _ (ComponentAdminPage subModel) ->
                 ComponentAdmin.subscriptions subModel
                     |> Sub.map ComponentAdminMsg
 
-            Loaded _ (ProcessAdminPage subModel) ->
-                ProcessAdmin.subscriptions subModel
+            Loaded _ (ProcessAdminPage _) ->
+                ProcessAdmin.subscriptions
                     |> Sub.map ProcessAdminMsg
 
             Loaded _ (ExplorePage subModel) ->
@@ -622,12 +622,12 @@ view { mobileNavigationOpened, state, tray } =
             in
             case page of
                 AccountAdminPage accountAdminModel ->
-                    AccountAdmin.view session accountAdminModel
+                    AccountAdmin.view accountAdminModel
                         |> mapMsg AccountAdminMsg
                         |> frame Page.Admin
 
-                ApiPage examplesModel ->
-                    Api.view session examplesModel
+                ApiPage _ ->
+                    Api.view session
                         |> mapMsg ApiMsg
                         |> frame Page.Api
 
@@ -642,7 +642,7 @@ view { mobileNavigationOpened, state, tray } =
                         |> frame Page.Admin
 
                 EditorialPage editorialModel ->
-                    Editorial.view session editorialModel
+                    Editorial.view editorialModel
                         |> mapMsg EditorialMsg
                         |> frame (Page.Editorial editorialModel.slug)
 
@@ -680,7 +680,7 @@ view { mobileNavigationOpened, state, tray } =
                         |> frame Page.Admin
 
                 RestrictedAccessPage ->
-                    ( "Accès restreint", [ Page.restricted session ] )
+                    ( "Accès restreint", [ Page.restricted ] )
                         |> frame Page.Other
 
                 StatsPage statsModel ->
