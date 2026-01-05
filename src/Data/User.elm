@@ -121,6 +121,7 @@ type alias SignupForm =
     , lastName : String
     , organization : Organization
     , termsAccepted : Bool
+    , ecoinventTermsAccepted : Bool
     }
 
 
@@ -232,6 +233,7 @@ emptySignupForm =
     , lastName = ""
     , organization = Individual
     , termsAccepted = False
+    , ecoinventTermsAccepted = False
     }
 
 
@@ -658,6 +660,7 @@ validateSignupForm form =
                 _ ->
                     Ok (sirenFromString "")
             )
+        |> addFormErrorIf "termsAccepted" "Les CGU doivent être acceptées" (not form.termsAccepted)
 
 
 addFormErrorIf : String -> String -> Bool -> FormErrors -> FormErrors
