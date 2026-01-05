@@ -115,13 +115,13 @@ type alias Role =
 
 
 type alias SignupForm =
-    { email : String
+    { ecoinventTermsAccepted : Bool
+    , email : String
     , emailOptin : Bool
     , firstName : String
     , lastName : String
     , organization : Organization
     , termsAccepted : Bool
-    , ecoinventTermsAccepted : Bool
     }
 
 
@@ -227,13 +227,13 @@ emptyProfileForm =
 
 emptySignupForm : SignupForm
 emptySignupForm =
-    { email = ""
+    { ecoinventTermsAccepted = False
+    , email = ""
     , emailOptin = False
     , firstName = ""
     , lastName = ""
     , organization = Individual
     , termsAccepted = False
-    , ecoinventTermsAccepted = False
     }
 
 
