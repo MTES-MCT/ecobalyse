@@ -2,14 +2,11 @@ module Data.Process.Category exposing
     ( Category(..)
     , Material(..)
     , MaterialDict
-    , PackagingType(..)
     , decodeList
     , decodeMaterialDict
     , encode
     , materialTypeToLabel
     , materialTypeToString
-    , packagingTypeToLabel
-    , packagingTypeToString
     , toLabel
     )
 
