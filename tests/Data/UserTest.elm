@@ -122,7 +122,8 @@ suite =
             ]
         , let
             validForm =
-                { email = "user@tld.org"
+                { ecoinventTermsAccepted = False
+                , email = "user@tld.org"
                 , firstName = "John"
                 , lastName = "Doe"
                 , emailOptin = True
@@ -159,6 +160,7 @@ suite =
                             , ( "firstName", "Le champ est obligatoire" )
                             , ( "lastName", "Le champ est obligatoire" )
                             , ( "organization.name", "Le champ est obligatoire" )
+                            , ( "termsAccepted", "Les CGU doivent être acceptées" )
                             ]
                         )
                 )
