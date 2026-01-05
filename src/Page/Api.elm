@@ -1,6 +1,6 @@
 module Page.Api exposing
     ( Model
-    , Msg(..)
+    , Msg
     , init
     , update
     , view
@@ -43,8 +43,10 @@ init session =
 
 
 update : Session -> Msg -> Model -> PageUpdate Model Msg
-update session _ model =
-    App.createUpdate session model
+update session msg model =
+    case msg of
+        NoOp _ ->
+            App.createUpdate session model
 
 
 getApiServerUrl : Session -> String
@@ -555,8 +557,8 @@ apiBrowser session =
         []
 
 
-view : Session -> Model -> ( String, List (Html Msg) )
-view session _ =
+view : Session -> ( String, List (Html Msg) )
+view session =
     ( "API"
     , [ Container.centered [ class "pb-5" ]
             [ h1 [ class "mb-3" ] [ text "API Ecobalyse" ]

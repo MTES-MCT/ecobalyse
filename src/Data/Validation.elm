@@ -80,7 +80,7 @@ check key result accumulator =
 
         ( Err error, Err errors ) ->
             errors
-                |> Dict.union (Dict.singleton key error)
+                |> Dict.insert key error
                 |> Err
 
         ( valueOrError, Ok accFn ) ->

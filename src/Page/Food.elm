@@ -1,6 +1,6 @@
 module Page.Food exposing
     ( Model
-    , Msg(..)
+    , Msg
     , init
     , initFromExample
     , subscriptions
@@ -1062,7 +1062,7 @@ packagingListView db selectedImpact recipe results =
                     )
          )
             ++ [ addProcessFormView
-                    { isDisabled = availablePackagings == []
+                    { isDisabled = List.isEmpty availablePackagings
                     , event = AddPackaging
                     , kind = "un emballage"
                     }
@@ -1574,7 +1574,7 @@ view session model =
                         , title = ingredient.name
                         , subTitle = Nothing
                         , formAction = Nothing
-                        , content = [ Explore.foodIngredientDetails session.db.food ingredient ]
+                        , content = [ Explore.foodIngredientDetails ingredient ]
                         , footer = []
                         }
 

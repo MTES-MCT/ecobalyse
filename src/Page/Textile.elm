@@ -1,6 +1,6 @@
 module Page.Textile exposing
     ( Model
-    , Msg(..)
+    , Msg
     , init
     , initFromExample
     , subscriptions

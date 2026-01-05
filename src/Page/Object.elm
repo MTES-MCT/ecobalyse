@@ -1,6 +1,6 @@
 module Page.Object exposing
     ( Model
-    , Msg(..)
+    , Msg
     , init
     , initFromExample
     , subscriptions

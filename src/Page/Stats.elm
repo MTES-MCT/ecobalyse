@@ -1,6 +1,6 @@
 module Page.Stats exposing
     ( Model
-    , Msg(..)
+    , Msg
     , init
     , update
     , view

@@ -312,7 +312,7 @@ dataForIndividualImpacts definitions chartsData =
                     EQ
     in
     chartsData
-        |> List.map
+        |> Encode.list
             (\{ complementsImpact, impacts, label } ->
                 let
                     complementImpacts =
@@ -333,14 +333,13 @@ dataForIndividualImpacts definitions chartsData =
                     , ( "data", Encode.list Impact.encodeAggregatedScoreChartEntry reversed )
                     ]
             )
-        |> Encode.list identity
         |> Encode.encode 0
 
 
 dataForSubscoresImpacts : Definitions -> List ChartsData -> String
 dataForSubscoresImpacts definitions chartsData =
     chartsData
-        |> List.map
+        |> Encode.list
             (\{ complementsImpact, impacts, label } ->
                 let
                     complementImpacts =
@@ -364,14 +363,13 @@ dataForSubscoresImpacts definitions chartsData =
                     , ( "data", Encode.list Impact.encodeAggregatedScoreChartEntry entries )
                     ]
             )
-        |> Encode.list identity
         |> Encode.encode 0
 
 
 dataForSteps : List ChartsData -> String
 dataForSteps chartsData =
     chartsData
-        |> List.map
+        |> Encode.list
             (\{ label, stepsImpacts } ->
                 Encode.object
                     [ ( "label", Encode.string label )
@@ -383,14 +381,13 @@ dataForSteps chartsData =
                       )
                     ]
             )
-        |> Encode.list identity
         |> Encode.encode 0
 
 
 dataForTotalImpacts : List ChartsData -> String
 dataForTotalImpacts chartsData =
     chartsData
-        |> List.map
+        |> Encode.list
             (\{ impacts, label } ->
                 Encode.object
                     [ ( "label", Encode.string label )
@@ -407,7 +404,6 @@ dataForTotalImpacts chartsData =
                       )
                     ]
             )
-        |> Encode.list identity
         |> Encode.encode 0
 
 
