@@ -663,16 +663,28 @@ viewAccount { user } profileForm formErrors =
         ]
 
 
-termsView : List (Html Msg)
-termsView =
-    [ """Je m’engage à respecter les [CGU Ecobalyse]({url_cgu} "CGU Ecobalyse")
+ecoinventTermsView : List (Html Msg)
+ecoinventTermsView =
+    [ """Pour accéder aux impacts détaillés, je m’engage à respecter les [Conditions d’utilisation des données «\u{202F}ecoinvent\u{202F}» et «\u{202F}Base Empreinte\u{202F}» pour l’outil Ecobalyse]({url_ecoinvent})
          et accepte que les informations recueillies sur ce formulaire soient enregistrées dans un fichier
          informatisé par l’ADEME pour\u{202F}:
 
            - Authentification des utilisateurs sur la plateforme web ou via l’API afin d’accéder aux impacts détaillés (ex: changement climatique),
 
-           - délivrance de licences nominatives par EcoInvent aux utilisateurs des données EcoInvent via Ecobalyse (les données sont transmises si l’utilisateur consent au moins une fois via son compte Ecobalyse dans l’année)."""
+           - délivrance de licences nominatives par EcoInvent aux utilisateurs des données EcoInvent via Ecobalyse (les données sont transmises si l’utilisateur consent au moins une fois via son compte Ecobalyse dans l’année).
+
+         Pour plus d’informations veuillez consulter la [politique de confidentialité]({url_privacy})."""
+        |> String.replace "{url_ecoinvent}" Env.ecoinventTermsUrl
+        |> String.replace "{url_privacy}" Env.privacyPolicyUrl
+        |> Markdown.simple []
+    ]
+
+
+termsView : List (Html Msg)
+termsView =
+    [ """ Je m’engage à respecter les [CGU d’Ecobalyse]({url_cgu}) et accepte que l’ADEME collecte et traite mes données à caractère personnel pour créer un compte et me connecter à Ecobalyse, mesurer la fréquentation sur le site, suivre les erreurs informatiques et techniques. Pour plus d’informations veuillez consulter la [politique de confidentialité]({url_privacy})."""
         |> String.replace "{url_cgu}" Env.cguUrl
+        |> String.replace "{url_privacy}" Env.privacyPolicyUrl
         |> Markdown.simple []
     ]
 
@@ -1028,6 +1040,19 @@ viewSignupForm signupForm formErrors webData =
                 []
             , label [ class "form-check-label", for "termsAccepted" ] termsView
             , viewFieldError "termsAccepted" formErrors
+            ]
+        , div [ class "mb-3 form-check" ]
+            [ input
+                [ type_ "checkbox"
+                , class "form-check-input"
+                , classList [ ( "is-invalid", Dict.member "ecoinventTermsAccepted" formErrors ) ]
+                , id "ecoinventTermsAccepted"
+                , checked signupForm.ecoinventTermsAccepted
+                , onCheck <| \ecoinventTermsAccepted -> UpdateSignupForm { signupForm | ecoinventTermsAccepted = ecoinventTermsAccepted }
+                ]
+                []
+            , label [ class "form-check-label", for "ecoinventTermsAccepted" ] ecoinventTermsView
+            , viewFieldError "ecoinventTermsAccepted" formErrors
             ]
         , div [ class "d-grid" ]
             [ button
