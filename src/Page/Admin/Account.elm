@@ -1,6 +1,6 @@
 module Page.Admin.Account exposing
     ( Model
-    , Msg(..)
+    , Msg
     , init
     , subscriptions
     , update
@@ -22,6 +22,7 @@ import Time exposing (Posix)
 import Views.Admin as AdminView
 import Views.Container as Container
 import Views.Format as Format
+import Views.Table as Table
 import Views.WebData as WebDataView
 
 
@@ -149,14 +150,15 @@ tableConfig =
             , dateColumn "Inscrit le" (.joinedAt >> Maybe.withDefault (Time.millisToPosix 0))
             ]
         , customizations =
-            { defaultCustomizations
-                | tableAttrs = [ class "table table-striped table-hover table-responsive mb-0 view-list cursor-pointer" ]
-            }
+            Table.freezeSortableHeaders
+                { defaultCustomizations
+                    | tableAttrs = [ class "table table-striped table-hover mb-0 view-list cursor-pointer" ]
+                }
         }
 
 
-view : Session -> Model -> ( String, List (Html Msg) )
-view _ model =
+view : Model -> ( String, List (Html Msg) )
+view model =
     ( "Admin Utilisateurs"
     , [ Container.centered [ class "d-flex flex-column gap-3 pb-5" ]
             [ AdminView.header model.section
@@ -181,7 +183,7 @@ viewAccounts filters tableState accounts =
             accounts
                 |> filterAccounts filters
     in
-    div [ class "DatasetTable table-responsive" ]
+    div [ class "DatasetTable table-responsive table-scroll position-relative" ]
         [ if List.isEmpty matches then
             div [ class "alert alert-info" ]
                 [ text "Aucun résultat" ]
@@ -283,6 +285,6 @@ viewFiltersForm filters =
         ]
 
 
-subscriptions : Model -> Sub Msg
-subscriptions _ =
+subscriptions : Sub Msg
+subscriptions =
     Sub.none

@@ -1,5 +1,5 @@
 module Data.Country exposing
-    ( AquaticPollutionScenario(..)
+    ( AquaticPollutionScenario
     , Code(..)
     , Country
     , codeFromString

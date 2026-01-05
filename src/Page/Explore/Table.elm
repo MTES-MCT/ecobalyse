@@ -94,8 +94,14 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
         ({ filename, toId, toRoute, toSearchableString, columns, legend } as table) =
             createTable { detailed = False, scope = scope }
 
-        customizations =
-            defaultConfig.customizations
+        { customizations } =
+            defaultConfig
+
+        listCustomizations =
+            TableView.freezeSortableHeaders
+                { customizations
+                    | rowAttrs = toRoute >> routeToMsg >> onClick >> List.singleton
+                }
 
         config =
             SortableTable.customConfig
@@ -132,10 +138,7 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
                                                         )
                                     }
                             )
-                , customizations =
-                    { customizations
-                        | rowAttrs = toRoute >> routeToMsg >> onClick >> List.singleton
-                    }
+                , customizations = listCustomizations
                 }
 
         resultItems =
@@ -164,7 +167,7 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
 
     else
         div []
-            [ div [ class "DatasetTable table-responsive" ]
+            [ div [ class "DatasetTable table-responsive table-scroll position-relative" ]
                 [ case resultItems of
                     [] ->
                         Alert.simple

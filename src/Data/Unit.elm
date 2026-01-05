@@ -1,7 +1,7 @@
 module Data.Unit exposing
     ( HolisticDurability
     , Impact
-    , ImpactUnit(..)
+    , ImpactUnit
     , NonPhysicalDurability(..)
     , PhysicalDurability(..)
     , PickPerMeter(..)

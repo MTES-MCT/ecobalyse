@@ -76,7 +76,7 @@ view config =
                         ]
                     , config.content
                         |> div [ class "modal-body no-scroll-chaining p-0" ]
-                    , if config.footer /= [] then
+                    , if not (List.isEmpty config.footer) then
                         div [ class "modal-footer bg-light" ] config.footer
 
                       else

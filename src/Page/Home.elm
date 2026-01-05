@@ -1,6 +1,6 @@
 module Page.Home exposing
     ( Model
-    , Msg(..)
+    , Msg
     , init
     , update
     , view

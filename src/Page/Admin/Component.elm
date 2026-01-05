@@ -1,6 +1,6 @@
 module Page.Admin.Component exposing
     ( Model
-    , Msg(..)
+    , Msg
     , init
     , subscriptions
     , update
@@ -387,7 +387,7 @@ processFilters scopes search =
 componentListView : Db -> List Component.Id -> List Component -> Html Msg
 componentListView db selected components =
     Table.responsiveDefault []
-        [ thead []
+        [ thead [ class "sticky-md-top" ]
             [ tr []
                 [ th [ class "align-start text-center" ]
                     [ AdminView.selectAllCheckbox ToggleSelectedAll components selected

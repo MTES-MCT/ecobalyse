@@ -1,11 +1,13 @@
 module Views.Table exposing
-    ( percentageTable
+    ( freezeSortableHeaders
+    , percentageTable
     , responsiveDefault
     )
 
 import Data.Impact.Definition exposing (Definition)
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Table as SortableTable
 import Views.Format as Format
 
 
@@ -16,14 +18,28 @@ type alias DataPoint msg =
     }
 
 
+{-| Makes a sortable table header "frozen" when you scroll rows, "as in microsoft excel".
+Note: parent html element must use `position:relative` and declare an height.
+-}
+freezeSortableHeaders : SortableTable.Customizations data msg -> SortableTable.Customizations data msg
+freezeSortableHeaders customizations =
+    { customizations
+        | thead =
+            \headers ->
+                let
+                    htmlDetails =
+                        customizations.thead headers
+                in
+                { htmlDetails
+                    | attributes = htmlDetails.attributes ++ [ class "sticky-md-top bg-white" ]
+                }
+    }
+
+
 responsiveDefault : List (Attribute msg) -> List (Html msg) -> Html msg
 responsiveDefault attrs content =
-    div [ class "DatasetTable table-responsive" ]
-        [ table
-            (class "table table-striped table-hover table-responsive mb-0"
-                :: attrs
-            )
-            content
+    div [ class "DatasetTable table-responsive table-scroll position-relative" ]
+        [ table (class "table table-striped table-hover mb-0" :: attrs) content
         ]
 
 
