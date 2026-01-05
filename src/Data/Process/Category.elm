@@ -2,11 +2,14 @@ module Data.Process.Category exposing
     ( Category(..)
     , Material(..)
     , MaterialDict
+    , PackagingType(..)
     , decodeList
     , decodeMaterialDict
     , encode
     , materialTypeToLabel
     , materialTypeToString
+    , packagingTypeToLabel
+    , packagingTypeToString
     , toLabel
     )
 
@@ -23,6 +26,7 @@ type Category
     | Material
     | MaterialType Material
     | Packaging
+    | PackagingType PackagingType
     | TextileMaterial
     | Transform
     | Transport
@@ -38,6 +42,19 @@ type Material
     | SyntheticFibers
     | Upholstery
     | Wood
+
+
+type PackagingType
+    = Bag
+    | Bottle
+    | Box
+    | Case
+    | Flask
+    | Jar
+    | OtherPackaging
+    | Pack
+    | Sheet
+    | Tray
 
 
 {-| A dict where keys are typed as `Material`
@@ -102,6 +119,12 @@ fromString string =
                     |> String.dropLeft 14
                     |> materialTypeFromString
                     |> Result.map MaterialType
+
+            else if String.startsWith "packaging_type:" string then
+                string
+                    |> String.dropLeft 15
+                    |> packagingTypeFromString
+                    |> Result.map PackagingType
 
             else
                 Err <| "Catégorie de procédé invalide: " ++ string
@@ -185,6 +208,111 @@ materialTypeToString material =
             "wood"
 
 
+packagingTypeFromString : String -> Result String PackagingType
+packagingTypeFromString string =
+    case string of
+        "bag" ->
+            Ok Bag
+
+        "bottle" ->
+            Ok Bottle
+
+        "box" ->
+            Ok Box
+
+        "case" ->
+            Ok Case
+
+        "flask" ->
+            Ok Flask
+
+        "jar" ->
+            Ok Jar
+
+        "other" ->
+            Ok OtherPackaging
+
+        "pack" ->
+            Ok Pack
+
+        "sheet" ->
+            Ok Sheet
+
+        "tray" ->
+            Ok Tray
+
+        _ ->
+            Err <| "Type d'emballage non supporté: " ++ string
+
+
+packagingTypeToString : PackagingType -> String
+packagingTypeToString packagingType =
+    case packagingType of
+        Bag ->
+            "bag"
+
+        Bottle ->
+            "bottle"
+
+        Box ->
+            "box"
+
+        Case ->
+            "case"
+
+        Flask ->
+            "flask"
+
+        Jar ->
+            "jar"
+
+        OtherPackaging ->
+            "other"
+
+        Pack ->
+            "pack"
+
+        Sheet ->
+            "sheet"
+
+        Tray ->
+            "tray"
+
+
+packagingTypeToLabel : PackagingType -> String
+packagingTypeToLabel packagingType =
+    case packagingType of
+        Bag ->
+            "Sachet"
+
+        Bottle ->
+            "Bouteille"
+
+        Box ->
+            "Boîte"
+
+        Case ->
+            "Etui"
+
+        Flask ->
+            "Flacon"
+
+        Jar ->
+            "Pot & bocal"
+
+        OtherPackaging ->
+            "Autres"
+
+        Pack ->
+            "Lot"
+
+        Sheet ->
+            "Feuille"
+
+        Tray ->
+            "Barquette"
+
+
 toString : Category -> String
 toString category =
     case category of
@@ -205,6 +333,9 @@ toString category =
 
         Packaging ->
             "packaging"
+
+        PackagingType packagingType ->
+            "packaging_type:" ++ packagingTypeToString packagingType
 
         TextileMaterial ->
             "textile_material"
@@ -242,6 +373,9 @@ toLabel category =
 
         Packaging ->
             "Emballage"
+
+        PackagingType packagingType ->
+            "Type d'emballage:" ++ packagingTypeToLabel packagingType
 
         TextileMaterial ->
             "Matériau textile"
