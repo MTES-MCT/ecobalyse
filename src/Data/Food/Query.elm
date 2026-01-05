@@ -69,6 +69,11 @@ type alias Query =
     }
 
 
+type PackagingAmount
+    = FloatAmount Float
+    | IntAmount Int
+
+
 addPreparation : Preparation.Id -> Query -> Query
 addPreparation preparationId query =
     { query
