@@ -372,7 +372,7 @@ toLabel category =
             "Emballage"
 
         PackagingType packagingType ->
-            "Type d'emballage:" ++ packagingTypeToLabel packagingType
+            "Type d’emballage:" ++ packagingTypeToLabel packagingType
 
         TextileMaterial ->
             "Matériau textile"
