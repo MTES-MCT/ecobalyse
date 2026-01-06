@@ -86,6 +86,7 @@ type alias Model =
 
 type Modal
     = AddIngredientModal (Maybe Recipe.RecipeIngredient) (Autocomplete Ingredient)
+    | AddPackagingModal (Maybe Recipe.Packaging) (Autocomplete Recipe.Packaging)
     | ComparatorModal
     | ExplorerDetailsModal Ingredient
     | NoModal
@@ -107,6 +108,7 @@ type Msg
     | NoOp
     | OnAutocompleteExample (Autocomplete.Msg Query)
     | OnAutocompleteIngredient (Autocomplete.Msg Ingredient)
+    | OnAutocompletePackaging (Autocomplete.Msg Recipe.Packaging)
     | OnAutocompleteSelect
     | OnDragLeaveBookmark
     | OnDragOverBookmark Bookmark
@@ -312,6 +314,20 @@ update ({ db, queries } as session) msg model =
                     { model | modal = AddIngredientModal maybeOldIngredient newAutocompleteState }
                         |> createPageUpdate session
                         |> App.withCmds [ Cmd.map OnAutocompleteIngredient autoCompleteCmd ]
+
+                _ ->
+                    createPageUpdate session model
+
+        OnAutocompletePackaging autocompleteMsg ->
+            case model.modal of
+                AddPackagingModal maybeOldPackaging autocompleteState ->
+                    let
+                        ( newAutocompleteState, autoCompleteCmd ) =
+                            Autocomplete.update autocompleteMsg autocompleteState
+                    in
+                    { model | modal = AddPackagingModal maybeOldPackaging newAutocompleteState }
+                        |> createPageUpdate session
+                        |> App.withCmds [ Cmd.map OnAutocompletePackaging autoCompleteCmd ]
 
                 _ ->
                     createPageUpdate session model
@@ -1569,6 +1585,25 @@ view session model =
                             .categories
                                 >> List.head
                                 >> Maybe.map IngredientCategory.toLabel
+                                >> Maybe.withDefault ""
+                        }
+
+                AddPackagingModal _ autocompleteState ->
+                    AutocompleteSelectorView.view
+                        { autocompleteState = autocompleteState
+                        , closeModal = SetModal NoModal
+                        , footer = []
+                        , noOp = NoOp
+                        , onAutocomplete = OnAutocompletePackaging
+                        , onAutocompleteSelect = OnAutocompleteSelect
+                        , placeholderText = "tapez ici le nom de de l’emballage pour le rechercher"
+                        , title = "Sélectionnez un emballage"
+                        , toLabel = .process >> Process.getDisplayName
+                        , toCategory =
+                            .process
+                                >> .categories
+                                >> List.head
+                                >> Maybe.map ProcessCategory.toLabel
                                 >> Maybe.withDefault ""
                         }
 
