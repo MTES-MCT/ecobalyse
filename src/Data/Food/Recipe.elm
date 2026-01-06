@@ -1,5 +1,6 @@
 module Data.Food.Recipe exposing
-    ( Recipe
+    ( Packaging
+    , Recipe
     , RecipeIngredient
     , Results
     , Transform
