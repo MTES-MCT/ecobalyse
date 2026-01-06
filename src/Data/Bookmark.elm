@@ -16,6 +16,7 @@ module Data.Bookmark exposing
     )
 
 import Data.Common.DecodeUtils as DU
+import Data.Common.EncodeUtils as EU
 import Data.Component as Component
 import Data.Food.Query as FoodQuery
 import Data.Food.Recipe as Recipe
@@ -85,26 +86,12 @@ decodeQuery =
 
 encode : Bookmark -> Encode.Value
 encode v =
-    Encode.object
-        [ ( "created", Encode.int <| Time.posixToMillis v.created )
-        , ( "name", Encode.string v.name )
-        , ( "query", encodeQuery v.query )
-        , ( "subScope"
-          , case v.subScope of
-                Just Scope.Object ->
-                    Scope.encode Scope.Object
-
-                Just Scope.Veli ->
-                    Scope.encode Scope.Veli
-
-                _ ->
-                    Encode.null
-          )
-        , ( "version"
-          , v.version
-                |> Maybe.map Version.encodeData
-                |> Maybe.withDefault Encode.null
-          )
+    EU.optionalPropertiesObject
+        [ ( "created", v.created |> Time.posixToMillis |> Encode.int |> Just )
+        , ( "name", Encode.string v.name |> Just )
+        , ( "query", encodeQuery v.query |> Just )
+        , ( "subScope", v.subScope |> Maybe.map Scope.encode )
+        , ( "version", v.version |> Maybe.map Version.encodeData )
         ]
 
 
