@@ -3,7 +3,7 @@ module Data.Food.Validation exposing (validate)
 import Data.Country as Country
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Preparation as Preparation
-import Data.Food.Query exposing (IngredientQuery, PackagingQuery, ProcessQuery, Query)
+import Data.Food.Query exposing (IngredientQuery, PackagingAmount, PackagingQuery, ProcessQuery, Query, packagingAmountToFloat)
 import Data.Process as Process
 import Data.Scope as Scope
 import Data.Validation as Validation
@@ -40,9 +40,9 @@ validateIngredient db ingredientQuery =
         |> RE.andMap (Ok ingredientQuery.planeTransport)
 
 
-validateAmount : Float -> Result String Float
+validateAmount : PackagingAmount -> Result String PackagingAmount
 validateAmount amount =
-    if amount <= 0 then
+    if packagingAmountToFloat amount <= 0 then
         Err "La quantité doit être supérieure à zéro"
 
     else

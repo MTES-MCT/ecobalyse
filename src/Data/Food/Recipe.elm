@@ -29,7 +29,7 @@ import Data.Food.EcosystemicServices as EcosystemicServices exposing (Ecosystemi
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Origin as Origin
 import Data.Food.Preparation as Preparation exposing (Preparation)
-import Data.Food.Query as BuilderQuery exposing (Query)
+import Data.Food.Query as BuilderQuery exposing (PackagingAmount(..), Query, packagingAmountToFloat)
 import Data.Food.Retail as Retail
 import Data.Food.WellKnown exposing (WellKnown)
 import Data.Impact as Impact exposing (Impacts)
@@ -57,7 +57,7 @@ france =
 
 
 type alias Packaging =
-    { amount : Float
+    { amount : PackagingAmount
     , process : Process.Process
     }
 
@@ -314,12 +314,12 @@ computeImpact mass _ =
         >> Unit.impact
 
 
-computePackagingImpacts : { a | amount : Float, process : Process } -> Impacts
+computePackagingImpacts : { a | amount : PackagingAmount, process : Process } -> Impacts
 computePackagingImpacts item =
     item.process.impacts
         |> Impact.mapImpacts
             (\_ impact ->
-                Unit.impactToFloat impact * item.amount |> Unit.impact
+                Unit.impactToFloat impact * packagingAmountToFloat item.amount |> Unit.impact
             )
 
 
@@ -628,7 +628,7 @@ packagingFromQuery { processes } { id, amount } =
 packagingQueryFromProcess : Process -> BuilderQuery.PackagingQuery
 packagingQueryFromProcess process =
     { id = process.id
-    , amount = 1
+    , amount = IntAmount 1
     }
 
 

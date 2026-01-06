@@ -21,7 +21,7 @@ import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Origin as Origin
 import Data.Food.Preparation as Preparation
-import Data.Food.Query as Query exposing (Query)
+import Data.Food.Query as Query exposing (PackagingAmount(..), Query, packagingAmountToFloat)
 import Data.Food.Recipe as Recipe exposing (Recipe)
 import Data.Food.Retail as Retail
 import Data.Food.WellKnown exposing (WellKnown)
@@ -681,12 +681,12 @@ updatePackagingFormView { processes, excluded, processQuery, impact, updateEvent
         [ span [ class "QuantityInputWrapper" ]
             [ input
                 [ type_ "number"
-                , value (String.fromFloat processQuery.amount)
+                , value (String.fromFloat (packagingAmountToFloat processQuery.amount))
                 , onInput <|
                     \string ->
                         case String.toFloat string of
                             Just amount ->
-                                updateEvent { processQuery | amount = amount }
+                                updateEvent { processQuery | amount = FloatAmount amount }
 
                             _ ->
                                 NoOp
