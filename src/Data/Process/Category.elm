@@ -239,7 +239,7 @@ packagingTypeFromString string =
             Ok Tray
 
         _ ->
-            Err <| "Type d'emballage non supporté: " ++ string
+            Err <| "Type d’emballage non supporté : " ++ string
 
 
 packagingTypeToString : PackagingType -> String
