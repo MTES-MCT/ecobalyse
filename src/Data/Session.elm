@@ -385,7 +385,7 @@ decodeStore : Decoder Store
 decodeStore =
     Decode.succeed Store
         |> DU.strictOptional "auth2" decodeAuth
-        |> JDP.optional "bookmarks" (Decode.list Bookmark.decode) []
+        |> JDP.optional "bookmarks" Bookmark.decodeValidList []
         |> JDP.optional "comparedSimulations" (Decode.map Set.fromList (Decode.list Decode.string)) Set.empty
 
 
