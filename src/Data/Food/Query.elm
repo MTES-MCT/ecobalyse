@@ -1,5 +1,6 @@
 module Data.Food.Query exposing
     ( IngredientQuery
+    , PackagingAmount(..)
     , PackagingQuery
     , ProcessQuery
     , Query
@@ -13,6 +14,7 @@ module Data.Food.Query exposing
     , deletePreparation
     , empty
     , encode
+    , packagingAmountToFloat
     , parseBase64Query
     , serialize
     , setDistribution
@@ -56,7 +58,7 @@ type alias ProcessQuery =
 
 type alias PackagingQuery =
     { id : Process.Id
-    , amount : Float
+    , amount : PackagingAmount
     }
 
 
@@ -72,6 +74,16 @@ type alias Query =
 type PackagingAmount
     = FloatAmount Float
     | IntAmount Int
+
+
+packagingAmountToFloat : PackagingAmount -> Float
+packagingAmountToFloat a =
+    case a of
+        FloatAmount v ->
+            v
+
+        IntAmount v ->
+            toFloat v
 
 
 addPreparation : Preparation.Id -> Query -> Query
@@ -146,11 +158,21 @@ decodeMassInGrams =
         |> Decode.map Mass.grams
 
 
+decodePackagingAmount : Decoder PackagingAmount
+decodePackagingAmount =
+    Decode.oneOf
+        [ Decode.float
+            |> Decode.map (\float -> FloatAmount float)
+        , Decode.int
+            |> Decode.map (\int -> IntAmount int)
+        ]
+
+
 decodePackaging : Decoder PackagingQuery
 decodePackaging =
     Decode.map2 PackagingQuery
         (Decode.field "id" Process.decodeId)
-        (Decode.field "amount" Decode.float)
+        (Decode.field "amount" decodePackagingAmount)
 
 
 decodeProcess : Decoder ProcessQuery
@@ -241,11 +263,21 @@ encodeMassAsGrams =
     Mass.inGrams >> Encode.float
 
 
+encodePackagingAmount : PackagingAmount -> Encode.Value
+encodePackagingAmount v =
+    case v of
+        FloatAmount a ->
+            Encode.float a
+
+        IntAmount a ->
+            Encode.int a
+
+
 encodePackaging : PackagingQuery -> Encode.Value
 encodePackaging v =
     Encode.object
         [ ( "id", Process.encodeId v.id )
-        , ( "amount", Encode.float v.amount )
+        , ( "amount", encodePackagingAmount v.amount )
         ]
 
 
