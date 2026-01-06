@@ -153,7 +153,7 @@ update session msg model =
                         "Vous avez désormais accès aux impacts détaillés"
 
                      else
-                        "Vous devez valider les CGU pour avoir accès aux impacts détaillés"
+                        "Vous devez valider les CGU Ecoinvent/Base Empreinte pour avoir accès aux impacts détaillés"
                     )
                 |> App.withCmds [ Plausible.send session Plausible.AuthLoginOK ]
 
@@ -243,7 +243,7 @@ updateAccountTab session currentAuth profileForm msg model =
                             { emailOptin = user.profile.emailOptin
                             , firstName = user.profile.firstName
                             , lastName = user.profile.lastName
-                            , termsAccepted = user.profile.termsAccepted
+                            , ecoinventTermsAccepted = user.profile.termsAccepted
                             }
                             Dict.empty
                 }
@@ -632,11 +632,11 @@ viewAccount { user } profileForm formErrors =
                     , class "form-check-input"
                     , classList [ ( "is-invalid", Dict.member "termsAccepted" formErrors ) ]
                     , id "termsAccepted"
-                    , checked profileForm.termsAccepted
-                    , onCheck <| \termsAccepted -> UpdateProfileForm { profileForm | termsAccepted = termsAccepted }
+                    , checked profileForm.ecoinventTermsAccepted
+                    , onCheck <| \termsAccepted -> UpdateProfileForm { profileForm | ecoinventTermsAccepted = termsAccepted }
                     ]
                     []
-                , label [ class "form-check-label", for "termsAccepted" ] termsView
+                , label [ class "form-check-label", for "termsAccepted" ] ecoinventTermsView
                 , viewFieldError "termsAccepted" formErrors
                 ]
             , div [ class "d-grid" ]
@@ -1017,6 +1017,19 @@ viewSignupForm signupForm formErrors webData =
             [ input
                 [ type_ "checkbox"
                 , class "form-check-input"
+                , classList [ ( "is-invalid", Dict.member "termsAccepted" formErrors ) ]
+                , id "termsAccepted"
+                , checked signupForm.termsAccepted
+                , onCheck <| \termsAccepted -> UpdateSignupForm { signupForm | termsAccepted = termsAccepted }
+                ]
+                []
+            , label [ class "form-check-label", for "termsAccepted" ] termsView
+            , viewFieldError "termsAccepted" formErrors
+            ]
+        , div [ class "mb-3 form-check" ]
+            [ input
+                [ type_ "checkbox"
+                , class "form-check-input"
                 , classList [ ( "is-invalid", Dict.member "emailOptin" formErrors ) ]
                 , id "emailOptin"
                 , checked signupForm.emailOptin
@@ -1027,19 +1040,6 @@ viewSignupForm signupForm formErrors webData =
                 [ text "J’accepte de recevoir des informations de la part d’Ecobalyse par email."
                 ]
             , viewFieldError "emailOptin" formErrors
-            ]
-        , div [ class "mb-3 form-check" ]
-            [ input
-                [ type_ "checkbox"
-                , class "form-check-input"
-                , classList [ ( "is-invalid", Dict.member "termsAccepted" formErrors ) ]
-                , id "termsAccepted"
-                , checked signupForm.termsAccepted
-                , onCheck <| \termsAccepted -> UpdateSignupForm { signupForm | termsAccepted = termsAccepted }
-                ]
-                []
-            , label [ class "form-check-label", for "termsAccepted" ] termsView
-            , viewFieldError "termsAccepted" formErrors
             ]
         , div [ class "mb-3 form-check" ]
             [ input

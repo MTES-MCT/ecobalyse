@@ -76,10 +76,10 @@ type alias Profile =
 
 
 type alias ProfileForm =
-    { emailOptin : Bool
+    { ecoinventTermsAccepted : Bool
+    , emailOptin : Bool
     , firstName : String
     , lastName : String
-    , termsAccepted : Bool
     }
 
 
@@ -218,10 +218,10 @@ decodeSiren =
 
 emptyProfileForm : ProfileForm
 emptyProfileForm =
-    { emailOptin = False
+    { ecoinventTermsAccepted = False
+    , emailOptin = False
     , firstName = ""
     , lastName = ""
-    , termsAccepted = False
     }
 
 
@@ -340,7 +340,7 @@ encodeSignupForm form =
         , ( "firstName", form.firstName |> Encode.string )
         , ( "lastName", form.lastName |> Encode.string )
         , ( "organization", form.organization |> encodeOrganization )
-        , ( "termsAccepted", form.termsAccepted |> Encode.bool )
+        , ( "termsAccepted", form.ecoinventTermsAccepted |> Encode.bool )
         ]
 
 
@@ -350,7 +350,7 @@ encodeUpdateProfileForm form =
         [ ( "emailOptin", form.emailOptin |> Encode.bool )
         , ( "firstName", form.firstName |> Encode.string )
         , ( "lastName", form.lastName |> Encode.string )
-        , ( "termsAccepted", form.termsAccepted |> Encode.bool )
+        , ( "termsAccepted", form.ecoinventTermsAccepted |> Encode.bool )
         ]
 
 
