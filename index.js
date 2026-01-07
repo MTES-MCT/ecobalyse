@@ -2,12 +2,11 @@ import { Elm } from "./src/Main.elm";
 import * as Sentry from "@sentry/browser";
 import Charts from "./lib/charts";
 
-// The root Web client URL, including protocol and without trailing slash
-const clientUrl = (location.origin + location.pathname).replace(/\/+$/g, "");
+// The localStorage key to use to store serialized session data
+const storeKey = "store";
 
-// Use current domain and path as the localStorage key, so that each version has its own browser storage
-// eg. foo.org and foo.org/versions/v7.0.0 uses distinct browser stores
-const storeKey = "ecobalyse_" + (location.hostname + location.pathname).replace(/\/+$/g, "");
+// Remove trailing slash from root because it's used by the Elm API to resolve backend api urls
+const clientUrl = (location.origin + location.pathname).replace(/\/+$/g, "");
 
 // using a `let` statement to avoid this error:
 // @parcel/optimizer-swc: 'const' declarations must be initialized
