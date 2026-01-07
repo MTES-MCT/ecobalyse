@@ -1,8 +1,10 @@
 module Data.Bookmark exposing
     ( Bookmark
+    , JsonBookmark
     , Query(..)
+    , decodeJsonList
     , decodeValidList
-    , encode
+    , encodeJsonList
     , findByFoodQuery
     , findByObjectQuery
     , findByTextileQuery
@@ -10,8 +12,11 @@ module Data.Bookmark exposing
     , isObject
     , isTextile
     , isVeli
+    , onlyValid
+    , replace
     , sort
     , toId
+    , toJson
     , toQueryDescription
     )
 
@@ -27,6 +32,7 @@ import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
+import List.Extra as LE
 import Request.Version as Version exposing (VersionData)
 import Static.Db exposing (Db)
 import Time exposing (Posix)
@@ -39,6 +45,13 @@ type alias Bookmark =
     , subScope : Maybe Scope
     , version : Maybe VersionData
     }
+
+
+{-| Source JSON for a bookmark; this allows carying possibly invalid bookmarks around across versions,
+decoding them at runtime and filtering out whatever isn't decodable
+-}
+type JsonBookmark
+    = JsonBookmark String
 
 
 type Query
@@ -67,6 +80,11 @@ decode =
             )
 
 
+decodeJsonList : Decoder (List JsonBookmark)
+decodeJsonList =
+    Decode.list (Decode.map JsonBookmark Decode.string)
+
+
 {-| Decodes a list of bookmarks, discarding invalid ones
 -}
 decodeValidList : Decoder (List Bookmark)
@@ -93,6 +111,11 @@ encode v =
         , ( "subScope", v.subScope |> Maybe.map Scope.encode )
         , ( "version", v.version |> Maybe.map Version.encodeData )
         ]
+
+
+encodeJsonList : List JsonBookmark -> Encode.Value
+encodeJsonList =
+    Encode.list (\(JsonBookmark json) -> Encode.string json)
 
 
 encodeQuery : Query -> Encode.Value
@@ -172,6 +195,35 @@ findByTextileQuery textileQuery =
     findByQuery (Textile textileQuery)
 
 
+fromJson : JsonBookmark -> Maybe Bookmark
+fromJson (JsonBookmark json) =
+    case Decode.decodeString decode json of
+        Err _ ->
+            Nothing
+
+        Ok bookmark ->
+            Just bookmark
+
+
+onlyValid : List JsonBookmark -> List Bookmark
+onlyValid =
+    List.filterMap fromJson
+
+
+replace : Bookmark -> List JsonBookmark -> List JsonBookmark
+replace bookmark =
+    LE.updateIf
+        (\jsonBookmark ->
+            case fromJson jsonBookmark of
+                Just { query } ->
+                    query == bookmark.query
+
+                Nothing ->
+                    False
+        )
+        (always <| toJson bookmark)
+
+
 scope : Bookmark -> Scope
 scope bookmark =
     case bookmark.query of
@@ -196,6 +248,11 @@ sort =
 toId : Bookmark -> String
 toId bookmark =
     Scope.toString (scope bookmark) ++ ":" ++ bookmark.name
+
+
+toJson : Bookmark -> JsonBookmark
+toJson =
+    encode >> Encode.encode 0 >> JsonBookmark
 
 
 toQueryDescription : Db -> Bookmark -> String
