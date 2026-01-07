@@ -23980,7 +23980,7 @@
     "waste": 0
   },
   {
-    "activityName": "flax plant, harvested//[RoW] flax production",
+    "activityName": "Fibre, flax, long, scutched {RER}| fibre production, flax, scutching | Cut-off, U",
     "categories": [
       "material",
       "textile_material"
@@ -23994,7 +23994,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 43.38,
+      "ecs": 223.81,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -24013,11 +24013,11 @@
       "tre": 0,
       "wtu": 0
     },
-    "location": "RoW",
+    "location": "RER",
     "scopes": [
       "textile"
     ],
-    "source": "Ecoinvent 3.9.1",
+    "source": "Ecoinvent 3.11",
     "unit": "kg",
     "waste": 0
   },
