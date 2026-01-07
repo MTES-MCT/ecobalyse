@@ -7196,7 +7196,8 @@
     "activityName": "wool; sheep; production mix; at farm; 1 kg greasy wool",
     "categories": [
       "material",
-      "textile_material"
+      "textile_material",
+      "material_type:organic_fibers"
     ],
     "comment": "Ancien identifiant (12/2024): wool-default.",
     "density": 0,
@@ -7228,7 +7229,8 @@
     },
     "location": null,
     "scopes": [
-      "textile"
+      "textile",
+      "object"
     ],
     "source": "Woolmark",
     "unit": "kg",
@@ -7779,7 +7781,8 @@
     "activityName": "This process is not linked to a Brightway activity",
     "categories": [
       "material",
-      "textile_material"
+      "textile_material",
+      "material_type:organic_fibers"
     ],
     "comment": "corr4: Impacts de la laine par défaut multiplié par le coefficient 4%/37%=0.108. Cela vient d'une différence de taux d'allocation : 4% pour cette laine et 37% pour la laine par défaut.",
     "density": 0,
@@ -7811,7 +7814,8 @@
     },
     "location": null,
     "scopes": [
-      "textile"
+      "textile",
+      "object"
     ],
     "source": "Custom",
     "unit": "kg",
@@ -23734,7 +23738,7 @@
     ],
     "comment": "Ancien identifiant (12/2024): elasthane-lycra.",
     "density": 0,
-    "displayName": "Elasthane (Lycra)",
+    "displayName": "Elasthane",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "b2340802-bde9-56e4-984f-37110706225e",
@@ -23976,7 +23980,7 @@
     "waste": 0
   },
   {
-    "activityName": "fibre, flax//[RoW] fibre production, flax, retting",
+    "activityName": "Fibre, flax, long, scutched {RER}| fibre production, flax, scutching | Cut-off, U",
     "categories": [
       "material",
       "textile_material"
@@ -23990,7 +23994,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 339.72,
+      "ecs": 223.81,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -24009,11 +24013,11 @@
       "tre": 0,
       "wtu": 0
     },
-    "location": "RoW",
+    "location": "RER",
     "scopes": [
       "textile"
     ],
-    "source": "Ecoinvent 3.9.1",
+    "source": "Ecoinvent 3.11",
     "unit": "kg",
     "waste": 0
   },
