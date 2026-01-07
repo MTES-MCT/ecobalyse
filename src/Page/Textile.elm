@@ -259,6 +259,7 @@ suggestBookmarkName { db, store } query =
         -- Existing user bookmark?
         userBookmark =
             store.bookmarks
+                |> Bookmark.onlyValid
                 |> Bookmark.findByTextileQuery query
 
         -- Matching product example name?
@@ -430,7 +431,7 @@ update ({ db, queries, navKey } as session) msg model =
                     { model | bookmarkBeingRenamed = Nothing }
                         |> createPageUpdate
                             (session
-                                |> Session.renameBookmark bookmark
+                                |> Session.replaceBookmark bookmark
                             )
 
                 Nothing ->

@@ -80,6 +80,7 @@ sidebarView config =
         , button [ class "btn btn-sm btn-link pt-0", onClick config.selectNone ] [ text "tout désélectionner" ]
         ]
     , config.session.store.bookmarks
+        |> Bookmark.onlyValid
         |> List.map
             (\bookmark ->
                 let
@@ -195,6 +196,7 @@ comparatorView ({ session } as config) =
     let
         charts =
             session.store.bookmarks
+                |> Bookmark.onlyValid
                 |> List.filterMap
                     (\bookmark ->
                         if Set.member (Bookmark.toId bookmark) session.store.comparedSimulations then

@@ -402,6 +402,7 @@ queryFromScope session scope =
 scopedBookmarks : Session -> Scope -> List Bookmark
 scopedBookmarks session scope =
     session.store.bookmarks
+        |> Bookmark.onlyValid
         |> List.filter
             (case scope of
                 Scope.Food ->

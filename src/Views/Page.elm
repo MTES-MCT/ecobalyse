@@ -544,7 +544,10 @@ notificationView { session, toMsg } notification =
                 { attributes = []
                 , close = Nothing
                 , content =
-                    [ p [] [ text "Votre précédente session n'a pas pu être récupérée, elle doit donc être réinitialisée." ]
+                    [ p [ class "fw-bold mb-2" ] [ text "Vos précédente session n'a pas pu être récupérée et doit être réinitialisée." ]
+                    , p [ class "fs-7 d-flex align-items-baseline gap-1" ]
+                        [ text "ⓘ Cela se produit généralement lorsque de nouvelles fonctionnalités ou correctifs appliqués introduisent des incompatibilités avec le format de ces données."
+                        ]
                     , p []
                         [ button
                             [ class "btn btn-primary"
@@ -552,13 +555,14 @@ notificationView { session, toMsg } notification =
                             ]
                             [ text "D’accord, réinitialiser la session" ]
                         ]
-                    , details []
+                    , details [ class "fs-8" ]
                         [ summary [] [ text "Afficher les détails techniques de l'erreur" ]
-                        , pre [] [ text <| Decode.errorToString decodeError ]
+                        , pre [ class "card p-2 mt-2 bg-light" ]
+                            [ code [] [ text <| Decode.errorToString decodeError ] ]
                         ]
                     ]
-                , level = Alert.Warning
-                , title = Just "Erreur de récupération de session"
+                , level = Alert.Info
+                , title = Just "Problème de récupération de la session"
                 }
 
 
