@@ -1,9 +1,8 @@
 module Data.Bookmark exposing
     ( Bookmark
-    , JsonBookmark
+    , JsonBookmark(..)
     , Query(..)
     , decodeJsonList
-    , decodeValidList
     , encodeJsonList
     , findByFoodQuery
     , findByObjectQuery
@@ -29,7 +28,6 @@ import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Query as TextileQuery
 import Json.Decode as Decode exposing (Decoder)
-import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
 import List.Extra as LE
@@ -83,14 +81,6 @@ decode =
 decodeJsonList : Decoder (List JsonBookmark)
 decodeJsonList =
     Decode.list (Decode.map JsonBookmark Decode.string)
-
-
-{-| Decodes a list of bookmarks, discarding invalid ones
--}
-decodeValidList : Decoder (List Bookmark)
-decodeValidList =
-    Decode.list (Decode.maybe decode |> DE.withDefault Nothing)
-        |> Decode.map (List.filterMap identity)
 
 
 decodeQuery : Decoder Query
