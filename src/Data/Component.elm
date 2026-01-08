@@ -1300,8 +1300,8 @@ loadDefaultEnergyMixes processes =
                 >> Result.andThen (\id -> Process.findById id processes)
     in
     Result.map2 (\elec heat -> { elec = elec, heat = heat })
-        -- Électricité moyenne tension, Asie
-        (fromIdString "a2129ece-5dd9-5e66-969c-2603b3c97244")
+        -- Électricité moyenne tension, Inde
+        (fromIdString "ed6d177e-44bb-5ba4-beec-d683dc21be9f")
         -- Mix chaleur (Monde)
         (fromIdString "3561ace1-f710-50ce-a69c-9cf842e729e4")
 

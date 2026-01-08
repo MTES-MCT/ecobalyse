@@ -180,7 +180,7 @@ suite =
                                         |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 10)
                               }
                             ]
-                            |> Expect.within (Expect.Absolute 1) 383
+                            |> Expect.within (Expect.Absolute 1) 420
                         )
                     , it "should add impacts when multiple transforms are passed (no elec, no heat)"
                         (getTestEcsImpact
@@ -194,7 +194,7 @@ suite =
                             [ fading |> setProcessEcsImpact (Unit.impact 10)
                             , fading |> setProcessEcsImpact (Unit.impact 20)
                             ]
-                            |> Expect.within (Expect.Absolute 1) 776
+                            |> Expect.within (Expect.Absolute 1) 849
                         )
                     ]
                 , TestUtils.suiteFromResult "unit mismatch"
@@ -277,7 +277,7 @@ suite =
                         [ it "should handle impacts+waste when applying transforms: impacts"
                             (withElecAndHeat
                                 |> extractEcsImpact
-                                |> Expect.within (Expect.Absolute 1) 680
+                                |> Expect.within (Expect.Absolute 1) 734
                             )
                         , it "should handle impacts+waste when applying transforms: mass"
                             (withElecAndHeat
@@ -338,7 +338,7 @@ suite =
                         [ it "should compute element impacts"
                             (elementResults
                                 |> extractEcsImpact
-                                |> Expect.within (Expect.Absolute 1) 2176
+                                |> Expect.within (Expect.Absolute 1) 2213
                             )
                         , it "should compute element mass"
                             (elementResults
