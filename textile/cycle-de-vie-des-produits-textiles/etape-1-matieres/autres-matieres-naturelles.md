@@ -33,9 +33,9 @@ _Fibre production, jute, retting, RoW_
 3. Teillage.\
    (consiste à extraire les fibres se trouvant dans l'enveloppe de la tige en battant les plantes)
 
-**Procédé Ecoinvent**&#x20;
+**Procédé utilisé**&#x20;
 
-_fibre production, flax, retting, RoW_
+Le procédé utilisé est identifié dans l'[Explorateur de procédé](https://ecobalyse.beta.gouv.fr/#/explore/textile/textile-processes) sous le nom de Lin.
 
 </details>
 
