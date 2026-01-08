@@ -7,10 +7,11 @@ from advanced_alchemy.base import UUIDAuditBase
 from sqlalchemy import Float, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
+from .process_element_transform import ProcessElementTransform
+
 if TYPE_CHECKING:
     from .component import Component
     from .process import Process
-from .process_element_transform import ProcessElementTransform
 
 
 def get_enum_values(enum_class):
