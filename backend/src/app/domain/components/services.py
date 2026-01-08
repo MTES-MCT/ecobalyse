@@ -180,17 +180,24 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
     ):
         element_dict = element if is_dict(element) else element.to_dict()
 
-        tranforms_ids = element_dict.pop("transforms", [])
+        transforms_ids = element_dict.pop("transforms", [])
 
         element_dict["material_process_id"] = element_dict.pop("material")
         element_dict["component_id"] = component_id
 
         elt = m.Element(**element_dict)
 
-        if len(tranforms_ids):
-            elt.process_transforms.extend(
-                await processes_service.list(m.Process.id.in_(tranforms_ids))
-            )
+        transforms: list[m.ProcessElementTransform] = []
+
+        if len(transforms_ids):
+            for idx, tid in enumerate(transforms_ids):
+                # See https://docs.sqlalchemy.org/en/20/orm/basic_relationships.html#association-object
+                elementTransform = m.ProcessElementTransform(position=idx)
+                process = await processes_service.get(tid)
+                elementTransform.transform = process
+                transforms.append(elementTransform)
+
+            elt.process_transforms.extend(transforms)
 
         return elt
 
@@ -243,7 +250,7 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
         for element in elements:
             # As elements are not comparable (they don’t have ids) we prefer to remove all the existing elements and re-create theme
             model.elements.append(
-                await self._create_element(element, model, processes_service)
+                await self._create_element(element, model.id, processes_service)
             )
 
         assert owner_id

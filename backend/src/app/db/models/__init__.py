@@ -3,6 +3,7 @@ from .element import Element
 from .journal_entry import JournalAction, JournalEntry
 from .process import Process
 from .process_category import ProcessCategory
+from .process_element_transform import ProcessElementTransform
 from .process_process_category import process_process_category
 from .role import Role
 from .token import Token
@@ -12,6 +13,7 @@ from .user_role import UserRole
 
 __all__ = (
     "Element",
+    "ProcessElementTransform",
     "Component",
     "JournalAction",
     "JournalEntry",
