@@ -151,6 +151,15 @@ type alias Query =
     -- though it's still an ongoing discussion and we need to move forward and iterate.
     , durability : Unit.Ratio
     , items : List Item
+    , useConsumptions : List UseConsumption
+    }
+
+
+{-| Use stage consumption, a process and a quantity of its unit
+-}
+type alias UseConsumption =
+    { amount : Amount
+    , processId : Process.Id
     }
 
 
@@ -822,6 +831,14 @@ decodeQuery =
         |> DU.strictOptional "assemblyCountry" Country.decodeCode
         |> Decode.optional "durability" Unit.decodeRatio (Unit.ratio 1)
         |> Decode.required "components" (Decode.list decodeItem)
+        |> Decode.optional "useConsumptions" (Decode.list decodeUseConsumption) []
+
+
+decodeUseConsumption : Decoder UseConsumption
+decodeUseConsumption =
+    Decode.succeed UseConsumption
+        |> Decode.required "amount" (Decode.map Amount Decode.float)
+        |> Decode.required "processId" Process.decodeId
 
 
 {-| Proxified for convenience
@@ -879,6 +896,7 @@ emptyQuery =
     { assemblyCountry = Nothing
     , durability = Unit.ratio 1
     , items = []
+    , useConsumptions = []
     }
 
 
@@ -984,6 +1002,7 @@ encodeQuery query =
         [ ( "assemblyCountry", query.assemblyCountry |> Maybe.map Country.encodeCode )
         , ( "durability", query.durability |> Unit.encodeRatio |> Just )
         , ( "components", query.items |> Encode.list encodeItem |> Just )
+        , ( "useConsumptions", query.useConsumptions |> Encode.list encodeUseConsumption |> Just )
         ]
 
 
@@ -1008,6 +1027,14 @@ encodeResults maybeTrigram (Results results) =
                         Impact.encode results.impacts
           )
         , ( "items", results.items |> Encode.list (encodeResults maybeTrigram) |> Just )
+        ]
+
+
+encodeUseConsumption : UseConsumption -> Encode.Value
+encodeUseConsumption v =
+    Encode.object
+        [ ( "amount", v.amount |> amountToFloat |> Encode.float )
+        , ( "processId", v.processId |> Process.encodeId )
         ]
 
 
