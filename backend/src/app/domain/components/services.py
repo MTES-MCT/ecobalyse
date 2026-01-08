@@ -190,11 +190,13 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
         transforms: list[m.ProcessElementTransform] = []
 
         if len(transforms_ids):
+            processes = await processes_service.list(m.Process.id.in_(transforms_ids))
             for idx, tid in enumerate(transforms_ids):
                 # See https://docs.sqlalchemy.org/en/20/orm/basic_relationships.html#association-object
                 elementTransform = m.ProcessElementTransform(position=idx)
-                process = await processes_service.get(tid)
-                elementTransform.transform = process
+                elementTransform.transform = next(
+                    (p for p in processes if str(p.to_dict()["id"]) == str(tid))
+                )
                 transforms.append(elementTransform)
 
             elt.process_transforms.extend(transforms)
