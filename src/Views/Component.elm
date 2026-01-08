@@ -58,6 +58,7 @@ type alias Config db msg =
     , noOp : msg
     , openSelectComponentModal : Autocomplete Component -> msg
     , openSelectProcessModal : Category -> TargetItem -> Maybe Index -> Autocomplete Process -> msg
+    , openUseProcessModal : Autocomplete Process -> msg
     , query : Query
     , removeElement : TargetElement -> msg
     , removeElementTransform : TargetElement -> Index -> msg
@@ -854,17 +855,43 @@ distributionView { impact } =
 
 
 useStageView : Config db msg -> Html msg
-useStageView { impact } =
+useStageView config =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header d-flex align-items-center justify-content-between" ]
             [ h2 [ class "h5 mb-0" ]
                 [ text "Utilisation" ]
             , div [ class "d-flex align-items-center gap-2" ]
-                [ Format.formatImpact impact Impact.empty
+                [ Format.formatImpact config.impact Impact.empty
                 ]
             ]
-        , div [ class "card-body d-flex align-items-center gap-1" ]
-            [ text "TODO" ]
+        , div [ class "card-body d-flex align-items-center gap-1 p-0" ]
+            [ selectConsumptionButton config ]
+        ]
+
+
+selectConsumptionButton : Config db msg -> Html msg
+selectConsumptionButton { db, openUseProcessModal, scope } =
+    let
+        availableProcesses =
+            db.processes
+                |> Process.listByCategory Category.Use
+                |> Scope.anyOf [ scope ]
+                |> List.sortBy Process.getDisplayName
+
+        autocompleteState =
+            availableProcesses
+                |> AutocompleteSelector.init Process.getDisplayName
+    in
+    button
+        [ type_ "button"
+        , class "btn btn-outline-primary w-100"
+        , class "d-flex justify-content-center align-items-center"
+        , class "gap-1 w-100"
+        , disabled <| List.isEmpty availableProcesses
+        , onClick <| openUseProcessModal autocompleteState
+        ]
+        [ Icon.plus
+        , text "Ajouter une consommation"
         ]
 
 

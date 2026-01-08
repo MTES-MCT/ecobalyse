@@ -663,6 +663,7 @@ simulatorView session model =
                     \p ti ei s ->
                         SelectProcessModal p ti ei s
                             |> SetModal
+                , openUseProcessModal = \_ -> NoOp
                 , query = currentQuery
                 , removeElement = RemoveElement
                 , removeElementTransform = RemoveElementTransform
