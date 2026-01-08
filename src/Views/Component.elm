@@ -489,8 +489,9 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, maxItems, query, scope, tit
                 [ lifeCycle.transports.toDistribution
                     |> transportView impact (Component.extractMass lifeCycle.production)
                 , distributionView config
-                , Transport.default Impact.empty
-                    |> transportView impact (Component.extractMass lifeCycle.production)
+                , noTransportView
+                , useStageView config
+                , noTransportView
                 , endOfLifeView config lifeCycle
                 ]
 
@@ -528,6 +529,11 @@ transportView selectedImpact mass transport =
                 |> Format.formatImpact selectedImpact
             ]
         ]
+
+
+noTransportView : Html msg
+noTransportView =
+    DownArrow.view [] []
 
 
 amountInput : Config db msg -> TargetElement -> Process.Unit -> Amount -> Html msg
@@ -844,6 +850,21 @@ distributionView { impact } =
             ]
         , div [ class "card-body d-flex align-items-center gap-1" ]
             [ Icon.lock, text "France" ]
+        ]
+
+
+useStageView : Config db msg -> Html msg
+useStageView { impact } =
+    div [ class "card shadow-sm" ]
+        [ div [ class "card-header d-flex align-items-center justify-content-between" ]
+            [ h2 [ class "h5 mb-0" ]
+                [ text "Utilisation" ]
+            , div [ class "d-flex align-items-center gap-2" ]
+                [ Format.formatImpact impact Impact.empty
+                ]
+            ]
+        , div [ class "card-body d-flex align-items-center gap-1" ]
+            [ text "TODO" ]
         ]
 
 
