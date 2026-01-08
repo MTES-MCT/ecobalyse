@@ -1,6 +1,6 @@
 module Data.ComponentTest exposing (..)
 
-import Data.Component as Component exposing (Component, Item, LifeCycle)
+import Data.Component as Component exposing (Component, Item, LifeCycle, Requirements)
 import Data.Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
@@ -396,7 +396,11 @@ suite =
             , describe "computeItemResults"
                 (let
                     toComputedResults =
-                        decodeJsonThen Component.decodeItem (Component.computeItemResults db)
+                        decodeJsonThen Component.decodeItem
+                            (\item ->
+                                createTestRequirements db
+                                    |> Result.andThen (\requirements -> Component.computeItemResults requirements item)
+                            )
 
                     combineMapBoth_ fn =
                         -- RE.combineMapBoth with fn applied to the two tuple members
@@ -896,6 +900,18 @@ computeWithTestConfig db items =
                         , db = db
                         , scope = Scope.Object
                         }
+            )
+
+
+createTestRequirements : Db -> Result String (Requirements Db)
+createTestRequirements db =
+    testComponentConfig db.processes db.countries
+        |> Result.map
+            (\config ->
+                { config = config
+                , db = db
+                , scope = Scope.Object
+                }
             )
 
 

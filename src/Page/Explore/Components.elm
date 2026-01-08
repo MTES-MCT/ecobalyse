@@ -6,18 +6,18 @@ import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Process as Process
 import Data.Scope exposing (Scope)
+import Data.Session exposing (Session)
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Page.Explore.Table as Table exposing (Table)
 import Route
-import Static.Db exposing (Db)
 import Views.Alert as Alert
 import Views.Format as Format
 
 
-table : Db -> { detailed : Bool, scope : Scope } -> Table Component.Component String msg
-table db { detailed, scope } =
+table : Session -> { detailed : Bool, scope : Scope } -> Table Component.Component String msg
+table ({ db } as session) { detailed, scope } =
     { filename = "components"
     , toId = .id >> Component.idToString
     , toRoute = .id >> Just >> Dataset.Components scope >> Route.Explore scope
@@ -91,9 +91,9 @@ table db { detailed, scope } =
           , toCell = .comment >> Maybe.withDefault "N/A" >> text
           }
         , { label = "Coût environnemental"
-          , toValue = Table.FloatValue <| getComponentEcoscore db >> Result.withDefault 0
+          , toValue = Table.FloatValue <| getComponentEcoscore session scope >> Result.withDefault 0
           , toCell =
-                getComponentEcoscore db
+                getComponentEcoscore session scope
                     >> Result.map (Format.formatImpactFloat { decimals = 2, unit = "Pts par composant" })
                     >> Result.withDefault (text "N/A")
           }
@@ -101,9 +101,13 @@ table db { detailed, scope } =
     }
 
 
-getComponentEcoscore : Db -> Component -> Result String Float
-getComponentEcoscore db =
-    Component.computeImpacts db
+getComponentEcoscore : Session -> Scope -> Component -> Result String Float
+getComponentEcoscore { componentConfig, db } scope =
+    Component.computeImpacts
+        { config = componentConfig
+        , db = db
+        , scope = scope
+        }
         >> Result.map
             (Component.extractImpacts
                 >> Impact.getImpact Definition.Ecs

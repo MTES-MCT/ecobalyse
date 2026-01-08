@@ -469,7 +469,7 @@ checkTransformsUnit unit transforms =
 compute : Requirements db -> Query -> Result String LifeCycle
 compute requirements query =
     query.items
-        |> List.map (computeItemResults requirements.db)
+        |> List.map (computeItemResults requirements)
         |> RE.combine
         |> Result.map (List.foldr addResults emptyResults)
         |> Result.map (\(Results results) -> { emptyLifeCycle | production = Results { results | label = Just "Production" } })
@@ -521,16 +521,16 @@ computeInitialAmount wastes amount =
 
 {-| Compute a single component impact
 -}
-computeImpacts : DataContainer db -> Component -> Result String Results
-computeImpacts db =
+computeImpacts : Requirements db -> Component -> Result String Results
+computeImpacts { db } =
     .elements
         >> List.map (computeElementResults db Nothing)
         >> RE.combine
         >> Result.map (List.foldr addResults emptyResults)
 
 
-computeItemResults : DataContainer db -> Item -> Result String Results
-computeItemResults db { country, custom, id, quantity } =
+computeItemResults : Requirements db -> Item -> Result String Results
+computeItemResults { db } { country, custom, id, quantity } =
     let
         component_ =
             findById id db.components
