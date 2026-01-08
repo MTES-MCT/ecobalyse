@@ -30,7 +30,7 @@ import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Plausible as Plausible
-import Data.Process as Process exposing (Process)
+import Data.Process as Process exposing (Process, getDisplayName)
 import Data.Process.Category as ProcessCategory
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
@@ -86,7 +86,7 @@ type alias Model =
 
 type Modal
     = AddIngredientModal (Maybe Recipe.RecipeIngredient) (Autocomplete Ingredient)
-    | AddPackagingModal (Maybe Recipe.Packaging) (Autocomplete Recipe.Packaging)
+    | AddPackagingModal (Maybe Query.PackagingQuery) (Autocomplete Process)
     | ComparatorModal
     | ExplorerDetailsModal Ingredient
     | NoModal
@@ -96,7 +96,7 @@ type Modal
 type Msg
     = AddDistribution
     | AddIngredient Ingredient
-    | AddPackaging
+    | AddPackaging Process
     | AddPreparation
     | AddTransform
     | CopyToClipBoard String
@@ -108,7 +108,7 @@ type Msg
     | NoOp
     | OnAutocompleteExample (Autocomplete.Msg Query)
     | OnAutocompleteIngredient (Autocomplete.Msg Ingredient)
-    | OnAutocompletePackaging (Autocomplete.Msg Recipe.Packaging)
+    | OnAutocompletePackaging (Autocomplete.Msg Process.Process)
     | OnAutocompleteSelect
     | OnDragLeaveBookmark
     | OnDragOverBookmark Bookmark
@@ -217,7 +217,8 @@ update ({ db, queries } as session) msg model =
                 |> App.apply update (SetModal NoModal)
                 |> updateQuery (query |> Query.addIngredient (Recipe.ingredientQueryFromIngredient ingredient))
 
-        AddPackaging ->
+        -- @FIXME: do the same than AddIngredient
+        AddPackaging _ ->
             let
                 firstPackaging =
                     db.processes
@@ -336,6 +337,9 @@ update ({ db, queries } as session) msg model =
             case model.modal of
                 AddIngredientModal maybeOldRecipeIngredient autocompleteState ->
                     updateIngredient query model session maybeOldRecipeIngredient autocompleteState
+
+                AddPackagingModal maybeOldPackaging autocompleteState ->
+                    updatePackaging query model session maybeOldPackaging autocompleteState
 
                 SelectExampleModal autocompleteState ->
                     createPageUpdate session model
@@ -534,6 +538,50 @@ createPageUpdate session model =
                 _ ->
                     Ports.addBodyClass "prevent-scrolling"
             ]
+
+
+updateExistingPackaging : Query -> Model -> Session -> Query.PackagingQuery -> Process -> PageUpdate Model Msg
+updateExistingPackaging query model session oldPackaging newPackaging =
+    -- Update an existing packaging
+    model
+        |> createPageUpdate session
+        |> App.apply update (SetModal NoModal)
+        |> updateQuery (Query.updatePackagingProcess oldPackaging.id newPackaging.id query)
+
+
+selectPackaging : Autocomplete Process -> PageUpdate Model Msg -> PageUpdate Model Msg
+selectPackaging autocompleteState pageUpdate =
+    let
+        packaging =
+            Autocomplete.selectedValue autocompleteState
+                |> Maybe.map Just
+                |> Maybe.withDefault (List.head (Autocomplete.choices autocompleteState))
+
+        msg =
+            packaging
+                |> Maybe.map AddPackaging
+                |> Maybe.withDefault NoOp
+    in
+    update pageUpdate.session msg pageUpdate.model
+
+
+updatePackaging : Query -> Model -> Session -> Maybe Query.PackagingQuery -> Autocomplete Process -> PageUpdate Model Msg
+updatePackaging query model session maybeOldPackaging autocompleteState =
+    let
+        maybeSelectedValue =
+            Autocomplete.selectedValue autocompleteState
+    in
+    Maybe.map2
+        (updateExistingPackaging query model session)
+        maybeOldPackaging
+        maybeSelectedValue
+        |> Maybe.withDefault
+            -- Add a new ingredient
+            (model
+                |> createPageUpdate session
+                |> App.apply update (SetModal NoModal)
+                |> selectPackaging autocompleteState
+            )
 
 
 updateExistingIngredient : Query -> Model -> Session -> Recipe.RecipeIngredient -> Ingredient -> PageUpdate Model Msg
@@ -1071,6 +1119,10 @@ packagingListView db selectedImpact recipe results =
                     (recipe.packaging
                         |> List.map (.process >> .id)
                     )
+                |> List.sortBy getDisplayName
+
+        autocompleteState =
+            AutocompleteSelector.init Process.getDisplayName availablePackagings
     in
     [ div
         [ class "card-header d-flex align-items-center justify-content-between"
@@ -1116,11 +1168,19 @@ packagingListView db selectedImpact recipe results =
                             }
                     )
          )
-            ++ [ addProcessFormView
-                    { isDisabled = List.isEmpty availablePackagings
-                    , event = AddPackaging
-                    , kind = "un emballage"
-                    }
+            ++ [ li [ class "list-group-item p-0" ]
+                    [ button
+                        [ class "btn btn-outline-primary"
+                        , class "d-flex justify-content-center align-items-center"
+                        , class " gap-1 w-100"
+                        , id "add-new-element"
+                        , disabled <| List.isEmpty availablePackagings
+                        , onClick (SetModal (AddPackagingModal Nothing autocompleteState))
+                        ]
+                        [ i [ class "icon icon-plus" ] []
+                        , text "Ajouter un emballage"
+                        ]
+                    ]
                ]
         )
     ]
@@ -1598,10 +1658,9 @@ view session model =
                         , onAutocompleteSelect = OnAutocompleteSelect
                         , placeholderText = "tapez ici le nom de de l’emballage pour le rechercher"
                         , title = "Sélectionnez un emballage"
-                        , toLabel = .process >> Process.getDisplayName
+                        , toLabel = Process.getDisplayName
                         , toCategory =
-                            .process
-                                >> .categories
+                            .categories
                                 >> List.head
                                 >> Maybe.map ProcessCategory.toLabel
                                 >> Maybe.withDefault ""
