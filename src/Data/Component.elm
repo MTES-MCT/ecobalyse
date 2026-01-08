@@ -1294,6 +1294,7 @@ itemsToString db =
 
 loadDefaultEnergyMixes : List Process -> Result String EnergyMixes
 loadDefaultEnergyMixes processes =
+    -- FIXME: update to use config
     let
         fromIdString =
             Process.idFromString
