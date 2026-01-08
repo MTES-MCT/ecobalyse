@@ -18,7 +18,7 @@ module Data.Session exposing
     , moveListElement
     , notifyBackendError
     , objectQueryFromScope
-    , replaceBookmark
+    , renameBookmark
     , saveBookmark
     , selectAllBookmarks
     , selectNoBookmarks
@@ -34,7 +34,7 @@ module Data.Session exposing
     )
 
 import Browser.Navigation as Nav
-import Data.Bookmark as Bookmark exposing (Bookmark, JsonBookmark)
+import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Common.DecodeUtils as DU
 import Data.Component as Component
 import Data.Food.Query as FoodQuery
@@ -132,7 +132,7 @@ deleteBookmark bookmark =
         (\store ->
             { store
                 | bookmarks =
-                    List.filter ((/=) (Bookmark.toJson bookmark)) store.bookmarks
+                    List.filter ((/=) bookmark) store.bookmarks
             }
         )
 
@@ -159,17 +159,19 @@ moveBookmark dragged target =
             { store
                 | bookmarks =
                     store.bookmarks
-                        |> moveListElement (Bookmark.toJson dragged) (Bookmark.toJson target)
+                        |> moveListElement dragged target
             }
         )
 
 
-replaceBookmark : Bookmark -> Session -> Session
-replaceBookmark bookmark =
+renameBookmark : Bookmark -> Session -> Session
+renameBookmark bookmark =
     updateStore
         (\store ->
             { store
-                | bookmarks = Bookmark.replace bookmark store.bookmarks
+                | bookmarks =
+                    store.bookmarks
+                        |> LE.updateIf (.query >> (==) bookmark.query) (always bookmark)
             }
         )
 
@@ -180,7 +182,7 @@ saveBookmark bookmark =
         (\store ->
             { store
                 | bookmarks =
-                    Bookmark.toJson bookmark :: store.bookmarks
+                    bookmark :: store.bookmarks
             }
         )
 
@@ -237,15 +239,11 @@ checkComparedSimulations : Session -> Session
 checkComparedSimulations =
     updateStore
         (\({ bookmarks, comparedSimulations } as store) ->
-            let
-                validBookmarks =
-                    Bookmark.onlyValid bookmarks
-            in
             { store
                 | comparedSimulations =
                     if Set.isEmpty comparedSimulations then
                         -- Add max bookmarks to compared sims
-                        validBookmarks
+                        bookmarks
                             |> Bookmark.sort
                             |> List.map Bookmark.toId
                             |> Set.fromList
@@ -255,7 +253,7 @@ checkComparedSimulations =
                         comparedSimulations
                             |> Set.filter
                                 (\id ->
-                                    validBookmarks
+                                    bookmarks
                                         |> List.map Bookmark.toId
                                         |> List.member id
                                 )
@@ -284,7 +282,7 @@ selectAllBookmarks =
         (\store ->
             { store
                 | comparedSimulations =
-                    store.bookmarks |> Bookmark.onlyValid |> List.map Bookmark.toId |> Set.fromList
+                    store.bookmarks |> List.map Bookmark.toId |> Set.fromList
             }
         )
 
@@ -370,7 +368,7 @@ across browser restarts, typically in localStorage.
 -}
 type alias Store =
     { auth2 : Maybe Auth
-    , bookmarks : List JsonBookmark
+    , bookmarks : List Bookmark
     , comparedSimulations : Set String
     }
 
@@ -387,7 +385,7 @@ decodeStore : Decoder Store
 decodeStore =
     Decode.succeed Store
         |> DU.strictOptional "auth2" decodeAuth
-        |> JDP.optional "bookmarks" Bookmark.decodeJsonList []
+        |> JDP.optional "bookmarks" (Decode.list Bookmark.decode) []
         |> JDP.optional "comparedSimulations" (Decode.map Set.fromList (Decode.list Decode.string)) Set.empty
 
 
@@ -395,7 +393,7 @@ encodeStore : Store -> Encode.Value
 encodeStore store =
     Encode.object
         [ ( "comparedSimulations", store.comparedSimulations |> Encode.set Encode.string )
-        , ( "bookmarks", store.bookmarks |> Bookmark.encodeJsonList )
+        , ( "bookmarks", Encode.list Bookmark.encode store.bookmarks )
         , ( "auth2", store.auth2 |> Maybe.map encodeAuth |> Maybe.withDefault Encode.null )
         ]
 

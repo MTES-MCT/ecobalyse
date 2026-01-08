@@ -1,9 +1,8 @@
 module Data.Bookmark exposing
     ( Bookmark
-    , JsonBookmark(..)
     , Query(..)
-    , decodeJsonList
-    , encodeJsonList
+    , decode
+    , encode
     , findByFoodQuery
     , findByObjectQuery
     , findByTextileQuery
@@ -11,16 +10,12 @@ module Data.Bookmark exposing
     , isObject
     , isTextile
     , isVeli
-    , onlyValid
-    , replace
     , sort
     , toId
-    , toJson
     , toQueryDescription
     )
 
 import Data.Common.DecodeUtils as DU
-import Data.Common.EncodeUtils as EU
 import Data.Component as Component
 import Data.Food.Query as FoodQuery
 import Data.Food.Recipe as Recipe
@@ -30,7 +25,6 @@ import Data.Textile.Query as TextileQuery
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
-import List.Extra as LE
 import Request.Version as Version exposing (VersionData)
 import Static.Db exposing (Db)
 import Time exposing (Posix)
@@ -43,13 +37,6 @@ type alias Bookmark =
     , subScope : Maybe Scope
     , version : Maybe VersionData
     }
-
-
-{-| Source JSON for a bookmark; this allows carying possibly invalid bookmarks around across versions,
-decoding them at runtime and filtering out whatever isn't decodable
--}
-type JsonBookmark
-    = JsonBookmark String
 
 
 type Query
@@ -78,11 +65,6 @@ decode =
             )
 
 
-decodeJsonList : Decoder (List JsonBookmark)
-decodeJsonList =
-    Decode.list (Decode.map JsonBookmark Decode.string)
-
-
 decodeQuery : Decoder Query
 decodeQuery =
     Decode.oneOf
@@ -94,18 +76,27 @@ decodeQuery =
 
 encode : Bookmark -> Encode.Value
 encode v =
-    EU.optionalPropertiesObject
-        [ ( "created", v.created |> Time.posixToMillis |> Encode.int |> Just )
-        , ( "name", Encode.string v.name |> Just )
-        , ( "query", encodeQuery v.query |> Just )
-        , ( "subScope", v.subScope |> Maybe.map Scope.encode )
-        , ( "version", v.version |> Maybe.map Version.encodeData )
+    Encode.object
+        [ ( "created", Encode.int <| Time.posixToMillis v.created )
+        , ( "name", Encode.string v.name )
+        , ( "query", encodeQuery v.query )
+        , ( "subScope"
+          , case v.subScope of
+                Just Scope.Object ->
+                    Scope.encode Scope.Object
+
+                Just Scope.Veli ->
+                    Scope.encode Scope.Veli
+
+                _ ->
+                    Encode.null
+          )
+        , ( "version"
+          , v.version
+                |> Maybe.map Version.encodeData
+                |> Maybe.withDefault Encode.null
+          )
         ]
-
-
-encodeJsonList : List JsonBookmark -> Encode.Value
-encodeJsonList =
-    Encode.list (\(JsonBookmark json) -> Encode.string json)
 
 
 encodeQuery : Query -> Encode.Value
@@ -185,35 +176,6 @@ findByTextileQuery textileQuery =
     findByQuery (Textile textileQuery)
 
 
-fromJson : JsonBookmark -> Maybe Bookmark
-fromJson (JsonBookmark json) =
-    case Decode.decodeString decode json of
-        Err _ ->
-            Nothing
-
-        Ok bookmark ->
-            Just bookmark
-
-
-onlyValid : List JsonBookmark -> List Bookmark
-onlyValid =
-    List.filterMap fromJson
-
-
-replace : Bookmark -> List JsonBookmark -> List JsonBookmark
-replace bookmark =
-    LE.updateIf
-        (\jsonBookmark ->
-            case fromJson jsonBookmark of
-                Just { query } ->
-                    query == bookmark.query
-
-                Nothing ->
-                    False
-        )
-        (always <| toJson bookmark)
-
-
 scope : Bookmark -> Scope
 scope bookmark =
     case bookmark.query of
@@ -238,11 +200,6 @@ sort =
 toId : Bookmark -> String
 toId bookmark =
     Scope.toString (scope bookmark) ++ ":" ++ bookmark.name
-
-
-toJson : Bookmark -> JsonBookmark
-toJson =
-    encode >> Encode.encode 0 >> JsonBookmark
 
 
 toQueryDescription : Db -> Bookmark -> String
