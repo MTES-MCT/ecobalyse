@@ -22,6 +22,7 @@ module Data.Food.Query exposing
     , updateDistribution
     , updateIngredient
     , updatePackaging
+    , updatePackagingProcess
     , updatePreparation
     , updateTransform
     )
@@ -348,6 +349,22 @@ updatePackaging oldPackagingProcessId newPackaging query =
                     (\p ->
                         if p.id == oldPackagingProcessId then
                             newPackaging
+
+                        else
+                            p
+                    )
+    }
+
+
+updatePackagingProcess : Process.Id -> Process.Id -> Query -> Query
+updatePackagingProcess oldPackagingProcessId newPackagingProcessId query =
+    { query
+        | packaging =
+            query.packaging
+                |> List.map
+                    (\p ->
+                        if p.id == oldPackagingProcessId then
+                            { p | id = newPackagingProcessId }
 
                         else
                             p
