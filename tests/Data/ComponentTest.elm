@@ -298,22 +298,23 @@ suite =
                                 |> TestUtils.expectResultWithin (Expect.Absolute 1) 276
                             )
                         , it "should compute results from decoded component items with custom component elements"
-                            (""" [ {
-                             "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
-                             "quantity": 4,
-                             "custom": {
-                               "elements": [
-                                 {
-                                   "amount": 0.00044,
-                                   "material": "17431e06-2973-516e-b043-be9ad405e4fb",
-                                   "transforms": []
-                                 }
-                               ]
-                             }
-                           }
-                         , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
-                         , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
-                         ]"""
+                            ("""[
+                                    {
+                                        "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
+                                        "quantity": 4,
+                                        "custom": {
+                                            "elements": [
+                                                {
+                                                    "amount": 0.00044,
+                                                    "material": "17431e06-2973-516e-b043-be9ad405e4fb",
+                                                    "transforms": []
+                                                }
+                                            ]
+                                        }
+                                    }
+                                    , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
+                                    , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
+                                ]"""
                                 |> decodeJsonThen (Decode.list Component.decodeItem) (computeWithRequirements requirements)
                                 |> Result.map (.production >> extractEcsImpact)
                                 |> TestUtils.expectResultWithin (Expect.Absolute 1) 282
@@ -431,16 +432,16 @@ suite =
                                """{"id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1}"""
                                -- Doubling amount (0.00044)
                              , """{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
-                            "quantity": 1,
-                            "custom": {
-                              "elements": [
-                                {
-                                  "amount": 0.00044,
-                                  "material": "17431e06-2973-516e-b043-be9ad405e4fb"
-                                }
-                              ]
-                            }
-                          }"""
+                                    "quantity": 1,
+                                    "custom": {
+                                      "elements": [
+                                        {
+                                          "amount": 0.00044,
+                                          "material": "17431e06-2973-516e-b043-be9ad405e4fb"
+                                        }
+                                      ]
+                                    }
+                                  }"""
                              )
                                 |> combineMapBoth_ (toComputedResults >> Result.map extractEcsImpact)
                                 |> (\result ->
@@ -491,17 +492,17 @@ suite =
                     , TestUtils.suiteFromResult "itemToComponent"
                         -- setup
                         ("""{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
-                      "quantity": 1,
-                      "custom": {
-                        "name": "custom name",
-                        "elements": [
-                          {
-                            "amount": 0.00044,
-                            "material": "17431e06-2973-516e-b043-be9ad405e4fb"
-                          }
-                        ]
-                      }
-                    }"""
+                              "quantity": 1,
+                              "custom": {
+                                "name": "custom name",
+                                "elements": [
+                                  {
+                                    "amount": 0.00044,
+                                    "material": "17431e06-2973-516e-b043-be9ad405e4fb"
+                                  }
+                                ]
+                              }
+                            }"""
                             |> decodeJson Component.decodeItem
                             |> Result.andThen
                                 (\item ->
@@ -525,22 +526,22 @@ suite =
                         )
                     , TestUtils.suiteFromResult "itemToString"
                         -- setup
-                        ("""{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
-                      "quantity": 1,
-                      "custom": {
-                        "name": "Custom piece",
-                        "elements": [
-                          {
-                            "amount": 0.00044,
-                            "material": "17431e06-2973-516e-b043-be9ad405e4fb"
-                          },
-                          {
-                            "amount": 0.00088,
-                            "material": "59b42284-3e45-5343-8a20-1d7d66137461"
-                          }
-                        ]
-                      }
-                    }"""
+                        (""" { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
+                                "quantity": 1,
+                                "custom": {
+                                  "name": "Custom piece",
+                                  "elements": [
+                                    {
+                                      "amount": 0.00044,
+                                      "material": "17431e06-2973-516e-b043-be9ad405e4fb"
+                                    },
+                                    {
+                                      "amount": 0.00088,
+                                      "material": "59b42284-3e45-5343-8a20-1d7d66137461"
+                                    }
+                                  ]
+                                }
+                            }"""
                             |> decodeJsonThen Component.decodeItem (Component.itemToString db)
                         )
                         -- tests
@@ -782,8 +783,7 @@ suite =
                                     |> Expect.equal (Ok (Just "My custom component"))
                                 )
                             , it "should trim a custom item name when serializing it"
-                                (""" [ { "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 }
-                             ]"""
+                                (""" [ { "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 } ]"""
                                     |> decodeJsonThen (Decode.list Component.decodeItem)
                                         (Component.updateItemCustomName ( testComponent, 0 ) " My custom component " >> Ok)
                                     |> Result.map (Encode.list Component.encodeItem >> Encode.encode 0)
@@ -809,12 +809,6 @@ testComponentConfig { processes, countries } =
     Component.parseConfig processes countries <|
         """
         {
-            "production": {
-                "genericProcesses": {
-                    "elec": "ed6d177e-44bb-5ba4-beec-d683dc21be9f",
-                    "heat": "3561ace1-f710-50ce-a69c-9cf842e729e4"
-                }
-            },
             "distribution": {
                 "country": "FR"
             },
@@ -857,6 +851,12 @@ testComponentConfig { processes, countries } =
                             "recycling": { "percent": 90 }
                         }
                     }
+                }
+            },
+            "production": {
+                "genericProcesses": {
+                    "elec": "ed6d177e-44bb-5ba4-beec-d683dc21be9f",
+                    "heat": "3561ace1-f710-50ce-a69c-9cf842e729e4"
                 }
             },
             "transports": {
