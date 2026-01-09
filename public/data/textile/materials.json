@@ -87,6 +87,18 @@
     "recycledFrom": null
   },
   {
+    "alias": "organic-scutched-flax-fibre",
+    "cff": null,
+    "defaultCountry": "FR",
+    "geographicOrigin": "Europe",
+    "id": "86d1bb85-9a3a-43ce-9a10-951c7b36118f",
+    "name": "Lin bio",
+    "origin": "NaturalFromVegetal",
+    "primary": true,
+    "processId": "e4588cab-7abd-44a9-a582-e96ffd0f13e8",
+    "recycledFrom": null
+  },
+  {
     "alias": "ei-pet-r",
     "cff": {
       "manufacturerAllocation": 0.5,

@@ -23987,7 +23987,7 @@
     ],
     "comment": "Ancien identifiant (12/2024): cf76c9e1872effbd04d49aec742e7952.",
     "density": 0,
-    "displayName": "Production de fibres de lin, rouissage",
+    "displayName": "Production de fibres longues de lin teillé",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "b4e7353b-7963-5d88-b4bc-84bd925f5a86",
@@ -29632,6 +29632,48 @@
       "food"
     ],
     "source": "Agribalyse 3.2",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Fibre, organic flax, long, scutched {RER}| fibre production, organic flax, scutching | Cut-off, U",
+    "categories": [
+      "material",
+      "textile_material"
+    ],
+    "comment": "The data represent the scutching process for EUROPEAN FLAX fibre: western Europe - France, Belgium or Netherlands  amount for 3/4 of world production of flax fibre. EUROPEAN FLAX is a certification of origin and traceability owned by the Alliance for European Flax-Linen and Hemp (formerly known as CELC) which covers 100% of the fibres obtained from western European scutching, and guarantees third party verified traceability downstream. Scutching is an entirely mechanical process performed on flax straw, dew-retted, To extract the fibres and separate them from the woody stalk of the plant (shives). European Flax average yield in weight is 22% fibre, flax, long, scutched and 11% fibre, flax, short, scutched, those yields are entirely specific to western Europe and not reproducible in other geographies. Beyond fibres, the entire plant is used and nothing is wasted. Long and short fibres are used for textiles and technical textiles; shives for mulch, bedding, panel board, combustion; seeds for oil; even the soil and dust are used for potting soil. In this dataset, for this 1st version, only long and short fibres have been taken into account in the allocation, other co-products will be accounted for in a future iteration (long and short fibres together represent 94% of value of the whole products and co-products of scutching). Next processing steps: fibre, flax, long, scutched will undergo hackling to produce Hackled long fibre sliver and Hackle short fibre; while fibre, flax, short, scutched will be re-scutched to be used either for cottonizing or for carding and combing (for more information see the Mapping published by the Alliance in https://allianceflaxlinenhemp.eu/en/european-flax-linen-hemp-media-library). Scutching is performed all year round, either during the year after harvest or later as it can be stored a long time without losing its quality. Packaging for long fibres is usually flax rope, it has not been taken into account as considered neglectable. Packaging for fibre, flax, short, scutched is iron wire, hence an average 5 g/kg scutching short fibre has been included. Transport within the mill is included (straw from storage to scutching line and fibres to storage). Transport from field to scutching is not included.\n\nProduction volume: 1.52E8 kg\nIncluded activities start: This activity begins from feeding the flax straw, dew-retted into scutching line \nIncluded activities end: The activity ends with the baling of fibre (long and short). Transport from filed to scutching is excluded. \nGeography: The inventory is modelled for Europe\nTechnology level: Current\nTechnology: The data refer to the average scutching process for the geography given.\nStart date: 01/01/2014\nEnd date: 31/12/2024\nIs data valid for entire period: True\nTime period: The data refer to 5 years of scutching production from 2014 until and including 2018.\nMacro-economic scenario name: Business-as-Usual\n\nVersion: 2.3.0.0\nCreated: 9/25/23 8:49:06\nLast edited: 11/6/23 6:12:08\nSource: f3f1045c-7fee-59b2-ba48-d7b5ccd567c5_2c554052-b0ea-5553-8f95-82e013d2f786.spold\nUUID: f3f1045c-7fee-59b2-ba48-d7b5ccd567c5",
+    "density": 0,
+    "displayName": "Production de fibres longues de lin bio teillé",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "e4588cab-7abd-44a9-a582-e96ffd0f13e8",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 196.32,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "RER",
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse",
     "unit": "kg",
     "waste": 0
   },
