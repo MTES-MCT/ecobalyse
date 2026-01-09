@@ -1298,8 +1298,8 @@ loadEnergyMixes config =
         (\{ electricityProcess, heatProcess } -> Ok <| EnergyMixes electricityProcess heatProcess)
         >> Maybe.withDefault
             (Ok
-                { elec = config.production.genericElecProcess
-                , heat = config.production.genericHeatProcess
+                { elec = config.production.defaultElecProcess
+                , heat = config.production.defaultHeatProcess
                 }
             )
 

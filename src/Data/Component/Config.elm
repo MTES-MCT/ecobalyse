@@ -61,8 +61,8 @@ type alias EndOfLifeStrategy =
 
 
 type alias ProductionConfig =
-    { genericElecProcess : Process
-    , genericHeatProcess : Process
+    { defaultElecProcess : Process
+    , defaultHeatProcess : Process
     }
 
 
@@ -140,8 +140,8 @@ decodeEndOfLifeStrategy processes =
 decodeProductionConfig : List Process -> Decoder ProductionConfig
 decodeProductionConfig processes =
     Decode.succeed ProductionConfig
-        |> Decode.requiredAt [ "genericProcesses", "elec" ] (Process.decodeFromId processes)
-        |> Decode.requiredAt [ "genericProcesses", "heat" ] (Process.decodeFromId processes)
+        |> Decode.requiredAt [ "defaultProcesses", "elec" ] (Process.decodeFromId processes)
+        |> Decode.requiredAt [ "defaultProcesses", "heat" ] (Process.decodeFromId processes)
 
 
 decodeTransportConfig : List Process -> Decoder TransportConfig
@@ -157,7 +157,7 @@ default processes countries =
         """
         {
             "production": {
-                "genericProcesses": {
+                "defaultProcesses": {
                     "elec": "ed6d177e-44bb-5ba4-beec-d683dc21be9f",
                     "heat": "3561ace1-f710-50ce-a69c-9cf842e729e4"
                 }

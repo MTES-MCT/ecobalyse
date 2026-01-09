@@ -854,7 +854,7 @@ testComponentConfig { processes, countries } =
                 }
             },
             "production": {
-                "genericProcesses": {
+                "defaultProcesses": {
                     "elec": "ed6d177e-44bb-5ba4-beec-d683dc21be9f",
                     "heat": "3561ace1-f710-50ce-a69c-9cf842e729e4"
                 }
