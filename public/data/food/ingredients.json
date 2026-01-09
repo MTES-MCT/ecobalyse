@@ -335,7 +335,7 @@
       "plotSize": 2.0029
     },
     "id": "0389fa44-b97f-4b9b-ab1a-122131a8a975",
-    "inediblePart": 0.5,
+    "inediblePart": 0,
     "landOccupation": 4.0059,
     "location": "FR",
     "name": "Soja",
@@ -438,7 +438,7 @@
       "plotSize": 0.0049498
     },
     "id": "051522f9-b742-4594-9ff5-cb52459eb57e",
-    "inediblePart": 0.2,
+    "inediblePart": 0.3,
     "landOccupation": 0.0056569,
     "location": "WI",
     "name": "Banane",
@@ -860,7 +860,7 @@
       "plotSize": 4.5352
     },
     "id": "0a8f7f80-da3d-4829-83bb-6a578b92aa5e",
-    "inediblePart": 0.5,
+    "inediblePart": 0,
     "landOccupation": 5.183,
     "location": "RoW",
     "name": "Arachide",
@@ -968,7 +968,7 @@
       "plotSize": 0.27637
     },
     "id": "0b975a9e-c9cf-4173-8ab6-5989fa05aa80",
-    "inediblePart": 0.2,
+    "inediblePart": 0.6,
     "landOccupation": 0.4422,
     "location": "FR",
     "name": "topinambour",
@@ -1904,15 +1904,15 @@
     "categories": [
       "nut_oilseed_raw"
     ],
-    "cropGroup": "FRUITS A COQUES",
+    "cropGroup": "AUTRES CEREALES",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.63,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 1.5549,
+      "hedges": 2.2953,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 4.5352
+      "plotSize": 3.2394
     },
     "id": "17083a5e-1823-4609-89a3-575edc1b5d3d",
     "inediblePart": 0.5,
@@ -1920,7 +1920,7 @@
     "location": "RoW",
     "name": "pignons de pin",
     "processId": "3c77e008-363e-4e98-a49a-3efc62d1026c",
-    "rawToCookedRatio": 1.0,
+    "rawToCookedRatio": 4.0,
     "scenario": "reference",
     "transportCooling": "none",
     "visible": true
@@ -3423,15 +3423,15 @@
     "categories": [
       "vegetable_fresh"
     ],
-    "cropGroup": "BLE TENDRE",
+    "cropGroup": "LEGUMINEUSES A GRAIN",
     "defaultOrigin": "France",
     "density": 0.9,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 0.0010709,
+      "hedges": 0.00079631,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.0014416
+      "plotSize": 0.0019221
     },
     "id": "2fb3420f-1a0e-4366-81ff-dcf2647a2309",
     "inediblePart": 0.2,
@@ -3516,7 +3516,7 @@
       "plotSize": 2.1574
     },
     "id": "3106023d-52f1-4f46-924b-8302ab211f7c",
-    "inediblePart": 0.2,
+    "inediblePart": 0.03,
     "landOccupation": 3.4518,
     "location": "CA",
     "name": "Myrtille",
@@ -4876,7 +4876,7 @@
       "plotSize": 0.24499
     },
     "id": "42867c20-149c-4ee0-be0d-625f384bedd9",
-    "inediblePart": 0.2,
+    "inediblePart": 0.3,
     "landOccupation": 0.27999,
     "location": "ES",
     "name": "Citron",
@@ -6364,7 +6364,7 @@
       "plotSize": 0.42445
     },
     "id": "585ab745-87ea-4efd-8e0c-ac1a0ffd6159",
-    "inediblePart": 0.2,
+    "inediblePart": 0,
     "landOccupation": 0.84891,
     "location": "FR",
     "name": "Protéines de soja texturées",
@@ -7735,7 +7735,7 @@
       "plotSize": 0.079506
     },
     "id": "6dec67e1-0ed8-4d3c-995c-30b342bcbb90",
-    "inediblePart": 0.2,
+    "inediblePart": 0.1,
     "landOccupation": 0.12721,
     "location": "FR",
     "name": "Carottes",
@@ -8379,23 +8379,23 @@
     "categories": [
       "vegetable_fresh"
     ],
-    "cropGroup": "AUTRES OLEAGINEUX",
+    "cropGroup": "LEGUMES-FLEURS",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.7,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 0.74055,
+      "hedges": 0.70052,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 1.401
+      "plotSize": 1.7513
     },
     "id": "77c67251-f437-40af-858b-3fb6aa623b8f",
-    "inediblePart": 0,
+    "inediblePart": 0.2,
     "landOccupation": 2.8021,
     "location": "CH",
     "name": "graines de lupin",
     "processId": "35ebcf71-a540-48b5-b514-6145be29023e",
-    "rawToCookedRatio": 2.259,
+    "rawToCookedRatio": 0.856,
     "scenario": "reference",
     "transportCooling": "always",
     "visible": true
@@ -9881,12 +9881,12 @@
       "plotSize": 10.438
     },
     "id": "904dd163-e642-499f-a247-47568726ee1f",
-    "inediblePart": 0.2,
+    "inediblePart": 0,
     "landOccupation": 11.93,
     "location": "RER",
     "name": "Poudre de cacao",
     "processId": "bcae48b4-9fc8-4b96-8cc3-90160dd6b61f",
-    "rawToCookedRatio": 0.856,
+    "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
     "visible": true
@@ -10031,7 +10031,7 @@
     "density": 1.05,
     "ecosystemicServices": null,
     "id": "9246f9a5-3697-4d0f-9a3c-aa8d3f891840",
-    "inediblePart": 0.4,
+    "inediblePart": 0.2,
     "landOccupation": 0.01143,
     "location": "ES",
     "name": "Anchois",
@@ -10398,7 +10398,7 @@
       "plotSize": 0.49115
     },
     "id": "99b46663-7588-4e02-93c5-894e403bd989",
-    "inediblePart": 0,
+    "inediblePart": 0.5,
     "landOccupation": 0.98229,
     "location": "FR",
     "name": "Maïs",
@@ -10858,7 +10858,7 @@
     ],
     "cropGroup": "DIVERS",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.9,
+    "density": 1.12,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0.018483,
@@ -11158,7 +11158,7 @@
       "plotSize": 0.14229
     },
     "id": "a711b096-2fff-4e38-8f35-e2cedb3e8256",
-    "inediblePart": 0.2,
+    "inediblePart": 0.1,
     "landOccupation": 0.22767,
     "location": "FR",
     "name": "Aubergine",
@@ -11240,7 +11240,7 @@
       "plotSize": 0.021488
     },
     "id": "a8ed188b-ad18-45a8-b276-afda6b0df5ca",
-    "inediblePart": 0.2,
+    "inediblePart": 0.1,
     "landOccupation": 0.024557,
     "location": "FR",
     "name": "Pomme",
@@ -13067,15 +13067,15 @@
     "categories": [
       "vegetable_fresh"
     ],
-    "cropGroup": "LEGUMES-FLEURS",
+    "cropGroup": "DIVERS",
     "defaultOrigin": "France",
     "density": 0.73,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 0.010556,
+      "hedges": 0.001508,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.026389
+      "plotSize": 0.015834
     },
     "id": "c62d3065-d784-46a6-9d59-14218c18c9d1",
     "inediblePart": 0.2,
@@ -13083,7 +13083,7 @@
     "location": "FR",
     "name": "Salicorne, fraîche",
     "processId": "aa6ce6e0-a8f5-41c7-b48e-46e7fc7177ad",
-    "rawToCookedRatio": 0.856,
+    "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
     "visible": true
@@ -13186,7 +13186,7 @@
       "plotSize": 0.028846
     },
     "id": "c8819ecc-14db-400c-af11-1600872a854d",
-    "inediblePart": 0.2,
+    "inediblePart": 0.03,
     "landOccupation": 0.046154,
     "location": "GLO",
     "name": "Épinard",
@@ -13463,7 +13463,7 @@
       "plotSize": 1.2667
     },
     "id": "cdd16e9a-9de7-4c45-989b-6374b2f97e5b",
-    "inediblePart": 0.2,
+    "inediblePart": 0.03,
     "landOccupation": 2.0268,
     "location": "RS",
     "name": "Framboise",
@@ -14350,7 +14350,7 @@
       "plotSize": 0.16407
     },
     "id": "da2fa6ae-0079-4b49-b2c2-cecb4b1957f6",
-    "inediblePart": 0,
+    "inediblePart": 0.2,
     "landOccupation": 0.43753,
     "location": "FR",
     "name": "Levure chimique",
@@ -14925,14 +14925,14 @@
     "density": 0.9,
     "ecosystemicServices": null,
     "id": "dfb460cc-e9da-464f-a1b6-c89b5785f394",
-    "inediblePart": 0.2,
+    "inediblePart": 0,
     "landOccupation": 0,
     "location": "FR",
     "name": "Cornichon",
     "processId": "71c4834d-a867-470a-a15a-b1e513185016",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
-    "transportCooling": "none",
+    "transportCooling": "always",
     "visible": true
   },
   {
@@ -16346,7 +16346,7 @@
     "location": "FR",
     "name": "Pois, avec leurs cosses",
     "processId": "204b69c9-5db2-407d-b87e-9336626b090e",
-    "rawToCookedRatio": 0.856,
+    "rawToCookedRatio": 2.33,
     "scenario": "reference",
     "transportCooling": "always",
     "visible": true
@@ -16519,7 +16519,7 @@
     "processId": "c5fd3c4e-4e8b-4842-98e3-4808124149a0",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
-    "transportCooling": "none",
+    "transportCooling": "always",
     "visible": true
   },
   {
