@@ -4,6 +4,7 @@ module Data.Env exposing
     , communityUrl
     , contactEmail
     , defaultDeadStock
+    , ecoinventTermsUrl
     , gitbookUrl
     , githubRepository
     , githubUrl
@@ -36,6 +37,12 @@ communityUrl =
 contactEmail : String
 contactEmail =
     "ecobalyse@beta.gouv.fr"
+
+
+ecoinventTermsUrl : String
+ecoinventTermsUrl =
+    -- @FIXME: use link to correct PDF
+    "https://fabrique-numerique.gitbook.io/ecobalyse/politique-de-confidentialite-de-donnees-personnelles"
 
 
 gitbookUrl : String
