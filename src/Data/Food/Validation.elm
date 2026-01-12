@@ -72,12 +72,12 @@ validatePreparation =
 validatePackaging : Db -> PackagingQuery -> Result String PackagingQuery
 validatePackaging db packagingQuery =
     Ok PackagingQuery
+        |> RE.andMap (validateAmount packagingQuery.amount)
         |> RE.andMap
             (db.processes
                 |> Process.findById packagingQuery.id
                 |> Result.map .id
             )
-        |> RE.andMap (validateAmount packagingQuery.amount)
 
 
 validateProcess : Db -> ProcessQuery -> Result String ProcessQuery
