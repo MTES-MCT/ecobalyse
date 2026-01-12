@@ -75,6 +75,7 @@ type Modal
     = AddComponentModal (Autocomplete Component)
     | ComparatorModal
     | NoModal
+    | SelectConsumptionModal (Autocomplete Process)
     | SelectExampleModal (Autocomplete Component.Query)
     | SelectProcessModal Category TargetItem (Maybe Index) (Autocomplete Process)
 
@@ -84,6 +85,7 @@ type Msg
     | DeleteBookmark Bookmark
     | NoOp
     | OnAutocompleteAddComponent (Autocomplete.Msg Component)
+    | OnAutocompleteAddConsumption (Autocomplete.Msg Process)
     | OnAutocompleteAddProcess Category TargetItem (Maybe Index) (Autocomplete.Msg Process)
     | OnAutocompleteExample (Autocomplete.Msg Component.Query)
     | OnAutocompleteSelectComponent
@@ -303,6 +305,18 @@ update ({ navKey } as session) msg model =
         ( OnAutocompleteAddProcess _ _ _ _, _ ) ->
             createPageUpdate session model
 
+        ( OnAutocompleteAddConsumption autocompleteMsg, SelectConsumptionModal autocompleteState ) ->
+            let
+                ( newAutocompleteState, autoCompleteCmd ) =
+                    Autocomplete.update autocompleteMsg autocompleteState
+            in
+            { model | modal = SelectConsumptionModal newAutocompleteState }
+                |> createPageUpdate session
+                |> App.withCmds [ Cmd.map OnAutocompleteAddConsumption autoCompleteCmd ]
+
+        ( OnAutocompleteAddConsumption _, _ ) ->
+            createPageUpdate session model
+
         ( OnAutocompleteExample autocompleteMsg, SelectExampleModal autocompleteState ) ->
             let
                 ( newAutocompleteState, autoCompleteCmd ) =
@@ -319,6 +333,7 @@ update ({ navKey } as session) msg model =
             createPageUpdate session model
                 |> selectComponent query autocompleteState
 
+        -- |> selectComponent query autocompleteState
         ( OnAutocompleteSelectComponent, _ ) ->
             createPageUpdate session model
 
@@ -663,7 +678,7 @@ simulatorView session model =
                     \p ti ei s ->
                         SelectProcessModal p ti ei s
                             |> SetModal
-                , openUseProcessModal = \_ -> NoOp
+                , openSelectConsumptionModal = SelectConsumptionModal >> SetModal
                 , query = currentQuery
                 , removeElement = RemoveElement
                 , removeElementTransform = RemoveElementTransform
@@ -850,6 +865,26 @@ view session model =
 
                 NoModal ->
                     text ""
+
+                SelectConsumptionModal autocompleteState ->
+                    let
+                        ( placeholderText, title ) =
+                            ( "tapez ici le nom d'un procédé de consommation pour le rechercher"
+                            , "Sélectionnez une consommation"
+                            )
+                    in
+                    AutocompleteSelectorView.view
+                        { autocompleteState = autocompleteState
+                        , closeModal = SetModal NoModal
+                        , footer = []
+                        , noOp = NoOp
+                        , onAutocomplete = \_ -> NoOp
+                        , onAutocompleteSelect = NoOp
+                        , placeholderText = placeholderText
+                        , title = title
+                        , toLabel = Process.getDisplayName
+                        , toCategory = .unit >> Process.unitToString
+                        }
 
                 SelectExampleModal autocompleteState ->
                     AutocompleteSelectorView.view

@@ -57,8 +57,8 @@ type alias Config db msg =
     , maxItems : Maybe Int
     , noOp : msg
     , openSelectComponentModal : Autocomplete Component -> msg
+    , openSelectConsumptionModal : Autocomplete Process -> msg
     , openSelectProcessModal : Category -> TargetItem -> Maybe Index -> Autocomplete Process -> msg
-    , openUseProcessModal : Autocomplete Process -> msg
     , query : Query
     , removeElement : TargetElement -> msg
     , removeElementTransform : TargetElement -> Index -> msg
@@ -865,12 +865,12 @@ useStageView config =
                 ]
             ]
         , div [ class "card-body d-flex align-items-center gap-1 p-0" ]
-            [ selectConsumptionButton config ]
+            [ addConsumptionButton config ]
         ]
 
 
-selectConsumptionButton : Config db msg -> Html msg
-selectConsumptionButton { db, openUseProcessModal, scope } =
+addConsumptionButton : Config db msg -> Html msg
+addConsumptionButton { db, openSelectConsumptionModal, scope } =
     let
         availableProcesses =
             db.processes
@@ -888,7 +888,7 @@ selectConsumptionButton { db, openUseProcessModal, scope } =
         , class "d-flex justify-content-center align-items-center"
         , class "gap-1 w-100"
         , disabled <| List.isEmpty availableProcesses
-        , onClick <| openUseProcessModal autocompleteState
+        , onClick <| openSelectConsumptionModal autocompleteState
         ]
         [ Icon.plus
         , text "Ajouter une consommation"

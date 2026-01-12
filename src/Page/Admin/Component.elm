@@ -565,10 +565,10 @@ modalView { componentConfig, db } modals index modal =
                             , maxItems = Just 1
                             , noOp = NoOp
                             , openSelectComponentModal = \_ -> NoOp
+                            , openSelectConsumptionModal = \_ -> NoOp
                             , openSelectProcessModal =
                                 \p ti ei s ->
                                     SetModals (SelectProcessModal p ti ei s :: modals)
-                            , openUseProcessModal = \_ -> NoOp
 
                             -- Note: we don't handle assembly country in the admin
                             , query = Component.emptyQuery |> Component.setQueryItems [ item ]
