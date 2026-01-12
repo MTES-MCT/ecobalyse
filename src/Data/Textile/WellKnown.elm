@@ -25,7 +25,6 @@ type alias WellKnown =
     , dyeingProcessContinuous : Process
     , dyeingProcessDiscontinuous : Process
     , dyeingSynthetic : Process
-    , elecMediumTensionAsia : Process
     , endOfLife : Process
     , fading : Process
     , finishing : Process
@@ -115,8 +114,6 @@ load processes =
         |> fromIdString "7e17b44d-108a-504f-9e0d-0cfe5b5db054"
         -- dyeingSynthetic
         |> fromIdString "e5e43c57-bd12-5ab7-8a22-7d12cdcece58"
-        -- elecMediumTensionAsia
-        |> fromIdString "a2129ece-5dd9-5e66-969c-2603b3c97244"
         -- endOfLife
         |> fromIdString "ab96b73f-8534-59ad-9f34-a579abe3b023"
         -- fading

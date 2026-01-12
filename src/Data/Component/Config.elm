@@ -24,6 +24,7 @@ import Json.Decode.Pipeline as Decode
 type alias Config =
     { distribution : DistributionConfig
     , endOfLife : EndOfLifeConfig
+    , production : ProductionConfig
     , transports : TransportConfig
     }
 
@@ -59,6 +60,12 @@ type alias EndOfLifeStrategy =
     }
 
 
+type alias ProductionConfig =
+    { defaultElecProcess : Process
+    , defaultHeatProcess : Process
+    }
+
+
 type alias TransportConfig =
     { defaultDistance : Transport
     , modeProcesses : Transport.ModeProcesses
@@ -70,6 +77,7 @@ decode processes countries =
     Decode.succeed Config
         |> Decode.required "distribution" (decodeDistributionConfig countries)
         |> Decode.required "endOfLife" (decodeEndOfLifeConfig processes)
+        |> Decode.required "production" (decodeProductionConfig processes)
         |> Decode.required "transports" (decodeTransportConfig processes)
 
 
@@ -129,6 +137,13 @@ decodeEndOfLifeStrategy processes =
         |> Decode.required "percent" Split.decodePercent
 
 
+decodeProductionConfig : List Process -> Decoder ProductionConfig
+decodeProductionConfig processes =
+    Decode.succeed ProductionConfig
+        |> Decode.requiredAt [ "defaultProcesses", "elec" ] (Process.decodeFromId processes)
+        |> Decode.requiredAt [ "defaultProcesses", "heat" ] (Process.decodeFromId processes)
+
+
 decodeTransportConfig : List Process -> Decoder TransportConfig
 decodeTransportConfig processes =
     Decode.succeed TransportConfig
@@ -141,6 +156,12 @@ default processes countries =
     parse processes countries <|
         """
         {
+            "production": {
+                "defaultProcesses": {
+                    "elec": "ed6d177e-44bb-5ba4-beec-d683dc21be9f",
+                    "heat": "3561ace1-f710-50ce-a69c-9cf842e729e4"
+                }
+            },
             "distribution": {
                 "country": "FR"
             },
