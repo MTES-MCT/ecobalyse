@@ -21,7 +21,7 @@ import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Origin as Origin
 import Data.Food.Preparation as Preparation
-import Data.Food.Query as Query exposing (PackagingAmount(..), Query, defaultPackagingQuery, packagingAmountToFloat)
+import Data.Food.Query as Query exposing (PackagingAmount(..), Query, defaultPackagingQuery)
 import Data.Food.Recipe as Recipe exposing (Recipe)
 import Data.Food.Retail as Retail
 import Data.Food.WellKnown exposing (WellKnown)
