@@ -23,7 +23,6 @@ module Data.Food.Query exposing
     , updateDistribution
     , updateIngredient
     , updatePackaging
-    , updatePackagingProcess
     , updatePreparation
     , updateTransform
     )
@@ -72,18 +71,18 @@ type alias Query =
 
 
 type PackagingAmount
-    = MassAmount Mass
-    | ItemAmount Int
+    = ItemAmount Int
+    | MassAmount Mass
 
 
 packagingAmountToFloat : PackagingAmount -> Float
 packagingAmountToFloat a =
     case a of
-        MassAmount v ->
-            Mass.inKilograms v
-
         ItemAmount v ->
             toFloat v
+
+        MassAmount v ->
+            Mass.inKilograms v
 
 
 addPreparation : Preparation.Id -> Query -> Query
@@ -109,10 +108,10 @@ defaultPackagingQuery : Process -> PackagingQuery
 defaultPackagingQuery process =
     case process.unit of
         Process.Items ->
-            { id = process.id, amount = ItemAmount 1 }
+            { amount = ItemAmount 1, id = process.id }
 
         _ ->
-            { id = process.id, amount = MassAmount <| Mass.grams 100 }
+            { amount = MassAmount <| Mass.grams 100, id = process.id }
 
 
 addPackaging : PackagingQuery -> Query -> Query
@@ -276,11 +275,11 @@ encodeMassAsGrams =
 encodePackagingAmount : PackagingAmount -> Encode.Value
 encodePackagingAmount v =
     case v of
-        MassAmount a ->
-            Encode.float (Mass.inGrams a)
-
         ItemAmount a ->
             Encode.int a
+
+        MassAmount a ->
+            Encode.float (Mass.inGrams a)
 
 
 encodePackaging : PackagingQuery -> Encode.Value
@@ -358,22 +357,6 @@ updatePackaging oldPackagingProcessId newPackaging query =
                     (\p ->
                         if p.id == oldPackagingProcessId then
                             newPackaging
-
-                        else
-                            p
-                    )
-    }
-
-
-updatePackagingProcess : Process.Id -> Process.Id -> Query -> Query
-updatePackagingProcess oldPackagingProcessId newPackagingProcessId query =
-    { query
-        | packaging =
-            query.packaging
-                |> List.map
-                    (\p ->
-                        if p.id == oldPackagingProcessId then
-                            { p | id = newPackagingProcessId }
 
                         else
                             p
