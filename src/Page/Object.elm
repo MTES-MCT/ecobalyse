@@ -89,6 +89,7 @@ type Msg
     | OnAutocompleteAddProcess Category TargetItem (Maybe Index) (Autocomplete.Msg Process)
     | OnAutocompleteExample (Autocomplete.Msg Component.Query)
     | OnAutocompleteSelectComponent
+    | OnAutocompleteSelectConsumption
     | OnAutocompleteSelectExample
     | OnAutocompleteSelectProcess Category TargetItem (Maybe Index)
     | OnDragLeaveBookmark
@@ -333,8 +334,14 @@ update ({ navKey } as session) msg model =
             createPageUpdate session model
                 |> selectComponent query autocompleteState
 
-        -- |> selectComponent query autocompleteState
         ( OnAutocompleteSelectComponent, _ ) ->
+            createPageUpdate session model
+
+        ( OnAutocompleteSelectConsumption, SelectConsumptionModal autocompleteState ) ->
+            createPageUpdate session model
+                |> selectConsumption query autocompleteState
+
+        ( OnAutocompleteSelectConsumption, _ ) ->
             createPageUpdate session model
 
         ( OnAutocompleteSelectExample, SelectExampleModal autocompleteState ) ->
@@ -599,6 +606,24 @@ selectComponent query autocompleteState ({ model } as pageUpdate) =
                 |> updateQuery (query |> Component.mapItems (Component.addItem component.id))
                 |> App.apply update (SetModal NoModal)
                 |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ComponentAdded model.scope ]
+
+        Nothing ->
+            pageUpdate |> App.notifyWarning "Aucun composant sélectionné"
+
+
+selectConsumption : Component.Query -> Autocomplete Process -> PageUpdate Model Msg -> PageUpdate Model Msg
+selectConsumption query autocompleteState ({ model } as pageUpdate) =
+    case Autocomplete.selectedValue autocompleteState of
+        Just process ->
+            pageUpdate
+                |> updateQuery
+                    { query
+                        | useConsumptions =
+                            query.useConsumptions
+                                ++ [ { amount = Component.Amount 1, processId = process.id } ]
+                    }
+                |> App.apply update (SetModal NoModal)
+                |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ConsumptionAdded model.scope ]
 
         Nothing ->
             pageUpdate |> App.notifyWarning "Aucun composant sélectionné"
@@ -878,8 +903,8 @@ view session model =
                         , closeModal = SetModal NoModal
                         , footer = []
                         , noOp = NoOp
-                        , onAutocomplete = \_ -> NoOp
-                        , onAutocompleteSelect = NoOp
+                        , onAutocomplete = OnAutocompleteAddConsumption
+                        , onAutocompleteSelect = OnAutocompleteSelectConsumption
                         , placeholderText = placeholderText
                         , title = title
                         , toLabel = Process.getDisplayName
