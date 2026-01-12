@@ -2245,14 +2245,14 @@
     "waste": 0
   },
   {
-    "activityName": "aluminium, low-alloyed, virgin, market, RoW",
+    "activityName": "aluminium ingot, virgin, market, RoW",
     "categories": [
       "material",
       "material_type:metal"
     ],
-    "comment": "",
+    "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
     "density": 0,
-    "displayName": "Aluminium vierge mix marché (RoW)",
+    "displayName": "Aluminium vierge mix marché, hors Europe et Inde",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "159c4209-cb85-5784-ac76-a93a2458075b",
@@ -4742,14 +4742,14 @@
     "waste": 0
   },
   {
-    "activityName": "aluminium, low-alloyed, virgin, market, RER",
+    "activityName": "aluminium ingot, virgin, market, RER",
     "categories": [
       "material",
       "material_type:metal"
     ],
-    "comment": "",
+    "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
     "density": 0,
-    "displayName": "Aluminium vierge mix marché (RER)",
+    "displayName": "Aluminium vierge mix marché, Europe",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "26635537-8b40-51d3-bbc9-a3987a0f4835",
@@ -5151,6 +5151,49 @@
       "food"
     ],
     "source": "Ginko 2025",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "aluminium ingot, recycled, RoW, CFF",
+    "categories": [
+      "material",
+      "material_type:metal"
+    ],
+    "comment": "Matériau 100% issu du recyclage, calculé selon la règle CFF (A=0.8, Q=1)",
+    "density": 0,
+    "displayName": "Aluminium recyclé (Reste du monde), CFF",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "2c9e71f4-9fb9-4c7a-b1f4-09df9f58d104",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 1252.7,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "RoW",
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Ecobalyse",
     "unit": "kg",
     "waste": 0
   },
@@ -9196,6 +9239,49 @@
     "waste": 0
   },
   {
+    "activityName": "polyethylene terephthalate, granulate, amorphous, recycled, GLO, CFF",
+    "categories": [
+      "material",
+      "material_type:metal"
+    ],
+    "comment": "Matériau 100% issu du recyclage, calculé selon la règle CFF (A=0.8, Q=1)",
+    "density": 0,
+    "displayName": "PET recyclé (Reste du monde), CFF",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "4b66e694-2eeb-42de-be52-d1c2990e5160",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 197.8,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "GLO",
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "Cull cow, organic, milk system number 1, at farm gate {FR} U",
     "categories": [
       "material"
@@ -12110,14 +12196,14 @@
     "waste": 0
   },
   {
-    "activityName": "aluminium, low-alloyed, market, RER",
+    "activityName": "aluminium ingot, market, RER",
     "categories": [
       "material",
       "material_type:metal"
     ],
-    "comment": "",
+    "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
     "density": 0,
-    "displayName": "Aluminium mix marché (RER)",
+    "displayName": "Aluminium mix marché, Europe",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "5d55d2e5-490c-5f02-ac5d-2f66e14f8ec7",
@@ -14281,7 +14367,7 @@
       "transformation",
       "material_type:metal"
     ],
-    "comment": "",
+    "comment": "découpes, cintrages, traitements thermiques, soudures",
     "density": 0,
     "displayName": "Transformation finale (acier)",
     "elecMJ": 0,
@@ -17069,6 +17155,48 @@
     "waste": 0
   },
   {
+    "activityName": "aluminium EoL recycling, RER, CFF",
+    "categories": [
+      "end-of-life"
+    ],
+    "comment": "Calculé selon la règle CFF (A=0.5, Q=1)",
+    "density": 0,
+    "displayName": "Recyclage de l'aluminium, CFF",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "7f0621d1-c8ba-416a-af03-450fc2639c97",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": -459.3,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "RER",
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "Lobster, 1 kg of product, at landing {FR} U",
     "categories": [
       "ingredient"
@@ -17191,6 +17319,49 @@
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
+    "waste": 0
+  },
+  {
+    "activityName": "steel, low-alloyed, recycled, RER, CFF",
+    "categories": [
+      "material",
+      "material_type:metal"
+    ],
+    "comment": "Matériau 100% issu du recyclage, calculé selon la règle CFF (A=0.8, Q=1)",
+    "density": 0,
+    "displayName": "Acier recyclé (Europe), CFF",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "7fe00f75-df7d-49fb-862c-cc10e6cc2de7",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 99.589,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "RER",
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
     "waste": 0
   },
   {
@@ -18118,7 +18289,7 @@
       "transformation",
       "material_type:metal"
     ],
-    "comment": "",
+    "comment": "découpes, cintrages, traitements thermiques, soudures",
     "density": 0,
     "displayName": "Transformation finale (aluminium)",
     "elecMJ": 0,
@@ -19318,14 +19489,14 @@
     "waste": 0
   },
   {
-    "activityName": "aluminium, low-alloyed, virgin, market, CN",
+    "activityName": "aluminium ingot, virgin, market, CN",
     "categories": [
       "material",
       "material_type:metal"
     ],
-    "comment": "",
+    "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
     "density": 0,
-    "displayName": "Aluminium mix marché (CN)",
+    "displayName": "Aluminium mix marché, Chine",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "9257bb08-bb65-5d58-8bee-fee9b93ff7c5",
@@ -21269,6 +21440,49 @@
       "food"
     ],
     "source": "Agribalyse 3.2",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "aluminium ingot, recycled, RER, CFF",
+    "categories": [
+      "material",
+      "material_type:metal"
+    ],
+    "comment": "Matériau 100% issu du recyclage, calculé selon la règle CFF (A=0.8, Q=1)",
+    "density": 0,
+    "displayName": "Aluminium recyclé (Europe), CFF",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "a23b7b63-dd7c-49cf-9cf0-00196dd207c0",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 652.66,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "RER",
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Ecobalyse",
     "unit": "kg",
     "waste": 0
   },
@@ -23443,7 +23657,7 @@
   {
     "activityName": "Used Li-ion battery {GLO}| market for used Li-ion battery | Cut-off, U",
     "categories": [
-      "material"
+      "end-of-life"
     ],
     "comment": "This is a market activity, representing a treatment mix. In the case of products needing treatment, market mixes are supplied by the activities treating the product in the geography defined by the market, and they supply the activities needing to treat the product, as they have generated it as a by-product in the Undefined processes (present as a negative input in system models). Transport to the treating facility or losses are also accounted in this type of markets, when relevant.\n\nThis is the market for  'used Li-ion battery', in the Global geography.\n\nTransport from producers to consumers of this product in the geography covered by the market is included.\n\nProduction volume: 2000000.0 kg\nIncluded activities start: The activity starts with the input from the treatment processes.\nIncluded activities end: A market for a material for treatment (wastes or recyclables) ends with the provision of treatment, i.e. a mix of treatment providers, to activities that generate the reference product as a waste/by-product.\nEnergy values: Undefined\nGeography: The inventory is modelled for Global\nTechnology level: Unknown\nTechnology: Mix dataset\nStart date: 01/01/2005\nEnd date: 31/12/2024\nIs data valid for entire period: True\nMacro-economic scenario name: Business-as-Usual\n\nVersion: 34.3.0.0\nCreated: 7/28/10 6:53:01\nLast edited: 9/28/12 6:03:31\nSource: 8675a185-3212-5c84-bd28-70532ae0dc80_e3c4c750-7765-43b6-802b-8dbe05270f05.spold\nUUID: 8675a185-3212-5c84-bd28-70532ae0dc80",
     "density": 0,
@@ -27019,14 +27233,14 @@
     "waste": 0
   },
   {
-    "activityName": "aluminium, low-alloyed, market, RoW",
+    "activityName": "aluminium ingot, market, RoW",
     "categories": [
       "material",
       "material_type:metal"
     ],
-    "comment": "",
+    "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
     "density": 0,
-    "displayName": "Aluminium mix marché (RoW)",
+    "displayName": "Aluminium mix marché, hors Europe et Chine",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "ce5e5069-485a-52c2-9458-3dc45470ffac",
@@ -28010,6 +28224,48 @@
     "waste": 0
   },
   {
+    "activityName": "internal combustion engine, passenger car//[GLO] internal combustion engine production, passenger car",
+    "categories": [
+      "material",
+      "material_type:metal"
+    ],
+    "comment": "",
+    "density": 0,
+    "displayName": "Moteur thermique (MCI)",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "d4b65f58-3862-4229-bf2e-8ed7c21379c4",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 1303.3,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "GLO",
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecoinvent 3.9.1",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "Milk, other than from cow, 1000g | Packaging System, N0, All, PET bottle {FR} U",
     "categories": [
       "packaging",
@@ -28720,6 +28976,48 @@
     "waste": 0
   },
   {
+    "activityName": "PET EoL recycling, GLO, CFF",
+    "categories": [
+      "end-of-life"
+    ],
+    "comment": "Calculé selon la règle CFF (A=0.5, Q=1)",
+    "density": 0,
+    "displayName": "Recyclage du PET, CFF",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "dca0a84a-9a4a-47f5-a589-4a5ae4aadf31",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": -78.425,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "GLO",
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "Meat without bone chicken for direct consumption {{meat-without-bone-chicken-direct-consumption-organic}}",
     "categories": [
       "ingredient"
@@ -29222,7 +29520,7 @@
       "transformation",
       "material_type:metal"
     ],
-    "comment": "",
+    "comment": "découpes, cintrages, traitements thermiques, soudures",
     "density": 0,
     "displayName": "Transformation finale (inox)",
     "elecMJ": 0,
@@ -29301,14 +29599,14 @@
     "waste": 0
   },
   {
-    "activityName": "aluminium, low-alloyed, virgin, market, IN",
+    "activityName": "aluminium ingot, virgin, market, IN",
     "categories": [
       "material",
       "material_type:metal"
     ],
     "comment": "",
     "density": 0,
-    "displayName": "Aluminium vierge mix marché (IN)",
+    "displayName": "Aluminium vierge mix marché, Inde",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "e1ab1dc3-fa30-58d9-b211-779f3a426200",
@@ -29392,7 +29690,7 @@
     ],
     "comment": "",
     "density": 0,
-    "displayName": "Lamination (acier)",
+    "displayName": "Extrusion ou lamination (acier)",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "e1cad0c4-63dd-57e1-9c74-93f84e435dce",
@@ -29509,6 +29807,48 @@
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
+    "waste": 0
+  },
+  {
+    "activityName": "steel EoL recycling, RER, CFF",
+    "categories": [
+      "end-of-life"
+    ],
+    "comment": "Calculé selon la règle CFF (A=0.5, Q=1)",
+    "density": 0,
+    "displayName": "Recyclage de l'acier, CFF",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "e2afffb3-ce82-4446-97cf-35c98c3a153f",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": -46.51,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "RER",
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
     "waste": 0
   },
   {
@@ -32467,6 +32807,49 @@
     "waste": 0
   },
   {
+    "activityName": "steel, low-alloyed, recycled, RoW, CFF",
+    "categories": [
+      "material",
+      "material_type:metal"
+    ],
+    "comment": "Matériau 100% issu du recyclage, calculé selon la règle CFF (A=0.8, Q=1)",
+    "density": 0,
+    "displayName": "Acier recyclé (Reste du monde), CFF",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "f781acd8-40bd-417c-8b09-02218b3c1d38",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 121.6,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "RoW",
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "Fresh sausages, 330g | Packaging System, N0, All, PP Tray with Lid {FR} U",
     "categories": [
       "packaging",
@@ -32506,6 +32889,47 @@
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
+    "waste": 0
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transformation"
+    ],
+    "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/assemblage",
+    "density": 0,
+    "displayName": "Assemblage véhicule",
+    "elecMJ": 3.6,
+    "heatMJ": 3.0,
+    "id": "f7c7e44a-c11e-4c8e-afc1-8a96fac85e3b",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": null,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Custom",
+    "unit": "kg",
     "waste": 0
   },
   {
@@ -32588,6 +33012,49 @@
       "food"
     ],
     "source": "Agribalyse 3.2",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "aluminium ingot, recycled, IN, CFF",
+    "categories": [
+      "material",
+      "material_type:metal"
+    ],
+    "comment": "Matériau 100% issu du recyclage, calculé selon la règle CFF (A=0.8, Q=1)",
+    "density": 0,
+    "displayName": "Aluminium recyclé (Inde), CFF",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "f8dc9ad9-59ed-46fd-81b5-06ca371f5aa7",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 1439.2,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "IN",
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Ecobalyse",
     "unit": "kg",
     "waste": 0
   },
@@ -33461,6 +33928,49 @@
     "source": "Agribalyse 3.2",
     "unit": "item",
     "waste": 0
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transformation",
+      "material_type:plastic"
+    ],
+    "comment": "Hao Chen et al., 2025 (median), hyp. 50% electricity 50% heat",
+    "density": 0,
+    "displayName": "Fabrication fibre de carbone",
+    "elecMJ": 84.0,
+    "heatMJ": 84.0,
+    "id": "ff848721-133e-4ec9-9ed9-44ceb721c036",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": null,
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Custom",
+    "unit": "kg",
+    "waste": 0.5
   },
   {
     "activityName": "Still wine, 75cl | Packaging System, N0, All, Glass bottle (white) 450g with cork stopper {FR} U",
