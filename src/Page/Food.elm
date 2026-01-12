@@ -21,7 +21,7 @@ import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Origin as Origin
 import Data.Food.Preparation as Preparation
-import Data.Food.Query as Query exposing (PackagingAmount(..), Query, packagingAmountToFloat)
+import Data.Food.Query as Query exposing (PackagingAmount(..), Query, defaultPackagingQuery, packagingAmountToFloat)
 import Data.Food.Recipe as Recipe exposing (Recipe)
 import Data.Food.Retail as Retail
 import Data.Food.WellKnown exposing (WellKnown)
@@ -36,7 +36,7 @@ import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Data.Uuid exposing (Uuid)
 import Html exposing (..)
-import Html.Attributes exposing (..)
+import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import Json.Encode as Encode
 import Length
@@ -220,11 +220,10 @@ update ({ db, queries } as session) msg model =
                 |> App.apply update (SetModal NoModal)
                 |> updateQuery (query |> Query.addIngredient (Recipe.ingredientQueryFromIngredient ingredient))
 
-        AddPackaging packaging ->
+        AddPackaging packagingProcess ->
             createPageUpdate session model
                 |> App.apply update (SetModal NoModal)
-                -- @FIXME: check if it should be a float or int amount depending on the type of process
-                |> updateQuery (query |> Query.addPackaging { amount = FloatAmount 1, id = packaging.id })
+                |> updateQuery (query |> Query.addPackaging (defaultPackagingQuery packagingProcess))
 
         AddPreparation ->
             let
@@ -542,12 +541,12 @@ completeModal query session model =
 
 
 updateExistingPackaging : Query -> Model -> Session -> Query.PackagingQuery -> Process -> PageUpdate Model Msg
-updateExistingPackaging query model session oldPackaging newPackaging =
+updateExistingPackaging query model session oldPackaging newPackagingProcess =
     -- Update an existing packaging
     model
         |> createPageUpdate session
         |> App.apply update (SetModal NoModal)
-        |> updateQuery (Query.updatePackagingProcess oldPackaging.id newPackaging.id query)
+        |> updateQuery (Query.updatePackaging oldPackaging.id (defaultPackagingQuery newPackagingProcess) query)
 
 
 selectPackaging : Autocomplete Process -> PageUpdate Model Msg -> PageUpdate Model Msg
@@ -745,19 +744,41 @@ updatePackagingFormView : UpdatePackagingConfig -> Html Msg
 updatePackagingFormView { autocompleteState, packaging, impact, updateEvent, deleteEvent } =
     li [ class "ElementFormWrapper list-group-item" ]
         [ span [ class "QuantityInputWrapper" ]
-            [ input
-                [ type_ "number"
-                , value (String.fromFloat (packagingAmountToFloat packaging.amount))
-                , onInput <|
-                    \string ->
-                        case String.toFloat string of
-                            Just amount ->
-                                updateEvent { id = packaging.process.id, amount = FloatAmount amount }
+            [ case ( packaging.process.unit, packaging.amount ) of
+                ( _, ItemAmount nb ) ->
+                    div [ class "input-group" ]
+                        [ input
+                            [ class "form-control text-end incdec-arrows-left"
+                            , type_ "number"
+                            , step "1"
+                            , value (String.fromInt nb)
+                            , title "Nombre d’éléments"
+                            , onInput <|
+                                \string ->
+                                    case String.toInt string of
+                                        Just amount ->
+                                            updateEvent { id = packaging.process.id, amount = ItemAmount amount }
 
-                            _ ->
-                                NoOp
-                ]
-                []
+                                        _ ->
+                                            NoOp
+                            , Attr.min "0"
+                            ]
+                            []
+                        ]
+
+                ( _, MassAmount massAmount ) ->
+                    MassInput.view
+                        { mass = massAmount
+                        , onChange =
+                            \maybeMass ->
+                                case maybeMass of
+                                    Just mass ->
+                                        updateEvent { id = packaging.process.id, amount = MassAmount mass }
+
+                                    _ ->
+                                        NoOp
+                        , disabled = False
+                        }
             ]
         , processSelectorAutocompleteView
             packaging.process

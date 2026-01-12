@@ -28,7 +28,7 @@ import Data.Food.EcosystemicServices as EcosystemicServices exposing (Ecosystemi
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Origin as Origin
 import Data.Food.Preparation as Preparation exposing (Preparation)
-import Data.Food.Query as BuilderQuery exposing (PackagingAmount, Query, packagingAmountToFloat)
+import Data.Food.Query as BuilderQuery exposing (PackagingAmount(..), Query, packagingAmountToFloat)
 import Data.Food.Retail as Retail
 import Data.Food.WellKnown exposing (WellKnown)
 import Data.Impact as Impact exposing (Impacts)

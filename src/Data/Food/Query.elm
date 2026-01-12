@@ -10,6 +10,7 @@ module Data.Food.Query exposing
     , b64encode
     , buildApiQuery
     , decode
+    , defaultPackagingQuery
     , deleteIngredient
     , deletePreparation
     , empty
@@ -34,7 +35,7 @@ import Data.Country as Country
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Preparation as Preparation
 import Data.Food.Retail as Retail
-import Data.Process as Process
+import Data.Process as Process exposing (Process)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
@@ -71,17 +72,17 @@ type alias Query =
 
 
 type PackagingAmount
-    = FloatAmount Float
-    | IntAmount Int
+    = MassAmount Mass
+    | ItemAmount Int
 
 
 packagingAmountToFloat : PackagingAmount -> Float
 packagingAmountToFloat a =
     case a of
-        FloatAmount v ->
-            v
+        MassAmount v ->
+            Mass.inKilograms v
 
-        IntAmount v ->
+        ItemAmount v ->
             toFloat v
 
 
@@ -102,6 +103,16 @@ addIngredient ingredient query =
                 ++ [ ingredient ]
     }
         |> updateTransformMass
+
+
+defaultPackagingQuery : Process -> PackagingQuery
+defaultPackagingQuery process =
+    case process.unit of
+        Process.Items ->
+            { id = process.id, amount = ItemAmount 1 }
+
+        _ ->
+            { id = process.id, amount = MassAmount <| Mass.grams 100 }
 
 
 addPackaging : PackagingQuery -> Query -> Query
@@ -160,10 +171,10 @@ decodeMassInGrams =
 decodePackagingAmount : Decoder PackagingAmount
 decodePackagingAmount =
     Decode.oneOf
-        [ Decode.float
-            |> Decode.map (\float -> FloatAmount float)
+        [ decodeMassInGrams
+            |> Decode.map (\float -> MassAmount float)
         , Decode.int
-            |> Decode.map (\int -> IntAmount int)
+            |> Decode.map (\int -> ItemAmount int)
         ]
 
 
@@ -265,10 +276,10 @@ encodeMassAsGrams =
 encodePackagingAmount : PackagingAmount -> Encode.Value
 encodePackagingAmount v =
     case v of
-        FloatAmount a ->
-            Encode.float a
+        MassAmount a ->
+            Encode.float (Mass.inGrams a)
 
-        IntAmount a ->
+        ItemAmount a ->
             Encode.int a
 
 
