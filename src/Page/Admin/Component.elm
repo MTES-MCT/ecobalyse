@@ -572,6 +572,7 @@ modalView { componentConfig, db } modals index modal =
 
                             -- Note: we don't handle assembly country in the admin
                             , query = Component.emptyQuery |> Component.setQueryItems [ item ]
+                            , removeConsumption = \_ -> NoOp
                             , removeElement =
                                 \targetElement ->
                                     item |> updateSingleItem (Component.removeElement targetElement)

@@ -98,6 +98,7 @@ type Msg
     | OnDropBookmark Bookmark
     | OpenComparator
     | RemoveComponentItem Int
+    | RemoveConsumption Index
     | RemoveElement TargetElement
     | RemoveElementTransform TargetElement Index
     | RenameBookmark
@@ -387,6 +388,10 @@ update ({ navKey } as session) msg model =
             { model | modal = ComparatorModal }
                 |> createPageUpdate (session |> Session.checkComparedSimulations)
                 |> App.withCmds [ Plausible.send session <| Plausible.ComparatorOpened model.scope ]
+
+        ( RemoveConsumption index, _ ) ->
+            createPageUpdate session model
+                |> updateQuery (query |> Component.removeConsumption index)
 
         ( RemoveComponentItem itemIndex, _ ) ->
             { model
@@ -713,6 +718,7 @@ simulatorView session model =
                             |> SetModal
                 , openSelectConsumptionModal = SelectConsumptionModal >> SetModal
                 , query = currentQuery
+                , removeConsumption = RemoveConsumption
                 , removeElement = RemoveElement
                 , removeElementTransform = RemoveElementTransform
                 , removeItem = RemoveComponentItem
@@ -721,8 +727,6 @@ simulatorView session model =
                 , setDetailed = SetDetailedComponents
                 , title = "Production des composants"
                 , updateAssemblyCountry = UpdateAssemblyCountry
-
-                -- FIXME
                 , updateConsumptionAmount = UpdateConsumptionAmount
                 , updateElementAmount = UpdateElementAmount
                 , updateItemCountry = UpdateComponentItemCountry

@@ -73,6 +73,7 @@ module Data.Component exposing
     , parseConfig
     , quantityFromInt
     , quantityToInt
+    , removeConsumption
     , removeElement
     , removeElementTransform
     , setCustomScope
@@ -1385,6 +1386,11 @@ quantityFromInt int =
 quantityToInt : Quantity -> Int
 quantityToInt (Quantity int) =
     int
+
+
+removeConsumption : Index -> Query -> Query
+removeConsumption index query =
+    { query | useConsumptions = query.useConsumptions |> LE.removeAt index }
 
 
 {-| Remove an element from an item

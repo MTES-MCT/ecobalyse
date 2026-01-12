@@ -61,6 +61,7 @@ type alias Config db msg =
     , openSelectConsumptionModal : Autocomplete Process -> msg
     , openSelectProcessModal : Category -> TargetItem -> Maybe Index -> Autocomplete Process -> msg
     , query : Query
+    , removeConsumption : Index -> msg
     , removeElement : TargetElement -> msg
     , removeElementTransform : TargetElement -> Index -> msg
     , removeItem : Index -> msg
@@ -875,7 +876,15 @@ useStageView config =
                         tr []
                             [ td [] [ amountInput (config.updateConsumptionAmount index) process.unit amount ]
                             , td [ class "w-75" ] [ text <| Process.getDisplayName process ]
-                            , td [] []
+                            , td [] [ Format.formatImpact config.impact Impact.empty ]
+                            , td []
+                                [ button
+                                    [ type_ "button"
+                                    , class "btn btn-outline-secondary"
+                                    , onClick (config.removeConsumption index)
+                                    ]
+                                    [ Icon.trash ]
+                                ]
                             ]
                     )
                 |> Table.responsiveDefault []

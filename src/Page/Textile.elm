@@ -981,6 +981,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , openSelectProcessModal = \_ _ _ _ -> SetModal NoModal
         , openSelectConsumptionModal = \_ -> NoOp
         , query = Component.emptyQuery |> Component.setQueryItems inputs.trims
+        , removeConsumption = \_ -> NoOp
         , removeElement = \_ -> NoOp
         , removeElementTransform = \_ _ -> NoOp
         , removeItem = RemoveTrim
