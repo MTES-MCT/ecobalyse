@@ -51,6 +51,7 @@ module Data.Component exposing
     , encodeQuery
     , expandElements
     , expandItems
+    , expandUseConsumptions
     , extractAmount
     , extractImpacts
     , extractItems
@@ -1093,6 +1094,19 @@ expandItem ({ components, countries } as db) { country, custom, id, quantity } =
                                     )
                         )
             )
+
+
+{-| Resolve full use consumption processes linked to their respective ids
+-}
+expandUseConsumptions : List Process -> List UseConsumption -> Result String (List ( Amount, Process ))
+expandUseConsumptions processes =
+    List.map
+        (\{ amount, processId } ->
+            processes
+                |> Process.findById processId
+                |> Result.map (\process -> ( amount, process ))
+        )
+        >> RE.combine
 
 
 {-| Take a list of component items and resolve them with actual components and processes

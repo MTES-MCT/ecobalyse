@@ -40,6 +40,7 @@ import Views.Component.DownArrow as DownArrow
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Link as Link
+import Views.Table as Table
 import Views.Transport as TransportView
 
 
@@ -864,8 +865,21 @@ useStageView config =
                 [ Format.formatImpact config.impact Impact.empty
                 ]
             ]
-        , div [ class "card-body d-flex align-items-center gap-1 p-0" ]
-            [ addConsumptionButton config ]
+        , div [ class "d-flex flex-column gap-1 p-0" ]
+            [ config.query.useConsumptions
+                |> Component.expandUseConsumptions config.db.processes
+                |> Result.withDefault []
+                |> List.indexedMap
+                    (\index ( amount, process ) ->
+                        tr []
+                            [ td [] []
+                            , td [] [ text <| Process.getDisplayName process ]
+                            , td [] []
+                            ]
+                    )
+                |> Table.responsiveDefault []
+            , addConsumptionButton config
+            ]
         ]
 
 
