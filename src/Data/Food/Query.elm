@@ -58,9 +58,7 @@ type alias ProcessQuery =
 
 
 type alias PackagingQuery =
-    { id : Process.Id
-    , amount : PackagingAmount
-    }
+    { amount : PackagingAmount, id : Process.Id }
 
 
 type alias Query =
@@ -172,8 +170,8 @@ decodePackagingAmount =
 decodePackaging : Decoder PackagingQuery
 decodePackaging =
     Decode.map2 PackagingQuery
-        (Decode.field "id" Process.decodeId)
         (Decode.field "amount" decodePackagingAmount)
+        (Decode.field "id" Process.decodeId)
 
 
 decodeProcess : Decoder ProcessQuery
