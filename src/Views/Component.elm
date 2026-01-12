@@ -725,7 +725,8 @@ elementTransformsView config targetElement maybeCountry transformsResults transf
                 tooltipText =
                     "Procédé\u{00A0}: "
                         ++ Process.getDisplayName transform
-                        ++ (Component.loadEnergyMixes config.db.processes maybeCountry
+                        ++ (maybeCountry
+                                |> Component.loadEnergyMixes config.componentConfig
                                 |> Result.map
                                     (\{ elec, heat } ->
                                         "\nÉlectricité\u{00A0}: "

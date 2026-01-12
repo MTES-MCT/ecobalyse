@@ -13,7 +13,7 @@
     "not dead"
   ],
   "scripts": {
-    "build": "npm run server:build && rimraf dist && npm run build:init && parcel build index.html --public-url ./",
+    "build": "npm run server:build && rm -rf dist && npm run build:init && parcel build index.html --public-url ./",
     "build:init": "./bin/update-version.sh && mkdir -p dist && cp -r public/* dist/ && npm run db:build",
     "decrypt": "./bin/decrypt",
     "encrypt": "./bin/encrypt",
@@ -80,22 +80,16 @@
     "concurrently": "^9.2.1",
     "elm": "^0.19.1-6",
     "elm-format": "^0.8.8",
-    "elm-json": "^0.2.13",
     "elm-review": "^2.13.5",
     "elm-test": "0.19.1-revision17",
     "highcharts": "^12.4.0",
     "jest": "^30.2.0",
     "maildev": "^2.2.1",
     "nodemon": "^3.1.11",
-    "npm-check-updates": "^19.3.0",
     "parcel": "^2.16.3",
     "prettier": "^3.7.4",
     "prettier-plugin-sort-json": "^4.1.1",
-    "process": "^0.11.10",
-    "rimraf": "^6.1.2",
-    "supertest": "^7.1.4",
-    "svgo": "^4.0.0",
-    "uuid": "^13.0.0"
+    "supertest": "^7.1.4"
   },
   "cacheDirectories": [
     "elm-stuff",

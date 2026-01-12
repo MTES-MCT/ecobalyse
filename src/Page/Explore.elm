@@ -440,20 +440,20 @@ processesExplorer session scope tableConfig tableState maybeId =
 
 
 componentsExplorer :
-    Db
+    Session
     -> Scope
     -> Table.Config Component Msg
     -> SortableTable.State
     -> Maybe Component.Id
     -> List (Html Msg)
-componentsExplorer db scope tableConfig tableState maybeId =
+componentsExplorer session scope tableConfig tableState maybeId =
     let
         scopedComponents =
-            db.components |> List.filter (.scope >> (==) scope)
+            session.db.components |> List.filter (.scope >> (==) scope)
     in
     [ scopedComponents
         |> List.sortBy .name
-        |> Table.viewList OpenDetail tableConfig tableState scope (Components.table db)
+        |> Table.viewList OpenDetail tableConfig tableState scope (Components.table session)
     , case maybeId of
         Just id ->
             detailsModal
@@ -463,7 +463,7 @@ componentsExplorer db scope tableConfig tableState maybeId =
 
                     Ok component ->
                         component
-                            |> Table.viewDetails scope (Components.table db)
+                            |> Table.viewDetails scope (Components.table session)
                 )
 
         Nothing ->
@@ -703,7 +703,7 @@ exploreView ({ db } as session) { scope, dataset, tableState, search } =
     in
     case dataset of
         Dataset.Components scope_ maybeId ->
-            componentsExplorer db scope_ tableConfig tableState maybeId
+            componentsExplorer session scope_ tableConfig tableState maybeId
 
         Dataset.Countries maybeCode ->
             countriesExplorer db tableConfig tableState scope maybeCode

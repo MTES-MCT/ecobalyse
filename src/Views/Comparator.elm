@@ -65,7 +65,7 @@ view config =
             [ sidebarView config
                 |> div [ class "col-lg-4 border-end fs-7 p-0" ]
             , comparatorView config
-                |> div [ class "col-lg-8 px-4 py-2 overflow-hidden", style "min-height" "500px" ]
+                |> div [ class "col-lg-8 px-4 py-2 overflow-auto", style "min-height" "500px" ]
             ]
         ]
 
