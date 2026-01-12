@@ -30,7 +30,7 @@ import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Plausible as Plausible
-import Data.Process as Process exposing (Process, getDisplayName)
+import Data.Process as Process exposing (Process, getDisplayName, getTechnicalName)
 import Data.Process.Category as ProcessCategory
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
@@ -42,6 +42,8 @@ import Json.Encode as Encode
 import Length
 import Mass exposing (Mass)
 import Page.Explore as Explore
+import Page.Explore.Processes as Processes
+import Page.Explore.Table as Table
 import Ports
 import Quantity
 import Request.Version as Version
@@ -88,7 +90,8 @@ type Modal
     = AddIngredientModal (Maybe Recipe.RecipeIngredient) (Autocomplete Ingredient)
     | AddPackagingModal (Maybe Query.PackagingQuery) (Autocomplete Process)
     | ComparatorModal
-    | ExplorerDetailsModal Ingredient
+    | ExplorerIngredientDetailsModal Ingredient
+    | ExplorerProcessDetailsModal Process
     | NoModal
     | SelectExampleModal (Autocomplete Query)
 
@@ -217,18 +220,11 @@ update ({ db, queries } as session) msg model =
                 |> App.apply update (SetModal NoModal)
                 |> updateQuery (query |> Query.addIngredient (Recipe.ingredientQueryFromIngredient ingredient))
 
-        -- @FIXME: do the same than AddIngredient
-        AddPackaging _ ->
-            let
-                firstPackaging =
-                    db.processes
-                        |> Recipe.availablePackagings (List.map .id query.packaging)
-                        |> List.sortBy Process.getDisplayName
-                        |> List.head
-                        |> Maybe.map Recipe.packagingQueryFromProcess
-            in
-            firstPackaging
-                |> maybeUpdateQuery (\packaging -> Query.addPackaging packaging query)
+        AddPackaging packaging ->
+            createPageUpdate session model
+                |> App.apply update (SetModal NoModal)
+                -- @FIXME: check if it should be a float or int amount depending on the type of process
+                |> updateQuery (query |> Query.addPackaging { amount = FloatAmount 1, id = packaging.id })
 
         AddPreparation ->
             let
@@ -334,19 +330,7 @@ update ({ db, queries } as session) msg model =
                     createPageUpdate session model
 
         OnAutocompleteSelect ->
-            case model.modal of
-                AddIngredientModal maybeOldRecipeIngredient autocompleteState ->
-                    updateIngredient query model session maybeOldRecipeIngredient autocompleteState
-
-                AddPackagingModal maybeOldPackaging autocompleteState ->
-                    updatePackaging query model session maybeOldPackaging autocompleteState
-
-                SelectExampleModal autocompleteState ->
-                    createPageUpdate session model
-                        |> selectExample autocompleteState
-
-                _ ->
-                    createPageUpdate session model
+            completeModal query session model
 
         OnDragLeaveBookmark ->
             { model | bookmarkBeingOvered = Nothing }
@@ -540,6 +524,23 @@ createPageUpdate session model =
             ]
 
 
+completeModal : Query -> Session -> Model -> PageUpdate Model Msg
+completeModal query session model =
+    case model.modal of
+        AddIngredientModal maybeOldRecipeIngredient autocompleteState ->
+            updateIngredient query model session maybeOldRecipeIngredient autocompleteState
+
+        AddPackagingModal maybeOldPackaging autocompleteState ->
+            updatePackaging query model session maybeOldPackaging autocompleteState
+
+        SelectExampleModal autocompleteState ->
+            createPageUpdate session model
+                |> selectExample autocompleteState
+
+        _ ->
+            createPageUpdate session model
+
+
 updateExistingPackaging : Query -> Model -> Session -> Query.PackagingQuery -> Process -> PageUpdate Model Msg
 updateExistingPackaging query model session oldPackaging newPackaging =
     -- Update an existing packaging
@@ -576,7 +577,7 @@ updatePackaging query model session maybeOldPackaging autocompleteState =
         maybeOldPackaging
         maybeSelectedValue
         |> Maybe.withDefault
-            -- Add a new ingredient
+            -- Add a new packaging
             (model
                 |> createPageUpdate session
                 |> App.apply update (SetModal NoModal)
@@ -730,9 +731,10 @@ updateTransformFormView { processes, excluded, processQuery, impact, updateEvent
 
 
 type alias UpdatePackagingConfig =
-    { processes : List Process
+    { autocompleteState : Autocomplete Process
+    , processes : List Process
     , excluded : List Process.Id
-    , processQuery : Query.PackagingQuery
+    , packaging : Recipe.Packaging
     , impact : Html Msg
     , updateEvent : Query.PackagingQuery -> Msg
     , deleteEvent : Msg
@@ -740,29 +742,26 @@ type alias UpdatePackagingConfig =
 
 
 updatePackagingFormView : UpdatePackagingConfig -> Html Msg
-updatePackagingFormView { processes, excluded, processQuery, impact, updateEvent, deleteEvent } =
+updatePackagingFormView { autocompleteState, packaging, impact, updateEvent, deleteEvent } =
     li [ class "ElementFormWrapper list-group-item" ]
         [ span [ class "QuantityInputWrapper" ]
             [ input
                 [ type_ "number"
-                , value (String.fromFloat (packagingAmountToFloat processQuery.amount))
+                , value (String.fromFloat (packagingAmountToFloat packaging.amount))
                 , onInput <|
                     \string ->
                         case String.toFloat string of
                             Just amount ->
-                                updateEvent { processQuery | amount = FloatAmount amount }
+                                updateEvent { id = packaging.process.id, amount = FloatAmount amount }
 
                             _ ->
                                 NoOp
                 ]
                 []
             ]
-        , processes
-            |> List.sortBy Process.getDisplayName
-            |> processSelectorView
-                processQuery.id
-                (\id -> updateEvent { processQuery | id = id })
-                excluded
+        , processSelectorAutocompleteView
+            packaging.process
+            (SetModal (AddPackagingModal (Just { amount = packaging.amount, id = packaging.process.id }) autocompleteState))
         , span [ class "text-end ImpactDisplay fs-7" ] [ impact ]
         , BaseElement.deleteItemButton { disabled = False } deleteEvent
         ]
@@ -802,7 +801,7 @@ createElementSelectorConfig db ingredientQuery { excluded, recipeIngredient, imp
         db.food.ingredients
             |> List.filter (\ingredient -> List.member ingredient.id excluded)
     , impact = impact
-    , openExplorerDetails = ExplorerDetailsModal >> SetModal
+    , openExplorerDetails = ExplorerIngredientDetailsModal >> SetModal
     , quantityView =
         \{ quantity, onChange } ->
             MassInput.view { disabled = False, mass = quantity, onChange = onChange }
@@ -1154,17 +1153,18 @@ packagingListView db selectedImpact recipe results =
                 |> List.map
                     (\packaging ->
                         updatePackagingFormView
-                            { processes =
-                                db.processes
-                                    |> Process.listByCategory ProcessCategory.Packaging
+                            { autocompleteState = autocompleteState
                             , excluded = recipe.packaging |> List.map (.process >> .id)
-                            , processQuery = { id = packaging.process.id, amount = packaging.amount }
+                            , deleteEvent = DeletePackaging packaging.process.id
                             , impact =
                                 packaging
                                     |> Recipe.computePackagingImpacts
                                     |> Format.formatImpact selectedImpact
+                            , packaging = packaging
+                            , processes =
+                                db.processes
+                                    |> Process.listByCategory ProcessCategory.Packaging
                             , updateEvent = UpdatePackaging packaging.process.id
-                            , deleteEvent = DeletePackaging packaging.process.id
                             }
                     )
          )
@@ -1504,6 +1504,29 @@ processSelectorView selectedId event excluded processes =
         )
 
 
+processSelectorAutocompleteView : Process -> Msg -> Html Msg
+processSelectorAutocompleteView process selectElement =
+    div [ class "input-group" ]
+        [ button
+            [ class "form-select ElementSelector text-start"
+            , id <| "selector-" ++ Process.idToString process.id
+            , title <| getTechnicalName process
+            , onClick selectElement
+
+            -- , onInput (Process.idFromString >> Result.map event >> Result.withDefault NoOp)
+            ]
+            [ span [] [ text <| getDisplayName process ]
+            ]
+        , button
+            [ type_ "button"
+            , class "input-group-text"
+            , title "Ouvrir les informations détaillées"
+            , onClick <| SetModal (ExplorerProcessDetailsModal process)
+            ]
+            [ Icon.question ]
+        ]
+
+
 sidebarView : Session -> Model -> Recipe.Results -> Html Msg
 sidebarView session model results =
     SidebarView.view
@@ -1693,7 +1716,7 @@ view session model =
                         , footer = []
                         }
 
-                ExplorerDetailsModal ingredient ->
+                ExplorerIngredientDetailsModal ingredient ->
                     ModalView.view
                         { size = ModalView.Large
                         , close = SetModal NoModal
@@ -1702,6 +1725,20 @@ view session model =
                         , subTitle = Nothing
                         , formAction = Nothing
                         , content = [ Explore.foodIngredientDetails ingredient ]
+                        , footer = []
+                        }
+
+                ExplorerProcessDetailsModal process ->
+                    ModalView.view
+                        { size = ModalView.Large
+                        , close = SetModal NoModal
+                        , noOp = NoOp
+                        , title = getDisplayName process
+                        , subTitle = Nothing
+                        , formAction = Nothing
+
+                        -- @FIXME: implement content
+                        , content = [ Table.viewDetails Scope.Food (Processes.table session) process ]
                         , footer = []
                         }
 

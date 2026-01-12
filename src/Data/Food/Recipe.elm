@@ -10,14 +10,12 @@ module Data.Food.Recipe exposing
     , computeIngredientComplementsImpacts
     , computeIngredientTransport
     , computePackagingImpacts
-    , computeProcessImpacts
     , deletePackaging
     , encodeResults
     , fromQuery
     , getMassAtPackaging
     , getTransformedIngredientsMass
     , ingredientQueryFromIngredient
-    , packagingQueryFromProcess
     , processQueryFromProcess
     , resetDistribution
     , resetTransform
@@ -30,7 +28,7 @@ import Data.Food.EcosystemicServices as EcosystemicServices exposing (Ecosystemi
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Origin as Origin
 import Data.Food.Preparation as Preparation exposing (Preparation)
-import Data.Food.Query as BuilderQuery exposing (PackagingAmount(..), Query, packagingAmountToFloat)
+import Data.Food.Query as BuilderQuery exposing (PackagingAmount, Query, packagingAmountToFloat)
 import Data.Food.Retail as Retail
 import Data.Food.WellKnown exposing (WellKnown)
 import Data.Impact as Impact exposing (Impacts)
@@ -620,17 +618,10 @@ packagingListFromQuery db query =
 
 
 packagingFromQuery : Db -> BuilderQuery.PackagingQuery -> Result String Packaging
-packagingFromQuery { processes } { id, amount } =
+packagingFromQuery { processes } { amount, id } =
     processes
         |> Process.findById id
         |> Result.map (Packaging amount)
-
-
-packagingQueryFromProcess : Process -> BuilderQuery.PackagingQuery
-packagingQueryFromProcess process =
-    { id = process.id
-    , amount = IntAmount 1
-    }
 
 
 processQueryFromProcess : Process -> BuilderQuery.ProcessQuery
