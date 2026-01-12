@@ -583,6 +583,7 @@ modalView { componentConfig, db } modals index modal =
                             , setDetailed = \_ -> NoOp
                             , title = ""
                             , updateAssemblyCountry = \_ -> NoOp
+                            , updateConsumptionAmount = \_ _ -> NoOp
                             , updateElementAmount =
                                 \targetElement ->
                                     Maybe.map

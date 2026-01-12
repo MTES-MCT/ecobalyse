@@ -68,6 +68,7 @@ type alias Config db msg =
     , setDetailed : List Index -> msg
     , title : String
     , updateAssemblyCountry : Maybe Country.Code -> msg
+    , updateConsumptionAmount : Index -> Maybe Amount -> msg
     , updateElementAmount : TargetElement -> Maybe Amount -> msg
     , updateItemCountry : Index -> Maybe Country.Code -> msg
     , updateItemName : TargetItem -> String -> msg
@@ -538,8 +539,8 @@ noTransportView =
     DownArrow.view [] []
 
 
-amountInput : Config db msg -> TargetElement -> Process.Unit -> Amount -> Html msg
-amountInput config targetElement unit amount =
+amountInput : (Maybe Amount -> msg) -> Process.Unit -> Amount -> Html msg
+amountInput toMsg unit amount =
     let
         stringAmount =
             amount
@@ -570,7 +571,7 @@ amountInput config targetElement unit amount =
             , onInput <|
                 String.toFloat
                     >> Maybe.map Component.Amount
-                    >> config.updateElementAmount targetElement
+                    >> toMsg
             ]
             []
         , small [ class "input-group-text fs-8" ]
@@ -700,7 +701,7 @@ elementMaterialView config targetElement materialResults material amount =
                 Format.amount material amount
 
               else
-                amountInput config targetElement material.unit amount
+                amountInput (config.updateElementAmount targetElement) material.unit amount
             ]
         , td [ class "align-middle text-truncate w-100", title <| Process.getDisplayName material ]
             [ selectMaterialButton config targetElement material ]
@@ -872,8 +873,8 @@ useStageView config =
                 |> List.indexedMap
                     (\index ( amount, process ) ->
                         tr []
-                            [ td [] []
-                            , td [] [ text <| Process.getDisplayName process ]
+                            [ td [] [ amountInput (config.updateConsumptionAmount index) process.unit amount ]
+                            , td [ class "w-75" ] [ text <| Process.getDisplayName process ]
                             , td [] []
                             ]
                     )

@@ -117,6 +117,7 @@ type Msg
     | UpdateComponentItemCountry Index (Maybe Country.Code)
     | UpdateComponentItemName TargetItem String
     | UpdateComponentItemQuantity Index Component.Quantity
+    | UpdateConsumptionAmount Index (Maybe Component.Amount)
     | UpdateDurability (Result String Unit.Ratio)
     | UpdateElementAmount TargetElement (Maybe Component.Amount)
     | UpdateRenamedBookmarkName Bookmark String
@@ -546,6 +547,13 @@ update ({ navKey } as session) msg model =
                     )
                 |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
 
+        ( UpdateConsumptionAmount _ Nothing, _ ) ->
+            createPageUpdate session model
+
+        ( UpdateConsumptionAmount index (Just amount), _ ) ->
+            createPageUpdate session model
+                |> updateQuery (query |> Component.updateConsumptionAmount index amount)
+
         ( UpdateDurability (Ok durability), _ ) ->
             createPageUpdate session model
                 |> updateQuery (query |> Component.updateDurability durability)
@@ -713,6 +721,9 @@ simulatorView session model =
                 , setDetailed = SetDetailedComponents
                 , title = "Production des composants"
                 , updateAssemblyCountry = UpdateAssemblyCountry
+
+                -- FIXME
+                , updateConsumptionAmount = UpdateConsumptionAmount
                 , updateElementAmount = UpdateElementAmount
                 , updateItemCountry = UpdateComponentItemCountry
                 , updateItemName = UpdateComponentItemName

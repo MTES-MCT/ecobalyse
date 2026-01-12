@@ -82,6 +82,7 @@ module Data.Component exposing
     , sumLifeCycleImpacts
     , toSearchableString
     , tryMapItems
+    , updateConsumptionAmount
     , updateDurability
     , updateElement
     , updateElementAmount
@@ -1522,6 +1523,15 @@ tryMapItems : (List Item -> Result String (List Item)) -> Query -> Result String
 tryMapItems fn query =
     fn query.items
         |> Result.map (\items -> setQueryItems items query)
+
+
+updateConsumptionAmount : Index -> Amount -> Query -> Query
+updateConsumptionAmount index amount query =
+    { query
+        | useConsumptions =
+            query.useConsumptions
+                |> LE.updateAt index (\uc -> { uc | amount = amount })
+    }
 
 
 updateCustom : Component -> (Custom -> Custom) -> Maybe Custom -> Maybe Custom
