@@ -1002,7 +1002,13 @@ encodeQuery query =
         [ ( "assemblyCountry", query.assemblyCountry |> Maybe.map Country.encodeCode )
         , ( "durability", query.durability |> Unit.encodeRatio |> Just )
         , ( "components", query.items |> Encode.list encodeItem |> Just )
-        , ( "useConsumptions", query.useConsumptions |> Encode.list encodeUseConsumption |> Just )
+        , ( "useConsumptions"
+          , if List.isEmpty query.useConsumptions then
+                Nothing
+
+            else
+                query.useConsumptions |> Encode.list encodeUseConsumption |> Just
+          )
         ]
 
 
