@@ -436,6 +436,7 @@ update rawMsg ({ state } as model) =
 
                 ( DetailedProcessesReceived (RemoteData.Success rawDetailedProcessesJson), currentPage ) ->
                     -- When detailed processes are received, rebuild the entire static db using them
+                    -- and also reload componentConfig with the new processes
                     case StaticDb.db rawDetailedProcessesJson of
                         Err _ ->
                             notifyError model "Erreur" <|
@@ -443,7 +444,8 @@ update rawMsg ({ state } as model) =
 
                         Ok detailedDb ->
                             ( { model | state = currentPage |> Loaded { session | db = detailedDb } }
-                            , Cmd.none
+                            , ComponentConfig.decode detailedDb.processes detailedDb.countries
+                                |> Http.get "/data/components/config.json" (ComponentConfigReceived model.url)
                             )
 
                 ( DetailedProcessesReceived (RemoteData.Failure _), _ ) ->
