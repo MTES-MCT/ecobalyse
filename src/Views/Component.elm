@@ -45,6 +45,7 @@ import Views.Transport as TransportView
 
 type alias Config db msg =
     { addLabel : String
+    , admin : Bool
     , componentConfig : Component.Config
     , customizable : Bool
     , db : Component.DataContainer db
@@ -487,7 +488,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, maxItems, query, scope, tit
 
           else
             text ""
-        , if not (List.isEmpty query.items) && List.member scope [ Scope.Object, Scope.Veli ] then
+        , if not (List.isEmpty query.items) && List.member scope [ Scope.Object, Scope.Veli ] && not config.admin then
             div []
                 [ lifeCycle.transports.toDistribution
                     |> transportView impact (Component.extractMass lifeCycle.production)

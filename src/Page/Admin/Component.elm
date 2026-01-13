@@ -546,6 +546,7 @@ modalView { componentConfig, db } modals index modal =
                     , content =
                         [ ComponentView.editorView
                             { addLabel = ""
+                            , admin = True
                             , componentConfig = componentConfig
                             , customizable = True
                             , db = db

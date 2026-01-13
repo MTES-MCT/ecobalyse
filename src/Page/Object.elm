@@ -701,6 +701,7 @@ simulatorView session model =
             , durabilityView currentDurability
             , ComponentView.editorView
                 { addLabel = "Ajouter un composant"
+                , admin = False
                 , componentConfig = session.componentConfig
                 , customizable = True
                 , db = session.db
