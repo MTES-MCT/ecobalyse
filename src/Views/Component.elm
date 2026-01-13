@@ -902,12 +902,19 @@ useStageView config =
 
 
 addConsumptionButton : Config db msg -> Html msg
-addConsumptionButton { db, openSelectConsumptionModal, scope } =
+addConsumptionButton { db, openSelectConsumptionModal, query, scope } =
     let
         availableProcesses =
             db.processes
                 |> Process.listByCategory Category.Use
                 |> Scope.anyOf [ scope ]
+                |> List.filter
+                    (\{ id } ->
+                        query.useConsumptions
+                            |> List.map .processId
+                            |> List.member id
+                            |> not
+                    )
                 |> List.sortBy Process.getDisplayName
 
         autocompleteState =
