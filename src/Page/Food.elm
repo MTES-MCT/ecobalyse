@@ -1279,11 +1279,12 @@ transportToDistributionView wellKnown selectedImpact recipe results =
     DownArrow.view
         []
         [ div []
-            [ text "Masse : "
-            , Recipe.getTransformedIngredientsMass wellKnown recipe
+            ([ text "Masse : "
+             , Recipe.getTransformedIngredientsMass wellKnown recipe
                 |> Format.kg
-            , text " + Emballage : aggrégé aux procédés mobilisés"
-            ]
+             ]
+                ++ packagingMassView recipe
+            )
         , div [ class "d-flex justify-content-between" ]
             [ div []
                 (results.distribution.transports
@@ -1312,21 +1313,33 @@ transportToConsumptionView : WellKnown -> Recipe -> Html Msg
 transportToConsumptionView wellKnown recipe =
     DownArrow.view
         []
-        [ text <| "Masse : "
-        , Recipe.getTransformedIngredientsMass wellKnown recipe
+        ([ text <| "Masse : "
+         , Recipe.getTransformedIngredientsMass wellKnown recipe
             |> Format.kg
-        , text " + Emballage : aggrégé aux procédés mobilisés"
-        ]
+         ]
+            ++ packagingMassView recipe
+        )
 
 
-transportAfterConsumptionView : Recipe.Results -> Html Msg
-transportAfterConsumptionView result =
+transportAfterConsumptionView : Recipe -> Recipe.Results -> Html Msg
+transportAfterConsumptionView recipe result =
     DownArrow.view
         []
-        [ text <| "Masse : "
-        , Format.kg result.preparedMass
-        , text " + Emballage : aggrégé aux procédés mobilisés"
-        ]
+        ([ text <| "Masse : "
+         , Format.kg result.preparedMass
+         ]
+            ++ packagingMassView recipe
+        )
+
+
+packagingMassView : Recipe -> List (Html Msg)
+packagingMassView recipe =
+    case Recipe.getPackagingMass recipe of
+        Just mass ->
+            [ text " + Emballage : ", mass |> Format.kg ]
+
+        _ ->
+            [ text " + Emballage : aggrégé aux procédés mobilisés" ]
 
 
 distributionView : Definition -> Recipe -> Recipe.Results -> List (Html Msg)
@@ -1603,7 +1616,7 @@ stepListView ({ food } as db) session { impact, initialQuery } recipe results =
         , transportToConsumptionView food.wellKnown recipe
         , div [ class "card shadow-sm" ]
             (consumptionView db impact recipe results)
-        , transportAfterConsumptionView results
+        , transportAfterConsumptionView recipe results
         , div [ class "d-flex align-items-center justify-content-between mt-3 mb-5" ]
             [ a [ Route.href Route.Home ]
                 [ text "« Retour à l'accueil" ]
