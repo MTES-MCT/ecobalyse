@@ -631,8 +631,8 @@ selectConsumption query autocompleteState ({ model } as pageUpdate) =
             pageUpdate
                 |> updateQuery
                     { query
-                        | useConsumptions =
-                            query.useConsumptions
+                        | consumptions =
+                            query.consumptions
                                 ++ [ { amount = Component.Amount 1, processId = process.id } ]
                     }
                 |> App.apply update (SetModal NoModal)

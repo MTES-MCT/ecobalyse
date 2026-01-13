@@ -49,9 +49,9 @@ module Data.Component exposing
     , encodeItem
     , encodeLifeCycle
     , encodeQuery
+    , expandConsumptions
     , expandElements
     , expandItems
-    , expandUseConsumptions
     , extractAmount
     , extractImpacts
     , extractItems
@@ -148,19 +148,19 @@ type alias EnergyMixes =
 
 type alias Query =
     { assemblyCountry : Maybe Country.Code
+    , consumptions : List Consumption
 
     -- Note: component durability is experimental, future work may eventually be needed to
     -- reuse existing mechanics and handle holistic durability like it's implemented for textile,
     -- though it's still an ongoing discussion and we need to move forward and iterate.
     , durability : Unit.Ratio
     , items : List Item
-    , useConsumptions : List UseConsumption
     }
 
 
 {-| Use stage consumption, a process and a quantity of its unit
 -}
-type alias UseConsumption =
+type alias Consumption =
     { amount : Amount
     , processId : Process.Id
     }
@@ -738,9 +738,9 @@ computeDistributionTransports { config, db } maybeAssemblyCountry items =
 
 
 computeUseImpacts : Requirements db -> Query -> LifeCycle -> Result String LifeCycle
-computeUseImpacts { db } { useConsumptions } lifeCycle =
-    useConsumptions
-        |> expandUseConsumptions db.processes
+computeUseImpacts { db } { consumptions } lifeCycle =
+    consumptions
+        |> expandConsumptions db.processes
         |> Result.map
             (\expandedConsumptions ->
                 { lifeCycle
@@ -794,6 +794,13 @@ decodeBase64Query =
             (Decode.decodeString decodeQuery
                 >> Result.mapError Decode.errorToString
             )
+
+
+decodeConsumption : Decoder Consumption
+decodeConsumption =
+    Decode.succeed Consumption
+        |> Decode.required "amount" (Decode.map Amount Decode.float)
+        |> Decode.required "processId" Process.decodeId
 
 
 decodeCustom : Decoder Custom
@@ -852,16 +859,9 @@ decodeQuery : Decoder Query
 decodeQuery =
     Decode.succeed Query
         |> DU.strictOptional "assemblyCountry" Country.decodeCode
+        |> Decode.optional "consumptions" (Decode.list decodeConsumption) []
         |> Decode.optional "durability" Unit.decodeRatio (Unit.ratio 1)
         |> Decode.required "components" (Decode.list decodeItem)
-        |> Decode.optional "useConsumptions" (Decode.list decodeUseConsumption) []
-
-
-decodeUseConsumption : Decoder UseConsumption
-decodeUseConsumption =
-    Decode.succeed UseConsumption
-        |> Decode.required "amount" (Decode.map Amount Decode.float)
-        |> Decode.required "processId" Process.decodeId
 
 
 {-| Proxified for convenience
@@ -918,9 +918,9 @@ emptyLifeCycleTransports =
 emptyQuery : Query
 emptyQuery =
     { assemblyCountry = Nothing
+    , consumptions = []
     , durability = Unit.ratio 1
     , items = []
-    , useConsumptions = []
     }
 
 
@@ -953,6 +953,14 @@ encode v =
 encodeBase64Query : Query -> String
 encodeBase64Query =
     encodeQuery >> Encode.encode 0 >> Base64.encode
+
+
+encodeConsumption : Consumption -> Encode.Value
+encodeConsumption v =
+    Encode.object
+        [ ( "amount", v.amount |> amountToFloat |> Encode.float )
+        , ( "processId", v.processId |> Process.encodeId )
+        ]
 
 
 encodeCustom : Custom -> Encode.Value
@@ -1036,12 +1044,12 @@ encodeQuery query =
         [ ( "assemblyCountry", query.assemblyCountry |> Maybe.map Country.encodeCode )
         , ( "durability", query.durability |> Unit.encodeRatio |> Just )
         , ( "components", query.items |> Encode.list encodeItem |> Just )
-        , ( "useConsumptions"
-          , if List.isEmpty query.useConsumptions then
+        , ( "consumptions"
+          , if List.isEmpty query.consumptions then
                 Nothing
 
             else
-                query.useConsumptions |> Encode.list encodeUseConsumption |> Just
+                query.consumptions |> Encode.list encodeConsumption |> Just
           )
         ]
 
@@ -1070,12 +1078,17 @@ encodeResults maybeTrigram (Results results) =
         ]
 
 
-encodeUseConsumption : UseConsumption -> Encode.Value
-encodeUseConsumption v =
-    Encode.object
-        [ ( "amount", v.amount |> amountToFloat |> Encode.float )
-        , ( "processId", v.processId |> Process.encodeId )
-        ]
+{-| Resolve full use consumption processes linked to their respective ids
+-}
+expandConsumptions : List Process -> List Consumption -> Result String (List ( Amount, Process ))
+expandConsumptions processes =
+    List.map
+        (\{ amount, processId } ->
+            processes
+                |> Process.findById processId
+                |> Result.map (\process -> ( amount, process ))
+        )
+        >> RE.combine
 
 
 {-| Turn an Element to an ExpandedElement
@@ -1127,19 +1140,6 @@ expandItem ({ components, countries } as db) { country, custom, id, quantity } =
                                     )
                         )
             )
-
-
-{-| Resolve full use consumption processes linked to their respective ids
--}
-expandUseConsumptions : List Process -> List UseConsumption -> Result String (List ( Amount, Process ))
-expandUseConsumptions processes =
-    List.map
-        (\{ amount, processId } ->
-            processes
-                |> Process.findById processId
-                |> Result.map (\process -> ( amount, process ))
-        )
-        >> RE.combine
 
 
 {-| Take a list of component items and resolve them with actual components and processes
@@ -1421,7 +1421,7 @@ quantityToInt (Quantity int) =
 
 removeConsumption : Index -> Query -> Query
 removeConsumption index query =
-    { query | useConsumptions = query.useConsumptions |> LE.removeAt index }
+    { query | consumptions = query.consumptions |> LE.removeAt index }
 
 
 {-| Remove an element from an item
@@ -1567,8 +1567,8 @@ tryMapItems fn query =
 updateConsumptionAmount : Index -> Amount -> Query -> Query
 updateConsumptionAmount index amount query =
     { query
-        | useConsumptions =
-            query.useConsumptions
+        | consumptions =
+            query.consumptions
                 |> LE.updateAt index (\uc -> { uc | amount = amount })
     }
 

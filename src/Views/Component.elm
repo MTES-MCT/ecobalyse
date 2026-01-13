@@ -876,14 +876,14 @@ useStageView ({ db, impact, lifeCycle, query, removeConsumption, updateConsumpti
                 ]
             ]
         , div [ class "d-flex flex-column p-0" ]
-            [ if List.isEmpty query.useConsumptions then
+            [ if List.isEmpty query.consumptions then
                 div [ class "card-body" ] [ text "Aucune consommation" ]
 
               else
                 div [ class "table-responsive table-scroll position-relative" ]
                     [ table [ class "table table-hover mb-0" ]
-                        [ query.useConsumptions
-                            |> Component.expandUseConsumptions db.processes
+                        [ query.consumptions
+                            |> Component.expandConsumptions db.processes
                             |> Result.withDefault []
                             |> List.indexedMap
                                 (\index ( amount, process ) ->
@@ -933,7 +933,7 @@ addConsumptionButton { db, openSelectConsumptionModal, query, scope } =
                 |> Scope.anyOf [ scope ]
                 |> List.filter
                     (\{ id } ->
-                        query.useConsumptions
+                        query.consumptions
                             |> List.map .processId
                             |> List.member id
                             |> not
