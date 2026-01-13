@@ -225,7 +225,10 @@ forObject lifeCycle config =
                     |> Impact.getImpact config.impactDefinition.trigram
                     |> Just
             , trims = Nothing
-            , usage = Nothing
+            , usage =
+                stageStats.use
+                    |> Impact.getImpact config.impactDefinition.trigram
+                    |> Just
             }
     }
 

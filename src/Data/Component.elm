@@ -309,6 +309,7 @@ type alias StagesImpacts =
     , material : Impacts
     , transformation : Impacts
     , transports : Impacts
+    , use : Impacts
     }
 
 
@@ -1520,6 +1521,7 @@ stagesImpacts lifeCycle =
             , material = Impact.empty
             , transformation = Impact.empty
             , transports = getTotalTransportImpacts lifeCycle.transports
+            , use = lifeCycle.use |> Impact.sumImpacts
             }
 
 
