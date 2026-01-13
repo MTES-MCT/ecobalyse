@@ -484,7 +484,7 @@ describe("API", () => {
             packaging: [
               {
                 id: "edefa2be-abe4-5bb6-b0fc-0f666050dcc1",
-                mass: 105,
+                amount: 105,
               },
             ],
             distribution: "ambient",
@@ -592,7 +592,7 @@ describe("API", () => {
         expectFieldErrorMessage(
           await makePostRequest("/api/food", {
             ingredients: [{ id: "4d5198e7-413a-4ae2-8448-535aa3b302ae", mass: 268 }],
-            packaging: [{ id: "invalid", mass: 10 }],
+            packaging: [{ id: "invalid", amount: 10 }],
           }),
           "decoding",
           /\"invalid\" Not a valid UUID/,
@@ -603,10 +603,10 @@ describe("API", () => {
         expectFieldErrorMessage(
           await makePostRequest("/api/food", {
             ingredients: [{ id: "4d5198e7-413a-4ae2-8448-535aa3b302ae", mass: 268 }],
-            packaging: [{ id: "edefa2be-abe4-5bb6-b0fc-0f666050dcc1", mass: -1 }],
+            packaging: [{ id: "edefa2be-abe4-5bb6-b0fc-0f666050dcc1", amount: -1 }],
           }),
           "packaging",
-          /masse doit être supérieure à zéro/,
+          /quantité doit être supérieure à zéro/,
         );
       });
 
