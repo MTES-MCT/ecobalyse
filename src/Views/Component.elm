@@ -888,7 +888,7 @@ useStageView ({ db, impact, lifeCycle, query, removeConsumption, updateConsumpti
                             |> List.indexedMap
                                 (\index ( amount, process ) ->
                                     tr []
-                                        [ td [ class "ps-3 align-middle text-nowrap", style "min-width" "130px" ]
+                                        [ td [ class "ps-3 align-middle text-nowrap", style "min-width" "160px" ]
                                             [ amountInput (updateConsumptionAmount index) process.unit amount ]
                                         , td [ class "align-middle w-66 text-truncate" ]
                                             [ text <| Process.getDisplayName process ]
