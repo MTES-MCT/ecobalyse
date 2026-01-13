@@ -549,9 +549,9 @@ amountInput toMsg unit amount =
 
         stepValue =
             case String.split "." stringAmount of
-                -- This is an integer, increment by one to keep the integer value
+                -- This is an integer, increment by .1 for convenience
                 [ _ ] ->
-                    "1"
+                    "0.1"
 
                 -- This is a float, increment at the precision of the float
                 [ _, decimals ] ->
