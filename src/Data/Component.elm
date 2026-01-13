@@ -1004,8 +1004,7 @@ encodeItem item =
 encodeLifeCycle : Maybe Trigram -> LifeCycle -> Encode.Value
 encodeLifeCycle maybeTrigram lifeCycle =
     Encode.object
-        [ ( "production", encodeResults maybeTrigram lifeCycle.production )
-        , ( "endOfLife"
+        [ ( "endOfLife"
           , case maybeTrigram of
                 Just trigram ->
                     lifeCycle.endOfLife
@@ -1016,7 +1015,17 @@ encodeLifeCycle maybeTrigram lifeCycle =
                 Nothing ->
                     Impact.encode lifeCycle.endOfLife
           )
+        , ( "production", encodeResults maybeTrigram lifeCycle.production )
+        , ( "transport", encodeLifeCycleTransport lifeCycle.transports )
         , ( "use", Encode.list Impact.encode lifeCycle.use )
+        ]
+
+
+encodeLifeCycleTransport : LifeCycleTransport -> Encode.Value
+encodeLifeCycleTransport v =
+    Encode.object
+        [ ( "toAssembly", Transport.encode v.toAssembly )
+        , ( "toDistribution", Transport.encode v.toDistribution )
         ]
 
 
