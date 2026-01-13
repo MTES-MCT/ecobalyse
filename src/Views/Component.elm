@@ -40,7 +40,6 @@ import Views.Component.DownArrow as DownArrow
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Link as Link
-import Views.Table as Table
 import Views.Transport as TransportView
 
 
@@ -867,27 +866,36 @@ useStageView config =
                 [ Format.formatImpact config.impact Impact.empty
                 ]
             ]
-        , div [ class "d-flex flex-column gap-1 p-0" ]
-            [ config.query.useConsumptions
-                |> Component.expandUseConsumptions config.db.processes
-                |> Result.withDefault []
-                |> List.indexedMap
-                    (\index ( amount, process ) ->
-                        tr []
-                            [ td [] [ amountInput (config.updateConsumptionAmount index) process.unit amount ]
-                            , td [ class "w-75" ] [ text <| Process.getDisplayName process ]
-                            , td [] [ Format.formatImpact config.impact Impact.empty ]
-                            , td []
-                                [ button
-                                    [ type_ "button"
-                                    , class "btn btn-outline-secondary"
-                                    , onClick (config.removeConsumption index)
-                                    ]
-                                    [ Icon.trash ]
-                                ]
-                            ]
-                    )
-                |> Table.responsiveDefault []
+        , div [ class "d-flex flex-column p-0" ]
+            [ if List.isEmpty config.query.useConsumptions then
+                div [ class "card-body" ] [ text "Aucune consommation" ]
+
+              else
+                div [ class "table-responsive table-scroll position-relative" ]
+                    [ table [ class "table table-hover mb-0" ]
+                        [ config.query.useConsumptions
+                            |> Component.expandUseConsumptions config.db.processes
+                            |> Result.withDefault []
+                            |> List.indexedMap
+                                (\index ( amount, process ) ->
+                                    tr []
+                                        [ td [ class "ps-3 align-middle text-nowrap", style "min-width" "130px" ]
+                                            [ amountInput (config.updateConsumptionAmount index) process.unit amount ]
+                                        , td [ class "align-middle w-66 text-truncate" ] [ text <| Process.getDisplayName process ]
+                                        , td [ class "align-middle text-nowrap" ] [ Format.formatImpact config.impact Impact.empty ]
+                                        , td [ class "pe-3 pt-2 align-middle" ]
+                                            [ button
+                                                [ type_ "button"
+                                                , class "btn btn-sm btn-outline-secondary"
+                                                , onClick (config.removeConsumption index)
+                                                ]
+                                                [ Icon.trash ]
+                                            ]
+                                        ]
+                                )
+                            |> tbody []
+                        ]
+                    ]
             , addConsumptionButton config
             ]
         ]
