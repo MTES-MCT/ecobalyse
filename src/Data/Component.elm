@@ -1531,6 +1531,7 @@ sumLifeCycleImpacts lifeCycle =
         , lifeCycle.endOfLife
         , lifeCycle.transports.toAssembly.impacts
         , lifeCycle.transports.toDistribution.impacts
+        , lifeCycle.use |> Impact.sumImpacts
         ]
 
 
