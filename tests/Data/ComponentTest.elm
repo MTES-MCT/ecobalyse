@@ -293,7 +293,7 @@ suite =
                     , describe "compute"
                         [ it "should compute results from decoded component items"
                             (chair
-                                |> Result.andThen (computeWithRequirements requirements)
+                                |> Result.andThen (computeItemsWithRequirements requirements)
                                 |> Result.map (.production >> extractEcsImpact)
                                 |> TestUtils.expectResultWithin (Expect.Absolute 1) 276
                             )
@@ -315,7 +315,7 @@ suite =
                                     , { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
                                     , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
                                 ]"""
-                                |> decodeJsonThen (Decode.list Component.decodeItem) (computeWithRequirements requirements)
+                                |> decodeJsonThen (Decode.list Component.decodeItem) (computeItemsWithRequirements requirements)
                                 |> Result.map (.production >> extractEcsImpact)
                                 |> TestUtils.expectResultWithin (Expect.Absolute 1) 282
                             )
@@ -459,12 +459,12 @@ suite =
                         [ TestUtils.suiteFromResult2 "unknown locations"
                             -- setup
                             ("""[{ "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }]"""
-                                |> decodeJsonThen (Decode.list Component.decodeItem) (computeWithRequirements requirements)
+                                |> decodeJsonThen (Decode.list Component.decodeItem) (computeItemsWithRequirements requirements)
                             )
-                            ("""[ { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 },
-                          { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
-                        ]"""
-                                |> decodeJsonThen (Decode.list Component.decodeItem) (computeWithRequirements requirements)
+                            ("""[ { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
+                                , { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
+                                ]"""
+                                |> decodeJsonThen (Decode.list Component.decodeItem) (computeItemsWithRequirements requirements)
                             )
                             -- tests
                             (\singleItem multipleItems ->
@@ -555,7 +555,7 @@ suite =
                     , TestUtils.suiteFromResult "getEndOfLifeDetailedImpacts"
                         -- setup
                         (chair
-                            |> Result.andThen (computeWithRequirements requirements)
+                            |> Result.andThen (computeItemsWithRequirements requirements)
                             |> Result.map (.production >> Component.getEndOfLifeDetailedImpacts requirements)
                         )
                         -- tests
@@ -691,9 +691,15 @@ suite =
                             ]
                         )
                     , TestUtils.suiteFromResult "stagesImpacts"
-                        (""" [ { "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 }
-                     ]"""
-                            |> decodeJsonThen (Decode.list Component.decodeItem) (computeWithRequirements requirements)
+                        ("""{
+                              "components": [
+                                { "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 }
+                              ],
+                              "useConsumptions": [
+                                { "amount": 1, "processId": "931c9bb0-619a-5f75-b41b-ab8061e2ad92" }
+                              ]
+                            }"""
+                            |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
                             |> Result.map (\results -> ( results, Component.stagesImpacts results ))
                         )
                         (\( lifeCycle, stagesImpacts ) ->
@@ -709,6 +715,11 @@ suite =
                                 )
                             , it "should compute end of life stage impacts"
                                 (stagesImpacts.endOfLife
+                                    |> getEcsImpact
+                                    |> Expect.greaterThan 0
+                                )
+                            , it "should compute use stage impacts"
+                                (stagesImpacts.use
                                     |> getEcsImpact
                                     |> Expect.greaterThan 0
                                 )
@@ -877,8 +888,8 @@ testComponentConfig { processes, countries } =
         """
 
 
-computeWithRequirements : Requirements db -> List Item -> Result String LifeCycle
-computeWithRequirements requirements items =
+computeItemsWithRequirements : Requirements db -> List Item -> Result String LifeCycle
+computeItemsWithRequirements requirements items =
     Component.emptyQuery
         |> Component.setQueryItems items
         |> Component.compute requirements
@@ -957,6 +968,7 @@ setupTestDb db =
             RE.combine
                 [ steel
                 , injectionMoulding
+                , lowVoltageElec
                 , wood
                 , plastic
                 , sawing
@@ -1107,6 +1119,53 @@ injectionMoulding =
                 "source": "Ecoinvent 3.9.1",
                 "unit": "kg",
                 "waste": 0.006
+            }
+        """
+
+
+lowVoltageElec : Result String Process
+lowVoltageElec =
+    decodeJson (Process.decode Impact.decodeImpacts) <|
+        """ {
+                "activityName": "electricity, low voltage//[FR] market for electricity, low voltage",
+                "categories": ["energy", "use"],
+                "comment": "",
+                "density": 0,
+                "displayName": "Electricité basse tension, France",
+                "elecMJ": 0,
+                "heatMJ": 0,
+                "id": "931c9bb0-619a-5f75-b41b-ab8061e2ad92",
+                "impacts": {
+                    "acd": 0,
+                    "cch": 0,
+                    "ecs": 19.331,
+                    "etf": 0,
+                    "etf-c": 0,
+                    "fru": 0,
+                    "fwe": 0,
+                    "htc": 0,
+                    "htc-c": 0,
+                    "htn": 0,
+                    "htn-c": 0,
+                    "ior": 0,
+                    "ldu": 0,
+                    "mru": 0,
+                    "ozd": 0,
+                    "pco": 0,
+                    "pma": 0,
+                    "swe": 0,
+                    "tre": 0,
+                    "wtu": 0
+                },
+                "location": "FR",
+                "scopes": [
+                    "food",
+                    "textile",
+                    "veli"
+                ],
+                "source": "Ecoinvent 3.9.1",
+                "unit": "kWh",
+                "waste": 0
             }
         """
 
