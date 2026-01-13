@@ -746,9 +746,8 @@ computeUseImpacts { db } { useConsumptions } lifeCycle =
                     | use =
                         expandedConsumptions
                             |> List.map
-                                (\( amount, process ) ->
-                                    process.impacts
-                                        |> Impact.multiplyBy (amountToFloat amount)
+                                (\( amount, { impacts } ) ->
+                                    impacts |> Impact.multiplyBy (amountToFloat amount)
                                 )
                 }
             )
