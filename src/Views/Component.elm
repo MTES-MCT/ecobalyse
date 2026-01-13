@@ -857,37 +857,51 @@ distributionView { impact } =
 
 
 useStageView : Config db msg -> Html msg
-useStageView config =
+useStageView ({ db, impact, lifeCycle, query, removeConsumption, updateConsumptionAmount } as config) =
+    let
+        consumptionImpacts =
+            lifeCycle
+                |> Result.map .use
+                |> Result.withDefault []
+    in
     div [ class "card shadow-sm" ]
         [ div [ class "card-header d-flex align-items-center justify-content-between" ]
             [ h2 [ class "h5 mb-0" ]
                 [ text "Utilisation" ]
             , div [ class "d-flex align-items-center gap-2" ]
-                [ Format.formatImpact config.impact Impact.empty
+                [ consumptionImpacts
+                    |> Impact.sumImpacts
+                    |> Format.formatImpact impact
                 ]
             ]
         , div [ class "d-flex flex-column p-0" ]
-            [ if List.isEmpty config.query.useConsumptions then
+            [ if List.isEmpty query.useConsumptions then
                 div [ class "card-body" ] [ text "Aucune consommation" ]
 
               else
                 div [ class "table-responsive table-scroll position-relative" ]
                     [ table [ class "table table-hover mb-0" ]
-                        [ config.query.useConsumptions
-                            |> Component.expandUseConsumptions config.db.processes
+                        [ query.useConsumptions
+                            |> Component.expandUseConsumptions db.processes
                             |> Result.withDefault []
                             |> List.indexedMap
                                 (\index ( amount, process ) ->
                                     tr []
                                         [ td [ class "ps-3 align-middle text-nowrap", style "min-width" "130px" ]
-                                            [ amountInput (config.updateConsumptionAmount index) process.unit amount ]
-                                        , td [ class "align-middle w-66 text-truncate" ] [ text <| Process.getDisplayName process ]
-                                        , td [ class "align-middle text-nowrap" ] [ Format.formatImpact config.impact Impact.empty ]
+                                            [ amountInput (updateConsumptionAmount index) process.unit amount ]
+                                        , td [ class "align-middle w-66 text-truncate" ]
+                                            [ text <| Process.getDisplayName process ]
+                                        , td [ class "align-middle text-nowrap" ]
+                                            [ consumptionImpacts
+                                                |> LE.getAt index
+                                                |> Maybe.withDefault Impact.empty
+                                                |> Format.formatImpact impact
+                                            ]
                                         , td [ class "pe-3 pt-2 align-middle" ]
                                             [ button
                                                 [ type_ "button"
                                                 , class "btn btn-sm btn-outline-secondary"
-                                                , onClick (config.removeConsumption index)
+                                                , onClick (removeConsumption index)
                                                 ]
                                                 [ Icon.trash ]
                                             ]

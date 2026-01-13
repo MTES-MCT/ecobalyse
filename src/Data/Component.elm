@@ -271,6 +271,7 @@ type alias LifeCycle =
     { endOfLife : Impacts
     , production : Results
     , transports : LifeCycleTransport
+    , use : List Impacts
     }
 
 
@@ -487,6 +488,7 @@ compute requirements query =
         |> Result.map (\(Results results) -> { emptyLifeCycle | production = Results { results | label = Just "Production" } })
         |> Result.map (computeEndOfLifeResults requirements)
         |> Result.andThen (computeTransports requirements query)
+        |> Result.andThen (computeUseImpacts requirements query)
 
 
 computeElementResults : Requirements db -> Maybe Country.Code -> Element -> Result String Results
@@ -734,6 +736,24 @@ computeDistributionTransports { config, db } maybeAssemblyCountry items =
             config.transports.defaultDistance
 
 
+computeUseImpacts : Requirements db -> Query -> LifeCycle -> Result String LifeCycle
+computeUseImpacts { db } { useConsumptions } lifeCycle =
+    useConsumptions
+        |> expandUseConsumptions db.processes
+        |> Result.map
+            (\expandedConsumptions ->
+                { lifeCycle
+                    | use =
+                        expandedConsumptions
+                            |> List.map
+                                (\( amount, process ) ->
+                                    process.impacts
+                                        |> Impact.multiplyBy (amountToFloat amount)
+                                )
+                }
+            )
+
+
 createItem : Id -> Item
 createItem id =
     { country = Nothing
@@ -884,6 +904,7 @@ emptyLifeCycle =
     { endOfLife = Impact.empty
     , production = emptyResults
     , transports = emptyLifeCycleTransports
+    , use = []
     }
 
 
