@@ -1,4 +1,4 @@
-module Views.Component exposing (editorView)
+module Views.Component exposing (Context(..), editorView)
 
 import Autocomplete exposing (Autocomplete)
 import Data.AutocompleteSelector as AutocompleteSelector
@@ -45,9 +45,8 @@ import Views.Transport as TransportView
 
 type alias Config db msg =
     { addLabel : String
-    , admin : Bool
     , componentConfig : Component.Config
-    , customizable : Bool
+    , context : Context
     , db : Component.DataContainer db
     , debug : Bool
     , detailed : List Index
@@ -55,7 +54,6 @@ type alias Config db msg =
     , explorerRoute : Maybe Route
     , impact : Definition
     , lifeCycle : Result String LifeCycle
-    , maxItems : Maybe Int
     , noOp : msg
     , openSelectComponentModal : Autocomplete Component -> msg
     , openSelectConsumptionModal : Autocomplete Process -> msg
@@ -75,6 +73,12 @@ type alias Config db msg =
     , updateItemName : TargetItem -> String -> msg
     , updateItemQuantity : Index -> Quantity -> msg
     }
+
+
+type Context
+    = AdminContext
+    | ObjectContext
+    | TextileTrimsContext
 
 
 addComponentButton : Config db msg -> Html msg
@@ -184,7 +188,7 @@ componentView config itemIndex ({ component, country, elements, quantity } as ex
                     tr [] [ td [ colspan 7 ] [] ]
                 , tr [ class "border-bottom" ]
                     [ th [ class "ps-2 pt-0 pb-2 align-middle", scope "col" ]
-                        [ if config.customizable && config.maxItems /= Just 1 then
+                        [ if config.context /= TextileTrimsContext then
                             button
                                 [ type_ "button"
                                 , class "btn btn-link text-muted text-decoration-none font-monospace fs-5 p-0 m-0"
@@ -211,7 +215,7 @@ componentView config itemIndex ({ component, country, elements, quantity } as ex
                         ]
                     , td [ class "pt-0 pb-2 align-middle text-truncate w-100", colspan 2 ]
                         [ div [ class "d-flex gap-2" ] <|
-                            if config.customizable then
+                            if config.context /= TextileTrimsContext then
                                 [ input
                                     [ type_ "text"
                                     , class "form-control"
@@ -241,7 +245,7 @@ componentView config itemIndex ({ component, country, elements, quantity } as ex
                             |> Format.formatImpact config.impact
                         ]
                     , td [ class "pe-3 pt-0 pb-2 text-end align-middle text-nowrap" ]
-                        [ if config.maxItems == Just 1 then
+                        [ if config.context == AdminContext then
                             text ""
 
                           else
@@ -391,7 +395,7 @@ editorView config =
 
 
 lifeCycleView : Config db msg -> LifeCycle -> Html msg
-lifeCycleView ({ db, docsUrl, explorerRoute, impact, maxItems, query, scope, title } as config) lifeCycle =
+lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as config) lifeCycle =
     div [ class "d-flex flex-column" ]
         [ div [ class "card shadow-sm" ]
             [ div [ class "card-header d-flex align-items-center justify-content-between" ]
@@ -442,7 +446,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, maxItems, query, scope, tit
                     Ok expandedItems ->
                         div [ class "table-responsive" ]
                             [ table [ class "table table-sm table-borderless mb-0" ]
-                                ((if maxItems == Just 1 then
+                                ((if config.context == AdminContext then
                                     thead []
                                         [ tr [ class "fs-7 text-muted" ]
                                             [ th [] []
@@ -465,7 +469,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, maxItems, query, scope, tit
                                         )
                                 )
                             ]
-            , if maxItems == Just 1 then
+            , if config.context == AdminContext then
                 text ""
 
               else
@@ -488,7 +492,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, maxItems, query, scope, tit
 
           else
             text ""
-        , if not (List.isEmpty query.items) && List.member scope [ Scope.Object, Scope.Veli ] && not config.admin then
+        , if config.context == ObjectContext && not (List.isEmpty query.items) then
             div []
                 [ lifeCycle.transports.toDistribution
                     |> transportView impact (Component.extractMass lifeCycle.production)
@@ -796,7 +800,7 @@ quantityInput config itemIndex quantity =
             , quantity |> Component.quantityToInt |> String.fromInt |> value
             , step "1"
             , Attr.min "1"
-            , disabled <| config.maxItems == Just 1
+            , disabled <| config.context == AdminContext
             , onInput <|
                 \str ->
                     String.toInt str

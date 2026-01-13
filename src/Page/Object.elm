@@ -701,16 +701,14 @@ simulatorView session model =
             , durabilityView currentDurability
             , ComponentView.editorView
                 { addLabel = "Ajouter un composant"
-                , admin = False
                 , componentConfig = session.componentConfig
-                , customizable = True
+                , context = ComponentView.ObjectContext
                 , db = session.db
                 , debug = True
                 , detailed = model.detailedComponents
                 , docsUrl = Nothing
                 , explorerRoute = Just (Route.Explore model.scope (Dataset.Components model.scope Nothing))
                 , impact = model.impact
-                , maxItems = Nothing
                 , noOp = NoOp
                 , openSelectComponentModal = AddComponentModal >> SetModal
                 , openSelectProcessModal =

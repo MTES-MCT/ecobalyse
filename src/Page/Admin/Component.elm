@@ -546,9 +546,8 @@ modalView { componentConfig, db } modals index modal =
                     , content =
                         [ ComponentView.editorView
                             { addLabel = ""
-                            , admin = True
                             , componentConfig = componentConfig
-                            , customizable = True
+                            , context = ComponentView.AdminContext
                             , db = db
                             , debug = False
                             , detailed = [ 0 ]
@@ -563,7 +562,6 @@ modalView { componentConfig, db } modals index modal =
                                         , db = db
                                         , scope = component.scope
                                         }
-                            , maxItems = Just 1
                             , noOp = NoOp
                             , openSelectComponentModal = \_ -> NoOp
                             , openSelectConsumptionModal = \_ -> NoOp

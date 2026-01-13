@@ -959,9 +959,8 @@ simulatorFormView session model ({ inputs } as simulator) =
         ]
     , ComponentView.editorView
         { addLabel = "Ajouter un accessoire"
-        , admin = False
         , componentConfig = session.componentConfig
-        , customizable = False
+        , context = ComponentView.TextileTrimsContext
         , db = session.db
         , debug = False
         , detailed = []
@@ -976,7 +975,6 @@ simulatorFormView session model ({ inputs } as simulator) =
                     , db = session.db
                     , scope = Scope.Textile
                     }
-        , maxItems = Nothing
         , noOp = NoOp
         , openSelectComponentModal = AddTrimModal >> SetModal
         , openSelectProcessModal = \_ _ _ _ -> SetModal NoModal
