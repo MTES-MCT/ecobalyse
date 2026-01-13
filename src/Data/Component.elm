@@ -1016,6 +1016,7 @@ encodeLifeCycle maybeTrigram lifeCycle =
                 Nothing ->
                     Impact.encode lifeCycle.endOfLife
           )
+        , ( "use", Encode.list Impact.encode lifeCycle.use )
         ]
 
 
