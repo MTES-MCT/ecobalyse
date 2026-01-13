@@ -890,7 +890,14 @@ useStageView ({ db, impact, lifeCycle, query, removeConsumption, updateConsumpti
                                     tr []
                                         [ td [ class "ps-3 align-middle text-nowrap", style "min-width" "160px" ]
                                             [ amountInput (updateConsumptionAmount index) process.unit amount ]
-                                        , td [ class "align-middle w-66 text-truncate" ]
+                                        , td
+                                            [ class "align-middle w-66 text-truncate cursor-help"
+                                            , [ Process.getDisplayName process
+                                              , Process.getTechnicalName process
+                                              ]
+                                                |> String.join "\n"
+                                                |> title
+                                            ]
                                             [ text <| Process.getDisplayName process ]
                                         , td [ class "align-middle text-nowrap" ]
                                             [ consumptionImpacts
@@ -902,6 +909,7 @@ useStageView ({ db, impact, lifeCycle, query, removeConsumption, updateConsumpti
                                             [ button
                                                 [ type_ "button"
                                                 , class "btn btn-sm btn-outline-secondary"
+                                                , title "Supprimer cette consommation"
                                                 , onClick (removeConsumption index)
                                                 ]
                                                 [ Icon.trash ]
