@@ -431,10 +431,10 @@ Note: for now we use average elec and heat mixes, but we might want to allow
 specifying specific country mixes in the future.
 
 -}
-applyTransforms : List Process -> Maybe Country -> Process.Unit -> List Process -> Results -> Result String Results
-applyTransforms processes maybeCountry unit transforms materialResults =
+applyTransforms : Config -> Maybe Country -> Process.Unit -> List Process -> Results -> Result String Results
+applyTransforms config maybeCountry unit transforms materialResults =
     checkTransformsUnit unit transforms
-        |> Result.andThen (\_ -> loadEnergyMixes processes maybeCountry)
+        |> Result.andThen (\_ -> loadEnergyMixes config maybeCountry)
         |> Result.map
             (\energyMixes ->
                 transforms
@@ -469,7 +469,7 @@ checkTransformsUnit unit transforms =
 compute : Requirements db -> Query -> Result String LifeCycle
 compute requirements query =
     query.items
-        |> List.map (computeItemResults requirements.db)
+        |> List.map (computeItemResults requirements)
         |> RE.combine
         |> Result.map (List.foldr addResults emptyResults)
         |> Result.map (\(Results results) -> { emptyLifeCycle | production = Results { results | label = Just "Production" } })
@@ -477,9 +477,9 @@ compute requirements query =
         |> Result.andThen (computeTransports requirements query)
 
 
-computeElementResults : DataContainer db -> Maybe Country.Code -> Element -> Result String Results
-computeElementResults db maybeCountry =
-    expandElement db maybeCountry
+computeElementResults : Requirements db -> Maybe Country.Code -> Element -> Result String Results
+computeElementResults requirements maybeCountry =
+    expandElement requirements.db maybeCountry
         >> Result.andThen
             (\{ amount, country, material, transforms } ->
                 amount
@@ -488,7 +488,7 @@ computeElementResults db maybeCountry =
                         (\initialAmount ->
                             material
                                 |> computeMaterialResults initialAmount
-                                |> applyTransforms db.processes country material.unit transforms
+                                |> applyTransforms requirements.config country material.unit transforms
                         )
             )
 
@@ -521,26 +521,26 @@ computeInitialAmount wastes amount =
 
 {-| Compute a single component impact
 -}
-computeImpacts : DataContainer db -> Component -> Result String Results
-computeImpacts db =
+computeImpacts : Requirements db -> Component -> Result String Results
+computeImpacts requirements =
     .elements
-        >> List.map (computeElementResults db Nothing)
+        >> List.map (computeElementResults requirements Nothing)
         >> RE.combine
         >> Result.map (List.foldr addResults emptyResults)
 
 
-computeItemResults : DataContainer db -> Item -> Result String Results
-computeItemResults db { country, custom, id, quantity } =
+computeItemResults : Requirements db -> Item -> Result String Results
+computeItemResults requirements { country, custom, id, quantity } =
     let
         component_ =
-            findById id db.components
+            findById id requirements.db.components
     in
     component_
         |> Result.andThen
             (\component ->
                 custom
                     |> customElements component
-                    |> List.map (computeElementResults db country)
+                    |> List.map (computeElementResults requirements country)
                     |> RE.combine
             )
         |> Result.map (List.foldr addResults emptyResults)
@@ -1292,24 +1292,16 @@ itemsToString db =
         >> Result.map (String.join ", ")
 
 
-loadDefaultEnergyMixes : List Process -> Result String EnergyMixes
-loadDefaultEnergyMixes processes =
-    let
-        fromIdString =
-            Process.idFromString
-                >> Result.andThen (\id -> Process.findById id processes)
-    in
-    Result.map2 (\elec heat -> { elec = elec, heat = heat })
-        -- Électricité moyenne tension, Asie
-        (fromIdString "a2129ece-5dd9-5e66-969c-2603b3c97244")
-        -- Mix chaleur (Monde)
-        (fromIdString "3561ace1-f710-50ce-a69c-9cf842e729e4")
-
-
-loadEnergyMixes : List Process -> Maybe Country -> Result String EnergyMixes
-loadEnergyMixes processes =
-    Maybe.map (\{ electricityProcess, heatProcess } -> Ok <| EnergyMixes electricityProcess heatProcess)
-        >> Maybe.withDefault (loadDefaultEnergyMixes processes)
+loadEnergyMixes : Config -> Maybe Country -> Result String EnergyMixes
+loadEnergyMixes config =
+    Maybe.map
+        (\{ electricityProcess, heatProcess } -> Ok <| EnergyMixes electricityProcess heatProcess)
+        >> Maybe.withDefault
+            (Ok
+                { elec = config.production.defaultElecProcess
+                , heat = config.production.defaultHeatProcess
+                }
+            )
 
 
 mapAmount : (Float -> Float) -> Amount -> Amount

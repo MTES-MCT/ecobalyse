@@ -33,7 +33,6 @@ import RemoteData
 import Request.BackendHttp exposing (WebData)
 import Request.Component as ComponentApi
 import Route
-import Static.Db exposing (Db)
 import Views.Admin as AdminView
 import Views.Alert as Alert
 import Views.AutocompleteSelector as AutocompleteSelectorView
@@ -362,7 +361,7 @@ view session model =
             , model.components
                 |> WebDataView.map
                     (processFilters model.scopes model.search
-                        >> componentListView session.db model.selected
+                        >> componentListView session model.selected
                     )
             , model.components
                 |> WebDataView.map (AdminView.downloadElementsButton "components.json" Component.encode model.selected)
@@ -384,8 +383,8 @@ processFilters scopes search =
             }
 
 
-componentListView : Db -> List Component.Id -> List Component -> Html Msg
-componentListView db selected components =
+componentListView : Session -> List Component.Id -> List Component -> Html Msg
+componentListView session selected components =
     Table.responsiveDefault []
         [ thead [ class "sticky-md-top" ]
             [ tr []
@@ -399,13 +398,13 @@ componentListView db selected components =
                 ]
             ]
         , components
-            |> List.map (componentRowView db selected)
+            |> List.map (componentRowView session selected)
             |> tbody []
         ]
 
 
-componentRowView : Db -> List Component.Id -> Component -> Html Msg
-componentRowView db selected component =
+componentRowView : Session -> List Component.Id -> Component -> Html Msg
+componentRowView session selected component =
     let
         publishedStatus =
             if component.published then
@@ -449,7 +448,7 @@ componentRowView db selected component =
                 Maybe.withDefault "Sans commentaire" component.comment
                     ++ "\nComposition: "
                     ++ (component
-                            |> Component.elementsToString db
+                            |> Component.elementsToString session.db
                             |> Result.withDefault "N/A"
                        )
             ]
@@ -461,10 +460,14 @@ componentRowView db selected component =
             ]
         , td [ class "align-middle text-end fw-bold" ]
             [ component
-                |> Component.computeImpacts db
+                |> Component.computeImpacts
+                    { config = session.componentConfig
+                    , db = session.db
+                    , scope = Scope.Object
+                    }
                 |> Result.map
                     (Component.extractImpacts
-                        >> Format.formatImpact (Definition.get Definition.Ecs db.definitions)
+                        >> Format.formatImpact (Definition.get Definition.Ecs session.db.definitions)
                     )
                 |> Result.withDefault (text "N/A")
             ]
