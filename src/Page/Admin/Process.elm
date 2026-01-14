@@ -217,7 +217,9 @@ processRowView definitions selected process =
         , td [ class "text-end" ]
             [ process.impacts |> Format.formatImpact (Definition.get Definition.Ecs definitions) ]
         , td []
-            [ span [ class "fs-9" ] [ text process.comment ] ]
+            [ span [ class "d-block overflow-scroll fs-9", style "max-height" "100px" ]
+                [ text process.comment ]
+            ]
         ]
 
 
