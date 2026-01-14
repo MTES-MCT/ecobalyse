@@ -31,6 +31,7 @@ module Data.Component exposing
     , computeInitialAmount
     , computeItemResults
     , computeItemTransportToAssembly
+    , computeScoring
     , createItem
     , decode
     , decodeItem
@@ -98,10 +99,11 @@ import Data.Common.EncodeUtils as EU
 import Data.Component.Config as Config exposing (EndOfLifeStrategies, EndOfLifeStrategy)
 import Data.Country as Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
-import Data.Impact.Definition exposing (Trigram)
+import Data.Impact.Definition exposing (Definitions, Trigram)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category, MaterialDict)
 import Data.Scope as Scope exposing (Scope)
+import Data.Scoring as Scoring exposing (Scoring)
 import Data.Split as Split exposing (Split)
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
@@ -655,6 +657,21 @@ computeMaterialResults amount process =
         , quantity = 1
         , stage = Nothing
         }
+
+
+computeScoring : Definitions -> LifeCycle -> Scoring
+computeScoring definitions { production } =
+    let
+        ( totalImpacts, totalMass, complementImpacts ) =
+            ( extractImpacts production
+            , extractMass production
+              -- Note: No complements are currently handled in components
+            , Unit.noImpacts
+            )
+    in
+    totalImpacts
+        |> Impact.divideBy (Mass.inKilograms totalMass)
+        |> Scoring.compute definitions complementImpacts
 
 
 computeShareImpacts : Mass -> EndOfLifeStrategy -> Impacts

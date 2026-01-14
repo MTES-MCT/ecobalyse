@@ -767,7 +767,7 @@ simulatorView session model =
                 , impactTabsConfig =
                     SwitchImpactsTab
                         |> ImpactTabs.createConfig session model.impact model.activeImpactsTab (always NoOp)
-                        |> ImpactTabs.forObject lifeCycle
+                        |> ImpactTabs.forObject session.db.definitions lifeCycle
                         |> Just
 
                 -- Bookmarks
