@@ -883,7 +883,7 @@ decodeQuery =
 
 {-| Proxified for convenience
 -}
-defaultConfig : List Process -> List Country -> Result String Config
+defaultConfig : DataContainer db -> Result String Config
 defaultConfig =
     Config.default
 
@@ -1421,7 +1421,7 @@ parseBase64Query =
 
 {-| Proxified for convenience
 -}
-parseConfig : List Process -> List Country -> String -> Result String Config
+parseConfig : DataContainer db -> String -> Result String Config
 parseConfig =
     Config.parse
 

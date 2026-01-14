@@ -816,8 +816,8 @@ suite =
 
 
 testComponentConfig : Db -> Result String Component.Config
-testComponentConfig { processes, countries } =
-    Component.parseConfig processes countries <|
+testComponentConfig db =
+    Component.parseConfig db <|
         """
         {
             "distribution": {
