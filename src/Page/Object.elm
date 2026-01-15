@@ -906,12 +906,6 @@ view session model =
                     text ""
 
                 SelectConsumptionModal autocompleteState ->
-                    let
-                        ( placeholderText, title ) =
-                            ( "tapez ici le nom d'un procédé de consommation pour le rechercher"
-                            , "Sélectionnez une consommation"
-                            )
-                    in
                     AutocompleteSelectorView.view
                         { autocompleteState = autocompleteState
                         , closeModal = SetModal NoModal
@@ -919,8 +913,8 @@ view session model =
                         , noOp = NoOp
                         , onAutocomplete = OnAutocompleteAddConsumption
                         , onAutocompleteSelect = OnAutocompleteSelectConsumption
-                        , placeholderText = placeholderText
-                        , title = title
+                        , placeholderText = "tapez ici le nom d'un procédé de consommation pour le rechercher"
+                        , title = "Sélectionnez une consommation"
                         , toLabel = Process.getDisplayName
                         , toCategory = .unit >> Process.unitToString
                         }
