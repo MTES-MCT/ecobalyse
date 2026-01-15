@@ -29,6 +29,15 @@ type alias Config =
     }
 
 
+{-| A Db-like interface holding countries and processes
+-}
+type alias DataContainer db =
+    { db
+        | countries : List Country
+        , processes : List Process
+    }
+
+
 type alias DistributionConfig =
     { country : Country }
 
@@ -72,8 +81,8 @@ type alias TransportConfig =
     }
 
 
-decode : List Process -> List Country -> Decoder Config
-decode processes countries =
+decode : { db | countries : List Country, processes : List Process } -> Decoder Config
+decode { countries, processes } =
     Decode.succeed Config
         |> Decode.required "distribution" (decodeDistributionConfig countries)
         |> Decode.required "endOfLife" (decodeEndOfLifeConfig processes)
@@ -151,9 +160,9 @@ decodeTransportConfig processes =
         |> Decode.required "modeProcesses" (Transport.decodeModeProcesses processes)
 
 
-default : List Process -> List Country -> Result String Config
-default processes countries =
-    parse processes countries <|
+default : DataContainer db -> Result String Config
+default db =
+    parse db <|
         """
         {
             "production": {
@@ -195,8 +204,8 @@ default processes countries =
         """
 
 
-parse : List Process -> List Country -> String -> Result String Config
-parse processes countries json =
+parse : DataContainer db -> String -> Result String Config
+parse db json =
     json
-        |> Decode.decodeString (decode processes countries)
+        |> Decode.decodeString (decode db)
         |> Result.mapError Decode.errorToString

@@ -31,6 +31,7 @@ module Data.Component exposing
     , computeInitialAmount
     , computeItemResults
     , computeItemTransportToAssembly
+    , computeScoring
     , createItem
     , decode
     , decodeItem
@@ -49,6 +50,7 @@ module Data.Component exposing
     , encodeItem
     , encodeLifeCycle
     , encodeQuery
+    , expandConsumptions
     , expandElements
     , expandItems
     , extractAmount
@@ -72,6 +74,7 @@ module Data.Component exposing
     , parseConfig
     , quantityFromInt
     , quantityToInt
+    , removeConsumption
     , removeElement
     , removeElementTransform
     , setCustomScope
@@ -81,6 +84,7 @@ module Data.Component exposing
     , sumLifeCycleImpacts
     , toSearchableString
     , tryMapItems
+    , updateConsumptionAmount
     , updateDurability
     , updateElement
     , updateElementAmount
@@ -95,10 +99,11 @@ import Data.Common.EncodeUtils as EU
 import Data.Component.Config as Config exposing (EndOfLifeStrategies, EndOfLifeStrategy)
 import Data.Country as Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
-import Data.Impact.Definition exposing (Trigram)
+import Data.Impact.Definition exposing (Definitions, Trigram)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category, MaterialDict)
 import Data.Scope as Scope exposing (Scope)
+import Data.Scoring as Scoring exposing (Scoring)
 import Data.Split as Split exposing (Split)
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
@@ -145,12 +150,21 @@ type alias EnergyMixes =
 
 type alias Query =
     { assemblyCountry : Maybe Country.Code
+    , consumptions : List Consumption
 
     -- Note: component durability is experimental, future work may eventually be needed to
     -- reuse existing mechanics and handle holistic durability like it's implemented for textile,
     -- though it's still an ongoing discussion and we need to move forward and iterate.
     , durability : Unit.Ratio
     , items : List Item
+    }
+
+
+{-| Use stage consumption, a process and a quantity of its unit
+-}
+type alias Consumption =
+    { amount : Amount
+    , processId : Process.Id
     }
 
 
@@ -259,6 +273,7 @@ type alias LifeCycle =
     { endOfLife : Impacts
     , production : Results
     , transports : LifeCycleTransport
+    , use : List Impacts
     }
 
 
@@ -296,6 +311,7 @@ type alias StagesImpacts =
     , material : Impacts
     , transformation : Impacts
     , transports : Impacts
+    , use : Impacts
     }
 
 
@@ -475,6 +491,7 @@ compute requirements query =
         |> Result.map (\(Results results) -> { emptyLifeCycle | production = Results { results | label = Just "Production" } })
         |> Result.map (computeEndOfLifeResults requirements)
         |> Result.andThen (computeTransports requirements query)
+        |> Result.andThen (computeUseImpacts requirements query)
 
 
 computeElementResults : Requirements db -> Maybe Country.Code -> Element -> Result String Results
@@ -642,6 +659,21 @@ computeMaterialResults amount process =
         }
 
 
+computeScoring : Definitions -> LifeCycle -> Scoring
+computeScoring definitions { production } =
+    let
+        ( totalImpacts, totalMass, complementImpacts ) =
+            ( extractImpacts production
+            , extractMass production
+              -- Note: No complements are currently handled in components
+            , Unit.noImpacts
+            )
+    in
+    totalImpacts
+        |> Impact.divideBy (Mass.inKilograms totalMass)
+        |> Scoring.compute definitions complementImpacts
+
+
 computeShareImpacts : Mass -> EndOfLifeStrategy -> Impacts
 computeShareImpacts mass { process, split } =
     process
@@ -722,6 +754,23 @@ computeDistributionTransports { config, db } maybeAssemblyCountry items =
             config.transports.defaultDistance
 
 
+computeUseImpacts : Requirements db -> Query -> LifeCycle -> Result String LifeCycle
+computeUseImpacts { db } { consumptions } lifeCycle =
+    consumptions
+        |> expandConsumptions db.processes
+        |> Result.map
+            (\expandedConsumptions ->
+                { lifeCycle
+                    | use =
+                        expandedConsumptions
+                            |> List.map
+                                (\( amount, { impacts } ) ->
+                                    impacts |> Impact.multiplyBy (amountToFloat amount)
+                                )
+                }
+            )
+
+
 createItem : Id -> Item
 createItem id =
     { country = Nothing
@@ -762,6 +811,13 @@ decodeBase64Query =
             (Decode.decodeString decodeQuery
                 >> Result.mapError Decode.errorToString
             )
+
+
+decodeConsumption : Decoder Consumption
+decodeConsumption =
+    Decode.succeed Consumption
+        |> Decode.required "amount" (Decode.map Amount Decode.float)
+        |> Decode.required "processId" Process.decodeId
 
 
 decodeCustom : Decoder Custom
@@ -820,13 +876,14 @@ decodeQuery : Decoder Query
 decodeQuery =
     Decode.succeed Query
         |> DU.strictOptional "assemblyCountry" Country.decodeCode
+        |> Decode.optional "consumptions" (Decode.list decodeConsumption) []
         |> Decode.optional "durability" Unit.decodeRatio (Unit.ratio 1)
         |> Decode.required "components" (Decode.list decodeItem)
 
 
 {-| Proxified for convenience
 -}
-defaultConfig : List Process -> List Country -> Result String Config
+defaultConfig : DataContainer db -> Result String Config
 defaultConfig =
     Config.default
 
@@ -864,6 +921,7 @@ emptyLifeCycle =
     { endOfLife = Impact.empty
     , production = emptyResults
     , transports = emptyLifeCycleTransports
+    , use = []
     }
 
 
@@ -877,6 +935,7 @@ emptyLifeCycleTransports =
 emptyQuery : Query
 emptyQuery =
     { assemblyCountry = Nothing
+    , consumptions = []
     , durability = Unit.ratio 1
     , items = []
     }
@@ -911,6 +970,14 @@ encode v =
 encodeBase64Query : Query -> String
 encodeBase64Query =
     encodeQuery >> Encode.encode 0 >> Base64.encode
+
+
+encodeConsumption : Consumption -> Encode.Value
+encodeConsumption v =
+    Encode.object
+        [ ( "amount", v.amount |> amountToFloat |> Encode.float )
+        , ( "processId", v.processId |> Process.encodeId )
+        ]
 
 
 encodeCustom : Custom -> Encode.Value
@@ -963,8 +1030,7 @@ encodeItem item =
 encodeLifeCycle : Maybe Trigram -> LifeCycle -> Encode.Value
 encodeLifeCycle maybeTrigram lifeCycle =
     Encode.object
-        [ ( "production", encodeResults maybeTrigram lifeCycle.production )
-        , ( "endOfLife"
+        [ ( "endOfLife"
           , case maybeTrigram of
                 Just trigram ->
                     lifeCycle.endOfLife
@@ -975,6 +1041,17 @@ encodeLifeCycle maybeTrigram lifeCycle =
                 Nothing ->
                     Impact.encode lifeCycle.endOfLife
           )
+        , ( "production", encodeResults maybeTrigram lifeCycle.production )
+        , ( "transport", encodeLifeCycleTransport lifeCycle.transports )
+        , ( "use", Encode.list Impact.encode lifeCycle.use )
+        ]
+
+
+encodeLifeCycleTransport : LifeCycleTransport -> Encode.Value
+encodeLifeCycleTransport v =
+    Encode.object
+        [ ( "toAssembly", Transport.encode v.toAssembly )
+        , ( "toDistribution", Transport.encode v.toDistribution )
         ]
 
 
@@ -984,6 +1061,13 @@ encodeQuery query =
         [ ( "assemblyCountry", query.assemblyCountry |> Maybe.map Country.encodeCode )
         , ( "durability", query.durability |> Unit.encodeRatio |> Just )
         , ( "components", query.items |> Encode.list encodeItem |> Just )
+        , ( "consumptions"
+          , if List.isEmpty query.consumptions then
+                Nothing
+
+            else
+                query.consumptions |> Encode.list encodeConsumption |> Just
+          )
         ]
 
 
@@ -1009,6 +1093,19 @@ encodeResults maybeTrigram (Results results) =
           )
         , ( "items", results.items |> Encode.list (encodeResults maybeTrigram) |> Just )
         ]
+
+
+{-| Resolve full use consumption processes linked to their respective ids
+-}
+expandConsumptions : List Process -> List Consumption -> Result String (List ( Amount, Process ))
+expandConsumptions processes =
+    List.map
+        (\{ amount, processId } ->
+            processes
+                |> Process.findById processId
+                |> Result.map (\process -> ( amount, process ))
+        )
+        >> RE.combine
 
 
 {-| Turn an Element to an ExpandedElement
@@ -1324,7 +1421,7 @@ parseBase64Query =
 
 {-| Proxified for convenience
 -}
-parseConfig : List Process -> List Country -> String -> Result String Config
+parseConfig : DataContainer db -> String -> Result String Config
 parseConfig =
     Config.parse
 
@@ -1337,6 +1434,11 @@ quantityFromInt int =
 quantityToInt : Quantity -> Int
 quantityToInt (Quantity int) =
     int
+
+
+removeConsumption : Index -> Query -> Query
+removeConsumption index query =
+    { query | consumptions = query.consumptions |> LE.removeAt index }
 
 
 {-| Remove an element from an item
@@ -1436,6 +1538,7 @@ stagesImpacts lifeCycle =
             , material = Impact.empty
             , transformation = Impact.empty
             , transports = getTotalTransportImpacts lifeCycle.transports
+            , use = lifeCycle.use |> Impact.sumImpacts
             }
 
 
@@ -1456,6 +1559,7 @@ sumLifeCycleImpacts lifeCycle =
         , lifeCycle.endOfLife
         , lifeCycle.transports.toAssembly.impacts
         , lifeCycle.transports.toDistribution.impacts
+        , lifeCycle.use |> Impact.sumImpacts
         ]
 
 
@@ -1475,6 +1579,15 @@ tryMapItems : (List Item -> Result String (List Item)) -> Query -> Result String
 tryMapItems fn query =
     fn query.items
         |> Result.map (\items -> setQueryItems items query)
+
+
+updateConsumptionAmount : Index -> Amount -> Query -> Query
+updateConsumptionAmount index amount query =
+    { query
+        | consumptions =
+            query.consumptions
+                |> LE.updateAt index (\uc -> { uc | amount = amount })
+    }
 
 
 updateCustom : Component -> (Custom -> Custom) -> Maybe Custom -> Maybe Custom

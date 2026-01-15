@@ -24,6 +24,7 @@ type Event
     | ComparisonTypeSelected Scope String
     | ComponentAdded Scope
     | ComponentUpdated Scope
+    | ConsumptionAdded Scope
     | ExampleSelected Scope
     | ImpactSelected Scope Trigram
     | PageViewed Url
@@ -105,6 +106,13 @@ send session event =
             ComponentUpdated scope ->
                 track session
                     "component_updated"
+                    [ string "feature" "simulator"
+                    , string "scope" (Scope.toString scope)
+                    ]
+
+            ConsumptionAdded scope ->
+                track session
+                    "consumption_added"
                     [ string "feature" "simulator"
                     , string "scope" (Scope.toString scope)
                     ]
