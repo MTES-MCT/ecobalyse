@@ -1,7 +1,24 @@
 # Changelog
 
 
-## [8.3.0](https://github.com/MTES-MCT/ecobalyse/compare/v8.2.0..v8.3.0) (2026-01-08)
+## [8.3.1](https://github.com/MTES-MCT/ecobalyse/compare/v8.3.0..v8.3.1) (2026-01-15)
+
+
+
+### 🪲 Bug Fixes
+
+- *(ui)* Fix incomplete comparator chart legend when exported ([#1704](https://github.com/MTES-MCT/ecobalyse/issues/1704))
+- Detailed impacts bug on object/veli ([#1709](https://github.com/MTES-MCT/ecobalyse/issues/1709))
+- *(bo,ui)* Constrain comment cell height in processes admin ([#1712](https://github.com/MTES-MCT/ecobalyse/issues/1712))
+- Preserve transformations ordering ([#1700](https://github.com/MTES-MCT/ecobalyse/issues/1700))
+
+### ⚙️ Miscellaneous Tasks
+
+- Change default electric mix to India’s ([#1702](https://github.com/MTES-MCT/ecobalyse/issues/1702))
+- Data update and add cff process ([#1708](https://github.com/MTES-MCT/ecobalyse/issues/1708))
+
+
+## [8.3.0](https://github.com/MTES-MCT/ecobalyse/compare/v8.2.0..v8.3.0) (2026-01-09)
 
 
 
