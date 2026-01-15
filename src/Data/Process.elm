@@ -113,7 +113,7 @@ decode impactsDecoder =
         |> Pipe.required "activityName" (DU.decodeNonEmptyString |> Decode.map activityNameFromString)
         |> Pipe.required "categories" Category.decodeList
         |> Pipe.required "comment" Decode.string
-        |> Pipe.required "density" Decode.float
+        |> Pipe.required "massPerUnit" Decode.float
         |> DU.strictOptional "displayName" DU.decodeNonEmptyString
         |> Pipe.required "elecMJ" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "heatMJ" (Decode.map Energy.megajoules Decode.float)
@@ -132,7 +132,7 @@ encode process =
         [ ( "activityName", encodeActivityName process.activityName )
         , ( "categories", Encode.list Category.encode process.categories )
         , ( "comment", Encode.string process.comment )
-        , ( "density", Encode.float process.density )
+        , ( "massPerUnit", Encode.float process.density )
         , ( "displayName", EncodeExtra.maybe Encode.string process.displayName )
         , ( "elecMJ", Encode.float (Energy.inMegajoules process.elec) )
         , ( "heatMJ", Encode.float (Energy.inMegajoules process.heat) )
