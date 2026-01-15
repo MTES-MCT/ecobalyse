@@ -28,7 +28,7 @@ async def test_load_processes(
         "activityName": "test",
         "categories": ["transformation"],
         "comment": "",
-        "density": 0,
+        "massPerUnit": None,
         "displayName": "Process de test",
         "elecMJ": 1.61,
         "heatMJ": 10.74,

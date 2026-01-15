@@ -609,7 +609,7 @@ computeMaterialResults amount process =
 
                 else
                     -- apply density
-                    amountToFloat amount * process.density
+                    amountToFloat amount * Maybe.withDefault 1 process.density
 
         materialType =
             Process.getMaterialTypes process

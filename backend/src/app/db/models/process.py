@@ -25,7 +25,7 @@ class Process(UUIDAuditBase):
     __tablename__ = "process"
 
     comment: Mapped[str]
-    mass_per_unit: Mapped[float] = mapped_column(Float, nullable=False, default=0)
+    mass_per_unit: Mapped[float] = mapped_column(Float, nullable=True, default=None)
     display_name: Mapped[Optional[str]]
     elec_mj: Mapped[float] = mapped_column(Float, nullable=False, default=0)
     heat_mj: Mapped[float] = mapped_column(Float, nullable=False, default=0)
