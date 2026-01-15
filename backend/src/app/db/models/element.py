@@ -7,10 +7,11 @@ from advanced_alchemy.base import UUIDAuditBase
 from sqlalchemy import Float, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from .process_element_transform import process_element_transform
+from .process_element_transform import ProcessElementTransform
 
 if TYPE_CHECKING:
-    from .process import Component, Process
+    from .component import Component
+    from .process import Process
 
 
 def get_enum_values(enum_class):
@@ -40,10 +41,12 @@ class Element(UUIDAuditBase):
     material_process: Mapped[Process] = relationship(
         back_populates="elements_materials", innerjoin=True, lazy="joined"
     )
-    process_transforms: Mapped[list[Process]] = relationship(
-        secondary=lambda: process_element_transform,
-        back_populates="elements_transforms",
-        lazy="selectin",
+
+    process_transforms: Mapped[list[ProcessElementTransform]] = relationship(
+        order_by="ProcessElementTransform.position",
+        back_populates="element",
+        lazy="joined",
+        cascade="all",
     )
 
     @property
@@ -53,9 +56,11 @@ class Element(UUIDAuditBase):
 
     @property
     def transforms(self) -> list[UUID]:
-        transforms = [transform.id for transform in self.process_transforms]
-
+        transforms = [
+            process_element_transform.transform.id
+            for process_element_transform in self.process_transforms
+        ]
         return transforms
 
     def __repr__(self) -> str:
-        return f"Element(id={self.id!r}, amount={self.amount!r}, material_process_id={self.material_process_id!r}, component_id={self.component_id!r}, transforms={self.transforms!r})"
+        return f"Element(id={self.id!r}, amount={self.amount!r}, material_process_id={self.material_process_id!r}, component_id={self.component_id!r}, transforms={[str(t) for t in self.transforms]})"
