@@ -49,7 +49,7 @@ type alias Process =
     { activityName : ActivityName
     , categories : List Category
     , comment : String
-    , density : Maybe Float
+    , massPerUnit : Maybe Float
     , displayName : Maybe String
     , elec : Energy
     , heat : Energy
@@ -132,7 +132,7 @@ encode process =
         [ ( "activityName", encodeActivityName process.activityName )
         , ( "categories", Encode.list Category.encode process.categories )
         , ( "comment", Encode.string process.comment )
-        , ( "massPerUnit", EncodeExtra.maybe Encode.float process.density )
+        , ( "massPerUnit", EncodeExtra.maybe Encode.float process.massPerUnit )
         , ( "displayName", EncodeExtra.maybe Encode.string process.displayName )
         , ( "elecMJ", Encode.float (Energy.inMegajoules process.elec) )
         , ( "heatMJ", Encode.float (Energy.inMegajoules process.heat) )

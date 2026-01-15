@@ -3,7 +3,7 @@ module Views.Format exposing
     , complement
     , cubicMeters
     , days
-    , density
+    , massPerUnit
     , diff
     , formatFloat
     , formatImpact
@@ -299,14 +299,17 @@ minutes =
     Duration.inMinutes >> formatRichFloat 0 "min"
 
 
-density : { a | density : Float, unit : Process.Unit } -> Html msg
-density process =
-    if process.unit /= Process.Kilogram then
-        formatRichFloat 0 ("kg/" ++ Process.unitToString process.unit) process.density
+massPerUnit : { a | massPerUnit : Maybe Float, unit : Process.Unit } -> Html msg
+massPerUnit process =
+    case process.massPerUnit of
+        Just value ->
+            if process.unit /= Process.Kilogram then
+                formatRichFloat 2 ("kg/" ++ Process.unitToString process.unit) value
 
-    else
-        text "N/A"
-
+            else
+                text "N/A"
+        Nothing ->
+            text "N/A"
 
 diff : String -> Html msg
 diff =
