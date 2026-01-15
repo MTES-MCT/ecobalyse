@@ -93,7 +93,7 @@ foodEndpoints db =
                     |> asTest "validate a transform mass"
                 , FoodQuery.encode
                     { royalPizza
-                        | packaging = royalPizza.packaging |> List.map (\p -> { p | amount = MassAmount <| Mass.grams -1 })
+                        | packaging = royalPizza.packaging |> List.map (\p -> { p | amount = ItemAmount -1 })
                     }
                     |> testFoodEndpoint db
                     |> expectFoodValidationError "packaging" "La quantité doit être supérieure à zéro"

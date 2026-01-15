@@ -29,7 +29,7 @@ import Data.Food.EcosystemicServices as EcosystemicServices exposing (Ecosystemi
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Origin as Origin
 import Data.Food.Preparation as Preparation exposing (Preparation)
-import Data.Food.Query as BuilderQuery exposing (PackagingAmount(..), Query, packagingAmountToFloat)
+import Data.Food.Query as BuilderQuery exposing (PackagingAmount, Query, packagingAmountToFloat)
 import Data.Food.Retail as Retail
 import Data.Food.WellKnown exposing (WellKnown)
 import Data.Impact as Impact exposing (Impacts)
@@ -319,7 +319,7 @@ computePackagingImpacts item =
     item.process.impacts
         |> Impact.mapImpacts
             (\_ impact ->
-                Unit.impactToFloat impact * packagingAmountToFloat item.amount |> Unit.impact
+                Unit.impactToFloat impact * packagingAmountToFloat item.amount / 1000 |> Unit.impact
             )
 
 
@@ -494,26 +494,23 @@ getMassAtPackaging : WellKnown -> Recipe -> Mass
 getMassAtPackaging wellKnown recipe =
     Quantity.sum
         [ getTransformedIngredientsMass wellKnown recipe
-        , getPackagingMass recipe |> Maybe.withDefault (Mass.kilograms 0)
+        , getPackagingMass recipe
         ]
 
 
-getPackagingMass : Recipe -> Maybe Mass
+getPackagingMass : Recipe -> Mass
 getPackagingMass recipe =
     recipe.packaging
-        |> List.foldl
-            (\packaging acc ->
-                case ( packaging.amount, acc ) of
-                    ( MassAmount a, Just m ) ->
-                        Just (Quantity.plus a m)
-
-                    ( MassAmount a, Nothing ) ->
-                        Just a
+        |> List.map
+            (\{ amount, process } ->
+                case process.unit of
+                    Process.Items ->
+                        Mass.kilograms 0
 
                     _ ->
-                        Nothing
+                        Mass.grams <| packagingAmountToFloat amount
             )
-            Nothing
+        |> Quantity.sum
 
 
 getPreparedMassAtConsumer : WellKnown -> Recipe -> Mass
