@@ -71,18 +71,12 @@ type alias Query =
 
 
 type PackagingAmount
-    = ItemAmount Int
-    | MassAmount Mass
+    = ItemAmount Float
 
 
 packagingAmountToFloat : PackagingAmount -> Float
-packagingAmountToFloat a =
-    case a of
-        ItemAmount v ->
-            toFloat v
-
-        MassAmount v ->
-            Mass.inKilograms v
+packagingAmountToFloat (ItemAmount a) =
+    a
 
 
 addPreparation : Preparation.Id -> Query -> Query
@@ -111,7 +105,7 @@ defaultPackagingQuery process =
             { amount = ItemAmount 1, id = process.id }
 
         _ ->
-            { amount = MassAmount <| Mass.grams 100, id = process.id }
+            { amount = ItemAmount 100, id = process.id }
 
 
 addPackaging : PackagingQuery -> Query -> Query
@@ -169,12 +163,8 @@ decodeMassInGrams =
 
 decodePackagingAmount : Decoder PackagingAmount
 decodePackagingAmount =
-    Decode.oneOf
-        [ decodeMassInGrams
-            |> Decode.map (\float -> MassAmount float)
-        , Decode.int
-            |> Decode.map (\int -> ItemAmount int)
-        ]
+    Decode.float
+        |> Decode.map (\int -> ItemAmount int)
 
 
 decodePackaging : Decoder PackagingQuery
@@ -273,13 +263,8 @@ encodeMassAsGrams =
 
 
 encodePackagingAmount : PackagingAmount -> Encode.Value
-encodePackagingAmount v =
-    case v of
-        ItemAmount a ->
-            Encode.int a
-
-        MassAmount a ->
-            Encode.float (Mass.inGrams a)
+encodePackagingAmount (ItemAmount v) =
+    Encode.float v
 
 
 encodePackaging : PackagingQuery -> Encode.Value

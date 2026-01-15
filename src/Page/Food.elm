@@ -21,7 +21,7 @@ import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Origin as Origin
 import Data.Food.Preparation as Preparation
-import Data.Food.Query as Query exposing (PackagingAmount(..), Query, defaultPackagingQuery)
+import Data.Food.Query as Query exposing (PackagingAmount(..), Query, defaultPackagingQuery, packagingAmountToFloat)
 import Data.Food.Recipe as Recipe exposing (Recipe)
 import Data.Food.Retail as Retail
 import Data.Food.WellKnown exposing (WellKnown)
@@ -744,18 +744,18 @@ updatePackagingFormView : UpdatePackagingConfig -> Html Msg
 updatePackagingFormView { autocompleteState, packaging, impact, updateEvent, deleteEvent } =
     li [ class "ElementFormWrapper list-group-item" ]
         [ span [ class "QuantityInputWrapper" ]
-            [ case ( packaging.process.unit, packaging.amount ) of
-                ( _, ItemAmount nb ) ->
+            [ case packaging.process.unit of
+                Process.Items ->
                     div [ class "input-group" ]
                         [ input
                             [ class "form-control text-end incdec-arrows-left"
                             , type_ "number"
                             , step "1"
-                            , value (String.fromInt nb)
+                            , value (String.fromFloat <| packagingAmountToFloat packaging.amount)
                             , title "Nombre d’éléments"
                             , onInput <|
                                 \string ->
-                                    case String.toInt string of
+                                    case String.toFloat string of
                                         Just amount ->
                                             updateEvent { id = packaging.process.id, amount = ItemAmount amount }
 
@@ -766,14 +766,14 @@ updatePackagingFormView { autocompleteState, packaging, impact, updateEvent, del
                             []
                         ]
 
-                ( _, MassAmount massAmount ) ->
+                _ ->
                     MassInput.view
-                        { mass = massAmount
+                        { mass = Mass.grams <| packagingAmountToFloat packaging.amount
                         , onChange =
                             \maybeMass ->
                                 case maybeMass of
                                     Just mass ->
-                                        updateEvent { id = packaging.process.id, amount = MassAmount mass }
+                                        updateEvent { id = packaging.process.id, amount = ItemAmount <| Mass.inGrams mass }
 
                                     _ ->
                                         NoOp
@@ -1334,12 +1334,7 @@ transportAfterConsumptionView recipe result =
 
 packagingMassView : Recipe -> List (Html Msg)
 packagingMassView recipe =
-    case Recipe.getPackagingMass recipe of
-        Just mass ->
-            [ text " + Emballage : ", mass |> Format.kg ]
-
-        _ ->
-            [ text " + Emballage : aggrégé aux procédés mobilisés" ]
+    [ text " + Emballage : ", Recipe.getPackagingMass recipe |> Format.kg ]
 
 
 distributionView : Definition -> Recipe -> Recipe.Results -> List (Html Msg)
