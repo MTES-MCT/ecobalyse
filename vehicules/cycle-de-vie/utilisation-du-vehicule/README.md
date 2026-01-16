@@ -61,7 +61,7 @@ La première version d'Ecobalyse ne comprend que des exemples de véhicules éle
 {% endhint %}
 
 {% hint style="info" %}
-L'impact des émissions locales en terme de santé humaine pourrait faire l'objet d'un complément hors ACV dans le futur (travaux en cours)
+L'impact des émissions locales en terme de santé humaine dans les zones très dense apparait faiblement pris en compte à ce jour. Il pourrait faire l'objet d'un complément dans le futur (travaux en cours)
 {% endhint %}
 
 Le coût environnemental associé à la consommation d'énergie se calcule comme suit :
