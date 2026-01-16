@@ -13,7 +13,7 @@ Avec :&#x20;
 * C\_r : la consommation l'électricité par recharge sur le réseau électrique, exprimée en kWh pour 100km
 * Cwmtc : La consommation du véhicule selon le cycle WMTC, exprimée en kWh pour 100km
 * Ep : l'énergie apportée par pédalage, pour les véhicules actifs, établie par la classe WMTC, exprimée en kWh pour 100km, établie selon le calcul détaillé dans la page dédiée
-* Epv.m : l'énergie maximale apportée par des panneaux solaires photovoltaïques, exprimée en kWh pour 100km, établie selon le calcul détaillé dans la [page dédiée](energie-apportee-par-des-panneaux-solaires-photovoltaique-en-developpement.md)
+* Epv.m : l'énergie maximale apportée par des panneaux solaires photovoltaïques, exprimée en kWh pour 100km, établie selon le calcul détaillé dans la [page dédiée](energie-apportee-par-des-panneaux-solaires-photovoltaique.md)
 
 _A des fins de simplification, ces dispositions ne s'appliquent qu'aux véhicules électriques :_
 

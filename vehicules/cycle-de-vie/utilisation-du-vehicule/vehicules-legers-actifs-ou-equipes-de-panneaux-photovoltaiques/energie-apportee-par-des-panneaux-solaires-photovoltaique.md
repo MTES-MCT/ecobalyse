@@ -1,8 +1,4 @@
----
-description: Cette modélisation est en cours de développement.
----
-
-# ☀️ Energie apportée par des panneaux solaires photovoltaïque \[En développement]
+# ☀️ Energie apportée par des panneaux solaires photovoltaïque
 
 ## Méthodologie de référence
 
