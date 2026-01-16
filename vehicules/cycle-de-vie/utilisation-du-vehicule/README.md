@@ -87,7 +87,7 @@ L'outil suivant permet de réaliser ce calcul, avec des proposition de kilométr
 
 {% file src="../../../.gitbook/assets/Ecobalyse - Calculette utilisation.xlsx" %}
 
-Cet outil permet également de prendre en compte des réduction de consommation permises par du pédalage ou par des panneaux photovoltaïques (voir [page dédiée](https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/vehicules-legers-actifs-ou-equipes-de-panneaux-photovoltaiques))
+Cet outil permet également de prendre en compte des réduction de consommation permises par du pédalage ou par des panneaux photovoltaïques (voir [page dédiée](https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/vehicules-legers-actifs-ou-equipes-de-panneaux-photovoltaiques)).
 {% endhint %}
 
 ## Paramètres retenus pour le coût environnemental

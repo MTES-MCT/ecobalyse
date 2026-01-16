@@ -12,8 +12,8 @@ Avec :&#x20;
 
 * C\_r : la consommation l'électricité par recharge sur le réseau électrique, exprimée en kWh pour 100km
 * Cwmtc : La consommation du véhicule selon le cycle WMTC, exprimée en kWh pour 100km
-* Ep : l'énergie apportée par pédalage, pour les véhicules actifs, établie par la classe WMTC, exprimée en kWh pour 100km, établie selon le calcul détaillé dans la page dédiée
-* Epv.m : l'énergie maximale apportée par des panneaux solaires photovoltaïques, exprimée en kWh pour 100km, établie selon le calcul détaillé dans la [page dédiée](energie-apportee-par-des-panneaux-solaires-photovoltaique.md)
+* Ep : l'énergie apportée par pédalage, pour les véhicules actifs, établie par la classe WMTC, exprimée en kWh pour 100km, établie selon le calcul détaillé dans la [page dédiée](https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/vehicules-legers-actifs-ou-equipes-de-panneaux-photovoltaiques/energie-apportee-par-pedalage-en-developpement)
+* Epv.m : l'énergie maximale apportée par des panneaux solaires photovoltaïques, exprimée en kWh pour 100km, établie selon le calcul détaillé dans la [page dédiée](energie-apportee-par-des-panneaux-solaires-photovoltaique-en-developpement.md)
 
 _A des fins de simplification, ces dispositions ne s'appliquent qu'aux véhicules électriques :_
 
@@ -23,9 +23,7 @@ _A des fins de simplification, ces dispositions ne s'appliquent qu'aux véhicule
 
 
 
-### Données renseignées par l’utilisateur
+L'outil suivant permet de calcul les réduction de consommation permises par du pédalage ou par des panneaux photovoltaïques.
 
-L'utilisateur renseigne les informations suivantes :
-
-* Apport d'énergie par pédalage (Oui/Non)
+{% file src="../../../../.gitbook/assets/Ecobalyse - Calculette utilisation.xlsx" %}
 
