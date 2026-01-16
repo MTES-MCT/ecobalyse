@@ -52,7 +52,7 @@ Les émissions locales maximales des véhicules sont fixées par les normes euro
 
 Ces normes incluent les émissions liées à la combustion des carburants, mais aussi les émissions par l'usure des pneus et des plaquettes de frein.
 
-Les impacts de ces émissions en termes de santé humaine dans les villes sont plutôt faiblement pris en compte dans les méthodes d'Analyse de Cycle de vie, qui prennent en compte l'impact à l'échelle globale.
+Les impacts de ces émissions en termes de santé humaine dans les métropoles denses sont plutôt faiblement pris en compte dans les données d'Inventaire d'Analyse de Cycle de vie, qui prennent en compte l'impact à l'échelle globale.
 
 ## Méthodes de calcul
 
@@ -67,50 +67,47 @@ L'impact des émissions locales en terme de santé humaine dans les zones très 
 Le coût environnemental associé à la consommation d'énergie se calcule comme suit :
 
 $$
-I_{energie} = 100*D_{vie}*\sum_{0<i<n}C_i*I_i
+I_{energie} = 100*D_{an}*T_{vie}*\sum_{0<i<n}C_i*I_i
 $$
 
 Avec&#x20;
 
 * `I_energie` : l'impact environnemental de la consommation d'énergie en phase utilisation, y compris émissions directes , dans l'unité de la catégorie d'impact analysée
-* `D_vie` : la durée de vie du véhicule, en km. Le calcul de la durée de vie du véhicule est détaillé ci-dessous
-* `C_i` : la consommation de l'énergie i, en unité de l'énergie pour 100km
-* `I_i` :  l'impact environnemental associé à la consommation d'une unité de l'énergie `i`, y compris l'impact des émissions directes, en unité de la catégorie d'impact analysée par unité de l'énergie (Pts/L par exemple)
-
-### Durée de vie des véhicules
-
-La durée de vie en kilomètres s'exprime de la façon suivante :&#x20;
-
-$$
-D_{vie}=D_{an}*T_{vie}
-$$
-
-Avec :&#x20;
-
-* `D_vie` : la durée de vie, en km
 * `D_an` : le kilométrage annuel, en km\
   Cette donnée est modifiable par l'utilisateur dans Ecobalyse.
 * `T_vie` : la durée de vie par défaut du véhicule, en années\
   Cette donnée est  modifiable par l'utilisateur dans Ecobalyse.
+* `C_i` : la consommation de l'énergie i, en unité de l'énergie pour 100km
+* `I_i` :  l'impact environnemental associé à la consommation d'une unité de l'énergie `i`, y compris l'impact des émissions directes, en unité de la catégorie d'impact analysée par unité de l'énergie (Pts/L par exemple)
+
+{% hint style="info" %}
+Ecobalyse ne permet pas encore de préciser séparément la consommation du véhicule, son kilométrage et sa durée de vie en année.
+
+L'outil suivant permet de réaliser ce calcul, avec des proposition de kilométrage et de durée de vie par défaut :&#x20;
+
+{% file src="../../../.gitbook/assets/Ecobalyse - Calculette utilisation.xlsx" %}
+
+Cet outil permet également de prendre en compte des réduction de consommation permises par du pédalage ou par des panneaux photovoltaïques (voir [page dédiée](https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/vehicules-legers-actifs-ou-equipes-de-panneaux-photovoltaiques))
+{% endhint %}
 
 ## Paramètres retenus pour le coût environnemental
 
-Les paramètres sont renseignés par l'utilisateur :&#x20;
-
-* Consommation du véhicule `C_i` selon le cycle WMTC ou la procédure WLTP (kWh/100km ou L/100km)
-* Durée de vie du véhicule `D_vie` , en km
+La consommation totale est renseignée par l'utilisateur pour chaque carburant.
 
 {% hint style="info" %}
-Dans un second temps, l'utilisateur pourrait avoir la possibilité de renseigner :&#x20;
+Ecobalyse ne permet pas encore de préciser séparément la consommation du véhicule, son kilométrage et sa durée de vie en année.
 
-* Durée de vie du véhicule `T_vie` (en années)
-* Kilométrage annuel `D_an` (en km/an)
+L'outil suivant permet de réaliser ce calcul, avec des proposition de kilométrage et de durée de vie par défaut :&#x20;
 
-La durée de vie du véhicule `D_vie`  en km serait alors calculée
+{% file src="../../../.gitbook/assets/Ecobalyse - Calculette utilisation.xlsx" %}
+
+Cet outil permet également de prendre en compte des réduction de consommation permises par du pédalage ou par des panneaux photovoltaïques
 {% endhint %}
 
+Le Cycle WLTP doit être utilisé comme référence pour les véhicules de catégorie M1 et N1 (voitures et véhicules utilitaires légers), et WMTC pour les véhicules de catégorie L (deux-roues, velis).
+
 {% hint style="info" %}
-A ce stade la modélisation n'inclut pas de correction de la consommation sur le cycle de référence. Une telle correction est prévue, au moins pour les véhicules hybrides rechargeables, afin d'être représentatif de la consommation réelle.
+Une correction devrait être prise en compte pour les véhicules hybrides rechargeables, dont les consommations réelles sont très éloignées des consommations normées. A ce stade cette correction n'est pas définie.
 {% endhint %}
 
 ## Procédés utilisés pour le coût environnemental
