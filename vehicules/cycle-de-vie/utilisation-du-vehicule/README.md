@@ -80,16 +80,6 @@ Avec&#x20;
 * `C_i` : la consommation de l'énergie i, en unité de l'énergie pour 100km
 * `I_i` :  l'impact environnemental associé à la consommation d'une unité de l'énergie `i`, y compris l'impact des émissions directes, en unité de la catégorie d'impact analysée par unité de l'énergie (Pts/L par exemple)
 
-{% hint style="info" %}
-Ecobalyse ne permet pas encore de préciser séparément la consommation du véhicule, son kilométrage et sa durée de vie en année.
-
-L'outil suivant permet de réaliser ce calcul, avec des proposition de kilométrage et de durée de vie par défaut :&#x20;
-
-{% file src="../../../.gitbook/assets/Ecobalyse - Calculette utilisation.xlsx" %}
-
-Cet outil permet également de prendre en compte des réduction de consommation permises par du pédalage ou par des panneaux photovoltaïques (voir [page dédiée](https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/vehicules-legers-actifs-ou-equipes-de-panneaux-photovoltaiques)).
-{% endhint %}
-
 ## Paramètres retenus pour le coût environnemental
 
 La consommation totale est renseignée par l'utilisateur pour chaque carburant.
@@ -97,11 +87,11 @@ La consommation totale est renseignée par l'utilisateur pour chaque carburant.
 {% hint style="info" %}
 Ecobalyse ne permet pas encore de préciser séparément la consommation du véhicule, son kilométrage et sa durée de vie en année.
 
-L'outil suivant permet de réaliser ce calcul, avec des proposition de kilométrage et de durée de vie par défaut :&#x20;
+L'outil suivant permet de réaliser ce calcul, avec des propositions de kilométrage et de durée de vie par défaut :&#x20;
 
-{% file src="../../../.gitbook/assets/Ecobalyse - Calculette utilisation.xlsx" %}
+{% file src="../../../.gitbook/assets/Ecobalyse - Calculette utilisation (2).xlsx" %}
 
-Cet outil permet également de prendre en compte des réduction de consommation permises par du pédalage ou par des panneaux photovoltaïques
+Cet outil permet également de prendre en compte des réduction de consommation permises par du pédalage ou par des panneaux photovoltaïques (voir [page dédiée](https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/vehicules-legers-actifs-ou-equipes-de-panneaux-photovoltaiques)).
 {% endhint %}
 
 Le Cycle WLTP doit être utilisé comme référence pour les véhicules de catégorie M1 et N1 (voitures et véhicules utilitaires légers), et WMTC pour les véhicules de catégorie L (deux-roues, velis).

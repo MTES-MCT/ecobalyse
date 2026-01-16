@@ -23,7 +23,7 @@ _A des fins de simplification, ces dispositions ne s'appliquent qu'aux véhicule
 
 
 
-L'outil suivant permet de calcul les réduction de consommation permises par du pédalage ou par des panneaux photovoltaïques.
+L'outil suivant permet de calcul les réduction de consommation permises par du pédalage ou par des panneaux photovoltaïques :
 
-{% file src="../../../../.gitbook/assets/Ecobalyse - Calculette utilisation.xlsx" %}
+{% file src="../../../../.gitbook/assets/Ecobalyse - Calculette utilisation (3).xlsx" %}
 
