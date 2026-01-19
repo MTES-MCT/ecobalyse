@@ -33,7 +33,6 @@ const {
 
 const app = express(); // web app
 const api = express(); // api app
-const version = express(); // version app
 
 // Rate-limiting
 const rateLimitWhitelist = RATELIMIT_WHITELIST?.split(",").filter(Boolean) ?? [];
@@ -98,80 +97,6 @@ app.use(
 app.get("/accessibilite", (_, res) => res.redirect("/#/pages/accessibilité"));
 app.get("/mentions-legales", (_, res) => res.redirect("/#/pages/mentions-légales"));
 app.get("/stats", (_, res) => res.redirect("/#/stats"));
-
-// Versions
-const versionsDir = "./versions";
-let availableVersions = [];
-
-// Loading existing versions in memory
-if (fs.existsSync(versionsDir)) {
-  const dirs = fs.readdirSync(versionsDir);
-  for (const dir of dirs) {
-    const currentVersionDir = path.join(versionsDir, dir);
-
-    // check for mono or multiple processes files
-    if (fs.existsSync(path.join(currentVersionDir, "data/processes.json"))) {
-      // Single process file
-      const processes = fs.readFileSync(
-        path.join(currentVersionDir, "data/processes.json"),
-        "utf8",
-      );
-      const processesImpactsEnc = path.join(currentVersionDir, "processes_impacts.json.enc");
-
-      availableVersions.push({
-        dir,
-        processes,
-        processesImpacts: decrypt(
-          JSON.parse(fs.readFileSync(processesImpactsEnc).toString("utf-8")),
-        ),
-      });
-    } else {
-      // Multiple process files
-      const foodNoDetails = path.join(currentVersionDir, "data/food/processes.json");
-      const objectNoDetails = path.join(currentVersionDir, "data/object/processes.json");
-      const textileNoDetails = path.join(currentVersionDir, "data/textile/processes.json");
-
-      const foodDetailedEnc = path.join(currentVersionDir, "processes_impacts_food.json.enc");
-      const objectDetailedEnc = path.join(currentVersionDir, "processes_impacts_object.json.enc");
-      const textileDetailedEnc = path.join(currentVersionDir, "processes_impacts_textile.json.enc");
-
-      // We should not check for the existence of objectNoDetails because old versions don't have it
-      // and it's expected
-      if (!fs.existsSync(foodNoDetails) || !fs.existsSync(textileNoDetails)) {
-        console.error(
-          `🚨 ERROR: processes files without details missing for version ${dir}. Skipping version.`,
-        );
-        continue;
-      }
-
-      // Encrypted files exist, use them
-      let processesImpacts = {
-        foodProcesses: decrypt(JSON.parse(fs.readFileSync(foodDetailedEnc).toString("utf-8"))),
-        // Old versions don't have the object files
-        objectProcesses: fs.existsSync(objectDetailedEnc)
-          ? decrypt(JSON.parse(fs.readFileSync(objectDetailedEnc).toString("utf-8")))
-          : null,
-        textileProcesses: decrypt(
-          JSON.parse(fs.readFileSync(textileDetailedEnc).toString("utf-8")),
-        ),
-      };
-
-      availableVersions.push({
-        dir,
-        processes: {
-          foodProcesses: fs.readFileSync(foodNoDetails, "utf8"),
-          // Old versions don't have the object files
-          objectProcesses: fs.existsSync(objectNoDetails)
-            ? fs.readFileSync(objectNoDetails, "utf8")
-            : null,
-
-          textileProcesses: fs.readFileSync(textileNoDetails, "utf8"),
-        },
-        processesImpacts,
-      });
-    }
-  }
-}
 
 // API
 
@@ -266,91 +191,25 @@ api.all(/(.*)/, bodyParser.json(), jsonErrorHandler, async (req, res) => {
     jsResponseHandler: async ({ status, body }) => {
       matomoTracker.track(status, req);
       await posthogTracker.captureEvent(status, req);
-      respondWithFormattedJSON(res, status, body);
+
+      respondWithFormattedJSON(res, status, ensureVersionedUrls(body, "v7.0.0"));
     },
   });
 });
 
-// Middleware to check version number and file path
-const checkVersionAndPath = (req, res, next) => {
-  const versionNumber = req.params.versionNumber;
-
-  const version = availableVersions.find((version) => version.dir === versionNumber);
-
-  if (!version) {
-    // If no version is found, don’t display a blank page but redirect to the home
-    res.redirect("/");
+// Add version number to web urls (done here to avoid reverse patching old static version builds)
+function ensureVersionedUrls(body, versionNumber) {
+  if (body.apiDocUrl) {
+    body.apiDocUrl = body.apiDocUrl.replace("/#/", `/versions/${versionNumber}/#/`);
   }
-  const staticDir = path.join(__dirname, "versions", versionNumber);
-  req.staticDir = staticDir;
-  next();
-};
-
-version.use("/:versionNumber", checkVersionAndPath, (req, res, next) => {
-  express.static(req.staticDir)(req, res, next);
-});
-
-version.get("/:versionNumber/api", checkVersionAndPath, (req, res) => {
-  const openApiContents = processOpenApi(
-    yaml.load(fs.readFileSync(path.join(req.staticDir, "openapi.yaml"))),
-    req.params.versionNumber,
-  );
-  res.status(200).send(openApiContents);
-});
-
-version.all(
-  "/:versionNumber/api/*all",
-  checkVersionAndPath,
-  bodyParser.json(),
-  jsonErrorHandler,
-  async (req, res) => {
-    const versionNumber = req.params.versionNumber;
-    const { processesImpacts, processes } = availableVersions.find(
-      (version) => version.dir === versionNumber,
-    );
-    const versionProcesses = await getProcesses(req.headers, processesImpacts, processes);
-
-    const { Elm } = require(path.join(req.staticDir, "server-app"));
-
-    const elmApp = Elm.Server.init();
-
-    elmApp.ports.output.subscribe(({ status, body, jsResponseHandler }) => {
-      return jsResponseHandler({ status, body });
-    });
-
-    const urlWithoutPrefix = req.url.replace(/\/[^/]+\/api/, "");
-
-    matomoTracker.track(res.statusCode, req);
-    await posthogTracker.captureEvent(res.statusCode, req);
-
-    elmApp.ports.input.send({
-      method: req.method,
-      url: urlWithoutPrefix,
-      body: req.body,
-      processes: versionProcesses,
-      jsResponseHandler: ({ status, body }) => {
-        respondWithFormattedJSON(res, status, body);
-      },
-    });
-  },
-);
-
-version.get("/:versionNumber/processes/processes.json", checkVersionAndPath, async (req, res) => {
-  const versionNumber = req.params.versionNumber;
-  const { processesImpacts, processes } = availableVersions.find(
-    (version) => version.dir === versionNumber,
-  );
-
-  // Note: JSON parsing is done in Elm land
-  return res
-    .status(200)
-    .contentType("text/plain")
-    .send(JSON.stringify(await getProcesses(req.headers, processesImpacts, processes)));
-});
+  if (body.webUrl) {
+    body.webUrl = body.webUrl.replace("/#/", `/versions/${versionNumber}/#/`);
+  }
+  return body;
+}
 
 api.use(cors()); // Enable CORS for all API requests
 app.use("/api", api);
-app.use("/versions", version);
 
 const server = app.listen(expressPort, expressHost, () => {
   console.log(`Server listening at http://${expressHost}:${expressPort} (NODE_ENV=${NODE_ENV})`);
