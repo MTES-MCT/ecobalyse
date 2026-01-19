@@ -1,4 +1,4 @@
-module Views.Component exposing (editorView)
+module Views.Component exposing (Context(..), editorView)
 
 import Autocomplete exposing (Autocomplete)
 import Data.AutocompleteSelector as AutocompleteSelector
@@ -46,7 +46,7 @@ import Views.Transport as TransportView
 type alias Config db msg =
     { addLabel : String
     , componentConfig : Component.Config
-    , customizable : Bool
+    , context : Context
     , db : Component.DataContainer db
     , debug : Bool
     , detailed : List Index
@@ -54,11 +54,12 @@ type alias Config db msg =
     , explorerRoute : Maybe Route
     , impact : Definition
     , lifeCycle : Result String LifeCycle
-    , maxItems : Maybe Int
     , noOp : msg
     , openSelectComponentModal : Autocomplete Component -> msg
+    , openSelectConsumptionModal : Autocomplete Process -> msg
     , openSelectProcessModal : Category -> TargetItem -> Maybe Index -> Autocomplete Process -> msg
     , query : Query
+    , removeConsumption : Index -> msg
     , removeElement : TargetElement -> msg
     , removeElementTransform : TargetElement -> Index -> msg
     , removeItem : Index -> msg
@@ -66,11 +67,18 @@ type alias Config db msg =
     , setDetailed : List Index -> msg
     , title : String
     , updateAssemblyCountry : Maybe Country.Code -> msg
+    , updateConsumptionAmount : Index -> Maybe Amount -> msg
     , updateElementAmount : TargetElement -> Maybe Amount -> msg
     , updateItemCountry : Index -> Maybe Country.Code -> msg
     , updateItemName : TargetItem -> String -> msg
     , updateItemQuantity : Index -> Quantity -> msg
     }
+
+
+type Context
+    = AdminContext
+    | ObjectContext
+    | TextileTrimsContext
 
 
 addComponentButton : Config db msg -> Html msg
@@ -180,7 +188,7 @@ componentView config itemIndex ({ component, country, elements, quantity } as ex
                     tr [] [ td [ colspan 7 ] [] ]
                 , tr [ class "border-bottom" ]
                     [ th [ class "ps-2 pt-0 pb-2 align-middle", scope "col" ]
-                        [ if config.customizable && config.maxItems /= Just 1 then
+                        [ if config.context /= TextileTrimsContext then
                             button
                                 [ type_ "button"
                                 , class "btn btn-link text-muted text-decoration-none font-monospace fs-5 p-0 m-0"
@@ -207,7 +215,7 @@ componentView config itemIndex ({ component, country, elements, quantity } as ex
                         ]
                     , td [ class "pt-0 pb-2 align-middle text-truncate w-100", colspan 2 ]
                         [ div [ class "d-flex gap-2" ] <|
-                            if config.customizable then
+                            if config.context /= TextileTrimsContext then
                                 [ input
                                     [ type_ "text"
                                     , class "form-control"
@@ -237,7 +245,7 @@ componentView config itemIndex ({ component, country, elements, quantity } as ex
                             |> Format.formatImpact config.impact
                         ]
                     , td [ class "pe-3 pt-0 pb-2 text-end align-middle text-nowrap" ]
-                        [ if config.maxItems == Just 1 then
+                        [ if config.context == AdminContext then
                             text ""
 
                           else
@@ -387,7 +395,7 @@ editorView config =
 
 
 lifeCycleView : Config db msg -> LifeCycle -> Html msg
-lifeCycleView ({ db, docsUrl, explorerRoute, impact, maxItems, query, scope, title } as config) lifeCycle =
+lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as config) lifeCycle =
     div [ class "d-flex flex-column" ]
         [ div [ class "card shadow-sm" ]
             [ div [ class "card-header d-flex align-items-center justify-content-between" ]
@@ -438,7 +446,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, maxItems, query, scope, tit
                     Ok expandedItems ->
                         div [ class "table-responsive" ]
                             [ table [ class "table table-sm table-borderless mb-0" ]
-                                ((if maxItems == Just 1 then
+                                ((if config.context == AdminContext then
                                     thead []
                                         [ tr [ class "fs-7 text-muted" ]
                                             [ th [] []
@@ -461,7 +469,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, maxItems, query, scope, tit
                                         )
                                 )
                             ]
-            , if maxItems == Just 1 then
+            , if config.context == AdminContext then
                 text ""
 
               else
@@ -484,13 +492,14 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, maxItems, query, scope, tit
 
           else
             text ""
-        , if not (List.isEmpty query.items) && List.member scope [ Scope.Object, Scope.Veli ] then
+        , if config.context == ObjectContext && not (List.isEmpty query.items) then
             div []
                 [ lifeCycle.transports.toDistribution
                     |> transportView impact (Component.extractMass lifeCycle.production)
                 , distributionView config
-                , Transport.default Impact.empty
-                    |> transportView impact (Component.extractMass lifeCycle.production)
+                , noTransportView
+                , useStageView config
+                , noTransportView
                 , endOfLifeView config lifeCycle
                 ]
 
@@ -530,8 +539,13 @@ transportView selectedImpact mass transport =
         ]
 
 
-amountInput : Config db msg -> TargetElement -> Process.Unit -> Amount -> Html msg
-amountInput config targetElement unit amount =
+noTransportView : Html msg
+noTransportView =
+    DownArrow.view [] []
+
+
+amountInput : (Maybe Amount -> msg) -> Process.Unit -> Amount -> Html msg
+amountInput toMsg unit amount =
     let
         stringAmount =
             amount
@@ -540,9 +554,9 @@ amountInput config targetElement unit amount =
 
         stepValue =
             case String.split "." stringAmount of
-                -- This is an integer, increment by one to keep the integer value
+                -- This is an integer, increment by .1 for convenience
                 [ _ ] ->
-                    "1"
+                    "0.1"
 
                 -- This is a float, increment at the precision of the float
                 [ _, decimals ] ->
@@ -562,7 +576,7 @@ amountInput config targetElement unit amount =
             , onInput <|
                 String.toFloat
                     >> Maybe.map Component.Amount
-                    >> config.updateElementAmount targetElement
+                    >> toMsg
             ]
             []
         , small [ class "input-group-text fs-8" ]
@@ -692,7 +706,7 @@ elementMaterialView config targetElement materialResults material amount =
                 Format.amount material amount
 
               else
-                amountInput config targetElement material.unit amount
+                amountInput (config.updateElementAmount targetElement) material.unit amount
             ]
         , td [ class "align-middle text-truncate w-100", title <| Process.getDisplayName material ]
             [ selectMaterialButton config targetElement material ]
@@ -786,7 +800,7 @@ quantityInput config itemIndex quantity =
             , quantity |> Component.quantityToInt |> String.fromInt |> value
             , step "1"
             , Attr.min "1"
-            , disabled <| config.maxItems == Just 1
+            , disabled <| config.context == AdminContext
             , onInput <|
                 \str ->
                     String.toInt str
@@ -844,6 +858,106 @@ distributionView { impact } =
             ]
         , div [ class "card-body d-flex align-items-center gap-1" ]
             [ Icon.lock, text "France" ]
+        ]
+
+
+useStageView : Config db msg -> Html msg
+useStageView ({ db, impact, lifeCycle, query, removeConsumption, updateConsumptionAmount } as config) =
+    let
+        consumptionImpacts =
+            lifeCycle
+                |> Result.map .use
+                |> Result.withDefault []
+    in
+    div [ class "card shadow-sm" ]
+        [ div [ class "card-header d-flex align-items-center justify-content-between" ]
+            [ h2 [ class "h5 mb-0" ]
+                [ text "Utilisation" ]
+            , div [ class "d-flex align-items-center gap-2" ]
+                [ consumptionImpacts
+                    |> Impact.sumImpacts
+                    |> Format.formatImpact impact
+                ]
+            ]
+        , div [ class "d-flex flex-column p-0" ]
+            [ if List.isEmpty query.consumptions then
+                div [ class "card-body" ] [ text "Aucune consommation" ]
+
+              else
+                div [ class "table-responsive table-scroll position-relative" ]
+                    [ table [ class "table table-hover mb-0" ]
+                        [ query.consumptions
+                            |> Component.expandConsumptions db.processes
+                            |> Result.withDefault []
+                            |> List.indexedMap
+                                (\index ( amount, process ) ->
+                                    tr []
+                                        [ td [ class "ps-3 align-middle text-nowrap", style "min-width" "160px" ]
+                                            [ amountInput (updateConsumptionAmount index) process.unit amount ]
+                                        , td
+                                            [ class "align-middle w-66 text-truncate cursor-help"
+                                            , [ Process.getDisplayName process
+                                              , Process.getTechnicalName process
+                                              ]
+                                                |> String.join "\n"
+                                                |> title
+                                            ]
+                                            [ text <| Process.getDisplayName process ]
+                                        , td [ class "align-middle text-nowrap" ]
+                                            [ consumptionImpacts
+                                                |> LE.getAt index
+                                                |> Maybe.withDefault Impact.empty
+                                                |> Format.formatImpact impact
+                                            ]
+                                        , td [ class "pe-3 pt-2 align-middle" ]
+                                            [ button
+                                                [ type_ "button"
+                                                , class "btn btn-sm btn-outline-secondary"
+                                                , title "Supprimer cette consommation"
+                                                , onClick (removeConsumption index)
+                                                ]
+                                                [ Icon.trash ]
+                                            ]
+                                        ]
+                                )
+                            |> tbody []
+                        ]
+                    ]
+            , addConsumptionButton config
+            ]
+        ]
+
+
+addConsumptionButton : Config db msg -> Html msg
+addConsumptionButton { db, openSelectConsumptionModal, query, scope } =
+    let
+        availableProcesses =
+            db.processes
+                |> Process.listByCategory Category.Use
+                |> Scope.anyOf [ scope ]
+                |> List.filter
+                    (\{ id } ->
+                        query.consumptions
+                            |> List.map .processId
+                            |> List.member id
+                            |> not
+                    )
+                |> List.sortBy Process.getDisplayName
+
+        autocompleteState =
+            availableProcesses
+                |> AutocompleteSelector.init Process.getDisplayName
+    in
+    button
+        [ type_ "button"
+        , class "btn btn-outline-primary w-100"
+        , class "d-flex justify-content-center align-items-center"
+        , class "gap-1 w-100"
+        , disabled <| List.isEmpty availableProcesses
+        , onClick <| openSelectConsumptionModal autocompleteState
+        ]
+        [ Icon.plus
+        , text "Ajouter une consommation"
         ]
 
 

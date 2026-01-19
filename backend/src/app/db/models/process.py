@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from advanced_alchemy.base import UUIDAuditBase
 from app.domain.components.schemas import Scope
 from app.domain.processes.schemas import Unit
-from sqlalchemy import Enum, Float, String, Table
+from sqlalchemy import Enum, Float, String
 from sqlalchemy.dialects import postgresql
 from sqlalchemy.ext.mutable import MutableList
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -13,7 +13,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from .process_process_category import process_process_category
 
 if TYPE_CHECKING:
-    from .element import Element
+    from .element import Element, ProcessElementTransform
     from .process_category import ProcessCategory
 
 
@@ -54,9 +54,8 @@ class Process(UUIDAuditBase):
         lazy="selectin",
     )
 
-    elements_transforms: Mapped[list[Element]] = relationship(
-        secondary=lambda: _process_element_transforms(),
-        back_populates="process_transforms",
+    elements_transforms: Mapped[list[ProcessElementTransform]] = relationship(
+        back_populates="transform",
         cascade="all",
         lazy="selectin",
     )
@@ -125,9 +124,3 @@ class Process(UUIDAuditBase):
 
     def __repr__(self) -> str:
         return f"Process(id={self.id!r}, display_name={self.display_name!r}, comment={self.comment!r}, scopes={self.scopes!r}, categories={self.process_categories!r})"
-
-
-def _process_element_transforms() -> Table:
-    from .process_element_transform import process_element_transform
-
-    return process_element_transform
