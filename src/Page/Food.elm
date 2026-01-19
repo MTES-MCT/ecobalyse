@@ -757,7 +757,7 @@ updatePackagingFormView { autocompleteState, packaging, impact, updateEvent, del
                                 \string ->
                                     case String.toFloat string of
                                         Just amount ->
-                                            updateEvent { id = packaging.process.id, amount = ItemAmount amount }
+                                            updateEvent { id = packaging.process.id, amount = PackagingAmount amount }
 
                                         _ ->
                                             NoOp
@@ -773,7 +773,7 @@ updatePackagingFormView { autocompleteState, packaging, impact, updateEvent, del
                             \maybeMass ->
                                 case maybeMass of
                                     Just mass ->
-                                        updateEvent { id = packaging.process.id, amount = ItemAmount <| Mass.inGrams mass }
+                                        updateEvent { id = packaging.process.id, amount = PackagingAmount <| Mass.inGrams mass }
 
                                     _ ->
                                         NoOp

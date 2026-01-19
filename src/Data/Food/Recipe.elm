@@ -319,7 +319,15 @@ computePackagingImpacts item =
     item.process.impacts
         |> Impact.mapImpacts
             (\_ impact ->
-                Unit.impactToFloat impact * packagingAmountToFloat item.amount / 1000 |> Unit.impact
+                Unit.impactToFloat impact
+                    * packagingAmountToFloat item.amount
+                    / (if item.process.unit == Process.Items then
+                        1
+
+                       else
+                        1000
+                      )
+                    |> Unit.impact
             )
 
 
@@ -505,6 +513,8 @@ getPackagingMass recipe =
             (\{ amount, process } ->
                 case process.unit of
                     Process.Items ->
+                        -- @FIXME: We can’t deduce the mass of an item packaging for now as we don’t have the massPerUnit/density
+                        --  information available, so we hardcode the mass to 0 for now
                         Mass.kilograms 0
 
                     _ ->
