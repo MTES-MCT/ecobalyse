@@ -1,6 +1,7 @@
 import json as jsonp
 import warnings
 from typing import TYPE_CHECKING
+from uuid import UUID
 
 import pytest
 from app.db import models as m
@@ -88,7 +89,12 @@ async def test_components_db_create(
     with warnings.catch_warnings():
         warnings.simplefilter("error")
         components_service = await anext(provide_components_service(session))
-        await components_service.create_many(data=json, auto_commit=True)
+        results = await components_service.create_many(data=json, auto_commit=True)
+        assert len(results) == 2
+
+        assert results[0].elements[0].transforms == [
+            UUID("d25636af-ab36-4857-a6d0-c66d1e7a281b")
+        ]
 
 
 async def test_components_create_with_scopes(
@@ -370,3 +376,135 @@ async def test_components_delete(
         )
 
         assert len(response.json()) == 6
+
+
+async def test_components_preserve_transformations_order(
+    client: "AsyncClient",
+    session: AsyncSession,
+    superuser_token_headers: dict[str, str],
+) -> None:
+    # Creates a component with two transforms
+    # and asserts the returned value preserves the transforms list order
+    response = await client.post(
+        "/api/components",
+        json={
+            "name": "New Component",
+            "comment": "A comment",
+            "elements": [
+                {
+                    "amount": 0.91125,
+                    "material": "97c209ec-7782-5a29-8c47-af7f17c82d11",
+                    "transforms": [
+                        "97c209ec-7782-5a29-8c47-af7f17c82d11",
+                        "d25636af-ab36-4857-a6d0-c66d1e7a281b",
+                    ],
+                }
+            ],
+        },
+        headers=superuser_token_headers,
+    )
+    json = response.json()
+    assert response.status_code == 201
+    assert json["elements"][0]["transforms"] == [
+        "97c209ec-7782-5a29-8c47-af7f17c82d11",
+        "d25636af-ab36-4857-a6d0-c66d1e7a281b",
+    ]
+
+    # Creates an identical component with the inverted transforms
+    # and asserts the returned value preserves the transforms list order
+
+    response = await client.post(
+        "/api/components",
+        json={
+            "name": "New Component",
+            "comment": "A comment",
+            "elements": [
+                {
+                    "amount": 0.91125,
+                    "material": "97c209ec-7782-5a29-8c47-af7f17c82d11",
+                    "transforms": [
+                        "d25636af-ab36-4857-a6d0-c66d1e7a281b",
+                        "97c209ec-7782-5a29-8c47-af7f17c82d11",
+                    ],
+                }
+            ],
+        },
+        headers=superuser_token_headers,
+    )
+    json = response.json()
+    assert response.status_code == 201
+    assert json["elements"][0]["transforms"] == [
+        "d25636af-ab36-4857-a6d0-c66d1e7a281b",
+        "97c209ec-7782-5a29-8c47-af7f17c82d11",
+    ]
+
+
+async def test_components_preserve_transformations_order_on_update(
+    client: "AsyncClient",
+    session: AsyncSession,
+    superuser_token_headers: dict[str, str],
+) -> None:
+    # NB: this test seems redundant with the previous one
+    # (test_components_preserve_transformations_order), but before implementing
+    # the ordering, the previous one was already successful, probably because
+    # on creation, the default ordering of PG was the expected one.
+
+    # Updates a component, passing it two transforms
+    # and asserts the returned value preserves the transforms list order
+
+    response = await client.patch(
+        "/api/components/8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
+        json={
+            "name": "Name Changed",
+            "comment": "Comment changed",
+            "scopes": ["object", "food"],
+            "published": True,
+            "elements": [
+                {
+                    "amount": 2,
+                    "material": "d25636af-ab36-4857-a6d0-c66d1e7a281b",
+                    "transforms": [
+                        "d25636af-ab36-4857-a6d0-c66d1e7a281b",
+                        "97c209ec-7782-5a29-8c47-af7f17c82d11",
+                    ],
+                }
+            ],
+        },
+        headers=superuser_token_headers,
+    )
+    json = response.json()
+    assert response.status_code == 200
+    assert json["elements"][0]["transforms"] == [
+        "d25636af-ab36-4857-a6d0-c66d1e7a281b",
+        "97c209ec-7782-5a29-8c47-af7f17c82d11",
+    ]
+
+    # Updates the component again, passing it the two transforms in an inverted order
+    # and asserts the returned value preserves the transforms list order
+
+    response = await client.patch(
+        "/api/components/8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
+        json={
+            "name": "Name Changed",
+            "comment": "Comment changed",
+            "scopes": ["object", "food"],
+            "published": True,
+            "elements": [
+                {
+                    "amount": 2,
+                    "material": "d25636af-ab36-4857-a6d0-c66d1e7a281b",
+                    "transforms": [
+                        "97c209ec-7782-5a29-8c47-af7f17c82d11",
+                        "d25636af-ab36-4857-a6d0-c66d1e7a281b",
+                    ],
+                }
+            ],
+        },
+        headers=superuser_token_headers,
+    )
+    json = response.json()
+    assert response.status_code == 200
+    assert json["elements"][0]["transforms"] == [
+        "97c209ec-7782-5a29-8c47-af7f17c82d11",
+        "d25636af-ab36-4857-a6d0-c66d1e7a281b",
+    ]
