@@ -3,7 +3,6 @@ module Views.Format exposing
     , complement
     , cubicMeters
     , days
-    , massPerUnit
     , diff
     , formatFloat
     , formatImpact
@@ -16,6 +15,7 @@ module Views.Format exposing
     , kgToString
     , kilowattHours
     , km
+    , massPerUnit
     , megajoules
     , minutes
     , percent
@@ -308,8 +308,10 @@ massPerUnit process =
 
             else
                 text "N/A"
+
         Nothing ->
             text "N/A"
+
 
 diff : String -> Html msg
 diff =
