@@ -1,6 +1,31 @@
 [
   {
     "category": "",
+    "id": "28ccf3ad-a821-4d6d-a742-6e859576db06",
+    "name": "Mon exemple de véli",
+    "query": {
+      "assemblyCountry": "NL",
+      "durability": 1,
+      "components": [
+        {
+          "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc",
+          "quantity": 1
+        },
+        {
+          "id": "71086438-51a9-4980-ac3b-f24d5baa4cd5",
+          "quantity": 1
+        }
+      ],
+      "consumptions": [
+        {
+          "amount": 1,
+          "processId": "8fe4ef38-1c18-5cb0-a4e6-107e3998f5ff"
+        }
+      ]
+    }
+  },
+  {
+    "category": "",
     "id": "cefc2585-7125-4610-aadc-69970a3d67d1",
     "name": "Vélo à assistance électrique, majorant par défaut",
     "query": {
