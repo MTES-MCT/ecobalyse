@@ -56,6 +56,7 @@ datasets scope =
         Scope.Object ->
             [ ObjectExamples Nothing
             , Components Scope.Object Nothing
+            , Countries Nothing
             , Processes Scope.Object Nothing
             , Impacts Nothing
             ]
@@ -73,6 +74,7 @@ datasets scope =
         Scope.Veli ->
             [ VeliExamples Nothing
             , Components Scope.Veli Nothing
+            , Countries Nothing
             , Impacts Nothing
             , Processes Scope.Veli Nothing
             ]
