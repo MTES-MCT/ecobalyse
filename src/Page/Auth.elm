@@ -545,7 +545,7 @@ viewTab session currentTab =
 viewAccount : Session.Auth -> ProfileForm -> FormErrors -> Html Msg
 viewAccount { user } profileForm formErrors =
     div []
-        [ Html.form [ onSubmit ProfileSubmit, class "mt-3" ]
+        [ Html.form [ onSubmit ProfileSubmit, class "mt-3 view-account-form" ]
             [ div [ class "row" ]
                 [ div [ class "col-md-6 mb-3" ]
                     [ label [ for "email", class "form-label" ]
@@ -955,6 +955,7 @@ viewSignupForm signupForm formErrors webData =
     Html.form
         [ onSubmit SignupSubmit
         , attribute "data-testid" "auth-signup-form"
+        , class "signup-form"
         ]
         [ p [ class "fs-8" ]
             [ text "Sauf mention contraire, tous les champs sont obligatoires." ]
