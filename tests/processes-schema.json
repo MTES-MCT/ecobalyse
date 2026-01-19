@@ -17,7 +17,7 @@
         "type": "string"
       },
       "massPerUnit": {
-        "type": "number",
+        "type": ["number", "null"],
         "minimum": 0
       },
       "displayName": {
