@@ -317,18 +317,7 @@ computeImpact mass _ =
 computePackagingImpacts : { a | amount : PackagingAmount, process : Process } -> Impacts
 computePackagingImpacts item =
     item.process.impacts
-        |> Impact.mapImpacts
-            (\_ impact ->
-                Unit.impactToFloat impact
-                    * packagingAmountToFloat item.amount
-                    / (if item.process.unit == Process.Items then
-                        1
-
-                       else
-                        1000
-                      )
-                    |> Unit.impact
-            )
+        |> Impact.multiplyBy (packagingAmountToFloat item.amount)
 
 
 computeProcessImpacts : { a | mass : Mass, process : Process } -> Impacts

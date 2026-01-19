@@ -100,12 +100,18 @@ addIngredient ingredient query =
 
 defaultPackagingQuery : Process -> PackagingQuery
 defaultPackagingQuery process =
-    case process.unit of
-        Process.Items ->
-            { amount = PackagingAmount 1, id = process.id }
+    { amount =
+        PackagingAmount
+            (case process.unit of
+                Process.Kilogram ->
+                    -- 100g
+                    0.1
 
-        _ ->
-            { amount = PackagingAmount 100, id = process.id }
+                _ ->
+                    1
+            )
+    , id = process.id
+    }
 
 
 addPackaging : PackagingQuery -> Query -> Query
