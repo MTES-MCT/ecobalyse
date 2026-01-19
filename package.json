@@ -82,7 +82,7 @@
     "elm-format": "^0.8.8",
     "elm-review": "^2.13.5",
     "elm-test": "0.19.1-revision17",
-    "highcharts": "^12.4.0",
+    "highcharts": "^12.5.0",
     "jest": "^30.2.0",
     "maildev": "^2.2.1",
     "nodemon": "^3.1.11",
