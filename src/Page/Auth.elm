@@ -145,7 +145,7 @@ update session msg model =
                 |> App.createUpdate newSession
                 |> App.withCmds
                     [ Nav.pushUrl newSession.navKey <| Route.toString Route.Auth
-                    , ComponentConfig.decode newSession.db.processes newSession.db.countries
+                    , ComponentConfig.decode newSession.db
                         |> Http.get "/data/components/config.json" ComponentConfigReceived
                     ]
                 |> App.notifyInfo "Vous avez désormais accès aux impacts détaillés"

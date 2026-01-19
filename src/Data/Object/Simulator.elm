@@ -30,4 +30,9 @@ toStepsImpacts trigram lifeCycle =
             Component.getTotalTransportImpacts lifeCycle.transports
                 |> Impact.getImpact trigram
                 |> Just
+        , usage =
+            lifeCycle.use
+                |> Impact.sumImpacts
+                |> Impact.getImpact trigram
+                |> Just
     }

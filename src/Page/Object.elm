@@ -75,6 +75,7 @@ type Modal
     = AddComponentModal (Autocomplete Component)
     | ComparatorModal
     | NoModal
+    | SelectConsumptionModal (Autocomplete Process)
     | SelectExampleModal (Autocomplete Component.Query)
     | SelectProcessModal Category TargetItem (Maybe Index) (Autocomplete Process)
 
@@ -84,9 +85,11 @@ type Msg
     | DeleteBookmark Bookmark
     | NoOp
     | OnAutocompleteAddComponent (Autocomplete.Msg Component)
+    | OnAutocompleteAddConsumption (Autocomplete.Msg Process)
     | OnAutocompleteAddProcess Category TargetItem (Maybe Index) (Autocomplete.Msg Process)
     | OnAutocompleteExample (Autocomplete.Msg Component.Query)
     | OnAutocompleteSelectComponent
+    | OnAutocompleteSelectConsumption
     | OnAutocompleteSelectExample
     | OnAutocompleteSelectProcess Category TargetItem (Maybe Index)
     | OnDragLeaveBookmark
@@ -95,6 +98,7 @@ type Msg
     | OnDropBookmark Bookmark
     | OpenComparator
     | RemoveComponentItem Int
+    | RemoveConsumption Index
     | RemoveElement TargetElement
     | RemoveElementTransform TargetElement Index
     | RenameBookmark
@@ -114,6 +118,7 @@ type Msg
     | UpdateComponentItemCountry Index (Maybe Country.Code)
     | UpdateComponentItemName TargetItem String
     | UpdateComponentItemQuantity Index Component.Quantity
+    | UpdateConsumptionAmount Index (Maybe Component.Amount)
     | UpdateDurability (Result String Unit.Ratio)
     | UpdateElementAmount TargetElement (Maybe Component.Amount)
     | UpdateRenamedBookmarkName Bookmark String
@@ -303,6 +308,18 @@ update ({ navKey } as session) msg model =
         ( OnAutocompleteAddProcess _ _ _ _, _ ) ->
             createPageUpdate session model
 
+        ( OnAutocompleteAddConsumption autocompleteMsg, SelectConsumptionModal autocompleteState ) ->
+            let
+                ( newAutocompleteState, autoCompleteCmd ) =
+                    Autocomplete.update autocompleteMsg autocompleteState
+            in
+            { model | modal = SelectConsumptionModal newAutocompleteState }
+                |> createPageUpdate session
+                |> App.withCmds [ Cmd.map OnAutocompleteAddConsumption autoCompleteCmd ]
+
+        ( OnAutocompleteAddConsumption _, _ ) ->
+            createPageUpdate session model
+
         ( OnAutocompleteExample autocompleteMsg, SelectExampleModal autocompleteState ) ->
             let
                 ( newAutocompleteState, autoCompleteCmd ) =
@@ -320,6 +337,13 @@ update ({ navKey } as session) msg model =
                 |> selectComponent query autocompleteState
 
         ( OnAutocompleteSelectComponent, _ ) ->
+            createPageUpdate session model
+
+        ( OnAutocompleteSelectConsumption, SelectConsumptionModal autocompleteState ) ->
+            createPageUpdate session model
+                |> selectConsumption query autocompleteState
+
+        ( OnAutocompleteSelectConsumption, _ ) ->
             createPageUpdate session model
 
         ( OnAutocompleteSelectExample, SelectExampleModal autocompleteState ) ->
@@ -364,6 +388,10 @@ update ({ navKey } as session) msg model =
             { model | modal = ComparatorModal }
                 |> createPageUpdate (session |> Session.checkComparedSimulations)
                 |> App.withCmds [ Plausible.send session <| Plausible.ComparatorOpened model.scope ]
+
+        ( RemoveConsumption index, _ ) ->
+            createPageUpdate session model
+                |> updateQuery (query |> Component.removeConsumption index)
 
         ( RemoveComponentItem itemIndex, _ ) ->
             { model
@@ -524,6 +552,13 @@ update ({ navKey } as session) msg model =
                     )
                 |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
 
+        ( UpdateConsumptionAmount _ Nothing, _ ) ->
+            createPageUpdate session model
+
+        ( UpdateConsumptionAmount index (Just amount), _ ) ->
+            createPageUpdate session model
+                |> updateQuery (query |> Component.updateConsumptionAmount index amount)
+
         ( UpdateDurability (Ok durability), _ ) ->
             createPageUpdate session model
                 |> updateQuery (query |> Component.updateDurability durability)
@@ -589,6 +624,24 @@ selectComponent query autocompleteState ({ model } as pageUpdate) =
             pageUpdate |> App.notifyWarning "Aucun composant sélectionné"
 
 
+selectConsumption : Component.Query -> Autocomplete Process -> PageUpdate Model Msg -> PageUpdate Model Msg
+selectConsumption query autocompleteState ({ model } as pageUpdate) =
+    case Autocomplete.selectedValue autocompleteState of
+        Just process ->
+            pageUpdate
+                |> updateQuery
+                    { query
+                        | consumptions =
+                            query.consumptions
+                                ++ [ { amount = Component.Amount 1, processId = process.id } ]
+                    }
+                |> App.apply update (SetModal NoModal)
+                |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ConsumptionAdded model.scope ]
+
+        Nothing ->
+            pageUpdate |> App.notifyWarning "Aucun composant sélectionné"
+
+
 selectProcess :
     Category
     -> TargetItem
@@ -649,21 +702,22 @@ simulatorView session model =
             , ComponentView.editorView
                 { addLabel = "Ajouter un composant"
                 , componentConfig = session.componentConfig
-                , customizable = True
+                , context = ComponentView.ObjectContext
                 , db = session.db
                 , debug = True
                 , detailed = model.detailedComponents
                 , docsUrl = Nothing
                 , explorerRoute = Just (Route.Explore model.scope (Dataset.Components model.scope Nothing))
                 , impact = model.impact
-                , maxItems = Nothing
                 , noOp = NoOp
                 , openSelectComponentModal = AddComponentModal >> SetModal
                 , openSelectProcessModal =
                     \p ti ei s ->
                         SelectProcessModal p ti ei s
                             |> SetModal
+                , openSelectConsumptionModal = SelectConsumptionModal >> SetModal
                 , query = currentQuery
+                , removeConsumption = RemoveConsumption
                 , removeElement = RemoveElement
                 , removeElementTransform = RemoveElementTransform
                 , removeItem = RemoveComponentItem
@@ -672,6 +726,7 @@ simulatorView session model =
                 , setDetailed = SetDetailedComponents
                 , title = "Production des composants"
                 , updateAssemblyCountry = UpdateAssemblyCountry
+                , updateConsumptionAmount = UpdateConsumptionAmount
                 , updateElementAmount = UpdateElementAmount
                 , updateItemCountry = UpdateComponentItemCountry
                 , updateItemName = UpdateComponentItemName
@@ -712,7 +767,7 @@ simulatorView session model =
                 , impactTabsConfig =
                     SwitchImpactsTab
                         |> ImpactTabs.createConfig session model.impact model.activeImpactsTab (always NoOp)
-                        |> ImpactTabs.forObject lifeCycle
+                        |> ImpactTabs.forObject session.db.definitions lifeCycle
                         |> Just
 
                 -- Bookmarks
@@ -849,6 +904,20 @@ view session model =
 
                 NoModal ->
                     text ""
+
+                SelectConsumptionModal autocompleteState ->
+                    AutocompleteSelectorView.view
+                        { autocompleteState = autocompleteState
+                        , closeModal = SetModal NoModal
+                        , footer = []
+                        , noOp = NoOp
+                        , onAutocomplete = OnAutocompleteAddConsumption
+                        , onAutocompleteSelect = OnAutocompleteSelectConsumption
+                        , placeholderText = "tapez ici le nom d'un procédé de consommation pour le rechercher"
+                        , title = "Sélectionnez une consommation"
+                        , toLabel = Process.getDisplayName
+                        , toCategory = .unit >> Process.unitToString
+                        }
 
                 SelectExampleModal autocompleteState ->
                     AutocompleteSelectorView.view
