@@ -164,7 +164,7 @@ decodeMassInGrams =
 decodePackagingAmount : Decoder PackagingAmount
 decodePackagingAmount =
     Decode.float
-        |> Decode.map (\int -> PackagingAmount int)
+        |> Decode.map PackagingAmount
 
 
 decodePackaging : Decoder PackagingQuery
