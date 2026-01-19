@@ -2,7 +2,7 @@
 """Rename density to massPerUnit and make it nullable
 
 Revision ID: af8f29751a13
-Revises: ed08f55f73ad
+Revises: dbe7e0aa7bfe
 Create Date: 2026-01-15 16:33:52.642603
 
 """
@@ -41,7 +41,7 @@ sa.EncryptedText = EncryptedText
 
 # revision identifiers, used by Alembic.
 revision = "af8f29751a13"
-down_revision = "ed08f55f73ad"
+down_revision = "dbe7e0aa7bfe"
 branch_labels = None
 depends_on = None
 
