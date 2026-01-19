@@ -23,7 +23,7 @@
       ],
       "packaging": [
         {
-          "amount": 20,
+          "amount": 0.02,
           "id": "0835ba67-1168-5dab-a2a5-b6508ed48ade"
         }
       ]
@@ -45,7 +45,7 @@
       ],
       "packaging": [
         {
-          "amount": 20,
+          "amount": 0.02,
           "id": "0835ba67-1168-5dab-a2a5-b6508ed48ade"
         }
       ]
@@ -66,7 +66,7 @@
       ],
       "packaging": [
         {
-          "amount": 20,
+          "amount": 0.02,
           "id": "0835ba67-1168-5dab-a2a5-b6508ed48ade"
         }
       ]
@@ -88,7 +88,7 @@
       ],
       "packaging": [
         {
-          "amount": 50,
+          "amount": 0.05,
           "id": "075073d4-3b33-536d-88b4-0be61b73613d"
         }
       ],
@@ -111,7 +111,7 @@
       ],
       "packaging": [
         {
-          "amount": 50,
+          "amount": 0.05,
           "id": "075073d4-3b33-536d-88b4-0be61b73613d"
         }
       ],
@@ -173,7 +173,7 @@
       ],
       "packaging": [
         {
-          "amount": 100,
+          "amount": 0.1,
           "id": "edefa2be-abe4-5bb6-b0fc-0f666050dcc1"
         }
       ],
@@ -250,7 +250,7 @@
       ],
       "packaging": [
         {
-          "amount": 100,
+          "amount": 0.1,
           "id": "edefa2be-abe4-5bb6-b0fc-0f666050dcc1"
         }
       ],
@@ -327,7 +327,7 @@
       ],
       "packaging": [
         {
-          "amount": 100,
+          "amount": 0.1,
           "id": "edefa2be-abe4-5bb6-b0fc-0f666050dcc1"
         }
       ],
@@ -385,7 +385,7 @@
       ],
       "packaging": [
         {
-          "amount": 100,
+          "amount": 0.1,
           "id": "edefa2be-abe4-5bb6-b0fc-0f666050dcc1"
         }
       ],
@@ -451,7 +451,7 @@
       ],
       "packaging": [
         {
-          "amount": 100,
+          "amount": 0.1,
           "id": "edefa2be-abe4-5bb6-b0fc-0f666050dcc1"
         }
       ],
@@ -517,7 +517,7 @@
       ],
       "packaging": [
         {
-          "amount": 100,
+          "amount": 0.1,
           "id": "edefa2be-abe4-5bb6-b0fc-0f666050dcc1"
         }
       ],
@@ -593,7 +593,7 @@
       ],
       "packaging": [
         {
-          "amount": 100,
+          "amount": 0.1,
           "id": "edefa2be-abe4-5bb6-b0fc-0f666050dcc1"
         }
       ],
@@ -620,7 +620,7 @@
       ],
       "packaging": [
         {
-          "amount": 50,
+          "amount": 0.05,
           "id": "075073d4-3b33-536d-88b4-0be61b73613d"
         }
       ],
@@ -643,7 +643,7 @@
       ],
       "packaging": [
         {
-          "amount": 50,
+          "amount": 0.05,
           "id": "84220670-dac3-5820-8d09-eaffde5b2ee2"
         }
       ],
@@ -666,7 +666,7 @@
       ],
       "packaging": [
         {
-          "amount": 50,
+          "amount": 0.05,
           "id": "075073d4-3b33-536d-88b4-0be61b73613d"
         }
       ],
