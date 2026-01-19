@@ -7,7 +7,7 @@ import posthog from "posthog-js/dist/module.no-external";
 const storeKey = "store";
 
 // Remove trailing slash from root because it's used by the Elm API to resolve backend api urls
-const clientUrl = location.origin + location.pathname;
+const clientUrl = (location.origin + location.pathname).replace(/\/+$/g, "");
 
 // using a `let` statement to avoid this error:
 // @parcel/optimizer-swc: 'const' declarations must be initialized
