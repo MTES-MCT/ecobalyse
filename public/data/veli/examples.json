@@ -397,7 +397,8 @@
 		  "country": "RAS"
 		}
 	  ]
-	}
+	},
+    "scope": "veli"
   },
   {
     "category": "",
@@ -509,14 +510,14 @@
 		  "country": "RAS"
 		}
 	  ]
-	}
-	}
+	},
+    "scope": "veli"
   },  
   {
     "category": "",
     "id": "78517d8b-65cb-4205-accc-3bbab581176d",
     "name": "Veli, 45-90km/h max, majorant par défaut",
-    "query": {
+    "query":
 	{
 	  "assemblyCountry": "FR",
 	  "durability": 1,
@@ -575,7 +576,7 @@
     "category": "",
     "id": "1fd65352-4574-4800-853c-5623dd9eb40c",
     "name": "Veli actif, 25km/h max, fabriqué en France",
-    "query": {
+    "query":
 	{
 	  "assemblyCountry": "FR",
 	  "durability": 1,
