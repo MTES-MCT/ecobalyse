@@ -46,21 +46,7 @@ type Id
 {-| A process is an entry from processes.json or processes\_impacts.json.
 -}
 type alias Process =
-    { activityName : ActivityName
-    , categories : List Category
-    , comment : String
-    , massPerUnit : Maybe Float
-    , displayName : Maybe String
-    , elec : Energy
-    , heat : Energy
-    , id : Id
-    , impacts : Impacts
-    , location : Maybe String
-    , scopes : List Scope
-    , source : String
-    , unit : Unit
-    , waste : Split
-    }
+    { activityName : ActivityName, categories : List Category, comment : String, displayName : Maybe String, elec : Energy, heat : Energy, id : Id, impacts : Impacts, location : Maybe String, massPerUnit : Maybe Float, scopes : List Scope, source : String, unit : Unit, waste : Split }
 
 
 type ActivityName
@@ -113,13 +99,13 @@ decode impactsDecoder =
         |> Pipe.required "activityName" (DU.decodeNonEmptyString |> Decode.map activityNameFromString)
         |> Pipe.required "categories" Category.decodeList
         |> Pipe.required "comment" Decode.string
-        |> Pipe.required "massPerUnit" (Decode.maybe Decode.float)
         |> DU.strictOptional "displayName" DU.decodeNonEmptyString
         |> Pipe.required "elecMJ" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "heatMJ" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "id" decodeId
         |> Pipe.required "impacts" impactsDecoder
         |> Pipe.required "location" (Decode.maybe Decode.string)
+        |> Pipe.required "massPerUnit" (Decode.maybe Decode.float)
         |> Pipe.required "scopes" (Decode.list Scope.decode)
         |> Pipe.required "source" Decode.string
         |> Pipe.required "unit" (Decode.string |> Decode.andThen (DE.fromResult << unitFromString))
