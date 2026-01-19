@@ -21,7 +21,7 @@ import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Origin as Origin
 import Data.Food.Preparation as Preparation
-import Data.Food.Query as Query exposing (PackagingAmount(..), Query, defaultPackagingQuery, packagingAmountToFloat)
+import Data.Food.Query as Query exposing (PackagingAmount(..), Query)
 import Data.Food.Recipe as Recipe exposing (Recipe)
 import Data.Food.Retail as Retail
 import Data.Food.WellKnown exposing (WellKnown)
@@ -30,7 +30,7 @@ import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Plausible as Plausible
-import Data.Process as Process exposing (Process, getDisplayName, getTechnicalName)
+import Data.Process as Process exposing (Process)
 import Data.Process.Category as ProcessCategory
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
@@ -223,7 +223,7 @@ update ({ db, queries } as session) msg model =
         AddPackaging packagingProcess ->
             createPageUpdate session model
                 |> App.apply update (SetModal NoModal)
-                |> updateQuery (query |> Query.addPackaging (defaultPackagingQuery packagingProcess))
+                |> updateQuery (query |> Query.addPackaging (Query.defaultPackagingQuery packagingProcess))
 
         AddPreparation ->
             let
@@ -546,7 +546,7 @@ updateExistingPackaging query model session oldPackaging newPackagingProcess =
     model
         |> createPageUpdate session
         |> App.apply update (SetModal NoModal)
-        |> updateQuery (Query.updatePackaging oldPackaging.id (defaultPackagingQuery newPackagingProcess) query)
+        |> updateQuery (Query.updatePackaging oldPackaging.id (Query.defaultPackagingQuery newPackagingProcess) query)
 
 
 selectPackaging : Autocomplete Process -> PageUpdate Model Msg -> PageUpdate Model Msg
@@ -751,7 +751,7 @@ updatePackagingFormView { autocompleteState, packaging, impact, updateEvent, del
                             [ class "form-control text-end incdec-arrows-left"
                             , type_ "number"
                             , step "1"
-                            , value (String.fromFloat <| packagingAmountToFloat packaging.amount)
+                            , value (String.fromFloat <| Query.packagingAmountToFloat packaging.amount)
                             , title "Nombre d’éléments"
                             , onInput <|
                                 \string ->
@@ -771,7 +771,7 @@ updatePackagingFormView { autocompleteState, packaging, impact, updateEvent, del
 
                 _ ->
                     MassInput.view
-                        { mass = Mass.kilograms <| packagingAmountToFloat packaging.amount
+                        { mass = Mass.kilograms <| Query.packagingAmountToFloat packaging.amount
                         , onChange =
                             \maybeMass ->
                                 case maybeMass of
@@ -1145,7 +1145,7 @@ packagingListView db selectedImpact recipe results =
                     (recipe.packaging
                         |> List.map (.process >> .id)
                     )
-                |> List.sortBy getDisplayName
+                |> List.sortBy Process.getDisplayName
 
         autocompleteState =
             AutocompleteSelector.init Process.getDisplayName availablePackagings
@@ -1545,12 +1545,12 @@ processSelectorAutocompleteView process selectElement =
         [ button
             [ class "form-select ElementSelector text-start"
             , id <| "selector-" ++ Process.idToString process.id
-            , title <| getTechnicalName process
+            , title <| Process.getTechnicalName process
             , onClick selectElement
 
             -- , onInput (Process.idFromString >> Result.map event >> Result.withDefault NoOp)
             ]
-            [ span [] [ text <| getDisplayName process ]
+            [ span [] [ text <| Process.getDisplayName process ]
             ]
         , button
             [ type_ "button"
@@ -1768,11 +1768,9 @@ view session model =
                         { size = ModalView.Large
                         , close = SetModal NoModal
                         , noOp = NoOp
-                        , title = getDisplayName process
+                        , title = Process.getDisplayName process
                         , subTitle = Nothing
                         , formAction = Nothing
-
-                        -- @FIXME: implement content
                         , content = [ Table.viewDetails Scope.Food (Processes.table session) process ]
                         , footer = []
                         }

@@ -507,7 +507,7 @@ getPackagingMass recipe =
                         Mass.kilograms 0
 
                     _ ->
-                        Mass.grams <| packagingAmountToFloat amount
+                        Mass.kilograms <| packagingAmountToFloat amount
             )
         |> Quantity.sum
 
