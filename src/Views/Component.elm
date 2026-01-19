@@ -903,7 +903,7 @@ useStageView ({ db, impact, lifeCycle, query, removeConsumption, updateConsumpti
                                                 |> title
                                             ]
                                             [ text <| Process.getDisplayName process ]
-                                        , td [ class "align-middle text-nowrap" ]
+                                        , td [ class "text-end text-nowrap" ]
                                             [ consumptionImpacts
                                                 |> LE.getAt index
                                                 |> Maybe.withDefault Impact.empty
