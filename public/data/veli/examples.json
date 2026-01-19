@@ -2,8 +2,9 @@
   {
     "category": "",
     "id": "cefc2585-7125-4610-aadc-69970a3d67d1",
-    "name": "Vélo à assistance électrique",
+    "name": "Vélo à assistance électrique, majorant par défaut",
     "query": {
+	  "durability": 1,
       "components": [
         {
           "id": "49a16258-22eb-4700-88c4-5e3d1af071e7",
@@ -53,15 +54,254 @@
           "id": "892ba9b4-e6d4-408c-87b9-5eef455f5b4f",
           "quantity": 1
         }
-      ]
+      ],
+	  "consumptions": [
+		{
+		  "amount": 150,
+		  "processId": "931c9bb0-619a-5f75-b41b-ab8061e2ad92"
+		}
+	  ]
+    },
+    "scope": "veli"
+  },
+  {
+    "category": "",
+    "id": "3d248bde-1c32-4a63-9dfe-8fb38acd7317",
+    "name": "Vélo à assistance électrique, assemblé en France",
+    "query": {
+	  "assemblyCountry": "FR",
+	  "durability": 1,
+      "components": [
+		{
+		  "id": "49a16258-22eb-4700-88c4-5e3d1af071e7",
+		  "quantity": 1,
+		  "country": "CN"
+		},
+		{
+		  "id": "990f4263-3b6c-48ce-92e8-566584edf5b2",
+		  "quantity": 1,
+		  "country": "CN"
+		},
+		{
+		  "id": "20b35f34-166f-4da7-abc4-54d2a64de367",
+		  "quantity": 1,
+		  "country": "DE"
+		},
+		{
+		  "id": "1bd0f5c3-c368-4a2f-b404-2214a6c9b677",
+		  "quantity": 1,
+		  "country": "CN"
+		},
+		{
+		  "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc",
+		  "quantity": 2,
+		  "country": "CN"
+		},
+		{
+		  "id": "a94918a7-8915-4841-9cdc-deec0536c724",
+		  "quantity": 2,
+		  "country": "CN"
+		},
+		{
+		  "id": "6ab7bcdf-7648-43b5-beb6-b4fa11c2d5d3",
+		  "quantity": 1,
+		  "country": "CN"
+		},
+		{
+		  "id": "b4d552ed-6a9b-4b29-b293-50349c62e1c0",
+		  "quantity": 1,
+		  "country": "RAS"
+		},
+		{
+		  "id": "c4a8eb8f-b4c6-42b8-bd04-0f68e9083424",
+		  "quantity": 1,
+		  "country": "CN"
+		},
+		{
+		  "id": "4a273102-9973-4352-8683-2503aea7bfbb",
+		  "quantity": 1,
+		  "country": "RAS"
+		},
+		{
+		  "id": "29a80ed1-26c9-419e-9f46-9c9b77d06458",
+		  "quantity": 1,
+		  "country": "RAS"
+		},
+		{
+		  "id": "892ba9b4-e6d4-408c-87b9-5eef455f5b4f",
+		  "quantity": 1,
+		  "country": "FR"
+		}
+	  ],
+	  "consumptions": [
+		{
+		  "amount": 150,
+		  "processId": "931c9bb0-619a-5f75-b41b-ab8061e2ad92"
+		}
+	  ]
+    },
+    "scope": "veli"
+  },
+  {
+    "category": "",
+    "id": "45c8f837-45ea-48d8-9de7-e9e58ea81acd",
+    "name": "Vélo à assistance électrique, fabriqué en France",
+    "query": {
+	  "assemblyCountry": "FR",
+	  "durability": 1,
+      "components": [
+	   {
+		  "id": "49a16258-22eb-4700-88c4-5e3d1af071e7",
+		  "quantity": 1,
+		  "country": "CN",
+		  "custom": {
+			"elements": [
+			  {
+				"amount": 3,
+				"material": "5d55d2e5-490c-5f02-ac5d-2f66e14f8ec7",
+				"transforms": [
+				  "0b4f1ce4-969e-5a04-9c2b-0a331b3f6636",
+				  "88f4f125-db8a-5560-b757-a7d4b3d883de"
+				]
+			  }
+			]
+		  }
+		},
+		{
+		  "id": "990f4263-3b6c-48ce-92e8-566584edf5b2",
+		  "quantity": 1,
+		  "country": "REE"
+		},
+		{
+		  "id": "20b35f34-166f-4da7-abc4-54d2a64de367",
+		  "quantity": 1,
+		  "country": "DE"
+		},
+		{
+		  "id": "1bd0f5c3-c368-4a2f-b404-2214a6c9b677",
+		  "quantity": 1,
+		  "country": "FR",
+		  "custom": {
+			"elements": [
+			  {
+				"amount": 0.5,
+				"material": "26635537-8b40-51d3-bbc9-a3987a0f4835",
+				"transforms": [
+				  "0b4f1ce4-969e-5a04-9c2b-0a331b3f6636",
+				  "88f4f125-db8a-5560-b757-a7d4b3d883de"
+				]
+			  }
+			]
+		  }
+		},
+		{
+		  "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc",
+		  "quantity": 2,
+		  "country": "RAS"
+		},
+		{
+		  "id": "a94918a7-8915-4841-9cdc-deec0536c724",
+		  "quantity": 2,
+		  "country": "FR",
+		  "custom": {
+			"elements": [
+			  {
+				"amount": 0.6,
+				"material": "5d55d2e5-490c-5f02-ac5d-2f66e14f8ec7",
+				"transforms": [
+				  "0b4f1ce4-969e-5a04-9c2b-0a331b3f6636",
+				  "88f4f125-db8a-5560-b757-a7d4b3d883de"
+				]
+			  },
+			  {
+				"amount": 0.5,
+				"material": "5d55d2e5-490c-5f02-ac5d-2f66e14f8ec7",
+				"transforms": [
+				  "0b4f1ce4-969e-5a04-9c2b-0a331b3f6636",
+				  "8801c892-c156-5c72-a4ee-fc47f8ad7822"
+				]
+			  }
+			]
+		  }
+		},
+		{
+		  "id": "6ab7bcdf-7648-43b5-beb6-b4fa11c2d5d3",
+		  "quantity": 1,
+		  "country": "RAS"
+		},
+		{
+		  "id": "b4d552ed-6a9b-4b29-b293-50349c62e1c0",
+		  "quantity": 1,
+		  "country": "RAS"
+		},
+		{
+		  "id": "c4a8eb8f-b4c6-42b8-bd04-0f68e9083424",
+		  "quantity": 1,
+		  "country": "CN"
+		},
+		{
+		  "id": "4a273102-9973-4352-8683-2503aea7bfbb",
+		  "quantity": 1,
+		  "country": "RAS"
+		},
+		{
+		  "id": "29a80ed1-26c9-419e-9f46-9c9b77d06458",
+		  "quantity": 1,
+		  "country": "REO",
+		  "custom": {
+			"elements": [
+			  {
+				"amount": 0.3,
+				"material": "26635537-8b40-51d3-bbc9-a3987a0f4835",
+				"transforms": [
+				  "0b4f1ce4-969e-5a04-9c2b-0a331b3f6636",
+				  "88f4f125-db8a-5560-b757-a7d4b3d883de"
+				]
+			  },
+			  {
+				"amount": 0.05,
+				"material": "a96133e2-2956-59e8-85c4-702b1c2a248a",
+				"transforms": [
+				  "111539de-deea-588a-9581-6f6ceaa2dfa9"
+				]
+			  }
+			]
+		  }
+		},
+		{
+		  "id": "892ba9b4-e6d4-408c-87b9-5eef455f5b4f",
+		  "quantity": 1,
+		  "country": "FR",
+		  "custom": {
+			"elements": [
+			  {
+				"amount": 0.8,
+				"material": "5d55d2e5-490c-5f02-ac5d-2f66e14f8ec7",
+				"transforms": [
+				  "0b4f1ce4-969e-5a04-9c2b-0a331b3f6636",
+				  "88f4f125-db8a-5560-b757-a7d4b3d883de"
+				]
+			  }
+			]
+		  }
+		}
+	  ],
+	  "consumptions": [
+		{
+		  "amount": 150,
+		  "processId": "931c9bb0-619a-5f75-b41b-ab8061e2ad92"
+		}
+	  ]
     },
     "scope": "veli"
   },
   {
     "category": "",
     "id": "611c25c4-46a8-4f07-acff-b0ce9c99b86c",
-    "name": "Vélo de ville, cadre aluminium",
+    "name": "Vélo de ville, cadre aluminium, majorant par défaut",
     "query": {
+	  "assemblyCountry": "FR",
+	  "durability": 1,
       "components": [
         {
           "id": "1bd0f5c3-c368-4a2f-b404-2214a6c9b677",
@@ -105,85 +345,288 @@
   },
   {
     "category": "",
-    "id": "78517d8b-65cb-4205-accc-3bbab581176d",
-    "name": "Veli, 45-90km/h max",
+    "id": "b616ba6d-26bf-4624-8835-f70f35cdbd17",
+    "name": "Vélo de ville, cadre aluminium, assemblé en France",
     "query": {
-      "components": [
-        {
-          "id": "189674e0-737e-4d6d-aab0-3fdfc19839ed",
-          "quantity": 1
-        },
-        {
-          "id": "cdc7add7-06ac-4861-9f28-efc005598e4c",
-          "quantity": 1
-        },
-        {
-          "id": "edca4c52-b34a-4906-b2e0-4f726bfcc8f7",
-          "quantity": 1
-        },
-        {
-          "id": "d4583813-5f80-47e0-b028-df438f59cfe2",
-          "quantity": 4
-        },
-        {
-          "id": "6b3d7f30-e87b-426c-93ed-3a1179238583",
-          "quantity": 4
-        },
-        {
-          "id": "d3ef64c0-3deb-4ef2-838d-015d8ece019e",
-          "quantity": 1
-        },
-        {
-          "id": "1d2de15a-53d9-465d-a2cf-fa2c5f68f5e9",
-          "quantity": 2
-        },
-        {
-          "id": "71086438-51a9-4980-ac3b-f24d5baa4cd5",
-          "quantity": 1
-        }
-      ]
+	  "assemblyCountry": "FR",
+	  "durability": 1,
+	  "components": [
+		{
+		  "id": "1bd0f5c3-c368-4a2f-b404-2214a6c9b677",
+		  "quantity": 1,
+		  "country": "CN"
+		},
+		{
+		  "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc",
+		  "quantity": 2,
+		  "country": "CN"
+		},
+		{
+		  "id": "a94918a7-8915-4841-9cdc-deec0536c724",
+		  "quantity": 2,
+		  "country": "CN"
+		},
+		{
+		  "id": "6ab7bcdf-7648-43b5-beb6-b4fa11c2d5d3",
+		  "quantity": 1,
+		  "country": "CN"
+		},
+		{
+		  "id": "c4a8eb8f-b4c6-42b8-bd04-0f68e9083424",
+		  "quantity": 1,
+		  "country": "CN"
+		},
+		{
+		  "id": "892ba9b4-e6d4-408c-87b9-5eef455f5b4f",
+		  "quantity": 1,
+		  "country": "CN"
+		},
+		{
+		  "id": "658611b7-4b76-4f1d-aed7-55ec11f299e3",
+		  "quantity": 1,
+		  "country": "RAS"
+		},
+		{
+		  "id": "347629ff-e7e9-4822-a948-d8c7757b2a9a",
+		  "quantity": 1,
+		  "country": "RAS"
+		},
+		{
+		  "id": "d2228b50-8187-4940-92a5-6dffe2a2ba85",
+		  "quantity": 1,
+		  "country": "RAS"
+		}
+	  ]
+	}
+  },
+  {
+    "category": "",
+    "id": "e5fc4df5-e0be-49a0-a661-10f6e15773f1",
+    "name": "Vélo de ville, cadre aluminium, fabriqué en France",
+    "query": {
+	  "assemblyCountry": "FR",
+	  "durability": 1,
+	  "components": [
+		{
+		  "id": "1bd0f5c3-c368-4a2f-b404-2214a6c9b677",
+		  "quantity": 1,
+		  "country": "FR",
+		  "custom": {
+			"elements": [
+			  {
+				"amount": 0.5,
+				"material": "26635537-8b40-51d3-bbc9-a3987a0f4835",
+				"transforms": [
+				  "0b4f1ce4-969e-5a04-9c2b-0a331b3f6636",
+				  "88f4f125-db8a-5560-b757-a7d4b3d883de"
+				]
+			  }
+			]
+		  }
+		},
+		{
+		  "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc",
+		  "quantity": 2,
+		  "country": "RAS"
+		},
+		{
+		  "id": "a94918a7-8915-4841-9cdc-deec0536c724",
+		  "quantity": 2,
+		  "country": "FR",
+		  "custom": {
+			"elements": [
+			  {
+				"amount": 0.6,
+				"material": "5d55d2e5-490c-5f02-ac5d-2f66e14f8ec7",
+				"transforms": [
+				  "0b4f1ce4-969e-5a04-9c2b-0a331b3f6636",
+				  "88f4f125-db8a-5560-b757-a7d4b3d883de"
+				]
+			  },
+			  {
+				"amount": 0.5,
+				"material": "5d55d2e5-490c-5f02-ac5d-2f66e14f8ec7",
+				"transforms": [
+				  "0b4f1ce4-969e-5a04-9c2b-0a331b3f6636",
+				  "8801c892-c156-5c72-a4ee-fc47f8ad7822"
+				]
+			  }
+			]
+		  }
+		},
+		{
+		  "id": "6ab7bcdf-7648-43b5-beb6-b4fa11c2d5d3",
+		  "quantity": 1,
+		  "country": "RAS"
+		},
+		{
+		  "id": "c4a8eb8f-b4c6-42b8-bd04-0f68e9083424",
+		  "quantity": 1,
+		  "country": "RAS"
+		},
+		{
+		  "id": "892ba9b4-e6d4-408c-87b9-5eef455f5b4f",
+		  "quantity": 1,
+		  "country": "FR",
+		  "custom": {
+			"elements": [
+			  {
+				"amount": 0.8,
+				"material": "5d55d2e5-490c-5f02-ac5d-2f66e14f8ec7",
+				"transforms": [
+				  "0b4f1ce4-969e-5a04-9c2b-0a331b3f6636",
+				  "88f4f125-db8a-5560-b757-a7d4b3d883de"
+				]
+			  }
+			]
+		  }
+		},
+	    {
+		  "id": "49a16258-22eb-4700-88c4-5e3d1af071e7",
+		  "quantity": 1,
+		  "country": "CN",
+		  "custom": {
+			"elements": [
+			  {
+				"amount": 2,
+				"material": "5d55d2e5-490c-5f02-ac5d-2f66e14f8ec7",
+				"transforms": [
+				  "0b4f1ce4-969e-5a04-9c2b-0a331b3f6636",
+				  "88f4f125-db8a-5560-b757-a7d4b3d883de"
+				]
+			  }
+			]
+		  }
+		},
+		{
+		  "id": "347629ff-e7e9-4822-a948-d8c7757b2a9a",
+		  "quantity": 1,
+		  "country": "RAS"
+		},
+		{
+		  "id": "d2228b50-8187-4940-92a5-6dffe2a2ba85",
+		  "quantity": 1,
+		  "country": "RAS"
+		}
+	  ]
+	}
+	}
+  },  
+  {
+    "category": "",
+    "id": "78517d8b-65cb-4205-accc-3bbab581176d",
+    "name": "Veli, 45-90km/h max, majorant par défaut",
+    "query": {
+	{
+	  "assemblyCountry": "FR",
+	  "durability": 1,
+	  "components": [
+		{
+		  "id": "189674e0-737e-4d6d-aab0-3fdfc19839ed",
+		  "quantity": 1,
+		  "country": "FR"
+		},
+		{
+		  "id": "cdc7add7-06ac-4861-9f28-efc005598e4c",
+		  "quantity": 1,
+		  "country": "CN"
+		},
+		{
+		  "id": "edca4c52-b34a-4906-b2e0-4f726bfcc8f7",
+		  "quantity": 1,
+		  "country": "DE"
+		},
+		{
+		  "id": "d4583813-5f80-47e0-b028-df438f59cfe2",
+		  "quantity": 4,
+		  "country": "RAS"
+		},
+		{
+		  "id": "6b3d7f30-e87b-426c-93ed-3a1179238583",
+		  "quantity": 4,
+		  "country": "RAS"
+		},
+		{
+		  "id": "d3ef64c0-3deb-4ef2-838d-015d8ece019e",
+		  "quantity": 1,
+		  "country": "FR"
+		},
+		{
+		  "id": "1d2de15a-53d9-465d-a2cf-fa2c5f68f5e9",
+		  "quantity": 2,
+		  "country": "FR"
+		},
+		{
+		  "id": "71086438-51a9-4980-ac3b-f24d5baa4cd5",
+		  "quantity": 1,
+		  "country": "RAS"
+		}
+	  ],
+	  "consumptions": [
+		{
+		  "amount": 10000,
+		  "processId": "931c9bb0-619a-5f75-b41b-ab8061e2ad92"
+		}
+	  ]
     },
     "scope": "veli"
   },
   {
     "category": "",
     "id": "1fd65352-4574-4800-853c-5623dd9eb40c",
-    "name": "Veli actif, 25km/h max",
+    "name": "Veli actif, 25km/h max, fabriqué en France",
     "query": {
-      "components": [
-        {
-          "id": "f50ff677-3501-49cb-b69d-e826d4114681",
-          "quantity": 1
-        },
-        {
-          "id": "7cfe659e-3764-4a8c-a25b-201396cbc09f",
-          "quantity": 1
-        },
-        {
-          "id": "059f0f35-099d-4305-8a60-1666222dadb2",
-          "quantity": 1
-        },
-        {
-          "id": "9d294fb5-b42a-4a9f-adc6-ff38f6d27e65",
-          "quantity": 4
-        },
-        {
-          "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc",
-          "quantity": 4
-        },
-        {
-          "id": "ae9c83de-71bf-4f21-9030-afbfd4ad3b3a",
-          "quantity": 2
-        },
-        {
-          "id": "f134b3fd-0439-4b25-a06e-f1b8fd6e201c",
-          "quantity": 1
-        },
-        {
-          "id": "6cb4338a-4663-4325-90b6-f7279a498c9b",
-          "quantity": 1
-        }
-      ]
+	{
+	  "assemblyCountry": "FR",
+	  "durability": 1,
+	  "components": [
+		{
+		  "id": "f50ff677-3501-49cb-b69d-e826d4114681",
+		  "quantity": 1,
+		  "country": "FR"
+		},
+		{
+		  "id": "7cfe659e-3764-4a8c-a25b-201396cbc09f",
+		  "quantity": 1,
+		  "country": "CN"
+		},
+		{
+		  "id": "059f0f35-099d-4305-8a60-1666222dadb2",
+		  "quantity": 1,
+		  "country": "DE"
+		},
+		{
+		  "id": "9d294fb5-b42a-4a9f-adc6-ff38f6d27e65",
+		  "quantity": 4,
+		  "country": "RAS"
+		},
+		{
+		  "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc",
+		  "quantity": 4,
+		  "country": "RAS"
+		},
+		{
+		  "id": "ae9c83de-71bf-4f21-9030-afbfd4ad3b3a",
+		  "quantity": 2,
+		  "country": "FR"
+		},
+		{
+		  "id": "f134b3fd-0439-4b25-a06e-f1b8fd6e201c",
+		  "quantity": 1,
+		  "country": "RAS"
+		},
+		{
+		  "id": "6cb4338a-4663-4325-90b6-f7279a498c9b",
+		  "quantity": 1,
+		  "country": "FR"
+		}
+	  ],
+	  "consumptions": [
+		{
+		  "amount": 2000,
+		  "processId": "931c9bb0-619a-5f75-b41b-ab8061e2ad92"
+		}
+	  ]
     },
     "scope": "veli"
   }
