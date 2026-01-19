@@ -89,7 +89,7 @@
     "parcel": "^2.16.3",
     "prettier": "^3.7.4",
     "prettier-plugin-sort-json": "^4.1.1",
-    "supertest": "^7.1.4"
+    "supertest": "^7.2.2"
   },
   "cacheDirectories": [
     "elm-stuff",
