@@ -669,9 +669,9 @@ ecoinventTermsView =
          et accepte que les informations recueillies sur ce formulaire soient enregistrées dans un fichier
          informatisé par l’ADEME pour\u{202F}:
 
-           - Authentification des utilisateurs sur la plateforme web ou via l’API afin d’accéder aux impacts détaillés (ex: changement climatique),
+           - l’authentification des utilisateurs sur la plateforme web ou via l’API afin d’accéder aux impacts détaillés (ex: changement climatique),
 
-           - délivrance de licences nominatives par EcoInvent aux utilisateurs des données EcoInvent via Ecobalyse (les données sont transmises si l’utilisateur consent au moins une fois via son compte Ecobalyse dans l’année).
+           - la délivrance de licences nominatives par EcoInvent aux utilisateurs des données EcoInvent via Ecobalyse (les données sont transmises si l’utilisateur consent au moins une fois via son compte Ecobalyse dans l’année).
 
          Pour plus d’informations veuillez consulter la [politique de confidentialité]({url_privacy})."""
         |> String.replace "{url_ecoinvent}" Env.ecoinventTermsUrl
