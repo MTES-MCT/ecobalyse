@@ -198,7 +198,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.006915,
     "scopes": [
       "food"
     ],
@@ -281,7 +281,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.27,
     "scopes": [
       "food"
     ],
@@ -488,7 +488,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.047,
     "scopes": [
       "food"
     ],
@@ -664,47 +664,6 @@
     "waste": 0
   },
   {
-    "activityName": "Polystyrene, expandable {RER}| production | Cut-off, S - Copied from Ecoinvent U",
-    "categories": [
-      "packaging"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024.\noriginal ecoinvent name: Polystyrene, expandable {RER}| polystyrene production, expandable | Cut-off, S\n\nData are derived from the Eco-profiles of the European plastics industry (PlasticsEurope). Not included are the values reported for: recyclable wastes, amount of air / N2 / O2 consumed, unspecified metal emission to air and to water, mercaptan emission to air, unspecified CFC/HCFC emission to air, dioxin to water. The amount of \"sulphur (bonded)\" is assumed to be included into the amount of raw oil.\n\n[This dataset was already contained in the ecoinvent database version 2. It was not individually updated during the transfer to ecoinvent version 3. Life Cycle Impact Assessment results may still have changed, as they are affected by changes in the supply chain, i.e. in other datasets. This dataset was generated following the ecoinvent quality guidelines for version 2. It may have been subject to central changes described in the ecoinvent version 3 change report (http://www.ecoinvent.org/database/ecoinvent-version-3/reports-of-changes/), and the results of the central updates were reviewed extensively. The changes added e.g. consistent water flows and other information throughout the database. The documentation of this dataset can be found in the ecoinvent reports of version 2, which are still available via the ecoinvent website. The change report linked above covers all central changes that were made during the conversion process.]\n\nProduction volume: 1160999936 kg\nIncluded activities start: \nIncluded activities end: Aggregated data for all processes from raw material extraction until delivery at plant\nEnergy values: Undefined\nGeography: The inventory is modelled for Europe\nTechnology level: Current\nTechnology: production by suspension polymerization out of benzene and ethylene\nStart date: 01/01/2001\nEnd date: 31/12/2022\nIs data valid for entire period: True\nTime period: time to which data refer\nMacro-economic scenario name: Business-as-Usual\n\nVersion: 9.3.1.0\nCreated: 7/28/2010 6:27:09 PM\nLast edited: 12/20/2022 4:10:33 PM\nSource: b315ed76-75fd-51fc-9d08-8561234b2322_5c21b18e-e32d-4c76-8d16-2238632163c2.spold\nUUID: b315ed76-75fd-51fc-9d08-8561234b2322",
-    "displayName": "Polystyrène",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "075073d4-3b33-536d-88b4-0be61b73613d",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 245.75,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "location": "RER",
-    "massPerUnit": null,
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg",
-    "waste": 0
-  },
-  {
     "activityName": "Hazelnut, unshelled, at plant {TR} U",
     "categories": [
       "ingredient"
@@ -737,47 +696,6 @@
       "wtu": 0
     },
     "location": "TR",
-    "massPerUnit": null,
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg",
-    "waste": 0
-  },
-  {
-    "activityName": "Kraft paper {RER}| kraft paper production | Cut-off, S - Copied from Ecoinvent U",
-    "categories": [
-      "packaging"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024.\noriginal ecoinvent name: Kraft paper {RER}| kraft paper production | Cut-off, S\n\nKraft paper is produced from chemical pulp produced in the kraft process. Kraft paper can be used for a number of flexible packaging applications such as paper sacks, wrapping papers and paper bags. Within kraft paper, Sack kraft paper is a porous kraft paper with high elasticity and high tear resistance, designed for packaging products with high demands for strength and durability. The data was collected specifically for Sack kraft paper but are representative for all kraft paper production. The dataset represents a mix of white (bleached) and brown (unbleached) paper.\n\nData in this model is from a study by CEPI Eurokraft in 2020.\n\nThe dataset represents average data calculated from several European Sack kraft paper mills and the production year 2018. Although the data was collected specifically for sack kraft paper production, discussions with the technical experts at the mills reveal that the data are applicable for other flexible kraft packaging papers\n\nThe majority of the mills in the study are integrated mills, but some \"semi-integrated mills\" were included, Semi-integrated mills are either an integrated mill that has been split into two companies (pulp production and paper production) where the pulp producer has not participated in the study. Or a production site where one type of paper is made from virgin pulp and the other type of paper is made from market pulp.\n\nThe energy sources at an integrated pulp and paper mills consists of external and internal fuels plus electricity from the grid and internally produced electricity. External fuels can be fossil or biobased. The internal fuels mainly consist of the black liquor and bark from the wood input for pulp production. Black liquor is the by-product of chemical pulping. It contains almost all of the inorganic cooking chemicals along with the lignin and other organic matter separated from the wood during pulping in the digester. The initial concentration of weak black liquor is about 15% dry solids in water. It is concentrated to firing conditions between 65% and 85% dry solids concentration. It is then burned in the \"Recovery boiler\". There are two purposes of burning the black liquor, one is to recover the inorganic cooking chemicals, the other is to make use of the energy in the organic portion of the black liquor. Source: Adams. T.N (editor) et al, \"Kraft recovery boilers\", 1997\n\nThe following air emissions were reported in the study: CO2 (fossil and biogenic), CH4 (fossil), N2O (fossil+ biogenic), CO (fossil+ biogenic), SO2, H2S, TRS, Total S, NOx, NH3, NMVOC, particles (all sizes), Pb and Hg. The listed air emissions are the most important emissions for the kraft paper production and cover all emissions at the mill, both from the cooking and recovering processes and combustion of fuels at different points at the plant.\n\nFor a more complete air emission profile for Sack kraft paper production, however, additional air emissions (beyond the ones listed above) were added for the combustion of the external fuels and internal using LCI datasets for combustion of different fuels as proxy. The air emissions were calculated based on the mix of the external and internal fuels in the study and more information about the fuel mix and the proxy are provided under \"Extrapolations\". No proxy was available for the combustion of black liquor, biological fibre slush, and tall oil. Emissions from these internal energy generation processes are therefore only reflected in the key emission factors provided by the industry.\n\nProduction volume: 1990144000 kg\nIncluded activities start: The process starts with the transports of wood and pulp to paper mill.\nIncluded activities end: The activity includes transports to paper mill, wood handling, chemical pulping, paper production, energy production on-site and internal waste water treatment.\nThe activity ends with the paper leaving the factory gate.\nEnergy values: Undefined\nGeography: The inventory is modelled for Europe\nTechnology level: Current\nTechnology: Average of present used technology in 2018\nStart date: 01/01/2018\nEnd date: 31/12/2022\nIs data valid for entire period: True\nTime period: Statistics from CEPI Eurokraft for Sack production in Europe 2018. Production volume valid for 2018.\nMacro-economic scenario name: Business-as-Usual\n\nVersion: 3.3.0.0\nCreated: 5/31/2022 8:55:02 AM\nLast edited: 9/8/2022 1:29:25 PM\nSource: beebed7d-415c-5e2c-85ee-4cfe37d5a8f7_8ef02d68-0b80-4c12-81ee-3dd678d2915b.spold\nUUID: beebed7d-415c-5e2c-85ee-4cfe37d5a8f7",
-    "displayName": "Papier",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "0835ba67-1168-5dab-a2a5-b6508ed48ade",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 79.723,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "location": "RER",
     "massPerUnit": null,
     "scopes": [
       "food"
@@ -820,7 +738,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.019513,
     "scopes": [
       "food"
     ],
@@ -1236,7 +1154,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.017,
     "scopes": [
       "food"
     ],
@@ -1319,7 +1237,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.02534,
     "scopes": [
       "food"
     ],
@@ -2361,7 +2279,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.035,
     "scopes": [
       "food"
     ],
@@ -2486,7 +2404,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.21482,
     "scopes": [
       "food"
     ],
@@ -2619,47 +2537,6 @@
       "object"
     ],
     "source": "Custom",
-    "unit": "kg",
-    "waste": 0
-  },
-  {
-    "activityName": "Polyethylene, high density, granulate {RER}| production | Cut-off, S - Copied from Ecoinvent U",
-    "categories": [
-      "packaging"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024.\noriginal ecoinvent name: Polyethylene, high density, granulate {RER}| polyethylene production, high density, granulate | Cut-off, S\n\nThe dataset represents the production mix of commercial HDPE production technologies: slurry suspension polymerisation, gas phase polymerisation and solution polymerisation using Ziegler-Natta, Philips, and Metallocene catalysts.\n\nHDPE is mainly produced with the slurry suspension, solution or the gas phase process, which belong to the low-pressure technologies. As catalysts, usually Ziegler-Natta or Phillips-type catalysts are applied, but metallocene-type catalysts can also be used. Due to this wide range of choice of process technology, reactor type, or catalyst type, a typical process for HDPE production cannot be defined.\n\nThe suspension polymerisation can be described as precipitation process. The formation of the polymer takes place in a hydrocarbon diluent and under conditions, where the monomer is soluble in the solution. The precipitated polymer, however, is insoluble and forms a fine suspension. The polymer is then separated by centrifugation. The suspension process can be combined with a stirred tank reactor or a loop reactor. Different diluents can be chosen, like C5 to C9 hydrocarbons, hexane, or isobutane.\n\nFor solution polymerisation, the hydrocarbon solvent (C9-C6) is kept at high temperature (>130 °C) to ensure that the formed polymer stays dissolved after production. In a subsequent step, the solvent is evaporated and recycled, and the liquid polymer can directly be sent to the extruder. \n\nIn the gas phase processes a fluidised bed of polymer particles and catalyst is maintained by a steady gaseous monomer feed from the bottom of the reactor. Polymer powder is continuously extracted at the bottom of the fluidised bed reactor. Unreacted monomer gas from the top is compressed and recycled to the reactor inlet. Catalyst, and co-catalyst if necessary, is also continuously fed to the reactor. Typically Ziegler-Natta catalysts are used for gas phase polymerisation where the catalyst is supported on inert silica particles so that the reaction takes place at the catalyst surface.\n\nAfter the reaction phase, most of the residual (unreacted) monomers (which are mostly present as gases) are separated from the polymer and are either recycled back into the process or flared of. Depending on the purity of the separated monomers, the gas can either be fed directly back into the production line or the monomers are returned to a purification unit. To limit the accumulation of impurities in the process, usually a small side-stream (purge) of the unreacted gas is sent back to the cracker or to a dedicated purification unit. After polymerisation, the polymer is usually fed di-rectly into a hot melt extruder, where additives can be added to the melted polymer if required. The polymer is then pelletised in an underwater pelletiser. The pelletised product is dried, blended where required and degassed.\n\nProduction volume: 6499999744 kg\nIncluded activities start: Acitivity starts with monomers and comonomers entering the polymerisation plant. Energy supply is included in terms of heat production inside the battery limits of the plant. Steam and electricity supply is outside the activity.\nIncluded activities end: Activity ends with polymer granulate leaving the factory.\nEnergy values: Undefined\nGeography: The inventory is modelled for Europe\nTechnology level: Current\nTechnology: Coverage of production capacity in Europe: 68%\nStart date: 01/01/2011\nEnd date: 31/12/2022\nIs data valid for entire period: True\nTime period: Data was collected for the year 2011, processed in 2013 and published in 2014\nMacro-economic scenario name: Business-as-Usual\n\nVersion: 7.3.0.0\nCreated: 9/19/2018 9:57:25 AM\nLast edited: 1/10/2019 9:25:51 AM\nSource: bafab431-35a0-5862-86ef-759c4b622f00_b685192a-e033-421e-9074-8fe7cb176046.spold\nUUID: bafab431-35a0-5862-86ef-759c4b622f00",
-    "displayName": "Polyéthylène haute densité",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "174ad4a0-c386-5a34-abba-c7cc1839701b",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 170.98,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "location": "RER",
-    "massPerUnit": null,
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
   },
@@ -2987,7 +2864,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.02234,
     "scopes": [
       "food"
     ],
@@ -3029,7 +2906,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.06224,
     "scopes": [
       "food"
     ],
@@ -3154,7 +3031,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.01028,
     "scopes": [
       "food"
     ],
@@ -4817,7 +4694,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.0945,
     "scopes": [
       "food"
     ],
@@ -4905,47 +4782,6 @@
       "textile"
     ],
     "source": "Ecoinvent 3.9.1",
-    "unit": "kg",
-    "waste": 0
-  },
-  {
-    "activityName": "Polyvinylchloride, suspension polymerised {RER}| polyvinylchloride production, suspension polymerisation | Cut-off, S - Copied from Ecoinvent U",
-    "categories": [
-      "packaging"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024.\noriginal ecoinvent name: Polyvinylchloride, suspension polymerised {RER}| polyvinylchloride production, suspension polymerisation | Cut-off, S\n\nThe dataset represents the production mix of commercial S-PVC production technologies\n\nPolyvinyl chloride (PVC) is manufactured by polymerisation of vinyl chloride monomer (VCM). Polymerisation of PVC is an exothermic reaction. The pressure in the reactor is usually in the range of 0.4 - 1.2 MPa and the reaction temperature is between 35 - 70°C. During the polymerisation reaction 85 - 97% of the VCM is converted into PVC. Residual VCM is removed by stripping the polymer suspension or latex. The unreacted monomer is recovered, liquefied, and returned to polymerisation\n\nFor the polymerisation process certain process chemicals are required. Surfactants, emulsifiers and protective colloids are used to prepare and stabilize the dispersion of monomer and PVC in process water (typically around 1 kg/t VCM in suspension and around 10-20 kg/t in emulsion). Organic peroxides or peresters are used as initiators (typically 1 kg/t VCM) for the production of suspension and microsuspension PVC, while e.g. hindered phenols are used to stop the reaction (typically < 1 kg/t VCM). For the production of emulsion PVC inorganic peroxides are common.\n\nPVC resin resulting from the suspension process (S-PVC) has a mean particle size of 50 - 200 µm. The essential differences between S-PVC grades result from the average length of polymer chains and from the porosity of the particles. Suspension PVC is always produced batch wise in a stirred vessel. The monomer is dispersed in demineralised water by the combination of mechanical stirring and surfactants. The polymerisation takes place inside the VCM droplets under the influence of VCM soluble initiators such as peresters, percarbonates, or peroxides.\n\nProduction volume: 3400000000 kg\nIncluded activities start: Acitivity starts with monomers entering the polymerisation plant. Energy supply is included in terms of heat production inside the battery limits of the plant. Steam and electricity supply is outside the activity.\nIncluded activities end: Activity ends with polymer granulate leaving the factory.\nEnergy values: Undefined\nGeography: The inventory is modelled for Europe\nTechnology level: Current\nTechnology: Coverage of production capacity in Europe: 88%\nStart date: 01/01/2013\nEnd date: 31/12/2022\nIs data valid for entire period: True\nTime period: Data was collected for the year 2013, processed in 2014 and published in 2015\nMacro-economic scenario name: Business-as-Usual\n\nVersion: 9.3.0.0\nCreated: 9/19/2018 9:57:32 AM\nLast edited: 9/28/2020 9:15:38 AM\nSource: e00f2823-2447-5bb8-8ecd-9b611005ae4b_e69cca3a-6e2a-4638-b9e7-09927dcf1c95.spold\nUUID: e00f2823-2447-5bb8-8ecd-9b611005ae4b",
-    "displayName": "PVC",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "28fc90df-448e-5a31-994d-2fd83208747e",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 191.12,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "location": "RER",
-    "massPerUnit": null,
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
   },
@@ -5313,7 +5149,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.07238,
     "scopes": [
       "food"
     ],
@@ -5520,7 +5356,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.03519,
     "scopes": [
       "food"
     ],
@@ -5860,47 +5696,6 @@
     "waste": 0
   },
   {
-    "activityName": "Packaging glass, white {RER w/o CH+DE}| production | Cut-off, S - Copied from Ecoinvent U",
-    "categories": [
-      "packaging"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024.\noriginal ecoinvent name: Packaging glass, white {RER w/o CH+DE}| packaging glass production, white | Cut-off, S\n\nThis dataset represents the production of 1 kg of white packaging glass from a mix of primary and secondary raw materials.\n\n[This dataset was already contained in the ecoinvent database version 2. It was not individually updated during the transfer to ecoinvent version 3. Life Cycle Impact Assessment results may still have changed, as they are affected by changes in the supply chain, i.e. in other datasets. This dataset was generated following the ecoinvent quality guidelines for version 2. It may have been subject to central changes described in the ecoinvent version 3 change report (http://www.ecoinvent.org/database/ecoinvent-version-3/reports-of-changes/), and the results of the central updates were reviewed extensively. The changes added e.g. consistent water flows and other information throughout the database. The documentation of this dataset can be found in the ecoinvent reports of version 2, which are still available via the ecoinvent website. The change report linked above covers all central changes that were made during the conversion process.]\n\nCO2 emissions have been recalculated from the carbon content in raw materials and fuels.\n\nMaterial inputs are estimation based on literature sources and a Swiss production site. Energy and water consumption, emissions, and waste production are estimation based on literature sources. Infrastructure is an estimation based on average European packaging glass factories.\n\nProduction volume: 12807795712 kg\nIncluded activities start: From the reception of precursors silica sand, soda, unsorted glass cullets, limestone, dolomite, feldspar, and chemicals  inorganics at the factory gate.\nIncluded activities end: This activity ends with the production of 1 kg of white packaging glass. The dataset includes material and energy inputs, water consumption, emissions to air and water, waste production, transport and infrastructure.\nEnergy values: Undefined\nGeography: The inventory is modelled for Europe without Germany and Switzerland\nTechnology level: Old\nTechnology: Packaging glass is produced in a two stage moulding process with pressing and blowing techniques. The whole process is fully automatic and consists of five different stages:\n\nNone\n\n1.\tProduction of a molten glass piece (gob) with correct weight and temperature. \n\nNone\n\nNone\n\n2.\tForming of the primary shape in a first mould (blank mould) with compressed air pressure\n\nNone\n\n3.\tTransfer to the final mould (finish mould)\n\nNone\n\n4.\tBringing the shaping process to an end by blowing the container with compressed air until the shape of the final mould\n\nNone\n\n5.\tPost forming processes\n\nThe melting process is the central one. As the first glass forming material, sand, has a very high melting point. Soda as a fluxing agent is used to reduce the melting temperature. When heating soda, this is decomposed into sodium oxide Na2O, the actual fluxing agent, and into carbon dioxide that is released. Metal oxides in form of limestone (CaCO3 that decomposes to CaO), dolomite (-> Ca- and Mg-Oxides), feldspar are used as stabilizators and therefore to improve the hardness and chemical resistance of glass. For white glass  decolouring agents are added.\nStart date: 01/01/2000\nEnd date: 31/12/2022\nIs data valid for entire period: True\nTime period: \nMacro-economic scenario name: Business-as-Usual\n\nVersion: 108.3.0.0\nCreated: 7/28/2010 6:15:27 PM\nLast edited: 7/19/2013 3:57:43 PM\nSource: 3ef52cf5-aadc-5d2a-bfd6-096ca0bda9ee_c3fd9530-3e9b-44b5-8833-9e544937a6e9.spold\nUUID: 3ef52cf5-aadc-5d2a-bfd6-096ca0bda9ee",
-    "displayName": "Verre",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "318cc7ba-e796-5f12-b93e-f704f01a3f05",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 85.603,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "location": "RER w/o CH+DE",
-    "massPerUnit": null,
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg",
-    "waste": 0
-  },
-  {
     "activityName": "Cherry, at farm (WFLDB)",
     "categories": [
       "ingredient"
@@ -5981,47 +5776,6 @@
     ],
     "source": "Ecobalyse",
     "unit": "t⋅km",
-    "waste": 0
-  },
-  {
-    "activityName": "Polyethylene terephthalate, granulate, bottle grade {RER}| production | Cut-off, S - Copied from Ecoinvent U",
-    "categories": [
-      "packaging"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024.\noriginal ecoinvent name: Polyethylene terephthalate, granulate, bottle grade {RER}| polyethylene terephthalate production, granulate, bottle grade | Cut-off, S\n\nThe dataset represents the production mix of commercial bottle grade PET production technologies. PET production covered by this study is by esterification of ethylene glycol and terephthalic acid (PTA). The esterification process is carried out under moderate pressure (2.5-5.5 bar) and at high temperature (230-270 °C) whilst the water formed during the reaction is continuously removed via distillation. \n\nThe monomers of PET production, purified terephthalic acid (PTA) and mono ethylene glycol (MEG) are polymerised in the liquid phase to produce amorphous PET. This form of the polymer is suitable for the production of fibres and film. Most bottle grade PET today is a copolyester slightly modified through addition of 1-2% Benzene-1,3-dicarboxylic acid (isophthalic acid, IPA) or 4(hydroxymethyl)cyclohexyl-methanol (cyclohexanedimethanol, CHDM) during polymerisation.\n\nThe first step of PET production is the esterification of PTA and MEG to bishydroxyethyl terepthalate (BHET) with water as a by-product at around 220-260 °C in the presence of an anti-mony catalyst (usually Sb2O3). Water forming from the esterification reaction is continuously removed by distillation. Formation of the undesired side product diethylene glycol is suppressed by maintaining low molar ratios of MEG:PTA (less than 2 or even 1.5). BHET is then sent to Pre-polycondensation in a second reactor under a vacuum and further to a melt polycondensation reactor at higher temperatures and still under vacuum. Vacuum is required to remove water and other side products and to drive the reaction equilibrium towards the polymer.\n\nAs melt polymerisation does not produce high molecular weight, a subsequent polymerisation step, solid state polymerisation (SSP) is required for bottle grade PET. During SSP the polymer chain lengths are increased by heat in the absence of oxygen and water, by means of either vacuum or purging with an inert gas to drive off the by-products of reactions. The reaction is driven by temperature, pressure, and the diffusion of by-products from the interior of the pellet to the surface. The product of SSP is a partially crystalline resin that can be used to produce bottles via injection moulding and stretch blow moulding.\n\nProduction volume: 3400000000 kg\nIncluded activities start: Acitivity starts with PTA entering the polymerisation plant. Both amorphous and bottle grade PET produciton are included. Energy supply is included in terms of heat production inside the battery limits of the plant. Steam and electricity supply is outside the activity.\nIncluded activities end: Activity ends with polymer granulate leaving the factory.\nEnergy values: Undefined\nGeography: The inventory is modelled for Europe\nTechnology level: Current\nTechnology: Coverage of production capacity in Europe: 85%\nStart date: 01/01/2015\nEnd date: 31/12/2022\nIs data valid for entire period: True\nTime period: Data was collected for the year 2015, processed in 2016 and published in 2017\nMacro-economic scenario name: Business-as-Usual\n\nVersion: 6.3.0.0\nCreated: 9/19/2018 9:57:29 AM\nLast edited: 1/10/2019 9:25:51 AM\nSource: 4f3acb8f-af33-5b3c-a750-8176c10ad5f1_19bacec1-aff8-4398-a7bd-d125b48505b7.spold\nUUID: 4f3acb8f-af33-5b3c-a750-8176c10ad5f1",
-    "displayName": "PET",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "327429d4-c20d-5e3e-85bd-161b151130ae",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 569.79,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "location": "RER",
-    "massPerUnit": null,
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg",
     "waste": 0
   },
   {
@@ -6433,7 +6187,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.02084,
     "scopes": [
       "food"
     ],
@@ -7027,8 +6781,7 @@
     "activityName": "steel, unalloyed//[RER] steel production, converter, unalloyed",
     "categories": [
       "material",
-      "material_type:metal",
-      "packaging"
+      "material_type:metal"
     ],
     "comment": "",
     "displayName": "Acier vierge (non allié, Europe)",
@@ -7060,7 +6813,6 @@
     "location": "RER",
     "massPerUnit": null,
     "scopes": [
-      "food",
       "object",
       "veli"
     ],
@@ -7478,7 +7230,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.11032,
     "scopes": [
       "food"
     ],
@@ -8564,7 +8316,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.00983,
     "scopes": [
       "food"
     ],
@@ -8938,7 +8690,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.037527,
     "scopes": [
       "food"
     ],
@@ -9062,7 +8814,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.03761,
     "scopes": [
       "food"
     ],
@@ -9146,7 +8898,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.00538,
     "scopes": [
       "food"
     ],
@@ -9188,7 +8940,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.0268,
     "scopes": [
       "food"
     ],
@@ -9604,7 +9356,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.0348,
     "scopes": [
       "food"
     ],
@@ -9813,7 +9565,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.004777,
     "scopes": [
       "food"
     ],
@@ -9937,7 +9689,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.0019,
     "scopes": [
       "food"
     ],
@@ -10269,7 +10021,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.55613,
     "scopes": [
       "food"
     ],
@@ -10436,7 +10188,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.02141,
     "scopes": [
       "food"
     ],
@@ -10520,7 +10272,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.0428,
     "scopes": [
       "food"
     ],
@@ -11062,7 +10814,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.013,
     "scopes": [
       "food"
     ],
@@ -11395,7 +11147,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.02345,
     "scopes": [
       "food"
     ],
@@ -11437,7 +11189,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.048,
     "scopes": [
       "food"
     ],
@@ -11520,7 +11272,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.0485,
     "scopes": [
       "food"
     ],
@@ -12019,7 +11771,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.185,
     "scopes": [
       "food"
     ],
@@ -12061,7 +11813,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.08736,
     "scopes": [
       "food"
     ],
@@ -12187,7 +11939,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.01055,
     "scopes": [
       "food"
     ],
@@ -12562,7 +12314,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.16055,
     "scopes": [
       "food"
     ],
@@ -12772,7 +12524,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.008,
     "scopes": [
       "food"
     ],
@@ -13187,7 +12939,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.02829,
     "scopes": [
       "food"
     ],
@@ -13851,7 +13603,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.032,
     "scopes": [
       "food"
     ],
@@ -14521,7 +14273,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.0113,
     "scopes": [
       "food"
     ],
@@ -14563,7 +14315,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.0464,
     "scopes": [
       "food"
     ],
@@ -14646,7 +14398,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.00999,
     "scopes": [
       "food"
     ],
@@ -14855,7 +14607,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.01165,
     "scopes": [
       "food"
     ],
@@ -15356,7 +15108,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.047,
     "scopes": [
       "food"
     ],
@@ -15482,7 +15234,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.00376,
     "scopes": [
       "food"
     ],
@@ -15980,7 +15732,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.4716,
     "scopes": [
       "food"
     ],
@@ -16063,7 +15815,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.095,
     "scopes": [
       "food"
     ],
@@ -16947,47 +16699,6 @@
     "waste": 0
   },
   {
-    "activityName": "Polypropylene, granulate {RER}| production | Cut-off, S - Copied from Ecoinvent U",
-    "categories": [
-      "packaging"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024.\noriginal ecoinvent name: Polypropylene, granulate {RER}| polypropylene production, granulate | Cut-off, S\n\nThe dataset represents the production mix of commercial PP production technologies: slurry suspension polymerisation,Bulk suspension polymerisation, gas phase polymerisation using Ziegler-Natta and Metallocene catalysts\n\nPP is usually manufactured with the gas phase or the suspension (slurry) process. Modern suspension processes, however, use liquid monomers instead of a solvent and are termed bulk process.\n\nIn the gas phase processes a fluidised bed of polymer particles and catalyst is maintained by a steady gaseous monomer feed from the bottom of the reactor. Polymer powder is continuously extracted at the bottom of the fluidised bed reactor. Unreacted monomer gas from the top is compressed and recycled to the reactor inlet. Catalyst, and co-catalyst if necessary, is also continuously fed to the reactor. Typically Ziegler-Natta catalysts are used for gas phase polymerisation where the catalyst is supported on inert silica particles so that the reaction takes place at the catalyst surface.\n\nThe suspension polymerisation can be described as precipitation process. The formation of the polymer takes place in a hydrocarbon diluent and under conditions, where the monomer is soluble in the solution. The precipitated polymer, however, is insoluble and forms a fine suspension. The polymer is then separated by centrifugation. The suspension process can be combined with a stirred tank reactor or a loop reactor. Different diluents can be chosen, like C5 to C9 hydrocarbons, hexane, or isobutane.\n\nThe bulk suspension process describes the slurry suspension process used for the production of PP where the monomer propylene is used as solvent instead of other hydrocarbons. Modern suspension processes for the production of PP use liquid monomers instead of gaseous.\n\nAfter the reaction phase, most of the residual (unreacted) monomers (which are mostly present as gases) are separated from the polymer and are either recycled back into the process or flared of. Depending on the purity of the separated monomers, the gas can either be fed directly back into the production line or the monomers are returned to a purification unit. To limit the accumulation of impurities in the process, usually a small side-stream (purge) of the unreacted gas is sent back to the cracker or to a dedicated purification unit. After polymerisation, the polymer is usually fed di-rectly into a hot melt extruder, where additives can be added to the melted polymer if required. The polymer is then pelletised in an underwater pelletiser. The pelletised product is dried, blended where required and degassed.\n\nProduction volume: 11000000512 kg\nIncluded activities start: Acitivity starts with monomers and comonomers entering the polymerisation plant. Energy supply is included in terms of heat production inside the battery limits of the plant. Steam and electricity supply is outside the activity.\nIncluded activities end: Activity ends with polymer granulate leaving the factory.\nEnergy values: Undefined\nGeography: The inventory is modelled for Europe\nTechnology level: Current\nTechnology: Coverage of production capacity in Europe: 76%\nStart date: 01/01/2011\nEnd date: 31/12/2022\nIs data valid for entire period: True\nTime period: Data was collected for the year 2011, processed in 2013 and published in 2014\nMacro-economic scenario name: Business-as-Usual\n\nVersion: 7.3.0.0\nCreated: 9/19/2018 9:57:30 AM\nLast edited: 1/10/2019 9:25:51 AM\nSource: 13f5ec09-b1e6-538f-95b4-780399213404_66ca2f38-5e51-4546-83c0-d7cef0c55c7c.spold\nUUID: 13f5ec09-b1e6-538f-95b4-780399213404",
-    "displayName": "Polypropylène",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "7e2f2f7a-d94c-57d0-93b3-760bc8dc3838",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 168.4,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "location": "RER",
-    "massPerUnit": null,
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg",
-    "waste": 0
-  },
-  {
     "activityName": "Fish products mackerel, ambient, 169g | Packaging System, N0, All, Aluminium can {FR} U",
     "categories": [
       "packaging",
@@ -17439,7 +17150,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.0824,
     "scopes": [
       "food"
     ],
@@ -17481,7 +17192,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.01001,
     "scopes": [
       "food"
     ],
@@ -17523,7 +17234,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.0216,
     "scopes": [
       "food"
     ],
@@ -17773,47 +17484,6 @@
       "wtu": 0
     },
     "location": "TR",
-    "massPerUnit": null,
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg",
-    "waste": 0
-  },
-  {
-    "activityName": "Packaging film, low density polyethylene {RER}| production | Cut-off, S - Copied from Ecoinvent U",
-    "categories": [
-      "packaging"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024.\noriginal ecoinvent name: Packaging film, low density polyethylene {RER}| packaging film production, low density polyethylene | Cut-off, S\n\nExample process for the utilization of the different converting modules in the database.\n\n[This dataset was already contained in the ecoinvent database version 2. It was not individually updated during the transfer to ecoinvent version 3. Life Cycle Impact Assessment results may still have changed, as they are affected by changes in the supply chain, i.e. in other datasets. This dataset was generated following the ecoinvent quality guidelines for version 2. It may have been subject to central changes described in the ecoinvent version 3 change report (http://www.ecoinvent.org/database/ecoinvent-version-3/reports-of-changes/), and the results of the central updates were reviewed extensively. The changes added e.g. consistent water flows and other information throughout the database. The documentation of this dataset can be found in the ecoinvent reports of version 2, which are still available via the ecoinvent website. The change report linked above covers all central changes that were made during the conversion process.]\n\nProduction volume: 1.3223694562911987 kg\nIncluded activities start: \nIncluded activities end: This process contains the plastic amount and the transport of the plastic from the production site to the converting site as well as the dataset \"extrusion, plastic film\"\nEnergy values: Undefined\nGeography: The inventory is modelled for Europe\nTechnology level: Current\nTechnology: present technologies\nStart date: 01/01/1993\nEnd date: 31/12/2022\nIs data valid for entire period: True\nTime period: time to which data refer\nMacro-economic scenario name: Business-as-Usual\n\nVersion: 132.3.1.0\nCreated: 7/28/2010 6:27:24 PM\nLast edited: 12/20/2022 4:10:33 PM\nSource: 042c0f4f-483c-5f1b-a04a-f46b03f3a2a7_3ce1a817-4ae8-4edc-bf8b-cb1b5d853410.spold\nUUID: 042c0f4f-483c-5f1b-a04a-f46b03f3a2a7",
-    "displayName": "Polyéthylène basse densité",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "84220670-dac3-5820-8d09-eaffde5b2ee2",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 245.89,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "location": "RER",
     "massPerUnit": null,
     "scopes": [
       "food"
@@ -19189,7 +18859,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.008,
     "scopes": [
       "food"
     ],
@@ -19691,7 +19361,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.04081,
     "scopes": [
       "food"
     ],
@@ -19900,7 +19570,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.01263,
     "scopes": [
       "food"
     ],
@@ -20108,7 +19778,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.02922,
     "scopes": [
       "food"
     ],
@@ -20481,7 +20151,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.03841,
     "scopes": [
       "food"
     ],
@@ -20608,7 +20278,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.02812,
     "scopes": [
       "food"
     ],
@@ -21102,7 +20772,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.0267,
     "scopes": [
       "food"
     ],
@@ -21185,7 +20855,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.01099,
     "scopes": [
       "food"
     ],
@@ -21227,7 +20897,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.00664,
     "scopes": [
       "food"
     ],
@@ -21768,7 +21438,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.06442,
     "scopes": [
       "food"
     ],
@@ -21974,7 +21644,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.185,
     "scopes": [
       "food"
     ],
@@ -22099,7 +21769,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.01262,
     "scopes": [
       "food"
     ],
@@ -22183,7 +21853,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.11094,
     "scopes": [
       "food"
     ],
@@ -22225,7 +21895,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.4716,
     "scopes": [
       "food"
     ],
@@ -22308,7 +21978,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.99585,
     "scopes": [
       "food"
     ],
@@ -22560,7 +22230,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.0089333,
     "scopes": [
       "food"
     ],
@@ -23016,7 +22686,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.00824,
     "scopes": [
       "food"
     ],
@@ -23894,7 +23564,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.00878,
     "scopes": [
       "food"
     ],
@@ -24102,7 +23772,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.017,
     "scopes": [
       "food"
     ],
@@ -24850,7 +24520,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.0199,
     "scopes": [
       "food"
     ],
@@ -25935,7 +25605,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.17889,
     "scopes": [
       "food"
     ],
@@ -26224,7 +25894,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.04596,
     "scopes": [
       "food"
     ],
@@ -26887,7 +26557,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.02424,
     "scopes": [
       "food"
     ],
@@ -27224,7 +26894,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.0478,
     "scopes": [
       "food"
     ],
@@ -27555,7 +27225,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.03398,
     "scopes": [
       "food"
     ],
@@ -27846,7 +27516,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.0025,
     "scopes": [
       "food"
     ],
@@ -28425,7 +28095,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.0427,
     "scopes": [
       "food"
     ],
@@ -28550,7 +28220,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.01364,
     "scopes": [
       "food"
     ],
@@ -28674,7 +28344,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.01509,
     "scopes": [
       "food"
     ],
@@ -28757,7 +28427,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.006,
     "scopes": [
       "food"
     ],
@@ -28923,7 +28593,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.06585,
     "scopes": [
       "food"
     ],
@@ -29298,7 +28968,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.011,
     "scopes": [
       "food"
     ],
@@ -29422,7 +29092,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.3226,
     "scopes": [
       "food"
     ],
@@ -29801,7 +29471,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.00754,
     "scopes": [
       "food"
     ],
@@ -29926,7 +29596,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.01183,
     "scopes": [
       "food"
     ],
@@ -30342,7 +30012,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.00225,
     "scopes": [
       "food"
     ],
@@ -30508,7 +30178,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.02444,
     "scopes": [
       "food"
     ],
@@ -31171,7 +30841,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.17608,
     "scopes": [
       "food"
     ],
@@ -31303,47 +30973,6 @@
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
-    "waste": 0
-  },
-  {
-    "activityName": "Corrugated board box {RER}| production | Cut-off, S - Copied from Ecoinvent U",
-    "categories": [
-      "packaging"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024.\noriginal ecoinvent name: Corrugated board box {RER}| corrugated board box production | Cut-off, S\n\nCorrugated Board is manufactured from several specially conditioned layers of recycled or virgin papers, with the Fluting Medium being the middle layer and Linerboard used for the outside layers. Reels of Fluting Medium and Linerboard are fed into a machine which is called a Corrugator (FEFCO, 2018). In integrated plants such as the ones represented here, the finished board is further folded into boxes.\n\nhttps://db3.ecoinvent.org/images/fb7c96f2-1933-4a81-a33a-515d0a5fb151 [Image URL, right click copy paste to a browser to view]\n\nThe data on corrugated board production are based on 389 plants (mostly integrated plants with corrugated board and box production on the same site) in Austria, Belgium, Czech Republic, Denmark, Estonia, Finland, France, Germany, Hungary, Ireland, Italy, Lithuania, the Netherlands, Norway, Poland, Portugal, Romania, Russia, Slovakia, Spain, Sweden, Switzerland, Turkey and the United Kingdom. Together they produced 12,100,000 tonnes saleable product, which is 54% of the total annual production of corrugated board products in Europe. Each of the production sites produces on average 31.100 tonnes of corrugated sheets, ranging from 5.000  500.000 tonnes each. Reference(s): https://www.fefco.org/sites/default/files/documents/LCA%20Report%202019_revised_%20p%2037.pdf, accessed September 2022.\n\nFor this dataset the European average of recycled and virgin paper inputs (wellenstoff, semichemical fluting, kraftliner, testliner) was used.\n\nThe following air emissions were reported in the study: CO2 (fossil), CO, NOx (as NO2), SOx (as SO2), particulates (all sizes).\n\nFor a more complete air emission profile, additional air emissions (beyond the ones listed above) were added for the combustion of the external fuels and internal using LCI datasets for combustion of different fuels as proxy. The air emissions were calculated based on the mix of the external fuels in the study and more information about the fuel mix and the proxy are provided under \"Extrapolations\".\n\nThe production volume is valid for the year 2018. Inventory data were collected for the year 2018.\n\nProduction volume: 24306999296 kg\nIncluded activities start: The process starts as reels of Fluting Medium and Linerboard are fed into a machine called a Corrugator.\nIncluded activities end: This activity ends with folded corrugated board boxes ready for delivery.\nEnergy values: Undefined\nGeography: The inventory is modelled for Europe\nTechnology level: Current\nTechnology: Average of present used technology\n\nThe Fluting Medium paper is conditioned with heat and steam and fed between large corrugating rolls that give the paper its fluted shape in the Single Facer. Starch is applied to the tips of the flutes on one side and the inner liner is glued to the fluting. The corrugated fluting medium with liner attached to it is called single face web and travels along the machine towards the Double Backer where the single face web meets the outer liner and forms corrugated board. A number of layers of single faced web may be built up to produce double and triple wall corrugated board. The corrugated board is slit into the required widths and cut into sheets which are then stacked or palletised. The final stage of the process consists of printing and then slotting, folding and gluing the corrugated board to manufacture a corrugated box.\nStart date: 01/01/2018\nEnd date: 31/12/2022\nIs data valid for entire period: True\nTime period: \nMacro-economic scenario name: Business-as-Usual\n\nVersion: 4.3.0.0\nCreated: 5/31/2022 8:55:02 AM\nLast edited: 8/15/2022 1:20:58 PM\nSource: aefe6f41-eeb4-5d24-8d8a-bfc4777b1ee5_ca213807-7c00-4537-ac8c-23d39d0f2bd5.spold\nUUID: aefe6f41-eeb4-5d24-8d8a-bfc4777b1ee5",
-    "displayName": "Carton",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "edefa2be-abe4-5bb6-b0fc-0f666050dcc1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 93.406,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "location": "RER",
-    "massPerUnit": null,
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg",
     "waste": 0
   },
   {
@@ -31671,7 +31300,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.02546,
     "scopes": [
       "food"
     ],
@@ -31799,7 +31428,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.1574,
     "scopes": [
       "food"
     ],
@@ -32381,7 +32010,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.020105,
     "scopes": [
       "food"
     ],
@@ -32464,7 +32093,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.1833,
     "scopes": [
       "food"
     ],
@@ -32506,7 +32135,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.02322,
     "scopes": [
       "food"
     ],
@@ -32716,7 +32345,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.01954,
     "scopes": [
       "food"
     ],
@@ -32966,7 +32595,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.47331,
     "scopes": [
       "food"
     ],
@@ -33257,7 +32886,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 0.01001,
     "scopes": [
       "food"
     ],
@@ -33803,47 +33432,6 @@
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
-    "waste": 0
-  },
-  {
-    "activityName": "Aluminium, primary, ingot {RoW}| production | Cut-off, S - Copied from Ecoinvent U",
-    "categories": [
-      "packaging"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024.\noriginal ecoinvent name: Aluminium, primary, ingot {RoW}| aluminium production, primary, ingot | Cut-off, S\n\nThe dataset represents the production of 1kg of primary aluminium ingot. Molten aluminium produced from the electrolytic process is tapped from reduction cells, weighed, sampled and analysed before it is poured into a holding furnace and heated to approximately 750°C using natural gas as a fuel. Alloying elements, such as magnesium, silicon and manganese, for additional strength, corrosion resistance and other properties, are added to the aluminium. It is typically at this point in the process that clean, sorted scrap can also be added but for the purposes of this dataset, scrap remelting is excluded. During furnace charging and preparation, aluminium dross (a thick liquid or solid phase) forms at the surface of molten aluminium. This mixture of aluminium oxides is remelted to recover the aluminium that would otherwise be lost. Metallurgical analysis verifies that the metal meets customer specifications before the molten, alloyed (or pure, unalloyed) aluminium is cast into products of specific dimensions, before being weighed, bundled and strapped ready for transport. Original dataset included some alloying elements.  These were replaced by liquid aluminium to generate a theoretical 100% aluminium ingot.\n\nFor more information on the process, please go to \n\nhttp://primary.world-aluminium.org/index.php?id=285\n\n[This dataset is meant to replace the following datasets:]\n\nProduction volume: 2096486016 kg\nIncluded activities start: The unit process begins with the unloading of process material to their storage areas on site.  The operations covered by this dataset include:\n* pre-treatment of hot metal\n* recovery and handling of internal process scrap\n* batching, metal treatment and casting operations\n* homogenizing, sawing and packaging activities\n* maintenance and repair of plant and equipment\n* treatment of process air, liquids and solids.\n* production of infrastructure (through rough estimate) was also added.\nIncluded activities end: The output of this unit process is packaged aluminium ingots, wrought alloy.\nEnergy values: Undefined\nGeography: The inventory is modelled for Rest-of-World\nTechnology level: Current\nTechnology: \nStart date: 01/01/2015\nEnd date: 31/12/2022\nIs data valid for entire period: True\nTime period: \nMacro-economic scenario name: Business-as-Usual\n\nVersion: 6.3.0.0\nCreated: 12/6/2017 4:36:55 PM\nLast edited: 7/11/2018 10:44:28 AM\nSource: b62a4882-4502-546d-89e3-cc2fccd40e82_44defed2-3dc7-4d59-b3bc-23dacf1b9140.spold\nUUID: b62a4882-4502-546d-89e3-cc2fccd40e82",
-    "displayName": "Aluminium",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "fe7de139-f149-52fb-9f33-d1824cd38ac1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 1501.1,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "location": "RoW",
-    "massPerUnit": null,
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg",
     "waste": 0
   },
   {
