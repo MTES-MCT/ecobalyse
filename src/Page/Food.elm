@@ -21,7 +21,7 @@ import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Origin as Origin
 import Data.Food.Preparation as Preparation
-import Data.Food.Query as Query exposing (Query)
+import Data.Food.Query as Query exposing (PackagingAmount(..), Query)
 import Data.Food.Recipe as Recipe exposing (Recipe)
 import Data.Food.Retail as Retail
 import Data.Food.WellKnown exposing (WellKnown)
@@ -36,12 +36,14 @@ import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Data.Uuid exposing (Uuid)
 import Html exposing (..)
-import Html.Attributes exposing (..)
+import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import Json.Encode as Encode
 import Length
 import Mass exposing (Mass)
 import Page.Explore as Explore
+import Page.Explore.Processes as Processes
+import Page.Explore.Table as Table
 import Ports
 import Quantity
 import Request.Version as Version
@@ -86,8 +88,10 @@ type alias Model =
 
 type Modal
     = AddIngredientModal (Maybe Recipe.RecipeIngredient) (Autocomplete Ingredient)
+    | AddPackagingModal (Maybe Query.PackagingQuery) (Autocomplete Process)
     | ComparatorModal
-    | ExplorerDetailsModal Ingredient
+    | ExplorerIngredientDetailsModal Ingredient
+    | ExplorerProcessDetailsModal Process
     | NoModal
     | SelectExampleModal (Autocomplete Query)
 
@@ -95,7 +99,7 @@ type Modal
 type Msg
     = AddDistribution
     | AddIngredient Ingredient
-    | AddPackaging
+    | AddPackaging Process
     | AddPreparation
     | AddTransform
     | CopyToClipBoard String
@@ -107,6 +111,7 @@ type Msg
     | NoOp
     | OnAutocompleteExample (Autocomplete.Msg Query)
     | OnAutocompleteIngredient (Autocomplete.Msg Ingredient)
+    | OnAutocompletePackaging (Autocomplete.Msg Process.Process)
     | OnAutocompleteSelect
     | OnDragLeaveBookmark
     | OnDragOverBookmark Bookmark
@@ -131,7 +136,7 @@ type Msg
     | UpdateBookmarkName String
     | UpdateDistribution String
     | UpdateIngredient Query.IngredientQuery Query.IngredientQuery
-    | UpdatePackaging Process.Id Query.ProcessQuery
+    | UpdatePackaging Process.Id Query.PackagingQuery
     | UpdatePreparation Preparation.Id Preparation.Id
     | UpdateRenamedBookmarkName Bookmark String
     | UpdateTransform Query.ProcessQuery
@@ -215,17 +220,10 @@ update ({ db, queries } as session) msg model =
                 |> App.apply update (SetModal NoModal)
                 |> updateQuery (query |> Query.addIngredient (Recipe.ingredientQueryFromIngredient ingredient))
 
-        AddPackaging ->
-            let
-                firstPackaging =
-                    db.processes
-                        |> Recipe.availablePackagings (List.map .id query.packaging)
-                        |> List.sortBy Process.getDisplayName
-                        |> List.head
-                        |> Maybe.map Recipe.processQueryFromProcess
-            in
-            firstPackaging
-                |> maybeUpdateQuery (\packaging -> Query.addPackaging packaging query)
+        AddPackaging packagingProcess ->
+            createPageUpdate session model
+                |> App.apply update (SetModal NoModal)
+                |> updateQuery (query |> Query.addPackaging (Query.defaultPackagingQuery packagingProcess))
 
         AddPreparation ->
             let
@@ -316,17 +314,22 @@ update ({ db, queries } as session) msg model =
                 _ ->
                     createPageUpdate session model
 
-        OnAutocompleteSelect ->
+        OnAutocompletePackaging autocompleteMsg ->
             case model.modal of
-                AddIngredientModal maybeOldRecipeIngredient autocompleteState ->
-                    updateIngredient query model session maybeOldRecipeIngredient autocompleteState
-
-                SelectExampleModal autocompleteState ->
-                    createPageUpdate session model
-                        |> selectExample autocompleteState
+                AddPackagingModal maybeOldPackaging autocompleteState ->
+                    let
+                        ( newAutocompleteState, autoCompleteCmd ) =
+                            Autocomplete.update autocompleteMsg autocompleteState
+                    in
+                    { model | modal = AddPackagingModal maybeOldPackaging newAutocompleteState }
+                        |> createPageUpdate session
+                        |> App.withCmds [ Cmd.map OnAutocompletePackaging autoCompleteCmd ]
 
                 _ ->
                     createPageUpdate session model
+
+        OnAutocompleteSelect ->
+            completeModal query session model
 
         OnDragLeaveBookmark ->
             { model | bookmarkBeingOvered = Nothing }
@@ -520,6 +523,67 @@ createPageUpdate session model =
             ]
 
 
+completeModal : Query -> Session -> Model -> PageUpdate Model Msg
+completeModal query session model =
+    case model.modal of
+        AddIngredientModal maybeOldRecipeIngredient autocompleteState ->
+            updateIngredient query model session maybeOldRecipeIngredient autocompleteState
+
+        AddPackagingModal maybeOldPackaging autocompleteState ->
+            updatePackaging query model session maybeOldPackaging autocompleteState
+
+        SelectExampleModal autocompleteState ->
+            createPageUpdate session model
+                |> selectExample autocompleteState
+
+        _ ->
+            createPageUpdate session model
+
+
+updateExistingPackaging : Query -> Model -> Session -> Query.PackagingQuery -> Process -> PageUpdate Model Msg
+updateExistingPackaging query model session oldPackaging newPackagingProcess =
+    -- Update an existing packaging
+    model
+        |> createPageUpdate session
+        |> App.apply update (SetModal NoModal)
+        |> updateQuery (Query.updatePackaging oldPackaging.id (Query.defaultPackagingQuery newPackagingProcess) query)
+
+
+selectPackaging : Autocomplete Process -> PageUpdate Model Msg -> PageUpdate Model Msg
+selectPackaging autocompleteState pageUpdate =
+    let
+        packaging =
+            Autocomplete.selectedValue autocompleteState
+                |> Maybe.map Just
+                |> Maybe.withDefault (List.head (Autocomplete.choices autocompleteState))
+
+        msg =
+            packaging
+                |> Maybe.map AddPackaging
+                |> Maybe.withDefault NoOp
+    in
+    update pageUpdate.session msg pageUpdate.model
+
+
+updatePackaging : Query -> Model -> Session -> Maybe Query.PackagingQuery -> Autocomplete Process -> PageUpdate Model Msg
+updatePackaging query model session maybeOldPackaging autocompleteState =
+    let
+        maybeSelectedValue =
+            Autocomplete.selectedValue autocompleteState
+    in
+    Maybe.map2
+        (updateExistingPackaging query model session)
+        maybeOldPackaging
+        maybeSelectedValue
+        |> Maybe.withDefault
+            -- Add a new packaging
+            (model
+                |> createPageUpdate session
+                |> App.apply update (SetModal NoModal)
+                |> selectPackaging autocompleteState
+            )
+
+
 updateExistingIngredient : Query -> Model -> Session -> Recipe.RecipeIngredient -> Ingredient -> PageUpdate Model Msg
 updateExistingIngredient query model session oldRecipeIngredient newIngredient =
     -- Update an existing ingredient
@@ -627,7 +691,7 @@ addProcessFormView { isDisabled, event, kind } =
         ]
 
 
-type alias UpdateProcessConfig =
+type alias UpdateTransformConfig =
     { processes : List Process
     , excluded : List Process.Id
     , processQuery : Query.ProcessQuery
@@ -637,8 +701,8 @@ type alias UpdateProcessConfig =
     }
 
 
-updateProcessFormView : UpdateProcessConfig -> Html Msg
-updateProcessFormView { processes, excluded, processQuery, impact, updateEvent, deleteEvent } =
+updateTransformFormView : UpdateTransformConfig -> Html Msg
+updateTransformFormView { processes, excluded, processQuery, impact, updateEvent, deleteEvent } =
     li [ class "ElementFormWrapper list-group-item" ]
         [ span [ class "QuantityInputWrapper" ]
             [ MassInput.view
@@ -660,6 +724,71 @@ updateProcessFormView { processes, excluded, processQuery, impact, updateEvent, 
                 processQuery.id
                 (\id -> updateEvent { processQuery | id = id })
                 excluded
+        , span [ class "text-end ImpactDisplay fs-7" ] [ impact ]
+        , BaseElement.deleteItemButton { disabled = False } deleteEvent
+        ]
+
+
+type alias UpdatePackagingConfig =
+    { autocompleteState : Autocomplete Process
+    , processes : List Process
+    , excluded : List Process.Id
+    , packaging : Recipe.Packaging
+    , impact : Html Msg
+    , updateEvent : Query.PackagingQuery -> Msg
+    , deleteEvent : Msg
+    }
+
+
+updatePackagingFormView : UpdatePackagingConfig -> Html Msg
+updatePackagingFormView { autocompleteState, packaging, impact, updateEvent, deleteEvent } =
+    li [ class "ElementFormWrapper list-group-item" ]
+        [ span [ class "QuantityInputWrapper" ]
+            [ case packaging.process.unit of
+                Process.Items ->
+                    div [ class "input-group" ]
+                        [ input
+                            [ class "form-control text-end incdec-arrows-left"
+                            , type_ "number"
+                            , step "1"
+                            , value (String.fromFloat <| Query.packagingAmountToFloat packaging.amount)
+                            , title "Nombre d’éléments"
+                            , onInput <|
+                                \string ->
+                                    case String.toFloat string of
+                                        Just amount ->
+                                            updateEvent
+                                                { id = packaging.process.id
+                                                , amount = PackagingAmount amount
+                                                }
+
+                                        _ ->
+                                            NoOp
+                            , Attr.min "0"
+                            ]
+                            []
+                        ]
+
+                _ ->
+                    MassInput.view
+                        { mass = Mass.kilograms <| Query.packagingAmountToFloat packaging.amount
+                        , onChange =
+                            \maybeMass ->
+                                case maybeMass of
+                                    Just mass ->
+                                        updateEvent
+                                            { id = packaging.process.id
+                                            , amount = PackagingAmount <| Mass.inKilograms mass
+                                            }
+
+                                    _ ->
+                                        NoOp
+                        , disabled = False
+                        }
+            ]
+        , processSelectorAutocompleteView
+            packaging.process
+            (SetModal (AddPackagingModal (Just { amount = packaging.amount, id = packaging.process.id }) autocompleteState))
         , span [ class "text-end ImpactDisplay fs-7" ] [ impact ]
         , BaseElement.deleteItemButton { disabled = False } deleteEvent
         ]
@@ -699,7 +828,7 @@ createElementSelectorConfig db ingredientQuery { excluded, recipeIngredient, imp
         db.food.ingredients
             |> List.filter (\ingredient -> List.member ingredient.id excluded)
     , impact = impact
-    , openExplorerDetails = ExplorerDetailsModal >> SetModal
+    , openExplorerDetails = ExplorerIngredientDetailsModal >> SetModal
     , quantityView =
         \{ quantity, onChange } ->
             MassInput.view { disabled = False, mass = quantity, onChange = onChange }
@@ -1016,6 +1145,10 @@ packagingListView db selectedImpact recipe results =
                     (recipe.packaging
                         |> List.map (.process >> .id)
                     )
+                |> List.sortBy Process.getDisplayName
+
+        autocompleteState =
+            AutocompleteSelector.init Process.getDisplayName availablePackagings
     in
     [ div
         [ class "card-header d-flex align-items-center justify-content-between"
@@ -1046,26 +1179,35 @@ packagingListView db selectedImpact recipe results =
             recipe.packaging
                 |> List.map
                     (\packaging ->
-                        updateProcessFormView
-                            { processes =
-                                db.processes
-                                    |> Process.listByCategory ProcessCategory.Packaging
+                        updatePackagingFormView
+                            { autocompleteState = autocompleteState
                             , excluded = recipe.packaging |> List.map (.process >> .id)
-                            , processQuery = { id = packaging.process.id, mass = packaging.mass }
+                            , deleteEvent = DeletePackaging packaging.process.id
                             , impact =
                                 packaging
-                                    |> Recipe.computeProcessImpacts
+                                    |> Recipe.computePackagingImpacts
                                     |> Format.formatImpact selectedImpact
+                            , packaging = packaging
+                            , processes =
+                                db.processes
+                                    |> Process.listByCategory ProcessCategory.Packaging
                             , updateEvent = UpdatePackaging packaging.process.id
-                            , deleteEvent = DeletePackaging packaging.process.id
                             }
                     )
          )
-            ++ [ addProcessFormView
-                    { isDisabled = List.isEmpty availablePackagings
-                    , event = AddPackaging
-                    , kind = "un emballage"
-                    }
+            ++ [ li [ class "list-group-item p-0" ]
+                    [ button
+                        [ class "btn btn-outline-primary"
+                        , class "d-flex justify-content-center align-items-center"
+                        , class " gap-1 w-100"
+                        , id "add-new-element"
+                        , disabled <| List.isEmpty availablePackagings
+                        , onClick (SetModal (AddPackagingModal Nothing autocompleteState))
+                        ]
+                        [ i [ class "icon icon-plus" ] []
+                        , text "Ajouter un emballage"
+                        ]
+                    ]
                ]
         )
     ]
@@ -1143,13 +1285,12 @@ transportToDistributionView wellKnown selectedImpact recipe results =
     DownArrow.view
         []
         [ div []
-            [ text "Masse : "
-            , Recipe.getTransformedIngredientsMass wellKnown recipe
+            ([ text "Masse : "
+             , Recipe.getTransformedIngredientsMass wellKnown recipe
                 |> Format.kg
-            , text " + Emballage : "
-            , Recipe.getPackagingMass recipe
-                |> Format.kg
-            ]
+             ]
+                ++ packagingMassView recipe
+            )
         , div [ class "d-flex justify-content-between" ]
             [ div []
                 (results.distribution.transports
@@ -1178,25 +1319,28 @@ transportToConsumptionView : WellKnown -> Recipe -> Html Msg
 transportToConsumptionView wellKnown recipe =
     DownArrow.view
         []
-        [ text <| "Masse : "
-        , Recipe.getTransformedIngredientsMass wellKnown recipe
+        ([ text <| "Masse : "
+         , Recipe.getTransformedIngredientsMass wellKnown recipe
             |> Format.kg
-        , text " + Emballage : "
-        , Recipe.getPackagingMass recipe
-            |> Format.kg
-        ]
+         ]
+            ++ packagingMassView recipe
+        )
 
 
 transportAfterConsumptionView : Recipe -> Recipe.Results -> Html Msg
 transportAfterConsumptionView recipe result =
     DownArrow.view
         []
-        [ text <| "Masse : "
-        , Format.kg result.preparedMass
-        , text " + Emballage : "
-        , Recipe.getPackagingMass recipe
-            |> Format.kg
-        ]
+        ([ text <| "Masse : "
+         , Format.kg result.preparedMass
+         ]
+            ++ packagingMassView recipe
+        )
+
+
+packagingMassView : Recipe -> List (Html Msg)
+packagingMassView recipe =
+    [ text " + Emballage : ", Recipe.getPackagingMass recipe |> Format.kg ]
 
 
 distributionView : Definition -> Recipe -> Recipe.Results -> List (Html Msg)
@@ -1395,6 +1539,29 @@ processSelectorView selectedId event excluded processes =
         )
 
 
+processSelectorAutocompleteView : Process -> Msg -> Html Msg
+processSelectorAutocompleteView process selectElement =
+    div [ class "input-group" ]
+        [ button
+            [ class "form-select ElementSelector text-start"
+            , id <| "selector-" ++ Process.idToString process.id
+            , title <| Process.getTechnicalName process
+            , onClick selectElement
+
+            -- , onInput (Process.idFromString >> Result.map event >> Result.withDefault NoOp)
+            ]
+            [ span [] [ text <| Process.getDisplayName process ]
+            ]
+        , button
+            [ type_ "button"
+            , class "input-group-text"
+            , title "Ouvrir les informations détaillées"
+            , onClick <| SetModal (ExplorerProcessDetailsModal process)
+            ]
+            [ Icon.question ]
+        ]
+
+
 sidebarView : Session -> Model -> Recipe.Results -> Html Msg
 sidebarView session model results =
     SidebarView.view
@@ -1494,7 +1661,7 @@ transformView db selectedImpact recipe results =
     , ul [ class "CardList list-group list-group-flush border-top-0 border-bottom-0" ]
         [ case recipe.transform of
             Just transform ->
-                updateProcessFormView
+                updateTransformFormView
                     { processes =
                         db.processes
                             |> Process.listByCategory ProcessCategory.Transform
@@ -1539,6 +1706,24 @@ view session model =
                                 >> Maybe.withDefault ""
                         }
 
+                AddPackagingModal _ autocompleteState ->
+                    AutocompleteSelectorView.view
+                        { autocompleteState = autocompleteState
+                        , closeModal = SetModal NoModal
+                        , footer = []
+                        , noOp = NoOp
+                        , onAutocomplete = OnAutocompletePackaging
+                        , onAutocompleteSelect = OnAutocompleteSelect
+                        , placeholderText = "tapez ici le nom de de l’emballage pour le rechercher"
+                        , title = "Sélectionnez un emballage"
+                        , toLabel = Process.getDisplayName
+                        , toCategory =
+                            .categories
+                                >> List.head
+                                >> Maybe.map ProcessCategory.toLabel
+                                >> Maybe.withDefault ""
+                        }
+
                 ComparatorModal ->
                     ModalView.view
                         { size = ModalView.ExtraLarge
@@ -1566,7 +1751,7 @@ view session model =
                         , footer = []
                         }
 
-                ExplorerDetailsModal ingredient ->
+                ExplorerIngredientDetailsModal ingredient ->
                     ModalView.view
                         { size = ModalView.Large
                         , close = SetModal NoModal
@@ -1575,6 +1760,18 @@ view session model =
                         , subTitle = Nothing
                         , formAction = Nothing
                         , content = [ Explore.foodIngredientDetails ingredient ]
+                        , footer = []
+                        }
+
+                ExplorerProcessDetailsModal process ->
+                    ModalView.view
+                        { size = ModalView.Large
+                        , close = SetModal NoModal
+                        , noOp = NoOp
+                        , title = Process.getDisplayName process
+                        , subTitle = Nothing
+                        , formAction = Nothing
+                        , content = [ Table.viewDetails Scope.Food (Processes.table session) process ]
                         , footer = []
                         }
 
