@@ -1,5 +1,6 @@
 module Data.Food.Recipe exposing
-    ( Recipe
+    ( Packaging
+    , Recipe
     , RecipeIngredient
     , Results
     , Transform
@@ -8,7 +9,7 @@ module Data.Food.Recipe exposing
     , compute
     , computeIngredientComplementsImpacts
     , computeIngredientTransport
-    , computeProcessImpacts
+    , computePackagingImpacts
     , deletePackaging
     , encodeResults
     , fromQuery
@@ -28,7 +29,7 @@ import Data.Food.EcosystemicServices as EcosystemicServices exposing (Ecosystemi
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Origin as Origin
 import Data.Food.Preparation as Preparation exposing (Preparation)
-import Data.Food.Query as BuilderQuery exposing (Query)
+import Data.Food.Query as BuilderQuery exposing (PackagingAmount, Query, packagingAmountToFloat)
 import Data.Food.Retail as Retail
 import Data.Food.WellKnown exposing (WellKnown)
 import Data.Impact as Impact exposing (Impacts)
@@ -56,7 +57,7 @@ france =
 
 
 type alias Packaging =
-    { mass : Mass
+    { amount : PackagingAmount
     , process : Process.Process
     }
 
@@ -198,7 +199,7 @@ compute ({ food } as db) =
 
                     packagingImpacts =
                         packaging
-                            |> List.map computeProcessImpacts
+                            |> List.map computePackagingImpacts
                             |> Impact.sumImpacts
 
                     preparationImpacts =
@@ -311,6 +312,12 @@ computeImpact mass _ =
     Unit.impactToFloat
         >> (*) (Mass.inKilograms mass)
         >> Unit.impact
+
+
+computePackagingImpacts : { a | amount : PackagingAmount, process : Process } -> Impacts
+computePackagingImpacts item =
+    item.process.impacts
+        |> Impact.multiplyBy (packagingAmountToFloat item.amount)
 
 
 computeProcessImpacts : { a | mass : Mass, process : Process } -> Impacts
@@ -491,7 +498,17 @@ getMassAtPackaging wellKnown recipe =
 getPackagingMass : Recipe -> Mass
 getPackagingMass recipe =
     recipe.packaging
-        |> List.map .mass
+        |> List.map
+            (\{ amount, process } ->
+                case process.unit of
+                    Process.Items ->
+                        -- @FIXME: We can’t deduce the mass of an item packaging for now as we don’t have the massPerUnit/density
+                        --  information available, so we hardcode the mass to 0 for now
+                        Mass.kilograms 0
+
+                    _ ->
+                        Mass.kilograms <| packagingAmountToFloat amount
+            )
         |> Quantity.sum
 
 
@@ -610,17 +627,17 @@ ingredientQueryFromIngredient ingredient =
     }
 
 
-packagingListFromQuery : Db -> { a | packaging : List BuilderQuery.ProcessQuery } -> Result String (List Packaging)
+packagingListFromQuery : Db -> { a | packaging : List BuilderQuery.PackagingQuery } -> Result String (List Packaging)
 packagingListFromQuery db query =
     query.packaging
         |> RE.combineMap (packagingFromQuery db)
 
 
-packagingFromQuery : Db -> BuilderQuery.ProcessQuery -> Result String Packaging
-packagingFromQuery { processes } { id, mass } =
+packagingFromQuery : Db -> BuilderQuery.PackagingQuery -> Result String Packaging
+packagingFromQuery { processes } { amount, id } =
     processes
         |> Process.findById id
-        |> Result.map (Packaging mass)
+        |> Result.map (Packaging amount)
 
 
 processQueryFromProcess : Process -> BuilderQuery.ProcessQuery

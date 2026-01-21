@@ -23,8 +23,8 @@
       ],
       "packaging": [
         {
-          "id": "0835ba67-1168-5dab-a2a5-b6508ed48ade",
-          "mass": 20
+          "amount": 0.02,
+          "id": "0835ba67-1168-5dab-a2a5-b6508ed48ade"
         }
       ]
     },
@@ -45,8 +45,8 @@
       ],
       "packaging": [
         {
-          "id": "0835ba67-1168-5dab-a2a5-b6508ed48ade",
-          "mass": 20
+          "amount": 0.02,
+          "id": "0835ba67-1168-5dab-a2a5-b6508ed48ade"
         }
       ]
     },
@@ -66,8 +66,8 @@
       ],
       "packaging": [
         {
-          "id": "0835ba67-1168-5dab-a2a5-b6508ed48ade",
-          "mass": 20
+          "amount": 0.02,
+          "id": "0835ba67-1168-5dab-a2a5-b6508ed48ade"
         }
       ]
     },
@@ -88,8 +88,8 @@
       ],
       "packaging": [
         {
-          "id": "075073d4-3b33-536d-88b4-0be61b73613d",
-          "mass": 50
+          "amount": 0.05,
+          "id": "075073d4-3b33-536d-88b4-0be61b73613d"
         }
       ],
       "preparation": ["freezing", "oven"]
@@ -111,8 +111,8 @@
       ],
       "packaging": [
         {
-          "id": "075073d4-3b33-536d-88b4-0be61b73613d",
-          "mass": 50
+          "amount": 0.05,
+          "id": "075073d4-3b33-536d-88b4-0be61b73613d"
         }
       ],
       "preparation": ["freezing", "oven"]
@@ -173,8 +173,8 @@
       ],
       "packaging": [
         {
-          "id": "edefa2be-abe4-5bb6-b0fc-0f666050dcc1",
-          "mass": 100
+          "amount": 0.1,
+          "id": "edefa2be-abe4-5bb6-b0fc-0f666050dcc1"
         }
       ],
       "preparation": ["freezing", "oven"],
@@ -250,8 +250,8 @@
       ],
       "packaging": [
         {
-          "id": "edefa2be-abe4-5bb6-b0fc-0f666050dcc1",
-          "mass": 100
+          "amount": 0.1,
+          "id": "edefa2be-abe4-5bb6-b0fc-0f666050dcc1"
         }
       ],
       "preparation": ["freezing", "oven"],
@@ -327,8 +327,8 @@
       ],
       "packaging": [
         {
-          "id": "edefa2be-abe4-5bb6-b0fc-0f666050dcc1",
-          "mass": 100
+          "amount": 0.1,
+          "id": "edefa2be-abe4-5bb6-b0fc-0f666050dcc1"
         }
       ],
       "preparation": ["freezing", "oven"],
@@ -385,8 +385,8 @@
       ],
       "packaging": [
         {
-          "id": "edefa2be-abe4-5bb6-b0fc-0f666050dcc1",
-          "mass": 100
+          "amount": 0.1,
+          "id": "edefa2be-abe4-5bb6-b0fc-0f666050dcc1"
         }
       ],
       "preparation": ["freezing", "oven"],
@@ -451,8 +451,8 @@
       ],
       "packaging": [
         {
-          "id": "edefa2be-abe4-5bb6-b0fc-0f666050dcc1",
-          "mass": 100
+          "amount": 0.1,
+          "id": "edefa2be-abe4-5bb6-b0fc-0f666050dcc1"
         }
       ],
       "preparation": ["freezing", "oven"],
@@ -517,8 +517,8 @@
       ],
       "packaging": [
         {
-          "id": "edefa2be-abe4-5bb6-b0fc-0f666050dcc1",
-          "mass": 100
+          "amount": 0.1,
+          "id": "edefa2be-abe4-5bb6-b0fc-0f666050dcc1"
         }
       ],
       "preparation": ["freezing", "oven"],
@@ -593,8 +593,8 @@
       ],
       "packaging": [
         {
-          "id": "edefa2be-abe4-5bb6-b0fc-0f666050dcc1",
-          "mass": 100
+          "amount": 0.1,
+          "id": "edefa2be-abe4-5bb6-b0fc-0f666050dcc1"
         }
       ],
       "preparation": ["freezing", "oven"],
@@ -620,8 +620,8 @@
       ],
       "packaging": [
         {
-          "id": "075073d4-3b33-536d-88b4-0be61b73613d",
-          "mass": 50
+          "amount": 0.05,
+          "id": "075073d4-3b33-536d-88b4-0be61b73613d"
         }
       ],
       "preparation": ["freezing", "pan-cooking"]
@@ -643,8 +643,8 @@
       ],
       "packaging": [
         {
-          "id": "84220670-dac3-5820-8d09-eaffde5b2ee2",
-          "mass": 50
+          "amount": 0.05,
+          "id": "84220670-dac3-5820-8d09-eaffde5b2ee2"
         }
       ],
       "preparation": ["freezing", "pan-cooking"]
@@ -666,8 +666,8 @@
       ],
       "packaging": [
         {
-          "id": "075073d4-3b33-536d-88b4-0be61b73613d",
-          "mass": 50
+          "amount": 0.05,
+          "id": "075073d4-3b33-536d-88b4-0be61b73613d"
         }
       ],
       "preparation": ["freezing", "pan-cooking"]

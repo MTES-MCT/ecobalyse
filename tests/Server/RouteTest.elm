@@ -4,7 +4,7 @@ import Data.Component as Component
 import Data.Country as Country
 import Data.Example as Example
 import Data.Food.Preparation as Preparation
-import Data.Food.Query as FoodQuery
+import Data.Food.Query as FoodQuery exposing (PackagingAmount(..))
 import Data.Split as Split
 import Data.Textile.Material as Material
 import Data.Textile.Product as Product
@@ -93,10 +93,10 @@ foodEndpoints db =
                     |> asTest "validate a transform mass"
                 , FoodQuery.encode
                     { royalPizza
-                        | packaging = royalPizza.packaging |> List.map (\p -> { p | mass = Mass.grams -1 })
+                        | packaging = royalPizza.packaging |> List.map (\p -> { p | amount = PackagingAmount -1 })
                     }
                     |> testFoodEndpoint db
-                    |> expectFoodValidationError "packaging" "La masse doit être supérieure à zéro"
+                    |> expectFoodValidationError "packaging" "La quantité doit être supérieure à zéro"
                     |> asTest "validate a packaging mass"
                 , FoodQuery.encode
                     { royalPizza

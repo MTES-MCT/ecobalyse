@@ -93,7 +93,7 @@ type Msg
     | AuthMsg Auth.Msg
     | ComponentAdminMsg ComponentAdmin.Msg
     | ComponentConfigReceived Url (WebData Component.Config)
-    | DetailedProcessesReceived (BackendHttp.WebData String)
+    | DetailedProcessesReceived Url (BackendHttp.WebData String)
     | EditorialMsg Editorial.Msg
     | ExploreMsg Explore.Msg
     | FoodBuilderMsg FoodBuilder.Msg
@@ -117,7 +117,7 @@ init flags requestedUrl navKey =
             StaticDb.db StaticJson.processesJson
                 |> Result.andThen
                     (\db ->
-                        Component.defaultConfig db.processes db.countries
+                        Component.defaultConfig db
                             |> Result.map (Tuple.pair db)
                     )
          of
@@ -144,15 +144,14 @@ init flags requestedUrl navKey =
                   }
                 , Cmd.batch
                     [ Ports.appStarted ()
-                    , ComponentConfig.decode db.processes db.countries
-                        |> Http.get "/data/components/config.json" (ComponentConfigReceived requestedUrl)
                     , Request.Version.loadVersion VersionReceived
                     , Request.Github.getReleases ReleasesReceived
                     , if Session.isAuthenticated session then
-                        Request.Auth.processes session DetailedProcessesReceived
+                        Request.Auth.processes session (DetailedProcessesReceived requestedUrl)
 
                       else
-                        Cmd.none
+                        ComponentConfig.decode db
+                            |> Http.get "/data/components/config.json" (ComponentConfigReceived requestedUrl)
                     , Plausible.send session <| Plausible.PageViewed requestedUrl
                     ]
                 )
@@ -434,7 +433,7 @@ update rawMsg ({ state } as model) =
                     ProcessAdmin.update session adminMsg adminModel
                         |> toPage session model Cmd.none ProcessAdminPage ProcessAdminMsg
 
-                ( DetailedProcessesReceived (RemoteData.Success rawDetailedProcessesJson), currentPage ) ->
+                ( DetailedProcessesReceived requestedUrl (RemoteData.Success rawDetailedProcessesJson), currentPage ) ->
                     -- When detailed processes are received, rebuild the entire static db using them
                     case StaticDb.db rawDetailedProcessesJson of
                         Err _ ->
@@ -443,10 +442,11 @@ update rawMsg ({ state } as model) =
 
                         Ok detailedDb ->
                             ( { model | state = currentPage |> Loaded { session | db = detailedDb } }
-                            , Cmd.none
+                            , ComponentConfig.decode detailedDb
+                                |> Http.get "/data/components/config.json" (ComponentConfigReceived requestedUrl)
                             )
 
-                ( DetailedProcessesReceived (RemoteData.Failure _), _ ) ->
+                ( DetailedProcessesReceived _ (RemoteData.Failure _), _ ) ->
                     notifyError model "Erreur" <|
                         "Impossible de charger les impacts détaillés; les impacts agrégés seront utilisés."
 

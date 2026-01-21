@@ -11,6 +11,7 @@ module Page.Auth exposing
 import App exposing (PageUpdate)
 import Browser.Navigation as Nav
 import Data.ApiToken as ApiToken exposing (CreatedToken, Token)
+import Data.Component.Config as ComponentConfig
 import Data.Env as Env
 import Data.Plausible as Plausible
 import Data.Session as Session exposing (Session)
@@ -21,6 +22,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Ports
 import RemoteData
+import RemoteData.Http as Http
 import Request.ApiToken as ApiTokenHttp
 import Request.Auth as Auth
 import Request.BackendHttp exposing (WebData)
@@ -50,6 +52,7 @@ type alias Email =
 
 type Msg
     = ApiTokensResponse (WebData (List CreatedToken))
+    | ComponentConfigReceived (RemoteData.WebData ComponentConfig.Config)
     | CopyToClipboard String
     | CreateToken
     | CreateTokenResponse (WebData Token)
@@ -124,6 +127,9 @@ update : Session -> Msg -> Model -> PageUpdate Model Msg
 update session msg model =
     case msg of
         -- Generic page updates
+        ComponentConfigReceived (RemoteData.Success componentConfig) ->
+            App.createUpdate { session | componentConfig = componentConfig } model
+
         CopyToClipboard accessToken ->
             App.createUpdate session model
                 |> App.withCmds [ Ports.copyToClipboard accessToken ]
@@ -131,9 +137,17 @@ update session msg model =
 
         -- Update db with detailed processes when we get them
         DetailedProcessesResponse (RemoteData.Success rawDetailedProcessesJson) ->
+            let
+                newSession =
+                    session |> Session.updateDbProcesses rawDetailedProcessesJson
+            in
             model
-                |> App.createUpdate (session |> Session.updateDbProcesses rawDetailedProcessesJson)
-                |> App.withCmds [ Nav.pushUrl session.navKey <| Route.toString Route.Auth ]
+                |> App.createUpdate newSession
+                |> App.withCmds
+                    [ Nav.pushUrl newSession.navKey <| Route.toString Route.Auth
+                    , ComponentConfig.decode newSession.db
+                        |> Http.get "/data/components/config.json" ComponentConfigReceived
+                    ]
                 |> App.notifyInfo "Vous avez désormais accès aux impacts détaillés"
                 |> App.withCmds [ Plausible.send session Plausible.AuthLoginOK ]
 
