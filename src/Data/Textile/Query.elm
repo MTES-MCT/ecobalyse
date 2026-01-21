@@ -13,11 +13,11 @@ module Data.Textile.Query exposing
     , parseBase64Query
     , regulatory
     , removeMaterial
-    , toggleStep
+    , toggleStage
     , updateMaterial
     , updateMaterialSpinning
     , updateProduct
-    , updateStepCountry
+    , updateStageCountry
     , updateTrims
     , validateMaterials
     )
@@ -36,7 +36,7 @@ import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
 import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
-import Data.Textile.Step.Label as Label exposing (Label)
+import Data.Textile.Stage.Label as Label exposing (Label)
 import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
@@ -61,7 +61,9 @@ type alias Query =
     , countryFabric : Maybe Country.Code
     , countryMaking : Maybe Country.Code
     , countrySpinning : Maybe Country.Code
-    , disabledSteps : List Label
+
+    -- Note: decoded from the `disabledSteps` JSON key for backward compatibility
+    , disabledStages : List Label
     , dyeingProcessType : Maybe ProcessType
     , fabricProcess : Maybe Fabric
     , fading : Maybe Bool
@@ -188,7 +190,7 @@ encode query =
         , ( "countryMaking", query.countryMaking |> Maybe.map Country.encodeCode )
         , ( "countrySpinning", query.countrySpinning |> Maybe.map Country.encodeCode )
         , ( "disabledSteps"
-          , case query.disabledSteps of
+          , case query.disabledStages of
                 [] ->
                     Nothing
 
@@ -242,13 +244,13 @@ removeMaterial materialId query =
 
 
 {-| Handle the case of upcycling: when a garment is upcycled, we disable the Material, Spinning,
-Fabric and Ennobling steps and enforce the use of a high making complexity
+Fabric and Ennobling stages and enforce the use of a high making complexity
 -}
 handleUpcycling : Query -> Query
 handleUpcycling query =
     if query.upcycled then
         { query
-            | disabledSteps = LE.unique <| Label.upcyclables ++ query.disabledSteps
+            | disabledStages = LE.unique <| Label.upcyclables ++ query.disabledStages
             , makingComplexity = query.makingComplexity |> Maybe.withDefault MakingComplexity.High |> Just
         }
 
@@ -268,7 +270,7 @@ isAdvancedQuery query =
         , query.physicalDurability /= Nothing
         , query.surfaceMass /= Nothing
         , query.trims /= Nothing
-        , not query.upcycled && List.length query.disabledSteps > 0
+        , not query.upcycled && List.length query.disabledStages > 0
         , query.yarnSize /= Nothing
         ]
 
@@ -278,7 +280,7 @@ isAdvancedQuery query =
 regulatory : Query -> Query
 regulatory query =
     { query
-        | disabledSteps = []
+        | disabledStages = []
         , dyeingProcessType = Nothing
         , fabricProcess = Nothing
         , makingComplexity = Nothing
@@ -292,15 +294,15 @@ regulatory query =
     }
 
 
-toggleStep : Label -> Query -> Query
-toggleStep label query =
+toggleStage : Label -> Query -> Query
+toggleStage label query =
     { query
-        | disabledSteps =
-            if List.member label query.disabledSteps then
-                List.filter ((/=) label) query.disabledSteps
+        | disabledStages =
+            if List.member label query.disabledStages then
+                List.filter ((/=) label) query.disabledStages
 
             else
-                label :: query.disabledSteps
+                label :: query.disabledStages
     }
 
 
@@ -366,8 +368,8 @@ updateProduct product query =
         query
 
 
-updateStepCountry : Label -> Country.Code -> Query -> Query
-updateStepCountry label code query =
+updateStageCountry : Label -> Country.Code -> Query -> Query
+updateStageCountry label code query =
     let
         maybeCode =
             if code == Country.unknownCountryCode then
@@ -438,7 +440,7 @@ default =
     , countryFabric = Just (Country.Code "CN")
     , countryMaking = Just (Country.Code "CN")
     , countrySpinning = Just (Country.Code "CN")
-    , disabledSteps = []
+    , disabledStages = []
     , dyeingProcessType = Nothing
     , fabricProcess = Nothing
     , fading = Nothing

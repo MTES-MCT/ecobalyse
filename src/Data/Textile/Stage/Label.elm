@@ -1,4 +1,4 @@
-module Data.Textile.Step.Label exposing
+module Data.Textile.Stage.Label exposing
     ( Label(..)
     , all
     , decodeFromCode
@@ -47,58 +47,58 @@ toColor : Label -> String
 toColor label =
     case label of
         Distribution ->
-            Impact.stepsColors.distribution
+            Impact.stagesColors.distribution
 
         EndOfLife ->
-            Impact.stepsColors.endOfLife
+            Impact.stagesColors.endOfLife
 
         Ennobling ->
-            Impact.stepsColors.transform
+            Impact.stagesColors.transform
 
         Fabric ->
-            Impact.stepsColors.transform
+            Impact.stagesColors.transform
 
         Making ->
-            Impact.stepsColors.transform
+            Impact.stagesColors.transform
 
         Material ->
-            Impact.stepsColors.materials
+            Impact.stagesColors.materials
 
         Spinning ->
-            Impact.stepsColors.transform
+            Impact.stagesColors.transform
 
         Use ->
-            Impact.stepsColors.usage
+            Impact.stagesColors.usage
 
 
 toId : Label -> String
 toId label =
     case label of
         Distribution ->
-            "distribution-step"
+            "distribution-stage"
 
         EndOfLife ->
-            "end-of-life-step"
+            "end-of-life-stage"
 
         Ennobling ->
-            "transform-step-ennobling"
+            "transform-stage-ennobling"
 
         Fabric ->
-            "transform-step-fabric"
+            "transform-stage-fabric"
 
         Making ->
-            "transform-step-making"
+            "transform-stage-making"
 
         Material ->
-            "materials-step"
+            "materials-stage"
 
         Spinning ->
-            -- We only want a single "transform-step" id, as it's used for the Html `id` attribute
+            -- We only want a single "transform-stage" id, as it's used for the Html `id` attribute
             -- and they are meant to be unique throughout the page.
-            "transform-step"
+            "transform-stage"
 
         Use ->
-            "usage-step"
+            "usage-stage"
 
 
 toName : Label -> String

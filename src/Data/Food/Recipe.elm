@@ -20,7 +20,7 @@ module Data.Food.Recipe exposing
     , processQueryFromProcess
     , resetDistribution
     , resetTransform
-    , toStepsImpacts
+    , toStagesImpacts
     , toString
     )
 
@@ -387,13 +387,13 @@ computeIngredientTransport db { country, ingredient, mass, planeTransport } =
 
         toTransformation t =
             -- 160km of road transport are added for every ingredient, wherever they come
-            -- from (including France). This corresponds to the step "1. RECETTE" in the
+            -- from (including France). This corresponds to the stage "1. RECETTE" in the
             -- [transport documentation](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)
             Transport.addRoadWithCooling (Length.kilometers 160) (ingredient.transportCooling == Ingredient.AlwaysCool) t
 
         toLogistics t =
             -- 500km of road transport are added for every ingredient that are not coming from France.
-            -- This corresponds to the step "2. RECETTE" in the
+            -- This corresponds to the stage "2. RECETTE" in the
             -- [transport documentation](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)
             case country of
                 Just { code } ->
@@ -657,8 +657,8 @@ resetDistribution query =
     { query | distribution = Nothing }
 
 
-toStepsImpacts : Definition.Trigram -> Results -> Impact.StepsImpacts
-toStepsImpacts trigram results =
+toStagesImpacts : Definition.Trigram -> Results -> Impact.StagesImpacts
+toStagesImpacts trigram results =
     let
         getImpact =
             Impact.getImpact trigram

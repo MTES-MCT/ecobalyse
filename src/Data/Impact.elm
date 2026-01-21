@@ -1,7 +1,7 @@
 module Data.Impact exposing
     ( ComplementsImpacts
     , Impacts
-    , StepsImpacts
+    , StagesImpacts
     , addComplementsImpacts
     , applyComplements
     , complementsImpactAsChartEntries
@@ -9,7 +9,7 @@ module Data.Impact exposing
     , default
     , divideBy
     , divideComplementsImpactsBy
-    , divideStepsImpactsBy
+    , divideStagesImpactsBy
     , empty
     , encode
     , encodeAggregatedScoreChartEntry
@@ -24,12 +24,12 @@ module Data.Impact exposing
     , mapImpacts
     , multiplyBy
     , noComplementsImpacts
-    , noStepsImpacts
+    , noStagesImpacts
     , parseTrigram
     , per100grams
     , perKg
-    , stepsColors
-    , stepsImpactsAsChartEntries
+    , stagesColors
+    , stagesImpactsAsChartEntries
     , sumEcosystemicImpacts
     , sumImpacts
     , toProtectionAreas
@@ -199,10 +199,10 @@ totalComplementsImpactAsChartEntry complementsImpacts =
 
 
 
--- Steps impacts
+-- Lifecycle stages abstraction
 
 
-type alias Steps a =
+type alias Stages a =
     { distribution : a
     , endOfLife : a
     , materials : a
@@ -214,25 +214,25 @@ type alias Steps a =
     }
 
 
-type alias StepsImpacts =
-    Steps (Maybe Unit.Impact)
+type alias StagesImpacts =
+    Stages (Maybe Unit.Impact)
 
 
-mapSteps : (a -> a) -> Steps a -> Steps a
-mapSteps fn steps =
-    { distribution = fn steps.distribution
-    , endOfLife = fn steps.endOfLife
-    , materials = fn steps.materials
-    , packaging = fn steps.packaging
-    , transform = fn steps.transform
-    , transports = fn steps.transports
-    , trims = fn steps.trims
-    , usage = fn steps.usage
+mapStages : (a -> a) -> Stages a -> Stages a
+mapStages fn stages =
+    { distribution = fn stages.distribution
+    , endOfLife = fn stages.endOfLife
+    , materials = fn stages.materials
+    , packaging = fn stages.packaging
+    , transform = fn stages.transform
+    , transports = fn stages.transports
+    , trims = fn stages.trims
+    , usage = fn stages.usage
     }
 
 
-noStepsImpacts : StepsImpacts
-noStepsImpacts =
+noStagesImpacts : StagesImpacts
+noStagesImpacts =
     { distribution = Nothing
     , endOfLife = Nothing
     , materials = Nothing
@@ -244,17 +244,17 @@ noStepsImpacts =
     }
 
 
-divideStepsImpactsBy : Float -> StepsImpacts -> StepsImpacts
-divideStepsImpactsBy n =
-    mapSteps (Maybe.map (Quantity.divideBy n))
+divideStagesImpactsBy : Float -> StagesImpacts -> StagesImpacts
+divideStagesImpactsBy n =
+    mapStages (Maybe.map (Quantity.divideBy n))
 
 
-type alias StepsColors =
-    Steps String
+type alias StagesColors =
+    Stages String
 
 
-stepsColors : StepsColors
-stepsColors =
+stagesColors : StagesColors
+stagesColors =
     { distribution = Color.red
     , endOfLife = Color.turquoise
     , materials = Color.purple
@@ -266,16 +266,16 @@ stepsColors =
     }
 
 
-stepsImpactsAsChartEntries : StepsImpacts -> List { color : String, name : String, value : Float }
-stepsImpactsAsChartEntries stepsImpacts =
-    [ ( "Accessoires", stepsImpacts.trims, stepsColors.trims )
-    , ( "Matières premières", stepsImpacts.materials, stepsColors.materials )
-    , ( "Transformation", stepsImpacts.transform, stepsColors.transform )
-    , ( "Emballage", stepsImpacts.packaging, stepsColors.packaging )
-    , ( "Transports", stepsImpacts.transports, stepsColors.transports )
-    , ( "Distribution", stepsImpacts.distribution, stepsColors.distribution )
-    , ( "Utilisation", stepsImpacts.usage, stepsColors.usage )
-    , ( "Fin de vie", stepsImpacts.endOfLife, stepsColors.endOfLife )
+stagesImpactsAsChartEntries : StagesImpacts -> List { color : String, name : String, value : Float }
+stagesImpactsAsChartEntries stagesImpacts =
+    [ ( "Accessoires", stagesImpacts.trims, stagesColors.trims )
+    , ( "Matières premières", stagesImpacts.materials, stagesColors.materials )
+    , ( "Transformation", stagesImpacts.transform, stagesColors.transform )
+    , ( "Emballage", stagesImpacts.packaging, stagesColors.packaging )
+    , ( "Transports", stagesImpacts.transports, stagesColors.transports )
+    , ( "Distribution", stagesImpacts.distribution, stagesColors.distribution )
+    , ( "Utilisation", stagesImpacts.usage, stagesColors.usage )
+    , ( "Fin de vie", stagesImpacts.endOfLife, stagesColors.endOfLife )
     ]
         |> List.map
             (\( label, maybeValue, color ) ->
@@ -283,7 +283,7 @@ stepsImpactsAsChartEntries stepsImpacts =
                 , name = label
                 , value =
                     -- All categories MUST be filled in order to allow comparing Food and Textile simulations
-                    -- So, when we don't have a value for a given step, we fallback to zero
+                    -- So, when we don't have a value for a given stage, we fallback to zero
                     maybeValue
                         |> Maybe.map Unit.impactToFloat
                         |> Maybe.withDefault 0

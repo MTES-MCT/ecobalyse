@@ -1,10 +1,10 @@
 module Data.Object.Simulator exposing
     ( compute
-    , toStepsImpacts
+    , toStagesImpacts
     )
 
 import Data.Component as Component exposing (LifeCycle)
-import Data.Impact as Impact exposing (noStepsImpacts)
+import Data.Impact as Impact exposing (noStagesImpacts)
 import Data.Impact.Definition as Definition
 import Static.Db exposing (Db)
 
@@ -15,13 +15,13 @@ compute requirements query =
         |> Component.compute requirements
 
 
-toStepsImpacts : Definition.Trigram -> LifeCycle -> Impact.StepsImpacts
-toStepsImpacts trigram lifeCycle =
+toStagesImpacts : Definition.Trigram -> LifeCycle -> Impact.StagesImpacts
+toStagesImpacts trigram lifeCycle =
     let
         stagesImpacts =
             Component.stagesImpacts lifeCycle
     in
-    { noStepsImpacts
+    { noStagesImpacts
         | endOfLife =
             stagesImpacts.endOfLife
                 |> Impact.getImpact trigram

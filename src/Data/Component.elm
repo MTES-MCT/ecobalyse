@@ -695,7 +695,7 @@ computeTransports ({ config, db } as req) query lifeCycle =
                 | transports =
                     -- Note: for now it's assumed there's never air transport
                     { toAssembly =
-                        -- Only convey multiple items to assembly step
+                        -- Only convey multiple items to assembly stage
                         -- TODO: refactor query to handle this through types https://github.com/MTES-MCT/ecobalyse/issues/1609
                         if List.length query.items > 1 then
                             expandedItems
