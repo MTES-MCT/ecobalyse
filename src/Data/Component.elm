@@ -305,15 +305,6 @@ type Stage
     | TransformStage
 
 
-type alias StagesImpacts =
-    { endOfLife : Impacts
-    , material : Impacts
-    , transformation : Impacts
-    , transports : Impacts
-    , use : Impacts
-    }
-
-
 type alias Requirements db =
     { config : Config
     , db : DataContainer db
@@ -1513,7 +1504,7 @@ setQueryItems items query =
     }
 
 
-stagesImpacts : LifeCycle -> StagesImpacts
+stagesImpacts : LifeCycle -> Impact.Stages (Maybe Impacts)
 stagesImpacts lifeCycle =
     lifeCycle.production
         |> extractItems
@@ -1525,19 +1516,22 @@ stagesImpacts lifeCycle =
             (\(Results { impacts, stage }) acc ->
                 case stage of
                     Just MaterialStage ->
-                        { acc | material = Impact.sumImpacts [ acc.material, impacts ] }
+                        { acc | materials = acc.materials |> Maybe.map (\i -> Impact.sumImpacts [ i, impacts ]) }
 
                     Just TransformStage ->
-                        { acc | transformation = Impact.sumImpacts [ acc.transformation, impacts ] }
+                        { acc | transform = acc.transform |> Maybe.map (\i -> Impact.sumImpacts [ i, impacts ]) }
 
                     Nothing ->
                         acc
             )
-            { endOfLife = lifeCycle.endOfLife
-            , material = Impact.empty
-            , transformation = Impact.empty
-            , transports = getTotalTransportImpacts lifeCycle.transports
-            , use = lifeCycle.use |> Impact.sumImpacts
+            { distribution = Nothing
+            , endOfLife = lifeCycle.endOfLife |> Just
+            , materials = Just Impact.empty
+            , packaging = Nothing
+            , transform = Just Impact.empty
+            , transports = getTotalTransportImpacts lifeCycle.transports |> Just
+            , trims = Nothing
+            , usage = lifeCycle.use |> Impact.sumImpacts |> Just
             }
 
 

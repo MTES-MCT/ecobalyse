@@ -704,27 +704,32 @@ suite =
                         )
                         (\( lifeCycle, stagesImpacts ) ->
                             [ it "should compute material stage impacts"
-                                (stagesImpacts.material
-                                    |> getEcsImpact
+                                (stagesImpacts.materials
+                                    |> Maybe.map getEcsImpact
+                                    |> Maybe.withDefault 0
                                     |> Expect.greaterThan 0
                                 )
                             , it "should compute transformation stage impacts"
-                                (stagesImpacts.transformation
-                                    |> getEcsImpact
+                                (stagesImpacts.transform
+                                    |> Maybe.map getEcsImpact
+                                    |> Maybe.withDefault 0
                                     |> Expect.greaterThan 0
                                 )
                             , it "should compute end of life stage impacts"
                                 (stagesImpacts.endOfLife
-                                    |> getEcsImpact
+                                    |> Maybe.map getEcsImpact
+                                    |> Maybe.withDefault 0
                                     |> Expect.greaterThan 0
                                 )
                             , it "should compute use stage impacts"
-                                (stagesImpacts.use
-                                    |> getEcsImpact
+                                (stagesImpacts.usage
+                                    |> Maybe.map getEcsImpact
+                                    |> Maybe.withDefault 0
                                     |> Expect.greaterThan 0
                                 )
                             , it "should have total stages impacts equal total impacts"
-                                ([ stagesImpacts.material, stagesImpacts.transformation ]
+                                ([ stagesImpacts.materials, stagesImpacts.transform ]
+                                    |> List.filterMap identity
                                     |> Impact.sumImpacts
                                     |> getEcsImpact
                                     |> Expect.within (Expect.Absolute 1) (extractEcsImpact lifeCycle.production)

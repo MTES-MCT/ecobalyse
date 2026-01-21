@@ -204,32 +204,28 @@ forObject definitions lifeCycle config =
         stageStats =
             Component.stagesImpacts lifeCycle
     in
+    -- FIXME: we should have Impact.mapStagesMaybe or eq.
     { config
         | scoring = Component.computeScoring definitions lifeCycle
         , stagesImpacts =
             { distribution = Nothing
             , endOfLife =
                 stageStats.endOfLife
-                    |> Impact.getImpact config.impactDefinition.trigram
-                    |> Just
+                    |> Maybe.map (Impact.getImpact config.impactDefinition.trigram)
             , materials =
-                stageStats.material
-                    |> Impact.getImpact config.impactDefinition.trigram
-                    |> Just
+                stageStats.materials
+                    |> Maybe.map (Impact.getImpact config.impactDefinition.trigram)
             , packaging = Nothing
             , transform =
-                stageStats.transformation
-                    |> Impact.getImpact config.impactDefinition.trigram
-                    |> Just
+                stageStats.transform
+                    |> Maybe.map (Impact.getImpact config.impactDefinition.trigram)
             , transports =
                 stageStats.transports
-                    |> Impact.getImpact config.impactDefinition.trigram
-                    |> Just
+                    |> Maybe.map (Impact.getImpact config.impactDefinition.trigram)
             , trims = Nothing
             , usage =
-                stageStats.use
-                    |> Impact.getImpact config.impactDefinition.trigram
-                    |> Just
+                stageStats.usage
+                    |> Maybe.map (Impact.getImpact config.impactDefinition.trigram)
             }
         , total = Component.sumLifeCycleImpacts lifeCycle
     }

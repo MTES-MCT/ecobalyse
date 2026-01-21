@@ -21,25 +21,11 @@ toStagesImpacts trigram lifeCycle =
         stagesImpacts =
             Component.stagesImpacts lifeCycle
     in
+    -- FIXME: we should have Impact.mapStagesMaybe or eq.
     { noStagesImpacts
-        | endOfLife =
-            stagesImpacts.endOfLife
-                |> Impact.getImpact trigram
-                |> Just
-        , materials =
-            stagesImpacts.material
-                |> Impact.getImpact trigram
-                |> Just
-        , transform =
-            stagesImpacts.transformation
-                |> Impact.getImpact trigram
-                |> Just
-        , transports =
-            stagesImpacts.transports
-                |> Impact.getImpact trigram
-                |> Just
-        , usage =
-            stagesImpacts.use
-                |> Impact.getImpact trigram
-                |> Just
+        | endOfLife = stagesImpacts.endOfLife |> Maybe.map (Impact.getImpact trigram)
+        , materials = stagesImpacts.materials |> Maybe.map (Impact.getImpact trigram)
+        , transform = stagesImpacts.transform |> Maybe.map (Impact.getImpact trigram)
+        , transports = stagesImpacts.transports |> Maybe.map (Impact.getImpact trigram)
+        , usage = stagesImpacts.usage |> Maybe.map (Impact.getImpact trigram)
     }

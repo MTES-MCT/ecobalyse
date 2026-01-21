@@ -1,6 +1,7 @@
 module Data.Impact exposing
     ( ComplementsImpacts
     , Impacts
+    , Stages
     , StagesImpacts
     , addComplementsImpacts
     , applyComplements
