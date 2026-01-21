@@ -3,6 +3,7 @@
 .venv/
 *.html
 *.md
+*.code-workspace
 *.yaml
 *.yml
 dist/

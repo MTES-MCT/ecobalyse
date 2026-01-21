@@ -21,12 +21,13 @@
     "db:check": "elm make src/CheckDb.elm --optimize --output=check-db-app.js 1> /dev/null && node check-db.js",
     "db:validate": "npx ajv validate --spec=draft2019 -c ajv-formats -s tests/processes-schema.json -d 'public/data/**/processes**.json'",
     "lint:openapi": "npx swagger-cli validate openapi.yaml",
+    "lint:elm": "npx elm-format src review/src --validate",
     "lint:prettier": "prettier --config .prettierrc --check",
     "lint:prettier:all": "npm run lint:prettier -- .",
     "lint:ruff:all": "npm run lint:ruff:check && npm run lint:ruff:format",
     "lint:ruff:check": "uv run ruff check --force-exclude --extend-select I",
     "lint:ruff:format": "npm run fix:ruff:format -- --check",
-    "lint:all": "npm run lint:prettier:all && npm run lint:ruff:all && npm run lint:openapi",
+    "lint:all": "npm run lint:prettier:all && npm run lint:elm && npm run lint:ruff:all && npm run lint:openapi",
     "fix:elm-format": "npx elm-format --yes",
     "fix:prettier": "npm run lint:prettier -- --write",
     "fix:prettier:all": "npm run lint:prettier -- --write .",
@@ -52,7 +53,7 @@
     "test:server": "npm run server:build && NODE_ENV=test jest tests/json.spec.js tests/server.spec.js tests/json.test.js tests/rate-limiting.spec.js",
     "test:e2e": "e2e/setup-version-fixture.sh && NODE_ENV=test npx playwright test e2e/ --trace=retain-on-failure",
     "test:e2e-ui": "NODE_ENV=test npx playwright test e2e/ --ui",
-    "test": "npm run test:client && npm run test:jslib && npm run test:backend && npm run test:server"
+    "test": "npm run test:review && npm run test:client && npm run test:jslib && npm run test:backend && npm run test:server"
   },
   "dependencies": {
     "@sentry/browser": "^10.35.0",
