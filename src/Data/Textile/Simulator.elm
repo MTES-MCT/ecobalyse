@@ -1,7 +1,6 @@
 module Data.Textile.Simulator exposing
     ( Simulator
     , compute
-    , encode
     , getTotalImpactsWithoutComplements
     , getTotalImpactsWithoutDurability
     , stepMaterialImpacts
@@ -33,7 +32,6 @@ import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Duration exposing (Duration)
 import Energy exposing (Energy)
-import Json.Encode as Encode
 import Mass
 import Quantity
 import Static.Db exposing (Db)
@@ -50,21 +48,6 @@ type alias Simulator =
     , trimsImpacts : Impacts
     , useNbCycles : Int
     }
-
-
-encode : Simulator -> Encode.Value
-encode v =
-    Encode.object
-        [ ( "complementsImpacts", Impact.encodeComplementsImpacts v.complementsImpacts )
-        , ( "daysOfWear", v.daysOfWear |> Duration.inDays |> round |> Encode.int )
-        , ( "durability", v.durability |> Unit.floatDurabilityFromHolistic |> Encode.float )
-        , ( "impacts", Impact.encode v.impacts )
-        , ( "impactsWithoutDurability", Impact.encode (getTotalImpactsWithoutDurability v) )
-        , ( "inputs", Inputs.encode v.inputs )
-        , ( "lifeCycle", LifeCycle.encode v.lifeCycle )
-        , ( "transport", Transport.encode v.transport )
-        , ( "useNbCycles", Encode.int v.useNbCycles )
-        ]
 
 
 init : Db -> Query -> Result String Simulator
