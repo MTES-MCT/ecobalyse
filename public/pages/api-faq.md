@@ -24,9 +24,11 @@ Oui, que ce soit sur l'application Web ou l'API, le nombre maximum de requêtes 
 
 Non, à ce stade de l'expérimentation, nous n'offrons aucune garantie de disponilbilité ni de continuité du service (pas de SLA).
 
-## Qu'est-ce que le versioning de l'API ?
+## Est-ce que l'API est versionnée ?
 
-L'API Ecobalyse est *versionnée*, c'est à dire qu'à chaque publication d'une nouvelle version de l'application, la version précédente devient disponible sur sa propre URL et reste stable dans le temps. Cela permet notamment de garantir la compatibilité de l'interfaçage avec vos systèmes d'information ou de tracer les évolutions de scores à travers le temps pourvu que le paramétrage soit compatible.
+L'API Ecobalyse *n'est pas versionnée*, c’est à dire qu’aucune stabilité n’est garantie en fonction de chaque incrément de la méthode du coût environnemental.
+Lorsqu'une méthode est prête au déploiement ou est testée à grande échelle, nous hébergeons l'application à une date donnée sur une URL dédiée. Pour accéder à l’API stable et règlementaire de l’API textile, rendez-vous sur [https://ecobalyse.beta.gouv.fr/versions/v7.0.0/](https://ecobalyse.beta.gouv.fr/versions/v7.0.0/).
+Vous pouvez tout de même faire des requêtes sur l'API Ecobalyse non versionnée et ainsi comparer les scores entre méthodes ou vous tenir informé des modifications réalisées.
 
 ## Le format de réponse d'un appel vers une version de l'API peut-il changer avec le temps ?
 
