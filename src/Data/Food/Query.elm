@@ -1,5 +1,7 @@
 module Data.Food.Query exposing
     ( IngredientQuery
+    , PackagingAmount(..)
+    , PackagingQuery
     , ProcessQuery
     , Query
     , addIngredient
@@ -8,10 +10,12 @@ module Data.Food.Query exposing
     , b64encode
     , buildApiQuery
     , decode
+    , defaultPackagingQuery
     , deleteIngredient
     , deletePreparation
     , empty
     , encode
+    , packagingAmountToFloat
     , parseBase64Query
     , serialize
     , setDistribution
@@ -30,7 +34,7 @@ import Data.Country as Country
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Preparation as Preparation
 import Data.Food.Retail as Retail
-import Data.Process as Process
+import Data.Process as Process exposing (Process)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
@@ -53,13 +57,26 @@ type alias ProcessQuery =
     }
 
 
+type alias PackagingQuery =
+    { amount : PackagingAmount, id : Process.Id }
+
+
 type alias Query =
     { distribution : Maybe Retail.Distribution
     , ingredients : List IngredientQuery
-    , packaging : List ProcessQuery
+    , packaging : List PackagingQuery
     , preparation : List Preparation.Id
     , transform : Maybe ProcessQuery
     }
+
+
+type PackagingAmount
+    = PackagingAmount Float
+
+
+packagingAmountToFloat : PackagingAmount -> Float
+packagingAmountToFloat (PackagingAmount a) =
+    a
 
 
 addPreparation : Preparation.Id -> Query -> Query
@@ -81,7 +98,23 @@ addIngredient ingredient query =
         |> updateTransformMass
 
 
-addPackaging : ProcessQuery -> Query -> Query
+defaultPackagingQuery : Process -> PackagingQuery
+defaultPackagingQuery process =
+    { amount =
+        PackagingAmount
+            (case process.unit of
+                Process.Kilogram ->
+                    -- 100g
+                    0.1
+
+                _ ->
+                    1
+            )
+    , id = process.id
+    }
+
+
+addPackaging : PackagingQuery -> Query -> Query
 addPackaging packaging query =
     { query
         | packaging =
@@ -106,7 +139,7 @@ decode =
     Decode.succeed Query
         |> DU.strictOptional "distribution" Retail.decode
         |> Pipe.required "ingredients" (Decode.list decodeIngredient)
-        |> Pipe.optional "packaging" (Decode.list decodeProcess) []
+        |> Pipe.optional "packaging" (Decode.list decodePackaging) []
         |> Pipe.optional "preparation" (Decode.list Preparation.decodeId) []
         |> DU.strictOptional "transform" decodeProcess
 
@@ -132,6 +165,19 @@ decodeMassInGrams : Decoder Mass
 decodeMassInGrams =
     Decode.float
         |> Decode.map Mass.grams
+
+
+decodePackagingAmount : Decoder PackagingAmount
+decodePackagingAmount =
+    Decode.float
+        |> Decode.map PackagingAmount
+
+
+decodePackaging : Decoder PackagingQuery
+decodePackaging =
+    Decode.map2 PackagingQuery
+        (Decode.field "amount" decodePackagingAmount)
+        (Decode.field "id" Process.decodeId)
 
 
 decodeProcess : Decoder ProcessQuery
@@ -189,7 +235,7 @@ encode v =
                     Nothing
 
                 list ->
-                    Encode.list encodeProcess list |> Just
+                    Encode.list encodePackaging list |> Just
           )
         , ( "distribution", v.distribution |> Maybe.map Retail.encode )
         , ( "preparation"
@@ -220,6 +266,19 @@ encodeIngredient v =
 encodeMassAsGrams : Mass -> Encode.Value
 encodeMassAsGrams =
     Mass.inGrams >> Encode.float
+
+
+encodePackagingAmount : PackagingAmount -> Encode.Value
+encodePackagingAmount (PackagingAmount v) =
+    Encode.float v
+
+
+encodePackaging : PackagingQuery -> Encode.Value
+encodePackaging v =
+    Encode.object
+        [ ( "id", Process.encodeId v.id )
+        , ( "amount", encodePackagingAmount v.amount )
+        ]
 
 
 encodeProcess : ProcessQuery -> Encode.Value
@@ -280,7 +339,7 @@ updateIngredient oldIngredientId newIngredient query =
         |> updateTransformMass
 
 
-updatePackaging : Process.Id -> ProcessQuery -> Query -> Query
+updatePackaging : Process.Id -> PackagingQuery -> Query -> Query
 updatePackaging oldPackagingProcessId newPackaging query =
     { query
         | packaging =
