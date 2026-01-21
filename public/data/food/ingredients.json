@@ -571,33 +571,6 @@
     "visible": true
   },
   {
-    "activityName": "Avocado {GLO}| avocado production | Cut-off, U",
-    "alias": "avocado",
-    "categories": [
-      "vegetable_fresh"
-    ],
-    "cropGroup": "VERGERS",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.95,
-    "ecosystemicServices": {
-      "cropDiversity": 0.93994,
-      "hedges": 0.44323,
-      "livestockDensity": null,
-      "permanentPasture": null,
-      "plotSize": 0.89009
-    },
-    "id": "09868284-a284-5c68-85e9-83a5388feb43",
-    "inediblePart": 0.3,
-    "landOccupation": 1.0173,
-    "location": "GLO",
-    "name": "Avocado",
-    "processId": "bc4e3c45-c593-5bd5-b553-41574d323793",
-    "rawToCookedRatio": 0.856,
-    "scenario": "reference",
-    "transportCooling": "always",
-    "visible": true
-  },
-  {
     "activityName": "Blueberry, at farm {CA} - Adapted from WFLDB U",
     "alias": "blueberry",
     "categories": [
@@ -1703,33 +1676,6 @@
     "visible": true
   },
   {
-    "activityName": "Agave tequilana, at farm {MX} U",
-    "alias": "agave",
-    "categories": [
-      "vegetable_fresh"
-    ],
-    "cropGroup": "LEGUMES-FLEURS",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.9,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0.080896,
-      "livestockDensity": null,
-      "permanentPasture": null,
-      "plotSize": 0.20224
-    },
-    "id": "1820a666-82e5-5cd8-a68d-e5262cee67f8",
-    "inediblePart": 0.2,
-    "landOccupation": 0.32358,
-    "location": "MX",
-    "name": "Agave",
-    "processId": "846481bc-b40e-56be-949d-d8af1a97dc63",
-    "rawToCookedRatio": 0.856,
-    "scenario": "reference",
-    "transportCooling": "always",
-    "visible": true
-  },
-  {
     "activityName": "Soybean oil, refined, at plant {FR} U",
     "alias": "refined-soybean-oil",
     "categories": [
@@ -1954,33 +1900,6 @@
     "location": "FR",
     "name": "Poireau FR",
     "processId": "f23fb5d9-4b50-5522-8ff9-f3cebb75034e",
-    "rawToCookedRatio": 0.856,
-    "scenario": "reference",
-    "transportCooling": "always",
-    "visible": true
-  },
-  {
-    "activityName": "Kiwi FR, conventional, national average, at orchard {FR} U",
-    "alias": "passion-fruit",
-    "categories": [
-      "vegetable_fresh"
-    ],
-    "cropGroup": "VERGERS",
-    "defaultOrigin": "France",
-    "density": 0.85,
-    "ecosystemicServices": {
-      "cropDiversity": 0.12932,
-      "hedges": 0.060982,
-      "livestockDensity": null,
-      "permanentPasture": null,
-      "plotSize": 0.12246
-    },
-    "id": "1e0da048-2b5d-5cfb-80ac-9fb511f38cb3",
-    "inediblePart": 0.2,
-    "landOccupation": 0.13996,
-    "location": "FR",
-    "name": "Passion fruit",
-    "processId": "cd618846-6455-5604-90ec-9be0ac80e024",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
     "transportCooling": "always",
@@ -2579,33 +2498,6 @@
     "visible": true
   },
   {
-    "activityName": "Cauliflower {GLO}| cauliflower production | Cut-off, U",
-    "alias": "cardoon",
-    "categories": [
-      "vegetable_fresh"
-    ],
-    "cropGroup": "LEGUMES-FLEURS",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.9,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0.031165,
-      "livestockDensity": null,
-      "permanentPasture": null,
-      "plotSize": 0.077912
-    },
-    "id": "2c377a2f-e7af-54b0-93b5-223b46d1c9a7",
-    "inediblePart": 0.2,
-    "landOccupation": 0.12466,
-    "location": "GLO",
-    "name": "Cardoon",
-    "processId": "e8565e53-fe5f-57a0-bfe2-d914363febc4",
-    "rawToCookedRatio": 0.856,
-    "scenario": "reference",
-    "transportCooling": "always",
-    "visible": true
-  },
-  {
     "activityName": "Fresh cream cheese, plain, creamy, around 8% fat, at plant {FR} U",
     "alias": "fresh-cream-cheese",
     "categories": [
@@ -2621,6 +2513,33 @@
     "location": "FR",
     "name": "Crème fraiche FR",
     "processId": "25e0ca1b-41e1-556c-a117-81fe3d131a6f",
+    "rawToCookedRatio": 1.0,
+    "scenario": "reference",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
+    "activityName": "Honey, raw, small-scale production, unpackaged, at farm {CH} - Adapted from WFLDB U",
+    "alias": "honey",
+    "categories": [
+      "animal_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
+    "density": 1.05,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0.035818,
+      "livestockDensity": null,
+      "permanentPasture": null,
+      "plotSize": 0.37609
+    },
+    "id": "2de379ce-19d2-538f-a216-096491cd40e3",
+    "inediblePart": 0.4,
+    "landOccupation": 1.0058,
+    "location": "CH",
+    "name": "Honey",
+    "processId": "6a535ef0-359f-57ea-a6d5-f952963e703f",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
@@ -3477,33 +3396,6 @@
     "visible": true
   },
   {
-    "activityName": "Seaweed non-optimized production, 1kg algae (Laminaria), fresh weight {FR} U",
-    "alias": "salicornia-fresh",
-    "categories": [
-      "vegetable_fresh"
-    ],
-    "cropGroup": "LEGUMES-FLEURS",
-    "defaultOrigin": "France",
-    "density": 0.9,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0.010556,
-      "livestockDensity": null,
-      "permanentPasture": null,
-      "plotSize": 0.026389
-    },
-    "id": "3d3412e2-4f59-5ea9-b93b-d588b60a3145",
-    "inediblePart": 0.2,
-    "landOccupation": 0.042223,
-    "location": "FR",
-    "name": "Salicornia, fresh",
-    "processId": "4aae434f-b812-5014-9dcb-a69ae470a430",
-    "rawToCookedRatio": 0.856,
-    "scenario": "reference",
-    "transportCooling": "always",
-    "visible": true
-  },
-  {
     "activityName": "Table apple, consumption mix, organic 2025 {FR} U",
     "alias": "apple-organic",
     "categories": [
@@ -4279,33 +4171,6 @@
     "visible": true
   },
   {
-    "activityName": "Cocoa bean {ID}| cocoa bean production, sun-dried | Cut-off, U",
-    "alias": "cocoa-bean",
-    "categories": [
-      "vegetable_fresh"
-    ],
-    "cropGroup": "DIVERS",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.9,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0.73553,
-      "livestockDensity": null,
-      "permanentPasture": null,
-      "plotSize": 7.723
-    },
-    "id": "4d22bdca-b02a-5868-82c6-abb714252fab",
-    "inediblePart": 0.2,
-    "landOccupation": 20.595,
-    "location": "ID",
-    "name": "Cocoa bean",
-    "processId": "199ebd09-f291-527a-8153-5b9cb550ba6f",
-    "rawToCookedRatio": 4.0,
-    "scenario": "reference",
-    "transportCooling": "none",
-    "visible": true
-  },
-  {
     "activityName": "Carrot, conventional, national average, at farm gate {FR} U",
     "alias": "carrot-fr",
     "categories": [
@@ -4384,33 +4249,6 @@
     "processId": "0ccbe554-2dd8-52b8-b3b5-744bf12bdc5f",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
-    "transportCooling": "always",
-    "visible": true
-  },
-  {
-    "activityName": "White asparagus {CN}| white asparagus production | Cut-off, U",
-    "alias": "bamboo-shoots",
-    "categories": [
-      "vegetable_fresh"
-    ],
-    "cropGroup": "LEGUMES-FLEURS",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.9,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0.48348,
-      "livestockDensity": null,
-      "permanentPasture": null,
-      "plotSize": 1.2087
-    },
-    "id": "4df0b11b-c029-52a6-9596-90d422fd8924",
-    "inediblePart": 0.4,
-    "landOccupation": 1.9339,
-    "location": "CN",
-    "name": "Bamboo shoots",
-    "processId": "92653f45-2264-58ed-a751-3e03dd6a67b7",
-    "rawToCookedRatio": 0.856,
-    "scenario": "reference",
     "transportCooling": "always",
     "visible": true
   },
@@ -4814,33 +4652,6 @@
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": true
-  },
-  {
-    "activityName": "Cashew {RoW}| cashew production | Cut-off, U",
-    "alias": "cashew",
-    "categories": [
-      "nut_oilseed_raw"
-    ],
-    "cropGroup": "FRUITS A COQUES",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.6,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 3.5368,
-      "livestockDensity": null,
-      "permanentPasture": null,
-      "plotSize": 10.316
-    },
-    "id": "54244720-b96b-5810-8869-c03bb0d99ab2",
-    "inediblePart": 0.5,
-    "landOccupation": 11.789,
-    "location": "RoW",
-    "name": "Cashew",
-    "processId": "c81e59e7-2d9e-5726-b4fb-e78c119e2b17",
-    "rawToCookedRatio": 1.0,
-    "scenario": "reference",
-    "transportCooling": "none",
     "visible": true
   },
   {
@@ -6104,33 +5915,6 @@
     "visible": true
   },
   {
-    "activityName": "Mango {RoW}| mango production | Cut-off, U",
-    "alias": "carambola",
-    "categories": [
-      "vegetable_fresh"
-    ],
-    "cropGroup": "VERGERS",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.85,
-    "ecosystemicServices": {
-      "cropDiversity": 0.27162,
-      "hedges": 0.12808,
-      "livestockDensity": null,
-      "permanentPasture": null,
-      "plotSize": 0.25722
-    },
-    "id": "686928dd-0db4-5ef3-a1e0-5689dacd3ca5",
-    "inediblePart": 0.2,
-    "landOccupation": 0.29396,
-    "location": "RoW",
-    "name": "Carambola",
-    "processId": "adf9fcee-1e5c-5706-b5f5-053ae3bb3ae9",
-    "rawToCookedRatio": 0.856,
-    "scenario": "reference",
-    "transportCooling": "always",
-    "visible": true
-  },
-  {
     "activityName": "Brown crab, 1 kg of product, at landing {FR} U",
     "alias": "crab-fr",
     "categories": [
@@ -6315,60 +6099,6 @@
     "visible": false
   },
   {
-    "activityName": "Sesame seed {RoW}| sesame seed production | Cut-off, U",
-    "alias": "sesame-seeds",
-    "categories": [
-      "grain_raw"
-    ],
-    "cropGroup": "AUTRES CEREALES",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.75,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0.43122,
-      "livestockDensity": null,
-      "permanentPasture": null,
-      "plotSize": 0.60858
-    },
-    "id": "6c5846ae-9fd2-5a98-92cb-bbfc7c9ec440",
-    "inediblePart": 0,
-    "landOccupation": 0.97373,
-    "location": "RoW",
-    "name": "Sesame seeds",
-    "processId": "8a200906-8770-56b7-9ad4-67535421034a",
-    "rawToCookedRatio": 2.259,
-    "scenario": "reference",
-    "transportCooling": "none",
-    "visible": true
-  },
-  {
-    "activityName": "Linseed, at farm {CA} - Adapted from WFLDB U",
-    "alias": "poppy-seeds",
-    "categories": [
-      "nut_oilseed_raw"
-    ],
-    "cropGroup": "AUTRES OLEAGINEUX",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.6,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 8.0612,
-      "livestockDensity": null,
-      "permanentPasture": null,
-      "plotSize": 15.251
-    },
-    "id": "6e078c82-6bea-5f6e-9363-a2f93d76ea91",
-    "inediblePart": 0,
-    "landOccupation": 30.502,
-    "location": "CA",
-    "name": "Poppy seeds",
-    "processId": "152cac7c-3668-5448-8ae2-6e98b82accd6",
-    "rawToCookedRatio": 1.0,
-    "scenario": "reference",
-    "transportCooling": "none",
-    "visible": true
-  },
-  {
     "activityName": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "swiss-chard",
     "categories": [
@@ -6468,33 +6198,6 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "none",
-    "visible": true
-  },
-  {
-    "activityName": "Carrot {GLO}| 335 production | Cut-off, U",
-    "alias": "yam",
-    "categories": [
-      "vegetable_fresh"
-    ],
-    "cropGroup": "LEGUMES-FLEURS",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.9,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0.025981,
-      "livestockDensity": null,
-      "permanentPasture": null,
-      "plotSize": 0.064954
-    },
-    "id": "6fa2cb02-144c-502b-a165-6e0b1ac2d079",
-    "inediblePart": 0.1,
-    "landOccupation": 0.10393,
-    "location": "GLO",
-    "name": "Yam",
-    "processId": "3d7eb0d8-57a4-5ac6-8858-c9c0d8b61a87",
-    "rawToCookedRatio": 0.856,
-    "scenario": "reference",
-    "transportCooling": "always",
     "visible": true
   },
   {
@@ -6757,33 +6460,6 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": true
-  },
-  {
-    "activityName": "Black pepper, conventional, at farm gate {VN} U",
-    "alias": "cinnamon",
-    "categories": [
-      "spice_condiment_additive"
-    ],
-    "cropGroup": "DIVERS",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.56,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0.10794,
-      "livestockDensity": null,
-      "permanentPasture": null,
-      "plotSize": 1.1334
-    },
-    "id": "75bb5a27-4164-598a-8e96-ba86e35db10d",
-    "inediblePart": 0.03,
-    "landOccupation": 3.0224,
-    "location": "VN",
-    "name": "Cinnamon",
-    "processId": "4b6c328a-4a2c-5fbf-88f9-391c809db971",
-    "rawToCookedRatio": 1.0,
-    "scenario": "reference",
-    "transportCooling": "none",
     "visible": true
   },
   {
@@ -7154,33 +6830,6 @@
     "location": "RoW",
     "name": "Chou blanc FR",
     "processId": "fdca416b-3599-5a17-8c86-c7243403514b",
-    "rawToCookedRatio": 0.856,
-    "scenario": "reference",
-    "transportCooling": "always",
-    "visible": true
-  },
-  {
-    "activityName": "Fava bean, feed, Swiss integrated production {RoW}| fava bean, feed production, Swiss integrated production | Cut-off, U",
-    "alias": "mung-bean-sprouted",
-    "categories": [
-      "vegetable_fresh"
-    ],
-    "cropGroup": "LEGUMINEUSES A GRAIN",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.9,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0.58025,
-      "livestockDensity": null,
-      "permanentPasture": null,
-      "plotSize": 1.4006
-    },
-    "id": "7c899317-8dd5-5a47-a041-39121b67ef94",
-    "inediblePart": 0.2,
-    "landOccupation": 2.8012,
-    "location": "RoW",
-    "name": "Mung bean, sprouted",
-    "processId": "31c8c01a-045e-52b8-9905-89ac924d5844",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
     "transportCooling": "always",
@@ -7762,33 +7411,6 @@
     "visible": true
   },
   {
-    "activityName": "Palm fruit bunch, with deforestation, on land recently transformed, animal feed, at farm gate {MY} U",
-    "alias": "palm-fruit",
-    "categories": [
-      "vegetable_fresh"
-    ],
-    "cropGroup": "LEGUMES-FLEURS",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.9,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0.10127,
-      "livestockDensity": null,
-      "permanentPasture": null,
-      "plotSize": 0.25316
-    },
-    "id": "89796ca4-408e-552a-af9e-003afd8d84ad",
-    "inediblePart": 0.2,
-    "landOccupation": 0.40506,
-    "location": "MY",
-    "name": "Palm fruit",
-    "processId": "e1ce58a7-cc82-587a-b04b-5a613211c62b",
-    "rawToCookedRatio": 0.856,
-    "scenario": "reference",
-    "transportCooling": "always",
-    "visible": true
-  },
-  {
     "activityName": "Chicken egg, raw, without shell, at plant {FR} U",
     "alias": "egg-without-shell-fr",
     "categories": [
@@ -7991,33 +7613,6 @@
     "processId": "c2eacbad-d503-5a97-ad05-43b3c613a5fc",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
-    "transportCooling": "always",
-    "visible": true
-  },
-  {
-    "activityName": "Blackberry, at farm {RS} - Adapted from WFLDB U",
-    "alias": "black-mulberry",
-    "categories": [
-      "vegetable_fresh"
-    ],
-    "cropGroup": "VERGERS",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.85,
-    "ecosystemicServices": {
-      "cropDiversity": 1.8059,
-      "hedges": 0.85159,
-      "livestockDensity": null,
-      "permanentPasture": null,
-      "plotSize": 1.7102
-    },
-    "id": "8f32ef8d-6e10-5634-8e55-09f514c8e1f7",
-    "inediblePart": 0.03,
-    "landOccupation": 1.9545,
-    "location": "RS",
-    "name": "Black mulberry",
-    "processId": "2da0a329-049f-5a09-aa9d-3b19cc93e5f5",
-    "rawToCookedRatio": 0.856,
-    "scenario": "reference",
     "transportCooling": "always",
     "visible": true
   },
@@ -9122,33 +8717,6 @@
     "visible": false
   },
   {
-    "activityName": "Rice, basmati {IN}| rice production, basmati | Cut-off, U",
-    "alias": "basmati-rice",
-    "categories": [
-      "grain_raw"
-    ],
-    "cropGroup": "RIZ",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.72,
-    "ecosystemicServices": {
-      "cropDiversity": 1.0953,
-      "hedges": 0.13489,
-      "livestockDensity": null,
-      "permanentPasture": null,
-      "plotSize": 0
-    },
-    "id": "aa5e9cb5-d8db-5064-b132-27a87a15899c",
-    "inediblePart": 0,
-    "landOccupation": 1.1803,
-    "location": "IN",
-    "name": "Basmati rice",
-    "processId": "c41e579a-26b0-5fab-a367-b81d58f31ea4",
-    "rawToCookedRatio": 2.259,
-    "scenario": "reference",
-    "transportCooling": "none",
-    "visible": true
-  },
-  {
     "activityName": "Wheat grain {FR}| wheat production | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "whole-millet",
     "categories": [
@@ -9780,33 +9348,6 @@
     "name": "Haricot flageolet FR",
     "processId": "18d33ded-b853-5f0a-a0dc-2337cc4d9553",
     "rawToCookedRatio": 2.33,
-    "scenario": "reference",
-    "transportCooling": "none",
-    "visible": true
-  },
-  {
-    "activityName": "Peanut {IN}| peanut production | Cut-off, U",
-    "alias": "pistachios",
-    "categories": [
-      "nut_oilseed_raw"
-    ],
-    "cropGroup": "FRUITS A COQUES",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.5,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 3.4028,
-      "livestockDensity": null,
-      "permanentPasture": null,
-      "plotSize": 9.925
-    },
-    "id": "b6742434-e86a-5ea2-8027-c3cf5bf823ed",
-    "inediblePart": 0,
-    "landOccupation": 11.343,
-    "location": "IN",
-    "name": "Pistachios",
-    "processId": "a08ea909-cf83-564d-a11b-b0deacc66985",
-    "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "none",
     "visible": true
@@ -10783,33 +10324,6 @@
     "visible": false
   },
   {
-    "activityName": "Onion {RoW}| onion production | Cut-off, U",
-    "alias": "ginger",
-    "categories": [
-      "spice_condiment_additive"
-    ],
-    "cropGroup": "DIVERS",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.5,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0.0086654,
-      "livestockDensity": null,
-      "permanentPasture": null,
-      "plotSize": 0.090987
-    },
-    "id": "c8e208e5-be44-5322-80f6-1c4249806141",
-    "inediblePart": 0.1,
-    "landOccupation": 0.24263,
-    "location": "RoW",
-    "name": "Ginger",
-    "processId": "608d53e9-263a-5ec6-9ec8-18ead7c05240",
-    "rawToCookedRatio": 1.0,
-    "scenario": "reference",
-    "transportCooling": "none",
-    "visible": true
-  },
-  {
     "activityName": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "lambs-lettuce-non-eu",
     "categories": [
@@ -11064,33 +10578,6 @@
     "processId": "2cfc0491-33fd-52c1-ac7e-9cd3e31ace27",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
-    "transportCooling": "always",
-    "visible": true
-  },
-  {
-    "activityName": "Fennel {GLO}| fennel production | Cut-off, U",
-    "alias": "okra",
-    "categories": [
-      "vegetable_fresh"
-    ],
-    "cropGroup": "LEGUMES-FLEURS",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.9,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0.039324,
-      "livestockDensity": null,
-      "permanentPasture": null,
-      "plotSize": 0.098309
-    },
-    "id": "cf1f0dff-4e7a-5214-b496-8ebb59cbfd00",
-    "inediblePart": 0.2,
-    "landOccupation": 0.15729,
-    "location": "GLO",
-    "name": "Okra",
-    "processId": "590651e5-1508-584b-8de0-f7ad802c42d2",
-    "rawToCookedRatio": 0.856,
-    "scenario": "reference",
     "transportCooling": "always",
     "visible": true
   },
@@ -11382,33 +10869,6 @@
     "location": "NL",
     "name": "Champignon frais FR",
     "processId": "007db9be-fbb0-5c2f-ac8a-4780bc4a5304",
-    "rawToCookedRatio": 0.856,
-    "scenario": "reference",
-    "transportCooling": "always",
-    "visible": true
-  },
-  {
-    "activityName": "Spinach {CH}| spinach production, conventional, plain region | Cut-off, U",
-    "alias": "new-zealand-spinach",
-    "categories": [
-      "vegetable_fresh"
-    ],
-    "cropGroup": "LEGUMES-FLEURS",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.9,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0.1333,
-      "livestockDensity": null,
-      "permanentPasture": null,
-      "plotSize": 0.33324
-    },
-    "id": "d347c23a-8ff1-5a99-963f-777baba39960",
-    "inediblePart": 0.03,
-    "landOccupation": 0.53319,
-    "location": "CH",
-    "name": "New Zealand spinach",
-    "processId": "e35abd13-4d86-58dc-8a27-d42dd9ab4ceb",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
     "transportCooling": "always",
@@ -12353,33 +11813,6 @@
     "visible": true
   },
   {
-    "activityName": "Palm date, conditioned and dried {GLO}| palm date production, conditioned and dried | Cut-off, U",
-    "alias": "dates",
-    "categories": [
-      "vegetable_fresh"
-    ],
-    "cropGroup": "VERGERS",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.85,
-    "ecosystemicServices": {
-      "cropDiversity": 1.3251,
-      "hedges": 0.62487,
-      "livestockDensity": null,
-      "permanentPasture": null,
-      "plotSize": 1.2549
-    },
-    "id": "df67a44a-8102-546c-aab2-59831b2321f0",
-    "inediblePart": 0.2,
-    "landOccupation": 1.4341,
-    "location": "GLO",
-    "name": "Dates",
-    "processId": "3ed97f62-f0e6-50dc-b7e7-f02a4a05442e",
-    "rawToCookedRatio": 4.0,
-    "scenario": "reference",
-    "transportCooling": "none",
-    "visible": true
-  },
-  {
     "activityName": "Hazelnut, in shell, at farm {TR} - Adapted from WFLDB U",
     "alias": "hazelnut-non-eu",
     "categories": [
@@ -12755,33 +12188,6 @@
     "visible": false
   },
   {
-    "activityName": "Coffee, green bean {IN}| coffee green bean production, arabica | Cut-off, U - Copied from Ecoinvent U",
-    "alias": "coffee-beans",
-    "categories": [
-      "vegetable_fresh"
-    ],
-    "cropGroup": "DIVERS",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.8,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0.65989,
-      "livestockDensity": null,
-      "permanentPasture": null,
-      "plotSize": 6.9288
-    },
-    "id": "e5afde60-5828-5da7-96cf-0de4cb1f1b4d",
-    "inediblePart": 0.2,
-    "landOccupation": 18.477,
-    "location": "IN",
-    "name": "Coffee beans",
-    "processId": "44429f10-18cc-5171-ba06-46986c9ab63a",
-    "rawToCookedRatio": 1.0,
-    "scenario": "reference",
-    "transportCooling": "always",
-    "visible": true
-  },
-  {
     "activityName": "Strawberry for processing, open field, conventional, at farm gate {MA} U",
     "alias": "strawberry-non-eu",
     "categories": [
@@ -13098,33 +12504,6 @@
     "rawToCookedRatio": 0.792,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": true
-  },
-  {
-    "activityName": "Tea, fresh leaves, at farm (WFLDB)",
-    "alias": "tea-fresh-leaf",
-    "categories": [
-      "misc"
-    ],
-    "cropGroup": "DIVERS",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.9,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0.076687,
-      "livestockDensity": null,
-      "permanentPasture": null,
-      "plotSize": 0.80521
-    },
-    "id": "ef0f367e-eaae-5daa-8577-07413d1dbd5d",
-    "inediblePart": 0,
-    "landOccupation": 2.1472,
-    "location": "CN",
-    "name": "Tea, fresh leaf",
-    "processId": "0168da8e-a8b6-5904-9b30-04e6da7fd2dc",
-    "rawToCookedRatio": 1.0,
-    "scenario": "reference",
-    "transportCooling": "none",
     "visible": true
   },
   {
