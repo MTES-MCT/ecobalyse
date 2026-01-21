@@ -17,22 +17,29 @@ compute requirements query =
 
 toStepsImpacts : Definition.Trigram -> LifeCycle -> Impact.StepsImpacts
 toStepsImpacts trigram lifeCycle =
+    let
+        stagesImpacts =
+            Component.stagesImpacts lifeCycle
+    in
     { noStepsImpacts
         | endOfLife =
-            lifeCycle.endOfLife
+            stagesImpacts.endOfLife
                 |> Impact.getImpact trigram
                 |> Just
         , materials =
-            Component.extractImpacts lifeCycle.production
+            stagesImpacts.material
+                |> Impact.getImpact trigram
+                |> Just
+        , transform =
+            stagesImpacts.transformation
                 |> Impact.getImpact trigram
                 |> Just
         , transports =
-            Component.getTotalTransportImpacts lifeCycle.transports
+            stagesImpacts.transports
                 |> Impact.getImpact trigram
                 |> Just
         , usage =
-            lifeCycle.use
-                |> Impact.sumImpacts
+            stagesImpacts.use
                 |> Impact.getImpact trigram
                 |> Just
     }

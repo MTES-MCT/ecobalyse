@@ -36,3 +36,11 @@ repos:
         types_or: [python]
         entry: |
           bash -c 'npm --prefix . run fix:ruff:format "${@}"' --
+
+      - id: app-elm-format
+        name: run elm-format
+        language: system
+        files: ^.*$
+        types_or: [elm]
+        entry: |
+          bash -c 'npm --prefix . run fix:elm-format "${@}"' --

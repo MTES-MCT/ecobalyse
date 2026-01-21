@@ -61,7 +61,6 @@ module Data.Component exposing
     , getEndOfLifeDetailedImpacts
     , getEndOfLifeImpacts
     , getEndOfLifeScopeCollectionRate
-    , getTotalTransportImpacts
     , idFromString
     , idToString
     , isEmpty
