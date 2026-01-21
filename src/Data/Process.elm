@@ -46,7 +46,21 @@ type Id
 {-| A process is an entry from processes.json or processes\_impacts.json.
 -}
 type alias Process =
-    { activityName : ActivityName, categories : List Category, comment : String, displayName : Maybe String, elec : Energy, heat : Energy, id : Id, impacts : Impacts, location : Maybe String, massPerUnit : Maybe Float, scopes : List Scope, source : String, unit : Unit, waste : Split }
+    { activityName : ActivityName
+    , categories : List Category
+    , comment : String
+    , displayName : Maybe String
+    , elec : Energy
+    , heat : Energy
+    , id : Id
+    , impacts : Impacts
+    , location : Maybe String
+    , massPerUnit : Maybe Float
+    , scopes : List Scope
+    , source : String
+    , unit : Unit
+    , waste : Split
+    }
 
 
 type ActivityName
