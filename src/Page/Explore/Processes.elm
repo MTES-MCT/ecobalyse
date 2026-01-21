@@ -85,9 +85,9 @@ baseColumns detailed scope =
       , toValue = Table.FloatValue <| .waste >> Split.toPercent
       , toCell = .waste >> Format.splitAsPercentage 2
       }
-    , { label = "Densité"
-      , toValue = Table.FloatValue .density
-      , toCell = Format.density
+    , { label = "Masse par unité"
+      , toValue = Table.StringValue <| .massPerUnit >> Maybe.map String.fromFloat >> Maybe.withDefault "N/A"
+      , toCell = Format.massPerUnit
       }
     , { label = "Commentaire"
       , toValue = Table.StringValue .comment
