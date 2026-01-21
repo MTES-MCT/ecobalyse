@@ -200,33 +200,12 @@ forFood results config =
 
 forObject : Definitions -> Component.LifeCycle -> Config msg -> Config msg
 forObject definitions lifeCycle config =
-    let
-        stageStats =
-            Component.stagesImpacts lifeCycle
-    in
-    -- FIXME: we should have Impact.mapStagesMaybe or eq.
     { config
         | scoring = Component.computeScoring definitions lifeCycle
         , stagesImpacts =
-            { distribution = Nothing
-            , endOfLife =
-                stageStats.endOfLife
-                    |> Maybe.map (Impact.getImpact config.impactDefinition.trigram)
-            , materials =
-                stageStats.materials
-                    |> Maybe.map (Impact.getImpact config.impactDefinition.trigram)
-            , packaging = Nothing
-            , transform =
-                stageStats.transform
-                    |> Maybe.map (Impact.getImpact config.impactDefinition.trigram)
-            , transports =
-                stageStats.transports
-                    |> Maybe.map (Impact.getImpact config.impactDefinition.trigram)
-            , trims = Nothing
-            , usage =
-                stageStats.usage
-                    |> Maybe.map (Impact.getImpact config.impactDefinition.trigram)
-            }
+            lifeCycle
+                |> Component.stagesImpacts
+                |> Impact.mapStages (Maybe.map (Impact.getImpact config.impactDefinition.trigram))
         , total = Component.sumLifeCycleImpacts lifeCycle
     }
 

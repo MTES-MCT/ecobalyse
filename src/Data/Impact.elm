@@ -23,6 +23,7 @@ module Data.Impact exposing
     , insertWithoutAggregateComputation
     , mapComplementsImpacts
     , mapImpacts
+    , mapStages
     , multiplyBy
     , noComplementsImpacts
     , noStagesImpacts
@@ -219,7 +220,7 @@ type alias StagesImpacts =
     Stages (Maybe Unit.Impact)
 
 
-mapStages : (a -> a) -> Stages a -> Stages a
+mapStages : (a -> b) -> Stages a -> Stages b
 mapStages fn stages =
     { distribution = fn stages.distribution
     , endOfLife = fn stages.endOfLife
