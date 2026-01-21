@@ -1784,33 +1784,6 @@
     "visible": true
   },
   {
-    "activityName": "Tea, dried {CN}| tea production, dried | Cut-off, U",
-    "alias": "tea-fresh-leaf",
-    "categories": [
-      "misc"
-    ],
-    "cropGroup": "DIVERS",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.9,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0.33783,
-      "livestockDensity": null,
-      "permanentPasture": null,
-      "plotSize": 3.5473
-    },
-    "id": "19f596f2-a88a-533d-96bb-ebb286e52045",
-    "inediblePart": 0,
-    "landOccupation": 9.4593,
-    "location": "CN",
-    "name": "Tea, fresh leaf",
-    "processId": "5223d47a-9f2a-5c12-ad73-5ed20a2de8ff",
-    "rawToCookedRatio": 4.0,
-    "scenario": "reference",
-    "transportCooling": "none",
-    "visible": true
-  },
-  {
     "activityName": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "flageolet-bean-eu",
     "categories": [
@@ -2389,33 +2362,6 @@
     "visible": false
   },
   {
-    "activityName": "Cocoa powder, at plant {RER} - Adapted from WFLDB U",
-    "alias": "cocoa-powder",
-    "categories": [
-      "vegetable_fresh"
-    ],
-    "cropGroup": "DIVERS",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.9,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0.42606,
-      "livestockDensity": null,
-      "permanentPasture": null,
-      "plotSize": 4.4736
-    },
-    "id": "2595f6b4-387c-5470-a65f-e39b6d3103af",
-    "inediblePart": 0.2,
-    "landOccupation": 11.93,
-    "location": "RER",
-    "name": "Cocoa powder",
-    "processId": "524f4977-8e1e-5f52-93b3-4d81f00a4606",
-    "rawToCookedRatio": 1.0,
-    "scenario": "reference",
-    "transportCooling": "always",
-    "visible": true
-  },
-  {
     "activityName": "Durum wheat grain, conventional, national average, at farm gate {FR} U",
     "alias": "durum-wheat-fr",
     "categories": [
@@ -2603,33 +2549,6 @@
     "scenario": "import",
     "transportCooling": "always",
     "visible": false
-  },
-  {
-    "activityName": "Onion {CN}| onion production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "ginger",
-    "categories": [
-      "spice_condiment_additive"
-    ],
-    "cropGroup": "DIVERS",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.5,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0.0066401,
-      "livestockDensity": null,
-      "permanentPasture": null,
-      "plotSize": 0.069721
-    },
-    "id": "2bc67877-6470-51f9-87a1-8f8c9b1a5ba0",
-    "inediblePart": 0.1,
-    "landOccupation": 0.18592,
-    "location": "CN",
-    "name": "Ginger",
-    "processId": "4dfdee74-9de2-53b8-a9e0-7cfbf54938ad",
-    "rawToCookedRatio": 1.0,
-    "scenario": "reference",
-    "transportCooling": "none",
-    "visible": true
   },
   {
     "activityName": "Cow milk, organic, national average, at farm gate FR U",
@@ -3609,6 +3528,33 @@
     "processId": "5d74b775-05a5-56b2-bd22-250d938f1c9a",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
+    "activityName": "Olive {ES}| olive production | Cut-off, U",
+    "alias": "olives",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "cropGroup": "VERGERS",
+    "defaultOrigin": "EuropeAndMaghreb",
+    "density": 0.65,
+    "ecosystemicServices": {
+      "cropDiversity": 1.8714,
+      "hedges": 0.88247,
+      "livestockDensity": null,
+      "permanentPasture": null,
+      "plotSize": 1.7722
+    },
+    "id": "3d7b7419-42a8-5cf3-82c9-d3fb80058c66",
+    "inediblePart": 0.5,
+    "landOccupation": 2.0253,
+    "location": "ES",
+    "name": "Olives",
+    "processId": "788ba9e2-e484-5d58-8e74-4459c8ff2e66",
+    "rawToCookedRatio": 0.856,
+    "scenario": "reference",
     "transportCooling": "always",
     "visible": true
   },
@@ -5294,33 +5240,6 @@
     "visible": false
   },
   {
-    "activityName": "Olive {IT}| olive production | Cut-off, U",
-    "alias": "olives",
-    "categories": [
-      "vegetable_fresh"
-    ],
-    "cropGroup": "VERGERS",
-    "defaultOrigin": "EuropeAndMaghreb",
-    "density": 0.65,
-    "ecosystemicServices": {
-      "cropDiversity": 2.1899,
-      "hedges": 1.0326,
-      "livestockDensity": null,
-      "permanentPasture": null,
-      "plotSize": 2.0738
-    },
-    "id": "5b4dcac2-8efd-5241-8c99-c1fc99fca115",
-    "inediblePart": 0.5,
-    "landOccupation": 2.37,
-    "location": "IT",
-    "name": "Olives",
-    "processId": "5e24c099-1339-5600-9885-a0d2c6235799",
-    "rawToCookedRatio": 0.856,
-    "scenario": "reference",
-    "transportCooling": "always",
-    "visible": true
-  },
-  {
     "activityName": "Ware potato, organic 2025, variety mix, national average, at farm gate {FR} U",
     "alias": "potato-table-organic",
     "categories": [
@@ -6396,6 +6315,33 @@
     "visible": false
   },
   {
+    "activityName": "Sesame seed {RoW}| sesame seed production | Cut-off, U",
+    "alias": "sesame-seeds",
+    "categories": [
+      "grain_raw"
+    ],
+    "cropGroup": "AUTRES CEREALES",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
+    "density": 0.75,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0.43122,
+      "livestockDensity": null,
+      "permanentPasture": null,
+      "plotSize": 0.60858
+    },
+    "id": "6c5846ae-9fd2-5a98-92cb-bbfc7c9ec440",
+    "inediblePart": 0,
+    "landOccupation": 0.97373,
+    "location": "RoW",
+    "name": "Sesame seeds",
+    "processId": "8a200906-8770-56b7-9ad4-67535421034a",
+    "rawToCookedRatio": 2.259,
+    "scenario": "reference",
+    "transportCooling": "none",
+    "visible": true
+  },
+  {
     "activityName": "Linseed, at farm {CA} - Adapted from WFLDB U",
     "alias": "poppy-seeds",
     "categories": [
@@ -6949,33 +6895,6 @@
     "visible": true
   },
   {
-    "activityName": "Peanut {AR}| peanut production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "sesame-seeds",
-    "categories": [
-      "grain_raw"
-    ],
-    "cropGroup": "AUTRES CEREALES",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.75,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 1.947,
-      "livestockDensity": null,
-      "permanentPasture": null,
-      "plotSize": 2.7477
-    },
-    "id": "780faf43-699c-51c7-b016-8f2f5637f277",
-    "inediblePart": 0,
-    "landOccupation": 4.3964,
-    "location": "AR",
-    "name": "Sesame seeds",
-    "processId": "6cab88c1-6928-5586-8f72-1d5dec82d343",
-    "rawToCookedRatio": 2.259,
-    "scenario": "reference",
-    "transportCooling": "none",
-    "visible": true
-  },
-  {
     "activityName": "Cherry, conventional, national average, at orchard {FR} U",
     "alias": "plum-fr",
     "categories": [
@@ -7313,27 +7232,6 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": true
-  },
-  {
-    "activityName": "Lettuce {GLO}| lettuce production, in heated greenhouse | Cut-off, U",
-    "alias": "molokhia-powder",
-    "categories": [
-      "animal_product"
-    ],
-    "cropGroup": null,
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 1.05,
-    "ecosystemicServices": null,
-    "id": "7debf221-2d94-51a8-8edb-f4e5a70e14b1",
-    "inediblePart": 0.4,
-    "landOccupation": 0.45231,
-    "location": "GLO",
-    "name": "Molokhia powder",
-    "processId": "363b265f-46e8-5010-bc72-d986486fd597",
-    "rawToCookedRatio": 0.792,
-    "scenario": "reference",
-    "transportCooling": "always",
     "visible": true
   },
   {
@@ -9203,33 +9101,6 @@
     "visible": true
   },
   {
-    "activityName": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
-    "alias": "tapioca",
-    "categories": [
-      "grain_processed"
-    ],
-    "cropGroup": "AUTRES CEREALES",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.75,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0.12747,
-      "livestockDensity": null,
-      "permanentPasture": null,
-      "plotSize": 0.1799
-    },
-    "id": "a9be64dc-b3f5-5816-a280-88546ab931e9",
-    "inediblePart": 0.1,
-    "landOccupation": 0.28784,
-    "location": "RoW",
-    "name": "Tapioca",
-    "processId": "f51780dc-f35f-56e6-b15d-8f624deffe8a",
-    "rawToCookedRatio": 2.259,
-    "scenario": "reference",
-    "transportCooling": "none",
-    "visible": true
-  },
-  {
     "activityName": "Goat milk, consumption mix {FR} U",
     "alias": "goat-milk",
     "categories": [
@@ -9915,13 +9786,13 @@
   },
   {
     "activityName": "Peanut {IN}| peanut production | Cut-off, U",
-    "alias": "brazil-nuts",
+    "alias": "pistachios",
     "categories": [
       "nut_oilseed_raw"
     ],
     "cropGroup": "FRUITS A COQUES",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.63,
+    "density": 0.5,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 3.4028,
@@ -9933,7 +9804,7 @@
     "inediblePart": 0,
     "landOccupation": 11.343,
     "location": "IN",
-    "name": "Brazil nuts",
+    "name": "Pistachios",
     "processId": "a08ea909-cf83-564d-a11b-b0deacc66985",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
@@ -10124,33 +9995,6 @@
     "scenario": "reference",
     "transportCooling": "none",
     "visible": false
-  },
-  {
-    "activityName": "Triticale straw, animal feed, average practices {FR} U",
-    "alias": "triticale",
-    "categories": [
-      "grain_processed"
-    ],
-    "cropGroup": "AUTRES CEREALES",
-    "defaultOrigin": "France",
-    "density": 0.75,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0.0005458,
-      "livestockDensity": null,
-      "permanentPasture": null,
-      "plotSize": 0.00077029
-    },
-    "id": "bab133f6-f3b1-5396-83a2-21b37301a0f7",
-    "inediblePart": 0,
-    "landOccupation": 0.0012325,
-    "location": "FR",
-    "name": "Triticale",
-    "processId": "b2c978f7-0948-5a84-95fc-4f8daaa8a461",
-    "rawToCookedRatio": 2.259,
-    "scenario": "reference",
-    "transportCooling": "none",
-    "visible": true
   },
   {
     "activityName": "Pear {BE}| pear production | Cut-off, U - Adapted from Ecoinvent U",
@@ -10937,6 +10781,33 @@
     "scenario": "reference",
     "transportCooling": "none",
     "visible": false
+  },
+  {
+    "activityName": "Onion {RoW}| onion production | Cut-off, U",
+    "alias": "ginger",
+    "categories": [
+      "spice_condiment_additive"
+    ],
+    "cropGroup": "DIVERS",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
+    "density": 0.5,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0.0086654,
+      "livestockDensity": null,
+      "permanentPasture": null,
+      "plotSize": 0.090987
+    },
+    "id": "c8e208e5-be44-5322-80f6-1c4249806141",
+    "inediblePart": 0.1,
+    "landOccupation": 0.24263,
+    "location": "RoW",
+    "name": "Ginger",
+    "processId": "608d53e9-263a-5ec6-9ec8-18ead7c05240",
+    "rawToCookedRatio": 1.0,
+    "scenario": "reference",
+    "transportCooling": "none",
+    "visible": true
   },
   {
     "activityName": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
@@ -13230,6 +13101,33 @@
     "visible": true
   },
   {
+    "activityName": "Tea, fresh leaves, at farm (WFLDB)",
+    "alias": "tea-fresh-leaf",
+    "categories": [
+      "misc"
+    ],
+    "cropGroup": "DIVERS",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
+    "density": 0.9,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0.076687,
+      "livestockDensity": null,
+      "permanentPasture": null,
+      "plotSize": 0.80521
+    },
+    "id": "ef0f367e-eaae-5daa-8577-07413d1dbd5d",
+    "inediblePart": 0,
+    "landOccupation": 2.1472,
+    "location": "CN",
+    "name": "Tea, fresh leaf",
+    "processId": "0168da8e-a8b6-5904-9b30-04e6da7fd2dc",
+    "rawToCookedRatio": 1.0,
+    "scenario": "reference",
+    "transportCooling": "none",
+    "visible": true
+  },
+  {
     "activityName": "Mango, organic 2025, Val de San Francisco, at orchard {BR} U",
     "alias": "mango-organic",
     "categories": [
@@ -13686,7 +13584,7 @@
   },
   {
     "activityName": "Lentil {CA-SK}| lentil production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "lentil-dried",
+    "alias": "lentil",
     "categories": [
       "vegetable_fresh"
     ],
@@ -13704,11 +13602,11 @@
     "inediblePart": 0.2,
     "landOccupation": 5.8919,
     "location": "CA-SK",
-    "name": "Lentil dried",
+    "name": "Lentil",
     "processId": "90369a4e-a87b-5f6b-bcd8-a70006d1b37a",
-    "rawToCookedRatio": 4.0,
+    "rawToCookedRatio": 2.33,
     "scenario": "reference",
-    "transportCooling": "none",
+    "transportCooling": "always",
     "visible": true
   },
   {
