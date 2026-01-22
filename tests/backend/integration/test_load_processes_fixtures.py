@@ -1,4 +1,5 @@
 from typing import TYPE_CHECKING, Any
+from uuid import UUID
 
 import pytest
 from app.cli.commands import load_processes_fixtures
@@ -32,7 +33,7 @@ async def test_load_processes(
         "displayName": "Process de test",
         "elecMJ": 1.61,
         "heatMJ": 10.74,
-        "id": "216e33b3-f607-41e0-b047-cd42db763c5b",
+        "id": UUID("216e33b3-f607-41e0-b047-cd42db763c5b"),
         "impacts": {
             "acd": 1,
             "cch": 2,
@@ -88,7 +89,7 @@ async def test_load_processes(
     assert initial_processes_nb + 1 == len(processes)
 
     response = await client.get(
-        "/api/processes/" + raw_processes[-1]["id"],
+        "/api/processes/" + str(raw_processes[-1]["id"]),
         headers=user_token_headers,
     )
     assert response.status_code == 200
@@ -114,7 +115,7 @@ async def test_load_processes(
     assert initial_processes_nb == len(processes)
 
     response = await client.get(
-        "/api/processes/" + last_process_id,
+        "/api/processes/" + str(last_process_id),
         headers=user_token_headers,
     )
     assert response.status_code == 404

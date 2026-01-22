@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 from typing import TYPE_CHECKING, Any
+from uuid import UUID
 
 import orjson
 import pytest
@@ -51,7 +52,7 @@ async def test_update_process(
         process_process_category as process_process_category_table,
     )
 
-    process_id = "97c209ec-7782-5a29-8c47-af7f17c82d11"
+    process_id = UUID("97c209ec-7782-5a29-8c47-af7f17c82d11")
     processes_service = await anext(provide_processes_service(session))
 
     categories = (await session.scalars(select(m.ProcessCategory))).all()
