@@ -164,10 +164,10 @@ suite =
 
                                     Ok scoring ->
                                         [ Unit.impactToFloat scoring.all
-                                            |> Expect.within (Expect.Absolute 0.01) 471.39
+                                            |> Expect.within (Expect.Absolute 0.01) 463.44
                                             |> asTest "should properly score total impact"
                                         , Unit.impactToFloat scoring.allWithoutComplements
-                                            |> Expect.within (Expect.Absolute 0.01) 468.17
+                                            |> Expect.within (Expect.Absolute 0.01) 460.23
                                             |> asTest "should properly score total impact without complements"
                                         , Unit.impactToFloat scoring.complements
                                             |> Expect.within (Expect.Absolute 0.01) -3.21
@@ -176,16 +176,16 @@ suite =
                                             |> Expect.within (Expect.Absolute 0.0001) (Unit.impactToFloat scoring.all)
                                             |> asTest "should expose coherent scoring"
                                         , Unit.impactToFloat scoring.biodiversity
-                                            |> Expect.within (Expect.Absolute 0.01) 213.72
+                                            |> Expect.within (Expect.Absolute 0.01) 211.09
                                             |> asTest "should properly score impact on biodiversity protected area"
                                         , Unit.impactToFloat scoring.climate
-                                            |> Expect.within (Expect.Absolute 0.01) 99.13
+                                            |> Expect.within (Expect.Absolute 0.01) 96.57
                                             |> asTest "should properly score impact on climate protected area"
                                         , Unit.impactToFloat scoring.health
-                                            |> Expect.within (Expect.Absolute 0.01) 46.65
+                                            |> Expect.within (Expect.Absolute 0.01) 45.6
                                             |> asTest "should properly score impact on health protected area"
                                         , Unit.impactToFloat scoring.resources
-                                            |> Expect.within (Expect.Absolute 0.01) 108.68
+                                            |> Expect.within (Expect.Absolute 0.01) 106.96
                                             |> asTest "should properly score impact on resources protected area"
                                         ]
                                 )
