@@ -92,6 +92,7 @@ shareTabView { copyToClipBoard, impact, scope, session } =
                     ( Just query
                         |> Route.FoodBuilder impact.trigram
                         |> Route.toString
+                        |> (++) "/"
                         |> (++) session.clientUrl
                     , FoodQuery.buildApiQuery session.clientUrl query
                     , FoodQuery.encode query
@@ -106,6 +107,7 @@ shareTabView { copyToClipBoard, impact, scope, session } =
                     ( Just query
                         |> Route.ObjectSimulator scope impact.trigram
                         |> Route.toString
+                        |> (++) "/"
                         |> (++) session.clientUrl
                     , buildObjectApiQuery scope session.clientUrl query
                     , Component.encodeQuery query
@@ -120,6 +122,7 @@ shareTabView { copyToClipBoard, impact, scope, session } =
                     ( Just query
                         |> Route.TextileSimulator impact.trigram
                         |> Route.toString
+                        |> (++) "/"
                         |> (++) session.clientUrl
                     , TextileQuery.buildApiQuery session.clientUrl query
                     , TextileQuery.encode query
@@ -134,6 +137,7 @@ shareTabView { copyToClipBoard, impact, scope, session } =
                     ( Just query
                         |> Route.ObjectSimulator scope impact.trigram
                         |> Route.toString
+                        |> (++) "/"
                         |> (++) session.clientUrl
                     , buildObjectApiQuery scope session.clientUrl query
                     , Component.encodeQuery query
