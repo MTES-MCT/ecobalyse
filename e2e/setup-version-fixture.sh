@@ -6,11 +6,11 @@ ROOT_DIR=$( dirname $SCRIPT_DIR )
 cd $ROOT_DIR
 
 mkdir -p versions
-rm -rf ./versions/v0.0.1
+rm -rf ./versions/v7.0.0
 
 export BUILD_CURRENT_VERSION=1
-./bin/build-specific-app-version.sh v0.0.1
+./bin/build-specific-app-version.sh v7.0.0
 
 cd versions
-tar -xzf ../v0.0.1-dist.tar.gz --strip-components=1 -C v0.0.1 dist/
-rm ../v0.0.1-dist.tar.gz
+tar -xzf ../v7.0.0-dist.tar.gz --strip-components=1 -C v7.0.0 dist/
+rm ../v7.0.0-dist.tar.gz
