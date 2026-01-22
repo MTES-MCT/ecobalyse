@@ -11,7 +11,6 @@ import App
 import Browser exposing (Document)
 import Data.Dataset as Dataset
 import Data.Env as Env
-import Data.Github as Github
 import Data.Notification as Notification exposing (Notification)
 import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
@@ -417,29 +416,12 @@ pageHeader { activePage, session, toMsg } =
                     , text "Ecobalyse"
                     ]
                 ]
-            , session.releases
-                |> RemoteData.map
-                    (\releases ->
-                        (case Version.getTag session.currentVersion of
-                            Just _ ->
-                                releases
-
-                            Nothing ->
-                                -- If we're not on a tag, add an "unreleased" entry to reflect that
-                                Github.unreleased :: releases
-                        )
-                            |> List.map
-                                (\release ->
-                                    option [ selected <| Version.is release session.currentVersion ]
-                                        [ text release.tag ]
-                                )
-                    )
-                |> RemoteData.withDefault []
-                |> select
-                    [ class "VersionSelector d-none d-sm-block form-select form-select-sm w-auto"
-                    , attribute "data-testid" "version-selector"
-                    , onInput <| toMsg << App.SwitchVersion
-                    ]
+            , select
+                [ class "VersionSelector d-none d-sm-block form-select form-select-sm w-auto"
+                , attribute "data-testid" "version-selector"
+                , onInput <| toMsg << App.SwitchVersion
+                ]
+                [ option [ selected True ] [ text "Version courante" ], option [ value "v7.0.0" ] [ text "Version stable textile" ] ]
             , div [ class "HeaderAuthLink flex-fill" ]
                 [ a
                     [ class "d-none d-sm-block flex-fill text-end"
