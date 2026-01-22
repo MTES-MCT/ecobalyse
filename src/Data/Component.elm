@@ -104,6 +104,7 @@ import Data.Process.Category as Category exposing (Category, MaterialDict)
 import Data.Scope as Scope exposing (Scope)
 import Data.Scoring as Scoring exposing (Scoring)
 import Data.Split as Split exposing (Split)
+import Data.Stages exposing (Stages)
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Data.Uuid as Uuid exposing (Uuid)
@@ -1504,7 +1505,7 @@ setQueryItems items query =
     }
 
 
-stagesImpacts : LifeCycle -> Impact.Stages (Maybe Impacts)
+stagesImpacts : LifeCycle -> Stages (Maybe Impacts)
 stagesImpacts lifeCycle =
     lifeCycle.production
         |> extractItems

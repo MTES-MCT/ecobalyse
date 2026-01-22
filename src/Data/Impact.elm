@@ -1,7 +1,6 @@
 module Data.Impact exposing
     ( ComplementsImpacts
     , Impacts
-    , Stages
     , StagesImpacts
     , addComplementsImpacts
     , applyComplements
@@ -23,7 +22,6 @@ module Data.Impact exposing
     , insertWithoutAggregateComputation
     , mapComplementsImpacts
     , mapImpacts
-    , mapStages
     , multiplyBy
     , noComplementsImpacts
     , noStagesImpacts
@@ -41,6 +39,7 @@ module Data.Impact exposing
 
 import Data.Color as Color
 import Data.Impact.Definition as Definition exposing (Definition, Definitions, Trigram, Trigrams)
+import Data.Stages as Stages exposing (Stages)
 import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
@@ -204,33 +203,8 @@ totalComplementsImpactAsChartEntry complementsImpacts =
 -- Lifecycle stages abstraction
 
 
-type alias Stages a =
-    { distribution : a
-    , endOfLife : a
-    , materials : a
-    , packaging : a
-    , transform : a
-    , transports : a
-    , trims : a
-    , usage : a
-    }
-
-
 type alias StagesImpacts =
     Stages (Maybe Unit.Impact)
-
-
-mapStages : (a -> b) -> Stages a -> Stages b
-mapStages fn stages =
-    { distribution = fn stages.distribution
-    , endOfLife = fn stages.endOfLife
-    , materials = fn stages.materials
-    , packaging = fn stages.packaging
-    , transform = fn stages.transform
-    , transports = fn stages.transports
-    , trims = fn stages.trims
-    , usage = fn stages.usage
-    }
 
 
 noStagesImpacts : StagesImpacts
@@ -248,7 +222,7 @@ noStagesImpacts =
 
 divideStagesImpactsBy : Float -> StagesImpacts -> StagesImpacts
 divideStagesImpactsBy n =
-    mapStages (Maybe.map (Quantity.divideBy n))
+    Stages.map (Maybe.map (Quantity.divideBy n))
 
 
 type alias StagesColors =

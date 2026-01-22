@@ -15,6 +15,7 @@ import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Scoring as Scoring exposing (Scoring)
 import Data.Session as Session exposing (Session)
+import Data.Stages as Stages
 import Data.Textile.Simulator as TextileSimulator exposing (Simulator)
 import Data.Unit as Unit
 import Html exposing (..)
@@ -205,7 +206,7 @@ forObject definitions lifeCycle config =
         , stagesImpacts =
             lifeCycle
                 |> Component.stagesImpacts
-                |> Impact.mapStages (Maybe.map (Impact.getImpact config.impactDefinition.trigram))
+                |> Stages.map (Maybe.map (Impact.getImpact config.impactDefinition.trigram))
         , total = Component.sumLifeCycleImpacts lifeCycle
     }
 
