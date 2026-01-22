@@ -5,7 +5,6 @@ module Data.Env exposing
     , contactEmail
     , defaultDeadStock
     , gitbookUrl
-    , githubRepository
     , githubUrl
     , maxMakingDeadStockRatio
     , maxMakingWasteRatio

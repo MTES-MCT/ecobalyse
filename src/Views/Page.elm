@@ -19,7 +19,6 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Json.Decode as Decode
 import Page.Admin.Section as AdminSection
-import RemoteData
 import Request.BackendHttp.Error as BackendError
 import Request.Version as Version exposing (Version(..))
 import Route
@@ -620,24 +619,13 @@ mobileNavigation { activePage, session, toMsg } =
                     |> List.map (viewNavigationLink activePage)
                     |> div [ class "nav nav-pills flex-column" ]
                 , h4 [ class "h6 mt-3" ] [ text "Versions" ]
-                , session.releases
-                    |> RemoteData.map
-                        (List.map
-                            (\release ->
-                                if Version.is release session.currentVersion then
-                                    strong [] [ text release.tag ]
-
-                                else
-                                    a
-                                        [ class "nav-link"
-                                        , href <| "/versions/" ++ release.tag
-                                        , onClick (toMsg <| App.LoadUrl <| "/versions/" ++ release.tag)
-                                        ]
-                                        [ text release.tag ]
-                            )
-                        )
-                    |> RemoteData.withDefault []
-                    |> div [ class "nav nav-pills flex-column" ]
+                , versionLink session.currentVersion
+                , a
+                    [ class "nav-link"
+                    , href <| "/versions/v7.0.0/"
+                    , onClick (toMsg <| App.LoadUrl <| "/versions/v7.0.0/")
+                    ]
+                    [ text "Version stable textile" ]
                 ]
             ]
         , div [ class "offcanvas-backdrop fade show" ] []
