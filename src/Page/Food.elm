@@ -60,7 +60,7 @@ import Views.Comparator as ComparatorView
 import Views.ComplementsDetails as ComplementsDetails
 import Views.Component.DownArrow as DownArrow
 import Views.Component.MassInput as MassInput
-import Views.Component.StepsBorder as StepsBorder
+import Views.Component.StagesBorder as StagesBorder
 import Views.Container as Container
 import Views.Example as ExampleView
 import Views.Format as Format
@@ -117,7 +117,7 @@ type Msg
     | OnDragOverBookmark Bookmark
     | OnDragStartBookmark Bookmark
     | OnDropBookmark Bookmark
-    | OnStepClick String
+    | OnStageClick String
     | OpenComparator
     | RenameBookmark
     | Reset
@@ -164,9 +164,9 @@ init session trigram maybeQuery =
             ComparatorView.Subscores
 
         else
-            ComparatorView.Steps
+            ComparatorView.Stages
     , modal = NoModal
-    , activeImpactsTab = ImpactTabs.StepImpactsTab
+    , activeImpactsTab = ImpactTabs.StagesImpactsTab
     }
         |> createPageUpdate (session |> Session.updateFoodQuery query)
 
@@ -192,7 +192,7 @@ initFromExample session uuid =
     , bookmarkTab = BookmarkView.SaveTab
     , comparisonType = ComparatorView.Subscores
     , modal = NoModal
-    , activeImpactsTab = ImpactTabs.StepImpactsTab
+    , activeImpactsTab = ImpactTabs.StagesImpactsTab
     }
         |> createPageUpdate (session |> Session.updateFoodQuery query)
         |> App.withCmds [ Ports.scrollTo { x = 0, y = 0 } ]
@@ -355,9 +355,9 @@ update ({ db, queries } as session) msg model =
                 Nothing ->
                     createPageUpdate session model
 
-        OnStepClick stepId ->
+        OnStageClick stageId ->
             createPageUpdate session model
-                |> App.withCmds [ Ports.scrollIntoView stepId ]
+                |> App.withCmds [ Ports.scrollIntoView stageId ]
 
         OpenComparator ->
             { model | modal = ComparatorModal }
@@ -1066,11 +1066,11 @@ ingredientListView db selectedImpact recipe results =
     in
     [ div
         [ class "card-header d-flex align-items-center justify-content-between"
-        , StepsBorder.style Impact.stepsColors.materials
+        , StagesBorder.style Impact.stagesColors.materials
         ]
         [ h2
             [ class "h5 mb-0"
-            , id "materials-step"
+            , id "materials-stage"
             ]
             [ text "Ingrédients"
             , Link.smallPillExternal
@@ -1152,11 +1152,11 @@ packagingListView db selectedImpact recipe results =
     in
     [ div
         [ class "card-header d-flex align-items-center justify-content-between"
-        , StepsBorder.style Impact.stepsColors.packaging
+        , StagesBorder.style Impact.stagesColors.packaging
         ]
         [ h2
             [ class "h5 mb-0"
-            , id "packaging-step"
+            , id "packaging-stage"
             ]
             [ text "Emballage" ]
         , span []
@@ -1352,11 +1352,11 @@ distributionView selectedImpact recipe results =
     in
     [ div
         [ class "card-header d-flex align-items-center justify-content-between"
-        , StepsBorder.style Impact.stepsColors.distribution
+        , StagesBorder.style Impact.stagesColors.distribution
         ]
         [ h2
             [ class "h5 mb-0"
-            , id "distribution-step"
+            , id "distribution-stage"
             ]
             [ text "Distribution" ]
         , span []
@@ -1415,11 +1415,11 @@ consumptionView : Db -> Definition -> Recipe -> Recipe.Results -> List (Html Msg
 consumptionView { food } selectedImpact recipe results =
     [ div
         [ class "card-header d-flex align-items-center justify-content-between"
-        , StepsBorder.style Impact.stepsColors.usage
+        , StagesBorder.style Impact.stagesColors.usage
         ]
         [ h2
             [ class "h5 mb-0"
-            , id "usage-step"
+            , id "usage-stage"
             ]
             [ text "Consommation" ]
         , span []
@@ -1503,7 +1503,7 @@ mainView ({ db } as session) model =
                     errorView error
 
                 Ok ( recipe, results ) ->
-                    stepListView db session model recipe results
+                    stageListView db session model recipe results
             , session.queries.food
                 |> debugQueryView db
             ]
@@ -1581,7 +1581,7 @@ sidebarView session model results =
         -- Impacts tabs
         , impactTabsConfig =
             SwitchImpactsTab
-                |> ImpactTabs.createConfig session model.impact model.activeImpactsTab OnStepClick
+                |> ImpactTabs.createConfig session model.impact model.activeImpactsTab OnStageClick
                 |> ImpactTabs.forFood results
                 |> Just
 
@@ -1600,8 +1600,8 @@ sidebarView session model results =
         }
 
 
-stepListView : Db -> Session -> Model -> Recipe -> Recipe.Results -> Html Msg
-stepListView ({ food } as db) session { impact, initialQuery } recipe results =
+stageListView : Db -> Session -> Model -> Recipe -> Recipe.Results -> Html Msg
+stageListView ({ food } as db) session { impact, initialQuery } recipe results =
     div []
         [ div [ class "card shadow-sm" ]
             (ingredientListView db impact recipe results)
@@ -1640,11 +1640,11 @@ transformView db selectedImpact recipe results =
     in
     [ div
         [ class "card-header d-flex align-items-center justify-content-between"
-        , StepsBorder.style Impact.stepsColors.transform
+        , StagesBorder.style Impact.stagesColors.transform
         ]
         [ h2
             [ class "h5 mb-0"
-            , id "transform-step"
+            , id "transform-stage"
             ]
             [ text "Transformation" ]
         , span []

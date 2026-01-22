@@ -34,13 +34,13 @@ test.describe("Textile simulator", () => {
     expect(newScore).toBeGreaterThan(score);
   });
 
-  test("life cycle steps", async ({ page }) => {
-    const lifeCycleSteps = page.getByTestId("life-cycle-steps");
-    await expect(lifeCycleSteps).toBeVisible();
+  test("life cycle stages", async ({ page }) => {
+    const lifeCycleStages = page.getByTestId("life-cycle-stages");
+    await expect(lifeCycleStages).toBeVisible();
 
-    const stepNames = await lifeCycleSteps.locator(".card-header h2").allInnerTexts();
-    expect(stepNames).toHaveLength(8);
-    expect(stepNames).toEqual([
+    const stageNames = await lifeCycleStages.locator(".card-header h2").allInnerTexts();
+    expect(stageNames).toHaveLength(8);
+    expect(stageNames).toEqual([
       "Matières premières",
       "Transformation - Filature",
       "Transformation - Tissage / Tricotage",
@@ -56,7 +56,7 @@ test.describe("Textile simulator", () => {
     await page.getByRole("button", { name: "Mode exploratoire" }).click();
 
     await page
-      .getByTestId("life-cycle-steps")
+      .getByTestId("life-cycle-stages")
       .getByRole("listitem")
       .filter({ hasText: "Titrage : 40 Nm (250 Dtex)" })
       .click();

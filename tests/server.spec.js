@@ -364,13 +364,13 @@ describe("API", () => {
 
         expectStatus(response, 200);
 
-        const ennoblingStep = response.body.lifeCycle.filter(
+        const ennoblingStage = response.body.lifeCycle.filter(
           ({ label }) => label === "Ennoblissement",
         )[0];
-        expect(ennoblingStep).toBeTruthy();
+        expect(ennoblingStage).toBeTruthy();
 
         // FIXME investigate why this has evolved before landing
-        expect(ennoblingStep.preTreatments.impacts.ecs).toBeCloseTo(92.7573, 2);
+        expect(ennoblingStage.preTreatments.impacts.ecs).toBeCloseTo(92.7573, 2);
       });
     });
 

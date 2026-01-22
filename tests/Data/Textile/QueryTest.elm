@@ -6,7 +6,7 @@ import Data.Textile.Inputs as Inputs
 import Data.Textile.MakingComplexity as MakingComplexity
 import Data.Textile.Material as Material
 import Data.Textile.Query as Query exposing (Query)
-import Data.Textile.Step.Label as Label
+import Data.Textile.Stage.Label as Label
 import Expect
 import Test exposing (..)
 import TestUtils exposing (asTest, jupeCotonAsie, suiteFromResult, suiteFromResult2, suiteFromResult3, suiteWithDb)
@@ -57,14 +57,14 @@ suite =
                     )
                 ]
             , describe "handleUpcycling"
-                [ suiteFromResult "should not touch disabled steps when not upcycled"
+                [ suiteFromResult "should not touch disabled stages when not upcycled"
                     jupeCotonAsie
                     (\query ->
                         [ { query | upcycled = False }
                             |> Query.handleUpcycling
-                            |> .disabledSteps
+                            |> .disabledStages
                             |> Expect.equal []
-                            |> asTest "not touch disabled steps when not upcycled"
+                            |> asTest "not touch disabled stages when not upcycled"
                         ]
                     )
                 , suiteFromResult "should not touch making complexity when not upcycled"
@@ -78,14 +78,14 @@ suite =
                         ]
                     )
                 , suiteFromResult
-                    "should disable specific steps when upcycled"
+                    "should disable specific stages when upcycled"
                     jupeCotonAsie
                     (\query ->
                         [ { query | upcycled = True }
                             |> Query.handleUpcycling
-                            |> .disabledSteps
+                            |> .disabledStages
                             |> Expect.equal Label.upcyclables
-                            |> asTest "disable specific steps when upcycled"
+                            |> asTest "disable specific stages when upcycled"
                         ]
                     )
                 , suiteFromResult
@@ -124,16 +124,16 @@ suite =
                     (Material.idFromString "73ef624d-250e-4a9a-af5d-43505b21b527")
                     (\cottonId syntheticId ->
                         [ [ { id = cottonId
-                                  , share = Split.half
-                                  , spinning = Nothing
-                                  , country = Nothing
-                                  }
-                                , { id = syntheticId
-                                  , share = Split.half
-                                  , spinning = Nothing
-                                  , country = Nothing
-                                  }
-                                ]
+                            , share = Split.half
+                            , spinning = Nothing
+                            , country = Nothing
+                            }
+                          , { id = syntheticId
+                            , share = Split.half
+                            , spinning = Nothing
+                            , country = Nothing
+                            }
+                          ]
                             |> Query.validateMaterials
                             |> Expect.ok
                             |> asTest "validates complete sum of materials"
@@ -146,21 +146,21 @@ suite =
                     (Material.idFromString "62a4d6fb-3276-4ba5-93a3-889ecd3bff84")
                     (\polyesterId polypropyleneId cottonId ->
                         [ [ { id = polyesterId
-                                  , share = Split.sixty
-                                  , spinning = Nothing
-                                  , country = Nothing
-                                  }
-                                , { id = polypropyleneId
-                                  , share = Split.thirty
-                                  , spinning = Nothing
-                                  , country = Nothing
-                                  }
-                                  , { id = cottonId
-                                  , share = Split.tenth
-                                  , spinning = Nothing
-                                  , country = Nothing
-                                  }
-                                ]
+                            , share = Split.sixty
+                            , spinning = Nothing
+                            , country = Nothing
+                            }
+                          , { id = polypropyleneId
+                            , share = Split.thirty
+                            , spinning = Nothing
+                            , country = Nothing
+                            }
+                          , { id = cottonId
+                            , share = Split.tenth
+                            , spinning = Nothing
+                            , country = Nothing
+                            }
+                          ]
                             |> Query.validateMaterials
                             |> Expect.ok
                             |> asTest "validates complete sum of materials with rounding error"

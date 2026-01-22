@@ -15,7 +15,7 @@ import Data.Textile.MakingComplexity as MakingComplexity
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Query as TextileQuery
 import Data.Textile.Simulator as Simulator
-import Data.Textile.Step.Label as Label
+import Data.Textile.Stage.Label as Label
 import Data.Unit as Unit
 import Duration
 import Energy
@@ -117,7 +117,7 @@ table { componentConfig, db } { detailed, scope } =
                         TextileQuery.default
                             |> TextileQuery.updateProduct product
                             |> Simulator.compute db componentConfig
-                            |> Result.map (.lifeCycle >> LifeCycle.getStepProp Label.Fabric .outputMass Quantity.zero)
+                            |> Result.map (.lifeCycle >> LifeCycle.getStageProp Label.Fabric .outputMass Quantity.zero)
                             |> Result.withDefault Quantity.zero
 
                     outputSurface =

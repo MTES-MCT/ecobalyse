@@ -137,7 +137,7 @@ init scope trigram maybeUrlQuery session =
             session.db.object.examples
                 |> Example.forScope scope
     in
-    { activeImpactsTab = ImpactTabs.StepImpactsTab
+    { activeImpactsTab = ImpactTabs.StagesImpactsTab
     , bookmarkName = initialQuery |> suggestBookmarkName session examples
     , bookmarkTab = BookmarkView.SaveTab
     , comparisonType =
@@ -145,7 +145,7 @@ init scope trigram maybeUrlQuery session =
             ComparatorView.Subscores
 
         else
-            ComparatorView.Steps
+            ComparatorView.Stages
     , detailedComponents = []
     , bookmarkBeingDragged = Nothing
     , bookmarkBeingOvered = Nothing
@@ -194,7 +194,7 @@ initFromExample session scope uuid =
                 |> Result.map .query
                 |> Result.withDefault (Session.objectQueryFromScope scope session)
     in
-    { activeImpactsTab = ImpactTabs.StepImpactsTab
+    { activeImpactsTab = ImpactTabs.StagesImpactsTab
     , bookmarkName = exampleQuery |> suggestBookmarkName session examples
     , bookmarkTab = BookmarkView.SaveTab
     , comparisonType = ComparatorView.Subscores

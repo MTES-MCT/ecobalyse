@@ -17,7 +17,7 @@ lifeCycleToTransports db query lifeCycle =
         |> Inputs.fromQuery db
         |> Result.map
             (\materials ->
-                LifeCycle.computeStepsTransport db materials lifeCycle
+                LifeCycle.computeStagesTransport db materials lifeCycle
             )
 
 
