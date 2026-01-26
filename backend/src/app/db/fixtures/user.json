@@ -6,6 +6,7 @@
     "is_superuser": true,
     "last_name": "Dylan",
     "optin_email": false,
-    "organization": { "type": "individual" }
+    "organization": { "type": "individual" },
+    "terms_accepted": true
   }
 ]

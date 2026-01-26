@@ -73,6 +73,7 @@ export async function registerAndLoginUser(
 
   // always accept terms
   await page.getByRole("checkbox", { name: /^Je m’engage à respecter/ }).check();
+  await page.getByRole("checkbox", { name: /^Pour accéder aux impacts détaillés/ }).check();
 
   await page.getByTestId("auth-signup-submit").click();
 

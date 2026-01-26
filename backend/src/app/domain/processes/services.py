@@ -38,11 +38,11 @@ class ProcessService(SQLAlchemyAsyncRepositoryService[m.Process]):
     repository_type = ProcessRepository
 
     def to_schema_with_removed_impacts(
-        self, process: ModelDictT[m.Process], user: ModelDictT[m.User]
+        self, process: ModelDictT[m.Process], user: ModelDictT[m.User] | None
     ) -> Process:
         schema_process = self.to_schema(process, schema_type=Process)
 
-        if not user:
+        if not user or not user.profile.terms_accepted:
             schema_process.impacts = ProcessService.remove_detailed_impacts(
                 schema_process.impacts
             )

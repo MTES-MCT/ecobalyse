@@ -149,7 +149,7 @@ async def test_user_profile(
                 "siren": "901518415",
                 "type": "business",
             },
-            "termsAccepted": False,
+            "termsAccepted": True,
         },
         "roles": [],
         "isSuperuser": False,
@@ -184,7 +184,7 @@ async def test_user_update_profile(
                 "siren": "901518415",
                 "type": "business",
             },
-            "termsAccepted": False,
+            "termsAccepted": True,
         },
         "roles": [],
         "isSuperuser": False,
@@ -198,11 +198,12 @@ async def test_user_update_profile(
     response = await client.patch(
         "/api/me",
         headers=user_token_headers,
-        json={"emailOptin": False},
+        json={"emailOptin": False, "termsAccepted": False},
     )
     assert response.status_code == 200
     json = response.json()
     assert not json["profile"]["emailOptin"]
+    assert not json["profile"]["termsAccepted"]
 
 
 async def test_user_signup_and_login(
@@ -210,24 +211,6 @@ async def test_user_signup_and_login(
     superuser_token_headers: dict[str, str],
 ) -> None:
     with capture_logs() as cap_logs:
-        # Don’t accept the terms
-        user_data = {
-            "email": "foo@bar.com",
-            "firstName": "first name test",
-            "lastName": "last name test",
-            "organization": {"type": "individual"},
-        }
-        response = await client.post(
-            "/api/access/magic_link/signup",
-            json=user_data,
-        )
-
-        assert (
-            "You need to explicitly accept terms"
-            in response.json()["extra"][0]["message"]
-        )
-        assert response.status_code == 400
-
         # Don’t provide a NAME
         user_data = {
             "email": "foo@bar.com",
@@ -595,6 +578,42 @@ async def test_token_validation(
     response = await client.post(
         "/api/tokens/validate",
         json={"token": bearer_token + "bad"},
+    )
+
+    assert response.status_code == 403
+
+
+async def test_token_validation_no_terms(
+    session: AsyncSession,
+    client: "AsyncClient",
+    toc_not_accepted_user_token_headers: dict[str, str],
+    raw_users: list[User | dict[str, Any]],
+) -> None:
+    response = await client.post(
+        "/api/tokens", headers=toc_not_accepted_user_token_headers
+    )
+
+    assert response.status_code == 201
+    data = response.json()
+    token = data["token"]
+    assert token.startswith("eco_api_eyJlbWFpbCI6ICJ")
+
+    # Validate API token for user
+    response = await client.post(
+        "/api/tokens/validate",
+        json=data,
+    )
+
+    assert response.status_code == 403
+
+    bearer_token = toc_not_accepted_user_token_headers["Authorization"].replace(
+        "Bearer ", ""
+    )
+
+    # Validate Bearer token for user
+    response = await client.post(
+        "/api/tokens/validate",
+        json={"token": bearer_token},
     )
 
     assert response.status_code == 403
