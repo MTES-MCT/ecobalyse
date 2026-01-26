@@ -362,7 +362,7 @@ async def load_processes_fixtures(
         processes_fixtures_ids.append(process["id"])
 
     existing_processes = await processes_service.list()
-    existing_processes_ids = [str(process.id) for process in existing_processes]
+    existing_processes_ids = [process.id for process in existing_processes]
 
     processes_to_add = []
     processes_to_update = []
@@ -375,7 +375,7 @@ async def load_processes_fixtures(
             processes_to_update.append(process_fixture)
 
     for existing_process in existing_processes:
-        if str(existing_process.id) not in processes_fixtures_ids:
+        if existing_process.id not in processes_fixtures_ids:
             processes_ids_to_delete.append(existing_process.id)
 
     if processes_to_add:

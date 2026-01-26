@@ -45,7 +45,7 @@ type alias Config msg =
 
 type ComparisonType
     = IndividualImpacts
-    | Steps
+    | Stages
     | Subscores
     | Total
 
@@ -54,7 +54,7 @@ type alias ChartsData =
     { complementsImpact : Impact.ComplementsImpacts
     , impacts : Impact.Impacts
     , label : String
-    , stepsImpacts : Impact.StepsImpacts
+    , stagesImpacts : Impact.StagesImpacts
     }
 
 
@@ -133,9 +133,9 @@ addToComparison session { name, query } =
                         { complementsImpact = recipe.totalComplementsImpact
                         , impacts = total
                         , label = name
-                        , stepsImpacts =
+                        , stagesImpacts =
                             results
-                                |> Recipe.toStepsImpacts Definition.Ecs
+                                |> Recipe.toStagesImpacts Definition.Ecs
                         }
                     )
 
@@ -151,9 +151,9 @@ addToComparison session { name, query } =
                         { complementsImpact = Impact.noComplementsImpacts
                         , impacts = Component.sumLifeCycleImpacts lifeCycle
                         , label = name
-                        , stepsImpacts =
+                        , stagesImpacts =
                             lifeCycle
-                                |> ObjectSimulator.toStepsImpacts Definition.Ecs
+                                |> ObjectSimulator.toStagesImpacts Definition.Ecs
                         }
                     )
 
@@ -165,9 +165,9 @@ addToComparison session { name, query } =
                         { complementsImpact = simulator.complementsImpacts
                         , impacts = simulator.impacts
                         , label = name
-                        , stepsImpacts =
+                        , stagesImpacts =
                             simulator
-                                |> TextileSimulator.toStepsImpacts Definition.Ecs
+                                |> TextileSimulator.toStagesImpacts Definition.Ecs
                         }
                     )
 
@@ -183,9 +183,9 @@ addToComparison session { name, query } =
                         { complementsImpact = Impact.noComplementsImpacts
                         , impacts = Component.sumLifeCycleImpacts lifeCycle
                         , label = name
-                        , stepsImpacts =
+                        , stagesImpacts =
                             lifeCycle
-                                |> ObjectSimulator.toStepsImpacts Definition.Ecs
+                                |> ObjectSimulator.toStagesImpacts Definition.Ecs
                         }
                     )
 
@@ -213,7 +213,7 @@ comparatorView ({ session } as config) =
         else
             []
        )
-        ++ [ ( "Étapes", Steps )
+        ++ [ ( "Étapes", Stages )
            , ( "Total", Total )
            ]
       )
@@ -250,8 +250,8 @@ comparatorView ({ session } as config) =
                         IndividualImpacts ->
                             ( "individual-impacts", dataForIndividualImpacts session.db.definitions chartsData )
 
-                        Steps ->
-                            ( "steps-impacts", dataForSteps chartsData )
+                        Stages ->
+                            ( "stages-impacts", dataForStages chartsData )
 
                         Subscores ->
                             ( "grouped-impacts", dataForSubscoresImpacts session.db.definitions chartsData )
@@ -366,16 +366,16 @@ dataForSubscoresImpacts definitions chartsData =
         |> Encode.encode 0
 
 
-dataForSteps : List ChartsData -> String
-dataForSteps chartsData =
+dataForStages : List ChartsData -> String
+dataForStages chartsData =
     chartsData
         |> Encode.list
-            (\{ label, stepsImpacts } ->
+            (\{ label, stagesImpacts } ->
                 Encode.object
                     [ ( "label", Encode.string label )
                     , ( "data"
-                      , stepsImpacts
-                            |> Impact.stepsImpactsAsChartEntries
+                      , stagesImpacts
+                            |> Impact.stagesImpactsAsChartEntries
                             |> List.reverse
                             |> Encode.list Impact.encodeAggregatedScoreChartEntry
                       )
@@ -413,7 +413,7 @@ comparisonTypeToString comparisonType =
         IndividualImpacts ->
             "Impacts"
 
-        Steps ->
+        Stages ->
             "Étapes"
 
         Subscores ->

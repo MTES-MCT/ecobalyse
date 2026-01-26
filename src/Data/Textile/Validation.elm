@@ -27,7 +27,7 @@ validate db query =
         |> Validation.maybe "countryFabric" query.countryFabric (Country.validateForScope Scope.Textile db.countries)
         |> Validation.maybe "countryMaking" query.countryMaking (Country.validateForScope Scope.Textile db.countries)
         |> Validation.maybe "countrySpinning" query.countrySpinning (Country.validateForScope Scope.Textile db.countries)
-        |> Validation.ok "disabledSteps" query.disabledSteps
+        |> Validation.ok "disabledSteps" query.disabledStages
         |> Validation.ok "dyeingProcessType" query.dyeingProcessType
         |> Validation.ok "fabricProcess" query.fabricProcess
         |> Validation.ok "fading" query.fading

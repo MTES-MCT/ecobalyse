@@ -6,7 +6,7 @@ import Data.Textile.Inputs as Inputs
 import Data.Textile.MakingComplexity as MakingComplexity
 import Data.Textile.Material as Material
 import Data.Textile.Query as Query exposing (Query)
-import Data.Textile.Step.Label as Label
+import Data.Textile.Stage.Label as Label
 import Expect
 import Test exposing (..)
 import TestUtils exposing (asTest, jupeCotonAsie, suiteFromResult, suiteFromResult2, suiteFromResult3, suiteWithDb)
@@ -57,14 +57,14 @@ suite =
                     )
                 ]
             , describe "handleUpcycling"
-                [ suiteFromResult "should not touch disabled steps when not upcycled"
+                [ suiteFromResult "should not touch disabled stages when not upcycled"
                     jupeCotonAsie
                     (\query ->
                         [ { query | upcycled = False }
                             |> Query.handleUpcycling
-                            |> .disabledSteps
+                            |> .disabledStages
                             |> Expect.equal []
-                            |> asTest "not touch disabled steps when not upcycled"
+                            |> asTest "not touch disabled stages when not upcycled"
                         ]
                     )
                 , suiteFromResult "should not touch making complexity when not upcycled"
@@ -78,14 +78,14 @@ suite =
                         ]
                     )
                 , suiteFromResult
-                    "should disable specific steps when upcycled"
+                    "should disable specific stages when upcycled"
                     jupeCotonAsie
                     (\query ->
                         [ { query | upcycled = True }
                             |> Query.handleUpcycling
-                            |> .disabledSteps
+                            |> .disabledStages
                             |> Expect.equal Label.upcyclables
-                            |> asTest "disable specific steps when upcycled"
+                            |> asTest "disable specific stages when upcycled"
                         ]
                     )
                 , suiteFromResult

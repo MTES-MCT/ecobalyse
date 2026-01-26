@@ -30,7 +30,7 @@ import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
 import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Query exposing (MaterialQuery, Query)
-import Data.Textile.Step.Label as Label exposing (Label)
+import Data.Textile.Stage.Label as Label exposing (Label)
 import Data.Textile.WellKnown exposing (WellKnown)
 import Data.Transport as Transport exposing (Distances, Transport)
 import Data.Unit as Unit
@@ -60,11 +60,13 @@ type alias Inputs =
     , countryMaking : Country
 
     -- TODO: countryMaterial isn't used anymore, but we still need it because `countryList` uses it,
-    -- which in turn is used to build the lifecycle, which needs a country for each step.
+    -- which in turn is used to build the lifecycle, which needs a country for each stage.
     , countryMaterial : Country
     , countrySpinning : Country
     , countryUse : Country
-    , disabledSteps : List Label
+
+    -- Note: decoded from the `disabledSteps` JSON key for backward compatibility
+    , disabledStages : List Label
     , dyeingProcessType : Maybe ProcessType
     , fabricProcess : Maybe Fabric
     , fading : Maybe Bool
@@ -194,7 +196,7 @@ fromQuery { countries, textile } query =
         |> RE.andMap (getCountryResult unknownCountryResult query.countrySpinning)
         -- The use country is always France
         |> RE.andMap franceResult
-        |> RE.andMap (Ok query.disabledSteps)
+        |> RE.andMap (Ok query.disabledStages)
         |> RE.andMap (Ok query.dyeingProcessType)
         |> RE.andMap (Ok query.fabricProcess)
         |> RE.andMap (Ok query.fading)
@@ -222,7 +224,7 @@ toQuery inputs =
     , countryFabric = toQueryCountryCode inputs.countryFabric.code
     , countryMaking = toQueryCountryCode inputs.countryMaking.code
     , countrySpinning = toQueryCountryCode inputs.countrySpinning.code
-    , disabledSteps = inputs.disabledSteps
+    , disabledStages = inputs.disabledStages
     , dyeingProcessType = inputs.dyeingProcessType
     , fabricProcess = inputs.fabricProcess
     , fading = inputs.fading
@@ -257,11 +259,11 @@ toQueryCountryCode c =
         Just c
 
 
-stepsToStrings : WellKnown -> Inputs -> List (List String)
-stepsToStrings wellKnown inputs =
+stagesToStrings : WellKnown -> Inputs -> List (List String)
+stagesToStrings wellKnown inputs =
     let
-        ifStepEnabled label list =
-            if not (List.member label inputs.disabledSteps) then
+        ifStageEnabled label list =
+            if not (List.member label inputs.disabledStages) then
                 list
 
             else
@@ -283,11 +285,11 @@ stepsToStrings wellKnown inputs =
                )
       , Format.kgToString inputs.mass
       ]
-    , ifStepEnabled Label.Material
+    , ifStageEnabled Label.Material
         [ "matière"
         , materialsToString inputs.materials
         ]
-    , ifStepEnabled Label.Spinning
+    , ifStageEnabled Label.Spinning
         [ "filature"
         , inputs.countrySpinning.name
         ]
@@ -297,13 +299,13 @@ stepsToStrings wellKnown inputs =
 
         Nothing ->
             []
-    , ifStepEnabled Label.Fabric
+    , ifStageEnabled Label.Fabric
         [ inputs.fabricProcess
             |> Maybe.withDefault inputs.product.fabric
             |> Fabric.toLabel
         , inputs.countryFabric.name
         ]
-    , ifStepEnabled Label.Ennobling
+    , ifStageEnabled Label.Ennobling
         [ "ennoblissement\u{00A0}: "
             ++ (inputs.dyeingProcessType
                     |> Dyeing.toProcess wellKnown
@@ -311,7 +313,7 @@ stepsToStrings wellKnown inputs =
                )
         , inputs.countryDyeing.name
         ]
-    , ifStepEnabled Label.Ennobling
+    , ifStageEnabled Label.Ennobling
         [ "impression"
         , case inputs.printing of
             Just printing ->
@@ -320,19 +322,19 @@ stepsToStrings wellKnown inputs =
             Nothing ->
                 "non"
         ]
-    , ifStepEnabled Label.Making
+    , ifStageEnabled Label.Making
         [ "confection"
         , inputs.countryMaking.name ++ makingOptionsToString inputs
         ]
-    , ifStepEnabled Label.Distribution
+    , ifStageEnabled Label.Distribution
         [ "distribution"
         , inputs.countryDistribution.name
         ]
-    , ifStepEnabled Label.Use
+    , ifStageEnabled Label.Use
         [ "utilisation"
         , inputs.countryUse.name
         ]
-    , ifStepEnabled Label.EndOfLife
+    , ifStageEnabled Label.EndOfLife
         [ "fin de vie"
         , inputs.countryEndOfLife.name
         ]
@@ -343,7 +345,7 @@ stepsToStrings wellKnown inputs =
 toString : WellKnown -> Inputs -> String
 toString wellKnown inputs =
     inputs
-        |> stepsToStrings wellKnown
+        |> stagesToStrings wellKnown
         |> List.map (String.join "\u{00A0}: ")
         |> String.join ", "
 
@@ -513,7 +515,7 @@ encode inputs =
         , ( "countryDyeing", Country.encode inputs.countryDyeing )
         , ( "countryFabric", Country.encode inputs.countryFabric )
         , ( "countryMaking", Country.encode inputs.countryMaking )
-        , ( "disabledSteps", Encode.list Label.encode inputs.disabledSteps )
+        , ( "disabledSteps", Encode.list Label.encode inputs.disabledStages )
         , ( "dyeingProcessType", inputs.dyeingProcessType |> Maybe.map Dyeing.encode |> Maybe.withDefault Encode.null )
         , ( "fabricProcess", inputs.fabricProcess |> Maybe.map Fabric.encode |> Maybe.withDefault Encode.null )
         , ( "fading", inputs.fading |> Maybe.map Encode.bool |> Maybe.withDefault Encode.null )

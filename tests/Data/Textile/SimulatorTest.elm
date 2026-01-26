@@ -9,7 +9,7 @@ import Data.Textile.Economics as Economics
 import Data.Textile.LifeCycle as LifeCycle
 import Data.Textile.Query as Query exposing (Query)
 import Data.Textile.Simulator as Simulator exposing (Simulator)
-import Data.Textile.Step.Label as Label
+import Data.Textile.Stage.Label as Label
 import Data.Unit as Unit
 import Expect exposing (Expectation)
 import Json.Decode as Decode
@@ -72,24 +72,24 @@ suite =
                             |> asTest "compute a simulation ecs impact"
                         ]
                     )
-                , describe "disabled steps"
+                , describe "disabled stages"
                     [ suiteFromResult "should be handled from passed query"
                         tShirtCotonFrance
                         (\query ->
-                            [ { query | disabledSteps = [ Label.Ennobling ] }
+                            [ { query | disabledStages = [ Label.Ennobling ] }
                                 |> computeWithDefaultComponentConfig db
-                                |> Result.map (.lifeCycle >> LifeCycle.getStepProp Label.Ennobling .enabled True)
+                                |> Result.map (.lifeCycle >> LifeCycle.getStageProp Label.Ennobling .enabled True)
                                 |> Expect.equal (Ok False)
                                 |> asTest "be handled from passed query"
                             ]
                         )
-                    , suiteFromResult "should handle disabled steps"
+                    , suiteFromResult "should handle disabled stages"
                         tShirtCotonFrance
                         (\query ->
-                            [ asTest "handle disabled steps"
+                            [ asTest "handle disabled stages"
                                 (case
                                     ( getImpact db ecs query
-                                    , getImpact db ecs { query | disabledSteps = [ Label.Ennobling ] }
+                                    , getImpact db ecs { query | disabledStages = [ Label.Ennobling ] }
                                     )
                                  of
                                     ( Ok full, Ok partial ) ->
@@ -100,13 +100,13 @@ suite =
                                 )
                             ]
                         )
-                    , suiteFromResult "should allow disabling steps"
+                    , suiteFromResult "should allow disabling stages"
                         tShirtCotonFrance
                         (\query ->
-                            [ asTest "allow disabling steps"
+                            [ asTest "allow disabling stages"
                                 (case
                                     ( getImpact db ecs query
-                                    , getImpact db ecs { query | disabledSteps = [ Label.Ennobling ] }
+                                    , getImpact db ecs { query | disabledStages = [ Label.Ennobling ] }
                                     )
                                  of
                                     ( Ok full, Ok partial ) ->
@@ -165,7 +165,7 @@ suite =
                     (\query ->
                         [ query
                             |> computeWithDefaultComponentConfig db
-                            |> Result.map (.lifeCycle >> LifeCycle.getStepProp Label.Making .airTransportRatio Split.half)
+                            |> Result.map (.lifeCycle >> LifeCycle.getStageProp Label.Making .airTransportRatio Split.half)
                             |> Expect.equal (Ok Split.zero)
                             |> asTest "be zero for products from Europe or Turkey"
                         ]
@@ -175,7 +175,7 @@ suite =
                     (\query ->
                         [ { query | countryMaking = Just (Country.Code "CN") }
                             |> computeWithDefaultComponentConfig db
-                            |> Result.map (.lifeCycle >> LifeCycle.getStepProp Label.Making .airTransportRatio Split.half)
+                            |> Result.map (.lifeCycle >> LifeCycle.getStageProp Label.Making .airTransportRatio Split.half)
                             |> Expect.equal (Ok Split.full)
                             |> asTest "be full for products not coming from Europe or Turkey"
                         ]
@@ -194,7 +194,7 @@ suite =
                         in
                         [ tShirtCotonWithSmallerPhysicalDurabilityCn
                             |> computeWithDefaultComponentConfig db
-                            |> Result.map (.lifeCycle >> LifeCycle.getStepProp Label.Making .airTransportRatio Split.half)
+                            |> Result.map (.lifeCycle >> LifeCycle.getStageProp Label.Making .airTransportRatio Split.half)
                             |> Expect.equal (Ok Split.third)
                             |> asTest "be 0.33 for products not coming from Europe or Turkey but with a durability >= 1"
                         ]
@@ -207,7 +207,7 @@ suite =
                             , airTransportRatio = Just Split.two
                           }
                             |> computeWithDefaultComponentConfig db
-                            |> Result.map (.lifeCycle >> LifeCycle.getStepProp Label.Making .airTransportRatio Split.half)
+                            |> Result.map (.lifeCycle >> LifeCycle.getStageProp Label.Making .airTransportRatio Split.half)
                             |> Expect.equal (Ok Split.two)
                             |> asTest "keep the user provided value"
                         ]

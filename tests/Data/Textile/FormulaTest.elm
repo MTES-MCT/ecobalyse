@@ -72,16 +72,16 @@ suite =
                     |> Impact.getImpact Definition.Cch
                     |> Unit.impactToFloat
                     |> Expect.within (Expect.Absolute 0.01) 0.435
-                    |> asTest "should compute Making step cch from process and country data"
+                    |> asTest "should compute Making stage cch from process and country data"
                  , res.impacts
                     |> Impact.getImpact Definition.Fwe
                     |> Unit.impactToFloat
                     |> Expect.within (Expect.Absolute 0.01) 1.305
-                    |> asTest "should compute Making step fwe from process and country data"
+                    |> asTest "should compute Making stage fwe from process and country data"
                  , res.kwh
                     |> Energy.inKilowattHours
                     |> Expect.within (Expect.Absolute 0.01) 0.87
-                    |> asTest "should compute Making step kwh from process and country data"
+                    |> asTest "should compute Making stage kwh from process and country data"
                  ]
                 )
             , describe "Formula.weavingImpact"
@@ -104,22 +104,22 @@ suite =
                  in
                  [ res.picking
                     |> Expect.equal (Just (Unit.pickPerMeter 9958))
-                    |> asTest "should compute Fabric step picking"
+                    |> asTest "should compute Fabric stage picking"
 
                  --  , res.impacts
                  --     |> Impact.getImpact (Definition.Cch)
                  --     |> Unit.impactToFloat
                  --     |> Expect.within (Expect.Absolute 0.01) 0.8
-                 --     |> asTest "should compute Fabric step cch impact"
+                 --     |> asTest "should compute Fabric stage cch impact"
                  --  , res.impacts
                  --     |> Impact.getImpact (Definition.Fwe)
                  --     |> Unit.impactToFloat
                  --     |> Expect.within (Expect.Absolute 0.01) 4
-                 --     |> asTest "should compute Fabric step fwe impact"
+                 --     |> asTest "should compute Fabric stage fwe impact"
                  --  , res.kwh
                  --     |> Energy.inKilowattHours
                  --     |> Expect.within (Expect.Absolute 0.01) 8
-                 --     |> asTest "should compute Fabric step elec"
+                 --     |> asTest "should compute Fabric stage elec"
                  ]
                 )
             , describe "Formula.knittingImpact"
@@ -142,16 +142,16 @@ suite =
                     |> Impact.getImpact Definition.Cch
                     |> Unit.impactToFloat
                     |> Expect.within (Expect.Absolute 0.01) 1
-                    |> asTest "should compute KnittingWeaving step cch from process and product data"
+                    |> asTest "should compute KnittingWeaving stage cch from process and product data"
                  , res.impacts
                     |> Impact.getImpact Definition.Fwe
                     |> Unit.impactToFloat
                     |> Expect.within (Expect.Absolute 0.01) 2.5
-                    |> asTest "should compute KnittingWeaving step fwe from process and product data"
+                    |> asTest "should compute KnittingWeaving stage fwe from process and product data"
                  , res.kwh
                     |> Energy.inKilowattHours
                     |> Expect.within (Expect.Absolute 0.01) 5
-                    |> asTest "should compute KnittingWeaving step kwh from process and product data"
+                    |> asTest "should compute KnittingWeaving stage kwh from process and product data"
                  ]
                 )
             ]
