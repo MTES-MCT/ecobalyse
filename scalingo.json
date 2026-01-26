@@ -1,17 +1,17 @@
 {
   "env": {
     "ENABLE_FOOD_SECTION": {
-      "value": "True"
+      "value": "False"
     },
     "ENABLE_OBJECTS_SECTION": {
-      "value": "True"
+      "value": "False"
     },
     "ENABLE_VELI_SECTION": {
-      "value": "True"
+      "value": "False"
     },
     "IS_REVIEW_APP": {
       "value": "true"
     }
   },
-  "stack": "scalingo-22"
+  "stack": "scalingo-24-minimal"
 }
