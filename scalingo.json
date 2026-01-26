@@ -1,17 +1,20 @@
 {
   "env": {
     "ENABLE_FOOD_SECTION": {
-      "value": "True"
+      "value": "False"
     },
     "ENABLE_OBJECTS_SECTION": {
-      "value": "True"
+      "value": "False"
     },
     "ENABLE_VELI_SECTION": {
-      "value": "True"
+      "value": "False"
+    },
+    "INTERNAL_BACKEND_URL": {
+      "value": "https://staging-ecobalyse.incubateur.net/backend"
     },
     "IS_REVIEW_APP": {
       "value": "true"
     }
   },
-  "stack": "scalingo-22"
+  "stack": "scalingo-24-minimal"
 }
