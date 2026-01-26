@@ -10,7 +10,7 @@ La documentation OpenAPI est accessible au format Web sur [la page dédiée à l
 
 ## Comment puis-je tester l'API ?
 
-La [documentation est interactive](/#/api) et permet de paramétrer et exécuter des requêtes sur l'API depuis l'interface Web directement.
+La [documentation est interactive](https://ecobalyse.beta.gouv.fr/versions/v7.0.0/#/api) et permet de paramétrer et exécuter des requêtes sur l'API depuis l'interface Web directement.
 
 ## L'utilisation de l'API nécessite t-elle une authentification ?
 
@@ -24,19 +24,13 @@ Oui, que ce soit sur l'application Web ou l'API, le nombre maximum de requêtes 
 
 Non, à ce stade de l'expérimentation, nous n'offrons aucune garantie de disponilbilité ni de continuité du service (pas de SLA).
 
-## Qu'est-ce que le versioning de l'API ?
+## Quelle est la différence avec l'API disponible sur Ecobalyse ?
 
-L'API Ecobalyse est *versionnée*, c'est à dire qu'à chaque publication d'une nouvelle version de l'application, la version précédente devient disponible sur sa propre URL et reste stable dans le temps. Cela permet notamment de garantir la compatibilité de l'interfaçage avec vos systèmes d'information ou de tracer les évolutions de scores à travers le temps pourvu que le paramétrage soit compatible.
+L'API disponible sur Ecobalyse v7 textile est figée dans le temps et dépend de la méthode de calcul validée par la règlementation. L'API sur Ecobalyse n'est pas figée et suit les évolutions de la méthode de calcul pour d'autres usages ou en préparation d'une évolution règlementaire.
 
-## Le format de réponse d'un appel vers une version de l'API peut-il changer avec le temps ?
+## Le format de réponse d'un appel vers l'API peut-il changer ?
 
-Le format des paramètres d'entrée et de réponses peuvent varier d'une version à l'autre, et c'est là tout l'intérêt du versioning. En revanche, une version figée est idempotente par conception (si ce devait ne pas être le cas, c'est un bug qu'il faut nous remonter).
-
-Notez au passage que les bugs découverts sur une version figée de l'API ne seront pas corrigés sur celle-ci mais sur les versions ultérieures. Par exemple, un bug découvert en v2.1 sera aujourd'hui adressé en v2.6, la v2.5 venant tout juste d'être mise en production et donc idempotente également.
-
-## Peut-on se fier à une version fixe de l'API ?
-
-Oui, c'est même tout l'objectif. Et si d'aventure une version particulière devenait indisponible ou fournissait des résultats différents d'un appel à l'autre sur un même jeu de paramètres, c'est un bug qu'il conviendra de nous signaler.
+Non, le format des paramètres d'entrée et de réponse ne varient pas sur la version stable. Les bugs découverts sur cette API peuvent être corrigés si elles n'impliquent pas de changement de score ou de modification du format des paramètres d'entrée.
 
 ## Comment puis-je remonter un bug ou obtenir du support technique sur l'API ?
 
