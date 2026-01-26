@@ -9,6 +9,9 @@
     "ENABLE_VELI_SECTION": {
       "value": "False"
     },
+    "INTERNAL_BACKEND_URL": {
+      "value": "https://staging-ecobalyse.incubateur.net/backend"
+    },
     "IS_REVIEW_APP": {
       "value": "true"
     }
