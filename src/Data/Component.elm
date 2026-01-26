@@ -616,8 +616,8 @@ computeMaterialResults amount process =
                     amountToFloat amount
 
                 else
-                    -- apply density
-                    amountToFloat amount * process.density
+                    -- apply mass per unit
+                    amountToFloat amount * Maybe.withDefault 1 process.massPerUnit
 
         materialType =
             Process.getMaterialTypes process

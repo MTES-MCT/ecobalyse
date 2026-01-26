@@ -49,13 +49,13 @@ type alias Process =
     { activityName : ActivityName
     , categories : List Category
     , comment : String
-    , density : Float
     , displayName : Maybe String
     , elec : Energy
     , heat : Energy
     , id : Id
     , impacts : Impacts
     , location : Maybe String
+    , massPerUnit : Maybe Float
     , scopes : List Scope
     , source : String
     , unit : Unit
@@ -113,13 +113,13 @@ decode impactsDecoder =
         |> Pipe.required "activityName" (DU.decodeNonEmptyString |> Decode.map activityNameFromString)
         |> Pipe.required "categories" Category.decodeList
         |> Pipe.required "comment" Decode.string
-        |> Pipe.required "density" Decode.float
         |> DU.strictOptional "displayName" DU.decodeNonEmptyString
         |> Pipe.required "elecMJ" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "heatMJ" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "id" decodeId
         |> Pipe.required "impacts" impactsDecoder
         |> Pipe.required "location" (Decode.maybe Decode.string)
+        |> Pipe.required "massPerUnit" (Decode.maybe Decode.float)
         |> Pipe.required "scopes" (Decode.list Scope.decode)
         |> Pipe.required "source" Decode.string
         |> Pipe.required "unit" (Decode.string |> Decode.andThen (DE.fromResult << unitFromString))
@@ -132,7 +132,7 @@ encode process =
         [ ( "activityName", encodeActivityName process.activityName )
         , ( "categories", Encode.list Category.encode process.categories )
         , ( "comment", Encode.string process.comment )
-        , ( "density", Encode.float process.density )
+        , ( "massPerUnit", EncodeExtra.maybe Encode.float process.massPerUnit )
         , ( "displayName", EncodeExtra.maybe Encode.string process.displayName )
         , ( "elecMJ", Encode.float (Energy.inMegajoules process.elec) )
         , ( "heatMJ", Encode.float (Energy.inMegajoules process.heat) )

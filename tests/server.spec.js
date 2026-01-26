@@ -452,8 +452,8 @@ describe("API", () => {
     describe("/food/packagings", () => {
       it("should render with packagings list", async () => {
         await expectListResponseContains("/api/food/packagings", {
-          id: "28fc90df-448e-5a31-994d-2fd83208747e",
-          name: "PVC",
+          id: "09bf8c91-b95e-4bd3-aaf3-4c5450f74ae7",
+          name: "Sachet en plastique (PE) flow pack et étui carton pour pizza, réfrigérée - 380g",
         });
       });
     });
@@ -483,7 +483,7 @@ describe("API", () => {
             },
             packaging: [
               {
-                id: "edefa2be-abe4-5bb6-b0fc-0f666050dcc1",
+                id: "09bf8c91-b95e-4bd3-aaf3-4c5450f74ae7",
                 amount: 105,
               },
             ],
@@ -603,7 +603,7 @@ describe("API", () => {
         expectFieldErrorMessage(
           await makePostRequest("/api/food", {
             ingredients: [{ id: "4d5198e7-413a-4ae2-8448-535aa3b302ae", mass: 268 }],
-            packaging: [{ id: "edefa2be-abe4-5bb6-b0fc-0f666050dcc1", amount: -1 }],
+            packaging: [{ id: "09bf8c91-b95e-4bd3-aaf3-4c5450f74ae7", amount: -1 }],
           }),
           "packaging",
           /quantité doit être supérieure à zéro/,

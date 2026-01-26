@@ -213,7 +213,7 @@ processRowView definitions selected process =
         , td [ class "text-end" ]
             [ Format.splitAsPercentage 2 process.waste ]
         , td [ class "text-end" ]
-            [ Format.density process ]
+            [ Format.massPerUnit process ]
         , td [ class "text-end" ]
             [ process.impacts |> Format.formatImpact (Definition.get Definition.Ecs definitions) ]
         , td []
