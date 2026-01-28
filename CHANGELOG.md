@@ -1,7 +1,48 @@
 # Changelog
 
 
-## [8.3.0](https://github.com/MTES-MCT/ecobalyse/compare/v8.2.0..v8.3.0) (2026-01-08)
+## [8.4.0](https://github.com/MTES-MCT/ecobalyse/compare/v8.3.0..v8.4.0) (2026-01-28)
+
+
+
+### 🚀 Features
+
+- *(object,veli)* Implement use stage ([#1710](https://github.com/MTES-MCT/ecobalyse/issues/1710))
+- *(explorer)* Add countries to object/veli explorers ([#1724](https://github.com/MTES-MCT/ecobalyse/issues/1724))
+- Add ctcpa packaging selection ([#1697](https://github.com/MTES-MCT/ecobalyse/issues/1697))
+- Add elm auto-formatting on git pre-commit ([#1736](https://github.com/MTES-MCT/ecobalyse/issues/1736))
+- Introduce mass per unit for packagings ([#1718](https://github.com/MTES-MCT/ecobalyse/issues/1718))
+- Render ecs for guests in processes explorer ([#1748](https://github.com/MTES-MCT/ecobalyse/issues/1748))
+
+### 🪲 Bug Fixes
+
+- *(ui)* Fix incomplete comparator chart legend when exported ([#1704](https://github.com/MTES-MCT/ecobalyse/issues/1704))
+- Detailed impacts bug on object/veli ([#1709](https://github.com/MTES-MCT/ecobalyse/issues/1709))
+- *(bo,ui)* Constrain comment cell height in processes admin ([#1712](https://github.com/MTES-MCT/ecobalyse/issues/1712))
+- Preserve transformations ordering ([#1700](https://github.com/MTES-MCT/ecobalyse/issues/1700))
+- *(object,ui)* Align impacts in object simulator details ([#1720](https://github.com/MTES-MCT/ecobalyse/issues/1720))
+- *(object,veli)* Distinguish material & transform stage impacts in comparator ([#1734](https://github.com/MTES-MCT/ecobalyse/issues/1734))
+- Add missing `/` to shareable url ([#1741](https://github.com/MTES-MCT/ecobalyse/issues/1741))
+
+### 🚜 Refactor
+
+- Use "stage" instead of "step" in the codebase ([#1738](https://github.com/MTES-MCT/ecobalyse/issues/1738))
+
+### 📚 Documentation
+
+- API is not versionned anymore ([#1742](https://github.com/MTES-MCT/ecobalyse/issues/1742))
+
+### ⚙️ Miscellaneous Tasks
+
+- Change default electric mix to India’s ([#1702](https://github.com/MTES-MCT/ecobalyse/issues/1702))
+- Data update and add cff process ([#1708](https://github.com/MTES-MCT/ecobalyse/issues/1708))
+- Update veli examples ([#1716](https://github.com/MTES-MCT/ecobalyse/issues/1716))
+- Upgrade node dependencies, 2026-01 ([#1737](https://github.com/MTES-MCT/ecobalyse/issues/1737))
+- Change terms agreement ([#1627](https://github.com/MTES-MCT/ecobalyse/issues/1627))
+- Add privacy policy as Markdown ([#1747](https://github.com/MTES-MCT/ecobalyse/issues/1747))
+
+
+## [8.3.0](https://github.com/MTES-MCT/ecobalyse/compare/v8.2.0..v8.3.0) (2026-01-09)
 
 
 
