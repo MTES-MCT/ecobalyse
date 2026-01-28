@@ -63,16 +63,18 @@ $score-letter-E: #e63f12;
   font-weight: normal;
   font-style: normal;
   src: url("./public/fonts/Marianne-Regular.woff2") format('woff2'),
-       url("./public/fonts/Marianne-Regular.woff") format('woff');
+    url("./public/fonts/Marianne-Regular.woff") format('woff');
 }
+
 @font-face {
   font-display: optional;
   font-family: Marianne;
   font-style: normal;
   font-weight: 700;
   src: url("./public/fonts/Marianne-Bold.woff2") format("woff2"),
-       url("./public/fonts/Marianne-Bold.woff") format("woff")
+    url("./public/fonts/Marianne-Bold.woff") format("woff")
 }
+
 $font-family-sans-serif: Marianne, Arial, sans-serif !default;
 
 @import "./node_modules/bootstrap/scss/bootstrap.scss";
@@ -88,6 +90,7 @@ body {
 
   @media screen and (width < $viewport-sm) {
     font-size: 14px !important;
+
     select,
     input,
     button,
@@ -114,11 +117,13 @@ _:future,
 // Fixes a glitch in Chrome with input[number] making the arrows hardly
 // actionnable when float numbers are rounded
 input[type="number"].no-arrows {
+
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
   }
+
   appearance: initial;
   -moz-appearance: textfield;
 }
@@ -141,18 +146,22 @@ input[type="number"].no-arrows {
   line-height: 1.5;
   padding-bottom: calc($badge-padding-y + 1px);
   text-transform: uppercase;
+
   &-success {
     background-color: #b8fec9;
     color: $success;
   }
+
   &-danger {
     background-color: #ffe9e9;
     color: $danger;
   }
+
   &-info {
     background-color: #e8edff;
     color: $info;
   }
+
   &-warning {
     background-color: #feebd0;
     color: $warning;
@@ -180,7 +189,8 @@ input[type="number"].no-arrows {
   }
 }
 
-.form-select, .form-control {
+.form-select,
+.form-control {
   &:disabled {
     cursor: not-allowed;
     background-color: #dfdfdf;
@@ -190,7 +200,9 @@ input[type="number"].no-arrows {
   }
 }
 
-.form-select, .form-control, .input-group-text {
+.form-select,
+.form-control,
+.input-group-text {
   line-height: initial;
   border: 0 !important;
   box-shadow: inset 0 -2px 0 0 #3a3a3a;
@@ -198,11 +210,17 @@ input[type="number"].no-arrows {
 
 input {
   &[type=checkbox].form-check-input {
-    &:not(:checked) { background-color: $white }
+    &:not(:checked) {
+      background-color: $white
+    }
+
     border-radius: 0.15em !important;
   }
+
   &[type=radio].form-check-input {
-    &:not(:checked) { background-color: $white }
+    &:not(:checked) {
+      background-color: $white
+    }
   }
 }
 
@@ -213,6 +231,7 @@ input {
 }
 
 .sticky {
+
   &-sm-top,
   &-md-top,
   &-lg-top,
@@ -259,7 +278,8 @@ input {
       }
     }
 
-    tr:nth-child(even), thead tr {
+    tr:nth-child(even),
+    thead tr {
       background: #f8f8f8;
     }
 
@@ -303,9 +323,11 @@ rapi-doc::part(section-endpoint-head-path) {
 
 q {
   quotes: "“" "”" "‘" "’";
+
   &::before {
     content: open-quote;
   }
+
   &::after {
     content: close-quote;
   }
@@ -318,6 +340,7 @@ q {
       border-top: 0 !important;
     }
   }
+
   &-start-sm {
     @media screen and (min-width: $viewport-sm) {
       border-left: 1px solid $border-color !important;
@@ -449,14 +472,16 @@ q {
 }
 
 .modal-xl {
-  @media (width >= 1200px) {
+  @media (width >=1200px) {
     --bs-modal-width: 1300px;
   }
 }
 
 .no {
   &-outline {
-    &:focus, &:active {
+
+    &:focus,
+    &:active {
       outline: none;
       box-shadow: none;
     }
@@ -486,7 +511,8 @@ q {
     height: 437;
     aspect-ratio: auto 650 / 437;
   }
-  > div {
+
+  >div {
     background-color: $white;
     left: 25%;
     margin-top: -200px;
@@ -495,12 +521,13 @@ q {
     width: 75%;
   }
 
-  @media screen and (width <= $viewport-md) {
+  @media screen and (width <=$viewport-md) {
     img {
       width: 100%;
       height: auto;
     }
-    > div {
+
+    >div {
       left: 0;
       margin-top: 0;
       padding: $spacer 0 0;
@@ -515,7 +542,7 @@ q {
 }
 
 .stacked-card {
-  > * {
+  >* {
     border-bottom: 0;
     border-radius: 0;
     margin-bottom: 0;
@@ -535,6 +562,7 @@ q {
 
 .text-light-all {
   color: $white;
+
   a {
     color: $white;
   }
@@ -573,15 +601,17 @@ q {
     grid-gap: 5px;
     grid-template-columns: 90px 1fr 60px 31px;
     grid-template-areas:
-    "sharesTotal addElementButton addElementButton addElementButton";
+      "sharesTotal addElementButton addElementButton addElementButton";
   }
 
   &:last-child {
     border-bottom: 0;
   }
+
   .SharesTotal {
     grid-area: sharesTotal;
   }
+
   .AddElementButton {
     grid-area: addElementButton;
   }
@@ -589,10 +619,13 @@ q {
 
 .Autocomplete {
   height: 368px;
+
   &Choice {
+
     &.selected,
     &:hover {
       color: #fff !important;
+
       span {
         color: #fff !important;
       }
@@ -660,13 +693,16 @@ q {
       min-width: 120px;
       padding-left: 12px;
     }
+
     .ComplementRange {
       grid-area: ComplementRange;
     }
+
     .ComplementValue {
       grid-area: ComplementValue;
       min-width: 50px;
     }
+
     .ComplementImpact {
       grid-area: ComplementImpact;
       min-width: 120px;
@@ -692,6 +728,7 @@ q {
 
 .CopyButton {
   overflow-wrap: anywhere;
+
   &:hover {
     background-color: #ffffff55;
   }
@@ -726,11 +763,12 @@ q {
 }
 
 .DownArrow {
-  border-right: 1px solid  $list-group-border-color;
+  border-right: 1px solid $list-group-border-color;
   min-height: 2rem;
   position: relative;
 
-  &::after, &::before {
+  &::after,
+  &::before {
     border-bottom: 1px solid $list-group-border-color;
     bottom: 2px;
     content: "";
@@ -739,10 +777,12 @@ q {
     vertical-align: bottom;
     width: 10px;
   }
-  &::after{
+
+  &::after {
     right: -8px;
     transform: rotate(-45deg);
   }
+
   &::before {
     right: -3px;
     transform: rotate(45deg);
@@ -773,50 +813,64 @@ q {
   &:last-child {
     border-bottom: 0;
   }
+
   .BioCheckbox {
     grid-area: bioCheckbox;
+
     input {
       margin-right: 5px;
     }
   }
+
   .CountrySelector {
     grid-area: countrySelector;
   }
+
   .ElementDelete {
     grid-area: baseElementDelete;
   }
+
   .ElementSelector {
     grid-area: elementSelector;
   }
+
   .ElementTransportDistances {
     grid-area: transportDistances;
   }
+
   .ElementTransportImpact {
     grid-area: transportImpact;
   }
+
   .ImpactDisplay {
     grid-area: impactDisplay;
   }
+
   .QuantityInputWrapper {
     grid-area: quantityInputWrapper;
     min-width: 90px;
     max-width: 100px;
+
     .form-control {
       padding-right: 0;
     }
+
     .input-group-text {
       padding-left: 4px;
     }
   }
 }
+
 .ElementDelete {
   margin-left: auto;
   width: 31px;
 }
+
 .ElementSelector {
   cursor: default;
   overflow: hidden;
   white-space: nowrap;
+
   span {
     display: block;
     overflow: hidden;
@@ -825,36 +879,45 @@ q {
 
 .Footer {
   border-top: 3px solid $primary;
+
   &InstitutionLink {
     color: $text-dark;
     font-size: 0.875em;
     font-weight: 700;
     text-decoration: none;
+
     &:hover {
       color: $text-dark;
       text-decoration: underline;
     }
   }
+
   &Brand {
     margin-top: 1.5em;
   }
+
   &Legal {
     a {
       font-size: 12px;
       color: $text-dark;
     }
   }
+
   &Logo {
     width: 160px;
   }
+
   &Navigation {
     background-color: #f6f6f6;
     padding: 1.5em 0;
+
     li {
       margin: .5em 0;
+
       a {
         font-size: 12px;
         color: $text-dark;
+
         &:hover {
           text-decoration: underline !important;
         }
@@ -869,20 +932,26 @@ q {
   h1 {
     font-size: 1.8em;
   }
+
   h2 {
     font-size: 1.65em;
   }
+
   h3 {
     font-size: 1.5em;
   }
+
   h4 {
     font-size: 1.25em;
   }
+
   img {
     max-width: 100%;
   }
+
   .mark {
     padding: 0;
+
     p {
       display: inline;
     }
@@ -914,8 +983,10 @@ q {
 
         td {
           padding: 0.5em 0.5em;
+
           p {
             margin: 0;
+
             a {
               p {
                 // Note: This is because of two bugs:
@@ -957,13 +1028,16 @@ q {
     @media screen and (width < $viewport-sm) {
       width: 100%;
     }
+
     a.nav-link {
       font-size: 14px;
       padding: 1rem;
       cursor: pointer;
+
       &:hover {
         background-color: #f6f6f6;
       }
+
       &.active {
         box-shadow: inset 0 -2px 0 0 $primary;
       }
@@ -981,6 +1055,7 @@ q {
     font-size: 1.25rem;
     font-weight: 700;
     margin-bottom: 4px;
+
     a {
       color: $dark;
       text-decoration: none;
@@ -990,20 +1065,25 @@ q {
 
 .HorizontalBarChart {
   text-indent: -30%;
+
   .ext {
-    position:relative;
+    position: relative;
     left: -50%;
     width: 75%;
     padding: 2px 0;
+
     .bar {
       height: 13px;
     }
+
     &.pos {
       margin-left: 75%;
+
       .bar {
         background-color: green;
       }
     }
+
     &.neg {
       .bar {
         float: right;
@@ -1017,8 +1097,10 @@ q {
 .ImpactDefinition {
   border-left: .25em solid #6a6af4;
   padding-left: 2em;
+
   p {
     line-height: 24px;
+
     &:not(:last-child) {
       margin-bottom: 5px;
     }
@@ -1045,7 +1127,8 @@ q {
   input[type=radio] {
     display: none;
   }
-  label > i {
+
+  label>i {
     border: 1px solid var(--bs-primary);
     border-radius: 4px;
     color: var(--bs-primary);
@@ -1059,21 +1142,22 @@ q {
     }
   }
 
-  input[type=radio] ~ i {
+  input[type=radio]~i {
     background-color: var(--bs-white);
     color: var(--bs-primary);
   }
 
-  input[type=radio]:checked ~ i {
+  input[type=radio]:checked~i {
     background-color: var(--bs-primary);
     color: var(--bs-white);
   }
 
-  .PlaneSelector > i {
+  .PlaneSelector>i {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   }
-  .BoatSelector > i {
+
+  .BoatSelector>i {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
   }
@@ -1089,6 +1173,7 @@ q {
     min-width: 200px;
     height: 196px;
     min-height: 196px;
+
     &:hover {
       background-color: #f6f6f6;
     }
@@ -1123,7 +1208,8 @@ q {
     padding: 1em;
   }
 
-  ul, ol {
+  ul,
+  ol {
     margin-bottom: 1em;
   }
 }
@@ -1156,6 +1242,7 @@ q {
   top: 15px;
   right: 15px;
   text-align: right;
+
   button {
     display: flex;
     width: 48px;
@@ -1176,10 +1263,12 @@ q {
   text-align: center;
   z-index: 1030;
   font-size: 90%;
+
   button {
     background-color: $white;
     font-size: 1em;
     margin-left: 1em;
+
     :hover {
       background-color: $primary;
     }
@@ -1195,7 +1284,8 @@ q {
 .Simulator {
   @media screen and (width < $viewport-sm) {
     margin-top: 5px;
-    > h1 {
+
+    >h1 {
       display: none;
     }
   }
@@ -1210,6 +1300,7 @@ q {
   text-align: center;
   z-index: 1030;
   font-size: 90%;
+
   button {
     font-size: 1em;
   }
@@ -1228,23 +1319,53 @@ q {
     padding: 0.66em !important;
     font-weight: 700;
 
-    &A { background-color: $score-letter-A !important }
-    &B { background-color: $score-letter-B !important }
-    &C { background-color: $score-letter-C !important }
-    &D { background-color: $score-letter-D !important }
-    &E { background-color: $score-letter-E !important }
+    &A {
+      background-color: $score-letter-A !important
+    }
+
+    &B {
+      background-color: $score-letter-B !important
+    }
+
+    &C {
+      background-color: $score-letter-C !important
+    }
+
+    &D {
+      background-color: $score-letter-D !important
+    }
+
+    &E {
+      background-color: $score-letter-E !important
+    }
+
     &Large {
       width: 1em;
       height: 1em;
       font-size: 66px;
     }
   }
+
   &ColoredText {
-    &A { color: darken($score-letter-A, 2%) }
-    &B { color: darken($score-letter-B, 10%) }
-    &C { color: darken($score-letter-C, 10%) }
-    &D { color: darken($score-letter-D, 10%) }
-    &E { color: darken($score-letter-E, 10%) }
+    &A {
+      color: darken($score-letter-A, 2%)
+    }
+
+    &B {
+      color: darken($score-letter-B, 10%)
+    }
+
+    &C {
+      color: darken($score-letter-C, 10%)
+    }
+
+    &D {
+      color: darken($score-letter-D, 10%)
+    }
+
+    &E {
+      color: darken($score-letter-E, 10%)
+    }
   }
 }
 
@@ -1295,6 +1416,7 @@ q {
       background-color: rgba($info, 0.1) !important;
       border-top: 1 solid #ddd;
       box-shadow: none;
+
       &:hover {
         background-color: rgba($info, 0.2) !important;
       }
@@ -1349,9 +1471,9 @@ q {
 // Imported from DSFR for compliance
 .fr-alert {
   background-color: #fff;
-  background-position: 0 0,100% 0,0 100%,0 0,100% 100%;
-  background-repeat: no-repeat,no-repeat,no-repeat;
-  background-size: 100% 1px,1px 100%,100% 1px,2.5rem 100%;
+  background-position: 0 0, 100% 0, 0 100%, 0 0, 100% 100%;
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-size: 100% 1px, 1px 100%, 100% 1px, 2.5rem 100%;
   min-width: 300px;
   padding: 1rem 2.25rem .75rem 3.5rem;
   position: relative;
@@ -1376,13 +1498,15 @@ q {
 
   &--sm {
     padding: .5rem 2.25rem .25rem 3rem;
+
     &:before {
       margin: .5rem;
     }
   }
 
   &--error {
-    background-image: linear-gradient(0deg,#ce0500,#ce0500),linear-gradient(0deg,#ce0500,#ce0500),linear-gradient(0deg,#ce0500,#ce0500),linear-gradient(0deg,#ce0500,#ce0500),linear-gradient(0deg,#ce0500,#ce0500);
+    background-image: linear-gradient(0deg, #ce0500, #ce0500), linear-gradient(0deg, #ce0500, #ce0500), linear-gradient(0deg, #ce0500, #ce0500), linear-gradient(0deg, #ce0500, #ce0500), linear-gradient(0deg, #ce0500, #ce0500);
+
     &:before {
       content: "";
       mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTE3LjUgMi41aC0xMUwxIDEybDUuNSA5LjVoMTFMMjMgMTJsLTUuNS05LjV6bS0xLjMgMTIuMy0xLjQgMS40LTIuOC0yLjgtMi44IDIuOC0xLjQtMS40IDIuOC0yLjgtMi44LTIuOCAxLjQtMS40IDIuOCAyLjggMi44LTIuOCAxLjQgMS40LTIuOCAyLjggMi44IDIuOHoiLz48L3N2Zz4=);
@@ -1390,7 +1514,8 @@ q {
   }
 
   &--info {
-    background-image: linear-gradient(0deg,#0063cb,#0063cb),linear-gradient(0deg,#0063cb,#0063cb),linear-gradient(0deg,#0063cb,#0063cb),linear-gradient(0deg,#0063cb,#0063cb),linear-gradient(0deg,#0063cb,#0063cb);
+    background-image: linear-gradient(0deg, #0063cb, #0063cb), linear-gradient(0deg, #0063cb, #0063cb), linear-gradient(0deg, #0063cb, #0063cb), linear-gradient(0deg, #0063cb, #0063cb), linear-gradient(0deg, #0063cb, #0063cb);
+
     &:before {
       content: "";
       mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTE5LjUgMi41aC0xNWMtMS4xIDAtMiAuOS0yIDJ2MTVjMCAxLjEuOSAyIDIgMmgxNWMxLjEgMCAyLS45IDItMnYtMTVjMC0xLjEtLjktMi0yLTJ6TTEzIDE3aC0ydi02aDJ2NnptMC04aC0yVjdoMnYyeiIvPjwvc3ZnPg==);
@@ -1398,7 +1523,8 @@ q {
   }
 
   &--success {
-    background-image: linear-gradient(0deg,#18753c,#18753c),linear-gradient(0deg,#18753c,#18753c),linear-gradient(0deg,#18753c,#18753c),linear-gradient(0deg,#18753c,#18753c),linear-gradient(0deg,#18753c,#18753c);
+    background-image: linear-gradient(0deg, #18753c, #18753c), linear-gradient(0deg, #18753c, #18753c), linear-gradient(0deg, #18753c, #18753c), linear-gradient(0deg, #18753c, #18753c), linear-gradient(0deg, #18753c, #18753c);
+
     &:before {
       content: "";
       mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTEyIDIyQzYuNDc3IDIyIDIgMTcuNTIzIDIgMTJTNi40NzcgMiAxMiAyczEwIDQuNDc3IDEwIDEwLTQuNDc3IDEwLTEwIDEwem0tLjk5Ny02IDcuMDctNy4wNzEtMS40MTQtMS40MTQtNS42NTYgNS42NTctMi44MjktMi44MjktMS40MTQgMS40MTRMMTEuMDAzIDE2eiIvPjwvc3ZnPg==);
@@ -1406,7 +1532,8 @@ q {
   }
 
   &--warning {
-    background-image: linear-gradient(0deg,#b34000,#b34000),linear-gradient(0deg,#b34000,#b34000),linear-gradient(0deg,#b34000,#b34000),linear-gradient(0deg,#b34000,#b34000),linear-gradient(0deg,#b34000,#b34000);
+    background-image: linear-gradient(0deg, #b34000, #b34000), linear-gradient(0deg, #b34000, #b34000), linear-gradient(0deg, #b34000, #b34000), linear-gradient(0deg, #b34000, #b34000), linear-gradient(0deg, #b34000, #b34000);
+
     &:before {
       content: "";
       mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0ibTEyLjg2NiAzIDkuNTI2IDE2LjVhMSAxIDAgMCAxLS44NjYgMS41SDIuNDc0YTEgMSAwIDAgMS0uODY2LTEuNUwxMS4xMzQgM2ExIDEgMCAwIDEgMS43MzIgMFpNMTEgMTZ2Mmgydi0yaC0yWm0wLTd2NWgyVjloLTJaIi8+PC9zdmc+);
@@ -1434,7 +1561,8 @@ q {
     top: .25rem;
     white-space: nowrap;
 
-    &:before, &:after {
+    &:before,
+    &:after {
       --icon-size: 1rem;
       background-color: currentColor;
       content: "";
@@ -1458,5 +1586,20 @@ q {
       margin-left: .5rem;
       margin-right: -.125rem;
     }
+  }
+}
+
+.signup-form,
+.view-account-form {
+
+  label[for="termsAccepted"],
+  label[for="emailOptin"],
+  label[for="ecoinventTermsAccepted"] {
+    color: #595959;
+    font-size: 0.88rem;
+  }
+
+  ul {
+    margin-top: 1.5rem;
   }
 }
