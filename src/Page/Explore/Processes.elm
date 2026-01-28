@@ -2,7 +2,7 @@ module Page.Explore.Processes exposing (table)
 
 import Data.Dataset as Dataset
 import Data.Impact as Impact
-import Data.Impact.Definition as Definition
+import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as ProcessCategory
 import Data.Scope exposing (Scope)
@@ -96,20 +96,24 @@ baseColumns detailed scope =
     ]
 
 
+impactCell : Definitions -> Definition.Trigram -> Column Process String msg
+impactCell definitions trigram =
+    { label = Definition.toString trigram
+    , toValue = Table.FloatValue <| .impacts >> Impact.getImpact trigram >> Unit.impactToFloat
+    , toCell = .impacts >> Format.formatImpact (Definition.get trigram definitions)
+    }
+
+
 impactsColumns : Session -> List (Column Process String msg)
-impactsColumns session =
+impactsColumns ({ db } as session) =
     if Session.isSuperuser session then
         Definition.trigrams
-            |> List.map
-                (\trigram ->
-                    { label = Definition.toString trigram
-                    , toValue = Table.FloatValue <| .impacts >> Impact.getImpact trigram >> Unit.impactToFloat
-                    , toCell = .impacts >> Format.formatImpact (Definition.get trigram session.db.definitions)
-                    }
-                )
+            |> List.map (impactCell db.definitions)
 
     else
-        []
+        Definition.Ecs
+            |> impactCell db.definitions
+            |> List.singleton
 
 
 tooltipedCell : String -> Html msg
