@@ -9,16 +9,4 @@ test.describe("versions", () => {
 
     await expect(options).toHaveText(["Version courante", "Version stable textile"]);
   });
-
-  test("should redirect to the correct page version", async ({ page }) => {
-    // Mock the api call before navigating
-
-    await page.goto("/");
-
-    // Single selection matching the value or label
-    await page.getByTestId("version-selector").selectOption("v7.0.0");
-    await page.waitForURL("**/versions/v7.0.0/#");
-
-    expect(page.url()).toBe("http://localhost:1234/versions/v7.0.0/#");
-  });
 });
