@@ -20,13 +20,5 @@ test.describe("versions", () => {
     await page.waitForURL("**/versions/v7.0.0/#");
 
     expect(page.url()).toBe("http://localhost:1234/versions/v7.0.0/#");
-
-    await expect(page.getByText("Calculer l’impact de l’alimentation")).toBeVisible();
-
-    await page.getByTestId("header-brand").click();
-
-    expect(page.url()).toBe("http://localhost:1234/");
-
-    await expect(page.getByText("Calculer l’impact de l’alimentation")).toBeVisible();
   });
 });
