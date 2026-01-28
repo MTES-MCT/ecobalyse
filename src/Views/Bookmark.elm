@@ -104,6 +104,7 @@ shareTabView { copyToClipBoard, impact, scope, session } =
                     ( Just query
                         |> Route.TextileSimulator impact.trigram
                         |> Route.toString
+                        |> (++) "/"
                         |> (++) session.clientUrl
                     , TextileQuery.buildApiQuery session.clientUrl query
                     , TextileQuery.encode query

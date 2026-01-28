@@ -17,12 +17,16 @@ import Data.Process as Process exposing (Process)
 import Data.Process.Category as ProcessCategory
 import Data.Scope as Scope
 import Data.Textile.Inputs as Inputs
+import Data.Textile.LifeCycle as LifeCycle
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Product as TextileProduct exposing (Product)
 import Data.Textile.Query as TextileQuery
 import Data.Textile.Simulator as Simulator exposing (Simulator)
 import Data.Textile.WellKnown exposing (WellKnown)
+import Data.Transport as Transport
+import Data.Unit as Unit
 import Data.Validation as Validation
+import Duration
 import Json.Encode as Encode
 import Route as WebRoute
 import Server.Request exposing (Request)
@@ -85,6 +89,22 @@ toAllImpactsSimple wellKnown { impacts, inputs } =
         , ( "impacts", Impact.encode impacts )
         , ( "description", inputs |> Inputs.toString wellKnown |> Encode.string )
         , ( "query", inputs |> Inputs.toQuery |> TextileQuery.encode )
+        ]
+
+
+toAllImpactsDetailed : Simulator -> Encode.Value
+toAllImpactsDetailed v =
+    Encode.object
+        [ ( "webUrl", serverRootUrl ++ toTextileWebUrl Nothing v.inputs |> Encode.string )
+        , ( "complementsImpacts", Impact.encodeComplementsImpacts v.complementsImpacts )
+        , ( "daysOfWear", v.daysOfWear |> Duration.inDays |> round |> Encode.int )
+        , ( "durability", v.durability |> Unit.floatDurabilityFromHolistic |> Encode.float )
+        , ( "impacts", Impact.encode v.impacts )
+        , ( "impactsWithoutDurability", Impact.encode (Simulator.getTotalImpactsWithoutDurability v) )
+        , ( "inputs", Inputs.encode v.inputs )
+        , ( "lifeCycle", LifeCycle.encode v.lifeCycle )
+        , ( "transport", Transport.encode v.transport )
+        , ( "useNbCycles", Encode.int v.useNbCycles )
         ]
 
 
@@ -282,7 +302,7 @@ handleRequest db request =
 
         Just (Route.TextilePostSimulatorDetailed (Ok textileQuery)) ->
             textileQuery
-                |> executeTextileQuery db Simulator.encode
+                |> executeTextileQuery db toAllImpactsDetailed
 
         Just (Route.TextilePostSimulatorDetailed (Err error)) ->
             encodeValidationErrors error
