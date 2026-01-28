@@ -11,7 +11,7 @@ test.describe("homepage", () => {
   test("textile callout button", async ({ page }) => {
     await page.goto("/");
 
-    await page.getByTestId("textile-callout-button").click();
+    await page.getByLabel("Menu principal").getByRole("link", { name: "Textile" }).click();
 
     await expect(page.getByTestId("score-card")).toBeVisible();
   });

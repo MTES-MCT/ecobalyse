@@ -7,7 +7,6 @@ import Data.Component as Component
 import Data.Component.Config as ComponentConfig
 import Data.Example as Example
 import Data.Food.Query as FoodQuery
-import Data.Github as Github
 import Data.Impact as Impact
 import Data.Notification as Notification exposing (Notification)
 import Data.Plausible as Plausible
@@ -32,7 +31,6 @@ import RemoteData exposing (WebData)
 import RemoteData.Http as Http
 import Request.Auth
 import Request.BackendHttp as BackendHttp
-import Request.Github
 import Request.Version exposing (VersionData)
 import Route
 import Static.Db as StaticDb exposing (Db)
@@ -100,7 +98,6 @@ type Msg
     | HomeMsg Home.Msg
     | ObjectSimulatorMsg ObjectSimulator.Msg
     | ProcessAdminMsg ProcessAdmin.Msg
-    | ReleasesReceived (WebData (List Github.Release))
     | StatsMsg Stats.Msg
     | StoreChanged String
     | TextileSimulatorMsg TextileSimulator.Msg
@@ -145,7 +142,6 @@ init flags requestedUrl navKey =
                 , Cmd.batch
                     [ Ports.appStarted ()
                     , Request.Version.loadVersion VersionReceived
-                    , Request.Github.getReleases ReleasesReceived
                     , if Session.isAuthenticated session then
                         Request.Auth.processes session (DetailedProcessesReceived requestedUrl)
 
@@ -179,7 +175,6 @@ setupSession navKey flags db componentConfig =
                     |> Result.withDefault TextileQuery.default
             , veli = Component.emptyQuery
             }
-        , releases = RemoteData.NotAsked
         , scalingoAppName = flags.scalingoAppName
         , store = Session.defaultStore
         , versionPollSeconds = flags.versionPollSeconds
@@ -499,16 +494,6 @@ update rawMsg ({ state } as model) =
 
                 ( UrlRequested (Browser.External href), _ ) ->
                     ( model, Nav.load href )
-
-                -- Releases
-                ( ReleasesReceived webData, currentPage ) ->
-                    ( { model
-                        | state =
-                            currentPage
-                                |> Loaded { session | releases = webData }
-                      }
-                    , Cmd.none
-                    )
 
                 -- Version check
                 ( VersionReceived webData, currentPage ) ->

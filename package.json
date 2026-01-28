@@ -51,7 +51,7 @@
     "test:jslib": "jest tests/lib",
     "test:review": "npx elm-review",
     "test:server": "npm run server:build && NODE_ENV=test jest tests/json.spec.js tests/server.spec.js tests/json.test.js tests/rate-limiting.spec.js",
-    "test:e2e": "e2e/setup-version-fixture.sh && NODE_ENV=test npx playwright test e2e/ --trace=retain-on-failure",
+    "test:e2e": "NODE_ENV=test npx playwright test e2e/ --trace=retain-on-failure",
     "test:e2e-ui": "NODE_ENV=test npx playwright test e2e/ --ui",
     "test": "npm run test:review && npm run test:client && npm run test:jslib && npm run test:backend && npm run test:server"
   },

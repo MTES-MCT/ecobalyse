@@ -11,7 +11,6 @@ import App
 import Browser exposing (Document)
 import Data.Dataset as Dataset
 import Data.Env as Env
-import Data.Github as Github
 import Data.Notification as Notification exposing (Notification)
 import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
@@ -20,7 +19,6 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Json.Decode as Decode
 import Page.Admin.Section as AdminSection
-import RemoteData
 import Request.BackendHttp.Error as BackendError
 import Request.Version as Version exposing (Version(..))
 import Route
@@ -80,7 +78,7 @@ frame ({ activePage } as config) ( title, content ) =
                         , button
                             [ type_ "button"
                             , class "btn btn-link p-0 mb-1"
-                            , onClick <| config.toMsg <| App.LoadUrl "/versions/v7.0.0/#/textile/simulator"
+                            , onClick <| config.toMsg <| App.LoadUrl (Env.stableTextileVersionPath ++ "#/textile/simulator")
                             , class "ms-1"
                             ]
                             [ text "Accéder à la version réglementaire" ]
@@ -417,29 +415,12 @@ pageHeader { activePage, session, toMsg } =
                     , text "Ecobalyse"
                     ]
                 ]
-            , session.releases
-                |> RemoteData.map
-                    (\releases ->
-                        (case Version.getTag session.currentVersion of
-                            Just _ ->
-                                releases
-
-                            Nothing ->
-                                -- If we're not on a tag, add an "unreleased" entry to reflect that
-                                Github.unreleased :: releases
-                        )
-                            |> List.map
-                                (\release ->
-                                    option [ selected <| Version.is release session.currentVersion ]
-                                        [ text release.tag ]
-                                )
-                    )
-                |> RemoteData.withDefault []
-                |> select
-                    [ class "VersionSelector d-none d-sm-block form-select form-select-sm w-auto"
-                    , attribute "data-testid" "version-selector"
-                    , onInput <| toMsg << App.SwitchVersion
-                    ]
+            , select
+                [ class "VersionSelector d-none d-sm-block form-select form-select-sm w-auto"
+                , attribute "data-testid" "version-selector"
+                , onInput <| toMsg << App.SwitchVersion
+                ]
+                [ option [ selected True ] [ text "Version courante" ], option [ value "v7.0.0" ] [ text "Version stable textile" ] ]
             , div [ class "HeaderAuthLink flex-fill" ]
                 [ a
                     [ class "d-none d-sm-block flex-fill text-end"
@@ -638,24 +619,13 @@ mobileNavigation { activePage, session, toMsg } =
                     |> List.map (viewNavigationLink activePage)
                     |> div [ class "nav nav-pills flex-column" ]
                 , h4 [ class "h6 mt-3" ] [ text "Versions" ]
-                , session.releases
-                    |> RemoteData.map
-                        (List.map
-                            (\release ->
-                                if Version.is release session.currentVersion then
-                                    strong [] [ text release.tag ]
-
-                                else
-                                    a
-                                        [ class "nav-link"
-                                        , href <| "/versions/" ++ release.tag
-                                        , onClick (toMsg <| App.LoadUrl <| "/versions/" ++ release.tag)
-                                        ]
-                                        [ text release.tag ]
-                            )
-                        )
-                    |> RemoteData.withDefault []
-                    |> div [ class "nav nav-pills flex-column" ]
+                , versionLink session.currentVersion
+                , a
+                    [ class "nav-link"
+                    , href <| Env.stableTextileVersionPath
+                    , onClick (toMsg <| App.LoadUrl <| Env.stableTextileVersionPath)
+                    ]
+                    [ text "Version stable textile" ]
                 ]
             ]
         , div [ class "offcanvas-backdrop fade show" ] []

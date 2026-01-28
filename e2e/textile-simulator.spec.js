@@ -3,7 +3,7 @@ import { test, expect } from "@playwright/test";
 test.describe("Textile simulator", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/");
-    await page.getByTestId("textile-callout-button").click();
+    await page.getByLabel("Menu principal").getByRole("link", { name: "Textile" }).click();
   });
 
   test("score card", async ({ page }) => {

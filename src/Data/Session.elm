@@ -39,7 +39,6 @@ import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Common.DecodeUtils as DU
 import Data.Component as Component
 import Data.Food.Query as FoodQuery
-import Data.Github as Github
 import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Query as TextileQuery
 import Data.User as User2
@@ -47,7 +46,6 @@ import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
 import List.Extra as LE
-import RemoteData exposing (WebData)
 import Request.BackendHttp.Error as BackendError
 import Request.Version exposing (Version)
 import Set exposing (Set)
@@ -73,7 +71,6 @@ type alias Session =
     , navKey : Nav.Key
     , notifications : List Notification
     , queries : Queries
-    , releases : WebData (List Github.Release)
     , scalingoAppName : Maybe String
     , store : Store
     , versionPollSeconds : Int
