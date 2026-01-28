@@ -1178,6 +1178,16 @@ q {
   ul, ol {
     margin-bottom: 1em;
   }
+
+  th {
+    white-space: nowrap;
+    padding-bottom: 0.5em;
+  }
+
+  th,
+  td {
+    padding-right: 1em;
+  }
 }
 
 .Materials {

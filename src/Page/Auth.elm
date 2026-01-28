@@ -675,7 +675,7 @@ ecoinventTermsView =
 
          Pour plus d’informations veuillez consulter la [politique de confidentialité]({url_privacy})."""
         |> String.replace "{url_ecoinvent}" (Route.toString <| Route.Editorial "cgu-ecoinvent")
-        |> String.replace "{url_privacy}" Env.privacyPolicyUrl
+        |> String.replace "{url_privacy}" (Route.toString <| Route.Editorial "politique-de-confidentialite")
         |> Markdown.simple []
     ]
 
@@ -684,7 +684,7 @@ termsView : List (Html Msg)
 termsView =
     [ """ Je m’engage à respecter les [CGU d’Ecobalyse]({url_cgu}) et accepte que l’ADEME collecte et traite mes données à caractère personnel pour créer un compte et me connecter à Ecobalyse, mesurer la fréquentation sur le site, suivre les erreurs informatiques et techniques. Pour plus d’informations veuillez consulter la [politique de confidentialité]({url_privacy})."""
         |> String.replace "{url_cgu}" Env.cguUrl
-        |> String.replace "{url_privacy}" Env.privacyPolicyUrl
+        |> String.replace "{url_privacy}" (Route.toString <| Route.Editorial "politique-de-confidentialite")
         |> Markdown.simple []
     ]
 
