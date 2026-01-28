@@ -78,7 +78,7 @@ frame ({ activePage } as config) ( title, content ) =
                         , button
                             [ type_ "button"
                             , class "btn btn-link p-0 mb-1"
-                            , onClick <| config.toMsg <| App.LoadUrl "/versions/v7.0.0/#/textile/simulator"
+                            , onClick <| config.toMsg <| App.LoadUrl (Env.stableTextileVersionPath ++ "#/textile/simulator")
                             , class "ms-1"
                             ]
                             [ text "Accéder à la version réglementaire" ]
@@ -622,8 +622,8 @@ mobileNavigation { activePage, session, toMsg } =
                 , versionLink session.currentVersion
                 , a
                     [ class "nav-link"
-                    , href <| "/versions/v7.0.0/"
-                    , onClick (toMsg <| App.LoadUrl <| "/versions/v7.0.0/")
+                    , href <| Env.stableTextileVersionPath
+                    , onClick (toMsg <| App.LoadUrl <| Env.stableTextileVersionPath)
                     ]
                     [ text "Version stable textile" ]
                 ]

@@ -11,6 +11,7 @@ module Data.Env exposing
     , maxMaterials
     , minMakingDeadStockRatio
     , minMakingWasteRatio
+    , stableTextileVersionPath
     )
 
 import Data.Split as Split exposing (Split)
@@ -69,6 +70,11 @@ minMakingDeadStockRatio =
 maxMakingDeadStockRatio : Split
 maxMakingDeadStockRatio =
     Split.thirty
+
+
+stableTextileVersionPath : String
+stableTextileVersionPath =
+    "/versions/v7.0.0/"
 
 
 defaultDeadStock : Split
