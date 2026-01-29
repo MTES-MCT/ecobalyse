@@ -1120,6 +1120,7 @@ injectionMoulding =
                     "wtu": 0
                 },
                 "location": "RER",
+                "massPerUnit": null,
                 "scopes": ["object", "veli"],
                 "source": "Ecoinvent 3.9.1",
                 "unit": "kg",
@@ -1163,6 +1164,7 @@ lowVoltageElec =
                     "wtu": 0
                 },
                 "location": "FR",
+                "massPerUnit": null,
                 "scopes": [
                     "food",
                     "textile",
@@ -1210,6 +1212,7 @@ plastic =
                     "wtu": 0
                 },
                 "location": "RER",
+                "massPerUnit": null,
                 "scopes": ["object"],
                 "source": "Ecoinvent 3.9.1",
                 "unit": "kg",
@@ -1253,6 +1256,7 @@ sawing =
                     "wtu": 0
                 },
                 "location": "GLO",
+                "massPerUnit": null,
                 "scopes": ["object"],
                 "source": "Ecobalyse",
                 "unit": "m3",
@@ -1296,6 +1300,7 @@ steel =
                     "wtu": 0
                 },
                 "location": "GLO",
+                "massPerUnit": null,
                 "scopes": ["textile"],
                 "source": "Ecoinvent 3.9.1",
                 "unit": "kg",
@@ -1339,6 +1344,7 @@ wood =
                     "wtu": 0
                 },
                 "location": "DE",
+                "massPerUnit": 660.0,
                 "scopes": ["object", "veli"],
                 "source": "Ecoinvent 3.9.1",
                 "unit": "m3",
