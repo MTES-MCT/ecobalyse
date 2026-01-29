@@ -704,27 +704,32 @@ suite =
                         )
                         (\( lifeCycle, stagesImpacts ) ->
                             [ it "should compute material stage impacts"
-                                (stagesImpacts.material
-                                    |> getEcsImpact
+                                (stagesImpacts.materials
+                                    |> Maybe.map getEcsImpact
+                                    |> Maybe.withDefault 0
                                     |> Expect.greaterThan 0
                                 )
                             , it "should compute transformation stage impacts"
-                                (stagesImpacts.transformation
-                                    |> getEcsImpact
+                                (stagesImpacts.transform
+                                    |> Maybe.map getEcsImpact
+                                    |> Maybe.withDefault 0
                                     |> Expect.greaterThan 0
                                 )
                             , it "should compute end of life stage impacts"
                                 (stagesImpacts.endOfLife
-                                    |> getEcsImpact
+                                    |> Maybe.map getEcsImpact
+                                    |> Maybe.withDefault 0
                                     |> Expect.greaterThan 0
                                 )
                             , it "should compute use stage impacts"
-                                (stagesImpacts.use
-                                    |> getEcsImpact
+                                (stagesImpacts.usage
+                                    |> Maybe.map getEcsImpact
+                                    |> Maybe.withDefault 0
                                     |> Expect.greaterThan 0
                                 )
                             , it "should have total stages impacts equal total impacts"
-                                ([ stagesImpacts.material, stagesImpacts.transformation ]
+                                ([ stagesImpacts.materials, stagesImpacts.transform ]
+                                    |> List.filterMap identity
                                     |> Impact.sumImpacts
                                     |> getEcsImpact
                                     |> Expect.within (Expect.Absolute 1) (extractEcsImpact lifeCycle.production)
@@ -1087,7 +1092,7 @@ injectionMoulding =
                 "activityName": "injection moulding//[RER] injection moulding",
                 "categories": ["transformation", "material_type:plastic"],
                 "comment": "",
-                "density": 0,
+                "massPerUnit": null,
                 "displayName": "Moulage par injection",
                 "elecMJ": 0,
                 "heatMJ": 0,
@@ -1130,7 +1135,7 @@ lowVoltageElec =
                 "activityName": "electricity, low voltage//[FR] market for electricity, low voltage",
                 "categories": ["energy", "use"],
                 "comment": "",
-                "density": 0,
+                "massPerUnit": null,
                 "displayName": "Electricité basse tension, France",
                 "elecMJ": 0,
                 "heatMJ": 0,
@@ -1177,7 +1182,7 @@ plastic =
                 "activityName": "polypropylene, granulate//[RER] polypropylene production, granulate",
                 "categories": ["material", "material_type:plastic"],
                 "comment": "",
-                "density": 0,
+                "massPerUnit": null,
                 "displayName": "Plastique granulé (PP)",
                 "elecMJ": 0,
                 "heatMJ": 0,
@@ -1220,7 +1225,7 @@ sawing =
                 "activityName": "Sawing + kiln drying in Europe (wood)",
                 "categories": ["transformation", "material_type:wood"],
                 "comment": "",
-                "density": 0,
+                "massPerUnit": null,
                 "displayName": "Sciage + séchage au four en Europe (bois)",
                 "elecMJ": 0,
                 "heatMJ": 0,
@@ -1263,7 +1268,7 @@ steel =
                 "activityName": "steel, low-alloyed//[GLO] market for steel, low-alloyed",
                 "categories": ["material", "material_type:metal"],
                 "comment": "",
-                "density": 0,
+                "massPerUnit": null,
                 "displayName": "Acier (faiblement allié)",
                 "elecMJ": 0,
                 "heatMJ": 0,
@@ -1306,7 +1311,7 @@ wood =
                 "activityName": "sawlog and veneer log, hardwood, measured as solid wood under bark//[DE] hardwood forestry, beech, sustainable forest management",
                 "categories": ["material", "material_type:wood"],
                 "comment": "",
-                "density": 660.0,
+                "massPerUnit": 660.0,
                 "displayName": "Bois d'oeuvre (Feuillus / Hêtre)",
                 "elecMJ": 0,
                 "heatMJ": 0,

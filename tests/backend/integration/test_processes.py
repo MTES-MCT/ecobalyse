@@ -1,6 +1,8 @@
+import json
 import os
 from pathlib import Path
 from typing import TYPE_CHECKING, Any
+from uuid import UUID
 
 import orjson
 import pytest
@@ -51,7 +53,7 @@ async def test_update_process(
         process_process_category as process_process_category_table,
     )
 
-    process_id = "97c209ec-7782-5a29-8c47-af7f17c82d11"
+    process_id = UUID("97c209ec-7782-5a29-8c47-af7f17c82d11")
     processes_service = await anext(provide_processes_service(session))
 
     categories = (await session.scalars(select(m.ProcessCategory))).all()
@@ -102,6 +104,7 @@ async def test_update_process(
 async def test_detailed_process_access(
     client: "AsyncClient",
     user_token_headers: dict[str, str],
+    toc_not_accepted_user_token_headers: dict[str, str],
 ) -> None:
     # Non authenticated access
     response = await client.get(
@@ -110,8 +113,7 @@ async def test_detailed_process_access(
     assert response.status_code == 200
     json_response = response.json()
 
-    # Unauthenticated user should have zero detailed impacts
-    assert json_response["impacts"] == {
+    no_detailed_impacts = {
         "acd": 0.0,
         "cch": 0.0,
         "ecs": 2026.16,
@@ -134,20 +136,14 @@ async def test_detailed_process_access(
         "wtu": 0.0,
     }
 
-    # Authenticated user should have detailed impacts
-    response = await client.get(
-        "/api/processes/97c209ec-7782-5a29-8c47-af7f17c82d11",
-        headers=user_token_headers,
-    )
-    assert response.status_code == 200
-    json_response = response.json()
+    # Unauthenticated user should have zero detailed impacts
+    assert json_response["impacts"] == no_detailed_impacts
 
-    assert json_response == {
+    detailed_process = {
         "activityName": "This process is not linked to a Brightway activity",
         "alias": None,
         "categories": ["transformation"],
         "comment": "corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-impression-pigmentaire.",
-        "density": 0.0,
         "displayName": "Impression (pigmentaire)",
         "elecMJ": 1.61,
         "heatMJ": 10.74,
@@ -175,16 +171,38 @@ async def test_detailed_process_access(
             "wtu": 5.0,
         },
         "location": "GLO",
+        "massPerUnit": None,
         "scopes": ["textile"],
         "source": "Custom",
         "unit": "kg",
         "waste": 0.0,
     }
 
+    # Authenticated user with non accepted terms should not have detailed impacts
+    response = await client.get(
+        "/api/processes/97c209ec-7782-5a29-8c47-af7f17c82d11",
+        headers=toc_not_accepted_user_token_headers,
+    )
+    assert response.status_code == 200
+    json_response = response.json()
+
+    assert json_response["impacts"] == no_detailed_impacts
+
+    # Authenticated user with accepted terms should have detailed impacts
+    response = await client.get(
+        "/api/processes/97c209ec-7782-5a29-8c47-af7f17c82d11",
+        headers=user_token_headers,
+    )
+    assert response.status_code == 200
+    json_response = response.json()
+
+    assert json_response == detailed_process
+
 
 async def test_processes_access(
     client: "AsyncClient",
     user_token_headers: dict[str, str],
+    toc_not_accepted_user_token_headers: dict[str, str],
 ) -> None:
     # Non authenticated access
     response = await client.get(
@@ -192,30 +210,46 @@ async def test_processes_access(
     )
     assert response.status_code == 200
     json_response = response.json()
+    no_detailed_impacts = {
+        "acd": 0,
+        "cch": 0,
+        "ecs": 2026.16,
+        "etf": 0,
+        "etf-c": 0,
+        "fru": 0,
+        "fwe": 0,
+        "htc": 0,
+        "htc-c": 0,
+        "htn": 0,
+        "htn-c": 0,
+        "ior": 0,
+        "ldu": 0,
+        "mru": 0,
+        "ozd": 0,
+        "pco": 0,
+        "pma": 0,
+        "swe": 0,
+        "tre": 0,
+        "wtu": 0,
+    }
 
     # Unauthenticated user should have zero detailed impacts
-    assert json_response[1]["impacts"] == {
-        "acd": 0.0,
-        "cch": 0.0,
-        "ecs": 2026.16,
-        "etf": 0.0,
-        "etf-c": 0.0,
-        "fru": 0.0,
-        "fwe": 0.0,
-        "htc": 0.0,
-        "htc-c": 0.0,
-        "htn": 0.0,
-        "htn-c": 0.0,
-        "ior": 0.0,
-        "ldu": 0.0,
-        "mru": 0.0,
-        "ozd": 0.0,
-        "pco": 0.0,
-        "pma": 0.0,
-        "swe": 0.0,
-        "tre": 0.0,
-        "wtu": 0.0,
-    }
+    assert json.dumps(json_response[1]["impacts"], sort_keys=True) == json.dumps(
+        no_detailed_impacts, sort_keys=True
+    )
+
+    # Authenticated user with toc not accepted
+    response = await client.get(
+        "/api/processes",
+        headers=toc_not_accepted_user_token_headers,
+    )
+    assert response.status_code == 200
+    json_response = response.json()
+
+    # Unauthenticated user should have zero detailed impacts
+    assert json.dumps(json_response[1]["impacts"], sort_keys=True) == json.dumps(
+        no_detailed_impacts, sort_keys=True
+    )
 
     # Authenticated user should have detailed impacts
     response = await client.get(
@@ -230,7 +264,7 @@ async def test_processes_access(
         "alias": None,
         "categories": ["transformation"],
         "comment": "corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-impression-pigmentaire.",
-        "density": 0.0,
+        "massPerUnit": None,
         "displayName": "Impression (pigmentaire)",
         "elecMJ": 1.61,
         "heatMJ": 10.74,

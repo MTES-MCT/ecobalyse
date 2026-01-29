@@ -256,7 +256,7 @@ paths:
                     id: a2836bb8-7f45-5cfa-bb00-8b38046291cf
                     mass: 545
                   packaging:
-                  - id: edefa2be-abe4-5bb6-b0fc-0f666050dcc1
+                  - id: 09bf8c91-b95e-4bd3-aaf3-4c5450f74ae7
                     mass: 105
                   distribution: ambient
                   preparation:
@@ -281,7 +281,7 @@ paths:
                     id: a2836bb8-7f45-5cfa-bb00-8b38046291cf
                     mass: 545
                   packaging:
-                  - id: edefa2be-abe4-5bb6-b0fc-0f666050dcc1
+                  - id: 09bf8c91-b95e-4bd3-aaf3-4c5450f74ae7
                     mass: 105
                   distribution: ambient
                   preparation:

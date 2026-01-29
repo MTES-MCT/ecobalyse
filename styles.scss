@@ -1178,6 +1178,16 @@ q {
   ul, ol {
     margin-bottom: 1em;
   }
+
+  th {
+    white-space: nowrap;
+    padding-bottom: 0.5em;
+  }
+
+  th,
+  td {
+    padding-right: 1em;
+  }
 }
 
 .Materials {
@@ -1300,7 +1310,7 @@ q {
   }
 }
 
-.Step {
+.Stage {
   &Body {
     &.disabled {
       opacity: 0.5;
@@ -1519,4 +1529,19 @@ q {
   color: #0063cb;
   padding: 1rem;
   margin-top: -7px;
+}
+
+.signup-form,
+.view-account-form {
+
+  label[for="termsAccepted"],
+  label[for="emailOptin"],
+  label[for="ecoinventTermsAccepted"] {
+    color: #595959;
+    font-size: 0.88rem;
+  }
+
+  ul {
+    margin-top: 1.5rem;
+  }
 }

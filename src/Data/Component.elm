@@ -61,7 +61,6 @@ module Data.Component exposing
     , getEndOfLifeDetailedImpacts
     , getEndOfLifeImpacts
     , getEndOfLifeScopeCollectionRate
-    , getTotalTransportImpacts
     , idFromString
     , idToString
     , isEmpty
@@ -105,6 +104,7 @@ import Data.Process.Category as Category exposing (Category, MaterialDict)
 import Data.Scope as Scope exposing (Scope)
 import Data.Scoring as Scoring exposing (Scoring)
 import Data.Split as Split exposing (Split)
+import Data.Stages exposing (Stages)
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Data.Uuid as Uuid exposing (Uuid)
@@ -304,15 +304,6 @@ type Results
 type Stage
     = MaterialStage
     | TransformStage
-
-
-type alias StagesImpacts =
-    { endOfLife : Impacts
-    , material : Impacts
-    , transformation : Impacts
-    , transports : Impacts
-    , use : Impacts
-    }
 
 
 type alias Requirements db =
@@ -625,8 +616,8 @@ computeMaterialResults amount process =
                     amountToFloat amount
 
                 else
-                    -- apply density
-                    amountToFloat amount * process.density
+                    -- apply mass per unit
+                    amountToFloat amount * Maybe.withDefault 1 process.massPerUnit
 
         materialType =
             Process.getMaterialTypes process
@@ -696,7 +687,7 @@ computeTransports ({ config, db } as req) query lifeCycle =
                 | transports =
                     -- Note: for now it's assumed there's never air transport
                     { toAssembly =
-                        -- Only convey multiple items to assembly step
+                        -- Only convey multiple items to assembly stage
                         -- TODO: refactor query to handle this through types https://github.com/MTES-MCT/ecobalyse/issues/1609
                         if List.length query.items > 1 then
                             expandedItems
@@ -1514,7 +1505,7 @@ setQueryItems items query =
     }
 
 
-stagesImpacts : LifeCycle -> StagesImpacts
+stagesImpacts : LifeCycle -> Stages (Maybe Impacts)
 stagesImpacts lifeCycle =
     lifeCycle.production
         |> extractItems
@@ -1526,19 +1517,22 @@ stagesImpacts lifeCycle =
             (\(Results { impacts, stage }) acc ->
                 case stage of
                     Just MaterialStage ->
-                        { acc | material = Impact.sumImpacts [ acc.material, impacts ] }
+                        { acc | materials = acc.materials |> Maybe.map (\i -> Impact.sumImpacts [ i, impacts ]) }
 
                     Just TransformStage ->
-                        { acc | transformation = Impact.sumImpacts [ acc.transformation, impacts ] }
+                        { acc | transform = acc.transform |> Maybe.map (\i -> Impact.sumImpacts [ i, impacts ]) }
 
                     Nothing ->
                         acc
             )
-            { endOfLife = lifeCycle.endOfLife
-            , material = Impact.empty
-            , transformation = Impact.empty
-            , transports = getTotalTransportImpacts lifeCycle.transports
-            , use = lifeCycle.use |> Impact.sumImpacts
+            { distribution = Nothing
+            , endOfLife = lifeCycle.endOfLife |> Just
+            , materials = Just Impact.empty
+            , packaging = Nothing
+            , transform = Just Impact.empty
+            , transports = getTotalTransportImpacts lifeCycle.transports |> Just
+            , trims = Nothing
+            , usage = lifeCycle.use |> Impact.sumImpacts |> Just
             }
 
 

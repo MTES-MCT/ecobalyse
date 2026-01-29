@@ -1,6 +1,6 @@
-module Data.Textile.Step exposing
+module Data.Textile.Stage exposing
     ( PreTreatments
-    , Step
+    , Stage
     , airTransportDisabled
     , airTransportRatioToString
     , computeMaterialTransportAndImpact
@@ -33,7 +33,7 @@ import Data.Textile.Fabric as Fabric
 import Data.Textile.Inputs as Inputs exposing (Inputs)
 import Data.Textile.MakingComplexity exposing (MakingComplexity)
 import Data.Textile.Printing exposing (Printing)
-import Data.Textile.Step.Label as Label exposing (Label)
+import Data.Textile.Stage.Label as Label exposing (Label)
 import Data.Textile.WellKnown as WellKnown exposing (WellKnown)
 import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
@@ -47,7 +47,7 @@ import Static.Db exposing (Db)
 import Views.Format as Format
 
 
-type alias Step =
+type alias Stage =
     { airTransportRatio : Split
     , complementsImpacts : Impact.ComplementsImpacts
     , country : Country
@@ -106,13 +106,13 @@ type alias ProcessInfo =
     }
 
 
-create : { country : Country, editable : Bool, enabled : Bool, label : Label } -> Step
+create : { country : Country, editable : Bool, enabled : Bool, label : Label } -> Stage
 create { country, editable, enabled, label } =
     let
         defaultImpacts =
             Impact.empty
     in
-    { airTransportRatio = Split.zero -- Note: this depends on next step country, so we can't set an accurate default value initially
+    { airTransportRatio = Split.zero -- Note: this depends on next stage country, so we can't set an accurate default value initially
     , complementsImpacts = Impact.noComplementsImpacts
     , country = country
     , deadstock = Quantity.zero
@@ -216,7 +216,7 @@ computePreTreatment country mass process =
     }
 
 
-computePreTreatments : WellKnown -> List Inputs.MaterialInput -> Step -> PreTreatments
+computePreTreatments : WellKnown -> List Inputs.MaterialInput -> Stage -> PreTreatments
 computePreTreatments wellKnown materials { country, inputMass } =
     materials
         |> List.concatMap
@@ -242,12 +242,12 @@ computePreTreatments wellKnown materials { country, inputMass } =
             emptyPreTreatments
 
 
-{-| Computes step transport distances and impact regarding next step.
+{-| Computes stage transport distances and impact regarding next stage.
 
 Docs: <https://fabrique-numerique.gitbook.io/ecobalyse/methodologie/transport>
 
 -}
-computeTransports : Db -> Inputs -> Step -> Step -> Step
+computeTransports : Db -> Inputs -> Stage -> Stage -> Stage
 computeTransports db inputs next ({ processInfo } as current) =
     let
         transport =
@@ -299,13 +299,13 @@ computeTransportImpacts impacts { airTransport, seaTransport } roadProcess mass 
     }
 
 
-computeTransportSummary : Step -> Transport -> Transport
-computeTransportSummary step transport =
+computeTransportSummary : Stage -> Transport -> Transport
+computeTransportSummary stage transport =
     let
         noTransports =
-            Transport.default step.transport.impacts
+            Transport.default stage.transport.impacts
     in
-    case step.label of
+    case stage.label of
         Label.Distribution ->
             -- Add default road transport to materialize transport to/from a warehouse
             noTransports
@@ -316,21 +316,21 @@ computeTransportSummary step transport =
             noTransports
 
         Label.Making ->
-            -- Air transport only applies between the Making and the Distribution steps
+            -- Air transport only applies between the Making and the Distribution stages
             transport
-                |> Transport.applyTransportRatios step.airTransportRatio
+                |> Transport.applyTransportRatios stage.airTransportRatio
 
         Label.Use ->
             -- Product Use leverages no transports
             noTransports
 
         _ ->
-            -- All other steps don't use air transport, force a 0 split
+            -- All other stages don't use air transport, force a 0 split
             transport
                 |> Transport.applyTransportRatios Split.zero
 
 
-getInputSurface : Inputs -> Step -> Area
+getInputSurface : Inputs -> Stage -> Area
 getInputSurface { product, surfaceMass } { inputMass } =
     let
         surfaceMassWithDefault =
@@ -339,14 +339,14 @@ getInputSurface { product, surfaceMass } { inputMass } =
     Unit.surfaceMassToSurface surfaceMassWithDefault inputMass
 
 
-getOutputSurface : Inputs -> Step -> Area
+getOutputSurface : Inputs -> Stage -> Area
 getOutputSurface { product, surfaceMass } { outputMass } =
     Unit.surfaceMassToSurface (Maybe.withDefault product.surfaceMass surfaceMass) outputMass
 
 
-getTransportedMass : Inputs -> Step -> Mass
+getTransportedMass : Inputs -> Stage -> Mass
 getTransportedMass inputs { label, outputMass } =
-    -- Transports from the Making step shouldn't include waste, only the final product.
+    -- Transports from the Making stage shouldn't include waste, only the final product.
     if label == Label.Making then
         inputs.mass
 
@@ -354,21 +354,21 @@ getTransportedMass inputs { label, outputMass } =
         outputMass
 
 
-updateFromInputs : Textile.Db -> Inputs -> Step -> Step
-updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as step) =
+updateFromInputs : Textile.Db -> Inputs -> Stage -> Stage
+updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as stage) =
     let
         { dyeingProcessType, makingComplexity, makingDeadStock, makingWaste, printing, surfaceMass, yarnSize } =
             inputs
     in
     case label of
         Label.Distribution ->
-            { step
+            { stage
                 | processInfo =
                     { defaultProcessInfo | distribution = Just <| Process.getDisplayName wellKnown.distribution }
             }
 
         Label.EndOfLife ->
-            { step
+            { stage
                 | complementsImpacts =
                     { complementsImpacts
                         | outOfEuropeEOL = Inputs.getOutOfEuropeEOLComplement inputs
@@ -383,7 +383,7 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
             }
 
         Label.Ennobling ->
-            { step
+            { stage
                 | dyeingProcessType = dyeingProcessType
                 , printing = printing
                 , processInfo =
@@ -404,7 +404,7 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
             }
 
         Label.Fabric ->
-            { step
+            { stage
                 | processInfo =
                     { defaultProcessInfo
                         | countryElec = Just <| Process.getDisplayName country.electricityProcess
@@ -419,7 +419,7 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
             }
 
         Label.Making ->
-            { step
+            { stage
                 | makingComplexity = makingComplexity
                 , makingDeadStock = makingDeadStock
                 , makingWaste = makingWaste
@@ -431,25 +431,25 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
             }
 
         Label.Material ->
-            { step
+            { stage
                 | complementsImpacts =
                     { complementsImpacts
-                      -- Note: no other steps than the Material one generate microfibers pollution
+                      -- Note: no other stages than the Material one generate microfibers pollution
                         | microfibers = Inputs.getTotalMicrofibersComplement inputs
                     }
             }
 
         Label.Spinning ->
-            { step
+            { stage
                 | processInfo = { defaultProcessInfo | countryElec = Just <| Process.getDisplayName country.electricityProcess }
                 , yarnSize = yarnSize
             }
 
         Label.Use ->
-            { step
+            { stage
                 | processInfo =
                     { defaultProcessInfo
-                        | -- Note: French low voltage electricity process is always used at the Use step
+                        | -- Note: French low voltage electricity process is always used at the Use stage
                           countryElec = Just <| Process.getDisplayName wellKnown.lowVoltageFranceElec
                         , useIroning =
                             -- Note: Much better expressing electricity consumption in kWh than in MJ
@@ -463,36 +463,36 @@ updateFromInputs { wellKnown } inputs ({ label, country, complementsImpacts } as
             }
 
 
-initMass : Mass -> Step -> Step
-initMass mass step =
-    { step
+initMass : Mass -> Stage -> Stage
+initMass mass stage =
+    { stage
         | inputMass = mass
         , outputMass = mass
     }
 
 
-updateWasteAndMasses : Mass -> Mass -> Step -> Step
-updateWasteAndMasses waste mass step =
-    { step
+updateWasteAndMasses : Mass -> Mass -> Stage -> Stage
+updateWasteAndMasses waste mass stage =
+    { stage
         | inputMass = mass
         , outputMass = Quantity.difference mass waste
         , waste = waste
     }
 
 
-updateDeadStock : Mass -> Mass -> Step -> Step
-updateDeadStock deadstock mass step =
-    { step
+updateDeadStock : Mass -> Mass -> Stage -> Stage
+updateDeadStock deadstock mass stage =
+    { stage
         | deadstock = deadstock
         , inputMass = mass
         , outputMass = Quantity.difference mass deadstock
     }
 
 
-airTransportDisabled : Step -> Bool
+airTransportDisabled : Stage -> Bool
 airTransportDisabled { country, enabled, label } =
     not enabled
-        || -- Note: disallow air transport from France to France at the Making step
+        || -- Note: disallow air transport from France to France at the Making stage
            (label == Label.Making && country.code == Country.codeFromString "FR")
 
 
@@ -539,7 +539,7 @@ yarnSizeToDtexString yarnSize =
     Format.formatFloat 2 (Unit.yarnSizeInGrams yarnSize) ++ "\u{202F}Dtex"
 
 
-encode : Step -> Encode.Value
+encode : Stage -> Encode.Value
 encode v =
     Encode.object
         [ ( "airTransportRatio", Split.encodeFloat v.airTransportRatio )
@@ -604,6 +604,6 @@ encodeProcessInfo v =
         ]
 
 
-getTotalImpactsWithoutComplements : Step -> Impacts
+getTotalImpactsWithoutComplements : Stage -> Impacts
 getTotalImpactsWithoutComplements { impacts, transport } =
     Impact.sumImpacts [ impacts, transport.impacts ]

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import datetime
 from typing import TYPE_CHECKING, Any
+from uuid import UUID
 
 import pytest
 from app.domain.accounts.schemas import OrganizationCreate, OrganizationType
@@ -35,11 +36,11 @@ def fx_raw_processes() -> list[dict[str, Any]]:
             "activityName": "This process is not linked to a Brightway activity",
             "categories": ["transformation"],
             "comment": "corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-impression-pigmentaire.",
-            "density": 0,
+            "massPerUnit": None,
             "displayName": "Impression (pigmentaire)",
             "elecMJ": 1.61,
             "heatMJ": 10.74,
-            "id": "97c209ec-7782-5a29-8c47-af7f17c82d11",
+            "id": UUID("97c209ec-7782-5a29-8c47-af7f17c82d11"),
             "impacts": {
                 "acd": 1,
                 "cch": 2,
@@ -72,11 +73,11 @@ def fx_raw_processes() -> list[dict[str, Any]]:
             "activityName": "_22 Vegetable and animal oils and fats, EU27",
             "categories": ["material"],
             "comment": "Location:  Unspecified\nTechnology:  Unspecified\nTime period:  Unspecified",
-            "density": 0.0,
+            "massPerUnit": None,
             "displayName": "_22 Vegetable and animal oils and fats, EU27",
             "elecMJ": 0.0,
             "heatMJ": 0.0,
-            "id": "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
+            "id": UUID("af42fc20-e3ec-5b99-9b9c-83ba6735e597"),
             "impacts": {
                 "acd": 0.01570549584,
                 "cch": 2.107576844,
@@ -109,11 +110,11 @@ def fx_raw_processes() -> list[dict[str, Any]]:
             "activityName": "test",
             "categories": ["material", "material_type:organic_fibers"],
             "comment": "Location:  Unspecified\nTechnology:  Unspecified\nTime period:  Unspecified",
-            "density": 0.0,
+            "massPerUnit": None,
             "displayName": "Test process",
             "elecMJ": 0.0,
             "heatMJ": 0.0,
-            "id": "d25636af-ab36-4857-a6d0-c66d1e7a281b",
+            "id": UUID("d25636af-ab36-4857-a6d0-c66d1e7a281b"),
             "impacts": {
                 "acd": 0.01570549584,
                 "cch": 2.107576844,
@@ -213,6 +214,7 @@ def fx_raw_users() -> list[dict[str, Any]]:
             "magic_link_token": "Test_Password1!_token",
             "is_superuser": True,
             "is_active": True,
+            "terms_accepted": True,
             "first_name": "Super",
             "last_name": "User",
             "organization": OrganizationCreate(
@@ -241,6 +243,7 @@ def fx_raw_users() -> list[dict[str, Any]]:
             "is_active": True,
             "first_name": "Example",
             "last_name": "User",
+            "terms_accepted": True,
             "organization": OrganizationCreate(
                 name="Example business organization",
                 type=OrganizationType.BUSINESS,

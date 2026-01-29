@@ -1,4 +1,4 @@
-module Views.Component.StepsBorder exposing (style)
+module Views.Component.StagesBorder exposing (style)
 
 import Html
 import Html.Attributes as Attrs

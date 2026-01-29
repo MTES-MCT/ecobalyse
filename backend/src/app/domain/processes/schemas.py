@@ -82,7 +82,7 @@ class Process(CamelizedBaseStruct):
 
     activity_name: Optional[str] = None
     alias: Optional[str] = None
-    density: float = 0
+    mass_per_unit: Optional[float] = msgspec.field(name="massPerUnit", default=None)
     display_name: Optional[str] = None
     elec_mj: float = msgspec.field(name="elecMJ", default=0)
     heat_mj: float = msgspec.field(name="heatMJ", default=0)

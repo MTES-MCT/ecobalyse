@@ -164,10 +164,10 @@ suite =
 
                                     Ok scoring ->
                                         [ Unit.impactToFloat scoring.all
-                                            |> Expect.within (Expect.Absolute 0.01) 490.27
+                                            |> Expect.within (Expect.Absolute 0.01) 463.44
                                             |> asTest "should properly score total impact"
                                         , Unit.impactToFloat scoring.allWithoutComplements
-                                            |> Expect.within (Expect.Absolute 0.01) 487.05
+                                            |> Expect.within (Expect.Absolute 0.01) 460.23
                                             |> asTest "should properly score total impact without complements"
                                         , Unit.impactToFloat scoring.complements
                                             |> Expect.within (Expect.Absolute 0.01) -3.21
@@ -176,16 +176,16 @@ suite =
                                             |> Expect.within (Expect.Absolute 0.0001) (Unit.impactToFloat scoring.all)
                                             |> asTest "should expose coherent scoring"
                                         , Unit.impactToFloat scoring.biodiversity
-                                            |> Expect.within (Expect.Absolute 0.01) 221.52
+                                            |> Expect.within (Expect.Absolute 0.01) 211.09
                                             |> asTest "should properly score impact on biodiversity protected area"
                                         , Unit.impactToFloat scoring.climate
-                                            |> Expect.within (Expect.Absolute 0.01) 104.62
+                                            |> Expect.within (Expect.Absolute 0.01) 96.57
                                             |> asTest "should properly score impact on climate protected area"
                                         , Unit.impactToFloat scoring.health
-                                            |> Expect.within (Expect.Absolute 0.01) 48.83
+                                            |> Expect.within (Expect.Absolute 0.01) 45.6
                                             |> asTest "should properly score impact on health protected area"
                                         , Unit.impactToFloat scoring.resources
-                                            |> Expect.within (Expect.Absolute 0.01) 112.08
+                                            |> Expect.within (Expect.Absolute 0.01) 106.96
                                             |> asTest "should properly score impact on resources protected area"
                                         ]
                                 )
@@ -231,7 +231,7 @@ suite =
                         , royalPizza
                             |> Recipe.compute db
                             |> Result.map (Tuple.first >> Recipe.getMassAtPackaging db.food.wellKnown)
-                            |> Expect.equal (Ok (Mass.kilograms 0.4398824000000001))
+                            |> Expect.equal (Ok (Mass.kilograms 0.3398824000000001))
                             |> asTest "should compute recipe ingredients mass applying raw to cooked ratio"
                         ]
                     , let

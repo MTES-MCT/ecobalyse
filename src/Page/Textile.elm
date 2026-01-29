@@ -41,7 +41,7 @@ import Data.Textile.Printing exposing (Printing)
 import Data.Textile.Product as Product exposing (Product)
 import Data.Textile.Query as Query exposing (MaterialQuery, Query)
 import Data.Textile.Simulator as Simulator exposing (Simulator)
-import Data.Textile.Step.Label exposing (Label)
+import Data.Textile.Stage.Label exposing (Label)
 import Data.Unit as Unit
 import Data.Uuid exposing (Uuid)
 import Html exposing (..)
@@ -73,7 +73,7 @@ import Views.Markdown as Markdown
 import Views.Modal as ModalView
 import Views.RangeSlider as RangeSlider
 import Views.Sidebar as SidebarView
-import Views.Textile.Step as StepView
+import Views.Textile.Stage as StageView
 
 
 type alias Model =
@@ -122,7 +122,7 @@ type Msg
     | OnDragOverBookmark Bookmark
     | OnDragStartBookmark Bookmark
     | OnDropBookmark Bookmark
-    | OnStepClick String
+    | OnStageClick String
     | OpenComparator
     | RemoveMaterial Material.Id
     | RemoveTrim Index
@@ -140,7 +140,7 @@ type Msg
     | SwitchTab Tab
     | ToggleComparedSimulation Bookmark Bool
     | ToggleFading Bool
-    | ToggleStep Label
+    | ToggleStage Label
     | UpdateAirTransportRatio (Maybe Split)
     | UpdateBookmarkName String
     | UpdateBusiness (Result String Economics.Business)
@@ -157,7 +157,7 @@ type Msg
     | UpdatePrice (Maybe Economics.Price)
     | UpdatePrinting (Maybe Printing)
     | UpdateRenamedBookmarkName Bookmark String
-    | UpdateStepCountry Label Country.Code
+    | UpdateStageCountry Label Country.Code
     | UpdateSurfaceMass (Maybe Unit.SurfaceMass)
     | UpdateTrimQuantity Index Component.Quantity
     | UpdateUpcycled Bool
@@ -188,7 +188,7 @@ init trigram maybeUrlQuery session =
             ComparatorView.Subscores
 
         else
-            ComparatorView.Steps
+            ComparatorView.Stages
     , initialQuery = initialQuery
     , impact = Definition.get trigram session.db.definitions
     , modal = NoModal
@@ -198,7 +198,7 @@ init trigram maybeUrlQuery session =
 
         else
             RegulatoryTab
-    , activeImpactsTab = ImpactTabs.StepImpactsTab
+    , activeImpactsTab = ImpactTabs.StagesImpactsTab
     }
         |> createPageUpdate (session |> Session.updateTextileQuery initialQuery)
         |> App.withCmds
@@ -247,7 +247,7 @@ initFromExample session uuid =
 
         else
             RegulatoryTab
-    , activeImpactsTab = ImpactTabs.StepImpactsTab
+    , activeImpactsTab = ImpactTabs.StagesImpactsTab
     }
         |> createPageUpdate (session |> Session.updateTextileQuery exampleQuery)
         |> App.withCmds [ Ports.scrollTo { x = 0, y = 0 } ]
@@ -412,9 +412,9 @@ update ({ db, queries, navKey } as session) msg model =
                 Nothing ->
                     createPageUpdate session model
 
-        ( OnStepClick stepId, _ ) ->
+        ( OnStageClick stageId, _ ) ->
             createPageUpdate session model
-                |> App.withCmds [ Ports.scrollIntoView stepId ]
+                |> App.withCmds [ Ports.scrollIntoView stageId ]
 
         ( RemoveMaterial materialId, _ ) ->
             createPageUpdate session model
@@ -536,9 +536,9 @@ update ({ db, queries, navKey } as session) msg model =
             createPageUpdate session model
                 |> updateQuery { query | fading = Just fading }
 
-        ( ToggleStep label, _ ) ->
+        ( ToggleStage label, _ ) ->
             createPageUpdate session model
-                |> updateQuery (Query.toggleStep label query)
+                |> updateQuery (Query.toggleStage label query)
 
         ( UpdateAirTransportRatio airTransportRatio, _ ) ->
             createPageUpdate session model
@@ -614,9 +614,9 @@ update ({ db, queries, navKey } as session) msg model =
             { model | bookmarkBeingRenamed = Just { bookmark | name = name } }
                 |> createPageUpdate session
 
-        ( UpdateStepCountry label code, _ ) ->
+        ( UpdateStageCountry label code, _ ) ->
             createPageUpdate session model
-                |> updateQuery (Query.updateStepCountry label code query)
+                |> updateQuery (Query.updateStageCountry label code query)
 
         ( UpdateSurfaceMass surfaceMass, _ ) ->
             createPageUpdate session model
@@ -869,19 +869,19 @@ massField massInput =
         ]
 
 
-lifeCycleStepsView : Db -> Model -> Simulator -> Html Msg
-lifeCycleStepsView db { activeTab, impact } simulator =
+lifeCycleStagesView : Db -> Model -> Simulator -> Html Msg
+lifeCycleStagesView db { activeTab, impact } simulator =
     simulator.lifeCycle
         |> Array.indexedMap
             (\index current ->
-                StepView.view
+                StageView.view
                     { db = db
                     , current = current
                     , daysOfWear = simulator.daysOfWear
                     , useNbCycles = simulator.useNbCycles
                     , index = index
                     , inputs = simulator.inputs
-                    , next = LifeCycle.getNextEnabledStep current.label simulator.lifeCycle
+                    , next = LifeCycle.getNextEnabledStage current.label simulator.lifeCycle
                     , selectedImpact = impact
                     , showAdvancedFields = activeTab == ExploratoryTab
 
@@ -891,8 +891,8 @@ lifeCycleStepsView db { activeTab, impact } simulator =
                     , openExplorerDetails = ExplorerDetailsTab >> SetModal
                     , setModal = SetModal
                     , toggleFading = ToggleFading
-                    , toggleStep = ToggleStep
-                    , updateCountry = UpdateStepCountry
+                    , toggleStage = ToggleStage
+                    , updateCountry = UpdateStageCountry
                     , updateAirTransportRatio = UpdateAirTransportRatio
                     , updateDyeingProcessType = UpdateDyeingProcessType
                     , updateMaterial = UpdateMaterial
@@ -908,17 +908,17 @@ lifeCycleStepsView db { activeTab, impact } simulator =
             )
         |> Array.toList
         |> List.concatMap
-            (\{ step, transport } ->
-                [ step
+            (\{ stage, transport } ->
+                [ stage
                 , DownArrow.view [] [ transport ]
                 ]
             )
-        -- Drop the very last item, which is the last arrow showing the mass out of the end of life step
+        -- Drop the very last item, which is the last arrow showing the mass out of the end of life stage
         -- which doesn't really make sense
         |> List.reverse
         |> List.drop 1
         |> List.reverse
-        |> div [ class "pt-1", attribute "data-testid" "life-cycle-steps" ]
+        |> div [ class "pt-1", attribute "data-testid" "life-cycle-stages" ]
 
 
 simulatorFormView : Session -> Model -> Simulator -> List (Html Msg)
@@ -1074,7 +1074,7 @@ simulatorFormView session model ({ inputs } as simulator) =
             text ""
         ]
     , div []
-        [ lifeCycleStepsView session.db model simulator
+        [ lifeCycleStagesView session.db model simulator
         , div [ class "d-flex align-items-center justify-content-between mt-3" ]
             [ a [ Route.href Route.Home ]
                 [ text "« Retour à l'accueil" ]
@@ -1166,7 +1166,7 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                 -- Impacts tabs
                 , impactTabsConfig =
                     SwitchImpactsTab
-                        |> ImpactTabs.createConfig session model.impact model.activeImpactsTab OnStepClick
+                        |> ImpactTabs.createConfig session model.impact model.activeImpactsTab OnStageClick
                         |> ImpactTabs.forTextile session.db.definitions simulator
                         |> Just
 

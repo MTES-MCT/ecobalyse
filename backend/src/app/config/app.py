@@ -5,6 +5,11 @@ from typing import Any, Callable, cast
 
 import sentry_sdk
 import structlog
+from advanced_alchemy.extensions.litestar import (
+    AlembicAsyncConfig,
+    AsyncSessionConfig,
+    SQLAlchemyAsyncConfig,
+)
 from advanced_alchemy.extensions.litestar.exception_handler import (
     ConflictError,
     DuplicateKeyError,
@@ -26,11 +31,6 @@ from litestar.middleware.logging import LoggingMiddlewareConfig
 from litestar.plugins.problem_details import (
     ProblemDetailsConfig,
     ProblemDetailsException,
-)
-from litestar.plugins.sqlalchemy import (
-    AlembicAsyncConfig,
-    AsyncSessionConfig,
-    SQLAlchemyAsyncConfig,
 )
 from litestar.plugins.structlog import StructlogConfig
 from litestar.serialization.msgspec_hooks import _msgspec_json_encoder

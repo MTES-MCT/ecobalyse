@@ -1,4 +1,4 @@
-module Views.Textile.Step exposing (view)
+module Views.Textile.Stage exposing (view)
 
 import Autocomplete exposing (Autocomplete)
 import Data.AutocompleteSelector as AutocompleteSelector
@@ -21,9 +21,9 @@ import Data.Textile.Material.Origin as Origin
 import Data.Textile.Material.Spinning as Spinning exposing (Spinning)
 import Data.Textile.Printing as Printing exposing (Printing)
 import Data.Textile.Query exposing (MaterialQuery)
-import Data.Textile.Simulator exposing (stepMaterialImpacts)
-import Data.Textile.Step as Step exposing (PreTreatments, Step)
-import Data.Textile.Step.Label as Label exposing (Label)
+import Data.Textile.Simulator exposing (stageMaterialImpacts)
+import Data.Textile.Stage as Stage exposing (Stage)
+import Data.Textile.Stage.Label as Label exposing (Label)
 import Data.Textile.WellKnown as WellKnown
 import Data.Transport as Transport
 import Data.Unit as Unit
@@ -40,7 +40,7 @@ import Views.BaseElement as BaseElement
 import Views.Button as Button
 import Views.ComplementsDetails as ComplementsDetails
 import Views.Component.SplitInput as SplitInput
-import Views.Component.StepsBorder as StepsBorder
+import Views.Component.StagesBorder as StagesBorder
 import Views.CountrySelect as CountrySelect
 import Views.Format as Format
 import Views.Icon as Icon
@@ -51,19 +51,19 @@ import Views.Transport as TransportView
 
 type alias Config msg modal =
     { addMaterialModal : Maybe Inputs.MaterialInput -> Autocomplete Material -> modal
-    , current : Step
+    , current : Stage
     , daysOfWear : Duration
     , db : Db
     , deleteMaterial : Material -> msg
     , index : Int
     , inputs : Inputs
-    , next : Maybe Step
+    , next : Maybe Stage
     , openExplorerDetails : Material -> msg
     , selectedImpact : Definition
     , setModal : modal -> msg
     , showAdvancedFields : Bool
     , toggleFading : Bool -> msg
-    , toggleStep : Label -> msg
+    , toggleStage : Label -> msg
     , updateAirTransportRatio : Maybe Split -> msg
     , updateCountry : Label -> Country.Code -> msg
     , updateDyeingProcessType : ProcessType -> msg
@@ -81,7 +81,9 @@ type alias Config msg modal =
 
 
 type alias ViewWithTransport msg =
-    { step : Html msg, transport : Html msg }
+    { stage : Html msg
+    , transport : Html msg
+    }
 
 
 countryField : Config msg modal -> Html msg
@@ -116,11 +118,11 @@ airTransportRatioField : Config msg modal -> Html msg
 airTransportRatioField { current, updateAirTransportRatio } =
     span [ title "Part de transport aérien pour le transport entre la confection et l'entrepôt en France." ]
         [ RangeSlider.percent
-            { disabled = Step.airTransportDisabled current
+            { disabled = Stage.airTransportDisabled current
             , id = "airTransportRatio"
             , max = 100
             , min = 0
-            , toString = Step.airTransportRatioToString
+            , toString = Stage.airTransportRatioToString
             , update = updateAirTransportRatio
             , value = current.airTransportRatio
             }
@@ -390,7 +392,7 @@ makingWasteField { current, inputs, updateMakingWaste } =
             , id = "makingWaste"
             , max = Env.maxMakingWasteRatio |> Split.toPercent |> round
             , min = Env.minMakingWasteRatio |> Split.toPercent |> round
-            , toString = Step.makingWasteToString
+            , toString = Stage.makingWasteToString
             , update = updateMakingWaste
             , value =
                 inputs.fabricProcess
@@ -408,7 +410,7 @@ makingDeadStockField { current, showAdvancedFields, updateMakingDeadStock } =
                 , id = "makingDeadStock"
                 , max = Env.maxMakingDeadStockRatio |> Split.toPercent |> round
                 , min = Env.minMakingDeadStockRatio |> Split.toPercent |> round
-                , toString = Step.makingDeadStockToString
+                , toString = Stage.makingDeadStockToString
                 , update = updateMakingDeadStock
                 , value = Maybe.withDefault Env.defaultDeadStock current.makingDeadStock
                 }
@@ -424,7 +426,7 @@ surfaceMassField { current, inputs, updateSurfaceMass } =
         [ RangeSlider.surfaceMass
             { disabled = not current.enabled
             , id = "surface-density"
-            , toString = Step.surfaceMassToString
+            , toString = Stage.surfaceMassToString
             , update = updateSurfaceMass
             , value = current.surfaceMass |> Maybe.withDefault inputs.product.surfaceMass
             }
@@ -437,7 +439,7 @@ yarnSizeField { current, inputs, updateYarnSize } =
         [ RangeSlider.yarnSize
             { disabled = not current.enabled
             , id = "yarnSize"
-            , toString = Step.yarnSizeToString
+            , toString = Stage.yarnSizeToString
             , update = updateYarnSize
             , value = current.yarnSize |> Maybe.withDefault inputs.product.yarnSize
             }
@@ -453,9 +455,9 @@ inlineDocumentationLink path =
         [ Icon.question ]
 
 
-stepActions : Config msg modal -> Label -> Html msg
-stepActions { current, inputs, showAdvancedFields, toggleStep } label =
-    div [ class "StepActions ms-2" ]
+stageActions : Config msg modal -> Label -> Html msg
+stageActions { current, inputs, showAdvancedFields, toggleStage } label =
+    div [ class "StageActions ms-2" ]
         [ div [ class "btn-group" ]
             [ Button.docsPillLink
                 [ class "btn btn-secondary py-1 rounded"
@@ -470,8 +472,8 @@ stepActions { current, inputs, showAdvancedFields, toggleStep } label =
                     , class "form-check-input ms-1 no-outline"
                     , attribute "role" "switch"
                     , checked current.enabled
-                    , onCheck (always (toggleStep current.label))
-                    , disabled (isStepUpcycled inputs.upcycled current.label)
+                    , onCheck (always (toggleStage current.label))
+                    , disabled (isStageUpcycled inputs.upcycled current.label)
                     , title
                         (if current.enabled then
                             "Étape activée, cliquez pour la désactiver"
@@ -485,22 +487,22 @@ stepActions { current, inputs, showAdvancedFields, toggleStep } label =
         ]
 
 
-isStepUpcycled : Bool -> Label -> Bool
-isStepUpcycled upcycled label =
+isStageUpcycled : Bool -> Label -> Bool
+isStageUpcycled upcycled label =
     upcycled && List.member label Label.upcyclables
 
 
-viewStepImpacts : Definition -> Step -> Html msg
-viewStepImpacts selectedImpact { complementsImpacts, impacts } =
+viewStageImpacts : Definition -> Stage -> Html msg
+viewStageImpacts selectedImpact { complementsImpacts, impacts } =
     showIf (Quantity.greaterThanZero (Impact.getImpact selectedImpact.trigram impacts)) <|
         let
-            stepComplementsImpact =
+            stageComplementsImpact =
                 complementsImpacts
                     |> Impact.getTotalComplementsImpacts
 
             totalImpacts =
                 impacts
-                    |> Impact.applyComplements stepComplementsImpact
+                    |> Impact.applyComplements stageComplementsImpact
         in
         div []
             [ span [ class "flex-fill" ]
@@ -524,7 +526,7 @@ viewMaterials config =
 
                         transport =
                             materialInput
-                                |> Step.computeMaterialTransportAndImpact config.db nextCountry config.current.outputMass
+                                |> Stage.computeMaterialTransportAndImpact config.db nextCountry config.current.outputMass
                     in
                     li [ class "ElementFormWrapper list-group-item" ]
                         (List.concat
@@ -680,7 +682,7 @@ createElementSelectorConfig cfg materialInput =
 
         impacts =
             cfg.current
-                |> stepMaterialImpacts cfg.db materialInput.material
+                |> stageMaterialImpacts cfg.db materialInput.material
                 |> Impact.mapImpacts (\_ -> Quantity.multiplyBy (Split.toFloat materialInput.share))
     in
     { allowEmptyList = False
@@ -727,7 +729,7 @@ viewTransport { current, inputs, selectedImpact } =
     div []
         [ span []
             [ text "Masse\u{00A0}: "
-            , current |> Step.getTransportedMass inputs |> Format.kg
+            , current |> Stage.getTransportedMass inputs |> Format.kg
             ]
         , showIf (Transport.totalKm current.transport > 0) <|
             div [ class "d-flex justify-content-between gap-3 align-items-center" ]
@@ -790,7 +792,7 @@ daysOfWearInfo { daysOfWear, useNbCycles } =
 
 ennoblingGenericFields : Config msg modal -> Html msg
 ennoblingGenericFields config =
-    -- Note: this fieldset is rendered in both simple and detailed step views
+    -- Note: this fieldset is rendered in both simple and detailed stage views
     div [ class "d-flex flex-column gap-1" ]
         [ showIf config.showAdvancedFields <|
             dyeingProcessTypeField config
@@ -798,15 +800,15 @@ ennoblingGenericFields config =
         ]
 
 
-surfaceInfoView : Inputs -> Step -> Html msg
+surfaceInfoView : Inputs -> Stage -> Html msg
 surfaceInfoView inputs current =
     let
         surfaceInfo =
             if current.label == Label.Fabric then
-                Just ( "sortante", Step.getOutputSurface inputs current )
+                Just ( "sortante", Stage.getOutputSurface inputs current )
 
             else if current.label == Label.Ennobling then
-                Just ( "entrante", Step.getInputSurface inputs current )
+                Just ( "entrante", Stage.getInputSurface inputs current )
 
             else
                 Nothing
@@ -822,7 +824,7 @@ surfaceInfoView inputs current =
             text ""
 
 
-ennoblingToxicityView : Db -> Config msg modal -> Step -> Html msg
+ennoblingToxicityView : Db -> Config msg modal -> Stage -> Html msg
 ennoblingToxicityView db { inputs, selectedImpact } current =
     showIf (current.label == Label.Ennobling) <|
         let
@@ -998,12 +1000,12 @@ showIf flag html =
         text ""
 
 
-stepView : Config msg modal -> Html msg -> Html msg
-stepView ({ current, showAdvancedFields } as config) html =
-    div [ class "Step card shadow-sm" ]
+stageView : Config msg modal -> Html msg -> Html msg
+stageView ({ current, showAdvancedFields } as config) html =
+    div [ class "Stage card shadow-sm" ]
         [ div
-            [ class "StepHeader card-header"
-            , StepsBorder.style <| Label.toColor current.label
+            [ class "StageHeader card-header"
+            , StagesBorder.style <| Label.toColor current.label
             , id <| Label.toId current.label
             ]
             [ div [ class "row d-flex align-items-center" ]
@@ -1029,9 +1031,9 @@ stepView ({ current, showAdvancedFields } as config) html =
                 , div [ class "col-3 col-sm-6 d-flex text-end justify-content-end" ]
                     [ div [ class "d-none d-sm-block text-center" ]
                         [ showIf (current.enabled || showAdvancedFields) <|
-                            viewStepImpacts config.selectedImpact current
+                            viewStageImpacts config.selectedImpact current
                         ]
-                    , stepActions config current.label
+                    , stageActions config current.label
                     ]
                 ]
             ]
@@ -1042,7 +1044,7 @@ stepView ({ current, showAdvancedFields } as config) html =
 regulatoryStepView : Config msg modal -> Html msg
 regulatoryStepView ({ current } as config) =
     div
-        [ class "StepBody card-body row align-items-center" ]
+        [ class "StageBody card-body row align-items-center" ]
         [ div [ class "col-lg-7" ]
             [ countryField config
             , case current.label of
@@ -1073,7 +1075,7 @@ advancedStepView ({ db, inputs, selectedImpact, current } as config) =
     let
         infoListElement =
             ul
-                [ class "StepBody list-group list-group-flush fs-7 border-bottom-0"
+                [ class "StageBody list-group list-group-flush fs-7 border-bottom-0"
                 , classList [ ( "disabled", not current.enabled ) ]
                 ]
     in
@@ -1094,7 +1096,7 @@ advancedStepView ({ db, inputs, selectedImpact, current } as config) =
                 , showIf (inputs.fading == Just True) <| viewProcessInfo current.processInfo.fading
                 ]
             , ul
-                [ class "StepBody p-0 list-group list-group-flush border-bottom-0 border-top"
+                [ class "StageBody p-0 list-group list-group-flush border-bottom-0 border-top"
                 , classList [ ( "disabled", not current.enabled ) ]
                 ]
                 (List.map
@@ -1132,7 +1134,7 @@ advancedStepView ({ db, inputs, selectedImpact, current } as config) =
             ]
         , div [ class "card border-end-0 border-top-0 border-bottom-0 text-center mb-0" ]
             [ ul
-                [ class "StepBody list-group list-group-flush fs-7"
+                [ class "StageBody list-group list-group-flush fs-7"
                 , classList [ ( "disabled", not current.enabled ) ]
                 ]
                 [ showIf (Energy.inKilojoules current.heat > 0 || Energy.inKilowattHours current.kwh > 0) <|
@@ -1183,7 +1185,7 @@ advancedStepView ({ db, inputs, selectedImpact, current } as config) =
         ]
 
 
-viewPreTreatments : PreTreatments -> Html msg
+viewPreTreatments : Stage.PreTreatments -> Html msg
 viewPreTreatments { operations } =
     span []
         [ text <|
@@ -1208,8 +1210,8 @@ viewPreTreatments { operations } =
 
 view : Config msg modal -> ViewWithTransport msg
 view config =
-    { step =
-        stepView config
+    { stage =
+        stageView config
             (if config.current.label == Label.Material then
                 viewMaterials config
 

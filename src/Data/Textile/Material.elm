@@ -26,7 +26,7 @@ import Json.Encode as Encode
 type alias Material =
     { alias : String
     , cffData : Maybe CFFData
-    , defaultCountry : Country.Code -- Default country for Material and Spinning steps
+    , defaultCountry : Country.Code -- Default country for Material and Spinning stages
     , geographicOrigin : String -- A textual information about the geographic origin of the material
     , id : Id
     , name : String

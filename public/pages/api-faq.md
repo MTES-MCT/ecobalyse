@@ -24,19 +24,20 @@ Oui, que ce soit sur l'application Web ou l'API, le nombre maximum de requêtes 
 
 Non, à ce stade de l'expérimentation, nous n'offrons aucune garantie de disponilbilité ni de continuité du service (pas de SLA).
 
-## Qu'est-ce que le versioning de l'API ?
+## Est-ce que l'API est versionnée ?
 
-L'API Ecobalyse est *versionnée*, c'est à dire qu'à chaque publication d'une nouvelle version de l'application, la version précédente devient disponible sur sa propre URL et reste stable dans le temps. Cela permet notamment de garantir la compatibilité de l'interfaçage avec vos systèmes d'information ou de tracer les évolutions de scores à travers le temps pourvu que le paramétrage soit compatible.
+L'API Ecobalyse *n'est pas versionnée*, c’est à dire qu’aucune stabilité n’est garantie en fonction de chaque incrément de la méthode de calcul du coût environnemental.
+Lorsqu'une méthode est prête au déploiement ou est testée à grande échelle, nous hébergeons l'application à une date donnée sur une URL dédiée afin de garantir une compatibilité et une stabilité d’interfaçage avec vos systèmes d’information. Pour accéder à l’API stable et règlementaire textile, rendez-vous sur [https://ecobalyse.beta.gouv.fr/versions/v7.0.0/](https://ecobalyse.beta.gouv.fr/versions/v7.0.0/).
+Vous pouvez tout de même faire des requêtes sur l'API Ecobalyse, nous ne garantissons pas la pérennité de ses paramètres et de l'interfaçage.
 
 ## Le format de réponse d'un appel vers une version de l'API peut-il changer avec le temps ?
 
-Le format des paramètres d'entrée et de réponses peuvent varier d'une version à l'autre, et c'est là tout l'intérêt du versioning. En revanche, une version figée est idempotente par conception (si ce devait ne pas être le cas, c'est un bug qu'il faut nous remonter).
+Oui, Ecobalyse offre une API qui reflète les évolutions de la méthode de calcul du coût environnemental. Certains paramètres peuvent être ajoutés, supprimés, modifiés en lien avec la coconstruction du coût environnemental et des retours des expérimentations. Les méthodes en fin d'expérimentation ou prêtes à être testées à grande échelle sont hébergées sur des sous-domaine d'Ecobalyse dont le format de réponse de l'API est stable.
 
-Notez au passage que les bugs découverts sur une version figée de l'API ne seront pas corrigés sur celle-ci mais sur les versions ultérieures. Par exemple, un bug découvert en v2.1 sera aujourd'hui adressé en v2.6, la v2.5 venant tout juste d'être mise en production et donc idempotente également.
-
-## Peut-on se fier à une version fixe de l'API ?
+## Peut-on se fier à une version API stable hébergée sur un sous-domaine d'Ecobalyse ?'
 
 Oui, c'est même tout l'objectif. Et si d'aventure une version particulière devenait indisponible ou fournissait des résultats différents d'un appel à l'autre sur un même jeu de paramètres, c'est un bug qu'il conviendra de nous signaler.
+La version stable et règlementaire de l’API textile est disponible sur [https://ecobalyse.beta.gouv.fr/versions/v7.0.0/](https://ecobalyse.beta.gouv.fr/versions/v7.0.0/).
 
 ## Comment puis-je remonter un bug ou obtenir du support technique sur l'API ?
 

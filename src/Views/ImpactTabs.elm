@@ -15,19 +15,20 @@ import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Scoring as Scoring exposing (Scoring)
 import Data.Session as Session exposing (Session)
+import Data.Stages as Stages
 import Data.Textile.Simulator as TextileSimulator exposing (Simulator)
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Views.CardTabs as CardTabs
-import Views.Component.StepsBorder as StepsBorder
+import Views.Component.StagesBorder as StagesBorder
 import Views.Table as Table
 
 
 type Tab
     = DetailedImpactsTab
-    | StepImpactsTab
+    | StagesImpactsTab
     | SubscoresTab
 
 
@@ -35,17 +36,17 @@ type alias Config msg =
     { activeImpactsTab : Tab
     , complementsImpact : Impact.ComplementsImpacts
     , impactDefinition : Definition
-    , onStepClick : String -> msg
+    , onStageClick : String -> msg
     , scoring : Scoring
     , session : Session
-    , stepsImpacts : Impact.StepsImpacts
+    , stagesImpacts : Impact.StagesImpacts
     , switchImpactsTab : Tab -> msg
     , total : Impacts
     }
 
 
 view : Definitions -> Config msg -> Html msg
-view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStepClick, scoring, session, stepsImpacts, switchImpactsTab, total } =
+view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStageClick, scoring, session, stagesImpacts, switchImpactsTab, total } =
     CardTabs.view
         { attrs = []
         , content =
@@ -75,62 +76,62 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStep
                         |> List.reverse
                         |> Table.percentageTable impactDefinition
 
-                StepImpactsTab ->
+                StagesImpactsTab ->
                     [ { entryAttributes =
-                            [ StepsBorder.style Impact.stepsColors.trims
-                            , onClick <| onStepClick "trims-step"
+                            [ StagesBorder.style Impact.stagesColors.trims
+                            , onClick <| onStageClick "trims-stage"
                             ]
                       , name = "Accessoires"
-                      , value = stepsImpacts.trims
+                      , value = stagesImpacts.trims
                       }
                     , { entryAttributes =
-                            [ StepsBorder.style Impact.stepsColors.materials
-                            , onClick <| onStepClick "materials-step"
+                            [ StagesBorder.style Impact.stagesColors.materials
+                            , onClick <| onStageClick "materials-stage"
                             ]
                       , name = "Matières premières"
-                      , value = stepsImpacts.materials
+                      , value = stagesImpacts.materials
                       }
                     , { entryAttributes =
-                            [ StepsBorder.style Impact.stepsColors.transform
-                            , onClick <| onStepClick "transform-step"
+                            [ StagesBorder.style Impact.stagesColors.transform
+                            , onClick <| onStageClick "transform-stage"
                             ]
                       , name = "Transformation"
-                      , value = stepsImpacts.transform
+                      , value = stagesImpacts.transform
                       }
                     , { entryAttributes =
-                            [ StepsBorder.style Impact.stepsColors.packaging
-                            , onClick <| onStepClick "packaging-step"
+                            [ StagesBorder.style Impact.stagesColors.packaging
+                            , onClick <| onStageClick "packaging-stage"
                             ]
                       , name = "Emballage"
-                      , value = stepsImpacts.packaging
+                      , value = stagesImpacts.packaging
                       }
                     , { entryAttributes =
-                            [ StepsBorder.style Impact.stepsColors.transports
-                            , onClick <| onStepClick "transport-step"
+                            [ StagesBorder.style Impact.stagesColors.transports
+                            , onClick <| onStageClick "transport-stage"
                             ]
                       , name = "Transports"
-                      , value = stepsImpacts.transports
+                      , value = stagesImpacts.transports
                       }
                     , { entryAttributes =
-                            [ StepsBorder.style Impact.stepsColors.distribution
-                            , onClick <| onStepClick "distribution-step"
+                            [ StagesBorder.style Impact.stagesColors.distribution
+                            , onClick <| onStageClick "distribution-stage"
                             ]
                       , name = "Distribution"
-                      , value = stepsImpacts.distribution
+                      , value = stagesImpacts.distribution
                       }
                     , { entryAttributes =
-                            [ StepsBorder.style Impact.stepsColors.usage
-                            , onClick <| onStepClick "usage-step"
+                            [ StagesBorder.style Impact.stagesColors.usage
+                            , onClick <| onStageClick "usage-stage"
                             ]
                       , name = "Utilisation"
-                      , value = stepsImpacts.usage
+                      , value = stagesImpacts.usage
                       }
                     , { entryAttributes =
-                            [ StepsBorder.style Impact.stepsColors.endOfLife
-                            , onClick <| onStepClick "end-of-life-step"
+                            [ StagesBorder.style Impact.stagesColors.endOfLife
+                            , onClick <| onStageClick "end-of-life-stage"
                             ]
                       , name = "Fin de vie"
-                      , value = stepsImpacts.endOfLife
+                      , value = stagesImpacts.endOfLife
                       }
                     ]
                         |> List.map
@@ -156,13 +157,13 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStep
             ]
         , tabs =
             (if impactDefinition.trigram == Definition.Ecs && Session.isAuthenticated session then
-                [ StepImpactsTab
+                [ StagesImpactsTab
                 , SubscoresTab
                 , DetailedImpactsTab
                 ]
 
              else
-                [ StepImpactsTab ]
+                [ StagesImpactsTab ]
             )
                 |> List.map
                     (\tab ->
@@ -175,14 +176,14 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStep
 
 
 createConfig : Session -> Definition -> Tab -> (String -> msg) -> (Tab -> msg) -> Config msg
-createConfig session impactDefinition activeImpactsTab onStepClick switchImpactsTab =
+createConfig session impactDefinition activeImpactsTab onStageClick switchImpactsTab =
     { activeImpactsTab = activeImpactsTab
     , complementsImpact = Impact.noComplementsImpacts
     , impactDefinition = impactDefinition
-    , onStepClick = onStepClick
+    , onStageClick = onStageClick
     , scoring = Scoring.empty
     , session = session
-    , stepsImpacts = Impact.noStepsImpacts
+    , stagesImpacts = Impact.noStagesImpacts
     , switchImpactsTab = switchImpactsTab
     , total = Impact.empty
     }
@@ -193,44 +194,19 @@ forFood results config =
     { config
         | complementsImpact = results.recipe.totalComplementsImpact
         , scoring = results.scoring
-        , stepsImpacts = Recipe.toStepsImpacts config.impactDefinition.trigram results
+        , stagesImpacts = Recipe.toStagesImpacts config.impactDefinition.trigram results
         , total = results.total
     }
 
 
 forObject : Definitions -> Component.LifeCycle -> Config msg -> Config msg
 forObject definitions lifeCycle config =
-    let
-        stageStats =
-            Component.stagesImpacts lifeCycle
-    in
     { config
         | scoring = Component.computeScoring definitions lifeCycle
-        , stepsImpacts =
-            { distribution = Nothing
-            , endOfLife =
-                stageStats.endOfLife
-                    |> Impact.getImpact config.impactDefinition.trigram
-                    |> Just
-            , materials =
-                stageStats.material
-                    |> Impact.getImpact config.impactDefinition.trigram
-                    |> Just
-            , packaging = Nothing
-            , transform =
-                stageStats.transformation
-                    |> Impact.getImpact config.impactDefinition.trigram
-                    |> Just
-            , transports =
-                stageStats.transports
-                    |> Impact.getImpact config.impactDefinition.trigram
-                    |> Just
-            , trims = Nothing
-            , usage =
-                stageStats.use
-                    |> Impact.getImpact config.impactDefinition.trigram
-                    |> Just
-            }
+        , stagesImpacts =
+            lifeCycle
+                |> Component.stagesImpacts
+                |> Stages.map (Maybe.map (Impact.getImpact config.impactDefinition.trigram))
         , total = Component.sumLifeCycleImpacts lifeCycle
     }
 
@@ -246,9 +222,9 @@ forTextile definitions simulator config =
         , scoring =
             totalImpactsWithoutComplements
                 |> Scoring.compute definitions (Impact.getTotalComplementsImpacts simulator.complementsImpacts)
-        , stepsImpacts =
+        , stagesImpacts =
             simulator
-                |> TextileSimulator.toStepsImpacts config.impactDefinition.trigram
+                |> TextileSimulator.toStagesImpacts config.impactDefinition.trigram
         , total = totalImpactsWithoutComplements
     }
 
@@ -259,7 +235,7 @@ tabToString tab =
         DetailedImpactsTab ->
             "Impacts"
 
-        StepImpactsTab ->
+        StagesImpactsTab ->
             "Étapes"
 
         SubscoresTab ->
