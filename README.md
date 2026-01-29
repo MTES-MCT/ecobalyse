@@ -79,21 +79,70 @@ Les variables d'environnement décrites ci-dessous doivent être définies. En d
 
 ### Backend
 
-Voir [Backend](backend/README.md)
+Installation des dépendances :
 
-### Environnement de développement local
+```bash
+uv sync
+```
+
+Le framework utilisé est [Litestar](https://litestar.dev/).
+
+
+## Environnement de développement local
+
+### Lancer le serveur de développement
 
 Le serveur local de développement se lance au moyen des deux commandes suivantes :
 
-    npm start
+    npm start:dev
 
 Trois instances de développement sont alors accessibles :
 
 - [localhost:8002](http://localhost:8002/) sert le backend Litestar utilisé pour l'authentification, et sert aussi les fichiers statiques de elm.
-<!-- le README du backend utilise le port par default 8000 ; dommage de pas synchroniser -->
 - [localhost:8001](http://localhost:8001/) sert l'API ; (différente de l’API documentée sur http://localhost:8002/schema ? Et les fichiers statiques ont l’air d’être servis ici ?)
 - [localhost:1234](http://localhost:1234/) est l'URL à utiliser en développement pour tester l'intégration des trois composants (le front, l'API et le Django) car un proxy Parcel renvoie certaines requêtes vers le port 8001 ou 8002 (voir `.proxyrc.json`). Le frontend est servi en mode _hot-reload_, pour recharger! l'interface Web à chaque modification du code frontend.
 
+
+### Migrer la base de données
+
+```bash
+uv run backend database upgrade --no-prompt
+```
+
+
+### Réinitialiser la BDD et charger les données de fixtures
+
+```bash
+./bin/reset-docker-db.sh
+```
+
+Sans `docker` :
+
+```bash
+uv run backend database upgrade --no-prompt
+uv run backend fixtures load-processes public/data/processes_impacts.json
+uv run backend fixtures load-components public/data/object/components.json
+```
+
+### Créer un super-utilisateur
+
+```bash
+uv run backend users create-user --email foo@bar.org --first-name Foo --last-name Bar --superuser
+```
+
+### Utilser la ligne de commandes `backend`
+
+#### Obtenir la liste des commandes possibles
+
+```bash
+uv run backend --help
+```
+
+#### Afficher l’aide d’une commande spécifique
+
+```bash
+uv run backend users --help
+```
 
 ## Auto-hébergement avec Docker
 
