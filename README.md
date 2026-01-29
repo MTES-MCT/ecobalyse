@@ -107,13 +107,13 @@ Le build sur le CI échouera si les fichiers python, javascript et json ne sont 
 
 Pour installer les hooks pre-commit, exécutez la commande suivante :
 
-    $ uv run pre-commit install
+    uv run pre-commit install
 
 Un hook de pre-commit sera alors configuré pour vérifier que le code est bien formaté avant de permettre le commit. Le hook corrigera les erreurs dans la mesure du possible. Il vous suffira alors d'ajouter les modifications à votre staging, git puis à refaire votre commit.
 
 Il est possible de lancer la vérification du formatage à la main grâce à la commande suivante :
 
-    $ npm run lint:all
+    npm run lint:all
 
 Si vous voulez lancer la correction automatique de tous les problèmes détectés, lancez :
 
@@ -121,7 +121,7 @@ Si vous voulez lancer la correction automatique de tous les problèmes détecté
 
 Si vous ne souhaitez pas que la vérification se fasse de manière automatique, vous pouvez désinstaller pre-commit et les hooks associés :
 
-    $ uv run pre-commit uninstall
+    uv run pre-commit uninstall
 
 ### Débogage des emails
 
