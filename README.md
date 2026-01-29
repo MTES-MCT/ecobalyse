@@ -45,7 +45,7 @@ Les variables d'environnement décrites ci-dessous doivent être définies. En d
 
       DATABASE_URL=postgresql+asyncpg://<username>:<pw>@localhost:5432/<nom de la bdd>)
 
-  Sinon, une base de donnée par défaut dans un conteneur Docker sera utilisée.
+  Sinon, une base de données par défaut dans un conteneur Docker sera utilisée.
 
 - `EMAIL_FROM` : l’expéditeur des emails du backend
 - `EMAIL_SERVER_HOST` : serveur SMTP (`localhost` permet de bénéficier d'une instance [maildev](https://github.com/maildev/maildev))
