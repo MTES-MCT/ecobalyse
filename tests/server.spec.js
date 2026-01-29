@@ -443,7 +443,7 @@ describe("API", () => {
       it("should render with ingredients list", async () => {
         await expectListResponseContains("/api/food/ingredients", {
           id: "8f3863e7-f981-4367-90a2-e1aaa096a6e0",
-          name: "(old) Lait FR",
+          name: "Lait FR (2025)",
           defaultOrigin: "France",
         });
       });
