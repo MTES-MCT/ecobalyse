@@ -10,49 +10,54 @@ L'application est accessible [à cette adresse](https://ecobalyse.beta.gouv.fr/)
 
 Le frontend de cette application est écrite en [Elm](https://elm-lang.org/). Vous devez disposer d'un environnement [NodeJS](https://nodejs.org/fr/) 14+ et `npm`. Pour le backend vous devez disposer d'un environnement [python](https://www.python.org/) >=3.11, [uv](https://docs.astral.sh/uv/) et [gettext](https://www.gnu.org/software/gettext/) sur votre machine. Certains fichiers d’impacts détaillés nécessitent de configurer [`transcrypt`](https://github.com/elasticdog/transcrypt) pour les lire en local.
 
+[docker](https://www.docker.com/)est également une dépendance requise pour lancer la suite de tests.
+
 ## Configuration
 
-Les variables d'environnement suivantes doivent être définies :
+Les variables d'environnement décrites ci-dessous doivent être définies. En développement, copiez le fichier `.env.sample`, renommez-le `.env`, et mettez à jour les valeurs qu'il contient ; le serveur de développement chargera les variables en conséquences.
 
-- `BACKEND_ADMINS` : la liste des emails des administrateurs initiaux, séparés par une virgule
-- `DATABASE_URL` : voir plus bas pour les détails
-- `ECOBALYSE_DATA_DIR` : ?
-- `EMAIL_FROM`: l’expéditeur des emails du backend
-- `EMAIL_SERVER_HOST`: serveur SMTP (`localhost` permet de bénéficier d'une instance [maildev](https://github.com/maildev/maildev))
-- `EMAIL_SERVER_PASSWORD`: le mot de passe du serveur SMTP
-- `EMAIL_SERVER_PORT`: Port du serveur SMTP (`1025` permet de bénéficier d'une instance *maildev*)
-- `EMAIL_SERVER_USER`: Nom d'utilisateur SMTP
-- `EMAIL_SERVER_USE_TLS`: Utilisation de TLS (par defaut à `True`, positionner à `False` pour utiliser l'instance *maildev*)
+### Variables partagées
+
+- `SENTRY_DSN` : le DSN [Sentry](https://sentry.io) à utiliser pour les rapports d'erreur front et back.
+
+### Frontend (npm & node)
+
 - `ENABLE_FOOD_SECTION` : affichage ou non de la section expérimentale dédiée à l'alimentaire (valeur `True` ou `False`, par défault `False`)
 - `ENABLE_OBJECTS_SECTION` : affichage ou non de la section expérimentale dédiée aux objets génériques (valeur `True` ou `False`, par défault `False`)
 - `ENABLE_VELI_SECTION` : affichage ou non de la section expérimentale dédiée aux véhicules intermédiaires (valeur `True` ou `False`, par défault `False`)
 - `ENCRYPTION_KEY` : la clé utilisée par les scripts `npm run encrypt` et  `npm run decrypt` pour chiffrer/déchiffrer les fichiers d’impacts détaillés inclus dans chaque archive de release. Pour générer une nouvelle clé, vous pouvez utiliser le script `bin/generate-crypto-key`.
-- `MATOMO_HOST`: le domaine de l'instance Matomo permettant le suivi d'audience du produit (typiquement `stats.beta.gouv.fr`).
-- `MATOMO_SITE_ID`: l'identifiant du site Ecobalyse sur l'instance Matomo permettant le suivi d'audience du produit.
-- `MATOMO_TOKEN`: le token Matomo permettant le suivi d'audience du produit.
-- `NODE_ENV`: l'environnement d'exécution nodejs (par défaut, `development`)
-- `PLAUSIBLE_HOST`: Le domaine du serveur [Plausible](https://plausible.io/) (optionnel)
-- `RATELIMIT_MAX_RPM`: le nombre de requêtes maximum par minute et par ip (par défaut: 5000)
-- `RATELIMIT_WHITELIST`: liste des adresses IP non soumises au rate-limiting, séparées par des virgules
-- `SECRET_KEY`: le secret 32bits pour le backend; vous pouvez en générer une avec `openssl rand -hex 32`
-- `SENTRY_DSN`: le DSN [Sentry](https://sentry.io) à utiliser pour les rapports d'erreur.
-<!-- Elle ne s’appelle pas comme ça dans Vaultwarden, du coup j’ai confondu pendant un moment avec `ENCRYPTION_KEY`
-Est-ce qu’on veut donner ce genre de détails ici ?
- -->
-- `TRANSCRYPT_KEY`: la clé utilisée et autogénérée par [transcrypt](https://github.com/elasticdog/transcrypt/blob/main/INSTALL.md) et disponible dans [https://vaultwarden.incubateur.net](https://vaultwarden.incubateur.net/).
-- `VERSION_POLL_SECONDS`: The number of seconds between two http polls to retrieve the current app version (`/version.json`, défault: `300`)
+- `MATOMO_HOST` : le domaine de l'instance Matomo permettant le suivi d'audience du produit (typiquement `stats.beta.gouv.fr`).
+- `MATOMO_SITE_ID` : l'identifiant du site Ecobalyse sur l'instance Matomo permettant le suivi d'audience du produit.
+- `MATOMO_TOKEN` : le token Matomo permettant le suivi d'audience du produit.
+- `NODE_ENV` : l'environnement d'exécution nodejs (par défaut, `development`)
+- `PLAUSIBLE_HOST` : Le domaine du serveur [Plausible](https://plausible.io/) (optionnel)
+- `RATELIMIT_MAX_RPM` : le nombre de requêtes maximum par minute et par ip (par défaut: 5000)
+- `RATELIMIT_WHITELIST` : liste des adresses IP non soumises au rate-limiting, séparées par des virgules
+- `SECRET_KEY` : le secret 32bits pour le backend; vous pouvez en générer une avec `openssl rand -hex 32`
+- `TRANSCRYPT_KEY` : la clé utilisée et autogénérée par [transcrypt](https://github.com/elasticdog/transcrypt/blob/main/INSTALL.md) et disponible dans [https://vaultwarden.incubateur.net](https://vaultwarden.incubateur.net/).
+- `VERSION_POLL_SECONDS` : Le nombre de secondes entre deux appels HTTP pour récupérer la dernière version de l’application (`/version.json`, défaut: `300`)
 
-En développement, copiez le fichier `.env.sample`, renommez-le `.env`, et mettez à jour les valeurs qu'il contient ; le serveur de développement node chargera les variables en conséquences.
+### Backend
 
-Pour utiliser un serveur PostgreSQL spécifique, configurez la variable `DATABASE_URL` comme ceci :
+- `DATABASE_URL` : DSN de la base de données.
 
-    DATABASE_URL=postgresql+asyncpg://<username>:<pw>@localhost:5432/<nom de la bdd>)
+  Pour utiliser un serveur PostgreSQL spécifique, configurez la variable `DATABASE_URL` comme ceci :
 
-Sinon, une base de donnée par défaut dans un conteneur Docker sera utilisée.
+      DATABASE_URL=postgresql+asyncpg://<username>:<pw>@localhost:5432/<nom de la bdd>)
 
+  Sinon, une base de donnée par défaut dans un conteneur Docker sera utilisée.
 
-<!-- mais du coup est-ce qu’on peut utiliser un PG local quand même sans conflit avec les tests ? -->
-Note: docker est également une dépendance requise pour lancer la suite de tests (`npm test`).
+- `EMAIL_FROM` : l’expéditeur des emails du backend
+- `EMAIL_SERVER_HOST` : serveur SMTP (`localhost` permet de bénéficier d'une instance [maildev](https://github.com/maildev/maildev))
+- `EMAIL_SERVER_PASSWORD` : le mot de passe du serveur SMTP
+- `EMAIL_SERVER_PORT` : Port du serveur SMTP (`1025` permet de bénéficier d'une instance *maildev*)
+- `EMAIL_SERVER_USER` : Nom d'utilisateur SMTP
+- `EMAIL_SERVER_USE_TLS` : Utilisation de TLS (par defaut à `True`, positionner à `False` pour utiliser l'instance *maildev*)
+
+### Déploiement
+
+- `BACKEND_ADMINS` : la liste des emails des administrateurs initiaux, séparés par une virgule, utilisé pour charger les utilisateurs par défaut lors du déploiement Scalingo
+
 
 ## Installation
 
