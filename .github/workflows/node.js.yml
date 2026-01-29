@@ -15,9 +15,9 @@ env:
   EMAIL_SERVER_USE_TLS: false
 on:
   push:
-    branches: [ master, staging ]
+    branches: [ master, staging, stable/textile]
   pull_request:
-    branches: [ master, staging ]
+    branches: [ master, staging, stable/textile]
   workflow_dispatch:
 
 jobs:
