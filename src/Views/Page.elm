@@ -396,7 +396,7 @@ pageHeader { activePage, session, toMsg } =
             , select
                 [ class "VersionSelector d-none d-sm-block form-select form-select-sm w-auto"
                 , attribute "data-testid" "version-selector"
-                , onInput <| toMsg << App.SwitchVersion
+                , onInput (\_ -> toMsg App.SwitchVersion)
                 ]
                 [ option [ selected False, value "/" ] [ text "Version courante" ], option [ selected True ] [ text "Version stable textile" ] ]
             , div [ class "HeaderAuthLink flex-fill" ]

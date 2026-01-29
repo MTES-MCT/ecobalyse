@@ -3,7 +3,6 @@ module Request.Version exposing
     , VersionData
     , decodeData
     , encodeData
-    , getTag
     , loadVersion
     , pollVersion
     , toMaybe
@@ -52,16 +51,6 @@ encodeData v =
         [ ( "hash", Encode.string v.hash )
         , ( "tag", v.tag |> Maybe.map Encode.string |> Maybe.withDefault Encode.null )
         ]
-
-
-getTag : Version -> Maybe String
-getTag version =
-    case version of
-        Version { tag } ->
-            tag
-
-        _ ->
-            Nothing
 
 
 loadVersion : (WebData VersionData -> msg) -> Cmd msg

@@ -356,7 +356,7 @@ update rawMsg ({ state } as model) =
                         ]
                     )
 
-                ( AppMsg (App.SwitchVersion _), _ ) ->
+                ( AppMsg App.SwitchVersion, _ ) ->
                     ( model
                     , Nav.load <|
                         "/#"
