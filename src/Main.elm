@@ -5,7 +5,6 @@ import Browser exposing (Document)
 import Browser.Navigation as Nav
 import Data.Example as Example
 import Data.Food.Query as FoodQuery
-import Data.Github as Github
 import Data.Impact as Impact
 import Data.Notification as Notification exposing (Notification)
 import Data.Object.Query as ObjectQuery
@@ -30,7 +29,6 @@ import RemoteData exposing (WebData)
 import Request.Auth
 import Request.BackendHttp as BackendHttp
 import Request.BackendHttp.Error as BackendError
-import Request.Github
 import Request.Version exposing (VersionData)
 import Route
 import Static.Db as StaticDb exposing (Db)
@@ -94,7 +92,6 @@ type Msg
     | FoodBuilderMsg FoodBuilder.Msg
     | HomeMsg Home.Msg
     | ObjectSimulatorMsg ObjectSimulator.Msg
-    | ReleasesReceived (WebData (List Github.Release))
     | StatsMsg Stats.Msg
     | StoreChanged String
     | TextileSimulatorMsg TextileSimulator.Msg
@@ -132,7 +129,6 @@ init flags requestedUrl navKey =
                 , Cmd.batch
                     [ Ports.appStarted ()
                     , Request.Version.loadVersion VersionReceived
-                    , Request.Github.getReleases ReleasesReceived
                     , if Session.isAuthenticated session then
                         Request.Auth.processes session DetailedProcessesReceived
 
@@ -163,7 +159,6 @@ setupSession navKey flags db =
                     |> Result.withDefault TextileQuery.default
             , veli = ObjectQuery.default
             }
-        , releases = RemoteData.NotAsked
         , store = Session.defaultStore
         , versionPollSeconds = flags.versionPollSeconds
         }
@@ -361,12 +356,10 @@ update rawMsg ({ state } as model) =
                         ]
                     )
 
-                ( AppMsg (App.SwitchVersion version), _ ) ->
+                ( AppMsg (App.SwitchVersion _), _ ) ->
                     ( model
                     , Nav.load <|
-                        "/versions/"
-                            ++ version
-                            ++ "/#"
+                        "/#"
                             ++ Maybe.withDefault "" model.url.fragment
                     )
 
@@ -462,16 +455,6 @@ update rawMsg ({ state } as model) =
 
                 ( UrlRequested (Browser.External href), _ ) ->
                     ( model, Nav.load href )
-
-                -- Releases
-                ( ReleasesReceived webData, currentPage ) ->
-                    ( { model
-                        | state =
-                            currentPage
-                                |> Loaded { session | releases = webData }
-                      }
-                    , Cmd.none
-                    )
 
                 -- Version check
                 ( VersionReceived webData, currentPage ) ->
