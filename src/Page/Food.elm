@@ -46,7 +46,6 @@ import Page.Explore.Processes as Processes
 import Page.Explore.Table as Table
 import Ports
 import Quantity
-import Request.Version as Version
 import Route
 import Static.Db exposing (Db)
 import Task
@@ -407,7 +406,6 @@ update ({ db, queries } as session) msg model =
                         , query = foodQuery
                         , created = now
                         , subScope = Nothing
-                        , version = Version.toMaybe session.currentVersion
                         }
                 )
                 model

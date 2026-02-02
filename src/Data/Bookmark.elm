@@ -31,7 +31,6 @@ import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
 import List.Extra as LE
-import Request.Version as Version exposing (VersionData)
 import Static.Db exposing (Db)
 import Time exposing (Posix)
 
@@ -41,7 +40,6 @@ type alias Bookmark =
     , name : String
     , query : Query
     , subScope : Maybe Scope
-    , version : Maybe VersionData
     }
 
 
@@ -70,7 +68,6 @@ decode =
         |> JDP.required "name" Decode.string
         |> JDP.required "query" decodeQuery
         |> DU.strictOptionalWithDefault "subScope" (Decode.maybe Scope.decode) Nothing
-        |> DU.strictOptionalWithDefault "version" (Decode.maybe Version.decodeData) Nothing
         |> Decode.map
             (\bookmark ->
                 case ( bookmark.query, bookmark.subScope ) of
@@ -128,7 +125,6 @@ encode v =
         , ( "name", Encode.string v.name |> Just )
         , ( "query", encodeQuery v.query |> Just )
         , ( "subScope", v.subScope |> Maybe.map Scope.encode )
-        , ( "version", v.version |> Maybe.map Version.encodeData )
         ]
 
 
