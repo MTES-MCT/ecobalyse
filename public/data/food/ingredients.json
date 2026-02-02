@@ -1863,15 +1863,15 @@
     "categories": [
       "vegetable_fresh"
     ],
-    "cropGroup": "AUTRES OLEAGINEUX",
+    "cropGroup": "LEGUMES-FLEURS",
     "defaultOrigin": "France",
     "density": 0.9,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 0.03362,
+      "hedges": 0.031802,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.063605
+      "plotSize": 0.079506
     },
     "id": "1c00ec30-0696-5078-b3c2-889918ff3bd9",
     "inediblePart": 0.1,
@@ -3115,15 +3115,15 @@
     "categories": [
       "vegetable_fresh"
     ],
-    "cropGroup": "LEGUMES-FLEURS",
+    "cropGroup": "VERGERS",
     "defaultOrigin": "France",
     "density": 0.85,
     "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0.10886,
+      "cropDiversity": 0.40236,
+      "hedges": 0.18973,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.27216
+      "plotSize": 0.38102
     },
     "id": "35ea48ae-0063-5789-8648-cc8560eabfd9",
     "inediblePart": 0.4,
@@ -4637,15 +4637,15 @@
     "categories": [
       "vegetable_fresh"
     ],
-    "cropGroup": "VERGERS",
+    "cropGroup": "ARBORICULTURE",
     "defaultOrigin": "France",
     "density": 0.95,
     "ecosystemicServices": {
       "cropDiversity": 0.012595,
-      "hedges": 0.0059391,
+      "hedges": 0.011683,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.011927
+      "plotSize": 0.0085192
     },
     "id": "4fb30602-4b14-5c96-9b81-8d5a4ff404e5",
     "inediblePart": 0.2,
@@ -5852,7 +5852,7 @@
     "processId": "e32ce795-0af6-5d90-8fed-2ed0e249baad",
     "rawToCookedRatio": 0.819,
     "scenario": "reference",
-    "transportCooling": "none",
+    "transportCooling": "always",
     "visible": true
   },
   {
@@ -6551,12 +6551,12 @@
     "categories": [
       "vegetable_fresh"
     ],
-    "cropGroup": "VIGNES",
+    "cropGroup": "VERGERS",
     "defaultOrigin": "France",
     "density": 0.85,
     "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0.12096,
+      "cropDiversity": 0.44709,
+      "hedges": 0.21082,
       "livestockDensity": null,
       "permanentPasture": null,
       "plotSize": 0.42338
@@ -8514,15 +8514,15 @@
     "categories": [
       "vegetable_fresh"
     ],
-    "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
+    "cropGroup": "LEGUMES-FLEURS",
     "defaultOrigin": "France",
     "density": 0.9,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 0.021691,
+      "hedges": 0.058398,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.058398
+      "plotSize": 0.14599
     },
     "id": "980571f0-c174-5822-a5bd-94d0d7ae47a6",
     "inediblePart": 0.2,
@@ -9527,12 +9527,12 @@
     "categories": [
       "vegetable_fresh"
     ],
-    "cropGroup": "SEMENCES",
+    "cropGroup": "LEGUMES-FLEURS",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.9,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 1.8042,
+      "hedges": 1.4033,
       "livestockDensity": null,
       "permanentPasture": null,
       "plotSize": 3.5082
@@ -10606,15 +10606,15 @@
     "categories": [
       "vegetable_fresh"
     ],
-    "cropGroup": "ARBORICULTURE",
+    "cropGroup": "VERGERS",
     "defaultOrigin": "France",
     "density": 0.9,
     "ecosystemicServices": {
       "cropDiversity": 0.003727,
-      "hedges": 0.0034574,
+      "hedges": 0.0017575,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.002521
+      "plotSize": 0.0035294
     },
     "id": "c273baca-8341-5d48-932e-ed8507cfddfd",
     "inediblePart": 0.2,
@@ -10741,15 +10741,15 @@
     "categories": [
       "spice_condiment_additive"
     ],
-    "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
+    "cropGroup": "DIVERS",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 0.5006,
+      "hedges": 0.19254,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 1.3478
+      "plotSize": 2.0217
     },
     "id": "c54d2b99-33f7-5b69-b18e-61f15c17b6e9",
     "inediblePart": 0,
