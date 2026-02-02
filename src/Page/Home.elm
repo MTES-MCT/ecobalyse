@@ -104,7 +104,7 @@ viewHero { enabledSections } =
                 , { label = "Calculer l’impact d’un vêtement"
                   , subLabel = Just "Version réglementaire"
                   , callToAction = True
-                  , link = ExternalLink "/versions/v7.0.0/#/textile/simulator"
+                  , link = ExternalLink (Env.stableTextileVersionPath ++ "#/textile/simulator")
                   , testId = "textile-callout-button"
                   }
                 )
@@ -177,7 +177,7 @@ produits alimentaires ou encore l’ameublement. Pour plus d’informations, vou
                             |> Markdown.simple []
                         , button
                             [ class "btn btn-primary"
-                            , onClick <| ProcessLink <| ExternalLink "/versions/v7.0.0/#/textile/simulator"
+                            , onClick <| ProcessLink <| ExternalLink (Env.stableTextileVersionPath ++ "#/textile/simulator")
                             ]
                             [ text "Utiliser la version réglementaire 7.0.0" ]
                         ]
