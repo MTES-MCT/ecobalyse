@@ -2,7 +2,7 @@
 hidden: true
 ---
 
-# 🤝 Contribuer avec vos données
+# 🫴 Contribuer avec vos données
 
 **L’enrichissement de la base de données pour calculer le coût environnemental est précieux.**&#x20;
 

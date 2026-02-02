@@ -6,7 +6,7 @@
 
 * [🇫🇷 Ecobalyse](README.md)
 * [🤝 Communauté](communaute.md)
-* [🤝 Contribuer avec vos données](communaute-1.md)
+* [🫴 Contribuer avec vos données](communaute-1.md)
 * [Conditions d'utilisation](conditions-dutilisation.md)
 * [ℹ️ Comment lire cette documentation](comment-lire-cette-documentation.md)
 * [Politique de confidentialité de données personnelles](politique-de-confidentialite-de-donnees-personnelles.md)
