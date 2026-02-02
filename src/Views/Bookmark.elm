@@ -14,7 +14,6 @@ import Json.Encode as Encode
 import Route
 import Views.CardTabs as CardTabs
 import Views.Icon as Icon
-import Views.Version as VersionView
 
 
 type alias ManagerConfig msg =
@@ -289,7 +288,7 @@ bookmarksView ({ compare, scope, session } as cfg) =
 
 
 bookmarkView : ManagerConfig msg -> Bookmark -> Html msg
-bookmarkView cfg ({ name, query, version } as bookmark) =
+bookmarkView cfg ({ name, query } as bookmark) =
     let
         currentQuery =
             queryFromScope cfg.session cfg.scope
@@ -332,8 +331,7 @@ bookmarkView cfg ({ name, query, version } as bookmark) =
     in
     li [ class "list-group-item", classList [ ( "active", query == currentQuery ) ] ]
         [ Html.form [ class "d-flex justify-content-between align-items-center gap-1 fs-7", onSubmit cfg.rename ]
-            [ VersionView.view version
-            , case ( beingRenamed, cfg.bookmarkBeingRenamed ) of
+            [ case ( beingRenamed, cfg.bookmarkBeingRenamed ) of
                 ( True, Just renamedBookmark ) ->
                     input
                         [ type_ "text"
