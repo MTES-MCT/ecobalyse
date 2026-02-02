@@ -500,14 +500,13 @@ getPackagingMass recipe =
     recipe.packaging
         |> List.map
             (\{ amount, process } ->
-                case process.unit of
-                    Process.Items ->
-                        -- @FIXME: We can’t deduce the mass of an item packaging for now as we don’t have the massPerUnit/density
-                        --  information available, so we hardcode the mass to 0 for now
-                        Mass.kilograms 0
+                Mass.kilograms <|
+                    if process.unit == Process.Kilogram then
+                        packagingAmountToFloat amount
 
-                    _ ->
-                        Mass.kilograms <| packagingAmountToFloat amount
+                    else
+                        -- apply mass per unit
+                        packagingAmountToFloat amount * Maybe.withDefault 1 process.massPerUnit
             )
         |> Quantity.sum
 
