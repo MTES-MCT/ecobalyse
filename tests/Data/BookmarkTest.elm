@@ -40,7 +40,7 @@ suite =
                         list
                             |> Bookmark.onlyValid
                             |> List.map .name
-                            |> Expect.equal [ "first valid bookmark", "second valid bookmark" ]
+                            |> Expect.equal [ "first valid bookmark", "second valid bookmark", "third valid bookmark" ]
 
                     Err err ->
                         Expect.fail ("Erreur de décodage: " ++ Decode.errorToString err)
@@ -105,6 +105,7 @@ sampleJsonBookmarks =
             ],
             "product": "pantalon"
         }
-    }
+    },
+    "{\\"created\\":1767710889193,\\"name\\":\\"third valid bookmark\\",\\"query\\":{\\"mass\\":0.15,\\"materials\\":[{\\"id\\":\\"62a4d6fb-3276-4ba5-93a3-889ecd3bff84\\",\\"share\\":1}],\\"product\\":\\"pantalon\\"}}"
 ]
 """
