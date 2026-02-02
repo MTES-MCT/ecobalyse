@@ -45,7 +45,7 @@ view config =
         [ class "d-flex flex-column gap-3 mb-3 sticky-md-top"
         , style "top" "7px"
         ]
-        [ if Session.isAuthenticated config.session then
+        [ if Session.hasAccessToDetailedImpacts config.session then
             ImpactView.selector
                 db.definitions
                 { selectedImpact = config.selectedImpact.trigram

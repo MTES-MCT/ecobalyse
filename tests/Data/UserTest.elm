@@ -122,7 +122,8 @@ suite =
             ]
         , let
             validForm =
-                { email = "user@tld.org"
+                { ecoinventTermsAccepted = False
+                , email = "user@tld.org"
                 , firstName = "John"
                 , lastName = "Doe"
                 , emailOptin = True
@@ -151,10 +152,6 @@ suite =
                 (User.validateSignupForm { validForm | organization = User.Public "" }
                     |> Expect.equal (Dict.singleton "organization.name" "Le champ est obligatoire")
                 )
-            , it "should invalidate a signup form with termsAccepted set to False"
-                (User.validateSignupForm { validForm | termsAccepted = False }
-                    |> Expect.equal (Dict.singleton "termsAccepted" "Les CGU doivent être acceptées")
-                )
             , it "should invalidate a signup form with several erroneous field values"
                 (User.validateSignupForm { emptySignupForm | organization = User.Business "" (User.sirenFromString sampleValidSiren) }
                     |> Expect.equal
@@ -162,8 +159,8 @@ suite =
                             [ ( "email", "L'adresse e-mail est invalide" )
                             , ( "firstName", "Le champ est obligatoire" )
                             , ( "lastName", "Le champ est obligatoire" )
-                            , ( "termsAccepted", "Les CGU doivent être acceptées" )
                             , ( "organization.name", "Le champ est obligatoire" )
+                            , ( "termsAccepted", "Les CGU doivent être acceptées" )
                             ]
                         )
                 )
