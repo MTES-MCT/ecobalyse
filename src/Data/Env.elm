@@ -5,13 +5,13 @@ module Data.Env exposing
     , contactEmail
     , defaultDeadStock
     , gitbookUrl
-    , githubRepository
     , githubUrl
     , maxMakingDeadStockRatio
     , maxMakingWasteRatio
     , maxMaterials
     , minMakingDeadStockRatio
     , minMakingWasteRatio
+    , stableTextileVersionPath
     )
 
 import Data.Split as Split exposing (Split)
@@ -70,6 +70,11 @@ minMakingDeadStockRatio =
 maxMakingDeadStockRatio : Split
 maxMakingDeadStockRatio =
     Split.thirty
+
+
+stableTextileVersionPath : String
+stableTextileVersionPath =
+    "/versions/v7.0.0/"
 
 
 defaultDeadStock : Split

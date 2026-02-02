@@ -4,7 +4,6 @@ module Request.Version exposing
     , decodeData
     , encodeData
     , getTag
-    , is
     , loadVersion
     , pollVersion
     , toMaybe
@@ -12,7 +11,6 @@ module Request.Version exposing
     )
 
 import Data.Common.DecodeUtils as DU
-import Data.Github as Github
 import Json.Decode as Decode
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
@@ -64,16 +62,6 @@ getTag version =
 
         _ ->
             Nothing
-
-
-is : Github.Release -> Version -> Bool
-is release version =
-    case version of
-        Version { hash, tag } ->
-            hash == release.hash || tag == Just release.tag
-
-        _ ->
-            False
 
 
 loadVersion : (WebData VersionData -> msg) -> Cmd msg
