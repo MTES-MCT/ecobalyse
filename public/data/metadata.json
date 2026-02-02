@@ -11,17 +11,6 @@
     "scopes": ["object", "veli"]
   },
   {
-    "_alias": "industrial-wood",
-    "complements": {
-      "forest": null
-    },
-    "forestManagement": null,
-    "id": "946bb367-8951-48bd-831b-fe246561f02e",
-    "landOccupation": 869.04,
-    "processId": "994c7524-1d73-430b-9daa-800904613370",
-    "scopes": ["object", "veli"]
-  },
-  {
     "_alias": "pine-softwood-certified-sustainable-management",
     "complements": {
       "forest": -0.43782
@@ -53,17 +42,6 @@
     "landOccupation": 1704.3,
     "processId": "17431e06-2973-516e-b043-be9ad405e4fb",
     "scopes": ["object", "veli"]
-  },
-  {
-    "_alias": "recycled-wood",
-    "complements": {
-      "forest": null
-    },
-    "forestManagement": null,
-    "id": "bac8b8be-98f3-47b0-8ed8-b75dc7211ec0",
-    "landOccupation": 1.2612,
-    "processId": "16d436ab-7a90-4b91-b268-85befecb7d6d",
-    "scopes": ["object"]
   },
   {
     "_alias": "beech-hardwood-diversified-forest",
