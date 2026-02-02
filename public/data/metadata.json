@@ -24,7 +24,7 @@
   {
     "_alias": "pine-softwood-certified-sustainable-management",
     "complements": {
-      "forest": -437.82
+      "forest": -0.43782
     },
     "forestManagement": "certifiedSustainableManagement",
     "id": "9c80ffd0-ecff-4cb1-9b3a-9009d42cb425",
@@ -101,7 +101,7 @@
   {
     "_alias": "spruce-softwood-certified-sustainable-management",
     "complements": {
-      "forest": -286.89
+      "forest": -0.28689
     },
     "forestManagement": "certifiedSustainableManagement",
     "id": "e851186c-ee0c-4de2-b96e-49bc2409184c",
