@@ -1092,7 +1092,6 @@ injectionMoulding =
                 "activityName": "injection moulding//[RER] injection moulding",
                 "categories": ["transformation", "material_type:plastic"],
                 "comment": "",
-                "massPerUnit": null,
                 "displayName": "Moulage par injection",
                 "elecMJ": 0,
                 "heatMJ": 0,
@@ -1120,6 +1119,7 @@ injectionMoulding =
                     "wtu": 0
                 },
                 "location": "RER",
+                "massPerUnit": null,
                 "scopes": ["object", "veli"],
                 "source": "Ecoinvent 3.9.1",
                 "unit": "kg",
@@ -1135,7 +1135,6 @@ lowVoltageElec =
                 "activityName": "electricity, low voltage//[FR] market for electricity, low voltage",
                 "categories": ["energy", "use"],
                 "comment": "",
-                "massPerUnit": null,
                 "displayName": "Electricité basse tension, France",
                 "elecMJ": 0,
                 "heatMJ": 0,
@@ -1163,6 +1162,7 @@ lowVoltageElec =
                     "wtu": 0
                 },
                 "location": "FR",
+                "massPerUnit": null,
                 "scopes": [
                     "food",
                     "textile",
@@ -1182,7 +1182,6 @@ plastic =
                 "activityName": "polypropylene, granulate//[RER] polypropylene production, granulate",
                 "categories": ["material", "material_type:plastic"],
                 "comment": "",
-                "massPerUnit": null,
                 "displayName": "Plastique granulé (PP)",
                 "elecMJ": 0,
                 "heatMJ": 0,
@@ -1210,6 +1209,7 @@ plastic =
                     "wtu": 0
                 },
                 "location": "RER",
+                "massPerUnit": null,
                 "scopes": ["object"],
                 "source": "Ecoinvent 3.9.1",
                 "unit": "kg",
@@ -1225,7 +1225,6 @@ sawing =
                 "activityName": "Sawing + kiln drying in Europe (wood)",
                 "categories": ["transformation", "material_type:wood"],
                 "comment": "",
-                "massPerUnit": null,
                 "displayName": "Sciage + séchage au four en Europe (bois)",
                 "elecMJ": 0,
                 "heatMJ": 0,
@@ -1253,6 +1252,7 @@ sawing =
                     "wtu": 0
                 },
                 "location": "GLO",
+                "massPerUnit": null,
                 "scopes": ["object"],
                 "source": "Ecobalyse",
                 "unit": "m3",
@@ -1268,7 +1268,6 @@ steel =
                 "activityName": "steel, low-alloyed//[GLO] market for steel, low-alloyed",
                 "categories": ["material", "material_type:metal"],
                 "comment": "",
-                "massPerUnit": null,
                 "displayName": "Acier (faiblement allié)",
                 "elecMJ": 0,
                 "heatMJ": 0,
@@ -1296,6 +1295,7 @@ steel =
                     "wtu": 0
                 },
                 "location": "GLO",
+                "massPerUnit": null,
                 "scopes": ["textile"],
                 "source": "Ecoinvent 3.9.1",
                 "unit": "kg",
@@ -1311,7 +1311,6 @@ wood =
                 "activityName": "sawlog and veneer log, hardwood, measured as solid wood under bark//[DE] hardwood forestry, beech, sustainable forest management",
                 "categories": ["material", "material_type:wood"],
                 "comment": "",
-                "massPerUnit": 660.0,
                 "displayName": "Bois d'oeuvre (Feuillus / Hêtre)",
                 "elecMJ": 0,
                 "heatMJ": 0,
@@ -1339,6 +1338,7 @@ wood =
                     "wtu": 0
                 },
                 "location": "DE",
+                "massPerUnit": 660.0,
                 "scopes": ["object", "veli"],
                 "source": "Ecoinvent 3.9.1",
                 "unit": "m3",
