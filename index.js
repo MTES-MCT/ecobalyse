@@ -3,7 +3,31 @@ import * as Sentry from "@sentry/browser";
 import Charts from "./lib/charts";
 
 // The localStorage key to use to store serialized session data
-const storeKey = "store";
+const storeKey = getStoreKey();
+
+function getStoreKey() {
+  // To ease having both ongoing and stable version stores leveraged on a same domain,
+  // we use two distinct localStorage keys
+  const stableVersionKey = "store";
+  const ongoingVersionKey = "ecobalyse";
+
+  if (localStorage[stableVersionKey] && !localStorage[ongoingVersionKey]) {
+    // Ongoing version store has never been initialized, while the stable version one has already
+    // => Initialize current storage with stable version session data
+    localStorage[ongoingVersionKey] = localStorage[stableVersionKey];
+  } else if (!localStorage[stableVersionKey] && localStorage[ongoingVersionKey]) {
+    // Stable version store has never been initialized, while the ongoing version one has already
+    // => Backport only auth data, as other stuff is highly unlikely to be compatible
+    try {
+      const ongoingSessionData = JSON.parse(localStorage[stableVersionKey]);
+      localStorage[stableVersionKey] = { auth2: ongoingSessionData.auth2 };
+    } catch (e) {
+      console.warn("Unable to retrieve previous valid legacy session data");
+    }
+  }
+
+  return ongoingVersionKey;
+}
 
 // Remove trailing slash from root because it's used by the Elm API to resolve backend api urls
 const clientUrl = (location.origin + location.pathname).replace(/\/+$/g, "");

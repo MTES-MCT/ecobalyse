@@ -19,8 +19,11 @@
     "target": "http://127.0.0.1:8001/",
     "timeout": 30000
   },
-  "/versions": {
-    "target": "http://127.0.0.1:8001/",
+  "/versions/v7.0.0/": {
+    "target": "http://0.0.0.0:8000/",
+    "pathRewrite": {
+      "^/versions/v7.0.0": ""
+    },
     "timeout": 30000
   }
 }
