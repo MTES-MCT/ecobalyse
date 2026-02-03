@@ -15,7 +15,7 @@ En tant que créateur de données, contribuer à la base de données permet de :
 * Accélérer le déploiement de l’affichage environnemental
 * Participer à la construction
 * Éviter les approximations non-correctes
-* Permettre l’identification de leviers d’eco-conception
+* Permettre l’identification de leviers d’éco-conception
 * Être reconnus auprès de la filière comme contributeur
 
 ## Sur quelles données est-il pertinent de contribuer ?
@@ -35,7 +35,7 @@ Sur le textile spécifiquement, des contributions sont souhaitées sur :
 ## Cahier des charges des contributions
 
 1. **Désagrégation des données** \
-   Les données soumises doivent être totalement désagrégées, incluant par exemple les quantités d’engrais, d’eau, d’énergie, etc. Elles présentent les entrants et les sortants. Aucune donnée agrégée ne sera acceptée.
+   Les données soumises doivent être totalement désagrégées, incluant par exemple les quantités d’énergie, d’eau, d’engrais, etc. Elles présentent les entrants et les sortants. Aucune donnée agrégée ne sera acceptée.
 2. **Transparence et accessibilité** \
    Les données doivent être transparentes, fiables et accessibles au public. Elles seront mises à disposition dans un format clair et exploitable.
 3. **Propriété des données** \
@@ -47,7 +47,13 @@ Sur le textile spécifiquement, des contributions sont souhaitées sur :
 
 ## Que deviennent les données ?
 
-Les données sont utilisées dans Ecoblayse et sont par la suite intégrées dans la [Base Empreinte](https://base-empreinte.ademe.fr/).
+Nous sommes susceptibles de modifier les sources des données secondaires au regard des bases de données que nous utilisons. Nous utilisons aujourd'hui ecoinvent 3.9.1. Nous pouvons être amenés à changer de version ou de base de données pour tout ou partie des données.
+
+En tant que contributeur, vous êtes invités à nous communiquer les éventuels enjeux liés à une modification des données secondaires utilisées. Nous pourrons étudier conjointement les données à utiliser.
+
+Les données sont utilisées dans Ecobalyse pour le calcul du Cout environnemental.
+
+Elles sont par la suite intégrées dans la [Base Empreinte](https://base-empreinte.ademe.fr/).
 
 ## Contact
 
