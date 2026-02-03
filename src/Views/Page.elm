@@ -348,9 +348,8 @@ pageFooter session =
                 |> ul [ class "FooterLegal d-flex justify-content-start flex-wrap gap-2 list-unstyled mt-3 pt-2 border-top" ]
             , div [ class "d-flex align-items-center gap-1 fs-9 mb-2" ]
                 [ versionLink session.currentVersion
-                , text "("
-                , Link.internal [ Route.href (Route.Editorial "changelog") ] [ text "changelog" ]
-                , text ")"
+                , text "\u{00A0}|\u{00A0}"
+                , Link.external [ href Env.githubUrl ] [ text "technical changelog" ]
                 ]
             ]
         ]
@@ -368,14 +367,7 @@ versionLink version =
                         ]
                         [ text <| "Version\u{00A0}: " ++ linkText ]
             in
-            case ( versionData.hash, versionData.tag ) of
-                -- If we have a tag provided, display it by default
-                ( _, Just tag ) ->
-                    displayLink (Env.githubUrl ++ "/releases/tag/" ++ tag) tag
-
-                -- If we don't have a tag (in dev mode for example) display a link to the commit
-                ( hash, _ ) ->
-                    displayLink (Env.githubUrl ++ "/commit/" ++ hash) hash
+            displayLink (Env.githubUrl ++ "/commit/" ++ versionData.hash) versionData.hash
 
         _ ->
             text ""
