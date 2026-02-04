@@ -18,6 +18,19 @@
       {
         "amount": 0.055,
         "material": "cd7b462e-17ab-5c15-b7e2-ad4273c1e322",
+        "transforms": ["c172d131-b5d1-5d9b-822b-5762afb91c66"]
+      }
+    ],
+    "id": "b2633d25-e453-4db3-adaf-73b5d7fb724d",
+    "name": "Bac + Pieds (jardinière pin 80 * 40 * 28) (copie)",
+    "scopes": ["object"]
+  },
+  {
+    "comment": null,
+    "elements": [
+      {
+        "amount": 0.055,
+        "material": "cd7b462e-17ab-5c15-b7e2-ad4273c1e322",
         "transforms": ["9154831a-090d-5636-81d3-ca89b8af20d2"]
       }
     ],
@@ -42,6 +55,32 @@
     "scopes": ["object"]
   },
   {
+    "comment": "Batterie standard pour VAE ou trottinette électrique",
+    "elements": [
+      {
+        "amount": 2.5,
+        "material": "701a84f7-2fef-57f0-9d83-1b1374a95911",
+        "transforms": []
+      }
+    ],
+    "id": "990f4263-3b6c-48ce-92e8-566584edf5b2",
+    "name": "Batterie 400Wh",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "Batterie standard pour VAE grande autonomie, vélos cargo ou trottinette puissante",
+    "elements": [
+      {
+        "amount": 3.9,
+        "material": "701a84f7-2fef-57f0-9d83-1b1374a95911",
+        "transforms": []
+      }
+    ],
+    "id": "c374ab14-9e12-49d0-91c3-cfc0b6b70f1b",
+    "name": "Batterie 625Wh",
+    "scopes": ["veli"]
+  },
+  {
     "comment": "Batterie standard pour un veli de 400kg, 90km/h max, autonomie de 100km",
     "elements": [
       {
@@ -55,7 +94,7 @@
     "scopes": ["veli"]
   },
   {
-    "comment": "Batterie standard pour un veli actif de 100kg, 45km/h max, autonomie de 50km",
+    "comment": "Batterie standard pour un veli actif de 100kg, 45km/h max, autonomie de 50km, ou pour une voiture hybride non rechargeable.",
     "elements": [
       {
         "amount": 7.5,
@@ -78,32 +117,6 @@
     ],
     "id": "57df64a3-278e-4e93-b836-9ba44b880fb5",
     "name": "Batterie Li-Ion NMC 7kWh ",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": "Batterie standard pour VAE",
-    "elements": [
-      {
-        "amount": 2.5,
-        "material": "701a84f7-2fef-57f0-9d83-1b1374a95911",
-        "transforms": []
-      }
-    ],
-    "id": "990f4263-3b6c-48ce-92e8-566584edf5b2",
-    "name": "Batterie VAE 400Wh",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": "Batterie standard pour VAE, vélos cargo",
-    "elements": [
-      {
-        "amount": 3.9,
-        "material": "701a84f7-2fef-57f0-9d83-1b1374a95911",
-        "transforms": []
-      }
-    ],
-    "id": "c374ab14-9e12-49d0-91c3-cfc0b6b70f1b",
-    "name": "Batterie VAE 625Wh",
     "scopes": ["veli"]
   },
   {
@@ -178,7 +191,7 @@
     "scopes": ["veli"]
   },
   {
-    "comment": "Chassis-carosserie pour un véhicule de 100kg environ.",
+    "comment": "Cadre pour vélo de ville.",
     "elements": [
       {
         "amount": 2.5,
@@ -194,7 +207,7 @@
     "scopes": ["veli"]
   },
   {
-    "comment": "Chassis-carosserie pour un véhicule de 100kg environ.",
+    "comment": "Cadre pour vélo de ville.",
     "elements": [
       {
         "amount": 2.0,
@@ -207,6 +220,19 @@
     ],
     "id": "658611b7-4b76-4f1d-aed7-55ec11f299e3",
     "name": "Cadre vélo aluminium",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "Cadre pour vélo de ville.",
+    "elements": [
+      {
+        "amount": 1.0,
+        "material": "414c96f4-31f9-535b-807d-901752f9b37e",
+        "transforms": ["ff848721-133e-4ec9-9ed9-44ceb721c036"]
+      }
+    ],
+    "id": "82f868be-ac18-4d96-b6bb-6bed7a65e737",
+    "name": "Cadre vélo carbone",
     "scopes": ["veli"]
   },
   {
@@ -403,7 +429,7 @@
     "scopes": ["object"]
   },
   {
-    "comment": "Chassis-carosserie pour un véhicule de 100kg environ.",
+    "comment": "Fourche pour vélo de ville",
     "elements": [
       {
         "amount": 0.7,
@@ -416,14 +442,14 @@
     "scopes": ["veli"]
   },
   {
-    "comment": "Chassis-carosserie pour un véhicule de 100kg environ.",
+    "comment": "Fourche pour vélo de ville",
     "elements": [
       {
         "amount": 0.5,
         "material": "159c4209-cb85-5784-ac76-a93a2458075b",
         "transforms": [
-          "0b4f1ce4-969e-5a04-9c2b-0a331b3f6636",
-          "88f4f125-db8a-5560-b757-a7d4b3d883de"
+          "88f4f125-db8a-5560-b757-a7d4b3d883de",
+          "0b4f1ce4-969e-5a04-9c2b-0a331b3f6636"
         ]
       }
     ],
@@ -434,19 +460,6 @@
   {
     "comment": null,
     "elements": [
-      {
-        "amount": 0.18,
-        "material": "ce5e5069-485a-52c2-9458-3dc45470ffac",
-        "transforms": [
-          "0b4f1ce4-969e-5a04-9c2b-0a331b3f6636",
-          "88f4f125-db8a-5560-b757-a7d4b3d883de"
-        ]
-      },
-      {
-        "amount": 0.1,
-        "material": "a96133e2-2956-59e8-85c4-702b1c2a248a",
-        "transforms": ["141995a8-7ed5-5689-bd2b-81a2a3142e16"]
-      },
       {
         "amount": 0.9,
         "material": "adf6e7c5-80be-540b-aa34-4b613901da7b",
@@ -459,6 +472,19 @@
         "amount": 0.015,
         "material": "5cae8f4a-125c-57a7-853b-b5648902badc",
         "transforms": []
+      },
+      {
+        "amount": 0.18,
+        "material": "ce5e5069-485a-52c2-9458-3dc45470ffac",
+        "transforms": [
+          "0b4f1ce4-969e-5a04-9c2b-0a331b3f6636",
+          "88f4f125-db8a-5560-b757-a7d4b3d883de"
+        ]
+      },
+      {
+        "amount": 0.1,
+        "material": "a96133e2-2956-59e8-85c4-702b1c2a248a",
+        "transforms": ["141995a8-7ed5-5689-bd2b-81a2a3142e16"]
       }
     ],
     "id": "b4d552ed-6a9b-4b29-b293-50349c62e1c0",
