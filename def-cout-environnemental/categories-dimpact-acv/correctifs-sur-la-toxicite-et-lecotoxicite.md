@@ -10,6 +10,15 @@ $$
 EcotoxCorrigée = EcotoxInorganiques + 2* EcotoxOrganiques
 $$
 
-Pour respecter le cadre le facteur de normalisation a été recalculé pour bien couvrir l'ensemble de l'écotoxicité corrigée à l'échelle mondiale, après doublement de la contribution liée à l'écotoxicité organiques. Cette modification du facteur de normalisation permet que le doublement de la contribution des molécules organisques à l'écotoxicité ne constitue pas une augmentation masquée de la pondération de l'écotoxicité, mais plutôt une modification des parts relatives liées aux molécules organiques et inorganiques.
+Pour respecter le cadre le facteur de normalisation a été recalculé pour bien couvrir l'ensemble de l'écotoxicité corrigée à l'échelle mondiale, après doublement de la contribution liée à l'écotoxicité organiques. Cette modification du facteur de normalisation permet que le doublement de la contribution des molécules organiques à l'écotoxicité ne constitue pas une augmentation masquée de la pondération de l'écotoxicité, mais plutôt une modification des parts relatives liées aux molécules organiques et inorganiques.
+
+Au final, le facteur de normalisation de l'ecotoxicité "ajustée" est le suivant :&#x20;
+
+N<sub>ecotox</sub> = N<sub>inorg</sub> + 2 x N<sub>org</sub>  soit 15 313 + 2x 41403 = 98120 pts
+
+&#x20;Au final, l'effet est le suivant :
+
+* composante organique : 1\*2/1,7 => +17%
+* composante inorganique : 1/1,7 => -42%
 
 Le coefficents de pondération et de normalisation, y compris ceux de l'écotoxicité et de l'écotoxicité corrigée sont détaillés dans la rubrique "impacts" de l'explorateur : [https://ecobalyse.beta.gouv.fr/#/explore/food/impacts](https://ecobalyse.beta.gouv.fr/#/explore/food/impacts)

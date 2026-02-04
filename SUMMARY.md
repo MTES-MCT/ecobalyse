@@ -23,6 +23,7 @@
 * [🏷️ Durabilité](def-cout-environnemental/durabilite.md)
 * [📚 Source des procédés](def-cout-environnemental/source-des-procedes.md)
 * [Aide API](textile/aide-api.md)
+* [Vocabulaire et définitions](def-cout-environnemental/vocabulaire-et-definitions.md)
 
 ***
 
