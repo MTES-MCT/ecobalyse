@@ -1,8 +1,8 @@
 module Data.Bookmark exposing
     ( Bookmark
     , Query(..)
-    , decode
-    , encode
+    , decodeJsonList
+    , encodeJsonList
     , findByFoodQuery
     , findByObjectQuery
     , findByTextileQuery
@@ -10,12 +10,14 @@ module Data.Bookmark exposing
     , isObject
     , isTextile
     , isVeli
+    , replace
     , sort
     , toId
     , toQueryDescription
     )
 
 import Data.Common.DecodeUtils as DU
+import Data.Common.EncodeUtils as EU
 import Data.Component as Component
 import Data.Food.Query as FoodQuery
 import Data.Food.Recipe as Recipe
@@ -25,7 +27,7 @@ import Data.Textile.Query as TextileQuery
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
-import Request.Version as Version exposing (VersionData)
+import List.Extra as LE
 import Static.Db exposing (Db)
 import Time exposing (Posix)
 
@@ -35,7 +37,6 @@ type alias Bookmark =
     , name : String
     , query : Query
     , subScope : Maybe Scope
-    , version : Maybe VersionData
     }
 
 
@@ -53,7 +54,6 @@ decode =
         |> JDP.required "name" Decode.string
         |> JDP.required "query" decodeQuery
         |> DU.strictOptionalWithDefault "subScope" (Decode.maybe Scope.decode) Nothing
-        |> DU.strictOptionalWithDefault "version" (Decode.maybe Version.decodeData) Nothing
         |> Decode.map
             (\bookmark ->
                 case ( bookmark.query, bookmark.subScope ) of
@@ -63,6 +63,29 @@ decode =
                     _ ->
                         bookmark
             )
+
+
+decodeJsonList : Decoder (List Bookmark)
+decodeJsonList =
+    Decode.list
+        (Decode.oneOf
+            [ -- raw json string
+              decodeJsonBookmark
+
+            -- well formed and valid bookmark object
+            , Decode.map Just decode
+
+            -- invalid json data structure
+            , Decode.succeed Nothing
+            ]
+        )
+        |> Decode.map (List.filterMap identity)
+
+
+decodeJsonBookmark : Decoder (Maybe Bookmark)
+decodeJsonBookmark =
+    Decode.string
+        |> Decode.map (Decode.decodeString decode >> Result.toMaybe)
 
 
 decodeQuery : Decoder Query
@@ -76,27 +99,17 @@ decodeQuery =
 
 encode : Bookmark -> Encode.Value
 encode v =
-    Encode.object
-        [ ( "created", Encode.int <| Time.posixToMillis v.created )
-        , ( "name", Encode.string v.name )
-        , ( "query", encodeQuery v.query )
-        , ( "subScope"
-          , case v.subScope of
-                Just Scope.Object ->
-                    Scope.encode Scope.Object
-
-                Just Scope.Veli ->
-                    Scope.encode Scope.Veli
-
-                _ ->
-                    Encode.null
-          )
-        , ( "version"
-          , v.version
-                |> Maybe.map Version.encodeData
-                |> Maybe.withDefault Encode.null
-          )
+    EU.optionalPropertiesObject
+        [ ( "created", v.created |> Time.posixToMillis |> Encode.int |> Just )
+        , ( "name", Encode.string v.name |> Just )
+        , ( "query", encodeQuery v.query |> Just )
+        , ( "subScope", v.subScope |> Maybe.map Scope.encode )
         ]
+
+
+encodeJsonList : List Bookmark -> Encode.Value
+encodeJsonList =
+    Encode.list (encode >> Encode.encode 0 >> Encode.string)
 
 
 encodeQuery : Query -> Encode.Value
@@ -174,6 +187,13 @@ findByObjectQuery objectQuery =
 findByTextileQuery : TextileQuery.Query -> List Bookmark -> Maybe Bookmark
 findByTextileQuery textileQuery =
     findByQuery (Textile textileQuery)
+
+
+replace : Bookmark -> List Bookmark -> List Bookmark
+replace bookmark =
+    LE.updateIf
+        (.query >> (==) bookmark.query)
+        (always bookmark)
 
 
 scope : Bookmark -> Scope

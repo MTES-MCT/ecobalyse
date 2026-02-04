@@ -348,9 +348,8 @@ pageFooter session =
                 |> ul [ class "FooterLegal d-flex justify-content-start flex-wrap gap-2 list-unstyled mt-3 pt-2 border-top" ]
             , div [ class "d-flex align-items-center gap-1 fs-9 mb-2" ]
                 [ versionLink session.currentVersion
-                , text "("
-                , Link.internal [ Route.href (Route.Editorial "changelog") ] [ text "changelog" ]
-                , text ")"
+                , text "\u{00A0}|\u{00A0}"
+                , Link.external [ href Env.githubUrl ] [ text "technical changelog" ]
                 ]
             ]
         ]
@@ -368,14 +367,7 @@ versionLink version =
                         ]
                         [ text <| "Version\u{00A0}: " ++ linkText ]
             in
-            case ( versionData.hash, versionData.tag ) of
-                -- If we have a tag provided, display it by default
-                ( _, Just tag ) ->
-                    displayLink (Env.githubUrl ++ "/releases/tag/" ++ tag) tag
-
-                -- If we don't have a tag (in dev mode for example) display a link to the commit
-                ( hash, _ ) ->
-                    displayLink (Env.githubUrl ++ "/commit/" ++ hash) hash
+            displayLink (Env.githubUrl ++ "/commit/" ++ versionData.hash) versionData.hash
 
         _ ->
             text ""
@@ -544,7 +536,10 @@ notificationView { session, toMsg } notification =
                 { attributes = []
                 , close = Nothing
                 , content =
-                    [ p [] [ text "Votre précédente session n'a pas pu être récupérée, elle doit donc être réinitialisée." ]
+                    [ p [ class "fw-bold mb-2" ] [ text "Vos précédente session n'a pas pu être récupérée et doit être réinitialisée." ]
+                    , p [ class "fs-7 d-flex align-items-baseline gap-1" ]
+                        [ text "ⓘ Cela se produit généralement lorsque de nouvelles fonctionnalités ou correctifs appliqués introduisent des incompatibilités avec le format de ces données."
+                        ]
                     , p []
                         [ button
                             [ class "btn btn-primary"
@@ -552,13 +547,14 @@ notificationView { session, toMsg } notification =
                             ]
                             [ text "D’accord, réinitialiser la session" ]
                         ]
-                    , details []
+                    , details [ class "fs-8" ]
                         [ summary [] [ text "Afficher les détails techniques de l'erreur" ]
-                        , pre [] [ text <| Decode.errorToString decodeError ]
+                        , pre [ class "card p-2 mt-2 bg-light" ]
+                            [ code [] [ text <| Decode.errorToString decodeError ] ]
                         ]
                     ]
-                , level = Alert.Warning
-                , title = Just "Erreur de récupération de session"
+                , level = Alert.Info
+                , title = Just "Problème de récupération de la session"
                 }
 
 
