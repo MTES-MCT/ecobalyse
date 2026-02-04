@@ -1,6 +1,5 @@
 module Data.Bookmark exposing
     ( Bookmark
-    , JsonBookmark
     , Query(..)
     , decodeJsonList
     , encodeJsonList
@@ -11,11 +10,9 @@ module Data.Bookmark exposing
     , isObject
     , isTextile
     , isVeli
-    , onlyValid
     , replace
     , sort
     , toId
-    , toJson
     , toQueryDescription
     )
 
@@ -43,17 +40,6 @@ type alias Bookmark =
     }
 
 
-{-| When imported and decoded from JSON, bookmarks may be compatible (valid) or
-incompatible (invalid) with the current implementation of the format and/or available data.
-This data structure allows carrying around incompatible bookmarks across instances and
-versions in a non-destructive fashion.
--}
-type JsonBookmark
-    = InvalidBookmarkJsonString String
-    | InvalidBookmarkValue Decode.Value
-    | ValidBookmark Bookmark
-
-
 type Query
     = Food FoodQuery.Query
     | Object Component.Query
@@ -79,7 +65,7 @@ decode =
             )
 
 
-decodeJsonList : Decoder (List JsonBookmark)
+decodeJsonList : Decoder (List Bookmark)
 decodeJsonList =
     Decode.list
         (Decode.oneOf
@@ -87,26 +73,19 @@ decodeJsonList =
               decodeJsonBookmark
 
             -- well formed and valid bookmark object
-            , Decode.map ValidBookmark decode
+            , Decode.map Just decode
 
             -- invalid json data structure
-            , Decode.map InvalidBookmarkValue Decode.value
+            , Decode.succeed Nothing
             ]
         )
+        |> Decode.map (List.filterMap identity)
 
 
-decodeJsonBookmark : Decoder JsonBookmark
+decodeJsonBookmark : Decoder (Maybe Bookmark)
 decodeJsonBookmark =
     Decode.string
-        |> Decode.map
-            (\jsonString ->
-                case Decode.decodeString decode jsonString of
-                    Err _ ->
-                        InvalidBookmarkJsonString jsonString
-
-                    Ok bookmark ->
-                        ValidBookmark bookmark
-            )
+        |> Decode.map (Decode.decodeString decode >> Result.toMaybe)
 
 
 decodeQuery : Decoder Query
@@ -128,21 +107,9 @@ encode v =
         ]
 
 
-encodeJsonList : List JsonBookmark -> Encode.Value
+encodeJsonList : List Bookmark -> Encode.Value
 encodeJsonList =
-    Encode.list
-        (\jsonBookmark ->
-            Encode.string <|
-                case jsonBookmark of
-                    InvalidBookmarkJsonString jsonString ->
-                        jsonString
-
-                    InvalidBookmarkValue value ->
-                        value |> Encode.encode 0
-
-                    ValidBookmark bookmark ->
-                        encode bookmark |> Encode.encode 0
-        )
+    Encode.list (encode >> Encode.encode 0 >> Encode.string)
 
 
 encodeQuery : Query -> Encode.Value
@@ -222,33 +189,11 @@ findByTextileQuery textileQuery =
     findByQuery (Textile textileQuery)
 
 
-fromJson : JsonBookmark -> Maybe Bookmark
-fromJson jsonBookmark =
-    case jsonBookmark of
-        ValidBookmark bookmark ->
-            Just bookmark
-
-        _ ->
-            Nothing
-
-
-onlyValid : List JsonBookmark -> List Bookmark
-onlyValid =
-    List.filterMap fromJson
-
-
-replace : Bookmark -> List JsonBookmark -> List JsonBookmark
+replace : Bookmark -> List Bookmark -> List Bookmark
 replace bookmark =
     LE.updateIf
-        (\jsonBookmark ->
-            case jsonBookmark of
-                ValidBookmark { query } ->
-                    query == bookmark.query
-
-                _ ->
-                    False
-        )
-        (always <| toJson bookmark)
+        (.query >> (==) bookmark.query)
+        (always bookmark)
 
 
 scope : Bookmark -> Scope
@@ -275,11 +220,6 @@ sort =
 toId : Bookmark -> String
 toId bookmark =
     Scope.toString (scope bookmark) ++ ":" ++ bookmark.name
-
-
-toJson : Bookmark -> JsonBookmark
-toJson bookmark =
-    ValidBookmark bookmark
 
 
 toQueryDescription : Db -> Bookmark -> String

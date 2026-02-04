@@ -38,7 +38,6 @@ suite =
                 (case Decode.decodeString Bookmark.decodeJsonList sampleJsonBookmarks of
                     Ok list ->
                         list
-                            |> Bookmark.onlyValid
                             |> List.map .name
                             |> Expect.equal [ "first valid bookmark", "second valid bookmark", "third valid bookmark" ]
 

@@ -638,7 +638,6 @@ selectIngredient autocompleteState pageUpdate =
 findExistingBookmarkName : Session -> Query -> String
 findExistingBookmarkName { db, store } query =
     store.bookmarks
-        |> Bookmark.onlyValid
         |> Bookmark.findByFoodQuery query
         |> Maybe.map .name
         |> Maybe.withDefault

@@ -35,7 +35,7 @@ module Data.Session exposing
     )
 
 import Browser.Navigation as Nav
-import Data.Bookmark as Bookmark exposing (Bookmark, JsonBookmark)
+import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Common.DecodeUtils as DU
 import Data.Component as Component
 import Data.Food.Query as FoodQuery
@@ -130,7 +130,7 @@ deleteBookmark bookmark =
         (\store ->
             { store
                 | bookmarks =
-                    List.filter ((/=) (Bookmark.toJson bookmark)) store.bookmarks
+                    List.filter ((/=) bookmark) store.bookmarks
             }
         )
 
@@ -156,8 +156,7 @@ moveBookmark dragged target =
         (\store ->
             { store
                 | bookmarks =
-                    store.bookmarks
-                        |> moveListElement (Bookmark.toJson dragged) (Bookmark.toJson target)
+                    store.bookmarks |> moveListElement dragged target
             }
         )
 
@@ -178,7 +177,7 @@ saveBookmark bookmark =
         (\store ->
             { store
                 | bookmarks =
-                    Bookmark.toJson bookmark :: store.bookmarks
+                    bookmark :: store.bookmarks
             }
         )
 
@@ -237,7 +236,7 @@ checkComparedSimulations =
         (\({ bookmarks, comparedSimulations } as store) ->
             let
                 validBookmarks =
-                    Bookmark.onlyValid bookmarks
+                    bookmarks
             in
             { store
                 | comparedSimulations =
@@ -282,7 +281,7 @@ selectAllBookmarks =
         (\store ->
             { store
                 | comparedSimulations =
-                    store.bookmarks |> Bookmark.onlyValid |> List.map Bookmark.toId |> Set.fromList
+                    store.bookmarks |> List.map Bookmark.toId |> Set.fromList
             }
         )
 
@@ -378,7 +377,7 @@ across browser restarts, typically in localStorage.
 -}
 type alias Store =
     { auth2 : Maybe Auth
-    , bookmarks : List JsonBookmark
+    , bookmarks : List Bookmark
     , comparedSimulations : Set String
     }
 
