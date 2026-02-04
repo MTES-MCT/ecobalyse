@@ -234,15 +234,11 @@ checkComparedSimulations : Session -> Session
 checkComparedSimulations =
     updateStore
         (\({ bookmarks, comparedSimulations } as store) ->
-            let
-                validBookmarks =
-                    bookmarks
-            in
             { store
                 | comparedSimulations =
                     if Set.isEmpty comparedSimulations then
                         -- Add max bookmarks to compared sims
-                        validBookmarks
+                        bookmarks
                             |> Bookmark.sort
                             |> List.map Bookmark.toId
                             |> Set.fromList
@@ -252,7 +248,7 @@ checkComparedSimulations =
                         comparedSimulations
                             |> Set.filter
                                 (\id ->
-                                    validBookmarks
+                                    bookmarks
                                         |> List.map Bookmark.toId
                                         |> List.member id
                                 )
