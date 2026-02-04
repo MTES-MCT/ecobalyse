@@ -2,7 +2,7 @@
   {
     "_alias": "spruce-softwood-intensive-plantation",
     "complements": {
-      "forest": 0.70697
+      "forest": 0.70731
     },
     "forestManagement": "intensivePlantation",
     "id": "53e21f32-88b5-4fb5-96ec-724276519a85",
@@ -16,7 +16,7 @@
   {
     "_alias": "pine-softwood-certified-sustainable-management",
     "complements": {
-      "forest": -0.43782
+      "forest": -0.43177
     },
     "forestManagement": "certifiedSustainableManagement",
     "id": "9c80ffd0-ecff-4cb1-9b3a-9009d42cb425",
@@ -30,7 +30,7 @@
   {
     "_alias": "oak-hardwood-certified-diversified-forest",
     "complements": {
-      "forest": -1.6672
+      "forest": -1.6612
     },
     "forestManagement": "certifiedDiversifiedForest",
     "id": "9df1c3c8-071e-48ca-b45b-c1a3933f579e",
@@ -44,7 +44,7 @@
   {
     "_alias": "beech-hardwood-certified-diversified-forest",
     "complements": {
-      "forest": -1.6532
+      "forest": -1.6471
     },
     "forestManagement": "certifiedDiversifiedForest",
     "id": "a638fe22-3050-4fc2-817d-0fb3be0730ad",
@@ -58,7 +58,7 @@
   {
     "_alias": "beech-hardwood-diversified-forest",
     "complements": {
-      "forest": -1.176
+      "forest": -1.1765
     },
     "forestManagement": "diversifiedForest",
     "id": "d738711a-c339-4e9e-8d63-b202f6b5c131",
@@ -86,7 +86,7 @@
   {
     "_alias": "oak-hardwood-diversified-forest",
     "complements": {
-      "forest": -1.186
+      "forest": -1.1866
     },
     "forestManagement": "diversifiedForest",
     "id": "dc58fc13-b036-46ed-ab5f-fd0a112e8b78",
@@ -100,7 +100,7 @@
   {
     "_alias": "spruce-softwood-certified-sustainable-management",
     "complements": {
-      "forest": -0.28689
+      "forest": -0.28293
     },
     "forestManagement": "certifiedSustainableManagement",
     "id": "e851186c-ee0c-4de2-b96e-49bc2409184c",
@@ -128,7 +128,7 @@
   {
     "_alias": "pine-softwood-intensive-plantation",
     "complements": {
-      "forest": 1.0789
+      "forest": 1.0794
     },
     "forestManagement": "intensivePlantation",
     "id": "fba45d5f-64fc-44ae-ac75-9301c95c4657",
