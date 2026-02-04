@@ -330,58 +330,56 @@ bookmarkView cfg ({ name, query, version } as bookmark) =
                 ]
                 [ Icon.pencil ]
     in
-    li
-        [ class "list-group-item d-flex justify-content-between align-items-center gap-1 fs-7"
-        , classList [ ( "active", query == currentQuery ) ]
-        ]
-        [ VersionView.view version
-        , case ( beingRenamed, cfg.bookmarkBeingRenamed ) of
-            ( True, Just renamedBookmark ) ->
-                input
-                    [ type_ "text"
-                    , class "form-control form-control-sm"
-                    , onInput (cfg.updateRenamedBookmarkName bookmark)
-                    , placeholder "Nom de la simulation"
-                    , value renamedBookmark.name
-                    , required True
-                    , pattern "^(?!\\s*$).+"
-                    ]
-                    []
+    li [ class "list-group-item", classList [ ( "active", query == currentQuery ) ] ]
+        [ Html.form [ class "d-flex justify-content-between align-items-center gap-1 fs-7", onSubmit cfg.rename ]
+            [ VersionView.view version
+            , case ( beingRenamed, cfg.bookmarkBeingRenamed ) of
+                ( True, Just renamedBookmark ) ->
+                    input
+                        [ type_ "text"
+                        , class "form-control form-control-sm"
+                        , onInput (cfg.updateRenamedBookmarkName bookmark)
+                        , placeholder "Nom de la simulation"
+                        , value renamedBookmark.name
+                        , required True
+                        , pattern "^(?!\\s*$).+"
+                        ]
+                        []
 
-            _ ->
-                a
-                    [ class "flex-fill text-truncate"
-                    , classList [ ( "active text-white", query == currentQuery ) ]
-                    , bookmark
-                        |> Bookmark.toQueryDescription cfg.session.db
-                        |> title
-                    , bookmarkRoute
-                        |> Route.toString
-                        |> (++) cfg.session.clientUrl
-                        |> href
+                _ ->
+                    a
+                        [ class "flex-fill text-truncate"
+                        , classList [ ( "active text-white", query == currentQuery ) ]
+                        , bookmark
+                            |> Bookmark.toQueryDescription cfg.session.db
+                            |> title
+                        , bookmarkRoute
+                            |> Route.toString
+                            |> (++) cfg.session.clientUrl
+                            |> href
+                        ]
+                        [ text name
+                        ]
+            , if beingRenamed then
+                button
+                    [ type_ "submit"
+                    , class "btn btn-sm btn-success"
+                    , style "max-width" "30px"
+                    , title "Sauvegarder la simulation dans le stockage local du navigateur"
                     ]
-                    [ text name
-                    ]
-        , if beingRenamed then
-            button
-                [ type_ "submit"
-                , class "btn btn-sm btn-success"
-                , style "max-width" "30px"
-                , title "Sauvegarder la simulation dans le stockage local du navigateur"
-                , onClick cfg.rename
+                    [ Icon.check ]
+
+              else
+                renameButton bookmark
+            , button
+                [ type_ "button"
+                , class "btn btn-sm btn-danger"
+                , title "Supprimer"
+                , attribute "aria-label" "Supprimer"
+                , onClick (cfg.delete bookmark)
                 ]
-                [ Icon.check ]
-
-          else
-            renameButton bookmark
-        , button
-            [ type_ "button"
-            , class "btn btn-sm btn-danger"
-            , title "Supprimer"
-            , attribute "aria-label" "Supprimer"
-            , onClick (cfg.delete bookmark)
+                [ Icon.trash ]
             ]
-            [ Icon.trash ]
         ]
 
 
