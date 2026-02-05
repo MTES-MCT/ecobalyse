@@ -37,9 +37,9 @@ server {
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
   }
 
-  # Handle missing / at end of some v7 urls
-  location ~ ^/versions/v7.0.0$ {
-    rewrite ^(.*)$ $1/ permanent;
+  # Add missing trailing slash after /versions/v7.0.0
+  location = /versions/v7.0.0 {
+      return 301 /versions/v7.0.0/;
   }
 
   # Reroute v7 to textile stable version
