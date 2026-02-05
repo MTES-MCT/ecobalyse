@@ -37,6 +37,11 @@ server {
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
   }
 
+  # Add missing trailing slash after /versions/v7.0.0
+  location = /versions/v7.0.0 {
+      return 301 https://$host/versions/v7.0.0/;
+  }
+
   # Reroute v7 to textile stable version
   location ~ ^/versions/v7.0.0/(.*)$ {
     rewrite ^/versions/v7.0.0/(.*)$ /$1 break;

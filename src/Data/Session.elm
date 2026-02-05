@@ -19,7 +19,7 @@ module Data.Session exposing
     , moveListElement
     , notifyBackendError
     , objectQueryFromScope
-    , renameBookmark
+    , replaceBookmark
     , saveBookmark
     , selectAllBookmarks
     , selectNoBookmarks
@@ -156,20 +156,17 @@ moveBookmark dragged target =
         (\store ->
             { store
                 | bookmarks =
-                    store.bookmarks
-                        |> moveListElement dragged target
+                    store.bookmarks |> moveListElement dragged target
             }
         )
 
 
-renameBookmark : Bookmark -> Session -> Session
-renameBookmark bookmark =
+replaceBookmark : Bookmark -> Session -> Session
+replaceBookmark bookmark =
     updateStore
         (\store ->
             { store
-                | bookmarks =
-                    store.bookmarks
-                        |> LE.updateIf (.query >> (==) bookmark.query) (always bookmark)
+                | bookmarks = Bookmark.replace bookmark store.bookmarks
             }
         )
 
@@ -393,7 +390,7 @@ decodeStore : Decoder Store
 decodeStore =
     Decode.succeed Store
         |> DU.strictOptional "auth2" decodeAuth
-        |> JDP.optional "bookmarks" (Decode.list Bookmark.decode) []
+        |> JDP.optional "bookmarks" Bookmark.decodeJsonList []
         |> JDP.optional "comparedSimulations" (Decode.map Set.fromList (Decode.list Decode.string)) Set.empty
 
 
@@ -401,7 +398,7 @@ encodeStore : Store -> Encode.Value
 encodeStore store =
     Encode.object
         [ ( "comparedSimulations", store.comparedSimulations |> Encode.set Encode.string )
-        , ( "bookmarks", Encode.list Bookmark.encode store.bookmarks )
+        , ( "bookmarks", store.bookmarks |> Bookmark.encodeJsonList )
         , ( "auth2", store.auth2 |> Maybe.map encodeAuth |> Maybe.withDefault Encode.null )
         ]
 

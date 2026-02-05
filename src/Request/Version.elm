@@ -1,8 +1,6 @@
 module Request.Version exposing
     ( Version(..)
     , VersionData
-    , decodeData
-    , encodeData
     , getTag
     , loadVersion
     , pollVersion
@@ -13,7 +11,6 @@ module Request.Version exposing
 import Data.Common.DecodeUtils as DU
 import Json.Decode as Decode
 import Json.Decode.Pipeline as Pipe
-import Json.Encode as Encode
 import RemoteData exposing (WebData)
 import RemoteData.Http as Http
 import Time
@@ -44,14 +41,6 @@ decodeData =
     Decode.succeed VersionData
         |> Pipe.required "hash" Decode.string
         |> DU.strictOptional "tag" Decode.string
-
-
-encodeData : VersionData -> Encode.Value
-encodeData v =
-    Encode.object
-        [ ( "hash", Encode.string v.hash )
-        , ( "tag", v.tag |> Maybe.map Encode.string |> Maybe.withDefault Encode.null )
-        ]
 
 
 getTag : Version -> Maybe String
