@@ -1,6 +1,26 @@
 # Changelog
 
 
+## [8.5.0](https://github.com/MTES-MCT/ecobalyse/compare/v8.4.0..v8.5.0) (2026-02-05)
+
+
+
+### 🚀 Features
+
+- Allow submit bookmark rename by pressing enter ([#1774](https://github.com/MTES-MCT/ecobalyse/issues/1774))
+- Forest complements ([#1750](https://github.com/MTES-MCT/ecobalyse/issues/1750))
+
+### 🪲 Bug Fixes
+
+- Apply massperunit to packaging ([#1763](https://github.com/MTES-MCT/ecobalyse/issues/1763))
+- *(ui)* Fix losing session data when navigating different versions ([#1756](https://github.com/MTES-MCT/ecobalyse/issues/1756))
+- *(textile)* Add possibly missing v7 slash ([#1777](https://github.com/MTES-MCT/ecobalyse/issues/1777))
+
+### ⚙️ Miscellaneous Tasks
+
+- Packaging put "Proxy" at the end of displayName  ([#1711](https://github.com/MTES-MCT/ecobalyse/issues/1711))
+
+
 ## [8.4.0](https://github.com/MTES-MCT/ecobalyse/compare/v8.3.0..v8.4.0) (2026-02-02)
 
 
