@@ -36,7 +36,7 @@ Les données primaires peuvent concerner des informations de nature différente 
 
 Proposition de schéma. Les termes "données" et "paramètres" sont positionnés par rapport au cadre réglementaire mais il faut mieux y positionner les termes ACV : données primaires, données secondaires, données spécifiques / semi-spécifiques...&#x20;
 
-{% file src="../.gitbook/assets/vocabulaire modélisation.pdf" %}
+<figure><img src="../.gitbook/assets/vocabulaire modélisation.jpg" alt=""><figcaption></figcaption></figure>
 
 <table><thead><tr><th width="140">Terme</th><th width="404">Définition</th><th width="196">Illustration</th></tr></thead><tbody><tr><td>Données primaires ou spécifiques</td><td>Données renseignées par l'utilisateur et spécifiques à un produit. Ces données sont souvent issues d'un usine, d'un fournisseur, etc.</td><td>Poids d'un vêtement (kg)</td></tr><tr><td>Données secondaires</td><td>Données par défaut non modifiables par l'utilisateur (souvent une "moyenne"). Ces données sont souvent issues de bases de données génériques (ex : Agribalyse, Ecoinvent, etc.) et de la littérature scientifique. Ces données sont utilisées quand on a pas accès à des données réelles ou quand ces paramètres ne sont pas significatifs en terme d'impact.</td><td>Efficacité du centre de traitement des eaux usées (%) </td></tr><tr><td>Données semi-spécifiques</td><td>Données par défaut (souvent une "moyenne") modifiables par l'utilisateur. Ce sont souvent des données secondaires personnalisées.</td><td>Pertes en confection (%) </td></tr></tbody></table>
 
