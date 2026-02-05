@@ -39,7 +39,7 @@ server {
 
   # Add missing trailing slash after /versions/v7.0.0
   location = /versions/v7.0.0 {
-      return 301 /versions/v7.0.0/;
+      return 301 https://$host/versions/v7.0.0/;
   }
 
   # Reroute v7 to textile stable version
