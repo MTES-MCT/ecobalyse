@@ -38,7 +38,7 @@ server {
   }
 
   # Reroute v7 to textile stable version
-  location ~ ^/versions/v7.0.0/(.*)$ {
+  location ~ ^/versions/v7.0.0/+(.*)$ {
     rewrite ^/versions/v7.0.0/(.*)$ /$1 break;
     proxy_pass <%= ENV["TEXTILE_URL"] %>;
     proxy_set_header X-Real-IP $remote_addr;
