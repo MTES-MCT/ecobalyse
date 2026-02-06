@@ -45,10 +45,14 @@ Sur le textile spécifiquement, des contributions sont souhaitées sur :
    Les données doivent être transparentes, fiables et sont accessibles au public. Elles seront mises à disposition dans un format clair et exploitable (ex: ecospold).
 4. **Représentativité du marché**\
    Les données doivent refléter le marché global, sans être spécifiques à une entreprise, un produit ou une marque.
-5. **Revue critique**\
-   Toutes les données soumises doivent avoir fait l’objet d’une revue critique indépendante, garantissant leur qualité, leur représentativité et leur fiabilité.
-6. **Propriété des données** \
-   Les contributeurs partagent gratuitement et intégralement la propriété des données avec l’ADEME. Il en résulte que l'ADEME dispose des droits d’utilisation, de diffusion et de modification. Le contributeur conserve les mêmes droits. L’ADEME en devient co-propriétaire. <mark style="color:$warning;">Lien vers contrat type</mark>
+5. **Mise à jour**\
+   Les données seront mises à jour en discussion avec les contributeurs selon la pertinence sectorielle et les moyens disponibles
+6. **Revue critique**\
+   Toutes les données soumises doivent avoir fait l’objet d’une revue critique indépendante, garantissant leur qualité, leur représentativité et leur fiabilité. L'ADEME décide en dernier lieu l'intégration ou non des données.&#x20;
+7. **Propriété des données** \
+   Les contributeurs partagent gratuitement et intégralement la propriété des données avec l’ADEME. Il en résulte que l'ADEME dispose des droits d’utilisation, de diffusion et de modification. Le contributeur conserve les mêmes droits et le libre usage. L’ADEME est propriétaire des outils et base de données; et "co-propriétaire" des données. <mark style="color:$warning;">Lien vers contrat type Base emprunte à ajouter.</mark>\
+   \
+   <mark style="color:$success;">**Focus données alimentaires :**</mark> [Comment contribuer à agribalyse ?](https://doc.agribalyse.fr/documentation/nous-contactez/contribuer-aux-travaux-agribalyse-r)
 
 ## Que deviennent les données ?
 
@@ -63,5 +67,5 @@ Les contributeurs seront informés de tout changement majeurs via les communicat
 ## Contacts
 
 Des questions, besoins de plus de détails sur ce sujet, contactez nous : \
-[affichage-environnemental@ademe.fr](mailto:affichage-environnemental@ademe.fr) et [base-empreinte@ademe.fr](mailto:base-empreinte@ademe.fr)
+[affichage-environnemental@ademe.fr](mailto:affichage-environnemental@ademe.fr) , [base-empreinte@ademe.fr](mailto:base-empreinte@ademe.fr), [agribalyse@ademe.fr](mailto:agribalyse@ademe.fr)
 
