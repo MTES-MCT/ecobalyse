@@ -11850,6 +11850,47 @@
     "waste": 0
   },
   {
+    "activityName": "Kiwi FR, conventional, national average, at orchard {FR} U",
+    "categories": [
+      "ingredient"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024.\nThis process describes the production of 268000 kg of Kiwi FR, conventional, national average, at orchard/FR U",
+    "displayName": "Kiwi FR",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "56cd1f16-f2d4-5c4a-a6ba-4a2e3321914e",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 53.092,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "FR",
+    "massPerUnit": null,
+    "scopes": [
+      "food"
+    ],
+    "source": "Agribalyse 3.2",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "Milk from cow, concentrated or in powder, 500g | Packaging System, N0, All, Plastic bag {FR} U",
     "categories": [
       "packaging",
@@ -20808,47 +20849,6 @@
     "waste": 0
   },
   {
-    "activityName": "Wheat grain {FR}| wheat production | Cut-off, U - Adapted from Ecoinvent U",
-    "categories": [
-      "ingredient"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024.\noriginal ecoinvent name: Wheat grain {FR}| wheat production | Cut-off, U\n\nThis dataset represents the production of 1 kg of wheat grain (fresh matter). The Yield_ is 6753 kg/ha at a moisture content at storage of 14.5%.\n\nNone\n\n[This dataset was already contained in the ecoinvent database version 2. It was not individually updated during the transfer to ecoinvent version 3. Life Cycle Impact Assessment results may still have changed, as they are affected by changes in the supply chain, i.e. in other datasets. This dataset was generated following the ecoinvent quality guidelines for version 2. It may have been subject to central changes described in the ecoinvent version 3 change report (http://www.ecoinvent.org/database/ecoinvent-version-3/reports-of-changes/), and the results of the central updates were reviewed extensively. The changes added e.g. consistent water flows and other information throughout the database. The documentation of this dataset can be found in the ecoinvent reports of version 2, which are still available via the ecoinvent website. The change report linked above covers all central changes that were made during the conversion process.]\n\nProduction volume: 36885504000 kg\nIncluded activities start: This activity starts after the harvest of the previous crop. The inputs of seeds, mineral fertilisers and pesticides are considered. It is assumed that no organic fertilisers are applied.\nIncluded activities end: The dataset includes all machine operations and corresponding machine infrastructure and sheds. Machine operations are: soil cultivation, sowing, fertilisation, weed control, pest and pathogen control, combine-harvest and transport from field to farm (2 km). Further, direct field emissions are included. This activity ends after harvest at the farm gate.\nEnergy values: Undefined\nGeography: The inventory is modelled for France\nTechnology level: Current\nTechnology: conventional production typical for the region\nStart date: 01/01/2000\nEnd date: 31/12/2022\nIs data valid for entire period: True\nTime period: The Yield_ data have been collected for the years 2000-2004.\nMacro-economic scenario name: Business-as-Usual\n\nVersion: 32.3.0.0\nCreated: 7/28/2010 6:43:50 PM\nLast edited: 4/28/2016 3:22:47 PM\nSource: 87886494-df23-5b3f-973f-650bf39fc026_0201ee86-f71b-4457-8fe8-79f3ed720b07.spold\nUUID: 87886494-df23-5b3f-973f-650bf39fc026",
-    "displayName": "Millet FR",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "931c0ecb-f370-5bf6-a99a-9f02b7d42af1",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 91.41,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "location": "FR",
-    "massPerUnit": null,
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg",
-    "waste": 0
-  },
-  {
     "activityName": "electricity, low voltage//[FR] market for electricity, low voltage",
     "categories": [
       "energy",
@@ -23095,7 +23095,7 @@
       "ingredient"
     ],
     "comment": "AGRIBALYSE v3.2 dataset, 2024.\noriginal ecoinvent name: Kiwi {GLO}| kiwi production | Cut-off, U\n\nThis dataset represents kiwi production.\n\nNone\n\nYield: 33 t / ha.\n\nDuration of one cycle: 12 months in permanent culture.\n\nField production.\n\nThe LCA study, from which this LCI has been derived, contains detailed descriptions of the system boundaries and the data sources used (Stoessel et al. 2012). The publication is published and freely available with comprehensive supporting information:\n\nhttp://pubs.acs.org/doi/pdf/10.1021/es2030577\n\nFranziska Stoessel, Ronnie Juraske, Stephan Pfister, Stefanie Hellweg. (2012) Life Cycle Inventory and Carbon and Water FoodPrint of Fruits and Vegetables: Application to a Swiss Retailer. Environmental Science & Technology 6(46) 3253-3262.\n\nNone\n\nThis activity was adapted to include the global average land use change (LUC) emissions according 2nd edition of the Quantis-modified tool developed by Blonk Consultants 'WFLDB-adapted-Blonk 2014 direct-land-use-change-assessment-tool_2015-05-18a.xlsx', tab. 'Country & land use unknown'. The size of the emission depends on (i) the relative crop expansion in all countries of the crop during the last 20 years and (ii) the corresponding, country specific land transformations. The current results are based on the average FAOSTAT data (harvested area) of 2009-2011 and 1989-1991. The weighted average is used which takes into account relative difference in crop expansion into primary forest, secondary forest, grassland, perennial and annual land.\n\nProduction volume: 1350206976 kg\nIncluded activities start: From maintenance of the orchards after harvest of the previous crop.\nIncluded activities end: This activity ends with harvest and storage. \nThe dataset includes a storage period of 8 months and it's use of electricity.  The pesticide inputs are classified according to their chemical classes and the emmssions are assigned to the soil (100%). Mercury emissions are neglected due to a lack of data while other heavy metal emissions are included. The dataset doesn't include infrastructure for production and storage facilities. No transports for agricultural means of production from the regional storage to the farm are included.\nEnergy values: Undefined\nGeography: The inventory is modelled for Global\nTechnology level: Current\nTechnology: Production without production standard, but according to GAP\nStart date: 01/01/2010\nEnd date: 31/12/2022\nIs data valid for entire period: True\nTime period: \nMacro-economic scenario name: Business-as-Usual\n\nVersion: 7.3.0.0\nCreated: 5/9/2011 1:50:26 PM\nLast edited: 7/22/2016 11:03:50 AM\nSource: cf92910b-fe91-5e9b-9bd0-b0cb1e787560_d76976c2-548a-4898-b468-4a477b7f88d0.spold\nUUID: cf92910b-fe91-5e9b-9bd0-b0cb1e787560",
-    "displayName": "Kiwi UE",
+    "displayName": "Kiwi UE (2025)",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "a54c2a40-275b-5b68-a7f6-df81e8cc85d6",
@@ -29622,47 +29622,6 @@
     "waste": 0
   },
   {
-    "activityName": "Kiwi FR, conventional, national average, at plant {FR} U",
-    "categories": [
-      "ingredient"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.\nThis process describes the production of 1 kg of Kiwi FR, conventional, national average, at plant/FR U\nSee the specific report for this dataset: DATA DOCUMENTATION LCI Kiwi FR, conventional_Gingko21_2021",
-    "displayName": "Kiwi FR",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "d36bde22-7310-5a17-ad1a-b11d89f5685f",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 59.101,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "location": "FR",
-    "massPerUnit": null,
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg",
-    "waste": 0
-  },
-  {
     "activityName": "Comte cheese, from cow's milk, at plant {FR} U",
     "categories": [
       "ingredient"
@@ -32741,47 +32700,6 @@
     "waste": 0
   },
   {
-    "activityName": "Walnuts, unshelled, at processing {FR} U",
-    "categories": [
-      "ingredient"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.",
-    "displayName": "Noix de macadamia FR",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "eb4ac2b9-7c8d-5c66-99b9-cfb3613bfa10",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 489.84,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "location": "FR",
-    "massPerUnit": null,
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg",
-    "waste": 0
-  },
-  {
     "activityName": "Mustard, proxy from Rape seed {Canada without Quebec}| rape seed production | Cut-off, U - Adapted from Ecoinvent U",
     "categories": [
       "ingredient"
@@ -33271,6 +33189,47 @@
       "wtu": 0
     },
     "location": "GLO",
+    "massPerUnit": null,
+    "scopes": [
+      "food"
+    ],
+    "source": "Agribalyse 3.2",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Wheat grain {FR}| wheat production | Cut-off, U - Adapted from Ecoinvent U",
+    "categories": [
+      "ingredient"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024.\noriginal ecoinvent name: Wheat grain {FR}| wheat production | Cut-off, U\n\nThis dataset represents the production of 1 kg of wheat grain (fresh matter). The Yield_ is 6753 kg/ha at a moisture content at storage of 14.5%.\n\nNone\n\n[This dataset was already contained in the ecoinvent database version 2. It was not individually updated during the transfer to ecoinvent version 3. Life Cycle Impact Assessment results may still have changed, as they are affected by changes in the supply chain, i.e. in other datasets. This dataset was generated following the ecoinvent quality guidelines for version 2. It may have been subject to central changes described in the ecoinvent version 3 change report (http://www.ecoinvent.org/database/ecoinvent-version-3/reports-of-changes/), and the results of the central updates were reviewed extensively. The changes added e.g. consistent water flows and other information throughout the database. The documentation of this dataset can be found in the ecoinvent reports of version 2, which are still available via the ecoinvent website. The change report linked above covers all central changes that were made during the conversion process.]\n\nProduction volume: 36885504000 kg\nIncluded activities start: This activity starts after the harvest of the previous crop. The inputs of seeds, mineral fertilisers and pesticides are considered. It is assumed that no organic fertilisers are applied.\nIncluded activities end: The dataset includes all machine operations and corresponding machine infrastructure and sheds. Machine operations are: soil cultivation, sowing, fertilisation, weed control, pest and pathogen control, combine-harvest and transport from field to farm (2 km). Further, direct field emissions are included. This activity ends after harvest at the farm gate.\nEnergy values: Undefined\nGeography: The inventory is modelled for France\nTechnology level: Current\nTechnology: conventional production typical for the region\nStart date: 01/01/2000\nEnd date: 31/12/2022\nIs data valid for entire period: True\nTime period: The Yield_ data have been collected for the years 2000-2004.\nMacro-economic scenario name: Business-as-Usual\n\nVersion: 32.3.0.0\nCreated: 7/28/2010 6:43:50 PM\nLast edited: 4/28/2016 3:22:47 PM\nSource: 87886494-df23-5b3f-973f-650bf39fc026_0201ee86-f71b-4457-8fe8-79f3ed720b07.spold\nUUID: 87886494-df23-5b3f-973f-650bf39fc026",
+    "displayName": "Millet entier FR",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "ef78c003-0bcf-5358-8fc0-0b30b338e4d2",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 91.41,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "FR",
     "massPerUnit": null,
     "scopes": [
       "food"

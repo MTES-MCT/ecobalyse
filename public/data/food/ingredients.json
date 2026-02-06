@@ -1,7 +1,7 @@
 [
   {
     "activityName": "Barley grain {FR}| barley production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "new-whole-barley-fr",
+    "alias": "whole-barley-fr",
     "categories": [
       "grain_raw"
     ],
@@ -28,7 +28,7 @@
   },
   {
     "activityName": "Radish {FR}| radish production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "new-radish-fr",
+    "alias": "radish-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -55,7 +55,7 @@
   },
   {
     "activityName": "Hazelnut oil, crude, at plant {FR} U",
-    "alias": "virgin-hazelnut-oil",
+    "alias": "virgin-hazelnut-oil-2025",
     "categories": [
       "nut_oilseed_processed"
     ],
@@ -82,7 +82,7 @@
   },
   {
     "activityName": "Walnut, dried inshell, conventional, national average, at farm gate {FR} U",
-    "alias": "walnut-inshell-eu",
+    "alias": "walnut-inshell-eu-2025",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -109,7 +109,7 @@
   },
   {
     "activityName": "Beetroot for juice, conventional, at farm gate {FR} U",
-    "alias": "new-beetroot-fr",
+    "alias": "beetroot-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -136,7 +136,7 @@
   },
   {
     "activityName": "Olive {ES}| olive production | Cut-off, U",
-    "alias": "new-olives-fr",
+    "alias": "olives-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -163,7 +163,7 @@
   },
   {
     "activityName": "Rice flour, at industrial mill {FR} U",
-    "alias": "rice-flour",
+    "alias": "rice-flour-2025",
     "categories": [
       "grain_processed"
     ],
@@ -190,7 +190,7 @@
   },
   {
     "activityName": "Lentil, organic 2025 {CA-SK}| lentil production | Cut-off, U",
-    "alias": "lentils-uncooked-organic",
+    "alias": "lentils-uncooked-organic-2025",
     "categories": [
       "nut_oilseed_raw",
       "organic"
@@ -218,7 +218,7 @@
   },
   {
     "activityName": "Spring pea, conventional, 15% moisture, animal feed, at farm gate, production {FR} U",
-    "alias": "new-spring-pea-fr",
+    "alias": "spring-pea-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -245,7 +245,7 @@
   },
   {
     "activityName": "Mango, organic 2025, Val de San Francisco, at orchard {BR} U",
-    "alias": "lychee-organic",
+    "alias": "lychee-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -273,7 +273,7 @@
   },
   {
     "activityName": "Seaweed optimized production, 1kg algae (Laminaria), fresh weight {FR} U",
-    "alias": "new-seaweed-fr",
+    "alias": "seaweed-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -300,7 +300,7 @@
   },
   {
     "activityName": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "new-red-beans-dried-fr",
+    "alias": "red-beans-dried-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -327,7 +327,7 @@
   },
   {
     "activityName": "Ware potato, conventional, variety mix, national average, at farm gate {FR} U",
-    "alias": "new-potato-fr",
+    "alias": "potato-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -354,7 +354,7 @@
   },
   {
     "activityName": "Annual vining pea for industry, Conventional, National average, at farm gate {FR} U",
-    "alias": "garden-peas-fr",
+    "alias": "garden-peas-fr-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -381,7 +381,7 @@
   },
   {
     "activityName": "Corn glucose syrup, at plant {GLO} - Adapted from WFLDB U",
-    "alias": "glucose-syrup",
+    "alias": "glucose-syrup-2025",
     "categories": [
       "spice_condiment_additive"
     ],
@@ -435,7 +435,7 @@
   },
   {
     "activityName": "Garlic, consumption mix {FR} U",
-    "alias": "new-garlic",
+    "alias": "garlic",
     "categories": [
       "vegetable_fresh"
     ],
@@ -462,7 +462,7 @@
   },
   {
     "activityName": "Parsley, fresh, at farm {US} - Adapted from WFLDB U",
-    "alias": "new-parsley-fresh-fr",
+    "alias": "parsley-fresh-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -489,7 +489,7 @@
   },
   {
     "activityName": "Cherry, at farm (WFLDB)",
-    "alias": "plum-eu",
+    "alias": "plum-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -516,7 +516,7 @@
   },
   {
     "activityName": "Grape {RoW}| grape production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "new-grapes-black-or-white-fr",
+    "alias": "grapes-black-or-white-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -543,7 +543,7 @@
   },
   {
     "activityName": "Radish, organic 2025 {FR}| radish production, in unheated greenhouse | Cut-off, U",
-    "alias": "radish-organic",
+    "alias": "radish-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -571,7 +571,7 @@
   },
   {
     "activityName": "Flaxseed, straw, ret, Normandie, at farm gate {FR} U",
-    "alias": "new-flaxseed-fr",
+    "alias": "flaxseed-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -598,7 +598,7 @@
   },
   {
     "activityName": "Soybean grain dried, stored and transported, processing {FR} U",
-    "alias": "soybean-feed",
+    "alias": "soybean-feed-2025",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -625,7 +625,7 @@
   },
   {
     "activityName": "Cauliflower, winter, conventional, at farm gate {FR} U",
-    "alias": "brussels-sprout-ue",
+    "alias": "brussels-sprout-ue-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -679,7 +679,7 @@
   },
   {
     "activityName": "Raspberry, at farm, organic 2025 {RS}",
-    "alias": "raspberry-organic",
+    "alias": "raspberry-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -707,7 +707,7 @@
   },
   {
     "activityName": "Onions, dried, consumption mix {FR} U",
-    "alias": "onion-dried",
+    "alias": "onion-dried-2025",
     "categories": [
       "vegetable_processed"
     ],
@@ -734,7 +734,7 @@
   },
   {
     "activityName": "Celery {GLO}| 675 production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "new-celery-fr",
+    "alias": "celery-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -761,7 +761,7 @@
   },
   {
     "activityName": "Toulouse sausage, cooked, recipe, at plant {FR} U",
-    "alias": "sausage-toulouse-cooked",
+    "alias": "sausage-toulouse-cooked-2025",
     "categories": [
       "animal_product"
     ],
@@ -782,7 +782,7 @@
   },
   {
     "activityName": "Pasta, dried, from durum wheat, at plant {GLO} - Adapted from WFLDB U",
-    "alias": "pasta-default",
+    "alias": "pasta-default-2025",
     "categories": [
       "grain_processed"
     ],
@@ -809,7 +809,7 @@
   },
   {
     "activityName": "Broccoli {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "broccoli-eu",
+    "alias": "broccoli-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -836,7 +836,7 @@
   },
   {
     "activityName": "Celery {GLO}| 675 production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "celery-eu",
+    "alias": "celery-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -917,7 +917,7 @@
   },
   {
     "activityName": "Almond, consumption mix {FR} U",
-    "alias": "almond-inshell-ue",
+    "alias": "almond-inshell-ue-2025",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -944,7 +944,7 @@
   },
   {
     "activityName": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "carrot-eu",
+    "alias": "carrot-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -971,7 +971,7 @@
   },
   {
     "activityName": "Yogurt, from cow milk, at plant {FR} U",
-    "alias": "yogurt",
+    "alias": "yogurt-2025",
     "categories": [
       "dairy_product"
     ],
@@ -992,7 +992,7 @@
   },
   {
     "activityName": "Cocoa butter, at plant {RER} - Adapted from WFLDB U",
-    "alias": "cocoa-butter-fr",
+    "alias": "cocoa-butter-fr-2025",
     "categories": [
       "nut_oilseed_processed"
     ],
@@ -1019,7 +1019,7 @@
   },
   {
     "activityName": "Blueberry, at farm {CA} - Adapted from WFLDB U",
-    "alias": "new-blueberry-fr",
+    "alias": "blueberry-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -1046,7 +1046,7 @@
   },
   {
     "activityName": "Pineapple, organic 2025 {GLO}| production | Cut-off, U",
-    "alias": "pineapple-organic",
+    "alias": "pineapple-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -1074,7 +1074,7 @@
   },
   {
     "activityName": "Cauliflower, winter, organic, at farm gate {FR} U",
-    "alias": "cauliflower-organic",
+    "alias": "cauliflower-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -1102,7 +1102,7 @@
   },
   {
     "activityName": "protein pea//[FR] protein pea production",
-    "alias": "bean-eu",
+    "alias": "bean-eu-2025",
     "categories": [
       "grain_raw"
     ],
@@ -1129,7 +1129,7 @@
   },
   {
     "activityName": "Cherry, organic 2025, national average, at orchard {FR} U",
-    "alias": "plum-organic",
+    "alias": "plum-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -1157,7 +1157,7 @@
   },
   {
     "activityName": "Peanut, in shell, at farm, organic 2025 {GLO}",
-    "alias": "pistachio-organic",
+    "alias": "pistachio-organic-2025",
     "categories": [
       "nut_oilseed_raw",
       "organic"
@@ -1185,7 +1185,7 @@
   },
   {
     "activityName": "Bell pepper {FR}| bell pepper production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "bellpepper-unheated-greenhouse-eu",
+    "alias": "bellpepper-unheated-greenhouse-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -1212,7 +1212,7 @@
   },
   {
     "activityName": "Rice, non-basmati {CN}| rice production, non-basmati | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "new-raw-rice-all-varieties-white-wild-c-thai-or-basmati-rice-raw-fr",
+    "alias": "raw-rice-all-varieties-white-wild-c-thai-or-basmati-rice-raw-fr",
     "categories": [
       "grain_raw"
     ],
@@ -1293,7 +1293,7 @@
   },
   {
     "activityName": "protein pea//[GLO] market for protein pea",
-    "alias": "bean-non-eu",
+    "alias": "bean-non-eu-2025",
     "categories": [
       "grain_raw"
     ],
@@ -1347,7 +1347,7 @@
   },
   {
     "activityName": "Zucchini, conventional, national average, at farm gate {FR} U",
-    "alias": "squash-eu",
+    "alias": "squash-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -1374,7 +1374,7 @@
   },
   {
     "activityName": "Strawberry, conventional, national average, at farm gate {FR} U",
-    "alias": "new-red-currant-fr",
+    "alias": "red-currant-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -1401,7 +1401,7 @@
   },
   {
     "activityName": "Breakfast cereals, rich in fibre, with chocolate, fortified with vitamins and chemical elements, recipe, at plant {FR} U",
-    "alias": "breakfast-cereals",
+    "alias": "breakfast-cereals-2025",
     "categories": [
       "grain_processed"
     ],
@@ -1428,20 +1428,14 @@
   },
   {
     "activityName": "Cooked ham case ready at plant {{cooked-ham-case-ready-plant-bbc}}",
-    "alias": "cooked-ham-bbc",
+    "alias": "cooked-ham-bbc-2025",
     "categories": [
       "animal_product"
     ],
     "cropGroup": null,
     "defaultOrigin": "France",
     "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 1.7015,
-      "livestockDensity": -0.027132,
-      "permanentPasture": 0,
-      "plotSize": 2.1477
-    },
+    "ecosystemicServices": null,
     "id": "15e2dfa0-9b5f-4bc9-a3ed-885f56061bc0",
     "inediblePart": 0,
     "landOccupation": 8.3891,
@@ -1455,7 +1449,7 @@
   },
   {
     "activityName": "Fresh shrimps, China production {FR} U",
-    "alias": "unknwon-fishery-products",
+    "alias": "unknwon-fishery-products-2025",
     "categories": [
       "animal_product"
     ],
@@ -1503,7 +1497,7 @@
   },
   {
     "activityName": "Celery, organic 2025 {GLO}| 675 production | Cut-off, U",
-    "alias": "celery-organic",
+    "alias": "celery-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -1531,7 +1525,7 @@
   },
   {
     "activityName": "Lobster, 1 kg of product, at landing {GB} U",
-    "alias": "lobster-eu",
+    "alias": "lobster-eu-2025",
     "categories": [
       "animal_product"
     ],
@@ -1552,7 +1546,7 @@
   },
   {
     "activityName": "Orange, fresh grade, at farm, organic 2025 {ES}",
-    "alias": "orange-organic",
+    "alias": "orange-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -1580,7 +1574,7 @@
   },
   {
     "activityName": "Black pepper, dried, conventional, at plant {VN} U",
-    "alias": "new-saffron-fr",
+    "alias": "saffron-fr",
     "categories": [
       "spice_condiment_additive"
     ],
@@ -1607,7 +1601,7 @@
   },
   {
     "activityName": "Walnut, dried inshell, traditional varieties, organic, at farm gate {FR} U",
-    "alias": "chesnut-inshell-organic",
+    "alias": "chesnut-inshell-organic-2025",
     "categories": [
       "nut_oilseed_raw",
       "organic"
@@ -1635,7 +1629,7 @@
   },
   {
     "activityName": "Cow milk {CA-QC}| milk production, from cow | Cut-off, U - Copied from Ecoinvent U",
-    "alias": "milk-non-eu",
+    "alias": "milk-non-eu-2025",
     "categories": [
       "dairy_product"
     ],
@@ -1656,7 +1650,7 @@
   },
   {
     "activityName": "Soybean oil, refined, at plant {FR} U",
-    "alias": "refined-soybean-oil",
+    "alias": "refined-soybean-oil-2025",
     "categories": [
       "nut_oilseed_processed"
     ],
@@ -1683,7 +1677,7 @@
   },
   {
     "activityName": "Sunflower grain, conventional, national average, animal feed, at farm gate {UA} U",
-    "alias": "new-sunflower-seed-fr",
+    "alias": "sunflower-seed-fr",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -1710,7 +1704,7 @@
   },
   {
     "activityName": "Cherry, conventional, national average, at orchard {FR} U",
-    "alias": "new-morello-cherry-fr",
+    "alias": "morello-cherry-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -1737,7 +1731,7 @@
   },
   {
     "activityName": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "flageolet-bean-eu",
+    "alias": "flageolet-bean-eu-2025",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -1764,7 +1758,7 @@
   },
   {
     "activityName": "Spring oats, organic, national average, at feed plant {FR} U",
-    "alias": "oats-organic",
+    "alias": "oats-organic-2025",
     "categories": [
       "grain_raw",
       "organic"
@@ -1792,7 +1786,7 @@
   },
   {
     "activityName": "Squid, consumption mix {FR} U",
-    "alias": "squid-fr",
+    "alias": "squid-fr-2025",
     "categories": [
       "animal_product"
     ],
@@ -1813,7 +1807,7 @@
   },
   {
     "activityName": "Ware potato, conventional, for fresh market, other varieties, at farm gate {FR} U",
-    "alias": "potato-table-fr",
+    "alias": "potato-table-fr-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -1840,7 +1834,7 @@
   },
   {
     "activityName": "Tap water {Europe without Switzerland}| market for | Cut-off, S - Copied from Ecoinvent U",
-    "alias": "unknown-drink",
+    "alias": "unknown-drink-2025",
     "categories": [],
     "cropGroup": null,
     "defaultOrigin": "EuropeAndMaghreb",
@@ -1859,7 +1853,7 @@
   },
   {
     "activityName": "Carrot, conventional, national average, at farm gate {FR} U",
-    "alias": "new-rutabaga-fr",
+    "alias": "rutabaga-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -1886,7 +1880,7 @@
   },
   {
     "activityName": "Leek, conventional, national average, at plant {FR} U",
-    "alias": "new-leek-fr",
+    "alias": "leek-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -1913,7 +1907,7 @@
   },
   {
     "activityName": "Grapeseed oil, refined at plant {FR} U",
-    "alias": "refined-grapeseed-oil",
+    "alias": "refined-grapeseed-oil-2025",
     "categories": [
       "nut_oilseed_processed"
     ],
@@ -1940,7 +1934,7 @@
   },
   {
     "activityName": "Carrot, organic 2025, national average, at farm gate {FR} U",
-    "alias": "beetroot-organic",
+    "alias": "beetroot-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -1968,7 +1962,7 @@
   },
   {
     "activityName": "[Dummy] Gherkin, pickled in vinegar, at plant {FR} U",
-    "alias": "new-gherkin-fr",
+    "alias": "gherkin-fr",
     "categories": [
       "vegetable_processed"
     ],
@@ -1989,7 +1983,7 @@
   },
   {
     "activityName": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
-    "alias": "celeriac-non-eu",
+    "alias": "celeriac-non-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -2016,7 +2010,7 @@
   },
   {
     "activityName": "Spring faba bean, conventional, reduced protection, at farm gate {FR} U",
-    "alias": "new-spring-faba-fr",
+    "alias": "spring-faba-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -2043,7 +2037,7 @@
   },
   {
     "activityName": "Zucchini, conventional, national average, at farm gate {FR} U",
-    "alias": "new-squash-raw-with-skin-fr",
+    "alias": "squash-raw-with-skin-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -2070,7 +2064,7 @@
   },
   {
     "activityName": "Winter pea, from intercrop, organic, system number 1, at farm gate {FR} U",
-    "alias": "chickpea-organic",
+    "alias": "chickpea-organic-2025",
     "categories": [
       "nut_oilseed_raw",
       "organic"
@@ -2098,7 +2092,7 @@
   },
   {
     "activityName": "Onion {RoW}| onion production | Cut-off, U - Copied from Ecoinvent U",
-    "alias": "onion-non-ue",
+    "alias": "onion-non-ue-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -2125,7 +2119,7 @@
   },
   {
     "activityName": "Sweet corn, at farm (WFLDB)",
-    "alias": "sweet-corn-eu",
+    "alias": "sweet-corn-eu-2025",
     "categories": [
       "grain_raw"
     ],
@@ -2163,7 +2157,7 @@
       "cropDiversity": 0,
       "hedges": 39.57,
       "livestockDensity": -0.00255,
-      "permanentPasture": 30.63,
+      "permanentPasture": 0,
       "plotSize": 33.371
     },
     "id": "22179caa-eb41-49c0-ae04-49eda23da4da",
@@ -2179,7 +2173,7 @@
   },
   {
     "activityName": "Meat without bone, veal {FR} U",
-    "alias": "veal-meat",
+    "alias": "veal-meat-2025",
     "categories": [
       "animal_product"
     ],
@@ -2200,7 +2194,7 @@
   },
   {
     "activityName": "chickpea//[RoW] chickpea production",
-    "alias": "chickpea-non-eu",
+    "alias": "chickpea-non-eu-2025",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -2281,7 +2275,7 @@
   },
   {
     "activityName": "Vinegar alcohol, consumption mix {FR} U",
-    "alias": "vinegar-alcohol",
+    "alias": "vinegar-alcohol-2025",
     "categories": [
       "misc"
     ],
@@ -2308,7 +2302,7 @@
   },
   {
     "activityName": "Winter pea, conventional, 15% moisture, at farm gate {FR} U",
-    "alias": "new-winter-pea-fr",
+    "alias": "winter-pea-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -2335,7 +2329,7 @@
   },
   {
     "activityName": "Olive, organic 2025 {ES}| olive production | Cut-off, U",
-    "alias": "olive-organic",
+    "alias": "olive-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -2390,7 +2384,7 @@
   },
   {
     "activityName": "Cabbage red {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "red-cabbage-non-eu",
+    "alias": "red-cabbage-non-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -2417,7 +2411,7 @@
   },
   {
     "activityName": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "new-swiss-chard-fr",
+    "alias": "swiss-chard-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -2444,7 +2438,7 @@
   },
   {
     "activityName": "Durum wheat grain, conventional, national average, at farm gate {FR} U",
-    "alias": "new-amaranth-fr",
+    "alias": "amaranth-fr",
     "categories": [
       "grain_raw"
     ],
@@ -2471,7 +2465,7 @@
   },
   {
     "activityName": "Clementine, export quality, Souss, at orchard {MA} U",
-    "alias": "clementine-non-eu",
+    "alias": "clementine-non-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -2498,7 +2492,7 @@
   },
   {
     "activityName": "Celery {GLO}| 675 production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "celery-non-eu",
+    "alias": "celery-non-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -2525,7 +2519,7 @@
   },
   {
     "activityName": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "lettuce-eu",
+    "alias": "lettuce-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -2552,7 +2546,7 @@
   },
   {
     "activityName": "Mint {RoW}| mint production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "new-dill-fresh-fr",
+    "alias": "dill-fresh-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -2579,7 +2573,7 @@
   },
   {
     "activityName": "Cow milk, organic, national average, at farm gate FR U",
-    "alias": "milk-organic",
+    "alias": "milk-organic-2025",
     "categories": [
       "dairy_product",
       "organic"
@@ -2587,13 +2581,7 @@
     "cropGroup": null,
     "defaultOrigin": "France",
     "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0.56931,
-      "hedges": 1.7412,
-      "livestockDensity": -0.000178,
-      "permanentPasture": 0.814,
-      "plotSize": 1.5579
-    },
+    "ecosystemicServices": null,
     "id": "2bf307e8-8cb0-400b-a4f1-cf615d9e96f4",
     "inediblePart": 0,
     "landOccupation": 1.8305,
@@ -2607,7 +2595,7 @@
   },
   {
     "activityName": "Apple, conventional, national average, at orchard {FR} U",
-    "alias": "new-pomegranate-fr",
+    "alias": "pomegranate-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -2634,7 +2622,7 @@
   },
   {
     "activityName": "Fresh cream cheese, plain, creamy, around 8% fat, at plant {FR} U",
-    "alias": "fresh-cream-cheese",
+    "alias": "fresh-cream-cheese-2025",
     "categories": [
       "dairy_product"
     ],
@@ -2655,7 +2643,7 @@
   },
   {
     "activityName": "Maize grain, conventional, 28% moisture, national average, animal feed, at farm gate {FR} U",
-    "alias": "new-corn-fr",
+    "alias": "corn-fr",
     "categories": [
       "grain_raw"
     ],
@@ -2709,7 +2697,7 @@
   },
   {
     "activityName": "Cabbage white, organic 2025 {RoW}| cabbage white production | Cut-off, U",
-    "alias": "white-cabbage-organic",
+    "alias": "white-cabbage-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -2764,7 +2752,7 @@
   },
   {
     "activityName": "Mineral water, still, PET one-way, 1.5 L, at water factory {FR} - Adapted from WFLDB U",
-    "alias": "new-spring-water-fr",
+    "alias": "spring-water-fr",
     "categories": [
       "misc"
     ],
@@ -2791,7 +2779,7 @@
   },
   {
     "activityName": "Pear, conventional, national average, at orchard {FR} U",
-    "alias": "new-pears-fr",
+    "alias": "pears-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -2818,7 +2806,7 @@
   },
   {
     "activityName": "Silage maize, conventional, national average, animal feed, at farm gate, production {FR} U",
-    "alias": "silage-maize-organic",
+    "alias": "silage-maize-organic-2025",
     "categories": [
       "grain_raw",
       "organic"
@@ -2873,7 +2861,7 @@
   },
   {
     "activityName": "Mint {RoW}| mint production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "new-dried-herbs-marjoram-oregano-savory-thyme-basil-rosemary-sage-fr",
+    "alias": "dried-herbs-marjoram-oregano-savory-thyme-basil-rosemary-sage-fr",
     "categories": [
       "spice_condiment_additive"
     ],
@@ -2899,35 +2887,8 @@
     "visible": true
   },
   {
-    "activityName": "Wheat grain {FR}| wheat production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "new-millet-fr",
-    "categories": [
-      "grain_raw"
-    ],
-    "cropGroup": "AUTRES CEREALES",
-    "defaultOrigin": "France",
-    "density": 0.64,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0.69257,
-      "livestockDensity": null,
-      "permanentPasture": null,
-      "plotSize": 0.97741
-    },
-    "id": "31cf3e17-96ee-5f09-9606-5c44382cd88d",
-    "inediblePart": 0,
-    "landOccupation": 1.5639,
-    "location": "FR",
-    "name": "Millet FR",
-    "processId": "931c0ecb-f370-5bf6-a99a-9f02b7d42af1",
-    "rawToCookedRatio": 2.259,
-    "scenario": "reference",
-    "transportCooling": "none",
-    "visible": true
-  },
-  {
     "activityName": "Tea, dried {RoW}| tea production, dried | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "unknown-groceries",
+    "alias": "unknown-groceries-2025",
     "categories": [
       "misc"
     ],
@@ -2954,7 +2915,7 @@
   },
   {
     "activityName": "Basmati rice, consumption mix {FR} U",
-    "alias": "rice-basmati-eu",
+    "alias": "rice-basmati-eu-2025",
     "categories": [
       "grain_raw"
     ],
@@ -2981,7 +2942,7 @@
   },
   {
     "activityName": "Potato, at farm (WFLDB)",
-    "alias": "potato-table-non-eu",
+    "alias": "potato-table-non-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -3008,7 +2969,7 @@
   },
   {
     "activityName": "Whey, at plant {FR} U",
-    "alias": "whey",
+    "alias": "whey-2025",
     "categories": [
       "dairy_product"
     ],
@@ -3029,7 +2990,7 @@
   },
   {
     "activityName": "Rapeseed, at farm {GLO} - Adapted from WFLDB U",
-    "alias": "rapeseed-eu",
+    "alias": "rapeseed-eu-2025",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -3056,7 +3017,7 @@
   },
   {
     "activityName": "Barley grain, non-irrigated, at farm {DE} - Adapted from WFLDB U",
-    "alias": "barley-eu",
+    "alias": "barley-eu-2025",
     "categories": [
       "grain_raw"
     ],
@@ -3083,7 +3044,7 @@
   },
   {
     "activityName": "Melon, organic, at farm gate {FR} U",
-    "alias": "melon-organic",
+    "alias": "melon-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -3111,7 +3072,7 @@
   },
   {
     "activityName": "Melon, conventional, national average, at farm gate {FR} U",
-    "alias": "new-melon-honeydew-charentais-cataloupe-cavaillon-fr",
+    "alias": "melon-honeydew-charentais-cataloupe-cavaillon-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -3138,7 +3099,7 @@
   },
   {
     "activityName": "Bell pepper {FR}| bell pepper production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "bellpepper-unheated-greenhouse-fr",
+    "alias": "bellpepper-unheated-greenhouse-fr-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -3165,7 +3126,7 @@
   },
   {
     "activityName": "Palm oil, refined, processed in EU, at plant {RER} U",
-    "alias": "refined-palm-oil",
+    "alias": "refined-palm-oil-2025",
     "categories": [
       "nut_oilseed_processed"
     ],
@@ -3220,7 +3181,7 @@
   },
   {
     "activityName": "Tap water {Europe without Switzerland}| market for | Cut-off, S - Copied from Ecoinvent U",
-    "alias": "tap-water",
+    "alias": "tap-water-2025",
     "categories": [],
     "cropGroup": null,
     "defaultOrigin": "EuropeAndMaghreb",
@@ -3239,7 +3200,7 @@
   },
   {
     "activityName": "French bean, conventional, national average, at farm gate {FR} U",
-    "alias": "french-bean-fr",
+    "alias": "french-bean-fr-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -3293,7 +3254,7 @@
   },
   {
     "activityName": "French bean, conventional, national average, at farm gate {FR} U",
-    "alias": "french-bean-eu",
+    "alias": "french-bean-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -3320,7 +3281,7 @@
   },
   {
     "activityName": "Orange, fresh grade, at farm {ES} - Adapted from WFLDB U",
-    "alias": "new-oranges-fr",
+    "alias": "oranges-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -3347,7 +3308,7 @@
   },
   {
     "activityName": "Almond, consumption mix {FR} U",
-    "alias": "almond-inshell-fr",
+    "alias": "almond-inshell-fr-2025",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -3374,7 +3335,7 @@
   },
   {
     "activityName": "European Pilchard, Sardina pilchardus, BBiscay, Seine, average, at landing {FR} U",
-    "alias": "sardine-fr",
+    "alias": "sardine-fr-2025",
     "categories": [
       "animal_product"
     ],
@@ -3395,7 +3356,7 @@
   },
   {
     "activityName": "Hazelnut, unshelled, at plant {IT} U",
-    "alias": "hazelnut-unshelled-eu",
+    "alias": "hazelnut-unshelled-eu-2025",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -3422,7 +3383,7 @@
   },
   {
     "activityName": "Barley, organic, animal feed, at farm gate {FR} U",
-    "alias": "barley-organic",
+    "alias": "barley-organic-2025",
     "categories": [
       "grain_raw",
       "organic"
@@ -3477,7 +3438,7 @@
   },
   {
     "activityName": "Avocado {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "avocado-non-eu",
+    "alias": "avocado-non-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -3504,7 +3465,7 @@
   },
   {
     "activityName": "Peach, organic, national average, at orchard {FR} U",
-    "alias": "peach-organic",
+    "alias": "peach-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -3532,7 +3493,7 @@
   },
   {
     "activityName": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U",
-    "alias": "sunflower-oil",
+    "alias": "sunflower-oil-2025",
     "categories": [
       "nut_oilseed_processed"
     ],
@@ -3559,7 +3520,7 @@
   },
   {
     "activityName": "Table apple, consumption mix, organic 2025 {FR} U",
-    "alias": "apple-organic",
+    "alias": "apple-organic-2025",
     "categories": [
       "organic",
       "vegetable_fresh"
@@ -3587,7 +3548,7 @@
   },
   {
     "activityName": "Cocoa powder, consumption mix {FR} U",
-    "alias": "cocoa-powder-non-ue",
+    "alias": "cocoa-powder-non-ue-2025",
     "categories": [
       "vegetable_processed"
     ],
@@ -3614,7 +3575,7 @@
   },
   {
     "activityName": "Cauliflower, winter, conventional, at farm gate {FR} U",
-    "alias": "chinese-cabbage-non-ue",
+    "alias": "chinese-cabbage-non-ue-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -3641,7 +3602,7 @@
   },
   {
     "activityName": "Elderberry, at farm {PL} - Adapted from WFLDB U",
-    "alias": "new-elderberries-fr",
+    "alias": "elderberries-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -3668,7 +3629,7 @@
   },
   {
     "activityName": "Annual vining pea for industry, Conventional, National average, at farm gate {FR} U",
-    "alias": "garden-peas-eu",
+    "alias": "garden-peas-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -3695,7 +3656,7 @@
   },
   {
     "activityName": "Fennel {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "new-persimmon-fr",
+    "alias": "persimmon-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -3722,7 +3683,7 @@
   },
   {
     "activityName": "Tomato juice, pure juice, filled, at plant {FR} U",
-    "alias": "tomato-juice",
+    "alias": "tomato-juice-2025",
     "categories": [
       "vegetable_processed"
     ],
@@ -3749,7 +3710,7 @@
   },
   {
     "activityName": "Ground beef fresh case ready for direct consumption at plant {{ground-beef-fresh-case-ready-direct-consumption-plant-grass-fed}}",
-    "alias": "ground-beef-grass-fed",
+    "alias": "ground-beef-grass-fed-2025",
     "categories": [
       "animal_product",
       "organic"
@@ -3757,13 +3718,7 @@
     "cropGroup": null,
     "defaultOrigin": "France",
     "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 54.381,
-      "livestockDensity": -0.00267,
-      "permanentPasture": 50.89,
-      "plotSize": 44.472
-    },
+    "ecosystemicServices": null,
     "id": "3fd1b6d5-58d9-40eb-b215-d2e8c2876a5f",
     "inediblePart": 0,
     "landOccupation": 57.647,
@@ -3777,7 +3732,7 @@
   },
   {
     "activityName": "Walnut, dried inshell, conventional, national average, at farm gate {FR} U",
-    "alias": "new-walnuts-fr",
+    "alias": "walnuts-fr",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -3804,7 +3759,7 @@
   },
   {
     "activityName": "Rye grain, feed, Swiss integrated production {CH}| production | Cut-off, U - Copied from Ecoinvent U",
-    "alias": "new-whole-rye-fr",
+    "alias": "whole-rye-fr",
     "categories": [
       "grain_raw"
     ],
@@ -3831,7 +3786,7 @@
   },
   {
     "activityName": "Cauliflower, winter, conventional, at farm gate {FR} U",
-    "alias": "new-curly-kale-fr",
+    "alias": "curly-kale-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -3858,7 +3813,7 @@
   },
   {
     "activityName": "Apple juice, reconstituted from a concentrate, at plant {FR} U",
-    "alias": "apple-juice",
+    "alias": "apple-juice-2025",
     "categories": [
       "vegetable_processed"
     ],
@@ -3885,7 +3840,7 @@
   },
   {
     "activityName": "Maize grain, conventional, 28% moisture, national average, animal feed, at farm gate {FR} U",
-    "alias": "sweet-corn-fr",
+    "alias": "sweet-corn-fr-2025",
     "categories": [
       "grain_raw"
     ],
@@ -3912,20 +3867,14 @@
   },
   {
     "activityName": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U",
-    "alias": "ground-beef",
+    "alias": "ground-beef-2025",
     "categories": [
       "animal_product"
     ],
     "cropGroup": null,
     "defaultOrigin": "France",
     "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 48.438,
-      "livestockDensity": -0.00255,
-      "permanentPasture": 37.5,
-      "plotSize": 40.848
-    },
+    "ecosystemicServices": null,
     "id": "41d65ed4-230f-4a47-a67c-9a8015f50420",
     "inediblePart": 0,
     "landOccupation": 52.071,
@@ -3966,7 +3915,7 @@
   },
   {
     "activityName": "Olive {ES}| olive production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "olive-eu",
+    "alias": "olive-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -3993,7 +3942,7 @@
   },
   {
     "activityName": "Onion, conventional, national average, at farm {FR} U",
-    "alias": "new-chive-fr",
+    "alias": "chive-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -4020,7 +3969,7 @@
   },
   {
     "activityName": "Hazelnut, unshelled, consumption mix, organic 2025 {FR} U",
-    "alias": "hazelnut-unshelled-organic",
+    "alias": "hazelnut-unshelled-organic-2025",
     "categories": [
       "nut_oilseed_raw",
       "organic"
@@ -4048,7 +3997,7 @@
   },
   {
     "activityName": "Palm oil, refined, consumption mix {FR} U",
-    "alias": "refined-palm-oil-non-ue",
+    "alias": "refined-palm-oil-non-ue-2025",
     "categories": [
       "nut_oilseed_processed"
     ],
@@ -4075,7 +4024,7 @@
   },
   {
     "activityName": "Lamb, fresh meat, at slaughterhouse (WFLDB)",
-    "alias": "lamb-meat-without-bone-non-eu",
+    "alias": "lamb-meat-without-bone-non-eu-2025",
     "categories": [
       "animal_product"
     ],
@@ -4096,7 +4045,7 @@
   },
   {
     "activityName": "Orange nectar, recipe, at plant {FR} U",
-    "alias": "orange-juice",
+    "alias": "orange-juice-2025",
     "categories": [
       "vegetable_processed"
     ],
@@ -4123,7 +4072,7 @@
   },
   {
     "activityName": "Black pepper, dried, consumption mix {FR} U",
-    "alias": "black-pepper",
+    "alias": "black-pepper-2025",
     "categories": [
       "spice_condiment_additive"
     ],
@@ -4204,7 +4153,7 @@
   },
   {
     "activityName": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "swiss-chard-non-eu",
+    "alias": "swiss-chard-non-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -4231,7 +4180,7 @@
   },
   {
     "activityName": "Spinach, organic 2025 {GLO}| production | Cut-off, U",
-    "alias": "spinach-organic",
+    "alias": "spinach-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -4259,7 +4208,7 @@
   },
   {
     "activityName": "Cucumber {GLO}| cucumber production, in heated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "new-cucumber-fr",
+    "alias": "cucumber-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -4286,7 +4235,7 @@
   },
   {
     "activityName": "French bean, conventional, national average, at farm gate {FR} U",
-    "alias": "new-white-beans-dried-fr",
+    "alias": "white-beans-dried-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -4313,7 +4262,7 @@
   },
   {
     "activityName": "Oilseed meal mix, as feed, at regional warehouse, as DM {RER} - Adapted from WFLDB U",
-    "alias": "oilseed-feed",
+    "alias": "oilseed-feed-2025",
     "categories": [
       "grain_raw"
     ],
@@ -4340,7 +4289,7 @@
   },
   {
     "activityName": "Peanut {CN}| peanut production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "pistachio-non-eu",
+    "alias": "pistachio-non-eu-2025",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -4367,7 +4316,7 @@
   },
   {
     "activityName": "Carrot, conventional, national average, at farm gate {FR} U",
-    "alias": "carrot-fr",
+    "alias": "carrot-fr-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -4394,7 +4343,7 @@
   },
   {
     "activityName": "Hazelnut, unshelled, at plant {TR} U",
-    "alias": "hazelnut-unshelled-non-eu",
+    "alias": "hazelnut-unshelled-non-eu-2025",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -4421,7 +4370,7 @@
   },
   {
     "activityName": "Cooked ham case ready at plant {{cooked-ham-case-ready-plant-organic}}",
-    "alias": "cooked-ham-organic",
+    "alias": "cooked-ham-organic-2025",
     "categories": [
       "animal_product",
       "organic"
@@ -4429,13 +4378,7 @@
     "cropGroup": null,
     "defaultOrigin": "France",
     "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 36.635,
-      "hedges": 7.9248,
-      "livestockDensity": -0.007803,
-      "permanentPasture": 0,
-      "plotSize": 10.173
-    },
+    "ecosystemicServices": null,
     "id": "4de5e41e-3271-4489-aa27-a973e4045082",
     "inediblePart": 0,
     "landOccupation": 23.733,
@@ -4476,7 +4419,7 @@
   },
   {
     "activityName": "Ground beef fresh case ready for direct consumption at plant {{ground-beef-fresh-case-ready-direct-consumption-plant-organic}}",
-    "alias": "ground-beef-organic",
+    "alias": "ground-beef-organic-2025",
     "categories": [
       "animal_product",
       "organic"
@@ -4484,13 +4427,7 @@
     "cropGroup": null,
     "defaultOrigin": "France",
     "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 15.309,
-      "hedges": 54.897,
-      "livestockDensity": -0.00267,
-      "permanentPasture": 34.68,
-      "plotSize": 48.213
-    },
+    "ecosystemicServices": null,
     "id": "4e3009f3-1b33-41d7-b6f3-dc7230331da0",
     "inediblePart": 0,
     "landOccupation": 56.785,
@@ -4504,7 +4441,7 @@
   },
   {
     "activityName": "Pear, conventional, national average, at orchard {FR} U",
-    "alias": "new-prickly-pear-fr",
+    "alias": "prickly-pear-fr",
     "categories": [
       "grain_raw"
     ],
@@ -4531,7 +4468,7 @@
   },
   {
     "activityName": "Brown crab, 1 kg of product, at landing {GB} U",
-    "alias": "crab-eu",
+    "alias": "crab-eu-2025",
     "categories": [
       "animal_product"
     ],
@@ -4552,7 +4489,7 @@
   },
   {
     "activityName": "Durum wheat, semolina, at plant {GLO} - Adapted from WFLDB U",
-    "alias": "durum-wheat-semolina",
+    "alias": "durum-wheat-semolina-2025",
     "categories": [
       "grain_processed"
     ],
@@ -4579,7 +4516,7 @@
   },
   {
     "activityName": "Lettuce, conventional, national average, at farm gate {FR} U",
-    "alias": "lambs-lettuce-fr",
+    "alias": "lambs-lettuce-fr-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -4606,7 +4543,7 @@
   },
   {
     "activityName": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse {FR} U",
-    "alias": "new-cherry-tomato-fr",
+    "alias": "cherry-tomato-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -4633,7 +4570,7 @@
   },
   {
     "activityName": "Cherry, conventional, national average, at orchard {FR} U",
-    "alias": "new-greengage-plum-fr",
+    "alias": "greengage-plum-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -4660,7 +4597,7 @@
   },
   {
     "activityName": "Raspberry, at farm {RS} - Adapted from WFLDB U",
-    "alias": "raspberry-eu",
+    "alias": "raspberry-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -4687,7 +4624,7 @@
   },
   {
     "activityName": "Onion {NL}| onion production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "onion-eu",
+    "alias": "onion-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -4714,7 +4651,7 @@
   },
   {
     "activityName": "Clementine, export quality, Souss, at orchard {MA} U",
-    "alias": "new-clementine-fr",
+    "alias": "clementine-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -4741,7 +4678,7 @@
   },
   {
     "activityName": "Broccoli {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "broccoli-non-eu",
+    "alias": "broccoli-non-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -4768,7 +4705,7 @@
   },
   {
     "activityName": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
-    "alias": "carrot-non-ue",
+    "alias": "carrot-non-ue-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -4795,7 +4732,7 @@
   },
   {
     "activityName": "Cucumber {GLO}| cucumber production, in heated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "cucumber-fr-offseason",
+    "alias": "cucumber-fr-offseason-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -4822,7 +4759,7 @@
   },
   {
     "activityName": "Cauliflower, conventional, national average, at farm gate {FR} U",
-    "alias": "artichoke-fr",
+    "alias": "artichoke-fr-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -4849,7 +4786,7 @@
   },
   {
     "activityName": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U {{rapeseed-oil-oil-mill-glo-adapted-from-wfldb-u-organic}}",
-    "alias": "rapeseed-oil-organic",
+    "alias": "rapeseed-oil-organic-2025",
     "categories": [
       "nut_oilseed_processed",
       "organic"
@@ -4877,7 +4814,7 @@
   },
   {
     "activityName": "Winter rapeseed, organic, at farm gate {FR} U",
-    "alias": "rapeseed-organic",
+    "alias": "rapeseed-organic-2025",
     "categories": [
       "nut_oilseed_raw",
       "organic"
@@ -4905,7 +4842,7 @@
   },
   {
     "activityName": "Broccoli, consumption mix {FR} U",
-    "alias": "new-broccoli-fr",
+    "alias": "broccoli-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -4932,7 +4869,7 @@
   },
   {
     "activityName": "Oat grain {RoW}| oat production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "new-oats-fr",
+    "alias": "oats-fr",
     "categories": [
       "grain_raw"
     ],
@@ -4959,7 +4896,7 @@
   },
   {
     "activityName": "Tomato paste, 30 degrees Brix, for double concentrate, at plant {GLO} - Adapted from WFLDB U",
-    "alias": "tomato-concentrated",
+    "alias": "tomato-concentrated-2025",
     "categories": [
       "vegetable_processed"
     ],
@@ -4986,7 +4923,7 @@
   },
   {
     "activityName": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "turnip-eu",
+    "alias": "turnip-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -5013,7 +4950,7 @@
   },
   {
     "activityName": "Vanilla {MG}| vanilla production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "new-vanilla-alcoholic-or-aqueous-extract-fr-overseas",
+    "alias": "vanilla-alcoholic-or-aqueous-extract-fr-overseas",
     "categories": [
       "spice_condiment_additive"
     ],
@@ -5040,7 +4977,7 @@
   },
   {
     "activityName": "Bell pepper {FR}| bell pepper production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "new-chili-peppers-fr",
+    "alias": "chili-peppers-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -5067,7 +5004,7 @@
   },
   {
     "activityName": "Fruits puree, without sugar added, recipe, at plant {FR} U",
-    "alias": "fruit-puree",
+    "alias": "fruit-puree-2025",
     "categories": [
       "vegetable_processed"
     ],
@@ -5094,7 +5031,7 @@
   },
   {
     "activityName": "French bean, conventional, national average, at farm gate {FR} U",
-    "alias": "new-french-beans-fr",
+    "alias": "french-beans-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -5121,7 +5058,7 @@
   },
   {
     "activityName": "Cauliflower, winter, organic, at farm gate {FR} U",
-    "alias": "curly-kale-organic",
+    "alias": "curly-kale-organic-2025",
     "categories": [
       "organic",
       "vegetable_fresh"
@@ -5149,7 +5086,7 @@
   },
   {
     "activityName": "Plant-based sausage with tofu (vegan), recipe, at plant {FR} U",
-    "alias": "sausage-tofu",
+    "alias": "sausage-tofu-2025",
     "categories": [],
     "cropGroup": null,
     "defaultOrigin": "France",
@@ -5168,7 +5105,7 @@
   },
   {
     "activityName": "Pear, organic, at farm gate {FR} U",
-    "alias": "pear-organic",
+    "alias": "pear-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -5196,7 +5133,7 @@
   },
   {
     "activityName": "Sunflower oil, refined, low dehulling at plant {FR} U",
-    "alias": "refined-sunflower-oil",
+    "alias": "refined-sunflower-oil-2025",
     "categories": [
       "nut_oilseed_processed"
     ],
@@ -5223,7 +5160,7 @@
   },
   {
     "activityName": "Triticale, organic, animal feed, at farm gate {FR} U",
-    "alias": "triticale-organic",
+    "alias": "triticale-organic-2025",
     "categories": [
       "grain_raw",
       "organic"
@@ -5251,7 +5188,7 @@
   },
   {
     "activityName": "Zucchini, springtime, under tunnel, organic, at farm gate {FR} U",
-    "alias": "zucchini-organic",
+    "alias": "zucchini-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -5279,7 +5216,7 @@
   },
   {
     "activityName": "Durum wheat grain, organic 2025, national average, at farm gate {FR} U",
-    "alias": "durum-wheat-organic",
+    "alias": "durum-wheat-organic-2025",
     "categories": [
       "grain_raw",
       "organic"
@@ -5307,7 +5244,7 @@
   },
   {
     "activityName": "Mango, conventional, Val de San Francisco, at orchard {BR} U",
-    "alias": "new-breadfruit-fr-overseas",
+    "alias": "breadfruit-fr-overseas",
     "categories": [
       "vegetable_fresh"
     ],
@@ -5334,7 +5271,7 @@
   },
   {
     "activityName": "Raspberry, at farm {RS} - Adapted from WFLDB U",
-    "alias": "new-raspberry-fr",
+    "alias": "raspberry-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -5361,7 +5298,7 @@
   },
   {
     "activityName": "Quinoa FR, conventional, at farm gate {FR} U",
-    "alias": "new-quinoa-fr",
+    "alias": "quinoa-fr",
     "categories": [
       "grain_raw"
     ],
@@ -5388,7 +5325,7 @@
   },
   {
     "activityName": "Lobster, 1 kg of product, at landing {FR} U",
-    "alias": "lobster-fr",
+    "alias": "lobster-fr-2025",
     "categories": [
       "animal_product"
     ],
@@ -5409,7 +5346,7 @@
   },
   {
     "activityName": "Ware potato, organic 2025, variety mix, national average, at farm gate {FR} U",
-    "alias": "potato-table-organic",
+    "alias": "potato-table-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -5437,7 +5374,7 @@
   },
   {
     "activityName": "Kiwi {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "kiwi-non-eu",
+    "alias": "kiwi-non-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -5491,7 +5428,7 @@
   },
   {
     "activityName": "Agaricus bisporus mushroom, fresh, at plant {NL} - Adapted from WFLDB U",
-    "alias": "mushroom-eu",
+    "alias": "mushroom-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -5518,7 +5455,7 @@
   },
   {
     "activityName": "Mango, conventional, Val de San Francisco, at orchard {BR} U",
-    "alias": "new-mango-fr-overseas",
+    "alias": "mango-fr-overseas",
     "categories": [
       "vegetable_fresh"
     ],
@@ -5545,7 +5482,7 @@
   },
   {
     "activityName": "Diced mixed vegetables, canned, recipe, at plant {FR} U",
-    "alias": "vegetable-mix",
+    "alias": "vegetable-mix-2025",
     "categories": [
       "vegetable_processed"
     ],
@@ -5572,7 +5509,7 @@
   },
   {
     "activityName": "Zucchini, conventional, national average, at farm gate {FR} U",
-    "alias": "zucchini-eu",
+    "alias": "zucchini-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -5599,7 +5536,7 @@
   },
   {
     "activityName": "Sugar, from sugar beet, at sugar refinery {GLO} - Adapted from WFLDB U",
-    "alias": "sugar",
+    "alias": "sugar-2025",
     "categories": [
       "vegetable_processed"
     ],
@@ -5626,7 +5563,7 @@
   },
   {
     "activityName": "Hazelnut, unshelled, consumption mix {FR} U",
-    "alias": "hazelnut-unshelled-fr",
+    "alias": "hazelnut-unshelled-fr-2025",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -5653,7 +5590,7 @@
   },
   {
     "activityName": "Linseed oil, refined, at oil mill {FR} U",
-    "alias": "refined-linseed-oil",
+    "alias": "refined-linseed-oil-2025",
     "categories": [
       "nut_oilseed_processed"
     ],
@@ -5680,7 +5617,7 @@
   },
   {
     "activityName": "Cod, consumption mix {FR} U",
-    "alias": "cod-eu",
+    "alias": "cod-eu-2025",
     "categories": [
       "animal_product"
     ],
@@ -5701,7 +5638,7 @@
   },
   {
     "activityName": "Lettuce, conventional, national average, at farm gate {FR} U",
-    "alias": "lettuce-fr",
+    "alias": "lettuce-fr-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -5728,7 +5665,7 @@
   },
   {
     "activityName": "Fennel {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "new-fennel-fr",
+    "alias": "fennel-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -5755,7 +5692,7 @@
   },
   {
     "activityName": "Walnut, dried, husked, processed in FR | Ambient (long) | Pack proxy | at packaging {FR} U",
-    "alias": "walnut-husked-fr",
+    "alias": "walnut-husked-fr-2025",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -5809,7 +5746,7 @@
   },
   {
     "activityName": "Mandarin, at farm (WFLDB)",
-    "alias": "mandarin-non-eu",
+    "alias": "mandarin-non-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -5836,7 +5773,7 @@
   },
   {
     "activityName": "Sodium chloride, powder {GLO}| market for | Cut-off, S - Copied from Ecoinvent U",
-    "alias": "new-sea-salt-celery-salt-or-fleur-de-sel-fr",
+    "alias": "sea-salt-celery-salt-or-fleur-de-sel-fr",
     "categories": [
       "animal_product"
     ],
@@ -5857,7 +5794,7 @@
   },
   {
     "activityName": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U {{sunflower-oil-oil-mill-glo-adapted-from-wfldb-u-organic}}",
-    "alias": "sunflower-oil-organic",
+    "alias": "sunflower-oil-organic-2025",
     "categories": [
       "nut_oilseed_processed",
       "organic"
@@ -5885,7 +5822,7 @@
   },
   {
     "activityName": "Tomato paste, 30 degrees Brix, at plant {GLO} - Adapted from WFLDB U",
-    "alias": "tomato-paste",
+    "alias": "tomato-paste-2025",
     "categories": [
       "vegetable_processed"
     ],
@@ -5912,7 +5849,7 @@
   },
   {
     "activityName": "Cauliflower, winter, organic, at farm gate {FR} U",
-    "alias": "brussels-sprout-organic",
+    "alias": "brussels-sprout-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -5940,7 +5877,7 @@
   },
   {
     "activityName": "Tomato juice, pure juice, at processing {ES} U",
-    "alias": "tomato-juice-eu",
+    "alias": "tomato-juice-eu-2025",
     "categories": [
       "vegetable_processed"
     ],
@@ -5967,7 +5904,7 @@
   },
   {
     "activityName": "Cauliflower, winter, conventional, at farm gate {FR} U",
-    "alias": "chinese-cabbage-fr",
+    "alias": "chinese-cabbage-fr-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -5994,7 +5931,7 @@
   },
   {
     "activityName": "Lentil {CA-SK}| lentil production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "new-lentil-fr",
+    "alias": "lentil-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -6021,7 +5958,7 @@
   },
   {
     "activityName": "Red Wine, from grape, in a cooperative cellar, packaged, French production mix, at plant, 1 L of red wine (PGi) {FR} U",
-    "alias": "red-wine",
+    "alias": "red-wine-2025",
     "categories": [
       "misc"
     ],
@@ -6048,7 +5985,7 @@
   },
   {
     "activityName": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
-    "alias": "squash-fr",
+    "alias": "squash-fr-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -6075,7 +6012,7 @@
   },
   {
     "activityName": "Leek, organic 2025, national average, at plant {FR} U",
-    "alias": "leek-organic",
+    "alias": "leek-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -6103,7 +6040,7 @@
   },
   {
     "activityName": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U",
-    "alias": "unknown-oil",
+    "alias": "unknown-oil-2025",
     "categories": [
       "nut_oilseed_processed"
     ],
@@ -6141,7 +6078,7 @@
       "cropDiversity": 0,
       "hedges": 44.432,
       "livestockDensity": -0.00255,
-      "permanentPasture": 41.58,
+      "permanentPasture": 0,
       "plotSize": 36.336
     },
     "id": "67db7c6c-a8f8-4285-b1dd-b0b3efe2d668",
@@ -6157,7 +6094,7 @@
   },
   {
     "activityName": "Lettuce, organic 2025, national average, at farm gate {FR} U",
-    "alias": "endive-organic",
+    "alias": "endive-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -6185,7 +6122,7 @@
   },
   {
     "activityName": "Brown crab, 1 kg of product, at landing {FR} U",
-    "alias": "crab-fr",
+    "alias": "crab-fr-2025",
     "categories": [
       "animal_product"
     ],
@@ -6218,7 +6155,7 @@
       "cropDiversity": 10.038,
       "hedges": 35.887,
       "livestockDensity": -0.00267,
-      "permanentPasture": 22.67,
+      "permanentPasture": 0,
       "plotSize": 31.519
     },
     "id": "6912db61-530f-4630-956a-b94a6ded0134",
@@ -6234,7 +6171,7 @@
   },
   {
     "activityName": "Walnut, dried inshell, conventional, national average, at farm gate {FR} U",
-    "alias": "walnut-inshell-non-eu",
+    "alias": "walnut-inshell-non-eu-2025",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -6261,7 +6198,7 @@
   },
   {
     "activityName": "Rapeseed, conventional, 9% moisture, national average, animal feed, at farm gate, production {FR} U",
-    "alias": "new-rapeseed-fr",
+    "alias": "rapeseed-fr",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -6288,7 +6225,7 @@
   },
   {
     "activityName": "Walnut, dried inshell, conventional, national average, at farm gate {FR} U",
-    "alias": "walnut-inshell-fr",
+    "alias": "walnut-inshell-fr-2025",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -6315,7 +6252,7 @@
   },
   {
     "activityName": "Oats, at farm {GLO} - Adapted from WFLDB U",
-    "alias": "oats-ue",
+    "alias": "oats-ue-2025",
     "categories": [
       "grain_raw"
     ],
@@ -6342,7 +6279,7 @@
   },
   {
     "activityName": "Orange, fresh grade {ES}| orange production, fresh grade | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "new-kumquat-fr",
+    "alias": "kumquat-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -6369,7 +6306,7 @@
   },
   {
     "activityName": "Lemon {ES}| lemon production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "lemon-eu",
+    "alias": "lemon-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -6396,7 +6333,7 @@
   },
   {
     "activityName": "Dark chocolate, at plant {RER} - Adapted from WFLDB U",
-    "alias": "dark-chocolate",
+    "alias": "dark-chocolate-2025",
     "categories": [
       "vegetable_processed"
     ],
@@ -6444,21 +6381,21 @@
   },
   {
     "activityName": "Sheep milk, conventional, Roquefort system, at farm gate {FR} U",
-    "alias": "new-sheep-milk-fr",
+    "alias": "sheep-milk-fr",
     "categories": [
-      "animal_product"
+      "dairy_product"
     ],
     "cropGroup": null,
     "defaultOrigin": "France",
-    "density": 1.05,
+    "density": 1.03,
     "ecosystemicServices": null,
     "id": "6f944dbb-8808-546a-b63e-75678c2e2531",
-    "inediblePart": 0.05,
+    "inediblePart": 0,
     "landOccupation": 4.793,
     "location": "FR",
     "name": "Lait de brebis FR",
     "processId": "4461cfce-0540-526a-b994-e3fdb175af26",
-    "rawToCookedRatio": 0.792,
+    "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
     "visible": true
@@ -6492,7 +6429,7 @@
   },
   {
     "activityName": "Chinese cabbage (nappa cabbage or bok choy), consumption mix, organic 2025 {FR} U",
-    "alias": "chinese-cabbage-organic",
+    "alias": "chinese-cabbage-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -6520,7 +6457,7 @@
   },
   {
     "activityName": "Onion, conventional, national average, at farm {FR} U",
-    "alias": "new-onions-fr",
+    "alias": "onions-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -6547,7 +6484,7 @@
   },
   {
     "activityName": "Strawberry, conventional, national average, at farm gate {FR} U",
-    "alias": "new-gooseberry-fr",
+    "alias": "gooseberry-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -6574,7 +6511,7 @@
   },
   {
     "activityName": "Almonds, in shell, at farm {CN} - Adapted from WFLDB U",
-    "alias": "new-almonds-in-shell-fr",
+    "alias": "almonds-in-shell-fr",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -6601,7 +6538,7 @@
   },
   {
     "activityName": "Fennel {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "fennel-eu",
+    "alias": "fennel-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -6628,7 +6565,7 @@
   },
   {
     "activityName": "Grain maize, organic, animal feed, at farm gate {FR} U",
-    "alias": "sweet-corn-organic-fr",
+    "alias": "sweet-corn-organic-fr-2025",
     "categories": [
       "grain_raw",
       "organic"
@@ -6656,7 +6593,7 @@
   },
   {
     "activityName": "Emmental cheese, from cow's milk, at plant {FR} U",
-    "alias": "emmental",
+    "alias": "emmental-2025",
     "categories": [
       "dairy_product"
     ],
@@ -6677,7 +6614,7 @@
   },
   {
     "activityName": "Clementine, export quality, Souss, at orchard {MA} U",
-    "alias": "unknown-fruit-vegetable",
+    "alias": "unknown-fruit-vegetable-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -6704,7 +6641,7 @@
   },
   {
     "activityName": "Garden peas, consumption mix, organic 2025 {FR} U",
-    "alias": "garden-peas-organic",
+    "alias": "garden-peas-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -6732,7 +6669,7 @@
   },
   {
     "activityName": "Fresh shrimps, China production {FR} U",
-    "alias": "fresh-shrimps",
+    "alias": "fresh-shrimps-2025",
     "categories": [
       "animal_product"
     ],
@@ -6753,7 +6690,7 @@
   },
   {
     "activityName": "Peach, conventional, national average, at orchard {FR} U",
-    "alias": "new-peaches-fr",
+    "alias": "peaches-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -6780,7 +6717,7 @@
   },
   {
     "activityName": "Onion, organic 2025, national average, at farm {FR} U",
-    "alias": "onion-organic",
+    "alias": "onion-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -6808,20 +6745,14 @@
   },
   {
     "activityName": "Cooked ham, case ready, at plant {FR} U",
-    "alias": "cooked-ham",
+    "alias": "cooked-ham-2025",
     "categories": [
       "animal_product"
     ],
     "cropGroup": null,
     "defaultOrigin": "France",
     "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 1.5748,
-      "livestockDensity": -0.027132,
-      "permanentPasture": 0,
-      "plotSize": 2.033
-    },
+    "ecosystemicServices": null,
     "id": "755225f1-f0c5-497f-b8a9-263828a84a22",
     "inediblePart": 0,
     "landOccupation": 6.775,
@@ -6862,7 +6793,7 @@
   },
   {
     "activityName": "Coffee, roast and ground, at plant {FR} U",
-    "alias": "coffee-ground",
+    "alias": "coffee-ground-2025",
     "categories": [
       "misc"
     ],
@@ -6889,7 +6820,7 @@
   },
   {
     "activityName": "Salt {FR} U",
-    "alias": "salt",
+    "alias": "salt-2025",
     "categories": [
       "spice_condiment_additive"
     ],
@@ -6916,7 +6847,7 @@
   },
   {
     "activityName": "Cherry, conventional, national average, at orchard {FR} U",
-    "alias": "plum-fr",
+    "alias": "plum-fr-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -6943,7 +6874,7 @@
   },
   {
     "activityName": "Coconut, dehusked {ID}| coconut production, dehusked | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "new-coconut-dehusked-fr-overseas",
+    "alias": "coconut-dehusked-fr-overseas",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -6970,7 +6901,7 @@
   },
   {
     "activityName": "Mandarin {ES}| mandarin production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "mandarin-eu",
+    "alias": "mandarin-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -6997,7 +6928,7 @@
   },
   {
     "activityName": "European pilchard or sardine, consumption mix {FR} U",
-    "alias": "sardine-non-eu",
+    "alias": "sardine-non-eu-2025",
     "categories": [
       "animal_product"
     ],
@@ -7018,7 +6949,7 @@
   },
   {
     "activityName": "Kiwi, consumption mix, organic 2025 {FR} U",
-    "alias": "kiwi-organic",
+    "alias": "kiwi-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -7046,7 +6977,7 @@
   },
   {
     "activityName": "Leek, consumption mix {FR} U",
-    "alias": "leek-eu",
+    "alias": "leek-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -7073,7 +7004,7 @@
   },
   {
     "activityName": "Melon, conventional, national average, at farm gate {FR} U",
-    "alias": "melon-non-eu",
+    "alias": "melon-non-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -7100,7 +7031,7 @@
   },
   {
     "activityName": "Cocoa butter, at plant {RER} - Adapted from WFLDB U",
-    "alias": "cocoa-butter-eu",
+    "alias": "cocoa-butter-eu-2025",
     "categories": [
       "nut_oilseed_processed"
     ],
@@ -7127,7 +7058,7 @@
   },
   {
     "activityName": "Cucumber {GLO}| cucumber production, in heated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "cucumber-eu",
+    "alias": "cucumber-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -7154,7 +7085,7 @@
   },
   {
     "activityName": "Hemp, grain, Champagne, at farm gate {FR} U",
-    "alias": "new-hemp-grain-fr",
+    "alias": "hemp-grain-fr",
     "categories": [
       "grain_raw"
     ],
@@ -7181,7 +7112,7 @@
   },
   {
     "activityName": "French fries or chips, frozen, at processing {FR} U",
-    "alias": "french-fries",
+    "alias": "french-fries-2025",
     "categories": [
       "vegetable_processed"
     ],
@@ -7208,7 +7139,7 @@
   },
   {
     "activityName": "Cabbage white {RoW}| cabbage white production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "new-white-cabbage-fr",
+    "alias": "white-cabbage-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -7235,7 +7166,7 @@
   },
   {
     "activityName": "Cranberry, at farm {CL} - Adapted from WFLDB U",
-    "alias": "new-cranberry-fr",
+    "alias": "cranberry-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -7262,7 +7193,7 @@
   },
   {
     "activityName": "Peach, conventional, national average, at orchard {FR} U",
-    "alias": "new-nectarine-fr",
+    "alias": "nectarine-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -7289,7 +7220,7 @@
   },
   {
     "activityName": "Hazelnut, unshelled, at plant {TR} U",
-    "alias": "unknown-dried-fruits",
+    "alias": "unknown-dried-fruits-2025",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -7316,7 +7247,7 @@
   },
   {
     "activityName": "Carrot, organic, Lower Normandy, at farm gate {FR} U",
-    "alias": "turnip-organic",
+    "alias": "turnip-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -7344,7 +7275,7 @@
   },
   {
     "activityName": "Egg, Bleu Blanc Coeur, outdoor system, at farm gate {FR} U",
-    "alias": "egg-bleublanccoeur",
+    "alias": "egg-bleublanccoeur-2025",
     "categories": [
       "animal_product",
       "bleublanccoeur"
@@ -7352,13 +7283,7 @@
     "cropGroup": null,
     "defaultOrigin": "France",
     "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 11.221,
-      "hedges": 1.9722,
-      "livestockDensity": -0.007728,
-      "permanentPasture": 0,
-      "plotSize": 2.6341
-    },
+    "ecosystemicServices": null,
     "id": "7ef7399a-1d56-4947-b773-9f6438a50fda",
     "inediblePart": 0.2,
     "landOccupation": 3.9981,
@@ -7372,7 +7297,7 @@
   },
   {
     "activityName": "Spinach, organic 2025 {GLO}| production | Cut-off, U",
-    "alias": "chard-organic",
+    "alias": "chard-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -7400,7 +7325,7 @@
   },
   {
     "activityName": "Onion, conventional, national average, at farm {FR} U",
-    "alias": "new-shallots-fr",
+    "alias": "shallots-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -7427,7 +7352,7 @@
   },
   {
     "activityName": "Meat without bone, beef, for direct consumption {FR} U",
-    "alias": "unknown-red-meat",
+    "alias": "unknown-red-meat-2025",
     "categories": [
       "animal_product"
     ],
@@ -7448,7 +7373,7 @@
   },
   {
     "activityName": "Egg white, powder, at plant {FR} U",
-    "alias": "egg-white-powder-fr",
+    "alias": "egg-white-powder-fr-2025",
     "categories": [
       "animal_product"
     ],
@@ -7469,7 +7394,7 @@
   },
   {
     "activityName": "Strawberry, open field, conventional, at farm gate {FR} U",
-    "alias": "strawberry-fr-inseason",
+    "alias": "strawberry-fr-inseason-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -7496,7 +7421,7 @@
   },
   {
     "activityName": "Anchovy, consumption mix {FR} U",
-    "alias": "anchovy-fr",
+    "alias": "anchovy-fr-2025",
     "categories": [
       "animal_product"
     ],
@@ -7517,7 +7442,7 @@
   },
   {
     "activityName": "Carrot, conventional, national average, at farm gate {FR} U",
-    "alias": "new-horseradish-fresh-fr",
+    "alias": "horseradish-fresh-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -7544,7 +7469,7 @@
   },
   {
     "activityName": "Bell pepper {FR}| bell pepper production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "new-bell-pepper-green-yellow-or-red-fr",
+    "alias": "bell-pepper-green-yellow-or-red-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -7571,7 +7496,7 @@
   },
   {
     "activityName": "Lettuce, conventional, national average, at farm gate {FR} U",
-    "alias": "new-red-endive-fr",
+    "alias": "red-endive-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -7598,7 +7523,7 @@
   },
   {
     "activityName": "Lettuce, organic 2025, national average, at farm gate {FR} U",
-    "alias": "lettuce-organic",
+    "alias": "lettuce-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -7626,7 +7551,7 @@
   },
   {
     "activityName": "Sugar beet, organic 2025 {FR}| sugar beet production | Cut-off, U",
-    "alias": "sugar-beet-organic",
+    "alias": "sugar-beet-organic-2025",
     "categories": [
       "vegetable_processed",
       "organic"
@@ -7654,7 +7579,7 @@
   },
   {
     "activityName": "Lettuce, conventional, national average, at farm gate {FR} U",
-    "alias": "new-salad-lettuce-fr",
+    "alias": "salad-lettuce-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -7708,7 +7633,7 @@
   },
   {
     "activityName": "Blueberry, at farm {CA} - Adapted from WFLDB U",
-    "alias": "blueberry-eu",
+    "alias": "blueberry-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -7735,7 +7660,7 @@
   },
   {
     "activityName": "Honey, raw, small-scale production, unpackaged, at farm {CH} - Adapted from WFLDB U",
-    "alias": "new-honey",
+    "alias": "honey",
     "categories": [
       "misc"
     ],
@@ -7762,7 +7687,7 @@
   },
   {
     "activityName": "Cauliflower, conventional, national average, at farm gate {FR} U",
-    "alias": "new-kohlrabi-fr",
+    "alias": "kohlrabi-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -7789,7 +7714,7 @@
   },
   {
     "activityName": "Cocoa powder, consumption mix {FR} U",
-    "alias": "cocoa-powder-ue",
+    "alias": "cocoa-powder-ue-2025",
     "categories": [
       "vegetable_processed"
     ],
@@ -7816,7 +7741,7 @@
   },
   {
     "activityName": "Carrot, conventional, national average, at farm gate {FR} U",
-    "alias": "new-celeriac-fr",
+    "alias": "celeriac-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -7843,7 +7768,7 @@
   },
   {
     "activityName": "Orange, fresh grade, at farm {ES} - Adapted from WFLDB U",
-    "alias": "new-grapefruit-fr",
+    "alias": "grapefruit-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -7870,7 +7795,7 @@
   },
   {
     "activityName": "Grape, full production (phase), integrated, variety mix, Languedoc-Roussillon, at vineyard {FR} U",
-    "alias": "wine-grape-fr",
+    "alias": "wine-grape-fr-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -7897,7 +7822,7 @@
   },
   {
     "activityName": "Winter pea, conventional, 15% moisture, at farm gate {FR} U",
-    "alias": "chickpea-fr",
+    "alias": "chickpea-fr-2025",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -7924,7 +7849,7 @@
   },
   {
     "activityName": "Strawberry, open field, conventional, at farm gate {FR} U",
-    "alias": "new-strawberry-fr",
+    "alias": "strawberry-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -7951,7 +7876,7 @@
   },
   {
     "activityName": "Chicken egg, raw, without shell, at plant {FR} U",
-    "alias": "egg-without-shell-fr",
+    "alias": "egg-without-shell-fr-2025",
     "categories": [
       "animal_product"
     ],
@@ -7972,7 +7897,7 @@
   },
   {
     "activityName": "Apple, at farm (WFLDB)",
-    "alias": "apple-non-eu",
+    "alias": "apple-non-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -7999,7 +7924,7 @@
   },
   {
     "activityName": "Pea, organic, animal feed, at farm gate {FR} U",
-    "alias": "bean-organic",
+    "alias": "bean-organic-2025",
     "categories": [
       "grain_raw",
       "organic"
@@ -8054,7 +7979,7 @@
   },
   {
     "activityName": "Papaya, consumption mix, organic 2025 {FR} U",
-    "alias": "papaya-organic",
+    "alias": "papaya-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -8082,20 +8007,14 @@
   },
   {
     "activityName": "Cow milk, conventional, national average, at farm gate {FR} U",
-    "alias": "milk",
+    "alias": "milk-2025",
     "categories": [
       "dairy_product"
     ],
     "cropGroup": null,
     "defaultOrigin": "France",
     "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0.92664,
-      "livestockDensity": -0.00017,
-      "permanentPasture": 0.175,
-      "plotSize": 0.86502
-    },
+    "ecosystemicServices": null,
     "id": "8f3863e7-f981-4367-90a2-e1aaa096a6e0",
     "inediblePart": 0,
     "landOccupation": 1.2164,
@@ -8109,7 +8028,7 @@
   },
   {
     "activityName": "Peanut {RoW}| peanut production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "new-pine-nuts-fr",
+    "alias": "pine-nuts-fr",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -8163,7 +8082,7 @@
   },
   {
     "activityName": "Carrot, organic 2025, national average, at farm gate {FR} U",
-    "alias": "carrot-organic",
+    "alias": "carrot-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -8191,7 +8110,7 @@
   },
   {
     "activityName": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "new-spinach-fr",
+    "alias": "spinach-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -8218,7 +8137,7 @@
   },
   {
     "activityName": "Anchovy, consumption mix {FR} U",
-    "alias": "anchovy-non-eu",
+    "alias": "anchovy-non-eu-2025",
     "categories": [
       "animal_product"
     ],
@@ -8239,7 +8158,7 @@
   },
   {
     "activityName": "Durum wheat grain, conventional, national average, at farm gate {FR} U",
-    "alias": "new-spelt-fr",
+    "alias": "spelt-fr",
     "categories": [
       "grain_raw"
     ],
@@ -8266,7 +8185,7 @@
   },
   {
     "activityName": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "lambs-lettuce-eu",
+    "alias": "lambs-lettuce-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -8320,7 +8239,7 @@
   },
   {
     "activityName": "Cauliflower, conventional, national average, at farm gate {FR} U",
-    "alias": "artichoke-non-eu",
+    "alias": "artichoke-non-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -8347,7 +8266,7 @@
   },
   {
     "activityName": "Soybean, organic, animal feed, at farm gate {FR} U",
-    "alias": "soybean-organic",
+    "alias": "soybean-organic-2025",
     "categories": [
       "nut_oilseed_raw",
       "organic"
@@ -8375,7 +8294,7 @@
   },
   {
     "activityName": "Oats, at farm {GLO} - Adapted from WFLDB U",
-    "alias": "oats-glo",
+    "alias": "oats-glo-2025",
     "categories": [
       "grain_raw"
     ],
@@ -8401,8 +8320,8 @@
     "visible": false
   },
   {
-    "activityName": "Walnuts, unshelled, at processing {FR} U",
-    "alias": "new-macadamia-nut-fr",
+    "activityName": "Walnut, dried inshell, conventional, national average, at farm gate {FR} U",
+    "alias": "macadamia-nut-fr",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -8411,17 +8330,17 @@
     "density": 0.6,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 0.025556,
+      "hedges": 0.011471,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.074539
+      "plotSize": 0.033456
     },
     "id": "9519cadf-178f-5d87-bbb0-8c1ebae84f41",
     "inediblePart": 0.5,
-    "landOccupation": 0.085187,
+    "landOccupation": 0.038236,
     "location": "FR",
     "name": "Noix de macadamia FR",
-    "processId": "eb4ac2b9-7c8d-5c66-99b9-cfb3613bfa10",
+    "processId": "d8540361-d9cf-56df-b716-9f4636ec250c",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "none",
@@ -8429,7 +8348,7 @@
   },
   {
     "activityName": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U",
-    "alias": "rapeseed-oil",
+    "alias": "rapeseed-oil-2025",
     "categories": [
       "nut_oilseed_processed"
     ],
@@ -8456,7 +8375,7 @@
   },
   {
     "activityName": "Onion, conventional, national average, at farm {FR} U",
-    "alias": "onion-fr",
+    "alias": "onion-fr-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -8483,7 +8402,7 @@
   },
   {
     "activityName": "Tea, dried {RoW}| tea production, dried | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "tea-dried",
+    "alias": "tea-dried-2025",
     "categories": [
       "misc"
     ],
@@ -8510,7 +8429,7 @@
   },
   {
     "activityName": "Chicory roots, conventional, at farm gate {FR} U",
-    "alias": "new-chicory-root-fr",
+    "alias": "chicory-root-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -8536,27 +8455,27 @@
     "visible": true
   },
   {
-    "activityName": "Kiwi {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "new-guava-fr-overseas",
+    "activityName": "Kiwi FR, conventional, national average, at orchard {FR} U",
+    "alias": "guava-fr-overseas",
     "categories": [
       "vegetable_fresh"
     ],
     "cropGroup": "VERGERS",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
+    "defaultOrigin": "France",
     "density": 0.85,
     "ecosystemicServices": {
-      "cropDiversity": 0.29364,
-      "hedges": 0.13847,
+      "cropDiversity": 0.12932,
+      "hedges": 0.060982,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.27807
+      "plotSize": 0.12246
     },
     "id": "9843e808-978d-5e45-89b2-1c076851386c",
     "inediblePart": 0.2,
-    "landOccupation": 0.3178,
-    "location": "GLO",
+    "landOccupation": 0.13996,
+    "location": "FR",
     "name": "Goyave FR Outre-Mer",
-    "processId": "a54c2a40-275b-5b68-a7f6-df81e8cc85d6",
+    "processId": "56cd1f16-f2d4-5c4a-a6ba-4a2e3321914e",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
     "transportCooling": "always",
@@ -8564,7 +8483,7 @@
   },
   {
     "activityName": "White asparagus {FR}| white asparagus production | Cut-off, U - Copied from Ecoinvent U",
-    "alias": "new-asparagus-fr",
+    "alias": "asparagus-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -8591,7 +8510,7 @@
   },
   {
     "activityName": "Almond, consumption mix {FR} U",
-    "alias": "almond-inshell-non-ue",
+    "alias": "almond-inshell-non-ue-2025",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -8618,7 +8537,7 @@
   },
   {
     "activityName": "Carrot, conventional, national average, at farm gate {FR} U",
-    "alias": "new-turnip-fr",
+    "alias": "turnip-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -8645,7 +8564,7 @@
   },
   {
     "activityName": "Sugar, from sugarcane, at sugar refinery {GLO} - Adapted from WFLDB U",
-    "alias": "cane-sugar",
+    "alias": "cane-sugar-2025",
     "categories": [
       "vegetable_processed"
     ],
@@ -8672,7 +8591,7 @@
   },
   {
     "activityName": "Potato, at farm (WFLDB)",
-    "alias": "potato-table-eu",
+    "alias": "potato-table-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -8726,20 +8645,14 @@
   },
   {
     "activityName": "Egg, conventional, indoor system, cage, at farm gate {FR} U",
-    "alias": "egg-indoor-code3",
+    "alias": "egg-indoor-code3-2025",
     "categories": [
       "animal_product"
     ],
     "cropGroup": null,
     "defaultOrigin": "France",
     "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0.68332,
-      "livestockDensity": -0.007728,
-      "permanentPasture": 0,
-      "plotSize": 0.77221
-    },
+    "ecosystemicServices": null,
     "id": "9cbc31e9-80a4-4b87-ac4b-ddc051c47f69",
     "inediblePart": 0.2,
     "landOccupation": 2.2418,
@@ -8764,7 +8677,7 @@
       "cropDiversity": 0,
       "hedges": 31.656,
       "livestockDensity": -0.00255,
-      "permanentPasture": 24.51,
+      "permanentPasture": 0,
       "plotSize": 26.695
     },
     "id": "9db6b0d1-941a-4dda-a347-b7a7fee8fd46",
@@ -8780,7 +8693,7 @@
   },
   {
     "activityName": "Peanut, organic 2025 {RoW}| peanut production | Cut-off, U",
-    "alias": "peanut-organic",
+    "alias": "peanut-organic-2025",
     "categories": [
       "nut_oilseed_raw",
       "organic"
@@ -8808,7 +8721,7 @@
   },
   {
     "activityName": "Cabbage white {RoW}| cabbage white production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "white-cabbage-eu",
+    "alias": "white-cabbage-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -8835,7 +8748,7 @@
   },
   {
     "activityName": "Peach, production mix, national average, at orchard {FR} U",
-    "alias": "peach-fr",
+    "alias": "peach-fr-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -8862,7 +8775,7 @@
   },
   {
     "activityName": "Melon, conventional, national average, at farm gate {FR} U",
-    "alias": "new-watermelon-fr",
+    "alias": "watermelon-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -8889,7 +8802,7 @@
   },
   {
     "activityName": "Cauliflower, winter, conventional, at farm gate {FR} U",
-    "alias": "new-cauliflower-fr",
+    "alias": "cauliflower-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -8916,7 +8829,7 @@
   },
   {
     "activityName": "Sunflower, at farm {GLO} - Adapted from WFLDB U",
-    "alias": "sunflower-non-eu",
+    "alias": "sunflower-non-eu-2025",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -8943,7 +8856,7 @@
   },
   {
     "activityName": "Wheat flour, at plant {FR} U",
-    "alias": "flour",
+    "alias": "flour-2025",
     "categories": [
       "grain_processed"
     ],
@@ -8997,7 +8910,7 @@
   },
   {
     "activityName": "French bean, conventional, national average, at farm gate {FR} U",
-    "alias": "french-bean-non-eu",
+    "alias": "french-bean-non-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -9024,7 +8937,7 @@
   },
   {
     "activityName": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "celeriac-eu",
+    "alias": "celeriac-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -9051,7 +8964,7 @@
   },
   {
     "activityName": "Mint {RoW}| mint production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "new-bay-leaves-fr",
+    "alias": "bay-leaves-fr",
     "categories": [
       "spice_condiment_additive"
     ],
@@ -9078,7 +8991,7 @@
   },
   {
     "activityName": "Lettuce, organic 2025, national average, at farm gate {FR} U",
-    "alias": "lambs-lettuce-organic",
+    "alias": "lambs-lettuce-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -9106,7 +9019,7 @@
   },
   {
     "activityName": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
-    "alias": "zucchini-fr",
+    "alias": "zucchini-fr-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -9188,7 +9101,7 @@
   },
   {
     "activityName": "Goat milk, consumption mix {FR} U",
-    "alias": "goat-milk",
+    "alias": "goat-milk-2025",
     "categories": [
       "dairy_product"
     ],
@@ -9209,7 +9122,7 @@
   },
   {
     "activityName": "Barley, feed grain, conventional, national average, animal feed, at farm gate {FR} U",
-    "alias": "barley",
+    "alias": "barley-2025",
     "categories": [
       "grain_raw"
     ],
@@ -9236,7 +9149,7 @@
   },
   {
     "activityName": "Tomato sauce, with meat or Bolognese sauce, prepacked, recipe, at plant {FR} U",
-    "alias": "bolognese",
+    "alias": "bolognese-2025",
     "categories": [
       "animal_product"
     ],
@@ -9257,7 +9170,7 @@
   },
   {
     "activityName": "Mint {RoW}| mint production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "new-tarragon-fresh-fr",
+    "alias": "tarragon-fresh-fr",
     "categories": [
       "spice_condiment_additive"
     ],
@@ -9284,7 +9197,7 @@
   },
   {
     "activityName": "Sugar beet, at farm {FR} - Adapted from WFLDB U",
-    "alias": "new-sugar-beet-fr",
+    "alias": "sugar-beet-fr",
     "categories": [
       "spice_condiment_additive"
     ],
@@ -9311,7 +9224,7 @@
   },
   {
     "activityName": "Zucchini, conventional, national average, at farm gate {FR} U",
-    "alias": "new-pumpkin-fr",
+    "alias": "pumpkin-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -9338,7 +9251,7 @@
   },
   {
     "activityName": "Walnut, dried inshell, conventional, national average, at farm gate {FR} U",
-    "alias": "chestnut-inshell-fr",
+    "alias": "chestnut-inshell-fr-2025",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -9392,7 +9305,7 @@
   },
   {
     "activityName": "Butter, 82% fat, unsalted, at dairy {FR} U {{butter-82-fat-unsalted-dairy-fr-u-organic}}",
-    "alias": "butter-organic",
+    "alias": "butter-organic-2025",
     "categories": [
       "dairy_product",
       "organic"
@@ -9414,7 +9327,7 @@
   },
   {
     "activityName": "Cauliflower, winter, organic, at farm gate {FR} U",
-    "alias": "green-cabbage-organic",
+    "alias": "green-cabbage-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -9442,7 +9355,7 @@
   },
   {
     "activityName": "Durum wheat, semolina, at plant {GLO} - Adapted from WFLDB U",
-    "alias": "durum-wheat-semolina-eu",
+    "alias": "durum-wheat-semolina-eu-2025",
     "categories": [
       "grain_processed"
     ],
@@ -9469,7 +9382,7 @@
   },
   {
     "activityName": "Orange, fresh grade, at farm {ES} - Adapted from WFLDB U",
-    "alias": "orange-eu",
+    "alias": "orange-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -9496,7 +9409,7 @@
   },
   {
     "activityName": "Durum wheat, semolina, at plant {GLO} - Adapted from WFLDB U",
-    "alias": "durum-wheat-semolina-non-eu",
+    "alias": "durum-wheat-semolina-non-eu-2025",
     "categories": [
       "grain_processed"
     ],
@@ -9523,7 +9436,7 @@
   },
   {
     "activityName": "Linseed {RoW}| linseed production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "new-chia-seed-dried-fr",
+    "alias": "chia-seed-dried-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -9550,7 +9463,7 @@
   },
   {
     "activityName": "Potato starch {GLO}| market for | Cut-off, S - Copied from Ecoinvent U",
-    "alias": "potato-starch",
+    "alias": "potato-starch-2025",
     "categories": [
       "vegetable_processed"
     ],
@@ -9577,7 +9490,7 @@
   },
   {
     "activityName": "Rapeseed, at farm {CA} - Adapted from WFLDB U",
-    "alias": "rapeseed-non-eu",
+    "alias": "rapeseed-non-eu-2025",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -9604,7 +9517,7 @@
   },
   {
     "activityName": "Candied fruits, recipe, at plant {FR} U",
-    "alias": "candied-fruits",
+    "alias": "candied-fruits-2025",
     "categories": [
       "vegetable_processed"
     ],
@@ -9631,7 +9544,7 @@
   },
   {
     "activityName": "Blueberry, at farm {CA} - Adapted from WFLDB U",
-    "alias": "blueberry-non-eu",
+    "alias": "blueberry-non-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -9686,7 +9599,7 @@
   },
   {
     "activityName": "Winter pea, conventional, 15% moisture, at farm gate {FR} U",
-    "alias": "new-peas-with-pods-fr",
+    "alias": "peas-with-pods-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -9713,7 +9626,7 @@
   },
   {
     "activityName": "Lettuce, conventional, national average, at farm gate {FR} U",
-    "alias": "new-endive-fr",
+    "alias": "endive-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -9740,20 +9653,14 @@
   },
   {
     "activityName": "Egg, conventional, outdoor system, at farm gate {FR} U",
-    "alias": "egg-outdoor-code1",
+    "alias": "egg-outdoor-code1-2025",
     "categories": [
       "animal_product"
     ],
     "cropGroup": null,
     "defaultOrigin": "France",
     "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0.79058,
-      "livestockDensity": -0.007728,
-      "permanentPasture": 0,
-      "plotSize": 0.89197
-    },
+    "ecosystemicServices": null,
     "id": "b2e75be9-65b8-487d-b5b3-f9c2aa047cf7",
     "inediblePart": 0.2,
     "landOccupation": 3.1417,
@@ -9767,7 +9674,7 @@
   },
   {
     "activityName": "Apple, conventional, national average, at orchard {FR} U",
-    "alias": "new-quince-fr",
+    "alias": "quince-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -9878,7 +9785,7 @@
   },
   {
     "activityName": "Turkey, conventional, at farm gate {FR} U",
-    "alias": "turkey",
+    "alias": "turkey-2025",
     "categories": [
       "animal_product"
     ],
@@ -9899,7 +9806,7 @@
   },
   {
     "activityName": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "flageolet-bean-fr",
+    "alias": "flageolet-bean-fr-2025",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -9926,7 +9833,7 @@
   },
   {
     "activityName": "Milk powder, skimmed, non rehydrated, at plant {FR} U",
-    "alias": "milk-powder",
+    "alias": "milk-powder-2025",
     "categories": [
       "dairy_product"
     ],
@@ -9947,7 +9854,7 @@
   },
   {
     "activityName": "Meat without bone chicken for direct consumption {{meat-without-bone-chicken-direct-consumption-organic-fr-organic}}",
-    "alias": "chicken-breast-fr-organic",
+    "alias": "chicken-breast-fr-organic-2025",
     "categories": [
       "animal_product",
       "organic"
@@ -9955,13 +9862,7 @@
     "cropGroup": null,
     "defaultOrigin": "France",
     "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 25.227,
-      "hedges": 5.1479,
-      "livestockDensity": -0.005225,
-      "permanentPasture": 0,
-      "plotSize": 5.475
-    },
+    "ecosystemicServices": null,
     "id": "b682ae30-9df9-4385-9005-4b4725c70d54",
     "inediblePart": 0,
     "landOccupation": 19.124,
@@ -9975,21 +9876,21 @@
   },
   {
     "activityName": "Cow milk, conventional, national average, at farm gate {FR} U",
-    "alias": "new-cow-milk-fr",
+    "alias": "cow-milk-fr",
     "categories": [
-      "animal_product"
+      "dairy_product"
     ],
     "cropGroup": null,
     "defaultOrigin": "France",
     "density": 1.05,
     "ecosystemicServices": null,
     "id": "b757094f-7cb1-58ea-9d3d-b6d7e0e0d471",
-    "inediblePart": 0.05,
+    "inediblePart": 0,
     "landOccupation": 1.2164,
     "location": "FR",
     "name": "Lait de vache FR",
     "processId": "af882009-fd6a-5f8f-a1fc-74a5f4c6d543",
-    "rawToCookedRatio": 0.792,
+    "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
     "visible": true
@@ -10024,7 +9925,7 @@
   },
   {
     "activityName": "Strawberry, conventional, national average, at farm gate {FR} U",
-    "alias": "new-black-currant-fr",
+    "alias": "black-currant-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -10051,7 +9952,7 @@
   },
   {
     "activityName": "Cherry, at farm (WFLDB)",
-    "alias": "plum-non-eu",
+    "alias": "plum-non-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -10078,7 +9979,7 @@
   },
   {
     "activityName": "Tomato, average basket, conventional, heated greenhouse, national average, at greenhouse {FR} U",
-    "alias": "new-tomato-fr",
+    "alias": "tomato-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -10105,7 +10006,7 @@
   },
   {
     "activityName": "Almonds, in shell, at farm, organic 2025 {CN}",
-    "alias": "almond-inshell-organic",
+    "alias": "almond-inshell-organic-2025",
     "categories": [
       "nut_oilseed_raw",
       "organic"
@@ -10133,7 +10034,7 @@
   },
   {
     "activityName": "Red Cabbage, consumption mix, organic 2025 {FR} U",
-    "alias": "red-cabbage-organic",
+    "alias": "red-cabbage-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -10161,7 +10062,7 @@
   },
   {
     "activityName": "Grazed grass, temporary meadow, without clover, Northwestern region, on field {FR} U",
-    "alias": "grazed-grass-temporary",
+    "alias": "grazed-grass-temporary-2025",
     "categories": [],
     "cropGroup": "PRAIRIES TEMPORAIRES",
     "defaultOrigin": "France",
@@ -10186,7 +10087,7 @@
   },
   {
     "activityName": "Pear {BE}| pear production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "pear-eu",
+    "alias": "pear-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -10213,7 +10114,7 @@
   },
   {
     "activityName": "Leek, consumption mix {FR} U",
-    "alias": "leek-non-eu",
+    "alias": "leek-non-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -10240,7 +10141,7 @@
   },
   {
     "activityName": "Radish {FR}| radish production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "radish-eu",
+    "alias": "radish-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -10267,7 +10168,7 @@
   },
   {
     "activityName": "Butter, 82% fat, unsalted, at dairy {FR} U",
-    "alias": "butter",
+    "alias": "butter-2025",
     "categories": [
       "dairy_product"
     ],
@@ -10288,7 +10189,7 @@
   },
   {
     "activityName": "Zucchini, springtime, under tunnel, organic, at farm gate {FR} U",
-    "alias": "squash-organic",
+    "alias": "squash-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -10316,7 +10217,7 @@
   },
   {
     "activityName": "Emmental cheese, grated, cheese production, from cow's milk, hard cheese, French production mix, at plant, 1 kg of Emmental, grated cheese (PGi) {FR} U",
-    "alias": "emmental-grated-fr",
+    "alias": "emmental-grated-fr-2025",
     "categories": [
       "dairy_product"
     ],
@@ -10337,7 +10238,7 @@
   },
   {
     "activityName": "Carrot, conventional, national average, at farm gate {FR} U",
-    "alias": "new-carrots-fr",
+    "alias": "carrots-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -10364,7 +10265,7 @@
   },
   {
     "activityName": "Tomato sauce, w vegetables, prepacked, recipe, at plant {FR} U",
-    "alias": "tomato-sauce",
+    "alias": "tomato-sauce-2025",
     "categories": [
       "vegetable_processed"
     ],
@@ -10391,7 +10292,7 @@
   },
   {
     "activityName": "Maize grain, non-irrigated, at farm {BR} - Adapted from WFLDB U",
-    "alias": "sweet-corn-br",
+    "alias": "sweet-corn-br-2025",
     "categories": [
       "grain_raw"
     ],
@@ -10418,7 +10319,7 @@
   },
   {
     "activityName": "Spring pea, conventional, 15% moisture, animal feed, at farm gate, production {FR} U",
-    "alias": "bean-fr",
+    "alias": "bean-fr-2025",
     "categories": [
       "grain_raw"
     ],
@@ -10445,7 +10346,7 @@
   },
   {
     "activityName": "Lentil {CA-SK}| lentil production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "lentils-uncooked-non-eu",
+    "alias": "lentils-uncooked-non-eu-2025",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -10472,7 +10373,7 @@
   },
   {
     "activityName": "Pineapple {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "pineapple-non-eu",
+    "alias": "pineapple-non-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -10499,7 +10400,7 @@
   },
   {
     "activityName": "Fennel {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "new-coriander-fr",
+    "alias": "coriander-fr",
     "categories": [
       "spice_condiment_additive"
     ],
@@ -10553,7 +10454,7 @@
   },
   {
     "activityName": "Lobster, 1 kg of product, at landing {US} U",
-    "alias": "lobster-non-eu",
+    "alias": "lobster-non-eu-2025",
     "categories": [
       "animal_product"
     ],
@@ -10574,7 +10475,7 @@
   },
   {
     "activityName": "Onion, organic 2025, national average, at farm {FR} U",
-    "alias": "shallot-organic",
+    "alias": "shallot-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -10602,7 +10503,7 @@
   },
   {
     "activityName": "Peach, conventional, national average, at orchard {FR} U",
-    "alias": "new-fig-fr",
+    "alias": "fig-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -10629,7 +10530,7 @@
   },
   {
     "activityName": "Vinegar, balsamic, processed in FR | Ambient (long) | Pack proxy | at packaging {FR} U",
-    "alias": "balsamic-vinegar",
+    "alias": "balsamic-vinegar-2025",
     "categories": [
       "vegetable_processed"
     ],
@@ -10656,7 +10557,7 @@
   },
   {
     "activityName": "Rapeseed oil, refined, at oil mill {FR} U",
-    "alias": "refined-rapeseed-oil",
+    "alias": "refined-rapeseed-oil-2025",
     "categories": [
       "nut_oilseed_processed"
     ],
@@ -10737,7 +10638,7 @@
   },
   {
     "activityName": "Mustard, proxy from Rape seed {Canada without Quebec}| rape seed production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "new-mustard-seed-fr",
+    "alias": "mustard-seed-fr",
     "categories": [
       "spice_condiment_additive"
     ],
@@ -10764,7 +10665,7 @@
   },
   {
     "activityName": "Peanut oil, at oil mill {SN} U",
-    "alias": "refined-peanut-oil",
+    "alias": "refined-peanut-oil-2025",
     "categories": [
       "nut_oilseed_processed"
     ],
@@ -10791,7 +10692,7 @@
   },
   {
     "activityName": "Sunflower, at farm {HU} - Adapted from WFLDB U",
-    "alias": "unknown-cereals-and-grain-products",
+    "alias": "unknown-cereals-and-grain-products-2025",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -10818,7 +10719,7 @@
   },
   {
     "activityName": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "new-flageolet-beans-green-dried-fr",
+    "alias": "flageolet-beans-green-dried-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -10845,7 +10746,7 @@
   },
   {
     "activityName": "Egg, conventionnal, national average, at farm gate {FR} U",
-    "alias": "new-egg-fr",
+    "alias": "egg-fr",
     "categories": [
       "animal_product"
     ],
@@ -10866,7 +10767,7 @@
   },
   {
     "activityName": "Grazed grass, permanent meadow, without clover, Northwestern region, on field {FR} U",
-    "alias": "grazed-grass-permanent",
+    "alias": "grazed-grass-permanent-2025",
     "categories": [],
     "cropGroup": "PRAIRIES PERMANENTES",
     "defaultOrigin": "France",
@@ -10891,7 +10792,7 @@
   },
   {
     "activityName": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "lambs-lettuce-non-eu",
+    "alias": "lambs-lettuce-non-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -10918,7 +10819,7 @@
   },
   {
     "activityName": "Salmon, fillet, raw, at processing {FR} U",
-    "alias": "salmon-raw-eu",
+    "alias": "salmon-raw-eu-2025",
     "categories": [
       "animal_product"
     ],
@@ -10939,7 +10840,7 @@
   },
   {
     "activityName": "Agaricus bisporus mushroom, fresh, at plant {NL} - Adapted from WFLDB U",
-    "alias": "new-mushroom-morel-fr",
+    "alias": "mushroom-morel-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -10966,7 +10867,7 @@
   },
   {
     "activityName": "Hake, consumption mix {FR} U",
-    "alias": "hake-eu",
+    "alias": "hake-eu-2025",
     "categories": [
       "animal_product"
     ],
@@ -10987,7 +10888,7 @@
   },
   {
     "activityName": "Rice, basmati {IN}| rice production, basmati | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "rice-basmati-non-eu",
+    "alias": "rice-basmati-non-eu-2025",
     "categories": [
       "grain_raw"
     ],
@@ -11014,7 +10915,7 @@
   },
   {
     "activityName": "Cabbage white {RoW}| cabbage white production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "white-cabbage-non-eu",
+    "alias": "white-cabbage-non-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -11041,20 +10942,14 @@
   },
   {
     "activityName": "Ground beef fresh case ready for direct consumption at plant {{ground-beef-fresh-case-ready-direct-consumption-plant-feedlot}}",
-    "alias": "ground-beef-feedlot",
+    "alias": "ground-beef-feedlot-2025",
     "categories": [
       "animal_product"
     ],
     "cropGroup": null,
     "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 3.165,
-      "livestockDensity": -0.006,
-      "permanentPasture": 0,
-      "plotSize": 5.9879
-    },
+    "ecosystemicServices": null,
     "id": "ce073919-1aff-4892-a1f5-b25ee94bccd8",
     "inediblePart": 0,
     "landOccupation": 52.454,
@@ -11095,20 +10990,14 @@
   },
   {
     "activityName": "Egg, conventional, indoor system, non-cage, at farm gate {FR} U",
-    "alias": "egg-indoor-code2",
+    "alias": "egg-indoor-code2-2025",
     "categories": [
       "animal_product"
     ],
     "cropGroup": null,
     "defaultOrigin": "France",
     "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0.82422,
-      "livestockDensity": -0.007728,
-      "permanentPasture": 0,
-      "plotSize": 0.93121
-    },
+    "ecosystemicServices": null,
     "id": "cf30d3bc-e99c-418a-b7e3-89a894d410a5",
     "inediblePart": 0.2,
     "landOccupation": 2.9457,
@@ -11122,7 +11011,7 @@
   },
   {
     "activityName": "Kiwi {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "kiwi-eu",
+    "alias": "kiwi-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -11149,7 +11038,7 @@
   },
   {
     "activityName": "Melon, conventional, national average, at farm gate {FR} U",
-    "alias": "melon-eu",
+    "alias": "melon-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -11176,7 +11065,7 @@
   },
   {
     "activityName": "Egg, organic, at farm gate {FR} U",
-    "alias": "egg-organic-code0",
+    "alias": "egg-organic-code0-2025",
     "categories": [
       "animal_product",
       "organic"
@@ -11184,13 +11073,7 @@
     "cropGroup": null,
     "defaultOrigin": "France",
     "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 13.302,
-      "hedges": 2.0698,
-      "livestockDensity": -0.00266,
-      "permanentPasture": 0,
-      "plotSize": 2.2492
-    },
+    "ecosystemicServices": null,
     "id": "cfd4a437-aa49-49ff-818e-353421f2fc09",
     "inediblePart": 0.2,
     "landOccupation": 6.9796,
@@ -11204,7 +11087,7 @@
   },
   {
     "activityName": "Turmeric, consumption mix {FR} U",
-    "alias": "turmeric",
+    "alias": "turmeric-2025",
     "categories": [
       "spice_condiment_additive"
     ],
@@ -11231,7 +11114,7 @@
   },
   {
     "activityName": "Bell pepper {FR}| bell pepper production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "bellpepper-unheated-greenhouse-non-eu",
+    "alias": "bellpepper-unheated-greenhouse-non-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -11258,7 +11141,7 @@
   },
   {
     "activityName": "Lentils, dry, at farm (WFLDB)",
-    "alias": "lentils-uncooked-eu",
+    "alias": "lentils-uncooked-eu-2025",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -11285,7 +11168,7 @@
   },
   {
     "activityName": "Broccoli, consumption mix, organic 2025 {FR} U",
-    "alias": "broccoli-organic",
+    "alias": "broccoli-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -11313,7 +11196,7 @@
   },
   {
     "activityName": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "new-broad-beans-fr",
+    "alias": "broad-beans-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -11340,7 +11223,7 @@
   },
   {
     "activityName": "Sausage meat, raw, recipe, at plant {FR} U",
-    "alias": "sausage-meat",
+    "alias": "sausage-meat-2025",
     "categories": [
       "animal_product"
     ],
@@ -11361,7 +11244,7 @@
   },
   {
     "activityName": "Mango, conventional, Val de San Francisco, at orchard {BR} U",
-    "alias": "new-lychee-fr-overseas",
+    "alias": "lychee-fr-overseas",
     "categories": [
       "vegetable_fresh"
     ],
@@ -11388,7 +11271,7 @@
   },
   {
     "activityName": "Agaricus bisporus mushroom, fresh, at plant {NL} - Adapted from WFLDB U",
-    "alias": "mushroom-fr",
+    "alias": "mushroom-fr-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -11415,7 +11298,7 @@
   },
   {
     "activityName": "Pineapple, at farm {CR} - Adapted from WFLDB U",
-    "alias": "new-pineapple-fr-overseas",
+    "alias": "pineapple-fr-overseas",
     "categories": [
       "vegetable_fresh"
     ],
@@ -11442,7 +11325,7 @@
   },
   {
     "activityName": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse {FR} U",
-    "alias": "cucumber-fr-inseason",
+    "alias": "cucumber-fr-inseason-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -11469,7 +11352,7 @@
   },
   {
     "activityName": "Lamb, fresh meat, at slaughterhouse (WFLDB)",
-    "alias": "lamb-meat-without-bone-eu",
+    "alias": "lamb-meat-without-bone-eu-2025",
     "categories": [
       "animal_product"
     ],
@@ -11490,7 +11373,7 @@
   },
   {
     "activityName": "Avocado, consumption mix {FR} U",
-    "alias": "avocado-organic",
+    "alias": "avocado-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -11518,7 +11401,7 @@
   },
   {
     "activityName": "Brie cheese, from cow's milk, consumption mix {FR} U",
-    "alias": "brie-cheese",
+    "alias": "brie-cheese-2025",
     "categories": [
       "dairy_product"
     ],
@@ -11539,7 +11422,7 @@
   },
   {
     "activityName": "Papaya {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "new-papaya-fr-overseas",
+    "alias": "papaya-fr-overseas",
     "categories": [
       "vegetable_fresh"
     ],
@@ -11566,7 +11449,7 @@
   },
   {
     "activityName": "Melon, organic 2025, national average, at farm gate {FR} U",
-    "alias": "watermelon-organic",
+    "alias": "watermelon-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -11594,7 +11477,7 @@
   },
   {
     "activityName": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "swiss-chard-eu",
+    "alias": "swiss-chard-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -11648,7 +11531,7 @@
   },
   {
     "activityName": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "endive-eu",
+    "alias": "endive-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -11675,7 +11558,7 @@
   },
   {
     "activityName": "Cauliflower, organic 2025, national average, at farm gate {FR} U",
-    "alias": "artichoke-organic",
+    "alias": "artichoke-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -11714,7 +11597,7 @@
       "cropDiversity": 0,
       "hedges": 42.93,
       "livestockDensity": 8.4e-05,
-      "permanentPasture": 25.0,
+      "permanentPasture": 0,
       "plotSize": 37.26
     },
     "id": "d79e0fce-8633-4189-a937-7b8010abafed",
@@ -11730,7 +11613,7 @@
   },
   {
     "activityName": "Reblochon cheese, from cow's milk, at plant {FR} U",
-    "alias": "reblochon",
+    "alias": "reblochon-2025",
     "categories": [
       "dairy_product"
     ],
@@ -11751,7 +11634,7 @@
   },
   {
     "activityName": "Mustard, recipe, at plant {FR} U",
-    "alias": "mustard",
+    "alias": "mustard-2025",
     "categories": [
       "spice_condiment_additive"
     ],
@@ -11778,7 +11661,7 @@
   },
   {
     "activityName": "Ware potato, conventional, variety mix, national average, at farm gate {FR} U",
-    "alias": "new-sweet-potato-fr",
+    "alias": "sweet-potato-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -11805,7 +11688,7 @@
   },
   {
     "activityName": "Cheese, from goat's milk, consumption mix {FR} U",
-    "alias": "goat-cheese",
+    "alias": "goat-cheese-2025",
     "categories": [
       "dairy_product"
     ],
@@ -11826,7 +11709,7 @@
   },
   {
     "activityName": "Apple, conventional, national average, at orchard {FR} U",
-    "alias": "new-apple-fr",
+    "alias": "apple-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -11853,7 +11736,7 @@
   },
   {
     "activityName": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
-    "alias": "eggplant-eu",
+    "alias": "eggplant-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -11880,7 +11763,7 @@
   },
   {
     "activityName": "Mango, conventional, Val de San Francisco, at orchard {BR} U",
-    "alias": "mango-non-eu",
+    "alias": "mango-non-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -11907,7 +11790,7 @@
   },
   {
     "activityName": "Wheat flour, organic at industrial mill {FR} U {{wheat-flour-organic-national-average}}",
-    "alias": "flour-organic",
+    "alias": "flour-organic-2025",
     "categories": [
       "grain_processed",
       "organic"
@@ -11935,7 +11818,7 @@
   },
   {
     "activityName": "Raw cow milk archetype, feed mix IT-154, at farm (WFLDB)",
-    "alias": "milk-eu",
+    "alias": "milk-eu-2025",
     "categories": [
       "dairy_product"
     ],
@@ -11984,7 +11867,7 @@
   },
   {
     "activityName": "Large trout, 2-4kg, conventional, at farm gate {FR} U",
-    "alias": "large-trout",
+    "alias": "large-trout-2025",
     "categories": [
       "animal_product"
     ],
@@ -12005,7 +11888,7 @@
   },
   {
     "activityName": "Liver, pork, raw, processed in FR | Chilled | Pack | at distribution {FR} U",
-    "alias": "pork-liver",
+    "alias": "pork-liver-2025",
     "categories": [
       "animal_product"
     ],
@@ -12026,7 +11909,7 @@
   },
   {
     "activityName": "Melon, conventional, national average, at farm gate {FR} U",
-    "alias": "melon-fr",
+    "alias": "melon-fr-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -12053,7 +11936,7 @@
   },
   {
     "activityName": "Silage maize, conventional, national average, animal feed, at farm gate, production {FR} U",
-    "alias": "silage-maize-fr",
+    "alias": "silage-maize-fr-2025",
     "categories": [
       "grain_raw"
     ],
@@ -12080,7 +11963,7 @@
   },
   {
     "activityName": "Rice, non-basmati, organic 2025 {GLO}| market for rice, non-basmati | Cut-off, U",
-    "alias": "rice-basmati-organic",
+    "alias": "rice-basmati-organic-2025",
     "categories": [
       "grain_raw",
       "organic"
@@ -12108,7 +11991,7 @@
   },
   {
     "activityName": "Hazelnut, in shell, at farm {IT} - Adapted from WFLDB U",
-    "alias": "hazelnut-eu",
+    "alias": "hazelnut-eu-2025",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -12135,7 +12018,7 @@
   },
   {
     "activityName": "Strawberry, coulis, recipe, at plant {FR} U",
-    "alias": "strawberry-coulis",
+    "alias": "strawberry-coulis-2025",
     "categories": [
       "vegetable_processed"
     ],
@@ -12162,7 +12045,7 @@
   },
   {
     "activityName": "Sweet sorghum grain {RoW}| sweet sorghum production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "new-sorghum-fr",
+    "alias": "sorghum-fr",
     "categories": [
       "grain_raw"
     ],
@@ -12189,7 +12072,7 @@
   },
   {
     "activityName": "Cauliflower, conventional, national average, at farm gate {FR} U",
-    "alias": "artichoke-eu",
+    "alias": "artichoke-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -12216,7 +12099,7 @@
   },
   {
     "activityName": "Cauliflower, conventional, national average, at farm gate {FR} U",
-    "alias": "new-jerusalem-artichoke-fr",
+    "alias": "jerusalem-artichoke-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -12243,7 +12126,7 @@
   },
   {
     "activityName": "Cauliflower, winter, conventional, at farm gate {FR} U",
-    "alias": "new-green-cabbage-fr",
+    "alias": "green-cabbage-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -12270,7 +12153,7 @@
   },
   {
     "activityName": "Wheat grain {FR}| wheat production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "new-whole-millet-fr",
+    "alias": "whole-millet-fr",
     "categories": [
       "grain_raw"
     ],
@@ -12289,7 +12172,7 @@
     "landOccupation": 1.5639,
     "location": "FR",
     "name": "Millet entier FR",
-    "processId": "931c0ecb-f370-5bf6-a99a-9f02b7d42af1",
+    "processId": "ef78c003-0bcf-5358-8fc0-0b30b338e4d2",
     "rawToCookedRatio": 2.259,
     "scenario": "reference",
     "transportCooling": "none",
@@ -12297,7 +12180,7 @@
   },
   {
     "activityName": "Barley grain, non-irrigated, at farm {DE} - Adapted from WFLDB U",
-    "alias": "barley-non-eu",
+    "alias": "barley-non-eu-2025",
     "categories": [
       "grain_raw"
     ],
@@ -12324,7 +12207,7 @@
   },
   {
     "activityName": "Walnut, dried, husked, processed in FR | Ambient (long) | Pack proxy | at packaging {FR} U",
-    "alias": "chestnut-husked-fr",
+    "alias": "chestnut-husked-fr-2025",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -12351,7 +12234,7 @@
   },
   {
     "activityName": "Walnut, dried inshell, conventional, national average, at farm gate {FR} U",
-    "alias": "new-chestnut-fr",
+    "alias": "chestnut-fr",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -12378,7 +12261,7 @@
   },
   {
     "activityName": "Blueberry, at farm, organic 2025 {CA}",
-    "alias": "blueberry-organic",
+    "alias": "blueberry-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -12406,7 +12289,7 @@
   },
   {
     "activityName": "Peanut {IN}| peanut production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "peanut-non-eu",
+    "alias": "peanut-non-eu-2025",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -12433,7 +12316,7 @@
   },
   {
     "activityName": "Hazelnut, in shell, at farm, organic 2025 {IT}",
-    "alias": "hazelnut-organic",
+    "alias": "hazelnut-organic-2025",
     "categories": [
       "nut_oilseed_raw",
       "organic"
@@ -12461,7 +12344,7 @@
   },
   {
     "activityName": "Hazelnut, in shell, at farm {TR} - Adapted from WFLDB U",
-    "alias": "hazelnut-non-eu",
+    "alias": "hazelnut-non-eu-2025",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -12488,7 +12371,7 @@
   },
   {
     "activityName": "Hazelnut, in shell, at farm {IT} - Adapted from WFLDB U",
-    "alias": "new-hazelnuts-in-shell-fr",
+    "alias": "hazelnuts-in-shell-fr",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -12542,7 +12425,7 @@
   },
   {
     "activityName": "Grape, integrated, variety mix, Languedoc-Roussillon, at vineyard, organic 2025 {FR} U",
-    "alias": "wine-grape-organic",
+    "alias": "wine-grape-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -12582,7 +12465,7 @@
       "cropDiversity": 29.724,
       "hedges": 93.776,
       "livestockDensity": 2.1e-05,
-      "permanentPasture": 67.0,
+      "permanentPasture": 0,
       "plotSize": 81.71
     },
     "id": "e07f7703-c4f7-479e-a8ac-bb73d3f08c78",
@@ -12598,7 +12481,7 @@
   },
   {
     "activityName": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "lettuce-non-eu",
+    "alias": "lettuce-non-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -12625,7 +12508,7 @@
   },
   {
     "activityName": "Chickpea seed, organic, at farm gate {FR} U",
-    "alias": "new-chickpeas-dried-fr",
+    "alias": "chickpeas-dried-fr",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -12653,7 +12536,7 @@
   },
   {
     "activityName": "Celery {GLO}| 675 production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "celery-fr",
+    "alias": "celery-fr-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -12680,7 +12563,7 @@
   },
   {
     "activityName": "Lentils, dry, at farm (WFLDB)",
-    "alias": "lentils-uncooked-fr",
+    "alias": "lentils-uncooked-fr-2025",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -12734,7 +12617,7 @@
   },
   {
     "activityName": "Walnut, dried inshell, traditional varieties, organic, at farm gate {FR} U",
-    "alias": "walnut-inshell-organic",
+    "alias": "walnut-inshell-organic-2025",
     "categories": [
       "nut_oilseed_raw",
       "organic"
@@ -12762,7 +12645,7 @@
   },
   {
     "activityName": "Carrot, conventional, national average, at farm gate {FR} U",
-    "alias": "beetroot-fr",
+    "alias": "beetroot-fr-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -12789,7 +12672,7 @@
   },
   {
     "activityName": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
-    "alias": "turnip-non-eu",
+    "alias": "turnip-non-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -12816,7 +12699,7 @@
   },
   {
     "activityName": "Chicken, fresh meat, at slaughterhouse (WFLDB)",
-    "alias": "chicken-breast-eu",
+    "alias": "chicken-breast-eu-2025",
     "categories": [
       "animal_product"
     ],
@@ -12864,7 +12747,7 @@
   },
   {
     "activityName": "Carrot, conventional, national average, at farm gate {FR} U",
-    "alias": "new-parsnips-fr",
+    "alias": "parsnips-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -12891,7 +12774,7 @@
   },
   {
     "activityName": "Banana {RoW}| banana production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "new-plantain-fr",
+    "alias": "plantain-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -12918,7 +12801,7 @@
   },
   {
     "activityName": "Zucchini, conventional, national average, at farm gate {FR} U",
-    "alias": "new-zucchini-fr",
+    "alias": "zucchini-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -12945,7 +12828,7 @@
   },
   {
     "activityName": "Mango, conventional, Val de San Francisco, at orchard {BR} U",
-    "alias": "lychee-non-eu",
+    "alias": "lychee-non-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -12972,7 +12855,7 @@
   },
   {
     "activityName": "Sunflower oil, at plant {IT} U",
-    "alias": "sunflower-oil-eu",
+    "alias": "sunflower-oil-eu-2025",
     "categories": [
       "nut_oilseed_processed"
     ],
@@ -13026,7 +12909,7 @@
   },
   {
     "activityName": "Pear, conventional, national average, at orchard {FR} U",
-    "alias": "pear-fr",
+    "alias": "pear-fr-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -13053,7 +12936,7 @@
   },
   {
     "activityName": "Mint {RoW}| mint production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "new-fresh-herbs-dill-basil-chervil-rosemary-sage-thyme-fr",
+    "alias": "fresh-herbs-dill-basil-chervil-rosemary-sage-thyme-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -13080,7 +12963,7 @@
   },
   {
     "activityName": "Cauliflower, winter, conventional, at farm gate {FR} U",
-    "alias": "chinese-cabbage-ue",
+    "alias": "chinese-cabbage-ue-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -13107,7 +12990,7 @@
   },
   {
     "activityName": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "broad-beans-eu",
+    "alias": "broad-beans-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -13134,7 +13017,7 @@
   },
   {
     "activityName": "Banana, mixed production, West Indies, at farm gate {WI} U",
-    "alias": "new-banana-fr-overseas",
+    "alias": "banana-fr-overseas",
     "categories": [
       "vegetable_fresh"
     ],
@@ -13161,7 +13044,7 @@
   },
   {
     "activityName": "Lemon, organic 2025 {ES}| lemon production | Cut-off, U",
-    "alias": "lemon-organic",
+    "alias": "lemon-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -13189,7 +13072,7 @@
   },
   {
     "activityName": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
-    "alias": "new-eggplant-fr",
+    "alias": "eggplant-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -13216,7 +13099,7 @@
   },
   {
     "activityName": "Carrot, conventional, national average, at farm gate {FR} U",
-    "alias": "new-salsify-fr",
+    "alias": "salsify-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -13270,7 +13153,7 @@
   },
   {
     "activityName": "Toulouse sausage, raw, recipe, at plant {FR} U",
-    "alias": "sausage-toulouse",
+    "alias": "sausage-toulouse-2025",
     "categories": [
       "animal_product"
     ],
@@ -13291,7 +13174,7 @@
   },
   {
     "activityName": "Mango, organic 2025, Val de San Francisco, at orchard {BR} U",
-    "alias": "mango-organic",
+    "alias": "mango-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -13346,7 +13229,7 @@
   },
   {
     "activityName": "Extra Virgin Olive Oil, consumption mix {FR} U",
-    "alias": "olive-oil-eu",
+    "alias": "olive-oil-eu-2025",
     "categories": [
       "nut_oilseed_processed"
     ],
@@ -13373,7 +13256,7 @@
   },
   {
     "activityName": "Cauliflower, winter, conventional, at farm gate {FR} U",
-    "alias": "brussels-sprout-non-ue",
+    "alias": "brussels-sprout-non-ue-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -13400,7 +13283,7 @@
   },
   {
     "activityName": "Soy drink, plain, recipe, at plant {FR} U",
-    "alias": "soy-milk",
+    "alias": "soy-milk-2025",
     "categories": [
       "vegetable_processed"
     ],
@@ -13427,7 +13310,7 @@
   },
   {
     "activityName": "Butter, 82% fat, unsalted, at dairy {FR} U",
-    "alias": "unknown-dairy-product",
+    "alias": "unknown-dairy-product-2025",
     "categories": [
       "dairy_product"
     ],
@@ -13475,7 +13358,7 @@
   },
   {
     "activityName": "Carrot, organic 2025, national average, at farm gate {FR} U",
-    "alias": "celeriac-organic",
+    "alias": "celeriac-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -13514,7 +13397,7 @@
       "cropDiversity": 0,
       "hedges": 35.542,
       "livestockDensity": -0.00255,
-      "permanentPasture": 33.26,
+      "permanentPasture": 0,
       "plotSize": 29.066
     },
     "id": "f38271f1-bdba-40cd-a296-2bc741fbf915",
@@ -13530,7 +13413,7 @@
   },
   {
     "activityName": "Orange, fresh grade {ZA}| orange production, fresh grade | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "orange-non-eu",
+    "alias": "orange-non-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -13556,8 +13439,8 @@
     "visible": false
   },
   {
-    "activityName": "Kiwi FR, conventional, national average, at plant {FR} U",
-    "alias": "new-kiwi-fr",
+    "activityName": "Kiwi FR, conventional, national average, at orchard {FR} U",
+    "alias": "kiwi-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -13565,18 +13448,18 @@
     "defaultOrigin": "France",
     "density": 0.447,
     "ecosystemicServices": {
-      "cropDiversity": 0.13755,
-      "hedges": 0.064864,
+      "cropDiversity": 0.12932,
+      "hedges": 0.060982,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.13026
+      "plotSize": 0.12246
     },
     "id": "f3ed8d7b-21be-4d21-aae0-fee3ae914224",
     "inediblePart": 0.1,
-    "landOccupation": 0.14887,
+    "landOccupation": 0.13996,
     "location": "FR",
     "name": "Kiwi FR",
-    "processId": "d36bde22-7310-5a17-ad1a-b11d89f5685f",
+    "processId": "56cd1f16-f2d4-5c4a-a6ba-4a2e3321914e",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
     "transportCooling": "always",
@@ -13584,7 +13467,7 @@
   },
   {
     "activityName": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "spinach-non-eu",
+    "alias": "spinach-non-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -13611,7 +13494,7 @@
   },
   {
     "activityName": "Apple compote, recipe, at plant {FR} U",
-    "alias": "apple-compote-fr",
+    "alias": "apple-compote-fr-2025",
     "categories": [
       "vegetable_processed"
     ],
@@ -13665,7 +13548,7 @@
   },
   {
     "activityName": "Egg yolk, powder, at plant {FR} U",
-    "alias": "egg-yolk-powder-fr",
+    "alias": "egg-yolk-powder-fr-2025",
     "categories": [
       "animal_product"
     ],
@@ -13713,7 +13596,7 @@
   },
   {
     "activityName": "European pilchard or sardine, consumption mix {FR} U",
-    "alias": "sardine-eu",
+    "alias": "sardine-eu-2025",
     "categories": [
       "animal_product"
     ],
@@ -13734,7 +13617,7 @@
   },
   {
     "activityName": "Comte cheese, from cow's milk, at plant {FR} U",
-    "alias": "comte-aop",
+    "alias": "comte-aop-2025",
     "categories": [
       "dairy_product"
     ],
@@ -13755,7 +13638,7 @@
   },
   {
     "activityName": "Ware potato, organic 2025, for industrial use, at farm gate {FR} U",
-    "alias": "potato-industry-organic",
+    "alias": "potato-industry-organic-2025",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -13783,7 +13666,7 @@
   },
   {
     "activityName": "Onion, conventional, national average, at farm {FR} U",
-    "alias": "shallot-fr",
+    "alias": "shallot-fr-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -13810,7 +13693,7 @@
   },
   {
     "activityName": "Ware potato, conventional, for industrial use, at farm gate {FR} U",
-    "alias": "potato-industry-fr",
+    "alias": "potato-industry-fr-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -13837,7 +13720,7 @@
   },
   {
     "activityName": "Winter pea, conventional, 15% moisture, at farm gate {FR} U",
-    "alias": "new-split-pea-fr",
+    "alias": "split-pea-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -13864,7 +13747,7 @@
   },
   {
     "activityName": "Cauliflower, winter, conventional, at farm gate {FR} U",
-    "alias": "new-brussels-sprout-fr",
+    "alias": "brussels-sprout-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -13891,7 +13774,7 @@
   },
   {
     "activityName": "Soy protein, textured, dehydrated, from soy flour, at plant {FR} U",
-    "alias": "soy-protein",
+    "alias": "soy-protein-2025",
     "categories": [
       "grain_processed"
     ],
@@ -13918,20 +13801,14 @@
   },
   {
     "activityName": "Meat without bone chicken for direct consumption {{meat-without-bone-chicken-direct-consumption-fr-feed}}",
-    "alias": "chicken-breast-fr-feed",
+    "alias": "chicken-breast-fr-feed-2025",
     "categories": [
       "animal_product"
     ],
     "cropGroup": null,
     "defaultOrigin": "France",
     "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 1.7225,
-      "livestockDensity": -0.01518,
-      "permanentPasture": 0,
-      "plotSize": 2.0703
-    },
+    "ecosystemicServices": null,
     "id": "f94df72e-20fd-4cc5-ab64-ce3921649d58",
     "inediblePart": 0,
     "landOccupation": 8.8071,
@@ -13945,7 +13822,7 @@
   },
   {
     "activityName": "Lemon {ES}| lemon production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "new-lemon-fr",
+    "alias": "lemon-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -13972,7 +13849,7 @@
   },
   {
     "activityName": "Avocado {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "avocado-eu",
+    "alias": "avocado-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -13999,7 +13876,7 @@
   },
   {
     "activityName": "Peach {ES}| peach production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "peach-eu",
+    "alias": "peach-eu-2025",
     "categories": [
       "vegetable_fresh"
     ],
@@ -14026,7 +13903,7 @@
   },
   {
     "activityName": "Mozzarella cheese, from cow's milk, at plant {FR} U",
-    "alias": "mozzarella",
+    "alias": "mozzarella-2025",
     "categories": [
       "dairy_product"
     ],
@@ -14074,7 +13951,7 @@
   },
   {
     "activityName": "Extra Virgin Olive Oil, at plant {ES} U",
-    "alias": "extra-virgin-olive-oil",
+    "alias": "extra-virgin-olive-oil-2025",
     "categories": [
       "nut_oilseed_processed"
     ],
@@ -14101,7 +13978,7 @@
   },
   {
     "activityName": "Anchovy, consumption mix {FR} U",
-    "alias": "anchovy-eu",
+    "alias": "anchovy-eu-2025",
     "categories": [
       "animal_product"
     ],
@@ -14122,7 +13999,7 @@
   },
   {
     "activityName": "Cauliflower, conventional, national average, at farm gate {FR} U",
-    "alias": "new-rhubarb-fr",
+    "alias": "rhubarb-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -14149,7 +14026,7 @@
   },
   {
     "activityName": "Alfalfa, hay, organic, animal feed, at farm gate {FR} U",
-    "alias": "alfalfa-organic",
+    "alias": "alfalfa-organic-2025",
     "categories": [
       "grain_raw",
       "organic"
@@ -14177,7 +14054,7 @@
   },
   {
     "activityName": "Lemon juice, pure juice, at plant {IT} U",
-    "alias": "lemon-juice",
+    "alias": "lemon-juice-2025",
     "categories": [
       "vegetable_processed"
     ],
@@ -14204,7 +14081,7 @@
   },
   {
     "activityName": "Meat without bone chicken for direct consumption {{meat-without-bone-chicken-direct-consumption-br-max}}",
-    "alias": "unknown-white-meat",
+    "alias": "unknown-white-meat-2025",
     "categories": [
       "animal_product"
     ],
@@ -14225,7 +14102,7 @@
   },
   {
     "activityName": "Mint {RoW}| mint production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "new-mint-fr",
+    "alias": "mint-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -14264,7 +14141,7 @@
       "cropDiversity": 12.509,
       "hedges": 44.85,
       "livestockDensity": -0.00267,
-      "permanentPasture": 28.34,
+      "permanentPasture": 0,
       "plotSize": 39.388
     },
     "id": "ff532795-d725-4c6b-82bc-022d38b83bff",
@@ -14280,7 +14157,7 @@
   },
   {
     "activityName": "Tomato pulp, canned {FR} U",
-    "alias": "tomato-paste-fr",
+    "alias": "tomato-paste-fr-2025",
     "categories": [
       "vegetable_processed"
     ],
