@@ -13,22 +13,22 @@ L'équipe Ecobalyse réunit des professionnels animés par une mission commune :
 
 * _Les membres actuels :_
 
-| Nicolas Perriault                                                                                                                 |
-| --------------------------------------------------------------------------------------------------------------------------------- |
-| Vincent Jousse                                                                                                                    |
-| Camille Coquelet                                                                                                                  |
-| Paul Boosz                                                                                                                        |
-| Christophe Combelles                                                                                                              |
-| Nathalie Rosenberg                                                                                                                |
-| Alban Fournier, référent secteur ameublement                                                                                      |
-| Maurine Poirier, référente secteur textile                                                                                        |
-| Nicolas Planchenault, référent véhicule et "méthode transversale"                                                                 |
-| Gabrielle Lestra, référente secteur alimentaire                                                                                   |
-| Thomas Menant, Coach                                                                                                              |
-|  <img src=".gitbook/assets/Vincent 2024.jpg" alt="" data-size="line">Vincent Colomb, intrapreneur ADEME, responsable scientifique |
-| Lisa Chenerie, intrapreneure MTE                                                                                                  |
-| Pascal Dagras, intrapreneur MTE                                                                                                   |
-|                                                                                                                                   |
+| Nicolas Perriault                                                 |
+| ----------------------------------------------------------------- |
+| Vincent Jousse                                                    |
+| Camille Coquelet                                                  |
+| Paul Boosz                                                        |
+| Christophe Combelles                                              |
+| Nathalie Rosenberg                                                |
+| Alban Fournier, référent secteur ameublement                      |
+| Maurine Poirier, référente secteur textile                        |
+| Nicolas Planchenault, référent véhicule et "méthode transversale" |
+| Gabrielle Lestra, référente secteur alimentaire                   |
+| Thomas Menant, Coach                                              |
+|  Vincent Colomb, intrapreneur ADEME, responsable scientifique     |
+| Lisa Chenerie, intrapreneure MTE                                  |
+| Pascal Dagras, intrapreneur MTE                                   |
+|                                                                   |
 
 * _Les anciens_
 
