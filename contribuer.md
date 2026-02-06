@@ -46,7 +46,7 @@ Sur le textile spécifiquement, des contributions sont souhaitées sur :
 4. **Représentativité du marché**\
    Les données doivent refléter le marché global, sans être spécifiques à une entreprise, un produit ou une marque.
 5. **Mise à jour**\
-   Les données seront mises à jour en discussion avec les contributeurs selon la pertinence sectorielle et les moyens disponibles
+   Les données seront mises à jour en discussion avec les contributeurs selon la pertinence sectorielle et les moyens disponibles.
 6. **Revue critique**\
    Toutes les données soumises doivent avoir fait l’objet d’une revue critique indépendante, garantissant leur qualité, leur représentativité et leur fiabilité. L'ADEME décide en dernier lieu l'intégration ou non des données.&#x20;
 7. **Propriété des données** \
