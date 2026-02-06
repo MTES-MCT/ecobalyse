@@ -54,7 +54,7 @@ Sur le textile spécifiquement, des contributions sont souhaitées sur :
 
 ## Que deviennent les données ?
 
-Les données sont intégrées dans l'outil ecobalyse pour le calcul du Cout environnemental. Elles sont également reversée dans les bases ACV de l'ADEME ([Base Empreinte](https://base-empreinte.ademe.fr/) et [agribalyse](https://doc.agribalyse.fr/documentation/)); publiques et transparentes. Les données pourront également être partagée avec des initiatives de type "Communs Numériques" ou d'autres bases publiques comme la base européenne "EF"; avec l'accord des contributeurs.
+Les données sont intégrées dans l'outil ecobalyse pour le calcul du Cout environnemental. Elles sont également reversée dans les bases ACV de l'ADEME ([Base Empreinte](https://base-empreinte.ademe.fr/) et [agribalyse](https://doc.agribalyse.fr/documentation/)); publiques et transparentes. Les données pourront également être partagées avec des initiatives de type "Communs Numériques" ou d'autres bases publiques comme la base européenne "EF"; avec l'accord des contributeurs.
 
 Afin de garantir la cohérence et la mise à jour des travaux, nous sommes susceptibles de modifier les sources des données d'arrière plan. Nous utilisons aujourd'hui ecoinvent 3.9.1 et pouvons être amené à changer de version ou de base de données à l'avenir.&#x20;
 
