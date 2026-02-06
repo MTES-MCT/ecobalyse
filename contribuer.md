@@ -6,7 +6,7 @@ hidden: true
 
 **L’enrichissement des données pour calculer le coût environnemental est précieux et nécessaire !**
 
-Les données ACV mobilisées par ecobalyse proviennent de plusieurs bases de données aujourd'hui : Ecoinvent et Base Empreinte (données transverses);  et agribalyse (alimentaire). Ces bases bien que conséquentes, ont besoin d'être enrichies. C'est pourquoi Ecobalyse vise à intégrer des données complémentaires et encourager les contributions. Le travail a déjà commencé (ex: ICV "Laine" fournit par Woolmark); et doit se renforcer à l'avenir.&#x20;
+Les données ACV mobilisées par ecobalyse proviennent de plusieurs bases de données aujourd'hui : Ecoinvent et Base Empreinte (données transverses);  et agribalyse et World Food Database (alimentaire). Ces bases bien que conséquentes, ont besoin d'être enrichies. C'est pourquoi Ecobalyse vise à intégrer des données complémentaires et encourager les contributions. Le travail a déjà commencé (ex: ICV "Laine" fournit par Woolmark); et doit se renforcer à l'avenir.&#x20;
 
 **Les contributions permettront de s'assurer  que le coût environnemental reflète bien l'ensemble des pratiques du marché et couvre les besoins en termes de matériaux et de procédés de transformation pour l'ensemble des secteurs.**
 
