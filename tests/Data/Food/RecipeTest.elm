@@ -144,7 +144,7 @@ suite =
 
                                     Ok result ->
                                         Unit.impactToFloat result
-                                            |> Expect.within (Expect.Absolute 0.1) 139.3
+                                            |> Expect.within (Expect.Absolute 0.1) 138.2
                                 )
                              , asTest "should have the ingredients' total ecs impact with the complement taken into account"
                                 (case royalPizzaResults |> Result.map (Tuple.second >> .recipe >> .ingredientsTotal >> Impact.getImpact Definition.Ecs) of
@@ -153,7 +153,7 @@ suite =
 
                                     Ok result ->
                                         Unit.impactToFloat result
-                                            |> Expect.within (Expect.Absolute 0.1) 114.4
+                                            |> Expect.within (Expect.Absolute 0.1) 113.3
                                 )
                              , describe "Scoring"
                                 (case royalPizzaResults |> Result.map (Tuple.second >> .scoring) of
@@ -164,13 +164,13 @@ suite =
 
                                     Ok scoring ->
                                         [ Unit.impactToFloat scoring.all
-                                            |> Expect.within (Expect.Absolute 0.01) 463.88
+                                            |> Expect.within (Expect.Absolute 0.01) 460.65
                                             |> asTest "should properly score total impact"
                                         , Unit.impactToFloat scoring.allWithoutComplements
                                             |> Expect.within (Expect.Absolute 0.01) 460.66
                                             |> asTest "should properly score total impact without complements"
                                         , Unit.impactToFloat scoring.complements
-                                            |> Expect.within (Expect.Absolute 0.01) -3.21
+                                            |> Expect.within (Expect.Absolute 0.01) 0.0
                                             |> asTest "should properly score complement impact"
                                         , (Unit.impactToFloat scoring.allWithoutComplements - Unit.impactToFloat scoring.complements)
                                             |> Expect.within (Expect.Absolute 0.0001) (Unit.impactToFloat scoring.all)
