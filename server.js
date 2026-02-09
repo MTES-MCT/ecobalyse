@@ -114,7 +114,7 @@ const getProcesses = async (headers, customProcessesImpacts, customProcesses) =>
   let isValidToken = false;
   const token = extractTokenFromHeaders(headers);
 
-  if (token) {
+  if (NODE_ENV !== "test" && token) {
     try {
       const tokenRes = await fetch(`${INTERNAL_BACKEND_URL}/api/tokens/validate`, {
         method: "POST",
@@ -169,6 +169,13 @@ const respondWithFormattedJSON = (res, status, body) => {
 
 // Note: Text/JSON request body parser (JSON is decoded in Elm)
 api.all(/(.*)/, bodyParser.json(), jsonErrorHandler, async (req, res) => {
+  const token = extractTokenFromHeaders(req.headers);
+  if (!token) {
+    return res.status(401).send({
+      error: { authorization: "Un token est requis pour utiliser l’API" },
+      documentation: "https://ecobalyse.beta.gouv.fr/#/api",
+    });
+  }
   const processes = await getProcesses(req.headers);
 
   elmApp.ports.input.send({
