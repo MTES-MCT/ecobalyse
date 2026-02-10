@@ -1,7 +1,7 @@
 [
   {
     "activityName": "Barley grain {FR}| barley production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "whole-barley-fr",
+    "alias": "barley-whole-fr",
     "categories": [
       "grain_raw"
     ],
@@ -136,7 +136,7 @@
   },
   {
     "activityName": "Olive {ES}| olive production | Cut-off, U",
-    "alias": "olives-fr",
+    "alias": "olive-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -300,7 +300,7 @@
   },
   {
     "activityName": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "red-beans-dried-fr",
+    "alias": "red-bean-dried-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -516,7 +516,7 @@
   },
   {
     "activityName": "Grape {RoW}| grape production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "grapes-black-or-white-fr",
+    "alias": "grape-black-or-white-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -1212,7 +1212,7 @@
   },
   {
     "activityName": "Rice, non-basmati {CN}| rice production, non-basmati | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "raw-rice-all-varieties-white-wild-c-thai-or-basmati-rice-raw-fr",
+    "alias": "rice-all-variety-white-wild-c-thai-or-basmati-rice-raw-raw-fr",
     "categories": [
       "grain_raw"
     ],
@@ -2043,7 +2043,7 @@
   },
   {
     "activityName": "Zucchini, conventional, national average, at farm gate {FR} U",
-    "alias": "squash-raw-with-skin-fr",
+    "alias": "squash-with-skin-raw-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -2791,7 +2791,7 @@
   },
   {
     "activityName": "Pear, conventional, national average, at orchard {FR} U",
-    "alias": "pears-fr",
+    "alias": "pear-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -2873,7 +2873,7 @@
   },
   {
     "activityName": "Mint {RoW}| mint production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "dried-herbs-marjoram-oregano-savory-thyme-basil-rosemary-sage-fr",
+    "alias": "herb-marjoram-oregano-savory-thyme-basil-rosemary-sage-dried-fr",
     "categories": [
       "spice_condiment_additive"
     ],
@@ -3084,7 +3084,7 @@
   },
   {
     "activityName": "Melon, conventional, national average, at farm gate {FR} U",
-    "alias": "melon-honeydew-charentais-cataloupe-cavaillon-fr",
+    "alias": "melon-honeydew-charentai-cataloupe-cavaillon-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -3293,7 +3293,7 @@
   },
   {
     "activityName": "Orange, fresh grade, at farm {ES} - Adapted from WFLDB U",
-    "alias": "oranges-fr",
+    "alias": "orange-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -3614,7 +3614,7 @@
   },
   {
     "activityName": "Elderberry, at farm {PL} - Adapted from WFLDB U",
-    "alias": "elderberries-fr",
+    "alias": "elderberry-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -3750,7 +3750,7 @@
   },
   {
     "activityName": "Walnut, dried inshell, conventional, national average, at farm gate {FR} U",
-    "alias": "walnuts-fr",
+    "alias": "walnut-fr",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -3777,7 +3777,7 @@
   },
   {
     "activityName": "Rye grain, feed, Swiss integrated production {CH}| production | Cut-off, U - Copied from Ecoinvent U",
-    "alias": "whole-rye-fr",
+    "alias": "rye-whole-fr",
     "categories": [
       "grain_raw"
     ],
@@ -4259,7 +4259,7 @@
   },
   {
     "activityName": "French bean, conventional, national average, at farm gate {FR} U",
-    "alias": "white-beans-dried-fr",
+    "alias": "white-bean-dried-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -4986,7 +4986,7 @@
   },
   {
     "activityName": "Vanilla {MG}| vanilla production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "vanilla-alcoholic-or-aqueous-extract-fr-overseas",
+    "alias": "vanilla-alcoholic-or-aqueou-extract-fr-overseas",
     "categories": [
       "spice_condiment_additive"
     ],
@@ -5013,7 +5013,7 @@
   },
   {
     "activityName": "Bell pepper {FR}| bell pepper production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "chili-peppers-fr",
+    "alias": "chili-pepper-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -5067,7 +5067,7 @@
   },
   {
     "activityName": "French bean, conventional, national average, at farm gate {FR} U",
-    "alias": "french-beans-fr",
+    "alias": "french-bean-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -6493,7 +6493,7 @@
   },
   {
     "activityName": "Onion, conventional, national average, at farm {FR} U",
-    "alias": "onions-fr",
+    "alias": "onion-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -6547,7 +6547,7 @@
   },
   {
     "activityName": "Almonds, in shell, at farm {CN} - Adapted from WFLDB U",
-    "alias": "almonds-in-shell-fr",
+    "alias": "almond-in-shell-fr",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -6726,7 +6726,7 @@
   },
   {
     "activityName": "Peach, conventional, national average, at orchard {FR} U",
-    "alias": "peaches-fr",
+    "alias": "peach-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -7373,7 +7373,7 @@
   },
   {
     "activityName": "Onion, conventional, national average, at farm {FR} U",
-    "alias": "shallots-fr",
+    "alias": "shallot-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -8082,7 +8082,7 @@
   },
   {
     "activityName": "Peanut {RoW}| peanut production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "pine-nuts-fr",
+    "alias": "pine-nut-fr",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -8537,7 +8537,7 @@
   },
   {
     "activityName": "White asparagus {FR}| white asparagus production | Cut-off, U - Copied from Ecoinvent U",
-    "alias": "asparagus-fr",
+    "alias": "asparagu-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -9024,7 +9024,7 @@
   },
   {
     "activityName": "Mint {RoW}| mint production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "bay-leaves-fr",
+    "alias": "bay-leaf-fr",
     "categories": [
       "spice_condiment_additive"
     ],
@@ -9659,7 +9659,7 @@
   },
   {
     "activityName": "Winter pea, conventional, 15% moisture, at farm gate {FR} U",
-    "alias": "peas-with-pods-fr",
+    "alias": "pea-with-pod-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -10310,7 +10310,7 @@
   },
   {
     "activityName": "Carrot, conventional, national average, at farm gate {FR} U",
-    "alias": "carrots-fr",
+    "alias": "carrot-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -10791,7 +10791,7 @@
   },
   {
     "activityName": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "flageolet-beans-green-dried-fr",
+    "alias": "flageolet-bean-green-dried-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -12243,7 +12243,7 @@
   },
   {
     "activityName": "Wheat grain {FR}| wheat production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "whole-millet-fr",
+    "alias": "millet-whole-fr",
     "categories": [
       "grain_raw"
     ],
@@ -12461,7 +12461,7 @@
   },
   {
     "activityName": "Hazelnut, in shell, at farm {IT} - Adapted from WFLDB U",
-    "alias": "hazelnuts-in-shell-fr",
+    "alias": "hazelnut-in-shell-fr",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -12598,7 +12598,7 @@
   },
   {
     "activityName": "Chickpea seed, organic, at farm gate {FR} U",
-    "alias": "chickpeas-dried-fr",
+    "alias": "chickpea-dried-fr",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -12837,7 +12837,7 @@
   },
   {
     "activityName": "Carrot, conventional, national average, at farm gate {FR} U",
-    "alias": "parsnips-fr",
+    "alias": "parsnip-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -13026,7 +13026,7 @@
   },
   {
     "activityName": "Mint {RoW}| mint production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "fresh-herbs-dill-basil-chervil-rosemary-sage-thyme-fr",
+    "alias": "herb-dill-basil-chervil-rosemary-sage-thyme-fresh-fr",
     "categories": [
       "vegetable_fresh"
     ],
