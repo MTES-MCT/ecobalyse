@@ -22,7 +22,9 @@ type alias Config msg =
     , copyToClipBoard : String -> msg
     , customScoreInfo : Maybe (Html msg)
     , deleteBookmark : Bookmark -> msg
+    , exportBookmarks : msg
     , impactTabsConfig : Maybe (ImpactTabs.Config msg)
+    , noOp : msg
     , productMass : Mass
     , renameBookmark : msg
     , saveBookmark : msg
@@ -77,7 +79,9 @@ view config =
             , compare = config.compareBookmarks
             , copyToClipBoard = config.copyToClipBoard
             , delete = config.deleteBookmark
+            , exportBookmarks = config.exportBookmarks
             , impact = config.selectedImpact
+            , noOp = config.noOp
             , rename = config.renameBookmark
             , save = config.saveBookmark
             , scope = config.scope

@@ -111,6 +111,7 @@ type Msg
     = ConfirmSwitchToRegulatory
     | CopyToClipBoard String
     | DeleteBookmark Bookmark
+    | ExportBookmarks
     | NoOp
     | OnAutocompleteExample (Autocomplete.Msg Query)
     | OnAutocompleteMaterial (Autocomplete.Msg Material)
@@ -311,6 +312,10 @@ update ({ db, queries, navKey } as session) msg model =
 
         ( DeleteBookmark bookmark, _ ) ->
             createPageUpdate (session |> Session.deleteBookmark bookmark) model
+
+        ( ExportBookmarks, _ ) ->
+            -- FIXME: port
+            createPageUpdate session model
 
         ( NoOp, _ ) ->
             createPageUpdate session model
@@ -1140,7 +1145,8 @@ simulatorView session model ({ inputs, impacts } as simulator) =
             ]
         , div [ class "col-lg-4 bg-white" ]
             [ SidebarView.view
-                { session = session
+                { noOp = NoOp
+                , session = session
                 , scope = Scope.Textile
 
                 -- Impact selector
@@ -1175,6 +1181,7 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                 , copyToClipBoard = CopyToClipBoard
                 , compareBookmarks = OpenComparator
                 , deleteBookmark = DeleteBookmark
+                , exportBookmarks = ExportBookmarks
                 , renameBookmark = RenameBookmark
                 , saveBookmark = SaveBookmark
                 , updateBookmarkName = UpdateBookmarkName

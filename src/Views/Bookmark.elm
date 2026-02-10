@@ -23,7 +23,9 @@ type alias ManagerConfig msg =
     , compare : msg
     , copyToClipBoard : String -> msg
     , delete : Bookmark -> msg
+    , exportBookmarks : msg
     , impact : Definition
+    , noOp : msg
     , rename : msg
     , save : msg
     , scope : Scope
@@ -260,11 +262,13 @@ bookmarksView ({ compare, scope, session } as cfg) =
                     [ class "btn btn-sm btn-outline-primary d-flex align-items-center"
                     , title "Exporter les signets"
                     , disabled (List.isEmpty bookmarks)
+                    , onClick cfg.exportBookmarks
                     ]
                     [ Icon.fileUpload ]
                 , button
                     [ class "btn btn-sm btn-outline-primary d-flex align-items-center"
                     , title "Importer les signets"
+                    , onClick cfg.noOp
                     ]
                     [ Icon.fileDownload ]
                 , button

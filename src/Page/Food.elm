@@ -1563,7 +1563,8 @@ processSelectorAutocompleteView process selectElement =
 sidebarView : Session -> Model -> Recipe.Results -> Html Msg
 sidebarView session model results =
     SidebarView.view
-        { session = session
+        { noOp = NoOp
+        , session = session
         , scope = Scope.Food
 
         -- Impact selector
@@ -1590,6 +1591,9 @@ sidebarView session model results =
         , copyToClipBoard = CopyToClipBoard
         , compareBookmarks = OpenComparator
         , deleteBookmark = DeleteBookmark
+
+        -- FIXME
+        , exportBookmarks = NoOp
         , renameBookmark = RenameBookmark
         , saveBookmark = SaveBookmark
         , updateBookmarkName = UpdateBookmarkName

@@ -738,7 +738,8 @@ simulatorView session model =
                         |> Result.withDefault Component.emptyLifeCycle
               in
               SidebarView.view
-                { session = session
+                { noOp = NoOp
+                , session = session
                 , scope = model.scope
 
                 -- Impact selector
@@ -775,6 +776,9 @@ simulatorView session model =
                 , copyToClipBoard = CopyToClipBoard
                 , compareBookmarks = OpenComparator
                 , deleteBookmark = DeleteBookmark
+
+                -- FIXME
+                , exportBookmarks = NoOp
                 , renameBookmark = RenameBookmark
                 , saveBookmark = SaveBookmark
                 , updateBookmarkName = UpdateBookmarkName
