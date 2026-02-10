@@ -112,6 +112,7 @@ type Msg
     | CopyToClipBoard String
     | DeleteBookmark Bookmark
     | ExportBookmarks
+    | ImportBookmarks
     | NoOp
     | OnAutocompleteExample (Autocomplete.Msg Query)
     | OnAutocompleteMaterial (Autocomplete.Msg Material)
@@ -316,6 +317,10 @@ update ({ db, queries, navKey } as session) msg model =
         ( ExportBookmarks, _ ) ->
             createPageUpdate session model
                 |> App.withCmds [ Ports.exportBookmarks () ]
+
+        ( ImportBookmarks, _ ) ->
+            createPageUpdate session model
+                |> App.withCmds [ Ports.importBookmarks () ]
 
         ( NoOp, _ ) ->
             createPageUpdate session model
@@ -1182,6 +1187,7 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                 , compareBookmarks = OpenComparator
                 , deleteBookmark = DeleteBookmark
                 , exportBookmarks = ExportBookmarks
+                , importBookmarks = ImportBookmarks
                 , renameBookmark = RenameBookmark
                 , saveBookmark = SaveBookmark
                 , updateBookmarkName = UpdateBookmarkName

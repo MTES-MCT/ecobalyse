@@ -24,6 +24,7 @@ type alias Config msg =
     , deleteBookmark : Bookmark -> msg
     , exportBookmarks : msg
     , impactTabsConfig : Maybe (ImpactTabs.Config msg)
+    , importBookmarks : msg
     , noOp : msg
     , productMass : Mass
     , renameBookmark : msg
@@ -81,6 +82,7 @@ view config =
             , delete = config.deleteBookmark
             , exportBookmarks = config.exportBookmarks
             , impact = config.selectedImpact
+            , importBookmarks = config.importBookmarks
             , noOp = config.noOp
             , rename = config.renameBookmark
             , save = config.saveBookmark

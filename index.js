@@ -131,6 +131,15 @@ app.ports.exportBookmarks.subscribe(() => {
   }
 });
 
+app.ports.importBookmarks.subscribe(() => {
+  // TODO: create file upload form field, click, process uploaded file
+  const msg =
+    "Importer ces signets écrasera ceux existant pour ce navigateur. Voulez-vous continuer ?";
+  if (confirm(msg)) {
+    store.importBookmarks();
+  }
+});
+
 app.ports.removeBodyClass.subscribe((cls) => {
   document.body.classList.remove(cls);
 });

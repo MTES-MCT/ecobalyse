@@ -25,6 +25,7 @@ type alias ManagerConfig msg =
     , delete : Bookmark -> msg
     , exportBookmarks : msg
     , impact : Definition
+    , importBookmarks : msg
     , noOp : msg
     , rename : msg
     , save : msg
@@ -268,7 +269,7 @@ bookmarksView ({ compare, scope, session } as cfg) =
                 , button
                     [ class "btn btn-sm btn-outline-primary d-flex align-items-center"
                     , title "Importer les signets"
-                    , onClick cfg.noOp
+                    , onClick cfg.importBookmarks
                     ]
                     [ Icon.fileDownload ]
                 , button

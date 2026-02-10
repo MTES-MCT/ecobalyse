@@ -83,6 +83,7 @@ type Msg
     = CopyToClipBoard String
     | DeleteBookmark Bookmark
     | ExportBookmarks
+    | ImportBookmarks
     | NoOp
     | OnAutocompleteAddComponent (Autocomplete.Msg Component)
     | OnAutocompleteAddConsumption (Autocomplete.Msg Process)
@@ -284,6 +285,10 @@ update ({ navKey } as session) msg model =
         ( ExportBookmarks, _ ) ->
             createPageUpdate session model
                 |> App.withCmds [ Ports.exportBookmarks () ]
+
+        ( ImportBookmarks, _ ) ->
+            createPageUpdate session model
+                |> App.withCmds [ Ports.importBookmarks () ]
 
         ( NoOp, _ ) ->
             createPageUpdate session model
@@ -782,6 +787,7 @@ simulatorView session model =
                 , compareBookmarks = OpenComparator
                 , deleteBookmark = DeleteBookmark
                 , exportBookmarks = ExportBookmarks
+                , importBookmarks = ImportBookmarks
                 , renameBookmark = RenameBookmark
                 , saveBookmark = SaveBookmark
                 , updateBookmarkName = UpdateBookmarkName

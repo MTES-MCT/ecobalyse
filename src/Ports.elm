@@ -3,6 +3,7 @@ port module Ports exposing
     , appStarted
     , copyToClipboard
     , exportBookmarks
+    , importBookmarks
     , loadRapidoc
     , removeBodyClass
     , saveStore
@@ -29,6 +30,9 @@ port copyToClipboard : String -> Cmd msg
 
 
 port exportBookmarks : () -> Cmd msg
+
+
+port importBookmarks : () -> Cmd msg
 
 
 port loadRapidoc : String -> Cmd msg
