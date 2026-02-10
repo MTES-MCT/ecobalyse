@@ -18,19 +18,6 @@
       {
         "amount": 0.055,
         "material": "cd7b462e-17ab-5c15-b7e2-ad4273c1e322",
-        "transforms": ["c172d131-b5d1-5d9b-822b-5762afb91c66"]
-      }
-    ],
-    "id": "b2633d25-e453-4db3-adaf-73b5d7fb724d",
-    "name": "Bac + Pieds (jardinière pin 80 * 40 * 28) (copie)",
-    "scopes": ["object"]
-  },
-  {
-    "comment": null,
-    "elements": [
-      {
-        "amount": 0.055,
-        "material": "cd7b462e-17ab-5c15-b7e2-ad4273c1e322",
         "transforms": ["9154831a-090d-5636-81d3-ca89b8af20d2"]
       }
     ],
