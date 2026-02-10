@@ -132,9 +132,8 @@ app.ports.exportBookmarks.subscribe(() => {
 });
 
 app.ports.importBookmarks.subscribe(() => {
-  // TODO: create file upload form field, click, process uploaded file
   const msg =
-    "Importer ces signets écrasera ceux existant pour ce navigateur. Voulez-vous continuer ?";
+    "L'import des signets écrasera ceux existant pour ce navigateur, pour toutes les verticales. Voulez-vous vraiment continuer ?";
   if (confirm(msg)) {
     store.importBookmarks();
   }
