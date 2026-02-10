@@ -314,8 +314,8 @@ update ({ db, queries, navKey } as session) msg model =
             createPageUpdate (session |> Session.deleteBookmark bookmark) model
 
         ( ExportBookmarks, _ ) ->
-            -- FIXME: port
             createPageUpdate session model
+                |> App.withCmds [ Ports.exportBookmarks () ]
 
         ( NoOp, _ ) ->
             createPageUpdate session model

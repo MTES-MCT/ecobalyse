@@ -106,6 +106,7 @@ type Msg
     | DeleteIngredient Ingredient.Id
     | DeletePackaging Process.Id
     | DeletePreparation Preparation.Id
+    | ExportBookmarks
     | LoadQuery Query
     | NoOp
     | OnAutocompleteExample (Autocomplete.Msg Query)
@@ -272,6 +273,10 @@ update ({ db, queries } as session) msg model =
         DeletePreparation id ->
             createPageUpdate session model
                 |> updateQuery (Query.deletePreparation id query)
+
+        ExportBookmarks ->
+            createPageUpdate session model
+                |> App.withCmds [ Ports.exportBookmarks () ]
 
         LoadQuery queryToLoad ->
             let
@@ -1591,9 +1596,7 @@ sidebarView session model results =
         , copyToClipBoard = CopyToClipBoard
         , compareBookmarks = OpenComparator
         , deleteBookmark = DeleteBookmark
-
-        -- FIXME
-        , exportBookmarks = NoOp
+        , exportBookmarks = ExportBookmarks
         , renameBookmark = RenameBookmark
         , saveBookmark = SaveBookmark
         , updateBookmarkName = UpdateBookmarkName
