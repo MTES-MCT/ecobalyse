@@ -124,7 +124,11 @@ app.ports.addBodyClass.subscribe((cls) => {
 });
 
 app.ports.exportBookmarks.subscribe(() => {
-  store.exportBookmarks();
+  const msg =
+    "Cet export contient l'intégralité de vos signets, tous secteurs et versions confondus";
+  if (confirm(msg)) {
+    store.exportBookmarks();
+  }
 });
 
 app.ports.removeBodyClass.subscribe((cls) => {
