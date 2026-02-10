@@ -1,7 +1,16 @@
 # Changelog
 
 
-## [8.5.0](https://github.com/MTES-MCT/ecobalyse/compare/v8.4.0..v8.5.0) (2026-02-05)
+## [8.6.0](https://github.com/MTES-MCT/ecobalyse/compare/v8.5.0..v8.6.0) (2026-02-10)
+
+
+
+### 🚀 Features
+
+- *(data)* New ingredients ([#1670](https://github.com/MTES-MCT/ecobalyse/issues/1670))
+
+
+## [8.5.0](https://github.com/MTES-MCT/ecobalyse/compare/v8.4.0..v8.5.0) (2026-02-10)
 
 
 
