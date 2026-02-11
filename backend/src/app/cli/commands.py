@@ -359,6 +359,7 @@ async def load_processes_fixtures(
     processes_fixtures_ids = []
 
     for process in processes_data:
+        process["id"] = UUID(process["id"])
         process["owner"] = user
         processes_fixtures_ids.append(process["id"])
 
@@ -370,7 +371,6 @@ async def load_processes_fixtures(
     processes_ids_to_delete = []
 
     for process_fixture in processes_data:
-        process_fixture["id"] = UUID(process_fixture["id"])
         if process_fixture["id"] not in existing_processes_ids:
             processes_to_add.append(process_fixture)
         else:
