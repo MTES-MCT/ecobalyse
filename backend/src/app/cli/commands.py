@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 from typing import Any, cast
+from uuid import UUID
 
 import anyio
 import click
@@ -358,6 +359,7 @@ async def load_processes_fixtures(
     processes_fixtures_ids = []
 
     for process in processes_data:
+        process["id"] = UUID(process["id"])
         process["owner"] = user
         processes_fixtures_ids.append(process["id"])
 

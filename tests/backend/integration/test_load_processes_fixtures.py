@@ -1,5 +1,5 @@
+import copy
 from typing import TYPE_CHECKING, Any
-from uuid import UUID
 
 import pytest
 from app.cli.commands import load_processes_fixtures
@@ -32,7 +32,7 @@ async def test_load_processes(
         "displayName": "Process de test",
         "elecMJ": 1.61,
         "heatMJ": 10.74,
-        "id": UUID("216e33b3-f607-41e0-b047-cd42db763c5b"),
+        "id": "216e33b3-f607-41e0-b047-cd42db763c5b",
         "impacts": {
             "acd": 1,
             "cch": 2,
@@ -66,7 +66,9 @@ async def test_load_processes(
     # We add a new process
     raw_processes.append(new_process)
 
-    await load_processes_fixtures(session, processes_service, raw_processes)
+    await load_processes_fixtures(
+        session, processes_service, copy.deepcopy(raw_processes)
+    )
 
     response = await client.get(
         "/api/processes/",
@@ -81,7 +83,9 @@ async def test_load_processes(
     raw_processes[-1]["scopes"] = ["textile", "food"]
     raw_processes[-1]["displayName"] = "New test"
 
-    await load_processes_fixtures(session, processes_service, raw_processes)
+    await load_processes_fixtures(
+        session, processes_service, copy.deepcopy(raw_processes)
+    )
     await session.commit()
 
     processes = await processes_service.list()
@@ -102,7 +106,9 @@ async def test_load_processes(
     last_process_id = raw_processes[-1]["id"]
     raw_processes.pop()
 
-    await load_processes_fixtures(session, processes_service, raw_processes)
+    await load_processes_fixtures(
+        session, processes_service, copy.deepcopy(raw_processes)
+    )
     await session.commit()
 
     response = await client.get(
