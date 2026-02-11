@@ -235,14 +235,12 @@ L’application est alors servie sur le port 1234.
 Le dépôt [ecobalyse-data](https://github.com/MTES-MCT/ecobalyse-data) contient les scripts (principalement Python) utilisés pour
 importer et exporter les données du projet Ecobalyse.
 
-# Versioning
+# Version statique et autonome
 
-Le versioning de l’application permet de revenir à des anciennes versions d’Ecobalyse. Pour que ce versioning puisse fonctionner, les anciennes versions (<= 2.0.0) doivent être patchées rétroactivement. Le script `./bin/build-specific-app-version.sh` permet de générer une version spécifique de l’application et d’appliquer les patchs si nécessaire. Par exemple, pour générer la version `1.3.2` (le deuxième paramètre est le commit du répertoire https://github.com/MTE-extended/ecobalyse-private associé à cette version, si applicable) :
+Vous pouvez générer une version statique de l’application en utilisant le script suivant :
 
-    ./bin/build-specific-app-version.sh v1.3.2 3531c73f23a1eb6f1fc6b9c256a5344742230fcf
+```
+BUILD_CURRENT_VERSION=1 ./bin/build-specific-app-version.sh name
+```
 
-Un fichier `v1.3.2-dist.tar.gz` sera disponible à la racine du projet et un répertoire `v1.3.2` aura été créé dans `versions/`.
-
-Le script python permettant de patcher les fichiers est disponible ici : `./bin/patch_files_for_versions_compat.py`.
-
-Toutes les versions disponibles dans les releases Github ont été patchées comme il se doit.
+Un fichier nommé `name-dist.tar.gz` sera créé contenant une version statique du site.
