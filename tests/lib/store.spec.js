@@ -196,6 +196,8 @@ describe("lib.store", () => {
         })),
       };
 
+      global.alert = jest.fn();
+
       importBookmarks(localStorage);
 
       fileUploadHandler({ target: { files: [{ name: "ecobalyse-bookmarks.json" }] } });
