@@ -1,45 +1,45 @@
 # Ecobalyse ![Build status](https://github.com/MTES-MCT/ecobalyse/actions/workflows/node.js.yml/badge.svg)
 
-> Accélerer la mise en place de l'affichage environnemental
+> Accélerer la mise en place de l’affichage environnemental
 
-L'application est accessible [à cette adresse](https://ecobalyse.beta.gouv.fr/).
+L’application est accessible [à cette adresse](https://ecobalyse.beta.gouv.fr/).
 
-> Note: le projet Ecobalyse s'appellait initialement **Wikicarbone**.
+> Note: le projet Ecobalyse s’appellait initialement **Wikicarbone**.
 
 ## Socle technique et prérequis
 
-Le frontend de cette application est écrite en [Elm](https://elm-lang.org/). Vous devez disposer d'un environnement [NodeJS](https://nodejs.org/fr/) 14+ et `npm`. Pour le backend vous devez disposer d'un environnement [python](https://www.python.org/) >=3.11, [uv](https://docs.astral.sh/uv/) et [gettext](https://www.gnu.org/software/gettext/) sur votre machine. Certains fichiers d’impacts détaillés nécessitent de configurer [`transcrypt`](https://github.com/elasticdog/transcrypt) pour les lire en local.
+Le frontend de cette application est écrit en [Elm](https://elm-lang.org/). Vous devez disposer d’un environnement [NodeJS](https://nodejs.org/fr/) 22+ et `npm`. Pour le backend vous devez disposer d’un environnement [python](https://www.python.org/) >=3.12, [uv](https://docs.astral.sh/uv/) et [gettext](https://www.gnu.org/software/gettext/) sur votre machine. Certains fichiers d’impacts détaillés nécessitent de configurer [`transcrypt`](https://github.com/elasticdog/transcrypt) pour les lire en local.
 
-[docker](https://www.docker.com/)est également une dépendance requise pour lancer la suite de tests.
+[docker](https://www.docker.com/) est également une dépendance requise pour lancer la suite de tests.
 
 ## Configuration
 
-Les variables d'environnement décrites ci-dessous doivent être définies. En développement, copiez le fichier `.env.sample`, renommez-le `.env`, et mettez à jour les valeurs qu'il contient ; le serveur de développement chargera les variables en conséquences.
+Les variables d’environnement décrites ci-dessous doivent être définies. En développement, copiez le fichier `.env.sample`, renommez-le `.env`, et mettez à jour les valeurs qu’il contient ; le serveur de développement chargera les variables en conséquences.
 
 ### Variables partagées
 
-- `SENTRY_DSN` : le DSN [Sentry](https://sentry.io) à utiliser pour les rapports d'erreur front et back.
+- `SENTRY_DSN` : le DSN [Sentry](https://sentry.io) à utiliser pour les rapports d’erreur front et back
 
 ### Frontend (npm & node)
 
-- `ENABLE_FOOD_SECTION` : affichage ou non de la section expérimentale dédiée à l'alimentaire (valeur `True` ou `False`, par défault `False`)
-- `ENABLE_OBJECTS_SECTION` : affichage ou non de la section expérimentale dédiée aux objets génériques (valeur `True` ou `False`, par défault `False`)
-- `ENABLE_VELI_SECTION` : affichage ou non de la section expérimentale dédiée aux véhicules intermédiaires (valeur `True` ou `False`, par défault `False`)
-- `ENCRYPTION_KEY` : la clé utilisée par les scripts `npm run encrypt` et  `npm run decrypt` pour chiffrer/déchiffrer les fichiers d’impacts détaillés inclus dans chaque archive de release. Pour générer une nouvelle clé, vous pouvez utiliser le script `bin/generate-crypto-key`.
-- `MATOMO_HOST` : le domaine de l'instance Matomo permettant le suivi d'audience du produit (typiquement `stats.beta.gouv.fr`).
-- `MATOMO_SITE_ID` : l'identifiant du site Ecobalyse sur l'instance Matomo permettant le suivi d'audience du produit.
-- `MATOMO_TOKEN` : le token Matomo permettant le suivi d'audience du produit.
-- `NODE_ENV` : l'environnement d'exécution nodejs (par défaut, `development`)
-- `PLAUSIBLE_HOST` : Le domaine du serveur [Plausible](https://plausible.io/) (optionnel)
+- `ENABLE_FOOD_SECTION` : affichage ou non de la section dédiée à l’alimentaire (valeur `True` ou `False`, par défaut `False`)
+- `ENABLE_OBJECTS_SECTION` : affichage ou non de la section expérimentale dédiée aux objets génériques (valeur `True` ou `False`, par défaut `False`
+- `ENABLE_VELI_SECTION` : affichage ou non de la section expérimentale dédiée aux véhicules intermédiaires (valeur `True` ou `False`, par défaut `False`)
+- `ENCRYPTION_KEY` : la clé utilisée par les scripts `npm run encrypt` et  `npm run decrypt` pour chiffrer/déchiffrer les fichiers d’impacts détaillés inclus dans chaque archive de release. Pour générer une nouvelle clé, vous pouvez utiliser le script `bin/generate-crypto-key`
+- `MATOMO_HOST` : le domaine de l’instance Matomo permettant le suivi d’audience du produit (typiquement `stats.beta.gouv.fr`)
+- `MATOMO_SITE_ID` : l’identifiant du site Ecobalyse sur l’instance Matomo permettant le suivi d’audience du produit
+- `MATOMO_TOKEN` : le token Matomo permettant le suivi d’audience du produit
+- `NODE_ENV` : l’environnement d’exécution `nodejs` (par défaut, `development`)
+- `PLAUSIBLE_HOST` : le domaine du serveur [Plausible](https://plausible.io/) (optionnel)
 - `RATELIMIT_MAX_RPM` : le nombre de requêtes maximum par minute et par ip (par défaut: 5000)
 - `RATELIMIT_WHITELIST` : liste des adresses IP non soumises au rate-limiting, séparées par des virgules
-- `SECRET_KEY` : le secret 32bits pour le backend; vous pouvez en générer une avec `openssl rand -hex 32`
-- `TRANSCRYPT_KEY` : la clé utilisée et autogénérée par [transcrypt](https://github.com/elasticdog/transcrypt/blob/main/INSTALL.md) et disponible dans [https://vaultwarden.incubateur.net](https://vaultwarden.incubateur.net/).
-- `VERSION_POLL_SECONDS` : Le nombre de secondes entre deux appels HTTP pour récupérer la dernière version de l’application (`/version.json`, défaut: `300`)
+- `SECRET_KEY` : le secret 32bits pour le backend ; vous pouvez en générer une avec `openssl rand -hex 32`
+- `TRANSCRYPT_KEY` : la clé utilisée et autogénérée par [transcrypt](https://github.com/elasticdog/transcrypt/blob/main/INSTALL.md) et disponible dans [https://vaultwarden.incubateur.net](https://vaultwarden.incubateur.net/)
+- `VERSION_POLL_SECONDS` : le nombre de secondes entre deux appels HTTP pour récupérer la dernière version de l’application (`/version.json`, défaut: `300`)
 
 ### Backend
 
-- `DATABASE_URL` : DSN de la base de données.
+- `DATABASE_URL` : DSN de la base de données
 
   Pour utiliser un serveur PostgreSQL spécifique, configurez la variable `DATABASE_URL` comme ceci :
 
@@ -47,16 +47,16 @@ Les variables d'environnement décrites ci-dessous doivent être définies. En d
 
   Sinon, une base de données par défaut dans un conteneur Docker sera utilisée.
 
-- `EMAIL_FROM` : l’expéditeur des emails du backend
-- `EMAIL_SERVER_HOST` : serveur SMTP (`localhost` permet de bénéficier d'une instance [maildev](https://github.com/maildev/maildev))
+- `EMAIL_FROM` : l’adresse email de l’expéditeur des emails du backend
+- `EMAIL_SERVER_HOST` : serveur SMTP (`localhost` permet de bénéficier d’une instance [maildev](https://github.com/maildev/maildev))
 - `EMAIL_SERVER_PASSWORD` : le mot de passe du serveur SMTP
-- `EMAIL_SERVER_PORT` : Port du serveur SMTP (`1025` permet de bénéficier d'une instance *maildev*)
-- `EMAIL_SERVER_USER` : Nom d'utilisateur SMTP
-- `EMAIL_SERVER_USE_TLS` : Utilisation de TLS (par defaut à `True`, positionner à `False` pour utiliser l'instance *maildev*)
+- `EMAIL_SERVER_PORT` : numéro de port du serveur SMTP (`1025` permet de bénéficier d’une instance *maildev*)
+- `EMAIL_SERVER_USER` : nom d’utilisateur SMTP
+- `EMAIL_SERVER_USE_TLS` : utilisation de TLS (par defaut à `True`, positionner à `False` pour utiliser l’instance *maildev*)
 
 ### Déploiement
 
-- `BACKEND_ADMINS` : la liste des emails des administrateurs initiaux, séparés par une virgule, utilisé pour charger les utilisateurs par défaut lors du déploiement Scalingo
+- `BACKEND_ADMINS` : la liste des emails, le prénome et le nom des administrateurs initiaux, utilisés pour charger les utilisateurs par défaut lors du déploiement Scalingo. Le format doit être de ce type : `email1@test.com/Prénom1/Nom1,email2@test.com/Prénom2/Nom2`.
 
 
 ## Installation
@@ -69,8 +69,7 @@ Les variables d'environnement décrites ci-dessous doivent être définies. En d
     npm ci --ignore-scripts
     ```
 
-- Déchiffrage du fichier des impacts détaillés. Attention, la variable d’environnement
-`TRANSCRYPT_KEY` documentée plus haut **doit** être renseignée et exportée auparavant.
+- Déchiffrage du fichier des impacts détaillés. Attention, la variable d’environnement `TRANSCRYPT_KEY` documentée plus haut **doit** être renseignée et exportée auparavant.
 
     ```sh
     export TRANSCRYPT_KEY="<clé de déchiffrement>"
@@ -79,11 +78,11 @@ Les variables d'environnement décrites ci-dessous doivent être définies. En d
 
 ### Backend
 
-Installation des dépendances :
+- Installation des dépendances
 
-```bash
-uv sync
-```
+    ```sh
+    uv sync
+    ```
 
 Le framework utilisé est [Litestar](https://litestar.dev/).
 
@@ -98,9 +97,9 @@ Le serveur local de développement se lance au moyen des deux commandes suivante
 
 Trois instances de développement sont alors accessibles :
 
-- [localhost:8002](http://localhost:8002/) sert le backend Litestar utilisé pour l'authentification, et sert aussi les fichiers statiques de elm.
-- [localhost:8001](http://localhost:8001/) sert l'API ; (différente de l’API documentée sur http://localhost:8002/schema ? Et les fichiers statiques ont l’air d’être servis ici ?)
-- [localhost:1234](http://localhost:1234/) est l'URL à utiliser en développement pour tester l'intégration des trois composants (le front, l'API et le Django) car un proxy Parcel renvoie certaines requêtes vers le port 8001 ou 8002 (voir `.proxyrc.json`). Le frontend est servi en mode _hot-reload_, pour recharger! l'interface Web à chaque modification du code frontend.
+- [localhost:8002](http://localhost:8002/) sert le backend Litestar utilisé pour l’authentification, et sert aussi les fichiers statiques de ELM.
+- [localhost:8001](http://localhost:8001/) sert l’API publique Ecobalyse.
+- [localhost:1234](http://localhost:1234/) est l’URL à utiliser en développement pour tester l’intégration des trois composants (le front, l’API et le Django) car un proxy Parcel renvoie certaines requêtes vers le port 8001 ou 8002 (voir `.proxyrc.json`). Le frontend est servi en mode _hot-reload_, pour recharger l’interface Web à chaque modification du code frontend.
 
 
 ### Migrer la base de données
@@ -163,7 +162,7 @@ Pour installer les hooks pre-commit, exécutez la commande suivante :
 
     uv run pre-commit install
 
-Un hook de pre-commit sera alors configuré pour vérifier que le code est bien formaté avant de permettre le commit. Le hook corrigera les erreurs dans la mesure du possible. Il vous suffira alors d'ajouter les modifications à votre staging, git puis à refaire votre commit.
+Un hook de pre-commit sera alors configuré pour vérifier que le code est bien formaté avant de permettre le commit. Le hook corrigera les erreurs dans la mesure du possible. Il vous suffira alors d’ajouter les modifications à votre staging, git puis à refaire votre commit.
 
 Il est possible de lancer la vérification du formatage à la main grâce à la commande suivante :
 
@@ -179,11 +178,11 @@ Si vous ne souhaitez pas que la vérification se fasse de manière automatique, 
 
 ### Débogage des emails
 
-Une instance [maildev](https://github.com/maildev/maildev) est lancé en même temps que le serveur de développement, elle est accessible à l'adresse `http://localhost:1081`.
+Une instance [maildev](https://github.com/maildev/maildev) est lancé en même temps que le serveur de développement, elle est accessible à l’adresse `http://localhost:1081`.
 
 ## Compilation
 
-Pour compiler la partie client de l'application :
+Pour compiler la partie client de l’application :
 
     npm run build
 
@@ -191,13 +190,13 @@ Les fichiers sont alors générés dans le répertoire `dist` à la racine du pr
 
 ## Déploiement
 
-L'application est déployée automatiquement sur la plateforme [Scalingo](https://scalingo.com/) à chaque mise à jour de la branche `master` sur [le dépôt](https://github.com/MTES-MCT/ecobalyse/tree/master).
+L’application est déployée automatiquement sur la plateforme [Scalingo](https://scalingo.com/) à chaque mise à jour de la branche `master` sur [le dépôt](https://github.com/MTES-MCT/ecobalyse/tree/master).
 
 Chaque _Pull Request_ effectuée sur le dépôt est également automatiquement déployée sur une instance de revue spécifique, par exemple `https://ecobalyse-pr44.osc-fr1.scalingo.io/` pour la pull request #44. **Ces instances de recette restent actives 72 heures, puis sont automatiquement décommisionnées passé ce délai ou si la pull request correspondante est mergée.**
 
-### Ajout d'une variable d'environnement
+### Ajout d’une variable d’environnement
 
-Pour ajouter une variable d'environnement sur une application, il est recommandé d'utiliser le CLI scalingo qui permet d'ajouter des valeurs qui contiennent plusieurs lignes (à la différence de l'interface graphique qui ne le permet pas) :
+Pour ajouter une variable d’environnement sur une application, il est recommandé d’utiliser le CLI scalingo qui permet d’ajouter des valeurs qui contiennent plusieurs lignes (à la différence de l’interface graphique qui ne le permet pas) :
 
     scalingo --app ecobalyse env-set "MY_VAR=$(cat fichier.key)"
 
@@ -212,13 +211,13 @@ Des commandes supplémentaires sont disponibles pour chiffrer et déchiffrer les
     npm run encrypt public/data/textile/processes_impacts.json dist/processes_impacts_textile.json.enc
     npm run decrypt dist/processes_impacts.json.enc dist/processes_impacts_textile.json
 
-#### Points d'attention
+#### Points d’attention
 
 # Serveur de production
 
-## Variables d'environnement
+## Variables d’environnement
 
-Les variables d'environnement doivent être positionnées via l'interface de [configuration Scalingo](https://dashboard.scalingo.com/apps/osc-fr1/ecobalyse/environment) (voir la section [Configuration](#configuration)).
+Les variables d’environnement doivent être positionnées via l’interface de [configuration Scalingo](https://dashboard.scalingo.com/apps/osc-fr1/ecobalyse/environment) (voir la section [Configuration](#configuration)).
 
 ## Lancement du serveur
 
@@ -229,7 +228,7 @@ npm run build
 npm run server:start
 ```
 
-L'application est alors servie sur le port 1234.
+L’application est alors servie sur le port 1234.
 
 # Ecobalyse data
 
@@ -238,7 +237,7 @@ importer et exporter les données du projet Ecobalyse.
 
 # Versioning
 
-Le versioning de l'application permet de revenir à des anciennes versions d'Ecobalyse. Pour que ce versioning puisse fonctionner, les anciennes versions (<= 2.0.0) doivent être patchées rétroactivement. Le script `./bin/build-specific-app-version.sh` permet de générer une version spécifique de l'application et d'appliquer les patchs si nécessaire. Par exemple, pour générer la version `1.3.2` (le deuxième paramètre est le commit du répertoire https://github.com/MTE-extended/ecobalyse-private associé à cette version, si applicable) :
+Le versioning de l’application permet de revenir à des anciennes versions d’Ecobalyse. Pour que ce versioning puisse fonctionner, les anciennes versions (<= 2.0.0) doivent être patchées rétroactivement. Le script `./bin/build-specific-app-version.sh` permet de générer une version spécifique de l’application et d’appliquer les patchs si nécessaire. Par exemple, pour générer la version `1.3.2` (le deuxième paramètre est le commit du répertoire https://github.com/MTE-extended/ecobalyse-private associé à cette version, si applicable) :
 
     ./bin/build-specific-app-version.sh v1.3.2 3531c73f23a1eb6f1fc6b9c256a5344742230fcf
 
