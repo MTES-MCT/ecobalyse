@@ -4,7 +4,7 @@ import Charts from "./lib/charts";
 import store from "./lib/store";
 
 // The localStorage key to use to store serialized session data
-const storeKey = store.getKey();
+const storeKey = store.initializeStoreKey();
 
 // Remove trailing slash from root because it's used by the Elm API to resolve backend api urls
 const clientUrl = (location.origin + location.pathname).replace(/\/+$/g, "");
