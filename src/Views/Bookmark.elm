@@ -246,13 +246,13 @@ bookmarksView ({ compare, scope, session } as cfg) =
                     , disabled (List.isEmpty bookmarks)
                     , onClick cfg.exportBookmarks
                     ]
-                    [ Icon.fileUpload ]
+                    [ Icon.fileDownload ]
                 , button
                     [ class "btn btn-sm btn-outline-primary d-flex align-items-center"
                     , title "Importer les signets"
                     , onClick cfg.importBookmarks
                     ]
-                    [ Icon.fileDownload ]
+                    [ Icon.fileUpload ]
                 , button
                     [ class "btn btn-sm btn-primary d-flex align-items-center gap-1"
                     , title "Comparer vos simulations sauvegardées"
