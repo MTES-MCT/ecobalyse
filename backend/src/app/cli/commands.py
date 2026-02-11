@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 from typing import Any, cast
+from uuid import UUID
 
 import anyio
 import click
@@ -369,6 +370,7 @@ async def load_processes_fixtures(
     processes_ids_to_delete = []
 
     for process_fixture in processes_data:
+        process_fixture["id"] = UUID(process_fixture["id"])
         if process_fixture["id"] not in existing_processes_ids:
             processes_to_add.append(process_fixture)
         else:
