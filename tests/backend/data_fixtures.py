@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import datetime
 from typing import TYPE_CHECKING, Any
-from uuid import UUID
 
 import pytest
 from app.domain.accounts.schemas import OrganizationCreate, OrganizationType
@@ -40,7 +39,7 @@ def fx_raw_processes() -> list[dict[str, Any]]:
             "displayName": "Impression (pigmentaire)",
             "elecMJ": 1.61,
             "heatMJ": 10.74,
-            "id": UUID("97c209ec-7782-5a29-8c47-af7f17c82d11"),
+            "id": "97c209ec-7782-5a29-8c47-af7f17c82d11",
             "impacts": {
                 "acd": 1,
                 "cch": 2,
@@ -77,7 +76,7 @@ def fx_raw_processes() -> list[dict[str, Any]]:
             "displayName": "_22 Vegetable and animal oils and fats, EU27",
             "elecMJ": 0.0,
             "heatMJ": 0.0,
-            "id": UUID("af42fc20-e3ec-5b99-9b9c-83ba6735e597"),
+            "id": "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
             "impacts": {
                 "acd": 0.01570549584,
                 "cch": 2.107576844,
@@ -114,7 +113,7 @@ def fx_raw_processes() -> list[dict[str, Any]]:
             "displayName": "Test process",
             "elecMJ": 0.0,
             "heatMJ": 0.0,
-            "id": UUID("d25636af-ab36-4857-a6d0-c66d1e7a281b"),
+            "id": "d25636af-ab36-4857-a6d0-c66d1e7a281b",
             "impacts": {
                 "acd": 0.01570549584,
                 "cch": 2.107576844,
