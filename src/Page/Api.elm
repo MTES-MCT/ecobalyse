@@ -651,7 +651,7 @@ apiDocumentationNotice session =
             |> alert Alert.Success
 
     else
-        """Les requêtes non authentifiées à l'API ne sont pas autorisées.
+        """Les requêtes non authentifiées à l'API ne sont pas autorisées et nécessitent l’utilisation d’un jeton.
                **Pour accéder au détail des impacts et à l’API, il est nécessaire de fournir un jeton d'API**,
                accessible dans votre [compte utilisateur]({route}) une fois connecté."""
             |> String.replace "{route}" (Route.toString Route.Auth)
