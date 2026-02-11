@@ -165,6 +165,45 @@ describe("lib.store", () => {
       expect(JSON.parse(localStorage.store)).toEqual({ bookmarks: stableBookmarks });
     });
 
+    test("should keep existing bookmarks list when import file has no bookmarks", () => {
+      const localStorage = {
+        ecobalyse: JSON.stringify(ongoingStore),
+        store: JSON.stringify(stableStore),
+      };
+
+      global.FileReader = function () {
+        this.result = null;
+        this.addEventListener = (_, handler) => {
+          this.onLoad = handler;
+        };
+        this.readAsText = jest.fn(() => {
+          // empty bookmarks lists in import file
+          this.result = JSON.stringify({
+            ecobalyse: [],
+            store: [],
+          });
+          this.onLoad();
+        });
+      };
+
+      global.document = {
+        location: { reload: jest.fn() },
+        createElement: jest.fn((_) => ({
+          click: jest.fn(),
+          addEventListener: (_, handler) => {
+            fileUploadHandler = handler;
+          },
+        })),
+      };
+
+      importBookmarks(localStorage);
+
+      fileUploadHandler({ target: { files: [{ name: "ecobalyse-bookmarks.json" }] } });
+
+      expect(JSON.parse(localStorage.ecobalyse)).toEqual(ongoingStore);
+      expect(JSON.parse(localStorage.store)).toEqual(stableStore);
+    });
+
     test("should alert the user when the import fails", () => {
       const localStorage = {
         ecobalyse: JSON.stringify(ongoingStore),
