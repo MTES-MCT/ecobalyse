@@ -71,6 +71,8 @@ type Modal
 type Msg
     = CopyToClipBoard String
     | DeleteBookmark Bookmark
+    | ExportBookmarks
+    | ImportBookmarks
     | NoOp
     | OnAutocompleteAddComponent (Autocomplete.Msg Component)
     | OnAutocompleteAddProcess Category TargetItem (Maybe Index) (Autocomplete.Msg Process)
@@ -238,6 +240,14 @@ update ({ navKey } as session) msg model =
         ( DeleteBookmark bookmark, _ ) ->
             model
                 |> App.createUpdate (session |> Session.deleteBookmark bookmark)
+
+        ( ExportBookmarks, _ ) ->
+            App.createUpdate session model
+                |> App.withCmds [ Ports.exportBookmarks () ]
+
+        ( ImportBookmarks, _ ) ->
+            App.createUpdate session model
+                |> App.withCmds [ Ports.importBookmarks () ]
 
         ( NoOp, _ ) ->
             App.createUpdate session model
@@ -597,6 +607,8 @@ simulatorView session model =
                 , copyToClipBoard = CopyToClipBoard
                 , compareBookmarks = OpenComparator
                 , deleteBookmark = DeleteBookmark
+                , exportBookmarks = ExportBookmarks
+                , importBookmarks = ImportBookmarks
                 , saveBookmark = SaveBookmark
                 , updateBookmarkName = UpdateBookmarkName
                 , switchBookmarkTab = SwitchBookmarksTab
