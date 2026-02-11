@@ -1,8 +1,8 @@
-const { exportBookmarks, importBookmarks, getKey } = require("../../lib/store");
+const { exportBookmarks, importBookmarks, initializeStoreKey } = require("../../lib/store");
 
 describe("lib.store", () => {
-  const stableStore = { bookmarks: [{ name: "My bookmark in stable store" }] };
-  const ongoingStore = { bookmarks: [{ name: "My bookmark in ongoing store" }] };
+  const anonStableStore = { bookmarks: [{ name: "My bookmark in stable store" }] };
+  const anonOngoingStore = { bookmarks: [{ name: "My bookmark in ongoing store" }] };
 
   let origDocument, origAlert, origConsoleError;
 
@@ -18,35 +18,56 @@ describe("lib.store", () => {
     console.error = origConsoleError;
   });
 
-  describe("getKey", () => {
-    test("should initialize ongoing store from stable store when only stable exists", () => {
+  describe("initializeStoreKey", () => {
+    test("should initialize ongoing store with auth only when only stable store exists", () => {
+      const authStableStore = {
+        auth2: { token: "stable-session-token" },
+        bookmarks: anonStableStore.bookmarks,
+      };
       const localStorage = {
-        store: JSON.stringify(stableStore),
+        store: JSON.stringify(authStableStore),
       };
 
-      const key = getKey(localStorage);
+      const key = initializeStoreKey(localStorage);
 
       expect(key).toBe("ecobalyse");
-      expect(localStorage.ecobalyse).toBe(localStorage.store);
+      expect(JSON.parse(localStorage.ecobalyse)).toEqual({ auth2: authStableStore.auth2 });
+    });
+
+    test("should backport auth only to stable store when only ongoing store exists", () => {
+      const authOngoingStore = {
+        auth2: { token: "ongoing-session-token" },
+        bookmarks: anonOngoingStore.bookmarks,
+      };
+      const localStorage = {
+        ecobalyse: JSON.stringify(authOngoingStore),
+      };
+
+      const key = initializeStoreKey(localStorage);
+
+      expect(key).toBe("ecobalyse");
+      expect(JSON.parse(localStorage.store)).toEqual({ auth2: authOngoingStore.auth2 });
     });
 
     test("should not alter stores when both stable and ongoing stores exist", () => {
+      const stableSession = { auth2: { token: "stable-session-token" } };
+      const ongoingSession = { auth2: { token: "ongoing-session-token" } };
       const localStorage = {
-        ecobalyse: JSON.stringify(ongoingStore),
-        store: JSON.stringify(stableStore),
+        ecobalyse: JSON.stringify(ongoingSession),
+        store: JSON.stringify(stableSession),
       };
 
-      const key = getKey(localStorage);
+      const key = initializeStoreKey(localStorage);
 
       expect(key).toBe("ecobalyse");
-      expect(localStorage.store).toBe(JSON.stringify(stableStore));
-      expect(localStorage.ecobalyse).toBe(JSON.stringify(ongoingStore));
+      expect(localStorage.store).toBe(JSON.stringify(stableSession));
+      expect(localStorage.ecobalyse).toBe(JSON.stringify(ongoingSession));
     });
 
     test("should return ongoing key when no store is initialized", () => {
       const localStorage = {};
 
-      const key = getKey(localStorage);
+      const key = initializeStoreKey(localStorage);
 
       expect(key).toBe("ecobalyse");
       expect(localStorage.store).toBeUndefined();
@@ -56,8 +77,8 @@ describe("lib.store", () => {
 
   describe("exportBookmarks", () => {
     const localStorage = {
-      ecobalyse: JSON.stringify(ongoingStore),
-      store: JSON.stringify(stableStore),
+      ecobalyse: JSON.stringify(anonOngoingStore),
+      store: JSON.stringify(anonStableStore),
     };
 
     test("should export bookmarks for both stores as a JSON file", () => {
@@ -83,8 +104,8 @@ describe("lib.store", () => {
       const parsed = JSON.parse(decodedJson);
 
       expect(parsed).toEqual({
-        ecobalyse: ongoingStore.bookmarks,
-        store: stableStore.bookmarks,
+        ecobalyse: anonOngoingStore.bookmarks,
+        store: anonStableStore.bookmarks,
       });
     });
 
@@ -122,8 +143,8 @@ describe("lib.store", () => {
 
     test("should import bookmarks for both stores and reload the page on success", () => {
       const localStorage = {
-        ecobalyse: JSON.stringify(ongoingStore),
-        store: JSON.stringify(stableStore),
+        ecobalyse: JSON.stringify(anonOngoingStore),
+        store: JSON.stringify(anonStableStore),
       };
       const ongoingBookmarks = [{ name: "A bookmark to import in ongoing store" }];
       const stableBookmarks = [{ name: "A bookmark to import in stable store" }];
@@ -167,8 +188,8 @@ describe("lib.store", () => {
 
     test("should keep existing bookmarks list when import file has no bookmarks", () => {
       const localStorage = {
-        ecobalyse: JSON.stringify(ongoingStore),
-        store: JSON.stringify(stableStore),
+        ecobalyse: JSON.stringify(anonOngoingStore),
+        store: JSON.stringify(anonStableStore),
       };
 
       global.FileReader = function () {
@@ -202,14 +223,14 @@ describe("lib.store", () => {
 
       fileUploadHandler({ target: { files: [{ name: "ecobalyse-bookmarks.json" }] } });
 
-      expect(JSON.parse(localStorage.ecobalyse)).toEqual(ongoingStore);
-      expect(JSON.parse(localStorage.store)).toEqual(stableStore);
+      expect(JSON.parse(localStorage.ecobalyse)).toEqual(anonOngoingStore);
+      expect(JSON.parse(localStorage.store)).toEqual(anonStableStore);
     });
 
     test("should alert the user when the import fails", () => {
       const localStorage = {
-        ecobalyse: JSON.stringify(ongoingStore),
-        store: JSON.stringify(stableStore),
+        ecobalyse: JSON.stringify(anonOngoingStore),
+        store: JSON.stringify(anonStableStore),
       };
 
       global.FileReader = function () {
