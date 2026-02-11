@@ -55,7 +55,8 @@ L'illustration ci-après montre les principales évolutions des coefficients de 
 
 * la proposition initiale du JRC (2018), avant prise en compte du coefficient de robustesse (donc à partir des enjeux perçus)
 * la pondération annexée à la recommandation PEF de la Commission européenne de décembre 2021
-* la pondération présentée, en mars 2023, à l'occasion de la mise en ligne d'une version beta d'Ecobalyse
-* la pondération exposée aujourd'hui dans Ecobalyse pour servir de support à une concertation technique
+* la pondération retenue pour le "cout environnemental" suite aux consultations et inscrite dans le décret.&#x20;
 
-<figure><img src="../../.gitbook/assets/graphique_sans_FR_2023_sans_biodiv.png" alt=""><figcaption></figcaption></figure>
+
+
+<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
