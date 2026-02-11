@@ -16,7 +16,7 @@ Outre les bases de données standards, certaines sources particulières peuvent 
 
 Lorsque la source indique "Ecobalyse", cela signifie que le procédé a été construit par l'équipe Ecobalyse. Cette création intervient lorsqu'il n'existe pas d'ICV existante satisfaisante dans les bases de données standard.
 
-Ces procédés construits sont spécifiés dans le fichier `activities_to_create.json` visible dans le repo [ecobalyse-data](https://github.com/MTES-MCT/ecobalyse-data/tree/main). Exemple de fichier [activities\_to\_create.json](https://github.com/MTES-MCT/ecobalyse-data/blob/main/food/activities_to_create.json) pour food.
+Ces procédés construits sont spécifiés dans le fichier `activities_to_create.json` visible dans le repo [ecobalyse-data](https://github.com/MTES-MCT/ecobalyse-data/tree/main), [activities\_to\_create.json](https://github.com/MTES-MCT/ecobalyse-data/blob/main/activities_to_create.json).
 
 \
 Plusieurs cas de figure conduisent à construire un procédé :&#x20;
