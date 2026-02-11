@@ -131,8 +131,6 @@ cp $PUBLIC_GIT_CLONE_DIR/openapi.yaml $PUBLIC_GIT_CLONE_DIR/dist
 
 # Create the dist archive and put it in the ROOT_DIR
 cd $PUBLIC_GIT_CLONE_DIR
-tar czvf $COMMIT_OR_TAG-dist.tar.gz dist
-
-mv $COMMIT_OR_TAG-dist.tar.gz $ROOT_DIR
+tar czvf "$ROOT_DIR/$COMMIT_OR_TAG-dist.tar.gz" dist
 
 echo "✅ $ROOT_DIR/$COMMIT_OR_TAG-dist.tar.gz successfully created"
