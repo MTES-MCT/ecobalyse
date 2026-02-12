@@ -31,7 +31,7 @@ describe("lib.store", () => {
       const key = initializeStoreKey(localStorage);
 
       expect(key).toBe("ecobalyse");
-      expect(JSON.parse(localStorage.ecobalyse)).toEqual({ auth2: authStableStore.auth2 });
+      expect(JSON.parse(localStorage.ecobalyse)).toEqual(authStableStore);
     });
 
     test("should backport auth only to stable store when only ongoing store exists", () => {
