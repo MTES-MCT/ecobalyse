@@ -125,7 +125,7 @@ app.ports.addBodyClass.subscribe((cls) => {
 
 app.ports.exportBookmarks.subscribe(() => {
   const msg =
-    "Cet export contient l'intégralité de vos signets, tous secteurs et versions confondus";
+    "Cet export contient l’intégralité de vos signets, tous secteurs et versions confondus";
   if (confirm(msg)) {
     store.exportBookmarks();
   }
@@ -133,7 +133,7 @@ app.ports.exportBookmarks.subscribe(() => {
 
 app.ports.importBookmarks.subscribe(() => {
   const msg =
-    "L'import des signets écrasera ceux existant pour ce navigateur, pour toutes les verticales. Voulez-vous vraiment continuer ?";
+    "Attention, l’import des signets écrasera ceux existant sur ce navigateur pour tous les secteurs (textile, alimentaire, etc). Voulez-vous vraiment continuer ?";
   if (confirm(msg)) {
     store.importBookmarks();
   }

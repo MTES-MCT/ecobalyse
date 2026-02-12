@@ -3,6 +3,7 @@ const { exportBookmarks, importBookmarks, initializeStoreKey } = require("../../
 describe("lib.store", () => {
   const anonStableStore = { bookmarks: [{ name: "My bookmark in stable store" }] };
   const anonOngoingStore = { bookmarks: [{ name: "My bookmark in ongoing store" }] };
+  const sampleFilename = "ecobalyse-bookmarks-20260212-095036.json";
 
   let origDocument, origAlert, origConsoleError;
 
@@ -97,7 +98,7 @@ describe("lib.store", () => {
 
       exportBookmarks(localStorage);
 
-      expect(linkElement.download).toBe("ecobalyse-bookmarks.json");
+      expect(linkElement.download).toMatch(/ecobalyse-bookmarks-\d{8}-\d{6}\.json/);
 
       const [, base64Payload] = linkElement.href.split(",");
       const decodedJson = Buffer.from(base64Payload, "base64").toString("utf8");
@@ -177,7 +178,9 @@ describe("lib.store", () => {
 
       importBookmarks(localStorage);
 
-      fileUploadHandler({ target: { files: [{ name: "ecobalyse-bookmarks.json" }] } });
+      fileUploadHandler({
+        target: { files: [{ name: sampleFilename }] },
+      });
 
       expect(global.alert).toHaveBeenCalledWith("Les signets ont été importés");
       expect(document.location.reload).toHaveBeenCalled();
@@ -221,7 +224,9 @@ describe("lib.store", () => {
 
       importBookmarks(localStorage);
 
-      fileUploadHandler({ target: { files: [{ name: "ecobalyse-bookmarks.json" }] } });
+      fileUploadHandler({
+        target: { files: [{ name: sampleFilename }] },
+      });
 
       expect(JSON.parse(localStorage.ecobalyse)).toEqual(anonOngoingStore);
       expect(JSON.parse(localStorage.store)).toEqual(anonStableStore);
@@ -258,7 +263,9 @@ describe("lib.store", () => {
 
       importBookmarks(localStorage);
 
-      fileUploadHandler({ target: { files: [{ name: "ecobalyse-bookmarks.json" }] } });
+      fileUploadHandler({
+        target: { files: [{ name: sampleFilename }] },
+      });
 
       expect(global.alert).toHaveBeenCalledWith("Erreur lors de l’import des signets");
       expect(console.error).toHaveBeenCalledWith(
