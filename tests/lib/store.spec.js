@@ -269,7 +269,7 @@ describe("lib.store", () => {
 
       expect(global.alert).toHaveBeenCalledWith("Erreur lors de l’import des signets");
       expect(console.error).toHaveBeenCalledWith(
-        "Error while importing boookmarks",
+        "Error while importing bookmarks",
         expect.any(Error),
       );
       expect(document.location.reload).not.toHaveBeenCalled();
