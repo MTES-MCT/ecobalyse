@@ -161,6 +161,7 @@ class CustomAuthMiddleware(AbstractAuthenticationMiddleware):
         Returns:
             AuthenticationResult
         """
+
         if encoded_token.startswith("eco_api"):
             payload = await TokenService.extract_payload(encoded_token)
 
@@ -304,17 +305,18 @@ class CustomCookieAuthMiddleware(CustomAuthMiddleware):
         Returns:
             AuthenticationResult
         """
-        auth_header = connection.headers.get(
-            self.auth_header
-        ) or connection.cookies.get(self.auth_cookie_key)
 
-        if not auth_header:
+        encoded_token = (
+            connection.headers.get(self.auth_header, "").partition(" ")[-1]
+            or connection.cookies.get(self.auth_cookie_key, "").split(" ")[-1]
+        )
+
+        if not encoded_token:
             if connection.scope["route_handler"].opt.get("allow_none_user"):
                 return AuthenticationResult(user=None, auth=None)
             else:
                 raise NotAuthorizedException("No JWT token found in request header")
 
-        encoded_token = auth_header.partition(" ")[-1]
         return await self.authenticate_token(
             encoded_token=encoded_token, connection=connection
         )
