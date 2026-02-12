@@ -106,6 +106,8 @@ type Msg
     | DeleteIngredient Ingredient.Id
     | DeletePackaging Process.Id
     | DeletePreparation Preparation.Id
+    | ExportBookmarks
+    | ImportBookmarks
     | LoadQuery Query
     | NoOp
     | OnAutocompleteExample (Autocomplete.Msg Query)
@@ -272,6 +274,14 @@ update ({ db, queries } as session) msg model =
         DeletePreparation id ->
             createPageUpdate session model
                 |> updateQuery (Query.deletePreparation id query)
+
+        ExportBookmarks ->
+            createPageUpdate session model
+                |> App.withCmds [ Ports.exportBookmarks () ]
+
+        ImportBookmarks ->
+            createPageUpdate session model
+                |> App.withCmds [ Ports.importBookmarks () ]
 
         LoadQuery queryToLoad ->
             let
@@ -1563,7 +1573,8 @@ processSelectorAutocompleteView process selectElement =
 sidebarView : Session -> Model -> Recipe.Results -> Html Msg
 sidebarView session model results =
     SidebarView.view
-        { session = session
+        { noOp = NoOp
+        , session = session
         , scope = Scope.Food
 
         -- Impact selector
@@ -1590,6 +1601,8 @@ sidebarView session model results =
         , copyToClipBoard = CopyToClipBoard
         , compareBookmarks = OpenComparator
         , deleteBookmark = DeleteBookmark
+        , exportBookmarks = ExportBookmarks
+        , importBookmarks = ImportBookmarks
         , renameBookmark = RenameBookmark
         , saveBookmark = SaveBookmark
         , updateBookmarkName = UpdateBookmarkName

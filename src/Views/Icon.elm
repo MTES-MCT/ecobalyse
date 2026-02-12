@@ -51,9 +51,19 @@ crossRounded =
     icon "cross-rounded"
 
 
+fileDownload : Html msg
+fileDownload =
+    icon "file-download"
+
+
 fileExport : Html msg
 fileExport =
     icon "file-export"
+
+
+fileUpload : Html msg
+fileUpload =
+    icon "file-upload"
 
 
 forkWay : Html msg

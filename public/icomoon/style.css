@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?e214z6');
-  src:  url('fonts/icomoon.eot?e214z6#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?e214z6') format('truetype'),
-    url('fonts/icomoon.woff?e214z6') format('woff'),
-    url('fonts/icomoon.svg?e214z6#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?n56tel');
+  src:  url('fonts/icomoon.eot?n56tel#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?n56tel') format('truetype'),
+    url('fonts/icomoon.woff?n56tel') format('woff'),
+    url('fonts/icomoon.svg?n56tel#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -27,6 +27,12 @@
 
 .icon-package:before {
   content: "\e912";
+}
+.icon-file-upload:before {
+  content: "\e919";
+}
+.icon-file-download:before {
+  content: "\e91a";
 }
 .icon-ham:before {
   content: "\e918";
@@ -75,6 +81,12 @@
 }
 .icon-home:before {
   content: "\e90b";
+}
+.icon-sign-in:before {
+  content: "\e915";
+}
+.icon-sign-out:before {
+  content: "\e914";
 }
 .icon-puzzle:before {
   content: "\e909";

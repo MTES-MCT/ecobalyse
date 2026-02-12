@@ -82,6 +82,8 @@ type Modal
 type Msg
     = CopyToClipBoard String
     | DeleteBookmark Bookmark
+    | ExportBookmarks
+    | ImportBookmarks
     | NoOp
     | OnAutocompleteAddComponent (Autocomplete.Msg Component)
     | OnAutocompleteAddConsumption (Autocomplete.Msg Process)
@@ -279,6 +281,14 @@ update ({ navKey } as session) msg model =
         ( DeleteBookmark bookmark, _ ) ->
             model
                 |> createPageUpdate (session |> Session.deleteBookmark bookmark)
+
+        ( ExportBookmarks, _ ) ->
+            createPageUpdate session model
+                |> App.withCmds [ Ports.exportBookmarks () ]
+
+        ( ImportBookmarks, _ ) ->
+            createPageUpdate session model
+                |> App.withCmds [ Ports.importBookmarks () ]
 
         ( NoOp, _ ) ->
             createPageUpdate session model
@@ -738,7 +748,8 @@ simulatorView session model =
                         |> Result.withDefault Component.emptyLifeCycle
               in
               SidebarView.view
-                { session = session
+                { noOp = NoOp
+                , session = session
                 , scope = model.scope
 
                 -- Impact selector
@@ -775,6 +786,8 @@ simulatorView session model =
                 , copyToClipBoard = CopyToClipBoard
                 , compareBookmarks = OpenComparator
                 , deleteBookmark = DeleteBookmark
+                , exportBookmarks = ExportBookmarks
+                , importBookmarks = ImportBookmarks
                 , renameBookmark = RenameBookmark
                 , saveBookmark = SaveBookmark
                 , updateBookmarkName = UpdateBookmarkName

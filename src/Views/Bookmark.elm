@@ -23,7 +23,10 @@ type alias ManagerConfig msg =
     , compare : msg
     , copyToClipBoard : String -> msg
     , delete : Bookmark -> msg
+    , exportBookmarks : msg
     , impact : Definition
+    , importBookmarks : msg
+    , noOp : msg
     , rename : msg
     , save : msg
     , scope : Scope
@@ -253,16 +256,29 @@ bookmarksView ({ compare, scope, session } as cfg) =
             scopedBookmarks session scope
     in
     div []
-        [ div [ class "card-header border-top rounded-0 d-flex justify-content-between align-items-center" ]
-            [ span [] [ text "Simulations sauvegardées" ]
-            , button
-                [ class "btn btn-sm btn-primary"
-                , title "Comparer vos simulations sauvegardées"
-                , disabled (List.isEmpty bookmarks)
-                , onClick compare
-                ]
-                [ span [ class "me-1" ] [ Icon.stats ]
-                , text "Comparer"
+        [ div [ class "card-header border-top rounded-0 d-flex justify-content-between align-items-center gap-1" ]
+            [ span [] [ text "Signets" ]
+            , div [ class "d-flex flex-fill justify-content-end gap-1" ]
+                [ button
+                    [ class "btn btn-sm btn-outline-primary d-flex align-items-center"
+                    , title "Exporter les signets"
+                    , disabled (List.isEmpty bookmarks)
+                    , onClick cfg.exportBookmarks
+                    ]
+                    [ Icon.fileDownload ]
+                , button
+                    [ class "btn btn-sm btn-outline-primary d-flex align-items-center"
+                    , title "Importer les signets"
+                    , onClick cfg.importBookmarks
+                    ]
+                    [ Icon.fileUpload ]
+                , button
+                    [ class "btn btn-sm btn-primary d-flex align-items-center gap-1"
+                    , title "Comparer vos simulations sauvegardées"
+                    , disabled (List.isEmpty bookmarks)
+                    , onClick compare
+                    ]
+                    [ Icon.stats, text "Comparer" ]
                 ]
             ]
         , bookmarks
