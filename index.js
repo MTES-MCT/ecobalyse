@@ -2,6 +2,7 @@ import { Elm } from "./src/Main.elm";
 import * as Sentry from "@sentry/browser";
 import Charts from "./lib/charts";
 import posthog from "posthog-js/dist/module.no-external";
+import store from "./lib/store";
 
 // The localStorage key to use to store serialized session data
 const storeKey = "store";
@@ -129,6 +130,22 @@ app.ports.saveStore.subscribe((rawStore) => {
 
 app.ports.addBodyClass.subscribe((cls) => {
   document.body.classList.add(cls);
+});
+
+app.ports.exportBookmarks.subscribe(() => {
+  const msg =
+    "Cet export contient l’intégralité de vos signets, tous secteurs et versions confondus";
+  if (confirm(msg)) {
+    store.exportBookmarks();
+  }
+});
+
+app.ports.importBookmarks.subscribe(() => {
+  const msg =
+    "Attention, l’import des signets écrasera ceux existant sur ce navigateur pour tous les secteurs (textile, alimentaire, etc). Voulez-vous vraiment continuer ?";
+  if (confirm(msg)) {
+    store.importBookmarks();
+  }
 });
 
 app.ports.removeBodyClass.subscribe((cls) => {

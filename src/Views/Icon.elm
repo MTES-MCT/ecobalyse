@@ -46,9 +46,19 @@ copy =
     icon "copy"
 
 
+fileDownload : Html msg
+fileDownload =
+    icon "file-download"
+
+
 fileExport : Html msg
 fileExport =
     icon "file-export"
+
+
+fileUpload : Html msg
+fileUpload =
+    icon "file-upload"
 
 
 ham : Html msg
