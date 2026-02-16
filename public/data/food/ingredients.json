@@ -3025,7 +3025,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Barley grain, non-irrigated, at farm {DE} - Adapted from WFLDB U",
@@ -9573,7 +9573,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Candied fruits, recipe, at plant {FR} U",
