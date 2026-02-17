@@ -601,8 +601,8 @@ view session =
                             |> List.map
                                 (\{ date, level, domains, md } ->
                                     li [ class "list-group-item" ]
-                                        [ div [ class "d-flex justify-content-between align-items-center mb-1" ]
-                                            [ text date
+                                        [ div [ class "d-flex justify-content-between align-items-right mb-1" ]
+                                            [ div [ class "text-nowrap" ] [ text date ]
                                             , span
                                                 [ class "badge"
                                                 , classList
@@ -618,7 +618,7 @@ view session =
                                                                     [ text domain ]
                                                             )
                                                    )
-                                                |> div [ class "d-flex gap-1" ]
+                                                |> div [ class "d-flex gap-1 flex-wrap justify-content-end" ]
                                             ]
                                         , Markdown.simple [ class "fs-7" ] md
                                         ]
