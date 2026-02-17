@@ -671,7 +671,7 @@ ecoinventTermsView =
 
            - l’authentification des utilisateurs sur la plateforme web ou via l’API afin d’accéder aux impacts détaillés (ex: changement climatique),
 
-           - la délivrance de licences nominatives par EcoInvent aux utilisateurs des données EcoInvent via Ecobalyse (les données sont transmises si l’utilisateur consent au moins une fois via son compte Ecobalyse dans l’année).
+           - la délivrance de licences nominatives par ecoinvent aux utilisateurs des données ecoinvent via Ecobalyse (les données sont transmises si l’utilisateur consent au moins une fois via son compte Ecobalyse dans l’année).
 
          Pour plus d’informations veuillez consulter la [politique de confidentialité]({url_privacy})."""
         |> String.replace "{url_ecoinvent}" (Route.toString <| Route.Editorial "cgu-ecoinvent")
