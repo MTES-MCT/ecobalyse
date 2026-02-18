@@ -86,22 +86,7 @@ frame ({ activePage, session } as config) ( title, content ) =
 
             _ ->
                 text ""
-        , case session.store.auth2 of
-            Just { user } ->
-                if not user.profile.termsAccepted then
-                    Notice.warn
-                        [ """Attention, vous êtes connecté mais n’avez pas accepté les conditions d’utilisation Ecoinvent, vous privant ainsi
-                             de **l’accès aux impacts détaillés** (changement climatique, consommation d'eau, etc). **Vous pouvez
-                             les lire et les accepter depuis [votre espace personnel]({url}).**"""
-                            |> String.replace "{url}" (Route.toString Route.Auth)
-                            |> Markdown.simple []
-                        ]
-
-                else
-                    text ""
-
-            Nothing ->
-                text ""
+        , termsNotice session
         , if config.mobileNavigationOpened then
             mobileNavigation config
 
@@ -126,6 +111,21 @@ frame ({ activePage, session } as config) ( title, content ) =
         ]
     , title = title ++ " | Ecobalyse"
     }
+
+
+termsNotice : Session -> Html msg
+termsNotice session =
+    if Session.hasAccessToDetailedImpacts session then
+        Notice.warn
+            [ """Attention, vous êtes connecté mais n’avez pas accepté les conditions d’utilisation Ecoinvent, vous privant ainsi
+                 de **l’accès aux impacts détaillés** (changement climatique, consommation d'eau, etc). **Vous pouvez
+                 les lire et les accepter depuis [votre espace personnel]({url}).**"""
+                |> String.replace "{url}" (Route.toString Route.Auth)
+                |> Markdown.simple []
+            ]
+
+    else
+        text ""
 
 
 toastListView : Config msg -> Html msg
