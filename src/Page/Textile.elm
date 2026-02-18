@@ -590,7 +590,7 @@ update ({ db, queries, navKey } as session) msg model =
 
         ( UpdateMassInput massInput, _ ) ->
             createPageUpdate session model
-                |> (case massInput |> String.toFloat |> Maybe.map Mass.kilograms of
+                |> (case massInput |> String.toFloat |> Maybe.map Mass.grams of
                         Just mass ->
                             updateQuery { query | mass = mass }
 
@@ -861,18 +861,18 @@ massField massInput =
         [ label [ for "mass", class "form-label text-truncate" ]
             [ text "Masse du produit fini" ]
         , div
-            [ class "input-group" ]
+            [ class "input-group", title "Masse du produit fini, en grammes" ]
             [ input
                 [ type_ "number"
-                , class "form-control"
+                , class "form-control text-end"
                 , id "mass"
-                , Attr.min "0.01"
-                , step "0.01"
-                , value massInput
+                , Attr.min "1"
+                , step "1"
+                , value <| massInput
                 , onInput UpdateMassInput
                 ]
                 []
-            , span [ class "input-group-text" ] [ text "kg" ]
+            , span [ class "input-group-text" ] [ text "g" ]
             ]
         ]
 
@@ -939,7 +939,7 @@ simulatorFormView session model ({ inputs } as simulator) =
             ]
         , div [ class "col-md-3" ]
             [ inputs.mass
-                |> Mass.inKilograms
+                |> Mass.inGrams
                 |> String.fromFloat
                 |> massField
             ]
