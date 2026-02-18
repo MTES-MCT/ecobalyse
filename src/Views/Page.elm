@@ -28,6 +28,7 @@ import Views.Container as Container
 import Views.Icon as Icon
 import Views.Link as Link
 import Views.Markdown as Markdown
+import Views.Notice as Notice
 import Views.Spinner as Spinner
 
 
@@ -61,18 +62,16 @@ type alias Config msg =
 
 
 frame : Config msg -> ( String, List (Html msg) ) -> Document msg
-frame ({ activePage } as config) ( title, content ) =
+frame ({ activePage, session } as config) ( title, content ) =
     { body =
         [ stagingAlert config
         , newVersionAlert config
         , pageHeader config
-        , if activePage == TextileSimulator then
-            div [ class "page-notice shadow-inner-top", attribute "role" "notice" ]
-                [ div [ class "container px-4" ]
-                    [ span [ class "me-1" ]
-                        [ Icon.info ]
-                    , span [ class "fw-bold" ]
-                        [ text "Cette version est en cours de développement." ]
+        , case activePage of
+            TextileSimulator ->
+                Notice.info
+                    [ span [ class "me-1" ] [ Icon.info ]
+                    , span [ class "fw-bold" ] [ text "Cette version est en cours de développement." ]
                     , span [ class "ms-1" ]
                         [ text "La version réglementaire est la v7.0.0."
                         , button
@@ -84,10 +83,25 @@ frame ({ activePage } as config) ( title, content ) =
                             [ text "Accéder à la version réglementaire" ]
                         ]
                     ]
-                ]
 
-          else
-            text ""
+            _ ->
+                text ""
+        , case session.store.auth2 of
+            Just { user } ->
+                if not user.profile.termsAccepted then
+                    Notice.warn
+                        [ """Attention, vous êtes connecté mais n'avez pas accepté les nouvelles Conditions Générales d'Utilisation du service,
+                           vous privant ainsi de **l'accès aux impacts détaillés** (changement climatique, consommation d'eau, etc). **Vous pouvez
+                           les lire et les accepter depuis [votre espace personnel]({url}).**"""
+                            |> String.replace "{url}" (Route.toString Route.Auth)
+                            |> Markdown.simple []
+                        ]
+
+                else
+                    text ""
+
+            Nothing ->
+                text ""
         , if config.mobileNavigationOpened then
             mobileNavigation config
 
