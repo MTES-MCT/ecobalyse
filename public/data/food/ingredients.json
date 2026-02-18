@@ -254,15 +254,15 @@
     "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
     "ecosystemicServices": {
-      "cropDiversity": 0.0047697,
-      "hedges": 0.005425,
+      "cropDiversity": 0.0048009,
+      "hedges": 0.0054605,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.0066456
+      "plotSize": 0.0066891
     },
     "id": "03ecc69a-01a4-4ca2-83ba-77e8310d034a",
     "inediblePart": 0.2,
-    "landOccupation": 0.007595,
+    "landOccupation": 0.0076447,
     "location": "BR",
     "name": "Litchi Bio (2025)",
     "processId": "e8660bef-5298-5e11-8f52-b597d74f5974",
@@ -552,15 +552,15 @@
     "defaultOrigin": "France",
     "density": 0.6375,
     "ecosystemicServices": {
-      "cropDiversity": 0.11391,
-      "hedges": 0.02353,
+      "cropDiversity": 0.11396,
+      "hedges": 0.02354,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.035585
+      "plotSize": 0.035601
     },
     "id": "076b3d53-fc81-454b-9c90-e19767de8b0b",
     "inediblePart": 0.1,
-    "landOccupation": 0.040669,
+    "landOccupation": 0.040687,
     "location": "FR",
     "name": "Radis Bio (2025)",
     "processId": "d0192856-fcd0-5f56-90d6-f8707cf835fc",
@@ -688,15 +688,15 @@
     "defaultOrigin": "EuropeAndMaghreb",
     "density": 0.447,
     "ecosystemicServices": {
-      "cropDiversity": 10.397,
-      "hedges": 2.1476,
+      "cropDiversity": 10.399,
+      "hedges": 2.1479,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 3.2479
+      "plotSize": 3.2484
     },
     "id": "091cda9d-3c9d-444c-ad0e-1d6f34491767",
     "inediblePart": 0.03,
-    "landOccupation": 3.7119,
+    "landOccupation": 3.7125,
     "location": "RS",
     "name": "Framboise Bio (2025)",
     "processId": "3bd75842-f9d9-55d8-8506-e6ea53be8495",
@@ -1055,15 +1055,15 @@
     "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.575,
     "ecosystemicServices": {
-      "cropDiversity": 0.17205,
-      "hedges": 0.19569,
+      "cropDiversity": 0.17208,
+      "hedges": 0.19572,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.23972
+      "plotSize": 0.23976
     },
     "id": "0f52bae1-07d0-446d-ae5b-f246f894ac3b",
     "inediblePart": 0.5,
-    "landOccupation": 0.27397,
+    "landOccupation": 0.27401,
     "location": "GLO",
     "name": "Ananas Bio (2025)",
     "processId": "f3bd799b-42b6-50d2-b547-cc7678f6b0f6",
@@ -1138,15 +1138,15 @@
     "defaultOrigin": "France",
     "density": 0.447,
     "ecosystemicServices": {
-      "cropDiversity": 0.017964,
-      "hedges": 0.020432,
+      "cropDiversity": 0.018022,
+      "hedges": 0.020498,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.025029
+      "plotSize": 0.02511
     },
     "id": "10af6fa1-e374-4748-b8a8-f735d2813489",
     "inediblePart": 0.2,
-    "landOccupation": 0.028605,
+    "landOccupation": 0.028697,
     "location": "FR",
     "name": "Prune Bio (2025)",
     "processId": "a4d4d704-2b13-5722-a2ed-d4e8f71925bf",
@@ -1167,14 +1167,14 @@
     "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 1.6857,
+      "hedges": 1.6859,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 4.9168
+      "plotSize": 4.9171
     },
     "id": "115a010d-270f-43f8-9827-b27348a08d13",
     "inediblePart": 0.5,
-    "landOccupation": 5.6192,
+    "landOccupation": 5.6196,
     "location": "GLO",
     "name": "Pistache avec coque Bio (2025)",
     "processId": "9eefad0d-204e-5072-aaad-cfca514816cf",
@@ -1512,15 +1512,15 @@
     "defaultOrigin": "France",
     "density": 0.447,
     "ecosystemicServices": {
-      "cropDiversity": 0.43037,
-      "hedges": 0.088897,
+      "cropDiversity": 0.43058,
+      "hedges": 0.088939,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.13444
+      "plotSize": 0.13451
     },
     "id": "16efe840-56d1-4baa-9c14-7eabd1fb510f",
     "inediblePart": 0.03,
-    "landOccupation": 0.15365,
+    "landOccupation": 0.15372,
     "location": "GLO",
     "name": "Céleri branche Bio (2025)",
     "processId": "d140217c-1a40-5e91-8bad-9b8f954c74b7",
@@ -1561,15 +1561,15 @@
     "defaultOrigin": "EuropeAndMaghreb",
     "density": 0.575,
     "ecosystemicServices": {
-      "cropDiversity": 0.24141,
-      "hedges": 0.27458,
+      "cropDiversity": 0.2415,
+      "hedges": 0.27468,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.33636
+      "plotSize": 0.33648
     },
     "id": "1716c0e6-7a04-4649-a71f-08a495eb094e",
     "inediblePart": 0.2,
-    "landOccupation": 0.38442,
+    "landOccupation": 0.38455,
     "location": "ES",
     "name": "Orange Bio (2025)",
     "processId": "c6ac33f4-e547-5887-80af-2d3d62b0ccee",
@@ -1949,15 +1949,15 @@
     "defaultOrigin": "France",
     "density": 0.6375,
     "ecosystemicServices": {
-      "cropDiversity": 0.3839,
-      "hedges": 0.085693,
+      "cropDiversity": 0.38393,
+      "hedges": 0.085699,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.19806
+      "plotSize": 0.19808
     },
     "id": "1e878bf3-3f3f-4239-a4d8-072c9dec8457",
     "inediblePart": 0.1,
-    "landOccupation": 0.22636,
+    "landOccupation": 0.22638,
     "location": "FR",
     "name": "Betterave rouge Bio (2025)",
     "processId": "aca17031-05bd-5cb4-8908-b85daa23a6c7",
@@ -2163,7 +2163,7 @@
       "cropDiversity": 0,
       "hedges": 39.57,
       "livestockDensity": -0.00255,
-      "permanentPasture": 30.63,
+      "permanentPasture": 0,
       "plotSize": 33.371
     },
     "id": "22179caa-eb41-49c0-ae04-49eda23da4da",
@@ -2345,14 +2345,14 @@
     "density": 0.447,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 1.5994,
+      "hedges": 1.5995,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 3.212
+      "plotSize": 3.2121
     },
     "id": "25543778-46ab-419e-a7d8-5c0cd37d8dbd",
     "inediblePart": 0.5,
-    "landOccupation": 3.6709,
+    "landOccupation": 3.671,
     "location": "ES",
     "name": "Olive Bio (2025)",
     "processId": "0e30cb0a-22bc-5b74-8e00-359101390284",
@@ -2591,7 +2591,7 @@
       "cropDiversity": 0.56931,
       "hedges": 1.7412,
       "livestockDensity": -0.000178,
-      "permanentPasture": 0.814,
+      "permanentPasture": 0,
       "plotSize": 1.5579
     },
     "id": "2bf307e8-8cb0-400b-a4f1-cf615d9e96f4",
@@ -2718,15 +2718,15 @@
     "defaultOrigin": "France",
     "density": 0.362,
     "ecosystemicServices": {
-      "cropDiversity": 0.38318,
-      "hedges": 0.079149,
+      "cropDiversity": 0.38332,
+      "hedges": 0.079178,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.1197
+      "plotSize": 0.11974
     },
     "id": "2e0fe760-f9a2-4f11-b7d9-b516735644de",
     "inediblePart": 0.2,
-    "landOccupation": 0.1368,
+    "landOccupation": 0.13685,
     "location": "RoW",
     "name": "Chou blanc Bio (2025)",
     "processId": "6efd58e4-7ff2-5ab9-9be8-b9d357f65606",
@@ -3174,15 +3174,15 @@
     "defaultOrigin": "France",
     "density": 0.447,
     "ecosystemicServices": {
-      "cropDiversity": 0.518,
-      "hedges": 0.58917,
+      "cropDiversity": 0.51802,
+      "hedges": 0.5892,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.72173
+      "plotSize": 0.72177
     },
     "id": "36158ea6-066c-4fd6-9e28-6477c7297b37",
     "inediblePart": 0.2,
-    "landOccupation": 0.82484,
+    "landOccupation": 0.82488,
     "location": "FR",
     "name": "Abricot Bio",
     "processId": "a1b049ab-ea51-5a1e-a63e-2c697dfec112",
@@ -3541,15 +3541,15 @@
     "defaultOrigin": "France",
     "density": 0.447,
     "ecosystemicServices": {
-      "cropDiversity": 0.028228,
-      "hedges": 0.032107,
+      "cropDiversity": 0.028237,
+      "hedges": 0.032117,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.039331
+      "plotSize": 0.039343
     },
     "id": "3d3fc6bd-0a43-462b-bc39-fed04cf34498",
     "inediblePart": 0.1,
-    "landOccupation": 0.044949,
+    "landOccupation": 0.044963,
     "location": "FR",
     "name": "Pomme Bio (2025)",
     "processId": "5d74b775-05a5-56b2-bd22-250d938f1c9a",
@@ -3734,7 +3734,7 @@
       "cropDiversity": 0,
       "hedges": 54.381,
       "livestockDensity": -0.00267,
-      "permanentPasture": 50.89,
+      "permanentPasture": 0,
       "plotSize": 44.472
     },
     "id": "3fd1b6d5-58d9-40eb-b215-d2e8c2876a5f",
@@ -3896,7 +3896,7 @@
       "cropDiversity": 0,
       "hedges": 48.438,
       "livestockDensity": -0.00255,
-      "permanentPasture": 37.5,
+      "permanentPasture": 0,
       "plotSize": 40.848
     },
     "id": "41d65ed4-230f-4a47-a67c-9a8015f50420",
@@ -4003,14 +4003,14 @@
     "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 8.2246,
+      "hedges": 8.2259,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 23.988
+      "plotSize": 23.992
     },
     "id": "4531bf0a-7910-4166-b3b1-e94027a10426",
     "inediblePart": 0.5,
-    "landOccupation": 27.415,
+    "landOccupation": 27.42,
     "location": "FR",
     "name": "Noisette décortiquée Bio (2025)",
     "processId": "f769ed20-3665-563a-8d50-dd8788e89e7b",
@@ -4213,15 +4213,15 @@
     "defaultOrigin": "France",
     "density": 0.118,
     "ecosystemicServices": {
-      "cropDiversity": 0.13774,
-      "hedges": 0.028451,
+      "cropDiversity": 0.1379,
+      "hedges": 0.028485,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.043028
+      "plotSize": 0.04308
     },
     "id": "49ad2a72-d196-4379-8f23-212b27d44917",
     "inediblePart": 0.03,
-    "landOccupation": 0.049175,
+    "landOccupation": 0.049234,
     "location": "GLO",
     "name": "Epinard Bio (2025)",
     "processId": "8cbe17a6-7737-579a-8d82-775f048afa05",
@@ -4461,7 +4461,7 @@
       "cropDiversity": 15.309,
       "hedges": 54.897,
       "livestockDensity": -0.00267,
-      "permanentPasture": 34.68,
+      "permanentPasture": 0,
       "plotSize": 48.213
     },
     "id": "4e3009f3-1b33-41d7-b6f3-dc7230331da0",
@@ -5261,15 +5261,15 @@
     "defaultOrigin": "France",
     "density": 0.24,
     "ecosystemicServices": {
-      "cropDiversity": 4.0048,
-      "hedges": 1.3864,
+      "cropDiversity": 4.0056,
+      "hedges": 1.3866,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 1.7086
+      "plotSize": 1.7089
     },
     "id": "590e5fc8-26fd-4cea-9737-86bc3aa6af8d",
     "inediblePart": 0,
-    "landOccupation": 2.7337,
+    "landOccupation": 2.7342,
     "location": "FR",
     "name": "Blé dur Bio (2025)",
     "processId": "0c86442e-e863-5250-91ed-17b53f5560e7",
@@ -5391,15 +5391,15 @@
     "defaultOrigin": "France",
     "density": 0.6375,
     "ecosystemicServices": {
-      "cropDiversity": 1.4433,
-      "hedges": 0.29814,
+      "cropDiversity": 1.4435,
+      "hedges": 0.29816,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.45088
+      "plotSize": 0.45092
     },
     "id": "5ba9ada3-0712-42c4-a13c-a5c5df639943",
     "inediblePart": 0.1,
-    "landOccupation": 0.5153,
+    "landOccupation": 0.51534,
     "location": "FR",
     "name": "Pomme de terre de table Bio (2025)",
     "processId": "a2413ded-866a-5d9c-b027-1a2420eef88f",
@@ -6057,15 +6057,15 @@
     "defaultOrigin": "France",
     "density": 0.6195,
     "ecosystemicServices": {
-      "cropDiversity": 0.42043,
-      "hedges": 0.086843,
+      "cropDiversity": 0.42058,
+      "hedges": 0.086874,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.13134
+      "plotSize": 0.13138
     },
     "id": "66cde9d8-28e6-4855-9a3c-1b40a6f7bba8",
     "inediblePart": 0.2,
-    "landOccupation": 0.1501,
+    "landOccupation": 0.15015,
     "location": "FR",
     "name": "Poireau Bio (2025)",
     "processId": "a3009f50-fad3-52fd-9a7e-f2e467a784b0",
@@ -6114,7 +6114,7 @@
       "cropDiversity": 0,
       "hedges": 44.432,
       "livestockDensity": -0.00255,
-      "permanentPasture": 41.58,
+      "permanentPasture": 0,
       "plotSize": 36.336
     },
     "id": "67db7c6c-a8f8-4285-b1dd-b0b3efe2d668",
@@ -6139,15 +6139,15 @@
     "defaultOrigin": "France",
     "density": 0.118,
     "ecosystemicServices": {
-      "cropDiversity": 0.25177,
-      "hedges": 0.052004,
+      "cropDiversity": 0.25182,
+      "hedges": 0.052016,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.078649
+      "plotSize": 0.078666
     },
     "id": "6842d570-6b53-49f3-ba9c-984b55e40171",
     "inediblePart": 0.2,
-    "landOccupation": 0.089884,
+    "landOccupation": 0.089904,
     "location": "FR",
     "name": "Endive Bio (2025)",
     "processId": "9888f9f1-f608-56b0-b1bf-f6b1767114c1",
@@ -6191,7 +6191,7 @@
       "cropDiversity": 10.038,
       "hedges": 35.887,
       "livestockDensity": -0.00267,
-      "permanentPasture": 22.67,
+      "permanentPasture": 0,
       "plotSize": 31.519
     },
     "id": "6912db61-530f-4630-956a-b94a6ded0134",
@@ -6474,15 +6474,15 @@
     "defaultOrigin": "France",
     "density": 0.362,
     "ecosystemicServices": {
-      "cropDiversity": 2.2505,
-      "hedges": 0.46485,
+      "cropDiversity": 2.2506,
+      "hedges": 0.46488,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.70302
+      "plotSize": 0.70306
     },
     "id": "701f6e68-9eb9-4ee2-8b40-a3553811bda4",
     "inediblePart": 0.2,
-    "landOccupation": 0.80345,
+    "landOccupation": 0.8035,
     "location": "FR",
     "name": "Chou chinois Bio (2025)",
     "processId": "0b5db395-ea46-53ee-8af1-456b7cf97225",
@@ -6762,15 +6762,15 @@
     "defaultOrigin": "France",
     "density": 0.6195,
     "ecosystemicServices": {
-      "cropDiversity": 0.82442,
-      "hedges": 0.17029,
+      "cropDiversity": 0.8245,
+      "hedges": 0.17031,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.25754
+      "plotSize": 0.25756
     },
     "id": "752f4a99-f85b-4bb8-9a8b-139d1f08a4b0",
     "inediblePart": 0.1,
-    "landOccupation": 0.29433,
+    "landOccupation": 0.29436,
     "location": "FR",
     "name": "Oignon Bio (2025)",
     "processId": "78fd0a9f-52de-5cf3-998b-817e77b2fdbd",
@@ -7000,15 +7000,15 @@
     "defaultOrigin": "France",
     "density": 0.447,
     "ecosystemicServices": {
-      "cropDiversity": 0.1714,
-      "hedges": 0.19495,
+      "cropDiversity": 0.17143,
+      "hedges": 0.19499,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.23882
+      "plotSize": 0.23886
     },
     "id": "7a04d33d-fb27-41f8-bbb3-85dc5662f24c",
     "inediblePart": 0.1,
-    "landOccupation": 0.27293,
+    "landOccupation": 0.27298,
     "location": "FR",
     "name": "Kiwi Bio (2025)",
     "processId": "5be2d9d0-38c8-5894-9625-094cb47aabac",
@@ -7354,15 +7354,15 @@
     "defaultOrigin": "France",
     "density": 0.118,
     "ecosystemicServices": {
-      "cropDiversity": 0.13774,
-      "hedges": 0.028451,
+      "cropDiversity": 0.1379,
+      "hedges": 0.028485,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.043028
+      "plotSize": 0.04308
     },
     "id": "7f26836d-f0ea-4c54-830f-d93f3e08863a",
     "inediblePart": 0.4,
-    "landOccupation": 0.049175,
+    "landOccupation": 0.049234,
     "location": "GLO",
     "name": "Blette Bio (2025)",
     "processId": "8cbe17a6-7737-579a-8d82-775f048afa05",
@@ -7580,15 +7580,15 @@
     "defaultOrigin": "France",
     "density": 0.118,
     "ecosystemicServices": {
-      "cropDiversity": 0.25177,
-      "hedges": 0.052004,
+      "cropDiversity": 0.25182,
+      "hedges": 0.052016,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.078649
+      "plotSize": 0.078666
     },
     "id": "83adcc36-72b1-4bff-b7bb-c6ac6f2a4a0b",
     "inediblePart": 0.4,
-    "landOccupation": 0.089884,
+    "landOccupation": 0.089904,
     "location": "FR",
     "name": "Laitue Bio (2025)",
     "processId": "9888f9f1-f608-56b0-b1bf-f6b1767114c1",
@@ -7608,15 +7608,15 @@
     "defaultOrigin": "France",
     "density": 1.0,
     "ecosystemicServices": {
-      "cropDiversity": 0.13662,
-      "hedges": 0.030496,
+      "cropDiversity": 0.13665,
+      "hedges": 0.030501,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.070486
+      "plotSize": 0.070498
     },
     "id": "83ef3fba-9359-4f51-9f10-234c0e940b88",
     "inediblePart": 0,
-    "landOccupation": 0.080555,
+    "landOccupation": 0.08057,
     "location": "FR",
     "name": "Betterave sucrière Bio (2025)",
     "processId": "8363d7bb-f267-5cea-ba97-caf42cfcc8b4",
@@ -8036,15 +8036,15 @@
     "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
     "ecosystemicServices": {
-      "cropDiversity": 0.11893,
-      "hedges": 0.13527,
+      "cropDiversity": 0.11897,
+      "hedges": 0.13531,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.1657
+      "plotSize": 0.16576
     },
     "id": "8eec6aa3-2234-468c-aa5a-cfb364285ac9",
     "inediblePart": 0.2,
-    "landOccupation": 0.18937,
+    "landOccupation": 0.18944,
     "location": "FR",
     "name": "Papaye Bio (2025)",
     "processId": "c2eacbad-d503-5a97-ad05-43b3c613a5fc",
@@ -8066,7 +8066,7 @@
       "cropDiversity": 0,
       "hedges": 0.92664,
       "livestockDensity": -0.00017,
-      "permanentPasture": 0.175,
+      "permanentPasture": 0,
       "plotSize": 0.86502
     },
     "id": "8f3863e7-f981-4367-90a2-e1aaa096a6e0",
@@ -8145,15 +8145,15 @@
     "defaultOrigin": "France",
     "density": 0.6375,
     "ecosystemicServices": {
-      "cropDiversity": 0.63403,
-      "hedges": 0.13096,
+      "cropDiversity": 0.63408,
+      "hedges": 0.13097,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.19806
+      "plotSize": 0.19808
     },
     "id": "9042b6d0-c309-4757-a03f-ba802f0c8c01",
     "inediblePart": 0.1,
-    "landOccupation": 0.22636,
+    "landOccupation": 0.22638,
     "location": "FR",
     "name": "Carotte Bio (2025)",
     "processId": "aca17031-05bd-5cb4-8908-b85daa23a6c7",
@@ -8737,7 +8737,7 @@
       "cropDiversity": 0,
       "hedges": 31.656,
       "livestockDensity": -0.00255,
-      "permanentPasture": 24.51,
+      "permanentPasture": 0,
       "plotSize": 26.695
     },
     "id": "9db6b0d1-941a-4dda-a347-b7a7fee8fd46",
@@ -8763,14 +8763,14 @@
     "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 1.7946,
+      "hedges": 1.7947,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 5.2341
+      "plotSize": 5.2345
     },
     "id": "9dec26dd-bf7c-4336-996e-3f9bd8659d05",
     "inediblePart": 0.5,
-    "landOccupation": 5.9819,
+    "landOccupation": 5.9823,
     "location": "RoW",
     "name": "Arachide avec coque Bio (2025)",
     "processId": "f9733315-7662-5ff9-a544-ddb50aa7fcfa",
@@ -9060,15 +9060,15 @@
     "defaultOrigin": "France",
     "density": 0.118,
     "ecosystemicServices": {
-      "cropDiversity": 0.25177,
-      "hedges": 0.052004,
+      "cropDiversity": 0.25182,
+      "hedges": 0.052016,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.078649
+      "plotSize": 0.078666
     },
     "id": "a8b2bd23-e7af-4311-b163-ff3834b96f9f",
     "inediblePart": 0.4,
-    "landOccupation": 0.089884,
+    "landOccupation": 0.089904,
     "location": "FR",
     "name": "Mâche Bio (2025)",
     "processId": "9888f9f1-f608-56b0-b1bf-f6b1767114c1",
@@ -9776,15 +9776,15 @@
     "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.447,
     "ecosystemicServices": {
-      "cropDiversity": 0.17944,
-      "hedges": 0.20409,
+      "cropDiversity": 0.1795,
+      "hedges": 0.20416,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.25001
+      "plotSize": 0.2501
     },
     "id": "b3f92ca9-3121-4e2d-9e1d-0cc2c5d392fe",
     "inediblePart": 0.3,
-    "landOccupation": 0.28573,
+    "landOccupation": 0.28583,
     "location": "FR",
     "name": "Banane Bio",
     "processId": "84fac69c-5b0b-5ca7-b149-00a9c9c1f8f4",
@@ -9804,15 +9804,15 @@
     "defaultOrigin": "France",
     "density": 0.447,
     "ecosystemicServices": {
-      "cropDiversity": 0.25408,
-      "hedges": 0.052482,
+      "cropDiversity": 0.25419,
+      "hedges": 0.052505,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.079371
+      "plotSize": 0.079406
     },
     "id": "b43ae38e-a9f6-4272-b258-14faea6ec795",
     "inediblePart": 0.03,
-    "landOccupation": 0.09071,
+    "landOccupation": 0.09075,
     "location": "FR",
     "name": "Tomate Bio",
     "processId": "9e03dbbc-3f99-5892-a52d-c99c92a2a5ef",
@@ -9832,15 +9832,15 @@
     "defaultOrigin": "France",
     "density": 0.447,
     "ecosystemicServices": {
-      "cropDiversity": 0.017964,
-      "hedges": 0.020432,
+      "cropDiversity": 0.018022,
+      "hedges": 0.020498,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.025029
+      "plotSize": 0.02511
     },
     "id": "b4e8febc-6588-4599-8c58-c019144597c6",
     "inediblePart": 0.2,
-    "landOccupation": 0.028605,
+    "landOccupation": 0.028697,
     "location": "FR",
     "name": "Cerise Bio",
     "processId": "a4d4d704-2b13-5722-a2ed-d4e8f71925bf",
@@ -10088,14 +10088,14 @@
     "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 1.7442,
+      "hedges": 1.7443,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 5.0872
+      "plotSize": 5.0876
     },
     "id": "b97e29ab-81b0-478e-b73b-4113aaf68470",
     "inediblePart": 0.5,
-    "landOccupation": 5.814,
+    "landOccupation": 5.8144,
     "location": "CN",
     "name": "Amandes en coque Bio (2025)",
     "processId": "4c09eadf-dcad-5c37-8fc6-bab7f69136d7",
@@ -10115,15 +10115,15 @@
     "defaultOrigin": "France",
     "density": 0.362,
     "ecosystemicServices": {
-      "cropDiversity": 0.41293,
-      "hedges": 0.085295,
+      "cropDiversity": 0.41308,
+      "hedges": 0.085326,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.129
+      "plotSize": 0.12904
     },
     "id": "ba292cce-6815-45e3-be3e-ed34a3b04a6f",
     "inediblePart": 0.2,
-    "landOccupation": 0.14742,
+    "landOccupation": 0.14748,
     "location": "FR",
     "name": "Chou rouge Bio (2025)",
     "processId": "ad7ce0b2-ad65-5096-8f81-17cc0aaf4f48",
@@ -10556,15 +10556,15 @@
     "defaultOrigin": "France",
     "density": 0.6195,
     "ecosystemicServices": {
-      "cropDiversity": 0.82442,
-      "hedges": 0.17029,
+      "cropDiversity": 0.8245,
+      "hedges": 0.17031,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.25754
+      "plotSize": 0.25756
     },
     "id": "c224d640-c347-41c4-9754-a4cea77de16f",
     "inediblePart": 0.1,
-    "landOccupation": 0.29433,
+    "landOccupation": 0.29436,
     "location": "FR",
     "name": "Echalote Bio (2025)",
     "processId": "78fd0a9f-52de-5cf3-998b-817e77b2fdbd",
@@ -11267,15 +11267,15 @@
     "defaultOrigin": "EuropeAndMaghreb",
     "density": 0.2355,
     "ecosystemicServices": {
-      "cropDiversity": 0.61142,
-      "hedges": 0.12629,
+      "cropDiversity": 0.61187,
+      "hedges": 0.12639,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.191
+      "plotSize": 0.19114
     },
     "id": "d1155206-18fc-41f1-8509-2f52e7614f2d",
     "inediblePart": 0.2,
-    "landOccupation": 0.21829,
+    "landOccupation": 0.21845,
     "location": "FR",
     "name": "Brocoli Bio (2025)",
     "processId": "cb5e6f6b-1b17-55c7-bca5-bc69894ade58",
@@ -11548,15 +11548,15 @@
     "defaultOrigin": "France",
     "density": 0.447,
     "ecosystemicServices": {
-      "cropDiversity": 1.6142,
-      "hedges": 0.33343,
+      "cropDiversity": 1.6143,
+      "hedges": 0.33345,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.50426
+      "plotSize": 0.50429
     },
     "id": "d5aff6c8-470b-457b-bc67-294d8987ee5e",
     "inediblePart": 0.4,
-    "landOccupation": 0.5763,
+    "landOccupation": 0.57633,
     "location": "FR",
     "name": "Pastèque Bio (2025)",
     "processId": "0ff273ad-f94f-50cf-912c-53e22b8eae3d",
@@ -11657,15 +11657,15 @@
     "defaultOrigin": "France",
     "density": 0.362,
     "ecosystemicServices": {
-      "cropDiversity": 2.2452,
-      "hedges": 0.46377,
+      "cropDiversity": 2.2454,
+      "hedges": 0.4638,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.70138
+      "plotSize": 0.70143
     },
     "id": "d7630e82-2b60-46cc-b50d-451a32e0887e",
     "inediblePart": 0.6,
-    "landOccupation": 0.80158,
+    "landOccupation": 0.80163,
     "location": "FR",
     "name": "Artichaut Bio (2025)",
     "processId": "6aef3a0d-65bf-5358-9ff8-d731b0170fc3",
@@ -11687,7 +11687,7 @@
       "cropDiversity": 0,
       "hedges": 42.93,
       "livestockDensity": 8.4e-05,
-      "permanentPasture": 25.0,
+      "permanentPasture": 0,
       "plotSize": 37.26
     },
     "id": "d79e0fce-8633-4189-a937-7b8010abafed",
@@ -12063,14 +12063,14 @@
     "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 0.20502,
+      "hedges": 0.20504,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.18883
+      "plotSize": 0.18886
     },
     "id": "dcdcb4d1-1793-4f1b-bd1f-7578d02e4fb1",
     "inediblePart": 0,
-    "landOccupation": 1.5106,
+    "landOccupation": 1.5108,
     "location": "GLO",
     "name": "Riz basmati Bio (2025)",
     "processId": "4726d346-5cc8-593c-8a15-b010d858d158",
@@ -12361,14 +12361,14 @@
     "density": 0.447,
     "ecosystemicServices": {
       "cropDiversity": 10.685,
-      "hedges": 2.207,
+      "hedges": 2.2072,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 3.3378
+      "plotSize": 3.338
     },
     "id": "df1fe70a-08c0-4b8a-9f88-0caeb002d26a",
     "inediblePart": 0.03,
-    "landOccupation": 3.8146,
+    "landOccupation": 3.8149,
     "location": "CA",
     "name": "Myrtille Bio (2025)",
     "processId": "62f50fa0-12c8-5ff8-8066-d8ba68416b3d",
@@ -12416,14 +12416,14 @@
     "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 3.8323,
+      "hedges": 3.8325,
       "livestockDensity": null,
       "permanentPasture": null,
       "plotSize": 11.178
     },
     "id": "df64fdd7-1900-402c-86b9-e766e22c27ed",
     "inediblePart": 0.5,
-    "landOccupation": 12.774,
+    "landOccupation": 12.775,
     "location": "IT",
     "name": "Noisette avec coque Bio (2025)",
     "processId": "21bfc885-e198-5fd7-844c-ec386f73cd45",
@@ -12525,14 +12525,14 @@
     "density": 0.447,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 0.0090667,
+      "hedges": 0.0090777,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.027767
+      "plotSize": 0.0278
     },
     "id": "e05934df-fd40-4110-a610-0bd686911f2e",
     "inediblePart": 0.1,
-    "landOccupation": 0.031734,
+    "landOccupation": 0.031772,
     "location": "FR",
     "name": "Raisin de cuve Bio (2025)",
     "processId": "2b015eff-b903-543a-ae51-190977252af1",
@@ -12555,7 +12555,7 @@
       "cropDiversity": 29.724,
       "hedges": 93.776,
       "livestockDensity": 2.1e-05,
-      "permanentPasture": 67.0,
+      "permanentPasture": 0,
       "plotSize": 81.71
     },
     "id": "e07f7703-c4f7-479e-a8ac-bb73d3f08c78",
@@ -13143,15 +13143,15 @@
     "defaultOrigin": "EuropeAndMaghreb",
     "density": 0.575,
     "ecosystemicServices": {
-      "cropDiversity": 0.19249,
-      "hedges": 0.21894,
+      "cropDiversity": 0.19253,
+      "hedges": 0.21898,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.2682
+      "plotSize": 0.26826
     },
     "id": "ed5c98fd-6fe5-43ca-b938-1dde919794b7",
     "inediblePart": 0.3,
-    "landOccupation": 0.30651,
+    "landOccupation": 0.30658,
     "location": "ES",
     "name": "Citron Bio (2025)",
     "processId": "ad3c37a4-32b8-5033-a643-b3b20c2621f6",
@@ -13273,15 +13273,15 @@
     "defaultOrigin": "OutOfEuropeAndMaghrebByPlane",
     "density": 0.447,
     "ecosystemicServices": {
-      "cropDiversity": 0.0047697,
-      "hedges": 0.005425,
+      "cropDiversity": 0.0048009,
+      "hedges": 0.0054605,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.0066456
+      "plotSize": 0.0066891
     },
     "id": "ef57c898-8780-48cb-b00f-7d8a310f46aa",
     "inediblePart": 0.2,
-    "landOccupation": 0.007595,
+    "landOccupation": 0.0076447,
     "location": "BR",
     "name": "Mangue Bio (2025)",
     "processId": "e8660bef-5298-5e11-8f52-b597d74f5974",
@@ -13457,15 +13457,15 @@
     "defaultOrigin": "France",
     "density": 0.6375,
     "ecosystemicServices": {
-      "cropDiversity": 0.63403,
-      "hedges": 0.13096,
+      "cropDiversity": 0.63408,
+      "hedges": 0.13097,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.19806
+      "plotSize": 0.19808
     },
     "id": "f36c6c35-1d92-4d7c-8f15-5c4fbe931ed8",
     "inediblePart": 0.1,
-    "landOccupation": 0.22636,
+    "landOccupation": 0.22638,
     "location": "FR",
     "name": "Céleri-rave Bio (2025)",
     "processId": "aca17031-05bd-5cb4-8908-b85daa23a6c7",
@@ -13487,7 +13487,7 @@
       "cropDiversity": 0,
       "hedges": 35.542,
       "livestockDensity": -0.00255,
-      "permanentPasture": 33.26,
+      "permanentPasture": 0,
       "plotSize": 29.066
     },
     "id": "f38271f1-bdba-40cd-a296-2bc741fbf915",
@@ -13737,15 +13737,15 @@
     "defaultOrigin": "France",
     "density": 0.6375,
     "ecosystemicServices": {
-      "cropDiversity": 1.4419,
-      "hedges": 0.29785,
+      "cropDiversity": 1.4421,
+      "hedges": 0.29787,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.45045
+      "plotSize": 0.45048
     },
     "id": "f839b523-b133-430f-9533-419b862e69e9",
     "inediblePart": 0.1,
-    "landOccupation": 0.5148,
+    "landOccupation": 0.51484,
     "location": "FR",
     "name": "Pomme de terre industrie Bio (2025)",
     "processId": "d3a43c9f-bb4e-5bf9-b6fc-2326a8dd42c6",
@@ -14237,7 +14237,7 @@
       "cropDiversity": 12.509,
       "hedges": 44.85,
       "livestockDensity": -0.00267,
-      "permanentPasture": 28.34,
+      "permanentPasture": 0,
       "plotSize": 39.388
     },
     "id": "ff532795-d725-4c6b-82bc-022d38b83bff",
