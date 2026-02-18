@@ -861,7 +861,7 @@ massField massInput =
         [ label [ for "mass", class "form-label text-truncate" ]
             [ text "Masse du produit fini" ]
         , div
-            [ class "input-group", title "Mass du produit fini, en grammes" ]
+            [ class "input-group", title "Masse du produit fini, en grammes" ]
             [ input
                 [ type_ "number"
                 , class "form-control text-end"
