@@ -67,7 +67,7 @@ frame ({ activePage, session } as config) ( title, content ) =
         [ stagingAlert config
         , newVersionAlert config
         , pageHeader config
-        , textileRegulatoryNotice config.toMsg activePage
+        , commonNotices config.toMsg activePage
         , termsNotice session
         , if config.mobileNavigationOpened then
             mobileNavigation config
@@ -110,23 +110,42 @@ termsNotice session =
         text ""
 
 
-textileRegulatoryNotice : (App.Msg -> msg) -> ActivePage -> Html msg
-textileRegulatoryNotice msg activePage =
+commonNotices : (App.Msg -> msg) -> ActivePage -> Html msg
+commonNotices msg activePage =
     case activePage of
+        FoodBuilder ->
+            Notice.info
+                [ Icon.info
+                , Markdown.simple [] "**Cette version est en cours de développement.**"
+                ]
+
+        Object Scope.Object ->
+            Notice.info
+                [ Icon.info
+                , Markdown.simple [] "**Cette version est en cours de développement.**"
+                , """Contribuez via notre [forum utilisateur](https://chat.ecobalyse.fr/ecobalyse/channels/41_ameublement)"""
+                    |> Markdown.simple []
+                ]
+
+        Object Scope.Veli ->
+            Notice.info
+                [ Icon.info
+                , Markdown.simple [] "**Cette version est en cours de développement.** Elle est réservée à des beta-testeurs."
+                ]
+
         TextileSimulator ->
             Notice.info
-                [ span [ class "me-1" ] [ Icon.info ]
-                , span [ class "fw-bold" ] [ text "Cette version est en cours de développement." ]
-                , span [ class "ms-1" ]
-                    [ text "La version réglementaire est la v7.0.0."
-                    , button
-                        [ type_ "button"
-                        , class "btn btn-link p-0 mb-1"
-                        , onClick <| msg <| App.LoadUrl (Env.stableTextileVersionPath ++ "#/textile/simulator")
-                        , class "ms-1"
-                        ]
-                        [ text "Accéder à la version réglementaire" ]
+                [ Icon.info
+                , Markdown.simple []
+                    """**Cette version est en cours de développement.** La version réglementaire est la v7.0.0.
+                    """
+                , button
+                    [ type_ "button"
+                    , class "btn btn-link p-0 m-0"
+                    , onClick <| msg <| App.LoadUrl (Env.stableTextileVersionPath ++ "#/textile/simulator")
+                    , class "ms-1"
                     ]
+                    [ text "Accéder à la version réglementaire" ]
                 ]
 
         _ ->

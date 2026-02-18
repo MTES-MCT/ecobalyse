@@ -21,5 +21,8 @@ element attrs content =
             :: attribute "role" "notice"
             :: attrs
         )
-        [ div [ class "container px-4" ] content
+        [ div [ class "container px-4" ]
+            [ span [ class "d-flex align-items-center gap-1" ]
+                content
+            ]
         ]
