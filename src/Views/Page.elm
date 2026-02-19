@@ -28,6 +28,7 @@ import Views.Container as Container
 import Views.Icon as Icon
 import Views.Link as Link
 import Views.Markdown as Markdown
+import Views.Notice as Notice
 import Views.Spinner as Spinner
 
 
@@ -61,33 +62,13 @@ type alias Config msg =
 
 
 frame : Config msg -> ( String, List (Html msg) ) -> Document msg
-frame ({ activePage } as config) ( title, content ) =
+frame ({ activePage, session } as config) ( title, content ) =
     { body =
         [ stagingAlert config
         , newVersionAlert config
         , pageHeader config
-        , if activePage == TextileSimulator then
-            div [ class "page-notice shadow-inner-top", attribute "role" "notice" ]
-                [ div [ class "container px-4" ]
-                    [ span [ class "me-1" ]
-                        [ Icon.info ]
-                    , span [ class "fw-bold" ]
-                        [ text "Cette version est en cours de développement." ]
-                    , span [ class "ms-1" ]
-                        [ text "La version réglementaire est la v7.0.0."
-                        , button
-                            [ type_ "button"
-                            , class "btn btn-link p-0 mb-1"
-                            , onClick <| config.toMsg <| App.LoadUrl (Env.stableTextileVersionPath ++ "#/textile/simulator")
-                            , class "ms-1"
-                            ]
-                            [ text "Accéder à la version réglementaire" ]
-                        ]
-                    ]
-                ]
-
-          else
-            text ""
+        , commonNotices config.toMsg activePage
+        , termsNotice session
         , if config.mobileNavigationOpened then
             mobileNavigation config
 
@@ -112,6 +93,65 @@ frame ({ activePage } as config) ( title, content ) =
         ]
     , title = title ++ " | Ecobalyse"
     }
+
+
+termsNotice : Session -> Html msg
+termsNotice session =
+    if not (Session.hasAccessToDetailedImpacts session) then
+        Notice.warn
+            [ """Attention, vous êtes connecté mais n’avez pas accepté les conditions d’utilisation ecoinvent, vous privant ainsi
+                 de **l’accès aux impacts détaillés** (changement climatique, consommation d'eau, etc). **Vous pouvez
+                 les lire et les accepter depuis [votre espace personnel]({url}).**"""
+                |> String.replace "{url}" (Route.toString Route.Auth)
+                |> Markdown.simple []
+            ]
+
+    else
+        text ""
+
+
+commonNotices : (App.Msg -> msg) -> ActivePage -> Html msg
+commonNotices msg activePage =
+    case activePage of
+        FoodBuilder ->
+            Notice.info
+                [ Icon.info
+                , Markdown.simple [] "**Cette version est en cours de développement.**"
+                ]
+
+        Object Scope.Object ->
+            Notice.info
+                [ Icon.info
+                , Markdown.simple [] "**Cette version est en cours de développement.**"
+                , """Contribuez via notre [forum utilisateur](https://chat.ecobalyse.fr/ecobalyse/channels/41_ameublement)"""
+                    |> Markdown.simple []
+                ]
+
+        Object Scope.Veli ->
+            Notice.info
+                [ Icon.info
+                , Markdown.simple [] "**Cette version est en cours de développement.** Elle est réservée à des beta-testeurs."
+                ]
+
+        TextileSimulator ->
+            Notice.info
+                [ Icon.info
+                , Markdown.simple []
+                    """**Cette version est en cours de développement.** La version réglementaire est la v7.0.0.
+                    """
+
+                -- bypass the regular routing system to perform a full load to the stable version webapp
+                , button
+                    [ type_ "button"
+                    , class "btn btn-link p-0 m-0"
+                    , onClick <| msg <| App.LoadUrl (Env.stableTextileVersionPath ++ "#/textile/simulator")
+                    , class "ms-1"
+                    ]
+                    [ text "Accéder à la version réglementaire" ]
+                ]
+
+        _ ->
+            text ""
 
 
 toastListView : Config msg -> Html msg

@@ -1525,15 +1525,26 @@ q {
 
 .page-notice {
   position: relative;
-  background-color: #e8edff;
-  color: #0063cb;
   padding: 1rem;
   margin-top: -7px;
+
+  &-info {
+    background-color: #e8edff;
+    color: #0063cb;
+  }
+
+  &-warning {
+    background-color: #feebd0;
+    color: #7e631e;
+  }
+
+  .md-inline {
+    display: flex;
+  }
 }
 
 .signup-form,
 .view-account-form {
-
   label[for="termsAccepted"],
   label[for="emailOptin"],
   label[for="ecoinventTermsAccepted"] {
