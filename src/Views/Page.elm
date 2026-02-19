@@ -99,7 +99,7 @@ termsNotice : Session -> Html msg
 termsNotice session =
     if Session.hasAccessToDetailedImpacts session then
         Notice.warn
-            [ """Attention, vous êtes connecté mais n’avez pas accepté les conditions d’utilisation Ecoinvent, vous privant ainsi
+            [ """Attention, vous êtes connecté mais n’avez pas accepté les conditions d’utilisation ecoinvent, vous privant ainsi
                  de **l’accès aux impacts détaillés** (changement climatique, consommation d'eau, etc). **Vous pouvez
                  les lire et les accepter depuis [votre espace personnel]({url}).**"""
                 |> String.replace "{url}" (Route.toString Route.Auth)
