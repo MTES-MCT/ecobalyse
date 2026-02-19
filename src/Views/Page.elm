@@ -97,7 +97,7 @@ frame ({ activePage, session } as config) ( title, content ) =
 
 termsNotice : Session -> Html msg
 termsNotice session =
-    if Session.hasAccessToDetailedImpacts session then
+    if not (Session.hasAccessToDetailedImpacts session) then
         Notice.warn
             [ """Attention, vous êtes connecté mais n’avez pas accepté les conditions d’utilisation ecoinvent, vous privant ainsi
                  de **l’accès aux impacts détaillés** (changement climatique, consommation d'eau, etc). **Vous pouvez
@@ -139,6 +139,8 @@ commonNotices msg activePage =
                 , Markdown.simple []
                     """**Cette version est en cours de développement.** La version réglementaire est la v7.0.0.
                     """
+
+                -- bypass the regular routing system to perform a full load to the stable version webapp
                 , button
                     [ type_ "button"
                     , class "btn btn-link p-0 m-0"
