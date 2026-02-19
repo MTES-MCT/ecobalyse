@@ -3,9 +3,10 @@ description: >-
   Cette partie traite des opérations "au champ" (fertilisation, labour etc.) et
   s'arrête à la sortie de la ferme. Elle couvre les productions conventionnelles
   et sous label.
+hidden: true
 ---
 
-# 🍒 Ingrédients agricoles - inventaires mobilisés (impacts ACV)
+# 🍒 old Ingrédients agricoles - inventaires mobilisés (impacts ACV)
 
 Les impacts de la production des ingrédients agricoles sont issus de la base Agribalyse pour les productions françaises et des bases Ecoinvent et WFLDB pour les produits importés. Malgré la richesse de ces bases, elles sont loin de couvrir l’ensemble des pays de productions et des modes de production. Aussi une logique d'approximation par l'utilisation de proxy doit être mise en œuvre.
 

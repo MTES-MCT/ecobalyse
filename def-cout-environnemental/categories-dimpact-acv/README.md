@@ -59,4 +59,4 @@ L'illustration ci-après montre les principales évolutions des coefficients de 
 
 
 
-<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (388).png" alt=""><figcaption></figcaption></figure>
