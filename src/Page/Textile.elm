@@ -1226,8 +1226,8 @@ view session model =
                                 , onAutocompleteSelect = OnAutocompleteSelect
                                 , placeholderText = "tapez ici le nom de la matière première pour la rechercher"
                                 , title = "Sélectionnez une matière première"
-                                , toCategory = .origin >> Origin.toLabel
                                 , toLabel = .name
+                                , toCategory = .origin >> Origin.toLabel
                                 }
 
                         AddTrimModal autocompleteState ->
@@ -1240,8 +1240,8 @@ view session model =
                                 , onAutocompleteSelect = OnAutocompleteSelect
                                 , placeholderText = "tapez ici un nom d'accesoire pour le rechercher"
                                 , title = "Sélectionnez un accessoire"
-                                , toCategory = always ""
                                 , toLabel = .name
+                                , toCategory = always ""
                                 }
 
                         ComparatorModal ->
@@ -1325,8 +1325,8 @@ view session model =
                                 , onAutocompleteSelect = OnAutocompleteSelect
                                 , placeholderText = "tapez ici le nom du produit pour le rechercher"
                                 , title = "Sélectionnez un produit"
-                                , toCategory = Example.toCategory session.db.textile.examples
                                 , toLabel = Example.toName session.db.textile.examples
+                                , toCategory = Example.toCategory session.db.textile.examples
                                 }
 
                         SelectProductModal autocompleteState ->
@@ -1348,8 +1348,8 @@ view session model =
                                 , onAutocompleteSelect = OnAutocompleteSelect
                                 , placeholderText = "tapez ici une catégorie pour la rechercher"
                                 , title = "Sélectionnez une catégorie de produit"
-                                , toCategory = always ""
                                 , toLabel = .name
+                                , toCategory = always ""
                                 }
                     ]
             )

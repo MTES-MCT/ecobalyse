@@ -882,8 +882,8 @@ view session model =
                         , onAutocompleteSelect = OnAutocompleteSelectComponent
                         , placeholderText = "tapez ici le nom du composant pour le rechercher"
                         , title = "Sélectionnez un composant"
-                        , toCategory = \_ -> ""
                         , toLabel = .name
+                        , toCategory = \_ -> ""
                         }
 
                 ComparatorModal ->
@@ -926,8 +926,8 @@ view session model =
                         , onAutocompleteSelect = OnAutocompleteSelectConsumption
                         , placeholderText = "tapez ici le nom d'un procédé de consommation pour le rechercher"
                         , title = "Sélectionnez une consommation"
-                        , toCategory = .unit >> Process.unitToString
                         , toLabel = Process.getDisplayName
+                        , toCategory = .unit >> Process.unitToString
                         }
 
                 SelectExampleModal autocompleteState ->
@@ -940,8 +940,8 @@ view session model =
                         , onAutocompleteSelect = OnAutocompleteSelectExample
                         , placeholderText = "tapez ici le nom du produit pour le rechercher"
                         , title = "Sélectionnez un produit"
-                        , toCategory = Example.toCategory model.examples
                         , toLabel = Example.toName model.examples
+                        , toCategory = Example.toCategory model.examples
                         }
 
                 SelectProcessModal category targetItem maybeElementIndex autocompleteState ->
@@ -972,8 +972,8 @@ view session model =
                         , onAutocompleteSelect = OnAutocompleteSelectProcess category targetItem maybeElementIndex
                         , placeholderText = placeholderText
                         , title = title
-                        , toCategory = .unit >> Process.unitToString
                         , toLabel = Process.getDisplayName
+                        , toCategory = .unit >> Process.unitToString
                         }
             ]
       ]

@@ -710,8 +710,8 @@ modalView { componentConfig, db } modals index modal =
                             , onAutocompleteSelect = OnAutocompleteSelectProcess category targetItem maybeElementIndex
                             , placeholderText = placeholderText
                             , title = title_
-                            , toCategory = \_ -> ""
                             , toLabel = Process.getDisplayName
+                            , toCategory = \_ -> ""
                             }
                         ]
                     , footer = []
