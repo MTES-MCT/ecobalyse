@@ -711,7 +711,6 @@ modalView { componentConfig, db } modals index modal =
                             , placeholderText = placeholderText
                             , title = title_
                             , toCategory = \_ -> ""
-                            , toId = .id >> Process.idToString
                             , toLabel = Process.getDisplayName
                             }
                         ]

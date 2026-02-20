@@ -7,7 +7,6 @@ module Data.Example exposing
     , forScope
     , parseUuid
     , toCategory
-    , toId
     , toName
     , toSearchableString
     )
@@ -72,21 +71,6 @@ forScope scope =
 parseUuid : Parser (Uuid -> a) a
 parseUuid =
     Parser.custom "EXAMPLE" (Uuid.fromString >> Result.toMaybe)
-
-
-toId : List (Example query) -> query -> String
-toId examples q =
-    examples
-        |> List.filterMap
-            (\{ id, query } ->
-                if q == query then
-                    Just (Uuid.toString id)
-
-                else
-                    Nothing
-            )
-        |> List.head
-        |> Maybe.withDefault ""
 
 
 toCategory : List (Example query) -> query -> String

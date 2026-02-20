@@ -4,7 +4,6 @@ import Autocomplete exposing (Autocomplete)
 import Autocomplete.View as AutocompleteView
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Html.Keyed as Keyed
 import Views.Modal as ModalView
 
 
@@ -18,7 +17,6 @@ type alias Config element msg =
     , placeholderText : String
     , title : String
     , toCategory : element -> String
-    , toId : element -> String
     , toLabel : element -> String
     }
 
@@ -53,14 +51,8 @@ view ({ autocompleteState, closeModal, footer, noOp, onAutocomplete, onAutocompl
                 )
                 []
             , choices
-                |> List.indexedMap
-                    (\index element ->
-                        ( config.toId element
-                        , renderChoice config choiceEvents selectedIndex index element
-                        )
-                    )
-                |> Keyed.node "div"
-                    [ class "ElementAutocomplete", id "element-autocomplete-choices" ]
+                |> List.indexedMap (renderChoice config choiceEvents selectedIndex)
+                |> div [ class "ElementAutocomplete", id "element-autocomplete-choices" ]
             ]
         , footer = footer
         , formAction = Nothing

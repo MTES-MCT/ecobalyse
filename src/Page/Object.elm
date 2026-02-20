@@ -883,7 +883,6 @@ view session model =
                         , placeholderText = "tapez ici le nom du composant pour le rechercher"
                         , title = "Sélectionnez un composant"
                         , toCategory = \_ -> ""
-                        , toId = .id >> Component.idToString
                         , toLabel = .name
                         }
 
@@ -928,7 +927,6 @@ view session model =
                         , placeholderText = "tapez ici le nom d'un procédé de consommation pour le rechercher"
                         , title = "Sélectionnez une consommation"
                         , toCategory = .unit >> Process.unitToString
-                        , toId = .id >> Process.idToString
                         , toLabel = Process.getDisplayName
                         }
 
@@ -943,7 +941,6 @@ view session model =
                         , placeholderText = "tapez ici le nom du produit pour le rechercher"
                         , title = "Sélectionnez un produit"
                         , toCategory = Example.toCategory model.examples
-                        , toId = Example.toId model.examples
                         , toLabel = Example.toName model.examples
                         }
 
@@ -976,7 +973,6 @@ view session model =
                         , placeholderText = placeholderText
                         , title = title
                         , toCategory = .unit >> Process.unitToString
-                        , toId = .id >> Process.idToString
                         , toLabel = Process.getDisplayName
                         }
             ]

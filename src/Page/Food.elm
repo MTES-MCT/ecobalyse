@@ -1714,7 +1714,6 @@ view session model =
                                 >> List.head
                                 >> Maybe.map IngredientCategory.toLabel
                                 >> Maybe.withDefault ""
-                        , toId = .id >> Ingredient.idToString
                         , toLabel = .name
                         }
 
@@ -1733,7 +1732,6 @@ view session model =
                                 >> List.head
                                 >> Maybe.map ProcessCategory.toLabel
                                 >> Maybe.withDefault ""
-                        , toId = .id >> Process.idToString
                         , toLabel = Process.getDisplayName
                         }
 
@@ -1802,7 +1800,6 @@ view session model =
                         , placeholderText = "tapez ici le nom du produit pour le rechercher"
                         , title = "Sélectionnez un produit"
                         , toCategory = Example.toCategory session.db.food.examples
-                        , toId = Example.toId session.db.food.examples
                         , toLabel = Example.toName session.db.food.examples
                         }
             ]

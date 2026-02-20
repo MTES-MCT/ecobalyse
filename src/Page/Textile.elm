@@ -1227,7 +1227,6 @@ view session model =
                                 , placeholderText = "tapez ici le nom de la matière première pour la rechercher"
                                 , title = "Sélectionnez une matière première"
                                 , toCategory = .origin >> Origin.toLabel
-                                , toId = .id >> Material.idToString
                                 , toLabel = .name
                                 }
 
@@ -1242,7 +1241,6 @@ view session model =
                                 , placeholderText = "tapez ici un nom d'accesoire pour le rechercher"
                                 , title = "Sélectionnez un accessoire"
                                 , toCategory = always ""
-                                , toId = .id >> Component.idToString
                                 , toLabel = .name
                                 }
 
@@ -1328,7 +1326,6 @@ view session model =
                                 , placeholderText = "tapez ici le nom du produit pour le rechercher"
                                 , title = "Sélectionnez un produit"
                                 , toCategory = Example.toCategory session.db.textile.examples
-                                , toId = Example.toId session.db.textile.examples
                                 , toLabel = Example.toName session.db.textile.examples
                                 }
 
@@ -1352,7 +1349,6 @@ view session model =
                                 , placeholderText = "tapez ici une catégorie pour la rechercher"
                                 , title = "Sélectionnez une catégorie de produit"
                                 , toCategory = always ""
-                                , toId = .id >> Product.idToString
                                 , toLabel = .name
                                 }
                     ]
