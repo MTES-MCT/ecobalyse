@@ -481,23 +481,7 @@ update ({ db, queries, navKey } as session) msg model =
 
         ( SetModal modal, _ ) ->
             createPageUpdate session { model | modal = modal }
-                |> App.withCmds
-                    [ case modal of
-                        AddMaterialModal _ _ ->
-                            Dom.focus "element-search" |> Task.attempt (always NoOp)
-
-                        AddTrimModal _ ->
-                            Dom.focus "element-search" |> Task.attempt (always NoOp)
-
-                        SelectExampleModal _ ->
-                            Dom.focus "element-search" |> Task.attempt (always NoOp)
-
-                        SelectProductModal _ ->
-                            Dom.focus "element-search" |> Task.attempt (always NoOp)
-
-                        _ ->
-                            Cmd.none
-                    ]
+                |> App.withCmds [ modalFocusCmd modal ]
 
         ( SwitchBookmarksTab bookmarkTab, _ ) ->
             { model | bookmarkTab = bookmarkTab }
@@ -678,6 +662,25 @@ createPageUpdate session model =
                 _ ->
                     Ports.addBodyClass "prevent-scrolling"
             ]
+
+
+modalFocusCmd : Modal -> Cmd Msg
+modalFocusCmd modal =
+    case modal of
+        AddMaterialModal _ _ ->
+            Dom.focus "element-search" |> Task.attempt (always NoOp)
+
+        AddTrimModal _ ->
+            Dom.focus "element-search" |> Task.attempt (always NoOp)
+
+        SelectExampleModal _ ->
+            Dom.focus "element-search" |> Task.attempt (always NoOp)
+
+        SelectProductModal _ ->
+            Dom.focus "element-search" |> Task.attempt (always NoOp)
+
+        _ ->
+            Cmd.none
 
 
 updateExistingMaterial : Query -> PageUpdate Model Msg -> Inputs.MaterialInput -> Material -> PageUpdate Model Msg
