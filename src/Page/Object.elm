@@ -10,6 +10,7 @@ module Page.Object exposing
 
 import App exposing (PageUpdate)
 import Autocomplete exposing (Autocomplete)
+import Browser.Dom as Dom
 import Browser.Events
 import Browser.Navigation as Navigation
 import Data.Bookmark as Bookmark exposing (Bookmark)
@@ -481,6 +482,23 @@ update ({ navKey } as session) msg model =
 
         ( SetModal modal, _ ) ->
             createPageUpdate session { model | modal = modal }
+                |> App.withCmds
+                    [ case modal of
+                        AddComponentModal _ ->
+                            Dom.focus "element-search" |> Task.attempt (always NoOp)
+
+                        SelectConsumptionModal _ ->
+                            Dom.focus "element-search" |> Task.attempt (always NoOp)
+
+                        SelectExampleModal _ ->
+                            Dom.focus "element-search" |> Task.attempt (always NoOp)
+
+                        SelectProcessModal _ _ _ _ ->
+                            Dom.focus "element-search" |> Task.attempt (always NoOp)
+
+                        _ ->
+                            Cmd.none
+                    ]
 
         ( SwitchBookmarksTab bookmarkTab, _ ) ->
             { model | bookmarkTab = bookmarkTab }
