@@ -18,6 +18,7 @@ type alias Config element msg =
     , placeholderText : String
     , title : String
     , toCategory : element -> String
+    , toId : element -> String
     , toLabel : element -> String
     }
 
@@ -54,7 +55,7 @@ view ({ autocompleteState, closeModal, footer, noOp, onAutocomplete, onAutocompl
             , choices
                 |> List.indexedMap
                     (\index element ->
-                        ( config.toLabel element
+                        ( config.toId element
                         , renderChoice config choiceEvents selectedIndex index element
                         )
                     )
