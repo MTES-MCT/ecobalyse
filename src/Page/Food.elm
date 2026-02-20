@@ -1709,12 +1709,13 @@ view session model =
                         , onAutocompleteSelect = OnAutocompleteSelect
                         , placeholderText = "tapez ici le nom de la matière première pour la rechercher"
                         , title = "Sélectionnez un ingrédient"
-                        , toLabel = .name
                         , toCategory =
                             .categories
                                 >> List.head
                                 >> Maybe.map IngredientCategory.toLabel
                                 >> Maybe.withDefault ""
+                        , toId = .id >> Ingredient.idToString
+                        , toLabel = .name
                         }
 
                 AddPackagingModal _ autocompleteState ->
@@ -1727,12 +1728,13 @@ view session model =
                         , onAutocompleteSelect = OnAutocompleteSelect
                         , placeholderText = "tapez ici le nom de de l’emballage pour le rechercher"
                         , title = "Sélectionnez un emballage"
-                        , toLabel = Process.getDisplayName
                         , toCategory =
                             .categories
                                 >> List.head
                                 >> Maybe.map ProcessCategory.toLabel
                                 >> Maybe.withDefault ""
+                        , toId = .id >> Process.idToString
+                        , toLabel = Process.getDisplayName
                         }
 
                 ComparatorModal ->
@@ -1799,8 +1801,9 @@ view session model =
                         , onAutocompleteSelect = OnAutocompleteSelect
                         , placeholderText = "tapez ici le nom du produit pour le rechercher"
                         , title = "Sélectionnez un produit"
-                        , toLabel = Example.toName session.db.food.examples
                         , toCategory = Example.toCategory session.db.food.examples
+                        , toId = Example.toId session.db.food.examples
+                        , toLabel = Example.toName session.db.food.examples
                         }
             ]
       ]

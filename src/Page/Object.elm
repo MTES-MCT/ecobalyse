@@ -882,8 +882,9 @@ view session model =
                         , onAutocompleteSelect = OnAutocompleteSelectComponent
                         , placeholderText = "tapez ici le nom du composant pour le rechercher"
                         , title = "Sélectionnez un composant"
-                        , toLabel = .name
                         , toCategory = \_ -> ""
+                        , toId = .id >> Component.idToString
+                        , toLabel = .name
                         }
 
                 ComparatorModal ->
@@ -926,8 +927,9 @@ view session model =
                         , onAutocompleteSelect = OnAutocompleteSelectConsumption
                         , placeholderText = "tapez ici le nom d'un procédé de consommation pour le rechercher"
                         , title = "Sélectionnez une consommation"
-                        , toLabel = Process.getDisplayName
                         , toCategory = .unit >> Process.unitToString
+                        , toId = .id >> Process.idToString
+                        , toLabel = Process.getDisplayName
                         }
 
                 SelectExampleModal autocompleteState ->
@@ -940,8 +942,9 @@ view session model =
                         , onAutocompleteSelect = OnAutocompleteSelectExample
                         , placeholderText = "tapez ici le nom du produit pour le rechercher"
                         , title = "Sélectionnez un produit"
-                        , toLabel = Example.toName model.examples
                         , toCategory = Example.toCategory model.examples
+                        , toId = Example.toId model.examples
+                        , toLabel = Example.toName model.examples
                         }
 
                 SelectProcessModal category targetItem maybeElementIndex autocompleteState ->
@@ -972,8 +975,9 @@ view session model =
                         , onAutocompleteSelect = OnAutocompleteSelectProcess category targetItem maybeElementIndex
                         , placeholderText = placeholderText
                         , title = title
-                        , toLabel = Process.getDisplayName
                         , toCategory = .unit >> Process.unitToString
+                        , toId = .id >> Process.idToString
+                        , toLabel = Process.getDisplayName
                         }
             ]
       ]
