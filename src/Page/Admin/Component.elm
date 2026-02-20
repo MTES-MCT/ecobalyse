@@ -10,6 +10,7 @@ module Page.Admin.Component exposing
 import App exposing (Msg, PageUpdate)
 import Autocomplete exposing (Autocomplete)
 import Base64
+import Browser.Dom as Dom
 import Browser.Events
 import Data.Component as Component exposing (Component, Index, Item, TargetItem)
 import Data.Impact.Definition as Definition
@@ -33,6 +34,7 @@ import RemoteData
 import Request.BackendHttp exposing (WebData)
 import Request.Component as ComponentApi
 import Route
+import Task
 import Views.Admin as AdminView
 import Views.Alert as Alert
 import Views.AutocompleteSelector as AutocompleteSelectorView
@@ -241,6 +243,13 @@ update session msg model =
 
         SetModals modals ->
             createPageUpdate session { model | modals = modals }
+                |> App.withCmds
+                    [ if List.any isAutocompleteModal modals then
+                        Dom.focus "element-search" |> Task.attempt (always NoOp)
+
+                      else
+                        Cmd.none
+                    ]
 
         ToggleSelected componentId add ->
             { model | selected = model.selected |> AdminView.toggleSelected componentId add }
@@ -274,6 +283,16 @@ update session msg model =
 
 {-| Create a page update preventing the body to be scrollable when one or more modals are opened.
 -}
+isAutocompleteModal : Modal -> Bool
+isAutocompleteModal modal =
+    case modal of
+        SelectProcessModal _ _ _ _ ->
+            True
+
+        _ ->
+            False
+
+
 createPageUpdate : Session -> Model -> PageUpdate Model Msg
 createPageUpdate session model =
     App.createUpdate session model
