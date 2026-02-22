@@ -1682,7 +1682,7 @@
     "visible": true
   },
   {
-    "activityName": "Sunflower grain, conventional, national average, animal feed, at farm gate {UA} U",
+    "activityName": "Sunflower grain, conventional, 9% moisture, national average, animal feed, at farm gate, production {FR} U",
     "alias": "sunflower-seed-fr",
     "categories": [
       "nut_oilseed_raw"
@@ -1691,16 +1691,16 @@
     "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.62,
     "ecosystemicServices": {
-      "cropDiversity": 2.4941,
-      "hedges": 1.7682,
+      "cropDiversity": 1.9339,
+      "hedges": 1.3711,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 2.3208
+      "plotSize": 1.7995
     },
     "id": "1929b7c8-7e92-5ddd-b5ef-9b4321b72940",
     "inediblePart": 0,
-    "landOccupation": 6.1888,
-    "location": "UA",
+    "landOccupation": 4.7988,
+    "location": "FR",
     "name": "Tournesol, graine FR",
     "processId": "9e357717-0a62-567b-93e1-ae01ca0d5b05",
     "rawToCookedRatio": 1.0,
