@@ -56,7 +56,12 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "17 février 2026"
+    [ { date = "23 février 2026"
+      , level = "minor"
+      , domains = [ "Textile" ]
+      , md = """Ajout de l'impact des accessoires textiles dans les réponses de l’API."""
+      }
+    , { date = "17 février 2026"
       , level = "major"
       , domains = [ "Textile", "Alimentaire", "Objets" ]
       , md = """- Les requêtes non authentifiées à l'API ne sont plus autorisées et nécessitent l’utilisation d’un jeton.
