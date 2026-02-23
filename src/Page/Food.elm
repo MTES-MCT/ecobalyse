@@ -429,20 +429,8 @@ update ({ db, queries } as session) msg model =
 
         SetModal modal ->
             createPageUpdate session { model | modal = modal }
-                |> App.withCmds
-                    [ case modal of
-                        AddIngredientModal _ _ ->
-                            Dom.focus "element-search" |> Task.attempt (always NoOp)
-
-                        AddPackagingModal _ _ ->
-                            Dom.focus "element-search" |> Task.attempt (always NoOp)
-
-                        SelectExampleModal _ ->
-                            Dom.focus "element-search" |> Task.attempt (always NoOp)
-
-                        _ ->
-                            Cmd.none
-                    ]
+                |> App.withCmdIf (isAutocompleteModal modal)
+                    (Dom.focus "element-search" |> Task.attempt (always NoOp))
 
         SwitchBookmarksTab bookmarkTab ->
             { model | bookmarkTab = bookmarkTab }
@@ -514,6 +502,22 @@ update ({ db, queries } as session) msg model =
         UpdateTransform newTransform ->
             createPageUpdate session model
                 |> updateQuery (Query.updateTransform newTransform query)
+
+
+isAutocompleteModal : Modal -> Bool
+isAutocompleteModal modal =
+    case modal of
+        AddIngredientModal _ _ ->
+            True
+
+        AddPackagingModal _ _ ->
+            True
+
+        SelectExampleModal _ ->
+            True
+
+        _ ->
+            False
 
 
 updateQuery : Query -> PageUpdate Model Msg -> PageUpdate Model Msg

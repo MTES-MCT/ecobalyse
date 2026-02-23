@@ -481,7 +481,8 @@ update ({ db, queries, navKey } as session) msg model =
 
         ( SetModal modal, _ ) ->
             createPageUpdate session { model | modal = modal }
-                |> App.withCmds [ modalFocusCmd modal ]
+                |> App.withCmdIf (isAutocompleteModal modal)
+                    (Dom.focus "element-search" |> Task.attempt (always NoOp))
 
         ( SwitchBookmarksTab bookmarkTab, _ ) ->
             { model | bookmarkTab = bookmarkTab }
@@ -664,23 +665,23 @@ createPageUpdate session model =
             ]
 
 
-modalFocusCmd : Modal -> Cmd Msg
-modalFocusCmd modal =
+isAutocompleteModal : Modal -> Bool
+isAutocompleteModal modal =
     case modal of
         AddMaterialModal _ _ ->
-            Dom.focus "element-search" |> Task.attempt (always NoOp)
+            True
 
         AddTrimModal _ ->
-            Dom.focus "element-search" |> Task.attempt (always NoOp)
+            True
 
         SelectExampleModal _ ->
-            Dom.focus "element-search" |> Task.attempt (always NoOp)
+            True
 
         SelectProductModal _ ->
-            Dom.focus "element-search" |> Task.attempt (always NoOp)
+            True
 
         _ ->
-            Cmd.none
+            False
 
 
 updateExistingMaterial : Query -> PageUpdate Model Msg -> Inputs.MaterialInput -> Material -> PageUpdate Model Msg
