@@ -11,7 +11,6 @@ module Page.Textile exposing
 import App exposing (PageUpdate)
 import Array
 import Autocomplete exposing (Autocomplete)
-import Browser.Dom as Dom
 import Browser.Events
 import Browser.Navigation as Navigation
 import Data.AutocompleteSelector as AutocompleteSelector
@@ -481,8 +480,7 @@ update ({ db, queries, navKey } as session) msg model =
 
         ( SetModal modal, _ ) ->
             createPageUpdate session { model | modal = modal }
-                |> App.withCmdIf (isAutocompleteModal modal)
-                    (Dom.focus "element-search" |> Task.attempt (always NoOp))
+                |> App.withCmdIf (isAutocompleteModal modal) (AutocompleteSelector.focusInput NoOp)
 
         ( SwitchBookmarksTab bookmarkTab, _ ) ->
             { model | bookmarkTab = bookmarkTab }
