@@ -481,6 +481,7 @@ update ({ navKey } as session) msg model =
 
         ( SetModal modal, _ ) ->
             createPageUpdate session { model | modal = modal }
+                |> App.withCmdIf (isAutocompleteModal modal) (AutocompleteSelectorView.focusInput NoOp)
 
         ( SwitchBookmarksTab bookmarkTab, _ ) ->
             { model | bookmarkTab = bookmarkTab }
@@ -604,6 +605,25 @@ createPageUpdate session model =
                 _ ->
                     Ports.addBodyClass "prevent-scrolling"
             ]
+
+
+isAutocompleteModal : Modal -> Bool
+isAutocompleteModal modal =
+    case modal of
+        AddComponentModal _ ->
+            True
+
+        SelectConsumptionModal _ ->
+            True
+
+        SelectExampleModal _ ->
+            True
+
+        SelectProcessModal _ _ _ _ ->
+            True
+
+        _ ->
+            False
 
 
 selectExample : Autocomplete Component.Query -> PageUpdate Model Msg -> PageUpdate Model Msg

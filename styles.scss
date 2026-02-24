@@ -623,6 +623,7 @@ q {
 .Autocomplete {
   height: 368px;
   &Choice {
+    transition: none;
     &.selected,
     &:hover {
       color: #fff !important;
