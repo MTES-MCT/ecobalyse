@@ -45,7 +45,11 @@ view config =
             , attribute "tabindex" "-1"
             , attribute "aria-modal" "true"
             , attribute "role" "dialog"
-            , onClick config.close
+            , attribute "data-dismiss" "modal"
+            , on "click"
+                (Json.Decode.at [ "target", "dataset", "dismiss" ] Json.Decode.string
+                    |> Json.Decode.map (always config.close)
+                )
             ]
             [ div
                 [ class "modal-dialog modal-dialog-centered modal-dialog-scrollable"
@@ -55,7 +59,6 @@ view config =
                     , ( "modal-sm", config.size == Small )
                     ]
                 , attribute "aria-modal" "true"
-                , stopPropagationOn "click" (Json.Decode.succeed ( config.noOp, True ))
                 ]
                 [ modalContentTag
                     [ div [ class "modal-header" ]
