@@ -60,6 +60,17 @@ describe("API", () => {
         expect(response.body.error).toHaveProperty("decoding");
         expect(response.body.error.decoding).toMatch("Format JSON invalide");
       });
+
+      it("should respond with an HTTP 401 error if no token provided", async () => {
+        const response = await request(app).post("/api/textile/simulator").type("json").send("");
+
+        expectStatus(response, 401);
+        expect(response.body).toHaveProperty("error");
+        expect(response.body.error).toHaveProperty("authorization");
+        expect(response.body.error.authorization).toMatch(
+          "Un token est requis pour utiliser l’API",
+        );
+      });
     });
   });
 
@@ -693,7 +704,7 @@ afterAll(() => {
 // Test helpers
 
 async function makePostRequest(path, body) {
-  return await request(app).post(path).send(body);
+  return await request(app).post(path).set("Authorization", "Bearer 1234567890").send(body);
 }
 
 function expectFieldErrorMessage(response, key, message) {
@@ -704,7 +715,7 @@ function expectFieldErrorMessage(response, key, message) {
 }
 
 async function expectListResponseContains(path, object) {
-  const response = await request(app).get(path);
+  const response = await request(app).get(path).set("Authorization", "Bearer 1234567890");
 
   expectStatus(response, 200);
   expect(response.body).toContainObject(object);
