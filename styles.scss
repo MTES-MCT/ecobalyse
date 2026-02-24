@@ -622,6 +622,7 @@ q {
 
   &Choice {
 
+    transition: none;
     &.selected,
     &:hover {
       color: #fff !important;
