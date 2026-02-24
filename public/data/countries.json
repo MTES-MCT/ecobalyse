@@ -331,6 +331,8 @@
   },
   {
     "aquaticPollutionScenario": "Average",
+    "averageDistanceToAirport": 500,
+    "averageDistanceToPort": 500,
     "code": "VN",
     "electricityProcessId": "f3ad3ac5-731a-5ef5-b9e1-13ce71780444",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
