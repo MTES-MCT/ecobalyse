@@ -26,6 +26,7 @@ import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
+import Length exposing (Length)
 
 
 type Code
@@ -40,6 +41,8 @@ type AquaticPollutionScenario
 
 type alias Country =
     { aquaticPollutionScenario : AquaticPollutionScenario
+    , averageDistanceToAirport : Length
+    , averageDistanceToPort : Length
     , code : Code
     , electricityProcess : Process
     , heatProcess : Process
@@ -70,6 +73,8 @@ decode : List Process -> Decoder Country
 decode processes =
     Decode.succeed Country
         |> Pipe.required "aquaticPollutionScenario" decodeAquaticPollutionScenario
+        |> Pipe.required "averageDistanceToAirport" decodeDistance
+        |> Pipe.required "averageDistanceToPort" decodeDistance
         |> Pipe.required "code" decodeCode
         |> Pipe.required "electricityProcessId" (Process.decodeFromId processes)
         |> Pipe.required "heatProcessId" (Process.decodeFromId processes)
@@ -81,6 +86,19 @@ decode processes =
 decodeCode : Decoder Code
 decodeCode =
     Decode.map Code Decode.string
+
+
+decodeDistance : Decoder Length
+decodeDistance =
+    Decode.float
+        |> Decode.andThen
+            (\float ->
+                if float < 0 then
+                    Decode.fail "Negative distances are invalid"
+
+                else
+                    Decode.succeed <| Length.kilometers float
+            )
 
 
 decodeFromCode : List Country -> Decoder Country
