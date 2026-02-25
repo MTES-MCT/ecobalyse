@@ -2,6 +2,49 @@
   {
     "activityName": "This process is not linked to a Brightway activity",
     "categories": [
+      "transformation"
+    ],
+    "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/assemblage",
+    "displayName": "Assemblage véhicule",
+    "elecMJ": 3.6,
+    "heatMJ": 3.0,
+    "id": "c51ab87d-f368-4704-a5ec-7ea17ba87d46",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": null,
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Custom",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
       "transformation",
       "material_type:organic_fibers"
     ],
@@ -1160,6 +1203,94 @@
     "waste": 0
   },
   {
+    "activityName": "aluminium ingot, market, RER",
+    "categories": [
+      "material",
+      "material_type:metal"
+    ],
+    "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
+    "displayName": "Aluminium mix marché, Europe",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 539.64,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "RER",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "aluminium ingot, market, RoW",
+    "categories": [
+      "material",
+      "material_type:metal"
+    ],
+    "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
+    "displayName": "Aluminium mix marché, hors Europe et Chine",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 893.81,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "RoW",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "aluminium ingot, recycled, IN, CFF",
     "categories": [
       "material",
@@ -1295,6 +1426,182 @@
     "waste": 0
   },
   {
+    "activityName": "aluminium ingot, virgin, market, CN",
+    "categories": [
+      "material",
+      "material_type:metal"
+    ],
+    "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
+    "displayName": "Aluminium mix marché, Chine",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "63e8a99a-d6e5-4aa5-8fe4-71c3d0ca2107",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 1503.0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "CN",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "aluminium ingot, virgin, market, IN",
+    "categories": [
+      "material",
+      "material_type:metal"
+    ],
+    "comment": "",
+    "displayName": "Aluminium vierge mix marché, Inde",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "81103034-fa68-4329-b092-0e86c4c297e4",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 1750.8,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "IN",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "aluminium ingot, virgin, market, RER",
+    "categories": [
+      "material",
+      "material_type:metal"
+    ],
+    "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
+    "displayName": "Aluminium vierge mix marché, Europe",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 767.49,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "RER",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "aluminium ingot, virgin, market, RoW",
+    "categories": [
+      "material",
+      "material_type:metal"
+    ],
+    "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
+    "displayName": "Aluminium vierge mix marché, hors Europe et Inde",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "cc8e1090-e90a-4dcb-89a2-4b45daac88af",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 1517.7,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "RoW",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "chromium steel sheet rolling",
     "categories": [
       "transformation",
@@ -1383,6 +1690,182 @@
     "source": "Ecobalyse",
     "unit": "kg",
     "waste": 0.0227
+  },
+  {
+    "activityName": "diesel, B7, EURO4",
+    "categories": [
+      "energy",
+      "use"
+    ],
+    "comment": "",
+    "displayName": "Diesel (B7), norme Euro4",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "18480897-317f-4ebc-b504-988d3a477925",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 263.56,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": null,
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecobalyse",
+    "unit": "L",
+    "waste": 0
+  },
+  {
+    "activityName": "diesel, B7, EURO6",
+    "categories": [
+      "energy",
+      "use"
+    ],
+    "comment": "",
+    "displayName": "Diesel (B7), norme Euro6",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "d821e5bf-deb4-4ee6-af56-21a4ca9bc3f8",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 240.94,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": null,
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecobalyse",
+    "unit": "L",
+    "waste": 0
+  },
+  {
+    "activityName": "petrol, E10, EURO6",
+    "categories": [
+      "energy",
+      "use"
+    ],
+    "comment": "",
+    "displayName": "Essence (E10), norme Euro6",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "96da7da0-19f6-46fb-b7d7-2d888e7046e0",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 213.1,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": null,
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecobalyse",
+    "unit": "L",
+    "waste": 0
+  },
+  {
+    "activityName": "petrol, E85, EURO6",
+    "categories": [
+      "energy",
+      "use"
+    ],
+    "comment": "",
+    "displayName": "Superéthanol (E85), norme Euro6",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "d3a3fdc6-1f32-4939-b7a1-f76674282000",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 391.52,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": null,
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecobalyse",
+    "unit": "L",
+    "waste": 0
   },
   {
     "activityName": "polyethylene terephthalate, granulate, amorphous, recycled, GLO, CFF",
@@ -1564,6 +2047,94 @@
     "waste": 0.227
   },
   {
+    "activityName": "steel, low-alloyed, market, CN",
+    "categories": [
+      "material",
+      "material_type:metal"
+    ],
+    "comment": "",
+    "displayName": "Acier mix marché (Reste du monde)",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "3e514eac-185c-449e-bdc2-e1082ca0576d",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 116.1,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "CN",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "steel, low-alloyed, market, FR",
+    "categories": [
+      "material",
+      "material_type:metal"
+    ],
+    "comment": "",
+    "displayName": "Acier mix marché (Europe)",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 90.297,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "FR",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "steel, low-alloyed, recycled, RER, CFF",
     "categories": [
       "material",
@@ -1743,6 +2314,225 @@
     "waste": 0
   },
   {
+    "activityName": "Battery cell, Li-ion, NMC811 {CN}| battery cell production, Li-ion, NMC811 | Cut-off, U",
+    "categories": [
+      "material",
+      "material_type:metal"
+    ],
+    "comment": "densité energétique : 6.7 kWh/kg",
+    "displayName": "Batterie Li-ion (NMC811)",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "c69b94af-c09c-480e-bc89-a81546ff87d3",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 4256.1,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "CN",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecoinvent 3.11",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Battery, Li-ion, LFP, rechargeable {CN}| battery production, Li-ion, LFP, rechargeable | Cut-off, U",
+    "categories": [
+      "material",
+      "material_type:metal"
+    ],
+    "comment": "densité energétique : 8.6 kWh/kg",
+    "displayName": "Batterie Li-ion (LFP)",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "4b8c24f4-7236-4467-a436-97015550fe63",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 3083.5,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "CN",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecoinvent 3.11",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Battery, Li-ion, NCA, rechargeable {CN}| battery production, Li-ion, NCA, rechargeable | Cut-off, U",
+    "categories": [
+      "material",
+      "material_type:metal"
+    ],
+    "comment": "densité energétique : 6.3 kWh/kg",
+    "displayName": "Batterie Li-ion (Autres)",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "40b87327-fbdb-4533-9961-48643df49371",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 4541.5,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "CN",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecoinvent 3.11",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Battery, lead acid, rechargeable, stationary {RoW}| battery production, lead acid, rechargeable, stationary | Cut-off, U",
+    "categories": [
+      "material",
+      "material_type:metal"
+    ],
+    "comment": "densité energétique : 33.3 kWh/kg",
+    "displayName": "Batterie Plomb",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "f92ed520-3845-4a5a-8745-e87fd6863f03",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 1876.4,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "RoW",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecoinvent 3.11",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Used Li-ion battery {GLO}| market for used Li-ion battery | Cut-off, U",
+    "categories": [
+      "end-of-life"
+    ],
+    "comment": "This is a market activity, representing a treatment mix. In the case of products needing treatment, market mixes are supplied by the activities treating the product in the geography defined by the market, and they supply the activities needing to treat the product, as they have generated it as a by-product in the Undefined processes (present as a negative input in system models). Transport to the treating facility or losses are also accounted in this type of markets, when relevant.\n\nThis is the market for  'used Li-ion battery', in the Global geography.\n\nTransport from producers to consumers of this product in the geography covered by the market is included.\n\nProduction volume: 2000000.0 kg\nIncluded activities start: The activity starts with the input from the treatment processes.\nIncluded activities end: A market for a material for treatment (wastes or recyclables) ends with the provision of treatment, i.e. a mix of treatment providers, to activities that generate the reference product as a waste/by-product.\nEnergy values: Undefined\nGeography: The inventory is modelled for Global\nTechnology level: Unknown\nTechnology: Mix dataset\nStart date: 01/01/2005\nEnd date: 31/12/2024\nIs data valid for entire period: True\nMacro-economic scenario name: Business-as-Usual\n\nVersion: 34.3.0.0\nCreated: 7/28/10 6:53:01\nLast edited: 9/28/12 6:03:31\nSource: 8675a185-3212-5c84-bd28-70532ae0dc80_e3c4c750-7765-43b6-802b-8dbe05270f05.spold\nUUID: 8675a185-3212-5c84-bd28-70532ae0dc80",
+    "displayName": "Traitement de batterie en fin de vie",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "6f554314-fc39-4da9-9df0-b5a95b005ce7",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 107.93,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "GLO",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecoinvent 3.11",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "acrylic varnish, with water, in 53% solution state//[RER] acrylic varnish production, with water, in 53% solution state",
     "categories": [
       "material",
@@ -1833,6 +2623,50 @@
     "waste": 0
   },
   {
+    "activityName": "aluminium, cast alloy//[RER] treatment of aluminium scrap, post-consumer, prepared for recycling, at refiner",
+    "categories": [
+      "material",
+      "material_type:metal"
+    ],
+    "comment": "",
+    "displayName": "Aluminium recyclé",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "f3c7bb4a-a40a-433b-9ce3-a9a35c142a02",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 193.36,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "RER",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecoinvent 3.9.1",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "brass//[RoW] market for brass",
     "categories": [
       "material",
@@ -1872,6 +2706,93 @@
     "scopes": [
       "textile",
       "object",
+      "veli"
+    ],
+    "source": "Ecoinvent 3.9.1",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "carbon black//[GLO] carbon black production",
+    "categories": [
+      "material"
+    ],
+    "comment": "",
+    "displayName": "Noir de carbone",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "fa3e3c43-1093-427a-a897-433e51e8ab62",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 295.23,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "GLO",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecoinvent 3.9.1",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "chemical, organic//[GLO] market for chemical, organic",
+    "categories": [
+      "material",
+      "material_type:plastic"
+    ],
+    "comment": "",
+    "displayName": "Composé organique",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "9e71da1a-8e74-462f-becc-cd6f0bbfcccc",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 179.89,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "GLO",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
       "veli"
     ],
     "source": "Ecoinvent 3.9.1",
@@ -1964,6 +2885,96 @@
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "electric motor, electric passenger car//[GLO] electric motor production, vehicle (electric powertrain)",
+    "categories": [
+      "material",
+      "material_type:metal"
+    ],
+    "comment": "",
+    "displayName": "Moteur électrique",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 2388.4,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "GLO",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecoinvent 3.9.1",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "electricity, low voltage//[FR] market for electricity, low voltage",
+    "categories": [
+      "energy",
+      "use"
+    ],
+    "comment": "",
+    "displayName": "Electricité basse tension, France",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "eec31f13-d00a-4741-a84f-85d887026f8c",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 19.331,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "FR",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "food",
+      "textile",
+      "veli"
+    ],
+    "source": "Ecoinvent 3.9.1",
+    "unit": "kWh",
     "waste": 0
   },
   {
@@ -2453,6 +3464,49 @@
     "scopes": [
       "textile",
       "object"
+    ],
+    "source": "Ecoinvent 3.9.1",
+    "unit": "kWh",
+    "waste": 0
+  },
+  {
+    "activityName": "electricity, medium voltage//[NL] market for electricity, medium voltage",
+    "categories": [
+      "energy"
+    ],
+    "comment": "",
+    "displayName": "Electricité moyenne tension, Pays-bas",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "f5c66349-7590-4036-90b3-c30ca20faf2e",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 27.76,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "NL",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "veli"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -2996,6 +4050,50 @@
     "waste": 0
   },
   {
+    "activityName": "electronic component, passive, unspecified//[GLO] market for electronic component, passive, unspecified",
+    "categories": [
+      "material",
+      "material_type:metal"
+    ],
+    "comment": "",
+    "displayName": "Composants électroniques",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 39212.0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "GLO",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecoinvent 3.9.1",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "epoxy resin, liquid//[RER] epoxy resin production, liquid",
     "categories": [
       "material",
@@ -3265,6 +4363,50 @@
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
     "waste": 0.006
+  },
+  {
+    "activityName": "internal combustion engine, passenger car//[GLO] internal combustion engine production, passenger car",
+    "categories": [
+      "material",
+      "material_type:metal"
+    ],
+    "comment": "",
+    "displayName": "Moteur thermique (MCI)",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "8b28671a-83f2-46e6-8c1c-e973a47dde97",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 1303.3,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "GLO",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecoinvent 3.9.1",
+    "unit": "kg",
+    "waste": 0
   },
   {
     "activityName": "melamine urea formaldehyde adhesive//[GLO] market for melamine urea formaldehyde adhesive",
@@ -4614,6 +5756,94 @@
     "waste": 0
   },
   {
+    "activityName": "steel, low-alloyed//[Europe without Switzerland and Austria] steel production, electric, low-alloyed",
+    "categories": [
+      "material",
+      "material_type:metal"
+    ],
+    "comment": "",
+    "displayName": "Acier recyclé (faiblement allié, Europe)",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "1f7461fb-aafe-4bbc-a122-4973e7b9799d",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 53.079,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "Europe without Switzerland and Austria",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecoinvent 3.9.1",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "steel, low-alloyed//[RoW] steel production, electric, low-alloyed",
+    "categories": [
+      "material",
+      "material_type:metal"
+    ],
+    "comment": "",
+    "displayName": "Acier recyclé (faiblement allié, Reste du monde)",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "0415cca3-fba7-491a-8735-b4a21f594de6",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 125.8,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "RoW",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecoinvent 3.9.1",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "steel, unalloyed//[RER] steel production, converter, unalloyed",
     "categories": [
       "material",
@@ -4652,6 +5882,50 @@
     "metadata": null,
     "scopes": [
       "object",
+      "veli"
+    ],
+    "source": "Ecoinvent 3.9.1",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "steel, unalloyed//[RoW] steel production, converter, unalloyed",
+    "categories": [
+      "material",
+      "material_type:metal"
+    ],
+    "comment": "",
+    "displayName": "Acier vierge (non allié, Reste du monde)",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "ac028973-5dfa-47bc-868c-e49be116f53e",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 120.55,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "RoW",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
       "veli"
     ],
     "source": "Ecoinvent 3.9.1",
