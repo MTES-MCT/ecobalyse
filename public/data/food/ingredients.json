@@ -2163,7 +2163,7 @@
       "cropDiversity": 0,
       "hedges": 39.57,
       "livestockDensity": -0.00255,
-      "permanentPasture": 0,
+      "permanentPasture": 30.63,
       "plotSize": 33.371
     },
     "id": "22179caa-eb41-49c0-ae04-49eda23da4da",
@@ -2591,7 +2591,7 @@
       "cropDiversity": 0.56931,
       "hedges": 1.7412,
       "livestockDensity": -0.000178,
-      "permanentPasture": 0,
+      "permanentPasture": 0.814,
       "plotSize": 1.5579
     },
     "id": "2bf307e8-8cb0-400b-a4f1-cf615d9e96f4",
@@ -3734,7 +3734,7 @@
       "cropDiversity": 0,
       "hedges": 54.381,
       "livestockDensity": -0.00267,
-      "permanentPasture": 0,
+      "permanentPasture": 50.89,
       "plotSize": 44.472
     },
     "id": "3fd1b6d5-58d9-40eb-b215-d2e8c2876a5f",
@@ -3896,7 +3896,7 @@
       "cropDiversity": 0,
       "hedges": 48.438,
       "livestockDensity": -0.00255,
-      "permanentPasture": 0,
+      "permanentPasture": 37.5,
       "plotSize": 40.848
     },
     "id": "41d65ed4-230f-4a47-a67c-9a8015f50420",
@@ -4461,7 +4461,7 @@
       "cropDiversity": 15.309,
       "hedges": 54.897,
       "livestockDensity": -0.00267,
-      "permanentPasture": 0,
+      "permanentPasture": 34.68,
       "plotSize": 48.213
     },
     "id": "4e3009f3-1b33-41d7-b6f3-dc7230331da0",
@@ -6114,7 +6114,7 @@
       "cropDiversity": 0,
       "hedges": 44.432,
       "livestockDensity": -0.00255,
-      "permanentPasture": 0,
+      "permanentPasture": 41.58,
       "plotSize": 36.336
     },
     "id": "67db7c6c-a8f8-4285-b1dd-b0b3efe2d668",
@@ -6191,7 +6191,7 @@
       "cropDiversity": 10.038,
       "hedges": 35.887,
       "livestockDensity": -0.00267,
-      "permanentPasture": 0,
+      "permanentPasture": 22.67,
       "plotSize": 31.519
     },
     "id": "6912db61-530f-4630-956a-b94a6ded0134",
@@ -8066,7 +8066,7 @@
       "cropDiversity": 0,
       "hedges": 0.92664,
       "livestockDensity": -0.00017,
-      "permanentPasture": 0,
+      "permanentPasture": 0.175,
       "plotSize": 0.86502
     },
     "id": "8f3863e7-f981-4367-90a2-e1aaa096a6e0",
@@ -8737,7 +8737,7 @@
       "cropDiversity": 0,
       "hedges": 31.656,
       "livestockDensity": -0.00255,
-      "permanentPasture": 0,
+      "permanentPasture": 24.51,
       "plotSize": 26.695
     },
     "id": "9db6b0d1-941a-4dda-a347-b7a7fee8fd46",
@@ -11687,7 +11687,7 @@
       "cropDiversity": 0,
       "hedges": 42.93,
       "livestockDensity": 8.4e-05,
-      "permanentPasture": 0,
+      "permanentPasture": 25.0,
       "plotSize": 37.26
     },
     "id": "d79e0fce-8633-4189-a937-7b8010abafed",
@@ -12555,7 +12555,7 @@
       "cropDiversity": 29.724,
       "hedges": 93.776,
       "livestockDensity": 2.1e-05,
-      "permanentPasture": 0,
+      "permanentPasture": 67.0,
       "plotSize": 81.71
     },
     "id": "e07f7703-c4f7-479e-a8ac-bb73d3f08c78",
@@ -13487,7 +13487,7 @@
       "cropDiversity": 0,
       "hedges": 35.542,
       "livestockDensity": -0.00255,
-      "permanentPasture": 0,
+      "permanentPasture": 33.26,
       "plotSize": 29.066
     },
     "id": "f38271f1-bdba-40cd-a296-2bc741fbf915",
@@ -14237,7 +14237,7 @@
       "cropDiversity": 12.509,
       "hedges": 44.85,
       "livestockDensity": -0.00267,
-      "permanentPasture": 0,
+      "permanentPasture": 28.34,
       "plotSize": 39.388
     },
     "id": "ff532795-d725-4c6b-82bc-022d38b83bff",
