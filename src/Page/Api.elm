@@ -56,7 +56,17 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "11 décembre 2025"
+    [ { date = "17 février 2026"
+      , level = "major"
+      , domains = [ "Textile", "Alimentaire", "Objets" ]
+      , md = """- Les requêtes non authentifiées à l'API ne sont plus autorisées et nécessitent l’utilisation d’un jeton.
+               **Pour accéder à l’API, il est maintenant nécessaire de fournir un jeton d'API**,
+               accessible dans votre [compte utilisateur]({route}) une fois connecté.
+
+- **Pour accéder au détail des impact, vous devez également [accepter les conditions d’utilisation ecoinvent]({route})**.
+""" |> String.replace "{route}" (Route.toString Route.Auth)
+      }
+    , { date = "11 décembre 2025"
       , level = "major"
       , domains = [ "Textile", "Alimentaire", "Objets" ]
       , md = """Suppression de l’indicateur PEF obsolète dans les réponses de l’API."""
@@ -601,8 +611,8 @@ view session =
                             |> List.map
                                 (\{ date, level, domains, md } ->
                                     li [ class "list-group-item" ]
-                                        [ div [ class "d-flex justify-content-between align-items-center mb-1" ]
-                                            [ text date
+                                        [ div [ class "d-flex justify-content-between align-items-right mb-1" ]
+                                            [ div [ class "text-nowrap" ] [ text date ]
                                             , span
                                                 [ class "badge"
                                                 , classList
@@ -618,7 +628,7 @@ view session =
                                                                     [ text domain ]
                                                             )
                                                    )
-                                                |> div [ class "d-flex gap-1" ]
+                                                |> div [ class "d-flex gap-1 flex-wrap justify-content-end" ]
                                             ]
                                         , Markdown.simple [ class "fs-7" ] md
                                         ]
@@ -651,8 +661,9 @@ apiDocumentationNotice session =
             |> alert Alert.Success
 
     else
-        """Les requêtes non authentifiées à l'API retournent uniquement les impacts agrégés.
-               **Pour accéder au détail des impacts, il est nécessaire de fournir un jeton d'API**,
-               accessible dans votre [compte utilisateur]({route}) une fois connecté."""
+        """Les requêtes non authentifiées à l'API ne sont pas autorisées et nécessitent l’utilisation d’un jeton.
+               **Pour accéder à l’API, il est nécessaire de fournir un jeton d'API**,
+               accessible dans votre [compte utilisateur]({route}) une fois connecté. **Pour accéder au détail 
+               des impact, vous devez également [accepter les conditions d’utilisation ecoinvent]({route})**."""
             |> String.replace "{route}" (Route.toString Route.Auth)
             |> alert Alert.Info

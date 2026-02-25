@@ -3,6 +3,7 @@ module Views.Modal exposing (Size(..), view)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Json.Decode
 
 
 type alias Config msg =
@@ -44,6 +45,11 @@ view config =
             , attribute "tabindex" "-1"
             , attribute "aria-modal" "true"
             , attribute "role" "dialog"
+            , attribute "data-dismiss" "modal"
+            , on "click"
+                (Json.Decode.at [ "target", "dataset", "dismiss" ] Json.Decode.string
+                    |> Json.Decode.map (always config.close)
+                )
             ]
             [ div
                 [ class "modal-dialog modal-dialog-centered modal-dialog-scrollable"

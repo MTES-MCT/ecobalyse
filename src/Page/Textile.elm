@@ -480,6 +480,7 @@ update ({ db, queries, navKey } as session) msg model =
 
         ( SetModal modal, _ ) ->
             createPageUpdate session { model | modal = modal }
+                |> App.withCmdIf (isAutocompleteModal modal) (AutocompleteSelector.focusInput NoOp)
 
         ( SwitchBookmarksTab bookmarkTab, _ ) ->
             { model | bookmarkTab = bookmarkTab }
@@ -660,6 +661,25 @@ createPageUpdate session model =
                 _ ->
                     Ports.addBodyClass "prevent-scrolling"
             ]
+
+
+isAutocompleteModal : Modal -> Bool
+isAutocompleteModal modal =
+    case modal of
+        AddMaterialModal _ _ ->
+            True
+
+        AddTrimModal _ ->
+            True
+
+        SelectExampleModal _ ->
+            True
+
+        SelectProductModal _ ->
+            True
+
+        _ ->
+            False
 
 
 updateExistingMaterial : Query -> PageUpdate Model Msg -> Inputs.MaterialInput -> Material -> PageUpdate Model Msg
