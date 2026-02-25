@@ -1,7 +1,10 @@
 [
   {
     "activityName": "This process is not linked to a Brightway activity",
-    "categories": ["transformation", "material_type:organic_fibers"],
+    "categories": [
+      "transformation",
+      "material_type:organic_fibers"
+    ],
     "comment": "Même commentaire que `bleaching` sauf qu'en plus les impacts sont multipliés par 19% (scénario de pollution aquatique moyen). corr3 et corr2 (cf doc). Corr3 : valeurs d'élec et de chaleur issues du rapport BAT2023 avec majoration de 50%. corr2 : valeur d'écotox issue d'inventaires enrichis.",
     "displayName": "Blanchiment (scénario de pollution aquatique moyen)",
     "elecMJ": 0.72,
@@ -33,14 +36,19 @@
     "location": null,
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object"],
+    "scopes": [
+      "object"
+    ],
     "source": "Custom",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "This process is not linked to a Brightway activity",
-    "categories": ["transformation", "material_type:organic_fibers"],
+    "categories": [
+      "transformation",
+      "material_type:organic_fibers"
+    ],
     "comment": "corr3 (cf doc): valeurs issues du rapport BAT2023 avec majoration de 50%",
     "displayName": "Dégraissage",
     "elecMJ": 1.08,
@@ -72,14 +80,20 @@
     "location": null,
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["textile", "object"],
+    "scopes": [
+      "textile",
+      "object"
+    ],
     "source": "Custom",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "This process is not linked to a Brightway activity",
-    "categories": ["transformation", "material_type:plastic"],
+    "categories": [
+      "transformation",
+      "material_type:plastic"
+    ],
     "comment": "Hao Chen et al., 2025 (median), hyp. 50% electricity 50% heat",
     "displayName": "Fabrication fibre de carbone",
     "elecMJ": 84.0,
@@ -111,14 +125,20 @@
     "location": null,
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object", "veli"],
+    "scopes": [
+      "object",
+      "veli"
+    ],
     "source": "Custom",
     "unit": "kg",
     "waste": 0.5
   },
   {
     "activityName": "This process is not linked to a Brightway activity",
-    "categories": ["transformation", "material_type:synthetic_fibers"],
+    "categories": [
+      "transformation",
+      "material_type:synthetic_fibers"
+    ],
     "comment": "",
     "displayName": "Filage (40 Nm)",
     "elecMJ": 4.896,
@@ -150,14 +170,20 @@
     "location": null,
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["textile", "object"],
+    "scopes": [
+      "textile",
+      "object"
+    ],
     "source": "Custom",
     "unit": "kg",
     "waste": 0.03
   },
   {
     "activityName": "This process is not linked to a Brightway activity",
-    "categories": ["transformation", "material_type:organic_fibers"],
+    "categories": [
+      "transformation",
+      "material_type:organic_fibers"
+    ],
     "comment": "",
     "displayName": "Filature conventionnelle (40 Nm)",
     "elecMJ": 13.104,
@@ -189,14 +215,20 @@
     "location": null,
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["textile", "object"],
+    "scopes": [
+      "textile",
+      "object"
+    ],
     "source": "Custom",
     "unit": "kg",
     "waste": 0.12
   },
   {
     "activityName": "This process is not linked to a Brightway activity",
-    "categories": ["transformation", "material_type:organic_fibers"],
+    "categories": [
+      "transformation",
+      "material_type:organic_fibers"
+    ],
     "comment": "",
     "displayName": "Filature non conventionnelle (40 Nm)",
     "elecMJ": 6.552,
@@ -228,14 +260,21 @@
     "location": null,
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["textile", "object"],
+    "scopes": [
+      "textile",
+      "object"
+    ],
     "source": "Custom",
     "unit": "kg",
     "waste": 0.12
   },
   {
     "activityName": "This process is not linked to a Brightway activity",
-    "categories": ["material", "textile_material", "material_type:organic_fibers"],
+    "categories": [
+      "material",
+      "textile_material",
+      "material_type:organic_fibers"
+    ],
     "comment": "corr4: Impacts de la laine par défaut multiplié par le coefficient 4%/37%=0.108. Cela vient d'une différence de taux d'allocation : 4% pour cette laine et 37% pour la laine par défaut.",
     "displayName": "Laine nouvelle filière",
     "elecMJ": 0,
@@ -267,14 +306,20 @@
     "location": null,
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["textile", "object"],
+    "scopes": [
+      "textile",
+      "object"
+    ],
     "source": "Custom",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "This process is not linked to a Brightway activity",
-    "categories": ["transformation", "material_type:synthetic_fibers"],
+    "categories": [
+      "transformation",
+      "material_type:synthetic_fibers"
+    ],
     "comment": "corr3 (cf doc): valeurs issues du rapport BAT2023 avec majoration de 50%",
     "displayName": "Lavage (fibres synthétiques)",
     "elecMJ": 0.72,
@@ -306,14 +351,19 @@
     "location": null,
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["textile", "object"],
+    "scopes": [
+      "textile",
+      "object"
+    ],
     "source": "Custom",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "This process is not linked to a Brightway activity",
-    "categories": ["energy"],
+    "categories": [
+      "energy"
+    ],
     "comment": "Reconstitution du mix depuis Ecoinvent 3.9.1\nAncien identifiant (12/2024): heat-europe.",
     "displayName": "Mix chaleur (Europe)",
     "elecMJ": 0,
@@ -345,14 +395,20 @@
     "location": null,
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["textile", "object", "veli"],
+    "scopes": [
+      "textile",
+      "object",
+      "veli"
+    ],
     "source": "Custom",
     "unit": "MJ",
     "waste": 0
   },
   {
     "activityName": "This process is not linked to a Brightway activity",
-    "categories": ["energy"],
+    "categories": [
+      "energy"
+    ],
     "comment": "Reconstitution du mix depuis Ecoinvent 3.9.1\nAncien identifiant (12/2024): heat-row.",
     "displayName": "Mix chaleur (Monde)",
     "elecMJ": 0,
@@ -384,14 +440,22 @@
     "location": null,
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["textile", "object", "veli"],
+    "scopes": [
+      "textile",
+      "object",
+      "veli"
+    ],
     "source": "Custom",
     "unit": "MJ",
     "waste": 0
   },
   {
     "activityName": "This process is not linked to a Brightway activity",
-    "categories": ["transformation", "material_type:other", "material_type:wood"],
+    "categories": [
+      "transformation",
+      "material_type:other",
+      "material_type:wood"
+    ],
     "comment": "Energy consumption based on average data from wood-based panels processes displayed in Ecobalyse (OSB, particleboard, HDF, MDF, plywood). No waste is considered as this process is used for inputs other than virgin wood (ex : recycled wood, glue, resins, etc.).",
     "displayName": "Panneaux (transformation, post-déchiquetage)",
     "elecMJ": 0,
@@ -423,14 +487,19 @@
     "location": null,
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object"],
+    "scopes": [
+      "object"
+    ],
     "source": "Custom",
     "unit": "m3",
     "waste": 0
   },
   {
     "activityName": "This process is not linked to a Brightway activity",
-    "categories": ["transformation", "material_type:wood"],
+    "categories": [
+      "transformation",
+      "material_type:wood"
+    ],
     "comment": "Energy consumptions based on Ecobalyse litterature review with an average scenario hypothesis. Wastes are based on French technical institue FCBA.",
     "displayName": "Panneaux, HDF (transformation)",
     "elecMJ": 1764.0,
@@ -462,14 +531,19 @@
     "location": null,
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object"],
+    "scopes": [
+      "object"
+    ],
     "source": "Custom",
     "unit": "m3",
     "waste": 0.55
   },
   {
     "activityName": "This process is not linked to a Brightway activity",
-    "categories": ["transformation", "material_type:wood"],
+    "categories": [
+      "transformation",
+      "material_type:wood"
+    ],
     "comment": "Energy consumptions based on Ecobalyse litterature review with an average scenario hypothesis. Wastes are based on French technical institue FCBA.",
     "displayName": "Panneaux, MDF (transformation)",
     "elecMJ": 1080.0,
@@ -501,14 +575,19 @@
     "location": null,
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object"],
+    "scopes": [
+      "object"
+    ],
     "source": "Custom",
     "unit": "m3",
     "waste": 0.44
   },
   {
     "activityName": "This process is not linked to a Brightway activity",
-    "categories": ["transformation", "material_type:wood"],
+    "categories": [
+      "transformation",
+      "material_type:wood"
+    ],
     "comment": "Energy consumptions based on Ecobalyse litterature review with an average scenario hypothesis. Wastes are based on French technical institue FCBA.",
     "displayName": "Panneaux, OSB (transformation)",
     "elecMJ": 720.0,
@@ -540,14 +619,19 @@
     "location": null,
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object"],
+    "scopes": [
+      "object"
+    ],
     "source": "Custom",
     "unit": "m3",
     "waste": 0.5
   },
   {
     "activityName": "This process is not linked to a Brightway activity",
-    "categories": ["transformation", "material_type:wood"],
+    "categories": [
+      "transformation",
+      "material_type:wood"
+    ],
     "comment": "Energy consumptions based on Ecobalyse litterature review with an average scenario hypothesis. Wastes are based on French technical institue FCBA.",
     "displayName": "Panneaux, aggloméré/particules (transformation)",
     "elecMJ": 558.0,
@@ -579,14 +663,19 @@
     "location": null,
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object"],
+    "scopes": [
+      "object"
+    ],
     "source": "Custom",
     "unit": "m3",
     "waste": 0.38
   },
   {
     "activityName": "This process is not linked to a Brightway activity",
-    "categories": ["transformation", "material_type:wood"],
+    "categories": [
+      "transformation",
+      "material_type:wood"
+    ],
     "comment": "Energy consumptions based on Ecobalyse litterature review with an average scenario hypothesis. Wastes are based on French technical institue FCBA.",
     "displayName": "Panneaux, contreplaqué (transformation)",
     "elecMJ": 720.0,
@@ -618,14 +707,19 @@
     "location": null,
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object"],
+    "scopes": [
+      "object"
+    ],
     "source": "Custom",
     "unit": "m3",
     "waste": 0.5
   },
   {
     "activityName": "This process is not linked to a Brightway activity",
-    "categories": ["transformation", "material_type:wood"],
+    "categories": [
+      "transformation",
+      "material_type:wood"
+    ],
     "comment": "Energy consumptions based on Ecobalyse litterature review with an average scenario hypothesis (main sources : FAO national statistics  + Swedish manufacturing plants statistics  + Canada manufacturing plants statistics + Ecoinvent resources)",
     "displayName": "Sciage + séchage au four (bois)",
     "elecMJ": 216.0,
@@ -657,14 +751,19 @@
     "location": null,
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object"],
+    "scopes": [
+      "object"
+    ],
     "source": "Custom",
     "unit": "m3",
     "waste": 0.5
   },
   {
     "activityName": "This process is not linked to a Brightway activity",
-    "categories": ["transformation", "material_type:wood"],
+    "categories": [
+      "transformation",
+      "material_type:wood"
+    ],
     "comment": "Energy consumptions based on Ecobalyse litterature review with an average scenario hypothesis (main sources : FAO national statistics  + Swedish manufacturing plants statistics  + Canada manufacturing plants statistics + Ecoinvent resources)",
     "displayName": "Sciage + séchage à l'air libre (bois)",
     "elecMJ": 108.0,
@@ -696,14 +795,19 @@
     "location": null,
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object"],
+    "scopes": [
+      "object"
+    ],
     "source": "Custom",
     "unit": "m3",
     "waste": 0.5
   },
   {
     "activityName": "This process is not linked to a Brightway activity",
-    "categories": ["transformation", "material_type:organic_fibers"],
+    "categories": [
+      "transformation",
+      "material_type:organic_fibers"
+    ],
     "comment": "Même commentaire que `dyeing-cellulosic-fiber` sauf qu'en plus les impacts sont multipliés par 19% (scénario de pollution aquatique moyen). corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-teinture-fibres-cellulosiques.",
     "displayName": "Teinture moyenne (scénario de pollution aquatique moyen)",
     "elecMJ": 3.6,
@@ -735,14 +839,19 @@
     "location": null,
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object"],
+    "scopes": [
+      "object"
+    ],
     "source": "Custom",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "This process is not linked to a Brightway activity",
-    "categories": ["transformation", "material_type:synthetic_fibers"],
+    "categories": [
+      "transformation",
+      "material_type:synthetic_fibers"
+    ],
     "comment": "Même commentaire que `dyeing-synthetic-fiber` sauf qu'en plus les impacts sont multipliés par 19% (scénario de pollution aquatique moyen). corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-teinture-fibres-synthetiques.",
     "displayName": "Teinture moyenne pour fibres synthétiques (scénario de pollution aquatique moyen)",
     "elecMJ": 3.6,
@@ -774,7 +883,9 @@
     "location": null,
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object"],
+    "scopes": [
+      "object"
+    ],
     "source": "Custom",
     "unit": "kg",
     "waste": 0
@@ -817,14 +928,20 @@
     "location": null,
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["textile", "object"],
+    "scopes": [
+      "textile",
+      "object"
+    ],
     "source": "Custom",
     "unit": "kg",
     "waste": 0.0625
   },
   {
     "activityName": "Aluminium extrusion",
-    "categories": ["transformation", "material_type:metal"],
+    "categories": [
+      "transformation",
+      "material_type:metal"
+    ],
     "comment": "",
     "displayName": "Extrusion (aluminium)",
     "elecMJ": 0,
@@ -856,14 +973,20 @@
     "location": "RER",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["veli", "object"],
+    "scopes": [
+      "veli",
+      "object"
+    ],
     "source": "Ecobalyse",
     "unit": "kg",
     "waste": 0.013
   },
   {
     "activityName": "Aluminium sheeet rolling",
-    "categories": ["transformation", "material_type:metal"],
+    "categories": [
+      "transformation",
+      "material_type:metal"
+    ],
     "comment": "",
     "displayName": "Lamination (aluminium)",
     "elecMJ": 0,
@@ -895,14 +1018,20 @@
     "location": "RER",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["veli", "object"],
+    "scopes": [
+      "veli",
+      "object"
+    ],
     "source": "Ecobalyse",
     "unit": "kg",
     "waste": 0.012
   },
   {
     "activityName": "Aluminium working, average",
-    "categories": ["transformation", "material_type:metal"],
+    "categories": [
+      "transformation",
+      "material_type:metal"
+    ],
     "comment": "découpes, cintrages, traitements thermiques, soudures",
     "displayName": "Transformation finale (aluminium)",
     "elecMJ": 0,
@@ -934,14 +1063,19 @@
     "location": "RER",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["veli", "object"],
+    "scopes": [
+      "veli",
+      "object"
+    ],
     "source": "Ecobalyse",
     "unit": "kg",
     "waste": 0.227
   },
   {
     "activityName": "PET EoL recycling, GLO, CFF",
-    "categories": ["end-of-life"],
+    "categories": [
+      "end-of-life"
+    ],
     "comment": "Calculé selon la règle CFF (A=0.5, Q=1)",
     "displayName": "Recyclage du PET, CFF",
     "elecMJ": 0,
@@ -973,14 +1107,19 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object", "veli"],
+    "scopes": [
+      "object",
+      "veli"
+    ],
     "source": "Ecobalyse",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "aluminium EoL recycling, RER, CFF",
-    "categories": ["end-of-life"],
+    "categories": [
+      "end-of-life"
+    ],
     "comment": "Calculé selon la règle CFF (A=0.5, Q=1)",
     "displayName": "Recyclage de l'aluminium, CFF",
     "elecMJ": 0,
@@ -1012,14 +1151,20 @@
     "location": "RER",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object", "veli"],
+    "scopes": [
+      "object",
+      "veli"
+    ],
     "source": "Ecobalyse",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "aluminium ingot, recycled, IN, CFF",
-    "categories": ["material", "material_type:metal"],
+    "categories": [
+      "material",
+      "material_type:metal"
+    ],
     "comment": "Matériau 100% issu du recyclage, calculé selon la règle CFF (A=0.8, Q=1)",
     "displayName": "Aluminium recyclé (Inde), CFF",
     "elecMJ": 0,
@@ -1051,14 +1196,20 @@
     "location": "IN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object", "veli"],
+    "scopes": [
+      "object",
+      "veli"
+    ],
     "source": "Ecobalyse",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "aluminium ingot, recycled, RER, CFF",
-    "categories": ["material", "material_type:metal"],
+    "categories": [
+      "material",
+      "material_type:metal"
+    ],
     "comment": "Matériau 100% issu du recyclage, calculé selon la règle CFF (A=0.8, Q=1)",
     "displayName": "Aluminium recyclé (Europe), CFF",
     "elecMJ": 0,
@@ -1090,14 +1241,20 @@
     "location": "RER",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object", "veli"],
+    "scopes": [
+      "object",
+      "veli"
+    ],
     "source": "Ecobalyse",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "aluminium ingot, recycled, RoW, CFF",
-    "categories": ["material", "material_type:metal"],
+    "categories": [
+      "material",
+      "material_type:metal"
+    ],
     "comment": "Matériau 100% issu du recyclage, calculé selon la règle CFF (A=0.8, Q=1)",
     "displayName": "Aluminium recyclé (Reste du monde), CFF",
     "elecMJ": 0,
@@ -1129,14 +1286,20 @@
     "location": "RoW",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object", "veli"],
+    "scopes": [
+      "object",
+      "veli"
+    ],
     "source": "Ecobalyse",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "chromium steel sheet rolling",
-    "categories": ["transformation", "material_type:metal"],
+    "categories": [
+      "transformation",
+      "material_type:metal"
+    ],
     "comment": "",
     "displayName": "Lamination (inox)",
     "elecMJ": 0,
@@ -1168,14 +1331,20 @@
     "location": "RER",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["veli", "object"],
+    "scopes": [
+      "veli",
+      "object"
+    ],
     "source": "Ecobalyse",
     "unit": "kg",
     "waste": 0.051
   },
   {
     "activityName": "chromium steel working",
-    "categories": ["transformation", "material_type:metal"],
+    "categories": [
+      "transformation",
+      "material_type:metal"
+    ],
     "comment": "découpes, cintrages, traitements thermiques, soudures",
     "displayName": "Transformation finale (inox)",
     "elecMJ": 0,
@@ -1207,14 +1376,20 @@
     "location": "RER",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["veli", "object"],
+    "scopes": [
+      "veli",
+      "object"
+    ],
     "source": "Ecobalyse",
     "unit": "kg",
     "waste": 0.0227
   },
   {
     "activityName": "polyethylene terephthalate, granulate, amorphous, recycled, GLO, CFF",
-    "categories": ["material", "material_type:metal"],
+    "categories": [
+      "material",
+      "material_type:metal"
+    ],
     "comment": "Matériau 100% issu du recyclage, calculé selon la règle CFF (A=0.8, Q=1)",
     "displayName": "PET recyclé (Reste du monde), CFF",
     "elecMJ": 0,
@@ -1246,14 +1421,19 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object", "veli"],
+    "scopes": [
+      "object",
+      "veli"
+    ],
     "source": "Ecobalyse",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "steel EoL recycling, RER, CFF",
-    "categories": ["end-of-life"],
+    "categories": [
+      "end-of-life"
+    ],
     "comment": "Calculé selon la règle CFF (A=0.5, Q=1)",
     "displayName": "Recyclage de l'acier, CFF",
     "elecMJ": 0,
@@ -1285,14 +1465,20 @@
     "location": "RER",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object", "veli"],
+    "scopes": [
+      "object",
+      "veli"
+    ],
     "source": "Ecobalyse",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "steel sheet rolling",
-    "categories": ["transformation", "material_type:metal"],
+    "categories": [
+      "transformation",
+      "material_type:metal"
+    ],
     "comment": "",
     "displayName": "Extrusion ou lamination (acier)",
     "elecMJ": 0,
@@ -1324,14 +1510,20 @@
     "location": "RER",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["veli", "object"],
+    "scopes": [
+      "veli",
+      "object"
+    ],
     "source": "Ecobalyse",
     "unit": "kg",
     "waste": 0.085
   },
   {
     "activityName": "steel working",
-    "categories": ["transformation", "material_type:metal"],
+    "categories": [
+      "transformation",
+      "material_type:metal"
+    ],
     "comment": "découpes, cintrages, traitements thermiques, soudures",
     "displayName": "Transformation finale (acier)",
     "elecMJ": 0,
@@ -1363,14 +1555,20 @@
     "location": "RER",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["veli", "object"],
+    "scopes": [
+      "veli",
+      "object"
+    ],
     "source": "Ecobalyse",
     "unit": "kg",
     "waste": 0.227
   },
   {
     "activityName": "steel, low-alloyed, recycled, RER, CFF",
-    "categories": ["material", "material_type:metal"],
+    "categories": [
+      "material",
+      "material_type:metal"
+    ],
     "comment": "Matériau 100% issu du recyclage, calculé selon la règle CFF (A=0.8, Q=1)",
     "displayName": "Acier recyclé (Europe), CFF",
     "elecMJ": 0,
@@ -1402,14 +1600,20 @@
     "location": "RER",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object", "veli"],
+    "scopes": [
+      "object",
+      "veli"
+    ],
     "source": "Ecobalyse",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "steel, low-alloyed, recycled, RoW, CFF",
-    "categories": ["material", "material_type:metal"],
+    "categories": [
+      "material",
+      "material_type:metal"
+    ],
     "comment": "Matériau 100% issu du recyclage, calculé selon la règle CFF (A=0.8, Q=1)",
     "displayName": "Acier recyclé (Reste du monde), CFF",
     "elecMJ": 0,
@@ -1441,14 +1645,20 @@
     "location": "RoW",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object", "veli"],
+    "scopes": [
+      "object",
+      "veli"
+    ],
     "source": "Ecobalyse",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "wood chips, from post-consumer wood, measured as dry mass, in m3//[RER] market for wood chips, from post-consumer wood, measured as dry mass, in m3",
-    "categories": ["material", "material_type:wood"],
+    "categories": [
+      "material",
+      "material_type:wood"
+    ],
     "comment": "Average density from softwood (490kg/m3)and hardwood (640kg/m3) species",
     "displayName": "Bois recyclé (copeaux), post-consommation",
     "elecMJ": 0,
@@ -1480,14 +1690,19 @@
     "location": "RER",
     "massPerUnit": 565.0,
     "metadata": null,
-    "scopes": ["object"],
+    "scopes": [
+      "object"
+    ],
     "source": "Ecobalyse",
     "unit": "m3",
     "waste": 0
   },
   {
     "activityName": "wood chips, wet, measured as dry mass, in m3 //[Europe without Switzerland] market for wood chips, wet, measured as dry mass, in m3",
-    "categories": ["material", "material_type:wood"],
+    "categories": [
+      "material",
+      "material_type:wood"
+    ],
     "comment": "",
     "displayName": "Bois d'industrie",
     "elecMJ": 0,
@@ -1519,14 +1734,20 @@
     "location": "Europe without Switzerland",
     "massPerUnit": 565.0,
     "metadata": null,
-    "scopes": ["object", "veli"],
+    "scopes": [
+      "object",
+      "veli"
+    ],
     "source": "Ecobalyse",
     "unit": "m3",
     "waste": 0
   },
   {
     "activityName": "acrylic varnish, with water, in 53% solution state//[RER] acrylic varnish production, with water, in 53% solution state",
-    "categories": ["material", "material_type:wood"],
+    "categories": [
+      "material",
+      "material_type:wood"
+    ],
     "comment": "",
     "displayName": "Revêtement bois (huile ou vernis acrylique)",
     "elecMJ": 0,
@@ -1558,14 +1779,20 @@
     "location": "RER",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object", "veli"],
+    "scopes": [
+      "object",
+      "veli"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "acrylonitrile-butadiene-styrene copolymer//[GLO] market for acrylonitrile-butadiene-styrene copolymer",
-    "categories": ["material", "material_type:plastic"],
+    "categories": [
+      "material",
+      "material_type:plastic"
+    ],
     "comment": "",
     "displayName": "Plastique rigide (ABS)",
     "elecMJ": 0,
@@ -1597,14 +1824,20 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["veli", "object"],
+    "scopes": [
+      "veli",
+      "object"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "brass//[RoW] market for brass",
-    "categories": ["material", "material_type:metal"],
+    "categories": [
+      "material",
+      "material_type:metal"
+    ],
     "comment": "",
     "displayName": "Laiton",
     "elecMJ": 0,
@@ -1636,14 +1869,21 @@
     "location": "RoW",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["textile", "object", "veli"],
+    "scopes": [
+      "textile",
+      "object",
+      "veli"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "coating, with melamine impregnated paper//[RER] coating service, melamine impregnated paper, double-sided",
-    "categories": ["material", "material_type:wood"],
+    "categories": [
+      "material",
+      "material_type:wood"
+    ],
     "comment": "",
     "displayName": "Revêtement panneaux (papier mélaminé)",
     "elecMJ": 0,
@@ -1675,14 +1915,19 @@
     "location": "RER",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object"],
+    "scopes": [
+      "object"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "m2",
     "waste": 0
   },
   {
     "activityName": "corrugated board box//[RER] corrugated board box production",
-    "categories": ["material", "material_type:other"],
+    "categories": [
+      "material",
+      "material_type:other"
+    ],
     "comment": "",
     "displayName": "Carton ondulé",
     "elecMJ": 0,
@@ -1714,14 +1959,18 @@
     "location": "RER",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object"],
+    "scopes": [
+      "object"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "electricity, medium voltage//[AU] market for electricity, medium voltage",
-    "categories": ["energy"],
+    "categories": [
+      "energy"
+    ],
     "comment": "Ancien identifiant (12/2024): 53c7378e585cf74cea4837819be6e631.",
     "displayName": "Électricité moyenne tension, Australie",
     "elecMJ": 0,
@@ -1753,14 +2002,20 @@
     "location": "AU",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["textile", "object", "veli"],
+    "scopes": [
+      "textile",
+      "object",
+      "veli"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
     "waste": 0
   },
   {
     "activityName": "electricity, medium voltage//[BD] market for electricity, medium voltage",
-    "categories": ["energy"],
+    "categories": [
+      "energy"
+    ],
     "comment": "Ancien identifiant (12/2024): 0b69950358f3e8f0d3fb049d71481186.",
     "displayName": "Électricité moyenne tension, Bangladesh",
     "elecMJ": 0,
@@ -1792,14 +2047,19 @@
     "location": "BD",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["textile", "object"],
+    "scopes": [
+      "textile",
+      "object"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
     "waste": 0
   },
   {
     "activityName": "electricity, medium voltage//[CN] market group for electricity, medium voltage",
-    "categories": ["energy"],
+    "categories": [
+      "energy"
+    ],
     "comment": "Ancien identifiant (12/2024): 8bbc2475141687462993329f9b7c2ddf.",
     "displayName": "Électricité moyenne tension, Chine",
     "elecMJ": 0,
@@ -1831,14 +2091,20 @@
     "location": "CN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["textile", "object", "veli"],
+    "scopes": [
+      "textile",
+      "object",
+      "veli"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
     "waste": 0
   },
   {
     "activityName": "electricity, medium voltage//[CZ] market for electricity, medium voltage",
-    "categories": ["energy"],
+    "categories": [
+      "energy"
+    ],
     "comment": "Ancien identifiant (12/2024): 2764d908c1a6fe88976d6eabf16295da.",
     "displayName": "Électricité moyenne tension, République Tchèque",
     "elecMJ": 0,
@@ -1870,14 +2136,20 @@
     "location": "CZ",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["textile", "object", "veli"],
+    "scopes": [
+      "textile",
+      "object",
+      "veli"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
     "waste": 0
   },
   {
     "activityName": "electricity, medium voltage//[DE] market for electricity, medium voltage",
-    "categories": ["energy"],
+    "categories": [
+      "energy"
+    ],
     "comment": "",
     "displayName": "Electricité moyenne tension, Allemagne",
     "elecMJ": 0,
@@ -1909,14 +2181,19 @@
     "location": "DE",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object", "veli"],
+    "scopes": [
+      "object",
+      "veli"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
     "waste": 0
   },
   {
     "activityName": "electricity, medium voltage//[FR] market for electricity, medium voltage",
-    "categories": ["energy"],
+    "categories": [
+      "energy"
+    ],
     "comment": "",
     "displayName": "Electricité moyenne tension, France",
     "elecMJ": 0,
@@ -1948,14 +2225,21 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["food", "textile", "object", "veli"],
+    "scopes": [
+      "food",
+      "textile",
+      "object",
+      "veli"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
     "waste": 0
   },
   {
     "activityName": "electricity, medium voltage//[IN] market group for electricity, medium voltage",
-    "categories": ["energy"],
+    "categories": [
+      "energy"
+    ],
     "comment": "Ancien identifiant (12/2024): 4ee8150b0cbf3603e03345d780ba7a61.",
     "displayName": "Électricité moyenne tension, Inde",
     "elecMJ": 0,
@@ -1987,14 +2271,20 @@
     "location": "IN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["textile", "object", "veli"],
+    "scopes": [
+      "textile",
+      "object",
+      "veli"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
     "waste": 0
   },
   {
     "activityName": "electricity, medium voltage//[IT] market for electricity, medium voltage",
-    "categories": ["energy"],
+    "categories": [
+      "energy"
+    ],
     "comment": "Ancien identifiant (12/2024): ae9240745e54987338d2228c3be2a5ec.",
     "displayName": "Électricité moyenne tension, Italie",
     "elecMJ": 0,
@@ -2026,14 +2316,20 @@
     "location": "IT",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["textile", "object", "veli"],
+    "scopes": [
+      "textile",
+      "object",
+      "veli"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
     "waste": 0
   },
   {
     "activityName": "electricity, medium voltage//[KH] market for electricity, medium voltage",
-    "categories": ["energy"],
+    "categories": [
+      "energy"
+    ],
     "comment": "Ancien identifiant (12/2024): de2cd7848f853b1c9b8a5d7b0f255144.",
     "displayName": "Électricité moyenne tension, Cambodge",
     "elecMJ": 0,
@@ -2065,14 +2361,19 @@
     "location": "KH",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["textile", "object"],
+    "scopes": [
+      "textile",
+      "object"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
     "waste": 0
   },
   {
     "activityName": "electricity, medium voltage//[MA] market for electricity, medium voltage",
-    "categories": ["energy"],
+    "categories": [
+      "energy"
+    ],
     "comment": "Ancien identifiant (12/2024): d3287580187139b11ce76f80013510d0.",
     "displayName": "Électricité moyenne tension, Maroc",
     "elecMJ": 0,
@@ -2104,14 +2405,20 @@
     "location": "MA",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["textile", "object", "veli"],
+    "scopes": [
+      "textile",
+      "object",
+      "veli"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
     "waste": 0
   },
   {
     "activityName": "electricity, medium voltage//[MM] market for electricity, medium voltage",
-    "categories": ["energy"],
+    "categories": [
+      "energy"
+    ],
     "comment": "Ancien identifiant (12/2024): 4968e9f8cf72cb72700d94b242048db0.",
     "displayName": "Électricité moyenne tension, Myanmar",
     "elecMJ": 0,
@@ -2143,14 +2450,19 @@
     "location": "MM",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["textile", "object"],
+    "scopes": [
+      "textile",
+      "object"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
     "waste": 0
   },
   {
     "activityName": "electricity, medium voltage//[PK] market for electricity, medium voltage",
-    "categories": ["energy"],
+    "categories": [
+      "energy"
+    ],
     "comment": "Ancien identifiant (12/2024): 028c9bf863a1ab77a0e636029afc5839.",
     "displayName": "Électricité moyenne tension, Pakistan",
     "elecMJ": 0,
@@ -2182,14 +2494,19 @@
     "location": "PK",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["textile", "object"],
+    "scopes": [
+      "textile",
+      "object"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
     "waste": 0
   },
   {
     "activityName": "electricity, medium voltage//[PL] market for electricity, medium voltage",
-    "categories": ["energy"],
+    "categories": [
+      "energy"
+    ],
     "comment": "",
     "displayName": "Electricité moyenne tension, Pologne",
     "elecMJ": 0,
@@ -2221,14 +2538,19 @@
     "location": "PL",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object", "veli"],
+    "scopes": [
+      "object",
+      "veli"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
     "waste": 0
   },
   {
     "activityName": "electricity, medium voltage//[PT] market for electricity, medium voltage",
-    "categories": ["energy"],
+    "categories": [
+      "energy"
+    ],
     "comment": "",
     "displayName": "Electricité moyenne tension, Portugal",
     "elecMJ": 0,
@@ -2260,14 +2582,19 @@
     "location": "PT",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object", "veli"],
+    "scopes": [
+      "object",
+      "veli"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
     "waste": 0
   },
   {
     "activityName": "electricity, medium voltage//[RAF] market group for electricity, medium voltage",
-    "categories": ["energy"],
+    "categories": [
+      "energy"
+    ],
     "comment": "Ancien identifiant (12/2024): elec-medium-region-africa.",
     "displayName": "Électricité moyenne tension, Afrique",
     "elecMJ": 0,
@@ -2299,14 +2626,20 @@
     "location": "RAF",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["textile", "object", "veli"],
+    "scopes": [
+      "textile",
+      "object",
+      "veli"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
     "waste": 0
   },
   {
     "activityName": "electricity, medium voltage//[RAS] market group for electricity, medium voltage",
-    "categories": ["energy"],
+    "categories": [
+      "energy"
+    ],
     "comment": "Ancien identifiant (12/2024): elec-medium-region-asia.",
     "displayName": "Électricité moyenne tension, Asie",
     "elecMJ": 0,
@@ -2338,14 +2671,20 @@
     "location": "RAS",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["textile", "object", "veli"],
+    "scopes": [
+      "textile",
+      "object",
+      "veli"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
     "waste": 0
   },
   {
     "activityName": "electricity, medium voltage//[RER] market group for electricity, medium voltage",
-    "categories": ["energy"],
+    "categories": [
+      "energy"
+    ],
     "comment": "Ancien identifiant (12/2024): region-elec-west-europe.",
     "displayName": "Électricité moyenne tension, Europe",
     "elecMJ": 0,
@@ -2377,14 +2716,20 @@
     "location": "RER",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["textile", "object", "veli"],
+    "scopes": [
+      "textile",
+      "object",
+      "veli"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
     "waste": 0
   },
   {
     "activityName": "electricity, medium voltage//[RLA] market group for electricity, medium voltage",
-    "categories": ["energy"],
+    "categories": [
+      "energy"
+    ],
     "comment": "Ancien identifiant (12/2024): elec-medium-region-latin-america.",
     "displayName": "Électricité moyenne tension, Amérique latine",
     "elecMJ": 0,
@@ -2416,14 +2761,20 @@
     "location": "RLA",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["textile", "object", "veli"],
+    "scopes": [
+      "textile",
+      "object",
+      "veli"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
     "waste": 0
   },
   {
     "activityName": "electricity, medium voltage//[RME] market group for electricity, medium voltage",
-    "categories": ["energy"],
+    "categories": [
+      "energy"
+    ],
     "comment": "Ancien identifiant (12/2024): elec-medium-region-middle-east.",
     "displayName": "Électricité moyenne tension, Moyen-Orient",
     "elecMJ": 0,
@@ -2455,14 +2806,20 @@
     "location": "RME",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["textile", "object", "veli"],
+    "scopes": [
+      "textile",
+      "object",
+      "veli"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
     "waste": 0
   },
   {
     "activityName": "electricity, medium voltage//[RNA] market group for electricity, medium voltage",
-    "categories": ["energy"],
+    "categories": [
+      "energy"
+    ],
     "comment": "Ancien identifiant (12/2024): elec-medium-region-north-america.",
     "displayName": "Électricité moyenne tension, Amérique du nord",
     "elecMJ": 0,
@@ -2494,14 +2851,20 @@
     "location": "RNA",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["textile", "object", "veli"],
+    "scopes": [
+      "textile",
+      "object",
+      "veli"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
     "waste": 0
   },
   {
     "activityName": "electricity, medium voltage//[TN] market for electricity, medium voltage",
-    "categories": ["energy"],
+    "categories": [
+      "energy"
+    ],
     "comment": "Ancien identifiant (12/2024): b42506cbed4b459815c78d741b453e8e.",
     "displayName": "Électricité moyenne tension, Tunisie",
     "elecMJ": 0,
@@ -2533,14 +2896,20 @@
     "location": "TN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["textile", "object", "veli"],
+    "scopes": [
+      "textile",
+      "object",
+      "veli"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
     "waste": 0
   },
   {
     "activityName": "electricity, medium voltage//[TR] market for electricity, medium voltage",
-    "categories": ["energy"],
+    "categories": [
+      "energy"
+    ],
     "comment": "Ancien identifiant (12/2024): 32644303e316aebb9ffa31e9856c8f6b.",
     "displayName": "Électricité moyenne tension, Turquie",
     "elecMJ": 0,
@@ -2572,14 +2941,20 @@
     "location": "TR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["textile", "object", "veli"],
+    "scopes": [
+      "textile",
+      "object",
+      "veli"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
     "waste": 0
   },
   {
     "activityName": "electricity, medium voltage//[VN] market for electricity, medium voltage",
-    "categories": ["energy"],
+    "categories": [
+      "energy"
+    ],
     "comment": "Ancien identifiant (12/2024): 3f90d52cc1dfe32119bf53db2713c407.",
     "displayName": "Électricité moyenne tension, Viet Nam",
     "elecMJ": 0,
@@ -2611,14 +2986,21 @@
     "location": "VN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["textile", "object", "veli"],
+    "scopes": [
+      "textile",
+      "object",
+      "veli"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
     "waste": 0
   },
   {
     "activityName": "epoxy resin, liquid//[RER] epoxy resin production, liquid",
-    "categories": ["material", "material_type:wood"],
+    "categories": [
+      "material",
+      "material_type:wood"
+    ],
     "comment": "",
     "displayName": "Revêtement bois (résine epoxy)",
     "elecMJ": 0,
@@ -2650,14 +3032,20 @@
     "location": "RER",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object", "veli"],
+    "scopes": [
+      "object",
+      "veli"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "extrusion of plastic sheets and thermoforming, inline//[GLO] market for extrusion of plastic sheets and thermoforming, inline",
-    "categories": ["transformation", "material_type:plastic"],
+    "categories": [
+      "transformation",
+      "material_type:plastic"
+    ],
     "comment": "",
     "displayName": "Extrusion + thermoformage (plastique)",
     "elecMJ": 0,
@@ -2689,14 +3077,21 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object", "veli"],
+    "scopes": [
+      "object",
+      "veli"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
     "waste": 0.06
   },
   {
     "activityName": "fibre, cotton, organic//[RoW] fibre production, cotton, organic, ginning",
-    "categories": ["material", "textile_material", "material_type:organic_fibers"],
+    "categories": [
+      "material",
+      "textile_material",
+      "material_type:organic_fibers"
+    ],
     "comment": "Ancien identifiant (12/2024): coton-bio.",
     "displayName": "Production de fibres de coton bio",
     "elecMJ": 0,
@@ -2728,14 +3123,21 @@
     "location": "RoW",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["textile", "object"],
+    "scopes": [
+      "textile",
+      "object"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "fibre, cotton//[RoW] fibre production, cotton, ginning",
-    "categories": ["material", "textile_material", "material_type:organic_fibers"],
+    "categories": [
+      "material",
+      "textile_material",
+      "material_type:organic_fibers"
+    ],
     "comment": "Ancien identifiant (12/2024): a211822aabe83653a6079b9d5677daed.",
     "displayName": "Production de fibres de coton",
     "elecMJ": 0,
@@ -2767,14 +3169,19 @@
     "location": "RoW",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["textile", "object"],
+    "scopes": [
+      "textile",
+      "object"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "flat glass, uncoated//[RER] flat glass production, uncoated",
-    "categories": ["material"],
+    "categories": [
+      "material"
+    ],
     "comment": "",
     "displayName": "Verre plat",
     "elecMJ": 0,
@@ -2806,14 +3213,20 @@
     "location": "RER",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["veli", "object"],
+    "scopes": [
+      "veli",
+      "object"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "injection moulding//[RER] injection moulding",
-    "categories": ["transformation", "material_type:plastic"],
+    "categories": [
+      "transformation",
+      "material_type:plastic"
+    ],
     "comment": "",
     "displayName": "Moulage par injection",
     "elecMJ": 0,
@@ -2845,14 +3258,20 @@
     "location": "RER",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object", "veli"],
+    "scopes": [
+      "object",
+      "veli"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
     "waste": 0.006
   },
   {
     "activityName": "melamine urea formaldehyde adhesive//[GLO] market for melamine urea formaldehyde adhesive",
-    "categories": ["material", "material_type:other"],
+    "categories": [
+      "material",
+      "material_type:other"
+    ],
     "comment": "",
     "displayName": "Résine (mélamine-urée-formaldéhyde)",
     "elecMJ": 0,
@@ -2884,14 +3303,19 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object"],
+    "scopes": [
+      "object"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "metal working, average for metal product manufacturing//[RER] metal working, average for metal product manufacturing",
-    "categories": ["transformation", "material_type:metal"],
+    "categories": [
+      "transformation",
+      "material_type:metal"
+    ],
     "comment": "",
     "displayName": "Transformation métallique (moyenne)",
     "elecMJ": 0,
@@ -2923,14 +3347,19 @@
     "location": "RER",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object", "veli"],
+    "scopes": [
+      "object",
+      "veli"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
     "waste": 0.158
   },
   {
     "activityName": "municipal solid waste//[FR] treatment of municipal solid waste, incineration",
-    "categories": ["end-of-life"],
+    "categories": [
+      "end-of-life"
+    ],
     "comment": "",
     "displayName": "Incinération",
     "elecMJ": 0,
@@ -2962,14 +3391,18 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object"],
+    "scopes": [
+      "object"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "municipal solid waste//[RoW] treatment of municipal solid waste, sanitary landfill",
-    "categories": ["end-of-life"],
+    "categories": [
+      "end-of-life"
+    ],
     "comment": "",
     "displayName": "Enfouissement",
     "elecMJ": 0,
@@ -3001,14 +3434,19 @@
     "location": "RoW",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object"],
+    "scopes": [
+      "object"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "packaging film, low density polyethylene//[RER] packaging film production, low density polyethylene",
-    "categories": ["material", "material_type:plastic"],
+    "categories": [
+      "material",
+      "material_type:plastic"
+    ],
     "comment": "",
     "displayName": "Film plastique",
     "elecMJ": 0,
@@ -3040,14 +3478,19 @@
     "location": "RER",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object"],
+    "scopes": [
+      "object"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "paraffin//[GLO] market for paraffin",
-    "categories": ["material", "material_type:other"],
+    "categories": [
+      "material",
+      "material_type:other"
+    ],
     "comment": "",
     "displayName": "Paraffine (wax/cire)",
     "elecMJ": 0,
@@ -3079,14 +3522,19 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object"],
+    "scopes": [
+      "object"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "phenolic resin//[RER] market for phenolic resin",
-    "categories": ["material", "material_type:other"],
+    "categories": [
+      "material",
+      "material_type:other"
+    ],
     "comment": "",
     "displayName": "Résine (phénol-formaldéhyde)",
     "elecMJ": 0,
@@ -3118,14 +3566,19 @@
     "location": "RER",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object"],
+    "scopes": [
+      "object"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "polycarbonate//[RER] polycarbonate production",
-    "categories": ["material", "material_type:plastic"],
+    "categories": [
+      "material",
+      "material_type:plastic"
+    ],
     "comment": "",
     "displayName": "Plastique rigide (PC)",
     "elecMJ": 0,
@@ -3157,14 +3610,21 @@
     "location": "RER",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["veli", "object"],
+    "scopes": [
+      "veli",
+      "object"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "polyethylene terephthalate, granulate, amorphous//[GLO] market for polyethylene terephthalate, granulate, amorphous",
-    "categories": ["material", "material_type:plastic", "material_type:synthetic_fibers"],
+    "categories": [
+      "material",
+      "material_type:plastic",
+      "material_type:synthetic_fibers"
+    ],
     "comment": "",
     "displayName": "Plastique granulé (PET)",
     "elecMJ": 0,
@@ -3196,14 +3656,21 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["veli", "object"],
+    "scopes": [
+      "veli",
+      "object"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "polyethylene terephthalate, granulate, amorphous//[RoW] polyethylene terephthalate production, granulate, amorphous",
-    "categories": ["material", "textile_material", "material_type:synthetic_fibers"],
+    "categories": [
+      "material",
+      "textile_material",
+      "material_type:synthetic_fibers"
+    ],
     "comment": "Ancien identifiant (12/2024): f32024fc5e736e01fa14321363900581.",
     "displayName": "Production de PET, granulés, amorphe",
     "elecMJ": 0,
@@ -3235,14 +3702,20 @@
     "location": "RoW",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["textile", "object"],
+    "scopes": [
+      "textile",
+      "object"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "polymethyl methacrylate, sheet//[RER] polymethyl methacrylate production, sheet",
-    "categories": ["material", "material_type:plastic"],
+    "categories": [
+      "material",
+      "material_type:plastic"
+    ],
     "comment": "",
     "displayName": "Plexiglas®",
     "elecMJ": 0,
@@ -3274,14 +3747,20 @@
     "location": "RER",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["veli", "object"],
+    "scopes": [
+      "veli",
+      "object"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "polypropylene, granulate//[GLO] market for polypropylene, granulate",
-    "categories": ["material", "material_type:plastic"],
+    "categories": [
+      "material",
+      "material_type:plastic"
+    ],
     "comment": "",
     "displayName": "Plastique granulé (divers)",
     "elecMJ": 0,
@@ -3313,14 +3792,20 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["veli", "object"],
+    "scopes": [
+      "veli",
+      "object"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "polypropylene, granulate//[RER] polypropylene production, granulate",
-    "categories": ["material", "material_type:plastic"],
+    "categories": [
+      "material",
+      "material_type:plastic"
+    ],
     "comment": "",
     "displayName": "Plastique granulé (PP)",
     "elecMJ": 0,
@@ -3352,14 +3837,19 @@
     "location": "RER",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object"],
+    "scopes": [
+      "object"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "polyurethane, rigid foam//[RER] polyurethane production, rigid foam",
-    "categories": ["material", "material_type:upholstery"],
+    "categories": [
+      "material",
+      "material_type:upholstery"
+    ],
     "comment": "",
     "displayName": "Mousse rigide (PUR)",
     "elecMJ": 0,
@@ -3391,14 +3881,20 @@
     "location": "RER",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object", "veli"],
+    "scopes": [
+      "object",
+      "veli"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "polyvinylchloride, suspension polymerised//[GLO] market for polyvinylchloride, suspension polymerised",
-    "categories": ["material", "material_type:plastic"],
+    "categories": [
+      "material",
+      "material_type:plastic"
+    ],
     "comment": "",
     "displayName": "Plastique granulé (PVC)",
     "elecMJ": 0,
@@ -3430,14 +3926,20 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["veli", "object"],
+    "scopes": [
+      "veli",
+      "object"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "powder coat, aluminium sheet//[RER] powder coating, aluminium sheet",
-    "categories": ["material", "material_type:metal"],
+    "categories": [
+      "material",
+      "material_type:metal"
+    ],
     "comment": "",
     "displayName": "Thermolaquage (aluminium)",
     "elecMJ": 0,
@@ -3469,14 +3971,20 @@
     "location": "RER",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object", "veli"],
+    "scopes": [
+      "object",
+      "veli"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "m2",
     "waste": 0
   },
   {
     "activityName": "powder coat, steel//[RER] powder coating, steel",
-    "categories": ["material", "material_type:metal"],
+    "categories": [
+      "material",
+      "material_type:metal"
+    ],
     "comment": "",
     "displayName": "Thermolaquage (acier)",
     "elecMJ": 0,
@@ -3508,16 +4016,22 @@
     "location": "RER",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object", "veli"],
+    "scopes": [
+      "object",
+      "veli"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "m2",
     "waste": 0
   },
   {
     "activityName": "sawlog and veneer log, hardwood, measured as solid wood under bark//[DE] hardwood forestry, beech, sustainable forest management",
-    "categories": ["material", "material_type:wood"],
+    "categories": [
+      "material",
+      "material_type:wood"
+    ],
     "comment": "",
-    "displayName": "Bois d'oeuvre (Feuillus / Hêtre)",
+    "displayName": "Bois d'oeuvre (Feuillus / Hêtre) forêt diversifiée",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "d738711a-c339-4e9e-8d63-b202f6b5c131",
@@ -3552,16 +4066,22 @@
       },
       "forestManagement": "diversifiedForest"
     },
-    "scopes": ["object", "veli"],
+    "scopes": [
+      "object",
+      "veli"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "m3",
     "waste": 0
   },
   {
     "activityName": "sawlog and veneer log, hardwood, measured as solid wood under bark//[DE] hardwood forestry, beech, sustainable forest management",
-    "categories": ["material", "material_type:wood"],
+    "categories": [
+      "material",
+      "material_type:wood"
+    ],
     "comment": "",
-    "displayName": "Bois d'oeuvre (Feuillus / Hêtre)",
+    "displayName": "Bois d'oeuvre (Feuillus / Hêtre) forêt diversifiée certifiée",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "a638fe22-3050-4fc2-817d-0fb3be0730ad",
@@ -3596,16 +4116,22 @@
       },
       "forestManagement": "certifiedDiversifiedForest"
     },
-    "scopes": ["object", "veli"],
+    "scopes": [
+      "object",
+      "veli"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "m3",
     "waste": 0
   },
   {
     "activityName": "sawlog and veneer log, hardwood, measured as solid wood under bark//[DE] hardwood forestry, oak, sustainable forest management",
-    "categories": ["material", "material_type:wood"],
+    "categories": [
+      "material",
+      "material_type:wood"
+    ],
     "comment": "",
-    "displayName": "Bois d'oeuvre (Feuillus / Chêne)",
+    "displayName": "Bois d'oeuvre (Feuillus / Chêne) forêt diversifiée",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "dc58fc13-b036-46ed-ab5f-fd0a112e8b78",
@@ -3640,16 +4166,22 @@
       },
       "forestManagement": "diversifiedForest"
     },
-    "scopes": ["object", "veli"],
+    "scopes": [
+      "object",
+      "veli"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "m3",
     "waste": 0
   },
   {
     "activityName": "sawlog and veneer log, hardwood, measured as solid wood under bark//[DE] hardwood forestry, oak, sustainable forest management",
-    "categories": ["material", "material_type:wood"],
+    "categories": [
+      "material",
+      "material_type:wood"
+    ],
     "comment": "",
-    "displayName": "Bois d'oeuvre (Feuillus / Chêne)",
+    "displayName": "Bois d'oeuvre (Feuillus / Chêne) forêt diversifiée certifiée",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "9df1c3c8-071e-48ca-b45b-c1a3933f579e",
@@ -3684,60 +4216,22 @@
       },
       "forestManagement": "certifiedDiversifiedForest"
     },
-    "scopes": ["object", "veli"],
+    "scopes": [
+      "object",
+      "veli"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "m3",
     "waste": 0
   },
   {
     "activityName": "sawlog and veneer log, softwood, measured as solid wood under bark//[DE] softwood forestry, pine, sustainable forest management",
-    "categories": ["material", "material_type:wood"],
+    "categories": [
+      "material",
+      "material_type:wood"
+    ],
     "comment": "",
-    "displayName": "Bois d'oeuvre (Résineux / Pin)",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "fba45d5f-64fc-44ae-ac75-9301c95c4657",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 6087.7,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "landOccupation": 1563.6,
-    "location": "DE",
-    "massPerUnit": 490.0,
-    "metadata": {
-      "complements": {
-        "forest": 1.0794
-      },
-      "forestManagement": "intensivePlantation"
-    },
-    "scopes": ["object", "veli"],
-    "source": "Ecoinvent 3.9.1",
-    "unit": "m3",
-    "waste": 0
-  },
-  {
-    "activityName": "sawlog and veneer log, softwood, measured as solid wood under bark//[DE] softwood forestry, pine, sustainable forest management",
-    "categories": ["material", "material_type:wood"],
-    "comment": "",
-    "displayName": "Bois d'oeuvre (Résineux / Pin)",
+    "displayName": "Bois d'oeuvre (Résineux / Pin) gestion durable",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "f4a5d1ad-9362-4b18-9555-d5ab58f3b993",
@@ -3772,16 +4266,22 @@
       },
       "forestManagement": "sustainableManagement"
     },
-    "scopes": ["object", "veli"],
+    "scopes": [
+      "object",
+      "veli"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "m3",
     "waste": 0
   },
   {
     "activityName": "sawlog and veneer log, softwood, measured as solid wood under bark//[DE] softwood forestry, pine, sustainable forest management",
-    "categories": ["material", "material_type:wood"],
+    "categories": [
+      "material",
+      "material_type:wood"
+    ],
     "comment": "",
-    "displayName": "Bois d'oeuvre (Résineux / Pin)",
+    "displayName": "Bois d'oeuvre (Résineux / Pin) gestion durable certifiée",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "9c80ffd0-ecff-4cb1-9b3a-9009d42cb425",
@@ -3816,23 +4316,29 @@
       },
       "forestManagement": "certifiedSustainableManagement"
     },
-    "scopes": ["object", "veli"],
+    "scopes": [
+      "object",
+      "veli"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "m3",
     "waste": 0
   },
   {
-    "activityName": "sawlog and veneer log, softwood, measured as solid wood under bark//[DE] softwood forestry, spruce, sustainable forest management",
-    "categories": ["material", "material_type:wood"],
+    "activityName": "sawlog and veneer log, softwood, measured as solid wood under bark//[DE] softwood forestry, pine, sustainable forest management",
+    "categories": [
+      "material",
+      "material_type:wood"
+    ],
     "comment": "",
-    "displayName": "Bois d'oeuvre (Résineux / Epicea)",
+    "displayName": "Bois d'oeuvre (Résineux / Pin) plantation intensive",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "53e21f32-88b5-4fb5-96ec-724276519a85",
+    "id": "fba45d5f-64fc-44ae-ac75-9301c95c4657",
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 4410.5,
+      "ecs": 6087.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3851,25 +4357,31 @@
       "tre": 0,
       "wtu": 0
     },
-    "landOccupation": 1024.6,
+    "landOccupation": 1563.6,
     "location": "DE",
-    "massPerUnit": 430.0,
+    "massPerUnit": 490.0,
     "metadata": {
       "complements": {
-        "forest": 0.70731
+        "forest": 1.0794
       },
       "forestManagement": "intensivePlantation"
     },
-    "scopes": ["object", "veli"],
+    "scopes": [
+      "object",
+      "veli"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "m3",
     "waste": 0
   },
   {
     "activityName": "sawlog and veneer log, softwood, measured as solid wood under bark//[DE] softwood forestry, spruce, sustainable forest management",
-    "categories": ["material", "material_type:wood"],
+    "categories": [
+      "material",
+      "material_type:wood"
+    ],
     "comment": "",
-    "displayName": "Bois d'oeuvre (Résineux / Epicea)",
+    "displayName": "Bois d'oeuvre (Résineux / Epicea) gestion durable",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "db2d4e64-d79d-417c-abe5-7f6c14b974b5",
@@ -3904,16 +4416,22 @@
       },
       "forestManagement": "sustainableManagement"
     },
-    "scopes": ["object", "veli"],
+    "scopes": [
+      "object",
+      "veli"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "m3",
     "waste": 0
   },
   {
     "activityName": "sawlog and veneer log, softwood, measured as solid wood under bark//[DE] softwood forestry, spruce, sustainable forest management",
-    "categories": ["material", "material_type:wood"],
+    "categories": [
+      "material",
+      "material_type:wood"
+    ],
     "comment": "",
-    "displayName": "Bois d'oeuvre (Résineux / Epicea)",
+    "displayName": "Bois d'oeuvre (Résineux / Epicea) gestion durable certifiée",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "e851186c-ee0c-4de2-b96e-49bc2409184c",
@@ -3948,14 +4466,69 @@
       },
       "forestManagement": "certifiedSustainableManagement"
     },
-    "scopes": ["object", "veli"],
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Ecoinvent 3.9.1",
+    "unit": "m3",
+    "waste": 0
+  },
+  {
+    "activityName": "sawlog and veneer log, softwood, measured as solid wood under bark//[DE] softwood forestry, spruce, sustainable forest management",
+    "categories": [
+      "material",
+      "material_type:wood"
+    ],
+    "comment": "",
+    "displayName": "Bois d'oeuvre (Résineux / Epicea) plantation intensive",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "53e21f32-88b5-4fb5-96ec-724276519a85",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 4410.5,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": 1024.6,
+    "location": "DE",
+    "massPerUnit": 430.0,
+    "metadata": {
+      "complements": {
+        "forest": 0.70731
+      },
+      "forestManagement": "intensivePlantation"
+    },
+    "scopes": [
+      "object",
+      "veli"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "m3",
     "waste": 0
   },
   {
     "activityName": "scrap steel//[CH] treatment of scrap steel, municipal incineration with fly ash extraction",
-    "categories": ["end-of-life"],
+    "categories": [
+      "end-of-life"
+    ],
     "comment": "",
     "displayName": "Incinération du métal",
     "elecMJ": 0,
@@ -3987,14 +4560,20 @@
     "location": "CH",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object", "veli"],
+    "scopes": [
+      "object",
+      "veli"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "steel, chromium steel 18/8//[GLO] market for steel, chromium steel 18/8",
-    "categories": ["material", "material_type:metal"],
+    "categories": [
+      "material",
+      "material_type:metal"
+    ],
     "comment": "",
     "displayName": "Acier inoxydable",
     "elecMJ": 0,
@@ -4026,14 +4605,20 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["veli", "object"],
+    "scopes": [
+      "veli",
+      "object"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "steel, unalloyed//[RER] steel production, converter, unalloyed",
-    "categories": ["material", "material_type:metal"],
+    "categories": [
+      "material",
+      "material_type:metal"
+    ],
     "comment": "",
     "displayName": "Acier vierge (non allié, Europe)",
     "elecMJ": 0,
@@ -4065,14 +4650,20 @@
     "location": "RER",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object", "veli"],
+    "scopes": [
+      "object",
+      "veli"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "synthetic rubber//[RER] synthetic rubber production",
-    "categories": ["material", "material_type:plastic"],
+    "categories": [
+      "material",
+      "material_type:plastic"
+    ],
     "comment": "",
     "displayName": "Caoutchouc synthétique",
     "elecMJ": 0,
@@ -4104,14 +4695,19 @@
     "location": "RER",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["veli", "object"],
+    "scopes": [
+      "veli",
+      "object"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "transport, freight train//[GLO] market group for transport, freight train",
-    "categories": ["transport"],
+    "categories": [
+      "transport"
+    ],
     "comment": "Ancien identifiant (12/2024): 7037ea59d8d644fd35f80fd1982f9fe9.",
     "displayName": "transport ferroviaire",
     "elecMJ": 0,
@@ -4143,14 +4739,20 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["textile", "object", "veli"],
+    "scopes": [
+      "textile",
+      "object",
+      "veli"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "t⋅km",
     "waste": 0
   },
   {
     "activityName": "transport, freight, lorry, unspecified//[GLO] market group for transport, freight, lorry, unspecified",
-    "categories": ["transport"],
+    "categories": [
+      "transport"
+    ],
     "comment": "Ancien identifiant (12/2024): f37aba954435f9f158c19a9449d373b2.",
     "displayName": "transport routier",
     "elecMJ": 0,
@@ -4182,14 +4784,21 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["textile", "veli", "object", "food"],
+    "scopes": [
+      "textile",
+      "veli",
+      "object",
+      "food"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "t⋅km",
     "waste": 0
   },
   {
     "activityName": "transport, freight, sea, container ship//[GLO] market for transport, freight, sea, container ship",
-    "categories": ["transport"],
+    "categories": [
+      "transport"
+    ],
     "comment": "Ancien identifiant (12/2024): 86ac591e1e5c1d96a0d004ac830563d9.",
     "displayName": "transport maritime",
     "elecMJ": 0,
@@ -4221,14 +4830,22 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["textile", "veli", "object", "food"],
+    "scopes": [
+      "textile",
+      "veli",
+      "object",
+      "food"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "t⋅km",
     "waste": 0
   },
   {
     "activityName": "urea formaldehyde resin//[RER] market for urea formaldehyde resin",
-    "categories": ["material", "material_type:other"],
+    "categories": [
+      "material",
+      "material_type:other"
+    ],
     "comment": "",
     "displayName": "Résine (urée-formaldéhyde)",
     "elecMJ": 0,
@@ -4260,14 +4877,19 @@
     "location": "RER",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object"],
+    "scopes": [
+      "object"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "waste plastic, mixture//[CH] treatment of waste plastic, mixture, municipal incineration",
-    "categories": ["end-of-life", "material_type:plastic"],
+    "categories": [
+      "end-of-life",
+      "material_type:plastic"
+    ],
     "comment": "",
     "displayName": "Incinération du plastique",
     "elecMJ": 0,
@@ -4299,14 +4921,19 @@
     "location": "CH",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object"],
+    "scopes": [
+      "object"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "waste polyurethane//[CH] treatment of waste polyurethane, municipal incineration",
-    "categories": ["end-of-life", "material_type:upholstery"],
+    "categories": [
+      "end-of-life",
+      "material_type:upholstery"
+    ],
     "comment": "",
     "displayName": "Incinération des mousses et rembourrés",
     "elecMJ": 0,
@@ -4338,14 +4965,19 @@
     "location": "CH",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object"],
+    "scopes": [
+      "object"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "waste wood, untreated//[CH] treatment of waste wood, untreated, municipal incineration",
-    "categories": ["end-of-life", "material_type:wood"],
+    "categories": [
+      "end-of-life",
+      "material_type:wood"
+    ],
     "comment": "",
     "displayName": "Incinération du bois",
     "elecMJ": 0,
@@ -4377,14 +5009,20 @@
     "location": "CH",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["object"],
+    "scopes": [
+      "object"
+    ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
     "waste": 0
   },
   {
     "activityName": "wool; sheep; production mix; at farm; 1 kg greasy wool",
-    "categories": ["material", "textile_material", "material_type:organic_fibers"],
+    "categories": [
+      "material",
+      "textile_material",
+      "material_type:organic_fibers"
+    ],
     "comment": "Ancien identifiant (12/2024): wool-default.",
     "displayName": "Laine par défaut",
     "elecMJ": 0,
@@ -4416,7 +5054,10 @@
     "location": null,
     "massPerUnit": null,
     "metadata": null,
-    "scopes": ["textile", "object"],
+    "scopes": [
+      "textile",
+      "object"
+    ],
     "source": "Woolmark",
     "unit": "kg",
     "waste": 0
