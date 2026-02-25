@@ -8,7 +8,7 @@ ROOT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )/.." &> /dev/null && pwd )
 cd $ROOT_DIR
 
 # Fix outdated Scalingo DSN to be compatible with asyncpg
-DATABASE_URL=$(set -o pipefail; echo "$DATABASE_URL" | sed -e 's/postgres/postgresql+asyncpg/;tx;q100;:x' | sed -e 's/sslmode=/ssl=/;tx;q100;:x')
+DATABASE_URL=$(echo "$DATABASE_URL" | sed -e 's/postgres/postgresql+asyncpg/;tx;q100;:x' | sed -e 's/sslmode=/ssl=/;tx;q100;:x')
 export DATABASE_URL
 
 # run all three tasks in the background
