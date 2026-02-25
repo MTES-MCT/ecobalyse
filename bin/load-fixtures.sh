@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Fail if they is an error
-set -euo pipefail
+set -eo pipefail
 
 ROOT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )/.." &> /dev/null && pwd )
 cd $ROOT_DIR
