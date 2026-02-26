@@ -249,7 +249,7 @@ mainMenuLinks { enabledSections } =
 
 secondaryMenuLinks : List MenuLink
 secondaryMenuLinks =
-    [ Internal "Versions" (Route.Editorial "changelog") (Editorial "changelog")
+    [ Internal "Dernières mises à jour" (Route.Editorial "maj") (Editorial "maj")
     , Internal "Statistiques" Route.Stats Stats
     , External "Documentation" Env.gitbookUrl
     , External "Communauté" Env.communityUrl

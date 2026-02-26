@@ -1,7 +1,7 @@
 ---
 name: Tâche
 about: Une tâche
-title: A short summary of the problem the task should solve
+title: Un court descriptif du problème que la tâche doit solutionner
 labels: ''
 assignees: ''
 
@@ -24,3 +24,7 @@ assignees: ''
 <!-- Que devrait faire quelqu'un pour valider que la solution proposée et l'implémentation fonctionnent comme attendu et répondent correctement aux besoins. N'hésitez pas à être très verbeux et à expliquer en détail, en utilisant des puces par exemple, les étapes à suivre pour tester le comportement attendu. -->
 [ ] Exemple d'attente
 [ ] Autre exemple d'attente
+
+:pencil: Description de l’évolution
+
+<!-- Description destinée aux utilisateurs finaux du site et publiée à chaque PR dans le fichier de changelog -->
