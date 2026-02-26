@@ -5,6 +5,6 @@
 
 - Ajout des accessoires (trims) dans les réponses de l’API
 
-## Ancien journal des modifications
+## Archives
 
-[CHANGELOG.md](/#/pages/changelog)
+[Ancien journal des modifications](/#/pages/changelog)
