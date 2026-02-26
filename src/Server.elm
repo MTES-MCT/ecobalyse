@@ -104,6 +104,7 @@ toAllImpactsDetailed v =
         , ( "inputs", Inputs.encode v.inputs )
         , ( "lifeCycle", LifeCycle.encode v.lifeCycle )
         , ( "transport", Transport.encode v.transport )
+        , ( "trimsImpacts", Impact.encode v.trimsImpacts )
         , ( "useNbCycles", Encode.int v.useNbCycles )
         ]
 

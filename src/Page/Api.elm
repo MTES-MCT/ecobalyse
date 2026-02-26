@@ -54,7 +54,12 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "22 juillet 2025"
+    [ { date = "23 février 2026"
+      , level = "minor"
+      , domains = [ "Textile" ]
+      , md = """Ajout de l'impact des accessoires textiles dans les réponses de l’API."""
+      }
+    , { date = "22 juillet 2025"
       , level = "major"
       , domains = [ "Textile" ]
       , md = """Le paramétrage de la surface d'impression interdit désormais les valeurs supérieures à 80%."""
