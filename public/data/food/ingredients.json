@@ -2362,7 +2362,7 @@
     "categories": [
       "nut_oilseed_processed"
     ],
-    "cropGroup": "SEMENCES",
+    "cropGroup": "AUTRES OLEAGINEUX",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.6,
     "ecosystemicServices": {
@@ -2565,7 +2565,7 @@
     "categories": [
       "spice_condiment_additive"
     ],
-    "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
+    "cropGroup": "DIVERS",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.5,
     "ecosystemicServices": {
@@ -3224,7 +3224,7 @@
     "categories": [
       "vegetable_fresh"
     ],
-    "cropGroup": "PROTEAGINEUX",
+    "cropGroup": "LEGUMINEUSES A GRAIN",
     "defaultOrigin": "France",
     "density": 0.8,
     "ecosystemicServices": {
@@ -4140,7 +4140,7 @@
     "categories": [
       "grain_raw"
     ],
-    "cropGroup": "SEMENCES",
+    "cropGroup": "AUTRES CEREALES",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.75,
     "ecosystemicServices": {
@@ -8672,7 +8672,7 @@
     "categories": [
       "spice_condiment_additive"
     ],
-    "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
+    "cropGroup": "DIVERS",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.56,
     "ecosystemicServices": {
@@ -16600,7 +16600,7 @@
     "categories": [
       "vegetable_fresh"
     ],
-    "cropGroup": "AUTRES CEREALES",
+    "cropGroup": "LEGUMES-FLEURS",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.9,
     "ecosystemicServices": {
@@ -16873,7 +16873,7 @@
     "categories": [
       "vegetable_fresh"
     ],
-    "cropGroup": "PROTEAGINEUX",
+    "cropGroup": "LEGUMINEUSES A GRAIN",
     "defaultOrigin": "France",
     "density": 0.8,
     "ecosystemicServices": {
@@ -18094,7 +18094,7 @@
     "categories": [
       "vegetable_fresh"
     ],
-    "cropGroup": "FRUITS A COQUES",
+    "cropGroup": "LEGUMES-FLEURS",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.9,
     "ecosystemicServices": {
