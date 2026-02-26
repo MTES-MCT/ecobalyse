@@ -66,6 +66,7 @@ encode webUrl v =
         , ( "inputs", Inputs.encode v.inputs |> Just )
         , ( "lifeCycle", LifeCycle.encode v.lifeCycle |> Just )
         , ( "transport", Transport.encode v.transport |> Just )
+        , ( "trimsImpacts", Impact.encode v.trimsImpacts |> Just )
         , ( "useNbCycles", Encode.int v.useNbCycles |> Just )
         , ( "webUrl", webUrl |> Maybe.map Encode.string )
         ]
