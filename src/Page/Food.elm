@@ -428,6 +428,7 @@ update ({ db, queries } as session) msg model =
 
         SetModal modal ->
             createPageUpdate session { model | modal = modal }
+                |> App.withCmdIf (isAutocompleteModal modal) (AutocompleteSelectorView.focusInput NoOp)
 
         SwitchBookmarksTab bookmarkTab ->
             { model | bookmarkTab = bookmarkTab }
@@ -499,6 +500,22 @@ update ({ db, queries } as session) msg model =
         UpdateTransform newTransform ->
             createPageUpdate session model
                 |> updateQuery (Query.updateTransform newTransform query)
+
+
+isAutocompleteModal : Modal -> Bool
+isAutocompleteModal modal =
+    case modal of
+        AddIngredientModal _ _ ->
+            True
+
+        AddPackagingModal _ _ ->
+            True
+
+        SelectExampleModal _ ->
+            True
+
+        _ ->
+            False
 
 
 updateQuery : Query -> PageUpdate Model Msg -> PageUpdate Model Msg

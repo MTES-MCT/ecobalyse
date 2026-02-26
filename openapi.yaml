@@ -989,6 +989,9 @@ components:
         transport:
           type: object
           description: Détails du transport
+        trimsImpacts:
+          type: object
+          description: Impacts des accessoires
         useNbCycles:
           type: integer
           description: Nombre de cycles d'usage
