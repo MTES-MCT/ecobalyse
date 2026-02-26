@@ -58,8 +58,6 @@ if sentry_dsn and not settings.is_test_env():
         send_default_pii=False,
         integrations=[
             LitestarIntegration(
-                # TODO: let’s see what’s useful and what’s too noisy. We’ll restrict
-                # the range later on.
                 failed_request_status_codes={*range(500, 600)},
             ),
         ],
