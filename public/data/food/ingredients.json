@@ -1219,7 +1219,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "LEGUMES-FLEURS",
-    "defaultOrigin": "France",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -2207,7 +2207,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "AUTRES OLEAGINEUX",
-    "defaultOrigin": "France",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.7,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -2934,7 +2934,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "LEGUMES-FLEURS",
-    "defaultOrigin": "France",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.9,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -3063,7 +3063,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "VERGERS",
-    "defaultOrigin": "France",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.85,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -3225,7 +3225,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "LEGUMINEUSES A GRAIN",
-    "defaultOrigin": "France",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.8,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -4006,7 +4006,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "VERGERS",
-    "defaultOrigin": "EuropeAndMaghreb",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.85,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -4561,7 +4561,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "VIGNES",
-    "defaultOrigin": "EuropeAndMaghreb",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -4880,7 +4880,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "PROTEAGINEUX",
-    "defaultOrigin": "France",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.9,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -5098,7 +5098,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "LEGUMES-FLEURS",
-    "defaultOrigin": "France",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.65,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -6387,7 +6387,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "LEGUMES-FLEURS",
-    "defaultOrigin": "France",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.9,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -6632,7 +6632,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "LEGUMES-FLEURS",
-    "defaultOrigin": "France",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -7169,7 +7169,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "LEGUMES-FLEURS",
-    "defaultOrigin": "EuropeAndMaghreb",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.9,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -7991,7 +7991,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "VERGERS",
-    "defaultOrigin": "EuropeAndMaghreb",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.85,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -8592,7 +8592,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "LEGUMINEUSES A GRAIN",
-    "defaultOrigin": "France",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.8,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -9524,7 +9524,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "LEGUMES-FLEURS",
-    "defaultOrigin": "France",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -10023,7 +10023,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "VERGERS",
-    "defaultOrigin": "France",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.85,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -10824,7 +10824,7 @@
       "animal_product"
     ],
     "cropGroup": "LEGUMINEUSES A GRAIN",
-    "defaultOrigin": "France",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.8,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -11597,7 +11597,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "VIGNES",
-    "defaultOrigin": "EuropeAndMaghreb",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.85,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -11624,7 +11624,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "LEGUMINEUSES A GRAIN",
-    "defaultOrigin": "France",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.9,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -11867,7 +11867,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "LEGUMINEUSES A GRAIN",
-    "defaultOrigin": "France",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 1.3,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -12393,7 +12393,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "LEGUMES-FLEURS",
-    "defaultOrigin": "France",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -14451,7 +14451,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "VERGERS",
-    "defaultOrigin": "EuropeAndMaghreb",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.95,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -15491,7 +15491,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "LEGUMES-FLEURS",
-    "defaultOrigin": "France",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.9,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -15566,7 +15566,7 @@
       "grain_raw"
     ],
     "cropGroup": "AUTRES CEREALES",
-    "defaultOrigin": "France",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.54,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -15803,7 +15803,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "LEGUMES-FLEURS",
-    "defaultOrigin": "France",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.9,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -16874,7 +16874,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "LEGUMINEUSES A GRAIN",
-    "defaultOrigin": "France",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.8,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -16949,7 +16949,7 @@
       "dairy_product"
     ],
     "cropGroup": null,
-    "defaultOrigin": "France",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 1.03,
     "ecosystemicServices": null,
     "id": "e5b6e5a2-07c0-5a37-950c-a1087fe0712f",
@@ -17051,7 +17051,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
-    "defaultOrigin": "France",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.9,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -17294,7 +17294,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "LEGUMINEUSES A GRAIN",
-    "defaultOrigin": "France",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.9,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -17402,7 +17402,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "LEGUMINEUSES A GRAIN",
-    "defaultOrigin": "France",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.9,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -17592,7 +17592,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "VERGERS",
-    "defaultOrigin": "France",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -17960,7 +17960,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "VERGERS",
-    "defaultOrigin": "France",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.85,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -18348,7 +18348,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "DIVERS",
-    "defaultOrigin": "France",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.9,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -18612,7 +18612,7 @@
       "grain_raw"
     ],
     "cropGroup": "PLANTES A FIBRES",
-    "defaultOrigin": "France",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.75,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -18871,7 +18871,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "VERGERS",
-    "defaultOrigin": "EuropeAndMaghreb",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.85,
     "ecosystemicServices": {
       "cropDiversity": 0,
