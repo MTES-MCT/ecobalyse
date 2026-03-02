@@ -53,6 +53,12 @@ datasets scope =
             , Processes Scope.Food Nothing
             ]
 
+        Scope.Food2 ->
+            [ Impacts Nothing
+            , Countries Nothing
+            , Processes Scope.Food2 Nothing
+            ]
+
         Scope.Object ->
             [ ObjectExamples Nothing
             , Components Scope.Object Nothing
@@ -85,6 +91,9 @@ defaultDatasetFor scope =
     case scope of
         Scope.Food ->
             FoodExamples Nothing
+
+        Scope.Food2 ->
+            Processes Scope.Food2 Nothing
 
         Scope.Object ->
             ObjectExamples Nothing

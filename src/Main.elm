@@ -167,6 +167,7 @@ setupSession navKey flags db componentConfig =
         , notifications = []
         , queries =
             { food = FoodQuery.empty
+            , food2 = Component.emptyQuery
             , object = Component.emptyQuery
             , textile =
                 db.textile.examples
@@ -639,7 +640,7 @@ view { mobileNavigationOpened, state, tray } =
                 FoodBuilderPage foodModel ->
                     FoodBuilder.view session foodModel
                         |> mapMsg FoodBuilderMsg
-                        |> frame Page.FoodBuilder
+                        |> frame Page.Food
 
                 HomePage _ ->
                     Home.view session
