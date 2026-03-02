@@ -7,6 +7,7 @@ module Data.Bookmark exposing
     , findByObjectQuery
     , findByTextileQuery
     , isFood
+    , isFood2
     , isObject
     , isTextile
     , isVeli
@@ -42,6 +43,7 @@ type alias Bookmark =
 
 type Query
     = Food FoodQuery.Query
+    | Food2 Component.Query
     | Object Component.Query
     | Textile TextileQuery.Query
     | Veli Component.Query
@@ -118,6 +120,9 @@ encodeQuery v =
         Food query ->
             FoodQuery.encode query
 
+        Food2 query ->
+            Component.encodeQuery query
+
         Object query ->
             Component.encodeQuery query
 
@@ -132,6 +137,16 @@ isFood : Bookmark -> Bool
 isFood { query } =
     case query of
         Food _ ->
+            True
+
+        _ ->
+            False
+
+
+isFood2 : Bookmark -> Bool
+isFood2 { query } =
+    case query of
+        Food2 _ ->
             True
 
         _ ->
@@ -202,6 +217,9 @@ scope bookmark =
         Food _ ->
             Scope.Food
 
+        Food2 _ ->
+            Scope.Food2
+
         Object _ ->
             Scope.Object
 
@@ -231,8 +249,13 @@ toQueryDescription db bookmark =
                 |> Result.map Recipe.toString
                 |> Result.withDefault bookmark.name
 
-        Object objectQuery ->
-            objectQuery.items
+        Food2 { items } ->
+            items
+                |> Component.itemsToString db
+                |> Result.withDefault "N/A"
+
+        Object { items } ->
+            items
                 |> Component.itemsToString db
                 |> Result.withDefault "N/A"
 
@@ -242,7 +265,7 @@ toQueryDescription db bookmark =
                 |> Result.map (Inputs.toString db.textile.wellKnown)
                 |> Result.withDefault bookmark.name
 
-        Veli objectQuery ->
-            objectQuery.items
+        Veli { items } ->
+            items
                 |> Component.itemsToString db
                 |> Result.withDefault "N/A"

@@ -21,6 +21,7 @@ import Url.Parser as Parser exposing (Parser)
 
 type Scope
     = Food
+    | Food2
     | Object
     | Textile
     | Veli
@@ -93,6 +94,9 @@ toLabel scope =
         Food ->
             "Alimentaire"
 
+        Food2 ->
+            "Alimentaire²"
+
         Object ->
             "Objets"
 
@@ -108,6 +112,9 @@ toString scope =
     case scope of
         Food ->
             "food"
+
+        Food2 ->
+            "food2"
 
         Object ->
             "object"

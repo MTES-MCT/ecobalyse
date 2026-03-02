@@ -101,6 +101,21 @@ shareTabView { copyToClipBoard, impact, scope, session } =
                         |> Encode.encode 2
                     )
 
+                Scope.Food2 ->
+                    let
+                        query =
+                            session.queries.food2
+                    in
+                    ( Just query
+                        |> Route.ObjectSimulator scope impact.trigram
+                        |> Route.toString
+                        |> (++) "/"
+                        |> (++) session.clientUrl
+                    , buildObjectApiQuery scope session.clientUrl query
+                    , Component.encodeQuery query
+                        |> Encode.encode 2
+                    )
+
                 Scope.Object ->
                     let
                         query =
@@ -315,6 +330,10 @@ bookmarkView cfg ({ name, query } as bookmark) =
                     Just foodQuery
                         |> Route.FoodBuilder cfg.impact.trigram
 
+                Bookmark.Food2 food2Query ->
+                    Just food2Query
+                        |> Route.ObjectSimulator Scope.Food2 cfg.impact.trigram
+
                 Bookmark.Object objectQuery ->
                     Just objectQuery
                         |> Route.ObjectSimulator Scope.Object cfg.impact.trigram
@@ -403,6 +422,9 @@ queryFromScope session scope =
         Scope.Food ->
             Bookmark.Food session.queries.food
 
+        Scope.Food2 ->
+            Bookmark.Food2 session.queries.food2
+
         Scope.Object ->
             Bookmark.Object session.queries.object
 
@@ -420,6 +442,9 @@ scopedBookmarks session scope =
             (case scope of
                 Scope.Food ->
                     Bookmark.isFood
+
+                Scope.Food2 ->
+                    Bookmark.isFood2
 
                 Scope.Object ->
                     Bookmark.isObject
