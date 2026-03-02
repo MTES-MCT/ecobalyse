@@ -80,6 +80,20 @@ parser =
                 </> Example.parseUuid
             )
 
+        -- Food2 specific routes
+        , Parser.map (ObjectSimulatorHome Scope.Food2)
+            (Parser.s "food2" </> Parser.s "simulator")
+        , Parser.map (ObjectSimulator Scope.Food2) <|
+            Parser.s "food2"
+                </> Parser.s "simulator"
+                </> Impact.parseTrigram
+                </> Component.parseBase64Query
+        , Parser.map (ObjectSimulatorExample Scope.Food2)
+            (Parser.s "food2"
+                </> Parser.s "edit-example"
+                </> Example.parseUuid
+            )
+
         -- Object specific routes
         , Parser.map (ObjectSimulatorHome Scope.Object)
             (Parser.s "object" </> Parser.s "simulator")
