@@ -30,7 +30,7 @@ La densité du Diesel B7 est de 0.84 kg/L.
 L'Essence la plus couramment utilisée en France est l'E10, elle est composé à 90% d'essence et à 10% de biocarburant. Le taux de 10% est obtenu pour partie avec du bioéthanol et pour partie avec de l'ETBE, fabriqué à partir d’éthanol (d’origine agricole) et d’isobutène (actuellement d’origine chimique).
 
 * L'essence est modélisé par le procédé Ecoinvent `petrol, low-sulfur//[RER] market group for petrol, low-sulfur`
-* Le biocarburant est modélisé par le procédé Ecoinvent `ethyl tert-butyl ether//[RER] ethyl tert-butyl ether production, from bioethanol`. Cette modélisation est une approche simplifié, choisie au regard des données disponibles.&#x20;
+* Le biocarburant est modélisé par le procédé Ecoinvent `ethyl tert-butyl ether//[RER] ethyl tert-butyl ether production, from bioethanol`. Cette modélisation est une approche simplifiée, choisie au regard des données disponibles.&#x20;
 
 La densité de l'essence E10 est de 0.755 kg/L
 
