@@ -1,12 +1,12 @@
 # 📝 Construction des procédés carburant
 
-Il n'existe pas de procédés directement utilisables dans Ecoinvent pour modéliser les impacts environnementaux associés à la consommation de carburant.
+Il n'existe pas de procédés directement utilisables dans Ecoinvent pour modéliser les carburants.
 
 Des procédés ont été créés par Ecobalyse pour combiner la production de carburant d'une part et les émissions à la combustion d'autre part.
 
 ## Partie production
 
-Les carburants intègre une partie de biocarburants plus ou moins importante. A ce stade la modélisation des carburants est sommaire, le coût environnemental des véhicule étant en premier lieu développé pour les véhicules intermédiaires électriques.
+Les carburants intègrent une partie de biocarburants plus ou moins importante. A ce stade la modélisation des carburants est sommaire, le coût environnemental des véhicules étant en premier lieu développé pour les véhicules intermédiaires électriques.
 
 <details>
 
@@ -17,7 +17,7 @@ Le Diesel B7 utilisé en France est composé à 93% de gazole et à 7% de biodie
 * Le diesel est modélisé par le procédé Ecoinvent `diesel, low-sulfur//[RER] market group for diesel, low-sulfur`
 * Le biodiesel est modélisé par le procédé Ecoinvent `fatty acid methyl ester//[RoW] market for fatty acid methyl ester`.&#x20;
 
-La densité du Diesel B7 est de 0.84 kg/L
+La densité du Diesel B7 est de 0.84 kg/L.
 
 
 
@@ -27,11 +27,10 @@ La densité du Diesel B7 est de 0.84 kg/L
 
 <summary>Essence</summary>
 
-L'Essence la plus couramment utilisée en France est l'E10, elle est composé à 90% d'essence et à 10% de biocarburant.
+L'Essence la plus couramment utilisée en France est l'E10, elle est composé à 90% d'essence et à 10% de biocarburant. Le taux de 10% est obtenu pour partie avec du bioéthanol et pour partie avec de l'ETBE, fabriqué à partir d’éthanol (d’origine agricole) et d’isobutène (actuellement d’origine chimique).
 
 * L'essence est modélisé par le procédé Ecoinvent `petrol, low-sulfur//[RER] market group for petrol, low-sulfur`
-* Le biocarburant est modélisé par le procédé Ecoinvent `ethyl tert-butyl ether//[RER] ethyl tert-butyl ether production, from bioethanol`. \
-  En pratique, l'ETBE modélisé par ce procédé est fabriqué à partir d’éthanol (d’origine agricole) et d’isobutène (actuellement d’origine chimique). l'E10 est fabriqué à partir d'ETBE et de biocarburant, le taux de 10% correspondant au total maximum d'origine agricole.
+* Le biocarburant est modélisé par le procédé Ecoinvent `ethyl tert-butyl ether//[RER] ethyl tert-butyl ether production, from bioethanol`. Cette modélisation est une approche simplifié, choisie au regard des données disponibles.&#x20;
 
 La densité de l'essence E10 est de 0.755 kg/L
 
