@@ -1,6 +1,7 @@
 module Page.Explore.Components exposing (table)
 
 import Data.Component as Component exposing (Component)
+import Data.Component.Amount as Amount
 import Data.Dataset as Dataset
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
@@ -51,7 +52,7 @@ table ({ db } as session) { detailed, scope } =
                                 list
                                     |> List.map
                                         (\{ amount, material } ->
-                                            String.fromFloat (Component.amountToFloat amount)
+                                            Amount.toString amount
                                                 ++ Process.unitToString material.unit
                                                 ++ " de "
                                                 ++ Process.getDisplayName material

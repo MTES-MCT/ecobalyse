@@ -1,6 +1,7 @@
 module Data.ComponentTest exposing (..)
 
 import Data.Component as Component exposing (Component, Item, LifeCycle, Requirements)
+import Data.Component.Amount as Amount
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
 import Data.Process as Process exposing (Process)
@@ -117,7 +118,7 @@ suite =
                         [ let
                             getTestMass transforms =
                                 Component.Results
-                                    { amount = Component.Amount 1
+                                    { amount = Amount.fromFloat 1
                                     , impacts = Impact.empty
                                     , items = []
                                     , label = Nothing
@@ -148,7 +149,7 @@ suite =
                         , let
                             getTestEcsImpact transforms =
                                 Component.Results
-                                    { amount = Component.Amount 1
+                                    { amount = Amount.fromFloat 1
                                     , impacts = Impact.empty
                                     , items = []
                                     , label = Nothing
@@ -204,7 +205,7 @@ suite =
                             (\transformInKg ->
                                 [ it "should reject when the unit of the material and the transforms do not match"
                                     (Component.Results
-                                        { amount = Component.Amount 1
+                                        { amount = Amount.fromFloat 1
                                         , impacts = Impact.empty
                                         , items = []
                                         , label = Nothing
@@ -221,7 +222,7 @@ suite =
                         , let
                             getTestResults transforms =
                                 Component.Results
-                                    { amount = Component.Amount 1
+                                    { amount = Amount.fromFloat 1
                                     , impacts = Impact.empty |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 100)
                                     , items = []
                                     , label = Nothing
@@ -328,7 +329,7 @@ suite =
                                     (\cottonId ->
                                         Component.computeElementResults requirements
                                             Nothing
-                                            { amount = Component.Amount 1
+                                            { amount = Amount.fromFloat 1
                                             , material = cottonId
 
                                             -- Note: weaving waste: 0.06253, fading: 0
@@ -357,7 +358,7 @@ suite =
                             (\materialInCubicMeters transformInCubicMeters ->
                                 let
                                     results =
-                                        { amount = Component.Amount 1
+                                        { amount = Amount.fromFloat 1
                                         , material = materialInCubicMeters.id
                                         , transforms = [ transformInCubicMeters.id ]
                                         }
@@ -380,18 +381,18 @@ suite =
                         ]
                     , describe "computeInitialAmount"
                         [ it "should sequentially apply splits"
-                            (Component.Amount 100
+                            (Amount.fromFloat 100
                                 |> Component.computeInitialAmount [ Split.twenty, Split.half ]
                                 -- 100 / (1 - 0.2) / (1 - 0.5) = 250
-                                |> Expect.equal (Ok <| Component.Amount 250)
+                                |> Expect.equal (Ok <| Amount.fromFloat 250)
                             )
                         , it "should succeed with initial amount when no transforms is applied"
-                            (Component.Amount 100
+                            (Amount.fromFloat 100
                                 |> Component.computeInitialAmount []
-                                |> Expect.equal (Ok <| Component.Amount 100)
+                                |> Expect.equal (Ok <| Amount.fromFloat 100)
                             )
                         , it "should error when a passed waste ratio is 100%"
-                            (Component.Amount 100
+                            (Amount.fromFloat 100
                                 |> Component.computeInitialAmount [ Split.full ]
                                 |> expectResultErrorContains "Un taux de perte ne peut pas être de 100%"
                             )
@@ -548,7 +549,7 @@ suite =
                         (\string ->
                             [ it "should serialise an item as a human readable string representation"
                                 (Expect.equal string
-                                    "1 Custom piece [ 0.00044m3 Bois d'oeuvre (Feuillus / Hêtre) | 0.00088kg Plastique granulé (PP) ]"
+                                    "1 Custom piece [ 4,40e-4m3 Bois d'oeuvre (Feuillus / Hêtre) | 8,80e-4kg Plastique granulé (PP) ]"
                                 )
                             ]
                         )
