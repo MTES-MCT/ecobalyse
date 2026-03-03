@@ -986,7 +986,7 @@ encodeCustom custom =
 encodeElement : Element -> Encode.Value
 encodeElement element =
     Encode.object
-        [ ( "amount", element.amount |> Amount.toFloat |> Encode.float )
+        [ ( "amount", Amount.encode element.amount )
         , ( "material", Process.encodeId element.material )
         , ( "transforms", element.transforms |> Encode.list Process.encodeId )
         ]

@@ -1,6 +1,7 @@
 module Data.Component.Amount exposing
     ( Amount
     , decode
+    , encode
     , fromFloat
     , fromString
     , map
@@ -9,6 +10,7 @@ module Data.Component.Amount exposing
     )
 
 import Json.Decode as Decode exposing (Decoder)
+import Json.Encode as Encode
 
 
 {-| An abstract float amount representation
@@ -20,6 +22,11 @@ type Amount
 decode : Decoder Amount
 decode =
     Decode.map Amount Decode.float
+
+
+encode : Amount -> Encode.Value
+encode =
+    toFloat >> Encode.float
 
 
 fromFloat : Float -> Amount
