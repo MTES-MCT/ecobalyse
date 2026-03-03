@@ -117,6 +117,7 @@ import Mass exposing (Mass)
 import Quantity
 import Result.Extra as RE
 import Url.Parser as Parser exposing (Parser)
+import Views.Format as Format
 
 
 type Id
@@ -873,7 +874,7 @@ elementToString processes element =
         |> Process.findById element.material
         |> Result.map
             (\process ->
-                Amount.toFrenchString 3 element.amount
+                Format.formatFloat 5 (Amount.toFloat element.amount)
                     ++ Process.unitToString process.unit
                     ++ " "
                     ++ Process.getDisplayName process

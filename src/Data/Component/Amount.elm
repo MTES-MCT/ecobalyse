@@ -5,12 +5,9 @@ module Data.Component.Amount exposing
     , fromString
     , map
     , toFloat
-    , toFrenchString
     , toString
     )
 
-import FormatNumber
-import FormatNumber.Locales exposing (Decimals(..), frenchLocale)
 import Json.Decode as Decode exposing (Decoder)
 
 
@@ -43,11 +40,6 @@ map fn (Amount float) =
 toFloat : Amount -> Float
 toFloat (Amount float) =
     float
-
-
-toFrenchString : Int -> Amount -> String
-toFrenchString decimals =
-    toFloat >> FormatNumber.format { frenchLocale | decimals = Exact decimals }
 
 
 toString : Amount -> String
