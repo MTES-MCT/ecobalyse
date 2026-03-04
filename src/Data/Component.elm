@@ -129,7 +129,7 @@ type Id
 type alias Component =
     { comment : Maybe String
     , elements : List Element
-    , id : Id
+    , id : Maybe Id
     , name : String
     , published : Bool
     , scope : Scope
@@ -174,7 +174,7 @@ and optional overrides, typically used for queries
 type alias Item =
     { country : Maybe Country.Code
     , custom : Maybe Custom
-    , id : Id
+    , id : Maybe Id
     , quantity : Quantity
     }
 
@@ -345,9 +345,9 @@ addElementTransform targetElement transform items =
             |> Ok
 
 
-addItem : Id -> List Item -> List Item
-addItem id items =
-    items ++ [ createItem id ]
+addItem : Maybe Id -> List Item -> List Item
+addItem maybeId items =
+    items ++ [ createItem maybeId ]
 
 
 addOrSetProcess : Category -> TargetItem -> Maybe Index -> Process -> List Item -> Result String (List Item)
@@ -541,7 +541,12 @@ computeItemResults : Requirements db -> Item -> Result String Results
 computeItemResults requirements { country, custom, id, quantity } =
     let
         component_ =
-            findById id requirements.db.components
+            case id of
+                Just id_ ->
+                    findById id_ requirements.db.components
+
+                Nothing ->
+                    Ok emptyComponent
     in
     component_
         |> Result.andThen
@@ -762,11 +767,11 @@ computeUseImpacts { db } { consumptions } lifeCycle =
             )
 
 
-createItem : Id -> Item
-createItem id =
+createItem : Maybe Id -> Item
+createItem maybeId =
     { country = Nothing
     , custom = Nothing
-    , id = id
+    , id = maybeId
     , quantity = quantityFromInt 1
     }
 
@@ -781,7 +786,7 @@ decode =
     Decode.succeed Component
         |> DU.strictOptional "comment" Decode.string
         |> Decode.required "elements" (Decode.list decodeElement)
-        |> Decode.required "id" (Decode.map Id Uuid.decoder)
+        |> DU.strictOptional "id" (Decode.map Id Uuid.decoder)
         |> Decode.required "name" Decode.string
         -- If there is no published field provided, we’re reading the values from
         -- static files and by default, all components in the static files should
@@ -834,7 +839,7 @@ decodeItem =
     Decode.succeed Item
         |> DU.strictOptional "country" Country.decodeCode
         |> DU.strictOptional "custom" decodeCustom
-        |> Decode.required "id" (Decode.map Id Uuid.decoder)
+        |> DU.strictOptional "id" (Decode.map Id Uuid.decoder)
         |> Decode.required "quantity" decodeQuantity
 
 
@@ -948,13 +953,13 @@ emptyResults =
 
 encode : Component -> Encode.Value
 encode v =
-    Encode.object
-        [ ( "comment", v.comment |> Maybe.map Encode.string |> Maybe.withDefault Encode.null )
-        , ( "elements", v.elements |> Encode.list encodeElement )
-        , ( "id", v.id |> encodeId )
-        , ( "name", v.name |> Encode.string )
-        , ( "published", v.published |> Encode.bool )
-        , ( "scopes", [ v.scope ] |> Encode.list Scope.encode )
+    EU.optionalPropertiesObject
+        [ ( "comment", v.comment |> Maybe.map Encode.string )
+        , ( "elements", v.elements |> Encode.list encodeElement |> Just )
+        , ( "id", v.id |> Maybe.map encodeId )
+        , ( "name", v.name |> Encode.string |> Just )
+        , ( "published", v.published |> Encode.bool |> Just )
+        , ( "scopes", [ v.scope ] |> Encode.list Scope.encode |> Just )
         ]
 
 
@@ -1011,7 +1016,7 @@ encodeId =
 encodeItem : Item -> Encode.Value
 encodeItem item =
     EU.optionalPropertiesObject
-        [ ( "id", item.id |> idToString |> Encode.string |> Just )
+        [ ( "id", item.id |> Maybe.map (idToString >> Encode.string) )
         , ( "quantity", item.quantity |> quantityToInt |> Encode.int |> Just )
         , ( "country", item.country |> Maybe.map Country.encodeCode )
         , ( "custom", item.custom |> Maybe.map encodeCustom )
@@ -1120,12 +1125,22 @@ expandElements db maybeCountry =
     RE.combineMap (expandElement db maybeCountry)
 
 
-expandItem : DataContainer a -> Item -> Result String ExpandedItem
-expandItem ({ components, countries } as db) { country, custom, id, quantity } =
-    findById id components
+expandItem : DataContainer db -> Item -> Result String ExpandedItem
+expandItem db { country, custom, id, quantity } =
+    case id of
+        Just id_ ->
+            expandExistingItem db id_ country custom quantity
+
+        Nothing ->
+            expandNewItem db country custom quantity
+
+
+expandExistingItem : DataContainer db -> Id -> Maybe Country.Code -> Maybe Custom -> Quantity -> Result String ExpandedItem
+expandExistingItem db id country custom quantity =
+    findById id db.components
         |> Result.andThen
             (\component ->
-                countries
+                db.countries
                     |> Country.resolveMaybe country
                     |> Result.andThen
                         (\maybeCountry ->
@@ -1134,13 +1149,7 @@ expandItem ({ components, countries } as db) { country, custom, id, quantity } =
                                 |> expandElements db country
                                 |> Result.map
                                     (\expandedElements ->
-                                        { component =
-                                            case custom |> Maybe.andThen .name of
-                                                Just customName ->
-                                                    { component | name = customName }
-
-                                                Nothing ->
-                                                    component
+                                        { component = component
                                         , country = maybeCountry
                                         , elements = expandedElements
                                         , quantity = quantity
@@ -1148,6 +1157,19 @@ expandItem ({ components, countries } as db) { country, custom, id, quantity } =
                                     )
                         )
             )
+
+
+expandNewItem : DataContainer db -> Maybe Country.Code -> Maybe Custom -> Quantity -> Result String ExpandedItem
+expandNewItem db country custom quantity =
+    Ok ExpandedItem
+        |> RE.andMap (Ok emptyComponent)
+        |> RE.andMap (Country.resolveMaybe country db.countries)
+        |> RE.andMap
+            (custom
+                |> customElements emptyComponent
+                |> expandElements db country
+            )
+        |> RE.andMap (Ok quantity)
 
 
 {-| Take a list of component items and resolve them with actual components and processes
@@ -1181,7 +1203,7 @@ extractMass (Results { mass }) =
 -}
 findById : Id -> List Component -> Result String Component
 findById id =
-    List.filter (.id >> (==) id)
+    List.filter (.id >> (==) (Just id))
         >> List.head
         >> Result.fromMaybe ("Aucun composant avec id=" ++ idToString id)
 
@@ -1332,45 +1354,76 @@ itemElements ( component, itemIndex ) =
 
 itemToComponent : DataContainer db -> Item -> Result String Component
 itemToComponent { components } { custom, id } =
-    findById id components
-        |> Result.map
-            (\component ->
-                case custom of
-                    Just { elements, name, scope } ->
-                        { component
+    case id of
+        Just id_ ->
+            findById id_ components
+                |> Result.map
+                    (\component ->
+                        case custom of
+                            Just { elements, name, scope } ->
+                                { component
+                                    | elements = elements
+                                    , name = name |> Maybe.withDefault component.name
+                                    , scope = scope |> Maybe.withDefault component.scope
+                                }
+
+                            Nothing ->
+                                component
+                    )
+
+        Nothing ->
+            case custom of
+                Just { elements, name, scope } ->
+                    Ok
+                        { emptyComponent
                             | elements = elements
-                            , name = name |> Maybe.withDefault component.name
-                            , scope = scope |> Maybe.withDefault component.scope
+                            , name = name |> Maybe.withDefault ""
+                            , scope = scope |> Maybe.withDefault Scope.Object
                         }
 
-                    Nothing ->
-                        component
-            )
+                Nothing ->
+                    Ok emptyComponent
+
+
+emptyComponent : Component
+emptyComponent =
+    { comment = Nothing
+    , elements = []
+    , id = Nothing
+    , name = ""
+    , published = False
+    , scope = Scope.Object
+    }
 
 
 itemToString : DataContainer db -> Item -> Result String String
 itemToString db { custom, id, quantity } =
-    db.components
-        |> findById id
-        |> Result.andThen
-            (\component ->
-                custom
-                    |> customElements component
-                    |> RE.combineMap (elementToString db.processes)
-                    |> Result.map (String.join " | ")
-                    |> Result.map
-                        (\processesString ->
-                            String.fromInt (quantityToInt quantity)
-                                ++ " "
-                                ++ (custom
-                                        |> Maybe.andThen .name
-                                        |> Maybe.withDefault component.name
-                                   )
-                                ++ " [ "
-                                ++ processesString
-                                ++ " ]"
-                        )
-            )
+    case id of
+        Just id_ ->
+            findById id_ db.components
+                |> Result.andThen
+                    (\component ->
+                        custom
+                            |> customElements component
+                            |> RE.combineMap (elementToString db.processes)
+                            |> Result.map (String.join " | ")
+                            |> Result.map
+                                (\processesString ->
+                                    String.fromInt (quantityToInt quantity)
+                                        ++ " "
+                                        ++ (custom
+                                                |> Maybe.andThen .name
+                                                |> Maybe.withDefault component.name
+                                           )
+                                        ++ " [ "
+                                        ++ processesString
+                                        ++ " ]"
+                                )
+                    )
+
+        Nothing ->
+            -- FIXME: handle new item
+            Ok ""
 
 
 itemsToString : DataContainer db -> List Item -> Result String String
@@ -1560,7 +1613,7 @@ sumLifeCycleImpacts lifeCycle =
 toSearchableString : DataContainer db -> Component -> String
 toSearchableString db component =
     String.join " "
-        [ component.id |> idToString
+        [ component.id |> Maybe.map idToString |> Maybe.withDefault ""
         , component.name
         , component.comment |> Maybe.withDefault ""
         , component |> elementsToString db |> Result.withDefault ""
@@ -1661,12 +1714,20 @@ updateItem itemIndex =
 
 validateItem : List Component -> Item -> Result String Item
 validateItem components item =
-    findById item.id components
-        |> Result.andThen
-            (always <|
-                if quantityToInt item.quantity < 1 then
-                    Err "La quantité doit être un nombre entier positif"
+    if quantityToInt item.quantity < 1 then
+        Err "La quantité doit être un nombre entier positif"
 
-                else
-                    Ok item
-            )
+    else
+        case item.id of
+            Just id ->
+                case findById id components of
+                    Err err ->
+                        Err err
+
+                    Ok _ ->
+                        -- component exists
+                        Ok item
+
+            Nothing ->
+                -- component is being created
+                Ok item

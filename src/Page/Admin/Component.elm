@@ -112,9 +112,14 @@ update session msg model =
                 |> createPageUpdate (session |> Session.notifyBackendError err)
 
         ComponentCreated (RemoteData.Success component) ->
-            { model | modals = [ EditComponentModal component (Component.createItem component.id) ] }
-                |> createPageUpdate session
-                |> App.withCmds [ ComponentApi.getComponents session ComponentListResponse ]
+            case component.id of
+                Just componentId ->
+                    { model | modals = [ EditComponentModal component (Component.createItem (Just componentId)) ] }
+                        |> createPageUpdate session
+                        |> App.withCmds [ ComponentApi.getComponents session ComponentListResponse ]
+
+                Nothing ->
+                    createPageUpdate session model
 
         ComponentCreated _ ->
             createPageUpdate session model
@@ -130,8 +135,13 @@ update session msg model =
             createPageUpdate session model
 
         ComponentEditResponse (RemoteData.Success component) ->
-            createPageUpdate session
-                { model | modals = [ EditComponentModal component (Component.createItem component.id) ] }
+            case component.id of
+                Just componentId ->
+                    createPageUpdate session
+                        { model | modals = [ EditComponentModal component (Component.createItem (Just componentId)) ] }
+
+                Nothing ->
+                    createPageUpdate session model
 
         ComponentEditResponse (RemoteData.Failure err) ->
             createPageUpdate (session |> Session.notifyBackendError err) model
@@ -206,13 +216,23 @@ update session msg model =
                     createPageUpdate session model
 
         OpenEditModal component ->
-            createPageUpdate session { model | modals = [] }
-                |> App.withCmds [ ComponentApi.getComponent session ComponentEditResponse component.id ]
+            case component.id of
+                Just componentId ->
+                    createPageUpdate session { model | modals = [] }
+                        |> App.withCmds [ ComponentApi.getComponent session ComponentEditResponse componentId ]
+
+                Nothing ->
+                    createPageUpdate session model
 
         OpenHistoryModal component ->
-            { model | modals = [ HistoryModal RemoteData.Loading ] }
-                |> createPageUpdate session
-                |> App.withCmds [ ComponentApi.getJournal session ComponentJournalResponse component.id ]
+            case component.id of
+                Just componentId ->
+                    { model | modals = [ HistoryModal RemoteData.Loading ] }
+                        |> createPageUpdate session
+                        |> App.withCmds [ ComponentApi.getJournal session ComponentJournalResponse componentId ]
+
+                Nothing ->
+                    createPageUpdate session model
 
         OpenJournalEntryModal journalEntry ->
             { model | modals = JournalEntryModal journalEntry :: model.modals }
@@ -256,7 +276,16 @@ update session msg model =
                 |> createPageUpdate session
 
         ToggleSelectedAll flag ->
-            { model | selected = model.components |> AdminView.selectAll flag }
+            { model
+                | selected =
+                    case ( flag, model.components ) of
+                        ( True, RemoteData.Success components ) ->
+                            components
+                                |> List.filterMap .id
+
+                        _ ->
+                            []
+            }
                 |> createPageUpdate session
 
         UpdateComponent customItem ->
@@ -383,7 +412,7 @@ view session model =
                         >> componentListView session model.selected
                     )
             , model.components
-                |> WebDataView.map (AdminView.downloadElementsButton "components.json" Component.encode model.selected)
+                |> WebDataView.map (AdminView.downloadElementsButton "components.json" Component.encode (List.map Just model.selected))
             , model.modals
                 |> List.indexedMap (modalView session model.modals)
                 |> div []
@@ -434,14 +463,33 @@ componentRowView session selected component =
     in
     tr []
         [ td [ class "align-start text-center" ]
-            [ selected
-                |> AdminView.toggleElementCheckbox Component.idToString ToggleSelected component.id
+            [ case component.id of
+                Just componentId ->
+                    selected
+                        |> AdminView.toggleElementCheckbox Component.idToString ToggleSelected componentId
+
+                Nothing ->
+                    text ""
             ]
         , th [ class "align-middle" ]
-            [ label [ for <| AdminView.toggleElementId Component.idToString component.id ]
+            [ label
+                [ for <|
+                    case component.id of
+                        Just componentId ->
+                            AdminView.toggleElementId Component.idToString componentId
+
+                        Nothing ->
+                            ""
+                ]
                 [ text component.name ]
             , small [ class "d-block fw-normal" ]
-                [ code [] [ text (Component.idToString component.id) ] ]
+                [ case component.id of
+                    Just componentId ->
+                        code [] [ text (Component.idToString componentId) ]
+
+                    Nothing ->
+                        code [] [ text "-" ]
+                ]
             ]
         , td [ class "align-middle text-center" ]
             [ small
@@ -504,16 +552,26 @@ componentRowView session selected component =
                     , onClick <| DuplicateComponent component
                     ]
                     [ Icon.copy ]
-                , a
-                    [ class "btn btn-outline-primary"
-                    , title "Utiliser dans le simulateur"
-                    , Component.emptyQuery
-                        |> Component.setQueryItems [ Component.createItem component.id ]
-                        |> Just
-                        |> Route.ObjectSimulator Scope.Object Definition.Ecs
-                        |> Route.href
-                    ]
-                    [ Icon.puzzle ]
+                , case component.id of
+                    Just componentId ->
+                        a
+                            [ class "btn btn-outline-primary"
+                            , title "Utiliser dans le simulateur"
+                            , Component.emptyQuery
+                                |> Component.setQueryItems [ Component.createItem (Just componentId) ]
+                                |> Just
+                                |> Route.ObjectSimulator Scope.Object Definition.Ecs
+                                |> Route.href
+                            ]
+                            [ Icon.puzzle ]
+
+                    Nothing ->
+                        button
+                            [ class "btn btn-outline-primary"
+                            , title "Utiliser dans le simulateur"
+                            , disabled True
+                            ]
+                            [ Icon.puzzle ]
                 , a
                     [ class "btn btn-outline-primary"
                     , title "Exporter le composant au format JSON"
@@ -582,6 +640,7 @@ modalView { componentConfig, db } modals index modal =
                                         , scope = component.scope
                                         }
                             , noOp = NoOp
+                            , openCreateComponentModal = NoOp
                             , openSelectComponentModal = \_ -> NoOp
                             , openSelectConsumptionModal = \_ -> NoOp
                             , openSelectProcessModal =

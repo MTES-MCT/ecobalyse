@@ -19,21 +19,26 @@ import Views.Format as Format
 table : Session -> { detailed : Bool, scope : Scope } -> Table Component.Component String msg
 table ({ db } as session) { detailed, scope } =
     { filename = "components"
-    , toId = .id >> Component.idToString
-    , toRoute = .id >> Just >> Dataset.Components scope >> Route.Explore scope
+    , toId = .id >> Maybe.map Component.idToString >> Maybe.withDefault ""
+    , toRoute = .id >> Dataset.Components scope >> Route.Explore scope
     , toSearchableString = Component.toSearchableString db
     , legend = []
     , columns =
         [ { label = "Identifiant"
-          , toValue = Table.StringValue <| .id >> Component.idToString
+          , toValue = Table.StringValue <| .id >> Maybe.map Component.idToString >> Maybe.withDefault "N/A"
           , toCell =
                 \component ->
-                    if detailed then
-                        code [] [ text (Component.idToString component.id) ]
+                    case component.id of
+                        Just id ->
+                            if detailed then
+                                code [] [ text (Component.idToString id) ]
 
-                    else
-                        a [ Route.href (Route.Explore scope (Dataset.Components scope (Just component.id))) ]
-                            [ code [] [ text (Component.idToString component.id) ] ]
+                            else
+                                a [ Route.href (Route.Explore scope (Dataset.Components scope (Just id))) ]
+                                    [ code [] [ text (Component.idToString id) ] ]
+
+                        Nothing ->
+                            text "N/A"
           }
         , { label = "Nom"
           , toValue = Table.StringValue .name

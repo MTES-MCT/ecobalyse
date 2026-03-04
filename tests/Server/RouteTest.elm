@@ -274,7 +274,7 @@ textileEndpoints db =
                                         Just
                                             [ { country = Nothing
                                               , custom = Nothing
-                                              , id = nonExistentId
+                                              , id = Just nonExistentId
                                               , quantity = Component.quantityFromInt 1
                                               }
                                             ]
@@ -298,7 +298,7 @@ textileEndpoints db =
                                         Just
                                             [ { country = Nothing
                                               , custom = Nothing
-                                              , id = id
+                                              , id = Just id
                                               , quantity = Component.quantityFromInt -1
                                               }
                                             ]

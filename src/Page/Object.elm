@@ -738,6 +738,7 @@ simulatorView session model =
                 , explorerRoute = Just (Route.Explore model.scope (Dataset.Components model.scope Nothing))
                 , impact = model.impact
                 , noOp = NoOp
+                , openCreateComponentModal = NoOp
                 , openSelectComponentModal = AddComponentModal >> SetModal
                 , openSelectProcessModal =
                     \p ti ei s ->

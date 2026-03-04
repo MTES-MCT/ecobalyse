@@ -25,8 +25,13 @@ createComponent session event component =
 
 deleteComponent : Session -> (WebData () -> msg) -> Component -> Cmd msg
 deleteComponent session event component =
-    -- FIXME: need to encode component in json body as previously?
-    BackendHttp.delete session ("components/" ++ Component.idToString component.id) event
+    case component.id of
+        Just id ->
+            BackendHttp.delete session ("components/" ++ Component.idToString id) event
+
+        Nothing ->
+            -- FIXME: actually, an error should be returned here
+            Cmd.none
 
 
 getComponent : Session -> (WebData Component -> msg) -> Component.Id -> Cmd msg
@@ -49,8 +54,14 @@ getJournal =
 
 patchComponent : Session -> (WebData Component -> msg) -> Component -> Cmd msg
 patchComponent session event component =
-    BackendHttp.patch session
-        ("components/" ++ Component.idToString component.id)
-        event
-        Component.decode
-        (Component.encode component)
+    case component.id of
+        Just id ->
+            BackendHttp.patch session
+                ("components/" ++ Component.idToString id)
+                event
+                Component.decode
+                (Component.encode component)
+
+        Nothing ->
+            -- FIXME: actually, an error should be returned here
+            Cmd.none
