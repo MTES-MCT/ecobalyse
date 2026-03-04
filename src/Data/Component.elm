@@ -39,6 +39,7 @@ module Data.Component exposing
     , defaultConfig
     , elementTransforms
     , elementsToString
+    , emptyComponent
     , emptyLifeCycle
     , emptyQuery
     , emptyResults

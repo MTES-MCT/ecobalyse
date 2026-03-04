@@ -12,6 +12,7 @@ import App exposing (PageUpdate)
 import Autocomplete exposing (Autocomplete)
 import Browser.Events
 import Browser.Navigation as Navigation
+import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Component as Component exposing (Component, Index, TargetElement, TargetItem)
 import Data.Component.Amount as Amount exposing (Amount)
@@ -82,6 +83,7 @@ type Modal
 
 type Msg
     = CopyToClipBoard String
+    | CreateComponent
     | DeleteBookmark Bookmark
     | ExportBookmarks
     | ImportBookmarks
@@ -278,6 +280,27 @@ update ({ navKey } as session) msg model =
         ( CopyToClipBoard shareableLink, _ ) ->
             createPageUpdate session model
                 |> App.withCmds [ Ports.copyToClipboard shareableLink ]
+
+        ( CreateComponent, _ ) ->
+            let
+                -- FIXME: duplicate from Component views
+                autocompleteState =
+                    session.db.processes
+                        |> Scope.anyOf [ model.scope ]
+                        |> Process.listByCategory Category.Material
+                        |> List.sortBy Process.getDisplayName
+                        |> AutocompleteSelector.init Process.getDisplayName
+            in
+            { model | detailedComponents = LE.unique (List.length query.items :: model.detailedComponents) }
+                |> createPageUpdate session
+                |> updateQuery { query | items = query.items ++ [ Component.createItem Nothing ] }
+                |> App.apply update
+                    (autocompleteState
+                        |> SelectProcessModal Category.Material
+                            ( Component.emptyComponent, List.length query.items )
+                            Nothing
+                        |> SetModal
+                    )
 
         ( DeleteBookmark bookmark, _ ) ->
             model
@@ -739,7 +762,7 @@ simulatorView session model =
                 , explorerRoute = Just (Route.Explore model.scope (Dataset.Components model.scope Nothing))
                 , impact = model.impact
                 , noOp = NoOp
-                , openCreateComponentModal = NoOp
+                , openCreateComponentModal = CreateComponent
                 , openSelectComponentModal = AddComponentModal >> SetModal
                 , openSelectProcessModal =
                     \p ti ei s ->
