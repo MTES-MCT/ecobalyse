@@ -5,6 +5,7 @@ port module Server exposing
     , output
     )
 
+import Data.Common.EncodeUtils as EU
 import Data.Component as Component exposing (Component)
 import Data.Country as Country exposing (Country)
 import Data.Food.Ingredient as Ingredient
@@ -200,9 +201,9 @@ encodeProcess process =
 
 encodeComponent : Component -> Encode.Value
 encodeComponent { id, name } =
-    Encode.object
-        [ ( "id", Component.encodeId id )
-        , ( "name", Encode.string name )
+    EU.optionalPropertiesObject
+        [ ( "id", id |> Maybe.map Component.encodeId )
+        , ( "name", Encode.string name |> Just )
         ]
 
 

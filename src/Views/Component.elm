@@ -55,6 +55,7 @@ type alias Config db msg =
     , impact : Definition
     , lifeCycle : Result String LifeCycle
     , noOp : msg
+    , openCreateComponentModal : msg
     , openSelectComponentModal : Autocomplete Component -> msg
     , openSelectConsumptionModal : Autocomplete Process -> msg
     , openSelectProcessModal : Category -> TargetItem -> Maybe Index -> Autocomplete Process -> msg
@@ -102,6 +103,20 @@ addComponentButton { addLabel, db, openSelectComponentModal, scope } =
         ]
         [ Icon.plus
         , text addLabel
+        ]
+
+
+createComponentButton : Config db msg -> Html msg
+createComponentButton { openCreateComponentModal } =
+    button
+        [ type_ "button"
+        , class "btn btn-outline-primary w-100"
+        , class "d-flex justify-content-center align-items-center"
+        , class "gap-1 w-100"
+        , onClick openCreateComponentModal
+        ]
+        [ Icon.plus
+        , text "Créer un composant"
         ]
 
 
@@ -469,11 +484,18 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as co
                                         )
                                 )
                             ]
-            , if config.context == AdminContext then
-                text ""
+            , case config.context of
+                AdminContext ->
+                    createComponentButton config
 
-              else
-                addComponentButton config
+                ObjectContext ->
+                    div [ class "d-flex gap-1" ]
+                        [ addComponentButton config
+                        , createComponentButton config
+                        ]
+
+                TextileTrimsContext ->
+                    addComponentButton config
             ]
         , if List.member scope [ Scope.Object, Scope.Veli ] && List.length query.items > 1 then
             div []
