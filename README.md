@@ -129,7 +129,7 @@ uv run backend fixtures load-components public/data/object/components.json
 uv run backend users create-user --email foo@bar.org --first-name Foo --last-name Bar --superuser
 ```
 
-### Utilser la ligne de commandes `backend`
+### Utiliser la ligne de commandes `backend`
 
 #### Obtenir la liste des commandes possibles
 
