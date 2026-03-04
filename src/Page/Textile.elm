@@ -111,6 +111,8 @@ type Msg
     = ConfirmSwitchToRegulatory
     | CopyToClipBoard String
     | DeleteBookmark Bookmark
+    | ExportBookmarks
+    | ImportBookmarks
     | NoOp
     | OnAutocompleteExample (Autocomplete.Msg Query)
     | OnAutocompleteMaterial (Autocomplete.Msg Material)
@@ -312,6 +314,14 @@ update ({ db, queries, navKey } as session) msg model =
         ( DeleteBookmark bookmark, _ ) ->
             createPageUpdate (session |> Session.deleteBookmark bookmark) model
 
+        ( ExportBookmarks, _ ) ->
+            createPageUpdate session model
+                |> App.withCmds [ Ports.exportBookmarks () ]
+
+        ( ImportBookmarks, _ ) ->
+            createPageUpdate session model
+                |> App.withCmds [ Ports.importBookmarks () ]
+
         ( NoOp, _ ) ->
             createPageUpdate session model
 
@@ -470,6 +480,7 @@ update ({ db, queries, navKey } as session) msg model =
 
         ( SetModal modal, _ ) ->
             createPageUpdate session { model | modal = modal }
+                |> App.withCmdIf (isAutocompleteModal modal) (AutocompleteSelector.focusInput NoOp)
 
         ( SwitchBookmarksTab bookmarkTab, _ ) ->
             { model | bookmarkTab = bookmarkTab }
@@ -580,7 +591,7 @@ update ({ db, queries, navKey } as session) msg model =
 
         ( UpdateMassInput massInput, _ ) ->
             createPageUpdate session model
-                |> (case massInput |> String.toFloat |> Maybe.map Mass.kilograms of
+                |> (case massInput |> String.toFloat |> Maybe.map Mass.grams of
                         Just mass ->
                             updateQuery { query | mass = mass }
 
@@ -650,6 +661,25 @@ createPageUpdate session model =
                 _ ->
                     Ports.addBodyClass "prevent-scrolling"
             ]
+
+
+isAutocompleteModal : Modal -> Bool
+isAutocompleteModal modal =
+    case modal of
+        AddMaterialModal _ _ ->
+            True
+
+        AddTrimModal _ ->
+            True
+
+        SelectExampleModal _ ->
+            True
+
+        SelectProductModal _ ->
+            True
+
+        _ ->
+            False
 
 
 updateExistingMaterial : Query -> PageUpdate Model Msg -> Inputs.MaterialInput -> Material -> PageUpdate Model Msg
@@ -851,18 +881,18 @@ massField massInput =
         [ label [ for "mass", class "form-label text-truncate" ]
             [ text "Masse du produit fini" ]
         , div
-            [ class "input-group" ]
+            [ class "input-group", title "Masse du produit fini, en grammes" ]
             [ input
                 [ type_ "number"
-                , class "form-control"
+                , class "form-control text-end"
                 , id "mass"
-                , Attr.min "0.01"
-                , step "0.01"
-                , value massInput
+                , Attr.min "1"
+                , step "1"
+                , value <| massInput
                 , onInput UpdateMassInput
                 ]
                 []
-            , span [ class "input-group-text" ] [ text "kg" ]
+            , span [ class "input-group-text" ] [ text "g" ]
             ]
         ]
 
@@ -929,7 +959,7 @@ simulatorFormView session model ({ inputs } as simulator) =
             ]
         , div [ class "col-md-3" ]
             [ inputs.mass
-                |> Mass.inKilograms
+                |> Mass.inGrams
                 |> String.fromFloat
                 |> massField
             ]
@@ -1140,7 +1170,8 @@ simulatorView session model ({ inputs, impacts } as simulator) =
             ]
         , div [ class "col-lg-4 bg-white" ]
             [ SidebarView.view
-                { session = session
+                { noOp = NoOp
+                , session = session
                 , scope = Scope.Textile
 
                 -- Impact selector
@@ -1175,6 +1206,8 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                 , copyToClipBoard = CopyToClipBoard
                 , compareBookmarks = OpenComparator
                 , deleteBookmark = DeleteBookmark
+                , exportBookmarks = ExportBookmarks
+                , importBookmarks = ImportBookmarks
                 , renameBookmark = RenameBookmark
                 , saveBookmark = SaveBookmark
                 , updateBookmarkName = UpdateBookmarkName

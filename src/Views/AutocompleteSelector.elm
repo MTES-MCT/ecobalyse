@@ -1,9 +1,11 @@
-module Views.AutocompleteSelector exposing (Config, view)
+module Views.AutocompleteSelector exposing (Config, focusInput, view)
 
 import Autocomplete exposing (Autocomplete)
 import Autocomplete.View as AutocompleteView
+import Browser.Dom as Dom
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Task
 import Views.Modal as ModalView
 
 
@@ -19,6 +21,12 @@ type alias Config element msg =
     , toCategory : element -> String
     , toLabel : element -> String
     }
+
+
+focusInput : msg -> Cmd msg
+focusInput noOp =
+    -- Note: all autocompletes share the same search input DOM id
+    Dom.focus "element-search" |> Task.attempt (always noOp)
 
 
 view : Config element msg -> Html msg

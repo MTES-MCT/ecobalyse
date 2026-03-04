@@ -28,6 +28,7 @@ import Views.Container as Container
 import Views.Icon as Icon
 import Views.Link as Link
 import Views.Markdown as Markdown
+import Views.Notice as Notice
 import Views.Spinner as Spinner
 
 
@@ -37,7 +38,7 @@ type ActivePage
     | Auth
     | Editorial String
     | Explore
-    | FoodBuilder
+    | Food
     | Home
     | Object Scope
     | Other
@@ -61,33 +62,13 @@ type alias Config msg =
 
 
 frame : Config msg -> ( String, List (Html msg) ) -> Document msg
-frame ({ activePage } as config) ( title, content ) =
+frame ({ activePage, session } as config) ( title, content ) =
     { body =
         [ stagingAlert config
         , newVersionAlert config
         , pageHeader config
-        , if activePage == TextileSimulator then
-            div [ class "page-notice shadow-inner-top", attribute "role" "notice" ]
-                [ div [ class "container px-4" ]
-                    [ span [ class "me-1" ]
-                        [ Icon.info ]
-                    , span [ class "fw-bold" ]
-                        [ text "Cette version est en cours de développement." ]
-                    , span [ class "ms-1" ]
-                        [ text "La version réglementaire est la v7.0.0."
-                        , button
-                            [ type_ "button"
-                            , class "btn btn-link p-0 mb-1"
-                            , onClick <| config.toMsg <| App.LoadUrl (Env.stableTextileVersionPath ++ "#/textile/simulator")
-                            , class "ms-1"
-                            ]
-                            [ text "Accéder à la version réglementaire" ]
-                        ]
-                    ]
-                ]
-
-          else
-            text ""
+        , commonNotices config.toMsg activePage
+        , termsNotice session
         , if config.mobileNavigationOpened then
             mobileNavigation config
 
@@ -112,6 +93,71 @@ frame ({ activePage } as config) ( title, content ) =
         ]
     , title = title ++ " | Ecobalyse"
     }
+
+
+termsNotice : Session -> Html msg
+termsNotice session =
+    if Session.isAuthenticated session && not (Session.hasAccessToDetailedImpacts session) then
+        Notice.warn
+            [ """Attention, vous êtes connecté mais n’avez pas accepté les conditions d’utilisation ecoinvent, vous privant ainsi
+                 de **l’accès aux impacts détaillés** (changement climatique, consommation d'eau, etc). **Vous pouvez
+                 les lire et les accepter depuis [votre espace personnel]({url}).**"""
+                |> String.replace "{url}" (Route.toString Route.Auth)
+                |> Markdown.simple []
+            ]
+
+    else
+        text ""
+
+
+commonNotices : (App.Msg -> msg) -> ActivePage -> Html msg
+commonNotices msg activePage =
+    case activePage of
+        Food ->
+            Notice.info
+                [ Icon.info
+                , Markdown.simple [] "**Cette version est en cours de développement.**"
+                ]
+
+        Object Scope.Food2 ->
+            Notice.info
+                [ Icon.info
+                , Markdown.simple [] "**Cette version est en cours de développement.**"
+                ]
+
+        Object Scope.Object ->
+            Notice.info
+                [ Icon.info
+                , Markdown.simple [] "**Cette version est en cours de développement.**"
+                , """Contribuez via notre [forum utilisateur](https://chat.ecobalyse.fr/ecobalyse/channels/41_ameublement)"""
+                    |> Markdown.simple []
+                ]
+
+        Object Scope.Veli ->
+            Notice.info
+                [ Icon.info
+                , Markdown.simple [] "**Cette version est en cours de développement.** Elle est réservée à des beta-testeurs."
+                ]
+
+        TextileSimulator ->
+            Notice.info
+                [ Icon.info
+                , Markdown.simple []
+                    """**Cette version est en cours de développement.** La version réglementaire est la v7.0.0.
+                    """
+
+                -- bypass the regular routing system to perform a full load to the stable version webapp
+                , button
+                    [ type_ "button"
+                    , class "btn btn-link p-0 m-0"
+                    , onClick <| msg <| App.LoadUrl (Env.stableTextileVersionPath ++ "#/textile/simulator")
+                    , class "ms-1"
+                    ]
+                    [ text "Accéder à la version réglementaire" ]
+                ]
+
+        _ ->
+            text ""
 
 
 toastListView : Config msg -> Html msg
@@ -196,7 +242,7 @@ mainMenuLinks { enabledSections } =
         , addRouteIf enabledSections.textile <|
             Internal "Textile" Route.TextileSimulatorHome TextileSimulator
         , addRouteIf enabledSections.food <|
-            Internal "Alimentaire" Route.FoodBuilderHome FoodBuilder
+            Internal "Alimentaire" Route.FoodBuilderHome Food
         , addRouteIf enabledSections.objects <|
             Internal "Objets" (Route.ObjectSimulatorHome Scope.Object) (Object Scope.Object)
         , addRouteIf enabledSections.veli <|
@@ -209,13 +255,14 @@ mainMenuLinks { enabledSections } =
 
 secondaryMenuLinks : List MenuLink
 secondaryMenuLinks =
-    [ Internal "Versions" (Route.Editorial "changelog") (Editorial "changelog")
+    [ Internal "Dernières mises à jour" (Route.Editorial "maj") (Editorial "maj")
     , Internal "Statistiques" Route.Stats Stats
     , External "Documentation" Env.gitbookUrl
     , External "Communauté" Env.communityUrl
     , External "Code source" Env.githubUrl
     , External "CGU" Env.cguUrl
     , Internal "Admin" (Route.Admin AdminSection.ComponentSection) Admin
+    , Internal "Alimentaire²" (Route.ObjectSimulatorHome Scope.Food2) (Object Scope.Food2)
     ]
 
 
@@ -233,8 +280,8 @@ headerMenuLinks session =
             ]
 
 
-footerMenuLinks : Session -> List MenuLink
-footerMenuLinks session =
+mobileMenuLinks : Session -> List MenuLink
+mobileMenuLinks session =
     mainMenuLinks session
         ++ [ External "Documentation" Env.gitbookUrl
            , External "Communauté" Env.communityUrl
@@ -611,7 +658,7 @@ mobileNavigation { activePage, session, toMsg } =
                     []
                 ]
             , div [ class "offcanvas-body" ]
-                [ footerMenuLinks session
+                [ mobileMenuLinks session
                     |> List.map (viewNavigationLink activePage)
                     |> div [ class "nav nav-pills flex-column" ]
                 , h4 [ class "h6 mt-3" ] [ text "Versions" ]

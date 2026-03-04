@@ -11,6 +11,7 @@ module App exposing
     , notifySuccess
     , notifyWarning
     , toCmd
+    , withCmdIf
     , withCmds
     )
 
@@ -138,3 +139,12 @@ withAppMsgs appMsgs pageUpdate =
 withCmds : List (Cmd msg) -> PageUpdate model msg -> PageUpdate model msg
 withCmds commands pageUpdate =
     { pageUpdate | cmd = Cmd.batch [ pageUpdate.cmd, Cmd.batch commands ] }
+
+
+withCmdIf : Bool -> Cmd msg -> PageUpdate model msg -> PageUpdate model msg
+withCmdIf bool cmd =
+    if bool then
+        withCmds [ cmd ]
+
+    else
+        identity

@@ -22,6 +22,7 @@ IMPACTS_ECOBALYSE_PATH = os.path.join(
 )
 
 TODAY_DATETIME_STR = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+TOKEN = "dummy"
 
 
 class Domain(StrEnum):
@@ -517,16 +518,17 @@ def insert_new_score(df, engine, table_name):
         df.to_sql(table_name, con=conn, if_exists="append", index=False)
 
 
-def compute_product_scores(product_params, api_url):
-    r = requests.post(api_url, json=product_params["query"])
+def compute_product_scores(product_params, api_url, token):
+    headers = {"Authorization": f"Bearer {token}"}
+    r = requests.post(api_url, json=product_params["query"], headers=headers)
     return r.json()
 
 
-def compute_products_scores_for_examples(examples, api_url):
+def compute_products_scores_for_examples(examples, api_url, token):
     computed_scores = []
 
     for example in examples:
-        product_scores = compute_product_scores(example, api_url)
+        product_scores = compute_product_scores(example, api_url, token)
         example["response"] = product_scores
         computed_scores.append(example)
 
@@ -581,7 +583,7 @@ if __name__ == "__main__":
                 examples_input = add_all_ingredients_as_examples(examples_input)
 
             examples = compute_products_scores_for_examples(
-                examples_input, f"{api_url}{api_endpoint}"
+                examples_input, f"{api_url}{api_endpoint}", TOKEN
             )
 
             new_score_df = get_new_score(domain, examples, current_branch, last_commit)

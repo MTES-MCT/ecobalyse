@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?e214z6');
-  src:  url('fonts/icomoon.eot?e214z6#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?e214z6') format('truetype'),
-    url('fonts/icomoon.woff?e214z6') format('woff'),
-    url('fonts/icomoon.svg?e214z6#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?mv1po3');
+  src:  url('fonts/icomoon.eot?mv1po3#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?mv1po3') format('truetype'),
+    url('fonts/icomoon.woff?mv1po3') format('woff'),
+    url('fonts/icomoon.svg?mv1po3#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -25,6 +25,15 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-file-download:before {
+  content: "\e91b";
+}
+.icon-file-upload:before {
+  content: "\e91c";
+}
+.icon-file-export:before {
+  content: "\e910";
+}
 .icon-package:before {
   content: "\e912";
 }
@@ -42,9 +51,6 @@
 }
 .icon-cross-rounded:before {
   content: "\e90f";
-}
-.icon-file-export:before {
-  content: "\e910";
 }
 .icon-save:before {
   content: "\e90c";
@@ -75,6 +81,12 @@
 }
 .icon-home:before {
   content: "\e90b";
+}
+.icon-sign-in:before {
+  content: "\e915";
+}
+.icon-sign-out:before {
+  content: "\e914";
 }
 .icon-puzzle:before {
   content: "\e909";

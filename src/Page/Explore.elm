@@ -158,6 +158,9 @@ update session msg model =
                                 Scope.Food ->
                                     Dataset.FoodExamples Nothing
 
+                                Scope.Food2 ->
+                                    Dataset.Processes Scope.Food2 Nothing
+
                                 Scope.Object ->
                                     Dataset.ObjectExamples Nothing
 

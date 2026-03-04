@@ -82,6 +82,8 @@ type Modal
 type Msg
     = CopyToClipBoard String
     | DeleteBookmark Bookmark
+    | ExportBookmarks
+    | ImportBookmarks
     | NoOp
     | OnAutocompleteAddComponent (Autocomplete.Msg Component)
     | OnAutocompleteAddConsumption (Autocomplete.Msg Process)
@@ -280,6 +282,14 @@ update ({ navKey } as session) msg model =
             model
                 |> createPageUpdate (session |> Session.deleteBookmark bookmark)
 
+        ( ExportBookmarks, _ ) ->
+            createPageUpdate session model
+                |> App.withCmds [ Ports.exportBookmarks () ]
+
+        ( ImportBookmarks, _ ) ->
+            createPageUpdate session model
+                |> App.withCmds [ Ports.importBookmarks () ]
+
         ( NoOp, _ ) ->
             createPageUpdate session model
 
@@ -471,6 +481,7 @@ update ({ navKey } as session) msg model =
 
         ( SetModal modal, _ ) ->
             createPageUpdate session { model | modal = modal }
+                |> App.withCmdIf (isAutocompleteModal modal) (AutocompleteSelectorView.focusInput NoOp)
 
         ( SwitchBookmarksTab bookmarkTab, _ ) ->
             { model | bookmarkTab = bookmarkTab }
@@ -594,6 +605,25 @@ createPageUpdate session model =
                 _ ->
                     Ports.addBodyClass "prevent-scrolling"
             ]
+
+
+isAutocompleteModal : Modal -> Bool
+isAutocompleteModal modal =
+    case modal of
+        AddComponentModal _ ->
+            True
+
+        SelectConsumptionModal _ ->
+            True
+
+        SelectExampleModal _ ->
+            True
+
+        SelectProcessModal _ _ _ _ ->
+            True
+
+        _ ->
+            False
 
 
 selectExample : Autocomplete Component.Query -> PageUpdate Model Msg -> PageUpdate Model Msg
@@ -738,7 +768,8 @@ simulatorView session model =
                         |> Result.withDefault Component.emptyLifeCycle
               in
               SidebarView.view
-                { session = session
+                { noOp = NoOp
+                , session = session
                 , scope = model.scope
 
                 -- Impact selector
@@ -775,6 +806,8 @@ simulatorView session model =
                 , copyToClipBoard = CopyToClipBoard
                 , compareBookmarks = OpenComparator
                 , deleteBookmark = DeleteBookmark
+                , exportBookmarks = ExportBookmarks
+                , importBookmarks = ImportBookmarks
                 , renameBookmark = RenameBookmark
                 , saveBookmark = SaveBookmark
                 , updateBookmarkName = UpdateBookmarkName
