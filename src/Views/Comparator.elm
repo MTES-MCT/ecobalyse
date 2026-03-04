@@ -137,6 +137,24 @@ addToComparison session { name, query } =
                         }
                     )
 
+        Bookmark.Food2 food2Query ->
+            food2Query
+                |> ObjectSimulator.compute
+                    { config = session.componentConfig
+                    , db = session.db
+                    , scope = Scope.Food2
+                    }
+                |> Result.map
+                    (\lifeCycle ->
+                        { complementsImpact = Impact.noComplementsImpacts
+                        , impacts = Component.sumLifeCycleImpacts lifeCycle
+                        , label = name
+                        , stagesImpacts =
+                            lifeCycle
+                                |> ObjectSimulator.toStagesImpacts Definition.Ecs
+                        }
+                    )
+
         Bookmark.Object objectQuery ->
             objectQuery
                 |> ObjectSimulator.compute
@@ -169,8 +187,8 @@ addToComparison session { name, query } =
                         }
                     )
 
-        Bookmark.Veli objectQuery ->
-            objectQuery
+        Bookmark.Veli veliQuery ->
+            veliQuery
                 |> ObjectSimulator.compute
                     { config = session.componentConfig
                     , db = session.db

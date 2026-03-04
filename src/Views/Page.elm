@@ -38,7 +38,7 @@ type ActivePage
     | Auth
     | Editorial String
     | Explore
-    | FoodBuilder
+    | Food
     | Home
     | Object Scope
     | Other
@@ -113,7 +113,13 @@ termsNotice session =
 commonNotices : (App.Msg -> msg) -> ActivePage -> Html msg
 commonNotices msg activePage =
     case activePage of
-        FoodBuilder ->
+        Food ->
+            Notice.info
+                [ Icon.info
+                , Markdown.simple [] "**Cette version est en cours de développement.**"
+                ]
+
+        Object Scope.Food2 ->
             Notice.info
                 [ Icon.info
                 , Markdown.simple [] "**Cette version est en cours de développement.**"
@@ -236,7 +242,7 @@ mainMenuLinks { enabledSections } =
         , addRouteIf enabledSections.textile <|
             Internal "Textile" Route.TextileSimulatorHome TextileSimulator
         , addRouteIf enabledSections.food <|
-            Internal "Alimentaire" Route.FoodBuilderHome FoodBuilder
+            Internal "Alimentaire" Route.FoodBuilderHome Food
         , addRouteIf enabledSections.objects <|
             Internal "Objets" (Route.ObjectSimulatorHome Scope.Object) (Object Scope.Object)
         , addRouteIf enabledSections.veli <|
@@ -249,13 +255,14 @@ mainMenuLinks { enabledSections } =
 
 secondaryMenuLinks : List MenuLink
 secondaryMenuLinks =
-    [ Internal "Versions" (Route.Editorial "changelog") (Editorial "changelog")
+    [ Internal "Dernières mises à jour" (Route.Editorial "maj") (Editorial "maj")
     , Internal "Statistiques" Route.Stats Stats
     , External "Documentation" Env.gitbookUrl
     , External "Communauté" Env.communityUrl
     , External "Code source" Env.githubUrl
     , External "CGU" Env.cguUrl
     , Internal "Admin" (Route.Admin AdminSection.ComponentSection) Admin
+    , Internal "Alimentaire²" (Route.ObjectSimulatorHome Scope.Food2) (Object Scope.Food2)
     ]
 
 
@@ -273,8 +280,8 @@ headerMenuLinks session =
             ]
 
 
-footerMenuLinks : Session -> List MenuLink
-footerMenuLinks session =
+mobileMenuLinks : Session -> List MenuLink
+mobileMenuLinks session =
     mainMenuLinks session
         ++ [ External "Documentation" Env.gitbookUrl
            , External "Communauté" Env.communityUrl
@@ -651,7 +658,7 @@ mobileNavigation { activePage, session, toMsg } =
                     []
                 ]
             , div [ class "offcanvas-body" ]
-                [ footerMenuLinks session
+                [ mobileMenuLinks session
                     |> List.map (viewNavigationLink activePage)
                     |> div [ class "nav nav-pills flex-column" ]
                 , h4 [ class "h6 mt-3" ] [ text "Versions" ]

@@ -55,6 +55,7 @@ import Static.Json as StaticJson
 
 type alias Queries =
     { food : FoodQuery.Query
+    , food2 : Component.Query
     , object : Component.Query
     , textile : TextileQuery.Query
     , veli : Component.Query
