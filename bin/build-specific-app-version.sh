@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 COMMIT_OR_TAG=$1
 ECOBALYSE_DATA_DIR_COMMIT=$2
 
