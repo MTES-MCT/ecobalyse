@@ -14,7 +14,7 @@
     "electricityProcessId": "ee114bf1-8c51-5c1e-8065-d762400447e2",
     "heatProcessId": "f6ea2983-e024-5de2-b323-273f2436deba",
     "name": "Région - Europe de l'Ouest",
-    "scopes": ["textile", "object", "veli"],
+    "scopes": ["textile", "object", "veli", "food"],
     "zone": "Europe"
   },
   {
@@ -23,7 +23,7 @@
     "electricityProcessId": "5ee392cf-954e-56c8-b555-427d55023548",
     "heatProcessId": "f6ea2983-e024-5de2-b323-273f2436deba",
     "name": "Région - Europe de l'Est",
-    "scopes": ["textile", "object", "veli"],
+    "scopes": ["textile", "object", "veli", "food"],
     "zone": "Europe"
   },
   {
@@ -32,7 +32,7 @@
     "electricityProcessId": "a2129ece-5dd9-5e66-969c-2603b3c97244",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Région - Asie",
-    "scopes": ["textile", "object", "veli"],
+    "scopes": ["textile", "object", "veli", "food"],
     "zone": "Asia"
   },
   {
@@ -41,7 +41,7 @@
     "electricityProcessId": "15958106-68d0-5130-8ed8-d8557cdcc1fa",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Région - Afrique",
-    "scopes": ["textile", "object", "veli"],
+    "scopes": ["textile", "object", "veli", "food"],
     "zone": "Africa"
   },
   {
@@ -50,7 +50,7 @@
     "electricityProcessId": "fe6437fa-5d9a-5a7f-a2a8-430066232e5c",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Région - Moyen-Orient",
-    "scopes": ["textile", "object", "veli"],
+    "scopes": ["textile", "object", "veli", "food"],
     "zone": "Middle_East"
   },
   {
@@ -59,7 +59,7 @@
     "electricityProcessId": "aa315629-988f-5886-bafe-247821f356fc",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Région - Amérique Latine",
-    "scopes": ["textile", "object", "veli"],
+    "scopes": ["textile", "object", "veli", "food"],
     "zone": "South_America"
   },
   {
@@ -68,7 +68,7 @@
     "electricityProcessId": "6911c87b-6cf9-5b33-be9a-e50a9e132575",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Région - Amérique du nord",
-    "scopes": ["textile", "object", "veli"],
+    "scopes": ["textile", "object", "veli", "food"],
     "zone": "North_America"
   },
   {
@@ -77,7 +77,7 @@
     "electricityProcessId": "05bcd5b4-09eb-5f9c-8a02-fd9d91412ccf",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Région - Océanie",
-    "scopes": ["textile", "object", "veli"],
+    "scopes": ["textile", "object", "veli", "food"],
     "zone": "Oceania"
   },
   {
