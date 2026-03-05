@@ -1139,32 +1139,30 @@ expandItem : DataContainer db -> Item -> Result String ExpandedItem
 expandItem db { country, custom, id, quantity } =
     case id of
         Just id_ ->
-            expandExistingItem db id_ country custom quantity
+            db.components
+                |> findById id_
+                |> Result.andThen (expandExistingItem db country custom quantity)
 
         Nothing ->
             expandNewItem db country custom quantity
 
 
-expandExistingItem : DataContainer db -> Id -> Maybe Country.Code -> Maybe Custom -> Quantity -> Result String ExpandedItem
-expandExistingItem db id country custom quantity =
-    findById id db.components
+expandExistingItem : DataContainer db -> Maybe Country.Code -> Maybe Custom -> Quantity -> Component -> Result String ExpandedItem
+expandExistingItem db country custom quantity component =
+    db.countries
+        |> Country.resolveMaybe country
         |> Result.andThen
-            (\component ->
-                db.countries
-                    |> Country.resolveMaybe country
-                    |> Result.andThen
-                        (\maybeCountry ->
-                            custom
-                                |> customElements component
-                                |> expandElements db country
-                                |> Result.map
-                                    (\expandedElements ->
-                                        { component = custom |> componentFromCustom (Just component)
-                                        , country = maybeCountry
-                                        , elements = expandedElements
-                                        , quantity = quantity
-                                        }
-                                    )
+            (\maybeCountry ->
+                custom
+                    |> customElements component
+                    |> expandElements db country
+                    |> Result.map
+                        (\expandedElements ->
+                            { component = custom |> componentFromCustom (Just component)
+                            , country = maybeCountry
+                            , elements = expandedElements
+                            , quantity = quantity
+                            }
                         )
             )
 
