@@ -960,7 +960,8 @@ simulatorFormView session model ({ inputs } as simulator) =
         , div [ class "col-md-3" ]
             [ inputs.mass
                 |> Mass.inGrams
-                |> String.fromFloat
+                |> round
+                |> String.fromInt
                 |> massField
             ]
         , div [ class "col-md-3 d-flex align-items-end flex-row" ]

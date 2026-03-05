@@ -14,6 +14,7 @@ import Browser.Events
 import Browser.Navigation as Navigation
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Component as Component exposing (Component, Index, TargetElement, TargetItem)
+import Data.Component.Amount as Amount exposing (Amount)
 import Data.Country as Country
 import Data.Dataset as Dataset
 import Data.Env as Env
@@ -119,9 +120,9 @@ type Msg
     | UpdateComponentItemCountry Index (Maybe Country.Code)
     | UpdateComponentItemName TargetItem String
     | UpdateComponentItemQuantity Index Component.Quantity
-    | UpdateConsumptionAmount Index (Maybe Component.Amount)
+    | UpdateConsumptionAmount Index (Maybe Amount)
     | UpdateDurability (Result String Unit.Ratio)
-    | UpdateElementAmount TargetElement (Maybe Component.Amount)
+    | UpdateElementAmount TargetElement (Maybe Amount)
     | UpdateRenamedBookmarkName Bookmark String
 
 
@@ -661,7 +662,7 @@ selectConsumption query autocompleteState ({ model } as pageUpdate) =
                     { query
                         | consumptions =
                             query.consumptions
-                                ++ [ { amount = Component.Amount 1, processId = process.id } ]
+                                ++ [ { amount = Amount.fromFloat 1, processId = process.id } ]
                     }
                 |> App.apply update (SetModal NoModal)
                 |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ConsumptionAdded model.scope ]
