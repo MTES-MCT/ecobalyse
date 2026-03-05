@@ -116,7 +116,7 @@ createComponentButton { openCreateComponentModal } =
         , onClick openCreateComponentModal
         ]
         [ Icon.plus
-        , text "Créer un composant"
+        , text "Créer un nouveau composant"
         ]
 
 
