@@ -12,7 +12,6 @@ import App exposing (PageUpdate)
 import Autocomplete exposing (Autocomplete)
 import Browser.Events
 import Browser.Navigation as Navigation
-import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Component as Component exposing (Component, Index, TargetElement, TargetItem)
 import Data.Component.Amount as Amount exposing (Amount)
@@ -613,21 +612,12 @@ createPageUpdate session model =
 
 createComponent : Component.Query -> PageUpdate Model Msg -> PageUpdate Model Msg
 createComponent query ({ model, session } as pageUpdate) =
-    let
-        -- FIXME: this shouldn't be duplicated from Component views, at least factored out
-        autocompleteState =
-            session.db.processes
-                |> Scope.anyOf [ model.scope ]
-                |> Process.listByCategory Category.Material
-                |> List.sortBy Process.getDisplayName
-                |> AutocompleteSelector.init Process.getDisplayName
-    in
     pageUpdate
         -- add new item to query
         |> updateQuery { query | items = query.items ++ [ Component.createItem Nothing ] }
         -- open material process selection modal
         |> App.apply update
-            (autocompleteState
+            (ComponentView.createMaterialProcessAutocomplete session.db model.scope
                 |> SelectProcessModal Category.Material ( Component.emptyComponent, List.length query.items ) Nothing
                 |> SetModal
             )
