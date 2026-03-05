@@ -353,6 +353,27 @@
     "visible": true
   },
   {
+    "activityName": "Lamb, conventional, indoor production system, at farm gate {FR} U",
+    "alias": "lamb-default",
+    "categories": [
+      "animal_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
+    "density": 1.05,
+    "ecosystemicServices": null,
+    "id": "03ff2f01-3931-55a9-81f7-509909908486",
+    "inediblePart": 0.05,
+    "landOccupation": 40.746,
+    "location": "FR",
+    "name": "Agneau Origine Inconnue",
+    "processId": "3df890a5-9e47-5705-badc-ceef67a4bc33",
+    "rawToCookedRatio": 0.792,
+    "scenario": "import",
+    "transportCooling": "always",
+    "visible": false
+  },
+  {
     "activityName": "Seaweed optimized production, 1kg algae (Laminaria), fresh weight {FR} U",
     "alias": "seaweed-fr",
     "categories": [
@@ -378,6 +399,27 @@
     "scenario": "reference",
     "transportCooling": "always",
     "visible": true
+  },
+  {
+    "activityName": "Beef cattle, feedlot or intensive system, live weight, at farm {GB} - Adapted from WFLDB U",
+    "alias": "beef-default",
+    "categories": [
+      "animal_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
+    "density": 1.05,
+    "ecosystemicServices": null,
+    "id": "046dbc17-d453-526e-9d3d-d79706f48b88",
+    "inediblePart": 0.05,
+    "landOccupation": 22.793,
+    "location": "GB",
+    "name": "Boeuf Origine Inconnue",
+    "processId": "f973e3e9-df70-566b-9cf5-cbdd598236a9",
+    "rawToCookedRatio": 0.792,
+    "scenario": "import",
+    "transportCooling": "always",
+    "visible": false
   },
   {
     "activityName": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
@@ -1211,6 +1253,27 @@
     "scenario": "import",
     "transportCooling": "none",
     "visible": true
+  },
+  {
+    "activityName": "Broiler, conventional, at farm gate {FR} U",
+    "alias": "rabbit-fr",
+    "categories": [
+      "animal_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": null,
+    "id": "0d3c6e8c-bd97-5011-9011-1d7771db43b0",
+    "inediblePart": 0.05,
+    "landOccupation": 3.0715,
+    "location": "FR",
+    "name": "Lapin FR",
+    "processId": "6a4bf7d8-c0f5-55cd-b6ea-d3d3a52574de",
+    "rawToCookedRatio": 0.755,
+    "scenario": "reference",
+    "transportCooling": "always",
+    "visible": false
   },
   {
     "activityName": "Durum wheat grain, at farm {GR} - Adapted from WFLDB U",
@@ -2641,6 +2704,27 @@
     "visible": true
   },
   {
+    "activityName": "Broiler, conventional, at farm gate {FR} U meat-without-bone-chicken-direct-consumption-br-max",
+    "alias": "rabbit-default",
+    "categories": [
+      "animal_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
+    "density": 1.0,
+    "ecosystemicServices": null,
+    "id": "1e72c100-92f9-54e3-8289-d8efc3890acc",
+    "inediblePart": 0.05,
+    "landOccupation": 3.7773,
+    "location": "FR",
+    "name": "Lapin Origine Inconnue",
+    "processId": "877499d7-7a29-58f6-8a0d-e1eef40b2ec4",
+    "rawToCookedRatio": 0.755,
+    "scenario": "import",
+    "transportCooling": "always",
+    "visible": false
+  },
+  {
     "activityName": "Carrot, organic 2025, national average, at farm gate {FR} U",
     "alias": "beetroot-organic-2025",
     "categories": [
@@ -2871,6 +2955,27 @@
     "rawToCookedRatio": 2.259,
     "scenario": "import",
     "transportCooling": "none",
+    "visible": false
+  },
+  {
+    "activityName": "Mixt pig, conventional, national average, at farm gate {FR} U",
+    "alias": "pork-fr",
+    "categories": [
+      "animal_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "France",
+    "density": 1.05,
+    "ecosystemicServices": null,
+    "id": "20f23531-773c-5d76-a87e-ad99086f61d8",
+    "inediblePart": 0.05,
+    "landOccupation": 3.4474,
+    "location": "FR",
+    "name": "Porc FR",
+    "processId": "df49b412-2d28-53ff-8a1d-b359e8d00e63",
+    "rawToCookedRatio": 0.792,
+    "scenario": "reference",
+    "transportCooling": "always",
     "visible": false
   },
   {
@@ -5470,12 +5575,12 @@
     "categories": [
       "vegetable_fresh"
     ],
-    "cropGroup": "SEMENCES",
+    "cropGroup": "LEGUMES-FLEURS",
     "defaultOrigin": "France",
     "density": 0.9,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 0.62178,
+      "hedges": 0.4836,
       "livestockDensity": null,
       "permanentPasture": null,
       "plotSize": 1.209
@@ -7275,6 +7380,33 @@
     "name": "Homard FR (2025)",
     "processId": "7f18bd68-9e29-5b54-900e-af2e4d2f0d1b",
     "rawToCookedRatio": 0.819,
+    "scenario": "reference",
+    "transportCooling": "always",
+    "visible": false
+  },
+  {
+    "activityName": "Broiler, conventional, at farm gate {FR} U",
+    "alias": "broiler-fr",
+    "categories": [
+      "animal_product"
+    ],
+    "cropGroup": "PRAIRIES PERMANENTES",
+    "defaultOrigin": "France",
+    "density": 1.05,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 2.3475,
+      "livestockDensity": null,
+      "permanentPasture": null,
+      "plotSize": 1.9197
+    },
+    "id": "5b787acc-bc8d-5c7a-907c-09441b47151d",
+    "inediblePart": 0.05,
+    "landOccupation": 3.0715,
+    "location": "FR",
+    "name": "Poulet FR",
+    "processId": "6a4bf7d8-c0f5-55cd-b6ea-d3d3a52574de",
+    "rawToCookedRatio": 0.755,
     "scenario": "reference",
     "transportCooling": "always",
     "visible": false
@@ -9505,6 +9637,27 @@
     "visible": true
   },
   {
+    "activityName": "Mixt pig, conventional, national average, at farm gate {FR} U bacon-default",
+    "alias": "pork-default",
+    "categories": [
+      "animal_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
+    "density": 1.05,
+    "ecosystemicServices": null,
+    "id": "7d94e5d1-ef4b-55ec-8212-b23be63c16a3",
+    "inediblePart": 0.05,
+    "landOccupation": 3.1484,
+    "location": "FR",
+    "name": "Porc Origine Inconnue",
+    "processId": "b28af936-efee-5c90-a792-e5113364a9fe",
+    "rawToCookedRatio": 0.792,
+    "scenario": "import",
+    "transportCooling": "always",
+    "visible": false
+  },
+  {
     "activityName": "Carrot, organic, Lower Normandy, at farm gate {FR} U",
     "alias": "turnip-organic-2025",
     "categories": [
@@ -9689,6 +9842,27 @@
     "scenario": "import",
     "transportCooling": "always",
     "visible": true
+  },
+  {
+    "activityName": "Broiler, conventional, at farm gate {FR} U",
+    "alias": "poultry-fr",
+    "categories": [
+      "animal_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "France",
+    "density": 1.05,
+    "ecosystemicServices": null,
+    "id": "7fbeb096-3076-55a7-b5e2-341ba3e1d59e",
+    "inediblePart": 0.05,
+    "landOccupation": 3.0715,
+    "location": "FR",
+    "name": "Volaille FR",
+    "processId": "6a4bf7d8-c0f5-55cd-b6ea-d3d3a52574de",
+    "rawToCookedRatio": 0.755,
+    "scenario": "reference",
+    "transportCooling": "always",
+    "visible": false
   },
   {
     "activityName": "Egg white, powder, at plant {FR} U",
@@ -9948,6 +10122,27 @@
     "scenario": "organic",
     "transportCooling": "always",
     "visible": true
+  },
+  {
+    "activityName": "Beef cattle, conventional, national average, at farm gate {FR} U",
+    "alias": "beef-fr",
+    "categories": [
+      "animal_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "France",
+    "density": 1.05,
+    "ecosystemicServices": null,
+    "id": "83dd3304-48b4-524a-ac85-de5402385fa3",
+    "inediblePart": 0.05,
+    "landOccupation": 22.627,
+    "location": "FR",
+    "name": "Boeuf FR",
+    "processId": "a72ad133-407d-5a41-8c33-ccbb0d989069",
+    "rawToCookedRatio": 0.792,
+    "scenario": "reference",
+    "transportCooling": "always",
+    "visible": false
   },
   {
     "activityName": "Sugar beet, organic 2025 {FR}| sugar beet production | Cut-off, U",
@@ -10532,6 +10727,33 @@
     "scenario": "organic",
     "transportCooling": "none",
     "visible": true
+  },
+  {
+    "activityName": "Broiler, conventional, at farm gate {FR} U meat-without-bone-chicken-direct-consumption-br-max",
+    "alias": "broiler-default",
+    "categories": [
+      "animal_product"
+    ],
+    "cropGroup": "PRAIRIES PERMANENTES",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
+    "density": 1.05,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0,
+      "livestockDensity": null,
+      "permanentPasture": null,
+      "plotSize": 0
+    },
+    "id": "8d3a194f-b478-556c-bacc-18d452baefa4",
+    "inediblePart": 0.05,
+    "landOccupation": 3.7773,
+    "location": "FR",
+    "name": "Poulet Origine Inconnue",
+    "processId": "877499d7-7a29-58f6-8a0d-e1eef40b2ec4",
+    "rawToCookedRatio": 0.755,
+    "scenario": "import",
+    "transportCooling": "always",
+    "visible": false
   },
   {
     "activityName": "Papaya, consumption mix, organic 2025 {FR} U",
@@ -14420,6 +14642,27 @@
     "visible": true
   },
   {
+    "activityName": "Broiler, conventional, at farm gate {FR} U meat-without-bone-chicken-direct-consumption-br-max",
+    "alias": "poultry-default",
+    "categories": [
+      "animal_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
+    "density": 1.05,
+    "ecosystemicServices": null,
+    "id": "c7b79f39-3672-530e-8966-f612b67de746",
+    "inediblePart": 0.05,
+    "landOccupation": 3.7773,
+    "location": "FR",
+    "name": "Volaille Origine Inconnue",
+    "processId": "877499d7-7a29-58f6-8a0d-e1eef40b2ec4",
+    "rawToCookedRatio": 0.755,
+    "scenario": "import",
+    "transportCooling": "always",
+    "visible": false
+  },
+  {
     "activityName": "Egg, conventionnal, national average, at farm gate {FR} U",
     "alias": "egg-fr",
     "categories": [
@@ -15710,6 +15953,27 @@
     "visible": true
   },
   {
+    "activityName": "Lamb, conventional, indoor production system, at farm gate {FR} U",
+    "alias": "lamb-fr",
+    "categories": [
+      "animal_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "France",
+    "density": 1.05,
+    "ecosystemicServices": null,
+    "id": "d769a057-a17c-557f-849a-94cebdeabfa3",
+    "inediblePart": 0.05,
+    "landOccupation": 40.746,
+    "location": "FR",
+    "name": "Agneau FR",
+    "processId": "3df890a5-9e47-5705-badc-ceef67a4bc33",
+    "rawToCookedRatio": 0.792,
+    "scenario": "reference",
+    "transportCooling": "always",
+    "visible": false
+  },
+  {
     "activityName": "Chicory witloof, early, conventional, root production, at farm gate {FR} U",
     "alias": "chicory-root-default",
     "categories": [
@@ -15769,7 +16033,7 @@
     "categories": [
       "vegetable_fresh"
     ],
-    "cropGroup": "SEMENCES",
+    "cropGroup": "LEGUMES-FLEURS",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 0.9,
     "ecosystemicServices": {
@@ -17007,7 +17271,7 @@
     "processId": "549f031d-3836-5eae-90a5-45c757eb8bcb",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
-    "transportCooling": "none",
+    "transportCooling": "always",
     "visible": true
   },
   {
