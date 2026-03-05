@@ -111,13 +111,18 @@ addComponentButton { addLabel, db, openSelectComponentModal, scope } =
 
 
 createComponentButton : Config db msg -> Html msg
-createComponentButton { openCreateComponentModal } =
+createComponentButton { db, openCreateComponentModal, scope } =
     button
         [ type_ "button"
         , class "btn btn-outline-primary w-100"
         , class "d-flex justify-content-center align-items-center"
         , class "gap-1 w-100"
         , onClick openCreateComponentModal
+        , db.processes
+            |> Scope.anyOf [ scope ]
+            |> Process.listByCategory Category.Material
+            |> List.isEmpty
+            |> disabled
         ]
         [ Icon.plus
         , text "Créer un nouveau composant"
