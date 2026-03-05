@@ -237,8 +237,8 @@ componentView config itemIndex ({ component, country, elements, quantity } as ex
                                     , onInput (config.updateItemName ( component, itemIndex ))
                                     , placeholder "Nom du composant"
 
-                                    -- FIXME: retrieve custom name if any
-                                    , component.name |> value
+                                    -- FIXME: The field value is not updated properly when the component name is changed in the UI
+                                    , value component.name
                                     ]
                                     []
                                 , countrySelector
