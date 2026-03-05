@@ -28,6 +28,7 @@ echo "-> Decrypt detailed impacts"
 ./bin/run-transcrypt.sh force
 
 cp -f public/data/processes_impacts.json ../public/data/
+cp -f public/data/processes_generic_impacts.json ../public/data/
 cd ..
 
 echo "-> Removing 'ecobalyse' directory"
