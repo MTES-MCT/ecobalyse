@@ -282,25 +282,8 @@ update ({ navKey } as session) msg model =
                 |> App.withCmds [ Ports.copyToClipboard shareableLink ]
 
         ( CreateComponent, _ ) ->
-            let
-                -- FIXME: duplicate from Component views
-                autocompleteState =
-                    session.db.processes
-                        |> Scope.anyOf [ model.scope ]
-                        |> Process.listByCategory Category.Material
-                        |> List.sortBy Process.getDisplayName
-                        |> AutocompleteSelector.init Process.getDisplayName
-            in
-            { model | detailedComponents = LE.unique (List.length query.items :: model.detailedComponents) }
-                |> createPageUpdate session
-                |> updateQuery { query | items = query.items ++ [ Component.createItem Nothing ] }
-                |> App.apply update
-                    (autocompleteState
-                        |> SelectProcessModal Category.Material
-                            ( Component.emptyComponent, List.length query.items )
-                            Nothing
-                        |> SetModal
-                    )
+            createPageUpdate session model
+                |> createComponent query
 
         ( DeleteBookmark bookmark, _ ) ->
             model
@@ -563,8 +546,7 @@ update ({ navKey } as session) msg model =
             createPageUpdate session model
                 |> updateQuery
                     (query
-                        |> Component.mapItems
-                            (Component.updateItem itemIndex (\item -> { item | country = country }))
+                        |> Component.mapItems (Component.updateItem itemIndex (\item -> { item | country = country }))
                     )
                 |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
 
@@ -572,16 +554,14 @@ update ({ navKey } as session) msg model =
             createPageUpdate session model
                 |> updateQuery
                     (query
-                        |> Component.mapItems
-                            (Component.updateItemCustomName targetItem name)
+                        |> Component.mapItems (Component.updateItemCustomName targetItem name)
                     )
 
         ( UpdateComponentItemQuantity itemIndex quantity, _ ) ->
             createPageUpdate session model
                 |> updateQuery
                     (query
-                        |> Component.mapItems
-                            (Component.updateItem itemIndex (\item -> { item | quantity = quantity }))
+                        |> Component.mapItems (Component.updateItem itemIndex (\item -> { item | quantity = quantity }))
                     )
                 |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
 
@@ -629,6 +609,30 @@ createPageUpdate session model =
                 _ ->
                     Ports.addBodyClass "prevent-scrolling"
             ]
+
+
+createComponent : Component.Query -> PageUpdate Model Msg -> PageUpdate Model Msg
+createComponent query ({ model, session } as pageUpdate) =
+    let
+        -- FIXME: this shouldn't be duplicated from Component views, at least factored out
+        autocompleteState =
+            session.db.processes
+                |> Scope.anyOf [ model.scope ]
+                |> Process.listByCategory Category.Material
+                |> List.sortBy Process.getDisplayName
+                |> AutocompleteSelector.init Process.getDisplayName
+    in
+    pageUpdate
+        -- add new item to query
+        |> updateQuery { query | items = query.items ++ [ Component.createItem Nothing ] }
+        -- open material process selection modal
+        |> App.apply update
+            (autocompleteState
+                |> SelectProcessModal Category.Material ( Component.emptyComponent, List.length query.items ) Nothing
+                |> SetModal
+            )
+        -- expand item row
+        |> App.apply update (SetDetailedComponents (LE.unique (List.length query.items :: model.detailedComponents)))
 
 
 isAutocompleteModal : Modal -> Bool

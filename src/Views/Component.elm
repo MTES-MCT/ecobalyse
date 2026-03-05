@@ -236,7 +236,9 @@ componentView config itemIndex ({ component, country, elements, quantity } as ex
                                     , class "form-control"
                                     , onInput (config.updateItemName ( component, itemIndex ))
                                     , placeholder "Nom du composant"
-                                    , value component.name
+
+                                    -- FIXME: retrieve custom name if any
+                                    , component.name |> value
                                     ]
                                     []
                                 , countrySelector
