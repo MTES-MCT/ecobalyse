@@ -472,6 +472,26 @@ checkTransformsUnit unit transforms =
         Ok transforms
 
 
+{-| Create a component from a custom definition
+-}
+componentFromCustom : Maybe Component -> Maybe Custom -> Component
+componentFromCustom maybeComponent maybeCustom =
+    let
+        component =
+            maybeComponent |> Maybe.withDefault emptyComponent
+    in
+    case maybeCustom of
+        Just { elements, name, scope } ->
+            { component
+                | elements = elements
+                , name = name |> Maybe.withDefault component.name
+                , scope = scope |> Maybe.withDefault component.scope
+            }
+
+        Nothing ->
+            component
+
+
 {-| Computes impacts from a list of available components, processes and specified component items
 -}
 compute : Requirements db -> Query -> Result String LifeCycle
@@ -1150,7 +1170,7 @@ expandExistingItem db id country custom quantity =
                                 |> expandElements db country
                                 |> Result.map
                                     (\expandedElements ->
-                                        { component = component
+                                        { component = custom |> componentFromCustom (Just component)
                                         , country = maybeCountry
                                         , elements = expandedElements
                                         , quantity = quantity
@@ -1162,12 +1182,16 @@ expandExistingItem db id country custom quantity =
 
 expandNewItem : DataContainer db -> Maybe Country.Code -> Maybe Custom -> Quantity -> Result String ExpandedItem
 expandNewItem db country custom quantity =
+    let
+        newComponent =
+            custom |> componentFromCustom Nothing
+    in
     Ok ExpandedItem
-        |> RE.andMap (Ok emptyComponent)
+        |> RE.andMap (Ok newComponent)
         |> RE.andMap (Country.resolveMaybe country db.countries)
         |> RE.andMap
             (custom
-                |> customElements emptyComponent
+                |> customElements newComponent
                 |> expandElements db country
             )
         |> RE.andMap (Ok quantity)
@@ -1358,32 +1382,10 @@ itemToComponent { components } { custom, id } =
     case id of
         Just id_ ->
             findById id_ components
-                |> Result.map
-                    (\component ->
-                        case custom of
-                            Just { elements, name, scope } ->
-                                { component
-                                    | elements = elements
-                                    , name = name |> Maybe.withDefault component.name
-                                    , scope = scope |> Maybe.withDefault component.scope
-                                }
-
-                            Nothing ->
-                                component
-                    )
+                |> Result.map (\component -> custom |> componentFromCustom (Just component))
 
         Nothing ->
-            case custom of
-                Just { elements, name, scope } ->
-                    Ok
-                        { emptyComponent
-                            | elements = elements
-                            , name = name |> Maybe.withDefault ""
-                            , scope = scope |> Maybe.withDefault Scope.Object
-                        }
-
-                Nothing ->
-                    Ok emptyComponent
+            custom |> componentFromCustom Nothing |> Ok
 
 
 emptyComponent : Component
