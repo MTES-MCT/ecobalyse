@@ -28,7 +28,7 @@ encoder =
 fromString : String -> Result String Uuid
 fromString =
     Uuid.fromString
-        >> Result.fromMaybe "UUIDinvalide"
+        >> Result.fromMaybe "UUID invalide"
 
 
 toString : Uuid -> String

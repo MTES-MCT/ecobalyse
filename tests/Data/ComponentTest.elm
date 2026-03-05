@@ -525,23 +525,22 @@ suite =
                                 (Expect.equal component.name "custom name")
                             ]
                         )
-                    , TestUtils.suiteFromResult "itemToString"
+                    , TestUtils.suiteFromResult "itemToString with an existing component"
                         -- setup
                         (""" { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
-                                "quantity": 1,
-                                "custom": {
-                                  "name": "Custom piece",
-                                  "elements": [
-                                    {
-                                      "amount": 0.00044,
-                                      "material": "17431e06-2973-516e-b043-be9ad405e4fb"
-                                    },
-                                    {
-                                      "amount": 0.00088,
-                                      "material": "59b42284-3e45-5343-8a20-1d7d66137461"
-                                    }
-                                  ]
-                                }
+                               "quantity": 1,
+                               "custom": {
+                                 "elements": [
+                                   {
+                                     "amount": 0.00044,
+                                     "material": "17431e06-2973-516e-b043-be9ad405e4fb"
+                                   },
+                                   {
+                                     "amount": 0.00088,
+                                     "material": "59b42284-3e45-5343-8a20-1d7d66137461"
+                                   }
+                                 ]
+                               }
                             }"""
                             |> decodeJsonThen Component.decodeItem (Component.itemToString db)
                         )
@@ -549,7 +548,62 @@ suite =
                         (\string ->
                             [ it "should serialise an item as a human readable string representation"
                                 (Expect.equal string
-                                    "1 Custom piece [ 4,40e-4m3 Bois d'oeuvre (Feuillus / Hêtre) | 8,80e-4kg Plastique granulé (PP) ]"
+                                    "1 Pied 70 cm (plein bois) [ 0.00044m3 Bois d'oeuvre (Feuillus / Hêtre) | 0.00088kg Plastique granulé (PP) ]"
+                                )
+                            ]
+                        )
+                    , TestUtils.suiteFromResult "itemToString with an existing component and a custom name"
+                        -- setup
+                        (""" { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
+                               "quantity": 1,
+                               "custom": {
+                                 "name": "Customized existing component",
+                                 "elements": [
+                                   {
+                                     "amount": 0.00044,
+                                     "material": "17431e06-2973-516e-b043-be9ad405e4fb"
+                                   },
+                                   {
+                                     "amount": 0.00088,
+                                     "material": "59b42284-3e45-5343-8a20-1d7d66137461"
+                                   }
+                                 ]
+                               }
+                            }"""
+                            |> decodeJsonThen Component.decodeItem (Component.itemToString db)
+                        )
+                        -- tests
+                        (\string ->
+                            [ it "should serialise an item as a human readable string representation"
+                                (Expect.equal string
+                                    "1 Customized existing component [ 0.00044m3 Bois d'oeuvre (Feuillus / Hêtre) | 0.00088kg Plastique granulé (PP) ]"
+                                )
+                            ]
+                        )
+                    , TestUtils.suiteFromResult "itemToString with a new component"
+                        -- setup
+                        (""" { "quantity": 1,
+                               "custom": {
+                                 "name": "Custom new component",
+                                 "elements": [
+                                   {
+                                     "amount": 0.00044,
+                                     "material": "17431e06-2973-516e-b043-be9ad405e4fb"
+                                   },
+                                   {
+                                     "amount": 0.00088,
+                                     "material": "59b42284-3e45-5343-8a20-1d7d66137461"
+                                   }
+                                 ]
+                               }
+                            }"""
+                            |> decodeJsonThen Component.decodeItem (Component.itemToString db)
+                        )
+                        -- tests
+                        (\string ->
+                            [ it "should serialise a new item without id as a human readable string representation"
+                                (Expect.equal string
+                                    "1 Custom new component [ 4,40e-4m3 Bois d'oeuvre (Feuillus / Hêtre) | 0.00088kg Plastique granulé (PP) ]"
                                 )
                             ]
                         )
@@ -816,6 +870,20 @@ suite =
                                 )
                             ]
                         )
+                    , describe "validateItem"
+                        [ it "should reject a non-positive quantity" <|
+                            (Component.createItem Nothing
+                                |> (\item -> { item | quantity = Component.quantityFromInt 0 })
+                                |> Component.validateItem db.components
+                                |> expectResultErrorContains "La quantité doit être un nombre entier positif"
+                            )
+                        , it "should reject an item referencing a missing component" <|
+                            (Component.idFromString "64fa65b3-c2df-4fd0-958b-83965bd6aa09"
+                                |> Result.map (\badId -> Component.createItem (Just badId))
+                                |> Result.andThen (Component.validateItem db.components)
+                                |> expectResultErrorContains "Aucun composant avec id="
+                            )
+                        ]
                     ]
                 )
             ]
