@@ -111,16 +111,14 @@ addComponentButton { addLabel, db, openSelectComponentModal, scope } =
 
 
 createComponentButton : Config db msg -> Html msg
-createComponentButton { db, openCreateComponentModal, scope } =
+createComponentButton config =
     button
         [ type_ "button"
         , class "btn btn-outline-primary w-100"
         , class "d-flex justify-content-center align-items-center"
         , class "gap-1 w-100"
-        , onClick openCreateComponentModal
-        , db.processes
-            |> Scope.anyOf [ scope ]
-            |> Process.listByCategory Category.Material
+        , onClick config.openCreateComponentModal
+        , listAvailableProcesses config Category.Material
             |> List.isEmpty
             |> disabled
         ]
@@ -147,10 +145,7 @@ addElementButton config targetItem =
 
 createMaterialProcessAutocomplete : Component.DataContainer db -> Scope -> Autocomplete Process
 createMaterialProcessAutocomplete db scope =
-    db.processes
-        |> Scope.anyOf [ scope ]
-        |> Process.listByCategory Category.Material
-        |> List.sortBy Process.getDisplayName
+    listAvailableProcesses { db = db, scope = scope } Category.Material
         |> AutocompleteSelector.init Process.getDisplayName
 
 
@@ -720,22 +715,25 @@ elementView config targetItem elementIndex { amount, country, material, transfor
         )
 
 
-selectMaterialButton : Config db msg -> TargetElement -> Process -> Html msg
-selectMaterialButton { db, openSelectProcessModal } ( targetItem, elementIndex ) material =
-    let
-        availableMaterialProcesses =
-            db.processes
-                |> Process.listByCategory Category.Material
-                |> List.sortBy Process.getDisplayName
+listAvailableProcesses :
+    { config | db : Component.DataContainer db, scope : Scope }
+    -> Category
+    -> List Process
+listAvailableProcesses { db, scope } category =
+    db.processes
+        |> Scope.anyOf [ scope ]
+        |> Process.listByCategory category
+        |> List.sortBy Process.getDisplayName
 
-        autocompleteState =
-            AutocompleteSelector.init Process.getDisplayName availableMaterialProcesses
-    in
+
+selectMaterialButton : Config db msg -> TargetElement -> Process -> Html msg
+selectMaterialButton config ( targetItem, elementIndex ) material =
     button
         [ type_ "button"
         , class "btn btn-sm btn-link text-decoration-none p-0"
-        , autocompleteState
-            |> openSelectProcessModal Category.Material targetItem (Just elementIndex)
+        , listAvailableProcesses config Category.Material
+            |> AutocompleteSelector.init Process.getDisplayName
+            |> config.openSelectProcessModal Category.Material targetItem (Just elementIndex)
             |> onClick
         ]
         [ span [ class "ComponentElementIcon" ] [ Icon.material ]
@@ -975,12 +973,10 @@ useStageView ({ db, impact, lifeCycle, query, removeConsumption, updateConsumpti
 
 
 addConsumptionButton : Config db msg -> Html msg
-addConsumptionButton { db, openSelectConsumptionModal, query, scope } =
+addConsumptionButton ({ openSelectConsumptionModal, query } as config) =
     let
         availableProcesses =
-            db.processes
-                |> Process.listByCategory Category.Use
-                |> Scope.anyOf [ scope ]
+            listAvailableProcesses config Category.Use
                 |> List.filter
                     (\{ id } ->
                         query.consumptions
@@ -988,7 +984,6 @@ addConsumptionButton { db, openSelectConsumptionModal, query, scope } =
                             |> List.member id
                             |> not
                     )
-                |> List.sortBy Process.getDisplayName
 
         autocompleteState =
             availableProcesses
