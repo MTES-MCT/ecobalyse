@@ -1390,32 +1390,35 @@ emptyComponent =
 
 itemToString : DataContainer db -> Item -> Result String String
 itemToString db { custom, id, quantity } =
+    let
+        toString component =
+            custom
+                |> customElements component
+                |> RE.combineMap (elementToString db.processes)
+                |> Result.map (String.join " | ")
+                |> Result.map
+                    (\processesString ->
+                        let
+                            finalComponent =
+                                componentFromCustom (Just component) custom
+                        in
+                        String.fromInt (quantityToInt quantity)
+                            ++ " "
+                            ++ finalComponent.name
+                            ++ " [ "
+                            ++ processesString
+                            ++ " ]"
+                    )
+    in
     case id of
         Just id_ ->
             findById id_ db.components
-                |> Result.andThen
-                    (\component ->
-                        custom
-                            |> customElements component
-                            |> RE.combineMap (elementToString db.processes)
-                            |> Result.map (String.join " | ")
-                            |> Result.map
-                                (\processesString ->
-                                    String.fromInt (quantityToInt quantity)
-                                        ++ " "
-                                        ++ (custom
-                                                |> Maybe.andThen .name
-                                                |> Maybe.withDefault component.name
-                                           )
-                                        ++ " [ "
-                                        ++ processesString
-                                        ++ " ]"
-                                )
-                    )
+                |> Result.andThen toString
 
         Nothing ->
-            -- FIXME: handle new item
-            Ok ""
+            custom
+                |> componentFromCustom Nothing
+                |> toString
 
 
 itemsToString : DataContainer db -> List Item -> Result String String
