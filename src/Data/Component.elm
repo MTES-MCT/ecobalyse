@@ -1396,13 +1396,9 @@ itemToString db { custom, id, quantity } =
                 |> Result.map (String.join " | ")
                 |> Result.map
                     (\processesString ->
-                        let
-                            finalComponent =
-                                componentFromCustom (Just component) custom
-                        in
                         String.fromInt (quantityToInt quantity)
                             ++ " "
-                            ++ finalComponent.name
+                            ++ (custom |> componentFromCustom (Just component) |> .name)
                             ++ " [ "
                             ++ processesString
                             ++ " ]"
