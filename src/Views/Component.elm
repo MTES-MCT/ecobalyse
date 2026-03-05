@@ -1,4 +1,8 @@
-module Views.Component exposing (Context(..), editorView)
+module Views.Component exposing
+    ( Context(..)
+    , createMaterialProcessAutocomplete
+    , editorView
+    )
 
 import Autocomplete exposing (Autocomplete)
 import Data.AutocompleteSelector as AutocompleteSelector
@@ -121,23 +125,28 @@ createComponentButton { openCreateComponentModal } =
 
 
 addElementButton : Config db msg -> TargetItem -> Html msg
-addElementButton { db, openSelectProcessModal, scope } targetItem =
+addElementButton config targetItem =
     button
         [ type_ "button"
         , class "btn btn-link text-decoration-none"
         , class "d-flex justify-content-end align-items-center"
         , class "gap-2 w-100 p-0 pb-1 text-end fs-7"
-        , db.processes
-            |> Scope.anyOf [ scope ]
-            |> Process.listByCategory Category.Material
-            |> List.sortBy Process.getDisplayName
-            |> AutocompleteSelector.init Process.getDisplayName
-            |> openSelectProcessModal Category.Material targetItem Nothing
+        , createMaterialProcessAutocomplete config.db config.scope
+            |> config.openSelectProcessModal Category.Material targetItem Nothing
             |> onClick
         ]
         [ Icon.puzzle
         , text "Ajouter un élément"
         ]
+
+
+createMaterialProcessAutocomplete : Component.DataContainer db -> Scope -> Autocomplete Process
+createMaterialProcessAutocomplete db scope =
+    db.processes
+        |> Scope.anyOf [ scope ]
+        |> Process.listByCategory Category.Material
+        |> List.sortBy Process.getDisplayName
+        |> AutocompleteSelector.init Process.getDisplayName
 
 
 addElementTransformButton : Config db msg -> Process -> TargetElement -> Html msg
