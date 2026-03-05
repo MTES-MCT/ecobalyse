@@ -607,7 +607,15 @@ amountInput toMsg unit amount =
             , Attr.min "0"
             , step stepValue
             , onInput <|
-                String.toFloat
+                String.replace "," "."
+                    >> (\s ->
+                            if String.endsWith "." s then
+                                String.dropRight 1 s
+
+                            else
+                                s
+                       )
+                    >> String.toFloat
                     >> Maybe.map Component.Amount
                     >> toMsg
             ]
