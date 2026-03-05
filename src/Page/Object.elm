@@ -612,9 +612,16 @@ createPageUpdate session model =
 
 createComponent : Component.Query -> PageUpdate Model Msg -> PageUpdate Model Msg
 createComponent query ({ model, session } as pageUpdate) =
+    let
+        baseItem =
+            Component.createItem Nothing
+
+        newItem =
+            { baseItem | custom = Just { name = Just "Nouveau composant", elements = [], scope = Nothing } }
+    in
     pageUpdate
         -- add new item to query
-        |> updateQuery { query | items = query.items ++ [ Component.createItem Nothing ] }
+        |> updateQuery { query | items = query.items ++ [ newItem ] }
         -- open material process selection modal
         |> App.apply update
             (ComponentView.createMaterialProcessAutocomplete session.db model.scope
