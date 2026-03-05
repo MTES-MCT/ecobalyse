@@ -1345,11 +1345,17 @@ idToString (Id uuid) =
 
 isCustomized : Component -> Custom -> Bool
 isCustomized component custom =
-    List.any identity
-        [ custom.elements /= component.elements
-        , custom.name /= Nothing && custom.name /= Just component.name
-        , custom.scope /= Nothing && custom.scope /= Just component.scope
-        ]
+    case component.id of
+        Just _ ->
+            List.any identity
+                [ custom.elements /= component.elements
+                , custom.name /= Nothing && custom.name /= Just component.name
+                , custom.scope /= Nothing && custom.scope /= Just component.scope
+                ]
+
+        -- New component are always customized
+        Nothing ->
+            True
 
 
 isEmpty : Component -> Bool
