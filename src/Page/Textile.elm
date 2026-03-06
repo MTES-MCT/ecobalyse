@@ -1004,6 +1004,7 @@ simulatorFormView session model ({ inputs } as simulator) =
                     , scope = Scope.Textile
                     }
         , noOp = NoOp
+        , openCreateComponentModal = NoOp
         , openSelectComponentModal = AddTrimModal >> SetModal
         , openSelectProcessModal = \_ _ _ _ -> SetModal NoModal
         , openSelectConsumptionModal = \_ -> NoOp
