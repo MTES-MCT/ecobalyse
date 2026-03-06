@@ -32,7 +32,7 @@ suite =
                     |> Result.map .query
                 , ( Ingredient.idFromString "cf30d3bc-e99c-418a-b7e3-89a894d410a5"
                   , Ingredient.idFromString "db0e5f44-34b4-4160-b003-77c828d75e60"
-                  , Ingredient.idFromString "38788025-a65e-4edf-a92f-aab0b89b0d61"
+                  , Ingredient.idFromString "48a380e8-2a83-5cac-bf22-4e032bbc3ef1"
                   )
                 )
             of
