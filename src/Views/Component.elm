@@ -245,8 +245,6 @@ componentView config itemIndex ({ component, country, elements, quantity } as ex
                                     , class "form-control"
                                     , onInput (config.updateItemName ( component, itemIndex ))
                                     , placeholder "Nom du composant"
-
-                                    -- FIXME: The field value is not updated properly when the component name is changed in the UI
                                     , value component.name
                                     ]
                                     []
