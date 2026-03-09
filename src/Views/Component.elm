@@ -4,8 +4,7 @@ import Autocomplete exposing (Autocomplete)
 import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Component as Component
     exposing
-        ( Amount
-        , Component
+        ( Component
         , EndOfLifeMaterialImpacts
         , ExpandedElement
         , ExpandedItem
@@ -17,6 +16,7 @@ import Data.Component as Component
         , TargetElement
         , TargetItem
         )
+import Data.Component.Amount as Amount exposing (Amount)
 import Data.Country as Country exposing (Country)
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
@@ -548,9 +548,7 @@ amountInput : (Maybe Amount -> msg) -> Process.Unit -> Amount -> Html msg
 amountInput toMsg unit amount =
     let
         stringAmount =
-            amount
-                |> Component.amountToFloat
-                |> String.fromFloat
+            Amount.toString amount
 
         stepValue =
             case String.split "." stringAmount of
@@ -573,10 +571,7 @@ amountInput toMsg unit amount =
             , value stringAmount
             , Attr.min "0"
             , step stepValue
-            , onInput <|
-                String.toFloat
-                    >> Maybe.map Component.Amount
-                    >> toMsg
+            , onInput <| Amount.fromString >> toMsg
             ]
             []
         , small [ class "input-group-text fs-8" ]

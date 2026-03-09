@@ -1,6 +1,5 @@
 module Data.Component exposing
-    ( Amount(..)
-    , Component
+    ( Component
     , Config
     , Custom
     , DataContainer
@@ -23,7 +22,6 @@ module Data.Component exposing
     , addElementTransform
     , addItem
     , addOrSetProcess
-    , amountToFloat
     , applyTransforms
     , compute
     , computeElementResults
@@ -95,6 +93,7 @@ module Data.Component exposing
 import Base64
 import Data.Common.DecodeUtils as DU
 import Data.Common.EncodeUtils as EU
+import Data.Component.Amount as Amount exposing (Amount)
 import Data.Component.Config as Config exposing (EndOfLifeStrategies, EndOfLifeStrategy)
 import Data.Country as Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
@@ -118,6 +117,7 @@ import Mass exposing (Mass)
 import Quantity
 import Result.Extra as RE
 import Url.Parser as Parser exposing (Parser)
+import Views.Format as Format
 
 
 type Id
@@ -243,12 +243,6 @@ type alias TargetItem =
     ( Component, Index )
 
 
-{-| An amount of some element
--}
-type Amount
-    = Amount Float
-
-
 {-| A number of components
 -}
 type Quantity
@@ -327,7 +321,7 @@ addElement targetItem material items =
                     { custom
                         | elements =
                             custom.elements
-                                ++ [ { amount = Amount 1, material = material.id, transforms = [] } ]
+                                ++ [ { amount = Amount.fromFloat 1, material = material.id, transforms = [] } ]
                     }
                 )
             |> Ok
@@ -382,11 +376,6 @@ addResults (Results results) (Results acc) =
         }
 
 
-amountToFloat : Amount -> Float
-amountToFloat (Amount float) =
-    float
-
-
 applyTransform : EnergyMixes -> Process -> Results -> Results
 applyTransform { elec, heat } transform (Results { amount, label, impacts, items, mass }) =
     let
@@ -397,7 +386,7 @@ applyTransform { elec, heat } transform (Results { amount, label, impacts, items
             ]
                 |> Impact.sumImpacts
                 -- Note: impacts are always computed from input amount
-                |> Impact.multiplyBy (amountToFloat amount)
+                |> Impact.multiplyBy (Amount.toFloat amount)
 
         outputAmount =
             amount |> applyWaste transform.waste
@@ -451,7 +440,7 @@ applyTransforms config maybeCountry unit transforms materialResults =
 
 applyWaste : Split -> Amount -> Amount
 applyWaste waste =
-    mapAmount (\amount -> amount - (amount * Split.toFloat waste))
+    Amount.map (\amount -> amount - (amount * Split.toFloat waste))
 
 
 checkTransformsUnit : Process.Unit -> List Process -> Result String (List Process)
@@ -520,8 +509,8 @@ computeInitialAmount wastes amount =
     else
         wastes
             |> List.foldr
-                (\waste (Amount float) ->
-                    Amount <| float / (1 - Split.toFloat waste)
+                (\waste ->
+                    Amount.map (\float -> float / (1 - Split.toFloat waste))
                 )
                 amount
             |> Ok
@@ -555,7 +544,7 @@ computeItemResults requirements { country, custom, id, quantity } =
         |> Result.map
             (\(Results { impacts, mass, materialType, items }) ->
                 Results
-                    { amount = Amount 0
+                    { amount = Amount.fromFloat 0
                     , impacts =
                         impacts
                             |> List.repeat (quantityToInt quantity)
@@ -608,16 +597,16 @@ computeMaterialResults amount process =
         impacts =
             -- Note: materials impacts embed energy ones
             process.impacts
-                |> Impact.multiplyBy (amountToFloat amount)
+                |> Impact.multiplyBy (Amount.toFloat amount)
 
         mass =
             Mass.kilograms <|
                 if process.unit == Process.Kilogram then
-                    amountToFloat amount
+                    Amount.toFloat amount
 
                 else
                     -- apply mass per unit
-                    amountToFloat amount * Maybe.withDefault 1 process.massPerUnit
+                    Amount.toFloat amount * Maybe.withDefault 1 process.massPerUnit
 
         materialType =
             Process.getMaterialTypes process
@@ -756,7 +745,7 @@ computeUseImpacts { db } { consumptions } lifeCycle =
                         expandedConsumptions
                             |> List.map
                                 (\( amount, { impacts } ) ->
-                                    impacts |> Impact.multiplyBy (amountToFloat amount)
+                                    impacts |> Impact.multiplyBy (Amount.toFloat amount)
                                 )
                 }
             )
@@ -807,7 +796,7 @@ decodeBase64Query =
 decodeConsumption : Decoder Consumption
 decodeConsumption =
     Decode.succeed Consumption
-        |> Decode.required "amount" (Decode.map Amount Decode.float)
+        |> Decode.required "amount" Amount.decode
         |> Decode.required "processId" Process.decodeId
 
 
@@ -824,7 +813,7 @@ decodeCustom =
 decodeElement : Decoder Element
 decodeElement =
     Decode.succeed Element
-        |> Decode.required "amount" (Decode.map Amount Decode.float)
+        |> Decode.required "amount" Amount.decode
         |> Decode.required "material" Process.decodeId
         |> Decode.optional "transforms" (Decode.list Process.decodeId) []
 
@@ -885,7 +874,7 @@ elementToString processes element =
         |> Process.findById element.material
         |> Result.map
             (\process ->
-                String.fromFloat (amountToFloat element.amount)
+                Format.formatFloat 5 (Amount.toFloat element.amount)
                     ++ Process.unitToString process.unit
                     ++ " "
                     ++ Process.getDisplayName process
@@ -935,7 +924,7 @@ emptyQuery =
 emptyResults : Results
 emptyResults =
     Results
-        { amount = Amount 0
+        { amount = Amount.fromFloat 0
         , impacts = Impact.empty
         , items = []
         , label = Nothing
@@ -966,7 +955,7 @@ encodeBase64Query =
 encodeConsumption : Consumption -> Encode.Value
 encodeConsumption v =
     Encode.object
-        [ ( "amount", v.amount |> amountToFloat |> Encode.float )
+        [ ( "amount", v.amount |> Amount.toFloat |> Encode.float )
         , ( "processId", v.processId |> Process.encodeId )
         ]
 
@@ -997,7 +986,7 @@ encodeCustom custom =
 encodeElement : Element -> Encode.Value
 encodeElement element =
     Encode.object
-        [ ( "amount", element.amount |> amountToFloat |> Encode.float )
+        [ ( "amount", Amount.encode element.amount )
         , ( "material", Process.encodeId element.material )
         , ( "transforms", element.transforms |> Encode.list Process.encodeId )
         ]
@@ -1390,11 +1379,6 @@ loadEnergyMixes config =
                 , heat = config.production.defaultHeatProcess
                 }
             )
-
-
-mapAmount : (Float -> Float) -> Amount -> Amount
-mapAmount fn (Amount float) =
-    Amount <| fn float
 
 
 mapItems : (List Item -> List Item) -> Query -> Query
