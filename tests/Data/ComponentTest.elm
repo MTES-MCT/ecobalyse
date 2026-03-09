@@ -548,7 +548,7 @@ suite =
                         (\string ->
                             [ it "should serialise an item as a human readable string representation"
                                 (Expect.equal string
-                                    "1 Pied 70 cm (plein bois) [ 0.00044m3 Bois d'oeuvre (Feuillus / Hêtre) | 0.00088kg Plastique granulé (PP) ]"
+                                    "1 Pied 70 cm (plein bois) [ 4,40e-4m3 Bois d'oeuvre (Feuillus / Hêtre) | 8,80e-4kg Plastique granulé (PP) ]"
                                 )
                             ]
                         )
@@ -576,7 +576,7 @@ suite =
                         (\string ->
                             [ it "should serialise an item as a human readable string representation"
                                 (Expect.equal string
-                                    "1 Customized existing component [ 0.00044m3 Bois d'oeuvre (Feuillus / Hêtre) | 0.00088kg Plastique granulé (PP) ]"
+                                    "1 Customized existing component [ 4,40e-4m3 Bois d'oeuvre (Feuillus / Hêtre) | 8,80e-4kg Plastique granulé (PP) ]"
                                 )
                             ]
                         )
@@ -603,7 +603,7 @@ suite =
                         (\string ->
                             [ it "should serialise a new item without id as a human readable string representation"
                                 (Expect.equal string
-                                    "1 Custom new component [ 4,40e-4m3 Bois d'oeuvre (Feuillus / Hêtre) | 0.00088kg Plastique granulé (PP) ]"
+                                    "1 Custom new component [ 4,40e-4m3 Bois d'oeuvre (Feuillus / Hêtre) | 8,80e-4kg Plastique granulé (PP) ]"
                                 )
                             ]
                         )
