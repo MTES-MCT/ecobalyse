@@ -25,12 +25,13 @@ createComponent session event component =
 
 deleteComponent : Session -> (WebData () -> msg) -> Component -> Cmd msg
 deleteComponent session event component =
-    component.id
-        |> Maybe.map
-            (Component.idToString
-                >> (\id -> BackendHttp.delete session ("components/" ++ id) event)
-            )
-        |> Maybe.withDefault Cmd.none
+    case component.id of
+        Just id ->
+            BackendHttp.delete session ("components/" ++ Component.idToString id) event
+
+        Nothing ->
+            -- FIXME: actually, an error should be returned here
+            Cmd.none
 
 
 getComponent : Session -> (WebData Component -> msg) -> Component.Id -> Cmd msg
@@ -53,15 +54,14 @@ getJournal =
 
 patchComponent : Session -> (WebData Component -> msg) -> Component -> Cmd msg
 patchComponent session event component =
-    component.id
-        |> Maybe.map
-            (Component.idToString
-                >> (\id ->
-                        BackendHttp.patch session
-                            ("components/" ++ id)
-                            event
-                            Component.decode
-                            (Component.encode component)
-                   )
-            )
-        |> Maybe.withDefault Cmd.none
+    case component.id of
+        Just id ->
+            BackendHttp.patch session
+                ("components/" ++ Component.idToString id)
+                event
+                Component.decode
+                (Component.encode component)
+
+        Nothing ->
+            -- FIXME: actually, an error should be returned here
+            Cmd.none
