@@ -10,13 +10,6 @@ Les données ACV mobilisées par ecobalyse proviennent de plusieurs bases de don
 
 **Les contributions permettront de s'assurer  que le coût environnemental reflète bien l'ensemble des pratiques du marché et couvre les besoins en termes de matériaux et de procédés de transformation pour l'ensemble des secteurs.**
 
-La validation des données passe par deux étapes :&#x20;
-
-* une analyse rapide (délais standard : 1 à 2 mois) par l'équipe ecobalyse qui s'assure de la cohérence, la plus value et la robustesse globale de la nouvelle données. En cas de conclusion positive, ceci ouvre le droit à un statut de "validation provisoire" et l'intégration de la donnée dans ecobalyse et le dispositif affichage environnemental.&#x20;
-* des travaux plus approfondis sectoriels (délais standards 6 à 18 mois) sont menés dans Base empreinte/Agribalyse via des GT, qui peuvent décider d'intégrer en l'état, de modifier ou recommander des données alternatives dans un second temps.  Ecobalyse s'aligne alors sur ces décisions.&#x20;
-
-
-
 ## Pourquoi contribuer à la base de données ?
 
 En tant que créateur de données, contribuer à la base de données permet de :
@@ -55,9 +48,17 @@ Sur le textile spécifiquement, des contributions sont souhaitées sur :
 5. **Revue critique**\
    Toutes les données soumises doivent avoir fait l’objet d’une revue critique indépendante, garantissant leur qualité, leur représentativité et leur fiabilité. L'ADEME décide en dernier lieu l'intégration ou non des données.&#x20;
 6. **Propriété des données** \
-   Les contributeurs partagent gratuitement et intégralement la propriété des données avec l’ADEME. Il en résulte que l'ADEME dispose des droits d’utilisation, de diffusion et de modification. Le contributeur conserve les mêmes droits et le libre usage. L’ADEME est propriétaire des outils et base de données; et "co-propriétaire" des données. <mark style="color:$warning;">Lien vers contrat type Base empreinte à ajouter.</mark>\
-   \
-   <mark style="color:$success;">**Focus données alimentaires :**</mark> [Comment contribuer à agribalyse ?](https://doc.agribalyse.fr/documentation/nous-contactez/contribuer-aux-travaux-agribalyse-r)
+   Les contributeurs partagent gratuitement et intégralement la propriété des données avec l’ADEME. Il en résulte que l'ADEME dispose des droits d’utilisation, de diffusion et de modification. Le contributeur conserve les mêmes droits et le libre usage. L’ADEME est propriétaire des outils et base de données; et "co-propriétaire" des données. <mark style="color:$warning;">Lien vers contrat type Base empreinte à ajouter.</mark><br>
+
+## Comment sont validés les données ?
+
+La validation des données passe par deux étapes :&#x20;
+
+* une analyse rapide (délais standard : 1 à 2 mois) par l'équipe ecobalyse qui s'assure de la cohérence, la plus value et la robustesse globale de la nouvelle données. En cas de conclusion positive, ceci ouvre le droit à un statut de "validation provisoire" et l'intégration de la donnée dans ecobalyse et le dispositif affichage environnemental.&#x20;
+* des travaux plus approfondis sectoriels (délais standards 6 à 18 mois) sont menés dans Base empreinte/Agribalyse via des GT, qui peuvent décider d'intégrer en l'état, de modifier ou recommander des données alternatives dans un second temps.  Ecobalyse s'aligne alors sur ces décisions.&#x20;
+
+\
+<mark style="color:$success;">**Focus données alimentaires :**</mark> [Comment contribuer à agribalyse ?](https://doc.agribalyse.fr/documentation/nous-contactez/contribuer-aux-travaux-agribalyse-r)
 
 ## Que deviennent les données ?
 
