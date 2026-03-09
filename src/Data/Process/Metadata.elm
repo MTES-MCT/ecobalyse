@@ -1,10 +1,10 @@
-module Data.Metadata exposing (Metadata, decode, encode)
+module Data.Process.Metadata exposing (Metadata, decode, encode)
 
 import Data.Common.DecodeUtils as DU
+import Data.Common.EncodeUtils as EU
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Encode as Encode
-import Json.Encode.Extra as EncodeExtra
 
 
 type alias Metadata =
@@ -73,23 +73,32 @@ decodeComplementData =
         |> DU.strictOptional "forest" Decode.float
 
 
+decodeForestManagement : Decoder ForestManagement
+decodeForestManagement =
+    Decode.string |> Decode.andThen (DE.fromResult << forestManagementFromString)
+
+
 decode : Decoder Metadata
 decode =
     Decode.succeed Metadata
         |> DU.strictOptional "complements" decodeComplementData
-        |> DU.strictOptional "forestManagement" (Decode.string |> Decode.andThen (DE.fromResult << forestManagementFromString))
+        |> DU.strictOptional "forestManagement" decodeForestManagement
 
 
 encodeComplementData : ComplementData -> Encode.Value
 encodeComplementData complementData =
-    Encode.object
-        [ ( "forest", EncodeExtra.maybe Encode.float complementData.forest )
+    EU.optionalPropertiesObject
+        [ ( "forest", complementData.forest |> Maybe.map Encode.float )
         ]
 
 
 encode : Metadata -> Encode.Value
 encode metadata =
-    Encode.object
-        [ ( "complements", EncodeExtra.maybe encodeComplementData metadata.complements )
-        , ( "forestManagement", EncodeExtra.maybe Encode.string (Maybe.map forestManagementToString metadata.forestManagement) )
+    EU.optionalPropertiesObject
+        [ ( "complements", metadata.complements |> Maybe.map encodeComplementData )
+        , ( "forestManagement"
+          , metadata.forestManagement
+                |> Maybe.map forestManagementToString
+                |> Maybe.map Encode.string
+          )
         ]

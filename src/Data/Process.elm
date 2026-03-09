@@ -26,8 +26,8 @@ module Data.Process exposing
 import Data.Common.DecodeUtils as DU
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
-import Data.Metadata as Metadata exposing (Metadata)
 import Data.Process.Category as Category exposing (Category)
+import Data.Process.Metadata as Metadata exposing (Metadata)
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
