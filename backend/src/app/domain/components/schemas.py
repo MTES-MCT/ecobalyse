@@ -17,6 +17,7 @@ from enum import StrEnum
 
 class Scope(StrEnum):
     FOOD = "food"
+    FOO2 = "food2"
     OBJECT = "object"
     TEXTILE = "textile"
     VELI = "veli"

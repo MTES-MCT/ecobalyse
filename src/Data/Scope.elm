@@ -69,6 +69,9 @@ fromString string =
         "food" ->
             Ok Food
 
+        "food2" ->
+            Ok Food2
+
         "object" ->
             Ok Object
 
