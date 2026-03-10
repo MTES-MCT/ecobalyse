@@ -720,7 +720,7 @@ elementMaterialView config targetElement materialResults material amount =
             [ Component.extractImpacts materialResults
                 |> Format.formatImpact config.impact
             ]
-        , td [ class "pe-3  text-nowrap" ]
+        , td [ class "pe-3 text-nowrap" ]
             [ button
                 [ type_ "button"
                 , class "btn btn-sm btn-outline-secondary"
