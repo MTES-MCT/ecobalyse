@@ -2853,7 +2853,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -5057,7 +5058,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -22036,7 +22038,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "t⋅km",
@@ -22077,7 +22080,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "t⋅km",
@@ -24151,7 +24155,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -25032,7 +25037,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Custom",
     "unit": "MJ",
@@ -25075,7 +25081,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Custom",
     "unit": "MJ",
@@ -28851,7 +28858,8 @@
     "massPerUnit": null,
     "scopes": [
       "textile",
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "t⋅km",
@@ -30119,7 +30127,8 @@
     "scopes": [
       "food",
       "textile",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -30203,7 +30212,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -30286,7 +30296,8 @@
     "location": "BR",
     "massPerUnit": null,
     "scopes": [
-      "textile"
+      "textile",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -30329,7 +30340,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -30372,7 +30384,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -30626,7 +30639,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -30667,7 +30681,8 @@
     "location": "KE",
     "massPerUnit": null,
     "scopes": [
-      "textile"
+      "textile",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -30752,7 +30767,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -30876,7 +30892,8 @@
     "location": "NZ",
     "massPerUnit": null,
     "scopes": [
-      "textile"
+      "textile",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -30917,7 +30934,8 @@
     "location": "PE",
     "massPerUnit": null,
     "scopes": [
-      "textile"
+      "textile",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -31086,7 +31104,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -31129,7 +31148,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -31172,7 +31192,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -31215,7 +31236,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -31258,7 +31280,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -31301,7 +31324,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -31469,7 +31493,8 @@
     "location": "US",
     "massPerUnit": null,
     "scopes": [
-      "textile"
+      "textile",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -33254,7 +33279,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "textile"
+      "textile",
+      "veli"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
@@ -33553,7 +33579,8 @@
       "textile",
       "veli",
       "object",
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "t⋅km",
@@ -33597,7 +33624,8 @@
       "textile",
       "veli",
       "object",
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "t⋅km",
