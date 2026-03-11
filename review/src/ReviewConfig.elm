@@ -71,6 +71,7 @@ config =
     , NoUnused.Modules.rule
         |> Rule.ignoreErrorsForFiles [ "src/Views/Debug.elm" ]
     , NoUnused.Parameters.rule
+        |> Rule.ignoreErrorsForFiles [ "src/Page/Stats.elm" ]
     , NoUnused.Patterns.rule
     , NoUnused.Variables.rule
 
