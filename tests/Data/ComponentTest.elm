@@ -119,6 +119,7 @@ suite =
                             getTestMass transforms =
                                 Component.Results
                                     { amount = Amount.fromFloat 1
+                                    , complementsImpacts = Impact.empty
                                     , impacts = Impact.empty
                                     , items = []
                                     , label = Nothing
@@ -150,6 +151,7 @@ suite =
                             getTestEcsImpact transforms =
                                 Component.Results
                                     { amount = Amount.fromFloat 1
+                                    , complementsImpacts = Impact.empty
                                     , impacts = Impact.empty
                                     , items = []
                                     , label = Nothing
@@ -206,6 +208,7 @@ suite =
                                 [ it "should reject when the unit of the material and the transforms do not match"
                                     (Component.Results
                                         { amount = Amount.fromFloat 1
+                                        , complementsImpacts = Impact.empty
                                         , impacts = Impact.empty
                                         , items = []
                                         , label = Nothing
@@ -223,6 +226,7 @@ suite =
                             getTestResults transforms =
                                 Component.Results
                                     { amount = Amount.fromFloat 1
+                                    , complementsImpacts = Impact.empty |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 100)
                                     , impacts = Impact.empty |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 100)
                                     , items = []
                                     , label = Nothing
