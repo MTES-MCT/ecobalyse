@@ -7,6 +7,7 @@ module Views.Format exposing
     , formatFloat
     , formatImpact
     , formatImpactFloat
+    , formatImpactToString
     , formatRichFloat
     , frenchDate
     , frenchDatetime
@@ -62,6 +63,13 @@ formatImpact { decimals, trigram, unit } =
     Impact.getImpact trigram
         >> Unit.impactToFloat
         >> formatRichFloat decimals unit
+
+
+formatImpactToString : Definition -> Impacts -> String
+formatImpactToString { decimals, trigram } =
+    Impact.getImpact trigram
+        >> Unit.impactToFloat
+        >> formatFloat decimals
 
 
 {-| Formats a float with a provided decimal precision, which is overriden
