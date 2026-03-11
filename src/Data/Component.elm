@@ -55,6 +55,7 @@ module Data.Component exposing
     , expandElements
     , expandItems
     , extractAmount
+    , extractComplementsImpacts
     , extractImpacts
     , extractItems
     , extractMass
