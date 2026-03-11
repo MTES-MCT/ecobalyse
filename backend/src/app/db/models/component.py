@@ -30,7 +30,7 @@ class Component(UUIDAuditBase):
     # we need to create it manually in the generated migration
     # See https://stackoverflow.com/questions/37848815/sqlalchemy-postgresql-enum-does-not-create-type-on-db-migrate
     #
-    # scope = postgresql.ENUM("food", "object", "textile", "veli", name="scope")
+    # scope = postgresql.ENUM("food", "food2", "object", "textile", "veli", name="scope")
     # scope.create(batch_op.get_bind())
     #
     # And to drop it:
