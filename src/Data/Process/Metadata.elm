@@ -2,6 +2,7 @@ module Data.Process.Metadata exposing (Metadata, decode, encode)
 
 import Data.Common.DecodeUtils as DU
 import Data.Common.EncodeUtils as EU
+import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Encode as Encode
@@ -14,7 +15,7 @@ type alias Metadata =
 
 
 type alias ComplementData =
-    { forest : Maybe Float
+    { forest : Maybe Unit.Impact
     }
 
 
@@ -70,7 +71,7 @@ forestManagementToString forestManagement =
 decodeComplementData : Decoder ComplementData
 decodeComplementData =
     Decode.succeed ComplementData
-        |> DU.strictOptional "forest" Decode.float
+        |> DU.strictOptional "forest" Unit.decodeImpact
 
 
 decodeForestManagement : Decoder ForestManagement
@@ -88,7 +89,11 @@ decode =
 encodeComplementData : ComplementData -> Encode.Value
 encodeComplementData complementData =
     EU.optionalPropertiesObject
-        [ ( "forest", complementData.forest |> Maybe.map Encode.float )
+        [ ( "forest"
+          , complementData.forest
+                |> Maybe.map (Unit.impactToFloat >> negate >> Unit.impact)
+                |> Maybe.map Unit.encodeImpact
+          )
         ]
 
 
