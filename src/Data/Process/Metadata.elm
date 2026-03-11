@@ -91,7 +91,6 @@ encodeComplementData complementData =
     EU.optionalPropertiesObject
         [ ( "forest"
           , complementData.forest
-                |> Maybe.map (Unit.impactToFloat >> negate >> Unit.impact)
                 |> Maybe.map Unit.encodeImpact
           )
         ]
