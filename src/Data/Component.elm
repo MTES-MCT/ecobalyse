@@ -575,7 +575,10 @@ computeItemResults requirements { country, custom, id, quantity } =
             (\(Results { complementsImpacts, impacts, mass, materialType, items }) ->
                 Results
                     { amount = Amount.fromFloat 0
-                    , complementsImpacts = complementsImpacts
+                    , complementsImpacts =
+                        complementsImpacts
+                            |> List.repeat (quantityToInt quantity)
+                            |> Impact.sumImpacts
                     , impacts =
                         impacts
                             |> List.repeat (quantityToInt quantity)
