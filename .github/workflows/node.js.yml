@@ -48,7 +48,7 @@ jobs:
         python-version: [3.12]
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
 
     - name: Install Transcrypt
       uses: ./.github/actions/transcrypt-cli
