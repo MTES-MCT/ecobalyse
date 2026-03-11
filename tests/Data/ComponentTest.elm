@@ -382,6 +382,26 @@ suite =
                                     )
                                 ]
                             )
+                        , TestUtils.suiteFromResult2 "compute metadata complements"
+                            wood
+                            sawing
+                            (\materialInCubicMeters transformInCubicMeters ->
+                                let
+                                    results =
+                                        { amount = Amount.fromFloat 1
+                                        , material = materialInCubicMeters.id
+                                        , transforms = [ transformInCubicMeters.id ]
+                                        }
+                                            |> Component.computeElementResults requirements Nothing
+                                in
+                                [ it "should compute complements impacts according on material unit"
+                                    (results
+                                        |> Result.map extractComplementEcsImpact
+                                        |> Result.withDefault 0
+                                        |> Expect.within (Expect.Absolute 0.00001) 1.41462
+                                    )
+                                ]
+                            )
                         ]
                     , describe "computeInitialAmount"
                         [ it "should sequentially apply splits"
@@ -990,6 +1010,11 @@ extractEcsImpact =
     Component.extractImpacts >> getEcsImpact
 
 
+extractComplementEcsImpact : Component.Results -> Float
+extractComplementEcsImpact =
+    Component.extractComplementsImpacts >> getEcsImpact
+
+
 getEcsImpact : Impacts -> Float
 getEcsImpact =
     Impact.getImpact Definition.Ecs >> Unit.impactToFloat
@@ -1412,6 +1437,12 @@ wood =
                 },
                 "location": "DE",
                 "massPerUnit": 660.0,
+                "metadata": {
+                  "complements": {
+                    "forest": 0.70731
+                  },
+                  "forestManagement": "intensivePlantation"
+                },
                 "scopes": ["object", "veli"],
                 "source": "Ecoinvent 3.9.1",
                 "unit": "m3",
