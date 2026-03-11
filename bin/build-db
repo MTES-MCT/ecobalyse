@@ -14,8 +14,15 @@ const { NODE_ENV } = process.env;
 
 console.log(`Building database for the ${NODE_ENV} env…`);
 
-function parseAndValidate(path, idKeyName = "id") {
-  const raw = JSON.parse(fs.readFileSync(path).toString());
+function parseAndValidate(path, idKeyName = "id", pathsToMerge = []) {
+  let raw = JSON.parse(fs.readFileSync(path).toString());
+
+  // Allow to pass multiple JSON files to this function, the arrays contained in the files
+  // will be merge into one, as if they was only on file in input
+  pathsToMerge.forEach((pathToMerge) => {
+    raw = raw.concat(JSON.parse(fs.readFileSync(pathToMerge).toString()));
+  });
+
   if (idKeyName && Array.isArray(raw)) {
     try {
       validatePrimaryKeys(raw, idKeyName);
@@ -48,7 +55,9 @@ const elmWithFixtures = elmTemplate
   .replace("%impactsJson%", parseAndValidate("public/data/impacts.json"))
   .replace(
     "%processesJson%",
-    parseAndValidate(NODE_ENV === "test" ? dataFiles.detailed : dataFiles.noDetails, "id"),
+    parseAndValidate(NODE_ENV === "test" ? dataFiles.detailed : dataFiles.noDetails, "id", [
+      NODE_ENV === "test" ? dataFiles.genericDetailed : dataFiles.genericNoDetails,
+    ]),
   )
   .replace("%transportsJson%", parseAndValidate("public/data/transports.json"))
   // Food JSON data

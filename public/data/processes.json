@@ -26501,49 +26501,6 @@
     "waste": 0
   },
   {
-    "activityName": "Aluminium extrusion",
-    "categories": [
-      "transformation",
-      "material_type:metal"
-    ],
-    "comment": "",
-    "displayName": "Extrusion (aluminium)",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "0b4f1ce4-969e-5a04-9c2b-0a331b3f6636",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 44.464,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "location": "RER",
-    "massPerUnit": null,
-    "scopes": [
-      "veli",
-      "object"
-    ],
-    "source": "Ecobalyse",
-    "unit": "kg",
-    "waste": 0.013
-  },
-  {
     "activityName": "Aluminium sheeet rolling",
     "categories": [
       "transformation",
