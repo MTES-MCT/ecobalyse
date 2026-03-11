@@ -45,7 +45,7 @@ table distances countries { detailed, scope } =
                 , toCell = .name >> text
                 }
             , Just
-                { label = "Mix éléctrique"
+                { label = "Mix électrique"
                 , toValue = Table.StringValue <| .electricityProcess >> Process.getDisplayName
                 , toCell = .electricityProcess >> Process.getDisplayName >> text
                 }

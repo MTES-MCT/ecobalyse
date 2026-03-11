@@ -415,11 +415,8 @@ async def load_processes_fixtures(
 @fixtures_management_group.command(
     name="load-processes", help="Load processes from JSON file."
 )
-@click.argument(
-    "json_file",
-    type=click.File("rb"),
-)
-def load_processes_json(json_file: click.File) -> None:
+@click.argument("json_files", type=click.File("rb"), nargs=-1)
+def load_processes_json(json_files: click.File) -> None:
     """Load processes json.
 
     Args:
@@ -428,7 +425,10 @@ def load_processes_json(json_file: click.File) -> None:
 
     console = get_console()
 
-    json_data = orjson.loads(json_file.read())
+    json_data = []
+
+    for json_file in json_files:
+        json_data += orjson.loads(json_file.read())
 
     async def _load_processes_json(components_data) -> None:
         async with alchemy.get_session() as db_session:
