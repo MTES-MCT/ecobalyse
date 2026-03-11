@@ -639,6 +639,10 @@ computeMaterialResults amount process =
                     (process.metadata
                         |> Maybe.andThen .complements
                         |> Maybe.andThen .forest
+                        -- To stay compatible with the current implementation, we need to negate the
+                        -- complements scores because `applyComplements` always substract the value where
+                        -- the values of the new metadata should be added instead
+                        |> Maybe.map Quantity.negate
                         |> Maybe.withDefault Unit.noImpacts
                     )
                 |> Impact.multiplyBy (Amount.toFloat amount)
@@ -1226,6 +1230,11 @@ extractAmount (Results { amount }) =
     amount
 
 
+extractComplementsImpacts : Results -> Impacts
+extractComplementsImpacts (Results { complementsImpacts }) =
+    complementsImpacts
+
+
 extractImpacts : Results -> Impacts
 extractImpacts (Results { impacts }) =
     impacts
@@ -1623,6 +1632,7 @@ sumLifeCycleImpacts : LifeCycle -> Impacts
 sumLifeCycleImpacts lifeCycle =
     Impact.sumImpacts
         [ extractImpacts lifeCycle.production
+        , extractComplementsImpacts lifeCycle.production
         , lifeCycle.endOfLife
         , lifeCycle.transports.toAssembly.impacts
         , lifeCycle.transports.toDistribution.impacts
