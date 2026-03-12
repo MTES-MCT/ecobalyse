@@ -2,20 +2,15 @@ module Data.Process.Metadata exposing (Metadata, decode, encode)
 
 import Data.Common.DecodeUtils as DU
 import Data.Common.EncodeUtils as EU
-import Data.Unit as Unit
+import Data.Impact as Impact
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Encode as Encode
 
 
 type alias Metadata =
-    { complements : Maybe ComplementData
+    { complements : Maybe Impact.ComplementsImpacts
     , forestManagement : Maybe ForestManagement
-    }
-
-
-type alias ComplementData =
-    { forest : Maybe Unit.Impact
     }
 
 
@@ -68,12 +63,6 @@ forestManagementToString forestManagement =
             "sustainableManagement"
 
 
-decodeComplementData : Decoder ComplementData
-decodeComplementData =
-    Decode.succeed ComplementData
-        |> DU.strictOptional "forest" Unit.decodeImpact
-
-
 decodeForestManagement : Decoder ForestManagement
 decodeForestManagement =
     Decode.string |> Decode.andThen (DE.fromResult << forestManagementFromString)
@@ -82,24 +71,14 @@ decodeForestManagement =
 decode : Decoder Metadata
 decode =
     Decode.succeed Metadata
-        |> DU.strictOptional "complements" decodeComplementData
+        |> DU.strictOptional "complements" Impact.decodeComplementsImpacts
         |> DU.strictOptional "forestManagement" decodeForestManagement
-
-
-encodeComplementData : ComplementData -> Encode.Value
-encodeComplementData complementData =
-    EU.optionalPropertiesObject
-        [ ( "forest"
-          , complementData.forest
-                |> Maybe.map Unit.encodeImpact
-          )
-        ]
 
 
 encode : Metadata -> Encode.Value
 encode metadata =
     EU.optionalPropertiesObject
-        [ ( "complements", metadata.complements |> Maybe.map encodeComplementData )
+        [ ( "complements", metadata.complements |> Maybe.map Impact.encodeComplementsImpacts )
         , ( "forestManagement"
           , metadata.forestManagement
                 |> Maybe.map forestManagementToString
