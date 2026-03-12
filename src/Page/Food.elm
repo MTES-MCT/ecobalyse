@@ -34,6 +34,7 @@ import Data.Process as Process exposing (Process)
 import Data.Process.Category as ProcessCategory
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
+import Data.Unit as Unit
 import Data.Uuid exposing (Uuid)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
@@ -906,19 +907,19 @@ updateIngredientFormView db ({ recipeIngredient, selectedImpact, transportImpact
                                 |> Recipe.computeIngredientComplementsImpacts ingredient.ecosystemicServices
                     in
                     [ { name = EcosystemicServices.labels.hedges
-                      , computedImpact = complementsImpacts.hedges
+                      , computedImpact = complementsImpacts.hedges |> Maybe.withDefault Unit.noImpacts
                       }
                     , { name = EcosystemicServices.labels.plotSize
-                      , computedImpact = complementsImpacts.plotSize
+                      , computedImpact = complementsImpacts.plotSize |> Maybe.withDefault Unit.noImpacts
                       }
                     , { name = EcosystemicServices.labels.cropDiversity
-                      , computedImpact = complementsImpacts.cropDiversity
+                      , computedImpact = complementsImpacts.cropDiversity |> Maybe.withDefault Unit.noImpacts
                       }
                     , { name = EcosystemicServices.labels.permanentPasture
-                      , computedImpact = complementsImpacts.permanentPasture
+                      , computedImpact = complementsImpacts.permanentPasture |> Maybe.withDefault Unit.noImpacts
                       }
                     , { name = EcosystemicServices.labels.livestockDensity
-                      , computedImpact = complementsImpacts.livestockDensity
+                      , computedImpact = complementsImpacts.livestockDensity |> Maybe.withDefault Unit.noImpacts
                       }
                     ]
                         |> List.map

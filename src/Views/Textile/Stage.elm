@@ -633,7 +633,7 @@ viewMaterialComplements finalProductMass materialInput =
             Inputs.getMaterialMicrofibersComplement finalProductMass materialInput
 
         materialComplementsImpacts =
-            { noComplementsImpacts | microfibers = materialComplement }
+            { noComplementsImpacts | microfibers = Just materialComplement }
     in
     ComplementsDetails.view
         { complementsImpacts = materialComplementsImpacts
@@ -1167,7 +1167,7 @@ advancedStepView ({ db, inputs, selectedImpact, current } as config) =
                                 [ span [ class "fw-bold" ] [ text "Complément" ]
                                 , div [ class "d-flex justify-content-between" ]
                                     [ text "-\u{00A0}Export hors-Europe"
-                                    , Format.complement current.complementsImpacts.outOfEuropeEOL
+                                    , Format.complement (current.complementsImpacts.outOfEuropeEOL |> Maybe.withDefault Unit.noImpacts)
                                     ]
                                 , div [ class "d-flex justify-content-between" ]
                                     [ span [ class "me-2 text-truncate" ] [ text "-\u{00A0}Probabilité de fin de vie hors-Europe" ]

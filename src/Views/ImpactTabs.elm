@@ -65,11 +65,19 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStag
                             -- Textile complements
                             , { entryAttributes = []
                               , name = "Complément export hors-Europe"
-                              , value = -(Unit.impactToFloat complementsImpact.outOfEuropeEOL)
+                              , value =
+                                    -(complementsImpact.outOfEuropeEOL
+                                        |> Maybe.withDefault Unit.noImpacts
+                                        |> Unit.impactToFloat
+                                     )
                               }
                             , { entryAttributes = []
                               , name = "Complément microfibres"
-                              , value = -(Unit.impactToFloat complementsImpact.microfibers)
+                              , value =
+                                    -(complementsImpact.microfibers
+                                        |> Maybe.withDefault Unit.noImpacts
+                                        |> Unit.impactToFloat
+                                     )
                               }
                             ]
                         |> List.sortBy .value

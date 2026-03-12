@@ -38,6 +38,7 @@ module Data.Impact exposing
     )
 
 import Data.Color as Color
+import Data.Common.EncodeUtils as EU
 import Data.Impact.Definition as Definition exposing (Definition, Definitions, Trigram, Trigrams)
 import Data.Stages as Stages exposing (Stages)
 import Data.Unit as Unit
@@ -55,26 +56,41 @@ import Url.Parser as Parser exposing (Parser)
 type alias ComplementsImpacts =
     -- Note: these are always expressed in ecoscore (ecs) Pts
     { -- Ecosystemic services impacts
-      cropDiversity : Unit.Impact
-    , hedges : Unit.Impact
-    , livestockDensity : Unit.Impact
-    , microfibers : Unit.Impact
-    , outOfEuropeEOL : Unit.Impact
-    , permanentPasture : Unit.Impact
-    , plotSize : Unit.Impact
+      cropDiversity : Maybe Unit.Impact
+    , hedges : Maybe Unit.Impact
+    , livestockDensity : Maybe Unit.Impact
+    , microfibers : Maybe Unit.Impact
+    , outOfEuropeEOL : Maybe Unit.Impact
+    , permanentPasture : Maybe Unit.Impact
+    , plotSize : Maybe Unit.Impact
     }
 
 
 addComplementsImpacts : ComplementsImpacts -> ComplementsImpacts -> ComplementsImpacts
 addComplementsImpacts a b =
+    let
+        addComplement maybeA maybeB =
+            case ( maybeA, maybeB ) of
+                ( Just justA, Just justB ) ->
+                    Just <| Quantity.plus justA justB
+
+                ( Nothing, Just justB ) ->
+                    Just justB
+
+                ( Just justA, Nothing ) ->
+                    Just justA
+
+                ( Nothing, Nothing ) ->
+                    Nothing
+    in
     { -- Ecosystemic services impacts
-      cropDiversity = Quantity.plus a.cropDiversity b.cropDiversity
-    , hedges = Quantity.plus a.hedges b.hedges
-    , livestockDensity = Quantity.plus a.livestockDensity b.livestockDensity
-    , microfibers = Quantity.plus a.microfibers b.microfibers
-    , outOfEuropeEOL = Quantity.plus a.outOfEuropeEOL b.outOfEuropeEOL
-    , permanentPasture = Quantity.plus a.permanentPasture b.permanentPasture
-    , plotSize = Quantity.plus a.plotSize b.plotSize
+      cropDiversity = addComplement a.cropDiversity b.cropDiversity
+    , hedges = addComplement a.hedges b.hedges
+    , livestockDensity = addComplement a.livestockDensity b.livestockDensity
+    , microfibers = addComplement a.microfibers b.microfibers
+    , outOfEuropeEOL = addComplement a.outOfEuropeEOL b.outOfEuropeEOL
+    , permanentPasture = addComplement a.permanentPasture b.permanentPasture
+    , plotSize = addComplement a.plotSize b.plotSize
     }
 
 
@@ -100,39 +116,39 @@ encodeComplementsImpacts complementsImpact =
         negated =
             negateComplementsImpacts complementsImpact
     in
-    Encode.object
-        [ ( "cropDiversity", Unit.encodeImpact negated.cropDiversity )
-        , ( "hedges", Unit.encodeImpact negated.hedges )
-        , ( "livestockDensity", Unit.encodeImpact negated.livestockDensity )
-        , ( "microfibers", Unit.encodeImpact negated.microfibers )
-        , ( "outOfEuropeEOL", Unit.encodeImpact negated.outOfEuropeEOL )
-        , ( "permanentPasture", Unit.encodeImpact negated.permanentPasture )
-        , ( "plotSize", Unit.encodeImpact negated.plotSize )
+    EU.optionalPropertiesObject
+        [ ( "cropDiversity", negated.cropDiversity |> Maybe.map Unit.encodeImpact )
+        , ( "hedges", negated.hedges |> Maybe.map Unit.encodeImpact )
+        , ( "livestockDensity", negated.livestockDensity |> Maybe.map Unit.encodeImpact )
+        , ( "microfibers", negated.microfibers |> Maybe.map Unit.encodeImpact )
+        , ( "outOfEuropeEOL", negated.outOfEuropeEOL |> Maybe.map Unit.encodeImpact )
+        , ( "permanentPasture", negated.permanentPasture |> Maybe.map Unit.encodeImpact )
+        , ( "plotSize", negated.plotSize |> Maybe.map Unit.encodeImpact )
         ]
 
 
 getTotalComplementsImpacts : ComplementsImpacts -> Unit.Impact
 getTotalComplementsImpacts complementsImpacts =
     Quantity.sum
-        [ complementsImpacts.cropDiversity
-        , complementsImpacts.hedges
-        , complementsImpacts.livestockDensity
-        , complementsImpacts.microfibers
-        , complementsImpacts.outOfEuropeEOL
-        , complementsImpacts.permanentPasture
-        , complementsImpacts.plotSize
+        [ complementsImpacts.cropDiversity |> Maybe.withDefault Unit.noImpacts
+        , complementsImpacts.hedges |> Maybe.withDefault Unit.noImpacts
+        , complementsImpacts.livestockDensity |> Maybe.withDefault Unit.noImpacts
+        , complementsImpacts.microfibers |> Maybe.withDefault Unit.noImpacts
+        , complementsImpacts.outOfEuropeEOL |> Maybe.withDefault Unit.noImpacts
+        , complementsImpacts.permanentPasture |> Maybe.withDefault Unit.noImpacts
+        , complementsImpacts.plotSize |> Maybe.withDefault Unit.noImpacts
         ]
 
 
 mapComplementsImpacts : (Unit.Impact -> Unit.Impact) -> ComplementsImpacts -> ComplementsImpacts
 mapComplementsImpacts fn ci =
-    { cropDiversity = fn ci.cropDiversity
-    , hedges = fn ci.hedges
-    , livestockDensity = fn ci.livestockDensity
-    , microfibers = fn ci.microfibers
-    , outOfEuropeEOL = fn ci.outOfEuropeEOL
-    , permanentPasture = fn ci.permanentPasture
-    , plotSize = fn ci.plotSize
+    { cropDiversity = ci.cropDiversity |> Maybe.map fn
+    , hedges = ci.hedges |> Maybe.map fn
+    , livestockDensity = ci.livestockDensity |> Maybe.map fn
+    , microfibers = ci.microfibers |> Maybe.map fn
+    , outOfEuropeEOL = ci.outOfEuropeEOL |> Maybe.map fn
+    , permanentPasture = ci.permanentPasture |> Maybe.map fn
+    , plotSize = ci.plotSize |> Maybe.map fn
     }
 
 
@@ -143,13 +159,13 @@ negateComplementsImpacts =
 
 noComplementsImpacts : ComplementsImpacts
 noComplementsImpacts =
-    { cropDiversity = Unit.noImpacts
-    , hedges = Unit.noImpacts
-    , livestockDensity = Unit.noImpacts
-    , microfibers = Unit.noImpacts
-    , outOfEuropeEOL = Unit.noImpacts
-    , permanentPasture = Unit.noImpacts
-    , plotSize = Unit.noImpacts
+    { cropDiversity = Nothing
+    , hedges = Nothing
+    , livestockDensity = Nothing
+    , microfibers = Nothing
+    , outOfEuropeEOL = Nothing
+    , permanentPasture = Nothing
+    , plotSize = Nothing
     }
 
 
@@ -171,11 +187,11 @@ impactsWithComplements complementsImpacts impacts =
 sumEcosystemicImpacts : ComplementsImpacts -> Unit.Impact
 sumEcosystemicImpacts c =
     Quantity.sum
-        [ c.cropDiversity
-        , c.hedges
-        , c.livestockDensity
-        , c.permanentPasture
-        , c.plotSize
+        [ c.cropDiversity |> Maybe.withDefault Unit.noImpacts
+        , c.hedges |> Maybe.withDefault Unit.noImpacts
+        , c.livestockDensity |> Maybe.withDefault Unit.noImpacts
+        , c.permanentPasture |> Maybe.withDefault Unit.noImpacts
+        , c.plotSize |> Maybe.withDefault Unit.noImpacts
         ]
 
 
@@ -185,8 +201,8 @@ complementsImpactAsChartEntries c =
     -- - We want those complements/bonuses to appear as negative values on the chart
     -- - We want to sum ecosystemic service components impacts to only have a single entry in the charts
     [ { color = "#606060", name = "Services écosystémiques", value = -(Unit.impactToFloat (sumEcosystemicImpacts c)) }
-    , { color = "#c0c0c0", name = "Complément microfibres", value = -(Unit.impactToFloat c.microfibers) }
-    , { color = "#e0e0e0", name = "Complément export hors-Europe", value = -(Unit.impactToFloat c.outOfEuropeEOL) }
+    , { color = "#c0c0c0", name = "Complément microfibres", value = -(c.microfibers |> Maybe.map Unit.impactToFloat |> Maybe.withDefault 0) }
+    , { color = "#e0e0e0", name = "Complément export hors-Europe", value = -(c.outOfEuropeEOL |> Maybe.map Unit.impactToFloat |> Maybe.withDefault 0) }
     ]
 
 

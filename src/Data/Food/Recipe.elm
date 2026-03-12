@@ -297,13 +297,13 @@ computeIngredientComplementsImpacts { cropDiversity, hedges, livestockDensity, p
             Quantity.multiplyBy (Mass.inKilograms ingredientMass)
                 >> Quantity.multiplyBy (Unit.ratioToFloat coeff)
     in
-    { cropDiversity = apply EcosystemicServices.coefficients.cropDiversity cropDiversity
-    , hedges = apply EcosystemicServices.coefficients.hedges hedges
-    , livestockDensity = apply EcosystemicServices.coefficients.livestockDensity livestockDensity
-    , microfibers = Unit.noImpacts
-    , outOfEuropeEOL = Unit.noImpacts
-    , permanentPasture = apply EcosystemicServices.coefficients.permanentPasture permanentPasture
-    , plotSize = apply EcosystemicServices.coefficients.plotSize plotSize
+    { cropDiversity = Just <| apply EcosystemicServices.coefficients.cropDiversity cropDiversity
+    , hedges = Just <| apply EcosystemicServices.coefficients.hedges hedges
+    , livestockDensity = Just <| apply EcosystemicServices.coefficients.livestockDensity livestockDensity
+    , microfibers = Nothing
+    , outOfEuropeEOL = Nothing
+    , permanentPasture = Just <| apply EcosystemicServices.coefficients.permanentPasture permanentPasture
+    , plotSize = Just <| apply EcosystemicServices.coefficients.plotSize plotSize
     }
 
 

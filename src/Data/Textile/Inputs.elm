@@ -432,11 +432,19 @@ getMaterialMicrofibersComplement finalProductMass { material, share } =
         |> Quantity.multiplyBy materialMassInKg
 
 
-getTotalMicrofibersComplement : Inputs -> Unit.Impact
+getTotalMicrofibersComplement : Inputs -> Maybe Unit.Impact
 getTotalMicrofibersComplement { mass, materials } =
-    materials
-        |> List.map (getMaterialMicrofibersComplement mass)
-        |> Quantity.sum
+    let
+        impact =
+            materials
+                |> List.map (getMaterialMicrofibersComplement mass)
+                |> Quantity.sum
+    in
+    if impact == Unit.noImpacts then
+        Nothing
+
+    else
+        Just impact
 
 
 getMaterialCategoryShare : Origin -> List MaterialInput -> Split
@@ -473,14 +481,22 @@ getOutOfEuropeEOLProbability materialInputs =
         |> Result.withDefault Split.zero
 
 
-getOutOfEuropeEOLComplement : Inputs -> Unit.Impact
+getOutOfEuropeEOLComplement : Inputs -> Maybe Unit.Impact
 getOutOfEuropeEOLComplement { mass, materials } =
     -- Note: this complement is a malus, hence the minus sign
-    Unit.impact
-        -(Split.toFloat (getOutOfEuropeEOLProbability materials)
-            * Mass.inKilograms mass
-            * 5000
-         )
+    let
+        impact =
+            Unit.impact
+                -(Split.toFloat (getOutOfEuropeEOLProbability materials)
+                    * Mass.inKilograms mass
+                    * 5000
+                 )
+    in
+    if impact == Unit.noImpacts then
+        Nothing
+
+    else
+        Just impact
 
 
 computeMaterialTransport : Distances -> Country.Code -> MaterialInput -> Transport
