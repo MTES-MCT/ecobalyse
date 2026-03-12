@@ -5,6 +5,7 @@ module Data.Impact exposing
     , addComplementsImpacts
     , applyComplements
     , complementsImpactAsChartEntries
+    , decodeComplementsImpacts
     , decodeImpacts
     , default
     , divideBy
@@ -38,6 +39,7 @@ module Data.Impact exposing
     )
 
 import Data.Color as Color
+import Data.Common.DecodeUtils as DU
 import Data.Common.EncodeUtils as EU
 import Data.Impact.Definition as Definition exposing (Definition, Definitions, Trigram, Trigrams)
 import Data.Stages as Stages exposing (Stages)
@@ -57,6 +59,7 @@ type alias ComplementsImpacts =
     -- Note: these are always expressed in ecoscore (ecs) Pts
     { -- Ecosystemic services impacts
       cropDiversity : Maybe Unit.Impact
+    , forest : Maybe Unit.Impact
     , hedges : Maybe Unit.Impact
     , livestockDensity : Maybe Unit.Impact
     , microfibers : Maybe Unit.Impact
@@ -85,6 +88,7 @@ addComplementsImpacts a b =
     in
     { -- Ecosystemic services impacts
       cropDiversity = addComplement a.cropDiversity b.cropDiversity
+    , forest = addComplement a.forest b.forest
     , hedges = addComplement a.hedges b.hedges
     , livestockDensity = addComplement a.livestockDensity b.livestockDensity
     , microfibers = addComplement a.microfibers b.microfibers
@@ -118,6 +122,7 @@ encodeComplementsImpacts complementsImpact =
     in
     EU.optionalPropertiesObject
         [ ( "cropDiversity", negated.cropDiversity |> Maybe.map Unit.encodeImpact )
+        , ( "forest", negated.forest |> Maybe.map Unit.encodeImpact )
         , ( "hedges", negated.hedges |> Maybe.map Unit.encodeImpact )
         , ( "livestockDensity", negated.livestockDensity |> Maybe.map Unit.encodeImpact )
         , ( "microfibers", negated.microfibers |> Maybe.map Unit.encodeImpact )
@@ -125,6 +130,19 @@ encodeComplementsImpacts complementsImpact =
         , ( "permanentPasture", negated.permanentPasture |> Maybe.map Unit.encodeImpact )
         , ( "plotSize", negated.plotSize |> Maybe.map Unit.encodeImpact )
         ]
+
+
+decodeComplementsImpacts : Decoder ComplementsImpacts
+decodeComplementsImpacts =
+    Decode.succeed ComplementsImpacts
+        |> DU.strictOptional "cropDiversity" Unit.decodeImpact
+        |> DU.strictOptional "forest" Unit.decodeImpact
+        |> DU.strictOptional "hedges" Unit.decodeImpact
+        |> DU.strictOptional "livestockDensity" Unit.decodeImpact
+        |> DU.strictOptional "microfibers" Unit.decodeImpact
+        |> DU.strictOptional "outOfEuropeEOL" Unit.decodeImpact
+        |> DU.strictOptional "permanentPasture" Unit.decodeImpact
+        |> DU.strictOptional "plotSize" Unit.decodeImpact
 
 
 getTotalComplementsImpacts : ComplementsImpacts -> Unit.Impact
@@ -143,6 +161,7 @@ getTotalComplementsImpacts complementsImpacts =
 mapComplementsImpacts : (Unit.Impact -> Unit.Impact) -> ComplementsImpacts -> ComplementsImpacts
 mapComplementsImpacts fn ci =
     { cropDiversity = ci.cropDiversity |> Maybe.map fn
+    , forest = ci.forest |> Maybe.map fn
     , hedges = ci.hedges |> Maybe.map fn
     , livestockDensity = ci.livestockDensity |> Maybe.map fn
     , microfibers = ci.microfibers |> Maybe.map fn
@@ -160,6 +179,7 @@ negateComplementsImpacts =
 noComplementsImpacts : ComplementsImpacts
 noComplementsImpacts =
     { cropDiversity = Nothing
+    , forest = Nothing
     , hedges = Nothing
     , livestockDensity = Nothing
     , microfibers = Nothing

@@ -298,6 +298,7 @@ computeIngredientComplementsImpacts { cropDiversity, hedges, livestockDensity, p
                 >> Quantity.multiplyBy (Unit.ratioToFloat coeff)
     in
     { cropDiversity = Just <| apply EcosystemicServices.coefficients.cropDiversity cropDiversity
+    , forest = Nothing
     , hedges = Just <| apply EcosystemicServices.coefficients.hedges hedges
     , livestockDensity = Just <| apply EcosystemicServices.coefficients.livestockDensity livestockDensity
     , microfibers = Nothing
