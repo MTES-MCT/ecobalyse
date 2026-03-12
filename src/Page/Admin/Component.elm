@@ -112,9 +112,16 @@ update session msg model =
                 |> createPageUpdate (session |> Session.notifyBackendError err)
 
         ComponentCreated (RemoteData.Success component) ->
-            { model | modals = [ EditComponentModal component (Component.createItem component.id) ] }
-                |> createPageUpdate session
-                |> App.withCmds [ ComponentApi.getComponents session ComponentListResponse ]
+            component.id
+                |> Maybe.map
+                    (\componentId ->
+                        { model
+                            | modals = [ EditComponentModal component (Component.createItem (Just componentId)) ]
+                        }
+                            |> createPageUpdate session
+                            |> App.withCmds [ ComponentApi.getComponents session ComponentListResponse ]
+                    )
+                |> Maybe.withDefault (createPageUpdate session model)
 
         ComponentCreated _ ->
             createPageUpdate session model
@@ -130,8 +137,13 @@ update session msg model =
             createPageUpdate session model
 
         ComponentEditResponse (RemoteData.Success component) ->
-            createPageUpdate session
-                { model | modals = [ EditComponentModal component (Component.createItem component.id) ] }
+            component.id
+                |> Maybe.map
+                    (\componentId ->
+                        createPageUpdate session
+                            { model | modals = [ EditComponentModal component (Component.createItem (Just componentId)) ] }
+                    )
+                |> Maybe.withDefault (createPageUpdate session model)
 
         ComponentEditResponse (RemoteData.Failure err) ->
             createPageUpdate (session |> Session.notifyBackendError err) model
@@ -176,26 +188,7 @@ update session msg model =
             createPageUpdate session model
 
         OnAutocompleteAddProcess category targetItem maybeElementIndex autocompleteMsg ->
-            case model.modals of
-                [ SelectProcessModal _ _ _ autocompleteState, EditComponentModal component item ] ->
-                    let
-                        ( newAutocompleteState, autoCompleteCmd ) =
-                            Autocomplete.update autocompleteMsg autocompleteState
-                    in
-                    createPageUpdate session
-                        { model
-                            | modals =
-                                [ SelectProcessModal category targetItem maybeElementIndex newAutocompleteState
-                                , EditComponentModal component item
-                                ]
-                        }
-                        |> App.withCmds
-                            [ autoCompleteCmd
-                                |> Cmd.map (OnAutocompleteAddProcess category targetItem maybeElementIndex)
-                            ]
-
-                _ ->
-                    createPageUpdate session model
+            onAutocompleteAddProcess category targetItem maybeElementIndex autocompleteMsg session model
 
         OnAutocompleteSelectProcess category targetItem maybeElementIndex ->
             case model.modals of
@@ -206,40 +199,31 @@ update session msg model =
                     createPageUpdate session model
 
         OpenEditModal component ->
-            createPageUpdate session { model | modals = [] }
-                |> App.withCmds [ ComponentApi.getComponent session ComponentEditResponse component.id ]
+            component.id
+                |> Maybe.map
+                    (\componentId ->
+                        { model | modals = [] }
+                            |> createPageUpdate session
+                            |> App.withCmds [ ComponentApi.getComponent session ComponentEditResponse componentId ]
+                    )
+                |> Maybe.withDefault (createPageUpdate session model)
 
         OpenHistoryModal component ->
-            { model | modals = [ HistoryModal RemoteData.Loading ] }
-                |> createPageUpdate session
-                |> App.withCmds [ ComponentApi.getJournal session ComponentJournalResponse component.id ]
+            component.id
+                |> Maybe.map
+                    (\componentId ->
+                        { model | modals = [ HistoryModal RemoteData.Loading ] }
+                            |> createPageUpdate session
+                            |> App.withCmds [ ComponentApi.getJournal session ComponentJournalResponse componentId ]
+                    )
+                |> Maybe.withDefault (createPageUpdate session model)
 
         OpenJournalEntryModal journalEntry ->
             { model | modals = JournalEntryModal journalEntry :: model.modals }
                 |> createPageUpdate session
 
         SaveComponent ->
-            case model.modals of
-                [ DeleteComponentModal component ] ->
-                    createPageUpdate session { model | modals = [] }
-                        |> App.withCmds [ ComponentApi.deleteComponent session ComponentDeleted component ]
-
-                [ EditComponentModal { comment, published } item ] ->
-                    case Component.itemToComponent session.db item of
-                        Err error ->
-                            createPageUpdate session { model | modals = [] }
-                                |> App.notifyError "Erreur lors de la sauvegarde du composant" error
-
-                        Ok component ->
-                            createPageUpdate session { model | modals = [] }
-                                |> App.withCmds
-                                    [ { component | comment = comment, published = published }
-                                        |> ComponentApi.patchComponent session ComponentUpdated
-                                    ]
-                                |> App.notifySuccess "Composant sauvegardé"
-
-                _ ->
-                    createPageUpdate session model
+            saveComponent model session
 
         SetModals modals ->
             createPageUpdate session { model | modals = modals }
@@ -256,7 +240,16 @@ update session msg model =
                 |> createPageUpdate session
 
         ToggleSelectedAll flag ->
-            { model | selected = model.components |> AdminView.selectAll flag }
+            { model
+                | selected =
+                    case ( flag, model.components ) of
+                        ( True, RemoteData.Success components ) ->
+                            components
+                                |> List.filterMap .id
+
+                        _ ->
+                            []
+            }
                 |> createPageUpdate session
 
         UpdateComponent customItem ->
@@ -304,6 +297,55 @@ createPageUpdate session model =
                 _ ->
                     Ports.addBodyClass "prevent-scrolling"
             ]
+
+
+onAutocompleteAddProcess : Category -> TargetItem -> Maybe Index -> Autocomplete.Msg Process -> Session -> Model -> PageUpdate Model Msg
+onAutocompleteAddProcess category targetItem maybeElementIndex autocompleteMsg session model =
+    case model.modals of
+        [ SelectProcessModal _ _ _ autocompleteState, EditComponentModal component item ] ->
+            let
+                ( newAutocompleteState, autoCompleteCmd ) =
+                    Autocomplete.update autocompleteMsg autocompleteState
+            in
+            createPageUpdate session
+                { model
+                    | modals =
+                        [ SelectProcessModal category targetItem maybeElementIndex newAutocompleteState
+                        , EditComponentModal component item
+                        ]
+                }
+                |> App.withCmds
+                    [ autoCompleteCmd
+                        |> Cmd.map (OnAutocompleteAddProcess category targetItem maybeElementIndex)
+                    ]
+
+        _ ->
+            createPageUpdate session model
+
+
+saveComponent : Model -> Session -> PageUpdate Model Msg
+saveComponent model session =
+    case model.modals of
+        [ DeleteComponentModal component ] ->
+            createPageUpdate session { model | modals = [] }
+                |> App.withCmds [ ComponentApi.deleteComponent session ComponentDeleted component ]
+
+        [ EditComponentModal { comment, published } item ] ->
+            case Component.itemToComponent session.db item of
+                Err error ->
+                    createPageUpdate session { model | modals = [] }
+                        |> App.notifyError "Erreur lors de la sauvegarde du composant" error
+
+                Ok component ->
+                    createPageUpdate session { model | modals = [] }
+                        |> App.withCmds
+                            [ { component | comment = comment, published = published }
+                                |> ComponentApi.patchComponent session ComponentUpdated
+                            ]
+                        |> App.notifySuccess "Composant sauvegardé"
+
+        _ ->
+            createPageUpdate session model
 
 
 updateComponent : Item -> Model -> Model
@@ -383,7 +425,7 @@ view session model =
                         >> componentListView session model.selected
                     )
             , model.components
-                |> WebDataView.map (AdminView.downloadElementsButton "components.json" Component.encode model.selected)
+                |> WebDataView.map (AdminView.downloadElementsButton "components.json" Component.encode (List.map Just model.selected))
             , model.modals
                 |> List.indexedMap (modalView session model.modals)
                 |> div []
@@ -434,14 +476,33 @@ componentRowView session selected component =
     in
     tr []
         [ td [ class "align-start text-center" ]
-            [ selected
-                |> AdminView.toggleElementCheckbox Component.idToString ToggleSelected component.id
+            [ case component.id of
+                Just componentId ->
+                    selected
+                        |> AdminView.toggleElementCheckbox Component.idToString ToggleSelected componentId
+
+                Nothing ->
+                    text ""
             ]
         , th [ class "align-middle" ]
-            [ label [ for <| AdminView.toggleElementId Component.idToString component.id ]
+            [ label
+                [ for <|
+                    case component.id of
+                        Just componentId ->
+                            AdminView.toggleElementId Component.idToString componentId
+
+                        Nothing ->
+                            ""
+                ]
                 [ text component.name ]
             , small [ class "d-block fw-normal" ]
-                [ code [] [ text (Component.idToString component.id) ] ]
+                [ case component.id of
+                    Just componentId ->
+                        code [] [ text (Component.idToString componentId) ]
+
+                    Nothing ->
+                        code [] [ text "-" ]
+                ]
             ]
         , td [ class "align-middle text-center" ]
             [ small
@@ -504,16 +565,26 @@ componentRowView session selected component =
                     , onClick <| DuplicateComponent component
                     ]
                     [ Icon.copy ]
-                , a
-                    [ class "btn btn-outline-primary"
-                    , title "Utiliser dans le simulateur"
-                    , Component.emptyQuery
-                        |> Component.setQueryItems [ Component.createItem component.id ]
-                        |> Just
-                        |> Route.ObjectSimulator Scope.Object Definition.Ecs
-                        |> Route.href
-                    ]
-                    [ Icon.puzzle ]
+                , case component.id of
+                    Just componentId ->
+                        a
+                            [ class "btn btn-outline-primary"
+                            , title "Utiliser dans le simulateur"
+                            , Component.emptyQuery
+                                |> Component.setQueryItems [ Component.createItem (Just componentId) ]
+                                |> Just
+                                |> Route.ObjectSimulator Scope.Object Definition.Ecs
+                                |> Route.href
+                            ]
+                            [ Icon.puzzle ]
+
+                    Nothing ->
+                        button
+                            [ class "btn btn-outline-primary"
+                            , title "Utiliser dans le simulateur"
+                            , disabled True
+                            ]
+                            [ Icon.puzzle ]
                 , a
                     [ class "btn btn-outline-primary"
                     , title "Exporter le composant au format JSON"
@@ -582,6 +653,7 @@ modalView { componentConfig, db } modals index modal =
                                         , scope = component.scope
                                         }
                             , noOp = NoOp
+                            , openCreateComponentModal = NoOp
                             , openSelectComponentModal = \_ -> NoOp
                             , openSelectConsumptionModal = \_ -> NoOp
                             , openSelectProcessModal =

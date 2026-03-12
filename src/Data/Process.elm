@@ -27,6 +27,7 @@ import Data.Common.DecodeUtils as DU
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
 import Data.Process.Category as Category exposing (Category)
+import Data.Process.Metadata as Metadata exposing (Metadata)
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
@@ -54,8 +55,10 @@ type alias Process =
     , heat : Energy
     , id : Id
     , impacts : Impacts
+    , landOccupation : Maybe Float
     , location : Maybe String
     , massPerUnit : Maybe Float
+    , metadata : Maybe Metadata
     , scopes : List Scope
     , source : String
     , unit : Unit
@@ -118,8 +121,10 @@ decode impactsDecoder =
         |> Pipe.required "heatMJ" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "id" decodeId
         |> Pipe.required "impacts" impactsDecoder
+        |> DU.strictOptional "landOccupation" Decode.float
         |> Pipe.required "location" (Decode.maybe Decode.string)
         |> Pipe.required "massPerUnit" (Decode.maybe Decode.float)
+        |> DU.strictOptional "metadata" Metadata.decode
         |> Pipe.required "scopes" (Decode.list Scope.decode)
         |> Pipe.required "source" Decode.string
         |> Pipe.required "unit" (Decode.string |> Decode.andThen (DE.fromResult << unitFromString))
@@ -132,13 +137,15 @@ encode process =
         [ ( "activityName", encodeActivityName process.activityName )
         , ( "categories", Encode.list Category.encode process.categories )
         , ( "comment", Encode.string process.comment )
-        , ( "massPerUnit", EncodeExtra.maybe Encode.float process.massPerUnit )
         , ( "displayName", EncodeExtra.maybe Encode.string process.displayName )
         , ( "elecMJ", Encode.float (Energy.inMegajoules process.elec) )
         , ( "heatMJ", Encode.float (Energy.inMegajoules process.heat) )
         , ( "id", encodeId process.id )
         , ( "impacts", Impact.encode process.impacts )
+        , ( "landOccupation", EncodeExtra.maybe Encode.float process.landOccupation )
         , ( "location", EncodeExtra.maybe Encode.string process.location )
+        , ( "massPerUnit", EncodeExtra.maybe Encode.float process.massPerUnit )
+        , ( "metadata", EncodeExtra.maybe Metadata.encode process.metadata )
         , ( "scopes", process.scopes |> Encode.list Scope.encode )
         , ( "source", Encode.string process.source )
         , ( "unit", process.unit |> unitToString |> Encode.string )
