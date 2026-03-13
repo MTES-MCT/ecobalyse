@@ -27443,6 +27443,47 @@
     "waste": 0
   },
   {
+    "activityName": "Meat without bone, beef for direct consumption {{beef-without-bone}}",
+    "categories": [
+      "ingredient"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.",
+    "displayName": "Viande de boeuf sans os - vache de réforme",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "a28b796f-bd2c-5fa9-b162-9e7291f44ae1",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 1629.8,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "FR",
+    "massPerUnit": null,
+    "scopes": [
+      "food"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "PET EoL recycling, GLO, CFF",
     "categories": [
       "end-of-life"
