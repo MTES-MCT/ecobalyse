@@ -119,7 +119,7 @@ suite =
                             getTestMass transforms =
                                 Component.Results
                                     { amount = Amount.fromFloat 1
-                                    , complementsImpacts = Impact.empty
+                                    , complementsImpacts = Impact.emptyComplementsResultsImpacts
                                     , impacts = Impact.empty
                                     , items = []
                                     , label = Nothing
@@ -151,7 +151,7 @@ suite =
                             getTestEcsImpact transforms =
                                 Component.Results
                                     { amount = Amount.fromFloat 1
-                                    , complementsImpacts = Impact.empty
+                                    , complementsImpacts = Impact.emptyComplementsResultsImpacts
                                     , impacts = Impact.empty
                                     , items = []
                                     , label = Nothing
@@ -208,7 +208,7 @@ suite =
                                 [ it "should reject when the unit of the material and the transforms do not match"
                                     (Component.Results
                                         { amount = Amount.fromFloat 1
-                                        , complementsImpacts = Impact.empty
+                                        , complementsImpacts = Impact.emptyComplementsResultsImpacts
                                         , impacts = Impact.empty
                                         , items = []
                                         , label = Nothing
@@ -226,7 +226,7 @@ suite =
                             getTestResults transforms =
                                 Component.Results
                                     { amount = Amount.fromFloat 1
-                                    , complementsImpacts = Impact.empty |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 100)
+                                    , complementsImpacts = Impact.emptyComplementsResultsImpacts
                                     , impacts = Impact.empty |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 100)
                                     , items = []
                                     , label = Nothing
@@ -1012,7 +1012,7 @@ extractEcsImpact =
 
 extractComplementEcsImpact : Component.Results -> Float
 extractComplementEcsImpact =
-    Component.extractComplementsImpacts >> getEcsImpact
+    Component.extractComplementsImpacts >> Impact.mergeComplementsResultsImpacts >> getEcsImpact
 
 
 getEcsImpact : Impacts -> Float
