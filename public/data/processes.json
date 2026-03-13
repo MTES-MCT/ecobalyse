@@ -2853,7 +2853,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -5057,7 +5058,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -22036,7 +22038,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "t⋅km",
@@ -22077,7 +22080,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "t⋅km",
@@ -24151,7 +24155,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -28851,7 +28856,8 @@
     "massPerUnit": null,
     "scopes": [
       "textile",
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "t⋅km",
@@ -33554,7 +33560,8 @@
       "textile",
       "veli",
       "object",
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "t⋅km",
@@ -33598,7 +33605,8 @@
       "textile",
       "veli",
       "object",
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "t⋅km",
