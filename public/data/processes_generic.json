@@ -661,7 +661,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Custom",
     "unit": "MJ",
@@ -706,7 +707,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Custom",
     "unit": "MJ",
@@ -3236,7 +3238,8 @@
     "scopes": [
       "food",
       "textile",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -3281,7 +3284,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -3332,6 +3336,50 @@
     "waste": 0
   },
   {
+    "activityName": "electricity, medium voltage//[BR] market group for electricity, medium voltage",
+    "categories": [
+      "energy"
+    ],
+    "comment": "Ancien identifiant (12/2024): 825dae104f028cb558dac151f7c45f03.",
+    "displayName": "Électricité moyenne tension, Brésil",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "8180de0a-7456-4d37-a460-36a0b6a392fe",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 18.144,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "BR",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "textile",
+      "food2"
+    ],
+    "source": "Ecoinvent 3.9.1",
+    "unit": "kWh",
+    "waste": 0
+  },
+  {
     "activityName": "electricity, medium voltage//[CN] market group for electricity, medium voltage",
     "categories": [
       "energy"
@@ -3370,7 +3418,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -3415,7 +3464,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -3595,7 +3645,52 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
+    ],
+    "source": "Ecoinvent 3.9.1",
+    "unit": "kWh",
+    "waste": 0
+  },
+  {
+    "activityName": "electricity, medium voltage//[KE] market for electricity, medium voltage",
+    "categories": [
+      "energy"
+    ],
+    "comment": "Ancien identifiant (12/2024): e5f92d33532b4e649da2541b264fa363.",
+    "displayName": "Électricité moyenne tension, Kenya",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "9c5f603c-3c31-4b97-9357-f381d3c66435",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 15.206,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "KE",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "textile",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -3684,7 +3779,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -3772,6 +3868,94 @@
     "metadata": null,
     "scopes": [
       "veli"
+    ],
+    "source": "Ecoinvent 3.9.1",
+    "unit": "kWh",
+    "waste": 0
+  },
+  {
+    "activityName": "electricity, medium voltage//[NZ] market for electricity, medium voltage",
+    "categories": [
+      "energy"
+    ],
+    "comment": "Ancien identifiant (12/2024): 609797e4710a81c9903bc72c141ff191.",
+    "displayName": "Électricité moyenne tension, Nouvelle-Zélande",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "079000da-8513-4615-82ae-97468da7d6b4",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 7.8692,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "NZ",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "textile",
+      "food2"
+    ],
+    "source": "Ecoinvent 3.9.1",
+    "unit": "kWh",
+    "waste": 0
+  },
+  {
+    "activityName": "electricity, medium voltage//[PE] market for electricity, medium voltage",
+    "categories": [
+      "energy"
+    ],
+    "comment": "Ancien identifiant (12/2024): debdaaba938a58ac1ab0131e47186092.",
+    "displayName": "Électricité moyenne tension, Pérou",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "545b9602-f81a-4bcd-a343-94627dc1a353",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 37.134,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "PE",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "textile",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -3948,7 +4132,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -3993,7 +4178,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -4038,7 +4224,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -4083,7 +4270,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -4128,7 +4316,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -4173,7 +4362,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -4264,6 +4454,50 @@
       "textile",
       "object",
       "veli"
+    ],
+    "source": "Ecoinvent 3.9.1",
+    "unit": "kWh",
+    "waste": 0
+  },
+  {
+    "activityName": "electricity, medium voltage//[US] market group for electricity, medium voltage",
+    "categories": [
+      "energy"
+    ],
+    "comment": "Ancien identifiant (12/2024): 99b549d4ba7a0f5f4ab6050d6a6689ad.",
+    "displayName": "Électricité moyenne tension, USA",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "aefbf44a-93bb-4177-9cfa-61c1f47e4130",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 28.881,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "US",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "textile",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
