@@ -13291,6 +13291,27 @@
     "visible": true
   },
   {
+    "activityName": "Meat without bone, beef for direct consumption {{beef-without-bone-2026}}",
+    "alias": "beef-without-bone-2026",
+    "categories": [
+      "animal_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": null,
+    "id": "efa9522f-e793-4241-911e-6908ccf85c1e",
+    "inediblePart": 0,
+    "landOccupation": 20.485,
+    "location": "FR",
+    "name": "Viande de boeuf sans os - vache de réforme",
+    "processId": "8ca7af76-b49a-4f9e-bc06-909da1640956",
+    "rawToCookedRatio": 0.792,
+    "scenario": "reference",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
     "activityName": "Sunflower, at farm {FR} - Adapted from WFLDB U",
     "alias": "sunflower-fr",
     "categories": [
