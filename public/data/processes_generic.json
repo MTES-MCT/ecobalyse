@@ -1,5 +1,225 @@
 [
   {
+    "activityName": "Canning fruits or vegetables, industrial, 1kg of canned product {FR} U",
+    "categories": [
+      "transformation"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024.\nThis dataset is gate-to-gate and covers all stages from peeled fruit or vegetable to canned fruit or vegetable: slicing of fruit or vegetable, can filling and sterilization. It is assumed to take place in France. Consequently, all datasets are chosen for France and Europe, when not available for France.\nThe figure below represents the life cycle boundaries.\nThe downstream stages from plant gate to consumer are out of scope, in accordance with the Agribalyse 3.0 methodology. The following stages are excluded from the system:\no The washing of fruit and vegetable prior to canning (excluded in Agribalyse 3.0 LCIs)\no The production and EoLof packaging, included elsewhere in upstream or downstream LCIs in Agribalyse v3.0\n\nThe figure represents the system modelling.\n\nA review of bibliography has been done to collect data on canning processes, along with an interview with a French canning process expert. The expert reviewed and validated the data collected from literature. Our research on vegetables led to compiling five studies, calculating the average electricity, steam and water consumption for each step of the canning process. For fruits, we reviewed the data for peach canning, which amounted to a single study (Folinas et al., 2015). The data was considered not robust enough, leading to excluding fruit canning from the scope of the model.\n_From the bibliography and the interview with a canning expert, we derived the energy consumptions for the vegetable canning process see section 8. One study provided the total energy consumption for canning (steam and electricity), it was used as a reference (Rao, 1977).  As explained previously, considering that water and steam circulates in a closed loop throughout the process, only the energy for pumping and heating water has been considered in the modelling of the water circuit.\n_The canning process involves water and steam consumption. However, according to the data provided by our canning process expert, water and steam are processed within a closed loop. Thus, water consumption for steam, cooling and other processes was not included in the scope. In order to calculate the water quantity in the cans, we calculated an average among data from Openfoodfacts website (Google Play app, 2019)\n_In the Cradle to Consumer Life Cycle Greenhouse Gas Accounting of Sweet Corn in Minnesota (Miller, 2017) considers the addition of 7,27 g of salt per kg of canned corn. This value has been adopted after validation by our canning expert.\n_The food losses at the sub-steps of the process have not been modelled. The loss are modelled at a global process level. Therefore, a 1% default loss rate is applied at the end of the process. This is a conservative approach since all flows are augmented by 1%. The resulting waste (food, water and salt) are included in the inventory.\n_Emissions are related to solid waste due to the global product loss. Consequently, 1% of input food, water and salt are treated at the end of life.\n_ Transportation is not modelled in the inventory, as it is already accounted for in the electricity and salt inventories. The electricity inventory is an ecoinvent \"market\" inventory accounting for electricity transportation, and the salt Acyvia inventory relies on an ecoinvent sodium chloride \"market\" inventory.\n_ The packaging life cycle is not included. The future practitioner will be in charge of adding the appropriate packaging manufacture and end of life, as well as the 1% loss rate related to the canning process.",
+    "displayName": "Mise en conserve",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "b797d2cc-1ecb-4fa0-b049-48b44a88e283",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 19.54,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "FR",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "food",
+      "food2"
+    ],
+    "source": "Agribalyse 3.2",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Cooking, industrial, 1kg of cooked product {FR} U",
+    "categories": [
+      "transformation"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024.\nThis dataset is gate-to-gate and models the cooking process of 1 kg of food, by considering an equal-weight average of a frying process, an oven-baking process and a boiling process for 1 kg of food. For the 3 processes, the machineries have been excluded since we consider a lifetime of 10 years for the appliances, and a large batch size.\n_Frying : The process includes electricity consumption and cooking oil consumption. It does not include air emissions life-cycle, by lack of data. The appliance life-cycle was excluded from the scope.\n_Boiling : The process includes electricity consumption and cooking oil consumption. It does not include air emissions life-cycle, by lack of data.  The appliance life-cycle was excluded from the scope.\nThe process includes electricity consumption. It excludes air emission due to lack of data. The appliance life-cycle was excluded from the scope.\nIn the development of Agribalyse 3.0, the upstream life-cycle stages of the food product, downstream life cycle stages and packaging from gate to consumer are added separately.\n\n_Energy consumption : The energy consumption data was found consistent with basic thermal calculations based on BREF generic data. For boiling (blanching), the energy consumption for gas boiling has been averaged between the data presented for potato blanching and the data presented for pasta boiling (Fusi et al., 2016; Wu et al., 2012). For frying, the energy consumption has been extracted from a study on potato frying as French fries (Mouron et al., 2016).\n_Additional ingredients : Additional ingredients accounted for are tap water, for boiling, and rapeseed oil, for frying.\n_Emissions : Emissions to air (water from boiling) and emissions to water are included for boiling process\n_Waste management : or the frying process, used oil is collected separately to be purified. According to the decree on 12th July 201, the collection of used cooking oil is mandatory in order to recycle it (Legifrance, 2011). In January 2016, the obligation threshold was lowered at 60 tons per year, meaning this obligation is applicable to a large amount of food industries.  We used the ecoinvent dataset: \"Used vegetable cooking oil, purified (FR) treatment of used vegetable cooking oil, purification, Cut-off, U - Copied from Ecoinvent\". The geographical scope for the ecoinvent dataset is French specific and covers all the end of life process: collection, transport, effluent treatment, storage and credits for the recovered oil. Other solid wastes are out of scope (Appliances at end of life and maintenance and cleaning material).\n_Transport : we used \"market for\" datasets already (transportation already included in these datasets). \n_",
+    "displayName": "Cuisson",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "e297d2a0-1945-4f48-838f-fbbb4a6cde72",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 17.421,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "FR",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "food",
+      "food2"
+    ],
+    "source": "Agribalyse 3.2",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling {GLO}| transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling | Cut-off, S - Copied from Ecoinvent U",
+    "categories": [
+      "transport"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024.\noriginal ecoinvent name: Transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling {GLO}| transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling | Cut-off, S\n\nhttps://db3.ecoinvent.org/images/4482b28c-ed41-487d-b331-d306ca598890 [Image URL, right click copy paste to a browser to view]\n\nThis dataset represents transport of goods in lorry with atmosphere controlled (temperature, humidity, etc.) storage space set up for cooling.\n\nWhile the majority of the atmosphere controlled (cold chain, refrigerated transport) road transportation is conducted with truck with semi-trailer in the cities this goods is often transported by smaller rigid trucks with refrigeration machine.\n\nProduction volume: 7853151232 tkm\nIncluded activities start: This activity starts with input of fuel, road and vehicle infrastructure including refrigeration machine. It includes also exhaust and non-exhaust emissions.\nIncluded activities end: This datasets combines the transport of 1 ton of goods over 1km by a lorry with refrigeration machine. The goods themselves are not included.\nEnergy values: Undefined\nGeography: The inventory is modelled for Global\nTechnology level: Modern\nTechnology: https://db3.ecoinvent.org/images/1a5c3ed8-2d10-4eae-9d60-d43536cce3ff [Image URL, right click copy paste to a browser to view]\n\nThe construction of the refrigeration machine does not change very much in time. What might be changing is the 1) type of refrigerant, 2) energy consumption - efficiency and 3) leakage of the refrigerant. \n\nThe datasets on transport, freight, lorry with refrigeration machine present in the ecoinvent database represent several scenarios with different type of refrigerant, energy consumption and leakage of the refrigerant.. \n\nThe technology level is set reflecting the EURO classification, i.e. EURO3 is the oldest technology and EURO6 the newest. The R134a refrigerant is currently most widely used refrigerant, while the carbon dioxide, liquid is the newer more “environmentally friendly” solution. Therefore all the lorries using the carbon dioxide, liquid as refrigerant have higher level of technology than those using the R134a as refrigerant.\nStart date: 01/01/2010\nEnd date: 31/12/2022\nIs data valid for entire period: True\nTime period: \nMacro-economic scenario name: Business-as-Usual\n\nVersion: 6.3.0.0\nCreated: 3/7/2019 3:49:11 PM\nLast edited: 7/9/2021 10:50:33 AM\nSource: 52ddc44a-24dd-575e-9757-81498cde3d29_6b2100b5-c781-422a-ba0a-31594ab30d93.spold\nUUID: 52ddc44a-24dd-575e-9757-81498cde3d29",
+    "displayName": "Camion frigorifique",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "7ce0e82a-0b26-48fd-b260-0d8f4ed25001",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 23.86,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "GLO",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "food",
+      "food2"
+    ],
+    "source": "Agribalyse 3.2",
+    "unit": "t⋅km",
+    "waste": 0
+  },
+  {
+    "activityName": "Transport, freight, sea, container ship with reefer, cooling {GLO}| transport, freight, sea, container ship with reefer, cooling | Cut-off, S - Copied from Ecoinvent U",
+    "categories": [
+      "transport"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024.\noriginal ecoinvent name: Transport, freight, sea, container ship with reefer, cooling {GLO}| transport, freight, sea, container ship with reefer, cooling | Cut-off, S\n\nThis dataset represent transport of reefer (refrigerated container) on a transoceanic ship. The operation mode of the reefer is cooling (temperature between 0°C and 20°C).\n\nhttps://db3.ecoinvent.org/images/453a0c34-92cd-4c70-8b3b-65d25b220752 [Image URL, right click copy paste to a browser to view]\n\nThe amount of operation of the reefer needed is calculated using the assumption of the average speed of the transoceanic ship.\n\nTransoceanic ship carying reefers (http://www.hellenicshippingnews.com/cma-cgm-is-launching-the-citrus-express-service-for-seasonal-exportation-of-fruits-between-east-med-and-black-sea/, accessed 20141216).\n\nProduction volume: 1687175936 tkm\nIncluded activities start: This dataset simply combine two other activities - transport, freight, sea, transoceanic ship and operation of reefer, For more information on these two activities please see the datasets representing these two activities.\nIncluded activities end: \nEnergy values: Undefined\nGeography: The inventory is modelled for Global\nTechnology level: Current\nTechnology: \nStart date: 01/01/2010\nEnd date: 31/12/2022\nIs data valid for entire period: True\nTime period: \nMacro-economic scenario name: Business-as-Usual\n\nVersion: 2.3.0.0\nCreated: 12/16/2014 2:44:34 PM\nLast edited: 5/22/2019 9:22:18 AM\nSource: 4ffaefcb-7595-5da3-9958-19526a043a4f_01a057ac-2e84-43d3-8017-1af3a47b84c1.spold\nUUID: 4ffaefcb-7595-5da3-9958-19526a043a4f",
+    "displayName": "Bateau frigorifique",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "9eefe92d-37af-4446-829e-2a75c8bf2690",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 2.5849,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "GLO",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "food",
+      "food2"
+    ],
+    "source": "Agribalyse 3.2",
+    "unit": "t⋅km",
+    "waste": 0
+  },
+  {
+    "activityName": "[Dummy] Mixing, processing, at plant {FR} U",
+    "categories": [
+      "transformation"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024\nThis dataset is empty by lack of data representing this product.",
+    "displayName": "Mélange",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "69f0860c-9966-4c18-9cd8-fc2017e5a8af",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "FR",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "food",
+      "food2"
+    ],
+    "source": "Agribalyse 3.2",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "This process is not linked to a Brightway activity",
     "categories": [
       "transformation"
@@ -441,7 +661,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Custom",
     "unit": "MJ",
@@ -486,7 +707,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Custom",
     "unit": "MJ",
@@ -1780,6 +2002,51 @@
     "waste": 0
   },
   {
+    "activityName": "market for transport, freight, aircraft, long haul, with longtails, GLO",
+    "categories": [
+      "transport"
+    ],
+    "comment": "Ancien identifiant : d3130e7ed9686fcc4bbe980e0375ad88 (12/2024) ; puis ajout des trainées (12/2025)",
+    "displayName": "transport aérien long-courrier",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "6e9035eb-0632-43a9-92be-e77e6d3f1c1f",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 88.593,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "GLO",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "textile",
+      "food",
+      "food2"
+    ],
+    "source": "Ecobalyse",
+    "unit": "t⋅km",
+    "waste": 0
+  },
+  {
     "activityName": "petrol, E10, EURO6",
     "categories": [
       "energy",
@@ -2971,7 +3238,8 @@
     "scopes": [
       "food",
       "textile",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -3016,7 +3284,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -3067,6 +3336,50 @@
     "waste": 0
   },
   {
+    "activityName": "electricity, medium voltage//[BR] market group for electricity, medium voltage",
+    "categories": [
+      "energy"
+    ],
+    "comment": "Ancien identifiant (12/2024): 825dae104f028cb558dac151f7c45f03.",
+    "displayName": "Électricité moyenne tension, Brésil",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "8180de0a-7456-4d37-a460-36a0b6a392fe",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 18.144,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "BR",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "textile",
+      "food2"
+    ],
+    "source": "Ecoinvent 3.9.1",
+    "unit": "kWh",
+    "waste": 0
+  },
+  {
     "activityName": "electricity, medium voltage//[CN] market group for electricity, medium voltage",
     "categories": [
       "energy"
@@ -3105,7 +3418,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -3150,7 +3464,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -3330,7 +3645,52 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
+    ],
+    "source": "Ecoinvent 3.9.1",
+    "unit": "kWh",
+    "waste": 0
+  },
+  {
+    "activityName": "electricity, medium voltage//[KE] market for electricity, medium voltage",
+    "categories": [
+      "energy"
+    ],
+    "comment": "Ancien identifiant (12/2024): e5f92d33532b4e649da2541b264fa363.",
+    "displayName": "Électricité moyenne tension, Kenya",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "9c5f603c-3c31-4b97-9357-f381d3c66435",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 15.206,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "KE",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "textile",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -3419,7 +3779,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -3507,6 +3868,94 @@
     "metadata": null,
     "scopes": [
       "veli"
+    ],
+    "source": "Ecoinvent 3.9.1",
+    "unit": "kWh",
+    "waste": 0
+  },
+  {
+    "activityName": "electricity, medium voltage//[NZ] market for electricity, medium voltage",
+    "categories": [
+      "energy"
+    ],
+    "comment": "Ancien identifiant (12/2024): 609797e4710a81c9903bc72c141ff191.",
+    "displayName": "Électricité moyenne tension, Nouvelle-Zélande",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "079000da-8513-4615-82ae-97468da7d6b4",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 7.8692,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "NZ",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "textile",
+      "food2"
+    ],
+    "source": "Ecoinvent 3.9.1",
+    "unit": "kWh",
+    "waste": 0
+  },
+  {
+    "activityName": "electricity, medium voltage//[PE] market for electricity, medium voltage",
+    "categories": [
+      "energy"
+    ],
+    "comment": "Ancien identifiant (12/2024): debdaaba938a58ac1ab0131e47186092.",
+    "displayName": "Électricité moyenne tension, Pérou",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "545b9602-f81a-4bcd-a343-94627dc1a353",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 37.134,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "PE",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "textile",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -3683,7 +4132,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -3728,7 +4178,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -3773,7 +4224,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -3818,7 +4270,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -3863,7 +4316,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -3908,7 +4362,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -3999,6 +4454,50 @@
       "textile",
       "object",
       "veli"
+    ],
+    "source": "Ecoinvent 3.9.1",
+    "unit": "kWh",
+    "waste": 0
+  },
+  {
+    "activityName": "electricity, medium voltage//[US] market group for electricity, medium voltage",
+    "categories": [
+      "energy"
+    ],
+    "comment": "Ancien identifiant (12/2024): 99b549d4ba7a0f5f4ab6050d6a6689ad.",
+    "displayName": "Électricité moyenne tension, USA",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "aefbf44a-93bb-4177-9cfa-61c1f47e4130",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 28.881,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "US",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "textile",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -6107,7 +6606,8 @@
       "textile",
       "veli",
       "object",
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "t⋅km",
@@ -6153,7 +6653,8 @@
       "textile",
       "veli",
       "object",
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "t⋅km",

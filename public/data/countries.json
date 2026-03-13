@@ -14,7 +14,7 @@
     "electricityProcessId": "ee114bf1-8c51-5c1e-8065-d762400447e2",
     "heatProcessId": "f6ea2983-e024-5de2-b323-273f2436deba",
     "name": "Région - Europe de l'Ouest",
-    "scopes": ["textile", "object", "veli", "food"],
+    "scopes": ["textile", "object", "veli", "food", "food2"],
     "zone": "Europe"
   },
   {
@@ -23,7 +23,7 @@
     "electricityProcessId": "5ee392cf-954e-56c8-b555-427d55023548",
     "heatProcessId": "f6ea2983-e024-5de2-b323-273f2436deba",
     "name": "Région - Europe de l'Est",
-    "scopes": ["textile", "object", "veli", "food"],
+    "scopes": ["textile", "object", "veli", "food", "food2"],
     "zone": "Europe"
   },
   {
@@ -32,7 +32,7 @@
     "electricityProcessId": "a2129ece-5dd9-5e66-969c-2603b3c97244",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Région - Asie",
-    "scopes": ["textile", "object", "veli", "food"],
+    "scopes": ["textile", "object", "veli", "food", "food2"],
     "zone": "Asia"
   },
   {
@@ -41,7 +41,7 @@
     "electricityProcessId": "15958106-68d0-5130-8ed8-d8557cdcc1fa",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Région - Afrique",
-    "scopes": ["textile", "object", "veli", "food"],
+    "scopes": ["textile", "object", "veli", "food", "food2"],
     "zone": "Africa"
   },
   {
@@ -50,7 +50,7 @@
     "electricityProcessId": "fe6437fa-5d9a-5a7f-a2a8-430066232e5c",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Région - Moyen-Orient",
-    "scopes": ["textile", "object", "veli", "food"],
+    "scopes": ["textile", "object", "veli", "food", "food2"],
     "zone": "Middle_East"
   },
   {
@@ -59,7 +59,7 @@
     "electricityProcessId": "aa315629-988f-5886-bafe-247821f356fc",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Région - Amérique Latine",
-    "scopes": ["textile", "object", "veli", "food"],
+    "scopes": ["textile", "object", "veli", "food", "food2"],
     "zone": "South_America"
   },
   {
@@ -68,7 +68,7 @@
     "electricityProcessId": "6911c87b-6cf9-5b33-be9a-e50a9e132575",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Région - Amérique du nord",
-    "scopes": ["textile", "object", "veli", "food"],
+    "scopes": ["textile", "object", "veli", "food", "food2"],
     "zone": "North_America"
   },
   {
@@ -77,7 +77,7 @@
     "electricityProcessId": "05bcd5b4-09eb-5f9c-8a02-fd9d91412ccf",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Région - Océanie",
-    "scopes": ["textile", "object", "veli", "food"],
+    "scopes": ["textile", "object", "veli", "food", "food2"],
     "zone": "Oceania"
   },
   {
@@ -104,7 +104,7 @@
     "electricityProcessId": "2fac57eb-e7e7-5008-94fa-a943010112df",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Brésil",
-    "scopes": ["food"],
+    "scopes": ["food", "food2"],
     "zone": "South_America"
   },
   {
@@ -113,7 +113,7 @@
     "electricityProcessId": "251fa8f5-3e07-5f37-8bed-fa42a367f262",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Chine",
-    "scopes": ["food", "textile", "object", "veli"],
+    "scopes": ["food", "food2", "textile", "object", "veli"],
     "zone": "Asia"
   },
   {
@@ -131,7 +131,7 @@
     "electricityProcessId": "5d7e3f90-7c23-560d-bc71-8e726fb4549e",
     "heatProcessId": "f6ea2983-e024-5de2-b323-273f2436deba",
     "name": "Espagne",
-    "scopes": ["food"],
+    "scopes": ["food", "food2"],
     "zone": "Europe"
   },
   {
@@ -140,7 +140,7 @@
     "electricityProcessId": "931c9bb0-619a-5f75-b41b-ab8061e2ad92",
     "heatProcessId": "f6ea2983-e024-5de2-b323-273f2436deba",
     "name": "France",
-    "scopes": ["food", "textile", "object", "veli"],
+    "scopes": ["food", "food2", "textile", "object", "veli"],
     "zone": "Europe"
   },
   {
@@ -158,7 +158,7 @@
     "electricityProcessId": "56055c38-1483-56c0-97d7-d66e66665a0c",
     "heatProcessId": "f6ea2983-e024-5de2-b323-273f2436deba",
     "name": "Italie",
-    "scopes": ["food", "object", "veli"],
+    "scopes": ["food", "food2", "object", "veli"],
     "zone": "Europe"
   },
   {
@@ -167,7 +167,7 @@
     "electricityProcessId": "73bfddbc-a57d-51f4-80dc-3c3fc9477dcb",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Kenya",
-    "scopes": ["food"],
+    "scopes": ["food", "food2"],
     "zone": "Africa"
   },
   {
@@ -185,7 +185,7 @@
     "electricityProcessId": "a3197e15-9193-5212-8be9-77a3a9961d96",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Maroc",
-    "scopes": ["food", "textile", "object", "veli"],
+    "scopes": ["food", "food2", "textile", "object", "veli"],
     "zone": "Africa"
   },
   {
@@ -203,7 +203,7 @@
     "electricityProcessId": "2d7bf521-6ab0-5e08-9175-75ae8835a4fa",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Nouvelle-Zélande",
-    "scopes": ["food"],
+    "scopes": ["food", "food2"],
     "zone": "Oceania"
   },
   {
@@ -212,7 +212,7 @@
     "electricityProcessId": "239bfc03-92d6-5a23-bba9-877ffb6d1757",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Pérou",
-    "scopes": ["food"],
+    "scopes": ["food", "food2"],
     "zone": "South_America"
   },
   {
@@ -266,7 +266,7 @@
     "electricityProcessId": "5756830a-a96c-5303-b6aa-a15cc727daaa",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Etats-Unis",
-    "scopes": ["food"],
+    "scopes": ["food", "food2"],
     "zone": "North_America"
   },
   {
