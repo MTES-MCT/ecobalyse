@@ -4,6 +4,7 @@ module Views.Format exposing
     , cubicMeters
     , days
     , diff
+    , formatComplementsResultsImpactsToString
     , formatFloat
     , formatImpact
     , formatImpactFloat
@@ -62,6 +63,34 @@ formatImpact { decimals, trigram, unit } =
     Impact.getImpact trigram
         >> Unit.impactToFloat
         >> formatRichFloat decimals unit
+
+
+formatImpactToString : Definition -> Impacts -> String
+formatImpactToString { decimals, trigram } =
+    Impact.getImpact trigram
+        >> Unit.impactToFloat
+        >> formatFloat decimals
+
+
+formatComplementsResultsImpactsToString : Definition -> Impact.ComplementsResultsImpacts -> String
+formatComplementsResultsImpactsToString impact complementsResultsImpacts =
+    let
+        formatComplement complementFn label =
+            complementsResultsImpacts
+                |> complementFn
+                |> Maybe.map (formatImpactToString impact >> (++) (label ++ "\u{00A0}: "))
+    in
+    [ formatComplement .cropDiversity Impact.complementsLabels.cropDiversity
+    , formatComplement .forest Impact.complementsLabels.forest
+    , formatComplement .hedges Impact.complementsLabels.hedges
+    , formatComplement .livestockDensity Impact.complementsLabels.livestockDensity
+    , formatComplement .microfibers Impact.complementsLabels.microfibers
+    , formatComplement .outOfEuropeEOL Impact.complementsLabels.outOfEuropeEOL
+    , formatComplement .permanentPasture Impact.complementsLabels.permanentPasture
+    , formatComplement .plotSize Impact.complementsLabels.plotSize
+    ]
+        |> List.filterMap identity
+        |> String.join "\n"
 
 
 {-| Formats a float with a provided decimal precision, which is overriden

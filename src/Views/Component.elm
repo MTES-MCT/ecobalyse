@@ -684,7 +684,7 @@ elementView config targetItem elementIndex { amount, country, material, transfor
             , th [] []
             ]
             :: elementMaterialView config ( targetItem, elementIndex ) materialResults material amount
-            :: elementTransformsView config ( targetItem, elementIndex ) country transformsResults transforms
+            ++ elementTransformsView config ( targetItem, elementIndex ) country transformsResults transforms
             ++ (if config.scope /= Scope.Textile then
                     [ tr []
                         [ td [ colspan 2 ] []
@@ -726,9 +726,13 @@ selectMaterialButton config ( targetItem, elementIndex ) material =
         ]
 
 
-elementMaterialView : Config db msg -> TargetElement -> Results -> Process -> Amount -> Html msg
+elementMaterialView : Config db msg -> TargetElement -> Results -> Process -> Amount -> List (Html msg)
 elementMaterialView config targetElement materialResults material amount =
-    tr [ class "fs-7" ]
+    let
+        complementsImpacts =
+            Component.extractComplementsImpacts materialResults
+    in
+    [ tr [ class "fs-7" ]
         [ td [] []
         , td [ class "text-end align-middle text-nowrap ps-0", style "min-width" "130px" ]
             [ if config.scope == Scope.Textile then
@@ -746,7 +750,7 @@ elementMaterialView config targetElement materialResults material amount =
                 |> Format.amount material
             ]
         , td [ class "text-end align-middle text-nowrap" ]
-            [ Component.extractImpacts materialResults
+            [ Impact.sumImpacts [ Component.extractImpacts materialResults, Impact.mergeComplementsResultsImpacts complementsImpacts ]
                 |> Format.formatImpact config.impact
             ]
         , td [ class "pe-3 text-nowrap" ]
@@ -758,6 +762,32 @@ elementMaterialView config targetElement materialResults material amount =
                 [ Icon.trash ]
             ]
         ]
+    , if complementsImpacts /= Impact.emptyComplementsResultsImpacts then
+        tr [ class "fs-7" ]
+            [ td [] []
+            , td [ class "text-end align-middle text-nowrap ps-0", style "min-width" "130px" ]
+                []
+            , td
+                [ class "align-middle text-truncate w-100 text-muted cursor-help"
+                , title (Format.formatComplementsResultsImpactsToString config.impact complementsImpacts)
+                ]
+                [ text "Dont compléments" ]
+            , td [ class "text-end align-middle text-nowrap" ]
+                []
+            , td [ class "text-end align-middle text-nowrap" ]
+                []
+            , td [ class "text-end align-middle text-nowrap" ]
+                [ complementsImpacts
+                    |> Impact.mergeComplementsResultsImpacts
+                    |> Format.formatImpact config.impact
+                ]
+            , td [ class "pe-3 text-nowrap" ]
+                []
+            ]
+
+      else
+        text ""
+    ]
 
 
 elementTransformsView : Config db msg -> TargetElement -> Maybe Country -> List Results -> List Process -> List (Html msg)

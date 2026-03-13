@@ -53,6 +53,7 @@ module Data.Component exposing
     , expandElements
     , expandItems
     , extractAmount
+    , extractComplementsImpacts
     , extractImpacts
     , extractItems
     , extractMass
@@ -97,7 +98,7 @@ import Data.Common.EncodeUtils as EU
 import Data.Component.Amount as Amount exposing (Amount)
 import Data.Component.Config as Config exposing (EndOfLifeStrategies, EndOfLifeStrategy)
 import Data.Country as Country exposing (Country)
-import Data.Impact as Impact exposing (Impacts)
+import Data.Impact as Impact exposing (ComplementsResultsImpacts, Impacts)
 import Data.Impact.Definition exposing (Definitions, Trigram)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category, MaterialDict)
@@ -284,6 +285,7 @@ type alias LifeCycleTransport =
 type Results
     = Results
         { amount : Amount
+        , complementsImpacts : ComplementsResultsImpacts
         , impacts : Impacts
         , items : List Results
         , label : Maybe String
@@ -370,7 +372,8 @@ addResults : Results -> Results -> Results
 addResults (Results results) (Results acc) =
     Results
         { acc
-            | impacts = Impact.sumImpacts [ results.impacts, acc.impacts ]
+            | complementsImpacts = Impact.sumComplementsResultsImpacts [ results.complementsImpacts, acc.complementsImpacts ]
+            , impacts = Impact.sumImpacts [ results.impacts, acc.impacts ]
             , items = Results results :: acc.items
             , mass = Quantity.sum [ results.mass, acc.mass ]
             , stage = Nothing
@@ -378,7 +381,7 @@ addResults (Results results) (Results acc) =
 
 
 applyTransform : EnergyMixes -> Process -> Results -> Results
-applyTransform { elec, heat } transform (Results { amount, label, impacts, items, mass }) =
+applyTransform { elec, heat } transform (Results { amount, label, impacts, items, mass, complementsImpacts }) =
     let
         transformImpacts =
             [ transform.impacts
@@ -399,12 +402,14 @@ applyTransform { elec, heat } transform (Results { amount, label, impacts, items
     in
     Results
         { amount = outputAmount
+        , complementsImpacts = complementsImpacts
         , impacts = Impact.sumImpacts [ transformImpacts, impacts ]
         , items =
             items
                 ++ [ -- transform result
                      Results
                         { amount = outputAmount
+                        , complementsImpacts = Impact.emptyComplementsResultsImpacts
                         , impacts = transformImpacts
                         , items = []
                         , label = Just <| Process.getDisplayName transform
@@ -568,9 +573,13 @@ computeItemResults requirements { country, custom, id, quantity } =
             )
         |> Result.map (List.foldr addResults emptyResults)
         |> Result.map
-            (\(Results { impacts, mass, materialType, items }) ->
+            (\(Results { complementsImpacts, impacts, mass, materialType, items }) ->
                 Results
                     { amount = Amount.fromFloat 0
+                    , complementsImpacts =
+                        complementsImpacts
+                            |> List.repeat (quantityToInt quantity)
+                            |> Impact.sumComplementsResultsImpacts
                     , impacts =
                         impacts
                             |> List.repeat (quantityToInt quantity)
@@ -617,6 +626,30 @@ computeItemTransportToAssembly { config, db } assemblyCountry item itemResults =
     )
 
 
+applyComplementsResultsImpacts : Amount -> Impacts -> Impact.ComplementsImpacts -> ComplementsResultsImpacts
+applyComplementsResultsImpacts amount impacts complementsImpacts =
+    let
+        applyComplement : Maybe Unit.Impact -> Maybe Impacts
+        applyComplement complement =
+            complement
+                |> Maybe.map
+                    (\c ->
+                        impacts
+                            |> Impact.applyComplements c
+                            |> Impact.multiplyBy (Amount.toFloat amount)
+                    )
+    in
+    { cropDiversity = applyComplement complementsImpacts.cropDiversity
+    , forest = applyComplement complementsImpacts.forest
+    , hedges = applyComplement complementsImpacts.hedges
+    , livestockDensity = applyComplement complementsImpacts.livestockDensity
+    , microfibers = applyComplement complementsImpacts.microfibers
+    , outOfEuropeEOL = applyComplement complementsImpacts.outOfEuropeEOL
+    , permanentPasture = applyComplement complementsImpacts.permanentPasture
+    , plotSize = applyComplement complementsImpacts.plotSize
+    }
+
+
 computeMaterialResults : Amount -> Process -> Results
 computeMaterialResults amount process =
     let
@@ -624,6 +657,12 @@ computeMaterialResults amount process =
             -- Note: materials impacts embed energy ones
             process.impacts
                 |> Impact.multiplyBy (Amount.toFloat amount)
+
+        complementImpacts =
+            process.metadata
+                |> Maybe.andThen .complements
+                |> Maybe.map (\c -> applyComplementsResultsImpacts amount Impact.empty c)
+                |> Maybe.withDefault Impact.emptyComplementsResultsImpacts
 
         mass =
             Mass.kilograms <|
@@ -643,11 +682,13 @@ computeMaterialResults amount process =
     -- global result
     Results
         { amount = amount
+        , complementsImpacts = complementImpacts
         , impacts = impacts
         , items =
             [ -- material result
               Results
                 { amount = amount
+                , complementsImpacts = complementImpacts
                 , impacts = impacts
                 , items = []
                 , label = Just <| Process.getDisplayName process
@@ -951,6 +992,7 @@ emptyResults : Results
 emptyResults =
     Results
         { amount = Amount.fromFloat 0
+        , complementsImpacts = Impact.emptyComplementsResultsImpacts
         , impacts = Impact.empty
         , items = []
         , label = Nothing
@@ -1041,8 +1083,7 @@ encodeLifeCycle maybeTrigram lifeCycle =
                 Just trigram ->
                     lifeCycle.endOfLife
                         |> Impact.getImpact trigram
-                        |> Unit.impactToFloat
-                        |> Encode.float
+                        |> Unit.encodeImpact
 
                 Nothing ->
                     Impact.encode lifeCycle.endOfLife
@@ -1077,6 +1118,31 @@ encodeQuery query =
         ]
 
 
+encodeComplementsResultsImpacts : Maybe Trigram -> ComplementsResultsImpacts -> Encode.Value
+encodeComplementsResultsImpacts maybeTrigram complementsResultsImpacts =
+    let
+        encodeComplement complement =
+            case maybeTrigram of
+                Just trigram ->
+                    complement
+                        |> Impact.getImpact trigram
+                        |> Unit.encodeImpact
+
+                Nothing ->
+                    Impact.encode complement
+    in
+    EU.optionalPropertiesObject
+        [ ( "cropDiversity", complementsResultsImpacts.cropDiversity |> Maybe.map encodeComplement )
+        , ( "forest", complementsResultsImpacts.forest |> Maybe.map encodeComplement )
+        , ( "hedges", complementsResultsImpacts.hedges |> Maybe.map encodeComplement )
+        , ( "livestockDensity", complementsResultsImpacts.livestockDensity |> Maybe.map encodeComplement )
+        , ( "microfibers", complementsResultsImpacts.microfibers |> Maybe.map encodeComplement )
+        , ( "outOfEuropeEOL", complementsResultsImpacts.outOfEuropeEOL |> Maybe.map encodeComplement )
+        , ( "permanentPasture", complementsResultsImpacts.permanentPasture |> Maybe.map encodeComplement )
+        , ( "plotSize", complementsResultsImpacts.plotSize |> Maybe.map encodeComplement )
+        ]
+
+
 encodeResults : Maybe Trigram -> Results -> Encode.Value
 encodeResults maybeTrigram (Results results) =
     EU.optionalPropertiesObject
@@ -1085,14 +1151,16 @@ encodeResults maybeTrigram (Results results) =
         , ( "mass", results.mass |> Mass.inKilograms |> Encode.float |> Just )
         , ( "materialType", results.materialType |> Maybe.map (Category.materialTypeToString >> Encode.string) )
         , ( "quantity", results.quantity |> Encode.int |> Just )
+        , ( "complementsImpacts"
+          , results.complementsImpacts |> encodeComplementsResultsImpacts maybeTrigram |> Just
+          )
         , ( "impacts"
           , Just <|
                 case maybeTrigram of
                     Just trigram ->
                         results.impacts
                             |> Impact.getImpact trigram
-                            |> Unit.impactToFloat
-                            |> Encode.float
+                            |> Unit.encodeImpact
 
                     Nothing ->
                         Impact.encode results.impacts
@@ -1194,6 +1262,11 @@ expandItems db =
 extractAmount : Results -> Amount
 extractAmount (Results { amount }) =
     amount
+
+
+extractComplementsImpacts : Results -> ComplementsResultsImpacts
+extractComplementsImpacts (Results { complementsImpacts }) =
+    complementsImpacts
 
 
 extractImpacts : Results -> Impacts
@@ -1593,6 +1666,7 @@ sumLifeCycleImpacts : LifeCycle -> Impacts
 sumLifeCycleImpacts lifeCycle =
     Impact.sumImpacts
         [ extractImpacts lifeCycle.production
+        , extractComplementsImpacts lifeCycle.production |> Impact.mergeComplementsResultsImpacts
         , lifeCycle.endOfLife
         , lifeCycle.transports.toAssembly.impacts
         , lifeCycle.transports.toDistribution.impacts
