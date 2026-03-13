@@ -17,7 +17,11 @@ describe("lib.http", () => {
         "https://plausible.example.com",
         "https://sentry.example.com",
       ]);
-      expect(directives["frame-src"]).toEqual(["'self'", "https://matomo.example.com"]);
+      expect(directives["frame-src"]).toEqual([
+        "'self'",
+        "https://matomo.example.com",
+        "https://plausible.example.com",
+      ]);
       expect(directives["script-src"]).toEqual([
         "'self'",
         "'unsafe-inline'",

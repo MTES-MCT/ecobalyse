@@ -1,6 +1,5 @@
 module Data.Component exposing
-    ( Amount(..)
-    , Component
+    ( Component
     , Config
     , Custom
     , DataContainer
@@ -23,7 +22,6 @@ module Data.Component exposing
     , addElementTransform
     , addItem
     , addOrSetProcess
-    , amountToFloat
     , applyTransforms
     , compute
     , computeElementResults
@@ -41,6 +39,7 @@ module Data.Component exposing
     , defaultConfig
     , elementTransforms
     , elementsToString
+    , emptyComponent
     , emptyLifeCycle
     , emptyQuery
     , emptyResults
@@ -95,6 +94,7 @@ module Data.Component exposing
 import Base64
 import Data.Common.DecodeUtils as DU
 import Data.Common.EncodeUtils as EU
+import Data.Component.Amount as Amount exposing (Amount)
 import Data.Component.Config as Config exposing (EndOfLifeStrategies, EndOfLifeStrategy)
 import Data.Country as Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
@@ -118,6 +118,7 @@ import Mass exposing (Mass)
 import Quantity
 import Result.Extra as RE
 import Url.Parser as Parser exposing (Parser)
+import Views.Format as Format
 
 
 type Id
@@ -129,7 +130,7 @@ type Id
 type alias Component =
     { comment : Maybe String
     , elements : List Element
-    , id : Id
+    , id : Maybe Id
     , name : String
     , published : Bool
     , scope : Scope
@@ -174,7 +175,7 @@ and optional overrides, typically used for queries
 type alias Item =
     { country : Maybe Country.Code
     , custom : Maybe Custom
-    , id : Id
+    , id : Maybe Id
     , quantity : Quantity
     }
 
@@ -241,12 +242,6 @@ type alias TargetElement =
 -}
 type alias TargetItem =
     ( Component, Index )
-
-
-{-| An amount of some element
--}
-type Amount
-    = Amount Float
 
 
 {-| A number of components
@@ -327,7 +322,7 @@ addElement targetItem material items =
                     { custom
                         | elements =
                             custom.elements
-                                ++ [ { amount = Amount 1, material = material.id, transforms = [] } ]
+                                ++ [ { amount = Amount.fromFloat 1, material = material.id, transforms = [] } ]
                     }
                 )
             |> Ok
@@ -345,9 +340,9 @@ addElementTransform targetElement transform items =
             |> Ok
 
 
-addItem : Id -> List Item -> List Item
-addItem id items =
-    items ++ [ createItem id ]
+addItem : Maybe Id -> List Item -> List Item
+addItem maybeId items =
+    items ++ [ createItem maybeId ]
 
 
 addOrSetProcess : Category -> TargetItem -> Maybe Index -> Process -> List Item -> Result String (List Item)
@@ -382,11 +377,6 @@ addResults (Results results) (Results acc) =
         }
 
 
-amountToFloat : Amount -> Float
-amountToFloat (Amount float) =
-    float
-
-
 applyTransform : EnergyMixes -> Process -> Results -> Results
 applyTransform { elec, heat } transform (Results { amount, label, impacts, items, mass }) =
     let
@@ -397,7 +387,7 @@ applyTransform { elec, heat } transform (Results { amount, label, impacts, items
             ]
                 |> Impact.sumImpacts
                 -- Note: impacts are always computed from input amount
-                |> Impact.multiplyBy (amountToFloat amount)
+                |> Impact.multiplyBy (Amount.toFloat amount)
 
         outputAmount =
             amount |> applyWaste transform.waste
@@ -451,7 +441,7 @@ applyTransforms config maybeCountry unit transforms materialResults =
 
 applyWaste : Split -> Amount -> Amount
 applyWaste waste =
-    mapAmount (\amount -> amount - (amount * Split.toFloat waste))
+    Amount.map (\amount -> amount - (amount * Split.toFloat waste))
 
 
 checkTransformsUnit : Process.Unit -> List Process -> Result String (List Process)
@@ -469,6 +459,26 @@ checkTransformsUnit unit transforms =
 
     else
         Ok transforms
+
+
+{-| Create a component from a custom definition
+-}
+componentFromCustom : Maybe Component -> Maybe Custom -> Component
+componentFromCustom maybeComponent maybeCustom =
+    let
+        component =
+            maybeComponent |> Maybe.withDefault emptyComponent
+    in
+    case maybeCustom of
+        Just { elements, name, scope } ->
+            { component
+                | elements = elements
+                , name = name |> Maybe.withDefault component.name
+                , scope = scope |> Maybe.withDefault component.scope
+            }
+
+        Nothing ->
+            component
 
 
 {-| Computes impacts from a list of available components, processes and specified component items
@@ -520,8 +530,8 @@ computeInitialAmount wastes amount =
     else
         wastes
             |> List.foldr
-                (\waste (Amount float) ->
-                    Amount <| float / (1 - Split.toFloat waste)
+                (\waste ->
+                    Amount.map (\float -> float / (1 - Split.toFloat waste))
                 )
                 amount
             |> Ok
@@ -541,7 +551,12 @@ computeItemResults : Requirements db -> Item -> Result String Results
 computeItemResults requirements { country, custom, id, quantity } =
     let
         component_ =
-            findById id requirements.db.components
+            case id of
+                Just id_ ->
+                    findById id_ requirements.db.components
+
+                Nothing ->
+                    Ok emptyComponent
     in
     component_
         |> Result.andThen
@@ -555,7 +570,7 @@ computeItemResults requirements { country, custom, id, quantity } =
         |> Result.map
             (\(Results { impacts, mass, materialType, items }) ->
                 Results
-                    { amount = Amount 0
+                    { amount = Amount.fromFloat 0
                     , impacts =
                         impacts
                             |> List.repeat (quantityToInt quantity)
@@ -608,16 +623,16 @@ computeMaterialResults amount process =
         impacts =
             -- Note: materials impacts embed energy ones
             process.impacts
-                |> Impact.multiplyBy (amountToFloat amount)
+                |> Impact.multiplyBy (Amount.toFloat amount)
 
         mass =
             Mass.kilograms <|
                 if process.unit == Process.Kilogram then
-                    amountToFloat amount
+                    Amount.toFloat amount
 
                 else
                     -- apply mass per unit
-                    amountToFloat amount * Maybe.withDefault 1 process.massPerUnit
+                    Amount.toFloat amount * Maybe.withDefault 1 process.massPerUnit
 
         materialType =
             Process.getMaterialTypes process
@@ -756,17 +771,17 @@ computeUseImpacts { db } { consumptions } lifeCycle =
                         expandedConsumptions
                             |> List.map
                                 (\( amount, { impacts } ) ->
-                                    impacts |> Impact.multiplyBy (amountToFloat amount)
+                                    impacts |> Impact.multiplyBy (Amount.toFloat amount)
                                 )
                 }
             )
 
 
-createItem : Id -> Item
-createItem id =
+createItem : Maybe Id -> Item
+createItem maybeId =
     { country = Nothing
     , custom = Nothing
-    , id = id
+    , id = maybeId
     , quantity = quantityFromInt 1
     }
 
@@ -781,7 +796,7 @@ decode =
     Decode.succeed Component
         |> DU.strictOptional "comment" Decode.string
         |> Decode.required "elements" (Decode.list decodeElement)
-        |> Decode.required "id" (Decode.map Id Uuid.decoder)
+        |> DU.strictOptional "id" (Decode.map Id Uuid.decoder)
         |> Decode.required "name" Decode.string
         -- If there is no published field provided, we’re reading the values from
         -- static files and by default, all components in the static files should
@@ -807,7 +822,7 @@ decodeBase64Query =
 decodeConsumption : Decoder Consumption
 decodeConsumption =
     Decode.succeed Consumption
-        |> Decode.required "amount" (Decode.map Amount Decode.float)
+        |> Decode.required "amount" Amount.decode
         |> Decode.required "processId" Process.decodeId
 
 
@@ -824,7 +839,7 @@ decodeCustom =
 decodeElement : Decoder Element
 decodeElement =
     Decode.succeed Element
-        |> Decode.required "amount" (Decode.map Amount Decode.float)
+        |> Decode.required "amount" Amount.decode
         |> Decode.required "material" Process.decodeId
         |> Decode.optional "transforms" (Decode.list Process.decodeId) []
 
@@ -834,7 +849,7 @@ decodeItem =
     Decode.succeed Item
         |> DU.strictOptional "country" Country.decodeCode
         |> DU.strictOptional "custom" decodeCustom
-        |> Decode.required "id" (Decode.map Id Uuid.decoder)
+        |> DU.strictOptional "id" (Decode.map Id Uuid.decoder)
         |> Decode.required "quantity" decodeQuantity
 
 
@@ -885,7 +900,7 @@ elementToString processes element =
         |> Process.findById element.material
         |> Result.map
             (\process ->
-                String.fromFloat (amountToFloat element.amount)
+                Format.formatFloat 5 (Amount.toFloat element.amount)
                     ++ Process.unitToString process.unit
                     ++ " "
                     ++ Process.getDisplayName process
@@ -935,7 +950,7 @@ emptyQuery =
 emptyResults : Results
 emptyResults =
     Results
-        { amount = Amount 0
+        { amount = Amount.fromFloat 0
         , impacts = Impact.empty
         , items = []
         , label = Nothing
@@ -948,13 +963,13 @@ emptyResults =
 
 encode : Component -> Encode.Value
 encode v =
-    Encode.object
-        [ ( "comment", v.comment |> Maybe.map Encode.string |> Maybe.withDefault Encode.null )
-        , ( "elements", v.elements |> Encode.list encodeElement )
-        , ( "id", v.id |> encodeId )
-        , ( "name", v.name |> Encode.string )
-        , ( "published", v.published |> Encode.bool )
-        , ( "scopes", [ v.scope ] |> Encode.list Scope.encode )
+    EU.optionalPropertiesObject
+        [ ( "comment", v.comment |> Maybe.map Encode.string )
+        , ( "elements", v.elements |> Encode.list encodeElement |> Just )
+        , ( "id", v.id |> Maybe.map encodeId )
+        , ( "name", v.name |> Encode.string |> Just )
+        , ( "published", v.published |> Encode.bool |> Just )
+        , ( "scopes", [ v.scope ] |> Encode.list Scope.encode |> Just )
         ]
 
 
@@ -966,7 +981,7 @@ encodeBase64Query =
 encodeConsumption : Consumption -> Encode.Value
 encodeConsumption v =
     Encode.object
-        [ ( "amount", v.amount |> amountToFloat |> Encode.float )
+        [ ( "amount", v.amount |> Amount.toFloat |> Encode.float )
         , ( "processId", v.processId |> Process.encodeId )
         ]
 
@@ -997,7 +1012,7 @@ encodeCustom custom =
 encodeElement : Element -> Encode.Value
 encodeElement element =
     Encode.object
-        [ ( "amount", element.amount |> amountToFloat |> Encode.float )
+        [ ( "amount", Amount.encode element.amount )
         , ( "material", Process.encodeId element.material )
         , ( "transforms", element.transforms |> Encode.list Process.encodeId )
         ]
@@ -1011,7 +1026,7 @@ encodeId =
 encodeItem : Item -> Encode.Value
 encodeItem item =
     EU.optionalPropertiesObject
-        [ ( "id", item.id |> idToString |> Encode.string |> Just )
+        [ ( "id", item.id |> Maybe.map (idToString >> Encode.string) )
         , ( "quantity", item.quantity |> quantityToInt |> Encode.int |> Just )
         , ( "country", item.country |> Maybe.map Country.encodeCode )
         , ( "custom", item.custom |> Maybe.map encodeCustom )
@@ -1120,34 +1135,53 @@ expandElements db maybeCountry =
     RE.combineMap (expandElement db maybeCountry)
 
 
-expandItem : DataContainer a -> Item -> Result String ExpandedItem
-expandItem ({ components, countries } as db) { country, custom, id, quantity } =
-    findById id components
-        |> Result.andThen
-            (\component ->
-                countries
-                    |> Country.resolveMaybe country
-                    |> Result.andThen
-                        (\maybeCountry ->
-                            custom
-                                |> customElements component
-                                |> expandElements db country
-                                |> Result.map
-                                    (\expandedElements ->
-                                        { component =
-                                            case custom |> Maybe.andThen .name of
-                                                Just customName ->
-                                                    { component | name = customName }
+expandItem : DataContainer db -> Item -> Result String ExpandedItem
+expandItem db { country, custom, id, quantity } =
+    case id of
+        Just id_ ->
+            db.components
+                |> findById id_
+                |> Result.andThen (expandExistingItem db country custom quantity)
 
-                                                Nothing ->
-                                                    component
-                                        , country = maybeCountry
-                                        , elements = expandedElements
-                                        , quantity = quantity
-                                        }
-                                    )
+        Nothing ->
+            expandNewItem db country custom quantity
+
+
+expandExistingItem : DataContainer db -> Maybe Country.Code -> Maybe Custom -> Quantity -> Component -> Result String ExpandedItem
+expandExistingItem db country custom quantity component =
+    db.countries
+        |> Country.resolveMaybe country
+        |> Result.andThen
+            (\maybeCountry ->
+                custom
+                    |> customElements component
+                    |> expandElements db country
+                    |> Result.map
+                        (\expandedElements ->
+                            { component = custom |> componentFromCustom (Just component)
+                            , country = maybeCountry
+                            , elements = expandedElements
+                            , quantity = quantity
+                            }
                         )
             )
+
+
+expandNewItem : DataContainer db -> Maybe Country.Code -> Maybe Custom -> Quantity -> Result String ExpandedItem
+expandNewItem db country custom quantity =
+    let
+        newComponent =
+            custom |> componentFromCustom Nothing
+    in
+    Ok ExpandedItem
+        |> RE.andMap (Ok newComponent)
+        |> RE.andMap (Country.resolveMaybe country db.countries)
+        |> RE.andMap
+            (custom
+                |> customElements newComponent
+                |> expandElements db country
+            )
+        |> RE.andMap (Ok quantity)
 
 
 {-| Take a list of component items and resolve them with actual components and processes
@@ -1181,7 +1215,7 @@ extractMass (Results { mass }) =
 -}
 findById : Id -> List Component -> Result String Component
 findById id =
-    List.filter (.id >> (==) id)
+    List.filter (.id >> (==) (Just id))
         >> List.head
         >> Result.fromMaybe ("Aucun composant avec id=" ++ idToString id)
 
@@ -1311,11 +1345,17 @@ idToString (Id uuid) =
 
 isCustomized : Component -> Custom -> Bool
 isCustomized component custom =
-    List.any identity
-        [ custom.elements /= component.elements
-        , custom.name /= Nothing && custom.name /= Just component.name
-        , custom.scope /= Nothing && custom.scope /= Just component.scope
-        ]
+    case component.id of
+        Just _ ->
+            List.any identity
+                [ custom.elements /= component.elements
+                , custom.name /= Nothing && custom.name /= Just component.name
+                , custom.scope /= Nothing && custom.scope /= Just component.scope
+                ]
+
+        -- New component are always customized
+        Nothing ->
+            True
 
 
 isEmpty : Component -> Bool
@@ -1332,45 +1372,53 @@ itemElements ( component, itemIndex ) =
 
 itemToComponent : DataContainer db -> Item -> Result String Component
 itemToComponent { components } { custom, id } =
-    findById id components
-        |> Result.map
-            (\component ->
-                case custom of
-                    Just { elements, name, scope } ->
-                        { component
-                            | elements = elements
-                            , name = name |> Maybe.withDefault component.name
-                            , scope = scope |> Maybe.withDefault component.scope
-                        }
+    case id of
+        Just id_ ->
+            findById id_ components
+                |> Result.map (\component -> custom |> componentFromCustom (Just component))
 
-                    Nothing ->
-                        component
-            )
+        Nothing ->
+            custom |> componentFromCustom Nothing |> Ok
+
+
+emptyComponent : Component
+emptyComponent =
+    { comment = Nothing
+    , elements = []
+    , id = Nothing
+    , name = ""
+    , published = False
+    , scope = Scope.Object
+    }
 
 
 itemToString : DataContainer db -> Item -> Result String String
 itemToString db { custom, id, quantity } =
-    db.components
-        |> findById id
-        |> Result.andThen
-            (\component ->
-                custom
-                    |> customElements component
-                    |> RE.combineMap (elementToString db.processes)
-                    |> Result.map (String.join " | ")
-                    |> Result.map
-                        (\processesString ->
-                            String.fromInt (quantityToInt quantity)
-                                ++ " "
-                                ++ (custom
-                                        |> Maybe.andThen .name
-                                        |> Maybe.withDefault component.name
-                                   )
-                                ++ " [ "
-                                ++ processesString
-                                ++ " ]"
-                        )
-            )
+    let
+        toString component =
+            custom
+                |> customElements component
+                |> RE.combineMap (elementToString db.processes)
+                |> Result.map (String.join " | ")
+                |> Result.map
+                    (\processesString ->
+                        String.fromInt (quantityToInt quantity)
+                            ++ " "
+                            ++ (custom |> componentFromCustom (Just component) |> .name)
+                            ++ " [ "
+                            ++ processesString
+                            ++ " ]"
+                    )
+    in
+    case id of
+        Just id_ ->
+            findById id_ db.components
+                |> Result.andThen toString
+
+        Nothing ->
+            custom
+                |> componentFromCustom Nothing
+                |> toString
 
 
 itemsToString : DataContainer db -> List Item -> Result String String
@@ -1390,11 +1438,6 @@ loadEnergyMixes config =
                 , heat = config.production.defaultHeatProcess
                 }
             )
-
-
-mapAmount : (Float -> Float) -> Amount -> Amount
-mapAmount fn (Amount float) =
-    Amount <| fn float
 
 
 mapItems : (List Item -> List Item) -> Query -> Query
@@ -1560,7 +1603,7 @@ sumLifeCycleImpacts lifeCycle =
 toSearchableString : DataContainer db -> Component -> String
 toSearchableString db component =
     String.join " "
-        [ component.id |> idToString
+        [ component.id |> Maybe.map idToString |> Maybe.withDefault ""
         , component.name
         , component.comment |> Maybe.withDefault ""
         , component |> elementsToString db |> Result.withDefault ""
@@ -1661,12 +1704,20 @@ updateItem itemIndex =
 
 validateItem : List Component -> Item -> Result String Item
 validateItem components item =
-    findById item.id components
-        |> Result.andThen
-            (always <|
-                if quantityToInt item.quantity < 1 then
-                    Err "La quantité doit être un nombre entier positif"
+    if quantityToInt item.quantity < 1 then
+        Err "La quantité doit être un nombre entier positif"
 
-                else
-                    Ok item
-            )
+    else
+        case item.id of
+            Just id ->
+                case findById id components of
+                    Err err ->
+                        Err err
+
+                    Ok _ ->
+                        -- component exists
+                        Ok item
+
+            Nothing ->
+                -- component is being created
+                Ok item

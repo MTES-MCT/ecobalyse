@@ -14,6 +14,7 @@ import Browser.Events
 import Browser.Navigation as Navigation
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Component as Component exposing (Component, Index, TargetElement, TargetItem)
+import Data.Component.Amount as Amount exposing (Amount)
 import Data.Country as Country
 import Data.Dataset as Dataset
 import Data.Env as Env
@@ -81,6 +82,7 @@ type Modal
 
 type Msg
     = CopyToClipBoard String
+    | CreateComponent
     | DeleteBookmark Bookmark
     | ExportBookmarks
     | ImportBookmarks
@@ -119,9 +121,9 @@ type Msg
     | UpdateComponentItemCountry Index (Maybe Country.Code)
     | UpdateComponentItemName TargetItem String
     | UpdateComponentItemQuantity Index Component.Quantity
-    | UpdateConsumptionAmount Index (Maybe Component.Amount)
+    | UpdateConsumptionAmount Index (Maybe Amount)
     | UpdateDurability (Result String Unit.Ratio)
-    | UpdateElementAmount TargetElement (Maybe Component.Amount)
+    | UpdateElementAmount TargetElement (Maybe Amount)
     | UpdateRenamedBookmarkName Bookmark String
 
 
@@ -277,6 +279,10 @@ update ({ navKey } as session) msg model =
         ( CopyToClipBoard shareableLink, _ ) ->
             createPageUpdate session model
                 |> App.withCmds [ Ports.copyToClipboard shareableLink ]
+
+        ( CreateComponent, _ ) ->
+            createPageUpdate session model
+                |> createComponent query
 
         ( DeleteBookmark bookmark, _ ) ->
             model
@@ -539,8 +545,7 @@ update ({ navKey } as session) msg model =
             createPageUpdate session model
                 |> updateQuery
                     (query
-                        |> Component.mapItems
-                            (Component.updateItem itemIndex (\item -> { item | country = country }))
+                        |> Component.mapItems (Component.updateItem itemIndex (\item -> { item | country = country }))
                     )
                 |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
 
@@ -548,16 +553,14 @@ update ({ navKey } as session) msg model =
             createPageUpdate session model
                 |> updateQuery
                     (query
-                        |> Component.mapItems
-                            (Component.updateItemCustomName targetItem name)
+                        |> Component.mapItems (Component.updateItemCustomName targetItem name)
                     )
 
         ( UpdateComponentItemQuantity itemIndex quantity, _ ) ->
             createPageUpdate session model
                 |> updateQuery
                     (query
-                        |> Component.mapItems
-                            (Component.updateItem itemIndex (\item -> { item | quantity = quantity }))
+                        |> Component.mapItems (Component.updateItem itemIndex (\item -> { item | quantity = quantity }))
                     )
                 |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
 
@@ -605,6 +608,28 @@ createPageUpdate session model =
                 _ ->
                     Ports.addBodyClass "prevent-scrolling"
             ]
+
+
+createComponent : Component.Query -> PageUpdate Model Msg -> PageUpdate Model Msg
+createComponent query ({ model, session } as pageUpdate) =
+    let
+        baseItem =
+            Component.createItem Nothing
+
+        newItem =
+            { baseItem | custom = Just { name = Just "Nouveau composant", elements = [], scope = Nothing } }
+    in
+    pageUpdate
+        -- add new item to query
+        |> updateQuery { query | items = query.items ++ [ newItem ] }
+        -- open material process selection modal
+        |> App.apply update
+            (ComponentView.createMaterialProcessAutocomplete session.db model.scope
+                |> SelectProcessModal Category.Material ( Component.emptyComponent, List.length query.items ) Nothing
+                |> SetModal
+            )
+        -- expand item row
+        |> App.apply update (SetDetailedComponents (LE.unique (List.length query.items :: model.detailedComponents)))
 
 
 isAutocompleteModal : Modal -> Bool
@@ -661,7 +686,7 @@ selectConsumption query autocompleteState ({ model } as pageUpdate) =
                     { query
                         | consumptions =
                             query.consumptions
-                                ++ [ { amount = Component.Amount 1, processId = process.id } ]
+                                ++ [ { amount = Amount.fromFloat 1, processId = process.id } ]
                     }
                 |> App.apply update (SetModal NoModal)
                 |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ConsumptionAdded model.scope ]
@@ -728,7 +753,7 @@ simulatorView session model =
                 ]
             , durabilityView currentDurability
             , ComponentView.editorView
-                { addLabel = "Ajouter un composant"
+                { addLabel = "Ajouter un composant existant"
                 , componentConfig = session.componentConfig
                 , context = ComponentView.ObjectContext
                 , db = session.db
@@ -738,6 +763,7 @@ simulatorView session model =
                 , explorerRoute = Just (Route.Explore model.scope (Dataset.Components model.scope Nothing))
                 , impact = model.impact
                 , noOp = NoOp
+                , openCreateComponentModal = CreateComponent
                 , openSelectComponentModal = AddComponentModal >> SetModal
                 , openSelectProcessModal =
                     \p ti ei s ->

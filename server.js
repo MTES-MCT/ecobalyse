@@ -106,11 +106,26 @@ function processOpenApi(contents, versionNumber) {
   contents.version = versionNumber;
   return contents;
 }
-// Processes
-const processesImpacts = fs.readFileSync(dataFiles.detailed, "utf8");
-const processes = fs.readFileSync(dataFiles.noDetails, "utf8");
 
-const getProcesses = async (headers, customProcessesImpacts, customProcesses) => {
+// Processes
+//
+// Merge generic and legacy format for the time being. To do so we need to parse the JSON
+// concat the arrays and the stringify again the whole thing
+// Elm decoders should handle the differences between the two formats
+
+const processesImpacts = JSON.stringify(
+  JSON.parse(fs.readFileSync(dataFiles.detailed, "utf8").toString()).concat(
+    JSON.parse(fs.readFileSync(dataFiles.genericDetailed, "utf8")),
+  ),
+);
+
+const processes = JSON.stringify(
+  JSON.parse(fs.readFileSync(dataFiles.noDetails, "utf8").toString()).concat(
+    JSON.parse(fs.readFileSync(dataFiles.genericNoDetails, "utf8")),
+  ),
+);
+
+const getProcesses = async (headers) => {
   let isValidToken = false;
   const token = extractTokenFromHeaders(headers);
 
@@ -128,9 +143,9 @@ const getProcesses = async (headers, customProcessesImpacts, customProcesses) =>
   }
 
   if (NODE_ENV === "test" || isValidToken) {
-    return customProcessesImpacts ?? processesImpacts;
+    return processesImpacts;
   } else {
-    return customProcesses ?? processes;
+    return processes;
   }
 };
 

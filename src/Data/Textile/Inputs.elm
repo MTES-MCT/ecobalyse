@@ -278,7 +278,7 @@ stagesToStrings wellKnown inputs =
                )
             ++ (case inputs.physicalDurability of
                     Just physicalDurability ->
-                        ", durabilité physique " ++ String.fromFloat (Unit.physicalDurabilityToFloat physicalDurability)
+                        ", durabilité physique " ++ Format.formatFloat 3 (Unit.physicalDurabilityToFloat physicalDurability)
 
                     Nothing ->
                         ""
@@ -295,7 +295,7 @@ stagesToStrings wellKnown inputs =
         ]
     , case inputs.yarnSize of
         Just yarnSize ->
-            [ "titrage", String.fromFloat (Unit.yarnSizeInKilometers yarnSize) ++ "Nm" ]
+            [ "titrage", Format.formatFloat 3 (Unit.yarnSizeInKilometers yarnSize) ++ "Nm" ]
 
         Nothing ->
             []

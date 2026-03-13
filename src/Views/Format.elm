@@ -30,7 +30,7 @@ module Views.Format exposing
     )
 
 import Area exposing (Area)
-import Data.Component as Component
+import Data.Component.Amount as Amount exposing (Amount)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Definition)
 import Data.Process as Process exposing (Process)
@@ -159,11 +159,11 @@ complement impact =
         ]
 
 
-amount : Process -> Component.Amount -> Html msg
+amount : Process -> Amount -> Html msg
 amount { unit } amount_ =
     let
         floatAmount =
-            Component.amountToFloat amount_
+            Amount.toFloat amount_
     in
     case unit of
         Process.CubicMeter ->
