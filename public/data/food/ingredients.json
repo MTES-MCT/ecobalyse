@@ -13291,21 +13291,15 @@
     "visible": true
   },
   {
-    "activityName": "Meat without bone, beef for direct consumption {{beef-without-bone}}",
-    "alias": "beef-without-bone",
+    "activityName": "Meat without bone, beef for direct consumption {{beef-without-bone-2026}}",
+    "alias": "beef-without-bone-2026",
     "categories": [
       "animal_product"
     ],
     "cropGroup": null,
     "defaultOrigin": "France",
     "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 39.57,
-      "livestockDensity": -0.00255,
-      "permanentPasture": 30.63,
-      "plotSize": 33.371
-    },
+    "ecosystemicServices": null,
     "id": "efa9522f-e793-4241-911e-6908ccf85c1e",
     "inediblePart": 0,
     "landOccupation": 20.485,
