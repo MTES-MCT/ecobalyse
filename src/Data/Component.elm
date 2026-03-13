@@ -101,7 +101,7 @@ import Data.Common.EncodeUtils as EU
 import Data.Component.Amount as Amount exposing (Amount)
 import Data.Component.Config as Config exposing (EndOfLifeStrategies, EndOfLifeStrategy)
 import Data.Country as Country exposing (Country)
-import Data.Impact as Impact exposing (Impacts)
+import Data.Impact as Impact exposing (ComplementsResultsImpacts, Impacts)
 import Data.Impact.Definition exposing (Definitions, Trigram)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category, MaterialDict)
@@ -288,7 +288,7 @@ type alias LifeCycleTransport =
 type Results
     = Results
         { amount : Amount
-        , complementsImpacts : Impacts
+        , complementsImpacts : ComplementsResultsImpacts
         , impacts : Impacts
         , items : List Results
         , label : Maybe String
@@ -375,7 +375,7 @@ addResults : Results -> Results -> Results
 addResults (Results results) (Results acc) =
     Results
         { acc
-            | complementsImpacts = Impact.sumImpacts [ results.complementsImpacts, acc.complementsImpacts ]
+            | complementsImpacts = Impact.sumComplementsResultsImpacts [ results.complementsImpacts, acc.complementsImpacts ]
             , impacts = Impact.sumImpacts [ results.impacts, acc.impacts ]
             , items = Results results :: acc.items
             , mass = Quantity.sum [ results.mass, acc.mass ]
@@ -424,7 +424,7 @@ applyTransform { elec, heat } transform (Results { amount, label, impacts, items
                 ++ [ -- transform result
                      Results
                         { amount = outputAmount
-                        , complementsImpacts = Impact.empty
+                        , complementsImpacts = Impact.emptyComplementsResultsImpacts
                         , impacts = transformImpacts
                         , items = []
                         , label = Just <| Process.getDisplayName transform
@@ -594,7 +594,7 @@ computeItemResults requirements { country, custom, id, quantity } =
                     , complementsImpacts =
                         complementsImpacts
                             |> List.repeat (quantityToInt quantity)
-                            |> Impact.sumImpacts
+                            |> Impact.sumComplementsResultsImpacts
                     , impacts =
                         impacts
                             |> List.repeat (quantityToInt quantity)
@@ -641,6 +641,30 @@ computeItemTransportToAssembly { config, db } assemblyCountry item itemResults =
     )
 
 
+applyComplementsResultsImpacts : Amount -> Impacts -> Impact.ComplementsImpacts -> ComplementsResultsImpacts
+applyComplementsResultsImpacts amount impacts complementsImpacts =
+    let
+        applyComplement : Maybe Unit.Impact -> Maybe Impacts
+        applyComplement complement =
+            complement
+                |> Maybe.map
+                    (\c ->
+                        impacts
+                            |> Impact.applyComplements c
+                            |> Impact.multiplyBy (Amount.toFloat amount)
+                    )
+    in
+    { cropDiversity = applyComplement complementsImpacts.cropDiversity
+    , forest = applyComplement complementsImpacts.forest
+    , hedges = applyComplement complementsImpacts.hedges
+    , livestockDensity = applyComplement complementsImpacts.livestockDensity
+    , microfibers = applyComplement complementsImpacts.microfibers
+    , outOfEuropeEOL = applyComplement complementsImpacts.outOfEuropeEOL
+    , permanentPasture = applyComplement complementsImpacts.permanentPasture
+    , plotSize = applyComplement complementsImpacts.plotSize
+    }
+
+
 computeMaterialResults : Amount -> Process -> Results
 computeMaterialResults amount process =
     let
@@ -650,18 +674,10 @@ computeMaterialResults amount process =
                 |> Impact.multiplyBy (Amount.toFloat amount)
 
         complementImpacts =
-            Impact.empty
-                |> Impact.applyComplements
-                    (process.metadata
-                        |> Maybe.andThen .complements
-                        |> Maybe.andThen .forest
-                        -- To stay compatible with the current implementation, we need to negate the
-                        -- complements scores because `applyComplements` always substract the value where
-                        -- the values of the new metadata should be added instead
-                        |> Maybe.map Quantity.negate
-                        |> Maybe.withDefault Unit.noImpacts
-                    )
-                |> Impact.multiplyBy (Amount.toFloat amount)
+            process.metadata
+                |> Maybe.andThen .complements
+                |> Maybe.map (\c -> applyComplementsResultsImpacts amount Impact.empty c)
+                |> Maybe.withDefault Impact.emptyComplementsResultsImpacts
 
         mass =
             Mass.kilograms <|
@@ -996,7 +1012,7 @@ emptyResults : Results
 emptyResults =
     Results
         { amount = Amount.fromFloat 0
-        , complementsImpacts = Impact.empty
+        , complementsImpacts = Impact.emptyComplementsResultsImpacts
         , impacts = Impact.empty
         , items = []
         , label = Nothing
@@ -1122,6 +1138,31 @@ encodeQuery query =
         ]
 
 
+encodeComplementsResultsImpacts : Maybe Trigram -> ComplementsResultsImpacts -> Encode.Value
+encodeComplementsResultsImpacts maybeTrigram complementsResultsImpacts =
+    let
+        encodeComplement complement =
+            case maybeTrigram of
+                Just trigram ->
+                    complement
+                        |> Impact.getImpact trigram
+                        |> Unit.encodeImpact
+
+                Nothing ->
+                    Impact.encode complement
+    in
+    EU.optionalPropertiesObject
+        [ ( "cropDiversity", complementsResultsImpacts.cropDiversity |> Maybe.map encodeComplement )
+        , ( "forest", complementsResultsImpacts.forest |> Maybe.map encodeComplement )
+        , ( "hedges", complementsResultsImpacts.hedges |> Maybe.map encodeComplement )
+        , ( "livestockDensity", complementsResultsImpacts.livestockDensity |> Maybe.map encodeComplement )
+        , ( "microfibers", complementsResultsImpacts.microfibers |> Maybe.map encodeComplement )
+        , ( "outOfEuropeEOL", complementsResultsImpacts.outOfEuropeEOL |> Maybe.map encodeComplement )
+        , ( "permanentPasture", complementsResultsImpacts.permanentPasture |> Maybe.map encodeComplement )
+        , ( "plotSize", complementsResultsImpacts.plotSize |> Maybe.map encodeComplement )
+        ]
+
+
 encodeResults : Maybe Trigram -> Results -> Encode.Value
 encodeResults maybeTrigram (Results results) =
     EU.optionalPropertiesObject
@@ -1131,15 +1172,7 @@ encodeResults maybeTrigram (Results results) =
         , ( "materialType", results.materialType |> Maybe.map (Category.materialTypeToString >> Encode.string) )
         , ( "quantity", results.quantity |> Encode.int |> Just )
         , ( "complementsImpacts"
-          , Just <|
-                case maybeTrigram of
-                    Just trigram ->
-                        results.complementsImpacts
-                            |> Impact.getImpact trigram
-                            |> Unit.encodeImpact
-
-                    Nothing ->
-                        Impact.encode results.complementsImpacts
+          , results.complementsImpacts |> encodeComplementsResultsImpacts maybeTrigram |> Just
           )
         , ( "impacts"
           , Just <|
@@ -1251,7 +1284,7 @@ extractAmount (Results { amount }) =
     amount
 
 
-extractComplementsImpacts : Results -> Impacts
+extractComplementsImpacts : Results -> ComplementsResultsImpacts
 extractComplementsImpacts (Results { complementsImpacts }) =
     complementsImpacts
 
@@ -1657,7 +1690,7 @@ sumLifeCycleImpacts : LifeCycle -> Impacts
 sumLifeCycleImpacts lifeCycle =
     Impact.sumImpacts
         [ extractImpacts lifeCycle.production
-        , extractComplementsImpacts lifeCycle.production
+        , extractComplementsImpacts lifeCycle.production |> Impact.mergeComplementsResultsImpacts
         , lifeCycle.endOfLife
         , lifeCycle.transports.toAssembly.impacts
         , lifeCycle.transports.toDistribution.impacts

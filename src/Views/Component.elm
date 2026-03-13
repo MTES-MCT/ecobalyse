@@ -756,7 +756,7 @@ elementMaterialView config targetElement materialResults material amount =
                 |> Format.amount material
             ]
         , td [ class "text-end align-middle text-nowrap" ]
-            [ Impact.sumImpacts [ Component.extractImpacts materialResults, complementsImpacts ]
+            [ Impact.sumImpacts [ Component.extractImpacts materialResults, Impact.mergeComplementsResultsImpacts complementsImpacts ]
                 |> Format.formatImpact config.impact
             ]
         , td [ class "pe-3 text-nowrap" ]
@@ -768,17 +768,15 @@ elementMaterialView config targetElement materialResults material amount =
                 [ Icon.trash ]
             ]
         ]
-    , if complementsImpacts /= Impact.empty then
-        let
-            tooltipText =
-                "Forêt\u{00A0}: "
-                    ++ (complementsImpacts |> Format.formatImpactToString config.impact)
-        in
+    , if complementsImpacts /= Impact.emptyComplementsResultsImpacts then
         tr [ class "fs-7" ]
             [ td [] []
             , td [ class "text-end align-middle text-nowrap ps-0", style "min-width" "130px" ]
                 []
-            , td [ class "align-middle text-truncate w-100 text-muted cursor-help", title tooltipText ]
+            , td
+                [ class "align-middle text-truncate w-100 text-muted cursor-help"
+                , title (Format.formatComplementsResultsImpactsToString config.impact complementsImpacts)
+                ]
                 [ text "Dont compléments" ]
             , td [ class "text-end align-middle text-nowrap" ]
                 []
@@ -786,6 +784,7 @@ elementMaterialView config targetElement materialResults material amount =
                 []
             , td [ class "text-end align-middle text-nowrap" ]
                 [ complementsImpacts
+                    |> Impact.mergeComplementsResultsImpacts
                     |> Format.formatImpact config.impact
                 ]
             , td [ class "pe-3 text-nowrap" ]

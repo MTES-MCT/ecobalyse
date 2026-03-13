@@ -1,10 +1,12 @@
 module Data.Impact exposing
     ( ComplementsImpacts
+    , ComplementsResultsImpacts
     , Impacts
     , StagesImpacts
     , addComplementsImpacts
     , applyComplements
     , complementsImpactAsChartEntries
+    , complementsLabels
     , decodeComplementsImpacts
     , decodeImpacts
     , default
@@ -12,6 +14,7 @@ module Data.Impact exposing
     , divideComplementsImpactsBy
     , divideStagesImpactsBy
     , empty
+    , emptyComplementsResultsImpacts
     , encode
     , encodeAggregatedScoreChartEntry
     , encodeComplementsImpacts
@@ -23,6 +26,7 @@ module Data.Impact exposing
     , insertWithoutAggregateComputation
     , mapComplementsImpacts
     , mapImpacts
+    , mergeComplementsResultsImpacts
     , multiplyBy
     , noComplementsImpacts
     , noStagesImpacts
@@ -31,6 +35,7 @@ module Data.Impact exposing
     , perKg
     , stagesColors
     , stagesImpactsAsChartEntries
+    , sumComplementsResultsImpacts
     , sumEcosystemicImpacts
     , sumImpacts
     , toProtectionAreas
@@ -55,17 +60,53 @@ import Url.Parser as Parser exposing (Parser)
 -- Complements impacts
 
 
+type alias AbstractComplements a =
+    { cropDiversity : a
+    , forest : a
+    , hedges : a
+    , livestockDensity : a
+    , microfibers : a
+    , outOfEuropeEOL : a
+    , permanentPasture : a
+    , plotSize : a
+    }
+
+
 type alias ComplementsImpacts =
-    -- Note: these are always expressed in ecoscore (ecs) Pts
-    { -- Ecosystemic services impacts
-      cropDiversity : Maybe Unit.Impact
-    , forest : Maybe Unit.Impact
-    , hedges : Maybe Unit.Impact
-    , livestockDensity : Maybe Unit.Impact
-    , microfibers : Maybe Unit.Impact
-    , outOfEuropeEOL : Maybe Unit.Impact
-    , permanentPasture : Maybe Unit.Impact
-    , plotSize : Maybe Unit.Impact
+    AbstractComplements (Maybe Unit.Impact)
+
+
+type alias ComplementsResultsImpacts =
+    AbstractComplements (Maybe Impacts)
+
+
+type alias ComplementsLabels =
+    AbstractComplements String
+
+
+complementsLabels : ComplementsLabels
+complementsLabels =
+    { cropDiversity = "Diversité culturale"
+    , forest = "Forêt"
+    , hedges = "Haies"
+    , livestockDensity = "Chargement territorial"
+    , microfibers = "Microfibres"
+    , outOfEuropeEOL = "Export hors-Europe"
+    , permanentPasture = "Prairies permanentes"
+    , plotSize = "Taille de parcelles"
+    }
+
+
+emptyComplementsResultsImpacts : ComplementsResultsImpacts
+emptyComplementsResultsImpacts =
+    { cropDiversity = Nothing
+    , forest = Nothing
+    , hedges = Nothing
+    , livestockDensity = Nothing
+    , microfibers = Nothing
+    , outOfEuropeEOL = Nothing
+    , permanentPasture = Nothing
+    , plotSize = Nothing
     }
 
 
@@ -134,9 +175,11 @@ encodeComplementsImpacts complementsImpact =
 
 decodeComplementsImpacts : Decoder ComplementsImpacts
 decodeComplementsImpacts =
-    Decode.succeed ComplementsImpacts
+    Decode.succeed AbstractComplements
         |> DU.strictOptional "cropDiversity" Unit.decodeImpact
-        |> DU.strictOptional "forest" Unit.decodeImpact
+        -- @FIXME: forest is a value that should be added but for now, legacy code substracts
+        --  the values complements. So let’s be backward compatible for now
+        |> DU.strictOptional "forest" (Decode.map Quantity.negate Unit.decodeImpact)
         |> DU.strictOptional "hedges" Unit.decodeImpact
         |> DU.strictOptional "livestockDensity" Unit.decodeImpact
         |> DU.strictOptional "microfibers" Unit.decodeImpact
@@ -149,6 +192,7 @@ getTotalComplementsImpacts : ComplementsImpacts -> Unit.Impact
 getTotalComplementsImpacts complementsImpacts =
     Quantity.sum
         [ complementsImpacts.cropDiversity |> Maybe.withDefault Unit.noImpacts
+        , complementsImpacts.forest |> Maybe.withDefault Unit.noImpacts
         , complementsImpacts.hedges |> Maybe.withDefault Unit.noImpacts
         , complementsImpacts.livestockDensity |> Maybe.withDefault Unit.noImpacts
         , complementsImpacts.microfibers |> Maybe.withDefault Unit.noImpacts
@@ -421,6 +465,63 @@ sumImpacts =
                 )
         )
         empty
+
+
+sumComplementsResultsImpacts : List ComplementsResultsImpacts -> ComplementsResultsImpacts
+sumComplementsResultsImpacts =
+    let
+        mapComplementImpacts complementsResultsImpacts complement =
+            mapImpacts
+                (\trigram impact ->
+                    Quantity.sum
+                        [ getImpact trigram (complementsResultsImpacts |> complement |> Maybe.withDefault empty)
+                        , impact
+                        ]
+                )
+    in
+    List.foldl
+        (\acc complementsResultsImpacts ->
+            { cropDiversity =
+                acc.cropDiversity
+                    |> Maybe.map (mapComplementImpacts complementsResultsImpacts .cropDiversity)
+            , forest =
+                acc.forest
+                    |> Maybe.map (mapComplementImpacts complementsResultsImpacts .forest)
+            , hedges =
+                acc.hedges
+                    |> Maybe.map (mapComplementImpacts complementsResultsImpacts .hedges)
+            , livestockDensity =
+                acc.livestockDensity
+                    |> Maybe.map (mapComplementImpacts complementsResultsImpacts .livestockDensity)
+            , microfibers =
+                acc.microfibers
+                    |> Maybe.map (mapComplementImpacts complementsResultsImpacts .microfibers)
+            , outOfEuropeEOL =
+                acc.outOfEuropeEOL
+                    |> Maybe.map (mapComplementImpacts complementsResultsImpacts .outOfEuropeEOL)
+            , permanentPasture =
+                acc.permanentPasture
+                    |> Maybe.map (mapComplementImpacts complementsResultsImpacts .permanentPasture)
+            , plotSize =
+                acc.plotSize
+                    |> Maybe.map (mapComplementImpacts complementsResultsImpacts .plotSize)
+            }
+        )
+        emptyComplementsResultsImpacts
+
+
+mergeComplementsResultsImpacts : ComplementsResultsImpacts -> Impacts
+mergeComplementsResultsImpacts complementsResultsImpacts =
+    sumImpacts
+        [ complementsResultsImpacts.cropDiversity |> Maybe.withDefault empty
+        , complementsResultsImpacts.forest |> Maybe.withDefault empty
+        , complementsResultsImpacts.hedges |> Maybe.withDefault empty
+        , complementsResultsImpacts.livestockDensity |> Maybe.withDefault empty
+        , complementsResultsImpacts.microfibers |> Maybe.withDefault empty
+        , complementsResultsImpacts.outOfEuropeEOL |> Maybe.withDefault empty
+        , complementsResultsImpacts.permanentPasture |> Maybe.withDefault empty
+        , complementsResultsImpacts.plotSize |> Maybe.withDefault empty
+        ]
 
 
 updateImpact : Definitions -> Trigram -> Unit.Impact -> Impacts -> Impacts
