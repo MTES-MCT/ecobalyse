@@ -10,6 +10,7 @@ import Data.Transport as Transport
 import Dict.Any as Dict
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Length exposing (Length)
 import Page.Explore.Table as Table exposing (Table)
 import Quantity
 import Route
@@ -70,6 +71,16 @@ table distances countries { detailed, scope } =
 
               else
                 Nothing
+            , Just
+                { label = "Dist. moy. l'aéroport"
+                , toValue = Table.FloatValue <| .averageDistanceToAirport >> Length.inKilometers
+                , toCell = .averageDistanceToAirport >> formatInternalDistance detailed Icon.plane
+                }
+            , Just
+                { label = "Dist. moy. port"
+                , toValue = Table.FloatValue <| .averageDistanceToPort >> Length.inKilometers
+                , toCell = .averageDistanceToPort >> formatInternalDistance detailed Icon.boat
+                }
             , if detailed then
                 Just
                     { label = "Distances"
@@ -81,6 +92,14 @@ table distances countries { detailed, scope } =
                 Nothing
             ]
     }
+
+
+formatInternalDistance : Bool -> Html msg -> Length -> Html msg
+formatInternalDistance detailed icon distance =
+    div [ class "d-flex align-items-center gap-1", classList [ ( "justify-content-end", not detailed ) ] ]
+        [ span [ class "text-muted fs-7" ] [ icon ]
+        , Format.km distance
+        ]
 
 
 displayDistances : List Country.Country -> Transport.Distances -> Country -> Html msg
