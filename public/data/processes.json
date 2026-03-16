@@ -2935,7 +2935,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -5221,7 +5222,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -23020,7 +23022,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "t⋅km",
@@ -23061,7 +23064,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "t⋅km",
@@ -25217,7 +25221,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -26098,7 +26103,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Custom",
     "unit": "MJ",
@@ -26141,7 +26147,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Custom",
     "unit": "MJ",
@@ -29721,7 +29728,7 @@
       "energy",
       "use"
     ],
-    "comment": "",
+    "comment": "see https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
     "displayName": "Diesel (B7), norme Euro4",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -29763,7 +29770,7 @@
       "energy",
       "use"
     ],
-    "comment": "",
+    "comment": "see https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
     "displayName": "Diesel (B7), norme Euro6",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -29876,7 +29883,8 @@
     "massPerUnit": null,
     "scopes": [
       "textile",
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "t⋅km",
@@ -29888,7 +29896,7 @@
       "energy",
       "use"
     ],
-    "comment": "",
+    "comment": "see https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
     "displayName": "Essence (E10), norme Euro6",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -29897,48 +29905,6 @@
       "acd": 0,
       "cch": 0,
       "ecs": 213.1,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "location": null,
-    "massPerUnit": null,
-    "scopes": [
-      "veli"
-    ],
-    "source": "Ecobalyse",
-    "unit": "L",
-    "waste": 0
-  },
-  {
-    "activityName": "petrol, E85, EURO6",
-    "categories": [
-      "energy",
-      "use"
-    ],
-    "comment": "",
-    "displayName": "Superéthanol (E85), norme Euro6",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "eb10de13-0767-586f-aaf8-c361f062b292",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 391.52,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -31882,7 +31848,8 @@
     "scopes": [
       "food",
       "textile",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -31966,7 +31933,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -32049,7 +32017,8 @@
     "location": "BR",
     "massPerUnit": null,
     "scopes": [
-      "textile"
+      "textile",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -32092,7 +32061,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -32135,7 +32105,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -32389,7 +32360,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -32430,7 +32402,8 @@
     "location": "KE",
     "massPerUnit": null,
     "scopes": [
-      "textile"
+      "textile",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -32515,7 +32488,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -32639,7 +32613,8 @@
     "location": "NZ",
     "massPerUnit": null,
     "scopes": [
-      "textile"
+      "textile",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -32680,7 +32655,8 @@
     "location": "PE",
     "massPerUnit": null,
     "scopes": [
-      "textile"
+      "textile",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -32849,7 +32825,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -32892,7 +32869,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -32935,7 +32913,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -32978,7 +32957,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -33021,7 +33001,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -33064,7 +33045,8 @@
     "scopes": [
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -33232,7 +33214,8 @@
     "location": "US",
     "massPerUnit": null,
     "scopes": [
-      "textile"
+      "textile",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -35317,7 +35300,8 @@
       "textile",
       "veli",
       "object",
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "t⋅km",
@@ -35361,7 +35345,8 @@
       "textile",
       "veli",
       "object",
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "t⋅km",
