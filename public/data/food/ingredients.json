@@ -15387,8 +15387,7 @@
     "activityName": "Chickpea seed, organic, at farm gate {FR} U",
     "alias": "chickpea-dried-organic",
     "categories": [
-      "vegetable_fresh",
-      "organic"
+      "vegetable_fresh"
     ],
     "cropGroup": "LEGUMINEUSES A GRAIN",
     "defaultOrigin": "France",
