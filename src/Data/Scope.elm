@@ -5,6 +5,7 @@ module Data.Scope exposing
     , anyOf
     , decode
     , decodeDict
+    , dictGet
     , encode
     , fromString
     , parse
@@ -56,6 +57,11 @@ decode =
 decodeDict : Decoder a -> Decoder (Dict a)
 decodeDict =
     AnyDict.decode_ (\key _ -> fromString key) toString
+
+
+dictGet : Scope -> a -> Dict a -> a
+dictGet scope default =
+    AnyDict.get scope >> Maybe.withDefault default
 
 
 encode : Scope -> Encode.Value

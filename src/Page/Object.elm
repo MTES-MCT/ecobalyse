@@ -750,7 +750,7 @@ simulatorView session model =
                         }
                     }
                 ]
-            , durabilityView currentDurability
+            , durabilityView session model.scope currentDurability
             , ComponentView.editorView
                 { addLabel = "Ajouter un composant existant"
                 , componentConfig = session.componentConfig
@@ -833,72 +833,76 @@ simulatorView session model =
         ]
 
 
-durabilityView : Unit.Ratio -> Html Msg
-durabilityView currentDurability =
+durabilityView : Session -> Scope -> Unit.Ratio -> Html Msg
+durabilityView { componentConfig } scope currentDurability =
     -- Note: this is considered a temporary implementation for object and veli simulators,
     -- things might actually want to be factored out and appropriately typed and handled
     -- when ongoing discussions around holostic durability are completed.
-    div [ class "card shadow-sm pb-2 mb-3" ]
-        [ div [ class "card-header d-flex justify-content-between align-items-center" ]
-            [ h2 [ class "h5 mb-1 text-truncate" ] [ text "Durabilité" ]
-            , div [ class "d-flex align-items-center gap-2" ]
-                [ Button.docsPillLink
-                    [ class "bg-secondary"
-                    , style "height" "24px"
-                    , href Env.gitbookUrl
-                    , title "Documentation"
-                    , target "_blank"
+    if Scope.dictGet scope False componentConfig.durability.enabled then
+        div [ class "card shadow-sm pb-2 mb-3" ]
+            [ div [ class "card-header d-flex justify-content-between align-items-center" ]
+                [ h2 [ class "h5 mb-1 text-truncate" ] [ text "Durabilité" ]
+                , div [ class "d-flex align-items-center gap-2" ]
+                    [ Button.docsPillLink
+                        [ class "bg-secondary"
+                        , style "height" "24px"
+                        , href Env.gitbookUrl
+                        , title "Documentation"
+                        , target "_blank"
+                        ]
+                        [ Icon.question ]
                     ]
-                    [ Icon.question ]
+                ]
+            , div [ class "card-body pb-1 row g-3 align-items-start flex-md-columns" ]
+                [ div [ class "col-sm-6 col-md-4" ]
+                    [ label [ for "durability", class "text-truncate" ]
+                        [ text "Coefficient de durabilité" ]
+                    ]
+                , div [ class "col-sm-2 col-md-2" ]
+                    [ currentDurability
+                        |> Unit.ratioToFloat
+                        |> Format.formatFloat 2
+                        |> text
+                    ]
+                , div [ class "col-sm-4 col-md-6 text-nowrap d-flex align-items-center gap-2" ]
+                    [ RangeSlider.generic [ Attr.id "durability" ]
+                        { disabled = False
+                        , fromString =
+                            String.toFloat
+                                >> Result.fromMaybe "Durabilité invalide (un nombre est requis)"
+                                >> Result.andThen
+                                    (\float ->
+                                        if float < 0.5 then
+                                            Err "Durabilité trop faible (minimum: 0.5)"
+
+                                        else if float > 1.5 then
+                                            Err "Durabilité trop élevée (maximum: 1.5)"
+
+                                        else
+                                            Ok float
+                                    )
+                                >> Result.map Unit.ratio
+                        , max = Unit.ratio 1.5
+                        , min = Unit.ratio 0.5
+                        , step = "0.01"
+                        , toString = Unit.ratioToFloat >> String.fromFloat
+                        , update = UpdateDurability
+                        , value = currentDurability
+                        }
+                    , button
+                        [ type_ "button"
+                        , class "btn text-primary p-0 border-0"
+                        , onClick (UpdateDurability (Ok (Unit.ratio 1)))
+                        , title "Réinitialiser la durabilité"
+                        , disabled (currentDurability == Unit.ratio 1)
+                        ]
+                        [ Icon.crossRounded ]
+                    ]
                 ]
             ]
-        , div [ class "card-body pb-1 row g-3 align-items-start flex-md-columns" ]
-            [ div [ class "col-sm-6 col-md-4" ]
-                [ label [ for "durability", class "text-truncate" ]
-                    [ text "Coefficient de durabilité" ]
-                ]
-            , div [ class "col-sm-2 col-md-2" ]
-                [ currentDurability
-                    |> Unit.ratioToFloat
-                    |> Format.formatFloat 2
-                    |> text
-                ]
-            , div [ class "col-sm-4 col-md-6 text-nowrap d-flex align-items-center gap-2" ]
-                [ RangeSlider.generic [ Attr.id "durability" ]
-                    { disabled = False
-                    , fromString =
-                        String.toFloat
-                            >> Result.fromMaybe "Durabilité invalide (un nombre est requis)"
-                            >> Result.andThen
-                                (\float ->
-                                    if float < 0.5 then
-                                        Err "Durabilité trop faible (minimum: 0.5)"
 
-                                    else if float > 1.5 then
-                                        Err "Durabilité trop élevée (maximum: 1.5)"
-
-                                    else
-                                        Ok float
-                                )
-                            >> Result.map Unit.ratio
-                    , max = Unit.ratio 1.5
-                    , min = Unit.ratio 0.5
-                    , step = "0.01"
-                    , toString = Unit.ratioToFloat >> String.fromFloat
-                    , update = UpdateDurability
-                    , value = currentDurability
-                    }
-                , button
-                    [ type_ "button"
-                    , class "btn text-primary p-0 border-0"
-                    , onClick (UpdateDurability (Ok (Unit.ratio 1)))
-                    , title "Réinitialiser la durabilité"
-                    , disabled (currentDurability == Unit.ratio 1)
-                    ]
-                    [ Icon.crossRounded ]
-                ]
-            ]
-        ]
+    else
+        text ""
 
 
 view : Session -> Model -> ( String, List (Html Msg) )

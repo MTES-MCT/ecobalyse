@@ -188,7 +188,9 @@ default db =
             },
             "durability": {
                 "enabled": {
-                    "food": false
+                    "food2": false,
+                    "object": true,
+                    "veli": true
                 }
             },
             "endOfLife": {
