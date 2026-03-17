@@ -451,47 +451,6 @@
     "waste": 0
   },
   {
-    "activityName": "Apple, organic, national average, at orchard {FR} U",
-    "categories": [
-      "ingredient"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024.\nTranslated name: Pomme de table, biologique – Moyenne nationale (France), sortie verger\nIncluded processes: The inventory includes : (1) the inputs for and processes of soil preparation and cultivation, planting, weed control, fertilisation, pest and pathogen control, harvest; (2) the machines and shed or surface used to park them; (3) all inputs as seedlings, fertilizers (mineral and organic), active substances, water for irrigation, fuels as well as the transport to the farm; (4) the direct emissions of the fuel combustion, the abrasion of tyres and the direct emissions on the field.\nThe temporal border of the inventory corresponds to the life cyle of the orchard.\nCut-off rule/Exclusion: The inventory does not include processes occuring after harvest (storing) as well as all hand-works if any (e.g. pruning).\n - product declaration.\nRefers to 1 kg of apple, organic production.\nILCD - Overall data quality:\nTechnological representativeness (TeR) = 1 (very good): >=95%\nGeographical representativeness (GR) = 3 (fair): >=75% and < 85%\nTime-related representativeness (TiR) = 2 (good): >=85% and < 95%\nCompleteness (C) = 2 (good): >=85% and < 95%\nPrecision / uncertainty (P) = 3 (fair): >10% and <=15%\nMethodological appropriateness and consistency (M) = 3 (fair): >=75% and < 85%\nFinal note = 2,6 (i.e.: basic quality).\nYield: 506949 kg/ha for 23 production years (i.e. average Yield_ of 22041 kg/ha/yr).\nCoproducts: Tree shoot and stocks\nAllocation: No allocation has been performed as the price of co-products is not known.\n\nModels used : [Heavy metals Soil - SALCA-SM; CO2 Urea - IPCC 2006, tier 1; Heavy metals Leaching - SALCA-SM; Water  take off; Land occupation - ecoinvent v2; N2O Indirect - IPCC 2006, tier 1; Heavy metals Flow - SALCA-SM, Energy, in biomass - EcoInventv2, CO2 biogenic - EcoInvent2; Energy consumption; NH3 - EMEP 2016, tier 2; Phytosanitaries - EcoInvent2; Transport of inputs (ecoinvent v3); P erosion - SALCA-P; N2O Direct - IPCC 2006, tier 1; P Leaching - SALCA-P; NO3 - SQCB 2009; CO2 Liming - IPCC 2006, tier 1; Erosion - RUSLE simplified - SI units; P Flow - SALCA-P; NO - EMEP 2009, tier 1; ]\nGeography: France\nTechnology: Organic production, average agricultural practices\nTime period: Inventory data based on average data specified according to experts for the period 2005-2009.\nVersion: 1.40\nEnergy values: Net values\nPercent representativeness: 1.5\nProduction volume: 1,5% of total apple production in France. Production volume not precised.",
-    "displayName": "Pomme Bio",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "4e5c74d0-2104-5335-b3d8-32c90c49af98",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 22.106,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "location": "FR",
-    "massPerUnit": null,
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg",
-    "waste": 0
-  },
-  {
     "activityName": "Apricot, conventional, national average, at orchard {FR} U",
     "categories": [
       "ingredient"
@@ -35562,6 +35521,47 @@
     "waste": 0
   },
   {
+    "activityName": "Apple, organic 2025, national average, at orchard {FR} U",
+    "categories": [
+      "ingredient"
+    ],
+    "comment": "This dataset has been extrapolated from the dataset Apple, conventional, national average, at orchard {FR} U.\nFor further information, please consult the ADEME report \"Construction of LCIs for organic agricultural products based on extrapolations of conventional LCIs for the French food market and environmental labelling\"",
+    "displayName": "Pomme Bio",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "4e5c74d0-2104-5335-b3d8-32c90c49af98",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 19.718,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "FR",
+    "massPerUnit": null,
+    "scopes": [
+      "food"
+    ],
+    "source": "Ginko 2025",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "Apricot, organic 2025 {FR}| apricot production | Cut-off, U",
     "categories": [
       "ingredient"
@@ -35685,11 +35685,11 @@
     "waste": 0
   },
   {
-    "activityName": "Banana, full production years (phase), mixed production, West Indies, at farm gate, organic 2025 {WI} U",
+    "activityName": "Banana, organic 2025 {RoW}| banana production | Cut-off, U",
     "categories": [
       "ingredient"
     ],
-    "comment": "This dataset has been extrapolated from the dataset Banana, full production years (phase), mixed production, West Indies, at farm gate {WI} U from the database Agribalyse and version 3.2.\nFor further information, please consult the ADEME report \"Construction of LCIs for organic agricultural products based on extrapolations of conventional LCIs for the French food market and environmental labelling\"",
+    "comment": "This dataset has been extrapolated from the dataset Banana {RoW}| banana production | Cut-off, U - Adapted from Ecoinvent U from the database Ecoinvent and version 3.9.1.\nFor further information, please consult the ADEME report \"Construction of LCIs for organic agricultural products based on extrapolations of conventional LCIs for the French food market and environmental labelling\"",
     "displayName": "Plantain Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -35697,7 +35697,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 30.714,
+      "ecs": 77.359,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -35716,7 +35716,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "location": "WI",
+    "location": "RoW",
     "massPerUnit": null,
     "scopes": [
       "food"
@@ -36382,11 +36382,11 @@
     "waste": 0
   },
   {
-    "activityName": "Coffee, green beans (Robusta), at farm, organic 2025 {VN}",
+    "activityName": "Coffee, green beans (Arabica), at farm, organic 2025 {IN}",
     "categories": [
       "ingredient"
     ],
-    "comment": "This dataset has been extrapolated from the dataset Coffee, green beans (Robusta), at farm {VN} - Adapted from WFLDB U from the database WFLDB and version 3.5.\nFor further information, please consult the ADEME report \"Construction of LCIs for organic agricultural products based on extrapolations of conventional LCIs for the French food market and environmental labelling\"",
+    "comment": "This dataset has been extrapolated from the dataset Coffee, green beans (Arabica), at farm {IN} - Adapted from WFLDB U from the database WFLDB and version 3.5.\nFor further information, please consult the ADEME report \"Construction of LCIs for organic agricultural products based on extrapolations of conventional LCIs for the French food market and environmental labelling\"",
     "displayName": "Café en grains Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -36394,7 +36394,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 845.01,
+      "ecs": 2913.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -36413,7 +36413,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "location": "VN",
+    "location": "IN",
     "massPerUnit": null,
     "scopes": [
       "food"
@@ -38022,6 +38022,47 @@
     "waste": 0
   },
   {
+    "activityName": "Peach, organic 2025, national average, at orchard {FR} U",
+    "categories": [
+      "ingredient"
+    ],
+    "comment": "This dataset has been extrapolated from the dataset Peach, conventional, national average, at orchard {FR} U.\nFor further information, please consult the ADEME report \"Construction of LCIs for organic agricultural products based on extrapolations of conventional LCIs for the French food market and environmental labelling\"",
+    "displayName": "Figue Bio",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "c9cd32a1-9366-582c-8f50-cd4d48e3759e",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 58.648,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "FR",
+    "massPerUnit": null,
+    "scopes": [
+      "food"
+    ],
+    "source": "Ginko 2025",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "Peanut, in shell, at farm, organic 2025 {GLO}",
     "categories": [
       "ingredient"
@@ -38136,6 +38177,47 @@
       "wtu": 0
     },
     "location": "CN",
+    "massPerUnit": null,
+    "scopes": [
+      "food"
+    ],
+    "source": "Ginko 2025",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Peanut, organic 2025 {IN}| peanut production | Cut-off, U",
+    "categories": [
+      "ingredient"
+    ],
+    "comment": "This dataset has been extrapolated from the dataset Peanut {IN}| peanut production | Cut-off, U - Adapted from Ecoinvent U from the database Ecoinvent and version 3.9.1.\nFor further information, please consult the ADEME report \"Construction of LCIs for organic agricultural products based on extrapolations of conventional LCIs for the French food market and environmental labelling\"",
+    "displayName": "Graines de sésame Bio",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "35df8daa-137c-5c3b-8cc1-b572d80000d3",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 322.2,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "IN",
     "massPerUnit": null,
     "scopes": [
       "food"
@@ -38842,11 +38924,11 @@
     "waste": 0
   },
   {
-    "activityName": "Sugar beet, at farm, organic 2025 {GLO}",
+    "activityName": "Sugar beet, at farm, organic 2025 {DE}",
     "categories": [
       "ingredient"
     ],
-    "comment": "This dataset has been extrapolated from the dataset Sugar beet, at farm {GLO} - Adapted from WFLDB U.\nFor further information, please consult the ADEME report \"Construction of LCIs for organic agricultural products based on extrapolations of conventional LCIs for the French food market and environmental labelling\"",
+    "comment": "This dataset has been extrapolated from the dataset Sugar beet, at farm {DE} - Adapted from WFLDB U from the database WFLDB and version 3.5.\nFor further information, please consult the ADEME report \"Construction of LCIs for organic agricultural products based on extrapolations of conventional LCIs for the French food market and environmental labelling\"",
     "displayName": "Betterave à sucre Bio",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -38854,7 +38936,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 12.551,
+      "ecs": 6.9318,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -38873,7 +38955,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "location": "GLO",
+    "location": "DE",
     "massPerUnit": null,
     "scopes": [
       "food"
