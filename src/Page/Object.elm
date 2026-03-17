@@ -19,7 +19,6 @@ import Data.Country as Country
 import Data.Dataset as Dataset
 import Data.Env as Env
 import Data.Example as Example exposing (Example)
-import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Object.Simulator as Simulator
@@ -805,18 +804,8 @@ simulatorView session model =
                 -- Score
                 , customScoreInfo = Nothing
                 , productMass = Component.extractMass lifeCycle.production
-                , totalImpacts =
-                    lifeCycle
-                        |> Component.sumLifeCycleImpacts
-                        |> Impact.divideBy (Unit.ratioToFloat currentDurability)
-                , totalImpactsWithoutDurability =
-                    if currentDurability == Unit.ratio 1 then
-                        Nothing
-
-                    else
-                        lifeCycle
-                            |> Component.sumLifeCycleImpacts
-                            |> Just
+                , totalImpacts = lifeCycle |> Component.applyDurability (Just currentDurability)
+                , totalImpactsWithoutDurability = lifeCycle |> Component.sumLifeCycleImpacts |> Just
 
                 -- Impacts tabs
                 , impactTabsConfig =

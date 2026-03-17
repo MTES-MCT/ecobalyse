@@ -22,6 +22,7 @@ module Data.Component exposing
     , addElementTransform
     , addItem
     , addOrSetProcess
+    , applyDurability
     , applyTransforms
     , compute
     , computeElementResults
@@ -375,6 +376,18 @@ addResults (Results results) (Results acc) =
             , mass = Quantity.sum [ results.mass, acc.mass ]
             , stage = Nothing
         }
+
+
+applyDurability : Maybe Unit.Ratio -> LifeCycle -> Impacts
+applyDurability maybeDurability =
+    sumLifeCycleImpacts
+        >> (case maybeDurability of
+                Just durability ->
+                    Impact.divideBy (Unit.ratioToFloat durability)
+
+                Nothing ->
+                    identity
+           )
 
 
 applyTransform : EnergyMixes -> Process -> Results -> Results
