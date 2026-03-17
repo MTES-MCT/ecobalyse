@@ -897,6 +897,11 @@ testComponentConfig db =
             "distribution": {
                 "country": "FR"
             },
+            "durability": {
+                "enabled": {
+                    "food": false
+                }
+            },
             "endOfLife": {
                 "scopeCollectionRates": {
                 "object": 70
