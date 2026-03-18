@@ -884,20 +884,79 @@ suite =
                                 |> expectResultErrorContains "Aucun composant avec id="
                             )
                         ]
-                    , describe "validateQuery"
-                        [ it "should accept a durability param when it's enabled by config" <|
-                            (Component.emptyQuery
-                                |> Component.updateDurability (Unit.ratio 1.42)
-                                |> Component.validateQuery { requirements | scope = Scope.Object }
-                                |> Expect.ok
-                            )
-                        , it "should reject a durability param when it's disabled by config" <|
-                            (Component.emptyQuery
-                                |> Component.updateDurability (Unit.ratio 1.42)
-                                |> Component.validateQuery { requirements | scope = Scope.Food2 }
-                                |> expectResultErrorContains ("La durabilité n'est pas activée pour le périmètre " ++ Scope.toLabel Scope.Food2)
-                            )
-                        ]
+                    , TestUtils.suiteFromResult3 "validateQuery"
+                        -- Non-existing process
+                        (Process.idFromString "5fad4e70-5736-552d-a686-97e4fb627c37")
+                        -- Steel process
+                        steel
+                        -- Sawing process
+                        sawing
+                        -- Tests
+                        (\nonExistingProcessId steelProcess sawingProcess ->
+                            [ describe "amount validation"
+                                [ it "should reject a non-positive amount" <|
+                                    (Component.emptyQuery
+                                        |> (\query ->
+                                                { query
+                                                    | consumptions =
+                                                        [ { amount = Amount.fromFloat -1
+                                                          , processId = steelProcess.id
+                                                          }
+                                                        ]
+                                                }
+                                           )
+                                        |> Component.validateQuery { requirements | scope = Scope.Food2 }
+                                        |> expectResultErrorContains "Une quantité doit être supérieure ou égale à zéro"
+                                    )
+                                ]
+                            , describe "durability validation"
+                                [ it "should accept a durability param when it's enabled by config" <|
+                                    (Component.emptyQuery
+                                        |> Component.updateDurability (Unit.ratio 1.42)
+                                        |> Component.validateQuery { requirements | scope = Scope.Object }
+                                        |> Expect.ok
+                                    )
+                                , it "should reject a durability param when it's disabled by config" <|
+                                    (Component.emptyQuery
+                                        |> Component.updateDurability (Unit.ratio 1.42)
+                                        |> Component.validateQuery { requirements | scope = Scope.Food2 }
+                                        |> expectResultErrorContains ("La durabilité n'est pas activée pour le périmètre " ++ Scope.toLabel Scope.Food2)
+                                    )
+                                ]
+                            , describe "process validation"
+                                [ it "should reject a consumption referencing a missing process" <|
+                                    (Component.emptyQuery
+                                        |> (\query ->
+                                                { query
+                                                    | consumptions =
+                                                        [ { amount = Amount.fromFloat 1
+                                                          , processId = nonExistingProcessId
+                                                          }
+                                                        ]
+                                                }
+                                           )
+                                        |> Component.validateQuery requirements
+                                        |> expectResultErrorContains ("Aucun procédé scopé Objets avec cet id: " ++ Process.idToString nonExistingProcessId)
+                                    )
+                                , it "should reject a consumption referencing a process with the wrong scope" <|
+                                    (Component.emptyQuery
+                                        |> (\query ->
+                                                { query
+                                                    | consumptions =
+                                                        [ { amount = Amount.fromFloat 1
+
+                                                          -- Note: the sawing process isn't scoped for Food2
+                                                          , processId = sawingProcess.id
+                                                          }
+                                                        ]
+                                                }
+                                           )
+                                        |> Component.validateQuery { requirements | scope = Scope.Food2 }
+                                        |> expectResultErrorContains ("Aucun procédé scopé Alimentaire² avec cet id: " ++ Process.idToString sawingProcess.id)
+                                    )
+                                ]
+                            ]
+                        )
                     ]
                 )
             ]
@@ -1386,7 +1445,7 @@ steel =
                 },
                 "location": "GLO",
                 "massPerUnit": null,
-                "scopes": ["textile"],
+                "scopes": ["food2", "textile"],
                 "source": "Ecoinvent 3.9.1",
                 "unit": "kg",
                 "waste": 0

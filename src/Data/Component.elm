@@ -1729,6 +1729,44 @@ updateItem itemIndex =
     LE.updateAt itemIndex
 
 
+validateConsumption : Requirements db -> Consumption -> Result String Consumption
+validateConsumption requirements consumption =
+    Ok Consumption
+        |> RE.andMap (Amount.validate consumption.amount)
+        |> RE.andMap (validateProcessId requirements consumption.processId)
+
+
+validateCountry : Requirements db -> Maybe Country.Code -> Result String (Maybe Country.Code)
+validateCountry { db, scope } maybeCountryCode =
+    case maybeCountryCode of
+        Just countryCode ->
+            countryCode
+                |> Country.validateForScope scope db.countries
+                |> Result.map Just
+
+        Nothing ->
+            Ok Nothing
+
+
+validateDurability : Requirements db -> Maybe Unit.Ratio -> Result String (Maybe Unit.Ratio)
+validateDurability { config, scope } durability =
+    case config.durability.enabled |> Scope.dictGet scope of
+        Just enabled ->
+            if not enabled then
+                case durability of
+                    Just _ ->
+                        Err <| "La durabilité n'est pas activée pour le périmètre " ++ Scope.toLabel scope
+
+                    Nothing ->
+                        Ok durability
+
+            else
+                Ok durability
+
+        Nothing ->
+            Ok durability
+
+
 validateItem : List Component -> Item -> Result String Item
 validateItem components item =
     if quantityToInt item.quantity < 1 then
@@ -1750,20 +1788,27 @@ validateItem components item =
                 Ok item
 
 
+validateProcessId : Requirements db -> Process.Id -> Result String Process.Id
+validateProcessId { db, scope } processId =
+    db.processes
+        |> Scope.anyOf [ scope ]
+        |> Process.findById processId
+        |> Result.map .id
+        |> Result.mapError
+            (always <|
+                "Aucun procédé scopé "
+                    ++ Scope.toLabel scope
+                    ++ " avec cet id: "
+                    ++ Process.idToString processId
+                    ++ " : "
+            )
+
+
 validateQuery : Requirements db -> Query -> Result String Query
-validateQuery { config, scope } query =
-    case config.durability.enabled |> Scope.dictGet scope of
-        Just enabled ->
-            if not enabled then
-                case query.durability of
-                    Just _ ->
-                        Err <| "La durabilité n'est pas activée pour le périmètre " ++ Scope.toLabel scope
-
-                    Nothing ->
-                        Ok query
-
-            else
-                Ok query
-
-        Nothing ->
-            Ok query
+validateQuery ({ db } as requirements) query =
+    Ok Query
+        |> RE.andMap (validateCountry requirements query.assemblyCountry)
+        |> RE.andMap (query.consumptions |> RE.combineMap (validateConsumption requirements))
+        |> RE.andMap (validateDurability requirements query.durability)
+        |> RE.andMap (query.items |> RE.combineMap (validateItem db.components))
+        |> Result.mapError (\s -> "Requête invalide: " ++ s)
