@@ -478,33 +478,31 @@ sumComplementsResultsImpacts =
                         , impact
                         ]
                 )
+
+        getNewImpact acc results complement =
+            let
+                newImpact =
+                    acc
+                        |> complement
+                        |> Maybe.withDefault empty
+                        |> mapComplementImpacts results complement
+            in
+            if newImpact == empty then
+                Nothing
+
+            else
+                Just newImpact
     in
     List.foldl
         (\acc complementsResultsImpacts ->
-            { cropDiversity =
-                acc.cropDiversity
-                    |> Maybe.map (mapComplementImpacts complementsResultsImpacts .cropDiversity)
-            , forest =
-                acc.forest
-                    |> Maybe.map (mapComplementImpacts complementsResultsImpacts .forest)
-            , hedges =
-                acc.hedges
-                    |> Maybe.map (mapComplementImpacts complementsResultsImpacts .hedges)
-            , livestockDensity =
-                acc.livestockDensity
-                    |> Maybe.map (mapComplementImpacts complementsResultsImpacts .livestockDensity)
-            , microfibers =
-                acc.microfibers
-                    |> Maybe.map (mapComplementImpacts complementsResultsImpacts .microfibers)
-            , outOfEuropeEOL =
-                acc.outOfEuropeEOL
-                    |> Maybe.map (mapComplementImpacts complementsResultsImpacts .outOfEuropeEOL)
-            , permanentPasture =
-                acc.permanentPasture
-                    |> Maybe.map (mapComplementImpacts complementsResultsImpacts .permanentPasture)
-            , plotSize =
-                acc.plotSize
-                    |> Maybe.map (mapComplementImpacts complementsResultsImpacts .plotSize)
+            { cropDiversity = getNewImpact acc complementsResultsImpacts .cropDiversity
+            , forest = getNewImpact acc complementsResultsImpacts .forest
+            , hedges = getNewImpact acc complementsResultsImpacts .hedges
+            , livestockDensity = getNewImpact acc complementsResultsImpacts .livestockDensity
+            , microfibers = getNewImpact acc complementsResultsImpacts .microfibers
+            , outOfEuropeEOL = getNewImpact acc complementsResultsImpacts .outOfEuropeEOL
+            , permanentPasture = getNewImpact acc complementsResultsImpacts .permanentPasture
+            , plotSize = getNewImpact acc complementsResultsImpacts .plotSize
             }
         )
         emptyComplementsResultsImpacts
