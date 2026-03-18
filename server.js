@@ -1,7 +1,6 @@
 require("dotenv").config({ quiet: true });
 
 const fs = require("fs");
-const path = require("path");
 const bodyParser = require("body-parser");
 const bodyParserErrorHandler = require("express-body-parser-error-handler");
 const cors = require("cors");
@@ -9,21 +8,21 @@ const yaml = require("js-yaml");
 const helmet = require("helmet");
 const { Elm } = require("./server-app");
 const jsonUtils = require("./lib/json");
-const { dataFiles } = require("./lib");
-const { decrypt } = require("./lib/crypto");
 const rateLimit = require("express-rate-limit");
 const { createCSPDirectives, extractTokenFromHeaders } = require("./lib/http");
 // monitoring
 const { setupSentry } = require("./lib/sentry"); // MUST be required BEFORE express
 const { createMatomoTracker } = require("./lib/matomo");
 const { createPlausibleTracker } = require("./lib/plausible");
+
+const { getProcessesAsString } = require("./lib");
 const express = require("express");
 
 const expressHost = "0.0.0.0";
 const expressPort = 8001;
 
 // Env vars
-const { ENABLE_FOOD_SECTION, NODE_ENV, RATELIMIT_MAX_RPM, RATELIMIT_WHITELIST } = process.env;
+const { NODE_ENV, RATELIMIT_MAX_RPM, RATELIMIT_WHITELIST } = process.env;
 
 const INTERNAL_BACKEND_URL = "http://localhost:8002";
 
@@ -113,17 +112,9 @@ function processOpenApi(contents, versionNumber) {
 // concat the arrays and the stringify again the whole thing
 // Elm decoders should handle the differences between the two formats
 
-const processesImpacts = JSON.stringify(
-  JSON.parse(fs.readFileSync(dataFiles.detailed, "utf8").toString()).concat(
-    JSON.parse(fs.readFileSync(dataFiles.genericDetailed, "utf8")),
-  ),
-);
+const processesImpacts = getProcessesAsString((detailed = true));
 
-const processes = JSON.stringify(
-  JSON.parse(fs.readFileSync(dataFiles.noDetails, "utf8").toString()).concat(
-    JSON.parse(fs.readFileSync(dataFiles.genericNoDetails, "utf8")),
-  ),
-);
+const processes = getProcessesAsString((detailed = false));
 
 const getProcesses = async (headers) => {
   let isValidToken = false;
