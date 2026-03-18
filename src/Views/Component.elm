@@ -82,7 +82,7 @@ type alias Config db msg =
 
 type Context
     = AdminContext
-    | ObjectContext
+    | GenericContext
     | TextileTrimsContext
 
 
@@ -497,7 +497,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as co
                 AdminContext ->
                     createComponentButton config
 
-                ObjectContext ->
+                GenericContext ->
                     div [ class "d-flex gap-1" ]
                         [ addComponentButton config
                         , createComponentButton config
@@ -523,16 +523,24 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as co
 
           else
             text ""
-        , if config.context == ObjectContext && not (List.isEmpty query.items) then
+        , if config.context == GenericContext && not (List.isEmpty query.items) then
             div []
-                [ lifeCycle.transports.toDistribution
+                ([ lifeCycle.transports.toDistribution
                     |> transportView impact (Component.extractMass lifeCycle.production)
-                , distributionView config
-                , noTransportView
-                , useStageView config
-                , noTransportView
-                , endOfLifeView config lifeCycle
-                ]
+                 , distributionView config
+                 , noTransportView
+                 , useStageView config
+                 ]
+                    ++ (case config.componentConfig.endOfLife.enabled |> Scope.dictGet scope of
+                            Just True ->
+                                [ noTransportView
+                                , endOfLifeView config lifeCycle
+                                ]
+
+                            _ ->
+                                []
+                       )
+                )
 
           else
             text ""

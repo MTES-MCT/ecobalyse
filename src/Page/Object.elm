@@ -759,7 +759,7 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
             , ComponentView.editorView
                 { addLabel = "Ajouter un composant existant"
                 , componentConfig = session.componentConfig
-                , context = ComponentView.ObjectContext
+                , context = ComponentView.GenericContext
                 , db = session.db
                 , debug = True
                 , detailed = model.detailedComponents

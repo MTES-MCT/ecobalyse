@@ -48,7 +48,8 @@ type alias DurabilityConfig =
 
 
 type alias EndOfLifeConfig =
-    { scopeCollectionRates : Scope.Dict Split
+    { enabled : Scope.Dict Bool
+    , scopeCollectionRates : Scope.Dict Split
     , strategies : EndOfLifeStrategiesConfig
     }
 
@@ -111,6 +112,7 @@ decodeDurabilityConfig =
 decodeEndOfLifeConfig : List Process -> Decoder EndOfLifeConfig
 decodeEndOfLifeConfig processes =
     Decode.succeed EndOfLifeConfig
+        |> Decode.required "enabled" (Scope.decodeDict Decode.bool)
         |> Decode.required "scopeCollectionRates" (Scope.decodeDict Split.decodePercent)
         |> Decode.required "strategies" (decodeEndOfLifeStrategiesConfig processes)
 
@@ -194,6 +196,11 @@ default db =
                 }
             },
             "endOfLife": {
+                "enabled": {
+                    "food2": false,
+                    "object": true,
+                    "veli": true
+                },
                 "scopeCollectionRates": {},
                 "strategies": {
                     "default": {
