@@ -1750,20 +1750,11 @@ validateCountry { db, scope } maybeCountryCode =
 
 validateDurability : Requirements db -> Maybe Unit.Ratio -> Result String (Maybe Unit.Ratio)
 validateDurability { config, scope } durability =
-    case config.durability.enabled |> Scope.dictGet scope of
-        Just enabled ->
-            if not enabled then
-                case durability of
-                    Just _ ->
-                        Err <| "La durabilité n'est pas activée pour le périmètre " ++ Scope.toLabel scope
+    case ( config.durability.enabled |> Scope.dictGet scope, durability ) of
+        ( Just False, Just _ ) ->
+            Err <| "La durabilité n'est pas activée pour le périmètre " ++ Scope.toLabel scope
 
-                    Nothing ->
-                        Ok durability
-
-            else
-                Ok durability
-
-        Nothing ->
+        _ ->
             Ok durability
 
 
@@ -1800,7 +1791,6 @@ validateProcessId { db, scope } processId =
                     ++ Scope.toLabel scope
                     ++ " avec cet id: "
                     ++ Process.idToString processId
-                    ++ " : "
             )
 
 
