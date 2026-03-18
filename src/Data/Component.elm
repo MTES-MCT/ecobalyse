@@ -60,6 +60,7 @@ module Data.Component exposing
     , extractItems
     , extractMass
     , findById
+    , getAllImpacts
     , getEndOfLifeDetailedImpacts
     , getEndOfLifeImpacts
     , getEndOfLifeScopeCollectionRate
@@ -1292,6 +1293,14 @@ extractComplementsImpacts (Results { complementsImpacts }) =
 extractImpacts : Results -> Impacts
 extractImpacts (Results { impacts }) =
     impacts
+
+
+getAllImpacts : Results -> Impacts
+getAllImpacts (Results { impacts, complementsImpacts }) =
+    Impact.sumImpacts
+        [ impacts
+        , complementsImpacts |> Impact.mergeComplementsResultsImpacts
+        ]
 
 
 extractItems : Results -> List Results

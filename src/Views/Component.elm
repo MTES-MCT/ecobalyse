@@ -266,7 +266,7 @@ componentView config itemIndex ({ component, country, elements, quantity } as ex
                             |> Format.kg
                         ]
                     , td [ class "pt-0 pb-2 text-end align-middle text-nowrap fs-7" ]
-                        [ Component.extractImpacts itemResults
+                        [ Component.getAllImpacts itemResults
                             |> Format.formatImpact config.impact
                         ]
                     , td [ class "pe-3 pt-0 pb-2 text-end align-middle text-nowrap" ]
@@ -441,7 +441,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as co
                 , div [ class "d-flex align-items-center gap-2" ]
                     [ span [ class "cursor-help", Attr.title "Hors transports" ]
                         [ lifeCycle.production
-                            |> Component.extractImpacts
+                            |> Component.getAllImpacts
                             |> Format.formatImpact config.impact
                         ]
                     , case docsUrl of
@@ -686,7 +686,9 @@ elementView config targetItem elementIndex { amount, country, material, transfor
             , th [ class "align-middle text-truncate", scope "col", Attr.title "Masse sortante" ]
                 [ material.unit |> Process.unitLabel |> text ]
             , th [ class "align-middle text-end", scope "col" ]
-                [ Format.formatImpact config.impact <| Component.extractImpacts elementResults ]
+                [ Component.getAllImpacts elementResults
+                    |> Format.formatImpact config.impact
+                ]
             , th [] []
             ]
             :: elementMaterialView config ( targetItem, elementIndex ) materialResults material amount
@@ -756,7 +758,7 @@ elementMaterialView config targetElement materialResults material amount =
                 |> Format.amount material
             ]
         , td [ class "text-end align-middle text-nowrap" ]
-            [ Impact.sumImpacts [ Component.extractImpacts materialResults, Impact.mergeComplementsResultsImpacts complementsImpacts ]
+            [ Component.getAllImpacts materialResults
                 |> Format.formatImpact config.impact
             ]
         , td [ class "pe-3 text-nowrap" ]
