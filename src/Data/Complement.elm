@@ -157,19 +157,15 @@ getTotalComplementsImpacts =
 
 
 encodeComplementsImpacts : ComplementsImpacts -> Encode.Value
-encodeComplementsImpacts complementsImpact =
+encodeComplementsImpacts =
     let
-        negated =
-            negateComplementsImpacts complementsImpact
-
         encodeTuple label maybeComplement =
             ( label, maybeComplement |> Maybe.map Unit.encodeImpact )
     in
-    EU.optionalPropertiesObject
-        (List.map2 encodeTuple
-            (complementsLabels |> allComplementsToList)
-            (negated |> allComplementsToList)
-        )
+    negateComplementsImpacts
+        >> allComplementsToList
+        >> List.map2 encodeTuple (allComplementsToList complementsLabels)
+        >> EU.optionalPropertiesObject
 
 
 decodeComplementsImpacts : Decoder ComplementsImpacts
