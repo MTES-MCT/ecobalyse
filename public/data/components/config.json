@@ -2,6 +2,13 @@
   "distribution": {
     "country": "FR"
   },
+  "durability": {
+    "enabled": {
+      "food2": false,
+      "object": true,
+      "veli": true
+    }
+  },
   "endOfLife": {
     "scopeCollectionRates": {
       "object": 70

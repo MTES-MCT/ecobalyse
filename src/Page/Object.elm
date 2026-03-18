@@ -19,7 +19,6 @@ import Data.Country as Country
 import Data.Dataset as Dataset
 import Data.Env as Env
 import Data.Example as Example exposing (Example)
-import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Object.Simulator as Simulator
@@ -725,10 +724,10 @@ selectProcess category targetItem maybeElementIndex autocompleteState query ({ m
 
 
 simulatorView : Session -> Model -> Html Msg
-simulatorView session model =
+simulatorView ({ componentConfig } as session) ({ scope } as model) =
     let
         currentQuery =
-            session |> Session.objectQueryFromScope model.scope
+            session |> Session.objectQueryFromScope scope
 
         currentDurability =
             currentQuery |> .durability
@@ -745,13 +744,18 @@ simulatorView session model =
                     , onOpen = SelectExampleModal >> SetModal
                     , routes =
                         -- FIXME: explore route object/veli
-                        { explore = Route.Explore model.scope (Dataset.ObjectExamples Nothing)
-                        , load = Route.ObjectSimulatorExample model.scope
-                        , scopeHome = Route.ObjectSimulatorHome model.scope
+                        { explore = Route.Explore scope (Dataset.ObjectExamples Nothing)
+                        , load = Route.ObjectSimulatorExample scope
+                        , scopeHome = Route.ObjectSimulatorHome scope
                         }
                     }
                 ]
-            , durabilityView currentDurability
+            , case componentConfig.durability.enabled |> Scope.dictGet scope of
+                Just True ->
+                    durabilityView currentDurability
+
+                _ ->
+                    text ""
             , ComponentView.editorView
                 { addLabel = "Ajouter un composant existant"
                 , componentConfig = session.componentConfig
@@ -760,7 +764,7 @@ simulatorView session model =
                 , debug = True
                 , detailed = model.detailedComponents
                 , docsUrl = Nothing
-                , explorerRoute = Just (Route.Explore model.scope (Dataset.Components model.scope Nothing))
+                , explorerRoute = Just (Route.Explore scope (Dataset.Components scope Nothing))
                 , impact = model.impact
                 , noOp = NoOp
                 , openCreateComponentModal = CreateComponent
@@ -776,7 +780,7 @@ simulatorView session model =
                 , removeElementTransform = RemoveElementTransform
                 , removeItem = RemoveComponentItem
                 , lifeCycle = model.lifeCycle
-                , scope = model.scope
+                , scope = scope
                 , setDetailed = SetDetailedComponents
                 , title = "Production des composants"
                 , updateAssemblyCountry = UpdateAssemblyCountry
@@ -805,18 +809,8 @@ simulatorView session model =
                 -- Score
                 , customScoreInfo = Nothing
                 , productMass = Component.extractMass lifeCycle.production
-                , totalImpacts =
-                    lifeCycle
-                        |> Component.sumLifeCycleImpacts
-                        |> Impact.divideBy (Unit.ratioToFloat currentDurability)
-                , totalImpactsWithoutDurability =
-                    if currentDurability == Unit.ratio 1 then
-                        Nothing
-
-                    else
-                        lifeCycle
-                            |> Component.sumLifeCycleImpacts
-                            |> Just
+                , totalImpacts = lifeCycle |> Component.applyDurability currentDurability
+                , totalImpactsWithoutDurability = lifeCycle |> Component.sumLifeCycleImpacts |> Just
 
                 -- Impacts tabs
                 , impactTabsConfig =
@@ -844,11 +838,16 @@ simulatorView session model =
         ]
 
 
-durabilityView : Unit.Ratio -> Html Msg
-durabilityView currentDurability =
+durabilityView : Maybe Unit.Ratio -> Html Msg
+durabilityView maybeDurability =
     -- Note: this is considered a temporary implementation for object and veli simulators,
     -- things might actually want to be factored out and appropriately typed and handled
     -- when ongoing discussions around holostic durability are completed.
+    let
+        currentDurability =
+            maybeDurability
+                |> Maybe.withDefault Component.defaultDurability
+    in
     div [ class "card shadow-sm pb-2 mb-3" ]
         [ div [ class "card-header d-flex justify-content-between align-items-center" ]
             [ h2 [ class "h5 mb-1 text-truncate" ] [ text "Durabilité" ]
@@ -902,9 +901,9 @@ durabilityView currentDurability =
                 , button
                     [ type_ "button"
                     , class "btn text-primary p-0 border-0"
-                    , onClick (UpdateDurability (Ok (Unit.ratio 1)))
+                    , onClick (UpdateDurability (Ok Component.defaultDurability))
                     , title "Réinitialiser la durabilité"
-                    , disabled (currentDurability == Unit.ratio 1)
+                    , disabled (maybeDurability == Nothing || maybeDurability == Just Component.defaultDurability)
                     ]
                     [ Icon.crossRounded ]
                 ]
