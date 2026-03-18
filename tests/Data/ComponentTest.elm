@@ -895,7 +895,7 @@ suite =
                             (Component.emptyQuery
                                 |> Component.updateDurability (Unit.ratio 1.42)
                                 |> Component.validateQuery { requirements | scope = Scope.Food2 }
-                                |> expectResultErrorContains "La durabilité n'est pas activée pour le périmètre food2"
+                                |> expectResultErrorContains ("La durabilité n'est pas activée pour le périmètre " ++ Scope.toLabel Scope.Food2)
                             )
                         ]
                     ]

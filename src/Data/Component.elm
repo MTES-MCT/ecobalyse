@@ -1757,7 +1757,7 @@ validateQuery { config, scope } query =
             if not enabled then
                 case query.durability of
                     Just _ ->
-                        Err <| "La durabilité n'est pas activée pour le périmètre " ++ Scope.toString scope
+                        Err <| "La durabilité n'est pas activée pour le périmètre " ++ Scope.toLabel scope
 
                     Nothing ->
                         Ok query
