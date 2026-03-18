@@ -38,6 +38,7 @@ module Data.Component exposing
     , decodeListFromJsonString
     , decodeQuery
     , defaultConfig
+    , defaultDurability
     , elementTransforms
     , elementsToString
     , emptyComponent
@@ -907,6 +908,11 @@ defaultConfig =
     Config.default
 
 
+defaultDurability : Unit.Ratio
+defaultDurability =
+    Unit.ratio 1
+
+
 elementToString : List Process -> Element -> Result String String
 elementToString processes element =
     processes
@@ -1668,7 +1674,7 @@ updateDurability : Unit.Ratio -> Query -> Query
 updateDurability durability query =
     { query
         | durability =
-            if durability == Unit.ratio 1 then
+            if durability == defaultDurability then
                 Nothing
 
             else

@@ -845,12 +845,8 @@ durabilityView maybeDurability =
     -- when ongoing discussions around holostic durability are completed.
     let
         currentDurability =
-            case maybeDurability of
-                Just durability ->
-                    durability
-
-                Nothing ->
-                    Unit.ratio 1
+            maybeDurability
+                |> Maybe.withDefault Component.defaultDurability
     in
     div [ class "card shadow-sm pb-2 mb-3" ]
         [ div [ class "card-header d-flex justify-content-between align-items-center" ]
@@ -905,9 +901,9 @@ durabilityView maybeDurability =
                 , button
                     [ type_ "button"
                     , class "btn text-primary p-0 border-0"
-                    , onClick (UpdateDurability (Ok (Unit.ratio 1)))
+                    , onClick (UpdateDurability (Ok Component.defaultDurability))
                     , title "Réinitialiser la durabilité"
-                    , disabled (maybeDurability == Nothing || maybeDurability == Just (Unit.ratio 1))
+                    , disabled (maybeDurability == Nothing || maybeDurability == Just Component.defaultDurability)
                     ]
                     [ Icon.crossRounded ]
                 ]
