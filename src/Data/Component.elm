@@ -157,6 +157,7 @@ type alias Query =
     -- Note: component durability is experimental, future work may eventually be needed to
     -- reuse existing mechanics and handle holistic durability like it's implemented for textile,
     -- though it's still an ongoing discussion and we need to move forward and iterate.
+    -- FIXME: this should be a Maybe
     , durability : Unit.Ratio
     , items : List Item
     }

@@ -59,9 +59,9 @@ decodeDict =
     AnyDict.decode_ (\key _ -> fromString key) toString
 
 
-dictGet : Scope -> a -> Dict a -> a
-dictGet scope default =
-    AnyDict.get scope >> Maybe.withDefault default
+dictGet : Scope -> Dict a -> Maybe a
+dictGet scope =
+    AnyDict.get scope
 
 
 encode : Scope -> Encode.Value
