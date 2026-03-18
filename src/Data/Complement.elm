@@ -150,12 +150,10 @@ allComplementsToList complements =
 
 
 getTotalComplementsImpacts : ComplementsImpacts -> Unit.Impact
-getTotalComplementsImpacts complementsImpacts =
-    Quantity.sum
-        (complementsImpacts
-            |> allComplementsToList
-            |> List.map (Maybe.withDefault Unit.noImpacts)
-        )
+getTotalComplementsImpacts =
+    allComplementsToList 
+        >> List.map (Maybe.withDefault Unit.noImpacts)
+        >> Quantity.sum
 
 
 encodeComplementsImpacts : ComplementsImpacts -> Encode.Value
