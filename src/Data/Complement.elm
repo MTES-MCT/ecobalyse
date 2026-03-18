@@ -146,7 +146,7 @@ allComplementsFields =
 allComplementsToList : AbstractComplements a -> List a
 allComplementsToList complements =
     allComplementsFields
-        |> List.map (\c -> complements |> c)
+        |> List.map (\fn -> fn complements)
 
 
 getTotalComplementsImpacts : ComplementsImpacts -> Unit.Impact
