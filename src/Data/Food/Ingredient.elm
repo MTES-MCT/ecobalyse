@@ -37,7 +37,7 @@ import Length
 
 
 type alias Ingredient =
-    { aliasName : String
+    { alias : String
     , categories : List IngredientCategory.Category
     , cropGroup : CropGroup
     , defaultOrigin : Origin
@@ -141,7 +141,6 @@ decodeIngredient : List Process -> Decoder Ingredient
 decodeIngredient processes =
     Decode.succeed Ingredient
         |> Pipe.required "alias" Decode.string
-        -- aliasName as alias is a keyword in elm
         |> Pipe.required "categories" (Decode.list IngredientCategory.decode)
         |> Pipe.optional "cropGroup" CropGroup.decode CropGroup.empty
         |> Pipe.required "defaultOrigin" Origin.decode
@@ -236,7 +235,7 @@ transportCoolingToString v =
 toSearchableString : Ingredient -> String
 toSearchableString ingredient =
     String.join " "
-        [ ingredient.aliasName
+        [ ingredient.alias
         , ingredient.categories |> List.map IngredientCategory.toLabel |> String.join " "
         , ingredient.cropGroup |> CropGroup.toLabel
         , ingredient.defaultOrigin |> Origin.toLabel

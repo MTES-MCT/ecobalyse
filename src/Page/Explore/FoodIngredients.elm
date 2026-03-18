@@ -45,8 +45,8 @@ table { detailed, scope } =
           , toCell = .name >> text
           }
         , { label = "Alias"
-          , toValue = Table.StringValue .aliasName
-          , toCell = \ingredient -> code [] [ text ingredient.aliasName ]
+          , toValue = Table.StringValue .alias
+          , toCell = \ingredient -> code [] [ text ingredient.alias ]
           }
         , { label = "Catégories"
           , toValue = Table.StringValue <| .categories >> List.map IngredientCategory.toLabel >> String.join ","
