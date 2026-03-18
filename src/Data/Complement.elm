@@ -302,8 +302,7 @@ sumComplementsResultsImpacts =
 
 
 mergeComplementsResultsImpacts : ComplementsResultsImpacts -> Impacts
-mergeComplementsResultsImpacts complementsResultsImpacts =
-    complementsResultsImpacts
-        |> allComplementsToList
-        |> List.filterMap identity
-        |> Impact.sumImpacts
+mergeComplementsResultsImpacts =
+    allComplementsToList
+        >> List.filterMap identity
+        >> Impact.sumImpacts
