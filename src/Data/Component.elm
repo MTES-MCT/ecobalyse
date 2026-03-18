@@ -157,8 +157,7 @@ type alias Query =
     -- Note: component durability is experimental, future work may eventually be needed to
     -- reuse existing mechanics and handle holistic durability like it's implemented for textile,
     -- though it's still an ongoing discussion and we need to move forward and iterate.
-    -- FIXME: this should be a Maybe
-    , durability : Unit.Ratio
+    , durability : Maybe Unit.Ratio
     , items : List Item
     }
 
@@ -897,7 +896,7 @@ decodeQuery =
     Decode.succeed Query
         |> DU.strictOptional "assemblyCountry" Country.decodeCode
         |> Decode.optional "consumptions" (Decode.list decodeConsumption) []
-        |> Decode.optional "durability" Unit.decodeRatio (Unit.ratio 1)
+        |> DU.strictOptional "durability" Unit.decodeRatio
         |> Decode.required "components" (Decode.list decodeItem)
 
 
@@ -956,7 +955,7 @@ emptyQuery : Query
 emptyQuery =
     { assemblyCountry = Nothing
     , consumptions = []
-    , durability = Unit.ratio 1
+    , durability = Nothing
     , items = []
     }
 
@@ -1079,7 +1078,7 @@ encodeQuery : Query -> Encode.Value
 encodeQuery query =
     EU.optionalPropertiesObject
         [ ( "assemblyCountry", query.assemblyCountry |> Maybe.map Country.encodeCode )
-        , ( "durability", query.durability |> Unit.encodeRatio |> Just )
+        , ( "durability", query.durability |> Maybe.map Unit.encodeRatio )
         , ( "components", query.items |> Encode.list encodeItem |> Just )
         , ( "consumptions"
           , if List.isEmpty query.consumptions then
@@ -1667,7 +1666,14 @@ updateCustom component fn maybeCustom =
 
 updateDurability : Unit.Ratio -> Query -> Query
 updateDurability durability query =
-    { query | durability = durability }
+    { query
+        | durability =
+            if durability == Unit.ratio 1 then
+                Nothing
+
+            else
+                Just durability
+    }
 
 
 updateElement : TargetElement -> (Element -> Element) -> List Item -> List Item

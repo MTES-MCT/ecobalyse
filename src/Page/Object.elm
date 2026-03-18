@@ -809,7 +809,7 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
                 -- Score
                 , customScoreInfo = Nothing
                 , productMass = Component.extractMass lifeCycle.production
-                , totalImpacts = lifeCycle |> Component.applyDurability (Just currentDurability)
+                , totalImpacts = lifeCycle |> Component.applyDurability currentDurability
                 , totalImpactsWithoutDurability = lifeCycle |> Component.sumLifeCycleImpacts |> Just
 
                 -- Impacts tabs
@@ -838,11 +838,20 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
         ]
 
 
-durabilityView : Unit.Ratio -> Html Msg
-durabilityView currentDurability =
+durabilityView : Maybe Unit.Ratio -> Html Msg
+durabilityView maybeDurability =
     -- Note: this is considered a temporary implementation for object and veli simulators,
     -- things might actually want to be factored out and appropriately typed and handled
     -- when ongoing discussions around holostic durability are completed.
+    let
+        currentDurability =
+            case maybeDurability of
+                Just durability ->
+                    durability
+
+                Nothing ->
+                    Unit.ratio 1
+    in
     div [ class "card shadow-sm pb-2 mb-3" ]
         [ div [ class "card-header d-flex justify-content-between align-items-center" ]
             [ h2 [ class "h5 mb-1 text-truncate" ] [ text "Durabilité" ]
@@ -898,7 +907,7 @@ durabilityView currentDurability =
                     , class "btn text-primary p-0 border-0"
                     , onClick (UpdateDurability (Ok (Unit.ratio 1)))
                     , title "Réinitialiser la durabilité"
-                    , disabled (currentDurability == Unit.ratio 1)
+                    , disabled (maybeDurability == Nothing || maybeDurability == Just (Unit.ratio 1))
                     ]
                     [ Icon.crossRounded ]
                 ]
