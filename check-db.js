@@ -5,7 +5,11 @@ const { dataFiles } = require("./lib");
 
 const elmApp = Elm.CheckDb.init({
   flags: {
-    processes: fs.readFileSync(dataFiles.detailed, "utf-8"),
+    processes: JSON.stringify(
+      JSON.parse(fs.readFileSync(dataFiles.detailed, "utf8").toString()).concat(
+        JSON.parse(fs.readFileSync(dataFiles.genericDetailed, "utf8")),
+      ),
+    ),
   },
 });
 
