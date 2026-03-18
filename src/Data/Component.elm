@@ -670,7 +670,7 @@ computeMaterialResults amount process =
         complementImpacts =
             process.metadata
                 |> Maybe.andThen .complements
-                |> Maybe.map (\c -> applyComplementsResultsImpacts amount Impact.empty c)
+                |> Maybe.map (applyComplementsResultsImpacts amount Impact.empty)
                 |> Maybe.withDefault Complement.emptyComplementsResultsImpacts
 
         mass =
