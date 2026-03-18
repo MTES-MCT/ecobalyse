@@ -91,6 +91,7 @@ module Data.Component exposing
     , updateItem
     , updateItemCustomName
     , validateItem
+    , validateQuery
     )
 
 import Base64
@@ -1747,3 +1748,22 @@ validateItem components item =
             Nothing ->
                 -- component is being created
                 Ok item
+
+
+validateQuery : Requirements db -> Query -> Result String Query
+validateQuery { config, scope } query =
+    case config.durability.enabled |> Scope.dictGet scope of
+        Just enabled ->
+            if not enabled then
+                case query.durability of
+                    Just _ ->
+                        Err <| "La durabilité n'est pas activée pour le périmètre " ++ Scope.toString scope
+
+                    Nothing ->
+                        Ok query
+
+            else
+                Ok query
+
+        Nothing ->
+            Ok query
