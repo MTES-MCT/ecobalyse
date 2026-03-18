@@ -524,23 +524,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as co
           else
             text ""
         , if config.context == GenericContext && not (List.isEmpty query.items) then
-            div []
-                ([ lifeCycle.transports.toDistribution
-                    |> transportView impact (Component.extractMass lifeCycle.production)
-                 , distributionView config
-                 , noTransportView
-                 , useStageView config
-                 ]
-                    ++ (case config.componentConfig.endOfLife.enabled |> Scope.dictGet scope of
-                            Just True ->
-                                [ noTransportView
-                                , endOfLifeView config lifeCycle
-                                ]
-
-                            _ ->
-                                []
-                       )
-                )
+            genericContextStagesView config lifeCycle
 
           else
             text ""
@@ -550,6 +534,27 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as co
           else
             text ""
         ]
+
+
+genericContextStagesView : Config db msg -> LifeCycle -> Html msg
+genericContextStagesView ({ impact, scope } as config) lifeCycle =
+    div []
+        ([ lifeCycle.transports.toDistribution
+            |> transportView impact (Component.extractMass lifeCycle.production)
+         , distributionView config
+         , noTransportView
+         , useStageView config
+         ]
+            ++ (case config.componentConfig.endOfLife.enabled |> Scope.dictGet scope of
+                    Just True ->
+                        [ noTransportView
+                        , endOfLifeView config lifeCycle
+                        ]
+
+                    _ ->
+                        []
+               )
+        )
 
 
 transportView : Definition -> Mass -> Transport -> Html msg
