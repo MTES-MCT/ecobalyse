@@ -2,11 +2,12 @@ module Views.Textile.Stage exposing (view)
 
 import Autocomplete exposing (Autocomplete)
 import Data.AutocompleteSelector as AutocompleteSelector
+import Data.Complement as Complement exposing (noComplementsImpacts)
 import Data.Country as Country
 import Data.Dataset as Dataset
 import Data.Env as Env
 import Data.Gitbook as Gitbook
-import Data.Impact as Impact exposing (noComplementsImpacts)
+import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Process as Process
 import Data.Scope as Scope
@@ -498,11 +499,11 @@ viewStageImpacts selectedImpact { complementsImpacts, impacts } =
         let
             stageComplementsImpact =
                 complementsImpacts
-                    |> Impact.getTotalComplementsImpacts
+                    |> Complement.getTotalComplementsImpacts
 
             totalImpacts =
                 impacts
-                    |> Impact.applyComplements stageComplementsImpact
+                    |> Complement.applyComplementsToImpacts stageComplementsImpact
         in
         div []
             [ span [ class "flex-fill" ]

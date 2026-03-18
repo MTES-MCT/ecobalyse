@@ -24,6 +24,7 @@ module Data.Food.Recipe exposing
     , toString
     )
 
+import Data.Complement as Complement
 import Data.Country as Country exposing (Country)
 import Data.Food.EcosystemicServices as EcosystemicServices exposing (EcosystemicServices)
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
@@ -91,8 +92,8 @@ type alias Results =
         , edibleMass : Mass
         , ingredientsTotal : Impacts
         , ingredients : List ( RecipeIngredient, Impacts )
-        , totalComplementsImpact : Impact.ComplementsImpacts
-        , totalComplementsImpactPerKg : Impact.ComplementsImpacts
+        , totalComplementsImpact : Complement.ComplementsImpacts
+        , totalComplementsImpactPerKg : Complement.ComplementsImpacts
         , transform : Impacts
         , transports : Transport
         , transformedMass : Mass
@@ -215,11 +216,11 @@ compute ({ food } as db) =
 
                     addIngredientsComplements impacts =
                         impacts
-                            |> Impact.applyComplements (Impact.getTotalComplementsImpacts totalComplementsImpact)
+                            |> Complement.applyComplementsToImpacts (Complement.getTotalComplementsImpacts totalComplementsImpact)
 
                     totalComplementsImpactPerKg =
                         totalComplementsImpact
-                            |> Impact.mapComplementsImpacts (Quantity.divideBy (Mass.inKilograms preparedMass))
+                            |> Complement.mapComplements (Maybe.map (Quantity.divideBy (Mass.inKilograms preparedMass)))
 
                     totalImpactsWithoutComplements =
                         Impact.sumImpacts
@@ -246,7 +247,7 @@ compute ({ food } as db) =
                     scoring =
                         impactsPerKgWithoutComplements
                             |> Scoring.compute db.definitions
-                                (Impact.getTotalComplementsImpacts totalComplementsImpactPerKg)
+                                (Complement.getTotalComplementsImpacts totalComplementsImpactPerKg)
                 in
                 ( recipe
                 , { distribution = { total = distributionImpacts, transports = distributionTransport }
@@ -290,7 +291,7 @@ convertWellKnownToTransportModes wellKnown =
     }
 
 
-computeIngredientComplementsImpacts : EcosystemicServices -> Mass -> Impact.ComplementsImpacts
+computeIngredientComplementsImpacts : EcosystemicServices -> Mass -> Complement.ComplementsImpacts
 computeIngredientComplementsImpacts { cropDiversity, hedges, livestockDensity, permanentPasture, plotSize } ingredientMass =
     let
         apply coeff =
@@ -333,15 +334,15 @@ computeIngredientImpacts { ingredient, mass } =
         |> Impact.mapImpacts (computeImpact mass)
 
 
-computeIngredientsTotalComplements : List RecipeIngredient -> Impact.ComplementsImpacts
+computeIngredientsTotalComplements : List RecipeIngredient -> Complement.ComplementsImpacts
 computeIngredientsTotalComplements =
     List.foldl
         (\{ ingredient, mass } acc ->
             mass
                 |> computeIngredientComplementsImpacts ingredient.ecosystemicServices
-                |> Impact.addComplementsImpacts acc
+                |> Complement.addComplementsImpacts acc
         )
-        Impact.noComplementsImpacts
+        Complement.noComplementsImpacts
 
 
 computeIngredientTransport : Db -> RecipeIngredient -> Transport
@@ -450,7 +451,7 @@ encodeResults results =
           , Encode.object
                 [ ( "total", Impact.encode results.recipe.total )
                 , ( "ingredientsTotal", Impact.encode results.recipe.ingredientsTotal )
-                , ( "totalBonusImpact", Impact.encodeComplementsImpacts results.recipe.totalComplementsImpact )
+                , ( "totalBonusImpact", Complement.encodeComplementsImpacts results.recipe.totalComplementsImpact )
                 , ( "transform", Impact.encode results.recipe.transform )
                 , ( "transports", Transport.encode results.recipe.transports )
                 ]

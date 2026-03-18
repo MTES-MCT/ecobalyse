@@ -6,6 +6,7 @@ module Views.Component exposing
 
 import Autocomplete exposing (Autocomplete)
 import Data.AutocompleteSelector as AutocompleteSelector
+import Data.Complement as Complement
 import Data.Component as Component
     exposing
         ( Component
@@ -266,7 +267,7 @@ componentView config itemIndex ({ component, country, elements, quantity } as ex
                             |> Format.kg
                         ]
                     , td [ class "pt-0 pb-2 text-end align-middle text-nowrap fs-7" ]
-                        [ Component.getAllImpacts itemResults
+                        [ Component.getTotalImpacts itemResults
                             |> Format.formatImpact config.impact
                         ]
                     , td [ class "pe-3 pt-0 pb-2 text-end align-middle text-nowrap" ]
@@ -441,7 +442,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as co
                 , div [ class "d-flex align-items-center gap-2" ]
                     [ span [ class "cursor-help", Attr.title "Hors transports" ]
                         [ lifeCycle.production
-                            |> Component.getAllImpacts
+                            |> Component.getTotalImpacts
                             |> Format.formatImpact config.impact
                         ]
                     , case docsUrl of
@@ -686,7 +687,7 @@ elementView config targetItem elementIndex { amount, country, material, transfor
             , th [ class "align-middle text-truncate", scope "col", Attr.title "Masse sortante" ]
                 [ material.unit |> Process.unitLabel |> text ]
             , th [ class "align-middle text-end", scope "col" ]
-                [ Component.getAllImpacts elementResults
+                [ Component.getTotalImpacts elementResults
                     |> Format.formatImpact config.impact
                 ]
             , th [] []
@@ -758,7 +759,7 @@ elementMaterialView config targetElement materialResults material amount =
                 |> Format.amount material
             ]
         , td [ class "text-end align-middle text-nowrap" ]
-            [ Component.getAllImpacts materialResults
+            [ Component.getTotalImpacts materialResults
                 |> Format.formatImpact config.impact
             ]
         , td [ class "pe-3 text-nowrap" ]
@@ -770,7 +771,7 @@ elementMaterialView config targetElement materialResults material amount =
                 [ Icon.trash ]
             ]
         ]
-    , if complementsImpacts /= Impact.emptyComplementsResultsImpacts then
+    , if complementsImpacts /= Complement.emptyComplementsResultsImpacts then
         tr [ class "fs-7" ]
             [ td [] []
             , td [ class "text-end align-middle text-nowrap ps-0", style "min-width" "130px" ]
@@ -786,7 +787,7 @@ elementMaterialView config targetElement materialResults material amount =
                 []
             , td [ class "text-end align-middle text-nowrap" ]
                 [ complementsImpacts
-                    |> Impact.mergeComplementsResultsImpacts
+                    |> Complement.mergeComplementsResultsImpacts
                     |> Format.formatImpact config.impact
                 ]
             , td [ class "pe-3 text-nowrap" ]

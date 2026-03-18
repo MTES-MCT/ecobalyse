@@ -9,6 +9,7 @@ module Views.ImpactTabs exposing
     , view
     )
 
+import Data.Complement as Complement
 import Data.Component as Component
 import Data.Food.Recipe as Recipe
 import Data.Impact as Impact exposing (Impacts)
@@ -34,7 +35,7 @@ type Tab
 
 type alias Config msg =
     { activeImpactsTab : Tab
-    , complementsImpact : Impact.ComplementsImpacts
+    , complementsImpact : Complement.ComplementsImpacts
     , impactDefinition : Definition
     , onStageClick : String -> msg
     , scoring : Scoring
@@ -59,7 +60,7 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStag
                             [ -- Food ecosystemic services
                               { entryAttributes = []
                               , name = "Services écosystémiques"
-                              , value = -(Unit.impactToFloat (Impact.sumEcosystemicImpacts complementsImpact))
+                              , value = -(Unit.impactToFloat (Complement.sumEcosystemicImpacts complementsImpact))
                               }
 
                             -- Textile complements
@@ -186,7 +187,7 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStag
 createConfig : Session -> Definition -> Tab -> (String -> msg) -> (Tab -> msg) -> Config msg
 createConfig session impactDefinition activeImpactsTab onStageClick switchImpactsTab =
     { activeImpactsTab = activeImpactsTab
-    , complementsImpact = Impact.noComplementsImpacts
+    , complementsImpact = Complement.noComplementsImpacts
     , impactDefinition = impactDefinition
     , onStageClick = onStageClick
     , scoring = Scoring.empty
@@ -229,7 +230,7 @@ forTextile definitions simulator config =
         | complementsImpact = simulator.complementsImpacts
         , scoring =
             totalImpactsWithoutComplements
-                |> Scoring.compute definitions (Impact.getTotalComplementsImpacts simulator.complementsImpacts)
+                |> Scoring.compute definitions (Complement.getTotalComplementsImpacts simulator.complementsImpacts)
         , stagesImpacts =
             simulator
                 |> TextileSimulator.toStagesImpacts config.impactDefinition.trigram

@@ -60,10 +60,10 @@ module Data.Component exposing
     , extractItems
     , extractMass
     , findById
-    , getAllImpacts
     , getEndOfLifeDetailedImpacts
     , getEndOfLifeImpacts
     , getEndOfLifeScopeCollectionRate
+    , getTotalImpacts
     , idFromString
     , idToString
     , isEmpty
@@ -99,10 +99,11 @@ module Data.Component exposing
 import Base64
 import Data.Common.DecodeUtils as DU
 import Data.Common.EncodeUtils as EU
+import Data.Complement as Complement exposing (ComplementsResultsImpacts)
 import Data.Component.Amount as Amount exposing (Amount)
 import Data.Component.Config as Config exposing (EndOfLifeStrategies, EndOfLifeStrategy)
 import Data.Country as Country exposing (Country)
-import Data.Impact as Impact exposing (ComplementsResultsImpacts, Impacts)
+import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Definitions, Trigram)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category, MaterialDict)
@@ -376,7 +377,7 @@ addResults : Results -> Results -> Results
 addResults (Results results) (Results acc) =
     Results
         { acc
-            | complementsImpacts = Impact.sumComplementsResultsImpacts [ results.complementsImpacts, acc.complementsImpacts ]
+            | complementsImpacts = Complement.sumComplementsResultsImpacts [ results.complementsImpacts, acc.complementsImpacts ]
             , impacts = Impact.sumImpacts [ results.impacts, acc.impacts ]
             , items = Results results :: acc.items
             , mass = Quantity.sum [ results.mass, acc.mass ]
@@ -425,7 +426,7 @@ applyTransform { elec, heat } transform (Results { amount, label, impacts, items
                 ++ [ -- transform result
                      Results
                         { amount = outputAmount
-                        , complementsImpacts = Impact.emptyComplementsResultsImpacts
+                        , complementsImpacts = Complement.emptyComplementsResultsImpacts
                         , impacts = transformImpacts
                         , items = []
                         , label = Just <| Process.getDisplayName transform
@@ -595,7 +596,7 @@ computeItemResults requirements { country, custom, id, quantity } =
                     , complementsImpacts =
                         complementsImpacts
                             |> List.repeat (quantityToInt quantity)
-                            |> Impact.sumComplementsResultsImpacts
+                            |> Complement.sumComplementsResultsImpacts
                     , impacts =
                         impacts
                             |> List.repeat (quantityToInt quantity)
@@ -642,7 +643,7 @@ computeItemTransportToAssembly { config, db } assemblyCountry item itemResults =
     )
 
 
-applyComplementsResultsImpacts : Amount -> Impacts -> Impact.ComplementsImpacts -> ComplementsResultsImpacts
+applyComplementsResultsImpacts : Amount -> Impacts -> Complement.ComplementsImpacts -> ComplementsResultsImpacts
 applyComplementsResultsImpacts amount impacts complementsImpacts =
     let
         applyComplement : Maybe Unit.Impact -> Maybe Impacts
@@ -651,7 +652,7 @@ applyComplementsResultsImpacts amount impacts complementsImpacts =
                 |> Maybe.map
                     (\c ->
                         impacts
-                            |> Impact.applyComplements c
+                            |> Complement.applyComplementsToImpacts c
                             |> Impact.multiplyBy (Amount.toFloat amount)
                     )
     in
@@ -678,7 +679,7 @@ computeMaterialResults amount process =
             process.metadata
                 |> Maybe.andThen .complements
                 |> Maybe.map (\c -> applyComplementsResultsImpacts amount Impact.empty c)
-                |> Maybe.withDefault Impact.emptyComplementsResultsImpacts
+                |> Maybe.withDefault Complement.emptyComplementsResultsImpacts
 
         mass =
             Mass.kilograms <|
@@ -729,8 +730,8 @@ computeScoring definitions { production } =
             ( extractImpacts production
             , extractMass production
               -- New metadata complements should always be added and not substracted as before, that’s why we negate it
-              -- here to stay compatible withe the current implementations for Ecosystemic Services
-            , Quantity.negate (extractComplementsImpacts production |> Impact.mergeComplementsResultsImpacts |> Impact.getImpact Definition.Ecs)
+              -- here to stay compatible with the current implementations for Ecosystemic Services
+            , Quantity.negate (extractComplementsImpacts production |> Complement.mergeComplementsResultsImpacts |> Impact.getImpact Definition.Ecs)
             )
     in
     totalImpacts
@@ -1014,7 +1015,7 @@ emptyResults : Results
 emptyResults =
     Results
         { amount = Amount.fromFloat 0
-        , complementsImpacts = Impact.emptyComplementsResultsImpacts
+        , complementsImpacts = Complement.emptyComplementsResultsImpacts
         , impacts = Impact.empty
         , items = []
         , label = Nothing
@@ -1296,11 +1297,11 @@ extractImpacts (Results { impacts }) =
     impacts
 
 
-getAllImpacts : Results -> Impacts
-getAllImpacts (Results { impacts, complementsImpacts }) =
+getTotalImpacts : Results -> Impacts
+getTotalImpacts (Results { impacts, complementsImpacts }) =
     Impact.sumImpacts
         [ impacts
-        , complementsImpacts |> Impact.mergeComplementsResultsImpacts
+        , complementsImpacts |> Complement.mergeComplementsResultsImpacts
         ]
 
 
@@ -1700,7 +1701,7 @@ sumLifeCycleImpacts : LifeCycle -> Impacts
 sumLifeCycleImpacts lifeCycle =
     Impact.sumImpacts
         [ extractImpacts lifeCycle.production
-        , extractComplementsImpacts lifeCycle.production |> Impact.mergeComplementsResultsImpacts
+        , extractComplementsImpacts lifeCycle.production |> Complement.mergeComplementsResultsImpacts
         , lifeCycle.endOfLife
         , lifeCycle.transports.toAssembly.impacts
         , lifeCycle.transports.toDistribution.impacts

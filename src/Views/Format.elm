@@ -31,6 +31,7 @@ module Views.Format exposing
     )
 
 import Area exposing (Area)
+import Data.Complement as Complement
 import Data.Component.Amount as Amount exposing (Amount)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Definition)
@@ -72,23 +73,16 @@ formatImpactToString { decimals, trigram } =
         >> formatFloat decimals
 
 
-formatComplementsResultsImpactsToString : Definition -> Impact.ComplementsResultsImpacts -> String
+formatComplementsResultsImpactsToString : Definition -> Complement.ComplementsResultsImpacts -> String
 formatComplementsResultsImpactsToString impact complementsResultsImpacts =
     let
-        formatComplement complementFn label =
-            complementsResultsImpacts
-                |> complementFn
+        formatComplement maybeComplement label =
+            maybeComplement
                 |> Maybe.map (formatImpactToString impact >> (++) (label ++ "\u{00A0}: "))
     in
-    [ formatComplement .cropDiversity Impact.complementsLabels.cropDiversity
-    , formatComplement .forest Impact.complementsLabels.forest
-    , formatComplement .hedges Impact.complementsLabels.hedges
-    , formatComplement .livestockDensity Impact.complementsLabels.livestockDensity
-    , formatComplement .microfibers Impact.complementsLabels.microfibers
-    , formatComplement .outOfEuropeEOL Impact.complementsLabels.outOfEuropeEOL
-    , formatComplement .permanentPasture Impact.complementsLabels.permanentPasture
-    , formatComplement .plotSize Impact.complementsLabels.plotSize
-    ]
+    List.map2 formatComplement
+        (complementsResultsImpacts |> Complement.allComplementsToList)
+        (Complement.complementsLabels |> Complement.allComplementsToList)
         |> List.filterMap identity
         |> String.join "\n"
 
