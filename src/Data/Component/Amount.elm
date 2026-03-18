@@ -7,6 +7,7 @@ module Data.Component.Amount exposing
     , map
     , toFloat
     , toString
+    , validate
     )
 
 import Json.Decode as Decode exposing (Decoder)
@@ -52,3 +53,12 @@ toFloat (Amount float) =
 toString : Amount -> String
 toString =
     toFloat >> String.fromFloat
+
+
+validate : Amount -> Result String Amount
+validate (Amount float) =
+    if float < 0 then
+        Err "Une quantité doit être supérieure ou égale à zéro"
+
+    else
+        Ok (Amount float)
