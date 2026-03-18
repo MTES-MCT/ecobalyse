@@ -103,7 +103,7 @@ import Data.Component.Amount as Amount exposing (Amount)
 import Data.Component.Config as Config exposing (EndOfLifeStrategies, EndOfLifeStrategy)
 import Data.Country as Country exposing (Country)
 import Data.Impact as Impact exposing (ComplementsResultsImpacts, Impacts)
-import Data.Impact.Definition exposing (Definitions, Trigram)
+import Data.Impact.Definition as Definition exposing (Definitions, Trigram)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category, MaterialDict)
 import Data.Scope as Scope exposing (Scope)
@@ -728,8 +728,9 @@ computeScoring definitions { production } =
         ( totalImpacts, totalMass, complementImpacts ) =
             ( extractImpacts production
             , extractMass production
-              -- Note: No complements are currently handled in components
-            , Unit.noImpacts
+              -- New metadata complements should always be added and not substracted as before, that’s why we negate it
+              -- here to stay compatible withe the current implementations for Ecosystemic Services
+            , Quantity.negate (extractComplementsImpacts production |> Impact.mergeComplementsResultsImpacts |> Impact.getImpact Definition.Ecs)
             )
     in
     totalImpacts
