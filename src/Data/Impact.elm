@@ -510,16 +510,17 @@ sumComplementsResultsImpacts =
 
 mergeComplementsResultsImpacts : ComplementsResultsImpacts -> Impacts
 mergeComplementsResultsImpacts complementsResultsImpacts =
-    sumImpacts
-        [ complementsResultsImpacts.cropDiversity |> Maybe.withDefault empty
-        , complementsResultsImpacts.forest |> Maybe.withDefault empty
-        , complementsResultsImpacts.hedges |> Maybe.withDefault empty
-        , complementsResultsImpacts.livestockDensity |> Maybe.withDefault empty
-        , complementsResultsImpacts.microfibers |> Maybe.withDefault empty
-        , complementsResultsImpacts.outOfEuropeEOL |> Maybe.withDefault empty
-        , complementsResultsImpacts.permanentPasture |> Maybe.withDefault empty
-        , complementsResultsImpacts.plotSize |> Maybe.withDefault empty
-        ]
+    [ complementsResultsImpacts.cropDiversity
+    , complementsResultsImpacts.forest
+    , complementsResultsImpacts.hedges
+    , complementsResultsImpacts.livestockDensity
+    , complementsResultsImpacts.microfibers
+    , complementsResultsImpacts.outOfEuropeEOL
+    , complementsResultsImpacts.permanentPasture
+    , complementsResultsImpacts.plotSize
+    ]
+        |> List.filterMap identity
+        |> sumImpacts
 
 
 updateImpact : Definitions -> Trigram -> Unit.Impact -> Impacts -> Impacts
