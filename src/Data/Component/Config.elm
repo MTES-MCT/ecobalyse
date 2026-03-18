@@ -23,6 +23,7 @@ import Json.Decode.Pipeline as Decode
 
 type alias Config =
     { distribution : DistributionConfig
+    , durability : DurabilityConfig
     , endOfLife : EndOfLifeConfig
     , production : ProductionConfig
     , transports : TransportConfig
@@ -40,6 +41,10 @@ type alias DataContainer db =
 
 type alias DistributionConfig =
     { country : Country }
+
+
+type alias DurabilityConfig =
+    { enabled : Scope.Dict Bool }
 
 
 type alias EndOfLifeConfig =
@@ -85,6 +90,7 @@ decode : { db | countries : List Country, processes : List Process } -> Decoder 
 decode { countries, processes } =
     Decode.succeed Config
         |> Decode.required "distribution" (decodeDistributionConfig countries)
+        |> Decode.required "durability" decodeDurabilityConfig
         |> Decode.required "endOfLife" (decodeEndOfLifeConfig processes)
         |> Decode.required "production" (decodeProductionConfig processes)
         |> Decode.required "transports" (decodeTransportConfig processes)
@@ -94,6 +100,12 @@ decodeDistributionConfig : List Country -> Decoder DistributionConfig
 decodeDistributionConfig countries =
     Decode.succeed DistributionConfig
         |> Decode.required "country" (Country.decodeFromCode countries)
+
+
+decodeDurabilityConfig : Decoder DurabilityConfig
+decodeDurabilityConfig =
+    Decode.succeed DurabilityConfig
+        |> Decode.required "enabled" (Scope.decodeDict Decode.bool)
 
 
 decodeEndOfLifeConfig : List Process -> Decoder EndOfLifeConfig
@@ -173,6 +185,13 @@ default db =
             },
             "distribution": {
                 "country": "FR"
+            },
+            "durability": {
+                "enabled": {
+                    "food2": false,
+                    "object": true,
+                    "veli": true
+                }
             },
             "endOfLife": {
                 "scopeCollectionRates": {},

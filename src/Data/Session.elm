@@ -198,11 +198,18 @@ updateDb fn session =
 
 objectQueryFromScope : Scope -> Session -> Component.Query
 objectQueryFromScope scope session =
-    if scope == Scope.Veli then
-        session.queries.veli
+    case scope of
+        Scope.Food2 ->
+            session.queries.food2
 
-    else
-        session.queries.object
+        Scope.Object ->
+            session.queries.object
+
+        Scope.Veli ->
+            session.queries.veli
+
+        _ ->
+            Component.emptyQuery
 
 
 updateFoodQuery : FoodQuery.Query -> Session -> Session
