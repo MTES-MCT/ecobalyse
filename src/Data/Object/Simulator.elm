@@ -12,7 +12,8 @@ import Static.Db exposing (Db)
 
 compute : Component.Requirements Db -> Component.Query -> Result String LifeCycle
 compute requirements =
-    Component.compute requirements
+    Component.validateQuery requirements
+        >> Result.andThen (Component.compute requirements)
 
 
 toStagesImpacts : Definition.Trigram -> LifeCycle -> Impact.StagesImpacts

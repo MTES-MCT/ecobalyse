@@ -22,6 +22,7 @@ module Data.Component exposing
     , addElementTransform
     , addItem
     , addOrSetProcess
+    , applyDurability
     , applyTransforms
     , compute
     , computeElementResults
@@ -37,6 +38,7 @@ module Data.Component exposing
     , decodeListFromJsonString
     , decodeQuery
     , defaultConfig
+    , defaultDurability
     , elementTransforms
     , elementsToString
     , emptyComponent
@@ -89,6 +91,7 @@ module Data.Component exposing
     , updateItem
     , updateItemCustomName
     , validateItem
+    , validateQuery
     )
 
 import Base64
@@ -156,7 +159,7 @@ type alias Query =
     -- Note: component durability is experimental, future work may eventually be needed to
     -- reuse existing mechanics and handle holistic durability like it's implemented for textile,
     -- though it's still an ongoing discussion and we need to move forward and iterate.
-    , durability : Unit.Ratio
+    , durability : Maybe Unit.Ratio
     , items : List Item
     }
 
@@ -375,6 +378,18 @@ addResults (Results results) (Results acc) =
             , mass = Quantity.sum [ results.mass, acc.mass ]
             , stage = Nothing
         }
+
+
+applyDurability : Maybe Unit.Ratio -> LifeCycle -> Impacts
+applyDurability maybeDurability =
+    sumLifeCycleImpacts
+        >> (case maybeDurability of
+                Just durability ->
+                    Impact.divideBy (Unit.ratioToFloat durability)
+
+                Nothing ->
+                    identity
+           )
 
 
 applyTransform : EnergyMixes -> Process -> Results -> Results
@@ -883,7 +898,7 @@ decodeQuery =
     Decode.succeed Query
         |> DU.strictOptional "assemblyCountry" Country.decodeCode
         |> Decode.optional "consumptions" (Decode.list decodeConsumption) []
-        |> Decode.optional "durability" Unit.decodeRatio (Unit.ratio 1)
+        |> DU.strictOptional "durability" Unit.decodeRatio
         |> Decode.required "components" (Decode.list decodeItem)
 
 
@@ -892,6 +907,11 @@ decodeQuery =
 defaultConfig : DataContainer db -> Result String Config
 defaultConfig =
     Config.default
+
+
+defaultDurability : Unit.Ratio
+defaultDurability =
+    Unit.ratio 1
 
 
 elementToString : List Process -> Element -> Result String String
@@ -942,7 +962,7 @@ emptyQuery : Query
 emptyQuery =
     { assemblyCountry = Nothing
     , consumptions = []
-    , durability = Unit.ratio 1
+    , durability = Nothing
     , items = []
     }
 
@@ -1065,7 +1085,7 @@ encodeQuery : Query -> Encode.Value
 encodeQuery query =
     EU.optionalPropertiesObject
         [ ( "assemblyCountry", query.assemblyCountry |> Maybe.map Country.encodeCode )
-        , ( "durability", query.durability |> Unit.encodeRatio |> Just )
+        , ( "durability", query.durability |> Maybe.map Unit.encodeRatio )
         , ( "components", query.items |> Encode.list encodeItem |> Just )
         , ( "consumptions"
           , if List.isEmpty query.consumptions then
@@ -1653,7 +1673,14 @@ updateCustom component fn maybeCustom =
 
 updateDurability : Unit.Ratio -> Query -> Query
 updateDurability durability query =
-    { query | durability = durability }
+    { query
+        | durability =
+            if durability == defaultDurability then
+                Nothing
+
+            else
+                Just durability
+    }
 
 
 updateElement : TargetElement -> (Element -> Element) -> List Item -> List Item
@@ -1702,6 +1729,35 @@ updateItem itemIndex =
     LE.updateAt itemIndex
 
 
+validateConsumption : Requirements db -> Consumption -> Result String Consumption
+validateConsumption requirements consumption =
+    Ok Consumption
+        |> RE.andMap (Amount.validate consumption.amount)
+        |> RE.andMap (validateProcessId requirements consumption.processId)
+
+
+validateCountry : Requirements db -> Maybe Country.Code -> Result String (Maybe Country.Code)
+validateCountry { db, scope } maybeCountryCode =
+    case maybeCountryCode of
+        Just countryCode ->
+            countryCode
+                |> Country.validateForScope scope db.countries
+                |> Result.map Just
+
+        Nothing ->
+            Ok Nothing
+
+
+validateDurability : Requirements db -> Maybe Unit.Ratio -> Result String (Maybe Unit.Ratio)
+validateDurability { config, scope } durability =
+    case ( config.durability.enabled |> Scope.dictGet scope, durability ) of
+        ( Just False, Just _ ) ->
+            Err <| "La durabilité n'est pas activée pour le périmètre " ++ Scope.toLabel scope
+
+        _ ->
+            Ok durability
+
+
 validateItem : List Component -> Item -> Result String Item
 validateItem components item =
     if quantityToInt item.quantity < 1 then
@@ -1721,3 +1777,28 @@ validateItem components item =
             Nothing ->
                 -- component is being created
                 Ok item
+
+
+validateProcessId : Requirements db -> Process.Id -> Result String Process.Id
+validateProcessId { db, scope } processId =
+    db.processes
+        |> Scope.anyOf [ scope ]
+        |> Process.findById processId
+        |> Result.map .id
+        |> Result.mapError
+            (always <|
+                "Aucun procédé scopé "
+                    ++ Scope.toLabel scope
+                    ++ " avec cet id: "
+                    ++ Process.idToString processId
+            )
+
+
+validateQuery : Requirements db -> Query -> Result String Query
+validateQuery ({ db } as requirements) query =
+    Ok Query
+        |> RE.andMap (validateCountry requirements query.assemblyCountry)
+        |> RE.andMap (query.consumptions |> RE.combineMap (validateConsumption requirements))
+        |> RE.andMap (validateDurability requirements query.durability)
+        |> RE.andMap (query.items |> RE.combineMap (validateItem db.components))
+        |> Result.mapError (\s -> "Requête invalide: " ++ s)
