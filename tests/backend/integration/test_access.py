@@ -1,8 +1,10 @@
 import datetime
+import time
 import urllib
 from typing import Any
 
 import pytest
+from app.config import get_settings
 from app.db.models import User
 from app.domain.accounts.services import TokenService, UserService
 from httpx import AsyncClient
@@ -539,6 +541,77 @@ async def test_token_delete(
         headers=user_token_headers,
     )
     assert response.status_code == 204
+
+
+async def test_token_validation_cache(
+    session: AsyncSession,
+    client: "AsyncClient",
+    monkeypatch: pytest.MonkeyPatch,
+    user_token_headers: dict[str, str],
+    raw_users: list[User | dict[str, Any]],
+) -> None:
+
+    cache_seconds = 3
+    settings = get_settings()
+    monkeypatch.setattr(
+        settings.app, "DEFAULT_TOKEN_VALIDATION_CACHE_SECONDS", cache_seconds
+    )
+
+    response = await client.post(
+        "/api/tokens",
+        headers=user_token_headers,
+    )
+
+    assert response.status_code == 201
+
+    token_data = response.json()
+
+    # Validate API token for user
+    response = await client.post(
+        "/api/tokens/validate",
+        json=token_data,
+    )
+
+    assert response.status_code == 201
+
+    response = await client.get(
+        "/api/tokens",
+        headers=user_token_headers,
+    )
+    data = response.json()
+    assert len(data) == 1
+
+    response = await client.delete(
+        "/api/tokens/" + data[0]["id"],
+        headers=user_token_headers,
+    )
+    assert response.status_code == 204
+
+    response = await client.get(
+        "/api/tokens",
+        headers=user_token_headers,
+    )
+    data = response.json()
+    assert len(data) == 0
+
+    # Validate API token for user
+    # It should still be ok as the token validation is cached
+    response = await client.post(
+        "/api/tokens/validate",
+        json=token_data,
+    )
+
+    assert response.status_code == 201
+
+    time.sleep(cache_seconds)
+
+    # 3 seconds later cache should have expired
+    response = await client.post(
+        "/api/tokens/validate",
+        json=token_data,
+    )
+
+    assert response.status_code == 403
 
 
 async def test_token_validation(

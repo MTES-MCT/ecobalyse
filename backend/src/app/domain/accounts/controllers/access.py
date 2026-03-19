@@ -198,6 +198,8 @@ class AccessController(Controller):
 
         memory_store = request.app.stores.get("memory")
 
+        print(f"-> CACHE IS {settings.app.DEFAULT_TOKEN_VALIDATION_CACHE_SECONDS}")
+
         if await memory_store.get(data.token):
             # If the token is in the store, we had a previous successfull auth
             # so we consider that the auth is still valid and we successfully return
@@ -227,7 +229,9 @@ class AccessController(Controller):
             )
 
         await memory_store.set(
-            data.token, True, expires_in=20
+            data.token,
+            True,
+            expires_in=settings.app.DEFAULT_TOKEN_VALIDATION_CACHE_SECONDS,
         )  # Stores token in cache for 20 seconds
 
     @post(
