@@ -102,16 +102,7 @@ addComplementsImpacts a b =
                 ( Nothing, Nothing ) ->
                     Nothing
     in
-    { -- Ecosystemic services impacts
-      cropDiversity = addComplement a.cropDiversity b.cropDiversity
-    , forest = addComplement a.forest b.forest
-    , hedges = addComplement a.hedges b.hedges
-    , livestockDensity = addComplement a.livestockDensity b.livestockDensity
-    , microfibers = addComplement a.microfibers b.microfibers
-    , outOfEuropeEOL = addComplement a.outOfEuropeEOL b.outOfEuropeEOL
-    , permanentPasture = addComplement a.permanentPasture b.permanentPasture
-    , plotSize = addComplement a.plotSize b.plotSize
-    }
+    mapComplements2 addComplement a b
 
 
 applyComplementsToImpacts : Unit.Impact -> Impacts -> Impacts
@@ -151,7 +142,7 @@ allComplementsToList complements =
 
 getTotalComplementsImpacts : ComplementsImpacts -> Unit.Impact
 getTotalComplementsImpacts =
-    allComplementsToList 
+    allComplementsToList
         >> List.map (Maybe.withDefault Unit.noImpacts)
         >> Quantity.sum
 
@@ -188,11 +179,24 @@ mapComplements fn results =
     { cropDiversity = fn results.cropDiversity
     , forest = fn results.forest
     , hedges = fn results.hedges
-    , livestockDensity = fn results.hedges
+    , livestockDensity = fn results.livestockDensity
     , microfibers = fn results.microfibers
     , outOfEuropeEOL = fn results.outOfEuropeEOL
     , permanentPasture = fn results.permanentPasture
     , plotSize = fn results.plotSize
+    }
+
+
+mapComplements2 : (a -> b -> c) -> AbstractComplements a -> AbstractComplements b -> AbstractComplements c
+mapComplements2 fn a b =
+    { cropDiversity = fn a.cropDiversity b.cropDiversity
+    , forest = fn a.forest b.forest
+    , hedges = fn a.hedges b.hedges
+    , livestockDensity = fn a.livestockDensity b.livestockDensity
+    , microfibers = fn a.microfibers b.microfibers
+    , outOfEuropeEOL = fn a.outOfEuropeEOL b.outOfEuropeEOL
+    , permanentPasture = fn a.permanentPasture b.permanentPasture
+    , plotSize = fn a.plotSize b.plotSize
     }
 
 
