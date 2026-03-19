@@ -538,23 +538,16 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as co
 
 
 genericContextStagesView : Config db msg -> LifeCycle -> Html msg
-genericContextStagesView ({ impact, scope } as config) lifeCycle =
+genericContextStagesView ({ impact } as config) lifeCycle =
     div []
-        ([ lifeCycle.transports.toDistribution
+        [ lifeCycle.transports.toDistribution
             |> transportView impact (Component.extractMass lifeCycle.production)
-         , distributionView config
-         , noTransportView
-         , useStageView config
-         ]
-            ++ (if config.componentConfig.endOfLife |> Config.scopeEnabled scope then
-                    [ noTransportView
-                    , endOfLifeView config lifeCycle
-                    ]
-
-                else
-                    []
-               )
-        )
+        , distributionView config
+        , noTransportView
+        , useStageView config
+        , noTransportView
+        , endOfLifeView config lifeCycle
+        ]
 
 
 transportView : Definition -> Mass -> Transport -> Html msg
@@ -1001,7 +994,7 @@ addConsumptionButton ({ openSelectConsumptionModal, query } as config) =
 
 
 endOfLifeView : Config db msg -> LifeCycle -> Html msg
-endOfLifeView ({ componentConfig } as config) lifeCycle =
+endOfLifeView ({ componentConfig, scope } as config) lifeCycle =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header d-flex align-items-center justify-content-between" ]
             [ h2 [ class "h5 mb-0" ]
@@ -1017,28 +1010,35 @@ endOfLifeView ({ componentConfig } as config) lifeCycle =
                 ]
             ]
         , div [ class "card-body table-responsive p-0" ]
-            [ table [ class "table mb-0 fs-7" ]
-                [ thead []
-                    [ tr []
-                        [ th [ class "text-end" ] [ text "Matière" ]
-                        , th [ class "text-end" ] [ text "Masse" ]
-                        , th [ class "text-end" ] [ text "Recyclage" ]
-                        , th [ class "text-end" ] [ text "Incinération" ]
-                        , th [ class "text-end" ] [ text "Enfouissement" ]
-                        , th [ class "text-end pe-3" ] [ text "Impact" ]
+            [ if config.componentConfig.endOfLife |> Config.scopeEnabled scope then
+                table [ class "table mb-0 fs-7" ]
+                    [ thead []
+                        [ tr []
+                            [ th [ class "text-end" ] [ text "Matière" ]
+                            , th [ class "text-end" ] [ text "Masse" ]
+                            , th [ class "text-end" ] [ text "Recyclage" ]
+                            , th [ class "text-end" ] [ text "Incinération" ]
+                            , th [ class "text-end" ] [ text "Enfouissement" ]
+                            , th [ class "text-end pe-3" ] [ text "Impact" ]
+                            ]
                         ]
+                    , lifeCycle.production
+                        |> Component.getEndOfLifeDetailedImpacts
+                            { config = componentConfig
+                            , db = config.db
+                            , scope = config.scope
+                            }
+                        |> AnyDict.toList
+                        |> List.sortBy (Tuple.first >> Category.materialTypeToLabel)
+                        |> List.concatMap (endOfLifeMaterialRow config)
+                        |> tbody []
                     ]
-                , lifeCycle.production
-                    |> Component.getEndOfLifeDetailedImpacts
-                        { config = componentConfig
-                        , db = config.db
-                        , scope = config.scope
-                        }
-                    |> AnyDict.toList
-                    |> List.sortBy (Tuple.first >> Category.materialTypeToLabel)
-                    |> List.concatMap (endOfLifeMaterialRow config)
-                    |> tbody []
-                ]
+
+              else
+                div [ class "card-body d-flex align-items-center justify-content-start gap-2" ]
+                    [ Icon.info
+                    , text <| "Fin de vie non disponible pour le périmètre " ++ Scope.toLabel config.scope
+                    ]
             ]
         ]
 

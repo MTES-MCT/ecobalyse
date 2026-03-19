@@ -2307,7 +2307,7 @@
     "massPerUnit": null,
     "metadata": null,
     "scopes": [
-      "veli"
+      "veli","food2"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
