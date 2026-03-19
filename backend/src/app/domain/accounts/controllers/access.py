@@ -184,10 +184,10 @@ class AccessController(Controller):
         operation_id="ValidateToken",
         path=urls.TOKEN_VALIDATE,
         exclude_from_auth=True,
-        cache=120,  # 2 minutes of cache
     )
     async def validate_token(
         self,
+        request: Request,
         tokens_service: TokenService,
         users_service: UserService,
         data: ApiToken,
@@ -195,6 +195,13 @@ class AccessController(Controller):
         """Validate a token"""
 
         user_email = None
+
+        memory_store = request.app.stores.get("memory")
+
+        if await memory_store.get(data.token):
+            # If the token is in the store, we had a previous successfull auth
+            # so we consider that the auth is still valid and we successfully return
+            return
 
         if data.token.startswith("eco_api_"):
             payload = await tokens_service.extract_payload(data.token)
@@ -218,6 +225,10 @@ class AccessController(Controller):
             raise PermissionDeniedException(
                 detail="You must accept the terms to have access to detailed impacts"
             )
+
+        await memory_store.set(
+            data.token, True, expires_in=20
+        )  # Stores token in cache for 20 seconds
 
     @post(
         operation_id="GenerateToken",
