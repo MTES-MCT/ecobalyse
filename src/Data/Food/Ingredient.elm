@@ -37,7 +37,8 @@ import Length
 
 
 type alias Ingredient =
-    { categories : List IngredientCategory.Category
+    { alias : String
+    , categories : List IngredientCategory.Category
     , cropGroup : CropGroup
     , defaultOrigin : Origin
     , density : Density
@@ -139,6 +140,7 @@ decodeIngredients processes =
 decodeIngredient : List Process -> Decoder Ingredient
 decodeIngredient processes =
     Decode.succeed Ingredient
+        |> Pipe.required "alias" Decode.string
         |> Pipe.required "categories" (Decode.list IngredientCategory.decode)
         |> Pipe.optional "cropGroup" CropGroup.decode CropGroup.empty
         |> Pipe.required "defaultOrigin" Origin.decode
@@ -233,7 +235,8 @@ transportCoolingToString v =
 toSearchableString : Ingredient -> String
 toSearchableString ingredient =
     String.join " "
-        [ ingredient.categories |> List.map IngredientCategory.toLabel |> String.join " "
+        [ ingredient.alias
+        , ingredient.categories |> List.map IngredientCategory.toLabel |> String.join " "
         , ingredient.cropGroup |> CropGroup.toLabel
         , ingredient.defaultOrigin |> Origin.toLabel
         , ingredient.name

@@ -44,6 +44,10 @@ table { detailed, scope } =
           , toValue = Table.StringValue .name
           , toCell = .name >> text
           }
+        , { label = "Alias"
+          , toValue = Table.StringValue .alias
+          , toCell = \ingredient -> code [] [ text ingredient.alias ]
+          }
         , { label = "Catégories"
           , toValue = Table.StringValue <| .categories >> List.map IngredientCategory.toLabel >> String.join ","
           , toCell = .categories >> List.map (\c -> li [] [ text (IngredientCategory.toLabel c) ]) >> ul [ class "mb-0" ]
