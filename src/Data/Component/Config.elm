@@ -7,6 +7,7 @@ module Data.Component.Config exposing
     , decode
     , default
     , parse
+    , scopeEnabled
     )
 
 import Data.Common.DecodeUtils as DU
@@ -14,7 +15,7 @@ import Data.Country as Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (MaterialDict)
-import Data.Scope as Scope
+import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
 import Data.Transport as Transport exposing (Transport)
 import Json.Decode as Decode exposing (Decoder)
@@ -235,3 +236,10 @@ parse db json =
     json
         |> Decode.decodeString (decode db)
         |> Result.mapError Decode.errorToString
+
+
+scopeEnabled : Scope -> { a | enabled : Scope.Dict Bool } -> Bool
+scopeEnabled scope =
+    .enabled
+        >> Scope.dictGet scope
+        >> Maybe.withDefault False

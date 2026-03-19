@@ -1278,27 +1278,31 @@ getEndOfLifeDetailedImpacts { config, scope } =
 
 
 getEndOfLifeImpacts : Requirements db -> Results -> Impacts
-getEndOfLifeImpacts requirements (Results results) =
-    Results results
-        |> getEndOfLifeDetailedImpacts requirements
-        |> AnyDict.map
-            (\_ { collected, nonCollected } ->
-                let
-                    ( collectedStrategies, nonCollectedStrategies ) =
-                        ( Tuple.second collected, Tuple.second nonCollected )
-                in
-                [ collectedStrategies.incinerating
-                , collectedStrategies.landfilling
-                , collectedStrategies.recycling
-                , nonCollectedStrategies.incinerating
-                , nonCollectedStrategies.landfilling
-                , nonCollectedStrategies.recycling
-                ]
-                    |> List.map .impacts
-                    |> Impact.sumImpacts
-            )
-        |> AnyDict.values
-        |> Impact.sumImpacts
+getEndOfLifeImpacts ({ config, scope } as requirements) (Results results) =
+    if config.endOfLife |> Config.scopeEnabled scope then
+        Results results
+            |> getEndOfLifeDetailedImpacts requirements
+            |> AnyDict.map
+                (\_ { collected, nonCollected } ->
+                    let
+                        ( collectedStrategies, nonCollectedStrategies ) =
+                            ( Tuple.second collected, Tuple.second nonCollected )
+                    in
+                    [ collectedStrategies.incinerating
+                    , collectedStrategies.landfilling
+                    , collectedStrategies.recycling
+                    , nonCollectedStrategies.incinerating
+                    , nonCollectedStrategies.landfilling
+                    , nonCollectedStrategies.recycling
+                    ]
+                        |> List.map .impacts
+                        |> Impact.sumImpacts
+                )
+            |> AnyDict.values
+            |> Impact.sumImpacts
+
+    else
+        Impact.empty
 
 
 getEndOfLifeScopeCollectionRate : Config -> Scope -> Split
@@ -1750,8 +1754,8 @@ validateCountry { db, scope } maybeCountryCode =
 
 validateDurability : Requirements db -> Maybe Unit.Ratio -> Result String (Maybe Unit.Ratio)
 validateDurability { config, scope } durability =
-    case ( config.durability.enabled |> Scope.dictGet scope, durability ) of
-        ( Just False, Just _ ) ->
+    case ( config.durability |> Config.scopeEnabled scope, durability ) of
+        ( False, Just _ ) ->
             Err <| "La durabilité n'est pas activée pour le périmètre " ++ Scope.toLabel scope
 
         _ ->

@@ -21,6 +21,7 @@ import Data.Component as Component
         , TargetItem
         )
 import Data.Component.Amount as Amount exposing (Amount)
+import Data.Component.Config as Config
 import Data.Country as Country exposing (Country)
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
@@ -545,14 +546,13 @@ genericContextStagesView ({ impact, scope } as config) lifeCycle =
          , noTransportView
          , useStageView config
          ]
-            ++ (case config.componentConfig.endOfLife.enabled |> Scope.dictGet scope of
-                    Just True ->
-                        [ noTransportView
-                        , endOfLifeView config lifeCycle
-                        ]
+            ++ (if config.componentConfig.endOfLife |> Config.scopeEnabled scope then
+                    [ noTransportView
+                    , endOfLifeView config lifeCycle
+                    ]
 
-                    _ ->
-                        []
+                else
+                    []
                )
         )
 
