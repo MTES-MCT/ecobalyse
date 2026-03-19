@@ -551,7 +551,7 @@ async def test_token_validation_cache(
     raw_users: list[User | dict[str, Any]],
 ) -> None:
 
-    cache_seconds = 3
+    cache_seconds = 1
     settings = get_settings()
     monkeypatch.setattr(
         settings.app, "DEFAULT_TOKEN_VALIDATION_CACHE_SECONDS", cache_seconds
