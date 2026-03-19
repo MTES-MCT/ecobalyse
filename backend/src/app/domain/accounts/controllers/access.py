@@ -184,6 +184,7 @@ class AccessController(Controller):
         operation_id="ValidateToken",
         path=urls.TOKEN_VALIDATE,
         exclude_from_auth=True,
+        cache=120,  # 2 minutes of cache
     )
     async def validate_token(
         self,
