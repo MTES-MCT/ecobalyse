@@ -141,6 +141,9 @@ test.describe("auth", () => {
 
       await expect(page.getByText("Aucun jeton d’API actif")).toBeVisible();
 
+      // Wait for 3 seconds (cache token validation on the backend)
+      await page.waitForTimeout(3000);
+
       // Try reusing the deleted token
       const apiResponse2 = await fetch("http://localhost:1234/api/textile/simulator/detailed", {
         method: "POST",

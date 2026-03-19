@@ -11,4 +11,8 @@ if [ -z "$CI" ]; then
 fi
 
 uv run backend database upgrade --no-prompt && uv run backend fixtures load-test
+
+# Reduce token validation cache
+export DEFAULT_TOKEN_VALIDATION_CACHE_SECONDS=3
+
 npm start
