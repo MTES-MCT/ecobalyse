@@ -646,8 +646,8 @@ computeItemTransportToAssembly { config, db } assemblyCountry item itemResults =
 applyComplementsResultsImpacts : Amount -> Impacts -> Complement.ComplementsImpacts -> ComplementsResultsImpacts
 applyComplementsResultsImpacts amount impacts complementsImpacts =
     let
-        applyComplement : Maybe Unit.Impact -> Maybe Impacts
-        applyComplement complement =
+        applyComplementAmount : Maybe Unit.Impact -> Maybe Impacts
+        applyComplementAmount complement =
             complement
                 |> Maybe.map
                     (\c ->
@@ -656,15 +656,7 @@ applyComplementsResultsImpacts amount impacts complementsImpacts =
                             |> Impact.multiplyBy (Amount.toFloat amount)
                     )
     in
-    { cropDiversity = applyComplement complementsImpacts.cropDiversity
-    , forest = applyComplement complementsImpacts.forest
-    , hedges = applyComplement complementsImpacts.hedges
-    , livestockDensity = applyComplement complementsImpacts.livestockDensity
-    , microfibers = applyComplement complementsImpacts.microfibers
-    , outOfEuropeEOL = applyComplement complementsImpacts.outOfEuropeEOL
-    , permanentPasture = applyComplement complementsImpacts.permanentPasture
-    , plotSize = applyComplement complementsImpacts.plotSize
-    }
+    complementsImpacts |> Complement.mapComplements applyComplementAmount
 
 
 computeMaterialResults : Amount -> Process -> Results
