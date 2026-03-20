@@ -34,7 +34,8 @@
     "location": "NL",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -75,7 +76,8 @@
     "location": "MX",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -116,7 +118,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -157,7 +160,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -198,7 +202,8 @@
     "location": "CN",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -239,7 +244,8 @@
     "location": "RoW",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -280,7 +286,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -321,7 +328,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -362,7 +370,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -403,7 +412,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -444,7 +454,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -485,7 +496,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -527,7 +539,8 @@
     "location": "FR",
     "massPerUnit": 0.01985,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -569,7 +582,8 @@
     "location": "FR",
     "massPerUnit": 0.01723,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -610,7 +624,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -651,7 +666,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -693,7 +709,8 @@
     "location": "FR",
     "massPerUnit": 0.06585,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -735,7 +752,8 @@
     "location": "FR",
     "massPerUnit": 0.02424,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -777,7 +795,8 @@
     "location": "FR",
     "massPerUnit": 0.185,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -818,7 +837,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -860,7 +880,8 @@
     "location": "FR",
     "massPerUnit": 0.006,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -901,7 +922,8 @@
     "location": "RoW",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -942,7 +964,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -983,7 +1006,8 @@
     "location": "WI",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -1025,7 +1049,8 @@
     "location": "FR",
     "massPerUnit": 0.01183,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -1066,7 +1091,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -1107,7 +1133,8 @@
     "location": "DE",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -1148,7 +1175,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -1189,7 +1217,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -1230,7 +1259,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -1272,7 +1302,8 @@
     "location": "FR",
     "massPerUnit": 0.04084,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -1314,7 +1345,8 @@
     "location": "FR",
     "massPerUnit": 0.04461,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -1356,7 +1388,8 @@
     "location": "FR",
     "massPerUnit": 0.99585,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -1397,7 +1430,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -1438,7 +1472,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -1480,7 +1515,8 @@
     "location": "FR",
     "massPerUnit": 0.01165,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -1522,7 +1558,8 @@
     "location": "FR",
     "massPerUnit": 0.035,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -1564,7 +1601,8 @@
     "location": "FR",
     "massPerUnit": 0.02322,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -1605,7 +1643,8 @@
     "location": "VN",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -1646,7 +1685,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -1687,7 +1727,8 @@
     "location": "RS",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -1729,7 +1770,8 @@
     "location": "FR",
     "massPerUnit": 0.01262,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -1771,7 +1813,8 @@
     "location": "FR",
     "massPerUnit": 0.05501,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -1813,7 +1856,8 @@
     "location": "FR",
     "massPerUnit": 0.04085,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -1855,7 +1899,8 @@
     "location": "FR",
     "massPerUnit": 0.03359,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -1896,7 +1941,8 @@
     "location": "CA",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -1938,7 +1984,8 @@
     "location": "FR",
     "massPerUnit": 0.0428,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -1980,7 +2027,8 @@
     "location": "FR",
     "massPerUnit": 0.0427,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -2022,7 +2070,8 @@
     "location": "FR",
     "massPerUnit": 0.0709,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -2064,7 +2113,8 @@
     "location": "FR",
     "massPerUnit": 0.04003,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -2106,7 +2156,8 @@
     "location": "FR",
     "massPerUnit": 0.07536,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -2147,7 +2198,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -2188,7 +2240,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -2229,7 +2282,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -2271,7 +2325,8 @@
     "location": "FR",
     "massPerUnit": 0.0089333,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -2312,7 +2367,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -2353,7 +2409,8 @@
     "location": "GB",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -2395,7 +2452,8 @@
     "location": "FR",
     "massPerUnit": 0.11032,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -2436,7 +2494,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -2478,7 +2537,8 @@
     "location": "FR",
     "massPerUnit": 0.01962,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -2520,7 +2580,8 @@
     "location": "FR",
     "massPerUnit": 0.01904,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -2562,7 +2623,8 @@
     "location": "FR",
     "massPerUnit": 0.03696,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -2604,7 +2666,8 @@
     "location": "FR",
     "massPerUnit": 0.0198,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -2645,7 +2708,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -2686,7 +2750,8 @@
     "location": "RoW",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -2728,7 +2793,8 @@
     "location": "FR",
     "massPerUnit": 0.048,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -2769,7 +2835,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -2811,7 +2878,8 @@
     "location": "FR",
     "massPerUnit": 0.07903,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -2853,7 +2921,8 @@
     "location": "FR",
     "massPerUnit": 0.11535,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -2937,7 +3006,8 @@
     "location": "FR",
     "massPerUnit": 0.0113,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -2978,7 +3048,8 @@
     "location": "NL",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -3019,7 +3090,8 @@
     "location": "RoW",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -3060,7 +3132,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -3101,7 +3174,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -3142,7 +3216,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -3183,7 +3258,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -3224,7 +3300,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -3265,7 +3342,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -3307,7 +3385,8 @@
     "location": "FR",
     "massPerUnit": 0.02829,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -3349,7 +3428,8 @@
     "location": "FR",
     "massPerUnit": 0.095,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -3391,7 +3471,8 @@
     "location": "FR",
     "massPerUnit": 0.047,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -3433,7 +3514,8 @@
     "location": "FR",
     "massPerUnit": 0.01345,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -3475,7 +3557,8 @@
     "location": "FR",
     "massPerUnit": 0.09552,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -3517,7 +3600,8 @@
     "location": "FR",
     "massPerUnit": 0.12382,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -3559,7 +3643,8 @@
     "location": "FR",
     "massPerUnit": 0.05409,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -3601,7 +3686,8 @@
     "location": "FR",
     "massPerUnit": 0.0388,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -3642,7 +3728,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -3683,7 +3770,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -3725,7 +3813,8 @@
     "location": "FR",
     "massPerUnit": 0.21482,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -3766,7 +3855,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -3807,7 +3897,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -3848,7 +3939,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -3889,7 +3981,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -3931,7 +4024,8 @@
     "location": "FR",
     "massPerUnit": 0.00538,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -3973,7 +4067,8 @@
     "location": "FR",
     "massPerUnit": 0.03465,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -4015,7 +4110,8 @@
     "location": "FR",
     "massPerUnit": 0.02066,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -4057,7 +4153,8 @@
     "location": "FR",
     "massPerUnit": 0.0174,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -4099,7 +4196,8 @@
     "location": "FR",
     "massPerUnit": 0.04546,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -4141,7 +4239,8 @@
     "location": "FR",
     "massPerUnit": 0.04546,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -4183,7 +4282,8 @@
     "location": "FR",
     "massPerUnit": 0.17608,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -4225,7 +4325,8 @@
     "location": "FR",
     "massPerUnit": 0.55613,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -4266,7 +4367,8 @@
     "location": "MA",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -4308,7 +4410,8 @@
     "location": "FR",
     "massPerUnit": 0.04654,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -4350,7 +4453,8 @@
     "location": "FR",
     "massPerUnit": 0.47331,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -4391,7 +4495,8 @@
     "location": "RER",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -4432,7 +4537,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -4473,7 +4579,8 @@
     "location": "ID",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -4514,7 +4621,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -4556,7 +4664,8 @@
     "location": "FR",
     "massPerUnit": 0.00878,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -4597,7 +4706,8 @@
     "location": "IN",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -4638,7 +4748,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -4680,7 +4791,8 @@
     "location": "FR",
     "massPerUnit": 0.4716,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -4722,7 +4834,8 @@
     "location": "FR",
     "massPerUnit": 0.05382,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -4764,7 +4877,8 @@
     "location": "FR",
     "massPerUnit": 0.0603,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -4805,7 +4919,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -4847,7 +4962,8 @@
     "location": "FR",
     "massPerUnit": 0.17889,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -4889,7 +5005,8 @@
     "location": "FR",
     "massPerUnit": 0.04124,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -4931,7 +5048,8 @@
     "location": "FR",
     "massPerUnit": 0.04211,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -4972,7 +5090,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -5014,7 +5133,8 @@
     "location": "FR",
     "massPerUnit": 0.008,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -5056,7 +5176,8 @@
     "location": "FR",
     "massPerUnit": 0.03841,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -5098,7 +5219,8 @@
     "location": "FR",
     "massPerUnit": 0.0267,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -5140,7 +5262,8 @@
     "location": "FR",
     "massPerUnit": 0.006915,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -5223,7 +5346,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -5264,7 +5388,8 @@
     "location": "RER",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -5305,7 +5430,8 @@
     "location": "CA-QC",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -5346,7 +5472,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -5388,7 +5515,8 @@
     "location": "FR",
     "massPerUnit": 0.00376,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -5429,7 +5557,8 @@
     "location": "CL",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -5471,7 +5600,8 @@
     "location": "FR",
     "massPerUnit": 0.02629,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -5513,7 +5643,8 @@
     "location": "FR",
     "massPerUnit": 0.06924,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -5555,7 +5686,8 @@
     "location": "FR",
     "massPerUnit": 0.06152,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -5597,7 +5729,8 @@
     "location": "FR",
     "massPerUnit": 0.02534,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -5639,7 +5772,8 @@
     "location": "FR",
     "massPerUnit": 0.00754,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -5681,7 +5815,8 @@
     "location": "FR",
     "massPerUnit": 0.0019,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -5722,7 +5857,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -5763,7 +5899,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -5805,7 +5942,8 @@
     "location": "FR",
     "massPerUnit": 0.04092,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -5847,7 +5985,8 @@
     "location": "FR",
     "massPerUnit": 0.0427,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -5889,7 +6028,8 @@
     "location": "FR",
     "massPerUnit": 0.0766,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -5931,7 +6071,8 @@
     "location": "FR",
     "massPerUnit": 0.13027,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -5973,7 +6114,8 @@
     "location": "FR",
     "massPerUnit": 0.10444,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -6015,7 +6157,8 @@
     "location": "FR",
     "massPerUnit": 0.03768,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -6056,7 +6199,8 @@
     "location": "RER",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -6098,7 +6242,8 @@
     "location": "FR",
     "massPerUnit": 0.0485,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -6139,7 +6284,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -6181,7 +6327,8 @@
     "location": "FR",
     "massPerUnit": 0.04695,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -6223,7 +6370,8 @@
     "location": "FR",
     "massPerUnit": 0.03727,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -6265,7 +6413,8 @@
     "location": "FR",
     "massPerUnit": 0.03652,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -6307,7 +6456,8 @@
     "location": "FR",
     "massPerUnit": 0.01682,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -6349,7 +6499,8 @@
     "location": "FR",
     "massPerUnit": 0.07518,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -6391,7 +6542,8 @@
     "location": "FR",
     "massPerUnit": 0.01448,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -6433,7 +6585,8 @@
     "location": "FR",
     "massPerUnit": 0.03404,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -6475,7 +6628,8 @@
     "location": "FR",
     "massPerUnit": 0.0298,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -6517,7 +6671,8 @@
     "location": "FR",
     "massPerUnit": 0.0131,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -6559,7 +6714,8 @@
     "location": "FR",
     "massPerUnit": 0.01282,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -6601,7 +6757,8 @@
     "location": "FR",
     "massPerUnit": 0.01568,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -6643,7 +6800,8 @@
     "location": "FR",
     "massPerUnit": 0.04535,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -6684,7 +6842,8 @@
     "location": "AU",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -6725,7 +6884,8 @@
     "location": "GR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -6766,7 +6926,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -6807,7 +6968,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -6848,7 +7010,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -6889,7 +7052,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -6930,7 +7094,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -6971,7 +7136,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -7012,7 +7178,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -7053,7 +7220,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -7094,7 +7262,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -7135,7 +7304,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -7177,7 +7347,8 @@
     "location": "FR",
     "massPerUnit": 0.185,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -7219,7 +7390,8 @@
     "location": "FR",
     "massPerUnit": 0.02812,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -7260,7 +7432,8 @@
     "location": "PL",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -7301,7 +7474,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -7342,7 +7516,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -7383,7 +7558,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -7424,7 +7600,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -7465,7 +7642,8 @@
     "location": "ES",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -7506,7 +7684,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -7547,7 +7726,8 @@
     "location": "CH",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -7588,7 +7768,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -7630,7 +7811,8 @@
     "location": "FR",
     "massPerUnit": 0.0412,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -7672,7 +7854,8 @@
     "location": "FR",
     "massPerUnit": 0.0478,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -7714,7 +7897,8 @@
     "location": "FR",
     "massPerUnit": 0.037527,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -7756,7 +7940,8 @@
     "location": "FR",
     "massPerUnit": 0.04013,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -7798,7 +7983,8 @@
     "location": "FR",
     "massPerUnit": 0.04252,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -7840,7 +8026,8 @@
     "location": "FR",
     "massPerUnit": 0.11475,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -7882,7 +8069,8 @@
     "location": "FR",
     "massPerUnit": 0.02409,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -7924,7 +8112,8 @@
     "location": "FR",
     "massPerUnit": 0.04528,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -7966,7 +8155,8 @@
     "location": "FR",
     "massPerUnit": 0.0356,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -8008,7 +8198,8 @@
     "location": "FR",
     "massPerUnit": 0.10668,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -8050,7 +8241,8 @@
     "location": "FR",
     "massPerUnit": 0.0413,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -8092,7 +8284,8 @@
     "location": "FR",
     "massPerUnit": 0.04252,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -8134,7 +8327,8 @@
     "location": "FR",
     "massPerUnit": 0.06573,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -8176,7 +8370,8 @@
     "location": "FR",
     "massPerUnit": 0.06012,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -8218,7 +8413,8 @@
     "location": "FR",
     "massPerUnit": 0.02234,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -8260,7 +8456,8 @@
     "location": "FR",
     "massPerUnit": 0.11111,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -8302,7 +8499,8 @@
     "location": "FR",
     "massPerUnit": 0.05793,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -8344,7 +8542,8 @@
     "location": "FR",
     "massPerUnit": 0.019513,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -8386,7 +8585,8 @@
     "location": "FR",
     "massPerUnit": 0.28518,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -8427,7 +8627,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -8468,7 +8669,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -8510,7 +8712,8 @@
     "location": "FR",
     "massPerUnit": 0.01001,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -8552,7 +8755,8 @@
     "location": "FR",
     "massPerUnit": 0.1574,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -8593,7 +8797,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -8634,7 +8839,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -8675,7 +8881,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -8717,7 +8924,8 @@
     "location": "FR",
     "massPerUnit": 0.0491,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -8759,7 +8967,8 @@
     "location": "FR",
     "massPerUnit": 0.00664,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -8801,7 +9010,8 @@
     "location": "FR",
     "massPerUnit": 0.004777,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -8843,7 +9053,8 @@
     "location": "FR",
     "massPerUnit": 0.04299,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -8885,7 +9096,8 @@
     "location": "FR",
     "massPerUnit": 0.04299,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -8927,7 +9139,8 @@
     "location": "FR",
     "massPerUnit": 0.04096,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -8968,7 +9181,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -9010,7 +9224,8 @@
     "location": "FR",
     "massPerUnit": 0.047,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -9052,7 +9267,8 @@
     "location": "FR",
     "massPerUnit": 0.02546,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -9093,7 +9309,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -9135,7 +9352,8 @@
     "location": "FR",
     "massPerUnit": 0.0837,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -9176,7 +9394,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -9217,7 +9436,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -9258,7 +9478,8 @@
     "location": "RoW",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -9299,7 +9520,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -9341,7 +9563,8 @@
     "location": "FR",
     "massPerUnit": 0.44659,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -9382,7 +9605,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -9423,7 +9647,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -9464,7 +9689,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -9505,7 +9731,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -9546,7 +9773,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -9587,7 +9815,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -9628,7 +9857,8 @@
     "location": "IT",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -9669,7 +9899,8 @@
     "location": "TR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -9710,7 +9941,8 @@
     "location": "IT",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -9751,7 +9983,8 @@
     "location": "TR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -9792,7 +10025,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -9833,7 +10067,8 @@
     "location": "Europe without Switzerland",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "MJ",
@@ -9874,7 +10109,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -9916,7 +10152,8 @@
     "location": "FR",
     "massPerUnit": 0.16055,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -9957,7 +10194,8 @@
     "location": "US",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -9998,7 +10236,8 @@
     "location": "CH",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -10040,7 +10279,8 @@
     "location": "FR",
     "massPerUnit": 0.07238,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -10082,7 +10322,8 @@
     "location": "FR",
     "massPerUnit": 0.08736,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -10124,7 +10365,8 @@
     "location": "FR",
     "massPerUnit": 0.06224,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -10166,7 +10408,8 @@
     "location": "FR",
     "massPerUnit": 0.02444,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -10208,7 +10451,8 @@
     "location": "FR",
     "massPerUnit": 0.0824,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -10249,7 +10493,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -10291,7 +10536,8 @@
     "location": "FR",
     "massPerUnit": 0.0348,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -10333,7 +10579,8 @@
     "location": "FR",
     "massPerUnit": 0.22775,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -10375,7 +10622,8 @@
     "location": "FR",
     "massPerUnit": 0.03398,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -10416,7 +10664,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -10457,7 +10706,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -10499,7 +10749,8 @@
     "location": "FR",
     "massPerUnit": 0.01285,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -10540,7 +10791,8 @@
     "location": "RER",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -10582,7 +10834,8 @@
     "location": "FR",
     "massPerUnit": 0.04336,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -10623,7 +10876,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -10664,7 +10918,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -10705,7 +10960,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -10746,7 +11002,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -10788,7 +11045,8 @@
     "location": "FR",
     "massPerUnit": 0.23115,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -10830,7 +11088,8 @@
     "location": "FR",
     "massPerUnit": 0.0476,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -10871,7 +11130,8 @@
     "location": "IT",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -10912,7 +11172,8 @@
     "location": "ES",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -10953,7 +11214,8 @@
     "location": "CA-SK",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -10994,7 +11256,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -11035,7 +11298,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -11076,7 +11340,8 @@
     "location": "RoW",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -11117,7 +11382,8 @@
     "location": "CA",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -11158,7 +11424,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -11199,7 +11466,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -11240,7 +11508,8 @@
     "location": "GB",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -11281,7 +11550,8 @@
     "location": "US",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -11323,7 +11593,8 @@
     "location": "FR",
     "massPerUnit": 0.01263,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -11364,7 +11635,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -11406,7 +11678,8 @@
     "location": "FR",
     "massPerUnit": 0.01055,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -11447,7 +11720,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -11488,7 +11762,8 @@
     "location": "BR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -11530,7 +11805,8 @@
     "location": "FR",
     "massPerUnit": 0.1072,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -11571,7 +11847,8 @@
     "location": "ES",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -11612,7 +11889,8 @@
     "location": "BR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -11654,7 +11932,8 @@
     "location": "FR",
     "massPerUnit": 0.0363,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -11696,7 +11975,8 @@
     "location": "FR",
     "massPerUnit": 0.0298,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -11738,7 +12018,8 @@
     "location": "FR",
     "massPerUnit": 0.01915,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -11780,7 +12061,8 @@
     "location": "FR",
     "massPerUnit": 0.0406,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -11822,7 +12104,8 @@
     "location": "FR",
     "massPerUnit": 0.0359,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -11864,7 +12147,8 @@
     "location": "FR",
     "massPerUnit": 0.04133,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -11906,7 +12190,8 @@
     "location": "FR",
     "massPerUnit": 0.0546,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -11948,7 +12233,8 @@
     "location": "FR",
     "massPerUnit": 0.2903,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -11990,7 +12276,8 @@
     "location": "FR",
     "massPerUnit": 0.06365,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -12032,7 +12319,8 @@
     "location": "FR",
     "massPerUnit": 0.0552,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -12074,7 +12362,8 @@
     "location": "FR",
     "massPerUnit": 0.0552,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -12116,7 +12405,8 @@
     "location": "FR",
     "massPerUnit": 0.09435,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -12157,7 +12447,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -12198,7 +12489,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -12239,7 +12531,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -12280,7 +12573,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -12321,7 +12615,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -12362,7 +12657,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -12403,7 +12699,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -12444,7 +12741,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -12486,7 +12784,8 @@
     "location": "FR",
     "massPerUnit": 0.04338,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -12528,7 +12827,8 @@
     "location": "FR",
     "massPerUnit": 0.04172,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -12569,7 +12869,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -12611,7 +12912,8 @@
     "location": "FR",
     "massPerUnit": 0.04425,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -12653,7 +12955,8 @@
     "location": "FR",
     "massPerUnit": 0.03975,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -12695,7 +12998,8 @@
     "location": "FR",
     "massPerUnit": 0.04197,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -12737,7 +13041,8 @@
     "location": "FR",
     "massPerUnit": 0.07301,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -12778,7 +13083,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "L",
@@ -12819,7 +13125,8 @@
     "location": "RoW",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -12861,7 +13168,8 @@
     "location": "FR",
     "massPerUnit": 0.08724,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -12903,7 +13211,8 @@
     "location": "FR",
     "massPerUnit": 0.13717,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -12945,7 +13254,8 @@
     "location": "FR",
     "massPerUnit": 0.03391,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -12987,7 +13297,8 @@
     "location": "FR",
     "massPerUnit": 0.07758,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -13029,7 +13340,8 @@
     "location": "FR",
     "massPerUnit": 0.04038,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -13070,7 +13382,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -13112,7 +13425,8 @@
     "location": "FR",
     "massPerUnit": 0.04596,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -13153,7 +13467,8 @@
     "location": "Canada without Quebec",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -13194,7 +13509,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -13236,7 +13552,8 @@
     "location": "FR",
     "massPerUnit": 0.03519,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -13278,7 +13595,8 @@
     "location": "FR",
     "massPerUnit": 0.01099,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -13320,7 +13638,8 @@
     "location": "FR",
     "massPerUnit": 0.01001,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -13362,7 +13681,8 @@
     "location": "FR",
     "massPerUnit": 0.00999,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -13403,7 +13723,8 @@
     "location": "RoW",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -13444,7 +13765,8 @@
     "location": "FI",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -13485,7 +13807,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -13527,7 +13850,8 @@
     "location": "FR",
     "massPerUnit": 0.07156,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -13568,7 +13892,8 @@
     "location": "RER",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -13610,7 +13935,8 @@
     "location": "FR",
     "massPerUnit": 0.4296,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -13652,7 +13978,8 @@
     "location": "FR",
     "massPerUnit": 0.0762,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -13693,7 +14020,8 @@
     "location": "ES",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -13735,7 +14063,8 @@
     "location": "FR",
     "massPerUnit": 0.013,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -13776,7 +14105,8 @@
     "location": "NL",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -13817,7 +14147,8 @@
     "location": "RoW",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -13858,7 +14189,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -13899,7 +14231,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -13940,7 +14273,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -13981,7 +14315,8 @@
     "location": "ES",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -14022,7 +14357,8 @@
     "location": "ZA",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -14063,7 +14399,8 @@
     "location": "ES",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -14105,7 +14442,8 @@
     "location": "FR",
     "massPerUnit": 0.01028,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -14147,7 +14485,8 @@
     "location": "FR",
     "massPerUnit": 0.0297,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -14189,7 +14528,8 @@
     "location": "FR",
     "massPerUnit": 0.09292,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -14231,7 +14571,8 @@
     "location": "FR",
     "massPerUnit": 0.03761,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -14273,7 +14614,8 @@
     "location": "FR",
     "massPerUnit": 0.017,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -14314,7 +14656,8 @@
     "location": "RER",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -14355,7 +14698,8 @@
     "location": "RER w/o CH+DE",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -14396,7 +14740,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -14437,7 +14782,8 @@
     "location": "MY",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -14478,7 +14824,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -14519,7 +14866,8 @@
     "location": "RER",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -14560,7 +14908,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -14601,7 +14950,8 @@
     "location": "US",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -14643,7 +14993,8 @@
     "location": "FR",
     "massPerUnit": 0.04464,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -14685,7 +15036,8 @@
     "location": "FR",
     "massPerUnit": 0.0349,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -14727,7 +15079,8 @@
     "location": "FR",
     "massPerUnit": 0.02747,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -14769,7 +15122,8 @@
     "location": "FR",
     "massPerUnit": 0.09494,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -14811,7 +15165,8 @@
     "location": "FR",
     "massPerUnit": 0.04743,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -14853,7 +15208,8 @@
     "location": "FR",
     "massPerUnit": 0.0216,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -14895,7 +15251,8 @@
     "location": "FR",
     "massPerUnit": 0.04334,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -14937,7 +15294,8 @@
     "location": "FR",
     "massPerUnit": 0.01786,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -14978,7 +15336,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -15020,7 +15379,8 @@
     "location": "FR",
     "massPerUnit": 0.03676,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -15062,7 +15422,8 @@
     "location": "FR",
     "massPerUnit": 0.0464,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -15104,7 +15465,8 @@
     "location": "FR",
     "massPerUnit": 0.03845,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -15146,7 +15508,8 @@
     "location": "FR",
     "massPerUnit": 0.03845,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -15188,7 +15551,8 @@
     "location": "FR",
     "massPerUnit": 0.03645,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -15230,7 +15594,8 @@
     "location": "FR",
     "massPerUnit": 0.151,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -15272,7 +15637,8 @@
     "location": "FR",
     "massPerUnit": 0.03586,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -15314,7 +15680,8 @@
     "location": "FR",
     "massPerUnit": 0.057,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -15355,7 +15722,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -15396,7 +15764,8 @@
     "location": "ES",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -15437,7 +15806,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -15478,7 +15848,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -15519,7 +15890,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -15561,7 +15933,8 @@
     "location": "FR",
     "massPerUnit": 0.1833,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -15602,7 +15975,8 @@
     "location": "SN",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -15643,7 +16017,8 @@
     "location": "CN",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -15684,7 +16059,8 @@
     "location": "IN",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -15725,7 +16101,8 @@
     "location": "RoW",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -15766,7 +16143,8 @@
     "location": "BE",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -15807,7 +16185,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -15848,7 +16227,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -15890,7 +16270,8 @@
     "location": "FR",
     "massPerUnit": 0.0216,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -15931,7 +16312,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -15972,7 +16354,8 @@
     "location": "CR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -16013,7 +16396,8 @@
     "location": "TH",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -16055,7 +16439,8 @@
     "location": "FR",
     "massPerUnit": 0.02725,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -16097,7 +16482,8 @@
     "location": "FR",
     "massPerUnit": 0.1049,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -16139,7 +16525,8 @@
     "location": "FR",
     "massPerUnit": 0.27,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -16181,7 +16568,8 @@
     "location": "FR",
     "massPerUnit": 0.02141,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -16222,7 +16610,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -16263,7 +16652,8 @@
     "location": "RER",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -16304,7 +16694,8 @@
     "location": "RER",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -16345,7 +16736,8 @@
     "location": "RER",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -16386,7 +16778,8 @@
     "location": "RER",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -16427,7 +16820,8 @@
     "location": "RER",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -16469,7 +16863,8 @@
     "location": "FR",
     "massPerUnit": 0.0025,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -16511,7 +16906,8 @@
     "location": "FR",
     "massPerUnit": 0.07156,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -16553,7 +16949,8 @@
     "location": "FR",
     "massPerUnit": 0.0821,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -16594,7 +16991,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -16636,7 +17034,8 @@
     "location": "FR",
     "massPerUnit": 0.07415,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -16678,7 +17077,8 @@
     "location": "FR",
     "massPerUnit": 0.04628,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -16720,7 +17120,8 @@
     "location": "FR",
     "massPerUnit": 0.0199,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -16762,7 +17163,8 @@
     "location": "FR",
     "massPerUnit": 0.05467,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -16804,7 +17206,8 @@
     "location": "FR",
     "massPerUnit": 0.05209,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -16846,7 +17249,8 @@
     "location": "FR",
     "massPerUnit": 0.06935,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -16888,7 +17292,8 @@
     "location": "FR",
     "massPerUnit": 0.02931,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -16930,7 +17335,8 @@
     "location": "FR",
     "massPerUnit": 0.00225,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -16972,7 +17378,8 @@
     "location": "FR",
     "massPerUnit": 0.09713,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -17014,7 +17421,8 @@
     "location": "FR",
     "massPerUnit": 0.05834,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -17056,7 +17464,8 @@
     "location": "FR",
     "massPerUnit": 0.3229,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -17098,7 +17507,8 @@
     "location": "FR",
     "massPerUnit": 0.0131,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -17139,7 +17549,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -17180,7 +17591,8 @@
     "location": "PE",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -17221,7 +17633,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -17263,7 +17676,8 @@
     "location": "FR",
     "massPerUnit": 0.39038,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -17305,7 +17719,8 @@
     "location": "FR",
     "massPerUnit": 0.05555,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -17346,7 +17761,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -17387,7 +17803,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -17428,7 +17845,8 @@
     "location": "CA",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -17469,7 +17887,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -17510,7 +17929,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -17551,7 +17971,8 @@
     "location": "RS",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -17593,7 +18014,8 @@
     "location": "FR",
     "massPerUnit": 0.02345,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -17634,7 +18056,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -17675,7 +18098,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "L",
@@ -17717,7 +18141,8 @@
     "location": "FR",
     "massPerUnit": 0.05843,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -17758,7 +18183,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -17799,7 +18225,8 @@
     "location": "IN",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -17840,7 +18267,8 @@
     "location": "CN",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -17882,7 +18310,8 @@
     "location": "FR",
     "massPerUnit": 0.04443,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -17924,7 +18353,8 @@
     "location": "FR",
     "massPerUnit": 0.01364,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -17965,7 +18395,8 @@
     "location": "CH",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -18007,7 +18438,8 @@
     "location": "FR",
     "massPerUnit": 0.03905,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -18049,7 +18481,8 @@
     "location": "FR",
     "massPerUnit": 0.0473,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -18091,7 +18524,8 @@
     "location": "FR",
     "massPerUnit": 0.05645,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -18132,7 +18566,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -18173,7 +18608,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -18215,7 +18651,8 @@
     "location": "FR",
     "massPerUnit": 0.017,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -18257,7 +18694,8 @@
     "location": "FR",
     "massPerUnit": 0.01509,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -18299,7 +18737,8 @@
     "location": "FR",
     "massPerUnit": 0.08575,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -18341,7 +18780,8 @@
     "location": "FR",
     "massPerUnit": 0.00983,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -18383,7 +18823,8 @@
     "location": "FR",
     "massPerUnit": 0.0484,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -18425,7 +18866,8 @@
     "location": "FR",
     "massPerUnit": 0.0268,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -18466,7 +18908,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -18508,7 +18951,8 @@
     "location": "FR",
     "massPerUnit": 0.02602,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -18550,7 +18994,8 @@
     "location": "FR",
     "massPerUnit": 0.02084,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -18591,7 +19036,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -18632,7 +19078,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -18673,7 +19120,8 @@
     "location": "BD",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -18714,7 +19162,8 @@
     "location": "RoW",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -18756,7 +19205,8 @@
     "location": "FR",
     "massPerUnit": 0.02084,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -18798,7 +19248,8 @@
     "location": "FR",
     "massPerUnit": 0.02119,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -18840,7 +19291,8 @@
     "location": "FR",
     "massPerUnit": 0.02794,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -18882,7 +19334,8 @@
     "location": "FR",
     "massPerUnit": 0.02635,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -18924,7 +19377,8 @@
     "location": "FR",
     "massPerUnit": 0.04744,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -18965,7 +19419,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -19007,7 +19462,8 @@
     "location": "FR",
     "massPerUnit": 0.020105,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -19048,7 +19504,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -19089,7 +19546,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -19131,7 +19589,8 @@
     "location": "FR",
     "massPerUnit": 0.06442,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -19173,7 +19632,8 @@
     "location": "FR",
     "massPerUnit": 0.03826,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -19214,7 +19674,8 @@
     "location": "BE",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -19255,7 +19716,8 @@
     "location": "HU",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -19296,7 +19758,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -19338,7 +19801,8 @@
     "location": "FR",
     "massPerUnit": 0.04977,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -19380,7 +19844,8 @@
     "location": "FR",
     "massPerUnit": 0.0454,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -19422,7 +19887,8 @@
     "location": "FR",
     "massPerUnit": 0.03024,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -19464,7 +19930,8 @@
     "location": "FR",
     "massPerUnit": 0.03191,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -19506,7 +19973,8 @@
     "location": "FR",
     "massPerUnit": 0.0271,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -19548,7 +20016,8 @@
     "location": "FR",
     "massPerUnit": 0.04322,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -19590,7 +20059,8 @@
     "location": "FR",
     "massPerUnit": 0.03801,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -19632,7 +20102,8 @@
     "location": "FR",
     "massPerUnit": 0.196,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -19674,7 +20145,8 @@
     "location": "FR",
     "massPerUnit": 0.01646,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -19716,7 +20188,8 @@
     "location": "FR",
     "massPerUnit": 0.03571,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -19758,7 +20231,8 @@
     "location": "FR",
     "massPerUnit": 0.03536,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -19800,7 +20274,8 @@
     "location": "FR",
     "massPerUnit": 0.04106,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -19842,7 +20317,8 @@
     "location": "FR",
     "massPerUnit": 0.04081,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -19883,7 +20359,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -19925,7 +20402,8 @@
     "location": "FR",
     "massPerUnit": 0.4716,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -19966,7 +20444,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -20007,7 +20486,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -20048,7 +20528,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -20089,7 +20570,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -20130,7 +20612,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -20171,7 +20654,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -20212,7 +20696,8 @@
     "location": "BR-RS",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -20253,7 +20738,8 @@
     "location": "BR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -20294,7 +20780,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -20335,7 +20822,8 @@
     "location": "BR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -20376,7 +20864,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -20418,7 +20907,8 @@
     "location": "FR",
     "massPerUnit": 0.0408,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -20460,7 +20950,8 @@
     "location": "FR",
     "massPerUnit": 0.64867,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -20502,7 +20993,8 @@
     "location": "FR",
     "massPerUnit": 0.86367,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -20544,7 +21036,8 @@
     "location": "FR",
     "massPerUnit": 0.92367,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -20585,7 +21078,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -20626,7 +21120,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -20667,7 +21162,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -20708,7 +21204,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -20749,7 +21246,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -20790,7 +21288,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -20831,7 +21330,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -20873,7 +21373,8 @@
     "location": "FR",
     "massPerUnit": 0.01954,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -20915,7 +21416,8 @@
     "location": "FR",
     "massPerUnit": 0.18022,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -20957,7 +21459,8 @@
     "location": "FR",
     "massPerUnit": 0.18022,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -20999,7 +21502,8 @@
     "location": "FR",
     "massPerUnit": 0.22724,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -21041,7 +21545,8 @@
     "location": "FR",
     "massPerUnit": 0.22724,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -21083,7 +21588,8 @@
     "location": "FR",
     "massPerUnit": 0.4422,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -21125,7 +21631,8 @@
     "location": "FR",
     "massPerUnit": 0.4972,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -21167,7 +21674,8 @@
     "location": "FR",
     "massPerUnit": 0.7372,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -21209,7 +21717,8 @@
     "location": "FR",
     "massPerUnit": 0.4422,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -21251,7 +21760,8 @@
     "location": "FR",
     "massPerUnit": 0.4972,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -21293,7 +21803,8 @@
     "location": "FR",
     "massPerUnit": 0.7372,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -21335,7 +21846,8 @@
     "location": "FR",
     "massPerUnit": 0.0924,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -21376,7 +21888,8 @@
     "location": "ES",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -21417,7 +21930,8 @@
     "location": "MA",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -21458,7 +21972,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -21499,7 +22014,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -21540,7 +22056,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -21581,7 +22098,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -21622,7 +22140,8 @@
     "location": "CA",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -21663,7 +22182,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -21705,7 +22225,8 @@
     "location": "FR",
     "massPerUnit": 0.00824,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -21746,7 +22267,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -21787,7 +22309,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -21828,7 +22351,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -21869,7 +22393,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -21910,7 +22435,8 @@
     "location": "IT",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -21951,7 +22477,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -21992,7 +22519,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -22033,7 +22561,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -22074,7 +22603,8 @@
     "location": "HU",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -22115,7 +22645,8 @@
     "location": "RoW",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -22157,7 +22688,8 @@
     "location": "FR",
     "massPerUnit": 0.0945,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -22198,7 +22730,8 @@
     "location": "Europe without Switzerland",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -22239,7 +22772,8 @@
     "location": "ZA",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -22281,7 +22815,8 @@
     "location": "FR",
     "massPerUnit": 0.03106,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -22323,7 +22858,8 @@
     "location": "FR",
     "massPerUnit": 0.008,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -22365,7 +22901,8 @@
     "location": "FR",
     "massPerUnit": 0.01715,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -22406,7 +22943,8 @@
     "location": "RoW",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -22448,7 +22986,8 @@
     "location": "FR",
     "massPerUnit": 0.02922,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -22489,7 +23028,8 @@
     "location": "ES",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -22530,7 +23070,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -22571,7 +23112,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -22612,7 +23154,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -22653,7 +23196,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -22694,7 +23238,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -22735,7 +23280,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -22776,7 +23322,8 @@
     "location": "ES",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -22817,7 +23364,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -22858,7 +23406,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -22899,7 +23448,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -22940,7 +23490,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -23065,7 +23616,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -23106,7 +23658,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -23147,7 +23700,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -23189,7 +23743,8 @@
     "location": "FR",
     "massPerUnit": 0.04056,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -23231,7 +23786,8 @@
     "location": "FR",
     "massPerUnit": 0.27177,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -23273,7 +23829,8 @@
     "location": "FR",
     "massPerUnit": 0.0286,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -23315,7 +23872,8 @@
     "location": "FR",
     "massPerUnit": 0.0207,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -23357,7 +23915,8 @@
     "location": "FR",
     "massPerUnit": 0.011,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -23398,7 +23957,8 @@
     "location": "MG",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -23440,7 +24000,8 @@
     "location": "FR",
     "massPerUnit": 0.032,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -23482,7 +24043,8 @@
     "location": "FR",
     "massPerUnit": 0.0588,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -23524,7 +24086,8 @@
     "location": "FR",
     "massPerUnit": 0.0809,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -23566,7 +24129,8 @@
     "location": "FR",
     "massPerUnit": 0.05097,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -23608,7 +24172,8 @@
     "location": "FR",
     "massPerUnit": 0.10551,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -23650,7 +24215,8 @@
     "location": "FR",
     "massPerUnit": 0.08354,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -23692,7 +24258,8 @@
     "location": "FR",
     "massPerUnit": 0.05488,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -23734,7 +24301,8 @@
     "location": "FR",
     "massPerUnit": 0.23815,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -23776,7 +24344,8 @@
     "location": "FR",
     "massPerUnit": 0.04943,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -23818,7 +24387,8 @@
     "location": "FR",
     "massPerUnit": 0.20542,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -23859,7 +24429,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -23901,7 +24472,8 @@
     "location": "FR",
     "massPerUnit": 0.3226,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -23942,7 +24514,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -23983,7 +24556,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -24024,7 +24598,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -24065,7 +24640,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -24106,7 +24682,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -24147,7 +24724,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -24188,7 +24766,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -24229,7 +24808,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -24271,7 +24851,8 @@
     "location": "FR",
     "massPerUnit": 0.03691,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -24313,7 +24894,8 @@
     "location": "FR",
     "massPerUnit": 0.11094,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -24354,7 +24936,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -24395,7 +24978,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -24436,7 +25020,8 @@
     "location": "US",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -24477,7 +25062,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -24518,7 +25104,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -24560,7 +25147,8 @@
     "location": "FR",
     "massPerUnit": 0.04632,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -24601,7 +25189,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -24643,7 +25232,8 @@
     "location": "FR",
     "massPerUnit": 0.07181,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -24684,7 +25274,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -24725,7 +25316,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -24766,7 +25358,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -24808,7 +25401,8 @@
     "location": "FR",
     "massPerUnit": 0.12002,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -24850,7 +25444,8 @@
     "location": "FR",
     "massPerUnit": 0.38915,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -24892,7 +25487,8 @@
     "location": "FR",
     "massPerUnit": 0.06785,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -24934,7 +25530,8 @@
     "location": "FR",
     "massPerUnit": 0.12258,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
@@ -24975,7 +25572,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -25016,7 +25614,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -25057,7 +25656,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -25098,7 +25698,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -25139,7 +25740,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
@@ -27689,7 +28291,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
@@ -27730,7 +28333,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
@@ -27771,7 +28375,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
@@ -27812,7 +28417,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
@@ -27853,7 +28459,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
@@ -27894,7 +28501,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
@@ -27935,7 +28543,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
@@ -27976,7 +28585,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
@@ -28017,7 +28627,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
@@ -28058,7 +28669,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
@@ -28099,7 +28711,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
@@ -28140,7 +28753,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
@@ -28181,7 +28795,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
@@ -28222,7 +28837,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
@@ -28263,7 +28879,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
@@ -28304,7 +28921,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
@@ -28345,7 +28963,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
@@ -28386,7 +29005,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
@@ -28427,7 +29047,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
@@ -28468,7 +29089,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
@@ -28551,7 +29173,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
@@ -28592,7 +29215,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
@@ -28633,7 +29257,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
@@ -28674,7 +29299,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
@@ -28715,7 +29341,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
@@ -28756,7 +29383,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
@@ -28797,7 +29425,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
@@ -28838,7 +29467,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
@@ -28879,7 +29509,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
@@ -28920,7 +29551,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
@@ -28961,7 +29593,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
@@ -29002,7 +29635,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
@@ -29043,7 +29677,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
@@ -29084,7 +29719,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
@@ -29125,7 +29761,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
@@ -29166,7 +29803,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
@@ -29800,7 +30438,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
@@ -30352,7 +30991,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
@@ -30561,7 +31201,8 @@
     "location": "IN-UP",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
@@ -30602,7 +31243,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
@@ -30643,7 +31285,8 @@
     "location": "RoW",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
@@ -30684,7 +31327,8 @@
     "location": "ID",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
@@ -30725,7 +31369,8 @@
     "location": "RoW",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
@@ -30766,7 +31411,8 @@
     "location": "CA-AB",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
@@ -30807,7 +31453,8 @@
     "location": "RoW",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
@@ -30890,7 +31537,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
@@ -30931,7 +31579,8 @@
     "location": "ES",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
@@ -30972,7 +31621,8 @@
     "location": "RoW",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
@@ -31013,7 +31663,8 @@
     "location": "US",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
@@ -31054,7 +31705,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
@@ -31095,7 +31747,8 @@
     "location": "CA-ON",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
@@ -31136,7 +31789,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
@@ -31177,7 +31831,8 @@
     "location": "US-MN",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
@@ -31218,7 +31873,8 @@
     "location": "CN",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
@@ -31300,7 +31956,8 @@
     "location": "US",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
@@ -31341,7 +31998,8 @@
     "location": "CN",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
@@ -31637,7 +32295,8 @@
     "location": "RoW",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
@@ -32233,7 +32892,8 @@
       "food",
       "textile",
       "object",
-      "veli"
+      "veli",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
@@ -34577,7 +35237,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
@@ -34618,7 +35279,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
@@ -35514,7 +36176,8 @@
     "location": "CN",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -35555,7 +36218,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -35596,7 +36260,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -35637,7 +36302,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -35678,7 +36344,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -35719,7 +36386,8 @@
     "location": "RoW",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -35760,7 +36428,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -35801,7 +36470,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -35842,7 +36512,8 @@
     "location": "RS",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -35883,7 +36554,8 @@
     "location": "CA",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -35924,7 +36596,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -35965,7 +36638,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -36006,7 +36680,8 @@
     "location": "RoW",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -36047,7 +36722,8 @@
     "location": "RoW",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -36088,7 +36764,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -36129,7 +36806,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -36170,7 +36848,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -36211,7 +36890,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -36252,7 +36932,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -36293,7 +36974,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -36334,7 +37016,8 @@
     "location": "MA",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -36375,7 +37058,8 @@
     "location": "RoW",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -36416,7 +37100,8 @@
     "location": "IN",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -36457,7 +37142,8 @@
     "location": "CL",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -36498,7 +37184,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -36539,7 +37226,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -36580,7 +37268,8 @@
     "location": "CH",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -36621,7 +37310,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -36662,7 +37352,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -36703,7 +37394,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -36744,7 +37436,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -36785,7 +37478,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -36826,7 +37520,8 @@
     "location": "IT",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -36867,7 +37562,8 @@
     "location": "US",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -36908,7 +37604,8 @@
     "location": "IT",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -36949,7 +37646,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -36990,7 +37688,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -37031,7 +37730,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -37072,7 +37772,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -37113,7 +37814,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -37154,7 +37856,8 @@
     "location": "IT",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -37195,7 +37898,8 @@
     "location": "ES",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -37236,7 +37940,8 @@
     "location": "CA-SK",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -37277,7 +37982,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -37318,7 +38024,8 @@
     "location": "RoW",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -37359,7 +38066,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -37400,7 +38108,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -37441,7 +38150,8 @@
     "location": "BR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -37482,7 +38192,8 @@
     "location": "BR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -37523,7 +38234,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -37564,7 +38276,8 @@
     "location": "RoW",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -37605,7 +38318,8 @@
     "location": "ES",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -37646,7 +38360,8 @@
     "location": "CN",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -37687,7 +38402,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -37728,7 +38444,8 @@
     "location": "ES",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -37769,7 +38486,8 @@
     "location": "ES",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -37810,7 +38528,8 @@
     "location": "BR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -37851,7 +38570,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -37892,7 +38612,8 @@
     "location": "MY",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -37933,7 +38654,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -37974,7 +38696,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -38015,7 +38738,8 @@
     "location": "ES",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -38056,7 +38780,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -38097,7 +38822,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -38138,7 +38864,8 @@
     "location": "AR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -38179,7 +38906,8 @@
     "location": "CN",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -38220,7 +38948,8 @@
     "location": "IN",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -38261,7 +38990,8 @@
     "location": "RoW",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -38302,7 +39032,8 @@
     "location": "NL",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -38343,7 +39074,8 @@
     "location": "CR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -38384,7 +39116,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -38425,7 +39158,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -38466,7 +39200,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -38507,7 +39242,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -38548,7 +39284,8 @@
     "location": "RS",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -38589,7 +39326,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -38630,7 +39368,8 @@
     "location": "IN",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -38671,7 +39410,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -38712,7 +39452,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -38753,7 +39494,8 @@
     "location": "BR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -38794,7 +39536,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -38835,7 +39578,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -38876,7 +39620,8 @@
     "location": "PL",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -38917,7 +39662,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -38958,7 +39704,8 @@
     "location": "DE",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -38999,7 +39746,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -39040,7 +39788,8 @@
     "location": "MX",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -39081,7 +39830,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -39122,7 +39872,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -39163,7 +39914,8 @@
     "location": "RoW",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -39204,7 +39956,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -39245,7 +39998,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -39286,7 +40040,8 @@
     "location": "ES",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -39327,7 +40082,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -39368,7 +40124,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -39409,7 +40166,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -39450,7 +40208,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -39491,7 +40250,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -39532,7 +40292,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -39573,7 +40334,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -39614,7 +40376,8 @@
     "location": "FR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "Ginko 2025",
     "unit": "kg",
@@ -39655,7 +40418,8 @@
     "location": "CN",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "WFLDB",
     "unit": "kg",
@@ -39696,7 +40460,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "WFLDB",
     "unit": "kg",
@@ -39737,7 +40502,8 @@
     "location": "CN",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "WFLDB",
     "unit": "kg",
@@ -39778,7 +40544,8 @@
     "location": "CR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "WFLDB",
     "unit": "kg",
@@ -39819,7 +40586,8 @@
     "location": "UA",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "WFLDB",
     "unit": "kg",
@@ -39860,7 +40628,8 @@
     "location": "IL",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "WFLDB",
     "unit": "kg",
@@ -39901,7 +40670,8 @@
     "location": "CI",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "WFLDB",
     "unit": "kg",
@@ -39942,7 +40712,8 @@
     "location": "TR",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "WFLDB",
     "unit": "kg",
@@ -39983,7 +40754,8 @@
     "location": "CN",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "WFLDB",
     "unit": "kg",
@@ -40024,7 +40796,8 @@
     "location": "PL",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "WFLDB",
     "unit": "kg",
@@ -40065,7 +40838,8 @@
     "location": "PH",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "WFLDB",
     "unit": "kg",
@@ -40106,7 +40880,8 @@
     "location": "US",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "WFLDB",
     "unit": "kg",
@@ -40147,7 +40922,8 @@
     "location": "CN",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "WFLDB",
     "unit": "kg",
@@ -40188,7 +40964,8 @@
     "location": "US",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "WFLDB",
     "unit": "kg",
@@ -40229,7 +41006,8 @@
     "location": "IE",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "WFLDB",
     "unit": "kg",
@@ -40270,7 +41048,8 @@
     "location": "MX",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "WFLDB",
     "unit": "kg",
@@ -40311,7 +41090,8 @@
     "location": "CA",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "WFLDB",
     "unit": "kg",
@@ -40352,7 +41132,8 @@
     "location": "CN",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "WFLDB",
     "unit": "kg",
@@ -40393,7 +41174,8 @@
     "location": "IN",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "WFLDB",
     "unit": "kg",
@@ -40434,7 +41216,8 @@
     "location": "IN",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "WFLDB",
     "unit": "kg",
@@ -40475,7 +41258,8 @@
     "location": "IT",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "WFLDB",
     "unit": "kg",
@@ -40516,7 +41300,8 @@
     "location": "NZ",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "WFLDB",
     "unit": "kg",
@@ -40557,7 +41342,8 @@
     "location": "CN",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "WFLDB",
     "unit": "kg",
@@ -40598,7 +41384,8 @@
     "location": "IN",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "WFLDB",
     "unit": "kg",
@@ -40639,7 +41426,8 @@
     "location": "CN",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "WFLDB",
     "unit": "kg",
@@ -40680,7 +41468,8 @@
     "location": "NL",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "WFLDB",
     "unit": "kg",
@@ -40721,7 +41510,8 @@
     "location": "RER",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "WFLDB",
     "unit": "kg",
@@ -40762,7 +41552,8 @@
     "location": "MA",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "WFLDB",
     "unit": "kg",
@@ -40803,7 +41594,8 @@
     "location": "RU",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "WFLDB",
     "unit": "kg",
@@ -40844,7 +41636,8 @@
     "location": "GLO",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "WFLDB",
     "unit": "kg",
@@ -40885,7 +41678,8 @@
     "location": "MX",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "WFLDB",
     "unit": "kg",
@@ -40926,7 +41720,8 @@
     "location": "MG",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "WFLDB",
     "unit": "kg",
@@ -40967,7 +41762,8 @@
     "location": "US",
     "massPerUnit": null,
     "scopes": [
-      "food"
+      "food",
+      "food2"
     ],
     "source": "WFLDB",
     "unit": "kg",
