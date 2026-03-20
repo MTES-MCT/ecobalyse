@@ -492,7 +492,7 @@
     "displayName": "Aluminium",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "e29c3ed9-c206-45ee-a6a0-72aea567361f",
+    "id": "a61f5131-650c-4cb3-b5ec-7a450ba1d095",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1065,7 +1065,7 @@
     "displayName": "Sachet en plastique (OPP) pour pâtes asiatiques - 250g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "06102428-2d86-47ca-9750-91006d93ca63",
+    "id": "2fe4d39d-55f9-4bdd-ad6a-880a79379525",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1110,7 +1110,7 @@
     "displayName": "Sachet en plastique (OPP métallisé) pour pâtes asiatiques - 60g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "6c31d4d8-c842-4489-9052-e81bdd5d5335",
+    "id": "30a08180-b7ea-46cc-93ea-08b3a33383bb",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1287,7 +1287,7 @@
     "displayName": "Sachet en plastique (PE) pour dessert pour bébés - 340g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "71868671-0cc3-4ffe-bbd3-362203459c97",
+    "id": "5a4135e0-ac80-45b9-8319-d71596704c87",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1332,7 +1332,7 @@
     "displayName": "Pot en plastique (PP) pour dessert pour bébés - 250g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "eb30823b-fd8d-46b8-986c-71e18b63c8b3",
+    "id": "99dfca77-db4d-45ba-92bb-fa8d25b11952",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1377,7 +1377,7 @@
     "displayName": "Boîte en acier pour aliment pour bébés en poudre - 800g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "c12b36eb-f977-4dd8-a9d8-159c773ad77b",
+    "id": "890d00fe-7378-4b4d-a531-bbe21be191cc",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1466,7 +1466,7 @@
     "displayName": "Sachet en papier pour baguette - 250g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "848a9823-d531-4bc8-9a3b-6475b008e879",
+    "id": "664f00b5-2d50-44d1-8709-91f9dfe453a2",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1687,7 +1687,7 @@
     "displayName": "Feuille en aluminium pour chocolat en tablette - 100g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "8f3c045b-7776-482f-a00a-ab4326aa519b",
+    "id": "6337be91-a1cb-485e-9782-91ab0e5b974d",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -1996,7 +1996,7 @@
     "displayName": "Barquette en plastique dans un sachet aluminium pour bœuf et veau - 244g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "aba32b84-3b86-4cab-9226-55a616f73615",
+    "id": "4a25d214-081b-4997-aac6-a38a6765fa7a",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2041,7 +2041,7 @@
     "displayName": "Barquette en plastique (APET/PE) pour viandes (hors volaille) - 250g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "9f09fa56-6b3b-4a00-ba95-d3811ec4b62b",
+    "id": "a32ee530-1cde-4b58-bae6-6a851026fea4",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2086,7 +2086,7 @@
     "displayName": "Bouteille en verre pour bière - 1500g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "2bcb2d33-087c-41da-b07c-5f79c896507d",
+    "id": "64ca7713-d68d-423e-a0b3-10b5b290bb7f",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2439,7 +2439,7 @@
     "displayName": "Sachet en plastique (PP) pour sablés - 200g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "151d661d-1660-4cbd-96e6-5c89e4395fdc",
+    "id": "e95db79a-42b7-4acd-8044-5e361939f11d",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2484,7 +2484,7 @@
     "displayName": "Sachet en plastique (PP) pour biscuit - 100g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "b6413806-f503-4b44-8f73-3974f3015c38",
+    "id": "6091c4d6-f421-4129-b847-e172223998a6",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2529,7 +2529,7 @@
     "displayName": "Sachet en plastique (PP) pour biscuit - 150g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "a2c886d8-ce19-4b55-b784-c093ca2c11fa",
+    "id": "3c81c8f0-7316-486b-8a7a-362891851fb7",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2838,7 +2838,7 @@
     "displayName": "Barquette en plastique (PP) pour blinis - 200g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "d274b862-443c-4bc1-a840-51a16b5eb40a",
+    "id": "bd6125e1-d216-474a-a0dc-28e5207284d2",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2883,7 +2883,7 @@
     "displayName": "Barquette en plastique (PP) avec couvercle pour fromage bleu - 150g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "50306710-ab38-4827-9031-b3a58031bf8a",
+    "id": "b4f0c5ec-73c2-48d7-81d0-b302a49f8ce5",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2928,7 +2928,7 @@
     "displayName": "Barquette en plastique (PE/PA) pour fromage bleu - 150g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "689ed5f8-651d-4deb-ab19-502ea26c8765",
+    "id": "9714aa97-062c-4753-aea0-3aa93342fca1",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -2973,7 +2973,7 @@
     "displayName": "Boîte en carton et feuille aluminium pour fromage bleu - 250g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "874e448b-f80b-46cb-9d4b-ae82ef959a58",
+    "id": "f35f3b8e-4266-4b52-a9d1-d2e854dbd6e4",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3194,7 +3194,7 @@
     "displayName": "Pot en plastique (PP) pour crème glacée - 500g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "44e8efed-bade-4d3a-ac3f-d4d2f4706ae5",
+    "id": "9c098919-e422-4195-9122-e589916f0578",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3239,7 +3239,7 @@
     "displayName": "Pot en plastique (PP) pour sorbet - 563g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "2688ca7a-0ff1-4e78-ad3d-b0af2deee9bc",
+    "id": "6969c9f9-a74e-410f-b37f-a1d29dd744e9",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3284,7 +3284,7 @@
     "displayName": "Barquette en plastique (APET/PE) pour produit pané - 1000g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "cc6afbd9-43f0-4521-9d61-251a3b32a518",
+    "id": "0684c45e-417c-42ba-b810-5fcb85adb0a3",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3329,7 +3329,7 @@
     "displayName": "Sachet en plastique (PA/PE) dans une Boîte en carton pour produit pané - 200g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "2ae3997c-24ad-477f-9488-6441a2726d28",
+    "id": "a7dc8d47-ffe5-4bdc-b086-daf5c7ca2684",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3374,7 +3374,7 @@
     "displayName": "Barquette en plastique (PSX) pour produit pané - 400g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "cec854f7-df1d-49b2-ac3e-1efbc72e7bbc",
+    "id": "9a097e8a-001d-4c02-ad1c-a2e9e00023ff",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3683,7 +3683,7 @@
     "displayName": "Feuille en aluminium pour cube de bouillon - 80g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "ad48156e-1ff5-4128-a0f6-9d41cd4bdd1a",
+    "id": "05bf4185-f0dd-4557-9127-aeb7ff28972d",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3816,7 +3816,7 @@
     "displayName": "Sachet en plastique (PP) pour burger - 750g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "9eb7f0d8-1a35-4910-bf63-6ec1060f2a13",
+    "id": "c0e4d83e-6933-4eb5-a98f-f33f8f3e85b4",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3949,7 +3949,7 @@
     "displayName": "Feuille complexe (PP/alu) pour beurre - 250g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "3bb10459-213f-4524-8d5e-fe2616a4bfa1",
+    "id": "db972cf9-8174-41c5-9801-301c6ce6d49f",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -3994,7 +3994,7 @@
     "displayName": "Feuille en papier parafiné pour beurre - 250g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "57719207-22a8-437f-9116-0d2048f0d0a6",
+    "id": "ccd7aaab-3df5-4716-890b-3f9d210ce392",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -4039,7 +4039,7 @@
     "displayName": "Barquette en plastique (PP) pour beurre - 250g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "ed1bc0ed-28f9-43cc-9dee-5aeb547a4177",
+    "id": "a413575d-0f4e-4be3-99f9-1e28de8fb724",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -4084,7 +4084,7 @@
     "displayName": "Feuille complexe (PP/CaCO3) pour beurre - 250g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "6b43ea09-c098-4833-ac74-3f29594b2ad7",
+    "id": "3ddc655d-f2f9-49e8-bd79-ce68f9ddbd39",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -4349,7 +4349,7 @@
     "displayName": "Sachet en plastique (PP) pour gâteaux à partager - 200g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "ea9dfd99-41a4-4f66-a8cc-b00e6fee3792",
+    "id": "25da8c61-aa73-452f-9016-04ecfa685f55",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -4438,7 +4438,7 @@
     "displayName": "Boîte en acier avec étiquette pour légumes ou fruits, ambiant - 400g à 425g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "2e0bf6c2-770b-4870-a7a9-e955f3bc35bd",
+    "id": "78167314-2a6d-4e40-bb65-89280b32373d",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -4483,7 +4483,7 @@
     "displayName": "Boîte en acier avec étiquette pour légumes ou fruits, ambiant - 750g à 850g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "0e5f4354-4975-451d-ae15-076aa5782524",
+    "id": "44a2d398-1a9c-4e29-b652-3a82c501d3c8",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -4572,7 +4572,7 @@
     "displayName": "Sachet en plastique (PE) pour capsules/dosettes - 125g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "f4a7ae50-5ffc-4122-b933-6b0d80af089e",
+    "id": "0e23802e-ad36-4a19-a6a4-2c3774a57c67",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -6421,7 +6421,7 @@
     "displayName": "Sachet en plastique (PP) pour barre de céréales - 126g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "aa61e2f4-d971-4ba0-8d41-dc10cadbbb08",
+    "id": "237b4fee-7b43-4eb2-aa15-e228c53da5b4",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -6466,7 +6466,7 @@
     "displayName": "Pot en acier pour poudre de céréales - 220g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "d3567990-26ba-4473-8f87-6992a19903db",
+    "id": "b9c70add-6e29-4fca-9bc5-9b169cf1c23e",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -6511,7 +6511,7 @@
     "displayName": "Sachet en plastique (PE) pour produit céréalier divers - 400g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "ca9f669e-ba7d-4c47-9071-8fd838d928b1",
+    "id": "c83f9c19-490e-4059-95ab-c349c21b5cf0",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -6556,7 +6556,7 @@
     "displayName": "Sachet sous-vide en plastique (PA/PE) pour cervelat - 400g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "85dbf9bf-6bb5-406b-9cc5-30899a2c1333",
+    "id": "876604b8-a80c-46ec-be93-22cd965f0a39",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -6601,7 +6601,7 @@
     "displayName": "Barquette en plastique (PET) et fourreau carton pour plat au fromage - 150g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "09483a15-cbd8-4f6d-b63b-2f406c8e7b51",
+    "id": "6bcce476-6f10-4741-8889-04f9621dd908",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -6646,7 +6646,7 @@
     "displayName": "Barquette en plastique (PET) et étui carton pour plat au fromage - 300g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "4885c3bd-b7b3-41b3-9bca-67c066e39b1d",
+    "id": "d00ac9f1-59a3-436f-b91e-24dceace830c",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -6691,7 +6691,7 @@
     "displayName": "Barquette en bois et étui carton pour plat au fromage - 300g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "0aaa8a59-18df-42a4-a419-4f17f92b2a9c",
+    "id": "180aa5b6-875e-43e1-8882-500de502d89d",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -6736,7 +6736,7 @@
     "displayName": "Sachet stand up en plastique (multimatériaux) pour plat à base de fromages - 400g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "858ca445-90d8-4e7f-892a-80bfb893a1e0",
+    "id": "9ab50a3a-39e9-4b60-9649-497e3e667af2",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -7001,7 +7001,7 @@
     "displayName": "Pot en verre pour crème de marrons - 370g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "97901f5c-7edc-44be-aed4-6910c945cbcd",
+    "id": "46d3c67f-19c4-46a2-9bcc-81dbcfb4ec33",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -7266,7 +7266,7 @@
     "displayName": "Sachet en plastique (PP) pour chips - 150g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "295d3c8c-2321-4aa4-95f6-3f4286f76450",
+    "id": "4a80c078-9f86-4a7d-b402-73db3381e33b",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -7311,7 +7311,7 @@
     "displayName": "Barquette en plastique (PSX) pour andouille/andouillette - 152g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "7a76d7a5-711d-4961-9256-d585e16f676d",
+    "id": "cdba5dde-4714-4422-97eb-bec2cc47a62e",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -7356,7 +7356,7 @@
     "displayName": "Feuille pour charcuterie vendue à la coupe - 150g à 500g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "7aa26c62-731e-412c-9b0a-e061f5bafb3d",
+    "id": "968f5782-b8ef-4bc2-bd4e-e38352a2252f",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -7401,7 +7401,7 @@
     "displayName": "Sachet sous-vide en plastique (PA/PE) pour andouille/andouillette - 400g à 500g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "c8cd2fa7-782a-4c24-a143-73f462d34ddd",
+    "id": "1cfcc0f3-5f96-467b-be16-5df80f558507",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -7446,7 +7446,7 @@
     "displayName": "Barquette en plastique (APET/PE) pour andouille/andouillette - 640g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "c6144148-5028-4020-b6e5-b304b0d715ad",
+    "id": "67bdcbcf-8def-4c77-9ac4-42a4679d45b0",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -7491,7 +7491,7 @@
     "displayName": "Barquette en plastique (PP) pour andouille/andouillette - 640g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "e67beea4-d699-4ea6-abcc-df2c62d7fd20",
+    "id": "197d02f7-0fcc-4e51-be7e-816c35ab2a27",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -7536,7 +7536,7 @@
     "displayName": "Pot en verre pour pâte à tartiner chocolatée - 350g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "5bec348e-0ce9-4bbb-ae9a-99157f4af33b",
+    "id": "680b9e40-0c66-418f-b399-fd18d65a0508",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -7581,7 +7581,7 @@
     "displayName": "Bouteille en verre pour cidre - 750g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "1a42ffb9-4717-4173-a7c3-d1293bc56787",
+    "id": "00e6169b-b446-4e30-85b3-7e7d3e54a72c",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -7802,7 +7802,7 @@
     "displayName": "Pot en plastique (PP) pour saucisse cocktail - 200g à 220g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "5c770dbb-95e9-411f-a3e1-678f3a2f437b",
+    "id": "3c7e6488-1876-4c21-bfd1-c431c8a2e28a",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -7847,7 +7847,7 @@
     "displayName": "Bouteille en verre pour cocktail - 700g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "902f3d6a-5e70-433d-af68-450125709d30",
+    "id": "023c70d4-73d9-4f84-acee-893e1a4ff60f",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8156,7 +8156,7 @@
     "displayName": "Sachet en plastique (PE) pour café moulu - 250g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "325dde14-11a8-4f96-ab91-961c7df66014",
+    "id": "2699a94a-1300-4227-a598-85d8362f543f",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8289,7 +8289,7 @@
     "displayName": "Pot en verre pour café/chicorée - 200g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "8bba671a-570d-4255-89ed-c359fff55b39",
+    "id": "cc445a9f-e56f-4b7c-9098-67a5cc22868a",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8334,7 +8334,7 @@
     "displayName": "Bouteille en plastique (PET) pour mélange d'huiles végétales - 0,5L",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "f5c2267b-4dc2-40bc-b4b1-d35b4d9de31b",
+    "id": "380286e1-ddde-4a1b-b9fe-eac05f9758f8",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8379,7 +8379,7 @@
     "displayName": "Flacon souple en plastique (PET) pour mélange d'huiles végétales - 0,68L",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "e149907c-719b-47c3-bece-7366520caad8",
+    "id": "89665d26-56e9-4b40-aae2-cbadf448d903",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8468,7 +8468,7 @@
     "displayName": "Pot en verre pour sauce condimentaire - 250g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "369d4b00-e3d1-440d-ab38-348f047d3371",
+    "id": "7e51e08e-9786-4648-8673-febfbf2a65b3",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8513,7 +8513,7 @@
     "displayName": "Barquette en plastique (APET/PE) pour jambon cuit - 160g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "8df2ae70-cfa0-4106-ac42-0a6c053ab534",
+    "id": "7fe8878a-cc06-4ef3-b588-3b1469c4ce48",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8558,7 +8558,7 @@
     "displayName": "Barquette (papier kraft/PE/EVOH/PE) pour jambon cuit - 224g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "1d4ca4d7-0cb6-4eb4-a946-7af61c050a48",
+    "id": "0f39b3ce-45ba-4311-bcae-5ca6f6d8597e",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8647,7 +8647,7 @@
     "displayName": "Sachet en plastique (PE) pour fruit de mer cuits - 600g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "94475a94-ce7d-4e63-a9fb-3693a5bf2e25",
+    "id": "264dd229-18fa-476d-aa25-5a0a4c7f5707",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8692,7 +8692,7 @@
     "displayName": "Barquette en plastique (PP) pour cookies - 200g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "fbdb0ec3-921f-4307-a643-f4a1650e14ce",
+    "id": "4218f510-cee2-469f-af23-cd7f3c54d689",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8737,7 +8737,7 @@
     "displayName": "Sachet en papier pour aide culinaire - 400g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "0ba0a044-d336-4b25-bbcb-6106decb50ae",
+    "id": "4717824b-972e-47f5-aa39-f2009b4251ee",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8782,7 +8782,7 @@
     "displayName": "Sachet en papier pour aide culinaire pour boulangerie - 66g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "74fb9cec-394f-424f-84c6-d841761623aa",
+    "id": "3bd2cd70-10a5-4b1f-9a9f-509dd08dc40f",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -8914,7 +8914,7 @@
     "displayName": "Carton",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "812f2711-87ce-4aa5-9439-8215af9fc403",
+    "id": "470931ab-bfac-4017-8db1-c1b24e7a3bbf",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -9091,7 +9091,7 @@
     "displayName": "Sachet en plastique (PP) pour cracker - 100g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "386a7f10-7aef-4700-8e53-4ed9d472783a",
+    "id": "07140461-7ff5-4c60-9d92-bbb4a6248abd",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -9224,7 +9224,7 @@
     "displayName": "Pot en plastique (PP) pour crème - 200g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "81487e4e-a0e4-4239-b97f-ef757f6bca7f",
+    "id": "ebd4f9ac-290c-4f07-bc81-a9f332c8f916",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -9269,7 +9269,7 @@
     "displayName": "Lot de 2 bouteilles en plastique (PEHD) pour crème - 500g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "506b3c22-1094-4f9b-a147-aadccbd316a6",
+    "id": "c2f9a542-82bc-4d26-99c3-7abcba7f4e51",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -9314,7 +9314,7 @@
     "displayName": "Lot de briques (multimatériaux) pour crème - 600g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "1d926c24-0946-454f-882d-79ed42fa15e4",
+    "id": "b94c22c1-13fa-481c-b976-ba3933cb347a",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -9359,7 +9359,7 @@
     "displayName": "Barquette en plastique (PP) pour crêpe, fajitas ou burrito - 300g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "2fd66fc1-e3d3-45dc-9e99-0a37a065e2b7",
+    "id": "9b2f5abf-8120-4d9e-b6cd-6bab0e96cbd7",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -9404,7 +9404,7 @@
     "displayName": "Sachet en plastique (PE) pour crêpe et gaufre - 240g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "f7f5f5b4-6c9c-4d06-96eb-ac505522f468",
+    "id": "56a80a42-2e74-4d03-8568-6bb12d6ac42d",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -9449,7 +9449,7 @@
     "displayName": "Sachet en plastique (PP) pour croûtons - 90g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "2628394d-5c97-42c5-87c2-5ec9328f69e2",
+    "id": "c6d2b250-929e-475a-a70b-a73a39856a6b",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -9757,7 +9757,7 @@
     "displayName": "Vache de réforme bio",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "b5dd28d4-7380-4875-b5b4-f4cac36961ec",
+    "id": "dd39c5d7-475d-44cf-bf66-deee453b2330",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -9802,7 +9802,7 @@
     "displayName": "Barquette en plastique (APET/PE) pour jambon sec/cru - 100g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "37b115ae-cd9f-4917-9572-58a8124348ed",
+    "id": "61170580-cfc0-4115-9c44-dc6cf36eea9b",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -9847,7 +9847,7 @@
     "displayName": "Barquette (papier kraft/PE/EVOH/PE) pour jambon sec/cru - 164g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "7cb78999-11f5-4bca-ba34-8608ecae51b1",
+    "id": "a0c699d2-4fcf-4539-80a6-a88530f702e6",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -9892,7 +9892,7 @@
     "displayName": "Lot de 4 coupelles (aluminium) pour desserts - 400g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "c631b61d-460a-4d85-956a-033c7641bbc9",
+    "id": "60527756-e346-479e-8f91-a57b082bff42",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -9937,7 +9937,7 @@
     "displayName": "Lot de 4 pots (complexes avec carton) pour produits laitiers - 500g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "be91d3e9-b287-4103-b144-61f31f948022",
+    "id": "62d46e02-34d8-4b43-8437-2688d98c2102",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -9982,7 +9982,7 @@
     "displayName": "Lot de 4 pots en plastique (PS) pour produits laitiers - 500g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "081c8cf6-ddd8-4a77-84a6-257cf85e7e51",
+    "id": "c2023faf-d57b-492a-a758-e8efcedaca85",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -10027,7 +10027,7 @@
     "displayName": "Bouteille en plastique (PEHD) pour dessert & produit laitier - 33 cL",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "c5a399fc-2279-4260-996e-9066de37ef14",
+    "id": "8fab73c6-838a-478d-a359-462296d981d5",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -10116,7 +10116,7 @@
     "displayName": "Sachet en plastique (PP) pour flocons déshydratés - 195g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "df9da8df-e36f-4199-ae16-c1ae1a96af08",
+    "id": "b4ce73d7-5404-45c4-bbd1-92c7c18e195f",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -10205,7 +10205,7 @@
     "displayName": "Sachet en plastique (PP/PEBD) pour fruits séchés - 250g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "274682d5-b5d9-4219-a72f-a0f04e7c2373",
+    "id": "e529a1e7-cb19-479e-8372-e80d6014b428",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -10250,7 +10250,7 @@
     "displayName": "Sachet stand up en plastique (multimatériaux) pour fruits séchés - 250g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "f0924f4a-dcab-46b2-8d0e-8a77fc3a8f69",
+    "id": "813b4aeb-7d1e-4896-aa8d-01e3c47c4062",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -10295,7 +10295,7 @@
     "displayName": "Sachet stand up en papier kraft/plastique (PEBD) pour fruits séchés - 250g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "aa79c0db-12a6-4cb2-b70f-776f3df0252f",
+    "id": "01c94bdd-2335-4bec-9390-a7ec9adc3b1d",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -10340,7 +10340,7 @@
     "displayName": "Barquette en plastique filmée (XPS) pour fruit séché - 250g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "2a171bd5-9231-4344-84f3-79907283ec73",
+    "id": "2e2c0cc4-5232-4112-bd5a-9804bf61c7d5",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -10385,7 +10385,7 @@
     "displayName": "Etui en carton avec fenêtre plastique pour fruits séchés - 500g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "e88e5963-8f34-4ae4-9110-77c5f060e07e",
+    "id": "0db662ca-31e6-49cf-b08c-46316512f81e",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -10430,7 +10430,7 @@
     "displayName": "Sachet doypack en plastique (multimatériaux) pour mini stick de saucisson sec - 100g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "55856d66-f9ad-4f8a-aac3-88530b2a731c",
+    "id": "b08c9d1b-ba49-466e-a31f-016fba3a97df",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -10475,7 +10475,7 @@
     "displayName": "Barquette en plastique (APET/PE) pour mini stick de saucisson sec - 140g à 160g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "2f04fef5-b930-4c38-80ee-81b60cd672b0",
+    "id": "a88563b6-a1e8-4e96-a23f-e762069b5f6c",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -10520,7 +10520,7 @@
     "displayName": "Sachet en plastique (PP/PA) dans un étui en carton pour saucisson sec entier - 250g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "c3839b00-6285-4b2b-82c2-1619e7121aad",
+    "id": "a0906e35-649c-4555-a055-0fab20c8d9f3",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -10565,7 +10565,7 @@
     "displayName": "Sachet en plastique (APET/PE/EVOH/PE) pour saucisson sec entier - 250g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "74dd127e-878f-4acf-beb6-c5f78815bc59",
+    "id": "a68875d7-1d7a-4913-8716-8b3386128659",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -10610,7 +10610,7 @@
     "displayName": "Sachet plastique (OPP) pour saucisson sec - 250g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "c7e2eb40-8662-4ea7-a42a-22e591430815",
+    "id": "7f1f9252-80a9-4fe8-a14b-7e8f77ad975a",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -10655,7 +10655,7 @@
     "displayName": "Sachet en plastique (Kraft-OPP) pour saucisson sec entier - 250 g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "3c2a6351-8a3b-4f6a-a861-f1592fa9c89f",
+    "id": "0c61c400-3cb2-4172-b6a6-9a41e8ac742d",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -10700,7 +10700,7 @@
     "displayName": "Sachet sous-vide en plastique (PA/PE) pour canard confit - 1000g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "df4d71d3-2f76-4ce5-bcf6-b1ef8d4b479a",
+    "id": "6e6c6482-5837-411e-867c-9314b2c501ac",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -11625,7 +11625,7 @@
     "displayName": "Pot en acier pour œufs en poudre - 800g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "cddd4f50-03ad-4b3b-bf37-5e84cb70970e",
+    "id": "3cb2843c-8f56-4a03-bcd9-aefebb519dcb",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -11670,7 +11670,7 @@
     "displayName": "Boîte en carton pour œufs frais - 360g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "9992a4f1-7938-4ecf-9fd7-be9b3197f270",
+    "id": "188604da-a21d-40ac-8378-86cfd690363f",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -12771,7 +12771,7 @@
     "displayName": "Barquette skin en plastique (PET/PEBD) pour poisson cuit - 200g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "e429bae7-8966-48f1-acaf-2eade15cf683",
+    "id": "c2b70956-f7ef-44cd-8e43-3f5a75c59963",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -12816,7 +12816,7 @@
     "displayName": "Sachet en plastique (PP) pour plat préparé à base de poissons, congelé - 400g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "df56e505-99ba-4be2-8e78-9dd851e6ee3a",
+    "id": "2609f73b-3a32-4d60-a1ec-6b3d752826b4",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -12861,7 +12861,7 @@
     "displayName": "Barquette en plastique (PP) pour plat préparé à base de poissons - 300g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "f399c6eb-28bb-4a43-aae3-8487252ee810",
+    "id": "1d5d2336-d2fc-4e4a-ba64-1a2eb6322574",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -12906,7 +12906,7 @@
     "displayName": "Boîte en aluminium pour anchois - 100g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "8629d991-157b-46a3-a3ae-abc09279f425",
+    "id": "968075d6-98c9-4827-8102-ea051974af35",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -12951,7 +12951,7 @@
     "displayName": "Boîte en acier pour anchois, ambiant - 135g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "2b71c3e6-ff4c-424c-b7b3-a4bd6e509a7b",
+    "id": "4e5bd78b-2c6b-485e-92e3-845b929f218d",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -12996,7 +12996,7 @@
     "displayName": "Bocal en verre pour anchois, réfrigéré - 105g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "b666b6a9-67cb-4f0e-a1fd-422b21ae8f27",
+    "id": "be3a08da-bfb2-4a53-97a4-5b6a26620b3e",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -13041,7 +13041,7 @@
     "displayName": "Barquette en plastique (PP) pour anchois mariné, réfrigéré - 150g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "37cff43a-6c7e-4069-8776-1b47dcb5705c",
+    "id": "2726a53c-f62c-42a4-8542-fca9eac0d5ca",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -13086,7 +13086,7 @@
     "displayName": "Boîte en aluminium imprimée pour maquereau, ambiant - 169g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "77a81e11-cb5b-414f-acf1-5c65cafc0821",
+    "id": "c21778d1-47f2-4718-bc97-e12bfd2347d5",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -13131,7 +13131,7 @@
     "displayName": "Pot en plastique (PP) impression IML pour rillette de poissons, réfrigérée - 150g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "5f091259-3bd5-4d1e-a1f4-23326f579113",
+    "id": "abee8f2b-0b51-489a-919f-2364e33e66c2",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -13176,7 +13176,7 @@
     "displayName": "Bocal en verre pour rillette, réfrigérée - 90g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "83304a18-23b2-45b7-a72e-b36e10e20c4a",
+    "id": "22e865f2-0b44-450d-8452-2dd8bca2a956",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -13221,7 +13221,7 @@
     "displayName": "Boîter en aluminium imprimée pour sardine, ambiant - 135g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "c2f34891-7080-4401-8a14-dc229e450965",
+    "id": "06b14f3c-af2f-4aa7-9ca4-9c225363c256",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -13266,7 +13266,7 @@
     "displayName": "Boîter en acier imprimée pour sardine, ambiant - 135g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "6538d2bc-1810-491a-8e1d-719c403ae2f3",
+    "id": "4fd56be8-c211-4ef5-912c-ceabb43d93cf",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -13311,7 +13311,7 @@
     "displayName": "Boîte en acier avec étiquette pour thon, ambiant - 160g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "cf532a1c-b030-4927-9185-bc559f6ff3d6",
+    "id": "a8e2b6dc-2338-4f89-a507-5cd0761984d8",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -13356,7 +13356,7 @@
     "displayName": "Boîte en acier pour thon - 160g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "d2116e8b-3994-4bf4-80e7-97cd549fd2c3",
+    "id": "80cdc5aa-7aa7-40df-bbea-e15cf0f9494f",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -13401,7 +13401,7 @@
     "displayName": "Barquette en plastique (PET) pour chocolat individuel - 200g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "e2f1e75d-5b16-4ba5-984e-9ff2be1783c4",
+    "id": "f3ec5a9b-14de-4f6d-ad70-f4ac859526d0",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -13446,7 +13446,7 @@
     "displayName": "Boîte en plastique (PP) et sachets plastiques pour surimi - 320g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "83037881-7562-4b7f-8e51-a8f7833e7aa9",
+    "id": "97bf8ea0-4e4d-490e-a4bc-860eb3b01b64",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -13491,7 +13491,7 @@
     "displayName": "Sachet en plastique (PP) et barquette carton pour surimi - 400g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "b4124fae-96aa-4aaa-ac7f-7042e63617fb",
+    "id": "baf45d3a-b7e2-492b-b720-a6456dde0169",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -13536,7 +13536,7 @@
     "displayName": "Sachet en plastique (PP) pour poisson cru congelé - 400g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "2445c0c6-3ab5-4949-babc-21e84ef11b1b",
+    "id": "c05872d1-2fdf-499c-8c6d-01bd70f1823d",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -13581,7 +13581,7 @@
     "displayName": "Bouteille en verre pour huile à goût - 0,25L",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "8a08f3d3-4d0c-443c-af3a-87021f6fa3dc",
+    "id": "5c7f9a3f-97ff-4129-b9b6-bcccbbae162a",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -13714,7 +13714,7 @@
     "displayName": "Sachet en papier pour farine - 1000g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "f950cace-c5d5-4dc1-a1de-58a2b24d7c74",
+    "id": "4f441c18-5f86-4a6b-945d-d559ac0780d3",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -13759,7 +13759,7 @@
     "displayName": "Pot en plastique (PE) pour compléments alimentaires en poudre - 750g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "c7f6d55a-88d3-41a2-b066-23a5ca64f91f",
+    "id": "31976e86-ff95-4ca7-aff9-a0d78d8006c2",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -14244,7 +14244,7 @@
     "displayName": "Sachet en plastique (PE) pour fruits frais, surgelés - 1000g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "4feddf3d-95be-4e38-b963-1dce496ac0e2",
+    "id": "befad7f7-aff0-4a50-aed9-e3c23320bc58",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -14289,7 +14289,7 @@
     "displayName": "Sachet en plastique (PP) pour herbes aromatiques - 100g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "5c9e817e-dbc2-48e4-b076-1edd9dd57553",
+    "id": "ed359cdf-bd59-4a4b-b5bf-a6332deb61a5",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -14334,7 +14334,7 @@
     "displayName": "Sachet en plastique (PE) pour noix fraîches ou grillées - 125g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "113e301b-5525-4dac-a36d-ba33d0339a2f",
+    "id": "805b47ce-38fa-4aa1-ad9b-aa5eaba15fa3",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -14379,7 +14379,7 @@
     "displayName": "Barquette en plastique (APET) pour saucisse fraîche - 250g à 330g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "295d7a16-e812-4422-b4c9-20f4639bab15",
+    "id": "6ae763c1-16e1-478e-8a97-6b1a1d77c017",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -14424,7 +14424,7 @@
     "displayName": "Barquette en plastique (PP) pour saucisse fraîche - 330g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "4b80a0f7-e371-4a8e-8a30-58097a3424e7",
+    "id": "3993c044-2fb8-4cef-8524-53e27850ea68",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -14469,7 +14469,7 @@
     "displayName": "Barquette en plastique (PSE) pour saucisse fraîche - 384g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "00e228f9-6e13-4d18-808d-9d25bed1c107",
+    "id": "ae68051f-a288-4ea8-81a0-333621a1b0dd",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -14602,7 +14602,7 @@
     "displayName": "Barquette en plastique (PET) pour dessert glacé - 354g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "3cc26ada-77f3-4c4a-89c3-fceab9b99b42",
+    "id": "28347efb-4a92-4c97-958b-10d7e5d32ec5",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -14647,7 +14647,7 @@
     "displayName": "Boîte en carton pour poisson congelé - 450g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "6e549f1e-9b90-4e09-bdb1-8eab69dd5700",
+    "id": "51d6b0a3-895c-46ef-80fb-c9cd992ab651",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -14736,7 +14736,7 @@
     "displayName": "Bouteille en plastique (PET) pour huiles végétales (sauf huile d'olive) - 2L",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "2fcdab90-d109-4253-9a94-0c7b30565415",
+    "id": "35f219a6-b756-44f3-8f80-fde8d6bee5a2",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -14957,7 +14957,7 @@
     "displayName": "Bouteille en verre pour huile de pépins de raisin - 1L",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "6ce46a08-2115-4c19-b8c8-1191a2c15cc3",
+    "id": "c3d1f6af-7ea2-4158-ba9b-e8e53ab892ba",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -15573,7 +15573,7 @@
     "displayName": "Gaz de ville",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "1abfb91e-b8e8-407f-914a-4d637209272f",
+    "id": "e22f6eba-bf01-401a-b146-19bcc77f5f3b",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -15706,7 +15706,7 @@
     "displayName": "Pot en verre pour miel - 375g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "3087025d-2d00-4d0b-a61b-3bc88e4792ba",
+    "id": "a4eba5d8-4898-4346-980f-9e2125f2c060",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -15839,7 +15839,7 @@
     "displayName": "Feuille en papier pour cornet de glace - 402g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "b01195eb-7513-453b-9184-6fc24da58488",
+    "id": "f11675c2-4e25-4ecb-bf33-c028309a7431",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -15884,7 +15884,7 @@
     "displayName": "Pot en carton pour coupe de glace - 266,4g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "4724081d-452a-4363-b144-4e45e84daa22",
+    "id": "d7ef7738-2a04-49c6-9aa7-0fda15ba4ed5",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -15929,7 +15929,7 @@
     "displayName": "Sachet en plastique (PP) pour glace en bâtonnet - 287,2g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "4f0b3b4e-0364-41a8-b287-0062d15c6a99",
+    "id": "3b3dce5e-6a5f-4cb2-9ba3-1688c4413ec1",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -15974,7 +15974,7 @@
     "displayName": "Sachet en plastique (PE) pour glace en bâtonnet - 816g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "64140e6f-2324-4252-98e7-30a76c90f299",
+    "id": "dc90cf67-2b8b-4c45-b645-a4d47c3fac68",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -16019,7 +16019,7 @@
     "displayName": "Sachet en plastique (PP) pour glace en bâtonnet - 496g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "0d84bec4-d8cc-4662-8808-766ff475c5a7",
+    "id": "697038e6-3831-414e-b404-768998b9cedc",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -16284,7 +16284,7 @@
     "displayName": "Boîte en plastique (PET) pour chocolats individuels - 200g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "ff260103-94c8-414c-b56b-c3f251d8c5a6",
+    "id": "cf4831eb-169a-445a-a18d-e319df5b5158",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -16329,7 +16329,7 @@
     "displayName": "Pot en verre avec couvercle pour confitures - 370g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "6375c822-2740-4eac-b567-4ba02d00ea70",
+    "id": "ae288eef-dca7-4af2-9fc9-92395d40fc49",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -16374,7 +16374,7 @@
     "displayName": "Bouteille en plastique (PET) pour jus - 1000g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "2a998d87-7ca8-4049-a528-44376b1e0482",
+    "id": "8f631b5b-dafb-4940-81e6-0c9695dd5102",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -16727,7 +16727,7 @@
     "displayName": "Sachet sous-vide en plastique (PA/PE) pour saucisse knack - 210g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "d4ef85a9-4cd3-4116-bc31-347e0dcaccb3",
+    "id": "529f0936-e0a0-4362-bc61-a36b550c498f",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -16771,7 +16771,7 @@
     "displayName": "Papier",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "9199d86f-8327-4676-9b92-1de3c364f1fc",
+    "id": "fea5c996-43ed-4066-8fad-e7e34cbd9a33",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -16816,7 +16816,7 @@
     "displayName": "Barquette en plastique (APET/PE) pour lardons - 150g à 200g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "201fb4e5-f58a-46f3-8b36-1a345dd8bfef",
+    "id": "b3b8902b-01f3-4f47-81aa-0f148a90b8b0",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -17081,7 +17081,7 @@
     "displayName": "Bocal en verre pour légume cuit, ambiant - 350g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "c8dcaa11-d5b0-4696-97c1-59aa419db6f5",
+    "id": "b0021146-0fe8-4ffd-9d32-2e568c090a0d",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -17126,7 +17126,7 @@
     "displayName": "Sachet en plastique (PE) pour légumes surgelés - 1000g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "30ce3232-239f-4ab5-b861-4d1dc00e5904",
+    "id": "2c25ed8e-5b6a-4413-83da-6d888ba4dcc7",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -18139,7 +18139,7 @@
     "displayName": "Sachet en plastique (PE) pour pain et pâtisserie longue conservation - 500g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "10d318e3-bd4e-4dd7-a4de-de3ca9996e59",
+    "id": "d3d0e4a9-411b-4336-ab39-ba61aefd4a65",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -18272,7 +18272,7 @@
     "displayName": "Sachet en plastique (PE) pour madeleine - 500g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "f568bdb5-689c-4efe-8fbb-be5719bd2edc",
+    "id": "1c53b6fc-f8bf-4bc6-b902-d72f3a0a4350",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -18449,7 +18449,7 @@
     "displayName": "Bouteille en plastique (PET) pour huile de maïs - 3L",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "535bf0d5-92ea-4c2f-bd81-231bed30bd2f",
+    "id": "08485471-5469-49ae-b8df-9caeadd7ea65",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -18758,7 +18758,7 @@
     "displayName": "Barquette en plastique (injectée) pour margarine - 250g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "5a794791-6c70-4a12-8a04-444a9efe5429",
+    "id": "428dcf56-ba2b-4c3a-831f-b0f28f5aa5e5",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -18803,7 +18803,7 @@
     "displayName": "Barquette en plastique (PP thermoformé) pour margarines - 250g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "8d77ac6b-4a2c-4acb-8dd7-bb72f66be0b0",
+    "id": "bdec1f85-ef7b-438e-b56b-a70f6b699f66",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -18848,7 +18848,7 @@
     "displayName": "Feuille complexe (PP/alu) pour margarine - 500g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "e5d121bb-ab4c-47c5-91b3-f18479e8230e",
+    "id": "a246b612-dd6c-45ec-9146-cca0d1548eb8",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -18893,7 +18893,7 @@
     "displayName": "Barquette en plastique (injectée) pour margarine - 500g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "4f8a029a-1298-4ccf-8720-d9bd5dea5f05",
+    "id": "736df9b3-982e-4866-97e7-6f4103a83e60",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -18938,7 +18938,7 @@
     "displayName": "Barquette en plastique (PP thermoformé) pour margarines - 500g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "ff188d8e-a905-4ffe-bc0f-4875d59b6de9",
+    "id": "ce08dc5f-467a-4e35-8433-a7fe83f4e518",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -18983,7 +18983,7 @@
     "displayName": "Tube et étui carton pour mayonnaise - 175g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "4b38925f-26ec-4a6b-9915-51349db694b1",
+    "id": "2194f87a-89ff-446b-9e1d-99af04a64b82",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -19028,7 +19028,7 @@
     "displayName": "Flacon souple en plastique (PET) pour mayonnaise - 425g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "652d92c5-7ade-448a-aeb6-337482c44f8a",
+    "id": "0cb61144-6701-49c9-b18a-3997d4682398",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -19073,7 +19073,7 @@
     "displayName": "Bocal en verre pour mayonnaise - 470g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "420c1ebe-704a-4891-808a-2a8798a0c223",
+    "id": "6f3d6735-1e5b-48fc-ac66-7526fa6ab34e",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -19118,7 +19118,7 @@
     "displayName": "Barquette en plastique (PA/PEBD/EVOH) pour plat de viande avec garniture, réfrigéré - 450g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "3756db3d-2635-4b89-b7ba-596c1d1630a5",
+    "id": "4fc869d1-e365-4267-81a1-6948157551f1",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -19163,7 +19163,7 @@
     "displayName": "Barquette en plastique (APET/PE) pour brochette de viande - 320g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "a703a697-109d-46df-bd95-ddacbf909f50",
+    "id": "9b1981dd-56e5-4b42-9793-87751355408a",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -19208,7 +19208,7 @@
     "displayName": "Barquette en plastique (PP) pour brochette de viande - 320g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "ba1adf6f-57a8-4966-8bef-35ccb642911c",
+    "id": "576789b0-1ee2-49d2-8c5f-b9dfdf1c5ddb",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -19253,7 +19253,7 @@
     "displayName": "Barquette en plastique (PSE) pour brochette de viande - 334g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "863cad17-b8db-469d-ad2d-c8891cf96950",
+    "id": "6d70e482-6b72-44d0-b962-0ff44fc9bbb0",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -19914,7 +19914,7 @@
     "displayName": "Sachet en plastique (multimatériaux) pour lait en poudre - 500g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "91ae9a4d-52a7-4e2f-9868-dc526c745ccd",
+    "id": "823eff59-b580-4728-b153-63e59c121b97",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -19959,7 +19959,7 @@
     "displayName": "Brique multimatériaux pour lait - 1L",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "5bc7e052-34fd-4c41-993b-07e5894d9a41",
+    "id": "0bdd4a5c-78ae-4e24-8158-f6b708391afa",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -20048,7 +20048,7 @@
     "displayName": "Bouteille en plastique (PEHD) pour lait - 1L",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "63453a37-f4df-475a-ae7b-6c65f5e207b8",
+    "id": "a9675406-0d61-4f9b-a2b1-295563deb1f6",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -20093,7 +20093,7 @@
     "displayName": "Bouteille en plastique (PET) pour lait - 1L",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "aef217db-b88d-41f6-842f-a4b56d4b0c97",
+    "id": "63e823d6-8cea-4ac1-897c-8927ece9016c",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -20138,7 +20138,7 @@
     "displayName": "Barquette en plastique (PP) pour viande hachée - 320g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "cd32b3e0-2b67-4bf9-8336-cb80c5a8b505",
+    "id": "e28f5164-5a94-4f2e-9b61-77613a208fd2",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -20183,7 +20183,7 @@
     "displayName": "Barquette en plastique (PSX) pour viande émincée - 500g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "1e0b6df9-3d6d-4358-a3fb-48373b6856aa",
+    "id": "100c350a-36d5-471f-bc62-10dbab05593d",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -20536,7 +20536,7 @@
     "displayName": "Barquette en plastique (PP) pour salade composée, réfrigérée - 180g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "efe376e5-4166-43ee-a1ea-75dee54d267c",
+    "id": "f1ef5f9f-065b-4676-b3c8-a25b70e52404",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -20581,7 +20581,7 @@
     "displayName": "Barquette en plastique (PET) et fourreau carton pour salade composée, réfrigérée - 240g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "422b0173-d68c-467e-9be3-39903ff1f3b5",
+    "id": "fe9cae41-e6f8-478d-81da-722ce4f81745",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -20626,7 +20626,7 @@
     "displayName": "Barquette en plastique (PET) avec cerclage carton pour salade composée, réfrigérée - 250g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "01f8c496-f5f0-4490-bde0-47ce58c52ca0",
+    "id": "6800a0d8-323d-4afd-98c1-fa46992ee085",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -20671,7 +20671,7 @@
     "displayName": "Barquette en plastique (PP) et étui carton pour salade composée, réfrigérée - 320g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "ca87f1d0-9d82-4d2c-8904-1d02af6a645e",
+    "id": "046a49d8-5a8c-43ae-a017-0801bcc2b372",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -20716,7 +20716,7 @@
     "displayName": "Barquette en plastique (APET/PE) pour mortadelle tranchée - 135g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "404e89e2-6f0c-4eae-94f2-6523b83d2a1b",
+    "id": "1735d0ae-f519-40b8-b117-9fd6d98a747a",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -20805,7 +20805,7 @@
     "displayName": "Sachet en plastique (PE) pour muesli - 500g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "f6920181-7a9b-4dc4-803c-a3533e2eb823",
+    "id": "46e095ab-2593-4b96-9380-a6f5bbb4a40e",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -20982,7 +20982,7 @@
     "displayName": "Bouteille en plastique (PET) pour nectars - 1000g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "32364f37-be8b-41c7-801a-ddd8adeaa627",
+    "id": "f6fbedcb-2678-4894-bc24-59960e5f19aa",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -21027,7 +21027,7 @@
     "displayName": "Sachet en plastique (PET) pour confiseries non chocolatées - 250g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "d7a56537-450c-41c0-9ba6-6664a42bbaa0",
+    "id": "b2c77b26-d1a4-4d66-b73f-f79cf4503cad",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -21072,7 +21072,7 @@
     "displayName": "Sachet en papier pour farine de noix - 1000g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "ddfb6c42-2562-4514-aa0e-ed5926ded9b0",
+    "id": "57e8c0e6-df04-479d-a4f3-bcf5c043a687",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -21117,7 +21117,7 @@
     "displayName": "Sachet en plastique (PE) pour flocons d'avoine - 500g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "05493a00-496d-4710-a359-8fdd38ca0f44",
+    "id": "1be2ec9b-47a2-4ab1-a84c-dc6335308e6c",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -21338,7 +21338,7 @@
     "displayName": "Feuille pour abat vendu au rayon boucherie - 238g à 334g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "b6ea71a4-3c16-4957-a424-d49300cd7356",
+    "id": "585efc7e-31b9-402d-a92c-62e4a87514fd",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -21427,7 +21427,7 @@
     "displayName": "Bouteille en verre et bouchon plastique pour huile d'olive - 0,5L à 1L",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "9121e6b8-0a19-432e-8d13-9ffb0cd96a8b",
+    "id": "a10668c6-4d0a-4484-b8e2-4577fe0a2173",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -21472,7 +21472,7 @@
     "displayName": "Bouteille en plastique (PET) pour huile d'olive - 1L",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "1cf886e7-b2a9-44ba-b472-da49cc3b093a",
+    "id": "204d97f0-e8c5-40ae-981a-52e9877deebb",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -21561,7 +21561,7 @@
     "displayName": "Film en plastique (PP) pour omelette ou tortilla - 500g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "ebf9b044-beeb-4d47-a278-ad9d16112387",
+    "id": "3086c79d-1e2f-4962-a20c-5ae830407c99",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -22442,7 +22442,7 @@
     "displayName": "Sachet en plastique (PE) pour autre pain - 500g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "90a74573-3a51-4f1e-bd55-e7e0c7e06f12",
+    "id": "c3af55fc-9bb5-4ae1-bb08-d7c3face918a",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -22487,7 +22487,7 @@
     "displayName": "Sachet en plastique (multimatériaux) pour dessert - 330g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "ff9c9bc3-6ca2-4b4e-81b6-e036f9b73a76",
+    "id": "47dba57f-47f2-4b86-9a75-8ee2c5effe4b",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -22532,7 +22532,7 @@
     "displayName": "Boîte en carton, barquette aluminium, sachet plastique (PEBD) pour gâteau - 330g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "536cf698-79ed-42f2-bcae-f6a6711eed3f",
+    "id": "1fdd9d17-c874-4651-b224-1d4e209f1e79",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -22577,7 +22577,7 @@
     "displayName": "Sachet en plastique (PP) pour autre biscotte - 300g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "c55c2f63-1e51-4c2a-ac8a-7098f78187d4",
+    "id": "f196ec73-84d0-4d2c-be0a-0ba4955213d7",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -22622,7 +22622,7 @@
     "displayName": "Boîte en plastique (PET) pour autres gâteaux - 160g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "8801308e-f7fb-42ee-b282-d7c5b06645a5",
+    "id": "4818c674-2189-46bb-96f2-993713052500",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -22666,7 +22666,7 @@
     "displayName": "Polyéthylène basse densité",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "548e6dfb-f18f-4136-a7aa-a7c6e86c950e",
+    "id": "3c729feb-5156-4593-a3b4-8a28867af98e",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -22710,7 +22710,7 @@
     "displayName": "Verre",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "2fc80abd-3823-4840-92eb-5e7f9d6ca9e1",
+    "id": "d1b1f214-5514-4171-aeb2-b79dcc50783f",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -23107,7 +23107,7 @@
     "displayName": "Sachet stand up en papier/plastique (PA/PE) pour pâtes fraiches - 300g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "b8c338ec-809a-4f7e-851b-e40707842cb0",
+    "id": "d242c8d2-10d6-4877-a455-5b0bbf31d2a3",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -23152,7 +23152,7 @@
     "displayName": "Sachet stand up en plastique (PE) pour pâtes et graines, réfrigérées - 320g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "35fa2414-cc6c-4449-af1e-a8acfc975304",
+    "id": "5f8db4a2-a06d-438b-978e-1852b2d2b263",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -23197,7 +23197,7 @@
     "displayName": "Barquette en plastique (PET/PE) pour pâtes fraiches - 350g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "8f90b400-7344-4e00-ae33-54b04145df7c",
+    "id": "9c104243-2af5-4e04-ae79-d952dd526b7f",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -23242,7 +23242,7 @@
     "displayName": "Pot en plastique (PP) et étui carton pour plat à base de pâtes ou céréales, réfrigéré - 280g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "18c6b9ee-f887-4c3c-bc49-9a09c0b7ffed",
+    "id": "7d41485d-f453-43df-bda7-5aa770f88792",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -23287,7 +23287,7 @@
     "displayName": "Etui en carton pour pâtes sèches - 1000g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "c0b1cd1f-10fd-487a-b7e1-ab9d076ff207",
+    "id": "289ba021-4177-45a2-a731-482b248d2179",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -23332,7 +23332,7 @@
     "displayName": "Sachet en plastique (OPP) pour pâtes sèches - 1000g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "85990254-50a4-48f9-8ccb-972539cd742a",
+    "id": "9b427362-e70f-467b-9745-29ccc7fbef24",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -23377,7 +23377,7 @@
     "displayName": "Etui en carton pour pâtes sèches - 500g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "e09867b9-bda2-4d0f-9149-d58a660988f2",
+    "id": "52522e3a-4bb4-4962-af11-afa7f04b4714",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -23422,7 +23422,7 @@
     "displayName": "Sachet en plastique (OPP) pour pâtes sèches - 500g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "a649c06a-ee3d-409e-a8d4-fe31e4cd622b",
+    "id": "9f18411d-f04e-4b02-829b-9f4b960d2ad3",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -23555,7 +23555,7 @@
     "displayName": "Sachet stand up en plastique (PE) pour riz cuisinés - 250g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "7af8ea4e-d3c8-4d23-9b16-45e65e9b8c26",
+    "id": "59f02a5b-1699-47ea-8028-6ca213ef3de3",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -23600,7 +23600,7 @@
     "displayName": "Sachet en plastique (PP) pour pâtisseries salées - 400g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "663e6387-706b-45dc-9506-e7742c5f5eb5",
+    "id": "fbdbe35c-bea2-4af4-9214-c061c8f4119c",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -23645,7 +23645,7 @@
     "displayName": "Barquette en plastique (APET/PE) pour pâté et terrine - 170g à 175g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "7b7a6806-c56b-49d2-be74-a021512de6ae",
+    "id": "7f42037e-5696-4bc2-9a0c-09d485eb101c",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -23690,7 +23690,7 @@
     "displayName": "Barquette en plastique (PP) pour pâté et terrine - 170g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "eb552c10-1a40-4e44-a16e-b49e34cb39e5",
+    "id": "4c7d17e8-1b65-4d3d-833f-4a6955665204",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -23735,7 +23735,7 @@
     "displayName": "Barquette en plastique (PSX) pour pâté et terrine - 170g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "72615fca-7880-454d-9926-8b84f2aa57fd",
+    "id": "98f8a34b-6c83-4305-96f4-dab2a7a67731",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -23780,7 +23780,7 @@
     "displayName": "Pot en verre avec couvercle pour pâtés et terrines - 180g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "5962ee87-c048-47c6-9967-d5ad002811dc",
+    "id": "ca711518-7ecb-4be7-a62b-3b99dcc469f5",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -23825,7 +23825,7 @@
     "displayName": "Feuille pour pâté et terrine vendus à la coupe (venant d'une terrine en grès) - 180g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "0ca82c8b-2d17-47dc-956e-2c4df7c726ee",
+    "id": "709c2ae6-a983-4c56-b40d-97986660f092",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -23870,7 +23870,7 @@
     "displayName": "Lot de 3 boîtes en acier avec fourreau carton pour pâté et terrine - 215g à 235g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "d1514f8b-7458-4c71-b146-c69aaeb7021b",
+    "id": "fa83ebbe-b234-4bf5-a3d6-e2b744ca0750",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -24223,7 +24223,7 @@
     "displayName": "Pot en verre pour beurre de cacahuète - 350g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "0cc4e19c-9f2a-4f7a-977e-1a839f5d3680",
+    "id": "b77d413b-1731-4dbc-8be8-07c74255452b",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -24708,7 +24708,7 @@
     "displayName": "Sachet en plastique (PE) pour pâte à tarte - 230g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "351aaf48-075f-4a4a-b8c2-78c4384c98e2",
+    "id": "3661094f-a7c3-45d8-a77f-09b4430ce956",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -24885,7 +24885,7 @@
     "displayName": "Barquette en plastique (PET/PEBD) pour part de pizza, réfrigérée - 260g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "11cca41c-9311-4cbe-8bf7-2ce31a7de262",
+    "id": "9d5ffa39-a178-4cad-ac7e-5f0f80d8f60f",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -24930,7 +24930,7 @@
     "displayName": "Sachet en plastique (PE) flow pack et étui carton pour pizza, réfrigérée - 380g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "40ba07d5-3c52-4c42-b257-1f1de522092c",
+    "id": "fa775270-4bc7-4f6d-a9d3-c80ed05ed90c",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -24975,7 +24975,7 @@
     "displayName": "Pot en plastique (PP) pour fromage végétal - 125g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "002e6aed-0814-4d1d-987d-58f726984045",
+    "id": "07eec62f-92b6-439b-931b-1fc9ca492583",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -25020,7 +25020,7 @@
     "displayName": "Pot en verre pour tartinade végétale - 500g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "d56ec814-3642-4ae4-8273-398fc127ebae",
+    "id": "9645360c-d481-42ec-9217-916fc3672e28",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -25108,7 +25108,7 @@
     "displayName": "PET",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "77217fbd-96ac-448a-a3d5-e8f556df1761",
+    "id": "6410bbf5-8f96-4b2c-afdc-3476ca5ff388",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -25152,7 +25152,7 @@
     "displayName": "Polyéthylène haute densité",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "c49e6a3e-7783-4011-b16b-00a065aac004",
+    "id": "77d32048-2678-4942-bf52-0eb150dab3f9",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -25196,7 +25196,7 @@
     "displayName": "Polypropylène",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "f2b71ffc-5838-4cb7-973f-ec28ba42ac8f",
+    "id": "3da8b477-c839-4ca6-9621-bf29bd8ea353",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -25240,7 +25240,7 @@
     "displayName": "Polystyrène",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "e302180e-47f9-41c0-b3e5-c051b59f06b4",
+    "id": "39ba6741-64c9-4136-baa9-5cb853ef3d10",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -25284,7 +25284,7 @@
     "displayName": "PVC",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "c61652db-be77-4e9d-9c00-e43beb9f2951",
+    "id": "8bdcfb18-5d8c-45d0-9296-12fce18f0f5c",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -25329,7 +25329,7 @@
     "displayName": "Sachet en plastique (PP) pour pop corn - 100g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "f37c1fda-7a43-4b6e-be4c-ff65aee0f4c6",
+    "id": "54198827-66b3-4c81-b458-62b2532c751b",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -25374,7 +25374,7 @@
     "displayName": "Feuille pour viande vendue au rayon boucherie - 250g à 350g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "33f6cdcd-529c-4fbe-aedb-63b07d624a6f",
+    "id": "e6f062b8-3bef-4f54-aaeb-996d08317e53",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -25419,7 +25419,7 @@
     "displayName": "Barquette en plastique (PSE) pour viandes et abats - 300g à 1100g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "b5128574-6321-4626-a5b3-bc382e9d5764",
+    "id": "be8989e8-3f6b-45f4-8d1e-bf515d02d7a1",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -25508,7 +25508,7 @@
     "displayName": "Barquette en plastique (PSX) pour volaille - 238g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "6c5dc000-5304-4d3e-943e-a6f77cf3c6b5",
+    "id": "9dab5385-3f92-4099-9e17-5139f2313fba",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -25553,7 +25553,7 @@
     "displayName": "Barquette en plastique (APET/PE) pour volaille - 366g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "66c1bdaa-8e29-4a22-b76c-a52ff5d3cf79",
+    "id": "fd569276-f8b5-41aa-8005-e533ac16b9bc",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -25598,7 +25598,7 @@
     "displayName": "Sachet en plastique (PE) pour pain précuit - 320g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "a1aa72f3-9a77-4035-bcc8-5138ffdc5333",
+    "id": "e1cb727b-35c5-4d6c-a6df-275a35dde299",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -25643,7 +25643,7 @@
     "displayName": "Feuilles aluminium et étui carton pour fromage fondu - 250g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "590a3d7f-c29b-42f2-beae-4e8f40ae3326",
+    "id": "9b092799-b3a7-43f9-88bd-03359970a47b",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -25688,7 +25688,7 @@
     "displayName": "Feuilles aluminium et boîte carton pour fromage fondu - 160g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "b7abebd6-bb0b-44c7-aa01-4d46d6c8710e",
+    "id": "aa045b01-b462-4370-8e19-1e73932d11ad",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -25733,7 +25733,7 @@
     "displayName": "Barquettes en plastique (PET) et boîte en carton pour fromage fondu (snack) - 175g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "e73badd3-1499-453d-b66c-cd8eb81f72d8",
+    "id": "10d4a85d-40db-4bec-8af4-1bc69668492d",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -25778,7 +25778,7 @@
     "displayName": "Feuilles plastique (PP) et sachet plastique (multimatériaux) pour fromage fondu - 300g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "4a47c683-7fd9-45c8-8212-5aeb5b408b6b",
+    "id": "a99a0e44-2336-4c6b-b19a-3b88cc377639",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -25823,7 +25823,7 @@
     "displayName": "Sachet en plastique (PP) pour pain soufflé ou pain de céréales texturé - 130g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "3d3f8bdd-5be8-4173-90eb-317e3598849c",
+    "id": "d4da6fbb-d6dc-4344-8c61-f30d92ee2839",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -25868,7 +25868,7 @@
     "displayName": "Lot de 12 pots en plastique (multimatériaux) avec fourreau carton pour compote de fruit, ambiante ou réfrigérée - 400g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "4cab9ee7-86cb-4acc-8439-9de3b7308c19",
+    "id": "f6034fb9-697b-4a0b-916b-7550c531f23e",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -25913,7 +25913,7 @@
     "displayName": "Lot de 4 pots en plastique (multimatériaux) avec fourreau carton pour compote de fruit, ambiante ou réfrigérée - 400g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "63fbba97-afb4-4eb4-9db3-f8cd279c796b",
+    "id": "d64edb92-6adc-4a06-a0d0-250cf57c54bd",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -25958,7 +25958,7 @@
     "displayName": "Bocal en verre pour purée de fruits, ambiant - 400g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "aedd9c20-55e7-43dc-ab9d-1dae6e2bcdcb",
+    "id": "0c52a1c8-8928-4363-b712-1aaf5294ac5d",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -26003,7 +26003,7 @@
     "displayName": "Sachet sous-vide en plastique (PA/PE) pour quenelle - 210g à 378g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "a684c84c-3a0b-4d4a-900d-9c83c4b1bb7c",
+    "id": "2eb8dee4-bf79-4b28-992d-138b096deb64",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -26224,7 +26224,7 @@
     "displayName": "Bouteille en verre pour huile végétale (sauf huile d'olive) - 0,5L à 0,75L",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "4e882e35-b7b5-4456-a61b-65b7e09de04e",
+    "id": "71581583-19ee-4660-8d66-673a7303965d",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -26269,7 +26269,7 @@
     "displayName": "Bouteille en plastique (PET) pour huiles végétales (sauf huile d'olive) - 1L",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "33bfd652-ef60-4e31-986f-6d653a075487",
+    "id": "18692014-0c1f-4a5a-8b44-67364840e0ae",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -26710,7 +26710,7 @@
     "displayName": "Barquette en plastique (PET) pour poisson cru - 250g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "47e91878-686f-4904-97f9-f26c5af527e5",
+    "id": "bed7e196-fd70-42aa-9367-94b62832afb5",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -26843,7 +26843,7 @@
     "displayName": "Sachets cuissons plastique (PEHD) dans étui carton pour riz et graines secs - 450g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "e6c91065-4ad8-4387-b1ad-f8cac1d12d09",
+    "id": "3570fa15-76f0-4c50-a859-bba04a850620",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -27108,7 +27108,7 @@
     "displayName": "Pot en plastique (PP) pour rillettes - 220g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "15b7fd9d-d2c4-4a63-94a0-3f1c29c66114",
+    "id": "ab759005-73bc-4518-8185-d0927271ee77",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -27153,7 +27153,7 @@
     "displayName": "Sachet en papier pour biscotte - 225g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "6052da6d-8757-4649-8e11-478a8dc891e7",
+    "id": "92b112f3-781a-4ca3-b6d2-a0ad2934e296",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -27242,7 +27242,7 @@
     "displayName": "Bouteille en plastique (PET) pour sauce salade - 0,25L",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "255dda74-baa5-446b-ab0d-98dee51302e7",
+    "id": "e8e78d16-adb9-4f56-8c5b-54931303c1b9",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -27287,7 +27287,7 @@
     "displayName": "Bouteille en plastique (PET) pour sauce salade - 0,33L",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "99da302a-5bc2-4d34-8e55-27d379443191",
+    "id": "d102d7d0-22db-4f5f-8348-1d86a787c4aa",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -27332,7 +27332,7 @@
     "displayName": "Bouteille en plastique (PET) pour sauce salade - 0,45L",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "79804509-9d98-45bf-bbd8-5fde0a5d628a",
+    "id": "85e6644c-32b7-41fd-bea7-78db48b5eac3",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -27465,7 +27465,7 @@
     "displayName": "Boîte en carton pour sel - 125g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "fb31e448-823d-4d38-bab8-edf318ac465b",
+    "id": "86a82cbb-3cd2-4e00-9f2a-31a75a6b636c",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -27510,7 +27510,7 @@
     "displayName": "Barquette en plastique (PET) pour sandwich au pain de mie - 230g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "6801bf52-bb7c-4007-8a89-a59591680895",
+    "id": "dab53acc-93d4-429c-8076-0c67601fec74",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -27555,7 +27555,7 @@
     "displayName": "Barquette en plastique (PET/PEBD) pour sandwich - 135g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "7d584219-d28d-49c8-99d6-dbc1a7884809",
+    "id": "f90aec80-fd2f-445c-8bf6-07a3fc7f8d55",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -27600,7 +27600,7 @@
     "displayName": "Film en plastique (PE) pour sandwich - 190g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "dd473192-644c-43b0-9231-59f74f4ea4ba",
+    "id": "3fe4c238-f3e3-4530-a711-333bdcaa7353",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -27645,7 +27645,7 @@
     "displayName": "Sachet en plastique (multimatériaux) flow pack pour sandwich - 270g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "a43fcdc2-f7a3-4221-91f2-1489d2cc6dbf",
+    "id": "ec73329c-1b0a-4c81-b9ff-558b3e62a08a",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -27690,7 +27690,7 @@
     "displayName": "Flacon en plastique (PE) pour sauces - 30g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "ea9d5db3-0989-4b54-8f4e-063e376f6f4d",
+    "id": "5d95dfb6-844c-4746-a2db-56de94ae3185",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -27779,7 +27779,7 @@
     "displayName": "Barquette en plastique (PET/PEBD) pour fruits de mer cuits - 180g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "06a86702-4c99-401f-aa28-de9418b17176",
+    "id": "8d62ac27-ddf1-46ae-a3ed-822a4915b736",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -27824,7 +27824,7 @@
     "displayName": "Barquette en plastique (PP) pour fruits de mer - 290g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "68d8cbd0-04af-4070-91d9-277098fb97af",
+    "id": "dc3371de-8cb1-4a4f-bb78-036f7e9ecaf9",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -28089,7 +28089,7 @@
     "displayName": "Feuille papier paraffiné pour fromage à pâte dure - 250g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "affd075b-70c3-45e4-a4b2-5dea78a8f7a8",
+    "id": "9334fd59-29c4-4c71-8cdc-2caae557cffb",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -28134,7 +28134,7 @@
     "displayName": "Sachet plastique zippé (multimatériaux) pour fromage râpé - 200g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "90ce1da6-3b8d-4d07-812e-529325a119c9",
+    "id": "15c0c4d0-6743-4092-b9c6-8a37ca6a1669",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -28179,7 +28179,7 @@
     "displayName": "Sachet en plastique (multimatériaux) pour fromage à pâte dûre - 250g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "6fca7138-a358-4221-ba64-642530c15188",
+    "id": "79a6ff7a-e5c9-4ad3-8349-63fe3371ffbf",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -28224,7 +28224,7 @@
     "displayName": "Film plastique (PEBD) pour fromage à pâte dûre - 250g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "636af286-f851-47db-927d-afa707e90f39",
+    "id": "78be712d-39b4-4a45-aaab-5e1e4cf79ee8",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -28269,7 +28269,7 @@
     "displayName": "Barquette en plastique (PET) pour fromage en tranches - 200g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "ba8ab51f-6977-4490-ac16-4862d95dfc63",
+    "id": "e6c6c3fb-cffe-4073-b166-1efe7d6f0e32",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -28402,7 +28402,7 @@
     "displayName": "Boîte en plastique (PET) pour pain et pâtisserie courte conservation - 200g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "af93b9c7-6806-4799-bc84-fa3f2cf62805",
+    "id": "2fc7cbb4-a0e9-49d5-ae2b-110c0558b07c",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -28579,7 +28579,7 @@
     "displayName": "Bouteille en acier pour sirop - 500g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "e3cf44a8-1e87-42f6-97fa-60e7336b2d25",
+    "id": "954ca15f-e1ba-4317-b107-64b2dad9640d",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -28624,7 +28624,7 @@
     "displayName": "Barquette en plastique (APET/PE) pour charcuteries tranchées - 100g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "d94f67d1-7dbb-4e8a-8cd7-aaa8cf97409e",
+    "id": "ff640ca9-f9cb-4324-9863-dff59fd91196",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -28845,7 +28845,7 @@
     "displayName": "Boîte en carton pour fromage à pâte molle - 350g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "f65dfd9e-92ea-49b9-962d-df2a4397ea94",
+    "id": "a6636b08-0894-4b21-9c49-d1a7b9797055",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -28890,7 +28890,7 @@
     "displayName": "Boîte en bois pour fromage à pâte molle - 250g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "00fab7d0-472f-42cf-8dcc-3057e3625a0b",
+    "id": "8f9a21ba-7bc0-4b41-8714-778ff6a05ef1",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -28935,7 +28935,7 @@
     "displayName": "Boîte en carton pour fromage à pâte molle - 210g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "363874f6-53af-45f9-bd29-1866ad7a23f4",
+    "id": "d4af2606-2f80-4eed-b732-42b739246ba6",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -28980,7 +28980,7 @@
     "displayName": "Boîte en plastique (PET) et manchon carton pour fromage à pâte molle - 120g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "9155c47a-2bc7-49d8-9de3-617a5e7f997e",
+    "id": "e741c8f6-b27d-4437-861f-b220e24460dd",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -29025,7 +29025,7 @@
     "displayName": "Boîte en plastique (PET) pour fromage à pâte molle - 120g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "76df5fde-a4cd-4cb1-82ad-c0fb3b461b33",
+    "id": "b134e9ef-7784-4f94-b7b7-e8c9de4eb4c0",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -29070,7 +29070,7 @@
     "displayName": "Boîte en plastique (PP) et manchon carton pour fromage à pâte molle - 220g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "86aee29c-5bb0-4e8b-b4ec-d9e9edb98952",
+    "id": "80d8683c-cac9-44dc-87e1-29ce48521f72",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -29115,7 +29115,7 @@
     "displayName": "Boîte en plastique (PP) pour fromage à pâte molle - 220g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "40a93087-7c96-468f-9c5b-00ea71e272b6",
+    "id": "1f55eaa0-5629-44aa-9919-38e21b3580df",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -29160,7 +29160,7 @@
     "displayName": "Eclisse en bois pour fromage à pâte molle - 500g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "bf072bed-3302-48c3-a0f2-31c4ba49bb7e",
+    "id": "be22e092-39e8-460a-80be-26d618e52ff7",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -29205,7 +29205,7 @@
     "displayName": "Feuilles en plastique et papier pour fromage à pâte molle (type bûche) - 180g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "b211eecd-422e-4b61-aaec-1e332b4eef5c",
+    "id": "3bce5e42-c259-492a-ac21-52c94d6236eb",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -29250,7 +29250,7 @@
     "displayName": "Feuille complexe pour fromage à pâte molle - 450g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "a23d89af-820e-41ab-ac93-c09f5c59b061",
+    "id": "6ed0c3a1-6452-4ab9-84bd-614c753563dd",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -29295,7 +29295,7 @@
     "displayName": "Barquette en plastique (PS) avec film pour fromage à pâte molle - 120g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "cc798697-92cd-4a7d-aa47-303317e00f89",
+    "id": "0340555a-c12e-482b-a676-23939bf9ee85",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -29340,7 +29340,7 @@
     "displayName": "Barquette en bois et film plastique (PE) pour fromage à pâte molle - 120g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "ef554b81-f755-43d6-9724-ab3e65818455",
+    "id": "a2f2b4c3-9a38-4150-889a-33cc0427e1ec",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -29385,7 +29385,7 @@
     "displayName": "Bouteille en plastique (PET) pour boisson sans alcool - 1500g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "bbcd6811-b245-4cdc-b8a4-4731ea32a28e",
+    "id": "d0681d41-511a-418a-9fba-b5b45e49e2fb",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -29474,7 +29474,7 @@
     "displayName": "Pot en verre pour poudre soluble - 200g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "59c5aeea-4785-4ac5-9290-7105f4523301",
+    "id": "387fa25c-7320-4e16-942e-721d547d2d4c",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -30003,7 +30003,7 @@
     "displayName": "Canette en aluminium pour vin - 25cl",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "1b1115db-dcdd-4f2e-b043-d402414600dd",
+    "id": "495fc387-825b-4e91-b5a6-97a23e0fb8b8",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -30048,7 +30048,7 @@
     "displayName": "Bouteille en verre vert de 560g pour vin effervescent - 75cl",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "4f54cbf1-607c-41e7-a464-17048dde486f",
+    "id": "d35bf802-b87f-4b7f-a0db-4b5efedf53a5",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -30093,7 +30093,7 @@
     "displayName": "Bouteille en verre vert de 775g pour vin effervescent - 75cl",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "8bd7841d-6ddf-4095-b451-b36e5063e4e7",
+    "id": "ae8fd94f-a8b8-4aaf-9f82-61e00da26ed0",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -30138,7 +30138,7 @@
     "displayName": "Bouteille en verre vert de 835g pour vin effervescent - 75cl",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "f6c8e437-8c7e-41d4-b9d4-5997f2075842",
+    "id": "7ea25190-9d2c-4085-81cb-8e7d1f9bdaa8",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -30887,7 +30887,7 @@
     "displayName": "Barquette en plastique (PET) pour entrées, produits exotiques - 280g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "722b318d-e7d4-4ca5-b7e7-135749694637",
+    "id": "926fb107-f3df-41a5-8e1f-7b5abfd51f81",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -30932,7 +30932,7 @@
     "displayName": "Bag in box avec poche recyclable pour vin tranquille - 3L",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "de666377-d31a-416d-8442-f5edd69be206",
+    "id": "5e1f0939-a287-4faa-917d-3b7d2635c033",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -30977,7 +30977,7 @@
     "displayName": "Bag in box pour vin tranquille - 3L",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "19530b9b-f491-4e84-8a91-b102f3cfbfc6",
+    "id": "00675fcb-f29c-47ef-abf8-20903d7b42a3",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -31022,7 +31022,7 @@
     "displayName": "Bag in box avec poche recyclable pour vin tranquille - 5L",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "53994a7f-6d6a-4802-86da-039b24e96258",
+    "id": "5d8edc18-d2ff-4024-bd45-b114d58fbfe7",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -31067,7 +31067,7 @@
     "displayName": "Bag in box pour vin tranquille - 5L",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "da576f4e-ece1-44d2-9d44-2f4ff6e62a08",
+    "id": "13bca207-f43b-4005-b617-2de8df0313c0",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -31112,7 +31112,7 @@
     "displayName": "Bouteille en verre vert de 395g pour vin tranquille - 75cl",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "5aec4c68-8ef1-4e0f-a6d0-0d9f2468babb",
+    "id": "106041c7-e3bf-489d-a07e-68289d1d4b5b",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -31157,7 +31157,7 @@
     "displayName": "Bouteille de vin en verre (couleur: vert) 75cl, 450g, bouchon en liège",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "0eab8baf-a0ee-42cd-b63e-8765321f875f",
+    "id": "eb4ea1fd-cf22-4735-8fd4-8ae78ac47e52",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -31202,7 +31202,7 @@
     "displayName": "Bouteille en verre vert de 690g pour vin tranquille - 75cl",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "77b33c0d-352c-41db-a9b9-78bedb4d4936",
+    "id": "7ca5df3a-8c11-4222-904f-2449dc567ea2",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -31247,7 +31247,7 @@
     "displayName": "Bouteille en verre blanc de 395g pour vin tranquille - 75cl",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "ea7f112d-261f-4b3a-b221-bc202599fee8",
+    "id": "0c8932fc-408d-4c1a-b417-7dff1d1f3ce8",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -31292,7 +31292,7 @@
     "displayName": "Bouteille en verre blanc de 450g pour vin tranquille - 75cl",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "d6e30bf9-3e1e-4008-8b61-2f5e470ee8de",
+    "id": "4aef9bfa-3639-43b6-8115-014e767a9aef",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -31337,7 +31337,7 @@
     "displayName": "Bouteille en verre blanc de 690g pour vin tranquille - 75cl",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "02e5aaca-8ab3-4653-8514-1f6a57f9480a",
+    "id": "ce064f05-9939-4b0f-a4ac-d7e9769fcf45",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -31382,7 +31382,7 @@
     "displayName": "Bouteille en plastique (PET) pour vin tranquille - 0,75L",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "4c7cb0f8-7014-4cc2-b0d0-ef583b06a3a8",
+    "id": "ecd61484-0230-43ae-a5cf-bbea5823b57c",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -31911,7 +31911,7 @@
     "displayName": "Sachet en papier pour sucre - 1000g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "dad0f901-1e7b-44e4-9614-d868776a7264",
+    "id": "2d1e846c-8158-44d6-9d0d-383afefde540",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -32484,7 +32484,7 @@
     "displayName": "Bouteille en acier pour sirop - 600g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "1d9dd111-86f7-4c5f-82c3-39064a4d04d1",
+    "id": "5c11d750-5dba-4992-bc78-817e08ee54d7",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -32661,7 +32661,7 @@
     "displayName": "Barquette en plastique (PET/PEBD) et moule aluminium pour tarte, réfrigérée - 260g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "ddb35585-7ff9-4405-affd-2803fd70886c",
+    "id": "fea59245-d9b0-4dd1-bd1f-c7148dde1f4c",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -32706,7 +32706,7 @@
     "displayName": "Pot en plastique (PET) pour tartinable - 150g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "72a4b8f8-2249-45bb-b254-9f9e76de68aa",
+    "id": "cfbdd899-8929-4b6f-b447-736258617917",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -32751,7 +32751,7 @@
     "displayName": "Boîte en carton pour thé - 30g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "8affedaa-9b56-4747-93e8-ee4f1c8c27b0",
+    "id": "24b1146e-e3f6-4a1e-8fc4-5fb3e5e43e27",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -32884,7 +32884,7 @@
     "displayName": "Barquette en plastique (PP) pour tempeh - 125g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "7b8b8b70-d319-411d-b1f9-86e61ee568fa",
+    "id": "5d1431b4-5565-4c23-950e-383b88775c9c",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -33809,7 +33809,7 @@
     "displayName": "Barquette en plastique (PE/PA) pour fromage frais - 200g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "cdc3ddad-01ac-4177-8b8a-72bcad8007c7",
+    "id": "55af055e-079e-469c-b6c9-88c814352f45",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -33854,7 +33854,7 @@
     "displayName": "Pot en verre pour fromage frais -300g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "e02e2a56-2955-4760-8d38-139a99e26800",
+    "id": "79323a07-1e73-4c55-9326-bce651f28bf1",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -33899,7 +33899,7 @@
     "displayName": "Pot plastique (PP) pour fromage à tartiner - 210g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "ad70682c-4f26-44a0-8075-6eb1a355d02b",
+    "id": "d4edac1e-b903-42cd-a8b5-39f0cdf666ca",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -33944,7 +33944,7 @@
     "displayName": "Sachet en plastique (multimatériaux) pour fromage type mozarella - 125g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "6a89259a-2758-40c4-ac8d-ff7bd4fd3917",
+    "id": "1bebe6d7-b27f-464b-9d59-c69a8353c55c",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -33989,7 +33989,7 @@
     "displayName": "Sachet en papier pour sucre vanillé - 75g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "d66b3c51-3ecc-479e-ac2e-a397edb69247",
+    "id": "b5799d15-3093-4f26-943c-0abb50133ca8",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -34078,7 +34078,7 @@
     "displayName": "Tube en verre pour vanille - 10g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "7a01af34-b9f1-44ad-bfcd-27f2737b9b62",
+    "id": "46e1f616-d5b9-47db-93ef-4cc219f07acb",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -34123,7 +34123,7 @@
     "displayName": "Sachet en plastique (PP/PEBD) avec sachets assaisonements pour plat de légumes, surgelé - 950g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "5dc261bc-e8d1-4fe0-8db7-b3c14e55b048",
+    "id": "8e680e7a-23b4-4c35-be6e-3fdc6982e9b3",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -34168,7 +34168,7 @@
     "displayName": "Barquette en plastique (PA/PP thermoformé) pour légume cuit, réfrigéré - 1000g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "0d0d9d1a-b7df-4e92-8367-fd1ff8090a8e",
+    "id": "b484e4d7-2c55-4471-a383-b6578a4ed134",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -34213,7 +34213,7 @@
     "displayName": "Barquette en plastique (PP) dans étui carton pour purées, réfrigérées - 400g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "bb7d865b-1121-48e0-8af4-00cc790315a7",
+    "id": "2fde6050-9bcb-4128-bfdb-b4c9d9dd7caa",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -34258,7 +34258,7 @@
     "displayName": "Barquette en plastique (PP/PA) pour légume cuit, réfrigéré - 600g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "77342da7-9460-4f9a-98f7-e002b5f3b9db",
+    "id": "c1a3d6db-e950-4b76-bf39-7de8406b888c",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -34303,7 +34303,7 @@
     "displayName": "Etui en carton et barquette en plastique (PP) pour légumes, surgelés - 500g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "5af6d086-b07b-43ae-b98d-97a26b6908c1",
+    "id": "42b785f2-0263-4dde-934d-211617ddb0c8",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -34348,7 +34348,7 @@
     "displayName": "Sachet en plastique (PE) pour légumes surgelés - 750g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "3e2e33fa-370e-4edf-b7d2-28ce65711010",
+    "id": "4257c2b4-e9ff-4b99-91b5-5078dfebb79a",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -34393,7 +34393,7 @@
     "displayName": "Bocal en verre pour produit à base de tomate, ambiant - 400g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "b64c015d-66ee-4080-8461-fbe81d815a62",
+    "id": "653d098f-e05c-468a-8d1e-18811f2a71ac",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -34438,7 +34438,7 @@
     "displayName": "Sachet en plastique (PET/PEBD) pour condiments secs - 600g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "c74b174a-c98c-42d0-89b3-62425db42fc0",
+    "id": "af23f7a1-2b28-4d3a-b0d7-be004e230139",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -34483,7 +34483,7 @@
     "displayName": "Pot en verre pour légumes séchés ou déshydratés - 80g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "b9bd9a9f-a445-45ac-93c5-60ca9a07746f",
+    "id": "e5c4bf8e-baec-4f17-ad9c-45d72b17dbf7",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -34572,7 +34572,7 @@
     "displayName": "Bouteille en verre pour vinaigre - 750g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "da9b683b-2cbc-45e5-b4b7-7205489d7300",
+    "id": "e33cb434-604e-44e5-a4b6-01d2ff61808a",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -35365,7 +35365,7 @@
     "displayName": "Pot en plastique (PP) pour tartinables, réfrigéré - 150g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "2380dcdc-9f6f-4dd6-83ac-d3bdf32c80b8",
+    "id": "03596a38-4149-47d7-a89b-2dcb257cf58c",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -35410,7 +35410,7 @@
     "displayName": "Bouteille en plastique (PET) pour eau - 3000g - Proxy",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "816dc91b-0be5-4c89-86c6-2a2304d60884",
+    "id": "0fe7a169-3f64-42e2-9cf4-078e9d2f5b34",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -35719,7 +35719,7 @@
     "displayName": "Barquette en plastique (PP/PE/EVOH/PE) pour boudin - 250g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "766f0495-3cbe-4983-9f9a-5bd289ba78a7",
+    "id": "0c1e098f-46de-484d-916b-4e81dedb5741",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -35808,7 +35808,7 @@
     "displayName": "Barquette en plastique (PSE) pour volaille entière - 1295g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "07649f19-68ed-4219-a949-d54993fc7e26",
+    "id": "92b913c3-2422-490e-9e3e-b1cb1c360189",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -36293,7 +36293,7 @@
     "displayName": "Pot en plastique (PP) pour yaourt - 1000g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "cc22795f-2a28-465c-a538-da108962486b",
+    "id": "6df1701d-42a0-4c8c-96f8-8275f47bcda1",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -36338,7 +36338,7 @@
     "displayName": "Lot de 4 pots en verre pour produits laitiers - 500g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "b3477449-9043-4040-b557-ac68698114e9",
+    "id": "480a87a3-9f6b-475b-b137-19f95b85b193",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -36383,7 +36383,7 @@
     "displayName": "Pot en plastique (PP) pour yaourt - 500g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "1b5d68a4-a8b3-475c-8e2d-8ad40181f8cb",
+    "id": "db5bc298-2c7b-47f2-a09e-9ed1682fe992",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -36428,7 +36428,7 @@
     "displayName": "Lot de 6 bouteilles plastique pour yaourts à boire - 600g",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "9703f471-5cc7-46fc-b9c8-fa52a00947e7",
+    "id": "fd973b13-97bd-4aad-b9cd-d84d65752652",
     "impacts": {
       "acd": 0,
       "cch": 0,
