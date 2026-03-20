@@ -304,6 +304,11 @@ class AppSettings:
     )
     """The default value for token expiration."""
 
+    DEFAULT_TOKEN_VALIDATION_CACHE_SECONDS: int = field(
+        default_factory=get_env("DEFAULT_TOKEN_VALIDATION_CACHE_SECONDS", 20)
+    )
+    """The default value for token expiration."""
+
     DEFAULT_USER_EMAIL: str = field(
         default_factory=get_env("DEFAULT_USER_EMAIL", "admin@ecobalyse.dev")
     )
