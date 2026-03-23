@@ -158,17 +158,18 @@ update session msg model =
                                 Scope.Food ->
                                     Dataset.FoodExamples Nothing
 
-                                Scope.Food2 ->
-                                    Dataset.Processes Scope.Food2 Nothing
+                                Scope.Generic Scope.Food2 ->
+                                    -- FIXME: we should eventually have food2 examples
+                                    Dataset.Processes (Scope.Generic Scope.Food2) Nothing
 
-                                Scope.Object ->
+                                Scope.Generic Scope.Object ->
                                     Dataset.ObjectExamples Nothing
+
+                                Scope.Generic Scope.Veli ->
+                                    Dataset.VeliExamples Nothing
 
                                 Scope.Textile ->
                                     Dataset.TextileExamples Nothing
-
-                                Scope.Veli ->
-                                    Dataset.VeliExamples Nothing
                       )
                         |> Route.Explore scope
                         |> Route.toString
@@ -219,10 +220,10 @@ scopesMenuView { enabledSections } model =
         [ label [ class "fw-bold d-none d-sm-block", for "scope-selector" ]
             [ text "Secteur" ]
         , [ ( Scope.Food, enabledSections.food )
-          , ( Scope.Food2, enabledSections.food2 )
-          , ( Scope.Object, enabledSections.objects )
+          , ( Scope.Generic Scope.Food2, enabledSections.food2 )
+          , ( Scope.Generic Scope.Object, enabledSections.objects )
           , ( Scope.Textile, True )
-          , ( Scope.Veli, enabledSections.veli )
+          , ( Scope.Generic Scope.Veli, enabledSections.veli )
           ]
             |> List.filter Tuple.second
             |> List.map
@@ -722,7 +723,7 @@ exploreView ({ db } as session) { scope, dataset, tableState, search } =
             impactsExplorer db.definitions tableConfig tableState scope maybeTrigram
 
         Dataset.ObjectExamples maybeId ->
-            objectExamplesExplorer session tableConfig tableState Scope.Object maybeId
+            objectExamplesExplorer session tableConfig tableState (Scope.Generic Scope.Object) maybeId
 
         Dataset.Processes scope_ maybeId ->
             processesExplorer session scope_ tableConfig tableState maybeId
@@ -737,7 +738,7 @@ exploreView ({ db } as session) { scope, dataset, tableState, search } =
             textileProductsExplorer session tableConfig tableState maybeId
 
         Dataset.VeliExamples maybeId ->
-            objectExamplesExplorer session tableConfig tableState Scope.Veli maybeId
+            objectExamplesExplorer session tableConfig tableState (Scope.Generic Scope.Veli) maybeId
 
 
 searchInputView : Model -> Html Msg

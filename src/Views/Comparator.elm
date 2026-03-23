@@ -142,7 +142,7 @@ addToComparison session { name, query } =
                 |> ObjectSimulator.compute
                     { config = session.componentConfig
                     , db = session.db
-                    , scope = Scope.Food2
+                    , scope = Scope.Generic Scope.Food2
                     }
                 |> Result.map
                     (\lifeCycle ->
@@ -160,7 +160,7 @@ addToComparison session { name, query } =
                 |> ObjectSimulator.compute
                     { config = session.componentConfig
                     , db = session.db
-                    , scope = Scope.Object
+                    , scope = Scope.Generic Scope.Object
                     }
                 |> Result.map
                     (\lifeCycle ->
@@ -192,7 +192,7 @@ addToComparison session { name, query } =
                 |> ObjectSimulator.compute
                     { config = session.componentConfig
                     , db = session.db
-                    , scope = Scope.Veli
+                    , scope = Scope.Generic Scope.Veli
                     }
                 |> Result.map
                     (\lifeCycle ->

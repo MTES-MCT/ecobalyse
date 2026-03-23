@@ -821,7 +821,7 @@ decode =
             -- Note: the backend exposes multiple scopes per component, though it's been decided
             -- a component should only allow one, so here we take the first declared scope.
             (Decode.list Scope.decode
-                |> Decode.map (List.head >> Maybe.withDefault Scope.Object)
+                |> Decode.map (List.head >> Maybe.withDefault (Scope.Generic Scope.Object))
             )
 
 
@@ -1412,7 +1412,7 @@ emptyComponent =
     , id = Nothing
     , name = ""
     , published = False
-    , scope = Scope.Object
+    , scope = Scope.Generic Scope.Object
     }
 
 

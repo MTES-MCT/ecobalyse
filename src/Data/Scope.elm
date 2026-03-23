@@ -1,5 +1,6 @@
 module Data.Scope exposing
     ( Dict
+    , GenericScope(..)
     , Scope(..)
     , all
     , anyOf
@@ -8,6 +9,7 @@ module Data.Scope exposing
     , dictGet
     , encode
     , fromString
+    , isGeneric
     , parse
     , toLabel
     , toString
@@ -22,9 +24,13 @@ import Url.Parser as Parser exposing (Parser)
 
 type Scope
     = Food
-    | Food2
-    | Object
+    | Generic GenericScope
     | Textile
+
+
+type GenericScope
+    = Food2
+    | Object
     | Veli
 
 
@@ -36,7 +42,12 @@ type alias Dict a =
 
 all : List Scope
 all =
-    [ Food, Object, Textile, Veli ]
+    [ Food
+    , Generic Food2
+    , Generic Object
+    , Generic Veli
+    , Textile
+    ]
 
 
 {-| Filter a list of scoped records against any passed allowed scopes
@@ -76,19 +87,29 @@ fromString string =
             Ok Food
 
         "food2" ->
-            Ok Food2
+            Ok (Generic Food2)
 
         "object" ->
-            Ok Object
+            Ok (Generic Object)
 
         "textile" ->
             Ok Textile
 
         "veli" ->
-            Ok Veli
+            Ok (Generic Veli)
 
         _ ->
             Err <| "Couldn't decode unknown scope " ++ string
+
+
+isGeneric : Scope -> Bool
+isGeneric scope =
+    case scope of
+        Generic _ ->
+            True
+
+        _ ->
+            False
 
 
 parse : Parser (Scope -> a) a
@@ -103,17 +124,17 @@ toLabel scope =
         Food ->
             "Alimentaire"
 
-        Food2 ->
+        Generic Food2 ->
             "Alimentaire²"
 
-        Object ->
+        Generic Object ->
             "Objets"
+
+        Generic Veli ->
+            "Véhicules"
 
         Textile ->
             "Textile"
-
-        Veli ->
-            "Véhicules"
 
 
 toString : Scope -> String
@@ -122,14 +143,14 @@ toString scope =
         Food ->
             "food"
 
-        Food2 ->
+        Generic Food2 ->
             "food2"
 
-        Object ->
+        Generic Object ->
             "object"
+
+        Generic Veli ->
+            "veli"
 
         Textile ->
             "textile"
-
-        Veli ->
-            "veli"

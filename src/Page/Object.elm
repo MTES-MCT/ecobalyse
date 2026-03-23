@@ -631,13 +631,13 @@ createComponent query ({ model, session } as pageUpdate) =
 bookmarkQueryFromScope : Scope -> Component.Query -> Bookmark.Query
 bookmarkQueryFromScope scope_ query =
     case scope_ of
-        Scope.Food2 ->
+        Scope.Generic Scope.Food2 ->
             Bookmark.Food2 query
 
-        Scope.Object ->
+        Scope.Generic Scope.Object ->
             Bookmark.Object query
 
-        Scope.Veli ->
+        Scope.Generic Scope.Veli ->
             Bookmark.Veli query
 
         _ ->

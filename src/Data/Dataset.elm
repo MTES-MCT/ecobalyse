@@ -53,18 +53,26 @@ datasets scope =
             , Processes Scope.Food Nothing
             ]
 
-        Scope.Food2 ->
+        Scope.Generic Scope.Food2 ->
             [ Impacts Nothing
             , Countries Nothing
-            , Processes Scope.Food2 Nothing
+            , Processes (Scope.Generic Scope.Food2) Nothing
             ]
 
-        Scope.Object ->
+        Scope.Generic Scope.Object ->
             [ ObjectExamples Nothing
-            , Components Scope.Object Nothing
+            , Components (Scope.Generic Scope.Object) Nothing
             , Countries Nothing
-            , Processes Scope.Object Nothing
+            , Processes (Scope.Generic Scope.Object) Nothing
             , Impacts Nothing
+            ]
+
+        Scope.Generic Scope.Veli ->
+            [ VeliExamples Nothing
+            , Components (Scope.Generic Scope.Veli) Nothing
+            , Countries Nothing
+            , Impacts Nothing
+            , Processes (Scope.Generic Scope.Veli) Nothing
             ]
 
         Scope.Textile ->
@@ -77,14 +85,6 @@ datasets scope =
             , TextileProducts Nothing
             ]
 
-        Scope.Veli ->
-            [ VeliExamples Nothing
-            , Components Scope.Veli Nothing
-            , Countries Nothing
-            , Impacts Nothing
-            , Processes Scope.Veli Nothing
-            ]
-
 
 defaultDatasetFor : Scope -> Dataset
 defaultDatasetFor scope =
@@ -92,17 +92,17 @@ defaultDatasetFor scope =
         Scope.Food ->
             FoodExamples Nothing
 
-        Scope.Food2 ->
-            Processes Scope.Food2 Nothing
+        Scope.Generic Scope.Food2 ->
+            Processes (Scope.Generic Scope.Food2) Nothing
 
-        Scope.Object ->
+        Scope.Generic Scope.Object ->
             ObjectExamples Nothing
+
+        Scope.Generic Scope.Veli ->
+            VeliExamples Nothing
 
         Scope.Textile ->
             TextileExamples Nothing
-
-        Scope.Veli ->
-            VeliExamples Nothing
 
 
 fromSlug : String -> Dataset
@@ -118,7 +118,7 @@ fromSlug string =
             Processes Scope.Food Nothing
 
         "food2-processes" ->
-            Processes Scope.Food2 Nothing
+            Processes (Scope.Generic Scope.Food2) Nothing
 
         "impacts" ->
             Impacts Nothing
@@ -130,13 +130,13 @@ fromSlug string =
             TextileMaterials Nothing
 
         "object-components" ->
-            Components Scope.Object Nothing
+            Components (Scope.Generic Scope.Object) Nothing
 
         "object-examples" ->
             ObjectExamples Nothing
 
         "object-processes" ->
-            Processes Scope.Object Nothing
+            Processes (Scope.Generic Scope.Object) Nothing
 
         "processes" ->
             Processes Scope.Textile Nothing
@@ -151,13 +151,13 @@ fromSlug string =
             Processes Scope.Textile Nothing
 
         "veli-components" ->
-            Components Scope.Veli Nothing
+            Components (Scope.Generic Scope.Veli) Nothing
 
         "veli-examples" ->
             VeliExamples Nothing
 
         "veli-processes" ->
-            Processes Scope.Veli Nothing
+            Processes (Scope.Generic Scope.Veli) Nothing
 
         _ ->
             TextileExamples Nothing

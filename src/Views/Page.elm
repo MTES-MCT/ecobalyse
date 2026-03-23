@@ -119,13 +119,13 @@ commonNotices msg activePage =
                 , Markdown.simple [] "**Cette version est en cours de développement.**"
                 ]
 
-        Object Scope.Food2 ->
+        Object (Scope.Generic Scope.Food2) ->
             Notice.info
                 [ Icon.info
                 , Markdown.simple [] "**Cette version est en cours de développement.**"
                 ]
 
-        Object Scope.Object ->
+        Object (Scope.Generic Scope.Object) ->
             Notice.info
                 [ Icon.info
                 , Markdown.simple [] "**Cette version est en cours de développement.**"
@@ -133,7 +133,7 @@ commonNotices msg activePage =
                     |> Markdown.simple []
                 ]
 
-        Object Scope.Veli ->
+        Object (Scope.Generic Scope.Veli) ->
             Notice.info
                 [ Icon.info
                 , Markdown.simple [] "**Cette version est en cours de développement.** Elle est réservée à des beta-testeurs."
@@ -245,9 +245,9 @@ mainMenuLinks { enabledSections } =
         , addRouteIf enabledSections.food <|
             Internal "Alimentaire" Route.FoodBuilderHome Food
         , addRouteIf enabledSections.objects <|
-            Internal "Objets" (Route.ObjectSimulatorHome Scope.Object) (Object Scope.Object)
+            Internal "Objets" (Route.ObjectSimulatorHome (Scope.Generic Scope.Object)) (Object (Scope.Generic Scope.Object))
         , addRouteIf enabledSections.veli <|
-            Internal "Véhicules" (Route.ObjectSimulatorHome Scope.Veli) (Object Scope.Veli)
+            Internal "Véhicules" (Route.ObjectSimulatorHome (Scope.Generic Scope.Veli)) (Object (Scope.Generic Scope.Veli))
         , Just <| Internal "Explorateur" (Route.Explore Scope.Textile (Dataset.TextileExamples Nothing)) Explore
         , Just <| Internal "API" Route.Api Api
         , Just <| MailTo "Contact" Env.contactEmail
@@ -265,7 +265,7 @@ secondaryMenuLinks { enabledSections } =
         , Just <| External "CGU" Env.cguUrl
         , Just <| Internal "Admin" (Route.Admin AdminSection.ComponentSection) Admin
         , addRouteIf enabledSections.food2 <|
-            Internal "Alimentaire²" (Route.ObjectSimulatorHome Scope.Food2) (Object Scope.Food2)
+            Internal "Alimentaire²" (Route.ObjectSimulatorHome (Scope.Generic Scope.Food2)) (Object (Scope.Generic Scope.Food2))
         ]
 
 

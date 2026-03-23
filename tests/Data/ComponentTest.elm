@@ -805,7 +805,7 @@ suite =
                         (\( sofaFabricComponent, sofaFabricItem ) ->
                             [ it "should have the expected initial component scope"
                                 (sofaFabricComponent.scope
-                                    |> Expect.equal Scope.Object
+                                    |> Expect.equal (Scope.Generic Scope.Object)
                                 )
                             , it "should have no custom scopes by default"
                                 (sofaFabricItem.custom
@@ -820,7 +820,7 @@ suite =
                                 )
                             , it "should reset custom scopes when they match initial component ones"
                                 (sofaFabricItem
-                                    |> Component.setCustomScope sofaFabricComponent Scope.Object
+                                    |> Component.setCustomScope sofaFabricComponent (Scope.Generic Scope.Object)
                                     |> .custom
                                     |> Maybe.andThen .scope
                                     |> Expect.equal Nothing
@@ -905,7 +905,7 @@ suite =
                                                         ]
                                                 }
                                            )
-                                        |> Component.validateQuery { requirements | scope = Scope.Food2 }
+                                        |> Component.validateQuery { requirements | scope = Scope.Generic Scope.Food2 }
                                         |> expectResultErrorContains "Une quantité doit être supérieure ou égale à zéro"
                                     )
                                 ]
@@ -913,14 +913,14 @@ suite =
                                 [ it "should accept a durability param when it's enabled by config" <|
                                     (Component.emptyQuery
                                         |> Component.updateDurability (Unit.ratio 1.42)
-                                        |> Component.validateQuery { requirements | scope = Scope.Object }
+                                        |> Component.validateQuery { requirements | scope = Scope.Generic Scope.Object }
                                         |> Expect.ok
                                     )
                                 , it "should reject a durability param when it's disabled by config" <|
                                     (Component.emptyQuery
                                         |> Component.updateDurability (Unit.ratio 1.42)
-                                        |> Component.validateQuery { requirements | scope = Scope.Food2 }
-                                        |> expectResultErrorContains ("La durabilité n'est pas activée pour le périmètre " ++ Scope.toLabel Scope.Food2)
+                                        |> Component.validateQuery { requirements | scope = Scope.Generic Scope.Food2 }
+                                        |> expectResultErrorContains ("La durabilité n'est pas activée pour le périmètre " ++ Scope.toLabel (Scope.Generic Scope.Food2))
                                     )
                                 ]
                             , describe "process validation"
@@ -951,7 +951,7 @@ suite =
                                                         ]
                                                 }
                                            )
-                                        |> Component.validateQuery { requirements | scope = Scope.Food2 }
+                                        |> Component.validateQuery { requirements | scope = Scope.Generic Scope.Food2 }
                                         |> expectResultErrorContains ("Aucun procédé scopé Alimentaire² avec cet id: " ++ Process.idToString sawingProcess.id)
                                     )
                                 ]
@@ -1061,7 +1061,7 @@ createTestRequirements db =
             (\config ->
                 { config = config
                 , db = db
-                , scope = Scope.Object
+                , scope = Scope.Generic Scope.Object
                 }
             )
 

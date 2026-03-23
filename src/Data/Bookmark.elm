@@ -41,7 +41,9 @@ type alias Bookmark =
     }
 
 
-type Query
+type
+    Query
+    -- TODO: Generic
     = Food FoodQuery.Query
     | Food2 Component.Query
     | Object Component.Query
@@ -59,7 +61,7 @@ decode =
         |> Decode.map
             (\bookmark ->
                 case ( bookmark.query, bookmark.subScope ) of
-                    ( Object q, Just Scope.Veli ) ->
+                    ( Object q, Just (Scope.Generic Scope.Veli) ) ->
                         { bookmark | query = Veli q }
 
                     _ ->
@@ -218,16 +220,16 @@ scope bookmark =
             Scope.Food
 
         Food2 _ ->
-            Scope.Food2
+            Scope.Generic Scope.Food2
 
         Object _ ->
-            Scope.Object
+            Scope.Generic Scope.Object
 
         Textile _ ->
             Scope.Textile
 
         Veli _ ->
-            Scope.Veli
+            Scope.Generic Scope.Veli
 
 
 sort : List Bookmark -> List Bookmark
