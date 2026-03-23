@@ -978,6 +978,11 @@ testComponentConfig db =
                 }
             },
             "endOfLife": {
+                "enabled": {
+                    "food2": false,
+                    "object": true,
+                    "veli": true
+                },
                 "scopeCollectionRates": {
                 "object": 70
                 },

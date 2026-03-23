@@ -15,6 +15,7 @@ import Browser.Navigation as Navigation
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Component as Component exposing (Component, Index, TargetElement, TargetItem)
 import Data.Component.Amount as Amount exposing (Amount)
+import Data.Component.Config as Config
 import Data.Country as Country
 import Data.Dataset as Dataset
 import Data.Env as Env
@@ -750,16 +751,15 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
                         }
                     }
                 ]
-            , case componentConfig.durability.enabled |> Scope.dictGet scope of
-                Just True ->
-                    durabilityView currentDurability
+            , if componentConfig.durability |> Config.scopeEnabled scope then
+                durabilityView currentDurability
 
-                _ ->
-                    text ""
+              else
+                text ""
             , ComponentView.editorView
                 { addLabel = "Ajouter un composant existant"
                 , componentConfig = session.componentConfig
-                , context = ComponentView.ObjectContext
+                , context = ComponentView.GenericContext
                 , db = session.db
                 , debug = True
                 , detailed = model.detailedComponents
