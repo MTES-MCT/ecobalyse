@@ -106,13 +106,7 @@ encodeQuery v =
         Food query ->
             FoodQuery.encode query
 
-        Generic Scope.Food2 query ->
-            Component.encodeQuery query
-
-        Generic Scope.Object query ->
-            Component.encodeQuery query
-
-        Generic Scope.Veli query ->
+        Generic _ query ->
             Component.encodeQuery query
 
         Textile query ->
