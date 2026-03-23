@@ -9,6 +9,7 @@ module Data.Scope exposing
     , decodeGeneric
     , dictGet
     , encode
+    , encodeGeneric
     , fromString
     , isGeneric
     , parse
@@ -85,6 +86,11 @@ dictGet scope =
 encode : Scope -> Encode.Value
 encode =
     toString >> Encode.string
+
+
+encodeGeneric : GenericScope -> Encode.Value
+encodeGeneric =
+    toStringGeneric >> Encode.string
 
 
 fromString : String -> Result String Scope
@@ -177,3 +183,16 @@ toString scope =
 
         Textile ->
             "textile"
+
+
+toStringGeneric : GenericScope -> String
+toStringGeneric genericScope =
+    case genericScope of
+        Food2 ->
+            "food2"
+
+        Object ->
+            "object"
+
+        Veli ->
+            "veli"

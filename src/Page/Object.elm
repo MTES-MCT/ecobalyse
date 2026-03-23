@@ -465,6 +465,7 @@ update ({ navKey } as session) msg model =
                             { name = String.trim name
                             , query = objectQuery
                             , created = now
+                            , genericScope = Nothing
                             }
                     )
 

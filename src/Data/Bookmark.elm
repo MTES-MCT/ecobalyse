@@ -18,6 +18,7 @@ module Data.Bookmark exposing
     , toQueryDescription
     )
 
+import Data.Common.DecodeUtils as DU
 import Data.Common.EncodeUtils as EU
 import Data.Component as Component
 import Data.Food.Query as FoodQuery
@@ -35,6 +36,7 @@ import Time exposing (Posix)
 
 type alias Bookmark =
     { created : Posix
+    , genericScope : Maybe GenericScope
     , name : String
     , query : Query
     }
@@ -50,8 +52,18 @@ decode : Decoder Bookmark
 decode =
     Decode.succeed Bookmark
         |> JDP.required "created" (Decode.map Time.millisToPosix Decode.int)
+        |> DU.strictOptionalWithDefault "subScope" (Decode.maybe Scope.decodeGeneric) Nothing
         |> JDP.required "name" Decode.string
         |> JDP.required "query" decodeQuery
+        |> Decode.map
+            (\bookmark ->
+                case ( bookmark.query, bookmark.genericScope ) of
+                    ( Generic Scope.Object query, Just genericScope ) ->
+                        { bookmark | query = Generic genericScope query }
+
+                    _ ->
+                        bookmark
+            )
 
 
 decodeJsonList : Decoder (List Bookmark)
@@ -81,7 +93,7 @@ decodeQuery : Decoder Query
 decodeQuery =
     Decode.oneOf
         [ Decode.map Food FoodQuery.decode
-        , Decode.map2 Generic Scope.decodeGeneric Component.decodeQuery
+        , Decode.map2 Generic (Decode.succeed Scope.Object) Component.decodeQuery
         , Decode.map Textile TextileQuery.decode
         ]
 
@@ -92,6 +104,7 @@ encode v =
         [ ( "created", v.created |> Time.posixToMillis |> Encode.int |> Just )
         , ( "name", Encode.string v.name |> Just )
         , ( "query", encodeQuery v.query |> Just )
+        , ( "genericScope", v.genericScope |> Maybe.map Scope.encodeGeneric )
         ]
 
 
@@ -106,6 +119,7 @@ encodeQuery v =
         Food query ->
             FoodQuery.encode query
 
+        -- Note: generic scope is encoded at the parent bookmark record level
         Generic _ query ->
             Component.encodeQuery query
 

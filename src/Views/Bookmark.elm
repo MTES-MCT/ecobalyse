@@ -301,11 +301,14 @@ bookmarksView ({ compare, scope, session } as cfg) =
             |> List.filter
                 (\{ query } ->
                     case query of
+                        Bookmark.Food _ ->
+                            scope == Scope.Food
+
                         Bookmark.Generic genericScope _ ->
                             scope == Scope.Generic genericScope
 
-                        _ ->
-                            False
+                        Bookmark.Textile _ ->
+                            scope == Scope.Textile
                 )
             |> List.map (bookmarkView cfg)
             |> ul
