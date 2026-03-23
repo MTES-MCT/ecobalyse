@@ -17,7 +17,8 @@ import Json.Encode as Encode
 
 
 type Category
-    = EndOfLife
+    = Distribution
+    | EndOfLife
     | Energy
     | Ingredient
     | Material
@@ -80,6 +81,9 @@ encode =
 fromString : String -> Result String Category
 fromString string =
     case string of
+        "distribution" ->
+            Ok Distribution
+
         "end-of-life" ->
             Ok EndOfLife
 
@@ -313,6 +317,9 @@ packagingTypeToLabel packagingType =
 toString : Category -> String
 toString category =
     case category of
+        Distribution ->
+            "distribution"
+
         EndOfLife ->
             "end-of-life"
 
@@ -353,6 +360,9 @@ toString category =
 toLabel : Category -> String
 toLabel category =
     case category of
+        Distribution ->
+            "Distribution"
+
         EndOfLife ->
             "Fin de vie"
 
