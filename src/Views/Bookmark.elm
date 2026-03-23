@@ -418,10 +418,10 @@ queryFromScope session scope =
             Bookmark.Generic Scope.Food2 session.queries.food2
 
         Scope.Generic Scope.Object ->
-            Bookmark.Generic Scope.Object session.queries.food2
+            Bookmark.Generic Scope.Object session.queries.object
 
         Scope.Generic Scope.Veli ->
-            Bookmark.Generic Scope.Veli session.queries.food2
+            Bookmark.Generic Scope.Veli session.queries.veli
 
         Scope.Textile ->
             Bookmark.Textile session.queries.textile

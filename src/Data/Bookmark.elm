@@ -58,7 +58,7 @@ decode =
         |> Decode.map
             (\bookmark ->
                 case ( bookmark.query, bookmark.genericScope ) of
-                    ( Generic Scope.Object query, Just genericScope ) ->
+                    ( Generic _ query, Just genericScope ) ->
                         { bookmark | query = Generic genericScope query }
 
                     _ ->
@@ -104,8 +104,18 @@ encode v =
         [ ( "created", v.created |> Time.posixToMillis |> Encode.int |> Just )
         , ( "name", Encode.string v.name |> Just )
         , ( "query", encodeQuery v.query |> Just )
-        , ( "genericScope", v.genericScope |> Maybe.map Scope.encodeGeneric )
+        , ( "subScope", encodeGenericScope v.query )
         ]
+
+
+encodeGenericScope : Query -> Maybe Encode.Value
+encodeGenericScope query =
+    case query of
+        Generic genericScope _ ->
+            Just (Scope.encodeGeneric genericScope)
+
+        _ ->
+            Nothing
 
 
 encodeJsonList : List Bookmark -> Encode.Value
