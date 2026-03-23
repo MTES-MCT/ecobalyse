@@ -203,6 +203,7 @@ class AccessController(Controller):
 
         if cache_duration:
             logging.info(f"-> Using cache duration `{cache_duration}`")
+            print(f"-> Using cache duration `{cache_duration}`")
             memory_store = request.app.stores.get("memory")
 
             if await memory_store.get(data.token):
@@ -211,6 +212,7 @@ class AccessController(Controller):
                 return
         else:
             logging.info(f"-> Not using cache at all `{cache_duration}`")
+            print(f"-> Not using cache at all `{cache_duration}`")
 
         if data.token.startswith("eco_api_"):
             payload = await tokens_service.extract_payload(data.token)
