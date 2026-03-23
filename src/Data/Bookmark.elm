@@ -239,18 +239,7 @@ toQueryDescription db bookmark =
                 |> Result.map Recipe.toString
                 |> Result.withDefault bookmark.name
 
-        -- FIXME: just single case
-        Generic Scope.Food2 { items } ->
-            items
-                |> Component.itemsToString db
-                |> Result.withDefault "N/A"
-
-        Generic Scope.Object { items } ->
-            items
-                |> Component.itemsToString db
-                |> Result.withDefault "N/A"
-
-        Generic Scope.Veli { items } ->
+        Generic _ { items } ->
             items
                 |> Component.itemsToString db
                 |> Result.withDefault "N/A"
