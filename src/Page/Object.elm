@@ -26,7 +26,7 @@ import Data.Object.Simulator as Simulator
 import Data.Plausible as Plausible
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
-import Data.Scope as Scope exposing (Scope)
+import Data.Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
 import Data.Uuid exposing (Uuid)
@@ -451,7 +451,7 @@ update ({ navKey } as session) msg model =
                     [ Time.now
                         |> Task.perform
                             (query
-                                |> bookmarkQueryFromScope model.scope
+                                |> Bookmark.genericQueryFromScope model.scope
                                 |> SaveBookmarkWithTime model.bookmarkName
                             )
                     , Plausible.send session <| Plausible.BookmarkSaved model.scope
@@ -465,7 +465,6 @@ update ({ navKey } as session) msg model =
                             { name = String.trim name
                             , query = objectQuery
                             , created = now
-                            , subScope = Just model.scope
                             }
                     )
 
@@ -626,22 +625,6 @@ createComponent query ({ model, session } as pageUpdate) =
             )
         -- expand item row
         |> App.apply update (SetDetailedComponents (LE.unique (List.length query.items :: model.detailedComponents)))
-
-
-bookmarkQueryFromScope : Scope -> Component.Query -> Bookmark.Query
-bookmarkQueryFromScope scope_ query =
-    case scope_ of
-        Scope.Generic Scope.Food2 ->
-            Bookmark.Food2 query
-
-        Scope.Generic Scope.Object ->
-            Bookmark.Object query
-
-        Scope.Generic Scope.Veli ->
-            Bookmark.Veli query
-
-        _ ->
-            Bookmark.Object query
 
 
 isAutocompleteModal : Modal -> Bool

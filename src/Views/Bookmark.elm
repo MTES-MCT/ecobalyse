@@ -299,13 +299,13 @@ bookmarksView ({ compare, scope, session } as cfg) =
         , bookmarks
             |> Bookmark.sort
             |> List.filter
-                (\{ subScope } ->
-                    case subScope of
-                        Just (Scope.Generic genericScope) ->
+                (\{ query } ->
+                    case query of
+                        Bookmark.Generic genericScope _ ->
                             scope == Scope.Generic genericScope
 
                         _ ->
-                            True
+                            False
                 )
             |> List.map (bookmarkView cfg)
             |> ul
@@ -327,21 +327,13 @@ bookmarkView cfg ({ name, query } as bookmark) =
                     Just foodQuery
                         |> Route.FoodBuilder cfg.impact.trigram
 
-                Bookmark.Food2 food2Query ->
+                Bookmark.Generic genericScope food2Query ->
                     Just food2Query
-                        |> Route.ObjectSimulator (Scope.Generic Scope.Food2) cfg.impact.trigram
-
-                Bookmark.Object objectQuery ->
-                    Just objectQuery
-                        |> Route.ObjectSimulator (Scope.Generic Scope.Object) cfg.impact.trigram
+                        |> Route.ObjectSimulator (Scope.Generic genericScope) cfg.impact.trigram
 
                 Bookmark.Textile textileQuery ->
                     Just textileQuery
                         |> Route.TextileSimulator cfg.impact.trigram
-
-                Bookmark.Veli veliQuery ->
-                    Just veliQuery
-                        |> Route.ObjectSimulator (Scope.Generic Scope.Veli) cfg.impact.trigram
 
         beingRenamed =
             case cfg.bookmarkBeingRenamed of
@@ -419,14 +411,8 @@ queryFromScope session scope =
         Scope.Food ->
             Bookmark.Food session.queries.food
 
-        Scope.Generic Scope.Food2 ->
-            Bookmark.Food2 session.queries.food2
-
-        Scope.Generic Scope.Object ->
-            Bookmark.Object session.queries.object
-
-        Scope.Generic Scope.Veli ->
-            Bookmark.Veli session.queries.veli
+        Scope.Generic genericScope ->
+            Bookmark.Generic genericScope session.queries.food2
 
         Scope.Textile ->
             Bookmark.Textile session.queries.textile

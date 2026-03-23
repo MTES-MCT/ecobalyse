@@ -6,6 +6,7 @@ module Data.Scope exposing
     , anyOf
     , decode
     , decodeDict
+    , decodeGeneric
     , dictGet
     , encode
     , fromString
@@ -70,6 +71,12 @@ decodeDict =
     AnyDict.decode_ (\key _ -> fromString key) toString
 
 
+decodeGeneric : Decoder GenericScope
+decodeGeneric =
+    Decode.string
+        |> Decode.andThen (fromStringGeneric >> DE.fromResult)
+
+
 dictGet : Scope -> Dict a -> Maybe a
 dictGet scope =
     AnyDict.get scope
@@ -100,6 +107,22 @@ fromString string =
 
         _ ->
             Err <| "Couldn't decode unknown scope " ++ string
+
+
+fromStringGeneric : String -> Result String GenericScope
+fromStringGeneric string =
+    case string of
+        "food2" ->
+            Ok Food2
+
+        "object" ->
+            Ok Object
+
+        "veli" ->
+            Ok Veli
+
+        _ ->
+            Err <| "Couldn't decode unknown generic scope " ++ string
 
 
 isGeneric : Scope -> Bool
