@@ -202,7 +202,7 @@ class AccessController(Controller):
         cache_duration = settings.app.DEFAULT_TOKEN_VALIDATION_CACHE_SECONDS
 
         if cache_duration:
-            logging.info(f"-> Using cache duration `{cache_duration}`")
+            logger.info(f"-> Using cache duration `{cache_duration}`")
             print(f"-> Using cache duration `{cache_duration}`")
             memory_store = request.app.stores.get("memory")
 
@@ -211,7 +211,7 @@ class AccessController(Controller):
                 # so we consider that the auth is still valid and we successfully return
                 return
         else:
-            logging.info(f"-> Not using cache at all `{cache_duration}`")
+            logger.info(f"-> Not using cache at all `{cache_duration}`")
             print(f"-> Not using cache at all `{cache_duration}`")
 
         if data.token.startswith("eco_api_"):
