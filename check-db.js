@@ -1,11 +1,10 @@
 require("dotenv").config();
-const fs = require("fs");
 const { Elm } = require("./check-db-app");
-const { dataFiles } = require("./lib");
+const { getProcessesAsString } = require("./lib");
 
 const elmApp = Elm.CheckDb.init({
   flags: {
-    processes: fs.readFileSync(dataFiles.detailed, "utf-8"),
+    processes: getProcessesAsString((detailed = true)),
   },
 });
 
