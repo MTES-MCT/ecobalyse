@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import logging
 import uuid
 from typing import TYPE_CHECKING
 from uuid import UUID
@@ -43,6 +44,8 @@ if TYPE_CHECKING:
 from app.config.base import get_settings
 
 settings = get_settings()
+
+logger = logging.getLogger(__name__)
 
 
 class AccessController(Controller):
@@ -199,12 +202,15 @@ class AccessController(Controller):
         cache_duration = settings.app.DEFAULT_TOKEN_VALIDATION_CACHE_SECONDS
 
         if cache_duration:
+            logging.info(f"-> Using cache duration `{cache_duration}`")
             memory_store = request.app.stores.get("memory")
 
             if await memory_store.get(data.token):
                 # If the token is in the store, we had a previous successfull auth
                 # so we consider that the auth is still valid and we successfully return
                 return
+        else:
+            logging.info(f"-> Not using cache at all `{cache_duration}`")
 
         if data.token.startswith("eco_api_"):
             payload = await tokens_service.extract_payload(data.token)
