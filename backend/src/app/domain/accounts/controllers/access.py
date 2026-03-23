@@ -203,15 +203,18 @@ class AccessController(Controller):
 
         if cache_duration:
             logger.info(f"-> Using cache duration `{cache_duration}`")
+            print(f"-> Using cache duration `{cache_duration}`")
             memory_store = request.app.stores.get("memory")
 
             if await memory_store.get(data.token):
                 logger.info(f"-> Found token {data.token} in cache returning")
+                print(f"-> Found token {data.token} in cache returning")
                 # If the token is in the store, we had a previous successfull auth
                 # so we consider that the auth is still valid and we successfully return
                 return
             else:
                 logger.info(f"-> Token {data.token} NOT found in cache")
+                print(f"-> Token {data.token} NOT found in cache")
         else:
             logger.info(f"-> Not using cache at all `{cache_duration}`")
 
