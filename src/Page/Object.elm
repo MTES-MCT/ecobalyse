@@ -450,13 +450,9 @@ update ({ navKey } as session) msg model =
                 |> App.withCmds
                     [ Time.now
                         |> Task.perform
-                            (SaveBookmarkWithTime model.bookmarkName
-                                (if model.scope == Scope.Veli then
-                                    Bookmark.Veli query
-
-                                 else
-                                    Bookmark.Object query
-                                )
+                            (query
+                                |> bookmarkQueryFromScope model.scope
+                                |> SaveBookmarkWithTime model.bookmarkName
                             )
                     , Plausible.send session <| Plausible.BookmarkSaved model.scope
                     ]
@@ -630,6 +626,22 @@ createComponent query ({ model, session } as pageUpdate) =
             )
         -- expand item row
         |> App.apply update (SetDetailedComponents (LE.unique (List.length query.items :: model.detailedComponents)))
+
+
+bookmarkQueryFromScope : Scope -> Component.Query -> Bookmark.Query
+bookmarkQueryFromScope scope_ query =
+    case scope_ of
+        Scope.Food2 ->
+            Bookmark.Food2 query
+
+        Scope.Object ->
+            Bookmark.Object query
+
+        Scope.Veli ->
+            Bookmark.Veli query
+
+        _ ->
+            Bookmark.Object query
 
 
 isAutocompleteModal : Modal -> Bool

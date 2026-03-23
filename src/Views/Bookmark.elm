@@ -301,6 +301,9 @@ bookmarksView ({ compare, scope, session } as cfg) =
             |> List.filter
                 (\{ subScope } ->
                     case subScope of
+                        Just Scope.Food2 ->
+                            scope == Scope.Food2
+
                         Just Scope.Object ->
                             scope == Scope.Object
 
