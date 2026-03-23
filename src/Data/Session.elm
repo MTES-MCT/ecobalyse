@@ -218,15 +218,21 @@ updateFoodQuery foodQuery ({ queries } as session) =
 
 
 updateObjectQuery : Scope -> Component.Query -> Session -> Session
-updateObjectQuery scope objectQuery ({ queries } as session) =
-    { session
-        | queries =
-            if scope == Scope.Veli then
-                { queries | veli = objectQuery }
+updateObjectQuery scope query ({ queries } as session) =
+    case scope of
+        Scope.Food2 ->
+            { session | queries = { queries | food2 = query } }
 
-            else
-                { queries | object = objectQuery }
-    }
+        Scope.Object ->
+            { session | queries = { queries | object = query } }
+
+        Scope.Veli ->
+            { session | queries = { queries | veli = query } }
+
+        _ ->
+            session
+                |> notifyError "Erreur de mise à jour de la requête"
+                    ("La requête " ++ Scope.toString scope ++ " n'est pas générique")
 
 
 updateTextileQuery : TextileQuery.Query -> Session -> Session

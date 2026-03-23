@@ -119,7 +119,7 @@
   {
     "aquaticPollutionScenario": "Best",
     "code": "DE",
-    "electricityProcessId": "c16e7089-e58e-5721-a9b3-aae889103ab6",
+    "electricityProcessId": "c1b8fb8e-e32f-4814-8bf9-43008a2510f2",
     "heatProcessId": "f6ea2983-e024-5de2-b323-273f2436deba",
     "name": "Allemagne",
     "scopes": ["object", "veli"],
@@ -191,7 +191,7 @@
   {
     "aquaticPollutionScenario": "Best",
     "code": "NL",
-    "electricityProcessId": "e6e29828-3dc7-5239-9e6b-918cce78aff6",
+    "electricityProcessId": "f5c66349-7590-4036-90b3-c30ca20faf2e",
     "heatProcessId": "f6ea2983-e024-5de2-b323-273f2436deba",
     "name": "Pays-bas",
     "scopes": ["veli"],
@@ -227,7 +227,7 @@
   {
     "aquaticPollutionScenario": "Best",
     "code": "PL",
-    "electricityProcessId": "97aec3c3-4ed3-5e3a-99ca-d96cfac629df",
+    "electricityProcessId": "00e1a953-283c-4b65-8821-238bcafecc54",
     "heatProcessId": "f6ea2983-e024-5de2-b323-273f2436deba",
     "name": "Pologne",
     "scopes": ["object", "veli"],
@@ -236,7 +236,7 @@
   {
     "aquaticPollutionScenario": "Best",
     "code": "PT",
-    "electricityProcessId": "c16db557-907d-5146-a65c-0ef4a2098f99",
+    "electricityProcessId": "15cd9062-bbb2-4b5b-b688-f872864d860e",
     "heatProcessId": "f6ea2983-e024-5de2-b323-273f2436deba",
     "name": "Portugal",
     "scopes": ["object", "veli"],
