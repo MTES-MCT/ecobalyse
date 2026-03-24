@@ -780,7 +780,7 @@ elementMaterialView config targetElement materialResults material amount =
                 [ class "align-middle text-truncate w-100 text-muted cursor-help"
                 , title (Format.formatComplementsResultsImpactsToString config.impact complementsImpacts)
                 ]
-                [ text "Dont compléments" ]
+                [ span [ class "ComponentElementIcon" ] [ Icon.calculator ], text "Dont compléments" ]
             , td [ class "text-end align-middle text-nowrap" ]
                 []
             , td [ class "text-end align-middle text-nowrap" ]
