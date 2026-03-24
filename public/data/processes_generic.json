@@ -982,135 +982,6 @@
   {
     "activityName": "This process is not linked to a Brightway activity",
     "categories": [
-      "distribution"
-    ],
-    "comment": "Somme des consommations électriques pour la phase de vente au détail tel que définit dans la méthode Agribalyse 3.0, rapport vf2, tableau 35. L’impact de l’utilisation de l’eau et des émissions de R404a n’est pas intégré. Voir https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/etapes-du-cycles-de-vie/vente-au-detail",
-    "displayName": "Produit frais",
-    "elecMJ": 265.38,
-    "heatMJ": 0,
-    "id": "be66b80b-1500-4e3b-bfd2-87a89ff54031",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "landOccupation": null,
-    "location": null,
-    "massPerUnit": null,
-    "metadata": null,
-    "scopes": [
-      "food2"
-    ],
-    "source": "Custom",
-    "unit": "m3",
-    "waste": 0
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "distribution"
-    ],
-    "comment": "Somme des consommations électriques pour la phase de vente au détail tel que définit dans la méthode Agribalyse 3.0, rapport vf2, tableau 35. L’impact de l’utilisation de l’eau et des émissions de R404a n’est pas intégré. Voir https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/etapes-du-cycles-de-vie/vente-au-detail",
-    "displayName": "Produit sec",
-    "elecMJ": 123.08,
-    "heatMJ": 0,
-    "id": "29118025-efa0-47bb-94e2-f5ccba31a903",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "landOccupation": null,
-    "location": null,
-    "massPerUnit": null,
-    "metadata": null,
-    "scopes": [
-      "food2"
-    ],
-    "source": "Custom",
-    "unit": "m3",
-    "waste": 0
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "distribution"
-    ],
-    "comment": "Somme des consommations électriques pour la phase de vente au détail tel que définit dans la méthode Agribalyse 3.0, rapport vf2, tableau 35. L’impact de l’utilisation de l’eau et des émissions de R404a n’est pas intégré. Voir https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/etapes-du-cycles-de-vie/vente-au-detail",
-    "displayName": "Produit surgelé",
-    "elecMJ": 476.92,
-    "heatMJ": 0,
-    "id": "a7b3d399-4c7b-4556-9826-a79f952feb7f",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "landOccupation": null,
-    "location": null,
-    "massPerUnit": null,
-    "metadata": null,
-    "scopes": [
-      "food2"
-    ],
-    "source": "Custom",
-    "unit": "m3",
-    "waste": 0
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
       "transformation",
       "material_type:wood"
     ],
@@ -1329,6 +1200,135 @@
     "source": "Custom",
     "unit": "kg",
     "waste": 0.0625
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "distribution"
+    ],
+    "comment": "Somme des consommations électriques pour la phase de vente au détail tel que définit dans la méthode Agribalyse 3.0, rapport vf2, tableau 35. L’impact de l’utilisation de l’eau et des émissions de R404a n’est pas intégré. Voir https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/etapes-du-cycles-de-vie/vente-au-detail",
+    "displayName": "Vente au détail : produit frais",
+    "elecMJ": 955.37,
+    "heatMJ": 0,
+    "id": "be66b80b-1500-4e3b-bfd2-87a89ff54031",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": null,
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Custom",
+    "unit": "m3",
+    "waste": 0
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "distribution"
+    ],
+    "comment": "Somme des consommations électriques pour la phase de vente au détail tel que définit dans la méthode Agribalyse 3.0, rapport vf2, tableau 35. L’impact de l’utilisation de l’eau et des émissions de R404a n’est pas intégré. Voir https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/etapes-du-cycles-de-vie/vente-au-detail",
+    "displayName": "Vente au détail : produit sec",
+    "elecMJ": 443.09,
+    "heatMJ": 0,
+    "id": "29118025-efa0-47bb-94e2-f5ccba31a903",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": null,
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Custom",
+    "unit": "m3",
+    "waste": 0
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "distribution"
+    ],
+    "comment": "Somme des consommations électriques pour la phase de vente au détail tel que définit dans la méthode Agribalyse 3.0, rapport vf2, tableau 35. L’impact de l’utilisation de l’eau et des émissions de R404a n’est pas intégré. Voir https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/etapes-du-cycles-de-vie/vente-au-detail",
+    "displayName": "Vente au détail : produit surgelé",
+    "elecMJ": 1716.9,
+    "heatMJ": 0,
+    "id": "a7b3d399-4c7b-4556-9826-a79f952feb7f",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": null,
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Custom",
+    "unit": "m3",
+    "waste": 0
   },
   {
     "activityName": "Aluminium extrusion",
