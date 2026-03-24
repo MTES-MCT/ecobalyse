@@ -20187,7 +20187,7 @@
   },
   {
     "activityName": "Cull cow, organic, milk system number 1, at farm gate {FR} U",
-    "alias": "cull-cow-organic-national-average-live",
+    "alias": "cull-cow-organic-live",
     "categories": [
       "animal_product",
       "organic"
