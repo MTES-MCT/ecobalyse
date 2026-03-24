@@ -93,7 +93,7 @@ decodeQuery : Decoder Query
 decodeQuery =
     Decode.oneOf
         [ Decode.map Food FoodQuery.decode
-        , Decode.map2 Generic (Decode.succeed Scope.Object) Component.decodeQuery
+        , Decode.map (Generic Scope.Object) Component.decodeQuery
         , Decode.map Textile TextileQuery.decode
         ]
 
