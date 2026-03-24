@@ -51,38 +51,12 @@ type alias ComplementsImpacts =
     AbstractComplements (Maybe Unit.Impact)
 
 
-type alias ComplementsResultsImpacts =
-    AbstractComplements (Maybe Impacts)
-
-
 type alias ComplementsLabels =
     AbstractComplements String
 
 
-complementsLabels : ComplementsLabels
-complementsLabels =
-    { cropDiversity = "Diversité culturale"
-    , forest = "Forêt"
-    , hedges = "Haies"
-    , livestockDensity = "Chargement territorial"
-    , microfibers = "Microfibres"
-    , outOfEuropeEOL = "Export hors-Europe"
-    , permanentPasture = "Prairies permanentes"
-    , plotSize = "Taille de parcelles"
-    }
-
-
-emptyComplementsResultsImpacts : ComplementsResultsImpacts
-emptyComplementsResultsImpacts =
-    { cropDiversity = Nothing
-    , forest = Nothing
-    , hedges = Nothing
-    , livestockDensity = Nothing
-    , microfibers = Nothing
-    , outOfEuropeEOL = Nothing
-    , permanentPasture = Nothing
-    , plotSize = Nothing
-    }
+type alias ComplementsResultsImpacts =
+    AbstractComplements (Maybe Impacts)
 
 
 addComplementsImpacts : ComplementsImpacts -> ComplementsImpacts -> ComplementsImpacts
@@ -105,22 +79,6 @@ addComplementsImpacts a b =
     mapComplements2 addComplement a b
 
 
-applyComplementsToImpacts : Unit.Impact -> Impacts -> Impacts
-applyComplementsToImpacts complement impacts =
-    let
-        ecoScore =
-            Impact.getImpact Definition.Ecs impacts
-    in
-    impacts
-        |> Impact.insertWithoutAggregateComputation Definition.Ecs
-            (Quantity.difference ecoScore complement)
-
-
-divideComplementsImpactsBy : Float -> ComplementsImpacts -> ComplementsImpacts
-divideComplementsImpactsBy n =
-    mapComplements (Maybe.map (Quantity.divideBy n))
-
-
 allComplementsFields : List (AbstractComplements a -> a)
 allComplementsFields =
     [ .cropDiversity
@@ -140,23 +98,39 @@ allComplementsToList complements =
         |> List.map (\fn -> fn complements)
 
 
-getTotalComplementsImpacts : ComplementsImpacts -> Unit.Impact
-getTotalComplementsImpacts =
-    allComplementsToList
-        >> List.map (Maybe.withDefault Unit.noImpacts)
-        >> Quantity.sum
-
-
-encodeComplementsImpacts : ComplementsImpacts -> Encode.Value
-encodeComplementsImpacts =
+applyComplementsToImpacts : Unit.Impact -> Impacts -> Impacts
+applyComplementsToImpacts complement impacts =
     let
-        encodeTuple label maybeComplement =
-            ( label, maybeComplement |> Maybe.map Unit.encodeImpact )
+        ecoScore =
+            Impact.getImpact Definition.Ecs impacts
     in
-    negateComplementsImpacts
-        >> allComplementsToList
-        >> List.map2 encodeTuple (allComplementsToList complementsLabels)
-        >> EU.optionalPropertiesObject
+    impacts
+        |> Impact.insertWithoutAggregateComputation Definition.Ecs
+            (Quantity.difference ecoScore complement)
+
+
+complementsImpactAsChartEntries : ComplementsImpacts -> List { color : String, name : String, value : Float }
+complementsImpactAsChartEntries c =
+    -- Notes:
+    -- - We want those complements/bonuses to appear as negative values on the chart
+    -- - We want to sum ecosystemic service components impacts to only have a single entry in the charts
+    [ { color = "#606060", name = "Services écosystémiques", value = -(Unit.impactToFloat (sumEcosystemicImpacts c)) }
+    , { color = "#c0c0c0", name = "Complément microfibres", value = -(c.microfibers |> Maybe.map Unit.impactToFloat |> Maybe.withDefault 0) }
+    , { color = "#e0e0e0", name = "Complément export hors-Europe", value = -(c.outOfEuropeEOL |> Maybe.map Unit.impactToFloat |> Maybe.withDefault 0) }
+    ]
+
+
+complementsLabels : ComplementsLabels
+complementsLabels =
+    { cropDiversity = "Diversité culturale"
+    , forest = "Forêt"
+    , hedges = "Haies"
+    , livestockDensity = "Chargement territorial"
+    , microfibers = "Microfibres"
+    , outOfEuropeEOL = "Export hors-Europe"
+    , permanentPasture = "Prairies permanentes"
+    , plotSize = "Taille de parcelles"
+    }
 
 
 decodeComplementsImpacts : Decoder ComplementsImpacts
@@ -172,6 +146,58 @@ decodeComplementsImpacts =
         |> DU.strictOptional "outOfEuropeEOL" Unit.decodeImpact
         |> DU.strictOptional "permanentPasture" Unit.decodeImpact
         |> DU.strictOptional "plotSize" Unit.decodeImpact
+
+
+divideComplementsImpactsBy : Float -> ComplementsImpacts -> ComplementsImpacts
+divideComplementsImpactsBy n =
+    mapComplements (Maybe.map (Quantity.divideBy n))
+
+
+emptyComplementsResultsImpacts : ComplementsResultsImpacts
+emptyComplementsResultsImpacts =
+    { cropDiversity = Nothing
+    , forest = Nothing
+    , hedges = Nothing
+    , livestockDensity = Nothing
+    , microfibers = Nothing
+    , outOfEuropeEOL = Nothing
+    , permanentPasture = Nothing
+    , plotSize = Nothing
+    }
+
+
+encodeComplementsImpacts : ComplementsImpacts -> Encode.Value
+encodeComplementsImpacts =
+    let
+        encodeTuple label maybeComplement =
+            ( label, maybeComplement |> Maybe.map Unit.encodeImpact )
+    in
+    negateComplementsImpacts
+        >> allComplementsToList
+        >> List.map2 encodeTuple (allComplementsToList complementsLabels)
+        >> EU.optionalPropertiesObject
+
+
+getTotalComplementsImpacts : ComplementsImpacts -> Unit.Impact
+getTotalComplementsImpacts =
+    allComplementsToList
+        >> List.map (Maybe.withDefault Unit.noImpacts)
+        >> Quantity.sum
+
+
+impactsWithComplements : ComplementsImpacts -> Impacts -> Impacts
+impactsWithComplements complementsImpacts impacts =
+    let
+        complementsImpact =
+            getTotalComplementsImpacts complementsImpacts
+
+        ecsWithComplements =
+            Impact.getImpact Definition.Ecs impacts
+                -- Reminder: substracting a malus — a.k.a negative complement — adds to the total impact
+                |> Quantity.minus complementsImpact
+    in
+    impacts
+        |> Impact.insertWithoutAggregateComputation Definition.Ecs ecsWithComplements
 
 
 mapComplements : (a -> b) -> AbstractComplements a -> AbstractComplements b
@@ -200,6 +226,13 @@ mapComplements2 fn a b =
     }
 
 
+mergeComplementsResultsImpacts : ComplementsResultsImpacts -> Impacts
+mergeComplementsResultsImpacts =
+    allComplementsToList
+        >> List.filterMap identity
+        >> Impact.sumImpacts
+
+
 negateComplementsImpacts : ComplementsImpacts -> ComplementsImpacts
 negateComplementsImpacts =
     mapComplements (Maybe.map (Unit.impactToFloat >> negate >> Unit.impact))
@@ -218,56 +251,10 @@ noComplementsImpacts =
     }
 
 
-impactsWithComplements : ComplementsImpacts -> Impacts -> Impacts
-impactsWithComplements complementsImpacts impacts =
-    let
-        complementsImpact =
-            getTotalComplementsImpacts complementsImpacts
-
-        ecsWithComplements =
-            Impact.getImpact Definition.Ecs impacts
-                -- Reminder: substracting a malus — a.k.a negative complement — adds to the total impact
-                |> Quantity.minus complementsImpact
-    in
-    impacts
-        |> Impact.insertWithoutAggregateComputation Definition.Ecs ecsWithComplements
-
-
-sumEcosystemicImpacts : ComplementsImpacts -> Unit.Impact
-sumEcosystemicImpacts c =
-    Quantity.sum
-        [ c.cropDiversity |> Maybe.withDefault Unit.noImpacts
-        , c.hedges |> Maybe.withDefault Unit.noImpacts
-        , c.livestockDensity |> Maybe.withDefault Unit.noImpacts
-        , c.permanentPasture |> Maybe.withDefault Unit.noImpacts
-        , c.plotSize |> Maybe.withDefault Unit.noImpacts
-        ]
-
-
-complementsImpactAsChartEntries : ComplementsImpacts -> List { color : String, name : String, value : Float }
-complementsImpactAsChartEntries c =
-    -- Notes:
-    -- - We want those complements/bonuses to appear as negative values on the chart
-    -- - We want to sum ecosystemic service components impacts to only have a single entry in the charts
-    [ { color = "#606060", name = "Services écosystémiques", value = -(Unit.impactToFloat (sumEcosystemicImpacts c)) }
-    , { color = "#c0c0c0", name = "Complément microfibres", value = -(c.microfibers |> Maybe.map Unit.impactToFloat |> Maybe.withDefault 0) }
-    , { color = "#e0e0e0", name = "Complément export hors-Europe", value = -(c.outOfEuropeEOL |> Maybe.map Unit.impactToFloat |> Maybe.withDefault 0) }
-    ]
-
-
-totalComplementsImpactAsChartEntry : ComplementsImpacts -> { color : String, name : String, value : Float }
-totalComplementsImpactAsChartEntry complementsImpacts =
-    -- We want bonuses to appear as negative values on the chart, maluses as positive ones
-    { color = "#808080"
-    , name = "Compléments"
-    , value = -(Unit.impactToFloat (getTotalComplementsImpacts complementsImpacts))
-    }
-
-
 sumComplementsResultsImpacts : List ComplementsResultsImpacts -> ComplementsResultsImpacts
 sumComplementsResultsImpacts =
     let
-        mapComplementImpacts complementsResultsImpacts complement =
+        sumImpacts complementsResultsImpacts complement =
             Impact.mapImpacts
                 (\trigram impact ->
                     Quantity.sum
@@ -282,7 +269,7 @@ sumComplementsResultsImpacts =
                     acc
                         |> complement
                         |> Maybe.withDefault Impact.empty
-                        |> mapComplementImpacts results complement
+                        |> sumImpacts results complement
             in
             if newImpact == Impact.empty then
                 Nothing
@@ -305,8 +292,21 @@ sumComplementsResultsImpacts =
         emptyComplementsResultsImpacts
 
 
-mergeComplementsResultsImpacts : ComplementsResultsImpacts -> Impacts
-mergeComplementsResultsImpacts =
-    allComplementsToList
-        >> List.filterMap identity
-        >> Impact.sumImpacts
+sumEcosystemicImpacts : ComplementsImpacts -> Unit.Impact
+sumEcosystemicImpacts c =
+    Quantity.sum
+        [ c.cropDiversity |> Maybe.withDefault Unit.noImpacts
+        , c.hedges |> Maybe.withDefault Unit.noImpacts
+        , c.livestockDensity |> Maybe.withDefault Unit.noImpacts
+        , c.permanentPasture |> Maybe.withDefault Unit.noImpacts
+        , c.plotSize |> Maybe.withDefault Unit.noImpacts
+        ]
+
+
+totalComplementsImpactAsChartEntry : ComplementsImpacts -> { color : String, name : String, value : Float }
+totalComplementsImpactAsChartEntry complementsImpacts =
+    -- We want bonuses to appear as negative values on the chart, maluses as positive ones
+    { color = "#808080"
+    , name = "Compléments"
+    , value = -(Unit.impactToFloat (getTotalComplementsImpacts complementsImpacts))
+    }
