@@ -6,13 +6,13 @@ module Data.Complement exposing
     , allComplementsToList
     , applyComplementsToImpacts
     , complementsImpactAsChartEntries
-    , complementsLabels
     , decodeComplementsImpacts
     , divideComplementsImpactsBy
     , emptyComplementsResultsImpacts
     , encodeComplementsImpacts
     , getTotalComplementsImpacts
     , impactsWithComplements
+    , labels
     , mapComplements
     , mergeComplementsResultsImpacts
     , noComplementsImpacts
@@ -120,8 +120,8 @@ complementsImpactAsChartEntries c =
     ]
 
 
-complementsLabels : ComplementsLabels
-complementsLabels =
+labels : ComplementsLabels
+labels =
     { cropDiversity = "Diversité culturale"
     , forest = "Forêt"
     , hedges = "Haies"
@@ -174,7 +174,7 @@ encodeComplementsImpacts =
     in
     negateComplementsImpacts
         >> allComplementsToList
-        >> List.map2 encodeTuple (allComplementsToList complementsLabels)
+        >> List.map2 encodeTuple (allComplementsToList labels)
         >> EU.optionalPropertiesObject
 
 

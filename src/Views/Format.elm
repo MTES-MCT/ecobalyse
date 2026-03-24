@@ -82,7 +82,7 @@ formatComplementsResultsImpactsToString impact complementsResultsImpacts =
     in
     List.map2 formatComplement
         (complementsResultsImpacts |> Complement.allComplementsToList)
-        (Complement.complementsLabels |> Complement.allComplementsToList)
+        (Complement.labels |> Complement.allComplementsToList)
         |> List.filterMap identity
         |> String.join "\n"
 

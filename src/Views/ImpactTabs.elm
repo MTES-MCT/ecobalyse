@@ -65,7 +65,7 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStag
 
                             -- Textile complements
                             , { entryAttributes = []
-                              , name = "Complément " ++ String.toLower Complement.complementsLabels.outOfEuropeEOL
+                              , name = "Complément " ++ String.toLower Complement.labels.outOfEuropeEOL
                               , value =
                                     -(complementsImpact.outOfEuropeEOL
                                         |> Maybe.withDefault Unit.noImpacts
@@ -73,7 +73,7 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStag
                                      )
                               }
                             , { entryAttributes = []
-                              , name = "Complément " ++ String.toLower Complement.complementsLabels.microfibers
+                              , name = "Complément " ++ String.toLower Complement.labels.microfibers
                               , value =
                                     -(complementsImpact.microfibers
                                         |> Maybe.withDefault Unit.noImpacts
@@ -81,7 +81,7 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStag
                                      )
                               }
                             , { entryAttributes = []
-                              , name = "Complément " ++ String.toLower Complement.complementsLabels.forest
+                              , name = "Complément " ++ String.toLower Complement.labels.forest
                               , value =
                                     complementsImpact.forest
                                         |> Maybe.withDefault Unit.noImpacts
