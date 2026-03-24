@@ -16,6 +16,7 @@ Dans Icomoon, choisir `Import > Select or Drop Files` et uploader `public/icomoo
 1. Ajouter, retirer ou renommer les icônes dans l’interface
 1. Exporter le set au format (on obtient un fichier `icomoon.zip`)
 1. Décompresser l’archive et remplacer le contenu de `public/icomoon/` avec les fichiers exportés
+1. ⚠️ Bien vérifier que le fichier `selection.json` est ajouté au commit, car c'est lui qui permet aux autres développeurs de collaborer sur le set
 
 ## Intégration côté Elm
 
