@@ -42,6 +42,24 @@ Remarque: on ne localise pas les procédés en eux-même
 - Si des procédés de transformation se passent dans une même usine ou pays, on considère tout de même qu'il y a du transport entre ces procédés
 - le transport entre les composants et le lieu d'assemblage se fait en cumulant la distance entre la dernière étape de transformation de chaque élement de chaque composant vers le pays d'assemblage
 
+## Exemple (à compléter par la méthode) :
+Composant: 
+nom du composant: Etoffe coton 1kg - France
+Element 1:
+1,xx kg coton / country: Asie
+filature conventionnelle / country : Turquie
+tissage / country: Turquie
+blanchiement / country: 
+dégraissage/ country :
+teinture moyenne / country :
+
+
+## Améliorations possibles à venir
+
+- Les distances pour le pays inconnu
+- Les distances pour un même pays
+
+
 ## Conséquences
 
 - complexification du modèle de calcul
