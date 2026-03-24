@@ -227,16 +227,17 @@ newVersionAlert { session, toMsg } =
             text ""
 
 
+addRouteIf : Bool -> MenuLink -> Maybe MenuLink
+addRouteIf flag route =
+    if flag then
+        Just route
+
+    else
+        Nothing
+
+
 mainMenuLinks : Session -> List MenuLink
 mainMenuLinks { enabledSections } =
-    let
-        addRouteIf flag route =
-            if flag then
-                Just route
-
-            else
-                Nothing
-    in
     List.filterMap identity
         [ Just <| Internal "Accueil" Route.Home Home
         , addRouteIf enabledSections.textile <|
@@ -253,17 +254,19 @@ mainMenuLinks { enabledSections } =
         ]
 
 
-secondaryMenuLinks : List MenuLink
-secondaryMenuLinks =
-    [ Internal "Dernières mises à jour" (Route.Editorial "maj") (Editorial "maj")
-    , Internal "Statistiques" Route.Stats Stats
-    , External "Documentation" Env.gitbookUrl
-    , External "Communauté" Env.communityUrl
-    , External "Code source" Env.githubUrl
-    , External "CGU" Env.cguUrl
-    , Internal "Admin" (Route.Admin AdminSection.ComponentSection) Admin
-    , Internal "Alimentaire²" (Route.ObjectSimulatorHome Scope.Food2) (Object Scope.Food2)
-    ]
+secondaryMenuLinks : Session -> List MenuLink
+secondaryMenuLinks { enabledSections } =
+    List.filterMap identity
+        [ Just <| Internal "Dernières mises à jour" (Route.Editorial "maj") (Editorial "maj")
+        , Just <| Internal "Statistiques" Route.Stats Stats
+        , Just <| External "Documentation" Env.gitbookUrl
+        , Just <| External "Communauté" Env.communityUrl
+        , Just <| External "Code source" Env.githubUrl
+        , Just <| External "CGU" Env.cguUrl
+        , Just <| Internal "Admin" (Route.Admin AdminSection.ComponentSection) Admin
+        , addRouteIf enabledSections.food2 <|
+            Internal "Alimentaire²" (Route.ObjectSimulatorHome Scope.Food2) (Object Scope.Food2)
+        ]
 
 
 headerMenuLinks : Session -> List MenuLink
@@ -344,7 +347,7 @@ pageFooter session =
                             |> ul [ class "list-unstyled" ]
                         ]
                     , div [ class "col-6 col-sm-4 col-md-3 col-lg-2" ]
-                        [ secondaryMenuLinks
+                        [ secondaryMenuLinks session
                             |> List.map makeLink
                             |> List.map (List.singleton >> li [])
                             |> ul [ class "list-unstyled" ]

@@ -80,6 +80,7 @@ type alias Session =
 
 type alias EnabledSections =
     { food : Bool
+    , food2 : Bool
     , objects : Bool
     , textile : Bool
     , veli : Bool
