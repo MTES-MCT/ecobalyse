@@ -17,6 +17,7 @@ from app.domain.components.schemas import Scope
 
 
 class Category(StrEnum):
+    DISTRIBUTION = "distribution"
     ENERGY = "energy"
     EOL = "end-of-life"
     INGREDIENT = "ingredient"
