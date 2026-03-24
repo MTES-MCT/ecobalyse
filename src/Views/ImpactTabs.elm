@@ -65,7 +65,7 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStag
 
                             -- Textile complements
                             , { entryAttributes = []
-                              , name = "Complément export hors-Europe"
+                              , name = "Complément " ++ String.toLower Complement.complementsLabels.outOfEuropeEOL
                               , value =
                                     -(complementsImpact.outOfEuropeEOL
                                         |> Maybe.withDefault Unit.noImpacts
@@ -73,12 +73,19 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStag
                                      )
                               }
                             , { entryAttributes = []
-                              , name = "Complément microfibres"
+                              , name = "Complément " ++ String.toLower Complement.complementsLabels.microfibers
                               , value =
                                     -(complementsImpact.microfibers
                                         |> Maybe.withDefault Unit.noImpacts
                                         |> Unit.impactToFloat
                                      )
+                              }
+                            , { entryAttributes = []
+                              , name = "Complément " ++ String.toLower Complement.complementsLabels.forest
+                              , value =
+                                    complementsImpact.forest
+                                        |> Maybe.withDefault Unit.noImpacts
+                                        |> Unit.impactToFloat
                               }
                             ]
                         |> List.sortBy .value
@@ -211,7 +218,11 @@ forFood results config =
 forObject : Definitions -> Component.LifeCycle -> Config msg -> Config msg
 forObject definitions lifeCycle config =
     { config
-        | scoring = Component.computeScoring definitions lifeCycle
+        | complementsImpact =
+            lifeCycle.production
+                |> Component.extractComplementsImpacts
+                |> Complement.mapComplements (Maybe.map (Impact.getImpact config.impactDefinition.trigram))
+        , scoring = Component.computeScoring definitions lifeCycle
         , stagesImpacts =
             lifeCycle
                 |> Component.stagesImpacts
