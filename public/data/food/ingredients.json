@@ -5412,28 +5412,6 @@
     "visible": true
   },
   {
-    "activityName": "Cull cow, organic, milk system number 1, at farm gate {FR} U",
-    "alias": "cull-cow-organic-live",
-    "categories": [
-      "animal_product",
-      "organic"
-    ],
-    "cropGroup": null,
-    "defaultOrigin": "France",
-    "density": 1.0,
-    "ecosystemicServices": null,
-    "id": "367e4b77-c0ab-41b1-8210-8ca526e78f30",
-    "inediblePart": 0,
-    "landOccupation": 29.805,
-    "location": "FR",
-    "name": "Bovin bio moyen vivant FR",
-    "processId": "4b692313-228b-5d38-ae02-553d2b3929ae",
-    "rawToCookedRatio": 1.0,
-    "scenario": "organic",
-    "transportCooling": "always",
-    "visible": true
-  },
-  {
     "activityName": "Hazelnut, in shell, at farm (WFLDB)",
     "alias": "hazelnut-in-shell-default",
     "categories": [
