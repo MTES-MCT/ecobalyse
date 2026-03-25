@@ -120,32 +120,6 @@ complementsImpactAsChartEntries c =
     ]
 
 
-labels : ComplementsLabels
-labels =
-    { cropDiversity = "Diversité culturale"
-    , forest = "Forêt"
-    , hedges = "Haies"
-    , livestockDensity = "Chargement territorial"
-    , microfibers = "Microfibres"
-    , outOfEuropeEOL = "Export hors-Europe"
-    , permanentPasture = "Prairies permanentes"
-    , plotSize = "Taille de parcelles"
-    }
-
-
-jsonLabels : ComplementsLabels
-jsonLabels =
-    { cropDiversity = "cropDiversity"
-    , forest = "forest"
-    , hedges = "hedges"
-    , livestockDensity = "livestockDensity"
-    , microfibers = "microfibers"
-    , outOfEuropeEOL = "outOfEuropeEOL"
-    , permanentPasture = "permanentPasture"
-    , plotSize = "plotSize"
-    }
-
-
 decodeComplementsImpacts : Decoder ComplementsImpacts
 decodeComplementsImpacts =
     Decode.succeed AbstractComplements
@@ -211,6 +185,32 @@ impactsWithComplements complementsImpacts impacts =
     in
     impacts
         |> Impact.insertWithoutAggregateComputation Definition.Ecs ecsWithComplements
+
+
+jsonLabels : ComplementsLabels
+jsonLabels =
+    { cropDiversity = "cropDiversity"
+    , forest = "forest"
+    , hedges = "hedges"
+    , livestockDensity = "livestockDensity"
+    , microfibers = "microfibers"
+    , outOfEuropeEOL = "outOfEuropeEOL"
+    , permanentPasture = "permanentPasture"
+    , plotSize = "plotSize"
+    }
+
+
+labels : ComplementsLabels
+labels =
+    { cropDiversity = "Diversité culturale"
+    , forest = "Forêt"
+    , hedges = "Haies"
+    , livestockDensity = "Chargement territorial"
+    , microfibers = "Microfibres"
+    , outOfEuropeEOL = "Export hors-Europe"
+    , permanentPasture = "Prairies permanentes"
+    , plotSize = "Taille de parcelles"
+    }
 
 
 mapComplements : (a -> b) -> AbstractComplements a -> AbstractComplements b
