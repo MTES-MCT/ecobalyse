@@ -20295,7 +20295,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Hazelnut, in shell, at farm {IT} - Adapted from WFLDB U",
