@@ -32,13 +32,12 @@ init flags =
 
 addGroupedErrors : String -> List String -> List String -> List String
 addGroupedErrors label errors =
-    (++)
-        (if List.isEmpty errors then
+    (++) <|
+        if List.isEmpty errors then
             []
 
-         else
+        else
             (label ++ ":") :: (errors |> List.map (\err -> "  - " ++ err))
-        )
 
 
 backtick : String -> String
@@ -98,17 +97,13 @@ checkComponentProcessScope processes component example fieldName processId =
                 []
 
             else
-                [ "Process "
-                    ++ processLabel process
-                    ++ " is not scoped for "
-                    ++ backtick (Scope.toString component.scope)
-                    ++ " but is referenced in "
-                    ++ backtick fieldName
-                    ++ " by component "
-                    ++ componentLabel component
-                    ++ " used by example "
-                    ++ exampleLabel example
-                ]
+                formatError
+                    [ "Process " ++ processLabel process
+                    , "is not scoped for " ++ backtick (Scope.toString component.scope)
+                    , "but is referenced in " ++ backtick fieldName
+                    , "by component " ++ componentLabel component
+                    , "used by example " ++ exampleLabel example
+                    ]
 
         Nothing ->
             []
@@ -126,21 +121,19 @@ checkExampleConsumption processes example consumption =
                 []
 
             else
-                [ "Example "
-                    ++ exampleLabel example
-                    ++ " references process "
-                    ++ processLabel process
-                    ++ " in consumptions but it isn’t scoped for "
-                    ++ backtick (Scope.toString example.scope)
-                ]
+                formatError
+                    [ "Example "
+                    , exampleLabel example
+                    , "references process " ++ processLabel process
+                    , "in consumptions but isn't scoped for " ++ backtick (Scope.toString example.scope)
+                    ]
 
         Nothing ->
-            [ "Example "
-                ++ exampleLabel example
-                ++ " references missing process id "
-                ++ processIdString
-                ++ " in consumptions"
-            ]
+            formatError
+                [ "Example "
+                , exampleLabel example
+                , "references missing process " ++ processIdString ++ " in consumptions"
+                ]
 
 
 checkExampleItem : Dict String Process -> Dict String Component -> Example query -> Component.Item -> List String
@@ -160,12 +153,12 @@ checkComponentScopeMismatch processes example component =
                 []
 
             else
-                [ "Example "
-                    ++ exampleLabel example
-                    ++ " references component "
-                    ++ componentLabel component
-                    ++ " but scopes are incompatible"
-                ]
+                formatError
+                    [ "Example "
+                    , exampleLabel example
+                    , "references component " ++ componentLabel component
+                    , "but scopes are incompatible"
+                    ]
 
         processScopeErrors =
             component.elements
@@ -187,12 +180,14 @@ checkExamplesComponentIds db =
             (\example ->
                 example.query.items
                     |> List.concatMap (checkComponentItemId db)
-                    |> List.map
+                    |> List.concatMap
                         (\missingComponentId ->
-                            "Missing component id "
-                                ++ missingComponentId
-                                ++ " referenced by example "
-                                ++ exampleLabel example
+                            formatError
+                                [ "Missing component id "
+                                , missingComponentId
+                                , "referenced by example "
+                                , exampleLabel example
+                                ]
                         )
             )
 
@@ -221,13 +216,14 @@ checkProcessId db component fieldName processId =
             Process.idToString processId
     in
     if knownProcessIds db |> Set.member processStringId |> not then
-        [ "Missing process id "
-            ++ processStringId
-            ++ " referenced by component "
-            ++ componentLabel component
-            ++ " in "
-            ++ backtick fieldName
-        ]
+        formatError
+            [ "Missing process id "
+            , processStringId
+            , "referenced by component "
+            , componentLabel component
+            , "in "
+            , backtick fieldName
+            ]
 
     else
         []
@@ -262,7 +258,7 @@ checkStaticDatabases { detailedProcesses, nonDetailedProcesses } =
                     |> List.concatMap checkComponentsProcessIds
                     |> LE.unique
                 )
-            |> addGroupedErrors "Scoping scoping checks"
+            |> addGroupedErrors "Scoping checks"
                 (dbs
                     |> List.concatMap checkExamplesScope
                     |> LE.unique
@@ -306,6 +302,18 @@ exampleLabel example =
         ++ ", "
         ++ Uuid.toString example.id
         ++ ")"
+
+
+formatError : List String -> List String
+formatError lines =
+    case lines of
+        [] ->
+            []
+
+        x :: xs ->
+            (x :: List.map (\l -> "\n    " ++ l) xs)
+                |> String.concat
+                |> List.singleton
 
 
 formatErrors : List String -> String
