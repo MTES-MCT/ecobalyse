@@ -161,7 +161,7 @@ encodeComplementsImpacts =
     in
     negateComplementsImpacts
         >> allComplementsToList
-        >> List.map2 encodeTuple (allComplementsToList jsonLabels)
+        >> List.map2 encodeTuple (allComplementsToList identifiers)
         >> EU.optionalPropertiesObject
 
 
@@ -187,8 +187,8 @@ impactsWithComplements complementsImpacts impacts =
         |> Impact.insertWithoutAggregateComputation Definition.Ecs ecsWithComplements
 
 
-jsonLabels : ComplementsLabels
-jsonLabels =
+identifiers : ComplementsLabels
+identifiers =
     { cropDiversity = "cropDiversity"
     , forest = "forest"
     , hedges = "hedges"
