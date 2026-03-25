@@ -236,22 +236,19 @@ checkProcessId db component fieldName processId =
 checkStaticDatabases : Flags -> Result (List String) ()
 checkStaticDatabases { detailedProcesses, nonDetailedProcesses } =
     let
-        ( detailedDbResult, nonDetailedDbResult ) =
-            ( StaticDb.db detailedProcesses
+        dbResults =
+            [ StaticDb.db detailedProcesses
                 |> Result.mapError (\err -> "Detailed Db is invalid: " ++ err)
             , StaticDb.db nonDetailedProcesses
                 |> Result.mapError (\err -> "Non-detailed Db is invalid: " ++ err)
-            )
-
-        dbResults =
-            [ nonDetailedDbResult, detailedDbResult ]
+            ]
 
         dbs =
             dbResults |> List.filterMap Result.toMaybe
     in
     case
         []
-            |> addGroupedErrors "DB decode"
+            |> addGroupedErrors "Database decoding checks"
                 (dbResults
                     |> List.filterMap RE.error
                 )
@@ -260,14 +257,14 @@ checkStaticDatabases { detailedProcesses, nonDetailedProcesses } =
                     |> List.concatMap checkExamplesComponentIds
                     |> LE.unique
                 )
-            |> addGroupedErrors "Examples scoping checks"
-                (dbs
-                    |> List.concatMap checkExamplesScope
-                    |> LE.unique
-                )
             |> addGroupedErrors "Components processes checks"
                 (dbs
                     |> List.concatMap checkComponentsProcessIds
+                    |> LE.unique
+                )
+            |> addGroupedErrors "Scoping scoping checks"
+                (dbs
+                    |> List.concatMap checkExamplesScope
                     |> LE.unique
                 )
     of
