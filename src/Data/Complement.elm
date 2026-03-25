@@ -55,6 +55,10 @@ type alias ComplementsLabels =
     AbstractComplements String
 
 
+type alias ComplementsIdentifiers =
+    AbstractComplements String
+
+
 type alias ComplementsResultsImpacts =
     AbstractComplements (Maybe Impacts)
 
@@ -120,19 +124,6 @@ complementsImpactAsChartEntries c =
     ]
 
 
-labels : ComplementsLabels
-labels =
-    { cropDiversity = "Diversité culturale"
-    , forest = "Forêt"
-    , hedges = "Haies"
-    , livestockDensity = "Chargement territorial"
-    , microfibers = "Microfibres"
-    , outOfEuropeEOL = "Export hors-Europe"
-    , permanentPasture = "Prairies permanentes"
-    , plotSize = "Taille de parcelles"
-    }
-
-
 decodeComplementsImpacts : Decoder ComplementsImpacts
 decodeComplementsImpacts =
     Decode.succeed AbstractComplements
@@ -174,7 +165,7 @@ encodeComplementsImpacts =
     in
     negateComplementsImpacts
         >> allComplementsToList
-        >> List.map2 encodeTuple (allComplementsToList labels)
+        >> List.map2 encodeTuple (allComplementsToList identifiers)
         >> EU.optionalPropertiesObject
 
 
@@ -198,6 +189,32 @@ impactsWithComplements complementsImpacts impacts =
     in
     impacts
         |> Impact.insertWithoutAggregateComputation Definition.Ecs ecsWithComplements
+
+
+identifiers : ComplementsIdentifiers
+identifiers =
+    { cropDiversity = "cropDiversity"
+    , forest = "forest"
+    , hedges = "hedges"
+    , livestockDensity = "livestockDensity"
+    , microfibers = "microfibers"
+    , outOfEuropeEOL = "outOfEuropeEOL"
+    , permanentPasture = "permanentPasture"
+    , plotSize = "plotSize"
+    }
+
+
+labels : ComplementsLabels
+labels =
+    { cropDiversity = "Diversité culturale"
+    , forest = "Forêt"
+    , hedges = "Haies"
+    , livestockDensity = "Chargement territorial"
+    , microfibers = "Microfibres"
+    , outOfEuropeEOL = "Export hors-Europe"
+    , permanentPasture = "Prairies permanentes"
+    , plotSize = "Taille de parcelles"
+    }
 
 
 mapComplements : (a -> b) -> AbstractComplements a -> AbstractComplements b
