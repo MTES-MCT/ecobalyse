@@ -10,6 +10,7 @@ module Data.Textile.Simulator exposing
 
 import Array
 import Data.Common.EncodeUtils as EU
+import Data.Complement as Complement
 import Data.Component as Component
 import Data.Country as Country
 import Data.Env as Env
@@ -42,7 +43,7 @@ import Static.Db exposing (Db)
 
 
 type alias Simulator =
-    { complementsImpacts : Impact.ComplementsImpacts
+    { complementsImpacts : Complement.ComplementsImpacts
     , componentConfig : Component.Config
     , daysOfWear : Duration
     , durability : Unit.HolisticDurability
@@ -58,7 +59,7 @@ type alias Simulator =
 encode : Maybe String -> Simulator -> Encode.Value
 encode webUrl v =
     EU.optionalPropertiesObject
-        [ ( "complementsImpacts", Impact.encodeComplementsImpacts v.complementsImpacts |> Just )
+        [ ( "complementsImpacts", Complement.encodeComplementsImpacts v.complementsImpacts |> Just )
         , ( "daysOfWear", v.daysOfWear |> Duration.inDays |> round |> Encode.int |> Just )
         , ( "durability", v.durability |> Unit.floatDurabilityFromHolistic |> Encode.float |> Just )
         , ( "impacts", Impact.encode v.impacts |> Just )
@@ -81,7 +82,7 @@ init db componentConfig =
                 inputs
                     |> LifeCycle.init db
                     |> (\lifeCycle ->
-                            { complementsImpacts = Impact.noComplementsImpacts
+                            { complementsImpacts = Complement.noComplementsImpacts
                             , componentConfig = componentConfig
                             , daysOfWear = inputs.product.use.daysOfWear
                             , durability =
@@ -777,7 +778,7 @@ computeFinalImpacts ({ durability, lifeCycle } as simulator) =
             lifeCycle
                 |> Array.filter .enabled
                 |> LifeCycle.sumComplementsImpacts
-                |> Impact.divideComplementsImpactsBy (Unit.floatDurabilityFromHolistic durability)
+                |> Complement.divideComplementsImpactsBy (Unit.floatDurabilityFromHolistic durability)
     in
     { simulator
         | complementsImpacts = complementsImpacts
@@ -787,7 +788,7 @@ computeFinalImpacts ({ durability, lifeCycle } as simulator) =
                 , lifeCycle
                     |> LifeCycle.computeFinalImpacts
                     |> Impact.divideBy (Unit.floatDurabilityFromHolistic durability)
-                    |> Impact.impactsWithComplements complementsImpacts
+                    |> Complement.impactsWithComplements complementsImpacts
                 ]
     }
 
@@ -813,7 +814,7 @@ getTotalImpactsWithoutDurability { lifeCycle, trimsImpacts } =
     Impact.sumImpacts
         [ lifeCycle
             |> LifeCycle.computeFinalImpacts
-            |> Impact.impactsWithComplements complementsImpactsWithoutDurability
+            |> Complement.impactsWithComplements complementsImpactsWithoutDurability
         , trimsImpacts
         ]
 
@@ -852,6 +853,7 @@ toStagesImpacts trigram simulator =
                 Maybe.map
                     (Quantity.minus
                         (complementImpact
+                            |> Maybe.withDefault Unit.noImpacts
                             |> Quantity.multiplyBy (Unit.floatDurabilityFromHolistic simulator.durability)
                         )
                     )

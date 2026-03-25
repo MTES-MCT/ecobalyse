@@ -23,6 +23,7 @@ module Data.Textile.Stage exposing
     )
 
 import Area exposing (Area)
+import Data.Complement as Complement
 import Data.Country as Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Process as Process exposing (Process)
@@ -49,7 +50,7 @@ import Views.Format as Format
 
 type alias Stage =
     { airTransportRatio : Split
-    , complementsImpacts : Impact.ComplementsImpacts
+    , complementsImpacts : Complement.ComplementsImpacts
     , country : Country
     , deadstock : Mass
     , durability : Unit.NonPhysicalDurability
@@ -113,7 +114,7 @@ create { country, editable, enabled, label } =
             Impact.empty
     in
     { airTransportRatio = Split.zero -- Note: this depends on next stage country, so we can't set an accurate default value initially
-    , complementsImpacts = Impact.noComplementsImpacts
+    , complementsImpacts = Complement.noComplementsImpacts
     , country = country
     , deadstock = Quantity.zero
     , durability = Unit.standardDurability Unit.NonPhysicalDurability
@@ -543,7 +544,7 @@ encode : Stage -> Encode.Value
 encode v =
     Encode.object
         [ ( "airTransportRatio", Split.encodeFloat v.airTransportRatio )
-        , ( "complementsImpacts", Impact.encodeComplementsImpacts v.complementsImpacts )
+        , ( "complementsImpacts", Complement.encodeComplementsImpacts v.complementsImpacts )
         , ( "country", Country.encode v.country )
         , ( "deadstock", Encode.float (Mass.inKilograms v.deadstock) )
         , ( "durability", Unit.encodeNonPhysicalDurability v.durability )
@@ -551,7 +552,7 @@ encode v =
         , ( "elecKWh", Encode.float (Energy.inKilowattHours v.kwh) )
         , ( "enabled", Encode.bool v.enabled )
         , ( "heatMJ", Encode.float (Energy.inMegajoules v.heat) )
-        , ( "impacts", v.impacts |> Impact.applyComplements (Impact.getTotalComplementsImpacts v.complementsImpacts) |> Impact.encode )
+        , ( "impacts", v.impacts |> Complement.applyComplementsToImpacts (Complement.getTotalComplementsImpacts v.complementsImpacts) |> Impact.encode )
         , ( "inputMass", Encode.float (Mass.inKilograms v.inputMass) )
         , ( "label", Encode.string (Label.toString v.label) )
         , ( "makingDeadStock", v.makingDeadStock |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )
