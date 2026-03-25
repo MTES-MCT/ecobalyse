@@ -55,6 +55,10 @@ type alias ComplementsLabels =
     AbstractComplements String
 
 
+type alias ComplementsIdentifiers =
+    AbstractComplements String
+
+
 type alias ComplementsResultsImpacts =
     AbstractComplements (Maybe Impacts)
 
@@ -187,7 +191,7 @@ impactsWithComplements complementsImpacts impacts =
         |> Impact.insertWithoutAggregateComputation Definition.Ecs ecsWithComplements
 
 
-identifiers : ComplementsLabels
+identifiers : ComplementsIdentifiers
 identifiers =
     { cropDiversity = "cropDiversity"
     , forest = "forest"
