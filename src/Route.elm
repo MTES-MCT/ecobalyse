@@ -81,28 +81,28 @@ parser =
             )
 
         -- Food2 specific routes
-        , Parser.map (ObjectSimulatorHome Scope.Food2)
+        , Parser.map (ObjectSimulatorHome (Scope.Generic Scope.Food2))
             (Parser.s "food2" </> Parser.s "simulator")
-        , Parser.map (ObjectSimulator Scope.Food2) <|
+        , Parser.map (ObjectSimulator (Scope.Generic Scope.Food2)) <|
             Parser.s "food2"
                 </> Parser.s "simulator"
                 </> Impact.parseTrigram
                 </> Component.parseBase64Query
-        , Parser.map (ObjectSimulatorExample Scope.Food2)
+        , Parser.map (ObjectSimulatorExample (Scope.Generic Scope.Food2))
             (Parser.s "food2"
                 </> Parser.s "edit-example"
                 </> Example.parseUuid
             )
 
         -- Object specific routes
-        , Parser.map (ObjectSimulatorHome Scope.Object)
+        , Parser.map (ObjectSimulatorHome (Scope.Generic Scope.Object))
             (Parser.s "object" </> Parser.s "simulator")
-        , Parser.map (ObjectSimulator Scope.Object) <|
+        , Parser.map (ObjectSimulator (Scope.Generic Scope.Object)) <|
             Parser.s "object"
                 </> Parser.s "simulator"
                 </> Impact.parseTrigram
                 </> Component.parseBase64Query
-        , Parser.map (ObjectSimulatorExample Scope.Object)
+        , Parser.map (ObjectSimulatorExample (Scope.Generic Scope.Object))
             (Parser.s "object"
                 </> Parser.s "edit-example"
                 </> Example.parseUuid
@@ -119,14 +119,14 @@ parser =
             )
 
         -- Veli specific routes
-        , Parser.map (ObjectSimulatorHome Scope.Veli)
+        , Parser.map (ObjectSimulatorHome (Scope.Generic Scope.Veli))
             (Parser.s "veli" </> Parser.s "simulator")
-        , Parser.map (ObjectSimulator Scope.Veli) <|
+        , Parser.map (ObjectSimulator (Scope.Generic Scope.Veli)) <|
             Parser.s "veli"
                 </> Parser.s "simulator"
                 </> Impact.parseTrigram
                 </> Component.parseBase64Query
-        , Parser.map (ObjectSimulatorExample Scope.Veli)
+        , Parser.map (ObjectSimulatorExample (Scope.Generic Scope.Veli))
             (Parser.s "veli"
                 </> Parser.s "edit-example"
                 </> Example.parseUuid

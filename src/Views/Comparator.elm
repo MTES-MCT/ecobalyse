@@ -137,30 +137,12 @@ addToComparison session { name, query } =
                         }
                     )
 
-        Bookmark.Food2 food2Query ->
+        Bookmark.Generic genericScope food2Query ->
             food2Query
                 |> ObjectSimulator.compute
                     { config = session.componentConfig
                     , db = session.db
-                    , scope = Scope.Food2
-                    }
-                |> Result.map
-                    (\lifeCycle ->
-                        { complementsImpact = Impact.noComplementsImpacts
-                        , impacts = Component.sumLifeCycleImpacts lifeCycle
-                        , label = name
-                        , stagesImpacts =
-                            lifeCycle
-                                |> ObjectSimulator.toStagesImpacts Definition.Ecs
-                        }
-                    )
-
-        Bookmark.Object objectQuery ->
-            objectQuery
-                |> ObjectSimulator.compute
-                    { config = session.componentConfig
-                    , db = session.db
-                    , scope = Scope.Object
+                    , scope = Scope.Generic genericScope
                     }
                 |> Result.map
                     (\lifeCycle ->
@@ -184,24 +166,6 @@ addToComparison session { name, query } =
                         , stagesImpacts =
                             simulator
                                 |> TextileSimulator.toStagesImpacts Definition.Ecs
-                        }
-                    )
-
-        Bookmark.Veli veliQuery ->
-            veliQuery
-                |> ObjectSimulator.compute
-                    { config = session.componentConfig
-                    , db = session.db
-                    , scope = Scope.Veli
-                    }
-                |> Result.map
-                    (\lifeCycle ->
-                        { complementsImpact = Impact.noComplementsImpacts
-                        , impacts = Component.sumLifeCycleImpacts lifeCycle
-                        , label = name
-                        , stagesImpacts =
-                            lifeCycle
-                                |> ObjectSimulator.toStagesImpacts Definition.Ecs
                         }
                     )
 

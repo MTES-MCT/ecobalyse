@@ -200,13 +200,13 @@ updateDb fn session =
 objectQueryFromScope : Scope -> Session -> Component.Query
 objectQueryFromScope scope session =
     case scope of
-        Scope.Food2 ->
+        Scope.Generic Scope.Food2 ->
             session.queries.food2
 
-        Scope.Object ->
+        Scope.Generic Scope.Object ->
             session.queries.object
 
-        Scope.Veli ->
+        Scope.Generic Scope.Veli ->
             session.queries.veli
 
         _ ->
@@ -221,13 +221,13 @@ updateFoodQuery foodQuery ({ queries } as session) =
 updateObjectQuery : Scope -> Component.Query -> Session -> Session
 updateObjectQuery scope query ({ queries } as session) =
     case scope of
-        Scope.Food2 ->
+        Scope.Generic Scope.Food2 ->
             { session | queries = { queries | food2 = query } }
 
-        Scope.Object ->
+        Scope.Generic Scope.Object ->
             { session | queries = { queries | object = query } }
 
-        Scope.Veli ->
+        Scope.Generic Scope.Veli ->
             { session | queries = { queries | veli = query } }
 
         _ ->

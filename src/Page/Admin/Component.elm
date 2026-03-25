@@ -543,7 +543,7 @@ componentRowView session selected component =
                 |> Component.computeImpacts
                     { config = session.componentConfig
                     , db = session.db
-                    , scope = Scope.Object
+                    , scope = Scope.Generic Scope.Object
                     }
                 |> Result.map
                     (Component.extractImpacts
@@ -573,7 +573,7 @@ componentRowView session selected component =
                             , Component.emptyQuery
                                 |> Component.setQueryItems [ Component.createItem (Just componentId) ]
                                 |> Just
-                                |> Route.ObjectSimulator Scope.Object Definition.Ecs
+                                |> Route.ObjectSimulator (Scope.Generic Scope.Object) Definition.Ecs
                                 |> Route.href
                             ]
                             [ Icon.puzzle ]

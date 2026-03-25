@@ -6,6 +6,7 @@ module Data.Bookmark exposing
     , findByFoodQuery
     , findByObjectQuery
     , findByTextileQuery
+    , genericQueryFromScope
     , isFood
     , isFood2
     , isObject
@@ -22,7 +23,7 @@ import Data.Common.EncodeUtils as EU
 import Data.Component as Component
 import Data.Food.Query as FoodQuery
 import Data.Food.Recipe as Recipe
-import Data.Scope as Scope exposing (Scope)
+import Data.Scope as Scope exposing (GenericScope, Scope)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Query as TextileQuery
 import Json.Decode as Decode exposing (Decoder)
@@ -35,32 +36,30 @@ import Time exposing (Posix)
 
 type alias Bookmark =
     { created : Posix
+    , genericScope : Maybe GenericScope
     , name : String
     , query : Query
-    , subScope : Maybe Scope
     }
 
 
 type Query
     = Food FoodQuery.Query
-    | Food2 Component.Query
-    | Object Component.Query
+    | Generic GenericScope Component.Query
     | Textile TextileQuery.Query
-    | Veli Component.Query
 
 
 decode : Decoder Bookmark
 decode =
     Decode.succeed Bookmark
         |> JDP.required "created" (Decode.map Time.millisToPosix Decode.int)
+        |> DU.strictOptionalWithDefault "subScope" (Decode.maybe Scope.decodeGeneric) Nothing
         |> JDP.required "name" Decode.string
         |> JDP.required "query" decodeQuery
-        |> DU.strictOptionalWithDefault "subScope" (Decode.maybe Scope.decode) Nothing
         |> Decode.map
             (\bookmark ->
-                case ( bookmark.query, bookmark.subScope ) of
-                    ( Object q, Just Scope.Veli ) ->
-                        { bookmark | query = Veli q }
+                case ( bookmark.query, bookmark.genericScope ) of
+                    ( Generic _ query, Just genericScope ) ->
+                        { bookmark | query = Generic genericScope query }
 
                     _ ->
                         bookmark
@@ -94,7 +93,7 @@ decodeQuery : Decoder Query
 decodeQuery =
     Decode.oneOf
         [ Decode.map Food FoodQuery.decode
-        , Decode.map Object Component.decodeQuery
+        , Decode.map (Generic Scope.Object) Component.decodeQuery
         , Decode.map Textile TextileQuery.decode
         ]
 
@@ -105,8 +104,18 @@ encode v =
         [ ( "created", v.created |> Time.posixToMillis |> Encode.int |> Just )
         , ( "name", Encode.string v.name |> Just )
         , ( "query", encodeQuery v.query |> Just )
-        , ( "subScope", v.subScope |> Maybe.map Scope.encode )
+        , ( "subScope", encodeGenericScope v.query )
         ]
+
+
+encodeGenericScope : Query -> Maybe Encode.Value
+encodeGenericScope query =
+    case query of
+        Generic genericScope _ ->
+            Just (Scope.encodeGeneric genericScope)
+
+        _ ->
+            Nothing
 
 
 encodeJsonList : List Bookmark -> Encode.Value
@@ -120,17 +129,12 @@ encodeQuery v =
         Food query ->
             FoodQuery.encode query
 
-        Food2 query ->
-            Component.encodeQuery query
-
-        Object query ->
+        -- Note: generic scope is encoded at the parent bookmark record level
+        Generic _ query ->
             Component.encodeQuery query
 
         Textile query ->
             TextileQuery.encode query
-
-        Veli query ->
-            Component.encodeQuery query
 
 
 isFood : Bookmark -> Bool
@@ -146,7 +150,7 @@ isFood { query } =
 isFood2 : Bookmark -> Bool
 isFood2 { query } =
     case query of
-        Food2 _ ->
+        Generic Scope.Food2 _ ->
             True
 
         _ ->
@@ -156,7 +160,7 @@ isFood2 { query } =
 isObject : Bookmark -> Bool
 isObject { query } =
     case query of
-        Object _ ->
+        Generic Scope.Object _ ->
             True
 
         _ ->
@@ -176,7 +180,7 @@ isTextile { query } =
 isVeli : Bookmark -> Bool
 isVeli { query } =
     case query of
-        Veli _ ->
+        Generic Scope.Veli _ ->
             True
 
         _ ->
@@ -196,12 +200,22 @@ findByFoodQuery foodQuery =
 
 findByObjectQuery : Component.Query -> List Bookmark -> Maybe Bookmark
 findByObjectQuery objectQuery =
-    findByQuery (Object objectQuery)
+    findByQuery (Generic Scope.Object objectQuery)
 
 
 findByTextileQuery : TextileQuery.Query -> List Bookmark -> Maybe Bookmark
 findByTextileQuery textileQuery =
     findByQuery (Textile textileQuery)
+
+
+genericQueryFromScope : Scope -> Component.Query -> Query
+genericQueryFromScope scope_ =
+    case scope_ of
+        Scope.Generic genericScope ->
+            Generic genericScope
+
+        _ ->
+            Generic Scope.Object
 
 
 replace : Bookmark -> List Bookmark -> List Bookmark
@@ -217,17 +231,11 @@ scope bookmark =
         Food _ ->
             Scope.Food
 
-        Food2 _ ->
-            Scope.Food2
-
-        Object _ ->
-            Scope.Object
+        Generic genericScope _ ->
+            Scope.Generic genericScope
 
         Textile _ ->
             Scope.Textile
-
-        Veli _ ->
-            Scope.Veli
 
 
 sort : List Bookmark -> List Bookmark
@@ -249,12 +257,7 @@ toQueryDescription db bookmark =
                 |> Result.map Recipe.toString
                 |> Result.withDefault bookmark.name
 
-        Food2 { items } ->
-            items
-                |> Component.itemsToString db
-                |> Result.withDefault "N/A"
-
-        Object { items } ->
+        Generic _ { items } ->
             items
                 |> Component.itemsToString db
                 |> Result.withDefault "N/A"
@@ -264,8 +267,3 @@ toQueryDescription db bookmark =
                 |> Inputs.fromQuery db
                 |> Result.map (Inputs.toString db.textile.wellKnown)
                 |> Result.withDefault bookmark.name
-
-        Veli { items } ->
-            items
-                |> Component.itemsToString db
-                |> Result.withDefault "N/A"

@@ -1,13 +1,17 @@
 module Data.Scope exposing
     ( Dict
+    , GenericScope(..)
     , Scope(..)
     , all
     , anyOf
     , decode
     , decodeDict
+    , decodeGeneric
     , dictGet
     , encode
+    , encodeGeneric
     , fromString
+    , isGeneric
     , parse
     , toLabel
     , toString
@@ -22,9 +26,13 @@ import Url.Parser as Parser exposing (Parser)
 
 type Scope
     = Food
-    | Food2
-    | Object
+    | Generic GenericScope
     | Textile
+
+
+type GenericScope
+    = Food2
+    | Object
     | Veli
 
 
@@ -36,7 +44,12 @@ type alias Dict a =
 
 all : List Scope
 all =
-    [ Food, Object, Textile, Veli ]
+    [ Food
+    , Generic Food2
+    , Generic Object
+    , Generic Veli
+    , Textile
+    ]
 
 
 {-| Filter a list of scoped records against any passed allowed scopes
@@ -59,6 +72,12 @@ decodeDict =
     AnyDict.decode_ (\key _ -> fromString key) toString
 
 
+decodeGeneric : Decoder GenericScope
+decodeGeneric =
+    Decode.string
+        |> Decode.andThen (fromStringGeneric >> DE.fromResult)
+
+
 dictGet : Scope -> Dict a -> Maybe a
 dictGet scope =
     AnyDict.get scope
@@ -69,6 +88,11 @@ encode =
     toString >> Encode.string
 
 
+encodeGeneric : GenericScope -> Encode.Value
+encodeGeneric =
+    toStringGeneric >> Encode.string
+
+
 fromString : String -> Result String Scope
 fromString string =
     case string of
@@ -76,19 +100,45 @@ fromString string =
             Ok Food
 
         "food2" ->
-            Ok Food2
+            Ok (Generic Food2)
 
         "object" ->
-            Ok Object
+            Ok (Generic Object)
 
         "textile" ->
             Ok Textile
 
         "veli" ->
-            Ok Veli
+            Ok (Generic Veli)
 
         _ ->
             Err <| "Couldn't decode unknown scope " ++ string
+
+
+fromStringGeneric : String -> Result String GenericScope
+fromStringGeneric string =
+    case string of
+        "food2" ->
+            Ok Food2
+
+        "object" ->
+            Ok Object
+
+        "veli" ->
+            Ok Veli
+
+        _ ->
+            Err <| "Couldn't decode unknown generic scope " ++ string
+
+
+isGeneric : Scope -> Bool
+isGeneric scope =
+    case scope of
+        Generic _ ->
+            True
+
+        _ ->
+            False
 
 
 parse : Parser (Scope -> a) a
@@ -103,17 +153,17 @@ toLabel scope =
         Food ->
             "Alimentaire"
 
-        Food2 ->
+        Generic Food2 ->
             "Alimentaire²"
 
-        Object ->
+        Generic Object ->
             "Objets"
+
+        Generic Veli ->
+            "Véhicules"
 
         Textile ->
             "Textile"
-
-        Veli ->
-            "Véhicules"
 
 
 toString : Scope -> String
@@ -122,14 +172,27 @@ toString scope =
         Food ->
             "food"
 
+        Generic Food2 ->
+            "food2"
+
+        Generic Object ->
+            "object"
+
+        Generic Veli ->
+            "veli"
+
+        Textile ->
+            "textile"
+
+
+toStringGeneric : GenericScope -> String
+toStringGeneric genericScope =
+    case genericScope of
         Food2 ->
             "food2"
 
         Object ->
             "object"
-
-        Textile ->
-            "textile"
 
         Veli ->
             "veli"
