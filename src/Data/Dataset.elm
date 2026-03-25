@@ -117,6 +117,9 @@ fromSlug string =
         "food-processes" ->
             Processes Scope.Food Nothing
 
+        "food2-processes" ->
+            Processes Scope.Food2 Nothing
+
         "impacts" ->
             Impacts Nothing
 

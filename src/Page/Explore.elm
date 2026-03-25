@@ -219,6 +219,7 @@ scopesMenuView { enabledSections } model =
         [ label [ class "fw-bold d-none d-sm-block", for "scope-selector" ]
             [ text "Secteur" ]
         , [ ( Scope.Food, enabledSections.food )
+          , ( Scope.Food2, enabledSections.food2 )
           , ( Scope.Object, enabledSections.objects )
           , ( Scope.Textile, True )
           , ( Scope.Veli, enabledSections.veli )
