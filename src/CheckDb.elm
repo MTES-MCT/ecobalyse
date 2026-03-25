@@ -7,7 +7,6 @@ import Data.Scope as Scope
 import Data.Uuid as Uuid
 import Dict exposing (Dict)
 import List.Extra as LE
-import Result.Extra as RE
 import Set exposing (Set)
 import Static.Db as StaticDb exposing (Db)
 
@@ -30,6 +29,8 @@ init flags =
     )
 
 
+{-| Adds a titled error section only when the section has entries.
+-}
 addGroupedErrors : String -> List String -> List String -> List String
 addGroupedErrors label errors =
     (++) <|
@@ -37,7 +38,11 @@ addGroupedErrors label errors =
             []
 
         else
-            (label ++ ":") :: (errors |> List.map (\err -> "  - " ++ err))
+            (label ++ ":")
+                :: (errors
+                        |> LE.unique
+                        |> List.map (\err -> "  - " ++ err)
+                   )
 
 
 backtick : String -> String
@@ -45,24 +50,26 @@ backtick string =
     "`" ++ string ++ "`"
 
 
+{-| Returns missing component ids referenced by an example item.
+-}
 checkComponentItemId : Db -> Component.Item -> List String
 checkComponentItemId db item =
-    case item.id of
-        Just componentId ->
-            let
-                referencedComponentId =
-                    Component.idToString componentId
-            in
-            if Set.member referencedComponentId (knownComponentIds db) then
-                []
+    item.id
+        |> Maybe.map
+            (Component.idToString
+                >> (\stringId ->
+                        if Set.member stringId (knownComponentIds db) then
+                            []
 
-            else
-                [ referencedComponentId ]
-
-        Nothing ->
-            []
+                        else
+                            [ stringId ]
+                   )
+            )
+        |> Maybe.withDefault []
 
 
+{-| Validates process references used by generic components.
+-}
 checkComponentsProcessIds : Db -> List String
 checkComponentsProcessIds db =
     db.components
@@ -79,6 +86,8 @@ checkComponentsProcessIds db =
             )
 
 
+{-| Ensures a component-referenced process is allowed for the component scope.
+-}
 checkComponentProcessScope :
     Dict String Process
     -> Component
@@ -109,42 +118,8 @@ checkComponentProcessScope processes component example fieldName processId =
             []
 
 
-checkExampleConsumption : Dict String Process -> Example query -> Component.Consumption -> List String
-checkExampleConsumption processes example consumption =
-    let
-        processIdString =
-            Process.idToString consumption.processId
-    in
-    case processes |> Dict.get processIdString of
-        Just process ->
-            if List.member example.scope process.scopes then
-                []
-
-            else
-                formatError
-                    [ "Example "
-                    , exampleLabel example
-                    , "references process " ++ processLabel process
-                    , "in consumptions but isn't scoped for " ++ backtick (Scope.toString example.scope)
-                    ]
-
-        Nothing ->
-            formatError
-                [ "Example "
-                , exampleLabel example
-                , "references missing process " ++ processIdString ++ " in consumptions"
-                ]
-
-
-checkExampleItem : Dict String Process -> Dict String Component -> Example query -> Component.Item -> List String
-checkExampleItem processes components example =
-    .id
-        >> Maybe.map Component.idToString
-        >> Maybe.andThen (\id -> Dict.get id components)
-        >> Maybe.map (checkComponentScopeMismatch processes example)
-        >> Maybe.withDefault []
-
-
+{-| Validates example/component scope compatibility and nested process scopes.
+-}
 checkComponentScopeMismatch : Dict String Process -> Example query -> Component -> List String
 checkComponentScopeMismatch processes example component =
     let
@@ -154,8 +129,7 @@ checkComponentScopeMismatch processes example component =
 
             else
                 formatError
-                    [ "Example "
-                    , exampleLabel example
+                    [ "Example " ++ exampleLabel example
                     , "references component " ++ componentLabel component
                     , "but scopes are incompatible"
                     ]
@@ -172,6 +146,46 @@ checkComponentScopeMismatch processes example component =
     scopeMismatchErrors ++ processScopeErrors
 
 
+{-| Checks that an Example consumptions are linked to existing scope-compatible processes.
+-}
+checkExampleConsumption : Dict String Process -> Example query -> Component.Consumption -> List String
+checkExampleConsumption processes example consumption =
+    let
+        processIdString =
+            Process.idToString consumption.processId
+    in
+    case processes |> Dict.get processIdString of
+        Just process ->
+            if List.member example.scope process.scopes then
+                []
+
+            else
+                formatError
+                    [ "Example " ++ exampleLabel example
+                    , "references process " ++ processLabel process
+                    , "in consumptions but isn't scoped for " ++ backtick (Scope.toString example.scope)
+                    ]
+
+        Nothing ->
+            formatError
+                [ "Example " ++ exampleLabel example
+                , "references missing process " ++ processIdString ++ " in consumptions"
+                ]
+
+
+{-| Resolves a component Item from within an Example query and validates its scope.
+-}
+checkExampleComponentItem : Dict String Process -> Dict String Component -> Example query -> Component.Item -> List String
+checkExampleComponentItem processes components example =
+    .id
+        >> Maybe.map Component.idToString
+        >> Maybe.andThen (\id -> Dict.get id components)
+        >> Maybe.map (checkComponentScopeMismatch processes example)
+        >> Maybe.withDefault []
+
+
+{-| Reports missing component ids referenced by generic examples.
+-}
 checkExamplesComponentIds : Db -> List String
 checkExamplesComponentIds db =
     db.object.examples
@@ -183,15 +197,15 @@ checkExamplesComponentIds db =
                     |> List.concatMap
                         (\missingComponentId ->
                             formatError
-                                [ "Missing component id "
-                                , missingComponentId
-                                , "referenced by example "
-                                , exampleLabel example
+                                [ "Missing component id " ++ missingComponentId
+                                , "referenced by example " ++ exampleLabel example
                                 ]
                         )
             )
 
 
+{-| Runs scope checks between examples, their components, and referenced processes.
+-}
 checkExamplesScope : Db -> List String
 checkExamplesScope db =
     let
@@ -204,11 +218,17 @@ checkExamplesScope db =
         |> List.filter (.scope >> Scope.isGeneric)
         |> List.concatMap
             (\example ->
-                (example.query.items |> List.concatMap (checkExampleItem processesMap componentsMap example))
-                    ++ (example.query.consumptions |> List.concatMap (checkExampleConsumption processesMap example))
+                List.concat
+                    [ example.query.items
+                        |> List.concatMap (checkExampleComponentItem processesMap componentsMap example)
+                    , example.query.consumptions
+                        |> List.concatMap (checkExampleConsumption processesMap example)
+                    ]
             )
 
 
+{-| Reports a missing process id referenced from a component field.
+-}
 checkProcessId : Db -> Component -> String -> Process.Id -> List String
 checkProcessId db component fieldName processId =
     let
@@ -217,53 +237,41 @@ checkProcessId db component fieldName processId =
     in
     if knownProcessIds db |> Set.member processStringId |> not then
         formatError
-            [ "Missing process id "
-            , processStringId
-            , "referenced by component "
-            , componentLabel component
-            , "in "
-            , backtick fieldName
+            [ "Missing process id " ++ processStringId
+            , "referenced by component " ++ componentLabel component
+            , "in " ++ backtick fieldName
             ]
 
     else
         []
 
 
+{-| Decodes both static DBs, executes checks, and returns grouped errors.
+-}
 checkStaticDatabases : Flags -> Result (List String) ()
 checkStaticDatabases { detailedProcesses, nonDetailedProcesses } =
     let
         dbResults =
-            [ StaticDb.db detailedProcesses
-                |> Result.mapError (\err -> "Detailed Db is invalid: " ++ err)
-            , StaticDb.db nonDetailedProcesses
-                |> Result.mapError (\err -> "Non-detailed Db is invalid: " ++ err)
+            [ ( "Detailed Db", StaticDb.db detailedProcesses )
+            , ( "Non-detailed Db", StaticDb.db nonDetailedProcesses )
             ]
 
-        dbs =
-            dbResults |> List.filterMap Result.toMaybe
+        checkByDatabase acc ( dbName, dbResult ) =
+            let
+                section title =
+                    dbName ++ " - " ++ title
+            in
+            case dbResult of
+                Err errorMessage ->
+                    acc |> addGroupedErrors (section "Database decoding checks") [ errorMessage ]
+
+                Ok db ->
+                    acc
+                        |> addGroupedErrors (section "Examples components checks") (checkExamplesComponentIds db)
+                        |> addGroupedErrors (section "Components processes checks") (checkComponentsProcessIds db)
+                        |> addGroupedErrors (section "Scoping checks") (checkExamplesScope db)
     in
-    case
-        []
-            |> addGroupedErrors "Database decoding checks"
-                (dbResults
-                    |> List.filterMap RE.error
-                )
-            |> addGroupedErrors "Examples components checks"
-                (dbs
-                    |> List.concatMap checkExamplesComponentIds
-                    |> LE.unique
-                )
-            |> addGroupedErrors "Components processes checks"
-                (dbs
-                    |> List.concatMap checkComponentsProcessIds
-                    |> LE.unique
-                )
-            |> addGroupedErrors "Scoping checks"
-                (dbs
-                    |> List.concatMap checkExamplesScope
-                    |> LE.unique
-                )
-    of
+    case dbResults |> List.concatMap (checkByDatabase []) of
         [] ->
             Ok ()
 
@@ -275,7 +283,7 @@ componentLabel : Component -> String
 componentLabel component =
     quote component.name
         ++ " ("
-        ++ Scope.toString component.scope
+        ++ backtick (Scope.toString component.scope)
         ++ ", "
         ++ (component.id
                 |> Maybe.map Component.idToString
@@ -284,6 +292,8 @@ componentLabel component =
         ++ ")"
 
 
+{-| Builds a lookup map of components keyed by component id.
+-}
 componentById : List Component -> Dict String Component
 componentById =
     List.filterMap
@@ -321,6 +331,8 @@ formatErrors errors =
     "Static DB checks failed:\n" ++ String.join "\n" errors
 
 
+{-| Extracts all declared component ids from a database.
+-}
 knownComponentIds : Db -> Set String
 knownComponentIds =
     .components
@@ -329,6 +341,8 @@ knownComponentIds =
         >> Set.fromList
 
 
+{-| Extracts all declared process ids from a database.
+-}
 knownProcessIds : Db -> Set String
 knownProcessIds =
     .processes
@@ -336,6 +350,8 @@ knownProcessIds =
         >> Set.fromList
 
 
+{-| Builds a lookup map of processes keyed by process id.
+-}
 processById : List Process -> Dict String Process
 processById =
     List.map (\process -> ( Process.idToString process.id, process ))
