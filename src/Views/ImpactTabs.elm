@@ -9,6 +9,7 @@ module Views.ImpactTabs exposing
     , view
     )
 
+import Data.Complement as Complement
 import Data.Component as Component
 import Data.Food.Recipe as Recipe
 import Data.Impact as Impact exposing (Impacts)
@@ -34,7 +35,7 @@ type Tab
 
 type alias Config msg =
     { activeImpactsTab : Tab
-    , complementsImpact : Impact.ComplementsImpacts
+    , complementsImpact : Complement.ComplementsImpacts
     , impactDefinition : Definition
     , onStageClick : String -> msg
     , scoring : Scoring
@@ -59,17 +60,32 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStag
                             [ -- Food ecosystemic services
                               { entryAttributes = []
                               , name = "Services écosystémiques"
-                              , value = -(Unit.impactToFloat (Impact.sumEcosystemicImpacts complementsImpact))
+                              , value = -(Unit.impactToFloat (Complement.sumEcosystemicImpacts complementsImpact))
                               }
 
                             -- Textile complements
                             , { entryAttributes = []
-                              , name = "Complément export hors-Europe"
-                              , value = -(Unit.impactToFloat complementsImpact.outOfEuropeEOL)
+                              , name = "Complément " ++ String.toLower Complement.labels.outOfEuropeEOL
+                              , value =
+                                    -(complementsImpact.outOfEuropeEOL
+                                        |> Maybe.withDefault Unit.noImpacts
+                                        |> Unit.impactToFloat
+                                     )
                               }
                             , { entryAttributes = []
-                              , name = "Complément microfibres"
-                              , value = -(Unit.impactToFloat complementsImpact.microfibers)
+                              , name = "Complément " ++ String.toLower Complement.labels.microfibers
+                              , value =
+                                    -(complementsImpact.microfibers
+                                        |> Maybe.withDefault Unit.noImpacts
+                                        |> Unit.impactToFloat
+                                     )
+                              }
+                            , { entryAttributes = []
+                              , name = "Complément " ++ String.toLower Complement.labels.forest
+                              , value =
+                                    complementsImpact.forest
+                                        |> Maybe.withDefault Unit.noImpacts
+                                        |> Unit.impactToFloat
                               }
                             ]
                         |> List.sortBy .value
@@ -178,7 +194,7 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStag
 createConfig : Session -> Definition -> Tab -> (String -> msg) -> (Tab -> msg) -> Config msg
 createConfig session impactDefinition activeImpactsTab onStageClick switchImpactsTab =
     { activeImpactsTab = activeImpactsTab
-    , complementsImpact = Impact.noComplementsImpacts
+    , complementsImpact = Complement.noComplementsImpacts
     , impactDefinition = impactDefinition
     , onStageClick = onStageClick
     , scoring = Scoring.empty
@@ -202,7 +218,11 @@ forFood results config =
 forObject : Definitions -> Component.LifeCycle -> Config msg -> Config msg
 forObject definitions lifeCycle config =
     { config
-        | scoring = Component.computeScoring definitions lifeCycle
+        | complementsImpact =
+            lifeCycle.production
+                |> Component.extractComplementsImpacts
+                |> Complement.mapComplements (Maybe.map (Impact.getImpact config.impactDefinition.trigram))
+        , scoring = Component.computeScoring definitions lifeCycle
         , stagesImpacts =
             lifeCycle
                 |> Component.stagesImpacts
@@ -221,7 +241,7 @@ forTextile definitions simulator config =
         | complementsImpact = simulator.complementsImpacts
         , scoring =
             totalImpactsWithoutComplements
-                |> Scoring.compute definitions (Impact.getTotalComplementsImpacts simulator.complementsImpacts)
+                |> Scoring.compute definitions (Complement.getTotalComplementsImpacts simulator.complementsImpacts)
         , stagesImpacts =
             simulator
                 |> TextileSimulator.toStagesImpacts config.impactDefinition.trigram
