@@ -7,6 +7,7 @@ import Data.Scope as Scope
 import Data.Uuid as Uuid
 import Dict exposing (Dict)
 import List.Extra as LE
+import Result.Extra as RE
 import Set exposing (Set)
 import Static.Db as StaticDb exposing (Db)
 
@@ -45,6 +46,24 @@ backtick string =
     "`" ++ string ++ "`"
 
 
+checkComponentItemId : Db -> Component.Item -> List String
+checkComponentItemId db item =
+    case item.id of
+        Just componentId ->
+            let
+                referencedComponentId =
+                    Component.idToString componentId
+            in
+            if Set.member referencedComponentId (knownComponentIds db) then
+                []
+
+            else
+                [ referencedComponentId ]
+
+        Nothing ->
+            []
+
+
 checkComponentsProcessIds : Db -> List String
 checkComponentsProcessIds db =
     db.components
@@ -63,11 +82,12 @@ checkComponentsProcessIds db =
 
 checkComponentProcessScope :
     Dict String Process
-    -> { component : Component, example : Example query }
+    -> Component
+    -> Example query
     -> String
     -> Process.Id
     -> List String
-checkComponentProcessScope processes { component, example } fieldName processId =
+checkComponentProcessScope processes component example fieldName processId =
     let
         processIdString =
             Process.idToString processId
@@ -80,9 +100,9 @@ checkComponentProcessScope processes { component, example } fieldName processId 
             else
                 [ "Process "
                     ++ processLabel process
-                    ++ " is not scoped for “"
-                    ++ Scope.toString component.scope
-                    ++ "” but is referenced in "
+                    ++ " is not scoped for "
+                    ++ backtick (Scope.toString component.scope)
+                    ++ " but is referenced in "
                     ++ backtick fieldName
                     ++ " by component "
                     ++ componentLabel component
@@ -94,7 +114,7 @@ checkComponentProcessScope processes { component, example } fieldName processId 
             []
 
 
-checkExampleConsumption : Dict String Process -> Example query -> { b | processId : Process.Id } -> List String
+checkExampleConsumption : Dict String Process -> Example query -> Component.Consumption -> List String
 checkExampleConsumption processes example consumption =
     let
         processIdString =
@@ -108,11 +128,10 @@ checkExampleConsumption processes example consumption =
             else
                 [ "Example "
                     ++ exampleLabel example
-                    ++ " references process “"
+                    ++ " references process "
                     ++ processLabel process
-                    ++ " in consumptions but it isn’t scoped for “"
-                    ++ Scope.toString example.scope
-                    ++ "”"
+                    ++ " in consumptions but it isn’t scoped for "
+                    ++ backtick (Scope.toString example.scope)
                 ]
 
         Nothing ->
@@ -151,22 +170,10 @@ checkComponentScopeMismatch processes example component =
         processScopeErrors =
             component.elements
                 |> List.concatMap
-                    (\element ->
+                    (\{ material, transforms } ->
                         []
-                            |> (++)
-                                (checkComponentProcessScope processes
-                                    { component = component, example = example }
-                                    "element.material"
-                                    element.material
-                                )
-                            |> (++)
-                                (element.transforms
-                                    |> List.concatMap
-                                        (checkComponentProcessScope processes
-                                            { component = component, example = example }
-                                            "element.transforms"
-                                        )
-                                )
+                            |> (++) (material |> checkComponentProcessScope processes component example "element.material")
+                            |> (++) (transforms |> List.concatMap (checkComponentProcessScope processes component example "element.transforms"))
                     )
     in
     scopeMismatchErrors ++ processScopeErrors
@@ -174,37 +181,12 @@ checkComponentScopeMismatch processes example component =
 
 checkExamplesComponentIds : Db -> List String
 checkExamplesComponentIds db =
-    let
-        knownComponentIds : Set String
-        knownComponentIds =
-            db.components
-                |> List.filterMap .id
-                |> List.map Component.idToString
-                |> Set.fromList
-
-        checkItemId : { a | id : Maybe Component.Id } -> List String
-        checkItemId item =
-            case item.id of
-                Just componentId ->
-                    let
-                        referencedComponentId =
-                            Component.idToString componentId
-                    in
-                    if Set.member referencedComponentId knownComponentIds then
-                        []
-
-                    else
-                        [ referencedComponentId ]
-
-                Nothing ->
-                    []
-    in
     db.object.examples
         |> List.filter (.scope >> Scope.isGeneric)
         |> List.concatMap
             (\example ->
                 example.query.items
-                    |> List.concatMap checkItemId
+                    |> List.concatMap (checkComponentItemId db)
                     |> List.map
                         (\missingComponentId ->
                             "Missing component id "
@@ -264,66 +246,42 @@ checkStaticDatabases { detailedProcesses, nonDetailedProcesses } =
         dbResults =
             [ nonDetailedDbResult, detailedDbResult ]
 
-        decodeFailureMessages =
-            dbResults
-                |> List.filterMap
-                    (\result ->
-                        case result of
-                            Err err ->
-                                Just err
-
-                            Ok _ ->
-                                Nothing
-                    )
-
-        decodedDbs =
-            List.filterMap Result.toMaybe
-                dbResults
-
-        missingExampleComponentIds =
-            decodedDbs
-                |> List.concatMap checkExamplesComponentIds
-                |> LE.unique
-
-        examplesScopingIssues =
-            decodedDbs
-                |> List.concatMap checkExamplesScope
-                |> LE.unique
-
-        missingComponentProcessIds =
-            decodedDbs
-                |> List.concatMap checkComponentsProcessIds
-                |> LE.unique
-
-        integrityErrors =
-            []
-                |> addGroupedErrors "Examples components checks" missingExampleComponentIds
-                |> addGroupedErrors "Examples scoping checks" examplesScopingIssues
-                |> addGroupedErrors "Components processes checks" missingComponentProcessIds
-
-        allErrors =
-            []
-                |> addGroupedErrors "DB decode" decodeFailureMessages
-                |> (++)
-                    (if List.isEmpty integrityErrors then
-                        []
-
-                     else
-                        integrityErrors
-                    )
+        dbs =
+            dbResults |> List.filterMap Result.toMaybe
     in
-    if List.isEmpty allErrors then
-        Ok ()
+    case
+        []
+            |> addGroupedErrors "DB decode"
+                (dbResults
+                    |> List.filterMap RE.error
+                )
+            |> addGroupedErrors "Examples components checks"
+                (dbs
+                    |> List.concatMap checkExamplesComponentIds
+                    |> LE.unique
+                )
+            |> addGroupedErrors "Examples scoping checks"
+                (dbs
+                    |> List.concatMap checkExamplesScope
+                    |> LE.unique
+                )
+            |> addGroupedErrors "Components processes checks"
+                (dbs
+                    |> List.concatMap checkComponentsProcessIds
+                    |> LE.unique
+                )
+    of
+        [] ->
+            Ok ()
 
-    else
-        Err allErrors
+        errors ->
+            Err errors
 
 
 componentLabel : Component -> String
 componentLabel component =
-    "“"
-        ++ component.name
-        ++ "” ("
+    quote component.name
+        ++ " ("
         ++ Scope.toString component.scope
         ++ ", "
         ++ (component.id
@@ -345,10 +303,9 @@ componentById =
 
 exampleLabel : Example query -> String
 exampleLabel example =
-    "“"
-        ++ example.name
-        ++ "” ("
-        ++ Scope.toString example.scope
+    quote example.name
+        ++ " ("
+        ++ backtick (Scope.toString example.scope)
         ++ ", "
         ++ Uuid.toString example.id
         ++ ")"
@@ -359,27 +316,38 @@ formatErrors errors =
     "Static DB checks failed:\n" ++ String.join "\n" errors
 
 
+knownComponentIds : Db -> Set String
+knownComponentIds =
+    .components
+        >> List.filterMap .id
+        >> List.map Component.idToString
+        >> Set.fromList
+
+
+knownProcessIds : Db -> Set String
+knownProcessIds =
+    .processes
+        >> List.map (.id >> Process.idToString)
+        >> Set.fromList
+
+
 processById : List Process -> Dict String Process
-processById processes =
-    processes
-        |> List.map (\process -> ( Process.idToString process.id, process ))
-        |> Dict.fromList
+processById =
+    List.map (\process -> ( Process.idToString process.id, process ))
+        >> Dict.fromList
 
 
 processLabel : Process -> String
 processLabel process =
-    "“"
-        ++ Process.getDisplayName process
-        ++ "” ("
+    quote (Process.getDisplayName process)
+        ++ " ("
         ++ Process.idToString process.id
         ++ ")"
 
 
-knownProcessIds : Db -> Set String
-knownProcessIds db =
-    db.processes
-        |> List.map (.id >> Process.idToString)
-        |> Set.fromList
+quote : String -> String
+quote string =
+    "“" ++ string ++ "”"
 
 
 main : Program Flags () ()
