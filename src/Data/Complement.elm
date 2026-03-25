@@ -133,6 +133,19 @@ labels =
     }
 
 
+jsonLabels : ComplementsLabels
+jsonLabels =
+    { cropDiversity = "cropDiversity"
+    , forest = "forest"
+    , hedges = "hedges"
+    , livestockDensity = "livestockDensity"
+    , microfibers = "microfibers"
+    , outOfEuropeEOL = "outOfEuropeEOL"
+    , permanentPasture = "permanentPasture"
+    , plotSize = "plotSize"
+    }
+
+
 decodeComplementsImpacts : Decoder ComplementsImpacts
 decodeComplementsImpacts =
     Decode.succeed AbstractComplements
@@ -174,7 +187,7 @@ encodeComplementsImpacts =
     in
     negateComplementsImpacts
         >> allComplementsToList
-        >> List.map2 encodeTuple (allComplementsToList labels)
+        >> List.map2 encodeTuple (allComplementsToList jsonLabels)
         >> EU.optionalPropertiesObject
 
 
