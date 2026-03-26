@@ -121,6 +121,7 @@ complementsImpactAsChartEntries c =
     [ { color = "#606060", name = "Services écosystémiques", value = -(Unit.impactToFloat (sumEcosystemicImpacts c)) }
     , { color = "#c0c0c0", name = "Complément microfibres", value = -(c.microfibers |> Maybe.map Unit.impactToFloat |> Maybe.withDefault 0) }
     , { color = "#e0e0e0", name = "Complément export hors-Europe", value = -(c.outOfEuropeEOL |> Maybe.map Unit.impactToFloat |> Maybe.withDefault 0) }
+    , { color = "#f1f1f1", name = "Complément " ++ labels.forest, value = -(c.forest |> Maybe.map Unit.impactToFloat |> Maybe.withDefault 0) }
     ]
 
 
