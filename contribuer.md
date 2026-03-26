@@ -48,21 +48,25 @@ Sur le textile spécifiquement, des contributions sont souhaitées sur :
 5. **Revue critique**\
    Toutes les données soumises doivent avoir fait l’objet d’une revue critique indépendante, garantissant leur qualité, leur représentativité et leur fiabilité. L'ADEME décide en dernier lieu l'intégration ou non des données.&#x20;
 6. **Propriété des données** \
-   Les contributeurs partagent gratuitement et intégralement la propriété des données avec l’ADEME. Il en résulte que l'ADEME dispose des droits d’utilisation, de diffusion et de modification. Le contributeur conserve les mêmes droits et le libre usage. L’ADEME est propriétaire des outils et base de données; et "co-propriétaire" des données. <mark style="color:$warning;">Lien vers contrat type Base empreinte à ajouter.</mark><br>
+   Les contributeurs partagent gratuitement et intégralement la propriété des données avec l’ADEME. Il en résulte que l'ADEME dispose des droits d’utilisation, de diffusion et de modification. Le contributeur conserve les mêmes droits et le libre usage. L’ADEME est propriétaire des outils et base de données; et "co-propriétaire" des données. <br>
 
 ## Comment sont validés les données ?
 
-La validation des données passe par deux étapes :&#x20;
+La validation des données peut se faire de différentes manières :&#x20;
 
-* une analyse rapide (délais standard : 1 à 2 mois) par l'équipe ecobalyse qui s'assure de la cohérence, la plus value et la robustesse globale de la nouvelle données. En cas de conclusion positive, ceci ouvre le droit à un statut de "validation provisoire" et l'intégration de la donnée dans ecobalyse et le dispositif affichage environnemental.&#x20;
-* des travaux plus approfondis sectoriels (délais standards 6 à 18 mois) sont menés dans Base empreinte/Agribalyse via des GT, qui peuvent décider d'intégrer en l'état, de modifier ou recommander des données alternatives dans un second temps.  Ecobalyse s'aligne alors sur ces décisions.&#x20;
+* Pour l'alimentaire, les données sont soumises via Agribalyse dont le processus de contribution est opérationnel. Une fois la donnée validée, elle peut rentrer dans ecobalyse, sans attendre nécessairement la publication des nouvelles versions d'agribalyse (tous les 18-24 mois)
+* Pour les autres données, en attendant que le processus de contribution soit opérationnel au niveau de la base empreinte, l'analyse se fait en 2 temps :
+  * une analyse rapide (délais standard : 1 à 2 mois) par l'équipe ecobalyse qui s'assure de la cohérence, la plus value et la robustesse globale de la nouvelle données. En cas de conclusion positive, ceci ouvre le droit à un statut de "validation provisoire" et l'intégration de la donnée dans ecobalyse et le dispositif affichage environnemental.&#x20;
+  * des travaux plus approfondis sectoriels (délais standards 6 à 18 mois) sont menés dans Base empreinte via des GT, qui peuvent décider de valider définitivement en l'état, de modifier ou recommander des données alternatives dans un second temps.  Ecobalyse s'alignera alors sur ces décisions.&#x20;
 
 \
 <mark style="color:$success;">**Focus données alimentaires :**</mark> [Comment contribuer à agribalyse ?](https://doc.agribalyse.fr/documentation/nous-contactez/contribuer-aux-travaux-agribalyse-r)
 
 ## Que deviennent les données ?
 
-Les données sont intégrées dans l'outil ecobalyse pour le calcul du Cout environnemental. Elles sont également reversée dans les bases ACV de l'ADEME ([Base Empreinte](https://base-empreinte.ademe.fr/) et [agribalyse](https://doc.agribalyse.fr/documentation/)); publiques et transparentes. Les données pourront également être partagées avec des initiatives de type "Communs Numériques" ou d'autres bases publiques comme la base européenne "EF"; avec l'accord des contributeurs.
+Après validation, les données sont intégrées dans l'outil ecobalyse pour le calcul du Cout environnemental. Elles ont ensuite vocation à être basculée dans les bases de données ACV publiques et transparentes de l'ADEME ([agribalyse](https://doc.agribalyse.fr/documentation/) et [Base Empreinte](https://base-empreinte.ademe.fr/)) .
+
+Les données pourront également être partagées avec des initiatives de type "Communs Numériques" ou d'autres bases publiques comme la base européenne "EF"; avec l'accord des contributeurs.
 
 Afin de garantir la cohérence et la mise à jour des travaux, nous sommes susceptibles de modifier les sources des données d'arrière plan. Nous utilisons aujourd'hui ecoinvent 3.9.1 et pouvons être amené à changer de version ou de base de données à l'avenir.&#x20;
 
