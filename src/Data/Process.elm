@@ -21,6 +21,7 @@ module Data.Process exposing
     , toSearchableString
     , unitLabel
     , unitToString
+    , validateForScope
     )
 
 import Data.Common.DecodeUtils as DU
@@ -355,3 +356,17 @@ unitFromString string =
 
         _ ->
             Err ("Invalid or non-supported process unit: " ++ string)
+
+
+validateForScope : Scope -> List Process -> Id -> Result String Id
+validateForScope scope processes processId =
+    processes
+        |> findById processId
+        |> Result.andThen
+            (\process ->
+                if List.member scope process.scopes then
+                    Ok process.id
+
+                else
+                    Err ("Procédé " ++ idToString processId ++ " inutilisable dans un contexte " ++ Scope.toString scope)
+            )

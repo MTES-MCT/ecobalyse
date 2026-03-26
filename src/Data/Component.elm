@@ -126,6 +126,7 @@ import Quantity
 import Result.Extra as RE
 import Url.Parser as Parser exposing (Parser)
 import Views.Format as Format
+import Volume exposing (Volume)
 
 
 type Id
@@ -159,6 +160,7 @@ type alias EnergyMixes =
 type alias Query =
     { assemblyCountry : Maybe Country.Code
     , consumptions : List Consumption
+    , distribution : Maybe Process.Id
 
     -- Note: component durability is experimental, future work may eventually be needed to
     -- reuse existing mechanics and handle holistic durability like it's implemented for textile,
@@ -263,6 +265,13 @@ type alias DetailedEndOfLifeImpacts =
     MaterialDict EndOfLifeMaterialImpacts
 
 
+type alias DistributionResults =
+    { impacts : Impacts
+    , process : Maybe Process
+    , volume : Volume
+    }
+
+
 type alias EndOfLifeMaterialImpacts =
     { collected : ( Mass, EndOfLifeStrategies )
     , nonCollected : ( Mass, EndOfLifeStrategies )
@@ -272,7 +281,8 @@ type alias EndOfLifeMaterialImpacts =
 {-| Lifecycle impacts
 -}
 type alias LifeCycle =
-    { endOfLife : Impacts
+    { distribution : DistributionResults
+    , endOfLife : Impacts
     , production : Results
     , transports : LifeCycleTransport
     , use : List Impacts
@@ -513,9 +523,41 @@ compute requirements query =
         |> RE.combine
         |> Result.map (List.foldr addResults emptyResults)
         |> Result.map (\(Results results) -> { emptyLifeCycle | production = Results { results | label = Just "Production" } })
+        |> Result.andThen (computeDistributionImpacts requirements query)
         |> Result.map (computeEndOfLifeResults requirements)
         |> Result.andThen (computeTransports requirements query)
         |> Result.andThen (computeUseImpacts requirements query)
+
+
+computeDistributionImpacts : Requirements db -> Query -> LifeCycle -> Result String LifeCycle
+computeDistributionImpacts requirements query ({ distribution } as lifeCycle) =
+    let
+        finalProductVolume =
+            lifeCycle.production
+                |> extractMass
+                -- Note: for now, assume the volume in m3 is the same as the mass in kg/1000
+                |> Mass.inKilograms
+                |> (\mass -> mass / 1000)
+                |> Volume.cubicMeters
+    in
+    case getDistributionProcess requirements query.distribution of
+        Err error ->
+            if error == "nothing-available" then
+                -- No distribution processes are available for this scope, so no distribution impacts
+                Ok { lifeCycle | distribution = { distribution | volume = finalProductVolume } }
+
+            else
+                Err error
+
+        Ok process ->
+            Ok
+                { lifeCycle
+                    | distribution =
+                        { impacts = process.impacts |> Impact.multiplyBy (Volume.inCubicMeters finalProductVolume)
+                        , process = Just process
+                        , volume = finalProductVolume
+                        }
+                }
 
 
 computeElementResults : Requirements db -> Maybe Country.Code -> Element -> Result String Results
@@ -935,6 +977,7 @@ decodeQuery =
     Decode.succeed Query
         |> DU.strictOptional "assemblyCountry" Country.decodeCode
         |> Decode.optional "consumptions" (Decode.list decodeConsumption) []
+        |> DU.strictOptional "distribution" Process.decodeId
         |> DU.strictOptional "durability" Unit.decodeRatio
         |> Decode.required "components" (Decode.list decodeItem)
 
@@ -979,9 +1022,18 @@ elementsToString db component =
         |> Result.map (String.join " | ")
 
 
+emptyDistributionResults : DistributionResults
+emptyDistributionResults =
+    { impacts = Impact.empty
+    , process = Nothing
+    , volume = Quantity.zero
+    }
+
+
 emptyLifeCycle : LifeCycle
 emptyLifeCycle =
-    { endOfLife = Impact.empty
+    { distribution = emptyDistributionResults
+    , endOfLife = Impact.empty
     , production = emptyResults
     , transports = emptyLifeCycleTransports
     , use = []
@@ -999,6 +1051,7 @@ emptyQuery : Query
 emptyQuery =
     { assemblyCountry = Nothing
     , consumptions = []
+    , distribution = Nothing
     , durability = Nothing
     , items = []
     }
@@ -1315,6 +1368,31 @@ findById id =
     List.filter (.id >> (==) (Just id))
         >> List.head
         >> Result.fromMaybe ("Aucun composant avec id=" ++ idToString id)
+
+
+{-| Retrieves an available distribution process from db, scope and optional query parameter.
+-}
+getDistributionProcess : Requirements db -> Maybe Process.Id -> Result String Process
+getDistributionProcess { db, scope } maybeDistribution =
+    let
+        availableDistributionProcesses =
+            db.processes
+                |> Scope.anyOf [ scope ]
+                |> Process.listByCategory Category.Distribution
+                |> List.filter (.unit >> (==) Process.CubicMeter)
+    in
+    case maybeDistribution of
+        Just processId ->
+            availableDistributionProcesses
+                |> Process.findById processId
+
+        Nothing ->
+            -- Take the first distribution process as a default
+            availableDistributionProcesses
+                -- FIXME: We don't have any other way to select a dry distribution process by default :/
+                |> List.filter (Process.getDisplayName >> String.contains "produit sec")
+                |> List.head
+                |> Result.fromMaybe "nothing-available"
 
 
 getEndOfLifeDetailedImpacts : Requirements db -> Results -> DetailedEndOfLifeImpacts
@@ -1830,6 +1908,18 @@ validateCountry { db, scope } maybeCountryCode =
             Ok Nothing
 
 
+validateDistribution : Requirements db -> Maybe Process.Id -> Result String (Maybe Process.Id)
+validateDistribution { db, scope } maybeProcessId =
+    case maybeProcessId of
+        Just processId ->
+            processId
+                |> Process.validateForScope scope db.processes
+                |> Result.map Just
+
+        Nothing ->
+            Ok Nothing
+
+
 validateDurability : Requirements db -> Maybe Unit.Ratio -> Result String (Maybe Unit.Ratio)
 validateDurability { config, scope } durability =
     case ( config.durability |> Config.scopeEnabled scope, durability ) of
@@ -1881,6 +1971,7 @@ validateQuery ({ db } as requirements) query =
     Ok Query
         |> RE.andMap (validateCountry requirements query.assemblyCountry)
         |> RE.andMap (query.consumptions |> RE.combineMap (validateConsumption requirements))
+        |> RE.andMap (validateDistribution requirements query.distribution)
         |> RE.andMap (validateDurability requirements query.durability)
         |> RE.andMap (query.items |> RE.combineMap (validateItem db.components))
         |> Result.mapError (\s -> "Requête invalide: " ++ s)

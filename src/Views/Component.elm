@@ -914,18 +914,26 @@ assemblyView config =
 
 
 distributionView : Config db msg -> Html msg
-distributionView { impact } =
+distributionView { impact, lifeCycle } =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header d-flex align-items-center justify-content-between" ]
             [ h2 [ class "h5 mb-0" ]
                 [ text "Distribution" ]
             , div [ class "d-flex align-items-center gap-2" ]
-                [ -- Note: For now, distribution has no impacts by design
-                  Format.formatImpact impact Impact.empty
+                [ lifeCycle
+                    |> Result.map (.distribution >> .impacts >> Format.formatImpact impact)
+                    |> Result.withDefault (text "")
                 ]
             ]
-        , div [ class "card-body d-flex align-items-center gap-1" ]
-            [ Icon.lock, text "France" ]
+        , div [ class "card-body" ]
+            [ div [ class "d-flex align-items-center gap-1" ] [ Icon.lock, text "France" ]
+            , lifeCycle
+                |> Result.map (.distribution >> .process >> Maybe.map Process.getDisplayName >> Maybe.withDefault "Pas de distribution")
+                |> Result.withDefault ""
+                |> text
+                |> List.singleton
+                |> div []
+            ]
         ]
 
 
