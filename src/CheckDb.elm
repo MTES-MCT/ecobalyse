@@ -52,13 +52,13 @@ backtick string =
 
 {-| Returns missing component ids referenced by an example item.
 -}
-checkComponentItemId : Db -> Component.Item -> List String
-checkComponentItemId db item =
+checkComponentItemId : Set String -> Component.Item -> List String
+checkComponentItemId knownComponentStringIds item =
     item.id
         |> Maybe.map
             (Component.idToString
                 >> (\stringId ->
-                        if Set.member stringId (knownComponentIds db) then
+                        if Set.member stringId knownComponentStringIds then
                             []
 
                         else
@@ -70,8 +70,8 @@ checkComponentItemId db item =
 
 {-| Validates process references used by generic components.
 -}
-checkComponentsProcessIds : Db -> List String
-checkComponentsProcessIds db =
+checkComponentsProcessIds : Set String -> Db -> List String
+checkComponentsProcessIds knownProcessStringIds db =
     db.components
         |> List.filter (.scope >> Scope.isGeneric)
         |> List.concatMap
@@ -80,8 +80,8 @@ checkComponentsProcessIds db =
                     |> List.concatMap
                         (\{ material, transforms } ->
                             []
-                                |> (++) (material |> checkProcessId db component "element.material")
-                                |> (++) (transforms |> List.concatMap (checkProcessId db component "element.transforms"))
+                                |> (++) (material |> checkProcessId knownProcessStringIds component "element.material")
+                                |> (++) (transforms |> List.concatMap (checkProcessId knownProcessStringIds component "element.transforms"))
                         )
             )
 
@@ -186,14 +186,14 @@ checkExampleComponentItem processes components example =
 
 {-| Reports missing component ids referenced by generic examples.
 -}
-checkExamplesComponentIds : Db -> List String
-checkExamplesComponentIds db =
+checkExamplesComponentIds : Set String -> Db -> List String
+checkExamplesComponentIds knownComponentStringIds db =
     db.object.examples
         |> List.filter (.scope >> Scope.isGeneric)
         |> List.concatMap
             (\example ->
                 example.query.items
-                    |> List.concatMap (checkComponentItemId db)
+                    |> List.concatMap (checkComponentItemId knownComponentStringIds)
                     |> List.concatMap
                         (\missingComponentId ->
                             formatError
@@ -229,13 +229,13 @@ checkExamplesScope db =
 
 {-| Reports a missing process id referenced from a component field.
 -}
-checkProcessId : Db -> Component -> String -> Process.Id -> List String
-checkProcessId db component fieldName processId =
+checkProcessId : Set String -> Component -> String -> Process.Id -> List String
+checkProcessId knownProcessStringIds component fieldName processId =
     let
         processStringId =
             Process.idToString processId
     in
-    if knownProcessIds db |> Set.member processStringId |> not then
+    if Set.member processStringId knownProcessStringIds |> not then
         formatError
             [ "Missing process id " ++ processStringId
             , "referenced by component " ++ componentLabel component
@@ -266,9 +266,15 @@ checkStaticDatabases { detailedProcesses, nonDetailedProcesses } =
                     acc |> addGroupedErrors (section "Database decoding checks") [ errorMessage ]
 
                 Ok db ->
+                    let
+                        ( knownComponentStringIds, knownProcessStringIds ) =
+                            ( knownComponentIds db
+                            , knownProcessIds db
+                            )
+                    in
                     acc
-                        |> addGroupedErrors (section "Examples components checks") (checkExamplesComponentIds db)
-                        |> addGroupedErrors (section "Components processes checks") (checkComponentsProcessIds db)
+                        |> addGroupedErrors (section "Examples components checks") (checkExamplesComponentIds knownComponentStringIds db)
+                        |> addGroupedErrors (section "Components processes checks") (checkComponentsProcessIds knownProcessStringIds db)
                         |> addGroupedErrors (section "Scoping checks") (checkExamplesScope db)
     in
     case dbResults |> List.concatMap (checkByDatabase []) of
