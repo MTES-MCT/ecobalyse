@@ -337,8 +337,7 @@ suite =
                                         items
                                             |> computeItemsWithRequirements requirements
                                             -- This will have to be updated when we get proper volumePerUnit data
-                                            |> Result.map (.production >> Component.extractMass >> Mass.inKilograms >> (\mass -> mass / 1000))
-                                            |> Result.map Volume.cubicMeters
+                                            |> Result.map (.production >> Component.extractMass >> Component.computeVolumeFromMass)
                                 in
                                 [ it "should fallback to no distribution impacts when no default process is available"
                                     (items
@@ -375,7 +374,8 @@ suite =
                                             )
                                         |> Expect.equal (Ok True)
                                     )
-                                , TestUtils.suiteFromResult "should compute distribution impacts"
+                                , TestUtils.suiteFromResult "distribution impacts from explicit process"
+                                    -- setup
                                     (List.head requirementsDb.processes
                                         |> Maybe.map
                                             (\process ->
@@ -398,8 +398,9 @@ suite =
                                             )
                                         |> Result.fromMaybe "No distribution process available in test db"
                                     )
+                                    -- tests
                                     (\( distributionProcess, newRequirements ) ->
-                                        [ it "from an explicit distribution process"
+                                        [ it "should compute distribution impacts from an explicit distribution process"
                                             (Component.emptyQuery
                                                 |> Component.setQueryItems items
                                                 |> (\query -> { query | distribution = Just distributionProcess.id })
@@ -424,6 +425,7 @@ suite =
                                         ]
                                     )
                                 , it "should propagate the error for an unknown explicit distribution process"
+                                    -- Non-existing distribution process id
                                     (Process.idFromString "5fad4e70-5736-552d-a686-97e4fb627c37"
                                         |> Result.map
                                             (\missingDistributionId ->
@@ -625,6 +627,13 @@ suite =
                                         |> Expect.greaterThan 0
                                     )
                                 ]
+                            )
+                        ]
+                    , describe "computeVolumeFromMass"
+                        [ it "should compute a volume from a mass"
+                            -- Remember, this is a temporary situation until we obtain volume per unit data in processes db
+                            (Component.computeVolumeFromMass (Mass.kilograms 1000)
+                                |> Expect.equal (Volume.cubicMeters 1)
                             )
                         ]
                     , TestUtils.suiteFromResult "itemToComponent"

@@ -26,13 +26,13 @@ module Data.Component exposing
     , applyDurability
     , applyTransforms
     , compute
-    , computeDistributionImpacts
     , computeElementResults
     , computeImpacts
     , computeInitialAmount
     , computeItemResults
     , computeItemTransportToAssembly
     , computeScoring
+    , computeVolumeFromMass
     , createItem
     , decode
     , decodeItem
@@ -177,6 +177,13 @@ type alias Consumption =
     { amount : Amount
     , processId : Process.Id
     }
+
+
+{-| Errors related to distribution process handling and availability
+-}
+type DistributionProcessError
+    = DistributionGenericError String
+    | DistributionNothingAvailable
 
 
 {-| A compact reference to a component, a quantity of it, a production localization
@@ -530,25 +537,30 @@ compute requirements query =
         |> Result.andThen (computeUseImpacts requirements query)
 
 
+computeVolumeFromMass : Mass -> Volume
+computeVolumeFromMass =
+    -- Note: for now, assume the volume in m3 is the same as the mass in kg/1000
+    -- TODO: this is a temporary solution, we'll eventually need to get the proper volume per unit from the process
+    Quantity.divideBy 1000
+        >> Mass.inKilograms
+        >> Volume.cubicMeters
+
+
 computeDistributionImpacts : Requirements db -> Query -> LifeCycle -> Result String LifeCycle
 computeDistributionImpacts requirements query ({ distribution } as lifeCycle) =
     let
         finalProductVolume =
             lifeCycle.production
                 |> extractMass
-                -- Note: for now, assume the volume in m3 is the same as the mass in kg/1000
-                |> Mass.inKilograms
-                |> (\mass -> mass / 1000)
-                |> Volume.cubicMeters
+                |> computeVolumeFromMass
     in
     case getDistributionProcess requirements query.distribution of
-        Err error ->
-            if error == "nothing-available" then
-                -- No distribution processes are available for this scope, so no distribution impacts
-                Ok { lifeCycle | distribution = { distribution | volume = finalProductVolume } }
+        Err (DistributionGenericError errorMessage) ->
+            Err errorMessage
 
-            else
-                Err error
+        Err DistributionNothingAvailable ->
+            -- No distribution processes are available for this scope, so no added impacts
+            Ok { lifeCycle | distribution = { distribution | volume = finalProductVolume } }
 
         Ok process ->
             Ok
@@ -1373,7 +1385,7 @@ findById id =
 
 {-| Retrieves an available distribution process from db, scope and optional query parameter.
 -}
-getDistributionProcess : Requirements db -> Maybe Process.Id -> Result String Process
+getDistributionProcess : Requirements db -> Maybe Process.Id -> Result DistributionProcessError Process
 getDistributionProcess { db, scope } maybeDistribution =
     let
         availableDistributionProcesses =
@@ -1386,6 +1398,7 @@ getDistributionProcess { db, scope } maybeDistribution =
         Just processId ->
             availableDistributionProcesses
                 |> Process.findById processId
+                |> Result.mapError DistributionGenericError
 
         Nothing ->
             -- Take the first distribution process as a default
@@ -1393,7 +1406,7 @@ getDistributionProcess { db, scope } maybeDistribution =
                 -- FIXME: We don't have any other way to select a dry distribution process by default :/
                 |> List.filter (Process.getDisplayName >> String.contains "produit sec")
                 |> List.head
-                |> Result.fromMaybe "nothing-available"
+                |> Result.fromMaybe DistributionNothingAvailable
 
 
 getEndOfLifeDetailedImpacts : Requirements db -> Results -> DetailedEndOfLifeImpacts
@@ -1914,7 +1927,7 @@ validateDistribution { db, scope } maybeProcessId =
     case maybeProcessId of
         Just processId ->
             processId
-                |> Process.validateForScope scope db.processes
+                |> Process.validateForScope db.processes scope
                 |> Result.map Just
 
         Nothing ->

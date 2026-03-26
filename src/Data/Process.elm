@@ -358,8 +358,8 @@ unitFromString string =
             Err ("Invalid or non-supported process unit: " ++ string)
 
 
-validateForScope : Scope -> List Process -> Id -> Result String Id
-validateForScope scope processes processId =
+validateForScope : List Process -> Scope -> Id -> Result String Id
+validateForScope processes scope processId =
     processes
         |> findById processId
         |> Result.andThen
