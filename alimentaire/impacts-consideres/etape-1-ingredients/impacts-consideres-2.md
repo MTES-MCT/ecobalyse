@@ -122,7 +122,7 @@ A partir du [fichier d'ICV candidats](https://ademecloud.sharepoint.com/:x:/s/C-
 2. À défaut, inventaires localisés en Europe hors UE + France
 3. En dernier recours, inventaires du reste du monde
 
-<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (386).png" alt=""><figcaption></figcaption></figure>
 
 Cette priorisation garantit que, lorsque cela est possible, l’inventaire retenu reflète effectivement les conditions européennes de production.
 

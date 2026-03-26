@@ -27,44 +27,34 @@ Le schéma ci-dessous montre les scénarios possibles de fin de vie :
 
 ### Le recyclage des matériaux
 
-Les métaux, ferreux (aciers) ou non ferreux (aluminium notamment), ont un taux de recyclage élevé quelle que soit la fin de vie du produit. En effet, même dans les ordures ménagères incinérées, des systèmes permettent d'extraire ces matériaux.
+Les métaux ferreux (aciers) ou non ferreux (aluminium notamment), ont un taux de recyclage élevé quelle que soit la fin de vie du produit. En effet, même dans les ordures ménagères incinérées, des systèmes permettent d'extraire ces matériaux.
 
 Si le produit est collecté et recyclable, les autres matériaux sont recyclés, incinérés ou mis en décharge selon des ratios spécifiques à chaque matériau.
 
 ## Méthode de calcul
 
 {% hint style="info" %}
-**Recyclage = Impact nul (approche cut-off)**
-
-Ecobalyse utilise à ce stade l'approche cut-off pour allouer l'impact du recyclage des matériaux.
-
-Dit autrement, l'impact du recyclage des matériaux est alloué 100% au produit utilisant des matières recyclées. Ainsi, l'impact en fin de vie d'un meuble 100% recyclé serait nul.&#x20;
+La méthode décrite ci-dessous est la méthode cut-off. La méthode CFF est en cours de déploiement&#x20;
 {% endhint %}
 
 {% tabs %}
 {% tab title="Niveau 0" %}
-Décomposition de l'impact par scénario de fin de vie (S = Spécifique matière / D = Déchets divers)
+Décomposition de l'impact par scénario de fin de vie (FS = Filière spécifique / HF = Hors filière)
 
 $$
-I_{EoL} = TC*r_p*I_{EoL, S}+(1-TC*r_p-TE)*I_{EoL, D}+TE*I_{EoL, Export}
+I_{EoL} = TC*r_p*I_{EoL, FS}+(1-TC*r_p-TE)*I_{EoL, HF}
 $$
 {% endtab %}
 
 {% tab title="Niveau 1" %}
-Impact des scénarios en fin de vie (S = Spécifique matière / D = Déchets divers)
+Impact des scénarios en fin de vie (FS = Filière spécifique / HF = Hors filière)
 
 $$
-I_{EoL,S}=\sum_i m_i*(R_{S,Inc,i}*I_{EoL,incineration,i}+(1-R_{S,Rec,i}-R_{S,Inc,i})*I_{EoL,landfill,i})
+I_{EoL,FS}=\sum_i m_i*(R_{FS,Inc,i}*I_{EoL,incineration,i}+(1-R_{FS,Rec,i}-R_{S,Inc,i})*I_{EoL,landfill,i})
 $$
 
 $$
-I_{EoL,D}=(1-TC*r_p-TE)*\sum_i m_i*(R_{D,Inc,i}*I_{EoL,incineration,i}+(1-R_{D,Rec,i}-R_{D,Inc,i})*I_{EoL,landfill,i})
-$$
-
-Impact de la fin de vie pour le scénario Export :
-
-$$
-I_{EoL,Export}=\sum_i m_i*(1-R_{E,Rec,i})*I_{EoL,openlandfill,i})
+I_{EoL,HF}=(1-TC*r_p-TE)*\sum_i m_i*(R_{HF,Inc,i}*I_{EoL,incineration,i}+(1-R_{HF,Rec,i}-R_{HF,Inc,i})*I_{EoL,landfill,i})
 $$
 {% endtab %}
 {% endtabs %}
@@ -77,28 +67,26 @@ Niveau 0 :
 * `TC` : le taux de collecte des produits, en %
 * `r_p` : la recyclabilité du produit, égale à 1 si le produit est recyclable ou 0 s'il ne l'est pas
 * `TE` : le taux de collecte pour export des produits, en %
-* `I_EoL,S` : l'impact environnemental du produit dans le scénario "Spécifique matière", dans l'unité de la catégorie d'impact analysée
-* `I_EoL,D` : l'impact environnemental du produit dans le scénario "Déchets Divers", dans l'unité de la catégorie d'impact analysée
+* `I_EoL,FS` : l'impact environnemental du produit dans le scénario "Spécifique matière", dans l'unité de la catégorie d'impact analysée
+* `I_EoL,HF` : l'impact environnemental du produit dans le scénario "Déchets Divers", dans l'unité de la catégorie d'impact analysée
 * `I_EoL,Export` : l'impact environnemental du produit dans le scénario "Spécifique matière", dans l'unité de la catégorie d'impact analysée
 
 Niveau 1 :
 
 * `m_i` : la masse relative à la famille de matériaux `i`, en kg
-* `R_S,Rec,i` : la part de recyclage du matériau (i) lorsque le produit est collecté et recyclable
-* `R_S,Inc,i` : la part d'incinération du matériau (i) lorsque le produit est collecté et recyclable
-* `R_D,Rec,i` : la part de recyclage du matériau (i) lorsque le produit n'est pas collecté ou pas recyclable (fin de vie déchets divers)
-* `R_D,Inc,i` : la part d'incinération du matériau (i) lorsque le produit n'est pas collecté ou pas recyclable (fin de vie déchets divers)
+* `R_FS,Rec,i` : la part de recyclage du matériau (i) lorsque le produit est collecté et recyclable
+* `R_FS,Inc,i` : la part d'incinération du matériau (i) lorsque le produit est collecté et recyclable
+* `R_HF,Rec,i` : la part de recyclage du matériau (i) lorsque le produit n'est pas collecté ou pas recyclable (fin de vie déchets divers)
+* `R_HF,Inc,i` : la part d'incinération du matériau (i) lorsque le produit n'est pas collecté ou pas recyclable (fin de vie déchets divers)
 * `R_E,Rec,i` : la part de recyclage du matériau (i) lorsque le produit est exporté
 * `I_EoL,incineration,i` : l'impact environnemental de l'incinération d'un kg d'un matériau de la famille de matériaux `i`, dans l'unité de la catégorie d'impact analysée
 * `I_EoL,landfill,i` : l'impact environnemental de l'enfouissement d'un kg d'un matériau de la famille de matériaux `i` , dans l'unité de la catégorie d'impact analysée
-* `I_Eolrecycling,i` : l'impact environnemental du recyclage d'un kg d'un matériau de la famille de matériaux `i`, dans l'unité de la catégorie d'impact analysée - non pris en compte, égal à zéro
-* `I_EoL,openlandfill,i` : l'impact environnemental de la famille de matériaux `i` liée au recyclage, dans l'unité de la catégorie d'impact analysée
+* `I_Eolrecycling,i` : l'impact environnemental du recyclage d'un kg d'un matériau de la famille de matériaux `i`, dans l'unité de la catégorie d'impact analysée
 
 ## Paramètres retenus pour le coût environnemental&#x20;
 
 {% hint style="warning" %}
-Dans la première version, il est considéré que 100% des produits suivent le scénario "Spécifique matière".\
-Ainsi, TC=1, r\_p=1 et TE=0
+Dans la première version, il est considéré que la recyclabilité produit est toujours effective (r\_p=1) et le taux de collecte est fixé à 70% pour tous les secteurs.
 {% endhint %}
 
 ### Taux de collecte `TC`
@@ -116,7 +104,7 @@ Un taux de collecte pour export de 0% est appliqué par défaut pour l'ensemble 
 ### Taux de recyclage, d'incinération et de mise en décharge `R_S,Rec`, `R_S,Inc,i`, `R_D,Rec,i`, `R_D,Rec,i`
 
 {% tabs %}
-{% tab title="Scénario "Spécifique Matière"" %}
+{% tab title="Scénario "Filière Spécifique"" %}
 Ces paramètres sont définis secteur par secteur dans les pages Fin de vie sectorielles.
 
 {% hint style="warning" %}
@@ -124,10 +112,10 @@ Dans la première version de la modélisation de la fin de vie, les données Ame
 {% endhint %}
 {% endtab %}
 
-{% tab title="Scénario "Déchets Divers"" %}
+{% tab title="Scénario "Hors filière"" %}
 Ce scénario est applicable par défaut pour les produits non collectés ou non recyclables :&#x20;
 
-<table><thead><tr><th width="267">Matériau i</th><th>Recyclage (R_D,Rec,i)</th><th>Incinération (R_D,Inc,i)</th><th>Enfouissement (R_D,Enf,i)</th></tr></thead><tbody><tr><td>Tous matériaux (hors métaux)</td><td>0%</td><td>82%</td><td>18%</td></tr><tr><td>Métaux</td><td>90%</td><td>5%</td><td>5%</td></tr></tbody></table>
+<table><thead><tr><th width="249.20001220703125">Type de matériau</th><th width="147.7000732421875">Recyclage (R_HF,Rec,i)</th><th width="138.699951171875">Incinération (R_HF,Inc,i)</th><th width="154.89990234375">Enfouissement (R_HF,Enf,i)</th></tr></thead><tbody><tr><td>Métaux ferreux</td><td>95%</td><td>5%</td><td>0%</td></tr><tr><td>Aluminium</td><td>50%</td><td>41%</td><td>9%</td></tr><tr><td>Cuivre</td><td>50%</td><td>41%</td><td>9%</td></tr><tr><td>Autres matériaux</td><td>0%</td><td>82%</td><td>18%</td></tr></tbody></table>
 
 {% hint style="info" %}
 Sources :&#x20;
