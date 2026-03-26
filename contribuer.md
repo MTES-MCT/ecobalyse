@@ -12,7 +12,7 @@ Les données ACV mobilisées par ecobalyse proviennent de plusieurs bases de don
 
 ## Pourquoi contribuer à la base de données ?
 
-En tant que créateur de données, contribuer à la base de données permet de :
+En tant que créateur de données, contribuer à ecobalyse permet de :
 
 * Accélérer le déploiement de l’affichage environnemental
 * Améliorer la précision et robustesse du dispositif
