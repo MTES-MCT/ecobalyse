@@ -17,6 +17,10 @@ type alias Flags =
     }
 
 
+type alias Error =
+    String
+
+
 init : Flags -> ( (), Cmd () )
 init flags =
     ( ()
@@ -31,7 +35,7 @@ init flags =
 
 {-| Adds a titled error section only when the section has entries.
 -}
-addGroupedErrors : String -> List String -> List String -> List String
+addGroupedErrors : String -> List Error -> List Error -> List Error
 addGroupedErrors label errors =
     (++) <|
         if List.isEmpty errors then
@@ -50,7 +54,7 @@ backtick string =
     "`" ++ string ++ "`"
 
 
-{-| Returns missing component ids referenced by an example item.
+{-| Returns missing component ids referenced by a component item.
 -}
 checkComponentItemId : Set String -> Component.Item -> List String
 checkComponentItemId knownComponentStringIds item =
@@ -70,7 +74,7 @@ checkComponentItemId knownComponentStringIds item =
 
 {-| Validates process references used by generic components.
 -}
-checkComponentsProcessIds : Set String -> Db -> List String
+checkComponentsProcessIds : Set String -> Db -> List Error
 checkComponentsProcessIds knownProcessStringIds db =
     db.components
         |> List.filter (.scope >> Scope.isGeneric)
@@ -94,7 +98,7 @@ checkComponentProcessScope :
     -> Example query
     -> String
     -> Process.Id
-    -> List String
+    -> List Error
 checkComponentProcessScope processes component example fieldName processId =
     let
         processIdString =
@@ -120,7 +124,7 @@ checkComponentProcessScope processes component example fieldName processId =
 
 {-| Validates example/component scope compatibility and nested process scopes.
 -}
-checkComponentScopeMismatch : Dict String Process -> Example query -> Component -> List String
+checkComponentScopeMismatch : Dict String Process -> Example query -> Component -> List Error
 checkComponentScopeMismatch processes example component =
     let
         scopeMismatchErrors =
@@ -148,7 +152,7 @@ checkComponentScopeMismatch processes example component =
 
 {-| Checks that an Example consumptions are linked to existing scope-compatible processes.
 -}
-checkExampleConsumption : Dict String Process -> Example query -> Component.Consumption -> List String
+checkExampleConsumption : Dict String Process -> Example query -> Component.Consumption -> List Error
 checkExampleConsumption processes example consumption =
     let
         processIdString =
@@ -175,7 +179,7 @@ checkExampleConsumption processes example consumption =
 
 {-| Resolves a component Item from within an Example query and validates its scope.
 -}
-checkExampleComponentItem : Dict String Process -> Dict String Component -> Example query -> Component.Item -> List String
+checkExampleComponentItem : Dict String Process -> Dict String Component -> Example query -> Component.Item -> List Error
 checkExampleComponentItem processes components example =
     .id
         >> Maybe.map Component.idToString
@@ -186,7 +190,7 @@ checkExampleComponentItem processes components example =
 
 {-| Reports missing component ids referenced by generic examples.
 -}
-checkExamplesComponentIds : Set String -> Db -> List String
+checkExamplesComponentIds : Set String -> Db -> List Error
 checkExamplesComponentIds knownComponentStringIds db =
     db.object.examples
         |> List.filter (.scope >> Scope.isGeneric)
@@ -206,7 +210,7 @@ checkExamplesComponentIds knownComponentStringIds db =
 
 {-| Runs scope checks between examples, their components, and referenced processes.
 -}
-checkExamplesScope : Db -> List String
+checkExamplesScope : Db -> List Error
 checkExamplesScope db =
     let
         ( processesMap, componentsMap ) =
@@ -229,7 +233,7 @@ checkExamplesScope db =
 
 {-| Reports a missing process id referenced from a component field.
 -}
-checkProcessId : Set String -> Component -> String -> Process.Id -> List String
+checkProcessId : Set String -> Component -> String -> Process.Id -> List Error
 checkProcessId knownProcessStringIds component fieldName processId =
     let
         processStringId =
@@ -246,38 +250,41 @@ checkProcessId knownProcessStringIds component fieldName processId =
         []
 
 
-{-| Decodes both static DBs, executes checks, and returns grouped errors.
+{-| Checks a static database and returns a list of errors.
 -}
-checkStaticDatabases : Flags -> Result (List String) ()
-checkStaticDatabases { detailedProcesses, nonDetailedProcesses } =
+checkStaticDatabase : String -> Result String Db -> List Error
+checkStaticDatabase dbName dbResult =
     let
-        dbResults =
+        section title =
+            dbName ++ " - " ++ title
+    in
+    case dbResult of
+        Err errorMessage ->
+            [] |> addGroupedErrors (section "Database decoding checks") [ errorMessage ]
+
+        Ok db ->
+            let
+                ( knownComponentStringIds, knownProcessStringIds ) =
+                    ( knownComponentIds db
+                    , knownProcessIds db
+                    )
+            in
+            []
+                |> addGroupedErrors (section "Examples components checks") (checkExamplesComponentIds knownComponentStringIds db)
+                |> addGroupedErrors (section "Components processes checks") (checkComponentsProcessIds knownProcessStringIds db)
+                |> addGroupedErrors (section "Scoping checks") (checkExamplesScope db)
+
+
+{-| Decodes both static databases, executes checks, and returns grouped errors.
+-}
+checkStaticDatabases : Flags -> Result (List Error) ()
+checkStaticDatabases { detailedProcesses, nonDetailedProcesses } =
+    case
+        List.concatMap (\( dbName, dbResult ) -> checkStaticDatabase dbName dbResult)
             [ ( "Detailed Db", StaticDb.db detailedProcesses )
             , ( "Non-detailed Db", StaticDb.db nonDetailedProcesses )
             ]
-
-        checkByDatabase acc ( dbName, dbResult ) =
-            let
-                section title =
-                    dbName ++ " - " ++ title
-            in
-            case dbResult of
-                Err errorMessage ->
-                    acc |> addGroupedErrors (section "Database decoding checks") [ errorMessage ]
-
-                Ok db ->
-                    let
-                        ( knownComponentStringIds, knownProcessStringIds ) =
-                            ( knownComponentIds db
-                            , knownProcessIds db
-                            )
-                    in
-                    acc
-                        |> addGroupedErrors (section "Examples components checks") (checkExamplesComponentIds knownComponentStringIds db)
-                        |> addGroupedErrors (section "Components processes checks") (checkComponentsProcessIds knownProcessStringIds db)
-                        |> addGroupedErrors (section "Scoping checks") (checkExamplesScope db)
-    in
-    case dbResults |> List.concatMap (checkByDatabase []) of
+    of
         [] ->
             Ok ()
 
@@ -320,7 +327,7 @@ exampleLabel example =
         ++ ")"
 
 
-formatError : List String -> List String
+formatError : List String -> List Error
 formatError lines =
     case lines of
         [] ->
@@ -332,7 +339,7 @@ formatError lines =
                 |> List.singleton
 
 
-formatErrors : List String -> String
+formatErrors : List Error -> Error
 formatErrors errors =
     "Static DB checks failed:\n" ++ String.join "\n" errors
 
