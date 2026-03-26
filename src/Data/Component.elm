@@ -26,6 +26,7 @@ module Data.Component exposing
     , applyDurability
     , applyTransforms
     , compute
+    , computeDistributionImpacts
     , computeElementResults
     , computeImpacts
     , computeInitialAmount
