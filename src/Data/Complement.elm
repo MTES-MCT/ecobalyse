@@ -3,6 +3,7 @@ module Data.Complement exposing
     , ComplementsImpacts
     , ComplementsResultsImpacts
     , addComplementsImpacts
+    , allComplementsFields
     , allComplementsToList
     , applyComplementsToImpacts
     , complementsImpactAsChartEntries

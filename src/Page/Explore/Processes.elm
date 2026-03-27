@@ -1,5 +1,6 @@
 module Page.Explore.Processes exposing (table)
 
+import Data.Complement as Complement
 import Data.Dataset as Dataset
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definitions)
@@ -24,7 +25,7 @@ table session { detailed, scope } =
     , toRoute = .id >> Just >> Dataset.Processes scope >> Route.Explore scope
     , toSearchableString = Process.toSearchableString
     , legend = []
-    , columns = baseColumns detailed scope ++ impactsColumns session
+    , columns = baseColumns detailed scope ++ impactsColumns session ++ complementsColumns session
     }
 
 
@@ -94,6 +95,33 @@ baseColumns detailed scope =
       , toCell = .comment >> text
       }
     ]
+
+
+complementsColumns : Session -> List (Column Process String msg)
+complementsColumns { db } =
+    let
+        complementToMaybeFloat : (Complement.ComplementsImpacts -> Maybe Unit.Impact) -> Process -> Maybe Float
+        complementToMaybeFloat accessor =
+            .metadata
+                >> Maybe.andThen .complements
+                >> Maybe.andThen accessor
+                >> Maybe.map Unit.impactToFloat
+    in
+    List.map2
+        (\a b ->
+            { label = b
+            , toValue =
+                Table.FloatValue <|
+                    complementToMaybeFloat a
+                        >> Maybe.withDefault 0
+            , toCell =
+                complementToMaybeFloat a
+                    >> Maybe.map (Format.formatImpactFloat (Definition.get Definition.Ecs db.definitions))
+                    >> Maybe.withDefault (text "N/A")
+            }
+        )
+        Complement.allComplementsFields
+        (Complement.labels |> Complement.allComplementsToList)
 
 
 impactCell : Definitions -> Definition.Trigram -> Column Process String msg
