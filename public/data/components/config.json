@@ -20,6 +20,96 @@
     },
     "strategies": {
       "collected": {
+        "ferrous metals": {
+          "incinerating": null,
+          "landfilling": null,
+          "recycling": { "percent": 100 }
+        },
+        "aluminium": {
+          "incinerating": null,
+          "landfilling": null,
+          "recycling": { "percent": 100 }
+        },
+        "copper": {
+          "incinerating": null,
+          "landfilling": null,
+          "recycling": { "percent": 100 }
+        },
+        "wood": {
+          "incinerating": { "percent": 31, "processId": "8c102569-dcef-4016-842b-6f662a082b66" },
+          "landfilling": null,
+          "recycling": { "percent": 69 }
+        },
+        "containerboard": {
+          "incinerating": { "percent": 11, "processId": "8c102569-dcef-4016-842b-6f662a082b66" },
+          "landfilling": { "percent": 4, "processId": "8c102569-dcef-4016-842b-6f662a082b66" },
+          "recycling": { "percent": 85 }
+        },
+        "glass": {
+          "incinerating": { "percent": 20, "processId": "8c102569-dcef-4016-842b-6f662a082b66" },
+          "landfilling": null,
+          "recycling": { "percent": 80 }
+        },
+        "rubber": {
+          "incinerating": { "percent": 94, "processId": "8c102569-dcef-4016-842b-6f662a082b66" },
+          "landfilling": { "percent": 2, "processId": "8c102569-dcef-4016-842b-6f662a082b66" },
+          "recycling": { "percent": 4 }
+        },
+        "composites": {
+          "incinerating": { "percent": 82, "processId": "8c102569-dcef-4016-842b-6f662a082b66" },
+          "landfilling": { "percent": 18, "processId": "8c102569-dcef-4016-842b-6f662a082b66" },
+          "recycling": null
+        },
+        "pet": {
+          "incinerating": { "percent": 8, "processId": "8c102569-dcef-4016-842b-6f662a082b66" },
+          "landfilling": null,
+          "recycling": { "percent": 92 }
+        },
+        "pp": {
+          "incinerating": { "percent": 8, "processId": "8c102569-dcef-4016-842b-6f662a082b66" },
+          "landfilling": null,
+          "recycling": { "percent": 92 }
+        },
+        "hdpe": {
+          "incinerating": { "percent": 8, "processId": "8c102569-dcef-4016-842b-6f662a082b66" },
+          "landfilling": null,
+          "recycling": { "percent": 92 }
+        },
+        "ldpe": {
+          "incinerating": { "percent": 31, "processId": "8c102569-dcef-4016-842b-6f662a082b66" },
+          "landfilling": null,
+          "recycling": { "percent": 69 }
+        },
+        "rigid plastics": {
+          "incinerating": { "percent": 8, "processId": "8c102569-dcef-4016-842b-6f662a082b66" },
+          "landfilling": null,
+          "recycling": { "percent": 92 }
+        },
+        "pur foam": {
+          "incinerating": { "percent": 94, "processId": "8c102569-dcef-4016-842b-6f662a082b66" },
+          "landfilling": { "percent": 2, "processId": "8c102569-dcef-4016-842b-6f662a082b66" },
+          "recycling": { "percent": 4 }
+        },
+        "synthetic fibers": {
+          "incinerating": { "percent": 82, "processId": "8c102569-dcef-4016-842b-6f662a082b66" },
+          "landfilling": { "percent": 18, "processId": "8c102569-dcef-4016-842b-6f662a082b66" },
+          "recycling": null
+        },
+        "organic fibers": {
+          "incinerating": { "percent": 82, "processId": "8c102569-dcef-4016-842b-6f662a082b66" },
+          "landfilling": { "percent": 18, "processId": "8c102569-dcef-4016-842b-6f662a082b66" },
+          "recycling": null
+        },
+        "printed wiring board": {
+          "incinerating": null,
+          "landfilling": null,
+          "recycling": { "percent": 100 }
+        },
+        "battery cell": {
+          "incinerating": null,
+          "landfilling": null,
+          "recycling": { "percent": 100 }
+        },
         "metal": {
           "incinerating": null,
           "landfilling": null,
@@ -34,11 +124,6 @@
           "incinerating": { "percent": 94, "processId": "04c1e26f-bc40-4dff-950a-51ca54d5ad16" },
           "landfilling": { "percent": 2, "processId": "63db8dee-78a5-4979-ae9b-fcc76d66ee4f" },
           "recycling": { "percent": 4 }
-        },
-        "wood": {
-          "incinerating": { "percent": 31, "processId": "8c102569-dcef-4016-842b-6f662a082b66" },
-          "landfilling": null,
-          "recycling": { "percent": 69 }
         }
       },
       "default": {
