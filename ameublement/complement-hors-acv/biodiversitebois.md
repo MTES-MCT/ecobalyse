@@ -4,13 +4,13 @@ description: Présentation de la méthode de calcul du complément Biodiversité
 
 # 🌍 Biodiversité x Bois (draft)
 
-<mark style="color:$danger;">Des propositions spécifiques des parties prenantes sur cette thématique sont attendus dans le cadre de l'expérimentation en cours (fin juin 2026).</mark> <mark style="color:$danger;">Les éléments présentés ici visent à alimenter la réflexion et ne sont en aucun cas définitifs. Ils présentent une "exploration" faite au niveau d'ecobalyse suitent aux échanges avec les experts en 2025.</mark>&#x20;
+<mark style="color:$danger;">Des propositions spécifiques des parties prenantes sur cette thématique sont attendues dans le cadre de l'expérimentation en cours (fin juin 2026).</mark> <mark style="color:$danger;">Les éléments présentés ici visent à alimenter la réflexion et ne sont en aucun cas définitifs. Ils présentent une "exploration" faite au niveau d'ecobalyse suite aux échanges avec les experts en 2025.</mark>&#x20;
 
 ## Contexte
 
-Un complément a été introduit afin de mieux refléter dans le coût environnemental des meubles la variabilité des pratiques sylivicoles, au regard de leurs effets sur la biodiversité notament.&#x20;
+Un complément a été introduit afin de mieux refléter dans le coût environnemental des meubles la variabilité des pratiques sylvicoles, au regard de leurs effets sur la biodiversité notamment.&#x20;
 
-De manière plus précise, trois raisons expliquent la nécessité de proposer un complément :&#x20;
+De manière plus précise, plusieurs raisons expliquent la nécessité de proposer un complément :&#x20;
 
 <details>
 
@@ -122,7 +122,7 @@ Dégradation des forêts : les modifications structurelles apportées au couvert
 
 ### Labels environnementaux&#x20;
 
-Certaines certifications participent à garantir des pratiques sylvicole plus respectueuse des écosystèmes à l'échelle du pays où le bois est prélevé. Les certifications les plus courrantes et reconnues sont actuellement PEFC et FSC.&#x20;
+Certaines certifications participent à garantir des pratiques sylvicole plus respectueuse des écosystèmes à l'échelle du pays où le bois est prélevé. Les certifications les plus courantes et reconnues sont actuellement PEFC et FSC.&#x20;
 
 {% hint style="info" %}
 Ces deux certifications partagent les caractéristiques suivantes :&#x20;
@@ -152,7 +152,7 @@ Forest Stewardship Council (FSC®) est une organisation non gouvernementale cré
 
 #### ICV bois disponibles et leurs impacts ACV
 
-&#x20;Dans la base de données ecoinvent, différents ICV de bois sont disponibles aujourd'hui. Des bois européens (Allemagne, Scandinavie ...) sont disponibles mais pas de bois issus des forêts francaises.  Des bois tropicaux sont égalment fournis par ecoinvent. A noter que par défaut, ecoinvent considère que la foret européenne bénéficie d'une "gestion durable".   <mark style="color:$warning;">(liste complète des bois reste à extraire )</mark>
+Dans la base de données ecoinvent, différents ICV de bois sont disponibles aujourd'hui. Des bois européens (Allemagne, Scandinavie ...) sont disponibles mais pas de bois issus des forêts francaises.  Des bois tropicaux sont égalment fournis par ecoinvent. A noter que par défaut, ecoinvent considère que la foret européenne bénéficie d'une "gestion durable".   <mark style="color:$warning;">(liste complète des bois reste à extraire )</mark>
 
 <figure><img src="../../.gitbook/assets/image (6).png" alt="" width="375"><figcaption></figcaption></figure>
 
