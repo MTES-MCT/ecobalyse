@@ -206,6 +206,123 @@ Source : _Règlement européen du 31 mai 2023 relatif à la déforestation impor
 {% endtab %}
 {% endtabs %}
 
+
+
+
+
+<mark style="color:red;">Brouillon du 27/03/2026</mark>
+
+$$
+Comp =  \sum Ref(i) * Compo(i) * masse * (1-label)
+$$
+
+Avec :&#x20;
+
+* `Comp` = l'impact environnemental du complément, exprimé en Pt d'impacts
+* `Ref(i)` = l'impact biodiversité de chaque bois (`i`), exprimé en Pt d'impacts / kg&#x20;
+* `Compo(i)` = la part du bois (`i`) entrant dans la composition du meuble, exprimée en % de `masse`
+* `masse` = la masse du meuble, exprimée en kg&#x20;
+* `label` =  l'intérêt d'une certification en terme de biodiversité, exprimé en %&#x20;
+
+{% hint style="info" %}
+1 bois (i) = 1 filière d'approvisionnement = 1 essence (ex : chêne) + 1 origine (ex : France). &#x20;
+{% endhint %}
+
+## Paramètres retenus
+
+### &#x20;`Compo(i)` + `masse`
+
+{% hint style="info" %}
+Afin de couvrir toutes les configurations possibles, deux scénarios non spécifiques à une origine ont été intégrés dans la méthode :&#x20;
+
+* **Origine inconnue** :  s'appliquer lorsque l'utilisateur ne connaît pas l'origine de la forêt ayant fourni le bois. Ce scénario présente des hypothèses majorantes afin d'inciter à plus de traçabilité.&#x20;
+* **Autre origine** : s'appliquer lorsque l'origine du bois n'est pas proposée. Ce scénario reflète le fait que ce bois n'est pas concerné par une filière d'approvisionnement à risque.&#x20;
+{% endhint %}
+
+Ces deux paramètres sont facilement intelligibles (cf. formule de calcul) et ne nécessitent pas d'informations additionnelles.
+
+`Ref(i)`&#x20;
+
+Ce paramètre reflète l'impact biodiversité (ref) d'un bois (i). Cet impact s'exprime en points d'impacts par kg de bois (Pt / kg de bois).
+
+#### Détails du calcul
+
+Ref(i) est calculé à partir de deux variables :&#x20;
+
+* un coefficient de Gestion forestière (GF) exprimé en points d'impacts par kg de bois,
+* &#x20;un Indice de corruption (IC) exprimé en %.
+
+<details>
+
+<summary>Coefficient de Gestion Forestière (GF)</summary>
+
+_Unité = Points d'impact / kg de bois_
+
+Ce paramètre caractérise l'impact sur la biodiversité de différents modes de gestion forestière.&#x20;
+
+3 catégories de gestion forestière sont proposés :&#x20;
+
+* Intensive = 10 Pts d'impact / kg de bois
+* Mitigée = 5 Pts d'impact / kg de bois
+* Raisonnée = 0 Pts d'impact / kg de bois
+
+{% hint style="info" %}
+**En savoir plus**
+
+Pour chaque filière d'approvisionnement (ex : Bois tropical \_ Asie du Sud-Est), un mode de gestion forestière par défaut est appliqué (ex : _Mitigée_ pour les résineux en provenance d'Europe de l'Ouest). Ces scénarios visent à différencier différentes filières d'approvisionnement selon leur niveau de risque d'un point de vue gestion forestière <⇒ biodiversité.&#x20;
+
+Les valeurs par défaut se basent sur l'état de l'art compilé par Ecobalyse dans le cadre des travaux menés sur le premier semestre 2025. Concrètement, le mode de gestion forestière appliqué par défaut vise à distinguer les pratiques intensives (ex : forêts de plantation) de pratiques raisonnées (ex : futaire irrégulière). Effectivement, un lien direct existe entre le mode de gestion forestière et la biodiversité au sein de tous les compartiments de l'ecosystème. &#x20;
+
+Les principales sources utilisées pour estimer ces paramètre par origine sont :&#x20;
+
+* des outils d'imagerie satellitaire permettant d'identifier les régions sylvicoles proposant une exploitation intensive des forêts ([carte 1](https://gfw.global/4kZ6RaB) de gains et pertes de couvert forestier entre 2000 et 2020 / [carte 2](https://gfw.global/41N4ujO) présentant les forêts de plantation),
+* des ressources bibliographiques permettant de mieux comprendre les régions sylvicoles à risque concernant leur gestion des forêts,
+* des entretiens et ateliers avec les filières Ameublement et Bois/Forêt (ex : atelier Sylviculture du 30/01/2025; support accessible [ici](https://miro.com/app/board/uXjVLn9pEjg=/?share_link_id=467200481479)).
+{% endhint %}
+
+</details>
+
+<details>
+
+<summary>Indice Corruption (IC) </summary>
+
+_Unité = % (majoration de GF de +x%)_&#x20;
+
+Le niveau de corruption d'une zone géographique spécifique renforce le risque de pratiques forestières néfastes pour les écosystèmes.&#x20;
+
+Pour approfondir ce constat voici deux sources d'intérêt (non exhaustif) :\
+(i) _règlement UE 2023/1115 relatif aux produits "zéro déforestation",_ \
+(ii) _WWF  Evaluation de la mise en oeuvre du RBUE  fiche d'évaluation pays : France_),\
+(iii) une étude de l'Africa Center (organisme américain) sur le bassin du Congo (accessible [ici](https://africacenter.org/fr/spotlight/lexploitation-forestiere-illegale-en-afrique-et-ses-implications-en-matiere-de-securite/)).
+
+Ce paramètre vise donc à refléter les risques accrus en terme de biodiversité associés à des bois issus de zones soumises à des niveaux importants de corruption.&#x20;
+
+&#x20;Le niveau de corruption est estimé grâce au _Corruption Perception Index (score CPI)_ développé par Transparency International (cf. ci-dessous).
+
+3 niveaux de corruption sont proposés :&#x20;
+
+* Elevé (score CPI inférieur à 30)
+* Moyen (score CPI entre 30 et 59)
+* Faible (score CP au moins égal à 60)
+
+Pour chaque niveau, un **coefficient de corruption (COR)** est appliqué; ce dernier vient préciser l'impact Biodiversité (BIO) du bois :&#x20;
+
+| Elevé | Moyen | Faible |
+| ----- | ----- | ------ |
+| +50%  | +25%  | 0%     |
+
+{% hint style="info" %}
+**En savoir plus**&#x20;
+
+Cet indice est basé sur le [Corruption Perceptions Index](https://www.transparency.org/en/cpi/2023) (CPI) de l'année 2023.&#x20;
+
+Le CPI vise à mesurer les niveaux de corruption perçus dans le secteur public à travers le monde. Cet indice annuel est publié par Transparency International, une organisation non gouvernementale qui lutte contre la corruption.\
+L'indice est basé sur des enquêtes et des évaluations d'experts qui portent sur divers aspects de la corruption, tels que l'abus de pouvoir public à des fins privées, les pots-de-vin, et la détournement de fonds publics.\
+Les pays sont notés sur une échelle de 0 à 100, où 0 signifie un niveau de corruption perçu très élevé et 100 signifie un niveau très faible.
+{% endhint %}
+
+</details>
+
 [^1]: Sist P., 2024. Exploiter durablement les forêts tropicales.    \
     Versailles, éditions Quæ, 100 p.
 

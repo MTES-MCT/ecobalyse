@@ -4,7 +4,7 @@ description: Présentation de la méthode de calcul du complément Biodiversité
 
 # 🌍 Biodiversité x Bois (draft)
 
-<mark style="color:$danger;">Des propositions spécifiques sur cette thématique sont attendus dans le cadre de l'expérimentaiton en cours (jusqu'à juin 2026).</mark> <mark style="color:$danger;">Les éléments présentés ici visent à alimenter la réflexion et ne sont en aucun cas définitifs. Ils présentent une "exploration" faite au niveau d'ecobalyse suitent aux échanges avec les experts en 2025.</mark>&#x20;
+<mark style="color:$danger;">Des propositions spécifiques des parties prenantes sur cette thématique sont attendus dans le cadre de l'expérimentation en cours (fin juin 2026).</mark> <mark style="color:$danger;">Les éléments présentés ici visent à alimenter la réflexion et ne sont en aucun cas définitifs. Ils présentent une "exploration" faite au niveau d'ecobalyse suitent aux échanges avec les experts en 2025.</mark>&#x20;
 
 ## Contexte
 
@@ -127,8 +127,8 @@ Certaines certifications participent à garantir des pratiques sylvicole plus re
 {% hint style="info" %}
 Ces deux certifications partagent les caractéristiques suivantes :&#x20;
 
-* les critères de certification sont spécifiques aux contextes forestiers nationaux et régionaux (une certification dans un pays X n'est pas forcément la même que dans un pays Y). Concrètement, les certifications accordées doivent permettre d’identifier en forêt une valeur ajoutée claire par rapport aux forêts du territoire tout en influençant les pratiques de marché.&#x20;
-* l'objectif premier de ces certifications n'est pas de limiter l'impact sur la biodiversité des pratiques sylvicoles mais d'assurer la viabilité économique des modèles d'exploitation forestière tout en limitant leurs conséquences néfastes sur l'environnement et le social (droit des travailleurs forestiers, consultation des communautés locales, etc.).
+* les critères de certification sont spécifiques aux contextes forestiers nationaux et régionaux (une certification dans un pays X n'est pas forcément la même que dans un pays Y). L'écart entre "pratiques standards" et "forets labelisés" dépend du niveau de reglementation des pays et des critères de chaque zones géographiques. &#x20;
+* l'objectif premier de ces certifications est d'assurer la viabilité économique des modèles d'exploitation forestière, valoriser les bonnes pratiques et limiter les impacts de la sylviculture sur l'environnement et le social (droit des travailleurs forestiers, consultation des communautés locales, etc.).
 * Ces certifications garantissent une "plus value" sociale et environnementale (plus ou moins grande selon les pays) entre la "gestion standard" et la "gestion certifiée", pour un même type de foret. Ces certifications ne renseignent pas sur la richesse "absolue" en biodiversité entre des types de forets très différents (feuillus, résineux, tempérés, tropicales etc.) .&#x20;
 {% endhint %}
 
@@ -148,126 +148,39 @@ Forest Stewardship Council (FSC®) est une organisation non gouvernementale cré
 
 </details>
 
-## Méthodes de calcul
+## 1ere approche proposée - méthode de calcul
 
-#### ICV disponibles et leurs impacts ACV
+#### ICV bois disponibles et leurs impacts ACV
 
-#### &#x20;
+&#x20;Dans la base de données ecoinvent, différents ICV de bois sont disponibles aujourd'hui. Des bois européens (Allemagne, Scandinavie ...) sont disponibles mais pas de bois issus des forêts francaises.  Des bois tropicaux sont égalment fournis par ecoinvent. A noter que par défaut, ecoinvent considère que la foret européenne bénéficie d'une "gestion durable".   <mark style="color:$warning;">(liste complète des bois reste à extraire )</mark>
+
+<figure><img src="../../.gitbook/assets/image (6).png" alt="" width="375"><figcaption></figcaption></figure>
+
+En l'absence de données relatives au bois français dans la base ecoinvent, nous nous appuyons sur les données disponibles pour le bois allemand, dont les conditions sylvicoles sont comparables. L'analyse révèle que c'est l'indicateur [Land Use - LANCA](https://eplca.jrc.ec.europa.eu/uploads/QMS_H08_MonscenReff_del-land-use_FINAL.pdf)  — correspondant à l'occupation des sols et à une forme d'artificialisation des écosystèmes évaluée à partir de la qualité physico-chimique des sols sur une durée donnée — qui constitue la catégorie d'impact dominante. Ce résultat est cohérent avec les caractéristiques propres à la sylviculture : faible recours aux intrants (engrais, pesticides) et consommation limitée de carburant pour les opérations mécanisées. Dans ce contexte, c'est bien l'emprise spatiale dans le temps qui concentre l'essentiel des impacts.
+
+La différence observée entre les essences s'explique par leur dynamique de croissance : l'épicéa, à croissance plus rapide, génère une occupation du sol exprimée en m².an inférieure à celle du hêtre ou du chêne pour produire un volume équivalent d'un mètre cube de bois. Ce gain apparent sur l'indicateur Land Use masque toutefois une limite importante de la méthode : **LANCA ne distingue pas la qualité écologique des différents types de sylviculture**. Qu'il s'agisse d'une forêt diversifiée à régénération naturelle ou d'une plantation monospécifique intensive, l'indicateur leur attribue une valeur identique, sans refléter les différences en termes de biodiversité, de structure forestière ou de résilience écologique.
+
+Si la méthode LANCA permet effectivement de différencier les grands usages du sol — forestier, agricole et urbain —, sa granularité reste insuffisante pour discriminer les pratiques à l'intérieur d'un même type d'usage. Cette limite est majeure en vue de favoriser des approvisionnements en bois issus de gestion forestière durable.
+
+#### Modulation de l'indicateur Land use - Lanca&#x20;
+
+A titre exploratoire, l'équipe ecobalyse propose de moduler l'indicateur LANCA selon le type de gestion forestière.&#x20;
+
+<table><thead><tr><th width="201">Gestion sylvicole</th><th width="226">Complément ("bonus")</th></tr></thead><tbody><tr><td>Foret diversifiée</td><td>25%</td></tr><tr><td>Gestion durable</td><td>0%</td></tr><tr><td>Plantation intensive</td><td>-25%</td></tr><tr><td>Labélisée</td><td>10%</td></tr></tbody></table>
+
+Ainsi, dans le cas d'une "foret diversifiée", à priori favorable en terme de biodiversité (ex : foret de chênes français) ; l'impact LANCA serait réduit de 25%. A contrario, un bois venant d'un système de plantations intensives (ex ecalyptus du Brésil) , reconnu comme néfaste pour la biodiversité verrait sont "Land use" augmenter de 25%.  Ainsi on pourrait avoir ce type de résultats :&#x20;
+
+<figure><img src="../../.gitbook/assets/image (12).png" alt="" width="563"><figcaption></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/image (13).png" alt="" width="563"><figcaption></figcaption></figure>
+
+&#x20;Cette approche et ces coefficients restent à discuter collectivement. La prise en compte des risques liés à certaines importations, aux pratiques illégales pourrait également etre ajoutée dans la modélisation.  &#x20;
 
 
 
-obsolète
 
-$$
-Comp =  \sum Ref(i) * Compo(i) * masse * (1-label)
-$$
 
-Avec :&#x20;
 
-* `Comp` = l'impact environnemental du complément, exprimé en Pt d'impacts
-* `Ref(i)` = l'impact biodiversité de chaque bois (`i`), exprimé en Pt d'impacts / kg&#x20;
-* `Compo(i)` = la part du bois (`i`) entrant dans la composition du meuble, exprimée en % de `masse`
-* `masse` = la masse du meuble, exprimée en kg&#x20;
-* `label` =  l'intérêt d'une certification en terme de biodiversité, exprimé en %&#x20;
-
-{% hint style="info" %}
-1 bois (i) = 1 filière d'approvisionnement = 1 essence (ex : chêne) + 1 origine (ex : France). &#x20;
-{% endhint %}
-
-## Paramètres retenus
-
-### &#x20;`Compo(i)` + `masse`
-
-{% hint style="info" %}
-Afin de couvrir toutes les configurations possibles, deux scénarios non spécifiques à une origine ont été intégrés dans la méthode :&#x20;
-
-* **Origine inconnue** :  s'appliquer lorsque l'utilisateur ne connaît pas l'origine de la forêt ayant fourni le bois. Ce scénario présente des hypothèses majorantes afin d'inciter à plus de traçabilité.&#x20;
-* **Autre origine** : s'appliquer lorsque l'origine du bois n'est pas proposée. Ce scénario reflète le fait que ce bois n'est pas concerné par une filière d'approvisionnement à risque.&#x20;
-{% endhint %}
-
-Ces deux paramètres sont facilement intelligibles (cf. formule de calcul) et ne nécessitent pas d'informations additionnelles.
-
-`Ref(i)`&#x20;
-
-Ce paramètre reflète l'impact biodiversité (ref) d'un bois (i). Cet impact s'exprime en points d'impacts par kg de bois (Pt / kg de bois).
-
-#### Détails du calcul
-
-Ref(i) est calculé à partir de deux variables :&#x20;
-
-* un coefficient de Gestion forestière (GF) exprimé en points d'impacts par kg de bois,
-* &#x20;un Indice de corruption (IC) exprimé en %.
-
-<details>
-
-<summary>Coefficient de Gestion Forestière (GF)</summary>
-
-_Unité = Points d'impact / kg de bois_
-
-Ce paramètre caractérise l'impact sur la biodiversité de différents modes de gestion forestière.&#x20;
-
-3 catégories de gestion forestière sont proposés :&#x20;
-
-* Intensive = 10 Pts d'impact / kg de bois
-* Mitigée = 5 Pts d'impact / kg de bois
-* Raisonnée = 0 Pts d'impact / kg de bois
-
-{% hint style="info" %}
-**En savoir plus**
-
-Pour chaque filière d'approvisionnement (ex : Bois tropical \_ Asie du Sud-Est), un mode de gestion forestière par défaut est appliqué (ex : _Mitigée_ pour les résineux en provenance d'Europe de l'Ouest). Ces scénarios visent à différencier différentes filières d'approvisionnement selon leur niveau de risque d'un point de vue gestion forestière <⇒ biodiversité.&#x20;
-
-Les valeurs par défaut se basent sur l'état de l'art compilé par Ecobalyse dans le cadre des travaux menés sur le premier semestre 2025. Concrètement, le mode de gestion forestière appliqué par défaut vise à distinguer les pratiques intensives (ex : forêts de plantation) de pratiques raisonnées (ex : futaire irrégulière). Effectivement, un lien direct existe entre le mode de gestion forestière et la biodiversité au sein de tous les compartiments de l'ecosystème. &#x20;
-
-Les principales sources utilisées pour estimer ces paramètre par origine sont :&#x20;
-
-* des outils d'imagerie satellitaire permettant d'identifier les régions sylvicoles proposant une exploitation intensive des forêts ([carte 1](https://gfw.global/4kZ6RaB) de gains et pertes de couvert forestier entre 2000 et 2020 / [carte 2](https://gfw.global/41N4ujO) présentant les forêts de plantation),
-* des ressources bibliographiques permettant de mieux comprendre les régions sylvicoles à risque concernant leur gestion des forêts,
-* des entretiens et ateliers avec les filières Ameublement et Bois/Forêt (ex : atelier Sylviculture du 30/01/2025; support accessible [ici](https://miro.com/app/board/uXjVLn9pEjg=/?share_link_id=467200481479)).
-{% endhint %}
-
-</details>
-
-<details>
-
-<summary>Indice Corruption (IC) </summary>
-
-_Unité = % (majoration de GF de +x%)_&#x20;
-
-Le niveau de corruption d'une zone géographique spécifique renforce le risque de pratiques forestières néfastes pour les écosystèmes.&#x20;
-
-Pour approfondir ce constat voici deux sources d'intérêt (non exhaustif) :\
-(i) _règlement UE 2023/1115 relatif aux produits "zéro déforestation",_ \
-(ii) _WWF  Evaluation de la mise en oeuvre du RBUE  fiche d'évaluation pays : France_),\
-(iii) une étude de l'Africa Center (organisme américain) sur le bassin du Congo (accessible [ici](https://africacenter.org/fr/spotlight/lexploitation-forestiere-illegale-en-afrique-et-ses-implications-en-matiere-de-securite/)).
-
-Ce paramètre vise donc à refléter les risques accrus en terme de biodiversité associés à des bois issus de zones soumises à des niveaux importants de corruption.&#x20;
-
-&#x20;Le niveau de corruption est estimé grâce au _Corruption Perception Index (score CPI)_ développé par Transparency International (cf. ci-dessous).
-
-3 niveaux de corruption sont proposés :&#x20;
-
-* Elevé (score CPI inférieur à 30)
-* Moyen (score CPI entre 30 et 59)
-* Faible (score CP au moins égal à 60)
-
-Pour chaque niveau, un **coefficient de corruption (COR)** est appliqué; ce dernier vient préciser l'impact Biodiversité (BIO) du bois :&#x20;
-
-| Elevé | Moyen | Faible |
-| ----- | ----- | ------ |
-| +50%  | +25%  | 0%     |
-
-{% hint style="info" %}
-**En savoir plus**&#x20;
-
-Cet indice est basé sur le [Corruption Perceptions Index](https://www.transparency.org/en/cpi/2023) (CPI) de l'année 2023.&#x20;
-
-Le CPI vise à mesurer les niveaux de corruption perçus dans le secteur public à travers le monde. Cet indice annuel est publié par Transparency International, une organisation non gouvernementale qui lutte contre la corruption.\
-L'indice est basé sur des enquêtes et des évaluations d'experts qui portent sur divers aspects de la corruption, tels que l'abus de pouvoir public à des fins privées, les pots-de-vin, et la détournement de fonds publics.\
-Les pays sont notés sur une échelle de 0 à 100, où 0 signifie un niveau de corruption perçu très élevé et 100 signifie un niveau très faible.
-{% endhint %}
-
-</details>
 
 {% hint style="info" %}
 **Pourquoi utiliser un tel système de bonus/malus dans une approche quantitative ?**
