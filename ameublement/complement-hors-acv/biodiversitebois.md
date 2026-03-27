@@ -174,9 +174,44 @@ Ainsi, dans le cas d'une "foret diversifiée", à priori favorable en terme de b
 
 <figure><img src="../../.gitbook/assets/image (13).png" alt="" width="563"><figcaption></figcaption></figure>
 
-&#x20;Cette approche et ces coefficients restent à discuter collectivement. La prise en compte des risques liés à certaines importations, aux pratiques illégales pourrait également etre ajoutée dans la modélisation.  &#x20;
+Cette approche et ces coefficients restent à discuter collectivement.&#x20;
+
+La prise en compte des risques liés à certaines importations et aux pratiques illégales pourrait également être ajoutée dans la modélisation du/des compléments.  &#x20;
+
+<details>
+
+<summary>Exploration Indice Corruption (IC) </summary>
+
+Le niveau de corruption d'une zone géographique spécifique renforce le risque de pratiques forestières néfastes pour les écosystèmes.&#x20;
+
+Pour approfondir ce constat voici deux sources d'intérêt (non exhaustif) :\
+(i) _règlement UE 2023/1115 relatif aux produits "zéro déforestation",_ \
+(ii) _WWF  Evaluation de la mise en oeuvre du RBUE  fiche d'évaluation pays : France_),\
+(iii) une étude de l'Africa Center (organisme américain) sur le bassin du Congo (accessible [ici](https://africacenter.org/fr/spotlight/lexploitation-forestiere-illegale-en-afrique-et-ses-implications-en-matiere-de-securite/)).
+
+Ce paramètre pourraot refléter les risques accrus en terme de biodiversité associés à des bois issus de zones soumises à des niveaux importants de corruption.&#x20;
+
+&#x20;Le niveau de corruption peut être estimé grâce au _Corruption Perception Index (score CPI)_ développé par Transparency International (cf. ci-dessous).
+
+3 niveaux de corruption sont proposés :&#x20;
+
+* Elevé (score CPI inférieur à 30)
+* Moyen (score CPI entre 30 et 59)
+* Faible (score CP au moins égal à 60)
+
+{% hint style="info" %}
+**En savoir plus**&#x20;
+
+Cet indice est basé sur le [Corruption Perceptions Index](https://www.transparency.org/en/cpi/2023) (CPI) de l'année 2023.&#x20;
+
+Le CPI vise à mesurer les niveaux de corruption perçus dans le secteur public à travers le monde. Cet indice annuel est publié par Transparency International, une organisation non gouvernementale qui lutte contre la corruption.\
+L'indice est basé sur des enquêtes et des évaluations d'experts qui portent sur divers aspects de la corruption, tels que l'abus de pouvoir public à des fins privées, les pots-de-vin, et la détournement de fonds publics.\
+Les pays sont notés sur une échelle de 0 à 100, où 0 signifie un niveau de corruption perçu très élevé et 100 signifie un niveau très faible.
+{% endhint %}
 
 
+
+</details>
 
 
 
