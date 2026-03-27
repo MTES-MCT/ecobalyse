@@ -4,19 +4,21 @@ description: Présentation de la méthode de calcul du complément Biodiversité
 
 # 🌍 Biodiversité x Bois (draft)
 
-<mark style="color:$danger;">Cette page est en cours de mise à jour</mark>
+<mark style="color:$danger;">Des propositions spécifiques sur cette thématique sont attendus dans le cadre de l'expérimentaiton en cours (jusqu'à juin 2026).</mark> <mark style="color:$danger;">Les éléments présentés ici visent à alimenter la réflexion et ne sont en aucun cas définitifs. Ils présentent une "exploration" faite au niveau d'ecobalyse suitent aux échanges avec les experts en 2025.</mark>&#x20;
 
 ## Contexte
 
-Ce complément est introduit afin d'intégrer dans le coût environnemental des meubles l'impact sur la biodiversité de pratiques forestières participant à la dégradation des forêts.&#x20;
+Un complément a été introduit afin de mieux refléter dans le coût environnemental des meubles la variabilité des pratiques sylivicoles, au regard de leurs effets sur la biodiversité notament.&#x20;
 
-De manière plus précise, trois raisons expliquent la nécessité de proposer ce complément :&#x20;
+De manière plus précise, trois raisons expliquent la nécessité de proposer un complément :&#x20;
 
 <details>
 
 <summary><strong>1)  Le cadre méthodologique ACV est limité</strong></summary>
 
 Le cadre de l'analyse de cycle de vie (ACV) ne permet pas, à date, de différencier l'impact sur la biodiversité locale de différentes pratiques forestières. En effet les impacts sur la biodiversité sont quantifiés de manière incomplète avec les 16 indicateurs PEF existants. Ceux ci permettent principalement de couvrir les pressions globales pesant sur la biodiversité (ex: changement climatique, eutrophisation, artificalisation des terres...). Cependant les indicateurs actuels ne permettent pas de tenir compte de la composition des peuplements forestiers, de l'effet des coupes rases, du tassement du sol ou encore de la présence de bois mort dans les parcelles par exemple. Des travaux de recherche sont en cours afin d'améliorer les méthodes via l'intégration de nouveaux indicateurs (ex : EF4.0 et GLAM). En attendant la maturité scientifique et technique de ces outils, les compléments apportent une approche simple et pragmatique pour couvrir ces enjeux incontournables.&#x20;
+
+En l'abscence de ces éléments, nous pourrions laisser penser que "tous les bois se valent" au niveau environnemental, ce qui n'est pas en phase avec les connaissances scientifiques et affecterai la crédibilité de l'affichage environnemental.&#x20;
 
 </details>
 
@@ -38,7 +40,7 @@ _Source : Règlement européen du 31 mai 2023 relatif à la déforestation impor
 
 <summary>3) <strong>Le marché français : un débouché clé pour les filières bois</strong> </summary>
 
-Plusieurs secteurs d'activité français (ameublement, construction, jouets, etc.) constituent un débouché pour les filières bois. L'Ameublement est un contributeur significatif de la consommation française de bois. Tout bois utilisé sur ce secteur peut provenir de forêts participant à leur dégradation ("gestion intensive").&#x20;
+Plusieurs secteurs d'activité français (ameublement, construction, jouets, etc.) constituent un débouché pour les filières bois. L'Ameublement est un contributeur significatif de la consommation française de bois. Le bois utilisé sur ce secteur peut provenir de forêts avec une "gestion durable" mais aussi de "forets dégradées" en terme de biodiversité. &#x20;
 
 Concernant la déforestation, quelques approvisionnements en bois d'ameublement peuvent être concernés. Cependant il est à noter que la principale cause de déforestation à l'échelle mondiale est l'expansion de l'agriculture à hauteur de 90% (source[^2]).&#x20;
 
@@ -50,7 +52,28 @@ _Source : Règlement européen du 31 mai 2023 relatif à la déforestation impor
 
 </details>
 
+<details>
 
+<summary><strong>4) Approvisionnement en bois de l'ameublement français, types de bois et imports</strong></summary>
+
+La majorité du bois d'ameublement est importé (c. 67% du volume consommé en 2019).
+
+Parmi ces importations :&#x20;
+
+* près de la moitié concernent des achats directs de meubles,
+* près d'un-tiers concernent des panneaux,
+* le reste étant du bois d'oeuvre (majoritairement feuillus)
+
+:bulb: Remonter à l'origine de la forêt pour les bois d'ameublement est difficile pour la majorité des metteurs sur le marché. Dès lors, proposer des scénarios par défaut permet d'intégrer dans le coût environnemental les enjeux biodiversité liés aux pratiques forestières les plus probables pour chaque bois. Pour un metteur de marché maîtrisant la traçabilité de son bois, le dispositif d'affichage environnemental est construit de telle sorte qu'il lui sera possible de préciser ces pratiques forestières, et donc l'impact du complément..&#x20;
+
+![](<../../.gitbook/assets/Consommation de bois _ secteur Ameublement (2019) (4).png>)
+
+Principales sources utilisées pour ces statistiques :&#x20;
+
+* Etude Carbone 4 \_ [Scénario de convergence de filière](https://www.carbone4.com/article-scenario-carbone-foret-bois) (Décembre 2023)
+* Données de la filère Bois-Ameublement
+
+</details>
 
 <details>
 
@@ -97,9 +120,43 @@ Dégradation des forêts : les modifications structurelles apportées au couvert
 {% endtab %}
 {% endtabs %}
 
+### Labels environnementaux&#x20;
 
+Certaines certifications participent à garantir des pratiques sylvicole plus respectueuse des écosystèmes à l'échelle du pays où le bois est prélevé. Les certifications les plus courrantes et reconnues sont actuellement PEFC et FSC.&#x20;
+
+{% hint style="info" %}
+Ces deux certifications partagent les caractéristiques suivantes :&#x20;
+
+* les critères de certification sont spécifiques aux contextes forestiers nationaux et régionaux (une certification dans un pays X n'est pas forcément la même que dans un pays Y). Concrètement, les certifications accordées doivent permettre d’identifier en forêt une valeur ajoutée claire par rapport aux forêts du territoire tout en influençant les pratiques de marché.&#x20;
+* l'objectif premier de ces certifications n'est pas de limiter l'impact sur la biodiversité des pratiques sylvicoles mais d'assurer la viabilité économique des modèles d'exploitation forestière tout en limitant leurs conséquences néfastes sur l'environnement et le social (droit des travailleurs forestiers, consultation des communautés locales, etc.).
+* Ces certifications garantissent une "plus value" sociale et environnementale (plus ou moins grande selon les pays) entre la "gestion standard" et la "gestion certifiée", pour un même type de foret. Ces certifications ne renseignent pas sur la richesse "absolue" en biodiversité entre des types de forets très différents (feuillus, résineux, tempérés, tropicales etc.) .&#x20;
+{% endhint %}
+
+<details>
+
+<summary>En savoir plus sur le label PEFC</summary>
+
+Créé en 1999 par des propriétaires forestiers européens, le label PEFC (Programme for the Endorsement of Forest Certification) rassemble aujourd’hui les acteurs de la filière bois de près de 50 pays désireux de s’engager en faveur d'une gestion raisonnée et durable de la forêt.
+
+</details>
+
+<details>
+
+<summary>En savoir plus sur le label FSC</summary>
+
+Forest Stewardship Council (FSC®) est une organisation non gouvernementale créée en 1993 par la volonté d’un groupe d’entreprises, d’associations environnementales et de représentants des droits sociaux.&#x20;
+
+</details>
 
 ## Méthodes de calcul
+
+#### ICV disponibles et leurs impacts ACV
+
+#### &#x20;
+
+
+
+obsolète
 
 $$
 Comp =  \sum Ref(i) * Compo(i) * masse * (1-label)
@@ -120,6 +177,13 @@ Avec :&#x20;
 ## Paramètres retenus
 
 ### &#x20;`Compo(i)` + `masse`
+
+{% hint style="info" %}
+Afin de couvrir toutes les configurations possibles, deux scénarios non spécifiques à une origine ont été intégrés dans la méthode :&#x20;
+
+* **Origine inconnue** :  s'appliquer lorsque l'utilisateur ne connaît pas l'origine de la forêt ayant fourni le bois. Ce scénario présente des hypothèses majorantes afin d'inciter à plus de traçabilité.&#x20;
+* **Autre origine** : s'appliquer lorsque l'origine du bois n'est pas proposée. Ce scénario reflète le fait que ce bois n'est pas concerné par une filière d'approvisionnement à risque.&#x20;
+{% endhint %}
 
 Ces deux paramètres sont facilement intelligibles (cf. formule de calcul) et ne nécessitent pas d'informations additionnelles.
 
@@ -184,9 +248,7 @@ Ce paramètre vise donc à refléter les risques accrus en terme de biodiversit�
 3 niveaux de corruption sont proposés :&#x20;
 
 * Elevé (score CPI inférieur à 30)
-
-- Moyen (score CPI entre 30 et 59)
-
+* Moyen (score CPI entre 30 et 59)
 * Faible (score CP au moins égal à 60)
 
 Pour chaque niveau, un **coefficient de corruption (COR)** est appliqué; ce dernier vient préciser l'impact Biodiversité (BIO) du bois :&#x20;
@@ -204,74 +266,6 @@ Le CPI vise à mesurer les niveaux de corruption perçus dans le secteur public 
 L'indice est basé sur des enquêtes et des évaluations d'experts qui portent sur divers aspects de la corruption, tels que l'abus de pouvoir public à des fins privées, les pots-de-vin, et la détournement de fonds publics.\
 Les pays sont notés sur une échelle de 0 à 100, où 0 signifie un niveau de corruption perçu très élevé et 100 signifie un niveau très faible.
 {% endhint %}
-
-</details>
-
-#### Liste des bois disponibles (i) et de leurs impacts biodiversité (Ref)&#x20;
-
-<mark style="color:orange;">En cours d'adaptation.</mark>&#x20;
-
-<details>
-
-<summary>Plus d'info sur les filières d'approvisionnement bois de l'ameublement français</summary>
-
-La majorité du bois d'ameublement est importé (c. 67% du volume consommé en 2019).
-
-Parmi ces importations :&#x20;
-
-* près de la moitié concernent des achats directs de meubles,
-* près d'un-tiers concernent des panneaux,
-* le reste étant du bois d'oeuvre (majoritairement feuillus)
-
-:bulb: Remonter à l'origine de la forêt pour les bois d'ameublement est difficile pour la majorité des metteurs sur le marché. Dès lors, proposer des scénarios par défaut permet d'intégrer dans le coût environnemental les enjeux biodiversité liés aux pratiques forestières les plus probables pour chaque bois. Pour un metteur de marché maîtrisant la traçabilité de son bois, le dispositif d'affichage environnemental est construit de telle sorte qu'il lui sera possible de préciser ces pratiques forestières, et donc l'impact du complément..&#x20;
-
-![](<../../.gitbook/assets/Consommation de bois _ secteur Ameublement (2019) (4).png>)
-
-Principales sources utilisées pour ces statistiques :&#x20;
-
-* Etude Carbone 4 \_ [Scénario de convergence de filière](https://www.carbone4.com/article-scenario-carbone-foret-bois) (Décembre 2023)
-* Données de la filère Bois-Ameublement
-
-</details>
-
-{% hint style="info" %}
-Afin de couvrir toutes les configurations possibles, deux scénarios non spécifiques à une origine ont été intégrés dans la méthode :&#x20;
-
-* **Origine inconnue** :  s'appliquer lorsque l'utilisateur ne connaît pas l'origine de la forêt ayant fourni le bois. Ce scénario présente des hypothèses majorantes afin d'inciter à plus de traçabilité.&#x20;
-* **Autre origine** : s'appliquer lorsque l'origine du bois n'est pas proposée. Ce scénario reflète le fait que ce bois n'est pas concerné par une filière d'approvisionnement à risque.&#x20;
-{% endhint %}
-
-`label`&#x20;
-
-Certaines certifications participent à garantir des pratiques sylvicole plus respectueuse des écosystèmes à l'échelle du pays où le bois est prélevé.&#x20;
-
-L'obtention d'une telle certification permet de préciser le complément en réduisant son impact de _-50%_.
-
-Certifications acceptées :&#x20;
-
-* PEFC
-* FSC
-
-{% hint style="info" %}
-Ces deux certifications partagent les caractéristiques suivantes :&#x20;
-
-* les critères de certification sont spécifiques aux contextes forestiers nationaux et régionaux (une certification dans un pays X n'est pas forcément la même que dans un pays Y). Concrètement, les certifications accordées doivent permettre d’identifier en forêt une valeur ajoutée claire par rapport aux forêts du territoire tout en influançant les pratiques de marché.&#x20;
-* l'objectif premier de ces certifications n'est pas de limiter l'impact sur la biodiversité des pratiques sylvicoles mais d'assurer la viabilité économique des modèles d'exploitation forestière tout en limitant leurs conséquences néfastes sur l'environnement et le social (droit des travailleurs forestiers, consultation des communautés locales, etc.).
-{% endhint %}
-
-<details>
-
-<summary>En savoir plus sur le label PEFC</summary>
-
-Créé en 1999 par des propriétaires forestiers européens, le label PEFC (Programme for the Endorsement of Forest Certification) rassemble aujourd’hui les acteurs de la filière bois de près de 50 pays désireux de s’engager en faveur d'une gestion raisonnée et durable de la forêt.
-
-</details>
-
-<details>
-
-<summary>En savoir plus sur le label FSC</summary>
-
-Forest Stewardship Council (FSC®) est une organisation non gouvernementale créée en 1993 par la volonté d’un groupe d’entreprises, d’associations environnementales et de représentants des droits sociaux.&#x20;
 
 </details>
 
