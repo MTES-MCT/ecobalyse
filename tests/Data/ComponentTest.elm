@@ -1030,15 +1030,17 @@ suite =
                                 |> expectResultErrorContains "Aucun composant avec id="
                             )
                         ]
-                    , TestUtils.suiteFromResult3 "validateQuery"
+                    , TestUtils.suiteFromResult4 "validateQuery"
                         -- Non-existing process
                         (Process.idFromString "5fad4e70-5736-552d-a686-97e4fb627c37")
                         -- Steel process
                         steel
                         -- Sawing process
                         sawing
+                        -- Dry distribution process
+                        dryDistribution
                         -- Tests
-                        (\nonExistingProcessId steelProcess sawingProcess ->
+                        (\nonExistingProcessId steelProcess sawingProcess dryDistributionProcess ->
                             [ describe "amount validation"
                                 [ it "should reject a non-positive amount" <|
                                     (Component.emptyQuery
@@ -1053,6 +1055,46 @@ suite =
                                            )
                                         |> Component.validateQuery { requirements | scope = Scope.Generic Scope.Food2 }
                                         |> expectResultErrorContains "Une quantité doit être supérieure ou égale à zéro"
+                                    )
+                                ]
+                            , describe "distribution validation"
+                                [ it "should accept a distribution process" <|
+                                    (Component.emptyQuery
+                                        |> Component.updateDistribution (Just dryDistributionProcess.id)
+                                        |> Component.validateQuery requirements
+                                        |> Expect.ok
+                                    )
+                                , it "should reject a distribution referencing a missing process" <|
+                                    (Component.emptyQuery
+                                        |> Component.updateDistribution (Just nonExistingProcessId)
+                                        |> Component.validateQuery requirements
+                                        |> expectResultErrorContains "Procédé introuvable par id"
+                                    )
+                                , it "should reject a distribution referencing a process that is not a distribution" <|
+                                    (Component.emptyQuery
+                                        |> Component.updateDistribution (Just sawingProcess.id)
+                                        |> Component.validateQuery requirements
+                                        |> expectResultErrorContains "Le procédé n'est pas une distribution"
+                                    )
+                                , it "should reject a distribution referencing a process that does not accept a volume" <|
+                                    (Component.emptyQuery
+                                        |> Component.updateDistribution (Just dryDistributionProcess.id)
+                                        |> Component.validateQuery
+                                            (requirements
+                                                |> updateRequirementsProcess dryDistributionProcess
+                                                    (\p -> { p | unit = Process.SquareMeter })
+                                            )
+                                        |> expectResultErrorContains "Le procédé de distribution doit accepter un volume"
+                                    )
+                                , it "should reject a distribution referencing a process with the wrong scope" <|
+                                    (Component.emptyQuery
+                                        |> Component.updateDistribution (Just dryDistributionProcess.id)
+                                        |> Component.validateQuery
+                                            (requirements
+                                                |> updateRequirementsProcess dryDistributionProcess
+                                                    (\p -> { p | scopes = [] })
+                                            )
+                                        |> expectResultErrorContains ("Le procédé n'est pas disponible pour le périmètre " ++ Scope.toLabel (Scope.Generic Scope.Object))
                                     )
                                 ]
                             , describe "durability validation"
@@ -1278,6 +1320,7 @@ setupTestDb db =
             RE.combine
                 [ steel
                 , injectionMoulding
+                , dryDistribution
                 , lowVoltageElec
                 , wood
                 , plastic
@@ -1299,6 +1342,25 @@ setupTestDb db =
         |> RE.andMap componentFixtures
         |> RE.andMap processFixtures
         |> Result.withDefault db
+
+
+updateRequirementsProcess : Process -> (Process -> Process) -> Requirements db -> Requirements db
+updateRequirementsProcess process fn ({ db } as requirements) =
+    { requirements
+        | db =
+            { db
+                | processes =
+                    requirements.db.processes
+                        |> List.map
+                            (\p ->
+                                if p.id == process.id then
+                                    fn p
+
+                                else
+                                    p
+                            )
+            }
+    }
 
 
 
@@ -1388,6 +1450,56 @@ sofaFabric =
 
 
 -- 2. Processes
+
+
+dryDistribution : Result String Process
+dryDistribution =
+    decodeJson (Process.decode Impact.decodeImpacts) <|
+        """ {
+            "activityName": "This process is not linked to a Brightway activity",
+            "categories": [
+                "distribution"
+            ],
+            "comment": "Blah",
+            "displayName": "Vente au détail\u{202F}: produit sec",
+            "elecMJ": 443.09,
+            "heatMJ": 0,
+            "id": "29118025-efa0-47bb-94e2-f5ccba31a903",
+            "impacts": {
+                "acd": 0,
+                "cch": 0,
+                "ecs": 0,
+                "etf": 0,
+                "etf-c": 0,
+                "fru": 0,
+                "fwe": 0,
+                "htc": 0,
+                "htc-c": 0,
+                "htn": 0,
+                "htn-c": 0,
+                "ior": 0,
+                "ldu": 0,
+                "mru": 0,
+                "ozd": 0,
+                "pco": 0,
+                "pma": 0,
+                "swe": 0,
+                "tre": 0,
+                "wtu": 0
+            },
+            "landOccupation": null,
+            "location": null,
+            "massPerUnit": null,
+            "metadata": null,
+            "scopes": [
+                "food2",
+                "object"
+            ],
+            "source": "Custom",
+            "unit": "m3",
+            "waste": 0
+        }
+        """
 
 
 injectionMoulding : Result String Process

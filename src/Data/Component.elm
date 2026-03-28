@@ -89,6 +89,7 @@ module Data.Component exposing
     , toSearchableString
     , tryMapItems
     , updateConsumptionAmount
+    , updateDistribution
     , updateDurability
     , updateElement
     , updateElementAmount
@@ -1821,6 +1822,11 @@ updateConsumptionAmount index amount query =
     }
 
 
+updateDistribution : Maybe Process.Id -> Query -> Query
+updateDistribution maybeProcessId query =
+    { query | distribution = maybeProcessId }
+
+
 updateCustom : Component -> (Custom -> Custom) -> Maybe Custom -> Maybe Custom
 updateCustom component fn maybeCustom =
     case maybeCustom of
@@ -1926,9 +1932,22 @@ validateDistribution : Requirements db -> Maybe Process.Id -> Result String (May
 validateDistribution { db, scope } maybeProcessId =
     case maybeProcessId of
         Just processId ->
-            processId
-                |> Process.validateForScope db.processes scope
-                |> Result.map Just
+            case Process.findById processId db.processes of
+                Err err ->
+                    Err err
+
+                Ok process ->
+                    if not <| List.member Category.Distribution process.categories then
+                        Err "Le procédé n'est pas une distribution"
+
+                    else if process.unit /= Process.CubicMeter then
+                        Err "Le procédé de distribution doit accepter un volume"
+
+                    else if not <| List.member scope process.scopes then
+                        Err <| "Le procédé n'est pas disponible pour le périmètre " ++ Scope.toLabel scope
+
+                    else
+                        Ok (Just processId)
 
         Nothing ->
             Ok Nothing
