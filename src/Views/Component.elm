@@ -922,12 +922,9 @@ distributionView { componentConfig, db, impact, lifeCycle, query, scope, updateD
                 [ value (Process.idToString process.id)
                 , selected <|
                     List.member (Just process.id)
-                        [ case componentConfig.distribution.defaultProcess |> Scope.dictGet scope of
-                            Just (Just defaultProcess) ->
-                                Just defaultProcess.id
-
-                            _ ->
-                                Nothing
+                        [ componentConfig.distribution.defaultProcess
+                            |> Scope.dictGetMaybe scope
+                            |> Maybe.map .id
                         , query.distribution
                         ]
                 ]

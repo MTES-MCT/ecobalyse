@@ -549,12 +549,10 @@ computeVolumeFromMass =
 
 
 computeDistributionImpacts : Requirements db -> Query -> LifeCycle -> Result String LifeCycle
-computeDistributionImpacts requirements query ({ distribution } as lifeCycle) =
+computeDistributionImpacts requirements query ({ distribution, production } as lifeCycle) =
     let
         finalProductVolume =
-            lifeCycle.production
-                |> extractMass
-                |> computeVolumeFromMass
+            computeVolumeFromMass <| extractMass production
     in
     case getDistributionProcess requirements query.distribution of
         Err (DistributionGenericError errorMessage) ->
@@ -1417,14 +1415,9 @@ getDistributionProcess { config, db, scope } maybeDistribution =
 
         -- No distribution process specified, use the default scoped process if available
         Nothing ->
-            case Scope.dictGet scope config.distribution.defaultProcess of
-                -- Config is available for the current scope and provides a default process
-                Just (Just defaultProcess) ->
-                    Ok defaultProcess
-
-                -- No default process usable for current scope
-                _ ->
-                    Err DistributionNothingAvailable
+            config.distribution.defaultProcess
+                |> Scope.dictGetMaybe scope
+                |> Result.fromMaybe DistributionNothingAvailable
 
 
 getEndOfLifeDetailedImpacts : Requirements db -> Results -> DetailedEndOfLifeImpacts
