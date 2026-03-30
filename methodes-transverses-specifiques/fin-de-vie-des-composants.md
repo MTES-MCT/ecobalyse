@@ -23,7 +23,7 @@ Les scénarios de fin de vie d'un produit peuvent être définis avec ces deux c
 
 Le schéma ci-dessous montre les scénarios possibles de fin de vie :
 
-<figure><img src="../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Le recyclage des matériaux
 
@@ -33,8 +33,12 @@ Si le produit est collecté et recyclable, les matériaux sont recyclés, incin�
 
 ## Méthode de calcul
 
+{% hint style="warning" %}
+La méthode CFF décrite ci-dessous est en cours de déploiement.
+{% endhint %}
+
 {% hint style="info" %}
-La méthode décrite ci-dessous est la méthode cut-off. La méthode CFF est en cours de déploiement&#x20;
+Le détail des calculs avec paramètres et procédés appliqué est disponible en téléchargeant le fichier suivant :&#x20;
 {% endhint %}
 
 {% tabs %}
@@ -50,11 +54,11 @@ $$
 Impact des scénarios en fin de vie (FS = Filière spécifique / HF = Hors filière)
 
 $$
-I_{EoL,FS}=\sum_i m_i*(R_{FS,Inc,i}*I_{EoL,incineration,i}+(1-R_{FS,Rec,i}-R_{S,Inc,i})*I_{EoL,landfill,i})
+I_{EoL,FS,i}=m_i*TC*r_p*\Big(R_{FS,rec,i}*I_{EoL,rec,i}+R_{FS,inc,i}*I_{EoL,inc,i}+(1-R_{FS,rec,i}-R_{S,inc,i})*I_{EoL,lan,i}\Big)
 $$
 
 $$
-I_{EoL,HF}=(1-TC*r_p-TE)*\sum_i m_i*(R_{HF,Inc,i}*I_{EoL,incineration,i}+(1-R_{HF,Rec,i}-R_{HF,Inc,i})*I_{EoL,landfill,i})
+I_{EoL,HF,i}=m_i*(1-TC*r_p)*\Big(R_{HF,rec,i}*I_{EoL,rec,i}+R_{HF,inc,i}*I_{EoL,inc,i}+(1-R_{HF,rec,i}-R_{S,inc,i})*I_{EoL,lan,i}\Big)
 $$
 {% endtab %}
 {% endtabs %}
@@ -71,10 +75,13 @@ Niveau 0 :
 `I_EoL,FS,i` et `I_EoL,HF,i` sont indiqués dans la calculette Ecobalyse pour chaque type de matériau i
 {% endhint %}
 
+<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
 Niveau 1 :
 
 * `m_i` : la masse relative au type de matériaux `i` dans le produit, en kg
 * `TC` : le taux de collecte des produits, en %
+* `r_p` : la recyclabilité produit, égale à 1 (produit recyclable, avec filière dédiée) ou 0 (pas de filière dédiée)
 * `R_FS,Rec,i` : la part de recyclage du matériau (i) lorsque le produit est collecté et recyclable
 * `R_FS,Inc,i` : la part d'incinération du matériau (i) lorsque le produit est collecté et recyclable
 * `R_HF,Rec,i` : la part de recyclage du matériau (i) lorsque le produit n'est pas collecté ou pas recyclable (fin de vie déchets divers)
@@ -102,15 +109,15 @@ La recyclabilité de chaque produit est définie selon des règles spécifiques 
 
 Un taux de collecte pour export de 0% est appliqué par défaut pour l'ensemble des produits, sauf mention explicite contraire dans les pages sectorielles.
 
-### Taux de recyclage, d'incinération et de mise en décharge `R_S,Rec`, `R_S,Inc,i`, `R_D,Rec,i`, `R_D,Rec,i`
+### Taux de recyclage, d'incinération et de mise en décharge `R_FS,rec`, `R_FS,inc,i`, `R_HF,rec,i`, `R_HF,inc,i`
 
 {% tabs %}
 {% tab title="Scénario "Filière Spécifique"" %}
-Ces paramètres sont définis secteur par secteur dans les pages Fin de vie sectorielles.
+Ces paramètres sont appliqués pour les produits collectés et traité dans une filière spécifique. A ce jour les paramètres sont communs à tous les secteurs. Ils ont vocation à être définis définis secteur par secteur et seront alors indiqués dans les pages Fin de vie sectorielles.
 
-{% hint style="warning" %}
-Dans la première version de la modélisation de la fin de vie, les données Ameublement sont utilisées pour les secteurs "Objets" et "Véhicules". Voir [page sectorielle Fin de vie Ameublement](https://fabrique-numerique.gitbook.io/ecobalyse/ameublement/cycle-de-vie/etape-4-fin-de-vie-ameublement)
-{% endhint %}
+Voir [page sectorielle Fin de vie Ameublement](https://fabrique-numerique.gitbook.io/ecobalyse/ameublement/cycle-de-vie/etape-4-fin-de-vie-ameublement), avec à ce jour les même données.
+
+<table><thead><tr><th width="188.9000244140625">Type de matériau i</th><th width="153.10003662109375">Taux de recyclage R_FS,rec,i</th><th width="143.199951171875">Taux d'incinération R_FS,inc,i</th><th width="168.4000244140625">Taux d'enfouissement</th></tr></thead><tbody><tr><td>Métaux ferreux</td><td>100%</td><td>0%</td><td>0%</td></tr><tr><td>Aluminium</td><td>100%</td><td>0%</td><td>0%</td></tr><tr><td>Cuivre</td><td>100%</td><td>0%</td><td>0%</td></tr><tr><td>Bois</td><td>69%</td><td>31%</td><td>0%</td></tr><tr><td>Emballage carton</td><td>85%</td><td>11%</td><td>4%</td></tr><tr><td>Verre</td><td>80%</td><td>20%</td><td>0%</td></tr><tr><td>Caoutchouc</td><td>4%</td><td>94%</td><td>2%</td></tr><tr><td>Composites</td><td>0%</td><td>82%</td><td>18%</td></tr><tr><td>PET</td><td>92%</td><td>8%</td><td>0%</td></tr><tr><td>PP</td><td>92%</td><td>8%</td><td>0%</td></tr><tr><td>PEHD</td><td>92%</td><td>8%</td><td>0%</td></tr><tr><td>PEBD</td><td>7%</td><td>68%</td><td>25%</td></tr><tr><td>Plastiques rigides</td><td>41%</td><td>35%</td><td>24%</td></tr><tr><td>PUR</td><td>4%</td><td>94%</td><td>2%</td></tr><tr><td>Fibres synthétiques</td><td>27%</td><td>52%</td><td>21%</td></tr><tr><td>Fibres organiques</td><td>27%</td><td>52%</td><td>21%</td></tr><tr><td>Carte de circuit imprimé</td><td>100%</td><td>0%</td><td>0%</td></tr><tr><td>Cellule de batteries</td><td>100%</td><td>0%</td><td>0%</td></tr></tbody></table>
 {% endtab %}
 
 {% tab title="Scénario "Hors filière"" %}
@@ -133,7 +140,11 @@ Les procédés utilisés sont identifiés dans l'Explorateur de procédé.&#x20;
 
 Ils sont également détaillés ci-dessous.
 
-<table data-full-width="false"><thead><tr><th width="113.6666259765625">Matériau (i)</th><th width="166.66656494140625">Recyclage</th><th>Incinération</th><th>Enfouissement</th></tr></thead><tbody><tr><td>Bois (massif &#x26; panneaux)</td><td>n/a (cut-off)</td><td>Treatment of waste wood, untreated, municipal incineration, CH</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Métal</td><td>n/a (cut-off)</td><td>Treatment of scrap steel, municipal incineration with fly ash extraction, CH</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Rembourré / Matelas</td><td>n/a (cut-off)</td><td>Treatment of waste polyurethane, municipal incineration FAE, CH</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Plastique</td><td>n/a (cut-off)</td><td>Treatment of waste plastic, mixture, municipal incineration with fly ash extraction, CH</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Emballage (carton)</td><td>n/a (cut-off)</td><td>Treatment of waste paperboard, municipal incineration with fly ash extraction, CH</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Emballage (plastique)</td><td>n/a (cut-off)</td><td>Treatment of waste plastic, mixture, municipal incineration with fly ash extraction, CH</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Emballage (autre)</td><td>n/a</td><td>Treatment of municipal solid waste, municipal incineration, FR</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Autres</td><td>n/a</td><td>Treatment of municipal solid waste, municipal incineration, FR</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr></tbody></table>
+<table data-full-width="false"><thead><tr><th width="113.6666259765625">Matériau (i)</th><th width="166.66656494140625">Recyclage</th><th>Incinération (source : Ecoinvent 3.9.1)</th><th>Enfouissement (source : Ecoinvent 3.9.1)</th></tr></thead><tbody><tr><td>Bois (massif &#x26; panneaux)</td><td>n/a (cut-off)</td><td>Treatment of waste wood, untreated, municipal incineration, CH</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Métal</td><td>n/a (cut-off)</td><td>Treatment of scrap steel, municipal incineration with fly ash extraction, CH</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Rembourré / Matelas</td><td>n/a (cut-off)</td><td>Treatment of waste polyurethane, municipal incineration FAE, CH</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Plastique</td><td>n/a (cut-off)</td><td>Treatment of waste plastic, mixture, municipal incineration with fly ash extraction, CH</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Emballage (carton)</td><td>n/a (cut-off)</td><td>Treatment of waste paperboard, municipal incineration with fly ash extraction, CH</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Emballage (plastique)</td><td>n/a (cut-off)</td><td>Treatment of waste plastic, mixture, municipal incineration with fly ash extraction, CH</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Emballage (autre)</td><td>n/a</td><td>Treatment of municipal solid waste, municipal incineration, FR</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Autres</td><td>n/a</td><td>Treatment of municipal solid waste, municipal incineration, FR</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr></tbody></table>
+
+Les procédés recyclage ont été créés par Ecobalyse en suivant la méthode CFF, avec les paramètres et procédés suivants :&#x20;
+
+<table><thead><tr><th width="352.29998779296875">Type de matériau</th><th width="120">Paramètre CFF A_out</th><th width="120">Paramètre CFF Q_out</th></tr></thead><tbody><tr><td>Métaux ferreux</td><td>0.2</td><td>1.00</td></tr><tr><td>Aluminium</td><td>0.2</td><td>1.00</td></tr><tr><td>Cuivre</td><td>0.2</td><td>1.00</td></tr><tr><td>Bois</td><td>0.7</td><td>0.85</td></tr><tr><td>Emballage carton</td><td>0.2</td><td>1.00</td></tr><tr><td>Verre</td><td>0.2</td><td>1.00</td></tr><tr><td>Caoutchouc</td><td>0.5</td><td>0.75</td></tr><tr><td>Composites</td><td>0.5</td><td>0.80</td></tr><tr><td>PET</td><td>0.5</td><td>0.95</td></tr><tr><td>PP, PEHD, PELD, autres plastiques rigides</td><td>0.5</td><td>0.90</td></tr><tr><td>PUR</td><td>0.5</td><td>0.75</td></tr><tr><td>Fibres synthétiques</td><td>0.8</td><td>0.30</td></tr><tr><td>Fibres organiques</td><td>0.8</td><td>0.30</td></tr><tr><td>Carte de circuit imprimé</td><td>0.2</td><td>1.00</td></tr><tr><td>Cellule de batteries - Al, Cu, Fe</td><td>0.2</td><td>1</td></tr><tr><td>Cellule de batteries - Co, Ni, Mn, Li</td><td>0.2</td><td>1</td></tr></tbody></table>
 
 #### Coût environnemental (Pt d'impact / kg)&#x20;
 
