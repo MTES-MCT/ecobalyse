@@ -1762,7 +1762,7 @@ stagesImpacts lifeCycle =
                     Nothing ->
                         acc
             )
-            { distribution = Nothing
+            { distribution = lifeCycle.distribution.impacts |> Just
             , endOfLife = lifeCycle.endOfLife |> Just
             , materials = Just Impact.empty
             , packaging = Nothing
@@ -1788,6 +1788,7 @@ sumLifeCycleImpacts lifeCycle =
     Impact.sumImpacts
         [ extractImpacts lifeCycle.production
         , extractComplementsImpacts lifeCycle.production |> Complement.mergeComplementsResultsImpacts
+        , lifeCycle.distribution.impacts
         , lifeCycle.endOfLife
         , lifeCycle.transports.toAssembly.impacts
         , lifeCycle.transports.toDistribution.impacts

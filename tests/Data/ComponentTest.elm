@@ -1347,7 +1347,7 @@ setupTestDb db =
 updateRequirementsProcess : Process -> (Process -> Process) -> Requirements db -> Requirements db
 updateRequirementsProcess { id } fn ({ db } as requirements) =
     { requirements
-        | db = { db | processes = db.processes |> LE.updateIf (\p -> p.id == id) fn }
+        | db = { db | processes = db.processes |> LE.updateIf (.id >> (==) id) fn }
     }
 
 
