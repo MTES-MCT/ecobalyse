@@ -1171,9 +1171,19 @@ encodeLifeCycle maybeTrigram lifeCycle =
                 Nothing ->
                     Impact.encode lifeCycle.endOfLife
           )
+        , ( "distribution", encodeLifeCycleDistribution lifeCycle.distribution )
         , ( "production", encodeResults maybeTrigram lifeCycle.production )
         , ( "transport", encodeLifeCycleTransport lifeCycle.transports )
         , ( "use", Encode.list Impact.encode lifeCycle.use )
+        ]
+
+
+encodeLifeCycleDistribution : DistributionResults -> Encode.Value
+encodeLifeCycleDistribution distribution =
+    EU.optionalPropertiesObject
+        [ ( "impacts", distribution.impacts |> Impact.encode |> Just )
+        , ( "process", distribution.process |> Maybe.map (.id >> Process.encodeId) )
+        , ( "volume", distribution.volume |> Volume.inCubicMeters |> Encode.float |> Just )
         ]
 
 
