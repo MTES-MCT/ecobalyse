@@ -27,9 +27,9 @@ Le schéma ci-dessous montre les scénarios possibles de fin de vie :
 
 ### Le recyclage des matériaux
 
-Les métaux ferreux (aciers) ou non ferreux (aluminium notamment), ont un taux de recyclage élevé quelle que soit la fin de vie du produit. En effet, même dans les ordures ménagères incinérées, des systèmes permettent d'extraire ces matériaux.
+Les métaux ferreux (aciers) et dans une moindre mesure les métaux non ferreux (aluminium notamment), ont un taux de recyclage élevé quelle que soit la fin de vie du produit. En effet, même dans les ordures ménagères incinérées, des systèmes permettent d'extraire ces matériaux.
 
-Si le produit est collecté et recyclable, les autres matériaux sont recyclés, incinérés ou mis en décharge selon des ratios spécifiques à chaque matériau.
+Si le produit est collecté et recyclable, les matériaux sont recyclés, incinérés ou mis en décharge selon des ratios spécifiques à chaque matériau.
 
 ## Méthode de calcul
 
@@ -42,7 +42,7 @@ La méthode décrite ci-dessous est la méthode cut-off. La méthode CFF est en 
 Décomposition de l'impact par scénario de fin de vie (FS = Filière spécifique / HF = Hors filière)
 
 $$
-I_{EoL} = TC*r_p*I_{EoL, FS}+(1-TC*r_p-TE)*I_{EoL, HF}
+I_{EoL}=\sum_i \big(I_{EoL, FS,i}+I_{EoL, HF,i}\big)
 $$
 {% endtab %}
 
@@ -64,16 +64,17 @@ Avec :&#x20;
 Niveau 0 :
 
 * `I_EoL` : l'impact environnemental du produit en fin de vie, dans l'unité de la catégorie d'impact analysée
-* `TC` : le taux de collecte des produits, en %
-* `r_p` : la recyclabilité du produit, égale à 1 si le produit est recyclable ou 0 s'il ne l'est pas
-* `TE` : le taux de collecte pour export des produits, en %
-* `I_EoL,FS` : l'impact environnemental du produit dans le scénario "Spécifique matière", dans l'unité de la catégorie d'impact analysée
-* `I_EoL,HF` : l'impact environnemental du produit dans le scénario "Déchets Divers", dans l'unité de la catégorie d'impact analysée
-* `I_EoL,Export` : l'impact environnemental du produit dans le scénario "Spécifique matière", dans l'unité de la catégorie d'impact analysée
+* `I_EoL,FS,i` : l'impact environnemental associé au type de matériau i et au traitement en filière spécifique, pour l'ensemble du produit, dans l'unité de la catégorie d'impact analysée
+* `I_EoL,HF,i` : l'impact environnemental associé au type de matériau i et au traitement en hors filière, pour l'ensemble du produit, dans l'unité de la catégorie d'impact analysée
+
+{% hint style="info" %}
+`I_EoL,FS,i` et `I_EoL,HF,i` sont indiqués dans la calculette Ecobalyse pour chaque type de matériau i
+{% endhint %}
 
 Niveau 1 :
 
-* `m_i` : la masse relative à la famille de matériaux `i`, en kg
+* `m_i` : la masse relative au type de matériaux `i` dans le produit, en kg
+* `TC` : le taux de collecte des produits, en %
 * `R_FS,Rec,i` : la part de recyclage du matériau (i) lorsque le produit est collecté et recyclable
 * `R_FS,Inc,i` : la part d'incinération du matériau (i) lorsque le produit est collecté et recyclable
 * `R_HF,Rec,i` : la part de recyclage du matériau (i) lorsque le produit n'est pas collecté ou pas recyclable (fin de vie déchets divers)
@@ -81,7 +82,7 @@ Niveau 1 :
 * `R_E,Rec,i` : la part de recyclage du matériau (i) lorsque le produit est exporté
 * `I_EoL,incineration,i` : l'impact environnemental de l'incinération d'un kg d'un matériau de la famille de matériaux `i`, dans l'unité de la catégorie d'impact analysée
 * `I_EoL,landfill,i` : l'impact environnemental de l'enfouissement d'un kg d'un matériau de la famille de matériaux `i` , dans l'unité de la catégorie d'impact analysée
-* `I_Eolrecycling,i` : l'impact environnemental du recyclage d'un kg d'un matériau de la famille de matériaux `i`, dans l'unité de la catégorie d'impact analysée
+* `I_Eol,recycling,i` : l'impact environnemental du recyclage d'un kg d'un matériau de la famille de matériaux `i`, dans l'unité de la catégorie d'impact analysée
 
 ## Paramètres retenus pour le coût environnemental&#x20;
 
