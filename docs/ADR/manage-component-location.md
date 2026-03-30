@@ -36,7 +36,7 @@ Ces limites rendent impossible la modélisation d'exemples tels que réalisés d
 Nous avons besoin de gérer le transport entre les transformations et d'avoir un modèle qui prend en compte l'impact des transformations selon le pays de transformation.
 Ces nuances ont été un critère d'adoption pour les entreprises textile et le déploiement du dispositif.
 
-- On peut localiser chaque procédé (materials et transformation) dans chaque composant. Lorsqu'il n'y pas de pays, on reprend l'hypothèse 'inconnu' avec la valeur de 18000 km, et le mix énergétique définit par défaut.
+- On peut localiser chaque procédé (materials et transformation) dans chaque composant. Lorsqu'il n'y pas de pays, on reprend l'hypothèse 'inconnu' pour le transport avant et/ou après l'étape considérée, et le mix énergétique définit par défaut.
 Remarque: on ne localise pas les procédés en eux-même
 - Il n'y plus de champs country au niveau composant (plus de localisation composant)
 - Si des procédés de transformation se passent dans une même usine ou pays, on considère tout de même qu'il y a du transport entre ces procédés
