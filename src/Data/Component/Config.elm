@@ -41,7 +41,9 @@ type alias DataContainer db =
 
 
 type alias DistributionConfig =
-    { country : Country }
+    { country : Country
+    , defaultProcess : Scope.Dict (Maybe Process)
+    }
 
 
 type alias DurabilityConfig =
@@ -91,17 +93,23 @@ type alias TransportConfig =
 decode : { db | countries : List Country, processes : List Process } -> Decoder Config
 decode { countries, processes } =
     Decode.succeed Config
-        |> Decode.required "distribution" (decodeDistributionConfig countries)
+        |> Decode.required "distribution" (decodeDistributionConfig processes countries)
         |> Decode.required "durability" decodeDurabilityConfig
         |> Decode.required "endOfLife" (decodeEndOfLifeConfig processes)
         |> Decode.required "production" (decodeProductionConfig processes)
         |> Decode.required "transports" (decodeTransportConfig processes)
 
 
-decodeDistributionConfig : List Country -> Decoder DistributionConfig
-decodeDistributionConfig countries =
+decodeDistributionConfig : List Process -> List Country -> Decoder DistributionConfig
+decodeDistributionConfig processes countries =
     Decode.succeed DistributionConfig
         |> Decode.required "country" (Country.decodeFromCode countries)
+        |> Decode.required "defaultProcess" (decodeScopedMaybeProcess processes)
+
+
+decodeScopedMaybeProcess : List Process -> Decoder (Scope.Dict (Maybe Process))
+decodeScopedMaybeProcess processes =
+    Scope.decodeDict (Decode.maybe (Process.decodeFromId processes))
 
 
 decodeDurabilityConfig : Decoder DurabilityConfig
@@ -187,7 +195,10 @@ default db =
                 }
             },
             "distribution": {
-                "country": "FR"
+                "country": "FR",
+                "defaultProcess": {
+                    "food2": "29118025-efa0-47bb-94e2-f5ccba31a903"
+                }
             },
             "durability": {
                 "enabled": {

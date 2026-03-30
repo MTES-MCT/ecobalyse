@@ -1156,7 +1156,10 @@ testComponentConfig db =
         """
         {
             "distribution": {
-                "country": "FR"
+                "country": "FR",
+                "defaultProcess": {
+                    "food2": "29118025-efa0-47bb-94e2-f5ccba31a903"
+                }
             },
             "durability": {
                 "enabled": {

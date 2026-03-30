@@ -1395,30 +1395,30 @@ findById id =
         >> Result.fromMaybe ("Aucun composant avec id=" ++ idToString id)
 
 
-{-| Retrieves an available distribution process from db, scope and optional query parameter.
+{-| Retrieves a distribution process for a given scope from a provided distribution id, or a default
+process from config if available.
 -}
 getDistributionProcess : Requirements db -> Maybe Process.Id -> Result DistributionProcessError Process
-getDistributionProcess { db, scope } maybeDistribution =
-    let
-        availableDistributionProcesses =
+getDistributionProcess { config, db, scope } maybeDistribution =
+    case maybeDistribution of
+        Just processId ->
             db.processes
                 |> Scope.anyOf [ scope ]
                 |> Process.listByCategory Category.Distribution
                 |> List.filter (.unit >> (==) Process.CubicMeter)
-    in
-    case maybeDistribution of
-        Just processId ->
-            availableDistributionProcesses
                 |> Process.findById processId
                 |> Result.mapError DistributionGenericError
 
+        -- No distribution process specified, use the default scoped process if available
         Nothing ->
-            -- Take the first distribution process as a default
-            availableDistributionProcesses
-                -- FIXME: We don't have any other way to select a dry distribution process by default :/
-                |> List.filter (Process.getDisplayName >> String.contains "produit sec")
-                |> List.head
-                |> Result.fromMaybe DistributionNothingAvailable
+            case Scope.dictGet scope config.distribution.defaultProcess of
+                -- Config is available for the current scope and provides a default process
+                Just (Just defaultProcess) ->
+                    Ok defaultProcess
+
+                -- No default process usable for current scope
+                _ ->
+                    Err DistributionNothingAvailable
 
 
 getEndOfLifeDetailedImpacts : Requirements db -> Results -> DetailedEndOfLifeImpacts
