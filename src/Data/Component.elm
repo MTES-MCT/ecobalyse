@@ -62,6 +62,7 @@ module Data.Component exposing
     , extractItems
     , extractMass
     , findById
+    , getAvailableDistributionProcesses
     , getEndOfLifeDetailedImpacts
     , getEndOfLifeImpacts
     , getEndOfLifeScopeCollectionRate
@@ -1395,6 +1396,14 @@ findById id =
         >> Result.fromMaybe ("Aucun composant avec id=" ++ idToString id)
 
 
+getAvailableDistributionProcesses : DataContainer db -> Scope -> List Process
+getAvailableDistributionProcesses db scope =
+    db.processes
+        |> Scope.anyOf [ scope ]
+        |> Process.listByCategory Category.Distribution
+        |> List.filter (.unit >> (==) Process.CubicMeter)
+
+
 {-| Retrieves a distribution process for a given scope from a provided distribution id, or a default
 process from config if available.
 -}
@@ -1402,10 +1411,7 @@ getDistributionProcess : Requirements db -> Maybe Process.Id -> Result Distribut
 getDistributionProcess { config, db, scope } maybeDistribution =
     case maybeDistribution of
         Just processId ->
-            db.processes
-                |> Scope.anyOf [ scope ]
-                |> Process.listByCategory Category.Distribution
-                |> List.filter (.unit >> (==) Process.CubicMeter)
+            getAvailableDistributionProcesses db scope
                 |> Process.findById processId
                 |> Result.mapError DistributionGenericError
 

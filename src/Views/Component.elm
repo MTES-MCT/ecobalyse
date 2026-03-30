@@ -75,6 +75,7 @@ type alias Config db msg =
     , title : String
     , updateAssemblyCountry : Maybe Country.Code -> msg
     , updateConsumptionAmount : Index -> Maybe Amount -> msg
+    , updateDistribution : Result String Process.Id -> msg
     , updateElementAmount : TargetElement -> Maybe Amount -> msg
     , updateItemCountry : Index -> Maybe Country.Code -> msg
     , updateItemName : TargetItem -> String -> msg
@@ -914,7 +915,24 @@ assemblyView config =
 
 
 distributionView : Config db msg -> Html msg
-distributionView { impact, lifeCycle } =
+distributionView { componentConfig, db, impact, lifeCycle, query, scope, updateDistribution } =
+    let
+        processOption process =
+            option
+                [ value (Process.idToString process.id)
+                , selected <|
+                    List.member (Just process.id)
+                        [ case componentConfig.distribution.defaultProcess |> Scope.dictGet scope of
+                            Just (Just defaultProcess) ->
+                                Just defaultProcess.id
+
+                            _ ->
+                                Nothing
+                        , query.distribution
+                        ]
+                ]
+                [ text (Process.getDisplayName process) ]
+    in
     div [ class "card shadow-sm" ]
         [ div [ class "card-header d-flex align-items-center justify-content-between" ]
             [ h2 [ class "h5 mb-0" ]
@@ -925,14 +943,15 @@ distributionView { impact, lifeCycle } =
                     |> Result.withDefault (text "")
                 ]
             ]
-        , div [ class "card-body" ]
-            [ div [ class "d-flex align-items-center gap-1" ] [ Icon.lock, text "France" ]
-            , lifeCycle
-                |> Result.map (.distribution >> .process >> Maybe.map Process.getDisplayName >> Maybe.withDefault "Pas de distribution")
-                |> Result.withDefault ""
-                |> text
-                |> List.singleton
-                |> div []
+        , div [ class "card-body d-flex justify-content-between align-items-center gap-2" ]
+            [ div [ class "d-flex align-items-center gap-1" ]
+                [ Icon.lock, text "France" ]
+            , Component.getAvailableDistributionProcesses db scope
+                |> List.map processOption
+                |> select
+                    [ class "form-select w-50"
+                    , onInput (Process.idFromString >> updateDistribution)
+                    ]
             ]
         ]
 
