@@ -549,7 +549,7 @@ computeVolumeFromMass =
 
 
 computeDistributionImpacts : Requirements db -> Query -> LifeCycle -> Result String LifeCycle
-computeDistributionImpacts requirements query ({ distribution, production } as lifeCycle) =
+computeDistributionImpacts ({ config } as requirements) query ({ distribution, production } as lifeCycle) =
     let
         finalProductVolume =
             computeVolumeFromMass <| extractMass production
@@ -566,7 +566,10 @@ computeDistributionImpacts requirements query ({ distribution, production } as l
             Ok
                 { lifeCycle
                     | distribution =
-                        { impacts = process.impacts |> Impact.multiplyBy (Volume.inCubicMeters finalProductVolume)
+                        { impacts =
+                            process
+                                |> Process.impactsPerUnit config.distribution.country
+                                |> Impact.multiplyBy (Volume.inCubicMeters finalProductVolume)
                         , process = Just process
                         , volume = finalProductVolume
                         }
