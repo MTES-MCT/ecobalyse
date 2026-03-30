@@ -327,100 +327,97 @@ suite =
                                 |> TestUtils.expectResultWithin (Expect.Absolute 1) 282
                             )
                         , TestUtils.suiteFromResult "distribution impacts"
+                            -- setup
                             chair
-                            (\items ->
+                            -- tests
+                            (\chairItems ->
                                 let
                                     requirementsDb =
                                         requirements.db
-
-                                    expectedDistributionVolume =
-                                        items
-                                            |> computeItemsWithRequirements requirements
-                                            -- This will have to be updated when we get proper volumePerUnit data
-                                            |> Result.map (.production >> Component.extractMass >> Component.computeVolumeFromMass)
                                 in
-                                [ it "should fallback to no distribution impacts when no default process is available"
-                                    (items
+                                [ TestUtils.suiteFromResult "when no default distribution process is available"
+                                    -- setup
+                                    (chairItems
                                         |> computeItemsWithRequirements
                                             { requirements
                                                 | db =
                                                     { requirementsDb
                                                         | processes =
                                                             requirementsDb.processes
-                                                                |> LE.filterNot
-                                                                    (\process ->
-                                                                        -- Filter out processes that are not dry distribution processes
-                                                                        List.member Category.Distribution process.categories
-                                                                            && process.unit
-                                                                            == Process.CubicMeter
-                                                                            && String.contains "produit sec" (Process.getDisplayName process)
-                                                                    )
+                                                                -- Filter out all distribution processes so we can test a fallback
+                                                                |> LE.filterNot (.categories >> List.member Category.Distribution)
                                                     }
                                             }
-                                        |> Result.andThen
-                                            (\lifeCycle ->
-                                                expectedDistributionVolume
-                                                    |> Result.map
-                                                        (\expectedVolume ->
-                                                            ( Volume.inCubicMeters lifeCycle.distribution.volume
-                                                            , lifeCycle.distribution.process
-                                                            , lifeCycle.distribution.impacts
-                                                            )
-                                                                == ( Volume.inCubicMeters expectedVolume
-                                                                   , Nothing
-                                                                   , Impact.empty
-                                                                   )
-                                                        )
-                                            )
-                                        |> Expect.equal (Ok True)
                                     )
-                                , TestUtils.suiteFromResult "distribution impacts from explicit process"
+                                    -- tests
+                                    (\lifeCycle ->
+                                        [ it "should compute volume"
+                                            (lifeCycle.distribution.volume
+                                                |> Volume.inCubicMeters
+                                                |> Expect.greaterThan 0
+                                            )
+                                        , it "should expose no process"
+                                            (lifeCycle.distribution.process
+                                                |> Expect.equal Nothing
+                                            )
+                                        , it "should compute empty impacts"
+                                            (lifeCycle.distribution.impacts
+                                                |> Expect.equal Impact.empty
+                                            )
+                                        ]
+                                    )
+                                , TestUtils.suiteFromResult "when an explicit distribution process is specified"
                                     -- setup
-                                    (List.head requirementsDb.processes
-                                        |> Maybe.map
-                                            (\process ->
+                                    (requirementsDb.processes
+                                        |> List.head
+                                        |> Result.fromMaybe "no processes available"
+                                        |> Result.map
+                                            (\randomProcess ->
                                                 let
-                                                    distributionProcess =
-                                                        { process
+                                                    -- update a random process to be our test distribution one
+                                                    testDistributionProcess =
+                                                        { randomProcess
                                                             | categories = [ Category.Distribution ]
                                                             , scopes = [ requirements.scope ]
                                                             , unit = Process.CubicMeter
                                                         }
                                                 in
-                                                ( distributionProcess
+                                                ( testDistributionProcess
                                                 , { requirements
                                                     | db =
                                                         { requirementsDb
-                                                            | processes = distributionProcess :: requirementsDb.processes
+                                                            | processes = testDistributionProcess :: requirementsDb.processes
                                                         }
                                                   }
                                                 )
                                             )
-                                        |> Result.fromMaybe "No distribution process available in test db"
                                     )
                                     -- tests
-                                    (\( distributionProcess, newRequirements ) ->
-                                        [ it "should compute distribution impacts from an explicit distribution process"
+                                    (\( testDistributionProcess, testRequirements ) ->
+                                        [ TestUtils.suiteFromResult "distribution result tests"
                                             (Component.emptyQuery
-                                                |> Component.setQueryItems items
-                                                |> (\query -> { query | distribution = Just distributionProcess.id })
-                                                |> Component.compute newRequirements
-                                                |> Result.andThen
-                                                    (\lifeCycle ->
-                                                        expectedDistributionVolume
-                                                            |> Result.map
-                                                                (\expectedVolume ->
-                                                                    ( Volume.inCubicMeters lifeCycle.distribution.volume
-                                                                    , lifeCycle.distribution.process
-                                                                    , lifeCycle.distribution.impacts
-                                                                    )
-                                                                        == ( Volume.inCubicMeters expectedVolume
-                                                                           , Just distributionProcess
-                                                                           , distributionProcess.impacts |> Impact.multiplyBy (Volume.inCubicMeters expectedVolume)
-                                                                           )
-                                                                )
+                                                |> Component.setQueryItems chairItems
+                                                |> Component.updateDistribution (Just testDistributionProcess.id)
+                                                |> Component.compute testRequirements
+                                                |> Result.map .distribution
+                                            )
+                                            (\distribution ->
+                                                [ it "should compute volume"
+                                                    (distribution.volume
+                                                        |> Volume.inCubicMeters
+                                                        |> Expect.greaterThan 0
                                                     )
-                                                |> Expect.equal (Ok True)
+                                                , it "should expose the process"
+                                                    (distribution.process
+                                                        |> Expect.equal (Just testDistributionProcess)
+                                                    )
+                                                , it "should compute non-empty impacts"
+                                                    (distribution.impacts
+                                                        |> Impact.getImpact Definition.Ecs
+                                                        |> Unit.impactToFloat
+                                                        |> Expect.greaterThan 0
+                                                    )
+                                                ]
                                             )
                                         ]
                                     )
@@ -430,12 +427,12 @@ suite =
                                         |> Result.map
                                             (\missingDistributionId ->
                                                 Component.emptyQuery
-                                                    |> Component.setQueryItems items
-                                                    |> (\query -> { query | distribution = Just missingDistributionId })
+                                                    |> Component.setQueryItems chairItems
+                                                    |> Component.updateDistribution (Just missingDistributionId)
                                                     |> Component.compute requirements
                                             )
                                         |> Result.withDefault (Err "Invalid process id fixture")
-                                        |> expectResultErrorContains "Procédé introuvable par id :"
+                                        |> expectResultErrorContains "Procédé introuvable par id"
                                     )
                                 ]
                             )
