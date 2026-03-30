@@ -23,7 +23,7 @@ Les scénarios de fin de vie d'un produit peuvent être définis avec ces deux c
 
 Le schéma ci-dessous montre les scénarios possibles de fin de vie :
 
-<figure><img src="../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Le recyclage des matériaux
 
@@ -33,13 +33,23 @@ Si le produit est collecté et recyclable, les matériaux sont recyclés, incin�
 
 ## Méthode de calcul
 
+### Grands principes
+
+Ecobalyse utilise la méthode CFF (Circulat Footprint Formula) pour évaluer l'impact de la fin de vie des produits.
+
+Les matériaux constitutifs d'un produit (définis dans les composants) sont utilisés pour évaluer cette fin de vie. A chaque matériaux est associé un type de matériaux, et le produit est éclaté par type de matériau pour évaluser l'impact de sa fin de vie.
+
+A chaque type de matériaux sont attachés des ratios de recyclage et incinération, les paramètres CFF (A et Q) et des procédés d'inventaire de cycle de vie de recyclage, incinération et enfouissement.
+
 {% hint style="warning" %}
 La méthode CFF décrite ci-dessous est en cours de déploiement.
 {% endhint %}
 
 {% hint style="info" %}
-Le détail des calculs avec paramètres et procédés appliqué est disponible en téléchargeant le fichier suivant :&#x20;
+Le détail des calculs avec paramètres et procédés appliqués est disponible en téléchargeant le fichier mis à disposition dans la section "Exemples"
 {% endhint %}
+
+### Formules de calcul
 
 {% tabs %}
 {% tab title="Niveau 0" %}
@@ -75,21 +85,21 @@ Niveau 0 :
 `I_EoL,FS,i` et `I_EoL,HF,i` sont indiqués dans la calculette Ecobalyse pour chaque type de matériau i
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
 
 Niveau 1 :
 
 * `m_i` : la masse relative au type de matériaux `i` dans le produit, en kg
 * `TC` : le taux de collecte des produits, en %
 * `r_p` : la recyclabilité produit, égale à 1 (produit recyclable, avec filière dédiée) ou 0 (pas de filière dédiée)
-* `R_FS,Rec,i` : la part de recyclage du matériau (i) lorsque le produit est collecté et recyclable
-* `R_FS,Inc,i` : la part d'incinération du matériau (i) lorsque le produit est collecté et recyclable
-* `R_HF,Rec,i` : la part de recyclage du matériau (i) lorsque le produit n'est pas collecté ou pas recyclable (fin de vie déchets divers)
-* `R_HF,Inc,i` : la part d'incinération du matériau (i) lorsque le produit n'est pas collecté ou pas recyclable (fin de vie déchets divers)
-* `R_E,Rec,i` : la part de recyclage du matériau (i) lorsque le produit est exporté
-* `I_EoL,incineration,i` : l'impact environnemental de l'incinération d'un kg d'un matériau de la famille de matériaux `i`, dans l'unité de la catégorie d'impact analysée
-* `I_EoL,landfill,i` : l'impact environnemental de l'enfouissement d'un kg d'un matériau de la famille de matériaux `i` , dans l'unité de la catégorie d'impact analysée
-* `I_Eol,recycling,i` : l'impact environnemental du recyclage d'un kg d'un matériau de la famille de matériaux `i`, dans l'unité de la catégorie d'impact analysée
+* `R_FS,rec,i` : la part de recyclage du matériau (i) lorsque le produit est collecté et recyclable
+* `R_FS,inc,i` : la part d'incinération du matériau (i) lorsque le produit est collecté et recyclable
+* `R_HF,rec,i` : la part de recyclage du matériau (i) lorsque le produit n'est pas collecté ou pas recyclable (fin de vie déchets divers)
+* `R_HF,inc,i` : la part d'incinération du matériau (i) lorsque le produit n'est pas collecté ou pas recyclable (fin de vie déchets divers)
+* `R_E,rec,i` : la part de recyclage du matériau (i) lorsque le produit est exporté (non utilisé à ce stade)
+* `I_Eol,rec,i` : l'impact environnemental du recyclage d'un kg d'un matériau de la famille de matériaux `i`, dans l'unité de la catégorie d'impact analysée
+* `I_EoL,inc,i` : l'impact environnemental de l'incinération d'un kg d'un matériau de la famille de matériaux `i`, dans l'unité de la catégorie d'impact analysée
+* `I_EoL,lan,i` : l'impact environnemental de l'enfouissement d'un kg d'un matériau de la famille de matériaux `i` , dans l'unité de la catégorie d'impact analysée
 
 ## Paramètres retenus pour le coût environnemental&#x20;
 
@@ -142,7 +152,21 @@ Ils sont également détaillés ci-dessous.
 
 <table data-full-width="false"><thead><tr><th width="113.6666259765625">Matériau (i)</th><th width="166.66656494140625">Recyclage</th><th>Incinération (source : Ecoinvent 3.9.1)</th><th>Enfouissement (source : Ecoinvent 3.9.1)</th></tr></thead><tbody><tr><td>Bois (massif &#x26; panneaux)</td><td>n/a (cut-off)</td><td>Treatment of waste wood, untreated, municipal incineration, CH</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Métal</td><td>n/a (cut-off)</td><td>Treatment of scrap steel, municipal incineration with fly ash extraction, CH</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Rembourré / Matelas</td><td>n/a (cut-off)</td><td>Treatment of waste polyurethane, municipal incineration FAE, CH</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Plastique</td><td>n/a (cut-off)</td><td>Treatment of waste plastic, mixture, municipal incineration with fly ash extraction, CH</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Emballage (carton)</td><td>n/a (cut-off)</td><td>Treatment of waste paperboard, municipal incineration with fly ash extraction, CH</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Emballage (plastique)</td><td>n/a (cut-off)</td><td>Treatment of waste plastic, mixture, municipal incineration with fly ash extraction, CH</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Emballage (autre)</td><td>n/a</td><td>Treatment of municipal solid waste, municipal incineration, FR</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr><tr><td>Autres</td><td>n/a</td><td>Treatment of municipal solid waste, municipal incineration, FR</td><td>Treatment of municipal solid waste, sanitary landfill, RoW</td></tr></tbody></table>
 
-Les procédés recyclage ont été créés par Ecobalyse en suivant la méthode CFF, avec les paramètres et procédés suivants :&#x20;
+Les procédés recyclage ont été créés par Ecobalyse en suivant la méthode CFF, avec les paramètres et suivants (issus autant que possible de la réglementation PEF ou autre source réglementaire) :&#x20;
+
+{% hint style="info" %}
+Le recyclage d'un matériau donné est évalué comme suit par la CFF : ![](../.gitbook/assets/image.png)
+
+Avec&#x20;
+
+* A\_out un facteur d'allocation des coûts / crédit entre la fin de vie du produit analysé et l'utilisation du matériau recyclé dans un nouveau produit, sur la base de l'équilibre offre/demande du marché
+  * A faible : la matière recyclée est fortement demandée, l'enjeu est d'encourager le recyclage en fin de vie. Faible bénéfice à l'usage de matière recyclé, fort bénéfice au recyclage en fin de vie
+  * A élevé : la matière recyclée est peu demandée, l'enjeu est d'encourage son usage. Fort bénéfice à l'usage de matière recyclé, faible bénéfice au recyclage en fin de vie
+* E\_rec,EoL l'impact du recyclage du matériaux
+* E\_v\* l'impact du matériau vierge évité
+* Q\_out quantifie la qualité de la matière recyclée, en comparaison de la matière vierge.
+  * Q\_out = 0.8 signifie qu'1kg de matière recyclée permet de remplacer 0.8kg de matière vierge (propriétés mécaniques, chimique...)
+{% endhint %}
 
 <table><thead><tr><th width="352.29998779296875">Type de matériau</th><th width="120">Paramètre CFF A_out</th><th width="120">Paramètre CFF Q_out</th></tr></thead><tbody><tr><td>Métaux ferreux</td><td>0.2</td><td>1.00</td></tr><tr><td>Aluminium</td><td>0.2</td><td>1.00</td></tr><tr><td>Cuivre</td><td>0.2</td><td>1.00</td></tr><tr><td>Bois</td><td>0.7</td><td>0.85</td></tr><tr><td>Emballage carton</td><td>0.2</td><td>1.00</td></tr><tr><td>Verre</td><td>0.2</td><td>1.00</td></tr><tr><td>Caoutchouc</td><td>0.5</td><td>0.75</td></tr><tr><td>Composites</td><td>0.5</td><td>0.80</td></tr><tr><td>PET</td><td>0.5</td><td>0.95</td></tr><tr><td>PP, PEHD, PELD, autres plastiques rigides</td><td>0.5</td><td>0.90</td></tr><tr><td>PUR</td><td>0.5</td><td>0.75</td></tr><tr><td>Fibres synthétiques</td><td>0.8</td><td>0.30</td></tr><tr><td>Fibres organiques</td><td>0.8</td><td>0.30</td></tr><tr><td>Carte de circuit imprimé</td><td>0.2</td><td>1.00</td></tr><tr><td>Cellule de batteries - Al, Cu, Fe</td><td>0.2</td><td>1</td></tr><tr><td>Cellule de batteries - Co, Ni, Mn, Li</td><td>0.2</td><td>1</td></tr></tbody></table>
 
@@ -152,5 +176,5 @@ Les procédés recyclage ont été créés par Ecobalyse en suivant la méthode 
 
 ## Exemples&#x20;
 
-<mark style="color:red;">A actualiser</mark>
+Le détail des calculs avec paramètres et procédés appliqué est disponible en téléchargeant le fichier suivant :&#x20;
 
