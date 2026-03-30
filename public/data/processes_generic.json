@@ -37657,7 +37657,7 @@
     ],
     "comment": "Consommation d’électricité telle que définie par la méthode Agribalyse 3.0 dans les tableaux 41, 42, 43 sur les techniques de préparation.",
     "displayName": "Congélation",
-    "elecMJ": 0.294,
+    "elecMJ": 1.0584,
     "heatMJ": 0,
     "id": "0048f6f5-5f8f-4a34-acde-4e0d909883d4",
     "impacts": {
@@ -37700,7 +37700,7 @@
     ],
     "comment": "Consommation d’électricité telle que définie par la méthode Agribalyse 3.0 dans les tableaux 41, 42, 43 sur les techniques de préparation.",
     "displayName": "Cuisson au four",
-    "elecMJ": 0.999,
+    "elecMJ": 3.5964,
     "heatMJ": 0,
     "id": "a49670fc-0642-43f6-a673-fe15dc7d88da",
     "impacts": {
@@ -37743,7 +37743,7 @@
     ],
     "comment": "Consommation d’électricité telle que définie par la méthode Agribalyse 3.0 dans les tableaux 41, 42, 43 sur les techniques de préparation.",
     "displayName": "Cuisson au four à micro-ondes",
-    "elecMJ": 0.128,
+    "elecMJ": 0.4608,
     "heatMJ": 0,
     "id": "1040ee69-9dff-47f1-a989-c7cd04d2c419",
     "impacts": {
@@ -37786,7 +37786,7 @@
     ],
     "comment": "Consommation d’électricité telle que définie par la méthode Agribalyse 3.0 dans les tableaux 41, 42, 43 sur les techniques de préparation.",
     "displayName": "Cuisson à la poêle",
-    "elecMJ": 0.44,
+    "elecMJ": 1.584,
     "heatMJ": 0,
     "id": "21e4283e-6bbf-4b2a-b52b-4440022525ad",
     "impacts": {
@@ -38054,7 +38054,7 @@
     ],
     "comment": "Consommation d’électricité telle que définie par la méthode Agribalyse 3.0 dans les tableaux 41, 42, 43 sur les techniques de préparation.",
     "displayName": "Friture",
-    "elecMJ": 0.667,
+    "elecMJ": 2.4012,
     "heatMJ": 0,
     "id": "23d52dcb-37c7-4d47-ab17-55baf76325e3",
     "impacts": {
@@ -38545,7 +38545,7 @@
     ],
     "comment": "Consommation d’électricité telle que définie par la méthode Agribalyse 3.0 dans les tableaux 41, 42, 43 sur les techniques de préparation.",
     "displayName": "Réchauffage à la poêle",
-    "elecMJ": 0.08,
+    "elecMJ": 0.288,
     "heatMJ": 0,
     "id": "9ab6612b-8fcc-4b44-acdc-26d931a9c0c3",
     "impacts": {
@@ -38588,7 +38588,7 @@
     ],
     "comment": "Consommation d’électricité telle que définie par la méthode Agribalyse 3.0 dans les tableaux 41, 42, 43 sur les techniques de préparation.",
     "displayName": "Réfrigération",
-    "elecMJ": 0.0777,
+    "elecMJ": 0.27972,
     "heatMJ": 0,
     "id": "b4642cec-b72e-4116-81c5-5dbfccb46055",
     "impacts": {
