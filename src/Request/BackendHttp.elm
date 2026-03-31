@@ -25,7 +25,7 @@ type alias WebData a =
 
 authHeaders : Session -> List Http.Header
 authHeaders session =
-    case session.store.auth2 of
+    case session.store.auth of
         Just { accessTokenData } ->
             [ Http.header "Authorization" <| "Bearer " ++ accessTokenData.accessToken ]
 
