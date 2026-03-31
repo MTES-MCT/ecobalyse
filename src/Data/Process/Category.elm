@@ -33,12 +33,27 @@ type Category
 
 
 type Material
-    = Metal
+    = Aluminium
+    | BatteryCell
+    | Composites
+    | Containerboard
+    | Copper
+    | FerrousMetal
+    | Glass
+    | HDPE
+    | LDPE
+    | Metal -- obsolete materials
     | OrganicFibers
-    | OtherMaterial
-    | Plastic
+    | OtherMaterial -- obsolete materials
+    | PET
+    | PP
+    | PWB
+    | Plastic -- obsolete materials
+    | PurFoam
+    | RigidPlastics
+    | Rubber
     | SyntheticFibers
-    | Upholstery
+    | Upholstery -- obsolete materials
     | Wood
 
 
@@ -134,24 +149,73 @@ fromString string =
 materialTypeFromString : String -> Result String Material
 materialTypeFromString string =
     case string of
-        "metal" ->
-            Ok Metal
+        "aluminium" ->
+            Ok Aluminium
+
+        "battery_cell" ->
+            Ok BatteryCell
+
+        "composites" ->
+            Ok Composites
+
+        "containerboard" ->
+            Ok Containerboard
+
+        "copper" ->
+            Ok Copper
+
+        "ferrous_metals" ->
+            Ok FerrousMetal
+
+        "glass" ->
+            Ok Glass
+
+        "hdpe" ->
+            Ok HDPE
+
+        "ldpe" ->
+            Ok LDPE
 
         "organic_fibers" ->
             Ok OrganicFibers
 
-        "plastic" ->
-            Ok Plastic
+        "pet" ->
+            Ok PET
+
+        "pp" ->
+            Ok PP
+
+        "pur_foam" ->
+            Ok PurFoam
+
+        "pwb" ->
+            Ok PWB
+
+        "rigid_plastics" ->
+            Ok RigidPlastics
+
+        "rubber" ->
+            Ok Rubber
 
         "synthetic_fibers" ->
             Ok SyntheticFibers
 
-        "upholstery" ->
-            Ok Upholstery
-
         "wood" ->
             Ok Wood
 
+        -- obsolete materials
+        "metal" ->
+            Ok Metal
+
+        -- obsolete materials
+        "plastic" ->
+            Ok Plastic
+
+        -- obsolete materials
+        "upholstery" ->
+            Ok Upholstery
+
+        -- obsolete materials
         "other" ->
             Ok OtherMaterial
 
@@ -162,21 +226,70 @@ materialTypeFromString string =
 materialTypeToLabel : Material -> String
 materialTypeToLabel material =
     case material of
+        Aluminium ->
+            "Aluminium"
+
+        BatteryCell ->
+            "Cellule de batteries"
+
+        Composites ->
+            "Composites"
+
+        Containerboard ->
+            "Carton"
+
+        Copper ->
+            "Cuivre"
+
+        FerrousMetal ->
+            "Métaux ferreux"
+
+        Glass ->
+            "Verre"
+
+        HDPE ->
+            "PEHD"
+
+        LDPE ->
+            "PEBD"
+
+        -- obsolete materials
         Metal ->
             "Métal"
 
         OrganicFibers ->
             "Fibres organiques"
 
+        -- obsolete materials
         OtherMaterial ->
             "Autre type de matière"
 
+        PET ->
+            "PET"
+
+        PP ->
+            "PP"
+
+        PWB ->
+            "Carte de circuit imprimé"
+
+        -- obsolete materials
         Plastic ->
             "Plastique"
+
+        PurFoam ->
+            "PUR"
+
+        RigidPlastics ->
+            "Plastiques rigides"
+
+        Rubber ->
+            "Caoutchouc"
 
         SyntheticFibers ->
             "Fibres synthétiques"
 
+        -- obsolete materials
         Upholstery ->
             "Mousses et rembourrés"
 
@@ -187,21 +300,70 @@ materialTypeToLabel material =
 materialTypeToString : Material -> String
 materialTypeToString material =
     case material of
+        Aluminium ->
+            "aluminium"
+
+        BatteryCell ->
+            "battery_cell"
+
+        Composites ->
+            "composites"
+
+        Containerboard ->
+            "containerboard"
+
+        Copper ->
+            "copper"
+
+        FerrousMetal ->
+            "ferrous_metals"
+
+        Glass ->
+            "glass"
+
+        HDPE ->
+            "hdpe"
+
+        LDPE ->
+            "ldpe"
+
+        -- obsolete materials
         Metal ->
             "metal"
 
         OrganicFibers ->
             "organic_fibers"
 
+        -- obsolete materials
         OtherMaterial ->
             "other"
 
+        PET ->
+            "pet"
+
+        PP ->
+            "pp"
+
+        PWB ->
+            "pwb"
+
+        -- obsolete materials
         Plastic ->
             "plastic"
+
+        PurFoam ->
+            "pur_foam"
+
+        RigidPlastics ->
+            "rigid_plastics"
+
+        Rubber ->
+            "rubber"
 
         SyntheticFibers ->
             "synthetic_fibers"
 
+        -- obsolete materials
         Upholstery ->
             "upholstery"
 
