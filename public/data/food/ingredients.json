@@ -2650,6 +2650,27 @@
     "visible": true
   },
   {
+    "activityName": "Beef cattle, conventional, national average, at farm gate {FR} U",
+    "alias": "beef-cattle-conventional-fr-live",
+    "categories": [
+      "animal_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": null,
+    "id": "1724c00a-1e59-5675-b1e2-f8a549b2ade3",
+    "inediblePart": 0,
+    "landOccupation": 22.627,
+    "location": "FR",
+    "name": "Bovin viande conventionnel vivant FR",
+    "processId": "32421967-5aaa-55fe-9918-fbddb857c443",
+    "rawToCookedRatio": 1.0,
+    "scenario": "reference",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
     "activityName": "Black pepper, conventional, at farm gate {VN} U",
     "alias": "saffron-fr",
     "categories": [
@@ -3252,6 +3273,28 @@
     "processId": "f23fb5d9-4b50-5522-8ff9-f3cebb75034e",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
+    "activityName": "Broiler, organic, at farm gate {FR} U {{chicken-breast-fr-organic-2025}}",
+    "alias": "broiler-fr-organic-live",
+    "categories": [
+      "animal_product",
+      "organic"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": null,
+    "id": "1d8e7cac-fc93-501f-8d33-98f1d6d34da8",
+    "inediblePart": 0,
+    "landOccupation": 9.7882,
+    "location": "FR",
+    "name": "Poulet bio vivant FR (alim. ani. 100% FR issu de poulet bio FR)",
+    "processId": "2e91c78a-925c-57c7-b13e-759ea6671127",
+    "rawToCookedRatio": 1.0,
+    "scenario": "organic",
     "transportCooling": "always",
     "visible": true
   },
@@ -6211,6 +6254,27 @@
     "visible": true
   },
   {
+    "activityName": "Pig, conventional, national average, at farm gate {FR} U",
+    "alias": "pig-conventional-fr-live",
+    "categories": [
+      "animal_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": null,
+    "id": "3e6953d5-12a6-5fb6-b219-ae9f083b4ec2",
+    "inediblePart": 0,
+    "landOccupation": 3.1141,
+    "location": "FR",
+    "name": "Porc conventionnel vivant FR",
+    "processId": "02ea0433-a76b-5019-a740-b4e02165d987",
+    "rawToCookedRatio": 1.0,
+    "scenario": "reference",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
     "activityName": "Ware potato, conventional, for fresh market, firm flesh varieties, at farm gate {FR} U",
     "alias": "sweet-potato-default",
     "categories": [
@@ -7396,6 +7460,28 @@
     "scenario": "import",
     "transportCooling": "none",
     "visible": false
+  },
+  {
+    "activityName": "Pig, organic, system number 2, at farm gate {FR} U",
+    "alias": "pig-organic-fr-live",
+    "categories": [
+      "animal_product",
+      "organic"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": null,
+    "id": "4dcd0514-ad5f-5853-be2c-c0a8a09025c5",
+    "inediblePart": 0,
+    "landOccupation": 12.039,
+    "location": "FR",
+    "name": "Porc bio vivant FR",
+    "processId": "da0a3d32-2199-5af2-abca-745a224944f3",
+    "rawToCookedRatio": 1.0,
+    "scenario": "organic",
+    "transportCooling": "always",
+    "visible": true
   },
   {
     "activityName": "Cooked ham case ready at plant {{cooked-ham-organic-2025}}",
@@ -9036,6 +9122,27 @@
     "visible": true
   },
   {
+    "activityName": "Broiler, conventional, at farm gate {FR} U {{chicken-breast-br-max-2025}}",
+    "alias": "broiler-br-max-live",
+    "categories": [
+      "animal_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": null,
+    "id": "5f4456c2-a93b-5cda-9b2b-6df7ae8179f5",
+    "inediblePart": 0,
+    "landOccupation": 3.7773,
+    "location": "FR",
+    "name": "Poulet conventionnel vivant import (soja brésilien max) issu de poulet FR",
+    "processId": "ece05143-86e2-53d2-b9f8-84a3fdd7d823",
+    "rawToCookedRatio": 1.0,
+    "scenario": "reference",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
     "activityName": "Peach, at farm, organic 2025 {ES}",
     "alias": "peach-organic",
     "categories": [
@@ -10582,6 +10689,28 @@
     "visible": true
   },
   {
+    "activityName": "Lamb, organic, national average, at farm gate FR U",
+    "alias": "lamb-organic-national-average-farm-gate-fr-u-live",
+    "categories": [
+      "animal_product",
+      "organic"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": null,
+    "id": "72d5929f-a03b-59ff-9ae9-f5fdf1d065f9",
+    "inediblePart": 0,
+    "landOccupation": 79.795,
+    "location": "FR",
+    "name": "Agneau bio vivant FR",
+    "processId": "0bcdedda-b2db-565a-8ee3-5b4eccc4266d",
+    "rawToCookedRatio": 1.0,
+    "scenario": "organic",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
     "activityName": "Almonds, in shell, at farm {CN} - Adapted from WFLDB U",
     "alias": "almond-in-shell-fr",
     "categories": [
@@ -10868,6 +10997,28 @@
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
     "transportCooling": "none",
+    "visible": true
+  },
+  {
+    "activityName": "Broiler, organic, at farm gate {FR} U",
+    "alias": "broiler-organic-fr-live",
+    "categories": [
+      "animal_product",
+      "organic"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": null,
+    "id": "753daf84-d104-5829-a4a2-0cd67b770083",
+    "inediblePart": 0,
+    "landOccupation": 8.2645,
+    "location": "FR",
+    "name": "Poulet bio vivant FR",
+    "processId": "b0fe0012-b892-52c7-9904-e5b2aa5f31d6",
+    "rawToCookedRatio": 1.0,
+    "scenario": "organic",
+    "transportCooling": "always",
     "visible": true
   },
   {
@@ -12407,6 +12558,28 @@
     "visible": true
   },
   {
+    "activityName": "Cull cow, organic, national average, at farm gate FR U",
+    "alias": "cull-cow-organic-national-average-live",
+    "categories": [
+      "animal_product",
+      "organic"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": null,
+    "id": "8602a1cb-18a2-54aa-b491-1bbb7e495500",
+    "inediblePart": 0,
+    "landOccupation": 24.676,
+    "location": "FR",
+    "name": "Bovin bio moyen vivant FR",
+    "processId": "6be00c07-d618-504d-b823-4b7a704226f2",
+    "rawToCookedRatio": 1.0,
+    "scenario": "organic",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
     "activityName": "Peanut, organic 2025 {RoW}| peanut production | Cut-off, U",
     "alias": "peanut-organic",
     "categories": [
@@ -12854,6 +13027,27 @@
     "rawToCookedRatio": 0.974,
     "scenario": "reference",
     "transportCooling": "once_transformed",
+    "visible": true
+  },
+  {
+    "activityName": "Broiler, conventional, at farm gate {FR} U",
+    "alias": "broiler-conventional-fr-live",
+    "categories": [
+      "animal_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": null,
+    "id": "8b7e4cff-e083-5f79-80e8-5b51cb10e5e6",
+    "inediblePart": 0,
+    "landOccupation": 3.0715,
+    "location": "FR",
+    "name": "Poulet conventionnel vivant FR",
+    "processId": "b98f0823-abe6-57fd-b49f-e1f9638e0256",
+    "rawToCookedRatio": 1.0,
+    "scenario": "reference",
+    "transportCooling": "always",
     "visible": true
   },
   {
@@ -14367,6 +14561,27 @@
     "visible": true
   },
   {
+    "activityName": "Beef cattle, feedlot or intensive system, live weight, at farm {GB} - Adapted from WFLDB U",
+    "alias": "beef-cattle-feedlot-gb-live",
+    "categories": [
+      "animal_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "EuropeAndMaghreb",
+    "density": 1.0,
+    "ecosystemicServices": null,
+    "id": "a09846cd-65d1-5ffb-95fe-f329d411c18b",
+    "inediblePart": 0,
+    "landOccupation": 22.793,
+    "location": "GB",
+    "name": "Bovin viande feedlot vivant GB",
+    "processId": "c687d8a3-859a-5c8e-9258-aa07b4867474",
+    "rawToCookedRatio": 1.0,
+    "scenario": "reference",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
     "activityName": "French bean, conventional, national average, at farm gate {FR} U",
     "alias": "french-bean-default",
     "categories": [
@@ -14661,6 +14876,48 @@
     "processId": "bef56d20-ec50-53ea-aaba-219e98fa25cd",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
+    "activityName": "Swine, industrial system, live weight, at farm (WFLDB)",
+    "alias": "swine-industrial-ca-live",
+    "categories": [
+      "animal_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
+    "density": 1.0,
+    "ecosystemicServices": null,
+    "id": "a6bee441-2115-5eb0-95f9-d68b74afd409",
+    "inediblePart": 0,
+    "landOccupation": 2.8059,
+    "location": "CA",
+    "name": "Porc industriel vivant import",
+    "processId": "5de425ae-09bf-597d-999e-0e93d53a67d3",
+    "rawToCookedRatio": 1.0,
+    "scenario": "import",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
+    "activityName": "Lamb, conventional, indoor production system, at farm gate {FR} U",
+    "alias": "lamb-conventional-fr-live",
+    "categories": [
+      "animal_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": null,
+    "id": "a7285486-2ab8-536e-8402-308c45966e16",
+    "inediblePart": 0,
+    "landOccupation": 40.746,
+    "location": "FR",
+    "name": "Agneau conventionnel vivant FR",
+    "processId": "fb2ca05e-b366-573d-82ed-dbbb2c2b7e60",
+    "rawToCookedRatio": 1.0,
+    "scenario": "reference",
     "transportCooling": "always",
     "visible": true
   },
@@ -17230,6 +17487,27 @@
     "visible": true
   },
   {
+    "activityName": "Pig, conventionnal, Bleu Blanc Coeur, at farm gate {FR} U",
+    "alias": "pig-bbc-fr-live",
+    "categories": [
+      "animal_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": null,
+    "id": "c392e85c-2316-5f44-9ceb-e6b0c9a0f5d3",
+    "inediblePart": 0,
+    "landOccupation": 3.9636,
+    "location": "FR",
+    "name": "Porc BBC vivant FR",
+    "processId": "9cd2c3b6-bf9b-559f-aec0-670a1190caba",
+    "rawToCookedRatio": 1.0,
+    "scenario": "reference",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
     "activityName": "Cauliflower, conventional, national average, at farm gate {FR} U",
     "alias": "artichoke-fr",
     "categories": [
@@ -17888,6 +18166,27 @@
     "processId": "4f41f725-37a1-5e0f-8739-c0aa256caef7",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
+    "activityName": "Cull cow, conventional, highland milk system, pastoral farming system, at farm gate {FR} U",
+    "alias": "cull-cow-grass-fed-fr-live",
+    "categories": [
+      "animal_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": null,
+    "id": "cb385a08-0441-5377-b5f2-a76592ea1165",
+    "inediblePart": 0,
+    "landOccupation": 25.051,
+    "location": null,
+    "name": "Vache de réforme herbagère vivante FR",
+    "processId": "ab63e665-4844-52a9-b2ed-a3fffea628e7",
+    "rawToCookedRatio": 1.0,
+    "scenario": "reference",
     "transportCooling": "always",
     "visible": true
   },
@@ -19887,6 +20186,28 @@
     "visible": true
   },
   {
+    "activityName": "Cull cow, organic, milk system number 1, at farm gate {FR} U",
+    "alias": "cull-cow-organic-live",
+    "categories": [
+      "animal_product",
+      "organic"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": null,
+    "id": "dd39c5d7-475d-44cf-bf66-deee453b2330",
+    "inediblePart": 0,
+    "landOccupation": 29.805,
+    "location": "FR",
+    "name": "Bovin bio vivant FR",
+    "processId": "4b692313-228b-5d38-ae02-553d2b3929ae",
+    "rawToCookedRatio": 1.0,
+    "scenario": "organic",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
     "activityName": "Hazelnut, in shell, at farm {IT} - Adapted from WFLDB U",
     "alias": "hazelnut-eu-2025",
     "categories": [
@@ -21801,6 +22122,27 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "none",
+    "visible": true
+  },
+  {
+    "activityName": "Broiler, conventional, at farm gate {FR} U {{chicken-breast-fr-feed-2025}}",
+    "alias": "broiler-fr-feed-live",
+    "categories": [
+      "animal_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": null,
+    "id": "f10ef82a-3da2-5b37-a1b3-2ec9a0d62b1f",
+    "inediblePart": 0,
+    "landOccupation": 4.4533,
+    "location": "FR",
+    "name": "Poulet conventionnel vivant FR (alim. ani. 100% FR), issu de poulet FR",
+    "processId": "cb140c68-7b90-5156-b232-9f6d093a15da",
+    "rawToCookedRatio": 1.0,
+    "scenario": "reference",
+    "transportCooling": "always",
     "visible": true
   },
   {
