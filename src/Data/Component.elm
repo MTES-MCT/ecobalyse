@@ -1,6 +1,7 @@
 module Data.Component exposing
     ( Component
     , Config
+    , Consumption
     , Custom
     , DataContainer
     , Element
