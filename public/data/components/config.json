@@ -20,7 +20,7 @@
     },
     "strategies": {
       "collected": {
-        "ferrous metals": {
+        "ferrous-metals": {
           "incinerating": null,
           "landfilling": null,
           "recycling": { "percent": 100, "processId": "51801e91-d907-4297-9a4c-5691bbbb665b" }
@@ -80,32 +80,32 @@
           "landfilling": { "percent": 25, "processId": "f2c04faa-a41e-4ebd-ab44-d2dc4f4af629" },
           "recycling": { "percent": 7, "processId": "f404c75d-c211-4ea1-b392-702693a26b75" }
         },
-        "rigid plastics": {
+        "rigid-plastics": {
           "incinerating": { "percent": 35, "processId": "7f7af998-8313-47e7-b043-80fcf4d67042" },
           "landfilling": { "percent": 24, "processId": "f2c04faa-a41e-4ebd-ab44-d2dc4f4af629" },
           "recycling": { "percent": 41, "processId": "f404c75d-c211-4ea1-b392-702693a26b75" }
         },
-        "pur foam": {
+        "pur-foam": {
           "incinerating": { "percent": 94, "processId": "04c1e26f-bc40-4dff-950a-51ca54d5ad16" },
           "landfilling": { "percent": 2, "processId": "6194fdb0-0b67-4101-8d6a-1e55924b7462" },
           "recycling": { "percent": 4, "processId": "dbfb60bb-045f-4e81-9f88-8b411fc4a665" }
         },
-        "synthetic fibers": {
+        "synthetic-fibers": {
           "incinerating": { "percent": 52, "processId": "09b50832-bf5a-470d-8b8d-ecbd59cd1f9d" },
           "landfilling": { "percent": 21, "processId": "63db8dee-78a5-4979-ae9b-fcc76d66ee4f" },
           "recycling": { "percent": 27, "processId": "21a1b68e-a8c3-4a54-acfc-58d7d76f7c8c" }
         },
-        "organic fibers": {
+        "organic-fibers": {
           "incinerating": { "percent": 52, "processId": "09b50832-bf5a-470d-8b8d-ecbd59cd1f9d" },
           "landfilling": { "percent": 21, "processId": "63db8dee-78a5-4979-ae9b-fcc76d66ee4f" },
           "recycling": { "percent": 27, "processId": "21a1b68e-a8c3-4a54-acfc-58d7d76f7c8c" }
         },
-        "printed wiring board": {
+        "pwb": {
           "incinerating": null,
           "landfilling": null,
           "recycling": { "percent": 100, "processId": "be67b092-a873-4626-8f03-a9fa66c9e966" }
         },
-        "battery cell": {
+        "battery-cell": {
           "incinerating": null,
           "landfilling": null,
           "recycling": { "percent": 100, "processId": "ac83e8db-ebb5-4878-a039-e1cd40943627" }
@@ -132,7 +132,7 @@
         "recycling": null
       },
       "nonCollected": {
-        "ferrous metals": {
+        "ferrous-metals": {
           "incinerating": null,
           "landfilling": { "percent": 5, "processId": "3f12bb2d-bac9-4b8d-bd72-69428c031f33" }, 
           "recycling": { "percent": 95, "processId": "51801e91-d907-4297-9a4c-5691bbbb665b" }
@@ -192,12 +192,12 @@
           "landfilling": { "percent": 18, "processId": "f2c04faa-a41e-4ebd-ab44-d2dc4f4af629" },
           "recycling": null
         },
-        "rigid plastics": {
+        "rigid-plastics": {
           "incinerating": { "percent": 82, "processId": "7f7af998-8313-47e7-b043-80fcf4d67042" },
           "landfilling": { "percent": 18, "processId": "f2c04faa-a41e-4ebd-ab44-d2dc4f4af629" },
           "recycling": null
         },
-        "pur foam": {
+        "pur-foam": {
           "incinerating": { "percent": 82, "processId": "04c1e26f-bc40-4dff-950a-51ca54d5ad16" },
           "landfilling": { "percent": 18, "processId": "6194fdb0-0b67-4101-8d6a-1e55924b7462" },
           "recycling": null
