@@ -15,6 +15,7 @@ import Browser.Navigation as Navigation
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Component as Component exposing (Component, Index, TargetElement, TargetItem)
 import Data.Component.Amount as Amount exposing (Amount)
+import Data.Component.Config as Config
 import Data.Country as Country
 import Data.Dataset as Dataset
 import Data.Env as Env
@@ -25,7 +26,7 @@ import Data.Object.Simulator as Simulator
 import Data.Plausible as Plausible
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
-import Data.Scope as Scope exposing (Scope)
+import Data.Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
 import Data.Uuid exposing (Uuid)
@@ -449,13 +450,9 @@ update ({ navKey } as session) msg model =
                 |> App.withCmds
                     [ Time.now
                         |> Task.perform
-                            (SaveBookmarkWithTime model.bookmarkName
-                                (if model.scope == Scope.Veli then
-                                    Bookmark.Veli query
-
-                                 else
-                                    Bookmark.Object query
-                                )
+                            (query
+                                |> Bookmark.genericQueryFromScope model.scope
+                                |> SaveBookmarkWithTime model.bookmarkName
                             )
                     , Plausible.send session <| Plausible.BookmarkSaved model.scope
                     ]
@@ -468,7 +465,7 @@ update ({ navKey } as session) msg model =
                             { name = String.trim name
                             , query = objectQuery
                             , created = now
-                            , subScope = Just model.scope
+                            , genericScope = Nothing
                             }
                     )
 
@@ -750,16 +747,15 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
                         }
                     }
                 ]
-            , case componentConfig.durability.enabled |> Scope.dictGet scope of
-                Just True ->
-                    durabilityView currentDurability
+            , if componentConfig.durability |> Config.scopeEnabled scope then
+                durabilityView currentDurability
 
-                _ ->
-                    text ""
+              else
+                text ""
             , ComponentView.editorView
                 { addLabel = "Ajouter un composant existant"
                 , componentConfig = session.componentConfig
-                , context = ComponentView.ObjectContext
+                , context = ComponentView.GenericContext
                 , db = session.db
                 , debug = True
                 , detailed = model.detailedComponents

@@ -1,5 +1,6 @@
 module Data.ComponentTest exposing (..)
 
+import Data.Complement as Complement
 import Data.Component as Component exposing (Component, Item, LifeCycle, Requirements)
 import Data.Component.Amount as Amount
 import Data.Impact as Impact exposing (Impacts)
@@ -119,6 +120,7 @@ suite =
                             getTestMass transforms =
                                 Component.Results
                                     { amount = Amount.fromFloat 1
+                                    , complementsImpacts = Complement.emptyComplementsResultsImpacts
                                     , impacts = Impact.empty
                                     , items = []
                                     , label = Nothing
@@ -150,6 +152,7 @@ suite =
                             getTestEcsImpact transforms =
                                 Component.Results
                                     { amount = Amount.fromFloat 1
+                                    , complementsImpacts = Complement.emptyComplementsResultsImpacts
                                     , impacts = Impact.empty
                                     , items = []
                                     , label = Nothing
@@ -206,6 +209,7 @@ suite =
                                 [ it "should reject when the unit of the material and the transforms do not match"
                                     (Component.Results
                                         { amount = Amount.fromFloat 1
+                                        , complementsImpacts = Complement.emptyComplementsResultsImpacts
                                         , impacts = Impact.empty
                                         , items = []
                                         , label = Nothing
@@ -223,6 +227,7 @@ suite =
                             getTestResults transforms =
                                 Component.Results
                                     { amount = Amount.fromFloat 1
+                                    , complementsImpacts = Complement.emptyComplementsResultsImpacts
                                     , impacts = Impact.empty |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 100)
                                     , items = []
                                     , label = Nothing
@@ -375,6 +380,26 @@ suite =
                                         |> Result.map (Component.extractMass >> Mass.inKilograms)
                                         |> Result.withDefault 0
                                         |> Expect.within (Expect.Absolute 1) 660
+                                    )
+                                ]
+                            )
+                        , TestUtils.suiteFromResult2 "compute metadata complements"
+                            wood
+                            sawing
+                            (\materialInCubicMeters transformInCubicMeters ->
+                                let
+                                    results =
+                                        { amount = Amount.fromFloat 1
+                                        , material = materialInCubicMeters.id
+                                        , transforms = [ transformInCubicMeters.id ]
+                                        }
+                                            |> Component.computeElementResults requirements Nothing
+                                in
+                                [ it "should compute complements impacts according on material unit"
+                                    (results
+                                        |> Result.map extractComplementEcsImpact
+                                        |> Result.withDefault 0
+                                        |> Expect.within (Expect.Absolute 0.00001) 1.41462
                                     )
                                 ]
                             )
@@ -805,7 +830,7 @@ suite =
                         (\( sofaFabricComponent, sofaFabricItem ) ->
                             [ it "should have the expected initial component scope"
                                 (sofaFabricComponent.scope
-                                    |> Expect.equal Scope.Object
+                                    |> Expect.equal (Scope.Generic Scope.Object)
                                 )
                             , it "should have no custom scopes by default"
                                 (sofaFabricItem.custom
@@ -820,7 +845,7 @@ suite =
                                 )
                             , it "should reset custom scopes when they match initial component ones"
                                 (sofaFabricItem
-                                    |> Component.setCustomScope sofaFabricComponent Scope.Object
+                                    |> Component.setCustomScope sofaFabricComponent (Scope.Generic Scope.Object)
                                     |> .custom
                                     |> Maybe.andThen .scope
                                     |> Expect.equal Nothing
@@ -905,7 +930,7 @@ suite =
                                                         ]
                                                 }
                                            )
-                                        |> Component.validateQuery { requirements | scope = Scope.Food2 }
+                                        |> Component.validateQuery { requirements | scope = Scope.Generic Scope.Food2 }
                                         |> expectResultErrorContains "Une quantité doit être supérieure ou égale à zéro"
                                     )
                                 ]
@@ -913,14 +938,14 @@ suite =
                                 [ it "should accept a durability param when it's enabled by config" <|
                                     (Component.emptyQuery
                                         |> Component.updateDurability (Unit.ratio 1.42)
-                                        |> Component.validateQuery { requirements | scope = Scope.Object }
+                                        |> Component.validateQuery { requirements | scope = Scope.Generic Scope.Object }
                                         |> Expect.ok
                                     )
                                 , it "should reject a durability param when it's disabled by config" <|
                                     (Component.emptyQuery
                                         |> Component.updateDurability (Unit.ratio 1.42)
-                                        |> Component.validateQuery { requirements | scope = Scope.Food2 }
-                                        |> expectResultErrorContains ("La durabilité n'est pas activée pour le périmètre " ++ Scope.toLabel Scope.Food2)
+                                        |> Component.validateQuery { requirements | scope = Scope.Generic Scope.Food2 }
+                                        |> expectResultErrorContains ("La durabilité n'est pas activée pour le périmètre " ++ Scope.toLabel (Scope.Generic Scope.Food2))
                                     )
                                 ]
                             , describe "process validation"
@@ -951,7 +976,7 @@ suite =
                                                         ]
                                                 }
                                            )
-                                        |> Component.validateQuery { requirements | scope = Scope.Food2 }
+                                        |> Component.validateQuery { requirements | scope = Scope.Generic Scope.Food2 }
                                         |> expectResultErrorContains ("Aucun procédé scopé Alimentaire² avec cet id: " ++ Process.idToString sawingProcess.id)
                                     )
                                 ]
@@ -978,13 +1003,18 @@ testComponentConfig db =
                 }
             },
             "endOfLife": {
+                "enabled": {
+                    "food2": false,
+                    "object": true,
+                    "veli": true
+                },
                 "scopeCollectionRates": {
                 "object": 70
                 },
                 "strategies": {
                     "default": {
-                        "incinerating": { "processId": "6fad4e70-5736-552d-a686-97e4fb627c37", "percent": 82 },
-                        "landfilling": { "processId": "d4954f69-e647-531d-aa32-c34be5556736", "percent": 18 },
+                        "incinerating": { "processId": "6be70859-a817-424c-ad09-5b9b4012d401", "percent": 82 },
+                        "landfilling": { "processId": "63db8dee-78a5-4979-ae9b-fcc76d66ee4f", "percent": 18 },
                         "recycling": null
                     },
                     "collected": {
@@ -994,25 +1024,25 @@ testComponentConfig db =
                             "recycling": { "percent": 100 }
                         },
                         "plastic": {
-                            "incinerating": { "processId": "17986210-aeb8-5f4f-99fd-cbecb5439fde", "percent": 8 },
+                            "incinerating": { "processId": "7f7af998-8313-47e7-b043-80fcf4d67042", "percent": 8 },
                             "landfilling": null,
                             "recycling": { "percent": 92 }
                         },
                         "upholstery": {
-                            "incinerating": { "processId": "3fe5a5b1-c1b2-5c17-8b59-0e37b09f1037", "percent": 94 },
-                            "landfilling": { "processId": "d4954f69-e647-531d-aa32-c34be5556736", "percent": 2 },
+                            "incinerating": { "processId": "04c1e26f-bc40-4dff-950a-51ca54d5ad16", "percent": 94 },
+                            "landfilling": { "processId": "63db8dee-78a5-4979-ae9b-fcc76d66ee4f", "percent": 2 },
                             "recycling": { "percent": 4 }
                         },
                         "wood": {
-                            "incinerating": { "processId": "316be695-bf3e-5562-9f09-77f213c3ec67", "percent": 31 },
+                            "incinerating": { "processId": "8c102569-dcef-4016-842b-6f662a082b66", "percent": 31 },
                             "landfilling": null,
                             "recycling": { "percent": 69 }
                         }
                     },
                     "nonCollected": {
                         "metal": {
-                            "incinerating": { "processId": "5719f399-c2a3-5268-84e2-894aba588f1b", "percent": 5 },
-                            "landfilling": { "processId": "d4954f69-e647-531d-aa32-c34be5556736", "percent": 5 },
+                            "incinerating": { "processId": "aea851ac-8f25-413a-82ba-5efd4630ea1f", "percent": 5 },
+                            "landfilling": { "processId": "63db8dee-78a5-4979-ae9b-fcc76d66ee4f", "percent": 5 },
                             "recycling": { "percent": 90 }
                         }
                     }
@@ -1056,7 +1086,7 @@ createTestRequirements db =
             (\config ->
                 { config = config
                 , db = db
-                , scope = Scope.Object
+                , scope = Scope.Generic Scope.Object
                 }
             )
 
@@ -1064,6 +1094,11 @@ createTestRequirements db =
 extractEcsImpact : Component.Results -> Float
 extractEcsImpact =
     Component.extractImpacts >> getEcsImpact
+
+
+extractComplementEcsImpact : Component.Results -> Float
+extractComplementEcsImpact =
+    Component.extractComplementsImpacts >> Complement.mergeComplementsResultsImpacts >> getEcsImpact
 
 
 getEcsImpact : Impacts -> Float
@@ -1488,6 +1523,12 @@ wood =
                 },
                 "location": "DE",
                 "massPerUnit": 660.0,
+                "metadata": {
+                  "complements": {
+                    "forest": 0.70731
+                  },
+                  "forestManagement": "intensivePlantation"
+                },
                 "scopes": ["object", "veli"],
                 "source": "Ecoinvent 3.9.1",
                 "unit": "m3",

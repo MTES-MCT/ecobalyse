@@ -15,6 +15,7 @@ module Data.Textile.LifeCycle exposing
     )
 
 import Array exposing (Array)
+import Data.Complement as Complement
 import Data.Impact as Impact exposing (Impacts)
 import Data.Textile.Inputs as Inputs exposing (Inputs)
 import Data.Textile.Query exposing (Query)
@@ -93,12 +94,12 @@ computeFinalImpacts =
         Impact.empty
 
 
-sumComplementsImpacts : LifeCycle -> Impact.ComplementsImpacts
+sumComplementsImpacts : LifeCycle -> Complement.ComplementsImpacts
 sumComplementsImpacts =
     Array.toList
         >> List.filter .enabled
         >> List.map .complementsImpacts
-        >> List.foldl Impact.addComplementsImpacts Impact.noComplementsImpacts
+        >> List.foldl Complement.addComplementsImpacts Complement.noComplementsImpacts
 
 
 getNextEnabledStage : Label -> LifeCycle -> Maybe Stage

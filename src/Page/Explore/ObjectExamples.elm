@@ -27,11 +27,19 @@ table { maxScore } { detailed, scope } =
         Tuple.first
             >> .id
             >> Just
-            >> (if scope == Scope.Veli then
-                    Dataset.VeliExamples
+            >> (case scope of
+                    Scope.Generic Scope.Food2 ->
+                        -- FIXME: we should eventually have food2 examples
+                        Dataset.ObjectExamples
 
-                else
-                    Dataset.ObjectExamples
+                    Scope.Generic Scope.Object ->
+                        Dataset.ObjectExamples
+
+                    Scope.Generic Scope.Veli ->
+                        Dataset.VeliExamples
+
+                    _ ->
+                        Dataset.ObjectExamples
                )
             >> Route.Explore scope
     , toSearchableString = Tuple.first >> Example.toSearchableString

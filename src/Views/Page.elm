@@ -119,13 +119,13 @@ commonNotices msg activePage =
                 , Markdown.simple [] "**Cette version est en cours de développement.**"
                 ]
 
-        Object Scope.Food2 ->
+        Object (Scope.Generic Scope.Food2) ->
             Notice.info
                 [ Icon.info
                 , Markdown.simple [] "**Cette version est en cours de développement.**"
                 ]
 
-        Object Scope.Object ->
+        Object (Scope.Generic Scope.Object) ->
             Notice.info
                 [ Icon.info
                 , Markdown.simple [] "**Cette version est en cours de développement.**"
@@ -133,7 +133,7 @@ commonNotices msg activePage =
                     |> Markdown.simple []
                 ]
 
-        Object Scope.Veli ->
+        Object (Scope.Generic Scope.Veli) ->
             Notice.info
                 [ Icon.info
                 , Markdown.simple [] "**Cette version est en cours de développement.** Elle est réservée à des beta-testeurs."
@@ -227,16 +227,17 @@ newVersionAlert { session, toMsg } =
             text ""
 
 
+addRouteIf : Bool -> MenuLink -> Maybe MenuLink
+addRouteIf flag route =
+    if flag then
+        Just route
+
+    else
+        Nothing
+
+
 mainMenuLinks : Session -> List MenuLink
 mainMenuLinks { enabledSections } =
-    let
-        addRouteIf flag route =
-            if flag then
-                Just route
-
-            else
-                Nothing
-    in
     List.filterMap identity
         [ Just <| Internal "Accueil" Route.Home Home
         , addRouteIf enabledSections.textile <|
@@ -244,26 +245,28 @@ mainMenuLinks { enabledSections } =
         , addRouteIf enabledSections.food <|
             Internal "Alimentaire" Route.FoodBuilderHome Food
         , addRouteIf enabledSections.objects <|
-            Internal "Objets" (Route.ObjectSimulatorHome Scope.Object) (Object Scope.Object)
+            Internal "Objets" (Route.ObjectSimulatorHome (Scope.Generic Scope.Object)) (Object (Scope.Generic Scope.Object))
         , addRouteIf enabledSections.veli <|
-            Internal "Véhicules" (Route.ObjectSimulatorHome Scope.Veli) (Object Scope.Veli)
+            Internal "Véhicules" (Route.ObjectSimulatorHome (Scope.Generic Scope.Veli)) (Object (Scope.Generic Scope.Veli))
         , Just <| Internal "Explorateur" (Route.Explore Scope.Textile (Dataset.TextileExamples Nothing)) Explore
         , Just <| Internal "API" Route.Api Api
         , Just <| MailTo "Contact" Env.contactEmail
         ]
 
 
-secondaryMenuLinks : List MenuLink
-secondaryMenuLinks =
-    [ Internal "Dernières mises à jour" (Route.Editorial "maj") (Editorial "maj")
-    , Internal "Statistiques" Route.Stats Stats
-    , External "Documentation" Env.gitbookUrl
-    , External "Communauté" Env.communityUrl
-    , External "Code source" Env.githubUrl
-    , External "CGU" Env.cguUrl
-    , Internal "Admin" (Route.Admin AdminSection.ComponentSection) Admin
-    , Internal "Alimentaire²" (Route.ObjectSimulatorHome Scope.Food2) (Object Scope.Food2)
-    ]
+secondaryMenuLinks : Session -> List MenuLink
+secondaryMenuLinks { enabledSections } =
+    List.filterMap identity
+        [ Just <| Internal "Dernières mises à jour" (Route.Editorial "maj") (Editorial "maj")
+        , Just <| Internal "Statistiques" Route.Stats Stats
+        , Just <| External "Documentation" Env.gitbookUrl
+        , Just <| External "Communauté" Env.communityUrl
+        , Just <| External "Code source" Env.githubUrl
+        , Just <| External "CGU" Env.cguUrl
+        , Just <| Internal "Admin" (Route.Admin AdminSection.ComponentSection) Admin
+        , addRouteIf enabledSections.food2 <|
+            Internal "Alimentaire²" (Route.ObjectSimulatorHome (Scope.Generic Scope.Food2)) (Object (Scope.Generic Scope.Food2))
+        ]
 
 
 headerMenuLinks : Session -> List MenuLink
@@ -344,7 +347,7 @@ pageFooter session =
                             |> ul [ class "list-unstyled" ]
                         ]
                     , div [ class "col-6 col-sm-4 col-md-3 col-lg-2" ]
-                        [ secondaryMenuLinks
+                        [ secondaryMenuLinks session
                             |> List.map makeLink
                             |> List.map (List.singleton >> li [])
                             |> ul [ class "list-unstyled" ]

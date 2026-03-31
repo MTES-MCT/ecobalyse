@@ -23,6 +23,7 @@ Les variables d’environnement décrites ci-dessous doivent être définies. En
 ### Frontend (npm & node)
 
 - `ENABLE_FOOD_SECTION` : affichage ou non de la section dédiée à l’alimentaire (valeur `True` ou `False`, par défaut `False`)
+- `ENABLE_FOOD2_SECTION` : affichage ou non de la nouvelle section dédiée à l’alimentaire utilisant le moteur générique (valeur `True` ou `False`, par défaut `False`)
 - `ENABLE_OBJECTS_SECTION` : affichage ou non de la section expérimentale dédiée aux objets génériques (valeur `True` ou `False`, par défaut `False`
 - `ENABLE_VELI_SECTION` : affichage ou non de la section expérimentale dédiée aux véhicules intermédiaires (valeur `True` ou `False`, par défaut `False`)
 - `ENCRYPTION_KEY` : la clé utilisée par les scripts `npm run encrypt` et  `npm run decrypt` pour chiffrer/déchiffrer les fichiers d’impacts détaillés inclus dans chaque archive de release. Pour générer une nouvelle clé, vous pouvez utiliser le script `bin/generate-crypto-key`

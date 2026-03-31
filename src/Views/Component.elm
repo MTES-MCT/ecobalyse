@@ -6,6 +6,7 @@ module Views.Component exposing
 
 import Autocomplete exposing (Autocomplete)
 import Data.AutocompleteSelector as AutocompleteSelector
+import Data.Complement as Complement
 import Data.Component as Component
     exposing
         ( Component
@@ -21,6 +22,7 @@ import Data.Component as Component
         , TargetItem
         )
 import Data.Component.Amount as Amount exposing (Amount)
+import Data.Component.Config as Config
 import Data.Country as Country exposing (Country)
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
@@ -82,7 +84,7 @@ type alias Config db msg =
 
 type Context
     = AdminContext
-    | ObjectContext
+    | GenericContext
     | TextileTrimsContext
 
 
@@ -265,7 +267,7 @@ componentView config itemIndex ({ component, country, elements, quantity } as ex
                             |> Format.kg
                         ]
                     , td [ class "pt-0 pb-2 text-end align-middle text-nowrap fs-7" ]
-                        [ Component.extractImpacts itemResults
+                        [ Component.getTotalImpacts itemResults
                             |> Format.formatImpact config.impact
                         ]
                     , td [ class "pe-3 pt-0 pb-2 text-end align-middle text-nowrap" ]
@@ -440,7 +442,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as co
                 , div [ class "d-flex align-items-center gap-2" ]
                     [ span [ class "cursor-help", Attr.title "Hors transports" ]
                         [ lifeCycle.production
-                            |> Component.extractImpacts
+                            |> Component.getTotalImpacts
                             |> Format.formatImpact config.impact
                         ]
                     , case docsUrl of
@@ -497,7 +499,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as co
                 AdminContext ->
                     createComponentButton config
 
-                ObjectContext ->
+                GenericContext ->
                     div [ class "d-flex gap-1" ]
                         [ addComponentButton config
                         , createComponentButton config
@@ -506,7 +508,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as co
                 TextileTrimsContext ->
                     addComponentButton config
             ]
-        , if List.member scope [ Scope.Object, Scope.Veli ] && List.length query.items > 1 then
+        , if Scope.isGeneric scope && List.length query.items > 1 then
             div []
                 [ DownArrow.view
                     [ div [ class "d-flex justify-content-end align-items-center gap-1" ]
@@ -523,16 +525,8 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as co
 
           else
             text ""
-        , if config.context == ObjectContext && not (List.isEmpty query.items) then
-            div []
-                [ lifeCycle.transports.toDistribution
-                    |> transportView impact (Component.extractMass lifeCycle.production)
-                , distributionView config
-                , noTransportView
-                , useStageView config
-                , noTransportView
-                , endOfLifeView config lifeCycle
-                ]
+        , if config.context == GenericContext && not (List.isEmpty query.items) then
+            genericContextStagesView config lifeCycle
 
           else
             text ""
@@ -541,6 +535,19 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as co
 
           else
             text ""
+        ]
+
+
+genericContextStagesView : Config db msg -> LifeCycle -> Html msg
+genericContextStagesView ({ impact } as config) lifeCycle =
+    div []
+        [ lifeCycle.transports.toDistribution
+            |> transportView impact (Component.extractMass lifeCycle.production)
+        , distributionView config
+        , noTransportView
+        , useStageView config
+        , noTransportView
+        , endOfLifeView config lifeCycle
         ]
 
 
@@ -680,11 +687,13 @@ elementView config targetItem elementIndex { amount, country, material, transfor
             , th [ class "align-middle text-truncate", scope "col", Attr.title "Masse sortante" ]
                 [ material.unit |> Process.unitLabel |> text ]
             , th [ class "align-middle text-end", scope "col" ]
-                [ Format.formatImpact config.impact <| Component.extractImpacts elementResults ]
+                [ Component.getTotalImpacts elementResults
+                    |> Format.formatImpact config.impact
+                ]
             , th [] []
             ]
             :: elementMaterialView config ( targetItem, elementIndex ) materialResults material amount
-            :: elementTransformsView config ( targetItem, elementIndex ) country transformsResults transforms
+            ++ elementTransformsView config ( targetItem, elementIndex ) country transformsResults transforms
             ++ (if config.scope /= Scope.Textile then
                     [ tr []
                         [ td [ colspan 2 ] []
@@ -726,9 +735,13 @@ selectMaterialButton config ( targetItem, elementIndex ) material =
         ]
 
 
-elementMaterialView : Config db msg -> TargetElement -> Results -> Process -> Amount -> Html msg
+elementMaterialView : Config db msg -> TargetElement -> Results -> Process -> Amount -> List (Html msg)
 elementMaterialView config targetElement materialResults material amount =
-    tr [ class "fs-7" ]
+    let
+        complementsImpacts =
+            Component.extractComplementsImpacts materialResults
+    in
+    [ tr [ class "fs-7" ]
         [ td [] []
         , td [ class "text-end align-middle text-nowrap ps-0", style "min-width" "130px" ]
             [ if config.scope == Scope.Textile then
@@ -746,7 +759,7 @@ elementMaterialView config targetElement materialResults material amount =
                 |> Format.amount material
             ]
         , td [ class "text-end align-middle text-nowrap" ]
-            [ Component.extractImpacts materialResults
+            [ Component.getTotalImpacts materialResults
                 |> Format.formatImpact config.impact
             ]
         , td [ class "pe-3 text-nowrap" ]
@@ -758,6 +771,32 @@ elementMaterialView config targetElement materialResults material amount =
                 [ Icon.trash ]
             ]
         ]
+    , if complementsImpacts /= Complement.emptyComplementsResultsImpacts then
+        tr [ class "fs-7" ]
+            [ td [] []
+            , td [ class "text-end align-middle text-nowrap ps-0", style "min-width" "130px" ]
+                []
+            , td
+                [ class "align-middle text-truncate w-100 text-muted cursor-help"
+                , title (Format.formatComplementsResultsImpactsToString config.impact complementsImpacts)
+                ]
+                [ span [ class "ComponentElementIcon" ] [ Icon.calculator ], text "Dont compléments" ]
+            , td [ class "text-end align-middle text-nowrap" ]
+                []
+            , td [ class "text-end align-middle text-nowrap" ]
+                []
+            , td [ class "text-end align-middle text-nowrap" ]
+                [ complementsImpacts
+                    |> Complement.mergeComplementsResultsImpacts
+                    |> Format.formatImpact config.impact
+                ]
+            , td [ class "pe-3 text-nowrap" ]
+                []
+            ]
+
+      else
+        text ""
+    ]
 
 
 elementTransformsView : Config db msg -> TargetElement -> Maybe Country -> List Results -> List Process -> List (Html msg)
@@ -988,7 +1027,7 @@ addConsumptionButton ({ openSelectConsumptionModal, query } as config) =
 
 
 endOfLifeView : Config db msg -> LifeCycle -> Html msg
-endOfLifeView ({ componentConfig } as config) lifeCycle =
+endOfLifeView ({ componentConfig, scope } as config) lifeCycle =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header d-flex align-items-center justify-content-between" ]
             [ h2 [ class "h5 mb-0" ]
@@ -1004,28 +1043,35 @@ endOfLifeView ({ componentConfig } as config) lifeCycle =
                 ]
             ]
         , div [ class "card-body table-responsive p-0" ]
-            [ table [ class "table mb-0 fs-7" ]
-                [ thead []
-                    [ tr []
-                        [ th [ class "text-end" ] [ text "Matière" ]
-                        , th [ class "text-end" ] [ text "Masse" ]
-                        , th [ class "text-end" ] [ text "Recyclage" ]
-                        , th [ class "text-end" ] [ text "Incinération" ]
-                        , th [ class "text-end" ] [ text "Enfouissement" ]
-                        , th [ class "text-end pe-3" ] [ text "Impact" ]
+            [ if config.componentConfig.endOfLife |> Config.scopeEnabled scope then
+                table [ class "table mb-0 fs-7" ]
+                    [ thead []
+                        [ tr []
+                            [ th [ class "text-end" ] [ text "Matière" ]
+                            , th [ class "text-end" ] [ text "Masse" ]
+                            , th [ class "text-end" ] [ text "Recyclage" ]
+                            , th [ class "text-end" ] [ text "Incinération" ]
+                            , th [ class "text-end" ] [ text "Enfouissement" ]
+                            , th [ class "text-end pe-3" ] [ text "Impact" ]
+                            ]
                         ]
+                    , lifeCycle.production
+                        |> Component.getEndOfLifeDetailedImpacts
+                            { config = componentConfig
+                            , db = config.db
+                            , scope = config.scope
+                            }
+                        |> AnyDict.toList
+                        |> List.sortBy (Tuple.first >> Category.materialTypeToLabel)
+                        |> List.concatMap (endOfLifeMaterialRow config)
+                        |> tbody []
                     ]
-                , lifeCycle.production
-                    |> Component.getEndOfLifeDetailedImpacts
-                        { config = componentConfig
-                        , db = config.db
-                        , scope = config.scope
-                        }
-                    |> AnyDict.toList
-                    |> List.sortBy (Tuple.first >> Category.materialTypeToLabel)
-                    |> List.concatMap (endOfLifeMaterialRow config)
-                    |> tbody []
-                ]
+
+              else
+                div [ class "card-body d-flex align-items-center justify-content-start gap-2" ]
+                    [ Icon.info
+                    , text <| "Fin de vie non disponible pour le périmètre " ++ Scope.toLabel config.scope
+                    ]
             ]
         ]
 

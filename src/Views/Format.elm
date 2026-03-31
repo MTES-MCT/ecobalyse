@@ -4,6 +4,7 @@ module Views.Format exposing
     , cubicMeters
     , days
     , diff
+    , formatComplementsResultsImpactsToString
     , formatFloat
     , formatImpact
     , formatImpactFloat
@@ -30,6 +31,7 @@ module Views.Format exposing
     )
 
 import Area exposing (Area)
+import Data.Complement as Complement
 import Data.Component.Amount as Amount exposing (Amount)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Definition)
@@ -62,6 +64,27 @@ formatImpact { decimals, trigram, unit } =
     Impact.getImpact trigram
         >> Unit.impactToFloat
         >> formatRichFloat decimals unit
+
+
+formatImpactToString : Definition -> Impacts -> String
+formatImpactToString { decimals, trigram } =
+    Impact.getImpact trigram
+        >> Unit.impactToFloat
+        >> formatFloat decimals
+
+
+formatComplementsResultsImpactsToString : Definition -> Complement.ComplementsResultsImpacts -> String
+formatComplementsResultsImpactsToString impact complementsResultsImpacts =
+    let
+        formatComplement maybeComplement label =
+            maybeComplement
+                |> Maybe.map (formatImpactToString impact >> (++) (label ++ "\u{00A0}: "))
+    in
+    List.map2 formatComplement
+        (complementsResultsImpacts |> Complement.allComplementsToList)
+        (Complement.labels |> Complement.allComplementsToList)
+        |> List.filterMap identity
+        |> String.join "\n"
 
 
 {-| Formats a float with a provided decimal precision, which is overriden

@@ -137,7 +137,7 @@
             "elements": [
               {
                 "amount": 9,
-                "material": "7adec581-5650-5c76-b119-e907f2534de6",
+                "material": "20f5db04-a4c7-48ab-9903-38c65cd70be0",
                 "transforms": []
               }
             ],
@@ -174,8 +174,8 @@
             "elements": [
               {
                 "amount": 0.2,
-                "material": "82608838-0607-5ccc-a8cf-9c9c0d26994a",
-                "transforms": ["6e1779a0-3bc7-5850-9820-02a037813ce7"]
+                "material": "ac028973-5dfa-47bc-868c-e49be116f53e",
+                "transforms": ["4c1b77b1-4e4b-4fdd-a392-eea0b8764b6b"]
               }
             ],
             "name": "Charnières en acier"

@@ -120,7 +120,7 @@ viewHero { enabledSections } =
                 , { label = "Calculer l’impact d’un objet"
                   , subLabel = Just "Simulateur en construction"
                   , callToAction = False
-                  , link = RouteLink <| Route.ObjectSimulatorHome Scope.Object
+                  , link = RouteLink <| Route.ObjectSimulatorHome (Scope.Generic Scope.Object)
                   , testId = "object-callout-button"
                   }
                 )
@@ -128,7 +128,7 @@ viewHero { enabledSections } =
                 , { label = "Calculer l’impact d’un véhicule"
                   , subLabel = Just "Simulateur en construction"
                   , callToAction = False
-                  , link = RouteLink <| Route.ObjectSimulatorHome Scope.Veli
+                  , link = RouteLink <| Route.ObjectSimulatorHome (Scope.Generic Scope.Veli)
                   , testId = "veli-callout-button"
                   }
                 )

@@ -1,39 +1,27 @@
 module Data.Impact exposing
-    ( ComplementsImpacts
-    , Impacts
+    ( Impacts
     , StagesImpacts
-    , addComplementsImpacts
-    , applyComplements
-    , complementsImpactAsChartEntries
     , decodeImpacts
     , default
     , divideBy
-    , divideComplementsImpactsBy
     , divideStagesImpactsBy
     , empty
     , encode
     , encodeAggregatedScoreChartEntry
-    , encodeComplementsImpacts
     , encodeSingleImpact
     , getAggregatedScoreData
     , getImpact
-    , getTotalComplementsImpacts
-    , impactsWithComplements
     , insertWithoutAggregateComputation
-    , mapComplementsImpacts
     , mapImpacts
     , multiplyBy
-    , noComplementsImpacts
     , noStagesImpacts
     , parseTrigram
     , per100grams
     , perKg
     , stagesColors
     , stagesImpactsAsChartEntries
-    , sumEcosystemicImpacts
     , sumImpacts
     , toProtectionAreas
-    , totalComplementsImpactAsChartEntry
     , updateImpact
     )
 
@@ -46,157 +34,6 @@ import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity
 import Url.Parser as Parser exposing (Parser)
-
-
-
--- Complements impacts
-
-
-type alias ComplementsImpacts =
-    -- Note: these are always expressed in ecoscore (ecs) Pts
-    { -- Ecosystemic services impacts
-      cropDiversity : Unit.Impact
-    , hedges : Unit.Impact
-    , livestockDensity : Unit.Impact
-    , microfibers : Unit.Impact
-    , outOfEuropeEOL : Unit.Impact
-    , permanentPasture : Unit.Impact
-    , plotSize : Unit.Impact
-    }
-
-
-addComplementsImpacts : ComplementsImpacts -> ComplementsImpacts -> ComplementsImpacts
-addComplementsImpacts a b =
-    { -- Ecosystemic services impacts
-      cropDiversity = Quantity.plus a.cropDiversity b.cropDiversity
-    , hedges = Quantity.plus a.hedges b.hedges
-    , livestockDensity = Quantity.plus a.livestockDensity b.livestockDensity
-    , microfibers = Quantity.plus a.microfibers b.microfibers
-    , outOfEuropeEOL = Quantity.plus a.outOfEuropeEOL b.outOfEuropeEOL
-    , permanentPasture = Quantity.plus a.permanentPasture b.permanentPasture
-    , plotSize = Quantity.plus a.plotSize b.plotSize
-    }
-
-
-applyComplements : Unit.Impact -> Impacts -> Impacts
-applyComplements complement impacts =
-    let
-        ecoScore =
-            getImpact Definition.Ecs impacts
-    in
-    impacts
-        |> insertWithoutAggregateComputation Definition.Ecs
-            (Quantity.difference ecoScore complement)
-
-
-divideComplementsImpactsBy : Float -> ComplementsImpacts -> ComplementsImpacts
-divideComplementsImpactsBy n =
-    mapComplementsImpacts (Quantity.divideBy n)
-
-
-encodeComplementsImpacts : ComplementsImpacts -> Encode.Value
-encodeComplementsImpacts complementsImpact =
-    let
-        negated =
-            negateComplementsImpacts complementsImpact
-    in
-    Encode.object
-        [ ( "cropDiversity", Unit.encodeImpact negated.cropDiversity )
-        , ( "hedges", Unit.encodeImpact negated.hedges )
-        , ( "livestockDensity", Unit.encodeImpact negated.livestockDensity )
-        , ( "microfibers", Unit.encodeImpact negated.microfibers )
-        , ( "outOfEuropeEOL", Unit.encodeImpact negated.outOfEuropeEOL )
-        , ( "permanentPasture", Unit.encodeImpact negated.permanentPasture )
-        , ( "plotSize", Unit.encodeImpact negated.plotSize )
-        ]
-
-
-getTotalComplementsImpacts : ComplementsImpacts -> Unit.Impact
-getTotalComplementsImpacts complementsImpacts =
-    Quantity.sum
-        [ complementsImpacts.cropDiversity
-        , complementsImpacts.hedges
-        , complementsImpacts.livestockDensity
-        , complementsImpacts.microfibers
-        , complementsImpacts.outOfEuropeEOL
-        , complementsImpacts.permanentPasture
-        , complementsImpacts.plotSize
-        ]
-
-
-mapComplementsImpacts : (Unit.Impact -> Unit.Impact) -> ComplementsImpacts -> ComplementsImpacts
-mapComplementsImpacts fn ci =
-    { cropDiversity = fn ci.cropDiversity
-    , hedges = fn ci.hedges
-    , livestockDensity = fn ci.livestockDensity
-    , microfibers = fn ci.microfibers
-    , outOfEuropeEOL = fn ci.outOfEuropeEOL
-    , permanentPasture = fn ci.permanentPasture
-    , plotSize = fn ci.plotSize
-    }
-
-
-negateComplementsImpacts : ComplementsImpacts -> ComplementsImpacts
-negateComplementsImpacts =
-    mapComplementsImpacts (Unit.impactToFloat >> negate >> Unit.impact)
-
-
-noComplementsImpacts : ComplementsImpacts
-noComplementsImpacts =
-    { cropDiversity = Unit.noImpacts
-    , hedges = Unit.noImpacts
-    , livestockDensity = Unit.noImpacts
-    , microfibers = Unit.noImpacts
-    , outOfEuropeEOL = Unit.noImpacts
-    , permanentPasture = Unit.noImpacts
-    , plotSize = Unit.noImpacts
-    }
-
-
-impactsWithComplements : ComplementsImpacts -> Impacts -> Impacts
-impactsWithComplements complementsImpacts impacts =
-    let
-        complementsImpact =
-            getTotalComplementsImpacts complementsImpacts
-
-        ecsWithComplements =
-            getImpact Definition.Ecs impacts
-                -- Reminder: substracting a malus — a.k.a negative complement — adds to the total impact
-                |> Quantity.minus complementsImpact
-    in
-    impacts
-        |> insertWithoutAggregateComputation Definition.Ecs ecsWithComplements
-
-
-sumEcosystemicImpacts : ComplementsImpacts -> Unit.Impact
-sumEcosystemicImpacts c =
-    Quantity.sum
-        [ c.cropDiversity
-        , c.hedges
-        , c.livestockDensity
-        , c.permanentPasture
-        , c.plotSize
-        ]
-
-
-complementsImpactAsChartEntries : ComplementsImpacts -> List { color : String, name : String, value : Float }
-complementsImpactAsChartEntries c =
-    -- Notes:
-    -- - We want those complements/bonuses to appear as negative values on the chart
-    -- - We want to sum ecosystemic service components impacts to only have a single entry in the charts
-    [ { color = "#606060", name = "Services écosystémiques", value = -(Unit.impactToFloat (sumEcosystemicImpacts c)) }
-    , { color = "#c0c0c0", name = "Complément microfibres", value = -(Unit.impactToFloat c.microfibers) }
-    , { color = "#e0e0e0", name = "Complément export hors-Europe", value = -(Unit.impactToFloat c.outOfEuropeEOL) }
-    ]
-
-
-totalComplementsImpactAsChartEntry : ComplementsImpacts -> { color : String, name : String, value : Float }
-totalComplementsImpactAsChartEntry complementsImpacts =
-    -- We want bonuses to appear as negative values on the chart, maluses as positive ones
-    { color = "#808080"
-    , name = "Compléments"
-    , value = -(Unit.impactToFloat (getTotalComplementsImpacts complementsImpacts))
-    }
 
 
 

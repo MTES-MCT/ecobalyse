@@ -5,6 +5,7 @@ module Views.Comparator exposing
     )
 
 import Data.Bookmark as Bookmark exposing (Bookmark)
+import Data.Complement as Complement
 import Data.Component as Component
 import Data.Food.Recipe as Recipe
 import Data.Impact as Impact
@@ -50,7 +51,7 @@ type ComparisonType
 
 
 type alias ChartsData =
-    { complementsImpact : Impact.ComplementsImpacts
+    { complementsImpact : Complement.ComplementsImpacts
     , impacts : Impact.Impacts
     , label : String
     , stagesImpacts : Impact.StagesImpacts
@@ -137,34 +138,16 @@ addToComparison session { name, query } =
                         }
                     )
 
-        Bookmark.Food2 food2Query ->
+        Bookmark.Generic genericScope food2Query ->
             food2Query
                 |> ObjectSimulator.compute
                     { config = session.componentConfig
                     , db = session.db
-                    , scope = Scope.Food2
+                    , scope = Scope.Generic genericScope
                     }
                 |> Result.map
                     (\lifeCycle ->
-                        { complementsImpact = Impact.noComplementsImpacts
-                        , impacts = Component.sumLifeCycleImpacts lifeCycle
-                        , label = name
-                        , stagesImpacts =
-                            lifeCycle
-                                |> ObjectSimulator.toStagesImpacts Definition.Ecs
-                        }
-                    )
-
-        Bookmark.Object objectQuery ->
-            objectQuery
-                |> ObjectSimulator.compute
-                    { config = session.componentConfig
-                    , db = session.db
-                    , scope = Scope.Object
-                    }
-                |> Result.map
-                    (\lifeCycle ->
-                        { complementsImpact = Impact.noComplementsImpacts
+                        { complementsImpact = Complement.noComplementsImpacts
                         , impacts = Component.sumLifeCycleImpacts lifeCycle
                         , label = name
                         , stagesImpacts =
@@ -184,24 +167,6 @@ addToComparison session { name, query } =
                         , stagesImpacts =
                             simulator
                                 |> TextileSimulator.toStagesImpacts Definition.Ecs
-                        }
-                    )
-
-        Bookmark.Veli veliQuery ->
-            veliQuery
-                |> ObjectSimulator.compute
-                    { config = session.componentConfig
-                    , db = session.db
-                    , scope = Scope.Veli
-                    }
-                |> Result.map
-                    (\lifeCycle ->
-                        { complementsImpact = Impact.noComplementsImpacts
-                        , impacts = Component.sumLifeCycleImpacts lifeCycle
-                        , label = name
-                        , stagesImpacts =
-                            lifeCycle
-                                |> ObjectSimulator.toStagesImpacts Definition.Ecs
                         }
                     )
 
@@ -332,7 +297,7 @@ dataForIndividualImpacts definitions chartsData =
             (\{ complementsImpact, impacts, label } ->
                 let
                     complementImpacts =
-                        Impact.complementsImpactAsChartEntries complementsImpact
+                        Complement.complementsImpactAsChartEntries complementsImpact
 
                     entries =
                         impacts
@@ -359,7 +324,7 @@ dataForSubscoresImpacts definitions chartsData =
             (\{ complementsImpact, impacts, label } ->
                 let
                     complementImpacts =
-                        Impact.totalComplementsImpactAsChartEntry complementsImpact
+                        Complement.totalComplementsImpactAsChartEntry complementsImpact
 
                     entries =
                         impacts

@@ -80,6 +80,7 @@ type alias Session =
 
 type alias EnabledSections =
     { food : Bool
+    , food2 : Bool
     , objects : Bool
     , textile : Bool
     , veli : Bool
@@ -199,13 +200,13 @@ updateDb fn session =
 objectQueryFromScope : Scope -> Session -> Component.Query
 objectQueryFromScope scope session =
     case scope of
-        Scope.Food2 ->
+        Scope.Generic Scope.Food2 ->
             session.queries.food2
 
-        Scope.Object ->
+        Scope.Generic Scope.Object ->
             session.queries.object
 
-        Scope.Veli ->
+        Scope.Generic Scope.Veli ->
             session.queries.veli
 
         _ ->
@@ -218,15 +219,21 @@ updateFoodQuery foodQuery ({ queries } as session) =
 
 
 updateObjectQuery : Scope -> Component.Query -> Session -> Session
-updateObjectQuery scope objectQuery ({ queries } as session) =
-    { session
-        | queries =
-            if scope == Scope.Veli then
-                { queries | veli = objectQuery }
+updateObjectQuery scope query ({ queries } as session) =
+    case scope of
+        Scope.Generic Scope.Food2 ->
+            { session | queries = { queries | food2 = query } }
 
-            else
-                { queries | object = objectQuery }
-    }
+        Scope.Generic Scope.Object ->
+            { session | queries = { queries | object = query } }
+
+        Scope.Generic Scope.Veli ->
+            { session | queries = { queries | veli = query } }
+
+        _ ->
+            session
+                |> notifyError "Erreur de mise à jour de la requête"
+                    ("La requête " ++ Scope.toString scope ++ " n'est pas générique")
 
 
 updateTextileQuery : TextileQuery.Query -> Session -> Session

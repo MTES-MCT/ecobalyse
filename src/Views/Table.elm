@@ -49,13 +49,12 @@ percentageTable impactDefinition data =
         values =
             List.map .value data
 
-        ( total, minimum, maximum ) =
+        ( total, maximum ) =
             ( List.sum values
-            , values |> List.minimum |> Maybe.withDefault 0
-            , values |> List.maximum |> Maybe.withDefault 0
+            , values |> List.map abs |> List.maximum |> Maybe.withDefault 0
             )
     in
-    if total == 0 && maximum == 0 && minimum == 0 then
+    if total == 0 && maximum == 0 then
         text ""
 
     else
@@ -68,12 +67,7 @@ percentageTable impactDefinition data =
                             , impact = value
                             , name = name
                             , percent = value / total * 100
-                            , width =
-                                if value < 0 then
-                                    abs (value / minimum * 100)
-
-                                else
-                                    value / maximum * 100
+                            , width = abs value / maximum * 100
                             }
                         )
                     |> List.map
@@ -102,7 +96,17 @@ percentageTable impactDefinition data =
                                         [ div
                                             [ class "bar"
                                             , classList [ ( "bg-secondary", percent >= 0 ), ( "bg-success", percent < 0 ) ]
-                                            , style "width" (String.fromFloat width ++ "%")
+                                            , style "width"
+                                                -- Always display a visible bar if value is not 0
+                                                (String.fromFloat
+                                                    (if width > 0 then
+                                                        Basics.max width 1
+
+                                                     else
+                                                        width
+                                                    )
+                                                    ++ "%"
+                                                )
                                             ]
                                             []
                                         ]

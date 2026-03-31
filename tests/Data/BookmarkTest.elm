@@ -1,11 +1,15 @@
 module Data.BookmarkTest exposing (..)
 
 import Data.Bookmark as Bookmark
+import Data.Component as Component
+import Data.Scope as Scope
 import Data.Session as Session
 import Expect
 import Json.Decode as Decode
+import Json.Encode as Encode
 import Test exposing (..)
 import TestUtils exposing (it)
+import Time
 
 
 suite : Test
@@ -44,8 +48,76 @@ suite =
                     Err err ->
                         Expect.fail ("Erreur de décodage: " ++ Decode.errorToString err)
                 )
+            , it "should encode and decode generic food2 bookmarks"
+                ([ { created = Time.millisToPosix 1
+                   , genericScope = Just Scope.Food2
+                   , name = "food2 bookmark"
+                   , query = Bookmark.Generic Scope.Food2 Component.emptyQuery
+                   }
+                 ]
+                    |> Bookmark.encodeJsonList
+                    |> Encode.encode 0
+                    |> expectQueryDecoded (Bookmark.Generic Scope.Food2 Component.emptyQuery)
+                )
+            , it "should encode and decode generic object bookmarks"
+                ([ { created = Time.millisToPosix 1
+                   , genericScope = Just Scope.Object
+                   , name = "object bookmark"
+                   , query = Bookmark.Generic Scope.Object Component.emptyQuery
+                   }
+                 ]
+                    |> Bookmark.encodeJsonList
+                    |> Encode.encode 0
+                    |> expectQueryDecoded (Bookmark.Generic Scope.Object Component.emptyQuery)
+                )
+            , it "should encode and decode generic veli bookmarks"
+                ([ { created = Time.millisToPosix 1
+                   , genericScope = Just Scope.Veli
+                   , name = "veli bookmark"
+                   , query = Bookmark.Generic Scope.Veli Component.emptyQuery
+                   }
+                 ]
+                    |> Bookmark.encodeJsonList
+                    |> Encode.encode 0
+                    |> expectQueryDecoded (Bookmark.Generic Scope.Veli Component.emptyQuery)
+                )
+            , it "should encode and decode generic bookmarks when genericScope field is missing"
+                ([ { created = Time.millisToPosix 1
+                   , genericScope = Nothing
+                   , name = "food2 bookmark"
+                   , query = Bookmark.Generic Scope.Food2 Component.emptyQuery
+                   }
+                 ]
+                    |> Bookmark.encodeJsonList
+                    |> Encode.encode 0
+                    |> expectQueryDecoded (Bookmark.Generic Scope.Food2 Component.emptyQuery)
+                )
+            , it "should decode a scoped generic bookmark"
+                ("""
+                 [{
+                     "created": 1,
+                     "name": "veli bookmark",
+                     "query": { "components": [] },
+                     "subScope": "veli"
+                 }]
+                 """
+                    |> expectQueryDecoded (Bookmark.Generic Scope.Veli Component.emptyQuery)
+                )
             ]
         ]
+
+
+expectQueryDecoded : Bookmark.Query -> String -> Expect.Expectation
+expectQueryDecoded expectedQuery rawBookmarksJson =
+    case Decode.decodeString Bookmark.decodeJsonList rawBookmarksJson of
+        Ok [ { query } ] ->
+            query |> Expect.equal expectedQuery
+
+        Ok _ ->
+            Expect.fail "Expected exactly one bookmark"
+
+        Err err ->
+            Expect.fail ("Decoding failed: " ++ Decode.errorToString err)
 
 
 sampleJsonBookmarks =

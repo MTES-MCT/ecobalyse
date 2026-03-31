@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?mv1po3');
-  src:  url('fonts/icomoon.eot?mv1po3#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?mv1po3') format('truetype'),
-    url('fonts/icomoon.woff?mv1po3') format('woff'),
-    url('fonts/icomoon.svg?mv1po3#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?b9fihz');
+  src:  url('fonts/icomoon.eot?b9fihz#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?b9fihz') format('truetype'),
+    url('fonts/icomoon.woff?b9fihz') format('woff'),
+    url('fonts/icomoon.svg?b9fihz#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -33,6 +33,12 @@
 }
 .icon-file-export:before {
   content: "\e910";
+}
+.icon-leaf:before {
+  content: "\e901";
+}
+.icon-search:before {
+  content: "\e902";
 }
 .icon-package:before {
   content: "\e912";
@@ -81,6 +87,9 @@
 }
 .icon-home:before {
   content: "\e90b";
+}
+.icon-calculator:before {
+  content: "\e940";
 }
 .icon-sign-in:before {
   content: "\e915";
@@ -145,7 +154,7 @@
 .icon-help:before {
   content: "\f1cd";
 }
-.icon-calculator:before {
+.icon-calculator1:before {
   content: "\f1ec";
 }
 .icon-trash:before {
@@ -156,10 +165,4 @@
 }
 .icon-examples:before {
   content: "\f277";
-}
-.icon-leaf:before {
-  content: "\e901";
-}
-.icon-search:before {
-  content: "\e902";
 }
