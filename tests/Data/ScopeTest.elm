@@ -23,7 +23,7 @@ suite =
                     |> Expect.equal 1
                 )
             , asTest "test3"
-                ([ { scopes = [ Scope.Object ] }, { scopes = [ Scope.Object, Scope.Textile ] } ]
+                ([ { scopes = [ Scope.Generic Scope.Object ] }, { scopes = [ Scope.Generic Scope.Object, Scope.Textile ] } ]
                     |> Scope.anyOf [ Scope.Food ]
                     |> List.length
                     |> Expect.equal 0

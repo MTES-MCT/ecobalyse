@@ -4,7 +4,8 @@ const { getProcessesAsString } = require("./lib");
 
 const elmApp = Elm.CheckDb.init({
   flags: {
-    processes: getProcessesAsString((detailed = true)),
+    detailedProcesses: getProcessesAsString((detailed = true)),
+    nonDetailedProcesses: getProcessesAsString((detailed = false)),
   },
 });
 

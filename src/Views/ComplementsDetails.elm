@@ -1,13 +1,13 @@
 module Views.ComplementsDetails exposing (view)
 
-import Data.Impact as Impact
+import Data.Complement as Complement
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Views.Format as Format
 
 
 type alias Config =
-    { complementsImpacts : Impact.ComplementsImpacts
+    { complementsImpacts : Complement.ComplementsImpacts
     , label : String
     }
 
@@ -20,7 +20,7 @@ view { complementsImpacts, label } detailedImpacts =
                 [ span [ title "Cliquez pour plier/déplier" ] [ text label ]
                 , span [ class "text-muted text-end", title "Total des compléments" ]
                     [ complementsImpacts
-                        |> Impact.getTotalComplementsImpacts
+                        |> Complement.getTotalComplementsImpacts
                         |> Format.complement
                     ]
                 ]

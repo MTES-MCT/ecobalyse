@@ -1,5 +1,6 @@
 module Data.Food.RecipeTest exposing (..)
 
+import Data.Complement as Complement
 import Data.Country as Country
 import Data.Example
 import Data.Food.Ingredient as Ingredient
@@ -16,9 +17,10 @@ import Test exposing (..)
 import TestUtils exposing (asTest, suiteWithDb)
 
 
-expectImpactEqual : Unit.Impact -> Unit.Impact -> Expect.Expectation
+expectImpactEqual : Unit.Impact -> Maybe Unit.Impact -> Expect.Expectation
 expectImpactEqual expectedImpactUnit =
-    Unit.impactToFloat
+    Maybe.withDefault Unit.noImpacts
+        >> Unit.impactToFloat
         >> Expect.within (Expect.Relative 0.000000001) (Unit.impactToFloat expectedImpactUnit)
 
 
@@ -56,7 +58,7 @@ suite =
                              [ complementsImpacts.hedges
                                 |> expectImpactEqual Unit.noImpacts
                                 |> asTest "should compute a zero hedges ingredient complement"
-                             , Impact.getTotalComplementsImpacts complementsImpacts
+                             , Just (Complement.getTotalComplementsImpacts complementsImpacts)
                                 |> expectImpactEqual Unit.noImpacts
                                 |> asTest "should compute a zero total complement"
                              ]
@@ -75,7 +77,7 @@ suite =
                              [ complementsImpacts.hedges
                                 |> expectImpactEqual (Unit.impact 6)
                                 |> asTest "should compute a non-zero hedges ingredient complement"
-                             , Impact.getTotalComplementsImpacts complementsImpacts
+                             , Just (Complement.getTotalComplementsImpacts complementsImpacts)
                                 |> expectImpactEqual (Unit.impact 6031)
                                 |> asTest "should compute a non-zero total complement"
                              ]

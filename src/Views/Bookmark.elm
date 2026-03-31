@@ -101,7 +101,7 @@ shareTabView { copyToClipBoard, impact, scope, session } =
                         |> Encode.encode 2
                     )
 
-                Scope.Food2 ->
+                Scope.Generic Scope.Food2 ->
                     let
                         query =
                             session.queries.food2
@@ -116,10 +116,25 @@ shareTabView { copyToClipBoard, impact, scope, session } =
                         |> Encode.encode 2
                     )
 
-                Scope.Object ->
+                Scope.Generic Scope.Object ->
                     let
                         query =
                             session.queries.object
+                    in
+                    ( Just query
+                        |> Route.ObjectSimulator scope impact.trigram
+                        |> Route.toString
+                        |> (++) "/"
+                        |> (++) session.clientUrl
+                    , buildObjectApiQuery scope session.clientUrl query
+                    , Component.encodeQuery query
+                        |> Encode.encode 2
+                    )
+
+                Scope.Generic Scope.Veli ->
+                    let
+                        query =
+                            session.queries.veli
                     in
                     ( Just query
                         |> Route.ObjectSimulator scope impact.trigram
@@ -143,21 +158,6 @@ shareTabView { copyToClipBoard, impact, scope, session } =
                         |> (++) session.clientUrl
                     , TextileQuery.buildApiQuery session.clientUrl query
                     , TextileQuery.encode query
-                        |> Encode.encode 2
-                    )
-
-                Scope.Veli ->
-                    let
-                        query =
-                            session.queries.veli
-                    in
-                    ( Just query
-                        |> Route.ObjectSimulator scope impact.trigram
-                        |> Route.toString
-                        |> (++) "/"
-                        |> (++) session.clientUrl
-                    , buildObjectApiQuery scope session.clientUrl query
-                    , Component.encodeQuery query
                         |> Encode.encode 2
                     )
     in
@@ -299,19 +299,16 @@ bookmarksView ({ compare, scope, session } as cfg) =
         , bookmarks
             |> Bookmark.sort
             |> List.filter
-                (\{ subScope } ->
-                    case subScope of
-                        Just Scope.Food2 ->
-                            scope == Scope.Food2
+                (\{ query } ->
+                    case query of
+                        Bookmark.Food _ ->
+                            scope == Scope.Food
 
-                        Just Scope.Object ->
-                            scope == Scope.Object
+                        Bookmark.Generic genericScope _ ->
+                            scope == Scope.Generic genericScope
 
-                        Just Scope.Veli ->
-                            scope == Scope.Veli
-
-                        _ ->
-                            True
+                        Bookmark.Textile _ ->
+                            scope == Scope.Textile
                 )
             |> List.map (bookmarkView cfg)
             |> ul
@@ -333,21 +330,13 @@ bookmarkView cfg ({ name, query } as bookmark) =
                     Just foodQuery
                         |> Route.FoodBuilder cfg.impact.trigram
 
-                Bookmark.Food2 food2Query ->
+                Bookmark.Generic genericScope food2Query ->
                     Just food2Query
-                        |> Route.ObjectSimulator Scope.Food2 cfg.impact.trigram
-
-                Bookmark.Object objectQuery ->
-                    Just objectQuery
-                        |> Route.ObjectSimulator Scope.Object cfg.impact.trigram
+                        |> Route.ObjectSimulator (Scope.Generic genericScope) cfg.impact.trigram
 
                 Bookmark.Textile textileQuery ->
                     Just textileQuery
                         |> Route.TextileSimulator cfg.impact.trigram
-
-                Bookmark.Veli veliQuery ->
-                    Just veliQuery
-                        |> Route.ObjectSimulator Scope.Veli cfg.impact.trigram
 
         beingRenamed =
             case cfg.bookmarkBeingRenamed of
@@ -425,17 +414,17 @@ queryFromScope session scope =
         Scope.Food ->
             Bookmark.Food session.queries.food
 
-        Scope.Food2 ->
-            Bookmark.Food2 session.queries.food2
+        Scope.Generic Scope.Food2 ->
+            Bookmark.Generic Scope.Food2 session.queries.food2
 
-        Scope.Object ->
-            Bookmark.Object session.queries.object
+        Scope.Generic Scope.Object ->
+            Bookmark.Generic Scope.Object session.queries.object
+
+        Scope.Generic Scope.Veli ->
+            Bookmark.Generic Scope.Veli session.queries.veli
 
         Scope.Textile ->
             Bookmark.Textile session.queries.textile
-
-        Scope.Veli ->
-            Bookmark.Veli session.queries.veli
 
 
 scopedBookmarks : Session -> Scope -> List Bookmark
@@ -446,16 +435,16 @@ scopedBookmarks session scope =
                 Scope.Food ->
                     Bookmark.isFood
 
-                Scope.Food2 ->
+                Scope.Generic Scope.Food2 ->
                     Bookmark.isFood2
 
-                Scope.Object ->
+                Scope.Generic Scope.Object ->
                     Bookmark.isObject
+
+                Scope.Generic Scope.Veli ->
+                    Bookmark.isVeli
 
                 Scope.Textile ->
                     Bookmark.isTextile
-
-                Scope.Veli ->
-                    Bookmark.isVeli
             )
         |> Bookmark.sort

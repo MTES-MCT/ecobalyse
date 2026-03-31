@@ -2,11 +2,12 @@ module Views.Textile.Stage exposing (view)
 
 import Autocomplete exposing (Autocomplete)
 import Data.AutocompleteSelector as AutocompleteSelector
+import Data.Complement as Complement exposing (noComplementsImpacts)
 import Data.Country as Country
 import Data.Dataset as Dataset
 import Data.Env as Env
 import Data.Gitbook as Gitbook
-import Data.Impact as Impact exposing (noComplementsImpacts)
+import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Process as Process
 import Data.Scope as Scope
@@ -498,11 +499,11 @@ viewStageImpacts selectedImpact { complementsImpacts, impacts } =
         let
             stageComplementsImpact =
                 complementsImpacts
-                    |> Impact.getTotalComplementsImpacts
+                    |> Complement.getTotalComplementsImpacts
 
             totalImpacts =
                 impacts
-                    |> Impact.applyComplements stageComplementsImpact
+                    |> Complement.applyComplementsToImpacts stageComplementsImpact
         in
         div []
             [ span [ class "flex-fill" ]
@@ -633,7 +634,7 @@ viewMaterialComplements finalProductMass materialInput =
             Inputs.getMaterialMicrofibersComplement finalProductMass materialInput
 
         materialComplementsImpacts =
-            { noComplementsImpacts | microfibers = materialComplement }
+            { noComplementsImpacts | microfibers = Just materialComplement }
     in
     ComplementsDetails.view
         { complementsImpacts = materialComplementsImpacts
@@ -1167,7 +1168,7 @@ advancedStepView ({ db, inputs, selectedImpact, current } as config) =
                                 [ span [ class "fw-bold" ] [ text "Complément" ]
                                 , div [ class "d-flex justify-content-between" ]
                                     [ text "-\u{00A0}Export hors-Europe"
-                                    , Format.complement current.complementsImpacts.outOfEuropeEOL
+                                    , Format.complement (current.complementsImpacts.outOfEuropeEOL |> Maybe.withDefault Unit.noImpacts)
                                     ]
                                 , div [ class "d-flex justify-content-between" ]
                                     [ span [ class "me-2 text-truncate" ] [ text "-\u{00A0}Probabilité de fin de vie hors-Europe" ]
