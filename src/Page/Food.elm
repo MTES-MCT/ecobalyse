@@ -859,7 +859,7 @@ createElementSelectorConfig db ingredientQuery { excluded, recipeIngredient, imp
                 |> List.sortBy .name
         , definitions = db.definitions
         }
-    , defaultCountry = BaseElement.Country defaultCountryCode
+    , defaultCountry = BaseElement.Country
     , delete = \element -> DeleteIngredient element.id
     , excluded =
         db.food.ingredients
