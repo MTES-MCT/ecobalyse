@@ -1836,11 +1836,6 @@ updateConsumptionAmount index amount query =
     }
 
 
-updateDistribution : Maybe Process.Id -> Query -> Query
-updateDistribution maybeProcessId query =
-    { query | distribution = maybeProcessId }
-
-
 updateCustom : Component -> (Custom -> Custom) -> Maybe Custom -> Maybe Custom
 updateCustom component fn maybeCustom =
     case maybeCustom of
@@ -1863,6 +1858,11 @@ updateCustom component fn maybeCustom =
                     , scope = Nothing
                     }
                 )
+
+
+updateDistribution : Maybe Process.Id -> Query -> Query
+updateDistribution maybeProcessId query =
+    { query | distribution = maybeProcessId }
 
 
 updateDurability : Unit.Ratio -> Query -> Query

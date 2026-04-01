@@ -940,16 +940,23 @@ distributionView { componentConfig, db, impact, lifeCycle, query, scope, updateD
                     |> Result.withDefault (text "")
                 ]
             ]
-        , div [ class "card-body d-flex justify-content-between align-items-center gap-2" ]
-            [ div [ class "d-flex align-items-center gap-1" ]
+        , [ div [ class "d-flex align-items-center gap-1" ]
                 [ Icon.lock, text "France" ]
-            , Component.getAvailableDistributionProcesses db scope
+                |> Just
+          , lifeCycle
+                |> Result.map (.distribution >> .volume >> Format.cubicMeters)
+                |> Result.toMaybe
+                |> Maybe.map (\html -> div [ class "w-33 text-end" ] [ html ])
+          , Component.getAvailableDistributionProcesses db scope
                 |> List.map processOption
                 |> select
                     [ class "form-select w-50"
                     , onInput (Process.idFromString >> updateDistribution)
                     ]
-            ]
+                |> Just
+          ]
+            |> List.filterMap identity
+            |> div [ class "card-body d-flex justify-content-between align-items-center gap-2" ]
         ]
 
 
