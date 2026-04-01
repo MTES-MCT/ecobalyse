@@ -38937,6 +38937,50 @@
     "waste": 0
   },
   {
+    "activityName": "Battery cell EoL recycling, average, CFF",
+    "categories": [
+      "end-of-life"
+    ],
+    "comment": "For 1kg battery cell, 50%LFP 50%NMC811. Based on Delegated Act to Regulation (EU) 2023/1542, methodology for the calculation and verification of the carbon footprint of electric vehicle batteries, with 50% Li recycling (hydrometallurgical), according to EU-2023/1542 2027 target",
+    "displayName": "Recyclage de cellules de batterie Li-ion, CFF",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "ac83e8db-ebb5-4878-a039-e1cd40943627",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 5457.4,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "RER",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "Broiler, conventional, at farm gate {FR} U {{chicken-breast-br-max-2025}}",
     "categories": [
       "ingredient",
@@ -39949,19 +39993,63 @@
     "waste": 0
   },
   {
-    "activityName": "PET EoL recycling, GLO, CFF",
+    "activityName": "PET fiber EoL recycling, GLO, CFF",
     "categories": [
       "end-of-life"
     ],
-    "comment": "Calculé selon la règle CFF (A=0.5, Q=1)",
-    "displayName": "Recyclage du PET, CFF",
+    "comment": "According to CFF: A=0.8, Q=0.3",
+    "displayName": "Recyclage de fibre synthétique, CFF",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "21a1b68e-a8c3-4a54-acfc-58d7d76f7c8c",
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": -78.425,
+      "ecs": 7.301,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "GLO",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "PUR foam EoL recycling, RER, CFF",
+    "categories": [
+      "end-of-life"
+    ],
+    "comment": "According to CFF: A=0.5, Q=0.75",
+    "displayName": "Recyclage de mousse PUR, CFF",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "dbfb60bb-045f-4e81-9f88-8b411fc4a665",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": -449.66,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -40207,6 +40295,50 @@
     "metadata": null,
     "scopes": [
       "food2"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Printed Wiring Board EoL recycling, CFF",
+    "categories": [
+      "end-of-life"
+    ],
+    "comment": "For 1kg PWB. Based on Delegated Act to Regulation (EU) 2023/1542, methodology for the calculation and verification of the carbon footprint of electric vehicle batteries.",
+    "displayName": "Recyclage de carte de circuit imprimé, CFF",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "be67b092-a873-4626-8f03-a9fa66c9e966",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 2375.4,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "RER",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "object",
+      "veli"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
@@ -40701,7 +40833,7 @@
     "categories": [
       "end-of-life"
     ],
-    "comment": "Calculé selon la règle CFF (A=0.5, Q=1)",
+    "comment": "According to CFF: A=0.2, Q=1",
     "displayName": "Recyclage de l'aluminium, CFF",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -41140,6 +41272,50 @@
     "waste": 0
   },
   {
+    "activityName": "cardboard EoL recycling, RER, CFF",
+    "categories": [
+      "end-of-life"
+    ],
+    "comment": "According to CFF: A=0.2, Q=1",
+    "displayName": "Recyclage du carton, CFF",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "2a63e533-3e2d-4da3-b9d0-889e423f4976",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": -5.2761,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "RER",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "chromium steel sheet rolling",
     "categories": [
       "transformation",
@@ -41230,6 +41406,50 @@
     "waste": 0.0227
   },
   {
+    "activityName": "copper EoL recycling, RER, CFF",
+    "categories": [
+      "end-of-life"
+    ],
+    "comment": "According to CFF: A=0.2, Q=1",
+    "displayName": "Recyclage du cuivre, CFF",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "eb35f932-df90-4e0c-9192-661b425c6771",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": -6209.5,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "RER",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "diesel, B7, EURO4",
     "categories": [
       "energy",
@@ -41315,6 +41535,50 @@
     ],
     "source": "Ecobalyse",
     "unit": "L",
+    "waste": 0
+  },
+  {
+    "activityName": "glass EoL recycling, RER, CFF",
+    "categories": [
+      "end-of-life"
+    ],
+    "comment": "According to CFF: A=0.2, Q=1",
+    "displayName": "Recyclage du verre, CFF",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "863d0ffb-ba47-49d6-87d2-772d2e560c2b",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": -16.013,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "RER",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
     "waste": 0
   },
   {
@@ -41405,6 +41669,50 @@
     "waste": 0
   },
   {
+    "activityName": "pet bottle EoL recycling, RER, CFF",
+    "categories": [
+      "end-of-life"
+    ],
+    "comment": "According to CFF: A=0.5, Q=0.95",
+    "displayName": "Recyclage de PET rigide, CFF",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "2dc2b8d5-db53-4c9a-ac63-69cd3fcbc42a",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": -190.03,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "RER",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "petrol, E10, EURO6",
     "categories": [
       "energy",
@@ -41446,6 +41754,50 @@
     ],
     "source": "Ecobalyse",
     "unit": "L",
+    "waste": 0
+  },
+  {
+    "activityName": "plastics EoL recycling, RER, CFF",
+    "categories": [
+      "end-of-life"
+    ],
+    "comment": "According to CFF: A=0.5, Q=0.9",
+    "displayName": "Recyclage du plastique, hors PET et PUR, CFF",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "f404c75d-c211-4ea1-b392-702693a26b75",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": -51.569,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "RER",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
     "waste": 0
   },
   {
@@ -41494,11 +41846,55 @@
     "waste": 0
   },
   {
+    "activityName": "rubber EoL recycling, RER, CFF",
+    "categories": [
+      "end-of-life"
+    ],
+    "comment": "According to CFF: A=0.5, Q=0.75",
+    "displayName": "Recyclage du caoutchouc, CFF",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "28b20f88-d8ca-4a92-be9c-86b9044a4b62",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": -88.361,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "RER",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "steel EoL recycling, RER, CFF",
     "categories": [
       "end-of-life"
     ],
-    "comment": "Calculé selon la règle CFF (A=0.5, Q=1)",
+    "comment": "According to CFF: A=0.2, Q=1",
     "displayName": "Recyclage de l'acier, CFF",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -41795,6 +42191,50 @@
     },
     "landOccupation": null,
     "location": "RoW",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "wood EoL recycling, RER, CFF",
+    "categories": [
+      "end-of-life"
+    ],
+    "comment": "According to CFF: A=0.71, Q=0.85",
+    "displayName": "Recyclage du bois, CFF",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "286b98fe-6171-4ce6-ba20-3414b60412b5",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": -0.80672,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "RER",
     "massPerUnit": null,
     "metadata": null,
     "scopes": [
@@ -45734,7 +46174,7 @@
       "end-of-life"
     ],
     "comment": "",
-    "displayName": "Incinération",
+    "displayName": "Incinération d'ordures ménagères",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "6be70859-a817-424c-ad09-5b9b4012d401",
@@ -46991,12 +47431,100 @@
     "waste": 0
   },
   {
+    "activityName": "scrap aluminium//[CH] treatment of scrap aluminium, municipal incineration with fly ash extraction",
+    "categories": [
+      "end-of-life"
+    ],
+    "comment": "",
+    "displayName": "Incinération de l'aluminium",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "2b902a26-83ef-4cf1-8431-1788842737df",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 4.9955,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "CH",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Ecoinvent 3.9.1",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "scrap copper//[Europe without Switzerland] treatment of scrap copper, municipal incineration",
+    "categories": [
+      "end-of-life"
+    ],
+    "comment": "",
+    "displayName": "Incinération du cuivre",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "b22a21c6-4b9c-47ae-a670-57fe608d4061",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 1.631,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "Europe without Switzerland",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Ecoinvent 3.9.1",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "scrap steel//[CH] treatment of scrap steel, municipal incineration with fly ash extraction",
     "categories": [
       "end-of-life"
     ],
     "comment": "",
-    "displayName": "Incinération du métal",
+    "displayName": "Incinération de métaux ferreux",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "aea851ac-8f25-413a-82ba-5efd4630ea1f",
@@ -47029,6 +47557,49 @@
     "scopes": [
       "object",
       "veli"
+    ],
+    "source": "Ecoinvent 3.9.1",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "scrap steel//[Europe without Switzerland] treatment of scrap steel, inert material landfill",
+    "categories": [
+      "end-of-life"
+    ],
+    "comment": "",
+    "displayName": "Enfouissement de l'acier",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "3f12bb2d-bac9-4b8d-bd72-69428c031f33",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 0.82866,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "Europe without Switzerland",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "object"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
@@ -47524,6 +48095,223 @@
     "waste": 0
   },
   {
+    "activityName": "waste aluminium//[RoW] treatment of waste aluminium, sanitary landfill",
+    "categories": [
+      "end-of-life"
+    ],
+    "comment": "",
+    "displayName": "Enfouissement de l'aluminium",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "6e1bb4f8-716b-4162-bda9-330125955ea0",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 20.779,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "RoW",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "object"
+    ],
+    "source": "Ecoinvent 3.9.1",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "waste glass//[CH] treatment of waste glass, inert material landfill",
+    "categories": [
+      "end-of-life"
+    ],
+    "comment": "",
+    "displayName": "Enfouissement du verre",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "6c3b8124-1bd0-49c8-8bb6-e8fbdc85e8bc",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 0.76095,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "CH",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "object"
+    ],
+    "source": "Ecoinvent 3.9.1",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "waste glass//[CH] treatment of waste glass, municipal incineration with fly ash extraction",
+    "categories": [
+      "end-of-life"
+    ],
+    "comment": "",
+    "displayName": "Incinération du verre",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "2501916b-ce82-48a8-941c-cb4af7791e5c",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 2.2137,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "CH",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Ecoinvent 3.9.1",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "waste paperboard//[RoW] treatment of waste paperboard, sanitary landfill",
+    "categories": [
+      "end-of-life"
+    ],
+    "comment": "",
+    "displayName": "Enfouissement du carton",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "1b5bb8c7-162b-4518-84db-7cf14d02c3be",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 54.813,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "RoW",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "object"
+    ],
+    "source": "Ecoinvent 3.9.1",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "waste plastic, consumer electronics//[CH] treatment of waste plastic, consumer electronics, municipal incineration with fly ash extraction",
+    "categories": [
+      "end-of-life"
+    ],
+    "comment": "",
+    "displayName": "Incinération des plastiques de composants électroniques",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "14a60b7d-a1b2-4ff0-8247-b676681a7925",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 129.37,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "CH",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Ecoinvent 3.9.1",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "waste plastic, mixture//[CH] treatment of waste plastic, mixture, municipal incineration",
     "categories": [
       "end-of-life",
@@ -47569,13 +48357,56 @@
     "waste": 0
   },
   {
+    "activityName": "waste plastic, mixture//[RoW] treatment of waste plastic, mixture, sanitary landfill",
+    "categories": [
+      "end-of-life"
+    ],
+    "comment": "",
+    "displayName": "Enfouissement du plastique",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "f2c04faa-a41e-4ebd-ab44-d2dc4f4af629",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 4.962,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "RoW",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "object"
+    ],
+    "source": "Ecoinvent 3.9.1",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "waste polyurethane//[CH] treatment of waste polyurethane, municipal incineration",
     "categories": [
       "end-of-life",
       "material_type:upholstery"
     ],
     "comment": "",
-    "displayName": "Incinération des mousses et rembourrés",
+    "displayName": "Incinération des mousses et rembourrés PUR",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "04c1e26f-bc40-4dff-950a-51ca54d5ad16",
@@ -47583,6 +48414,93 @@
       "acd": 0,
       "cch": 0,
       "ecs": 94.726,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "CH",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Ecoinvent 3.9.1",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "waste polyurethane//[RoW] treatment of waste polyurethane, sanitary landfill",
+    "categories": [
+      "end-of-life"
+    ],
+    "comment": "",
+    "displayName": "Enfouissement de mousse PUR",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "6194fdb0-0b67-4101-8d6a-1e55924b7462",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 10.337,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "RoW",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "object"
+    ],
+    "source": "Ecoinvent 3.9.1",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "waste textile, soiled//[CH] treatment of waste textile, soiled, municipal incineration with fly ash extraction",
+    "categories": [
+      "end-of-life"
+    ],
+    "comment": "",
+    "displayName": "Incinération des textiles",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "09b50832-bf5a-470d-8b8d-ecbd59cd1f9d",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 34.22,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -47653,6 +48571,49 @@
     "scopes": [
       "object",
       "veli"
+    ],
+    "source": "Ecoinvent 3.9.1",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "waste wood, untreated//[RoW] treatment of waste wood, untreated, sanitary landfill",
+    "categories": [
+      "end-of-life"
+    ],
+    "comment": "",
+    "displayName": "Enfouissement du bois",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "78a45d8f-d8f6-492a-b0d8-f6d6ee297306",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 3.38,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "RoW",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "object"
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
