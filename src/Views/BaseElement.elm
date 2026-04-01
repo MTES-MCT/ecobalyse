@@ -1,4 +1,4 @@
-module Views.BaseElement exposing (Config, deleteItemButton, view)
+module Views.BaseElement exposing (Config, DefaultCountry(..), deleteItemButton, view)
 
 import Autocomplete exposing (Autocomplete)
 import Data.AutocompleteSelector as AutocompleteSelector
@@ -26,11 +26,16 @@ type alias Db element =
     }
 
 
+type DefaultCountry
+    = Label String
+    | Country Country.Code
+
+
 type alias Config element quantity msg =
     { allowEmptyList : Bool
     , baseElement : BaseElement element quantity
     , db : Db element
-    , defaultCountry : String
+    , defaultCountry : DefaultCountry
     , delete : element -> msg
     , excluded : List element
     , impact : Impacts
@@ -86,13 +91,19 @@ view ({ baseElement, db, impact } as config) =
                     ]
                     [ text name ]
             )
-        |> (::)
-            (option
-                [ value ""
-                , selected (baseElement.country == Nothing)
-                ]
-                [ text <| "Par défaut (" ++ config.defaultCountry ++ ")" ]
-            )
+        |> (case config.defaultCountry of
+                Label label ->
+                    (::)
+                        (option
+                            [ value ""
+                            , selected (baseElement.country == Nothing)
+                            ]
+                            [ text <| "Par défaut (" ++ label ++ ")" ]
+                        )
+
+                Country _ ->
+                    identity
+           )
         |> select
             [ class "form-select form-select CountrySelector"
             , onInput

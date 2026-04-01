@@ -696,7 +696,7 @@ createElementSelectorConfig cfg materialInput =
         , definitions = cfg.db.definitions
         , elements = cfg.db.textile.materials
         }
-    , defaultCountry = materialInput.material.geographicOrigin
+    , defaultCountry = BaseElement.Label <| materialInput.material.geographicOrigin
     , delete = cfg.deleteMaterial
     , excluded = excluded
     , impact = impacts

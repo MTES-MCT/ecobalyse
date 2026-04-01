@@ -1,9 +1,10 @@
 module Data.Food.Origin exposing
     ( Origin(..)
     , decode
-    , toLabel
+    , toCountryCode
     )
 
+import Data.Country as Country
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 
@@ -40,17 +41,20 @@ fromString string =
             Err <| "Origine géographique inconnue : " ++ string
 
 
-toLabel : Origin -> String
-toLabel origin =
+toCountryCode : Origin -> Country.Code
+toCountryCode origin =
     case origin of
         EuropeAndMaghreb ->
-            "Europe et Maghreb"
+            -- @FIXME: use real value
+            Country.codeFromString "FR"
 
         France ->
-            "France"
+            Country.codeFromString "FR"
 
         OutOfEuropeAndMaghreb ->
-            "Hors Europe et Maghreb"
+            -- @FIXME: use real value
+            Country.codeFromString "FR"
 
         OutOfEuropeAndMaghrebByPlane ->
-            "Hors Europe et Maghreb par avion"
+            -- @FIXME: use real value and fix the plane problem
+            Country.codeFromString "FR"

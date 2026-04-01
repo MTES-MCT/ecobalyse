@@ -217,7 +217,7 @@ encodeIngredient ingredient =
     Encode.object
         [ ( "id", Ingredient.idToString ingredient.id |> Encode.string )
         , ( "name", ingredient.name |> Encode.string )
-        , ( "defaultOrigin", ingredient.defaultOrigin |> Origin.toLabel |> Encode.string )
+        , ( "defaultOrigin", ingredient.defaultOrigin |> Origin.toCountryCode |> Country.codeToString |> Encode.string )
         ]
 
 

@@ -621,7 +621,7 @@ ingredientFromQuery db { country, id, mass, planeTransport } =
 
 ingredientQueryFromIngredient : Ingredient -> BuilderQuery.IngredientQuery
 ingredientQueryFromIngredient ingredient =
-    { country = Nothing
+    { country = Just <| Origin.toCountryCode ingredient.defaultOrigin
     , id = ingredient.id
     , mass = Mass.grams 100
     , planeTransport = Ingredient.byPlaneByDefault ingredient

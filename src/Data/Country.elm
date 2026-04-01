@@ -63,7 +63,7 @@ findByCode : Code -> List Country -> Result String Country
 findByCode code =
     List.filter (.code >> (==) code)
         >> List.head
-        >> Result.fromMaybe ("Code pays invalide: " ++ codeToString code ++ ".")
+        >> Result.fromMaybe ("Code pays invalide\u{202F}: " ++ codeToString code ++ ".")
 
 
 decode : List Process -> Decoder Country

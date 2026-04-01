@@ -1,5 +1,6 @@
 module Page.Explore.FoodIngredients exposing (table)
 
+import Data.Country as Country
 import Data.Dataset as Dataset
 import Data.Food.EcosystemicServices as EcosystemicServices
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
@@ -53,8 +54,8 @@ table { detailed, scope } =
           , toCell = .categories >> List.map (\c -> li [] [ text (IngredientCategory.toLabel c) ]) >> ul [ class "mb-0" ]
           }
         , { label = "Origine par défaut"
-          , toValue = Table.StringValue <| .defaultOrigin >> Origin.toLabel
-          , toCell = .defaultOrigin >> Origin.toLabel >> text
+          , toValue = Table.StringValue <| .defaultOrigin >> Origin.toCountryCode >> Country.codeToString
+          , toCell = .defaultOrigin >> Origin.toCountryCode >> Country.codeToString >> text
           }
         , { label = "Groupe de culture"
           , toValue = Table.StringValue <| .cropGroup >> CropGroup.toLabel

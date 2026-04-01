@@ -14,6 +14,7 @@ import Browser.Events as BE
 import Browser.Navigation as Navigation
 import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
+import Data.Country as Country
 import Data.Dataset as Dataset
 import Data.Example as Example
 import Data.Food.EcosystemicServices as EcosystemicServices
@@ -832,10 +833,20 @@ type alias UpdateIngredientConfig =
 createElementSelectorConfig : Db -> Query.IngredientQuery -> UpdateIngredientConfig -> BaseElement.Config Ingredient Mass Msg
 createElementSelectorConfig db ingredientQuery { excluded, recipeIngredient, impact, selectedImpact } =
     let
+        defaultCountryCode =
+            Origin.toCountryCode recipeIngredient.ingredient.defaultOrigin
+
         baseElement =
             { element = recipeIngredient.ingredient
             , quantity = recipeIngredient.mass
-            , country = recipeIngredient.country
+            , country =
+                case recipeIngredient.country of
+                    Just country ->
+                        Just country
+
+                    Nothing ->
+                        Country.findByCode defaultCountryCode db.countries
+                            |> Result.toMaybe
             }
     in
     { allowEmptyList = True
@@ -848,7 +859,7 @@ createElementSelectorConfig db ingredientQuery { excluded, recipeIngredient, imp
                 |> List.sortBy .name
         , definitions = db.definitions
         }
-    , defaultCountry = Origin.toLabel recipeIngredient.ingredient.defaultOrigin
+    , defaultCountry = BaseElement.Country defaultCountryCode
     , delete = \element -> DeleteIngredient element.id
     , excluded =
         db.food.ingredients

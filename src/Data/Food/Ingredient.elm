@@ -17,6 +17,7 @@ module Data.Food.Ingredient exposing
     , transportCoolingToString
     )
 
+import Data.Country as Country
 import Data.Food.EcosystemicServices as EcosystemicServices exposing (EcosystemicServices)
 import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Ingredient.CropGroup as CropGroup exposing (CropGroup)
@@ -238,7 +239,7 @@ toSearchableString ingredient =
         [ ingredient.alias
         , ingredient.categories |> List.map IngredientCategory.toLabel |> String.join " "
         , ingredient.cropGroup |> CropGroup.toLabel
-        , ingredient.defaultOrigin |> Origin.toLabel
+        , ingredient.defaultOrigin |> Origin.toCountryCode |> Country.codeToString
         , ingredient.name
         , ingredient.process |> Process.getDisplayName
         , ingredient.process |> Process.getTechnicalName
