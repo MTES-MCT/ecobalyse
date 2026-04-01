@@ -27,8 +27,8 @@ type alias Db element =
 
 
 type DefaultCountry
-    = Label String
-    | Country Country.Code
+    = Country
+    | Label String
 
 
 type alias Config element quantity msg =
@@ -92,6 +92,9 @@ view ({ baseElement, db, impact } as config) =
                     [ text name ]
             )
         |> (case config.defaultCountry of
+                Country ->
+                    identity
+
                 Label label ->
                     (::)
                         (option
@@ -100,9 +103,6 @@ view ({ baseElement, db, impact } as config) =
                             ]
                             [ text <| "Par défaut (" ++ label ++ ")" ]
                         )
-
-                Country _ ->
-                    identity
            )
         |> select
             [ class "form-select form-select CountrySelector"
