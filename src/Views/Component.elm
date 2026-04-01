@@ -540,12 +540,17 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as co
 
 
 genericContextStagesView : Config db msg -> LifeCycle -> Html msg
-genericContextStagesView ({ impact } as config) lifeCycle =
+genericContextStagesView ({ db, impact, scope } as config) lifeCycle =
     div []
         [ lifeCycle.transports.toDistribution
             |> transportView impact (Component.extractMass lifeCycle.production)
-        , distributionView config
-        , noTransportView
+
+        -- only render the distribution section if distribution processes are available
+        , if List.isEmpty (Component.getAvailableDistributionProcesses db scope) then
+            text ""
+
+          else
+            div [] [ distributionView config, noTransportView ]
         , useStageView config
         , noTransportView
         , endOfLifeView config lifeCycle
