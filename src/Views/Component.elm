@@ -540,17 +540,12 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as co
 
 
 genericContextStagesView : Config db msg -> LifeCycle -> Html msg
-genericContextStagesView ({ db, impact, scope } as config) lifeCycle =
+genericContextStagesView ({ impact } as config) lifeCycle =
     div []
         [ lifeCycle.transports.toDistribution
             |> transportView impact (Component.extractMass lifeCycle.production)
-
-        -- only render the distribution section if distribution processes are available
-        , if List.isEmpty (Component.getAvailableDistributionProcesses db scope) then
-            text ""
-
-          else
-            div [] [ distributionView config, noTransportView ]
+        , distributionView config
+        , noTransportView
         , useStageView config
         , noTransportView
         , endOfLifeView config lifeCycle
@@ -951,14 +946,19 @@ distributionView { componentConfig, db, impact, lifeCycle, query, scope, updateD
           , lifeCycle
                 |> Result.map (.distribution >> .volume >> Format.cubicMeters)
                 |> Result.toMaybe
-                |> Maybe.map (\html -> div [ class "w-33 text-end" ] [ html ])
-          , Component.getAvailableDistributionProcesses db scope
-                |> List.map processOption
-                |> select
-                    [ class "form-select w-50"
-                    , onInput (Process.idFromString >> updateDistribution)
-                    ]
-                |> Just
+                |> Maybe.map (\html -> div [ class "d-flex align-items-center w-33 justify-content-end gap-1" ] [ Icon.package, html ])
+          , -- only render distribution process selector if any is available
+            if List.isEmpty (Component.getAvailableDistributionProcesses db scope) then
+                Nothing
+
+            else
+                Component.getAvailableDistributionProcesses db scope
+                    |> List.map processOption
+                    |> select
+                        [ class "form-select w-50"
+                        , onInput (Process.idFromString >> updateDistribution)
+                        ]
+                    |> Just
           ]
             |> List.filterMap identity
             |> div [ class "card-body d-flex justify-content-between align-items-center gap-2" ]
