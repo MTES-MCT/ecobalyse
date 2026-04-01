@@ -122,11 +122,11 @@ wheels = [
 
 [[package]]
 name = "asyncstdlib"
-version = "3.13.1"
+version = "3.14.0"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/50/e1/72e388631c85233a2fd890d024fc20a8a9961dbba8614d78266636218f1f/asyncstdlib-3.13.1.tar.gz", hash = "sha256:f47564b9a3566f8f9172631d88c75fe074b0ce2127963b7265d310df9aeed03a", size = 49752, upload-time = "2025-03-09T07:52:51.587Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/3a/66/7b76f2b48afc5c8b4648500a4ff9869f83528e3d601a19de51da18b5e8a5/asyncstdlib-3.14.0.tar.gz", hash = "sha256:f99396992a3bba7495d8cf6c832bfe8c8727f61213233d3569a5a9cbd1c04385", size = 51074, upload-time = "2026-03-20T21:06:46.025Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/b9/4a/c86c045bc7bb0244044935ba80c83998f1fdee4f4cef64c6b078e043b0e6/asyncstdlib-3.13.1-py3-none-any.whl", hash = "sha256:a64da68176af1da8c699026cad98f70b184f82b4cb39739e0b9701a2a7541cf9", size = 43993, upload-time = "2025-03-09T07:52:50.108Z" },
+    { url = "https://files.pythonhosted.org/packages/93/50/463443651ddb0ba66c289d5649369099ab72b4665888b337ed25ea622550/asyncstdlib-3.14.0-py3-none-any.whl", hash = "sha256:cad90c590ce357da6e70c56f0e2ad9e9baaf146a8fc2ede189879da57eb8bd87", size = 44255, upload-time = "2026-03-20T21:06:45.033Z" },
 ]
 
 [[package]]
