@@ -141,7 +141,7 @@ describe("API", () => {
             countrySpinning: "XX",
           }),
           "countrySpinning",
-          /Code pays invalide: XX/,
+          /Code pays invalide : XX/,
         );
       });
 
@@ -152,7 +152,7 @@ describe("API", () => {
             countryFabric: "XX",
           }),
           "countryFabric",
-          /Code pays invalide: XX/,
+          /Code pays invalide : XX/,
         );
       });
 
@@ -163,7 +163,7 @@ describe("API", () => {
             countryDyeing: "XX",
           }),
           "countryDyeing",
-          /Code pays invalide: XX/,
+          /Code pays invalide : XX/,
         );
       });
 
@@ -174,7 +174,7 @@ describe("API", () => {
             countryMaking: "XX",
           }),
           "countryMaking",
-          /Code pays invalide: XX/,
+          /Code pays invalide : XX/,
         );
       });
 
@@ -455,7 +455,7 @@ describe("API", () => {
         await expectListResponseContains("/api/food/ingredients", {
           id: "8f3863e7-f981-4367-90a2-e1aaa096a6e0",
           name: "Lait FR (2025)",
-          defaultOrigin: "France",
+          defaultOrigin: "FR",
         });
       });
     });
@@ -539,7 +539,7 @@ describe("API", () => {
             ],
           }),
           "ingredients",
-          /Code pays invalide: BadCountryCode/,
+          /Code pays invalide : BadCountryCode/,
         );
       });
 

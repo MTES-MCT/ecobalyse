@@ -74,7 +74,7 @@ foodEndpoints db =
                             royalPizza.ingredients |> List.map (\i -> { i | country = Just <| Country.Code "XX" })
                     }
                     |> testFoodEndpoint db
-                    |> expectFoodValidationError "ingredients" "Code pays invalide: XX."
+                    |> expectFoodValidationError "ingredients" "Code pays invalide\u{202F}: XX."
                     |> asTest "validate an ingredient invalid country code"
                 , FoodQuery.encode
                     { royalPizza
@@ -171,7 +171,7 @@ textileEndpoints db =
                         | countrySpinning = Just (Country.Code "invalid")
                     }
                     |> testTextileEndpoint db
-                    |> expectTextileValidationError "countrySpinning" "Code pays invalide: invalid."
+                    |> expectTextileValidationError "countrySpinning" "Code pays invalide\u{202F}: invalid."
                     |> asTest "reject invalid spinning country"
                 ]
             )
@@ -191,7 +191,7 @@ textileEndpoints db =
                             ]
                     }
                     |> testTextileEndpoint db
-                    |> expectTextileValidationError "materials" "Code pays invalide: invalid."
+                    |> expectTextileValidationError "materials" "Code pays invalide\u{202F}: invalid."
                     |> asTest "reject invalid materials country"
                 ]
             )
@@ -245,7 +245,7 @@ textileEndpoints db =
                             ]
                     }
                     |> testTextileEndpoint db
-                    |> expectTextileValidationError "materials" "Code pays invalide: NotACountryCode."
+                    |> expectTextileValidationError "materials" "Code pays invalide\u{202F}: NotACountryCode."
                     |> asTest "validate a material country code"
                 ]
             )

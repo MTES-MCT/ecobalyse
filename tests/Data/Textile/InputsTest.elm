@@ -38,7 +38,7 @@ suite =
                     , countryMaking = Just (Country.Code "CN")
                   }
                     |> Inputs.fromQuery db
-                    |> Expect.equal (Err "Code pays invalide: XX.")
+                    |> Expect.equal (Err "Code pays invalide\u{202F}: XX.")
                     |> asTest "validate country codes"
                 ]
             , let
