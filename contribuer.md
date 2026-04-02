@@ -1,7 +1,3 @@
----
-hidden: true
----
-
 # 🫴 Contribuer avec vos données
 
 **L’enrichissement des données pour calculer le coût environnemental est précieux et nécessaire !**
