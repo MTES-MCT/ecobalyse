@@ -13,26 +13,27 @@ L'équipe Ecobalyse réunit des professionnels animés par une mission commune :
 
 * _Les membres actuels :_
 
-| Nicolas Perriault                                                 |
+| Nicolas Perriault - Developpeur                                   |
 | ----------------------------------------------------------------- |
-| Vincent Jousse                                                    |
-| Camille Coquelet                                                  |
-| Paul Boosz                                                        |
-| Christophe Combelles                                              |
-| Nathalie Rosenberg                                                |
-| Alban Fournier, référent secteur ameublement                      |
-| Maurine Poirier, référente secteur textile                        |
+| Vincent Jousse - Developpeur                                      |
+| Camille Coquelet - Product Owner                                  |
+| Paul Boosz - Data analyst                                         |
+| Christophe Combelles - Data analyst                               |
+| Alban Fournier, référent secteur ameublement - Bizz Dev           |
+| Pierre Matteoni, référent secteur textile                         |
 | Nicolas Planchenault, référent véhicule et "méthode transversale" |
 | Gabrielle Lestra, référente secteur alimentaire                   |
 | Thomas Menant, Coach                                              |
-|  Vincent Colomb, intrapreneur ADEME, responsable scientifique     |
+|  Vincent Colomb, intrapreneur ADEME,                              |
 | Lisa Chenerie, intrapreneure MTE                                  |
 | Pascal Dagras, intrapreneur MTE                                   |
-|                                                                   |
 
 * _Les anciens_
 
-Livio Lumbroso : Coach
+Livio Lumbroso : Coach\
+Nathalie Rosenberg - UX designer
+
+Maurine Poirier, référente secteur textile
 
 
 
