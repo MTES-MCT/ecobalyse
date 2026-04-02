@@ -48,7 +48,7 @@ Sur le textile spécifiquement, des contributions sont souhaitées sur :
 7. **Propriété des données** \
    Les contributeurs partagent gratuitement et intégralement la propriété des données avec l’ADEME. Il en résulte que l'ADEME dispose des droits d’utilisation, de diffusion et de modification. Le contributeur conserve les mêmes droits et le libre usage. L’ADEME est propriétaire des outils et base de données; et "co-propriétaire" des données. <br>
 
-## Comment sont validés les données ?
+## Comment sont validées les données ?
 
 La validation des données peut se faire de différentes manières :&#x20;
 

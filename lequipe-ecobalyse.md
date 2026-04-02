@@ -13,20 +13,20 @@ L'équipe Ecobalyse réunit des professionnels animés par une mission commune :
 
 * _Les membres actuels :_
 
-| Nicolas Perriault - Developpeur                                   |
-| ----------------------------------------------------------------- |
-| Vincent Jousse - Developpeur                                      |
-| Camille Coquelet - Product Owner                                  |
-| Paul Boosz - Data analyst                                         |
-| Christophe Combelles - Data analyst                               |
-| Alban Fournier, référent secteur ameublement - Bizz Dev           |
-| Pierre Matteoni, référent secteur textile                         |
-| Nicolas Planchenault, référent véhicule et "méthode transversale" |
-| Gabrielle Lestra, référente secteur alimentaire                   |
-| Thomas Menant, Coach                                              |
-|  Vincent Colomb, intrapreneur ADEME,                              |
-| Lisa Chenerie, intrapreneure MTE                                  |
-| Pascal Dagras, intrapreneur MTE                                   |
+| Nicolas Perriault - Developpeur                                      |
+| -------------------------------------------------------------------- |
+| Vincent Jousse - Developpeur                                         |
+| Camille Coquelet - Product Owner                                     |
+| Paul Boosz - Data analyst                                            |
+| Christophe Combelles - Data analyst                                  |
+| Alban Fournier, référent secteur ameublement - Bizz Dev              |
+| Pierre Matteoni, référent secteur textile                            |
+| Nicolas Planchenault, référent véhicules et "méthodes transversales" |
+| Gabrielle Lestra, référente secteur alimentaire                      |
+| Thomas Menant, Coach                                                 |
+|  Vincent Colomb, intrapreneur ADEME,                                 |
+| Lisa Chenerie, intrapreneure MTE                                     |
+| Pascal Dagras, intrapreneur MTE                                      |
 
 * _Les anciens_
 
