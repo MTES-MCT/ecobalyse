@@ -71,32 +71,32 @@ toCode origin =
         FR ->
             "FR"
 
+        OI ->
+            "OI"
+
+        RAF ->
+            "RAF"
+
+        RAS ->
+            "RAS"
+
         REM ->
             "REM"
 
         REO ->
             "REO"
 
-        RAS ->
-            "RAS"
-
-        RAF ->
-            "RAF"
+        RLA ->
+            "RLA"
 
         RME ->
             "RME"
-
-        RLA ->
-            "RLA"
 
         RNA ->
             "RNA"
 
         ROC ->
             "ROC"
-
-        OI ->
-            "OI"
 
 
 toLabel : Origin -> String
@@ -105,29 +105,29 @@ toLabel origin =
         FR ->
             "France"
 
+        OI ->
+            "Origine inconnue"
+
+        RAF ->
+            "Afrique"
+
+        RAS ->
+            "Asie"
+
         REM ->
             "Europe et Maghreb"
 
         REO ->
             "Europe de l'Ouest"
 
-        RAS ->
-            "Asie"
-
-        RAF ->
-            "Afrique"
+        RLA ->
+            "Amérique Latine"
 
         RME ->
             "Moyen-Orient"
-
-        RLA ->
-            "Amérique Latine"
 
         RNA ->
             "Amérique du Nord"
 
         ROC ->
             "Océanie"
-
-        OI ->
-            "Origine inconnue"

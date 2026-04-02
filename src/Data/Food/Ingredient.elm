@@ -260,9 +260,6 @@ findById id ingredients =
 getDefaultOriginTransport : PlaneTransport -> Origin -> FoodOriginDistances -> Transport
 getDefaultOriginTransport planeTransport origin distances =
     case Dict.get (Origin.toCode origin) distances of
-        Nothing ->
-            Transport.default Impact.empty
-
         Just t ->
             let
                 totalRoad =
@@ -279,6 +276,9 @@ getDefaultOriginTransport planeTransport origin distances =
 
             else
                 { empty | road = totalRoad, sea = t.bateau }
+
+        Nothing ->
+            Transport.default Impact.empty
 
 
 linkProcess : List Process -> Decoder Process
