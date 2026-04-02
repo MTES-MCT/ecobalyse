@@ -619,7 +619,7 @@ updateExistingIngredient query model session oldRecipeIngredient newIngredient =
         ingredientQuery =
             { id = newIngredient.id
             , mass = oldRecipeIngredient.mass
-            , country = Nothing
+            , country = Just <| Origin.toCountryCode newIngredient.defaultOrigin
             , planeTransport = Ingredient.byPlaneByDefault newIngredient
             }
     in
