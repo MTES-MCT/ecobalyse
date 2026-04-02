@@ -27,7 +27,7 @@ module Data.Food.Recipe exposing
 import Data.Complement as Complement
 import Data.Food.EcosystemicServices as EcosystemicServices exposing (EcosystemicServices)
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
-import Data.Food.Origin as Origin exposing (Origin)
+import Data.Food.Origin exposing (Origin)
 import Data.Food.Preparation as Preparation exposing (Preparation)
 import Data.Food.Query as BuilderQuery exposing (PackagingAmount, Query, packagingAmountToFloat)
 import Data.Food.Retail as Retail

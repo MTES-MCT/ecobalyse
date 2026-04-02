@@ -53,12 +53,6 @@ validateMass mass =
         Ok mass
 
 
-validateMaybe : (a -> Result error a) -> Maybe a -> Result error (Maybe a)
-validateMaybe fn =
-    Maybe.map (fn >> Result.map Just)
-        >> Maybe.withDefault (Ok Nothing)
-
-
 validatePreparation : Preparation.Id -> Result String Preparation.Id
 validatePreparation =
     Preparation.findById >> Result.map .id
