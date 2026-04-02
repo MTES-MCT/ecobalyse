@@ -1,5 +1,5 @@
 module Data.Food.Origin exposing
-    ( Origin(..)
+    ( Origin
     , decode
     , toCode
     , toLabel

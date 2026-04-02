@@ -272,7 +272,7 @@ getDefaultOriginTransport planeTransport origin distances =
                     Transport.default Impact.empty
             in
             if planeTransport == ByPlane then
-                { empty | road = totalRoad, air = t.air }
+                { empty | air = t.air, road = totalRoad }
 
             else
                 { empty | road = totalRoad, sea = t.bateau }
