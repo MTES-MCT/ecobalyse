@@ -6,7 +6,7 @@ hidden: true
 
 **L’enrichissement des données pour calculer le coût environnemental est précieux et nécessaire !**
 
-Les données ACV mobilisées par ecobalyse proviennent de plusieurs bases de données aujourd'hui : Ecoinvent et Base Empreinte (données transverses) ; Agribalyse et World Food Database (alimentaire). Ces bases, bien que conséquentes, ont besoin d'être enrichies. C'est pourquoi Ecobalyse vise à intégrer des données complémentaires et encourager les contributions. Le travail a déjà commencé (ex: ICV "Laine" fournit par Woolmark) et doit se renforcer à l'avenir.&#x20;
+Les données ACV mobilisées par ecobalyse proviennent de plusieurs bases de données aujourd'hui : Ecoinvent et Base Empreinte (données transverses) ; Agribalyse et World Food Database (alimentaire). Pour compléter ces bases, Ecobalyse vise à intégrer des données supplémentaires et encourager les contributions. Le travail a déjà commencé (ex: ICV "Laine" fournit par Woolmark) et doit se renforcer à l'avenir.&#x20;
 
 **Les contributions permettront de s'assurer  que le coût environnemental reflète bien l'ensemble des pratiques du marché et couvre les besoins en termes de matériaux et de procédés de transformation pour l'ensemble des secteurs.**
 
@@ -37,7 +37,7 @@ Sur le textile spécifiquement, des contributions sont souhaitées sur :
 ## Cahier des charges des contributions
 
 1. **Désagrégation des données** \
-   Les données soumises doivent être transparentes et désagrégées, incluant par exemple les quantités d’énergie, d’eau, d’engrais, etc. Elles présentent l'ensemble des entrants et les sortants. Ceci permet d'assurer la transparence, la confiance et la capacité de mise à jour des données.
+   Les données soumises doivent être transparentes et désagrégées, incluant par exemple les quantités d’énergie, d’eau, d’engrais, etc. Elles présentent l'ensemble des entrants et les sortants. Ceci permet d'assurer la transparence, la confiance, la compréhension des résultats et la capacité de mise à jour des données.
 2.  **Données sectorielles et représentativité du marché**
 
     Dans ecobalyse, les données doivent refléter le marché global, sans être spécifiques à une entreprise, un produit ou une marque. Ainsi il est privilégié autant que possible des données "sectorielles moyennes" (ex : lin français conventionnel) plutôt que les données associées à une "entreprise/marque spécifique" (lin de la marque X).&#x20;
@@ -56,7 +56,7 @@ Sur le textile spécifiquement, des contributions sont souhaitées sur :
 
 La validation des données peut se faire de différentes manières :&#x20;
 
-* Pour l'alimentaire, les données sont soumises via Agribalyse dont le processus de contribution est opérationnel. Une fois la donnée validée, elle peut rentrer dans ecobalyse, sans attendre nécessairement la publication des nouvelles versions d'agribalyse (tous les 18-24 mois)
+* Pour l'alimentaire, les données sont soumises via Agribalyse dont le processus de contribution est opérationnel. Une fois la donnée validée par la gouvernance d’Agribalyse, elle peut rentrer dans ecobalyse, sans attendre nécessairement la publication des nouvelles versions d'agribalyse (tous les 18-24 mois)
 * Pour les autres données, en attendant que le processus de contribution soit opérationnel au niveau de la base empreinte, l'analyse se fait en 2 temps :
   * une analyse rapide (délais standard : 1 à 2 mois) par l'équipe ecobalyse qui s'assure de la cohérence, la plus value et la robustesse globale de la nouvelle données. En cas de conclusion positive, ceci ouvre le droit à un statut de "validation provisoire" et l'intégration de la donnée dans ecobalyse et le dispositif affichage environnemental.&#x20;
   * des travaux plus approfondis sectoriels (délais standards 6 à 18 mois) sont menés dans Base empreinte via des GT, qui peuvent décider de valider définitivement en l'état, de modifier ou recommander des données alternatives dans un second temps.  Ecobalyse s'alignera alors sur ces décisions.&#x20;
