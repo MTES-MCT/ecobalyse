@@ -1091,7 +1091,12 @@ suite =
                                                 |> updateRequirementsProcess dryDistributionProcess
                                                     (\p -> { p | scopes = [] })
                                             )
-                                        |> expectResultErrorContains ("Le procédé n'est pas disponible pour le périmètre " ++ Scope.toLabel (Scope.Generic Scope.Object))
+                                        |> expectResultErrorContains
+                                            ("Le procédé "
+                                                ++ Process.idToString dryDistributionProcess.id
+                                                ++ " n'est pas disponible pour le périmètre "
+                                                ++ Scope.toLabel (Scope.Generic Scope.Object)
+                                            )
                                     )
                                 ]
                             , describe "durability validation"

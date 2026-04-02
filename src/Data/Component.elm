@@ -1958,7 +1958,7 @@ validateDistribution { db, scope } maybeProcessId =
                         Err "Le procédé de distribution doit accepter un volume"
 
                     else if not <| List.member scope process.scopes then
-                        Err <| "Le procédé n'est pas disponible pour le périmètre " ++ Scope.toLabel scope
+                        Err <| "Le procédé " ++ Process.idToString processId ++ " n'est pas disponible pour le périmètre " ++ Scope.toLabel scope
 
                     else
                         Ok (Just processId)
