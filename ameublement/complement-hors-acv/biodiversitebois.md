@@ -1,10 +1,14 @@
 ---
-description: Présentation de la méthode de calcul du complément Biodiversité x Bois .
+description: Présentation de la méthode de calcul du complément Biodiversité x Forêt .
 ---
 
-# 🌍 Biodiversité x Bois (draft)
+# 🌍 Biodiversité x Forêt (draft)
 
-<mark style="color:$danger;">Des propositions spécifiques des parties prenantes sur cette thématique sont attendues dans le cadre de l'expérimentation en cours (fin juin 2026).</mark> <mark style="color:$danger;">Les éléments présentés ici visent à alimenter la réflexion et ne sont en aucun cas définitifs. Ils présentent une "exploration" faite au niveau d'ecobalyse suite aux échanges avec les experts en 2025.</mark>&#x20;
+{% hint style="warning" %}
+<mark style="color:$info;">**Cette section ne constitue pas une proposition. Il s'agit d'une illustration du principe de l'introduction d'un complément à l'analyse de cycle de vie portant sur les enjeux relatifs à la biodiversité en milieu forestier.**</mark> &#x20;
+
+<mark style="color:$info;">**Des propositions spécifiques des parties prenantes sur cette thématique sont attendues dans le cadre de l'expérimentation en cours (fin juin 2026).**</mark>**&#x20;**<mark style="color:$info;">**Les éléments présentés ici visent à alimenter la réflexion et ne sont en aucun cas définitifs. Ils présentent une "exploration" faite au niveau d'ecobalyse suite aux échanges avec les experts en 2025.**</mark>&#x20;
+{% endhint %}
 
 ## Contexte
 
@@ -16,9 +20,9 @@ De manière plus précise, plusieurs raisons expliquent la nécessité de propos
 
 <summary><strong>1)  Le cadre méthodologique ACV est limité</strong></summary>
 
-Le cadre de l'analyse de cycle de vie (ACV) ne permet pas, à date, de différencier l'impact sur la biodiversité locale de différentes pratiques forestières. En effet les impacts sur la biodiversité sont quantifiés de manière incomplète avec les 16 indicateurs PEF existants. Ceux ci permettent principalement de couvrir les pressions globales pesant sur la biodiversité (ex: changement climatique, eutrophisation, artificalisation des terres...). Cependant les indicateurs actuels ne permettent pas de tenir compte de la composition des peuplements forestiers, de l'effet des coupes rases, du tassement du sol ou encore de la présence de bois mort dans les parcelles par exemple. Des travaux de recherche sont en cours afin d'améliorer les méthodes via l'intégration de nouveaux indicateurs (ex : EF4.0 et GLAM). En attendant la maturité scientifique et technique de ces outils, les compléments apportent une approche simple et pragmatique pour couvrir ces enjeux incontournables.&#x20;
+Le cadre de l'analyse de cycle de vie (ACV) ne permet pas, à date, de différencier l'impact sur la biodiversité locale de différentes pratiques forestières. En effet les impacts sur la biodiversité sont quantifiés de manière incomplète avec les 16 indicateurs PEF existants. Ceux ci permettent principalement de couvrir les pressions globales pesant sur la biodiversité (ex: changement climatique, eutrophisation, artificialisation des terres...). Cependant les indicateurs actuels ne permettent pas de tenir compte de la composition des peuplements forestiers, de l'effet des coupes rases, du tassement du sol ou encore de la présence de bois mort dans les parcelles par exemple. Des travaux de recherche sont en cours afin d'améliorer les méthodes via l'intégration de nouveaux indicateurs (ex : EF4.0 et GLAM). En attendant la maturité scientifique et technique de ces outils, les compléments apportent une approche simple et pragmatique pour couvrir ces enjeux incontournables.&#x20;
 
-En l'abscence de ces éléments, nous pourrions laisser penser que "tous les bois se valent" au niveau environnemental, ce qui n'est pas en phase avec les connaissances scientifiques et affecterai la crédibilité de l'affichage environnemental.&#x20;
+En l'absence de ces éléments, nous pourrions laisser penser que "tous les bois se valent" au niveau environnemental, ce qui n'est pas en phase avec les connaissances scientifiques et affecterai la crédibilité de l'affichage environnemental.&#x20;
 
 </details>
 
@@ -61,7 +65,7 @@ La majorité du bois d'ameublement est importé (c. 67% du volume consommé en 2
 Parmi ces importations :&#x20;
 
 * près de la moitié concernent des achats directs de meubles,
-* près d'un-tiers concernent des panneaux,
+* près d'un tiers concernent des panneaux,
 * le reste étant du bois d'oeuvre (majoritairement feuillus)
 
 :bulb: Remonter à l'origine de la forêt pour les bois d'ameublement est difficile pour la majorité des metteurs sur le marché. Dès lors, proposer des scénarios par défaut permet d'intégrer dans le coût environnemental les enjeux biodiversité liés aux pratiques forestières les plus probables pour chaque bois. Pour un metteur de marché maîtrisant la traçabilité de son bois, le dispositif d'affichage environnemental est construit de telle sorte qu'il lui sera possible de préciser ces pratiques forestières, et donc l'impact du complément..&#x20;
@@ -152,7 +156,7 @@ Forest Stewardship Council (FSC®) est une organisation non gouvernementale cré
 
 #### ICV bois disponibles et leurs impacts ACV
 
-Dans la base de données ecoinvent, différents ICV de bois sont disponibles aujourd'hui. Des bois européens (Allemagne, Scandinavie ...) sont disponibles mais pas de bois issus des forêts francaises.  Des bois tropicaux sont égalment fournis par ecoinvent. A noter que par défaut, ecoinvent considère que la foret européenne bénéficie d'une "gestion durable".   <mark style="color:$warning;">(liste complète des bois reste à extraire )</mark>
+Dans la base de données ecoinvent, différents ICV de bois sont disponibles aujourd'hui. Des bois européens (Allemagne, Scandinavie ...) sont disponibles mais pas de bois issus des forêts françaises.  Des bois tropicaux sont également fournis par ecoinvent. A noter que par défaut, ecoinvent considère que la foret européenne bénéficie d'une "gestion durable".   <mark style="color:$warning;">(liste complète des bois reste à extraire )</mark>
 
 <figure><img src="../../.gitbook/assets/image (6).png" alt="" width="375"><figcaption></figcaption></figure>
 
@@ -162,21 +166,25 @@ La différence observée entre les essences s'explique par leur dynamique de cro
 
 Si la méthode LANCA permet effectivement de différencier les grands usages du sol — forestier, agricole et urbain —, sa granularité reste insuffisante pour discriminer les pratiques à l'intérieur d'un même type d'usage. Cette limite est majeure en vue de favoriser des approvisionnements en bois issus de gestion forestière durable.
 
-#### Modulation de l'indicateur Land use - Lanca&#x20;
+#### Construction du complément "forêt" comme une modulation de l'indicateur Land use - Lanca&#x20;
 
-A titre exploratoire, l'équipe ecobalyse propose de moduler l'indicateur LANCA selon le type de gestion forestière.&#x20;
+A titre exploratoire, l'équipe ecobalyse propose d'introduire un complément "forêt" qui aurait pour effet de moduler l'indicateur LANCA selon le type de gestion forestière.&#x20;
 
-<table><thead><tr><th width="201">Gestion sylvicole</th><th width="226">Complément ("bonus")</th></tr></thead><tbody><tr><td>Foret diversifiée</td><td>25%</td></tr><tr><td>Gestion durable</td><td>0%</td></tr><tr><td>Plantation intensive</td><td>-25%</td></tr><tr><td>Labélisée</td><td>10%</td></tr></tbody></table>
+<table><thead><tr><th width="201">Gestion sylvicole</th><th width="226">Complément "forêt"</th></tr></thead><tbody><tr><td>Foret diversifiée</td><td>25% du LANCA</td></tr><tr><td>Gestion durable</td><td>0% du LANCA</td></tr><tr><td>Plantation intensive</td><td>-25% du LANCA</td></tr><tr><td>Labélisée</td><td>10% du LANCA</td></tr></tbody></table>
 
-Ainsi, dans le cas d'une "foret diversifiée", à priori favorable en terme de biodiversité (ex : foret de chênes français) ; l'impact LANCA serait réduit de 25%. A contrario, un bois venant d'un système de plantations intensives (ex ecalyptus du Brésil) , reconnu comme néfaste pour la biodiversité verrait sont "Land use" augmenter de 25%.  Ainsi on pourrait avoir ce type de résultats :&#x20;
+Ainsi, dans le cas d'une "foret diversifiée", à priori favorable en terme de biodiversité (ex : foret de chênes français) ; l'introduction du complément "forêt" aurait pour effet une réduction de l'impact global correspondant à 25% du LANCA. A contrario, un bois venant d'un système de plantations intensives (ex ecalyptus du Brésil) , reconnu comme néfaste pour la biodiversité verrait son impact augmenter d'une valeur correspondant à 25% du Lanca.  Ainsi on pourrait avoir ce type de résultats :&#x20;
 
 <figure><img src="../../.gitbook/assets/image (12).png" alt="" width="563"><figcaption></figcaption></figure>
 
 <figure><img src="../../.gitbook/assets/image (13).png" alt="" width="563"><figcaption></figcaption></figure>
 
-Cette approche et ces coefficients restent à discuter collectivement.&#x20;
+{% hint style="warning" %}
+A nouveau, cette approche et ces coefficients sont surtout une illustration du principe d'un complément forêt pour lequel des contributions sont attendues dans le cadre de la concertation.&#x20;
+{% endhint %}
 
+{% hint style="info" %}
 La prise en compte des risques liés à certaines importations et aux pratiques illégales pourrait également être ajoutée dans la modélisation du/des compléments.  &#x20;
+{% endhint %}
 
 <details>
 
