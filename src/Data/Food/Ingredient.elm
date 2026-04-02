@@ -61,18 +61,24 @@ type alias Ingredient =
     }
 
 
+
 -- All distance stages from transportfood.json for a given region.
+
+
 type alias FoodOriginTransport =
     { materialtotransform : Length -- E1: ingredient source → transformation facility
     , transformtologistic : Length -- E2: transformation facility → logistics hub
-    , logistictoport : Length      -- E2: logistics hub → port/airport (if applicable)
-    , camion : Length              -- E3: truck from region to France
-    , bateau : Length              -- E3: sea from region to France
-    , air : Length                 -- E3: air from region to France
+    , logistictoport : Length -- E2: logistics hub → port/airport (if applicable)
+    , camion : Length -- E3: truck from region to France
+    , bateau : Length -- E3: sea from region to France
+    , air : Length -- E3: air from region to France
     }
 
 
+
 -- Dict keyed by region code (e.g. "FR", "REM", "OI") to all transport stages.
+
+
 type alias FoodOriginDistances =
     Dict String FoodOriginTransport
 
@@ -244,10 +250,13 @@ findById id ingredients =
         |> Result.fromMaybe ("Ingrédient introuvable par id : " ++ idToString id)
 
 
+
 -- Returns the complete transport for an ingredient based on its origin.
 -- road = materialtotransform + transformtologistic + logistictoport + toFrance.camion
 -- sea  = toFrance.bateau  (if not ByPlane)
 -- air  = toFrance.air     (if ByPlane)
+
+
 getDefaultOriginTransport : PlaneTransport -> Origin -> FoodOriginDistances -> Transport
 getDefaultOriginTransport planeTransport origin distances =
     case Dict.get (Origin.toCode origin) distances of

@@ -20,12 +20,15 @@ type alias Db =
     }
 
 
+
 -- Note: transportFoodJson is a new parameter for food-specific transport distances.
 -- The Db fields are applied positionally in type alias order:
 --   examples          ← exampleProductsJson
 --   foodOriginDistances ← transportFoodJson
 --   ingredients       ← ingredientsJson
 --   wellKnown         ← WellKnown.load
+
+
 buildFromJson : String -> String -> String -> List Process -> Result String Db
 buildFromJson exampleProductsJson ingredientsJson transportFoodJson processes =
     Ok Db
