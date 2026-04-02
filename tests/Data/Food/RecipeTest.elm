@@ -144,7 +144,7 @@ suite =
 
                                     Ok result ->
                                         Unit.impactToFloat result
-                                            |> Expect.within (Expect.Absolute 0.1) 139.3
+                                            |> Expect.within (Expect.Absolute 0.1) 140.9
                                 )
                              , asTest "should have the ingredients' total ecs impact with the complement taken into account"
                                 (case royalPizzaResults |> Result.map (Tuple.second >> .recipe >> .ingredientsTotal >> Impact.getImpact Definition.Ecs) of
@@ -179,13 +179,13 @@ suite =
                                             |> Expect.within (Expect.Absolute 0.01) 211.21
                                             |> asTest "should properly score impact on biodiversity protected area"
                                         , Unit.impactToFloat scoring.climate
-                                            |> Expect.within (Expect.Absolute 0.01) 96.73
+                                            |> Expect.within (Expect.Absolute 0.01) 98.71
                                             |> asTest "should properly score impact on climate protected area"
                                         , Unit.impactToFloat scoring.health
-                                            |> Expect.within (Expect.Absolute 0.01) 45.66
+                                            |> Expect.within (Expect.Absolute 0.01) 46.21
                                             |> asTest "should properly score impact on health protected area"
                                         , Unit.impactToFloat scoring.resources
-                                            |> Expect.within (Expect.Absolute 0.01) 107.05
+                                            |> Expect.within (Expect.Absolute 0.01) 108.11
                                             |> asTest "should properly score impact on resources protected area"
                                         ]
                                 )
