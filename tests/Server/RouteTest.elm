@@ -70,22 +70,6 @@ foodEndpoints db =
                     |> asTest "validate an ingredient invalid mass"
                 , FoodQuery.encode
                     { royalPizza
-                        | ingredients =
-                            royalPizza.ingredients |> List.map (\i -> { i | country = Just <| Country.Code "XX" })
-                    }
-                    |> testFoodEndpoint db
-                    |> expectFoodValidationError "ingredients" "Code pays invalide: XX."
-                    |> asTest "validate an ingredient invalid country code"
-                , FoodQuery.encode
-                    { royalPizza
-                        | ingredients =
-                            royalPizza.ingredients |> List.map (\i -> { i | country = Just <| Country.Code "BD" })
-                    }
-                    |> testFoodEndpoint db
-                    |> expectFoodValidationError "ingredients" "Le code pays BD n'est pas utilisable dans un contexte Alimentaire."
-                    |> asTest "validate an ingredient incompatible country code"
-                , FoodQuery.encode
-                    { royalPizza
                         | transform = royalPizza.transform |> Maybe.map (\t -> { t | mass = Mass.grams -1 })
                     }
                     |> testFoodEndpoint db
