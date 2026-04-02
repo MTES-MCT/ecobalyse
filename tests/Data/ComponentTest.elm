@@ -345,7 +345,7 @@ suite =
                                                         | processes =
                                                             requirementsDb.processes
                                                                 -- Filter out all distribution processes so we can test a fallback
-                                                                |> LE.filterNot (.categories >> List.member Category.Distribution)
+                                                                |> LE.removeWhen (.categories >> List.member Category.Distribution)
                                                     }
                                             }
                                     )
