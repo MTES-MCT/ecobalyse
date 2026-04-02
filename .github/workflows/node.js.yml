@@ -112,6 +112,14 @@ jobs:
     - name: Run server tests
       run: npm run test:server && npm run test:backend
 
+    - name: Upload e2e food test output
+      uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: e2e-food-output
+        path: tests/e2e-food-output.json
+        retention-days: 3
+
     # e2e tests
     - name: Install Playwright Browsers
       run: npx playwright install chromium --with-deps
