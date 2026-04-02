@@ -60,6 +60,7 @@ const elmWithFixtures = elmTemplate
     ]),
   )
   .replace("%transportsJson%", parseAndValidate("public/data/transports.json"))
+  .replace("%transportFoodJson%", parseAndValidate("public/data/transportfood.json", "code"))
   // Food JSON data
   .replace("%foodIngredientsJson%", parseAndValidate("public/data/food/ingredients.json", "id"))
   .replace("%foodProductExamplesJson%", parseAndValidate("public/data/food/examples.json", "id"))

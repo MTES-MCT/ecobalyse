@@ -10,6 +10,7 @@ module Static.Json exposing
     , textileMaterialsJson
     , textileProductExamplesJson
     , textileProductsJson
+    , transportFoodJson
     , transportsJson
     , veliExamplesJson
     )
@@ -83,6 +84,11 @@ textileProductsJson =
 textileComponentsJson : String
 textileComponentsJson =
    """%textileComponentsJson%"""
+
+
+transportFoodJson : String
+transportFoodJson =
+    """%transportFoodJson%"""
 
 
 transportsJson : String

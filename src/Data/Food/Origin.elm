@@ -1,6 +1,7 @@
 module Data.Food.Origin exposing
     ( Origin(..)
     , decode
+    , toCode
     , toLabel
     )
 
@@ -9,10 +10,16 @@ import Json.Decode.Extra as DE
 
 
 type Origin
-    = EuropeAndMaghreb
-    | France
-    | OutOfEuropeAndMaghreb
-    | OutOfEuropeAndMaghrebByPlane
+    = FR
+    | REM
+    | REO
+    | RAS
+    | RAF
+    | RME
+    | RLA
+    | RNA
+    | ROC
+    | OI
 
 
 decode : Decoder Origin
@@ -24,33 +31,103 @@ decode =
 fromString : String -> Result String Origin
 fromString string =
     case string of
-        "EuropeAndMaghreb" ->
-            Ok EuropeAndMaghreb
+        "FR" ->
+            Ok FR
 
-        "France" ->
-            Ok France
+        "REM" ->
+            Ok REM
 
-        "OutOfEuropeAndMaghreb" ->
-            Ok OutOfEuropeAndMaghreb
+        "REO" ->
+            Ok REO
 
-        "OutOfEuropeAndMaghrebByPlane" ->
-            Ok OutOfEuropeAndMaghrebByPlane
+        "RAS" ->
+            Ok RAS
+
+        "RAF" ->
+            Ok RAF
+
+        "RME" ->
+            Ok RME
+
+        "RLA" ->
+            Ok RLA
+
+        "RNA" ->
+            Ok RNA
+
+        "ROC" ->
+            Ok ROC
+
+        "OI" ->
+            Ok OI
 
         _ ->
             Err <| "Origine géographique inconnue : " ++ string
 
 
+toCode : Origin -> String
+toCode origin =
+    case origin of
+        FR ->
+            "FR"
+
+        REM ->
+            "REM"
+
+        REO ->
+            "REO"
+
+        RAS ->
+            "RAS"
+
+        RAF ->
+            "RAF"
+
+        RME ->
+            "RME"
+
+        RLA ->
+            "RLA"
+
+        RNA ->
+            "RNA"
+
+        ROC ->
+            "ROC"
+
+        OI ->
+            "OI"
+
+
 toLabel : Origin -> String
 toLabel origin =
     case origin of
-        EuropeAndMaghreb ->
-            "Europe et Maghreb"
-
-        France ->
+        FR ->
             "France"
 
-        OutOfEuropeAndMaghreb ->
-            "Hors Europe et Maghreb"
+        REM ->
+            "Europe et Maghreb"
 
-        OutOfEuropeAndMaghrebByPlane ->
-            "Hors Europe et Maghreb par avion"
+        REO ->
+            "Europe de l'Ouest"
+
+        RAS ->
+            "Asie"
+
+        RAF ->
+            "Afrique"
+
+        RME ->
+            "Moyen-Orient"
+
+        RLA ->
+            "Amérique Latine"
+
+        RNA ->
+            "Amérique du Nord"
+
+        ROC ->
+            "Océanie"
+
+        OI ->
+            "Origine inconnue"

@@ -1,0 +1,122 @@
+[
+  {
+    "code": "REO",
+    "nom": "Région - Europe de l'Ouest",
+    "materialtotransform": 160,
+    "transformtologistic": 500,
+    "logistictoport": 0,
+    "toFrance": {
+      "camion": 912,
+      "bateau": 0,
+      "air": 826
+    }
+  },
+  {
+    "code": "RAS",
+    "nom": "Région - Asie",
+    "materialtotransform": 160,
+    "transformtologistic": 500,
+    "logistictoport": 2500,
+    "toFrance": {
+      "camion": 0,
+      "bateau": 21549,
+      "air": 8189
+    }
+  },
+  {
+    "code": "RAF",
+    "nom": "Région - Afrique",
+    "materialtotransform": 160,
+    "transformtologistic": 500,
+    "logistictoport": 2500,
+    "toFrance": {
+      "camion": 0,
+      "bateau": 8520,
+      "air": 5437
+    }
+  },
+  {
+    "code": "RME",
+    "nom": "Région - Moyen-Orient",
+    "materialtotransform": 160,
+    "transformtologistic": 500,
+    "logistictoport": 2500,
+    "toFrance": {
+      "camion": 0,
+      "bateau": 6108,
+      "air": 2799
+    }
+  },
+  {
+    "code": "RLA",
+    "nom": "Région - Amérique Latine",
+    "materialtotransform": 160,
+    "transformtologistic": 500,
+    "logistictoport": 2500,
+    "toFrance": {
+      "camion": 0,
+      "bateau": 8315,
+      "air": 8401
+    }
+  },
+  {
+    "code": "RNA",
+    "nom": "Région - Amérique du nord",
+    "materialtotransform": 160,
+    "transformtologistic": 500,
+    "logistictoport": 2500,
+    "toFrance": {
+      "camion": 0,
+      "bateau": 9031,
+      "air": 7700
+    }
+  },
+  {
+    "code": "ROC",
+    "nom": "Région - Océanie",
+    "materialtotransform": 160,
+    "transformtologistic": 500,
+    "logistictoport": 2500,
+    "toFrance": {
+      "camion": 0,
+      "bateau": 19503,
+      "air": 15244
+    }
+  },
+  {
+    "code": "FR",
+    "nom": "France",
+    "materialtotransform": 160,
+    "transformtologistic": 500,
+    "logistictoport": 0,
+    "toFrance": {
+      "camion": 0,
+      "bateau": 0,
+      "air": 0
+    }
+  },
+  {
+    "code": "REM",
+    "nom": "Europe et Maghreb",
+    "materialtotransform": 160,
+    "transformtologistic": 500,
+    "logistictoport": 2500,
+    "toFrance": {
+      "camion": 0,
+      "bateau": 0,
+      "air": 0
+    }
+  },
+  {
+    "code": "OI",
+    "nom": "Origine inconnue",
+    "materialtotransform": 160,
+    "transformtologistic": 500,
+    "logistictoport": 2500,
+    "toFrance": {
+      "camion": 0,
+      "bateau": 18000,
+      "air": 18000
+    }
+  }
+]

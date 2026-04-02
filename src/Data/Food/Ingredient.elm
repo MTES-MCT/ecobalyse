@@ -1,10 +1,13 @@
 module Data.Food.Ingredient exposing
-    ( Id(..)
+    ( FoodOriginDistances
+    , FoodOriginTransport
+    , Id(..)
     , Ingredient
     , PlaneTransport(..)
     , TransportCooling(..)
     , byPlaneAllowed
     , byPlaneByDefault
+    , decodeFoodOriginDistances
     , decodeId
     , decodeIngredients
     , encodeId
@@ -29,15 +32,18 @@ import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Data.Uuid as Uuid exposing (Uuid)
 import Density exposing (Density, gramsPerCubicCentimeter)
+import Dict exposing (Dict)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
-import Length
+import Length exposing (Length)
+import Quantity
 
 
 type alias Ingredient =
     { alias : String
+    , byplane : Bool
     , categories : List IngredientCategory.Category
     , cropGroup : CropGroup
     , defaultOrigin : Origin
@@ -53,6 +59,22 @@ type alias Ingredient =
     , transportCooling : TransportCooling
     , visible : Bool
     }
+
+
+-- All distance stages from transportfood.json for a given region.
+type alias FoodOriginTransport =
+    { materialtotransform : Length -- E1: ingredient source → transformation facility
+    , transformtologistic : Length -- E2: transformation facility → logistics hub
+    , logistictoport : Length      -- E2: logistics hub → port/airport (if applicable)
+    , camion : Length              -- E3: truck from region to France
+    , bateau : Length              -- E3: sea from region to France
+    , air : Length                 -- E3: air from region to France
+    }
+
+
+-- Dict keyed by region code (e.g. "FR", "REM", "OI") to all transport stages.
+type alias FoodOriginDistances =
+    Dict String FoodOriginTransport
 
 
 type Id
@@ -89,7 +111,7 @@ byPlaneAllowed planeTransport ingredient =
 
 byPlaneByDefault : Ingredient -> PlaneTransport
 byPlaneByDefault ingredient =
-    if ingredient.defaultOrigin == Origin.OutOfEuropeAndMaghrebByPlane then
+    if ingredient.byplane then
         ByPlane
 
     else
@@ -141,6 +163,7 @@ decodeIngredient : List Process -> Decoder Ingredient
 decodeIngredient processes =
     Decode.succeed Ingredient
         |> Pipe.required "alias" Decode.string
+        |> Pipe.optional "byplane" Decode.bool False
         |> Pipe.required "categories" (Decode.list IngredientCategory.decode)
         |> Pipe.optional "cropGroup" CropGroup.decode CropGroup.empty
         |> Pipe.required "defaultOrigin" Origin.decode
@@ -177,6 +200,42 @@ decodeTransportCooling =
             )
 
 
+decodeFoodOriginDistances : Decoder FoodOriginDistances
+decodeFoodOriginDistances =
+    let
+        km =
+            Decode.float |> Decode.map Length.kilometers
+
+        decodeToFrance =
+            Decode.succeed
+                (\camion bateau air -> { camion = camion, bateau = bateau, air = air })
+                |> Pipe.required "camion" km
+                |> Pipe.required "bateau" km
+                |> Pipe.required "air" km
+
+        decodeEntry =
+            Decode.succeed
+                (\code materialtotransform transformtologistic logistictoport toFrance ->
+                    ( code
+                    , { materialtotransform = materialtotransform
+                      , transformtologistic = transformtologistic
+                      , logistictoport = logistictoport
+                      , camion = toFrance.camion
+                      , bateau = toFrance.bateau
+                      , air = toFrance.air
+                      }
+                    )
+                )
+                |> Pipe.required "code" Decode.string
+                |> Pipe.required "materialtotransform" km
+                |> Pipe.required "transformtologistic" km
+                |> Pipe.required "logistictoport" km
+                |> Pipe.required "toFrance" decodeToFrance
+    in
+    Decode.list decodeEntry
+        |> Decode.map Dict.fromList
+
+
 findById : Id -> List Ingredient -> Result String Ingredient
 findById id ingredients =
     ingredients
@@ -185,28 +244,32 @@ findById id ingredients =
         |> Result.fromMaybe ("Ingrédient introuvable par id : " ++ idToString id)
 
 
-getDefaultOriginTransport : PlaneTransport -> Origin -> Transport
-getDefaultOriginTransport planeTransport origin =
-    let
-        default =
+-- Returns the complete transport for an ingredient based on its origin.
+-- road = materialtotransform + transformtologistic + logistictoport + toFrance.camion
+-- sea  = toFrance.bateau  (if not ByPlane)
+-- air  = toFrance.air     (if ByPlane)
+getDefaultOriginTransport : PlaneTransport -> Origin -> FoodOriginDistances -> Transport
+getDefaultOriginTransport planeTransport origin distances =
+    case Dict.get (Origin.toCode origin) distances of
+        Nothing ->
             Transport.default Impact.empty
-    in
-    case origin of
-        Origin.EuropeAndMaghreb ->
-            { default | road = Length.kilometers 2500 }
 
-        Origin.France ->
-            default
+        Just t ->
+            let
+                totalRoad =
+                    t.materialtotransform
+                        |> Quantity.plus t.transformtologistic
+                        |> Quantity.plus t.logistictoport
+                        |> Quantity.plus t.camion
 
-        Origin.OutOfEuropeAndMaghreb ->
-            { default | road = Length.kilometers 2500, sea = Length.kilometers 18000 }
-
-        Origin.OutOfEuropeAndMaghrebByPlane ->
+                empty =
+                    Transport.default Impact.empty
+            in
             if planeTransport == ByPlane then
-                { default | air = Length.kilometers 18000, road = Length.kilometers 2500 }
+                { empty | road = totalRoad, air = t.air }
 
             else
-                { default | road = Length.kilometers 2500, sea = Length.kilometers 18000 }
+                { empty | road = totalRoad, sea = t.bateau }
 
 
 linkProcess : List Process -> Decoder Process

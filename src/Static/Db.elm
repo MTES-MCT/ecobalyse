@@ -46,6 +46,7 @@ db =
                             |> FoodDb.buildFromJson
                                 StaticJson.foodProductExamplesJson
                                 StaticJson.foodIngredientsJson
+                                StaticJson.transportFoodJson
                         )
                     |> RE.andMap
                         (ObjectDb.buildFromJson

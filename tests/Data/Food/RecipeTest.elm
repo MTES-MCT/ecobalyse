@@ -1,7 +1,6 @@
 module Data.Food.RecipeTest exposing (..)
 
 import Data.Complement as Complement
-import Data.Country as Country
 import Data.Example
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Preparation as Preparation
@@ -298,26 +297,16 @@ suite =
                             |> Result.map firstIngredientAirDistance
                             |> Expect.equal (Ok (Just 18000))
                             |> asTest "should have air transport for mango from its default origin"
-                        , { ingredients = [ { mango | country = Just (Country.codeFromString "CN"), planeTransport = Ingredient.ByPlane } ]
+                        , { ingredients = [ { mango | planeTransport = Ingredient.NoPlane } ]
                           , transform = Nothing
                           , packaging = []
-                          , distribution = Just Retail.ambient
-                          , preparation = []
-                          }
-                            |> Recipe.compute db
-                            |> Result.map firstIngredientAirDistance
-                            |> Expect.equal (Ok (Just 8189))
-                            |> asTest "should always have air transport for mango even from other countries if 'planeTransport' is 'byPlane'"
-                        , { ingredients = [ { mango | country = Just (Country.codeFromString "CN"), planeTransport = Ingredient.NoPlane } ]
-                          , transform = Nothing
-                          , packaging = []
-                          , distribution = Just Retail.ambient
+                          , distribution = Nothing
                           , preparation = []
                           }
                             |> Recipe.compute db
                             |> Result.map firstIngredientAirDistance
                             |> Expect.equal (Ok (Just 0))
-                            |> asTest "should not have air transport for mango from other countries if 'planeTransport' is 'noPlane'"
+                            |> asTest "should not have air transport for mango if 'planeTransport' is 'noPlane'"
                         ]
                     ]
 

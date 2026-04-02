@@ -14,17 +14,29 @@ import Result.Extra as RE
 
 type alias Db =
     { examples : List (Example Query)
+    , foodOriginDistances : Ingredient.FoodOriginDistances
     , ingredients : List Ingredient
     , wellKnown : WellKnown
     }
 
 
-buildFromJson : String -> String -> List Process -> Result String Db
-buildFromJson exampleProductsJson ingredientsJson processes =
+-- Note: transportFoodJson is a new parameter for food-specific transport distances.
+-- The Db fields are applied positionally in type alias order:
+--   examples          ← exampleProductsJson
+--   foodOriginDistances ← transportFoodJson
+--   ingredients       ← ingredientsJson
+--   wellKnown         ← WellKnown.load
+buildFromJson : String -> String -> String -> List Process -> Result String Db
+buildFromJson exampleProductsJson ingredientsJson transportFoodJson processes =
     Ok Db
         |> RE.andMap
             (exampleProductsJson
                 |> Example.decodeListFromJsonString Query.decode
+            )
+        |> RE.andMap
+            (transportFoodJson
+                |> Decode.decodeString Ingredient.decodeFoodOriginDistances
+                |> Result.mapError Decode.errorToString
             )
         |> RE.andMap
             (ingredientsJson

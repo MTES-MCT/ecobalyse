@@ -28,7 +28,6 @@ import Data.Complement as Complement
 import Data.Country as Country exposing (Country)
 import Data.Food.EcosystemicServices as EcosystemicServices exposing (EcosystemicServices)
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
-import Data.Food.Origin as Origin
 import Data.Food.Preparation as Preparation exposing (Preparation)
 import Data.Food.Query as BuilderQuery exposing (PackagingAmount, Query, packagingAmountToFloat)
 import Data.Food.Retail as Retail
@@ -43,18 +42,12 @@ import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Density exposing (Density, gramsPerCubicCentimeter)
 import Json.Encode as Encode
-import Length
 import Mass exposing (Mass)
 import Quantity
 import Result.Extra as RE
 import Static.Db exposing (Db)
 import String.Extra as SE
 import Volume exposing (Volume)
-
-
-france : Country.Code
-france =
-    Country.codeFromString "FR"
 
 
 type alias Packaging =
@@ -346,35 +339,12 @@ computeIngredientsTotalComplements =
 
 
 computeIngredientTransport : Db -> RecipeIngredient -> Transport
-computeIngredientTransport db { country, ingredient, mass, planeTransport } =
+computeIngredientTransport db { ingredient, mass, planeTransport } =
     let
-        emptyImpacts =
-            Impact.empty
+        base =
+            Ingredient.getDefaultOriginTransport planeTransport ingredient.defaultOrigin db.food.foodOriginDistances
 
-        planeRatio =
-            -- Special case: if the default origin of an ingredient is "by plane"
-            -- and we selected a transport by plane, then we take an air transport ratio of 1
-            if planeTransport == Ingredient.ByPlane then
-                Split.full
-
-            else
-                Split.zero
-
-        baseTransport =
-            let
-                base =
-                    case country of
-                        -- In case a custom country is provided, compute the distances to it from France
-                        Just { code } ->
-                            db.distances
-                                |> Transport.getTransportBetween emptyImpacts code france
-                                |> Transport.applyTransportRatios planeRatio
-
-                        -- Otherwise retrieve ingredient's default origin transport data
-                        Nothing ->
-                            ingredient.defaultOrigin
-                                |> Ingredient.getDefaultOriginTransport planeTransport
-            in
+        transport =
             if ingredient.transportCooling /= Ingredient.NoCooling then
                 -- Switch the distances to use the "cooled" version of the transport medium
                 { base
@@ -386,36 +356,6 @@ computeIngredientTransport db { country, ingredient, mass, planeTransport } =
 
             else
                 base
-
-        toTransformation t =
-            -- 160km of road transport are added for every ingredient, wherever they come
-            -- from (including France). This corresponds to the stage "1. RECETTE" in the
-            -- [transport documentation](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)
-            Transport.addRoadWithCooling (Length.kilometers 160) (ingredient.transportCooling == Ingredient.AlwaysCool) t
-
-        toLogistics t =
-            -- 500km of road transport are added for every ingredient that are not coming from France.
-            -- This corresponds to the stage "2. RECETTE" in the
-            -- [transport documentation](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)
-            case country of
-                Just { code } ->
-                    if code /= Country.codeFromString "FR" then
-                        Transport.addRoadWithCooling (Length.kilometers 500) (ingredient.transportCooling == Ingredient.AlwaysCool) t
-
-                    else
-                        t
-
-                Nothing ->
-                    if ingredient.defaultOrigin /= Origin.France then
-                        Transport.addRoadWithCooling (Length.kilometers 500) (ingredient.transportCooling == Ingredient.AlwaysCool) t
-
-                    else
-                        t
-
-        transport =
-            baseTransport
-                |> toTransformation
-                |> toLogistics
 
         modes =
             convertWellKnownToTransportModes db.food.wellKnown
