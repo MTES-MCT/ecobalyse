@@ -835,17 +835,41 @@ createElementSelectorConfig db ingredientQuery { excluded, recipeIngredient, imp
         baseElement =
             { element = recipeIngredient.ingredient
             , quantity = recipeIngredient.mass
-            , country = recipeIngredient.country
+            , country = Nothing
             }
+
+        originSelector =
+            Origin.all
+                |> List.map (\o -> option [ value (Origin.toCode o), selected (recipeIngredient.country == Just o) ] [ text (Origin.toLabel o) ])
+                |> (::)
+                    (option
+                        [ value ""
+                        , selected (recipeIngredient.country == Nothing)
+                        ]
+                        [ text <| "Par défaut (" ++ Origin.toLabel recipeIngredient.ingredient.defaultOrigin ++ ")" ]
+                    )
+                |> select
+                    [ class "form-select form-select CountrySelector"
+                    , onInput
+                        (\val ->
+                            UpdateIngredient ingredientQuery
+                                { ingredientQuery
+                                    | country =
+                                        if val /= "" then
+                                            Origin.fromCode val
+
+                                        else
+                                            Nothing
+                                }
+                        )
+                    ]
     in
     { allowEmptyList = True
     , baseElement = baseElement
+    , countrySelector = Just originSelector
     , db =
         { elements = db.food.ingredients
-        , countries =
-            db.countries
-                |> Scope.anyOf [ Scope.Food ]
-                |> List.sortBy .name
+        , countries = []
         , definitions = db.definitions
         }
     , defaultCountry = Origin.toLabel recipeIngredient.ingredient.defaultOrigin
@@ -872,7 +896,6 @@ createElementSelectorConfig db ingredientQuery { excluded, recipeIngredient, imp
                 { ingredientQuery
                     | id = newElement.element.id
                     , mass = newElement.quantity
-                    , country = Maybe.map .code newElement.country
                 }
     }
 
@@ -884,7 +907,7 @@ updateIngredientFormView db ({ recipeIngredient, selectedImpact, transportImpact
         ingredientQuery =
             { id = recipeIngredient.ingredient.id
             , mass = recipeIngredient.mass
-            , country = recipeIngredient.country |> Maybe.map .code
+            , country = recipeIngredient.country
             , planeTransport = recipeIngredient.planeTransport
             }
 

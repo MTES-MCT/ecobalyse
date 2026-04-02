@@ -1,11 +1,9 @@
 module Data.Food.Validation exposing (validate)
 
-import Data.Country as Country
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Preparation as Preparation
 import Data.Food.Query exposing (IngredientQuery, PackagingAmount, PackagingQuery, ProcessQuery, Query, packagingAmountToFloat)
 import Data.Process as Process
-import Data.Scope as Scope
 import Data.Validation as Validation
 import Mass exposing (Mass)
 import Result.Extra as RE
@@ -27,10 +25,7 @@ validate db query =
 validateIngredient : Db -> IngredientQuery -> Result String IngredientQuery
 validateIngredient db ingredientQuery =
     Ok IngredientQuery
-        |> RE.andMap
-            (ingredientQuery.country
-                |> validateMaybe (Country.validateForScope Scope.Food db.countries)
-            )
+        |> RE.andMap (Ok ingredientQuery.country)
         |> RE.andMap
             (db.food.ingredients
                 |> Ingredient.findById ingredientQuery.id

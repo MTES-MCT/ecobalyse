@@ -25,9 +25,9 @@ module Data.Food.Recipe exposing
     )
 
 import Data.Complement as Complement
-import Data.Country as Country exposing (Country)
 import Data.Food.EcosystemicServices as EcosystemicServices exposing (EcosystemicServices)
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
+import Data.Food.Origin as Origin exposing (Origin)
 import Data.Food.Preparation as Preparation exposing (Preparation)
 import Data.Food.Query as BuilderQuery exposing (PackagingAmount, Query, packagingAmountToFloat)
 import Data.Food.Retail as Retail
@@ -57,7 +57,7 @@ type alias Packaging =
 
 
 type alias RecipeIngredient =
-    { country : Maybe Country
+    { country : Maybe Origin
     , ingredient : Ingredient
     , mass : Mass
     , planeTransport : Ingredient.PlaneTransport
@@ -339,10 +339,13 @@ computeIngredientsTotalComplements =
 
 
 computeIngredientTransport : Db -> RecipeIngredient -> Transport
-computeIngredientTransport db { ingredient, mass, planeTransport } =
+computeIngredientTransport db { country, ingredient, mass, planeTransport } =
     let
+        origin =
+            Maybe.withDefault ingredient.defaultOrigin country
+
         base =
-            Ingredient.getDefaultOriginTransport planeTransport ingredient.defaultOrigin db.food.foodOriginDistances
+            Ingredient.getDefaultOriginTransport planeTransport origin db.food.foodOriginDistances
 
         transport =
             if ingredient.transportCooling /= Ingredient.NoCooling then
@@ -540,17 +543,7 @@ ingredientFromQuery db { country, id, mass, planeTransport } =
             Ingredient.findById id db.food.ingredients
     in
     Ok RecipeIngredient
-        |> RE.andMap
-            (case Maybe.map (\c -> Country.findByCode c db.countries) country of
-                Just (Ok country_) ->
-                    Ok (Just country_)
-
-                Just (Err error) ->
-                    Err error
-
-                Nothing ->
-                    Ok Nothing
-            )
+        |> RE.andMap (Ok country)
         |> RE.andMap ingredientResult
         |> RE.andMap (Ok mass)
         |> RE.andMap

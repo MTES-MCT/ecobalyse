@@ -1,6 +1,8 @@
 module Data.Food.Origin exposing
     ( Origin
+    , all
     , decode
+    , fromCode
     , toCode
     , toLabel
     )
@@ -63,6 +65,16 @@ fromString string =
 
         _ ->
             Err <| "Origine géographique inconnue : " ++ string
+
+
+all : List Origin
+all =
+    [ FR, OI, RAF, RAS, REM, REO, RLA, RME, RNA, ROC ]
+
+
+fromCode : String -> Maybe Origin
+fromCode =
+    fromString >> Result.toMaybe
 
 
 toCode : Origin -> String

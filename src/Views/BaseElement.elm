@@ -29,6 +29,7 @@ type alias Db element =
 type alias Config element quantity msg =
     { allowEmptyList : Bool
     , baseElement : BaseElement element quantity
+    , countrySelector : Maybe (Html msg)
     , db : Db element
     , defaultCountry : String
     , delete : element -> msg
@@ -59,6 +60,47 @@ view ({ baseElement, db, impact } as config) =
                 |> List.filter (\component -> not (List.member component config.excluded))
                 |> List.sortBy config.toString
                 |> AutocompleteSelector.init config.toString
+
+        countryDropdown =
+            case config.countrySelector of
+                Just customSelector ->
+                    customSelector
+
+                Nothing ->
+                    db.countries
+                        |> List.sortBy .name
+                        |> List.map
+                            (\{ code, name } ->
+                                option
+                                    [ selected (Maybe.map .code baseElement.country == Just code)
+                                    , value <| Country.codeToString code
+                                    ]
+                                    [ text name ]
+                            )
+                        |> (::)
+                            (option
+                                [ value ""
+                                , selected (baseElement.country == Nothing)
+                                ]
+                                [ text <| "Par défaut (" ++ config.defaultCountry ++ ")" ]
+                            )
+                        |> select
+                            [ class "form-select form-select CountrySelector"
+                            , onInput
+                                (\val ->
+                                    updateEvent
+                                        { baseElement
+                                            | country =
+                                                if val /= "" then
+                                                    Country.codeFromString val
+                                                        |> (\countryCode -> Country.findByCode countryCode db.countries)
+                                                        |> Result.toMaybe
+
+                                                else
+                                                    Nothing
+                                        }
+                                )
+                            ]
     in
     [ span [ class "QuantityInputWrapper" ]
         [ config.quantityView
@@ -76,40 +118,7 @@ view ({ baseElement, db, impact } as config) =
     , autocompleteState
         |> config.selectElement baseElement.element
         |> selectorView config
-    , db.countries
-        |> List.sortBy .name
-        |> List.map
-            (\{ code, name } ->
-                option
-                    [ selected (Maybe.map .code baseElement.country == Just code)
-                    , value <| Country.codeToString code
-                    ]
-                    [ text name ]
-            )
-        |> (::)
-            (option
-                [ value ""
-                , selected (baseElement.country == Nothing)
-                ]
-                [ text <| "Par défaut (" ++ config.defaultCountry ++ ")" ]
-            )
-        |> select
-            [ class "form-select form-select CountrySelector"
-            , onInput
-                (\val ->
-                    updateEvent
-                        { baseElement
-                            | country =
-                                if val /= "" then
-                                    Country.codeFromString val
-                                        |> (\countryCode -> Country.findByCode countryCode db.countries)
-                                        |> Result.toMaybe
-
-                                else
-                                    Nothing
-                        }
-                )
-            ]
+    , countryDropdown
     , span [ class "text-end ImpactDisplay fs-7" ]
         [ impact
             |> Format.formatImpact config.selectedImpact

@@ -688,6 +688,7 @@ createElementSelectorConfig cfg materialInput =
     in
     { allowEmptyList = False
     , baseElement = baseElement
+    , countrySelector = Nothing
     , db =
         { countries =
             cfg.db.countries
