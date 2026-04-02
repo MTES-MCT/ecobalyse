@@ -165,48 +165,5 @@
       "health": 143.173,
       "resources": 289.331
     }
-  },
-  {
-    "name": "Mango by boat from Brazil",
-    "query": {
-      "distribution": "ambient",
-      "ingredients": [
-        {
-          "byPlane": "noPlane",
-          "country": "BR",
-          "id": "db0e5f44-34b4-4160-b003-77c828d75e60",
-          "mass": 120
-        }
-      ]
-    },
-    "impacts": {
-      "acd": 0.00085911,
-      "cch": 0.0807151,
-      "etf": 1.63427,
-      "etf-c": 2.28299,
-      "fru": 1.1435,
-      "fwe": 0.00000147219,
-      "htc": 3.98693e-11,
-      "htc-c": 3.81617e-11,
-      "htn": 1.0621e-9,
-      "htn-c": 4.36903e-10,
-      "ior": 0.00368134,
-      "ldu": 2.77785,
-      "mru": 5.9697e-7,
-      "ozd": 3.73934e-9,
-      "pco": 0.000659832,
-      "pma": 5.22116e-9,
-      "swe": 0.000206087,
-      "tre": 0.00298443,
-      "wtu": 0.0915329,
-      "ecs": 12.4186
-    },
-    "scoring": {
-      "all": 129.361,
-      "climate": 23.4433,
-      "biodiversity": 69.1348,
-      "health": 13.2584,
-      "resources": 23.5238
-    }
   }
 ]
