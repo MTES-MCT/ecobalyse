@@ -32,6 +32,7 @@ module Data.Component exposing
     , computeItemResults
     , computeItemTransportToAssembly
     , computeScoring
+    , computeVolumeFromMass
     , createItem
     , decode
     , decodeItem
@@ -61,6 +62,7 @@ module Data.Component exposing
     , extractItems
     , extractMass
     , findById
+    , getAvailableDistributionProcesses
     , getEndOfLifeDetailedImpacts
     , getEndOfLifeImpacts
     , getEndOfLifeScopeCollectionRate
@@ -88,6 +90,7 @@ module Data.Component exposing
     , toSearchableString
     , tryMapItems
     , updateConsumptionAmount
+    , updateDistribution
     , updateDurability
     , updateElement
     , updateElementAmount
@@ -126,6 +129,7 @@ import Quantity
 import Result.Extra as RE
 import Url.Parser as Parser exposing (Parser)
 import Views.Format as Format
+import Volume exposing (Volume)
 
 
 type Id
@@ -159,6 +163,7 @@ type alias EnergyMixes =
 type alias Query =
     { assemblyCountry : Maybe Country.Code
     , consumptions : List Consumption
+    , distribution : Maybe Process.Id
 
     -- Note: component durability is experimental, future work may eventually be needed to
     -- reuse existing mechanics and handle holistic durability like it's implemented for textile,
@@ -174,6 +179,13 @@ type alias Consumption =
     { amount : Amount
     , processId : Process.Id
     }
+
+
+{-| Errors related to distribution process handling and availability
+-}
+type DistributionProcessError
+    = DistributionGenericError String
+    | DistributionNothingAvailable
 
 
 {-| A compact reference to a component, a quantity of it, a production localization
@@ -263,6 +275,13 @@ type alias DetailedEndOfLifeImpacts =
     MaterialDict EndOfLifeMaterialImpacts
 
 
+type alias DistributionResults =
+    { impacts : Impacts
+    , process : Maybe Process
+    , volume : Volume
+    }
+
+
 type alias EndOfLifeMaterialImpacts =
     { collected : ( Mass, EndOfLifeStrategies )
     , nonCollected : ( Mass, EndOfLifeStrategies )
@@ -272,7 +291,8 @@ type alias EndOfLifeMaterialImpacts =
 {-| Lifecycle impacts
 -}
 type alias LifeCycle =
-    { endOfLife : Impacts
+    { distribution : DistributionResults
+    , endOfLife : Impacts
     , production : Results
     , transports : LifeCycleTransport
     , use : List Impacts
@@ -513,9 +533,47 @@ compute requirements query =
         |> RE.combine
         |> Result.map (List.foldr addResults emptyResults)
         |> Result.map (\(Results results) -> { emptyLifeCycle | production = Results { results | label = Just "Production" } })
+        |> Result.andThen (computeDistributionImpacts requirements query)
         |> Result.map (computeEndOfLifeResults requirements)
         |> Result.andThen (computeTransports requirements query)
         |> Result.andThen (computeUseImpacts requirements query)
+
+
+computeVolumeFromMass : Mass -> Volume
+computeVolumeFromMass =
+    -- Note: for now, assume the volume in m3 is the same as the mass in kg/1000
+    -- TODO: this is a temporary solution, we'll eventually need to get the proper volume per unit from the process
+    Quantity.divideBy 1000
+        >> Mass.inKilograms
+        >> Volume.cubicMeters
+
+
+computeDistributionImpacts : Requirements db -> Query -> LifeCycle -> Result String LifeCycle
+computeDistributionImpacts ({ config } as requirements) query ({ distribution, production } as lifeCycle) =
+    let
+        finalProductVolume =
+            computeVolumeFromMass <| extractMass production
+    in
+    case getDistributionProcess requirements query.distribution of
+        Err (DistributionGenericError errorMessage) ->
+            Err errorMessage
+
+        Err DistributionNothingAvailable ->
+            -- No distribution processes are available for this scope, so no added impacts
+            Ok { lifeCycle | distribution = { distribution | volume = finalProductVolume } }
+
+        Ok process ->
+            Ok
+                { lifeCycle
+                    | distribution =
+                        { impacts =
+                            process
+                                |> Process.impactsPerUnit config.distribution.country
+                                |> Impact.multiplyBy (Volume.inCubicMeters finalProductVolume)
+                        , process = Just process
+                        , volume = finalProductVolume
+                        }
+                }
 
 
 computeElementResults : Requirements db -> Maybe Country.Code -> Element -> Result String Results
@@ -935,6 +993,7 @@ decodeQuery =
     Decode.succeed Query
         |> DU.strictOptional "assemblyCountry" Country.decodeCode
         |> Decode.optional "consumptions" (Decode.list decodeConsumption) []
+        |> DU.strictOptional "distribution" Process.decodeId
         |> DU.strictOptional "durability" Unit.decodeRatio
         |> Decode.required "components" (Decode.list decodeItem)
 
@@ -979,9 +1038,18 @@ elementsToString db component =
         |> Result.map (String.join " | ")
 
 
+emptyDistributionResults : DistributionResults
+emptyDistributionResults =
+    { impacts = Impact.empty
+    , process = Nothing
+    , volume = Quantity.zero
+    }
+
+
 emptyLifeCycle : LifeCycle
 emptyLifeCycle =
-    { endOfLife = Impact.empty
+    { distribution = emptyDistributionResults
+    , endOfLife = Impact.empty
     , production = emptyResults
     , transports = emptyLifeCycleTransports
     , use = []
@@ -999,6 +1067,7 @@ emptyQuery : Query
 emptyQuery =
     { assemblyCountry = Nothing
     , consumptions = []
+    , distribution = Nothing
     , durability = Nothing
     , items = []
     }
@@ -1104,9 +1173,19 @@ encodeLifeCycle maybeTrigram lifeCycle =
                 Nothing ->
                     Impact.encode lifeCycle.endOfLife
           )
+        , ( "distribution", encodeLifeCycleDistribution lifeCycle.distribution )
         , ( "production", encodeResults maybeTrigram lifeCycle.production )
         , ( "transport", encodeLifeCycleTransport lifeCycle.transports )
         , ( "use", Encode.list Impact.encode lifeCycle.use )
+        ]
+
+
+encodeLifeCycleDistribution : DistributionResults -> Encode.Value
+encodeLifeCycleDistribution distribution =
+    EU.optionalPropertiesObject
+        [ ( "impacts", distribution.impacts |> Impact.encode |> Just )
+        , ( "process", distribution.process |> Maybe.map (.id >> Process.encodeId) )
+        , ( "volume", distribution.volume |> Volume.inCubicMeters |> Encode.float |> Just )
         ]
 
 
@@ -1124,6 +1203,7 @@ encodeQuery query =
         [ ( "assemblyCountry", query.assemblyCountry |> Maybe.map Country.encodeCode )
         , ( "durability", query.durability |> Maybe.map Unit.encodeRatio )
         , ( "components", query.items |> Encode.list encodeItem |> Just )
+        , ( "distribution", query.distribution |> Maybe.map Process.encodeId )
         , ( "consumptions"
           , if List.isEmpty query.consumptions then
                 Nothing
@@ -1315,6 +1395,32 @@ findById id =
     List.filter (.id >> (==) (Just id))
         >> List.head
         >> Result.fromMaybe ("Aucun composant avec id=" ++ idToString id)
+
+
+getAvailableDistributionProcesses : DataContainer db -> Scope -> List Process
+getAvailableDistributionProcesses db scope =
+    db.processes
+        |> Scope.anyOf [ scope ]
+        |> Process.listByCategory Category.Distribution
+        |> List.filter (.unit >> (==) Process.CubicMeter)
+
+
+{-| Retrieves a distribution process for a given scope from a provided distribution id, or a default
+process from config if available.
+-}
+getDistributionProcess : Requirements db -> Maybe Process.Id -> Result DistributionProcessError Process
+getDistributionProcess { config, db, scope } maybeDistribution =
+    case maybeDistribution of
+        Just processId ->
+            getAvailableDistributionProcesses db scope
+                |> Process.findById processId
+                |> Result.mapError DistributionGenericError
+
+        -- No distribution process specified, use the default scoped process if available
+        Nothing ->
+            config.distribution.defaultProcess
+                |> Scope.dictGetMaybe scope
+                |> Result.fromMaybe DistributionNothingAvailable
 
 
 getEndOfLifeDetailedImpacts : Requirements db -> Results -> DetailedEndOfLifeImpacts
@@ -1669,7 +1775,7 @@ stagesImpacts lifeCycle =
                     Nothing ->
                         acc
             )
-            { distribution = Nothing
+            { distribution = lifeCycle.distribution.impacts |> Just
             , endOfLife = lifeCycle.endOfLife |> Just
             , materials = Just Impact.empty
             , packaging = Nothing
@@ -1695,6 +1801,7 @@ sumLifeCycleImpacts lifeCycle =
     Impact.sumImpacts
         [ extractImpacts lifeCycle.production
         , extractComplementsImpacts lifeCycle.production |> Complement.mergeComplementsResultsImpacts
+        , lifeCycle.distribution.impacts
         , lifeCycle.endOfLife
         , lifeCycle.transports.toAssembly.impacts
         , lifeCycle.transports.toDistribution.impacts
@@ -1751,6 +1858,11 @@ updateCustom component fn maybeCustom =
                     , scope = Nothing
                     }
                 )
+
+
+updateDistribution : Maybe Process.Id -> Query -> Query
+updateDistribution maybeProcessId query =
+    { query | distribution = maybeProcessId }
 
 
 updateDurability : Unit.Ratio -> Query -> Query
@@ -1830,6 +1942,31 @@ validateCountry { db, scope } maybeCountryCode =
             Ok Nothing
 
 
+validateDistribution : Requirements db -> Maybe Process.Id -> Result String (Maybe Process.Id)
+validateDistribution { db, scope } maybeProcessId =
+    case maybeProcessId of
+        Just processId ->
+            case Process.findById processId db.processes of
+                Err err ->
+                    Err err
+
+                Ok process ->
+                    if not <| List.member Category.Distribution process.categories then
+                        Err "Le procédé n'est pas une distribution"
+
+                    else if process.unit /= Process.CubicMeter then
+                        Err "Le procédé de distribution doit accepter un volume"
+
+                    else if not <| List.member scope process.scopes then
+                        Err <| "Le procédé " ++ Process.idToString processId ++ " n'est pas disponible pour le périmètre " ++ Scope.toLabel scope
+
+                    else
+                        Ok (Just processId)
+
+        Nothing ->
+            Ok Nothing
+
+
 validateDurability : Requirements db -> Maybe Unit.Ratio -> Result String (Maybe Unit.Ratio)
 validateDurability { config, scope } durability =
     case ( config.durability |> Config.scopeEnabled scope, durability ) of
@@ -1881,6 +2018,7 @@ validateQuery ({ db } as requirements) query =
     Ok Query
         |> RE.andMap (validateCountry requirements query.assemblyCountry)
         |> RE.andMap (query.consumptions |> RE.combineMap (validateConsumption requirements))
+        |> RE.andMap (validateDistribution requirements query.distribution)
         |> RE.andMap (validateDurability requirements query.durability)
         |> RE.andMap (query.items |> RE.combineMap (validateItem db.components))
         |> Result.mapError (\s -> "Requête invalide: " ++ s)
