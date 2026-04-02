@@ -11,15 +11,15 @@ import Json.Decode.Extra as DE
 
 type Origin
     = FR
+    | OI
+    | RAF
+    | RAS
     | REM
     | REO
-    | RAS
-    | RAF
-    | RME
     | RLA
+    | RME
     | RNA
     | ROC
-    | OI
 
 
 decode : Decoder Origin

@@ -5,7 +5,6 @@ import Data.Example
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Preparation as Preparation
 import Data.Food.Recipe as Recipe
-import Data.Food.Retail as Retail
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Unit as Unit

@@ -66,12 +66,12 @@ type alias Ingredient =
 
 
 type alias FoodOriginTransport =
-    { materialtotransform : Length -- E1: ingredient source → transformation facility
-    , transformtologistic : Length -- E2: transformation facility → logistics hub
-    , logistictoport : Length -- E2: logistics hub → port/airport (if applicable)
-    , camion : Length -- E3: truck from region to France
+    { air : Length -- E3: air from region to France
     , bateau : Length -- E3: sea from region to France
-    , air : Length -- E3: air from region to France
+    , camion : Length -- E3: truck from region to France
+    , logistictoport : Length -- E2: logistics hub → port/airport (if applicable)
+    , materialtotransform : Length -- E1: ingredient source → transformation facility
+    , transformtologistic : Length -- E2: transformation facility → logistics hub
     }
 
 
@@ -214,7 +214,7 @@ decodeFoodOriginDistances =
 
         decodeToFrance =
             Decode.succeed
-                (\camion bateau air -> { camion = camion, bateau = bateau, air = air })
+                (\camion bateau air -> { air = air, bateau = bateau, camion = camion })
                 |> Pipe.required "camion" km
                 |> Pipe.required "bateau" km
                 |> Pipe.required "air" km
@@ -223,12 +223,12 @@ decodeFoodOriginDistances =
             Decode.succeed
                 (\code materialtotransform transformtologistic logistictoport toFrance ->
                     ( code
-                    , { materialtotransform = materialtotransform
-                      , transformtologistic = transformtologistic
-                      , logistictoport = logistictoport
-                      , camion = toFrance.camion
+                    , { air = toFrance.air
                       , bateau = toFrance.bateau
-                      , air = toFrance.air
+                      , camion = toFrance.camion
+                      , logistictoport = logistictoport
+                      , materialtotransform = materialtotransform
+                      , transformtologistic = transformtologistic
                       }
                     )
                 )
