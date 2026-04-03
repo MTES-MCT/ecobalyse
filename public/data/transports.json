@@ -500,6 +500,9 @@
     "US": { "air": 8254, "road": null, "sea": 12246 },
     "VN": { "air": 8703, "road": 10866, "sea": 13893 }
   },
+  "REM": {
+    "FR": { "air": null, "road": 2500, "sea": null }
+  },
   "REO": {
     "REO": { "air": 500, "road": 500, "sea": null },
     "RLA": { "air": 7627, "road": null, "sea": 7695 },
@@ -520,9 +523,6 @@
     "TR": { "air": 10704, "road": null, "sea": 10337 },
     "US": { "air": 6877, "road": null, "sea": 7499 },
     "VN": { "air": 17869, "road": null, "sea": 20931 }
-  },
-  "RME": {
-    "FR": { "air": null, "road": 2500, "sea": null }
   },
   "RME": {
     "RME": { "air": 500, "road": 500, "sea": null },
