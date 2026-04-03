@@ -45,16 +45,15 @@ toCountryCode : Origin -> Country.Code
 toCountryCode origin =
     case origin of
         EuropeAndMaghreb ->
-            -- @FIXME: use real value
-            Country.codeFromString "FR"
+            Country.codeFromString "REM"
 
         France ->
             Country.codeFromString "FR"
 
         OutOfEuropeAndMaghreb ->
-            -- @FIXME: use real value
-            Country.codeFromString "FR"
+            -- @FIXME: it’s on me, --F is the "Unknown" food country
+            Country.codeFromString "--F"
 
         OutOfEuropeAndMaghrebByPlane ->
             -- @FIXME: use real value and fix the plane problem
-            Country.codeFromString "FR"
+            Country.codeFromString "--F"

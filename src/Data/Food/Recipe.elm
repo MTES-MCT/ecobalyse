@@ -57,6 +57,11 @@ france =
     Country.codeFromString "FR"
 
 
+defaultCountry : Country.Code
+defaultCountry =
+    Country.codeFromString "--F"
+
+
 type alias Packaging =
     { amount : PackagingAmount
     , process : Process.Process
@@ -368,7 +373,16 @@ computeIngredientTransport db { country, ingredient, mass, planeTransport } =
                         Just { code } ->
                             db.distances
                                 |> Transport.getTransportBetween emptyImpacts code france
-                                |> Transport.applyTransportRatios planeRatio
+                                -- If the target country is the default one, we should take hardcoded values from
+                                -- transports.json and not apply any ratio
+                                -- See https://github.com/MTES-MCT/ecobalyse/issues/1986
+                                -- @TODO: force by plane ratio here if origin is out of europe maghreb by plane
+                                |> (if defaultCountry == code then
+                                        identity
+
+                                    else
+                                        Transport.applyTransportRatios planeRatio
+                                   )
 
                         -- Otherwise retrieve ingredient's default origin transport data
                         Nothing ->
