@@ -355,8 +355,8 @@ computeIngredientsTotalComplements =
         Complement.noComplementsImpacts
 
 
-applyHarcodedDistances : Country.Code -> Ingredient.PlaneTransport -> Origin.Origin -> (Transport -> Transport)
-applyHarcodedDistances code planeTransport defaultOrigin =
+applyHarcodedDistancesForIngredient : Country.Code -> Ingredient.PlaneTransport -> Origin.Origin -> (Transport -> Transport)
+applyHarcodedDistancesForIngredient code planeTransport defaultOrigin =
     let
         planeRatio =
             -- Special case: if the default origin of an ingredient is "by plane"
@@ -384,8 +384,6 @@ applyHarcodedDistances code planeTransport defaultOrigin =
         --
         -- For some regions we should always add 2500kms of road
         -- See https://github.com/MTES-MCT/ecobalyse/issues/1982
-        -- else if countriesWithDefaultRoadTransport |> List.member code then
-        --     \t -> { t | road = t.road |> Quantity.plus (Length.kilometers 2500) }
         Transport.applyTransportRatios planeRatio
             >> (if countriesWithDefaultRoadTransport |> List.member code then
                     \t -> { t | road = t.road |> Quantity.plus (Length.kilometers 2500) }
@@ -411,7 +409,7 @@ computeIngredientTransport db { country, ingredient, mass, planeTransport } =
                                 |> Transport.getTransportBetween emptyImpacts code france
                                 -- If the target country is the default one, we should take hardcoded values
                                 -- See https://github.com/MTES-MCT/ecobalyse/issues/1986
-                                |> applyHarcodedDistances code planeTransport ingredient.defaultOrigin
+                                |> applyHarcodedDistancesForIngredient code planeTransport ingredient.defaultOrigin
 
                         -- Otherwise retrieve ingredient's default origin transport data
                         Nothing ->
