@@ -37560,7 +37560,7 @@
     "activityName": "This process is not linked to a Brightway activity",
     "categories": [
       "transformation",
-      "material_type:plastic"
+      "material_type:composites"
     ],
     "comment": "Hao Chen et al., 2025 (median), hyp. 50% electricity 50% heat",
     "displayName": "Fabrication fibre de carbone",
@@ -38673,7 +38673,7 @@
     "activityName": "Aluminium extrusion",
     "categories": [
       "transformation",
-      "material_type:metal"
+      "material_type:aluminium"
     ],
     "comment": "",
     "displayName": "Extrusion (aluminium)",
@@ -38718,7 +38718,7 @@
     "activityName": "Aluminium sheeet rolling",
     "categories": [
       "transformation",
-      "material_type:metal"
+      "material_type:aluminium"
     ],
     "comment": "",
     "displayName": "Lamination (aluminium)",
@@ -38763,7 +38763,7 @@
     "activityName": "Aluminium working, average",
     "categories": [
       "transformation",
-      "material_type:metal"
+      "material_type:aluminium"
     ],
     "comment": "découpes, cintrages, traitements thermiques, soudures",
     "displayName": "Transformation finale (aluminium)",
@@ -40964,7 +40964,7 @@
     "activityName": "aluminium ingot, market, RER",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:aluminium"
     ],
     "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
     "displayName": "Aluminium mix marché, Europe",
@@ -41008,7 +41008,7 @@
     "activityName": "aluminium ingot, market, RoW",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:aluminium"
     ],
     "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
     "displayName": "Aluminium mix marché, hors Europe et Chine",
@@ -41052,7 +41052,7 @@
     "activityName": "aluminium ingot, recycled, IN, CFF",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:aluminium"
     ],
     "comment": "Matériau 100% issu du recyclage, calculé selon la règle CFF (A=0.8, Q=1)",
     "displayName": "Aluminium recyclé (Inde), CFF",
@@ -41097,7 +41097,7 @@
     "activityName": "aluminium ingot, recycled, RER, CFF",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:aluminium"
     ],
     "comment": "Matériau 100% issu du recyclage, calculé selon la règle CFF (A=0.8, Q=1)",
     "displayName": "Aluminium recyclé (Europe), CFF",
@@ -41142,7 +41142,7 @@
     "activityName": "aluminium ingot, recycled, RoW, CFF",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:aluminium"
     ],
     "comment": "Matériau 100% issu du recyclage, calculé selon la règle CFF (A=0.8, Q=1)",
     "displayName": "Aluminium recyclé (Reste du monde), CFF",
@@ -41187,7 +41187,7 @@
     "activityName": "aluminium ingot, virgin, market, CN",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:aluminium"
     ],
     "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
     "displayName": "Aluminium mix marché, Chine",
@@ -41231,7 +41231,7 @@
     "activityName": "aluminium ingot, virgin, market, IN",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:aluminium"
     ],
     "comment": "",
     "displayName": "Aluminium vierge mix marché, Inde",
@@ -41275,7 +41275,7 @@
     "activityName": "aluminium ingot, virgin, market, RER",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:aluminium"
     ],
     "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
     "displayName": "Aluminium vierge mix marché, Europe",
@@ -41319,7 +41319,7 @@
     "activityName": "aluminium ingot, virgin, market, RoW",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:aluminium"
     ],
     "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
     "displayName": "Aluminium vierge mix marché, hors Europe et Inde",
@@ -41407,7 +41407,7 @@
     "activityName": "chromium steel sheet rolling",
     "categories": [
       "transformation",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
     "displayName": "Lamination (inox)",
@@ -41452,7 +41452,7 @@
     "activityName": "chromium steel working",
     "categories": [
       "transformation",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "découpes, cintrages, traitements thermiques, soudures",
     "displayName": "Transformation finale (inox)",
@@ -41892,7 +41892,7 @@
     "activityName": "polyethylene terephthalate, granulate, amorphous, recycled, GLO, CFF",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:pet"
     ],
     "comment": "Matériau 100% issu du recyclage, calculé selon la règle CFF (A=0.8, Q=1)",
     "displayName": "PET recyclé (Reste du monde), CFF",
@@ -42025,7 +42025,7 @@
     "activityName": "steel sheet rolling",
     "categories": [
       "transformation",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
     "displayName": "Extrusion ou lamination (acier)",
@@ -42070,7 +42070,7 @@
     "activityName": "steel working",
     "categories": [
       "transformation",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "découpes, cintrages, traitements thermiques, soudures",
     "displayName": "Transformation finale (acier)",
@@ -42115,7 +42115,7 @@
     "activityName": "steel, low-alloyed, market, CN",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
     "displayName": "Acier mix marché (Reste du monde)",
@@ -42159,7 +42159,7 @@
     "activityName": "steel, low-alloyed, market, FR",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
     "displayName": "Acier mix marché (Europe)",
@@ -42203,7 +42203,7 @@
     "activityName": "steel, low-alloyed, recycled, RER, CFF",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "Matériau 100% issu du recyclage, calculé selon la règle CFF (A=0.8, Q=1)",
     "displayName": "Acier recyclé (Europe), CFF",
@@ -42248,7 +42248,7 @@
     "activityName": "steel, low-alloyed, recycled, RoW, CFF",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "Matériau 100% issu du recyclage, calculé selon la règle CFF (A=0.8, Q=1)",
     "displayName": "Acier recyclé (Reste du monde), CFF",
@@ -42471,7 +42471,7 @@
     "activityName": "Battery cell, Li-ion, NMC811 {CN}| battery cell production, Li-ion, NMC811 | Cut-off, U",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:battery_cell"
     ],
     "comment": "densité energétique : 6.7 kWh/kg",
     "displayName": "Batterie Li-ion (NMC811)",
@@ -42515,7 +42515,7 @@
     "activityName": "Battery, Li-ion, LFP, rechargeable {CN}| battery production, Li-ion, LFP, rechargeable | Cut-off, U",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:battery_cell"
     ],
     "comment": "densité energétique : 8.6 kWh/kg",
     "displayName": "Batterie Li-ion (LFP)",
@@ -42559,7 +42559,7 @@
     "activityName": "Battery, Li-ion, NCA, rechargeable {CN}| battery production, Li-ion, NCA, rechargeable | Cut-off, U",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:battery_cell"
     ],
     "comment": "densité energétique : 6.3 kWh/kg",
     "displayName": "Batterie Li-ion (Autres)",
@@ -42603,7 +42603,7 @@
     "activityName": "Battery, lead acid, rechargeable, stationary {RoW}| battery production, lead acid, rechargeable, stationary | Cut-off, U",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:battery_cell"
     ],
     "comment": "densité energétique : 33.3 kWh/kg",
     "displayName": "Batterie Plomb",
@@ -44099,7 +44099,7 @@
     "activityName": "acrylonitrile-butadiene-styrene copolymer//[GLO] market for acrylonitrile-butadiene-styrene copolymer",
     "categories": [
       "material",
-      "material_type:plastic"
+      "material_type:rigid_plastics"
     ],
     "comment": "",
     "displayName": "Plastique rigide (ABS)",
@@ -44144,7 +44144,7 @@
     "activityName": "aluminium, cast alloy//[RER] treatment of aluminium scrap, post-consumer, prepared for recycling, at refiner",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:aluminium"
     ],
     "comment": "",
     "displayName": "Aluminium recyclé",
@@ -44188,7 +44188,7 @@
     "activityName": "brass//[RoW] market for brass",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:copper"
     ],
     "comment": "",
     "displayName": "Laiton",
@@ -44276,7 +44276,8 @@
     "activityName": "chemical, organic//[GLO] market for chemical, organic",
     "categories": [
       "material",
-      "material_type:plastic"
+      "material_type:composites",
+      "material_type:rubber"
     ],
     "comment": "",
     "displayName": "Composé organique",
@@ -44409,7 +44410,7 @@
     "activityName": "corrugated board box//[RER] corrugated board box production",
     "categories": [
       "material",
-      "material_type:other"
+      "material_type:containerboard"
     ],
     "comment": "",
     "displayName": "Carton ondulé",
@@ -44454,7 +44455,7 @@
     "activityName": "electric motor, electric passenger car//[GLO] electric motor production, vehicle (electric powertrain)",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
     "displayName": "Moteur électrique",
@@ -45813,7 +45814,7 @@
     "activityName": "electronic component, passive, unspecified//[GLO] market for electronic component, passive, unspecified",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:pwb"
     ],
     "comment": "",
     "displayName": "Composants électroniques",
@@ -45902,7 +45903,11 @@
     "activityName": "extrusion of plastic sheets and thermoforming, inline//[GLO] market for extrusion of plastic sheets and thermoforming, inline",
     "categories": [
       "transformation",
-      "material_type:plastic"
+      "material_type:pet",
+      "material_type:pp",
+      "material_type:hdpe",
+      "material_type:ldpe",
+      "material_type:rigid_plastics"
     ],
     "comment": "",
     "displayName": "Extrusion + thermoformage (plastique)",
@@ -46036,7 +46041,8 @@
   {
     "activityName": "flat glass, uncoated//[RER] flat glass production, uncoated",
     "categories": [
-      "material"
+      "material",
+      "material_type:glass"
     ],
     "comment": "",
     "displayName": "Verre plat",
@@ -46081,7 +46087,11 @@
     "activityName": "injection moulding//[RER] injection moulding",
     "categories": [
       "transformation",
-      "material_type:plastic"
+      "material_type:pet",
+      "material_type:pp",
+      "material_type:hdpe",
+      "material_type:ldpe",
+      "material_type:rigid_plastics"
     ],
     "comment": "",
     "displayName": "Moulage par injection",
@@ -46126,7 +46136,7 @@
     "activityName": "internal combustion engine, passenger car//[GLO] internal combustion engine production, passenger car",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
     "displayName": "Moteur thermique (MCI)",
@@ -46215,7 +46225,7 @@
     "activityName": "metal working, average for metal product manufacturing//[RER] metal working, average for metal product manufacturing",
     "categories": [
       "transformation",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
     "displayName": "Transformation métallique (moyenne)",
@@ -46348,7 +46358,7 @@
     "activityName": "packaging film, low density polyethylene//[RER] packaging film production, low density polyethylene",
     "categories": [
       "material",
-      "material_type:plastic"
+      "material_type:ldpe"
     ],
     "comment": "",
     "displayName": "Film plastique",
@@ -46483,7 +46493,7 @@
     "activityName": "polycarbonate//[RER] polycarbonate production",
     "categories": [
       "material",
-      "material_type:plastic"
+      "material_type:rigid_plastics"
     ],
     "comment": "",
     "displayName": "Plastique rigide (PC)",
@@ -46528,7 +46538,7 @@
     "activityName": "polyethylene terephthalate, granulate, amorphous//[GLO] market for polyethylene terephthalate, granulate, amorphous",
     "categories": [
       "material",
-      "material_type:plastic",
+      "material_type:pet",
       "material_type:synthetic_fibers"
     ],
     "comment": "",
@@ -46619,7 +46629,7 @@
     "activityName": "polymethyl methacrylate, sheet//[RER] polymethyl methacrylate production, sheet",
     "categories": [
       "material",
-      "material_type:plastic"
+      "material_type:rigid_plastics"
     ],
     "comment": "",
     "displayName": "Plexiglas®",
@@ -46664,7 +46674,7 @@
     "activityName": "polypropylene, granulate//[GLO] market for polypropylene, granulate",
     "categories": [
       "material",
-      "material_type:plastic"
+      "material_type:pp"
     ],
     "comment": "",
     "displayName": "Plastique granulé (divers)",
@@ -46709,7 +46719,7 @@
     "activityName": "polypropylene, granulate//[RER] polypropylene production, granulate",
     "categories": [
       "material",
-      "material_type:plastic"
+      "material_type:pp"
     ],
     "comment": "",
     "displayName": "Plastique granulé (PP)",
@@ -46754,7 +46764,7 @@
     "activityName": "polyurethane, rigid foam//[RER] polyurethane production, rigid foam",
     "categories": [
       "material",
-      "material_type:upholstery"
+      "material_type:pur_foam"
     ],
     "comment": "",
     "displayName": "Mousse rigide (PUR)",
@@ -46799,7 +46809,7 @@
     "activityName": "polyvinylchloride, suspension polymerised//[GLO] market for polyvinylchloride, suspension polymerised",
     "categories": [
       "material",
-      "material_type:plastic"
+      "material_type:rigid_plastics"
     ],
     "comment": "",
     "displayName": "Plastique granulé (PVC)",
@@ -46844,7 +46854,7 @@
     "activityName": "powder coat, aluminium sheet//[RER] powder coating, aluminium sheet",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:aluminium"
     ],
     "comment": "",
     "displayName": "Thermolaquage (aluminium)",
@@ -46889,7 +46899,7 @@
     "activityName": "powder coat, steel//[RER] powder coating, steel",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
     "displayName": "Thermolaquage (acier)",
@@ -47697,7 +47707,7 @@
     "activityName": "steel, chromium steel 18/8//[GLO] market for steel, chromium steel 18/8",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
     "displayName": "Acier inoxydable",
@@ -47742,7 +47752,7 @@
     "activityName": "steel, low-alloyed//[Europe without Switzerland and Austria] steel production, electric, low-alloyed",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
     "displayName": "Acier recyclé (faiblement allié, Europe)",
@@ -47786,7 +47796,7 @@
     "activityName": "steel, low-alloyed//[GLO] market for steel, low-alloyed",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
     "displayName": "Acier (faiblement allié)",
@@ -47830,7 +47840,7 @@
     "activityName": "steel, low-alloyed//[RoW] steel production, electric, low-alloyed",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
     "displayName": "Acier recyclé (faiblement allié, Reste du monde)",
@@ -47874,7 +47884,7 @@
     "activityName": "steel, unalloyed//[RER] steel production, converter, unalloyed",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
     "displayName": "Acier vierge (non allié, Europe)",
@@ -47919,7 +47929,7 @@
     "activityName": "steel, unalloyed//[RoW] steel production, converter, unalloyed",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
     "displayName": "Acier vierge (non allié, Reste du monde)",
@@ -47964,7 +47974,7 @@
     "activityName": "synthetic rubber//[RER] synthetic rubber production",
     "categories": [
       "material",
-      "material_type:plastic"
+      "material_type:rubber"
     ],
     "comment": "",
     "displayName": "Caoutchouc synthétique",
@@ -48403,7 +48413,7 @@
     "activityName": "waste plastic, mixture//[CH] treatment of waste plastic, mixture, municipal incineration",
     "categories": [
       "end-of-life",
-      "material_type:plastic"
+      "material_type:rigid_plastics"
     ],
     "comment": "",
     "displayName": "Incinération du plastique",
@@ -48491,7 +48501,7 @@
     "activityName": "waste polyurethane//[CH] treatment of waste polyurethane, municipal incineration",
     "categories": [
       "end-of-life",
-      "material_type:upholstery"
+      "material_type:pur_foam"
     ],
     "comment": "",
     "displayName": "Incinération des mousses et rembourrés PUR",
