@@ -348,29 +348,17 @@ computeIngredientTransport db { country, ingredient, mass, planeTransport } =
             Ingredient.getDefaultOriginTransport planeTransport origin db.food.foodOriginDistances
 
         transport =
-            case ingredient.transportCooling of
-                Ingredient.AlwaysCool ->
-                    { base
-                        | road = Quantity.zero
-                        , roadCooled = base.road
-                        , sea = Quantity.zero
-                        , seaCooled = base.sea
-                    }
+            if ingredient.transportCooling /= Ingredient.NoCooling then
+                -- Switch the distances to use the "cooled" version of the transport medium
+                { base
+                    | road = Quantity.zero
+                    , roadCooled = base.road
+                    , sea = Quantity.zero
+                    , seaCooled = base.sea
+                }
 
-                Ingredient.CoolOnceTransformed ->
-                    let
-                        materialToTransform =
-                            Ingredient.getMaterialToTransformDistance origin db.food.foodOriginDistances
-                    in
-                    { base
-                        | road = materialToTransform
-                        , roadCooled = base.road |> Quantity.minus materialToTransform
-                        , sea = Quantity.zero
-                        , seaCooled = base.sea
-                    }
-
-                Ingredient.NoCooling ->
-                    base
+            else
+                base
 
         modes =
             convertWellKnownToTransportModes db.food.wellKnown

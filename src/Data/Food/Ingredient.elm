@@ -14,7 +14,6 @@ module Data.Food.Ingredient exposing
     , encodePlaneTransport
     , findById
     , getDefaultOriginTransport
-    , getMaterialToTransformDistance
     , idFromString
     , idToString
     , toSearchableString
@@ -280,13 +279,6 @@ getDefaultOriginTransport planeTransport origin distances =
 
         Nothing ->
             Transport.default Impact.empty
-
-
-getMaterialToTransformDistance : Origin -> FoodOriginDistances -> Length
-getMaterialToTransformDistance origin distances =
-    Dict.get (Origin.toCode origin) distances
-        |> Maybe.map .materialtotransform
-        |> Maybe.withDefault Quantity.zero
 
 
 linkProcess : List Process -> Decoder Process
