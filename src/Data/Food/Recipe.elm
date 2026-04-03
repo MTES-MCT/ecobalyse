@@ -355,12 +355,9 @@ computeIngredientsTotalComplements =
         Complement.noComplementsImpacts
 
 
-computeIngredientTransport : Db -> RecipeIngredient -> Transport
-computeIngredientTransport db { country, ingredient, mass, planeTransport } =
+applyHarcodedDistances : Country.Code -> Ingredient.PlaneTransport -> Origin.Origin -> (Transport -> Transport)
+applyHarcodedDistances code planeTransport defaultOrigin =
     let
-        emptyImpacts =
-            Impact.empty
-
         planeRatio =
             -- Special case: if the default origin of an ingredient is "by plane"
             -- and we selected a transport by plane, then we take an air transport ratio of 1
@@ -369,6 +366,40 @@ computeIngredientTransport db { country, ingredient, mass, planeTransport } =
 
             else
                 Split.zero
+    in
+    if defaultCountry == code then
+        let
+            default =
+                Transport.default Impact.empty
+        in
+        -- Force by plane ratio here if origin is out of europe maghreb by plane
+        -- See https://github.com/MTES-MCT/ecobalyse/issues/1998
+        if defaultOrigin == Origin.OutOfEuropeAndMaghrebByPlane then
+            \_ -> { default | air = Length.kilometers 18000, road = Length.kilometers 2500 }
+
+        else
+            identity
+
+    else
+        --
+        -- For some regions we should always add 2500kms of road
+        -- See https://github.com/MTES-MCT/ecobalyse/issues/1982
+        -- else if countriesWithDefaultRoadTransport |> List.member code then
+        --     \t -> { t | road = t.road |> Quantity.plus (Length.kilometers 2500) }
+        Transport.applyTransportRatios planeRatio
+            >> (if countriesWithDefaultRoadTransport |> List.member code then
+                    \t -> { t | road = t.road |> Quantity.plus (Length.kilometers 2500) }
+
+                else
+                    identity
+               )
+
+
+computeIngredientTransport : Db -> RecipeIngredient -> Transport
+computeIngredientTransport db { country, ingredient, mass, planeTransport } =
+    let
+        emptyImpacts =
+            Impact.empty
 
         baseTransport =
             let
@@ -378,37 +409,9 @@ computeIngredientTransport db { country, ingredient, mass, planeTransport } =
                         Just { code } ->
                             db.distances
                                 |> Transport.getTransportBetween emptyImpacts code france
-                                -- If the target country is the default one, we should take hardcoded values from
-                                -- transports.json and not apply any ratio
+                                -- If the target country is the default one, we should take hardcoded values
                                 -- See https://github.com/MTES-MCT/ecobalyse/issues/1986
-                                --
-                                |> (if defaultCountry == code then
-                                        let
-                                            default =
-                                                Transport.default Impact.empty
-                                        in
-                                        -- Force by plane ratio here if origin is out of europe maghreb by plane
-                                        -- See https://github.com/MTES-MCT/ecobalyse/issues/1998
-                                        if ingredient.defaultOrigin == Origin.OutOfEuropeAndMaghrebByPlane then
-                                            \_ -> { default | air = Length.kilometers 18000, road = Length.kilometers 2500 }
-
-                                        else
-                                            identity
-
-                                    else
-                                        --
-                                        -- For some regions we should always add 2500kms of road
-                                        -- See https://github.com/MTES-MCT/ecobalyse/issues/1982
-                                        -- else if countriesWithDefaultRoadTransport |> List.member code then
-                                        --     \t -> { t | road = t.road |> Quantity.plus (Length.kilometers 2500) }
-                                        Transport.applyTransportRatios planeRatio
-                                            >> (if countriesWithDefaultRoadTransport |> List.member code then
-                                                    \t -> { t | road = t.road |> Quantity.plus (Length.kilometers 2500) }
-
-                                                else
-                                                    identity
-                                               )
-                                   )
+                                |> applyHarcodedDistances code planeTransport ingredient.defaultOrigin
 
                         -- Otherwise retrieve ingredient's default origin transport data
                         Nothing ->
