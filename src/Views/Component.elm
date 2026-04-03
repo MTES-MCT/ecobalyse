@@ -75,6 +75,7 @@ type alias Config db msg =
     , title : String
     , updateAssemblyCountry : Maybe Country.Code -> msg
     , updateConsumptionAmount : Index -> Maybe Amount -> msg
+    , updateDistribution : Result String Process.Id -> msg
     , updateElementAmount : TargetElement -> Maybe Amount -> msg
     , updateItemCountry : Index -> Maybe Country.Code -> msg
     , updateItemName : TargetItem -> String -> msg
@@ -914,18 +915,51 @@ assemblyView config =
 
 
 distributionView : Config db msg -> Html msg
-distributionView { impact } =
+distributionView { componentConfig, db, impact, lifeCycle, query, scope, updateDistribution } =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header d-flex align-items-center justify-content-between" ]
             [ h2 [ class "h5 mb-0" ]
                 [ text "Distribution" ]
             , div [ class "d-flex align-items-center gap-2" ]
-                [ -- Note: For now, distribution has no impacts by design
-                  Format.formatImpact impact Impact.empty
+                [ lifeCycle
+                    |> Result.map (.distribution >> .impacts >> Format.formatImpact impact)
+                    |> Result.withDefault (text "")
                 ]
             ]
-        , div [ class "card-body d-flex align-items-center gap-1" ]
-            [ Icon.lock, text "France" ]
+        , [ div [ class "d-flex align-items-center gap-1" ]
+                [ Icon.lock, text "France" ]
+                |> Just
+          , lifeCycle
+                |> Result.map (.distribution >> .volume >> Format.cubicMeters)
+                |> Result.toMaybe
+                |> Maybe.map (\html -> div [ class "d-flex align-items-center w-33 justify-content-end gap-1" ] [ Icon.package, html ])
+          , -- only render distribution process selector if any is available
+            case Component.getAvailableDistributionProcesses db scope of
+                [] ->
+                    Nothing
+
+                distributionProcesses ->
+                    distributionProcesses
+                        |> List.map
+                            (\process ->
+                                option
+                                    [ value (Process.idToString process.id)
+                                    , selected <|
+                                        List.member (Just process.id)
+                                            [ componentConfig.distribution.defaultProcess |> Scope.dictGetMaybe scope |> Maybe.map .id
+                                            , query.distribution
+                                            ]
+                                    ]
+                                    [ text (Process.getDisplayName process) ]
+                            )
+                        |> select
+                            [ class "form-select w-50"
+                            , onInput (Process.idFromString >> updateDistribution)
+                            ]
+                        |> Just
+          ]
+            |> List.filterMap identity
+            |> div [ class "card-body d-flex justify-content-between align-items-center gap-2" ]
         ]
 
 

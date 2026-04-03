@@ -122,6 +122,7 @@ type Msg
     | UpdateComponentItemName TargetItem String
     | UpdateComponentItemQuantity Index Component.Quantity
     | UpdateConsumptionAmount Index (Maybe Amount)
+    | UpdateDistribution (Result String Process.Id)
     | UpdateDurability (Result String Unit.Ratio)
     | UpdateElementAmount TargetElement (Maybe Amount)
     | UpdateRenamedBookmarkName Bookmark String
@@ -567,6 +568,14 @@ update ({ navKey } as session) msg model =
             createPageUpdate session model
                 |> updateQuery (query |> Component.updateConsumptionAmount index amount)
 
+        ( UpdateDistribution (Ok distributionProcessId), _ ) ->
+            createPageUpdate session model
+                |> updateQuery (query |> Component.updateDistribution (Just distributionProcessId))
+
+        ( UpdateDistribution (Err error), _ ) ->
+            createPageUpdate session model
+                |> App.notifyError "Erreur de sélection du procédé de distribution" error
+
         ( UpdateDurability (Ok durability), _ ) ->
             createPageUpdate session model
                 |> updateQuery (query |> Component.updateDurability durability)
@@ -781,6 +790,7 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
                 , title = "Production des composants"
                 , updateAssemblyCountry = UpdateAssemblyCountry
                 , updateConsumptionAmount = UpdateConsumptionAmount
+                , updateDistribution = UpdateDistribution
                 , updateElementAmount = UpdateElementAmount
                 , updateItemCountry = UpdateComponentItemCountry
                 , updateItemName = UpdateComponentItemName

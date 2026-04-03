@@ -1019,6 +1019,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , title = "Accessoires"
         , updateAssemblyCountry = \_ -> NoOp
         , updateConsumptionAmount = \_ _ -> NoOp
+        , updateDistribution = \_ -> NoOp
         , updateElementAmount = \_ _ -> NoOp
         , updateItemCountry = \_ _ -> NoOp
         , updateItemName = \_ _ -> NoOp
