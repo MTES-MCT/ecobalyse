@@ -16,6 +16,7 @@ module Data.Process exposing
     , getTechnicalName
     , idFromString
     , idToString
+    , impactsPerUnit
     , listAvailableMaterialTransforms
     , listByCategory
     , toSearchableString
@@ -218,6 +219,15 @@ getMaterialTypes =
 getTechnicalName : Process -> String
 getTechnicalName { activityName } =
     activityNameToString activityName
+
+
+impactsPerUnit : { country | electricityProcess : Process, heatProcess : Process } -> Process -> Impacts
+impactsPerUnit { electricityProcess, heatProcess } { elec, heat, impacts } =
+    Impact.sumImpacts
+        [ impacts
+        , electricityProcess.impacts |> Impact.multiplyBy (Energy.inKilowattHours elec)
+        , heatProcess.impacts |> Impact.multiplyBy (Energy.inMegajoules heat)
+        ]
 
 
 listAvailableMaterialTransforms : Process -> List Process -> List Process
