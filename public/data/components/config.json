@@ -109,11 +109,6 @@
           "landfilling": { "percent": 21, "processId": "63db8dee-78a5-4979-ae9b-fcc76d66ee4f" },
           "recycling": { "percent": 27, "processId": "21a1b68e-a8c3-4a54-acfc-58d7d76f7c8c" }
         },
-        "upholstery": {
-          "incinerating": { "percent": 94, "processId": "04c1e26f-bc40-4dff-950a-51ca54d5ad16" },
-          "landfilling": { "percent": 2, "processId": "63db8dee-78a5-4979-ae9b-fcc76d66ee4f" },
-          "recycling": { "percent": 4, "processId": "" }
-        },
         "wood": {
           "incinerating": { "percent": 31, "processId": "8c102569-dcef-4016-842b-6f662a082b66" },
           "landfilling": null,
