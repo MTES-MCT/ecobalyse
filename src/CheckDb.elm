@@ -59,11 +59,13 @@ backtick string =
 {-| Validates component config JSON against a static database.
 -}
 checkComponentConfig : Db -> String -> List Error
-checkComponentConfig db =
-    ComponentConfig.parse db
-        >> Result.mapError List.singleton
-        >> Result.map (always [])
-        >> Result.withDefault []
+checkComponentConfig db jsonConfig =
+    case ComponentConfig.parse db jsonConfig of
+        Err err ->
+            [ err ]
+
+        Ok _ ->
+            []
 
 
 {-| Returns missing component ids referenced by a component item.
