@@ -19,7 +19,8 @@
       "veli": true
     },
     "scopeCollectionRates": {
-      "object": 70
+      "object": 70,
+      "veli": 70
     },
     "strategies": {
       "collected": {
@@ -86,7 +87,7 @@
         "plastic": {
           "incinerating": { "percent": 8, "processId": "7f7af998-8313-47e7-b043-80fcf4d67042" },
           "landfilling": null,
-          "recycling": { "percent": 92, "processId": "8c102569-dcef-4016-842b-6f662a082b66" }
+          "recycling": { "percent": 92, "processId": "f404c75d-c211-4ea1-b392-702693a26b75" }
         },
         "pp": {
           "incinerating": { "percent": 8, "processId": "7f7af998-8313-47e7-b043-80fcf4d67042" },
@@ -109,7 +110,7 @@
           "recycling": { "percent": 41, "processId": "f404c75d-c211-4ea1-b392-702693a26b75" }
         },
         "rubber": {
-          "incinerating": { "percent": 94, "processId": "8c102569-dcef-4016-842b-6f662a082b66" },
+          "incinerating": { "percent": 94, "processId": "7f7af998-8313-47e7-b043-80fcf4d67042" },
           "landfilling": { "percent": 2, "processId": "63db8dee-78a5-4979-ae9b-fcc76d66ee4f" },
           "recycling": { "percent": 4, "processId": "28b20f88-d8ca-4a92-be9c-86b9044a4b62" }
         },
@@ -121,10 +122,10 @@
         "upholstery": {
           "incinerating": { "percent": 94, "processId": "04c1e26f-bc40-4dff-950a-51ca54d5ad16" },
           "landfilling": { "percent": 2, "processId": "63db8dee-78a5-4979-ae9b-fcc76d66ee4f" },
-          "recycling": { "percent": 4, "processId": "8c102569-dcef-4016-842b-6f662a082b66" }
+          "recycling": { "percent": 4, "processId": "" }
         },
         "wood": {
-          "incinerating": { "percent": 31, "processId": "78a45d8f-d8f6-492a-b0d8-f6d6ee297306" },
+          "incinerating": { "percent": 31, "processId": "8c102569-dcef-4016-842b-6f662a082b66" },
           "landfilling": null,
           "recycling": { "percent": 69, "processId": "286b98fe-6171-4ce6-ba20-3414b60412b5" }
         }
@@ -201,12 +202,12 @@
           "recycling": null
         },
         "rubber": {
-          "incinerating": { "percent": 82, "processId": "8c102569-dcef-4016-842b-6f662a082b66" },
+          "incinerating": { "percent": 82, "processId": "7f7af998-8313-47e7-b043-80fcf4d67042" },
           "landfilling": { "percent": 18, "processId": "63db8dee-78a5-4979-ae9b-fcc76d66ee4f" },
           "recycling": null
         },
         "wood": {
-          "incinerating": { "percent": 82, "processId": "78a45d8f-d8f6-492a-b0d8-f6d6ee297306" },
+          "incinerating": { "percent": 82, "processId": "8c102569-dcef-4016-842b-6f662a082b66" },
           "landfilling": { "percent": 18, "processId": "78a45d8f-d8f6-492a-b0d8-f6d6ee297306" },
           "recycling": null
         }
