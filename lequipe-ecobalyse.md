@@ -15,7 +15,7 @@ L'équipe Ecobalyse réunit des professionnels animés par une mission commune :
 | Vincent Jousse - Développeur                                          |
 | Cédric Rossi - Développeur                                            |
 | Camille Coquelet - Product Owner                                      |
-| Paul Boosz - Data analyst                                             |
+| Paul Boosz - Data engineer                                            |
 | Christophe Combelles - Data analyst                                   |
 | Alban Fournier - Référent secteur ameublement - Bizz Dev              |
 | Pierre Matteoni - Référent secteur textile                            |
