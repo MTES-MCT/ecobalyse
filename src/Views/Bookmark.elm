@@ -1,11 +1,17 @@
 module Views.Bookmark exposing (ActiveTab(..), view)
 
+{-|
+
+  - FIXME: this module is not handling bookmarks only, but also sharing and contributions; we should probably rename it appropriately
+
+-}
+
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Component as Component
 import Data.Food.Query as FoodQuery
 import Data.Impact.Definition exposing (Definition)
 import Data.Scope as Scope exposing (Scope)
-import Data.Session exposing (Session)
+import Data.Session as Session exposing (Session)
 import Data.Textile.Query as TextileQuery
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -21,7 +27,11 @@ type alias ManagerConfig msg =
     , bookmarkBeingRenamed : Maybe Bookmark
     , bookmarkName : String
     , compare : msg
+    , contributionDescription : String
+    , contributionName : String
+    , contributionRequestPending : Bool
     , copyToClipBoard : String -> msg
+    , createContribution : msg
     , delete : Bookmark -> msg
     , exportBookmarks : msg
     , impact : Definition
@@ -33,12 +43,15 @@ type alias ManagerConfig msg =
     , session : Session
     , switchTab : ActiveTab -> msg
     , update : String -> msg
+    , updateContributionDescription : String -> msg
+    , updateContributionName : String -> msg
     , updateRenamedBookmarkName : Bookmark -> String -> msg
     }
 
 
 type ActiveTab
-    = SaveTab
+    = ContributeTab
+    | SaveTab
     | ShareTab
 
 
@@ -48,6 +61,9 @@ view cfg =
         { attrs = []
         , content =
             [ case cfg.activeTab of
+                ContributeTab ->
+                    contributeTabView cfg
+
                 SaveTab ->
                     managerView cfg
 
@@ -57,6 +73,7 @@ view cfg =
         , tabs =
             [ ( SaveTab, text "Sauvegarder" )
             , ( ShareTab, text "Partager" )
+            , ( ContributeTab, text "Contribuer" )
             ]
                 |> List.map
                     (\( tab, label ) ->
@@ -404,6 +421,66 @@ bookmarkView cfg ({ name, query } as bookmark) =
                 , onClick (cfg.delete bookmark)
                 ]
                 [ Icon.trash ]
+            ]
+        ]
+
+
+contributeTabView : ManagerConfig msg -> Html msg
+contributeTabView ({ session } as config) =
+    let
+        isAuthenticated =
+            Session.isAuthenticated session
+
+        simulationIsEmpty =
+            Session.objectQueryFromScope config.scope session == Component.emptyQuery
+
+        disabledForm =
+            config.contributionRequestPending || not isAuthenticated || simulationIsEmpty
+    in
+    div [ class "card-body d-flex flex-column gap-2" ]
+        [ if not isAuthenticated then
+            div [ class "fs-7 text-muted" ]
+                [ Icon.info
+                , text "\u{00A0}Connectez-vous pour proposer une contribution."
+                ]
+
+          else if simulationIsEmpty then
+            div [ class "fs-7 text-muted" ]
+                [ Icon.warning
+                , text "\u{00A0}La simulation ne peut être vide."
+                ]
+
+          else
+            text ""
+        , input
+            [ class "form-control"
+            , type_ "text"
+            , value config.contributionName
+            , placeholder "Nom de l’exemple"
+            , onInput config.updateContributionName
+            , disabled disabledForm
+            ]
+            []
+        , textarea
+            [ class "form-control"
+            , rows 3
+            , value config.contributionDescription
+            , placeholder "Décrivez ce que simule cet exemple"
+            , onInput config.updateContributionDescription
+            , disabled disabledForm
+            ]
+            []
+        , button
+            [ class "btn btn-primary"
+            , type_ "button"
+            , disabled disabledForm
+            , onClick config.createContribution
+            ]
+            [ if config.contributionRequestPending then
+                text "Envoi…"
+
+              else
+                text "Contribuer"
             ]
         ]
 

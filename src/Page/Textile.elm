@@ -1216,6 +1216,14 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                 , updateBookmarkName = UpdateBookmarkName
                 , updateRenamedBookmarkName = UpdateRenamedBookmarkName
                 , switchBookmarkTab = SwitchBookmarksTab
+
+                -- Contribution
+                , contributionName = ""
+                , contributionDescription = ""
+                , contributionRequestPending = False
+                , createContribution = NoOp
+                , updateContributionName = always NoOp
+                , updateContributionDescription = always NoOp
                 }
             ]
         ]
