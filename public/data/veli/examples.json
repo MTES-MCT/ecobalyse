@@ -258,7 +258,9 @@
               {
                 "amount": 0.05,
                 "material": "c5295f47-0307-48a6-8552-3705063af767",
-                "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
+                "transforms": [
+                  "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"
+                ]
               }
             ]
           },
@@ -620,6 +622,92 @@
       "consumptions": [
         {
           "amount": 2000,
+          "processId": "eec31f13-d00a-4741-a84f-85d887026f8c"
+        }
+      ],
+      "durability": 1
+    },
+    "scope": "veli"
+  },
+  {
+    "category": "",
+    "id": "477f4974-ee94-4e21-9b91-35cad4cc0c38",
+    "name": "un joli vélo",
+    "query": {
+      "assemblyCountry": "IT",
+      "components": [
+        {
+          "country": "CN",
+          "id": "1bd0f5c3-c368-4a2f-b404-2214a6c9b677",
+          "quantity": 1
+        },
+        {
+          "country": "CN",
+          "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc",
+          "quantity": 2
+        },
+        {
+          "country": "CN",
+          "id": "c4a8eb8f-b4c6-42b8-bd04-0f68e9083424",
+          "quantity": 1
+        },
+        {
+          "country": "CN",
+          "id": "892ba9b4-e6d4-408c-87b9-5eef455f5b4f",
+          "quantity": 1
+        },
+        {
+          "country": "RAS",
+          "id": "658611b7-4b76-4f1d-aed7-55ec11f299e3",
+          "quantity": 1
+        },
+        {
+          "country": "RAS",
+          "custom": {
+            "elements": [
+              {
+                "amount": 0.19,
+                "material": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84",
+                "transforms": [
+                  "d693bd0d-88d4-4370-81ee-597956bb58f0",
+                  "d935e937-35e7-471d-8d78-f5c6c1685adf"
+                ]
+              },
+              {
+                "amount": 0.28,
+                "material": "3e514eac-185c-449e-bdc2-e1082ca0576d",
+                "transforms": [
+                  "4c1b77b1-4e4b-4fdd-a392-eea0b8764b6b",
+                  "ea284007-49a8-4be1-95fc-452ea180285a"
+                ]
+              },
+              {
+                "amount": 0.14,
+                "material": "c5295f47-0307-48a6-8552-3705063af767",
+                "transforms": [
+                  "4a08bcab-5c25-4dec-961a-0f7208f40084"
+                ]
+              },
+              {
+                "amount": 0.045,
+                "material": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a",
+                "transforms": []
+              }
+            ],
+            "name": "wowowowo"
+          },
+          "id": "347629ff-e7e9-4822-a948-d8c7757b2a9a",
+          "quantity": 1
+        },
+        {
+          "country": "RAS",
+          "id": "d2228b50-8187-4940-92a5-6dffe2a2ba85",
+          "quantity": 1
+        }
+      ],
+      "consumptions": [
+        {
+          "amount": 122,
           "processId": "eec31f13-d00a-4741-a84f-85d887026f8c"
         }
       ],
