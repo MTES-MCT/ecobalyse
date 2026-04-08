@@ -1626,6 +1626,14 @@ sidebarView session model results =
         , updateBookmarkName = UpdateBookmarkName
         , updateRenamedBookmarkName = UpdateRenamedBookmarkName
         , switchBookmarkTab = SwitchBookmarksTab
+
+        -- Contribution
+        , contributionName = ""
+        , contributionDescription = ""
+        , contributionRequestPending = False
+        , createContribution = NoOp
+        , updateContributionName = always NoOp
+        , updateContributionDescription = always NoOp
         }
 
 

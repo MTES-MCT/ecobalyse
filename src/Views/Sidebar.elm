@@ -19,7 +19,11 @@ type alias Config msg =
     , bookmarkBeingRenamed : Maybe Bookmark
     , bookmarkName : String
     , compareBookmarks : msg
+    , contributionDescription : String
+    , contributionName : String
+    , contributionRequestPending : Bool
     , copyToClipBoard : String -> msg
+    , createContribution : msg
     , customScoreInfo : Maybe (Html msg)
     , deleteBookmark : Bookmark -> msg
     , exportBookmarks : msg
@@ -37,6 +41,8 @@ type alias Config msg =
     , totalImpacts : Impacts
     , totalImpactsWithoutDurability : Maybe Impacts
     , updateBookmarkName : String -> msg
+    , updateContributionDescription : String -> msg
+    , updateContributionName : String -> msg
     , updateRenamedBookmarkName : Bookmark -> String -> msg
     }
 
@@ -78,7 +84,11 @@ view config =
             , bookmarkBeingRenamed = config.bookmarkBeingRenamed
             , bookmarkName = config.bookmarkName
             , compare = config.compareBookmarks
+            , contributionDescription = config.contributionDescription
+            , contributionName = config.contributionName
+            , contributionRequestPending = config.contributionRequestPending
             , copyToClipBoard = config.copyToClipBoard
+            , createContribution = config.createContribution
             , delete = config.deleteBookmark
             , exportBookmarks = config.exportBookmarks
             , impact = config.selectedImpact
@@ -90,6 +100,8 @@ view config =
             , session = config.session
             , switchTab = config.switchBookmarkTab
             , update = config.updateBookmarkName
+            , updateContributionDescription = config.updateContributionDescription
+            , updateContributionName = config.updateContributionName
             , updateRenamedBookmarkName = config.updateRenamedBookmarkName
             }
         ]

@@ -35,6 +35,10 @@ import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import List.Extra as LE
 import Ports
+import RemoteData
+import Request.BackendHttp exposing (WebData)
+import Request.BackendHttp.Error as BackendHttpError
+import Request.GenericContribution as GenericContribution
 import Route
 import Task
 import Time exposing (Posix)
@@ -61,6 +65,9 @@ type alias Model =
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonType : ComparatorView.ComparisonType
+    , contributionDescription : String
+    , contributionName : String
+    , contributionRequestPending : Bool
     , detailedComponents : List Index
     , examples : List (Example Component.Query)
     , impact : Definition
@@ -81,8 +88,10 @@ type Modal
 
 
 type Msg
-    = CopyToClipBoard String
+    = ContributionCreated (WebData GenericContribution.ContributionResponse)
+    | CopyToClipBoard String
     | CreateComponent
+    | CreateContribution
     | DeleteBookmark Bookmark
     | ExportBookmarks
     | ImportBookmarks
@@ -122,6 +131,8 @@ type Msg
     | UpdateComponentItemName TargetItem String
     | UpdateComponentItemQuantity Index Component.Quantity
     | UpdateConsumptionAmount Index (Maybe Amount)
+    | UpdateContributionDescription String
+    | UpdateContributionName String
     | UpdateDistribution (Result String Process.Id)
     | UpdateDurability (Result String Unit.Ratio)
     | UpdateElementAmount TargetElement (Maybe Amount)
@@ -150,6 +161,9 @@ init scope trigram maybeUrlQuery session =
 
         else
             ComparatorView.Stages
+    , contributionDescription = ""
+    , contributionName = ""
+    , contributionRequestPending = False
     , detailedComponents = []
     , bookmarkBeingDragged = Nothing
     , bookmarkBeingOvered = Nothing
@@ -202,6 +216,9 @@ initFromExample session scope uuid =
     , bookmarkName = exampleQuery |> suggestBookmarkName session examples
     , bookmarkTab = BookmarkView.SaveTab
     , comparisonType = ComparatorView.Subscores
+    , contributionDescription = ""
+    , contributionName = ""
+    , contributionRequestPending = False
     , detailedComponents = []
     , bookmarkBeingDragged = Nothing
     , bookmarkBeingOvered = Nothing
@@ -280,6 +297,35 @@ update ({ navKey } as session) msg model =
         ( CopyToClipBoard shareableLink, _ ) ->
             createPageUpdate session model
                 |> App.withCmds [ Ports.copyToClipboard shareableLink ]
+
+        ( CreateContribution, _ ) ->
+            case ( Session.isAuthenticated session, createContributionData model ) of
+                ( True, Ok contributionData ) ->
+                    { model | contributionRequestPending = True }
+                        |> createPageUpdate session
+                        |> App.withCmds [ GenericContribution.create session contributionData ContributionCreated ]
+
+                ( True, Err errors ) ->
+                    createPageUpdate session model
+                        |> App.notifyError "Erreur lors de la création de votre contribution" (String.join ", " errors)
+
+                ( False, _ ) ->
+                    createPageUpdate session model
+                        |> App.notifyWarning "Vous devez être authentifié pour soumettre une contribution"
+
+        ( ContributionCreated (RemoteData.Failure error), _ ) ->
+            { model | contributionRequestPending = False }
+                |> createPageUpdate session
+                |> App.notifyError "Erreur de contribution" (BackendHttpError.errorToString error)
+
+        ( ContributionCreated (RemoteData.Success { pullRequestUrl }), _ ) ->
+            { model | contributionRequestPending = False }
+                |> createPageUpdate session
+                -- TODO: notifySuccessHtml with a link to the pull request
+                |> App.notifySuccess ("Contribution envoyée: " ++ pullRequestUrl)
+
+        ( ContributionCreated _, _ ) ->
+            createPageUpdate session model
 
         ( CreateComponent, _ ) ->
             createPageUpdate session model
@@ -561,6 +607,14 @@ update ({ navKey } as session) msg model =
                     )
                 |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
 
+        ( UpdateContributionDescription description, _ ) ->
+            { model | contributionDescription = description }
+                |> createPageUpdate session
+
+        ( UpdateContributionName name, _ ) ->
+            { model | contributionName = name }
+                |> createPageUpdate session
+
         ( UpdateConsumptionAmount _ Nothing, _ ) ->
             createPageUpdate session model
 
@@ -635,6 +689,30 @@ createComponent query ({ model, session } as pageUpdate) =
             )
         -- expand item row
         |> App.apply update (SetDetailedComponents (LE.unique (List.length query.items :: model.detailedComponents)))
+
+
+createContributionData : Model -> Result (List String) { description : String, name : String, query : Component.Query, scope : Scope }
+createContributionData model =
+    let
+        trimmedDescription =
+            model.contributionDescription |> String.trim
+
+        trimmedName =
+            model.contributionName |> String.trim
+    in
+    if String.isEmpty trimmedName then
+        Err [ "Le nom de la contribution est requis" ]
+
+    else if String.isEmpty trimmedDescription then
+        Err [ "La description de la contribution est requise" ]
+
+    else
+        Ok
+            { description = trimmedDescription
+            , name = trimmedName
+            , query = model.initialQuery
+            , scope = model.scope
+            }
 
 
 isAutocompleteModal : Modal -> Bool
@@ -839,6 +917,14 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
                 , updateBookmarkName = UpdateBookmarkName
                 , updateRenamedBookmarkName = UpdateRenamedBookmarkName
                 , switchBookmarkTab = SwitchBookmarksTab
+
+                -- Contribution
+                , contributionName = model.contributionName
+                , contributionDescription = model.contributionDescription
+                , contributionRequestPending = model.contributionRequestPending
+                , createContribution = CreateContribution
+                , updateContributionName = UpdateContributionName
+                , updateContributionDescription = UpdateContributionDescription
                 }
             ]
         ]
