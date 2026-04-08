@@ -9,6 +9,7 @@ module TestUtils exposing
     , suiteFromResult
     , suiteFromResult2
     , suiteFromResult3
+    , suiteFromResult4
     , suiteWithDb
     , tShirtCotonFrance
     )
@@ -63,6 +64,11 @@ suiteFromResult2 testName res1 res2 fn =
 suiteFromResult3 : String -> Result String a -> Result String b -> Result String c -> (a -> b -> c -> List Test) -> Test
 suiteFromResult3 testName res1 res2 res3 fn =
     suiteFromResult testName (Result.map3 fn res1 res2 res3) identity
+
+
+suiteFromResult4 : String -> Result String a -> Result String b -> Result String c -> Result String d -> (a -> b -> c -> d -> List Test) -> Test
+suiteFromResult4 testName res1 res2 res3 res4 fn =
+    suiteFromResult testName (Result.map4 fn res1 res2 res3 res4) identity
 
 
 suiteWithDb : String -> (Db -> List Test) -> Test
