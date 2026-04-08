@@ -25,7 +25,7 @@ Les composants proposés dans la liste de données sources sont non-localisées 
 
 ## Les limites de cette expérimentation : 
 
-- l'absence de transport en intra composant (de la matière à la sa transfo 1 jusqu'à n) --> Conséquences: pour une étoffe coton d'1kg France mode éthique, le transport total jusqu'à la dernière étape de la confection en France vaut pour 40 points (dans le modèle textile v7) VS dans le modèle générique actuel, on compte 23 points de transport total.
+- l'absence de transport en intra composant (de la matière à sa transfo 1 jusqu'à n) --> Conséquences: pour une étoffe coton d'1kg France mode éthique, le transport total jusqu'à la dernière étape de la confection en France vaut pour 40 points (dans le modèle textile v7) VS dans le modèle générique actuel, on compte 23 points de transport total.
 
 - l'hypothèse que toutes les transformations se font dans un même pays --> Conséquences: pour une étoffe coton d'1kg France mode éthique, l'étape de tissage est en fait réalisé en Inde, soit 39 pts  Vs dans le modèle générique, on considère que le tissage est réalisé en France, soit 9 points (approximation de la localisation du composant).
 
