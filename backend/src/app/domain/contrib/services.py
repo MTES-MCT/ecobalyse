@@ -4,7 +4,7 @@ import base64
 import json
 from uuid import uuid4
 
-from app.config import GithubSettings
+from app.config.base import GithubSettings
 from app.db import models as m
 from app.domain.contrib.schemas import ContribCreate, GenericScope
 from httpx import AsyncClient
