@@ -78,17 +78,17 @@ def format_pull_request_body(data: ContribCreate, user: m.User) -> str:
 
 async def github_request(
     client: AsyncClient,
+    github_settings: GithubSettings,
     method: str,
-    url: str,
-    token: str,
+    path: str,
     json_body: dict | None = None,
 ) -> dict:
     response = await client.request(
         method=method,
-        url=url,
+        url=get_github_api_url(github_settings.REPOSITORY, path),
         headers={
             "Accept": "application/vnd.github+json",
-            "Authorization": f"Bearer {token}",
+            "Authorization": f"Bearer {github_settings.TOKEN}",
             "X-GitHub-Api-Version": "2022-11-28",
         },
         json=json_body,
@@ -130,33 +130,27 @@ async def create_contrib_pr(
     async with AsyncClient(timeout=10) as client:
         base_ref = await github_request(
             client,
+            github_settings,
             "GET",
-            get_github_api_url(
-                github_settings.REPOSITORY,
-                f"git/ref/heads/{github_settings.BASE_BRANCH}",
-            ),
-            github_settings.TOKEN,
+            f"git/ref/heads/{github_settings.BASE_BRANCH}",
         )
         base_sha = base_ref["object"]["sha"]
 
         # create the branch for the contrib
         await github_request(
             client,
+            github_settings,
             "POST",
-            get_github_api_url(github_settings.REPOSITORY, "git/refs"),
-            github_settings.TOKEN,
+            "git/refs",
             json_body={"ref": f"refs/heads/{branch_name}", "sha": base_sha},
         )
 
         # get the target file content to update
         file_content = await github_request(
             client,
+            github_settings,
             "GET",
-            get_github_api_url(
-                github_settings.REPOSITORY,
-                f"contents/{examples_path}?ref={github_settings.BASE_BRANCH}",
-            ),
-            github_settings.TOKEN,
+            f"contents/{examples_path}?ref={github_settings.BASE_BRANCH}",
         )
         file_sha = file_content["sha"]
         decoded_content = base64.b64decode(file_content["content"]).decode("utf-8")
@@ -180,9 +174,9 @@ async def create_contrib_pr(
         # commit to the branch
         await github_request(
             client,
+            github_settings,
             "PUT",
-            get_github_api_url(github_settings.REPOSITORY, f"contents/{examples_path}"),
-            github_settings.TOKEN,
+            f"contents/{examples_path}",
             json_body={
                 "message": commit_message,
                 "content": updated_examples_base64,
@@ -194,9 +188,9 @@ async def create_contrib_pr(
         # create the pull request
         pull_request = await github_request(
             client,
+            github_settings,
             "POST",
-            get_github_api_url(github_settings.REPOSITORY, "pulls"),
-            github_settings.TOKEN,
+            "pulls",
             json_body={
                 "title": pull_request_title,
                 "head": branch_name,
