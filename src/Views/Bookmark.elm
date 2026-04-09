@@ -452,7 +452,7 @@ contributeTabView ({ scope, session } as config) =
                     ++ " sur Ecobalyse."
             ]
         , input
-            [ class "form-control"
+            [ class "form-control form-control-sm"
             , type_ "text"
             , value config.contributionName
             , placeholder "Nom de l’exemple"
@@ -461,10 +461,10 @@ contributeTabView ({ scope, session } as config) =
             ]
             []
         , textarea
-            [ class "form-control"
+            [ class "form-control form-control-sm"
             , rows 3
             , value config.contributionDescription
-            , placeholder "Décrivez ce que simule cet exemple"
+            , placeholder "Décrivez ce que simule cet exemple et pourquoi il est pertinent de le proposer aux autres utilisateurs"
             , onInput config.updateContributionDescription
             , disabled disabledForm
             ]
@@ -481,7 +481,7 @@ contributeTabView ({ scope, session } as config) =
           else
             text ""
         , button
-            [ class "btn btn-primary"
+            [ class "btn btn-primary btn-sm"
             , type_ "button"
             , disabled disabledForm
             , onClick config.createContribution
