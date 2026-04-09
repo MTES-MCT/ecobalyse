@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import pytest
 from app.db import models as m
-from app.domain.contrib.schemas import ContribCreate, GenericScope
+from app.domain.contrib.schemas import ContribCreate, ContribResponse, GenericScope
 from app.domain.contrib.services import format_pull_request_body
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -35,9 +35,9 @@ async def test_contrib_create_pull_request(
         assert "components" in data.query
         assert isinstance(github_settings.REPOSITORY, str)
         assert user.email == "user@example.com"
-        return (
-            "contrib/veli/test-contrib",
-            "https://github.com/MTES-MCT/ecobalyse/pull/123",
+        return ContribResponse(
+            branch_name="contrib/veli/test-contrib",
+            pull_request_url="https://github.com/MTES-MCT/ecobalyse/pull/123",
         )
 
     monkeypatch.setattr(
