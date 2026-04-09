@@ -63,6 +63,18 @@
     "recycledFrom": null
   },
   {
+    "alias": "ei-coton-organic2",
+    "cff": null,
+    "defaultCountry": "CN",
+    "geographicOrigin": "Asie - Pacifique",
+    "id": "72d4fd79-d247-4f54-8794-dd35ea46c6a8",
+    "name": "Coton biologique",
+    "origin": "NaturalFromVegetal",
+    "primary": true,
+    "processId": "08ff4d09-f365-4484-9188-c84d325325eb",
+    "recycledFrom": null
+  },
+  {
     "alias": "ei-laine-nouvelle-filiere",
     "cff": null,
     "defaultCountry": "CN",
@@ -147,18 +159,6 @@
     "origin": "NaturalFromVegetal",
     "primary": true,
     "processId": "ae34a9bc-36c5-5ffa-8520-150e219569fe",
-    "recycledFrom": null
-  },
-  {
-    "alias": "ei-coton-organic2",
-    "cff": null,
-    "defaultCountry": "CN",
-    "geographicOrigin": "Asie - Pacifique",
-    "id": "a1c1c2ec-33b1-49d6-bf8e-139e2eb7f097",
-    "name": "Coton biologique",
-    "origin": "NaturalFromVegetal",
-    "primary": true,
-    "processId": "08ff4d09-f365-4484-9188-c84d325325eb",
     "recycledFrom": null
   },
   {
