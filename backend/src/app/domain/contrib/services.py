@@ -6,7 +6,7 @@ from uuid import uuid4
 
 from app.config.base import GithubSettings
 from app.db import models as m
-from app.domain.contrib.schemas import ContribCreate, GenericScope
+from app.domain.contrib.schemas import ContribCreate, ContribResponse, GenericScope
 from httpx import AsyncClient
 from litestar.exceptions import ValidationException
 
@@ -104,7 +104,7 @@ async def create_contrib_pr(
     data: ContribCreate,
     github_settings: GithubSettings,
     user: m.User,
-) -> tuple[str, str]:
+) -> ContribResponse:
     description = data.description.strip()
     name = data.name.strip()
 
@@ -199,4 +199,6 @@ async def create_contrib_pr(
             },
         )
 
-    return branch_name, pull_request["html_url"]
+    return ContribResponse(
+        branch_name=branch_name, pull_request_url=pull_request["html_url"]
+    )
