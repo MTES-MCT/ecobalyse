@@ -426,17 +426,17 @@ bookmarkView cfg ({ name, query } as bookmark) =
 
 
 contributeTabView : ManagerConfig msg -> Html msg
-contributeTabView ({ session } as config) =
+contributeTabView ({ scope, session } as config) =
     let
         isAuthenticated =
             Session.isAuthenticated session
 
         simulationIsEmpty =
-            Session.objectQueryFromScope config.scope session == Component.emptyQuery
+            Session.objectQueryFromScope scope session == Component.emptyQuery
 
         simulationExists =
             session.db.object.examples
-                |> List.any (.query >> (==) (Session.objectQueryFromScope config.scope session))
+                |> List.any (.query >> (==) (Session.objectQueryFromScope scope session))
 
         disabledForm =
             config.contributionRequestPending || not isAuthenticated || simulationIsEmpty || simulationExists
@@ -448,7 +448,7 @@ contributeTabView ({ session } as config) =
         [ div [ class "fs-7 text-muted" ]
             [ text <|
                 "Proposez l'ajout de votre simulation à la base de données d’exemples "
-                    ++ Scope.toLabel config.scope
+                    ++ Scope.toLabel scope
                     ++ " sur Ecobalyse."
             ]
         , input
