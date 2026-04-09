@@ -23,7 +23,7 @@
     "electricityProcessId": "ee114bf1-8c51-5c1e-8065-d762400447e2",
     "heatProcessId": "f6ea2983-e024-5de2-b323-273f2436deba",
     "name": "Région - Europe de l'Ouest",
-    "scopes": ["textile", "object", "veli", "food2"],
+    "scopes": ["textile", "object", "veli", "food", "food2"],
     "zone": "Europe"
   },
   {
