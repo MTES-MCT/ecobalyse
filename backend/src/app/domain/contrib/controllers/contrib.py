@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from app.config import get_settings
 from app.db import models as m
 from app.domain.accounts.guards import requires_active_user
 from app.domain.contrib import urls
@@ -21,8 +22,11 @@ class ContribController(Controller):
         current_user: m.User,
         data: ContribCreate,
     ) -> ContribResponse:
+        settings = get_settings()
         branch_name, pull_request_url = await create_contrib_pr(
-            data=data, user=current_user
+            data=data,
+            github_settings=settings.github,
+            user=current_user,
         )
         return ContribResponse(
             branch_name=branch_name, pull_request_url=pull_request_url

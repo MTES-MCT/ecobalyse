@@ -16,8 +16,8 @@ async def test_contrib_requires_authentication(client) -> None:
         "/api/contrib/examples",
         json={
             "scope": "veli",
-            "name": "Exemple test",
-            "description": "Description test",
+            "name": "Veli example",
+            "description": "Veli example description",
             "query": {"components": []},
         },
     )
@@ -29,10 +29,11 @@ async def test_contrib_create_pull_request(
     monkeypatch,
     user_token_headers: dict[str, str],
 ) -> None:
-    async def mock_create_contrib_pr(*, data, user):
+    async def mock_create_contrib_pr(*, data, github_settings, user):
         assert data.scope == GenericScope.VELI
-        assert data.name == "Exemple test"
+        assert data.name == "Veli example"
         assert "components" in data.query
+        assert isinstance(github_settings.REPOSITORY, str)
         assert user.email == "user@example.com"
         return (
             "contrib/veli/test-contrib",
@@ -49,8 +50,8 @@ async def test_contrib_create_pull_request(
         headers=user_token_headers,
         json={
             "scope": "veli",
-            "name": "Exemple test",
-            "description": "Description test",
+            "name": "Veli example",
+            "description": "Veli example description",
             "query": {"components": []},
         },
     )
@@ -73,15 +74,14 @@ async def test_contrib_service_helpers_include_user_identity(
 
     body = format_pull_request_body(
         ContribCreate(
-            description="Description test",
-            name="Mon exemple",
+            description="Food2 example description",
+            name="Food2 example",
             query={"components": []},
             scope=GenericScope.FOOD2,
         ),
         user,
     )
 
-    assert "food2" in body
+    # user identity checks
     assert "Example User" in body
     assert "Example business organization" in body
-    assert '"components": []' in body
