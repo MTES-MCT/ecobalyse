@@ -390,20 +390,19 @@ applyHarcodedDistancesForIngredient code planeTransport defaultOrigin =
                 }
 
         else
-            identity
+            Transport.applyTransportRatios planeRatio
 
     else
-    --
-    -- For some regions we should always add 2500kms of road
-    -- See https://github.com/MTES-MCT/ecobalyse/issues/1982
-    if
-        countriesWithDefaultRoadTransport |> List.member code
-    then
+        --
+        -- For some regions we should always add 2500kms of road
+        -- See https://github.com/MTES-MCT/ecobalyse/issues/1982
         Transport.applyTransportRatios planeRatio
-            >> (\t -> { t | road = t.road |> Quantity.plus (Length.kilometers 2500) })
+            >> (if countriesWithDefaultRoadTransport |> List.member code then
+                    \t -> { t | road = t.road |> Quantity.plus (Length.kilometers 2500) }
 
-    else
-        identity
+                else
+                    identity
+               )
 
 
 computeIngredientTransport : Db -> RecipeIngredient -> Transport
