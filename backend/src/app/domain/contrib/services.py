@@ -40,8 +40,9 @@ def get_user_full_name(user: m.User) -> str:
 
 
 def format_json_string(json_string: str) -> str:
+    # Note:  these files are ignored by prettier, so we're safe from formatting conflicts
     # FIXME: this is extracted from the ecobalyse-data repository, we should use a single
-    # source for formatting JSON
+    #        source for formatting JSON
     return (
         json.dumps(
             json.loads(json_string), ensure_ascii=False, sort_keys=True, indent=2
