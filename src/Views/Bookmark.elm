@@ -27,11 +27,11 @@ type alias ManagerConfig msg =
     , bookmarkBeingRenamed : Maybe Bookmark
     , bookmarkName : String
     , compare : msg
-    , contributionDescription : String
-    , contributionName : String
-    , contributionRequestPending : Bool
+    , contribDescription : String
+    , contribName : String
+    , contribRequestPending : Bool
     , copyToClipBoard : String -> msg
-    , createContribution : msg
+    , createContrib : msg
     , delete : Bookmark -> msg
     , exportBookmarks : msg
     , impact : Definition
@@ -43,8 +43,8 @@ type alias ManagerConfig msg =
     , session : Session
     , switchTab : ActiveTab -> msg
     , update : String -> msg
-    , updateContributionDescription : String -> msg
-    , updateContributionName : String -> msg
+    , updateContribDescription : String -> msg
+    , updateContribName : String -> msg
     , updateRenamedBookmarkName : Bookmark -> String -> msg
     }
 
@@ -439,7 +439,7 @@ contributeTabView ({ scope, session } as config) =
                 |> List.any (.query >> (==) (Session.objectQueryFromScope scope session))
 
         disabledForm =
-            config.contributionRequestPending || not isAuthenticated || simulationIsEmpty || simulationExists
+            config.contribRequestPending || not isAuthenticated || simulationIsEmpty || simulationExists
 
         error icon msg =
             div [ class "text-danger fs-7" ] [ icon, text <| "\u{00A0}" ++ msg ]
@@ -454,18 +454,18 @@ contributeTabView ({ scope, session } as config) =
         , input
             [ class "form-control form-control-sm"
             , type_ "text"
-            , value config.contributionName
+            , value config.contribName
             , placeholder "Nom de l’exemple"
-            , onInput config.updateContributionName
+            , onInput config.updateContribName
             , disabled disabledForm
             ]
             []
         , textarea
             [ class "form-control form-control-sm"
             , rows 3
-            , value config.contributionDescription
+            , value config.contribDescription
             , placeholder "Décrivez ce que simule cet exemple et pourquoi il est pertinent de le proposer aux autres utilisateurs"
-            , onInput config.updateContributionDescription
+            , onInput config.updateContribDescription
             , disabled disabledForm
             ]
             []
@@ -484,9 +484,9 @@ contributeTabView ({ scope, session } as config) =
             [ class "btn btn-primary btn-sm"
             , type_ "button"
             , disabled disabledForm
-            , onClick config.createContribution
+            , onClick config.createContrib
             ]
-            [ if config.contributionRequestPending then
+            [ if config.contribRequestPending then
                 text "Envoi…"
 
               else

@@ -1628,12 +1628,12 @@ sidebarView session model results =
         , switchBookmarkTab = SwitchBookmarksTab
 
         -- Contribution
-        , contributionName = ""
-        , contributionDescription = ""
-        , contributionRequestPending = False
-        , createContribution = NoOp
-        , updateContributionName = always NoOp
-        , updateContributionDescription = always NoOp
+        , contribName = ""
+        , contribDescription = ""
+        , contribRequestPending = False
+        , createContrib = NoOp
+        , updateContribName = always NoOp
+        , updateContribDescription = always NoOp
         }
 
 

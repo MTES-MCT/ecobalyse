@@ -91,7 +91,7 @@ type Msg
     = ContribCreated (WebData Contrib.ContribResponse)
     | CopyToClipBoard String
     | CreateComponent
-    | CreateContribution
+    | CreateContrib
     | DeleteBookmark Bookmark
     | ExportBookmarks
     | ImportBookmarks
@@ -298,7 +298,7 @@ update ({ navKey } as session) msg model =
             createPageUpdate session model
                 |> App.withCmds [ Ports.copyToClipboard shareableLink ]
 
-        ( CreateContribution, _ ) ->
+        ( CreateContrib, _ ) ->
             case ( Session.isAuthenticated session, createContribData model ) of
                 ( True, Ok contribData ) ->
                     { model | contributionRequestPending = True }
@@ -919,12 +919,12 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
                 , switchBookmarkTab = SwitchBookmarksTab
 
                 -- Contribution
-                , contributionName = model.contributionName
-                , contributionDescription = model.contributionDescription
-                , contributionRequestPending = model.contributionRequestPending
-                , createContribution = CreateContribution
-                , updateContributionName = UpdateContributionName
-                , updateContributionDescription = UpdateContributionDescription
+                , contribName = model.contributionName
+                , contribDescription = model.contributionDescription
+                , contribRequestPending = model.contributionRequestPending
+                , createContrib = CreateContrib
+                , updateContribName = UpdateContributionName
+                , updateContribDescription = UpdateContributionDescription
                 }
             ]
         ]
