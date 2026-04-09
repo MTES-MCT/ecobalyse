@@ -2,13 +2,8 @@ from __future__ import annotations
 
 import pytest
 from app.db import models as m
-from app.domain.generic_contributions.schemas import (
-    GenericContributionCreate,
-    GenericScope,
-)
-from app.domain.generic_contributions.services import (
-    format_pull_request_body,
-)
+from app.domain.contrib.schemas import ContribCreate, GenericScope
+from app.domain.contrib.services import format_pull_request_body
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import joinedload
@@ -16,9 +11,9 @@ from sqlalchemy.orm import joinedload
 pytestmark = pytest.mark.anyio
 
 
-async def test_generic_contributions_requires_authentication(client) -> None:
+async def test_contrib_requires_authentication(client) -> None:
     response = await client.post(
-        "/api/generic/examples/contributions",
+        "/api/contrib/examples",
         json={
             "scope": "veli",
             "name": "Exemple test",
@@ -29,12 +24,12 @@ async def test_generic_contributions_requires_authentication(client) -> None:
     assert response.status_code == 401
 
 
-async def test_generic_contributions_create_pull_request(
+async def test_contrib_create_pull_request(
     client,
     monkeypatch,
     user_token_headers: dict[str, str],
 ) -> None:
-    async def mock_create_generic_contribution_pr(*, data, user):
+    async def mock_create_contrib_pr(*, data, user):
         assert data.scope == GenericScope.VELI
         assert data.name == "Exemple test"
         assert "components" in data.query
@@ -45,12 +40,12 @@ async def test_generic_contributions_create_pull_request(
         )
 
     monkeypatch.setattr(
-        "app.domain.generic_contributions.controllers.contribution.create_generic_contribution_pr",
-        mock_create_generic_contribution_pr,
+        "app.domain.contrib.controllers.contrib.create_contrib_pr",
+        mock_create_contrib_pr,
     )
 
     response = await client.post(
-        "/api/generic/examples/contributions",
+        "/api/contrib/examples",
         headers=user_token_headers,
         json={
             "scope": "veli",
@@ -66,7 +61,7 @@ async def test_generic_contributions_create_pull_request(
     }
 
 
-async def test_generic_contributions_service_helpers_include_user_identity(
+async def test_contrib_service_helpers_include_user_identity(
     session: AsyncSession,
 ) -> None:
     user = await session.scalar(
@@ -77,7 +72,7 @@ async def test_generic_contributions_service_helpers_include_user_identity(
     assert user is not None
 
     body = format_pull_request_body(
-        GenericContributionCreate(
+        ContribCreate(
             description="Description test",
             name="Mon exemple",
             query={"components": []},

@@ -431,6 +431,7 @@ contributeTabView ({ session } as config) =
         isAuthenticated =
             Session.isAuthenticated session
 
+        -- TODO: check if the contribution already exists in the existing examples
         simulationIsEmpty =
             Session.objectQueryFromScope config.scope session == Component.emptyQuery
 
@@ -438,20 +439,19 @@ contributeTabView ({ session } as config) =
             config.contributionRequestPending || not isAuthenticated || simulationIsEmpty
     in
     div [ class "card-body d-flex flex-column gap-2" ]
-        [ if not isAuthenticated then
-            div [ class "fs-7 text-muted" ]
+        [ div [ class "fs-7 text-muted" ] <|
+            if not isAuthenticated then
                 [ Icon.info
                 , text "\u{00A0}Connectez-vous pour proposer une contribution."
                 ]
 
-          else if simulationIsEmpty then
-            div [ class "fs-7 text-muted" ]
+            else if simulationIsEmpty then
                 [ Icon.warning
                 , text "\u{00A0}La simulation ne peut être vide."
                 ]
 
-          else
-            text ""
+            else
+                []
         , input
             [ class "form-control"
             , type_ "text"
