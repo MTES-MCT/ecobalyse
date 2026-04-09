@@ -306,11 +306,13 @@ update ({ navKey } as session) msg model =
                         |> App.withCmds [ Contrib.create session contribData ContribCreated ]
 
                 ( True, Err errors ) ->
-                    createPageUpdate session model
+                    { model | contributionRequestPending = False }
+                        |> createPageUpdate session
                         |> App.notifyError "Erreur lors de la création de votre contribution" (String.join ", " errors)
 
                 ( False, _ ) ->
-                    createPageUpdate session model
+                    { model | contributionRequestPending = False }
+                        |> createPageUpdate session
                         |> App.notifyWarning "Vous devez être authentifié pour soumettre une contribution"
 
         ( ContribCreated (RemoteData.Failure error), _ ) ->
