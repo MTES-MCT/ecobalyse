@@ -6,10 +6,7 @@ import os
 from uuid import uuid4
 
 from app.db import models as m
-from app.domain.generic_contributions.schemas import (
-    GenericContributionCreate,
-    GenericScope,
-)
+from app.domain.contrib.schemas import ContribCreate, GenericScope
 from httpx import AsyncClient
 from litestar.exceptions import ValidationException
 
@@ -53,7 +50,7 @@ def format_json_string(json_string: str) -> str:
     )
 
 
-def format_pull_request_body(data: GenericContributionCreate, user: m.User) -> str:
+def format_pull_request_body(data: ContribCreate, user: m.User) -> str:
     org_name = clean_str(user.profile.organization_name)
     query_as_string = format_json_string(json.dumps(data.query))
     user_full_name = get_user_full_name(user)
@@ -103,8 +100,8 @@ async def github_request(
         raise ValidationException(detail=error_detail)
 
 
-async def create_generic_contribution_pr(
-    data: GenericContributionCreate,
+async def create_contrib_pr(
+    data: ContribCreate,
     user: m.User,
 ) -> tuple[str, str]:
     description = data.description.strip()

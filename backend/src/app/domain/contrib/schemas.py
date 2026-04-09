@@ -12,13 +12,13 @@ class GenericScope(StrEnum):
     VELI = "veli"
 
 
-class GenericContributionCreate(CamelizedBaseStruct):
+class ContribCreate(CamelizedBaseStruct):
     description: str
     name: str
     query: dict[str, Any]
     scope: GenericScope
 
 
-class GenericContributionResponse(CamelizedBaseStruct):
+class ContribResponse(CamelizedBaseStruct):
     branch_name: str
     pull_request_url: str
