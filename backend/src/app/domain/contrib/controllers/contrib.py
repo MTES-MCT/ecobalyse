@@ -23,11 +23,8 @@ class ContribController(Controller):
         data: ContribCreate,
     ) -> ContribResponse:
         settings = get_settings()
-        branch_name, pull_request_url = await create_contrib_pr(
+        return await create_contrib_pr(
             data=data,
             github_settings=settings.github,
             user=current_user,
-        )
-        return ContribResponse(
-            branch_name=branch_name, pull_request_url=pull_request_url
         )
