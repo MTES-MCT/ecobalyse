@@ -431,27 +431,26 @@ contributeTabView ({ session } as config) =
         isAuthenticated =
             Session.isAuthenticated session
 
-        -- TODO: check if the contribution already exists in the existing examples
         simulationIsEmpty =
             Session.objectQueryFromScope config.scope session == Component.emptyQuery
 
+        simulationExists =
+            session.db.object.examples
+                |> List.any (.query >> (==) (Session.objectQueryFromScope config.scope session))
+
         disabledForm =
-            config.contributionRequestPending || not isAuthenticated || simulationIsEmpty
+            config.contributionRequestPending || not isAuthenticated || simulationIsEmpty || simulationExists
+
+        error icon msg =
+            div [ class "text-danger fs-7" ] [ icon, text <| "\u{00A0}" ++ msg ]
     in
     div [ class "card-body d-flex flex-column gap-2" ]
-        [ div [ class "fs-7 text-muted" ] <|
-            if not isAuthenticated then
-                [ Icon.info
-                , text "\u{00A0}Connectez-vous pour proposer une contribution."
-                ]
-
-            else if simulationIsEmpty then
-                [ Icon.warning
-                , text "\u{00A0}La simulation ne peut être vide."
-                ]
-
-            else
-                []
+        [ div [ class "fs-7 text-muted" ]
+            [ text <|
+                "Proposez l'ajout de votre simulation à la base de données d’exemples "
+                    ++ Scope.toLabel config.scope
+                    ++ " sur Ecobalyse."
+            ]
         , input
             [ class "form-control"
             , type_ "text"
@@ -470,6 +469,17 @@ contributeTabView ({ session } as config) =
             , disabled disabledForm
             ]
             []
+        , if not isAuthenticated then
+            error Icon.info "Connectez-vous pour proposer une contribution."
+
+          else if simulationIsEmpty then
+            error Icon.warning "La simulation ne peut être vide."
+
+          else if simulationExists then
+            error Icon.warning "Cette simulation existe déjà dans la base de données d’exemples."
+
+          else
+            text ""
         , button
             [ class "btn btn-primary"
             , type_ "button"
