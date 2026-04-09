@@ -1221,7 +1221,7 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                 , contribName = ""
                 , contribDescription = ""
                 , contribRequestPending = False
-                , createContrib = NoOp
+                , createExampleContrib = NoOp
                 , updateContribName = always NoOp
                 , updateContribDescription = always NoOp
                 }

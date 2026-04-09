@@ -1,7 +1,7 @@
 module Request.Contrib exposing
-    ( ContribData
-    , ContribResponse
-    , create
+    ( ExampleContribData
+    , ExampleContribResponse
+    , createExampleContrib
     )
 
 import Data.Component as Component
@@ -12,7 +12,7 @@ import Json.Encode as Encode
 import Request.BackendHttp as BackendHttp exposing (WebData)
 
 
-type alias ContribData =
+type alias ExampleContribData =
     { description : String
     , name : String
     , query : Component.Query
@@ -20,30 +20,34 @@ type alias ContribData =
     }
 
 
-type alias ContribResponse =
+type alias ExampleContribResponse =
     { branchName : String
     , pullRequestUrl : String
     }
 
 
-create : Session -> ContribData -> (WebData ContribResponse -> msg) -> Cmd msg
-create session contribData event =
+createExampleContrib :
+    Session
+    -> ExampleContribData
+    -> (WebData ExampleContribResponse -> msg)
+    -> Cmd msg
+createExampleContrib session contribData event =
     BackendHttp.post session
         "contrib/examples"
         event
-        decodeContribResponse
-        (encodeContribData contribData)
+        decodeExampleContribResponse
+        (encodeExampleContribData contribData)
 
 
-decodeContribResponse : Decoder ContribResponse
-decodeContribResponse =
-    Decode.map2 ContribResponse
+decodeExampleContribResponse : Decoder ExampleContribResponse
+decodeExampleContribResponse =
+    Decode.map2 ExampleContribResponse
         (Decode.field "branchName" Decode.string)
         (Decode.field "pullRequestUrl" Decode.string)
 
 
-encodeContribData : ContribData -> Encode.Value
-encodeContribData contribData =
+encodeExampleContribData : ExampleContribData -> Encode.Value
+encodeExampleContribData contribData =
     Encode.object
         [ ( "description", Encode.string contribData.description )
         , ( "name", Encode.string contribData.name )
