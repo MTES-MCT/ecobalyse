@@ -2,9 +2,9 @@ from __future__ import annotations
 
 import base64
 import json
-import os
 from uuid import uuid4
 
+from app.config import GithubSettings
 from app.db import models as m
 from app.domain.contrib.schemas import ContribCreate, GenericScope
 from httpx import AsyncClient
@@ -57,18 +57,17 @@ def format_pull_request_body(data: ContribCreate, user: m.User) -> str:
     org_info = org_name if org_name else "Non renseignée"
     return "\n".join(
         [
-            "## Verticale",
-            data.scope.value,
+            f"Nouvelle proposition de contribution d’exemple : **{data.name} ({data.scope.value})**",
             "",
-            "## Contexte",
+            "### Contexte",
             clean_str(data.description),
             "",
-            "## Contributeur",
+            "### Contributeur",
             "",
             f"- Nom : {user_full_name}",
             f"- Organisation : {org_info}",
             "",
-            "## Données de l‘exemple",
+            "### Paramètres de l’exemple",
             "```json",
             query_as_string,
             "```",
@@ -102,6 +101,7 @@ async def github_request(
 
 async def create_contrib_pr(
     data: ContribCreate,
+    github_settings: GithubSettings,
     user: m.User,
 ) -> tuple[str, str]:
     description = data.description.strip()
@@ -109,16 +109,11 @@ async def create_contrib_pr(
 
     if not name:
         raise ValidationException(detail="Un nom de contribution est requis")
-    if not description:
+    elif not description:
         raise ValidationException(
             detail="Une description de la contribution est requise"
         )
-
-    github_token = os.getenv("GITHUB_TOKEN", "")
-    github_repository = os.getenv("GITHUB_REPOSITORY", "MTES-MCT/ecobalyse")
-    github_base_branch = os.getenv("GITHUB_BASE_BRANCH", "master")
-
-    if not github_token:
+    elif not github_settings.TOKEN:
         raise ValidationException(
             detail="Le serveur n’est pas configuré pour créer des pull requests"
         )
@@ -136,9 +131,10 @@ async def create_contrib_pr(
             client,
             "GET",
             get_github_api_url(
-                github_repository, f"git/ref/heads/{github_base_branch}"
+                github_settings.REPOSITORY,
+                f"git/ref/heads/{github_settings.BASE_BRANCH}",
             ),
-            github_token,
+            github_settings.TOKEN,
         )
         base_sha = base_ref["object"]["sha"]
 
@@ -146,8 +142,8 @@ async def create_contrib_pr(
         await github_request(
             client,
             "POST",
-            get_github_api_url(github_repository, "git/refs"),
-            github_token,
+            get_github_api_url(github_settings.REPOSITORY, "git/refs"),
+            github_settings.TOKEN,
             json_body={"ref": f"refs/heads/{branch_name}", "sha": base_sha},
         )
 
@@ -156,9 +152,10 @@ async def create_contrib_pr(
             client,
             "GET",
             get_github_api_url(
-                github_repository, f"contents/{examples_path}?ref={github_base_branch}"
+                github_settings.REPOSITORY,
+                f"contents/{examples_path}?ref={github_settings.BASE_BRANCH}",
             ),
-            github_token,
+            github_settings.TOKEN,
         )
         file_sha = file_content["sha"]
         decoded_content = base64.b64decode(file_content["content"]).decode("utf-8")
@@ -183,8 +180,8 @@ async def create_contrib_pr(
         await github_request(
             client,
             "PUT",
-            get_github_api_url(github_repository, f"contents/{examples_path}"),
-            github_token,
+            get_github_api_url(github_settings.REPOSITORY, f"contents/{examples_path}"),
+            github_settings.TOKEN,
             json_body={
                 "message": commit_message,
                 "content": updated_examples_base64,
@@ -197,12 +194,12 @@ async def create_contrib_pr(
         pull_request = await github_request(
             client,
             "POST",
-            get_github_api_url(github_repository, "pulls"),
-            github_token,
+            get_github_api_url(github_settings.REPOSITORY, "pulls"),
+            github_settings.TOKEN,
             json_body={
                 "title": pull_request_title,
                 "head": branch_name,
-                "base": github_base_branch,
+                "base": github_settings.BASE_BRANCH,
                 "body": pull_request_body,
             },
         )
