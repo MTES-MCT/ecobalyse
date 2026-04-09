@@ -23,7 +23,7 @@ type alias Config msg =
     , contribName : String
     , contribRequestPending : Bool
     , copyToClipBoard : String -> msg
-    , createContrib : msg
+    , createExampleContrib : msg
     , customScoreInfo : Maybe (Html msg)
     , deleteBookmark : Bookmark -> msg
     , exportBookmarks : msg
@@ -88,7 +88,7 @@ view config =
             , contribName = config.contribName
             , contribRequestPending = config.contribRequestPending
             , copyToClipBoard = config.copyToClipBoard
-            , createContrib = config.createContrib
+            , createExampleContrib = config.createExampleContrib
             , delete = config.deleteBookmark
             , exportBookmarks = config.exportBookmarks
             , impact = config.selectedImpact

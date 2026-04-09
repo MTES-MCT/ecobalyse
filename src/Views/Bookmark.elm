@@ -31,7 +31,7 @@ type alias ManagerConfig msg =
     , contribName : String
     , contribRequestPending : Bool
     , copyToClipBoard : String -> msg
-    , createContrib : msg
+    , createExampleContrib : msg
     , delete : Bookmark -> msg
     , exportBookmarks : msg
     , impact : Definition
@@ -484,7 +484,7 @@ contributeTabView ({ scope, session } as config) =
             [ class "btn btn-primary btn-sm"
             , type_ "button"
             , disabled disabledForm
-            , onClick config.createContrib
+            , onClick config.createExampleContrib
             ]
             [ if config.contribRequestPending then
                 text "Envoi…"

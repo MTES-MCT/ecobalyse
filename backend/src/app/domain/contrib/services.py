@@ -6,7 +6,11 @@ from uuid import uuid4
 
 from app.config.base import GithubSettings
 from app.db import models as m
-from app.domain.contrib.schemas import ContribCreate, ContribResponse, GenericScope
+from app.domain.contrib.schemas import (
+    ExampleContribCreate,
+    ExampleContribResponse,
+    GenericScope,
+)
 from httpx import AsyncClient
 from litestar.exceptions import ValidationException
 
@@ -51,7 +55,7 @@ def format_json_string(json_string: str) -> str:
     )
 
 
-def format_pull_request_body(data: ContribCreate, user: m.User) -> str:
+def format_example_contrib_pr(data: ExampleContribCreate, user: m.User) -> str:
     org_name = clean_str(user.profile.organization_name)
     query_as_string = format_json_string(json.dumps(data.query))
     user_full_name = get_user_full_name(user)
@@ -100,11 +104,11 @@ async def github_request(
         raise ValidationException(detail=error_detail)
 
 
-async def create_contrib_pr(
-    data: ContribCreate,
+async def create_example_contrib_pr(
+    data: ExampleContribCreate,
     github_settings: GithubSettings,
     user: m.User,
-) -> ContribResponse:
+) -> ExampleContribResponse:
     description = data.description.strip()
     name = data.name.strip()
 
@@ -124,7 +128,7 @@ async def create_contrib_pr(
     branch_name = f"contrib/{data.scope.value}/{example_id[:8]}"
 
     pull_request_title = f"feat({data.scope.value}): add “{name}” example"
-    pull_request_body = format_pull_request_body(data, user)
+    pull_request_body = format_example_contrib_pr(data, user)
     commit_message = pull_request_title
 
     async with AsyncClient(timeout=10) as client:
@@ -199,6 +203,6 @@ async def create_contrib_pr(
             },
         )
 
-    return ContribResponse(
+    return ExampleContribResponse(
         branch_name=branch_name, pull_request_url=pull_request["html_url"]
     )

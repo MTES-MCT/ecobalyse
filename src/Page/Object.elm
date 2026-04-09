@@ -88,11 +88,11 @@ type Modal
 
 
 type Msg
-    = ContribCreated (WebData Contrib.ContribResponse)
-    | CopyToClipBoard String
+    = CopyToClipBoard String
     | CreateComponent
-    | CreateContrib
+    | CreateExampleContrib
     | DeleteBookmark Bookmark
+    | ExampleContribCreated (WebData Contrib.ExampleContribResponse)
     | ExportBookmarks
     | ImportBookmarks
     | NoOp
@@ -298,12 +298,12 @@ update ({ navKey } as session) msg model =
             createPageUpdate session model
                 |> App.withCmds [ Ports.copyToClipboard shareableLink ]
 
-        ( CreateContrib, _ ) ->
-            case ( Session.isAuthenticated session, createContribData model ) of
+        ( CreateExampleContrib, _ ) ->
+            case ( Session.isAuthenticated session, createExampleContribData model ) of
                 ( True, Ok contribData ) ->
                     { model | contributionRequestPending = True }
                         |> createPageUpdate session
-                        |> App.withCmds [ Contrib.create session contribData ContribCreated ]
+                        |> App.withCmds [ Contrib.createExampleContrib session contribData ExampleContribCreated ]
 
                 ( True, Err errors ) ->
                     { model | contributionRequestPending = False }
@@ -315,19 +315,6 @@ update ({ navKey } as session) msg model =
                         |> createPageUpdate session
                         |> App.notifyWarning "Vous devez être authentifié pour soumettre une contribution"
 
-        ( ContribCreated (RemoteData.Failure error), _ ) ->
-            { model | contributionRequestPending = False }
-                |> createPageUpdate session
-                |> App.notifyError "Erreur de contribution" (BackendHttpError.errorToString error)
-
-        ( ContribCreated (RemoteData.Success { pullRequestUrl }), _ ) ->
-            { model | contributionRequestPending = False }
-                |> createPageUpdate session
-                |> App.notifySuccess ("Contribution envoyée. [Voir la Pull Request](" ++ pullRequestUrl ++ ")")
-
-        ( ContribCreated _, _ ) ->
-            createPageUpdate session model
-
         ( CreateComponent, _ ) ->
             createPageUpdate session model
                 |> createComponent query
@@ -335,6 +322,19 @@ update ({ navKey } as session) msg model =
         ( DeleteBookmark bookmark, _ ) ->
             model
                 |> createPageUpdate (session |> Session.deleteBookmark bookmark)
+
+        ( ExampleContribCreated (RemoteData.Failure error), _ ) ->
+            { model | contributionRequestPending = False }
+                |> createPageUpdate session
+                |> App.notifyError "Erreur de contribution" (BackendHttpError.errorToString error)
+
+        ( ExampleContribCreated (RemoteData.Success { pullRequestUrl }), _ ) ->
+            { model | contributionRequestPending = False }
+                |> createPageUpdate session
+                |> App.notifySuccess ("Contribution envoyée. [Voir la Pull Request](" ++ pullRequestUrl ++ ")")
+
+        ( ExampleContribCreated _, _ ) ->
+            createPageUpdate session model
 
         ( ExportBookmarks, _ ) ->
             createPageUpdate session model
@@ -692,8 +692,8 @@ createComponent query ({ model, session } as pageUpdate) =
         |> App.apply update (SetDetailedComponents (LE.unique (List.length query.items :: model.detailedComponents)))
 
 
-createContribData : Model -> Result (List String) Contrib.ContribData
-createContribData model =
+createExampleContribData : Model -> Result (List String) Contrib.ExampleContribData
+createExampleContribData model =
     let
         ( cleanDescription, cleanName ) =
             ( String.trim model.contributionDescription
@@ -922,7 +922,7 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
                 , contribName = model.contributionName
                 , contribDescription = model.contributionDescription
                 , contribRequestPending = model.contributionRequestPending
-                , createContrib = CreateContrib
+                , createExampleContrib = CreateExampleContrib
                 , updateContribName = UpdateContributionName
                 , updateContribDescription = UpdateContributionDescription
                 }

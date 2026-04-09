@@ -4,26 +4,26 @@ from app.config import get_settings
 from app.db import models as m
 from app.domain.accounts.guards import requires_active_user
 from app.domain.contrib import urls
-from app.domain.contrib.schemas import ContribCreate, ContribResponse
-from app.domain.contrib.services import create_contrib_pr
+from app.domain.contrib.schemas import ExampleContribCreate, ExampleContribResponse
+from app.domain.contrib.services import create_example_contrib_pr
 from litestar import Controller, post
 
 
-class ContribController(Controller):
-    tags = ["Contrib"]
+class ExampleContribController(Controller):
+    tags = ["Contrib", "Examples"]
 
     @post(
-        operation_id="CreateContrib",
+        operation_id="CreateExampleContrib",
         path=urls.CONTRIB_EXAMPLES,
         guards=[requires_active_user],
     )
-    async def create_contrib(
+    async def create_example_contrib(
         self,
         current_user: m.User,
-        data: ContribCreate,
-    ) -> ContribResponse:
+        data: ExampleContribCreate,
+    ) -> ExampleContribResponse:
         settings = get_settings()
-        return await create_contrib_pr(
+        return await create_example_contrib_pr(
             data=data,
             github_settings=settings.github,
             user=current_user,

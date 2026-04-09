@@ -2,8 +2,12 @@ from __future__ import annotations
 
 import pytest
 from app.db import models as m
-from app.domain.contrib.schemas import ContribCreate, ContribResponse, GenericScope
-from app.domain.contrib.services import format_pull_request_body
+from app.domain.contrib.schemas import (
+    ExampleContribCreate,
+    ExampleContribResponse,
+    GenericScope,
+)
+from app.domain.contrib.services import format_example_contrib_pr
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import joinedload
@@ -11,7 +15,7 @@ from sqlalchemy.orm import joinedload
 pytestmark = pytest.mark.anyio
 
 
-async def test_contrib_requires_authentication(client) -> None:
+async def test_example_contrib_requires_authentication(client) -> None:
     response = await client.post(
         "/api/contrib/examples",
         json={
@@ -24,25 +28,25 @@ async def test_contrib_requires_authentication(client) -> None:
     assert response.status_code == 401
 
 
-async def test_contrib_create_pull_request(
+async def test_example_contrib_create_pull_request(
     client,
     monkeypatch,
     user_token_headers: dict[str, str],
 ) -> None:
-    async def mock_create_contrib_pr(*, data, github_settings, user):
+    async def mock_create_example_contrib_pr(*, data, github_settings, user):
         assert data.scope == GenericScope.VELI
         assert data.name == "Veli example"
         assert "components" in data.query
         assert isinstance(github_settings.REPOSITORY, str)
         assert user.email == "user@example.com"
-        return ContribResponse(
+        return ExampleContribResponse(
             branch_name="contrib/veli/test-contrib",
             pull_request_url="https://github.com/MTES-MCT/ecobalyse/pull/123",
         )
 
     monkeypatch.setattr(
-        "app.domain.contrib.controllers.contrib.create_contrib_pr",
-        mock_create_contrib_pr,
+        "app.domain.contrib.controllers.contrib.create_example_contrib_pr",
+        mock_create_example_contrib_pr,
     )
 
     response = await client.post(
@@ -62,7 +66,7 @@ async def test_contrib_create_pull_request(
     }
 
 
-async def test_contrib_service_helpers_include_user_identity(
+async def test_example_contrib_service_helpers_include_user_identity(
     session: AsyncSession,
 ) -> None:
     user = await session.scalar(
@@ -72,8 +76,8 @@ async def test_contrib_service_helpers_include_user_identity(
     )
     assert user is not None
 
-    body = format_pull_request_body(
-        ContribCreate(
+    body = format_example_contrib_pr(
+        ExampleContribCreate(
             description="Food2 example description",
             name="Food2 example",
             query={"components": []},
