@@ -150,6 +150,18 @@
     "recycledFrom": null
   },
   {
+    "alias": "ei-coton-organic2",
+    "cff": null,
+    "defaultCountry": "CN",
+    "geographicOrigin": "Asie - Pacifique",
+    "id": "a1c1c2ec-33b1-49d6-bf8e-139e2eb7f097",
+    "name": "Coton biologique",
+    "origin": "NaturalFromVegetal",
+    "primary": true,
+    "processId": "08ff4d09-f365-4484-9188-c84d325325eb",
+    "recycledFrom": null
+  },
+  {
     "alias": "ei-lin",
     "cff": null,
     "defaultCountry": "FR",
