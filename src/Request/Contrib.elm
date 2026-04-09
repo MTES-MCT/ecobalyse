@@ -26,13 +26,6 @@ type alias ContribResponse =
     }
 
 
-decodeContribResponse : Decoder ContribResponse
-decodeContribResponse =
-    Decode.map2 ContribResponse
-        (Decode.field "branchName" Decode.string)
-        (Decode.field "pullRequestUrl" Decode.string)
-
-
 create : Session -> ContribData -> (WebData ContribResponse -> msg) -> Cmd msg
 create session contribData event =
     BackendHttp.post session
@@ -40,6 +33,13 @@ create session contribData event =
         event
         decodeContribResponse
         (encodeContribData contribData)
+
+
+decodeContribResponse : Decoder ContribResponse
+decodeContribResponse =
+    Decode.map2 ContribResponse
+        (Decode.field "branchName" Decode.string)
+        (Decode.field "pullRequestUrl" Decode.string)
 
 
 encodeContribData : ContribData -> Encode.Value
