@@ -1631,7 +1631,7 @@ sidebarView session model results =
         , contribName = ""
         , contribDescription = ""
         , contribRequestPending = False
-        , createContrib = NoOp
+        , createExampleContrib = NoOp
         , updateContribName = always NoOp
         , updateContribDescription = always NoOp
         }

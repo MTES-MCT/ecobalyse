@@ -1,3 +1,3 @@
-from .contrib import ContribController
+from .contrib import ExampleContribController
 
-__all__ = ("ContribController",)
+__all__ = ("ExampleContribController",)
