@@ -38,7 +38,7 @@ import Ports
 import RemoteData
 import Request.BackendHttp exposing (WebData)
 import Request.BackendHttp.Error as BackendHttpError
-import Request.GenericContribution as GenericContribution
+import Request.Contrib as Contrib
 import Route
 import Task
 import Time exposing (Posix)
@@ -88,7 +88,7 @@ type Modal
 
 
 type Msg
-    = ContributionCreated (WebData GenericContribution.ContributionResponse)
+    = ContribCreated (WebData Contrib.ContribResponse)
     | CopyToClipBoard String
     | CreateComponent
     | CreateContribution
@@ -299,11 +299,11 @@ update ({ navKey } as session) msg model =
                 |> App.withCmds [ Ports.copyToClipboard shareableLink ]
 
         ( CreateContribution, _ ) ->
-            case ( Session.isAuthenticated session, createContributionData model ) of
-                ( True, Ok contributionData ) ->
+            case ( Session.isAuthenticated session, createContribData model ) of
+                ( True, Ok contribData ) ->
                     { model | contributionRequestPending = True }
                         |> createPageUpdate session
-                        |> App.withCmds [ GenericContribution.create session contributionData ContributionCreated ]
+                        |> App.withCmds [ Contrib.create session contribData ContribCreated ]
 
                 ( True, Err errors ) ->
                     createPageUpdate session model
@@ -313,18 +313,18 @@ update ({ navKey } as session) msg model =
                     createPageUpdate session model
                         |> App.notifyWarning "Vous devez être authentifié pour soumettre une contribution"
 
-        ( ContributionCreated (RemoteData.Failure error), _ ) ->
+        ( ContribCreated (RemoteData.Failure error), _ ) ->
             { model | contributionRequestPending = False }
                 |> createPageUpdate session
                 |> App.notifyError "Erreur de contribution" (BackendHttpError.errorToString error)
 
-        ( ContributionCreated (RemoteData.Success { pullRequestUrl }), _ ) ->
+        ( ContribCreated (RemoteData.Success { pullRequestUrl }), _ ) ->
             { model | contributionRequestPending = False }
                 |> createPageUpdate session
                 -- TODO: notifySuccessHtml with a link to the pull request
                 |> App.notifySuccess ("Contribution envoyée: " ++ pullRequestUrl)
 
-        ( ContributionCreated _, _ ) ->
+        ( ContribCreated _, _ ) ->
             createPageUpdate session model
 
         ( CreateComponent, _ ) ->
@@ -691,25 +691,24 @@ createComponent query ({ model, session } as pageUpdate) =
         |> App.apply update (SetDetailedComponents (LE.unique (List.length query.items :: model.detailedComponents)))
 
 
-createContributionData : Model -> Result (List String) { description : String, name : String, query : Component.Query, scope : Scope }
-createContributionData model =
+createContribData : Model -> Result (List String) Contrib.ContribData
+createContribData model =
     let
-        trimmedDescription =
-            model.contributionDescription |> String.trim
-
-        trimmedName =
-            model.contributionName |> String.trim
+        ( cleanDescription, cleanName ) =
+            ( String.trim model.contributionDescription
+            , String.trim model.contributionName
+            )
     in
-    if String.isEmpty trimmedName then
+    if String.isEmpty cleanName then
         Err [ "Le nom de la contribution est requis" ]
 
-    else if String.isEmpty trimmedDescription then
+    else if String.isEmpty cleanDescription then
         Err [ "La description de la contribution est requise" ]
 
     else
         Ok
-            { description = trimmedDescription
-            , name = trimmedName
+            { description = cleanDescription
+            , name = cleanName
             , query = model.initialQuery
             , scope = model.scope
             }
