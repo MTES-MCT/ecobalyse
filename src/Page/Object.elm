@@ -321,8 +321,7 @@ update ({ navKey } as session) msg model =
         ( ContribCreated (RemoteData.Success { pullRequestUrl }), _ ) ->
             { model | contributionRequestPending = False }
                 |> createPageUpdate session
-                -- TODO: notifySuccessHtml with a link to the pull request
-                |> App.notifySuccess ("Contribution envoyée: " ++ pullRequestUrl)
+                |> App.notifySuccess ("Contribution envoyée. [Voir la Pull Request](" ++ pullRequestUrl ++ ")")
 
         ( ContribCreated _, _ ) ->
             createPageUpdate session model
