@@ -1,6 +1,7 @@
 port module CheckDb exposing (main)
 
 import Data.Component as Component exposing (Component)
+import Data.Component.Config as ComponentConfig
 import Data.Example exposing (Example)
 import Data.Process as Process exposing (Process)
 import Data.Scope as Scope
@@ -12,8 +13,9 @@ import Static.Db as StaticDb exposing (Db)
 
 
 type alias Flags =
-    { detailedProcesses : String
-    , nonDetailedProcesses : String
+    { componentConfigJson : String
+    , detailedProcessesJson : String
+    , nonDetailedProcessesJson : String
     }
 
 
@@ -52,6 +54,18 @@ addGroupedErrors label errors =
 backtick : String -> String
 backtick string =
     "`" ++ string ++ "`"
+
+
+{-| Validates component config JSON against a static database.
+-}
+checkComponentConfig : Db -> String -> List Error
+checkComponentConfig db jsonConfig =
+    case ComponentConfig.parse db jsonConfig of
+        Err err ->
+            [ err ]
+
+        Ok _ ->
+            []
 
 
 {-| Returns missing component ids referenced by a component item.
@@ -250,10 +264,10 @@ checkProcessId knownProcessStringIds component fieldName processId =
         []
 
 
-{-| Checks a static database and returns a list of errors.
+{-| Checks a static database and config comformity, then returns a list of errors.
 -}
-checkStaticDatabase : String -> Result String Db -> List Error
-checkStaticDatabase dbName dbResult =
+checkStaticDatabase : String -> String -> Result String Db -> List Error
+checkStaticDatabase config dbName dbResult =
     let
         section title =
             dbName ++ " - " ++ title
@@ -273,16 +287,17 @@ checkStaticDatabase dbName dbResult =
                 |> addGroupedErrors (section "Examples components checks") (checkExamplesComponentIds knownComponentStringIds db)
                 |> addGroupedErrors (section "Components processes checks") (checkComponentsProcessIds knownProcessStringIds db)
                 |> addGroupedErrors (section "Scoping checks") (checkExamplesScope db)
+                |> addGroupedErrors (section "Component config checks") (checkComponentConfig db config)
 
 
 {-| Decodes both static databases, executes checks, and returns grouped errors.
 -}
 checkStaticDatabases : Flags -> Result (List Error) ()
-checkStaticDatabases { detailedProcesses, nonDetailedProcesses } =
+checkStaticDatabases { componentConfigJson, detailedProcessesJson, nonDetailedProcessesJson } =
     case
-        List.concatMap (\( dbName, dbResult ) -> checkStaticDatabase dbName dbResult)
-            [ ( "Detailed Db", StaticDb.db detailedProcesses )
-            , ( "Non-detailed Db", StaticDb.db nonDetailedProcesses )
+        List.concatMap (\( dbName, dbResult ) -> checkStaticDatabase componentConfigJson dbName dbResult)
+            [ ( "Detailed Db", StaticDb.db detailedProcessesJson )
+            , ( "Non-detailed Db", StaticDb.db nonDetailedProcessesJson )
             ]
     of
         [] ->

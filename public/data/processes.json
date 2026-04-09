@@ -30241,7 +30241,7 @@
     "activityName": "brass//[RoW] market for brass",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:copper"
     ],
     "comment": "",
     "displayName": "Laiton",
@@ -32023,7 +32023,7 @@
     "activityName": "steel, low-alloyed//[GLO] market for steel, low-alloyed",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
     "displayName": "Acier (faiblement allié)",
