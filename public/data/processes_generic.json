@@ -2520,7 +2520,7 @@
   },
   {
     "activityName": "Bell pepper {FR}| bell pepper production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
-    "baseProduct": "bell-pepper-green-yellow-or-red",
+    "baseProduct": "bell-pepper",
     "categories": [
       "ingredient",
       "material"
@@ -20065,7 +20065,7 @@
   },
   {
     "activityName": "Melon, conventional, national average, at farm gate {FR} U",
-    "baseProduct": "melon-honeydew-charentai-cataloupe-cavaillon",
+    "baseProduct": "melon-all-variety",
     "categories": [
       "ingredient",
       "material"
@@ -20335,7 +20335,7 @@
   },
   {
     "activityName": "Melon, under low tunnel, conventional, at farm gate {FR} U",
-    "baseProduct": "melon-honeydew-charentai-cataloupe-cavaillon",
+    "baseProduct": "melon-all-variety",
     "categories": [
       "ingredient",
       "material"
@@ -20920,7 +20920,7 @@
   },
   {
     "activityName": "Mint {RoW}| mint production | Cut-off, U - Adapted from Ecoinvent U",
-    "baseProduct": "herb-dill-basil-chervil-rosemary-sage-thyme-fresh",
+    "baseProduct": "herb-fresh-all-variety",
     "categories": [
       "ingredient",
       "material"
@@ -20965,7 +20965,7 @@
   },
   {
     "activityName": "Mint {RoW}| mint production | Cut-off, U - Adapted from Ecoinvent U",
-    "baseProduct": "herb-marjoram-oregano-savory-thyme-basil-rosemary-sage-dried",
+    "baseProduct": "herb-dried-all-variety",
     "categories": [
       "ingredient",
       "material"
@@ -27753,7 +27753,7 @@
   },
   {
     "activityName": "Rice, basmati {IN}| rice production, basmati | Cut-off, U - Adapted from Ecoinvent U",
-    "baseProduct": "rice-all-variety-white-wild-c-thai-or-basmati-rice-raw-raw",
+    "baseProduct": "rice-all-variety",
     "categories": [
       "ingredient",
       "material"
@@ -27798,7 +27798,7 @@
   },
   {
     "activityName": "Rice, non-basmati {CN}| rice production, non-basmati | Cut-off, U - Adapted from Ecoinvent U",
-    "baseProduct": "rice-all-variety-white-wild-c-thai-or-basmati-rice-raw-raw",
+    "baseProduct": "rice-all-variety",
     "categories": [
       "ingredient",
       "material"
@@ -29508,7 +29508,7 @@
   },
   {
     "activityName": "Sodium chloride, powder {GLO}| market for | Cut-off, S - Copied from Ecoinvent U",
-    "baseProduct": "sea-salt-celery-salt-or-fleur-de-sel",
+    "baseProduct": "sea-salt",
     "categories": [
       "ingredient",
       "material"
@@ -29553,7 +29553,7 @@
   },
   {
     "activityName": "Sodium chloride, powder {GLO}| market for | Cut-off, S - Copied from Ecoinvent U",
-    "baseProduct": "sea-salt-celery-salt-or-fleur-de-sel",
+    "baseProduct": "sea-salt",
     "categories": [
       "ingredient",
       "material"
@@ -34861,7 +34861,7 @@
   },
   {
     "activityName": "Vanilla {MG}| vanilla production | Cut-off, U - Adapted from Ecoinvent U",
-    "baseProduct": "vanilla-alcoholic-or-aqueou-extract",
+    "baseProduct": "vanilla-extract",
     "categories": [
       "ingredient",
       "material"
@@ -38415,7 +38415,7 @@
     "baseProduct": null,
     "categories": [
       "transformation",
-      "material_type:plastic"
+      "material_type:composites"
     ],
     "comment": "Hao Chen et al., 2025 (median), hyp. 50% electricity 50% heat",
     "displayName": "Fabrication fibre de carbone",
@@ -39553,7 +39553,7 @@
     "baseProduct": null,
     "categories": [
       "transformation",
-      "material_type:metal"
+      "material_type:aluminium"
     ],
     "comment": "",
     "displayName": "Extrusion (aluminium)",
@@ -39599,7 +39599,7 @@
     "baseProduct": null,
     "categories": [
       "transformation",
-      "material_type:metal"
+      "material_type:aluminium"
     ],
     "comment": "",
     "displayName": "Lamination (aluminium)",
@@ -39645,7 +39645,7 @@
     "baseProduct": null,
     "categories": [
       "transformation",
-      "material_type:metal"
+      "material_type:aluminium"
     ],
     "comment": "découpes, cintrages, traitements thermiques, soudures",
     "displayName": "Transformation finale (aluminium)",
@@ -39835,7 +39835,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": -1129.1,
+      "ecs": 5457.4,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -40960,7 +40960,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": -0.36708,
+      "ecs": 7.301,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -41275,7 +41275,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": -2424.6,
+      "ecs": 2375.4,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -41320,7 +41320,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 74.319,
+      "ecs": 3506.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -41896,7 +41896,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:aluminium"
     ],
     "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
     "displayName": "Aluminium mix marché, Europe",
@@ -41941,7 +41941,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:aluminium"
     ],
     "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
     "displayName": "Aluminium mix marché, hors Europe et Chine",
@@ -41986,7 +41986,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:aluminium"
     ],
     "comment": "Matériau 100% issu du recyclage, calculé selon la règle CFF (A=0.8, Q=1)",
     "displayName": "Aluminium recyclé (Inde), CFF",
@@ -42032,7 +42032,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:aluminium"
     ],
     "comment": "Matériau 100% issu du recyclage, calculé selon la règle CFF (A=0.8, Q=1)",
     "displayName": "Aluminium recyclé (Europe), CFF",
@@ -42078,7 +42078,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:aluminium"
     ],
     "comment": "Matériau 100% issu du recyclage, calculé selon la règle CFF (A=0.8, Q=1)",
     "displayName": "Aluminium recyclé (Reste du monde), CFF",
@@ -42124,7 +42124,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:aluminium"
     ],
     "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
     "displayName": "Aluminium mix marché, Chine",
@@ -42169,7 +42169,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:aluminium"
     ],
     "comment": "",
     "displayName": "Aluminium vierge mix marché, Inde",
@@ -42214,7 +42214,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:aluminium"
     ],
     "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
     "displayName": "Aluminium vierge mix marché, Europe",
@@ -42259,7 +42259,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:aluminium"
     ],
     "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
     "displayName": "Aluminium vierge mix marché, hors Europe et Inde",
@@ -42349,7 +42349,7 @@
     "baseProduct": null,
     "categories": [
       "transformation",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
     "displayName": "Lamination (inox)",
@@ -42395,7 +42395,7 @@
     "baseProduct": null,
     "categories": [
       "transformation",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "découpes, cintrages, traitements thermiques, soudures",
     "displayName": "Transformation finale (inox)",
@@ -42719,7 +42719,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": -162.68,
+      "ecs": -190.03,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -42845,7 +42845,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:pet"
     ],
     "comment": "Matériau 100% issu du recyclage, calculé selon la règle CFF (A=0.8, Q=1)",
     "displayName": "PET recyclé (Reste du monde), CFF",
@@ -42981,7 +42981,7 @@
     "baseProduct": null,
     "categories": [
       "transformation",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
     "displayName": "Extrusion ou lamination (acier)",
@@ -43027,7 +43027,7 @@
     "baseProduct": null,
     "categories": [
       "transformation",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "découpes, cintrages, traitements thermiques, soudures",
     "displayName": "Transformation finale (acier)",
@@ -43073,7 +43073,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
     "displayName": "Acier mix marché (Reste du monde)",
@@ -43118,7 +43118,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
     "displayName": "Acier mix marché (Europe)",
@@ -43163,7 +43163,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "Matériau 100% issu du recyclage, calculé selon la règle CFF (A=0.8, Q=1)",
     "displayName": "Acier recyclé (Europe), CFF",
@@ -43209,7 +43209,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "Matériau 100% issu du recyclage, calculé selon la règle CFF (A=0.8, Q=1)",
     "displayName": "Acier recyclé (Reste du monde), CFF",
@@ -43437,7 +43437,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:battery_cell"
     ],
     "comment": "densité energétique : 6.7 kWh/kg",
     "displayName": "Batterie Li-ion (NMC811)",
@@ -43482,7 +43482,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:battery_cell"
     ],
     "comment": "densité energétique : 8.6 kWh/kg",
     "displayName": "Batterie Li-ion (LFP)",
@@ -43527,7 +43527,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:battery_cell"
     ],
     "comment": "densité energétique : 6.3 kWh/kg",
     "displayName": "Batterie Li-ion (Autres)",
@@ -43572,7 +43572,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:battery_cell"
     ],
     "comment": "densité energétique : 33.3 kWh/kg",
     "displayName": "Batterie Plomb",
@@ -43659,7 +43659,7 @@
   },
   {
     "activityName": "Bell pepper {IN-UP}| bell pepper production, open field | Cut-off, U",
-    "baseProduct": "bell-pepper-green-yellow-or-red",
+    "baseProduct": "bell-pepper",
     "categories": [
       "ingredient",
       "material"
@@ -45102,7 +45102,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:plastic"
+      "material_type:rigid_plastics"
     ],
     "comment": "",
     "displayName": "Plastique rigide (ABS)",
@@ -45148,7 +45148,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:aluminium"
     ],
     "comment": "",
     "displayName": "Aluminium recyclé",
@@ -45193,7 +45193,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:copper"
     ],
     "comment": "",
     "displayName": "Laiton",
@@ -45283,7 +45283,8 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:plastic"
+      "material_type:composites",
+      "material_type:rubber"
     ],
     "comment": "",
     "displayName": "Composé organique",
@@ -45419,7 +45420,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:other"
+      "material_type:containerboard"
     ],
     "comment": "",
     "displayName": "Carton ondulé",
@@ -45465,7 +45466,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
     "displayName": "Moteur électrique",
@@ -46855,7 +46856,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:pwb"
     ],
     "comment": "",
     "displayName": "Composants électroniques",
@@ -46946,7 +46947,11 @@
     "baseProduct": null,
     "categories": [
       "transformation",
-      "material_type:plastic"
+      "material_type:pet",
+      "material_type:pp",
+      "material_type:hdpe",
+      "material_type:ldpe",
+      "material_type:rigid_plastics"
     ],
     "comment": "",
     "displayName": "Extrusion + thermoformage (plastique)",
@@ -47083,7 +47088,8 @@
     "activityName": "flat glass, uncoated//[RER] flat glass production, uncoated",
     "baseProduct": null,
     "categories": [
-      "material"
+      "material",
+      "material_type:glass"
     ],
     "comment": "",
     "displayName": "Verre plat",
@@ -47129,7 +47135,11 @@
     "baseProduct": null,
     "categories": [
       "transformation",
-      "material_type:plastic"
+      "material_type:pet",
+      "material_type:pp",
+      "material_type:hdpe",
+      "material_type:ldpe",
+      "material_type:rigid_plastics"
     ],
     "comment": "",
     "displayName": "Moulage par injection",
@@ -47175,7 +47185,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
     "displayName": "Moteur thermique (MCI)",
@@ -47266,7 +47276,7 @@
     "baseProduct": null,
     "categories": [
       "transformation",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
     "displayName": "Transformation métallique (moyenne)",
@@ -47402,7 +47412,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:plastic"
+      "material_type:ldpe"
     ],
     "comment": "",
     "displayName": "Film plastique",
@@ -47540,7 +47550,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:plastic"
+      "material_type:rigid_plastics"
     ],
     "comment": "",
     "displayName": "Plastique rigide (PC)",
@@ -47586,7 +47596,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:plastic",
+      "material_type:pet",
       "material_type:synthetic_fibers"
     ],
     "comment": "",
@@ -47679,7 +47689,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:plastic"
+      "material_type:rigid_plastics"
     ],
     "comment": "",
     "displayName": "Plexiglas®",
@@ -47725,7 +47735,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:plastic"
+      "material_type:pp"
     ],
     "comment": "",
     "displayName": "Plastique granulé (divers)",
@@ -47771,7 +47781,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:plastic"
+      "material_type:pp"
     ],
     "comment": "",
     "displayName": "Plastique granulé (PP)",
@@ -47817,7 +47827,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:upholstery"
+      "material_type:pur_foam"
     ],
     "comment": "",
     "displayName": "Mousse rigide (PUR)",
@@ -47863,7 +47873,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:plastic"
+      "material_type:rigid_plastics"
     ],
     "comment": "",
     "displayName": "Plastique granulé (PVC)",
@@ -47909,7 +47919,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:aluminium"
     ],
     "comment": "",
     "displayName": "Thermolaquage (aluminium)",
@@ -47955,7 +47965,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
     "displayName": "Thermolaquage (acier)",
@@ -48780,7 +48790,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
     "displayName": "Acier inoxydable",
@@ -48826,7 +48836,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
     "displayName": "Acier recyclé (faiblement allié, Europe)",
@@ -48871,7 +48881,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
     "displayName": "Acier (faiblement allié)",
@@ -48916,7 +48926,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
     "displayName": "Acier recyclé (faiblement allié, Reste du monde)",
@@ -48961,7 +48971,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
     "displayName": "Acier vierge (non allié, Europe)",
@@ -49007,7 +49017,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
     "displayName": "Acier vierge (non allié, Reste du monde)",
@@ -49053,7 +49063,7 @@
     "baseProduct": null,
     "categories": [
       "material",
-      "material_type:plastic"
+      "material_type:rubber"
     ],
     "comment": "",
     "displayName": "Caoutchouc synthétique",
@@ -49502,7 +49512,7 @@
     "baseProduct": null,
     "categories": [
       "end-of-life",
-      "material_type:plastic"
+      "material_type:rigid_plastics"
     ],
     "comment": "",
     "displayName": "Incinération du plastique",
@@ -49592,7 +49602,7 @@
     "baseProduct": null,
     "categories": [
       "end-of-life",
-      "material_type:upholstery"
+      "material_type:pur_foam"
     ],
     "comment": "",
     "displayName": "Incinération des mousses et rembourrés PUR",
@@ -50264,7 +50274,7 @@
   },
   {
     "activityName": "Bell pepper, organic 2025 {FR}| bell pepper production, in unheated greenhouse | Cut-off, U",
-    "baseProduct": "bell-pepper-green-yellow-or-red",
+    "baseProduct": "bell-pepper",
     "categories": [
       "ingredient",
       "material"
@@ -54629,7 +54639,7 @@
   },
   {
     "activityName": "Melon, organic 2025, national average, at farm gate {FR} U",
-    "baseProduct": "melon-honeydew-charentai-cataloupe-cavaillon",
+    "baseProduct": "melon-all-variety",
     "categories": [
       "ingredient",
       "material"
@@ -56519,7 +56529,7 @@
   },
   {
     "activityName": "Rice, basmati, organic 2025 {IN}| rice production, basmati | Cut-off, U",
-    "baseProduct": "rice-all-variety-white-wild-c-thai-or-basmati-rice-raw-raw",
+    "baseProduct": "rice-all-variety",
     "categories": [
       "ingredient",
       "material"
@@ -60614,7 +60624,7 @@
   },
   {
     "activityName": "Mint, at farm (WFLDB)",
-    "baseProduct": "herb-dill-basil-chervil-rosemary-sage-thyme-fresh",
+    "baseProduct": "herb-fresh-all-variety",
     "categories": [
       "ingredient",
       "material"
@@ -60659,7 +60669,7 @@
   },
   {
     "activityName": "Mint, at farm (WFLDB)",
-    "baseProduct": "herb-marjoram-oregano-savory-thyme-basil-rosemary-sage-dried",
+    "baseProduct": "herb-dried-all-variety",
     "categories": [
       "ingredient",
       "material"
@@ -61874,7 +61884,7 @@
   },
   {
     "activityName": "Vanilla, cured and dried beans, at farm (WFLDB)",
-    "baseProduct": "vanilla-alcoholic-or-aqueou-extract",
+    "baseProduct": "vanilla-extract",
     "categories": [
       "ingredient",
       "material"

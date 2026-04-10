@@ -1,4 +1,4 @@
-name: Variant Hierarchy Check
+name: Ingredient Hierarchy Check
 
 on:
   push:
@@ -13,7 +13,7 @@ env:
   TRANSCRYPT_KEY: ${{ secrets.TRANSCRYPT_KEY }}
 
 jobs:
-  variant_hierarchy:
+  ingredient_hierarchy:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -67,7 +67,7 @@ jobs:
       - name: Build server
         run: npm run server:build
 
-      - name: Run variant hierarchy check
+      - name: Run ingredient hierarchy check
         run: |
           npm run server:start &
 
@@ -80,12 +80,12 @@ jobs:
             sleep 1
           done
 
-          uv run bin/check_variant_hierarchy.py http://localhost:8001
+          uv run bin/check_ingredient_hierarchy.py http://localhost:8001
 
       - name: Upload report and plots
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: variant-hierarchy-report
+          name: ingredient-hierarchy-report
           path: output/
           retention-days: 90

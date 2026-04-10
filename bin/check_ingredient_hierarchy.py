@@ -7,19 +7,19 @@
 #     "requests",
 # ]
 # ///
-"""Check variant impact hierarchy and generate comparison graphs + bookmarks.
+"""Check ingredient impact hierarchy and generate comparison graphs + bookmarks.
 
 For each base food product, verifies that a hierarchy of impacts is respected
-among its variants (organic < fr < eu < non-ue < default), and produces:
-- Stacked bar charts per base product (output/variant_plots/)
+among its ingredients (organic < fr < eu < non-ue < default), and produces:
+- Stacked bar charts per base product (output/ingredient_plots/)
 - Importable bookmark files for the Ecobalyse comparator (output/bookmarks/)
-- A CSV report of hierarchy violations (output/variant_hierarchy_report.csv)
+- A CSV report of hierarchy violations (output/ingredient_hierarchy_report.csv)
 
 Usage:
-    python bin/check_variant_hierarchy.py <API_URL>
+    python bin/check_ingredient_hierarchy.py <API_URL>
 
 Example:
-    python bin/check_variant_hierarchy.py http://localhost:8001
+    python bin/check_ingredient_hierarchy.py http://localhost:8001
 """
 
 import json
@@ -40,10 +40,10 @@ PROJECT_ROOT = pathlib.Path(__file__).parent.parent.resolve()
 INGREDIENTS_PATH = PROJECT_ROOT / "public" / "data" / "food" / "ingredients.json"
 IMPACTS_PATH = PROJECT_ROOT / "public" / "data" / "impacts.json"
 OUTPUT_DIR = PROJECT_ROOT / "output"
-PLOTS_DIR = OUTPUT_DIR / "variant_plots"
+PLOTS_DIR = OUTPUT_DIR / "ingredient_plots"
 BOOKMARKS_DIR = OUTPUT_DIR / "bookmarks"
 
-VARIANT_ORDER = {"organic": 0, "fr": 1, "eu": 2, "non-ue": 3, "default": 4}
+INGREDIENT_ORDER = {"organic": 0, "fr": 1, "eu": 2, "non-ue": 3, "default": 4}
 
 
 # These impacts are = 0 so we exclude them to remove noise from the graph
@@ -205,13 +205,13 @@ def check_hierarchy(by_base, impact_results):
     violations = []
     for base, variants in by_base.items():
         # Only check groups with 2+ known-order variants
-        known = [v for v in variants if v["variant_type"] in VARIANT_ORDER]
+        known = [v for v in variants if v["variant_type"] in INGREDIENT_ORDER]
         if len(known) < 2:
             continue
 
         for v1, v2 in combinations(known, 2):
             t1, t2 = v1["variant_type"], v2["variant_type"]
-            order1, order2 = VARIANT_ORDER[t1], VARIANT_ORDER[t2]
+            order1, order2 = INGREDIENT_ORDER[t1], INGREDIENT_ORDER[t2]
             if order1 == order2:
                 continue
             # Ensure v1 is the one expected to have lower impact
@@ -418,7 +418,7 @@ def write_violation_report(violations):
         return
 
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    report_path = OUTPUT_DIR / "variant_hierarchy_report.csv"
+    report_path = OUTPUT_DIR / "ingredient_hierarchy_report.csv"
     df = pd.DataFrame(violations)
     df.to_csv(report_path, index=False)
     logger.info(f"Wrote {len(violations)} violations to {report_path}")
@@ -430,7 +430,7 @@ def print_summary(by_base, violations, impact_results):
     total_fetched = len(impact_results)
 
     print("\n" + "=" * 60)
-    print("VARIANT HIERARCHY CHECK — SUMMARY")
+    print("INGREDIENT HIERARCHY CHECK — SUMMARY")
     print("=" * 60)
     print(f"Total base products:              {total_bases}")
     print(f"Base products with 2+ variants:   {bases_with_variants}")
@@ -451,7 +451,7 @@ def print_summary(by_base, violations, impact_results):
     print("\nOutputs:")
     print(f"  Plots:     {PLOTS_DIR}/")
     print(f"  Bookmarks: {BOOKMARKS_DIR}/")
-    print(f"  Report:    {OUTPUT_DIR / 'variant_hierarchy_report.csv'}")
+    print(f"  Report:    {OUTPUT_DIR / 'ingredient_hierarchy_report.csv'}")
     print("=" * 60)
 
 

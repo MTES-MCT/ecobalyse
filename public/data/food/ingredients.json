@@ -2167,8 +2167,8 @@
   },
   {
     "activityName": "Rice, non-basmati {CN}| rice production, non-basmati | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "rice-all-variety-white-wild-c-thai-or-basmati-rice-raw-raw-fr",
-    "baseProduct": "rice-all-variety-white-wild-c-thai-or-basmati-rice-raw-raw",
+    "alias": "rice-all-variety-fr",
+    "baseProduct": "rice-all-variety",
     "categories": [
       "grain_raw"
     ],
@@ -2968,8 +2968,8 @@
   },
   {
     "activityName": "Melon, organic 2025, national average, at farm gate {FR} U",
-    "alias": "melon-honeydew-charentai-cataloupe-cavaillon-organic",
-    "baseProduct": "melon-honeydew-charentai-cataloupe-cavaillon",
+    "alias": "melon-all-variety-organic",
+    "baseProduct": "melon-all-variety",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -4297,8 +4297,8 @@
   },
   {
     "activityName": "Rice, basmati, organic 2025 {IN}| rice production, basmati | Cut-off, U",
-    "alias": "rice-all-variety-white-wild-c-thai-or-basmati-rice-raw-raw-organic",
-    "baseProduct": "rice-all-variety-white-wild-c-thai-or-basmati-rice-raw-raw",
+    "alias": "rice-all-variety-organic",
+    "baseProduct": "rice-all-variety",
     "categories": [
       "grain_raw",
       "organic"
@@ -4354,8 +4354,8 @@
   },
   {
     "activityName": "Bell pepper {IN-UP}| bell pepper production, open field | Cut-off, U",
-    "alias": "bell-pepper-green-yellow-or-red-default",
-    "baseProduct": "bell-pepper-green-yellow-or-red",
+    "alias": "bell-pepper-default",
+    "baseProduct": "bell-pepper",
     "categories": [
       "vegetable_fresh"
     ],
@@ -4969,8 +4969,8 @@
   },
   {
     "activityName": "Mint {RoW}| mint production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "herb-marjoram-oregano-savory-thyme-basil-rosemary-sage-dried-fr",
-    "baseProduct": "herb-marjoram-oregano-savory-thyme-basil-rosemary-sage-dried",
+    "alias": "herb-dried-all-variety-fr",
+    "baseProduct": "herb-dried-all-variety",
     "categories": [
       "spice_condiment_additive"
     ],
@@ -5473,8 +5473,8 @@
   },
   {
     "activityName": "Melon, conventional, national average, at farm gate {FR} U",
-    "alias": "melon-honeydew-charentai-cataloupe-cavaillon-fr",
-    "baseProduct": "melon-honeydew-charentai-cataloupe-cavaillon",
+    "alias": "melon-all-variety-fr",
+    "baseProduct": "melon-all-variety",
     "categories": [
       "vegetable_fresh"
     ],
@@ -8656,8 +8656,8 @@
   },
   {
     "activityName": "Vanilla {MG}| vanilla production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "vanilla-alcoholic-or-aqueou-extract-fr-overseas",
-    "baseProduct": "vanilla-alcoholic-or-aqueou-extract",
+    "alias": "vanilla-extract-fr-overseas",
+    "baseProduct": "vanilla-extract",
     "categories": [
       "spice_condiment_additive"
     ],
@@ -9990,8 +9990,8 @@
   },
   {
     "activityName": "Sodium chloride, powder {GLO}| market for | Cut-off, S - Copied from Ecoinvent U",
-    "alias": "sea-salt-celery-salt-or-fleur-de-sel-fr",
-    "baseProduct": "sea-salt-celery-salt-or-fleur-de-sel",
+    "alias": "sea-salt-fr",
+    "baseProduct": "sea-salt",
     "categories": [
       "animal_product"
     ],
@@ -12730,8 +12730,8 @@
   },
   {
     "activityName": "Bell pepper {FR}| bell pepper production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "bell-pepper-green-yellow-or-red-fr",
-    "baseProduct": "bell-pepper-green-yellow-or-red",
+    "alias": "bell-pepper-fr",
+    "baseProduct": "bell-pepper",
     "categories": [
       "vegetable_fresh"
     ],
@@ -12815,8 +12815,8 @@
   },
   {
     "activityName": "Mint, at farm (WFLDB)",
-    "alias": "herb-dill-basil-chervil-rosemary-sage-thyme-fresh-default",
-    "baseProduct": "herb-dill-basil-chervil-rosemary-sage-thyme-fresh",
+    "alias": "herb-fresh-all-variety-default",
+    "baseProduct": "herb-fresh-all-variety",
     "categories": [
       "vegetable_fresh"
     ],
@@ -13042,8 +13042,8 @@
   },
   {
     "activityName": "Melon, under low tunnel, conventional, at farm gate {FR} U",
-    "alias": "melon-honeydew-charentai-cataloupe-cavaillon-default",
-    "baseProduct": "melon-honeydew-charentai-cataloupe-cavaillon",
+    "alias": "melon-all-variety-default",
+    "baseProduct": "melon-all-variety",
     "categories": [
       "vegetable_fresh"
     ],
@@ -13185,8 +13185,8 @@
   },
   {
     "activityName": "Mint, at farm (WFLDB)",
-    "alias": "herb-marjoram-oregano-savory-thyme-basil-rosemary-sage-dried-default",
-    "baseProduct": "herb-marjoram-oregano-savory-thyme-basil-rosemary-sage-dried",
+    "alias": "herb-dried-all-variety-default",
+    "baseProduct": "herb-dried-all-variety",
     "categories": [
       "spice_condiment_additive"
     ],
@@ -15004,8 +15004,8 @@
   },
   {
     "activityName": "Sodium chloride, powder {GLO}| market for | Cut-off, S - Copied from Ecoinvent U",
-    "alias": "sea-salt-celery-salt-or-fleur-de-sel-default",
-    "baseProduct": "sea-salt-celery-salt-or-fleur-de-sel",
+    "alias": "sea-salt-default",
+    "baseProduct": "sea-salt",
     "categories": [
       "animal_product"
     ],
@@ -17189,8 +17189,8 @@
   },
   {
     "activityName": "Bell pepper, organic 2025 {FR}| bell pepper production, in unheated greenhouse | Cut-off, U",
-    "alias": "bell-pepper-green-yellow-or-red-organic",
-    "baseProduct": "bell-pepper-green-yellow-or-red",
+    "alias": "bell-pepper-organic",
+    "baseProduct": "bell-pepper",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -17883,8 +17883,8 @@
   },
   {
     "activityName": "Vanilla, cured and dried beans, at farm (WFLDB)",
-    "alias": "vanilla-alcoholic-or-aqueou-extract-default",
-    "baseProduct": "vanilla-alcoholic-or-aqueou-extract",
+    "alias": "vanilla-extract-default",
+    "baseProduct": "vanilla-extract",
     "categories": [
       "spice_condiment_additive"
     ],
@@ -19154,8 +19154,8 @@
   },
   {
     "activityName": "Rice, basmati {IN}| rice production, basmati | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "rice-all-variety-white-wild-c-thai-or-basmati-rice-raw-raw-default",
-    "baseProduct": "rice-all-variety-white-wild-c-thai-or-basmati-rice-raw-raw",
+    "alias": "rice-all-variety-default",
+    "baseProduct": "rice-all-variety",
     "categories": [
       "grain_raw"
     ],
@@ -22484,8 +22484,8 @@
   },
   {
     "activityName": "Mint {RoW}| mint production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "herb-dill-basil-chervil-rosemary-sage-thyme-fresh-fr",
-    "baseProduct": "herb-dill-basil-chervil-rosemary-sage-thyme-fresh",
+    "alias": "herb-fresh-all-variety-fr",
+    "baseProduct": "herb-fresh-all-variety",
     "categories": [
       "vegetable_fresh"
     ],
