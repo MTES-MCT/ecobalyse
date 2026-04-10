@@ -571,7 +571,7 @@ wheels = [
 
 [[package]]
 name = "emails"
-version = "1.0.2"
+version = "1.1.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "dkimpy" },
@@ -579,9 +579,9 @@ dependencies = [
     { name = "puremagic", version = "2.1.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
     { name = "python-dateutil" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/c6/a1/b8416508d625ecd2badd1dc7b13a1112e7d9762c9370fcbacf3f772e5af0/emails-1.0.2.tar.gz", hash = "sha256:3d73940d8bb295595024bd23f933d27349fb109b0f502299836b74b95360b7dd", size = 31967, upload-time = "2026-04-01T08:50:52.804Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/47/a5/d5472729b4b56d3868776aef9b43b0803048cc53f8999f1a0f1b4d05c360/emails-1.1.1.tar.gz", hash = "sha256:f2ac9d73d84e83d7f1a3924837fa15b59c0bce9bf658ac3b0b80398bc6d8b57d", size = 37160, upload-time = "2026-04-02T17:26:44.807Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/21/64/e8c6800dc6377676ab44186054acd7e56d5c38181d61d5ffaf2912024ad9/emails-1.0.2-py3-none-any.whl", hash = "sha256:622d6b69f5f1a386bcd1df007b726822b0589804a23dbbdb80a2562c2c297ca2", size = 37587, upload-time = "2026-04-01T08:50:51.285Z" },
+    { url = "https://files.pythonhosted.org/packages/32/60/fe7f7e4240446400a1cd3358d38887132e34c1abdfdb457ce5acfd108090/emails-1.1.1-py3-none-any.whl", hash = "sha256:927079dc5c8aec755d017171510c78c0ba56a9f5bf47b0ea82b785f700b43469", size = 42915, upload-time = "2026-04-02T17:26:43.314Z" },
 ]
 
 [[package]]
