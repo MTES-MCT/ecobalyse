@@ -122,7 +122,7 @@
     "electricityProcessId": "2fac57eb-e7e7-5008-94fa-a943010112df",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Brésil",
-    "scopes": ["food", "food2"],
+    "scopes": ["food2"],
     "zone": "South_America"
   },
   {
@@ -284,7 +284,7 @@
     "electricityProcessId": "5756830a-a96c-5303-b6aa-a15cc727daaa",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Etats-Unis",
-    "scopes": ["food", "food2"],
+    "scopes": ["food2"],
     "zone": "North_America"
   },
   {
