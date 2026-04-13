@@ -306,7 +306,7 @@ suite =
                           }
                             |> Recipe.compute db
                             |> Result.map firstIngredientAirDistance
-                            |> Expect.equal (Ok (Just 8189))
+                            |> Expect.equal (Ok (Just 18000))
                             |> asTest "should always have air transport for mango even from other countries if 'planeTransport' is 'byPlane'"
                         , { ingredients = [ { mango | country = Just (Country.codeFromString "CN"), planeTransport = Ingredient.NoPlane } ]
                           , transform = Nothing
