@@ -398,6 +398,7 @@ update rawMsg ({ state } as model) =
                         )
 
                 ( ComponentConfigReceived _ (RemoteData.Failure _), _ ) ->
+                    -- FIXME: log the error to the console, or as details of the error in the UI
                     notifyError model "Erreur" <|
                         "Impossible de charger la configuration des composants. Une configuration par défaut sera"
                             ++ " utilisée, les résultats fournis sont probablement invalides ou incomplets."

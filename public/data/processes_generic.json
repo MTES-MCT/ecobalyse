@@ -37560,7 +37560,52 @@
     "activityName": "This process is not linked to a Brightway activity",
     "categories": [
       "transformation",
-      "material_type:plastic"
+      "material_type:aluminium"
+    ],
+    "comment": "Extrusion, including scrap remelting, Source: Life Cycle Inventory (LCI) data for aluminium production and transformation processes in Europe, European Aluminium, 2025, 2022 data",
+    "displayName": "Extrusion aluminium",
+    "elecMJ": 2.1,
+    "heatMJ": 2.5,
+    "id": "d693bd0d-88d4-4370-81ee-597956bb58f0",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": null,
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Custom",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transformation",
+      "material_type:composites"
     ],
     "comment": "Hao Chen et al., 2025 (median), hyp. 50% electricity 50% heat",
     "displayName": "Fabrication fibre de carbone",
@@ -37819,6 +37864,186 @@
     "metadata": null,
     "scopes": [
       "object"
+    ],
+    "source": "Custom",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transformation",
+      "material_type:ferrous_metals"
+    ],
+    "comment": "Source: BAT Reference Document for the Ferrous Metals Processing Industry, JRC, 2022, average for hot rolling, inclunding reheating and post-heating. Including scrap remelting in EAF (0% waste).",
+    "displayName": "Lamination acier",
+    "elecMJ": 0.3,
+    "heatMJ": 3.0,
+    "id": "ea284007-49a8-4be1-95fc-452ea180285a",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": null,
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Custom",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transformation",
+      "material_type:aluminium"
+    ],
+    "comment": "Sheet production (0.2-6mm), including scrap remelting. Source: Life Cycle Inventory (LCI) data for aluminium production and transformation processes in Europe, European Aluminium, 2025, 2022 data",
+    "displayName": "Lamination aluminium 0.2-6mm",
+    "elecMJ": 2.07,
+    "heatMJ": 2.783,
+    "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": null,
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Custom",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transformation",
+      "material_type:aluminium"
+    ],
+    "comment": "Foil production (<0.2mm), including scrap remelting, Source: Life Cycle Inventory (LCI) data for aluminium production and transformation processes in Europe, European Aluminium, 2025, 2022 data",
+    "displayName": "Lamination aluminium, <0.2mm",
+    "elecMJ": 5.765,
+    "heatMJ": 7.856,
+    "id": "b1022b13-67ca-44c0-a041-4c272f81abf2",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": null,
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Custom",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transformation",
+      "material_type:ferrous_metals"
+    ],
+    "comment": "Source: BAT Reference Document for the Ferrous Metals Processing Industry, JRC, 2022, average for hot rolling, inclunding reheating and post-heating. Including scrap remelting in EAF (0% waste).",
+    "displayName": "Lamination inox",
+    "elecMJ": 0.5,
+    "heatMJ": 4.5,
+    "id": "981e74ea-ef7d-40d1-b25e-c5534446474e",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": null,
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "object",
+      "veli"
     ],
     "source": "Custom",
     "unit": "kg",
@@ -38543,6 +38768,238 @@
   {
     "activityName": "This process is not linked to a Brightway activity",
     "categories": [
+      "transformation",
+      "material_type:ferrous_metals",
+      "material_type:aluminium",
+      "material_type:copper"
+    ],
+    "comment": "Source: BAT Reference Document for the Ferrous Metals Processing Industry, JRC, 2022, average for annealing",
+    "displayName": "Traitement thermique",
+    "elecMJ": 0,
+    "heatMJ": 1.5,
+    "id": "d935e937-35e7-471d-8d78-f5c6c1685adf",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": null,
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Custom",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transformation",
+      "material_type:ferrous_metals",
+      "material_type:aluminium"
+    ],
+    "comment": "Source: BAT Reference Document for the Ferrous Metals Processing Industry, JRC, 2022, steel wire drawing. Energy is assumed as being 50% electricity and 50% heat",
+    "displayName": "Tréfillage de l'acier",
+    "elecMJ": 0.4,
+    "heatMJ": 0.4,
+    "id": "7da5ea9a-8b04-462d-bd02-19ce266dd265",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": null,
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Custom",
+    "unit": "kg",
+    "waste": 0.04
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transformation",
+      "material_type:copper"
+    ],
+    "comment": "Source: Ecoinvent 3.9.1, wire drawing, copper, RER. Only energy and losses are modeled",
+    "displayName": "Tréfillage du cuivre",
+    "elecMJ": 1.6,
+    "heatMJ": 1.48,
+    "id": "d077f06e-4ae9-48b7-8019-64523e577b95",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": null,
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Custom",
+    "unit": "kg",
+    "waste": 0.038
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transformation",
+      "material_type:ferrous_metals",
+      "material_type:aluminium",
+      "material_type:copper"
+    ],
+    "comment": "GREET 2025, Stamping, rounded",
+    "displayName": "Usinage, Emboutissage métaux",
+    "elecMJ": 1.0,
+    "heatMJ": 0,
+    "id": "7319ac9c-5796-412f-a1eb-58e01afa7708",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": null,
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Custom",
+    "unit": "kg",
+    "waste": 0.3
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transformation",
+      "material_type:ferrous_metals",
+      "material_type:aluminium",
+      "material_type:copper"
+    ],
+    "comment": "GREET 2025, Stamping, rounded",
+    "displayName": "Usinage, Emboutissage métaux [ne plus utiliser]",
+    "elecMJ": 1.0,
+    "heatMJ": 0,
+    "id": "4c1b77b1-4e4b-4fdd-a392-eea0b8764b6b",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": null,
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Custom",
+    "unit": "kg",
+    "waste": 0.3
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
       "distribution"
     ],
     "comment": "Somme des consommations électriques pour la phase de vente au détail tel que définit dans la méthode Agribalyse 3.0, rapport vf2, tableau 35. L’impact de l’utilisation de l’eau et des émissions de R404a n’est pas intégré. Voir https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/etapes-du-cycles-de-vie/vente-au-detail",
@@ -38670,20 +39127,20 @@
     "waste": 0
   },
   {
-    "activityName": "Aluminium extrusion",
+    "activityName": "Aluminium+LDPE panel, RER",
     "categories": [
-      "transformation",
-      "material_type:metal"
+      "material",
+      "material_type:composites"
     ],
-    "comment": "",
-    "displayName": "Extrusion (aluminium)",
+    "comment": "2.9kg/m² panel ; 2*0.3mm (1.62kg/m²) Aluminium + 1.29kg/m² LDPE. Source: 3A Composites GmbH)",
+    "displayName": "Panneau Aluminium+PEBD 2mm",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "d693bd0d-88d4-4370-81ee-597956bb58f0",
+    "id": "b801de8a-9987-4d09-9363-08b8e713c685",
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 44.464,
+      "ecs": 377.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -38703,7 +39160,7 @@
       "wtu": 0
     },
     "landOccupation": null,
-    "location": "RER",
+    "location": null,
     "massPerUnit": null,
     "metadata": null,
     "scopes": [
@@ -38712,97 +39169,7 @@
     ],
     "source": "Ecobalyse",
     "unit": "kg",
-    "waste": 0.013
-  },
-  {
-    "activityName": "Aluminium sheeet rolling",
-    "categories": [
-      "transformation",
-      "material_type:metal"
-    ],
-    "comment": "",
-    "displayName": "Lamination (aluminium)",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 21.539,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "landOccupation": null,
-    "location": "RER",
-    "massPerUnit": null,
-    "metadata": null,
-    "scopes": [
-      "object",
-      "veli"
-    ],
-    "source": "Ecobalyse",
-    "unit": "kg",
-    "waste": 0.012
-  },
-  {
-    "activityName": "Aluminium working, average",
-    "categories": [
-      "transformation",
-      "material_type:metal"
-    ],
-    "comment": "découpes, cintrages, traitements thermiques, soudures",
-    "displayName": "Transformation finale (aluminium)",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "d935e937-35e7-471d-8d78-f5c6c1685adf",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 84.519,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "landOccupation": null,
-    "location": "RER",
-    "massPerUnit": null,
-    "metadata": null,
-    "scopes": [
-      "object",
-      "veli"
-    ],
-    "source": "Ecobalyse",
-    "unit": "kg",
-    "waste": 0.227
+    "waste": 0
   },
   {
     "activityName": "Bacon, back, at plant {{bacon-default-2025}}",
@@ -40964,7 +41331,7 @@
     "activityName": "aluminium ingot, market, RER",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:aluminium"
     ],
     "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
     "displayName": "Aluminium mix marché, Europe",
@@ -41008,7 +41375,7 @@
     "activityName": "aluminium ingot, market, RoW",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:aluminium"
     ],
     "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
     "displayName": "Aluminium mix marché, hors Europe et Chine",
@@ -41052,7 +41419,7 @@
     "activityName": "aluminium ingot, recycled, IN, CFF",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:aluminium"
     ],
     "comment": "Matériau 100% issu du recyclage, calculé selon la règle CFF (A=0.8, Q=1)",
     "displayName": "Aluminium recyclé (Inde), CFF",
@@ -41097,7 +41464,7 @@
     "activityName": "aluminium ingot, recycled, RER, CFF",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:aluminium"
     ],
     "comment": "Matériau 100% issu du recyclage, calculé selon la règle CFF (A=0.8, Q=1)",
     "displayName": "Aluminium recyclé (Europe), CFF",
@@ -41142,7 +41509,7 @@
     "activityName": "aluminium ingot, recycled, RoW, CFF",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:aluminium"
     ],
     "comment": "Matériau 100% issu du recyclage, calculé selon la règle CFF (A=0.8, Q=1)",
     "displayName": "Aluminium recyclé (Reste du monde), CFF",
@@ -41187,7 +41554,7 @@
     "activityName": "aluminium ingot, virgin, market, CN",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:aluminium"
     ],
     "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
     "displayName": "Aluminium mix marché, Chine",
@@ -41231,7 +41598,7 @@
     "activityName": "aluminium ingot, virgin, market, IN",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:aluminium"
     ],
     "comment": "",
     "displayName": "Aluminium vierge mix marché, Inde",
@@ -41275,7 +41642,7 @@
     "activityName": "aluminium ingot, virgin, market, RER",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:aluminium"
     ],
     "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
     "displayName": "Aluminium vierge mix marché, Europe",
@@ -41319,7 +41686,7 @@
     "activityName": "aluminium ingot, virgin, market, RoW",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:aluminium"
     ],
     "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
     "displayName": "Aluminium vierge mix marché, hors Europe et Inde",
@@ -41362,10 +41729,11 @@
   {
     "activityName": "cardboard EoL recycling, RER, CFF",
     "categories": [
-      "end-of-life"
+      "end-of-life",
+      "material_type:containerboard"
     ],
-    "comment": "According to CFF: A=0.2, Q=1",
-    "displayName": "Recyclage du carton, CFF",
+    "comment": "",
+    "displayName": "Recyclage du carton",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "2a63e533-3e2d-4da3-b9d0-889e423f4976",
@@ -41402,96 +41770,6 @@
     "source": "Ecobalyse",
     "unit": "kg",
     "waste": 0
-  },
-  {
-    "activityName": "chromium steel sheet rolling",
-    "categories": [
-      "transformation",
-      "material_type:metal"
-    ],
-    "comment": "",
-    "displayName": "Lamination (inox)",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "981e74ea-ef7d-40d1-b25e-c5534446474e",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 33.167,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "landOccupation": null,
-    "location": "RER",
-    "massPerUnit": null,
-    "metadata": null,
-    "scopes": [
-      "object",
-      "veli"
-    ],
-    "source": "Ecobalyse",
-    "unit": "kg",
-    "waste": 0.051
-  },
-  {
-    "activityName": "chromium steel working",
-    "categories": [
-      "transformation",
-      "material_type:metal"
-    ],
-    "comment": "découpes, cintrages, traitements thermiques, soudures",
-    "displayName": "Transformation finale (inox)",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "7319ac9c-5796-412f-a1eb-58e01afa7708",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 84.519,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "landOccupation": null,
-    "location": "RER",
-    "massPerUnit": null,
-    "metadata": null,
-    "scopes": [
-      "object",
-      "veli"
-    ],
-    "source": "Ecobalyse",
-    "unit": "kg",
-    "waste": 0.0227
   },
   {
     "activityName": "copper EoL recycling, RER, CFF",
@@ -41935,7 +42213,7 @@
     "activityName": "polyethylene terephthalate, granulate, amorphous, recycled, GLO, CFF",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:pet"
     ],
     "comment": "Matériau 100% issu du recyclage, calculé selon la règle CFF (A=0.8, Q=1)",
     "displayName": "PET recyclé (Reste du monde), CFF",
@@ -42065,100 +42343,10 @@
     "waste": 0
   },
   {
-    "activityName": "steel sheet rolling",
-    "categories": [
-      "transformation",
-      "material_type:metal"
-    ],
-    "comment": "",
-    "displayName": "Extrusion ou lamination (acier)",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "ea284007-49a8-4be1-95fc-452ea180285a",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 13.317,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "landOccupation": null,
-    "location": "RER",
-    "massPerUnit": null,
-    "metadata": null,
-    "scopes": [
-      "object",
-      "veli"
-    ],
-    "source": "Ecobalyse",
-    "unit": "kg",
-    "waste": 0.085
-  },
-  {
-    "activityName": "steel working",
-    "categories": [
-      "transformation",
-      "material_type:metal"
-    ],
-    "comment": "découpes, cintrages, traitements thermiques, soudures",
-    "displayName": "Transformation finale (acier)",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "4c1b77b1-4e4b-4fdd-a392-eea0b8764b6b",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 84.519,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "landOccupation": null,
-    "location": "RER",
-    "massPerUnit": null,
-    "metadata": null,
-    "scopes": [
-      "object",
-      "veli"
-    ],
-    "source": "Ecobalyse",
-    "unit": "kg",
-    "waste": 0.227
-  },
-  {
     "activityName": "steel, low-alloyed, market, CN",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
     "displayName": "Acier mix marché (Reste du monde)",
@@ -42202,7 +42390,7 @@
     "activityName": "steel, low-alloyed, market, FR",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
     "displayName": "Acier mix marché (Europe)",
@@ -42246,7 +42434,7 @@
     "activityName": "steel, low-alloyed, recycled, RER, CFF",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "Matériau 100% issu du recyclage, calculé selon la règle CFF (A=0.8, Q=1)",
     "displayName": "Acier recyclé (Europe), CFF",
@@ -42291,7 +42479,7 @@
     "activityName": "steel, low-alloyed, recycled, RoW, CFF",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "Matériau 100% issu du recyclage, calculé selon la règle CFF (A=0.8, Q=1)",
     "displayName": "Acier recyclé (Reste du monde), CFF",
@@ -42467,6 +42655,51 @@
     "waste": 0
   },
   {
+    "activityName": "zinc coating, adapted from Ecoinvent",
+    "categories": [
+      "transformation",
+      "material_type:ferrous_metals"
+    ],
+    "comment": "50µm Zn, 2mm Fe (62.5m²/t Fe). Adapted from 'zinc coating, pieces, RER', Ecoinvent (65µm Zn).",
+    "displayName": "Galvanization de l'acier",
+    "elecMJ": 0.06,
+    "heatMJ": 1.22,
+    "id": "1011f3e6-cc7c-4683-89c5-fe48fb59a6a8",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 130.59,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": null,
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "Avocado {GLO}| avocado production | Cut-off, U",
     "categories": [
       "ingredient",
@@ -42514,7 +42747,7 @@
     "activityName": "Battery cell, Li-ion, NMC811 {CN}| battery cell production, Li-ion, NMC811 | Cut-off, U",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:battery_cell"
     ],
     "comment": "densité energétique : 6.7 kWh/kg",
     "displayName": "Batterie Li-ion (NMC811)",
@@ -42558,7 +42791,7 @@
     "activityName": "Battery, Li-ion, LFP, rechargeable {CN}| battery production, Li-ion, LFP, rechargeable | Cut-off, U",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:battery_cell"
     ],
     "comment": "densité energétique : 8.6 kWh/kg",
     "displayName": "Batterie Li-ion (LFP)",
@@ -42602,7 +42835,7 @@
     "activityName": "Battery, Li-ion, NCA, rechargeable {CN}| battery production, Li-ion, NCA, rechargeable | Cut-off, U",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:battery_cell"
     ],
     "comment": "densité energétique : 6.3 kWh/kg",
     "displayName": "Batterie Li-ion (Autres)",
@@ -42646,7 +42879,7 @@
     "activityName": "Battery, lead acid, rechargeable, stationary {RoW}| battery production, lead acid, rechargeable, stationary | Cut-off, U",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:battery_cell"
     ],
     "comment": "densité energétique : 33.3 kWh/kg",
     "displayName": "Batterie Plomb",
@@ -44142,7 +44375,7 @@
     "activityName": "acrylonitrile-butadiene-styrene copolymer//[GLO] market for acrylonitrile-butadiene-styrene copolymer",
     "categories": [
       "material",
-      "material_type:plastic"
+      "material_type:rigid_plastics"
     ],
     "comment": "",
     "displayName": "Plastique rigide (ABS)",
@@ -44187,7 +44420,7 @@
     "activityName": "aluminium, cast alloy//[RER] treatment of aluminium scrap, post-consumer, prepared for recycling, at refiner",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:aluminium"
     ],
     "comment": "",
     "displayName": "Aluminium recyclé",
@@ -44231,7 +44464,7 @@
     "activityName": "brass//[RoW] market for brass",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:copper"
     ],
     "comment": "",
     "displayName": "Laiton",
@@ -44319,7 +44552,8 @@
     "activityName": "chemical, organic//[GLO] market for chemical, organic",
     "categories": [
       "material",
-      "material_type:plastic"
+      "material_type:composites",
+      "material_type:rubber"
     ],
     "comment": "",
     "displayName": "Composé organique",
@@ -44449,10 +44683,55 @@
     "waste": 0
   },
   {
+    "activityName": "copper, cathode//[GLO] market for copper, cathode",
+    "categories": [
+      "material",
+      "material_type:copper"
+    ],
+    "comment": "",
+    "displayName": "Cuivre",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 9324.9,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "GLO",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Ecoinvent 3.9.1",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "corrugated board box//[RER] corrugated board box production",
     "categories": [
       "material",
-      "material_type:other"
+      "material_type:containerboard"
     ],
     "comment": "",
     "displayName": "Carton ondulé",
@@ -44497,7 +44776,7 @@
     "activityName": "electric motor, electric passenger car//[GLO] electric motor production, vehicle (electric powertrain)",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
     "displayName": "Moteur électrique",
@@ -45856,7 +46135,7 @@
     "activityName": "electronic component, passive, unspecified//[GLO] market for electronic component, passive, unspecified",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:pwb"
     ],
     "comment": "",
     "displayName": "Composants électroniques",
@@ -45945,7 +46224,11 @@
     "activityName": "extrusion of plastic sheets and thermoforming, inline//[GLO] market for extrusion of plastic sheets and thermoforming, inline",
     "categories": [
       "transformation",
-      "material_type:plastic"
+      "material_type:pet",
+      "material_type:pp",
+      "material_type:hdpe",
+      "material_type:ldpe",
+      "material_type:rigid_plastics"
     ],
     "comment": "",
     "displayName": "Extrusion + thermoformage (plastique)",
@@ -46034,7 +46317,8 @@
   {
     "activityName": "flat glass, uncoated//[RER] flat glass production, uncoated",
     "categories": [
-      "material"
+      "material",
+      "material_type:glass"
     ],
     "comment": "",
     "displayName": "Verre plat",
@@ -46079,7 +46363,11 @@
     "activityName": "injection moulding//[RER] injection moulding",
     "categories": [
       "transformation",
-      "material_type:plastic"
+      "material_type:pet",
+      "material_type:pp",
+      "material_type:hdpe",
+      "material_type:ldpe",
+      "material_type:rigid_plastics"
     ],
     "comment": "",
     "displayName": "Moulage par injection",
@@ -46124,7 +46412,7 @@
     "activityName": "internal combustion engine, passenger car//[GLO] internal combustion engine production, passenger car",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
     "displayName": "Moteur thermique (MCI)",
@@ -46213,10 +46501,10 @@
     "activityName": "metal working, average for metal product manufacturing//[RER] metal working, average for metal product manufacturing",
     "categories": [
       "transformation",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
-    "displayName": "Transformation métallique (moyenne)",
+    "displayName": "Transformation métallique (moyenne) - ne plus utiliser",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "79b9ffbb-784e-4919-8682-1b55cd095688",
@@ -46346,7 +46634,7 @@
     "activityName": "packaging film, low density polyethylene//[RER] packaging film production, low density polyethylene",
     "categories": [
       "material",
-      "material_type:plastic"
+      "material_type:ldpe"
     ],
     "comment": "",
     "displayName": "Film plastique",
@@ -46481,7 +46769,7 @@
     "activityName": "polycarbonate//[RER] polycarbonate production",
     "categories": [
       "material",
-      "material_type:plastic"
+      "material_type:rigid_plastics"
     ],
     "comment": "",
     "displayName": "Plastique rigide (PC)",
@@ -46526,7 +46814,7 @@
     "activityName": "polyethylene terephthalate, granulate, amorphous//[GLO] market for polyethylene terephthalate, granulate, amorphous",
     "categories": [
       "material",
-      "material_type:plastic",
+      "material_type:pet",
       "material_type:synthetic_fibers"
     ],
     "comment": "",
@@ -46617,7 +46905,7 @@
     "activityName": "polymethyl methacrylate, sheet//[RER] polymethyl methacrylate production, sheet",
     "categories": [
       "material",
-      "material_type:plastic"
+      "material_type:rigid_plastics"
     ],
     "comment": "",
     "displayName": "Plexiglas®",
@@ -46662,7 +46950,7 @@
     "activityName": "polypropylene, granulate//[GLO] market for polypropylene, granulate",
     "categories": [
       "material",
-      "material_type:plastic"
+      "material_type:pp"
     ],
     "comment": "",
     "displayName": "Plastique granulé (divers)",
@@ -46707,7 +46995,7 @@
     "activityName": "polypropylene, granulate//[RER] polypropylene production, granulate",
     "categories": [
       "material",
-      "material_type:plastic"
+      "material_type:pp"
     ],
     "comment": "",
     "displayName": "Plastique granulé (PP)",
@@ -46752,7 +47040,7 @@
     "activityName": "polyurethane, rigid foam//[RER] polyurethane production, rigid foam",
     "categories": [
       "material",
-      "material_type:upholstery"
+      "material_type:pur_foam"
     ],
     "comment": "",
     "displayName": "Mousse rigide (PUR)",
@@ -46797,7 +47085,7 @@
     "activityName": "polyvinylchloride, suspension polymerised//[GLO] market for polyvinylchloride, suspension polymerised",
     "categories": [
       "material",
-      "material_type:plastic"
+      "material_type:rigid_plastics"
     ],
     "comment": "",
     "displayName": "Plastique granulé (PVC)",
@@ -46842,7 +47130,7 @@
     "activityName": "powder coat, aluminium sheet//[RER] powder coating, aluminium sheet",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:aluminium"
     ],
     "comment": "",
     "displayName": "Thermolaquage (aluminium)",
@@ -46887,7 +47175,7 @@
     "activityName": "powder coat, steel//[RER] powder coating, steel",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
     "displayName": "Thermolaquage (acier)",
@@ -47695,7 +47983,7 @@
     "activityName": "steel, chromium steel 18/8//[GLO] market for steel, chromium steel 18/8",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
     "displayName": "Acier inoxydable",
@@ -47740,7 +48028,7 @@
     "activityName": "steel, low-alloyed//[Europe without Switzerland and Austria] steel production, electric, low-alloyed",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
     "displayName": "Acier recyclé (faiblement allié, Europe)",
@@ -47784,7 +48072,7 @@
     "activityName": "steel, low-alloyed//[GLO] market for steel, low-alloyed",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
     "displayName": "Acier (faiblement allié)",
@@ -47828,7 +48116,7 @@
     "activityName": "steel, low-alloyed//[RoW] steel production, electric, low-alloyed",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
     "displayName": "Acier recyclé (faiblement allié, Reste du monde)",
@@ -47872,7 +48160,7 @@
     "activityName": "steel, unalloyed//[RER] steel production, converter, unalloyed",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
     "displayName": "Acier vierge (non allié, Europe)",
@@ -47917,7 +48205,7 @@
     "activityName": "steel, unalloyed//[RoW] steel production, converter, unalloyed",
     "categories": [
       "material",
-      "material_type:metal"
+      "material_type:ferrous_metals"
     ],
     "comment": "",
     "displayName": "Acier vierge (non allié, Reste du monde)",
@@ -47962,7 +48250,7 @@
     "activityName": "synthetic rubber//[RER] synthetic rubber production",
     "categories": [
       "material",
-      "material_type:plastic"
+      "material_type:rubber"
     ],
     "comment": "",
     "displayName": "Caoutchouc synthétique",
@@ -48401,7 +48689,7 @@
     "activityName": "waste plastic, mixture//[CH] treatment of waste plastic, mixture, municipal incineration",
     "categories": [
       "end-of-life",
-      "material_type:plastic"
+      "material_type:rigid_plastics"
     ],
     "comment": "",
     "displayName": "Incinération du plastique",
@@ -48489,7 +48777,7 @@
     "activityName": "waste polyurethane//[CH] treatment of waste polyurethane, municipal incineration",
     "categories": [
       "end-of-life",
-      "material_type:upholstery"
+      "material_type:pur_foam"
     ],
     "comment": "",
     "displayName": "Incinération des mousses et rembourrés PUR",
