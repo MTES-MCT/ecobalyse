@@ -39129,7 +39129,7 @@
   {
     "activityName": "Aluminium+LDPE panel, RER",
     "categories": [
-      "transformation",
+      "material",
       "material_type:composites"
     ],
     "comment": "2.9kg/m² panel ; 2*0.3mm (1.62kg/m²) Aluminium + 1.29kg/m² LDPE. Source: 3A Composites GmbH)",
@@ -46506,7 +46506,7 @@
       "material_type:ferrous_metals"
     ],
     "comment": "",
-    "displayName": "Transformation métallique (moyenne)",
+    "displayName": "Transformation métallique (moyenne) - ne plus utiliser",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "79b9ffbb-784e-4919-8682-1b55cd095688",
