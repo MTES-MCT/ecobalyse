@@ -658,7 +658,6 @@ describe("API", () => {
           });
           expectStatus(response, 200);
 
-          console.log(response.body.results.total);
           // Add tolerance check for impacts
           Object.entries(impacts).forEach(([key, value]) => {
             expect(response.body.results.total[key]).toBeCloseTo(value, 12);
