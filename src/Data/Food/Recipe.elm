@@ -367,30 +367,26 @@ applyHarcodedDistancesForIngredient code planeTransport defaultOrigin =
             else
                 Split.zero
     in
-    if defaultCountry == code then
+    -- Force by plane ratio here if origin is out of europe maghreb by plane
+    -- See https://github.com/MTES-MCT/ecobalyse/issues/1998
+    if defaultCountry == code || defaultOrigin == Origin.OutOfEuropeAndMaghrebByPlane || defaultOrigin == Origin.OutOfEuropeAndMaghreb then
         let
             default =
                 Transport.default Impact.empty
         in
-        -- Force by plane ratio here if origin is out of europe maghreb by plane
-        -- See https://github.com/MTES-MCT/ecobalyse/issues/1998
-        if defaultOrigin == Origin.OutOfEuropeAndMaghrebByPlane || defaultOrigin == Origin.OutOfEuropeAndMaghreb then
-            \_ ->
-                { default
-                    | air =
-                        Length.kilometers
-                            (if planeTransport == Ingredient.ByPlane then
-                                18000
+        \_ ->
+            { default
+                | air =
+                    Length.kilometers
+                        (if planeTransport == Ingredient.ByPlane then
+                            18000
 
-                             else
-                                0
-                            )
-                    , road = Length.kilometers 2500
-                    , sea = Length.kilometers 18000
-                }
-
-        else
-            Transport.applyTransportRatios planeRatio
+                         else
+                            0
+                        )
+                , road = Length.kilometers 2500
+                , sea = Length.kilometers 18000
+            }
 
     else
         --
