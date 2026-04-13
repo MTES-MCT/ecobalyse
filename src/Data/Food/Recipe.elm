@@ -374,7 +374,7 @@ applyHarcodedDistancesForIngredient code planeTransport defaultOrigin =
         in
         -- Force by plane ratio here if origin is out of europe maghreb by plane
         -- See https://github.com/MTES-MCT/ecobalyse/issues/1998
-        if defaultOrigin == Origin.OutOfEuropeAndMaghrebByPlane then
+        if defaultOrigin == Origin.OutOfEuropeAndMaghrebByPlane || defaultOrigin == Origin.OutOfEuropeAndMaghreb then
             \_ ->
                 { default
                     | air =
