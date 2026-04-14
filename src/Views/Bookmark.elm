@@ -50,19 +50,32 @@ type alias ManagerConfig msg =
 
 
 type ActiveTab
-    = ContributeTab
+    = ContributeExampleTab
     | SaveTab
     | ShareTab
 
 
 view : ManagerConfig msg -> Html msg
 view cfg =
+    let
+        baseTabs =
+            [ ( SaveTab, text "Sauvegarder" )
+            , ( ShareTab, text "Partager" )
+            ]
+
+        tabs =
+            if Scope.isGeneric cfg.scope then
+                baseTabs ++ [ ( ContributeExampleTab, text "Contribuer" ) ]
+
+            else
+                baseTabs
+    in
     CardTabs.view
         { attrs = []
         , content =
             [ case cfg.activeTab of
-                ContributeTab ->
-                    contributeTabView cfg
+                ContributeExampleTab ->
+                    contributeExampleTabView cfg
 
                 SaveTab ->
                     managerView cfg
@@ -71,10 +84,7 @@ view cfg =
                     shareTabView cfg
             ]
         , tabs =
-            [ ( SaveTab, text "Sauvegarder" )
-            , ( ShareTab, text "Partager" )
-            , ( ContributeTab, text "Contribuer" )
-            ]
+            tabs
                 |> List.map
                     (\( tab, label ) ->
                         { active = cfg.activeTab == tab
@@ -425,8 +435,8 @@ bookmarkView cfg ({ name, query } as bookmark) =
         ]
 
 
-contributeTabView : ManagerConfig msg -> Html msg
-contributeTabView ({ scope, session } as config) =
+contributeExampleTabView : ManagerConfig msg -> Html msg
+contributeExampleTabView ({ scope, session } as config) =
     let
         isAuthenticated =
             Session.isAuthenticated session
