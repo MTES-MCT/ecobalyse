@@ -175,7 +175,9 @@
               {
                 "amount": 0.2,
                 "material": "ac028973-5dfa-47bc-868c-e49be116f53e",
-                "transforms": ["4c1b77b1-4e4b-4fdd-a392-eea0b8764b6b"]
+                "transforms": [
+                  "4c1b77b1-4e4b-4fdd-a392-eea0b8764b6b"
+                ]
               }
             ],
             "name": "Charnières en acier"
@@ -205,6 +207,31 @@
         }
       ],
       "durability": 1
+    },
+    "scope": "object"
+  },
+  {
+    "category": "",
+    "id": "60fd75b9-93c5-45f3-9d76-de0cf3647ea9",
+    "name": "test ajout reviewers",
+    "query": {
+      "components": [
+        {
+          "custom": {
+            "elements": [
+              {
+                "amount": 1,
+                "material": "e851186c-ee0c-4de2-b96e-49bc2409184c",
+                "transforms": [
+                  "baf8cc1a-767e-452d-b86e-e9399a99cb55"
+                ]
+              }
+            ],
+            "name": "Nouveau composant"
+          },
+          "quantity": 1
+        }
+      ]
     },
     "scope": "object"
   }
