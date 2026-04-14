@@ -8,6 +8,7 @@ import Data.Component as Component
 import Data.Scope as Scope exposing (Scope)
 import Data.Session exposing (Session)
 import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Pipeline as Decode
 import Json.Encode as Encode
 import Request.BackendHttp as BackendHttp exposing (WebData)
 
@@ -41,9 +42,9 @@ createExampleContrib session contribData event =
 
 decodeExampleContribResponse : Decoder ExampleContribResponse
 decodeExampleContribResponse =
-    Decode.map2 ExampleContribResponse
-        (Decode.field "branchName" Decode.string)
-        (Decode.field "pullRequestUrl" Decode.string)
+    Decode.succeed ExampleContribResponse
+        |> Decode.required "branchName" Decode.string
+        |> Decode.required "pullRequestUrl" Decode.string
 
 
 encodeExampleContribData : ExampleContribData -> Encode.Value
