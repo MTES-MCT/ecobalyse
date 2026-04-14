@@ -67,7 +67,7 @@
     "helmet": "^8.1.0",
     "js-yaml": "^4.1.1",
     "piwik": "^1.0.10",
-    "posthog-js": "^1.364.6",
+    "posthog-js": "^1.365.0",
     "posthog-node": "^5.28.11"
   },
   "devDependencies": {
