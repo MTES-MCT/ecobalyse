@@ -2,8 +2,10 @@ from __future__ import annotations
 
 import base64
 import json
+import os
 from uuid import uuid4
 
+import structlog
 from app.config.base import GithubSettings
 from app.db import models as m
 from app.domain.contrib.schemas import (
@@ -14,33 +16,37 @@ from app.domain.contrib.schemas import (
 from httpx import AsyncClient
 from litestar.exceptions import ValidationException
 
-SCOPED_EXAMPLES_PATH = {
-    GenericScope.FOOD2: "public/data/food2/examples.json",
-    GenericScope.OBJECT: "public/data/object/examples.json",
-    GenericScope.VELI: "public/data/veli/examples.json",
-}
+logger = structlog.get_logger()
 
 
 def get_examples_path(scope: GenericScope) -> str:
-    return SCOPED_EXAMPLES_PATH[scope]
+    return f"public/data/{scope.value}/examples.json"
 
 
 def get_github_api_url(repo: str, path: str) -> str:
     return f"https://api.github.com/repos/{repo}/{path}"
 
 
-def clean_str(s: str) -> str:
-    return (s or "").strip()
+def clean_str(s: str, fallback: str = "") -> str:
+    return (s or fallback).strip()
 
 
-def get_user_full_name(user: m.User) -> str:
-    first_name = clean_str(user.profile.first_name)
-    last_name = clean_str(user.profile.last_name)
-    full_name = clean_str(" ".join([first_name, last_name]))
-    if full_name:
-        return full_name
+def get_scope_reviewers(scope: GenericScope) -> list[str]:
+    reviewers = os.getenv(f"CONTRIB_REVIEWERS_{scope.value.upper()}", "")
+    if reviewers:
+        return [
+            reviewer.lstrip("@")
+            for reviewer in (candidate.strip() for candidate in reviewers.split(","))
+            if reviewer
+        ]
     else:
-        return "Anonyme"
+        return []
+
+
+def get_user_full_name(profile: m.UserProfile) -> str:
+    first_name = clean_str(profile.first_name)
+    last_name = clean_str(profile.last_name)
+    return clean_str(" ".join([first_name, last_name]), "Anonyme")
 
 
 def format_json_string(json_string: str) -> str:
@@ -58,7 +64,7 @@ def format_json_string(json_string: str) -> str:
 def format_example_contrib_pr(data: ExampleContribCreate, user: m.User) -> str:
     org_name = clean_str(user.profile.organization_name)
     query_as_string = format_json_string(json.dumps(data.query))
-    user_full_name = get_user_full_name(user)
+    user_full_name = get_user_full_name(user.profile)
     org_info = org_name if org_name else "Non renseignée"
     return "\n".join(
         [
@@ -130,6 +136,7 @@ async def create_example_contrib_pr(
     pull_request_title = f"feat({data.scope.value}): add “{name}” example"
     pull_request_body = format_example_contrib_pr(data, user)
     commit_message = pull_request_title
+    reviewers = get_scope_reviewers(data.scope)
 
     async with AsyncClient(timeout=10) as client:
         base_ref = await github_request(
@@ -202,6 +209,20 @@ async def create_example_contrib_pr(
                 "body": pull_request_body,
             },
         )
+        if reviewers and pull_request["number"]:
+            try:
+                await github_request(
+                    client,
+                    github_settings,
+                    "POST",
+                    f"pulls/{pull_request['number']}/requested_reviewers",
+                    json_body={"reviewers": reviewers},
+                )
+            except ValidationException:
+                await logger.awarn(
+                    f"Failed to assign reviewers for PR #{pull_request['number']} ({data.scope.value}: {reviewers})",
+                    exc_info=True,
+                )
 
     return ExampleContribResponse(
         branch_name=branch_name, pull_request_url=pull_request["html_url"]
