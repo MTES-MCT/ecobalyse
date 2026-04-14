@@ -14,33 +14,23 @@ from app.domain.contrib.schemas import (
 from httpx import AsyncClient
 from litestar.exceptions import ValidationException
 
-SCOPED_EXAMPLES_PATH = {
-    GenericScope.FOOD2: "public/data/food2/examples.json",
-    GenericScope.OBJECT: "public/data/object/examples.json",
-    GenericScope.VELI: "public/data/veli/examples.json",
-}
-
 
 def get_examples_path(scope: GenericScope) -> str:
-    return SCOPED_EXAMPLES_PATH[scope]
+    return f"public/data/{scope.value}/examples.json"
 
 
 def get_github_api_url(repo: str, path: str) -> str:
     return f"https://api.github.com/repos/{repo}/{path}"
 
 
-def clean_str(s: str) -> str:
-    return (s or "").strip()
+def clean_str(s: str, fallback: str = "") -> str:
+    return (s or fallback).strip()
 
 
 def get_user_full_name(user: m.User) -> str:
     first_name = clean_str(user.profile.first_name)
     last_name = clean_str(user.profile.last_name)
-    full_name = clean_str(" ".join([first_name, last_name]))
-    if full_name:
-        return full_name
-    else:
-        return "Anonyme"
+    return clean_str(" ".join([first_name, last_name]), "Anonyme")
 
 
 def format_json_string(json_string: str) -> str:
