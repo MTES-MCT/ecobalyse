@@ -4,6 +4,7 @@ import base64
 import json
 from uuid import uuid4
 
+import structlog
 from app.config.base import GithubSettings
 from app.db import models as m
 from app.domain.contrib.schemas import (
@@ -13,6 +14,8 @@ from app.domain.contrib.schemas import (
 )
 from httpx import AsyncClient
 from litestar.exceptions import ValidationException
+
+logger = structlog.get_logger()
 
 
 def get_examples_path(scope: GenericScope) -> str:
@@ -27,9 +30,9 @@ def clean_str(s: str, fallback: str = "") -> str:
     return (s or fallback).strip()
 
 
-def get_user_full_name(user: m.User) -> str:
-    first_name = clean_str(user.profile.first_name)
-    last_name = clean_str(user.profile.last_name)
+def get_user_full_name(profile: m.UserProfile) -> str:
+    first_name = clean_str(profile.first_name)
+    last_name = clean_str(profile.last_name)
     return clean_str(" ".join([first_name, last_name]), "Anonyme")
 
 
@@ -48,7 +51,7 @@ def format_json_string(json_string: str) -> str:
 def format_example_contrib_pr(data: ExampleContribCreate, user: m.User) -> str:
     org_name = clean_str(user.profile.organization_name)
     query_as_string = format_json_string(json.dumps(data.query))
-    user_full_name = get_user_full_name(user)
+    user_full_name = get_user_full_name(user.profile)
     org_info = org_name if org_name else "Non renseignée"
     return "\n".join(
         [
@@ -191,6 +194,15 @@ async def create_example_contrib_pr(
                 "base": github_settings.BASE_BRANCH,
                 "body": pull_request_body,
             },
+        )
+
+        # assign reviewing team
+        await github_request(
+            client,
+            github_settings,
+            "POST",
+            f"pulls/{pull_request['number']}/requested_reviewers",
+            json_body={"team_reviewers": ["ecobalyse-contrib-reviewers"]},
         )
 
     return ExampleContribResponse(
