@@ -175,7 +175,9 @@
               {
                 "amount": 0.2,
                 "material": "ac028973-5dfa-47bc-868c-e49be116f53e",
-                "transforms": ["4c1b77b1-4e4b-4fdd-a392-eea0b8764b6b"]
+                "transforms": [
+                  "4c1b77b1-4e4b-4fdd-a392-eea0b8764b6b"
+                ]
               }
             ],
             "name": "Charnières en acier"
@@ -205,6 +207,33 @@
         }
       ],
       "durability": 1
+    },
+    "scope": "object"
+  },
+  {
+    "category": "",
+    "id": "4bb44f74-1096-43eb-bc73-c674cbc9c5e6",
+    "name": "Tentative en me déconnectant de git",
+    "query": {
+      "components": [
+        {
+          "id": "05e11d8d-39be-4593-b8fa-fd5bd3de82c1",
+          "quantity": 1
+        },
+        {
+          "custom": {
+            "elements": [
+              {
+                "amount": 0.002,
+                "material": "dc58fc13-b036-46ed-ab5f-fd0a112e8b78",
+                "transforms": []
+              }
+            ],
+            "name": "rondin pour pied de banc"
+          },
+          "quantity": 1
+        }
+      ]
     },
     "scope": "object"
   }
