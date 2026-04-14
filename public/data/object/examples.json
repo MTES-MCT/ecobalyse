@@ -175,7 +175,9 @@
               {
                 "amount": 0.2,
                 "material": "ac028973-5dfa-47bc-868c-e49be116f53e",
-                "transforms": ["4c1b77b1-4e4b-4fdd-a392-eea0b8764b6b"]
+                "transforms": [
+                  "4c1b77b1-4e4b-4fdd-a392-eea0b8764b6b"
+                ]
               }
             ],
             "name": "Charnières en acier"
@@ -202,6 +204,47 @@
         {
           "id": "53dc3966-c0c5-4ce2-86da-74583fda95ae",
           "quantity": 15
+        }
+      ],
+      "durability": 1
+    },
+    "scope": "object"
+  },
+  {
+    "category": "",
+    "id": "1bcb9d51-e7e7-4adb-9403-f6924081f8b7",
+    "name": "canapé sans panneau",
+    "query": {
+      "components": [
+        {
+          "id": "b99b2141-12c8-4a33-bd16-4f9fa10eb3ae",
+          "quantity": 2
+        },
+        {
+          "id": "b09809e2-9616-49d0-a039-f26d4806d141",
+          "quantity": 1
+        },
+        {
+          "custom": {
+            "elements": [
+              {
+                "amount": 9,
+                "material": "20f5db04-a4c7-48ab-9903-38c65cd70be0",
+                "transforms": []
+              }
+            ],
+            "name": "Mousse polyurethane canapé 3p"
+          },
+          "id": "01181ac8-bb9e-431d-aee4-f1ca97737d88",
+          "quantity": 1
+        },
+        {
+          "id": "3955d88b-4c39-4e1e-9af1-0a0908ea7d5f",
+          "quantity": 3
+        },
+        {
+          "id": "a5d0097f-1121-407b-acb1-35065d4f9fda",
+          "quantity": 3
         }
       ],
       "durability": 1
