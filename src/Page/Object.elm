@@ -331,7 +331,12 @@ update ({ navKey } as session) msg model =
         ( ExampleContribCreated (RemoteData.Success { pullRequestUrl }), _ ) ->
             { model | contributionRequestPending = False }
                 |> createPageUpdate session
-                |> App.notifySuccess ("Contribution envoyée. [Voir la Pull Request](" ++ pullRequestUrl ++ ")")
+                |> App.notifySuccess
+                    ("""La contribution est soumise à validation par l’équipe méthode d’Ecobalyse.
+                        Vous pouvez suivre [sur ce lien](pr_url) l’état d’avancement de l’intégration de votre exemple de produit.
+                        """
+                        |> String.replace "pr_url" pullRequestUrl
+                    )
 
         ( ExampleContribCreated _, _ ) ->
             createPageUpdate session model
