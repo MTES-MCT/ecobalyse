@@ -263,12 +263,12 @@ suite =
                             , planeTransport = Ingredient.ByPlane
                             }
 
-                        firstIngredientAirDistance ( recipe, _ ) =
+                        firstIngredientDistance accessor ( recipe, _ ) =
                             recipe
                                 |> .ingredients
                                 |> List.head
                                 |> Maybe.map (Recipe.computeIngredientTransport db)
-                                |> Maybe.map .air
+                                |> Maybe.map accessor
                                 |> Maybe.map Length.inKilometers
                       in
                       describe "computeIngredientTransport"
@@ -285,9 +285,54 @@ suite =
                           , preparation = []
                           }
                             |> Recipe.compute db
-                            |> Result.map firstIngredientAirDistance
+                            |> Result.map (firstIngredientDistance .air)
                             |> Expect.equal (Ok (Just 0))
                             |> asTest "should have no air transport for standard ingredients"
+                        , { ingredients =
+                                [ { id = eggId
+                                  , mass = Mass.grams 120
+                                  , country = Nothing
+                                  , planeTransport = Ingredient.PlaneNotApplicable
+                                  }
+                                ]
+                          , transform = Nothing
+                          , packaging = []
+                          , distribution = Nothing
+                          , preparation = []
+                          }
+                            |> Recipe.compute db
+                            |> Result.map (firstIngredientDistance .road)
+                            |> Expect.equal (Ok (Just 160))
+                            -- https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)
+                            |> asTest "should have 160 road transport to transformation for standard ingredients"
+                        , { ingredients =
+                                [ { id = eggId
+                                  , mass = Mass.grams 120
+                                  , country = Just (Country.codeFromString "RAS")
+                                  , planeTransport = Ingredient.PlaneNotApplicable
+                                  }
+                                ]
+                          , transform = Nothing
+                          , packaging = []
+                          , distribution = Nothing
+                          , preparation = []
+                          }
+                            |> Recipe.compute db
+                            |> Result.map (firstIngredientDistance .road)
+                            |> Expect.equal (Ok (Just 2660))
+                            -- https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)
+                            |> asTest "should have 160 road transport + 500 not from FR + 2000 km for ingredients coming from far away ('RAF', 'RAS', 'RLA', 'RME', 'RNA', 'ROC')"
+                        , { ingredients = [ { mango | country = Just (Country.codeFromString "RAS"), planeTransport = Ingredient.ByPlane } ]
+                          , transform = Nothing
+                          , packaging = []
+                          , distribution = Just Retail.ambient
+                          , preparation = []
+                          }
+                            |> Recipe.compute db
+                            |> Result.map (firstIngredientDistance .roadCooled)
+                            |> Expect.equal (Ok (Just 2660))
+                            -- https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)
+                            |> asTest "should have 160 road transport + 500 not from FR + 2000 km for ingredients coming from far away ('RAF', 'RAS', 'RLA', 'RME', 'RNA', 'ROC'), cooled version"
                         , { ingredients = [ mango ]
                           , transform = Nothing
                           , packaging = []
@@ -295,7 +340,7 @@ suite =
                           , preparation = []
                           }
                             |> Recipe.compute db
-                            |> Result.map firstIngredientAirDistance
+                            |> Result.map (firstIngredientDistance .air)
                             |> Expect.equal (Ok (Just 18000))
                             |> asTest "should have air transport for mango from its default origin"
                         , { ingredients = [ { mango | country = Just (Country.codeFromString "CN"), planeTransport = Ingredient.ByPlane } ]
@@ -305,7 +350,7 @@ suite =
                           , preparation = []
                           }
                             |> Recipe.compute db
-                            |> Result.map firstIngredientAirDistance
+                            |> Result.map (firstIngredientDistance .air)
                             |> Expect.equal (Ok (Just 8189))
                             |> asTest "should always have air transport for mango even from other countries if 'planeTransport' is 'byPlane'"
                         , { ingredients = [ { mango | country = Just (Country.codeFromString "CN"), planeTransport = Ingredient.NoPlane } ]
@@ -315,7 +360,7 @@ suite =
                           , preparation = []
                           }
                             |> Recipe.compute db
-                            |> Result.map firstIngredientAirDistance
+                            |> Result.map (firstIngredientDistance .air)
                             |> Expect.equal (Ok (Just 0))
                             |> asTest "should not have air transport for mango from other countries if 'planeTransport' is 'noPlane'"
                         ]

@@ -57,6 +57,11 @@ france =
     Country.codeFromString "FR"
 
 
+countriesWithDefaultRoadTransport : List Country.Code
+countriesWithDefaultRoadTransport =
+    [ "RAF", "RAS", "RLA", "RME", "RNA", "ROC" ] |> List.map Country.codeFromString
+
+
 type alias Packaging =
     { amount : PackagingAmount
     , process : Process.Process
@@ -368,7 +373,15 @@ computeIngredientTransport db { country, ingredient, mass, planeTransport } =
                         Just { code } ->
                             db.distances
                                 |> Transport.getTransportBetween emptyImpacts code france
+                                -- For some regions we should always add 2000kms of road
+                                -- See https://github.com/MTES-MCT/ecobalyse/issues/1982
                                 |> Transport.applyTransportRatios planeRatio
+                                |> (if countriesWithDefaultRoadTransport |> List.member code then
+                                        Transport.addRoadWithCooling (Length.kilometers 2000) False
+
+                                    else
+                                        identity
+                                   )
 
                         -- Otherwise retrieve ingredient's default origin transport data
                         Nothing ->
