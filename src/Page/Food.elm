@@ -243,9 +243,7 @@ update ({ db, queries } as session) msg model =
                     query.ingredients |> List.map .mass |> Quantity.sum
 
                 firstTransform =
-                    db.processes
-                        |> Process.listByCategory ProcessCategory.Transform
-                        |> List.sortBy Process.getDisplayName
+                    getAvailableTransforms db
                         |> List.head
                         |> Maybe.map
                             (Recipe.processQueryFromProcess
@@ -517,6 +515,14 @@ isAutocompleteModal modal =
 
         _ ->
             False
+
+
+getAvailableTransforms : Db -> List Process.Process
+getAvailableTransforms =
+    .processes
+        >> Process.listByCategory ProcessCategory.Transform
+        >> Scope.anyOf [ Scope.Food ]
+        >> List.sortBy Process.getDisplayName
 
 
 updateQuery : Query -> PageUpdate Model Msg -> PageUpdate Model Msg
@@ -1691,9 +1697,7 @@ transformView db selectedImpact recipe results =
         [ case recipe.transform of
             Just transform ->
                 updateTransformFormView
-                    { processes =
-                        db.processes
-                            |> Process.listByCategory ProcessCategory.Transform
+                    { processes = getAvailableTransforms db
                     , excluded = [ transform.process.id ]
                     , processQuery = { id = transform.process.id, mass = transform.mass }
                     , impact = impact
