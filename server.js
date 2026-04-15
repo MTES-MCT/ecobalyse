@@ -104,7 +104,7 @@ function processOpenApi(contents, versionNumber) {
   // Add app version info to openapi docs
   contents.version = versionNumber;
   // Remove food1 api docs if disabled from env
-  if (ENABLE_FOOD1_API_DOCS !== "True") {
+  if (ENABLE_FOOD_SECTION !== "True" || ENABLE_FOOD1_API_DOCS !== "True") {
     // filter out food1 api docs
     contents.paths = filterLegacyFood1Paths(contents.paths);
   }
