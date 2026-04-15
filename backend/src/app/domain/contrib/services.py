@@ -163,13 +163,18 @@ async def create_example_contrib_pr(
 
         # assign reviewing team, if any
         if github_settings.REVIEWING_TEAM:
-            await github_request(
-                client,
-                github_settings,
-                "POST",
-                f"pulls/{pull_request['number']}/requested_reviewers",
-                json_body={"team_reviewers": [github_settings.REVIEWING_TEAM]},
-            )
+            try:
+                await github_request(
+                    client,
+                    github_settings,
+                    "POST",
+                    f"pulls/{pull_request['number']}/requested_reviewers",
+                    json_body={"team_reviewers": [github_settings.REVIEWING_TEAM]},
+                )
+            except ValidationException as e:
+                logger.warning(
+                    f"Error assigning reviewing team {github_settings.REVIEWING_TEAM}: {e}"
+                )
 
     return ExampleContribResponse(
         branch_name=branch_name, pull_request_url=pull_request["html_url"]
