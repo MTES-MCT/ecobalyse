@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import base64
 import json
+import os
 from uuid import uuid4
 
 import structlog
@@ -197,13 +198,15 @@ async def create_example_contrib_pr(
         )
 
         # assign reviewing team
-        await github_request(
-            client,
-            github_settings,
-            "POST",
-            f"pulls/{pull_request['number']}/requested_reviewers",
-            json_body={"team_reviewers": ["ecobalyse-contrib-reviewers"]},
-        )
+        reviewing_team = os.getenv("GITHUB_REVIEWING_TEAM")
+        if reviewing_team.strip():
+            await github_request(
+                client,
+                github_settings,
+                "POST",
+                f"pulls/{pull_request['number']}/requested_reviewers",
+                json_body={"team_reviewers": [reviewing_team.strip()]},
+            )
 
     return ExampleContribResponse(
         branch_name=branch_name, pull_request_url=pull_request["html_url"]

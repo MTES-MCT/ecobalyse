@@ -51,6 +51,7 @@ Les variables d’environnement décrites ci-dessous doivent être définies. En
 
   Sinon, une base de données par défaut dans un conteneur Docker sera utilisée.
 
+- `GITHUB_REVIEWING_TEAM`: le nom de l'équipe Github en charge de valider les pull requests de contribution de données (optionnel)
 - `EMAIL_FROM` : l’adresse email de l’expéditeur des emails du backend
 - `EMAIL_SERVER_HOST` : serveur SMTP (`localhost` permet de bénéficier d’une instance [maildev](https://github.com/maildev/maildev))
 - `EMAIL_SERVER_PASSWORD` : le mot de passe du serveur SMTP
