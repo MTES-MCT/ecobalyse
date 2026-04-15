@@ -363,6 +363,16 @@ suite =
                             |> Result.map (firstIngredientDistance .air)
                             |> Expect.equal (Ok (Just 0))
                             |> asTest "should not have air transport for mango from other countries if 'planeTransport' is 'noPlane'"
+                        , { ingredients = [ { mango | country = Just (Country.codeFromString "REM"), planeTransport = Ingredient.NoPlane } ]
+                          , transform = Nothing
+                          , packaging = []
+                          , distribution = Just Retail.ambient
+                          , preparation = []
+                          }
+                            |> Recipe.compute db
+                            |> Result.map (firstIngredientDistance .roadCooled)
+                            |> Expect.equal (Ok (Just (160 + 500 + 2000)))
+                            |> asTest "should always have the full 2000 km of road transport for Europe and Maghreb"
                         ]
                     ]
 
