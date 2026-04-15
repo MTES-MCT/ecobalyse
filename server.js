@@ -15,7 +15,7 @@ const { setupSentry } = require("./lib/sentry"); // MUST be required BEFORE expr
 const { createMatomoTracker } = require("./lib/matomo");
 const { createPlausibleTracker } = require("./lib/plausible");
 
-const { getProcessesAsString } = require("./lib");
+const { getProcessesAsString, filterLegacyFood1Paths } = require("./lib");
 const express = require("express");
 
 const expressHost = "0.0.0.0";
@@ -105,9 +105,8 @@ function processOpenApi(contents, versionNumber) {
   contents.version = versionNumber;
   // Remove food1 api docs if disabled from env
   if (ENABLE_FOOD1_API_DOCS !== "True") {
-    contents.paths = Object.fromEntries(
-      Object.entries(contents.paths).filter(([path, _]) => !path.startsWith("/food")),
-    );
+    // filter out food1 api docs
+    contents.paths = filterLegacyFood1Paths(contents.paths);
   }
   return contents;
 }
