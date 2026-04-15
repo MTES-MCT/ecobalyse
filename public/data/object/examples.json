@@ -175,7 +175,9 @@
               {
                 "amount": 0.2,
                 "material": "ac028973-5dfa-47bc-868c-e49be116f53e",
-                "transforms": ["4c1b77b1-4e4b-4fdd-a392-eea0b8764b6b"]
+                "transforms": [
+                  "4c1b77b1-4e4b-4fdd-a392-eea0b8764b6b"
+                ]
               }
             ],
             "name": "Charnières en acier"
@@ -202,6 +204,54 @@
         {
           "id": "53dc3966-c0c5-4ce2-86da-74583fda95ae",
           "quantity": 15
+        }
+      ],
+      "durability": 1
+    },
+    "scope": "object"
+  },
+  {
+    "category": "",
+    "id": "85fed3a9-654a-4f4f-abdb-3f73ae766df0",
+    "name": "a good chair",
+    "query": {
+      "components": [
+        {
+          "country": "FR",
+          "custom": {
+            "elements": [
+              {
+                "amount": 1.26,
+                "material": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b",
+                "transforms": [
+                  "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"
+                ]
+              }
+            ],
+            "name": "cadre"
+          },
+          "id": "10e199b6-7e5f-47d9-bc85-9959c4e9ee62",
+          "quantity": 1
+        },
+        {
+          "custom": {
+            "elements": [
+              {
+                "amount": 1,
+                "material": "cc8e1090-e90a-4dcb-89a2-4b45daac88af",
+                "transforms": [
+                  "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c"
+                ]
+              },
+              {
+                "amount": 1,
+                "material": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a",
+                "transforms": []
+              }
+            ],
+            "name": "assise"
+          },
+          "quantity": 1
         }
       ],
       "durability": 1
