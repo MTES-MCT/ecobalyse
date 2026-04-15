@@ -8,6 +8,8 @@ from app.domain.contrib.schemas import ExampleContribCreate, ExampleContribRespo
 from app.domain.contrib.services import create_example_contrib_pr
 from litestar import Controller, post
 
+settings = get_settings()
+
 
 class ExampleContribController(Controller):
     tags = ["Contrib", "Examples"]
@@ -22,7 +24,6 @@ class ExampleContribController(Controller):
         current_user: m.User,
         data: ExampleContribCreate,
     ) -> ExampleContribResponse:
-        settings = get_settings()
         return await create_example_contrib_pr(
             data=data,
             github_settings=settings.github,

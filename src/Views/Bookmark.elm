@@ -457,7 +457,7 @@ contributeExampleTabView ({ scope, session } as config) =
     div [ class "card-body d-flex flex-column gap-2" ]
         [ div [ class "fs-7 text-muted" ]
             [ text <|
-                "Proposez l'ajout de votre simulation à la base de données d’exemples "
+                "Proposez l’ajout de votre simulation à la base de données d’exemples "
                     ++ Scope.toLabel scope
                     ++ " sur Ecobalyse."
             ]

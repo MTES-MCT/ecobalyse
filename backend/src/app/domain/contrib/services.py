@@ -7,70 +7,40 @@ from uuid import uuid4
 import structlog
 from app.config.base import GithubSettings
 from app.db import models as m
+from app.domain.components.schemas import GenericScope
 from app.domain.contrib.schemas import (
     ExampleContribCreate,
     ExampleContribResponse,
-    GenericScope,
 )
+from app.lib.json import format_json
 from httpx import AsyncClient
 from litestar.exceptions import ValidationException
 
 logger = structlog.get_logger()
 
 
-def get_examples_path(scope: GenericScope) -> str:
-    return f"public/data/{scope.value}/examples.json"
-
-
-def get_github_api_url(repo: str, path: str) -> str:
-    return f"https://api.github.com/repos/{repo}/{path}"
-
-
-def clean_str(s: str, fallback: str = "") -> str:
-    return (s or fallback).strip()
-
-
-def get_user_full_name(profile: m.UserProfile) -> str:
-    first_name = clean_str(profile.first_name)
-    last_name = clean_str(profile.last_name)
-    return clean_str(" ".join([first_name, last_name]), "Anonyme")
-
-
-def format_json_string(json_string: str) -> str:
-    # Note:  these files are ignored by prettier, so we're safe from formatting conflicts
-    # FIXME: this is extracted from the ecobalyse-data repository, we should use a single
-    #        source for formatting JSON
-    return (
-        json.dumps(
-            json.loads(json_string), ensure_ascii=False, sort_keys=True, indent=2
-        )
-        + "\n"
-    )
+def get_examples_path(github_settings: GithubSettings, scope: GenericScope) -> str:
+    return github_settings.EXAMPLES_PATH_TEMPLATE.format(scope=scope.value)
 
 
 def format_example_contrib_pr(data: ExampleContribCreate, user: m.User) -> str:
-    org_name = clean_str(user.profile.organization_name)
-    query_as_string = format_json_string(json.dumps(data.query))
-    user_full_name = get_user_full_name(user.profile)
-    org_info = org_name if org_name else "Non renseignée"
-    return "\n".join(
-        [
-            f"Nouvelle proposition de contribution d’exemple : **{data.name} ({data.scope.value})**",
-            "",
-            "### Contexte",
-            clean_str(data.description),
-            "",
-            "### Contributeur",
-            "",
-            f"- Nom : {user_full_name}",
-            f"- Organisation : {org_info}",
-            "",
-            "### Paramètres de l’exemple",
-            "```json",
-            query_as_string,
-            "```",
-        ]
-    )
+    return f"""Nouvelle proposition de contribution d’exemple : **{data.name} ({data.scope.value})**
+
+### Contexte
+
+{data.description.strip()}
+
+### Contributeur
+
+- Nom : {user.profile.full_name}
+- Organisation : {user.profile.organization_info}
+
+### Paramètres de l’exemple
+
+```json
+{format_json(data.query)}
+```
+"""
 
 
 async def github_request(
@@ -82,7 +52,7 @@ async def github_request(
 ) -> dict:
     response = await client.request(
         method=method,
-        url=get_github_api_url(github_settings.REPOSITORY, path),
+        url=f"{github_settings.API_URL}/repos/{github_settings.REPOSITORY}/{path}",
         headers={
             "Accept": "application/vnd.github+json",
             "Authorization": f"Bearer {github_settings.TOKEN}",
@@ -116,7 +86,7 @@ async def create_example_contrib_pr(
             detail="Le serveur n’est pas configuré pour créer des pull requests"
         )
 
-    examples_path = get_examples_path(data.scope)
+    examples_path = get_examples_path(github_settings, data.scope)
     example_id = str(uuid4())
     branch_name = f"contrib/{data.scope.value}/{example_id[:8]}"
 
@@ -163,7 +133,7 @@ async def create_example_contrib_pr(
                 "scope": data.scope.value,
             }
         )
-        updated_examples_json = format_json_string(json.dumps(examples))
+        updated_examples_json = format_json(examples)
         updated_examples_base64 = base64.b64encode(
             updated_examples_json.encode("utf-8")
         ).decode("utf-8")

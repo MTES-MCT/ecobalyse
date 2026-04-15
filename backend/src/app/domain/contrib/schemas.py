@@ -1,15 +1,9 @@
 from __future__ import annotations
 
-from enum import StrEnum
 from typing import Any
 
+from app.domain.components.schemas import GenericScope
 from app.lib.schema import CamelizedBaseStruct
-
-
-class GenericScope(StrEnum):
-    FOOD2 = "food2"
-    OBJECT = "object"
-    VELI = "veli"
 
 
 class ExampleContribCreate(CamelizedBaseStruct):
