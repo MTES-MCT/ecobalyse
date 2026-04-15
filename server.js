@@ -22,7 +22,7 @@ const expressHost = "0.0.0.0";
 const expressPort = 8001;
 
 // Env vars
-const { ENABLE_FOOD1_API_DOCS, NODE_ENV, RATELIMIT_MAX_RPM, RATELIMIT_WHITELIST } = process.env;
+const { ENABLE_FOOD_SECTION, ENABLE_FOOD1_API_DOCS, NODE_ENV, RATELIMIT_MAX_RPM, RATELIMIT_WHITELIST } = process.env;
 
 const INTERNAL_BACKEND_URL = "http://localhost:8002";
 
