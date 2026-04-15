@@ -402,6 +402,7 @@ class GithubSettings:
     REPOSITORY: str = field(
         default_factory=get_env("GITHUB_REPOSITORY", "MTES-MCT/ecobalyse")
     )
+    REVIEWING_TEAM: str = field(default_factory=get_env("GITHUB_REVIEWING_TEAM", ""))
     TOKEN: str = field(default_factory=get_env("GITHUB_TOKEN", ""))
 
 

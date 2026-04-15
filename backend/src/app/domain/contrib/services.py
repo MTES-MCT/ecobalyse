@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import base64
 import json
-import os
 from uuid import uuid4
 
 import structlog
@@ -197,15 +196,14 @@ async def create_example_contrib_pr(
             },
         )
 
-        # assign reviewing team
-        reviewing_team = os.getenv("GITHUB_REVIEWING_TEAM")
-        if reviewing_team.strip():
+        # assign reviewing team, if any
+        if github_settings.REVIEWING_TEAM:
             await github_request(
                 client,
                 github_settings,
                 "POST",
                 f"pulls/{pull_request['number']}/requested_reviewers",
-                json_body={"team_reviewers": [reviewing_team.strip()]},
+                json_body={"team_reviewers": [github_settings.REVIEWING_TEAM]},
             )
 
     return ExampleContribResponse(
