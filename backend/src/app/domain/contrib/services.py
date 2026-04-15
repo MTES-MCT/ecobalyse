@@ -7,7 +7,6 @@ from uuid import uuid4
 import structlog
 from app.config.base import GithubSettings
 from app.db import models as m
-from app.domain.components.schemas import GenericScope
 from app.domain.contrib.schemas import (
     ExampleContribCreate,
     ExampleContribResponse,
@@ -17,10 +16,6 @@ from httpx import AsyncClient
 from litestar.exceptions import ValidationException
 
 logger = structlog.get_logger()
-
-
-def get_examples_path(github_settings: GithubSettings, scope: GenericScope) -> str:
-    return github_settings.EXAMPLES_PATH_TEMPLATE.format(scope=scope.value)
 
 
 def format_example_contrib_pr(data: ExampleContribCreate, user: m.User) -> str:
@@ -86,7 +81,9 @@ async def create_example_contrib_pr(
             detail="Le serveur n’est pas configuré pour créer des pull requests"
         )
 
-    examples_path = get_examples_path(github_settings, data.scope)
+    examples_path = github_settings.EXAMPLES_PATH_TEMPLATE.format(
+        scope=data.scope.value
+    )
     example_id = str(uuid4())
     branch_name = f"contrib/{data.scope.value}/{example_id[:8]}"
 
