@@ -81,13 +81,11 @@ async def create_example_contrib_pr(
             detail="Le serveur n’est pas configuré pour créer des pull requests"
         )
 
-    examples_path = github_settings.EXAMPLES_PATH_TEMPLATE.format(
-        scope=data.scope.value
-    )
+    examples_path = f"public/data/{data.scope.value}/examples.json"
     example_id = str(uuid4())
     branch_name = f"contrib/{data.scope.value}/{example_id[:8]}"
 
-    pull_request_title = f"feat({data.scope.value}): add “{name}” example"
+    pull_request_title = f"feat(data,{data.scope.value}): add “{name}” example"
     pull_request_body = format_example_contrib_pr(data, user)
     commit_message = pull_request_title
 

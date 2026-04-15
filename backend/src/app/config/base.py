@@ -402,11 +402,6 @@ class GithubSettings:
         default_factory=get_env("GITHUB_API_URL", "https://api.github.com")
     )
     BASE_BRANCH: str = field(default_factory=get_env("GITHUB_BASE_BRANCH", "master"))
-    EXAMPLES_PATH_TEMPLATE: str = field(
-        default_factory=get_env(
-            "GITHUB_EXAMPLES_PATH_TEMPLATE", "public/data/{scope}/examples.json"
-        )
-    )
     REPOSITORY: str = field(
         default_factory=get_env("GITHUB_REPOSITORY", "MTES-MCT/ecobalyse")
     )
