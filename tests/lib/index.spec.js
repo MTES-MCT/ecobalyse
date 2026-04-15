@@ -4,19 +4,19 @@ describe("lib.index", () => {
   describe("filterLegacyFood1Paths", () => {
     test("should filter out food1 api and keep food2 ones", () => {
       const paths = {
-        "/food": "x",
-        "/food/countries": "x",
-        "/food2": "x",
-        "/food2/simulator": "x",
-        "/textile": "x",
-        "/textile/simulator": "x",
+        "/food": {},
+        "/food/countries": {},
+        "/food2": {},
+        "/food2/simulator": {},
+        "/textile": {},
+        "/textile/simulator": {},
       };
       const filteredPaths = lib.filterLegacyFood1Paths(paths);
       expect(filteredPaths).toEqual({
-        "/food2": "x",
-        "/food2/simulator": "x",
-        "/textile": "x",
-        "/textile/simulator": "x",
+        "/food2": {},
+        "/food2/simulator": {},
+        "/textile": {},
+        "/textile/simulator": {},
       });
     });
   });

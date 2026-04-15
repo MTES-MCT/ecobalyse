@@ -22,7 +22,13 @@ const expressHost = "0.0.0.0";
 const expressPort = 8001;
 
 // Env vars
-const { ENABLE_FOOD_SECTION, ENABLE_FOOD1_API_DOCS, NODE_ENV, RATELIMIT_MAX_RPM, RATELIMIT_WHITELIST } = process.env;
+const {
+  ENABLE_FOOD_SECTION,
+  ENABLE_FOOD1_API_DOCS,
+  NODE_ENV,
+  RATELIMIT_MAX_RPM,
+  RATELIMIT_WHITELIST,
+} = process.env;
 
 const INTERNAL_BACKEND_URL = "http://localhost:8002";
 
@@ -105,7 +111,6 @@ function processOpenApi(contents, versionNumber) {
   contents.version = versionNumber;
   // Remove food1 api docs if disabled from env
   if (ENABLE_FOOD_SECTION !== "True" || ENABLE_FOOD1_API_DOCS !== "True") {
-    // filter out food1 api docs
     contents.paths = filterLegacyFood1Paths(contents.paths);
   }
   return contents;
