@@ -27,6 +27,9 @@ Les variables d’environnement décrites ci-dessous doivent être définies. En
 - `ENABLE_OBJECTS_SECTION` : affichage ou non de la section expérimentale dédiée aux objets génériques (valeur `True` ou `False`, par défaut `False`
 - `ENABLE_VELI_SECTION` : affichage ou non de la section expérimentale dédiée aux véhicules intermédiaires (valeur `True` ou `False`, par défaut `False`)
 - `ENCRYPTION_KEY` : la clé utilisée par les scripts `npm run encrypt` et  `npm run decrypt` pour chiffrer/déchiffrer les fichiers d’impacts détaillés inclus dans chaque archive de release. Pour générer une nouvelle clé, vous pouvez utiliser le script `bin/generate-crypto-key`
+- `GITHUB_TOKEN` : le jeton GitHub utilisé côté serveur pour créer les branches, commits et pull requests de contribution (requis)
+- `GITHUB_REPOSITORY` : dépôt cible au format `owner/repo` (par défaut `MTES-MCT/ecobalyse`).
+- `GITHUB_BASE_BRANCH` : branche de base pour les PR (par défaut `master`).
 - `MATOMO_HOST` : le domaine de l’instance Matomo permettant le suivi d’audience du produit (typiquement `stats.beta.gouv.fr`)
 - `MATOMO_SITE_ID` : l’identifiant du site Ecobalyse sur l’instance Matomo permettant le suivi d’audience du produit
 - `MATOMO_TOKEN` : le token Matomo permettant le suivi d’audience du produit
@@ -48,6 +51,7 @@ Les variables d’environnement décrites ci-dessous doivent être définies. En
 
   Sinon, une base de données par défaut dans un conteneur Docker sera utilisée.
 
+- `GITHUB_REVIEWING_TEAM`: le nom de l'équipe Github en charge de valider les pull requests de contribution de données (optionnel)
 - `EMAIL_FROM` : l’adresse email de l’expéditeur des emails du backend
 - `EMAIL_SERVER_HOST` : serveur SMTP (`localhost` permet de bénéficier d’une instance [maildev](https://github.com/maildev/maildev))
 - `EMAIL_SERVER_PASSWORD` : le mot de passe du serveur SMTP

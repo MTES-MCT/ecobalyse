@@ -9,18 +9,29 @@ __all__ = (
     "Component",
     "ComponentCreate",
     "ComponentUpdate",
+    "GenericScope",
     "Scope",
 )
 
 from enum import StrEnum
 
 
-class Scope(StrEnum):
-    FOOD = "food"
+class GenericScope(StrEnum):
+    "All generic scopes."
+
     FOOD2 = "food2"
     OBJECT = "object"
-    TEXTILE = "textile"
     VELI = "veli"
+
+
+class Scope(StrEnum):
+    "All scopes, merging generic and legacy ones. Note: StrEnum isn't inheritable."
+
+    FOOD = "food"
+    FOOD2 = GenericScope.FOOD2.value
+    OBJECT = GenericScope.OBJECT.value
+    TEXTILE = "textile"
+    VELI = GenericScope.VELI.value
 
 
 class Component(CamelizedBaseStruct):
