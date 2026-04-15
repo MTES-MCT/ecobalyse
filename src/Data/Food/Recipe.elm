@@ -10,6 +10,7 @@ module Data.Food.Recipe exposing
     , computeIngredientComplementsImpacts
     , computeIngredientTransport
     , computePackagingImpacts
+    , defaultKilometersRoadDistance
     , deletePackaging
     , encodeResults
     , fromQuery
@@ -60,6 +61,11 @@ france =
 countriesWithDefaultRoadTransport : List Country.Code
 countriesWithDefaultRoadTransport =
     [ "RAF", "RAS", "RLA", "RME", "RNA", "ROC" ] |> List.map Country.codeFromString
+
+
+defaultKilometersRoadDistance : Float
+defaultKilometersRoadDistance =
+    2000
 
 
 type alias Packaging =
@@ -377,7 +383,7 @@ computeIngredientTransport db { country, ingredient, mass, planeTransport } =
                                 -- See https://github.com/MTES-MCT/ecobalyse/issues/1982
                                 |> Transport.applyTransportRatios planeRatio
                                 |> (if countriesWithDefaultRoadTransport |> List.member code then
-                                        Transport.addRoadWithCooling (Length.kilometers 2000) False
+                                        Transport.addRoadWithCooling (Length.kilometers defaultKilometersRoadDistance) False
 
                                     else
                                         identity

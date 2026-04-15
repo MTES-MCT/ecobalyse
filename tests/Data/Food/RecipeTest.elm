@@ -319,7 +319,7 @@ suite =
                           }
                             |> Recipe.compute db
                             |> Result.map (firstIngredientDistance .road)
-                            |> Expect.equal (Ok (Just 2660))
+                            |> Expect.equal (Ok (Just <| Recipe.defaultKilometersRoadDistance + 660))
                             -- https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)
                             |> asTest "should have 160 road transport + 500 not from FR + 2000 km for ingredients coming from far away ('RAF', 'RAS', 'RLA', 'RME', 'RNA', 'ROC')"
                         , { ingredients = [ { mango | country = Just (Country.codeFromString "RAS"), planeTransport = Ingredient.ByPlane } ]
@@ -330,7 +330,7 @@ suite =
                           }
                             |> Recipe.compute db
                             |> Result.map (firstIngredientDistance .roadCooled)
-                            |> Expect.equal (Ok (Just 2660))
+                            |> Expect.equal (Ok (Just <| Recipe.defaultKilometersRoadDistance + 660))
                             -- https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)
                             |> asTest "should have 160 road transport + 500 not from FR + 2000 km for ingredients coming from far away ('RAF', 'RAS', 'RLA', 'RME', 'RNA', 'ROC'), cooled version"
                         , { ingredients = [ mango ]
