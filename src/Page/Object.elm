@@ -35,6 +35,10 @@ import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import List.Extra as LE
 import Ports
+import RemoteData
+import Request.BackendHttp exposing (WebData)
+import Request.BackendHttp.Error as BackendHttpError
+import Request.Contrib as Contrib
 import Route
 import Task
 import Time exposing (Posix)
@@ -61,6 +65,9 @@ type alias Model =
     , bookmarkName : String
     , bookmarkTab : BookmarkView.ActiveTab
     , comparisonType : ComparatorView.ComparisonType
+    , contributionDescription : String
+    , contributionName : String
+    , contributionRequestPending : Bool
     , detailedComponents : List Index
     , examples : List (Example Component.Query)
     , impact : Definition
@@ -83,7 +90,9 @@ type Modal
 type Msg
     = CopyToClipBoard String
     | CreateComponent
+    | CreateExampleContrib
     | DeleteBookmark Bookmark
+    | ExampleContribCreated (WebData Contrib.ExampleContribResponse)
     | ExportBookmarks
     | ImportBookmarks
     | NoOp
@@ -122,6 +131,8 @@ type Msg
     | UpdateComponentItemName TargetItem String
     | UpdateComponentItemQuantity Index Component.Quantity
     | UpdateConsumptionAmount Index (Maybe Amount)
+    | UpdateContributionDescription String
+    | UpdateContributionName String
     | UpdateDistribution (Result String Process.Id)
     | UpdateDurability (Result String Unit.Ratio)
     | UpdateElementAmount TargetElement (Maybe Amount)
@@ -150,6 +161,9 @@ init scope trigram maybeUrlQuery session =
 
         else
             ComparatorView.Stages
+    , contributionDescription = ""
+    , contributionName = ""
+    , contributionRequestPending = False
     , detailedComponents = []
     , bookmarkBeingDragged = Nothing
     , bookmarkBeingOvered = Nothing
@@ -202,6 +216,9 @@ initFromExample session scope uuid =
     , bookmarkName = exampleQuery |> suggestBookmarkName session examples
     , bookmarkTab = BookmarkView.SaveTab
     , comparisonType = ComparatorView.Subscores
+    , contributionDescription = ""
+    , contributionName = ""
+    , contributionRequestPending = False
     , detailedComponents = []
     , bookmarkBeingDragged = Nothing
     , bookmarkBeingOvered = Nothing
@@ -281,6 +298,23 @@ update ({ navKey } as session) msg model =
             createPageUpdate session model
                 |> App.withCmds [ Ports.copyToClipboard shareableLink ]
 
+        ( CreateExampleContrib, _ ) ->
+            case ( Session.isAuthenticated session, createExampleContribData model ) of
+                ( True, Ok contribData ) ->
+                    { model | contributionRequestPending = True }
+                        |> createPageUpdate session
+                        |> App.withCmds [ Contrib.createExampleContrib session contribData ExampleContribCreated ]
+
+                ( True, Err errors ) ->
+                    { model | contributionRequestPending = False }
+                        |> createPageUpdate session
+                        |> App.notifyError "Erreur lors de la création de votre contribution" (String.join ", " errors)
+
+                ( False, _ ) ->
+                    { model | contributionRequestPending = False }
+                        |> createPageUpdate session
+                        |> App.notifyWarning "Vous devez être authentifié pour soumettre une contribution"
+
         ( CreateComponent, _ ) ->
             createPageUpdate session model
                 |> createComponent query
@@ -288,6 +322,24 @@ update ({ navKey } as session) msg model =
         ( DeleteBookmark bookmark, _ ) ->
             model
                 |> createPageUpdate (session |> Session.deleteBookmark bookmark)
+
+        ( ExampleContribCreated (RemoteData.Failure error), _ ) ->
+            { model | contributionRequestPending = False }
+                |> createPageUpdate session
+                |> App.notifyError "Erreur de contribution" (BackendHttpError.errorToString error)
+
+        ( ExampleContribCreated (RemoteData.Success { pullRequestUrl }), _ ) ->
+            { model | contributionRequestPending = False }
+                |> createPageUpdate session
+                |> App.notifySuccess
+                    ("""La contribution est soumise à validation par l’équipe méthode d’Ecobalyse.
+                        Vous pouvez suivre [sur ce lien](pr_url) l’état d’avancement de l’intégration de votre exemple de produit.
+                        """
+                        |> String.replace "pr_url" pullRequestUrl
+                    )
+
+        ( ExampleContribCreated _, _ ) ->
+            createPageUpdate session model
 
         ( ExportBookmarks, _ ) ->
             createPageUpdate session model
@@ -561,6 +613,14 @@ update ({ navKey } as session) msg model =
                     )
                 |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
 
+        ( UpdateContributionDescription description, _ ) ->
+            { model | contributionDescription = description }
+                |> createPageUpdate session
+
+        ( UpdateContributionName name, _ ) ->
+            { model | contributionName = name }
+                |> createPageUpdate session
+
         ( UpdateConsumptionAmount _ Nothing, _ ) ->
             createPageUpdate session model
 
@@ -635,6 +695,29 @@ createComponent query ({ model, session } as pageUpdate) =
             )
         -- expand item row
         |> App.apply update (SetDetailedComponents (LE.unique (List.length query.items :: model.detailedComponents)))
+
+
+createExampleContribData : Model -> Result (List String) Contrib.ExampleContribData
+createExampleContribData model =
+    let
+        ( cleanDescription, cleanName ) =
+            ( String.trim model.contributionDescription
+            , String.trim model.contributionName
+            )
+    in
+    if String.isEmpty cleanName then
+        Err [ "Le nom de la contribution est requis" ]
+
+    else if String.isEmpty cleanDescription then
+        Err [ "La description de la contribution est requise" ]
+
+    else
+        Ok
+            { description = cleanDescription
+            , name = cleanName
+            , query = model.initialQuery
+            , scope = model.scope
+            }
 
 
 isAutocompleteModal : Modal -> Bool
@@ -839,6 +922,14 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
                 , updateBookmarkName = UpdateBookmarkName
                 , updateRenamedBookmarkName = UpdateRenamedBookmarkName
                 , switchBookmarkTab = SwitchBookmarksTab
+
+                -- Contribution
+                , contribName = model.contributionName
+                , contribDescription = model.contributionDescription
+                , contribRequestPending = model.contributionRequestPending
+                , createExampleContrib = CreateExampleContrib
+                , updateContribName = UpdateContributionName
+                , updateContribDescription = UpdateContributionDescription
                 }
             ]
         ]
