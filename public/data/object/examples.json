@@ -175,7 +175,9 @@
               {
                 "amount": 0.2,
                 "material": "ac028973-5dfa-47bc-868c-e49be116f53e",
-                "transforms": ["4c1b77b1-4e4b-4fdd-a392-eea0b8764b6b"]
+                "transforms": [
+                  "4c1b77b1-4e4b-4fdd-a392-eea0b8764b6b"
+                ]
               }
             ],
             "name": "Charnières en acier"
@@ -205,6 +207,20 @@
         }
       ],
       "durability": 1
+    },
+    "scope": "object"
+  },
+  {
+    "category": "",
+    "id": "6538d74d-2688-4de9-bddf-6e63e08fd042",
+    "name": "test fix pr",
+    "query": {
+      "components": [
+        {
+          "id": "8c18a448-3a2e-4978-9c0f-a61d9d8e7f1e",
+          "quantity": 1
+        }
+      ]
     },
     "scope": "object"
   }
