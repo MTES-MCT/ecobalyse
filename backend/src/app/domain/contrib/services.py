@@ -172,8 +172,11 @@ async def create_example_contrib_pr(
                     json_body={"team_reviewers": [github_settings.REVIEWING_TEAM]},
                 )
             except ValidationException as e:
-                logger.warning(
-                    f"Error assigning reviewing team {github_settings.REVIEWING_TEAM}: {e}"
+                # ignore the error if the reviewing team has permission issues, which is very
+                # common regarding the many guards in place at the MTES-MCT org level
+                # FIXME: assign reviewers individually
+                await logger.awarning(
+                    f"Error assigning reviewing team {github_settings.REVIEWING_TEAM}: {e}",
                 )
 
     return ExampleContribResponse(
