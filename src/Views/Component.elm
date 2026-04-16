@@ -684,9 +684,11 @@ elementView config targetItem elementIndex { amount, material, transforms } elem
                 ]
             , th [ class "align-middle", scope "col" ]
                 [ text <| "Élément #" ++ String.fromInt (elementIndex + 1) ]
+            , th [ class "align-middle text-center", scope "col" ]
+                [ text "Mix" ]
             , th [ class "align-middle", scope "col" ]
                 [ text "Pertes" ]
-            , th [ class "align-middle text-truncate", scope "col", Attr.title "Masse sortante" ]
+            , th [ class "align-middle text-truncate", scope "col" ]
                 [ material.unit |> Process.unitLabel |> text ]
             , th [ class "align-middle text-end", scope "col" ]
                 [ Component.getTotalImpacts elementResults
@@ -752,7 +754,11 @@ elementMaterialView config targetElement materialResults material amount =
               else
                 amountInput (config.updateElementAmount targetElement) material.unit amount
             ]
-        , td [ class "align-middle text-truncate w-100", title <| Process.getDisplayName material ]
+        , td
+            [ class "align-middle text-truncate w-100"
+            , title <| Process.getDisplayName material
+            , colspan 2
+            ]
             [ selectMaterialButton config targetElement material ]
         , td [ class "text-end align-middle text-nowrap" ]
             []
@@ -834,23 +840,22 @@ elementTransformsView config targetElement transformsResults transforms =
                     , style "max-width" "0"
                     , title tooltipText
                     ]
-                    [ div [ class "d-flex justify-content-between align-items-center gap-2" ]
-                        [ span [ class "text-truncate" ]
-                            [ span [ class "ComponentElementIcon" ] [ Icon.transform ]
-                            , text <| Process.getDisplayName transformStep.process
-                            ]
-                        , transformCountrySelector
-                            { countries = config.db.countries
-                            , domId =
-                                "transform-country-"
-                                    ++ Component.targetElementToString targetElement
-                                    ++ "-"
-                                    ++ String.fromInt transformIndex
-                            , scope = config.scope
-                            , select = config.updateElementTransformCountry targetElement transformIndex
-                            , selected = maybeCountry |> Maybe.map .code
-                            }
-                        ]
+                    [ span [ class "ComponentElementIcon" ] [ Icon.transform ]
+                    , text <| Process.getDisplayName transformStep.process
+                    ]
+                , td [ class "text-end align-middle text-nowrap" ]
+                    [ transformCountrySelector
+                        { attributes = [ style "min-width" "68px" ]
+                        , countries = config.db.countries
+                        , domId =
+                            "transform-country-"
+                                ++ Component.targetElementToString targetElement
+                                ++ "-"
+                                ++ String.fromInt transformIndex
+                        , scope = config.scope
+                        , select = config.updateElementTransformCountry targetElement transformIndex
+                        , selected = maybeCountry |> Maybe.map .code
+                        }
                     ]
                 , td [ class "align-middle text-end text-nowrap" ]
                     [ Format.splitAsPercentage 2 transformStep.process.waste ]
@@ -880,7 +885,8 @@ elementTransformsView config targetElement transformsResults transforms =
 
 
 type alias TransformCountrySelector msg =
-    { countries : List Country
+    { attributes : List (Attribute msg)
+    , countries : List Country
     , domId : String
     , scope : Scope
     , select : Maybe Country.Code -> msg
@@ -908,32 +914,40 @@ transformCountrySelector config =
                         |> value
                     , selected <| config.selected == maybeCode
                     ]
-                    [ text name ]
+                    [ text <|
+                        case maybeCode of
+                            Just code ->
+                                Country.codeToString code ++ " - " ++ name
+
+                            Nothing ->
+                                "---"
+                    ]
             )
         |> select
-            [ class "form-select form-select-sm"
-            , id config.domId
-            , style "max-width" "140px"
-            , autocomplete False
-            , config.selected
-                |> Maybe.andThen
-                    (\code ->
-                        Country.findByCode code countries
-                            |> Result.map .name
-                            |> Result.toMaybe
-                    )
-                |> Maybe.withDefault "Par défaut"
-                |> (++) "Mix: "
-                |> title
-            , onInput <|
-                \str ->
-                    config.select <|
-                        if String.isEmpty str then
-                            Nothing
+            (config.attributes
+                ++ [ class "form-select form-select-sm"
+                   , id config.domId
+                   , autocomplete False
+                   , config.selected
+                        |> Maybe.andThen
+                            (\code ->
+                                Country.findByCode code countries
+                                    |> Result.map .name
+                                    |> Result.toMaybe
+                            )
+                        |> Maybe.withDefault "Par défaut"
+                        |> (++) "Mix: "
+                        |> title
+                   , onInput <|
+                        \str ->
+                            config.select <|
+                                if String.isEmpty str then
+                                    Nothing
 
-                        else
-                            Just <| Country.codeFromString str
-            ]
+                                else
+                                    Just <| Country.codeFromString str
+                   ]
+            )
 
 
 quantityInput : Config db msg -> Index -> Quantity -> Html msg
