@@ -492,8 +492,8 @@ specify a country to use its electricity/heat mixes, or fallback to config defau
 
 -}
 applyTransforms : Config -> Process.Unit -> List ExpandedTransform -> Results -> Result String Results
-applyTransforms config unit transformSteps materialResults =
-    checkTransformStepsUnit unit transformSteps
+applyTransforms config unit transforms materialResults =
+    checkTransformsUnit unit transforms
         |> Result.andThen
             (List.foldl
                 (\{ country, process } ->
@@ -512,13 +512,13 @@ applyWaste waste =
     Amount.map (\amount -> amount - (amount * Split.toFloat waste))
 
 
-checkTransformStepsUnit : Process.Unit -> List ExpandedTransform -> Result String (List ExpandedTransform)
-checkTransformStepsUnit unit transformSteps =
-    if not <| List.all (.process >> .unit >> (==) unit) transformSteps then
+checkTransformsUnit : Process.Unit -> List ExpandedTransform -> Result String (List ExpandedTransform)
+checkTransformsUnit unit transforms =
+    if not <| List.all (.process >> .unit >> (==) unit) transforms then
         "Les procédés de transformation ne partagent pas la même unité que la matière source ("
             ++ Process.unitToString unit
             ++ ")\u{00A0}: "
-            ++ (transformSteps
+            ++ (transforms
                     |> List.filter (.process >> .unit >> (/=) unit)
                     |> List.map (\{ process } -> Process.getDisplayName process ++ " (" ++ Process.unitToString process.unit ++ ")")
                     |> String.join ", "
@@ -526,7 +526,7 @@ checkTransformStepsUnit unit transformSteps =
             |> Err
 
     else
-        Ok transformSteps
+        Ok transforms
 
 
 {-| Create a component from a custom definition
@@ -979,8 +979,8 @@ decodeElement =
         |> Decode.optional "transforms" decodeTransforms []
 
 
-decodeTransformStep : Decoder Transform
-decodeTransformStep =
+decodeTransform : Decoder Transform
+decodeTransform =
     Decode.succeed Transform
         |> DU.strictOptional "country" Country.decodeCode
         |> Decode.required "id" Process.decodeId
@@ -989,7 +989,7 @@ decodeTransformStep =
 decodeTransforms : Decoder (List Transform)
 decodeTransforms =
     Decode.oneOf
-        [ Decode.list decodeTransformStep
+        [ Decode.list decodeTransform
         , Decode.list Process.decodeId |> Decode.map (List.map defaultTransform)
         ]
 
@@ -1198,7 +1198,7 @@ encodeElement element =
 
             else
                 element.transforms
-                    |> Encode.list encodeTransformStep
+                    |> Encode.list encodeTransform
     in
     Encode.object
         [ ( "amount", Amount.encode element.amount )
@@ -1207,8 +1207,8 @@ encodeElement element =
         ]
 
 
-encodeTransformStep : Transform -> Encode.Value
-encodeTransformStep step =
+encodeTransform : Transform -> Encode.Value
+encodeTransform step =
     EU.optionalPropertiesObject
         [ ( "country", step.country |> Maybe.map Country.encodeCode )
         , ( "id", step.id |> Process.encodeId |> Just )
