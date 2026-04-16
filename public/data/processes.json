@@ -27592,6 +27592,90 @@
     "waste": 0
   },
   {
+    "activityName": "Almond, shelled with skin, CMAPS {GLO} U",
+    "categories": [
+      "ingredient",
+      "material"
+    ],
+    "comment": "",
+    "displayName": "Amande, décortiquée, avec peau FR",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "942ce7b6-96e7-4716-a56a-58043e5fe48e",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 1502.4,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "GLO",
+    "massPerUnit": null,
+    "scopes": [
+      "food"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Almond, shelled with skin, organic, CMAPS {GLO} U",
+    "categories": [
+      "ingredient",
+      "material"
+    ],
+    "comment": "",
+    "displayName": "Amande, décortiquée, avec peau Origine Inconnue BIO",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "9b516955-9c3a-47f0-9815-bb05131fe8ac",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 640.79,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "GLO",
+    "massPerUnit": null,
+    "scopes": [
+      "food"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "Apple, pulp raw, CMAPS {GLO} U",
     "categories": [
       "ingredient",
@@ -28843,6 +28927,174 @@
       "wtu": 0
     },
     "location": "FR",
+    "massPerUnit": null,
+    "scopes": [
+      "food"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Butter, 39-41pct fat light, variant 1, CMAPS {GLO} U",
+    "categories": [
+      "ingredient",
+      "material"
+    ],
+    "comment": "",
+    "displayName": "Beurre à 39-41% MG, léger, doux FR",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "b50c26d2-5694-43af-a31d-827e9c5be9cc",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 535.76,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "GLO",
+    "massPerUnit": null,
+    "scopes": [
+      "food"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Butter, 39-41pct fat light, variant 2, CMAPS {GLO} U",
+    "categories": [
+      "ingredient",
+      "material"
+    ],
+    "comment": "",
+    "displayName": "Beurre à 39-41% MG, léger, doux Origine Inconnue",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "4d0e2d52-adf7-4e88-8685-b202f9836eca",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 836.86,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "GLO",
+    "massPerUnit": null,
+    "scopes": [
+      "food"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Butter, 60-62pct fat reduced, variant 1, CMAPS {GLO} U",
+    "categories": [
+      "ingredient",
+      "material"
+    ],
+    "comment": "",
+    "displayName": "Beurre à 60-62% MG, à teneur réduite en matière grasse, doux FR",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "9f5b4546-d708-4cf2-a067-22d01d3a2a1d",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 719.44,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "GLO",
+    "massPerUnit": null,
+    "scopes": [
+      "food"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Butter, 60-62pct fat reduced, variant 2, CMAPS {GLO} U",
+    "categories": [
+      "ingredient",
+      "material"
+    ],
+    "comment": "",
+    "displayName": "Beurre à 60-62% MG, à teneur réduite en matière grasse, doux Origine Inconnue",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "c310abe5-d207-46c8-a21e-501c43559f5c",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 1128.0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "GLO",
     "massPerUnit": null,
     "scopes": [
       "food"
@@ -35082,6 +35334,174 @@
       "acd": 0,
       "cch": 0,
       "ecs": 1709.8,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "GLO",
+    "massPerUnit": null,
+    "scopes": [
+      "food"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Processed cheese, variant 1, CMAPS {GLO} U",
+    "categories": [
+      "ingredient",
+      "material"
+    ],
+    "comment": "",
+    "displayName": "Fromage fondu FR",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "336dd311-926b-465b-9555-786b442a3edc",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 512.07,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "GLO",
+    "massPerUnit": null,
+    "scopes": [
+      "food"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Processed cheese, variant 2, CMAPS {GLO} U",
+    "categories": [
+      "ingredient",
+      "material"
+    ],
+    "comment": "",
+    "displayName": "Fromage fondu Origine Inconnue",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "4466448d-6385-4089-9bc1-0118cea6050b",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 800.05,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "GLO",
+    "massPerUnit": null,
+    "scopes": [
+      "food"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Raclette cheese, variant 1, CMAPS {GLO} U",
+    "categories": [
+      "ingredient",
+      "material"
+    ],
+    "comment": "",
+    "displayName": "Raclette (fromage) FR",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "863fc139-2b67-47c1-a91c-e3e11aefc938",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 656.57,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "GLO",
+    "massPerUnit": null,
+    "scopes": [
+      "food"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Raclette cheese, variant 2, CMAPS {GLO} U",
+    "categories": [
+      "ingredient",
+      "material"
+    ],
+    "comment": "",
+    "displayName": "Raclette (fromage) Origine Inconnue",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "9043851c-e60a-48db-8d53-d4580832abba",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 1019.2,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,

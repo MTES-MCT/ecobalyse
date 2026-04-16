@@ -813,6 +813,27 @@
     "visible": true
   },
   {
+    "activityName": "Raclette cheese, variant 1, CMAPS {GLO} U",
+    "alias": "raclette-cheese-fr",
+    "categories": [
+      "dairy_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": null,
+    "id": "065b585d-b876-4f55-baa5-123965c4b0b7",
+    "inediblePart": 0,
+    "landOccupation": 5.3923,
+    "location": "GLO",
+    "name": "Raclette (fromage) FR",
+    "processId": "863fc139-2b67-47c1-a91c-e3e11aefc938",
+    "rawToCookedRatio": 1.0,
+    "scenario": "reference",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
     "activityName": "White bean, canned drained, organic, CMAPS {GLO} U",
     "alias": "white-bean-canned-drained-fr-organic",
     "categories": [
@@ -1884,6 +1905,27 @@
     "visible": true
   },
   {
+    "activityName": "Butter, 60-62pct fat reduced, variant 2, CMAPS {GLO} U",
+    "alias": "butter-60-62pct-fat-reduced-default",
+    "categories": [
+      "dairy_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
+    "density": 1.0,
+    "ecosystemicServices": null,
+    "id": "0dc5f4d4-29c5-4af6-943c-b09c5651266f",
+    "inediblePart": 0,
+    "landOccupation": 65.493,
+    "location": "GLO",
+    "name": "Beurre à 60-62% MG, à teneur réduite en matière grasse, doux Origine Inconnue",
+    "processId": "c310abe5-d207-46c8-a21e-501c43559f5c",
+    "rawToCookedRatio": 1.0,
+    "scenario": "import",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
     "activityName": "Lettuce {GLO}| lettuce production, in heated greenhouse | Cut-off, U",
     "alias": "red-endive-default",
     "categories": [
@@ -2253,7 +2295,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Peanut, in shell, at farm, organic 2025 {GLO}",
@@ -3789,6 +3831,27 @@
     "visible": false
   },
   {
+    "activityName": "Butter, 39-41pct fat light, variant 2, CMAPS {GLO} U",
+    "alias": "butter-39-41pct-fat-light-default",
+    "categories": [
+      "dairy_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
+    "density": 1.0,
+    "ecosystemicServices": null,
+    "id": "1dd1d7ed-2266-4317-bb45-709f850bd1e1",
+    "inediblePart": 0,
+    "landOccupation": 48.268,
+    "location": "GLO",
+    "name": "Beurre à 39-41% MG, léger, doux Origine Inconnue",
+    "processId": "4d0e2d52-adf7-4e88-8685-b202f9836eca",
+    "rawToCookedRatio": 1.0,
+    "scenario": "import",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
     "activityName": "Grapeseed oil, refined at plant {FR} U",
     "alias": "refined-grapeseed-oil-2025",
     "categories": [
@@ -4725,7 +4788,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Fennel, organic 2025 {GLO}| production | Cut-off, U",
@@ -4822,7 +4885,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Peanut, in shell, at farm (WFLDB)",
@@ -7046,6 +7109,27 @@
     "visible": true
   },
   {
+    "activityName": "Processed cheese, variant 2, CMAPS {GLO} U",
+    "alias": "processed-cheese-default",
+    "categories": [
+      "dairy_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
+    "density": 1.0,
+    "ecosystemicServices": null,
+    "id": "3c39b347-16c7-4929-bf91-f159dc8fe6da",
+    "inediblePart": 0,
+    "landOccupation": 46.16,
+    "location": "GLO",
+    "name": "Fromage fondu Origine Inconnue",
+    "processId": "4466448d-6385-4089-9bc1-0118cea6050b",
+    "rawToCookedRatio": 1.0,
+    "scenario": "import",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
     "activityName": "Spring faba bean, conventional, national average, at farm gate {FR} U",
     "alias": "spring-faba-default",
     "categories": [
@@ -8779,7 +8863,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Carrot, conventional, national average, at farm gate {FR} U",
@@ -11533,6 +11617,34 @@
     "visible": true
   },
   {
+    "activityName": "Almond, shelled with skin, organic, CMAPS {GLO} U",
+    "alias": "almond-shelled-with-skin-default-organic",
+    "categories": [
+      "nut_oilseed_raw",
+      "organic"
+    ],
+    "cropGroup": "FRUITS A COQUES",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
+    "density": 1.0,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 3.49,
+      "livestockDensity": null,
+      "permanentPasture": null,
+      "plotSize": 10.2
+    },
+    "id": "64e2c40d-0565-4247-ac68-e189d6a88204",
+    "inediblePart": 0,
+    "landOccupation": 11.624,
+    "location": "GLO",
+    "name": "Amande, décortiquée, avec peau Origine Inconnue BIO",
+    "processId": "9b516955-9c3a-47f0-9815-bb05131fe8ac",
+    "rawToCookedRatio": 1.0,
+    "scenario": "organic",
+    "transportCooling": "none",
+    "visible": true
+  },
+  {
     "activityName": "Sodium chloride, powder {GLO}| market for | Cut-off, S - Copied from Ecoinvent U",
     "alias": "sea-salt-celery-salt-or-fleur-de-sel-fr",
     "categories": [
@@ -11957,6 +12069,27 @@
     "visible": true
   },
   {
+    "activityName": "Processed cheese, variant 1, CMAPS {GLO} U",
+    "alias": "processed-cheese-fr",
+    "categories": [
+      "dairy_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": null,
+    "id": "671f681c-3ee2-4a98-8399-81663f6e24db",
+    "inediblePart": 0,
+    "landOccupation": 4.2795,
+    "location": "GLO",
+    "name": "Fromage fondu FR",
+    "processId": "336dd311-926b-465b-9555-786b442a3edc",
+    "rawToCookedRatio": 1.0,
+    "scenario": "reference",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
     "activityName": "Carrot, organic 2025, national average, at farm gate {FR} U",
     "alias": "celeriac-organic",
     "categories": [
@@ -12141,6 +12274,33 @@
     "processId": "6a93bbc3-875b-5cd2-ae7d-fc2cecf0efb2",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
+    "transportCooling": "none",
+    "visible": true
+  },
+  {
+    "activityName": "Almond, shelled with skin, CMAPS {GLO} U",
+    "alias": "almond-shelled-with-skin-fr",
+    "categories": [
+      "nut_oilseed_raw"
+    ],
+    "cropGroup": "FRUITS A COQUES",
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 2.11,
+      "livestockDensity": null,
+      "permanentPasture": null,
+      "plotSize": 6.16
+    },
+    "id": "69a756eb-5360-434a-9c2c-b6650db97399",
+    "inediblePart": 0,
+    "landOccupation": 7.0414,
+    "location": "GLO",
+    "name": "Amande, décortiquée, avec peau FR",
+    "processId": "942ce7b6-96e7-4716-a56a-58043e5fe48e",
+    "rawToCookedRatio": 1.0,
+    "scenario": "reference",
     "transportCooling": "none",
     "visible": true
   },
@@ -14534,6 +14694,27 @@
     "processId": "bd2e0742-a804-54f9-9e5f-712a5eb8d6e1",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
+    "activityName": "Butter, 39-41pct fat light, variant 1, CMAPS {GLO} U",
+    "alias": "butter-39-41pct-fat-light-fr",
+    "categories": [
+      "dairy_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": null,
+    "id": "7fc6c4b5-01ce-4cff-a057-9a238f69fc8b",
+    "inediblePart": 0,
+    "landOccupation": 4.4783,
+    "location": "GLO",
+    "name": "Beurre à 39-41% MG, léger, doux FR",
+    "processId": "b50c26d2-5694-43af-a31d-827e9c5be9cc",
+    "rawToCookedRatio": 1.0,
+    "scenario": "reference",
     "transportCooling": "always",
     "visible": true
   },
@@ -17164,7 +17345,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Tomato, fresh grade, open field, at farm (WFLDB)",
@@ -17480,7 +17661,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cabbage white {RoW}| cabbage white production | Cut-off, U - Adapted from Ecoinvent U",
@@ -18106,7 +18287,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Mint {RoW}| mint production | Cut-off, U - Adapted from Ecoinvent U",
@@ -19155,7 +19336,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Parsley, dried, CMAPS {GLO} U",
@@ -20485,7 +20666,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Pear {BE}| pear production | Cut-off, U - Adapted from Ecoinvent U",
@@ -20712,7 +20893,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Black pepper, conventional, at farm gate {VN} U",
@@ -20910,7 +21091,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Orange, fresh grade, organic 2025 {ES}| orange production, fresh grade | Cut-off, U",
@@ -22301,7 +22482,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Mustard, proxy from Rape seed {Canada without Quebec}| rape seed production | Cut-off, U - Adapted from Ecoinvent U",
@@ -23184,7 +23365,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Banana, at farm (WFLDB)",
@@ -25290,7 +25471,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Orange, pulp raw, variant 2, CMAPS {GLO} U",
@@ -25874,6 +26055,27 @@
     "visible": true
   },
   {
+    "activityName": "Raclette cheese, variant 2, CMAPS {GLO} U",
+    "alias": "raclette-cheese-default",
+    "categories": [
+      "dairy_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
+    "density": 1.0,
+    "ecosystemicServices": null,
+    "id": "e6f04916-b922-44d1-8214-3da283af2580",
+    "inediblePart": 0,
+    "landOccupation": 58.131,
+    "location": "GLO",
+    "name": "Raclette (fromage) Origine Inconnue",
+    "processId": "9043851c-e60a-48db-8d53-d4580832abba",
+    "rawToCookedRatio": 1.0,
+    "scenario": "import",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
     "activityName": "Garlic, dried powder, organic, CMAPS {GLO} U",
     "alias": "garlic-dried-powder-fr-organic",
     "categories": [
@@ -26159,6 +26361,27 @@
     "processId": "03ab5b2e-e1fe-5a46-b99b-32c2c9320af7",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
+    "activityName": "Butter, 60-62pct fat reduced, variant 1, CMAPS {GLO} U",
+    "alias": "butter-60-62pct-fat-reduced-fr",
+    "categories": [
+      "dairy_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": null,
+    "id": "e9cee56b-149c-4d79-8f10-4d49410d78c7",
+    "inediblePart": 0,
+    "landOccupation": 6.0717,
+    "location": "GLO",
+    "name": "Beurre à 60-62% MG, à teneur réduite en matière grasse, doux FR",
+    "processId": "9f5b4546-d708-4cf2-a067-22d01d3a2a1d",
+    "rawToCookedRatio": 1.0,
+    "scenario": "reference",
     "transportCooling": "always",
     "visible": true
   },
@@ -27209,7 +27432,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Egg, shelled raw, import WFLDB, CMAPS {GLO} U",
@@ -27501,6 +27724,33 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
+    "visible": true
+  },
+  {
+    "activityName": "Almond, shelled with skin, CMAPS {GLO} U",
+    "alias": "almond-shelled-with-skin-default",
+    "categories": [
+      "nut_oilseed_raw"
+    ],
+    "cropGroup": "FRUITS A COQUES",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
+    "density": 1.0,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0,
+      "livestockDensity": null,
+      "permanentPasture": null,
+      "plotSize": 0
+    },
+    "id": "f470bfc2-9272-4897-8083-42787e3df37d",
+    "inediblePart": 0,
+    "landOccupation": 7.0414,
+    "location": "GLO",
+    "name": "Amande, décortiquée, avec peau Origine Inconnue",
+    "processId": "942ce7b6-96e7-4716-a56a-58043e5fe48e",
+    "rawToCookedRatio": 1.0,
+    "scenario": "import",
+    "transportCooling": "none",
     "visible": true
   },
   {

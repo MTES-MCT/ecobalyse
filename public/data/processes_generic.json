@@ -39127,6 +39127,138 @@
     "waste": 0
   },
   {
+    "activityName": "Almond, shelled with skin, CMAPS {GLO} U",
+    "categories": [
+      "ingredient",
+      "material"
+    ],
+    "comment": "",
+    "displayName": "Amande, décortiquée, avec peau FR",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "69a756eb-5360-434a-9c2c-b6650db97399",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 1502.4,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "GLO",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Almond, shelled with skin, CMAPS {GLO} U",
+    "categories": [
+      "ingredient",
+      "material"
+    ],
+    "comment": "",
+    "displayName": "Amande, décortiquée, avec peau Origine Inconnue",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "f470bfc2-9272-4897-8083-42787e3df37d",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 1502.4,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "GLO",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Almond, shelled with skin, organic, CMAPS {GLO} U",
+    "categories": [
+      "ingredient",
+      "material"
+    ],
+    "comment": "",
+    "displayName": "Amande, décortiquée, avec peau Origine Inconnue BIO",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "64e2c40d-0565-4247-ac68-e189d6a88204",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 640.79,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "GLO",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "Aluminium+LDPE panel, RER",
     "categories": [
       "material",
@@ -40614,6 +40746,182 @@
     },
     "landOccupation": null,
     "location": "FR",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Butter, 39-41pct fat light, variant 1, CMAPS {GLO} U",
+    "categories": [
+      "ingredient",
+      "material"
+    ],
+    "comment": "",
+    "displayName": "Beurre à 39-41% MG, léger, doux FR",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "7fc6c4b5-01ce-4cff-a057-9a238f69fc8b",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 535.76,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "GLO",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Butter, 39-41pct fat light, variant 2, CMAPS {GLO} U",
+    "categories": [
+      "ingredient",
+      "material"
+    ],
+    "comment": "",
+    "displayName": "Beurre à 39-41% MG, léger, doux Origine Inconnue",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "1dd1d7ed-2266-4317-bb45-709f850bd1e1",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 836.86,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "GLO",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Butter, 60-62pct fat reduced, variant 1, CMAPS {GLO} U",
+    "categories": [
+      "ingredient",
+      "material"
+    ],
+    "comment": "",
+    "displayName": "Beurre à 60-62% MG, à teneur réduite en matière grasse, doux FR",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "e9cee56b-149c-4d79-8f10-4d49410d78c7",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 719.44,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "GLO",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Butter, 60-62pct fat reduced, variant 2, CMAPS {GLO} U",
+    "categories": [
+      "ingredient",
+      "material"
+    ],
+    "comment": "",
+    "displayName": "Beurre à 60-62% MG, à teneur réduite en matière grasse, doux Origine Inconnue",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "0dc5f4d4-29c5-4af6-943c-b09c5651266f",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 1128.0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
     "scopes": [
@@ -47840,6 +48148,94 @@
     "waste": 0
   },
   {
+    "activityName": "Processed cheese, variant 1, CMAPS {GLO} U",
+    "categories": [
+      "ingredient",
+      "material"
+    ],
+    "comment": "",
+    "displayName": "Fromage fondu FR",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "671f681c-3ee2-4a98-8399-81663f6e24db",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 512.07,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "GLO",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Processed cheese, variant 2, CMAPS {GLO} U",
+    "categories": [
+      "ingredient",
+      "material"
+    ],
+    "comment": "",
+    "displayName": "Fromage fondu Origine Inconnue",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "3c39b347-16c7-4929-bf91-f159dc8fe6da",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 800.05,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "GLO",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "Pyrometallurgical treatment of battery cell, DA",
     "categories": [
       "end-of-life"
@@ -47878,6 +48274,94 @@
     "scopes": [
       "object",
       "veli"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Raclette cheese, variant 1, CMAPS {GLO} U",
+    "categories": [
+      "ingredient",
+      "material"
+    ],
+    "comment": "",
+    "displayName": "Raclette (fromage) FR",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "065b585d-b876-4f55-baa5-123965c4b0b7",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 656.57,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "GLO",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Raclette cheese, variant 2, CMAPS {GLO} U",
+    "categories": [
+      "ingredient",
+      "material"
+    ],
+    "comment": "",
+    "displayName": "Raclette (fromage) Origine Inconnue",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "e6f04916-b922-44d1-8214-3da283af2580",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 1019.2,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "GLO",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "food2"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
