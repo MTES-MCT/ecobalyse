@@ -13,7 +13,7 @@ from app.domain.contrib.schemas import (
 )
 from app.lib.json import format_json
 from httpx import AsyncClient
-from litestar.exceptions import ValidationException
+from litestar.exceptions import NotFoundException, ValidationException
 
 logger = structlog.get_logger()
 
@@ -59,7 +59,10 @@ async def github_request(
         return response.json()
     else:
         error_detail = f"GitHub API error ({response.status_code}): {response.text}"
-        raise ValidationException(detail=error_detail)
+        if response.status_code == 404:
+            raise NotFoundException(error_detail)
+        else:
+            raise ValidationException(error_detail)
 
 
 async def create_example_contrib_pr(
@@ -71,14 +74,12 @@ async def create_example_contrib_pr(
     name = data.name.strip()
 
     if not name:
-        raise ValidationException(detail="Un nom de contribution est requis")
+        raise ValidationException("Un nom de contribution est requis")
     elif not description:
-        raise ValidationException(
-            detail="Une description de la contribution est requise"
-        )
+        raise ValidationException("Une description de la contribution est requise")
     elif not github_settings.TOKEN:
         raise ValidationException(
-            detail="Le serveur n’est pas configuré pour créer des pull requests"
+            "Le serveur n’est pas configuré pour créer des pull requests"
         )
 
     examples_path = f"public/data/{data.scope.value}/examples.json"
@@ -108,12 +109,18 @@ async def create_example_contrib_pr(
         )
 
         # get the target file content to update
-        file_content = await github_request(
-            client,
-            github_settings,
-            "GET",
-            f"contents/{examples_path}?ref={github_settings.BASE_BRANCH}",
-        )
+        try:
+            file_content = await github_request(
+                client,
+                github_settings,
+                "GET",
+                f"contents/{examples_path}?ref={github_settings.BASE_BRANCH}",
+            )
+        except NotFoundException:
+            raise NotFoundException(
+                f"Le domaine {data.scope.value} ne dispose pas d’exemples."
+            )
+
         file_sha = file_content["sha"]
         decoded_content = base64.b64decode(file_content["content"]).decode("utf-8")
         examples = json.loads(decoded_content)
