@@ -63,6 +63,9 @@ const elmWithFixtures = elmTemplate
   // Food JSON data
   .replace("%foodIngredientsJson%", parseAndValidate("public/data/food/ingredients.json", "id"))
   .replace("%foodProductExamplesJson%", parseAndValidate("public/data/food/examples.json", "id"))
+  // Food2 JSON data
+  .replace("%food2ComponentsJson%", parseAndValidate("public/data/food2/components.json", "id"))
+  .replace("%food2ExamplesJson%", parseAndValidate("public/data/food2/examples.json", "id"))
   // Object JSON data
   .replace("%objectComponentsJson%", parseAndValidate("public/data/object/components.json", "id"))
   .replace("%objectExamplesJson%", parseAndValidate("public/data/object/examples.json", "id"))
