@@ -193,25 +193,8 @@ suite =
                                     ]
                                     |> Expect.within (Expect.Absolute 1) 420
                                 )
-                            , it "should compute different impacts when a transform step country is specified"
+                            , it "should compute apply custom mix impacts when a transform step country is set"
                                 (let
-                                    defaultMixes =
-                                        ( requirements.config.production.defaultElecProcess.id
-                                        , requirements.config.production.defaultHeatProcess.id
-                                        )
-
-                                    maybeCountryWithDifferentMixes =
-                                        requirements.db.countries
-                                            |> Scope.anyOf [ requirements.scope ]
-                                            |> List.filter
-                                                (\c ->
-                                                    c.electricityProcess.id
-                                                        /= Tuple.first defaultMixes
-                                                        || c.heatProcess.id
-                                                        /= Tuple.second defaultMixes
-                                                )
-                                            |> List.head
-
                                     getImpact steps =
                                         Component.Results
                                             { amount = Amount.fromFloat 1
@@ -228,19 +211,29 @@ suite =
                                             |> Result.withDefault Component.emptyResults
                                             |> extractEcsImpact
                                  in
-                                 case maybeCountryWithDifferentMixes of
-                                    Nothing ->
-                                        Expect.fail "No country found with mixes different from defaults"
+                                 case
+                                    -- fetch first country with mixes different from defaults
+                                    requirements.db.countries
+                                        |> Scope.anyOf [ requirements.scope ]
+                                        |> List.filter
+                                            (\{ electricityProcess, heatProcess } ->
+                                                (electricityProcess /= requirements.config.production.defaultElecProcess)
+                                                    || (heatProcess /= requirements.config.production.defaultHeatProcess)
+                                            )
+                                        |> List.head
+                                        |> Result.fromMaybe "No country found with mixes different from defaults"
+                                 of
+                                    Err error ->
+                                        Expect.fail error
 
-                                    Just c ->
+                                    Ok country ->
                                         let
-                                            impactsDefault =
-                                                getImpact [ Component.defaultExpandedTransform fading ]
-
-                                            impactsLocalized =
-                                                getImpact [ { country = Just c, process = fading } ]
+                                            ( defaultImpact, localizedImpact ) =
+                                                ( getImpact [ Component.defaultExpandedTransform fading ]
+                                                , getImpact [ { country = Just country, process = fading } ]
+                                                )
                                         in
-                                        abs (impactsDefault - impactsLocalized)
+                                        abs (defaultImpact - localizedImpact)
                                             |> Expect.greaterThan 0.00001
                                 )
                             , it "should add impacts when multiple transforms are passed (no elec, no heat)"

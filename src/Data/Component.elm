@@ -326,17 +326,20 @@ type alias LifeCycleTransport =
 {-| A nested data structure carrying the impacts and mass resulting from a computation
 -}
 type Results
-    = Results
-        { amount : Amount
-        , complementsImpacts : ComplementsResultsImpacts
-        , impacts : Impacts
-        , items : List Results
-        , label : Maybe String
-        , mass : Mass
-        , materialType : Maybe Category.Material
-        , quantity : Int
-        , stage : Maybe Stage
-        }
+    = Results InnerResults
+
+
+type alias InnerResults =
+    { amount : Amount
+    , complementsImpacts : ComplementsResultsImpacts
+    , impacts : Impacts
+    , items : List Results
+    , label : Maybe String
+    , mass : Mass
+    , materialType : Maybe Category.Material
+    , quantity : Int
+    , stage : Maybe Stage
+    }
 
 
 {-| Lifecycle stage. Note: End of life stage is handled separately.
