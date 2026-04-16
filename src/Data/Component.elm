@@ -8,7 +8,7 @@ module Data.Component exposing
     , EndOfLifeMaterialImpacts
     , ExpandedElement
     , ExpandedItem
-    , ExpandedTransformStep
+    , ExpandedTransform
     , Id
     , Index
     , Item
@@ -42,6 +42,7 @@ module Data.Component exposing
     , decodeQuery
     , defaultConfig
     , defaultDurability
+    , defaultExpandedTransform
     , defaultTransform
     , elementTransforms
     , elementsToString
@@ -234,11 +235,11 @@ type alias DataContainer db =
 type alias Element =
     { amount : Amount
     , material : Process.Id
-    , transforms : List TransformStep
+    , transforms : List Transform
     }
 
 
-type alias TransformStep =
+type alias Transform =
     { country : Maybe Country.Code
     , id : Process.Id
     }
@@ -253,11 +254,11 @@ type alias ExpandedElement =
     { amount : Amount
     , country : Maybe Country
     , material : Process
-    , transforms : List ExpandedTransformStep
+    , transforms : List ExpandedTransform
     }
 
 
-type alias ExpandedTransformStep =
+type alias ExpandedTransform =
     { country : Maybe Country
     , process : Process
     }
@@ -487,7 +488,7 @@ Energy mix impacts are computed at the transform step level: each step can optio
 specify a country to use its electricity/heat mixes, or fallback to config defaults when absent.
 
 -}
-applyTransforms : Config -> Process.Unit -> List ExpandedTransformStep -> Results -> Result String Results
+applyTransforms : Config -> Process.Unit -> List ExpandedTransform -> Results -> Result String Results
 applyTransforms config unit transformSteps materialResults =
     checkTransformStepsUnit unit transformSteps
         |> Result.andThen
@@ -508,7 +509,7 @@ applyWaste waste =
     Amount.map (\amount -> amount - (amount * Split.toFloat waste))
 
 
-checkTransformStepsUnit : Process.Unit -> List ExpandedTransformStep -> Result String (List ExpandedTransformStep)
+checkTransformStepsUnit : Process.Unit -> List ExpandedTransform -> Result String (List ExpandedTransform)
 checkTransformStepsUnit unit transformSteps =
     if not <| List.all (.process >> .unit >> (==) unit) transformSteps then
         "Les procédés de transformation ne partagent pas la même unité que la matière source ("
@@ -975,14 +976,14 @@ decodeElement =
         |> Decode.optional "transforms" decodeTransforms []
 
 
-decodeTransformStep : Decoder TransformStep
+decodeTransformStep : Decoder Transform
 decodeTransformStep =
-    Decode.succeed TransformStep
+    Decode.succeed Transform
         |> DU.strictOptional "country" Country.decodeCode
         |> Decode.required "id" Process.decodeId
 
 
-decodeTransforms : Decoder (List TransformStep)
+decodeTransforms : Decoder (List Transform)
 decodeTransforms =
     Decode.oneOf
         [ Decode.list decodeTransformStep
@@ -1046,9 +1047,14 @@ defaultDurability =
     Unit.ratio 1
 
 
-defaultTransform : Process.Id -> TransformStep
+defaultTransform : Process.Id -> Transform
 defaultTransform id =
     { country = Nothing, id = id }
+
+
+defaultExpandedTransform : Process -> ExpandedTransform
+defaultExpandedTransform process =
+    { country = Nothing, process = process }
 
 
 elementToString : List Process -> Element -> Result String String
@@ -1198,7 +1204,7 @@ encodeElement element =
         ]
 
 
-encodeTransformStep : TransformStep -> Encode.Value
+encodeTransformStep : Transform -> Encode.Value
 encodeTransformStep step =
     EU.optionalPropertiesObject
         [ ( "country", step.country |> Maybe.map Country.encodeCode )
@@ -1350,7 +1356,7 @@ expandElement { countries, processes } maybeCountry { amount, material, transfor
             (transforms
                 |> List.map
                     (\step ->
-                        Ok ExpandedTransformStep
+                        Ok ExpandedTransform
                             |> RE.andMap (Country.resolveMaybe step.country countries)
                             |> RE.andMap (Process.findById step.id processes)
                     )
