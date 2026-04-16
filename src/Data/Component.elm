@@ -435,8 +435,8 @@ applyDurability maybeDurability =
            )
 
 
-applyTransform : EnergyMixes -> Process -> Results -> Results
-applyTransform { elec, heat } transform (Results { amount, label, impacts, items, mass, complementsImpacts }) =
+applyTransform : Process -> Results -> EnergyMixes -> Results
+applyTransform transform (Results { amount, label, impacts, items, mass, complementsImpacts }) { elec, heat } =
     let
         transformImpacts =
             [ transform.impacts
@@ -497,7 +497,7 @@ applyTransforms config unit transforms materialResults =
                     Result.andThen
                         (\results ->
                             loadEnergyMixes config country
-                                |> Result.map (\energyMixes -> applyTransform energyMixes process results)
+                                |> Result.map (applyTransform process results)
                         )
                 )
                 (Ok materialResults)
@@ -987,7 +987,9 @@ decodeTransforms : Decoder (List Transform)
 decodeTransforms =
     Decode.oneOf
         [ Decode.list decodeTransform
-        , Decode.list Process.decodeId |> Decode.map (List.map defaultTransform)
+
+        -- Backward-compatible decoder for transforms when they were just process ids
+        , Decode.list (Process.decodeId |> Decode.map defaultTransform)
         ]
 
 
@@ -1047,14 +1049,14 @@ defaultDurability =
     Unit.ratio 1
 
 
-defaultTransform : Process.Id -> Transform
-defaultTransform id =
-    { country = Nothing, id = id }
-
-
 defaultExpandedTransform : Process -> ExpandedTransform
 defaultExpandedTransform process =
     { country = Nothing, process = process }
+
+
+defaultTransform : Process.Id -> Transform
+defaultTransform id =
+    { country = Nothing, id = id }
 
 
 elementToString : List Process -> Element -> Result String String
@@ -1186,29 +1188,18 @@ encodeCustom custom =
 
 encodeElement : Element -> Encode.Value
 encodeElement element =
-    let
-        encodeTransforms =
-            if element.transforms |> List.all (.country >> (==) Nothing) then
-                element.transforms
-                    |> List.map .id
-                    |> Encode.list Process.encodeId
-
-            else
-                element.transforms
-                    |> Encode.list encodeTransform
-    in
     Encode.object
         [ ( "amount", Amount.encode element.amount )
         , ( "material", Process.encodeId element.material )
-        , ( "transforms", encodeTransforms )
+        , ( "transforms", element.transforms |> Encode.list encodeTransform )
         ]
 
 
 encodeTransform : Transform -> Encode.Value
-encodeTransform step =
+encodeTransform transform =
     EU.optionalPropertiesObject
-        [ ( "country", step.country |> Maybe.map Country.encodeCode )
-        , ( "id", step.id |> Process.encodeId |> Just )
+        [ ( "country", transform.country |> Maybe.map Country.encodeCode )
+        , ( "id", transform.id |> Process.encodeId |> Just )
         ]
 
 
@@ -1348,20 +1339,11 @@ expandConsumptions processes =
 {-| Turn an Element to an ExpandedElement
 -}
 expandElement : DataContainer db -> Maybe Country.Code -> Element -> Result String ExpandedElement
-expandElement { countries, processes } maybeCountry { amount, material, transforms } =
+expandElement ({ countries, processes } as db) maybeCountry { amount, material, transforms } =
     Ok (ExpandedElement amount)
         |> RE.andMap (Country.resolveMaybe maybeCountry countries)
         |> RE.andMap (Process.findById material processes)
-        |> RE.andMap
-            (transforms
-                |> List.map
-                    (\step ->
-                        Ok ExpandedTransform
-                            |> RE.andMap (Country.resolveMaybe step.country countries)
-                            |> RE.andMap (Process.findById step.id processes)
-                    )
-                |> RE.combine
-            )
+        |> RE.andMap (expandTransforms db transforms)
 
 
 {-| Take a list of elements and resolve them with fully qualified processes
@@ -1425,6 +1407,19 @@ expandNewItem db country custom quantity =
 expandItems : DataContainer a -> List Item -> Result String (List ExpandedItem)
 expandItems db =
     List.map (expandItem db) >> RE.combine
+
+
+{-| Turn a list of Transform into a list of ExpandedTransform
+-}
+expandTransforms : DataContainer db -> List Transform -> Result String (List ExpandedTransform)
+expandTransforms { countries, processes } =
+    List.map
+        (\{ country, id } ->
+            Ok ExpandedTransform
+                |> RE.andMap (Country.resolveMaybe country countries)
+                |> RE.andMap (Process.findById id processes)
+        )
+        >> RE.combine
 
 
 extractAmount : Results -> Amount
