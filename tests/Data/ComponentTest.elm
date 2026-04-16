@@ -95,7 +95,7 @@ suite =
                                                 -- and its material process id
                                                 |> Maybe.map .transforms
                                         )
-                                    |> Expect.equal (Ok (Just [ validTransformProcess.id ]))
+                                    |> Expect.equal (Ok (Just [ { country = Nothing, id = validTransformProcess.id } ]))
                                 )
                             , it "should reject an invalid transformation process"
                                 (chair
@@ -130,7 +130,9 @@ suite =
                                     , quantity = 1
                                     , stage = Nothing
                                     }
-                                    |> Component.applyTransforms requirements.config Nothing Process.Kilogram transforms
+                                    |> Component.applyTransforms requirements.config
+                                        Process.Kilogram
+                                        (List.map (\process -> { country = Nothing, process = process }) transforms)
                                     |> Result.withDefault Component.emptyResults
                                     |> Component.extractMass
                                     |> Mass.inKilograms
@@ -162,7 +164,9 @@ suite =
                                     , quantity = 1
                                     , stage = Nothing
                                     }
-                                    |> Component.applyTransforms requirements.config Nothing Process.Kilogram transforms
+                                    |> Component.applyTransforms requirements.config
+                                        Process.Kilogram
+                                        (List.map (\process -> { country = Nothing, process = process }) transforms)
                                     |> Result.withDefault Component.emptyResults
                                     |> extractEcsImpact
                           in
@@ -188,6 +192,56 @@ suite =
                                       }
                                     ]
                                     |> Expect.within (Expect.Absolute 1) 420
+                                )
+                            , it "should compute different impacts when a transform step country is specified"
+                                (let
+                                    defaultMixes =
+                                        ( requirements.config.production.defaultElecProcess.id
+                                        , requirements.config.production.defaultHeatProcess.id
+                                        )
+
+                                    maybeCountryWithDifferentMixes =
+                                        requirements.db.countries
+                                            |> Scope.anyOf [ requirements.scope ]
+                                            |> List.filter
+                                                (\c ->
+                                                    c.electricityProcess.id
+                                                        /= Tuple.first defaultMixes
+                                                        || c.heatProcess.id
+                                                        /= Tuple.second defaultMixes
+                                                )
+                                            |> List.head
+
+                                    getImpact steps =
+                                        Component.Results
+                                            { amount = Amount.fromFloat 1
+                                            , complementsImpacts = Complement.emptyComplementsResultsImpacts
+                                            , impacts = Impact.empty
+                                            , items = []
+                                            , label = Nothing
+                                            , mass = Mass.kilogram
+                                            , materialType = Nothing
+                                            , quantity = 1
+                                            , stage = Nothing
+                                            }
+                                            |> Component.applyTransforms requirements.config Process.Kilogram steps
+                                            |> Result.withDefault Component.emptyResults
+                                            |> extractEcsImpact
+                                 in
+                                 case maybeCountryWithDifferentMixes of
+                                    Nothing ->
+                                        Expect.fail "No country found with mixes different from defaults"
+
+                                    Just c ->
+                                        let
+                                            impactsDefault =
+                                                getImpact [ { country = Nothing, process = fading } ]
+
+                                            impactsLocalized =
+                                                getImpact [ { country = Just c, process = fading } ]
+                                        in
+                                        abs (impactsDefault - impactsLocalized)
+                                            |> Expect.greaterThan 0.00001
                                 )
                             , it "should add impacts when multiple transforms are passed (no elec, no heat)"
                                 (getTestEcsImpact
@@ -219,7 +273,9 @@ suite =
                                         , quantity = 1
                                         , stage = Nothing
                                         }
-                                        |> Component.applyTransforms requirements.config Nothing Process.CubicMeter [ transformInKg ]
+                                        |> Component.applyTransforms requirements.config
+                                            Process.CubicMeter
+                                            [ { country = Nothing, process = transformInKg } ]
                                         |> Expect.equal (Err "Les procédés de transformation ne partagent pas la même unité que la matière source (m3)\u{00A0}: Moulage par injection (kg)")
                                     )
                                 ]
@@ -237,7 +293,9 @@ suite =
                                     , quantity = 1
                                     , stage = Nothing
                                     }
-                                    |> Component.applyTransforms requirements.config Nothing Process.Kilogram transforms
+                                    |> Component.applyTransforms requirements.config
+                                        Process.Kilogram
+                                        (List.map (\process -> { country = Nothing, process = process }) transforms)
                                     |> Result.withDefault Component.emptyResults
                           in
                           describe "impacts & waste"
@@ -449,7 +507,10 @@ suite =
                                             , material = cottonId
 
                                             -- Note: weaving waste: 0.06253, fading: 0
-                                            , transforms = [ weaving.id, fading.id ]
+                                            , transforms =
+                                                [ { country = Nothing, id = weaving.id }
+                                                , { country = Nothing, id = fading.id }
+                                                ]
                                             }
                                     )
                             )
@@ -476,7 +537,7 @@ suite =
                                     results =
                                         { amount = Amount.fromFloat 1
                                         , material = materialInCubicMeters.id
-                                        , transforms = [ transformInCubicMeters.id ]
+                                        , transforms = [ { country = Nothing, id = transformInCubicMeters.id } ]
                                         }
                                             |> Component.computeElementResults requirements Nothing
                                 in
@@ -502,7 +563,7 @@ suite =
                                     results =
                                         { amount = Amount.fromFloat 1
                                         , material = materialInCubicMeters.id
-                                        , transforms = [ transformInCubicMeters.id ]
+                                        , transforms = [ { country = Nothing, id = transformInCubicMeters.id } ]
                                         }
                                             |> Component.computeElementResults requirements Nothing
                                 in

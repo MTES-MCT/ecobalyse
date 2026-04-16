@@ -8,6 +8,7 @@ module Data.Component exposing
     , EndOfLifeMaterialImpacts
     , ExpandedElement
     , ExpandedItem
+    , ExpandedTransformStep
     , Id
     , Index
     , Item
@@ -94,6 +95,7 @@ module Data.Component exposing
     , updateDurability
     , updateElement
     , updateElementAmount
+    , updateElementTransformCountry
     , updateItem
     , updateItemCustomName
     , validateItem
@@ -230,7 +232,13 @@ type alias DataContainer db =
 type alias Element =
     { amount : Amount
     , material : Process.Id
-    , transforms : List Process.Id
+    , transforms : List TransformStep
+    }
+
+
+type alias TransformStep =
+    { country : Maybe Country.Code
+    , id : Process.Id
     }
 
 
@@ -243,7 +251,13 @@ type alias ExpandedElement =
     { amount : Amount
     , country : Maybe Country
     , material : Process
-    , transforms : List Process
+    , transforms : List ExpandedTransformStep
+    }
+
+
+type alias ExpandedTransformStep =
+    { country : Maybe Country
+    , process : Process
     }
 
 
@@ -364,7 +378,7 @@ addElementTransform targetElement transform items =
     else
         items
             |> updateElement targetElement
-                (\el -> { el | transforms = el.transforms ++ [ transform.id ] })
+                (\el -> { el | transforms = el.transforms ++ [ { country = Nothing, id = transform.id } ] })
             |> Ok
 
 
@@ -465,20 +479,29 @@ applyTransform { elec, heat } transform (Results { amount, label, impacts, items
         }
 
 
-{-| Sequencially apply transforms to existing Results (typically, material ones).
+{-| Sequencially apply transforms to existing Results (typically, from material ones).
 
-Note: for now we use average elec and heat mixes, but we might want to allow
-specifying specific country mixes in the future.
+Energy mix impacts are computed at the transform step level: each step can optionally
+specify a country to use its electricity/heat mixes, or fallback to config defaults when absent.
 
 -}
-applyTransforms : Config -> Maybe Country -> Process.Unit -> List Process -> Results -> Result String Results
-applyTransforms config maybeCountry unit transforms materialResults =
-    checkTransformsUnit unit transforms
-        |> Result.andThen (\_ -> loadEnergyMixes config maybeCountry)
-        |> Result.map
-            (\energyMixes ->
+applyTransforms : Config -> Process.Unit -> List ExpandedTransformStep -> Results -> Result String Results
+applyTransforms config unit transforms materialResults =
+    transforms
+        |> List.map .process
+        |> checkTransformsUnit unit
+        |> Result.andThen
+            (\_ ->
                 transforms
-                    |> List.foldl (applyTransform energyMixes) materialResults
+                    |> List.foldl
+                        (\{ country, process } ->
+                            Result.andThen
+                                (\results ->
+                                    loadEnergyMixes config country
+                                        |> Result.map (\energyMixes -> applyTransform energyMixes process results)
+                                )
+                        )
+                        (Ok materialResults)
             )
 
 
@@ -580,14 +603,14 @@ computeElementResults : Requirements db -> Maybe Country.Code -> Element -> Resu
 computeElementResults requirements maybeCountry =
     expandElement requirements.db maybeCountry
         >> Result.andThen
-            (\{ amount, country, material, transforms } ->
+            (\{ amount, material, transforms } ->
                 amount
-                    |> computeInitialAmount (List.map .waste transforms)
+                    |> computeInitialAmount (List.map (.process >> .waste) transforms)
                     |> Result.andThen
                         (\initialAmount ->
                             material
                                 |> computeMaterialResults initialAmount
-                                |> applyTransforms requirements.config country material.unit transforms
+                                |> applyTransforms requirements.config material.unit transforms
                         )
             )
 
@@ -951,7 +974,23 @@ decodeElement =
     Decode.succeed Element
         |> Decode.required "amount" Amount.decode
         |> Decode.required "material" Process.decodeId
-        |> Decode.optional "transforms" (Decode.list Process.decodeId) []
+        |> Decode.optional "transforms" decodeTransforms []
+
+
+decodeTransformStep : Decoder TransformStep
+decodeTransformStep =
+    Decode.succeed TransformStep
+        |> DU.strictOptional "country" Country.decodeCode
+        |> Decode.required "id" Process.decodeId
+
+
+decodeTransforms : Decoder (List TransformStep)
+decodeTransforms =
+    Decode.oneOf
+        [ Decode.list decodeTransformStep
+        , Decode.list Process.decodeId
+            |> Decode.map (List.map (\id -> { country = Nothing, id = id }))
+        ]
 
 
 decodeItem : Decoder Item
@@ -1028,6 +1067,7 @@ elementTransforms ( targetItem, elementIndex ) =
     itemElements targetItem
         >> LE.getAt elementIndex
         >> Maybe.map .transforms
+        >> Maybe.map (List.map .id)
         >> Maybe.withDefault []
 
 
@@ -1138,10 +1178,29 @@ encodeCustom custom =
 
 encodeElement : Element -> Encode.Value
 encodeElement element =
+    let
+        encodeTransforms =
+            if element.transforms |> List.all (.country >> (==) Nothing) then
+                element.transforms
+                    |> List.map .id
+                    |> Encode.list Process.encodeId
+
+            else
+                element.transforms
+                    |> Encode.list encodeTransformStep
+    in
     Encode.object
         [ ( "amount", Amount.encode element.amount )
         , ( "material", Process.encodeId element.material )
-        , ( "transforms", element.transforms |> Encode.list Process.encodeId )
+        , ( "transforms", encodeTransforms )
+        ]
+
+
+encodeTransformStep : TransformStep -> Encode.Value
+encodeTransformStep step =
+    EU.optionalPropertiesObject
+        [ ( "country", step.country |> Maybe.map Country.encodeCode )
+        , ( "id", step.id |> Process.encodeId |> Just )
         ]
 
 
@@ -1287,7 +1346,12 @@ expandElement { countries, processes } maybeCountry { amount, material, transfor
         |> RE.andMap (Process.findById material processes)
         |> RE.andMap
             (transforms
-                |> List.map (\id -> Process.findById id processes)
+                |> List.map
+                    (\step ->
+                        Ok ExpandedTransformStep
+                            |> RE.andMap (Country.resolveMaybe step.country countries)
+                            |> RE.andMap (Process.findById step.id processes)
+                    )
                 |> RE.combine
             )
 
@@ -1699,6 +1763,17 @@ removeElementTransform : TargetElement -> Index -> List Item -> List Item
 removeElementTransform targetElement transformIndex =
     updateElement targetElement <|
         \el -> { el | transforms = el.transforms |> LE.removeAt transformIndex }
+
+
+updateElementTransformCountry : TargetElement -> Index -> Maybe Country.Code -> List Item -> List Item
+updateElementTransformCountry targetElement transformIndex maybeCountryCode =
+    updateElement targetElement <|
+        \el ->
+            { el
+                | transforms =
+                    el.transforms
+                        |> LE.updateAt transformIndex (\step -> { step | country = maybeCountryCode })
+            }
 
 
 setCustomScope : Component -> Scope -> Item -> Item
