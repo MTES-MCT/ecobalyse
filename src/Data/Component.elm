@@ -89,6 +89,7 @@ module Data.Component exposing
     , setQueryItems
     , stagesImpacts
     , sumLifeCycleImpacts
+    , targetElementToString
     , toSearchableString
     , tryMapItems
     , updateConsumptionAmount
@@ -1883,6 +1884,11 @@ sumLifeCycleImpacts lifeCycle =
         , lifeCycle.transports.toDistribution.impacts
         , lifeCycle.use |> Impact.sumImpacts
         ]
+
+
+targetElementToString : TargetElement -> String
+targetElementToString ( ( _, index ), elementIndex ) =
+    String.join "-" [ String.fromInt index, String.fromInt elementIndex ]
 
 
 toSearchableString : DataContainer db -> Component -> String

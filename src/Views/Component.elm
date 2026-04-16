@@ -843,9 +843,7 @@ elementTransformsView config targetElement transformsResults transforms =
                             { countries = config.db.countries
                             , domId =
                                 "transform-country-"
-                                    ++ (targetElement |> Tuple.first |> Tuple.second |> String.fromInt)
-                                    ++ "-"
-                                    ++ (targetElement |> Tuple.second |> String.fromInt)
+                                    ++ Component.targetElementToString targetElement
                                     ++ "-"
                                     ++ String.fromInt transformIndex
                             , scope = config.scope
@@ -892,9 +890,13 @@ type alias TransformCountrySelector msg =
 
 transformCountrySelector : TransformCountrySelector msg -> Html msg
 transformCountrySelector config =
-    config.countries
-        |> Scope.anyOf [ config.scope ]
-        |> List.sortBy .name
+    let
+        countries =
+            config.countries
+                |> Scope.anyOf [ config.scope ]
+                |> List.sortBy .name
+    in
+    countries
         |> List.map (\{ code, name } -> ( name, Just code ))
         |> (::) ( "Mix par défaut", Nothing )
         |> List.map
@@ -913,6 +915,16 @@ transformCountrySelector config =
             , id config.domId
             , style "max-width" "140px"
             , autocomplete False
+            , config.selected
+                |> Maybe.andThen
+                    (\code ->
+                        Country.findByCode code countries
+                            |> Result.map .name
+                            |> Result.toMaybe
+                    )
+                |> Maybe.withDefault "Par défaut"
+                |> (++) "Mix: "
+                |> title
             , onInput <|
                 \str ->
                     config.select <|
