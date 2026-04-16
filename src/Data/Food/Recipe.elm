@@ -379,9 +379,9 @@ computeIngredientTransport db { country, ingredient, mass, planeTransport } =
                         Just { code } ->
                             db.distances
                                 |> Transport.getTransportBetween emptyImpacts code france
+                                |> Transport.applyTransportRatios planeRatio
                                 -- For some regions we should always add 2000kms of road
                                 -- See https://github.com/MTES-MCT/ecobalyse/issues/1982
-                                |> Transport.applyTransportRatios planeRatio
                                 |> (if countriesWithDefaultRoadTransport |> List.member code then
                                         Transport.addRoadWithCooling (Length.kilometers defaultKilometersRoadDistance) False
 

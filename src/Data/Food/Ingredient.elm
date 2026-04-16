@@ -193,7 +193,7 @@ getDefaultOriginTransport planeTransport origin =
     in
     case origin of
         Origin.EuropeAndMaghreb ->
-            { default | road = Length.kilometers 2500 }
+            { default | road = Length.kilometers 2000 }
 
         Origin.France ->
             default
