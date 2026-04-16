@@ -175,7 +175,9 @@
               {
                 "amount": 0.2,
                 "material": "ac028973-5dfa-47bc-868c-e49be116f53e",
-                "transforms": ["4c1b77b1-4e4b-4fdd-a392-eea0b8764b6b"]
+                "transforms": [
+                  "4c1b77b1-4e4b-4fdd-a392-eea0b8764b6b"
+                ]
               }
             ],
             "name": "Charnières en acier"
@@ -205,6 +207,35 @@
         }
       ],
       "durability": 1
+    },
+    "scope": "object"
+  },
+  {
+    "category": "",
+    "id": "4184e445-d23f-466e-ac2a-fd8d95754d85",
+    "name": "Ma chaise de jardin",
+    "query": {
+      "components": [
+        {
+          "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973",
+          "quantity": 1
+        },
+        {
+          "custom": {
+            "elements": [
+              {
+                "amount": 0.5,
+                "material": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b",
+                "transforms": [
+                  "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"
+                ]
+              }
+            ]
+          },
+          "id": "190276e9-5b90-42d6-8fbd-bc7ddfd4c960",
+          "quantity": 1
+        }
+      ]
     },
     "scope": "object"
   }
