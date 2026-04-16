@@ -911,7 +911,7 @@ transformCountrySelector config =
         |> select
             [ class "form-select form-select-sm"
             , id config.domId
-            , style "max-width" "190px"
+            , style "max-width" "140px"
             , autocomplete False
             , onInput <|
                 \str ->

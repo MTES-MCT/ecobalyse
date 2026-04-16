@@ -42,6 +42,7 @@ module Data.Component exposing
     , decodeQuery
     , defaultConfig
     , defaultDurability
+    , defaultTransform
     , elementTransforms
     , elementsToString
     , emptyComponent
@@ -378,7 +379,7 @@ addElementTransform targetElement transform items =
     else
         items
             |> updateElement targetElement
-                (\el -> { el | transforms = el.transforms ++ [ { country = Nothing, id = transform.id } ] })
+                (\el -> { el | transforms = el.transforms ++ [ defaultTransform transform.id ] })
             |> Ok
 
 
@@ -486,22 +487,18 @@ specify a country to use its electricity/heat mixes, or fallback to config defau
 
 -}
 applyTransforms : Config -> Process.Unit -> List ExpandedTransformStep -> Results -> Result String Results
-applyTransforms config unit transforms materialResults =
-    transforms
-        |> List.map .process
-        |> checkTransformsUnit unit
+applyTransforms config unit transformSteps materialResults =
+    checkTransformStepsUnit unit transformSteps
         |> Result.andThen
-            (\_ ->
-                transforms
-                    |> List.foldl
-                        (\{ country, process } ->
-                            Result.andThen
-                                (\results ->
-                                    loadEnergyMixes config country
-                                        |> Result.map (\energyMixes -> applyTransform energyMixes process results)
-                                )
+            (List.foldl
+                (\{ country, process } ->
+                    Result.andThen
+                        (\results ->
+                            loadEnergyMixes config country
+                                |> Result.map (\energyMixes -> applyTransform energyMixes process results)
                         )
-                        (Ok materialResults)
+                )
+                (Ok materialResults)
             )
 
 
@@ -510,21 +507,21 @@ applyWaste waste =
     Amount.map (\amount -> amount - (amount * Split.toFloat waste))
 
 
-checkTransformsUnit : Process.Unit -> List Process -> Result String (List Process)
-checkTransformsUnit unit transforms =
-    if not <| List.all (.unit >> (==) unit) transforms then
+checkTransformStepsUnit : Process.Unit -> List ExpandedTransformStep -> Result String (List ExpandedTransformStep)
+checkTransformStepsUnit unit transformSteps =
+    if not <| List.all (.process >> .unit >> (==) unit) transformSteps then
         "Les procédés de transformation ne partagent pas la même unité que la matière source ("
             ++ Process.unitToString unit
             ++ ")\u{00A0}: "
-            ++ (transforms
-                    |> List.filter (.unit >> (/=) unit)
-                    |> List.map (\p -> Process.getDisplayName p ++ " (" ++ Process.unitToString p.unit ++ ")")
+            ++ (transformSteps
+                    |> List.filter (.process >> .unit >> (/=) unit)
+                    |> List.map (\{ process } -> Process.getDisplayName process ++ " (" ++ Process.unitToString process.unit ++ ")")
                     |> String.join ", "
                )
             |> Err
 
     else
-        Ok transforms
+        Ok transformSteps
 
 
 {-| Create a component from a custom definition
@@ -988,8 +985,7 @@ decodeTransforms : Decoder (List TransformStep)
 decodeTransforms =
     Decode.oneOf
         [ Decode.list decodeTransformStep
-        , Decode.list Process.decodeId
-            |> Decode.map (List.map (\id -> { country = Nothing, id = id }))
+        , Decode.list Process.decodeId |> Decode.map (List.map defaultTransform)
         ]
 
 
@@ -1047,6 +1043,11 @@ defaultConfig =
 defaultDurability : Unit.Ratio
 defaultDurability =
     Unit.ratio 1
+
+
+defaultTransform : Process.Id -> TransformStep
+defaultTransform id =
+    { country = Nothing, id = id }
 
 
 elementToString : List Process -> Element -> Result String String

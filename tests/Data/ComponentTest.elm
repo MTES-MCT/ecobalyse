@@ -95,7 +95,7 @@ suite =
                                                 -- and its material process id
                                                 |> Maybe.map .transforms
                                         )
-                                    |> Expect.equal (Ok (Just [ { country = Nothing, id = validTransformProcess.id } ]))
+                                    |> Expect.equal (Ok (Just [ Component.defaultTransform validTransformProcess.id ]))
                                 )
                             , it "should reject an invalid transformation process"
                                 (chair
@@ -508,8 +508,8 @@ suite =
 
                                             -- Note: weaving waste: 0.06253, fading: 0
                                             , transforms =
-                                                [ { country = Nothing, id = weaving.id }
-                                                , { country = Nothing, id = fading.id }
+                                                [ Component.defaultTransform weaving.id
+                                                , Component.defaultTransform fading.id
                                                 ]
                                             }
                                     )
@@ -537,7 +537,7 @@ suite =
                                     results =
                                         { amount = Amount.fromFloat 1
                                         , material = materialInCubicMeters.id
-                                        , transforms = [ { country = Nothing, id = transformInCubicMeters.id } ]
+                                        , transforms = [ Component.defaultTransform transformInCubicMeters.id ]
                                         }
                                             |> Component.computeElementResults requirements Nothing
                                 in
@@ -563,7 +563,7 @@ suite =
                                     results =
                                         { amount = Amount.fromFloat 1
                                         , material = materialInCubicMeters.id
-                                        , transforms = [ { country = Nothing, id = transformInCubicMeters.id } ]
+                                        , transforms = [ Component.defaultTransform transformInCubicMeters.id ]
                                         }
                                             |> Component.computeElementResults requirements Nothing
                                 in
