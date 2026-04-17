@@ -41,10 +41,6 @@ Les matériaux constitutifs d'un produit (définis dans les composants) sont uti
 
 A chaque type de matériaux sont attachés des ratios de recyclage et incinération, les paramètres CFF (A et Q) et des procédés d'inventaire de cycle de vie de recyclage, incinération et enfouissement.
 
-{% hint style="warning" %}
-La méthode CFF décrite ci-dessous est en cours de déploiement.
-{% endhint %}
-
 {% hint style="info" %}
 Le détail des calculs avec paramètres et procédés appliqués est disponible en téléchargeant le fichier mis à disposition dans la section "Exemples"
 {% endhint %}
@@ -85,7 +81,7 @@ Niveau 0 :
 `I_EoL,FS,i` et `I_EoL,HF,i` sont indiqués dans la calculette Ecobalyse pour chaque type de matériau i
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (389).png" alt=""><figcaption></figcaption></figure>
 
 Niveau 1 :
 
