@@ -434,9 +434,7 @@ computeIngredientTransport db { country, ingredient, mass, planeTransport } =
                         -- This corresponds to the stage "3. RECETTE" in the
                         -- [transport documentation](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)
                         -- https://github.com/MTES-MCT/ecobalyse/issues/1975
-                        Transport.addRoadWithCooling (Length.kilometers 500)
-                            (List.member ingredient.transportCooling [ Ingredient.AlwaysCool, Ingredient.CoolOnceTransformed ])
-                            t
+                        Transport.addRoadWithCooling (Length.kilometers 500) (Ingredient.isTransportCooled ingredient) t
 
         transport =
             baseTransport
