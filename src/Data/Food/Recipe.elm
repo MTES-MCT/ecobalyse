@@ -429,7 +429,7 @@ computeIngredientTransport db { country, ingredient, mass, planeTransport } =
                         Transport.addRoadWithCooling (Length.kilometers 500) (ingredient.transportCooling == Ingredient.AlwaysCool) t
 
                     else
-                        -- If it’s coming « Par défaut » from France, we add 500 km of road to simulate the same behavior than when the data
+                        -- If coming "from France by default", add 500 km of road to simulate the same behavior than when the data
                         -- is coming from the `transports.json` file
                         -- This corresponds to the stage "3. RECETTE" in the
                         -- [transport documentation](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)
