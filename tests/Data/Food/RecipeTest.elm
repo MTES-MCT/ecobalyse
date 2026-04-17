@@ -361,6 +361,23 @@ suite =
                             |> Expect.equal (Ok (Just <| Recipe.defaultKilometersRoadDistance + 660))
                             -- https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)
                             |> asTest "should have 160 road transport + 500 not from FR + 2000 km for ingredients coming from far away ('RAF', 'RAS', 'RLA', 'RME', 'RNA', 'ROC')"
+                        , { ingredients =
+                                [ { id = eggId
+                                  , mass = Mass.grams 120
+                                  , country = Just (Country.codeFromString "---")
+                                  , planeTransport = Ingredient.PlaneNotApplicable
+                                  }
+                                ]
+                          , transform = Nothing
+                          , packaging = []
+                          , distribution = Nothing
+                          , preparation = []
+                          }
+                            |> Recipe.compute db
+                            |> Result.map (firstIngredientDistance .road)
+                            |> Expect.equal (Ok (Just <| Recipe.defaultKilometersRoadDistance + 660))
+                            -- See https://github.com/MTES-MCT/ecobalyse/issues/1986
+                            |> asTest "should have 160 road transport + 500 not from FR + 2000 km for ingredients coming from unknown country"
                         , { ingredients = [ { mango | country = Just (Country.codeFromString "RAS"), planeTransport = Ingredient.ByPlane } ]
                           , transform = Nothing
                           , packaging = []
