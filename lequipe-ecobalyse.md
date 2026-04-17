@@ -1,7 +1,3 @@
----
-hidden: true
----
-
 # L'équipe Ecobalyse
 
 L'équipe Ecobalyse réunit des professionnels animés par une mission commune : accélérer la mise en place de l'affichage environnemental en France. Notre équipe est placée sous l'égide du Ministère de la transition écologique (CGDD) et de l'ADEME, avec des agents publics et des freelances de la communauté beta.gouv. Elle combine des compétences variées en développement informatique, analyse de cycle de vie, design UX/UI, et expertise sectorielle.&#x20;
