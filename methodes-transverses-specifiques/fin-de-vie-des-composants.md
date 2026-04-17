@@ -5,7 +5,11 @@ icon: bin-recycle
 # Fin de vie des composants
 
 {% hint style="warning" %}
-Cette section concerne les secteurs objets et véhicules. Les secteurs Textile et Alimentaire ne sont pour l'instant pas concernés par cette méthode.
+Cette section concerne les secteurs objets et véhicules.&#x20;
+
+Le secteur Textile n'est pour l'instant pas concernés par cette méthode.
+
+Le secteur Alimentaire n'inclut pas de phase de fin de vie. Pour les emballages alimentaires, la fin de vie est inclue dans les procédés Emballage proposés.
 {% endhint %}
 
 {% hint style="warning" %}
