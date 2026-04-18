@@ -23,6 +23,7 @@ Les variables d’environnement décrites ci-dessous doivent être définies. En
 ### Frontend (npm & node)
 
 - `ENABLE_FOOD_SECTION` : affichage ou non de la section dédiée à l’alimentaire (valeur `True` ou `False`, par défaut `False`)
+- `ENABLE_FOOD1_API_DOCS`: affichage ou non de la documentation de l'API alimentaire historique (valeur `True` ou `False`, par défaut `False`; forcé à `False` si `ENABLE_FOOD_SECTION` l'est également)
 - `ENABLE_FOOD2_SECTION` : affichage ou non de la nouvelle section dédiée à l’alimentaire utilisant le moteur générique (valeur `True` ou `False`, par défaut `False`)
 - `ENABLE_OBJECTS_SECTION` : affichage ou non de la section expérimentale dédiée aux objets génériques (valeur `True` ou `False`, par défaut `False`
 - `ENABLE_VELI_SECTION` : affichage ou non de la section expérimentale dédiée aux véhicules intermédiaires (valeur `True` ou `False`, par défaut `False`)
