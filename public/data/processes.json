@@ -29314,6 +29314,49 @@
     "waste": 0
   },
   {
+    "activityName": "fibre, cotton, organic//[RoW] fibre production, cotton, organic, irrigated, ginning",
+    "categories": [
+      "material",
+      "textile_material",
+      "material_type:organic_fibers"
+    ],
+    "comment": "Ancien identifiant (12/2024): coton-bio.",
+    "displayName": "Production de fibres de coton bio",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "ae34a9bc-36c5-5ffa-8520-150e219569fe",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 590.8,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "RoW",
+    "massPerUnit": null,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "lamb meat without bone {{lamb-meat-without-bone-organic-2025}}",
     "categories": [
       "ingredient",
@@ -31552,49 +31595,6 @@
     ],
     "source": "Ecoinvent 3.9.1",
     "unit": "kWh",
-    "waste": 0
-  },
-  {
-    "activityName": "fibre, cotton, organic//[RoW] fibre production, cotton, organic, ginning",
-    "categories": [
-      "material",
-      "textile_material",
-      "material_type:organic_fibers"
-    ],
-    "comment": "Ancien identifiant (12/2024): coton-bio.",
-    "displayName": "Production de fibres de coton bio",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "ae34a9bc-36c5-5ffa-8520-150e219569fe",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 415.0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "location": "RoW",
-    "massPerUnit": null,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Ecoinvent 3.9.1",
-    "unit": "kg",
     "waste": 0
   },
   {
