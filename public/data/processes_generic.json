@@ -39304,6 +39304,94 @@
     "waste": 0
   },
   {
+    "activityName": "Battery cell EoL recycling, LFP, CFF",
+    "categories": [
+      "end-of-life",
+      "material_type:battery_cell"
+    ],
+    "comment": "Based on Delegated Act to Regulation (EU) 2023/1542, methodology for the calculation and verification of the carbon footprint of electric vehicle batteries, with 50% Li recycling (hydrometallurgical), according to EU-2023/1542 2027 target",
+    "displayName": "Recyclage de cellules de batterie Li-ion LFP, CFF",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "658aa88f-c4c9-4e19-9988-c1f5d4fc5994",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": -576.13,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "RER",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Battery cell EoL recycling, NMC811, CFF",
+    "categories": [
+      "end-of-life",
+      "material_type:battery_cell"
+    ],
+    "comment": "Based on Delegated Act to Regulation (EU) 2023/1542, methodology for the calculation and verification of the carbon footprint of electric vehicle batteries, with 50% Li recycling (hydrometallurgical), according to EU-2023/1542 2027 target",
+    "displayName": "Recyclage de cellules de batterie Li-ion NMC811, CFF",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "03c400e8-d3b8-4b6a-8ea7-49180968d0e5",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": -1682.0,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "RER",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "Battery cell EoL recycling, average, CFF",
     "categories": [
       "end-of-life"
@@ -39826,50 +39914,6 @@
     "metadata": null,
     "scopes": [
       "food2"
-    ],
-    "source": "Ecobalyse",
-    "unit": "kg",
-    "waste": 0
-  },
-  {
-    "activityName": "Hydrometallurgical treatment of battery cell, metal alloy, DA",
-    "categories": [
-      "end-of-life"
-    ],
-    "comment": "For 0.34kg Metal alloy of battery cell. Source : Delegated Act to Regulation (EU) 2023/1542, methodology for the calculation and verification of the carbon footprint of electric vehicle batteries, Table 5. Credits for metal recovery is excluded.",
-    "displayName": "Hydrométallurgie",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "844fdf79-6aa4-4260-8993-f2818524aa7a",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 129.91,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "landOccupation": null,
-    "location": "RER",
-    "massPerUnit": null,
-    "metadata": null,
-    "scopes": [
-      "object",
-      "veli"
     ],
     "source": "Ecobalyse",
     "unit": "kg",
@@ -40725,50 +40769,6 @@
       "acd": 0,
       "cch": 0,
       "ecs": -2424.6,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "landOccupation": null,
-    "location": "RER",
-    "massPerUnit": null,
-    "metadata": null,
-    "scopes": [
-      "object",
-      "veli"
-    ],
-    "source": "Ecobalyse",
-    "unit": "kg",
-    "waste": 0
-  },
-  {
-    "activityName": "Pyrometallurgical treatment of battery cell, DA",
-    "categories": [
-      "end-of-life"
-    ],
-    "comment": "For 1kg battery cell. Source : Delegated Act to Regulation (EU) 2023/1542, methodology for the calculation and verification of the carbon footprint of electric vehicle batteries, Table 4",
-    "displayName": "Pyrométallurgie",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "e2d8db51-4627-4c5a-9476-2b21db43eb87",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 74.319,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -41943,6 +41943,94 @@
     },
     "landOccupation": null,
     "location": "RER",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "heat, industrial, market, RER",
+    "categories": [
+      "energy"
+    ],
+    "comment": "44% natural gas and 56% other, see detail here: https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/energies-des-etapes-de-transformation",
+    "displayName": "Mix chaleur, Europe, v2",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "8a66df50-b331-4a35-98a0-251daeb3ac4f",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 4.3819,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": null,
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "heat, industrial, market, RoW",
+    "categories": [
+      "energy"
+    ],
+    "comment": "23% natural gas and 77% other, see detail here: https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/energies-des-etapes-de-transformation",
+    "displayName": "Mix chaleur, World, v2",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "6ba085ec-9b21-40d4-94b3-949703a2d721",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 6.79,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": null,
     "massPerUnit": null,
     "metadata": null,
     "scopes": [
@@ -48451,6 +48539,51 @@
       "acd": 0,
       "cch": 0,
       "ecs": 2.2137,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "CH",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Ecoinvent 3.9.1",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "waste paperboard//[CH] treatment of waste paperboard, municipal incineration with fly ash extraction",
+    "categories": [
+      "end-of-life",
+      "material_type:containerboard"
+    ],
+    "comment": "",
+    "displayName": "Incineration du carton",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "f1cac277-770f-4a94-8892-2b80643b1089",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 6.5192,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
