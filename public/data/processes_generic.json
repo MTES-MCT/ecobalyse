@@ -42750,6 +42750,49 @@
     "waste": 0
   },
   {
+    "activityName": "fibre, cotton, organic//[RoW] fibre production, cotton, organic, irrigated, ginning",
+    "categories": [
+      "material",
+      "textile_material",
+      "material_type:organic_fibers"
+    ],
+    "comment": "Ancien identifiant (12/2024): coton-bio.",
+    "displayName": "Production de fibres de coton bio",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "a1c1c2ec-33b1-49d6-bf8e-139e2eb7f097",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 590.8,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "RoW",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "glass EoL recycling, RER, CFF",
     "categories": [
       "end-of-life"
@@ -47109,51 +47152,6 @@
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
     "waste": 0.06
-  },
-  {
-    "activityName": "fibre, cotton, organic//[RoW] fibre production, cotton, organic, ginning",
-    "categories": [
-      "material",
-      "textile_material",
-      "material_type:organic_fibers"
-    ],
-    "comment": "Ancien identifiant (12/2024): coton-bio.",
-    "displayName": "Production de fibres de coton bio",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "a1c1c2ec-33b1-49d6-bf8e-139e2eb7f097",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 415.0,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "landOccupation": null,
-    "location": "RoW",
-    "massPerUnit": null,
-    "metadata": null,
-    "scopes": [
-      "object"
-    ],
-    "source": "Ecoinvent 3.9.1",
-    "unit": "kg",
-    "waste": 0
   },
   {
     "activityName": "fibre, cotton//[RoW] fibre production, cotton, ginning",
