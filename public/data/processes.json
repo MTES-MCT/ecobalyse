@@ -31731,7 +31731,7 @@
       "textile_material"
     ],
     "comment": "Ancien identifiant (12/2024): 88a1395a1c61be31b0bc692e977dd10b.",
-    "displayName": "Production de nylon 6-6",
+    "displayName": "Plastique PA (nylon 6-6)",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "b2318c3f-6d7b-5d95-b201-6b95470db3b7",
@@ -31773,7 +31773,7 @@
       "textile_material"
     ],
     "comment": "Ancien identifiant (12/2024): 087896096b5bede914ef3ec1062b1c02.",
-    "displayName": "Production de PET recyclé, granulés, amorphe",
+    "displayName": "Plastique PET, granulés, amorphe, recyclé",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "994efc14-cc89-526c-b9d0-0d6a99adbd4f",
@@ -31816,7 +31816,7 @@
       "material_type:synthetic_fibers"
     ],
     "comment": "Ancien identifiant (12/2024): f32024fc5e736e01fa14321363900581.",
-    "displayName": "Production de PET, granulés, amorphe",
+    "displayName": "Plastique PET, granulés, amorphe",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "61bab541-9097-5680-9884-254c98f25d80",
@@ -31858,7 +31858,7 @@
       "textile_material"
     ],
     "comment": "Ancien identifiant (12/2024): 75b27555d86fe1c66686cdf4339efc89.",
-    "displayName": "Production de plexiglas (Polyméthacrylate de méthyle)",
+    "displayName": "Polyméthacrylate de méthyle (Plexiglas®)",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "89bd29cf-9ae0-5cf0-825d-8a6d4a73a34f",
@@ -31900,7 +31900,7 @@
       "textile_material"
     ],
     "comment": "Ancien identifiant (12/2024): 6e442b958af0d26f85ecacce2eeb23d0.",
-    "displayName": "Production de polypropylène, granulés",
+    "displayName": "Polypropylène, granulés",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "28a36af2-cca9-5baa-a83e-d01b2e52ced6",
@@ -32026,7 +32026,7 @@
       "material_type:ferrous_metals"
     ],
     "comment": "",
-    "displayName": "Acier (faiblement allié)",
+    "displayName": "Acier, faiblement allié",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "6527710e-2434-5347-9bef-2205e0aa4f66",

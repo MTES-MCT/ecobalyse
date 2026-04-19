@@ -2,6 +2,7 @@ module Static.Json exposing
     ( RawJsonComponents
     , countriesJson
     , foodIngredientsJson
+    , food2ExamplesJson
     , foodProductExamplesJson
     , impactsJson
     , objectExamplesJson
@@ -16,7 +17,8 @@ module Static.Json exposing
 
 
 type alias RawJsonComponents =
-    { objectComponents : String
+    { food2Components : String
+    , objectComponents : String
     , textileComponents : String
     , veliComponents : String
     }
@@ -35,6 +37,16 @@ foodProductExamplesJson =
 foodIngredientsJson : String
 foodIngredientsJson =
     """%foodIngredientsJson%"""
+
+
+food2ComponentsJson : String
+food2ComponentsJson =
+   """%food2ComponentsJson%"""
+
+
+food2ExamplesJson : String
+food2ExamplesJson =
+   """%food2ExamplesJson%"""
 
 
 impactsJson : String
@@ -59,7 +71,8 @@ processesJson =
 
 rawJsonComponents : RawJsonComponents
 rawJsonComponents =
-    { objectComponents = objectComponentsJson
+    { food2Components = food2ComponentsJson
+    , objectComponents = objectComponentsJson
     , textileComponents = textileComponentsJson
     , veliComponents = veliComponentsJson
     }

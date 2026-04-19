@@ -30,7 +30,6 @@ from app.domain.components.schemas import (
 )
 from app.domain.processes.deps import provide_processes_service
 from rich import get_console
-from sqlalchemy.orm import joinedload, selectinload
 from structlog import get_logger
 
 
@@ -383,7 +382,7 @@ async def load_processes_fixtures(
     if processes_to_add:
         await processes_service.create_many(
             data=processes_to_add,
-            auto_commit=True,
+            auto_commit=False,
         )
 
     if processes_to_update:
@@ -391,20 +390,17 @@ async def load_processes_fixtures(
             await processes_service.update(
                 item_id=process_to_update["id"],
                 data=process_to_update,
-                auto_commit=True,
-                auto_refresh=True,
-                load=[
-                    selectinload(m.Process.process_categories).options(
-                        joinedload(m.ProcessCategory.processes, innerjoin=True),
-                    ),
-                ],
+                auto_commit=False,
+                auto_refresh=False,
             )
 
     if processes_ids_to_delete:
         await processes_service.delete_many(
             item_ids=processes_ids_to_delete,
-            auto_commit=True,
+            auto_commit=False,
         )
+
+    await db_session.commit()
 
     await logger.ainfo(f"Loaded {len(processes_data)} processes fixtures")
     await logger.ainfo(f"Added: {len(processes_to_add)}")

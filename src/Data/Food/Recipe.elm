@@ -10,6 +10,7 @@ module Data.Food.Recipe exposing
     , computeIngredientComplementsImpacts
     , computeIngredientTransport
     , computePackagingImpacts
+    , defaultKilometersRoadDistance
     , deletePackaging
     , encodeResults
     , fromQuery
@@ -55,6 +56,16 @@ import Volume exposing (Volume)
 france : Country.Code
 france =
     Country.codeFromString "FR"
+
+
+countriesWithDefaultRoadTransport : List Country.Code
+countriesWithDefaultRoadTransport =
+    [ "RAF", "RAS", "RLA", "RME", "RNA", "ROC" ] |> List.map Country.codeFromString
+
+
+defaultKilometersRoadDistance : Float
+defaultKilometersRoadDistance =
+    2000
 
 
 type alias Packaging =
@@ -369,6 +380,14 @@ computeIngredientTransport db { country, ingredient, mass, planeTransport } =
                             db.distances
                                 |> Transport.getTransportBetween emptyImpacts code france
                                 |> Transport.applyTransportRatios planeRatio
+                                -- For some regions we should always add 2000kms of road
+                                -- See https://github.com/MTES-MCT/ecobalyse/issues/1982
+                                |> (if countriesWithDefaultRoadTransport |> List.member code then
+                                        Transport.addRoadWithCooling (Length.kilometers defaultKilometersRoadDistance) False
+
+                                    else
+                                        identity
+                                   )
 
                         -- Otherwise retrieve ingredient's default origin transport data
                         Nothing ->
@@ -410,7 +429,12 @@ computeIngredientTransport db { country, ingredient, mass, planeTransport } =
                         Transport.addRoadWithCooling (Length.kilometers 500) (ingredient.transportCooling == Ingredient.AlwaysCool) t
 
                     else
-                        t
+                        -- If coming "from France by default", add 500 km of road to simulate the same behavior than when the data
+                        -- is coming from the `transports.json` file
+                        -- This corresponds to the stage "3. RECETTE" in the
+                        -- [transport documentation](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)
+                        -- https://github.com/MTES-MCT/ecobalyse/issues/1975
+                        Transport.addRoadWithCooling (Length.kilometers 500) (Ingredient.isTransportCooled ingredient) t
 
         transport =
             baseTransport

@@ -56,8 +56,14 @@ errorToString error =
         BadBody { detail } ->
             "Échec de l'interprétation de la réponse HTTP: " ++ detail
 
-        BadStatus { detail, statusCode } ->
-            "Erreur HTTP " ++ String.fromInt statusCode ++ ": " ++ detail
+        BadStatus { detail, statusCode, title } ->
+            "Erreur HTTP "
+                ++ String.fromInt statusCode
+                ++ ": "
+                ++ detail
+                ++ ". "
+                ++ Maybe.withDefault "" title
+                |> String.trim
 
         BadUrl url ->
             "URL invalide: " ++ url

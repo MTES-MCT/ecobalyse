@@ -13,6 +13,7 @@ module Data.Food.Ingredient exposing
     , getDefaultOriginTransport
     , idFromString
     , idToString
+    , isTransportCooled
     , toSearchableString
     , transportCoolingToString
     )
@@ -193,7 +194,7 @@ getDefaultOriginTransport planeTransport origin =
     in
     case origin of
         Origin.EuropeAndMaghreb ->
-            { default | road = Length.kilometers 2500 }
+            { default | road = Length.kilometers 2000 }
 
         Origin.France ->
             default
@@ -207,6 +208,11 @@ getDefaultOriginTransport planeTransport origin =
 
             else
                 { default | road = Length.kilometers 2500, sea = Length.kilometers 18000 }
+
+
+isTransportCooled : Ingredient -> Bool
+isTransportCooled ingredient =
+    List.member ingredient.transportCooling [ AlwaysCool, CoolOnceTransformed ]
 
 
 linkProcess : List Process -> Decoder Process
