@@ -23,7 +23,7 @@ dependencies = [
     "pytest-mock>=3.14.1",
     "asyncstdlib>=3.13.1",
     "sentry-sdk[litestar]>=2.41",
-    "pwdlib[argon2]>=0.2.1",
+    "pwdlib[argon2]>=0.3.0",
 ]
 
 [build-system]
