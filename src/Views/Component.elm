@@ -245,24 +245,6 @@ componentView config itemIndex ({ component, country, elements, quantity } as ex
                         ]
                     , td [ class "pt-0 pb-2 align-middle text-truncate w-100", colspan 2 ]
                         [ if config.context == GenericContext then
-                            let
-                                materialSummary =
-                                    elements
-                                        |> List.head
-                                        |> Maybe.map
-                                            (\element ->
-                                                Amount.toString element.amount
-                                                    ++ Process.unitToString element.material.unit
-                                                    ++ " "
-                                                    ++ Process.getDisplayName element.material
-                                            )
-                                        |> Maybe.withDefault "Aucune matière"
-
-                                transformsCount =
-                                    elements
-                                        |> List.concatMap .transforms
-                                        |> List.length
-                            in
                             div [ class "d-flex flex-column gap-1" ]
                                 [ div [ class "d-flex gap-2" ]
                                     [ input
@@ -280,18 +262,6 @@ componentView config itemIndex ({ component, country, elements, quantity } as ex
                                         , select = config.updateItemCountry itemIndex
                                         , selected = Maybe.map .code country
                                         }
-                                    ]
-                                , small [ class "text-muted text-truncate" ] [ text materialSummary ]
-                                , small [ class "text-muted" ]
-                                    [ text <|
-                                        String.fromInt transformsCount
-                                            ++ " transformation"
-                                            ++ (if transformsCount > 1 then
-                                                    "s"
-
-                                                else
-                                                    ""
-                                               )
                                     ]
                                 ]
 
@@ -814,7 +784,7 @@ elementView config targetItem elementIndex { amount, material, transforms } elem
 
 
 elementEditModalView : Config db msg -> TargetElement -> Html msg
-elementEditModalView ({ lifeCycle, query } as config) ( ( _, itemIndex ) as targetItem, elementIndex ) =
+elementEditModalView ({ lifeCycle, query } as config) (( ( _, itemIndex ), elementIndex ) as targetElement) =
     let
         maybeExpandedElement =
             query.items
@@ -842,14 +812,15 @@ elementEditModalView ({ lifeCycle, query } as config) ( ( _, itemIndex ) as targ
                         materialResults_ :: transformsResults_ ->
                             ( materialResults_, transformsResults_ )
             in
-            div [ class "table-responsive" ]
+            div [ class "table-responsive p-2" ]
                 [ table [ class "table table-sm table-borderless mb-0" ]
                     [ tbody []
-                        (elementMaterialView config ( targetItem, elementIndex ) materialResults material amount
-                            ++ elementTransformsView config ( targetItem, elementIndex ) transformsResults transforms
+                        (elementMaterialView config targetElement materialResults material amount
+                            ++ elementTransformsView config targetElement transformsResults transforms
                             ++ [ tr []
-                                    [ td [ colspan 8 ]
-                                        [ addElementTransformButton config material ( targetItem, elementIndex ) ]
+                                    [ td [ colspan 2 ] []
+                                    , td [ colspan 6 ]
+                                        [ addElementTransformButton config material targetElement ]
                                     ]
                                ]
                         )
