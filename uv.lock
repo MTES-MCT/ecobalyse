@@ -369,7 +369,7 @@ requires-dist = [
     { name = "psycopg", extras = ["binary", "pool"], specifier = ">=3.2.6" },
     { name = "pwdlib", extras = ["argon2"], specifier = ">=0.2.1" },
     { name = "pygithub", specifier = ">=2.6.1" },
-    { name = "pytest-databases", extras = ["postgres"], specifier = ">=0.12.0" },
+    { name = "pytest-databases", extras = ["postgres"], specifier = ">=0.17.0" },
     { name = "pytest-mock", specifier = ">=3.14.1" },
     { name = "python-stdnum", specifier = ">=2.1" },
     { name = "sentry-sdk", extras = ["litestar"], specifier = ">=2.41" },
