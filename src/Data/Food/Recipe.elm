@@ -356,8 +356,8 @@ computeIngredientsTotalComplements =
         Complement.noComplementsImpacts
 
 
-computeIngredientTransportForCountry : Db -> Country.Code -> Ingredient.PlaneTransport -> Transport
-computeIngredientTransportForCountry db code planeTransport =
+computeIngredientTransportForCountry : Db -> Ingredient.PlaneTransport -> Country -> Transport
+computeIngredientTransportForCountry db planeTransport { code } =
     let
         emptyImpacts =
             Impact.empty
@@ -398,15 +398,11 @@ computeIngredientTransport db { country, ingredient, mass, planeTransport } =
         baseTransport =
             let
                 base =
-                    case country of
+                    country
                         -- In case a custom country is provided, compute the distances to it from France
-                        Just { code } ->
-                            computeIngredientTransportForCountry db code planeTransport
-
+                        |> Maybe.map (computeIngredientTransportForCountry db planeTransport)
                         -- Otherwise retrieve ingredient's default origin transport data
-                        Nothing ->
-                            ingredient.defaultOrigin
-                                |> Ingredient.getDefaultOriginTransport planeTransport
+                        |> Maybe.withDefault (ingredient.defaultOrigin |> Ingredient.getDefaultOriginTransport planeTransport)
             in
             if ingredient.transportCooling /= Ingredient.NoCooling then
                 -- Switch the distances to use the "cooled" version of the transport medium
