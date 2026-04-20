@@ -683,6 +683,7 @@ modalView { componentConfig, db } modals index modal =
                                             item |> updateSingleItem (Component.updateElementAmount targetElement amount)
                                         )
                                         >> Maybe.withDefault NoOp
+                            , updateElementTransformCountry = \_ _ _ -> NoOp
                             , updateItemCountry = \_ _ -> NoOp
                             , updateItemName =
                                 \targetItem name ->
