@@ -191,23 +191,26 @@ getDefaultOriginTransport planeTransport origin =
     let
         default =
             Transport.default Impact.empty
+
+        defaultRoadKms =
+            2000
     in
     case origin of
         Origin.EuropeAndMaghreb ->
-            { default | road = Length.kilometers 2000 }
+            { default | road = Length.kilometers defaultRoadKms }
 
         Origin.France ->
             default
 
         Origin.OutOfEuropeAndMaghreb ->
-            { default | road = Length.kilometers 2500, sea = Length.kilometers 18000 }
+            { default | road = Length.kilometers defaultRoadKms, sea = Length.kilometers 18000 }
 
         Origin.OutOfEuropeAndMaghrebByPlane ->
             if planeTransport == ByPlane then
-                { default | air = Length.kilometers 18000, road = Length.kilometers 2500 }
+                { default | air = Length.kilometers 18000, road = Length.kilometers defaultRoadKms }
 
             else
-                { default | road = Length.kilometers 2500, sea = Length.kilometers 18000 }
+                { default | road = Length.kilometers defaultRoadKms, sea = Length.kilometers 18000 }
 
 
 isTransportCooled : Ingredient -> Bool
