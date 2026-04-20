@@ -11,10 +11,10 @@ from app.domain.accounts import urls
 from app.domain.accounts.deps import provide_users_service
 from app.domain.accounts.services import TokenService
 from app.lib import crypt
+from app.lib.auth import OAuth2PasswordBearerAuth
 from app.lib.deps import create_service_provider
-from app.lib.middleware import CustomCookieAuthMiddleware
+from app.lib.middleware import CustomAuthMiddleware
 from litestar.exceptions import PermissionDeniedException
-from litestar.security.jwt import OAuth2PasswordBearerAuth
 
 if TYPE_CHECKING:
     from litestar.connection import ASGIConnection
@@ -142,7 +142,7 @@ async def current_user_from_token(
 
 
 auth = OAuth2PasswordBearerAuth[m.User](
-    authentication_middleware_class=CustomCookieAuthMiddleware,
+    authentication_middleware_class=CustomAuthMiddleware,
     default_token_expiration=datetime.timedelta(
         days=settings.app.DEFAULT_TOKEN_EXPIRATION_DAYS
     ),
