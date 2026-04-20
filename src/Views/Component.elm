@@ -266,27 +266,7 @@ componentView config itemIndex ({ component, country, elements, quantity } as ex
                                 ]
 
                           else
-                            div [ class "d-flex gap-2" ] <|
-                                if config.context /= TextileTrimsContext then
-                                    [ input
-                                        [ type_ "text"
-                                        , class "form-control"
-                                        , onInput (config.updateItemName ( component, itemIndex ))
-                                        , placeholder "Nom du composant"
-                                        , value component.name
-                                        ]
-                                        []
-                                    , countrySelector
-                                        { countries = config.db.countries
-                                        , domId = "item-country-" ++ String.fromInt itemIndex
-                                        , scope = config.scope
-                                        , select = config.updateItemCountry itemIndex
-                                        , selected = Maybe.map .code country
-                                        }
-                                    ]
-
-                                else
-                                    [ span [ class "fw-bold" ] [ text component.name ] ]
+                            span [ class "fw-bold" ] [ text component.name ]
                         ]
                     , td [ class "pt-0 pb-2 text-end align-middle text-nowrap fs-7" ]
                         [ Component.extractMass itemResults
@@ -731,26 +711,34 @@ elementView config targetItem elementIndex { amount, material, transforms } elem
         ]
 
 
-elementEditModalView : Config db msg -> TargetElement -> Html msg
-elementEditModalView ({ lifeCycle, query } as config) (( ( _, itemIndex ), elementIndex ) as targetElement) =
+getEditedElementData : Config db msg -> TargetElement -> Query -> Result String ( ExpandedElement, Results )
+getEditedElementData { db, lifeCycle } ( ( _, itemIndex ), elementIndex ) query =
     let
-        maybeExpandedElement =
-            query.items
-                |> Component.expandItems config.db
-                |> Result.toMaybe
-                |> Maybe.andThen (LE.getAt itemIndex)
-                |> Maybe.andThen (.elements >> LE.getAt elementIndex)
-
-        maybeElementResults =
-            lifeCycle
-                |> Result.toMaybe
-                |> Maybe.map (.production >> Component.extractItems)
-                |> Maybe.andThen (LE.getAt itemIndex)
-                |> Maybe.map Component.extractItems
-                |> Maybe.andThen (LE.getAt elementIndex)
+        ( itemNotFoundError, elementNotFoundError ) =
+            ( "Item introuvable", "Élément introuvable" )
     in
-    case ( maybeExpandedElement, maybeElementResults ) of
-        ( Just { amount, material, transforms }, Just elementResults ) ->
+    Result.map2 Tuple.pair
+        -- Expanded edited element
+        (query.items
+            |> Component.expandItems db
+            |> Result.andThen (LE.getAt itemIndex >> Result.fromMaybe itemNotFoundError)
+            |> Result.andThen (.elements >> LE.getAt elementIndex >> Result.fromMaybe elementNotFoundError)
+        )
+        -- Edited element results
+        (lifeCycle
+            |> Result.map (.production >> Component.extractItems)
+            |> Result.andThen (LE.getAt itemIndex >> Result.fromMaybe itemNotFoundError)
+            |> Result.andThen (Component.extractItems >> LE.getAt elementIndex >> Result.fromMaybe elementNotFoundError)
+        )
+
+
+elementEditModalView : Config db msg -> TargetElement -> Html msg
+elementEditModalView ({ query } as config) (( _, elementIndex ) as targetElement) =
+    case query |> getEditedElementData config targetElement of
+        Err error ->
+            div [ class "alert alert-danger" ] [ text error ]
+
+        Ok ( { amount, material, transforms }, elementResults ) ->
             let
                 ( materialResults, transformsResults ) =
                     case Component.extractItems elementResults of
@@ -797,10 +785,6 @@ elementEditModalView ({ lifeCycle, query } as config) (( ( _, itemIndex ), eleme
                         )
                     ]
                 ]
-
-        _ ->
-            div [ class "alert alert-warning mb-0" ]
-                [ text "Élément introuvable." ]
 
 
 listAvailableProcesses :
