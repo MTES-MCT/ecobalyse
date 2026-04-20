@@ -1036,165 +1036,162 @@ view session model =
 
 modalView : Session -> List Modal -> Model -> Int -> Modal -> Html Msg
 modalView session modals model index modal =
-    let
-        modal_ =
-            case modal of
-                AddComponentModal autocompleteState ->
-                    AutocompleteSelectorView.view
-                        { autocompleteState = autocompleteState
-                        , closeModal = SetModals (List.drop 1 modals)
-                        , footer = []
-                        , noOp = NoOp
-                        , onAutocomplete = OnAutocompleteAddComponent
-                        , onAutocompleteSelect = OnAutocompleteSelectComponent
-                        , placeholderText = "tapez ici le nom du composant pour le rechercher"
-                        , title = "Sélectionnez un composant"
-                        , toLabel = .name
-                        , toCategory = \_ -> ""
-                        }
-
-                ComparatorModal ->
-                    ModalView.view
-                        { size = ModalView.ExtraLarge
-                        , close = SetModals (List.drop 1 modals)
-                        , noOp = NoOp
-                        , title = "Comparateur de simulations sauvegardées"
-                        , subTitle = Just "Coût environnemental, par produit"
-                        , formAction = Nothing
-                        , content =
-                            [ ComparatorView.view
-                                { bookmarkBeingOvered = model.bookmarkBeingOvered
-                                , comparisonType = model.comparisonType
-                                , impact = model.impact
-                                , onDragLeaveBookmark = OnDragLeaveBookmark
-                                , onDragOverBookmark = OnDragOverBookmark
-                                , onDragStartBookmark = OnDragStartBookmark
-                                , onDropBookmark = OnDropBookmark
-                                , selectAll = SelectAllBookmarks
-                                , selectNone = SelectNoBookmarks
-                                , session = session
-                                , switchComparisonType = SwitchComparisonType
-                                , toggle = ToggleComparedSimulation
-                                }
-                            ]
-                        , footer = []
-                        }
-
-                EditElementModal targetElement ->
-                    ModalView.view
-                        { size = ModalView.Large
-                        , close = SetModals (List.drop 1 modals)
-                        , noOp = NoOp
-                        , title = "Modifier l'élément"
-                        , subTitle = Nothing
-                        , formAction = Nothing
-                        , content =
-                            [ ComponentView.elementEditModalView
-                                { addLabel = "Ajouter un composant existant"
-                                , componentConfig = session.componentConfig
-                                , context = ComponentView.GenericContext
-                                , db = session.db
-                                , debug = False
-                                , detailed = model.detailedComponents
-                                , docsUrl = Nothing
-                                , explorerRoute = Just (Route.Explore model.scope (Dataset.Components model.scope Nothing))
-                                , impact = model.impact
-                                , noOp = NoOp
-                                , openCreateComponentModal = CreateComponent
-                                , openSelectComponentModal = AddComponentModal >> List.singleton >> SetModals
-                                , openEditElementModal = \_ -> NoOp
-                                , openSelectProcessModal =
-                                    \p ti ei s ->
-                                        SetModals (SelectProcessModal p ti ei s :: modals)
-                                , openSelectConsumptionModal = SelectConsumptionModal >> List.singleton >> SetModals
-                                , query = session |> Session.objectQueryFromScope model.scope
-                                , removeConsumption = RemoveConsumption
-                                , removeElement = RemoveElement
-                                , removeElementTransform = RemoveElementTransform
-                                , removeItem = RemoveComponentItem
-                                , lifeCycle = model.lifeCycle
-                                , scope = model.scope
-                                , setDetailed = SetDetailedComponents
-                                , title = "Production des composants"
-                                , updateAssemblyCountry = UpdateAssemblyCountry
-                                , updateConsumptionAmount = UpdateConsumptionAmount
-                                , updateDistribution = UpdateDistribution
-                                , updateElementAmount = UpdateElementAmount
-                                , updateElementTransformCountry = UpdateElementTransformCountry
-                                , updateItemCountry = UpdateComponentItemCountry
-                                , updateItemName = UpdateComponentItemName
-                                , updateItemQuantity = UpdateComponentItemQuantity
-                                }
-                                targetElement
-                            ]
-                        , footer = []
-                        }
-
-                SelectConsumptionModal autocompleteState ->
-                    AutocompleteSelectorView.view
-                        { autocompleteState = autocompleteState
-                        , closeModal = SetModals (List.drop 1 modals)
-                        , footer = []
-                        , noOp = NoOp
-                        , onAutocomplete = OnAutocompleteAddConsumption
-                        , onAutocompleteSelect = OnAutocompleteSelectConsumption
-                        , placeholderText = "tapez ici le nom d'un procédé de consommation pour le rechercher"
-                        , title = "Sélectionnez une consommation"
-                        , toLabel = Process.getDisplayName
-                        , toCategory = .unit >> Process.unitToString
-                        }
-
-                SelectExampleModal autocompleteState ->
-                    AutocompleteSelectorView.view
-                        { autocompleteState = autocompleteState
-                        , closeModal = SetModals (List.drop 1 modals)
-                        , footer = []
-                        , noOp = NoOp
-                        , onAutocomplete = OnAutocompleteExample
-                        , onAutocompleteSelect = OnAutocompleteSelectExample
-                        , placeholderText = "tapez ici le nom du produit pour le rechercher"
-                        , title = "Sélectionnez un produit"
-                        , toLabel = Example.toName model.examples
-                        , toCategory = Example.toCategory model.examples
-                        }
-
-                SelectProcessModal category targetItem maybeElementIndex autocompleteState ->
-                    let
-                        ( placeholderText, title ) =
-                            case category of
-                                Category.Material ->
-                                    ( "tapez ici le nom d'une matière pour la rechercher"
-                                    , "Sélectionnez une matière première"
-                                    )
-
-                                Category.Transform ->
-                                    ( "tapez ici le nom d'un procédé de transformation pour le rechercher"
-                                    , "Sélectionnez un procédé de transformation"
-                                    )
-
-                                _ ->
-                                    ( "tapez ici le nom d'un procédé pour le rechercher"
-                                    , "Sélectionnez un procédé"
-                                    )
-                    in
-                    AutocompleteSelectorView.view
-                        { autocompleteState = autocompleteState
-                        , closeModal = SetModals (List.drop 1 modals)
-                        , footer = []
-                        , noOp = NoOp
-                        , onAutocomplete = OnAutocompleteAddProcess category targetItem maybeElementIndex
-                        , onAutocompleteSelect = OnAutocompleteSelectProcess category targetItem maybeElementIndex
-                        , placeholderText = placeholderText
-                        , title = title
-                        , toLabel = Process.getDisplayName
-                        , toCategory = .unit >> Process.unitToString
-                        }
-    in
-    if index == 0 then
-        modal_
+    -- Note: Only the first modal is rendered, as state is handled in Elm, not in the DOM
+    if index /= 0 then
+        text ""
 
     else
-        div [ class "d-none" ] [ modal_ ]
+        case modal of
+            AddComponentModal autocompleteState ->
+                AutocompleteSelectorView.view
+                    { autocompleteState = autocompleteState
+                    , closeModal = SetModals (List.drop 1 modals)
+                    , footer = []
+                    , noOp = NoOp
+                    , onAutocomplete = OnAutocompleteAddComponent
+                    , onAutocompleteSelect = OnAutocompleteSelectComponent
+                    , placeholderText = "tapez ici le nom du composant pour le rechercher"
+                    , title = "Sélectionnez un composant"
+                    , toLabel = .name
+                    , toCategory = \_ -> ""
+                    }
+
+            ComparatorModal ->
+                ModalView.view
+                    { size = ModalView.ExtraLarge
+                    , close = SetModals (List.drop 1 modals)
+                    , noOp = NoOp
+                    , title = "Comparateur de simulations sauvegardées"
+                    , subTitle = Just "Coût environnemental, par produit"
+                    , formAction = Nothing
+                    , content =
+                        [ ComparatorView.view
+                            { bookmarkBeingOvered = model.bookmarkBeingOvered
+                            , comparisonType = model.comparisonType
+                            , impact = model.impact
+                            , onDragLeaveBookmark = OnDragLeaveBookmark
+                            , onDragOverBookmark = OnDragOverBookmark
+                            , onDragStartBookmark = OnDragStartBookmark
+                            , onDropBookmark = OnDropBookmark
+                            , selectAll = SelectAllBookmarks
+                            , selectNone = SelectNoBookmarks
+                            , session = session
+                            , switchComparisonType = SwitchComparisonType
+                            , toggle = ToggleComparedSimulation
+                            }
+                        ]
+                    , footer = []
+                    }
+
+            EditElementModal targetElement ->
+                ModalView.view
+                    { size = ModalView.Large
+                    , close = SetModals (List.drop 1 modals)
+                    , noOp = NoOp
+                    , title = "Modifier l'élément"
+                    , subTitle = Nothing
+                    , formAction = Nothing
+                    , content =
+                        [ ComponentView.elementEditModalView
+                            { addLabel = "Ajouter un composant existant"
+                            , componentConfig = session.componentConfig
+                            , context = ComponentView.GenericContext
+                            , db = session.db
+                            , debug = False
+                            , detailed = model.detailedComponents
+                            , docsUrl = Nothing
+                            , explorerRoute = Just (Route.Explore model.scope (Dataset.Components model.scope Nothing))
+                            , impact = model.impact
+                            , noOp = NoOp
+                            , openCreateComponentModal = CreateComponent
+                            , openSelectComponentModal = AddComponentModal >> List.singleton >> SetModals
+                            , openEditElementModal = \_ -> NoOp
+                            , openSelectProcessModal =
+                                \p ti ei s ->
+                                    SetModals (SelectProcessModal p ti ei s :: modals)
+                            , openSelectConsumptionModal = SelectConsumptionModal >> List.singleton >> SetModals
+                            , query = session |> Session.objectQueryFromScope model.scope
+                            , removeConsumption = RemoveConsumption
+                            , removeElement = RemoveElement
+                            , removeElementTransform = RemoveElementTransform
+                            , removeItem = RemoveComponentItem
+                            , lifeCycle = model.lifeCycle
+                            , scope = model.scope
+                            , setDetailed = SetDetailedComponents
+                            , title = "Production des composants"
+                            , updateAssemblyCountry = UpdateAssemblyCountry
+                            , updateConsumptionAmount = UpdateConsumptionAmount
+                            , updateDistribution = UpdateDistribution
+                            , updateElementAmount = UpdateElementAmount
+                            , updateElementTransformCountry = UpdateElementTransformCountry
+                            , updateItemCountry = UpdateComponentItemCountry
+                            , updateItemName = UpdateComponentItemName
+                            , updateItemQuantity = UpdateComponentItemQuantity
+                            }
+                            targetElement
+                        ]
+                    , footer = []
+                    }
+
+            SelectConsumptionModal autocompleteState ->
+                AutocompleteSelectorView.view
+                    { autocompleteState = autocompleteState
+                    , closeModal = SetModals (List.drop 1 modals)
+                    , footer = []
+                    , noOp = NoOp
+                    , onAutocomplete = OnAutocompleteAddConsumption
+                    , onAutocompleteSelect = OnAutocompleteSelectConsumption
+                    , placeholderText = "tapez ici le nom d'un procédé de consommation pour le rechercher"
+                    , title = "Sélectionnez une consommation"
+                    , toLabel = Process.getDisplayName
+                    , toCategory = .unit >> Process.unitToString
+                    }
+
+            SelectExampleModal autocompleteState ->
+                AutocompleteSelectorView.view
+                    { autocompleteState = autocompleteState
+                    , closeModal = SetModals (List.drop 1 modals)
+                    , footer = []
+                    , noOp = NoOp
+                    , onAutocomplete = OnAutocompleteExample
+                    , onAutocompleteSelect = OnAutocompleteSelectExample
+                    , placeholderText = "tapez ici le nom du produit pour le rechercher"
+                    , title = "Sélectionnez un produit"
+                    , toLabel = Example.toName model.examples
+                    , toCategory = Example.toCategory model.examples
+                    }
+
+            SelectProcessModal category targetItem maybeElementIndex autocompleteState ->
+                let
+                    ( placeholderText, title ) =
+                        case category of
+                            Category.Material ->
+                                ( "tapez ici le nom d'une matière pour la rechercher"
+                                , "Sélectionnez une matière première"
+                                )
+
+                            Category.Transform ->
+                                ( "tapez ici le nom d'un procédé de transformation pour le rechercher"
+                                , "Sélectionnez un procédé de transformation"
+                                )
+
+                            _ ->
+                                ( "tapez ici le nom d'un procédé pour le rechercher"
+                                , "Sélectionnez un procédé"
+                                )
+                in
+                AutocompleteSelectorView.view
+                    { autocompleteState = autocompleteState
+                    , closeModal = SetModals (List.drop 1 modals)
+                    , footer = []
+                    , noOp = NoOp
+                    , onAutocomplete = OnAutocompleteAddProcess category targetItem maybeElementIndex
+                    , onAutocompleteSelect = OnAutocompleteSelectProcess category targetItem maybeElementIndex
+                    , placeholderText = placeholderText
+                    , title = title
+                    , toLabel = Process.getDisplayName
+                    , toCategory = .unit >> Process.unitToString
+                    }
 
 
 subscriptions : Model -> Sub Msg
