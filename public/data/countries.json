@@ -5,7 +5,7 @@
     "electricityProcessId": "ed6d177e-44bb-5ba4-beec-d683dc21be9f",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Pays inconnu (par défaut)",
-    "scopes": ["textile"],
+    "scopes": ["food", "textile"],
     "zone": "Asia"
   },
   {
@@ -24,6 +24,16 @@
     "heatProcessId": "f6ea2983-e024-5de2-b323-273f2436deba",
     "name": "Région - Europe de l'Est",
     "scopes": ["textile", "object", "veli", "food", "food2"],
+    "zone": "Europe"
+  },
+  {
+    "aquaticPollutionScenario": "Best",
+    "code": "REM",
+    "comment": "Elec and heat mixes are the same than 'Région - Europe de l'Est' but are not used by the 'food' simulator",
+    "electricityProcessId": "5ee392cf-954e-56c8-b555-427d55023548",
+    "heatProcessId": "f6ea2983-e024-5de2-b323-273f2436deba",
+    "name": "Région - Europe et Maghreb",
+    "scopes": ["food"],
     "zone": "Europe"
   },
   {

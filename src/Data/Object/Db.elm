@@ -16,11 +16,14 @@ type alias Db =
     }
 
 
-buildFromJson : String -> String -> Result String Db
-buildFromJson objectExamplesJson veliExamplesJson =
+buildFromJson : String -> String -> String -> Result String Db
+buildFromJson food2ExamplesJson objectExamplesJson veliExamplesJson =
     Ok Db
         |> RE.andMap
-            (Result.map2 (++)
+            (Result.map3 (\a b c -> a ++ b ++ c)
+                (food2ExamplesJson
+                    |> Example.decodeListFromJsonString Component.decodeQuery
+                )
                 (objectExamplesJson
                     |> Example.decodeListFromJsonString Component.decodeQuery
                 )

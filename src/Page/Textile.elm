@@ -1021,6 +1021,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , updateConsumptionAmount = \_ _ -> NoOp
         , updateDistribution = \_ -> NoOp
         , updateElementAmount = \_ _ -> NoOp
+        , updateElementTransformCountry = \_ _ _ -> NoOp
         , updateItemCountry = \_ _ -> NoOp
         , updateItemName = \_ _ -> NoOp
         , updateItemQuantity = UpdateTrimQuantity
@@ -1216,6 +1217,14 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                 , updateBookmarkName = UpdateBookmarkName
                 , updateRenamedBookmarkName = UpdateRenamedBookmarkName
                 , switchBookmarkTab = SwitchBookmarksTab
+
+                -- Contribution
+                , contribName = ""
+                , contribDescription = ""
+                , contribRequestPending = False
+                , createExampleContrib = NoOp
+                , updateContribName = always NoOp
+                , updateContribDescription = always NoOp
                 }
             ]
         ]

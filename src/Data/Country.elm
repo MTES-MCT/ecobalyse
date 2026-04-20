@@ -18,6 +18,7 @@ module Data.Country exposing
     , validateForScope
     )
 
+import Data.Common.DecodeUtils as DU
 import Data.Process as Process exposing (Process)
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
@@ -41,6 +42,7 @@ type AquaticPollutionScenario
 type alias Country =
     { aquaticPollutionScenario : AquaticPollutionScenario
     , code : Code
+    , comment : Maybe String
     , electricityProcess : Process
     , heatProcess : Process
     , name : String
@@ -71,6 +73,7 @@ decode processes =
     Decode.succeed Country
         |> Pipe.required "aquaticPollutionScenario" decodeAquaticPollutionScenario
         |> Pipe.required "code" decodeCode
+        |> DU.strictOptional "comment" Decode.string
         |> Pipe.required "electricityProcessId" (Process.decodeFromId processes)
         |> Pipe.required "heatProcessId" (Process.decodeFromId processes)
         |> Pipe.required "name" Decode.string
