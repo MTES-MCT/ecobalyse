@@ -38,18 +38,25 @@ type Material
     | Composites
     | Containerboard
     | Copper
+    | Eggs
     | FerrousMetal
+    | FishAndShellfish
+    | FruitsAndVegetables
     | Glass
     | HDPE
     | LDPE
     | Metal -- obsolete materials
+    | Offal
     | OrganicFibers
+    | OtherFoodItems
     | OtherMaterial -- obsolete materials
     | PET
     | PP
     | PWB
     | Plastic -- obsolete materials
+    | Poultry
     | PurFoam
+    | RedMeats
     | RigidPlastics
     | Rubber
     | SyntheticFibers
@@ -176,11 +183,20 @@ materialTypeFromString string =
         "ldpe" ->
             Ok LDPE
 
+        "metal" ->
+            Ok Metal
+
         "organic_fibers" ->
             Ok OrganicFibers
 
+        "other" ->
+            Ok OtherMaterial
+
         "pet" ->
             Ok PET
+
+        "plastic" ->
+            Ok Plastic
 
         "pp" ->
             Ok PP
@@ -200,24 +216,32 @@ materialTypeFromString string =
         "synthetic_fibers" ->
             Ok SyntheticFibers
 
-        "wood" ->
-            Ok Wood
-
-        -- obsolete materials
-        "metal" ->
-            Ok Metal
-
-        -- obsolete materials
-        "plastic" ->
-            Ok Plastic
-
-        -- obsolete materials
         "upholstery" ->
             Ok Upholstery
 
-        -- obsolete materials
-        "other" ->
-            Ok OtherMaterial
+        "wood" ->
+            Ok Wood
+
+        "eggs" ->
+            Ok Eggs
+
+        "fish_and_shellfish" ->
+            Ok FishAndShellfish
+
+        "fruits_and_vegetables" ->
+            Ok FruitsAndVegetables
+
+        "offal" ->
+            Ok Offal
+
+        "other_food_items" ->
+            Ok OtherFoodItems
+
+        "poultry" ->
+            Ok Poultry
+
+        "red_meats" ->
+            Ok RedMeats
 
         _ ->
             Err <| "Type de matière non supporté: " ++ string
@@ -241,8 +265,17 @@ materialTypeToLabel material =
         Copper ->
             "Cuivre"
 
+        Eggs ->
+            "Œufs"
+
         FerrousMetal ->
             "Métaux ferreux"
+
+        FishAndShellfish ->
+            "Poissons et crustacées"
+
+        FruitsAndVegetables ->
+            "Fruits et légumes frais"
 
         Glass ->
             "Verre"
@@ -253,14 +286,18 @@ materialTypeToLabel material =
         LDPE ->
             "PEBD"
 
-        -- obsolete materials
         Metal ->
             "Métal"
+
+        Offal ->
+            "Abats"
 
         OrganicFibers ->
             "Fibres organiques"
 
-        -- obsolete materials
+        OtherFoodItems ->
+            "Divers ingrédients"
+
         OtherMaterial ->
             "Autre type de matière"
 
@@ -273,12 +310,17 @@ materialTypeToLabel material =
         PWB ->
             "Carte de circuit imprimé"
 
-        -- obsolete materials
         Plastic ->
             "Plastique"
 
+        Poultry ->
+            "Volailles et viandes blanches"
+
         PurFoam ->
             "PUR"
+
+        RedMeats ->
+            "Viandes rouges"
 
         RigidPlastics ->
             "Plastiques rigides"
@@ -289,7 +331,6 @@ materialTypeToLabel material =
         SyntheticFibers ->
             "Fibres synthétiques"
 
-        -- obsolete materials
         Upholstery ->
             "Mousses et rembourrés"
 
@@ -315,8 +356,17 @@ materialTypeToString material =
         Copper ->
             "copper"
 
+        Eggs ->
+            "eggs"
+
         FerrousMetal ->
             "ferrous_metals"
+
+        FishAndShellfish ->
+            "fish_and_shellfish"
+
+        FruitsAndVegetables ->
+            "fruits_and_vegetables"
 
         Glass ->
             "glass"
@@ -327,14 +377,18 @@ materialTypeToString material =
         LDPE ->
             "ldpe"
 
-        -- obsolete materials
         Metal ->
             "metal"
+
+        Offal ->
+            "offal"
 
         OrganicFibers ->
             "organic_fibers"
 
-        -- obsolete materials
+        OtherFoodItems ->
+            "other_food_items"
+
         OtherMaterial ->
             "other"
 
@@ -347,12 +401,17 @@ materialTypeToString material =
         PWB ->
             "pwb"
 
-        -- obsolete materials
         Plastic ->
             "plastic"
 
+        Poultry ->
+            "poultry"
+
         PurFoam ->
             "pur_foam"
+
+        RedMeats ->
+            "red_meats"
 
         RigidPlastics ->
             "rigid_plastics"
@@ -363,7 +422,6 @@ materialTypeToString material =
         SyntheticFibers ->
             "synthetic_fibers"
 
-        -- obsolete materials
         Upholstery ->
             "upholstery"
 
