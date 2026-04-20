@@ -136,6 +136,7 @@ type Msg
     | UpdateDistribution (Result String Process.Id)
     | UpdateDurability (Result String Unit.Ratio)
     | UpdateElementAmount TargetElement (Maybe Amount)
+    | UpdateElementTransformCountry TargetElement Index (Maybe Country.Code)
     | UpdateRenamedBookmarkName Bookmark String
 
 
@@ -659,6 +660,14 @@ update ({ navKey } as session) msg model =
                             (Component.updateElement targetElement (\el -> { el | amount = amount }))
                     )
 
+        ( UpdateElementTransformCountry targetElement transformIndex maybeCountryCode, _ ) ->
+            createPageUpdate session model
+                |> updateQuery
+                    (query
+                        |> Component.mapItems
+                            (Component.updateElementTransformCountry targetElement transformIndex maybeCountryCode)
+                    )
+
 
 {-| Create a page update preventing the body to be scrollable when one or more modals are opened.
 -}
@@ -875,6 +884,7 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
                 , updateConsumptionAmount = UpdateConsumptionAmount
                 , updateDistribution = UpdateDistribution
                 , updateElementAmount = UpdateElementAmount
+                , updateElementTransformCountry = UpdateElementTransformCountry
                 , updateItemCountry = UpdateComponentItemCountry
                 , updateItemName = UpdateComponentItemName
                 , updateItemQuantity = UpdateComponentItemQuantity
