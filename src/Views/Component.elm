@@ -691,21 +691,20 @@ elementView config targetItem elementIndex { amount, material, transforms } elem
         tbody []
             [ tr [ class "fs-7 border-top" ]
                 [ td [] []
-                , td [ class "ps-0 align-middle text-nowrap" ]
+                , td [ class "ps-0 align-start text-end text-nowrap" ]
                     [ Format.amount material amount ]
-                , td [ class "align-middle text-truncate w-100", colspan 2 ]
+                , td [ class "align-middle text-truncate", colspan 2, style "max-width" "10vw" ]
                     [ div [ class "d-flex flex-column" ]
-                        [ span [ class "text-truncate" ] [ text <| Process.getDisplayName material ]
+                        [ text <| Process.getDisplayName material
                         , small [ class "text-muted" ]
                             [ text <|
-                                String.fromInt (List.length transforms)
-                                    ++ " transformation"
-                                    ++ (if List.length transforms > 1 then
-                                            "s"
+                                if List.isEmpty transforms then
+                                    "aucune transformation"
 
-                                        else
-                                            ""
-                                       )
+                                else
+                                    transforms
+                                        |> List.map (.process >> Process.getDisplayName)
+                                        |> String.join ", "
                             ]
                         ]
                     ]
