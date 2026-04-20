@@ -7,6 +7,7 @@ import Data.Food.Ingredient as Ingredient
 import Data.Food.Preparation as Preparation
 import Data.Food.Recipe as Recipe
 import Data.Food.Retail as Retail
+import Data.Food.Transport as FoodTransport
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Unit as Unit
@@ -358,7 +359,7 @@ suite =
                           }
                             |> Recipe.compute db
                             |> Result.map (firstIngredientDistance .road)
-                            |> Expect.equal (Ok (Just <| Recipe.defaultKilometersRoadDistance + 660))
+                            |> Expect.equal (Ok (Just <| FoodTransport.defaultKilometersRoadDistance + 660))
                             -- https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)
                             |> asTest "should have 160 road transport + 500 not from FR + 2000 km for ingredients coming from far away ('RAF', 'RAS', 'RLA', 'RME', 'RNA', 'ROC')"
                         , { ingredients =
@@ -375,7 +376,7 @@ suite =
                           }
                             |> Recipe.compute db
                             |> Result.map (firstIngredientDistance .road)
-                            |> Expect.equal (Ok (Just <| Recipe.defaultKilometersRoadDistance + 660))
+                            |> Expect.equal (Ok (Just <| FoodTransport.defaultKilometersRoadDistance + 660))
                             -- See https://github.com/MTES-MCT/ecobalyse/issues/1986
                             |> asTest "should have 160 road transport + 500 not from FR + 2000 km for ingredients coming from unknown country"
                         , { ingredients = [ { mango | country = Just (Country.codeFromString "RAS"), planeTransport = Ingredient.ByPlane } ]
@@ -386,7 +387,7 @@ suite =
                           }
                             |> Recipe.compute db
                             |> Result.map (firstIngredientDistance .roadCooled)
-                            |> Expect.equal (Ok (Just <| Recipe.defaultKilometersRoadDistance + 660))
+                            |> Expect.equal (Ok (Just <| FoodTransport.defaultKilometersRoadDistance + 660))
                             -- https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)
                             |> asTest "should have 160 road transport + 500 not from FR + 2000 km for ingredients coming from far away ('RAF', 'RAS', 'RLA', 'RME', 'RNA', 'ROC'), cooled version"
                         , { ingredients = [ mango ]
