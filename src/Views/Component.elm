@@ -687,99 +687,48 @@ countrySelector config =
 
 elementView : Config db msg -> TargetItem -> Index -> ExpandedElement -> Results -> Html msg
 elementView config targetItem elementIndex { amount, material, transforms } elementResults =
-    if config.context == GenericContext then
-        tbody []
-            [ tr [ class "fs-7 border-top" ]
-                [ td [] []
-                , td [ class "ps-0 align-start text-end text-nowrap" ]
-                    [ Format.amount material amount ]
-                , td [ class "align-middle text-truncate", colspan 2, style "max-width" "10vw" ]
-                    [ div [ class "d-flex flex-column" ]
-                        [ text <| Process.getDisplayName material
-                        , small [ class "text-muted" ]
-                            [ text <|
-                                if List.isEmpty transforms then
-                                    "aucune transformation"
+    tbody []
+        [ tr [ class "fs-7 border-top" ]
+            [ td [] []
+            , td [ class "ps-0 align-start text-end text-nowrap" ]
+                [ Format.amount material amount ]
+            , td [ class "align-middle text-truncate", colspan 2, style "max-width" "10vw" ]
+                [ div [ class "d-flex flex-column" ]
+                    [ text <| Process.getDisplayName material
+                    , small [ class "text-muted" ]
+                        [ text <|
+                            if List.isEmpty transforms then
+                                "aucune transformation"
 
-                                else
-                                    transforms
-                                        |> List.map (.process >> Process.getDisplayName)
-                                        |> String.join ", "
-                            ]
+                            else
+                                transforms
+                                    |> List.map (.process >> Process.getDisplayName)
+                                    |> String.join ", "
                         ]
                     ]
-                , td [ class "align-middle text-end text-nowrap", colspan 2 ]
-                    [ Component.getTotalImpacts elementResults
-                        |> Format.formatImpact config.impact
-                    ]
-                , td [ class "pe-3 align-middle text-end text-nowrap" ]
-                    [ div [ class "btn-group btn-group-sm" ]
-                        [ button
-                            [ type_ "button"
-                            , class "btn btn-outline-secondary"
-                            , onClick (config.openEditElementModal ( targetItem, elementIndex ))
-                            ]
-                            [ Icon.pencil ]
-                        , button
-                            [ type_ "button"
-                            , class "btn btn-outline-secondary"
-                            , onClick (config.removeElement ( targetItem, elementIndex ))
-                            ]
-                            [ Icon.trash ]
+                ]
+            , td [ class "align-middle text-end text-nowrap", colspan 2 ]
+                [ Component.getTotalImpacts elementResults
+                    |> Format.formatImpact config.impact
+                ]
+            , td [ class "pe-3 align-middle text-end text-nowrap" ]
+                [ div [ class "btn-group btn-group-sm" ]
+                    [ button
+                        [ type_ "button"
+                        , class "btn btn-outline-secondary"
+                        , onClick (config.openEditElementModal ( targetItem, elementIndex ))
                         ]
+                        [ Icon.pencil ]
+                    , button
+                        [ type_ "button"
+                        , class "btn btn-outline-secondary"
+                        , onClick (config.removeElement ( targetItem, elementIndex ))
+                        ]
+                        [ Icon.trash ]
                     ]
                 ]
             ]
-
-    else
-        let
-            ( materialResults, transformsResults ) =
-                case Component.extractItems elementResults of
-                    [] ->
-                        ( Component.emptyResults, [] )
-
-                    materialResults_ :: transformsResults_ ->
-                        ( materialResults_, transformsResults_ )
-        in
-        tbody []
-            (tr [ class "fs-7 text-muted" ]
-                [ th [] []
-                , th [ class "align-middle ps-0", scope "col" ]
-                    [ if material.unit == Process.Kilogram then
-                        text "Masse finale"
-
-                      else
-                        text "Quantité finale"
-                    ]
-                , th [ class "align-middle", scope "col" ]
-                    [ text <| "Élément #" ++ String.fromInt (elementIndex + 1) ]
-                , th [ class "align-middle text-center", scope "col" ]
-                    [ text "Mix" ]
-                , th [ class "align-middle", scope "col" ]
-                    [ text "Pertes" ]
-                , th [ class "align-middle text-truncate", scope "col" ]
-                    [ material.unit |> Process.unitLabel |> text ]
-                , th [ class "align-middle text-end", scope "col" ]
-                    [ Component.getTotalImpacts elementResults
-                        |> Format.formatImpact config.impact
-                    ]
-                , th [] []
-                ]
-                :: elementMaterialView config ( targetItem, elementIndex ) materialResults material amount
-                ++ elementTransformsView config ( targetItem, elementIndex ) transformsResults transforms
-                ++ (if config.scope /= Scope.Textile then
-                        [ tr []
-                            [ td [ colspan 2 ] []
-                            , td [ colspan 5 ]
-                                [ addElementTransformButton config material ( targetItem, elementIndex )
-                                ]
-                            ]
-                        ]
-
-                    else
-                        []
-                   )
-            )
+        ]
 
 
 elementEditModalView : Config db msg -> TargetElement -> Html msg
@@ -814,7 +763,30 @@ elementEditModalView ({ lifeCycle, query } as config) (( ( _, itemIndex ), eleme
             div [ class "table-responsive p-2" ]
                 [ table [ class "table table-sm table-borderless mb-0" ]
                     [ tbody []
-                        (elementMaterialView config targetElement materialResults material amount
+                        (tr [ class "fs-7 text-muted" ]
+                            [ th [] []
+                            , th [ class "align-middle ps-0", scope "col" ]
+                                [ if material.unit == Process.Kilogram then
+                                    text "Masse finale"
+
+                                  else
+                                    text "Quantité finale"
+                                ]
+                            , th [ class "align-middle", scope "col" ]
+                                [ text <| "Élément #" ++ String.fromInt (elementIndex + 1) ]
+                            , th [ class "align-middle text-center", scope "col" ]
+                                [ text "Mix" ]
+                            , th [ class "align-middle", scope "col" ]
+                                [ text "Pertes" ]
+                            , th [ class "align-middle text-truncate", scope "col" ]
+                                [ material.unit |> Process.unitLabel |> text ]
+                            , th [ class "align-middle text-end", scope "col" ]
+                                [ Component.getTotalImpacts elementResults
+                                    |> Format.formatImpact config.impact
+                                ]
+                            , th [] []
+                            ]
+                            :: elementMaterialView config targetElement materialResults material amount
                             ++ elementTransformsView config targetElement transformsResults transforms
                             ++ [ tr []
                                     [ td [ colspan 2 ] []
