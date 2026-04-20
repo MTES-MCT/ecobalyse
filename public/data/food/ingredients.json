@@ -8593,7 +8593,13 @@
     "cropGroup": null,
     "defaultOrigin": "France",
     "density": 1.0,
-    "ecosystemicServices": null,
+    "ecosystemicServices": {
+      "cropDiversity": 13.6,
+      "hedges": 2.1,
+      "livestockDensity": -0.00266,
+      "permanentPasture": 0,
+      "plotSize": 2.3
+    },
     "id": "5814ac7d-fe30-5a9c-8a10-e2b9554b63b0",
     "inediblePart": 0.1,
     "landOccupation": 6.9796,
@@ -16558,7 +16564,13 @@
     "cropGroup": null,
     "defaultOrigin": "France",
     "density": 1.05,
-    "ecosystemicServices": null,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0.927,
+      "livestockDensity": -0.00017,
+      "permanentPasture": 0.17,
+      "plotSize": 0.866
+    },
     "id": "b757094f-7cb1-58ea-9d3d-b6d7e0e0d471",
     "inediblePart": 0,
     "landOccupation": 1.2164,
