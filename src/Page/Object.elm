@@ -72,7 +72,7 @@ type alias Model =
     , examples : List (Example Component.Query)
     , impact : Definition
     , initialQuery : Component.Query
-    , modal : Modal
+    , modals : List Modal
     , lifeCycle : Result String Component.LifeCycle
     , scope : Scope
     }
@@ -81,7 +81,7 @@ type alias Model =
 type Modal
     = AddComponentModal (Autocomplete Component)
     | ComparatorModal
-    | NoModal
+    | EditElementModal TargetElement
     | SelectConsumptionModal (Autocomplete Process)
     | SelectExampleModal (Autocomplete Component.Query)
     | SelectProcessModal Category TargetItem (Maybe Index) (Autocomplete Process)
@@ -119,7 +119,7 @@ type Msg
     | SelectAllBookmarks
     | SelectNoBookmarks
     | SetDetailedComponents (List Index)
-    | SetModal Modal
+    | SetModals (List Modal)
     | SwitchBookmarksTab BookmarkView.ActiveTab
     | SwitchComparisonType ComparatorView.ComparisonType
     | SwitchImpact (Result String Definition.Trigram)
@@ -172,7 +172,7 @@ init scope trigram maybeUrlQuery session =
     , examples = examples
     , impact = Definition.get trigram session.db.definitions
     , initialQuery = initialQuery
-    , modal = NoModal
+    , modals = []
     , lifeCycle =
         initialQuery
             |> Simulator.compute
@@ -227,7 +227,7 @@ initFromExample session scope uuid =
     , examples = examples
     , impact = Definition.get Definition.Ecs session.db.definitions
     , initialQuery = exampleQuery
-    , modal = NoModal
+    , modals = []
     , lifeCycle =
         exampleQuery
             |> Simulator.compute
@@ -294,12 +294,16 @@ update ({ navKey } as session) msg model =
             session
                 |> Session.objectQueryFromScope model.scope
     in
-    case ( msg, model.modal ) of
-        ( CopyToClipBoard shareableLink, _ ) ->
+    case msg of
+        CopyToClipBoard shareableLink ->
             createPageUpdate session model
                 |> App.withCmds [ Ports.copyToClipboard shareableLink ]
 
-        ( CreateExampleContrib, _ ) ->
+        CreateComponent ->
+            createPageUpdate session model
+                |> createComponent query
+
+        CreateExampleContrib ->
             case ( Session.isAuthenticated session, createExampleContribData model ) of
                 ( True, Ok contribData ) ->
                     { model | contributionRequestPending = True }
@@ -316,20 +320,16 @@ update ({ navKey } as session) msg model =
                         |> createPageUpdate session
                         |> App.notifyWarning "Vous devez être authentifié pour soumettre une contribution"
 
-        ( CreateComponent, _ ) ->
-            createPageUpdate session model
-                |> createComponent query
-
-        ( DeleteBookmark bookmark, _ ) ->
+        DeleteBookmark bookmark ->
             model
                 |> createPageUpdate (session |> Session.deleteBookmark bookmark)
 
-        ( ExampleContribCreated (RemoteData.Failure error), _ ) ->
+        ExampleContribCreated (RemoteData.Failure error) ->
             { model | contributionRequestPending = False }
                 |> createPageUpdate session
                 |> App.notifyError "Erreur de contribution" (BackendHttpError.errorToString error)
 
-        ( ExampleContribCreated (RemoteData.Success { pullRequestUrl }), _ ) ->
+        ExampleContribCreated (RemoteData.Success { pullRequestUrl }) ->
             { model | contributionRequestPending = False }
                 |> createPageUpdate session
                 |> App.notifySuccess
@@ -339,109 +339,125 @@ update ({ navKey } as session) msg model =
                         |> String.replace "pr_url" pullRequestUrl
                     )
 
-        ( ExampleContribCreated _, _ ) ->
+        ExampleContribCreated _ ->
             createPageUpdate session model
 
-        ( ExportBookmarks, _ ) ->
+        ExportBookmarks ->
             createPageUpdate session model
                 |> App.withCmds [ Ports.exportBookmarks () ]
 
-        ( ImportBookmarks, _ ) ->
+        ImportBookmarks ->
             createPageUpdate session model
                 |> App.withCmds [ Ports.importBookmarks () ]
 
-        ( NoOp, _ ) ->
+        NoOp ->
             createPageUpdate session model
 
-        ( OnAutocompleteAddComponent autocompleteMsg, AddComponentModal autocompleteState ) ->
-            let
-                ( newAutocompleteState, autoCompleteCmd ) =
-                    Autocomplete.update autocompleteMsg autocompleteState
-            in
-            { model | modal = AddComponentModal newAutocompleteState }
-                |> createPageUpdate session
-                |> App.withCmds [ Cmd.map OnAutocompleteAddComponent autoCompleteCmd ]
+        OnAutocompleteAddComponent autocompleteMsg ->
+            case model.modals of
+                (AddComponentModal autocompleteState) :: otherModals ->
+                    let
+                        ( newAutocompleteState, autoCompleteCmd ) =
+                            Autocomplete.update autocompleteMsg autocompleteState
+                    in
+                    { model | modals = AddComponentModal newAutocompleteState :: otherModals }
+                        |> createPageUpdate session
+                        |> App.withCmds [ Cmd.map OnAutocompleteAddComponent autoCompleteCmd ]
 
-        ( OnAutocompleteAddComponent _, _ ) ->
-            createPageUpdate session model
+                _ ->
+                    createPageUpdate session model
 
-        ( OnAutocompleteAddProcess category targetItem maybeIndex autocompleteMsg, SelectProcessModal _ _ _ autocompleteState ) ->
-            let
-                ( newAutocompleteState, autoCompleteCmd ) =
-                    Autocomplete.update autocompleteMsg autocompleteState
-            in
-            { model | modal = SelectProcessModal category targetItem maybeIndex newAutocompleteState }
-                |> createPageUpdate session
-                |> App.withCmds [ Cmd.map (OnAutocompleteAddProcess category targetItem maybeIndex) autoCompleteCmd ]
+        OnAutocompleteAddConsumption autocompleteMsg ->
+            case model.modals of
+                (SelectConsumptionModal autocompleteState) :: otherModals ->
+                    let
+                        ( newAutocompleteState, autoCompleteCmd ) =
+                            Autocomplete.update autocompleteMsg autocompleteState
+                    in
+                    { model | modals = SelectConsumptionModal newAutocompleteState :: otherModals }
+                        |> createPageUpdate session
+                        |> App.withCmds [ Cmd.map OnAutocompleteAddConsumption autoCompleteCmd ]
 
-        ( OnAutocompleteAddProcess _ _ _ _, _ ) ->
-            createPageUpdate session model
+                _ ->
+                    createPageUpdate session model
 
-        ( OnAutocompleteAddConsumption autocompleteMsg, SelectConsumptionModal autocompleteState ) ->
-            let
-                ( newAutocompleteState, autoCompleteCmd ) =
-                    Autocomplete.update autocompleteMsg autocompleteState
-            in
-            { model | modal = SelectConsumptionModal newAutocompleteState }
-                |> createPageUpdate session
-                |> App.withCmds [ Cmd.map OnAutocompleteAddConsumption autoCompleteCmd ]
+        OnAutocompleteAddProcess category targetItem maybeIndex autocompleteMsg ->
+            case model.modals of
+                (SelectProcessModal _ _ _ autocompleteState) :: otherModals ->
+                    let
+                        ( newAutocompleteState, autoCompleteCmd ) =
+                            Autocomplete.update autocompleteMsg autocompleteState
+                    in
+                    { model | modals = SelectProcessModal category targetItem maybeIndex newAutocompleteState :: otherModals }
+                        |> createPageUpdate session
+                        |> App.withCmds [ Cmd.map (OnAutocompleteAddProcess category targetItem maybeIndex) autoCompleteCmd ]
 
-        ( OnAutocompleteAddConsumption _, _ ) ->
-            createPageUpdate session model
+                _ ->
+                    createPageUpdate session model
 
-        ( OnAutocompleteExample autocompleteMsg, SelectExampleModal autocompleteState ) ->
-            let
-                ( newAutocompleteState, autoCompleteCmd ) =
-                    Autocomplete.update autocompleteMsg autocompleteState
-            in
-            { model | modal = SelectExampleModal newAutocompleteState }
-                |> createPageUpdate session
-                |> App.withCmds [ Cmd.map OnAutocompleteExample autoCompleteCmd ]
+        OnAutocompleteExample autocompleteMsg ->
+            case model.modals of
+                (SelectExampleModal autocompleteState) :: otherModals ->
+                    let
+                        ( newAutocompleteState, autoCompleteCmd ) =
+                            Autocomplete.update autocompleteMsg autocompleteState
+                    in
+                    { model | modals = SelectExampleModal newAutocompleteState :: otherModals }
+                        |> createPageUpdate session
+                        |> App.withCmds [ Cmd.map OnAutocompleteExample autoCompleteCmd ]
 
-        ( OnAutocompleteExample _, _ ) ->
-            createPageUpdate session model
+                _ ->
+                    createPageUpdate session model
 
-        ( OnAutocompleteSelectComponent, AddComponentModal autocompleteState ) ->
-            createPageUpdate session model
-                |> selectComponent query autocompleteState
+        OnAutocompleteSelectComponent ->
+            case model.modals of
+                (AddComponentModal autocompleteState) :: _ ->
+                    createPageUpdate session model
+                        |> selectComponent query autocompleteState
 
-        ( OnAutocompleteSelectComponent, _ ) ->
-            createPageUpdate session model
+                _ ->
+                    createPageUpdate session model
 
-        ( OnAutocompleteSelectConsumption, SelectConsumptionModal autocompleteState ) ->
-            createPageUpdate session model
-                |> selectConsumption query autocompleteState
+        OnAutocompleteSelectConsumption ->
+            case model.modals of
+                (SelectConsumptionModal autocompleteState) :: _ ->
+                    createPageUpdate session model
+                        |> selectConsumption query autocompleteState
 
-        ( OnAutocompleteSelectConsumption, _ ) ->
-            createPageUpdate session model
+                _ ->
+                    createPageUpdate session model
 
-        ( OnAutocompleteSelectExample, SelectExampleModal autocompleteState ) ->
-            createPageUpdate session model
-                |> selectExample autocompleteState
+        OnAutocompleteSelectExample ->
+            case model.modals of
+                (SelectExampleModal autocompleteState) :: _ ->
+                    createPageUpdate session model
+                        |> selectExample autocompleteState
 
-        ( OnAutocompleteSelectExample, _ ) ->
-            createPageUpdate session model
+                _ ->
+                    createPageUpdate session model
 
-        ( OnAutocompleteSelectProcess category targetItem elementIndex, SelectProcessModal _ _ _ autocompleteState ) ->
-            createPageUpdate session model
-                |> selectProcess category targetItem elementIndex autocompleteState query
+        OnAutocompleteSelectProcess category targetItem elementIndex ->
+            case model.modals of
+                (SelectProcessModal _ _ _ autocompleteState) :: _ ->
+                    createPageUpdate session model
+                        |> selectProcess category targetItem elementIndex autocompleteState query
 
-        ( OnAutocompleteSelectProcess _ _ _, _ ) ->
-            createPageUpdate session model
+                _ ->
+                    createPageUpdate session model
 
-        ( OnDragLeaveBookmark, _ ) ->
+        OnDragLeaveBookmark ->
             { model | bookmarkBeingOvered = Nothing }
                 |> createPageUpdate session
 
-        ( OnDragOverBookmark bookmarkBeingOvered, _ ) ->
+        OnDragOverBookmark bookmarkBeingOvered ->
             { model | bookmarkBeingOvered = Just bookmarkBeingOvered }
                 |> createPageUpdate session
 
-        ( OnDragStartBookmark bookmark, _ ) ->
+        OnDragStartBookmark bookmark ->
             { model | bookmarkBeingDragged = Just bookmark }
                 |> createPageUpdate session
 
-        ( OnDropBookmark target, _ ) ->
+        OnDropBookmark target ->
             case model.bookmarkBeingDragged of
                 Just dragged ->
                     { model | bookmarkBeingDragged = Nothing, bookmarkBeingOvered = Nothing }
@@ -453,16 +469,12 @@ update ({ navKey } as session) msg model =
                 Nothing ->
                     createPageUpdate session model
 
-        ( OpenComparator, _ ) ->
-            { model | modal = ComparatorModal }
+        OpenComparator ->
+            { model | modals = [ ComparatorModal ] }
                 |> createPageUpdate (session |> Session.checkComparedSimulations)
                 |> App.withCmds [ Plausible.send session <| Plausible.ComparatorOpened model.scope ]
 
-        ( RemoveConsumption index, _ ) ->
-            createPageUpdate session model
-                |> updateQuery (query |> Component.removeConsumption index)
-
-        ( RemoveComponentItem itemIndex, _ ) ->
+        RemoveComponentItem itemIndex ->
             { model
                 | detailedComponents =
                     model.detailedComponents
@@ -473,12 +485,16 @@ update ({ navKey } as session) msg model =
                 |> updateQuery (query |> Component.mapItems (LE.removeAt itemIndex))
                 |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
 
-        ( RemoveElement targetElement, _ ) ->
+        RemoveConsumption index ->
+            createPageUpdate session model
+                |> updateQuery (query |> Component.removeConsumption index)
+
+        RemoveElement targetElement ->
             createPageUpdate session model
                 |> updateQuery (query |> Component.mapItems (Component.removeElement targetElement))
                 |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
 
-        ( RemoveElementTransform targetElement transformIndex, _ ) ->
+        RemoveElementTransform targetElement transformIndex ->
             createPageUpdate session model
                 |> updateQuery
                     (query
@@ -487,7 +503,7 @@ update ({ navKey } as session) msg model =
                     )
                 |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
 
-        ( RenameBookmark, _ ) ->
+        RenameBookmark ->
             case model.bookmarkBeingRenamed of
                 Just bookmark ->
                     { model | bookmarkBeingRenamed = Nothing }
@@ -499,7 +515,7 @@ update ({ navKey } as session) msg model =
                 Nothing ->
                     createPageUpdate session model
 
-        ( SaveBookmark, _ ) ->
+        SaveBookmark ->
             createPageUpdate session model
                 |> App.withCmds
                     [ Time.now
@@ -511,7 +527,7 @@ update ({ navKey } as session) msg model =
                     , Plausible.send session <| Plausible.BookmarkSaved model.scope
                     ]
 
-        ( SaveBookmarkWithTime name objectQuery now, _ ) ->
+        SaveBookmarkWithTime name objectQuery now ->
             model
                 |> createPageUpdate
                     (session
@@ -523,23 +539,23 @@ update ({ navKey } as session) msg model =
                             }
                     )
 
-        ( SelectAllBookmarks, _ ) ->
+        SelectAllBookmarks ->
             model
                 |> createPageUpdate (Session.selectAllBookmarks session)
 
-        ( SelectNoBookmarks, _ ) ->
+        SelectNoBookmarks ->
             model
                 |> createPageUpdate (Session.selectNoBookmarks session)
 
-        ( SetDetailedComponents detailedComponents, _ ) ->
+        SetDetailedComponents detailedComponents ->
             { model | detailedComponents = detailedComponents }
                 |> createPageUpdate session
 
-        ( SetModal modal, _ ) ->
-            createPageUpdate session { model | modal = modal }
-                |> App.withCmdIf (isAutocompleteModal modal) (AutocompleteSelectorView.focusInput NoOp)
+        SetModals modals ->
+            createPageUpdate session { model | modals = modals }
+                |> App.withCmdIf (List.any isAutocompleteModal modals) (AutocompleteSelectorView.focusInput NoOp)
 
-        ( SwitchBookmarksTab bookmarkTab, _ ) ->
+        SwitchBookmarksTab bookmarkTab ->
             { model | bookmarkTab = bookmarkTab }
                 |> createPageUpdate session
                 |> App.withCmds
@@ -547,7 +563,7 @@ update ({ navKey } as session) msg model =
                         |> Plausible.sendIf session (bookmarkTab == BookmarkView.ShareTab)
                     ]
 
-        ( SwitchComparisonType displayChoice, _ ) ->
+        SwitchComparisonType displayChoice ->
             { model | comparisonType = displayChoice }
                 |> createPageUpdate session
                 |> App.withCmds
@@ -556,7 +572,11 @@ update ({ navKey } as session) msg model =
                         |> Plausible.send session
                     ]
 
-        ( SwitchImpact (Ok trigram), _ ) ->
+        SwitchImpact (Err error) ->
+            createPageUpdate session model
+                |> App.notifyError "Erreur de sélection d'impact" error
+
+        SwitchImpact (Ok trigram) ->
             createPageUpdate session model
                 |> App.withCmds
                     [ Just query
@@ -566,11 +586,7 @@ update ({ navKey } as session) msg model =
                     , Plausible.send session <| Plausible.ImpactSelected model.scope trigram
                     ]
 
-        ( SwitchImpact (Err error), _ ) ->
-            createPageUpdate session model
-                |> App.notifyError "Erreur de sélection d'impact" error
-
-        ( SwitchImpactsTab impactsTab, _ ) ->
+        SwitchImpactsTab impactsTab ->
             { model | activeImpactsTab = impactsTab }
                 |> createPageUpdate session
                 |> App.withCmds
@@ -579,19 +595,19 @@ update ({ navKey } as session) msg model =
                         |> Plausible.send session
                     ]
 
-        ( ToggleComparedSimulation bookmark checked, _ ) ->
+        ToggleComparedSimulation bookmark checked ->
             model
                 |> createPageUpdate (session |> Session.toggleComparedSimulation bookmark checked)
 
-        ( UpdateAssemblyCountry maybeCountry, _ ) ->
+        UpdateAssemblyCountry maybeCountry ->
             createPageUpdate session model
                 |> updateQuery { query | assemblyCountry = maybeCountry }
 
-        ( UpdateBookmarkName newName, _ ) ->
+        UpdateBookmarkName newName ->
             { model | bookmarkName = newName }
                 |> createPageUpdate session
 
-        ( UpdateComponentItemCountry itemIndex country, _ ) ->
+        UpdateComponentItemCountry itemIndex country ->
             createPageUpdate session model
                 |> updateQuery
                     (query
@@ -599,14 +615,14 @@ update ({ navKey } as session) msg model =
                     )
                 |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
 
-        ( UpdateComponentItemName targetItem name, _ ) ->
+        UpdateComponentItemName targetItem name ->
             createPageUpdate session model
                 |> updateQuery
                     (query
                         |> Component.mapItems (Component.updateItemCustomName targetItem name)
                     )
 
-        ( UpdateComponentItemQuantity itemIndex quantity, _ ) ->
+        UpdateComponentItemQuantity itemIndex quantity ->
             createPageUpdate session model
                 |> updateQuery
                     (query
@@ -614,45 +630,41 @@ update ({ navKey } as session) msg model =
                     )
                 |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
 
-        ( UpdateContributionDescription description, _ ) ->
-            { model | contributionDescription = description }
-                |> createPageUpdate session
-
-        ( UpdateContributionName name, _ ) ->
-            { model | contributionName = name }
-                |> createPageUpdate session
-
-        ( UpdateConsumptionAmount _ Nothing, _ ) ->
-            createPageUpdate session model
-
-        ( UpdateConsumptionAmount index (Just amount), _ ) ->
+        UpdateConsumptionAmount index (Just amount) ->
             createPageUpdate session model
                 |> updateQuery (query |> Component.updateConsumptionAmount index amount)
 
-        ( UpdateDistribution (Ok distributionProcessId), _ ) ->
+        UpdateConsumptionAmount _ Nothing ->
+            createPageUpdate session model
+
+        UpdateContributionDescription description ->
+            { model | contributionDescription = description }
+                |> createPageUpdate session
+
+        UpdateContributionName name ->
+            { model | contributionName = name }
+                |> createPageUpdate session
+
+        UpdateDistribution (Ok distributionProcessId) ->
             createPageUpdate session model
                 |> updateQuery (query |> Component.updateDistribution (Just distributionProcessId))
 
-        ( UpdateDistribution (Err error), _ ) ->
+        UpdateDistribution (Err error) ->
             createPageUpdate session model
                 |> App.notifyError "Erreur de sélection du procédé de distribution" error
 
-        ( UpdateDurability (Ok durability), _ ) ->
+        UpdateDurability (Ok durability) ->
             createPageUpdate session model
                 |> updateQuery (query |> Component.updateDurability durability)
 
-        ( UpdateDurability (Err error), _ ) ->
+        UpdateDurability (Err error) ->
             createPageUpdate session model
                 |> App.notifyError "Erreur de durabilité" error
 
-        ( UpdateRenamedBookmarkName bookmark name, _ ) ->
-            { model | bookmarkBeingRenamed = Just { bookmark | name = name } }
-                |> createPageUpdate session
-
-        ( UpdateElementAmount _ Nothing, _ ) ->
+        UpdateElementAmount _ Nothing ->
             createPageUpdate session model
 
-        ( UpdateElementAmount targetElement (Just amount), _ ) ->
+        UpdateElementAmount targetElement (Just amount) ->
             createPageUpdate session model
                 |> updateQuery
                     (query
@@ -660,13 +672,17 @@ update ({ navKey } as session) msg model =
                             (Component.updateElement targetElement (\el -> { el | amount = amount }))
                     )
 
-        ( UpdateElementTransformCountry targetElement transformIndex maybeCountryCode, _ ) ->
+        UpdateElementTransformCountry targetElement transformIndex maybeCountryCode ->
             createPageUpdate session model
                 |> updateQuery
                     (query
                         |> Component.mapItems
                             (Component.updateElementTransformCountry targetElement transformIndex maybeCountryCode)
                     )
+
+        UpdateRenamedBookmarkName bookmark name ->
+            { model | bookmarkBeingRenamed = Just { bookmark | name = name } }
+                |> createPageUpdate session
 
 
 {-| Create a page update preventing the body to be scrollable when one or more modals are opened.
@@ -675,8 +691,8 @@ createPageUpdate : Session -> Model -> PageUpdate Model Msg
 createPageUpdate session model =
     App.createUpdate session model
         |> App.withCmds
-            [ case model.modal of
-                NoModal ->
+            [ case model.modals of
+                [] ->
                     Ports.removeBodyClass "prevent-scrolling"
 
                 _ ->
@@ -700,7 +716,8 @@ createComponent query ({ model, session } as pageUpdate) =
         |> App.apply update
             (ComponentView.createMaterialProcessAutocomplete session.db model.scope
                 |> SelectProcessModal Category.Material ( Component.emptyComponent, List.length query.items ) Nothing
-                |> SetModal
+                |> List.singleton
+                |> SetModals
             )
         -- expand item row
         |> App.apply update (SetDetailedComponents (LE.unique (List.length query.items :: model.detailedComponents)))
@@ -757,7 +774,7 @@ selectExample autocompleteState ({ model } as pageUpdate) =
     in
     pageUpdate
         |> updateQuery exampleQuery
-        |> App.apply update (SetModal NoModal)
+        |> App.apply update (SetModals [])
         |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ExampleSelected model.scope ]
 
 
@@ -767,7 +784,7 @@ selectComponent query autocompleteState ({ model } as pageUpdate) =
         Just component ->
             pageUpdate
                 |> updateQuery (query |> Component.mapItems (Component.addItem component.id))
-                |> App.apply update (SetModal NoModal)
+                |> App.apply update (SetModals [])
                 |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ComponentAdded model.scope ]
 
         Nothing ->
@@ -785,7 +802,7 @@ selectConsumption query autocompleteState ({ model } as pageUpdate) =
                             query.consumptions
                                 ++ [ { amount = Amount.fromFloat 1, processId = process.id } ]
                     }
-                |> App.apply update (SetModal NoModal)
+                |> App.apply update (SetModals [])
                 |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ConsumptionAdded model.scope ]
 
         Nothing ->
@@ -814,7 +831,7 @@ selectProcess category targetItem maybeElementIndex autocompleteState query ({ m
                 Ok validQuery ->
                     pageUpdate
                         |> updateQuery validQuery
-                        |> App.apply update (SetModal NoModal)
+                        |> App.apply update (SetModals (List.drop 1 model.modals))
                         |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ComponentUpdated model.scope ]
 
         Nothing ->
@@ -839,7 +856,7 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
                     , emptyQuery = Component.emptyQuery
                     , examples = model.examples
                     , helpUrl = Nothing
-                    , onOpen = SelectExampleModal >> SetModal
+                    , onOpen = SelectExampleModal >> List.singleton >> SetModals
                     , routes =
                         -- FIXME: explore route object/veli
                         { explore = Route.Explore scope (Dataset.ObjectExamples Nothing)
@@ -865,12 +882,14 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
                 , impact = model.impact
                 , noOp = NoOp
                 , openCreateComponentModal = CreateComponent
-                , openSelectComponentModal = AddComponentModal >> SetModal
+                , openSelectComponentModal = AddComponentModal >> List.singleton >> SetModals
+                , openEditElementModal =
+                    \targetElement ->
+                        SetModals (EditElementModal targetElement :: model.modals)
                 , openSelectProcessModal =
                     \p ti ei s ->
-                        SelectProcessModal p ti ei s
-                            |> SetModal
-                , openSelectConsumptionModal = SelectConsumptionModal >> SetModal
+                        SetModals (SelectProcessModal p ti ei s :: model.modals)
+                , openSelectConsumptionModal = SelectConsumptionModal >> List.singleton >> SetModals
                 , query = currentQuery
                 , removeConsumption = RemoveConsumption
                 , removeElement = RemoveElement
@@ -1023,11 +1042,23 @@ view session model =
     ( "Simulateur"
     , [ Container.centered [ class "Simulator pb-3" ]
             [ simulatorView session model
-            , case model.modal of
+            , model.modals
+                |> List.indexedMap (modalView session model.modals model)
+                |> div []
+            ]
+      ]
+    )
+
+
+modalView : Session -> List Modal -> Model -> Int -> Modal -> Html Msg
+modalView session modals model index modal =
+    let
+        modal_ =
+            case modal of
                 AddComponentModal autocompleteState ->
                     AutocompleteSelectorView.view
                         { autocompleteState = autocompleteState
-                        , closeModal = SetModal NoModal
+                        , closeModal = SetModals (List.drop 1 modals)
                         , footer = []
                         , noOp = NoOp
                         , onAutocomplete = OnAutocompleteAddComponent
@@ -1041,7 +1072,7 @@ view session model =
                 ComparatorModal ->
                     ModalView.view
                         { size = ModalView.ExtraLarge
-                        , close = SetModal NoModal
+                        , close = SetModals (List.drop 1 modals)
                         , noOp = NoOp
                         , title = "Comparateur de simulations sauvegardées"
                         , subTitle = Just "Coût environnemental, par produit"
@@ -1065,13 +1096,60 @@ view session model =
                         , footer = []
                         }
 
-                NoModal ->
-                    text ""
+                EditElementModal targetElement ->
+                    ModalView.view
+                        { size = ModalView.Large
+                        , close = SetModals (List.drop 1 modals)
+                        , noOp = NoOp
+                        , title = "Modifier l'élément"
+                        , subTitle = Nothing
+                        , formAction = Nothing
+                        , content =
+                            [ ComponentView.elementEditModalView
+                                { addLabel = "Ajouter un composant existant"
+                                , componentConfig = session.componentConfig
+                                , context = ComponentView.GenericContext
+                                , db = session.db
+                                , debug = False
+                                , detailed = model.detailedComponents
+                                , docsUrl = Nothing
+                                , explorerRoute = Just (Route.Explore model.scope (Dataset.Components model.scope Nothing))
+                                , impact = model.impact
+                                , noOp = NoOp
+                                , openCreateComponentModal = CreateComponent
+                                , openSelectComponentModal = AddComponentModal >> List.singleton >> SetModals
+                                , openEditElementModal = \_ -> NoOp
+                                , openSelectProcessModal =
+                                    \p ti ei s ->
+                                        SetModals (SelectProcessModal p ti ei s :: modals)
+                                , openSelectConsumptionModal = SelectConsumptionModal >> List.singleton >> SetModals
+                                , query = session |> Session.objectQueryFromScope model.scope
+                                , removeConsumption = RemoveConsumption
+                                , removeElement = RemoveElement
+                                , removeElementTransform = RemoveElementTransform
+                                , removeItem = RemoveComponentItem
+                                , lifeCycle = model.lifeCycle
+                                , scope = model.scope
+                                , setDetailed = SetDetailedComponents
+                                , title = "Production des composants"
+                                , updateAssemblyCountry = UpdateAssemblyCountry
+                                , updateConsumptionAmount = UpdateConsumptionAmount
+                                , updateDistribution = UpdateDistribution
+                                , updateElementAmount = UpdateElementAmount
+                                , updateElementTransformCountry = UpdateElementTransformCountry
+                                , updateItemCountry = UpdateComponentItemCountry
+                                , updateItemName = UpdateComponentItemName
+                                , updateItemQuantity = UpdateComponentItemQuantity
+                                }
+                                targetElement
+                            ]
+                        , footer = []
+                        }
 
                 SelectConsumptionModal autocompleteState ->
                     AutocompleteSelectorView.view
                         { autocompleteState = autocompleteState
-                        , closeModal = SetModal NoModal
+                        , closeModal = SetModals (List.drop 1 modals)
                         , footer = []
                         , noOp = NoOp
                         , onAutocomplete = OnAutocompleteAddConsumption
@@ -1085,7 +1163,7 @@ view session model =
                 SelectExampleModal autocompleteState ->
                     AutocompleteSelectorView.view
                         { autocompleteState = autocompleteState
-                        , closeModal = SetModal NoModal
+                        , closeModal = SetModals (List.drop 1 modals)
                         , footer = []
                         , noOp = NoOp
                         , onAutocomplete = OnAutocompleteExample
@@ -1117,7 +1195,7 @@ view session model =
                     in
                     AutocompleteSelectorView.view
                         { autocompleteState = autocompleteState
-                        , closeModal = SetModal NoModal
+                        , closeModal = SetModals (List.drop 1 modals)
                         , footer = []
                         , noOp = NoOp
                         , onAutocomplete = OnAutocompleteAddProcess category targetItem maybeElementIndex
@@ -1127,16 +1205,19 @@ view session model =
                         , toLabel = Process.getDisplayName
                         , toCategory = .unit >> Process.unitToString
                         }
-            ]
-      ]
-    )
+    in
+    if index == 0 then
+        modal_
+
+    else
+        div [ class "d-none" ] [ modal_ ]
 
 
 subscriptions : Model -> Sub Msg
-subscriptions { modal } =
-    case modal of
-        NoModal ->
+subscriptions { modals } =
+    case modals of
+        [] ->
             Sub.none
 
         _ ->
-            Browser.Events.onKeyDown (Key.escape (SetModal NoModal))
+            Browser.Events.onKeyDown (Key.escape (SetModals (List.drop 1 modals)))

@@ -2,6 +2,7 @@ module Views.Component exposing
     ( Context(..)
     , createMaterialProcessAutocomplete
     , editorView
+    , elementEditModalView
     )
 
 import Autocomplete exposing (Autocomplete)
@@ -62,6 +63,7 @@ type alias Config db msg =
     , lifeCycle : Result String LifeCycle
     , noOp : msg
     , openCreateComponentModal : msg
+    , openEditElementModal : TargetElement -> msg
     , openSelectComponentModal : Autocomplete Component -> msg
     , openSelectConsumptionModal : Autocomplete Process -> msg
     , openSelectProcessModal : Category -> TargetItem -> Maybe Index -> Autocomplete Process -> msg
@@ -242,27 +244,79 @@ componentView config itemIndex ({ component, country, elements, quantity } as ex
                         [ quantity |> quantityInput config itemIndex
                         ]
                     , td [ class "pt-0 pb-2 align-middle text-truncate w-100", colspan 2 ]
-                        [ div [ class "d-flex gap-2" ] <|
-                            if config.context /= TextileTrimsContext then
-                                [ input
-                                    [ type_ "text"
-                                    , class "form-control"
-                                    , onInput (config.updateItemName ( component, itemIndex ))
-                                    , placeholder "Nom du composant"
-                                    , value component.name
+                        [ if config.context == GenericContext then
+                            let
+                                materialSummary =
+                                    elements
+                                        |> List.head
+                                        |> Maybe.map
+                                            (\element ->
+                                                Amount.toString element.amount
+                                                    ++ Process.unitToString element.material.unit
+                                                    ++ " "
+                                                    ++ Process.getDisplayName element.material
+                                            )
+                                        |> Maybe.withDefault "Aucune matière"
+
+                                transformsCount =
+                                    elements
+                                        |> List.concatMap .transforms
+                                        |> List.length
+                            in
+                            div [ class "d-flex flex-column gap-1" ]
+                                [ div [ class "d-flex gap-2" ]
+                                    [ input
+                                        [ type_ "text"
+                                        , class "form-control"
+                                        , onInput (config.updateItemName ( component, itemIndex ))
+                                        , placeholder "Nom du composant"
+                                        , value component.name
+                                        ]
+                                        []
+                                    , countrySelector
+                                        { countries = config.db.countries
+                                        , domId = "item-country-" ++ String.fromInt itemIndex
+                                        , scope = config.scope
+                                        , select = config.updateItemCountry itemIndex
+                                        , selected = Maybe.map .code country
+                                        }
                                     ]
-                                    []
-                                , countrySelector
-                                    { countries = config.db.countries
-                                    , domId = "item-country-" ++ String.fromInt itemIndex
-                                    , scope = config.scope
-                                    , select = config.updateItemCountry itemIndex
-                                    , selected = Maybe.map .code country
-                                    }
+                                , small [ class "text-muted text-truncate" ] [ text materialSummary ]
+                                , small [ class "text-muted" ]
+                                    [ text <|
+                                        String.fromInt transformsCount
+                                            ++ " transformation"
+                                            ++ (if transformsCount > 1 then
+                                                    "s"
+
+                                                else
+                                                    ""
+                                               )
+                                    ]
                                 ]
 
-                            else
-                                [ span [ class "fw-bold" ] [ text component.name ] ]
+                          else
+                            div [ class "d-flex gap-2" ] <|
+                                if config.context /= TextileTrimsContext then
+                                    [ input
+                                        [ type_ "text"
+                                        , class "form-control"
+                                        , onInput (config.updateItemName ( component, itemIndex ))
+                                        , placeholder "Nom du composant"
+                                        , value component.name
+                                        ]
+                                        []
+                                    , countrySelector
+                                        { countries = config.db.countries
+                                        , domId = "item-country-" ++ String.fromInt itemIndex
+                                        , scope = config.scope
+                                        , select = config.updateItemCountry itemIndex
+                                        , selected = Maybe.map .code country
+                                        }
+                                    ]
+
+                                else
+                                    [ span [ class "fw-bold" ] [ text component.name ] ]
                         ]
                     , td [ class "pt-0 pb-2 text-end align-middle text-nowrap fs-7" ]
                         [ Component.extractMass itemResults
@@ -663,54 +717,148 @@ countrySelector config =
 
 elementView : Config db msg -> TargetItem -> Index -> ExpandedElement -> Results -> Html msg
 elementView config targetItem elementIndex { amount, material, transforms } elementResults =
-    let
-        ( materialResults, transformsResults ) =
-            case Component.extractItems elementResults of
-                [] ->
-                    ( Component.emptyResults, [] )
+    if config.context == GenericContext then
+        tbody []
+            [ tr [ class "fs-7 border-top" ]
+                [ td [] []
+                , td [ class "ps-0 align-middle text-nowrap" ]
+                    [ Format.amount material amount ]
+                , td [ class "align-middle text-truncate w-100", colspan 2 ]
+                    [ div [ class "d-flex flex-column" ]
+                        [ span [ class "text-truncate" ] [ text <| Process.getDisplayName material ]
+                        , small [ class "text-muted" ]
+                            [ text <|
+                                String.fromInt (List.length transforms)
+                                    ++ " transformation"
+                                    ++ (if List.length transforms > 1 then
+                                            "s"
 
-                materialResults_ :: transformsResults_ ->
-                    ( materialResults_, transformsResults_ )
-    in
-    tbody []
-        (tr [ class "fs-7 text-muted" ]
-            [ th [] []
-            , th [ class "align-middle ps-0", scope "col" ]
-                [ if material.unit == Process.Kilogram then
-                    text "Masse finale"
-
-                  else
-                    text "Quantité finale"
-                ]
-            , th [ class "align-middle", scope "col" ]
-                [ text <| "Élément #" ++ String.fromInt (elementIndex + 1) ]
-            , th [ class "align-middle text-center", scope "col" ]
-                [ text "Mix" ]
-            , th [ class "align-middle", scope "col" ]
-                [ text "Pertes" ]
-            , th [ class "align-middle text-truncate", scope "col" ]
-                [ material.unit |> Process.unitLabel |> text ]
-            , th [ class "align-middle text-end", scope "col" ]
-                [ Component.getTotalImpacts elementResults
-                    |> Format.formatImpact config.impact
-                ]
-            , th [] []
-            ]
-            :: elementMaterialView config ( targetItem, elementIndex ) materialResults material amount
-            ++ elementTransformsView config ( targetItem, elementIndex ) transformsResults transforms
-            ++ (if config.scope /= Scope.Textile then
-                    [ tr []
-                        [ td [ colspan 2 ] []
-                        , td [ colspan 5 ]
-                            [ addElementTransformButton config material ( targetItem, elementIndex )
+                                        else
+                                            ""
+                                       )
                             ]
                         ]
                     ]
+                , td [ class "align-middle text-end text-nowrap", colspan 2 ]
+                    [ Component.getTotalImpacts elementResults
+                        |> Format.formatImpact config.impact
+                    ]
+                , td [ class "pe-3 align-middle text-end text-nowrap" ]
+                    [ div [ class "btn-group btn-group-sm" ]
+                        [ button
+                            [ type_ "button"
+                            , class "btn btn-outline-secondary"
+                            , onClick (config.openEditElementModal ( targetItem, elementIndex ))
+                            ]
+                            [ Icon.pencil ]
+                        , button
+                            [ type_ "button"
+                            , class "btn btn-outline-secondary"
+                            , onClick (config.removeElement ( targetItem, elementIndex ))
+                            ]
+                            [ Icon.trash ]
+                        ]
+                    ]
+                ]
+            ]
 
-                else
-                    []
-               )
-        )
+    else
+        let
+            ( materialResults, transformsResults ) =
+                case Component.extractItems elementResults of
+                    [] ->
+                        ( Component.emptyResults, [] )
+
+                    materialResults_ :: transformsResults_ ->
+                        ( materialResults_, transformsResults_ )
+        in
+        tbody []
+            (tr [ class "fs-7 text-muted" ]
+                [ th [] []
+                , th [ class "align-middle ps-0", scope "col" ]
+                    [ if material.unit == Process.Kilogram then
+                        text "Masse finale"
+
+                      else
+                        text "Quantité finale"
+                    ]
+                , th [ class "align-middle", scope "col" ]
+                    [ text <| "Élément #" ++ String.fromInt (elementIndex + 1) ]
+                , th [ class "align-middle text-center", scope "col" ]
+                    [ text "Mix" ]
+                , th [ class "align-middle", scope "col" ]
+                    [ text "Pertes" ]
+                , th [ class "align-middle text-truncate", scope "col" ]
+                    [ material.unit |> Process.unitLabel |> text ]
+                , th [ class "align-middle text-end", scope "col" ]
+                    [ Component.getTotalImpacts elementResults
+                        |> Format.formatImpact config.impact
+                    ]
+                , th [] []
+                ]
+                :: elementMaterialView config ( targetItem, elementIndex ) materialResults material amount
+                ++ elementTransformsView config ( targetItem, elementIndex ) transformsResults transforms
+                ++ (if config.scope /= Scope.Textile then
+                        [ tr []
+                            [ td [ colspan 2 ] []
+                            , td [ colspan 5 ]
+                                [ addElementTransformButton config material ( targetItem, elementIndex )
+                                ]
+                            ]
+                        ]
+
+                    else
+                        []
+                   )
+            )
+
+
+elementEditModalView : Config db msg -> TargetElement -> Html msg
+elementEditModalView ({ lifeCycle, query } as config) ( ( _, itemIndex ) as targetItem, elementIndex ) =
+    let
+        maybeExpandedElement =
+            query.items
+                |> Component.expandItems config.db
+                |> Result.toMaybe
+                |> Maybe.andThen (LE.getAt itemIndex)
+                |> Maybe.andThen (.elements >> LE.getAt elementIndex)
+
+        maybeElementResults =
+            lifeCycle
+                |> Result.toMaybe
+                |> Maybe.map (.production >> Component.extractItems)
+                |> Maybe.andThen (LE.getAt itemIndex)
+                |> Maybe.map Component.extractItems
+                |> Maybe.andThen (LE.getAt elementIndex)
+    in
+    case ( maybeExpandedElement, maybeElementResults ) of
+        ( Just { amount, material, transforms }, Just elementResults ) ->
+            let
+                ( materialResults, transformsResults ) =
+                    case Component.extractItems elementResults of
+                        [] ->
+                            ( Component.emptyResults, [] )
+
+                        materialResults_ :: transformsResults_ ->
+                            ( materialResults_, transformsResults_ )
+            in
+            div [ class "table-responsive" ]
+                [ table [ class "table table-sm table-borderless mb-0" ]
+                    [ tbody []
+                        (elementMaterialView config ( targetItem, elementIndex ) materialResults material amount
+                            ++ elementTransformsView config ( targetItem, elementIndex ) transformsResults transforms
+                            ++ [ tr []
+                                    [ td [ colspan 8 ]
+                                        [ addElementTransformButton config material ( targetItem, elementIndex ) ]
+                                    ]
+                               ]
+                        )
+                    ]
+                ]
+
+        _ ->
+            div [ class "alert alert-warning mb-0" ]
+                [ text "Élément introuvable." ]
 
 
 listAvailableProcesses :
