@@ -184,18 +184,14 @@ update session msg model =
         SetTableState tableState ->
             createPageUpdate session { model | tableState = tableState }
 
-        ToggleFacetValue facetKey facetValue checked ->
-            createPageUpdate session
-                { model
-                    | facetValues =
-                        model.facetValues
-                            |> Table.updateFacets facetKey facetValue checked
-                }
+        ToggleFacetValue key value checked ->
+            { model | facetValues = model.facetValues |> Table.updateFacets key value checked }
+                |> createPageUpdate session
                 |> App.withCmds
                     [ if checked then
                         -- scroll the facet card DOM element to top when it is checked
-                        "[data-scroll-id={facetKey}] label:first-child"
-                            |> String.replace "{facetKey}" facetKey
+                        "[data-scroll-id={key}] label:first-child"
+                            |> String.replace "{key}" key
                             |> Ports.scrollIntoView
 
                       else

@@ -883,6 +883,10 @@ q {
     .card-body {
       max-height: 200px;
       overflow-y: auto;
+
+      input[type="checkbox"]:not(:checked) {
+        border-color: $text-dark !important;
+      }
     }
   }
 }

@@ -18,6 +18,7 @@ import Dict exposing (Dict)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import List.Extra as LE
 import Route exposing (Route)
 import Set exposing (Set)
 import String.Normalize as Normalize
@@ -243,13 +244,21 @@ viewFacet ({ selectedFacets, onFacetToggle } as config) facets toSearchableStrin
         availableValues =
             items
                 |> List.concatMap toValues
-                |> Set.fromList
-                |> Set.toList
+                |> LE.unique
+                -- selected facet values first
+                |> List.sortBy
+                    (\value ->
+                        if Set.member value selectedValues then
+                            0
+
+                        else
+                            1
+                    )
     in
     div [ class "card FacetCard" ]
         [ div [ class "card-header fw-bold py-2" ] [ text key ]
         , div
-            [ class "card-body d-flex flex-column gap-1 p-2"
+            [ class "card-body d-flex flex-column gap-1 p-2 no-scroll-chaining"
             , attribute "data-scroll-id" key
             ]
             (if List.isEmpty availableValues then
@@ -257,15 +266,6 @@ viewFacet ({ selectedFacets, onFacetToggle } as config) facets toSearchableStrin
 
              else
                 availableValues
-                    -- selected facet values first
-                    |> List.sortBy
-                        (\value ->
-                            if Set.member value selectedValues then
-                                0
-
-                            else
-                                1
-                        )
                     |> List.map
                         (\value ->
                             let
@@ -337,24 +337,24 @@ toCSV { columns } items =
 
 
 updateFacets : String -> String -> Bool -> Facets -> Facets
-updateFacets facetKey facetValue checked facetValues =
+updateFacets key value checked values =
     let
         newSelectedValues =
-            facetValues
-                |> Dict.get facetKey
+            values
+                |> Dict.get key
                 |> Maybe.withDefault Set.empty
                 |> (if checked then
-                        Set.insert facetValue
+                        Set.insert value
 
                     else
-                        Set.remove facetValue
+                        Set.remove value
                    )
     in
     if Set.isEmpty newSelectedValues then
-        Dict.remove facetKey facetValues
+        Dict.remove key values
 
     else
-        Dict.insert facetKey newSelectedValues facetValues
+        Dict.insert key newSelectedValues values
 
 
 hasFacetResults : Config data msg -> List (Facet data) -> (data -> String) -> String -> String -> List data -> Bool
