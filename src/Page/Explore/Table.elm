@@ -160,7 +160,7 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
 
         resultItems =
             items
-                |> filterItems facets defaultConfig.selectedFacets
+                |> filterItems defaultConfig facets
                 |> searchItems defaultConfig toSearchableString
 
         csv =
@@ -280,17 +280,8 @@ viewFacet { selectedFacets, onFacetToggle } items { key, toValues } =
         ]
 
 
-searchItems : Config data msg -> (data -> String) -> List data -> List data
-searchItems { search } toSearchableString =
-    Text.search
-        { minQueryLength = 2
-        , query = search
-        , toString = toSearchableString
-        }
-
-
-filterItems : List (Facet data) -> Facets -> List data -> List data
-filterItems facets selectedFacets =
+filterItems : Config data msg -> List (Facet data) -> List data -> List data
+filterItems { selectedFacets } facets =
     List.filter
         (\item ->
             facets
@@ -309,6 +300,15 @@ filterItems facets selectedFacets =
                                 True
                     )
         )
+
+
+searchItems : Config data msg -> (data -> String) -> List data -> List data
+searchItems { search } toSearchableString =
+    Text.search
+        { minQueryLength = 2
+        , query = search
+        , toString = toSearchableString
+        }
 
 
 toCSV : Table data comparable msg -> List data -> Csv
