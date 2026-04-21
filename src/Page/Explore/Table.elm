@@ -221,6 +221,75 @@ applyFiltersAndSearch config facets toSearchableString =
         >> searchItems config toSearchableString
 
 
+viewFacet : Config data msg -> List (Facet data) -> (data -> String) -> List data -> Facet data -> Html msg
+viewFacet ({ selectedFacets } as config) facets toSearchableString items { key, toValues } =
+    let
+        selectedValues =
+            Dict.get key selectedFacets
+                |> Maybe.withDefault Set.empty
+
+        -- group values to have selected first, available last
+        ( selectedOptions, availableOptions ) =
+            items
+                |> List.concatMap toValues
+                |> LE.unique
+                |> List.foldl
+                    (\value ( selected, available ) ->
+                        if Set.member value selectedValues then
+                            ( value :: selected, available )
+
+                        else
+                            ( selected, value :: available )
+                    )
+                    ( [], [] )
+                |> Tuple.mapBoth List.sort List.sort
+    in
+    div [ class "FacetCard card" ]
+        [ div [ class "card-header fw-bold py-2" ] [ text key ]
+        , div
+            [ class "FacetCardBody card-body d-flex flex-column gap-1 p-2 no-scroll-chaining"
+            , attribute "data-scroll-id" key
+            ]
+            (if List.isEmpty (selectedOptions ++ availableOptions) then
+                [ em [ class "text-muted small" ] [ text "Aucune valeur disponible" ] ]
+
+             else
+                List.concat
+                    [ selectedOptions |> List.map (viewFacetOption config True facets toSearchableString items key)
+                    , if not (List.isEmpty selectedOptions) then
+                        [ div [ class "FacetCardSeparator border-bottom" ] [] ]
+
+                      else
+                        []
+                    , availableOptions |> List.map (viewFacetOption config False facets toSearchableString items key)
+                    ]
+            )
+        ]
+
+
+viewFacetOption : Config data msg -> Bool -> List (Facet data) -> (data -> String) -> List data -> String -> String -> Html msg
+viewFacetOption config isSelected facets toSearchableString items key value =
+    label
+        [ class "form-check d-flex align-items-start gap-2 cursor-pointer"
+        , classList [ ( "fw-semibold", isSelected ) ]
+        , title value
+        ]
+        [ input
+            [ type_ "checkbox"
+            , class "form-check-input mt-1 no-outline"
+            , checked isSelected
+            , onCheck (config.onFacetToggle key value)
+            , items
+                |> hasFacetResults config facets toSearchableString key value
+                |> (||) isSelected
+                |> not
+                |> disabled
+            ]
+            []
+        , span [ class "form-check-label text-truncate" ] [ text value ]
+        ]
+
+
 viewFacetsSidebar : Config data msg -> List (Facet data) -> (data -> String) -> List data -> Html msg
 viewFacetsSidebar config facets toSearchableString items =
     if List.isEmpty facets then
@@ -232,64 +301,6 @@ viewFacetsSidebar config facets toSearchableString items =
                 |> List.map (viewFacet config facets toSearchableString items)
                 |> div [ class "d-flex flex-column gap-2 sticky-top", style "top" "10px" ]
             ]
-
-
-viewFacet : Config data msg -> List (Facet data) -> (data -> String) -> List data -> Facet data -> Html msg
-viewFacet ({ selectedFacets, onFacetToggle } as config) facets toSearchableString items { key, toValues } =
-    let
-        selectedValues =
-            Dict.get key selectedFacets
-                |> Maybe.withDefault Set.empty
-
-        availableValues =
-            items
-                |> List.concatMap toValues
-                |> LE.unique
-                -- selected facet values first
-                |> List.sortBy
-                    (\value ->
-                        if Set.member value selectedValues then
-                            0
-
-                        else
-                            1
-                    )
-    in
-    div [ class "card FacetCard" ]
-        [ div [ class "card-header fw-bold py-2" ] [ text key ]
-        , div
-            [ class "card-body d-flex flex-column gap-1 p-2 no-scroll-chaining"
-            , attribute "data-scroll-id" key
-            ]
-            (if List.isEmpty availableValues then
-                [ em [ class "text-muted small" ] [ text "Aucune valeur disponible" ] ]
-
-             else
-                availableValues
-                    |> List.map
-                        (\value ->
-                            let
-                                isSelected =
-                                    Set.member value selectedValues
-                            in
-                            Html.label [ class "form-check d-flex align-items-start gap-2 cursor-pointer", title value ]
-                                [ input
-                                    [ type_ "checkbox"
-                                    , class "form-check-input mt-1 no-outline"
-                                    , checked isSelected
-                                    , items
-                                        |> hasFacetResults config facets toSearchableString key value
-                                        |> (||) isSelected
-                                        |> not
-                                        |> disabled
-                                    , onCheck (onFacetToggle key value)
-                                    ]
-                                    []
-                                , span [ class "form-check-label text-truncate" ] [ text value ]
-                                ]
-                        )
-            )
-        ]
 
 
 filterItems : Config data msg -> List (Facet data) -> List data -> List data

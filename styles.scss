@@ -880,13 +880,18 @@ q {
   &Card {
     font-size: 0.85rem;
 
-    .card-body {
+    &Body {
       max-height: 200px;
       overflow-y: auto;
 
       input[type="checkbox"]:not(:checked) {
         border-color: $text-dark !important;
       }
+    }
+
+    &Separator {
+      height: 1px;
+      margin-top: -5px;
     }
   }
 }

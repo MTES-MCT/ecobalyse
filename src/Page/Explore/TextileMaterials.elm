@@ -52,7 +52,7 @@ table db { detailed, scope } =
     , toSearchableString = Material.toSearchableString db.countries
     , facets =
         [ Table.Facet "Origine de la matière" (.origin >> Origin.toLabel >> List.singleton)
-        , Table.Facet "\tOrigine géographique" (.geographicOrigin >> List.singleton)
+        , Table.Facet "Origine géographique" (.geographicOrigin >> List.singleton)
         , Table.Facet "Recyclage" (.recycledFrom >> recycledToString >> List.singleton)
         , Table.Facet "Pays de production et de filature par défaut"
             (.defaultCountry
