@@ -1,8 +1,8 @@
 ---
 name: Bug Report/Rapport de bug
 about: File a bug report/Remonter un bug
-title: "[BUG] "
-labels: bug
+title: '[BUG] '
+labels: 'bug'
 assignees: ''
 
 ---
