@@ -159,9 +159,7 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
                 }
 
         resultItems =
-            items
-                |> filterItems defaultConfig facets
-                |> searchItems defaultConfig toSearchableString
+            items |> applyFiltersAndSearch defaultConfig facets toSearchableString
 
         csv =
             { filename = "ecobalyse-" ++ Scope.toString scope ++ "-" ++ filename ++ ".csv"
@@ -190,18 +188,17 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
         div [ class "row g-3" ]
             [ div [ classList [ ( "col-xxl-10 col-xl-9 col-lg-9 col-md-12 col-sm-12", facetsEnabled ) ] ]
                 [ div [ class "DatasetTable table-responsive table-scroll position-relative" ]
-                    [ case resultItems of
-                        [] ->
-                            Alert.simple
-                                { attributes = []
-                                , close = Nothing
-                                , content = [ text "Cette recherche n’a retourné aucun résultat" ]
-                                , level = Alert.Info
-                                , title = Nothing
-                                }
+                    [ if List.isEmpty resultItems then
+                        Alert.simple
+                            { attributes = []
+                            , close = Nothing
+                            , content = [ text "Cette recherche n’a retourné aucun résultat" ]
+                            , level = Alert.Info
+                            , title = Nothing
+                            }
 
-                        nonEmptyResult ->
-                            nonEmptyResult |> SortableTable.view config tableState
+                      else
+                        resultItems |> SortableTable.view config tableState
                     , div [ class "text-muted fs-7" ] legend
                     ]
                 , div [ class "text-end pt-3" ]
@@ -213,25 +210,31 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
                         [ text "Télécharger ces données au format CSV" ]
                     ]
                 ]
-            , viewFacetsSidebar defaultConfig facets items
+            , viewFacetsSidebar defaultConfig facets toSearchableString items
             ]
 
 
-viewFacetsSidebar : Config data msg -> List (Facet data) -> List data -> Html msg
-viewFacetsSidebar config facets items =
+applyFiltersAndSearch : Config data msg -> List (Facet data) -> (data -> String) -> List data -> List data
+applyFiltersAndSearch config facets toSearchableString =
+    filterItems config facets
+        >> searchItems config toSearchableString
+
+
+viewFacetsSidebar : Config data msg -> List (Facet data) -> (data -> String) -> List data -> Html msg
+viewFacetsSidebar config facets toSearchableString items =
     if List.isEmpty facets then
         text ""
 
     else
         div [ class "col-xxl-2 col-xl-3 col-lg-3 col-md-12 col-sm-12" ]
             [ facets
-                |> List.map (viewFacet config items)
+                |> List.map (viewFacet config facets toSearchableString items)
                 |> div [ class "d-flex flex-column gap-2 sticky-top", style "top" "10px" ]
             ]
 
 
-viewFacet : Config data msg -> List data -> Facet data -> Html msg
-viewFacet { selectedFacets, onFacetToggle } items { key, toValues } =
+viewFacet : Config data msg -> List (Facet data) -> (data -> String) -> List data -> Facet data -> Html msg
+viewFacet ({ selectedFacets, onFacetToggle } as config) facets toSearchableString items { key, toValues } =
     let
         selectedValues =
             Dict.get key selectedFacets
@@ -265,11 +268,20 @@ viewFacet { selectedFacets, onFacetToggle } items { key, toValues } =
                         )
                     |> List.map
                         (\value ->
+                            let
+                                isSelected =
+                                    Set.member value selectedValues
+                            in
                             Html.label [ class "form-check d-flex align-items-start gap-2 cursor-pointer", title value ]
                                 [ input
                                     [ type_ "checkbox"
                                     , class "form-check-input mt-1 no-outline"
-                                    , checked (Set.member value selectedValues)
+                                    , checked isSelected
+                                    , items
+                                        |> hasFacetResults config facets toSearchableString key value
+                                        |> (||) isSelected
+                                        |> not
+                                        |> disabled
                                     , onCheck (onFacetToggle key value)
                                     ]
                                     []
@@ -287,17 +299,10 @@ filterItems { selectedFacets } facets =
             facets
                 |> List.all
                     (\{ key, toValues } ->
-                        case Dict.get key selectedFacets of
-                            Just selectedValues ->
-                                if Set.isEmpty selectedValues then
-                                    True
-
-                                else
-                                    Set.toList selectedValues
-                                        |> List.all (\selectedValue -> toValues item |> List.member selectedValue)
-
-                            Nothing ->
-                                True
+                        selectedFacets
+                            |> Dict.get key
+                            |> Maybe.map (Set.toList >> List.all (\v -> item |> toValues |> List.member v))
+                            |> Maybe.withDefault True
                     )
         )
 
@@ -350,6 +355,16 @@ updateFacets facetKey facetValue checked facetValues =
 
     else
         Dict.insert facetKey newSelectedValues facetValues
+
+
+hasFacetResults : Config data msg -> List (Facet data) -> (data -> String) -> String -> String -> List data -> Bool
+hasFacetResults ({ selectedFacets } as config) facets toSearchableString key value =
+    applyFiltersAndSearch
+        { config | selectedFacets = selectedFacets |> updateFacets key value True }
+        facets
+        toSearchableString
+        >> List.isEmpty
+        >> not
 
 
 valueToString : data -> Value comparable data -> String
