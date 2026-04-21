@@ -243,12 +243,10 @@ viewFacet { selectedFacets, onFacetToggle } items { key, toValues } =
                 |> Set.fromList
                 |> Set.toList
     in
-    div [ class "card fs-8" ]
-        [ div [ class "card-header fw-semibold py-2" ] [ text key ]
+    div [ class "card FacetCard" ]
+        [ div [ class "card-header fw-bold py-2" ] [ text key ]
         , div
             [ class "card-body d-flex flex-column gap-1 p-2"
-            , style "max-height" "200px"
-            , style "overflow-y" "auto"
             , attribute "data-scroll-id" key
             ]
             (if List.isEmpty availableValues then

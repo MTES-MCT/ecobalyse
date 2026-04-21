@@ -876,6 +876,17 @@ q {
   }
 }
 
+.Facet {
+  &Card {
+    font-size: 0.85rem;
+
+    .card-body {
+      max-height: 200px;
+      overflow-y: auto;
+    }
+  }
+}
+
 .Footer {
   border-top: 3px solid $primary;
   &InstitutionLink {
