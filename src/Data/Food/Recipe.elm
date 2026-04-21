@@ -302,7 +302,6 @@ computeIngredientComplementsImpacts { cropDiversity, hedges, permanentPasture, p
     { cropDiversity = Just <| apply EcosystemicServices.coefficients.cropDiversity cropDiversity
     , forest = Nothing
     , hedges = Just <| apply EcosystemicServices.coefficients.hedges hedges
-    , livestockDensity = Just <| apply EcosystemicServices.coefficients.livestockDensity livestockDensity
     , microfibers = Nothing
     , outOfEuropeEOL = Nothing
     , permanentPasture = Just <| apply EcosystemicServices.coefficients.permanentPasture permanentPasture
