@@ -312,7 +312,16 @@ filterItems { selectedFacets } facets =
                     (\{ key, toValues } ->
                         selectedFacets
                             |> Dict.get key
-                            |> Maybe.map (Set.toList >> List.all (\v -> item |> toValues |> List.member v))
+                            |> Maybe.map
+                                (\selectedValues ->
+                                    if Set.isEmpty selectedValues then
+                                        True
+
+                                    else
+                                        selectedValues
+                                            |> Set.toList
+                                            |> List.any (\value -> item |> toValues |> List.member value)
+                                )
                             |> Maybe.withDefault True
                     )
         )
