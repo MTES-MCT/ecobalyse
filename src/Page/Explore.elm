@@ -190,7 +190,7 @@ update session msg model =
                 |> App.withCmds
                     [ if checked then
                         -- scroll the facet card DOM element to top when it is checked
-                        "[data-scroll-id={key}] label:first-child"
+                        """[data-scroll-id="{key}"] label:first-child"""
                             |> String.replace "{key}" key
                             |> Ports.scrollIntoView
 
