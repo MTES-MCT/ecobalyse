@@ -195,11 +195,7 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
                             Alert.simple
                                 { attributes = []
                                 , close = Nothing
-                                , content =
-                                    [ "Aucun résultat pour la recherche *«{search}»*"
-                                        |> String.replace "{search}" defaultConfig.search
-                                        |> Markdown.simple []
-                                    ]
+                                , content = [ text "Cette recherche n’a retourné aucun résultat" ]
                                 , level = Alert.Info
                                 , title = Nothing
                                 }
