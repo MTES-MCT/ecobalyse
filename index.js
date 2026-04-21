@@ -165,7 +165,6 @@ app.ports.scrollTo.subscribe((pos) => {
 
 app.ports.scrollIntoView.subscribe((selector) => {
   let node = document.querySelector(selector);
-  console.log("scrollIntoView", selector, node);
   node?.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
 });
 
