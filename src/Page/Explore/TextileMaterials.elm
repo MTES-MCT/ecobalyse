@@ -11,6 +11,7 @@ import Data.Textile.Material.Origin as Origin
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Maybe.Extra as Maybe
 import Page.Explore.Table as Table exposing (Table)
 import Route
 import Static.Db exposing (Db)
@@ -50,7 +51,29 @@ table db { detailed, scope } =
     , toId = .id >> Material.idToString
     , toRoute = .id >> Just >> Dataset.TextileMaterials >> Route.Explore scope
     , toSearchableString = Material.toSearchableString db.countries
-    , facets = []
+    , facets =
+        [ Table.Facet "Origine de la matière" (.origin >> Origin.toLabel >> List.singleton)
+        , Table.Facet "\tOrigine géographique" (.geographicOrigin >> List.singleton)
+        , Table.Facet "Recyclage"
+            (.recycledFrom
+                >> Maybe.isJust
+                >> (\value ->
+                        [ if value then
+                            "oui"
+
+                          else
+                            "non"
+                        ]
+                   )
+            )
+        , Table.Facet "Pays de production et de filature par défaut"
+            (.defaultCountry
+                >> (\code -> Country.findByCode code db.countries)
+                >> Result.map .name
+                >> Result.withDefault "N/A"
+                >> List.singleton
+            )
+        ]
     , legend = []
     , columns =
         [ { label = "Identifiant"
