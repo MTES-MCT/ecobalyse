@@ -337,24 +337,17 @@ toCSV { columns } items =
 
 
 updateFacets : String -> String -> Bool -> Facets -> Facets
-updateFacets key value checked values =
-    let
-        newSelectedValues =
-            values
-                |> Dict.get key
-                |> Maybe.withDefault Set.empty
-                |> (if checked then
-                        Set.insert value
+updateFacets key value checked =
+    Dict.update key
+        (Maybe.withDefault Set.empty
+            >> (if checked then
+                    Set.insert value
 
-                    else
-                        Set.remove value
-                   )
-    in
-    if Set.isEmpty newSelectedValues then
-        Dict.remove key values
-
-    else
-        Dict.insert key newSelectedValues values
+                else
+                    Set.remove value
+               )
+            >> Just
+        )
 
 
 hasFacetResults : Config data msg -> List (Facet data) -> (data -> String) -> String -> String -> List data -> Bool
