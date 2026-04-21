@@ -63,7 +63,7 @@ type alias Config db msg =
     , lifeCycle : Result String LifeCycle
     , noOp : msg
     , openCreateComponentModal : msg
-    , openEditElementModal : TargetElement -> msg
+    , openEditElementModal : Component -> TargetElement -> msg
     , openSelectComponentModal : Autocomplete Component -> msg
     , openSelectConsumptionModal : Autocomplete Process -> msg
     , openSelectProcessModal : Category -> TargetItem -> Maybe Index -> Autocomplete Process -> msg
@@ -665,18 +665,30 @@ countrySelector config =
             ]
 
 
+iconifiedLine : Html msg -> String -> Html msg
+iconifiedLine icon content =
+    span [ class "d-flex align-items-center gap-1" ]
+        [ span [ class "ComponentElementIcon me-0" ] [ icon ]
+        , text content
+        ]
+
+
 elementView : Config db msg -> TargetItem -> Index -> ExpandedElement -> Results -> Html msg
-elementView config targetItem elementIndex { amount, material, transforms } elementResults =
+elementView config (( component, _ ) as targetItem) elementIndex { amount, material, transforms } elementResults =
     tbody []
         [ tr [ class "fs-7 border-top" ]
             [ td [] []
             , td [ class "ps-0 align-start text-end text-nowrap" ]
                 [ Format.amount material amount ]
-            , td [ class "align-middle text-truncate", colspan 2, style "max-width" "10vw" ]
+            , td
+                [ colspan 2
+                , class "align-middle text-truncate"
+                , style "max-width" "10vw"
+                ]
                 [ div [ class "d-flex flex-column" ]
-                    [ text <| Process.getDisplayName material
+                    [ iconifiedLine Icon.material <| Process.getDisplayName material
                     , small [ class "text-muted" ]
-                        [ text <|
+                        [ iconifiedLine Icon.transform <|
                             if List.isEmpty transforms then
                                 "aucune transformation"
 
@@ -696,7 +708,7 @@ elementView config targetItem elementIndex { amount, material, transforms } elem
                     [ button
                         [ type_ "button"
                         , class "btn btn-outline-secondary"
-                        , onClick (config.openEditElementModal ( targetItem, elementIndex ))
+                        , onClick (config.openEditElementModal component ( targetItem, elementIndex ))
                         ]
                         [ Icon.pencil ]
                     , button

@@ -81,7 +81,7 @@ type alias Model =
 type Modal
     = AddComponentModal (Autocomplete Component)
     | ComparatorModal
-    | EditElementModal TargetElement
+    | EditElementModal Component TargetElement
     | SelectConsumptionModal (Autocomplete Process)
     | SelectExampleModal (Autocomplete Component.Query)
     | SelectProcessModal Category TargetItem (Maybe Index) (Autocomplete Process)
@@ -872,7 +872,7 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
                 , noOp = NoOp
                 , openCreateComponentModal = CreateComponent
                 , openSelectComponentModal = AddComponentModal >> List.singleton >> SetModals
-                , openEditElementModal = EditElementModal >> AppendModal
+                , openEditElementModal = \c ti -> AppendModal (EditElementModal c ti)
                 , openSelectProcessModal = \c ti mi ac -> AppendModal (SelectProcessModal c ti mi ac)
                 , openSelectConsumptionModal = SelectConsumptionModal >> List.singleton >> SetModals
                 , query = currentQuery
@@ -1079,12 +1079,12 @@ modalView session ({ modals } as model) modal =
                 , footer = []
                 }
 
-        EditElementModal targetElement ->
+        EditElementModal { name } targetElement ->
             ModalView.view
                 { size = ModalView.Large
                 , close = SetModals (List.drop 1 modals)
                 , noOp = NoOp
-                , title = "Modifier l'élément"
+                , title = "Modifier l'élément #" ++ String.fromInt (Tuple.second targetElement + 1) ++ " du composant “" ++ name ++ "”"
                 , subTitle = Nothing
                 , formAction = Nothing
                 , content =
@@ -1101,7 +1101,7 @@ modalView session ({ modals } as model) modal =
                         , noOp = NoOp
                         , openCreateComponentModal = CreateComponent
                         , openSelectComponentModal = AddComponentModal >> List.singleton >> SetModals
-                        , openEditElementModal = \_ -> NoOp
+                        , openEditElementModal = \_ _ -> NoOp
                         , openSelectProcessModal =
                             \p ti ei s ->
                                 SetModals (SelectProcessModal p ti ei s :: modals)
