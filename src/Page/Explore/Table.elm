@@ -22,7 +22,6 @@ import Set exposing (Set)
 import String.Normalize as Normalize
 import Table as SortableTable
 import Views.Alert as Alert
-import Views.Markdown as Markdown
 import Views.Table as TableView
 
 
@@ -249,6 +248,7 @@ viewFacet { selectedFacets, onFacetToggle } items { key, toValues } =
             [ class "card-body d-flex flex-column gap-1 p-2"
             , style "max-height" "200px"
             , style "overflow-y" "auto"
+            , attribute "data-scroll-id" key
             ]
             (if List.isEmpty availableValues then
                 [ em [ class "text-muted small" ] [ text "Aucune valeur disponible" ] ]

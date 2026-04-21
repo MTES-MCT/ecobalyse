@@ -192,6 +192,16 @@ update session msg model =
                         model.facetValues
                             |> updateFacets facetKey facetValue checked
                 }
+                |> App.withCmds
+                    [ if checked then
+                        -- scroll the facet card DOM element to top when it is checked
+                        "[data-scroll-id={facetKey}] label:first-child"
+                            |> String.replace "{facetKey}" facetKey
+                            |> Ports.scrollIntoView
+
+                      else
+                        Cmd.none
+                    ]
 
         UpdateSearch search ->
             createPageUpdate session { model | search = search }

@@ -163,9 +163,10 @@ app.ports.scrollTo.subscribe((pos) => {
   window.scrollTo(pos.x, pos.y);
 });
 
-app.ports.scrollIntoView.subscribe((id) => {
-  let node = document.getElementById(id);
-  node?.scrollIntoView({ behavior: "smooth" });
+app.ports.scrollIntoView.subscribe((selector) => {
+  let node = document.querySelector(selector);
+  console.log("scrollIntoView", selector, node);
+  node?.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
 });
 
 // Ensure session is refreshed when it changes in another tab/window
