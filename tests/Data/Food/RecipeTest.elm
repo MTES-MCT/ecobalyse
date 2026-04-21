@@ -54,7 +54,6 @@ suite =
                                         , plotSize = Unit.noImpacts
                                         , cropDiversity = Unit.noImpacts
                                         , permanentPasture = Unit.noImpacts
-                                        , livestockDensity = Unit.noImpacts
                                         }
                              in
                              [ complementsImpacts.hedges
@@ -73,7 +72,6 @@ suite =
                                         , plotSize = Unit.impact 1
                                         , cropDiversity = Unit.impact 1
                                         , permanentPasture = Unit.impact 1
-                                        , livestockDensity = Unit.impact 1
                                         }
                              in
                              [ complementsImpacts.hedges

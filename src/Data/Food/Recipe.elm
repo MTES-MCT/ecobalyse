@@ -293,7 +293,7 @@ convertWellKnownToTransportModes wellKnown =
 
 
 computeIngredientComplementsImpacts : EcosystemicServices -> Mass -> Complement.ComplementsImpacts
-computeIngredientComplementsImpacts { cropDiversity, hedges, livestockDensity, permanentPasture, plotSize } ingredientMass =
+computeIngredientComplementsImpacts { cropDiversity, hedges, permanentPasture, plotSize } ingredientMass =
     let
         apply coeff =
             Quantity.multiplyBy (Mass.inKilograms ingredientMass)
