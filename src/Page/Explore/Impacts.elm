@@ -19,6 +19,7 @@ table { detailed, scope } =
     , toId = .trigram >> Definition.toString
     , toRoute = .trigram >> Just >> Dataset.Impacts >> Route.Explore scope
     , toSearchableString = Definition.toSearchableString
+    , facets = []
     , legend = []
     , columns =
         [ { label = "Code"

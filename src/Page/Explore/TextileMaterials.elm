@@ -50,6 +50,7 @@ table db { detailed, scope } =
     , toId = .id >> Material.idToString
     , toRoute = .id >> Just >> Dataset.TextileMaterials >> Route.Explore scope
     , toSearchableString = Material.toSearchableString db.countries
+    , facets = []
     , legend = []
     , columns =
         [ { label = "Identifiant"

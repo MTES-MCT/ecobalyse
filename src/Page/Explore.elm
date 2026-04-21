@@ -32,6 +32,7 @@ import Data.Textile.Query as TextileQuery
 import Data.Textile.Simulator as Simulator
 import Data.Unit as Unit
 import Data.Uuid exposing (Uuid)
+import Dict
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -48,6 +49,7 @@ import Page.Explore.TextileMaterials as TextileMaterials
 import Page.Explore.TextileProducts as TextileProducts
 import Ports
 import Route exposing (Route)
+import Set
 import Static.Db exposing (Db)
 import Table as SortableTable exposing (defaultCustomizations)
 import Views.Alert as Alert
@@ -57,6 +59,7 @@ import Views.Modal as ModalView
 
 type alias Model =
     { dataset : Dataset
+    , facetValues : Table.Facets
     , scope : Scope
     , search : String
     , tableState : SortableTable.State
@@ -69,6 +72,7 @@ type Msg
     | OpenDetail Route
     | ScopeChange Scope
     | SetTableState SortableTable.State
+    | ToggleFacetValue String String Bool
     | UpdateSearch String
 
 
@@ -112,6 +116,7 @@ init scope dataset session =
     in
     createPageUpdate session
         { dataset = dataset
+        , facetValues = Dict.empty
         , scope = scope
         , search = ""
         , tableState = SortableTable.initialSort initialSort
@@ -143,7 +148,8 @@ update session msg model =
                     ]
 
         ScopeChange scope ->
-            createPageUpdate session { model | scope = scope }
+            { model | facetValues = Dict.empty, scope = scope }
+                |> createPageUpdate session
                 |> App.withCmds
                     [ (case model.dataset of
                         -- Try selecting the most appropriate tab when switching scope.
@@ -179,8 +185,38 @@ update session msg model =
         SetTableState tableState ->
             createPageUpdate session { model | tableState = tableState }
 
+        ToggleFacetValue facetKey facetValue checked ->
+            createPageUpdate session
+                { model
+                    | facetValues =
+                        model.facetValues
+                            |> updateFacets facetKey facetValue checked
+                }
+
         UpdateSearch search ->
             createPageUpdate session { model | search = search }
+
+
+updateFacets : String -> String -> Bool -> Table.Facets -> Table.Facets
+updateFacets facetKey facetValue checked facetValues =
+    let
+        selectedValues =
+            facetValues
+                |> Dict.get facetKey
+                |> Maybe.withDefault Set.empty
+
+        nextSelectedValues =
+            if checked then
+                Set.insert facetValue selectedValues
+
+            else
+                Set.remove facetValue selectedValues
+    in
+    if Set.isEmpty nextSelectedValues then
+        Dict.remove facetKey facetValues
+
+    else
+        Dict.insert facetKey nextSelectedValues facetValues
 
 
 {-| Create a page update preventing the body to be scrollable when one or more modals are opened.
@@ -693,12 +729,14 @@ getTextileScorePer100g { componentConfig, db } { query } =
 
 
 exploreView : Session -> Model -> List (Html Msg)
-exploreView ({ db } as session) { scope, dataset, tableState, search } =
+exploreView ({ db } as session) { facetValues, scope, dataset, tableState, search } =
     let
         tableConfig =
             { toId = always "" -- Placeholder
             , toMsg = SetTableState
+            , onFacetToggle = ToggleFacetValue
             , search = search
+            , selectedFacets = facetValues
             , columns = []
             , customizations =
                 { defaultCustomizations

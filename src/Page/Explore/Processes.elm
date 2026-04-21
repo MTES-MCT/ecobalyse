@@ -24,6 +24,11 @@ table session { detailed, scope } =
     , toId = .id >> Process.idToString
     , toRoute = .id >> Just >> Dataset.Processes scope >> Route.Explore scope
     , toSearchableString = Process.toSearchableString
+    , facets =
+        [ Table.Facet "Catégories" (.categories >> List.map ProcessCategory.toLabel)
+        , Table.Facet "Unités" (.unit >> Process.unitToString >> List.singleton)
+        , Table.Facet "Région" (.location >> Maybe.withDefault "N/A" >> List.singleton)
+        ]
     , legend = []
     , columns = baseColumns detailed scope ++ impactsColumns session ++ complementsColumns session
     }
