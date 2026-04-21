@@ -1,6 +1,7 @@
 module Data.Text exposing
     ( search
     , toWords
+    , yesNo
     )
 
 import Regex
@@ -65,3 +66,12 @@ toWords =
             (Regex.fromString "[\\W_]+"
                 |> Maybe.withDefault Regex.never
             )
+
+
+yesNo : Bool -> String
+yesNo bool =
+    if bool then
+        "Oui"
+
+    else
+        "Non"
