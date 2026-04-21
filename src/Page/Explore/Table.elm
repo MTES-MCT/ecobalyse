@@ -211,7 +211,7 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
                         [ text "Télécharger ces données au format CSV" ]
                     ]
                 ]
-            , viewFacetsSidebar defaultConfig facets toSearchableString items
+            , viewFacetsSidebar defaultConfig facets items
             ]
 
 
@@ -221,8 +221,8 @@ applyFiltersAndSearch config facets toSearchableString =
         >> searchItems config toSearchableString
 
 
-viewFacet : Config data msg -> List (Facet data) -> (data -> String) -> List data -> Facet data -> Html msg
-viewFacet ({ selectedFacets } as config) facets toSearchableString items { key, toValues } =
+viewFacet : Config data msg -> List data -> Facet data -> Html msg
+viewFacet ({ selectedFacets } as config) items { key, toValues } =
     let
         selectedValues =
             Dict.get key selectedFacets
@@ -255,20 +255,20 @@ viewFacet ({ selectedFacets } as config) facets toSearchableString items { key, 
 
              else
                 List.concat
-                    [ selectedOptions |> List.map (viewFacetOption config True facets toSearchableString items key)
+                    [ selectedOptions |> List.map (viewFacetOption config True key)
                     , if not (List.isEmpty selectedOptions) then
                         [ div [ class "FacetCardSeparator border-bottom" ] [] ]
 
                       else
                         []
-                    , availableOptions |> List.map (viewFacetOption config False facets toSearchableString items key)
+                    , availableOptions |> List.map (viewFacetOption config False key)
                     ]
             )
         ]
 
 
-viewFacetOption : Config data msg -> Bool -> List (Facet data) -> (data -> String) -> List data -> String -> String -> Html msg
-viewFacetOption config isSelected facets toSearchableString items key value =
+viewFacetOption : Config data msg -> Bool -> String -> String -> Html msg
+viewFacetOption config isSelected key value =
     label
         [ class "form-check d-flex align-items-start gap-2 cursor-pointer"
         , classList [ ( "fw-semibold", isSelected ) ]
@@ -279,26 +279,21 @@ viewFacetOption config isSelected facets toSearchableString items key value =
             , class "form-check-input mt-1 no-outline"
             , checked isSelected
             , onCheck (config.onFacetToggle key value)
-            , items
-                |> hasFacetResults config facets toSearchableString key value
-                |> (||) isSelected
-                |> not
-                |> disabled
             ]
             []
         , span [ class "form-check-label text-truncate" ] [ text value ]
         ]
 
 
-viewFacetsSidebar : Config data msg -> List (Facet data) -> (data -> String) -> List data -> Html msg
-viewFacetsSidebar config facets toSearchableString items =
+viewFacetsSidebar : Config data msg -> List (Facet data) -> List data -> Html msg
+viewFacetsSidebar config facets items =
     if List.isEmpty facets then
         text ""
 
     else
         div [ class "col-xxl-2 col-xl-3 col-lg-3 col-md-12 col-sm-12" ]
             [ facets
-                |> List.map (viewFacet config facets toSearchableString items)
+                |> List.map (viewFacet config items)
                 |> div [ class "d-flex flex-column gap-2 sticky-top", style "top" "10px" ]
             ]
 
@@ -368,16 +363,6 @@ updateFacets key value checked =
                )
             >> Just
         )
-
-
-hasFacetResults : Config data msg -> List (Facet data) -> (data -> String) -> String -> String -> List data -> Bool
-hasFacetResults ({ selectedFacets } as config) facets toSearchableString key value =
-    applyFiltersAndSearch
-        { config | selectedFacets = selectedFacets |> updateFacets key value True }
-        facets
-        toSearchableString
-        >> List.isEmpty
-        >> not
 
 
 valueToString : data -> Value comparable data -> String
