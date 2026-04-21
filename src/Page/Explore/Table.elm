@@ -5,6 +5,7 @@ module Page.Explore.Table exposing
     , Facets
     , Table
     , Value(..)
+    , updateFacets
     , viewDetails
     , viewList
     )
@@ -330,6 +331,27 @@ toCSV { columns } items =
                         |> List.map (.toValue >> valueToString item)
                 )
     }
+
+
+updateFacets : String -> String -> Bool -> Facets -> Facets
+updateFacets facetKey facetValue checked facetValues =
+    let
+        newSelectedValues =
+            facetValues
+                |> Dict.get facetKey
+                |> Maybe.withDefault Set.empty
+                |> (if checked then
+                        Set.insert facetValue
+
+                    else
+                        Set.remove facetValue
+                   )
+    in
+    if Set.isEmpty newSelectedValues then
+        Dict.remove facetKey facetValues
+
+    else
+        Dict.insert facetKey newSelectedValues facetValues
 
 
 valueToString : data -> Value comparable data -> String

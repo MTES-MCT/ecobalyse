@@ -49,7 +49,6 @@ import Page.Explore.TextileMaterials as TextileMaterials
 import Page.Explore.TextileProducts as TextileProducts
 import Ports
 import Route exposing (Route)
-import Set
 import Static.Db exposing (Db)
 import Table as SortableTable exposing (defaultCustomizations)
 import Views.Alert as Alert
@@ -190,7 +189,7 @@ update session msg model =
                 { model
                     | facetValues =
                         model.facetValues
-                            |> updateFacets facetKey facetValue checked
+                            |> Table.updateFacets facetKey facetValue checked
                 }
                 |> App.withCmds
                     [ if checked then
@@ -205,27 +204,6 @@ update session msg model =
 
         UpdateSearch search ->
             createPageUpdate session { model | search = search }
-
-
-updateFacets : String -> String -> Bool -> Table.Facets -> Table.Facets
-updateFacets facetKey facetValue checked facetValues =
-    let
-        newSelectedValues =
-            facetValues
-                |> Dict.get facetKey
-                |> Maybe.withDefault Set.empty
-                |> (if checked then
-                        Set.insert facetValue
-
-                    else
-                        Set.remove facetValue
-                   )
-    in
-    if Set.isEmpty newSelectedValues then
-        Dict.remove facetKey facetValues
-
-    else
-        Dict.insert facetKey newSelectedValues facetValues
 
 
 {-| Create a page update preventing the body to be scrollable when one or more modals are opened.
