@@ -242,7 +242,7 @@ viewFacet ({ selectedFacets } as config) facets toSearchableString items { key, 
                             ( selected, value :: available )
                     )
                     ( [], [] )
-                |> Tuple.mapBoth List.sort List.sort
+                |> Tuple.mapBoth Text.sortStrings Text.sortStrings
     in
     div [ class "FacetCard card" ]
         [ div [ class "card-header fw-bold py-2" ] [ text key ]

@@ -1,5 +1,6 @@
 module Data.Text exposing
     ( search
+    , sortStrings
     , toWords
     , yesNo
     )
@@ -56,6 +57,13 @@ search { minQueryLength, query, toString } elements =
                         )
         in
         exactWordsMatches ++ partialWordsMatches
+
+
+{-| Sort strings the case and accent insensitive way (useful for non-US alphabets).
+-}
+sortStrings : List String -> List String
+sortStrings =
+    List.sortBy (String.toLower >> Normalize.removeDiacritics)
 
 
 toWords : String -> List String
