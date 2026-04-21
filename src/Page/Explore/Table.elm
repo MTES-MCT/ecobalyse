@@ -259,12 +259,21 @@ viewFacet { selectedFacets, onFacetToggle } items { key, toValues } =
 
              else
                 availableValues
+                    -- selected facet values first
+                    |> List.sortBy
+                        (\value ->
+                            if Set.member value selectedValues then
+                                0
+
+                            else
+                                1
+                        )
                     |> List.map
                         (\value ->
                             Html.label [ class "form-check d-flex align-items-start gap-2 cursor-pointer", title value ]
                                 [ input
                                     [ type_ "checkbox"
-                                    , class "form-check-input mt-1"
+                                    , class "form-check-input mt-1 no-outline"
                                     , checked (Set.member value selectedValues)
                                     , onCheck (onFacetToggle key value)
                                     ]
