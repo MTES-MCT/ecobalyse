@@ -23,8 +23,8 @@ import Views.Link as Link
 
 
 recycledToString : Maybe Id -> String
-recycledToString maybeMaterialID =
-    Text.yesNo (Maybe.isJust maybeMaterialID)
+recycledToString =
+    Maybe.isJust >> Text.yesNo
 
 
 getRecycledProcess : List Material -> Material -> Maybe Process.Process
@@ -53,11 +53,7 @@ table db { detailed, scope } =
     , facets =
         [ Table.Facet "Origine de la matière" (.origin >> Origin.toLabel >> List.singleton)
         , Table.Facet "\tOrigine géographique" (.geographicOrigin >> List.singleton)
-        , Table.Facet "Recyclage"
-            (.recycledFrom
-                >> recycledToString
-                >> List.singleton
-            )
+        , Table.Facet "Recyclage" (.recycledFrom >> recycledToString >> List.singleton)
         , Table.Facet "Pays de production et de filature par défaut"
             (.defaultCountry
                 >> (\code -> Country.findByCode code db.countries)
