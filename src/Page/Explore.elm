@@ -210,23 +210,22 @@ update session msg model =
 updateFacets : String -> String -> Bool -> Table.Facets -> Table.Facets
 updateFacets facetKey facetValue checked facetValues =
     let
-        selectedValues =
+        newSelectedValues =
             facetValues
                 |> Dict.get facetKey
                 |> Maybe.withDefault Set.empty
+                |> (if checked then
+                        Set.insert facetValue
 
-        nextSelectedValues =
-            if checked then
-                Set.insert facetValue selectedValues
-
-            else
-                Set.remove facetValue selectedValues
+                    else
+                        Set.remove facetValue
+                   )
     in
-    if Set.isEmpty nextSelectedValues then
+    if Set.isEmpty newSelectedValues then
         Dict.remove facetKey facetValues
 
     else
-        Dict.insert facetKey nextSelectedValues facetValues
+        Dict.insert facetKey newSelectedValues facetValues
 
 
 {-| Create a page update preventing the body to be scrollable when one or more modals are opened.
