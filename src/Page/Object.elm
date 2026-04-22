@@ -1084,8 +1084,8 @@ modalView session ({ modals } as model) modal =
                 { size = ModalView.Large
                 , close = SetModals (List.drop 1 modals)
                 , noOp = NoOp
-                , title = "Modifier l'élément #" ++ String.fromInt (Tuple.second targetElement + 1) ++ " du composant “" ++ name ++ "”"
-                , subTitle = Nothing
+                , title = "Modifier l'élément #" ++ String.fromInt (Tuple.second targetElement + 1)
+                , subTitle = Just <| "du composant “" ++ name ++ "”"
                 , formAction = Nothing
                 , content =
                     [ ComponentView.elementEditModalView

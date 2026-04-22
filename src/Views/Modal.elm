@@ -61,24 +61,22 @@ view config =
                 , attribute "aria-modal" "true"
                 ]
                 [ modalContentTag
-                    [ div [ class "modal-header" ]
-                        [ h5 [ class "modal-title lh-sm d-flex justify-content-between align-items-center" ]
-                            [ span [ class "me-2", attribute "aria-hidden" "true" ] [ text "→" ]
-                            , div []
-                                [ text config.title
-                                , case config.subTitle of
-                                    Just subTitle ->
-                                        small [ class "text-muted fs-7 fw-normal ps-2" ] [ text subTitle ]
+                    [ div [ class "modal-header d-flex justify-content-between align-items-center gap-2" ]
+                        [ span [ class "h5 mb-0", attribute "aria-hidden" "true" ] [ text "→" ]
+                        , div [ class "d-flex flex-column gap-1" ]
+                            [ h5 [ class "modal-title lh-sm" ] [ text config.title ]
+                            , case config.subTitle of
+                                Just subTitle ->
+                                    div [ class "text-muted fs-7 fw-normal" ] [ text subTitle ]
 
-                                    Nothing ->
-                                        text ""
-                                ]
+                                Nothing ->
+                                    text ""
                             ]
                         , button
                             [ type_ "button"
                             , class "btn-close"
-                            , onClick config.close
                             , attribute "aria-label" "Fermer"
+                            , onClick config.close
                             ]
                             []
                         ]

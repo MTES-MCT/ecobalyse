@@ -708,12 +708,14 @@ elementView config (( component, _ ) as targetItem) elementIndex { amount, mater
                     [ button
                         [ type_ "button"
                         , class "btn btn-outline-secondary"
+                        , attribute "aria-label" "Modifier l’élément"
                         , onClick (config.openEditElementModal component ( targetItem, elementIndex ))
                         ]
                         [ Icon.pencil ]
                     , button
                         [ type_ "button"
                         , class "btn btn-outline-secondary"
+                        , attribute "aria-label" "Supprimer l’élément"
                         , onClick (config.removeElement ( targetItem, elementIndex ))
                         ]
                         [ Icon.trash ]
