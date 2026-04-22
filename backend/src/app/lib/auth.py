@@ -65,6 +65,6 @@ class CustomOAuth2PasswordBearerAuth(
             status_code=status_code,
             media_type=media_type,
             headers=headers,
-            cookies=[],
+            cookies=None,
             type_encoders=self.type_encoders,
         )
