@@ -48,7 +48,7 @@
     "location": "FR",
     "name": "Radis FR",
     "processId": "c736c068-df13-5972-9f89-18fda9f7e050",
-    "rawToCookedRatio": 0.85,
+    "rawToCookedRatio": 0.856,
     "scenario": "reference",
     "transportCooling": "always",
     "visible": true
@@ -721,6 +721,33 @@
     "visible": true
   },
   {
+    "activityName": "Cucumber {GLO}| cucumber production, in heated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
+    "alias": "cucumber-default-2025",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "cropGroup": "LEGUMES-FLEURS",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
+    "density": 1.0,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0,
+      "livestockDensity": null,
+      "permanentPasture": null,
+      "plotSize": 0
+    },
+    "id": "053533cf-8fd1-5cbe-832c-c25d2d9ed885",
+    "inediblePart": 0.1,
+    "landOccupation": 0.22458,
+    "location": "GLO",
+    "name": "Concombre Origine Inconnue (2025)",
+    "processId": "5de89b65-5a7b-5ae7-9009-9d2776bd5457",
+    "rawToCookedRatio": 0.856,
+    "scenario": "import",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
     "activityName": "Tomato, fresh grade, open field, at farm (WFLDB)",
     "alias": "cucumber-default",
     "categories": [
@@ -961,6 +988,33 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "none",
+    "visible": true
+  },
+  {
+    "activityName": "Grape {RoW}| grape production | Cut-off, U - Adapted from Ecoinvent U",
+    "alias": "grape-black-or-white-fr-2025",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "cropGroup": "VIGNES",
+    "defaultOrigin": "France",
+    "density": 0.85,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0.085,
+      "livestockDensity": null,
+      "permanentPasture": null,
+      "plotSize": 0.298
+    },
+    "id": "0746b057-6331-5cc5-a3b2-532e3ddaecdf",
+    "inediblePart": 0.1,
+    "landOccupation": 0.34008,
+    "location": "RoW",
+    "name": "Raisins (noirs ou blancs) FR (2025)",
+    "processId": "5f9b2c9d-9fd2-55d5-8731-6e375302d146",
+    "rawToCookedRatio": 0.856,
+    "scenario": "reference",
+    "transportCooling": "always",
     "visible": true
   },
   {
@@ -5238,7 +5292,7 @@
     "location": "FR",
     "name": "Radis Bio",
     "processId": "d0192856-fcd0-5f56-90d6-f8707cf835fc",
-    "rawToCookedRatio": 0.85,
+    "rawToCookedRatio": 0.856,
     "scenario": "organic",
     "transportCooling": "always",
     "visible": true
@@ -5716,6 +5770,33 @@
     "processId": "bef56d20-ec50-53ea-aaba-219e98fa25cd",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
+    "activityName": "Orange, fresh grade {ES}| orange production, fresh grade | Cut-off, U - Adapted from Ecoinvent U",
+    "alias": "grape-black-or-white-default-2025",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "cropGroup": "VIGNES",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
+    "density": 0.85,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0,
+      "livestockDensity": null,
+      "permanentPasture": null,
+      "plotSize": 0
+    },
+    "id": "3733e844-5e53-5404-9b26-28fcb67896c8",
+    "inediblePart": 0.1,
+    "landOccupation": 0.34692,
+    "location": "ES",
+    "name": "Raisins (noirs ou blancs) Origine Inconnue (2025)",
+    "processId": "86e21e49-df5f-5d4d-bff0-30f392f35c41",
+    "rawToCookedRatio": 0.856,
+    "scenario": "import",
     "transportCooling": "always",
     "visible": true
   },
@@ -7520,6 +7601,33 @@
     "location": "BR",
     "name": "Litchi FR",
     "processId": "03ab5b2e-e1fe-5a46-b99b-32c2c9320af7",
+    "rawToCookedRatio": 0.856,
+    "scenario": "reference",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
+    "activityName": "Cucumber {GLO}| cucumber production, in heated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
+    "alias": "cucumber-fr-2025",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "cropGroup": "LEGUMES-FLEURS",
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0.0561,
+      "livestockDensity": null,
+      "permanentPasture": null,
+      "plotSize": 0.14
+    },
+    "id": "4a99833f-f8f7-5d11-9ec8-bd997ab09158",
+    "inediblePart": 0.1,
+    "landOccupation": 0.22458,
+    "location": "GLO",
+    "name": "Concombre FR (2025)",
+    "processId": "5de89b65-5a7b-5ae7-9009-9d2776bd5457",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
     "transportCooling": "always",
@@ -22926,7 +23034,7 @@
     "location": "GLO",
     "name": "Radis Origine Inconnue",
     "processId": "16f248b7-5c7f-59b9-94d0-bcf93a1decdb",
-    "rawToCookedRatio": 0.85,
+    "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
     "visible": true
