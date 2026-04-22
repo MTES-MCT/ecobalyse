@@ -397,12 +397,26 @@ class EmailSettings:
 
 
 @dataclass
+class GithubSettings:
+    API_URL: str = field(
+        default_factory=get_env("GITHUB_API_URL", "https://api.github.com")
+    )
+    BASE_BRANCH: str = field(default_factory=get_env("GITHUB_BASE_BRANCH", "master"))
+    REPOSITORY: str = field(
+        default_factory=get_env("GITHUB_REPOSITORY", "MTES-MCT/ecobalyse")
+    )
+    REVIEWING_TEAM: str = field(default_factory=get_env("GITHUB_REVIEWING_TEAM", ""))
+    TOKEN: str = field(default_factory=get_env("GITHUB_TOKEN", ""))
+
+
+@dataclass
 class Settings:
     app: AppSettings = field(default_factory=AppSettings)
     db: DatabaseSettings = field(default_factory=DatabaseSettings)
     email: EmailSettings = field(default_factory=EmailSettings)
-    server: ServerSettings = field(default_factory=ServerSettings)
+    github: GithubSettings = field(default_factory=GithubSettings)
     log: LogSettings = field(default_factory=LogSettings)
+    server: ServerSettings = field(default_factory=ServerSettings)
 
     def is_test_env(self) -> bool:
         return "pytest" in sys.modules

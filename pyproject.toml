@@ -5,13 +5,13 @@ description = "Accélerer la mise en place de l'affichage environnemental"
 readme = "README.md"
 requires-python = "==3.12.*"
 dependencies = [
-    "litestar[jwt,sqlalchemy,standard]>=2.20.0",
+    "litestar[jwt,sqlalchemy,standard]>=2.21.1",
     "aiosqlite>=0.21.0",
     "advanced-alchemy>=1.4.4",
     "msgspec>=0.19.0",
     "check-jsonschema>=0.32.1",
-    "pytest-databases[postgres]>=0.12.0",
-    "psycopg[binary,pool]>=3.2.6",
+    "pytest-databases[postgres]>=0.17.0",
+    "psycopg[binary,pool]>=3.3.3",
     "asyncpg>=0.30.0",
     "structlog>=25.2.0",
     "orjson>=3.10.16",
@@ -22,8 +22,8 @@ dependencies = [
     "typer>=0.16.0",
     "pytest-mock>=3.14.1",
     "asyncstdlib>=3.13.1",
-    "sentry-sdk[litestar]>=2.41",
-    "pwdlib[argon2]>=0.2.1",
+    "sentry-sdk[litestar]>=2.58.0",
+    "pwdlib[argon2]>=0.3.0",
 ]
 
 [build-system]

@@ -7,6 +7,7 @@ import Data.Food.Ingredient as Ingredient
 import Data.Food.Preparation as Preparation
 import Data.Food.Recipe as Recipe
 import Data.Food.Retail as Retail
+import Data.Food.Transport as FoodTransport
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Unit as Unit
@@ -32,13 +33,14 @@ suite =
                 ( db.food.examples
                     |> Data.Example.findByName "Pizza royale (350g) - 6"
                     |> Result.map .query
+                , Ingredient.idFromString "16caaefa-40f5-4d29-a3e6-26349846f2c9"
                 , ( Ingredient.idFromString "cf30d3bc-e99c-418a-b7e3-89a894d410a5"
                   , Ingredient.idFromString "db0e5f44-34b4-4160-b003-77c828d75e60"
                   , Ingredient.idFromString "38788025-a65e-4edf-a92f-aab0b89b0d61"
                   )
                 )
             of
-                ( Ok royalPizza, ( Ok eggId, Ok mangoId, Ok wheatId ) ) ->
+                ( Ok royalPizza, Ok tomatoId, ( Ok eggId, Ok mangoId, Ok wheatId ) ) ->
                     [ let
                         testComputedComplements complements =
                             Recipe.computeIngredientComplementsImpacts complements (Mass.kilograms 2)
@@ -146,7 +148,7 @@ suite =
 
                                     Ok result ->
                                         Unit.impactToFloat result
-                                            |> Expect.within (Expect.Absolute 0.1) 139.3
+                                            |> Expect.within (Expect.Absolute 0.1) 137.81
                                 )
                              , asTest "should have the ingredients' total ecs impact with the complement taken into account"
                                 (case royalPizzaResults |> Result.map (Tuple.second >> .recipe >> .ingredientsTotal >> Impact.getImpact Definition.Ecs) of
@@ -166,10 +168,10 @@ suite =
 
                                     Ok scoring ->
                                         [ Unit.impactToFloat scoring.all
-                                            |> Expect.within (Expect.Absolute 0.01) 463.9
+                                            |> Expect.within (Expect.Absolute 0.01) 459.39
                                             |> asTest "should properly score total impact"
                                         , Unit.impactToFloat scoring.allWithoutComplements
-                                            |> Expect.within (Expect.Absolute 0.01) 460.66
+                                            |> Expect.within (Expect.Absolute 0.01) 456.16
                                             |> asTest "should properly score total impact without complements"
                                         , Unit.impactToFloat scoring.complements
                                             |> Expect.within (Expect.Absolute 0.01) -3.23
@@ -178,16 +180,16 @@ suite =
                                             |> Expect.within (Expect.Absolute 0.0001) (Unit.impactToFloat scoring.all)
                                             |> asTest "should expose coherent scoring"
                                         , Unit.impactToFloat scoring.biodiversity
-                                            |> Expect.within (Expect.Absolute 0.01) 211.21
+                                            |> Expect.within (Expect.Absolute 0.01) 209.63
                                             |> asTest "should properly score impact on biodiversity protected area"
                                         , Unit.impactToFloat scoring.climate
-                                            |> Expect.within (Expect.Absolute 0.01) 96.73
+                                            |> Expect.within (Expect.Absolute 0.01) 95.38
                                             |> asTest "should properly score impact on climate protected area"
                                         , Unit.impactToFloat scoring.health
-                                            |> Expect.within (Expect.Absolute 0.01) 45.66
+                                            |> Expect.within (Expect.Absolute 0.01) 44.93
                                             |> asTest "should properly score impact on health protected area"
                                         , Unit.impactToFloat scoring.resources
-                                            |> Expect.within (Expect.Absolute 0.01) 107.05
+                                            |> Expect.within (Expect.Absolute 0.01) 106.21
                                             |> asTest "should properly score impact on resources protected area"
                                         ]
                                 )
@@ -263,12 +265,12 @@ suite =
                             , planeTransport = Ingredient.ByPlane
                             }
 
-                        firstIngredientAirDistance ( recipe, _ ) =
+                        firstIngredientDistance accessor ( recipe, _ ) =
                             recipe
                                 |> .ingredients
                                 |> List.head
                                 |> Maybe.map (Recipe.computeIngredientTransport db)
-                                |> Maybe.map .air
+                                |> Maybe.map accessor
                                 |> Maybe.map Length.inKilometers
                       in
                       describe "computeIngredientTransport"
@@ -285,9 +287,109 @@ suite =
                           , preparation = []
                           }
                             |> Recipe.compute db
-                            |> Result.map firstIngredientAirDistance
+                            |> Result.map (firstIngredientDistance .air)
                             |> Expect.equal (Ok (Just 0))
                             |> asTest "should have no air transport for standard ingredients"
+                        , { ingredients =
+                                [ { id = eggId
+                                  , mass = Mass.grams 120
+                                  , country = Nothing
+                                  , planeTransport = Ingredient.PlaneNotApplicable
+                                  }
+                                ]
+                          , transform = Nothing
+                          , packaging = []
+                          , distribution = Nothing
+                          , preparation = []
+                          }
+                            |> Recipe.compute db
+                            |> Result.map (firstIngredientDistance .road)
+                            |> Expect.equal (Ok (Just 660))
+                            -- https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)
+                            |> asTest "should have 160 + 500 road transport to transformation for standard ingredients"
+                        , { ingredients =
+                                [ { id = tomatoId
+                                  , mass = Mass.grams 120
+                                  , country = Nothing
+                                  , planeTransport = Ingredient.PlaneNotApplicable
+                                  }
+                                ]
+                          , transform = Nothing
+                          , packaging = []
+                          , distribution = Nothing
+                          , preparation = []
+                          }
+                            |> Recipe.compute db
+                            |> Result.map (firstIngredientDistance .road)
+                            |> Expect.equal (Ok (Just 160))
+                            -- This corresponds to the stage "1. RECETTE" in the
+                            -- [transport documentation](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)
+                            -- https://github.com/MTES-MCT/ecobalyse/issues/1975
+                            |> asTest "should have 160 of non cooled road transport to transformation for standard ingredients from FR"
+                        , { ingredients =
+                                [ { id = tomatoId
+                                  , mass = Mass.grams 120
+                                  , country = Nothing
+                                  , planeTransport = Ingredient.PlaneNotApplicable
+                                  }
+                                ]
+                          , transform = Nothing
+                          , packaging = []
+                          , distribution = Nothing
+                          , preparation = []
+                          }
+                            |> Recipe.compute db
+                            |> Result.map (firstIngredientDistance .roadCooled)
+                            |> Expect.equal (Ok (Just 500))
+                            -- This corresponds to the stage "3. RECETTE" in the
+                            -- [transport documentation](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)
+                            -- https://github.com/MTES-MCT/ecobalyse/issues/1975
+                            |> asTest "should have 500 of cooled road transport to transformation for standard ingredients having `once_transformed` cooling from FR"
+                        , { ingredients =
+                                [ { id = eggId
+                                  , mass = Mass.grams 120
+                                  , country = Just (Country.codeFromString "RAS")
+                                  , planeTransport = Ingredient.PlaneNotApplicable
+                                  }
+                                ]
+                          , transform = Nothing
+                          , packaging = []
+                          , distribution = Nothing
+                          , preparation = []
+                          }
+                            |> Recipe.compute db
+                            |> Result.map (firstIngredientDistance .road)
+                            |> Expect.equal (Ok (Just <| FoodTransport.defaultKilometersRoadDistance + 660))
+                            -- https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)
+                            |> asTest "should have 160 road transport + 500 not from FR + 2000 km for ingredients coming from far away ('RAF', 'RAS', 'RLA', 'RME', 'RNA', 'ROC')"
+                        , { ingredients =
+                                [ { id = eggId
+                                  , mass = Mass.grams 120
+                                  , country = Just (Country.codeFromString "---")
+                                  , planeTransport = Ingredient.PlaneNotApplicable
+                                  }
+                                ]
+                          , transform = Nothing
+                          , packaging = []
+                          , distribution = Nothing
+                          , preparation = []
+                          }
+                            |> Recipe.compute db
+                            |> Result.map (firstIngredientDistance .road)
+                            |> Expect.equal (Ok (Just <| FoodTransport.defaultKilometersRoadDistance + 660))
+                            -- See https://github.com/MTES-MCT/ecobalyse/issues/1986
+                            |> asTest "should have 160 road transport + 500 not from FR + 2000 km for ingredients coming from unknown country"
+                        , { ingredients = [ { mango | country = Just (Country.codeFromString "RAS"), planeTransport = Ingredient.ByPlane } ]
+                          , transform = Nothing
+                          , packaging = []
+                          , distribution = Just Retail.ambient
+                          , preparation = []
+                          }
+                            |> Recipe.compute db
+                            |> Result.map (firstIngredientDistance .roadCooled)
+                            |> Expect.equal (Ok (Just <| FoodTransport.defaultKilometersRoadDistance + 660))
+                            -- https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)
+                            |> asTest "should have 160 road transport + 500 not from FR + 2000 km for ingredients coming from far away ('RAF', 'RAS', 'RLA', 'RME', 'RNA', 'ROC'), cooled version"
                         , { ingredients = [ mango ]
                           , transform = Nothing
                           , packaging = []
@@ -295,7 +397,7 @@ suite =
                           , preparation = []
                           }
                             |> Recipe.compute db
-                            |> Result.map firstIngredientAirDistance
+                            |> Result.map (firstIngredientDistance .air)
                             |> Expect.equal (Ok (Just 18000))
                             |> asTest "should have air transport for mango from its default origin"
                         , { ingredients = [ { mango | country = Just (Country.codeFromString "CN"), planeTransport = Ingredient.ByPlane } ]
@@ -305,7 +407,7 @@ suite =
                           , preparation = []
                           }
                             |> Recipe.compute db
-                            |> Result.map firstIngredientAirDistance
+                            |> Result.map (firstIngredientDistance .air)
                             |> Expect.equal (Ok (Just 8189))
                             |> asTest "should always have air transport for mango even from other countries if 'planeTransport' is 'byPlane'"
                         , { ingredients = [ { mango | country = Just (Country.codeFromString "CN"), planeTransport = Ingredient.NoPlane } ]
@@ -315,9 +417,19 @@ suite =
                           , preparation = []
                           }
                             |> Recipe.compute db
-                            |> Result.map firstIngredientAirDistance
+                            |> Result.map (firstIngredientDistance .air)
                             |> Expect.equal (Ok (Just 0))
                             |> asTest "should not have air transport for mango from other countries if 'planeTransport' is 'noPlane'"
+                        , { ingredients = [ { mango | country = Just (Country.codeFromString "REM"), planeTransport = Ingredient.NoPlane } ]
+                          , transform = Nothing
+                          , packaging = []
+                          , distribution = Just Retail.ambient
+                          , preparation = []
+                          }
+                            |> Recipe.compute db
+                            |> Result.map (firstIngredientDistance .roadCooled)
+                            |> Expect.equal (Ok (Just (160 + 500 + 2000)))
+                            |> asTest "should always have the full 2000 km of road transport for Europe and Maghreb"
                         ]
                     ]
 

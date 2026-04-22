@@ -13,6 +13,7 @@ module Data.Food.Ingredient exposing
     , getDefaultOriginTransport
     , idFromString
     , idToString
+    , isTransportCooled
     , toSearchableString
     , transportCoolingToString
     )
@@ -22,6 +23,7 @@ import Data.Food.Ingredient.Category as IngredientCategory
 import Data.Food.Ingredient.CropGroup as CropGroup exposing (CropGroup)
 import Data.Food.Ingredient.Scenario as Scenario exposing (Scenario)
 import Data.Food.Origin as Origin exposing (Origin)
+import Data.Food.Transport as FoodTransport
 import Data.Impact as Impact
 import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
@@ -193,20 +195,25 @@ getDefaultOriginTransport planeTransport origin =
     in
     case origin of
         Origin.EuropeAndMaghreb ->
-            { default | road = Length.kilometers 2500 }
+            { default | road = Length.kilometers FoodTransport.defaultKilometersRoadDistance }
 
         Origin.France ->
             default
 
         Origin.OutOfEuropeAndMaghreb ->
-            { default | road = Length.kilometers 2500, sea = Length.kilometers 18000 }
+            { default | road = Length.kilometers FoodTransport.defaultKilometersRoadDistance, sea = Length.kilometers 18000 }
 
         Origin.OutOfEuropeAndMaghrebByPlane ->
             if planeTransport == ByPlane then
-                { default | air = Length.kilometers 18000, road = Length.kilometers 2500 }
+                { default | air = Length.kilometers 18000, road = Length.kilometers FoodTransport.defaultKilometersRoadDistance }
 
             else
-                { default | road = Length.kilometers 2500, sea = Length.kilometers 18000 }
+                { default | road = Length.kilometers FoodTransport.defaultKilometersRoadDistance, sea = Length.kilometers 18000 }
+
+
+isTransportCooled : Ingredient -> Bool
+isTransportCooled ingredient =
+    List.member ingredient.transportCooling [ AlwaysCool, CoolOnceTransformed ]
 
 
 linkProcess : List Process -> Decoder Process

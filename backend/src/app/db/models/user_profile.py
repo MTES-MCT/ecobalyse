@@ -38,9 +38,18 @@ class UserProfile(UUIDAuditBase):
     user_email: AssociationProxy[str] = association_proxy("user", "email")
 
     @property
+    def full_name(self) -> str:
+        return " ".join([self.first_name, self.last_name]).strip()
+
+    @property
     def organization(self):
         return {
             "name": self.organization_name,
             "type": self.organization_type,
             "siren": self.organization_siren,
         }
+
+    @property
+    def organization_info(self) -> str:
+        org_name = self.organization_name.strip()
+        return org_name if org_name else "Non renseignée"

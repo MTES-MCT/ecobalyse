@@ -2759,7 +2759,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Black pepper, conventional, at farm gate {VN} U",
@@ -3447,7 +3447,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Grapeseed oil, refined at plant {FR} U",
@@ -6498,7 +6498,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Ware potato, conventional, for fresh market, firm flesh varieties, at farm gate {FR} U",
@@ -7767,7 +7767,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cooked ham case ready at plant {{cooked-ham-organic-2025}}",
@@ -8855,7 +8855,13 @@
     "cropGroup": null,
     "defaultOrigin": "France",
     "density": 1.0,
-    "ecosystemicServices": null,
+    "ecosystemicServices": {
+      "cropDiversity": 13.6,
+      "hedges": 2.1,
+      "livestockDensity": -0.00266,
+      "permanentPasture": 0,
+      "plotSize": 2.3
+    },
     "id": "5814ac7d-fe30-5a9c-8a10-e2b9554b63b0",
     "inediblePart": 0.1,
     "landOccupation": 6.9796,
@@ -9459,7 +9465,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Peach, at farm, organic 2025 {ES}",
@@ -11033,7 +11039,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Almonds, in shell, at farm {CN} - Adapted from WFLDB U",
@@ -11350,7 +11356,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cooked ham, case ready, at plant {FR} U",
@@ -12977,7 +12983,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Peanut, organic 2025 {RoW}| peanut production | Cut-off, U",
@@ -13454,7 +13460,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Mango, conventional, Val de San Francisco, at orchard {BR} U",
@@ -15067,7 +15073,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "French bean, conventional, national average, at farm gate {FR} U",
@@ -15392,7 +15398,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Lamb, conventional, indoor production system, at farm gate {FR} U",
@@ -15419,7 +15425,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Mint {RoW}| mint production | Cut-off, U - Adapted from Ecoinvent U",
@@ -17013,7 +17019,13 @@
     "cropGroup": null,
     "defaultOrigin": "France",
     "density": 1.05,
-    "ecosystemicServices": null,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0.927,
+      "livestockDensity": -0.00017,
+      "permanentPasture": 0.17,
+      "plotSize": 0.866
+    },
     "id": "b757094f-7cb1-58ea-9d3d-b6d7e0e0d471",
     "inediblePart": 0,
     "landOccupation": 1.2164,
@@ -18065,7 +18077,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cauliflower, conventional, national average, at farm gate {FR} U",
@@ -18775,7 +18787,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Orange, fresh grade {ES}| orange production, fresh grade | Cut-off, U - Adapted from Ecoinvent U",
@@ -22862,7 +22874,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Carrot, organic 2025, national average, at farm gate {FR} U",

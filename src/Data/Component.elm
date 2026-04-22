@@ -8,6 +8,7 @@ module Data.Component exposing
     , EndOfLifeMaterialImpacts
     , ExpandedElement
     , ExpandedItem
+    , ExpandedTransform
     , Id
     , Index
     , Item
@@ -32,6 +33,7 @@ module Data.Component exposing
     , computeItemResults
     , computeItemTransportToAssembly
     , computeScoring
+    , computeVolumeFromMass
     , createItem
     , decode
     , decodeItem
@@ -40,6 +42,8 @@ module Data.Component exposing
     , decodeQuery
     , defaultConfig
     , defaultDurability
+    , defaultExpandedTransform
+    , defaultTransform
     , elementTransforms
     , elementsToString
     , emptyComponent
@@ -61,6 +65,7 @@ module Data.Component exposing
     , extractItems
     , extractMass
     , findById
+    , getAvailableDistributionProcesses
     , getEndOfLifeDetailedImpacts
     , getEndOfLifeImpacts
     , getEndOfLifeScopeCollectionRate
@@ -85,12 +90,15 @@ module Data.Component exposing
     , setQueryItems
     , stagesImpacts
     , sumLifeCycleImpacts
+    , targetElementToString
     , toSearchableString
     , tryMapItems
     , updateConsumptionAmount
+    , updateDistribution
     , updateDurability
     , updateElement
     , updateElementAmount
+    , updateElementTransformCountry
     , updateItem
     , updateItemCustomName
     , validateItem
@@ -126,6 +134,7 @@ import Quantity
 import Result.Extra as RE
 import Url.Parser as Parser exposing (Parser)
 import Views.Format as Format
+import Volume exposing (Volume)
 
 
 type Id
@@ -159,6 +168,7 @@ type alias EnergyMixes =
 type alias Query =
     { assemblyCountry : Maybe Country.Code
     , consumptions : List Consumption
+    , distribution : Maybe Process.Id
 
     -- Note: component durability is experimental, future work may eventually be needed to
     -- reuse existing mechanics and handle holistic durability like it's implemented for textile,
@@ -174,6 +184,13 @@ type alias Consumption =
     { amount : Amount
     , processId : Process.Id
     }
+
+
+{-| Errors related to distribution process handling and availability
+-}
+type DistributionProcessError
+    = DistributionGenericError String
+    | DistributionNothingAvailable
 
 
 {-| A compact reference to a component, a quantity of it, a production localization
@@ -218,7 +235,13 @@ type alias DataContainer db =
 type alias Element =
     { amount : Amount
     , material : Process.Id
-    , transforms : List Process.Id
+    , transforms : List Transform
+    }
+
+
+type alias Transform =
+    { country : Maybe Country.Code
+    , id : Process.Id
     }
 
 
@@ -231,7 +254,13 @@ type alias ExpandedElement =
     { amount : Amount
     , country : Maybe Country
     , material : Process
-    , transforms : List Process
+    , transforms : List ExpandedTransform
+    }
+
+
+type alias ExpandedTransform =
+    { country : Maybe Country
+    , process : Process
     }
 
 
@@ -263,6 +292,13 @@ type alias DetailedEndOfLifeImpacts =
     MaterialDict EndOfLifeMaterialImpacts
 
 
+type alias DistributionResults =
+    { impacts : Impacts
+    , process : Maybe Process
+    , volume : Volume
+    }
+
+
 type alias EndOfLifeMaterialImpacts =
     { collected : ( Mass, EndOfLifeStrategies )
     , nonCollected : ( Mass, EndOfLifeStrategies )
@@ -272,7 +308,8 @@ type alias EndOfLifeMaterialImpacts =
 {-| Lifecycle impacts
 -}
 type alias LifeCycle =
-    { endOfLife : Impacts
+    { distribution : DistributionResults
+    , endOfLife : Impacts
     , production : Results
     , transports : LifeCycleTransport
     , use : List Impacts
@@ -344,7 +381,7 @@ addElementTransform targetElement transform items =
     else
         items
             |> updateElement targetElement
-                (\el -> { el | transforms = el.transforms ++ [ transform.id ] })
+                (\el -> { el | transforms = el.transforms ++ [ defaultTransform transform.id ] })
             |> Ok
 
 
@@ -398,8 +435,8 @@ applyDurability maybeDurability =
            )
 
 
-applyTransform : EnergyMixes -> Process -> Results -> Results
-applyTransform { elec, heat } transform (Results { amount, label, impacts, items, mass, complementsImpacts }) =
+applyTransform : Process -> Results -> EnergyMixes -> Results
+applyTransform transform (Results { amount, label, impacts, items, mass, complementsImpacts }) { elec, heat } =
     let
         transformImpacts =
             [ transform.impacts
@@ -445,20 +482,25 @@ applyTransform { elec, heat } transform (Results { amount, label, impacts, items
         }
 
 
-{-| Sequencially apply transforms to existing Results (typically, material ones).
+{-| Sequencially apply transforms to existing Results (typically, from material ones).
 
-Note: for now we use average elec and heat mixes, but we might want to allow
-specifying specific country mixes in the future.
+Energy mix impacts are computed at the transform step level: each step can optionally
+specify a country to use its electricity/heat mixes, or fallback to config defaults when absent.
 
 -}
-applyTransforms : Config -> Maybe Country -> Process.Unit -> List Process -> Results -> Result String Results
-applyTransforms config maybeCountry unit transforms materialResults =
+applyTransforms : Config -> Process.Unit -> List ExpandedTransform -> Results -> Result String Results
+applyTransforms config unit transforms materialResults =
     checkTransformsUnit unit transforms
-        |> Result.andThen (\_ -> loadEnergyMixes config maybeCountry)
-        |> Result.map
-            (\energyMixes ->
-                transforms
-                    |> List.foldl (applyTransform energyMixes) materialResults
+        |> Result.andThen
+            (List.foldl
+                (\{ country, process } ->
+                    Result.andThen
+                        (\results ->
+                            loadEnergyMixes config country
+                                |> Result.map (applyTransform process results)
+                        )
+                )
+                (Ok materialResults)
             )
 
 
@@ -467,15 +509,15 @@ applyWaste waste =
     Amount.map (\amount -> amount - (amount * Split.toFloat waste))
 
 
-checkTransformsUnit : Process.Unit -> List Process -> Result String (List Process)
+checkTransformsUnit : Process.Unit -> List ExpandedTransform -> Result String (List ExpandedTransform)
 checkTransformsUnit unit transforms =
-    if not <| List.all (.unit >> (==) unit) transforms then
+    if not <| List.all (.process >> .unit >> (==) unit) transforms then
         "Les procédés de transformation ne partagent pas la même unité que la matière source ("
             ++ Process.unitToString unit
             ++ ")\u{00A0}: "
             ++ (transforms
-                    |> List.filter (.unit >> (/=) unit)
-                    |> List.map (\p -> Process.getDisplayName p ++ " (" ++ Process.unitToString p.unit ++ ")")
+                    |> List.filter (.process >> .unit >> (/=) unit)
+                    |> List.map (\{ process } -> Process.getDisplayName process ++ " (" ++ Process.unitToString process.unit ++ ")")
                     |> String.join ", "
                )
             |> Err
@@ -513,23 +555,61 @@ compute requirements query =
         |> RE.combine
         |> Result.map (List.foldr addResults emptyResults)
         |> Result.map (\(Results results) -> { emptyLifeCycle | production = Results { results | label = Just "Production" } })
+        |> Result.andThen (computeDistributionImpacts requirements query)
         |> Result.map (computeEndOfLifeResults requirements)
         |> Result.andThen (computeTransports requirements query)
         |> Result.andThen (computeUseImpacts requirements query)
+
+
+computeVolumeFromMass : Mass -> Volume
+computeVolumeFromMass =
+    -- Note: for now, assume the volume in m3 is the same as the mass in kg/1000
+    -- TODO: this is a temporary solution, we'll eventually need to get the proper volume per unit from the process
+    Quantity.divideBy 1000
+        >> Mass.inKilograms
+        >> Volume.cubicMeters
+
+
+computeDistributionImpacts : Requirements db -> Query -> LifeCycle -> Result String LifeCycle
+computeDistributionImpacts ({ config } as requirements) query ({ distribution, production } as lifeCycle) =
+    let
+        finalProductVolume =
+            computeVolumeFromMass <| extractMass production
+    in
+    case getDistributionProcess requirements query.distribution of
+        Err (DistributionGenericError errorMessage) ->
+            Err errorMessage
+
+        Err DistributionNothingAvailable ->
+            -- No distribution processes are available for this scope, so no added impacts
+            Ok { lifeCycle | distribution = { distribution | volume = finalProductVolume } }
+
+        Ok process ->
+            Ok
+                { lifeCycle
+                    | distribution =
+                        { impacts =
+                            process
+                                |> Process.impactsPerUnit config.distribution.country
+                                |> Impact.multiplyBy (Volume.inCubicMeters finalProductVolume)
+                        , process = Just process
+                        , volume = finalProductVolume
+                        }
+                }
 
 
 computeElementResults : Requirements db -> Maybe Country.Code -> Element -> Result String Results
 computeElementResults requirements maybeCountry =
     expandElement requirements.db maybeCountry
         >> Result.andThen
-            (\{ amount, country, material, transforms } ->
+            (\{ amount, material, transforms } ->
                 amount
-                    |> computeInitialAmount (List.map .waste transforms)
+                    |> computeInitialAmount (List.map (.process >> .waste) transforms)
                     |> Result.andThen
                         (\initialAmount ->
                             material
                                 |> computeMaterialResults initialAmount
-                                |> applyTransforms requirements.config country material.unit transforms
+                                |> applyTransforms requirements.config material.unit transforms
                         )
             )
 
@@ -893,7 +973,24 @@ decodeElement =
     Decode.succeed Element
         |> Decode.required "amount" Amount.decode
         |> Decode.required "material" Process.decodeId
-        |> Decode.optional "transforms" (Decode.list Process.decodeId) []
+        |> Decode.optional "transforms" decodeTransforms []
+
+
+decodeTransform : Decoder Transform
+decodeTransform =
+    Decode.succeed Transform
+        |> DU.strictOptional "country" Country.decodeCode
+        |> Decode.required "id" Process.decodeId
+
+
+decodeTransforms : Decoder (List Transform)
+decodeTransforms =
+    Decode.oneOf
+        [ Decode.list decodeTransform
+
+        -- Backward-compatible decoder for transforms when they were just process ids
+        , Decode.list (Process.decodeId |> Decode.map defaultTransform)
+        ]
 
 
 decodeItem : Decoder Item
@@ -935,6 +1032,7 @@ decodeQuery =
     Decode.succeed Query
         |> DU.strictOptional "assemblyCountry" Country.decodeCode
         |> Decode.optional "consumptions" (Decode.list decodeConsumption) []
+        |> DU.strictOptional "distribution" Process.decodeId
         |> DU.strictOptional "durability" Unit.decodeRatio
         |> Decode.required "components" (Decode.list decodeItem)
 
@@ -949,6 +1047,16 @@ defaultConfig =
 defaultDurability : Unit.Ratio
 defaultDurability =
     Unit.ratio 1
+
+
+defaultExpandedTransform : Process -> ExpandedTransform
+defaultExpandedTransform process =
+    { country = Nothing, process = process }
+
+
+defaultTransform : Process.Id -> Transform
+defaultTransform id =
+    { country = Nothing, id = id }
 
 
 elementToString : List Process -> Element -> Result String String
@@ -969,6 +1077,7 @@ elementTransforms ( targetItem, elementIndex ) =
     itemElements targetItem
         >> LE.getAt elementIndex
         >> Maybe.map .transforms
+        >> Maybe.map (List.map .id)
         >> Maybe.withDefault []
 
 
@@ -979,9 +1088,18 @@ elementsToString db component =
         |> Result.map (String.join " | ")
 
 
+emptyDistributionResults : DistributionResults
+emptyDistributionResults =
+    { impacts = Impact.empty
+    , process = Nothing
+    , volume = Quantity.zero
+    }
+
+
 emptyLifeCycle : LifeCycle
 emptyLifeCycle =
-    { endOfLife = Impact.empty
+    { distribution = emptyDistributionResults
+    , endOfLife = Impact.empty
     , production = emptyResults
     , transports = emptyLifeCycleTransports
     , use = []
@@ -999,6 +1117,7 @@ emptyQuery : Query
 emptyQuery =
     { assemblyCountry = Nothing
     , consumptions = []
+    , distribution = Nothing
     , durability = Nothing
     , items = []
     }
@@ -1072,7 +1191,15 @@ encodeElement element =
     Encode.object
         [ ( "amount", Amount.encode element.amount )
         , ( "material", Process.encodeId element.material )
-        , ( "transforms", element.transforms |> Encode.list Process.encodeId )
+        , ( "transforms", element.transforms |> Encode.list encodeTransform )
+        ]
+
+
+encodeTransform : Transform -> Encode.Value
+encodeTransform transform =
+    EU.optionalPropertiesObject
+        [ ( "country", transform.country |> Maybe.map Country.encodeCode )
+        , ( "id", transform.id |> Process.encodeId |> Just )
         ]
 
 
@@ -1104,9 +1231,19 @@ encodeLifeCycle maybeTrigram lifeCycle =
                 Nothing ->
                     Impact.encode lifeCycle.endOfLife
           )
+        , ( "distribution", encodeLifeCycleDistribution lifeCycle.distribution )
         , ( "production", encodeResults maybeTrigram lifeCycle.production )
         , ( "transport", encodeLifeCycleTransport lifeCycle.transports )
         , ( "use", Encode.list Impact.encode lifeCycle.use )
+        ]
+
+
+encodeLifeCycleDistribution : DistributionResults -> Encode.Value
+encodeLifeCycleDistribution distribution =
+    EU.optionalPropertiesObject
+        [ ( "impacts", distribution.impacts |> Impact.encode |> Just )
+        , ( "process", distribution.process |> Maybe.map (.id >> Process.encodeId) )
+        , ( "volume", distribution.volume |> Volume.inCubicMeters |> Encode.float |> Just )
         ]
 
 
@@ -1124,6 +1261,7 @@ encodeQuery query =
         [ ( "assemblyCountry", query.assemblyCountry |> Maybe.map Country.encodeCode )
         , ( "durability", query.durability |> Maybe.map Unit.encodeRatio )
         , ( "components", query.items |> Encode.list encodeItem |> Just )
+        , ( "distribution", query.distribution |> Maybe.map Process.encodeId )
         , ( "consumptions"
           , if List.isEmpty query.consumptions then
                 Nothing
@@ -1201,15 +1339,11 @@ expandConsumptions processes =
 {-| Turn an Element to an ExpandedElement
 -}
 expandElement : DataContainer db -> Maybe Country.Code -> Element -> Result String ExpandedElement
-expandElement { countries, processes } maybeCountry { amount, material, transforms } =
+expandElement ({ countries, processes } as db) maybeCountry { amount, material, transforms } =
     Ok (ExpandedElement amount)
         |> RE.andMap (Country.resolveMaybe maybeCountry countries)
         |> RE.andMap (Process.findById material processes)
-        |> RE.andMap
-            (transforms
-                |> List.map (\id -> Process.findById id processes)
-                |> RE.combine
-            )
+        |> RE.andMap (expandTransforms db transforms)
 
 
 {-| Take a list of elements and resolve them with fully qualified processes
@@ -1275,6 +1409,19 @@ expandItems db =
     List.map (expandItem db) >> RE.combine
 
 
+{-| Turn a list of Transform into a list of ExpandedTransform
+-}
+expandTransforms : DataContainer db -> List Transform -> Result String (List ExpandedTransform)
+expandTransforms { countries, processes } =
+    List.map
+        (\{ country, id } ->
+            Ok ExpandedTransform
+                |> RE.andMap (Country.resolveMaybe country countries)
+                |> RE.andMap (Process.findById id processes)
+        )
+        >> RE.combine
+
+
 extractAmount : Results -> Amount
 extractAmount (Results { amount }) =
     amount
@@ -1315,6 +1462,32 @@ findById id =
     List.filter (.id >> (==) (Just id))
         >> List.head
         >> Result.fromMaybe ("Aucun composant avec id=" ++ idToString id)
+
+
+getAvailableDistributionProcesses : DataContainer db -> Scope -> List Process
+getAvailableDistributionProcesses db scope =
+    db.processes
+        |> Scope.anyOf [ scope ]
+        |> Process.listByCategory Category.Distribution
+        |> List.filter (.unit >> (==) Process.CubicMeter)
+
+
+{-| Retrieves a distribution process for a given scope from a provided distribution id, or a default
+process from config if available.
+-}
+getDistributionProcess : Requirements db -> Maybe Process.Id -> Result DistributionProcessError Process
+getDistributionProcess { config, db, scope } maybeDistribution =
+    case maybeDistribution of
+        Just processId ->
+            getAvailableDistributionProcesses db scope
+                |> Process.findById processId
+                |> Result.mapError DistributionGenericError
+
+        -- No distribution process specified, use the default scoped process if available
+        Nothing ->
+            config.distribution.defaultProcess
+                |> Scope.dictGetMaybe scope
+                |> Result.fromMaybe DistributionNothingAvailable
 
 
 getEndOfLifeDetailedImpacts : Requirements db -> Results -> DetailedEndOfLifeImpacts
@@ -1595,6 +1768,17 @@ removeElementTransform targetElement transformIndex =
         \el -> { el | transforms = el.transforms |> LE.removeAt transformIndex }
 
 
+updateElementTransformCountry : TargetElement -> Index -> Maybe Country.Code -> List Item -> List Item
+updateElementTransformCountry targetElement transformIndex maybeCountryCode =
+    updateElement targetElement <|
+        \el ->
+            { el
+                | transforms =
+                    el.transforms
+                        |> LE.updateAt transformIndex (\step -> { step | country = maybeCountryCode })
+            }
+
+
 setCustomScope : Component -> Scope -> Item -> Item
 setCustomScope component scope item =
     { item
@@ -1669,7 +1853,7 @@ stagesImpacts lifeCycle =
                     Nothing ->
                         acc
             )
-            { distribution = Nothing
+            { distribution = lifeCycle.distribution.impacts |> Just
             , endOfLife = lifeCycle.endOfLife |> Just
             , materials = Just Impact.empty
             , packaging = Nothing
@@ -1695,11 +1879,17 @@ sumLifeCycleImpacts lifeCycle =
     Impact.sumImpacts
         [ extractImpacts lifeCycle.production
         , extractComplementsImpacts lifeCycle.production |> Complement.mergeComplementsResultsImpacts
+        , lifeCycle.distribution.impacts
         , lifeCycle.endOfLife
         , lifeCycle.transports.toAssembly.impacts
         , lifeCycle.transports.toDistribution.impacts
         , lifeCycle.use |> Impact.sumImpacts
         ]
+
+
+targetElementToString : TargetElement -> String
+targetElementToString ( ( _, index ), elementIndex ) =
+    String.join "-" [ String.fromInt index, String.fromInt elementIndex ]
 
 
 toSearchableString : DataContainer db -> Component -> String
@@ -1751,6 +1941,11 @@ updateCustom component fn maybeCustom =
                     , scope = Nothing
                     }
                 )
+
+
+updateDistribution : Maybe Process.Id -> Query -> Query
+updateDistribution maybeProcessId query =
+    { query | distribution = maybeProcessId }
 
 
 updateDurability : Unit.Ratio -> Query -> Query
@@ -1830,6 +2025,31 @@ validateCountry { db, scope } maybeCountryCode =
             Ok Nothing
 
 
+validateDistribution : Requirements db -> Maybe Process.Id -> Result String (Maybe Process.Id)
+validateDistribution { db, scope } maybeProcessId =
+    case maybeProcessId of
+        Just processId ->
+            case Process.findById processId db.processes of
+                Err err ->
+                    Err err
+
+                Ok process ->
+                    if not <| List.member Category.Distribution process.categories then
+                        Err "Le procédé n'est pas une distribution"
+
+                    else if process.unit /= Process.CubicMeter then
+                        Err "Le procédé de distribution doit accepter un volume"
+
+                    else if not <| List.member scope process.scopes then
+                        Err <| "Le procédé " ++ Process.idToString processId ++ " n'est pas disponible pour le périmètre " ++ Scope.toLabel scope
+
+                    else
+                        Ok (Just processId)
+
+        Nothing ->
+            Ok Nothing
+
+
 validateDurability : Requirements db -> Maybe Unit.Ratio -> Result String (Maybe Unit.Ratio)
 validateDurability { config, scope } durability =
     case ( config.durability |> Config.scopeEnabled scope, durability ) of
@@ -1881,6 +2101,7 @@ validateQuery ({ db } as requirements) query =
     Ok Query
         |> RE.andMap (validateCountry requirements query.assemblyCountry)
         |> RE.andMap (query.consumptions |> RE.combineMap (validateConsumption requirements))
+        |> RE.andMap (validateDistribution requirements query.distribution)
         |> RE.andMap (validateDurability requirements query.durability)
         |> RE.andMap (query.items |> RE.combineMap (validateItem db.components))
         |> Result.mapError (\s -> "Requête invalide: " ++ s)

@@ -21,6 +21,7 @@ import Result.Extra as RE
 import Static.Db exposing (Db)
 import Test exposing (..)
 import TestUtils exposing (expectResultErrorContains, it, suiteWithDb)
+import Volume
 
 
 suite : Test
@@ -94,7 +95,7 @@ suite =
                                                 -- and its material process id
                                                 |> Maybe.map .transforms
                                         )
-                                    |> Expect.equal (Ok (Just [ validTransformProcess.id ]))
+                                    |> Expect.equal (Ok (Just [ Component.defaultTransform validTransformProcess.id ]))
                                 )
                             , it "should reject an invalid transformation process"
                                 (chair
@@ -129,7 +130,9 @@ suite =
                                     , quantity = 1
                                     , stage = Nothing
                                     }
-                                    |> Component.applyTransforms requirements.config Nothing Process.Kilogram transforms
+                                    |> Component.applyTransforms requirements.config
+                                        Process.Kilogram
+                                        (List.map Component.defaultExpandedTransform transforms)
                                     |> Result.withDefault Component.emptyResults
                                     |> Component.extractMass
                                     |> Mass.inKilograms
@@ -161,7 +164,9 @@ suite =
                                     , quantity = 1
                                     , stage = Nothing
                                     }
-                                    |> Component.applyTransforms requirements.config Nothing Process.Kilogram transforms
+                                    |> Component.applyTransforms requirements.config
+                                        Process.Kilogram
+                                        (List.map Component.defaultExpandedTransform transforms)
                                     |> Result.withDefault Component.emptyResults
                                     |> extractEcsImpact
                           in
@@ -187,6 +192,49 @@ suite =
                                       }
                                     ]
                                     |> Expect.within (Expect.Absolute 1) 420
+                                )
+                            , it "should compute apply custom mix impacts when a transform step country is set"
+                                (let
+                                    getImpact steps =
+                                        Component.Results
+                                            { amount = Amount.fromFloat 1
+                                            , complementsImpacts = Complement.emptyComplementsResultsImpacts
+                                            , impacts = Impact.empty
+                                            , items = []
+                                            , label = Nothing
+                                            , mass = Mass.kilogram
+                                            , materialType = Nothing
+                                            , quantity = 1
+                                            , stage = Nothing
+                                            }
+                                            |> Component.applyTransforms requirements.config Process.Kilogram steps
+                                            |> Result.withDefault Component.emptyResults
+                                            |> extractEcsImpact
+                                 in
+                                 case
+                                    -- fetch first country with mixes different from defaults
+                                    requirements.db.countries
+                                        |> Scope.anyOf [ requirements.scope ]
+                                        |> List.filter
+                                            (\{ electricityProcess, heatProcess } ->
+                                                (electricityProcess /= requirements.config.production.defaultElecProcess)
+                                                    || (heatProcess /= requirements.config.production.defaultHeatProcess)
+                                            )
+                                        |> List.head
+                                        |> Result.fromMaybe "No country found with mixes different from defaults"
+                                 of
+                                    Err error ->
+                                        Expect.fail error
+
+                                    Ok country ->
+                                        let
+                                            ( defaultImpact, localizedImpact ) =
+                                                ( getImpact [ Component.defaultExpandedTransform fading ]
+                                                , getImpact [ { country = Just country, process = fading } ]
+                                                )
+                                        in
+                                        abs (defaultImpact - localizedImpact)
+                                            |> Expect.greaterThan 0.00001
                                 )
                             , it "should add impacts when multiple transforms are passed (no elec, no heat)"
                                 (getTestEcsImpact
@@ -218,7 +266,9 @@ suite =
                                         , quantity = 1
                                         , stage = Nothing
                                         }
-                                        |> Component.applyTransforms requirements.config Nothing Process.CubicMeter [ transformInKg ]
+                                        |> Component.applyTransforms requirements.config
+                                            Process.CubicMeter
+                                            [ Component.defaultExpandedTransform transformInKg ]
                                         |> Expect.equal (Err "Les procédés de transformation ne partagent pas la même unité que la matière source (m3)\u{00A0}: Moulage par injection (kg)")
                                     )
                                 ]
@@ -236,7 +286,9 @@ suite =
                                     , quantity = 1
                                     , stage = Nothing
                                     }
-                                    |> Component.applyTransforms requirements.config Nothing Process.Kilogram transforms
+                                    |> Component.applyTransforms requirements.config
+                                        Process.Kilogram
+                                        (List.map Component.defaultExpandedTransform transforms)
                                     |> Result.withDefault Component.emptyResults
                           in
                           describe "impacts & waste"
@@ -325,6 +377,116 @@ suite =
                                 |> Result.map (.production >> extractEcsImpact)
                                 |> TestUtils.expectResultWithin (Expect.Absolute 1) 282
                             )
+                        , TestUtils.suiteFromResult "distribution impacts"
+                            -- setup
+                            chair
+                            -- tests
+                            (\chairItems ->
+                                let
+                                    requirementsDb =
+                                        requirements.db
+                                in
+                                [ TestUtils.suiteFromResult "when no default distribution process is available"
+                                    -- setup
+                                    (chairItems
+                                        |> computeItemsWithRequirements
+                                            { requirements
+                                                | db =
+                                                    { requirementsDb
+                                                        | processes =
+                                                            requirementsDb.processes
+                                                                -- Filter out all distribution processes so we can test a fallback
+                                                                |> LE.removeWhen (.categories >> List.member Category.Distribution)
+                                                    }
+                                            }
+                                    )
+                                    -- tests
+                                    (\lifeCycle ->
+                                        [ it "should compute volume"
+                                            (lifeCycle.distribution.volume
+                                                |> Volume.inCubicMeters
+                                                |> Expect.greaterThan 0
+                                            )
+                                        , it "should expose no process"
+                                            (lifeCycle.distribution.process
+                                                |> Expect.equal Nothing
+                                            )
+                                        , it "should compute empty impacts"
+                                            (lifeCycle.distribution.impacts
+                                                |> Expect.equal Impact.empty
+                                            )
+                                        ]
+                                    )
+                                , TestUtils.suiteFromResult "when an explicit distribution process is specified"
+                                    -- setup
+                                    (requirementsDb.processes
+                                        |> List.head
+                                        |> Result.fromMaybe "no processes available"
+                                        |> Result.map
+                                            (\randomProcess ->
+                                                let
+                                                    -- update a random process to be our test distribution one
+                                                    testDistributionProcess =
+                                                        { randomProcess
+                                                            | categories = [ Category.Distribution ]
+                                                            , scopes = [ requirements.scope ]
+                                                            , unit = Process.CubicMeter
+                                                        }
+                                                in
+                                                ( testDistributionProcess
+                                                , { requirements
+                                                    | db =
+                                                        { requirementsDb
+                                                            | processes = testDistributionProcess :: requirementsDb.processes
+                                                        }
+                                                  }
+                                                )
+                                            )
+                                    )
+                                    -- tests
+                                    (\( testDistributionProcess, testRequirements ) ->
+                                        [ TestUtils.suiteFromResult "distribution result tests"
+                                            (Component.emptyQuery
+                                                |> Component.setQueryItems chairItems
+                                                |> Component.updateDistribution (Just testDistributionProcess.id)
+                                                |> Component.compute testRequirements
+                                                |> Result.map .distribution
+                                            )
+                                            (\distribution ->
+                                                [ it "should compute volume"
+                                                    (distribution.volume
+                                                        |> Volume.inCubicMeters
+                                                        |> Expect.greaterThan 0
+                                                    )
+                                                , it "should expose the process"
+                                                    (distribution.process
+                                                        |> Expect.equal (Just testDistributionProcess)
+                                                    )
+                                                , it "should compute non-empty impacts"
+                                                    (distribution.impacts
+                                                        |> Impact.getImpact Definition.Ecs
+                                                        |> Unit.impactToFloat
+                                                        |> Expect.greaterThan 0
+                                                    )
+                                                ]
+                                            )
+                                        ]
+                                    )
+                                , it "should propagate the error for an unknown explicit distribution process"
+                                    -- Non-existing distribution process id
+                                    (Process.idFromString "5fad4e70-5736-552d-a686-97e4fb627c37"
+                                        |> Result.map
+                                            (\missingDistributionId ->
+                                                Component.emptyQuery
+                                                    |> Component.setQueryItems chairItems
+                                                    |> Component.updateDistribution (Just missingDistributionId)
+                                                    |> Component.compute requirements
+                                            )
+                                        |> Result.withDefault (Err "Invalid process id fixture")
+                                        |> expectResultErrorContains "Procédé introuvable par id"
+                                    )
+                                ]
+                            )
                         ]
                     , describe "computeElementResults"
                         [ TestUtils.suiteFromResult "basic tests"
@@ -338,7 +500,10 @@ suite =
                                             , material = cottonId
 
                                             -- Note: weaving waste: 0.06253, fading: 0
-                                            , transforms = [ weaving.id, fading.id ]
+                                            , transforms =
+                                                [ Component.defaultTransform weaving.id
+                                                , Component.defaultTransform fading.id
+                                                ]
                                             }
                                     )
                             )
@@ -365,7 +530,7 @@ suite =
                                     results =
                                         { amount = Amount.fromFloat 1
                                         , material = materialInCubicMeters.id
-                                        , transforms = [ transformInCubicMeters.id ]
+                                        , transforms = [ Component.defaultTransform transformInCubicMeters.id ]
                                         }
                                             |> Component.computeElementResults requirements Nothing
                                 in
@@ -391,7 +556,7 @@ suite =
                                     results =
                                         { amount = Amount.fromFloat 1
                                         , material = materialInCubicMeters.id
-                                        , transforms = [ transformInCubicMeters.id ]
+                                        , transforms = [ Component.defaultTransform transformInCubicMeters.id ]
                                         }
                                             |> Component.computeElementResults requirements Nothing
                                 in
@@ -513,6 +678,13 @@ suite =
                                         |> Expect.greaterThan 0
                                     )
                                 ]
+                            )
+                        ]
+                    , describe "computeVolumeFromMass"
+                        [ it "should compute a volume from a mass"
+                            -- Remember, this is a temporary situation until we obtain volume per unit data in processes db
+                            (Component.computeVolumeFromMass (Mass.kilograms 1000)
+                                |> Expect.equal (Volume.cubicMeters 1)
                             )
                         ]
                     , TestUtils.suiteFromResult "itemToComponent"
@@ -909,15 +1081,17 @@ suite =
                                 |> expectResultErrorContains "Aucun composant avec id="
                             )
                         ]
-                    , TestUtils.suiteFromResult3 "validateQuery"
+                    , TestUtils.suiteFromResult4 "validateQuery"
                         -- Non-existing process
                         (Process.idFromString "5fad4e70-5736-552d-a686-97e4fb627c37")
                         -- Steel process
                         steel
                         -- Sawing process
                         sawing
+                        -- Dry distribution process
+                        dryDistribution
                         -- Tests
-                        (\nonExistingProcessId steelProcess sawingProcess ->
+                        (\nonExistingProcessId steelProcess sawingProcess dryDistributionProcess ->
                             [ describe "amount validation"
                                 [ it "should reject a non-positive amount" <|
                                     (Component.emptyQuery
@@ -932,6 +1106,51 @@ suite =
                                            )
                                         |> Component.validateQuery { requirements | scope = Scope.Generic Scope.Food2 }
                                         |> expectResultErrorContains "Une quantité doit être supérieure ou égale à zéro"
+                                    )
+                                ]
+                            , describe "distribution validation"
+                                [ it "should accept a distribution process" <|
+                                    (Component.emptyQuery
+                                        |> Component.updateDistribution (Just dryDistributionProcess.id)
+                                        |> Component.validateQuery requirements
+                                        |> Expect.ok
+                                    )
+                                , it "should reject a distribution referencing a missing process" <|
+                                    (Component.emptyQuery
+                                        |> Component.updateDistribution (Just nonExistingProcessId)
+                                        |> Component.validateQuery requirements
+                                        |> expectResultErrorContains "Procédé introuvable par id"
+                                    )
+                                , it "should reject a distribution referencing a process that is not a distribution" <|
+                                    (Component.emptyQuery
+                                        |> Component.updateDistribution (Just sawingProcess.id)
+                                        |> Component.validateQuery requirements
+                                        |> expectResultErrorContains "Le procédé n'est pas une distribution"
+                                    )
+                                , it "should reject a distribution referencing a process that does not accept a volume" <|
+                                    (Component.emptyQuery
+                                        |> Component.updateDistribution (Just dryDistributionProcess.id)
+                                        |> Component.validateQuery
+                                            (requirements
+                                                |> updateRequirementsProcess dryDistributionProcess
+                                                    (\p -> { p | unit = Process.SquareMeter })
+                                            )
+                                        |> expectResultErrorContains "Le procédé de distribution doit accepter un volume"
+                                    )
+                                , it "should reject a distribution referencing a process with the wrong scope" <|
+                                    (Component.emptyQuery
+                                        |> Component.updateDistribution (Just dryDistributionProcess.id)
+                                        |> Component.validateQuery
+                                            (requirements
+                                                |> updateRequirementsProcess dryDistributionProcess
+                                                    (\p -> { p | scopes = [] })
+                                            )
+                                        |> expectResultErrorContains
+                                            ("Le procédé "
+                                                ++ Process.idToString dryDistributionProcess.id
+                                                ++ " n'est pas disponible pour le périmètre "
+                                                ++ Scope.toLabel (Scope.Generic Scope.Object)
+                                            )
                                     )
                                 ]
                             , describe "durability validation"
@@ -993,7 +1212,10 @@ testComponentConfig db =
         """
         {
             "distribution": {
-                "country": "FR"
+                "country": "FR",
+                "defaultProcess": {
+                    "food2": "29118025-efa0-47bb-94e2-f5ccba31a903"
+                }
             },
             "durability": {
                 "enabled": {
@@ -1157,6 +1379,7 @@ setupTestDb db =
             RE.combine
                 [ steel
                 , injectionMoulding
+                , dryDistribution
                 , lowVoltageElec
                 , wood
                 , plastic
@@ -1178,6 +1401,13 @@ setupTestDb db =
         |> RE.andMap componentFixtures
         |> RE.andMap processFixtures
         |> Result.withDefault db
+
+
+updateRequirementsProcess : Process -> (Process -> Process) -> Requirements db -> Requirements db
+updateRequirementsProcess { id } fn ({ db } as requirements) =
+    { requirements
+        | db = { db | processes = db.processes |> LE.updateIf (.id >> (==) id) fn }
+    }
 
 
 
@@ -1267,6 +1497,56 @@ sofaFabric =
 
 
 -- 2. Processes
+
+
+dryDistribution : Result String Process
+dryDistribution =
+    decodeJson (Process.decode Impact.decodeImpacts) <|
+        """ {
+            "activityName": "This process is not linked to a Brightway activity",
+            "categories": [
+                "distribution"
+            ],
+            "comment": "Blah",
+            "displayName": "Vente au détail\u{202F}: produit sec",
+            "elecMJ": 443.09,
+            "heatMJ": 0,
+            "id": "29118025-efa0-47bb-94e2-f5ccba31a903",
+            "impacts": {
+                "acd": 0,
+                "cch": 0,
+                "ecs": 0,
+                "etf": 0,
+                "etf-c": 0,
+                "fru": 0,
+                "fwe": 0,
+                "htc": 0,
+                "htc-c": 0,
+                "htn": 0,
+                "htn-c": 0,
+                "ior": 0,
+                "ldu": 0,
+                "mru": 0,
+                "ozd": 0,
+                "pco": 0,
+                "pma": 0,
+                "swe": 0,
+                "tre": 0,
+                "wtu": 0
+            },
+            "landOccupation": null,
+            "location": null,
+            "massPerUnit": null,
+            "metadata": null,
+            "scopes": [
+                "food2",
+                "object"
+            ],
+            "source": "Custom",
+            "unit": "m3",
+            "waste": 0
+        }
+        """
 
 
 injectionMoulding : Result String Process

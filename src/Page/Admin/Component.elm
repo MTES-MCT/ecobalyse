@@ -656,6 +656,7 @@ modalView { componentConfig, db } modals index modal =
                             , openCreateComponentModal = NoOp
                             , openSelectComponentModal = \_ -> NoOp
                             , openSelectConsumptionModal = \_ -> NoOp
+                            , openEditElementModal = \_ _ -> NoOp
                             , openSelectProcessModal =
                                 \p ti ei s ->
                                     SetModals (SelectProcessModal p ti ei s :: modals)
@@ -675,6 +676,7 @@ modalView { componentConfig, db } modals index modal =
                             , title = ""
                             , updateAssemblyCountry = \_ -> NoOp
                             , updateConsumptionAmount = \_ _ -> NoOp
+                            , updateDistribution = \_ -> NoOp
                             , updateElementAmount =
                                 \targetElement ->
                                     Maybe.map
@@ -682,6 +684,7 @@ modalView { componentConfig, db } modals index modal =
                                             item |> updateSingleItem (Component.updateElementAmount targetElement amount)
                                         )
                                         >> Maybe.withDefault NoOp
+                            , updateElementTransformCountry = \_ _ _ -> NoOp
                             , updateItemCountry = \_ _ -> NoOp
                             , updateItemName =
                                 \targetItem name ->
