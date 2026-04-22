@@ -62,15 +62,17 @@ view config =
                 ]
                 [ modalContentTag
                     [ div [ class "modal-header" ]
-                        [ h5 [ class "modal-title lh-sm" ]
+                        [ h5 [ class "modal-title lh-sm d-flex justify-content-between align-items-center" ]
                             [ span [ class "me-2", attribute "aria-hidden" "true" ] [ text "→" ]
-                            , text config.title
-                            , case config.subTitle of
-                                Just subTitle ->
-                                    small [ class "text-muted fs-7 fw-normal ps-2" ] [ text subTitle ]
+                            , div []
+                                [ text config.title
+                                , case config.subTitle of
+                                    Just subTitle ->
+                                        small [ class "text-muted fs-7 fw-normal ps-2" ] [ text subTitle ]
 
-                                Nothing ->
-                                    text ""
+                                    Nothing ->
+                                        text ""
+                                ]
                             ]
                         , button
                             [ type_ "button"
