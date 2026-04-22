@@ -57,7 +57,7 @@ table db { detailed, scope } =
         , Table.Facet "Pays de production et de filature par défaut"
             (.defaultCountry
                 >> (\code -> Country.findByCode code db.countries)
-                >> Result.map .name
+                >> Result.map (\{ code, name } -> name ++ " (" ++ Country.codeToString code ++ ")")
                 >> Result.withDefault "N/A"
                 >> List.singleton
             )
