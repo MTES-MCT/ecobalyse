@@ -47,6 +47,7 @@ class CustomAuthMiddleware(AbstractAuthenticationMiddleware):
         algorithm: str,
         app: ASGIApp,
         auth_header: str,
+        auth_cookie_key: str,
         exclude: str | list[str] | None,
         exclude_http_methods: Sequence[Method] | None,
         exclude_opt_key: str,

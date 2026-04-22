@@ -11,7 +11,9 @@ from app.domain.accounts import urls
 from app.domain.accounts.deps import provide_users_service
 from app.domain.accounts.services import TokenService
 from app.lib import crypt
-from app.lib.auth import OAuth2PasswordBearerAuth
+from app.lib.auth import CustomOAuth2PasswordBearerAuth
+
+# from litestar.security.jwt import OAuth2PasswordBearerAuth
 from app.lib.deps import create_service_provider
 from app.lib.middleware import CustomAuthMiddleware
 from litestar.exceptions import PermissionDeniedException
@@ -141,7 +143,7 @@ async def current_user_from_token(
     return (user, None) if user and user.is_active else None
 
 
-auth = OAuth2PasswordBearerAuth[m.User](
+auth = CustomOAuth2PasswordBearerAuth[m.User](
     authentication_middleware_class=CustomAuthMiddleware,
     default_token_expiration=datetime.timedelta(
         days=settings.app.DEFAULT_TOKEN_EXPIRATION_DAYS
