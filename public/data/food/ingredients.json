@@ -831,7 +831,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "White bean, canned drained, organic, CMAPS {GLO} U",
@@ -1179,7 +1183,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Soybean grain dried, stored and transported, processing {FR} U",
@@ -1411,7 +1419,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Carrot, at farm (WFLDB)",
@@ -1779,7 +1791,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Soybean, not associated to deforestation {BR}| market for soybean, without transport | Cut-off, U - Adapted from Ecoinvent",
@@ -1827,7 +1843,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Durum wheat grain, at farm {GR} - Adapted from WFLDB U",
@@ -1902,7 +1922,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Butter, 60-62pct fat reduced, variant 2, CMAPS {GLO} U",
@@ -2164,7 +2188,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "protein pea//[FR] protein pea production",
@@ -2481,7 +2509,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Bell pepper {FR}| bell pepper production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
@@ -2965,7 +2997,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Fresh shrimps, China production {FR} U",
@@ -3008,7 +3044,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse {FR} U",
@@ -3515,7 +3555,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Cherry, conventional, national average, at orchard {FR} U",
@@ -4089,7 +4133,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Tomato, peeled canned drained, organic, CMAPS {GLO} U",
@@ -4138,7 +4186,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Winter pea, from intercrop, organic, system number 1, at farm gate {FR} U",
@@ -4713,7 +4765,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Peach, at farm (WFLDB)",
@@ -4767,7 +4823,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Parmesan cheese, variant 2, CMAPS {GLO} U",
@@ -5123,7 +5183,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Celery {GLO}| 675 production | Cut-off, U - Adapted from Ecoinvent U",
@@ -5520,7 +5584,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Raspberry juice, CMAPS {GLO} U",
@@ -5547,7 +5615,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Mineral water, still, PET one-way, 1.5 L, at water factory {FR} - Adapted from WFLDB U",
@@ -6321,7 +6393,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Melon, conventional, national average, at farm gate {FR} U",
@@ -6852,7 +6928,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Almond, consumption mix {FR} U",
@@ -7558,7 +7638,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": false
+=======
+    "visible": true
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Fennel {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
@@ -7748,7 +7832,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "none",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Cauliflower, conventional, national average, at farm gate {FR} U",
@@ -7856,7 +7944,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": false
+=======
+    "visible": true
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Pear, at farm (WFLDB)",
@@ -7910,7 +8002,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U",
@@ -8128,7 +8224,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Green bean, cut raw, organic, CMAPS {GLO} U",
@@ -8239,7 +8339,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Palm oil, refined, consumption mix {FR} U",
@@ -8308,7 +8412,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Orange nectar, recipe, at plant {FR} U",
@@ -8461,7 +8569,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Carrot, organic 2025, national average, at farm gate {FR} U",
@@ -9125,7 +9237,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Soft wheat flour, CMAPS {FR} U",
@@ -9743,7 +9859,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "none",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Feta type cheese, cow milk, variant 2, CMAPS {GLO} U",
@@ -9764,7 +9884,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Zucchini, autumn, under tunnel, conventional, at farm gate {FR} U",
@@ -9812,7 +9936,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Peanut, shelled, organic, CMAPS {GLO} U",
@@ -9915,7 +10043,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Oat grain {RoW}| oat production | Cut-off, U - Adapted from Ecoinvent U",
@@ -10044,7 +10176,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Bell pepper {FR}| bell pepper production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
@@ -10126,7 +10262,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Fruits puree, without sugar added, recipe, at plant {FR} U",
@@ -10695,7 +10835,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Spring faba bean, organic 2025, reduced protection, at farm gate {FR} U",
@@ -10772,7 +10916,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Kiwi {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
@@ -10930,7 +11078,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "White wine, dry, organic, CMAPS {GLO} U",
@@ -10958,7 +11110,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "none",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Pont l'Eveque cheese, variant 1, CMAPS {GLO} U",
@@ -10979,7 +11135,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Diced mixed vegetables, canned, recipe, at plant {FR} U",
@@ -11586,7 +11746,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Tomato, medium size, organic 2025, soil based, non-heated greenhouse, at greenhouse {FR} U",
@@ -11642,7 +11806,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "none",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Sodium chloride, powder {GLO}| market for | Cut-off, S - Copied from Ecoinvent U",
@@ -11936,7 +12104,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": false
+=======
+    "visible": true
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
@@ -12066,7 +12238,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Processed cheese, variant 1, CMAPS {GLO} U",
@@ -12087,7 +12263,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Carrot, organic 2025, national average, at farm gate {FR} U",
@@ -12979,7 +13159,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Black pepper, conventional, at farm gate {VN} U",
@@ -13033,7 +13217,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Dairy spread, 20pct fat, variant 1, CMAPS {GLO} U",
@@ -13054,7 +13242,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Munster cheese, variant 1, CMAPS {GLO} U",
@@ -13075,7 +13267,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Lamb, organic, national average, at farm gate FR U",
@@ -13876,7 +14072,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Cherry, conventional, national average, at orchard {FR} U",
@@ -13979,7 +14179,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Mandarin {ES}| mandarin production | Cut-off, U - Adapted from Ecoinvent U",
@@ -14060,7 +14264,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "European pilchard or sardine, consumption mix {FR} U",
@@ -14266,7 +14474,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Blackberry, at farm {RS} - Adapted from WFLDB U",
@@ -14482,7 +14694,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Peanut, shelled, import WFLDB, CMAPS {GLO} U",
@@ -14509,7 +14725,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "none",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Carrot, organic, Lower Normandy, at farm gate {FR} U",
@@ -14716,7 +14936,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Pineapple, pulp raw, variant 2, CMAPS {GLO} U",
@@ -15786,7 +16010,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Winter pea, conventional, 15% moisture, at farm gate {FR} U",
@@ -16500,7 +16728,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Durum wheat grain, conventional, national average, at farm gate {FR} U",
@@ -16740,7 +16972,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Soy flour, CMAPS {FR} U",
@@ -16842,7 +17078,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Wheat grain {US}| wheat grain production | Cut-off, U",
@@ -17297,7 +17537,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Sugar, from sugarcane, at sugar refinery {GLO} - Adapted from WFLDB U",
@@ -18157,7 +18401,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Strawberry, frozen raw, organic, CMAPS {GLO} U",
@@ -18477,7 +18725,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Apple, pulp raw, CMAPS {GLO} U",
@@ -18629,7 +18881,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Carrot, organic 2025 {RoW}| carrot production | Cut-off, U",
@@ -18760,7 +19016,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Fava bean, Swiss integrated production, organic 2025 {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U",
@@ -19288,7 +19548,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Durum wheat, semolina, at plant {GLO} - Adapted from WFLDB U",
@@ -19628,7 +19892,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Tomato, peeled canned drained, CMAPS {GLO} U",
@@ -20015,7 +20283,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Cherry, organic 2025, national average, at orchard {FR} U",
@@ -20070,7 +20342,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Turkey, conventional, at farm gate {FR} U",
@@ -20428,7 +20704,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Strawberry, conventional, national average, at farm gate {FR} U",
@@ -20844,7 +21124,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "none",
+<<<<<<< Updated upstream
     "visible": false
+=======
+    "visible": true
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Zucchini, springtime, under tunnel, organic, at farm gate {FR} U",
@@ -21043,7 +21327,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Maize grain, non-irrigated, at farm {BR} - Adapted from WFLDB U",
@@ -21194,7 +21482,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Mango, organic 2025 {BR}| mango production | Cut-off, U",
@@ -21616,7 +21908,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Oat flour, variant 1, CMAPS {GLO} U",
@@ -21643,7 +21939,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": false
+=======
+    "visible": true
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Cauliflower, conventional, national average, at farm gate {FR} U",
@@ -22174,7 +22474,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
@@ -23289,7 +23593,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Durum wheat grain, organic 2025, national average, at farm gate {FR} U",
@@ -23597,7 +23905,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": false
+=======
+    "visible": true
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Melon, organic 2025, national average, at farm gate {FR} U",
@@ -24335,7 +24647,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Leek, early sown, conventional, at farm gate {FR} U",
@@ -25039,7 +25355,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Blueberry, at farm, organic 2025 {CA}",
@@ -25341,7 +25661,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Cauliflower {GLO}| cauliflower production | Cut-off, U",
@@ -25656,7 +25980,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Lentils, dry, at farm (WFLDB)",
@@ -25792,7 +26120,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Spring pea, conventional, 15% moisture, animal feed, at farm gate, production {FR} U",
@@ -25997,7 +26329,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "none",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Banana {RoW}| banana production | Cut-off, U - Adapted from Ecoinvent U",
@@ -26232,7 +26568,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Palm date, conditioned and dried {GLO}| palm date production, conditioned and dried | Cut-off, U - Copied from Ecoinvent U",
@@ -26280,7 +26620,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Carrot, at farm (WFLDB)",
@@ -26383,7 +26727,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Sunflower oil, at plant {IT} U",
@@ -26648,7 +26996,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Gorgonzola cheese, variant 1, CMAPS {GLO} U",
@@ -26669,7 +27021,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Palm date, organic 2025 {GLO}| palm date production | Cut-off, U",
@@ -27259,7 +27615,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Cauliflower, winter, conventional, at farm gate {FR} U",
@@ -27334,7 +27694,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Butter, 82% fat, unsalted, at dairy {FR} U",
@@ -27882,7 +28246,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Agave tequilana, at farm {MX} U",
@@ -28033,7 +28401,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Strawberry, frozen raw, CMAPS {GLO} U",
@@ -28694,7 +29066,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Fig puree, organic, CMAPS {GLO} U",
@@ -28722,7 +29098,11 @@
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "always",
+<<<<<<< Updated upstream
     "visible": true
+=======
+    "visible": false
+>>>>>>> Stashed changes
   },
   {
     "activityName": "Extra Virgin Olive Oil, at plant {ES} U",

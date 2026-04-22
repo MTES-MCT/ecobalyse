@@ -39789,6 +39789,229 @@
   },
   {
     "activityName": "Banana, pulp raw, CMAPS {GLO} U",
+<<<<<<< Updated upstream
+=======
+    "categories": [
+      "ingredient",
+      "material"
+    ],
+    "comment": "",
+    "displayName": "Banane, pulpe, crue FR",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "5a0941e5-77e1-4f0b-a9b1-4593f517e365",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 88.963,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "GLO",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Banana, pulp raw, import WFLDB, CMAPS {GLO} U",
+    "categories": [
+      "ingredient",
+      "material"
+    ],
+    "comment": "",
+    "displayName": "Banane, pulpe, crue Origine Inconnue",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "74238fd3-c190-48b5-9214-b31bda7d2fbe",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 264.08,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "GLO",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Banana, pulp raw, organic, CMAPS {GLO} U",
+    "categories": [
+      "ingredient",
+      "material"
+    ],
+    "comment": "",
+    "displayName": "Banane, pulpe, crue Origine Inconnue BIO",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "d9ac7880-c51e-4f4b-a2b8-c7e9408e3bae",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 49.229,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "GLO",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Barley flour, CMAPS {GLO} U",
+    "categories": [
+      "ingredient",
+      "material"
+    ],
+    "comment": "",
+    "displayName": "Farine d'orge FR",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "6665e6d0-38da-4010-87e7-7fb54f85643d",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 114.46,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "GLO",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Barley flour, import WFLDB, CMAPS {FR} U",
+    "categories": [
+      "ingredient",
+      "material"
+    ],
+    "comment": "",
+    "displayName": "Farine d'orge Origine Inconnue",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "ad8c9420-d051-4151-8eef-bdbb02604809",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 296.51,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "FR",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Battery cell EoL recycling, LFP, CFF",
+>>>>>>> Stashed changes
     "categories": [
       "ingredient",
       "material"

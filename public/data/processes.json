@@ -37673,6 +37673,219 @@
   },
   {
     "activityName": "White bean, canned drained, CMAPS {GLO} U",
+<<<<<<< Updated upstream
+=======
+    "categories": [
+      "ingredient",
+      "material"
+    ],
+    "comment": "",
+    "displayName": "Haricot blanc, appertisé, égoutté FR",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "f8697681-949f-42db-95cb-e09bb0155594",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 165.75,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "GLO",
+    "massPerUnit": null,
+    "scopes": [
+      "food"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "White bean, canned drained, organic, CMAPS {GLO} U",
+    "categories": [
+      "ingredient",
+      "material"
+    ],
+    "comment": "",
+    "displayName": "Haricot blanc, appertisé, égoutté FR BIO",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "4b91543d-804e-496f-a4fb-b1c4b2eea801",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 129.66,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "GLO",
+    "massPerUnit": null,
+    "scopes": [
+      "food"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "White wine, dry, organic, CMAPS {GLO} U",
+    "categories": [
+      "ingredient",
+      "material"
+    ],
+    "comment": "",
+    "displayName": "Vin blanc (sec) Origine Inconnue BIO",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "f360633e-028c-4229-a0c3-c327e0f84fec",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 292.2,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "GLO",
+    "massPerUnit": null,
+    "scopes": [
+      "food"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "White wine, dry, variant 1, CMAPS {GLO} U",
+    "categories": [
+      "ingredient",
+      "material"
+    ],
+    "comment": "",
+    "displayName": "Vin blanc (sec) FR",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "76527443-1bad-4d7a-867f-b62957e34f62",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 215.33,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "GLO",
+    "massPerUnit": null,
+    "scopes": [
+      "food"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "White wine, dry, variant 2, CMAPS {GLO} U",
+    "categories": [
+      "ingredient",
+      "material"
+    ],
+    "comment": "",
+    "displayName": "Vin blanc (sec) Origine Inconnue",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "29aded8c-4bd4-4a17-942a-a2628cdcd895",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 1039.5,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "GLO",
+    "massPerUnit": null,
+    "scopes": [
+      "food"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "fibre, cotton, organic//[RoW] fibre production, cotton, organic, irrigated, ginning",
+>>>>>>> Stashed changes
     "categories": [
       "ingredient",
       "material"
