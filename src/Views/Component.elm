@@ -922,7 +922,7 @@ elementTransformsView config targetElement transformsResults transforms =
                 [ td [] []
                 , td [ class "text-end align-middle text-nowrap" ] []
                 , td
-                    [ class "text-truncate align-middle w-100 cursor-help"
+                    [ class "text-truncate align-middle w-66 cursor-help "
 
                     -- Note: allows truncated ellipsis in table cells https://stackoverflow.com/a/11877033/330911
                     , style "max-width" "0"
@@ -933,7 +933,7 @@ elementTransformsView config targetElement transformsResults transforms =
                     ]
                 , td [ class "text-end align-middle text-nowrap" ]
                     [ transformCountrySelector
-                        { attributes = [ style "min-width" "68px" ]
+                        { attributes = []
                         , countries = config.db.countries
                         , domId =
                             "transform-country-"
@@ -1005,7 +1005,7 @@ transformCountrySelector config =
                     [ text <|
                         case maybeCode of
                             Just code ->
-                                Country.codeToString code ++ " - " ++ name
+                                name ++ " (" ++ Country.codeToString code ++ ")"
 
                             Nothing ->
                                 "---"
