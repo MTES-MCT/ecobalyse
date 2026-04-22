@@ -109,24 +109,14 @@ async def test_user_cant_use_same_token_twice(
     ("email", "token"),
     (("superuser@example.com", "Test_Password1!_token"),),
 )
-async def test_user_logout(client: AsyncClient, email: str, token: str) -> None:
+async def test_no_auth_cookie(client: AsyncClient, email: str, token: str) -> None:
     response = await client.get(
         "/api/access/login", params={"email": email, "token": token}
     )
     assert response.status_code == 201
     cookies = dict(response.cookies)
 
-    assert cookies.get("token") is not None
-
-    me_response = await client.get("/api/me")
-    assert me_response.status_code == 200
-
-    response = await client.post("/api/access/logout")
-    assert response.status_code == 200
-
-    # the user can no longer access the /me route.
-    me_response = await client.get("/api/me")
-    assert me_response.status_code == 401
+    assert cookies.get("token") is None
 
 
 async def test_user_profile(

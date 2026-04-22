@@ -1,3 +1,3 @@
-from .custom_auth_middleware import CustomAuthMiddleware, CustomCookieAuthMiddleware
+from .custom_auth_middleware import CustomAuthMiddleware
 
-__all__ = ("CustomAuthMiddleware", "CustomCookieAuthMiddleware")
+__all__ = ("CustomAuthMiddleware",)
