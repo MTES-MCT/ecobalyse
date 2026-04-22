@@ -242,7 +242,7 @@ viewFacet ({ selectedFacets } as config) items { key, toValues } =
                             ( selected, value :: available )
                     )
                     ( [], [] )
-                |> Tuple.mapBoth Text.sortStrings Text.sortStrings
+                |> Tuple.mapBoth Text.sortI18nStrings Text.sortI18nStrings
     in
     div [ class "FacetCard card" ]
         [ div [ class "card-header fw-bold py-2" ] [ text key ]
