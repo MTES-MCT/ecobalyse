@@ -24,7 +24,16 @@ table distances countries { detailed, scope } =
     , toId = .code >> Country.codeToString
     , toRoute = .code >> Just >> Dataset.Countries >> Route.Explore scope
     , toSearchableString = Country.toSearchableString
-    , facets = []
+    , facets =
+        [ Table.Facet "Mix électrique" (.electricityProcess >> Process.getDisplayName >> List.singleton)
+        , Table.Facet "Chaleur" (.heatProcess >> Process.getDisplayName >> List.singleton)
+        , Table.Facet "Taux de pollution aquatique"
+            (.aquaticPollutionScenario
+                >> Country.getAquaticPollutionRatio
+                >> Split.toPercentString 0
+                >> (\p -> [ p ++ "%" ])
+            )
+        ]
     , legend = []
     , columns =
         List.filterMap identity

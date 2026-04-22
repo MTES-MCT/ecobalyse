@@ -211,7 +211,11 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
                         [ text "Télécharger ces données au format CSV" ]
                     ]
                 ]
-            , viewFacetsSidebar defaultConfig facets items
+            , div
+                [ class "col-xxl-2 col-xl-3 col-lg-3 col-md-12 col-sm-12 overflow-y-scroll sticky-top"
+                ]
+                [ viewFacetsSidebar defaultConfig facets items
+                ]
             ]
 
 
@@ -287,15 +291,9 @@ viewFacetOption config isSelected key value =
 
 viewFacetsSidebar : Config data msg -> List (Facet data) -> List data -> Html msg
 viewFacetsSidebar config facets items =
-    if List.isEmpty facets then
-        text ""
-
-    else
-        div [ class "col-xxl-2 col-xl-3 col-lg-3 col-md-12 col-sm-12" ]
-            [ facets
-                |> List.map (viewFacet config items)
-                |> div [ class "d-flex flex-column gap-2 sticky-top", style "top" "10px" ]
-            ]
+    facets
+        |> List.map (viewFacet config items)
+        |> div [ class "d-flex flex-column gap-2" ]
 
 
 filterItems : Config data msg -> List (Facet data) -> List data -> List data
