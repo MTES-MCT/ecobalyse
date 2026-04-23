@@ -665,14 +665,6 @@ countrySelector config =
             ]
 
 
-iconifiedLine : Html msg -> String -> Html msg
-iconifiedLine icon content =
-    span [ class "d-flex align-items-center gap-1" ]
-        [ span [ class "ComponentElementIcon me-0" ] [ icon ]
-        , text content
-        ]
-
-
 elementView : Config db msg -> TargetItem -> Index -> ExpandedElement -> Results -> Html msg
 elementView config (( component, _ ) as targetItem) elementIndex { amount, material, transforms } elementResults =
     tbody []
@@ -694,15 +686,13 @@ elementView config (( component, _ ) as targetItem) elementIndex { amount, mater
                         [ span [ class "ComponentElementIcon" ] [ Icon.material ]
                         , text <| Process.getDisplayName material
                         ]
-                    , small [ class "text-muted" ]
-                        [ iconifiedLine Icon.transform <|
-                            if List.isEmpty transforms then
-                                "aucune transformation"
+                    , div [ class "d-flex align-items-center gap-1 text-muted" ]
+                        [ span [ class "ComponentElementIcon me-0" ] [ Icon.transform ]
+                        , if List.isEmpty transforms then
+                            text "Aucune transformation"
 
-                            else
-                                transforms
-                                    |> List.map (.process >> Process.getDisplayName)
-                                    |> String.join ", "
+                          else
+                            text <| Component.transformListToString transforms
                         ]
                     ]
                 ]
