@@ -39,6 +39,7 @@ table { componentConfig, db } { detailed, scope } =
     , toId = .id >> Product.idToString
     , toRoute = .id >> Just >> Dataset.TextileProducts >> Route.Explore scope
     , toSearchableString = Product.toSearchableString
+    , toSearchableWords = Nothing
     , legend =
         [ ul [ class "list-unstyled text-muted p-2 m-0" ]
             [ li [] [ strong [] [ text "*" ], text " Modifié au changement de catégorie de produit" ]

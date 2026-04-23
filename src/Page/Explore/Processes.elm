@@ -24,6 +24,7 @@ table session { detailed, scope } =
     , toId = .id >> Process.idToString
     , toRoute = .id >> Just >> Dataset.Processes scope >> Route.Explore scope
     , toSearchableString = Process.toSearchableString
+    , toSearchableWords = Just Process.getSearchableWords
     , legend = []
     , columns = baseColumns detailed scope ++ impactsColumns session ++ complementsColumns session
     }

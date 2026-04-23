@@ -441,6 +441,7 @@ processFilters scopes search =
             { minQueryLength = 2
             , query = search
             , toString = .name
+            , toSearchableWords = Nothing
             }
 
 

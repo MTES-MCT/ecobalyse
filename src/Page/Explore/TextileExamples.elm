@@ -27,6 +27,7 @@ table { db } { maxScore, maxPer100g } { detailed, scope } =
     , toId = Tuple.first >> .id >> Uuid.toString
     , toRoute = Tuple.first >> .id >> Just >> Dataset.TextileExamples >> Route.Explore scope
     , toSearchableString = Tuple.first >> Example.toSearchableString
+    , toSearchableWords = Nothing
     , legend = []
     , columns =
         [ { label = "Nom"

@@ -11,6 +11,7 @@ type alias SearchConfig element =
     { minQueryLength : Int
     , query : String
     , toString : element -> String
+    , toSearchableWords : Maybe (element -> List String)
     }
 
 
@@ -21,7 +22,7 @@ type alias SearchConfig element =
 
 -}
 search : SearchConfig element -> List element -> List element
-search { minQueryLength, query, toString } elements =
+search { minQueryLength, query, toString, toSearchableWords } elements =
     let
         trimmedQuery =
             String.trim query
@@ -39,7 +40,11 @@ search { minQueryLength, query, toString } elements =
                     |> List.all
                         (\word ->
                             fn (String.toLower word) <|
-                                toWords (toString element)
+                                (element
+                                    |> (toSearchableWords
+                                            |> Maybe.withDefault (toString >> toWords)
+                                       )
+                                )
                         )
 
             exactWordsMatches =
@@ -59,9 +64,13 @@ search { minQueryLength, query, toString } elements =
 
 toWords : String -> List String
 toWords =
-    String.toLower
-        >> Normalize.removeDiacritics
-        >> Regex.split
-            (Regex.fromString "[\\W_]+"
-                |> Maybe.withDefault Regex.never
-            )
+    List.singleton
+
+
+
+-- String.toLower
+--     >> Normalize.removeDiacritics
+--     >> Regex.split
+--         (Regex.fromString "[\\W_]+"
+--             |> Maybe.withDefault Regex.never
+--         )

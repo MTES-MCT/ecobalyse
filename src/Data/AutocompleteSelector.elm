@@ -21,6 +21,7 @@ init toString availableElements =
                                 { minQueryLength = 1
                                 , query = lastChoices.query
                                 , toString = toString
+                                , toSearchableWords = Nothing
                                 }
                 }
         )

@@ -23,6 +23,7 @@ table ({ db } as session) { detailed, scope } =
     , toId = .id >> Maybe.map Component.idToString >> Maybe.withDefault ""
     , toRoute = .id >> Dataset.Components scope >> Route.Explore scope
     , toSearchableString = Component.toSearchableString db
+    , toSearchableWords = Nothing
     , legend = []
     , columns =
         [ { label = "Identifiant"

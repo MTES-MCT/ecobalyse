@@ -43,6 +43,7 @@ table { maxScore } { detailed, scope } =
                )
             >> Route.Explore scope
     , toSearchableString = Tuple.first >> Example.toSearchableString
+    , toSearchableWords = Nothing
     , legend = []
     , columns =
         [ { label = "Nom"

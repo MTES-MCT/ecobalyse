@@ -3,6 +3,7 @@ module Data.Process exposing
     , Process
     , Unit(..)
     , available
+    , computeSearchableWords
     , decode
     , decodeFromId
     , decodeId
@@ -13,6 +14,7 @@ module Data.Process exposing
     , getDisplayName
     , getImpact
     , getMaterialTypes
+    , getSearchableWords
     , getTechnicalName
     , idFromString
     , idToString
@@ -39,6 +41,8 @@ import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Json.Encode.Extra as EncodeExtra
+import Regex
+import String.Normalize as Normalize
 
 
 type Id
@@ -60,6 +64,7 @@ type alias Process =
     , location : Maybe String
     , massPerUnit : Maybe Float
     , metadata : Maybe Metadata
+    , searchableWords : Maybe (List String)
     , scopes : List Scope
     , source : String
     , unit : Unit
@@ -111,6 +116,11 @@ activityNameToString (ActivityName string) =
     string
 
 
+computeSearchableWords : Process -> Process
+computeSearchableWords process =
+    { process | searchableWords = Just <| getSearchableWords process }
+
+
 decode : Decoder Impact.Impacts -> Decoder Process
 decode impactsDecoder =
     Decode.succeed Process
@@ -126,6 +136,7 @@ decode impactsDecoder =
         |> Pipe.required "location" (Decode.maybe Decode.string)
         |> Pipe.required "massPerUnit" (Decode.maybe Decode.float)
         |> DU.strictOptional "metadata" Metadata.decode
+        |> Pipe.hardcoded Nothing
         |> Pipe.required "scopes" (Decode.list Scope.decode)
         |> Pipe.required "source" Decode.string
         |> Pipe.required "unit" (Decode.string |> Decode.andThen (DE.fromResult << unitFromString))
@@ -216,6 +227,11 @@ getMaterialTypes =
             )
 
 
+getSearchableWords : Process -> List String
+getSearchableWords process =
+    process.searchableWords |> Maybe.withDefault (toSearchableWords process)
+
+
 getTechnicalName : Process -> String
 getTechnicalName { activityName } =
     activityNameToString activityName
@@ -278,6 +294,22 @@ toSearchableString process =
         , process.comment
         , process.source
         ]
+
+
+toSearchableWords : Process -> List String
+toSearchableWords process =
+    let
+        _ =
+            Debug.log "toSearchableWords" process
+    in
+    process
+        |> toSearchableString
+        |> String.toLower
+        |> Normalize.removeDiacritics
+        |> Regex.split
+            (Regex.fromString "[\\W_]+"
+                |> Maybe.withDefault Regex.never
+            )
 
 
 unitLabel : Unit -> String

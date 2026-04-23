@@ -27,6 +27,7 @@ type alias Table data comparable msg =
     , toId : data -> String
     , toRoute : data -> Route
     , toSearchableString : data -> String
+    , toSearchableWords : Maybe (data -> List String)
     , columns : List (Column data comparable msg)
     , legend : List (Html msg)
     }
@@ -142,16 +143,15 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
                 }
 
         resultItems =
-            items
-                |> searchItems defaultConfig toSearchableString
+            items |> searchItems defaultConfig toSearchableString
 
-        csv =
-            { filename = "ecobalyse-" ++ Scope.toString scope ++ "-" ++ filename ++ ".csv"
-            , content =
-                resultItems
-                    |> toCSV table
-                    |> EncodeCsv.toString
-            }
+        -- csv =
+        --     { filename = "ecobalyse-" ++ Scope.toString scope ++ "-" ++ filename ++ ".csv"
+        --     , content =
+        --         resultItems
+        --             |> toCSV table
+        --             |> EncodeCsv.toString
+        --     }
     in
     if List.isEmpty items then
         Alert.simple
@@ -189,8 +189,9 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
             , div [ class "text-end pt-3" ]
                 [ a
                     [ class "btn btn-secondary"
-                    , href <| "data:text/csv;base64," ++ Base64.encode csv.content
-                    , download csv.filename
+
+                    -- , href <| "data:text/csv;base64," ++ Base64.encode csv.content
+                    -- , download csv.filename
                     ]
                     [ text "Télécharger ces données au format CSV" ]
                 ]
@@ -203,6 +204,7 @@ searchItems { search } toSearchableString =
         { minQueryLength = 2
         , query = search
         , toString = toSearchableString
+        , toSearchableWords = Nothing
         }
 
 
