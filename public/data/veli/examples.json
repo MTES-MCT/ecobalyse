@@ -258,7 +258,9 @@
               {
                 "amount": 0.05,
                 "material": "c5295f47-0307-48a6-8552-3705063af767",
-                "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
+                "transforms": [
+                  "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"
+                ]
               }
             ]
           },
@@ -621,6 +623,69 @@
         {
           "amount": 2000,
           "processId": "eec31f13-d00a-4741-a84f-85d887026f8c"
+        }
+      ],
+      "durability": 1
+    },
+    "scope": "veli"
+  },
+  {
+    "category": "",
+    "id": "25a72a81-ba18-4afb-8c3c-93205e379f40",
+    "name": "Veli, 45-90km/h max, essence",
+    "query": {
+      "assemblyCountry": "FR",
+      "components": [
+        {
+          "country": "FR",
+          "id": "189674e0-737e-4d6d-aab0-3fdfc19839ed",
+          "quantity": 1
+        },
+        {
+          "country": "DE",
+          "custom": {
+            "elements": [
+              {
+                "amount": 20,
+                "material": "8b28671a-83f2-46e6-8c1c-e973a47dde97",
+                "transforms": []
+              }
+            ],
+            "name": "Moteur"
+          },
+          "id": "edca4c52-b34a-4906-b2e0-4f726bfcc8f7",
+          "quantity": 1
+        },
+        {
+          "country": "RAS",
+          "id": "d4583813-5f80-47e0-b028-df438f59cfe2",
+          "quantity": 4
+        },
+        {
+          "country": "RAS",
+          "id": "6b3d7f30-e87b-426c-93ed-3a1179238583",
+          "quantity": 4
+        },
+        {
+          "country": "FR",
+          "id": "d3ef64c0-3deb-4ef2-838d-015d8ece019e",
+          "quantity": 1
+        },
+        {
+          "country": "FR",
+          "id": "1d2de15a-53d9-465d-a2cf-fa2c5f68f5e9",
+          "quantity": 2
+        },
+        {
+          "country": "RAS",
+          "id": "71086438-51a9-4980-ac3b-f24d5baa4cd5",
+          "quantity": 1
+        }
+      ],
+      "consumptions": [
+        {
+          "amount": 3500,
+          "processId": "96da7da0-19f6-46fb-b7d7-2d888e7046e0"
         }
       ],
       "durability": 1
