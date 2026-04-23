@@ -686,7 +686,14 @@ elementView config (( component, _ ) as targetItem) elementIndex { amount, mater
                 , style "max-width" "10vw"
                 ]
                 [ div [ class "d-flex flex-column" ]
-                    [ iconifiedLine Icon.material <| Process.getDisplayName material
+                    [ button
+                        [ type_ "button"
+                        , class "btn btn-sm btn-link text-decoration-none p-0 text-start"
+                        , onClick (config.openEditElementModal component ( targetItem, elementIndex ))
+                        ]
+                        [ span [ class "ComponentElementIcon" ] [ Icon.material ]
+                        , text <| Process.getDisplayName material
+                        ]
                     , small [ class "text-muted" ]
                         [ iconifiedLine Icon.transform <|
                             if List.isEmpty transforms then
