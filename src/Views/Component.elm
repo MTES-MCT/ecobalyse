@@ -930,7 +930,7 @@ elementTransformsView config targetElement transformsResults transforms =
                     ]
                 , td [ class "text-end align-middle text-nowrap" ]
                     [ transformCountrySelector
-                        { attributes = []
+                        { attributes = [ style "min-width" "230px" ]
                         , countries = config.db.countries
                         , domId =
                             "transform-country-"
