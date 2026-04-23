@@ -17,7 +17,6 @@ import Duration
 import Energy
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Mass
 import Page.Explore.Table as Table exposing (Table)
 import Route
 import Views.Format as Format
@@ -110,16 +109,6 @@ table { db } { detailed, scope } =
         , { label = "Étoffe*"
           , toValue = Table.StringValue (.fabric >> Fabric.toLabel)
           , toCell = .fabric >> Fabric.toLabel >> text
-          }
-        , let
-            -- Compute picking per kg of end product
-            picking { surfaceMass, yarnSize } =
-                Unit.surfaceMassToSurface surfaceMass Mass.kilogram
-                    |> Formula.computePicking (Formula.computeThreadDensity surfaceMass yarnSize)
-          in
-          { label = "Duites.m pour (1kg)**"
-          , toValue = Table.FloatValue <| picking >> Unit.pickPerMeterToFloat
-          , toCell = picking >> Format.picking
           }
         , { label = "Stocks dormants"
           , toValue = Table.FloatValue (Split.toPercent Env.defaultDeadStock |> always)
