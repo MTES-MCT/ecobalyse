@@ -127,7 +127,9 @@
     "location": "NL",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -170,7 +172,9 @@
     "location": "NL",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -213,7 +217,9 @@
     "location": "MX",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -436,7 +442,9 @@
     "location": "CN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -479,7 +487,9 @@
     "location": "CN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -880,7 +890,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -923,7 +935,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -966,7 +980,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -1009,7 +1025,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -1541,7 +1559,9 @@
     "location": "RoW",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -1629,7 +1649,9 @@
     "location": "WI",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -1806,7 +1828,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -2162,7 +2186,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -2250,7 +2276,9 @@
     "location": "GB",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -2382,7 +2410,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -2425,7 +2455,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -2468,7 +2500,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -2646,7 +2680,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -2821,7 +2857,9 @@
     "location": "VN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -2864,7 +2902,9 @@
     "location": "VN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -2907,7 +2947,9 @@
     "location": "VN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -2950,7 +2992,9 @@
     "location": "VN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -3038,7 +3082,9 @@
     "location": "RS",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -3257,7 +3303,9 @@
     "location": "CA",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -3300,7 +3348,9 @@
     "location": "CA",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -3743,7 +3793,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -3786,7 +3838,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -3919,7 +3973,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -3962,7 +4018,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -4050,7 +4108,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -4627,7 +4687,9 @@
     "location": "RoW",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -4670,7 +4732,9 @@
     "location": "RoW",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -5427,7 +5491,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -5470,7 +5536,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -5513,7 +5581,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -5556,7 +5626,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -5599,7 +5671,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -5642,7 +5716,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -5685,7 +5761,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -5773,7 +5851,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -5951,7 +6031,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -5994,7 +6076,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -6037,7 +6121,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -6080,7 +6166,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -6123,7 +6211,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -6166,7 +6256,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -6209,7 +6301,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -6657,7 +6751,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -6700,7 +6796,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -7275,7 +7373,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -7318,7 +7418,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -7406,7 +7508,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -7538,7 +7642,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -7581,7 +7687,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -7624,7 +7732,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -7667,7 +7777,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -8107,7 +8219,9 @@
     "location": "MA",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -8150,7 +8264,9 @@
     "location": "MA",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -8506,7 +8622,9 @@
     "location": "ID",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -8683,7 +8801,9 @@
     "location": "IN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -9522,7 +9642,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -9609,7 +9731,9 @@
     "location": "CL",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -9652,7 +9776,9 @@
     "location": "CL",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -9932,7 +10058,7 @@
     "displayName": "Concombre FR (2025)",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "4a99833f-f8f7-5d11-9ec8-bd997ab09158",
+    "id": "9517ce08-1b71-5722-8805-866d51d78215",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -9977,7 +10103,7 @@
     "displayName": "Concombre Origine Inconnue (2025)",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "053533cf-8fd1-5cbe-832c-c25d2d9ed885",
+    "id": "542540f4-754f-53e5-88df-44afaffb6972",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -10139,7 +10265,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -10182,7 +10310,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -11196,7 +11326,9 @@
     "location": "AU",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -11239,7 +11371,9 @@
     "location": "AU",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -11327,7 +11461,9 @@
     "location": "AU",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -11415,7 +11551,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -11458,7 +11596,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -11501,7 +11641,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -11949,7 +12091,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -12037,7 +12181,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -12168,7 +12314,9 @@
     "location": "PL",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -12211,7 +12359,9 @@
     "location": "PL",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -12568,7 +12718,9 @@
     "location": "CH",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -12742,7 +12894,9 @@
     "location": "CH",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -12784,7 +12938,9 @@
     "location": "CH",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -12826,7 +12982,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -12868,7 +13026,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -12910,7 +13070,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -12952,7 +13114,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -13038,7 +13202,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -13080,7 +13246,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -13122,7 +13290,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -13164,7 +13334,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -14043,7 +14215,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -14086,7 +14260,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -14352,7 +14528,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -14395,7 +14573,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -14438,7 +14618,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -14481,7 +14663,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -14524,7 +14708,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -15251,7 +15437,7 @@
     "displayName": "Raisins (noirs ou blancs) FR (2025)",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "0746b057-6331-5cc5-a3b2-532e3ddaecdf",
+    "id": "5f5b55bb-9e8f-59d7-83de-7ddfe2f28513",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -15321,6 +15507,92 @@
     },
     "landOccupation": null,
     "location": "FR",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Agribalyse 3.2",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Grape, integrated, french mix {FR} U",
+    "categories": [
+      "ingredient"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024. \nThis dataset was created for the ACYVIA project based on data from Agribalyse and Agreste 2010",
+    "displayName": "Raisins (noirs ou blancs) FR",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "0746b057-6331-5cc5-a3b2-532e3ddaecdf",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 94.91,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "FR",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Agribalyse 3.2",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Grape, wine grape, at farm {IT} - Adapted from WFLDB U",
+    "categories": [
+      "ingredient"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024. \nThis dataset has been adapted for Agribalyse 3.2.\n- Background Ecoinvent data have been updated to Ecoinvent 3.9.1\n_________________________________\nReference flow: The functional unit is the production of 1 kg of wine grape at the farm, with standard water content (81.0%). The reference flow is the average Yield_ per hectare and year: 9.812 t/ha, obtained under irrigated conditions (total  amount of water 2740.19 m3/ha). \n\nAllocation: No allocation\n\nSystem boundaries: cradle-to-gate. The inventory includes the processes of seedling production and planting, fertilizer and pesticide application, irrigation and harvest. Equipment infrastructure is also considered, such as for sprinkler irrigation. Direct field emissions from crop production activities (fertiliser and pesticide use) and land use change (LUC) are considered. Irrigation is based on blue water from Pfister. The harvest is assumed to be manual. Number of years from planting to clearing (lifetime): 40 years. \n\nData quality rating (DQR) = 1.7, Very good quality\n\nGeography: Italy\n\nTechnology: Conventional production.\n\nTime: 2010-2016\n\nData sources: \nBartocci 2017: Barrocci P, Fantozzi P, Fantozzi F, 2016. Environmental impact of Sagrantino and Grechetto grapes cultivation for wine and vinegar production in central Italy. Journal of Cleaner Production, 140. \nBenedetto 2013: Benedetto G, 2013. The environmental impact of a Sardinian wine by partial life cycle assessment. Wine Economics and Policy, 2. \nBosco 2011: Bosco S, Di Bene C, Galli M, Remorini D, Massai R, Bonari E, 2011. Grenhouse gas emissions in the agricultural phase of wine production in the Maremma rural district in Tuscany, Italy. Italian Journal of Agronomy, 6. \nGazulla 2010: Gazulla C, Raugei M, Fullana-i-Palmer P, 2010. Taking a life cycle look at crianza wine production in Spain: where are the bottlenecks? Int J Life Cycle Assess, 15. \nMeneses 2016: Meneses M, Torres C M, Castells F, 2016. Sensitivity analysis in a life cycle assessment of an aged red wine production from Catalonia, Spain. Science of the Total Environment, 562. \nVazquez-Rowe 2013: Vazquez-Rowe I, Rugani B, Benetto E, 2013. Tapping carbon footprint variations in the European wine sector. journal of Cleaner Production, 42.",
+    "displayName": "Raisins (noirs ou blancs) Origine Inconnue",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "3733e844-5e53-5404-9b26-28fcb67896c8",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 483.67,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "IT",
     "massPerUnit": null,
     "metadata": null,
     "scopes": [
@@ -15727,7 +15999,9 @@
     "location": "IT",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -16038,7 +16312,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -16081,7 +16357,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -16168,7 +16446,9 @@
     "location": "US",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -16211,7 +16491,9 @@
     "location": "CH",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -16831,7 +17113,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -16874,7 +17158,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -16962,7 +17248,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -17005,7 +17293,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -17048,7 +17338,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -17268,7 +17560,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -17311,7 +17605,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -17578,7 +17874,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -17621,7 +17919,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -17797,7 +18097,9 @@
     "location": "ES",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -17885,7 +18187,9 @@
     "location": "CA-SK",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -17928,7 +18232,9 @@
     "location": "CA-SK",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -18016,7 +18322,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -18059,7 +18367,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -18192,7 +18502,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -18280,7 +18592,9 @@
     "location": "RoW",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -18323,7 +18637,9 @@
     "location": "RoW",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -18365,7 +18681,9 @@
     "location": "CA",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -18407,7 +18725,9 @@
     "location": "CA",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -18449,7 +18769,9 @@
     "location": "CA",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -18491,7 +18813,9 @@
     "location": "CA",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -18758,7 +19082,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -18801,7 +19127,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -18888,7 +19216,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -19110,7 +19440,9 @@
     "location": "BR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -19198,7 +19530,9 @@
     "location": "BR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -19331,7 +19665,9 @@
     "location": "BR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -20262,7 +20598,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -20440,7 +20778,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -20528,7 +20868,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -20571,7 +20913,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -20923,7 +21267,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "L",
     "waste": 0
@@ -20965,7 +21311,9 @@
     "location": "RoW",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -21007,7 +21355,9 @@
     "location": "RoW",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -21049,7 +21399,9 @@
     "location": "RoW",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -21091,7 +21443,9 @@
     "location": "RoW",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -21133,7 +21487,9 @@
     "location": "RoW",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -21175,7 +21531,9 @@
     "location": "RoW",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -21357,6 +21715,49 @@
     "waste": 0
   },
   {
+    "activityName": "Mixt pig, conventional, national average, at farm gate {FR} U",
+    "categories": [
+      "ingredient"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024.",
+    "displayName": "Porc FR",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "20f23531-773c-5d76-a87e-ad99086f61d8",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 673.39,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "FR",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Agribalyse 3.2",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "Mortadella, 135g | Packaging System, N0, All, APET/PE tray with lid {FR} U",
     "categories": [
       "packaging",
@@ -21527,7 +21928,9 @@
     "location": "Canada without Quebec",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -21570,7 +21973,9 @@
     "location": "Canada without Quebec",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -21834,7 +22239,9 @@
     "location": "RoW",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -21877,7 +22284,9 @@
     "location": "FI",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -22366,7 +22775,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -22409,7 +22820,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -22542,7 +22955,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -22585,7 +23000,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -22718,7 +23135,9 @@
     "location": "ES",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -22761,7 +23180,9 @@
     "location": "ES",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -22804,7 +23225,9 @@
     "location": "ES",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -22847,7 +23270,9 @@
     "location": "ES",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -22863,7 +23288,7 @@
     "displayName": "Raisins (noirs ou blancs) Origine Inconnue (2025)",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "3733e844-5e53-5404-9b26-28fcb67896c8",
+    "id": "530cb606-7c13-580a-8cd7-e72a5834d238",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -23025,7 +23450,9 @@
     "location": "ES",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -23068,7 +23495,9 @@
     "location": "ES",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -23417,7 +23846,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -23460,7 +23891,9 @@
     "location": "MY",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -23593,7 +24026,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -23681,7 +24116,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -23724,7 +24161,9 @@
     "location": "US",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -23767,7 +24206,9 @@
     "location": "US",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -24694,7 +25135,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -24737,7 +25180,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -24780,7 +25225,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -25090,7 +25537,9 @@
     "location": "IN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -25133,7 +25582,9 @@
     "location": "RoW",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -25220,7 +25671,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -25306,7 +25759,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -25618,7 +26073,9 @@
     "location": "CR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -25706,7 +26163,9 @@
     "location": "TH",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -26890,7 +27349,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -26933,7 +27394,9 @@
     "location": "PE",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -26975,7 +27438,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -27284,7 +27749,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -27371,7 +27838,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -27414,7 +27883,9 @@
     "location": "RS",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -27457,7 +27928,9 @@
     "location": "RS",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -27768,7 +28241,9 @@
     "location": "IN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -27856,7 +28331,9 @@
     "location": "IN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -27899,7 +28376,9 @@
     "location": "CN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -28030,7 +28509,9 @@
     "location": "CH",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -28692,7 +29173,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -28735,7 +29218,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -28778,7 +29263,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -28821,7 +29308,9 @@
     "location": "BD",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -28864,7 +29353,9 @@
     "location": "RoW",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -29127,7 +29618,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -29170,7 +29663,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -29347,7 +29842,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -29478,7 +29975,9 @@
     "location": "BE",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -29521,7 +30020,9 @@
     "location": "HU",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -29564,7 +30065,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -29607,7 +30110,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -30222,7 +30727,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -30579,7 +31086,9 @@
     "location": "BR-RS",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -30667,7 +31176,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -30976,7 +31487,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -31019,7 +31532,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -31197,7 +31712,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -31240,7 +31757,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -31283,7 +31802,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -31326,7 +31847,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -31369,7 +31892,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -31457,7 +31982,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -31543,7 +32070,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -31585,7 +32114,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -32291,7 +32822,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -32334,7 +32867,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -32377,7 +32912,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -32465,7 +33002,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -32598,7 +33137,9 @@
     "location": "CA",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -32641,7 +33182,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -32818,7 +33361,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -33221,7 +33766,9 @@
     "location": "RoW",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -33398,7 +33945,9 @@
     "location": "ZA",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -34085,7 +34634,7 @@
     "displayName": "Concombre FR",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "07fd9c83-3274-458a-9ec4-608db25ec7e4",
+    "id": "4a99833f-f8f7-5d11-9ec8-bd997ab09158",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -34112,7 +34661,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -34200,7 +34751,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -34288,7 +34841,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -34862,7 +35417,9 @@
     "location": "MG",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -35524,7 +36081,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -35612,7 +36171,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -35790,7 +36351,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -36013,7 +36576,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -36146,7 +36711,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -36189,7 +36756,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -36365,7 +36934,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -36408,7 +36979,9 @@
     "location": "US",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -36630,7 +37203,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -36673,7 +37248,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -36759,7 +37336,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -36801,7 +37380,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -36887,7 +37468,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -36929,7 +37512,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -36971,7 +37556,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -37013,7 +37600,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -37055,7 +37644,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -37409,7 +38000,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -37452,7 +38045,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -37495,7 +38090,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -37538,7 +38135,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -37581,7 +38180,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -37624,7 +38225,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -37712,7 +38315,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -37800,7 +38405,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
     "waste": 0
@@ -40660,6 +41267,135 @@
     "waste": 0
   },
   {
+    "activityName": "Broiler, conventional, at farm gate {FR} U {{meat-without-bone-chicken-direct-consumption-only-soybean-max}}",
+    "categories": [
+      "ingredient"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024. \nIncluded processes: The inventory includes : The inventory includes: all activities of a poultry farm, that is (1) all inputs as livestock (young animal), feeds, water (watering and clenaning), fuels and energy used for the hatchery as well as the transport to the farm; (2) the buildings and barns; (3) emissions due to the effluent management. \nThe border of the inventory is from the birth of the animal to its leaving of the farm.\nCut-off rule, exclusion : The inventory does not include vet products and cares, artificial insemination process, small cleaning material and all process occuring outside of the farm (slaughtering, processing, conservation etc).\nRefers to 1kg (live weight) of convetional broiler.\nAllocation: none.\nRemark: Functional unit:1 kg (live weight) of broiler, conventional production \nNational French average\nCoproducts: 215873.0 Chicken (weight 1,95 kg)\nRaw datas comes from:Sampling procedure: the data is based on survey, literature, statistical data and expert judgements. \nILCD – Overall data quality : \nTechnological representativeness (TeR) = 1 : Very good\nGeographical representativeness (GR) = 1 : Very good\nTime-related representativeness (TiR) = 2 : Good\nCompleteness (C) = 2 : Good\nPrecision / uncertainty (P) = 1 : Very good\nMethodological appropriateness and consistency (M) = 2 : Good\nFinal note = 1,7 : Basic quality\nundefined\nDataset was generated by MEANS-InOut software.\nModels used : [NOx - EMEP 2019, tier 1; NO3 - Basset-Mens 2007; N2O - IPCC 2019, tier 2; N - ITAVI 2013; CH4 manure - IPCC 2019, tier 2; NH3 - EMEP 2019, tier 2; ]\nMEANS id : Scenario #6065\nTechnology: Conventional production -  production mode: Conventional production -\nTime period: Inventory data based on the period : 2021\nVersion: 0.0\nEnergy values: Net values\nProduction volume: Production volume : 420952 kg\nSource file: Broiler, conventiona_MEANS#6065-Ecoinvent 3.8 - AGB 3.1.1.xml",
+    "displayName": "Lapin Origine Inconnue",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "1e72c100-92f9-54e3-8289-d8efc3890acc",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 810.24,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "FR",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Broiler, conventional, at farm gate {FR} U {{meat-without-bone-chicken-direct-consumption-only-soybean-max}}",
+    "categories": [
+      "ingredient"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024. \nIncluded processes: The inventory includes : The inventory includes: all activities of a poultry farm, that is (1) all inputs as livestock (young animal), feeds, water (watering and clenaning), fuels and energy used for the hatchery as well as the transport to the farm; (2) the buildings and barns; (3) emissions due to the effluent management. \nThe border of the inventory is from the birth of the animal to its leaving of the farm.\nCut-off rule, exclusion : The inventory does not include vet products and cares, artificial insemination process, small cleaning material and all process occuring outside of the farm (slaughtering, processing, conservation etc).\nRefers to 1kg (live weight) of convetional broiler.\nAllocation: none.\nRemark: Functional unit:1 kg (live weight) of broiler, conventional production \nNational French average\nCoproducts: 215873.0 Chicken (weight 1,95 kg)\nRaw datas comes from:Sampling procedure: the data is based on survey, literature, statistical data and expert judgements. \nILCD – Overall data quality : \nTechnological representativeness (TeR) = 1 : Very good\nGeographical representativeness (GR) = 1 : Very good\nTime-related representativeness (TiR) = 2 : Good\nCompleteness (C) = 2 : Good\nPrecision / uncertainty (P) = 1 : Very good\nMethodological appropriateness and consistency (M) = 2 : Good\nFinal note = 1,7 : Basic quality\nundefined\nDataset was generated by MEANS-InOut software.\nModels used : [NOx - EMEP 2019, tier 1; NO3 - Basset-Mens 2007; N2O - IPCC 2019, tier 2; N - ITAVI 2013; CH4 manure - IPCC 2019, tier 2; NH3 - EMEP 2019, tier 2; ]\nMEANS id : Scenario #6065\nTechnology: Conventional production -  production mode: Conventional production -\nTime period: Inventory data based on the period : 2021\nVersion: 0.0\nEnergy values: Net values\nProduction volume: Production volume : 420952 kg\nSource file: Broiler, conventiona_MEANS#6065-Ecoinvent 3.8 - AGB 3.1.1.xml",
+    "displayName": "Poulet Origine Inconnue",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "8d3a194f-b478-556c-bacc-18d452baefa4",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 810.24,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "FR",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Broiler, conventional, at farm gate {FR} U {{meat-without-bone-chicken-direct-consumption-only-soybean-max}}",
+    "categories": [
+      "ingredient"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024. \nIncluded processes: The inventory includes : The inventory includes: all activities of a poultry farm, that is (1) all inputs as livestock (young animal), feeds, water (watering and clenaning), fuels and energy used for the hatchery as well as the transport to the farm; (2) the buildings and barns; (3) emissions due to the effluent management. \nThe border of the inventory is from the birth of the animal to its leaving of the farm.\nCut-off rule, exclusion : The inventory does not include vet products and cares, artificial insemination process, small cleaning material and all process occuring outside of the farm (slaughtering, processing, conservation etc).\nRefers to 1kg (live weight) of convetional broiler.\nAllocation: none.\nRemark: Functional unit:1 kg (live weight) of broiler, conventional production \nNational French average\nCoproducts: 215873.0 Chicken (weight 1,95 kg)\nRaw datas comes from:Sampling procedure: the data is based on survey, literature, statistical data and expert judgements. \nILCD – Overall data quality : \nTechnological representativeness (TeR) = 1 : Very good\nGeographical representativeness (GR) = 1 : Very good\nTime-related representativeness (TiR) = 2 : Good\nCompleteness (C) = 2 : Good\nPrecision / uncertainty (P) = 1 : Very good\nMethodological appropriateness and consistency (M) = 2 : Good\nFinal note = 1,7 : Basic quality\nundefined\nDataset was generated by MEANS-InOut software.\nModels used : [NOx - EMEP 2019, tier 1; NO3 - Basset-Mens 2007; N2O - IPCC 2019, tier 2; N - ITAVI 2013; CH4 manure - IPCC 2019, tier 2; NH3 - EMEP 2019, tier 2; ]\nMEANS id : Scenario #6065\nTechnology: Conventional production -  production mode: Conventional production -\nTime period: Inventory data based on the period : 2021\nVersion: 0.0\nEnergy values: Net values\nProduction volume: Production volume : 420952 kg\nSource file: Broiler, conventiona_MEANS#6065-Ecoinvent 3.8 - AGB 3.1.1.xml",
+    "displayName": "Volaille Origine Inconnue",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "c7b79f39-3672-530e-8966-f612b67de746",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 810.24,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "FR",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "Broiler, organic, at farm gate {FR} U {{chicken-breast-fr-organic-2025}}",
     "categories": [
       "ingredient",
@@ -41080,6 +41816,264 @@
       "acd": 0,
       "cch": 0,
       "ecs": 1233.4,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "FR",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Live beef, for direct consumption, consumption mix {FR} U {{beef-with-bone-organic-2025}}",
+    "categories": [
+      "ingredient"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.",
+    "displayName": "Boeuf Bio",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "ee9f059d-cb4f-5e74-9981-7ced79fdc330",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 1085.9,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "FR",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Live broiler, for direct consumption, consumption mix {FR} U {{chicken-breast-organic-2025}} {{chicken-breast-fr-organic-2025}}",
+    "categories": [
+      "ingredient"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.",
+    "displayName": "Lapin Bio",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "9f9c8201-bf32-5562-be28-a637b6a6f7b7",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 579.78,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "FR",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Live broiler, for direct consumption, consumption mix {FR} U {{chicken-breast-organic-2025}} {{chicken-breast-fr-organic-2025}}",
+    "categories": [
+      "ingredient"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.",
+    "displayName": "Poulet Bio",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "d5ebedac-5c53-5de7-ace9-0a122a072200",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 579.78,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "FR",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Live broiler, for direct consumption, consumption mix {FR} U {{chicken-breast-organic-2025}} {{chicken-breast-fr-organic-2025}}",
+    "categories": [
+      "ingredient"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.",
+    "displayName": "Volaille Bio",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "f7082531-2885-5883-9f07-d15e07899873",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 579.78,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "FR",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Live lamb, consumption mix {FR} U {{lamb-meat-without-bone-organic-2025}}",
+    "categories": [
+      "ingredient"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.",
+    "displayName": "Agneau Bio",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "034bbddf-d9b2-5a29-8397-4abcd65a7999",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 1235.8,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "FR",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Live pig, consumption mix {FR} U {{bacon-organic-2025}}",
+    "categories": [
+      "ingredient"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.\n This process describes the average consumption mix of live pig in France.\nIncluded activities are production in country of origin and transport.",
+    "displayName": "Porc Bio",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "eb795534-730a-561b-b520-15d11a670927",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 620.04,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -41575,6 +42569,49 @@
       "acd": 0,
       "cch": 0,
       "ecs": 2047.7,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": "FR",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Mixt pig, conventional, national average, at farm gate {FR} U {{bacon-default-2025}}",
+    "categories": [
+      "ingredient"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024.",
+    "displayName": "Porc Origine Inconnue",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "7d94e5d1-ef4b-55ec-8212-b23be63c16a3",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 684.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -44021,7 +45058,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
     "waste": 0
@@ -44240,7 +45279,9 @@
     "location": "IN-UP",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
     "waste": 0
@@ -44283,7 +45324,9 @@
     "location": "IN-UP",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
     "waste": 0
@@ -44326,7 +45369,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
     "waste": 0
@@ -44369,7 +45414,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
     "waste": 0
@@ -44412,7 +45459,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
     "waste": 0
@@ -44455,7 +45504,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
     "waste": 0
@@ -44498,7 +45549,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
     "waste": 0
@@ -44541,7 +45594,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
     "waste": 0
@@ -44584,7 +45639,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
     "waste": 0
@@ -44627,7 +45684,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
     "waste": 0
@@ -44670,7 +45729,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
     "waste": 0
@@ -44713,7 +45774,9 @@
     "location": "RoW",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
     "waste": 0
@@ -44756,7 +45819,9 @@
     "location": "ID",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
     "waste": 0
@@ -44799,7 +45864,9 @@
     "location": "RoW",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
     "waste": 0
@@ -44842,7 +45909,9 @@
     "location": "CA-AB",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
     "waste": 0
@@ -44885,7 +45954,9 @@
     "location": "CA-AB",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
     "waste": 0
@@ -44928,7 +45999,9 @@
     "location": "CA-AB",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
     "waste": 0
@@ -44971,7 +46044,9 @@
     "location": "RoW",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
     "waste": 0
@@ -45014,7 +46089,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
     "waste": 0
@@ -45057,7 +46134,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
     "waste": 0
@@ -45100,7 +46179,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
     "waste": 0
@@ -45143,7 +46224,9 @@
     "location": "ES",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
     "waste": 0
@@ -45186,7 +46269,9 @@
     "location": "RoW",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
     "waste": 0
@@ -45229,7 +46314,9 @@
     "location": "US",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
     "waste": 0
@@ -45272,7 +46359,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
     "waste": 0
@@ -45315,7 +46404,9 @@
     "location": "CA-ON",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
     "waste": 0
@@ -45358,7 +46449,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
     "waste": 0
@@ -45401,7 +46494,9 @@
     "location": "US-MN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
     "waste": 0
@@ -45444,7 +46539,9 @@
     "location": "CN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
     "waste": 0
@@ -45487,7 +46584,9 @@
     "location": "US",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
     "waste": 0
@@ -45530,7 +46629,9 @@
     "location": "CN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
     "waste": 0
@@ -50244,7 +51345,9 @@
     "location": "CN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -50287,7 +51390,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -50330,7 +51435,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -50373,7 +51480,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -50416,7 +51525,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -50459,7 +51570,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -50502,7 +51615,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -50545,7 +51660,9 @@
     "location": "RoW",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -50588,7 +51705,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -50631,7 +51750,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -50674,7 +51795,9 @@
     "location": "RS",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -50717,7 +51840,9 @@
     "location": "CA",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -50850,7 +51975,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -50893,7 +52020,9 @@
     "location": "RoW",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -50981,7 +52110,9 @@
     "location": "RoW",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -51024,7 +52155,9 @@
     "location": "RoW",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -51067,7 +52200,9 @@
     "location": "RoW",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -51200,7 +52335,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -51243,7 +52380,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -51331,7 +52470,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -51374,7 +52515,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -51417,7 +52560,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -51460,7 +52605,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -51503,7 +52650,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -51546,7 +52695,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -51634,7 +52785,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -51677,7 +52830,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -51720,7 +52875,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -51763,7 +52920,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -51806,7 +52965,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -51849,7 +53010,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -51892,7 +53055,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -51935,7 +53100,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -51978,7 +53145,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -52066,7 +53235,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -52109,7 +53280,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -52197,7 +53370,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -52240,7 +53415,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -52328,7 +53505,9 @@
     "location": "MA",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -52371,7 +53550,9 @@
     "location": "RoW",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -52414,7 +53595,9 @@
     "location": "IN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -52457,7 +53640,9 @@
     "location": "CL",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -52500,7 +53685,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -52543,7 +53730,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -52631,7 +53820,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -52674,7 +53865,9 @@
     "location": "CH",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -52717,7 +53910,9 @@
     "location": "CH",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -52760,7 +53955,9 @@
     "location": "CH",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -52803,7 +54000,9 @@
     "location": "CH",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -52846,7 +54045,9 @@
     "location": "CH",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -52888,7 +54089,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -52930,7 +54133,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -52972,7 +54177,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -53014,7 +54221,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -53056,7 +54265,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -53099,7 +54310,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -53142,7 +54355,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -53185,7 +54400,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -53228,7 +54445,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -53361,7 +54580,9 @@
     "location": "IT",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -53404,7 +54625,9 @@
     "location": "US",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -53492,7 +54715,9 @@
     "location": "IT",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -53580,7 +54805,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -53668,7 +54895,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -53711,7 +54940,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -53754,7 +54985,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -53797,7 +55030,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -53885,7 +55120,9 @@
     "location": "IT",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -53973,7 +55210,9 @@
     "location": "CA-SK",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -54061,7 +55300,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -54149,7 +55390,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -54282,7 +55525,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -54324,7 +55569,9 @@
     "location": "RoW",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -54366,7 +55613,9 @@
     "location": "RoW",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -54408,7 +55657,9 @@
     "location": "RoW",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -54450,7 +55701,9 @@
     "location": "RoW",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -54493,7 +55746,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -54536,7 +55791,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -54579,7 +55836,9 @@
     "location": "BR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -54622,7 +55881,9 @@
     "location": "BR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -54665,7 +55926,9 @@
     "location": "BR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -54708,7 +55971,9 @@
     "location": "BR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -54841,7 +56106,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -54884,7 +56151,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -54972,7 +56241,9 @@
     "location": "RoW",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -55058,7 +56329,9 @@
     "location": "ES",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -55101,7 +56374,9 @@
     "location": "CN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -55144,7 +56419,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -55187,7 +56464,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -55320,7 +56599,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -55363,7 +56644,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -55451,7 +56734,9 @@
     "location": "ES",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -55494,7 +56779,9 @@
     "location": "BR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -55537,7 +56824,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -55580,7 +56869,9 @@
     "location": "MY",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -55668,7 +56959,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -55711,7 +57004,9 @@
     "location": "ES",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -55754,7 +57049,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -55797,7 +57094,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -55885,7 +57184,9 @@
     "location": "AR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -55928,7 +57229,9 @@
     "location": "AR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -55971,7 +57274,9 @@
     "location": "CN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -56014,7 +57319,9 @@
     "location": "IN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -56057,7 +57364,9 @@
     "location": "RoW",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -56145,7 +57454,9 @@
     "location": "RoW",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -56188,7 +57499,9 @@
     "location": "NL",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -56231,7 +57544,9 @@
     "location": "CR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -56319,7 +57634,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -56361,7 +57678,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -56448,7 +57767,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -56491,7 +57812,9 @@
     "location": "RS",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -56624,7 +57947,9 @@
     "location": "IN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -56667,7 +57992,9 @@
     "location": "IN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -56755,7 +58082,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -56798,7 +58127,9 @@
     "location": "BR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -56841,7 +58172,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -56974,7 +58307,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -57017,7 +58352,9 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -57060,7 +58397,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -57103,7 +58442,9 @@
     "location": "PL",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -57146,7 +58487,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -57189,7 +58532,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -57232,7 +58577,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -57275,7 +58622,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -57318,7 +58667,9 @@
     "location": "DE",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -57406,7 +58757,9 @@
     "location": "MX",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -57494,7 +58847,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -57537,7 +58892,9 @@
     "location": "RoW",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -57625,7 +58982,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -57668,7 +59027,9 @@
     "location": "ES",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -57711,7 +59072,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -57754,7 +59117,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -57797,7 +59162,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -57840,7 +59207,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -57928,7 +59297,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -57971,7 +59342,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -58059,7 +59432,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -58102,7 +59477,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -58145,7 +59522,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -58187,7 +59566,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -58229,7 +59610,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -58271,7 +59654,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -58313,7 +59698,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -58356,7 +59743,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -58399,7 +59788,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -58442,7 +59833,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -58485,7 +59878,9 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "Ginko 2025",
     "unit": "kg",
     "waste": 0
@@ -58573,7 +59968,9 @@
     "location": "CN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -58616,7 +60013,9 @@
     "location": "CN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -58704,7 +60103,9 @@
     "location": "ES",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -58792,7 +60193,9 @@
     "location": "CN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -58835,7 +60238,9 @@
     "location": "CR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -58878,7 +60283,9 @@
     "location": "CR",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -58921,7 +60328,9 @@
     "location": "UA",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -58963,7 +60372,9 @@
     "location": "IL",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -59005,7 +60416,9 @@
     "location": "IL",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -59047,7 +60460,9 @@
     "location": "IL",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -59089,7 +60504,9 @@
     "location": "IL",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -59131,7 +60548,9 @@
     "location": "IL",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -59173,7 +60592,9 @@
     "location": "IL",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -59215,7 +60636,9 @@
     "location": "IL",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -59257,7 +60680,9 @@
     "location": "IL",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -59299,7 +60724,9 @@
     "location": "IL",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -59341,7 +60768,9 @@
     "location": "IL",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -59383,7 +60812,9 @@
     "location": "IL",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -59426,7 +60857,9 @@
     "location": "CI",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -59469,7 +60902,9 @@
     "location": "CL",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -59557,7 +60992,9 @@
     "location": "CL",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -59735,7 +61172,9 @@
     "location": "CL",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -59778,7 +61217,9 @@
     "location": "CN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -59866,7 +61307,9 @@
     "location": "PH",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -59909,7 +61352,9 @@
     "location": "US",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -59952,7 +61397,9 @@
     "location": "CN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -59995,7 +61442,9 @@
     "location": "US",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -60128,7 +61577,9 @@
     "location": "MX",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -60306,7 +61757,9 @@
     "location": "IN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -60349,7 +61802,9 @@
     "location": "IN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -60392,7 +61847,9 @@
     "location": "IN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -60435,7 +61892,9 @@
     "location": "IN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -60477,7 +61936,9 @@
     "location": "IN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -60519,7 +61980,9 @@
     "location": "IN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -60561,7 +62024,9 @@
     "location": "IN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -60603,7 +62068,9 @@
     "location": "IN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -60645,7 +62112,9 @@
     "location": "IN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -60687,7 +62156,9 @@
     "location": "IN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -60730,7 +62201,9 @@
     "location": "IT",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -60773,7 +62246,9 @@
     "location": "NZ",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -60816,7 +62291,9 @@
     "location": "NZ",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -60859,7 +62336,9 @@
     "location": "NZ",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -60902,7 +62381,9 @@
     "location": "CN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -60945,7 +62426,9 @@
     "location": "CN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -60988,7 +62471,9 @@
     "location": "CN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -61031,7 +62516,9 @@
     "location": "IN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -61074,7 +62561,9 @@
     "location": "IN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -61117,7 +62606,9 @@
     "location": "IN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -61160,7 +62651,9 @@
     "location": "IN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -61202,7 +62695,9 @@
     "location": "CN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -61244,7 +62739,9 @@
     "location": "CN",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -61422,7 +62919,9 @@
     "location": "MA",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -61465,7 +62964,9 @@
     "location": "MA",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -61508,7 +63009,9 @@
     "location": "MA",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -61551,7 +63054,9 @@
     "location": "MA",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -61594,7 +63099,9 @@
     "location": "RU",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -61700,7 +63207,7 @@
     "displayName": "Concombre Origine Inconnue",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "9924b137-af72-4d34-a217-561397c81ba8",
+    "id": "053533cf-8fd1-5cbe-832c-c25d2d9ed885",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -61727,7 +63234,9 @@
     "location": "MX",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -61770,7 +63279,9 @@
     "location": "MX",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -61813,7 +63324,9 @@
     "location": "MX",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -61856,7 +63369,9 @@
     "location": "MG",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -61899,7 +63414,9 @@
     "location": "US",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -61942,7 +63459,9 @@
     "location": "US",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0
@@ -61985,7 +63504,9 @@
     "location": "US",
     "massPerUnit": null,
     "metadata": null,
-    "scopes": [],
+    "scopes": [
+      "food2"
+    ],
     "source": "WFLDB",
     "unit": "kg",
     "waste": 0

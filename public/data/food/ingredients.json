@@ -721,8 +721,8 @@
     "visible": true
   },
   {
-    "activityName": "Cucumber {GLO}| cucumber production, in heated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "cucumber-default-2025",
+    "activityName": "Tomato, fresh grade, open field, at farm (WFLDB)",
+    "alias": "cucumber-default",
     "categories": [
       "vegetable_fresh"
     ],
@@ -738,10 +738,10 @@
     },
     "id": "053533cf-8fd1-5cbe-832c-c25d2d9ed885",
     "inediblePart": 0.1,
-    "landOccupation": 0.22458,
-    "location": "GLO",
-    "name": "Concombre Origine Inconnue (2025)",
-    "processId": "5de89b65-5a7b-5ae7-9009-9d2776bd5457",
+    "landOccupation": 0.35066,
+    "location": "MX",
+    "name": "Concombre Origine Inconnue",
+    "processId": "2ca9071e-932c-5ffc-90af-cfab3383bcab",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
@@ -964,8 +964,8 @@
     "visible": true
   },
   {
-    "activityName": "Grape {RoW}| grape production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "grape-black-or-white-fr-2025",
+    "activityName": "Grape, integrated, french mix {FR} U",
+    "alias": "grape-black-or-white-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -974,16 +974,16 @@
     "density": 0.85,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 0.085,
+      "hedges": 0.00657,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.298
+      "plotSize": 0.023
     },
     "id": "0746b057-6331-5cc5-a3b2-532e3ddaecdf",
     "inediblePart": 0.1,
-    "landOccupation": 0.34008,
-    "location": "RoW",
-    "name": "Raisins (noirs ou blancs) FR (2025)",
+    "landOccupation": 0.026285,
+    "location": "FR",
+    "name": "Raisins (noirs ou blancs) FR",
     "processId": "5f9b2c9d-9fd2-55d5-8731-6e375302d146",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
@@ -1070,33 +1070,6 @@
     "processId": "5e07df03-5de7-5783-958e-aa8799612b4f",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
-    "transportCooling": "always",
-    "visible": true
-  },
-  {
-    "activityName": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse {FR} U",
-    "alias": "cucumber-fr",
-    "categories": [
-      "vegetable_fresh"
-    ],
-    "cropGroup": "LEGUMES-FLEURS",
-    "defaultOrigin": "France",
-    "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0.0149,
-      "livestockDensity": null,
-      "permanentPasture": null,
-      "plotSize": 0.0372
-    },
-    "id": "07fd9c83-3274-458a-9ec4-608db25ec7e4",
-    "inediblePart": 0.1,
-    "landOccupation": 0.059518,
-    "location": "FR",
-    "name": "Concombre FR",
-    "processId": "9125cc12-caea-5bab-9090-6ca1d9703412",
-    "rawToCookedRatio": 0.856,
-    "scenario": "reference",
     "transportCooling": "always",
     "visible": true
   },
@@ -2632,33 +2605,6 @@
     "name": "Jambon cuit (alim. ani. 100%FR) FR (2025)",
     "processId": "25cb5ccb-5dde-52a9-b5ac-2125fdaa1a77",
     "rawToCookedRatio": 1.0,
-    "scenario": "reference",
-    "transportCooling": "always",
-    "visible": true
-  },
-  {
-    "activityName": "Grape, integrated, french mix {FR} U",
-    "alias": "grape-black-or-white-fr",
-    "categories": [
-      "vegetable_fresh"
-    ],
-    "cropGroup": "VIGNES",
-    "defaultOrigin": "France",
-    "density": 0.85,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0.00657,
-      "livestockDensity": null,
-      "permanentPasture": null,
-      "plotSize": 0.023
-    },
-    "id": "15feda15-71b8-4387-80b1-1036101785a9",
-    "inediblePart": 0.1,
-    "landOccupation": 0.026285,
-    "location": "FR",
-    "name": "Raisins (noirs ou blancs) FR",
-    "processId": "c0944f85-aa78-4a72-8fa8-cf004e7d21d8",
-    "rawToCookedRatio": 0.856,
     "scenario": "reference",
     "transportCooling": "always",
     "visible": true
@@ -5774,8 +5720,8 @@
     "visible": true
   },
   {
-    "activityName": "Orange, fresh grade {ES}| orange production, fresh grade | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "grape-black-or-white-default-2025",
+    "activityName": "Grape, wine grape, at farm {IT} - Adapted from WFLDB U",
+    "alias": "grape-black-or-white-default",
     "categories": [
       "vegetable_fresh"
     ],
@@ -5791,10 +5737,10 @@
     },
     "id": "3733e844-5e53-5404-9b26-28fcb67896c8",
     "inediblePart": 0.1,
-    "landOccupation": 0.34692,
-    "location": "ES",
-    "name": "Raisins (noirs ou blancs) Origine Inconnue (2025)",
-    "processId": "86e21e49-df5f-5d4d-bff0-30f392f35c41",
+    "landOccupation": 1.2688,
+    "location": "IT",
+    "name": "Raisins (noirs ou blancs) Origine Inconnue",
+    "processId": "d0448664-37cd-5b7a-b0e8-e182a6e6c269",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
@@ -7580,8 +7526,8 @@
     "visible": true
   },
   {
-    "activityName": "Cucumber {GLO}| cucumber production, in heated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "cucumber-fr-2025",
+    "activityName": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse {FR} U",
+    "alias": "cucumber-fr",
     "categories": [
       "vegetable_fresh"
     ],
@@ -7590,17 +7536,17 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 0.0561,
+      "hedges": 0.0149,
       "livestockDensity": null,
       "permanentPasture": null,
-      "plotSize": 0.14
+      "plotSize": 0.0372
     },
     "id": "4a99833f-f8f7-5d11-9ec8-bd997ab09158",
     "inediblePart": 0.1,
-    "landOccupation": 0.22458,
-    "location": "GLO",
-    "name": "Concombre FR (2025)",
-    "processId": "5de89b65-5a7b-5ae7-9009-9d2776bd5457",
+    "landOccupation": 0.059518,
+    "location": "FR",
+    "name": "Concombre FR",
+    "processId": "9125cc12-caea-5bab-9090-6ca1d9703412",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
     "transportCooling": "always",
@@ -8499,6 +8445,33 @@
     "visible": true
   },
   {
+    "activityName": "Orange, fresh grade {ES}| orange production, fresh grade | Cut-off, U - Adapted from Ecoinvent U",
+    "alias": "grape-black-or-white-default-2025",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "cropGroup": "VIGNES",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
+    "density": 0.85,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0,
+      "livestockDensity": null,
+      "permanentPasture": null,
+      "plotSize": 0
+    },
+    "id": "530cb606-7c13-580a-8cd7-e72a5834d238",
+    "inediblePart": 0.1,
+    "landOccupation": 0.34692,
+    "location": "ES",
+    "name": "Raisins (noirs ou blancs) Origine Inconnue (2025)",
+    "processId": "86e21e49-df5f-5d4d-bff0-30f392f35c41",
+    "rawToCookedRatio": 0.856,
+    "scenario": "import",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
     "activityName": "Zucchini, autumn, under tunnel, conventional, at farm gate {FR} U",
     "alias": "pumpkin-default",
     "categories": [
@@ -8520,6 +8493,33 @@
     "location": "FR",
     "name": "Citrouille Origine Inconnue",
     "processId": "bc54db54-14e0-554f-9e5d-160a14dc2879",
+    "rawToCookedRatio": 0.856,
+    "scenario": "import",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
+    "activityName": "Cucumber {GLO}| cucumber production, in heated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
+    "alias": "cucumber-default-2025",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "cropGroup": "LEGUMES-FLEURS",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
+    "density": 1.0,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0,
+      "livestockDensity": null,
+      "permanentPasture": null,
+      "plotSize": 0
+    },
+    "id": "542540f4-754f-53e5-88df-44afaffb6972",
+    "inediblePart": 0.1,
+    "landOccupation": 0.22458,
+    "location": "GLO",
+    "name": "Concombre Origine Inconnue (2025)",
+    "processId": "5de89b65-5a7b-5ae7-9009-9d2776bd5457",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
@@ -9520,6 +9520,33 @@
     "scenario": "reference",
     "transportCooling": "always",
     "visible": false
+  },
+  {
+    "activityName": "Grape {RoW}| grape production | Cut-off, U - Adapted from Ecoinvent U",
+    "alias": "grape-black-or-white-fr-2025",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "cropGroup": "VIGNES",
+    "defaultOrigin": "France",
+    "density": 0.85,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0.085,
+      "livestockDensity": null,
+      "permanentPasture": null,
+      "plotSize": 0.298
+    },
+    "id": "5f5b55bb-9e8f-59d7-83de-7ddfe2f28513",
+    "inediblePart": 0.1,
+    "landOccupation": 0.34008,
+    "location": "RoW",
+    "name": "Raisins (noirs ou blancs) FR (2025)",
+    "processId": "c77e4e1b-1041-55b0-afa1-153e07aede05",
+    "rawToCookedRatio": 0.856,
+    "scenario": "reference",
+    "transportCooling": "always",
+    "visible": true
   },
   {
     "activityName": "Peach, at farm, organic 2025 {ES}",
@@ -14223,6 +14250,33 @@
     "visible": false
   },
   {
+    "activityName": "Cucumber {GLO}| cucumber production, in heated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
+    "alias": "cucumber-fr-2025",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "cropGroup": "LEGUMES-FLEURS",
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0.0561,
+      "livestockDensity": null,
+      "permanentPasture": null,
+      "plotSize": 0.14
+    },
+    "id": "9517ce08-1b71-5722-8805-866d51d78215",
+    "inediblePart": 0.1,
+    "landOccupation": 0.22458,
+    "location": "GLO",
+    "name": "Concombre FR (2025)",
+    "processId": "5de89b65-5a7b-5ae7-9009-9d2776bd5457",
+    "rawToCookedRatio": 0.856,
+    "scenario": "reference",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
     "activityName": "Walnut, dried inshell, conventional, national average, at farm gate {FR} U",
     "alias": "macadamia-nut-fr",
     "categories": [
@@ -14518,33 +14572,6 @@
     "processId": "56cd1f16-f2d4-5c4a-a6ba-4a2e3321914e",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
-    "transportCooling": "always",
-    "visible": true
-  },
-  {
-    "activityName": "Tomato, fresh grade, open field, at farm (WFLDB)",
-    "alias": "cucumber-default",
-    "categories": [
-      "vegetable_fresh"
-    ],
-    "cropGroup": "LEGUMES-FLEURS",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0,
-      "livestockDensity": null,
-      "permanentPasture": null,
-      "plotSize": 0
-    },
-    "id": "9924b137-af72-4d34-a217-561397c81ba8",
-    "inediblePart": 0.1,
-    "landOccupation": 0.35066,
-    "location": "MX",
-    "name": "Concombre Origine Inconnue",
-    "processId": "2ca9071e-932c-5ffc-90af-cfab3383bcab",
-    "rawToCookedRatio": 0.856,
-    "scenario": "import",
     "transportCooling": "always",
     "visible": true
   },
@@ -19579,33 +19606,6 @@
     "scenario": "organic",
     "transportCooling": "always",
     "visible": false
-  },
-  {
-    "activityName": "Grape, wine grape, at farm {IT} - Adapted from WFLDB U",
-    "alias": "grape-black-or-white-default",
-    "categories": [
-      "vegetable_fresh"
-    ],
-    "cropGroup": "VIGNES",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.85,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0,
-      "livestockDensity": null,
-      "permanentPasture": null,
-      "plotSize": 0
-    },
-    "id": "d18028fc-7d32-4453-97e7-30601bf17c6e",
-    "inediblePart": 0.1,
-    "landOccupation": 1.2688,
-    "location": "IT",
-    "name": "Raisins (noirs ou blancs) Origine Inconnue",
-    "processId": "d0448664-37cd-5b7a-b0e8-e182a6e6c269",
-    "rawToCookedRatio": 0.856,
-    "scenario": "import",
-    "transportCooling": "always",
-    "visible": true
   },
   {
     "activityName": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
