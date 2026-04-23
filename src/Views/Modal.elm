@@ -19,8 +19,7 @@ type alias Config msg =
 
 
 type Size
-    = CustomPercentWidth Int
-    | ExtraLarge
+    = ExtraLarge
     | Large
     | Small
     | Standard
@@ -53,26 +52,14 @@ view config =
                 )
             ]
             [ div
-                ([ class "modal-dialog modal-dialog-centered modal-dialog-scrollable"
-                 , attribute "aria-modal" "true"
-                 ]
-                    ++ (case config.size of
-                            CustomPercentWidth width ->
-                                [ class "modal-xl", style "width" (String.fromInt width ++ "%") ]
-
-                            ExtraLarge ->
-                                [ class "modal-xl" ]
-
-                            Large ->
-                                [ class "modal-lg" ]
-
-                            Small ->
-                                [ class "modal-sm" ]
-
-                            Standard ->
-                                []
-                       )
-                )
+                [ class "modal-dialog modal-dialog-centered modal-dialog-scrollable"
+                , classList
+                    [ ( "modal-xl", config.size == ExtraLarge )
+                    , ( "modal-lg", config.size == Large )
+                    , ( "modal-sm", config.size == Small )
+                    ]
+                , attribute "aria-modal" "true"
+                ]
                 [ modalContentTag
                     [ div [ class "modal-header d-flex justify-content-between align-items-center gap-2" ]
                         [ span [ class "h5 mb-0", attribute "aria-hidden" "true" ] [ text "→" ]
