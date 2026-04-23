@@ -32,6 +32,7 @@ import Data.Textile.Query as TextileQuery
 import Data.Textile.Simulator as Simulator
 import Data.Unit as Unit
 import Data.Uuid exposing (Uuid)
+import Dict
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -57,6 +58,7 @@ import Views.Modal as ModalView
 
 type alias Model =
     { dataset : Dataset
+    , facetValues : Table.Facets
     , scope : Scope
     , search : String
     , tableState : SortableTable.State
@@ -69,6 +71,7 @@ type Msg
     | OpenDetail Route
     | ScopeChange Scope
     | SetTableState SortableTable.State
+    | ToggleFacetValue String String Bool
     | UpdateSearch String
 
 
@@ -112,6 +115,7 @@ init scope dataset session =
     in
     createPageUpdate session
         { dataset = dataset
+        , facetValues = Dict.empty
         , scope = scope
         , search = ""
         , tableState = SortableTable.initialSort initialSort
@@ -143,7 +147,8 @@ update session msg model =
                     ]
 
         ScopeChange scope ->
-            createPageUpdate session { model | scope = scope }
+            { model | facetValues = Dict.empty, scope = scope }
+                |> createPageUpdate session
                 |> App.withCmds
                     [ (case model.dataset of
                         -- Try selecting the most appropriate tab when switching scope.
@@ -178,6 +183,20 @@ update session msg model =
 
         SetTableState tableState ->
             createPageUpdate session { model | tableState = tableState }
+
+        ToggleFacetValue key value checked ->
+            { model | facetValues = model.facetValues |> Table.updateFacets key value checked }
+                |> createPageUpdate session
+                |> App.withCmds
+                    [ if checked then
+                        -- scroll the facet card DOM element to top when it is checked
+                        """[data-scroll-id="{key}"] label:first-child"""
+                            |> String.replace "{key}" key
+                            |> Ports.scrollIntoView
+
+                      else
+                        Cmd.none
+                    ]
 
         UpdateSearch search ->
             createPageUpdate session { model | search = search }
@@ -693,12 +712,14 @@ getTextileScorePer100g { componentConfig, db } { query } =
 
 
 exploreView : Session -> Model -> List (Html Msg)
-exploreView ({ db } as session) { scope, dataset, tableState, search } =
+exploreView ({ db } as session) { facetValues, scope, dataset, tableState, search } =
     let
         tableConfig =
             { toId = always "" -- Placeholder
             , toMsg = SetTableState
+            , onFacetToggle = ToggleFacetValue
             , search = search
+            , selectedFacets = facetValues
             , columns = []
             , customizations =
                 { defaultCustomizations

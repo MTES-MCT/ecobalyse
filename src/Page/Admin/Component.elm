@@ -656,6 +656,7 @@ modalView { componentConfig, db } modals index modal =
                             , openCreateComponentModal = NoOp
                             , openSelectComponentModal = \_ -> NoOp
                             , openSelectConsumptionModal = \_ -> NoOp
+                            , openEditElementModal = \_ _ -> NoOp
                             , openSelectProcessModal =
                                 \p ti ei s ->
                                     SetModals (SelectProcessModal p ti ei s :: modals)

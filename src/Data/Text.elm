@@ -1,6 +1,8 @@
 module Data.Text exposing
     ( search
+    , sortI18nStrings
     , toWords
+    , yesNo
     )
 
 import Regex
@@ -57,6 +59,13 @@ search { minQueryLength, query, toString } elements =
         exactWordsMatches ++ partialWordsMatches
 
 
+{-| Sort strings in a case and accent insensitive manner (useful for non-US alphabets).
+-}
+sortI18nStrings : List String -> List String
+sortI18nStrings =
+    List.sortBy (String.toLower >> Normalize.removeDiacritics)
+
+
 toWords : String -> List String
 toWords =
     String.toLower
@@ -65,3 +74,12 @@ toWords =
             (Regex.fromString "[\\W_]+"
                 |> Maybe.withDefault Regex.never
             )
+
+
+yesNo : Bool -> String
+yesNo bool =
+    if bool then
+        "Oui"
+
+    else
+        "Non"
