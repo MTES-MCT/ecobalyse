@@ -9595,10 +9595,10 @@
       "material_type:fruits_and_vegetables"
     ],
     "comment": "AGRIBALYSE v3.2 dataset, 2024.\noriginal ecoinvent name: Grape {RoW}| grape production | Cut-off, U\n\nThis dataset represents table grape production.\n\nNone\n\nYield: 30 t / ha.\n\nDuration of one cycle: 12 months in permanent culture.\n\nField production.\n\nThe LCA study, from which this LCI has been derived, contains detailed descriptions of the system boundaries and the data sources used (Stoessel et al. 2012). The publication is published and freely available with comprehensive supporting information:\n\nhttp://pubs.acs.org/doi/pdf/10.1021/es2030577\n\nFranziska Stoessel, Ronnie Juraske, Stephan Pfister, Stefanie Hellweg. (2012) Life Cycle Inventory and Carbon and Water FoodPrint of Fruits and Vegetables: Application to a Swiss Retailer. Environmental Science & Technology 6(46) 3253-3262.\n\nNone\n\nThis activity was adapted to include the global average land use change (LUC) emissions according 2nd edition of the Quantis-modified tool developed by Blonk Consultants 'WFLDB-adapted-Blonk 2014 direct-land-use-change-assessment-tool_2015-05-18a.xlsx', tab. 'Country & land use unknown'. The size of the emission depends on (i) the relative crop expansion in all countries of the crop during the last 20 years and (ii) the corresponding, country specific land transformations. The current results are based on the average FAOSTAT data (harvested area) of 2009-2011 and 1989-1991. The weighted average is used which takes into account relative difference in crop expansion into primary forest, secondary forest, grassland, perennial and annual land.\n\nProduction volume: 71440089088 kg\nIncluded activities start: From maintenance of the vineyard after harvest of the previous crop.\nIncluded activities end: This activity ends with harvest and storage. \nThe dataset includes a storage period of 2 months and it's use of electricity.  The pesticide inputs are classified according to their chemical classes and the emmssions are assigned to the soil (100%). Mercury emissions are neglected due to a lack of data while other heavy metal emissions are included. The dataset doesn't include infrastructure for production and storage facilities. No transports for agricultural means of production from the regional storage to the farm are included.\nEnergy values: Undefined\nGeography: The inventory is modelled for Rest-of-World\nTechnology level: Current\nTechnology: Production without production standard, but according to GAP\nStart date: 01/01/2010\nEnd date: 31/12/2022\nIs data valid for entire period: True\nTime period: \nMacro-economic scenario name: Business-as-Usual\n\nVersion: 9.3.0.0\nCreated: 5/10/2011 8:16:49 AM\nLast edited: 7/22/2016 11:03:50 AM\nSource: 5fd0c3e1-8df3-5b26-b4a0-4dc5dcf09f76_685944f8-452b-4ad4-a01a-863924792f27.spold\nUUID: 5fd0c3e1-8df3-5b26-b4a0-4dc5dcf09f76",
-    "displayName": "Raisins (noirs ou blancs) FR",
+    "displayName": "Raisins (noirs ou blancs) FR (2025)",
     "elecMJ": 0,
     "heatMJ": 0,
-    "id": "5f9b2c9d-9fd2-55d5-8731-6e375302d146",
+    "id": "c77e4e1b-1041-55b0-afa1-153e07aede05",
     "impacts": {
       "acd": 0,
       "cch": 0,
@@ -9665,6 +9665,88 @@
       "wtu": 0
     },
     "location": "FR",
+    "massPerUnit": null,
+    "scopes": [
+      "food"
+    ],
+    "source": "Agribalyse 3.2",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Grape, integrated, french mix {FR} U",
+    "categories": [
+      "ingredient"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024. \nThis dataset was created for the ACYVIA project based on data from Agribalyse and Agreste 2010",
+    "displayName": "Raisins (noirs ou blancs) FR",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "5f9b2c9d-9fd2-55d5-8731-6e375302d146",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 94.91,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "FR",
+    "massPerUnit": null,
+    "scopes": [
+      "food"
+    ],
+    "source": "Agribalyse 3.2",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Grape, wine grape, at farm {IT} - Adapted from WFLDB U",
+    "categories": [
+      "ingredient"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024. \nThis dataset has been adapted for Agribalyse 3.2.\n- Background Ecoinvent data have been updated to Ecoinvent 3.9.1\n_________________________________\nReference flow: The functional unit is the production of 1 kg of wine grape at the farm, with standard water content (81.0%). The reference flow is the average Yield_ per hectare and year: 9.812 t/ha, obtained under irrigated conditions (total  amount of water 2740.19 m3/ha). \n\nAllocation: No allocation\n\nSystem boundaries: cradle-to-gate. The inventory includes the processes of seedling production and planting, fertilizer and pesticide application, irrigation and harvest. Equipment infrastructure is also considered, such as for sprinkler irrigation. Direct field emissions from crop production activities (fertiliser and pesticide use) and land use change (LUC) are considered. Irrigation is based on blue water from Pfister. The harvest is assumed to be manual. Number of years from planting to clearing (lifetime): 40 years. \n\nData quality rating (DQR) = 1.7, Very good quality\n\nGeography: Italy\n\nTechnology: Conventional production.\n\nTime: 2010-2016\n\nData sources: \nBartocci 2017: Barrocci P, Fantozzi P, Fantozzi F, 2016. Environmental impact of Sagrantino and Grechetto grapes cultivation for wine and vinegar production in central Italy. Journal of Cleaner Production, 140. \nBenedetto 2013: Benedetto G, 2013. The environmental impact of a Sardinian wine by partial life cycle assessment. Wine Economics and Policy, 2. \nBosco 2011: Bosco S, Di Bene C, Galli M, Remorini D, Massai R, Bonari E, 2011. Grenhouse gas emissions in the agricultural phase of wine production in the Maremma rural district in Tuscany, Italy. Italian Journal of Agronomy, 6. \nGazulla 2010: Gazulla C, Raugei M, Fullana-i-Palmer P, 2010. Taking a life cycle look at crianza wine production in Spain: where are the bottlenecks? Int J Life Cycle Assess, 15. \nMeneses 2016: Meneses M, Torres C M, Castells F, 2016. Sensitivity analysis in a life cycle assessment of an aged red wine production from Catalonia, Spain. Science of the Total Environment, 562. \nVazquez-Rowe 2013: Vazquez-Rowe I, Rugani B, Benetto E, 2013. Tapping carbon footprint variations in the European wine sector. journal of Cleaner Production, 42.",
+    "displayName": "Raisins (noirs ou blancs) Origine Inconnue",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "d0448664-37cd-5b7a-b0e8-e182a6e6c269",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 483.67,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "IT",
     "massPerUnit": null,
     "scopes": [
       "food"
@@ -13496,6 +13578,47 @@
     ],
     "source": "Agribalyse 3.2",
     "unit": "item",
+    "waste": 0
+  },
+  {
+    "activityName": "Mixt pig, conventional, national average, at farm gate {FR} U",
+    "categories": [
+      "ingredient"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024.",
+    "displayName": "Porc FR",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "df49b412-2d28-53ff-8a1d-b359e8d00e63",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 673.39,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "FR",
+    "massPerUnit": null,
+    "scopes": [
+      "food"
+    ],
+    "source": "Agribalyse 3.2",
+    "unit": "kg",
     "waste": 0
   },
   {
@@ -28100,6 +28223,47 @@
     "waste": 0
   },
   {
+    "activityName": "Broiler, conventional, at farm gate {FR} U {{meat-without-bone-chicken-direct-consumption-only-soybean-max}}",
+    "categories": [
+      "ingredient"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024. \nIncluded processes: The inventory includes : The inventory includes: all activities of a poultry farm, that is (1) all inputs as livestock (young animal), feeds, water (watering and clenaning), fuels and energy used for the hatchery as well as the transport to the farm; (2) the buildings and barns; (3) emissions due to the effluent management. \nThe border of the inventory is from the birth of the animal to its leaving of the farm.\nCut-off rule, exclusion : The inventory does not include vet products and cares, artificial insemination process, small cleaning material and all process occuring outside of the farm (slaughtering, processing, conservation etc).\nRefers to 1kg (live weight) of convetional broiler.\nAllocation: none.\nRemark: Functional unit:1 kg (live weight) of broiler, conventional production \nNational French average\nCoproducts: 215873.0 Chicken (weight 1,95 kg)\nRaw datas comes from:Sampling procedure: the data is based on survey, literature, statistical data and expert judgements. \nILCD – Overall data quality : \nTechnological representativeness (TeR) = 1 : Very good\nGeographical representativeness (GR) = 1 : Very good\nTime-related representativeness (TiR) = 2 : Good\nCompleteness (C) = 2 : Good\nPrecision / uncertainty (P) = 1 : Very good\nMethodological appropriateness and consistency (M) = 2 : Good\nFinal note = 1,7 : Basic quality\nundefined\nDataset was generated by MEANS-InOut software.\nModels used : [NOx - EMEP 2019, tier 1; NO3 - Basset-Mens 2007; N2O - IPCC 2019, tier 2; N - ITAVI 2013; CH4 manure - IPCC 2019, tier 2; NH3 - EMEP 2019, tier 2; ]\nMEANS id : Scenario #6065\nTechnology: Conventional production -  production mode: Conventional production -\nTime period: Inventory data based on the period : 2021\nVersion: 0.0\nEnergy values: Net values\nProduction volume: Production volume : 420952 kg\nSource file: Broiler, conventiona_MEANS#6065-Ecoinvent 3.8 - AGB 3.1.1.xml",
+    "displayName": "Poulet Origine Inconnue",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "877499d7-7a29-58f6-8a0d-e1eef40b2ec4",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 810.24,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "FR",
+    "massPerUnit": null,
+    "scopes": [
+      "food"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "Broiler, organic, at farm gate {FR} U {{chicken-breast-fr-organic-2025}}",
     "categories": [
       "ingredient",
@@ -28530,6 +28694,170 @@
     "waste": 0
   },
   {
+    "activityName": "Live beef, for direct consumption, consumption mix {FR} U {{beef-with-bone-organic-2025}}",
+    "categories": [
+      "ingredient"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.",
+    "displayName": "Boeuf Bio",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "b89c1ad9-ab9a-5c2d-a258-5a53c15be4cd",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 1085.9,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "FR",
+    "massPerUnit": null,
+    "scopes": [
+      "food"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Live broiler, for direct consumption, consumption mix {FR} U {{chicken-breast-organic-2025}} {{chicken-breast-fr-organic-2025}}",
+    "categories": [
+      "ingredient"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.",
+    "displayName": "Poulet Bio",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "e409257e-dc33-528c-9c44-c70b7811a67b",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 579.78,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "FR",
+    "massPerUnit": null,
+    "scopes": [
+      "food"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Live lamb, consumption mix {FR} U {{lamb-meat-without-bone-organic-2025}}",
+    "categories": [
+      "ingredient"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.",
+    "displayName": "Agneau Bio",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "5cd7bf39-6699-59f1-9838-655df48d27da",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 1235.8,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "FR",
+    "massPerUnit": null,
+    "scopes": [
+      "food"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Live pig, consumption mix {FR} U {{bacon-organic-2025}}",
+    "categories": [
+      "ingredient"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.\n This process describes the average consumption mix of live pig in France.\nIncluded activities are production in country of origin and transport.",
+    "displayName": "Porc Bio",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "97794c50-6932-5707-a453-29b8af52b242",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 620.04,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "FR",
+    "massPerUnit": null,
+    "scopes": [
+      "food"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "Meat with bone, beef for direct consumption {{beef-with-bone-grass-fed-2025}}",
     "categories": [
       "ingredient",
@@ -28932,6 +29260,47 @@
       "acd": 0,
       "cch": 0,
       "ecs": 2047.7,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "FR",
+    "massPerUnit": null,
+    "scopes": [
+      "food"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "Mixt pig, conventional, national average, at farm gate {FR} U {{bacon-default-2025}}",
+    "categories": [
+      "ingredient"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024.",
+    "displayName": "Porc Origine Inconnue",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "b28af936-efee-5c90-a792-e5113364a9fe",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 684.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -37016,7 +37385,7 @@
       "material",
       "material_type:fruits_and_vegetables"
     ],
-    "comment": "This dataset represents the global average for Apricot, at farm. It is calculated as weighted average of the following countries, based on their respective export shares according to FAOSTAT data for 2010:\n - France: 19%\n - Spain: 11%\n - Turkey: 10%\n - Italy: 9%\nThese countries together represent 49% of global export. \nAll farming activities documented in the respective national datasets are included. No transportation to the marketplace is considered.\nThe functional unit is the production of 1 kg of Apricot.\n\nData quality rating (DQR) = 2.0 (i.e. very good quality)",
+    "comment": "Translated name: Apricot, at farm (WFLDB 3.5)\nIncluded processes: The inventory includes all activities of a year in the productive phase of the orchard, i.e. fertiliser and pesticide application, mulching, mowing, harvesting and irrigation. Machine infrastructure including a shed for shelter and fuel use are also considered as well as transport on the farm. Direct field emissions from crop production activities and from land use change are considered. The establishment phase of the orchard, i.e. tree nursery, soil cultivation, planting trees, sowing grass, installation of trellis system (posts and wires) and irrigation. Fertiliser and pesticide use in a year of the establishment phase is assumed to be half of the amount of a year in the productive phase.\nRemark: The functional unit is the production of 1 kg of apricots. The reference flow is the average yield per ha and year for the reference period of 2009 - 2012: yield (19 t/ha) obtained under irrigated conditions (total amount of water 18696 m3/ha). System boundary: an average year of the productive phase is regarded; included are also the per year of lifetime calculated emissions for nursery, materials for planting, establishment and clearing phase; at farm without storage. Number of years from planting to clearing (lifetime): 20 years   - Waste treatment after clearing of the orchard: Wooden posts and tree wood go to incineration, concrete posts go to land fill, iron wires go to recycling. The data are representative for apricots production in Spain from the region Murcia used for the export market.\n\nData quality rating (DQR) = 2.7 (i.e. good quality)\n\nTechnology: Conventional production\nVersion: 2.2\nEnergy values: Undefined\nLocal category: Landwirtschaftliche Produktion\nLocal subcategory: Pflanzenbau\nSource file: ES_WFLDB_ApricotES_22062015.xml",
     "displayName": "Abricot par défaut (2025)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -37024,7 +37393,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 121.38,
+      "ecs": 291.47,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -37043,7 +37412,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "location": "GLO",
+    "location": "ES",
     "massPerUnit": null,
     "scopes": [
       "food"
@@ -37273,7 +37642,7 @@
       "material",
       "material_type:fruits_and_vegetables"
     ],
-    "comment": "Reference flow: The functional unit is the production of 1 kg of Cherry at the farm, with standard water content (82.25%). The reference flow is the average yield per hectare and year: 6.87 t/ha, obtained under irrigated conditions (total  amount of water 4843.2 m3/ha). \n\nAllocation: No allocation\n\nSystem boundaries: cradle-to-gate. The inventory includes the processes of seedling production and planting, fertilizer and pesticide application, irrigation and harvest. Equipment infrastructure is also considered, such as for sprinkler irrigation. Direct field emissions from crop production activities (fertiliser and pesticide use) and land use change (LUC) are considered. Irrigation is based on blue water from Pfister. The energy consumption at farm (electricity and diesel) are also included. Number of years from planting to clearing (lifetime): 20 years.\n\nData quality rating (DQR) = 2, Very good quality\n\nGeography: Turkey\n\nTechnology: Conventional production.\n\nTime: 2009-2016\n\nData sources: \nKizilaslan 2009: Kizilaslan H, 2009. Input-output energy analysis of cherries production in Tokat province of Turkey. Applied Energy 86.",
+    "comment": "Reference flow: The functional unit is the production of 1 kg of Cherry at the farm, with standard water content (82.25%). The reference flow is the average yield per hectare and year: 7.08 t/ha, obtained under irrigated conditions (total  amount of water 13949 m3/ha). \n\nAllocation: No allocation\n\nSystem boundaries: Cradle-to-gate. The inventory includes the processes of seedling production and planting, fertilizer and pesticide application, irrigation and harvest. Equipment infrastructure is also considered, such as for sprinkler irrigation. Direct field emissions from crop production activities (fertiliser and pesticide use) and land use change (LUC) are considered. Irrigation is based on blue water from Pfister. The harvest is assumed to be manual. Number of years from planting to clearing (lifetime): 20 years. \n\nData quality rating (DQR) = 1.7, Very good quality\n\nGeography: Chile\n\nTechnology: Conventional production\n\nTime: 2016-2017\n\nData sources: \nODEPA 2016 a: Oficina de Estudios y Políticas Agrarias, Ficha técnico-económica \"cerezo\", región Bíobío, downloaded on http://www.odepa.gob.cl/wp-content/uploads/2017/04/cerezo_biobio_2015-16.pdf, October 2018\nODEPA 2016 b: Oficina de Estudios y Políticas Agrarias, Ficha técnico-económica \"cerezo\", región Maule, downloaded on  http://www.odepa.gob.cl/wp-content/uploads/2016/12/cerezo_maule_2015-16.pdf, October 2018\nODEPA 2017: Oficina de Estudios y Políticas Agrarias, Ficha técnico-económica \"cerezo\", región O'Higgins, downloaded on http://www.odepa.gob.cl/wp-content/uploads/2017/08/cerezo_ohiggins_2016-17.pdf, October 2018",
     "displayName": "Cerise par défaut (2025)",
     "elecMJ": 0,
     "heatMJ": 0,
@@ -37281,7 +37650,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 899.52,
+      "ecs": 983.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -37300,7 +37669,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "location": "TR",
+    "location": "CL",
     "massPerUnit": null,
     "scopes": [
       "food"
