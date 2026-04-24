@@ -428,7 +428,7 @@
     "rawToCookedRatio": 0.792,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Spring pea, conventional, 15% moisture, animal feed, at farm gate, production {FR} U",
@@ -15073,7 +15073,7 @@
     "rawToCookedRatio": 0.755,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Peach, production mix, national average, at orchard {FR} U",
@@ -20023,7 +20023,7 @@
     "rawToCookedRatio": 0.755,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Soup, mixed vegetables, prepacked, to be reheated, at plant {IT} U",
@@ -22420,7 +22420,7 @@
     "rawToCookedRatio": 0.792,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Winter pea, conventional, 15% moisture, at farm gate {FR} U",
@@ -22872,7 +22872,7 @@
     "rawToCookedRatio": 0.792,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cabbage white, organic 2025 {RoW}| cabbage white production | Cut-off, U",
@@ -23646,7 +23646,7 @@
     "rawToCookedRatio": 0.755,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Banana, at farm {GLO} - Adapted from WFLDB U",
