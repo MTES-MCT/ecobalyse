@@ -175,7 +175,9 @@
               {
                 "amount": 0.2,
                 "material": "ac028973-5dfa-47bc-868c-e49be116f53e",
-                "transforms": ["4c1b77b1-4e4b-4fdd-a392-eea0b8764b6b"]
+                "transforms": [
+                "ea284007-49a8-4be1-95fc-452ea180285a",
+                "7319ac9c-5796-412f-a1eb-58e01afa7708"]
               }
             ],
             "name": "Charnières en acier"
