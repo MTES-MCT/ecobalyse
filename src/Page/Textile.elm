@@ -423,7 +423,7 @@ update ({ db, queries, navKey } as session) msg model =
 
         ( OnStageClick stageId, _ ) ->
             createPageUpdate session model
-                |> App.withCmds [ Ports.scrollIntoView stageId ]
+                |> App.withCmds [ Ports.scrollIntoView <| "#" ++ stageId ]
 
         ( RemoveMaterial materialId, _ ) ->
             createPageUpdate session model

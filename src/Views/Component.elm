@@ -665,14 +665,6 @@ countrySelector config =
             ]
 
 
-iconifiedLine : Html msg -> String -> Html msg
-iconifiedLine icon content =
-    span [ class "d-flex align-items-center gap-1" ]
-        [ span [ class "ComponentElementIcon me-0" ] [ icon ]
-        , text content
-        ]
-
-
 elementView : Config db msg -> TargetItem -> Index -> ExpandedElement -> Results -> Html msg
 elementView config (( component, _ ) as targetItem) elementIndex { amount, material, transforms } elementResults =
     tbody []
@@ -686,16 +678,21 @@ elementView config (( component, _ ) as targetItem) elementIndex { amount, mater
                 , style "max-width" "10vw"
                 ]
                 [ div [ class "d-flex flex-column" ]
-                    [ iconifiedLine Icon.material <| Process.getDisplayName material
-                    , small [ class "text-muted" ]
-                        [ iconifiedLine Icon.transform <|
-                            if List.isEmpty transforms then
-                                "aucune transformation"
+                    [ button
+                        [ type_ "button"
+                        , class "btn btn-sm btn-link text-decoration-none p-0 text-start"
+                        , onClick (config.openEditElementModal component ( targetItem, elementIndex ))
+                        ]
+                        [ span [ class "ComponentElementIcon" ] [ Icon.material ]
+                        , text <| Process.getDisplayName material
+                        ]
+                    , div [ class "d-flex align-items-center gap-1 text-muted" ]
+                        [ span [ class "ComponentElementIcon me-0" ] [ Icon.transform ]
+                        , if List.isEmpty transforms then
+                            text "Aucune transformation"
 
-                            else
-                                transforms
-                                    |> List.map (.process >> Process.getDisplayName)
-                                    |> String.join ", "
+                          else
+                            text <| Component.transformListToString transforms
                         ]
                     ]
                 ]
@@ -708,12 +705,14 @@ elementView config (( component, _ ) as targetItem) elementIndex { amount, mater
                     [ button
                         [ type_ "button"
                         , class "btn btn-outline-secondary"
+                        , attribute "aria-label" "Modifier l’élément"
                         , onClick (config.openEditElementModal component ( targetItem, elementIndex ))
                         ]
                         [ Icon.pencil ]
                     , button
                         [ type_ "button"
                         , class "btn btn-outline-secondary"
+                        , attribute "aria-label" "Supprimer l’élément"
                         , onClick (config.removeElement ( targetItem, elementIndex ))
                         ]
                         [ Icon.trash ]
@@ -920,7 +919,7 @@ elementTransformsView config targetElement transformsResults transforms =
                 [ td [] []
                 , td [ class "text-end align-middle text-nowrap" ] []
                 , td
-                    [ class "text-truncate align-middle w-100 cursor-help"
+                    [ class "text-truncate align-middle w-66 cursor-help "
 
                     -- Note: allows truncated ellipsis in table cells https://stackoverflow.com/a/11877033/330911
                     , style "max-width" "0"
@@ -931,7 +930,7 @@ elementTransformsView config targetElement transformsResults transforms =
                     ]
                 , td [ class "text-end align-middle text-nowrap" ]
                     [ transformCountrySelector
-                        { attributes = [ style "min-width" "68px" ]
+                        { attributes = [ style "min-width" "230px" ]
                         , countries = config.db.countries
                         , domId =
                             "transform-country-"
@@ -1003,7 +1002,7 @@ transformCountrySelector config =
                     [ text <|
                         case maybeCode of
                             Just code ->
-                                Country.codeToString code ++ " - " ++ name
+                                name ++ " (" ++ Country.codeToString code ++ ")"
 
                             Nothing ->
                                 "---"

@@ -6,11 +6,13 @@ import Data.Gitbook as Gitbook
 import Data.Process as Process
 import Data.Scope exposing (Scope)
 import Data.Split as Split
+import Data.Text as Text
 import Data.Textile.Material as Material exposing (Id, Material)
 import Data.Textile.Material.Origin as Origin
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Maybe.Extra as Maybe
 import Page.Explore.Table as Table exposing (Table)
 import Route
 import Static.Db exposing (Db)
@@ -21,10 +23,8 @@ import Views.Link as Link
 
 
 recycledToString : Maybe Id -> String
-recycledToString maybeMaterialID =
-    maybeMaterialID
-        |> Maybe.map (always "oui")
-        |> Maybe.withDefault "non"
+recycledToString =
+    Maybe.isJust >> Text.yesNo
 
 
 getRecycledProcess : List Material -> Material -> Maybe Process.Process
@@ -50,6 +50,18 @@ table db { detailed, scope } =
     , toId = .id >> Material.idToString
     , toRoute = .id >> Just >> Dataset.TextileMaterials >> Route.Explore scope
     , toSearchableString = Material.toSearchableString db.countries
+    , facets =
+        [ Table.Facet "Origine de la matière" (.origin >> Origin.toLabel >> List.singleton)
+        , Table.Facet "Origine géographique" (.geographicOrigin >> List.singleton)
+        , Table.Facet "Recyclage" (.recycledFrom >> recycledToString >> List.singleton)
+        , Table.Facet "Pays de production et de filature par défaut"
+            (.defaultCountry
+                >> (\code -> Country.findByCode code db.countries)
+                >> Result.map (\{ code, name } -> name ++ " (" ++ Country.codeToString code ++ ")")
+                >> Result.withDefault "N/A"
+                >> List.singleton
+            )
+        ]
     , legend = []
     , columns =
         [ { label = "Identifiant"
