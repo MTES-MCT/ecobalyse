@@ -924,9 +924,6 @@ updateIngredientFormView db ({ recipeIngredient, selectedImpact, transportImpact
                     , { name = EcosystemicServices.labels.permanentPasture
                       , computedImpact = complementsImpacts.permanentPasture |> Maybe.withDefault Unit.noImpacts
                       }
-                    , { name = EcosystemicServices.labels.livestockDensity
-                      , computedImpact = complementsImpacts.livestockDensity |> Maybe.withDefault Unit.noImpacts
-                      }
                     ]
                         |> List.map
                             (\{ name, computedImpact } ->

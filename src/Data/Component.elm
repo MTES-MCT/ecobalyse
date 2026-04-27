@@ -1290,7 +1290,6 @@ encodeComplementsResultsImpacts maybeTrigram complementsResultsImpacts =
         [ ( "cropDiversity", complementsResultsImpacts.cropDiversity |> Maybe.map encodeComplement )
         , ( "forest", complementsResultsImpacts.forest |> Maybe.map encodeComplement )
         , ( "hedges", complementsResultsImpacts.hedges |> Maybe.map encodeComplement )
-        , ( "livestockDensity", complementsResultsImpacts.livestockDensity |> Maybe.map encodeComplement )
         , ( "microfibers", complementsResultsImpacts.microfibers |> Maybe.map encodeComplement )
         , ( "outOfEuropeEOL", complementsResultsImpacts.outOfEuropeEOL |> Maybe.map encodeComplement )
         , ( "permanentPasture", complementsResultsImpacts.permanentPasture |> Maybe.map encodeComplement )

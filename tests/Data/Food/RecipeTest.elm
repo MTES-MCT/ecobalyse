@@ -54,7 +54,6 @@ suite =
                                         , plotSize = Unit.noImpacts
                                         , cropDiversity = Unit.noImpacts
                                         , permanentPasture = Unit.noImpacts
-                                        , livestockDensity = Unit.noImpacts
                                         }
                              in
                              [ complementsImpacts.hedges
@@ -73,14 +72,13 @@ suite =
                                         , plotSize = Unit.impact 1
                                         , cropDiversity = Unit.impact 1
                                         , permanentPasture = Unit.impact 1
-                                        , livestockDensity = Unit.impact 1
                                         }
                              in
                              [ complementsImpacts.hedges
                                 |> expectImpactEqual (Unit.impact 6)
                                 |> asTest "should compute a non-zero hedges ingredient complement"
                              , Just (Complement.getTotalComplementsImpacts complementsImpacts)
-                                |> expectImpactEqual (Unit.impact 6031)
+                                |> expectImpactEqual (Unit.impact 31)
                                 |> asTest "should compute a non-zero total complement"
                              ]
                             )
@@ -148,7 +146,7 @@ suite =
 
                                     Ok result ->
                                         Unit.impactToFloat result
-                                            |> Expect.within (Expect.Absolute 0.1) 137.81
+                                            |> Expect.within (Expect.Absolute 0.1) 136.51
                                 )
                              , asTest "should have the ingredients' total ecs impact with the complement taken into account"
                                 (case royalPizzaResults |> Result.map (Tuple.second >> .recipe >> .ingredientsTotal >> Impact.getImpact Definition.Ecs) of
@@ -157,7 +155,7 @@ suite =
 
                                     Ok result ->
                                         Unit.impactToFloat result
-                                            |> Expect.within (Expect.Absolute 0.1) 114.4
+                                            |> Expect.within (Expect.Absolute 0.1) 113.18
                                 )
                              , describe "Scoring"
                                 (case royalPizzaResults |> Result.map (Tuple.second >> .scoring) of
@@ -168,13 +166,13 @@ suite =
 
                                     Ok scoring ->
                                         [ Unit.impactToFloat scoring.all
-                                            |> Expect.within (Expect.Absolute 0.01) 459.39
+                                            |> Expect.within (Expect.Absolute 0.01) 455.57
                                             |> asTest "should properly score total impact"
                                         , Unit.impactToFloat scoring.allWithoutComplements
                                             |> Expect.within (Expect.Absolute 0.01) 456.16
                                             |> asTest "should properly score total impact without complements"
                                         , Unit.impactToFloat scoring.complements
-                                            |> Expect.within (Expect.Absolute 0.01) -3.23
+                                            |> Expect.within (Expect.Absolute 0.01) 0.59
                                             |> asTest "should properly score complement impact"
                                         , (Unit.impactToFloat scoring.allWithoutComplements - Unit.impactToFloat scoring.complements)
                                             |> Expect.within (Expect.Absolute 0.0001) (Unit.impactToFloat scoring.all)

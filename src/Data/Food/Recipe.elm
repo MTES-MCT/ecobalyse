@@ -293,7 +293,7 @@ convertWellKnownToTransportModes wellKnown =
 
 
 computeIngredientComplementsImpacts : EcosystemicServices -> Mass -> Complement.ComplementsImpacts
-computeIngredientComplementsImpacts { cropDiversity, hedges, livestockDensity, permanentPasture, plotSize } ingredientMass =
+computeIngredientComplementsImpacts { cropDiversity, hedges, permanentPasture, plotSize } ingredientMass =
     let
         apply coeff =
             Quantity.multiplyBy (Mass.inKilograms ingredientMass)
@@ -302,7 +302,6 @@ computeIngredientComplementsImpacts { cropDiversity, hedges, livestockDensity, p
     { cropDiversity = Just <| apply EcosystemicServices.coefficients.cropDiversity cropDiversity
     , forest = Nothing
     , hedges = Just <| apply EcosystemicServices.coefficients.hedges hedges
-    , livestockDensity = Just <| apply EcosystemicServices.coefficients.livestockDensity livestockDensity
     , microfibers = Nothing
     , outOfEuropeEOL = Nothing
     , permanentPasture = Just <| apply EcosystemicServices.coefficients.permanentPasture permanentPasture

@@ -134,7 +134,6 @@ table { detailed, scope } =
                           , ( EcosystemicServices.labels.plotSize, ecosystemicServices.plotSize )
                           , ( EcosystemicServices.labels.cropDiversity, ecosystemicServices.cropDiversity )
                           , ( EcosystemicServices.labels.permanentPasture, ecosystemicServices.permanentPasture )
-                          , ( EcosystemicServices.labels.livestockDensity, ecosystemicServices.livestockDensity )
                           ]
                             |> List.map
                                 (\( label, impact ) ->
