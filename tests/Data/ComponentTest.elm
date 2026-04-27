@@ -1241,9 +1241,9 @@ testComponentConfig db =
                     },
                     "collected": {
                         "ferrous_metals": {
-                        "incinerating": null,
-                        "landfilling": null,
-                        "recycling": { "percent": 100, "processId": "51801e91-d907-4297-9a4c-5691bbbb665b" }
+                            "incinerating": null,
+                            "landfilling": null,
+                            "recycling": { "percent": 100, "processId": "51801e91-d907-4297-9a4c-5691bbbb665b" }
                         },
                         "rigid_plastics": {
                             "incinerating": { "percent": 35, "processId": "7f7af998-8313-47e7-b043-80fcf4d67042" },
@@ -1251,9 +1251,9 @@ testComponentConfig db =
                             "recycling": { "percent": 41, "processId": "f404c75d-c211-4ea1-b392-702693a26b75" }
                         },
                         "pur_foam": {
-                        "incinerating": { "percent": 94, "processId": "04c1e26f-bc40-4dff-950a-51ca54d5ad16" },
-                        "landfilling": { "percent": 2, "processId": "6194fdb0-0b67-4101-8d6a-1e55924b7462" },
-                        "recycling": { "percent": 4, "processId": "dbfb60bb-045f-4e81-9f88-8b411fc4a665" }
+                            "incinerating": { "percent": 94, "processId": "04c1e26f-bc40-4dff-950a-51ca54d5ad16" },
+                            "landfilling": { "percent": 2, "processId": "6194fdb0-0b67-4101-8d6a-1e55924b7462" },
+                            "recycling": { "percent": 4, "processId": "dbfb60bb-045f-4e81-9f88-8b411fc4a665" }
                         },
                         "wood": {
                             "incinerating": { "processId": "8c102569-dcef-4016-842b-6f662a082b66", "percent": 31 },
