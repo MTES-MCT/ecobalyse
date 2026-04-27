@@ -3,6 +3,7 @@ module Data.Process exposing
     , Process
     , Unit(..)
     , available
+    , computeSearchableWords
     , decode
     , decodeFromId
     , decodeId
@@ -13,6 +14,7 @@ module Data.Process exposing
     , getDisplayName
     , getImpact
     , getMaterialTypes
+    , getSearchableWords
     , getTechnicalName
     , idFromString
     , idToString
@@ -31,6 +33,7 @@ import Data.Process.Category as Category exposing (Category)
 import Data.Process.Metadata as Metadata exposing (Metadata)
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
+import Data.Text as Text
 import Data.Unit as Unit
 import Data.Uuid as Uuid exposing (Uuid)
 import Energy exposing (Energy)
@@ -60,6 +63,7 @@ type alias Process =
     , location : Maybe String
     , massPerUnit : Maybe Float
     , metadata : Maybe Metadata
+    , searchableWords : Maybe (List String)
     , scopes : List Scope
     , source : String
     , unit : Unit
@@ -111,6 +115,11 @@ activityNameToString (ActivityName string) =
     string
 
 
+computeSearchableWords : Process -> Process
+computeSearchableWords process =
+    { process | searchableWords = Just <| getSearchableWords process }
+
+
 decode : Decoder Impact.Impacts -> Decoder Process
 decode impactsDecoder =
     Decode.succeed Process
@@ -126,6 +135,7 @@ decode impactsDecoder =
         |> Pipe.required "location" (Decode.maybe Decode.string)
         |> Pipe.required "massPerUnit" (Decode.maybe Decode.float)
         |> DU.strictOptional "metadata" Metadata.decode
+        |> Pipe.hardcoded Nothing
         |> Pipe.required "scopes" (Decode.list Scope.decode)
         |> Pipe.required "source" Decode.string
         |> Pipe.required "unit" (Decode.string |> Decode.andThen (DE.fromResult << unitFromString))
@@ -216,6 +226,20 @@ getMaterialTypes =
             )
 
 
+getSearchableWords : Process -> List String
+getSearchableWords process =
+    -- For a reason I don’t get, using
+    -- process.searchableWords |> Maybe.withDefault (toSearchableWords process)
+    -- doesn’t work as `toSearchableWords process` is always called, no matter if then
+    -- Maybe contains Nothing or Just, lazy evaluation difference?
+    case process.searchableWords of
+        Just words ->
+            words
+
+        Nothing ->
+            toSearchableWords process
+
+
 getTechnicalName : Process -> String
 getTechnicalName { activityName } =
     activityNameToString activityName
@@ -278,6 +302,13 @@ toSearchableString process =
         , process.comment
         , process.source
         ]
+
+
+toSearchableWords : Process -> List String
+toSearchableWords process =
+    process
+        |> toSearchableString
+        |> Text.toWords
 
 
 unitLabel : Unit -> String

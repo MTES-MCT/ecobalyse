@@ -7,6 +7,7 @@ import Data.Process as Process
 import Data.Scope exposing (Scope)
 import Data.Session exposing (Session)
 import Data.Split as Split
+import Data.Text as Text
 import Data.Textile.Economics as Economics
 import Data.Textile.Fabric as Fabric
 import Data.Textile.Formula as Formula
@@ -38,7 +39,7 @@ table { componentConfig, db } { detailed, scope } =
     { filename = "products"
     , toId = .id >> Product.idToString
     , toRoute = .id >> Just >> Dataset.TextileProducts >> Route.Explore scope
-    , toSearchableString = Product.toSearchableString
+    , toSearchableWords = Product.toSearchableString >> Text.toWords
     , facets =
         [ Table.Facet "Confection (complexité)" (.making >> .complexity >> MakingComplexity.toLabel >> List.singleton)
         , Table.Facet "Étoffe" (.fabric >> Fabric.toLabel >> List.singleton)

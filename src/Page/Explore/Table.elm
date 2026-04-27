@@ -10,8 +10,7 @@ module Page.Explore.Table exposing
     , viewList
     )
 
-import Base64
-import Csv.Encode as EncodeCsv exposing (Csv)
+import Csv.Encode exposing (Csv)
 import Data.Scope as Scope exposing (Scope)
 import Data.Text as Text
 import Dict exposing (Dict)
@@ -31,7 +30,7 @@ type alias Table data comparable msg =
     { filename : String
     , toId : data -> String
     , toRoute : data -> Route
-    , toSearchableString : data -> String
+    , toSearchableWords : data -> List String
     , facets : List (Facet data)
     , columns : List (Column data comparable msg)
     , legend : List (Html msg)
@@ -101,15 +100,16 @@ viewDetails scope createTable item =
 
 viewList :
     (Route -> msg)
+    -> (String -> Csv -> msg)
     -> Config data msg
     -> SortableTable.State
     -> Scope
     -> ({ detailed : Bool, scope : Scope } -> Table data comparable msg)
     -> List data
     -> Html msg
-viewList routeToMsg defaultConfig tableState scope createTable items =
+viewList routeToMsg csvDownloadMsg defaultConfig tableState scope createTable items =
     let
-        ({ filename, toId, toRoute, toSearchableString, facets, columns, legend } as table) =
+        ({ filename, toId, toRoute, toSearchableWords, facets, columns, legend } as table) =
             createTable { detailed = False, scope = scope }
 
         { customizations } =
@@ -160,14 +160,13 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
                 }
 
         resultItems =
-            items |> applyFiltersAndSearch defaultConfig facets toSearchableString
+            items |> applyFiltersAndSearch defaultConfig facets toSearchableWords
 
         csv =
             { filename = "ecobalyse-" ++ Scope.toString scope ++ "-" ++ filename ++ ".csv"
             , content =
                 resultItems
                     |> toCSV table
-                    |> EncodeCsv.toString
             }
 
         facetsEnabled =
@@ -203,10 +202,9 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
                     , div [ class "text-muted fs-7" ] legend
                     ]
                 , div [ class "text-end pt-3" ]
-                    [ a
+                    [ button
                         [ class "btn btn-secondary"
-                        , href <| "data:text/csv;base64," ++ Base64.encode csv.content
-                        , download csv.filename
+                        , onClick <| csvDownloadMsg csv.filename csv.content
                         ]
                         [ text "Télécharger ces données au format CSV" ]
                     ]
@@ -219,10 +217,10 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
             ]
 
 
-applyFiltersAndSearch : Config data msg -> List (Facet data) -> (data -> String) -> List data -> List data
-applyFiltersAndSearch config facets toSearchableString =
+applyFiltersAndSearch : Config data msg -> List (Facet data) -> (data -> List String) -> List data -> List data
+applyFiltersAndSearch config facets toSearchableWords =
     filterItems config facets
-        >> searchItems config toSearchableString
+        >> searchItems config toSearchableWords
 
 
 viewFacet : Config data msg -> List data -> Facet data -> Html msg
@@ -320,12 +318,12 @@ filterItems { selectedFacets } facets =
         )
 
 
-searchItems : Config data msg -> (data -> String) -> List data -> List data
-searchItems { search } toSearchableString =
+searchItems : Config data msg -> (data -> List String) -> List data -> List data
+searchItems { search } toSearchableWords =
     Text.search
         { minQueryLength = 2
         , query = search
-        , toString = toSearchableString
+        , toSearchableWords = toSearchableWords
         }
 
 

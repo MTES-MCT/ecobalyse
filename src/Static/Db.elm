@@ -53,7 +53,7 @@ db =
                             StaticJson.objectExamplesJson
                             StaticJson.veliExamplesJson
                         )
-                    |> RE.andMap (Ok processes)
+                    |> RE.andMap (Ok (processes |> List.map Process.computeSearchableWords))
                     |> RE.andMap
                         (processes
                             |> TextileDb.buildFromJson
