@@ -33,6 +33,7 @@ import Data.Process.Category as Category exposing (Category)
 import Data.Process.Metadata as Metadata exposing (Metadata)
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
+import Data.Text as Text
 import Data.Unit as Unit
 import Data.Uuid as Uuid exposing (Uuid)
 import Energy exposing (Energy)
@@ -41,8 +42,6 @@ import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Json.Encode.Extra as EncodeExtra
-import Regex
-import String.Normalize as Normalize
 
 
 type Id
@@ -229,7 +228,16 @@ getMaterialTypes =
 
 getSearchableWords : Process -> List String
 getSearchableWords process =
-    process.searchableWords |> Maybe.withDefault (toSearchableWords process)
+    -- For a reason I don’t get, using
+    -- process.searchableWords |> Maybe.withDefault (toSearchableWords process)
+    -- does’nt work as `toSearchableWords process` is always called, no matter if then
+    -- Maybe contains Nothing or Just, lazy evaluation difference?
+    case process.searchableWords of
+        Just words ->
+            words
+
+        Nothing ->
+            toSearchableWords process
 
 
 getTechnicalName : Process -> String
@@ -298,18 +306,9 @@ toSearchableString process =
 
 toSearchableWords : Process -> List String
 toSearchableWords process =
-    let
-        _ =
-            Debug.log "toSearchableWords" process
-    in
     process
         |> toSearchableString
-        |> String.toLower
-        |> Normalize.removeDiacritics
-        |> Regex.split
-            (Regex.fromString "[\\W_]+"
-                |> Maybe.withDefault Regex.never
-            )
+        |> Text.toWords
 
 
 unitLabel : Unit -> String

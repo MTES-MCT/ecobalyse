@@ -92,7 +92,7 @@ viewList :
     -> Html msg
 viewList routeToMsg defaultConfig tableState scope createTable items =
     let
-        ({ filename, toId, toRoute, toSearchableString, columns, legend } as table) =
+        ({ filename, toId, toRoute, toSearchableString, toSearchableWords, columns, legend } as table) =
             createTable { detailed = False, scope = scope }
 
         { customizations } =
@@ -143,7 +143,7 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
                 }
 
         resultItems =
-            items |> searchItems defaultConfig toSearchableString
+            items |> searchItems defaultConfig toSearchableString toSearchableWords
 
         -- csv =
         --     { filename = "ecobalyse-" ++ Scope.toString scope ++ "-" ++ filename ++ ".csv"
@@ -198,13 +198,13 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
             ]
 
 
-searchItems : Config data msg -> (data -> String) -> List data -> List data
-searchItems { search } toSearchableString =
+searchItems : Config data msg -> (data -> String) -> Maybe (data -> List String) -> List data -> List data
+searchItems { search } toSearchableString toSearchableWords =
     Text.search
         { minQueryLength = 2
         , query = search
         , toString = toSearchableString
-        , toSearchableWords = Nothing
+        , toSearchableWords = toSearchableWords
         }
 
 

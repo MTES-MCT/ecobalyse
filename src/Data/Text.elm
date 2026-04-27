@@ -64,13 +64,9 @@ search { minQueryLength, query, toString, toSearchableWords } elements =
 
 toWords : String -> List String
 toWords =
-    List.singleton
-
-
-
--- String.toLower
---     >> Normalize.removeDiacritics
---     >> Regex.split
---         (Regex.fromString "[\\W_]+"
---             |> Maybe.withDefault Regex.never
---         )
+    String.toLower
+        >> Normalize.removeDiacritics
+        >> Regex.split
+            (Regex.fromString "[\\W_]+"
+                |> Maybe.withDefault Regex.never
+            )
