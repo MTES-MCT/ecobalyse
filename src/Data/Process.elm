@@ -134,8 +134,8 @@ decode impactsDecoder =
         |> Pipe.required "location" (Decode.maybe Decode.string)
         |> Pipe.required "massPerUnit" (Decode.maybe Decode.float)
         |> DU.strictOptional "metadata" Metadata.decode
-        |> Pipe.hardcoded Nothing
         |> Pipe.required "scopes" (Decode.list Scope.decode)
+        |> Pipe.hardcoded Nothing
         |> Pipe.required "source" Decode.string
         |> Pipe.required "unit" (Decode.string |> Decode.andThen (DE.fromResult << unitFromString))
         |> Pipe.required "waste" Split.decodeFloat
