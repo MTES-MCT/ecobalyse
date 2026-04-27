@@ -230,7 +230,7 @@ getSearchableWords : Process -> List String
 getSearchableWords process =
     -- For a reason I don’t get, using
     -- process.searchableWords |> Maybe.withDefault (toSearchableWords process)
-    -- does’nt work as `toSearchableWords process` is always called, no matter if then
+    -- doesn’t work as `toSearchableWords process` is always called, no matter if then
     -- Maybe contains Nothing or Just, lazy evaluation difference?
     case process.searchableWords of
         Just words ->
