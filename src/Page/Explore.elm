@@ -12,6 +12,7 @@ module Page.Explore exposing
 import App exposing (Msg, PageUpdate)
 import Browser.Events
 import Browser.Navigation as Nav
+import Csv.Encode as EncodeCsv exposing (Csv)
 import Data.Component as Component exposing (Component)
 import Data.Country as Country exposing (Country)
 import Data.Dataset as Dataset exposing (Dataset)
@@ -32,6 +33,7 @@ import Data.Textile.Query as TextileQuery
 import Data.Textile.Simulator as Simulator
 import Data.Unit as Unit
 import Data.Uuid exposing (Uuid)
+import File.Download as Download
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -65,6 +67,7 @@ type alias Model =
 
 type Msg
     = CloseModal
+    | DownloadCsv String Csv
     | NoOp
     | OpenDetail Route
     | ScopeChange Scope
@@ -130,6 +133,9 @@ update session msg model =
                         |> Route.toString
                         |> Nav.pushUrl session.navKey
                     ]
+
+        DownloadCsv filename csv ->
+            createPageUpdate session model |> App.withCmds [ Download.string filename "text/csv" (csv |> EncodeCsv.toString) ]
 
         NoOp ->
             createPageUpdate session model
@@ -284,7 +290,7 @@ countriesExplorer :
 countriesExplorer { distances, countries } tableConfig tableState scope maybeCode =
     [ countries
         |> List.filter (.scopes >> List.member scope)
-        |> Table.viewList OpenDetail tableConfig tableState scope (ExploreCountries.table distances countries)
+        |> Table.viewList OpenDetail DownloadCsv tableConfig tableState scope (ExploreCountries.table distances countries)
     , case maybeCode of
         Just code ->
             detailsModal
@@ -312,7 +318,7 @@ impactsExplorer :
 impactsExplorer definitions tableConfig tableState scope maybeTrigram =
     [ Definition.toList definitions
         |> List.sortBy (.trigram >> Definition.toString)
-        |> Table.viewList OpenDetail tableConfig tableState scope ExploreImpacts.table
+        |> Table.viewList OpenDetail DownloadCsv tableConfig tableState scope ExploreImpacts.table
     , maybeTrigram
         |> Maybe.map (\trigram -> Definition.get trigram definitions)
         |> Maybe.map (Table.viewDetails scope ExploreImpacts.table)
@@ -357,7 +363,7 @@ foodExamplesExplorer db tableConfig tableState maybeId =
     [ scoredExamples
         |> List.filter (Tuple.first >> .query >> (/=) FoodQuery.empty)
         |> List.sortBy (Tuple.first >> .name)
-        |> Table.viewList OpenDetail tableConfig tableState Scope.Food (FoodExamples.table max)
+        |> Table.viewList OpenDetail DownloadCsv tableConfig tableState Scope.Food (FoodExamples.table max)
     , case maybeId of
         Just id ->
             detailsModal
@@ -389,7 +395,7 @@ foodIngredientsExplorer :
 foodIngredientsExplorer { food } tableConfig tableState maybeId =
     [ food.ingredients
         |> List.sortBy .name
-        |> Table.viewList OpenDetail tableConfig tableState Scope.Food FoodIngredients.table
+        |> Table.viewList OpenDetail DownloadCsv tableConfig tableState Scope.Food FoodIngredients.table
     , case maybeId of
         Just id ->
             detailsModal
@@ -426,7 +432,7 @@ processesExplorer session scope tableConfig tableState maybeId =
     in
     [ scopedProcesses
         |> List.sortBy Process.getDisplayName
-        |> Table.viewList OpenDetail tableConfig tableState scope (Processes.table session)
+        |> Table.viewList OpenDetail DownloadCsv tableConfig tableState scope (Processes.table session)
     , case maybeId of
         Just id ->
             detailsModal
@@ -458,7 +464,7 @@ componentsExplorer session scope tableConfig tableState maybeId =
     in
     [ scopedComponents
         |> List.sortBy .name
-        |> Table.viewList OpenDetail tableConfig tableState scope (Components.table session)
+        |> Table.viewList OpenDetail DownloadCsv tableConfig tableState scope (Components.table session)
     , case maybeId of
         Just id ->
             detailsModal
@@ -502,7 +508,7 @@ objectExamplesExplorer session tableConfig tableState scope maybeId =
     [ scoredExamples
         |> List.filter (Tuple.first >> .query >> (/=) Component.emptyQuery)
         |> List.sortBy (Tuple.first >> .name)
-        |> Table.viewList OpenDetail tableConfig tableState scope (ObjectExamples.table max)
+        |> Table.viewList OpenDetail DownloadCsv tableConfig tableState scope (ObjectExamples.table max)
     , case maybeId of
         Just id ->
             detailsModal
@@ -555,7 +561,7 @@ textileExamplesExplorer session tableConfig tableState maybeId =
     in
     [ scoredExamples
         |> List.sortBy (Tuple.first >> .name)
-        |> Table.viewList OpenDetail tableConfig tableState Scope.Textile (TextileExamples.table session max)
+        |> Table.viewList OpenDetail DownloadCsv tableConfig tableState Scope.Textile (TextileExamples.table session max)
     , case maybeId of
         Just id ->
             detailsModal
@@ -586,7 +592,7 @@ textileProductsExplorer :
     -> List (Html Msg)
 textileProductsExplorer session tableConfig tableState maybeId =
     [ session.db.textile.products
-        |> Table.viewList OpenDetail tableConfig tableState Scope.Textile (TextileProducts.table session)
+        |> Table.viewList OpenDetail DownloadCsv tableConfig tableState Scope.Textile (TextileProducts.table session)
     , case maybeId of
         Just id ->
             detailsModal
@@ -611,7 +617,7 @@ textileMaterialsExplorer :
     -> List (Html Msg)
 textileMaterialsExplorer db tableConfig tableState maybeId =
     [ db.textile.materials
-        |> Table.viewList OpenDetail tableConfig tableState Scope.Textile (TextileMaterials.table db)
+        |> Table.viewList OpenDetail DownloadCsv tableConfig tableState Scope.Textile (TextileMaterials.table db)
     , case maybeId of
         Just id ->
             detailsModal

@@ -7,8 +7,7 @@ module Page.Explore.Table exposing
     , viewList
     )
 
-import Base64
-import Csv.Encode as EncodeCsv exposing (Csv)
+import Csv.Encode exposing (Csv)
 import Data.Scope as Scope exposing (Scope)
 import Data.Text as Text
 import Html exposing (..)
@@ -83,13 +82,14 @@ viewDetails scope createTable item =
 
 viewList :
     (Route -> msg)
+    -> (String -> Csv -> msg)
     -> Config data msg
     -> SortableTable.State
     -> Scope
     -> ({ detailed : Bool, scope : Scope } -> Table data comparable msg)
     -> List data
     -> Html msg
-viewList routeToMsg defaultConfig tableState scope createTable items =
+viewList routeToMsg csvDownloadMsg defaultConfig tableState scope createTable items =
     let
         ({ filename, toId, toRoute, toSearchableWords, columns, legend } as table) =
             createTable { detailed = False, scope = scope }
@@ -144,13 +144,12 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
         resultItems =
             items |> searchItems defaultConfig toSearchableWords
 
-        -- csv =
-        --     { filename = "ecobalyse-" ++ Scope.toString scope ++ "-" ++ filename ++ ".csv"
-        --     , content =
-        --         resultItems
-        --             |> toCSV table
-        --             |> EncodeCsv.toString
-        --     }
+        csv =
+            { filename = "ecobalyse-" ++ Scope.toString scope ++ "-" ++ filename ++ ".csv"
+            , content =
+                resultItems
+                    |> toCSV table
+            }
     in
     if List.isEmpty items then
         Alert.simple
@@ -186,11 +185,9 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
                 , div [ class "text-muted fs-7" ] legend
                 ]
             , div [ class "text-end pt-3" ]
-                [ a
+                [ button
                     [ class "btn btn-secondary"
-
-                    -- , href <| "data:text/csv;base64," ++ Base64.encode csv.content
-                    -- , download csv.filename
+                    , onClick <| csvDownloadMsg csv.filename csv.content
                     ]
                     [ text "Télécharger ces données au format CSV" ]
                 ]
