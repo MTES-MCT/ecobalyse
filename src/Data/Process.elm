@@ -21,7 +21,6 @@ module Data.Process exposing
     , impactsPerUnit
     , listAvailableMaterialTransforms
     , listByCategory
-    , toSearchableString
     , unitLabel
     , unitToString
     )
@@ -63,8 +62,8 @@ type alias Process =
     , location : Maybe String
     , massPerUnit : Maybe Float
     , metadata : Maybe Metadata
-    , searchableWords : Maybe (List String)
     , scopes : List Scope
+    , searchableWords : Maybe (List String)
     , source : String
     , unit : Unit
     , waste : Split
