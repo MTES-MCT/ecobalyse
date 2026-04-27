@@ -45,22 +45,19 @@ type Material
     | Glass
     | HDPE
     | LDPE
-    | Metal -- obsolete materials
     | Offal
     | OrganicFibers
     | OtherFoodItems
-    | OtherMaterial -- obsolete materials
+    | OtherMaterial
     | PET
     | PP
     | PWB
-    | Plastic -- obsolete materials
     | Poultry
     | PurFoam
     | RedMeats
     | RigidPlastics
     | Rubber
     | SyntheticFibers
-    | Upholstery -- obsolete materials
     | Wood
 
 
@@ -183,9 +180,6 @@ materialTypeFromString string =
         "ldpe" ->
             Ok LDPE
 
-        "metal" ->
-            Ok Metal
-
         "organic_fibers" ->
             Ok OrganicFibers
 
@@ -194,9 +188,6 @@ materialTypeFromString string =
 
         "pet" ->
             Ok PET
-
-        "plastic" ->
-            Ok Plastic
 
         "pp" ->
             Ok PP
@@ -215,9 +206,6 @@ materialTypeFromString string =
 
         "synthetic_fibers" ->
             Ok SyntheticFibers
-
-        "upholstery" ->
-            Ok Upholstery
 
         "wood" ->
             Ok Wood
@@ -286,9 +274,6 @@ materialTypeToLabel material =
         LDPE ->
             "PEBD"
 
-        Metal ->
-            "Métal"
-
         Offal ->
             "Abats"
 
@@ -310,9 +295,6 @@ materialTypeToLabel material =
         PWB ->
             "Carte de circuit imprimé"
 
-        Plastic ->
-            "Plastique"
-
         Poultry ->
             "Volailles et viandes blanches"
 
@@ -330,9 +312,6 @@ materialTypeToLabel material =
 
         SyntheticFibers ->
             "Fibres synthétiques"
-
-        Upholstery ->
-            "Mousses et rembourrés"
 
         Wood ->
             "Bois"
@@ -377,9 +356,6 @@ materialTypeToString material =
         LDPE ->
             "ldpe"
 
-        Metal ->
-            "metal"
-
         Offal ->
             "offal"
 
@@ -401,9 +377,6 @@ materialTypeToString material =
         PWB ->
             "pwb"
 
-        Plastic ->
-            "plastic"
-
         Poultry ->
             "poultry"
 
@@ -421,9 +394,6 @@ materialTypeToString material =
 
         SyntheticFibers ->
             "synthetic_fibers"
-
-        Upholstery ->
-            "upholstery"
 
         Wood ->
             "wood"
