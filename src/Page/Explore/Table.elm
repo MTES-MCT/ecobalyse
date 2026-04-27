@@ -26,8 +26,7 @@ type alias Table data comparable msg =
     { filename : String
     , toId : data -> String
     , toRoute : data -> Route
-    , toSearchableString : data -> String
-    , toSearchableWords : Maybe (data -> List String)
+    , toSearchableWords : data -> List String
     , columns : List (Column data comparable msg)
     , legend : List (Html msg)
     }
@@ -92,7 +91,7 @@ viewList :
     -> Html msg
 viewList routeToMsg defaultConfig tableState scope createTable items =
     let
-        ({ filename, toId, toRoute, toSearchableString, toSearchableWords, columns, legend } as table) =
+        ({ filename, toId, toRoute, toSearchableWords, columns, legend } as table) =
             createTable { detailed = False, scope = scope }
 
         { customizations } =
@@ -143,7 +142,7 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
                 }
 
         resultItems =
-            items |> searchItems defaultConfig toSearchableString toSearchableWords
+            items |> searchItems defaultConfig toSearchableWords
 
         -- csv =
         --     { filename = "ecobalyse-" ++ Scope.toString scope ++ "-" ++ filename ++ ".csv"
@@ -198,12 +197,11 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
             ]
 
 
-searchItems : Config data msg -> (data -> String) -> Maybe (data -> List String) -> List data -> List data
-searchItems { search } toSearchableString toSearchableWords =
+searchItems : Config data msg -> (data -> List String) -> List data -> List data
+searchItems { search } toSearchableWords =
     Text.search
         { minQueryLength = 2
         , query = search
-        , toString = toSearchableString
         , toSearchableWords = toSearchableWords
         }
 

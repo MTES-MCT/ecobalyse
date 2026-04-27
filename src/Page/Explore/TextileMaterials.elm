@@ -6,6 +6,7 @@ import Data.Gitbook as Gitbook
 import Data.Process as Process
 import Data.Scope exposing (Scope)
 import Data.Split as Split
+import Data.Text as Text
 import Data.Textile.Material as Material exposing (Id, Material)
 import Data.Textile.Material.Origin as Origin
 import Data.Unit as Unit
@@ -49,8 +50,7 @@ table db { detailed, scope } =
     { filename = "materials"
     , toId = .id >> Material.idToString
     , toRoute = .id >> Just >> Dataset.TextileMaterials >> Route.Explore scope
-    , toSearchableString = Material.toSearchableString db.countries
-    , toSearchableWords = Nothing
+    , toSearchableWords = Material.toSearchableString db.countries >> Text.toWords
     , legend = []
     , columns =
         [ { label = "Identifiant"

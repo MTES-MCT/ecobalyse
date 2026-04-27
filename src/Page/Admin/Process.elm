@@ -127,8 +127,7 @@ processFilters scopes search =
         >> Text.search
             { minQueryLength = 2
             , query = search
-            , toString = Process.toSearchableString
-            , toSearchableWords = Nothing
+            , toSearchableWords = Process.getSearchableWords
             }
 
 

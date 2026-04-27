@@ -7,6 +7,7 @@ import Data.Process as Process
 import Data.Scope exposing (Scope)
 import Data.Session exposing (Session)
 import Data.Split as Split
+import Data.Text as Text
 import Data.Textile.Economics as Economics
 import Data.Textile.Fabric as Fabric
 import Data.Textile.Formula as Formula
@@ -38,8 +39,7 @@ table { componentConfig, db } { detailed, scope } =
     { filename = "products"
     , toId = .id >> Product.idToString
     , toRoute = .id >> Just >> Dataset.TextileProducts >> Route.Explore scope
-    , toSearchableString = Product.toSearchableString
-    , toSearchableWords = Nothing
+    , toSearchableWords = Product.toSearchableString >> Text.toWords
     , legend =
         [ ul [ class "list-unstyled text-muted p-2 m-0" ]
             [ li [] [ strong [] [ text "*" ], text " Modifié au changement de catégorie de produit" ]

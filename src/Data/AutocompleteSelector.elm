@@ -20,8 +20,7 @@ init toString availableElements =
                             |> Text.search
                                 { minQueryLength = 1
                                 , query = lastChoices.query
-                                , toString = toString
-                                , toSearchableWords = Nothing
+                                , toSearchableWords = toString >> Text.toWords
                                 }
                 }
         )

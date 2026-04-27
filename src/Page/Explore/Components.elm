@@ -8,6 +8,7 @@ import Data.Impact.Definition as Definition
 import Data.Process as Process
 import Data.Scope exposing (Scope)
 import Data.Session exposing (Session)
+import Data.Text as Text
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -22,8 +23,7 @@ table ({ db } as session) { detailed, scope } =
     { filename = "components"
     , toId = .id >> Maybe.map Component.idToString >> Maybe.withDefault ""
     , toRoute = .id >> Dataset.Components scope >> Route.Explore scope
-    , toSearchableString = Component.toSearchableString db
-    , toSearchableWords = Nothing
+    , toSearchableWords = Component.toSearchableString db >> Text.toWords
     , legend = []
     , columns =
         [ { label = "Identifiant"

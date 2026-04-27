@@ -10,8 +10,7 @@ import String.Normalize as Normalize
 type alias SearchConfig element =
     { minQueryLength : Int
     , query : String
-    , toString : element -> String
-    , toSearchableWords : Maybe (element -> List String)
+    , toSearchableWords : element -> List String
     }
 
 
@@ -22,7 +21,7 @@ type alias SearchConfig element =
 
 -}
 search : SearchConfig element -> List element -> List element
-search { minQueryLength, query, toString, toSearchableWords } elements =
+search { minQueryLength, query, toSearchableWords } elements =
     let
         trimmedQuery =
             String.trim query
@@ -39,11 +38,9 @@ search { minQueryLength, query, toString, toSearchableWords } elements =
                 searchWords
                     |> List.all
                         (\word ->
-                            fn (String.toLower word) <|
+                            fn word <|
                                 (element
-                                    |> (toSearchableWords
-                                            |> Maybe.withDefault (toString >> toWords)
-                                       )
+                                    |> toSearchableWords
                                 )
                         )
 

@@ -23,8 +23,7 @@ table session { detailed, scope } =
     { filename = "processes"
     , toId = .id >> Process.idToString
     , toRoute = .id >> Just >> Dataset.Processes scope >> Route.Explore scope
-    , toSearchableString = Process.toSearchableString
-    , toSearchableWords = Just Process.getSearchableWords
+    , toSearchableWords = Process.getSearchableWords
     , legend = []
     , columns = baseColumns detailed scope ++ impactsColumns session ++ complementsColumns session
     }

@@ -440,8 +440,7 @@ processFilters scopes search =
         >> Text.search
             { minQueryLength = 2
             , query = search
-            , toString = .name
-            , toSearchableWords = Nothing
+            , toSearchableWords = .name >> Text.toWords
             }
 
 
