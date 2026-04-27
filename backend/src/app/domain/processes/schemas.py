@@ -41,6 +41,7 @@ class Category(StrEnum):
     MATERIAL_TYPE_RUBBER = "material_type:rubber"
     MATERIAL_TYPE_SYNTHETIC_FIBERS = "material_type:synthetic_fibers"
     MATERIAL_TYPE_WOOD = "material_type:wood"
+    MATERIAL_TYPE_OTHER = "material_type:other"
 
     # Food types
     MATERIAL_TYPE_EGGS = "material_type:eggs"
@@ -50,12 +51,6 @@ class Category(StrEnum):
     MATERIAL_TYPE_OTHER_FOOD_ITEMS = "material_type:other_food_items"
     MATERIAL_TYPE_POULTRY = "material_type:poultry"
     MATERIAL_TYPE_RED_MEATS = "material_type:red_meats"
-
-    # Obsolete material_types
-    MATERIAL_TYPE_METAL = "material_type:metal"
-    MATERIAL_TYPE_OTHER = "material_type:other"
-    MATERIAL_TYPE_PLASTIC = "material_type:plastic"
-    MATERIAL_TYPE_UPHOLSTERY = "material_type:upholstery"
 
     PACKAGING = "packaging"
     PACKAGING_TYPE_BAG = "packaging_type:bag"
