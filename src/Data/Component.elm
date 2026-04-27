@@ -92,6 +92,7 @@ module Data.Component exposing
     , sumLifeCycleImpacts
     , targetElementToString
     , toSearchableString
+    , transformListToString
     , tryMapItems
     , updateConsumptionAmount
     , updateDistribution
@@ -1899,6 +1900,22 @@ toSearchableString db component =
         , component.comment |> Maybe.withDefault ""
         , component |> elementsToString db |> Result.withDefault ""
         ]
+
+
+transformListToString : List ExpandedTransform -> String
+transformListToString =
+    List.map
+        (\{ country, process } ->
+            Process.getDisplayName process
+                ++ (case country of
+                        Just { code } ->
+                            " (" ++ Country.codeToString code ++ ")"
+
+                        Nothing ->
+                            ""
+                   )
+        )
+        >> String.join ", "
 
 
 {-| Update a list of component items that may fail
