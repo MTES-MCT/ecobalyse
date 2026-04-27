@@ -18,18 +18,18 @@ suite =
         , describe "search"
             [ it "should not search a list when not enough chars are provided"
                 (sampleItems
-                    |> Text.search { minQueryLength = 2, query = "x", toSearchableWords = identity >> Text.toWords }
+                    |> Text.search { minQueryLength = 2, query = "x", toSearchableWords = Text.toWords }
                     |> Expect.equal sampleItems
                 )
             , it "should search a term placing exact word matches first"
                 (sampleItems
-                    |> Text.search { minQueryLength = 2, query = "def", toSearchableWords = identity >> Text.toWords }
+                    |> Text.search { minQueryLength = 2, query = "def", toSearchableWords = Text.toWords }
                     |> List.head
                     |> Expect.equal (Just "def")
                 )
             , it "should search a term placing exact word matches first, partial matches second"
                 (sampleItems
-                    |> Text.search { minQueryLength = 2, query = "def", toSearchableWords = identity >> Text.toWords }
+                    |> Text.search { minQueryLength = 2, query = "def", toSearchableWords = Text.toWords }
                     |> Expect.equal [ "def", "abc def", "defy" ]
                 )
             ]
