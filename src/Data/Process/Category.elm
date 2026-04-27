@@ -48,6 +48,7 @@ type Material
     | Offal
     | OrganicFibers
     | OtherFoodItems
+    | OtherMaterial
     | PET
     | PP
     | PWB
@@ -182,6 +183,9 @@ materialTypeFromString string =
         "organic_fibers" ->
             Ok OrganicFibers
 
+        "other" ->
+            Ok OtherMaterial
+
         "pet" ->
             Ok PET
 
@@ -279,6 +283,9 @@ materialTypeToLabel material =
         OtherFoodItems ->
             "Divers ingrédients"
 
+        OtherMaterial ->
+            "Autre type de matière"
+
         PET ->
             "PET"
 
@@ -357,6 +364,9 @@ materialTypeToString material =
 
         OtherFoodItems ->
             "other_food_items"
+
+        OtherMaterial ->
+            "other"
 
         PET ->
             "pet"
