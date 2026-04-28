@@ -91,6 +91,16 @@
     "zone": "Oceania"
   },
   {
+    "aquaticPollutionScenario": "Best",
+    "code": "ROF",
+    "comment": "Elec and heat mixes are the same than 'France' but are not used by the 'food' simulator",
+    "electricityProcessId": "931c9bb0-619a-5f75-b41b-ab8061e2ad92",
+    "heatProcessId": "f6ea2983-e024-5de2-b323-273f2436deba",
+    "name": "France d’outre-mer",
+    "scopes": ["food", "food2"],
+    "zone": "South_America"
+  },
+  {
     "aquaticPollutionScenario": "Worst",
     "code": "MM",
     "electricityProcessId": "3b57b822-5e54-5116-b07d-55bcedcd6abf",
