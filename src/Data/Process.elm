@@ -13,7 +13,6 @@ module Data.Process exposing
     , getDisplayName
     , getImpact
     , getMaterialTypes
-    , getSearchableWords
     , getTechnicalName
     , idFromString
     , idToString
@@ -62,7 +61,7 @@ type alias Process =
     , massPerUnit : Maybe Float
     , metadata : Maybe Metadata
     , scopes : List Scope
-    , searchableWords : Maybe (List String)
+    , searchableWords : List String
     , source : String
     , unit : Unit
     , waste : Split
@@ -115,7 +114,7 @@ activityNameToString (ActivityName string) =
 
 computeSearchableWords : Process -> Process
 computeSearchableWords process =
-    { process | searchableWords = Just <| getSearchableWords process }
+    { process | searchableWords = toSearchableWords process }
 
 
 decode : Decoder Impact.Impacts -> Decoder Process
@@ -134,7 +133,7 @@ decode impactsDecoder =
         |> Pipe.required "massPerUnit" (Decode.maybe Decode.float)
         |> DU.strictOptional "metadata" Metadata.decode
         |> Pipe.required "scopes" (Decode.list Scope.decode)
-        |> Pipe.hardcoded Nothing
+        |> Pipe.hardcoded []
         |> Pipe.required "source" Decode.string
         |> Pipe.required "unit" (Decode.string |> Decode.andThen (DE.fromResult << unitFromString))
         |> Pipe.required "waste" Split.decodeFloat
@@ -223,20 +222,6 @@ getMaterialTypes =
                     _ ->
                         Nothing
             )
-
-
-getSearchableWords : Process -> List String
-getSearchableWords process =
-    -- For a reason I don’t get, using
-    -- process.searchableWords |> Maybe.withDefault (toSearchableWords process)
-    -- doesn’t work as `toSearchableWords process` is always called, no matter if then
-    -- Maybe contains Nothing or Just, lazy evaluation difference?
-    case process.searchableWords of
-        Just words ->
-            words
-
-        Nothing ->
-            toSearchableWords process
 
 
 getTechnicalName : Process -> String
