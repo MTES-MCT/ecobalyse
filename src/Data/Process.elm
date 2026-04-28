@@ -3,7 +3,6 @@ module Data.Process exposing
     , Process
     , Unit(..)
     , available
-    , computeSearchableWords
     , decode
     , decodeFromId
     , decodeId
