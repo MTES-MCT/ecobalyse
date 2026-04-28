@@ -815,7 +815,7 @@ suite =
                             [ it "should group materials"
                                 (chairMaterialGroups
                                     |> AnyDict.keys
-                                    |> Expect.equal [ Category.Plastic, Category.Wood ]
+                                    |> Expect.equal [ Category.RigidPlastics, Category.Wood ]
                                 )
                             , it "should group materials collected masses"
                                 (chairMaterialGroups
@@ -1231,7 +1231,7 @@ testComponentConfig db =
                     "veli": true
                 },
                 "scopeCollectionRates": {
-                "object": 70
+                    "object": 70
                 },
                 "strategies": {
                     "default": {
@@ -1240,20 +1240,20 @@ testComponentConfig db =
                         "recycling": null
                     },
                     "collected": {
-                        "metal": {
+                        "ferrous_metals": {
                             "incinerating": null,
                             "landfilling": null,
-                            "recycling": { "percent": 100 }
+                            "recycling": { "percent": 100, "processId": "51801e91-d907-4297-9a4c-5691bbbb665b" }
                         },
-                        "plastic": {
-                            "incinerating": { "processId": "7f7af998-8313-47e7-b043-80fcf4d67042", "percent": 8 },
-                            "landfilling": null,
-                            "recycling": { "percent": 92 }
+                        "rigid_plastics": {
+                            "incinerating": { "percent": 35, "processId": "7f7af998-8313-47e7-b043-80fcf4d67042" },
+                            "landfilling": { "percent": 24, "processId": "f2c04faa-a41e-4ebd-ab44-d2dc4f4af629" },
+                            "recycling": { "percent": 41, "processId": "f404c75d-c211-4ea1-b392-702693a26b75" }
                         },
-                        "upholstery": {
-                            "incinerating": { "processId": "04c1e26f-bc40-4dff-950a-51ca54d5ad16", "percent": 94 },
-                            "landfilling": { "processId": "63db8dee-78a5-4979-ae9b-fcc76d66ee4f", "percent": 2 },
-                            "recycling": { "percent": 4 }
+                        "pur_foam": {
+                            "incinerating": { "percent": 94, "processId": "04c1e26f-bc40-4dff-950a-51ca54d5ad16" },
+                            "landfilling": { "percent": 2, "processId": "6194fdb0-0b67-4101-8d6a-1e55924b7462" },
+                            "recycling": { "percent": 4, "processId": "dbfb60bb-045f-4e81-9f88-8b411fc4a665" }
                         },
                         "wood": {
                             "incinerating": { "processId": "8c102569-dcef-4016-842b-6f662a082b66", "percent": 31 },
@@ -1262,10 +1262,10 @@ testComponentConfig db =
                         }
                     },
                     "nonCollected": {
-                        "metal": {
-                            "incinerating": { "processId": "aea851ac-8f25-413a-82ba-5efd4630ea1f", "percent": 5 },
-                            "landfilling": { "processId": "63db8dee-78a5-4979-ae9b-fcc76d66ee4f", "percent": 5 },
-                            "recycling": { "percent": 90 }
+                        "ferrous_metals": {
+                            "incinerating": null,
+                            "landfilling": { "percent": 5, "processId": "3f12bb2d-bac9-4b8d-bd72-69428c031f33" },
+                            "recycling": { "percent": 95, "processId": "51801e91-d907-4297-9a4c-5691bbbb665b" }
                         }
                     }
                 }
@@ -1554,7 +1554,7 @@ injectionMoulding =
     decodeJson (Process.decode Impact.decodeImpacts) <|
         """ {
                 "activityName": "injection moulding//[RER] injection moulding",
-                "categories": ["transformation", "material_type:plastic"],
+                "categories": ["transformation", "material_type:rigid_plastics"],
                 "comment": "",
                 "displayName": "Moulage par injection",
                 "elecMJ": 0,
@@ -1644,7 +1644,7 @@ plastic =
     decodeJson (Process.decode Impact.decodeImpacts) <|
         """ {
                 "activityName": "polypropylene, granulate//[RER] polypropylene production, granulate",
-                "categories": ["material", "material_type:plastic"],
+                "categories": ["material", "material_type:rigid_plastics"],
                 "comment": "",
                 "displayName": "Plastique granulé (PP)",
                 "elecMJ": 0,
@@ -1730,7 +1730,7 @@ steel =
     decodeJson (Process.decode Impact.decodeImpacts) <|
         """ {
                 "activityName": "steel, low-alloyed//[GLO] market for steel, low-alloyed",
-                "categories": ["material", "material_type:metal"],
+                "categories": ["material", "material_type:ferrous_metals"],
                 "comment": "",
                 "displayName": "Acier (faiblement allié)",
                 "elecMJ": 0,
