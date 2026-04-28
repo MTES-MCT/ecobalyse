@@ -1,11 +1,17 @@
 module Views.Bookmark exposing (ActiveTab(..), view)
 
+{-|
+
+  - FIXME: this module is not handling bookmarks only, but also sharing and contributions; we should probably rename it appropriately
+
+-}
+
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Component as Component
 import Data.Food.Query as FoodQuery
 import Data.Impact.Definition exposing (Definition)
 import Data.Scope as Scope exposing (Scope)
-import Data.Session exposing (Session)
+import Data.Session as Session exposing (Session)
 import Data.Textile.Query as TextileQuery
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -21,7 +27,11 @@ type alias ManagerConfig msg =
     , bookmarkBeingRenamed : Maybe Bookmark
     , bookmarkName : String
     , compare : msg
+    , contribDescription : String
+    , contribName : String
+    , contribRequestPending : Bool
     , copyToClipBoard : String -> msg
+    , createExampleContrib : msg
     , delete : Bookmark -> msg
     , exportBookmarks : msg
     , impact : Definition
@@ -33,21 +43,40 @@ type alias ManagerConfig msg =
     , session : Session
     , switchTab : ActiveTab -> msg
     , update : String -> msg
+    , updateContribDescription : String -> msg
+    , updateContribName : String -> msg
     , updateRenamedBookmarkName : Bookmark -> String -> msg
     }
 
 
 type ActiveTab
-    = SaveTab
+    = ContributeExampleTab
+    | SaveTab
     | ShareTab
 
 
 view : ManagerConfig msg -> Html msg
 view cfg =
+    let
+        baseTabs =
+            [ ( SaveTab, text "Sauvegarder" )
+            , ( ShareTab, text "Partager" )
+            ]
+
+        tabs =
+            if Scope.isGeneric cfg.scope then
+                baseTabs ++ [ ( ContributeExampleTab, text "Contribuer" ) ]
+
+            else
+                baseTabs
+    in
     CardTabs.view
         { attrs = []
         , content =
             [ case cfg.activeTab of
+                ContributeExampleTab ->
+                    contributeExampleTabView cfg
+
                 SaveTab ->
                     managerView cfg
 
@@ -55,9 +84,7 @@ view cfg =
                     shareTabView cfg
             ]
         , tabs =
-            [ ( SaveTab, text "Sauvegarder" )
-            , ( ShareTab, text "Partager" )
-            ]
+            tabs
                 |> List.map
                     (\( tab, label ) ->
                         { active = cfg.activeTab == tab
@@ -404,6 +431,76 @@ bookmarkView cfg ({ name, query } as bookmark) =
                 , onClick (cfg.delete bookmark)
                 ]
                 [ Icon.trash ]
+            ]
+        ]
+
+
+contributeExampleTabView : ManagerConfig msg -> Html msg
+contributeExampleTabView ({ scope, session } as config) =
+    let
+        isAuthenticated =
+            Session.isAuthenticated session
+
+        simulationIsEmpty =
+            Session.objectQueryFromScope scope session == Component.emptyQuery
+
+        simulationExists =
+            session.db.object.examples
+                |> List.any (.query >> (==) (Session.objectQueryFromScope scope session))
+
+        disabledForm =
+            config.contribRequestPending || not isAuthenticated || simulationIsEmpty || simulationExists
+
+        error icon msg =
+            div [ class "text-danger fs-7" ] [ icon, text <| "\u{00A0}" ++ msg ]
+    in
+    div [ class "card-body d-flex flex-column gap-2" ]
+        [ div [ class "fs-7 text-muted" ]
+            [ text <|
+                "Proposez l’ajout de votre simulation à la base de données d’exemples "
+                    ++ Scope.toLabel scope
+                    ++ " sur Ecobalyse."
+            ]
+        , input
+            [ class "form-control form-control-sm"
+            , type_ "text"
+            , value config.contribName
+            , placeholder "Nom de l’exemple"
+            , onInput config.updateContribName
+            , disabled disabledForm
+            ]
+            []
+        , textarea
+            [ class "form-control form-control-sm"
+            , rows 3
+            , value config.contribDescription
+            , placeholder "Décrivez ce que simule cet exemple et pourquoi il est pertinent de le proposer aux autres utilisateurs"
+            , onInput config.updateContribDescription
+            , disabled disabledForm
+            ]
+            []
+        , if not isAuthenticated then
+            error Icon.info "Connectez-vous pour proposer une contribution."
+
+          else if simulationIsEmpty then
+            error Icon.warning "La simulation ne peut être vide."
+
+          else if simulationExists then
+            error Icon.warning "Cette simulation existe déjà dans la base de données d’exemples."
+
+          else
+            text ""
+        , button
+            [ class "btn btn-primary btn-sm"
+            , type_ "button"
+            , disabled disabledForm
+            , onClick config.createExampleContrib
+            ]
+            [ if config.contribRequestPending then
+                text "Envoi…"
+
+              else
+                text "Contribuer"
             ]
         ]
 

@@ -95,7 +95,7 @@ suite =
                                                 -- and its material process id
                                                 |> Maybe.map .transforms
                                         )
-                                    |> Expect.equal (Ok (Just [ validTransformProcess.id ]))
+                                    |> Expect.equal (Ok (Just [ Component.defaultTransform validTransformProcess.id ]))
                                 )
                             , it "should reject an invalid transformation process"
                                 (chair
@@ -130,7 +130,9 @@ suite =
                                     , quantity = 1
                                     , stage = Nothing
                                     }
-                                    |> Component.applyTransforms requirements.config Nothing Process.Kilogram transforms
+                                    |> Component.applyTransforms requirements.config
+                                        Process.Kilogram
+                                        (List.map Component.defaultExpandedTransform transforms)
                                     |> Result.withDefault Component.emptyResults
                                     |> Component.extractMass
                                     |> Mass.inKilograms
@@ -162,7 +164,9 @@ suite =
                                     , quantity = 1
                                     , stage = Nothing
                                     }
-                                    |> Component.applyTransforms requirements.config Nothing Process.Kilogram transforms
+                                    |> Component.applyTransforms requirements.config
+                                        Process.Kilogram
+                                        (List.map Component.defaultExpandedTransform transforms)
                                     |> Result.withDefault Component.emptyResults
                                     |> extractEcsImpact
                           in
@@ -188,6 +192,49 @@ suite =
                                       }
                                     ]
                                     |> Expect.within (Expect.Absolute 1) 420
+                                )
+                            , it "should compute apply custom mix impacts when a transform step country is set"
+                                (let
+                                    getImpact steps =
+                                        Component.Results
+                                            { amount = Amount.fromFloat 1
+                                            , complementsImpacts = Complement.emptyComplementsResultsImpacts
+                                            , impacts = Impact.empty
+                                            , items = []
+                                            , label = Nothing
+                                            , mass = Mass.kilogram
+                                            , materialType = Nothing
+                                            , quantity = 1
+                                            , stage = Nothing
+                                            }
+                                            |> Component.applyTransforms requirements.config Process.Kilogram steps
+                                            |> Result.withDefault Component.emptyResults
+                                            |> extractEcsImpact
+                                 in
+                                 case
+                                    -- fetch first country with mixes different from defaults
+                                    requirements.db.countries
+                                        |> Scope.anyOf [ requirements.scope ]
+                                        |> List.filter
+                                            (\{ electricityProcess, heatProcess } ->
+                                                (electricityProcess /= requirements.config.production.defaultElecProcess)
+                                                    || (heatProcess /= requirements.config.production.defaultHeatProcess)
+                                            )
+                                        |> List.head
+                                        |> Result.fromMaybe "No country found with mixes different from defaults"
+                                 of
+                                    Err error ->
+                                        Expect.fail error
+
+                                    Ok country ->
+                                        let
+                                            ( defaultImpact, localizedImpact ) =
+                                                ( getImpact [ Component.defaultExpandedTransform fading ]
+                                                , getImpact [ { country = Just country, process = fading } ]
+                                                )
+                                        in
+                                        abs (defaultImpact - localizedImpact)
+                                            |> Expect.greaterThan 0.00001
                                 )
                             , it "should add impacts when multiple transforms are passed (no elec, no heat)"
                                 (getTestEcsImpact
@@ -219,7 +266,9 @@ suite =
                                         , quantity = 1
                                         , stage = Nothing
                                         }
-                                        |> Component.applyTransforms requirements.config Nothing Process.CubicMeter [ transformInKg ]
+                                        |> Component.applyTransforms requirements.config
+                                            Process.CubicMeter
+                                            [ Component.defaultExpandedTransform transformInKg ]
                                         |> Expect.equal (Err "Les procédés de transformation ne partagent pas la même unité que la matière source (m3)\u{00A0}: Moulage par injection (kg)")
                                     )
                                 ]
@@ -237,7 +286,9 @@ suite =
                                     , quantity = 1
                                     , stage = Nothing
                                     }
-                                    |> Component.applyTransforms requirements.config Nothing Process.Kilogram transforms
+                                    |> Component.applyTransforms requirements.config
+                                        Process.Kilogram
+                                        (List.map Component.defaultExpandedTransform transforms)
                                     |> Result.withDefault Component.emptyResults
                           in
                           describe "impacts & waste"
@@ -449,7 +500,10 @@ suite =
                                             , material = cottonId
 
                                             -- Note: weaving waste: 0.06253, fading: 0
-                                            , transforms = [ weaving.id, fading.id ]
+                                            , transforms =
+                                                [ Component.defaultTransform weaving.id
+                                                , Component.defaultTransform fading.id
+                                                ]
                                             }
                                     )
                             )
@@ -476,7 +530,7 @@ suite =
                                     results =
                                         { amount = Amount.fromFloat 1
                                         , material = materialInCubicMeters.id
-                                        , transforms = [ transformInCubicMeters.id ]
+                                        , transforms = [ Component.defaultTransform transformInCubicMeters.id ]
                                         }
                                             |> Component.computeElementResults requirements Nothing
                                 in
@@ -502,7 +556,7 @@ suite =
                                     results =
                                         { amount = Amount.fromFloat 1
                                         , material = materialInCubicMeters.id
-                                        , transforms = [ transformInCubicMeters.id ]
+                                        , transforms = [ Component.defaultTransform transformInCubicMeters.id ]
                                         }
                                             |> Component.computeElementResults requirements Nothing
                                 in
@@ -761,7 +815,7 @@ suite =
                             [ it "should group materials"
                                 (chairMaterialGroups
                                     |> AnyDict.keys
-                                    |> Expect.equal [ Category.Plastic, Category.Wood ]
+                                    |> Expect.equal [ Category.RigidPlastics, Category.Wood ]
                                 )
                             , it "should group materials collected masses"
                                 (chairMaterialGroups
@@ -1177,7 +1231,7 @@ testComponentConfig db =
                     "veli": true
                 },
                 "scopeCollectionRates": {
-                "object": 70
+                    "object": 70
                 },
                 "strategies": {
                     "default": {
@@ -1186,20 +1240,20 @@ testComponentConfig db =
                         "recycling": null
                     },
                     "collected": {
-                        "metal": {
+                        "ferrous_metals": {
                             "incinerating": null,
                             "landfilling": null,
-                            "recycling": { "percent": 100 }
+                            "recycling": { "percent": 100, "processId": "51801e91-d907-4297-9a4c-5691bbbb665b" }
                         },
-                        "plastic": {
-                            "incinerating": { "processId": "7f7af998-8313-47e7-b043-80fcf4d67042", "percent": 8 },
-                            "landfilling": null,
-                            "recycling": { "percent": 92 }
+                        "rigid_plastics": {
+                            "incinerating": { "percent": 35, "processId": "7f7af998-8313-47e7-b043-80fcf4d67042" },
+                            "landfilling": { "percent": 24, "processId": "f2c04faa-a41e-4ebd-ab44-d2dc4f4af629" },
+                            "recycling": { "percent": 41, "processId": "f404c75d-c211-4ea1-b392-702693a26b75" }
                         },
-                        "upholstery": {
-                            "incinerating": { "processId": "04c1e26f-bc40-4dff-950a-51ca54d5ad16", "percent": 94 },
-                            "landfilling": { "processId": "63db8dee-78a5-4979-ae9b-fcc76d66ee4f", "percent": 2 },
-                            "recycling": { "percent": 4 }
+                        "pur_foam": {
+                            "incinerating": { "percent": 94, "processId": "04c1e26f-bc40-4dff-950a-51ca54d5ad16" },
+                            "landfilling": { "percent": 2, "processId": "6194fdb0-0b67-4101-8d6a-1e55924b7462" },
+                            "recycling": { "percent": 4, "processId": "dbfb60bb-045f-4e81-9f88-8b411fc4a665" }
                         },
                         "wood": {
                             "incinerating": { "processId": "8c102569-dcef-4016-842b-6f662a082b66", "percent": 31 },
@@ -1208,10 +1262,10 @@ testComponentConfig db =
                         }
                     },
                     "nonCollected": {
-                        "metal": {
-                            "incinerating": { "processId": "aea851ac-8f25-413a-82ba-5efd4630ea1f", "percent": 5 },
-                            "landfilling": { "processId": "63db8dee-78a5-4979-ae9b-fcc76d66ee4f", "percent": 5 },
-                            "recycling": { "percent": 90 }
+                        "ferrous_metals": {
+                            "incinerating": null,
+                            "landfilling": { "percent": 5, "processId": "3f12bb2d-bac9-4b8d-bd72-69428c031f33" },
+                            "recycling": { "percent": 95, "processId": "51801e91-d907-4297-9a4c-5691bbbb665b" }
                         }
                     }
                 }
@@ -1500,7 +1554,7 @@ injectionMoulding =
     decodeJson (Process.decode Impact.decodeImpacts) <|
         """ {
                 "activityName": "injection moulding//[RER] injection moulding",
-                "categories": ["transformation", "material_type:plastic"],
+                "categories": ["transformation", "material_type:rigid_plastics"],
                 "comment": "",
                 "displayName": "Moulage par injection",
                 "elecMJ": 0,
@@ -1590,7 +1644,7 @@ plastic =
     decodeJson (Process.decode Impact.decodeImpacts) <|
         """ {
                 "activityName": "polypropylene, granulate//[RER] polypropylene production, granulate",
-                "categories": ["material", "material_type:plastic"],
+                "categories": ["material", "material_type:rigid_plastics"],
                 "comment": "",
                 "displayName": "Plastique granulé (PP)",
                 "elecMJ": 0,
@@ -1676,7 +1730,7 @@ steel =
     decodeJson (Process.decode Impact.decodeImpacts) <|
         """ {
                 "activityName": "steel, low-alloyed//[GLO] market for steel, low-alloyed",
-                "categories": ["material", "material_type:metal"],
+                "categories": ["material", "material_type:ferrous_metals"],
                 "comment": "",
                 "displayName": "Acier (faiblement allié)",
                 "elecMJ": 0,

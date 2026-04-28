@@ -576,7 +576,7 @@ notificationView { session, toMsg } notification =
             Alert.simple
                 { attributes = []
                 , close = Just closeNotification
-                , content = [ text message ]
+                , content = [ Markdown.simple [ class "mb-1" ] message ]
                 , level = Alert.Danger
                 , title = Just title
                 }

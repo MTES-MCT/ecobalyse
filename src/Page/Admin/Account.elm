@@ -9,6 +9,7 @@ module Page.Admin.Account exposing
 
 import App exposing (Msg, PageUpdate)
 import Data.Session exposing (Session)
+import Data.Text as Text
 import Data.User as User exposing (User)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
@@ -99,21 +100,12 @@ filterAccounts filters accounts =
         |> List.filter (\account -> filters.termsAccepted |> Maybe.map ((==) account.profile.termsAccepted) |> Maybe.withDefault True)
 
 
-yesNo : Bool -> String
-yesNo bool =
-    if bool then
-        "Oui"
-
-    else
-        "Non"
-
-
 booleanColumn : String -> (User -> Bool) -> SortableTable.Column User Msg
 booleanColumn name getter =
     SortableTable.customColumn
         { name = name
-        , viewData = getter >> yesNo
-        , sorter = SortableTable.increasingOrDecreasingBy (getter >> yesNo)
+        , viewData = getter >> Text.yesNo
+        , sorter = SortableTable.increasingOrDecreasingBy (getter >> Text.yesNo)
         }
 
 
@@ -204,7 +196,7 @@ viewFilters filters =
             |> List.filterMap
                 (\( field, ( getter, setter ) ) ->
                     getter filters
-                        |> Maybe.map (\v -> ( field, yesNo v, setter ))
+                        |> Maybe.map (\v -> ( field, Text.yesNo v, setter ))
                 )
             |> List.map
                 (\( field, value, setter ) ->

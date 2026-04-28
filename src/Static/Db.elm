@@ -49,6 +49,7 @@ db =
                         )
                     |> RE.andMap
                         (ObjectDb.buildFromJson
+                            StaticJson.food2ExamplesJson
                             StaticJson.objectExamplesJson
                             StaticJson.veliExamplesJson
                         )

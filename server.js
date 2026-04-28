@@ -15,14 +15,20 @@ const { setupSentry } = require("./lib/sentry"); // MUST be required BEFORE expr
 const { createMatomoTracker } = require("./lib/matomo");
 const { createPlausibleTracker } = require("./lib/plausible");
 
-const { getProcessesAsString } = require("./lib");
+const { getProcessesAsString, filterLegacyFood1Paths } = require("./lib");
 const express = require("express");
 
 const expressHost = "0.0.0.0";
 const expressPort = 8001;
 
 // Env vars
-const { NODE_ENV, RATELIMIT_MAX_RPM, RATELIMIT_WHITELIST } = process.env;
+const {
+  ENABLE_FOOD_SECTION,
+  ENABLE_FOOD1_API_DOCS,
+  NODE_ENV,
+  RATELIMIT_MAX_RPM,
+  RATELIMIT_WHITELIST,
+} = process.env;
 
 const INTERNAL_BACKEND_URL = "http://localhost:8002";
 
@@ -103,6 +109,10 @@ const openApiContents = processOpenApi(
 function processOpenApi(contents, versionNumber) {
   // Add app version info to openapi docs
   contents.version = versionNumber;
+  // Remove food1 api docs if disabled from env
+  if (ENABLE_FOOD_SECTION !== "True" || ENABLE_FOOD1_API_DOCS !== "True") {
+    contents.paths = filterLegacyFood1Paths(contents.paths);
+  }
   return contents;
 }
 

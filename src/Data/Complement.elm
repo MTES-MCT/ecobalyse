@@ -40,7 +40,6 @@ type alias AbstractComplements a =
     { cropDiversity : a
     , forest : a
     , hedges : a
-    , livestockDensity : a
     , microfibers : a
     , outOfEuropeEOL : a
     , permanentPasture : a
@@ -89,7 +88,6 @@ allComplementsFields =
     [ .cropDiversity
     , .forest
     , .hedges
-    , .livestockDensity
     , .microfibers
     , .outOfEuropeEOL
     , .permanentPasture
@@ -134,7 +132,6 @@ decodeComplementsImpacts =
         --  the values complements. So let’s be backward compatible for now
         |> DU.strictOptional "forest" (Decode.map Quantity.negate Unit.decodeImpact)
         |> DU.strictOptional "hedges" Unit.decodeImpact
-        |> DU.strictOptional "livestockDensity" Unit.decodeImpact
         |> DU.strictOptional "microfibers" Unit.decodeImpact
         |> DU.strictOptional "outOfEuropeEOL" Unit.decodeImpact
         |> DU.strictOptional "permanentPasture" Unit.decodeImpact
@@ -151,7 +148,6 @@ emptyComplementsResultsImpacts =
     { cropDiversity = Nothing
     , forest = Nothing
     , hedges = Nothing
-    , livestockDensity = Nothing
     , microfibers = Nothing
     , outOfEuropeEOL = Nothing
     , permanentPasture = Nothing
@@ -198,7 +194,6 @@ identifiers =
     { cropDiversity = "cropDiversity"
     , forest = "forest"
     , hedges = "hedges"
-    , livestockDensity = "livestockDensity"
     , microfibers = "microfibers"
     , outOfEuropeEOL = "outOfEuropeEOL"
     , permanentPasture = "permanentPasture"
@@ -211,7 +206,6 @@ labels =
     { cropDiversity = "Diversité culturale"
     , forest = "Forêt"
     , hedges = "Haies"
-    , livestockDensity = "Chargement territorial"
     , microfibers = "Microfibres"
     , outOfEuropeEOL = "Export hors-Europe"
     , permanentPasture = "Prairies permanentes"
@@ -224,7 +218,6 @@ mapComplements fn results =
     { cropDiversity = fn results.cropDiversity
     , forest = fn results.forest
     , hedges = fn results.hedges
-    , livestockDensity = fn results.livestockDensity
     , microfibers = fn results.microfibers
     , outOfEuropeEOL = fn results.outOfEuropeEOL
     , permanentPasture = fn results.permanentPasture
@@ -237,7 +230,6 @@ mapComplements2 fn a b =
     { cropDiversity = fn a.cropDiversity b.cropDiversity
     , forest = fn a.forest b.forest
     , hedges = fn a.hedges b.hedges
-    , livestockDensity = fn a.livestockDensity b.livestockDensity
     , microfibers = fn a.microfibers b.microfibers
     , outOfEuropeEOL = fn a.outOfEuropeEOL b.outOfEuropeEOL
     , permanentPasture = fn a.permanentPasture b.permanentPasture
@@ -262,7 +254,6 @@ noComplementsImpacts =
     { cropDiversity = Nothing
     , forest = Nothing
     , hedges = Nothing
-    , livestockDensity = Nothing
     , microfibers = Nothing
     , outOfEuropeEOL = Nothing
     , permanentPasture = Nothing
@@ -301,7 +292,6 @@ sumComplementsResultsImpacts =
             { cropDiversity = getNewImpact acc complementsResultsImpacts .cropDiversity
             , forest = getNewImpact acc complementsResultsImpacts .forest
             , hedges = getNewImpact acc complementsResultsImpacts .hedges
-            , livestockDensity = getNewImpact acc complementsResultsImpacts .livestockDensity
             , microfibers = getNewImpact acc complementsResultsImpacts .microfibers
             , outOfEuropeEOL = getNewImpact acc complementsResultsImpacts .outOfEuropeEOL
             , permanentPasture = getNewImpact acc complementsResultsImpacts .permanentPasture
@@ -316,7 +306,6 @@ sumEcosystemicImpacts c =
     Quantity.sum
         [ c.cropDiversity |> Maybe.withDefault Unit.noImpacts
         , c.hedges |> Maybe.withDefault Unit.noImpacts
-        , c.livestockDensity |> Maybe.withDefault Unit.noImpacts
         , c.permanentPasture |> Maybe.withDefault Unit.noImpacts
         , c.plotSize |> Maybe.withDefault Unit.noImpacts
         ]

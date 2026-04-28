@@ -23,6 +23,7 @@ table ({ db } as session) { detailed, scope } =
     , toId = .id >> Maybe.map Component.idToString >> Maybe.withDefault ""
     , toRoute = .id >> Dataset.Components scope >> Route.Explore scope
     , toSearchableString = Component.toSearchableString db
+    , facets = []
     , legend = []
     , columns =
         [ { label = "Identifiant"
@@ -86,7 +87,7 @@ table ({ db } as session) { detailed, scope } =
                                             [ Format.amount material amount
                                             , text <| " de " ++ Process.getDisplayName material
                                             , transforms
-                                                |> List.map (\transform -> li [] [ text <| Process.getDisplayName transform ])
+                                                |> List.map (.process >> Process.getDisplayName >> text >> List.singleton >> li [])
                                                 |> ul []
                                             ]
                                     )

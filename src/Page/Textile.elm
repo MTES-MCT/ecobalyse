@@ -423,7 +423,7 @@ update ({ db, queries, navKey } as session) msg model =
 
         ( OnStageClick stageId, _ ) ->
             createPageUpdate session model
-                |> App.withCmds [ Ports.scrollIntoView stageId ]
+                |> App.withCmds [ Ports.scrollIntoView <| "#" ++ stageId ]
 
         ( RemoveMaterial materialId, _ ) ->
             createPageUpdate session model
@@ -1007,6 +1007,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , noOp = NoOp
         , openCreateComponentModal = NoOp
         , openSelectComponentModal = AddTrimModal >> SetModal
+        , openEditElementModal = \_ _ -> NoOp
         , openSelectProcessModal = \_ _ _ _ -> SetModal NoModal
         , openSelectConsumptionModal = \_ -> NoOp
         , query = Component.emptyQuery |> Component.setQueryItems inputs.trims
@@ -1021,6 +1022,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , updateConsumptionAmount = \_ _ -> NoOp
         , updateDistribution = \_ -> NoOp
         , updateElementAmount = \_ _ -> NoOp
+        , updateElementTransformCountry = \_ _ _ -> NoOp
         , updateItemCountry = \_ _ -> NoOp
         , updateItemName = \_ _ -> NoOp
         , updateItemQuantity = UpdateTrimQuantity
@@ -1216,6 +1218,14 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                 , updateBookmarkName = UpdateBookmarkName
                 , updateRenamedBookmarkName = UpdateRenamedBookmarkName
                 , switchBookmarkTab = SwitchBookmarksTab
+
+                -- Contribution
+                , contribName = ""
+                , contribDescription = ""
+                , contribRequestPending = False
+                , createExampleContrib = NoOp
+                , updateContribName = always NoOp
+                , updateContribDescription = always NoOp
                 }
             ]
         ]
