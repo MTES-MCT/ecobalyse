@@ -281,28 +281,26 @@ def build_plot_dataframe(base_product, variants, impact_results):
     return pd.DataFrame(rows)
 
 
-def plot_base_product(base_product, df, output_dir):
-    """Generate a stacked bar chart for a base product."""
+def _render_stacked_bar(df, ax, title):
+    """Render a stacked bar chart with total labels onto a given axes.
+
+    Returns the sorted totals Series and the pivot DataFrame.
+    """
     pivot = df.pivot(index="product_name", columns="impact", values="cout_enviro")
 
-    if len(pivot) < 2:
-        return
-
-    # Sort by total ECS (increasing)
     totals = pivot.sum(axis=1).sort_values()
     pivot = pivot.loc[totals.index]
 
     colors = plt.get_cmap("tab20").colors
-    fig, ax = plt.subplots(figsize=(10, 7))
     pivot.plot(kind="bar", stacked=True, ax=ax, color=colors)
     ax.set_xlabel("")
     ax.axhline(0, color="black", linewidth=0.8)
 
-    # Horizontal dashed lines for total impact per variant
+    # Horizontal dashed lines for total impact per variant.
     # patches are laid out: all bars for impact0, then all bars for impact1, etc.
-    # So the i-th product's first bar is patches[i]
-    for i, (idx, total) in enumerate(totals.items()):
-        bar = ax.patches[i]  # first impact's bar for this product
+    # So the i-th product's first bar is patches[i].
+    for i, (_idx, total) in enumerate(totals.items()):
+        bar = ax.patches[i]
         ax.hlines(
             total,
             bar.get_x(),
@@ -313,15 +311,41 @@ def plot_base_product(base_product, df, output_dir):
             label="Total Impact" if i == 0 else "",
         )
 
+    # Numeric total label above (or below, for negatives) each dashed line.
+    ymin, ymax = ax.get_ylim()
+    offset = (ymax - ymin) * 0.01
+    for i, (_idx, total) in enumerate(totals.items()):
+        bar = ax.patches[i]
+        x = bar.get_x() + bar.get_width() / 2
+        if total >= 0:
+            ax.text(
+                x,
+                total + offset,
+                f"{total:.0f}",
+                ha="center",
+                va="bottom",
+                fontsize=9,
+                fontweight="bold",
+            )
+        else:
+            ax.text(
+                x,
+                total - offset,
+                f"{total:.0f}",
+                ha="center",
+                va="top",
+                fontsize=9,
+                fontweight="bold",
+            )
+
     ax.set_ylabel("Cout Environnemental (uPt)")
-    ax.set_title(f"{base_product}, comparaison des variantes")
+    ax.set_title(title)
 
     if len(pivot) > 3:
         plt.xticks(rotation=45, ha="right")
     else:
         plt.xticks(rotation=0, ha="center")
 
-    # Sort legend
     handles, labels = ax.get_legend_handles_labels()
     sorted_pairs = sorted(zip(labels, handles), key=lambda x: x[0], reverse=True)
     if sorted_pairs:
@@ -334,13 +358,24 @@ def plot_base_product(base_product, df, output_dir):
             loc="upper left",
         )
 
+    return totals, pivot
+
+
+def plot_base_product(base_product, df, output_dir, has_violation=False):
+    """Generate a stacked bar chart for a base product."""
+    if df["product_name"].nunique() < 2:
+        return
+
+    fig, ax = plt.subplots(figsize=(10, 7))
+    _render_stacked_bar(df, ax, f"{base_product}, comparaison des variantes")
     plt.tight_layout()
-    plot_path = output_dir / f"{base_product}_barchart.png"
+    suffix = "_violation" if has_violation else ""
+    plot_path = output_dir / f"{base_product}_barchart{suffix}.png"
     plt.savefig(plot_path)
     plt.close()
 
 
-def generate_all_plots(by_base, impact_results):
+def generate_all_plots(by_base, impact_results, bases_with_violations):
     """Generate stacked bar charts for all base products with 2+ variants."""
     PLOTS_DIR.mkdir(parents=True, exist_ok=True)
     count = 0
@@ -348,12 +383,63 @@ def generate_all_plots(by_base, impact_results):
         df = build_plot_dataframe(base, variants, impact_results)
         if df.empty:
             continue
-        # Check we have at least 2 products with results
         if df["product_name"].nunique() < 2:
             continue
-        plot_base_product(base, df, PLOTS_DIR)
+        plot_base_product(
+            base, df, PLOTS_DIR, has_violation=base in bases_with_violations
+        )
         count += 1
     logger.info(f"Generated {count} plots in {PLOTS_DIR}")
+
+
+def build_meats_dataframe(by_base, impact_results):
+    """Build a DataFrame with one row per (animal_product variant, impact)."""
+    rows = []
+    for variants in by_base.values():
+        for ingr in variants:
+            if "animal_product" not in ingr.get("categories", []):
+                continue
+            alias = ingr["alias"]
+            result = impact_results.get(alias)
+            if not result:
+                continue
+            for impact_key, norm_val in result["impacts_norm"].items():
+                if impact_key in EXCLUDED_IMPACTS:
+                    continue
+                rows.append(
+                    {
+                        "product_name": alias,
+                        "impact": impact_key,
+                        "cout_enviro": norm_val,
+                    }
+                )
+            for comp_key, comp_val in result["complements_norm"].items():
+                rows.append(
+                    {
+                        "product_name": alias,
+                        "impact": f" {comp_key}",
+                        "cout_enviro": comp_val,
+                    }
+                )
+    if not rows:
+        return pd.DataFrame()
+    return pd.DataFrame(rows)
+
+
+def plot_all_meats(by_base, impact_results):
+    """Generate a single stacked bar chart with all animal_product variants."""
+    df = build_meats_dataframe(by_base, impact_results)
+    if df.empty or df["product_name"].nunique() < 2:
+        logger.info("No animal_product variants to plot.")
+        return
+    n = df["product_name"].nunique()
+    fig, ax = plt.subplots(figsize=(max(12, n * 0.4), 8))
+    _render_stacked_bar(df, ax, "Viandes, comparaison des variantes")
+    plt.tight_layout()
+    plot_path = PLOTS_DIR / "_all_meats_barchart.png"
+    plt.savefig(plot_path)
+    plt.close()
+    logger.info(f"Generated all-meats plot ({n} variants) at {plot_path}")
 
 
 # --- Step 6: Generate bookmarks ---
@@ -419,9 +505,12 @@ def write_violation_report(violations):
 
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     report_path = OUTPUT_DIR / "ingredient_hierarchy_report.csv"
+    report_path_fr = OUTPUT_DIR / "ingredient_hierarchy_report_fr.csv"
     df = pd.DataFrame(violations)
     df.to_csv(report_path, index=False)
+    df.to_csv(report_path_fr, index=False, sep=";", decimal=",", encoding="utf-8-sig")
     logger.info(f"Wrote {len(violations)} violations to {report_path}")
+    logger.info(f"Wrote FR-format CSV to {report_path_fr}")
 
 
 def print_summary(by_base, violations, impact_results):
@@ -452,6 +541,7 @@ def print_summary(by_base, violations, impact_results):
     print(f"  Plots:     {PLOTS_DIR}/")
     print(f"  Bookmarks: {BOOKMARKS_DIR}/")
     print(f"  Report:    {OUTPUT_DIR / 'ingredient_hierarchy_report.csv'}")
+    print(f"  Report FR: {OUTPUT_DIR / 'ingredient_hierarchy_report_fr.csv'}")
     print("=" * 60)
 
 
@@ -481,9 +571,11 @@ def main():
 
     logger.info("Checking hierarchy...")
     violations = check_hierarchy(by_base, impact_results)
+    bases_with_violations = {v["base_product"] for v in violations}
 
     logger.info("Generating plots...")
-    generate_all_plots(by_base, impact_results)
+    generate_all_plots(by_base, impact_results, bases_with_violations)
+    plot_all_meats(by_base, impact_results)
 
     logger.info("Generating bookmarks...")
     generate_bookmarks(by_base, impact_results)
