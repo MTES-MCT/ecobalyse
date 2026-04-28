@@ -363,6 +363,38 @@ suite =
                         , { ingredients =
                                 [ { id = eggId
                                   , mass = Mass.grams 120
+                                  , country = Just (Country.codeFromString "ROF")
+                                  , planeTransport = Ingredient.PlaneNotApplicable
+                                  }
+                                ]
+                          , transform = Nothing
+                          , packaging = []
+                          , distribution = Nothing
+                          , preparation = []
+                          }
+                            |> Recipe.compute db
+                            |> Result.map (firstIngredientDistance .road)
+                            |> Expect.equal (Ok (Just <| 160))
+                            |> asTest "should have 160 road transport for overseas France ('ROF')"
+                        , { ingredients =
+                                [ { id = eggId
+                                  , mass = Mass.grams 120
+                                  , country = Just (Country.codeFromString "ROF")
+                                  , planeTransport = Ingredient.PlaneNotApplicable
+                                  }
+                                ]
+                          , transform = Nothing
+                          , packaging = []
+                          , distribution = Nothing
+                          , preparation = []
+                          }
+                            |> Recipe.compute db
+                            |> Result.map (firstIngredientDistance .sea)
+                            |> Expect.equal (Ok (Just <| 8315))
+                            |> asTest "should have 8315 boat transport for overseas France ('ROF')"
+                        , { ingredients =
+                                [ { id = eggId
+                                  , mass = Mass.grams 120
                                   , country = Just (Country.codeFromString "---")
                                   , planeTransport = Ingredient.PlaneNotApplicable
                                   }
