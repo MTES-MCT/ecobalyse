@@ -31879,7 +31879,7 @@
       },
       "ingredient": {
         "cropGroup": "AUTRES CEREALES",
-        "defaultOrigin": "OutOfEuropeAndMaghreb",
+        "defaultOrigin": "France",
         "density": 0.72,
         "inediblePart": 0,
         "processId": "23e36bdc-12af-5f37-9de8-cf707916be39",
@@ -53737,7 +53737,7 @@
       },
       "ingredient": {
         "cropGroup": null,
-        "defaultOrigin": "EuropeAndMaghreb",
+        "defaultOrigin": "France",
         "density": 1.0,
         "inediblePart": 0,
         "processId": "5834b4db-bfae-47d7-91b8-24f6479aeac8",
@@ -54315,7 +54315,7 @@
       },
       "ingredient": {
         "cropGroup": "COLZA",
-        "defaultOrigin": "EuropeAndMaghreb",
+        "defaultOrigin": "France",
         "density": 1.0,
         "inediblePart": 0,
         "processId": "8d2d6d07-6700-5c72-b8f6-ea1b96bfe06c",
@@ -54891,7 +54891,7 @@
       },
       "ingredient": {
         "cropGroup": "TOURNESOL",
-        "defaultOrigin": "EuropeAndMaghreb",
+        "defaultOrigin": "France",
         "density": 1.0,
         "inediblePart": 0,
         "processId": "74316df8-a65f-5999-af15-448b841aab30",
@@ -54955,7 +54955,7 @@
       },
       "ingredient": {
         "cropGroup": "BLE TENDRE",
-        "defaultOrigin": "EuropeAndMaghreb",
+        "defaultOrigin": "France",
         "density": 1.0,
         "inediblePart": 0,
         "processId": "d78f41f4-fe75-5ee7-96e6-7a9d1352545c",
@@ -64431,7 +64431,7 @@
       },
       "ingredient": {
         "cropGroup": "LEGUMES-FLEURS",
-        "defaultOrigin": "OutOfEuropeAndMaghreb",
+        "defaultOrigin": "France",
         "density": 0.447,
         "inediblePart": 0.03,
         "processId": "62f50fa0-12c8-5ff8-8066-d8ba68416b3d",
@@ -68458,7 +68458,7 @@
       },
       "ingredient": {
         "cropGroup": "FRUITS A COQUES",
-        "defaultOrigin": "EuropeAndMaghreb",
+        "defaultOrigin": "France",
         "density": 0.72,
         "inediblePart": 0.5,
         "processId": "21bfc885-e198-5fd7-844c-ec386f73cd45",
@@ -68522,7 +68522,7 @@
       },
       "ingredient": {
         "cropGroup": "FRUITS A COQUES",
-        "defaultOrigin": "EuropeAndMaghreb",
+        "defaultOrigin": "France",
         "density": 0.72,
         "inediblePart": 0.5,
         "processId": "f769ed20-3665-563a-8d50-dd8788e89e7b",
@@ -69098,7 +69098,7 @@
       },
       "ingredient": {
         "cropGroup": "VERGERS",
-        "defaultOrigin": "EuropeAndMaghreb",
+        "defaultOrigin": "France",
         "density": 0.575,
         "inediblePart": 0.3,
         "processId": "ad3c37a4-32b8-5033-a643-b3b20c2621f6",
@@ -72930,7 +72930,7 @@
       },
       "ingredient": {
         "cropGroup": "LEGUMES-FLEURS",
-        "defaultOrigin": "EuropeAndMaghreb",
+        "defaultOrigin": "France",
         "density": 0.447,
         "inediblePart": 0.03,
         "processId": "3bd75842-f9d9-55d8-8506-e6ea53be8495",
