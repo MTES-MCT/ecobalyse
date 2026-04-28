@@ -139,6 +139,7 @@ decode impactsDecoder =
         |> Pipe.required "source" Decode.string
         |> Pipe.required "unit" (Decode.string |> Decode.andThen (DE.fromResult << unitFromString))
         |> Pipe.required "waste" Split.decodeFloat
+        |> Decode.map computeSearchableWords
 
 
 encode : Process -> Encode.Value
