@@ -92,6 +92,7 @@ module Data.Component exposing
     , sumLifeCycleImpacts
     , targetElementToString
     , toSearchableString
+    , transformListToString
     , tryMapItems
     , updateConsumptionAmount
     , updateDistribution
@@ -1289,7 +1290,6 @@ encodeComplementsResultsImpacts maybeTrigram complementsResultsImpacts =
         [ ( "cropDiversity", complementsResultsImpacts.cropDiversity |> Maybe.map encodeComplement )
         , ( "forest", complementsResultsImpacts.forest |> Maybe.map encodeComplement )
         , ( "hedges", complementsResultsImpacts.hedges |> Maybe.map encodeComplement )
-        , ( "livestockDensity", complementsResultsImpacts.livestockDensity |> Maybe.map encodeComplement )
         , ( "microfibers", complementsResultsImpacts.microfibers |> Maybe.map encodeComplement )
         , ( "outOfEuropeEOL", complementsResultsImpacts.outOfEuropeEOL |> Maybe.map encodeComplement )
         , ( "permanentPasture", complementsResultsImpacts.permanentPasture |> Maybe.map encodeComplement )
@@ -1900,6 +1900,22 @@ toSearchableString db component =
         , component.comment |> Maybe.withDefault ""
         , component |> elementsToString db |> Result.withDefault ""
         ]
+
+
+transformListToString : List ExpandedTransform -> String
+transformListToString =
+    List.map
+        (\{ country, process } ->
+            Process.getDisplayName process
+                ++ (case country of
+                        Just { code } ->
+                            " (" ++ Country.codeToString code ++ ")"
+
+                        Nothing ->
+                            ""
+                   )
+        )
+        >> String.join ", "
 
 
 {-| Update a list of component items that may fail

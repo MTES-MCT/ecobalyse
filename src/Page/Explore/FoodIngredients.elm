@@ -27,6 +27,7 @@ table { detailed, scope } =
     , toId = .id >> Ingredient.idToString
     , toRoute = .id >> Just >> Dataset.FoodIngredients >> Route.Explore scope
     , toSearchableString = Ingredient.toSearchableString
+    , facets = []
     , legend = []
     , columns =
         [ { label = "Identifiant"
@@ -133,7 +134,6 @@ table { detailed, scope } =
                           , ( EcosystemicServices.labels.plotSize, ecosystemicServices.plotSize )
                           , ( EcosystemicServices.labels.cropDiversity, ecosystemicServices.cropDiversity )
                           , ( EcosystemicServices.labels.permanentPasture, ecosystemicServices.permanentPasture )
-                          , ( EcosystemicServices.labels.livestockDensity, ecosystemicServices.livestockDensity )
                           ]
                             |> List.map
                                 (\( label, impact ) ->

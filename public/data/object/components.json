@@ -1089,7 +1089,7 @@
     "scopes": ["object"]
   },
   {
-    "comment": "Chassis-carosserie pour un véhicule de 100kg environ.",
+    "comment": null,
     "elements": [
       {
         "amount": 1.0,
@@ -1105,7 +1105,7 @@
     "scopes": ["object"]
   },
   {
-    "comment": "Chassis-carosserie pour un véhicule de 100kg environ.",
+    "comment": null,
     "elements": [
       {
         "amount": 1.0,
@@ -1122,7 +1122,7 @@
     "scopes": ["object"]
   },
   {
-    "comment": "Chassis-carosserie pour un véhicule de 100kg environ.",
+    "comment": null,
     "elements": [
       {
         "amount": 0.001562,
@@ -1135,7 +1135,7 @@
     "scopes": ["object"]
   },
   {
-    "comment": "Chassis-carosserie pour un véhicule de 100kg environ.",
+    "comment": null,
     "elements": [
       {
         "amount": 0.002325,
@@ -1148,7 +1148,7 @@
     "scopes": ["object"]
   },
   {
-    "comment": "Chassis-carosserie pour un véhicule de 100kg environ.",
+    "comment": null,
     "elements": [
       {
         "amount": 1.0,
@@ -1190,7 +1190,7 @@
     "scopes": ["object"]
   },
   {
-    "comment": "Chassis-carosserie pour un véhicule de 100kg environ.",
+    "comment": null,
     "elements": [
       {
         "amount": 0.016,
@@ -1203,7 +1203,7 @@
     "scopes": ["object"]
   },
   {
-    "comment": "Chassis-carosserie pour un véhicule de 100kg environ.",
+    "comment": null,
     "elements": [
       {
         "amount": 0.016,
@@ -1221,7 +1221,7 @@
     "scopes": ["object"]
   },
   {
-    "comment": "Chassis-carosserie pour un véhicule de 100kg environ.",
+    "comment": null,
     "elements": [
       {
         "amount": 0.016,
@@ -1331,7 +1331,7 @@
     "scopes": ["veli"]
   },
   {
-    "comment": "Metal processing process to be refined in the coming weeks. Proxy used in this example.",
+    "comment": null,
     "elements": [
       {
         "amount": 0.2,

@@ -1,5 +1,4 @@
 ACCOUNT_LOGIN = "/api/access/login"
-ACCOUNT_LOGOUT = "/api/access/logout"
 ACCOUNT_LIST = "/api/accounts"
 ACCOUNT_LOGIN_MAGIC_LINK = "/api/access/magic_link/login"
 ACCOUNT_PROFILE = "/api/me"

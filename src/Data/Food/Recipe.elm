@@ -10,7 +10,6 @@ module Data.Food.Recipe exposing
     , computeIngredientComplementsImpacts
     , computeIngredientTransport
     , computePackagingImpacts
-    , defaultKilometersRoadDistance
     , deletePackaging
     , encodeResults
     , fromQuery
@@ -33,6 +32,7 @@ import Data.Food.Origin as Origin
 import Data.Food.Preparation as Preparation exposing (Preparation)
 import Data.Food.Query as BuilderQuery exposing (PackagingAmount, Query, packagingAmountToFloat)
 import Data.Food.Retail as Retail
+import Data.Food.Transport as FoodTransport
 import Data.Food.WellKnown exposing (WellKnown)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
@@ -56,16 +56,6 @@ import Volume exposing (Volume)
 france : Country.Code
 france =
     Country.codeFromString "FR"
-
-
-countriesWithDefaultRoadTransport : List Country.Code
-countriesWithDefaultRoadTransport =
-    [ "RAF", "RAS", "RLA", "RME", "RNA", "ROC" ] |> List.map Country.codeFromString
-
-
-defaultKilometersRoadDistance : Float
-defaultKilometersRoadDistance =
-    2000
 
 
 type alias Packaging =
@@ -303,7 +293,7 @@ convertWellKnownToTransportModes wellKnown =
 
 
 computeIngredientComplementsImpacts : EcosystemicServices -> Mass -> Complement.ComplementsImpacts
-computeIngredientComplementsImpacts { cropDiversity, hedges, livestockDensity, permanentPasture, plotSize } ingredientMass =
+computeIngredientComplementsImpacts { cropDiversity, hedges, permanentPasture, plotSize } ingredientMass =
     let
         apply coeff =
             Quantity.multiplyBy (Mass.inKilograms ingredientMass)
@@ -312,7 +302,6 @@ computeIngredientComplementsImpacts { cropDiversity, hedges, livestockDensity, p
     { cropDiversity = Just <| apply EcosystemicServices.coefficients.cropDiversity cropDiversity
     , forest = Nothing
     , hedges = Just <| apply EcosystemicServices.coefficients.hedges hedges
-    , livestockDensity = Just <| apply EcosystemicServices.coefficients.livestockDensity livestockDensity
     , microfibers = Nothing
     , outOfEuropeEOL = Nothing
     , permanentPasture = Just <| apply EcosystemicServices.coefficients.permanentPasture permanentPasture
@@ -376,7 +365,7 @@ computeIngredientTransportForCountry db planeTransport { code } =
     in
     if code == Country.unknownCountryCode then
         -- See https://github.com/MTES-MCT/ecobalyse/issues/1986
-        { default | road = Length.kilometers defaultKilometersRoadDistance, sea = Length.kilometers 18000 }
+        { default | road = Length.kilometers FoodTransport.defaultKilometersRoadDistance, sea = Length.kilometers 18000 }
 
     else
         db.distances
@@ -384,8 +373,8 @@ computeIngredientTransportForCountry db planeTransport { code } =
             |> Transport.applyTransportRatios planeRatio
             -- For some regions we should always add 2000kms of road
             -- See https://github.com/MTES-MCT/ecobalyse/issues/1982
-            |> (if countriesWithDefaultRoadTransport |> List.member code then
-                    Transport.addRoadWithCooling (Length.kilometers defaultKilometersRoadDistance) False
+            |> (if FoodTransport.countriesWithDefaultRoadTransport |> List.member code then
+                    Transport.addRoadWithCooling (Length.kilometers FoodTransport.defaultKilometersRoadDistance) False
 
                 else
                     identity
