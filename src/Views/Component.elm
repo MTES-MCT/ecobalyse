@@ -173,7 +173,7 @@ addElementTransformButton { db, openSelectProcessModal, query, scope } material 
         [ type_ "button"
         , class "btn btn-link btn-sm w-100 text-decoration-none"
         , class "d-flex justify-content-start align-items-center"
-        , class "gap-1 w-100 p-0 pb-1"
+        , class "gap-1 w-100 ps-0"
         , disabled <| List.isEmpty availableTransformProcesses
         , autocompleteState
             |> openSelectProcessModal Category.Transform targetItem (Just elementIndex)
@@ -847,19 +847,18 @@ elementMaterialView config targetElement materialResults material amount =
         , td
             [ class "align-middle text-truncate w-100"
             , title <| Process.getDisplayName material.process
-            , colspan 2
             ]
-            [ div [ class "d-flex justify-content-between align-items-center gap-2" ]
-                [ selectMaterialButton config targetElement material.process
-                , transformCountrySelector
-                    { attributes = [ style "width" "260px" ]
-                    , countries = config.db.countries
-                    , domId = "material-country-" ++ Component.targetElementToString targetElement
-                    , scope = config.scope
-                    , select = config.updateElementMaterialCountry targetElement
-                    , selected = material.country |> Maybe.map .code
-                    }
-                ]
+            [ selectMaterialButton config targetElement material.process
+            ]
+        , td [ class "text-end align-middle text-nowrap" ]
+            [ transformCountrySelector
+                { attributes = [ style "width" "260px" ]
+                , countries = config.db.countries
+                , domId = "material-country-" ++ Component.targetElementToString targetElement
+                , scope = config.scope
+                , select = config.updateElementMaterialCountry targetElement
+                , selected = material.country |> Maybe.map .code
+                }
             ]
         , td [ class "text-end align-middle text-nowrap" ]
             []
