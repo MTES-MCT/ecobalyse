@@ -200,6 +200,13 @@ getDefaultOriginTransport planeTransport origin =
         Origin.France ->
             default
 
+        Origin.FranceOutreMer ->
+            if planeTransport == ByPlane then
+                { default | air = Length.kilometers 8401 }
+
+            else
+                { default | sea = Length.kilometers 8315 }
+
         Origin.OutOfEuropeAndMaghreb ->
             { default | road = Length.kilometers FoodTransport.defaultKilometersRoadDistance, sea = Length.kilometers 18000 }
 

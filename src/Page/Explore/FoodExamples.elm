@@ -4,6 +4,7 @@ import Data.Dataset as Dataset
 import Data.Example as Example exposing (Example)
 import Data.Food.Query exposing (Query)
 import Data.Scope exposing (Scope)
+import Data.Text as Text
 import Data.Uuid as Uuid
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -21,7 +22,7 @@ table { maxScore, maxPer100g } { detailed, scope } =
     { filename = "examples"
     , toId = Tuple.first >> .id >> Uuid.toString
     , toRoute = Tuple.first >> .id >> Just >> Dataset.FoodExamples >> Route.Explore scope
-    , toSearchableString = Tuple.first >> Example.toSearchableString
+    , toSearchableWords = Tuple.first >> Example.toSearchableString >> Text.toWords
     , facets = []
     , legend = []
     , columns =

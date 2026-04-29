@@ -12,6 +12,7 @@ module Page.Explore exposing
 import App exposing (Msg, PageUpdate)
 import Browser.Events
 import Browser.Navigation as Nav
+import Csv.Encode as EncodeCsv exposing (Csv)
 import Data.Component as Component exposing (Component)
 import Data.Country as Country exposing (Country)
 import Data.Dataset as Dataset exposing (Dataset)
@@ -33,6 +34,7 @@ import Data.Textile.Simulator as Simulator
 import Data.Unit as Unit
 import Data.Uuid exposing (Uuid)
 import Dict
+import File.Download as Download
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -67,6 +69,7 @@ type alias Model =
 
 type Msg
     = CloseModal
+    | DownloadCsv String Csv
     | NoOp
     | OpenDetail Route
     | ScopeChange Scope
@@ -134,6 +137,10 @@ update session msg model =
                         |> Route.toString
                         |> Nav.pushUrl session.navKey
                     ]
+
+        DownloadCsv filename csv ->
+            createPageUpdate session model
+                |> App.withCmds [ Download.string filename "text/csv" (csv |> EncodeCsv.toString) ]
 
         NoOp ->
             createPageUpdate session model
@@ -725,6 +732,7 @@ exploreView ({ db } as session) { facetValues, scope, dataset, tableState, searc
                 { defaultCustomizations
                     | tableAttrs = [ class "table table-striped table-hover mb-0 view-list cursor-pointer" ]
                 }
+            , downloadCsv = DownloadCsv
             }
     in
     case dataset of
