@@ -3,6 +3,7 @@ module Data.ComponentTest exposing (..)
 import Data.Complement as Complement
 import Data.Component as Component exposing (Component, Item, LifeCycle, Requirements)
 import Data.Component.Amount as Amount
+import Data.Country as Country
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
 import Data.Process as Process exposing (Process)
@@ -61,7 +62,7 @@ suite =
                                                 -- access the second element
                                                 |> Maybe.andThen (.elements >> LE.getAt 1)
                                                 -- and its material process id
-                                                |> Maybe.map .material
+                                                |> Maybe.map (.material >> .id)
                                         )
                                     -- it should be equal to the one we swapped in
                                     |> Expect.equal (Ok (Just validMaterial.id))
@@ -130,7 +131,8 @@ suite =
                                     , quantity = 1
                                     , stage = Nothing
                                     }
-                                    |> Component.applyTransforms requirements.config
+                                    |> Component.applyTransforms requirements
+                                        Nothing
                                         Process.Kilogram
                                         (List.map Component.defaultExpandedTransform transforms)
                                     |> Result.withDefault Component.emptyResults
@@ -164,7 +166,8 @@ suite =
                                     , quantity = 1
                                     , stage = Nothing
                                     }
-                                    |> Component.applyTransforms requirements.config
+                                    |> Component.applyTransforms requirements
+                                        Nothing
                                         Process.Kilogram
                                         (List.map Component.defaultExpandedTransform transforms)
                                     |> Result.withDefault Component.emptyResults
@@ -181,7 +184,7 @@ suite =
                                         |> resetProcessElecAndHeat
                                         |> setProcessEcsImpact (Unit.impact 10)
                                     ]
-                                    |> Expect.within (Expect.Absolute 1) 10
+                                    |> Expect.within (Expect.Absolute 1) 33.4234
                                 )
                             , it "should add impacts when one transform is passed (including elec and heat)"
                                 (getTestEcsImpact
@@ -191,7 +194,7 @@ suite =
                                                 |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 10)
                                       }
                                     ]
-                                    |> Expect.within (Expect.Absolute 1) 420
+                                    |> Expect.within (Expect.Absolute 1) 443.14817633333337
                                 )
                             , it "should compute apply custom mix impacts when a transform step country is set"
                                 (let
@@ -207,7 +210,7 @@ suite =
                                             , quantity = 1
                                             , stage = Nothing
                                             }
-                                            |> Component.applyTransforms requirements.config Process.Kilogram steps
+                                            |> Component.applyTransforms requirements Nothing Process.Kilogram steps
                                             |> Result.withDefault Component.emptyResults
                                             |> extractEcsImpact
                                  in
@@ -241,14 +244,14 @@ suite =
                                     [ fading |> resetProcessElecAndHeat |> setProcessEcsImpact (Unit.impact 10)
                                     , fading |> resetProcessElecAndHeat |> setProcessEcsImpact (Unit.impact 20)
                                     ]
-                                    |> Expect.within (Expect.Absolute 1) 30
+                                    |> Expect.within (Expect.Absolute 1) 76.8468
                                 )
                             , it "should add impacts when multiple transforms are passed (including elec and heat)"
                                 (getTestEcsImpact
                                     [ fading |> setProcessEcsImpact (Unit.impact 10)
                                     , fading |> setProcessEcsImpact (Unit.impact 20)
                                     ]
-                                    |> Expect.within (Expect.Absolute 1) 849
+                                    |> Expect.within (Expect.Absolute 1) 896.2963526666667
                                 )
                             ]
                         , TestUtils.suiteFromResult "unit mismatch"
@@ -266,7 +269,8 @@ suite =
                                         , quantity = 1
                                         , stage = Nothing
                                         }
-                                        |> Component.applyTransforms requirements.config
+                                        |> Component.applyTransforms requirements
+                                            Nothing
                                             Process.CubicMeter
                                             [ Component.defaultExpandedTransform transformInKg ]
                                         |> Expect.equal (Err "Les procédés de transformation ne partagent pas la même unité que la matière source (m3)\u{00A0}: Moulage par injection (kg)")
@@ -286,7 +290,8 @@ suite =
                                     , quantity = 1
                                     , stage = Nothing
                                     }
-                                    |> Component.applyTransforms requirements.config
+                                    |> Component.applyTransforms requirements
+                                        Nothing
                                         Process.Kilogram
                                         (List.map Component.defaultExpandedTransform transforms)
                                     |> Result.withDefault Component.emptyResults
@@ -311,7 +316,7 @@ suite =
                                   it "should handle impacts+waste when applying transforms: impacts"
                                     (noElecAndNoHeat
                                         |> extractEcsImpact
-                                        |> Expect.within (Expect.Absolute 1) 120
+                                        |> Expect.within (Expect.Absolute 1) 155.13510000000002
                                     )
 
                                 -- (1kg * 0.5) * 0.5 == 0.25
@@ -337,7 +342,7 @@ suite =
                                 [ it "should handle impacts+waste when applying transforms: impacts"
                                     (withElecAndHeat
                                         |> extractEcsImpact
-                                        |> Expect.within (Expect.Absolute 1) 734
+                                        |> Expect.within (Expect.Absolute 1) 769.7222644999999
                                     )
                                 , it "should handle impacts+waste when applying transforms: mass"
                                     (withElecAndHeat
@@ -495,9 +500,8 @@ suite =
                                 |> Result.andThen
                                     (\cottonId ->
                                         Component.computeElementResults requirements
-                                            Nothing
                                             { amount = Amount.fromFloat 1
-                                            , material = cottonId
+                                            , material = { country = Nothing, id = cottonId }
 
                                             -- Note: weaving waste: 0.06253, fading: 0
                                             , transforms =
@@ -512,7 +516,7 @@ suite =
                                 [ it "should compute element impacts"
                                     (elementResults
                                         |> extractEcsImpact
-                                        |> Expect.within (Expect.Absolute 1) 2213
+                                        |> Expect.within (Expect.Absolute 1) 2261.3236957846225
                                     )
                                 , it "should compute element mass"
                                     (elementResults
@@ -529,16 +533,16 @@ suite =
                                 let
                                     results =
                                         { amount = Amount.fromFloat 1
-                                        , material = materialInCubicMeters.id
+                                        , material = { country = Nothing, id = materialInCubicMeters.id }
                                         , transforms = [ Component.defaultTransform transformInCubicMeters.id ]
                                         }
-                                            |> Component.computeElementResults requirements Nothing
+                                            |> Component.computeElementResults requirements
                                 in
                                 [ it "should compute impacts according on material unit"
                                     (results
                                         |> Result.map extractEcsImpact
                                         |> Result.withDefault 0
-                                        |> Expect.within (Expect.Absolute 1) 38342
+                                        |> Expect.within (Expect.Absolute 1) 69261.288
                                     )
                                 , it "should compute mass according on material unit"
                                     (results
@@ -555,10 +559,10 @@ suite =
                                 let
                                     results =
                                         { amount = Amount.fromFloat 1
-                                        , material = materialInCubicMeters.id
+                                        , material = { country = Nothing, id = materialInCubicMeters.id }
                                         , transforms = [ Component.defaultTransform transformInCubicMeters.id ]
                                         }
-                                            |> Component.computeElementResults requirements Nothing
+                                            |> Component.computeElementResults requirements
                                 in
                                 [ it "should compute complements impacts according on material unit"
                                     (results
@@ -678,6 +682,61 @@ suite =
                                         |> Expect.greaterThan 0
                                     )
                                 ]
+                            )
+                        , it "should decode legacy item country into custom element material country"
+                            ("""{
+                                    "country": "CN",
+                                    "quantity": 1,
+                                    "custom": {
+                                      "elements": [
+                                        {
+                                          "amount": 1,
+                                          "material": "17431e06-2973-516e-b043-be9ad405e4fb",
+                                          "transforms": []
+                                        }
+                                      ]
+                                    }
+                                  }"""
+                                |> decodeJsonThen Component.decodeItem
+                                    (\item ->
+                                        item.custom
+                                            |> Maybe.andThen (.elements >> LE.getAt 0)
+                                            |> Maybe.map (.material >> .country)
+                                            |> Result.fromMaybe "Missing custom element material country"
+                                    )
+                                |> Expect.equal (Ok (Just (Country.codeFromString "CN")))
+                            )
+                        , it "should include transport stage impacts when applying transforms"
+                            (case
+                                requirements.db.countries
+                                    |> Scope.anyOf [ requirements.scope ]
+                                    |> List.head
+                             of
+                                Nothing ->
+                                    Expect.fail "No country available in test scope"
+
+                                Just country ->
+                                    Process.idFromString "f0dbe27b-1e74-55d0-88a2-bda812441744"
+                                        |> Result.andThen
+                                            (\materialId ->
+                                                { amount = Amount.fromFloat 1
+                                                , material = { country = Just country.code, id = materialId }
+                                                , transforms =
+                                                    [ { id = fading.id
+                                                      , country = Just country.code
+                                                      }
+                                                    ]
+                                                }
+                                                    |> Component.computeElementResults requirements
+                                                    |> Result.map Component.extractItems
+                                                    |> Result.map
+                                                        (List.any
+                                                            (\(Component.Results { stage }) ->
+                                                                stage == Just Component.TransportStage
+                                                            )
+                                                        )
+                                            )
+                                        |> Expect.equal (Ok True)
                             )
                         ]
                     , describe "computeVolumeFromMass"
@@ -901,8 +960,7 @@ suite =
                                     |> Expect.equal
                                         (Ok <|
                                             Just
-                                                { country = Nothing
-                                                , custom = Nothing
+                                                { custom = Nothing
                                                 , id = testComponent.id
                                                 , quantity = Component.quantityFromInt 1
                                                 }
@@ -930,7 +988,7 @@ suite =
                                                 -- access the first element
                                                 |> Maybe.andThen (.elements >> LE.getAt 0)
                                                 -- and its material process id
-                                                |> Maybe.map .material
+                                                |> Maybe.map (.material >> .id)
                                         )
                                     -- it should be equal to the one we swapped in
                                     |> Expect.equal (Ok (Just validTestProcess.id))
@@ -980,11 +1038,18 @@ suite =
                                     |> Expect.greaterThan 0
                                 )
                             , it "should have total stages impacts equal total impacts"
-                                ([ stagesImpacts.materials, stagesImpacts.transform ]
+                                ([ stagesImpacts.materials, stagesImpacts.transform, stagesImpacts.transports ]
                                     |> List.filterMap identity
                                     |> Impact.sumImpacts
                                     |> getEcsImpact
-                                    |> Expect.within (Expect.Absolute 1) (extractEcsImpact lifeCycle.production)
+                                    |> Expect.within (Expect.Absolute 1)
+                                        (Impact.sumImpacts
+                                            [ Component.extractImpacts lifeCycle.production
+                                            , lifeCycle.transports.toAssembly.impacts
+                                            , lifeCycle.transports.toDistribution.impacts
+                                            ]
+                                            |> getEcsImpact
+                                        )
                                 )
                             ]
                         )

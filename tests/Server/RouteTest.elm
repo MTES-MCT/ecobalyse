@@ -272,8 +272,7 @@ textileEndpoints db =
                                 { query
                                     | trims =
                                         Just
-                                            [ { country = Nothing
-                                              , custom = Nothing
+                                            [ { custom = Nothing
                                               , id = Just nonExistentId
                                               , quantity = Component.quantityFromInt 1
                                               }
@@ -296,8 +295,7 @@ textileEndpoints db =
                                 { query
                                     | trims =
                                         Just
-                                            [ { country = Nothing
-                                              , custom = Nothing
+                                            [ { custom = Nothing
                                               , id = Just id
                                               , quantity = Component.quantityFromInt -1
                                               }
