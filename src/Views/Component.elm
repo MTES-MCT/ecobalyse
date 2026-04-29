@@ -14,6 +14,7 @@ import Data.Component as Component
         , EndOfLifeMaterialImpacts
         , ExpandedElement
         , ExpandedItem
+        , ExpandedLocalizedProcess
         , Index
         , LifeCycle
         , Quantity
@@ -779,7 +780,7 @@ elementEditModalView ({ query } as config) (( _, elementIndex ) as targetElement
                             , th [ class "align-middle", scope "col" ]
                                 [ text <| "Élément #" ++ String.fromInt (elementIndex + 1) ]
                             , th [ class "align-middle text-center", scope "col" ]
-                                [ text "Mix" ]
+                                [ text "Pays/Région" ]
                             , th [ class "align-middle", scope "col" ]
                                 [ text "Pertes" ]
                             , th [ class "align-middle text-truncate", scope "col" ]
@@ -791,8 +792,8 @@ elementEditModalView ({ query } as config) (( _, elementIndex ) as targetElement
                             , th [] []
                             ]
                             :: elementMaterialView config targetElement materialResults material amount
-                            ++ elementTransformsView config targetElement transformsResults transforms
-                            ++ [ tr []
+                            ++ elementTransformsView config targetElement materialResults material.country transformsResults transforms
+                            ++ [ tr [ class "border-top" ]
                                     [ td [ colspan 2 ] []
                                     , td [ colspan 6 ]
                                         [ addElementTransformButton config materialProcess targetElement ]
@@ -885,13 +886,11 @@ elementMaterialView config targetElement materialResults material amount =
             , td [ class "text-end align-middle text-nowrap ps-0", style "min-width" "130px" ]
                 []
             , td
-                [ class "align-middle text-truncate w-100 text-muted cursor-help"
+                [ class "align-middle text-truncate w-100 text-muted cursor-help ps-4 fs-8"
                 , title (Format.formatComplementsResultsImpactsToString config.impact complementsImpacts)
                 ]
                 [ span [ class "ComponentElementIcon" ] [ Icon.calculator ], text "Dont compléments" ]
-            , td [ class "text-end align-middle text-nowrap" ]
-                []
-            , td [ class "text-end align-middle text-nowrap" ]
+            , td [ class "text-end align-middle text-nowrap", colspan 3 ]
                 []
             , td [ class "text-end align-middle text-nowrap" ]
                 [ complementsImpacts
@@ -907,81 +906,145 @@ elementMaterialView config targetElement materialResults material amount =
     ]
 
 
-elementTransformsView : Config db msg -> TargetElement -> List Results -> List Component.ExpandedLocalizedProcess -> List (Html msg)
-elementTransformsView config targetElement transformsResults transforms =
-    List.map3
-        (\transformIndex transformResult transformStep ->
-            let
-                maybeCountry =
-                    transformStep.country
+elementTransportView : Config db msg -> TargetElement -> Index -> Mass -> Maybe Country -> Maybe Country -> Html msg
+elementTransportView config targetElement transformIndex previousMass maybeFrom maybeTo =
+    let
+        transport =
+            (case ( maybeFrom, maybeTo ) of
+                ( Just from, Just to ) ->
+                    config.db.distances
+                        |> Transport.getTransportBetween Impact.empty from.code to.code
 
-                tooltipText =
-                    "Procédé\u{00A0}: "
-                        ++ Process.getDisplayName transformStep.process
-                        ++ (maybeCountry
-                                |> Component.loadEnergyMixes config.componentConfig
-                                |> Result.map
-                                    (\{ elec, heat } ->
-                                        "\nÉlectricité\u{00A0}: "
-                                            ++ Process.getDisplayName elec
-                                            ++ "\nChaleur\u{00A0}: "
-                                            ++ Process.getDisplayName heat
-                                    )
-                                |> Result.withDefault ""
-                           )
-            in
-            tr [ class "fs-7" ]
-                [ td [] []
-                , td [ class "text-end align-middle text-nowrap" ] []
-                , td
-                    [ class "text-truncate align-middle w-66 cursor-help "
+                _ ->
+                    config.componentConfig.transports.defaultDistance
+            )
+                |> Transport.applyTransportRatios Split.zero
+                |> Transport.computeImpacts config.componentConfig.transports.modeProcesses previousMass
+    in
+    tr [ class "fs-7 text-muted" ]
+        [ td [ colspan 3 ] []
+        , td [ class "text-end align-middle text-nowrap" ]
+            [ div [ class "d-flex justify-content-end align-items-center gap-2", style "width" "260px" ]
+                [ Icon.boat
+                , Format.km transport.sea
+                , Icon.bus
+                , Format.km transport.road
+                ]
+            ]
+        , td [ colspan 2 ] []
+        , td [ class "text-end align-middle text-nowrap" ]
+            [ transport.impacts
+                |> Format.formatImpact config.impact
+            ]
+        , td []
+            [ button
+                [ type_ "button"
+                , class "btn btn-sm btn-outline-secondary invisible"
+                , transformIndex
+                    |> config.removeElementTransform targetElement
+                    |> onClick
+                ]
+                [ Icon.trash ]
+            ]
+        ]
 
-                    -- Note: allows truncated ellipsis in table cells https://stackoverflow.com/a/11877033/330911
-                    , style "max-width" "0"
-                    , title tooltipText
-                    ]
-                    [ span [ class "ComponentElementIcon" ] [ Icon.transform ]
-                    , text <| Process.getDisplayName transformStep.process
-                    ]
-                , td [ class "text-end align-middle text-nowrap" ]
-                    [ transformCountrySelector
-                        { attributes = [ style "width" "260px" ]
-                        , countries = config.db.countries
-                        , domId =
-                            "transform-country-"
-                                ++ Component.targetElementToString targetElement
-                                ++ "-"
-                                ++ String.fromInt transformIndex
-                        , scope = config.scope
-                        , select = config.updateElementTransformCountry targetElement transformIndex
-                        , selected = maybeCountry |> Maybe.map .code
-                        }
-                    ]
-                , td [ class "align-middle text-end text-nowrap" ]
-                    [ Format.splitAsPercentage 2 transformStep.process.waste ]
-                , td [ class "text-end align-middle text-nowrap" ]
-                    [ Component.extractAmount transformResult
-                        |> Format.amount transformStep.process
-                    ]
-                , td [ class "text-end align-middle text-nowrap" ]
-                    [ Component.extractImpacts transformResult
-                        |> Format.formatImpact config.impact
-                    ]
-                , td []
-                    [ button
-                        [ type_ "button"
-                        , class "btn btn-sm btn-outline-secondary"
-                        , transformIndex
-                            |> config.removeElementTransform targetElement
-                            |> onClick
+
+elementTransformsView : Config db msg -> TargetElement -> Results -> Maybe Country -> List Results -> List ExpandedLocalizedProcess -> List (Html msg)
+elementTransformsView config targetElement materialResults materialCountry transformsResults transforms =
+    transforms
+        |> List.indexedMap
+            (\transformIndex transform ->
+                let
+                    transformResult =
+                        transformsResults
+                            |> LE.getAt transformIndex
+                            |> Maybe.withDefault Component.emptyResults
+
+                    previousMass =
+                        if transformIndex == 0 then
+                            Component.extractMass materialResults
+
+                        else
+                            transformsResults
+                                |> LE.getAt (transformIndex - 1)
+                                |> Maybe.withDefault Component.emptyResults
+                                |> Component.extractMass
+
+                    previousCountry =
+                        if transformIndex == 0 then
+                            materialCountry
+
+                        else
+                            transforms
+                                |> LE.getAt (transformIndex - 1)
+                                |> Maybe.andThen .country
+
+                    tooltipText =
+                        "Procédé\u{00A0}: "
+                            ++ Process.getDisplayName transform.process
+                            ++ (transform.country
+                                    |> Component.loadEnergyMixes config.componentConfig
+                                    |> Result.map
+                                        (\{ elec, heat } ->
+                                            "\nÉlectricité\u{00A0}: "
+                                                ++ Process.getDisplayName elec
+                                                ++ "\nChaleur\u{00A0}: "
+                                                ++ Process.getDisplayName heat
+                                        )
+                                    |> Result.withDefault ""
+                               )
+                in
+                [ transform.country
+                    |> elementTransportView config targetElement transformIndex previousMass previousCountry
+                , tr [ class "fs-7 border-top" ]
+                    [ td [] []
+                    , td [ class "text-end align-middle text-nowrap" ] []
+                    , td
+                        [ class "text-truncate align-middle w-66 cursor-help "
+                        , style "max-width" "0"
+                        , title tooltipText
                         ]
-                        [ Icon.trash ]
+                        [ span [ class "ComponentElementIcon" ] [ Icon.transform ]
+                        , text <| Process.getDisplayName transform.process
+                        ]
+                    , td [ class "text-end align-middle text-nowrap" ]
+                        [ transformCountrySelector
+                            { attributes = [ style "width" "260px" ]
+                            , countries = config.db.countries
+                            , domId =
+                                "transform-country-"
+                                    ++ Component.targetElementToString targetElement
+                                    ++ "-"
+                                    ++ String.fromInt transformIndex
+                            , scope = config.scope
+                            , select = config.updateElementTransformCountry targetElement transformIndex
+                            , selected = transform.country |> Maybe.map .code
+                            }
+                        ]
+                    , td [ class "align-middle text-end text-nowrap" ]
+                        [ Format.splitAsPercentage 2 transform.process.waste ]
+                    , td [ class "text-end align-middle text-nowrap" ]
+                        [ Component.extractAmount transformResult
+                            |> Format.amount transform.process
+                        ]
+                    , td [ class "text-end align-middle text-nowrap" ]
+                        [ Component.extractImpacts transformResult
+                            |> Format.formatImpact config.impact
+                        ]
+                    , td []
+                        [ button
+                            [ type_ "button"
+                            , class "btn btn-sm btn-outline-secondary"
+                            , transformIndex
+                                |> config.removeElementTransform targetElement
+                                |> onClick
+                            ]
+                            [ Icon.trash ]
+                        ]
                     ]
                 ]
-        )
-        (List.range 0 (List.length transforms - 1))
-        transformsResults
-        transforms
+            )
+        |> List.concat
 
 
 type alias TransformCountrySelector msg =
