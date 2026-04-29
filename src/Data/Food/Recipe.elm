@@ -58,6 +58,11 @@ france =
     Country.codeFromString "FR"
 
 
+overseaFrance : Country.Code
+overseaFrance =
+    Country.codeFromString "ROF"
+
+
 type alias Packaging =
     { amount : PackagingAmount
     , process : Process.Process
@@ -412,19 +417,23 @@ computeIngredientTransport db { country, ingredient, mass, planeTransport } =
             Transport.addRoadWithCooling (Length.kilometers 160) (ingredient.transportCooling == Ingredient.AlwaysCool) t
 
         toLogistics t =
-            -- 500km of road transport are added for every ingredient that are not coming from France.
+            -- 500km of road transport are added for every ingredient that are not coming from France or overseas France
             -- This corresponds to the stage "2. RECETTE" in the
             -- [transport documentation](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)
             case country of
                 Just { code } ->
-                    if code /= france then
+                    if code /= france && code /= overseaFrance then
                         Transport.addRoadWithCooling (Length.kilometers 500) (ingredient.transportCooling == Ingredient.AlwaysCool) t
 
                     else
                         t
 
                 Nothing ->
-                    if ingredient.defaultOrigin /= Origin.France then
+                    -- For overseas France, do not add any supplementary road transport
+                    if ingredient.defaultOrigin == Origin.FranceOutreMer then
+                        t
+
+                    else if ingredient.defaultOrigin /= Origin.France then
                         Transport.addRoadWithCooling (Length.kilometers 500) (ingredient.transportCooling == Ingredient.AlwaysCool) t
 
                     else

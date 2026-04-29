@@ -31,3 +31,6 @@ public/data/processes_generic_impacts.json
 public/data/impacts.json
 public/data/metadata.json
 public/data/veli/examples.json
+
+# JSON edited manually, more readable with manual formatting
+public/data/transports.json

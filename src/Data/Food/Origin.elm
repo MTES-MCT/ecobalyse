@@ -11,6 +11,7 @@ import Json.Decode.Extra as DE
 type Origin
     = EuropeAndMaghreb
     | France
+    | FranceOutreMer
     | OutOfEuropeAndMaghreb
     | OutOfEuropeAndMaghrebByPlane
 
@@ -30,6 +31,9 @@ fromString string =
         "France" ->
             Ok France
 
+        "FranceOutreMer" ->
+            Ok FranceOutreMer
+
         "OutOfEuropeAndMaghreb" ->
             Ok OutOfEuropeAndMaghreb
 
@@ -48,6 +52,9 @@ toLabel origin =
 
         France ->
             "France"
+
+        FranceOutreMer ->
+            "France d’outre-mer"
 
         OutOfEuropeAndMaghreb ->
             "Hors Europe et Maghreb"
