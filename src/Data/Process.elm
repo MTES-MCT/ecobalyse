@@ -289,10 +289,8 @@ toSearchableString process =
 
 
 toSearchableWords : Process -> List String
-toSearchableWords process =
-    process
-        |> toSearchableString
-        |> Text.toWords
+toSearchableWords =
+    toSearchableString >> Text.toWords
 
 
 unitLabel : Unit -> String
