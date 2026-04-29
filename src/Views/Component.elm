@@ -678,6 +678,10 @@ elementView config (( component, _ ) as targetItem) elementIndex { amount, mater
                         ]
                         [ span [ class "ComponentElementIcon" ] [ Icon.material ]
                         , text <| Process.getDisplayName materialProcess
+                        , material.country
+                            |> Maybe.map (\{ name } -> " (" ++ name ++ ")")
+                            |> Maybe.withDefault ""
+                            |> text
                         ]
                     , div [ class "d-flex align-items-center gap-1 text-muted" ]
                         [ span [ class "ComponentElementIcon me-0" ] [ Icon.transform ]
