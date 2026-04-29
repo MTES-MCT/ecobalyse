@@ -834,28 +834,25 @@ elementMaterialView config targetElement materialResults material amount =
     let
         complementsImpacts =
             Component.extractComplementsImpacts materialResults
-
-        materialProcess =
-            material.process
     in
     [ tr [ class "fs-7" ]
         [ td [] []
         , td [ class "text-end align-middle text-nowrap ps-0", style "min-width" "130px" ]
             [ if config.scope == Scope.Textile then
-                Format.amount materialProcess amount
+                Format.amount material.process amount
 
               else
-                amountInput (config.updateElementAmount targetElement) materialProcess.unit amount
+                amountInput (config.updateElementAmount targetElement) material.process.unit amount
             ]
         , td
             [ class "align-middle text-truncate w-100"
-            , title <| Process.getDisplayName materialProcess
+            , title <| Process.getDisplayName material.process
             , colspan 2
             ]
-            [ div [ class "d-flex align-items-center gap-2" ]
-                [ selectMaterialButton config targetElement materialProcess
+            [ div [ class "d-flex justify-content-between align-items-center gap-2" ]
+                [ selectMaterialButton config targetElement material.process
                 , transformCountrySelector
-                    { attributes = [ style "min-width" "180px" ]
+                    { attributes = [ style "width" "260px" ]
                     , countries = config.db.countries
                     , domId = "material-country-" ++ Component.targetElementToString targetElement
                     , scope = config.scope
@@ -868,7 +865,7 @@ elementMaterialView config targetElement materialResults material amount =
             []
         , td [ class "text-end align-middle text-nowrap" ]
             [ Component.extractAmount materialResults
-                |> Format.amount materialProcess
+                |> Format.amount material.process
             ]
         , td [ class "text-end align-middle text-nowrap" ]
             [ Component.getTotalImpacts materialResults
@@ -949,7 +946,7 @@ elementTransformsView config targetElement transformsResults transforms =
                     ]
                 , td [ class "text-end align-middle text-nowrap" ]
                     [ transformCountrySelector
-                        { attributes = [ style "min-width" "230px" ]
+                        { attributes = [ style "width" "260px" ]
                         , countries = config.db.countries
                         , domId =
                             "transform-country-"
