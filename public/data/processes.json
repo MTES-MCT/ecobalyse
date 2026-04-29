@@ -28317,8 +28317,7 @@
     "activityName": "Almond, shelled with skin, CMAPS {GLO} U",
     "categories": [
       "ingredient",
-      "material",
-      "material_type:other_food_items"
+      "material"
     ],
     "comment": "",
     "displayName": "Amande, décortiquée, avec peau FR",
@@ -28867,8 +28866,7 @@
     "activityName": "Banana, pulp raw, CMAPS {GLO} U",
     "categories": [
       "ingredient",
-      "material",
-      "material_type:other_food_items"
+      "material"
     ],
     "comment": "",
     "displayName": "Banane, pulpe, crue FR",
@@ -29710,8 +29708,7 @@
     "activityName": "Butter, 39-41pct fat light, variant 1, CMAPS {GLO} U",
     "categories": [
       "ingredient",
-      "material",
-      "material_type:other_food_items"
+      "material"
     ],
     "comment": "",
     "displayName": "Beurre à 39-41% MG, léger, doux FR",
@@ -29922,8 +29919,7 @@
     "activityName": "Butter, 82pct fat, variant 1, CMAPS {GLO} U",
     "categories": [
       "ingredient",
-      "material",
-      "material_type:other_food_items"
+      "material"
     ],
     "comment": "",
     "displayName": "Beurre à 82% MG ou huile de beurre FR",
@@ -30765,8 +30761,7 @@
     "activityName": "Corn flour, CMAPS {FR} U",
     "categories": [
       "ingredient",
-      "material",
-      "material_type:other_food_items"
+      "material"
     ],
     "comment": "",
     "displayName": "Farine de maïs Origine Inconnue",
@@ -30935,8 +30930,7 @@
     "activityName": "Cucumber, pulp raw, CMAPS {GLO} U",
     "categories": [
       "ingredient",
-      "material",
-      "material_type:other_food_items"
+      "material"
     ],
     "comment": "",
     "displayName": "Concombre, pulpe, cru FR",
@@ -31105,8 +31099,7 @@
     "activityName": "Dairy spread, 20pct fat, variant 1, CMAPS {GLO} U",
     "categories": [
       "ingredient",
-      "material",
-      "material_type:red_meats"
+      "material"
     ],
     "comment": "",
     "displayName": "Matière grasse laitière à 20% MG, légère, \"à tartiner\", doux FR",
@@ -33083,8 +33076,7 @@
     "activityName": "Gruyere cheese, variant 1, CMAPS {GLO} U",
     "categories": [
       "ingredient",
-      "material",
-      "material_type:other_food_items"
+      "material"
     ],
     "comment": "",
     "displayName": "Gruyère FR",
@@ -33337,8 +33329,7 @@
     "activityName": "Lemon, pulp raw, CMAPS {GLO} U",
     "categories": [
       "ingredient",
-      "material",
-      "material_type:red_meats"
+      "material"
     ],
     "comment": "",
     "displayName": "Citron, pulpe, cru FR",
@@ -34351,8 +34342,7 @@
     "activityName": "Mont d'Or cheese, variant 1, CMAPS {GLO} U",
     "categories": [
       "ingredient",
-      "material",
-      "material_type:other_food_items"
+      "material"
     ],
     "comment": "",
     "displayName": "Mont d'or ou Vacherin du Haut-Doubs (produit en France) ou Vacherin-Mont d'Or (produit en Suisse) FR",
@@ -35197,8 +35187,7 @@
     "activityName": "Pea, shelled raw, CMAPS {GLO} U",
     "categories": [
       "ingredient",
-      "material",
-      "material_type:other_food_items"
+      "material"
     ],
     "comment": "",
     "displayName": "Petits pois, écossés, crus FR",
@@ -36585,8 +36574,7 @@
     "activityName": "Raspberry juice, CMAPS {GLO} U",
     "categories": [
       "ingredient",
-      "material",
-      "material_type:other_food_items"
+      "material"
     ],
     "comment": "",
     "displayName": "Jus - Framboise (CMAPS) FR",
@@ -37686,8 +37674,7 @@
     "activityName": "Soy flour, CMAPS {FR} U",
     "categories": [
       "ingredient",
-      "material",
-      "material_type:other_food_items"
+      "material"
     ],
     "comment": "",
     "displayName": "Farine de soja Origine Inconnue",
@@ -38066,8 +38053,7 @@
     "activityName": "Sweet corn, canned drained, organic, CMAPS {GLO} U",
     "categories": [
       "ingredient",
-      "material",
-      "material_type:other_food_items"
+      "material"
     ],
     "comment": "",
     "displayName": "Maïs doux, appertisé, égoutté FR BIO",
@@ -38698,8 +38684,7 @@
     "activityName": "White bean, canned drained, CMAPS {GLO} U",
     "categories": [
       "ingredient",
-      "material",
-      "material_type:red_meats"
+      "material"
     ],
     "comment": "",
     "displayName": "Haricot blanc, appertisé, égoutté FR",
