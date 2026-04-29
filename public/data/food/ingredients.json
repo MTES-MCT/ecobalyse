@@ -14669,7 +14669,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "LEGUMINEUSES A GRAIN",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
+    "defaultOrigin": "OutOfEuropeAndMaghrebByPlane",
     "density": 0.8,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -17183,7 +17183,7 @@
       "organic"
     ],
     "cropGroup": "VERGERS",
-    "defaultOrigin": "France",
+    "defaultOrigin": "OutOfEuropeAndMaghrebByPlane",
     "density": 0.95,
     "ecosystemicServices": {
       "cropDiversity": 0.386,
@@ -22993,7 +22993,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "VERGERS",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
+    "defaultOrigin": "OutOfEuropeAndMaghrebByPlane",
     "density": 0.95,
     "ecosystemicServices": {
       "cropDiversity": 0,
