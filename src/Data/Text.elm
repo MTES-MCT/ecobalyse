@@ -40,10 +40,9 @@ search { minQueryLength, query, toSearchableWords } elements =
                 searchWords
                     |> List.all
                         (\word ->
-                            fn word <|
-                                (element
-                                    |> toSearchableWords
-                                )
+                            element
+                                |> toSearchableWords
+                                |> fn word
                         )
 
             exactWordsMatches =
