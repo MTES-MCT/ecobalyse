@@ -70360,7 +70360,7 @@
       },
       "ingredient": {
         "cropGroup": "VERGERS",
-        "defaultOrigin": "OutOfEuropeAndMaghrebByPlane",
+        "defaultOrigin": "FranceOutreMer",
         "density": 0.95,
         "inediblePart": 0.2,
         "processId": "5895eae6-a9f2-545f-9290-e942e8b8ea06",
@@ -70680,7 +70680,7 @@
       },
       "ingredient": {
         "cropGroup": "VERGERS",
-        "defaultOrigin": "OutOfEuropeAndMaghrebByPlane",
+        "defaultOrigin": "FranceOutreMer",
         "density": 0.447,
         "inediblePart": 0.2,
         "processId": "e8660bef-5298-5e11-8f52-b597d74f5974",
