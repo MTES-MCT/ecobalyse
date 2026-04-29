@@ -365,7 +365,7 @@ update ({ db, queries } as session) msg model =
 
         OnStageClick stageId ->
             createPageUpdate session model
-                |> App.withCmds [ Ports.scrollIntoView stageId ]
+                |> App.withCmds [ Ports.scrollIntoView <| "#" ++ stageId ]
 
         OpenComparator ->
             { model | modal = ComparatorModal }
@@ -923,9 +923,6 @@ updateIngredientFormView db ({ recipeIngredient, selectedImpact, transportImpact
                       }
                     , { name = EcosystemicServices.labels.permanentPasture
                       , computedImpact = complementsImpacts.permanentPasture |> Maybe.withDefault Unit.noImpacts
-                      }
-                    , { name = EcosystemicServices.labels.livestockDensity
-                      , computedImpact = complementsImpacts.livestockDensity |> Maybe.withDefault Unit.noImpacts
                       }
                     ]
                         |> List.map

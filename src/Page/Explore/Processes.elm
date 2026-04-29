@@ -1,6 +1,7 @@
 module Page.Explore.Processes exposing (table)
 
 import Data.Complement as Complement
+import Data.Country as Country
 import Data.Dataset as Dataset
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definitions)
@@ -23,7 +24,26 @@ table session { detailed, scope } =
     { filename = "processes"
     , toId = .id >> Process.idToString
     , toRoute = .id >> Just >> Dataset.Processes scope >> Route.Explore scope
-    , toSearchableString = Process.toSearchableString
+    , toSearchableWords = .searchableWords
+    , facets =
+        [ Table.Facet "Catégories" (.categories >> List.map ProcessCategory.toLabel)
+        , Table.Facet "Unités" (.unit >> Process.unitToString >> List.singleton)
+        , Table.Facet "Région"
+            (.location
+                >> Maybe.map
+                    (\location ->
+                        -- attempt decoding the region string as a an existing country code in the shared db
+                        case session.db.countries |> Country.findByCode (Country.codeFromString location) of
+                            Err _ ->
+                                location
+
+                            Ok { name } ->
+                                name ++ " (" ++ location ++ ")"
+                    )
+                >> Maybe.withDefault "N/A"
+                >> List.singleton
+            )
+        ]
     , legend = []
     , columns = baseColumns detailed scope ++ impactsColumns session ++ complementsColumns session
     }

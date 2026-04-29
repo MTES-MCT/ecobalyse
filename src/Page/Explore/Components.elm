@@ -8,6 +8,7 @@ import Data.Impact.Definition as Definition
 import Data.Process as Process
 import Data.Scope exposing (Scope)
 import Data.Session exposing (Session)
+import Data.Text as Text
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -22,7 +23,8 @@ table ({ db } as session) { detailed, scope } =
     { filename = "components"
     , toId = .id >> Maybe.map Component.idToString >> Maybe.withDefault ""
     , toRoute = .id >> Dataset.Components scope >> Route.Explore scope
-    , toSearchableString = Component.toSearchableString db
+    , toSearchableWords = Component.toSearchableString db >> Text.toWords
+    , facets = []
     , legend = []
     , columns =
         [ { label = "Identifiant"
@@ -86,7 +88,7 @@ table ({ db } as session) { detailed, scope } =
                                             [ Format.amount material amount
                                             , text <| " de " ++ Process.getDisplayName material
                                             , transforms
-                                                |> List.map (\transform -> li [] [ text <| Process.getDisplayName transform ])
+                                                |> List.map (.process >> Process.getDisplayName >> text >> List.singleton >> li [])
                                                 |> ul []
                                             ]
                                     )

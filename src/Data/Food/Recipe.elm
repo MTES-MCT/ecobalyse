@@ -10,7 +10,6 @@ module Data.Food.Recipe exposing
     , computeIngredientComplementsImpacts
     , computeIngredientTransport
     , computePackagingImpacts
-    , defaultKilometersRoadDistance
     , deletePackaging
     , encodeResults
     , fromQuery
@@ -33,6 +32,7 @@ import Data.Food.Origin as Origin
 import Data.Food.Preparation as Preparation exposing (Preparation)
 import Data.Food.Query as BuilderQuery exposing (PackagingAmount, Query, packagingAmountToFloat)
 import Data.Food.Retail as Retail
+import Data.Food.Transport as FoodTransport
 import Data.Food.WellKnown exposing (WellKnown)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
@@ -58,14 +58,9 @@ france =
     Country.codeFromString "FR"
 
 
-countriesWithDefaultRoadTransport : List Country.Code
-countriesWithDefaultRoadTransport =
-    [ "RAF", "RAS", "RLA", "RME", "RNA", "ROC" ] |> List.map Country.codeFromString
-
-
-defaultKilometersRoadDistance : Float
-defaultKilometersRoadDistance =
-    2000
+overseaFrance : Country.Code
+overseaFrance =
+    Country.codeFromString "ROF"
 
 
 type alias Packaging =
@@ -303,7 +298,7 @@ convertWellKnownToTransportModes wellKnown =
 
 
 computeIngredientComplementsImpacts : EcosystemicServices -> Mass -> Complement.ComplementsImpacts
-computeIngredientComplementsImpacts { cropDiversity, hedges, livestockDensity, permanentPasture, plotSize } ingredientMass =
+computeIngredientComplementsImpacts { cropDiversity, hedges, permanentPasture, plotSize } ingredientMass =
     let
         apply coeff =
             Quantity.multiplyBy (Mass.inKilograms ingredientMass)
@@ -312,7 +307,6 @@ computeIngredientComplementsImpacts { cropDiversity, hedges, livestockDensity, p
     { cropDiversity = Just <| apply EcosystemicServices.coefficients.cropDiversity cropDiversity
     , forest = Nothing
     , hedges = Just <| apply EcosystemicServices.coefficients.hedges hedges
-    , livestockDensity = Just <| apply EcosystemicServices.coefficients.livestockDensity livestockDensity
     , microfibers = Nothing
     , outOfEuropeEOL = Nothing
     , permanentPasture = Just <| apply EcosystemicServices.coefficients.permanentPasture permanentPasture
@@ -356,11 +350,14 @@ computeIngredientsTotalComplements =
         Complement.noComplementsImpacts
 
 
-computeIngredientTransport : Db -> RecipeIngredient -> Transport
-computeIngredientTransport db { country, ingredient, mass, planeTransport } =
+computeIngredientTransportForCountry : Db -> Ingredient.PlaneTransport -> Country -> Transport
+computeIngredientTransportForCountry db planeTransport { code } =
     let
         emptyImpacts =
             Impact.empty
+
+        default =
+            Transport.default emptyImpacts
 
         planeRatio =
             -- Special case: if the default origin of an ingredient is "by plane"
@@ -370,29 +367,36 @@ computeIngredientTransport db { country, ingredient, mass, planeTransport } =
 
             else
                 Split.zero
+    in
+    if code == Country.unknownCountryCode then
+        -- See https://github.com/MTES-MCT/ecobalyse/issues/1986
+        { default | road = Length.kilometers FoodTransport.defaultKilometersRoadDistance, sea = Length.kilometers 18000 }
 
+    else
+        db.distances
+            |> Transport.getTransportBetween emptyImpacts code france
+            |> Transport.applyTransportRatios planeRatio
+            -- For some regions we should always add 2000kms of road
+            -- See https://github.com/MTES-MCT/ecobalyse/issues/1982
+            |> (if FoodTransport.countriesWithDefaultRoadTransport |> List.member code then
+                    Transport.addRoadWithCooling (Length.kilometers FoodTransport.defaultKilometersRoadDistance) False
+
+                else
+                    identity
+               )
+
+
+computeIngredientTransport : Db -> RecipeIngredient -> Transport
+computeIngredientTransport db { country, ingredient, mass, planeTransport } =
+    let
         baseTransport =
             let
                 base =
-                    case country of
+                    country
                         -- In case a custom country is provided, compute the distances to it from France
-                        Just { code } ->
-                            db.distances
-                                |> Transport.getTransportBetween emptyImpacts code france
-                                |> Transport.applyTransportRatios planeRatio
-                                -- For some regions we should always add 2000kms of road
-                                -- See https://github.com/MTES-MCT/ecobalyse/issues/1982
-                                |> (if countriesWithDefaultRoadTransport |> List.member code then
-                                        Transport.addRoadWithCooling (Length.kilometers defaultKilometersRoadDistance) False
-
-                                    else
-                                        identity
-                                   )
-
+                        |> Maybe.map (computeIngredientTransportForCountry db planeTransport)
                         -- Otherwise retrieve ingredient's default origin transport data
-                        Nothing ->
-                            ingredient.defaultOrigin
-                                |> Ingredient.getDefaultOriginTransport planeTransport
+                        |> Maybe.withDefault (ingredient.defaultOrigin |> Ingredient.getDefaultOriginTransport planeTransport)
             in
             if ingredient.transportCooling /= Ingredient.NoCooling then
                 -- Switch the distances to use the "cooled" version of the transport medium
@@ -413,23 +417,32 @@ computeIngredientTransport db { country, ingredient, mass, planeTransport } =
             Transport.addRoadWithCooling (Length.kilometers 160) (ingredient.transportCooling == Ingredient.AlwaysCool) t
 
         toLogistics t =
-            -- 500km of road transport are added for every ingredient that are not coming from France.
+            -- 500km of road transport are added for every ingredient that are not coming from France or overseas France
             -- This corresponds to the stage "2. RECETTE" in the
             -- [transport documentation](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)
             case country of
                 Just { code } ->
-                    if code /= Country.codeFromString "FR" then
+                    if code /= france && code /= overseaFrance then
                         Transport.addRoadWithCooling (Length.kilometers 500) (ingredient.transportCooling == Ingredient.AlwaysCool) t
 
                     else
                         t
 
                 Nothing ->
-                    if ingredient.defaultOrigin /= Origin.France then
+                    -- For overseas France, do not add any supplementary road transport
+                    if ingredient.defaultOrigin == Origin.FranceOutreMer then
+                        t
+
+                    else if ingredient.defaultOrigin /= Origin.France then
                         Transport.addRoadWithCooling (Length.kilometers 500) (ingredient.transportCooling == Ingredient.AlwaysCool) t
 
                     else
-                        t
+                        -- If coming "from France by default", add 500 km of road to simulate the same behavior than when the data
+                        -- is coming from the `transports.json` file
+                        -- This corresponds to the stage "3. RECETTE" in the
+                        -- [transport documentation](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)
+                        -- https://github.com/MTES-MCT/ecobalyse/issues/1975
+                        Transport.addRoadWithCooling (Length.kilometers 500) (Ingredient.isTransportCooled ingredient) t
 
         transport =
             baseTransport

@@ -20,7 +20,6 @@ from advanced_alchemy.extensions.litestar.exception_handler import (
 )
 from litestar.config.compression import CompressionConfig
 from litestar.config.cors import CORSConfig
-from litestar.config.csrf import CSRFConfig
 from litestar.logging.config import (
     LoggingConfig,
     StructLoggingConfig,
@@ -66,11 +65,6 @@ if sentry_dsn and not settings.is_test_env():
 
 
 compression = CompressionConfig(backend="gzip")
-csrf = CSRFConfig(
-    secret=settings.app.SECRET_KEY,
-    cookie_secure=settings.app.CSRF_COOKIE_SECURE,
-    cookie_name=settings.app.CSRF_COOKIE_NAME,
-)
 cors = CORSConfig(allow_origins=cast("list[str]", settings.app.ALLOWED_CORS_ORIGINS))
 alchemy = SQLAlchemyAsyncConfig(
     engine_instance=settings.db.get_engine(),

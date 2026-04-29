@@ -1,6 +1,8 @@
 module Data.Text exposing
     ( search
+    , sortI18nStrings
     , toWords
+    , yesNo
     )
 
 import Regex
@@ -10,7 +12,7 @@ import String.Normalize as Normalize
 type alias SearchConfig element =
     { minQueryLength : Int
     , query : String
-    , toString : element -> String
+    , toSearchableWords : element -> List String
     }
 
 
@@ -21,7 +23,7 @@ type alias SearchConfig element =
 
 -}
 search : SearchConfig element -> List element -> List element
-search { minQueryLength, query, toString } elements =
+search { minQueryLength, query, toSearchableWords } elements =
     let
         trimmedQuery =
             String.trim query
@@ -38,8 +40,9 @@ search { minQueryLength, query, toString } elements =
                 searchWords
                     |> List.all
                         (\word ->
-                            fn (String.toLower word) <|
-                                toWords (toString element)
+                            element
+                                |> toSearchableWords
+                                |> fn word
                         )
 
             exactWordsMatches =
@@ -57,6 +60,13 @@ search { minQueryLength, query, toString } elements =
         exactWordsMatches ++ partialWordsMatches
 
 
+{-| Sort strings in a case and accent insensitive manner (useful for non-US alphabets).
+-}
+sortI18nStrings : List String -> List String
+sortI18nStrings =
+    List.sortBy (String.toLower >> Normalize.removeDiacritics)
+
+
 toWords : String -> List String
 toWords =
     String.toLower
@@ -65,3 +75,12 @@ toWords =
             (Regex.fromString "[\\W_]+"
                 |> Maybe.withDefault Regex.never
             )
+
+
+yesNo : Bool -> String
+yesNo bool =
+    if bool then
+        "Oui"
+
+    else
+        "Non"

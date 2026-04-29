@@ -6,6 +6,7 @@ import Data.Gitbook as Gitbook
 import Data.Process as Process
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split
+import Data.Text as Text
 import Data.Transport as Transport
 import Dict.Any as Dict
 import Html exposing (..)
@@ -23,7 +24,17 @@ table distances countries { detailed, scope } =
     { filename = "countries"
     , toId = .code >> Country.codeToString
     , toRoute = .code >> Just >> Dataset.Countries >> Route.Explore scope
-    , toSearchableString = Country.toSearchableString
+    , toSearchableWords = Country.toSearchableString >> Text.toWords
+    , facets =
+        [ Table.Facet "Mix électrique" (.electricityProcess >> Process.getDisplayName >> List.singleton)
+        , Table.Facet "Chaleur" (.heatProcess >> Process.getDisplayName >> List.singleton)
+        , Table.Facet "Taux de pollution aquatique"
+            (.aquaticPollutionScenario
+                >> Country.getAquaticPollutionRatio
+                >> Split.toPercentString 0
+                >> (\p -> [ p ++ "%" ])
+            )
+        ]
     , legend = []
     , columns =
         List.filterMap identity

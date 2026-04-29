@@ -11,6 +11,7 @@ import Data.Gitbook as Gitbook
 import Data.Process as Process
 import Data.Scope exposing (Scope)
 import Data.Split as Split
+import Data.Text as Text
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -26,7 +27,8 @@ table { detailed, scope } =
     { filename = "ingredients"
     , toId = .id >> Ingredient.idToString
     , toRoute = .id >> Just >> Dataset.FoodIngredients >> Route.Explore scope
-    , toSearchableString = Ingredient.toSearchableString
+    , toSearchableWords = Ingredient.toSearchableString >> Text.toWords
+    , facets = []
     , legend = []
     , columns =
         [ { label = "Identifiant"
@@ -133,7 +135,6 @@ table { detailed, scope } =
                           , ( EcosystemicServices.labels.plotSize, ecosystemicServices.plotSize )
                           , ( EcosystemicServices.labels.cropDiversity, ecosystemicServices.cropDiversity )
                           , ( EcosystemicServices.labels.permanentPasture, ecosystemicServices.permanentPasture )
-                          , ( EcosystemicServices.labels.livestockDensity, ecosystemicServices.livestockDensity )
                           ]
                             |> List.map
                                 (\( label, impact ) ->

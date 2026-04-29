@@ -65,22 +65,6 @@ class AccessController(Controller):
         return auth.login(user.email)
 
     @post(
-        operation_id="AccountLogout", path=urls.ACCOUNT_LOGOUT, exclude_from_auth=True
-    )
-    async def logout(self, request: Request) -> Response:
-        """Account Logout"""
-        request.cookies.pop(auth.key, None)
-        request.clear_session()
-
-        response = Response(
-            {"message": "OK"},
-            status_code=200,
-        )
-        response.delete_cookie(auth.key)
-
-        return response
-
-    @post(
         operation_id="AccountRegisterMagicLink",
         path=urls.ACCOUNT_REGISTER_MAGIC_LINK,
         exclude_from_auth=True,

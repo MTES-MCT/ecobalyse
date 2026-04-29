@@ -440,7 +440,7 @@ processFilters scopes search =
         >> Text.search
             { minQueryLength = 2
             , query = search
-            , toString = .name
+            , toSearchableWords = .name >> Text.toWords
             }
 
 
@@ -656,6 +656,7 @@ modalView { componentConfig, db } modals index modal =
                             , openCreateComponentModal = NoOp
                             , openSelectComponentModal = \_ -> NoOp
                             , openSelectConsumptionModal = \_ -> NoOp
+                            , openEditElementModal = \_ _ -> NoOp
                             , openSelectProcessModal =
                                 \p ti ei s ->
                                     SetModals (SelectProcessModal p ti ei s :: modals)
@@ -683,6 +684,7 @@ modalView { componentConfig, db } modals index modal =
                                             item |> updateSingleItem (Component.updateElementAmount targetElement amount)
                                         )
                                         >> Maybe.withDefault NoOp
+                            , updateElementTransformCountry = \_ _ _ -> NoOp
                             , updateItemCountry = \_ _ -> NoOp
                             , updateItemName =
                                 \targetItem name ->

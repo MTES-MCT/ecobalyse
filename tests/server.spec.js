@@ -549,7 +549,7 @@ describe("API", () => {
             ingredients: [
               {
                 byPlane: "badValue",
-                country: "BR",
+                country: "RLA",
                 id: "db0e5f44-34b4-4160-b003-77c828d75e60",
                 mass: 123,
               },
@@ -566,7 +566,7 @@ describe("API", () => {
             ingredients: [
               {
                 byPlane: "byPlane",
-                country: "BR",
+                country: "RLA",
                 id: "4d5198e7-413a-4ae2-8448-535aa3b302ae",
                 mass: 123,
               },

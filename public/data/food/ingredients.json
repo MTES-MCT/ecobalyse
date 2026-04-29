@@ -1347,7 +1347,7 @@
       "organic"
     ],
     "cropGroup": "LEGUMES-FLEURS",
-    "defaultOrigin": "EuropeAndMaghreb",
+    "defaultOrigin": "France",
     "density": 0.447,
     "ecosystemicServices": {
       "cropDiversity": 10.4,
@@ -8187,7 +8187,7 @@
       "organic"
     ],
     "cropGroup": "FRUITS A COQUES",
-    "defaultOrigin": "EuropeAndMaghreb",
+    "defaultOrigin": "France",
     "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -9646,7 +9646,7 @@
       "organic"
     ],
     "cropGroup": "COLZA",
-    "defaultOrigin": "EuropeAndMaghreb",
+    "defaultOrigin": "France",
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 18.7,
@@ -10054,7 +10054,7 @@
       "spice_condiment_additive"
     ],
     "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
-    "defaultOrigin": "France",
+    "defaultOrigin": "FranceOutreMer",
     "density": 0.5,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -10523,7 +10523,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "VERGERS",
-    "defaultOrigin": "France",
+    "defaultOrigin": "FranceOutreMer",
     "density": 0.85,
     "ecosystemicServices": {
       "cropDiversity": 0.01,
@@ -10958,7 +10958,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "VERGERS",
-    "defaultOrigin": "France",
+    "defaultOrigin": "FranceOutreMer",
     "density": 0.95,
     "ecosystemicServices": {
       "cropDiversity": 0.01,
@@ -11753,7 +11753,7 @@
       "organic"
     ],
     "cropGroup": "TOURNESOL",
-    "defaultOrigin": "EuropeAndMaghreb",
+    "defaultOrigin": "France",
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 52.5,
@@ -13973,7 +13973,7 @@
       "nut_oilseed_raw"
     ],
     "cropGroup": "FRUITS A COQUES",
-    "defaultOrigin": "France",
+    "defaultOrigin": "FranceOutreMer",
     "density": 0.5,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -16128,7 +16128,7 @@
       "organic"
     ],
     "cropGroup": "AUTRES CEREALES",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
+    "defaultOrigin": "France",
     "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 4.5,
@@ -17191,7 +17191,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "VERGERS",
-    "defaultOrigin": "France",
+    "defaultOrigin": "FranceOutreMer",
     "density": 0.85,
     "ecosystemicServices": {
       "cropDiversity": 0.129,
@@ -23251,7 +23251,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "ARBORICULTURE",
-    "defaultOrigin": "France",
+    "defaultOrigin": "FranceOutreMer",
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0.01,
@@ -23351,7 +23351,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "ARBORICULTURE",
-    "defaultOrigin": "France",
+    "defaultOrigin": "FranceOutreMer",
     "density": 0.95,
     "ecosystemicServices": {
       "cropDiversity": 0.274,
@@ -23571,7 +23571,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "VERGERS",
-    "defaultOrigin": "France",
+    "defaultOrigin": "FranceOutreMer",
     "density": 0.85,
     "ecosystemicServices": {
       "cropDiversity": 0.137,
@@ -24491,7 +24491,7 @@
       "organic"
     ],
     "cropGroup": "BLE TENDRE",
-    "defaultOrigin": "EuropeAndMaghreb",
+    "defaultOrigin": "France",
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 8.48,
@@ -25099,7 +25099,7 @@
       "organic"
     ],
     "cropGroup": "LEGUMES-FLEURS",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
+    "defaultOrigin": "France",
     "density": 0.447,
     "ecosystemicServices": {
       "cropDiversity": 10.7,
@@ -25179,7 +25179,7 @@
       "organic"
     ],
     "cropGroup": "FRUITS A COQUES",
-    "defaultOrigin": "EuropeAndMaghreb",
+    "defaultOrigin": "France",
     "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -26888,7 +26888,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "ARBORICULTURE",
-    "defaultOrigin": "France",
+    "defaultOrigin": "FranceOutreMer",
     "density": 0.95,
     "ecosystemicServices": {
       "cropDiversity": 0.00523,
@@ -26915,7 +26915,7 @@
       "organic"
     ],
     "cropGroup": "VERGERS",
-    "defaultOrigin": "EuropeAndMaghreb",
+    "defaultOrigin": "France",
     "density": 0.575,
     "ecosystemicServices": {
       "cropDiversity": 0.193,
@@ -29074,7 +29074,7 @@
       "organic"
     ],
     "cropGroup": null,
-    "defaultOrigin": "EuropeAndMaghreb",
+    "defaultOrigin": "France",
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 12.6,

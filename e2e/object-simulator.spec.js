@@ -15,9 +15,14 @@ test("object simulator", async ({ page }) => {
   await page.getByRole("row", { name: "▶ Structure acier" }).getByRole("spinbutton").fill("3");
   await page.getByRole("row", { name: "▶ Mousse polyurethane" }).getByRole("spinbutton").fill("4");
 
-  // Update transform for the first component
+  // Update transform for the first component through element edit modal
   await page.getByRole("button", { name: "▶" }).first().click();
-  await page.getByRole("button", { name: "Ajouter une transformation" }).click();
+  await page.locator("tbody .btn-group .btn-outline-secondary").first().click();
+  await expect(page.getByText("Modifier l'élément")).toBeVisible();
+  await page
+    .locator(".modal.show")
+    .getByRole("button", { name: "Ajouter une transformation" })
+    .click();
   // TODO: reactivate this test once the duplicate processes pb is solved
   //await page.getByRole("option", { name: "Extrusion (aluminium)" }).click();
 
