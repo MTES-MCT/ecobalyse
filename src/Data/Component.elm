@@ -351,8 +351,8 @@ type Results
 -}
 type Stage
     = MaterialStage
-    | TransportStage
     | TransformStage
+    | TransportStage
 
 
 type alias Requirements db =
@@ -796,9 +796,6 @@ computeItemTransportToAssembly requirements assemblyCountry item itemResults =
 
         label =
             case assemblyCountry of
-                Nothing ->
-                    "Trajet inconnu majoré"
-
                 Just { name } ->
                     if List.all (\origin -> origin == defaultOrigin) origins then
                         (origins
@@ -812,6 +809,9 @@ computeItemTransportToAssembly requirements assemblyCountry item itemResults =
 
                     else
                         "Origines multiples → " ++ name
+
+                Nothing ->
+                    "Trajet inconnu majoré"
 
         itemTransport =
             List.map2
@@ -2078,11 +2078,11 @@ stageToString stage =
         MaterialStage ->
             "material"
 
-        TransportStage ->
-            "transport"
-
         TransformStage ->
             "transformation"
+
+        TransportStage ->
+            "transport"
 
 
 sumLifeCycleImpacts : LifeCycle -> Impacts
