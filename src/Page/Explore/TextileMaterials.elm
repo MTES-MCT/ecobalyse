@@ -49,7 +49,7 @@ table db { detailed, scope } =
     { filename = "materials"
     , toId = .id >> Material.idToString
     , toRoute = .id >> Just >> Dataset.TextileMaterials >> Route.Explore scope
-    , toSearchableString = Material.toSearchableString db.countries
+    , toSearchableWords = Material.toSearchableString db.countries >> Text.toWords
     , facets =
         [ Table.Facet "Origine de la matière" (.origin >> Origin.toLabel >> List.singleton)
         , Table.Facet "Origine géographique" (.geographicOrigin >> List.singleton)

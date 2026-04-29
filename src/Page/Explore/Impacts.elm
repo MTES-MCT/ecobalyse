@@ -4,6 +4,7 @@ import Data.Dataset as Dataset
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Scope exposing (Scope)
 import Data.Split as Split
+import Data.Text as Text
 import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -18,7 +19,7 @@ table { detailed, scope } =
     { filename = "impacts"
     , toId = .trigram >> Definition.toString
     , toRoute = .trigram >> Just >> Dataset.Impacts >> Route.Explore scope
-    , toSearchableString = Definition.toSearchableString
+    , toSearchableWords = Definition.toSearchableString >> Text.toWords
     , facets =
         [ Table.Facet "Unité" (.unit >> List.singleton)
         ]

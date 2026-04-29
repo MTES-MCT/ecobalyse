@@ -7,22 +7,18 @@ import Data.Process as Process
 import Data.Scope exposing (Scope)
 import Data.Session exposing (Session)
 import Data.Split as Split
+import Data.Text as Text
 import Data.Textile.Economics as Economics
 import Data.Textile.Fabric as Fabric
 import Data.Textile.Formula as Formula
-import Data.Textile.LifeCycle as LifeCycle
 import Data.Textile.MakingComplexity as MakingComplexity
 import Data.Textile.Product as Product exposing (Product)
-import Data.Textile.Query as TextileQuery
-import Data.Textile.Simulator as Simulator
-import Data.Textile.Stage.Label as Label
 import Data.Unit as Unit
 import Duration
 import Energy
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Page.Explore.Table as Table exposing (Table)
-import Quantity
 import Route
 import Views.Format as Format
 import Volume
@@ -34,11 +30,11 @@ withTitle str =
 
 
 table : Session -> { detailed : Bool, scope : Scope } -> Table Product String msg
-table { componentConfig, db } { detailed, scope } =
+table { db } { detailed, scope } =
     { filename = "products"
     , toId = .id >> Product.idToString
     , toRoute = .id >> Just >> Dataset.TextileProducts >> Route.Explore scope
-    , toSearchableString = Product.toSearchableString
+    , toSearchableWords = Product.toSearchableString >> Text.toWords
     , facets =
         [ Table.Facet "Confection (complexité)" (.making >> .complexity >> MakingComplexity.toLabel >> List.singleton)
         , Table.Facet "Étoffe" (.fabric >> Fabric.toLabel >> List.singleton)
@@ -114,38 +110,6 @@ table { componentConfig, db } { detailed, scope } =
         , { label = "Étoffe*"
           , toValue = Table.StringValue (.fabric >> Fabric.toLabel)
           , toCell = .fabric >> Fabric.toLabel >> text
-          }
-        , let
-            picking product surfaceMass ys =
-                let
-                    outputMass =
-                        TextileQuery.default
-                            |> TextileQuery.updateProduct product
-                            |> Simulator.compute db componentConfig
-                            |> Result.map (.lifeCycle >> LifeCycle.getStageProp Label.Fabric .outputMass Quantity.zero)
-                            |> Result.withDefault Quantity.zero
-
-                    outputSurface =
-                        Unit.surfaceMassToSurface surfaceMass outputMass
-
-                    threadDensity =
-                        Formula.computeThreadDensity surfaceMass ys
-                in
-                outputSurface
-                    |> Formula.computePicking threadDensity
-          in
-          { label = "Duites.m**"
-          , toValue =
-                Table.FloatValue <|
-                    \({ surfaceMass, yarnSize } as product) ->
-                        picking product surfaceMass yarnSize
-                            |> Unit.pickPerMeterToFloat
-          , toCell =
-                \({ surfaceMass, yarnSize } as product) ->
-                    div [ classList [ ( "text-center", not detailed ) ] ]
-                        [ picking product surfaceMass yarnSize
-                            |> Format.picking
-                        ]
           }
         , { label = "Stocks dormants"
           , toValue = Table.FloatValue (Split.toPercent Env.defaultDeadStock |> always)

@@ -19,7 +19,6 @@ module Data.Process exposing
     , impactsPerUnit
     , listAvailableMaterialTransforms
     , listByCategory
-    , toSearchableString
     , unitLabel
     , unitToString
     )
@@ -31,6 +30,7 @@ import Data.Process.Category as Category exposing (Category)
 import Data.Process.Metadata as Metadata exposing (Metadata)
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
+import Data.Text as Text
 import Data.Unit as Unit
 import Data.Uuid as Uuid exposing (Uuid)
 import Energy exposing (Energy)
@@ -61,6 +61,7 @@ type alias Process =
     , massPerUnit : Maybe Float
     , metadata : Maybe Metadata
     , scopes : List Scope
+    , searchableWords : List String
     , source : String
     , unit : Unit
     , waste : Split
@@ -111,6 +112,11 @@ activityNameToString (ActivityName string) =
     string
 
 
+computeSearchableWords : Process -> Process
+computeSearchableWords process =
+    { process | searchableWords = toSearchableWords process }
+
+
 decode : Decoder Impact.Impacts -> Decoder Process
 decode impactsDecoder =
     Decode.succeed Process
@@ -127,9 +133,11 @@ decode impactsDecoder =
         |> Pipe.required "massPerUnit" (Decode.maybe Decode.float)
         |> DU.strictOptional "metadata" Metadata.decode
         |> Pipe.required "scopes" (Decode.list Scope.decode)
+        |> Pipe.hardcoded []
         |> Pipe.required "source" Decode.string
         |> Pipe.required "unit" (Decode.string |> Decode.andThen (DE.fromResult << unitFromString))
         |> Pipe.required "waste" Split.decodeFloat
+        |> Decode.map computeSearchableWords
 
 
 encode : Process -> Encode.Value
@@ -278,6 +286,11 @@ toSearchableString process =
         , process.comment
         , process.source
         ]
+
+
+toSearchableWords : Process -> List String
+toSearchableWords =
+    toSearchableString >> Text.toWords
 
 
 unitLabel : Unit -> String

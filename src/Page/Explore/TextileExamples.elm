@@ -5,6 +5,7 @@ import Data.Dataset as Dataset
 import Data.Example as Example exposing (Example)
 import Data.Scope exposing (Scope)
 import Data.Session exposing (Session)
+import Data.Text as Text
 import Data.Textile.Product as Product
 import Data.Textile.Query exposing (Query)
 import Data.Uuid as Uuid
@@ -26,7 +27,7 @@ table { db } { maxScore, maxPer100g } { detailed, scope } =
     { filename = "examples"
     , toId = Tuple.first >> .id >> Uuid.toString
     , toRoute = Tuple.first >> .id >> Just >> Dataset.TextileExamples >> Route.Explore scope
-    , toSearchableString = Tuple.first >> Example.toSearchableString
+    , toSearchableWords = Tuple.first >> Example.toSearchableString >> Text.toWords
     , facets =
         [ Table.Facet "Catégorie" (Tuple.first >> .category >> List.singleton)
         ]

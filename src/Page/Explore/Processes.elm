@@ -24,7 +24,7 @@ table session { detailed, scope } =
     { filename = "processes"
     , toId = .id >> Process.idToString
     , toRoute = .id >> Just >> Dataset.Processes scope >> Route.Explore scope
-    , toSearchableString = Process.toSearchableString
+    , toSearchableWords = .searchableWords
     , facets =
         [ Table.Facet "Catégories" (.categories >> List.map ProcessCategory.toLabel)
         , Table.Facet "Unités" (.unit >> Process.unitToString >> List.singleton)
