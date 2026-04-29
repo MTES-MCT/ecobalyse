@@ -67,6 +67,7 @@ type alias Config data msg =
     , onFacetToggle : String -> String -> Bool -> msg
     , columns : List (SortableTable.Column data msg)
     , customizations : SortableTable.Customizations data msg
+    , downloadCsv : String -> Csv -> msg
     , selectedFacets : Facets
     , search : String
     }
@@ -100,14 +101,13 @@ viewDetails scope createTable item =
 
 viewList :
     (Route -> msg)
-    -> (String -> Csv -> msg)
     -> Config data msg
     -> SortableTable.State
     -> Scope
     -> ({ detailed : Bool, scope : Scope } -> Table data comparable msg)
     -> List data
     -> Html msg
-viewList routeToMsg csvDownloadMsg defaultConfig tableState scope createTable items =
+viewList routeToMsg defaultConfig tableState scope createTable items =
     let
         ({ filename, toId, toRoute, toSearchableWords, facets, columns, legend } as table) =
             createTable { detailed = False, scope = scope }
@@ -204,7 +204,7 @@ viewList routeToMsg csvDownloadMsg defaultConfig tableState scope createTable it
                 , div [ class "text-end pt-3" ]
                     [ button
                         [ class "btn btn-secondary"
-                        , onClick <| csvDownloadMsg csv.filename csv.content
+                        , onClick <| defaultConfig.downloadCsv csv.filename csv.content
                         ]
                         [ text "Télécharger ces données au format CSV" ]
                     ]
