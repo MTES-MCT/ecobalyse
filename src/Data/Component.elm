@@ -42,8 +42,6 @@ module Data.Component exposing
     , decodeQuery
     , defaultConfig
     , defaultDurability
-    , defaultExpandedLocalizedProcess
-    , defaultTransform
     , elementTransforms
     , elementsToString
     , emptyComponent
@@ -78,6 +76,8 @@ module Data.Component exposing
     , itemsToString
     , loadEnergyMixes
     , mapItems
+    , nonExpandedLocalizedProcess
+    , nonLocalizedProcess
     , parseBase64Query
     , parseConfig
     , quantityFromInt
@@ -368,7 +368,11 @@ addElement targetItem material items =
                     { custom
                         | elements =
                             custom.elements
-                                ++ [ { amount = Amount.fromFloat 1, material = defaultMaterial material.id, transforms = [] } ]
+                                ++ [ { amount = Amount.fromFloat 1
+                                     , material = nonLocalizedProcess material.id
+                                     , transforms = []
+                                     }
+                                   ]
                     }
                 )
             |> Ok
@@ -382,7 +386,7 @@ addElementTransform targetElement transform items =
     else
         items
             |> updateElement targetElement
-                (\el -> { el | transforms = el.transforms ++ [ defaultTransform transform.id ] })
+                (\el -> { el | transforms = el.transforms ++ [ nonLocalizedProcess transform.id ] })
             |> Ok
 
 
@@ -448,8 +452,8 @@ applyDurability maybeDurability =
            )
 
 
-applyTransform : Process -> Results -> EnergyMixes -> Results
-applyTransform transform (Results { amount, label, impacts, items, mass, complementsImpacts }) { elec, heat } =
+applyTransform : Process -> EnergyMixes -> Results -> Results
+applyTransform transform { elec, heat } (Results { amount, label, impacts, items, mass, complementsImpacts }) =
     let
         transformImpacts =
             [ transform.impacts
@@ -495,34 +499,51 @@ applyTransform transform (Results { amount, label, impacts, items, mass, complem
         }
 
 
-applyTransportLeg : Requirements db -> Mass -> Maybe Country -> Maybe Country -> Results -> Results
-applyTransportLeg { config, db } mass maybeFrom maybeTo (Results results) =
+{-| Sequencially apply transforms to existing Results (typically, from material ones).
+
+Transported mass impacts and energy mixes use ones are computed at the transform step level: each step can optionally
+specify a country to use its electricity/heat mixes, or fallback to config defaults when absent.
+
+-}
+applyTransforms : Requirements db -> Maybe Country -> Process.Unit -> List ExpandedLocalizedProcess -> Results -> Result String Results
+applyTransforms requirements initialCountry unit transforms materialResults =
+    checkTransformsUnit unit transforms
+        |> Result.andThen
+            (Result.map Tuple.second
+                << List.foldl
+                    (\{ country, process } ->
+                        Result.andThen
+                            (\( previousCountry, results ) ->
+                                loadEnergyMixes requirements.config country
+                                    |> Result.map
+                                        (\mixes ->
+                                            ( country
+                                            , results
+                                                |> applyTransportedMassImpacts requirements (extractMass results) previousCountry country
+                                                |> applyTransform process mixes
+                                            )
+                                        )
+                            )
+                    )
+                    (Ok ( initialCountry, materialResults ))
+            )
+
+
+applyTransportedMassImpacts : Requirements db -> Mass -> Maybe Country -> Maybe Country -> Results -> Results
+applyTransportedMassImpacts requirements mass maybeFrom maybeTo (Results results) =
     let
-        legTransport =
-            case ( maybeFrom, maybeTo ) of
-                ( Just from, Just to ) ->
-                    db.distances
-                        |> Transport.getTransportBetween Impact.empty from.code to.code
-                        |> Transport.applyTransportRatios Split.zero
-                        |> Transport.computeImpacts config.transports.modeProcesses mass
-
-                _ ->
-                    config.transports.defaultDistance
-                        |> Transport.applyTransportRatios Split.zero
-                        |> Transport.computeImpacts config.transports.modeProcesses mass
-
-        transportImpacts =
-            legTransport.impacts
+        transport =
+            computeTransportedMassImpacts requirements maybeFrom maybeTo mass
     in
     Results
         { results
-            | impacts = Impact.sumImpacts [ results.impacts, transportImpacts ]
+            | impacts = Impact.sumImpacts [ results.impacts, transport.impacts ]
             , items =
                 results.items
                     ++ [ Results
                             { amount = results.amount
                             , complementsImpacts = Complement.emptyComplementsResultsImpacts
-                            , impacts = transportImpacts
+                            , impacts = transport.impacts
                             , items = []
                             , label = Just "Transport"
                             , mass = mass
@@ -532,41 +553,6 @@ applyTransportLeg { config, db } mass maybeFrom maybeTo (Results results) =
                             }
                        ]
         }
-
-
-{-| Sequencially apply transforms to existing Results (typically, from material ones).
-
-Energy mix impacts are computed at the transform step level: each step can optionally
-specify a country to use its electricity/heat mixes, or fallback to config defaults when absent.
-
--}
-applyTransforms : Requirements db -> Maybe Country -> Process.Unit -> List ExpandedLocalizedProcess -> Results -> Result String Results
-applyTransforms requirements initialCountry unit transforms materialResults =
-    checkTransformsUnit unit transforms
-        |> Result.andThen
-            (\validTransforms ->
-                validTransforms
-                    |> List.foldl
-                        (\{ country, process } acc ->
-                            acc
-                                |> Result.andThen
-                                    (\( previousCountry, results ) ->
-                                        loadEnergyMixes requirements.config country
-                                            |> Result.map
-                                                (\mixes ->
-                                                    let
-                                                        transportAppliedResults =
-                                                            applyTransportLeg requirements (extractMass results) previousCountry country results
-                                                    in
-                                                    ( country
-                                                    , applyTransform process transportAppliedResults mixes
-                                                    )
-                                                )
-                                    )
-                        )
-                        (Ok ( initialCountry, materialResults ))
-                    |> Result.map Tuple.second
-            )
 
 
 applyWaste : Split -> Amount -> Amount
@@ -768,25 +754,6 @@ computeItemResults requirements { custom, id, quantity } =
             )
 
 
-computeLocalizedTransport : Requirements db -> Maybe Country -> Maybe Country -> Transport
-computeLocalizedTransport { config, db } maybeFrom maybeTo =
-    case ( maybeFrom, maybeTo ) of
-        ( Just from, Just to ) ->
-            db.distances
-                |> Transport.getTransportBetween Impact.empty from.code to.code
-
-        _ ->
-            config.transports.defaultDistance
-
-
-computeLocalizedTransportImpacts : Requirements db -> Maybe Country -> Maybe Country -> Mass -> Transport
-computeLocalizedTransportImpacts ({ config } as requirements) maybeFrom maybeTo mass =
-    computeLocalizedTransport requirements maybeFrom maybeTo
-        -- TODO: consider handling air transport ratio in the future
-        |> Transport.applyTransportRatios Split.zero
-        |> Transport.computeImpacts config.transports.modeProcesses mass
-
-
 computeItemTransportToAssembly : Requirements db -> Maybe Country -> ExpandedItem -> Results -> ( String, Transport )
 computeItemTransportToAssembly requirements assemblyCountry item itemResults =
     let
@@ -818,7 +785,7 @@ computeItemTransportToAssembly requirements assemblyCountry item itemResults =
     , List.map2
         (\element elementResults ->
             extractMass elementResults
-                |> computeLocalizedTransportImpacts requirements (getElementFinalCountry element) assemblyCountry
+                |> computeTransportedMassImpacts requirements (getElementFinalCountry element) assemblyCountry
         )
         item.elements
         (extractItems itemResults)
@@ -835,7 +802,7 @@ computeItemTransportToDistribution ({ config } as requirements) item itemResults
     List.map2
         (\element elementResults ->
             extractMass elementResults
-                |> computeLocalizedTransportImpacts requirements (getElementFinalCountry element) (Just destination)
+                |> computeTransportedMassImpacts requirements (getElementFinalCountry element) (Just destination)
         )
         item.elements
         (extractItems itemResults)
@@ -926,6 +893,21 @@ computeShareImpacts mass { process, split } =
                     )
             )
         |> Maybe.withDefault Impact.empty
+
+
+computeTransportedMassImpacts : Requirements db -> Maybe Country -> Maybe Country -> Mass -> Transport
+computeTransportedMassImpacts { config, db } maybeFrom maybeTo mass =
+    (case ( maybeFrom, maybeTo ) of
+        ( Just from, Just to ) ->
+            db.distances
+                |> Transport.getTransportBetween Impact.empty from.code to.code
+
+        _ ->
+            config.transports.defaultDistance
+    )
+        -- TODO: consider handling air transport ratio in the future
+        |> Transport.applyTransportRatios Split.zero
+        |> Transport.computeImpacts config.transports.modeProcesses mass
 
 
 computeTransports : Requirements db -> Query -> LifeCycle -> Result String LifeCycle
@@ -1104,7 +1086,7 @@ decodeMaterial : Decoder LocalizedProcess
 decodeMaterial =
     Decode.oneOf
         [ decodeLocalizedProcess
-        , Process.decodeId |> Decode.map defaultMaterial
+        , Process.decodeId |> Decode.map nonLocalizedProcess
         ]
 
 
@@ -1119,7 +1101,7 @@ decodeTransforms =
         [ Decode.list decodeTransform
 
         -- Backward-compatible decoder for transforms when they were just process ids
-        , Decode.list (Process.decodeId |> Decode.map defaultTransform)
+        , Decode.list (Process.decodeId |> Decode.map nonLocalizedProcess)
         ]
 
 
@@ -1214,26 +1196,6 @@ defaultConfig =
 defaultDurability : Unit.Ratio
 defaultDurability =
     Unit.ratio 1
-
-
-defaultExpandedLocalizedProcess : Process -> ExpandedLocalizedProcess
-defaultExpandedLocalizedProcess process =
-    { country = Nothing, process = process }
-
-
-defaultLocalizedProcess : Process.Id -> LocalizedProcess
-defaultLocalizedProcess id =
-    { country = Nothing, id = id }
-
-
-defaultMaterial : Process.Id -> LocalizedProcess
-defaultMaterial =
-    defaultLocalizedProcess
-
-
-defaultTransform : Process.Id -> LocalizedProcess
-defaultTransform id =
-    defaultLocalizedProcess id
 
 
 elementToString : List Process -> Element -> Result String String
@@ -1904,6 +1866,16 @@ mapItems fn query =
     setQueryItems (fn query.items) query
 
 
+nonExpandedLocalizedProcess : Process -> ExpandedLocalizedProcess
+nonExpandedLocalizedProcess process =
+    { country = Nothing, process = process }
+
+
+nonLocalizedProcess : Process.Id -> LocalizedProcess
+nonLocalizedProcess id =
+    { country = Nothing, id = id }
+
+
 parseBase64Query : Parser (Maybe Query -> a) a
 parseBase64Query =
     Parser.custom "QUERY" <|
@@ -1993,7 +1965,7 @@ setElementMaterial targetElement material items =
             |> updateElement targetElement
                 (\el ->
                     { el
-                        | material = defaultMaterial material.id
+                        | material = nonLocalizedProcess material.id
 
                         -- Note: always reset the transforms when replacing a material for consistency
                         , transforms = []

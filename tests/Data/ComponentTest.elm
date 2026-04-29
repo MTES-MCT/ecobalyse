@@ -96,7 +96,7 @@ suite =
                                                 -- and its material process id
                                                 |> Maybe.map .transforms
                                         )
-                                    |> Expect.equal (Ok (Just [ Component.defaultTransform validTransformProcess.id ]))
+                                    |> Expect.equal (Ok (Just [ Component.nonLocalizedProcess validTransformProcess.id ]))
                                 )
                             , it "should reject an invalid transformation process"
                                 (chair
@@ -134,7 +134,7 @@ suite =
                                     |> Component.applyTransforms requirements
                                         Nothing
                                         Process.Kilogram
-                                        (List.map Component.defaultExpandedLocalizedProcess transforms)
+                                        (List.map Component.nonExpandedLocalizedProcess transforms)
                                     |> Result.withDefault Component.emptyResults
                                     |> Component.extractMass
                                     |> Mass.inKilograms
@@ -169,7 +169,7 @@ suite =
                                     |> Component.applyTransforms requirements
                                         Nothing
                                         Process.Kilogram
-                                        (List.map Component.defaultExpandedLocalizedProcess transforms)
+                                        (List.map Component.nonExpandedLocalizedProcess transforms)
                                     |> Result.withDefault Component.emptyResults
                                     |> extractEcsImpact
                           in
@@ -232,7 +232,7 @@ suite =
                                     Ok country ->
                                         let
                                             ( defaultImpact, localizedImpact ) =
-                                                ( getImpact [ Component.defaultExpandedLocalizedProcess fading ]
+                                                ( getImpact [ Component.nonExpandedLocalizedProcess fading ]
                                                 , getImpact [ { country = Just country, process = fading } ]
                                                 )
                                         in
@@ -272,7 +272,7 @@ suite =
                                         |> Component.applyTransforms requirements
                                             Nothing
                                             Process.CubicMeter
-                                            [ Component.defaultExpandedLocalizedProcess transformInKg ]
+                                            [ Component.nonExpandedLocalizedProcess transformInKg ]
                                         |> Expect.equal (Err "Les procédés de transformation ne partagent pas la même unité que la matière source (m3)\u{00A0}: Moulage par injection (kg)")
                                     )
                                 ]
@@ -293,7 +293,7 @@ suite =
                                     |> Component.applyTransforms requirements
                                         Nothing
                                         Process.Kilogram
-                                        (List.map Component.defaultExpandedLocalizedProcess transforms)
+                                        (List.map Component.nonExpandedLocalizedProcess transforms)
                                     |> Result.withDefault Component.emptyResults
                           in
                           describe "impacts & waste"
@@ -505,8 +505,8 @@ suite =
 
                                             -- Note: weaving waste: 0.06253, fading: 0
                                             , transforms =
-                                                [ Component.defaultTransform weaving.id
-                                                , Component.defaultTransform fading.id
+                                                [ Component.nonLocalizedProcess weaving.id
+                                                , Component.nonLocalizedProcess fading.id
                                                 ]
                                             }
                                     )
@@ -534,7 +534,7 @@ suite =
                                     results =
                                         { amount = Amount.fromFloat 1
                                         , material = { country = Nothing, id = materialInCubicMeters.id }
-                                        , transforms = [ Component.defaultTransform transformInCubicMeters.id ]
+                                        , transforms = [ Component.nonLocalizedProcess transformInCubicMeters.id ]
                                         }
                                             |> Component.computeElementResults requirements
                                 in
@@ -560,7 +560,7 @@ suite =
                                     results =
                                         { amount = Amount.fromFloat 1
                                         , material = { country = Nothing, id = materialInCubicMeters.id }
-                                        , transforms = [ Component.defaultTransform transformInCubicMeters.id ]
+                                        , transforms = [ Component.nonLocalizedProcess transformInCubicMeters.id ]
                                         }
                                             |> Component.computeElementResults requirements
                                 in
