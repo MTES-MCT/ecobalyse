@@ -1,6 +1,5 @@
 module Data.Textile.Formula exposing
-    ( computePicking
-    , computeThreadDensity
+    ( computeThreadDensity
     , dyeingImpacts
     , endOfLifeImpacts
     , finishingImpacts
