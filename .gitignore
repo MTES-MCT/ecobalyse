@@ -36,8 +36,5 @@ db.sqlite3
 /blob-report/
 /playwright/.cache/
 
-# Script outputs (plots, bookmarks, reports)
-/output/
-
 # Scalingo logs
 /archives_logs/

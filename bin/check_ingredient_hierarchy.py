@@ -341,7 +341,8 @@ def _render_stacked_bar(df, ax, title):
     ax.set_ylabel("Cout Environnemental (uPt)")
     ax.set_title(title)
 
-    if len(pivot) > 3:
+    max_label_len = max(len(str(x)) for x in pivot.index)
+    if len(pivot) > 3 or max_label_len > 12:
         plt.xticks(rotation=45, ha="right")
     else:
         plt.xticks(rotation=0, ha="center")
