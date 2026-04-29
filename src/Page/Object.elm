@@ -1081,7 +1081,7 @@ modalView session ({ modals } as model) modal =
 
         EditElementModal { name } targetElement ->
             ModalView.view
-                { size = ModalView.ExtraLarge
+                { size = ModalView.Fluid
                 , close = SetModals (List.drop 1 modals)
                 , noOp = NoOp
                 , title = "Modifier l'élément #" ++ String.fromInt (Tuple.second targetElement + 1)

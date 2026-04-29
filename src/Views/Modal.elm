@@ -20,6 +20,7 @@ type alias Config msg =
 
 type Size
     = ExtraLarge
+    | Fluid
     | Large
     | Small
     | Standard
@@ -57,6 +58,7 @@ view config =
                     [ ( "modal-xl", config.size == ExtraLarge )
                     , ( "modal-lg", config.size == Large )
                     , ( "modal-sm", config.size == Small )
+                    , ( "modal-fluid", config.size == Fluid )
                     ]
                 , attribute "aria-modal" "true"
                 ]

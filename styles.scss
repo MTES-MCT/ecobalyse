@@ -474,9 +474,14 @@ q {
   }
 }
 
-.modal-xl {
-  @media (width >= 1200px) {
-    --bs-modal-width: 1300px;
+.modal-fluid {
+  &.modal-dialog {
+    // maximize horizontal space
+    --bs-modal-width: calc(100vw - .25rem);
+    @media screen and (width >= $viewport-xl) {
+      // … but limit it to the largest available viewport width
+      max-width: calc($viewport-xl);
+    }
   }
 }
 
