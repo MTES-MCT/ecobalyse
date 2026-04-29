@@ -43,7 +43,21 @@ OUTPUT_DIR = PROJECT_ROOT / "output"
 PLOTS_DIR = OUTPUT_DIR / "ingredient_plots"
 BOOKMARKS_DIR = OUTPUT_DIR / "bookmarks"
 
+# --- Sanity checks ---
+#
+# All expected impact-ordering sanity checks live here.
+# For each sanity check, add a comment to explain the reasons behind the check
+
+# Variant order within a single baseProduct (lower index = lower expected ecs).
 INGREDIENT_ORDER = {"organic": 0, "fr": 1, "eu": 2, "non-ue": 3, "default": 4}
+
+# Explicit cross-baseProduct sanity checks: (lower_alias, higher_alias)
+EXPLICIT_PAIR_SANITY_CHECKS = [
+    # The most impactful chicken should have lower impact than conventional beef
+    ("chicken-breast-br-max", "beef-without-bone"),
+    # Organic beef should have an impact lower than the most impactful chicken
+    ("beef-without-bone-organic", "chicken-breast-br-max"),
+]
 
 
 # These impacts are = 0 so we exclude them to remove noise from the graph
@@ -197,6 +211,38 @@ def fetch_all_impacts(by_base, api_url, norm_factors):
 # --- Step 4: Check hierarchy ---
 
 
+def check_explicit_pair_sanity_checks(impact_results, ingredients_by_alias):
+    """Run EXPLICIT_PAIR_SANITY_CHECKS. Returns list of violation dicts."""
+    violations = []
+    for lower_alias, higher_alias in EXPLICIT_PAIR_SANITY_CHECKS:
+        r_lower = impact_results.get(lower_alias)
+        r_higher = impact_results.get(higher_alias)
+        if not r_lower or not r_higher:
+            logger.warning(
+                f"Explicit sanity check skipped — missing impact data for "
+                f"{lower_alias if not r_lower else higher_alias}"
+            )
+            continue
+        ecs_lower, ecs_higher = r_lower["ecs_total"], r_higher["ecs_total"]
+        if ecs_lower > ecs_higher:
+            base_lower = ingredients_by_alias.get(lower_alias, {}).get(
+                "baseProduct", "explicit"
+            )
+            violations.append(
+                {
+                    "base_product": base_lower,
+                    "lower_variant": lower_alias,
+                    "lower_type": "explicit_sanity_check",
+                    "lower_ecs": round(ecs_lower, 2),
+                    "higher_variant": higher_alias,
+                    "higher_type": "explicit_sanity_check",
+                    "higher_ecs": round(ecs_higher, 2),
+                    "delta": round(ecs_lower - ecs_higher, 2),
+                }
+            )
+    return violations
+
+
 def check_hierarchy(by_base, impact_results):
     """Check that the expected variant ordering is respected.
 
@@ -246,48 +292,30 @@ def check_hierarchy(by_base, impact_results):
 # --- Step 5: Generate graphs ---
 
 
-def build_plot_dataframe(base_product, variants, impact_results):
-    """Build a DataFrame for plotting: one row per (alias, impact)."""
+def build_df(aliases, impact_results):
+    """Build a plotting DataFrame: one row per (alias, impact) for the given aliases."""
     rows = []
-    for ingr in variants:
-        alias = ingr["alias"]
+    for alias in aliases:
         result = impact_results.get(alias)
         if not result:
             continue
-
-        for impact_key, norm_val in result["impacts_norm"].items():
+        for impact_key, val in result["impacts_norm"].items():
             if impact_key in EXCLUDED_IMPACTS:
                 continue
             rows.append(
-                {
-                    "product_name": alias,
-                    "impact": impact_key,
-                    "cout_enviro": norm_val,
-                }
+                {"product_name": alias, "impact": impact_key, "cout_enviro": val}
             )
-
-        # Add complements (ecosystemic services) with space prefix for sorting
-        for comp_key, comp_val in result["complements_norm"].items():
+        # Complements (ecosystemic services): leading space sorts them first in the legend.
+        for comp_key, val in result["complements_norm"].items():
             rows.append(
-                {
-                    "product_name": alias,
-                    "impact": f" {comp_key}",
-                    "cout_enviro": comp_val,
-                }
+                {"product_name": alias, "impact": f" {comp_key}", "cout_enviro": val}
             )
-
-    if not rows:
-        return pd.DataFrame()
     return pd.DataFrame(rows)
 
 
 def _render_stacked_bar(df, ax, title):
-    """Render a stacked bar chart with total labels onto a given axes.
-
-    Returns the sorted totals Series and the pivot DataFrame.
-    """
+    """Render a stacked bar chart with totals + numeric labels onto `ax`."""
     pivot = df.pivot(index="product_name", columns="impact", values="cout_enviro")
-
     totals = pivot.sum(axis=1).sort_values()
     pivot = pivot.loc[totals.index]
 
@@ -296,9 +324,11 @@ def _render_stacked_bar(df, ax, title):
     ax.set_xlabel("")
     ax.axhline(0, color="black", linewidth=0.8)
 
-    # Horizontal dashed lines for total impact per variant.
+    # Dashed total line + numeric label per bar.
     # patches are laid out: all bars for impact0, then all bars for impact1, etc.
     # So the i-th product's first bar is patches[i].
+    ymin, ymax = ax.get_ylim()
+    offset = (ymax - ymin) * 0.01
     for i, (_idx, total) in enumerate(totals.items()):
         bar = ax.patches[i]
         ax.hlines(
@@ -310,33 +340,16 @@ def _render_stacked_bar(df, ax, title):
             linewidth=2,
             label="Total Impact" if i == 0 else "",
         )
-
-    # Numeric total label above (or below, for negatives) each dashed line.
-    ymin, ymax = ax.get_ylim()
-    offset = (ymax - ymin) * 0.01
-    for i, (_idx, total) in enumerate(totals.items()):
-        bar = ax.patches[i]
-        x = bar.get_x() + bar.get_width() / 2
-        if total >= 0:
-            ax.text(
-                x,
-                total + offset,
-                f"{total:.0f}",
-                ha="center",
-                va="bottom",
-                fontsize=9,
-                fontweight="bold",
-            )
-        else:
-            ax.text(
-                x,
-                total - offset,
-                f"{total:.0f}",
-                ha="center",
-                va="top",
-                fontsize=9,
-                fontweight="bold",
-            )
+        positive = total >= 0
+        ax.text(
+            bar.get_x() + bar.get_width() / 2,
+            total + (offset if positive else -offset),
+            f"{total:.0f}",
+            ha="center",
+            va="bottom" if positive else "top",
+            fontsize=9,
+            fontweight="bold",
+        )
 
     ax.set_ylabel("Cout Environnemental (uPt)")
     ax.set_title(title)
@@ -359,88 +372,68 @@ def _render_stacked_bar(df, ax, title):
             loc="upper left",
         )
 
-    return totals, pivot
 
-
-def plot_base_product(base_product, df, output_dir, has_violation=False):
-    """Generate a stacked bar chart for a base product."""
-    if df["product_name"].nunique() < 2:
-        return
-
-    fig, ax = plt.subplots(figsize=(10, 7))
-    _render_stacked_bar(df, ax, f"{base_product}, comparaison des variantes")
+def save_stacked_bar_plot(df, title, output_path, figsize=(10, 7)):
+    """Render a stacked-bar chart from `df` and save to disk. Returns True if saved."""
+    if df.empty or df["product_name"].nunique() < 2:
+        return False
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    fig, ax = plt.subplots(figsize=figsize)
+    _render_stacked_bar(df, ax, title)
     plt.tight_layout()
-    suffix = "_violation" if has_violation else ""
-    plot_path = output_dir / f"{base_product}_barchart{suffix}.png"
-    plt.savefig(plot_path)
+    plt.savefig(output_path)
     plt.close()
+    return True
 
 
 def generate_all_plots(by_base, impact_results, bases_with_violations):
     """Generate stacked bar charts for all base products with 2+ variants."""
-    PLOTS_DIR.mkdir(parents=True, exist_ok=True)
     count = 0
     for base, variants in sorted(by_base.items()):
-        df = build_plot_dataframe(base, variants, impact_results)
-        if df.empty:
-            continue
-        if df["product_name"].nunique() < 2:
-            continue
-        plot_base_product(
-            base, df, PLOTS_DIR, has_violation=base in bases_with_violations
-        )
-        count += 1
+        df = build_df([v["alias"] for v in variants], impact_results)
+        suffix = "_violation" if base in bases_with_violations else ""
+        path = PLOTS_DIR / f"{base}_barchart{suffix}.png"
+        if save_stacked_bar_plot(df, f"{base}, comparaison des variantes", path):
+            count += 1
     logger.info(f"Generated {count} plots in {PLOTS_DIR}")
-
-
-def build_meats_dataframe(by_base, impact_results):
-    """Build a DataFrame with one row per (animal_product variant, impact)."""
-    rows = []
-    for variants in by_base.values():
-        for ingr in variants:
-            if "animal_product" not in ingr.get("categories", []):
-                continue
-            alias = ingr["alias"]
-            result = impact_results.get(alias)
-            if not result:
-                continue
-            for impact_key, norm_val in result["impacts_norm"].items():
-                if impact_key in EXCLUDED_IMPACTS:
-                    continue
-                rows.append(
-                    {
-                        "product_name": alias,
-                        "impact": impact_key,
-                        "cout_enviro": norm_val,
-                    }
-                )
-            for comp_key, comp_val in result["complements_norm"].items():
-                rows.append(
-                    {
-                        "product_name": alias,
-                        "impact": f" {comp_key}",
-                        "cout_enviro": comp_val,
-                    }
-                )
-    if not rows:
-        return pd.DataFrame()
-    return pd.DataFrame(rows)
 
 
 def plot_all_meats(by_base, impact_results):
     """Generate a single stacked bar chart with all animal_product variants."""
-    df = build_meats_dataframe(by_base, impact_results)
-    if df.empty or df["product_name"].nunique() < 2:
+    aliases = [
+        ingr["alias"]
+        for variants in by_base.values()
+        for ingr in variants
+        if "animal_product" in ingr.get("categories", [])
+    ]
+    df = build_df(aliases, impact_results)
+    n = df["product_name"].nunique() if not df.empty else 0
+    path = PLOTS_DIR / "_all_meats_barchart.png"
+    if save_stacked_bar_plot(
+        df, "Viandes, comparaison des variantes", path, figsize=(max(12, n * 0.4), 8)
+    ):
+        logger.info(f"Generated all-meats plot ({n} variants) at {path}")
+    else:
         logger.info("No animal_product variants to plot.")
-        return
-    n = df["product_name"].nunique()
-    fig, ax = plt.subplots(figsize=(max(12, n * 0.4), 8))
-    _render_stacked_bar(df, ax, "Viandes, comparaison des variantes")
-    plt.tight_layout()
-    plot_path = PLOTS_DIR / "_all_meats_barchart.png"
-    plt.savefig(plot_path)
-    plt.close()
-    logger.info(f"Generated all-meats plot ({n} variants) at {plot_path}")
+
+
+def plot_explicit_pair_sanity_checks(impact_results, violation_pairs):
+    """Generate one stacked bar chart per EXPLICIT_PAIR_SANITY_CHECKS entry."""
+    count = 0
+    for lower, higher in EXPLICIT_PAIR_SANITY_CHECKS:
+        df = build_df([lower, higher], impact_results)
+        suffix = "_violation" if (lower, higher) in violation_pairs else ""
+        path = PLOTS_DIR / f"_pair_{lower}_vs_{higher}{suffix}.png"
+        if save_stacked_bar_plot(
+            df, f"Sanity check: {lower} ≤ {higher}", path, figsize=(8, 7)
+        ):
+            count += 1
+        else:
+            logger.warning(f"Skipping pair plot {lower} vs {higher} — missing data.")
+    if count:
+        logger.info(
+            f"Generated {count} explicit-pair sanity-check plots in {PLOTS_DIR}"
+        )
 
 
 # --- Step 6: Generate bookmarks ---
@@ -572,11 +565,20 @@ def main():
 
     logger.info("Checking hierarchy...")
     violations = check_hierarchy(by_base, impact_results)
+    ingredients_by_alias = {ingr["alias"]: ingr for ingr in ingredients}
+    explicit_violations = check_explicit_pair_sanity_checks(
+        impact_results, ingredients_by_alias
+    )
+    violations.extend(explicit_violations)
     bases_with_violations = {v["base_product"] for v in violations}
+    explicit_violation_pairs = {
+        (v["lower_variant"], v["higher_variant"]) for v in explicit_violations
+    }
 
     logger.info("Generating plots...")
     generate_all_plots(by_base, impact_results, bases_with_violations)
     plot_all_meats(by_base, impact_results)
+    plot_explicit_pair_sanity_checks(impact_results, explicit_violation_pairs)
 
     logger.info("Generating bookmarks...")
     generate_bookmarks(by_base, impact_results)
