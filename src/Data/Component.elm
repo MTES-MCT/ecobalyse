@@ -235,7 +235,7 @@ type alias DataContainer db =
 -}
 type alias Element =
     { amount : Amount
-    , material : Material
+    , material : LocalizedProcess
     , transforms : List LocalizedProcess
     }
 
@@ -244,10 +244,6 @@ type alias LocalizedProcess =
     { country : Maybe Country.Code
     , id : Process.Id
     }
-
-
-type alias Material =
-    LocalizedProcess
 
 
 {-| A full representation of an amount of material and optional transformations of it
@@ -1120,7 +1116,7 @@ decodeLocalizedProcess =
         |> Decode.required "id" Process.decodeId
 
 
-decodeMaterial : Decoder Material
+decodeMaterial : Decoder LocalizedProcess
 decodeMaterial =
     Decode.oneOf
         [ decodeLocalizedProcess
@@ -1246,7 +1242,7 @@ defaultLocalizedProcess id =
     { country = Nothing, id = id }
 
 
-defaultMaterial : Process.Id -> Material
+defaultMaterial : Process.Id -> LocalizedProcess
 defaultMaterial =
     defaultLocalizedProcess
 
