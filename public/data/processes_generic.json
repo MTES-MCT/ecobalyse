@@ -1916,14 +1916,14 @@
   },
   {
     "activityName": "Bacon, back, at plant {FR} U",
-    "alias": "bacon-fr",
+    "alias": "pork-fr-2025",
     "categories": [
       "ingredient",
       "material",
       "material_type:other_food_items"
     ],
     "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.\n None",
-    "displayName": "Poitrine de porc FR",
+    "displayName": "Viande de porc FR",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "f3537dee-a80a-4b6f-9942-16b3f9e21101",
@@ -24086,70 +24086,6 @@
         "rawToCookedRatio": 1.0,
         "scenario": "import",
         "transportCooling": "none",
-        "visible": true
-      }
-    },
-    "scopes": [
-      "food2"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg",
-    "waste": 0
-  },
-  {
-    "activityName": "Liver, pork, raw, processed in FR | Chilled | Pack | at distribution {FR} U",
-    "alias": "pork-liver-2025",
-    "categories": [
-      "ingredient",
-      "material",
-      "material_type:offal"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.",
-    "displayName": "Foie de porc cru FR (2025)",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "dc2e130a-06c1-4859-a9ca-17456de99812",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 503.94,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "landOccupation": 2.4572,
-    "location": "FR",
-    "massPerUnit": null,
-    "metadata": {
-      "complements": {
-        "cropDiversity": 0,
-        "hedges": -1.64,
-        "permanentPasture": 0,
-        "plotSize": -2.12
-      },
-      "ingredient": {
-        "cropGroup": null,
-        "defaultOrigin": "France",
-        "density": 1.0,
-        "inediblePart": 0,
-        "processId": "1bfe5238-8125-51b6-91fd-f6b5aa885c6d",
-        "rawToCookedRatio": 0.73,
-        "scenario": "reference",
-        "transportCooling": "always",
         "visible": true
       }
     },
@@ -51452,14 +51388,14 @@
   },
   {
     "activityName": "Bacon, back, at plant {{bacon-default-2025}}",
-    "alias": "bacon-default",
+    "alias": "pork-default-2025",
     "categories": [
       "ingredient",
       "material",
       "material_type:other_food_items"
     ],
     "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.\n None",
-    "displayName": "Poitrine de porc par défaut",
+    "displayName": "Viande de porc par défaut",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "f615a946-e091-475a-8601-5a0758a4eb65",
@@ -51516,14 +51452,14 @@
   },
   {
     "activityName": "Bacon, back, at plant {{bacon-fr-bbc-2025}}",
-    "alias": "bacon-fr-bbc",
+    "alias": "pork-fr-bbc-2025",
     "categories": [
       "ingredient",
       "material",
       "material_type:other_food_items"
     ],
     "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.\n None",
-    "displayName": "Poitrine de porc (alim. ani. 100% FR)",
+    "displayName": "Viande de porc (alim. ani. 100% FR)",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "6fb662dc-583f-47d5-814f-2cc6a8c1f3b9",
@@ -51580,14 +51516,14 @@
   },
   {
     "activityName": "Bacon, back, at plant {{bacon-organic-2025}}",
-    "alias": "bacon-organic",
+    "alias": "pork-organic-2025",
     "categories": [
       "ingredient",
       "material",
       "material_type:other_food_items"
     ],
     "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.\n None",
-    "displayName": "Poitrine de porc Bio",
+    "displayName": "Viande de porc Bio",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "b78a8267-2304-44a1-be1b-f3a4432bfdf7",
