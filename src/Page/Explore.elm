@@ -139,7 +139,8 @@ update session msg model =
                     ]
 
         DownloadCsv filename csv ->
-            createPageUpdate session model |> App.withCmds [ Download.string filename "text/csv" (csv |> EncodeCsv.toString) ]
+            createPageUpdate session model
+                |> App.withCmds [ Download.string filename "text/csv" (csv |> EncodeCsv.toString) ]
 
         NoOp ->
             createPageUpdate session model
