@@ -134,7 +134,7 @@ suite =
                                     |> Component.applyTransforms requirements
                                         Nothing
                                         Process.Kilogram
-                                        (List.map Component.nonExpandedLocalizedProcess transforms)
+                                        (List.map Component.nonLocalizedExpandedProcess transforms)
                                     |> Result.withDefault Component.emptyResults
                                     |> Component.extractMass
                                     |> Mass.inKilograms
@@ -169,7 +169,7 @@ suite =
                                     |> Component.applyTransforms requirements
                                         Nothing
                                         Process.Kilogram
-                                        (List.map Component.nonExpandedLocalizedProcess transforms)
+                                        (List.map Component.nonLocalizedExpandedProcess transforms)
                                     |> Result.withDefault Component.emptyResults
                                     |> extractEcsImpact
                           in
@@ -232,7 +232,7 @@ suite =
                                     Ok country ->
                                         let
                                             ( defaultImpact, localizedImpact ) =
-                                                ( getImpact [ Component.nonExpandedLocalizedProcess fading ]
+                                                ( getImpact [ Component.nonLocalizedExpandedProcess fading ]
                                                 , getImpact [ { country = Just country, process = fading } ]
                                                 )
                                         in
@@ -272,7 +272,7 @@ suite =
                                         |> Component.applyTransforms requirements
                                             Nothing
                                             Process.CubicMeter
-                                            [ Component.nonExpandedLocalizedProcess transformInKg ]
+                                            [ Component.nonLocalizedExpandedProcess transformInKg ]
                                         |> Expect.equal (Err "Les procédés de transformation ne partagent pas la même unité que la matière source (m3)\u{00A0}: Moulage par injection (kg)")
                                     )
                                 ]
@@ -293,7 +293,7 @@ suite =
                                     |> Component.applyTransforms requirements
                                         Nothing
                                         Process.Kilogram
-                                        (List.map Component.nonExpandedLocalizedProcess transforms)
+                                        (List.map Component.nonLocalizedExpandedProcess transforms)
                                     |> Result.withDefault Component.emptyResults
                           in
                           describe "impacts & waste"
@@ -685,18 +685,18 @@ suite =
                             )
                         , it "should decode legacy item country into custom element material country"
                             ("""{
-                                    "country": "CN",
-                                    "quantity": 1,
-                                    "custom": {
-                                      "elements": [
-                                        {
-                                          "amount": 1,
-                                          "material": "17431e06-2973-516e-b043-be9ad405e4fb",
-                                          "transforms": []
-                                        }
-                                      ]
-                                    }
-                                  }"""
+                                  "country": "CN",
+                                  "quantity": 1,
+                                  "custom": {
+                                    "elements": [
+                                      {
+                                        "amount": 1,
+                                        "material": "17431e06-2973-516e-b043-be9ad405e4fb",
+                                        "transforms": []
+                                      }
+                                    ]
+                                  }
+                                }"""
                                 |> decodeJsonThen Component.decodeItem
                                     (\item ->
                                         item.custom

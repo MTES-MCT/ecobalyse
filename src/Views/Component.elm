@@ -339,16 +339,13 @@ componentTransportToAssembly { componentConfig, db, impact, query, scope } expan
                     , Transport.default Impact.empty
                     )
 
-                Ok assemblyCountry ->
+                Ok maybeAssemblyCountry ->
                     Tuple.mapFirst text <|
                         Component.computeItemTransportToAssembly
                             { config = componentConfig, db = db, scope = scope }
-                            assemblyCountry
+                            maybeAssemblyCountry
                             expandedItem
                             itemResults
-
-        mass =
-            Component.extractMass itemResults
     in
     tr [ class "fs-7" ]
         [ td [] []
@@ -364,7 +361,7 @@ componentTransportToAssembly { componentConfig, db, impact, query, scope } expan
                 ]
             ]
         , td [ class "text-end" ]
-            [ Format.kg mass ]
+            [ Component.extractMass itemResults |> Format.kg ]
         , td [ class "text-end" ]
             [ transports |> .impacts |> Format.formatImpact impact ]
         , td [] []
@@ -749,9 +746,6 @@ elementEditModalView ({ query } as config) (( _, elementIndex ) as targetElement
 
         Ok ( { amount, material, transforms }, elementResults ) ->
             let
-                materialProcess =
-                    material.process
-
                 stageItems =
                     Component.extractItems elementResults
 
@@ -771,7 +765,7 @@ elementEditModalView ({ query } as config) (( _, elementIndex ) as targetElement
                         (tr [ class "fs-7 text-muted" ]
                             [ th [] []
                             , th [ class "align-middle ps-0", scope "col" ]
-                                [ if materialProcess.unit == Process.Kilogram then
+                                [ if material.process.unit == Process.Kilogram then
                                     text "Masse finale"
 
                                   else
@@ -784,7 +778,7 @@ elementEditModalView ({ query } as config) (( _, elementIndex ) as targetElement
                             , th [ class "align-middle", scope "col" ]
                                 [ text "Pertes" ]
                             , th [ class "align-middle text-truncate", scope "col" ]
-                                [ materialProcess.unit |> Process.unitLabel |> text ]
+                                [ material.process.unit |> Process.unitLabel |> text ]
                             , th [ class "align-middle text-end", scope "col" ]
                                 [ Component.getTotalImpacts elementResults
                                     |> Format.formatImpact config.impact
@@ -796,7 +790,7 @@ elementEditModalView ({ query } as config) (( _, elementIndex ) as targetElement
                             ++ [ tr [ class "border-top" ]
                                     [ td [ colspan 2 ] []
                                     , td [ colspan 6 ]
-                                        [ addElementTransformButton config materialProcess targetElement ]
+                                        [ addElementTransformButton config material.process targetElement ]
                                     ]
                                ]
                         )
