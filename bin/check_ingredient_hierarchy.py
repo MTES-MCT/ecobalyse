@@ -231,6 +231,7 @@ def check_explicit_pair_sanity_checks(impact_results, ingredients_by_alias):
             violations.append(
                 {
                     "base_product": base_lower,
+                    "reason": f"{lower_alias} > {higher_alias}",
                     "lower_variant": lower_alias,
                     "lower_type": "explicit_sanity_check",
                     "lower_ecs": round(ecs_lower, 2),
@@ -276,6 +277,7 @@ def check_hierarchy(by_base, impact_results):
                 violations.append(
                     {
                         "base_product": base,
+                        "reason": f"{a1} > {a2}",
                         "lower_variant": a1,
                         "lower_type": t1,
                         "lower_ecs": round(ecs1, 2),
