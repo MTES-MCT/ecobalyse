@@ -7,6 +7,7 @@ import Data.Component as Component
 import Data.Dataset as Dataset
 import Data.Example as Example exposing (Example)
 import Data.Scope as Scope exposing (Scope)
+import Data.Text as Text
 import Data.Uuid as Uuid
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -42,7 +43,7 @@ table { maxScore } { detailed, scope } =
                         Dataset.ObjectExamples
                )
             >> Route.Explore scope
-    , toSearchableString = Tuple.first >> Example.toSearchableString
+    , toSearchableWords = Tuple.first >> Example.toSearchableString >> Text.toWords
     , facets = []
     , legend = []
     , columns =
