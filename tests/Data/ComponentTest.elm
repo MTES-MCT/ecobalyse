@@ -134,7 +134,7 @@ suite =
                                     |> Component.applyTransforms requirements
                                         Nothing
                                         Process.Kilogram
-                                        (List.map Component.defaultExpandedTransform transforms)
+                                        (List.map Component.defaultExpandedLocalizedProcess transforms)
                                     |> Result.withDefault Component.emptyResults
                                     |> Component.extractMass
                                     |> Mass.inKilograms
@@ -169,7 +169,7 @@ suite =
                                     |> Component.applyTransforms requirements
                                         Nothing
                                         Process.Kilogram
-                                        (List.map Component.defaultExpandedTransform transforms)
+                                        (List.map Component.defaultExpandedLocalizedProcess transforms)
                                     |> Result.withDefault Component.emptyResults
                                     |> extractEcsImpact
                           in
@@ -232,7 +232,7 @@ suite =
                                     Ok country ->
                                         let
                                             ( defaultImpact, localizedImpact ) =
-                                                ( getImpact [ Component.defaultExpandedTransform fading ]
+                                                ( getImpact [ Component.defaultExpandedLocalizedProcess fading ]
                                                 , getImpact [ { country = Just country, process = fading } ]
                                                 )
                                         in
@@ -272,7 +272,7 @@ suite =
                                         |> Component.applyTransforms requirements
                                             Nothing
                                             Process.CubicMeter
-                                            [ Component.defaultExpandedTransform transformInKg ]
+                                            [ Component.defaultExpandedLocalizedProcess transformInKg ]
                                         |> Expect.equal (Err "Les procédés de transformation ne partagent pas la même unité que la matière source (m3)\u{00A0}: Moulage par injection (kg)")
                                     )
                                 ]
@@ -293,7 +293,7 @@ suite =
                                     |> Component.applyTransforms requirements
                                         Nothing
                                         Process.Kilogram
-                                        (List.map Component.defaultExpandedTransform transforms)
+                                        (List.map Component.defaultExpandedLocalizedProcess transforms)
                                     |> Result.withDefault Component.emptyResults
                           in
                           describe "impacts & waste"

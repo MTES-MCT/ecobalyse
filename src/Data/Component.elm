@@ -8,7 +8,7 @@ module Data.Component exposing
     , EndOfLifeMaterialImpacts
     , ExpandedElement
     , ExpandedItem
-    , ExpandedTransform
+    , ExpandedLocalizedProcess
     , Id
     , Index
     , Item
@@ -42,7 +42,7 @@ module Data.Component exposing
     , decodeQuery
     , defaultConfig
     , defaultDurability
-    , defaultExpandedTransform
+    , defaultExpandedLocalizedProcess
     , defaultTransform
     , elementTransforms
     , elementsToString
@@ -110,7 +110,7 @@ module Data.Component exposing
 import Base64
 import Data.Common.DecodeUtils as DU
 import Data.Common.EncodeUtils as EU
-import Data.Complement as Complement exposing (ComplementsResultsImpacts)
+import Data.Complement as Complement exposing (ComplementsImpacts, ComplementsResultsImpacts)
 import Data.Component.Amount as Amount exposing (Amount)
 import Data.Component.Config as Config exposing (EndOfLifeStrategies, EndOfLifeStrategy)
 import Data.Country as Country exposing (Country)
@@ -253,19 +253,15 @@ Note: the `country` field is propagated from the parent component item, for conv
 -}
 type alias ExpandedElement =
     { amount : Amount
-    , material : ExpandedMaterial
-    , transforms : List ExpandedTransform
+    , material : ExpandedLocalizedProcess
+    , transforms : List ExpandedLocalizedProcess
     }
 
 
-type alias ExpandedTransform =
+type alias ExpandedLocalizedProcess =
     { country : Maybe Country
     , process : Process
     }
-
-
-type alias ExpandedMaterial =
-    ExpandedTransform
 
 
 type alias Index =
@@ -428,6 +424,18 @@ addResults (Results results) (Results acc) =
         }
 
 
+applyComplementsResultsImpacts : Amount -> Impacts -> ComplementsImpacts -> ComplementsResultsImpacts
+applyComplementsResultsImpacts amount impacts =
+    Complement.mapComplements
+        (Maybe.map
+            (\complement ->
+                impacts
+                    |> Complement.applyComplementsToImpacts complement
+                    |> Impact.multiplyBy (Amount.toFloat amount)
+            )
+        )
+
+
 applyDurability : Maybe Unit.Ratio -> LifeCycle -> Impacts
 applyDurability maybeDurability =
     sumLifeCycleImpacts
@@ -532,7 +540,7 @@ Energy mix impacts are computed at the transform step level: each step can optio
 specify a country to use its electricity/heat mixes, or fallback to config defaults when absent.
 
 -}
-applyTransforms : Requirements db -> Maybe Country -> Process.Unit -> List ExpandedTransform -> Results -> Result String Results
+applyTransforms : Requirements db -> Maybe Country -> Process.Unit -> List ExpandedLocalizedProcess -> Results -> Result String Results
 applyTransforms requirements initialCountry unit transforms materialResults =
     checkTransformsUnit unit transforms
         |> Result.andThen
@@ -566,7 +574,7 @@ applyWaste waste =
     Amount.map (\amount -> amount - (amount * Split.toFloat waste))
 
 
-checkTransformsUnit : Process.Unit -> List ExpandedTransform -> Result String (List ExpandedTransform)
+checkTransformsUnit : Process.Unit -> List ExpandedLocalizedProcess -> Result String (List ExpandedLocalizedProcess)
 checkTransformsUnit unit transforms =
     if not <| List.all (.process >> .unit >> (==) unit) transforms then
         "Les procédés de transformation ne partagent pas la même unité que la matière source ("
@@ -771,9 +779,10 @@ computeLocalizedTransport { config, db } maybeFrom maybeTo =
             config.transports.defaultDistance
 
 
-computeLocalizedTransportImpacts : Requirements db -> Mass -> Maybe Country -> Maybe Country -> Transport
-computeLocalizedTransportImpacts ({ config } as requirements) mass maybeFrom maybeTo =
+computeLocalizedTransportImpacts : Requirements db -> Maybe Country -> Maybe Country -> Mass -> Transport
+computeLocalizedTransportImpacts ({ config } as requirements) maybeFrom maybeTo mass =
     computeLocalizedTransport requirements maybeFrom maybeTo
+        -- TODO: consider handling air transport ratio in the future
         |> Transport.applyTransportRatios Split.zero
         |> Transport.computeImpacts config.transports.modeProcesses mass
 
@@ -786,76 +795,51 @@ computeItemTransportToAssembly requirements assemblyCountry item itemResults =
                 |> List.map getElementFinalCountry
 
         defaultOrigin =
-            origins
-                |> List.head
+            List.head origins
                 |> Maybe.withDefault Nothing
-
-        label =
-            case assemblyCountry of
-                Just { name } ->
-                    if List.all (\origin -> origin == defaultOrigin) origins then
-                        (origins
-                            |> List.head
-                            |> Maybe.andThen identity
-                            |> Maybe.map .name
-                            |> Maybe.withDefault "Trajet inconnu majoré"
-                        )
-                            ++ " → "
-                            ++ name
-
-                    else
-                        "Origines multiples → " ++ name
-
-                Nothing ->
-                    "Trajet inconnu majoré"
-
-        itemTransport =
-            List.map2
-                (\element elementResults ->
-                    computeLocalizedTransportImpacts
-                        requirements
-                        (extractMass elementResults)
-                        (getElementFinalCountry element)
-                        assemblyCountry
-                )
-                item.elements
-                (extractItems itemResults)
-                |> Transport.sum
     in
-    ( label
-    , itemTransport
+    ( case assemblyCountry of
+        Just { name } ->
+            if origins |> List.all ((==) defaultOrigin) then
+                (origins
+                    |> List.head
+                    |> Maybe.andThen identity
+                    |> Maybe.map .name
+                    |> Maybe.withDefault "Trajet inconnu majoré"
+                )
+                    ++ " → "
+                    ++ name
+
+            else
+                "Origines multiples → " ++ name
+
+        Nothing ->
+            "Trajet inconnu majoré"
+    , List.map2
+        (\element elementResults ->
+            extractMass elementResults
+                |> computeLocalizedTransportImpacts requirements (getElementFinalCountry element) assemblyCountry
+        )
+        item.elements
+        (extractItems itemResults)
+        |> Transport.sum
     )
 
 
 computeItemTransportToDistribution : Requirements db -> ExpandedItem -> Results -> Transport
 computeItemTransportToDistribution ({ config } as requirements) item itemResults =
+    let
+        destination =
+            config.distribution.country
+    in
     List.map2
         (\element elementResults ->
-            computeLocalizedTransportImpacts
-                requirements
-                (extractMass elementResults)
-                (getElementFinalCountry element)
-                (Just config.distribution.country)
+            extractMass elementResults
+                |> computeLocalizedTransportImpacts requirements (getElementFinalCountry element) (Just destination)
         )
         item.elements
         (extractItems itemResults)
         |> Transport.sum
-
-
-applyComplementsResultsImpacts : Amount -> Impacts -> Complement.ComplementsImpacts -> ComplementsResultsImpacts
-applyComplementsResultsImpacts amount impacts complementsImpacts =
-    let
-        applyComplementAmount : Maybe Unit.Impact -> Maybe Impacts
-        applyComplementAmount complement =
-            complement
-                |> Maybe.map
-                    (\c ->
-                        impacts
-                            |> Complement.applyComplementsToImpacts c
-                            |> Impact.multiplyBy (Amount.toFloat amount)
-                    )
-    in
-    complementsImpacts |> Complement.mapComplements applyComplementAmount
 
 
 computeMaterialResults : Amount -> Process -> Results
@@ -950,7 +934,6 @@ computeTransports ({ config, db } as req) query lifeCycle =
         (\expandedItems maybeAssemblyCountry ->
             { lifeCycle
                 | transports =
-                    -- Note: for now it's assumed there's never air transport
                     { toAssembly =
                         -- Only convey multiple items to assembly stage
                         -- TODO: refactor query to handle this through types https://github.com/MTES-MCT/ecobalyse/issues/1609
@@ -973,6 +956,7 @@ computeTransports ({ config, db } as req) query lifeCycle =
                             Just _ ->
                                 expandedItems
                                     |> computeDistributionTransports req maybeAssemblyCountry
+                                    -- TODO: consider handling air transport ratio in the future
                                     |> Transport.applyTransportRatios Split.zero
                                     |> Transport.computeImpacts config.transports.modeProcesses (extractMass lifeCycle.production)
 
@@ -995,7 +979,7 @@ computeTransports ({ config, db } as req) query lifeCycle =
 
 
 {-| Computes transports of components from the number of shipped items, and either their respective country
-of production or country of assembly to France (the only possible distribution destination).
+of production or country of assembly to configured distribution destination country.
 -}
 computeDistributionTransports : Requirements db -> Maybe Country -> List ExpandedItem -> Transport
 computeDistributionTransports { config, db } maybeAssemblyCountry items =
@@ -1232,8 +1216,8 @@ defaultDurability =
     Unit.ratio 1
 
 
-defaultExpandedTransform : Process -> ExpandedTransform
-defaultExpandedTransform process =
+defaultExpandedLocalizedProcess : Process -> ExpandedLocalizedProcess
+defaultExpandedLocalizedProcess process =
     { country = Nothing, process = process }
 
 
@@ -1601,13 +1585,13 @@ expandItems db =
     List.map (expandItem db) >> RE.combine
 
 
-{-| Turn a list of Transform into a list of ExpandedTransform
+{-| Turn a list of localized processes into expanded localized processes
 -}
-expandTransforms : DataContainer db -> List LocalizedProcess -> Result String (List ExpandedTransform)
+expandTransforms : DataContainer db -> List LocalizedProcess -> Result String (List ExpandedLocalizedProcess)
 expandTransforms { countries, processes } =
     List.map
         (\{ country, id } ->
-            Ok ExpandedTransform
+            Ok ExpandedLocalizedProcess
                 |> RE.andMap (Country.resolveMaybe country countries)
                 |> RE.andMap (Process.findById id processes)
         )
@@ -2109,7 +2093,7 @@ toSearchableString db component =
         ]
 
 
-transformListToString : List ExpandedTransform -> String
+transformListToString : List ExpandedLocalizedProcess -> String
 transformListToString =
     List.map
         (\{ country, process } ->

@@ -908,7 +908,7 @@ elementMaterialView config targetElement materialResults material amount =
     ]
 
 
-elementTransformsView : Config db msg -> TargetElement -> List Results -> List Component.ExpandedTransform -> List (Html msg)
+elementTransformsView : Config db msg -> TargetElement -> List Results -> List Component.ExpandedLocalizedProcess -> List (Html msg)
 elementTransformsView config targetElement transformsResults transforms =
     List.map3
         (\transformIndex transformResult transformStep ->
