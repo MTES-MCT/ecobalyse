@@ -265,21 +265,21 @@ decodeAuth =
 
 
 encodeAuth : Auth -> Encode.Value
-encodeAuth auth2 =
+encodeAuth auth =
     Encode.object
-        [ ( "accessTokenData", User2.encodeAccessTokenData auth2.accessTokenData )
-        , ( "user", User2.encodeUser auth2.user )
+        [ ( "accessTokenData", User2.encodeAccessTokenData auth.accessTokenData )
+        , ( "user", User2.encodeUser auth.user )
         ]
 
 
 getAuth : Session -> Maybe Auth
 getAuth { store } =
-    store.auth2
+    store.auth
 
 
 hasAccessToDetailedImpacts : Session -> Bool
 hasAccessToDetailedImpacts { store } =
-    case store.auth2 of
+    case store.auth of
         Just auth ->
             auth.user.profile.termsAccepted
 
@@ -289,7 +289,7 @@ hasAccessToDetailedImpacts { store } =
 
 isAuthenticated : Session -> Bool
 isAuthenticated { store } =
-    case store.auth2 of
+    case store.auth of
         Just _ ->
             True
 
@@ -313,24 +313,24 @@ logout session =
         Ok db ->
             { session | db = db }
     )
-        |> updateStore (\store -> { store | auth2 = Nothing })
+        |> updateStore (\store -> { store | auth = Nothing })
 
 
 setAuth : Maybe Auth -> Session -> Session
-setAuth auth2 =
-    updateStore (\store -> { store | auth2 = auth2 })
+setAuth auth =
+    updateStore (\store -> { store | auth = auth })
 
 
 updateAuth : (Auth -> Auth) -> Session -> Session
 updateAuth fn =
-    updateStore (\store -> { store | auth2 = store.auth2 |> Maybe.map fn })
+    updateStore (\store -> { store | auth = store.auth |> Maybe.map fn })
 
 
 {-| A serializable data structure holding session information you want to share
 across browser restarts, typically in localStorage.
 -}
 type alias Store =
-    { auth2 : Maybe Auth
+    { auth : Maybe Auth
     , bookmarks : List Bookmark
     , comparedSimulations : Set String
     }
@@ -338,7 +338,7 @@ type alias Store =
 
 defaultStore : Store
 defaultStore =
-    { auth2 = Nothing
+    { auth = Nothing
     , bookmarks = []
     , comparedSimulations = Set.empty
     }
@@ -347,7 +347,7 @@ defaultStore =
 decodeStore : Decoder Store
 decodeStore =
     Decode.succeed Store
-        |> DU.strictOptional "auth2" decodeAuth
+        |> DU.strictOptional "auth" decodeAuth
         |> JDP.optional "bookmarks" (Decode.list Bookmark.decode) []
         |> JDP.optional "comparedSimulations" (Decode.map Set.fromList (Decode.list Decode.string)) Set.empty
 
@@ -357,7 +357,7 @@ encodeStore store =
     Encode.object
         [ ( "comparedSimulations", store.comparedSimulations |> Set.toList |> Encode.list Encode.string )
         , ( "bookmarks", Encode.list Bookmark.encode store.bookmarks )
-        , ( "auth2", store.auth2 |> Maybe.map encodeAuth |> Maybe.withDefault Encode.null )
+        , ( "auth", store.auth |> Maybe.map encodeAuth |> Maybe.withDefault Encode.null )
         ]
 
 
