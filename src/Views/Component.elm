@@ -19,6 +19,7 @@ import Data.Component as Component
         , LifeCycle
         , Quantity
         , Query
+        , Requirements
         , Results
         , TargetElement
         , TargetItem
@@ -91,6 +92,19 @@ type Context
     = AdminContext
     | GenericContext
     | TextileTrimsContext
+
+
+{-| Extract the requirements from the config
+
+FIXME: maybe the config should use Requirements directly instead
+
+-}
+requirementsFromConfig : Config db msg -> Requirements db
+requirementsFromConfig config =
+    { config = config.componentConfig
+    , db = config.db
+    , scope = config.scope
+    }
 
 
 addComponentButton : Config db msg -> Html msg
@@ -900,20 +914,12 @@ elementMaterialView config targetElement materialResults material amount =
     ]
 
 
-elementTransportView : Config db msg -> TargetElement -> Index -> Mass -> Maybe Country -> Maybe Country -> Html msg
-elementTransportView config targetElement transformIndex previousMass maybeFrom maybeTo =
+elementTransportView : Config db msg -> Mass -> Maybe Country -> Maybe Country -> Html msg
+elementTransportView config transportedMass maybeFrom maybeTo =
     let
         transport =
-            (case ( maybeFrom, maybeTo ) of
-                ( Just from, Just to ) ->
-                    config.db.distances
-                        |> Transport.getTransportBetween Impact.empty from.code to.code
-
-                _ ->
-                    config.componentConfig.transports.defaultDistance
-            )
-                |> Transport.applyTransportRatios Split.zero
-                |> Transport.computeImpacts config.componentConfig.transports.modeProcesses previousMass
+            transportedMass
+                |> Component.computeTransportedMassImpacts (requirementsFromConfig config) maybeFrom maybeTo
     in
     tr [ class "fs-7 text-muted" ]
         [ td [ colspan 3 ] []
@@ -923,6 +929,8 @@ elementTransportView config targetElement transformIndex previousMass maybeFrom 
                 , Format.km transport.sea
                 , Icon.bus
                 , Format.km transport.road
+                , Icon.package
+                , Format.kg transportedMass
                 ]
             ]
         , td [ colspan 2 ] []
@@ -930,16 +938,7 @@ elementTransportView config targetElement transformIndex previousMass maybeFrom 
             [ transport.impacts
                 |> Format.formatImpact config.impact
             ]
-        , td []
-            [ button
-                [ type_ "button"
-                , class "btn btn-sm btn-outline-secondary invisible"
-                , transformIndex
-                    |> config.removeElementTransform targetElement
-                    |> onClick
-                ]
-                [ Icon.trash ]
-            ]
+        , td [] []
         ]
 
 
@@ -989,7 +988,7 @@ elementTransformsView config targetElement materialResults materialCountry trans
                                )
                 in
                 [ transform.country
-                    |> elementTransportView config targetElement transformIndex previousMass previousCountry
+                    |> elementTransportView config previousMass previousCountry
                 , tr [ class "fs-7 border-top" ]
                     [ td [] []
                     , td [ class "text-end align-middle text-nowrap" ] []

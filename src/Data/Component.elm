@@ -33,6 +33,7 @@ module Data.Component exposing
     , computeItemResults
     , computeItemTransportToAssembly
     , computeScoring
+    , computeTransportedMassImpacts
     , computeVolumeFromMass
     , createItem
     , decode
