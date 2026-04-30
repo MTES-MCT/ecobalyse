@@ -658,9 +658,12 @@ computeDistributionImpacts ({ config } as requirements) query ({ distribution, p
 
 {-| Computes transports of components from the number of shipped items, and either their respective country
 of production or country of assembly to configured distribution destination country.
+
+Note: this only computes the transport distances, not the impacts (as a transported mass would be required)
+
 -}
-computeDistributionTransports : Requirements db -> Maybe Country -> List ExpandedItem -> Transport
-computeDistributionTransports ({ config, db } as requirements) maybeAssemblyCountry items =
+computeDistributionTransports : Requirements db -> Maybe Country -> Mass -> List ExpandedItem -> Transport
+computeDistributionTransports ({ config, db } as requirements) maybeAssemblyCountry mass items =
     case ( items, maybeAssemblyCountry ) of
         -- no items to distribute
         ( [], _ ) ->
@@ -670,6 +673,7 @@ computeDistributionTransports ({ config, db } as requirements) maybeAssemblyCoun
         ( _, Just { code } ) ->
             db.distances
                 |> Transport.getTransportBetween Impact.empty code config.distribution.country.code
+                |> Transport.computeImpacts config.transports.modeProcesses mass
 
         -- no assembly country specified, sum transports from all elements origins to the distribution country
         ( _, Nothing ) ->
@@ -680,6 +684,7 @@ computeDistributionTransports ({ config, db } as requirements) maybeAssemblyCoun
                         >> computeTransportDistance requirements (Just config.distribution.country)
                     )
                 |> Transport.sum
+                |> Transport.computeImpacts config.transports.modeProcesses mass
 
 
 computeElementResults : Requirements db -> Element -> Result String Results
@@ -936,6 +941,11 @@ computeShareImpacts mass { process, split } =
         |> Maybe.withDefault Impact.empty
 
 
+{-| Computes the transport distance between two countries.
+
+Note: this only computes the transport distances, not the impacts (as a transported mass would be required)
+
+-}
 computeTransportDistance : Requirements db -> Maybe Country -> Maybe Country -> Transport
 computeTransportDistance { config, db } maybeFrom maybeTo =
     case ( maybeFrom, maybeTo ) of
@@ -947,6 +957,8 @@ computeTransportDistance { config, db } maybeFrom maybeTo =
             config.transports.defaultDistance
 
 
+{-| Computes the transport distances and impacts from a transported mass.
+-}
 computeTransportedMassImpacts : Requirements db -> Maybe Country -> Maybe Country -> Mass -> Transport
 computeTransportedMassImpacts ({ config } as requirements) maybeFrom maybeTo mass =
     computeTransportDistance requirements maybeFrom maybeTo
@@ -955,26 +967,37 @@ computeTransportedMassImpacts ({ config } as requirements) maybeFrom maybeTo mas
         |> Transport.computeImpacts config.transports.modeProcesses mass
 
 
+computeToDistributionTransport : Requirements db -> Maybe Country -> LifeCycle -> List ExpandedItem -> Transport
+computeToDistributionTransport requirements maybeAssemblyCountry { production } expandedItems =
+    case maybeAssemblyCountry of
+        Just assemblyCountry ->
+            expandedItems
+                |> computeDistributionTransports requirements (Just assemblyCountry) (extractMass production)
+
+        Nothing ->
+            expandedItems
+                |> List.indexedMap
+                    (\index ->
+                        mapIndexedItemResult production index (computeItemTransportToDistribution requirements)
+                    )
+                |> List.filterMap identity
+                |> Transport.sum
+
+
 computeTransports : Requirements db -> Query -> LifeCycle -> Result String LifeCycle
-computeTransports ({ config, db } as requirements) query lifeCycle =
-    let
-        mapItemAt index fn item =
-            extractItems lifeCycle.production
-                |> LE.getAt index
-                |> Maybe.map (fn item)
-    in
+computeTransports ({ db } as requirements) query lifeCycle =
     Result.map2
         (\expandedItems assemblyCountry ->
             { lifeCycle
                 | transports =
                     { toAssembly =
-                        -- Only convey multiple items to assembly stage
+                        -- Only multiple items are transported to the assembly stage
                         -- TODO: refactor query to handle this through types https://github.com/MTES-MCT/ecobalyse/issues/1609
                         if List.length query.items > 1 then
                             expandedItems
                                 |> List.indexedMap
                                     (\index ->
-                                        mapItemAt index (computeItemTransportToAssembly requirements assemblyCountry)
+                                        mapIndexedItemResult lifeCycle.production index (computeItemTransportToAssembly requirements assemblyCountry)
                                             >> Maybe.map Tuple.second
                                     )
                                 |> List.filterMap identity
@@ -983,19 +1006,7 @@ computeTransports ({ config, db } as requirements) query lifeCycle =
                         else
                             Transport.default Impact.empty
                     , toDistribution =
-                        case assemblyCountry of
-                            Just _ ->
-                                expandedItems
-                                    |> computeDistributionTransports requirements assemblyCountry
-                                    -- Note: air transport is not handled for now
-                                    |> Transport.applyTransportRatios Split.zero
-                                    |> Transport.computeImpacts config.transports.modeProcesses (extractMass lifeCycle.production)
-
-                            Nothing ->
-                                expandedItems
-                                    |> List.indexedMap (\index -> mapItemAt index (computeItemTransportToDistribution requirements))
-                                    |> List.filterMap identity
-                                    |> Transport.sum
+                        computeToDistributionTransport requirements assemblyCountry lifeCycle expandedItems
                     }
             }
         )
@@ -1876,6 +1887,13 @@ loadEnergyMixes config =
                 , heat = config.production.defaultHeatProcess
                 }
             )
+
+
+mapIndexedItemResult : Results -> Int -> (ExpandedItem -> Results -> a) -> ExpandedItem -> Maybe a
+mapIndexedItemResult results index fn item =
+    extractItems results
+        |> LE.getAt index
+        |> Maybe.map (fn item)
 
 
 mapItems : (List Item -> List Item) -> Query -> Query
