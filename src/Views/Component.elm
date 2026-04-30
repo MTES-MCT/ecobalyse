@@ -751,13 +751,13 @@ elementEditModalView ({ query } as config) (( _, elementIndex ) as targetElement
 
                 materialResults =
                     stageItems
-                        |> List.filter (\(Component.Results { stage }) -> stage == Just Component.MaterialStage)
+                        |> List.filter (Component.extractStage >> (==) (Just Component.MaterialStage))
                         |> List.head
                         |> Maybe.withDefault Component.emptyResults
 
                 transformsResults =
                     stageItems
-                        |> List.filter (\(Component.Results { stage }) -> stage == Just Component.TransformStage)
+                        |> List.filter (Component.extractStage >> (==) (Just Component.TransformStage))
             in
             div [ class "table-responsive p-2" ]
                 [ table [ class "table table-sm table-borderless mb-0" ]

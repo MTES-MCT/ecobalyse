@@ -62,6 +62,7 @@ module Data.Component exposing
     , extractImpacts
     , extractItems
     , extractMass
+    , extractStage
     , findById
     , getAvailableDistributionProcesses
     , getEndOfLifeDetailedImpacts
@@ -1602,6 +1603,11 @@ extractItems (Results { items }) =
 extractMass : Results -> Mass
 extractMass (Results { mass }) =
     mass
+
+
+extractStage : Results -> Maybe Stage
+extractStage (Results { stage }) =
+    stage
 
 
 {-| Lookup a Component from a provided Id
