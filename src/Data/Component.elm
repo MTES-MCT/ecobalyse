@@ -533,6 +533,9 @@ applyTransforms requirements initialCountry unit transforms materialResults =
         |> Result.map Tuple.second
 
 
+{-| Add transport impacts for a mass and two optional countries to a results, falling back to transport config
+defaults when both are unknown.
+-}
 applyTransportedMassImpacts : Requirements db -> Mass -> Maybe Country -> Maybe Country -> Results -> Results
 applyTransportedMassImpacts requirements mass maybeFrom maybeTo (Results results) =
     let
@@ -659,6 +662,7 @@ of production or country of assembly to configured distribution destination coun
 computeDistributionTransports : Requirements db -> Maybe Country -> List ExpandedItem -> Transport
 computeDistributionTransports ({ config, db } as requirements) maybeAssemblyCountry items =
     case ( items, maybeAssemblyCountry ) of
+        -- no items to distribute
         ( [], _ ) ->
             Transport.default Impact.empty
 
@@ -783,6 +787,8 @@ computeItemResults requirements { custom, id, quantity } =
             )
 
 
+{-| Compute the transport impacts for an item and all its elements to be eventually assembled.
+-}
 computeItemTransportToAssembly : Requirements db -> Maybe Country -> ExpandedItem -> Results -> ( String, Transport )
 computeItemTransportToAssembly requirements assemblyCountry item itemResults =
     let
@@ -791,17 +797,20 @@ computeItemTransportToAssembly requirements assemblyCountry item itemResults =
                 |> List.map getElementFinalCountry
 
         defaultOrigin =
-            List.head origins
-                |> Maybe.withDefault Nothing
+            origins
+                |> List.filterMap identity
+                |> List.head
+
+        unknownTransportLabel =
+            "Trajet inconnu majoré"
     in
     ( case assemblyCountry of
         Just { name } ->
+            -- all items elements have the same origin
             if origins |> List.all ((==) defaultOrigin) then
-                (origins
-                    |> List.head
-                    |> Maybe.andThen identity
+                (defaultOrigin
                     |> Maybe.map .name
-                    |> Maybe.withDefault "Trajet inconnu majoré"
+                    |> Maybe.withDefault unknownTransportLabel
                 )
                     ++ " → "
                     ++ name
@@ -810,20 +819,20 @@ computeItemTransportToAssembly requirements assemblyCountry item itemResults =
                 "Origines multiples → " ++ name
 
         Nothing ->
-            "Trajet inconnu majoré"
+            unknownTransportLabel
     , extractItems itemResults
         |> List.map2
             (\element elementResults ->
                 extractMass elementResults
-                    |> computeTransportedMassImpacts requirements
-                        (getElementFinalCountry element)
-                        assemblyCountry
+                    |> computeTransportedMassImpacts requirements (getElementFinalCountry element) assemblyCountry
             )
             item.elements
         |> Transport.sum
     )
 
 
+{-| Compute item transport impacts of all its elements to the configured distribution country.
+-}
 computeItemTransportToDistribution : Requirements db -> ExpandedItem -> Results -> Transport
 computeItemTransportToDistribution ({ config } as requirements) item itemResults =
     extractItems itemResults
@@ -941,15 +950,21 @@ computeTransportDistance { config, db } maybeFrom maybeTo =
 computeTransportedMassImpacts : Requirements db -> Maybe Country -> Maybe Country -> Mass -> Transport
 computeTransportedMassImpacts ({ config } as requirements) maybeFrom maybeTo mass =
     computeTransportDistance requirements maybeFrom maybeTo
-        -- TODO: consider handling air transport ratio in the future
+        -- Note: air transport is not handled for now
         |> Transport.applyTransportRatios Split.zero
         |> Transport.computeImpacts config.transports.modeProcesses mass
 
 
 computeTransports : Requirements db -> Query -> LifeCycle -> Result String LifeCycle
-computeTransports ({ config, db } as req) query lifeCycle =
+computeTransports ({ config, db } as requirements) query lifeCycle =
+    let
+        mapItemAt index fn item =
+            extractItems lifeCycle.production
+                |> LE.getAt index
+                |> Maybe.map (fn item)
+    in
     Result.map2
-        (\expandedItems maybeAssemblyCountry ->
+        (\expandedItems assemblyCountry ->
             { lifeCycle
                 | transports =
                     { toAssembly =
@@ -958,11 +973,9 @@ computeTransports ({ config, db } as req) query lifeCycle =
                         if List.length query.items > 1 then
                             expandedItems
                                 |> List.indexedMap
-                                    (\index item ->
-                                        lifeCycle.production
-                                            |> extractItems
-                                            |> LE.getAt index
-                                            |> Maybe.map (computeItemTransportToAssembly req maybeAssemblyCountry item >> Tuple.second)
+                                    (\index ->
+                                        mapItemAt index (computeItemTransportToAssembly requirements assemblyCountry)
+                                            >> Maybe.map Tuple.second
                                     )
                                 |> List.filterMap identity
                                 |> Transport.sum
@@ -970,23 +983,17 @@ computeTransports ({ config, db } as req) query lifeCycle =
                         else
                             Transport.default Impact.empty
                     , toDistribution =
-                        case maybeAssemblyCountry of
+                        case assemblyCountry of
                             Just _ ->
                                 expandedItems
-                                    |> computeDistributionTransports req maybeAssemblyCountry
-                                    -- TODO: consider handling air transport ratio in the future
+                                    |> computeDistributionTransports requirements assemblyCountry
+                                    -- Note: air transport is not handled for now
                                     |> Transport.applyTransportRatios Split.zero
                                     |> Transport.computeImpacts config.transports.modeProcesses (extractMass lifeCycle.production)
 
                             Nothing ->
                                 expandedItems
-                                    |> List.indexedMap
-                                        (\index item ->
-                                            lifeCycle.production
-                                                |> extractItems
-                                                |> LE.getAt index
-                                                |> Maybe.map (computeItemTransportToDistribution req item)
-                                        )
+                                    |> List.indexedMap (\index -> mapItemAt index (computeItemTransportToDistribution requirements))
                                     |> List.filterMap identity
                                     |> Transport.sum
                     }
