@@ -683,6 +683,71 @@ suite =
                                     )
                                 ]
                             )
+                        , it "should include transport stage impacts when applying transforms"
+                            (case
+                                requirements.db.countries
+                                    |> Scope.anyOf [ requirements.scope ]
+                                    |> List.head
+                                    |> Result.fromMaybe "No country available in test scope"
+                             of
+                                Err error ->
+                                    Expect.fail error
+
+                                Ok country ->
+                                    Process.idFromString "f0dbe27b-1e74-55d0-88a2-bda812441744"
+                                        |> Result.andThen
+                                            (\materialId ->
+                                                { amount = Amount.fromFloat 1
+                                                , material = { country = Just country.code, id = materialId }
+                                                , transforms =
+                                                    [ { id = fading.id
+                                                      , country = Just country.code
+                                                      }
+                                                    ]
+                                                }
+                                                    |> Component.computeElementResults requirements
+                                                    |> Result.map Component.extractItems
+                                                    |> Result.map (List.any (Component.extractStage >> (==) (Just Component.TransportStage)))
+                                            )
+                                        |> Expect.equal (Ok True)
+                            )
+                        ]
+                    , describe "computeVolumeFromMass"
+                        [ it "should compute a volume from a mass"
+                            -- Remember, this is a temporary situation until we obtain volume per unit data in processes db
+                            (Component.computeVolumeFromMass (Mass.kilograms 1000)
+                                |> Expect.equal (Volume.cubicMeters 1)
+                            )
+                        ]
+                    , describe "decodeItem"
+                        [ it "should decode an item"
+                            ("""{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }"""
+                                |> decodeJson Component.decodeItem
+                                |> Expect.ok
+                            )
+                        , it "should decode an item with a custom material country override"
+                            ("""{
+                                  "quantity": 1,
+                                  "custom": {
+                                    "elements": [
+                                      {
+                                        "amount": 1,
+                                        "material": {
+                                          "id": "17431e06-2973-516e-b043-be9ad405e4fb",
+                                          "country": "CN"
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }"""
+                                |> decodeJsonThen Component.decodeItem
+                                    (.custom
+                                        >> Maybe.andThen (.elements >> LE.getAt 0)
+                                        >> Maybe.map (.material >> .country)
+                                        >> Result.fromMaybe "Missing custom element material country"
+                                    )
+                                |> Expect.equal (Ok (Just (Country.codeFromString "CN")))
+                            )
                         , it "should decode legacy item country into custom element material country"
                             ("""{
                                   "country": "CN",
@@ -698,52 +763,39 @@ suite =
                                   }
                                 }"""
                                 |> decodeJsonThen Component.decodeItem
-                                    (\item ->
-                                        item.custom
-                                            |> Maybe.andThen (.elements >> LE.getAt 0)
-                                            |> Maybe.map (.material >> .country)
-                                            |> Result.fromMaybe "Missing custom element material country"
+                                    (.custom
+                                        >> Maybe.andThen (.elements >> LE.getAt 0)
+                                        >> Maybe.map (.material >> .country)
+                                        >> Result.fromMaybe "Missing custom element material country"
                                     )
                                 |> Expect.equal (Ok (Just (Country.codeFromString "CN")))
                             )
-                        , it "should include transport stage impacts when applying transforms"
-                            (case
-                                requirements.db.countries
-                                    |> Scope.anyOf [ requirements.scope ]
-                                    |> List.head
-                             of
-                                Nothing ->
-                                    Expect.fail "No country available in test scope"
-
-                                Just country ->
-                                    Process.idFromString "f0dbe27b-1e74-55d0-88a2-bda812441744"
-                                        |> Result.andThen
-                                            (\materialId ->
-                                                { amount = Amount.fromFloat 1
-                                                , material = { country = Just country.code, id = materialId }
-                                                , transforms =
-                                                    [ { id = fading.id
-                                                      , country = Just country.code
-                                                      }
-                                                    ]
-                                                }
-                                                    |> Component.computeElementResults requirements
-                                                    |> Result.map Component.extractItems
-                                                    |> Result.map
-                                                        (List.any
-                                                            (\(Component.Results { stage }) ->
-                                                                stage == Just Component.TransportStage
-                                                            )
-                                                        )
-                                            )
-                                        |> Expect.equal (Ok True)
-                            )
-                        ]
-                    , describe "computeVolumeFromMass"
-                        [ it "should compute a volume from a mass"
-                            -- Remember, this is a temporary situation until we obtain volume per unit data in processes db
-                            (Component.computeVolumeFromMass (Mass.kilograms 1000)
-                                |> Expect.equal (Volume.cubicMeters 1)
+                        , it "should decode an item with a custom transform country override"
+                            ("""{
+                                  "quantity": 1,
+                                  "custom": {
+                                    "elements": [
+                                      {
+                                        "amount": 1,
+                                        "material": "17431e06-2973-516e-b043-be9ad405e4fb",
+                                        "transforms": [
+                                          {
+                                            "id": "931c9bb0-619a-5f75-b41b-ab8061e2ad92",
+                                            "country": "CN"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                }"""
+                                |> decodeJsonThen Component.decodeItem
+                                    (.custom
+                                        >> Maybe.andThen (.elements >> LE.getAt 0)
+                                        >> Maybe.andThen (.transforms >> LE.getAt 0)
+                                        >> Maybe.map .country
+                                        >> Result.fromMaybe "Missing custom element transform country"
+                                    )
+                                |> Expect.equal (Ok (Just (Country.codeFromString "CN")))
                             )
                         ]
                     , TestUtils.suiteFromResult "itemToComponent"
@@ -1042,12 +1094,12 @@ suite =
                                     |> List.filterMap identity
                                     |> Impact.sumImpacts
                                     |> getEcsImpact
-                                    |> Expect.within (Expect.Absolute 1)
-                                        (Impact.sumImpacts
-                                            [ Component.extractImpacts lifeCycle.production
-                                            , lifeCycle.transports.toAssembly.impacts
-                                            , lifeCycle.transports.toDistribution.impacts
-                                            ]
+                                    |> Expect.within (Expect.Absolute 0.00001)
+                                        ([ Component.extractImpacts lifeCycle.production
+                                         , lifeCycle.transports.toAssembly.impacts
+                                         , lifeCycle.transports.toDistribution.impacts
+                                         ]
+                                            |> Impact.sumImpacts
                                             |> getEcsImpact
                                         )
                                 )
