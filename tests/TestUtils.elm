@@ -5,6 +5,8 @@ module TestUtils exposing
     , expectResultErrorContains
     , expectResultWithin
     , it
+    , itFromResult
+    , itFromResult2
     , jupeCotonAsie
     , suiteFromResult
     , suiteFromResult2
@@ -41,6 +43,26 @@ asTest =
 it : String -> Expectation -> Test
 it label =
     always >> test label
+
+
+itFromResult : String -> Result String a -> (a -> Expectation) -> Test
+itFromResult label result fn =
+    case result of
+        Ok value ->
+            it label (fn value)
+
+        Err error ->
+            it (label ++ " setup result failure") (Expect.fail error)
+
+
+itFromResult2 : String -> Result String a -> Result String b -> (a -> b -> Expectation) -> Test
+itFromResult2 label result1 result2 fn =
+    case Result.map2 fn result1 result2 of
+        Ok expectation ->
+            it label expectation
+
+        Err error ->
+            it (label ++ " setup result failure") (Expect.fail error)
 
 
 suiteFromResult : String -> Result String a -> (a -> List Test) -> Test
