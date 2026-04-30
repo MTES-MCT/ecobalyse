@@ -1284,6 +1284,10 @@ q {
   }
 }
 
+.RegionSelector {
+  width: 260px;
+}
+
 .Simulator {
   @media screen and (width < $viewport-sm) {
     margin-top: 5px;

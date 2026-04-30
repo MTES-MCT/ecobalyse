@@ -375,9 +375,9 @@ componentTransportToAssembly { componentConfig, db, impact, query, scope } expan
                 ]
             ]
         , td [ class "text-end" ]
-            [ Component.extractMass itemResults |> Format.kg ]
+            [ itemResults |> Component.extractMass |> Format.kg ]
         , td [ class "text-end" ]
-            [ transports |> .impacts |> Format.formatImpact impact ]
+            [ transports.impacts |> Format.formatImpact impact ]
         , td [] []
         ]
 
@@ -822,7 +822,10 @@ elementEditModalView ({ componentConfig, query } as config) (( _, elementIndex )
                 ]
 
 
-listAvailableProcesses : { config | db : Component.DataContainer db, scope : Scope } -> Category -> List Process
+listAvailableProcesses :
+    { config | db : Component.DataContainer db, scope : Scope }
+    -> Category
+    -> List Process
 listAvailableProcesses { db, scope } category =
     db.processes
         |> Scope.anyOf [ scope ]
@@ -873,9 +876,8 @@ elementMaterialView config targetElement materialResults material amount =
             [ selectMaterialButton config targetElement material.process
             ]
         , td [ class "text-end align-middle text-nowrap" ]
-            [ transformCountrySelector
-                { attributes = [ style "width" "260px" ]
-                , countries = config.db.countries
+            [ regionSelector
+                { countries = config.db.countries
                 , domId = "material-country-" ++ Component.targetElementToString targetElement
                 , scope = config.scope
                 , select = config.updateElementMaterialCountry targetElement
@@ -1018,9 +1020,8 @@ elementTransformsView config targetElement materialResults materialCountry trans
                         , text <| Process.getDisplayName transform.process
                         ]
                     , td [ class "text-end align-middle text-nowrap" ]
-                        [ transformCountrySelector
-                            { attributes = [ style "width" "260px" ]
-                            , countries = config.db.countries
+                        [ regionSelector
+                            { countries = config.db.countries
                             , domId =
                                 "transform-country-"
                                     ++ Component.targetElementToString targetElement
@@ -1057,9 +1058,8 @@ elementTransformsView config targetElement materialResults materialCountry trans
         |> List.concat
 
 
-type alias TransformCountrySelector msg =
-    { attributes : List (Attribute msg)
-    , countries : List Country
+type alias RegionSelector msg =
+    { countries : List Country
     , domId : String
     , scope : Scope
     , select : Maybe Country.Code -> msg
@@ -1067,8 +1067,8 @@ type alias TransformCountrySelector msg =
     }
 
 
-transformCountrySelector : TransformCountrySelector msg -> Html msg
-transformCountrySelector config =
+regionSelector : RegionSelector msg -> Html msg
+regionSelector config =
     let
         countries =
             config.countries
@@ -1097,30 +1097,28 @@ transformCountrySelector config =
                     ]
             )
         |> select
-            (config.attributes
-                ++ [ class "form-select form-select-sm"
-                   , id config.domId
-                   , autocomplete False
-                   , config.selected
-                        |> Maybe.andThen
-                            (\code ->
-                                Country.findByCode code countries
-                                    |> Result.map .name
-                                    |> Result.toMaybe
-                            )
-                        |> Maybe.withDefault "Par défaut"
-                        |> (++) "Mix: "
-                        |> title
-                   , onInput <|
-                        \str ->
-                            config.select <|
-                                if String.isEmpty str then
-                                    Nothing
+            [ class "RegionSelector form-select form-select-sm"
+            , id config.domId
+            , autocomplete False
+            , config.selected
+                |> Maybe.andThen
+                    (\code ->
+                        Country.findByCode code countries
+                            |> Result.map .name
+                            |> Result.toMaybe
+                    )
+                |> Maybe.withDefault "Par défaut"
+                |> (++) "Mix: "
+                |> title
+            , onInput <|
+                \str ->
+                    config.select <|
+                        if String.isEmpty str then
+                            Nothing
 
-                                else
-                                    Just <| Country.codeFromString str
-                   ]
-            )
+                        else
+                            Just <| Country.codeFromString str
+            ]
 
 
 quantityInput : Config db msg -> Index -> Quantity -> Html msg
