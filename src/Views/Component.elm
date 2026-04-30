@@ -749,12 +749,12 @@ getEditedElementData { db, lifeCycle } ( ( _, itemIndex ), elementIndex ) query 
 
 
 elementEditModalView : Config db msg -> TargetElement -> Html msg
-elementEditModalView ({ query } as config) (( _, elementIndex ) as targetElement) =
+elementEditModalView ({ componentConfig, query } as config) (( _, elementIndex ) as targetElement) =
     case query |> getEditedElementData config targetElement of
         Err error ->
             div [ class "alert alert-danger" ] [ text error ]
 
-        Ok ( { amount, material, transforms }, elementResults ) ->
+        Ok ( { amount, material, transforms } as expandedElement, elementResults ) ->
             let
                 stageItems =
                     Component.extractItems elementResults
@@ -768,6 +768,15 @@ elementEditModalView ({ query } as config) (( _, elementIndex ) as targetElement
                 transformsResults =
                     stageItems
                         |> List.filter (Component.extractStage >> (==) (Just Component.TransformStage))
+
+                lastTransportedMass =
+                    transformsResults
+                        |> LE.last
+                        |> Maybe.map Component.extractMass
+                        |> Maybe.withDefault (Component.extractMass materialResults)
+
+                lastTransportedCountry =
+                    Component.getElementFinalCountry expandedElement
             in
             div [ class "table-responsive p-2" ]
                 [ table [ class "table table-sm table-borderless mb-0" ]
@@ -797,7 +806,12 @@ elementEditModalView ({ query } as config) (( _, elementIndex ) as targetElement
                             ]
                             :: elementMaterialView config targetElement materialResults material amount
                             ++ elementTransformsView config targetElement materialResults material.country transformsResults transforms
-                            ++ [ tr [ class "border-top" ]
+                            ++ [ config.db.countries
+                                    |> Country.resolveMaybe config.query.assemblyCountry
+                                    |> Result.map (Maybe.withDefault componentConfig.distribution.country >> Just)
+                                    |> Result.map (elementTransportView config [ class "subdued" ] lastTransportedMass lastTransportedCountry)
+                                    |> Result.withDefault (text "")
+                               , tr [ class "border-top" ]
                                     [ td [ colspan 2 ] []
                                     , td [ colspan 6 ]
                                         [ addElementTransformButton config material.process targetElement ]
@@ -808,10 +822,7 @@ elementEditModalView ({ query } as config) (( _, elementIndex ) as targetElement
                 ]
 
 
-listAvailableProcesses :
-    { config | db : Component.DataContainer db, scope : Scope }
-    -> Category
-    -> List Process
+listAvailableProcesses : { config | db : Component.DataContainer db, scope : Scope } -> Category -> List Process
 listAvailableProcesses { db, scope } category =
     db.processes
         |> Scope.anyOf [ scope ]
@@ -916,15 +927,16 @@ elementMaterialView config targetElement materialResults material amount =
     ]
 
 
-elementTransportView : Config db msg -> Mass -> Maybe Country -> Maybe Country -> Html msg
-elementTransportView config transportedMass maybeFrom maybeTo =
+elementTransportView : Config db msg -> List (Attribute msg) -> Mass -> Maybe Country -> Maybe Country -> Html msg
+elementTransportView config attributes transportedMass maybeFrom maybeTo =
     let
         transport =
             transportedMass
                 |> Component.computeTransportedMassImpacts (requirementsFromConfig config) maybeFrom maybeTo
     in
-    tr [ class "fs-7 text-muted" ]
-        [ td [ colspan 3 ] []
+    tr (class "fs-7 text-muted" :: attributes)
+        [ td [ colspan 2 ] []
+        , td [] [ text <| "Transport vers " ++ (maybeTo |> Maybe.map .name |> Maybe.withDefault "Région inconnue") ]
         , td [ class "text-end align-middle d-flex justify-content-end align-items-center gap-2 text-nowrap" ]
             [ Icon.boat
             , Format.km transport.sea
@@ -993,7 +1005,7 @@ elementTransformsView config targetElement materialResults materialCountry trans
                                )
                 in
                 [ transform.country
-                    |> elementTransportView config previousMass previousCountry
+                    |> elementTransportView config [] previousMass previousCountry
                 , tr [ class "fs-7 border-top" ]
                     [ td [] []
                     , td [ class "text-end align-middle text-nowrap" ] []

@@ -66,6 +66,7 @@ module Data.Component exposing
     , extractStage
     , findById
     , getAvailableDistributionProcesses
+    , getElementFinalCountry
     , getEndOfLifeDetailedImpacts
     , getEndOfLifeImpacts
     , getEndOfLifeScopeCollectionRate
