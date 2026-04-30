@@ -240,12 +240,6 @@ type alias Element =
     }
 
 
-type alias LocalizedProcess =
-    { country : Maybe Country.Code
-    , id : Process.Id
-    }
-
-
 {-| A full representation of an amount of material and optional transformations of it
 
 Note: the `country` field is propagated from the parent component item, for convenience
@@ -258,14 +252,24 @@ type alias ExpandedElement =
     }
 
 
+type alias Index =
+    Int
+
+
+{-| A process id with an optional country
+-}
+type alias LocalizedProcess =
+    { country : Maybe Country.Code
+    , id : Process.Id
+    }
+
+
+{-| A full process with an optional country
+-}
 type alias ExpandedLocalizedProcess =
     { country : Maybe Country
     , process : Process
     }
-
-
-type alias Index =
-    Int
 
 
 {-| Index of an item element and associated source component
