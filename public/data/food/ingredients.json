@@ -411,7 +411,7 @@
   {
     "activityName": "Live lamb, consumption mix {FR} U {{lamb-meat-without-bone-organic-2025}}",
     "alias": "lamb-organic",
-    "baseProduct": null,
+    "baseProduct": "lamb",
     "categories": [
       "animal_product",
       "organic"
@@ -489,7 +489,7 @@
   {
     "activityName": "Lamb, conventional, indoor production system, at farm gate {FR} U",
     "alias": "lamb-default",
-    "baseProduct": null,
+    "baseProduct": "lamb",
     "categories": [
       "animal_product"
     ],
@@ -622,7 +622,7 @@
   {
     "activityName": "Beef cattle, feedlot or intensive system, live weight, at farm {GB} - Adapted from WFLDB U",
     "alias": "beef-default",
-    "baseProduct": null,
+    "baseProduct": "beef",
     "categories": [
       "animal_product"
     ],
@@ -724,36 +724,9 @@
     "visible": true
   },
   {
-    "activityName": "Cucumber {GLO}| cucumber production, in heated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "cucumber-default",
-    "baseProduct": "cucumber",
-    "categories": [
-      "vegetable_fresh"
-    ],
-    "cropGroup": "LEGUMES-FLEURS",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0,
-      "permanentPasture": null,
-      "plotSize": 0
-    },
-    "id": "053533cf-8fd1-5cbe-832c-c25d2d9ed885",
-    "inediblePart": 0.1,
-    "landOccupation": 0.22458,
-    "location": "GLO",
-    "name": "Concombre Origine Inconnue",
-    "processId": "5de89b65-5a7b-5ae7-9009-9d2776bd5457",
-    "rawToCookedRatio": 0.856,
-    "scenario": "import",
-    "transportCooling": "always",
-    "visible": true
-  },
-  {
     "activityName": "Tomato, fresh grade, open field, at farm (WFLDB)",
     "alias": "cucumber-default",
-    "baseProduct": null,
+    "baseProduct": "cucumber",
     "categories": [
       "vegetable_fresh"
     ],
@@ -996,7 +969,7 @@
   {
     "activityName": "Grape, integrated, french mix {FR} U",
     "alias": "grape-black-or-white-fr",
-    "baseProduct": null,
+    "baseProduct": "grape-black-or-white",
     "categories": [
       "vegetable_fresh"
     ],
@@ -1133,7 +1106,7 @@
   {
     "activityName": "Soybean grain dried, stored and transported, processing {FR} U",
     "alias": "soybean-feed-2025",
-    "baseProduct": "soybean-feed",
+    "baseProduct": "soybean",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -1220,7 +1193,7 @@
       "organic"
     ],
     "cropGroup": "LEGUMES-FLEURS",
-    "defaultOrigin": "EuropeAndMaghreb",
+    "defaultOrigin": "France",
     "density": 0.447,
     "ecosystemicServices": {
       "cropDiversity": 10.4,
@@ -1617,7 +1590,7 @@
   {
     "activityName": "Soybean, not associated to deforestation {BR}| market for soybean, without transport | Cut-off, U - Adapted from Ecoinvent",
     "alias": "soybean-br-no-deforestation",
-    "baseProduct": "soybean",
+    "baseProduct": "soybean-br-no",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -1644,7 +1617,7 @@
   {
     "activityName": "Broiler, conventional, at farm gate {FR} U",
     "alias": "rabbit-fr",
-    "baseProduct": null,
+    "baseProduct": "rabbit",
     "categories": [
       "animal_product"
     ],
@@ -2209,7 +2182,7 @@
   {
     "activityName": "Rice, non-basmati {CN}| rice production, non-basmati | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "rice-all-variety-white-wild-c-thai-or-basmati-rice-raw-raw-fr",
-    "baseProduct": null,
+    "baseProduct": "rice-all-variety-white-wild-c-thai-or-basmati-rice-raw-raw",
     "categories": [
       "grain_raw"
     ],
@@ -2983,8 +2956,8 @@
   },
   {
     "activityName": "Melon, organic 2025, national average, at farm gate {FR} U",
-    "alias": "melon-all-variety-organic",
-    "baseProduct": "melon-all-variety",
+    "alias": "melon-honeydew-charentai-cataloupe-cavaillon-organic",
+    "baseProduct": "melon-honeydew-charentai-cataloupe-cavaillon",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -3354,7 +3327,7 @@
   {
     "activityName": "Pineapple, at farm {CR} - Adapted from WFLDB U",
     "alias": "pineapple-fr",
-    "baseProduct": null,
+    "baseProduct": "pineapple",
     "categories": [
       "vegetable_fresh"
     ],
@@ -3381,7 +3354,7 @@
   {
     "activityName": "Banana, mixed production, West Indies, at farm gate {WI} U",
     "alias": "banana-fr",
-    "baseProduct": null,
+    "baseProduct": "banana",
     "categories": [
       "vegetable_fresh"
     ],
@@ -3461,7 +3434,7 @@
   },
   {
     "activityName": "Broiler, organic, at farm gate {FR} U {{chicken-breast-fr-organic-2025}}",
-    "alias": "broiler-fr-organic-live",
+    "alias": "broiler-live-fr-organic",
     "baseProduct": "broiler-live",
     "categories": [
       "animal_product",
@@ -3470,12 +3443,7 @@
     "cropGroup": null,
     "defaultOrigin": "France",
     "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 13.3,
-      "hedges": 2.7,
-      "permanentPasture": 0,
-      "plotSize": 2.88
-    },
+    "ecosystemicServices": null,
     "id": "1d8e7cac-fc93-501f-8d33-98f1d6d34da8",
     "inediblePart": 0,
     "landOccupation": 9.7882,
@@ -3517,7 +3485,7 @@
   {
     "activityName": "Broiler, conventional, at farm gate {FR} U {{meat-without-bone-chicken-direct-consumption-only-soybean-max}}",
     "alias": "rabbit-default",
-    "baseProduct": null,
+    "baseProduct": "rabbit",
     "categories": [
       "animal_product"
     ],
@@ -3807,7 +3775,7 @@
   {
     "activityName": "Mixt pig, conventional, national average, at farm gate {FR} U",
     "alias": "pork-fr",
-    "baseProduct": null,
+    "baseProduct": "pork",
     "categories": [
       "animal_product"
     ],
@@ -4366,8 +4334,8 @@
   },
   {
     "activityName": "Rice, basmati, organic 2025 {IN}| rice production, basmati | Cut-off, U",
-    "alias": "rice-all-variety-organic",
-    "baseProduct": "rice-all-variety",
+    "alias": "rice-all-variety-white-wild-c-thai-or-basmati-rice-raw-raw-organic",
+    "baseProduct": "rice-all-variety-white-wild-c-thai-or-basmati-rice-raw-raw",
     "categories": [
       "grain_raw",
       "organic"
@@ -4422,7 +4390,7 @@
   {
     "activityName": "Bell pepper {IN-UP}| bell pepper production, open field | Cut-off, U",
     "alias": "bell-pepper-green-yellow-or-red-default",
-    "baseProduct": null,
+    "baseProduct": "bell-pepper-green-yellow-or-red",
     "categories": [
       "vegetable_fresh"
     ],
@@ -4880,7 +4848,7 @@
   {
     "activityName": "Kiwi FR, conventional, national average, at orchard {FR} U",
     "alias": "guava-fr",
-    "baseProduct": null,
+    "baseProduct": "guava",
     "categories": [
       "vegetable_fresh"
     ],
@@ -5042,8 +5010,8 @@
   },
   {
     "activityName": "Mint {RoW}| mint production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "herb-dried-all-variety-fr",
-    "baseProduct": "herb-dried-all-variety",
+    "alias": "herb-marjoram-oregano-savory-thyme-basil-rosemary-sage-dried-fr",
+    "baseProduct": "herb-marjoram-oregano-savory-thyme-basil-rosemary-sage-dried",
     "categories": [
       "spice_condiment_additive"
     ],
@@ -5529,8 +5497,8 @@
   },
   {
     "activityName": "Melon, conventional, national average, at farm gate {FR} U",
-    "alias": "melon-all-variety-fr",
-    "baseProduct": "melon-all-variety",
+    "alias": "melon-honeydew-charentai-cataloupe-cavaillon-fr",
+    "baseProduct": "melon-honeydew-charentai-cataloupe-cavaillon",
     "categories": [
       "vegetable_fresh"
     ],
@@ -5767,7 +5735,7 @@
   {
     "activityName": "Grape, wine grape, at farm {IT} - Adapted from WFLDB U",
     "alias": "grape-black-or-white-default",
-    "baseProduct": null,
+    "baseProduct": "grape-black-or-white",
     "categories": [
       "vegetable_fresh"
     ],
@@ -5786,33 +5754,6 @@
     "location": "IT",
     "name": "Raisins (noirs ou blancs) Origine Inconnue",
     "processId": "d0448664-37cd-5b7a-b0e8-e182a6e6c269",
-    "rawToCookedRatio": 0.856,
-    "scenario": "import",
-    "transportCooling": "always",
-    "visible": true
-  },
-  {
-    "activityName": "Orange, fresh grade {ES}| orange production, fresh grade | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "grape-black-or-white-default",
-    "baseProduct": "grape-black-or-white",
-    "categories": [
-      "vegetable_fresh"
-    ],
-    "cropGroup": "VIGNES",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.85,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0,
-      "permanentPasture": null,
-      "plotSize": 0
-    },
-    "id": "3733e844-5e53-5404-9b26-28fcb67896c8",
-    "inediblePart": 0.1,
-    "landOccupation": 0.34692,
-    "location": "ES",
-    "name": "Raisins (noirs ou blancs) Origine Inconnue",
-    "processId": "86e21e49-df5f-5d4d-bff0-30f392f35c41",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
@@ -6712,7 +6653,7 @@
   {
     "activityName": "Ground beef fresh case ready for direct consumption at plant {{ground-beef-grass-fed-2025}}",
     "alias": "ground-beef-grass-fed-2025",
-    "baseProduct": "ground-beef",
+    "baseProduct": "ground-beef-grass-fed",
     "categories": [
       "animal_product",
       "organic"
@@ -7154,7 +7095,7 @@
       "organic"
     ],
     "cropGroup": "FRUITS A COQUES",
-    "defaultOrigin": "EuropeAndMaghreb",
+    "defaultOrigin": "France",
     "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -7550,7 +7491,7 @@
   {
     "activityName": "Mango, conventional, Val de San Francisco, at orchard {BR} U",
     "alias": "mango-fr",
-    "baseProduct": null,
+    "baseProduct": "mango",
     "categories": [
       "vegetable_fresh"
     ],
@@ -7577,7 +7518,7 @@
   {
     "activityName": "Mango, conventional, Val de San Francisco, at orchard {BR} U",
     "alias": "lychee-fr",
-    "baseProduct": null,
+    "baseProduct": "lychee",
     "categories": [
       "vegetable_fresh"
     ],
@@ -7604,7 +7545,7 @@
   {
     "activityName": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse {FR} U",
     "alias": "cucumber-fr",
-    "baseProduct": null,
+    "baseProduct": "cucumber",
     "categories": [
       "vegetable_fresh"
     ],
@@ -7623,33 +7564,6 @@
     "location": "FR",
     "name": "Concombre FR",
     "processId": "9125cc12-caea-5bab-9090-6ca1d9703412",
-    "rawToCookedRatio": 0.856,
-    "scenario": "reference",
-    "transportCooling": "always",
-    "visible": true
-  },
-  {
-    "activityName": "Cucumber {GLO}| cucumber production, in heated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "cucumber-fr",
-    "baseProduct": "cucumber",
-    "categories": [
-      "vegetable_fresh"
-    ],
-    "cropGroup": "LEGUMES-FLEURS",
-    "defaultOrigin": "France",
-    "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0.0149,
-      "permanentPasture": null,
-      "plotSize": 0.0372
-    },
-    "id": "4a99833f-f8f7-5d11-9ec8-bd997ab09158",
-    "inediblePart": 0.1,
-    "landOccupation": 0.22458,
-    "location": "GLO",
-    "name": "Concombre FR",
-    "processId": "5de89b65-5a7b-5ae7-9009-9d2776bd5457",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
     "transportCooling": "always",
@@ -7685,7 +7599,7 @@
   {
     "activityName": "Oilseed meal mix, as feed, at regional warehouse, as DM {RER} - Adapted from WFLDB U",
     "alias": "oilseed-feed-2025",
-    "baseProduct": "oilseed-feed",
+    "baseProduct": "oilseed",
     "categories": [
       "grain_raw"
     ],
@@ -8474,7 +8388,7 @@
       "organic"
     ],
     "cropGroup": "COLZA",
-    "defaultOrigin": "EuropeAndMaghreb",
+    "defaultOrigin": "France",
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 18.7,
@@ -8551,7 +8465,7 @@
   {
     "activityName": "Orange, fresh grade {ES}| orange production, fresh grade | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "grape-black-or-white-default-2025",
-    "baseProduct": null,
+    "baseProduct": "grape-black-or-white",
     "categories": [
       "vegetable_fresh"
     ],
@@ -8605,7 +8519,7 @@
   {
     "activityName": "Cucumber {GLO}| cucumber production, in heated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "cucumber-default-2025",
-    "baseProduct": null,
+    "baseProduct": "cucumber",
     "categories": [
       "vegetable_fresh"
     ],
@@ -8767,7 +8681,7 @@
   {
     "activityName": "Vanilla {MG}| vanilla production | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "vanilla-alcoholic-or-aqueou-extract-fr-overseas",
-    "baseProduct": null,
+    "baseProduct": "vanilla-alcoholic-or-aqueou-extract",
     "categories": [
       "spice_condiment_additive"
     ],
@@ -9178,7 +9092,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "VERGERS",
-    "defaultOrigin": "France",
+    "defaultOrigin": "FranceOutreMer",
     "density": 0.85,
     "ecosystemicServices": {
       "cropDiversity": 0.01,
@@ -9330,7 +9244,7 @@
   {
     "activityName": "Broiler, conventional, at farm gate {FR} U",
     "alias": "broiler-fr",
-    "baseProduct": null,
+    "baseProduct": "broiler",
     "categories": [
       "animal_product"
     ],
@@ -9527,7 +9441,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "VERGERS",
-    "defaultOrigin": "France",
+    "defaultOrigin": "FranceOutreMer",
     "density": 0.95,
     "ecosystemicServices": {
       "cropDiversity": 0.01,
@@ -9602,7 +9516,7 @@
   },
   {
     "activityName": "Broiler, conventional, at farm gate {FR} U {{chicken-breast-br-max-2025}}",
-    "alias": "broiler-br-max-live",
+    "alias": "broiler-live-br-max",
     "baseProduct": "broiler-live",
     "categories": [
       "animal_product"
@@ -9610,12 +9524,7 @@
     "cropGroup": null,
     "defaultOrigin": "France",
     "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0.423,
-      "permanentPasture": 0,
-      "plotSize": 0.59
-    },
+    "ecosystemicServices": null,
     "id": "5f4456c2-a93b-5cda-9b2b-6df7ae8179f5",
     "inediblePart": 0,
     "landOccupation": 3.7773,
@@ -9630,7 +9539,7 @@
   {
     "activityName": "Grape {RoW}| grape production | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "grape-black-or-white-fr-2025",
-    "baseProduct": null,
+    "baseProduct": "grape-black-or-white",
     "categories": [
       "vegetable_fresh"
     ],
@@ -10116,7 +10025,7 @@
   {
     "activityName": "Sodium chloride, powder {GLO}| market for | Cut-off, S - Copied from Ecoinvent U",
     "alias": "sea-salt-celery-salt-or-fleur-de-sel-fr",
-    "baseProduct": null,
+    "baseProduct": "sea-salt-celery-salt-or-fleur-de-sel",
     "categories": [
       "animal_product"
     ],
@@ -10144,7 +10053,7 @@
       "organic"
     ],
     "cropGroup": "TOURNESOL",
-    "defaultOrigin": "EuropeAndMaghreb",
+    "defaultOrigin": "France",
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 52.5,
@@ -10494,7 +10403,7 @@
   {
     "activityName": "Meat without bone, beef for direct consumption {{beef-without-bone-grass-fed-2025}}",
     "alias": "beef-without-bone-grass-fed",
-    "baseProduct": "beef-without-bone",
+    "baseProduct": "beef-without-bone-grass-fed",
     "categories": [
       "animal_product"
     ],
@@ -11948,7 +11857,7 @@
       "nut_oilseed_raw"
     ],
     "cropGroup": "FRUITS A COQUES",
-    "defaultOrigin": "France",
+    "defaultOrigin": "FranceOutreMer",
     "density": 0.5,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -12372,7 +12281,7 @@
   {
     "activityName": "Mixt pig, conventional, national average, at farm gate {FR} U {{bacon-default-2025}}",
     "alias": "pork-default",
-    "baseProduct": null,
+    "baseProduct": "pork",
     "categories": [
       "animal_product"
     ],
@@ -12422,7 +12331,7 @@
   {
     "activityName": "Melon, under low tunnel, conventional, at farm gate {FR} U",
     "alias": "watermelon-default",
-    "baseProduct": null,
+    "baseProduct": "watermelon",
     "categories": [
       "vegetable_fresh"
     ],
@@ -12581,7 +12490,7 @@
   {
     "activityName": "Broiler, conventional, at farm gate {FR} U",
     "alias": "poultry-fr",
-    "baseProduct": null,
+    "baseProduct": "poultry",
     "categories": [
       "animal_product"
     ],
@@ -12811,8 +12720,8 @@
   },
   {
     "activityName": "Bell pepper {FR}| bell pepper production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "bell-pepper-fr",
-    "baseProduct": "bell-pepper",
+    "alias": "bell-pepper-green-yellow-or-red-fr",
+    "baseProduct": "bell-pepper-green-yellow-or-red",
     "categories": [
       "vegetable_fresh"
     ],
@@ -12893,8 +12802,8 @@
   },
   {
     "activityName": "Mint, at farm (WFLDB)",
-    "alias": "herb-fresh-all-variety-default",
-    "baseProduct": "herb-fresh-all-variety",
+    "alias": "herb-dill-basil-chervil-rosemary-sage-thyme-fresh-default",
+    "baseProduct": "herb-dill-basil-chervil-rosemary-sage-thyme-fresh",
     "categories": [
       "vegetable_fresh"
     ],
@@ -12976,7 +12885,7 @@
   {
     "activityName": "Beef cattle, conventional, national average, at farm gate {FR} U",
     "alias": "beef-fr",
-    "baseProduct": null,
+    "baseProduct": "beef",
     "categories": [
       "animal_product"
     ],
@@ -13135,7 +13044,7 @@
   {
     "activityName": "Melon, under low tunnel, conventional, at farm gate {FR} U",
     "alias": "melon-honeydew-charentai-cataloupe-cavaillon-default",
-    "baseProduct": null,
+    "baseProduct": "melon-honeydew-charentai-cataloupe-cavaillon",
     "categories": [
       "vegetable_fresh"
     ],
@@ -13272,8 +13181,8 @@
   },
   {
     "activityName": "Mint, at farm (WFLDB)",
-    "alias": "herb-dried-all-variety-default",
-    "baseProduct": "herb-dried-all-variety",
+    "alias": "herb-marjoram-oregano-savory-thyme-basil-rosemary-sage-dried-default",
+    "baseProduct": "herb-marjoram-oregano-savory-thyme-basil-rosemary-sage-dried",
     "categories": [
       "spice_condiment_additive"
     ],
@@ -13669,7 +13578,7 @@
   {
     "activityName": "Mango, conventional, Val de San Francisco, at orchard {BR} U",
     "alias": "breadfruit-fr",
-    "baseProduct": null,
+    "baseProduct": "breadfruit",
     "categories": [
       "vegetable_fresh"
     ],
@@ -13757,7 +13666,7 @@
       "organic"
     ],
     "cropGroup": "AUTRES CEREALES",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
+    "defaultOrigin": "France",
     "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 4.5,
@@ -13779,7 +13688,7 @@
   {
     "activityName": "Broiler, conventional, at farm gate {FR} U {{meat-without-bone-chicken-direct-consumption-only-soybean-max}}",
     "alias": "broiler-default",
-    "baseProduct": null,
+    "baseProduct": "broiler",
     "categories": [
       "animal_product"
     ],
@@ -14376,7 +14285,7 @@
   {
     "activityName": "Cucumber {GLO}| cucumber production, in heated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "cucumber-fr-2025",
-    "baseProduct": null,
+    "baseProduct": "cucumber",
     "categories": [
       "vegetable_fresh"
     ],
@@ -14680,7 +14589,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "VERGERS",
-    "defaultOrigin": "France",
+    "defaultOrigin": "FranceOutreMer",
     "density": 0.85,
     "ecosystemicServices": {
       "cropDiversity": 0.129,
@@ -15111,7 +15020,7 @@
   {
     "activityName": "Sodium chloride, powder {GLO}| market for | Cut-off, S - Copied from Ecoinvent U",
     "alias": "sea-salt-celery-salt-or-fleur-de-sel-default",
-    "baseProduct": null,
+    "baseProduct": "sea-salt-celery-salt-or-fleur-de-sel",
     "categories": [
       "animal_product"
     ],
@@ -15182,7 +15091,7 @@
   {
     "activityName": "Live broiler, for direct consumption, consumption mix {FR} U {{chicken-breast-organic-2025}} {{chicken-breast-fr-organic-2025}}",
     "alias": "rabbit-organic",
-    "baseProduct": null,
+    "baseProduct": "rabbit",
     "categories": [
       "animal_product",
       "organic"
@@ -16605,7 +16514,7 @@
   {
     "activityName": "Papaya {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "papaya-fr",
-    "baseProduct": null,
+    "baseProduct": "papaya",
     "categories": [
       "vegetable_fresh"
     ],
@@ -17280,7 +17189,7 @@
   {
     "activityName": "Bell pepper, organic 2025 {FR}| bell pepper production, in unheated greenhouse | Cut-off, U",
     "alias": "bell-pepper-green-yellow-or-red-organic",
-    "baseProduct": null,
+    "baseProduct": "bell-pepper-green-yellow-or-red",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -17951,7 +17860,7 @@
   {
     "activityName": "Vanilla, cured and dried beans, at farm (WFLDB)",
     "alias": "vanilla-alcoholic-or-aqueou-extract-default",
-    "baseProduct": null,
+    "baseProduct": "vanilla-alcoholic-or-aqueou-extract",
     "categories": [
       "spice_condiment_additive"
     ],
@@ -18217,7 +18126,7 @@
   {
     "activityName": "Vanilla {MG}| vanilla production | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "vanilla-alcoholic-or-aqueou-extract-fr",
-    "baseProduct": null,
+    "baseProduct": "vanilla-alcoholic-or-aqueou-extract",
     "categories": [
       "spice_condiment_additive"
     ],
@@ -18462,7 +18371,7 @@
   {
     "activityName": "Bell pepper {IN-UP}| bell pepper production, open field | Cut-off, U",
     "alias": "chili-pepper-default",
-    "baseProduct": null,
+    "baseProduct": "chili-pepper",
     "categories": [
       "vegetable_fresh"
     ],
@@ -18707,7 +18616,7 @@
   {
     "activityName": "Broiler, conventional, at farm gate {FR} U {{meat-without-bone-chicken-direct-consumption-only-soybean-max}}",
     "alias": "poultry-default",
-    "baseProduct": null,
+    "baseProduct": "poultry",
     "categories": [
       "animal_product"
     ],
@@ -19011,20 +18920,15 @@
   },
   {
     "activityName": "Cull cow, conventional, highland milk system, pastoral farming system, at farm gate {FR} U",
-    "alias": "cull-cow-grass-fed-fr-live",
-    "baseProduct": "cull-cow-fr-live",
+    "alias": "cull-cow-fr-live-grass-fed",
+    "baseProduct": "cull-cow-fr-live-grass-fed",
     "categories": [
       "animal_product"
     ],
     "cropGroup": null,
     "defaultOrigin": "France",
     "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 23.6,
-      "permanentPasture": 22.0,
-      "plotSize": 19.3
-    },
+    "ecosystemicServices": null,
     "id": "cb385a08-0441-5377-b5f2-a76592ea1165",
     "inediblePart": 0,
     "landOccupation": 25.051,
@@ -19228,8 +19132,8 @@
   },
   {
     "activityName": "Rice, basmati {IN}| rice production, basmati | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "rice-all-variety-default",
-    "baseProduct": "rice-all-variety",
+    "alias": "rice-all-variety-white-wild-c-thai-or-basmati-rice-raw-raw-default",
+    "baseProduct": "rice-all-variety-white-wild-c-thai-or-basmati-rice-raw-raw",
     "categories": [
       "grain_raw"
     ],
@@ -19803,7 +19707,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "ARBORICULTURE",
-    "defaultOrigin": "France",
+    "defaultOrigin": "FranceOutreMer",
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0.01,
@@ -19885,7 +19789,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "ARBORICULTURE",
-    "defaultOrigin": "France",
+    "defaultOrigin": "FranceOutreMer",
     "density": 0.95,
     "ecosystemicServices": {
       "cropDiversity": 0.274,
@@ -20065,7 +19969,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "VERGERS",
-    "defaultOrigin": "France",
+    "defaultOrigin": "FranceOutreMer",
     "density": 0.85,
     "ecosystemicServices": {
       "cropDiversity": 0.137,
@@ -20142,7 +20046,7 @@
   {
     "activityName": "Live broiler, for direct consumption, consumption mix {FR} U {{chicken-breast-organic-2025}} {{chicken-breast-fr-organic-2025}}",
     "alias": "broiler-organic",
-    "baseProduct": null,
+    "baseProduct": "broiler",
     "categories": [
       "animal_product",
       "organic"
@@ -20333,7 +20237,7 @@
   {
     "activityName": "Lamb, conventional, indoor production system, at farm gate {FR} U",
     "alias": "lamb-fr",
-    "baseProduct": null,
+    "baseProduct": "lamb",
     "categories": [
       "animal_product"
     ],
@@ -20867,7 +20771,7 @@
       "organic"
     ],
     "cropGroup": "BLE TENDRE",
-    "defaultOrigin": "EuropeAndMaghreb",
+    "defaultOrigin": "France",
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 8.48,
@@ -21097,7 +21001,7 @@
   {
     "activityName": "White asparagus {FR}| white asparagus production | Cut-off, U - Copied from Ecoinvent U",
     "alias": "bamboo-shoot-fr",
-    "baseProduct": null,
+    "baseProduct": "bamboo-shoot",
     "categories": [
       "vegetable_fresh"
     ],
@@ -21423,7 +21327,7 @@
       "organic"
     ],
     "cropGroup": "LEGUMES-FLEURS",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
+    "defaultOrigin": "France",
     "density": 0.447,
     "ecosystemicServices": {
       "cropDiversity": 10.7,
@@ -21506,7 +21410,7 @@
       "organic"
     ],
     "cropGroup": "FRUITS A COQUES",
-    "defaultOrigin": "EuropeAndMaghreb",
+    "defaultOrigin": "France",
     "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -22525,8 +22429,8 @@
   },
   {
     "activityName": "Mint {RoW}| mint production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "herb-fresh-all-variety-fr",
-    "baseProduct": "herb-fresh-all-variety",
+    "alias": "herb-dill-basil-chervil-rosemary-sage-thyme-fresh-fr",
+    "baseProduct": "herb-dill-basil-chervil-rosemary-sage-thyme-fresh",
     "categories": [
       "vegetable_fresh"
     ],
@@ -22553,7 +22457,7 @@
   {
     "activityName": "Live pig, consumption mix {FR} U {{bacon-organic-2025}}",
     "alias": "pork-organic",
-    "baseProduct": null,
+    "baseProduct": "pork",
     "categories": [
       "animal_product",
       "organic"
@@ -22827,7 +22731,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "ARBORICULTURE",
-    "defaultOrigin": "France",
+    "defaultOrigin": "FranceOutreMer",
     "density": 0.95,
     "ecosystemicServices": {
       "cropDiversity": 0.00523,
@@ -22855,7 +22759,7 @@
       "organic"
     ],
     "cropGroup": "VERGERS",
-    "defaultOrigin": "EuropeAndMaghreb",
+    "defaultOrigin": "France",
     "density": 0.575,
     "ecosystemicServices": {
       "cropDiversity": 0.193,
@@ -23007,7 +22911,7 @@
   {
     "activityName": "Live beef, for direct consumption, consumption mix {FR} U {{beef-with-bone-organic-2025}}",
     "alias": "beef-organic",
-    "baseProduct": null,
+    "baseProduct": "beef",
     "categories": [
       "animal_product",
       "organic"
@@ -23112,7 +23016,7 @@
   },
   {
     "activityName": "Broiler, conventional, at farm gate {FR} U {{chicken-breast-fr-feed-2025}}",
-    "alias": "broiler-fr-feed-live",
+    "alias": "broiler-live-fr-feed",
     "baseProduct": "broiler-live",
     "categories": [
       "animal_product"
@@ -23120,12 +23024,7 @@
     "cropGroup": null,
     "defaultOrigin": "France",
     "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0.891,
-      "permanentPasture": 0,
-      "plotSize": 1.07
-    },
+    "ecosystemicServices": null,
     "id": "f10ef82a-3da2-5b37-a1b3-2ec9a0d62b1f",
     "inediblePart": 0,
     "landOccupation": 4.4533,
@@ -23381,7 +23280,7 @@
   {
     "activityName": "Meat with bone, beef for direct consumption {{beef-with-bone-grass-fed-2025}}",
     "alias": "beef-with-bone-grass-fed",
-    "baseProduct": "beef-with-bone",
+    "baseProduct": "beef-with-bone-grass-fed",
     "categories": [
       "animal_product"
     ],
@@ -23784,7 +23683,7 @@
   {
     "activityName": "Live broiler, for direct consumption, consumption mix {FR} U {{chicken-breast-organic-2025}} {{chicken-breast-fr-organic-2025}}",
     "alias": "poultry-organic",
-    "baseProduct": null,
+    "baseProduct": "poultry",
     "categories": [
       "animal_product",
       "organic"
@@ -23878,7 +23777,7 @@
   {
     "activityName": "Coconut, dehusked {ID}| coconut production, dehusked | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "coconut-dehusked-fr",
-    "baseProduct": null,
+    "baseProduct": "coconut-dehusked",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -24629,7 +24528,7 @@
       "organic"
     ],
     "cropGroup": null,
-    "defaultOrigin": "EuropeAndMaghreb",
+    "defaultOrigin": "France",
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 12.6,
