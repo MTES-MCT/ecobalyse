@@ -668,15 +668,11 @@ countrySelector config =
 
 elementView : Config db msg -> TargetItem -> Index -> ExpandedElement -> Results -> Html msg
 elementView config (( component, _ ) as targetItem) elementIndex { amount, material, transforms } elementResults =
-    let
-        materialProcess =
-            material.process
-    in
     tbody []
         [ tr [ class "fs-7 border-top" ]
             [ td [] []
             , td [ class "ps-0 align-start text-end text-nowrap" ]
-                [ Format.amount materialProcess amount ]
+                [ Format.amount material.process amount ]
             , td
                 [ colspan 2
                 , class "align-middle text-truncate"
@@ -689,9 +685,9 @@ elementView config (( component, _ ) as targetItem) elementIndex { amount, mater
                         , onClick (config.openEditElementModal component ( targetItem, elementIndex ))
                         ]
                         [ span [ class "ComponentElementIcon" ] [ Icon.material ]
-                        , text <| Process.getDisplayName materialProcess
+                        , text <| Process.getDisplayName material.process
                         , material.country
-                            |> Maybe.map (\{ name } -> " (" ++ name ++ ")")
+                            |> Maybe.map (\{ code } -> " (" ++ Country.codeToString code ++ ")")
                             |> Maybe.withDefault ""
                             |> text
                         ]
@@ -838,7 +834,13 @@ selectMaterialButton config ( targetItem, elementIndex ) material =
         ]
 
 
-elementMaterialView : Config db msg -> TargetElement -> Results -> { a | country : Maybe Country, process : Process } -> Amount -> List (Html msg)
+elementMaterialView :
+    Config db msg
+    -> TargetElement
+    -> Results
+    -> ExpandedLocalizedProcess
+    -> Amount
+    -> List (Html msg)
 elementMaterialView config targetElement materialResults material amount =
     let
         complementsImpacts =
@@ -923,15 +925,13 @@ elementTransportView config transportedMass maybeFrom maybeTo =
     in
     tr [ class "fs-7 text-muted" ]
         [ td [ colspan 3 ] []
-        , td [ class "text-end align-middle text-nowrap" ]
-            [ div [ class "d-flex justify-content-end align-items-center gap-2", style "width" "260px" ]
-                [ Icon.boat
-                , Format.km transport.sea
-                , Icon.bus
-                , Format.km transport.road
-                , Icon.package
-                , Format.kg transportedMass
-                ]
+        , td [ class "text-end align-middle d-flex justify-content-end align-items-center gap-2 text-nowrap" ]
+            [ Icon.boat
+            , Format.km transport.sea
+            , Icon.bus
+            , Format.km transport.road
+            , Icon.package
+            , Format.kg transportedMass
             ]
         , td [ colspan 2 ] []
         , td [ class "text-end align-middle text-nowrap" ]
@@ -942,7 +942,14 @@ elementTransportView config transportedMass maybeFrom maybeTo =
         ]
 
 
-elementTransformsView : Config db msg -> TargetElement -> Results -> Maybe Country -> List Results -> List ExpandedLocalizedProcess -> List (Html msg)
+elementTransformsView :
+    Config db msg
+    -> TargetElement
+    -> Results
+    -> Maybe Country
+    -> List Results
+    -> List ExpandedLocalizedProcess
+    -> List (Html msg)
 elementTransformsView config targetElement materialResults materialCountry transformsResults transforms =
     transforms
         |> List.indexedMap
@@ -953,24 +960,22 @@ elementTransformsView config targetElement materialResults materialCountry trans
                             |> LE.getAt transformIndex
                             |> Maybe.withDefault Component.emptyResults
 
-                    previousMass =
-                        if transformIndex == 0 then
-                            Component.extractMass materialResults
+                    ( previousMass, previousCountry ) =
+                        case transformIndex of
+                            0 ->
+                                ( Component.extractMass materialResults
+                                , materialCountry
+                                )
 
-                        else
-                            transformsResults
-                                |> LE.getAt (transformIndex - 1)
-                                |> Maybe.withDefault Component.emptyResults
-                                |> Component.extractMass
-
-                    previousCountry =
-                        if transformIndex == 0 then
-                            materialCountry
-
-                        else
-                            transforms
-                                |> LE.getAt (transformIndex - 1)
-                                |> Maybe.andThen .country
+                            index ->
+                                ( transformsResults
+                                    |> LE.getAt (index - 1)
+                                    |> Maybe.withDefault Component.emptyResults
+                                    |> Component.extractMass
+                                , transforms
+                                    |> LE.getAt (index - 1)
+                                    |> Maybe.andThen .country
+                                )
 
                     tooltipText =
                         "Procédé\u{00A0}: "
