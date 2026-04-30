@@ -752,28 +752,6 @@ suite =
                                     )
                             )
                             (Expect.equal (Just (Country.codeFromString "CN")))
-                        , it "should decode legacy item country into custom element material country"
-                            ("""{
-                                  "country": "CN",
-                                  "quantity": 1,
-                                  "custom": {
-                                    "elements": [
-                                      {
-                                        "amount": 1,
-                                        "material": "17431e06-2973-516e-b043-be9ad405e4fb",
-                                        "transforms": []
-                                      }
-                                    ]
-                                  }
-                                }"""
-                                |> decodeJsonThen Component.decodeItem
-                                    (.custom
-                                        >> Maybe.andThen (.elements >> LE.getAt 0)
-                                        >> Maybe.map (.material >> .country)
-                                        >> Result.fromMaybe "Missing custom element material country"
-                                    )
-                                |> Expect.equal (Ok (Just (Country.codeFromString "CN")))
-                            )
                         , itFromResult "should decode an item with a custom transform country override"
                             ("""{
                                   "quantity": 1,

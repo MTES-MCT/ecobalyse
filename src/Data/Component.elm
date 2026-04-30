@@ -131,7 +131,6 @@ import Data.Uuid as Uuid exposing (Uuid)
 import Dict.Any as AnyDict
 import Energy
 import Json.Decode as Decode exposing (Decoder)
-import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Decode
 import Json.Encode as Encode
 import List.Extra as LE
@@ -1128,12 +1127,6 @@ decodeTransforms =
 
 decodeItem : Decoder Item
 decodeItem =
-    decodeItemWithLegacyCountry
-        |> Decode.map mapLegacyCountryToItem
-
-
-decodeItemBase : Decoder Item
-decodeItemBase =
     Decode.succeed Item
         |> DU.strictOptional "custom" decodeCustom
         |> DU.strictOptional "id" (Decode.map Id Uuid.decoder)
@@ -1172,39 +1165,7 @@ decodeQuery =
         |> Decode.optional "consumptions" (Decode.list decodeConsumption) []
         |> DU.strictOptional "distribution" Process.decodeId
         |> DU.strictOptional "durability" Unit.decodeRatio
-        |> Decode.required "components" decodeItemsWithLegacyCountry
-
-
-decodeItemsWithLegacyCountry : Decoder (List Item)
-decodeItemsWithLegacyCountry =
-    Decode.list decodeItem
-
-
-decodeItemWithLegacyCountry : Decoder ( Maybe Country.Code, Item )
-decodeItemWithLegacyCountry =
-    Decode.map2 Tuple.pair
-        (DE.optionalNullableField "country" Country.decodeCode)
-        decodeItemBase
-
-
-mapLegacyCountryToItem : ( Maybe Country.Code, Item ) -> Item
-mapLegacyCountryToItem ( maybeCountryCode, item ) =
-    let
-        mapElement element =
-            { element
-                | material =
-                    if element.material.country == Nothing then
-                        { country = maybeCountryCode, id = element.material.id }
-
-                    else
-                        element.material
-            }
-    in
-    { item
-        | custom =
-            item.custom
-                |> Maybe.map (\custom -> { custom | elements = List.map mapElement custom.elements })
-    }
+        |> Decode.required "components" (Decode.list decodeItem)
 
 
 {-| Proxified for convenience
@@ -1960,17 +1921,6 @@ removeElementTransform targetElement transformIndex =
         \el -> { el | transforms = el.transforms |> LE.removeAt transformIndex }
 
 
-updateElementTransformCountry : TargetElement -> Index -> Maybe Country.Code -> List Item -> List Item
-updateElementTransformCountry targetElement transformIndex maybeCountryCode =
-    updateElement targetElement <|
-        \el ->
-            { el
-                | transforms =
-                    el.transforms
-                        |> LE.updateAt transformIndex (\step -> { step | country = maybeCountryCode })
-            }
-
-
 setCustomScope : Component -> Scope -> Item -> Item
 setCustomScope component scope item =
     { item
@@ -2202,6 +2152,17 @@ updateElementMaterialCountry : TargetElement -> Maybe Country.Code -> List Item 
 updateElementMaterialCountry targetElement maybeCountryCode =
     updateElement targetElement <|
         \({ material } as el) -> { el | material = { material | country = maybeCountryCode } }
+
+
+updateElementTransformCountry : TargetElement -> Index -> Maybe Country.Code -> List Item -> List Item
+updateElementTransformCountry targetElement transformIndex maybeCountryCode =
+    updateElement targetElement <|
+        \el ->
+            { el
+                | transforms =
+                    el.transforms
+                        |> LE.updateAt transformIndex (\step -> { step | country = maybeCountryCode })
+            }
 
 
 updateItemCustom : TargetItem -> (Custom -> Custom) -> List Item -> List Item
