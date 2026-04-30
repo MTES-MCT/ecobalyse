@@ -18401,7 +18401,7 @@
       },
       "ingredient": {
         "cropGroup": "LEGUMINEUSES A GRAIN",
-        "defaultOrigin": "OutOfEuropeAndMaghreb",
+        "defaultOrigin": "OutOfEuropeAndMaghrebByPlane",
         "density": 0.8,
         "inediblePart": 0.1,
         "processId": "bef56d20-ec50-53ea-aaba-219e98fa25cd",
@@ -70360,7 +70360,7 @@
       },
       "ingredient": {
         "cropGroup": "VERGERS",
-        "defaultOrigin": "France",
+        "defaultOrigin": "FranceOutreMer",
         "density": 0.95,
         "inediblePart": 0.2,
         "processId": "5895eae6-a9f2-545f-9290-e942e8b8ea06",
@@ -70680,7 +70680,7 @@
       },
       "ingredient": {
         "cropGroup": "VERGERS",
-        "defaultOrigin": "OutOfEuropeAndMaghrebByPlane",
+        "defaultOrigin": "FranceOutreMer",
         "density": 0.447,
         "inediblePart": 0.2,
         "processId": "e8660bef-5298-5e11-8f52-b597d74f5974",
@@ -78957,7 +78957,7 @@
       },
       "ingredient": {
         "cropGroup": "VERGERS",
-        "defaultOrigin": "OutOfEuropeAndMaghreb",
+        "defaultOrigin": "OutOfEuropeAndMaghrebByPlane",
         "density": 0.95,
         "inediblePart": 0.2,
         "processId": "5e07df03-5de7-5783-958e-aa8799612b4f",
