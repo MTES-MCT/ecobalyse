@@ -56,8 +56,7 @@ type Msg
     | DeleteApiTokenResponse (WebData ())
     | DetailedProcessesResponse (WebData String)
     | LoginResponse (WebData AccessTokenData)
-    | Logout User
-    | LogoutResponse (WebData ())
+    | Logout
     | MagicLinkResponse (WebData ())
     | MagicLinkSubmit
     | ProfileResponse { updated : Bool } AccessTokenData (WebData User)
@@ -199,25 +198,9 @@ update session msg model =
 updateAccountTab : Session -> Session.Auth -> ProfileForm -> FormErrors -> Msg -> Model -> PageUpdate Model Msg
 updateAccountTab session currentAuth profileForm _ msg model =
     case msg of
-        Logout user ->
+        Logout ->
             model
-                |> App.createUpdate session
-                |> App.withCmds [ user |> Auth.logout session LogoutResponse ]
-
-        LogoutResponse (RemoteData.Failure error) ->
-            model
-                |> App.createUpdate
-                    (session
-                        -- FIXME: what to do with backend errors?
-                        |> Session.notifyBackendError error
-                        |> Session.logout
-                    )
-                |> App.notifyInfo "Vous avez été deconnecté"
-
-        LogoutResponse (RemoteData.Success _) ->
-            model
-                |> App.createUpdate session
-                |> App.mapSession Session.logout
+                |> App.createUpdate (session |> Session.logout)
                 |> App.notifyInfo "Vous avez été deconnecté"
                 |> App.withCmds [ Nav.load <| Route.toString Route.Auth ]
 
@@ -639,7 +622,7 @@ viewAccount { user } profileForm formErrors =
             , button
                 [ type_ "button"
                 , class "btn btn-primary my-3"
-                , onClick <| Logout user
+                , onClick <| Logout
                 ]
                 [ text "Déconnexion" ]
             ]

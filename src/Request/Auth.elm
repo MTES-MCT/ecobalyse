@@ -2,7 +2,6 @@ module Request.Auth exposing
     ( askMagicLink
     , listAccounts
     , login
-    , logout
     , processes
     , profile
     , profileFromAccessToken
@@ -38,15 +37,6 @@ login session event email token =
         ("access/login" ++ "?email=" ++ email ++ "&token=" ++ token)
         event
         User.decodeAccessTokenData
-
-
-logout : Session -> (WebData () -> msg) -> User -> Cmd msg
-logout session event user =
-    BackendHttp.post session
-        "access/logout"
-        event
-        (Decode.succeed ())
-        (User.encodeUser user)
 
 
 {-| Retrieve the detailed processes list
