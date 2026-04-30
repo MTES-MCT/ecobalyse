@@ -660,6 +660,7 @@ update ({ navKey } as session) msg model =
                         |> Component.mapItems
                             (Component.updateElementMaterialCountry targetElement maybeCountryCode)
                     )
+                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
 
         ( UpdateElementTransformCountry targetElement transformIndex maybeCountryCode, _ ) ->
             createPageUpdate session model
@@ -668,6 +669,7 @@ update ({ navKey } as session) msg model =
                         |> Component.mapItems
                             (Component.updateElementTransformCountry targetElement transformIndex maybeCountryCode)
                     )
+                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
 
         ( UpdateRenamedBookmarkName bookmark name, _ ) ->
             { model | bookmarkBeingRenamed = Just { bookmark | name = name } }
