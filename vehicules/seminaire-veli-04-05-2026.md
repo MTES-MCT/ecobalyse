@@ -8,15 +8,16 @@ description: >-
 
 Cet atelier vise à modéliser des exemples de velis.
 
-Liens utiles :&#x20;
+### Liens utiles :&#x20;
 
 Lien Ecobalyse velis : [https://ecobalyse.beta.gouv.fr/#/veli/simulator](https://ecobalyse.beta.gouv.fr/#/veli/simulator)
 
-Partagez votre retour d'expérience : [https://mypads2.framapad.org/mypads/?/mypads/group/atelier-veli-ecobalyse-chk48091p/pad/view/retours-dexperiences-zb1bod9eh](https://mypads2.framapad.org/mypads/?/mypads/group/atelier-veli-ecobalyse-chk48091p/pad/view/retours-dexperiences-zb1bod9eh)
+Pad Partagez votre retours d'expériences : [https://mypads2.framapad.org/mypads/?/mypads/group/atelier-veli-ecobalyse-chk48091p/pad/view/retours-dexperiences-zb1bod9eh](https://mypads2.framapad.org/mypads/?/mypads/group/atelier-veli-ecobalyse-chk48091p/pad/view/retours-dexperiences-zb1bod9eh)
 
-Fournissez les liens vers vos simulations : [https://mypads2.framapad.org/mypads/?/mypads/group/atelier-veli-ecobalyse-chk48091p/pad/view/liens-vers-les-simulations-5zke309ev](https://mypads2.framapad.org/mypads/?/mypads/group/atelier-veli-ecobalyse-chk48091p/pad/view/liens-vers-les-simulations-5zke309ev)
+Pad Fournissez les liens vers vos simulations : [https://mypads2.framapad.org/mypads/?/mypads/group/atelier-veli-ecobalyse-chk48091p/pad/view/liens-vers-les-simulations-5zke309ev](https://mypads2.framapad.org/mypads/?/mypads/group/atelier-veli-ecobalyse-chk48091p/pad/view/liens-vers-les-simulations-5zke309ev)
 
-\
+### Informations diverses
+
 A ce stade les exemples seront tous modélisés avec un coefficient de durabilité de 1
 
 Pour information le coefficient de durabilité est en cours de construction. L'état des lieux est disponible ici :&#x20;
