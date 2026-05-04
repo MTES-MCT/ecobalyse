@@ -207,48 +207,43 @@ suite =
                                     ]
                                     |> Expect.within (Expect.Absolute 1) 443
                                 )
-                            , it "should compute apply custom mix impacts when a transform step country is set"
-                                (let
-                                    getImpact steps =
-                                        Component.Results
-                                            { amount = Amount.fromFloat 1
-                                            , complementsImpacts = Complement.emptyComplementsResultsImpacts
-                                            , impacts = Impact.empty
-                                            , items = []
-                                            , label = Nothing
-                                            , mass = Mass.kilogram
-                                            , materialType = Nothing
-                                            , quantity = 1
-                                            , stage = Nothing
-                                            }
-                                            |> Component.applyTransforms requirements Nothing Process.Kilogram steps
-                                            |> Result.withDefault Component.emptyResults
-                                            |> extractEcsImpact
-                                 in
-                                 case
-                                    -- fetch first country with mixes different from defaults
-                                    requirements.db.countries
-                                        |> Scope.anyOf [ requirements.scope ]
-                                        |> List.filter
-                                            (\{ electricityProcess, heatProcess } ->
-                                                (electricityProcess /= requirements.config.production.defaultElecProcess)
-                                                    || (heatProcess /= requirements.config.production.defaultHeatProcess)
-                                            )
-                                        |> List.head
-                                        |> Result.fromMaybe "No country found with mixes different from defaults"
-                                 of
-                                    Err error ->
-                                        Expect.fail error
+                            , itFromResult "should compute apply custom mix impacts when a transform step country is set"
+                                -- fetch first country with mixes different from defaults
+                                (requirements.db.countries
+                                    |> Scope.anyOf [ requirements.scope ]
+                                    |> List.filter
+                                        (\{ electricityProcess, heatProcess } ->
+                                            (electricityProcess /= requirements.config.production.defaultElecProcess)
+                                                || (heatProcess /= requirements.config.production.defaultHeatProcess)
+                                        )
+                                    |> List.head
+                                    |> Result.fromMaybe "No country found with mixes different from defaults"
+                                )
+                                (\country ->
+                                    let
+                                        getImpact steps =
+                                            Component.Results
+                                                { amount = Amount.fromFloat 1
+                                                , complementsImpacts = Complement.emptyComplementsResultsImpacts
+                                                , impacts = Impact.empty
+                                                , items = []
+                                                , label = Nothing
+                                                , mass = Mass.kilogram
+                                                , materialType = Nothing
+                                                , quantity = 1
+                                                , stage = Nothing
+                                                }
+                                                |> Component.applyTransforms requirements Nothing Process.Kilogram steps
+                                                |> Result.withDefault Component.emptyResults
+                                                |> extractEcsImpact
 
-                                    Ok country ->
-                                        let
-                                            ( defaultImpact, localizedImpact ) =
-                                                ( getImpact [ Component.nonLocalizedExpandedProcess fading ]
-                                                , getImpact [ { country = Just country, process = fading } ]
-                                                )
-                                        in
-                                        abs (defaultImpact - localizedImpact)
-                                            |> Expect.greaterThan 0.00001
+                                        ( defaultImpact, localizedImpact ) =
+                                            ( getImpact [ Component.nonLocalizedExpandedProcess fading ]
+                                            , getImpact [ { country = Just country, process = fading } ]
+                                            )
+                                    in
+                                    abs (defaultImpact - localizedImpact)
+                                        |> Expect.greaterThan 0.00001
                                 )
                             , it "should add impacts when multiple transforms are passed (no elec, no heat)"
                                 (getTestEcsImpact
@@ -362,6 +357,64 @@ suite =
                                         |> Expect.within (Expect.Absolute 0.01) 0.25
                                     )
                                 ]
+                            ]
+                        , describe "transports" <|
+                            let
+                                extractTransportStagesCount kind results =
+                                    results
+                                        |> Component.extractItems
+                                        |> List.filter (Component.extractStage >> (==) (Just kind))
+                                        |> List.length
+
+                                extractStages results =
+                                    results
+                                        |> Component.extractItems
+                                        |> List.filterMap Component.extractStage
+
+                                getResults localizedTransforms =
+                                    Component.Results
+                                        { amount = Amount.fromFloat 1
+                                        , complementsImpacts = Complement.emptyComplementsResultsImpacts
+                                        , impacts = Impact.empty
+                                        , items = []
+                                        , label = Nothing
+                                        , mass = Mass.kilogram
+                                        , materialType = Nothing
+                                        , quantity = 1
+                                        , stage = Nothing
+                                        }
+                                        |> Component.applyTransforms requirements
+                                            Nothing
+                                            Process.Kilogram
+                                            localizedTransforms
+                                        |> Result.withDefault Component.emptyResults
+                            in
+                            [ it "should add one transport stage per transform step"
+                                (getResults
+                                    [ Component.nonLocalizedExpandedProcess fading
+                                    , Component.nonLocalizedExpandedProcess fading
+                                    ]
+                                    |> extractTransportStagesCount Component.TransportStage
+                                    |> Expect.equal 2
+                                )
+                            , it "should add no transport stage when no transform is applied"
+                                (getResults []
+                                    |> extractTransportStagesCount Component.TransportStage
+                                    |> Expect.equal 0
+                                )
+                            , it "should insert transport before each transform stage"
+                                (getResults
+                                    [ Component.nonLocalizedExpandedProcess fading
+                                    , Component.nonLocalizedExpandedProcess fading
+                                    ]
+                                    |> extractStages
+                                    |> Expect.equal
+                                        [ Component.TransportStage
+                                        , Component.TransformStage
+                                        , Component.TransportStage
+                                        , Component.TransformStage
+                                        ]
+                                )
                             ]
                         ]
                     , describe "compute"
