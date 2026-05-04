@@ -1084,7 +1084,7 @@ regionSelector config =
     in
     countries
         |> List.map (\{ code, name } -> ( name, Just code ))
-        |> (::) ( "Mix par défaut", Nothing )
+        |> (::) ( "Par défaut", Nothing )
         |> List.map
             (\( name, maybeCode ) ->
                 option
@@ -1115,7 +1115,7 @@ regionSelector config =
                             |> Result.toMaybe
                     )
                 |> Maybe.withDefault "Par défaut"
-                |> (++) "Mix: "
+                |> (++) "Région\u{00A0}: "
                 |> title
             , onInput <|
                 \str ->
