@@ -4129,7 +4129,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Pineapple, at farm {CR} - Adapted from WFLDB U",
@@ -6015,7 +6015,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "LEGUMES-FLEURS",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
+    "defaultOrigin": "OutOfEuropeAndMaghrebByPlane",
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -20389,7 +20389,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "French bean, conventional, national average, at farm gate {FR} U",
