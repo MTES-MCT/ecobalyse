@@ -274,6 +274,7 @@
 
 ## 🛺 Véhicules
 
+* [Séminaire Veli 04/05/2026](vehicules/seminaire-veli-04-05-2026.md)
 * [Cycle de vie des véhicules](vehicules/cycle-de-vie/README.md)
   * [🔧 Fabrication des composants](vehicules/cycle-de-vie/fabrication-des-composants/README.md)
     * [🔋 Batterie](vehicules/cycle-de-vie/fabrication-des-composants/batterie.md)
