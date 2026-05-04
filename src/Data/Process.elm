@@ -3,6 +3,7 @@ module Data.Process exposing
     , Process
     , Unit(..)
     , available
+    , computeImpacts
     , decode
     , decodeFromId
     , decodeId
@@ -110,6 +111,17 @@ activityNameFromString =
 activityNameToString : ActivityName -> String
 activityNameToString (ActivityName string) =
     string
+
+
+{-| Computes per-unit impacts for this process
+-}
+computeImpacts : { elec : Process, heat : Process } -> Process -> Impacts
+computeImpacts { elec, heat } process =
+    [ process.impacts
+    , elec.impacts |> Impact.multiplyBy (Energy.inKilowattHours process.elec)
+    , heat.impacts |> Impact.multiplyBy (Energy.inMegajoules process.heat)
+    ]
+        |> Impact.sumImpacts
 
 
 computeSearchableWords : Process -> Process
