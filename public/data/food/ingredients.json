@@ -11715,8 +11715,8 @@
     "visible": true
   },
   {
-    "activityName": "Bacon, back, at plant {{bacon-fr-bbc-2025}}",
-    "alias": "bacon-fr-bbc",
+    "activityName": "Bacon, back, at plant {{pork-fr-bbc-2025}}",
+    "alias": "pork-fr-bbc-2025",
     "categories": [
       "animal_product"
     ],
@@ -11733,7 +11733,7 @@
     "inediblePart": 0,
     "landOccupation": 8.9889,
     "location": "FR",
-    "name": "Poitrine de porc (alim. ani. 100% FR)",
+    "name": "Viande de porc (alim. ani. 100% FR)",
     "processId": "79dc0633-2115-513c-a011-98982292e461",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
@@ -13304,7 +13304,7 @@
     "visible": true
   },
   {
-    "activityName": "Mixt pig, conventional, national average, at farm gate {FR} U {{bacon-default-2025}}",
+    "activityName": "Mixt pig, conventional, national average, at farm gate {FR} U {{pork-default-2025}}",
     "alias": "pork-default",
     "categories": [
       "animal_product"
@@ -18961,8 +18961,8 @@
     "visible": true
   },
   {
-    "activityName": "Bacon, back, at plant {{bacon-organic-2025}}",
-    "alias": "bacon-organic",
+    "activityName": "Bacon, back, at plant {{pork-organic-2025}}",
+    "alias": "pork-organic-2025",
     "categories": [
       "animal_product",
       "organic"
@@ -18980,7 +18980,7 @@
     "inediblePart": 0,
     "landOccupation": 25.452,
     "location": "FR",
-    "name": "Poitrine de porc Bio",
+    "name": "Viande de porc Bio",
     "processId": "e97292b7-c692-5554-b607-9cc369774ff1",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
@@ -23200,32 +23200,6 @@
     "visible": true
   },
   {
-    "activityName": "Liver, pork, raw, processed in FR | Chilled | Pack | at distribution {FR} U",
-    "alias": "pork-liver-2025",
-    "categories": [
-      "animal_product"
-    ],
-    "cropGroup": null,
-    "defaultOrigin": "France",
-    "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 1.64,
-      "permanentPasture": 0,
-      "plotSize": 2.12
-    },
-    "id": "dc2e130a-06c1-4859-a9ca-17456de99812",
-    "inediblePart": 0,
-    "landOccupation": 2.4572,
-    "location": "FR",
-    "name": "Foie de porc cru FR (2025)",
-    "processId": "1bfe5238-8125-51b6-91fd-f6b5aa885c6d",
-    "rawToCookedRatio": 0.73,
-    "scenario": "reference",
-    "transportCooling": "always",
-    "visible": true
-  },
-  {
     "activityName": "Melon, conventional, national average, at farm gate {FR} U",
     "alias": "melon-fr-2025",
     "categories": [
@@ -24967,7 +24941,7 @@
     "visible": true
   },
   {
-    "activityName": "Live pig, consumption mix {FR} U {{bacon-organic-2025}}",
+    "activityName": "Live pig, consumption mix {FR} U {{pork-organic-2025}}",
     "alias": "pork-organic",
     "categories": [
       "animal_product",
@@ -25936,7 +25910,7 @@
   },
   {
     "activityName": "Bacon, back, at plant {FR} U",
-    "alias": "bacon-fr",
+    "alias": "pork-fr-2025",
     "categories": [
       "animal_product"
     ],
@@ -25953,7 +25927,7 @@
     "inediblePart": 0,
     "landOccupation": 7.2571,
     "location": "FR",
-    "name": "Poitrine de porc FR",
+    "name": "Viande de porc FR",
     "processId": "c88eb25b-93f4-5333-bfff-0dbb15b8c90a",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
@@ -26329,8 +26303,8 @@
     "visible": true
   },
   {
-    "activityName": "Bacon, back, at plant {{bacon-default-2025}}",
-    "alias": "bacon-default",
+    "activityName": "Bacon, back, at plant {{pork-default-2025}}",
+    "alias": "pork-default-2025",
     "categories": [
       "animal_product"
     ],
@@ -26347,7 +26321,7 @@
     "inediblePart": 0,
     "landOccupation": 6.6287,
     "location": "FR",
-    "name": "Poitrine de porc par défaut",
+    "name": "Viande de porc par défaut",
     "processId": "a5c1eb34-5613-5b49-b46a-43b1d1191314",
     "rawToCookedRatio": 1.0,
     "scenario": "import",

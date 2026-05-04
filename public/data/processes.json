@@ -864,7 +864,7 @@
       "material_type:other_food_items"
     ],
     "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.\n None",
-    "displayName": "Poitrine de porc FR (2025)",
+    "displayName": "Viande de porc FR (2025)",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "c88eb25b-93f4-5333-bfff-0dbb15b8c90a",
@@ -12005,49 +12005,6 @@
       "wtu": 0
     },
     "location": "CA",
-    "massPerUnit": null,
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg",
-    "waste": 0
-  },
-  {
-    "activityName": "Liver, pork, raw, processed in FR | Chilled | Pack | at distribution {FR} U",
-    "categories": [
-      "ingredient",
-      "material",
-      "material_type:offal"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.",
-    "displayName": "Foie de porc cru FR (2025)",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "1bfe5238-8125-51b6-91fd-f6b5aa885c6d",
-    "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 503.94,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
-    },
-    "location": "FR",
     "massPerUnit": null,
     "scopes": [
       "food"
@@ -28970,14 +28927,14 @@
     "waste": 0
   },
   {
-    "activityName": "Bacon, back, at plant {{bacon-default-2025}}",
+    "activityName": "Bacon, back, at plant {{pork-default-2025}}",
     "categories": [
       "ingredient",
       "material",
       "material_type:other_food_items"
     ],
     "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.\n None",
-    "displayName": "Poitrine de porc par défaut (2025)",
+    "displayName": "Viande de porc par défaut (2025)",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "a5c1eb34-5613-5b49-b46a-43b1d1191314",
@@ -29013,14 +28970,14 @@
     "waste": 0
   },
   {
-    "activityName": "Bacon, back, at plant {{bacon-fr-bbc-2025}}",
+    "activityName": "Bacon, back, at plant {{pork-fr-bbc-2025}}",
     "categories": [
       "ingredient",
       "material",
       "material_type:other_food_items"
     ],
     "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.\n None",
-    "displayName": "Poitrine de porc (alim. ani. 100% FR) (2025)",
+    "displayName": "Viande de porc (alim. ani. 100% FR) (2025)",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "79dc0633-2115-513c-a011-98982292e461",
@@ -29056,14 +29013,14 @@
     "waste": 0
   },
   {
-    "activityName": "Bacon, back, at plant {{bacon-organic-2025}}",
+    "activityName": "Bacon, back, at plant {{pork-organic-2025}}",
     "categories": [
       "ingredient",
       "material",
       "material_type:other_food_items"
     ],
     "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.\n None",
-    "displayName": "Poitrine de porc Bio (2025)",
+    "displayName": "Viande de porc Bio (2025)",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "e97292b7-c692-5554-b607-9cc369774ff1",
@@ -29779,7 +29736,7 @@
     "waste": 0
   },
   {
-    "activityName": "Live pig, consumption mix {FR} U {{bacon-organic-2025}}",
+    "activityName": "Live pig, consumption mix {FR} U {{pork-organic-2025}}",
     "categories": [
       "ingredient"
     ],
@@ -30250,7 +30207,7 @@
     "waste": 0
   },
   {
-    "activityName": "Mixt pig, conventional, national average, at farm gate {FR} U {{bacon-default-2025}}",
+    "activityName": "Mixt pig, conventional, national average, at farm gate {FR} U {{pork-default-2025}}",
     "categories": [
       "ingredient"
     ],
