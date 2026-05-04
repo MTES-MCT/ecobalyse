@@ -672,6 +672,8 @@ computeDistributionTransports ({ config, db } as requirements) maybeAssemblyCoun
         ( _, Just { code } ) ->
             db.distances
                 |> Transport.getTransportBetween Impact.empty code config.distribution.country.code
+                -- Note: air transport is not handled for now
+                |> Transport.applyTransportRatios Split.zero
                 |> Transport.computeImpacts config.transports.modeProcesses mass
 
         -- no assembly country specified, sum transports from all elements origins to the distribution country
