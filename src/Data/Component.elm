@@ -76,7 +76,7 @@ module Data.Component exposing
     , itemToComponent
     , itemToString
     , itemsToString
-    , loadProductionEnergyMixes
+    , loadEnergyMixes
     , mapItems
     , parseBase64Query
     , parseConfig
@@ -497,7 +497,7 @@ applyTransforms config unit transforms materialResults =
                 (\{ country, process } ->
                     Result.andThen
                         (\results ->
-                            loadProductionEnergyMixes config country
+                            loadEnergyMixes config country
                                 |> Result.map (applyTransform process results)
                         )
                 )
@@ -1709,8 +1709,8 @@ itemsToString db =
         >> Result.map (String.join ", ")
 
 
-loadProductionEnergyMixes : Config -> Maybe Country -> Result String EnergyMixes
-loadProductionEnergyMixes config =
+loadEnergyMixes : Config -> Maybe Country -> Result String EnergyMixes
+loadEnergyMixes config =
     Maybe.map
         (\{ electricityProcess, heatProcess } -> Ok <| EnergyMixes electricityProcess heatProcess)
         >> Maybe.withDefault
