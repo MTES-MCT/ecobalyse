@@ -29018,7 +29018,7 @@
       "material"
     ],
     "comment": "",
-    "displayName": "Amande, décortiquée, avec peau Origine Inconnue BIO",
+    "displayName": "Amande, décortiquée, avec peau BIO",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "9b516955-9c3a-47f0-9815-bb05131fe8ac",
@@ -29144,7 +29144,7 @@
       "material"
     ],
     "comment": "",
-    "displayName": "Pomme, pulpe, crue FR BIO",
+    "displayName": "Pomme, pulpe, crue BIO",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "68edbd1b-222a-4e84-95ad-90718d6c6ad4",
@@ -29270,7 +29270,7 @@
       "material"
     ],
     "comment": "",
-    "displayName": "Abricot, dénoyauté, cru FR BIO",
+    "displayName": "Abricot, dénoyauté, cru BIO",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "77ad9d8c-b7dc-4062-ada8-fdc47d7e5d86",
@@ -29354,7 +29354,7 @@
       "material"
     ],
     "comment": "",
-    "displayName": "Avocat, pulpe, cru Origine Inconnue BIO",
+    "displayName": "Avocat, pulpe, cru BIO",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "53463c0d-f757-4de2-a8d1-a3a7d69167fd",
@@ -29945,7 +29945,7 @@
       "material"
     ],
     "comment": "",
-    "displayName": "Jus - Mûre (CMAPS) Origine Inconnue",
+    "displayName": "Jus de mûre Origine Inconnue",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "6424b162-b135-475d-a1e5-dc6957ed5c4c",
@@ -29987,7 +29987,7 @@
       "material"
     ],
     "comment": "",
-    "displayName": "Jus - Mûre (CMAPS) Origine Inconnue BIO",
+    "displayName": "Jus de mûre BIO",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "88cee097-8a2b-4500-96d8-540952d7acd3",
@@ -30113,7 +30113,7 @@
       "material"
     ],
     "comment": "",
-    "displayName": "Brie, sans précision FR",
+    "displayName": "Fromage à pâte molle à croûte fleurie FR",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "de6b9233-0ce8-41c2-bc93-ccb87f4f15fe",
@@ -30155,7 +30155,7 @@
       "material"
     ],
     "comment": "",
-    "displayName": "Brie, sans précision Origine Inconnue",
+    "displayName": "Fromage à pâte molle à croûte fleurie Origine inconnue",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "68ee04e1-5112-4c87-8fc4-6aa1f7ac04c2",
@@ -30914,7 +30914,7 @@
       "material"
     ],
     "comment": "",
-    "displayName": "Carotte, découpée, crue FR BIO",
+    "displayName": "Carotte, découpée, crue BIO",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "dd347e93-84ca-43c7-8426-8cf03230c78f",
@@ -31208,7 +31208,7 @@
       "material"
     ],
     "comment": "",
-    "displayName": "Cerise, dénoyautée, crue FR BIO",
+    "displayName": "Cerise, dénoyautée, crue Bio",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "147d6940-871c-4a1b-b67e-7113be5215a0",
@@ -31673,7 +31673,7 @@
       "material"
     ],
     "comment": "",
-    "displayName": "Concombre, pulpe, cru FR BIO",
+    "displayName": "Concombre, pulpe, cru BIO",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "5d6cd3c4-a2c4-4d72-9d78-ea3db29915fb",
@@ -32094,7 +32094,7 @@
       "material"
     ],
     "comment": "",
-    "displayName": "Oeuf, décoquillé, de poule, de cane ou d'oie, cru FR BIO",
+    "displayName": "Oeuf, décoquillé, de poule, de cane ou d'oie, cru BIO",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "f6de2c03-34c1-416c-923b-79e644e8540f",
@@ -32430,7 +32430,7 @@
       "material"
     ],
     "comment": "",
-    "displayName": "Purée - Figue (CMAPS) FR",
+    "displayName": "Purée de figue FR",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "da942b84-4bbd-4901-8d0c-c56ec2b59d55",
@@ -32472,7 +32472,7 @@
       "material"
     ],
     "comment": "",
-    "displayName": "Purée - Figue (CMAPS) Origine Inconnue",
+    "displayName": "Purée de figue Origine Inconnue",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "82c97409-bc40-4c24-bd7f-1b8acfa0121d",
@@ -32514,7 +32514,7 @@
       "material"
     ],
     "comment": "",
-    "displayName": "Purée - Figue (CMAPS) FR BIO",
+    "displayName": "Purée de figue Bio",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "0c48e3d9-8b23-4eca-9ded-00589eabcc03",
@@ -32556,7 +32556,7 @@
       "material"
     ],
     "comment": "",
-    "displayName": "Haricot flageolet, surgelé Origine Inconnue BIO",
+    "displayName": "Haricot flageolet, surgelé Bio",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "db8184fe-6df2-44ad-bc81-e5655fb0959c",
@@ -33312,7 +33312,7 @@
       "material"
     ],
     "comment": "",
-    "displayName": "Gouda Origine Inconnue",
+    "displayName": "Fromage à pâte dure Origine inconnue",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "0ed716c2-640d-43a0-95ad-c61fce669635",
@@ -33438,7 +33438,7 @@
       "material"
     ],
     "comment": "",
-    "displayName": "Haricot vert, découpé, cru FR BIO",
+    "displayName": "Haricot vert, découpé, cru BIO",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "ab6a1764-3851-43df-82be-3bd24507068d",
@@ -35253,7 +35253,7 @@
       "material"
     ],
     "comment": "",
-    "displayName": "Farine d'avoine (CMAPS) Origine Inconnue BIO",
+    "displayName": "Farine d'avoine Origine Inconnue BIO",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "9cb40ed1-169b-4cfb-9f8d-9ab55397f8c7",
@@ -35295,7 +35295,7 @@
       "material"
     ],
     "comment": "",
-    "displayName": "Farine d'avoine (CMAPS) FR",
+    "displayName": "Farine d'avoine FR",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "caac2379-42c7-40c1-9aeb-2f4217288676",
@@ -35337,7 +35337,7 @@
       "material"
     ],
     "comment": "",
-    "displayName": "Farine d'avoine (CMAPS) Origine Inconnue",
+    "displayName": "Farine d'avoine Origine Inconnue",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "a86106f6-335a-4edb-9964-2e9328c5325f",
@@ -35888,7 +35888,7 @@
       "material"
     ],
     "comment": "",
-    "displayName": "Petits pois, écossés, crus FR BIO",
+    "displayName": "Petits pois, écossés, crus BIO",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "f9c3e550-a202-42c8-9876-de914bd13d11",
@@ -36560,7 +36560,7 @@
       "material"
     ],
     "comment": "",
-    "displayName": "Purée - Prune (CMAPS) FR",
+    "displayName": "Purée de prune FR",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "c050c8c5-262a-4851-a8f0-b31da30c32f8",
@@ -36602,7 +36602,7 @@
       "material"
     ],
     "comment": "",
-    "displayName": "Purée - Prune (CMAPS) Origine Inconnue",
+    "displayName": "Purée de prune Origine Inconnue",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "7cdb00fc-10d6-4ad5-8759-93e879267192",
@@ -36644,7 +36644,7 @@
       "material"
     ],
     "comment": "",
-    "displayName": "Purée - Prune (CMAPS) FR BIO",
+    "displayName": "Purée de prune Bio",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "50b5c539-824e-4a44-97d9-d0626aa44700",
@@ -36938,7 +36938,7 @@
       "material"
     ],
     "comment": "",
-    "displayName": "Pièce de volaille et lapin, désossée, crue (poulet, dinde, chapon, canard, oie, lapin) FR BIO",
+    "displayName": "Pièce de volaille et lapin, désossée, crue (poulet, dinde, chapon, canard, oie, lapin) BIO",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "efa0babd-b4eb-491d-8e6c-572aefeaf442",
@@ -37233,7 +37233,7 @@
       "material"
     ],
     "comment": "",
-    "displayName": "Jus - Framboise (CMAPS) FR",
+    "displayName": "Jus de framboise FR",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "6dde8cdb-2308-4fb5-86e2-f4b7beb68d81",
@@ -37275,7 +37275,7 @@
       "material"
     ],
     "comment": "",
-    "displayName": "Jus - Framboise (CMAPS) Origine Inconnue BIO",
+    "displayName": "Jus Framboise Origine Inconnue BIO",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "26e83cf0-279b-4698-a19c-fbbbeed8df30",
@@ -37947,7 +37947,7 @@
       "material"
     ],
     "comment": "",
-    "displayName": "Farine de blé tendre, froment ou millet FR BIO",
+    "displayName": "Farine de blé tendre, froment ou millet Bio",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "d623f9e8-7935-4249-827b-076c70d19192",
@@ -38627,7 +38627,7 @@
       "material"
     ],
     "comment": "",
-    "displayName": "Fraise, crue, surgelé FR BIO",
+    "displayName": "Fraise, crue, surgelé BIO",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "c3925c6f-7d19-4458-9d13-991459ce6078",
@@ -38838,7 +38838,7 @@
       "material"
     ],
     "comment": "",
-    "displayName": "Maïs doux, surgelé, cru FR BIO",
+    "displayName": "Maïs doux, surgelé, cru BIO",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "e230e270-9008-447f-9a89-6431d8fc4e5a",
@@ -39258,7 +39258,7 @@
       "material"
     ],
     "comment": "",
-    "displayName": "Noix, décortiquée, fraîche ou sèche FR BIO",
+    "displayName": "Noix, décortiquée, fraîche ou sèche BIO",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "4ef9c8ab-fe0d-4ccb-80a5-b01bc99f949b",

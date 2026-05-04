@@ -70,7 +70,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Blueberry, at farm, organic 2025 {CA}",
@@ -178,16 +178,6 @@
     "visible": true
   },
   {
-<<<<<<< HEAD
-    "activityName": "Walnut, shelled, import WFLDB, CMAPS {GLO} U",
-    "alias": "walnut-shelled-default",
-    "categories": [
-      "nut_oilseed_raw"
-    ],
-    "cropGroup": "FRUITS A COQUES",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 1.0,
-=======
     "activityName": "Garlic, fresh, at farm (WFLDB)",
     "alias": "garlic-eu",
     "categories": [
@@ -196,24 +186,12 @@
     "cropGroup": "LEGUMES-FLEURS",
     "defaultOrigin": "EuropeAndMaghreb",
     "density": 0.3,
->>>>>>> master
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
       "permanentPasture": null,
       "plotSize": 0
     },
-<<<<<<< HEAD
-    "id": "01d47b32-cffd-47d5-a6fa-11bdf56035ad",
-    "inediblePart": 0,
-    "landOccupation": 3.2405,
-    "location": "GLO",
-    "name": "Noix, décortiquée, fraîche ou sèche Origine Inconnue",
-    "processId": "9fb7c03a-98cb-47a4-90f1-43b79f002fd6",
-    "rawToCookedRatio": 1.0,
-    "scenario": "import",
-    "transportCooling": "none",
-=======
     "id": "00d5fa04-b2fd-5a3c-a5fa-c87598ce8a53",
     "inediblePart": 0.1,
     "landOccupation": 0.60787,
@@ -223,7 +201,32 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
->>>>>>> master
+    "visible": true
+  },
+  {
+    "activityName": "Walnut, shelled, import WFLDB, CMAPS {GLO} U",
+    "alias": "walnut-shelled-default",
+    "categories": [
+      "nut_oilseed_raw"
+    ],
+    "cropGroup": "FRUITS A COQUES",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
+    "density": 1.0,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0,
+      "permanentPasture": null,
+      "plotSize": 0
+    },
+    "id": "01d47b32-cffd-47d5-a6fa-11bdf56035ad",
+    "inediblePart": 0,
+    "landOccupation": 3.2405,
+    "location": "GLO",
+    "name": "Noix, décortiquée, fraîche ou sèche Origine Inconnue",
+    "processId": "9fb7c03a-98cb-47a4-90f1-43b79f002fd6",
+    "rawToCookedRatio": 1.0,
+    "scenario": "import",
+    "transportCooling": "none",
     "visible": true
   },
   {
@@ -923,7 +926,6 @@
     "visible": true
   },
   {
-<<<<<<< HEAD
     "activityName": "Raclette cheese, variant 1, CMAPS {GLO} U",
     "alias": "raclette-cheese-fr",
     "categories": [
@@ -947,7 +949,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "White bean, canned drained, organic, CMAPS {GLO} U",
@@ -985,7 +987,24 @@
     "cropGroup": "AUTRES CEREALES",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
-=======
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0,
+      "permanentPasture": null,
+      "plotSize": 0
+    },
+    "id": "06c2b6e8-495f-4200-9ec9-8680c48d819b",
+    "inediblePart": 0,
+    "landOccupation": 1.9821,
+    "location": "GLO",
+    "name": "Farine d'avoine Origine Inconnue",
+    "processId": "a86106f6-335a-4edb-9964-2e9328c5325f",
+    "rawToCookedRatio": 1.0,
+    "scenario": "import",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
     "activityName": "Cauliflower, conventional, national average, at farm gate {FR} U",
     "alias": "cauliflower-eu",
     "categories": [
@@ -994,22 +1013,12 @@
     "cropGroup": "LEGUMES-FLEURS",
     "defaultOrigin": "EuropeAndMaghreb",
     "density": 0.9,
->>>>>>> master
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
       "permanentPasture": null,
       "plotSize": 0
     },
-<<<<<<< HEAD
-    "id": "06c2b6e8-495f-4200-9ec9-8680c48d819b",
-    "inediblePart": 0,
-    "landOccupation": 1.9821,
-    "location": "GLO",
-    "name": "Farine d'avoine (CMAPS) Origine Inconnue",
-    "processId": "a86106f6-335a-4edb-9964-2e9328c5325f",
-    "rawToCookedRatio": 1.0,
-=======
     "id": "06cecb02-3b24-59a9-a966-a65e33ba4bf6",
     "inediblePart": 0.2,
     "landOccupation": 0.4422,
@@ -1017,7 +1026,6 @@
     "name": "Chou-fleur UE",
     "processId": "713f3426-7d8c-5b26-b7c0-98cb92ed0ab7",
     "rawToCookedRatio": 0.856,
->>>>>>> master
     "scenario": "import",
     "transportCooling": "always",
     "visible": true
@@ -1334,7 +1342,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Soybean grain dried, stored and transported, processing {FR} U",
@@ -1512,7 +1520,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Blueberry, at farm {CA} - Adapted from WFLDB U",
@@ -1564,7 +1572,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Carrot, at farm (WFLDB)",
@@ -1977,7 +1985,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Soybean, not associated to deforestation {BR}| market for soybean, without transport | Cut-off, U - Adapted from Ecoinvent",
@@ -2029,7 +2037,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Broiler, conventional, at farm gate {FR} U",
@@ -2128,7 +2136,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Butter, 60-62pct fat reduced, variant 2, CMAPS {GLO} U",
@@ -2403,12 +2411,12 @@
     "inediblePart": 0,
     "landOccupation": 5.6432,
     "location": "GLO",
-    "name": "Jus - Mûre (CMAPS) Origine Inconnue BIO",
+    "name": "Jus de mûre BIO",
     "processId": "88cee097-8a2b-4500-96d8-540952d7acd3",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "protein pea//[FR] protein pea production",
@@ -2535,7 +2543,7 @@
     "inediblePart": 0,
     "landOccupation": 0.020192,
     "location": "GLO",
-    "name": "Purée - Prune (CMAPS) FR",
+    "name": "Purée de prune FR",
     "processId": "c050c8c5-262a-4851-a8f0-b31da30c32f8",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
@@ -3286,7 +3294,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Fresh shrimps, China production {FR} U",
@@ -3329,7 +3337,7 @@
     "inediblePart": 0,
     "landOccupation": 7.7472,
     "location": "GLO",
-    "name": "Oeuf, décoquillé, de poule, de cane ou d'oie, cru FR BIO",
+    "name": "Oeuf, décoquillé, de poule, de cane ou d'oie, cru BIO",
     "processId": "f6de2c03-34c1-416c-923b-79e644e8540f",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
@@ -3892,12 +3900,12 @@
     "inediblePart": 0,
     "landOccupation": 0.035012,
     "location": "GLO",
-    "name": "Cerise, dénoyautée, crue FR BIO",
+    "name": "Cerise, dénoyautée, crue Bio",
     "processId": "147d6940-871c-4a1b-b67e-7113be5215a0",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Cherry, conventional, national average, at orchard {FR} U",
@@ -4255,7 +4263,6 @@
     "visible": false
   },
   {
-<<<<<<< HEAD
     "activityName": "Butter, 39-41pct fat light, variant 2, CMAPS {GLO} U",
     "alias": "butter-39-41pct-fat-light-default",
     "categories": [
@@ -4272,7 +4279,11 @@
     "name": "Beurre à 39-41% MG, léger, doux Origine Inconnue",
     "processId": "4d0e2d52-adf7-4e88-8685-b202f9836eca",
     "rawToCookedRatio": 1.0,
-=======
+    "scenario": "import",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
     "activityName": "Onion {NL}| onion production | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "chive-eu",
     "categories": [
@@ -4294,7 +4305,6 @@
     "name": "Ciboulette UE",
     "processId": "ee7c6756-fd7f-535c-b28a-de50cf042cc7",
     "rawToCookedRatio": 0.856,
->>>>>>> master
     "scenario": "import",
     "transportCooling": "always",
     "visible": true
@@ -4526,7 +4536,6 @@
     "visible": true
   },
   {
-<<<<<<< HEAD
     "activityName": "Carrot, cut raw, organic, CMAPS {GLO} U",
     "alias": "carrot-cut-raw-fr-organic",
     "categories": [
@@ -4546,7 +4555,7 @@
     "inediblePart": 0,
     "landOccupation": 0.25111,
     "location": "GLO",
-    "name": "Carotte, découpée, crue FR BIO",
+    "name": "Carotte, découpée, crue BIO",
     "processId": "dd347e93-84ca-43c7-8426-8cf03230c78f",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
@@ -4581,31 +4590,6 @@
     "visible": false
   },
   {
-    "activityName": "Fourme d'Ambert cheese, variant 1, CMAPS {GLO} U",
-    "alias": "fourme-dambert-cheese-fr",
-    "categories": [
-      "dairy_product"
-    ],
-    "cropGroup": null,
-    "defaultOrigin": "France",
-    "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 3.71,
-      "permanentPasture": 0.68,
-      "plotSize": 3.47
-    },
-    "id": "20ae3e77-c899-4a3e-84c2-ca8be004f9dc",
-    "inediblePart": 0,
-    "landOccupation": 4.8755,
-    "location": "GLO",
-    "name": "Fourme d'Ambert FR",
-    "processId": "79d06d8a-2912-4bf4-b649-dd9b4bf2f5d1",
-    "rawToCookedRatio": 1.0,
-    "scenario": "reference",
-    "transportCooling": "always",
-    "visible": false
-=======
     "activityName": "Zucchini, conventional, national average, at farm gate {FR} U",
     "alias": "squash-with-skin-raw-eu",
     "categories": [
@@ -4630,7 +4614,32 @@
     "scenario": "import",
     "transportCooling": "always",
     "visible": true
->>>>>>> master
+  },
+  {
+    "activityName": "Fourme d'Ambert cheese, variant 1, CMAPS {GLO} U",
+    "alias": "fourme-dambert-cheese-fr",
+    "categories": [
+      "dairy_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 3.71,
+      "permanentPasture": 0.68,
+      "plotSize": 3.47
+    },
+    "id": "20ae3e77-c899-4a3e-84c2-ca8be004f9dc",
+    "inediblePart": 0,
+    "landOccupation": 4.8755,
+    "location": "GLO",
+    "name": "Fourme d'Ambert FR",
+    "processId": "79d06d8a-2912-4bf4-b649-dd9b4bf2f5d1",
+    "rawToCookedRatio": 1.0,
+    "scenario": "reference",
+    "transportCooling": "always",
+    "visible": true
   },
   {
     "activityName": "Winter pea, from intercrop, organic, system number 1, at farm gate {FR} U",
@@ -4858,7 +4867,6 @@
     "visible": true
   },
   {
-<<<<<<< HEAD
     "activityName": "Red berries, frozen raw, organic, CMAPS {GLO} U",
     "alias": "red-berries-frozen-raw-default-organic",
     "categories": [
@@ -4886,32 +4894,6 @@
     "visible": false
   },
   {
-    "activityName": "Sweet corn, frozen raw, organic, CMAPS {GLO} U",
-    "alias": "sweet-corn-frozen-raw-fr-organic",
-    "categories": [
-      "vegetable_processed",
-      "organic"
-    ],
-    "cropGroup": "MAIS GRAIN ET ENSILAGE",
-    "defaultOrigin": "France",
-    "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 1.46,
-      "hedges": 0.781,
-      "permanentPasture": null,
-      "plotSize": 0.701
-    },
-    "id": "230a1b18-686f-4cb7-9e0a-8ea91bc4b4b9",
-    "inediblePart": 0,
-    "landOccupation": 1.4019,
-    "location": "GLO",
-    "name": "Maïs doux, surgelé, cru FR BIO",
-    "processId": "e230e270-9008-447f-9a89-6431d8fc4e5a",
-    "rawToCookedRatio": 1.0,
-    "scenario": "organic",
-    "transportCooling": "always",
-    "visible": false
-=======
     "activityName": "Black pepper, conventional, at farm gate {VN} U",
     "alias": "saffron-eu",
     "categories": [
@@ -4936,7 +4918,33 @@
     "scenario": "import",
     "transportCooling": "none",
     "visible": true
->>>>>>> master
+  },
+  {
+    "activityName": "Sweet corn, frozen raw, organic, CMAPS {GLO} U",
+    "alias": "sweet-corn-frozen-raw-fr-organic",
+    "categories": [
+      "vegetable_processed",
+      "organic"
+    ],
+    "cropGroup": "MAIS GRAIN ET ENSILAGE",
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": {
+      "cropDiversity": 1.46,
+      "hedges": 0.781,
+      "permanentPasture": null,
+      "plotSize": 0.701
+    },
+    "id": "230a1b18-686f-4cb7-9e0a-8ea91bc4b4b9",
+    "inediblePart": 0,
+    "landOccupation": 1.4019,
+    "location": "GLO",
+    "name": "Maïs doux, surgelé, cru BIO",
+    "processId": "e230e270-9008-447f-9a89-6431d8fc4e5a",
+    "rawToCookedRatio": 1.0,
+    "scenario": "organic",
+    "transportCooling": "always",
+    "visible": true
   },
   {
     "activityName": "Kiwi FR, conventional, national average, at orchard {FR} U",
@@ -5114,7 +5122,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Winter pea, conventional, 15% moisture, at farm gate {FR} U",
@@ -5196,7 +5204,6 @@
     "visible": false
   },
   {
-<<<<<<< HEAD
     "activityName": "Brie cheese, variant 2, CMAPS {GLO} U",
     "alias": "brie-cheese-default",
     "categories": [
@@ -5210,10 +5217,35 @@
     "inediblePart": 0,
     "landOccupation": 49.973,
     "location": "GLO",
-    "name": "Brie, sans précision Origine Inconnue",
+    "name": "Fromage à pâte molle à croûte fleurie Origine inconnue",
     "processId": "68ee04e1-5112-4c87-8fc4-6aa1f7ac04c2",
     "rawToCookedRatio": 1.0,
-=======
+    "scenario": "import",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
+    "activityName": "Goat cheese, fresh to aged, CMAPS {GLO} U",
+    "alias": "goat-cheese-fresh-to-aged-default",
+    "categories": [
+      "dairy_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
+    "density": 1.0,
+    "ecosystemicServices": null,
+    "id": "25870e14-1fc4-4ba3-bf2a-feecb8619b7f",
+    "inediblePart": 0,
+    "landOccupation": 16.786,
+    "location": "GLO",
+    "name": "Fromage de chèvre (frais, bûche, affiné, pasteurisé, crottin) Origine Inconnue",
+    "processId": "fae0d7f6-06a0-4baf-9eba-61b95acd9500",
+    "rawToCookedRatio": 1.0,
+    "scenario": "import",
+    "transportCooling": "always",
+    "visible": false
+  },
+  {
     "activityName": "Durum wheat grain, at farm {ES} - Adapted from WFLDB U",
     "alias": "spelt-eu",
     "categories": [
@@ -5256,33 +5288,11 @@
     "name": "Œuf UE",
     "processId": "001c68f3-e5ba-5f66-84e4-13594098e02a",
     "rawToCookedRatio": 0.974,
->>>>>>> master
     "scenario": "import",
     "transportCooling": "always",
     "visible": true
   },
   {
-<<<<<<< HEAD
-    "activityName": "Goat cheese, fresh to aged, CMAPS {GLO} U",
-    "alias": "goat-cheese-fresh-to-aged-default",
-    "categories": [
-      "dairy_product"
-    ],
-    "cropGroup": null,
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 1.0,
-    "ecosystemicServices": null,
-    "id": "25870e14-1fc4-4ba3-bf2a-feecb8619b7f",
-    "inediblePart": 0,
-    "landOccupation": 16.786,
-    "location": "GLO",
-    "name": "Fromage de chèvre (frais, bûche, affiné, pasteurisé, crottin) Origine Inconnue",
-    "processId": "fae0d7f6-06a0-4baf-9eba-61b95acd9500",
-    "rawToCookedRatio": 1.0,
-    "scenario": "import",
-    "transportCooling": "always",
-    "visible": false
-=======
     "activityName": "Tomato, fresh grade {ES}| tomato production, fresh grade, in unheated greenhouse | Cut-off, U - Copied from Ecoinvent U",
     "alias": "gherkin-eu",
     "categories": [
@@ -5307,7 +5317,6 @@
     "scenario": "import",
     "transportCooling": "always",
     "visible": true
->>>>>>> master
   },
   {
     "activityName": "Peach, at farm (WFLDB)",
@@ -5354,12 +5363,12 @@
     "inediblePart": 0,
     "landOccupation": 0.0064712,
     "location": "GLO",
-    "name": "Purée - Figue (CMAPS) FR",
+    "name": "Purée de figue FR",
     "processId": "da942b84-4bbd-4901-8d0c-c56ec2b59d55",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Parmesan cheese, variant 2, CMAPS {GLO} U",
@@ -5428,7 +5437,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Durum wheat grain, conventional, national average, at farm gate {FR} U",
@@ -5739,32 +5748,6 @@
     "visible": true
   },
   {
-<<<<<<< HEAD
-    "activityName": "Brie cheese, variant 1, CMAPS {GLO} U",
-    "alias": "brie-cheese-fr",
-    "categories": [
-      "dairy_product"
-    ],
-    "cropGroup": null,
-    "defaultOrigin": "France",
-    "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 3.52,
-      "permanentPasture": 0.646,
-      "plotSize": 3.29
-    },
-    "id": "2a571c02-23f1-4908-afa6-7b8e20e24488",
-    "inediblePart": 0,
-    "landOccupation": 4.6322,
-    "location": "GLO",
-    "name": "Brie, sans précision FR",
-    "processId": "de6b9233-0ce8-41c2-bc93-ccb87f4f15fe",
-    "rawToCookedRatio": 1.0,
-    "scenario": "reference",
-    "transportCooling": "always",
-    "visible": false
-=======
     "activityName": "Cauliflower, conventional, national average, at farm gate {FR} U",
     "alias": "green-cabbage-eu",
     "categories": [
@@ -5787,6 +5770,32 @@
     "processId": "713f3426-7d8c-5b26-b7c0-98cb92ed0ab7",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
+    "activityName": "Brie cheese, variant 1, CMAPS {GLO} U",
+    "alias": "brie-cheese-fr",
+    "categories": [
+      "dairy_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 3.52,
+      "permanentPasture": 0.646,
+      "plotSize": 3.29
+    },
+    "id": "2a571c02-23f1-4908-afa6-7b8e20e24488",
+    "inediblePart": 0,
+    "landOccupation": 4.6322,
+    "location": "GLO",
+    "name": "Fromage à pâte molle à croûte fleurie FR",
+    "processId": "de6b9233-0ce8-41c2-bc93-ccb87f4f15fe",
+    "rawToCookedRatio": 1.0,
+    "scenario": "reference",
     "transportCooling": "always",
     "visible": true
   },
@@ -5815,7 +5824,6 @@
     "scenario": "import",
     "transportCooling": "none",
     "visible": true
->>>>>>> master
   },
   {
     "activityName": "Celery {GLO}| 675 production | Cut-off, U - Adapted from Ecoinvent U",
@@ -6024,7 +6032,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Lupin, organic 2025, national average, at farm gate, production {FR} U",
@@ -6282,7 +6290,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Raspberry juice, CMAPS {GLO} U",
@@ -6303,12 +6311,12 @@
     "inediblePart": 0,
     "landOccupation": 3.0386,
     "location": "GLO",
-    "name": "Jus - Framboise (CMAPS) FR",
+    "name": "Jus de framboise FR",
     "processId": "6dde8cdb-2308-4fb5-86e2-f4b7beb68d81",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Mineral water, still, PET one-way, 1.5 L, at water factory {FR} - Adapted from WFLDB U",
@@ -6670,7 +6678,7 @@
     "inediblePart": 0,
     "landOccupation": 0.057597,
     "location": "GLO",
-    "name": "Noix, décortiquée, fraîche ou sèche FR BIO",
+    "name": "Noix, décortiquée, fraîche ou sèche BIO",
     "processId": "4ef9c8ab-fe0d-4ccb-80a5-b01bc99f949b",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
@@ -6910,54 +6918,6 @@
     "visible": false
   },
   {
-<<<<<<< HEAD
-    "activityName": "Soft wheat flour, organic, CMAPS {GLO} U",
-    "alias": "soft-wheat-flour-fr-organic",
-    "categories": [
-      "grain_processed",
-      "organic"
-    ],
-    "cropGroup": "BLE TENDRE",
-    "defaultOrigin": "France",
-    "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 8.4,
-      "hedges": 1.18,
-      "permanentPasture": null,
-      "plotSize": 1.75
-    },
-    "id": "3436324c-7835-4e9b-86c6-e9ca68a5e2af",
-    "inediblePart": 0,
-    "landOccupation": 3.5003,
-    "location": "GLO",
-    "name": "Farine de blé tendre, froment ou millet FR BIO",
-    "processId": "d623f9e8-7935-4249-827b-076c70d19192",
-    "rawToCookedRatio": 1.0,
-    "scenario": "organic",
-    "transportCooling": "always",
-    "visible": false
-  },
-  {
-    "activityName": "Pork, boneless raw, CMAPS {GLO} U",
-    "alias": "pork-boneless-raw-fr",
-    "categories": [
-      "animal_product"
-    ],
-    "cropGroup": null,
-    "defaultOrigin": "France",
-    "density": 1.0,
-    "ecosystemicServices": null,
-    "id": "343bbf40-2f01-4bd7-bfd5-ecc8a6b61df5",
-    "inediblePart": 0,
-    "landOccupation": 6.4202,
-    "location": "GLO",
-    "name": "Pièces de porc, désossée, crue (poitrine, longe, jarret, cote, rouelle, carre, filet, roti, palette, jambonneau, escalope, travers, échine) FR",
-    "processId": "9c6d8e85-7368-452f-bf95-685f084992bc",
-    "rawToCookedRatio": 1.0,
-    "scenario": "reference",
-    "transportCooling": "always",
-    "visible": false
-=======
     "activityName": "Soybean {CH}| soybean production | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "soybean-eu",
     "categories": [
@@ -6982,7 +6942,54 @@
     "scenario": "import",
     "transportCooling": "none",
     "visible": true
->>>>>>> master
+  },
+  {
+    "activityName": "Soft wheat flour, organic, CMAPS {GLO} U",
+    "alias": "soft-wheat-flour-fr-organic",
+    "categories": [
+      "grain_processed",
+      "organic"
+    ],
+    "cropGroup": "BLE TENDRE",
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": {
+      "cropDiversity": 8.4,
+      "hedges": 1.18,
+      "permanentPasture": null,
+      "plotSize": 1.75
+    },
+    "id": "3436324c-7835-4e9b-86c6-e9ca68a5e2af",
+    "inediblePart": 0,
+    "landOccupation": 3.5003,
+    "location": "GLO",
+    "name": "Farine de blé tendre, froment ou millet Bio",
+    "processId": "d623f9e8-7935-4249-827b-076c70d19192",
+    "rawToCookedRatio": 1.0,
+    "scenario": "organic",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
+    "activityName": "Pork, boneless raw, CMAPS {GLO} U",
+    "alias": "pork-boneless-raw-fr",
+    "categories": [
+      "animal_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": null,
+    "id": "343bbf40-2f01-4bd7-bfd5-ecc8a6b61df5",
+    "inediblePart": 0,
+    "landOccupation": 6.4202,
+    "location": "GLO",
+    "name": "Pièces de porc, désossée, crue (poitrine, longe, jarret, cote, rouelle, carre, filet, roti, palette, jambonneau, escalope, travers, échine) FR",
+    "processId": "9c6d8e85-7368-452f-bf95-685f084992bc",
+    "rawToCookedRatio": 1.0,
+    "scenario": "reference",
+    "transportCooling": "always",
+    "visible": false
   },
   {
     "activityName": "Barley grain, non-irrigated, at farm {DE} - Adapted from WFLDB U",
@@ -7682,7 +7689,6 @@
     "visible": false
   },
   {
-<<<<<<< HEAD
     "activityName": "Mozzarella, cow milk, variant 2, CMAPS {GLO} U",
     "alias": "mozzarella-cow-milk-default",
     "categories": [
@@ -7699,7 +7705,11 @@
     "name": "Mozzarella au lait de vache Origine Inconnue",
     "processId": "cd275278-5182-4380-ae4b-c973f4401d13",
     "rawToCookedRatio": 1.0,
-=======
+    "scenario": "import",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
     "activityName": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "lima-bean-eu",
     "categories": [
@@ -7773,7 +7783,6 @@
     "name": "Grenade UE",
     "processId": "f7592bec-ae07-5381-b6fd-8fd2880088e7",
     "rawToCookedRatio": 0.856,
->>>>>>> master
     "scenario": "import",
     "transportCooling": "always",
     "visible": true
@@ -8381,7 +8390,7 @@
     "inediblePart": 0,
     "landOccupation": 64.837,
     "location": "GLO",
-    "name": "Gouda Origine Inconnue",
+    "name": "Fromage à pâte dure Origine inconnue",
     "processId": "0ed716c2-640d-43a0-95ad-c61fce669635",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
@@ -8408,7 +8417,7 @@
     "inediblePart": 0,
     "landOccupation": 2.0072,
     "location": "GLO",
-    "name": "Haricot flageolet, surgelé Origine Inconnue BIO",
+    "name": "Haricot flageolet, surgelé Bio",
     "processId": "db8184fe-6df2-44ad-bc81-e5655fb0959c",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
@@ -8752,7 +8761,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U",
@@ -8962,7 +8971,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Green bean, cut raw, organic, CMAPS {GLO} U",
@@ -8984,7 +8993,7 @@
     "inediblePart": 0,
     "landOccupation": 2.0367,
     "location": "GLO",
-    "name": "Haricot vert, découpé, cru FR BIO",
+    "name": "Haricot vert, découpé, cru BIO",
     "processId": "ab6a1764-3851-43df-82be-3bd24507068d",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
@@ -9064,12 +9073,12 @@
     "inediblePart": 0,
     "landOccupation": 1.2047,
     "location": "FR",
-    "name": "Purée - Figue (CMAPS) Origine Inconnue",
+    "name": "Purée de figue Origine Inconnue",
     "processId": "82c97409-bc40-4c24-bd7f-1b8acfa0121d",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Palm oil, refined, consumption mix {FR} U",
@@ -9142,7 +9151,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Orange nectar, recipe, at plant {FR} U",
@@ -9317,7 +9326,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Carrot, organic 2025, national average, at farm gate {FR} U",
@@ -9475,7 +9484,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
@@ -10019,7 +10028,6 @@
     "visible": true
   },
   {
-<<<<<<< HEAD
     "activityName": "Feta type cheese, sheep milk, CMAPS {GLO} U",
     "alias": "feta-type-cheese-sheep-milk-fr",
     "categories": [
@@ -10049,23 +10057,12 @@
     "cropGroup": "BLE TENDRE",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
-=======
-    "activityName": "Walnut, dried inshell, conventional, national average, at farm gate {FR} U",
-    "alias": "walnut-eu",
-    "categories": [
-      "nut_oilseed_raw"
-    ],
-    "cropGroup": "FRUITS A COQUES",
-    "defaultOrigin": "EuropeAndMaghreb",
-    "density": 0.5,
->>>>>>> master
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
       "permanentPasture": null,
       "plotSize": 0
     },
-<<<<<<< HEAD
     "id": "4e6c21ba-5a0f-40dd-a96e-98ad69443cdf",
     "inediblePart": 0,
     "landOccupation": 5.2775,
@@ -10075,7 +10072,23 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-=======
+    "visible": true
+  },
+  {
+    "activityName": "Walnut, dried inshell, conventional, national average, at farm gate {FR} U",
+    "alias": "walnut-eu",
+    "categories": [
+      "nut_oilseed_raw"
+    ],
+    "cropGroup": "FRUITS A COQUES",
+    "defaultOrigin": "EuropeAndMaghreb",
+    "density": 0.5,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0,
+      "permanentPasture": null,
+      "plotSize": 0
+    },
     "id": "4e996d8a-160a-5f73-a9b5-ace3b8f69369",
     "inediblePart": 0.5,
     "landOccupation": 0.038236,
@@ -10085,7 +10098,6 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "none",
->>>>>>> master
     "visible": true
   },
   {
@@ -10703,7 +10715,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Zucchini, autumn, under tunnel, conventional, at farm gate {FR} U",
@@ -10750,7 +10762,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Peanut, shelled, organic, CMAPS {GLO} U",
@@ -10881,7 +10893,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Oat grain {RoW}| oat production | Cut-off, U - Adapted from Ecoinvent U",
@@ -11037,7 +11049,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Bell pepper {FR}| bell pepper production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
@@ -11111,12 +11123,12 @@
     "inediblePart": 0,
     "landOccupation": 3.0386,
     "location": "GLO",
-    "name": "Jus - Framboise (CMAPS) Origine Inconnue",
+    "name": "Jus de framboise Origine Inconnue",
     "processId": "6dde8cdb-2308-4fb5-86e2-f4b7beb68d81",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Fruits puree, without sugar added, recipe, at plant {FR} U",
@@ -11810,7 +11822,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Kiwi {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
@@ -12016,7 +12028,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Diced mixed vegetables, canned, recipe, at plant {FR} U",
@@ -12582,7 +12594,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Pea, shelled raw, CMAPS {GLO} U",
@@ -12608,7 +12620,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Mandarin, at farm (WFLDB)",
@@ -12660,7 +12672,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Tomato, medium size, organic 2025, soil based, non-heated greenhouse, at greenhouse {FR} U",
@@ -12690,33 +12702,6 @@
     "visible": true
   },
   {
-<<<<<<< HEAD
-    "activityName": "Almond, shelled with skin, organic, CMAPS {GLO} U",
-    "alias": "almond-shelled-with-skin-default-organic",
-    "categories": [
-      "nut_oilseed_raw",
-      "organic"
-    ],
-    "cropGroup": "FRUITS A COQUES",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 3.49,
-      "permanentPasture": null,
-      "plotSize": 10.2
-    },
-    "id": "64e2c40d-0565-4247-ac68-e189d6a88204",
-    "inediblePart": 0,
-    "landOccupation": 11.624,
-    "location": "GLO",
-    "name": "Amande, décortiquée, avec peau Origine Inconnue BIO",
-    "processId": "9b516955-9c3a-47f0-9815-bb05131fe8ac",
-    "rawToCookedRatio": 1.0,
-    "scenario": "organic",
-    "transportCooling": "none",
-    "visible": false
-=======
     "activityName": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "red-bean-dried-eu",
     "categories": [
@@ -12741,7 +12726,33 @@
     "scenario": "import",
     "transportCooling": "none",
     "visible": true
->>>>>>> master
+  },
+  {
+    "activityName": "Almond, shelled with skin, organic, CMAPS {GLO} U",
+    "alias": "almond-shelled-with-skin-default-organic",
+    "categories": [
+      "nut_oilseed_raw",
+      "organic"
+    ],
+    "cropGroup": "FRUITS A COQUES",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
+    "density": 1.0,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 3.49,
+      "permanentPasture": null,
+      "plotSize": 10.2
+    },
+    "id": "64e2c40d-0565-4247-ac68-e189d6a88204",
+    "inediblePart": 0,
+    "landOccupation": 11.624,
+    "location": "GLO",
+    "name": "Amande, décortiquée, avec peau BIO",
+    "processId": "9b516955-9c3a-47f0-9815-bb05131fe8ac",
+    "rawToCookedRatio": 1.0,
+    "scenario": "organic",
+    "transportCooling": "none",
+    "visible": true
   },
   {
     "activityName": "Sodium chloride, powder {GLO}| market for | Cut-off, S - Copied from Ecoinvent U",
@@ -13255,7 +13266,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Carrot, organic 2025, national average, at farm gate {FR} U",
@@ -13689,7 +13700,7 @@
     "inediblePart": 0,
     "landOccupation": 19.726,
     "location": "GLO",
-    "name": "Pièce de volaille et lapin, désossée, crue (poulet, dinde, chapon, canard, oie, lapin) FR BIO",
+    "name": "Pièce de volaille et lapin, désossée, crue (poulet, dinde, chapon, canard, oie, lapin) BIO",
     "processId": "efa0babd-b4eb-491d-8e6c-572aefeaf442",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
@@ -13872,7 +13883,7 @@
     "inediblePart": 0,
     "landOccupation": 2.5915,
     "location": "FR",
-    "name": "Purée - Prune (CMAPS) Origine Inconnue",
+    "name": "Purée de prune Origine Inconnue",
     "processId": "7cdb00fc-10d6-4ad5-8759-93e879267192",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
@@ -14254,7 +14265,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Black pepper, conventional, at farm gate {VN} U",
@@ -14283,7 +14294,6 @@
     "visible": true
   },
   {
-<<<<<<< HEAD
     "activityName": "Carrot, cut raw, CMAPS {GLO} U",
     "alias": "carrot-cut-raw-fr",
     "categories": [
@@ -14307,7 +14317,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Dairy spread, 20pct fat, variant 1, CMAPS {GLO} U",
@@ -14333,7 +14343,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Munster cheese, variant 1, CMAPS {GLO} U",
@@ -14359,8 +14369,9 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
-=======
+    "visible": true
+  },
+  {
     "activityName": "Linseed seed, at farm {CH}| linseed seed production, at farm | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "poppy-seed-eu",
     "categories": [
@@ -14385,7 +14396,6 @@
     "scenario": "import",
     "transportCooling": "none",
     "visible": true
->>>>>>> master
   },
   {
     "activityName": "Lamb, organic, national average, at farm gate FR U",
@@ -14543,7 +14553,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Emmental cheese, from cow's milk, at plant {FR} U",
@@ -14567,32 +14577,6 @@
     "visible": true
   },
   {
-<<<<<<< HEAD
-    "activityName": "Lettuce, cut washed raw, variant 1, CMAPS {GLO} U",
-    "alias": "lettuce-cut-washed-raw-fr",
-    "categories": [
-      "vegetable_fresh"
-    ],
-    "cropGroup": "LEGUMES-FLEURS",
-    "defaultOrigin": "France",
-    "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0.0401,
-      "permanentPasture": null,
-      "plotSize": 0.1
-    },
-    "id": "747506c6-3907-4b45-af41-2a0ed04c6f59",
-    "inediblePart": 0,
-    "landOccupation": 0.16022,
-    "location": "GLO",
-    "name": "Salade crue, découpée, nettoyée (laitue, mache, mesclun, jeunes pousses, scarole, pissenlit, roquette, cresson) FR",
-    "processId": "3d8ad82d-2709-4789-8226-162133ea2ba8",
-    "rawToCookedRatio": 1.0,
-    "scenario": "reference",
-    "transportCooling": "always",
-    "visible": false
-=======
     "activityName": "Apricot {ES}| apricot production | Cut-off, U",
     "alias": "apricot-eu",
     "categories": [
@@ -14617,7 +14601,32 @@
     "scenario": "import",
     "transportCooling": "always",
     "visible": true
->>>>>>> master
+  },
+  {
+    "activityName": "Lettuce, cut washed raw, variant 1, CMAPS {GLO} U",
+    "alias": "lettuce-cut-washed-raw-fr",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "cropGroup": "LEGUMES-FLEURS",
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0.0401,
+      "permanentPasture": null,
+      "plotSize": 0.1
+    },
+    "id": "747506c6-3907-4b45-af41-2a0ed04c6f59",
+    "inediblePart": 0,
+    "landOccupation": 0.16022,
+    "location": "GLO",
+    "name": "Salade crue, découpée, nettoyée (laitue, mache, mesclun, jeunes pousses, scarole, pissenlit, roquette, cresson) FR",
+    "processId": "3d8ad82d-2709-4789-8226-162133ea2ba8",
+    "rawToCookedRatio": 1.0,
+    "scenario": "reference",
+    "transportCooling": "always",
+    "visible": false
   },
   {
     "activityName": "Clementine, export quality, Souss, at orchard {MA} U",
@@ -14770,7 +14779,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Mint, at farm (WFLDB)",
@@ -15244,7 +15253,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Cherry, conventional, national average, at orchard {FR} U",
@@ -15401,7 +15410,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Mandarin {ES}| mandarin production | Cut-off, U - Adapted from Ecoinvent U",
@@ -15430,7 +15439,6 @@
     "visible": true
   },
   {
-<<<<<<< HEAD
     "activityName": "Hazelnut, shelled, import WFLDB, CMAPS {GLO} U",
     "alias": "hazelnut-shelled-default",
     "categories": [
@@ -15439,23 +15447,12 @@
     "cropGroup": "FRUITS A COQUES",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
-=======
-    "activityName": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "mung-bean-sprouted-eu",
-    "categories": [
-      "vegetable_fresh"
-    ],
-    "cropGroup": "LEGUMINEUSES A GRAIN",
-    "defaultOrigin": "EuropeAndMaghreb",
-    "density": 0.8,
->>>>>>> master
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
       "permanentPasture": null,
       "plotSize": 0
     },
-<<<<<<< HEAD
     "id": "79b53a3e-0cad-4a78-a779-a6e88e1549b7",
     "inediblePart": 0,
     "landOccupation": 6.7012,
@@ -15491,10 +15488,23 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
-=======
+    "activityName": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
+    "alias": "mung-bean-sprouted-eu",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "cropGroup": "LEGUMINEUSES A GRAIN",
+    "defaultOrigin": "EuropeAndMaghreb",
+    "density": 0.8,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0,
+      "permanentPasture": null,
+      "plotSize": 0
+    },
     "id": "79cd73a5-7b3c-5ac0-b6af-87d8562438b3",
     "inediblePart": 0.2,
     "landOccupation": 2.8021,
@@ -15507,7 +15517,6 @@
     "visible": true
   },
   {
->>>>>>> master
     "activityName": "European pilchard or sardine, consumption mix {FR} U",
     "alias": "sardine-non-eu-2025",
     "categories": [
@@ -15762,7 +15771,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Blackberry, at farm {RS} - Adapted from WFLDB U",
@@ -15970,7 +15979,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Mixt pig, conventional, national average, at farm gate {FR} U {{bacon-default-2025}}",
@@ -15994,7 +16003,6 @@
     "visible": false
   },
   {
-<<<<<<< HEAD
     "activityName": "Peanut, shelled, import WFLDB, CMAPS {GLO} U",
     "alias": "peanut-shelled-default",
     "categories": [
@@ -16003,7 +16011,24 @@
     "cropGroup": "AUTRES OLEAGINEUX",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
-=======
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0,
+      "permanentPasture": null,
+      "plotSize": 0
+    },
+    "id": "7dd4caa8-d883-457c-a468-3107c4e55f20",
+    "inediblePart": 0,
+    "landOccupation": 22.744,
+    "location": "GLO",
+    "name": "Cacahuète ou Arachide décortiquée (cuites, grillées, salées, bouilles) Origine Inconnue",
+    "processId": "00856128-a71b-4bdf-9bdf-bbd80907be02",
+    "rawToCookedRatio": 1.0,
+    "scenario": "import",
+    "transportCooling": "none",
+    "visible": true
+  },
+  {
     "activityName": "Snail, wild {RO} U",
     "alias": "snail-eu",
     "categories": [
@@ -16033,25 +16058,12 @@
     "cropGroup": "LEGUMINEUSES A GRAIN",
     "defaultOrigin": "EuropeAndMaghreb",
     "density": 0.8,
->>>>>>> master
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
       "permanentPasture": null,
       "plotSize": 0
     },
-<<<<<<< HEAD
-    "id": "7dd4caa8-d883-457c-a468-3107c4e55f20",
-    "inediblePart": 0,
-    "landOccupation": 22.744,
-    "location": "GLO",
-    "name": "Cacahuète ou Arachide décortiquée (cuites, grillées, salées, bouilles) Origine Inconnue",
-    "processId": "00856128-a71b-4bdf-9bdf-bbd80907be02",
-    "rawToCookedRatio": 1.0,
-    "scenario": "import",
-    "transportCooling": "none",
-    "visible": false
-=======
     "id": "7e41f2c4-1a95-5b50-acc3-a6370a10a575",
     "inediblePart": 0.4,
     "landOccupation": 2.8776,
@@ -16062,7 +16074,6 @@
     "scenario": "import",
     "transportCooling": "always",
     "visible": true
->>>>>>> master
   },
   {
     "activityName": "Carrot, organic, Lower Normandy, at farm gate {FR} U",
@@ -16289,7 +16300,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Pineapple, pulp raw, variant 2, CMAPS {GLO} U",
@@ -16821,7 +16832,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Lettuce, conventional, national average, at farm gate {FR} U",
@@ -16869,7 +16880,7 @@
     "inediblePart": 0,
     "landOccupation": 7.1404,
     "location": "GLO",
-    "name": "Farine d'avoine (CMAPS) Origine Inconnue BIO",
+    "name": "Farine d'avoine Origine Inconnue BIO",
     "processId": "9cb40ed1-169b-4cfb-9f8d-9ab55397f8c7",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
@@ -17088,7 +17099,6 @@
     "visible": true
   },
   {
-<<<<<<< HEAD
     "activityName": "Flageolet bean, frozen, variant 1, CMAPS {GLO} U",
     "alias": "flageolet-bean-frozen-fr",
     "categories": [
@@ -17112,8 +17122,9 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
-=======
+    "visible": true
+  },
+  {
     "activityName": "Clementine, export quality, Souss, at orchard {MA} U",
     "alias": "clementine-eu",
     "categories": [
@@ -17138,7 +17149,6 @@
     "scenario": "import",
     "transportCooling": "always",
     "visible": true
->>>>>>> master
   },
   {
     "activityName": "Lemon, at farm, organic 2025 {IT} U",
@@ -17293,7 +17303,6 @@
     "visible": true
   },
   {
-<<<<<<< HEAD
     "activityName": "White bean, canned drained, CMAPS {GLO} U",
     "alias": "white-bean-canned-drained-default",
     "categories": [
@@ -17302,23 +17311,12 @@
     "cropGroup": "LEGUMES-FLEURS",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
-=======
-    "activityName": "Blackberry, at farm {RS} - Adapted from WFLDB U",
-    "alias": "black-mulberry-eu",
-    "categories": [
-      "vegetable_fresh"
-    ],
-    "cropGroup": "VERGERS",
-    "defaultOrigin": "EuropeAndMaghreb",
-    "density": 0.85,
->>>>>>> master
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
       "permanentPasture": null,
       "plotSize": 0
     },
-<<<<<<< HEAD
     "id": "882c0d42-7f99-4ff5-ae5f-85277082e5f7",
     "inediblePart": 0,
     "landOccupation": 1.443,
@@ -17328,7 +17326,33 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": false
+    "visible": true
+  },
+  {
+    "activityName": "Blackberry, at farm {RS} - Adapted from WFLDB U",
+    "alias": "black-mulberry-eu",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "cropGroup": "VERGERS",
+    "defaultOrigin": "EuropeAndMaghreb",
+    "density": 0.85,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0,
+      "permanentPasture": null,
+      "plotSize": 0
+    },
+    "id": "88560f03-2a46-523b-9533-a168444e9b44",
+    "inediblePart": 0.2,
+    "landOccupation": 1.9545,
+    "location": "RS",
+    "name": "Mûre noire UE",
+    "processId": "7a9c6980-07aa-5776-ba8f-ac0c1e193cb9",
+    "rawToCookedRatio": 0.856,
+    "scenario": "import",
+    "transportCooling": "always",
+    "visible": true
   },
   {
     "activityName": "Lettuce, cut washed raw, organic, CMAPS {GLO} U",
@@ -17356,18 +17380,6 @@
     "scenario": "organic",
     "transportCooling": "always",
     "visible": false
-=======
-    "id": "88560f03-2a46-523b-9533-a168444e9b44",
-    "inediblePart": 0.2,
-    "landOccupation": 1.9545,
-    "location": "RS",
-    "name": "Mûre noire UE",
-    "processId": "7a9c6980-07aa-5776-ba8f-ac0c1e193cb9",
-    "rawToCookedRatio": 0.856,
-    "scenario": "import",
-    "transportCooling": "always",
-    "visible": true
->>>>>>> master
   },
   {
     "activityName": "Cocoa powder, consumption mix {FR} U",
@@ -17527,31 +17539,6 @@
     "visible": true
   },
   {
-<<<<<<< HEAD
-    "activityName": "Apricot, pitted raw, organic, CMAPS {GLO} U",
-    "alias": "apricot-pitted-raw-fr-organic",
-    "categories": [
-      "vegetable_fresh",
-      "organic"
-    ],
-    "cropGroup": "VERGERS",
-    "defaultOrigin": "France",
-    "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0.647,
-      "hedges": 0.736,
-      "permanentPasture": null,
-      "plotSize": 0.901
-    },
-    "id": "88ec9863-d7f0-45b2-9d26-85f11fffe518",
-    "inediblePart": 0,
-    "landOccupation": 1.0302,
-    "location": "GLO",
-    "name": "Abricot, dénoyauté, cru FR BIO",
-    "processId": "77ad9d8c-b7dc-4062-ada8-fdc47d7e5d86",
-    "rawToCookedRatio": 1.0,
-    "scenario": "organic",
-=======
     "activityName": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "turnip-eu",
     "categories": [
@@ -17574,7 +17561,33 @@
     "processId": "ee211d20-de3c-5a1f-bf56-8588c12abafb",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
->>>>>>> master
+    "transportCooling": "always",
+    "visible": false
+  },
+  {
+    "activityName": "Apricot, pitted raw, organic, CMAPS {GLO} U",
+    "alias": "apricot-pitted-raw-fr-organic",
+    "categories": [
+      "vegetable_fresh",
+      "organic"
+    ],
+    "cropGroup": "VERGERS",
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": {
+      "cropDiversity": 0.647,
+      "hedges": 0.736,
+      "permanentPasture": null,
+      "plotSize": 0.901
+    },
+    "id": "88ec9863-d7f0-45b2-9d26-85f11fffe518",
+    "inediblePart": 0,
+    "landOccupation": 1.0302,
+    "location": "GLO",
+    "name": "Abricot, dénoyauté, cru BIO",
+    "processId": "77ad9d8c-b7dc-4062-ada8-fdc47d7e5d86",
+    "rawToCookedRatio": 1.0,
+    "scenario": "organic",
     "transportCooling": "always",
     "visible": false
   },
@@ -18038,7 +18051,7 @@
     "inediblePart": 0,
     "landOccupation": 5.5672,
     "location": "GLO",
-    "name": "Jus - Framboise (CMAPS) Origine Inconnue BIO",
+    "name": "Jus Framboise Origine Inconnue BIO",
     "processId": "26e83cf0-279b-4698-a19c-fbbbeed8df30",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
@@ -18353,32 +18366,6 @@
     "visible": true
   },
   {
-<<<<<<< HEAD
-    "activityName": "Fromage blanc, 8pct fat, variant 1, CMAPS {GLO} U",
-    "alias": "fromage-blanc-8pct-fat-fr",
-    "categories": [
-      "dairy_product"
-    ],
-    "cropGroup": null,
-    "defaultOrigin": "France",
-    "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 1.52,
-      "permanentPasture": 0.279,
-      "plotSize": 1.42
-    },
-    "id": "916bbf16-8e30-441b-a97d-645f5957d227",
-    "inediblePart": 0,
-    "landOccupation": 2.003,
-    "location": "GLO",
-    "name": "Fromage blanc nature, gourmand, 8% MG environ FR",
-    "processId": "32df9dcf-0eed-4203-8460-e24b2cb39177",
-    "rawToCookedRatio": 1.0,
-    "scenario": "reference",
-    "transportCooling": "always",
-    "visible": false
-=======
     "activityName": "Mustard, proxy from Rape seed {Canada without Quebec}| rape seed production | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "mustard-seed-eu",
     "categories": [
@@ -18403,7 +18390,32 @@
     "scenario": "import",
     "transportCooling": "none",
     "visible": true
->>>>>>> master
+  },
+  {
+    "activityName": "Fromage blanc, 8pct fat, variant 1, CMAPS {GLO} U",
+    "alias": "fromage-blanc-8pct-fat-fr",
+    "categories": [
+      "dairy_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 1.52,
+      "permanentPasture": 0.279,
+      "plotSize": 1.42
+    },
+    "id": "916bbf16-8e30-441b-a97d-645f5957d227",
+    "inediblePart": 0,
+    "landOccupation": 2.003,
+    "location": "GLO",
+    "name": "Fromage blanc nature, gourmand, 8% MG environ FR",
+    "processId": "32df9dcf-0eed-4203-8460-e24b2cb39177",
+    "rawToCookedRatio": 1.0,
+    "scenario": "reference",
+    "transportCooling": "always",
+    "visible": true
   },
   {
     "activityName": "Durum wheat grain, conventional, national average, at farm gate {FR} U",
@@ -18768,32 +18780,6 @@
     "visible": true
   },
   {
-<<<<<<< HEAD
-    "activityName": "Dairy spread, 25pct fat, variant 1, CMAPS {GLO} U",
-    "alias": "dairy-spread-25pct-fat-fr",
-    "categories": [
-      "dairy_product"
-    ],
-    "cropGroup": null,
-    "defaultOrigin": "France",
-    "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 2.32,
-      "permanentPasture": 0.425,
-      "plotSize": 2.17
-    },
-    "id": "957dbc02-b83a-43a1-b55d-ca503f9ab4a9",
-    "inediblePart": 0,
-    "landOccupation": 3.0552,
-    "location": "GLO",
-    "name": "Matière grasse laitière à 25% MG, légère, \"à tartiner\", doux FR",
-    "processId": "f4b18162-4ee3-4e72-9f53-d922fe6f025e",
-    "rawToCookedRatio": 1.0,
-    "scenario": "reference",
-    "transportCooling": "always",
-    "visible": false
-=======
     "activityName": "Mango, at farm (WFLDB)",
     "alias": "breadfruit-eu",
     "categories": [
@@ -18818,7 +18804,32 @@
     "scenario": "import",
     "transportCooling": "always",
     "visible": true
->>>>>>> master
+  },
+  {
+    "activityName": "Dairy spread, 25pct fat, variant 1, CMAPS {GLO} U",
+    "alias": "dairy-spread-25pct-fat-fr",
+    "categories": [
+      "dairy_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 2.32,
+      "permanentPasture": 0.425,
+      "plotSize": 2.17
+    },
+    "id": "957dbc02-b83a-43a1-b55d-ca503f9ab4a9",
+    "inediblePart": 0,
+    "landOccupation": 3.0552,
+    "location": "GLO",
+    "name": "Matière grasse laitière à 25% MG, légère, \"à tartiner\", doux FR",
+    "processId": "f4b18162-4ee3-4e72-9f53-d922fe6f025e",
+    "rawToCookedRatio": 1.0,
+    "scenario": "reference",
+    "transportCooling": "always",
+    "visible": true
   },
   {
     "activityName": "Wheat grain {US}| wheat grain production | Cut-off, U",
@@ -19340,7 +19351,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Sugar, from sugarcane, at sugar refinery {GLO} - Adapted from WFLDB U",
@@ -19575,15 +19586,6 @@
     "visible": true
   },
   {
-<<<<<<< HEAD
-    "activityName": "Rice flour, CMAPS {FR} U",
-    "alias": "rice-flour-default",
-    "categories": [
-      "grain_processed"
-    ],
-    "cropGroup": "RIZ",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-=======
     "activityName": "Kiwi FR, conventional, national average, at orchard {FR} U",
     "alias": "kiwi-eu",
     "categories": [
@@ -19591,7 +19593,6 @@
     ],
     "cropGroup": "VERGERS",
     "defaultOrigin": "EuropeAndMaghreb",
->>>>>>> master
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -19599,15 +19600,6 @@
       "permanentPasture": null,
       "plotSize": 0
     },
-<<<<<<< HEAD
-    "id": "9db59fb1-143d-420d-a0b8-a5887c6def60",
-    "inediblePart": 0,
-    "landOccupation": 1.4089,
-    "location": "FR",
-    "name": "Farine de riz Origine Inconnue",
-    "processId": "9ce352b8-1e6c-45bb-b820-d3f9e159a63a",
-    "rawToCookedRatio": 1.0,
-=======
     "id": "9dadb94e-4b4a-57ac-a4c9-9b02b586e904",
     "inediblePart": 0.2,
     "landOccupation": 0.13996,
@@ -19615,7 +19607,32 @@
     "name": "Kiwi UE",
     "processId": "56cd1f16-f2d4-5c4a-a6ba-4a2e3321914e",
     "rawToCookedRatio": 0.856,
->>>>>>> master
+    "scenario": "import",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
+    "activityName": "Rice flour, CMAPS {FR} U",
+    "alias": "rice-flour-default",
+    "categories": [
+      "grain_processed"
+    ],
+    "cropGroup": "RIZ",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
+    "density": 1.0,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0,
+      "permanentPasture": null,
+      "plotSize": 0
+    },
+    "id": "9db59fb1-143d-420d-a0b8-a5887c6def60",
+    "inediblePart": 0,
+    "landOccupation": 1.4089,
+    "location": "FR",
+    "name": "Farine de riz Origine Inconnue",
+    "processId": "9ce352b8-1e6c-45bb-b820-d3f9e159a63a",
+    "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
     "visible": true
@@ -19789,7 +19806,6 @@
     "visible": true
   },
   {
-<<<<<<< HEAD
     "activityName": "Butter, 82pct fat, variant 2, CMAPS {GLO} U",
     "alias": "butter-82pct-fat-default",
     "categories": [
@@ -19806,7 +19822,11 @@
     "name": "Beurre à 82% MG ou huile de beurre Origine Inconnue",
     "processId": "66c53478-f219-4c5a-984f-7bf6c663ffde",
     "rawToCookedRatio": 1.0,
-=======
+    "scenario": "import",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
     "activityName": "Winter pea, conventional, 15% moisture, at farm gate {FR} U",
     "alias": "pea-with-pod-eu",
     "categories": [
@@ -19828,7 +19848,6 @@
     "name": "Pois, avec leurs cosses UE",
     "processId": "36c495e5-0aca-5c53-bfaf-b9a3ba061964",
     "rawToCookedRatio": 0.856,
->>>>>>> master
     "scenario": "import",
     "transportCooling": "always",
     "visible": true
@@ -20299,7 +20318,6 @@
     "visible": true
   },
   {
-<<<<<<< HEAD
     "activityName": "Cheddar cheese, variant 1, CMAPS {GLO} U",
     "alias": "cheddar-cheese-fr",
     "categories": [
@@ -20323,35 +20341,9 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
-    "activityName": "Strawberry, frozen raw, organic, CMAPS {GLO} U",
-    "alias": "strawberry-frozen-raw-fr-organic",
-    "categories": [
-      "vegetable_processed",
-      "organic"
-    ],
-    "cropGroup": "VERGERS",
-    "defaultOrigin": "France",
-    "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0.752,
-      "hedges": 0.856,
-      "permanentPasture": null,
-      "plotSize": 1.05
-    },
-    "id": "a5605eb7-2bb1-48a0-8d9e-c4affe990c7b",
-    "inediblePart": 0,
-    "landOccupation": 1.1981,
-    "location": "GLO",
-    "name": "Fraise, crue, surgelé FR BIO",
-    "processId": "c3925c6f-7d19-4458-9d13-991459ce6078",
-    "rawToCookedRatio": 1.0,
-    "scenario": "organic",
-    "transportCooling": "always",
-    "visible": false
-=======
     "activityName": "Broccoli {CH}| broccoli production, conventional, plain region | Cut-off, U",
     "alias": "broccoli-eu",
     "categories": [
@@ -20376,7 +20368,33 @@
     "scenario": "import",
     "transportCooling": "always",
     "visible": true
->>>>>>> master
+  },
+  {
+    "activityName": "Strawberry, frozen raw, organic, CMAPS {GLO} U",
+    "alias": "strawberry-frozen-raw-fr-organic",
+    "categories": [
+      "vegetable_processed",
+      "organic"
+    ],
+    "cropGroup": "VERGERS",
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": {
+      "cropDiversity": 0.752,
+      "hedges": 0.856,
+      "permanentPasture": null,
+      "plotSize": 1.05
+    },
+    "id": "a5605eb7-2bb1-48a0-8d9e-c4affe990c7b",
+    "inediblePart": 0,
+    "landOccupation": 1.1981,
+    "location": "GLO",
+    "name": "Fraise, crue, surgelé BIO",
+    "processId": "c3925c6f-7d19-4458-9d13-991459ce6078",
+    "rawToCookedRatio": 1.0,
+    "scenario": "organic",
+    "transportCooling": "always",
+    "visible": true
   },
   {
     "activityName": "French bean, conventional, national average, at farm gate {FR} U",
@@ -20504,7 +20522,6 @@
     "visible": true
   },
   {
-<<<<<<< HEAD
     "activityName": "Peach, pulp and skin raw, CMAPS {GLO} U",
     "alias": "peach-pulp-and-skin-raw-fr",
     "categories": [
@@ -20528,8 +20545,9 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
-=======
+    "visible": true
+  },
+  {
     "activityName": "Durum wheat grain, at farm {GR} - Adapted from WFLDB U",
     "alias": "millet-whole-eu",
     "categories": [
@@ -20554,7 +20572,6 @@
     "scenario": "import",
     "transportCooling": "none",
     "visible": true
->>>>>>> master
   },
   {
     "activityName": "Apple, at farm (WFLDB)",
@@ -20662,7 +20679,6 @@
     "visible": true
   },
   {
-<<<<<<< HEAD
     "activityName": "Cucumber, pulp raw, CMAPS {GLO} U",
     "alias": "cucumber-pulp-raw-fr",
     "categories": [
@@ -20689,15 +20705,6 @@
     "visible": false
   },
   {
-    "activityName": "Lettuce, cut washed raw, variant 2, CMAPS {GLO} U",
-    "alias": "lettuce-cut-washed-raw-default",
-    "categories": [
-      "vegetable_fresh"
-    ],
-    "cropGroup": "LEGUMES-FLEURS",
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 1.0,
-=======
     "activityName": "Vanilla {MG}| vanilla production | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "vanilla-eu-antilles",
     "categories": [
@@ -20706,23 +20713,12 @@
     "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
     "defaultOrigin": "EuropeAndMaghreb",
     "density": 0.5,
->>>>>>> master
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
       "permanentPasture": null,
       "plotSize": 0
     },
-<<<<<<< HEAD
-    "id": "a93cea01-b0fa-4050-8895-9ef43f15a9d9",
-    "inediblePart": 0,
-    "landOccupation": 0.95655,
-    "location": "GLO",
-    "name": "Salade crue, découpée, nettoyée (laitue, mache, mesclun, jeunes pousses, scarole, pissenlit, roquette, cresson) Origine Inconnue",
-    "processId": "f805b5de-d820-4340-9ae9-9d101ed5c07a",
-    "rawToCookedRatio": 1.0,
-    "scenario": "import",
-=======
     "id": "a8cc0638-9d79-5974-8343-e6cfa913ec5b",
     "inediblePart": 0,
     "landOccupation": 19.273,
@@ -20757,12 +20753,36 @@
     "processId": "ee211d20-de3c-5a1f-bf56-8588c12abafb",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
->>>>>>> master
     "transportCooling": "always",
     "visible": false
   },
   {
-<<<<<<< HEAD
+    "activityName": "Lettuce, cut washed raw, variant 2, CMAPS {GLO} U",
+    "alias": "lettuce-cut-washed-raw-default",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "cropGroup": "LEGUMES-FLEURS",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
+    "density": 1.0,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0,
+      "permanentPasture": null,
+      "plotSize": 0
+    },
+    "id": "a93cea01-b0fa-4050-8895-9ef43f15a9d9",
+    "inediblePart": 0,
+    "landOccupation": 0.95655,
+    "location": "GLO",
+    "name": "Salade crue, découpée, nettoyée (laitue, mache, mesclun, jeunes pousses, scarole, pissenlit, roquette, cresson) Origine Inconnue",
+    "processId": "f805b5de-d820-4340-9ae9-9d101ed5c07a",
+    "rawToCookedRatio": 1.0,
+    "scenario": "import",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
     "activityName": "Apple, pulp raw, CMAPS {GLO} U",
     "alias": "apple-pulp-raw-fr",
     "categories": [
@@ -20786,11 +20806,9 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
-=======
->>>>>>> master
     "activityName": "Tomato, medium size, conventional, heated greenhouse, at greenhouse {FR} U",
     "alias": "tomato-heated-greenhouse-fr",
     "categories": [
@@ -20892,27 +20910,6 @@
     "visible": false
   },
   {
-<<<<<<< HEAD
-    "activityName": "Tomme cheese, cow milk, variant 2, CMAPS {GLO} U",
-    "alias": "tomme-cheese-cow-milk-default",
-    "categories": [
-      "dairy_product"
-    ],
-    "cropGroup": null,
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 1.0,
-    "ecosystemicServices": null,
-    "id": "aa40dbec-5457-45bc-b815-80fce2b82aaa",
-    "inediblePart": 0,
-    "landOccupation": 60.761,
-    "location": "GLO",
-    "name": "Tomme ou tome de vache Origine Inconnue",
-    "processId": "a4a43764-e81c-4a26-bef0-c4e5d6e4fd24",
-    "rawToCookedRatio": 1.0,
-    "scenario": "import",
-    "transportCooling": "always",
-    "visible": false
-=======
     "activityName": "Banana {RoW}| banana production | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "banana-eu-antilles",
     "categories": [
@@ -20939,6 +20936,27 @@
     "visible": true
   },
   {
+    "activityName": "Tomme cheese, cow milk, variant 2, CMAPS {GLO} U",
+    "alias": "tomme-cheese-cow-milk-default",
+    "categories": [
+      "dairy_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
+    "density": 1.0,
+    "ecosystemicServices": null,
+    "id": "aa40dbec-5457-45bc-b815-80fce2b82aaa",
+    "inediblePart": 0,
+    "landOccupation": 60.761,
+    "location": "GLO",
+    "name": "Tomme ou tome de vache Origine Inconnue",
+    "processId": "a4a43764-e81c-4a26-bef0-c4e5d6e4fd24",
+    "rawToCookedRatio": 1.0,
+    "scenario": "import",
+    "transportCooling": "always",
+    "visible": false
+  },
+  {
     "activityName": "Lemon {ES}| lemon production | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "lemon-eu",
     "categories": [
@@ -20963,7 +20981,6 @@
     "scenario": "import",
     "transportCooling": "always",
     "visible": true
->>>>>>> master
   },
   {
     "activityName": "Carrot, organic 2025 {RoW}| carrot production | Cut-off, U",
@@ -21222,7 +21239,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Tomato sauce, with meat or Bolognese sauce, prepacked, recipe, at plant {FR} U",
@@ -21632,7 +21649,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Durum wheat, semolina, at plant {GLO} - Adapted from WFLDB U",
@@ -21760,7 +21777,6 @@
     "visible": true
   },
   {
-<<<<<<< HEAD
     "activityName": "Dairy spread, 25pct fat, variant 2, CMAPS {GLO} U",
     "alias": "dairy-spread-25pct-fat-default",
     "categories": [
@@ -21777,7 +21793,11 @@
     "name": "Matière grasse laitière à 25% MG, légère, \"à tartiner\", doux Origine Inconnue",
     "processId": "de184828-68e7-485d-9414-e9613b03bf73",
     "rawToCookedRatio": 1.0,
-=======
+    "scenario": "import",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
     "activityName": "Fennel {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "fennel-eu",
     "categories": [
@@ -21799,7 +21819,6 @@
     "name": "Fenouil UE",
     "processId": "b3f17eec-c537-5b65-af1b-3dd496bbe9c7",
     "rawToCookedRatio": 0.856,
->>>>>>> master
     "scenario": "import",
     "transportCooling": "always",
     "visible": true
@@ -22037,7 +22056,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Tomato, peeled canned drained, CMAPS {GLO} U",
@@ -22306,7 +22325,32 @@
     "visible": true
   },
   {
-<<<<<<< HEAD
+    "activityName": "Spring faba bean, conventional, national average, at farm gate {FR} U",
+    "alias": "spring-faba-eu",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "cropGroup": "PROTEAGINEUX",
+    "defaultOrigin": "EuropeAndMaghreb",
+    "density": 0.8,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0,
+      "permanentPasture": null,
+      "plotSize": 0
+    },
+    "id": "b43daba6-0d67-5baa-bb9c-30981b848e6e",
+    "inediblePart": 0.2,
+    "landOccupation": 2.1533,
+    "location": "FR",
+    "name": "Fèves printanières UE",
+    "processId": "bd99f2bf-42dc-5159-adca-164dd07c8b25",
+    "rawToCookedRatio": 0.856,
+    "scenario": "import",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
     "activityName": "Mango, pulp raw, organic, CMAPS {GLO} U",
     "alias": "mango-pulp-raw-default-organic",
     "categories": [
@@ -22332,32 +22376,6 @@
     "scenario": "organic",
     "transportCooling": "always",
     "visible": false
-=======
-    "activityName": "Spring faba bean, conventional, national average, at farm gate {FR} U",
-    "alias": "spring-faba-eu",
-    "categories": [
-      "vegetable_fresh"
-    ],
-    "cropGroup": "PROTEAGINEUX",
-    "defaultOrigin": "EuropeAndMaghreb",
-    "density": 0.8,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0,
-      "permanentPasture": null,
-      "plotSize": 0
-    },
-    "id": "b43daba6-0d67-5baa-bb9c-30981b848e6e",
-    "inediblePart": 0.2,
-    "landOccupation": 2.1533,
-    "location": "FR",
-    "name": "Fèves printanières UE",
-    "processId": "bd99f2bf-42dc-5159-adca-164dd07c8b25",
-    "rawToCookedRatio": 0.856,
-    "scenario": "import",
-    "transportCooling": "always",
-    "visible": true
->>>>>>> master
   },
   {
     "activityName": "Cauliflower, organic 2025, national average, at farm gate {FR} U",
@@ -22432,12 +22450,12 @@
     "inediblePart": 0,
     "landOccupation": 2.6545,
     "location": "GLO",
-    "name": "Avocat, pulpe, cru Origine Inconnue BIO",
+    "name": "Avocat, pulpe, cru BIO",
     "processId": "53463c0d-f757-4de2-a8d1-a3a7d69167fd",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Cherry, organic 2025, national average, at orchard {FR} U",
@@ -22485,12 +22503,12 @@
     "inediblePart": 0,
     "landOccupation": 2.9301,
     "location": "GLO",
-    "name": "Jus - Mûre (CMAPS) Origine Inconnue",
+    "name": "Jus de mûre Origine Inconnue",
     "processId": "6424b162-b135-475d-a1e5-dc6957ed5c4c",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Turkey, conventional, at farm gate {FR} U",
@@ -22948,7 +22966,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse {FR} U",
@@ -23328,7 +23346,6 @@
     "visible": true
   },
   {
-<<<<<<< HEAD
     "activityName": "Munster cheese, variant 2, CMAPS {GLO} U",
     "alias": "munster-cheese-default",
     "categories": [
@@ -23348,7 +23365,8 @@
     "scenario": "import",
     "transportCooling": "always",
     "visible": false
-=======
+  },
+  {
     "activityName": "Cauliflower, conventional, national average, at farm gate {FR} U",
     "alias": "kale-eu",
     "categories": [
@@ -23373,7 +23391,6 @@
     "scenario": "import",
     "transportCooling": "always",
     "visible": true
->>>>>>> master
   },
   {
     "activityName": "Black pepper, conventional, at farm gate {VN} U",
@@ -23524,7 +23541,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Maize grain, non-irrigated, at farm {BR} - Adapted from WFLDB U",
@@ -23553,7 +23570,6 @@
     "visible": true
   },
   {
-<<<<<<< HEAD
     "activityName": "Beaufort cheese, variant 2, CMAPS {GLO} U",
     "alias": "beaufort-cheese-default",
     "categories": [
@@ -23573,7 +23589,8 @@
     "scenario": "import",
     "transportCooling": "always",
     "visible": false
-=======
+  },
+  {
     "activityName": "Cauliflower, conventional, national average, at farm gate {FR} U",
     "alias": "rhubarb-eu",
     "categories": [
@@ -23624,7 +23641,6 @@
     "scenario": "import",
     "transportCooling": "always",
     "visible": true
->>>>>>> master
   },
   {
     "activityName": "Orange, fresh grade, organic 2025 {ES}| orange production, fresh grade | Cut-off, U",
@@ -23706,27 +23722,6 @@
     "visible": true
   },
   {
-<<<<<<< HEAD
-    "activityName": "Spread cheese, 20-40pct fat, variant 2, CMAPS {GLO} U",
-    "alias": "spread-cheese-20-40pct-fat-default",
-    "categories": [
-      "dairy_product"
-    ],
-    "cropGroup": null,
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 1.0,
-    "ecosystemicServices": null,
-    "id": "c137c5b5-ec74-45b5-a270-30cfe74f5924",
-    "inediblePart": 0,
-    "landOccupation": 51.814,
-    "location": "GLO",
-    "name": "Spécialité fromagère non affinée à tartiner 20 à 40 % MG nature ou aromatisée (ex: ail et fines herbes) Origine Inconnue",
-    "processId": "d0b9d369-3222-4ffc-a114-6778d1920eda",
-    "rawToCookedRatio": 1.0,
-    "scenario": "import",
-    "transportCooling": "always",
-    "visible": false
-=======
     "activityName": "Peach, at farm {ES} - Adapted from WFLDB U",
     "alias": "nectarine-eu",
     "categories": [
@@ -23748,6 +23743,27 @@
     "name": "Nectarine UE",
     "processId": "1b4ce511-0fde-5120-b7bb-9342ef5185bd",
     "rawToCookedRatio": 0.856,
+    "scenario": "import",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
+    "activityName": "Spread cheese, 20-40pct fat, variant 2, CMAPS {GLO} U",
+    "alias": "spread-cheese-20-40pct-fat-default",
+    "categories": [
+      "dairy_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
+    "density": 1.0,
+    "ecosystemicServices": null,
+    "id": "c137c5b5-ec74-45b5-a270-30cfe74f5924",
+    "inediblePart": 0,
+    "landOccupation": 51.814,
+    "location": "GLO",
+    "name": "Spécialité fromagère non affinée à tartiner 20 à 40 % MG nature ou aromatisée (ex: ail et fines herbes) Origine Inconnue",
+    "processId": "d0b9d369-3222-4ffc-a114-6778d1920eda",
+    "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
     "visible": true
@@ -23777,7 +23793,6 @@
     "scenario": "import",
     "transportCooling": "none",
     "visible": true
->>>>>>> master
   },
   {
     "activityName": "Mango, organic 2025 {BR}| mango production | Cut-off, U",
@@ -24219,7 +24234,6 @@
     "visible": false
   },
   {
-<<<<<<< HEAD
     "activityName": "Cantal cheese, variant 1, CMAPS {GLO} U",
     "alias": "cantal-cheese-fr",
     "categories": [
@@ -24243,7 +24257,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Oat flour, variant 1, CMAPS {GLO} U",
@@ -24264,11 +24278,14 @@
     "inediblePart": 0,
     "landOccupation": 3.9775,
     "location": "GLO",
-    "name": "Farine d'avoine (CMAPS) FR",
+    "name": "Farine d'avoine FR",
     "processId": "caac2379-42c7-40c1-9aeb-2f4217288676",
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
-=======
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
     "activityName": "Ware potato, conventional, variety mix, national average, at farm gate {FR} U",
     "alias": "sweet-potato-eu",
     "categories": [
@@ -24291,7 +24308,6 @@
     "processId": "b46880a2-f5ef-51ca-bdf9-46ca878b4086",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
->>>>>>> master
     "transportCooling": "always",
     "visible": true
   },
@@ -24939,32 +24955,6 @@
     "visible": true
   },
   {
-<<<<<<< HEAD
-    "activityName": "Reblochon cheese, variant 1, CMAPS {GLO} U",
-    "alias": "reblochon-cheese-fr",
-    "categories": [
-      "dairy_product"
-    ],
-    "cropGroup": null,
-    "defaultOrigin": "France",
-    "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 3.77,
-      "permanentPasture": 0.692,
-      "plotSize": 3.53
-    },
-    "id": "c8d83557-46c6-46ab-9d01-fcb0e058f46f",
-    "inediblePart": 0,
-    "landOccupation": 4.9666,
-    "location": "GLO",
-    "name": "Reblochon FR",
-    "processId": "056411b4-5f1d-43b2-a810-67f3a7823d67",
-    "rawToCookedRatio": 1.0,
-    "scenario": "reference",
-    "transportCooling": "always",
-    "visible": false
-=======
     "activityName": "Potato, at farm (WFLDB)",
     "alias": "potato-eu",
     "categories": [
@@ -24989,7 +24979,32 @@
     "scenario": "import",
     "transportCooling": "always",
     "visible": true
->>>>>>> master
+  },
+  {
+    "activityName": "Reblochon cheese, variant 1, CMAPS {GLO} U",
+    "alias": "reblochon-cheese-fr",
+    "categories": [
+      "dairy_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 3.77,
+      "permanentPasture": 0.692,
+      "plotSize": 3.53
+    },
+    "id": "c8d83557-46c6-46ab-9d01-fcb0e058f46f",
+    "inediblePart": 0,
+    "landOccupation": 4.9666,
+    "location": "GLO",
+    "name": "Reblochon FR",
+    "processId": "056411b4-5f1d-43b2-a810-67f3a7823d67",
+    "rawToCookedRatio": 1.0,
+    "scenario": "reference",
+    "transportCooling": "always",
+    "visible": true
   },
   {
     "activityName": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
@@ -25018,31 +25033,6 @@
     "visible": false
   },
   {
-<<<<<<< HEAD
-    "activityName": "Walnut, shelled, CMAPS {GLO} U",
-    "alias": "walnut-shelled-fr",
-    "categories": [
-      "nut_oilseed_raw"
-    ],
-    "cropGroup": "FRUITS A COQUES",
-    "defaultOrigin": "France",
-    "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0.0216,
-      "permanentPasture": null,
-      "plotSize": 0.0629
-    },
-    "id": "c989d7c8-dc40-4567-a473-d5551ed81ee0",
-    "inediblePart": 0,
-    "landOccupation": 0.071881,
-    "location": "GLO",
-    "name": "Noix, décortiquée, fraîche ou sèche FR",
-    "processId": "7b87e244-7534-4282-ad8a-7e73e7c70e7f",
-    "rawToCookedRatio": 1.0,
-    "scenario": "reference",
-    "transportCooling": "none",
-=======
     "activityName": "Cherry, at farm (WFLDB)",
     "alias": "morello-cherry-eu",
     "categories": [
@@ -25066,8 +25056,33 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
->>>>>>> master
     "visible": false
+  },
+  {
+    "activityName": "Walnut, shelled, CMAPS {GLO} U",
+    "alias": "walnut-shelled-fr",
+    "categories": [
+      "nut_oilseed_raw"
+    ],
+    "cropGroup": "FRUITS A COQUES",
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0.0216,
+      "permanentPasture": null,
+      "plotSize": 0.0629
+    },
+    "id": "c989d7c8-dc40-4567-a473-d5551ed81ee0",
+    "inediblePart": 0,
+    "landOccupation": 0.071881,
+    "location": "GLO",
+    "name": "Noix, décortiquée, fraîche ou sèche FR",
+    "processId": "7b87e244-7534-4282-ad8a-7e73e7c70e7f",
+    "rawToCookedRatio": 1.0,
+    "scenario": "reference",
+    "transportCooling": "none",
+    "visible": true
   },
   {
     "activityName": "Cauliflower, organic 2025, national average, at farm gate {FR} U",
@@ -26223,7 +26238,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Durum wheat grain, organic 2025, national average, at farm gate {FR} U",
@@ -26349,7 +26364,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse {FR} U",
@@ -26675,7 +26690,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Pomegranate {RoW}| pomegranate production | Cut-off, U",
@@ -27588,7 +27603,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Carrot, at farm (WFLDB)",
@@ -28047,30 +28062,6 @@
     "visible": true
   },
   {
-<<<<<<< HEAD
-    "activityName": "Apricot, pitted raw, CMAPS {GLO} U",
-    "alias": "apricot-pitted-raw-fr",
-    "categories": [
-      "vegetable_fresh"
-    ],
-    "cropGroup": "VERGERS",
-    "defaultOrigin": "France",
-    "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0.0144,
-      "hedges": 0.00678,
-      "permanentPasture": null,
-      "plotSize": 0.0136
-    },
-    "id": "de21ea14-6a92-415c-93e5-3ef6cd8a1544",
-    "inediblePart": 0,
-    "landOccupation": 0.015563,
-    "location": "GLO",
-    "name": "Abricot, dénoyauté, cru FR",
-    "processId": "1362d041-110c-491f-b874-a6d1752e004f",
-    "rawToCookedRatio": 1.0,
-    "scenario": "reference",
-=======
     "activityName": "Mint {IN}| mint production | Cut-off, U",
     "alias": "herb-fresh-eu",
     "categories": [
@@ -28093,7 +28084,32 @@
     "processId": "e589703f-8c56-5adb-9b23-b5aff1fcd0a5",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
->>>>>>> master
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
+    "activityName": "Apricot, pitted raw, CMAPS {GLO} U",
+    "alias": "apricot-pitted-raw-fr",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "cropGroup": "VERGERS",
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": {
+      "cropDiversity": 0.0144,
+      "hedges": 0.00678,
+      "permanentPasture": null,
+      "plotSize": 0.0136
+    },
+    "id": "de21ea14-6a92-415c-93e5-3ef6cd8a1544",
+    "inediblePart": 0,
+    "landOccupation": 0.015563,
+    "location": "GLO",
+    "name": "Abricot, dénoyauté, cru FR",
+    "processId": "1362d041-110c-491f-b874-a6d1752e004f",
+    "rawToCookedRatio": 1.0,
+    "scenario": "reference",
     "transportCooling": "always",
     "visible": true
   },
@@ -28202,7 +28218,6 @@
     "visible": true
   },
   {
-<<<<<<< HEAD
     "activityName": "Beaufort cheese, variant 1, CMAPS {GLO} U",
     "alias": "mimolette-cheese-fr",
     "categories": [
@@ -28226,8 +28241,9 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
-=======
+    "visible": true
+  },
+  {
     "activityName": "Cauliflower, conventional, national average, at farm gate {FR} U",
     "alias": "jerusalem-artichoke-eu",
     "categories": [
@@ -28252,7 +28268,6 @@
     "scenario": "import",
     "transportCooling": "always",
     "visible": true
->>>>>>> master
   },
   {
     "activityName": "Blueberry, at farm, organic 2025 {CA}",
@@ -28569,7 +28584,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Cauliflower {GLO}| cauliflower production | Cut-off, U",
@@ -28721,7 +28736,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Chickpea seed, organic, at farm gate {FR} U",
@@ -28905,7 +28920,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Lentils, dry, at farm (WFLDB)",
@@ -29013,7 +29028,6 @@
     "visible": true
   },
   {
-<<<<<<< HEAD
     "activityName": "Cherry, pitted raw, CMAPS {GLO} U",
     "alias": "cherry-pitted-raw-fr",
     "categories": [
@@ -29037,8 +29051,9 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
-=======
+    "visible": true
+  },
+  {
     "activityName": "Zucchini, conventional, national average, at farm gate {FR} U",
     "alias": "eggplant-eu",
     "categories": [
@@ -29063,7 +29078,6 @@
     "scenario": "import",
     "transportCooling": "always",
     "visible": true
->>>>>>> master
   },
   {
     "activityName": "Spring pea, conventional, 15% moisture, animal feed, at farm gate, production {FR} U",
@@ -29239,7 +29253,6 @@
     "visible": true
   },
   {
-<<<<<<< HEAD
     "activityName": "Parsley, dried, CMAPS {GLO} U",
     "alias": "parsley-dried-default",
     "categories": [
@@ -29248,23 +29261,12 @@
     "cropGroup": "LEGUMES-FLEURS",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
-=======
-    "activityName": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "flageolet-bean-green-dried-eu",
-    "categories": [
-      "vegetable_fresh"
-    ],
-    "cropGroup": "LEGUMINEUSES A GRAIN",
-    "defaultOrigin": "EuropeAndMaghreb",
-    "density": 0.8,
->>>>>>> master
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
       "permanentPasture": null,
       "plotSize": 0
     },
-<<<<<<< HEAD
     "id": "e62a495b-450b-4a3d-a398-46941f4e1fe6",
     "inediblePart": 0,
     "landOccupation": 15.596,
@@ -29274,8 +29276,23 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": false
-=======
+    "visible": true
+  },
+  {
+    "activityName": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
+    "alias": "flageolet-bean-green-dried-eu",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "cropGroup": "LEGUMINEUSES A GRAIN",
+    "defaultOrigin": "EuropeAndMaghreb",
+    "density": 0.8,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0,
+      "permanentPasture": null,
+      "plotSize": 0
+    },
     "id": "e634ae9e-b825-5dcf-a0c1-14cbf495c35d",
     "inediblePart": 0.2,
     "landOccupation": 2.8021,
@@ -29286,7 +29303,6 @@
     "scenario": "import",
     "transportCooling": "none",
     "visible": true
->>>>>>> master
   },
   {
     "activityName": "Banana {RoW}| banana production | Cut-off, U - Adapted from Ecoinvent U",
@@ -29342,7 +29358,6 @@
     "visible": true
   },
   {
-<<<<<<< HEAD
     "activityName": "Raclette cheese, variant 2, CMAPS {GLO} U",
     "alias": "raclette-cheese-default",
     "categories": [
@@ -29361,6 +29376,32 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
+    "visible": false
+  },
+  {
+    "activityName": "Oats, at farm {FI} - Adapted from WFLDB U",
+    "alias": "oats-eu",
+    "categories": [
+      "grain_raw"
+    ],
+    "cropGroup": "AUTRES CEREALES",
+    "defaultOrigin": "EuropeAndMaghreb",
+    "density": 0.41,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0,
+      "permanentPasture": null,
+      "plotSize": 0
+    },
+    "id": "e719842d-21ec-5ece-bad3-0aff765e3a88",
+    "inediblePart": 0,
+    "landOccupation": 1.663,
+    "location": "FI",
+    "name": "Avoine UE",
+    "processId": "ada3a28d-48b5-5b33-ac83-11cb80d253d2",
+    "rawToCookedRatio": 2.259,
+    "scenario": "import",
+    "transportCooling": "none",
     "visible": true
   },
   {
@@ -29410,7 +29451,7 @@
     "inediblePart": 0,
     "landOccupation": 0.04767,
     "location": "GLO",
-    "name": "Pomme, pulpe, crue FR BIO",
+    "name": "Pomme, pulpe, crue BIO",
     "processId": "68edbd1b-222a-4e84-95ad-90718d6c6ad4",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
@@ -29418,34 +29459,6 @@
     "visible": false
   },
   {
-=======
-    "activityName": "Oats, at farm {FI} - Adapted from WFLDB U",
-    "alias": "oats-eu",
-    "categories": [
-      "grain_raw"
-    ],
-    "cropGroup": "AUTRES CEREALES",
-    "defaultOrigin": "EuropeAndMaghreb",
-    "density": 0.41,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0,
-      "permanentPasture": null,
-      "plotSize": 0
-    },
-    "id": "e719842d-21ec-5ece-bad3-0aff765e3a88",
-    "inediblePart": 0,
-    "landOccupation": 1.663,
-    "location": "FI",
-    "name": "Avoine UE",
-    "processId": "ada3a28d-48b5-5b33-ac83-11cb80d253d2",
-    "rawToCookedRatio": 2.259,
-    "scenario": "import",
-    "transportCooling": "none",
-    "visible": true
-  },
-  {
->>>>>>> master
     "activityName": "Beetroot for juice, conventional, at farm gate {FR} U",
     "alias": "beetroot-default",
     "categories": [
@@ -29548,7 +29561,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Palm date, conditioned and dried {GLO}| palm date production, conditioned and dried | Cut-off, U - Copied from Ecoinvent U",
@@ -29577,32 +29590,6 @@
     "visible": true
   },
   {
-<<<<<<< HEAD
-    "activityName": "Petit suisse, 4pct fat, variant 1, CMAPS {GLO} U",
-    "alias": "petit-suisse-4pct-fat-fr",
-    "categories": [
-      "dairy_product"
-    ],
-    "cropGroup": null,
-    "defaultOrigin": "France",
-    "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 1.36,
-      "permanentPasture": 0.25,
-      "plotSize": 1.27
-    },
-    "id": "e93e5d8c-4b6c-428e-af0f-7250156dff81",
-    "inediblePart": 0,
-    "landOccupation": 1.7962,
-    "location": "GLO",
-    "name": "Fromage frais type petit suisse, nature, 4% MG environ FR",
-    "processId": "2020cf96-2004-4adf-ba2b-a96aca3afafd",
-    "rawToCookedRatio": 1.0,
-    "scenario": "reference",
-    "transportCooling": "always",
-    "visible": false
-=======
     "activityName": "Elderberry, at farm {PL} - Adapted from WFLDB U",
     "alias": "elderberry-eu",
     "categories": [
@@ -29627,7 +29614,32 @@
     "scenario": "import",
     "transportCooling": "always",
     "visible": true
->>>>>>> master
+  },
+  {
+    "activityName": "Petit suisse, 4pct fat, variant 1, CMAPS {GLO} U",
+    "alias": "petit-suisse-4pct-fat-fr",
+    "categories": [
+      "dairy_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 1.36,
+      "permanentPasture": 0.25,
+      "plotSize": 1.27
+    },
+    "id": "e93e5d8c-4b6c-428e-af0f-7250156dff81",
+    "inediblePart": 0,
+    "landOccupation": 1.7962,
+    "location": "GLO",
+    "name": "Fromage frais type petit suisse, nature, 4% MG environ FR",
+    "processId": "2020cf96-2004-4adf-ba2b-a96aca3afafd",
+    "rawToCookedRatio": 1.0,
+    "scenario": "reference",
+    "transportCooling": "always",
+    "visible": true
   },
   {
     "activityName": "Carrot, at farm (WFLDB)",
@@ -29732,7 +29744,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Sunflower oil, at plant {IT} U",
@@ -29832,7 +29844,7 @@
     "inediblePart": 0,
     "landOccupation": 0.085483,
     "location": "GLO",
-    "name": "Concombre, pulpe, cru FR BIO",
+    "name": "Concombre, pulpe, cru BIO",
     "processId": "5d6cd3c4-a2c4-4d72-9d78-ea3db29915fb",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
@@ -30062,7 +30074,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Palm date, organic 2025 {GLO}| palm date production | Cut-off, U",
@@ -30092,31 +30104,6 @@
     "visible": true
   },
   {
-<<<<<<< HEAD
-    "activityName": "Plum puree, organic, CMAPS {GLO} U",
-    "alias": "plum-puree-fr-organic",
-    "categories": [
-      "vegetable_processed",
-      "organic"
-    ],
-    "cropGroup": "VERGERS",
-    "defaultOrigin": "France",
-    "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0.0262,
-      "hedges": 0.0298,
-      "permanentPasture": null,
-      "plotSize": 0.0365
-    },
-    "id": "ec44b335-3d57-4677-bbf4-136f43e56d89",
-    "inediblePart": 0,
-    "landOccupation": 0.041737,
-    "location": "GLO",
-    "name": "Purée - Prune (CMAPS) FR BIO",
-    "processId": "50b5c539-824e-4a44-97d9-d0626aa44700",
-    "rawToCookedRatio": 1.0,
-    "scenario": "organic",
-=======
     "activityName": "French bean, conventional, national average, at farm gate {FR} U",
     "alias": "french-bean-eu",
     "categories": [
@@ -30139,7 +30126,33 @@
     "processId": "bef56d20-ec50-53ea-aaba-219e98fa25cd",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
->>>>>>> master
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
+    "activityName": "Plum puree, organic, CMAPS {GLO} U",
+    "alias": "plum-puree-fr-organic",
+    "categories": [
+      "vegetable_processed",
+      "organic"
+    ],
+    "cropGroup": "VERGERS",
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": {
+      "cropDiversity": 0.0262,
+      "hedges": 0.0298,
+      "permanentPasture": null,
+      "plotSize": 0.0365
+    },
+    "id": "ec44b335-3d57-4677-bbf4-136f43e56d89",
+    "inediblePart": 0,
+    "landOccupation": 0.041737,
+    "location": "GLO",
+    "name": "Purée de prune Bio",
+    "processId": "50b5c539-824e-4a44-97d9-d0626aa44700",
+    "rawToCookedRatio": 1.0,
+    "scenario": "organic",
     "transportCooling": "always",
     "visible": true
   },
@@ -30556,38 +30569,20 @@
     "visible": true
   },
   {
-<<<<<<< HEAD
-    "activityName": "Carrot, cut raw, import WFLDB, CMAPS {GLO} U",
-    "alias": "carrot-cut-raw-default",
-=======
     "activityName": "Bell pepper {FR}| bell pepper production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "bell-pepper-eu",
->>>>>>> master
     "categories": [
       "vegetable_fresh"
     ],
     "cropGroup": "LEGUMES-FLEURS",
-<<<<<<< HEAD
-    "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 1.0,
-=======
     "defaultOrigin": "EuropeAndMaghreb",
     "density": 0.9,
->>>>>>> master
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
       "permanentPasture": null,
       "plotSize": 0
     },
-<<<<<<< HEAD
-    "id": "f084ba40-39ed-4e42-95d6-2ed30666e7b3",
-    "inediblePart": 0,
-    "landOccupation": 0.18415,
-    "location": "GLO",
-    "name": "Carotte, découpée, crue Origine Inconnue",
-    "processId": "a6c41774-da38-4e02-840d-0ce0fe1a5795",
-=======
     "id": "f03947eb-3f24-5de7-ba45-a01c3b3deabb",
     "inediblePart": 0.2,
     "landOccupation": 0.072838,
@@ -30595,6 +30590,32 @@
     "name": "Poivron, vert, jaune ou rouge UE",
     "processId": "cac779d9-52e2-5978-9551-71e107141598",
     "rawToCookedRatio": 0.856,
+    "scenario": "import",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
+    "activityName": "Carrot, cut raw, import WFLDB, CMAPS {GLO} U",
+    "alias": "carrot-cut-raw-default",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "cropGroup": "LEGUMES-FLEURS",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
+    "density": 1.0,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0,
+      "permanentPasture": null,
+      "plotSize": 0
+    },
+    "id": "f084ba40-39ed-4e42-95d6-2ed30666e7b3",
+    "inediblePart": 0,
+    "landOccupation": 0.18415,
+    "location": "GLO",
+    "name": "Carotte, découpée, crue Origine Inconnue",
+    "processId": "a6c41774-da38-4e02-840d-0ce0fe1a5795",
+    "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
     "visible": true
@@ -30615,7 +30636,6 @@
     "location": "RER",
     "name": "Lait de vache UE",
     "processId": "919beed2-5a89-5f03-8090-e05dc54dfa35",
->>>>>>> master
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
@@ -30896,7 +30916,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Butter, 82% fat, unsalted, at dairy {FR} U",
@@ -30947,7 +30967,6 @@
     "visible": true
   },
   {
-<<<<<<< HEAD
     "activityName": "Lemon, pulp raw, organic, CMAPS {GLO} U",
     "alias": "lemon-pulp-raw-default-organic",
     "categories": [
@@ -30973,6 +30992,32 @@
     "scenario": "organic",
     "transportCooling": "always",
     "visible": false
+  },
+  {
+    "activityName": "Kiwi FR, conventional, national average, at orchard {FR} U",
+    "alias": "guava-eu-antilles",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "cropGroup": "VERGERS",
+    "defaultOrigin": "EuropeAndMaghreb",
+    "density": 0.85,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0,
+      "permanentPasture": null,
+      "plotSize": 0
+    },
+    "id": "f31cbb4f-43af-5cce-b051-ff267866080f",
+    "inediblePart": 0.2,
+    "landOccupation": 0.13996,
+    "location": "FR",
+    "name": "Goyave UE Antilles",
+    "processId": "56cd1f16-f2d4-5c4a-a6ba-4a2e3321914e",
+    "rawToCookedRatio": 0.856,
+    "scenario": "import",
+    "transportCooling": "always",
+    "visible": true
   },
   {
     "activityName": "Pont l'Eveque cheese, variant 2, CMAPS {GLO} U",
@@ -31012,29 +31057,6 @@
     "name": "Oeuf, décoquillé, de poule, de cane ou d'oie, cru Origine Inconnue",
     "processId": "06d00072-ee52-4474-83ba-9fb74adb89b5",
     "rawToCookedRatio": 1.0,
-=======
-    "activityName": "Kiwi FR, conventional, national average, at orchard {FR} U",
-    "alias": "guava-eu-antilles",
-    "categories": [
-      "vegetable_fresh"
-    ],
-    "cropGroup": "VERGERS",
-    "defaultOrigin": "EuropeAndMaghreb",
-    "density": 0.85,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 0,
-      "permanentPasture": null,
-      "plotSize": 0
-    },
-    "id": "f31cbb4f-43af-5cce-b051-ff267866080f",
-    "inediblePart": 0.2,
-    "landOccupation": 0.13996,
-    "location": "FR",
-    "name": "Goyave UE Antilles",
-    "processId": "56cd1f16-f2d4-5c4a-a6ba-4a2e3321914e",
-    "rawToCookedRatio": 0.856,
->>>>>>> master
     "scenario": "import",
     "transportCooling": "always",
     "visible": true
@@ -31093,7 +31115,6 @@
     "visible": true
   },
   {
-<<<<<<< HEAD
     "activityName": "Mango, pulp raw, import WFLDB, CMAPS {GLO} U",
     "alias": "mango-pulp-raw-default",
     "categories": [
@@ -31102,7 +31123,24 @@
     "cropGroup": "VERGERS",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
-=======
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0,
+      "permanentPasture": null,
+      "plotSize": 0
+    },
+    "id": "f36ef00b-c03c-4027-a1ca-3b10968f66c9",
+    "inediblePart": 0,
+    "landOccupation": 1.7614,
+    "location": "GLO",
+    "name": "Mangue, pulpe, crue Origine Inconnue",
+    "processId": "8a663670-3cc8-47a3-b144-0f74c0928a63",
+    "rawToCookedRatio": 1.0,
+    "scenario": "import",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
     "activityName": "Cauliflower, conventional, national average, at farm gate {FR} U",
     "alias": "artichoke-eu",
     "categories": [
@@ -31111,22 +31149,12 @@
     "cropGroup": "LEGUMES-FLEURS",
     "defaultOrigin": "EuropeAndMaghreb",
     "density": 0.9,
->>>>>>> master
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
       "permanentPasture": null,
       "plotSize": 0
     },
-<<<<<<< HEAD
-    "id": "f36ef00b-c03c-4027-a1ca-3b10968f66c9",
-    "inediblePart": 0,
-    "landOccupation": 1.7614,
-    "location": "GLO",
-    "name": "Mangue, pulpe, crue Origine Inconnue",
-    "processId": "8a663670-3cc8-47a3-b144-0f74c0928a63",
-    "rawToCookedRatio": 1.0,
-=======
     "id": "f370924b-f15c-53dc-9728-38010bb6a7c9",
     "inediblePart": 0.6,
     "landOccupation": 0.4422,
@@ -31134,7 +31162,6 @@
     "name": "Artichaut UE",
     "processId": "713f3426-7d8c-5b26-b7c0-98cb92ed0ab7",
     "rawToCookedRatio": 0.856,
->>>>>>> master
     "scenario": "import",
     "transportCooling": "always",
     "visible": true
@@ -31477,7 +31504,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Agave tequilana, at farm {MX} U",
@@ -31651,7 +31678,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Strawberry, frozen raw, CMAPS {GLO} U",
@@ -31677,7 +31704,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Sweet corn, canned drained, organic, CMAPS {GLO} U",
@@ -32059,7 +32086,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "none",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Meat without bone chicken for direct consumption {{chicken-breast-fr-feed-2025}}",
@@ -32342,7 +32369,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Fig puree, organic, CMAPS {GLO} U",
@@ -32364,12 +32391,12 @@
     "inediblePart": 0,
     "landOccupation": 0.01254,
     "location": "GLO",
-    "name": "Purée - Figue (CMAPS) FR BIO",
+    "name": "Purée de figue Bio",
     "processId": "0c48e3d9-8b23-4eca-9ded-00589eabcc03",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Extra Virgin Olive Oil, at plant {ES} U",
@@ -32417,12 +32444,12 @@
     "inediblePart": 0,
     "landOccupation": 6.2226,
     "location": "GLO",
-    "name": "Petits pois, écossés, crus FR BIO",
+    "name": "Petits pois, écossés, crus BIO",
     "processId": "f9c3e550-a202-42c8-9876-de914bd13d11",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Anchovy, consumption mix {FR} U",
@@ -32755,30 +32782,6 @@
     "visible": true
   },
   {
-<<<<<<< HEAD
-    "activityName": "Lemon, pulp raw, CMAPS {GLO} U",
-    "alias": "lemon-pulp-raw-fr",
-    "categories": [
-      "vegetable_fresh"
-    ],
-    "cropGroup": "VERGERS",
-    "defaultOrigin": "France",
-    "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0.368,
-      "hedges": 0.174,
-      "permanentPasture": null,
-      "plotSize": 0.349
-    },
-    "id": "ffe80fe6-b401-4069-b817-92154bbd9fe4",
-    "inediblePart": 0,
-    "landOccupation": 0.39863,
-    "location": "GLO",
-    "name": "Citron, pulpe, cru FR",
-    "processId": "e923659d-dae8-4bb0-b130-2696721216ae",
-    "rawToCookedRatio": 1.0,
-    "scenario": "reference",
-=======
     "activityName": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "salsify-eu",
     "categories": [
@@ -32801,8 +32804,33 @@
     "processId": "ee211d20-de3c-5a1f-bf56-8588c12abafb",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
->>>>>>> master
     "transportCooling": "always",
     "visible": false
+  },
+  {
+    "activityName": "Lemon, pulp raw, CMAPS {GLO} U",
+    "alias": "lemon-pulp-raw-fr",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "cropGroup": "VERGERS",
+    "defaultOrigin": "France",
+    "density": 1.0,
+    "ecosystemicServices": {
+      "cropDiversity": 0.368,
+      "hedges": 0.174,
+      "permanentPasture": null,
+      "plotSize": 0.349
+    },
+    "id": "ffe80fe6-b401-4069-b817-92154bbd9fe4",
+    "inediblePart": 0,
+    "landOccupation": 0.39863,
+    "location": "GLO",
+    "name": "Citron, pulpe, cru FR",
+    "processId": "e923659d-dae8-4bb0-b130-2696721216ae",
+    "rawToCookedRatio": 1.0,
+    "scenario": "reference",
+    "transportCooling": "always",
+    "visible": true
   }
 ]
