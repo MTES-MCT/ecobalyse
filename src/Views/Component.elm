@@ -687,7 +687,7 @@ elementView config (( component, _ ) as targetItem) elementIndex { amount, mater
                         [ span [ class "ComponentElementIcon" ] [ Icon.material ]
                         , text <| Process.getDisplayName material.process
                         , material.country
-                            |> Maybe.map (\{ code } -> " (" ++ Country.codeToString code ++ ")")
+                            |> Maybe.map (\{ name } -> " (" ++ name ++ ")")
                             |> Maybe.withDefault ""
                             |> text
                         ]

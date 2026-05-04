@@ -2056,8 +2056,8 @@ transformListToString =
         (\{ country, process } ->
             Process.getDisplayName process
                 ++ (case country of
-                        Just { code } ->
-                            " (" ++ Country.codeToString code ++ ")"
+                        Just { name } ->
+                            " (" ++ name ++ ")"
 
                         Nothing ->
                             ""
