@@ -94,6 +94,7 @@ class User(CamelizedBaseStruct):
     is_active: bool = False
     is_verified: bool = False
     roles: list[UserRole] = []
+    last_login_at: datetime | None = None
     magic_link_sent_at: datetime | None = None
     has_active_token: bool = False
 

@@ -119,6 +119,8 @@ async def current_user_from_token(
 
     token_id = token.extras.get("id")
 
+    now = datetime.datetime.now(datetime.timezone.utc)
+
     if token_id:
         token_service_provider = create_service_provider(TokenService)
         token_service = await anext(
@@ -132,15 +134,23 @@ async def current_user_from_token(
         if db_token and await crypt.verify_password(
             token.extras.get("secret"), db_token.hashed_token
         ):
-            db_token.last_accessed_at = datetime.datetime.now(datetime.timezone.utc)
+            db_token.last_accessed_at = now
             await token_service.repository.update(db_token)
+            user.last_login_at = now
+            await user_service.repository.update(user)
+
             # Authentication ok
             return (user, db_token)
         else:
             # Authentication failed
             return (user, None)
 
-    return (user, None) if user and user.is_active else None
+    if user and user.is_active:
+        user.last_login_at = now
+        await user_service.repository.update(user)
+        return (user, None)
+    else:
+        return None
 
 
 auth = CustomOAuth2PasswordBearerAuth[m.User](

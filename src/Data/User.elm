@@ -52,6 +52,7 @@ type alias User =
     , isSuperuser : Bool
     , isVerified : Bool
     , joinedAt : Maybe Posix
+    , lastLoginAt : Maybe Posix
     , magicLinkSentAt : Maybe Posix
     , profile : Profile
     , roles : List Role
@@ -147,6 +148,7 @@ decodeUser =
         |> JDP.required "isSuperuser" Decode.bool
         |> JDP.required "isVerified" Decode.bool
         |> DU.strictOptional "joinedAt" DE.datetime
+        |> DU.strictOptional "lastLoginAt" DE.datetime
         |> DU.strictOptional "magicLinkSentAt" DE.datetime
         |> JDP.required "profile" decodeProfile
         |> JDP.required "roles" (Decode.list decodeRole)
