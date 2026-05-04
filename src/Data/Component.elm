@@ -655,39 +655,6 @@ computeDistributionImpacts ({ config } as requirements) query ({ distribution, p
                 }
 
 
-{-| Computes transports of components from the number of shipped items, and either their respective country
-of production or country of assembly to configured distribution destination country.
-
-Note: this only computes the transport distances, not the impacts (as a transported mass would be required)
-
--}
-computeDistributionTransports : Requirements db -> Maybe Country -> Mass -> List ExpandedItem -> Transport
-computeDistributionTransports ({ config, db } as requirements) maybeAssemblyCountry mass items =
-    case ( items, maybeAssemblyCountry ) of
-        -- no items to distribute
-        ( [], _ ) ->
-            Transport.default Impact.empty
-
-        -- ship items from a specific assembly country
-        ( _, Just { code } ) ->
-            db.distances
-                |> Transport.getTransportBetween Impact.empty code config.distribution.country.code
-                -- Note: air transport is not handled for now
-                |> Transport.applyTransportRatios Split.zero
-                |> Transport.computeImpacts config.transports.modeProcesses mass
-
-        -- no assembly country specified, sum transports from all elements origins to the distribution country
-        ( _, Nothing ) ->
-            items
-                |> List.concatMap .elements
-                |> List.map
-                    (getElementFinalCountry
-                        >> computeTransportDistance requirements (Just config.distribution.country)
-                    )
-                |> Transport.sum
-                |> Transport.computeImpacts config.transports.modeProcesses mass
-
-
 computeElementResults : Requirements db -> Element -> Result String Results
 computeElementResults requirements =
     expandElement requirements.db
@@ -837,22 +804,6 @@ computeItemTransportToAssembly requirements assemblyCountry item itemResults =
     )
 
 
-{-| Compute item transport impacts of all its elements to the configured distribution country.
--}
-computeItemTransportToDistribution : Requirements db -> ExpandedItem -> Results -> Transport
-computeItemTransportToDistribution ({ config } as requirements) item itemResults =
-    extractItems itemResults
-        |> List.map2
-            (\element itemResult ->
-                extractMass itemResult
-                    |> computeTransportedMassImpacts requirements
-                        (getElementFinalCountry element)
-                        (Just config.distribution.country)
-            )
-            item.elements
-        |> Transport.sum
-
-
 computeMaterialResults : Amount -> Process -> Results
 computeMaterialResults amount process =
     let
@@ -968,25 +919,8 @@ computeTransportedMassImpacts ({ config } as requirements) maybeFrom maybeTo mas
         |> Transport.computeImpacts config.transports.modeProcesses mass
 
 
-computeToDistributionTransport : Requirements db -> Maybe Country -> LifeCycle -> List ExpandedItem -> Transport
-computeToDistributionTransport requirements maybeAssemblyCountry { production } expandedItems =
-    case maybeAssemblyCountry of
-        Just assemblyCountry ->
-            expandedItems
-                |> computeDistributionTransports requirements (Just assemblyCountry) (extractMass production)
-
-        Nothing ->
-            expandedItems
-                |> List.indexedMap
-                    (\index ->
-                        mapIndexedItemResult production index (computeItemTransportToDistribution requirements)
-                    )
-                |> List.filterMap identity
-                |> Transport.sum
-
-
 computeTransports : Requirements db -> Query -> LifeCycle -> Result String LifeCycle
-computeTransports ({ db } as requirements) query lifeCycle =
+computeTransports ({ config, db } as requirements) query lifeCycle =
     Result.map2
         (\expandedItems assemblyCountry ->
             { lifeCycle
@@ -997,9 +931,13 @@ computeTransports ({ db } as requirements) query lifeCycle =
                         if List.length query.items > 1 then
                             expandedItems
                                 |> List.indexedMap
-                                    (\index ->
-                                        mapIndexedItemResult lifeCycle.production index (computeItemTransportToAssembly requirements assemblyCountry)
-                                            >> Maybe.map Tuple.second
+                                    (\index expandedItem ->
+                                        extractItems lifeCycle.production
+                                            |> LE.getAt index
+                                            |> Maybe.map
+                                                (Tuple.second
+                                                    << computeItemTransportToAssembly requirements assemblyCountry expandedItem
+                                                )
                                     )
                                 |> List.filterMap identity
                                 |> Transport.sum
@@ -1007,7 +945,8 @@ computeTransports ({ db } as requirements) query lifeCycle =
                         else
                             Transport.default Impact.empty
                     , toDistribution =
-                        computeToDistributionTransport requirements assemblyCountry lifeCycle expandedItems
+                        extractMass lifeCycle.production
+                            |> computeTransportedMassImpacts requirements assemblyCountry (Just config.distribution.country)
                     }
             }
         )
@@ -1850,13 +1789,6 @@ loadEnergyMixes config =
                 , heat = config.production.defaultHeatProcess
                 }
             )
-
-
-mapIndexedItemResult : Results -> Int -> (ExpandedItem -> Results -> a) -> ExpandedItem -> Maybe a
-mapIndexedItemResult results index fn item =
-    extractItems results
-        |> LE.getAt index
-        |> Maybe.map (fn item)
 
 
 mapItems : (List Item -> List Item) -> Query -> Query
