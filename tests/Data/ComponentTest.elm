@@ -1292,7 +1292,8 @@ testComponentConfig db =
             },
             "use": {
               "defaultProcesses": {
-                "elec": "931c9bb0-619a-5f75-b41b-ab8061e2ad92"
+                "elec": "931c9bb0-619a-5f75-b41b-ab8061e2ad92",
+                "heat": "6cbd45fb-83ff-5852-97a7-87fffecc20f5"
               }
             }
         }

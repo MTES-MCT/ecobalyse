@@ -93,6 +93,7 @@ type alias TransportConfig =
 
 type alias UseConfig =
     { defaultElecProcess : Process
+    , defaultHeatProcess : Process
     }
 
 
@@ -194,6 +195,7 @@ decodeUseConfig : List Process -> Decoder UseConfig
 decodeUseConfig processes =
     Decode.succeed UseConfig
         |> Decode.requiredAt [ "defaultProcesses", "elec" ] (Process.decodeFromId processes)
+        |> Decode.requiredAt [ "defaultProcesses", "heat" ] (Process.decodeFromId processes)
 
 
 default : DataContainer db -> Result String Config
@@ -253,7 +255,8 @@ default db =
             },
             "use": {
               "defaultProcesses": {
-                "elec": "931c9bb0-619a-5f75-b41b-ab8061e2ad92"
+                "elec": "931c9bb0-619a-5f75-b41b-ab8061e2ad92",
+                "heat": "6cbd45fb-83ff-5852-97a7-87fffecc20f5"
               }
             }
         }

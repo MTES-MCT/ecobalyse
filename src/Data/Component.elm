@@ -903,14 +903,9 @@ computeUseImpacts { config, db } { consumptions } lifeCycle =
                     | use =
                         expandedConsumptions
                             |> List.map
-                                (\( amount, { elec, impacts } ) ->
-                                    Impact.sumImpacts
-                                        [ -- Impacts of the consumption process
-                                          impacts
-                                        , -- Impacts of the energy used by the consumption process
-                                          config.use.defaultElecProcess.impacts
-                                            |> Impact.multiplyBy (Energy.inKilowattHours elec)
-                                        ]
+                                (\( amount, process ) ->
+                                    process
+                                        |> Process.computeImpacts { elec = config.use.defaultElecProcess, heat = config.use.defaultHeatProcess }
                                         |> Impact.multiplyBy (Amount.toFloat amount)
                                 )
                 }
