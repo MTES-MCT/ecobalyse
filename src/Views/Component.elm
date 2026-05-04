@@ -668,6 +668,13 @@ countrySelector config =
 
 elementView : Config db msg -> TargetItem -> Index -> ExpandedElement -> Results -> Html msg
 elementView config (( component, _ ) as targetItem) elementIndex { amount, material, transforms } elementResults =
+    let
+        materialLabel { country, process } =
+            String.join " "
+                [ Process.getDisplayName process
+                , "(" ++ (country |> Maybe.map .name |> Maybe.withDefault "Inconnu") ++ ")"
+                ]
+    in
     tbody []
         [ tr [ class "fs-7 border-top" ]
             [ td [] []
@@ -683,15 +690,15 @@ elementView config (( component, _ ) as targetItem) elementIndex { amount, mater
                         [ type_ "button"
                         , class "btn btn-sm btn-link text-decoration-none p-0 text-start"
                         , onClick (config.openEditElementModal component ( targetItem, elementIndex ))
+                        , title <| materialLabel material
                         ]
                         [ span [ class "ComponentElementIcon" ] [ Icon.material ]
-                        , text <| Process.getDisplayName material.process
-                        , material.country
-                            |> Maybe.map (\{ name } -> " (" ++ name ++ ")")
-                            |> Maybe.withDefault ""
-                            |> text
+                        , text <| materialLabel material
                         ]
-                    , div [ class "d-flex align-items-center gap-1 text-muted" ]
+                    , div
+                        [ class "d-flex align-items-center gap-1 text-muted"
+                        , title <| Component.transformListToString transforms
+                        ]
                         [ span [ class "ComponentElementIcon me-0" ] [ Icon.transform ]
                         , if List.isEmpty transforms then
                             text "Aucune transformation"
