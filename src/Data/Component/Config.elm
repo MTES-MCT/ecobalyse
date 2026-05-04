@@ -28,6 +28,7 @@ type alias Config =
     , endOfLife : EndOfLifeConfig
     , production : ProductionConfig
     , transports : TransportConfig
+    , use : UseConfig
     }
 
 
@@ -90,6 +91,11 @@ type alias TransportConfig =
     }
 
 
+type alias UseConfig =
+    { defaultElecProcess : Process
+    }
+
+
 decode : { db | countries : List Country, processes : List Process } -> Decoder Config
 decode { countries, processes } =
     Decode.succeed Config
@@ -98,6 +104,7 @@ decode { countries, processes } =
         |> Decode.required "endOfLife" (decodeEndOfLifeConfig processes)
         |> Decode.required "production" (decodeProductionConfig processes)
         |> Decode.required "transports" (decodeTransportConfig processes)
+        |> Decode.required "use" (decodeUseConfig processes)
 
 
 decodeDistributionConfig : List Process -> List Country -> Decoder DistributionConfig
@@ -183,6 +190,12 @@ decodeTransportConfig processes =
         |> Decode.required "modeProcesses" (Transport.decodeModeProcesses processes)
 
 
+decodeUseConfig : List Process -> Decoder UseConfig
+decodeUseConfig processes =
+    Decode.succeed UseConfig
+        |> Decode.requiredAt [ "defaultProcesses", "elec" ] (Process.decodeFromId processes)
+
+
 default : DataContainer db -> Result String Config
 default db =
     parse db <|
@@ -237,6 +250,11 @@ default db =
                     "lorryCooling": "219b986c-9751-58cf-977e-7ba8f0b4ae2b",
                     "plane": "326369d9-792a-5ab5-8276-c54108c80cb1"
                 }
+            },
+            "use": {
+              "defaultProcesses": {
+                "elec": "931c9bb0-619a-5f75-b41b-ab8061e2ad92"
+              }
             }
         }
         """

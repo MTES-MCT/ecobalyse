@@ -904,7 +904,7 @@ elementTransformsView config targetElement transformsResults transforms =
                     "Procédé\u{00A0}: "
                         ++ Process.getDisplayName transformStep.process
                         ++ (maybeCountry
-                                |> Component.loadEnergyMixes config.componentConfig
+                                |> Component.loadProductionEnergyMixes config.componentConfig
                                 |> Result.map
                                     (\{ elec, heat } ->
                                         "\nÉlectricité\u{00A0}: "

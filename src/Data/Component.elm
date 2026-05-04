@@ -76,7 +76,7 @@ module Data.Component exposing
     , itemToComponent
     , itemToString
     , itemsToString
-    , loadEnergyMixes
+    , loadProductionEnergyMixes
     , mapItems
     , parseBase64Query
     , parseConfig
@@ -497,7 +497,7 @@ applyTransforms config unit transforms materialResults =
                 (\{ country, process } ->
                     Result.andThen
                         (\results ->
-                            loadEnergyMixes config country
+                            loadProductionEnergyMixes config country
                                 |> Result.map (applyTransform process results)
                         )
                 )
@@ -894,7 +894,7 @@ computeDistributionTransports { config, db } maybeAssemblyCountry items =
 
 
 computeUseImpacts : Requirements db -> Query -> LifeCycle -> Result String LifeCycle
-computeUseImpacts { db } { consumptions } lifeCycle =
+computeUseImpacts { config, db } { consumptions } lifeCycle =
     consumptions
         |> expandConsumptions db.processes
         |> Result.map
@@ -903,8 +903,15 @@ computeUseImpacts { db } { consumptions } lifeCycle =
                     | use =
                         expandedConsumptions
                             |> List.map
-                                (\( amount, { impacts } ) ->
-                                    impacts |> Impact.multiplyBy (Amount.toFloat amount)
+                                (\( amount, { elec, impacts } ) ->
+                                    Impact.sumImpacts
+                                        [ -- Impacts of the consumption process
+                                          impacts
+                                        , -- Impacts of the energy used by the consumption process
+                                          config.use.defaultElecProcess.impacts
+                                            |> Impact.multiplyBy (Energy.inKilowattHours elec)
+                                        ]
+                                        |> Impact.multiplyBy (Amount.toFloat amount)
                                 )
                 }
             )
@@ -1702,8 +1709,8 @@ itemsToString db =
         >> Result.map (String.join ", ")
 
 
-loadEnergyMixes : Config -> Maybe Country -> Result String EnergyMixes
-loadEnergyMixes config =
+loadProductionEnergyMixes : Config -> Maybe Country -> Result String EnergyMixes
+loadProductionEnergyMixes config =
     Maybe.map
         (\{ electricityProcess, heatProcess } -> Ok <| EnergyMixes electricityProcess heatProcess)
         >> Maybe.withDefault
