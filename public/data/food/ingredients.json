@@ -11715,7 +11715,7 @@
     "visible": true
   },
   {
-    "activityName": "Bacon, back, at plant {{bacon-fr-bbc-2025}}",
+    "activityName": "Bacon, back, at plant {{pork-fr-bbc-2025}}",
     "alias": "pork-fr-bbc-2025",
     "categories": [
       "animal_product"
@@ -13304,7 +13304,7 @@
     "visible": true
   },
   {
-    "activityName": "Mixt pig, conventional, national average, at farm gate {FR} U {{bacon-default-2025}}",
+    "activityName": "Mixt pig, conventional, national average, at farm gate {FR} U {{pork-default-2025}}",
     "alias": "pork-default",
     "categories": [
       "animal_product"
@@ -18961,7 +18961,7 @@
     "visible": true
   },
   {
-    "activityName": "Bacon, back, at plant {{bacon-organic-2025}}",
+    "activityName": "Bacon, back, at plant {{pork-organic-2025}}",
     "alias": "pork-organic-2025",
     "categories": [
       "animal_product",
@@ -24941,7 +24941,7 @@
     "visible": true
   },
   {
-    "activityName": "Live pig, consumption mix {FR} U {{bacon-organic-2025}}",
+    "activityName": "Live pig, consumption mix {FR} U {{pork-organic-2025}}",
     "alias": "pork-organic",
     "categories": [
       "animal_product",
@@ -26303,7 +26303,7 @@
     "visible": true
   },
   {
-    "activityName": "Bacon, back, at plant {{bacon-default-2025}}",
+    "activityName": "Bacon, back, at plant {{pork-default-2025}}",
     "alias": "pork-default-2025",
     "categories": [
       "animal_product"

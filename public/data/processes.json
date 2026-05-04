@@ -28927,7 +28927,7 @@
     "waste": 0
   },
   {
-    "activityName": "Bacon, back, at plant {{bacon-default-2025}}",
+    "activityName": "Bacon, back, at plant {{pork-default-2025}}",
     "categories": [
       "ingredient",
       "material",
@@ -28970,7 +28970,7 @@
     "waste": 0
   },
   {
-    "activityName": "Bacon, back, at plant {{bacon-fr-bbc-2025}}",
+    "activityName": "Bacon, back, at plant {{pork-fr-bbc-2025}}",
     "categories": [
       "ingredient",
       "material",
@@ -29013,7 +29013,7 @@
     "waste": 0
   },
   {
-    "activityName": "Bacon, back, at plant {{bacon-organic-2025}}",
+    "activityName": "Bacon, back, at plant {{pork-organic-2025}}",
     "categories": [
       "ingredient",
       "material",
@@ -29736,7 +29736,7 @@
     "waste": 0
   },
   {
-    "activityName": "Live pig, consumption mix {FR} U {{bacon-organic-2025}}",
+    "activityName": "Live pig, consumption mix {FR} U {{pork-organic-2025}}",
     "categories": [
       "ingredient"
     ],
@@ -30207,7 +30207,7 @@
     "waste": 0
   },
   {
-    "activityName": "Mixt pig, conventional, national average, at farm gate {FR} U {{bacon-default-2025}}",
+    "activityName": "Mixt pig, conventional, national average, at farm gate {FR} U {{pork-default-2025}}",
     "categories": [
       "ingredient"
     ],
