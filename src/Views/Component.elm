@@ -33,7 +33,7 @@ import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split
-import Data.Transport as Transport exposing (Transport)
+import Data.Transport exposing (Transport)
 import Data.Unit as Unit
 import Dict.Any as AnyDict
 import Html exposing (..)
@@ -330,55 +330,6 @@ componentDetailedView config elements itemIndex expandedItem itemResults =
                     ]
                 ]
           ]
-        , if List.length config.query.items > 1 then
-            [ tr [ class "bg-light border-top border-bottom" ]
-                [ th [] []
-                , th [ class "pb-1", colspan 6 ] [ text "Acheminement vers assemblage" ]
-                ]
-            , componentTransportToAssembly config expandedItem itemResults
-            ]
-
-          else
-            []
-        ]
-
-
-componentTransportToAssembly : Config db msg -> ExpandedItem -> Results -> Html msg
-componentTransportToAssembly { componentConfig, db, impact, query, scope } expandedItem itemResults =
-    let
-        ( label, transports ) =
-            case Country.resolveMaybe query.assemblyCountry db.countries of
-                Err error ->
-                    ( span [ class "text-danger" ] [ text <| "Erreur\u{00A0}: " ++ error ]
-                    , Transport.default Impact.empty
-                    )
-
-                Ok maybeAssemblyCountry ->
-                    Tuple.mapFirst text <|
-                        Component.computeItemTransportToAssembly
-                            { config = componentConfig, db = db, scope = scope }
-                            maybeAssemblyCountry
-                            expandedItem
-                            itemResults
-    in
-    tr [ class "fs-7" ]
-        [ td [] []
-        , td [ class "py-1", colspan 3 ]
-            [ div [ class "d-flex justify-content-between align-items-center gap-2 ps-0" ]
-                [ span [ class "fw-bold" ] [ label ]
-                , div [ class "d-flex justify-content-between align-items-center gap-2" ]
-                    [ Icon.boat
-                    , Format.km transports.sea
-                    , Icon.bus
-                    , Format.km transports.road
-                    ]
-                ]
-            ]
-        , td [ class "text-end" ]
-            [ itemResults |> Component.extractMass |> Format.kg ]
-        , td [ class "text-end" ]
-            [ transports.impacts |> Format.formatImpact impact ]
-        , td [] []
         ]
 
 

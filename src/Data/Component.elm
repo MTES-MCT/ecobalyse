@@ -31,7 +31,6 @@ module Data.Component exposing
     , computeImpacts
     , computeInitialAmount
     , computeItemResults
-    , computeItemTransportToAssembly
     , computeScoring
     , computeTransportedMassImpacts
     , computeVolumeFromMass
@@ -758,50 +757,6 @@ computeItemResults requirements { custom, id, quantity } =
                     , stage = Nothing
                     }
             )
-
-
-{-| Compute the transport impacts for an item and all its elements to be eventually assembled.
--}
-computeItemTransportToAssembly : Requirements db -> Maybe Country -> ExpandedItem -> Results -> ( String, Transport )
-computeItemTransportToAssembly requirements assemblyCountry item itemResults =
-    let
-        origins =
-            item.elements
-                |> List.map getFinalElementCountry
-
-        defaultOrigin =
-            origins
-                |> List.filterMap identity
-                |> List.head
-
-        unknownTransportLabel =
-            "Trajet inconnu majoré"
-    in
-    ( case assemblyCountry of
-        Just { name } ->
-            -- all items elements have the same origin
-            if origins |> List.all ((==) defaultOrigin) then
-                (defaultOrigin
-                    |> Maybe.map .name
-                    |> Maybe.withDefault unknownTransportLabel
-                )
-                    ++ " → "
-                    ++ name
-
-            else
-                "Origines multiples → " ++ name
-
-        Nothing ->
-            unknownTransportLabel
-    , extractItems itemResults
-        |> List.map2
-            (\element elementResults ->
-                extractMass elementResults
-                    |> computeTransportedMassImpacts requirements (getFinalElementCountry element) assemblyCountry
-            )
-            item.elements
-        |> Transport.sum
-    )
 
 
 computeMaterialResults : Amount -> Process -> Results
