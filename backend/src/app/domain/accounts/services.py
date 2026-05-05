@@ -76,6 +76,7 @@ class UserService(SQLAlchemyAsyncRepositoryService[m.User]):
 
         db_obj.magic_link_hashed_token = None
         db_obj.magic_link_sent_at = None
+        db_obj.last_login_at = now
 
         await self.repository.update(db_obj)
 

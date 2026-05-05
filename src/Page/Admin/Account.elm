@@ -140,6 +140,7 @@ tableConfig =
             , booleanColumn "CGU" (.profile >> .termsAccepted)
             , booleanColumn "Token actif" .hasActiveToken
             , dateColumn "Inscrit le" (.joinedAt >> Maybe.withDefault (Time.millisToPosix 0))
+            , dateColumn "Dernière connexion" (.lastLoginAt >> Maybe.withDefault (Time.millisToPosix 0))
             ]
         , customizations =
             Table.freezeSortableHeaders
