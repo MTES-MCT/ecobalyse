@@ -922,36 +922,77 @@ computeTransportedMassImpacts ({ config } as requirements) maybeFrom maybeTo mas
 computeTransports : Requirements db -> Query -> LifeCycle -> Result String LifeCycle
 computeTransports ({ config, db } as requirements) query lifeCycle =
     Result.map2
-        (\expandedItems assemblyCountry ->
-            { lifeCycle
-                | transports =
-                    { toAssembly =
-                        -- Only multiple items are transported to the assembly stage
-                        -- TODO: refactor query to handle this through types https://github.com/MTES-MCT/ecobalyse/issues/1609
-                        if List.length query.items > 1 then
-                            expandedItems
-                                |> List.indexedMap
-                                    (\index expandedItem ->
-                                        extractItems lifeCycle.production
-                                            |> LE.getAt index
-                                            |> Maybe.map
-                                                (Tuple.second
-                                                    << computeItemTransportToAssembly requirements assemblyCountry expandedItem
-                                                )
-                                    )
-                                |> List.filterMap identity
-                                |> Transport.sum
+        (\expandedItems maybeAssemblyCountry ->
+            -- Only multiple items are transported to the assembly stage
+            -- TODO: refactor query to handle this through types https://github.com/MTES-MCT/ecobalyse/issues/1609
+            case ( expandedItems, maybeAssemblyCountry ) of
+                ( [], Just _ ) ->
+                    Err "Une liste de composants vide ne peut être assemblée"
 
-                        else
-                            Transport.default Impact.empty
-                    , toDistribution =
-                        extractMass lifeCycle.production
-                            |> computeTransportedMassImpacts requirements assemblyCountry (Just config.distribution.country)
-                    }
-            }
+                ( [ _ ], Just _ ) ->
+                    Err "Un composant unique ne peut pas être assemblé"
+
+                -- TODO: many component assembled; for all components, each elements are individually shipped to assembly,
+                -- then the assembled product mass is transported to distribution
+                ( multipleItems, Just assemblyCountry ) ->
+                    Ok
+                        { lifeCycle
+                            | transports = emptyLifeCycleTransports
+                        }
+
+                -- default state, empty transports
+                ( [], Nothing ) ->
+                    Ok { lifeCycle | transports = emptyLifeCycleTransports }
+
+                -- TODO: Single unique component; its elements are directly shipped to distribution individually,
+                -- with no transport to assembly stage
+                ( [ singleItem ], Nothing ) ->
+                    Ok
+                        { lifeCycle
+                            | transports =
+                                { emptyLifeCycleTransports
+                                  -- TODO
+                                    | toDistribution = Transport.default Impact.empty
+                                }
+                        }
+
+                -- TODO: Many items with no assembly country specified; all item elements are individually shipped to
+                -- the assembly stage unique default unknown transport distances,
+                -- then the total mass of the assembled end product is transported to distribution country
+                ( multipleItems, Nothing ) ->
+                    Ok
+                        { lifeCycle
+                            | transports =
+                                -- all item elements are individually shipped to the assembly stage unique default unknown transport distances
+                                { toAssembly = Transport.default Impact.empty
+
+                                -- total mass of the assembled end product is transported to distribution country
+                                , toDistribution = Transport.default Impact.empty
+                                }
+                        }
+         -- { toAssembly =
+         --     if List.length query.items > 1 then
+         --         expandedItems
+         --             |> List.indexedMap
+         --                 (\index expandedItem ->
+         --                     extractItems lifeCycle.production
+         --                         |> LE.getAt index
+         --                         |> Maybe.map
+         --                             (Tuple.second
+         --                                 << computeItemTransportToAssembly requirements maybeAssemblyCountry expandedItem
+         --                             )
+         --                 )
+         --             |> List.filterMap identity
+         --             |> Transport.sum
+         --     else
+         --         Transport.default Impact.empty
+         -- , toDistribution =
+         --     Transport.default Impact.empty
+         -- }
         )
         (expandItems db query.items)
         (Country.resolveMaybe query.assemblyCountry db.countries)
+        |> RE.join
 
 
 computeUseImpacts : Requirements db -> Query -> LifeCycle -> Result String LifeCycle
@@ -1548,15 +1589,6 @@ getDistributionProcess { config, db, scope } maybeDistribution =
                 |> Result.fromMaybe DistributionNothingAvailable
 
 
-{-| Get an element's country last transform if any, or the country of its material otherwise.
--}
-getFinalElementCountry : ExpandedElement -> Maybe Country
-getFinalElementCountry { material, transforms } =
-    LE.last transforms
-        |> Maybe.map .country
-        |> Maybe.withDefault material.country
-
-
 getEndOfLifeDetailedImpacts : Requirements db -> Results -> DetailedEndOfLifeImpacts
 getEndOfLifeDetailedImpacts { config, scope } =
     let
@@ -1628,6 +1660,15 @@ getEndOfLifeScopeCollectionRate { endOfLife } scope =
         |> AnyDict.get scope
         -- Assume every material is fully collected by default
         |> Maybe.withDefault Split.full
+
+
+{-| Get an element's country last transform if any, or the country of its material otherwise.
+-}
+getFinalElementCountry : ExpandedElement -> Maybe Country
+getFinalElementCountry { material, transforms } =
+    LE.last transforms
+        |> Maybe.map .country
+        |> Maybe.withDefault material.country
 
 
 {-| Compute mass distribution by material types
