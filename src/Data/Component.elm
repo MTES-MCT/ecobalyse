@@ -66,10 +66,10 @@ module Data.Component exposing
     , extractStage
     , findById
     , getAvailableDistributionProcesses
-    , getElementFinalCountry
     , getEndOfLifeDetailedImpacts
     , getEndOfLifeImpacts
     , getEndOfLifeScopeCollectionRate
+    , getFinalElementCountry
     , getTotalImpacts
     , idFromString
     , idToString
@@ -767,7 +767,7 @@ computeItemTransportToAssembly requirements assemblyCountry item itemResults =
     let
         origins =
             item.elements
-                |> List.map getElementFinalCountry
+                |> List.map getFinalElementCountry
 
         defaultOrigin =
             origins
@@ -797,7 +797,7 @@ computeItemTransportToAssembly requirements assemblyCountry item itemResults =
         |> List.map2
             (\element elementResults ->
                 extractMass elementResults
-                    |> computeTransportedMassImpacts requirements (getElementFinalCountry element) assemblyCountry
+                    |> computeTransportedMassImpacts requirements (getFinalElementCountry element) assemblyCountry
             )
             item.elements
         |> Transport.sum
@@ -1498,25 +1498,6 @@ extractImpacts (Results { impacts }) =
     impacts
 
 
-getTotalImpacts : Results -> Impacts
-getTotalImpacts (Results { impacts, complementsImpacts }) =
-    Impact.sumImpacts
-        [ impacts
-        , complementsImpacts |> Complement.mergeComplementsResultsImpacts
-        ]
-
-
-{-| Get the final country of an element, which is the country of the last transform if any,
-or the country of the material otherwise.
--}
-getElementFinalCountry : ExpandedElement -> Maybe Country
-getElementFinalCountry { material, transforms } =
-    transforms
-        |> LE.last
-        |> Maybe.map .country
-        |> Maybe.withDefault material.country
-
-
 extractItems : Results -> List Results
 extractItems (Results { items }) =
     items
@@ -1565,6 +1546,15 @@ getDistributionProcess { config, db, scope } maybeDistribution =
             config.distribution.defaultProcess
                 |> Scope.dictGetMaybe scope
                 |> Result.fromMaybe DistributionNothingAvailable
+
+
+{-| Get an element's country last transform if any, or the country of its material otherwise.
+-}
+getFinalElementCountry : ExpandedElement -> Maybe Country
+getFinalElementCountry { material, transforms } =
+    LE.last transforms
+        |> Maybe.map .country
+        |> Maybe.withDefault material.country
 
 
 getEndOfLifeDetailedImpacts : Requirements db -> Results -> DetailedEndOfLifeImpacts
@@ -1674,6 +1664,14 @@ getMaterialDistribution (Results results) =
                         )
             )
             (AnyDict.empty Category.materialTypeToString)
+
+
+getTotalImpacts : Results -> Impacts
+getTotalImpacts (Results { impacts, complementsImpacts }) =
+    Impact.sumImpacts
+        [ impacts
+        , complementsImpacts |> Complement.mergeComplementsResultsImpacts
+        ]
 
 
 getTotalTransportImpacts : LifeCycleTransport -> Impacts

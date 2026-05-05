@@ -756,7 +756,7 @@ getEditedElementData { db, lifeCycle } ( ( _, itemIndex ), elementIndex ) query 
 
 
 elementEditModalView : Config db msg -> TargetElement -> Html msg
-elementEditModalView ({ componentConfig, query } as config) (( _, elementIndex ) as targetElement) =
+elementEditModalView ({ query } as config) (( _, elementIndex ) as targetElement) =
     case query |> getEditedElementData config targetElement of
         Err error ->
             div [ class "alert alert-danger" ] [ text error ]
@@ -775,15 +775,6 @@ elementEditModalView ({ componentConfig, query } as config) (( _, elementIndex )
                 transformsResults =
                     stageItems
                         |> List.filter (Component.extractStage >> (==) (Just Component.TransformStage))
-
-                lastTransportedMass =
-                    transformsResults
-                        |> LE.last
-                        |> Maybe.map Component.extractMass
-                        |> Maybe.withDefault (Component.extractMass materialResults)
-
-                lastTransportedCountry =
-                    Component.getElementFinalCountry expandedElement
             in
             div [ class "table-responsive p-2" ]
                 [ table [ class "table table-sm table-borderless mb-0" ]
@@ -813,11 +804,10 @@ elementEditModalView ({ componentConfig, query } as config) (( _, elementIndex )
                             ]
                             :: elementMaterialView config targetElement materialResults material amount
                             ++ elementTransformsView config targetElement materialResults material.country transformsResults transforms
-                            ++ [ config.db.countries
-                                    |> Country.resolveMaybe config.query.assemblyCountry
-                                    |> Result.map (Maybe.withDefault componentConfig.distribution.country >> Just)
-                                    |> Result.map (elementTransportView config [ class "subdued" ] lastTransportedMass lastTransportedCountry)
-                                    |> Result.withDefault (text "")
+                            ++ [ LE.last transformsResults
+                                    |> Maybe.map Component.extractMass
+                                    |> Maybe.withDefault (Component.extractMass materialResults)
+                                    |> finalElementTransportView config (Component.getFinalElementCountry expandedElement)
                                , tr [ class "border-top" ]
                                     [ td [ colspan 2 ] []
                                     , td [ colspan 6 ]
@@ -827,6 +817,31 @@ elementEditModalView ({ componentConfig, query } as config) (( _, elementIndex )
                         )
                     ]
                 ]
+
+
+{-| Render transports from last transform step to assembly or distribution stage
+-}
+finalElementTransportView : Config db msg -> Maybe Country -> Mass -> Html msg
+finalElementTransportView ({ componentConfig, db, query } as config) elementCountry mass =
+    let
+        maybeDestinationCountryCode =
+            case ( List.length query.items > 1, query.assemblyCountry ) of
+                -- multiple items and an assembly country: transport to assembly country
+                ( True, Just assemblyCountryCode ) ->
+                    Just assemblyCountryCode
+
+                -- single item and no assembly country: transport to default distribution country
+                ( False, Nothing ) ->
+                    Just componentConfig.distribution.country.code
+
+                -- fallback to unknown destination
+                _ ->
+                    Nothing
+    in
+    db.countries
+        |> Country.resolveMaybe maybeDestinationCountryCode
+        |> Result.map (elementTransportView config [ class "subdued" ] mass elementCountry)
+        |> Result.withDefault (text "")
 
 
 listAvailableProcesses :
@@ -942,10 +957,14 @@ elementTransportView config attributes transportedMass maybeFrom maybeTo =
         transport =
             transportedMass
                 |> Component.computeTransportedMassImpacts (requirementsFromConfig config) maybeFrom maybeTo
+
+        renderCountry =
+            Maybe.map .name >> Maybe.withDefault "Région inconnue"
     in
     tr (class "fs-7 text-muted" :: attributes)
         [ td [ colspan 2 ] []
-        , td [] [ text <| "Transport vers " ++ (maybeTo |> Maybe.map .name |> Maybe.withDefault "Région inconnue") ]
+        , td []
+            [ text <| "Transport " ++ renderCountry maybeFrom ++ " → " ++ renderCountry maybeTo ]
         , td [ class "text-end align-middle d-flex justify-content-end align-items-center gap-2 text-nowrap" ]
             [ Icon.boat
             , Format.km transport.sea
