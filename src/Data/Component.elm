@@ -894,7 +894,7 @@ computeDistributionTransports { config, db } maybeAssemblyCountry items =
 
 
 computeUseImpacts : Requirements db -> Query -> LifeCycle -> Result String LifeCycle
-computeUseImpacts { db } { consumptions } lifeCycle =
+computeUseImpacts { config, db } { consumptions } lifeCycle =
     consumptions
         |> expandConsumptions db.processes
         |> Result.map
@@ -903,8 +903,10 @@ computeUseImpacts { db } { consumptions } lifeCycle =
                     | use =
                         expandedConsumptions
                             |> List.map
-                                (\( amount, { impacts } ) ->
-                                    impacts |> Impact.multiplyBy (Amount.toFloat amount)
+                                (\( amount, process ) ->
+                                    process
+                                        |> Process.computeImpacts { elec = config.use.defaultElecProcess, heat = config.use.defaultHeatProcess }
+                                        |> Impact.multiplyBy (Amount.toFloat amount)
                                 )
                 }
             )

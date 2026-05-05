@@ -129,6 +129,8 @@ async def test_user_profile(
     assert response.status_code == 200
     json = response.json()
 
+    assert json["lastLoginAt"] is not None
+
     assert json == {
         "id": json["id"],
         "email": "user@example.com",
@@ -148,6 +150,7 @@ async def test_user_profile(
         "isActive": True,
         "isVerified": False,
         "joinedAt": json["joinedAt"],
+        "lastLoginAt": json["lastLoginAt"],
         "magicLinkSentAt": json["magicLinkSentAt"],
         "hasActiveToken": False,
     }
@@ -163,6 +166,8 @@ async def test_user_update_profile(
     )
     assert response.status_code == 200
     json = response.json()
+
+    assert json["lastLoginAt"] is not None
 
     assert json == {
         "id": json["id"],
@@ -183,6 +188,7 @@ async def test_user_update_profile(
         "isActive": True,
         "isVerified": False,
         "joinedAt": json["joinedAt"],
+        "lastLoginAt": json["lastLoginAt"],
         "magicLinkSentAt": json["magicLinkSentAt"],
         "hasActiveToken": False,
     }
@@ -279,6 +285,7 @@ async def test_user_signup_and_login(
             "isActive": True,
             "isVerified": False,
             "joinedAt": json["joinedAt"],
+            "lastLoginAt": None,
             "magicLinkSentAt": None,
             "hasActiveToken": False,
             "roles": [

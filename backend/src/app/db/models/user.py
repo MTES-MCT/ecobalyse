@@ -37,8 +37,11 @@ class User(UUIDAuditBase):
     is_active: Mapped[bool] = mapped_column(default=False, nullable=False)
     is_superuser: Mapped[bool] = mapped_column(default=False, nullable=False)
     is_verified: Mapped[bool] = mapped_column(default=False, nullable=False)
-    verified_at: Mapped[datetime.date] = mapped_column(nullable=True, default=None)
     joined_at: Mapped[datetime.date] = mapped_column(default=datetime.datetime.now)
+    last_login_at: Mapped[datetime.datetime] = mapped_column(
+        nullable=True, default=None
+    )
+    verified_at: Mapped[datetime.date] = mapped_column(nullable=True, default=None)
 
     # -----------
     # ORM Relationships
