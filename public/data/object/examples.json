@@ -176,8 +176,9 @@
                 "amount": 0.2,
                 "material": "ac028973-5dfa-47bc-868c-e49be116f53e",
                 "transforms": [
-                "ea284007-49a8-4be1-95fc-452ea180285a",
-                "7319ac9c-5796-412f-a1eb-58e01afa7708"]
+                  "ea284007-49a8-4be1-95fc-452ea180285a",
+                  "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                ]
               }
             ],
             "name": "Charnières en acier"
@@ -207,6 +208,24 @@
         }
       ],
       "durability": 1
+    },
+    "scope": "object"
+  },
+  {
+    "category": "",
+    "id": "d9f97add-5c66-48c6-bf8c-2e5be0ae97f8",
+    "name": "exemple alban",
+    "query": {
+      "components": [
+        {
+          "id": "330c2ce9-f91b-42f3-bcdd-335da7f1d141",
+          "quantity": 1
+        },
+        {
+          "id": "6d81112f-3f59-4bbb-9e9d-cfa2c828edc7",
+          "quantity": 1
+        }
+      ]
     },
     "scope": "object"
   }
