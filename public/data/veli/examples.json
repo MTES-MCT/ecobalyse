@@ -258,7 +258,9 @@
               {
                 "amount": 0.05,
                 "material": "c5295f47-0307-48a6-8552-3705063af767",
-                "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
+                "transforms": [
+                  "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"
+                ]
               }
             ]
           },
@@ -620,6 +622,90 @@
       "consumptions": [
         {
           "amount": 2000,
+          "processId": "eec31f13-d00a-4741-a84f-85d887026f8c"
+        }
+      ],
+      "durability": 1
+    },
+    "scope": "veli"
+  },
+  {
+    "category": "",
+    "id": "02af127c-720c-4f63-b662-90f6d9ac5595",
+    "name": "Test Nicolas Pl",
+    "query": {
+      "assemblyCountry": "FR",
+      "components": [
+        {
+          "country": "FR",
+          "custom": {
+            "elements": [
+              {
+                "amount": 40,
+                "material": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b",
+                "transforms": [
+                  {
+                    "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"
+                  }
+                ]
+              },
+              {
+                "amount": 40,
+                "material": "21a0d5b0-861e-4bed-98a9-46c61d2a0618",
+                "transforms": [
+                  {
+                    "id": "ea284007-49a8-4be1-95fc-452ea180285a"
+                  },
+                  {
+                    "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                  }
+                ]
+              }
+            ],
+            "name": "Chassis-carosserie Minibus quadricycle"
+          },
+          "id": "189674e0-737e-4d6d-aab0-3fdfc19839ed",
+          "quantity": 1
+        },
+        {
+          "country": "CN",
+          "id": "cdc7add7-06ac-4861-9f28-efc005598e4c",
+          "quantity": 1
+        },
+        {
+          "country": "DE",
+          "id": "edca4c52-b34a-4906-b2e0-4f726bfcc8f7",
+          "quantity": 1
+        },
+        {
+          "country": "RAS",
+          "id": "d4583813-5f80-47e0-b028-df438f59cfe2",
+          "quantity": 4
+        },
+        {
+          "country": "RAS",
+          "id": "6b3d7f30-e87b-426c-93ed-3a1179238583",
+          "quantity": 4
+        },
+        {
+          "country": "FR",
+          "id": "d3ef64c0-3deb-4ef2-838d-015d8ece019e",
+          "quantity": 1
+        },
+        {
+          "country": "FR",
+          "id": "1d2de15a-53d9-465d-a2cf-fa2c5f68f5e9",
+          "quantity": 2
+        },
+        {
+          "country": "RAS",
+          "id": "71086438-51a9-4980-ac3b-f24d5baa4cd5",
+          "quantity": 1
+        }
+      ],
+      "consumptions": [
+        {
+          "amount": 10000,
           "processId": "eec31f13-d00a-4741-a84f-85d887026f8c"
         }
       ],
