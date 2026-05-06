@@ -1,10 +1,10 @@
 ---
 description: >-
   Cette page est dédiée à l'organisation des ateliers de construction d'exemples
-  de véhicules en séminaire veli du 04/05/2026
+  de véhicules en séminaire veli du 06/05/2026
 ---
 
-# Séminaire Veli 04/05/2026
+# Séminaire Veli 06/05/2026
 
 Cet atelier vise à modéliser des exemples de velis.
 
