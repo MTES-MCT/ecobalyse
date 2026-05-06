@@ -51,7 +51,7 @@ table ({ db } as session) { detailed, scope } =
           , toValue =
                 Table.StringValue <|
                     \{ elements } ->
-                        case Component.expandElements db Nothing elements of
+                        case Component.expandElements db elements of
                             Err _ ->
                                 ""
 
@@ -60,14 +60,14 @@ table ({ db } as session) { detailed, scope } =
                                     |> List.map
                                         (\{ amount, material } ->
                                             Amount.toString amount
-                                                ++ Process.unitToString material.unit
+                                                ++ Process.unitToString material.process.unit
                                                 ++ " de "
-                                                ++ Process.getDisplayName material
+                                                ++ Process.getDisplayName material.process
                                         )
                                     |> String.join ", "
           , toCell =
                 \{ elements } ->
-                    case Component.expandElements db Nothing elements of
+                    case Component.expandElements db elements of
                         Err err ->
                             Alert.simple
                                 { attributes = []
@@ -85,8 +85,8 @@ table ({ db } as session) { detailed, scope } =
                                 |> List.map
                                     (\{ amount, material, transforms } ->
                                         li []
-                                            [ Format.amount material amount
-                                            , text <| " de " ++ Process.getDisplayName material
+                                            [ Format.amount material.process amount
+                                            , text <| " de " ++ Process.getDisplayName material.process
                                             , transforms
                                                 |> List.map (.process >> Process.getDisplayName >> text >> List.singleton >> li [])
                                                 |> ul []

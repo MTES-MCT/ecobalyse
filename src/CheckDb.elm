@@ -98,7 +98,7 @@ checkComponentsProcessIds knownProcessStringIds db =
                     |> List.concatMap
                         (\{ material, transforms } ->
                             []
-                                |> (++) (material |> checkProcessId knownProcessStringIds component "element.material")
+                                |> (++) (material.id |> checkProcessId knownProcessStringIds component "element.material")
                                 |> (++) (transforms |> List.map .id |> List.concatMap (checkProcessId knownProcessStringIds component "element.transforms"))
                         )
             )
@@ -157,7 +157,7 @@ checkComponentScopeMismatch processes example component =
                 |> List.concatMap
                     (\{ material, transforms } ->
                         []
-                            |> (++) (material |> checkComponentProcessScope processes component example "element.material")
+                            |> (++) (material.id |> checkComponentProcessScope processes component example "element.material")
                             |> (++) (transforms |> List.map .id |> List.concatMap (checkComponentProcessScope processes component example "element.transforms"))
                     )
     in

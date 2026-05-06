@@ -3,6 +3,7 @@ module Data.ComponentTest exposing (..)
 import Data.Complement as Complement
 import Data.Component as Component exposing (Component, Item, LifeCycle, Requirements)
 import Data.Component.Amount as Amount
+import Data.Country as Country
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
 import Data.Process as Process exposing (Process)
@@ -20,7 +21,18 @@ import Quantity
 import Result.Extra as RE
 import Static.Db exposing (Db)
 import Test exposing (..)
-import TestUtils exposing (expectResultErrorContains, it, suiteWithDb)
+import TestUtils
+    exposing
+        ( expectResultErrorContains
+        , it
+        , itFromResult
+        , itFromResult2
+        , suiteFromResult
+        , suiteFromResult2
+        , suiteFromResult3
+        , suiteFromResult4
+        , suiteWithDb
+        )
 import Volume
 
 
@@ -38,17 +50,17 @@ suite =
                 db =
                     setupTestDb originalDb
             in
-            [ TestUtils.suiteFromResult "setupRequirements"
+            [ suiteFromResult "setupRequirements"
                 (createTestRequirements db)
                 (\requirements ->
-                    [ TestUtils.suiteFromResult3 "addElement"
+                    [ suiteFromResult3 "addElement"
                         -- setup
                         chairBack
                         steel
                         injectionMoulding
                         -- tests
                         (\testComponent validMaterial invalidMaterial ->
-                            [ it "should add a new element using a valid material"
+                            [ itFromResult "should add a new element using a valid material"
                                 (chair
                                     |> Result.andThen (Component.addElement ( testComponent, 1 ) validMaterial)
                                     |> Result.map
@@ -61,11 +73,11 @@ suite =
                                                 -- access the second element
                                                 |> Maybe.andThen (.elements >> LE.getAt 1)
                                                 -- and its material process id
-                                                |> Maybe.map .material
+                                                |> Maybe.map (.material >> .id)
                                         )
-                                    -- it should be equal to the one we swapped in
-                                    |> Expect.equal (Ok (Just validMaterial.id))
                                 )
+                                -- it should be equal to the one we swapped in
+                                (Expect.equal (Just validMaterial.id))
                             , it "should reject an invalid element material"
                                 (chair
                                     |> Result.andThen (Component.addElement ( testComponent, 1 ) invalidMaterial)
@@ -73,14 +85,14 @@ suite =
                                 )
                             ]
                         )
-                    , TestUtils.suiteFromResult3 "addElementTransform"
+                    , suiteFromResult3 "addElementTransform"
                         -- setup
                         chairBack
                         injectionMoulding
                         wood
                         -- tests
                         (\testComponent validTransformProcess invalidTransformProcess ->
-                            [ it "should add a valid transformation process to a component element"
+                            [ itFromResult "should add a valid transformation process to a component element"
                                 (chair
                                     |> Result.andThen (Component.addElementTransform ( ( testComponent, 1 ), 0 ) validTransformProcess)
                                     |> Result.map
@@ -95,8 +107,8 @@ suite =
                                                 -- and its material process id
                                                 |> Maybe.map .transforms
                                         )
-                                    |> Expect.equal (Ok (Just [ Component.defaultTransform validTransformProcess.id ]))
                                 )
+                                (Expect.equal (Just [ Component.nonLocalizedProcess validTransformProcess.id ]))
                             , it "should reject an invalid transformation process"
                                 (chair
                                     |> Result.andThen (Component.addElementTransform ( ( testComponent, 1 ), 0 ) invalidTransformProcess)
@@ -104,7 +116,7 @@ suite =
                                 )
                             ]
                         )
-                    , TestUtils.suiteFromResult "addItem"
+                    , suiteFromResult "addItem"
                         chairBack
                         (\testComponent ->
                             [ it "should allow adding the same component twice"
@@ -130,9 +142,10 @@ suite =
                                     , quantity = 1
                                     , stage = Nothing
                                     }
-                                    |> Component.applyTransforms requirements.config
+                                    |> Component.applyTransforms requirements
+                                        Nothing
                                         Process.Kilogram
-                                        (List.map Component.defaultExpandedTransform transforms)
+                                        (List.map Component.nonLocalizedExpandedProcess transforms)
                                     |> Result.withDefault Component.emptyResults
                                     |> Component.extractMass
                                     |> Mass.inKilograms
@@ -164,9 +177,10 @@ suite =
                                     , quantity = 1
                                     , stage = Nothing
                                     }
-                                    |> Component.applyTransforms requirements.config
+                                    |> Component.applyTransforms requirements
+                                        Nothing
                                         Process.Kilogram
-                                        (List.map Component.defaultExpandedTransform transforms)
+                                        (List.map Component.nonLocalizedExpandedProcess transforms)
                                     |> Result.withDefault Component.emptyResults
                                     |> extractEcsImpact
                           in
@@ -181,7 +195,7 @@ suite =
                                         |> resetProcessElecAndHeat
                                         |> setProcessEcsImpact (Unit.impact 10)
                                     ]
-                                    |> Expect.within (Expect.Absolute 1) 10
+                                    |> Expect.within (Expect.Absolute 1) 33
                                 )
                             , it "should add impacts when one transform is passed (including elec and heat)"
                                 (getTestEcsImpact
@@ -191,67 +205,62 @@ suite =
                                                 |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 10)
                                       }
                                     ]
-                                    |> Expect.within (Expect.Absolute 1) 420
+                                    |> Expect.within (Expect.Absolute 1) 443
                                 )
-                            , it "should compute apply custom mix impacts when a transform step country is set"
-                                (let
-                                    getImpact steps =
-                                        Component.Results
-                                            { amount = Amount.fromFloat 1
-                                            , complementsImpacts = Complement.emptyComplementsResultsImpacts
-                                            , impacts = Impact.empty
-                                            , items = []
-                                            , label = Nothing
-                                            , mass = Mass.kilogram
-                                            , materialType = Nothing
-                                            , quantity = 1
-                                            , stage = Nothing
-                                            }
-                                            |> Component.applyTransforms requirements.config Process.Kilogram steps
-                                            |> Result.withDefault Component.emptyResults
-                                            |> extractEcsImpact
-                                 in
-                                 case
-                                    -- fetch first country with mixes different from defaults
-                                    requirements.db.countries
-                                        |> Scope.anyOf [ requirements.scope ]
-                                        |> List.filter
-                                            (\{ electricityProcess, heatProcess } ->
-                                                (electricityProcess /= requirements.config.production.defaultElecProcess)
-                                                    || (heatProcess /= requirements.config.production.defaultHeatProcess)
-                                            )
-                                        |> List.head
-                                        |> Result.fromMaybe "No country found with mixes different from defaults"
-                                 of
-                                    Err error ->
-                                        Expect.fail error
+                            , itFromResult "should compute apply custom mix impacts when a transform step country is set"
+                                -- fetch first country with mixes different from defaults
+                                (requirements.db.countries
+                                    |> Scope.anyOf [ requirements.scope ]
+                                    |> List.filter
+                                        (\{ electricityProcess, heatProcess } ->
+                                            (electricityProcess /= requirements.config.production.defaultElecProcess)
+                                                || (heatProcess /= requirements.config.production.defaultHeatProcess)
+                                        )
+                                    |> List.head
+                                    |> Result.fromMaybe "No country found with mixes different from defaults"
+                                )
+                                (\country ->
+                                    let
+                                        getImpact steps =
+                                            Component.Results
+                                                { amount = Amount.fromFloat 1
+                                                , complementsImpacts = Complement.emptyComplementsResultsImpacts
+                                                , impacts = Impact.empty
+                                                , items = []
+                                                , label = Nothing
+                                                , mass = Mass.kilogram
+                                                , materialType = Nothing
+                                                , quantity = 1
+                                                , stage = Nothing
+                                                }
+                                                |> Component.applyTransforms requirements Nothing Process.Kilogram steps
+                                                |> Result.withDefault Component.emptyResults
+                                                |> extractEcsImpact
 
-                                    Ok country ->
-                                        let
-                                            ( defaultImpact, localizedImpact ) =
-                                                ( getImpact [ Component.defaultExpandedTransform fading ]
-                                                , getImpact [ { country = Just country, process = fading } ]
-                                                )
-                                        in
-                                        abs (defaultImpact - localizedImpact)
-                                            |> Expect.greaterThan 0.00001
+                                        ( defaultImpact, localizedImpact ) =
+                                            ( getImpact [ Component.nonLocalizedExpandedProcess fading ]
+                                            , getImpact [ { country = Just country, process = fading } ]
+                                            )
+                                    in
+                                    abs (defaultImpact - localizedImpact)
+                                        |> Expect.greaterThan 0.00001
                                 )
                             , it "should add impacts when multiple transforms are passed (no elec, no heat)"
                                 (getTestEcsImpact
                                     [ fading |> resetProcessElecAndHeat |> setProcessEcsImpact (Unit.impact 10)
                                     , fading |> resetProcessElecAndHeat |> setProcessEcsImpact (Unit.impact 20)
                                     ]
-                                    |> Expect.within (Expect.Absolute 1) 30
+                                    |> Expect.within (Expect.Absolute 1) 76
                                 )
                             , it "should add impacts when multiple transforms are passed (including elec and heat)"
                                 (getTestEcsImpact
                                     [ fading |> setProcessEcsImpact (Unit.impact 10)
                                     , fading |> setProcessEcsImpact (Unit.impact 20)
                                     ]
-                                    |> Expect.within (Expect.Absolute 1) 849
+                                    |> Expect.within (Expect.Absolute 1) 896
                                 )
                             ]
-                        , TestUtils.suiteFromResult "unit mismatch"
+                        , suiteFromResult "unit mismatch"
                             injectionMoulding
                             (\transformInKg ->
                                 [ it "should reject when the unit of the material and the transforms do not match"
@@ -266,9 +275,10 @@ suite =
                                         , quantity = 1
                                         , stage = Nothing
                                         }
-                                        |> Component.applyTransforms requirements.config
+                                        |> Component.applyTransforms requirements
+                                            Nothing
                                             Process.CubicMeter
-                                            [ Component.defaultExpandedTransform transformInKg ]
+                                            [ Component.nonLocalizedExpandedProcess transformInKg ]
                                         |> Expect.equal (Err "Les procédés de transformation ne partagent pas la même unité que la matière source (m3)\u{00A0}: Moulage par injection (kg)")
                                     )
                                 ]
@@ -286,9 +296,10 @@ suite =
                                     , quantity = 1
                                     , stage = Nothing
                                     }
-                                    |> Component.applyTransforms requirements.config
+                                    |> Component.applyTransforms requirements
+                                        Nothing
                                         Process.Kilogram
-                                        (List.map Component.defaultExpandedTransform transforms)
+                                        (List.map Component.nonLocalizedExpandedProcess transforms)
                                     |> Result.withDefault Component.emptyResults
                           in
                           describe "impacts & waste"
@@ -311,7 +322,7 @@ suite =
                                   it "should handle impacts+waste when applying transforms: impacts"
                                     (noElecAndNoHeat
                                         |> extractEcsImpact
-                                        |> Expect.within (Expect.Absolute 1) 120
+                                        |> Expect.within (Expect.Absolute 1) 155.13510000000002
                                     )
 
                                 -- (1kg * 0.5) * 0.5 == 0.25
@@ -337,7 +348,7 @@ suite =
                                 [ it "should handle impacts+waste when applying transforms: impacts"
                                     (withElecAndHeat
                                         |> extractEcsImpact
-                                        |> Expect.within (Expect.Absolute 1) 734
+                                        |> Expect.within (Expect.Absolute 1) 769.7222644999999
                                     )
                                 , it "should handle impacts+waste when applying transforms: mass"
                                     (withElecAndHeat
@@ -346,6 +357,64 @@ suite =
                                         |> Expect.within (Expect.Absolute 0.01) 0.25
                                     )
                                 ]
+                            ]
+                        , describe "transports" <|
+                            let
+                                extractTransportStagesCount kind results =
+                                    results
+                                        |> Component.extractItems
+                                        |> List.filter (Component.extractStage >> (==) (Just kind))
+                                        |> List.length
+
+                                extractStages results =
+                                    results
+                                        |> Component.extractItems
+                                        |> List.filterMap Component.extractStage
+
+                                getResults localizedTransforms =
+                                    Component.Results
+                                        { amount = Amount.fromFloat 1
+                                        , complementsImpacts = Complement.emptyComplementsResultsImpacts
+                                        , impacts = Impact.empty
+                                        , items = []
+                                        , label = Nothing
+                                        , mass = Mass.kilogram
+                                        , materialType = Nothing
+                                        , quantity = 1
+                                        , stage = Nothing
+                                        }
+                                        |> Component.applyTransforms requirements
+                                            Nothing
+                                            Process.Kilogram
+                                            localizedTransforms
+                                        |> Result.withDefault Component.emptyResults
+                            in
+                            [ it "should add one transport stage per transform step"
+                                (getResults
+                                    [ Component.nonLocalizedExpandedProcess fading
+                                    , Component.nonLocalizedExpandedProcess fading
+                                    ]
+                                    |> extractTransportStagesCount Component.TransportStage
+                                    |> Expect.equal 2
+                                )
+                            , it "should add no transport stage when no transform is applied"
+                                (getResults []
+                                    |> extractTransportStagesCount Component.TransportStage
+                                    |> Expect.equal 0
+                                )
+                            , it "should insert transport before each transform stage"
+                                (getResults
+                                    [ Component.nonLocalizedExpandedProcess fading
+                                    , Component.nonLocalizedExpandedProcess fading
+                                    ]
+                                    |> extractStages
+                                    |> Expect.equal
+                                        [ Component.TransportStage
+                                        , Component.TransformStage
+                                        , Component.TransportStage
+                                        , Component.TransformStage
+                                        ]
+                                )
                             ]
                         ]
                     , describe "compute"
@@ -377,7 +446,7 @@ suite =
                                 |> Result.map (.production >> extractEcsImpact)
                                 |> TestUtils.expectResultWithin (Expect.Absolute 1) 282
                             )
-                        , TestUtils.suiteFromResult "distribution impacts"
+                        , suiteFromResult "distribution impacts"
                             -- setup
                             chair
                             -- tests
@@ -386,7 +455,7 @@ suite =
                                     requirementsDb =
                                         requirements.db
                                 in
-                                [ TestUtils.suiteFromResult "when no default distribution process is available"
+                                [ suiteFromResult "when no default distribution process is available"
                                     -- setup
                                     (chairItems
                                         |> computeItemsWithRequirements
@@ -417,7 +486,7 @@ suite =
                                             )
                                         ]
                                     )
-                                , TestUtils.suiteFromResult "when an explicit distribution process is specified"
+                                , suiteFromResult "when an explicit distribution process is specified"
                                     -- setup
                                     (requirementsDb.processes
                                         |> List.head
@@ -445,7 +514,7 @@ suite =
                                     )
                                     -- tests
                                     (\( testDistributionProcess, testRequirements ) ->
-                                        [ TestUtils.suiteFromResult "distribution result tests"
+                                        [ suiteFromResult "distribution result tests"
                                             (Component.emptyQuery
                                                 |> Component.setQueryItems chairItems
                                                 |> Component.updateDistribution (Just testDistributionProcess.id)
@@ -489,20 +558,19 @@ suite =
                             )
                         ]
                     , describe "computeElementResults"
-                        [ TestUtils.suiteFromResult "basic tests"
+                        [ suiteFromResult "basic tests"
                             -- setup
                             (Process.idFromString "f0dbe27b-1e74-55d0-88a2-bda812441744"
                                 |> Result.andThen
                                     (\cottonId ->
                                         Component.computeElementResults requirements
-                                            Nothing
                                             { amount = Amount.fromFloat 1
-                                            , material = cottonId
+                                            , material = { country = Nothing, id = cottonId }
 
                                             -- Note: weaving waste: 0.06253, fading: 0
                                             , transforms =
-                                                [ Component.defaultTransform weaving.id
-                                                , Component.defaultTransform fading.id
+                                                [ Component.nonLocalizedProcess weaving.id
+                                                , Component.nonLocalizedProcess fading.id
                                                 ]
                                             }
                                     )
@@ -512,7 +580,7 @@ suite =
                                 [ it "should compute element impacts"
                                     (elementResults
                                         |> extractEcsImpact
-                                        |> Expect.within (Expect.Absolute 1) 2213
+                                        |> Expect.within (Expect.Absolute 1) 2261
                                     )
                                 , it "should compute element mass"
                                     (elementResults
@@ -522,23 +590,23 @@ suite =
                                     )
                                 ]
                             )
-                        , TestUtils.suiteFromResult2 "unit preservation"
+                        , suiteFromResult2 "unit preservation"
                             wood
                             sawing
                             (\materialInCubicMeters transformInCubicMeters ->
                                 let
                                     results =
                                         { amount = Amount.fromFloat 1
-                                        , material = materialInCubicMeters.id
-                                        , transforms = [ Component.defaultTransform transformInCubicMeters.id ]
+                                        , material = { country = Nothing, id = materialInCubicMeters.id }
+                                        , transforms = [ Component.nonLocalizedProcess transformInCubicMeters.id ]
                                         }
-                                            |> Component.computeElementResults requirements Nothing
+                                            |> Component.computeElementResults requirements
                                 in
                                 [ it "should compute impacts according on material unit"
                                     (results
                                         |> Result.map extractEcsImpact
                                         |> Result.withDefault 0
-                                        |> Expect.within (Expect.Absolute 1) 38342
+                                        |> Expect.within (Expect.Absolute 1) 69261
                                     )
                                 , it "should compute mass according on material unit"
                                     (results
@@ -548,17 +616,17 @@ suite =
                                     )
                                 ]
                             )
-                        , TestUtils.suiteFromResult2 "compute metadata complements"
+                        , suiteFromResult2 "compute metadata complements"
                             wood
                             sawing
                             (\materialInCubicMeters transformInCubicMeters ->
                                 let
                                     results =
                                         { amount = Amount.fromFloat 1
-                                        , material = materialInCubicMeters.id
-                                        , transforms = [ Component.defaultTransform transformInCubicMeters.id ]
+                                        , material = { country = Nothing, id = materialInCubicMeters.id }
+                                        , transforms = [ Component.nonLocalizedProcess transformInCubicMeters.id ]
                                         }
-                                            |> Component.computeElementResults requirements Nothing
+                                            |> Component.computeElementResults requirements
                                 in
                                 [ it "should compute complements impacts according on material unit"
                                     (results
@@ -647,7 +715,7 @@ suite =
                          ]
                         )
                     , describe "computeTransports"
-                        [ TestUtils.suiteFromResult2 "unknown locations"
+                        [ suiteFromResult2 "unknown locations"
                             -- setup
                             ("""[{ "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }]"""
                                 |> decodeJsonThen (Decode.list Component.decodeItem) (computeItemsWithRequirements requirements)
@@ -679,6 +747,164 @@ suite =
                                     )
                                 ]
                             )
+                        , it "should reject single item assembly"
+                            ("""{
+                                  "assemblyCountry": "FR",
+                                  "components": [
+                                    { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
+                                  ]
+                                }"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> expectResultErrorContains "Un composant unique ne peut pas être assemblé"
+                            )
+                        , suiteFromResult "assembly country handling"
+                            -- setup
+                            ("""{
+                                  "assemblyCountry": "FR",
+                                  "components": [
+                                    { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 },
+                                    { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
+                                  ]
+                                }"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                            )
+                            -- tests
+                            (\productAssembledInFrance ->
+                                [ it "should add both assembly and distribution transport impacts when assembly country is specified"
+                                    (let
+                                        ( assemblyImpact, distributionImpact ) =
+                                            ( productAssembledInFrance
+                                                |> .transports
+                                                |> .toAssembly
+                                                |> .impacts
+                                                |> getEcsImpact
+                                            , productAssembledInFrance
+                                                |> .transports
+                                                |> .toDistribution
+                                                |> .impacts
+                                                |> getEcsImpact
+                                            )
+                                     in
+                                     ( assemblyImpact, distributionImpact )
+                                        |> Expect.all
+                                            [ Tuple.first >> Expect.greaterThan 0
+                                            , Tuple.second >> Expect.greaterThan 0
+                                            ]
+                                    )
+                                ]
+                            )
+                        , suiteFromResult "single item distribution transport"
+                            -- setup
+                            ("""{"components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]}"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                            )
+                            -- tests
+                            (\singleItemProduct ->
+                                [ it "should not add transport to assembly when shipping a single item"
+                                    (singleItemProduct
+                                        |> .transports
+                                        |> .toAssembly
+                                        |> .impacts
+                                        |> getEcsImpact
+                                        |> Expect.equal 0
+                                    )
+                                , it "should add transport impacts to distribution when shipping a single item"
+                                    (singleItemProduct
+                                        |> .transports
+                                        |> .toDistribution
+                                        |> .impacts
+                                        |> getEcsImpact
+                                        |> Expect.greaterThan 0
+                                    )
+                                ]
+                            )
+                        , suiteFromResult2 "multiple items without assembly country"
+                            -- setup
+                            ("""{
+                                  "components": [
+                                    { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 },
+                                    { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
+                                  ]
+                                }"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                            )
+                            ("""{
+                                  "components": [
+                                    { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 },
+                                    { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 2 }
+                                  ]
+                                }"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                            )
+                            -- tests
+                            (\productAssembledInUnknownCountry heavierProductAssembledInUnknownCountry ->
+                                [ it "should add both assembly and distribution transports when multiple items have no assembly country"
+                                    (let
+                                        ( assemblyImpact, distributionImpact ) =
+                                            ( productAssembledInUnknownCountry
+                                                |> .transports
+                                                |> .toAssembly
+                                                |> .impacts
+                                                |> getEcsImpact
+                                            , productAssembledInUnknownCountry
+                                                |> .transports
+                                                |> .toDistribution
+                                                |> .impacts
+                                                |> getEcsImpact
+                                            )
+                                     in
+                                     ( assemblyImpact, distributionImpact )
+                                        |> Expect.all
+                                            [ Tuple.first >> Expect.greaterThan 0
+                                            , Tuple.second >> Expect.greaterThan 0
+                                            ]
+                                    )
+                                , it "should increase distribution transport impacts when total transported mass increases"
+                                    (let
+                                        productAssembledInUnknownCountryImpacts =
+                                            productAssembledInUnknownCountry
+                                                |> .transports
+                                                |> .toDistribution
+                                                |> .impacts
+                                                |> getEcsImpact
+
+                                        heavierProductAssembledInUnknownCountryImpacts =
+                                            heavierProductAssembledInUnknownCountry
+                                                |> .transports
+                                                |> .toDistribution
+                                                |> .impacts
+                                                |> getEcsImpact
+                                     in
+                                     heavierProductAssembledInUnknownCountryImpacts
+                                        |> Expect.greaterThan productAssembledInUnknownCountryImpacts
+                                    )
+                                ]
+                            )
+                        , itFromResult2 "should include transport stage impacts when applying transforms"
+                            -- setup
+                            -- test country
+                            (requirements.db.countries
+                                |> Scope.anyOf [ requirements.scope ]
+                                |> List.head
+                                |> Result.fromMaybe ("No test country available scoped " ++ Scope.toString requirements.scope)
+                            )
+                            -- cotton
+                            (Process.idFromString "f0dbe27b-1e74-55d0-88a2-bda812441744")
+                            -- tests
+                            (\country materialId ->
+                                { amount = Amount.fromFloat 1
+                                , material = { country = Just country.code, id = materialId }
+                                , transforms =
+                                    [ { id = fading.id
+                                      , country = Just country.code
+                                      }
+                                    ]
+                                }
+                                    |> Component.computeElementResults requirements
+                                    |> Result.map Component.extractItems
+                                    |> Result.map (List.any (Component.extractStage >> (==) (Just Component.TransportStage)))
+                                    |> Expect.equal (Ok True)
+                            )
                         ]
                     , describe "computeVolumeFromMass"
                         [ it "should compute a volume from a mass"
@@ -687,8 +913,64 @@ suite =
                                 |> Expect.equal (Volume.cubicMeters 1)
                             )
                         ]
-                    , TestUtils.suiteFromResult "itemToComponent"
-                        -- setup
+                    , describe "decodeItem"
+                        [ it "should decode an item"
+                            ("""{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }"""
+                                |> decodeJson Component.decodeItem
+                                |> Expect.ok
+                            )
+                        , itFromResult "should decode an item with a custom material country override"
+                            ("""{
+                                  "quantity": 1,
+                                  "custom": {
+                                    "elements": [
+                                      {
+                                        "amount": 1,
+                                        "material": {
+                                          "id": "17431e06-2973-516e-b043-be9ad405e4fb",
+                                          "country": "CN"
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }"""
+                                |> decodeJsonThen Component.decodeItem
+                                    (.custom
+                                        >> Maybe.andThen (.elements >> LE.getAt 0)
+                                        >> Maybe.map (.material >> .country)
+                                        >> Result.fromMaybe "Missing custom element material country"
+                                    )
+                            )
+                            (Expect.equal (Just (Country.codeFromString "CN")))
+                        , itFromResult "should decode an item with a custom transform country override"
+                            ("""{
+                                  "quantity": 1,
+                                  "custom": {
+                                    "elements": [
+                                      {
+                                        "amount": 1,
+                                        "material": "17431e06-2973-516e-b043-be9ad405e4fb",
+                                        "transforms": [
+                                          {
+                                            "id": "931c9bb0-619a-5f75-b41b-ab8061e2ad92",
+                                            "country": "CN"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                }"""
+                                |> decodeJsonThen Component.decodeItem
+                                    (.custom
+                                        >> Maybe.andThen (.elements >> LE.getAt 0)
+                                        >> Maybe.andThen (.transforms >> LE.getAt 0)
+                                        >> Maybe.map .country
+                                        >> Result.fromMaybe "Missing custom element transform country"
+                                    )
+                            )
+                            (Expect.equal (Just (Country.codeFromString "CN")))
+                        ]
+                    , suiteFromResult "itemToComponent"
                         ("""{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
                               "quantity": 1,
                               "custom": {
@@ -709,7 +991,6 @@ suite =
                                         |> Result.map (\component -> ( item.custom, component ))
                                 )
                         )
-                        -- tests
                         (\( maybeCustom, component ) ->
                             [ it "should merge custom item elements into a final component"
                                 (Expect.equal component.elements
@@ -722,8 +1003,7 @@ suite =
                                 (Expect.equal component.name "custom name")
                             ]
                         )
-                    , TestUtils.suiteFromResult "itemToString with an existing component"
-                        -- setup
+                    , itFromResult "itemToString with an existing component"
                         (""" { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
                                "quantity": 1,
                                "custom": {
@@ -741,15 +1021,8 @@ suite =
                             }"""
                             |> decodeJsonThen Component.decodeItem (Component.itemToString db)
                         )
-                        -- tests
-                        (\string ->
-                            [ it "should serialise an item as a human readable string representation"
-                                (Expect.equal string
-                                    "1 Pied 70 cm (plein bois) [ 4,40e-4m3 Bois d'oeuvre (Feuillus / Hêtre) | 8,80e-4kg Plastique granulé (PP) ]"
-                                )
-                            ]
-                        )
-                    , TestUtils.suiteFromResult "itemToString with an existing component and a custom name"
+                        (Expect.equal "1 Pied 70 cm (plein bois) [ 4,40e-4m3 Bois d'oeuvre (Feuillus / Hêtre) | 8,80e-4kg Plastique granulé (PP) ]")
+                    , itFromResult "itemToString with an existing component and a custom name"
                         -- setup
                         (""" { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
                                "quantity": 1,
@@ -769,16 +1042,8 @@ suite =
                             }"""
                             |> decodeJsonThen Component.decodeItem (Component.itemToString db)
                         )
-                        -- tests
-                        (\string ->
-                            [ it "should serialise an item as a human readable string representation"
-                                (Expect.equal string
-                                    "1 Customized existing component [ 4,40e-4m3 Bois d'oeuvre (Feuillus / Hêtre) | 8,80e-4kg Plastique granulé (PP) ]"
-                                )
-                            ]
-                        )
-                    , TestUtils.suiteFromResult "itemToString with a new component"
-                        -- setup
+                        (Expect.equal "1 Customized existing component [ 4,40e-4m3 Bois d'oeuvre (Feuillus / Hêtre) | 8,80e-4kg Plastique granulé (PP) ]")
+                    , itFromResult "itemToString with a new component"
                         (""" { "quantity": 1,
                                "custom": {
                                  "name": "Custom new component",
@@ -796,15 +1061,8 @@ suite =
                             }"""
                             |> decodeJsonThen Component.decodeItem (Component.itemToString db)
                         )
-                        -- tests
-                        (\string ->
-                            [ it "should serialise a new item without id as a human readable string representation"
-                                (Expect.equal string
-                                    "1 Custom new component [ 4,40e-4m3 Bois d'oeuvre (Feuillus / Hêtre) | 8,80e-4kg Plastique granulé (PP) ]"
-                                )
-                            ]
-                        )
-                    , TestUtils.suiteFromResult "getEndOfLifeDetailedImpacts"
+                        (Expect.equal "1 Custom new component [ 4,40e-4m3 Bois d'oeuvre (Feuillus / Hêtre) | 8,80e-4kg Plastique granulé (PP) ]")
+                    , suiteFromResult "getEndOfLifeDetailedImpacts"
                         -- setup
                         (chair
                             |> Result.andThen (computeItemsWithRequirements requirements)
@@ -861,15 +1119,14 @@ suite =
                                 )
                             ]
                         )
-                    , TestUtils.suiteFromResult2 "removeElement"
+                    , suiteFromResult2 "removeElement"
                         -- setup
                         sofaFabric
                         steel
                         -- tests
                         (\testComponent material ->
-                            [ it "should remove an item element"
-                                (""" [ { "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 }
-                             ]"""
+                            [ itFromResult "should remove an item element"
+                                ("""[ { "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 } ]"""
                                     |> decodeJsonThen (Decode.list Component.decodeItem)
                                         (Component.addElement ( testComponent, 0 ) material
                                             >> Result.map (Component.removeElement ( ( testComponent, 0 ), 1 ))
@@ -884,40 +1141,39 @@ suite =
                                                 -- get custom elements length
                                                 |> Maybe.map (.elements >> List.length)
                                         )
-                                    |> Expect.equal (Ok (Just 2))
                                 )
+                                (Expect.equal (Just 2))
                             ]
                         )
-                    , TestUtils.suiteFromResult2 "removeElementTransform"
+                    , suiteFromResult2 "removeElementTransform"
                         chairBack
                         injectionMoulding
                         -- tests
                         (\testComponent testProcess ->
-                            [ it "should remove an element transform"
+                            [ itFromResult "should remove an element transform"
                                 (chair
                                     |> Result.andThen (Component.addElementTransform ( ( testComponent, 1 ), 0 ) testProcess)
                                     |> Result.map (Component.removeElementTransform ( ( testComponent, 1 ), 0 ) 0)
                                     |> Result.map (LE.getAt 1)
-                                    |> Expect.equal
-                                        (Ok <|
-                                            Just
-                                                { country = Nothing
-                                                , custom = Nothing
-                                                , id = testComponent.id
-                                                , quantity = Component.quantityFromInt 1
-                                                }
-                                        )
+                                )
+                                (Expect.equal
+                                    (Just
+                                        { custom = Nothing
+                                        , id = testComponent.id
+                                        , quantity = Component.quantityFromInt 1
+                                        }
+                                    )
                                 )
                             ]
                         )
-                    , TestUtils.suiteFromResult3 "setElementMaterial"
+                    , suiteFromResult3 "setElementMaterial"
                         -- setup
                         chairBack
                         steel
                         injectionMoulding
                         -- tests
                         (\testComponent validTestProcess invalidTestProcess ->
-                            [ it "should set a valid element material"
+                            [ itFromResult "should set a valid element material"
                                 (chair
                                     |> Result.andThen (Component.setElementMaterial ( ( testComponent, 1 ), 0 ) validTestProcess)
                                     |> Result.map
@@ -930,11 +1186,11 @@ suite =
                                                 -- access the first element
                                                 |> Maybe.andThen (.elements >> LE.getAt 0)
                                                 -- and its material process id
-                                                |> Maybe.map .material
+                                                |> Maybe.map (.material >> .id)
                                         )
-                                    -- it should be equal to the one we swapped in
-                                    |> Expect.equal (Ok (Just validTestProcess.id))
                                 )
+                                -- it should be equal to the one we swapped in
+                                (Expect.equal (Just validTestProcess.id))
                             , it "should reject an invalid element material"
                                 (chair
                                     |> Result.andThen (Component.setElementMaterial ( ( testComponent, 1 ), 0 ) invalidTestProcess)
@@ -942,7 +1198,7 @@ suite =
                                 )
                             ]
                         )
-                    , TestUtils.suiteFromResult "stagesImpacts"
+                    , suiteFromResult "stagesImpacts"
                         ("""{
                               "components": [
                                 { "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 }
@@ -980,15 +1236,22 @@ suite =
                                     |> Expect.greaterThan 0
                                 )
                             , it "should have total stages impacts equal total impacts"
-                                ([ stagesImpacts.materials, stagesImpacts.transform ]
+                                ([ stagesImpacts.materials, stagesImpacts.transform, stagesImpacts.transports ]
                                     |> List.filterMap identity
                                     |> Impact.sumImpacts
                                     |> getEcsImpact
-                                    |> Expect.within (Expect.Absolute 1) (extractEcsImpact lifeCycle.production)
+                                    |> Expect.within (Expect.Absolute 0.00001)
+                                        ([ Component.extractImpacts lifeCycle.production
+                                         , lifeCycle.transports.toAssembly.impacts
+                                         , lifeCycle.transports.toDistribution.impacts
+                                         ]
+                                            |> Impact.sumImpacts
+                                            |> getEcsImpact
+                                        )
                                 )
                             ]
                         )
-                    , TestUtils.suiteFromResult "setCustomScope"
+                    , suiteFromResult "setCustomScope"
                         -- setup
                         ("""{ "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 }"""
                             |> decodeJson Component.decodeItem
@@ -1031,14 +1294,13 @@ suite =
                                 )
                             ]
                         )
-                    , TestUtils.suiteFromResult "updateItemCustomName"
+                    , suiteFromResult "updateItemCustomName"
                         -- setup
                         sofaFabric
                         -- tests
                         (\testComponent ->
-                            [ it "should set a custom name to a component item"
-                                (""" [ { "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 }
-                             ]"""
+                            [ itFromResult "should set a custom name to a component item"
+                                (""" [ { "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 } ]"""
                                     |> decodeJsonThen (Decode.list Component.decodeItem)
                                         (Component.updateItemCustomName ( testComponent, 0 ) "My custom component" >> Ok)
                                     |> Result.map
@@ -1048,9 +1310,9 @@ suite =
                                                 |> Maybe.andThen .custom
                                                 |> Maybe.andThen .name
                                         )
-                                    |> Expect.equal (Ok (Just "My custom component"))
                                 )
-                            , it "should trim a custom item name when serializing it"
+                                (Expect.equal (Just "My custom component"))
+                            , itFromResult "should trim a custom item name when serializing it"
                                 (""" [ { "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 } ]"""
                                     |> decodeJsonThen (Decode.list Component.decodeItem)
                                         (Component.updateItemCustomName ( testComponent, 0 ) " My custom component " >> Ok)
@@ -1063,8 +1325,8 @@ suite =
                                                 |> Maybe.andThen .custom
                                                 |> Maybe.andThen .name
                                         )
-                                    |> Expect.equal (Ok (Just "My custom component"))
                                 )
+                                (Expect.equal (Just "My custom component"))
                             ]
                         )
                     , describe "validateItem"
@@ -1081,7 +1343,7 @@ suite =
                                 |> expectResultErrorContains "Aucun composant avec id="
                             )
                         ]
-                    , TestUtils.suiteFromResult4 "validateQuery"
+                    , suiteFromResult4 "validateQuery"
                         -- Non-existing process
                         (Process.idFromString "5fad4e70-5736-552d-a686-97e4fb627c37")
                         -- Steel process
