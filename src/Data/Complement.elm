@@ -12,12 +12,12 @@ module Data.Complement exposing
     , divideComplementsImpactsBy
     , emptyComplementsResultsImpacts
     , encodeComplementsImpacts
-    , encodeComplementsImpactsLegacy
     , getTotalComplementsImpacts
     , impactsWithComplements
     , labels
     , mapComplements
     , mergeComplementsResultsImpacts
+    , negateComplementsImpacts
     , noComplementsImpacts
     , sumComplementsResultsImpacts
     , sumEcosystemicImpacts
@@ -173,20 +173,6 @@ encodeComplementsImpacts =
             ( label, maybeComplement |> Maybe.map Unit.encodeImpact )
     in
     allComplementsToList
-        >> List.map2 encodeTuple (allComplementsToList identifiers)
-        >> EU.optionalPropertiesObject
-
-
-encodeComplementsImpactsLegacy : ComplementsImpacts -> Encode.Value
-encodeComplementsImpactsLegacy =
-    let
-        encodeTuple label maybeComplement =
-            ( label, maybeComplement |> Maybe.map Unit.encodeImpact )
-    in
-    -- We negate the complements here as the old format in ingredients.json was not accurate
-    -- see https://github.com/MTES-MCT/ecobalyse-data/pull/263
-    negateComplementsImpacts
-        >> allComplementsToList
         >> List.map2 encodeTuple (allComplementsToList identifiers)
         >> EU.optionalPropertiesObject
 

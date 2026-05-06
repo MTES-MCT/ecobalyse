@@ -59,7 +59,9 @@ type alias Simulator =
 encode : Maybe String -> Simulator -> Encode.Value
 encode webUrl v =
     EU.optionalPropertiesObject
-        [ ( "complementsImpacts", Complement.encodeComplementsImpactsLegacy v.complementsImpacts |> Just )
+        -- We negate the complements here to stay backward compatible as the old format in ingredients.json was not accurate
+        -- see https://github.com/MTES-MCT/ecobalyse-data/pull/263
+        [ ( "complementsImpacts", (Complement.negateComplementsImpacts >> Complement.encodeComplementsImpacts) v.complementsImpacts |> Just )
         , ( "daysOfWear", v.daysOfWear |> Duration.inDays |> round |> Encode.int |> Just )
         , ( "durability", v.durability |> Unit.floatDurabilityFromHolistic |> Encode.float |> Just )
         , ( "impacts", Impact.encode v.impacts |> Just )

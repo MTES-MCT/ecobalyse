@@ -483,7 +483,10 @@ encodeResults results =
           , Encode.object
                 [ ( "total", Impact.encode results.recipe.total )
                 , ( "ingredientsTotal", Impact.encode results.recipe.ingredientsTotal )
-                , ( "totalBonusImpact", Complement.encodeComplementsImpactsLegacy results.recipe.totalComplementsImpact )
+
+                -- We negate the complements here to stay backward compatible as the old format in ingredients.json was not accurate
+                -- see https://github.com/MTES-MCT/ecobalyse-data/pull/263
+                , ( "totalBonusImpact", (Complement.negateComplementsImpacts >> Complement.encodeComplementsImpacts) results.recipe.totalComplementsImpact )
                 , ( "transform", Impact.encode results.recipe.transform )
                 , ( "transports", Transport.encode results.recipe.transports )
                 ]

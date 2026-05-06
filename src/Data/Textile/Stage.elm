@@ -544,7 +544,10 @@ encode : Stage -> Encode.Value
 encode v =
     Encode.object
         [ ( "airTransportRatio", Split.encodeFloat v.airTransportRatio )
-        , ( "complementsImpacts", Complement.encodeComplementsImpactsLegacy v.complementsImpacts )
+
+        -- We negate the complements here to stay backward compatible as the old format in ingredients.json was not accurate
+        -- see https://github.com/MTES-MCT/ecobalyse-data/pull/263
+        , ( "complementsImpacts", (Complement.negateComplementsImpacts >> Complement.encodeComplementsImpacts) v.complementsImpacts )
         , ( "country", Country.encode v.country )
         , ( "deadstock", Encode.float (Mass.inKilograms v.deadstock) )
         , ( "durability", Unit.encodeNonPhysicalDurability v.durability )
