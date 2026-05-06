@@ -258,7 +258,9 @@
               {
                 "amount": 0.05,
                 "material": "c5295f47-0307-48a6-8552-3705063af767",
-                "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
+                "transforms": [
+                  "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"
+                ]
               }
             ]
           },
@@ -620,6 +622,119 @@
       "consumptions": [
         {
           "amount": 2000,
+          "processId": "eec31f13-d00a-4741-a84f-85d887026f8c"
+        }
+      ],
+      "durability": 1
+    },
+    "scope": "veli"
+  },
+  {
+    "category": "",
+    "id": "cf636ce9-e95b-4e25-9a22-625986f85ef0",
+    "name": "Minibus quadricycle à assistance électrique",
+    "query": {
+      "assemblyCountry": "FR",
+      "components": [
+        {
+          "country": "FR",
+          "custom": {
+            "elements": [
+              {
+                "amount": 16,
+                "material": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b",
+                "transforms": [
+                  {
+                    "country": "FR",
+                    "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"
+                  }
+                ]
+              },
+              {
+                "amount": 40,
+                "material": "21a0d5b0-861e-4bed-98a9-46c61d2a0618",
+                "transforms": [
+                  {
+                    "country": "FR",
+                    "id": "ea284007-49a8-4be1-95fc-452ea180285a"
+                  },
+                  {
+                    "country": "FR",
+                    "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                  }
+                ]
+              },
+              {
+                "amount": 0.02,
+                "material": "f4a5d1ad-9362-4b18-9555-d5ab58f3b993",
+                "transforms": [
+                  {
+                    "country": "FR",
+                    "id": "e232270f-3a08-4536-8d8d-dcb4a2031e7b"
+                  }
+                ]
+              },
+              {
+                "amount": 20,
+                "material": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a",
+                "transforms": [
+                  {
+                    "country": "FR",
+                    "id": "d693bd0d-88d4-4370-81ee-597956bb58f0"
+                  },
+                  {
+                    "country": "FR",
+                    "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                  }
+                ]
+              }
+            ],
+            "name": "Chassis-carosserie Minibus quadricycle"
+          },
+          "id": "189674e0-737e-4d6d-aab0-3fdfc19839ed",
+          "quantity": 1
+        },
+        {
+          "country": "DE",
+          "id": "edca4c52-b34a-4906-b2e0-4f726bfcc8f7",
+          "quantity": 1
+        },
+        {
+          "country": "RAS",
+          "id": "d4583813-5f80-47e0-b028-df438f59cfe2",
+          "quantity": 4
+        },
+        {
+          "country": "RAS",
+          "id": "6b3d7f30-e87b-426c-93ed-3a1179238583",
+          "quantity": 4
+        },
+        {
+          "country": "CN",
+          "id": "7cfe659e-3764-4a8c-a25b-201396cbc09f",
+          "quantity": 1
+        },
+        {
+          "id": "f134b3fd-0439-4b25-a06e-f1b8fd6e201c",
+          "quantity": 1
+        },
+        {
+          "id": "ae9c83de-71bf-4f21-9030-afbfd4ad3b3a",
+          "quantity": 2
+        },
+        {
+          "id": "c4a8eb8f-b4c6-42b8-bd04-0f68e9083424",
+          "quantity": 4
+        },
+        {
+          "country": "FR",
+          "id": "6cb4338a-4663-4325-90b6-f7279a498c9b",
+          "quantity": 1
+        }
+      ],
+      "consumptions": [
+        {
+          "amount": 1000,
           "processId": "eec31f13-d00a-4741-a84f-85d887026f8c"
         }
       ],

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import datetime
 import uuid
 from typing import TYPE_CHECKING
 from uuid import UUID
@@ -212,6 +213,10 @@ class AccessController(Controller):
             raise PermissionDeniedException(
                 detail="You must accept the terms to have access to detailed impacts"
             )
+
+        now = datetime.datetime.now(datetime.timezone.utc)
+        user.last_login_at = now
+        await users_service.repository.update(user)
 
         if cache_duration:
             await memory_store.set(

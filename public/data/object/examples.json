@@ -23,14 +23,30 @@
     "id": "ce3c8c63-aef7-4090-bbab-479e826fe4b9",
     "name": "Boite plastique 45L (Chine)",
     "query": {
+      "durability": 1,
       "components": [
         {
-          "country": "CN",
           "id": "10e199b6-7e5f-47d9-bc85-9959c4e9ee62",
-          "quantity": 1
+          "quantity": 1,
+          "custom": {
+            "elements": [
+              {
+                "amount": 1.26,
+                "material": {
+                  "country": "CN",
+                  "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b"
+                },
+                "transforms": [
+                  {
+                    "country": "CN",
+                    "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"
+                  }
+                ]
+              }
+            ]
+          }
         }
-      ],
-      "durability": 1
+      ]
     },
     "scope": "object"
   },
@@ -39,14 +55,30 @@
     "id": "6ab8769d-24d9-4990-8f00-ae1b5823946e",
     "name": "Boite plastique 45L (France)",
     "query": {
+      "durability": 1,
       "components": [
         {
-          "country": "FR",
           "id": "10e199b6-7e5f-47d9-bc85-9959c4e9ee62",
-          "quantity": 1
+          "quantity": 1,
+          "custom": {
+            "elements": [
+              {
+                "amount": 1.26,
+                "material": {
+                  "country": "FR",
+                  "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b"
+                },
+                "transforms": [
+                  {
+                    "country": "FR",
+                    "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"
+                  }
+                ]
+              }
+            ]
+          }
         }
-      ],
-      "durability": 1
+      ]
     },
     "scope": "object"
   },

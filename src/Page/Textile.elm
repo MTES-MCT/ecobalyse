@@ -1022,8 +1022,8 @@ simulatorFormView session model ({ inputs } as simulator) =
         , updateConsumptionAmount = \_ _ -> NoOp
         , updateDistribution = \_ -> NoOp
         , updateElementAmount = \_ _ -> NoOp
+        , updateElementMaterialCountry = \_ _ -> NoOp
         , updateElementTransformCountry = \_ _ _ -> NoOp
-        , updateItemCountry = \_ _ -> NoOp
         , updateItemName = \_ _ -> NoOp
         , updateItemQuantity = UpdateTrimQuantity
         }
