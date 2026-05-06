@@ -16,6 +16,7 @@ module Data.Component exposing
     , Quantity
     , Query
     , Requirements
+    , ResultedElement
     , Results(..)
     , Stage(..)
     , TargetElement
@@ -69,6 +70,7 @@ module Data.Component exposing
     , getEndOfLifeImpacts
     , getEndOfLifeScopeCollectionRate
     , getFinalElementCountry
+    , getResultedElement
     , getTotalImpacts
     , idFromString
     , idToString
@@ -271,6 +273,12 @@ type alias ExpandedLocalizedProcess =
     { country : Maybe Country
     , process : Process
     }
+
+
+{-| An expanded element and its results
+-}
+type alias ResultedElement =
+    ( ExpandedElement, Results )
 
 
 {-| Index of an item element and associated source component
@@ -874,12 +882,27 @@ computeTransportedMassImpacts ({ config } as requirements) maybeFrom maybeTo mas
         |> Transport.computeImpacts config.transports.modeProcesses mass
 
 
+{-| Computes transports impacts:
+
+  - for a single component product, the summed impacts of transporting its individual elements directly to distribution
+  - for a multiple components product:
+      - if we know the country of assembly, the summed impacts of transporting each component's elements to assembly,
+        then the summed impacts of transporting the assembled product mass to distribution
+      - if we don't know the country of assembly, the summed impacts of each component's elements transported using
+        default unknown transport distances, then the assembled product mass to distribution
+
+-}
 computeTransports : Requirements db -> Query -> LifeCycle -> Result String LifeCycle
 computeTransports ({ config, db } as requirements) query lifeCycle =
     Result.map2
         (\expandedItems maybeAssemblyCountry ->
-            -- Only multiple items are transported to the assembly stage
-            -- TODO: refactor query to handle this through types https://github.com/MTES-MCT/ecobalyse/issues/1609
+            let
+                resultedElements =
+                    getResultedElementList lifeCycle.production expandedItems
+
+                totalProductMass =
+                    extractMass lifeCycle.production
+            in
             case ( expandedItems, maybeAssemblyCountry ) of
                 ( [], Just _ ) ->
                     Err "Une liste de composants vide ne peut être assemblée"
@@ -887,63 +910,87 @@ computeTransports ({ config, db } as requirements) query lifeCycle =
                 ( [ _ ], Just _ ) ->
                     Err "Un composant unique ne peut pas être assemblé"
 
-                -- TODO: many component assembled; for all components, each elements are individually shipped to assembly,
+                -- Many components assembled; for all components, each elements are individually shipped to assembly,
                 -- then the assembled product mass is transported to distribution
-                ( multipleItems, Just assemblyCountry ) ->
-                    Ok
-                        { lifeCycle
-                            | transports = emptyLifeCycleTransports
-                        }
+                ( _ :: _ :: _, Just assemblyCountry ) ->
+                    resultedElements
+                        |> Result.map
+                            (List.map
+                                (\( expandedElement, elementResults ) ->
+                                    extractMass elementResults
+                                        |> computeTransportedMassImpacts requirements
+                                            (getFinalElementCountry expandedElement)
+                                            (Just assemblyCountry)
+                                )
+                                >> Transport.sum
+                            )
+                        |> Result.map
+                            (\toAssembly ->
+                                { lifeCycle
+                                    | transports =
+                                        { toAssembly = toAssembly
+                                        , toDistribution =
+                                            totalProductMass
+                                                |> computeTransportedMassImpacts requirements
+                                                    maybeAssemblyCountry
+                                                    (Just config.distribution.country)
+                                        }
+                                }
+                            )
 
-                -- default state, empty transports
+                -- Default state, empty transports
                 ( [], Nothing ) ->
                     Ok { lifeCycle | transports = emptyLifeCycleTransports }
 
-                -- TODO: Single unique component; its elements are directly shipped to distribution individually,
+                -- Single unique component; its elements are directly shipped to distribution individually,
                 -- with no transport to assembly stage
-                ( [ singleItem ], Nothing ) ->
-                    Ok
-                        { lifeCycle
-                            | transports =
-                                { emptyLifeCycleTransports
-                                  -- TODO
-                                    | toDistribution = Transport.default Impact.empty
+                ( [ _ ], Nothing ) ->
+                    resultedElements
+                        |> Result.map
+                            (List.map
+                                (\( expandedElement, elementResults ) ->
+                                    extractMass elementResults
+                                        |> computeTransportedMassImpacts requirements
+                                            (getFinalElementCountry expandedElement)
+                                            (Just config.distribution.country)
+                                )
+                                >> Transport.sum
+                            )
+                        |> Result.map
+                            (\toDistribution ->
+                                { lifeCycle
+                                    | transports = { emptyLifeCycleTransports | toDistribution = toDistribution }
                                 }
-                        }
+                            )
 
-                -- TODO: Many items with no assembly country specified; all item elements are individually shipped to
+                -- Many items with no assembly country specified; all item elements are individually shipped to
                 -- the assembly stage unique default unknown transport distances,
                 -- then the total mass of the assembled end product is transported to distribution country
-                ( multipleItems, Nothing ) ->
-                    Ok
-                        { lifeCycle
-                            | transports =
-                                -- all item elements are individually shipped to the assembly stage unique default unknown transport distances
-                                { toAssembly = Transport.default Impact.empty
-
-                                -- total mass of the assembled end product is transported to distribution country
-                                , toDistribution = Transport.default Impact.empty
+                ( _ :: _ :: _, Nothing ) ->
+                    resultedElements
+                        |> Result.map
+                            (List.map
+                                (\( _, elementResults ) ->
+                                    -- all item elements are individually shipped to the assembly stage using default unknown transport distances
+                                    extractMass elementResults
+                                        |> computeTransportedMassImpacts requirements Nothing Nothing
+                                )
+                                >> Transport.sum
+                            )
+                        |> Result.map
+                            (\toAssemblyTransport ->
+                                { lifeCycle
+                                    | transports =
+                                        { toAssembly = toAssemblyTransport
+                                        , toDistribution =
+                                            -- total mass of the assembled end product is transported to the distribution country
+                                            totalProductMass
+                                                |> computeTransportedMassImpacts requirements
+                                                    Nothing
+                                                    (Just config.distribution.country)
+                                        }
                                 }
-                        }
-         -- { toAssembly =
-         --     if List.length query.items > 1 then
-         --         expandedItems
-         --             |> List.indexedMap
-         --                 (\index expandedItem ->
-         --                     extractItems lifeCycle.production
-         --                         |> LE.getAt index
-         --                         |> Maybe.map
-         --                             (Tuple.second
-         --                                 << computeItemTransportToAssembly requirements maybeAssemblyCountry expandedItem
-         --                             )
-         --                 )
-         --             |> List.filterMap identity
-         --             |> Transport.sum
-         --     else
-         --         Transport.default Impact.empty
-         -- , toDistribution =
-         --     Transport.default Impact.empty
-         -- }
+                            )
         )
         (expandItems db query.items)
         (Country.resolveMaybe query.assemblyCountry db.countries)
@@ -1384,6 +1431,18 @@ encodeResults maybeTrigram (Results results) =
         ]
 
 
+{-| Common reusable error strings
+-}
+errors :
+    { elementNotFound : String
+    , itemNotFound : String
+    }
+errors =
+    { elementNotFound = "Élément introuvable"
+    , itemNotFound = "Item introuvable"
+    }
+
+
 {-| Resolve full use consumption processes linked to their respective ids
 -}
 expandConsumptions : List Process -> List Consumption -> Result String (List ( Amount, Process ))
@@ -1544,6 +1603,16 @@ getDistributionProcess { config, db, scope } maybeDistribution =
                 |> Result.fromMaybe DistributionNothingAvailable
 
 
+{-| Get an element's results at a given location in the results tree.
+-}
+getElementResult : ( Index, Index ) -> Results -> Result String Results
+getElementResult ( itemIndex, elementIndex ) productionResults =
+    extractItems productionResults
+        |> LE.getAt itemIndex
+        |> Result.fromMaybe errors.itemNotFound
+        |> Result.andThen (extractItems >> LE.getAt elementIndex >> Result.fromMaybe errors.elementNotFound)
+
+
 getEndOfLifeDetailedImpacts : Requirements db -> Results -> DetailedEndOfLifeImpacts
 getEndOfLifeDetailedImpacts { config, scope } =
     let
@@ -1660,6 +1729,39 @@ getMaterialDistribution (Results results) =
                         )
             )
             (AnyDict.empty Category.materialTypeToString)
+
+
+{-| Get the an expanded element and its results at a given location in the elements tree.
+-}
+getResultedElement : ( Index, Index ) -> Results -> List ExpandedItem -> Result String ResultedElement
+getResultedElement ( itemIndex, elementIndex ) productionResults expandedItems =
+    Result.map2 Tuple.pair
+        -- Expanded element
+        (expandedItems
+            |> LE.getAt itemIndex
+            |> Result.fromMaybe errors.itemNotFound
+            |> Result.andThen (.elements >> LE.getAt elementIndex >> Result.fromMaybe errors.elementNotFound)
+        )
+        -- Element results
+        (getElementResult ( itemIndex, elementIndex ) productionResults)
+
+
+{-| Create a list of expanded elements with their associated results from a list of items and production results.
+-}
+getResultedElementList : Results -> List ExpandedItem -> Result String (List ResultedElement)
+getResultedElementList productionResults =
+    List.indexedMap
+        (\itemIndex expandedItem ->
+            expandedItem.elements
+                |> List.indexedMap
+                    (\elementIndex expandedElement ->
+                        productionResults
+                            |> getElementResult ( itemIndex, elementIndex )
+                            |> Result.map (\results -> ( expandedElement, results ))
+                    )
+        )
+        >> List.concat
+        >> RE.combine
 
 
 getTotalImpacts : Results -> Impacts

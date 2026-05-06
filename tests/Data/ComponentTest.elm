@@ -747,13 +747,150 @@ suite =
                                     )
                                 ]
                             )
+                        , it "should reject single item assembly"
+                            ("""{
+                                  "assemblyCountry": "FR",
+                                  "components": [
+                                    { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
+                                  ]
+                                }"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> expectResultErrorContains "Un composant unique ne peut pas être assemblé"
+                            )
+                        , suiteFromResult "assembly country handling"
+                            -- setup
+                            ("""{
+                                  "assemblyCountry": "FR",
+                                  "components": [
+                                    { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 },
+                                    { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
+                                  ]
+                                }"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                            )
+                            -- tests
+                            (\productAssembledInFrance ->
+                                [ it "should add both assembly and distribution transport impacts when assembly country is specified"
+                                    (let
+                                        ( assemblyImpact, distributionImpact ) =
+                                            ( productAssembledInFrance
+                                                |> .transports
+                                                |> .toAssembly
+                                                |> .impacts
+                                                |> getEcsImpact
+                                            , productAssembledInFrance
+                                                |> .transports
+                                                |> .toDistribution
+                                                |> .impacts
+                                                |> getEcsImpact
+                                            )
+                                     in
+                                     ( assemblyImpact, distributionImpact )
+                                        |> Expect.all
+                                            [ Tuple.first >> Expect.greaterThan 0
+                                            , Tuple.second >> Expect.greaterThan 0
+                                            ]
+                                    )
+                                ]
+                            )
+                        , suiteFromResult "single item distribution transport"
+                            -- setup
+                            ("""{"components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]}"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                            )
+                            -- tests
+                            (\singleItemProduct ->
+                                [ it "should not add transport to assembly when shipping a single item"
+                                    (singleItemProduct
+                                        |> .transports
+                                        |> .toAssembly
+                                        |> .impacts
+                                        |> getEcsImpact
+                                        |> Expect.equal 0
+                                    )
+                                , it "should add transport impacts to distribution when shipping a single item"
+                                    (singleItemProduct
+                                        |> .transports
+                                        |> .toDistribution
+                                        |> .impacts
+                                        |> getEcsImpact
+                                        |> Expect.greaterThan 0
+                                    )
+                                ]
+                            )
+                        , suiteFromResult2 "multiple items without assembly country"
+                            -- setup
+                            ("""{
+                                  "components": [
+                                    { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 },
+                                    { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
+                                  ]
+                                }"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                            )
+                            ("""{
+                                  "components": [
+                                    { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 },
+                                    { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 2 }
+                                  ]
+                                }"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                            )
+                            -- tests
+                            (\productAssembledInUnknownCountry heavierProductAssembledInUnknownCountry ->
+                                [ it "should add both assembly and distribution transports when multiple items have no assembly country"
+                                    (let
+                                        ( assemblyImpact, distributionImpact ) =
+                                            ( productAssembledInUnknownCountry
+                                                |> .transports
+                                                |> .toAssembly
+                                                |> .impacts
+                                                |> getEcsImpact
+                                            , productAssembledInUnknownCountry
+                                                |> .transports
+                                                |> .toDistribution
+                                                |> .impacts
+                                                |> getEcsImpact
+                                            )
+                                     in
+                                     ( assemblyImpact, distributionImpact )
+                                        |> Expect.all
+                                            [ Tuple.first >> Expect.greaterThan 0
+                                            , Tuple.second >> Expect.greaterThan 0
+                                            ]
+                                    )
+                                , it "should increase distribution transport impacts when total transported mass increases"
+                                    (let
+                                        productAssembledInUnknownCountryImpacts =
+                                            productAssembledInUnknownCountry
+                                                |> .transports
+                                                |> .toDistribution
+                                                |> .impacts
+                                                |> getEcsImpact
+
+                                        heavierProductAssembledInUnknownCountryImpacts =
+                                            heavierProductAssembledInUnknownCountry
+                                                |> .transports
+                                                |> .toDistribution
+                                                |> .impacts
+                                                |> getEcsImpact
+                                     in
+                                     heavierProductAssembledInUnknownCountryImpacts
+                                        |> Expect.greaterThan productAssembledInUnknownCountryImpacts
+                                    )
+                                ]
+                            )
                         , itFromResult2 "should include transport stage impacts when applying transforms"
+                            -- setup
+                            -- test country
                             (requirements.db.countries
                                 |> Scope.anyOf [ requirements.scope ]
                                 |> List.head
-                                |> Result.fromMaybe "No country available in test scope"
+                                |> Result.fromMaybe ("No test country available scoped " ++ Scope.toString requirements.scope)
                             )
+                            -- cotton
                             (Process.idFromString "f0dbe27b-1e74-55d0-88a2-bda812441744")
+                            -- tests
                             (\country materialId ->
                                 { amount = Amount.fromFloat 1
                                 , material = { country = Just country.code, id = materialId }

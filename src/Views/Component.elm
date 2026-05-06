@@ -20,6 +20,7 @@ import Data.Component as Component
         , Quantity
         , Query
         , Requirements
+        , ResultedElement
         , Results
         , TargetElement
         , TargetItem
@@ -42,6 +43,7 @@ import Html.Events exposing (..)
 import Json.Encode as Encode
 import List.Extra as LE
 import Mass exposing (Mass)
+import Result.Extra as RE
 import Route exposing (Route)
 import Views.Alert as Alert
 import Views.Button as Button
@@ -685,30 +687,17 @@ elementView config (( component, _ ) as targetItem) elementIndex { amount, mater
         ]
 
 
-getEditedElementData : Config db msg -> TargetElement -> Query -> Result String ( ExpandedElement, Results )
-getEditedElementData { db, lifeCycle } ( ( _, itemIndex ), elementIndex ) query =
-    let
-        ( itemNotFoundError, elementNotFoundError ) =
-            ( "Item introuvable", "Élément introuvable" )
-    in
-    Result.map2 Tuple.pair
-        -- Expanded edited element
-        (query.items
-            |> Component.expandItems db
-            |> Result.andThen (LE.getAt itemIndex >> Result.fromMaybe itemNotFoundError)
-            |> Result.andThen (.elements >> LE.getAt elementIndex >> Result.fromMaybe elementNotFoundError)
-        )
-        -- Edited element results
-        (lifeCycle
-            |> Result.map (.production >> Component.extractItems)
-            |> Result.andThen (LE.getAt itemIndex >> Result.fromMaybe itemNotFoundError)
-            |> Result.andThen (Component.extractItems >> LE.getAt elementIndex >> Result.fromMaybe elementNotFoundError)
-        )
+getEditedResultedElement : Config db msg -> TargetElement -> Query -> Result String ResultedElement
+getEditedResultedElement { db, lifeCycle } ( ( _, itemIndex ), elementIndex ) query =
+    Result.map2 (Component.getResultedElement ( itemIndex, elementIndex ))
+        (Result.map .production lifeCycle)
+        (Component.expandItems db query.items)
+        |> RE.join
 
 
 elementEditModalView : Config db msg -> TargetElement -> Html msg
 elementEditModalView ({ query } as config) (( _, elementIndex ) as targetElement) =
-    case query |> getEditedElementData config targetElement of
+    case query |> getEditedResultedElement config targetElement of
         Err error ->
             div [ class "alert alert-danger" ] [ text error ]
 
