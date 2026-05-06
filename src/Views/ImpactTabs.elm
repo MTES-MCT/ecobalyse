@@ -38,6 +38,7 @@ type alias Config msg =
     , complementsImpact : Complement.ComplementsImpacts
     , impactDefinition : Definition
     , onStageClick : String -> msg
+    , negateComplements : Bool
     , scoring : Scoring
     , session : Session
     , stagesImpacts : Impact.StagesImpacts
@@ -47,7 +48,15 @@ type alias Config msg =
 
 
 view : Definitions -> Config msg -> Html msg
-view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStageClick, scoring, session, stagesImpacts, switchImpactsTab, total } =
+view definitions { activeImpactsTab, complementsImpact, impactDefinition, negateComplements, onStageClick, scoring, session, stagesImpacts, switchImpactsTab, total } =
+    let
+        negateComplement =
+            if negateComplements then
+                negate
+
+            else
+                identity
+    in
     CardTabs.view
         { attrs = []
         , content =
@@ -60,32 +69,36 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStag
                             [ -- Food ecosystemic services
                               { entryAttributes = []
                               , name = "Services écosystémiques"
-                              , value = -(Unit.impactToFloat (Complement.sumEcosystemicImpacts complementsImpact))
+                              , value = negateComplement (Unit.impactToFloat (Complement.sumEcosystemicImpacts complementsImpact))
                               }
 
                             -- Textile complements
                             , { entryAttributes = []
                               , name = "Complément " ++ String.toLower Complement.labels.outOfEuropeEOL
                               , value =
-                                    -(complementsImpact.outOfEuropeEOL
-                                        |> Maybe.withDefault Unit.noImpacts
-                                        |> Unit.impactToFloat
-                                     )
+                                    negateComplement
+                                        (complementsImpact.outOfEuropeEOL
+                                            |> Maybe.withDefault Unit.noImpacts
+                                            |> Unit.impactToFloat
+                                        )
                               }
                             , { entryAttributes = []
                               , name = "Complément " ++ String.toLower Complement.labels.microfibers
                               , value =
-                                    -(complementsImpact.microfibers
-                                        |> Maybe.withDefault Unit.noImpacts
-                                        |> Unit.impactToFloat
-                                     )
+                                    negateComplement
+                                        (complementsImpact.microfibers
+                                            |> Maybe.withDefault Unit.noImpacts
+                                            |> Unit.impactToFloat
+                                        )
                               }
                             , { entryAttributes = []
                               , name = "Complément " ++ String.toLower Complement.labels.forest
                               , value =
-                                    complementsImpact.forest
-                                        |> Maybe.withDefault Unit.noImpacts
-                                        |> Unit.impactToFloat
+                                    negateComplement
+                                        (complementsImpact.forest
+                                            |> Maybe.withDefault Unit.noImpacts
+                                            |> Unit.impactToFloat
+                                        )
                               }
                             ]
                         |> List.sortBy .value
@@ -168,7 +181,17 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStag
                         , { entryAttributes = [], name = "Biodiversité", value = Unit.impactToFloat scoring.biodiversity }
                         , { entryAttributes = [], name = "Santé environnementale", value = Unit.impactToFloat scoring.health }
                         , { entryAttributes = [], name = "Ressource", value = Unit.impactToFloat scoring.resources }
-                        , { entryAttributes = [], name = "Compléments", value = -(Unit.impactToFloat scoring.complements) }
+                        , { entryAttributes = []
+                          , name = "Compléments"
+                          , value =
+                                Unit.impactToFloat scoring.complements
+                                    |> (if negateComplements then
+                                            negate
+
+                                        else
+                                            identity
+                                       )
+                          }
                         ]
             ]
         , tabs =
@@ -191,12 +214,13 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStag
         }
 
 
-createConfig : Session -> Definition -> Tab -> (String -> msg) -> (Tab -> msg) -> Config msg
-createConfig session impactDefinition activeImpactsTab onStageClick switchImpactsTab =
+createConfig : Session -> Definition -> Tab -> (String -> msg) -> Bool -> (Tab -> msg) -> Config msg
+createConfig session impactDefinition activeImpactsTab onStageClick negateComplements switchImpactsTab =
     { activeImpactsTab = activeImpactsTab
     , complementsImpact = Complement.noComplementsImpacts
     , impactDefinition = impactDefinition
     , onStageClick = onStageClick
+    , negateComplements = negateComplements
     , scoring = Scoring.empty
     , session = session
     , stagesImpacts = Impact.noStagesImpacts
@@ -222,7 +246,7 @@ forObject definitions lifeCycle config =
             lifeCycle.production
                 |> Component.extractComplementsImpacts
                 |> Complement.mapComplements (Maybe.map (Impact.getImpact config.impactDefinition.trigram))
-        , scoring = Component.computeScoring definitions lifeCycle
+        , scoring = Component.computeScoring definitions False lifeCycle
         , stagesImpacts =
             lifeCycle
                 |> Component.stagesImpacts

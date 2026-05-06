@@ -503,7 +503,7 @@ viewStageImpacts selectedImpact { complementsImpacts, impacts } =
 
             totalImpacts =
                 impacts
-                    |> Complement.applyComplementsToImpactsLegacy stageComplementsImpact
+                    |> Complement.applyNegatedComplementsToImpacts stageComplementsImpact
         in
         div []
             [ span [ class "flex-fill" ]

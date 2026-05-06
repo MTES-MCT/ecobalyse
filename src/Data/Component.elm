@@ -823,8 +823,8 @@ computeMaterialResults amount process =
         }
 
 
-computeScoring : Definitions -> LifeCycle -> Scoring
-computeScoring definitions { production } =
+computeScoring : Definitions -> Bool -> LifeCycle -> Scoring
+computeScoring definitions negateComplements { production } =
     let
         ( totalImpacts, totalMass, complementImpacts ) =
             ( extractImpacts production
@@ -834,7 +834,12 @@ computeScoring definitions { production } =
             , extractComplementsImpacts production
                 |> Complement.mergeComplementsResultsImpacts
                 |> Impact.getImpact Definition.Ecs
-                |> Quantity.negate
+                |> (if negateComplements then
+                        Quantity.negate
+
+                    else
+                        identity
+                   )
             )
     in
     totalImpacts

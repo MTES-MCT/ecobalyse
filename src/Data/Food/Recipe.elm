@@ -222,7 +222,7 @@ compute ({ food } as db) =
 
                     addIngredientsComplements impacts =
                         impacts
-                            |> Complement.applyComplementsToImpactsLegacy (Complement.getTotalComplementsImpacts totalComplementsImpact)
+                            |> Complement.applyNegatedComplementsToImpacts (Complement.getTotalComplementsImpacts totalComplementsImpact)
 
                     totalComplementsImpactPerKg =
                         totalComplementsImpact

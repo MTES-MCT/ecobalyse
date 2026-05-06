@@ -555,7 +555,7 @@ encode v =
         , ( "elecKWh", Encode.float (Energy.inKilowattHours v.kwh) )
         , ( "enabled", Encode.bool v.enabled )
         , ( "heatMJ", Encode.float (Energy.inMegajoules v.heat) )
-        , ( "impacts", v.impacts |> Complement.applyComplementsToImpactsLegacy (Complement.getTotalComplementsImpacts v.complementsImpacts) |> Impact.encode )
+        , ( "impacts", v.impacts |> Complement.applyNegatedComplementsToImpacts (Complement.getTotalComplementsImpacts v.complementsImpacts) |> Impact.encode )
         , ( "inputMass", Encode.float (Mass.inKilograms v.inputMass) )
         , ( "label", Encode.string (Label.toString v.label) )
         , ( "makingDeadStock", v.makingDeadStock |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )

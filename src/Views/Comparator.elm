@@ -35,6 +35,7 @@ type alias Config msg =
     , onDragOverBookmark : Bookmark -> msg
     , onDragStartBookmark : Bookmark -> msg
     , onDropBookmark : Bookmark -> msg
+    , negateComplements : Bool
     , selectAll : msg
     , selectNone : msg
     , session : Session
@@ -172,7 +173,7 @@ addToComparison session { name, query } =
 
 
 comparatorView : Config msg -> List (Html msg)
-comparatorView ({ session } as config) =
+comparatorView ({ session, negateComplements } as config) =
     let
         charts =
             session.store.bookmarks
@@ -229,13 +230,13 @@ comparatorView ({ session } as config) =
                 ( class, data ) =
                     case config.comparisonType of
                         IndividualImpacts ->
-                            ( "individual-impacts", dataForIndividualImpacts session.db.definitions chartsData )
+                            ( "individual-impacts", dataForIndividualImpacts session.db.definitions negateComplements chartsData )
 
                         Stages ->
                             ( "stages-impacts", dataForStages chartsData )
 
                         Subscores ->
-                            ( "grouped-impacts", dataForSubscoresImpacts session.db.definitions chartsData )
+                            ( "grouped-impacts", dataForSubscoresImpacts session.db.definitions negateComplements chartsData )
 
                         Total ->
                             ( "total-impacts", dataForTotalImpacts chartsData )
@@ -245,8 +246,8 @@ comparatorView ({ session } as config) =
     ]
 
 
-dataForIndividualImpacts : Definitions -> List ChartsData -> String
-dataForIndividualImpacts definitions chartsData =
+dataForIndividualImpacts : Definitions -> Bool -> List ChartsData -> String
+dataForIndividualImpacts definitions negateComplements chartsData =
     let
         labelToOrder =
             [ "Changement climatique"
@@ -297,7 +298,7 @@ dataForIndividualImpacts definitions chartsData =
             (\{ complementsImpact, impacts, label } ->
                 let
                     complementImpacts =
-                        Complement.complementsImpactAsChartEntries complementsImpact
+                        Complement.complementsImpactAsChartEntries complementsImpact negateComplements
 
                     entries =
                         impacts
@@ -317,14 +318,14 @@ dataForIndividualImpacts definitions chartsData =
         |> Encode.encode 0
 
 
-dataForSubscoresImpacts : Definitions -> List ChartsData -> String
-dataForSubscoresImpacts definitions chartsData =
+dataForSubscoresImpacts : Definitions -> Bool -> List ChartsData -> String
+dataForSubscoresImpacts definitions negateComplements chartsData =
     chartsData
         |> Encode.list
             (\{ complementsImpact, impacts, label } ->
                 let
                     complementImpacts =
-                        Complement.totalComplementsImpactAsChartEntry complementsImpact
+                        Complement.totalComplementsImpactAsChartEntry negateComplements complementsImpact
 
                     entries =
                         impacts

@@ -6,7 +6,7 @@ module Data.Complement exposing
     , allComplementsFields
     , allComplementsToList
     , applyComplementsToImpacts
-    , applyComplementsToImpactsLegacy
+    , applyNegatedComplementsToImpacts
     , complementsImpactAsChartEntries
     , decodeComplementsImpacts
     , divideComplementsImpactsBy
@@ -103,8 +103,10 @@ allComplementsToList complements =
         |> List.map (\fn -> fn complements)
 
 
-applyComplementsToImpactsLegacy : Unit.Impact -> Impacts -> Impacts
-applyComplementsToImpactsLegacy complement impacts =
+applyNegatedComplementsToImpacts : Unit.Impact -> Impacts -> Impacts
+applyNegatedComplementsToImpacts complement impacts =
+    -- We need negate the complements to stay backward compatible as the old format in ingredients.json was not accurate
+    -- see https://github.com/MTES-MCT/ecobalyse-data/pull/263
     let
         ecoScore =
             Impact.getImpact Definition.Ecs impacts
@@ -125,15 +127,23 @@ applyComplementsToImpacts complement impacts =
             (Quantity.plus ecoScore complement)
 
 
-complementsImpactAsChartEntries : ComplementsImpacts -> List { color : String, name : String, value : Float }
-complementsImpactAsChartEntries c =
+complementsImpactAsChartEntries : ComplementsImpacts -> Bool -> List { color : String, name : String, value : Float }
+complementsImpactAsChartEntries c negateValue =
+    let
+        negateFloat =
+            if negateValue then
+                negate
+
+            else
+                identity
+    in
     -- Notes:
     -- - We want those complements/bonuses to appear as negative values on the chart
     -- - We want to sum ecosystemic service components impacts to only have a single entry in the charts
-    [ { color = "#606060", name = "Services écosystémiques", value = -(Unit.impactToFloat (sumEcosystemicImpacts c)) }
-    , { color = "#c0c0c0", name = "Complément microfibres", value = -(c.microfibers |> Maybe.map Unit.impactToFloat |> Maybe.withDefault 0) }
-    , { color = "#e0e0e0", name = "Complément export hors-Europe", value = -(c.outOfEuropeEOL |> Maybe.map Unit.impactToFloat |> Maybe.withDefault 0) }
-    , { color = "#f1f1f1", name = "Complément " ++ labels.forest, value = -(c.forest |> Maybe.map Unit.impactToFloat |> Maybe.withDefault 0) }
+    [ { color = "#606060", name = "Services écosystémiques", value = negateFloat (Unit.impactToFloat (sumEcosystemicImpacts c)) }
+    , { color = "#c0c0c0", name = "Complément microfibres", value = negateFloat (c.microfibers |> Maybe.map Unit.impactToFloat |> Maybe.withDefault 0) }
+    , { color = "#e0e0e0", name = "Complément export hors-Europe", value = negateFloat (c.outOfEuropeEOL |> Maybe.map Unit.impactToFloat |> Maybe.withDefault 0) }
+    , { color = "#f1f1f1", name = "Complément " ++ labels.forest, value = negateFloat (c.forest |> Maybe.map Unit.impactToFloat |> Maybe.withDefault 0) }
     ]
 
 
@@ -321,10 +331,18 @@ sumEcosystemicImpacts c =
         ]
 
 
-totalComplementsImpactAsChartEntry : ComplementsImpacts -> { color : String, name : String, value : Float }
-totalComplementsImpactAsChartEntry complementsImpacts =
-    -- We want bonuses to appear as negative values on the chart, maluses as positive ones
+totalComplementsImpactAsChartEntry : Bool -> ComplementsImpacts -> { color : String, name : String, value : Float }
+totalComplementsImpactAsChartEntry negateValue complementsImpacts =
+    -- Sometimes we need negate the complements to stay backward compatible as the old format in ingredients.json was not accurate
+    -- see https://github.com/MTES-MCT/ecobalyse-data/pull/263
     { color = "#808080"
     , name = "Compléments"
-    , value = -(Unit.impactToFloat (getTotalComplementsImpacts complementsImpacts))
+    , value =
+        Unit.impactToFloat (getTotalComplementsImpacts complementsImpacts)
+            |> (if negateValue then
+                    negate
+
+                else
+                    identity
+               )
     }
