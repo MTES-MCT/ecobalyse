@@ -6,11 +6,13 @@ module Data.Complement exposing
     , allComplementsFields
     , allComplementsToList
     , applyComplementsToImpacts
+    , applyComplementsToImpactsLegacy
     , complementsImpactAsChartEntries
     , decodeComplementsImpacts
     , divideComplementsImpactsBy
     , emptyComplementsResultsImpacts
     , encodeComplementsImpacts
+    , encodeComplementsImpactsLegacy
     , getTotalComplementsImpacts
     , impactsWithComplements
     , labels
@@ -101,6 +103,17 @@ allComplementsToList complements =
         |> List.map (\fn -> fn complements)
 
 
+applyComplementsToImpactsLegacy : Unit.Impact -> Impacts -> Impacts
+applyComplementsToImpactsLegacy complement impacts =
+    let
+        ecoScore =
+            Impact.getImpact Definition.Ecs impacts
+    in
+    impacts
+        |> Impact.insertWithoutAggregateComputation Definition.Ecs
+            (Quantity.difference ecoScore complement)
+
+
 applyComplementsToImpacts : Unit.Impact -> Impacts -> Impacts
 applyComplementsToImpacts complement impacts =
     let
@@ -109,7 +122,7 @@ applyComplementsToImpacts complement impacts =
     in
     impacts
         |> Impact.insertWithoutAggregateComputation Definition.Ecs
-            (Quantity.difference ecoScore complement)
+            (Quantity.plus ecoScore complement)
 
 
 complementsImpactAsChartEntries : ComplementsImpacts -> List { color : String, name : String, value : Float }
@@ -128,9 +141,7 @@ decodeComplementsImpacts : Decoder ComplementsImpacts
 decodeComplementsImpacts =
     Decode.succeed AbstractComplements
         |> DU.strictOptional "cropDiversity" Unit.decodeImpact
-        -- @FIXME: forest is a value that should be added but for now, legacy code substracts
-        --  the values complements. So let’s be backward compatible for now
-        |> DU.strictOptional "forest" (Decode.map Quantity.negate Unit.decodeImpact)
+        |> DU.strictOptional "forest" Unit.decodeImpact
         |> DU.strictOptional "hedges" Unit.decodeImpact
         |> DU.strictOptional "microfibers" Unit.decodeImpact
         |> DU.strictOptional "outOfEuropeEOL" Unit.decodeImpact
@@ -161,6 +172,19 @@ encodeComplementsImpacts =
         encodeTuple label maybeComplement =
             ( label, maybeComplement |> Maybe.map Unit.encodeImpact )
     in
+    allComplementsToList
+        >> List.map2 encodeTuple (allComplementsToList identifiers)
+        >> EU.optionalPropertiesObject
+
+
+encodeComplementsImpactsLegacy : ComplementsImpacts -> Encode.Value
+encodeComplementsImpactsLegacy =
+    let
+        encodeTuple label maybeComplement =
+            ( label, maybeComplement |> Maybe.map Unit.encodeImpact )
+    in
+    -- We negate the complements here as the old format in ingredients.json was not accurate
+    -- see https://github.com/MTES-MCT/ecobalyse-data/pull/263
     negateComplementsImpacts
         >> allComplementsToList
         >> List.map2 encodeTuple (allComplementsToList identifiers)

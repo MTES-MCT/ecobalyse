@@ -222,7 +222,7 @@ compute ({ food } as db) =
 
                     addIngredientsComplements impacts =
                         impacts
-                            |> Complement.applyComplementsToImpacts (Complement.getTotalComplementsImpacts totalComplementsImpact)
+                            |> Complement.applyComplementsToImpactsLegacy (Complement.getTotalComplementsImpacts totalComplementsImpact)
 
                     totalComplementsImpactPerKg =
                         totalComplementsImpact
@@ -483,7 +483,7 @@ encodeResults results =
           , Encode.object
                 [ ( "total", Impact.encode results.recipe.total )
                 , ( "ingredientsTotal", Impact.encode results.recipe.ingredientsTotal )
-                , ( "totalBonusImpact", Complement.encodeComplementsImpacts results.recipe.totalComplementsImpact )
+                , ( "totalBonusImpact", Complement.encodeComplementsImpactsLegacy results.recipe.totalComplementsImpact )
                 , ( "transform", Impact.encode results.recipe.transform )
                 , ( "transports", Transport.encode results.recipe.transports )
                 ]
