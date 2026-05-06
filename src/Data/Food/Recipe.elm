@@ -222,7 +222,7 @@ compute ({ food } as db) =
 
                     addIngredientsComplements impacts =
                         impacts
-                            |> Complement.applyNegatedComplementsToImpacts (Complement.getTotalComplementsImpacts totalComplementsImpact)
+                            |> Complement.applyComplementsToImpacts (Complement.getTotalComplementsImpacts totalComplementsImpact)
 
                     totalComplementsImpactPerKg =
                         totalComplementsImpact
@@ -483,10 +483,7 @@ encodeResults results =
           , Encode.object
                 [ ( "total", Impact.encode results.recipe.total )
                 , ( "ingredientsTotal", Impact.encode results.recipe.ingredientsTotal )
-
-                -- We negate the complements here to stay backward compatible as the old format in ingredients.json was not accurate
-                -- see https://github.com/MTES-MCT/ecobalyse-data/pull/263
-                , ( "totalBonusImpact", (Complement.negateComplementsImpacts >> Complement.encodeComplementsImpacts) results.recipe.totalComplementsImpact )
+                , ( "totalBonusImpact", Complement.encodeComplementsImpacts results.recipe.totalComplementsImpact )
                 , ( "transform", Impact.encode results.recipe.transform )
                 , ( "transports", Transport.encode results.recipe.transports )
                 ]

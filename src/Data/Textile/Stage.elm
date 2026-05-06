@@ -544,10 +544,7 @@ encode : Stage -> Encode.Value
 encode v =
     Encode.object
         [ ( "airTransportRatio", Split.encodeFloat v.airTransportRatio )
-
-        -- We negate the complements here to stay backward compatible as the old format in ingredients.json was not accurate
-        -- see https://github.com/MTES-MCT/ecobalyse-data/pull/263
-        , ( "complementsImpacts", (Complement.negateComplementsImpacts >> Complement.encodeComplementsImpacts) v.complementsImpacts )
+        , ( "complementsImpacts", Complement.encodeComplementsImpacts v.complementsImpacts )
         , ( "country", Country.encode v.country )
         , ( "deadstock", Encode.float (Mass.inKilograms v.deadstock) )
         , ( "durability", Unit.encodeNonPhysicalDurability v.durability )
@@ -555,7 +552,7 @@ encode v =
         , ( "elecKWh", Encode.float (Energy.inKilowattHours v.kwh) )
         , ( "enabled", Encode.bool v.enabled )
         , ( "heatMJ", Encode.float (Energy.inMegajoules v.heat) )
-        , ( "impacts", v.impacts |> Complement.applyNegatedComplementsToImpacts (Complement.getTotalComplementsImpacts v.complementsImpacts) |> Impact.encode )
+        , ( "impacts", v.impacts |> Complement.applyComplementsToImpacts (Complement.getTotalComplementsImpacts v.complementsImpacts) |> Impact.encode )
         , ( "inputMass", Encode.float (Mass.inKilograms v.inputMass) )
         , ( "label", Encode.string (Label.toString v.label) )
         , ( "makingDeadStock", v.makingDeadStock |> Maybe.map Split.encodeFloat |> Maybe.withDefault Encode.null )

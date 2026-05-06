@@ -1200,7 +1200,7 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                 -- Impacts tabs
                 , impactTabsConfig =
                     SwitchImpactsTab
-                        |> ImpactTabs.createConfig session model.impact model.activeImpactsTab OnStageClick True
+                        |> ImpactTabs.createConfig session model.impact model.activeImpactsTab OnStageClick
                         |> ImpactTabs.forTextile session.db.definitions simulator
                         |> Just
 
@@ -1294,7 +1294,6 @@ view session model =
                                         , onDragOverBookmark = OnDragOverBookmark
                                         , onDragStartBookmark = OnDragStartBookmark
                                         , onDropBookmark = OnDropBookmark
-                                        , negateComplements = True
                                         , selectAll = SelectAllBookmarks
                                         , selectNone = SelectNoBookmarks
                                         , session = session

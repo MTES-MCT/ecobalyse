@@ -920,7 +920,7 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
                 -- Impacts tabs
                 , impactTabsConfig =
                     SwitchImpactsTab
-                        |> ImpactTabs.createConfig session model.impact model.activeImpactsTab (always NoOp) False
+                        |> ImpactTabs.createConfig session model.impact model.activeImpactsTab (always NoOp)
                         |> ImpactTabs.forObject session.db.definitions lifeCycle
                         |> Just
 
@@ -1071,7 +1071,6 @@ modalView session ({ modals } as model) modal =
                         , onDragOverBookmark = OnDragOverBookmark
                         , onDragStartBookmark = OnDragStartBookmark
                         , onDropBookmark = OnDropBookmark
-                        , negateComplements = False
                         , selectAll = SelectAllBookmarks
                         , selectNone = SelectNoBookmarks
                         , session = session

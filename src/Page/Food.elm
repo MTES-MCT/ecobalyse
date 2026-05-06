@@ -1611,7 +1611,7 @@ sidebarView session model results =
         -- Impacts tabs
         , impactTabsConfig =
             SwitchImpactsTab
-                |> ImpactTabs.createConfig session model.impact model.activeImpactsTab OnStageClick True
+                |> ImpactTabs.createConfig session model.impact model.activeImpactsTab OnStageClick
                 |> ImpactTabs.forFood results
                 |> Just
 
@@ -1779,7 +1779,6 @@ view session model =
                                 , onDragOverBookmark = OnDragOverBookmark
                                 , onDragStartBookmark = OnDragStartBookmark
                                 , onDropBookmark = OnDropBookmark
-                                , negateComplements = True
                                 , selectAll = SelectAllBookmarks
                                 , selectNone = SelectNoBookmarks
                                 , session = session

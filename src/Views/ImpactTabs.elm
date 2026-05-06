@@ -34,19 +34,20 @@ type Tab
 
 
 type alias Config msg =
-    { activeImpactsTab : Tab, complementsImpact : Complement.ComplementsImpacts, impactDefinition : Definition, negateComplements : Bool, onStageClick : String -> msg, scoring : Scoring, session : Session, stagesImpacts : Impact.StagesImpacts, switchImpactsTab : Tab -> msg, total : Impacts }
+    { activeImpactsTab : Tab
+    , complementsImpact : Complement.ComplementsImpacts
+    , impactDefinition : Definition
+    , onStageClick : String -> msg
+    , scoring : Scoring
+    , session : Session
+    , stagesImpacts : Impact.StagesImpacts
+    , switchImpactsTab : Tab -> msg
+    , total : Impacts
+    }
 
 
 view : Definitions -> Config msg -> Html msg
-view definitions { activeImpactsTab, complementsImpact, impactDefinition, negateComplements, onStageClick, scoring, session, stagesImpacts, switchImpactsTab, total } =
-    let
-        negateComplement =
-            if negateComplements then
-                negate
-
-            else
-                identity
-    in
+view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStageClick, scoring, session, stagesImpacts, switchImpactsTab, total } =
     CardTabs.view
         { attrs = []
         , content =
@@ -59,36 +60,30 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, negate
                             [ -- Food ecosystemic services
                               { entryAttributes = []
                               , name = "Services écosystémiques"
-                              , value = negateComplement (Unit.impactToFloat (Complement.sumEcosystemicImpacts complementsImpact))
+                              , value = Unit.impactToFloat (Complement.sumEcosystemicImpacts complementsImpact)
                               }
 
                             -- Textile complements
                             , { entryAttributes = []
                               , name = "Complément " ++ String.toLower Complement.labels.outOfEuropeEOL
                               , value =
-                                    negateComplement
-                                        (complementsImpact.outOfEuropeEOL
-                                            |> Maybe.withDefault Unit.noImpacts
-                                            |> Unit.impactToFloat
-                                        )
+                                    complementsImpact.outOfEuropeEOL
+                                        |> Maybe.withDefault Unit.noImpacts
+                                        |> Unit.impactToFloat
                               }
                             , { entryAttributes = []
                               , name = "Complément " ++ String.toLower Complement.labels.microfibers
                               , value =
-                                    negateComplement
-                                        (complementsImpact.microfibers
-                                            |> Maybe.withDefault Unit.noImpacts
-                                            |> Unit.impactToFloat
-                                        )
+                                    complementsImpact.microfibers
+                                        |> Maybe.withDefault Unit.noImpacts
+                                        |> Unit.impactToFloat
                               }
                             , { entryAttributes = []
                               , name = "Complément " ++ String.toLower Complement.labels.forest
                               , value =
-                                    negateComplement
-                                        (complementsImpact.forest
-                                            |> Maybe.withDefault Unit.noImpacts
-                                            |> Unit.impactToFloat
-                                        )
+                                    complementsImpact.forest
+                                        |> Maybe.withDefault Unit.noImpacts
+                                        |> Unit.impactToFloat
                               }
                             ]
                         |> List.sortBy .value
@@ -173,14 +168,7 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, negate
                         , { entryAttributes = [], name = "Ressource", value = Unit.impactToFloat scoring.resources }
                         , { entryAttributes = []
                           , name = "Compléments"
-                          , value =
-                                Unit.impactToFloat scoring.complements
-                                    |> (if negateComplements then
-                                            negate
-
-                                        else
-                                            identity
-                                       )
+                          , value = Unit.impactToFloat scoring.complements
                           }
                         ]
             ]
@@ -204,12 +192,11 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, negate
         }
 
 
-createConfig : Session -> Definition -> Tab -> (String -> msg) -> Bool -> (Tab -> msg) -> Config msg
-createConfig session impactDefinition activeImpactsTab onStageClick negateComplements switchImpactsTab =
+createConfig : Session -> Definition -> Tab -> (String -> msg) -> (Tab -> msg) -> Config msg
+createConfig session impactDefinition activeImpactsTab onStageClick switchImpactsTab =
     { activeImpactsTab = activeImpactsTab
     , complementsImpact = Complement.noComplementsImpacts
     , impactDefinition = impactDefinition
-    , negateComplements = negateComplements
     , onStageClick = onStageClick
     , scoring = Scoring.empty
     , session = session
@@ -236,7 +223,7 @@ forObject definitions lifeCycle config =
             lifeCycle.production
                 |> Component.extractComplementsImpacts
                 |> Complement.mapComplements (Maybe.map (Impact.getImpact config.impactDefinition.trigram))
-        , scoring = Component.computeScoring definitions False lifeCycle
+        , scoring = Component.computeScoring definitions lifeCycle
         , stagesImpacts =
             lifeCycle
                 |> Component.stagesImpacts
