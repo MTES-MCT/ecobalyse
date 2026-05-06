@@ -128,7 +128,6 @@ type Msg
     | ToggleComparedSimulation Bookmark Bool
     | UpdateAssemblyCountry (Maybe Country.Code)
     | UpdateBookmarkName String
-    | UpdateComponentItemCountry Index (Maybe Country.Code)
     | UpdateComponentItemName TargetItem String
     | UpdateComponentItemQuantity Index Component.Quantity
     | UpdateConsumptionAmount Index (Maybe Amount)
@@ -137,6 +136,7 @@ type Msg
     | UpdateDistribution (Result String Process.Id)
     | UpdateDurability (Result String Unit.Ratio)
     | UpdateElementAmount TargetElement (Maybe Amount)
+    | UpdateElementMaterialCountry TargetElement (Maybe Country.Code)
     | UpdateElementTransformCountry TargetElement Index (Maybe Country.Code)
     | UpdateRenamedBookmarkName Bookmark String
 
@@ -596,14 +596,6 @@ update ({ navKey } as session) msg model =
             { model | bookmarkName = newName }
                 |> createPageUpdate session
 
-        ( UpdateComponentItemCountry itemIndex country, _ ) ->
-            createPageUpdate session model
-                |> updateQuery
-                    (query
-                        |> Component.mapItems (Component.updateItem itemIndex (\item -> { item | country = country }))
-                    )
-                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
-
         ( UpdateComponentItemName targetItem name, _ ) ->
             createPageUpdate session model
                 |> updateQuery
@@ -661,6 +653,15 @@ update ({ navKey } as session) msg model =
                             (Component.updateElement targetElement (\el -> { el | amount = amount }))
                     )
 
+        ( UpdateElementMaterialCountry targetElement maybeCountryCode, _ ) ->
+            createPageUpdate session model
+                |> updateQuery
+                    (query
+                        |> Component.mapItems
+                            (Component.updateElementMaterialCountry targetElement maybeCountryCode)
+                    )
+                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
+
         ( UpdateElementTransformCountry targetElement transformIndex maybeCountryCode, _ ) ->
             createPageUpdate session model
                 |> updateQuery
@@ -668,6 +669,7 @@ update ({ navKey } as session) msg model =
                         |> Component.mapItems
                             (Component.updateElementTransformCountry targetElement transformIndex maybeCountryCode)
                     )
+                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
 
         ( UpdateRenamedBookmarkName bookmark name, _ ) ->
             { model | bookmarkBeingRenamed = Just { bookmark | name = name } }
@@ -888,8 +890,8 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
                 , updateConsumptionAmount = UpdateConsumptionAmount
                 , updateDistribution = UpdateDistribution
                 , updateElementAmount = UpdateElementAmount
+                , updateElementMaterialCountry = UpdateElementMaterialCountry
                 , updateElementTransformCountry = UpdateElementTransformCountry
-                , updateItemCountry = UpdateComponentItemCountry
                 , updateItemName = UpdateComponentItemName
                 , updateItemQuantity = UpdateComponentItemQuantity
                 }
@@ -1081,7 +1083,7 @@ modalView session ({ modals } as model) modal =
 
         EditElementModal { name } targetElement ->
             ModalView.view
-                { size = ModalView.ExtraLarge
+                { size = ModalView.Fluid
                 , close = SetModals (List.drop 1 modals)
                 , noOp = NoOp
                 , title = "Modifier l'élément #" ++ String.fromInt (Tuple.second targetElement + 1)
@@ -1119,8 +1121,8 @@ modalView session ({ modals } as model) modal =
                         , updateConsumptionAmount = UpdateConsumptionAmount
                         , updateDistribution = UpdateDistribution
                         , updateElementAmount = UpdateElementAmount
+                        , updateElementMaterialCountry = UpdateElementMaterialCountry
                         , updateElementTransformCountry = UpdateElementTransformCountry
-                        , updateItemCountry = UpdateComponentItemCountry
                         , updateItemName = UpdateComponentItemName
                         , updateItemQuantity = UpdateComponentItemQuantity
                         }
