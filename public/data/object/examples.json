@@ -16,6 +16,7 @@
       ],
       "durability": 1
     },
+    "recyclable": true,
     "scope": "object"
   },
   {
@@ -48,6 +49,7 @@
         }
       ]
     },
+    "recyclable": true,
     "scope": "object"
   },
   {
@@ -80,6 +82,7 @@
         }
       ]
     },
+    "recyclable": true,
     "scope": "object"
   },
   {
@@ -95,6 +98,7 @@
       ],
       "durability": 1
     },
+    "recyclable": true,
     "scope": "object"
   },
   {
@@ -114,6 +118,7 @@
       ],
       "durability": 1
     },
+    "recyclable": true,
     "scope": "object"
   },
   {
@@ -133,6 +138,7 @@
       ],
       "durability": 1
     },
+    "recyclable": true,
     "scope": "object"
   },
   {
@@ -148,6 +154,7 @@
       ],
       "durability": 1
     },
+    "recyclable": true,
     "scope": "object"
   },
   {
@@ -193,6 +200,7 @@
       ],
       "durability": 1
     },
+    "recyclable": true,
     "scope": "object"
   },
   {
@@ -240,6 +248,7 @@
       ],
       "durability": 1
     },
+    "recyclable": true,
     "scope": "object"
   }
 ]
