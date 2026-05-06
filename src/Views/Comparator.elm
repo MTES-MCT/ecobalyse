@@ -31,16 +31,16 @@ type alias Config msg =
     { bookmarkBeingOvered : Maybe Bookmark
     , comparisonType : ComparisonType
     , impact : Definition
+    , negateComplements : Bool
     , onDragLeaveBookmark : msg
     , onDragOverBookmark : Bookmark -> msg
     , onDragStartBookmark : Bookmark -> msg
     , onDropBookmark : Bookmark -> msg
-    , negateComplements : Bool
     , selectAll : msg
     , selectNone : msg
     , session : Session
     , switchComparisonType : ComparisonType -> msg
-    , toggle : Bookmark -> Bool -> msg
+    , toggle : Bookmark -> (Bool -> msg)
     }
 
 

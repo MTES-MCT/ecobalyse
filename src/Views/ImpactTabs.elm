@@ -34,17 +34,7 @@ type Tab
 
 
 type alias Config msg =
-    { activeImpactsTab : Tab
-    , complementsImpact : Complement.ComplementsImpacts
-    , impactDefinition : Definition
-    , onStageClick : String -> msg
-    , negateComplements : Bool
-    , scoring : Scoring
-    , session : Session
-    , stagesImpacts : Impact.StagesImpacts
-    , switchImpactsTab : Tab -> msg
-    , total : Impacts
-    }
+    { activeImpactsTab : Tab, complementsImpact : Complement.ComplementsImpacts, impactDefinition : Definition, negateComplements : Bool, onStageClick : String -> msg, scoring : Scoring, session : Session, stagesImpacts : Impact.StagesImpacts, switchImpactsTab : Tab -> msg, total : Impacts }
 
 
 view : Definitions -> Config msg -> Html msg
@@ -219,8 +209,8 @@ createConfig session impactDefinition activeImpactsTab onStageClick negateComple
     { activeImpactsTab = activeImpactsTab
     , complementsImpact = Complement.noComplementsImpacts
     , impactDefinition = impactDefinition
-    , onStageClick = onStageClick
     , negateComplements = negateComplements
+    , onStageClick = onStageClick
     , scoring = Scoring.empty
     , session = session
     , stagesImpacts = Impact.noStagesImpacts
