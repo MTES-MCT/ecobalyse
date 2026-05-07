@@ -1326,8 +1326,31 @@ endOfLifeView : Config db msg -> LifeCycle -> Html msg
 endOfLifeView ({ componentConfig, scope } as config) lifeCycle =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header d-flex align-items-center justify-content-between" ]
-            [ h2 [ class "h5 mb-0" ]
-                [ text "Fin de vie" ]
+            [ div [ class "IngredientPlaneOrBoatSelector" ]
+                [ h2 [ class "h5 mb-0" ]
+                    [ text "Fin de vie" ]
+                , div []
+                    [ text "Recyclable\u{202F}:\u{202F}"
+                    , label [ class "PlaneSelector" ]
+                        [ input
+                            [ type_ "radio"
+                            , attribute "role" "switch"
+                            , checked True
+                            ]
+                            []
+                        , Icon.plane
+                        ]
+                    , label [ class "BoatSelector" ]
+                        [ input
+                            [ type_ "radio"
+                            , attribute "role" "switch"
+                            , checked False
+                            ]
+                            []
+                        , Icon.boat
+                        ]
+                    ]
+                ]
             , div [ class "d-flex align-items-center gap-2" ]
                 [ lifeCycle.production
                     |> Component.getEndOfLifeImpacts

@@ -111,6 +111,7 @@ module Data.Component exposing
     , updateElementTransformCountry
     , updateItem
     , updateItemCustomName
+    , updateRecyclable
     , validateItem
     , validateQuery
     )
@@ -185,6 +186,7 @@ type alias Query =
     -- though it's still an ongoing discussion and we need to move forward and iterate.
     , durability : Maybe Unit.Ratio
     , items : List Item
+    , recyclable : Bool
     , transportCooling : TransportCooling
     }
 
@@ -1168,6 +1170,7 @@ decodeQuery =
         |> DU.strictOptional "distribution" Process.decodeId
         |> DU.strictOptional "durability" Unit.decodeRatio
         |> Decode.required "components" (Decode.list decodeItem)
+        |> DU.strictOptionalWithDefault "recyclable" Decode.bool False
         |> Decode.optional "transportCooling" (Decode.map TransportCooling Decode.bool) defaultTransportCooling
 
 
@@ -1249,6 +1252,7 @@ emptyQuery =
     , distribution = Nothing
     , durability = Nothing
     , items = []
+    , recyclable = False
     , transportCooling = defaultTransportCooling
     }
 
@@ -1403,6 +1407,7 @@ encodeQuery query =
           )
         , ( "distribution", query.distribution |> Maybe.map Process.encodeId )
         , ( "durability", query.durability |> Maybe.map Unit.encodeRatio )
+        , ( "recyclable", query.recyclable |> Encode.bool |> Just )
         , ( "transportCooling", query.transportCooling |> isTransportCooled |> Encode.bool |> Just )
         ]
 
@@ -2274,6 +2279,11 @@ updateItem itemIndex =
     LE.updateAt itemIndex
 
 
+updateRecyclable : Bool -> Query -> Query
+updateRecyclable recyclable query =
+    { query | recyclable = recyclable }
+
+
 validateConsumption : Requirements db -> Consumption -> Result String Consumption
 validateConsumption requirements consumption =
     Ok Consumption
@@ -2372,5 +2382,6 @@ validateQuery ({ db } as requirements) query =
         |> RE.andMap (validateDistribution requirements query.distribution)
         |> RE.andMap (validateDurability requirements query.durability)
         |> RE.andMap (query.items |> RE.combineMap (validateItem db.components))
+        |> RE.andMap (Ok query.recyclable)
         |> RE.andMap (Ok query.transportCooling)
-        |> Result.mapError (\s -> "Requête invalide: " ++ s)
+        |> Result.mapError (\s -> "Requête invalide\u{202F}: " ++ s)
