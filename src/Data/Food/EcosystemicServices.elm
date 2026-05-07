@@ -9,7 +9,6 @@ module Data.Food.EcosystemicServices exposing
 import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
-import Quantity
 
 
 type alias EcosystemicServices =
@@ -46,10 +45,10 @@ decode =
     Decode.succeed AbstractEcosystemicServices
         -- We need to negate the complements to stay backward compatible as the old format in ingredients.json was not accurate
         -- see https://github.com/MTES-MCT/ecobalyse-data/pull/263
-        |> Pipe.optional "cropDiversity" (Decode.map Quantity.negate Unit.decodeImpact) Unit.noImpacts
-        |> Pipe.optional "hedges" (Decode.map Quantity.negate Unit.decodeImpact) Unit.noImpacts
-        |> Pipe.optional "permanentPasture" (Decode.map Quantity.negate Unit.decodeImpact) Unit.noImpacts
-        |> Pipe.optional "plotSize" (Decode.map Quantity.negate Unit.decodeImpact) Unit.noImpacts
+        |> Pipe.optional "cropDiversity" Unit.decodeAndNegateImpact Unit.noImpacts
+        |> Pipe.optional "hedges" Unit.decodeAndNegateImpact Unit.noImpacts
+        |> Pipe.optional "permanentPasture" Unit.decodeAndNegateImpact Unit.noImpacts
+        |> Pipe.optional "plotSize" Unit.decodeAndNegateImpact Unit.noImpacts
 
 
 empty : EcosystemicServices
