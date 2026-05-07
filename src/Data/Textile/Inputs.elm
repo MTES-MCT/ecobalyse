@@ -487,10 +487,10 @@ getOutOfEuropeEOLComplement { mass, materials } =
     let
         impact =
             Unit.impact
-                -(Split.toFloat (getOutOfEuropeEOLProbability materials)
+                (Split.toFloat (getOutOfEuropeEOLProbability materials)
                     * Mass.inKilograms mass
                     * 5000
-                 )
+                )
     in
     if impact == Unit.noImpacts then
         Nothing
