@@ -2040,7 +2040,7 @@
   {
     "activityName": "Blue cheese Auvergne, variant 1, CMAPS {GLO} U",
     "alias": "blue-cheese-auvergne-fr",
-    "baseIngredient": "blue-cheese-auvergne",
+    "baseIngredient": "blue-cheese",
     "categories": [
       "dairy_product"
     ],
@@ -2915,7 +2915,7 @@
   {
     "activityName": "Rice, non-basmati {CN}| rice production, non-basmati | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "rice-all-variety-white-wild-c-thai-or-basmati-rice-raw-raw-fr",
-    "baseIngredient": "rice-all-variety-white-wild-c-thai-or-basmati-rice-raw-raw",
+    "baseIngredient": "rice",
     "categories": [
       "grain_raw"
     ],
@@ -3609,7 +3609,7 @@
   {
     "activityName": "Beef cattle, conventional, national average, at farm gate {FR} U",
     "alias": "beef-cattle-conventional-fr-live",
-    "baseIngredient": "beef-cattle-conventional-fr-live",
+    "baseIngredient": "beef-cattle",
     "categories": [
       "animal_product"
     ],
@@ -5812,7 +5812,7 @@
   {
     "activityName": "Rice, basmati, organic 2025 {IN}| rice production, basmati | Cut-off, U",
     "alias": "rice-all-variety-white-wild-c-thai-or-basmati-rice-raw-raw-organic",
-    "baseIngredient": "rice-all-variety-white-wild-c-thai-or-basmati-rice-raw-raw",
+    "baseIngredient": "rice",
     "categories": [
       "grain_raw",
       "organic"
@@ -5867,7 +5867,7 @@
   {
     "activityName": "Bell pepper {IN-UP}| bell pepper production, open field | Cut-off, U",
     "alias": "bell-pepper-green-yellow-or-red-default",
-    "baseIngredient": "bell-pepper-green-yellow-or-red",
+    "baseIngredient": "bell-pepper",
     "categories": [
       "vegetable_fresh"
     ],
@@ -6976,7 +6976,7 @@
   {
     "activityName": "Basmati rice, consumption mix {FR} U",
     "alias": "rice-basmati-eu-2025",
-    "baseIngredient": "rice-basmati",
+    "baseIngredient": "rice",
     "categories": [
       "grain_raw"
     ],
@@ -7377,7 +7377,7 @@
   {
     "activityName": "Feta type cheese, cow milk, variant 1, CMAPS {GLO} U",
     "alias": "feta-type-cheese-cow-milk-fr",
-    "baseIngredient": "feta-type-cheese-cow-milk",
+    "baseIngredient": "feta-type-cheese",
     "categories": [
       "dairy_product"
     ],
@@ -8598,7 +8598,7 @@
   {
     "activityName": "Pig, conventional, national average, at farm gate {FR} U",
     "alias": "pig-conventional-fr-live",
-    "baseIngredient": "pig-conventional-fr-live",
+    "baseIngredient": "pig",
     "categories": [
       "animal_product"
     ],
@@ -8810,7 +8810,7 @@
   {
     "activityName": "Ground beef fresh case ready for direct consumption at plant {{ground-beef-grass-fed-2025}}",
     "alias": "ground-beef-grass-fed-2025",
-    "baseIngredient": "ground-beef-grass-fed",
+    "baseIngredient": "ground-beef",
     "categories": [
       "animal_product",
       "organic"
@@ -10076,7 +10076,7 @@
   {
     "activityName": "Rice, non-basmati {RoW}| rice production, non-basmati | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "rice-raw-eu",
-    "baseIngredient": "rice-raw",
+    "baseIngredient": "rice",
     "categories": [
       "grain_raw"
     ],
@@ -10255,7 +10255,7 @@
   {
     "activityName": "Pig, organic, system number 2, at farm gate {FR} U",
     "alias": "pig-organic-fr-live",
-    "baseIngredient": "pig-organic-fr-live",
+    "baseIngredient": "pig",
     "categories": [
       "animal_product",
       "organic"
@@ -10421,7 +10421,7 @@
   {
     "activityName": "Feta type cheese, sheep milk, CMAPS {GLO} U",
     "alias": "feta-type-cheese-sheep-milk-fr",
-    "baseIngredient": "feta-type-cheese-sheep-milk",
+    "baseIngredient": "feta-type-cheese",
     "categories": [
       "dairy_product"
     ],
@@ -11116,7 +11116,7 @@
   {
     "activityName": "Feta type cheese, cow milk, variant 2, CMAPS {GLO} U",
     "alias": "feta-type-cheese-cow-milk-default",
-    "baseIngredient": "feta-type-cheese-cow-milk",
+    "baseIngredient": "feta-type-cheese",
     "categories": [
       "dairy_product"
     ],
@@ -12773,7 +12773,7 @@
   {
     "activityName": "Fava bean {CA-AB}| fava bean production | Cut-off, U",
     "alias": "flageolet-bean-green-dried-default",
-    "baseIngredient": "flageolet-bean-green-dried",
+    "baseIngredient": "flageolet-bean",
     "categories": [
       "vegetable_fresh"
     ],
@@ -13739,7 +13739,7 @@
   {
     "activityName": "Feta type cheese, sheep milk, CMAPS {GLO} U",
     "alias": "feta-type-cheese-sheep-milk-default",
-    "baseIngredient": "feta-type-cheese-sheep-milk",
+    "baseIngredient": "feta-type-cheese",
     "categories": [
       "dairy_product"
     ],
@@ -13816,7 +13816,7 @@
   {
     "activityName": "Meat without bone, beef for direct consumption {{beef-without-bone-grass-fed-2025}}",
     "alias": "beef-without-bone-grass-fed",
-    "baseIngredient": "beef-without-bone-grass-fed",
+    "baseIngredient": "beef-without-bone",
     "categories": [
       "animal_product"
     ],
@@ -15410,7 +15410,7 @@
   {
     "activityName": "Broiler, organic, at farm gate {FR} U",
     "alias": "broiler-organic-fr-live",
-    "baseIngredient": "broiler-organic-fr-live",
+    "baseIngredient": "broiler",
     "categories": [
       "animal_product",
       "organic"
@@ -17198,7 +17198,7 @@
   {
     "activityName": "Bell pepper {FR}| bell pepper production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "bell-pepper-green-yellow-or-red-fr",
-    "baseIngredient": "bell-pepper-green-yellow-or-red",
+    "baseIngredient": "bell-pepper",
     "categories": [
       "vegetable_fresh"
     ],
@@ -17625,7 +17625,7 @@
   {
     "activityName": "Cull cow, organic, national average, at farm gate FR U",
     "alias": "cull-cow-organic-national-average-live",
-    "baseIngredient": "cull-cow-organic-national-average-live",
+    "baseIngredient": "cull-cow",
     "categories": [
       "animal_product",
       "organic"
@@ -18431,7 +18431,7 @@
   {
     "activityName": "Broiler, conventional, at farm gate {FR} U",
     "alias": "broiler-conventional-fr-live",
-    "baseIngredient": "broiler-conventional-fr-live",
+    "baseIngredient": "broiler",
     "categories": [
       "animal_product"
     ],
@@ -20754,7 +20754,7 @@
   {
     "activityName": "Beef cattle, feedlot or intensive system, live weight, at farm {GB} - Adapted from WFLDB U",
     "alias": "beef-cattle-feedlot-gb-live",
-    "baseIngredient": "beef-cattle-feedlot-gb-live",
+    "baseIngredient": "beef-cattle",
     "categories": [
       "animal_product"
     ],
@@ -22519,7 +22519,7 @@
   {
     "activityName": "Blue cheese Auvergne, variant 2, CMAPS {GLO} U",
     "alias": "blue-cheese-auvergne-default",
-    "baseIngredient": "blue-cheese-auvergne",
+    "baseIngredient": "blue-cheese",
     "categories": [
       "dairy_product"
     ],
@@ -23646,7 +23646,7 @@
   {
     "activityName": "Bell pepper, organic 2025 {FR}| bell pepper production, in unheated greenhouse | Cut-off, U",
     "alias": "bell-pepper-green-yellow-or-red-organic",
-    "baseIngredient": "bell-pepper-green-yellow-or-red",
+    "baseIngredient": "bell-pepper",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -24328,7 +24328,7 @@
   {
     "activityName": "Emmental cheese, grated, cheese production, from cow's milk, hard cheese, French production mix, at plant, 1 kg of Emmental, grated cheese (PGi) {FR} U",
     "alias": "emmental-grated-fr-2025",
-    "baseIngredient": "emmental-grated",
+    "baseIngredient": "emmental",
     "categories": [
       "dairy_product"
     ],
@@ -25148,7 +25148,7 @@
   {
     "activityName": "Pig, conventionnal, Bleu Blanc Coeur, at farm gate {FR} U",
     "alias": "pig-bbc-fr-live",
-    "baseIngredient": "pig-bbc-fr-live",
+    "baseIngredient": "pig",
     "categories": [
       "animal_product"
     ],
@@ -25583,7 +25583,7 @@
   {
     "activityName": "Fava bean, Swiss integrated production, organic 2025 {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U",
     "alias": "flageolet-bean-green-dried-organic",
-    "baseIngredient": "flageolet-bean-green-dried",
+    "baseIngredient": "flageolet-bean",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -25692,7 +25692,7 @@
   {
     "activityName": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "flageolet-bean-green-dried-fr",
-    "baseIngredient": "flageolet-bean-green-dried",
+    "baseIngredient": "flageolet-bean",
     "categories": [
       "vegetable_fresh"
     ],
@@ -26240,7 +26240,7 @@
   {
     "activityName": "Cull cow, conventional, highland milk system, pastoral farming system, at farm gate {FR} U",
     "alias": "cull-cow-grass-fed-fr-live",
-    "baseIngredient": "cull-cow-grass-fed-fr-live",
+    "baseIngredient": "cull-cow",
     "categories": [
       "animal_product"
     ],
@@ -26397,7 +26397,7 @@
   {
     "activityName": "Rice, basmati {IN}| rice production, basmati | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "rice-basmati-non-eu-2025",
-    "baseIngredient": "rice-basmati",
+    "baseIngredient": "rice",
     "categories": [
       "grain_raw"
     ],
@@ -26479,7 +26479,7 @@
   {
     "activityName": "Rice, basmati {IN}| rice production, basmati | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "rice-all-variety-white-wild-c-thai-or-basmati-rice-raw-raw-default",
-    "baseIngredient": "rice-all-variety-white-wild-c-thai-or-basmati-rice-raw-raw",
+    "baseIngredient": "rice",
     "categories": [
       "grain_raw"
     ],
@@ -27708,7 +27708,7 @@
   {
     "activityName": "Dry goat cheese, chabichou type, CMAPS {GLO} U",
     "alias": "dry-goat-cheese-chabichou-type-default",
-    "baseIngredient": "dry-goat-cheese-chabichou-type",
+    "baseIngredient": "dry-goat-cheese",
     "categories": [
       "dairy_product"
     ],
@@ -28498,7 +28498,7 @@
   {
     "activityName": "Dry goat cheese, chabichou type, CMAPS {GLO} U",
     "alias": "dry-goat-cheese-chabichou-type-fr",
-    "baseIngredient": "dry-goat-cheese-chabichou-type",
+    "baseIngredient": "dry-goat-cheese",
     "categories": [
       "dairy_product"
     ],
@@ -28886,7 +28886,7 @@
   {
     "activityName": "Rice, non-basmati, organic 2025 {GLO}| market for rice, non-basmati | Cut-off, U",
     "alias": "rice-basmati-organic-2025",
-    "baseIngredient": "rice-basmati",
+    "baseIngredient": "rice",
     "categories": [
       "grain_raw",
       "organic"
@@ -28941,7 +28941,7 @@
   {
     "activityName": "Cull cow, organic, milk system number 1, at farm gate {FR} U",
     "alias": "cull-cow-organic-live",
-    "baseIngredient": "cull-cow-organic-live",
+    "baseIngredient": "cull-cow",
     "categories": [
       "animal_product",
       "organic"
@@ -30390,7 +30390,7 @@
   {
     "activityName": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "flageolet-bean-green-dried-eu",
-    "baseIngredient": "flageolet-bean-green-dried",
+    "baseIngredient": "flageolet-bean",
     "categories": [
       "vegetable_fresh"
     ],
@@ -32352,7 +32352,7 @@
   {
     "activityName": "Meat with bone, beef for direct consumption {{beef-with-bone-grass-fed-2025}}",
     "alias": "beef-with-bone-grass-fed",
-    "baseIngredient": "beef-with-bone-grass-fed",
+    "baseIngredient": "beef-with-bone",
     "categories": [
       "animal_product"
     ],
