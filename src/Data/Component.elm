@@ -101,7 +101,6 @@ module Data.Component exposing
     , updateConsumptionAmount
     , updateDistribution
     , updateDurability
-    , updateElement
     , updateElementAmount
     , updateElementMaterialCountry
     , updateElementTransformCountry
@@ -408,11 +407,11 @@ addItem maybeId items =
     items ++ [ createItem maybeId ]
 
 
-addOrSetProcess : Category -> TargetItem -> Maybe Index -> Process -> List Item -> Result String (List Item)
-addOrSetProcess category targetItem maybeElementIndex process items =
+addOrSetProcess : DataContainer db -> Category -> TargetItem -> Maybe Index -> Process -> List Item -> Result String (List Item)
+addOrSetProcess db category targetItem maybeElementIndex process items =
     case ( category, maybeElementIndex ) of
         ( Category.Material, Just elementIndex ) ->
-            items |> setElementMaterial ( targetItem, elementIndex ) process
+            items |> setElementMaterial db ( targetItem, elementIndex ) process
 
         ( Category.Material, Nothing ) ->
             items |> addElement targetItem process
@@ -1969,8 +1968,8 @@ setCustomScope component scope item =
     }
 
 
-setElementMaterial : TargetElement -> Process -> List Item -> Result String (List Item)
-setElementMaterial targetElement material items =
+setElementMaterial : DataContainer db -> TargetElement -> Process -> List Item -> Result String (List Item)
+setElementMaterial db targetElement material items =
     if not <| List.member Category.Material material.categories then
         Err "Seuls les procédés de catégorie `material` sont mobilisables comme matière"
 
@@ -1978,11 +1977,32 @@ setElementMaterial targetElement material items =
         items
             |> updateElement targetElement
                 (\el ->
+                    let
+                        materialType =
+                            List.head (Process.getMaterialTypes material)
+                    in
                     { el
-                        | material = nonLocalizedProcess material.id
+                      -- preserve initial material country
+                        | material = { country = el.material.country, id = material.id }
 
-                        -- Note: always reset the transforms when replacing a material for consistency
-                        , transforms = []
+                        -- preserve compatible transforms
+                        , transforms =
+                            el.transforms
+                                |> List.map
+                                    (\localizedProcess ->
+                                        db.processes
+                                            |> Process.findById localizedProcess.id
+                                            |> Result.map (\fullProcess -> ( localizedProcess, fullProcess ))
+                                    )
+                                |> RE.combine
+                                |> Result.map
+                                    (List.filter
+                                        (\( _, transform ) ->
+                                            materialType /= Nothing && List.head (Process.getMaterialTypes transform) == materialType
+                                        )
+                                    )
+                                |> Result.map (List.map Tuple.first)
+                                |> Result.withDefault []
                     }
                 )
             |> Ok
