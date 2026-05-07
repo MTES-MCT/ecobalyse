@@ -60,25 +60,23 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStag
                             [ -- Food ecosystemic services
                               { entryAttributes = []
                               , name = "Services écosystémiques"
-                              , value = -(Unit.impactToFloat (Complement.sumEcosystemicImpacts complementsImpact))
+                              , value = Unit.impactToFloat (Complement.sumEcosystemicImpacts complementsImpact)
                               }
 
                             -- Textile complements
                             , { entryAttributes = []
                               , name = "Complément " ++ String.toLower Complement.labels.outOfEuropeEOL
                               , value =
-                                    -(complementsImpact.outOfEuropeEOL
+                                    complementsImpact.outOfEuropeEOL
                                         |> Maybe.withDefault Unit.noImpacts
                                         |> Unit.impactToFloat
-                                     )
                               }
                             , { entryAttributes = []
                               , name = "Complément " ++ String.toLower Complement.labels.microfibers
                               , value =
-                                    -(complementsImpact.microfibers
+                                    complementsImpact.microfibers
                                         |> Maybe.withDefault Unit.noImpacts
                                         |> Unit.impactToFloat
-                                     )
                               }
                             , { entryAttributes = []
                               , name = "Complément " ++ String.toLower Complement.labels.forest
@@ -168,7 +166,10 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStag
                         , { entryAttributes = [], name = "Biodiversité", value = Unit.impactToFloat scoring.biodiversity }
                         , { entryAttributes = [], name = "Santé environnementale", value = Unit.impactToFloat scoring.health }
                         , { entryAttributes = [], name = "Ressource", value = Unit.impactToFloat scoring.resources }
-                        , { entryAttributes = [], name = "Compléments", value = -(Unit.impactToFloat scoring.complements) }
+                        , { entryAttributes = []
+                          , name = "Compléments"
+                          , value = Unit.impactToFloat scoring.complements
+                          }
                         ]
             ]
         , tabs =

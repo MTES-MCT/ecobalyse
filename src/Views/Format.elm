@@ -48,7 +48,6 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Length exposing (Length)
 import Mass exposing (Mass)
-import Quantity
 import Time exposing (Posix)
 import Volume exposing (Volume)
 
@@ -159,14 +158,9 @@ formatRichFloat decimals unit value =
 
 complement : Unit.Impact -> Html msg
 complement impact =
-    -- Notes:
-    -- - maluses are expressed with a negative number, bonuses with a
-    --   positive one; here we render the *effect* it has on the score
-    -- - complements are *always* expressed in ecoscore points
     let
         formatted =
             impact
-                |> Quantity.negate
                 |> Unit.impactToFloat
                 |> formatFloat 2
     in
