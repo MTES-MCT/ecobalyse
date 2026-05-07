@@ -936,9 +936,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 4.1,
+      "hedges": 3.0,
       "permanentPasture": 0.751,
-      "plotSize": 3.83
+      "plotSize": 2.85
     },
     "id": "065b585d-b876-4f55-baa5-123965c4b0b7",
     "inediblePart": 0,
@@ -1329,9 +1329,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 1.13,
+      "hedges": 0.828,
       "permanentPasture": 0.207,
-      "plotSize": 1.06
+      "plotSize": 0.785
     },
     "id": "0847b2c6-7fb6-49f2-9f25-1c0492f43407",
     "inediblePart": 0,
@@ -1559,9 +1559,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 2.76,
+      "hedges": 2.02,
       "permanentPasture": 0.507,
-      "plotSize": 2.58
+      "plotSize": 1.92
     },
     "id": "09bf7ccc-baeb-4907-87ec-dc3a1b3cf9e1",
     "inediblePart": 0,
@@ -1972,9 +1972,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 4.14,
+      "hedges": 3.03,
       "permanentPasture": 0.76,
-      "plotSize": 3.87
+      "plotSize": 2.88
     },
     "id": "0cb50cd4-2842-4336-9710-c1bf52a2209e",
     "inediblePart": 0,
@@ -2024,9 +2024,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 3.26,
+      "hedges": 2.39,
       "permanentPasture": 0.598,
-      "plotSize": 3.05
+      "plotSize": 2.27
     },
     "id": "0ce58b8b-95db-40f6-99c8-1c90bc7f678e",
     "inediblePart": 0,
@@ -2123,9 +2123,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 5.01,
+      "hedges": 3.67,
       "permanentPasture": 0.918,
-      "plotSize": 4.68
+      "plotSize": 3.48
     },
     "id": "0db53c94-9dcf-449f-9a2e-c45b189d46ee",
     "inediblePart": 0,
@@ -3482,9 +3482,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 21.0,
+      "hedges": 15.1,
       "permanentPasture": 16.2,
-      "plotSize": 17.7
+      "plotSize": 12.8
     },
     "id": "1724c00a-1e59-5675-b1e2-f8a549b2ade3",
     "inediblePart": 0,
@@ -4626,9 +4626,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 3.71,
+      "hedges": 2.72,
       "permanentPasture": 0.68,
-      "plotSize": 3.47
+      "plotSize": 2.57
     },
     "id": "20ae3e77-c899-4a3e-84c2-ca8be004f9dc",
     "inediblePart": 0,
@@ -4804,9 +4804,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 39.4,
+      "hedges": 28.2,
       "permanentPasture": 30.4,
-      "plotSize": 33.2
+      "plotSize": 23.9
     },
     "id": "22179caa-eb41-49c0-ae04-49eda23da4da",
     "inediblePart": 0,
@@ -5784,9 +5784,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 3.52,
+      "hedges": 2.58,
       "permanentPasture": 0.646,
-      "plotSize": 3.29
+      "plotSize": 2.45
     },
     "id": "2a571c02-23f1-4908-afa6-7b8e20e24488",
     "inediblePart": 0,
@@ -5915,9 +5915,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0.618,
-      "hedges": 1.75,
+      "hedges": 1.24,
       "permanentPasture": 0.81,
-      "plotSize": 1.57
+      "plotSize": 1.13
     },
     "id": "2bf307e8-8cb0-400b-a4f1-cf615d9e96f4",
     "inediblePart": 0,
@@ -6277,9 +6277,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 4.88,
+      "hedges": 3.57,
       "permanentPasture": 0.894,
-      "plotSize": 4.56
+      "plotSize": 3.39
     },
     "id": "2e8c166a-b78a-4550-a8c8-c565a9f4bd1b",
     "inediblePart": 0,
@@ -7108,9 +7108,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 3.41,
+      "hedges": 2.5,
       "permanentPasture": 0.626,
-      "plotSize": 3.19
+      "plotSize": 2.37
     },
     "id": "35d48d4e-33ee-44e8-8e57-2d385ef90563",
     "inediblePart": 0,
@@ -8488,9 +8488,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 54.2,
+      "hedges": 38.7,
       "permanentPasture": 50.7,
-      "plotSize": 44.3
+      "plotSize": 31.7
     },
     "id": "3fd1b6d5-58d9-40eb-b215-d2e8c2876a5f",
     "inediblePart": 0,
@@ -8774,9 +8774,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 48.3,
+      "hedges": 34.6,
       "permanentPasture": 37.3,
-      "plotSize": 40.7
+      "plotSize": 29.3
     },
     "id": "41d65ed4-230f-4a47-a67c-9a8015f50420",
     "inediblePart": 0,
@@ -9138,9 +9138,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 3.65,
+      "hedges": 2.68,
       "permanentPasture": 0.67,
-      "plotSize": 3.41
+      "plotSize": 2.54
     },
     "id": "4619991b-e88f-40c3-9c86-d6068d5ce219",
     "inediblePart": 0,
@@ -9986,9 +9986,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 15.5,
-      "hedges": 54.8,
+      "hedges": 39.6,
       "permanentPasture": 34.5,
-      "plotSize": 48.1
+      "plotSize": 35.3
     },
     "id": "4e3009f3-1b33-41d7-b6f3-dc7230331da0",
     "inediblePart": 0,
@@ -10880,9 +10880,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 4.31,
+      "hedges": 3.16,
       "permanentPasture": 0.791,
-      "plotSize": 4.03
+      "plotSize": 2.99
     },
     "id": "547c7bb5-1958-415e-a386-8bc7176dfb73",
     "inediblePart": 0,
@@ -11036,9 +11036,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 3.54,
+      "hedges": 2.59,
       "permanentPasture": 0.649,
-      "plotSize": 3.31
+      "plotSize": 2.46
     },
     "id": "568bfd92-826b-4bf1-9aad-e0b839a267a1",
     "inediblePart": 0,
@@ -11399,9 +11399,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 40.9,
+      "hedges": 29.4,
       "permanentPasture": 31.6,
-      "plotSize": 34.5
+      "plotSize": 24.9
     },
     "id": "588013fe-4b06-43aa-8991-65f949a7815d",
     "inediblePart": 0,
@@ -11809,9 +11809,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 4.28,
+      "hedges": 3.14,
       "permanentPasture": 0.785,
-      "plotSize": 4.0
+      "plotSize": 2.97
     },
     "id": "5bfdb3f2-9bc9-40ae-a55d-78cbd7c32639",
     "inediblePart": 0,
@@ -12015,9 +12015,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 3.87,
+      "hedges": 2.83,
       "permanentPasture": 0.709,
-      "plotSize": 3.61
+      "plotSize": 2.68
     },
     "id": "5e054aed-bba8-483c-b731-d08441fa6a48",
     "inediblePart": 0,
@@ -12659,9 +12659,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 5.16,
+      "hedges": 3.78,
       "permanentPasture": 0.947,
-      "plotSize": 4.83
+      "plotSize": 3.59
     },
     "id": "646aaee7-b9eb-4050-9e2a-0a4015258b1e",
     "inediblePart": 0,
@@ -13253,9 +13253,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 3.25,
+      "hedges": 2.38,
       "permanentPasture": 0.597,
-      "plotSize": 3.04
+      "plotSize": 2.26
     },
     "id": "671f681c-3ee2-4a98-8399-81663f6e24db",
     "inediblePart": 0,
@@ -13306,9 +13306,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 44.2,
+      "hedges": 31.6,
       "permanentPasture": 41.3,
-      "plotSize": 36.1
+      "plotSize": 25.8
     },
     "id": "67db7c6c-a8f8-4285-b1dd-b0b3efe2d668",
     "inediblePart": 0,
@@ -13408,9 +13408,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 10.1,
-      "hedges": 35.7,
+      "hedges": 25.8,
       "permanentPasture": 22.5,
-      "plotSize": 31.4
+      "plotSize": 23.0
     },
     "id": "6912db61-530f-4630-956a-b94a6ded0134",
     "inediblePart": 0.2,
@@ -14247,9 +14247,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 1.21,
+      "hedges": 0.883,
       "permanentPasture": 0.221,
-      "plotSize": 1.13
+      "plotSize": 0.837
     },
     "id": "712255db-bbbb-4220-8496-3ff600651f11",
     "inediblePart": 0,
@@ -14325,9 +14325,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 1.96,
+      "hedges": 1.43,
       "permanentPasture": 0.359,
-      "plotSize": 1.83
+      "plotSize": 1.36
     },
     "id": "71d472f8-4dfe-4e71-9240-f66e1eeea4a5",
     "inediblePart": 0,
@@ -14351,9 +14351,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 3.76,
+      "hedges": 2.75,
       "permanentPasture": 0.689,
-      "plotSize": 3.51
+      "plotSize": 2.61
     },
     "id": "7251209a-43b4-45c2-9925-129919e3c7a3",
     "inediblePart": 0,
@@ -14404,9 +14404,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 13.1,
-      "hedges": 39.4,
+      "hedges": 28.2,
       "permanentPasture": 28.0,
-      "plotSize": 34.3
+      "plotSize": 25.0
     },
     "id": "72d5929f-a03b-59ff-9ae9-f5fdf1d065f9",
     "inediblePart": 0,
@@ -15235,9 +15235,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 1.78,
+      "hedges": 1.3,
       "permanentPasture": 0.326,
-      "plotSize": 1.66
+      "plotSize": 1.24
     },
     "id": "77df15d5-7c82-4866-8b0c-5490a8d77228",
     "inediblePart": 0,
@@ -15392,9 +15392,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 3.1,
+      "hedges": 2.27,
       "permanentPasture": 0.568,
-      "plotSize": 2.89
+      "plotSize": 2.15
     },
     "id": "79459a80-f24e-47c6-ba8c-25285d662ecd",
     "inediblePart": 0,
@@ -15753,9 +15753,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 4.57,
+      "hedges": 3.35,
       "permanentPasture": 0.838,
-      "plotSize": 4.27
+      "plotSize": 3.17
     },
     "id": "7bd4b612-bddd-4daa-8fc2-3b6f361e8ed1",
     "inediblePart": 0,
@@ -16282,9 +16282,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 3.4,
+      "hedges": 2.49,
       "permanentPasture": 0.624,
-      "plotSize": 3.18
+      "plotSize": 2.36
     },
     "id": "7fc6c4b5-01ce-4cff-a057-9a238f69fc8b",
     "inediblePart": 0,
@@ -16973,9 +16973,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 6.75,
-      "hedges": 23.8,
+      "hedges": 17.2,
       "permanentPasture": 15.0,
-      "plotSize": 20.9
+      "plotSize": 15.3
     },
     "id": "8602a1cb-18a2-54aa-b491-1bbb7e495500",
     "inediblePart": 0,
@@ -18091,9 +18091,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 0.927,
+      "hedges": 0.679,
       "permanentPasture": 0.17,
-      "plotSize": 0.866
+      "plotSize": 0.644
     },
     "id": "8f3863e7-f981-4367-90a2-e1aaa096a6e0",
     "inediblePart": 0,
@@ -18397,9 +18397,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 1.52,
+      "hedges": 1.11,
       "permanentPasture": 0.279,
-      "plotSize": 1.42
+      "plotSize": 1.06
     },
     "id": "916bbf16-8e30-441b-a97d-645f5957d227",
     "inediblePart": 0,
@@ -18811,9 +18811,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 2.32,
+      "hedges": 1.7,
       "permanentPasture": 0.425,
-      "plotSize": 2.17
+      "plotSize": 1.61
     },
     "id": "957dbc02-b83a-43a1-b55d-ca503f9ab4a9",
     "inediblePart": 0,
@@ -19333,9 +19333,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 4.52,
+      "hedges": 3.31,
       "permanentPasture": 0.828,
-      "plotSize": 4.22
+      "plotSize": 3.13
     },
     "id": "9a990c37-72b3-40c5-a700-aee1f686a029",
     "inediblePart": 0,
@@ -19643,9 +19643,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 31.5,
+      "hedges": 22.6,
       "permanentPasture": 24.3,
-      "plotSize": 26.5
+      "plotSize": 19.1
     },
     "id": "9db6b0d1-941a-4dda-a347-b7a7fee8fd46",
     "inediblePart": 0.2,
@@ -20323,9 +20323,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 4.66,
+      "hedges": 3.42,
       "permanentPasture": 0.855,
-      "plotSize": 4.36
+      "plotSize": 3.24
     },
     "id": "a4d7e7a6-66e3-4fa9-8179-63b804dd2d68",
     "inediblePart": 0,
@@ -20454,9 +20454,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 18.0,
+      "hedges": 12.5,
       "permanentPasture": 10.5,
-      "plotSize": 15.6
+      "plotSize": 10.9
     },
     "id": "a7285486-2ab8-536e-8402-308c45966e16",
     "inediblePart": 0,
@@ -21631,9 +21631,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 4.95,
+      "hedges": 3.63,
       "permanentPasture": 0.908,
-      "plotSize": 4.63
+      "plotSize": 3.44
     },
     "id": "afec1f74-2b0e-4c68-97ad-bdc79e4c2806",
     "inediblePart": 0,
@@ -22742,9 +22742,9 @@
     "density": 1.05,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 0.927,
+      "hedges": 0.679,
       "permanentPasture": 0.17,
-      "plotSize": 0.866
+      "plotSize": 0.644
     },
     "id": "b757094f-7cb1-58ea-9d3d-b6d7e0e0d471",
     "inediblePart": 0,
@@ -23052,9 +23052,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 1.26,
+      "hedges": 0.814,
       "permanentPasture": null,
-      "plotSize": 1.16
+      "plotSize": 0.75
     },
     "id": "ba97e4b9-1fac-4f92-bed1-9889e3ae631d",
     "inediblePart": 0,
@@ -23523,9 +23523,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 3.5,
+      "hedges": 2.56,
       "permanentPasture": 0.641,
-      "plotSize": 3.27
+      "plotSize": 2.43
     },
     "id": "bdedc41e-ef10-4c49-a40b-d1c9273467de",
     "inediblePart": 0,
@@ -24239,9 +24239,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 4.48,
+      "hedges": 3.28,
       "permanentPasture": 0.821,
-      "plotSize": 4.18
+      "plotSize": 3.11
     },
     "id": "c398359a-dc79-483a-9b53-687ab17406ab",
     "inediblePart": 0,
@@ -24855,9 +24855,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 1.07,
+      "hedges": 0.764,
       "permanentPasture": null,
-      "plotSize": 0.874
+      "plotSize": 0.625
     },
     "id": "c88d387e-8435-4741-b742-0094dbdcee45",
     "inediblePart": 0,
@@ -24986,9 +24986,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 3.77,
+      "hedges": 2.76,
       "permanentPasture": 0.692,
-      "plotSize": 3.53
+      "plotSize": 2.62
     },
     "id": "c8d83557-46c6-46ab-9d01-fcb0e058f46f",
     "inediblePart": 0,
@@ -25264,9 +25264,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 23.6,
+      "hedges": 16.8,
       "permanentPasture": 22.0,
-      "plotSize": 19.3
+      "plotSize": 13.8
     },
     "id": "cb385a08-0441-5377-b5f2-a76592ea1165",
     "inediblePart": 0,
@@ -26955,9 +26955,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 43.0,
+      "hedges": 30.0,
       "permanentPasture": 25.0,
-      "plotSize": 37.3
+      "plotSize": 26.1
     },
     "id": "d79e0fce-8633-4189-a937-7b8010abafed",
     "inediblePart": 0,
@@ -28197,9 +28197,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 4.88,
+      "hedges": 3.57,
       "permanentPasture": 0.894,
-      "plotSize": 4.56
+      "plotSize": 3.39
     },
     "id": "dedfd5eb-6ec4-44d5-9586-e14b4f6631a1",
     "inediblePart": 0,
@@ -28593,9 +28593,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 31.3,
-      "hedges": 94.1,
+      "hedges": 67.4,
       "permanentPasture": 67.0,
-      "plotSize": 82.1
+      "plotSize": 59.7
     },
     "id": "e07f7703-c4f7-479e-a8ac-bb73d3f08c78",
     "inediblePart": 0,
@@ -28876,9 +28876,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 3.26,
+      "hedges": 2.39,
       "permanentPasture": 0.598,
-      "plotSize": 3.05
+      "plotSize": 2.27
     },
     "id": "e35b0b64-956f-476b-a7f4-c8cd29ad5020",
     "inediblePart": 0,
@@ -29517,9 +29517,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 1.0,
+      "hedges": 0.733,
       "permanentPasture": 0.184,
-      "plotSize": 0.936
+      "plotSize": 0.695
     },
     "id": "e857ced3-7aab-477e-98b3-c0fb42fea590",
     "inediblePart": 0,
@@ -29595,9 +29595,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 1.36,
+      "hedges": 0.998,
       "permanentPasture": 0.25,
-      "plotSize": 1.27
+      "plotSize": 0.946
     },
     "id": "e93e5d8c-4b6c-428e-af0f-7250156dff81",
     "inediblePart": 0,
@@ -29700,9 +29700,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 4.62,
+      "hedges": 3.38,
       "permanentPasture": 0.847,
-      "plotSize": 4.31
+      "plotSize": 3.21
     },
     "id": "e9cee56b-149c-4d79-8f10-4d49410d78c7",
     "inediblePart": 0,
@@ -30030,9 +30030,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 3.63,
+      "hedges": 2.65,
       "permanentPasture": 0.665,
-      "plotSize": 3.39
+      "plotSize": 2.52
     },
     "id": "ec2cabd5-6eec-40e0-a9c6-1a47c0455504",
     "inediblePart": 0,
@@ -31146,9 +31146,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 35.4,
+      "hedges": 25.2,
       "permanentPasture": 33.0,
-      "plotSize": 28.9
+      "plotSize": 20.7
     },
     "id": "f38271f1-bdba-40cd-a296-2bc741fbf915",
     "inediblePart": 0.2,
@@ -31460,9 +31460,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 3.36,
+      "hedges": 2.46,
       "permanentPasture": 0.615,
-      "plotSize": 3.14
+      "plotSize": 2.33
     },
     "id": "f54e93a0-a404-4167-b62b-c94ba524cea4",
     "inediblePart": 0,
@@ -31634,9 +31634,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 6.28,
+      "hedges": 4.6,
       "permanentPasture": 1.15,
-      "plotSize": 5.87
+      "plotSize": 4.36
     },
     "id": "f7254e88-81d4-488f-bf99-badd7427d0bd",
     "inediblePart": 0,
@@ -32709,9 +32709,9 @@
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 12.6,
-      "hedges": 44.7,
+      "hedges": 32.3,
       "permanentPasture": 28.1,
-      "plotSize": 39.2
+      "plotSize": 28.7
     },
     "id": "ff532795-d725-4c6b-82bc-022d38b83bff",
     "inediblePart": 0,
