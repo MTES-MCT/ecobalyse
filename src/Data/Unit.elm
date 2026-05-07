@@ -9,6 +9,7 @@ module Data.Unit exposing
     , SurfaceMass
     , ThreadDensity(..)
     , YarnSize
+    , decodeAndNegateImpact
     , decodeImpact
     , decodePhysicalDurability
     , decodeRatio
@@ -417,6 +418,11 @@ impactAggregateScore normalization weighting =
         >> Quantity.multiplyBy (Split.toFloat weighting)
         -- Raw aggregate scores like PEF are expressed in Pt (points); we want Pts (micropoints)
         >> Quantity.multiplyBy 1000000
+
+
+decodeAndNegateImpact : Decoder Impact
+decodeAndNegateImpact =
+    Decode.map Quantity.negate decodeImpact
 
 
 decodeImpact : Decoder Impact

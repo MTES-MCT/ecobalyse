@@ -39,7 +39,7 @@ type alias Config msg =
     , selectNone : msg
     , session : Session
     , switchComparisonType : ComparisonType -> msg
-    , toggle : Bookmark -> Bool -> msg
+    , toggle : Bookmark -> (Bool -> msg)
     }
 
 

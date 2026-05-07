@@ -834,7 +834,6 @@ computeScoring definitions { production } =
             , extractComplementsImpacts production
                 |> Complement.mergeComplementsResultsImpacts
                 |> Impact.getImpact Definition.Ecs
-                |> Quantity.negate
             )
     in
     totalImpacts

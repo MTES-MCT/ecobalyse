@@ -43,10 +43,12 @@ coefficients =
 decode : Decoder EcosystemicServices
 decode =
     Decode.succeed AbstractEcosystemicServices
-        |> Pipe.optional "cropDiversity" Unit.decodeImpact Unit.noImpacts
-        |> Pipe.optional "hedges" Unit.decodeImpact Unit.noImpacts
-        |> Pipe.optional "permanentPasture" Unit.decodeImpact Unit.noImpacts
-        |> Pipe.optional "plotSize" Unit.decodeImpact Unit.noImpacts
+        -- We need to negate the complements to stay backward compatible as the old format in ingredients.json was not accurate
+        -- see https://github.com/MTES-MCT/ecobalyse-data/pull/263
+        |> Pipe.optional "cropDiversity" Unit.decodeAndNegateImpact Unit.noImpacts
+        |> Pipe.optional "hedges" Unit.decodeAndNegateImpact Unit.noImpacts
+        |> Pipe.optional "permanentPasture" Unit.decodeAndNegateImpact Unit.noImpacts
+        |> Pipe.optional "plotSize" Unit.decodeAndNegateImpact Unit.noImpacts
 
 
 empty : EcosystemicServices
