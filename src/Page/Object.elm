@@ -647,11 +647,7 @@ update ({ navKey } as session) msg model =
 
         ( UpdateElementAmount targetElement (Just amount), _ ) ->
             createPageUpdate session model
-                |> updateQuery
-                    (query
-                        |> Component.mapItems
-                            (Component.updateElement targetElement (\el -> { el | amount = amount }))
-                    )
+                |> updateQuery (query |> Component.mapItems (Component.updateElementAmount targetElement amount))
 
         ( UpdateElementMaterialCountry targetElement maybeCountryCode, _ ) ->
             createPageUpdate session model
@@ -808,13 +804,13 @@ selectProcess :
     -> Component.Query
     -> PageUpdate Model Msg
     -> PageUpdate Model Msg
-selectProcess category targetItem maybeElementIndex autocompleteState query ({ model } as pageUpdate) =
+selectProcess category targetItem maybeElementIndex autocompleteState query ({ model, session } as pageUpdate) =
     case Autocomplete.selectedValue autocompleteState of
         Just process ->
             case
                 query
                     |> Component.tryMapItems
-                        (Component.addOrSetProcess category targetItem maybeElementIndex process)
+                        (Component.addOrSetProcess session.db category targetItem maybeElementIndex process)
             of
                 Err err ->
                     pageUpdate |> App.notifyError "Erreur" err
