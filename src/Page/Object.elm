@@ -139,6 +139,7 @@ type Msg
     | UpdateElementAmount TargetElement (Maybe Amount)
     | UpdateElementMaterialCountry TargetElement (Maybe Country.Code)
     | UpdateElementTransformCountry TargetElement Index (Maybe Country.Code)
+    | UpdateRecyclable Bool
     | UpdateRenamedBookmarkName Bookmark String
 
 
@@ -671,6 +672,10 @@ update ({ navKey } as session) msg model =
                             (Component.updateElementTransformCountry targetElement transformIndex maybeCountryCode)
                     )
                 |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
+
+        ( UpdateRecyclable recyclable, _ ) ->
+            createPageUpdate session model
+                |> updateQuery (query |> Component.updateRecyclable recyclable)
 
         ( UpdateRenamedBookmarkName bookmark name, _ ) ->
             { model | bookmarkBeingRenamed = Just { bookmark | name = name } }
