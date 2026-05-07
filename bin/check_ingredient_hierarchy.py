@@ -48,10 +48,10 @@ BOOKMARKS_DIR = OUTPUT_DIR / "bookmarks"
 # All expected impact-ordering sanity checks live here.
 # For each sanity check, add a comment to explain the reasons behind the check
 
-# Variant order within a single baseProduct (lower index = lower expected ecs).
+# Variant order within a single baseIngredient (lower index = lower expected ecs).
 INGREDIENT_ORDER = {"organic": 0, "fr": 1, "eu": 2, "non-ue": 3, "default": 4}
 
-# Explicit cross-baseProduct sanity checks: (lower_alias, higher_alias)
+# Explicit cross-baseIngredient sanity checks: (lower_alias, higher_alias)
 EXPLICIT_PAIR_SANITY_CHECKS = [
     # The most impactful chicken should have lower impact than conventional beef
     ("chicken-breast-br-max", "beef-without-bone"),
@@ -85,9 +85,9 @@ def load_json(path):
         return json.load(f)
 
 
-def parse_variant_type(alias, base_product):
+def parse_variant_type(alias, base_ingredient):
     """Extract variant type from an alias given its base product."""
-    suffix = alias[len(base_product) :]  # e.g. "-fr-2025", "-organic", "-default"
+    suffix = alias[len(base_ingredient) :]  # e.g. "-fr-2025", "-organic", "-default"
     # Strip -2025 suffix if present
     if suffix.endswith("-2025"):
         suffix = suffix[: -len("-2025")]
@@ -99,17 +99,17 @@ def parse_variant_type(alias, base_product):
 
 
 def group_ingredients(ingredients):
-    """Group visible ingredients by base_product.
+    """Group visible ingredients by base_ingredient.
 
     Returns:
-        by_base: dict mapping base_product -> list of ingredient dicts (with added fields)
+        by_base: dict mapping base_ingredient -> list of ingredient dicts (with added fields)
     """
     by_base = defaultdict(list)
 
     for ingr in ingredients:
         if not ingr.get("visible", False):
             continue
-        base = ingr.get("baseProduct")
+        base = ingr.get("baseIngredient")
         if not base:
             continue
         alias = ingr["alias"]
@@ -226,11 +226,11 @@ def check_explicit_pair_sanity_checks(impact_results, ingredients_by_alias):
         ecs_lower, ecs_higher = r_lower["ecs_total"], r_higher["ecs_total"]
         if ecs_lower > ecs_higher:
             base_lower = ingredients_by_alias.get(lower_alias, {}).get(
-                "baseProduct", "explicit"
+                "baseIngredient", "explicit"
             )
             violations.append(
                 {
-                    "base_product": base_lower,
+                    "base_ingredient": base_lower,
                     "reason": f"{lower_alias} > {higher_alias}",
                     "lower_variant": lower_alias,
                     "lower_type": "explicit_sanity_check",
@@ -276,7 +276,7 @@ def check_hierarchy(by_base, impact_results):
             if ecs1 > ecs2:
                 violations.append(
                     {
-                        "base_product": base,
+                        "base_ingredient": base,
                         "reason": f"{a1} > {a2}",
                         "lower_variant": a1,
                         "lower_type": t1,
@@ -527,7 +527,7 @@ def print_summary(by_base, violations, impact_results):
         print("-" * 60)
         for v in violations:
             print(
-                f"  {v['base_product']}: "
+                f"  {v['base_ingredient']}: "
                 f"{v['lower_variant']} ({v['lower_ecs']}) > "
                 f"{v['higher_variant']} ({v['higher_ecs']}) "
                 f"[delta: {v['delta']}]"
@@ -572,7 +572,7 @@ def main():
         impact_results, ingredients_by_alias
     )
     violations.extend(explicit_violations)
-    bases_with_violations = {v["base_product"] for v in violations}
+    bases_with_violations = {v["base_ingredient"] for v in violations}
     explicit_violation_pairs = {
         (v["lower_variant"], v["higher_variant"]) for v in explicit_violations
     }
