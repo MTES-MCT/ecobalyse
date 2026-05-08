@@ -851,7 +851,7 @@ toStagesImpacts trigram simulator =
         applyComplement complementImpact =
             if trigram == Definition.Ecs then
                 Maybe.map
-                    (Quantity.minus
+                    (Quantity.plus
                         (complementImpact
                             |> Maybe.withDefault Unit.noImpacts
                             |> Quantity.multiplyBy (Unit.floatDurabilityFromHolistic simulator.durability)
