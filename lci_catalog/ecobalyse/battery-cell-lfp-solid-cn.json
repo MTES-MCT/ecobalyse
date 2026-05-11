@@ -1,0 +1,26 @@
+{
+  "activityName": "Battery cell production, LFP Solid State, CN",
+  "categories": [
+    "material",
+    "material_type:battery_cell"
+  ],
+  "comment": "For 1kg cell. Based on GREET model (average of available battery size)",
+  "displayName": "Cellule de batterie, LFP Solid State, CN",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "7ba5614a-c2bf-4136-b91c-aaecd0780640",
+  "metadata": [
+    {
+      "id": "7fdb9ec7-b1bc-43b0-b7c1-6dcc3ec27812",
+      "scopes": [
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "veli"
+  ],
+  "source": "Ecobalyse",
+  "unit": "kg",
+  "waste": 0
+}

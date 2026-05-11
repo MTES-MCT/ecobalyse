@@ -1,0 +1,26 @@
+{
+  "activityName": "CAM of Battery cell, LFP Hydrothermal, CN",
+  "categories": [
+    "material",
+    "material_type:battery_cell"
+  ],
+  "comment": "For 1kg Cathode Active Material. Based on GREET model (average of available battery size)",
+  "displayName": "CAM de cellule de batterie, LFP Hydrothermal, CN",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "0a27c007-1bbe-4059-bfa8-04578d8096d4",
+  "metadata": [
+    {
+      "id": "429b5c66-44a8-4114-bd58-f19df1fd70b9",
+      "scopes": [
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "veli"
+  ],
+  "source": "Ecobalyse",
+  "unit": "kg",
+  "waste": 0
+}

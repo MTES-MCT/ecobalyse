@@ -1,0 +1,26 @@
+{
+  "activityName": "Battery cell production, NMC811, FR",
+  "categories": [
+    "material",
+    "material_type:battery_cell"
+  ],
+  "comment": "For 1kg cell. Based on GREET model (average of available battery size)",
+  "displayName": "Cellule de batterie, NMC811, FR",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "c21ac09d-1304-43c3-b582-b77e9064dc5a",
+  "metadata": [
+    {
+      "id": "a1f6f8a2-5398-4b32-a3d6-fc0d88ca7a28",
+      "scopes": [
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "veli"
+  ],
+  "source": "Ecobalyse",
+  "unit": "kg",
+  "waste": 0
+}
