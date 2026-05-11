@@ -180,7 +180,7 @@ type alias Query =
     -- though it's still an ongoing discussion and we need to move forward and iterate.
     , durability : Maybe Unit.Ratio
     , items : List Item
-    , refrigeratedTransport : Bool
+    , transportCooling : Bool
     }
 
 
@@ -615,7 +615,7 @@ componentFromCustom maybeComponent maybeCustom =
 compute : Requirements db -> Query -> Result String LifeCycle
 compute requirements query =
     query.items
-        |> List.map (computeItemResults requirements query.refrigeratedTransport)
+        |> List.map (computeItemResults requirements query.transportCooling)
         |> RE.combine
         |> Result.map (List.foldr addResults emptyResults)
         |> Result.map (\(Results results) -> { emptyLifeCycle | production = Results { results | label = Just "Production" } })
@@ -883,8 +883,8 @@ computeTransportDistance { config, db } refrigerated maybeFrom maybeTo =
 {-| Computes the transport distances and impacts from a transported mass.
 -}
 computeTransportedMassImpacts : Requirements db -> Bool -> Maybe Country -> Maybe Country -> Mass -> Transport
-computeTransportedMassImpacts ({ config } as requirements) refrigerated maybeFrom maybeTo mass =
-    computeTransportDistance requirements refrigerated maybeFrom maybeTo
+computeTransportedMassImpacts ({ config } as requirements) cooling maybeFrom maybeTo mass =
+    computeTransportDistance requirements cooling maybeFrom maybeTo
         -- Note: air transport is not handled for now
         |> Transport.applyTransportRatios Split.zero
         |> Transport.computeImpacts config.transports.modeProcesses mass
@@ -927,7 +927,7 @@ computeTransports ({ config, db } as requirements) query lifeCycle =
                                 (\( expandedElement, elementResults ) ->
                                     extractMass elementResults
                                         |> computeTransportedMassImpacts requirements
-                                            query.refrigeratedTransport
+                                            query.transportCooling
                                             (getFinalElementCountry expandedElement)
                                             (Just assemblyCountry)
                                 )
@@ -941,7 +941,7 @@ computeTransports ({ config, db } as requirements) query lifeCycle =
                                         , toDistribution =
                                             totalProductMass
                                                 |> computeTransportedMassImpacts requirements
-                                                    query.refrigeratedTransport
+                                                    query.transportCooling
                                                     maybeAssemblyCountry
                                                     (Just config.distribution.country)
                                         }
@@ -961,7 +961,7 @@ computeTransports ({ config, db } as requirements) query lifeCycle =
                                 (\( expandedElement, elementResults ) ->
                                     extractMass elementResults
                                         |> computeTransportedMassImpacts requirements
-                                            query.refrigeratedTransport
+                                            query.transportCooling
                                             (getFinalElementCountry expandedElement)
                                             (Just config.distribution.country)
                                 )
@@ -985,7 +985,7 @@ computeTransports ({ config, db } as requirements) query lifeCycle =
                                     -- all item elements are individually shipped to the assembly stage using default unknown transport distances
                                     extractMass elementResults
                                         |> computeTransportedMassImpacts requirements
-                                            query.refrigeratedTransport
+                                            query.transportCooling
                                             Nothing
                                             Nothing
                                 )
@@ -1000,7 +1000,7 @@ computeTransports ({ config, db } as requirements) query lifeCycle =
                                             -- total mass of the assembled end product is transported to the distribution country
                                             totalProductMass
                                                 |> computeTransportedMassImpacts requirements
-                                                    query.refrigeratedTransport
+                                                    query.transportCooling
                                                     Nothing
                                                     (Just config.distribution.country)
                                         }
@@ -1165,7 +1165,7 @@ decodeQuery =
         |> DU.strictOptional "distribution" Process.decodeId
         |> DU.strictOptional "durability" Unit.decodeRatio
         |> Decode.required "components" (Decode.list decodeItem)
-        |> Decode.optional "refrigeratedTransport" Decode.bool False
+        |> Decode.optional "transportCooling" Decode.bool False
 
 
 {-| Proxified for convenience
@@ -1241,7 +1241,7 @@ emptyQuery =
     , distribution = Nothing
     , durability = Nothing
     , items = []
-    , refrigeratedTransport = False
+    , transportCooling = False
     }
 
 
@@ -1385,9 +1385,7 @@ encodeQuery : Query -> Encode.Value
 encodeQuery query =
     EU.optionalPropertiesObject
         [ ( "assemblyCountry", query.assemblyCountry |> Maybe.map Country.encodeCode )
-        , ( "durability", query.durability |> Maybe.map Unit.encodeRatio )
         , ( "components", query.items |> Encode.list encodeItem |> Just )
-        , ( "distribution", query.distribution |> Maybe.map Process.encodeId )
         , ( "consumptions"
           , if List.isEmpty query.consumptions then
                 Nothing
@@ -1395,7 +1393,9 @@ encodeQuery query =
             else
                 query.consumptions |> Encode.list encodeConsumption |> Just
           )
-        , ( "refrigeratedTransport", Encode.bool query.refrigeratedTransport |> Just )
+        , ( "distribution", query.distribution |> Maybe.map Process.encodeId )
+        , ( "durability", query.durability |> Maybe.map Unit.encodeRatio )
+        , ( "transportCooling", Encode.bool query.transportCooling |> Just )
         ]
 
 
@@ -2354,5 +2354,5 @@ validateQuery ({ db } as requirements) query =
         |> RE.andMap (validateDistribution requirements query.distribution)
         |> RE.andMap (validateDurability requirements query.durability)
         |> RE.andMap (query.items |> RE.combineMap (validateItem db.components))
-        |> RE.andMap (Ok query.refrigeratedTransport)
+        |> RE.andMap (Ok query.transportCooling)
         |> Result.mapError (\s -> "Requête invalide: " ++ s)

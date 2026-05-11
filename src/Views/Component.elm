@@ -913,7 +913,7 @@ elementTransportView ({ query } as config) attributes transportedMass maybeFrom 
         transport =
             transportedMass
                 |> Component.computeTransportedMassImpacts (requirementsFromConfig config)
-                    query.refrigeratedTransport
+                    query.transportCooling
                     maybeFrom
                     maybeTo
 
@@ -925,13 +925,13 @@ elementTransportView ({ query } as config) attributes transportedMass maybeFrom 
         , td []
             [ text <| "Transport " ++ renderCountry maybeFrom ++ " → " ++ renderCountry maybeTo ]
         , td [ class "text-end align-middle d-flex justify-content-end align-items-center gap-2 text-nowrap" ] <|
-            (if config.query.refrigeratedTransport then
+            (if config.query.transportCooling then
                 [ Icon.boatCooled, Format.km transport.seaCooled ]
 
              else
                 [ Icon.boat, Format.km transport.sea ]
             )
-                ++ (if config.query.refrigeratedTransport then
+                ++ (if config.query.transportCooling then
                         [ Icon.busCooled, Format.km transport.roadCooled ]
 
                     else
