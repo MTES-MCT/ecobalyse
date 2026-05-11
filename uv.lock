@@ -364,7 +364,7 @@ wheels = [
 
 [[package]]
 name = "check-jsonschema"
-version = "0.37.1"
+version = "0.37.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "click" },
@@ -373,9 +373,9 @@ dependencies = [
     { name = "requests" },
     { name = "ruamel-yaml" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/db/d4/46468808fcda2bdb824e1f5617095a14cac60f9bcefc954fbfee55712d1b/check_jsonschema-0.37.1.tar.gz", hash = "sha256:00a2ba5cdc95006e0d07e3743f4f23d80b7f30a690706c018c83578610c2e0a0", size = 408161, upload-time = "2026-03-26T02:49:59.692Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/c7/b5/2f4b66ac68e5dcf999f2df7d7d72d474b8f9d17ddd1ae2159ba81c55652a/check_jsonschema-0.37.2.tar.gz", hash = "sha256:2977f31ebbd3e4eb37325057b83b56c0041b2b520e12818ec84da1f6c7c60363", size = 414564, upload-time = "2026-05-03T03:41:48.453Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/6c/cc/bfa3f5c4b8fdc05956a9426f4d7a9a85c6d6d68c8096722f612bf4db5d08/check_jsonschema-0.37.1-py3-none-any.whl", hash = "sha256:cf672ef4ccd62f9512ac40d28dde135108799ee8d749095ac72b62ecdb796d2e", size = 392983, upload-time = "2026-03-26T02:49:57.808Z" },
+    { url = "https://files.pythonhosted.org/packages/5f/89/0c8eebd5d9439abb38a79edca7a93c96e67e0d1e14ab1f6db016d27b15ad/check_jsonschema-0.37.2-py3-none-any.whl", hash = "sha256:0840dc56219922f7a34d4e4a4364f96bbf05983850dbb64149f4c6f17b3affd1", size = 399181, upload-time = "2026-05-03T03:41:46.81Z" },
 ]
 
 [[package]]
@@ -538,7 +538,7 @@ requires-dist = [
     { name = "aiosqlite", specifier = ">=0.21.0" },
     { name = "asyncpg", specifier = ">=0.30.0" },
     { name = "asyncstdlib", specifier = ">=3.13.1" },
-    { name = "check-jsonschema", specifier = ">=0.32.1" },
+    { name = "check-jsonschema", specifier = ">=0.37.2" },
     { name = "emails", specifier = ">=0.6" },
     { name = "litestar", extras = ["jwt", "sqlalchemy", "standard"], specifier = ">=2.16.0" },
     { name = "msgspec", specifier = ">=0.19.0" },
