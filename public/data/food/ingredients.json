@@ -9432,7 +9432,7 @@
     "rawToCookedRatio": 2.259,
     "scenario": "organic",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Wheat grain, at farm {GLO} - Adapted from WFLDB U",
@@ -11006,7 +11006,7 @@
       "spice_condiment_additive"
     ],
     "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
-    "defaultOrigin": "France",
+    "defaultOrigin": "FranceOutreMer",
     "density": 0.5,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -11475,7 +11475,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "VERGERS",
-    "defaultOrigin": "France",
+    "defaultOrigin": "FranceOutreMer",
     "density": 0.85,
     "ecosystemicServices": {
       "cropDiversity": 0.01,
@@ -11936,7 +11936,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "VERGERS",
-    "defaultOrigin": "France",
+    "defaultOrigin": "FranceOutreMer",
     "density": 0.95,
     "ecosystemicServices": {
       "cropDiversity": 0.01,
@@ -15362,7 +15362,7 @@
       "nut_oilseed_raw"
     ],
     "cropGroup": "FRUITS A COQUES",
-    "defaultOrigin": "France",
+    "defaultOrigin": "FranceOutreMer",
     "density": 0.5,
     "ecosystemicServices": {
       "cropDiversity": 0,
@@ -19121,7 +19121,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "VERGERS",
-    "defaultOrigin": "France",
+    "defaultOrigin": "FranceOutreMer",
     "density": 0.85,
     "ecosystemicServices": {
       "cropDiversity": 0.129,
@@ -26143,7 +26143,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "ARBORICULTURE",
-    "defaultOrigin": "France",
+    "defaultOrigin": "FranceOutreMer",
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0.01,
@@ -26269,7 +26269,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "ARBORICULTURE",
-    "defaultOrigin": "France",
+    "defaultOrigin": "FranceOutreMer",
     "density": 0.95,
     "ecosystemicServices": {
       "cropDiversity": 0.274,
@@ -26515,7 +26515,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "VERGERS",
-    "defaultOrigin": "France",
+    "defaultOrigin": "FranceOutreMer",
     "density": 0.85,
     "ecosystemicServices": {
       "cropDiversity": 0.137,
@@ -30264,7 +30264,7 @@
       "vegetable_fresh"
     ],
     "cropGroup": "ARBORICULTURE",
-    "defaultOrigin": "France",
+    "defaultOrigin": "FranceOutreMer",
     "density": 0.95,
     "ecosystemicServices": {
       "cropDiversity": 0.00523,
@@ -32705,7 +32705,7 @@
       "organic"
     ],
     "cropGroup": null,
-    "defaultOrigin": "EuropeAndMaghreb",
+    "defaultOrigin": "France",
     "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 12.6,
