@@ -392,7 +392,7 @@ selectProcess category (( component, _ ) as targetItem) maybeElementIndex autoco
         Just process ->
             case
                 [ item ]
-                    |> Component.addOrSetProcess category targetItem maybeElementIndex process
+                    |> Component.addOrSetProcess session.db category targetItem maybeElementIndex process
                     |> Result.andThen (List.head >> Result.fromMaybe "Pas d'élément résultant")
             of
                 Err err ->

@@ -53,7 +53,7 @@ suite =
                     "should compute OutOfEuropeEOL complement impact for a fully natural garment"
                     tShirtCotonFrance
                     (\tshirtCotonFrance_ ->
-                        [ testComplementEqual -41.65 tshirtCotonFrance_
+                        [ testComplementEqual 41.65 tshirtCotonFrance_
                             |> asTest "compute OutOfEuropeEOL complement impact for a fully natural garment"
                         ]
                     )
@@ -77,7 +77,7 @@ suite =
                                   }
                                 ]
                           }
-                            |> testComplementEqual -102.85
+                            |> testComplementEqual 102.85
                             |> asTest "compute OutOfEuropeEOL complement impact for a half-natural, half-synthetic garment"
                         ]
                     )
@@ -94,7 +94,7 @@ suite =
                     "should compute Microfibers complement impact for a fully natural garment"
                     tShirtCotonFrance
                     (\tShirtCotonFrance_ ->
-                        [ testComplementEqual -42.5 tShirtCotonFrance_
+                        [ testComplementEqual 42.5 tShirtCotonFrance_
                             |> asTest "compute Microfibers complement impact for a fully natural garment"
                         ]
                     )
@@ -118,7 +118,7 @@ suite =
                                   }
                                 ]
                           }
-                            |> testComplementEqual -90.95
+                            |> testComplementEqual 90.95
                             |> asTest "compute Microfibers complement impact for a half-natural, half-synthetic garment"
                         ]
                     )

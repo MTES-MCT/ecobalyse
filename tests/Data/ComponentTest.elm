@@ -1175,7 +1175,7 @@ suite =
                         (\testComponent validTestProcess invalidTestProcess ->
                             [ itFromResult "should set a valid element material"
                                 (chair
-                                    |> Result.andThen (Component.setElementMaterial ( ( testComponent, 1 ), 0 ) validTestProcess)
+                                    |> Result.andThen (Component.setElementMaterial requirements.db ( ( testComponent, 1 ), 0 ) validTestProcess)
                                     |> Result.map
                                         (\items ->
                                             items
@@ -1193,7 +1193,7 @@ suite =
                                 (Expect.equal (Just validTestProcess.id))
                             , it "should reject an invalid element material"
                                 (chair
-                                    |> Result.andThen (Component.setElementMaterial ( ( testComponent, 1 ), 0 ) invalidTestProcess)
+                                    |> Result.andThen (Component.setElementMaterial requirements.db ( ( testComponent, 1 ), 0 ) invalidTestProcess)
                                     |> expectResultErrorContains "Seuls les procédés de catégorie `material` sont mobilisables comme matière"
                                 )
                             ]

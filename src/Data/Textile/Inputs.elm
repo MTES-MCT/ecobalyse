@@ -483,14 +483,13 @@ getOutOfEuropeEOLProbability materialInputs =
 
 getOutOfEuropeEOLComplement : Inputs -> Maybe Unit.Impact
 getOutOfEuropeEOLComplement { mass, materials } =
-    -- Note: this complement is a malus, hence the minus sign
     let
         impact =
             Unit.impact
-                -(Split.toFloat (getOutOfEuropeEOLProbability materials)
+                (Split.toFloat (getOutOfEuropeEOLProbability materials)
                     * Mass.inKilograms mass
                     * 5000
-                 )
+                )
     in
     if impact == Unit.noImpacts then
         Nothing

@@ -179,7 +179,7 @@ impactsWithComplements complementsImpacts impacts =
         ecsWithComplements =
             Impact.getImpact Definition.Ecs impacts
                 -- Reminder: substracting a malus — a.k.a negative complement — adds to the total impact
-                |> Quantity.minus complementsImpact
+                |> Quantity.plus complementsImpact
     in
     impacts
         |> Impact.insertWithoutAggregateComputation Definition.Ecs ecsWithComplements

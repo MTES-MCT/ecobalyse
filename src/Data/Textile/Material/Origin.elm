@@ -54,20 +54,19 @@ toMicrofibersComplement : Origin -> Unit.Impact
 toMicrofibersComplement origin =
     -- see https://fabrique-numerique.gitbook.io/ecobalyse/textile/complements-hors-acv/microfibres
     -- Notes:
-    -- - this is a malus expressed as a negative Pts/kg impact
     -- - the float value corresponds to Ref(f) * 1000 to ease applying the formula
     case origin of
         ArtificialFromOrganic ->
-            Unit.impact -330
+            Unit.impact 330
 
         NaturalFromAnimal ->
-            Unit.impact -390
+            Unit.impact 390
 
         NaturalFromVegetal ->
-            Unit.impact -250
+            Unit.impact 250
 
         Synthetic ->
-            Unit.impact -820
+            Unit.impact 820
 
 
 toLabel : Origin -> String
