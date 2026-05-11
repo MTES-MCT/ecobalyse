@@ -1,15 +1,13 @@
 import json
 import os
-from multiprocessing import Pool
 from typing import List, Optional
 
-import bw2data
 import orjson
 
 from common import activities_processes_sort_key, remove_detailed_impacts
 from common.export import export_json
 from ecobalyse_data.bw.search import cached_search_one
-from ecobalyse_data.export.land_occupation import compute_land_occupation
+from ecobalyse_data.export.land_occupation import compute_land_occupation_batch
 from ecobalyse_data.export.utils import get_metadata_for_scope
 from ecobalyse_data.logging import logger
 from models.process import (
@@ -18,12 +16,6 @@ from models.process import (
     ProcessGeneric,
     Scope,
 )
-
-
-def _init_worker(project_name: str, base_dir: str):
-    """Initialize Brightway project in worker process."""
-    os.environ["BRIGHTWAY2_DIR"] = base_dir
-    bw2data.projects.set_current(project_name)
 
 
 def _build_variant_metadata(
@@ -127,7 +119,7 @@ def compute_processes_generic(
             load_ecosystemic_dic,
         )
 
-        food_activities = add_food_land_occupations(food_activities, cpu_count)
+        food_activities = add_food_land_occupations(food_activities)
         food_by_id = {a["id"]: a for a in food_activities}
         activities = [food_by_id.get(a["id"], a) for a in activities]
 
@@ -152,9 +144,7 @@ def compute_processes_generic(
                 break
 
     if activities_needing_land:
-        activities_needing_land = add_land_occupations(
-            activities_needing_land, cpu_count
-        )
+        activities_needing_land = add_land_occupations(activities_needing_land)
         land_by_id = {a["id"]: a for a in activities_needing_land}
         activities = [land_by_id.get(a["id"], a) for a in activities]
 
@@ -255,44 +245,18 @@ def activities_to_processes_generic_json(
     return generic_dicts
 
 
-def add_land_occupation(activity: dict) -> dict:
-    """Add land occupation data to an object activity.
-
-    Computes land occupation using Brightway data and stores it on the activity.
-
-    Args:
-        activity: A dictionary representing an object activity
-
-    Returns:
-        The activity dictionary with landOccupation added
-    """
-    if "landOccupation" in activity:
-        return activity
-
-    try:
-        bw_activity = cached_search_one(
-            activity.get("source"),
-            activity.get("activityName"),
-            location=activity.get("location"),
+def add_land_occupations(activities: List[dict]) -> List[dict]:
+    todo = [a for a in activities if "landOccupation" not in a]
+    bw_by_eco_id = {
+        a["id"]: cached_search_one(
+            a.get("source"), a.get("activityName"), location=a.get("location")
         )
-        activity["landOccupation"] = compute_land_occupation(bw_activity)
-    except ValueError as e:
-        raise ValueError(
-            f"Could not compute land occupation for {activity.get('displayName')}: {e}"
-        )
-
-    return activity
-
-
-def add_land_occupations(activities: List[dict], cpu_count: int) -> List[dict]:
-    """Add land occupation to all activities using multiprocessing."""
-    project_name = bw2data.projects.current
-    base_dir = str(bw2data.projects._base_data_dir)
-
-    with Pool(
-        cpu_count, initializer=_init_worker, initargs=(project_name, base_dir)
-    ) as pool:
-        return pool.map(add_land_occupation, activities)
+        for a in todo
+    }
+    scores = compute_land_occupation_batch(list(bw_by_eco_id.values()))
+    for activity in todo:
+        activity["landOccupation"] = scores[bw_by_eco_id[activity["id"]].id]
+    return activities
 
 
 # Forest Management Coefficients

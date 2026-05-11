@@ -177,9 +177,14 @@ def compute_brightway_impacts_batch(
     method_to_key = {tuple(m): k for k, m in impacts_py.items()}
 
     out = {}
+    total = len(bw_activities)
     for i in range(0, len(bw_activities), chunk_size):
         chunk_acts = bw_activities[i : i + chunk_size]
         chunk_amts = demand_amounts[i : i + chunk_size]
+        logger.info(
+            f"-> compute brightway impacts: chunk {i // chunk_size + 1}/"
+            f"{(total + chunk_size - 1) // chunk_size} ({len(chunk_acts)} activities)"
+        )
         # Use the bw_activity id as the demand key (string).
         demands = {str(a.id): {a.id: amt} for a, amt in zip(chunk_acts, chunk_amts)}
         data_objs = get_multilca_data_objs(
