@@ -863,12 +863,12 @@ Note: this only computes the transport distances, not the impacts (as a transpor
 computeTransportDistance : Requirements db -> Bool -> Maybe Country -> Maybe Country -> Transport
 computeTransportDistance { config, db } refrigerated maybeFrom maybeTo =
     let
-        handleCooling transport =
+        handleCooling =
             if refrigerated then
-                Transport.makeCooled transport
+                Transport.makeCooled
 
             else
-                transport
+                identity
     in
     handleCooling <|
         case ( maybeFrom, maybeTo ) of

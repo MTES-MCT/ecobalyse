@@ -908,12 +908,12 @@ elementMaterialView config targetElement materialResults material amount =
 
 
 elementTransportView : Config db msg -> List (Attribute msg) -> Mass -> Maybe Country -> Maybe Country -> Html msg
-elementTransportView config attributes transportedMass maybeFrom maybeTo =
+elementTransportView ({ query } as config) attributes transportedMass maybeFrom maybeTo =
     let
         transport =
             transportedMass
                 |> Component.computeTransportedMassImpacts (requirementsFromConfig config)
-                    config.query.refrigeratedTransport
+                    query.refrigeratedTransport
                     maybeFrom
                     maybeTo
 
@@ -924,23 +924,22 @@ elementTransportView config attributes transportedMass maybeFrom maybeTo =
         [ td [ colspan 2 ] []
         , td []
             [ text <| "Transport " ++ renderCountry maybeFrom ++ " → " ++ renderCountry maybeTo ]
-        , td [ class "text-end align-middle d-flex justify-content-end align-items-center gap-2 text-nowrap" ]
-            -- FIXME: refrigerated transport icons
-            [ if config.query.refrigeratedTransport then
-                Icon.boatCooled
+        , td [ class "text-end align-middle d-flex justify-content-end align-items-center gap-2 text-nowrap" ] <|
+            (if config.query.refrigeratedTransport then
+                [ Icon.boatCooled, Format.km transport.seaCooled ]
 
-              else
-                Icon.boat
-            , Format.km transport.sea
-            , if config.query.refrigeratedTransport then
-                Icon.busCooled
+             else
+                [ Icon.boat, Format.km transport.sea ]
+            )
+                ++ (if config.query.refrigeratedTransport then
+                        [ Icon.busCooled, Format.km transport.roadCooled ]
 
-              else
-                Icon.bus
-            , Format.km transport.road
-            , Icon.package
-            , Format.kg transportedMass
-            ]
+                    else
+                        [ Icon.bus, Format.km transport.road ]
+                   )
+                ++ [ Icon.package
+                   , Format.kg transportedMass
+                   ]
         , td [ colspan 2 ] []
         , td [ class "text-end align-middle text-nowrap" ]
             [ transport.impacts
