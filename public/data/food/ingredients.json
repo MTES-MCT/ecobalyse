@@ -107,7 +107,7 @@
     ],
     "cropGroup": "VERGERS",
     "defaultOrigin": "EuropeAndMaghreb",
-    "density": 0.85,
+    "density": 0.95,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -2369,7 +2369,7 @@
     ],
     "cropGroup": "LEGUMINEUSES A GRAIN",
     "defaultOrigin": "EuropeAndMaghreb",
-    "density": 0.8,
+    "density": 0.745,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -4551,7 +4551,7 @@
     ],
     "cropGroup": "FRUITS A COQUES",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.646,
+    "density": 0.5,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -4603,7 +4603,7 @@
     ],
     "cropGroup": "FRUITS A COQUES",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.646,
+    "density": 0.5,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -5522,7 +5522,7 @@
     ],
     "cropGroup": "LEGUMES-FLEURS",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.9,
+    "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -7102,7 +7102,7 @@
     ],
     "cropGroup": "VERGERS",
     "defaultOrigin": "France",
-    "density": 0.85,
+    "density": 0.95,
     "ecosystemicServices": {
       "cropDiversity": 0.00652,
       "hedges": 0.00308,
@@ -8033,7 +8033,7 @@
     ],
     "cropGroup": "VERGERS",
     "defaultOrigin": "France",
-    "density": 1.06,
+    "density": 0.9,
     "ecosystemicServices": {
       "cropDiversity": 0.518,
       "hedges": 0.589,
@@ -9153,7 +9153,7 @@
     ],
     "cropGroup": "LEGUMES-FLEURS",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.65,
+    "density": 0.44,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -9766,7 +9766,7 @@
     ],
     "cropGroup": "FRUITS A COQUES",
     "defaultOrigin": "France",
-    "density": 0.646,
+    "density": 0.5,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 1.65,
@@ -11718,7 +11718,7 @@
     ],
     "cropGroup": "VERGERS",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.85,
+    "density": 0.9,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -12017,7 +12017,7 @@
     ],
     "cropGroup": "LEGUMES-FLEURS",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.9,
+    "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -13635,7 +13635,7 @@
     ],
     "cropGroup": "VERGERS",
     "defaultOrigin": "France",
-    "density": 0.85,
+    "density": 0.9,
     "ecosystemicServices": {
       "cropDiversity": 0.385,
       "hedges": 0.438,
@@ -13923,7 +13923,7 @@
     ],
     "cropGroup": "LEGUMES-FLEURS",
     "defaultOrigin": "France",
-    "density": 0.65,
+    "density": 0.44,
     "ecosystemicServices": {
       "cropDiversity": 1.44,
       "hedges": 0.298,
@@ -14746,7 +14746,7 @@
     ],
     "cropGroup": "VERGERS",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 1.06,
+    "density": 0.9,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -14924,7 +14924,7 @@
     ],
     "cropGroup": "AUTRES CEREALES",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.54,
+    "density": 0.535,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -15892,7 +15892,7 @@
     ],
     "cropGroup": "LEGUMES-FLEURS",
     "defaultOrigin": "France",
-    "density": 0.9,
+    "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0.0661,
@@ -16461,7 +16461,7 @@
     ],
     "cropGroup": "VERGERS",
     "defaultOrigin": "EuropeAndMaghreb",
-    "density": 1.06,
+    "density": 0.9,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -16587,7 +16587,7 @@
     ],
     "cropGroup": "VERGERS",
     "defaultOrigin": "France",
-    "density": 0.85,
+    "density": 0.9,
     "ecosystemicServices": {
       "cropDiversity": 0.00373,
       "hedges": 0.00176,
@@ -16905,7 +16905,7 @@
     ],
     "cropGroup": "AUTRES CEREALES",
     "defaultOrigin": "France",
-    "density": 0.54,
+    "density": 0.535,
     "ecosystemicServices": {
       "cropDiversity": 1.75,
       "hedges": 0.607,
@@ -18244,7 +18244,7 @@
     ],
     "cropGroup": "VERGERS",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.85,
+    "density": 0.9,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -18674,7 +18674,7 @@
     ],
     "cropGroup": "LEGUMES-FLEURS",
     "defaultOrigin": "EuropeAndMaghreb",
-    "density": 0.9,
+    "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -19604,7 +19604,7 @@
     ],
     "cropGroup": "LEGUMES-FLEURS",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.9,
+    "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -22829,7 +22829,7 @@
     ],
     "cropGroup": "LEGUMES-FLEURS",
     "defaultOrigin": "France",
-    "density": 0.9,
+    "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0.825,
       "hedges": 0.17,
@@ -25221,7 +25221,7 @@
     ],
     "cropGroup": "VERGERS",
     "defaultOrigin": "France",
-    "density": 0.85,
+    "density": 0.95,
     "ecosystemicServices": {
       "cropDiversity": 0.0714,
       "hedges": 0.0813,
@@ -25514,7 +25514,7 @@
     ],
     "cropGroup": "VERGERS",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 1.06,
+    "density": 0.9,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -25641,7 +25641,7 @@
     ],
     "cropGroup": "LEGUMES-FLEURS",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.9,
+    "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -25746,7 +25746,7 @@
     ],
     "cropGroup": "LEGUMINEUSES A GRAIN",
     "defaultOrigin": "France",
-    "density": 0.8,
+    "density": 0.745,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 1.16,
@@ -26726,7 +26726,7 @@
     ],
     "cropGroup": "LEGUMES-FLEURS",
     "defaultOrigin": "France",
-    "density": 0.9,
+    "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0.0318,
@@ -27598,7 +27598,7 @@
     ],
     "cropGroup": "LEGUMES-FLEURS",
     "defaultOrigin": "EuropeAndMaghreb",
-    "density": 0.65,
+    "density": 0.44,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -27728,7 +27728,7 @@
     ],
     "cropGroup": "VERGERS",
     "defaultOrigin": "EuropeAndMaghreb",
-    "density": 0.85,
+    "density": 0.9,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -29137,7 +29137,7 @@
     ],
     "cropGroup": "LEGUMES-FLEURS",
     "defaultOrigin": "France",
-    "density": 0.9,
+    "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0.634,
       "hedges": 0.131,
@@ -30437,7 +30437,7 @@
     ],
     "cropGroup": "LEGUMES-FLEURS",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.65,
+    "density": 0.44,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -30667,7 +30667,7 @@
     ],
     "cropGroup": "LEGUMINEUSES A GRAIN",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.8,
+    "density": 0.745,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -30740,7 +30740,7 @@
     ],
     "cropGroup": "AUTRES CEREALES",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.54,
+    "density": 0.535,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -30924,7 +30924,7 @@
     ],
     "cropGroup": "LEGUMES-FLEURS",
     "defaultOrigin": "France",
-    "density": 0.65,
+    "density": 0.44,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0.074,
@@ -30950,7 +30950,7 @@
     ],
     "cropGroup": "LEGUMES-FLEURS",
     "defaultOrigin": "EuropeAndMaghreb",
-    "density": 0.9,
+    "density": 1.0,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -31701,7 +31701,7 @@
     ],
     "cropGroup": "AUTRES CEREALES",
     "defaultOrigin": "France",
-    "density": 0.54,
+    "density": 0.535,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0.29,
@@ -32515,7 +32515,7 @@
     ],
     "cropGroup": "VERGERS",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.85,
+    "density": 0.95,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -32692,7 +32692,7 @@
     ],
     "cropGroup": "LEGUMINEUSES A GRAIN",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.8,
+    "density": 0.745,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
@@ -32876,7 +32876,7 @@
     ],
     "cropGroup": "VERGERS",
     "defaultOrigin": "France",
-    "density": 1.06,
+    "density": 0.9,
     "ecosystemicServices": {
       "cropDiversity": 0.0121,
       "hedges": 0.00572,
@@ -33258,7 +33258,7 @@
     ],
     "cropGroup": "LEGUMINEUSES A GRAIN",
     "defaultOrigin": "France",
-    "density": 0.8,
+    "density": 0.745,
     "ecosystemicServices": {
       "cropDiversity": 40.4,
       "hedges": 3.33,
@@ -35503,7 +35503,7 @@
     ],
     "cropGroup": "VERGERS",
     "defaultOrigin": "OutOfEuropeAndMaghreb",
-    "density": 0.85,
+    "density": 0.95,
     "ecosystemicServices": {
       "cropDiversity": 0,
       "hedges": 0,
