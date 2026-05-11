@@ -15,7 +15,7 @@
         "confidence": 1.0,
         "rule": "matched 'orange' in cropgroup.csv"
       },
-      "defaultOrigin": "France",
+      "defaultOrigin": "FranceOutreMer",
       "displayName": "Papaye FR Outre-Mer",
       "id": "d570f7df-ca64-505b-ac16-da2685b71722",
       "inediblePart": 0.2,

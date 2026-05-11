@@ -48,7 +48,7 @@
         "confidence": 1.0,
         "rule": "nut_oilseed → none (non-perishable)"
       },
-      "visible": true
+      "visible": false
     }
   ],
   "scopes": [

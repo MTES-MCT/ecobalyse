@@ -15,7 +15,7 @@
         "confidence": 1.0,
         "rule": "matched 'pineapple' in cropgroup.csv"
       },
-      "defaultOrigin": "France",
+      "defaultOrigin": "FranceOutreMer",
       "displayName": "Ananas FR Outre-Mer",
       "id": "d3c1b683-ba25-5bbb-a249-c4cb6b3331bb",
       "inediblePart": 0.5,

@@ -15,7 +15,7 @@
         "confidence": 1.0,
         "rule": "fruit default"
       },
-      "defaultOrigin": "France",
+      "defaultOrigin": "FranceOutreMer",
       "displayName": "Fruit à pain FR Outre-Mer",
       "id": "5912afe2-4eaf-5676-b83e-8635066f8359",
       "inediblePart": 0.2,
@@ -55,7 +55,7 @@
         "confidence": 1.0,
         "rule": "matched 'banana' in cropgroup.csv"
       },
-      "defaultOrigin": "France",
+      "defaultOrigin": "FranceOutreMer",
       "displayName": "Litchi FR Outre-Mer",
       "id": "d28fd59a-ae07-5813-b707-c9329ffc39ed",
       "inediblePart": 0.2,
@@ -95,7 +95,7 @@
         "confidence": 1.0,
         "rule": "matched 'mango' in cropgroup.csv"
       },
-      "defaultOrigin": "France",
+      "defaultOrigin": "FranceOutreMer",
       "displayName": "Mangue FR Outre-Mer",
       "id": "5d39ed23-3000-54af-9c47-6954802a3cf5",
       "inediblePart": 0.2,
