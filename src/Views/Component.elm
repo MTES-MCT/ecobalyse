@@ -79,6 +79,7 @@ type alias Config db msg =
     , scope : Scope
     , setDetailed : List Index -> msg
     , title : String
+    , toggleRefrigeratedTransport : Bool -> msg
     , updateAssemblyCountry : Maybe Country.Code -> msg
     , updateConsumptionAmount : Index -> Maybe Amount -> msg
     , updateDistribution : Result String Process.Id -> msg
@@ -383,7 +384,22 @@ editorView config =
 lifeCycleView : Config db msg -> LifeCycle -> Html msg
 lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as config) lifeCycle =
     div [ class "d-flex flex-column" ]
-        [ div [ class "card shadow-sm" ]
+        [ div [ class "d-flex justify-content-end mb-2" ]
+            [ div [ class "form-check form-switch" ]
+                [ label [ class "form-check-label", for "refrigeratedTransportSwitch" ]
+                    [ text "Transport réfrigéré" ]
+                , input
+                    [ type_ "checkbox"
+                    , class "form-check-input"
+                    , id "refrigeratedTransportSwitch"
+                    , attribute "role" "switch"
+                    , attribute "switch" ""
+                    , onCheck config.toggleRefrigeratedTransport
+                    ]
+                    []
+                ]
+            ]
+        , div [ class "card shadow-sm" ]
             [ div [ class "card-header d-flex align-items-center justify-content-between" ]
                 [ h2 [ class "h5 mb-0" ]
                     [ text title
@@ -909,9 +925,18 @@ elementTransportView config attributes transportedMass maybeFrom maybeTo =
         , td []
             [ text <| "Transport " ++ renderCountry maybeFrom ++ " → " ++ renderCountry maybeTo ]
         , td [ class "text-end align-middle d-flex justify-content-end align-items-center gap-2 text-nowrap" ]
-            [ Icon.boat
+            -- FIXME: refrigerated transport icons
+            [ if config.query.refrigeratedTransport then
+                Icon.boatCooled
+
+              else
+                Icon.boat
             , Format.km transport.sea
-            , Icon.bus
+            , if config.query.refrigeratedTransport then
+                Icon.busCooled
+
+              else
+                Icon.bus
             , Format.km transport.road
             , Icon.package
             , Format.kg transportedMass

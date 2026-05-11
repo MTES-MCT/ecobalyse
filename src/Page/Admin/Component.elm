@@ -675,6 +675,7 @@ modalView { componentConfig, db } modals index modal =
                             , scope = component.scope
                             , setDetailed = \_ -> NoOp
                             , title = ""
+                            , toggleRefrigeratedTransport = \_ -> NoOp
                             , updateAssemblyCountry = \_ -> NoOp
                             , updateConsumptionAmount = \_ _ -> NoOp
                             , updateDistribution = \_ -> NoOp

@@ -125,7 +125,7 @@ import Data.Scope as Scope exposing (Scope)
 import Data.Scoring as Scoring exposing (Scoring)
 import Data.Split as Split exposing (Split)
 import Data.Stages exposing (Stages)
-import Data.Transport as Transport exposing (Transport, makeCooled)
+import Data.Transport as Transport exposing (Transport)
 import Data.Unit as Unit
 import Data.Uuid as Uuid exposing (Uuid)
 import Dict.Any as AnyDict
@@ -862,23 +862,21 @@ Note: this only computes the transport distances, not the impacts (as a transpor
 -}
 computeTransportDistance : Requirements db -> Bool -> Maybe Country -> Maybe Country -> Transport
 computeTransportDistance { config, db } refrigerated maybeFrom maybeTo =
-    case ( maybeFrom, maybeTo ) of
-        ( Just from, Just to ) ->
-            db.distances
-                |> Transport.getTransportBetween Impact.empty from.code to.code
-                |> (\transport ->
-                        if refrigerated then
-                            makeCooled transport
-
-                        else
-                            transport
-                   )
-
-        _ ->
+    let
+        handleCooling transport =
             if refrigerated then
-                Transport.makeCooled config.transports.defaultDistance
+                Transport.makeCooled transport
 
             else
+                transport
+    in
+    handleCooling <|
+        case ( maybeFrom, maybeTo ) of
+            ( Just from, Just to ) ->
+                db.distances
+                    |> Transport.getTransportBetween Impact.empty from.code to.code
+
+            _ ->
                 config.transports.defaultDistance
 
 
@@ -1397,6 +1395,7 @@ encodeQuery query =
             else
                 query.consumptions |> Encode.list encodeConsumption |> Just
           )
+        , ( "refrigeratedTransport", Encode.bool query.refrigeratedTransport |> Just )
         ]
 
 
