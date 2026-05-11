@@ -395,6 +395,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as co
                     , attribute "role" "switch"
                     , attribute "switch" ""
                     , onCheck config.toggleRefrigeratedTransport
+                    , checked query.transportCooling
                     ]
                     []
                 ]
