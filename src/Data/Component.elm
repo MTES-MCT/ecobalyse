@@ -868,33 +868,30 @@ computeShareImpacts mass { process, split } =
 Note: this only computes the transport distances, not the impacts (as a transported mass would be required)
 
 -}
-computeTransportDistance : Requirements db -> TransportCooling -> Maybe Country -> Maybe Country -> Transport
-computeTransportDistance { config, db } (TransportCooling cooling) maybeFrom maybeTo =
-    let
-        handleCooling =
-            if cooling then
-                Transport.makeCooled
+computeTransportDistance : Requirements db -> Maybe Country -> Maybe Country -> Transport
+computeTransportDistance { config, db } maybeFrom maybeTo =
+    case ( maybeFrom, maybeTo ) of
+        ( Just from, Just to ) ->
+            db.distances
+                |> Transport.getTransportBetween Impact.empty from.code to.code
 
-            else
-                identity
-    in
-    handleCooling <|
-        case ( maybeFrom, maybeTo ) of
-            ( Just from, Just to ) ->
-                db.distances
-                    |> Transport.getTransportBetween Impact.empty from.code to.code
-
-            _ ->
-                config.transports.defaultDistance
+        _ ->
+            config.transports.defaultDistance
 
 
 {-| Computes the transport distances and impacts from a transported mass.
 -}
 computeTransportedMassImpacts : Requirements db -> TransportCooling -> Maybe Country -> Maybe Country -> Mass -> Transport
-computeTransportedMassImpacts ({ config } as requirements) transportCooling maybeFrom maybeTo mass =
-    computeTransportDistance requirements transportCooling maybeFrom maybeTo
+computeTransportedMassImpacts ({ config } as requirements) (TransportCooling cooled) maybeFrom maybeTo mass =
+    computeTransportDistance requirements maybeFrom maybeTo
         -- Note: air transport is not handled for now
         |> Transport.applyTransportRatios Split.zero
+        |> (if cooled then
+                Transport.makeCooled
+
+            else
+                identity
+           )
         |> Transport.computeImpacts config.transports.modeProcesses mass
 
 
