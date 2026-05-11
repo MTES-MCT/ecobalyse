@@ -148,8 +148,15 @@ computeImpacts modes mass transport =
     }
 
 
-{-| Turn non-cooled transports to cooled ones (road and sea only, assuming cooled air
-transport is never representative enough to be implemented).
+{-| Turn non-cooled transports to cooled ones
+
+Notes:
+
+  - already accumulated cooled transport distances are preserved
+  - this affects road and sea transports only, assuming cooled air transport is not representative enough
+    to be implemented for now
+  - impacts are not affected by this operation and should therefore recomputed
+
 -}
 makeCooled : Transport -> Transport
 makeCooled transport =
