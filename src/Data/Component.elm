@@ -21,6 +21,7 @@ module Data.Component exposing
     , Stage(..)
     , TargetElement
     , TargetItem
+    , TransportCooling
     , addElement
     , addElementTransform
     , addItem
@@ -43,6 +44,7 @@ module Data.Component exposing
     , decodeQuery
     , defaultConfig
     , defaultDurability
+    , defaultTransportCooling
     , elementTransforms
     , elementsToString
     , emptyComponent
@@ -75,6 +77,7 @@ module Data.Component exposing
     , idFromString
     , idToString
     , isEmpty
+    , isTransportCooled
     , itemToComponent
     , itemToString
     , itemsToString
@@ -96,6 +99,7 @@ module Data.Component exposing
     , sumLifeCycleImpacts
     , targetElementToString
     , toSearchableString
+    , toTransportCooling
     , transformListToString
     , tryMapItems
     , updateConsumptionAmount
@@ -180,7 +184,7 @@ type alias Query =
     -- though it's still an ongoing discussion and we need to move forward and iterate.
     , durability : Maybe Unit.Ratio
     , items : List Item
-    , transportCooling : Bool
+    , transportCooling : TransportCooling
     }
 
 
@@ -297,6 +301,10 @@ type alias TargetItem =
 -}
 type Quantity
     = Quantity Int
+
+
+type TransportCooling
+    = TransportCooling Bool
 
 
 {-| A data structure exposing detailed impacts at the end of life stage of the lifeCycle
@@ -518,8 +526,8 @@ Transported mass impacts and energy mixes use ones are computed at the transform
 specify a country to use its electricity/heat mixes, or fallback to config defaults when absent.
 
 -}
-applyTransforms : Requirements db -> Bool -> Maybe Country -> Process.Unit -> List ExpandedLocalizedProcess -> Results -> Result String Results
-applyTransforms requirements refrigerated initialCountry unit transforms materialResults =
+applyTransforms : Requirements db -> TransportCooling -> Maybe Country -> Process.Unit -> List ExpandedLocalizedProcess -> Results -> Result String Results
+applyTransforms requirements transportCooling initialCountry unit transforms materialResults =
     checkTransformsUnit unit transforms
         |> Result.andThen
             (RE.foldlWhileOk
@@ -529,7 +537,7 @@ applyTransforms requirements refrigerated initialCountry unit transforms materia
                             (\mixes ->
                                 ( country
                                 , results
-                                    |> applyTransportedMassImpacts requirements refrigerated (extractMass results) previousCountry country
+                                    |> applyTransportedMassImpacts requirements transportCooling (extractMass results) previousCountry country
                                     |> applyTransform process mixes
                                 )
                             )
@@ -542,11 +550,11 @@ applyTransforms requirements refrigerated initialCountry unit transforms materia
 {-| Add transport impacts for a mass and two optional countries to a results, falling back to transport config
 defaults when both are unknown.
 -}
-applyTransportedMassImpacts : Requirements db -> Bool -> Mass -> Maybe Country -> Maybe Country -> Results -> Results
-applyTransportedMassImpacts requirements refrigerated mass maybeFrom maybeTo (Results results) =
+applyTransportedMassImpacts : Requirements db -> TransportCooling -> Mass -> Maybe Country -> Maybe Country -> Results -> Results
+applyTransportedMassImpacts requirements transportCooling mass maybeFrom maybeTo (Results results) =
     let
         transport =
-            computeTransportedMassImpacts requirements refrigerated maybeFrom maybeTo mass
+            computeTransportedMassImpacts requirements transportCooling maybeFrom maybeTo mass
     in
     Results
         { results
@@ -662,8 +670,8 @@ computeDistributionImpacts ({ config } as requirements) query ({ distribution, p
                 }
 
 
-computeElementResults : Requirements db -> Bool -> Element -> Result String Results
-computeElementResults requirements refrigerated =
+computeElementResults : Requirements db -> TransportCooling -> Element -> Result String Results
+computeElementResults requirements transportCooling =
     expandElement requirements.db
         >> Result.andThen
             (\{ amount, material, transforms } ->
@@ -673,7 +681,7 @@ computeElementResults requirements refrigerated =
                         (\initialAmount ->
                             material.process
                                 |> computeMaterialResults initialAmount
-                                |> applyTransforms requirements refrigerated material.country material.process.unit transforms
+                                |> applyTransforms requirements transportCooling material.country material.process.unit transforms
                         )
             )
 
@@ -706,16 +714,16 @@ computeInitialAmount wastes amount =
 
 {-| Compute a single component impact
 -}
-computeImpacts : Requirements db -> Bool -> Component -> Result String Results
-computeImpacts requirements refrigerated =
+computeImpacts : Requirements db -> TransportCooling -> Component -> Result String Results
+computeImpacts requirements transportCooling =
     .elements
-        >> List.map (computeElementResults requirements refrigerated)
+        >> List.map (computeElementResults requirements transportCooling)
         >> RE.combine
         >> Result.map (List.foldr addResults emptyResults)
 
 
-computeItemResults : Requirements db -> Bool -> Item -> Result String Results
-computeItemResults requirements refrigerated { custom, id, quantity } =
+computeItemResults : Requirements db -> TransportCooling -> Item -> Result String Results
+computeItemResults requirements transportCooling { custom, id, quantity } =
     let
         component_ =
             case id of
@@ -730,7 +738,7 @@ computeItemResults requirements refrigerated { custom, id, quantity } =
             (\component ->
                 custom
                     |> customElements component
-                    |> List.map (computeElementResults requirements refrigerated)
+                    |> List.map (computeElementResults requirements transportCooling)
                     |> RE.combine
             )
         |> Result.map (List.foldr addResults emptyResults)
@@ -860,11 +868,11 @@ computeShareImpacts mass { process, split } =
 Note: this only computes the transport distances, not the impacts (as a transported mass would be required)
 
 -}
-computeTransportDistance : Requirements db -> Bool -> Maybe Country -> Maybe Country -> Transport
-computeTransportDistance { config, db } refrigerated maybeFrom maybeTo =
+computeTransportDistance : Requirements db -> TransportCooling -> Maybe Country -> Maybe Country -> Transport
+computeTransportDistance { config, db } (TransportCooling cooling) maybeFrom maybeTo =
     let
         handleCooling =
-            if refrigerated then
+            if cooling then
                 Transport.makeCooled
 
             else
@@ -882,9 +890,9 @@ computeTransportDistance { config, db } refrigerated maybeFrom maybeTo =
 
 {-| Computes the transport distances and impacts from a transported mass.
 -}
-computeTransportedMassImpacts : Requirements db -> Bool -> Maybe Country -> Maybe Country -> Mass -> Transport
-computeTransportedMassImpacts ({ config } as requirements) cooling maybeFrom maybeTo mass =
-    computeTransportDistance requirements cooling maybeFrom maybeTo
+computeTransportedMassImpacts : Requirements db -> TransportCooling -> Maybe Country -> Maybe Country -> Mass -> Transport
+computeTransportedMassImpacts ({ config } as requirements) transportCooling maybeFrom maybeTo mass =
+    computeTransportDistance requirements transportCooling maybeFrom maybeTo
         -- Note: air transport is not handled for now
         |> Transport.applyTransportRatios Split.zero
         |> Transport.computeImpacts config.transports.modeProcesses mass
@@ -1165,7 +1173,7 @@ decodeQuery =
         |> DU.strictOptional "distribution" Process.decodeId
         |> DU.strictOptional "durability" Unit.decodeRatio
         |> Decode.required "components" (Decode.list decodeItem)
-        |> Decode.optional "transportCooling" Decode.bool False
+        |> Decode.optional "transportCooling" (Decode.map TransportCooling Decode.bool) defaultTransportCooling
 
 
 {-| Proxified for convenience
@@ -1178,6 +1186,11 @@ defaultConfig =
 defaultDurability : Unit.Ratio
 defaultDurability =
     Unit.ratio 1
+
+
+defaultTransportCooling : TransportCooling
+defaultTransportCooling =
+    TransportCooling False
 
 
 elementToString : List Process -> Element -> Result String String
@@ -1241,7 +1254,7 @@ emptyQuery =
     , distribution = Nothing
     , durability = Nothing
     , items = []
-    , transportCooling = False
+    , transportCooling = defaultTransportCooling
     }
 
 
@@ -1395,7 +1408,7 @@ encodeQuery query =
           )
         , ( "distribution", query.distribution |> Maybe.map Process.encodeId )
         , ( "durability", query.durability |> Maybe.map Unit.encodeRatio )
-        , ( "transportCooling", Encode.bool query.transportCooling |> Just )
+        , ( "transportCooling", query.transportCooling |> isTransportCooled |> Encode.bool |> Just )
         ]
 
 
@@ -1828,6 +1841,11 @@ isEmpty component =
     List.isEmpty component.elements
 
 
+isTransportCooled : TransportCooling -> Bool
+isTransportCooled (TransportCooling cooled) =
+    cooled
+
+
 itemElements : TargetItem -> List Item -> List Element
 itemElements ( component, itemIndex ) =
     LE.getAt itemIndex
@@ -2117,6 +2135,11 @@ toSearchableString db component =
         , component.comment |> Maybe.withDefault ""
         , component |> elementsToString db |> Result.withDefault ""
         ]
+
+
+toTransportCooling : Bool -> TransportCooling
+toTransportCooling =
+    TransportCooling
 
 
 transformListToString : List ExpandedLocalizedProcess -> String

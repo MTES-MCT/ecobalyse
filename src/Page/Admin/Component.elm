@@ -545,7 +545,7 @@ componentRowView session selected component =
                     , db = session.db
                     , scope = Scope.Generic Scope.Object
                     }
-                    False
+                    Component.defaultTransportCooling
                 |> Result.map
                     (Component.extractImpacts
                         >> Format.formatImpact (Definition.get Definition.Ecs session.db.definitions)
@@ -675,7 +675,7 @@ modalView { componentConfig, db } modals index modal =
                             , scope = component.scope
                             , setDetailed = \_ -> NoOp
                             , title = ""
-                            , toggleRefrigeratedTransport = \_ -> NoOp
+                            , toggleTransportCooling = \_ -> NoOp
                             , updateAssemblyCountry = \_ -> NoOp
                             , updateConsumptionAmount = \_ _ -> NoOp
                             , updateDistribution = \_ -> NoOp

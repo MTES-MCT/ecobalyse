@@ -591,7 +591,7 @@ update ({ navKey } as session) msg model =
 
         ( ToggleTransportCooling transportCooling, _ ) ->
             createPageUpdate session model
-                |> updateQuery { query | transportCooling = transportCooling }
+                |> updateQuery { query | transportCooling = Component.toTransportCooling transportCooling }
 
         ( UpdateAssemblyCountry maybeCountry, _ ) ->
             createPageUpdate session model
@@ -887,7 +887,7 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
                 , scope = scope
                 , setDetailed = SetDetailedComponents
                 , title = "Production des composants"
-                , toggleRefrigeratedTransport = ToggleTransportCooling
+                , toggleTransportCooling = ToggleTransportCooling
                 , updateAssemblyCountry = UpdateAssemblyCountry
                 , updateConsumptionAmount = UpdateConsumptionAmount
                 , updateDistribution = UpdateDistribution
@@ -1119,7 +1119,7 @@ modalView session ({ modals } as model) modal =
                         , scope = model.scope
                         , setDetailed = SetDetailedComponents
                         , title = "Production des composants"
-                        , toggleRefrigeratedTransport = ToggleTransportCooling
+                        , toggleTransportCooling = ToggleTransportCooling
                         , updateAssemblyCountry = UpdateAssemblyCountry
                         , updateConsumptionAmount = UpdateConsumptionAmount
                         , updateDistribution = UpdateDistribution
