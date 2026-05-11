@@ -545,6 +545,7 @@ componentRowView session selected component =
                     , db = session.db
                     , scope = Scope.Generic Scope.Object
                     }
+                    False
                 |> Result.map
                     (Component.extractImpacts
                         >> Format.formatImpact (Definition.get Definition.Ecs session.db.definitions)

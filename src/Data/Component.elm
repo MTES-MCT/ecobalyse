@@ -125,7 +125,7 @@ import Data.Scope as Scope exposing (Scope)
 import Data.Scoring as Scoring exposing (Scoring)
 import Data.Split as Split exposing (Split)
 import Data.Stages exposing (Stages)
-import Data.Transport as Transport exposing (Transport)
+import Data.Transport as Transport exposing (Transport, makeCooled)
 import Data.Unit as Unit
 import Data.Uuid as Uuid exposing (Uuid)
 import Dict.Any as AnyDict
@@ -180,6 +180,7 @@ type alias Query =
     -- though it's still an ongoing discussion and we need to move forward and iterate.
     , durability : Maybe Unit.Ratio
     , items : List Item
+    , refrigeratedTransport : Bool
     }
 
 
@@ -517,8 +518,8 @@ Transported mass impacts and energy mixes use ones are computed at the transform
 specify a country to use its electricity/heat mixes, or fallback to config defaults when absent.
 
 -}
-applyTransforms : Requirements db -> Maybe Country -> Process.Unit -> List ExpandedLocalizedProcess -> Results -> Result String Results
-applyTransforms requirements initialCountry unit transforms materialResults =
+applyTransforms : Requirements db -> Bool -> Maybe Country -> Process.Unit -> List ExpandedLocalizedProcess -> Results -> Result String Results
+applyTransforms requirements refrigerated initialCountry unit transforms materialResults =
     checkTransformsUnit unit transforms
         |> Result.andThen
             (RE.foldlWhileOk
@@ -528,7 +529,7 @@ applyTransforms requirements initialCountry unit transforms materialResults =
                             (\mixes ->
                                 ( country
                                 , results
-                                    |> applyTransportedMassImpacts requirements (extractMass results) previousCountry country
+                                    |> applyTransportedMassImpacts requirements refrigerated (extractMass results) previousCountry country
                                     |> applyTransform process mixes
                                 )
                             )
@@ -541,11 +542,11 @@ applyTransforms requirements initialCountry unit transforms materialResults =
 {-| Add transport impacts for a mass and two optional countries to a results, falling back to transport config
 defaults when both are unknown.
 -}
-applyTransportedMassImpacts : Requirements db -> Mass -> Maybe Country -> Maybe Country -> Results -> Results
-applyTransportedMassImpacts requirements mass maybeFrom maybeTo (Results results) =
+applyTransportedMassImpacts : Requirements db -> Bool -> Mass -> Maybe Country -> Maybe Country -> Results -> Results
+applyTransportedMassImpacts requirements refrigerated mass maybeFrom maybeTo (Results results) =
     let
         transport =
-            computeTransportedMassImpacts requirements maybeFrom maybeTo mass
+            computeTransportedMassImpacts requirements refrigerated maybeFrom maybeTo mass
     in
     Results
         { results
@@ -614,7 +615,7 @@ componentFromCustom maybeComponent maybeCustom =
 compute : Requirements db -> Query -> Result String LifeCycle
 compute requirements query =
     query.items
-        |> List.map (computeItemResults requirements)
+        |> List.map (computeItemResults requirements query.refrigeratedTransport)
         |> RE.combine
         |> Result.map (List.foldr addResults emptyResults)
         |> Result.map (\(Results results) -> { emptyLifeCycle | production = Results { results | label = Just "Production" } })
@@ -661,8 +662,8 @@ computeDistributionImpacts ({ config } as requirements) query ({ distribution, p
                 }
 
 
-computeElementResults : Requirements db -> Element -> Result String Results
-computeElementResults requirements =
+computeElementResults : Requirements db -> Bool -> Element -> Result String Results
+computeElementResults requirements refrigerated =
     expandElement requirements.db
         >> Result.andThen
             (\{ amount, material, transforms } ->
@@ -672,7 +673,7 @@ computeElementResults requirements =
                         (\initialAmount ->
                             material.process
                                 |> computeMaterialResults initialAmount
-                                |> applyTransforms requirements material.country material.process.unit transforms
+                                |> applyTransforms requirements refrigerated material.country material.process.unit transforms
                         )
             )
 
@@ -705,16 +706,16 @@ computeInitialAmount wastes amount =
 
 {-| Compute a single component impact
 -}
-computeImpacts : Requirements db -> Component -> Result String Results
-computeImpacts requirements =
+computeImpacts : Requirements db -> Bool -> Component -> Result String Results
+computeImpacts requirements refrigerated =
     .elements
-        >> List.map (computeElementResults requirements)
+        >> List.map (computeElementResults requirements refrigerated)
         >> RE.combine
         >> Result.map (List.foldr addResults emptyResults)
 
 
-computeItemResults : Requirements db -> Item -> Result String Results
-computeItemResults requirements { custom, id, quantity } =
+computeItemResults : Requirements db -> Bool -> Item -> Result String Results
+computeItemResults requirements refrigerated { custom, id, quantity } =
     let
         component_ =
             case id of
@@ -729,7 +730,7 @@ computeItemResults requirements { custom, id, quantity } =
             (\component ->
                 custom
                     |> customElements component
-                    |> List.map (computeElementResults requirements)
+                    |> List.map (computeElementResults requirements refrigerated)
                     |> RE.combine
             )
         |> Result.map (List.foldr addResults emptyResults)
@@ -859,22 +860,33 @@ computeShareImpacts mass { process, split } =
 Note: this only computes the transport distances, not the impacts (as a transported mass would be required)
 
 -}
-computeTransportDistance : Requirements db -> Maybe Country -> Maybe Country -> Transport
-computeTransportDistance { config, db } maybeFrom maybeTo =
+computeTransportDistance : Requirements db -> Bool -> Maybe Country -> Maybe Country -> Transport
+computeTransportDistance { config, db } refrigerated maybeFrom maybeTo =
     case ( maybeFrom, maybeTo ) of
         ( Just from, Just to ) ->
             db.distances
                 |> Transport.getTransportBetween Impact.empty from.code to.code
+                |> (\transport ->
+                        if refrigerated then
+                            makeCooled transport
+
+                        else
+                            transport
+                   )
 
         _ ->
-            config.transports.defaultDistance
+            if refrigerated then
+                Transport.makeCooled config.transports.defaultDistance
+
+            else
+                config.transports.defaultDistance
 
 
 {-| Computes the transport distances and impacts from a transported mass.
 -}
-computeTransportedMassImpacts : Requirements db -> Maybe Country -> Maybe Country -> Mass -> Transport
-computeTransportedMassImpacts ({ config } as requirements) maybeFrom maybeTo mass =
-    computeTransportDistance requirements maybeFrom maybeTo
+computeTransportedMassImpacts : Requirements db -> Bool -> Maybe Country -> Maybe Country -> Mass -> Transport
+computeTransportedMassImpacts ({ config } as requirements) refrigerated maybeFrom maybeTo mass =
+    computeTransportDistance requirements refrigerated maybeFrom maybeTo
         -- Note: air transport is not handled for now
         |> Transport.applyTransportRatios Split.zero
         |> Transport.computeImpacts config.transports.modeProcesses mass
@@ -917,6 +929,7 @@ computeTransports ({ config, db } as requirements) query lifeCycle =
                                 (\( expandedElement, elementResults ) ->
                                     extractMass elementResults
                                         |> computeTransportedMassImpacts requirements
+                                            query.refrigeratedTransport
                                             (getFinalElementCountry expandedElement)
                                             (Just assemblyCountry)
                                 )
@@ -930,6 +943,7 @@ computeTransports ({ config, db } as requirements) query lifeCycle =
                                         , toDistribution =
                                             totalProductMass
                                                 |> computeTransportedMassImpacts requirements
+                                                    query.refrigeratedTransport
                                                     maybeAssemblyCountry
                                                     (Just config.distribution.country)
                                         }
@@ -949,6 +963,7 @@ computeTransports ({ config, db } as requirements) query lifeCycle =
                                 (\( expandedElement, elementResults ) ->
                                     extractMass elementResults
                                         |> computeTransportedMassImpacts requirements
+                                            query.refrigeratedTransport
                                             (getFinalElementCountry expandedElement)
                                             (Just config.distribution.country)
                                 )
@@ -971,7 +986,10 @@ computeTransports ({ config, db } as requirements) query lifeCycle =
                                 (\( _, elementResults ) ->
                                     -- all item elements are individually shipped to the assembly stage using default unknown transport distances
                                     extractMass elementResults
-                                        |> computeTransportedMassImpacts requirements Nothing Nothing
+                                        |> computeTransportedMassImpacts requirements
+                                            query.refrigeratedTransport
+                                            Nothing
+                                            Nothing
                                 )
                                 >> Transport.sum
                             )
@@ -984,6 +1002,7 @@ computeTransports ({ config, db } as requirements) query lifeCycle =
                                             -- total mass of the assembled end product is transported to the distribution country
                                             totalProductMass
                                                 |> computeTransportedMassImpacts requirements
+                                                    query.refrigeratedTransport
                                                     Nothing
                                                     (Just config.distribution.country)
                                         }
@@ -1148,6 +1167,7 @@ decodeQuery =
         |> DU.strictOptional "distribution" Process.decodeId
         |> DU.strictOptional "durability" Unit.decodeRatio
         |> Decode.required "components" (Decode.list decodeItem)
+        |> Decode.optional "refrigeratedTransport" Decode.bool False
 
 
 {-| Proxified for convenience
@@ -1223,6 +1243,7 @@ emptyQuery =
     , distribution = Nothing
     , durability = Nothing
     , items = []
+    , refrigeratedTransport = False
     }
 
 
@@ -2334,4 +2355,5 @@ validateQuery ({ db } as requirements) query =
         |> RE.andMap (validateDistribution requirements query.distribution)
         |> RE.andMap (validateDurability requirements query.durability)
         |> RE.andMap (query.items |> RE.combineMap (validateItem db.components))
+        |> RE.andMap (Ok query.refrigeratedTransport)
         |> Result.mapError (\s -> "Requête invalide: " ++ s)

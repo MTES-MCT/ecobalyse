@@ -143,6 +143,7 @@ suite =
                                     , stage = Nothing
                                     }
                                     |> Component.applyTransforms requirements
+                                        False
                                         Nothing
                                         Process.Kilogram
                                         (List.map Component.nonLocalizedExpandedProcess transforms)
@@ -178,6 +179,7 @@ suite =
                                     , stage = Nothing
                                     }
                                     |> Component.applyTransforms requirements
+                                        False
                                         Nothing
                                         Process.Kilogram
                                         (List.map Component.nonLocalizedExpandedProcess transforms)
@@ -233,7 +235,7 @@ suite =
                                                 , quantity = 1
                                                 , stage = Nothing
                                                 }
-                                                |> Component.applyTransforms requirements Nothing Process.Kilogram steps
+                                                |> Component.applyTransforms requirements False Nothing Process.Kilogram steps
                                                 |> Result.withDefault Component.emptyResults
                                                 |> extractEcsImpact
 
@@ -276,6 +278,7 @@ suite =
                                         , stage = Nothing
                                         }
                                         |> Component.applyTransforms requirements
+                                            False
                                             Nothing
                                             Process.CubicMeter
                                             [ Component.nonLocalizedExpandedProcess transformInKg ]
@@ -297,6 +300,7 @@ suite =
                                     , stage = Nothing
                                     }
                                     |> Component.applyTransforms requirements
+                                        False
                                         Nothing
                                         Process.Kilogram
                                         (List.map Component.nonLocalizedExpandedProcess transforms)
@@ -384,6 +388,7 @@ suite =
                                         , stage = Nothing
                                         }
                                         |> Component.applyTransforms requirements
+                                            False
                                             Nothing
                                             Process.Kilogram
                                             localizedTransforms
@@ -564,6 +569,7 @@ suite =
                                 |> Result.andThen
                                     (\cottonId ->
                                         Component.computeElementResults requirements
+                                            False
                                             { amount = Amount.fromFloat 1
                                             , material = { country = Nothing, id = cottonId }
 
@@ -600,7 +606,7 @@ suite =
                                         , material = { country = Nothing, id = materialInCubicMeters.id }
                                         , transforms = [ Component.nonLocalizedProcess transformInCubicMeters.id ]
                                         }
-                                            |> Component.computeElementResults requirements
+                                            |> Component.computeElementResults requirements False
                                 in
                                 [ it "should compute impacts according on material unit"
                                     (results
@@ -626,7 +632,7 @@ suite =
                                         , material = { country = Nothing, id = materialInCubicMeters.id }
                                         , transforms = [ Component.nonLocalizedProcess transformInCubicMeters.id ]
                                         }
-                                            |> Component.computeElementResults requirements
+                                            |> Component.computeElementResults requirements False
                                 in
                                 [ it "should compute complements impacts according on material unit"
                                     (results
@@ -659,7 +665,7 @@ suite =
                         (let
                             toComputedResults =
                                 decodeJsonThen Component.decodeItem
-                                    (Component.computeItemResults requirements)
+                                    (Component.computeItemResults requirements False)
 
                             combineMapBoth_ fn =
                                 -- RE.combineMapBoth with fn applied to the two tuple members
@@ -900,7 +906,7 @@ suite =
                                       }
                                     ]
                                 }
-                                    |> Component.computeElementResults requirements
+                                    |> Component.computeElementResults requirements False
                                     |> Result.map Component.extractItems
                                     |> Result.map (List.any (Component.extractStage >> (==) (Just Component.TransportStage)))
                                     |> Expect.equal (Ok True)

@@ -896,7 +896,10 @@ elementTransportView config attributes transportedMass maybeFrom maybeTo =
     let
         transport =
             transportedMass
-                |> Component.computeTransportedMassImpacts (requirementsFromConfig config) maybeFrom maybeTo
+                |> Component.computeTransportedMassImpacts (requirementsFromConfig config)
+                    config.query.refrigeratedTransport
+                    maybeFrom
+                    maybeTo
 
         renderCountry =
             Maybe.map .name >> Maybe.withDefault "Région inconnue"
