@@ -203,7 +203,7 @@
   "transports": {
     "defaultDistance": {
       "air": 10000,
-      "road": null,
+      "road": 2000,
       "sea": 18000
     },
     "modeProcesses": {

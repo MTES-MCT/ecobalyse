@@ -872,7 +872,28 @@ computeTransportDistance : Requirements db -> Maybe Country -> Maybe Country -> 
 computeTransportDistance { config, db } maybeFrom maybeTo =
     case ( maybeFrom, maybeTo ) of
         ( Just from, Just to ) ->
-            db.distances |> Transport.getTransportBetween2 from to
+            db.distances
+                |> Transport.getTransportBetween2 from to
+                |> (\transport ->
+                        if from == to then
+                            -- same country, add transport to hub once
+                            { transport
+                                | road =
+                                    transport.road
+                                        |> Quantity.plus from.distanceToHub
+                            }
+
+                        else
+                            -- different countries, add distances to hub at both ends
+                            { transport
+                                | road =
+                                    Quantity.sum
+                                        [ from.distanceToHub
+                                        , transport.road
+                                        , to.distanceToHub
+                                        ]
+                            }
+                   )
 
         _ ->
             config.transports.defaultDistance

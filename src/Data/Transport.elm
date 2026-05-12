@@ -242,9 +242,8 @@ getTransportBetween impacts cA cB distances =
             erroneous impacts
 
 
-{-| Another version of getTransportBetween, leveraging the distance to hub to compute road
-distances to hub between to fully qualified Country records. Also get rids of the carried
-impacts. This function is to be used in the generic simulator context.
+{-| Another version of getTransportBetween, computing road distances to hub between to fully
+qualified Country records. This function is to be used in the generic simulator context.
 -}
 getTransportBetween2 : Country -> Country -> Distances -> Transport
 getTransportBetween2 cA cB distances =
