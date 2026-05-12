@@ -15,6 +15,7 @@ module Data.Transport exposing
     , getTransportBetween
     , getTransportBetween2
     , makeCooled
+    , noTransport
     , sum
     , totalKm
     )
@@ -169,6 +170,11 @@ makeCooled transport =
     }
 
 
+noTransport : Transport
+noTransport =
+    default Impact.empty
+
+
 sum : List Transport -> Transport
 sum =
     List.foldl
@@ -243,9 +249,10 @@ getTransportBetween impacts cA cB distances =
 
 
 {-| Another version of getTransportBetween, computing road distances to hub between to fully
-qualified Country records. This function is to be used in the generic simulator context.
+qualified Country records, and returning a Result with an error when a distance couldn't be found.
+This function is to be used in the generic simulator context.
 -}
-getTransportBetween2 : Country -> Country -> Distances -> Transport
+getTransportBetween2 : Country -> Country -> Distances -> Result String Transport
 getTransportBetween2 cA cB distances =
     case
         ( distances |> Dict.get cA.code |> Maybe.andThen (Dict.get cB.code)
@@ -253,13 +260,17 @@ getTransportBetween2 cA cB distances =
         )
     of
         ( Just transport, _ ) ->
-            transport
+            Ok transport
 
         ( _, Just transport ) ->
-            transport
+            Ok transport
 
         ( Nothing, Nothing ) ->
-            erroneous Impact.empty
+            Err <|
+                "Distances not found between "
+                    ++ Country.codeToString cA.code
+                    ++ " to "
+                    ++ Country.codeToString cB.code
 
 
 decodeKm : Decoder Length

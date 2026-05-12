@@ -369,16 +369,21 @@ editorView : Config db msg -> Html msg
 editorView config =
     case config.lifeCycle of
         Err error ->
-            Alert.simple
-                { attributes = []
-                , close = Nothing
-                , content = [ text error ]
-                , level = Alert.Danger
-                , title = Just "Erreur de chargement du calculateur"
-                }
+            error |> simpleError (Just "Erreur de chargement du calculateur")
 
         Ok lifeCycle ->
             lifeCycleView config lifeCycle
+
+
+simpleError : Maybe String -> String -> Html msg
+simpleError title message =
+    Alert.simple
+        { attributes = []
+        , close = Nothing
+        , content = [ text message ]
+        , level = Alert.Danger
+        , title = title
+        }
 
 
 lifeCycleView : Config db msg -> LifeCycle -> Html msg
@@ -438,13 +443,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as co
               else
                 case Component.expandItems db query.items of
                     Err error ->
-                        Alert.simple
-                            { attributes = []
-                            , close = Nothing
-                            , content = [ text error ]
-                            , level = Alert.Danger
-                            , title = Just "Erreur"
-                            }
+                        error |> simpleError (Just "Erreur")
 
                     Ok expandedItems ->
                         div [ class "table-responsive" ]
@@ -910,44 +909,52 @@ elementMaterialView config targetElement materialResults material amount =
 
 elementTransportView : Config db msg -> List (Attribute msg) -> Mass -> Maybe Country -> Maybe Country -> Html msg
 elementTransportView ({ query } as config) attributes transportedMass maybeFrom maybeTo =
-    let
-        transport =
-            transportedMass
-                |> Component.computeTransportedMassImpacts (requirementsFromConfig config)
-                    query.transportCooling
-                    maybeFrom
-                    maybeTo
+    case
+        transportedMass
+            |> Component.computeTransportedMassImpacts (requirementsFromConfig config)
+                query.transportCooling
+                maybeFrom
+                maybeTo
+    of
+        Err error ->
+            tr []
+                [ td [ class "p-2", colspan 7 ]
+                    [ error |> simpleError (Just "Erreur de calcul de distance")
+                    ]
+                ]
 
-        renderCountry =
-            Maybe.map .name >> Maybe.withDefault "Région inconnue"
-    in
-    tr (class "fs-7 text-muted" :: attributes)
-        [ td [ colspan 2 ] []
-        , td []
-            [ text <| "Transport " ++ renderCountry maybeFrom ++ " → " ++ renderCountry maybeTo ]
-        , td [ class "text-end align-middle d-flex justify-content-end align-items-center gap-2 text-nowrap" ] <|
-            (if Component.isTransportCooled query.transportCooling then
-                [ Icon.boatCooled, Format.km transport.seaCooled ]
+        Ok transport ->
+            let
+                renderCountry =
+                    Maybe.map .name >> Maybe.withDefault "Région inconnue"
+            in
+            tr (class "fs-7 text-muted" :: attributes)
+                [ td [ colspan 2 ] []
+                , td []
+                    [ text <| "Transport " ++ renderCountry maybeFrom ++ " → " ++ renderCountry maybeTo ]
+                , td [ class "text-end align-middle d-flex justify-content-end align-items-center gap-2 text-nowrap" ] <|
+                    (if Component.isTransportCooled query.transportCooling then
+                        [ Icon.boatCooled, Format.km transport.seaCooled ]
 
-             else
-                [ Icon.boat, Format.km transport.sea ]
-            )
-                ++ (if Component.isTransportCooled query.transportCooling then
-                        [ Icon.busCooled, Format.km transport.roadCooled ]
+                     else
+                        [ Icon.boat, Format.km transport.sea ]
+                    )
+                        ++ (if Component.isTransportCooled query.transportCooling then
+                                [ Icon.busCooled, Format.km transport.roadCooled ]
 
-                    else
-                        [ Icon.bus, Format.km transport.road ]
-                   )
-                ++ [ Icon.package
-                   , Format.kg transportedMass
-                   ]
-        , td [ colspan 2 ] []
-        , td [ class "text-end align-middle text-nowrap" ]
-            [ transport.impacts
-                |> Format.formatImpact config.impact
-            ]
-        , td [] []
-        ]
+                            else
+                                [ Icon.bus, Format.km transport.road ]
+                           )
+                        ++ [ Icon.package
+                           , Format.kg transportedMass
+                           ]
+                , td [ colspan 2 ] []
+                , td [ class "text-end align-middle text-nowrap" ]
+                    [ transport.impacts
+                        |> Format.formatImpact config.impact
+                    ]
+                , td [] []
+                ]
 
 
 elementTransformsView :
