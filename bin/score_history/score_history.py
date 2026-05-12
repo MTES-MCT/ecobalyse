@@ -519,7 +519,7 @@ def insert_new_score(df, engine, table_name):
         df.to_sql(table_name, con=conn, if_exists="append", index=False)
 
 
-SCORE_HISTORY_WORKERS = int(os.environ.get("SCORE_HISTORY_WORKERS", "16"))
+SCORE_HISTORY_WORKERS = int(os.environ.get("SCORE_HISTORY_WORKERS", "9"))
 
 
 def compute_products_scores_for_examples(examples, api_url, token):
