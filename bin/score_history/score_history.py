@@ -5,6 +5,7 @@ import logging
 import os
 import pathlib
 import sys
+from concurrent.futures import ThreadPoolExecutor
 from contextlib import contextmanager
 from datetime import datetime
 from enum import StrEnum
@@ -518,21 +519,21 @@ def insert_new_score(df, engine, table_name):
         df.to_sql(table_name, con=conn, if_exists="append", index=False)
 
 
-def compute_product_scores(product_params, api_url, token):
-    headers = {"Authorization": f"Bearer {token}"}
-    r = requests.post(api_url, json=product_params["query"], headers=headers)
-    return r.json()
+SCORE_HISTORY_WORKERS = int(os.environ.get("SCORE_HISTORY_WORKERS", "16"))
 
 
 def compute_products_scores_for_examples(examples, api_url, token):
-    computed_scores = []
+    headers = {"Authorization": f"Bearer {token}"}
+    session = requests.Session()
 
-    for example in examples:
-        product_scores = compute_product_scores(example, api_url, token)
-        example["response"] = product_scores
-        computed_scores.append(example)
+    def fetch(example):
+        r = session.post(api_url, json=example["query"], headers=headers)
+        r.raise_for_status()
+        example["response"] = r.json()
+        return example
 
-    return computed_scores
+    with ThreadPoolExecutor(max_workers=SCORE_HISTORY_WORKERS) as pool:
+        return list(pool.map(fetch, examples))
 
 
 def add_all_ingredients_as_examples(examples_input):
