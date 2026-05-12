@@ -13,7 +13,7 @@ LAND_OCCUPATION_METHOD: Tuple[str, str, str] = (
 
 
 def compute_land_occupation_batch(
-    bw_activities, chunk_size: int = 1000
+    bw_activities, chunk_size: int = 200
 ) -> dict[int, float]:
     """Return {bw_activity.id: land_occupation_score} via a chunked MultiLCA."""
     unique = list({a.id: a for a in bw_activities}.values())
