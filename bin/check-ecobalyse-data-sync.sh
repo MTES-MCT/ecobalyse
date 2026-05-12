@@ -20,6 +20,7 @@ FILES=(
     "public/data/food/ingredients.json"
     "public/data/textile/materials.json"
     "public/data/processes.json"
+    "public/data/processes_generic.json"
 )
 
 echo "Downloading files from ecobalyse-data repository (branch: ${ECOBALYSE_DATA_BRANCH})..."
