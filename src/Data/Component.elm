@@ -872,8 +872,7 @@ computeTransportDistance : Requirements db -> Maybe Country -> Maybe Country -> 
 computeTransportDistance { config, db } maybeFrom maybeTo =
     case ( maybeFrom, maybeTo ) of
         ( Just from, Just to ) ->
-            db.distances
-                |> Transport.getTransportBetween2 Impact.empty from to
+            db.distances |> Transport.getTransportBetween2 from to
 
         _ ->
             config.transports.defaultDistance

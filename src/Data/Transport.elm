@@ -242,24 +242,25 @@ getTransportBetween impacts cA cB distances =
             erroneous impacts
 
 
-{-| Same as getTransportBetween, but leverages the distance to hub to compute road
-distances to hub between to fully qualified Country records.
+{-| Another version of getTransportBetween, leveraging the distance to hub to compute road
+distances to hub between to fully qualified Country records. Also get rids of the carried
+impacts. This function is to be used in the generic simulator context.
 -}
-getTransportBetween2 : Impacts -> Country -> Country -> Distances -> Transport
-getTransportBetween2 impacts cA cB distances =
+getTransportBetween2 : Country -> Country -> Distances -> Transport
+getTransportBetween2 cA cB distances =
     case
         ( distances |> Dict.get cA.code |> Maybe.andThen (Dict.get cB.code)
         , distances |> Dict.get cB.code |> Maybe.andThen (Dict.get cA.code)
         )
     of
         ( Just transport, _ ) ->
-            { transport | impacts = impacts }
+            transport
 
         ( _, Just transport ) ->
-            { transport | impacts = impacts }
+            transport
 
         ( Nothing, Nothing ) ->
-            erroneous impacts
+            erroneous Impact.empty
 
 
 decodeKm : Decoder Length
