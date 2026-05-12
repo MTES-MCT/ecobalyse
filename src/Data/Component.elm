@@ -873,7 +873,7 @@ computeTransportDistance { config, db } maybeFrom maybeTo =
     case ( maybeFrom, maybeTo ) of
         ( Just from, Just to ) ->
             db.distances
-                |> Transport.getTransportBetween Impact.empty from.code to.code
+                |> Transport.getTransportBetween2 Impact.empty from to
 
         _ ->
             config.transports.defaultDistance

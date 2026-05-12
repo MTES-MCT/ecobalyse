@@ -13,12 +13,13 @@ module Data.Transport exposing
     , default
     , encode
     , getTransportBetween
+    , getTransportBetween2
     , makeCooled
     , sum
     , totalKm
     )
 
-import Data.Country as Country
+import Data.Country as Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
@@ -229,6 +230,26 @@ getTransportBetween impacts cA cB distances =
     case
         ( distances |> Dict.get cA |> Maybe.andThen (Dict.get cB)
         , distances |> Dict.get cB |> Maybe.andThen (Dict.get cA)
+        )
+    of
+        ( Just transport, _ ) ->
+            { transport | impacts = impacts }
+
+        ( _, Just transport ) ->
+            { transport | impacts = impacts }
+
+        ( Nothing, Nothing ) ->
+            erroneous impacts
+
+
+{-| Same as getTransportBetween, but leverages the distance to hub to compute road
+distances to hub between to fully qualified Country records.
+-}
+getTransportBetween2 : Impacts -> Country -> Country -> Distances -> Transport
+getTransportBetween2 impacts cA cB distances =
+    case
+        ( distances |> Dict.get cA.code |> Maybe.andThen (Dict.get cB.code)
+        , distances |> Dict.get cB.code |> Maybe.andThen (Dict.get cA.code)
         )
     of
         ( Just transport, _ ) ->
