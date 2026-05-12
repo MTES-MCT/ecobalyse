@@ -13,6 +13,7 @@ module Data.Transport exposing
     , default
     , encode
     , getTransportBetween
+    , makeCooled
     , sum
     , totalKm
     )
@@ -147,6 +148,26 @@ computeImpacts modes mass transport =
     }
 
 
+{-| Turn non-cooled transports to cooled ones
+
+Notes:
+
+  - already accumulated cooled transport distances are preserved
+  - this affects road and sea transports only, assuming cooled air transport is not representative enough
+    to be implemented for now
+  - impacts are not affected by this operation and should therefore recomputed
+
+-}
+makeCooled : Transport -> Transport
+makeCooled transport =
+    { transport
+        | road = Quantity.zero
+        , roadCooled = Quantity.sum [ transport.roadCooled, transport.road ]
+        , sea = Quantity.zero
+        , seaCooled = Quantity.sum [ transport.seaCooled, transport.sea ]
+    }
+
+
 sum : List Transport -> Transport
 sum =
     List.foldl
@@ -203,12 +224,7 @@ roadSeaTransportRatio { road, sea } =
         Split.zero
 
 
-getTransportBetween :
-    Impacts
-    -> Country.Code
-    -> Country.Code
-    -> Distances
-    -> Transport
+getTransportBetween : Impacts -> Country.Code -> Country.Code -> Distances -> Transport
 getTransportBetween impacts cA cB distances =
     case
         ( distances |> Dict.get cA |> Maybe.andThen (Dict.get cB)

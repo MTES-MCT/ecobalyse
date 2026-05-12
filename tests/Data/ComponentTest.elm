@@ -143,6 +143,7 @@ suite =
                                     , stage = Nothing
                                     }
                                     |> Component.applyTransforms requirements
+                                        Component.defaultTransportCooling
                                         Nothing
                                         Process.Kilogram
                                         (List.map Component.nonLocalizedExpandedProcess transforms)
@@ -178,6 +179,7 @@ suite =
                                     , stage = Nothing
                                     }
                                     |> Component.applyTransforms requirements
+                                        Component.defaultTransportCooling
                                         Nothing
                                         Process.Kilogram
                                         (List.map Component.nonLocalizedExpandedProcess transforms)
@@ -233,7 +235,11 @@ suite =
                                                 , quantity = 1
                                                 , stage = Nothing
                                                 }
-                                                |> Component.applyTransforms requirements Nothing Process.Kilogram steps
+                                                |> Component.applyTransforms requirements
+                                                    Component.defaultTransportCooling
+                                                    Nothing
+                                                    Process.Kilogram
+                                                    steps
                                                 |> Result.withDefault Component.emptyResults
                                                 |> extractEcsImpact
 
@@ -276,6 +282,7 @@ suite =
                                         , stage = Nothing
                                         }
                                         |> Component.applyTransforms requirements
+                                            Component.defaultTransportCooling
                                             Nothing
                                             Process.CubicMeter
                                             [ Component.nonLocalizedExpandedProcess transformInKg ]
@@ -297,6 +304,7 @@ suite =
                                     , stage = Nothing
                                     }
                                     |> Component.applyTransforms requirements
+                                        Component.defaultTransportCooling
                                         Nothing
                                         Process.Kilogram
                                         (List.map Component.nonLocalizedExpandedProcess transforms)
@@ -371,7 +379,7 @@ suite =
                                         |> Component.extractItems
                                         |> List.filterMap Component.extractStage
 
-                                getResults localizedTransforms =
+                                getResults cooling localizedTransforms =
                                     Component.Results
                                         { amount = Amount.fromFloat 1
                                         , complementsImpacts = Complement.emptyComplementsResultsImpacts
@@ -384,13 +392,14 @@ suite =
                                         , stage = Nothing
                                         }
                                         |> Component.applyTransforms requirements
+                                            cooling
                                             Nothing
                                             Process.Kilogram
                                             localizedTransforms
                                         |> Result.withDefault Component.emptyResults
                             in
                             [ it "should add one transport stage per transform step"
-                                (getResults
+                                (getResults Component.defaultTransportCooling
                                     [ Component.nonLocalizedExpandedProcess fading
                                     , Component.nonLocalizedExpandedProcess fading
                                     ]
@@ -398,12 +407,12 @@ suite =
                                     |> Expect.equal 2
                                 )
                             , it "should add no transport stage when no transform is applied"
-                                (getResults []
+                                (getResults Component.defaultTransportCooling []
                                     |> extractTransportStagesCount Component.TransportStage
                                     |> Expect.equal 0
                                 )
                             , it "should insert transport before each transform stage"
-                                (getResults
+                                (getResults Component.defaultTransportCooling
                                     [ Component.nonLocalizedExpandedProcess fading
                                     , Component.nonLocalizedExpandedProcess fading
                                     ]
@@ -564,6 +573,7 @@ suite =
                                 |> Result.andThen
                                     (\cottonId ->
                                         Component.computeElementResults requirements
+                                            Component.defaultTransportCooling
                                             { amount = Amount.fromFloat 1
                                             , material = { country = Nothing, id = cottonId }
 
@@ -600,7 +610,7 @@ suite =
                                         , material = { country = Nothing, id = materialInCubicMeters.id }
                                         , transforms = [ Component.nonLocalizedProcess transformInCubicMeters.id ]
                                         }
-                                            |> Component.computeElementResults requirements
+                                            |> Component.computeElementResults requirements Component.defaultTransportCooling
                                 in
                                 [ it "should compute impacts according on material unit"
                                     (results
@@ -626,7 +636,7 @@ suite =
                                         , material = { country = Nothing, id = materialInCubicMeters.id }
                                         , transforms = [ Component.nonLocalizedProcess transformInCubicMeters.id ]
                                         }
-                                            |> Component.computeElementResults requirements
+                                            |> Component.computeElementResults requirements Component.defaultTransportCooling
                                 in
                                 [ it "should compute complements impacts according on material unit"
                                     (results
@@ -659,7 +669,7 @@ suite =
                         (let
                             toComputedResults =
                                 decodeJsonThen Component.decodeItem
-                                    (Component.computeItemResults requirements)
+                                    (Component.computeItemResults requirements Component.defaultTransportCooling)
 
                             combineMapBoth_ fn =
                                 -- RE.combineMapBoth with fn applied to the two tuple members
@@ -900,10 +910,30 @@ suite =
                                       }
                                     ]
                                 }
-                                    |> Component.computeElementResults requirements
+                                    |> Component.computeElementResults requirements Component.defaultTransportCooling
                                     |> Result.map Component.extractItems
                                     |> Result.map (List.any (Component.extractStage >> (==) (Just Component.TransportStage)))
                                     |> Expect.equal (Ok True)
+                            )
+                        , let
+                            getTransportStageEcs =
+                                Component.stagesImpacts >> .transports >> Maybe.map getEcsImpact >> Maybe.withDefault 0
+                          in
+                          itFromResult2 "should handle transport cooling"
+                            ("""{"components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]}"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> Result.map getTransportStageEcs
+                            )
+                            ("""{
+                                  "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }],
+                                  "transportCooling": true
+                                }"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> Result.map getTransportStageEcs
+                            )
+                            (\noTransportCooling withTransportCooling ->
+                                withTransportCooling
+                                    |> Expect.greaterThan noTransportCooling
                             )
                         ]
                     , describe "computeVolumeFromMass"
