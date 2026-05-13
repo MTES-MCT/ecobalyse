@@ -136,11 +136,6 @@ question =
     icon "question"
 
 
-recycle : Html msg
-recycle =
-    icon "recycle"
-
-
 search : Html msg
 search =
     icon "search"
