@@ -538,12 +538,7 @@ applyTransforms requirements transportCooling initialCountry unit transforms mat
                             (\mixes ->
                                 results
                                     |> applyTransportedMassImpacts requirements transportCooling (extractMass results) previousCountry country
-                                    |> Result.map
-                                        (\res ->
-                                            ( country
-                                            , applyTransform process mixes res
-                                            )
-                                        )
+                                    |> Result.map (\results_ -> ( country, applyTransform process mixes results_ ))
                             )
                 )
                 ( initialCountry, materialResults )
@@ -867,7 +862,8 @@ computeShareImpacts mass { process, split } =
         |> Maybe.withDefault Impact.empty
 
 
-{-| Computes the transport distance between two countries, including the distance to hub for each country.
+{-| Computes the transport distance between two countries, including the road distance to hub for each country.
+Fallbacks to default config distances in case a country is not defined.
 
 Notes:
 
@@ -883,24 +879,21 @@ computeTransportDistance { config, db } maybeFrom maybeTo =
                 |> Transport.getTransportBetween2 from to
                 |> Result.map
                     (\transport ->
-                        if from == to then
-                            -- same country, add transport to hub once
-                            { transport
-                                | road =
+                        { transport
+                            | road =
+                                if from == to then
+                                    -- same country, add transport to hub once
                                     transport.road
                                         |> Quantity.plus from.distanceToHub
-                            }
 
-                        else
-                            -- different countries, add distances to hub at both ends
-                            { transport
-                                | road =
+                                else
+                                    -- different countries, add distances to hub at both ends
                                     Quantity.sum
                                         [ from.distanceToHub
                                         , transport.road
                                         , to.distanceToHub
                                         ]
-                            }
+                        }
                     )
 
         _ ->
