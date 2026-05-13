@@ -1,0 +1,91 @@
+name: Ingredient Hierarchy Check
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+  workflow_dispatch:
+
+
+env:
+  NODE_ENV: test
+  TRANSCRYPT_KEY: ${{ secrets.TRANSCRYPT_KEY }}
+
+jobs:
+  ingredient_hierarchy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.x]
+        python-version: [3.12]
+
+    steps:
+
+      - uses: actions/checkout@v4
+
+      - name: Install Transcrypt
+        uses: ./.github/actions/transcrypt-cli
+
+      - name: Decrypt impact files
+        run: ./bin/run-transcrypt.sh
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Cache node_modules
+        id: cache-node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: node_modules-${{ hashFiles('package.json', 'package-lock.json') }}
+
+      - name: Cache ~/.elm
+        uses: actions/cache@v4
+        with:
+          path: ~/.elm
+          key: elm-cache-${{ hashFiles('elm.json') }}
+          restore-keys: elm-cache-
+
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          version: "latest"
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install Node dependencies
+        run: npm ci --prefer-offline --no-audit --ignore-scripts
+
+      - name: Install Ubuntu dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gettext
+
+      - name: Build server
+        run: npm run server:build
+
+      - name: Run ingredient hierarchy check
+        run: |
+          npm run server:start &
+
+          for attempt in {1..20}; do
+            if curl -s http://localhost:8001/ > /dev/null; then
+              echo "-> Node server is up and ready on port 8001"
+              break
+            fi
+            echo "-> Waiting for the Node server to boot..."
+            sleep 1
+          done
+
+          uv run bin/check_ingredient_hierarchy.py http://localhost:8001
+
+      - name: Upload report and plots
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ingredient-hierarchy-report
+          path: output/
+          retention-days: 90
