@@ -15,6 +15,7 @@ import Dict.Any as AnyDict
 import Expect
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
+import Length
 import List.Extra as LE
 import Mass
 import Quantity
@@ -936,6 +937,19 @@ suite =
                                     |> Expect.greaterThan noTransportCooling
                             )
                         ]
+                    , suiteFromResult2 "computeTransportDistance"
+                        -- Note: exagerating distances to make this test resilient to future data updates
+                        (db.countries |> Country.findByCode (Country.Code "PT") |> Result.map (\c -> { c | distanceToHub = Length.kilometers 10000 }))
+                        (db.countries |> Country.findByCode (Country.Code "FR") |> Result.map (\c -> { c | distanceToHub = Length.kilometers 20000 }))
+                        (\france portugal ->
+                            [ it "should"
+                                (Component.computeTransportDistance requirements (Just portugal) (Just france)
+                                    |> Result.map (.road >> Length.inKilometers)
+                                    |> Result.withDefault 0
+                                    |> Expect.greaterThan 30000
+                                )
+                            ]
+                        )
                     , describe "computeVolumeFromMass"
                         [ it "should compute a volume from a mass"
                             -- Remember, this is a temporary situation until we obtain volume per unit data in processes db

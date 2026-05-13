@@ -34,6 +34,7 @@ module Data.Component exposing
     , computeInitialAmount
     , computeItemResults
     , computeScoring
+    , computeTransportDistance
     , computeTransportedMassImpacts
     , computeVolumeFromMass
     , createItem
