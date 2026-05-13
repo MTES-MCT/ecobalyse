@@ -1123,7 +1123,7 @@ q {
   }
 }
 
-.IngredientPlaneOrBoatSelector {
+.BoolSelector {
   input[type=radio] {
     display: none;
   }
@@ -1151,11 +1151,11 @@ q {
     color: var(--bs-white);
   }
 
-  .PlaneSelector > i {
+  .LeftSelector > i {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   }
-  .BoatSelector > i {
+  .RightSelector > i {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
   }

@@ -629,7 +629,7 @@ compute requirements query =
         |> Result.map (List.foldr addResults emptyResults)
         |> Result.map (\(Results results) -> { emptyLifeCycle | production = Results { results | label = Just "Production" } })
         |> Result.andThen (computeDistributionImpacts requirements query)
-        |> Result.map (computeEndOfLifeResults requirements)
+        |> Result.map (computeEndOfLifeResults requirements query)
         |> Result.andThen (computeTransports requirements query)
         |> Result.andThen (computeUseImpacts requirements query)
 
@@ -687,12 +687,12 @@ computeElementResults requirements transportCooling =
             )
 
 
-computeEndOfLifeResults : Requirements db -> LifeCycle -> LifeCycle
-computeEndOfLifeResults requirements lifeCycle =
+computeEndOfLifeResults : Requirements db -> Query -> LifeCycle -> LifeCycle
+computeEndOfLifeResults requirements query lifeCycle =
     { lifeCycle
         | endOfLife =
             lifeCycle.production
-                |> getEndOfLifeImpacts requirements
+                |> getEndOfLifeImpacts requirements query.recyclable
     }
 
 
@@ -1681,9 +1681,9 @@ getEndOfLifeDetailedImpacts { config, scope } =
         >> AnyDict.fromList Category.materialTypeToString
 
 
-getEndOfLifeImpacts : Requirements db -> Results -> Impacts
-getEndOfLifeImpacts ({ config, scope } as requirements) (Results results) =
-    if config.endOfLife |> Config.scopeEnabled scope then
+getEndOfLifeImpacts : Requirements db -> Bool -> Results -> Impacts
+getEndOfLifeImpacts ({ config, scope } as requirements) recyclable (Results results) =
+    if (config.endOfLife |> Config.scopeEnabled scope) && recyclable then
         Results results
             |> getEndOfLifeDetailedImpacts requirements
             |> AnyDict.map

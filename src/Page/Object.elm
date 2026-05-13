@@ -901,6 +901,7 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
                 , updateElementTransformCountry = UpdateElementTransformCountry
                 , updateItemName = UpdateComponentItemName
                 , updateItemQuantity = UpdateComponentItemQuantity
+                , updateRecyclable = UpdateRecyclable
                 }
             ]
         , div [ class "col-lg-4 bg-white" ]
@@ -1133,6 +1134,7 @@ modalView session ({ modals } as model) modal =
                         , updateElementTransformCountry = UpdateElementTransformCountry
                         , updateItemName = UpdateComponentItemName
                         , updateItemQuantity = UpdateComponentItemQuantity
+                        , updateRecyclable = UpdateRecyclable
                         }
                         targetElement
                     ]

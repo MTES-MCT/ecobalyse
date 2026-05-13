@@ -694,6 +694,7 @@ modalView { componentConfig, db } modals index modal =
                                 \targetItem name ->
                                     item |> updateSingleItem (Component.updateItemCustomName targetItem name)
                             , updateItemQuantity = \_ _ -> NoOp
+                            , updateRecyclable = \_ -> NoOp
                             }
                         , div [ class "p-3 pt-2" ]
                             [ label [ class "form-label fw-bold", for "comment" ] [ text "Commentaire" ]
