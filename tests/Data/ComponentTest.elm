@@ -15,6 +15,7 @@ import Dict.Any as AnyDict
 import Expect
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
+import Length
 import List.Extra as LE
 import Mass
 import Quantity
@@ -143,6 +144,7 @@ suite =
                                     , stage = Nothing
                                     }
                                     |> Component.applyTransforms requirements
+                                        Component.defaultTransportCooling
                                         Nothing
                                         Process.Kilogram
                                         (List.map Component.nonLocalizedExpandedProcess transforms)
@@ -178,6 +180,7 @@ suite =
                                     , stage = Nothing
                                     }
                                     |> Component.applyTransforms requirements
+                                        Component.defaultTransportCooling
                                         Nothing
                                         Process.Kilogram
                                         (List.map Component.nonLocalizedExpandedProcess transforms)
@@ -233,7 +236,11 @@ suite =
                                                 , quantity = 1
                                                 , stage = Nothing
                                                 }
-                                                |> Component.applyTransforms requirements Nothing Process.Kilogram steps
+                                                |> Component.applyTransforms requirements
+                                                    Component.defaultTransportCooling
+                                                    Nothing
+                                                    Process.Kilogram
+                                                    steps
                                                 |> Result.withDefault Component.emptyResults
                                                 |> extractEcsImpact
 
@@ -276,6 +283,7 @@ suite =
                                         , stage = Nothing
                                         }
                                         |> Component.applyTransforms requirements
+                                            Component.defaultTransportCooling
                                             Nothing
                                             Process.CubicMeter
                                             [ Component.nonLocalizedExpandedProcess transformInKg ]
@@ -297,6 +305,7 @@ suite =
                                     , stage = Nothing
                                     }
                                     |> Component.applyTransforms requirements
+                                        Component.defaultTransportCooling
                                         Nothing
                                         Process.Kilogram
                                         (List.map Component.nonLocalizedExpandedProcess transforms)
@@ -371,7 +380,7 @@ suite =
                                         |> Component.extractItems
                                         |> List.filterMap Component.extractStage
 
-                                getResults localizedTransforms =
+                                getResults cooling localizedTransforms =
                                     Component.Results
                                         { amount = Amount.fromFloat 1
                                         , complementsImpacts = Complement.emptyComplementsResultsImpacts
@@ -384,13 +393,14 @@ suite =
                                         , stage = Nothing
                                         }
                                         |> Component.applyTransforms requirements
+                                            cooling
                                             Nothing
                                             Process.Kilogram
                                             localizedTransforms
                                         |> Result.withDefault Component.emptyResults
                             in
                             [ it "should add one transport stage per transform step"
-                                (getResults
+                                (getResults Component.defaultTransportCooling
                                     [ Component.nonLocalizedExpandedProcess fading
                                     , Component.nonLocalizedExpandedProcess fading
                                     ]
@@ -398,12 +408,12 @@ suite =
                                     |> Expect.equal 2
                                 )
                             , it "should add no transport stage when no transform is applied"
-                                (getResults []
+                                (getResults Component.defaultTransportCooling []
                                     |> extractTransportStagesCount Component.TransportStage
                                     |> Expect.equal 0
                                 )
                             , it "should insert transport before each transform stage"
-                                (getResults
+                                (getResults Component.defaultTransportCooling
                                     [ Component.nonLocalizedExpandedProcess fading
                                     , Component.nonLocalizedExpandedProcess fading
                                     ]
@@ -564,6 +574,7 @@ suite =
                                 |> Result.andThen
                                     (\cottonId ->
                                         Component.computeElementResults requirements
+                                            Component.defaultTransportCooling
                                             { amount = Amount.fromFloat 1
                                             , material = { country = Nothing, id = cottonId }
 
@@ -600,7 +611,7 @@ suite =
                                         , material = { country = Nothing, id = materialInCubicMeters.id }
                                         , transforms = [ Component.nonLocalizedProcess transformInCubicMeters.id ]
                                         }
-                                            |> Component.computeElementResults requirements
+                                            |> Component.computeElementResults requirements Component.defaultTransportCooling
                                 in
                                 [ it "should compute impacts according on material unit"
                                     (results
@@ -626,7 +637,7 @@ suite =
                                         , material = { country = Nothing, id = materialInCubicMeters.id }
                                         , transforms = [ Component.nonLocalizedProcess transformInCubicMeters.id ]
                                         }
-                                            |> Component.computeElementResults requirements
+                                            |> Component.computeElementResults requirements Component.defaultTransportCooling
                                 in
                                 [ it "should compute complements impacts according on material unit"
                                     (results
@@ -659,7 +670,7 @@ suite =
                         (let
                             toComputedResults =
                                 decodeJsonThen Component.decodeItem
-                                    (Component.computeItemResults requirements)
+                                    (Component.computeItemResults requirements Component.defaultTransportCooling)
 
                             combineMapBoth_ fn =
                                 -- RE.combineMapBoth with fn applied to the two tuple members
@@ -900,12 +911,70 @@ suite =
                                       }
                                     ]
                                 }
-                                    |> Component.computeElementResults requirements
+                                    |> Component.computeElementResults requirements Component.defaultTransportCooling
                                     |> Result.map Component.extractItems
                                     |> Result.map (List.any (Component.extractStage >> (==) (Just Component.TransportStage)))
                                     |> Expect.equal (Ok True)
                             )
+                        , let
+                            getTransportStageEcs =
+                                Component.stagesImpacts >> .transports >> Maybe.map getEcsImpact >> Maybe.withDefault 0
+                          in
+                          itFromResult2 "should handle transport cooling"
+                            ("""{"components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]}"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> Result.map getTransportStageEcs
+                            )
+                            ("""{
+                                  "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }],
+                                  "transportCooling": true
+                                }"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> Result.map getTransportStageEcs
+                            )
+                            (\noTransportCooling withTransportCooling ->
+                                withTransportCooling
+                                    |> Expect.greaterThan noTransportCooling
+                            )
                         ]
+                    , suiteFromResult2 "computeTransportDistance"
+                        (db.countries |> Country.findByCode (Country.Code "PT"))
+                        (db.countries |> Country.findByCode (Country.Code "FR"))
+                        (\france portugal ->
+                            [ it "should compute distance between two countries"
+                                (Component.computeTransportDistance requirements (Just portugal) (Just france)
+                                    |> Result.map
+                                        (\{ air, road, sea } ->
+                                            ( Length.inKilometers air > 0
+                                            , Length.inKilometers road > 0
+                                            , Length.inKilometers sea > 0
+                                            )
+                                        )
+                                    |> Expect.equal (Ok ( True, True, True ))
+                                )
+                            , it "should compute distance between two countries accounting transport to hubs"
+                                (Component.computeTransportDistance requirements
+                                    -- Note: exagerating distances to hub, to make this test resilient to future data updates
+                                    (Just { portugal | distanceToHub = Length.kilometers 20000 })
+                                    (Just { france | distanceToHub = Length.kilometers 10000 })
+                                    |> Result.map (.road >> Length.inKilometers)
+                                    |> Result.withDefault 0
+                                    |> Expect.greaterThan 30000
+                                )
+                            , it "should fallback to default distances when the country of departure is undefined"
+                                (Component.computeTransportDistance requirements Nothing (Just france)
+                                    |> Expect.equal (Ok requirements.config.transports.defaultDistance)
+                                )
+                            , it "should fallback to default distances when the destination country is undefined"
+                                (Component.computeTransportDistance requirements (Just portugal) Nothing
+                                    |> Expect.equal (Ok requirements.config.transports.defaultDistance)
+                                )
+                            , it "should fallback to default distances when neither countries are defined"
+                                (Component.computeTransportDistance requirements Nothing Nothing
+                                    |> Expect.equal (Ok requirements.config.transports.defaultDistance)
+                                )
+                            ]
+                        )
                     , describe "computeVolumeFromMass"
                         [ it "should compute a volume from a mass"
                             -- Remember, this is a temporary situation until we obtain volume per unit data in processes db

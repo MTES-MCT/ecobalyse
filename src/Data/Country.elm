@@ -27,6 +27,7 @@ import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
+import Length exposing (Length)
 
 
 type Code
@@ -43,6 +44,7 @@ type alias Country =
     { aquaticPollutionScenario : AquaticPollutionScenario
     , code : Code
     , comment : Maybe String
+    , distanceToHub : Length
     , electricityProcess : Process
     , heatProcess : Process
     , name : String
@@ -74,6 +76,7 @@ decode processes =
         |> Pipe.required "aquaticPollutionScenario" decodeAquaticPollutionScenario
         |> Pipe.required "code" decodeCode
         |> DU.strictOptional "comment" Decode.string
+        |> DU.strictOptionalWithDefault "distanceToHub" (Decode.map Length.kilometers Decode.float) (Length.kilometers 0)
         |> Pipe.required "electricityProcessId" (Process.decodeFromId processes)
         |> Pipe.required "heatProcessId" (Process.decodeFromId processes)
         |> Pipe.required "name" Decode.string

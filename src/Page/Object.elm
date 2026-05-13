@@ -126,6 +126,7 @@ type Msg
     | SwitchImpact (Result String Definition.Trigram)
     | SwitchImpactsTab ImpactTabs.Tab
     | ToggleComparedSimulation Bookmark Bool
+    | ToggleTransportCooling Bool
     | UpdateAssemblyCountry (Maybe Country.Code)
     | UpdateBookmarkName String
     | UpdateComponentItemName TargetItem String
@@ -588,6 +589,10 @@ update ({ navKey } as session) msg model =
             model
                 |> createPageUpdate (session |> Session.toggleComparedSimulation bookmark checked)
 
+        ( ToggleTransportCooling transportCooling, _ ) ->
+            createPageUpdate session model
+                |> updateQuery { query | transportCooling = Component.toTransportCooling transportCooling }
+
         ( UpdateAssemblyCountry maybeCountry, _ ) ->
             createPageUpdate session model
                 |> updateQuery { query | assemblyCountry = maybeCountry }
@@ -882,6 +887,7 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
                 , scope = scope
                 , setDetailed = SetDetailedComponents
                 , title = "Production des composants"
+                , toggleTransportCooling = ToggleTransportCooling
                 , updateAssemblyCountry = UpdateAssemblyCountry
                 , updateConsumptionAmount = UpdateConsumptionAmount
                 , updateDistribution = UpdateDistribution
@@ -1113,6 +1119,7 @@ modalView session ({ modals } as model) modal =
                         , scope = model.scope
                         , setDetailed = SetDetailedComponents
                         , title = "Production des composants"
+                        , toggleTransportCooling = ToggleTransportCooling
                         , updateAssemblyCountry = UpdateAssemblyCountry
                         , updateConsumptionAmount = UpdateConsumptionAmount
                         , updateDistribution = UpdateDistribution

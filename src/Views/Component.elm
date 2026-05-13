@@ -79,6 +79,7 @@ type alias Config db msg =
     , scope : Scope
     , setDetailed : List Index -> msg
     , title : String
+    , toggleTransportCooling : Bool -> msg
     , updateAssemblyCountry : Maybe Country.Code -> msg
     , updateConsumptionAmount : Index -> Maybe Amount -> msg
     , updateDistribution : Result String Process.Id -> msg
@@ -368,22 +369,43 @@ editorView : Config db msg -> Html msg
 editorView config =
     case config.lifeCycle of
         Err error ->
-            Alert.simple
-                { attributes = []
-                , close = Nothing
-                , content = [ text error ]
-                , level = Alert.Danger
-                , title = Just "Erreur de chargement du calculateur"
-                }
+            error |> simpleError (Just "Erreur de chargement du calculateur")
 
         Ok lifeCycle ->
             lifeCycleView config lifeCycle
 
 
+simpleError : Maybe String -> String -> Html msg
+simpleError title message =
+    Alert.simple
+        { attributes = []
+        , close = Nothing
+        , content = [ text message ]
+        , level = Alert.Danger
+        , title = title
+        }
+
+
 lifeCycleView : Config db msg -> LifeCycle -> Html msg
 lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as config) lifeCycle =
     div [ class "d-flex flex-column" ]
-        [ div [ class "card shadow-sm" ]
+        [ div [ class "d-flex justify-content-end mb-2" ]
+            [ div [ class "form-check form-switch" ]
+                [ label [ class "form-check-label", for "transportCoolingSwitch" ]
+                    [ text "Transport réfrigéré" ]
+                , input
+                    [ type_ "checkbox"
+                    , class "form-check-input"
+                    , id "transportCoolingSwitch"
+                    , attribute "role" "switch"
+                    , attribute "switch" ""
+                    , onCheck config.toggleTransportCooling
+                    , checked (Component.isTransportCooled query.transportCooling)
+                    ]
+                    []
+                ]
+            ]
+        , div [ class "card shadow-sm" ]
             [ div [ class "card-header d-flex align-items-center justify-content-between" ]
                 [ h2 [ class "h5 mb-0" ]
                     [ text title
@@ -421,13 +443,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as co
               else
                 case Component.expandItems db query.items of
                     Err error ->
-                        Alert.simple
-                            { attributes = []
-                            , close = Nothing
-                            , content = [ text error ]
-                            , level = Alert.Danger
-                            , title = Just "Erreur"
-                            }
+                        error |> simpleError (Just "Erreur")
 
                     Ok expandedItems ->
                         div [ class "table-responsive" ]
@@ -892,34 +908,53 @@ elementMaterialView config targetElement materialResults material amount =
 
 
 elementTransportView : Config db msg -> List (Attribute msg) -> Mass -> Maybe Country -> Maybe Country -> Html msg
-elementTransportView config attributes transportedMass maybeFrom maybeTo =
-    let
-        transport =
-            transportedMass
-                |> Component.computeTransportedMassImpacts (requirementsFromConfig config) maybeFrom maybeTo
+elementTransportView ({ query } as config) attributes transportedMass maybeFrom maybeTo =
+    case
+        transportedMass
+            |> Component.computeTransportedMassImpacts (requirementsFromConfig config)
+                query.transportCooling
+                maybeFrom
+                maybeTo
+    of
+        Err error ->
+            tr []
+                [ td [ class "p-2", colspan 7 ]
+                    [ error |> simpleError (Just "Erreur de calcul de distance")
+                    ]
+                ]
 
-        renderCountry =
-            Maybe.map .name >> Maybe.withDefault "Région inconnue"
-    in
-    tr (class "fs-7 text-muted" :: attributes)
-        [ td [ colspan 2 ] []
-        , td []
-            [ text <| "Transport " ++ renderCountry maybeFrom ++ " → " ++ renderCountry maybeTo ]
-        , td [ class "text-end align-middle d-flex justify-content-end align-items-center gap-2 text-nowrap" ]
-            [ Icon.boat
-            , Format.km transport.sea
-            , Icon.bus
-            , Format.km transport.road
-            , Icon.package
-            , Format.kg transportedMass
-            ]
-        , td [ colspan 2 ] []
-        , td [ class "text-end align-middle text-nowrap" ]
-            [ transport.impacts
-                |> Format.formatImpact config.impact
-            ]
-        , td [] []
-        ]
+        Ok transport ->
+            let
+                renderCountry =
+                    Maybe.map .name >> Maybe.withDefault "Région inconnue"
+            in
+            tr (class "fs-7 text-muted" :: attributes)
+                [ td [ colspan 2 ] []
+                , td []
+                    [ text <| "Transport " ++ renderCountry maybeFrom ++ " → " ++ renderCountry maybeTo ]
+                , td [ class "text-end align-middle d-flex justify-content-end align-items-center gap-2 text-nowrap" ] <|
+                    (if Component.isTransportCooled query.transportCooling then
+                        [ Icon.boatCooled, Format.km transport.seaCooled ]
+
+                     else
+                        [ Icon.boat, Format.km transport.sea ]
+                    )
+                        ++ (if Component.isTransportCooled query.transportCooling then
+                                [ Icon.busCooled, Format.km transport.roadCooled ]
+
+                            else
+                                [ Icon.bus, Format.km transport.road ]
+                           )
+                        ++ [ Icon.package
+                           , Format.kg transportedMass
+                           ]
+                , td [ colspan 2 ] []
+                , td [ class "text-end align-middle text-nowrap" ]
+                    [ transport.impacts
+                        |> Format.formatImpact config.impact
+                    ]
+                , td [] []
+                ]
 
 
 elementTransformsView :

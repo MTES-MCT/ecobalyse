@@ -116,6 +116,7 @@ getComponentEcoscore { componentConfig, db } scope =
         , db = db
         , scope = scope
         }
+        Component.defaultTransportCooling
         >> Result.map
             (Component.extractImpacts
                 >> Impact.getImpact Definition.Ecs

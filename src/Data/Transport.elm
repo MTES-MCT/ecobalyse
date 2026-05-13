@@ -13,11 +13,14 @@ module Data.Transport exposing
     , default
     , encode
     , getTransportBetween
+    , getTransportBetweenLegacy
+    , makeCooled
+    , noTransport
     , sum
     , totalKm
     )
 
-import Data.Country as Country
+import Data.Country as Country exposing (Country)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
@@ -147,6 +150,31 @@ computeImpacts modes mass transport =
     }
 
 
+{-| Turn non-cooled transports to cooled ones
+
+Notes:
+
+  - already accumulated cooled transport distances are preserved
+  - this affects road and sea transports only, assuming cooled air transport is not representative enough
+    to be implemented for now
+  - impacts are not affected by this operation and should therefore recomputed
+
+-}
+makeCooled : Transport -> Transport
+makeCooled transport =
+    { transport
+        | road = Quantity.zero
+        , roadCooled = Quantity.sum [ transport.roadCooled, transport.road ]
+        , sea = Quantity.zero
+        , seaCooled = Quantity.sum [ transport.seaCooled, transport.sea ]
+    }
+
+
+noTransport : Transport
+noTransport =
+    default Impact.empty
+
+
 sum : List Transport -> Transport
 sum =
     List.foldl
@@ -203,13 +231,10 @@ roadSeaTransportRatio { road, sea } =
         Split.zero
 
 
-getTransportBetween :
-    Impacts
-    -> Country.Code
-    -> Country.Code
-    -> Distances
-    -> Transport
-getTransportBetween impacts cA cB distances =
+{-| Deprecated, usage should be gradually replaced with getTransportBetween
+-}
+getTransportBetweenLegacy : Impacts -> Country.Code -> Country.Code -> Distances -> Transport
+getTransportBetweenLegacy impacts cA cB distances =
     case
         ( distances |> Dict.get cA |> Maybe.andThen (Dict.get cB)
         , distances |> Dict.get cB |> Maybe.andThen (Dict.get cA)
@@ -223,6 +248,31 @@ getTransportBetween impacts cA cB distances =
 
         ( Nothing, Nothing ) ->
             erroneous impacts
+
+
+{-| A newer version of getTransportBetweenLegacy, returning a Result with an error when a distance
+couldn't be found.
+FIXME: the whole codebase should eventually be migrated to use this version.
+-}
+getTransportBetween : Country -> Country -> Distances -> Result String Transport
+getTransportBetween cA cB distances =
+    case
+        ( distances |> Dict.get cA.code |> Maybe.andThen (Dict.get cB.code)
+        , distances |> Dict.get cB.code |> Maybe.andThen (Dict.get cA.code)
+        )
+    of
+        ( Just transport, _ ) ->
+            Ok transport
+
+        ( _, Just transport ) ->
+            Ok transport
+
+        ( Nothing, Nothing ) ->
+            Err <|
+                "Distances not found between "
+                    ++ Country.codeToString cA.code
+                    ++ " to "
+                    ++ Country.codeToString cB.code
 
 
 decodeKm : Decoder Length
