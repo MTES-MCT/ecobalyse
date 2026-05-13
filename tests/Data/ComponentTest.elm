@@ -1321,6 +1321,27 @@ suite =
                                 )
                             ]
                         )
+                    , suiteFromResult "nonRecyclableImpacts"
+                        ("""{
+                              "components": [
+                                { "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1}
+                              ],
+                              "consumptions": [
+                                { "amount": 1, "processId": "931c9bb0-619a-5f75-b41b-ab8061e2ad92" }
+                              ]
+                            }"""
+                            |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                            |> Result.map (\results -> ( results, Component.stagesImpacts results ))
+                        )
+                        (\( _, stagesImpacts ) ->
+                            [ it "should by default not compute end of life stage impacts when not recyclable"
+                                (stagesImpacts.endOfLife
+                                    |> Maybe.map getEcsImpact
+                                    |> Maybe.withDefault 0
+                                    |> Expect.equal 0
+                                )
+                            ]
+                        )
                     , suiteFromResult "setCustomScope"
                         -- setup
                         ("""{ "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 }"""
