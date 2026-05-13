@@ -866,9 +866,12 @@ computeShareImpacts mass { process, split } =
         |> Maybe.withDefault Impact.empty
 
 
-{-| Computes the transport distance between two countries.
+{-| Computes the transport distance between two countries, including the distance to hub for each country.
 
-Note: this only computes the transport distances, not the impacts (as a transported mass would be required)
+Notes:
+
+  - this only computes the transport distances, not the impacts (as a transported mass would be required)
+  - the distance to hub computation logic should eventually be backported to non-generic scopes
 
 -}
 computeTransportDistance : Requirements db -> Maybe Country -> Maybe Country -> Result String Transport

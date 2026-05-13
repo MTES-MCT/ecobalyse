@@ -248,9 +248,9 @@ getTransportBetween impacts cA cB distances =
             erroneous impacts
 
 
-{-| Another version of getTransportBetween, computing road distances to hub between to fully
-qualified Country records, and returning a Result with an error when a distance couldn't be found.
-This function is to be used in the generic simulator context.
+{-| Another version of getTransportBetween, returning a Result with an error when a distance
+couldn't be found.
+FIXME: the whole codebase should eventually be migrated to use this version.
 -}
 getTransportBetween2 : Country -> Country -> Distances -> Result String Transport
 getTransportBetween2 cA cB distances =
